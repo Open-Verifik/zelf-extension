@@ -103,7 +103,6 @@
 			}
 		}
 	},
-	"defaultProject": "verifik-wallet-extension",
 	"cli": {
 		"analytics": false
 	}

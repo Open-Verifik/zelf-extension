@@ -1,0 +1,33 @@
+{
+	"manifest_version": 3,
+	"name": "Verifik Wallet",
+	"version": "1.0",
+	"description": "Biometric Wallet",
+	"icons": {
+		"48": "assets/icons/icon.png"
+	},
+	"action": {
+		"default_popup": "index.html",
+		"default_icon": "assets/icons/icon.png"
+	},
+	"permissions": ["activeTab", "storage"],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["main.js"]
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"chrome_url_overrides": {
+		"newtab": "index.html"
+	},
+	"host_permissions": ["*://*/*"]
+}

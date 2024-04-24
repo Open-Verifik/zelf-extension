@@ -1,15 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-onboarding',
-  template: `
-    <p>
-      onboarding works!
-    </p>
-  `,
-  styles: [
-  ]
+	selector: "app-onboarding",
+	template: ` <p>onboarding works!</p> `,
+	styles: [],
 })
-export class OnboardingComponent {
-
-}
+export class OnboardingComponent {}

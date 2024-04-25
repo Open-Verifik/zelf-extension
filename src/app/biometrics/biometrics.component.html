@@ -1,0 +1,51 @@
+<canvas #credentialCanvas hidden="true" *ngIf="!showError"></canvas>
+
+<div *ngIf="!showError" fxLayout="column" fxLayoutAlign="center center" class="min-h-[60vh] justify-center p-4 sm:p-1 xs:p-1 w-full">
+	<div fxLayout="column" fxLayoutAlign="center center" class="w-full" *ngIf="!loadingModel && !lowCamera">
+		<div fxLayout="column" fxLayoutAlign="center center" class="text-center h-20 sm:h-8 xs:h-8 my-2">
+			<div *ngIf="errorFace && !loadingResults" class="mb-4">
+				<div class="text-3xl font-bold">{{ errorFace.title }}</div>
+				<div class="text-gray-600">{{ errorFace.subtitle }}</div>
+			</div>
+		</div>
+
+		<div class="relative" [style.width.px]="WIDTH" [style.height.px]="HEIGHT">
+			<video
+				#video
+				autoplay
+				class="absolute top-0 left-0 oval-video"
+				[style.maxWidth.px]="maxWidth"
+				[style.maxHeight.px]="maxHeight"
+				[class.hidden]="base64Image"
+			></video>
+			<div
+				#canvas
+				class="absolute top-0 left-0 oval-video"
+				[style.width.px]="WIDTH"
+				[style.height.px]="HEIGHT"
+				[class.hidden]="base64Image"
+			></div>
+			<canvas #result class="absolute" [class.hidden]="!base64Image"></canvas>
+			<canvas #toSend class="absolute" [class.hidden]="true"></canvas>
+		</div>
+	</div>
+	<div fxLayout="column" fxLayoutAlign="center center" class="id-scanning-error-div" *ngIf="!loadingModel && lowCamera">
+		<img src="https://cdn.verifik.co/demo/nocameraenabled.svg" alt="" class="id-scanning-no-camera-enabled-img" />
+
+		<h1 class="mt-4">{{ "id_scanning.camera_not_found" | transloco }}</h1>
+
+		<p class="mt-4">
+			{{ "id_scanning.camera_not_found_description" | transloco }}
+		</p>
+	</div>
+</div>
+
+<!-- <auth-biometric-errors-display
+	*ngIf="showError && errorContent"
+	[errorContent]="errorContent"
+	[project]="project"
+	[projectFlow]="projectFlow"
+	[callback]="continueRedirection"
+	[appLoginToken]="appLoginToken"
+>
+</auth-biometric-errors-display> -->

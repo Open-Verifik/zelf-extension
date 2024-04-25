@@ -20,8 +20,6 @@ export class HomeComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.account = localStorage.getItem("account") || "";
-
-		if (!this.account) this._redirectToOnboarding();
 	}
 
 	_redirectToOnboarding(): void {

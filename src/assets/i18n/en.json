@@ -1,3 +1,22 @@
 {
-	"hello": "Hello"
+	"hello": "Hello",
+	"liveness": {
+		"center_yor_face": "Center your face on the screen",
+		"center_your_face_subtitle": "Please make sure your face is centered",
+		"get_closer": "Get closer",
+		"get_closer_subtitle": "Please come a bit closer for better face recognition.",
+		"liveness_failed": "Liveness detection failed",
+		"liveness_error_message": "The liveness check has failed with the following error:<br><strong>{{error}}</strong><br>Do you want to try again?",
+		"loading_stream": "Loading Camera"
+	},
+	"errors": {
+		"person_already_set": "Your registration has biometrics linked already",
+		"replace_person_button": "Ok, replace biometrics",
+		"Duplicated_person": "Biometrics is being used into another record",
+		"liveness_failed": "Liveness detection failed",
+		"Liveness_score_not_acceptable": "Liveness score is not acceptable",
+		"min_liveness_score_is": "The minimum liveness score is: ",
+		"phone_or_email_is_not_unique": "The phone or the email has been used already, try a different one",
+		"something_went_wrong": "Something went wrong, please try again"
+	}
 }

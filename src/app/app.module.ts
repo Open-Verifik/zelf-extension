@@ -23,7 +23,10 @@ import { HttpClientModule } from "@angular/common/http";
 import { TranslocoRootModule } from "./transloco-root.module";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; // Use BrowserAnimationsModule for testing
-
+import { FormsModule } from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { BiometricsComponent } from "./biometrics/biometrics.component";
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -51,6 +54,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; 
 		TranslocoRootModule,
 		NoopAnimationsModule,
 		BrowserAnimationsModule, // Ensure animations are enabled for testing
+		FormsModule,
+		MatFormFieldModule,
+		MatSelectModule,
+		BiometricsComponent,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

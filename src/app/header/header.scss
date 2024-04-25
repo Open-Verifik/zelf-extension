@@ -1,18 +1,18 @@
 .header {
-    padding-bottom: 12px;
-    padding-top: 6px;
-    padding-left: 6px;
-    padding-right: 6px;
-    background: white;
-    border-bottom: 1px solid lightgrey; // A solid blue border
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // A subtle shadow
-    width: 100%;
-    // Responsive design: Adjust padding on smaller screens
-    @media (max-width: 768px) {
-        padding: 10px;
-    }
+	padding-bottom: 12px;
+	padding-top: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background: white;
+	border-bottom: 1px solid lightgrey; // A solid blue border
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // A subtle shadow
+	width: 100%;
+	// Responsive design: Adjust padding on smaller screens
+	@media (max-width: 768px) {
+		padding: 10px;
+	}
 
-    img {
-        width: 60px;
-    }
+	img {
+		width: 60px;
+	}
 }

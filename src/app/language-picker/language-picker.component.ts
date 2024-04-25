@@ -7,7 +7,8 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
 	selector: "language-picker",
 	templateUrl: "./language-picker.component.html",
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	styleUrls: ["./language-picker.component.scss"],
+	styleUrls: ["../main.scss", "./language-picker.component.scss"],
+	encapsulation: ViewEncapsulation.None,
 })
 export class LanguagePickerComponent implements OnInit, OnDestroy {
 	availableLangs: any;

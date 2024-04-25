@@ -46,21 +46,21 @@
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
 						"assets": ["src/favicon.ico", "src/assets", "src/manifest.json", "src/background.js"],
-						"styles": ["src/styles.css"],
-						"scripts": []
+						"scripts": [],
+						"allowedCommonJsDependencies": ["@tensorflow/tfjs-core"]
 					},
 					"configurations": {
 						"production": {
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "500kb",
-									"maximumError": "1mb"
+									"maximumWarning": "5mb",
+									"maximumError": "10mb"
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
+									"maximumWarning": "20kb",
+									"maximumError": "20kb"
 								}
 							],
 							"fileReplacements": [

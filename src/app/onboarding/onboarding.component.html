@@ -1,3 +1,13 @@
 <div class="w-full">
 	<header class="w-full"></header>
+	<!-- 
+	<div class="onboarding-content" fxLayout="row" fxLayoutAlign="center center">
+		<div *ngIf="step" class="onboarding-step-one" fxLayout="column" fxLayoutAlign="start center">
+			<h1 class="p-16 bg-blue-700">Let's get started</h1>
+
+			<h1 class="text-3xl font-bold underline">Hello world!</h1>
+			<p>Trusted by millions, MetaMask is a secure wallet making the world of web3 accessible to all.</p>
+		</div>
+	</div> -->
+	<biometrics [type]="'createWallet'" [data]="walletCreationForm"> </biometrics>
 </div>

@@ -1,0 +1,314 @@
+mat-stepper {
+	width: 100%;
+}
+
+$loading-animation-heigth: 200px;
+$loading-animation-width: 130px;
+$loading-animation-duration: 2s;
+
+.id-scanning-error-div {
+	margin-top: 20px;
+	width: 600px;
+	background: white;
+	height: 600px;
+	padding: 16px;
+	box-shadow: 3px 3px 3px 3px rgb(0 0 0 / 5%);
+	h1 {
+		color: #0036e7;
+		font-size: 24px;
+		font-weight: 800;
+		text-align: center;
+	}
+
+	p {
+		color: #01236da6;
+		font-size: 16px;
+		font-weight: 300;
+		text-align: center;
+	}
+}
+
+.scan {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.scan .face {
+	content: "";
+	position: relative;
+	width: $loading-animation-width;
+	height: $loading-animation-heigth;
+	background: url("https://cdn.verifik.co/web-sdk/images/face.png");
+	background-size: $loading-animation-width $loading-animation-heigth;
+}
+
+.scan .face::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url("https://cdn.verifik.co/web-sdk/images/smoothed-face.png");
+	background-size: $loading-animation-width $loading-animation-heigth;
+	animation: animate $loading-animation-duration ease-in-out infinite;
+}
+
+.scan .face::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 8px;
+	background: #01236d;
+	border-radius: 8px;
+	filter: drop-shadow(0 0 20px #01236d) drop-shadow(0 0 60px #01236d);
+	animation: animate_line $loading-animation-duration ease-in-out infinite;
+}
+
+.scan .face .dots {
+	position: absolute;
+	inset: 0;
+}
+
+.scan .face .dots::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: $loading-animation-width;
+	height: $loading-animation-heigth;
+	background: url("https://cdn.verifik.co/web-sdk/images/points-face.png");
+	background-size: $loading-animation-width $loading-animation-heigth;
+	animation: face_points $loading-animation-duration ease-in-out infinite;
+}
+
+.scan .face .dots::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: $loading-animation-width;
+	height: $loading-animation-heigth;
+	background: url("https://cdn.verifik.co/web-sdk/images/lines-points-face.png");
+	background-size: $loading-animation-width $loading-animation-heigth;
+	animation: face_points_lines $loading-animation-duration ease-in-out infinite;
+}
+@keyframes face_points_lines {
+	0%,
+	100% {
+		height: 0%;
+	}
+	50% {
+		height: 100%;
+	}
+}
+@keyframes face_points {
+	0%,
+	25%,
+	100% {
+		height: 0%;
+	}
+	50% {
+		height: 100%;
+	}
+}
+
+@keyframes animate {
+	0%,
+	100% {
+		height: 0%;
+	}
+	50% {
+		height: 100%;
+	}
+}
+
+@keyframes animate_line {
+	0%,
+	100% {
+		top: 0%;
+		opacity: 0.8;
+	}
+	50% {
+		top: 100%;
+		opacity: 0.8;
+	}
+}
+
+.back-biometric-animation {
+	background: black;
+	width: 100%;
+	height: 100%;
+}
+
+.oval-video {
+	border-radius: 25px !important;
+	overflow: hidden;
+	max-width: 100%;
+}
+
+video {
+	object-fit: cover;
+}
+
+.medium .mat-progress-bar-fill::after {
+	background-color: #eab417 !important;
+}
+
+.failed .mat-progress-bar-fill::after {
+	background-color: #f20505 !important;
+}
+
+.good .mat-progress-bar-fill::after {
+	background-color: green !important;
+}
+
+.error-dialog {
+	width: 400px;
+	min-height: 350px;
+	padding: 16px;
+	img {
+		width: 100px;
+	}
+
+	h1 {
+		font-size: 24px;
+		font-weight: 600;
+		text-align: center;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	button {
+		color: black !important;
+	}
+}
+
+.single-chart {
+	width: 50%;
+	justify-content: space-around;
+}
+
+.circular-chart {
+	display: block;
+	margin: 10px auto;
+	max-width: 80%;
+	max-height: 250px;
+}
+
+.circle-bg {
+	fill: none;
+	stroke: #eee;
+	stroke-width: 3.8;
+}
+
+.circle {
+	fill: none;
+	stroke-width: 2.8;
+	stroke-linecap: round;
+	animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+	0% {
+		stroke-dasharray: 0 100;
+	}
+}
+
+.circular-chart.orange .circle {
+	stroke: #ff9f00;
+}
+
+.circular-chart.red .circle {
+	stroke: #f20707c8;
+}
+
+.circular-chart.green .circle {
+	stroke: #4cc790;
+}
+
+.circular-chart.blue .circle {
+	stroke: #3c9ee5;
+}
+
+.percentage {
+	fill: #666;
+	font-family: sans-serif;
+	font-size: 0.5em;
+	text-anchor: middle;
+}
+
+/* Tailwind CSS Classes */
+.w-full {
+	width: 100%;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.p-4 {
+	padding: 1rem; /* Tailwind's default scale */
+}
+
+.sm\:p-1 {
+	padding: 0.25rem; /* Tailwind's default scale */
+}
+
+.xs\:p-1 {
+	padding: 0.25rem; /* Tailwind's default scale */
+}
+
+.text-center {
+	text-align: center;
+}
+
+.h-20 {
+	height: 5rem; /* Tailwind's default scale */
+}
+
+.sm\:h-8 {
+	height: 2rem; /* Tailwind's default scale */
+}
+
+.xs\:h-8 {
+	height: 2rem; /* Tailwind's default scale */
+}
+
+.my-2 {
+	margin-top: 0.5rem; /* Tailwind's default scale */
+	margin-bottom: 0.5rem; /* Tailwind's default scale */
+}
+
+.mb-4 {
+	margin-bottom: 1rem; /* Tailwind's default scale */
+}
+
+.text-3xl {
+	font-size: 1.875rem; /* Tailwind's default scale */
+	line-height: 2.25rem; /* Tailwind's default scale */
+}
+
+.font-bold {
+	font-weight: bold;
+}
+
+.text-gray-600 {
+	color: #4b5563; /* Example gray scale from Tailwind */
+}
+
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.hidden {
+	display: none;
+}

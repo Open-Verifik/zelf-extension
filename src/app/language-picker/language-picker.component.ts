@@ -1,15 +1,90 @@
-import { Component } from '@angular/core';
+import { NgFor, NgTemplateOutlet } from "@angular/common";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { AvailableLangs, TranslocoService } from "@ngneat/transloco";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
-  selector: 'app-language-picker',
-  template: `
-    <p>
-      language-picker works!
-    </p>
-  `,
-  styles: [
-  ]
+	selector: "language-picker",
+	templateUrl: "./language-picker.component.html",
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	styleUrls: ["./language-picker.component.scss"],
 })
-export class LanguagePickerComponent {
+export class LanguagePickerComponent implements OnInit, OnDestroy {
+	availableLangs: any;
+	activeLang: string = "";
+	flagCodes: any;
 
+	/**
+	 * Constructor
+	 */
+	constructor(private _changeDetectorRef: ChangeDetectorRef, private _translocoService: TranslocoService) {
+		// Set the country iso codes for languages for flags
+		this.flagCodes = {
+			en: "us",
+			es: "es",
+			// br: "br",
+			// fr: "fr",
+			// it: "it",
+			// ru: "ru",
+			// kr: "kr",
+			// in: "in",
+			// cn: "cn",
+			// ph: "ph",
+		};
+	}
+
+	/**
+	 * On init
+	 */
+	ngOnInit(): void {
+		// Get the available languages from transloco
+		this.availableLangs = this._translocoService.getAvailableLangs();
+
+		const currentLanguage = localStorage.getItem("currentLanguage");
+
+		if (currentLanguage) {
+			this._translocoService.setActiveLang(currentLanguage);
+
+			this._changeDetectorRef.markForCheck();
+		}
+
+		// Subscribe to language changes
+		this._translocoService.langChanges$.subscribe((activeLang) => {
+			// Get the active lang
+			this.activeLang = activeLang;
+
+			this._changeDetectorRef.markForCheck();
+		});
+	}
+
+	/**
+	 * On destroy
+	 */
+	ngOnDestroy(): void {}
+
+	// -----------------------------------------------------------------------------------------------------
+	// @ Public methods
+	// -----------------------------------------------------------------------------------------------------
+
+	/**
+	 * Set the active lang
+	 *
+	 * @param lang
+	 */
+	setActiveLang(lang: string): void {
+		// Set the active lang
+		this._translocoService.setActiveLang(lang);
+
+		localStorage.setItem("currentLanguage", lang);
+	}
+
+	/**
+	 * Track by function for ngFor loops
+	 *
+	 * @param index
+	 * @param item
+	 */
+	trackByFn(index: number, item: any): any {
+		return item.id || index;
+	}
 }

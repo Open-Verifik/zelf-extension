@@ -27,6 +27,8 @@ import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { BiometricsComponent } from "./biometrics/biometrics.component";
+import { BiometricsGeneralComponent } from "./biometrics-general/biometrics.component";
+import { WebcamModule } from "ngx-webcam";
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -58,6 +60,8 @@ import { BiometricsComponent } from "./biometrics/biometrics.component";
 		MatFormFieldModule,
 		MatSelectModule,
 		BiometricsComponent,
+		BiometricsGeneralComponent,
+		WebcamModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],

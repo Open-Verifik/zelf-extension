@@ -10,7 +10,7 @@
 		"default_popup": "index.html",
 		"default_icon": "assets/icons/icon.png"
 	},
-	"permissions": ["camera", "activeTab", "storage"],
+	"permissions": ["activeTab", "storage"],
 	"background": {
 		"service_worker": "background.js"
 	},

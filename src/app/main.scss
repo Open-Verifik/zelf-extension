@@ -34,6 +34,51 @@ $computers: 1200px;
 	margin-bottom: 5px;
 }
 
+/* Default (sm) */
+.justify-center {
+	justify-content: center;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.h-20 {
+	height: 20px;
+}
+
+.my-2 {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+/* Medium (md) */
+@media (min-width: 768px) {
+	.sm\:h-8 {
+		height: 8px;
+	}
+}
+
+/* Large (lg) */
+@media (min-width: 1024px) {
+	.h-20 {
+		height: 20px;
+	}
+	.sm\:h-8 {
+		height: 8px;
+	}
+}
+
+/* Extra Large (xl) */
+@media (min-width: 1280px) {
+	.h-20 {
+		height: 20px;
+	}
+	.sm\:h-8 {
+		height: 8px;
+	}
+}
+
 /* For extremely small screen devices (595px and below) */
 @media only screen and (max-width: $maxExtraSmall) {
 }

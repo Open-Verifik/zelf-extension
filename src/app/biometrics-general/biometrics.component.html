@@ -30,8 +30,8 @@
 			<canvas
 				#maskResult
 				class="absolute top-0 left-0"
-				[style.width.px]="response.base64Image ? camera.dimensions?.result?.width : camera.dimensions.video.width"
-				[style.height.px]="response.base64Image ? camera.dimensions?.result?.height : camera.dimensions.video.height"
+				[style.width.px]="response.base64Image ? camera.dimensions.result?.width : camera.dimensions.video.width"
+				[style.height.px]="response.base64Image ? camera.dimensions.result?.height : camera.dimensions.video.height"
 			></canvas>
 			<canvas #toSend hidden="true"></canvas>
 		</div>

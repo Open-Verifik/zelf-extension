@@ -609,8 +609,6 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 			os: this.osInfo,
 		};
 
-		console.log({ payload, type: this.type, data: this.data });
-
 		switch (this.type) {
 			case "createWallet":
 				this._createWallet(payload, this.data);
@@ -632,7 +630,7 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 			})
 			.subscribe({
 				next: (response) => {
-					this._navigation.navigate(["/preview-wallet/", response.data._id]);
+					// this._navigation.navigate(["/preview-wallet/", response.data._id]);
 				},
 				error: (err) => {
 					this.errorContent = err.error;

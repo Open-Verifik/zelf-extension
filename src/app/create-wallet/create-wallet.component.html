@@ -101,9 +101,10 @@
 						</button>
 					</div>
 				</div>
-
-				<biometrics-general [type]="'createWallet'" [data]="signUpForm.value" *ngIf="showBiometrics" [callback]="afterBiometricsCallback">
-				</biometrics-general>
+				<ng-container  *ngIf="currentStep === i && showBiometrics">
+					<biometrics-general [type]="'createWallet'" [data]="signUpForm.value" [callback]="afterBiometricsCallback">
+					</biometrics-general>
+				</ng-container>
 				<!-- end of step 1 -->
 			</app-step>
 		</app-stepper>

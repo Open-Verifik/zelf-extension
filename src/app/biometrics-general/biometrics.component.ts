@@ -93,6 +93,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		this.setDefaultInterval();
 
 		this.renderer.listen("window", "resize", () => {
+			// console.log({ deviceData: this.deviceData.time });
 			this.interval.checkNgxVideo = setInterval(() => {
 				this.setMaxVideoDimensions();
 				this.setVideoNgxCameraData();
@@ -347,9 +348,13 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		const { isLoading = true, start, result } = paramsLoading;
 		const key: "camera" | "response" = (start && "camera") || (result && "response");
 
+		// console.log("loading triggered", paramsLoading, { response: this.response.isLoading, key });
+
 		if (key && this[key]) {
 			this[key].isLoading = isLoading;
 		}
+
+		// console.log("AFTER triggered", paramsLoading, { response: this.response.isLoading, key });
 	}
 
 	cameraError(error: WebcamInitError): void {

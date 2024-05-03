@@ -83,6 +83,7 @@ export class CreateWalletComponent implements OnInit {
 
 	startCamera(): void {
 		this.showBiometrics = true;
+		this.showBiometricsInstructions = false;
 	}
 
 	afterBiometricsCallback(response: any): void {

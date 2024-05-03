@@ -1,5 +1,38 @@
-<div class="w-full">
-	<header class="w-full"></header>
+<div class="w-full h-full" fxLayout="column" fxLayoutAlign="start center">
+	<!-- <header class="w-full"></header> -->
+	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
+		<img src="../../assets/images/logo.svg" alt="" />
+
+		<language-picker></language-picker>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="start center" class="md-card on-intro">
+		<h1>{{ "onboarding.step_1" | transloco }}</h1>
+		<span>
+			{{ "onboarding.step_1_description" | transloco }}
+		</span>
+
+		<div class="carousel-container">
+			<div *ngFor="let item of items; let i = index">
+				<img [src]="item.image" alt="" ngClass="{'bg-red-700': index > 0}" *ngIf="i === activeIndex" />
+			</div>
+		</div>
+
+		<div fxLayout="row" fxLayoutAlign="start center" class="my-5 w-full">
+			<mat-checkbox class="on-checkbox">
+				{{ "onboarding.accept_terms_1" | transloco }}
+				<a href="https://example.com/terms" target="_blank">{{ "onboarding.accept_terms_2" | transloco }}</a>
+			</mat-checkbox>
+		</div>
+
+		<button mat-raised-button class="w-full my-1 rounded-button main-button" (click)="goToCreateWallet()">
+			{{ "onboarding.create_new_wallet" | transloco }}
+		</button>
+
+		<button mat-raised-button class="w-full my-1 rounded-button secondary-button">{{ "onboarding.import_wallet" | transloco }}</button>
+
+		<button mat-raised-button class="w-full my-1 rounded-button secondary-button">{{ "onboarding.open_wallet" | transloco }}</button>
+	</div>
 	<!-- 
 	<div class="onboarding-content" fxLayout="row" fxLayoutAlign="center center">
 		<div *ngIf="step" class="onboarding-step-one" fxLayout="column" fxLayoutAlign="start center">
@@ -9,5 +42,7 @@
 			<p>Trusted by millions, MetaMask is a secure wallet making the world of web3 accessible to all.</p>
 		</div>
 	</div> -->
-	<biometrics-general [type]="'createWallet'" [data]="walletCreationForm"> </biometrics-general>
+	<!-- <biometrics-general [type]="'createWallet'" [data]="walletCreationForm"> </biometrics-general> -->
 </div>
+
+<footer class="w-full pt-10"></footer>

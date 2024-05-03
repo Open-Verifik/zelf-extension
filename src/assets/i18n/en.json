@@ -1,5 +1,14 @@
 {
 	"hello": "Hello",
+	"onboarding": {
+		"step_1": "Welcome",
+		"step_1_description": "Discover Biometric Wallet, the innovative wallet that frees you from having to remember security words. Access securely and quickly with your facial biometrics.",
+		"accept_terms_1": "I accept the",
+		"accept_terms_2": "terms and conditions",
+		"create_new_wallet": "Create a new wallet",
+		"import_wallet": "Import your wallet",
+		"open_wallet": "Open your wallet"
+	},
 	"liveness": {
 		"center_yor_face": "Center your face on the screen",
 		"center_your_face_subtitle": "Please make sure your face is centered",

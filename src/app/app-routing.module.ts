@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
+import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -11,6 +12,10 @@ const routes: Routes = [
 	{
 		path: "onboarding",
 		component: OnboardingComponent,
+	},
+	{
+		path: "create-wallet",
+		component: CreateWalletComponent,
 	},
 ];
 

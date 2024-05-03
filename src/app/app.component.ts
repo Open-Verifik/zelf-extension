@@ -8,7 +8,7 @@ import { Component, ViewEncapsulation } from "@angular/core";
 			<div class="flex flex-col flex-auto">
 				<router-outlet *ngIf="true"></router-outlet>
 			</div>
-		</div> `,
+		</div>`,
 	styleUrls: ["./app.component.scss", "./main.scss"],
 	encapsulation: ViewEncapsulation.None,
 })

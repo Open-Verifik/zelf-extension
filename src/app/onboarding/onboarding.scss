@@ -4,16 +4,73 @@
 }
 
 .onboarding-step-one {
-	border-radius: 1px solid lightgrey;
-	min-height: 400px;
-	width: 650px;
-	background-color: white;
-	padding: 20px;
-	margin: 30px;
+	width: 400px;
+	height: 100%;
+	padding: 32px;
+	background: white;
+	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+	border-radius: 24px;
+	border: 1px rgba(0, 0, 0, 0.35) solid;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 16px;
+	display: inline-flex;
 }
 
 h1 {
 	font-size: 32px;
 	font-weight: 600;
 	margin-bottom: 0px;
+}
+
+.on-intro {
+	width: 500px;
+	min-height: 500px;
+	padding: 32px;
+	background: white;
+	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+	border-radius: 24px;
+	border: 1px rgba(0, 0, 0, 0.35) solid;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	display: inline-flex;
+	h1 {
+		text-align: center;
+	}
+
+	span {
+		text-align: center;
+	}
+}
+
+.on-checkbox a {
+	color: #1976d2; /* You might want to match this color with your theme */
+}
+
+.carousel-container {
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	position: relative;
+}
+
+.carousel-item {
+	flex: 0 0 auto;
+	opacity: 0.5;
+	transition: opacity 0.5s ease;
+}
+
+.carousel-item.active {
+	opacity: 1;
+}
+
+.bg-red-700 {
+	background-color: rgba(255, 0, 0, 0.698);
+}
+
+.rounded-button {
+	border-radius: 12px; /* Adjust this value to increase or decrease the roundness */
 }

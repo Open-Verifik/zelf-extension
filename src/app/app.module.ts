@@ -16,19 +16,27 @@ import { TransactionAuthComponent } from "./transaction-auth/transaction-auth.co
 import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CommonModule } from "@angular/common";
-import { TranslocoModule } from "@ngneat/transloco";
+
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { HttpClientModule } from "@angular/common/http";
-import { TranslocoRootModule } from "./transloco-root.module";
+import { TranslocoRootModule } from "./core/transloco-root.module";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"; // Use BrowserAnimationsModule for testing
-import { FormsModule } from "@angular/forms";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { BiometricsComponent } from "./biometrics/biometrics.component";
 import { BiometricsGeneralComponent } from "./biometrics-general/biometrics.component";
 import { WebcamModule } from "ngx-webcam";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FooterComponent } from "./footer/footer.component";
+import { MatStepperModule } from "@angular/material/stepper";
+import { StepperComponent } from "./stepper/stepper.component";
+import { StepComponent } from "./step/step.component";
+import { MatInputModule } from "@angular/material/input";
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -43,13 +51,15 @@ import { WebcamModule } from "ngx-webcam";
 		LanguagePickerComponent,
 		TransactionAuthComponent,
 		UnlockWalletComponent,
+		FooterComponent,
+		StepperComponent,
+		StepComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		FlexLayoutModule,
 		CommonModule,
-		TranslocoModule,
 		MatButtonModule,
 		MatMenuModule,
 		HttpClientModule,
@@ -57,11 +67,17 @@ import { WebcamModule } from "ngx-webcam";
 		NoopAnimationsModule,
 		BrowserAnimationsModule, // Ensure animations are enabled for testing
 		FormsModule,
+		ReactiveFormsModule,
 		MatFormFieldModule,
 		MatSelectModule,
 		BiometricsComponent,
 		BiometricsGeneralComponent,
-		WebcamModule
+		WebcamModule,
+		MatCardModule,
+		MatIconModule,
+		MatCheckboxModule,
+		MatStepperModule,
+		MatInputModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

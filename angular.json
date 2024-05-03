@@ -45,7 +45,7 @@
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
-						"assets": ["src/favicon.ico", "src/assets", "src/manifest.json", "src/background.js"],
+						"assets": ["src/favicon.ico", "src/assets", "src/manifest.json", "src/background.js", "src/master.css"],
 						"scripts": [],
 						"allowedCommonJsDependencies": ["@tensorflow/tfjs-core"]
 					},

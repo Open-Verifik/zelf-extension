@@ -1,0 +1,64 @@
+<div class="w-full h-full" fxLayout="column" fxLayoutAlign="start center">
+	<!-- <header class="w-full"></header> -->
+	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
+		<img src="../../assets/images/logo.svg" alt="" (click)="goBack()" class="cursor-pointer" />
+
+		<language-picker></language-picker>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="start center">
+		<app-stepper>
+			<app-step *ngFor="let step of steps; index as i" [isActive]="i === currentStep" [isCompleted]="i < currentStep" [label]="step.label">
+				<div class="cw-pst-container">
+					<div class="cw-pst-content">
+						<div class="cw-pst-content-d">
+							<div style="height: 112px; position: relative">
+								<div class="cw-pst-title">Crear contraseña</div>
+								<div class="cr-pst-description">
+									Esta contraseña opcional te permite desbloquear tu billetera solo en este dispositivo y solo tú podrás hacerlo.
+								</div>
+							</div>
+						</div>
+						<div>
+							<form class="example-form" [formGroup]="signUpForm" #signUpNgForm="ngForm">
+								<mat-form-field class="w-full">
+									<mat-label>{{ "signup.fullName" | transloco }}</mat-label>
+									<input id="password" matInput [formControlName]="'password'" />
+									<mat-error *ngIf="signUpForm.get('password')?.hasError('required')">
+										{{ "signup.fullName" | transloco }} {{ "signup.is_required" | transloco }}
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field class="w-full">
+									<mat-label>{{ "signup.fullName" | transloco }}</mat-label>
+									<input id="repeatPassword" matInput [formControlName]="'repeatPassword'" />
+									<mat-error *ngIf="signUpForm.get('repeatPassword')?.hasError('required')">
+										{{ "signup.fullName" | transloco }} {{ "signup.is_required" | transloco }}
+									</mat-error>
+								</mat-form-field>
+							</form>
+						</div>
+
+						<div fxLayout="column" fxLayoutAlign="start start">
+							<mat-checkbox class="on-checkbox"> Comprendo que Biometric Wallet no me puede recuperar esta contraseña </mat-checkbox>
+
+							<a href="#">Más información</a>
+						</div>
+						<button mat-raised-button class="w-full rounded-button main-button">Crear una nueva billetera</button>
+						<button mat-raised-button class="w-full rounded-button secondary-button">Crear una nueva billetera</button>
+					</div>
+				</div>
+			</app-step>
+		</app-stepper>
+	</div>
+</div>
+
+<footer class="w-full pt-10"></footer>
+
+<!-- 	// {
+        // 	"glob": "**/*",
+        // 	"input": "./node_modules/@angular/material/prebuilt-themes/",
+        // 	"output": "./assets/material-themes/"
+        // }
+                        
+-->

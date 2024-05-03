@@ -48,7 +48,6 @@
 		"@angular-devkit/build-angular": "^16.2.6",
 		"@angular/cli": "^16.2.6",
 		"@angular/compiler-cli": "16.0.3",
-		"@tailwindcss/typography": "0.5.9",
 		"@types/chroma-js": "2.4.0",
 		"@types/chrome": "^0.0.266",
 		"@types/crypto-js": "3.1.47",
@@ -62,7 +61,6 @@
 		"jasmine-core": "5.0.0",
 		"lodash": "4.17.21",
 		"postcss": "^8.4.31",
-		"tailwindcss": "3.3.2",
 		"typescript": "5.0.4"
 	}
 }

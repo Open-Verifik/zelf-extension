@@ -29,7 +29,6 @@
 				*ngIf="!response.base64Image"
 			></webcam>
 			<canvas
-				*ngIf="!response.base64Image"
 				#maskResult
 				class="absolute top-0 left-0"
 				[style.width.px]="response.base64Image ? camera.dimensions.result?.width : camera.dimensions.video.width"

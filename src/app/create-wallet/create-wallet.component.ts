@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "app-create-wallet",
@@ -16,10 +17,12 @@ export class CreateWalletComponent implements OnInit {
 	@ViewChild("signUpNgForm") signUpNgForm!: NgForm;
 	signUpForm!: UntypedFormGroup;
 	showBiometrics: boolean = false;
+	showBiometricsInstructions: boolean = false;
 	currentStep = 0;
 	formLoaded: boolean = false;
+	wallet: any;
 
-	constructor(private _formBuilder: UntypedFormBuilder, private _router: Router) {}
+	constructor(private _formBuilder: UntypedFormBuilder, private _router: Router, private _walletService: WalletService) {}
 
 	ngOnInit() {
 		this.signUpForm = this._formBuilder.group({
@@ -31,6 +34,28 @@ export class CreateWalletComponent implements OnInit {
 		this.updateSteps();
 
 		this.formLoaded = true;
+
+		const walletId = localStorage.getItem("walletId");
+		console.log({ existingWallet: walletId });
+		if (walletId) {
+			this._getWallet(walletId);
+		}
+	}
+
+	_getWallet(walletId: string): void {
+		this._walletService.requestWallet(walletId).subscribe({
+			next: (response) => {
+				console.log({
+					responseWallet: response.data,
+				});
+
+				this.currentStep = 1;
+
+				this.updateSteps();
+			},
+			error: (error) => {},
+			complete: () => {},
+		});
 	}
 
 	goBack(): void {
@@ -53,10 +78,15 @@ export class CreateWalletComponent implements OnInit {
 	}
 
 	startEncryption(): void {
+		this.showBiometricsInstructions = true;
+	}
+
+	startCamera(): void {
 		this.showBiometrics = true;
 	}
 
 	afterBiometricsCallback(response: any): void {
-		console.log({ response });
+		localStorage.setItem("walletId", response._id);
+		this.wallet = response;
 	}
 }

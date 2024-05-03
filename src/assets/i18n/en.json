@@ -33,6 +33,12 @@
 			"description_4": "We use end-to-end encryption to transmit your hash (encryption over encryption) that is in the QR Code, then also to encrypt your face and afterwards decrypt it and perform a live detection, all of this happens to finally decrypt your initial hash stored in the QR Code, then authorize each of your transactions on your end.",
 			"start_encryption_button": "Encrypt the wallet",
 			"words_input": "Phrase of 12 or 24 words"
+		},
+		"biometric_instructions": {
+			"title": "Biometric instructions",
+			"instruction_1": "Ensure Good Lighting and Clear Surroundings",
+			"instruction_2": "Position Yourself in Front of the Camera",
+			"instruction_3": "Place your face inside the oval"
 		}
 	},
 	"liveness": {

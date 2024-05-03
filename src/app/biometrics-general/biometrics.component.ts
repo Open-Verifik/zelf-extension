@@ -19,6 +19,10 @@ import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalDa
 
 import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 
+let _this = {
+	biometricsLoginCalled: false,
+};
+
 @Component({
 	selector: "biometrics-general",
 	standalone: true,
@@ -40,7 +44,6 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 	@Input() type?: string;
 	@Input() data: any;
 	@Input() callback: any;
-
 	private _matDialog: MatDialog = inject(MatDialog);
 
 	//ACTIVE DEBUG GRAPHIC MODE
@@ -90,7 +93,6 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		this.setDefaultInterval();
 
 		this.renderer.listen("window", "resize", () => {
-			console.log({ deviceData: this.deviceData.time });
 			this.interval.checkNgxVideo = setInterval(() => {
 				this.setMaxVideoDimensions();
 				this.setVideoNgxCameraData();
@@ -345,13 +347,9 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		const { isLoading = true, start, result } = paramsLoading;
 		const key: "camera" | "response" = (start && "camera") || (result && "response");
 
-		console.log("loading triggered", paramsLoading, { response: this.response.isLoading, key });
-
 		if (key && this[key]) {
 			this[key].isLoading = isLoading;
 		}
-
-		console.log("AFTER triggered", paramsLoading, { response: this.response.isLoading, key });
 	}
 
 	cameraError(error: WebcamInitError): void {
@@ -369,8 +367,11 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		img.src = webcamImage.imageAsDataUrl;
 
 		img.onload = async () => {
+			console.log("camera load");
+
 			if (img.height < this.face.minHeight) {
 				this.camera.isLowQuality = true;
+
 				return;
 			}
 
@@ -407,6 +408,8 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 			}
 		};
 	}
+
+	_onLoadImage(): void {}
 
 	takePictureLiveness(img: any) {
 		const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
@@ -525,6 +528,12 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 	}
 
 	biometricsLogin(): void {
+		// Check if the function has already been called
+		if (_this["biometricsLoginCalled"]) return;
+
+		// // Set the flag to true to indicate that the function has been called
+		_this["biometricsLoginCalled"] = true;
+
 		if (this.response.isLoading) return;
 
 		this.loading({ result: true });
@@ -555,12 +564,10 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 			})
 			.subscribe({
 				next: (response) => {
-					console.log("create Wallet");
 					this.callback(response.data);
 					// this._navigation.navigate(["/preview-wallet/", response.data._id]);
 				},
 				error: (err) => {
-					console.log({ err });
 					this.errorContent = err.error;
 					this.retryLivenessModal(err.error?.message);
 					this.loading({ isLoading: false, result: true });

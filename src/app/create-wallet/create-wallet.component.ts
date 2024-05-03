@@ -8,10 +8,14 @@ import { Router } from "@angular/router";
 	styleUrls: ["./create-wallet.component.scss", "../main.scss"],
 })
 export class CreateWalletComponent implements OnInit {
-	steps = [{ label: "Crear contraseña" }, { label: "Seguridad biométrica" }, { label: "Finalizar" }];
+	steps = [
+		{ label: "Crear contraseña", isActive: false, isCompleted: false },
+		{ label: "Seguridad biométrica", isActive: false, isCompleted: false },
+		{ label: "Finalizar", isActive: false, isCompleted: false },
+	];
 	@ViewChild("signUpNgForm") signUpNgForm!: NgForm;
 	signUpForm!: UntypedFormGroup;
-
+	showBiometrics: boolean = false;
 	currentStep = 0;
 	formLoaded: boolean = false;
 
@@ -21,11 +25,38 @@ export class CreateWalletComponent implements OnInit {
 		this.signUpForm = this._formBuilder.group({
 			password: ["", []],
 			repeatPassword: ["", []],
+			wordsCount: [24, []],
 		});
+
+		this.updateSteps();
+
 		this.formLoaded = true;
 	}
 
 	goBack(): void {
 		this._router.navigate(["/onboarding"]);
+	}
+
+	continueWithoutPassword(): void {
+		this.currentStep++;
+
+		this.updateSteps();
+	}
+
+	private updateSteps() {
+		if (!this.steps) return;
+
+		this.steps.forEach((step: any, index: number) => {
+			step.isActive = index === this.currentStep;
+			step.isCompleted = index < this.currentStep;
+		});
+	}
+
+	startEncryption(): void {
+		this.showBiometrics = true;
+	}
+
+	afterBiometricsCallback(response: any): void {
+		console.log({ response });
 	}
 }

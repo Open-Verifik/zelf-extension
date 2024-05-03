@@ -1,4 +1,5 @@
 <canvas #credentialCanvas hidden="true" *ngIf="!showError"></canvas>
+
 <div *ngIf="!showError" fxLayout="column" fxLayoutAlign="center center" class="min-h-[60vh] justify-center p-4 sm:p-1 xs:p-1 w-full">
 	<div
 		fxLayout="column"
@@ -22,12 +23,13 @@
 				[captureImageData]="true"
 				[allowCameraSwitch]="false"
 				[trigger]="takePicture$"
-				[mirrorImage]="demoData.isMobile ? 'never' : 'always'"
+				[mirrorImage]="deviceData.isMobile ? 'never' : 'always'"
 				(imageCapture)="proccessImage($event)"
 				(initError)="cameraError($event)"
 				*ngIf="!response.base64Image"
 			></webcam>
 			<canvas
+				*ngIf="!response.base64Image"
 				#maskResult
 				class="absolute top-0 left-0"
 				[style.width.px]="response.base64Image ? camera.dimensions.result?.width : camera.dimensions.video.width"

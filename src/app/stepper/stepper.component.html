@@ -2,7 +2,7 @@
 	<div class="stepper-header w-full">
 		<div *ngFor="let step of steps; let i = index" class="step-indicator" fxLayout="row" fxLayoutAlign="start start">
 			<div fxLayout="column" fxLayoutAlign="center center">
-				<div class="step-number" [ngClass]="{ 'step-number-active': i === currentStep, 'step-number-completed': i < currentStep }">
+				<div class="step-number" [ngClass]="{ 'step-number-active': step.isActive, 'step-number-completed': step.isCompleted }">
 					{{ i + 1 }}
 				</div>
 				<div class="step-label">{{ step.label }}</div>
@@ -10,8 +10,8 @@
 		</div>
 	</div>
 	<ng-content select="app-step"></ng-content>
-	<div class="stepper-navigation">
+	<!-- <div class="stepper-navigation">
 		<button (click)="back()" [disabled]="currentStep === 0">Back</button>
 		<button (click)="next()" [disabled]="currentStep === numberOfSteps - 1">Next</button>
-	</div>
+	</div> -->
 </div>

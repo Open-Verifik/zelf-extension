@@ -9,6 +9,32 @@
 		"import_wallet": "Import your wallet",
 		"open_wallet": "Open your wallet"
 	},
+	"common": {
+		"is_required": "is required",
+		"more_info": "More information",
+		"recommended": "Recommended"
+	},
+	"create_wallet": {
+		"password_step": {
+			"title": "Add a password",
+			"description": "This password is additional to your biometrics, to enhance the security of your encrypted wallet",
+			"password_label": "Password",
+			"repeat_password_label": "Repeat password",
+			"agreement": "I agree that Biometric Wallet can not recover this password, this is only used to encrypt your wallet",
+			"add_password": "Add password",
+			"continue_without_password": "Just biometrics"
+		},
+		"phrase_step": {
+			"title": "Biometric encryption",
+			"description": "Your secret and security phrase consists of 12 or 24 words, necessary to access your wallet and funds.",
+			"description_2": "Your phrase will be linked to your facial biometrics and password (if you have set one) and will be encrypted, generating a QR code.",
+			"subtitle": "How is my phrase safeguarded?",
+			"description_3": "Your secure phrase will be in an encrypted QR code linked to your facial biometrics (and password if you set one). The encryption is extremely secure because only your face can decrypt it, and live detection is required.",
+			"description_4": "We use end-to-end encryption to transmit your hash (encryption over encryption) that is in the QR Code, then also to encrypt your face and afterwards decrypt it and perform a live detection, all of this happens to finally decrypt your initial hash stored in the QR Code, then authorize each of your transactions on your end.",
+			"start_encryption_button": "Encrypt the wallet",
+			"words_input": "Phrase of 12 or 24 words"
+		}
+	},
 	"liveness": {
 		"center_yor_face": "Center your face on the screen",
 		"center_your_face_subtitle": "Please make sure your face is centered",

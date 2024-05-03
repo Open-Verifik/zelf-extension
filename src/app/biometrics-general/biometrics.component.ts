@@ -50,7 +50,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 
 	@ViewChild("maskResult", { static: false }) public maskResultCanvasRef: ElementRef | undefined;
 	@ViewChild("toSend", { static: false }) public ToSendCanvasRef: ElementRef | undefined;
-	demoData: any;
+	deviceData: any;
 	attempts!: Attemps;
 	camera!: CameraData;
 	response!: ResponseData;
@@ -77,7 +77,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		private renderer: Renderer2,
 		private _navigation: Router
 	) {
-		this.demoData = this._walletService.getDeviceData();
+		this.deviceData = this._walletService.getDeviceData();
 
 		this.startDefaultValues();
 
@@ -90,10 +90,11 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		this.setDefaultInterval();
 
 		this.renderer.listen("window", "resize", () => {
+			console.log({ deviceData: this.deviceData.time });
 			this.interval.checkNgxVideo = setInterval(() => {
 				this.setMaxVideoDimensions();
 				this.setVideoNgxCameraData();
-			}, this.demoData.time);
+			}, this.deviceData.time);
 		});
 
 		this.showError = false;
@@ -179,7 +180,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 	};
 
 	setDefaultCamera = () => {
-		let key = this.demoData.isMobile ? "width" : "height";
+		let key = this.deviceData.isMobile ? "width" : "height";
 
 		this.camera = {
 			hasPermissions: false,
@@ -220,6 +221,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 
 	setVideoNgxCameraData = () => {
 		const videoNgx = this._dom.nativeElement.querySelector("video");
+
 		if (!videoNgx) return;
 
 		videoNgx.addEventListener("loadeddata", () => {
@@ -230,10 +232,11 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 				this.interval.detectFace = setInterval(() => {
 					if (this.response.base64Image) {
 						this.interval.detectFace = clearInterval(this.interval.detectFace);
+						return;
 					}
 
 					this.takePicture.next();
-				}, this.demoData.time);
+				}, this.deviceData.time);
 			}
 		});
 
@@ -342,11 +345,13 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		const { isLoading = true, start, result } = paramsLoading;
 		const key: "camera" | "response" = (start && "camera") || (result && "response");
 
+		console.log("loading triggered", paramsLoading, { response: this.response.isLoading, key });
+
 		if (key && this[key]) {
 			this[key].isLoading = isLoading;
 		}
-		// const functionName = isLoading ? "show" : "hide";
-		// this._splashScreenService[functionName]();
+
+		console.log("AFTER triggered", paramsLoading, { response: this.response.isLoading, key });
 	}
 
 	cameraError(error: WebcamInitError): void {
@@ -520,14 +525,13 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 	}
 
 	biometricsLogin(): void {
-		// do login
 		if (this.response.isLoading) return;
 
 		this.loading({ result: true });
 
 		const payload: any = {
 			image: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
-			os: this.demoData.OS,
+			os: this.deviceData.OS,
 		};
 
 		switch (this.type) {
@@ -551,9 +555,12 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 			})
 			.subscribe({
 				next: (response) => {
-					this._navigation.navigate(["/preview-wallet/", response.data._id]);
+					console.log("create Wallet");
+					this.callback(response.data);
+					// this._navigation.navigate(["/preview-wallet/", response.data._id]);
 				},
 				error: (err) => {
+					console.log({ err });
 					this.errorContent = err.error;
 					this.retryLivenessModal(err.error?.message);
 					this.loading({ isLoading: false, result: true });

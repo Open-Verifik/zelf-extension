@@ -616,6 +616,16 @@ $computers: 1200px;
 	border-radius: 20px;
 }
 
+.main-title {
+	margin-top: 0px !important;
+	color: #1c44f9 !important;
+}
+
+.main-button:disabled {
+	background-color: #e5ebfd !important;
+	color: #4e6599 !important;
+}
+
 .secondary-button {
 	background-color: white !important;
 	color: #0b57d0 !important;
@@ -623,6 +633,11 @@ $computers: 1200px;
 	height: 45px;
 	font-size: 18px;
 	border-radius: 20px;
+}
+
+.secondary-button:disabled {
+	color: #4e6599 !important;
+	border: 1px solid #0b57d036 !important;
 }
 
 /* Margin Right Classes */

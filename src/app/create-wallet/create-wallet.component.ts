@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { WalletService } from "app/wallet.service";
+import { repeat } from "lodash";
 
 @Component({
 	selector: "app-create-wallet",
@@ -28,6 +29,7 @@ export class CreateWalletComponent implements OnInit {
 		this.signUpForm = this._formBuilder.group({
 			password: ["", []],
 			repeatPassword: ["", []],
+			termsAcceptance: [false],
 			wordsCount: [24, []],
 		});
 
@@ -36,7 +38,9 @@ export class CreateWalletComponent implements OnInit {
 		this.formLoaded = true;
 
 		const walletId = localStorage.getItem("walletId");
+
 		console.log({ existingWallet: walletId });
+
 		if (walletId) {
 			this._getWallet(walletId);
 		}
@@ -89,5 +93,13 @@ export class CreateWalletComponent implements OnInit {
 	afterBiometricsCallback(response: any): void {
 		localStorage.setItem("walletId", response._id);
 		this.wallet = response;
+
+		console.log({ wallet: this.wallet, walletId: localStorage.getItem("walletId") });
+	}
+
+	isPasswordCorrect(): boolean {
+		const { password, repeatPassword, termsAcceptance } = this.signUpForm.value;
+
+		return Boolean(password && repeatPassword && password === repeatPassword && termsAcceptance);
 	}
 }

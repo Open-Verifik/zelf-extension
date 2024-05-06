@@ -3,6 +3,10 @@
 	"onboarding": {
 		"step_1": "Welcome",
 		"step_1_description": "Discover Biometric Wallet, the innovative wallet that frees you from having to remember security words. Access securely and quickly with your facial biometrics.",
+		"step_2": "Unlock with facial recognition",
+		"step_2_description": "Your biometrics will not be saved at any time, and it's only used to unlock the transfers between decentralized applications",
+		"step_3": "Manage your assets",
+		"step_3_description": "You will generate QR codes linked to your facial biometrics for quick and secure management of your wallets.",
 		"accept_terms_1": "I accept the",
 		"accept_terms_2": "terms and conditions",
 		"create_new_wallet": "Create a new wallet",

@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
 
@@ -7,29 +8,48 @@ import { TranslocoService } from "@ngneat/transloco";
 	templateUrl: "./onboarding.component.html",
 	styleUrls: ["./onboarding.scss", "../main.scss"],
 })
-export class OnboardingComponent implements OnInit {
+export class OnboardingComponent implements OnInit, OnDestroy {
 	step: number = 1;
 	walletCreationForm: any;
+	termsAcceptance!: boolean;
+	@ViewChild("termsForm") signUpNgForm!: NgForm;
+	termsForm!: UntypedFormGroup;
 	items = [
-		{ image: "../../assets/images/framespaceholder.svg" },
-		{ image: "../../assets/images/logo.svg" },
+		{
+			title: "onboarding.step_1",
+			description: "onboarding.step_1_description",
+			image: "https://cdn.verifik.co/wallet/onboarding1.svg",
+		},
+		{
+			title: "onboarding.step_2",
+			description: "onboarding.step_2_description",
+			image: "https://cdn.verifik.co/wallet/onboarding2.svg",
+		},
+		{
+			title: "onboarding.step_3",
+			description: "onboarding.step_3_description",
+			image: "https://cdn.verifik.co/wallet/onboarding3.svg",
+		},
 		// Add more items as needed
 	];
+	private intervalId: any;
 	activeIndex = 0;
 
-	constructor(private _router: Router, private _translocoService: TranslocoService) {
+	constructor(private _router: Router, private _translocoService: TranslocoService, private _formBuilder: UntypedFormBuilder) {
 		const currentLang = this._translocoService.getActiveLang();
-
-		console.log({ currentLang });
 	}
 
 	ngOnInit(): void {
-		this.walletCreationForm = {
-			wordsCount: 12,
-			password: null,
-		};
+		this.termsForm = this._formBuilder.group({
+			termsAcceptance: [false, [Validators.required]],
+		});
+		this.startRotation();
+	}
 
-		console.log({ step: this.step });
+	startRotation(): void {
+		this.intervalId = setInterval(() => {
+			this.activeIndex = (this.activeIndex + 1) % this.items.length;
+		}, 10000); // Rotate every 5000 milliseconds (5 seconds)
 	}
 
 	previous() {
@@ -50,5 +70,15 @@ export class OnboardingComponent implements OnInit {
 
 	goToCreateWallet(): void {
 		this._router.navigate(["/create-wallet"]);
+	}
+
+	acceptedTerms(): Boolean {
+		return Boolean(this.termsForm.value.termsAcceptance);
+	}
+
+	ngOnDestroy(): void {
+		if (this.intervalId) {
+			clearInterval(this.intervalId);
+		}
 	}
 }

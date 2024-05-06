@@ -50,21 +50,16 @@ h1 {
 	color: #1976d2; /* You might want to match this color with your theme */
 }
 
-.carousel-container {
+.carousel-image {
 	display: flex;
 	align-items: center;
 	overflow: hidden;
 	position: relative;
+	width: 200px !important;
 }
 
-.carousel-item {
-	flex: 0 0 auto;
-	opacity: 0.5;
-	transition: opacity 0.5s ease;
-}
-
-.carousel-item.active {
-	opacity: 1;
+.carousel-container {
+	min-height: 390px;
 }
 
 .bg-red-700 {

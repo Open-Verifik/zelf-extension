@@ -9,8 +9,9 @@
 	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper>
 			<app-step *ngFor="let step of steps; index as i" [isActive]="step.isActive" [isCompleted]="step.isCompleted" [label]="step.label">
+				<!-- password step -->
 				<div class="cw-pst-container" *ngIf="currentStep === 0 && !showBiometrics">
-					<div class="cw-pst-content">
+					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
 						<div class="cw-pst-content-d">
 							<div style="height: 112px; position: relative">
 								<div class="cw-pst-title">{{ "create_wallet.password_step.title" | transloco }}</div>
@@ -23,7 +24,7 @@
 							<form class="example-form" [formGroup]="signUpForm" #signUpNgForm="ngForm">
 								<mat-form-field class="w-full">
 									<mat-label>{{ "create_wallet.password_step.password_label" | transloco }}</mat-label>
-									<input id="password" matInput [formControlName]="'password'" />
+									<input id="password" type="password" matInput [formControlName]="'password'" />
 									<mat-error *ngIf="signUpForm.get('password')?.hasError('required')">
 										{{ "create_wallet.password_step.password_label" | transloco }} {{ "common.is_required" | transloco }}
 									</mat-error>
@@ -31,20 +32,23 @@
 
 								<mat-form-field class="w-full">
 									<mat-label>{{ "create_wallet.password_step.repeat_password_label" | transloco }}</mat-label>
-									<input id="repeatPassword" matInput [formControlName]="'repeatPassword'" />
+									<input id="repeatPassword" type="password" matInput [formControlName]="'repeatPassword'" />
 									<mat-error *ngIf="signUpForm.get('repeatPassword')?.hasError('required')">
 										{{ "create_wallet.password_step.repeat_password_label" | transloco }} {{ "common.is_required" | transloco }}
 									</mat-error>
 								</mat-form-field>
+
+								<div fxLayout="column" fxLayoutAlign="start start">
+									<mat-checkbox [formControlName]="'termsAcceptance'" class="on-checkbox">
+										{{ "create_wallet.password_step.agreement" | transloco }}
+									</mat-checkbox>
+
+									<a href="#" class="mt-2 ml-10">{{ "common.more_info" | transloco }} </a>
+								</div>
 							</form>
 						</div>
 
-						<div fxLayout="column" fxLayoutAlign="start start">
-							<mat-checkbox class="on-checkbox"> {{ "create_wallet.password_step.agreement" | transloco }} </mat-checkbox>
-
-							<a href="#">{{ "common.more_info" | transloco }} </a>
-						</div>
-						<button mat-raised-button class="w-full rounded-button main-button">
+						<button mat-raised-button class="w-full rounded-button main-button" [disabled]="!isPasswordCorrect()">
 							{{ "create_wallet.password_step.add_password" | transloco }}
 						</button>
 						<button mat-raised-button class="w-full rounded-button secondary-button" (click)="continueWithoutPassword()">
@@ -52,10 +56,11 @@
 						</button>
 					</div>
 				</div>
+				<!-- end of password step -->
 
 				<!-- step 1 -->
 				<div class="cw-phrase-container" *ngIf="currentStep === 1 && !showBiometrics && !showBiometricsInstructions">
-					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="start center">
+					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
 						<div class="cw-phrase-content-d w-full" fxLayout="column" fxLayoutAlign="start center">
 							<div fxLayout="column" fxLayoutAlign="start center">
 								<div class="cw-pst-title">{{ "create_wallet.phrase_step.title" | transloco }}</div>
@@ -104,14 +109,14 @@
 
 				<!-- step 1 > show biometric instructions -->
 				<div class="cw-phrase-container" *ngIf="currentStep === 1 && showBiometricsInstructions">
-					<div class="cw-pst-content w-full" fxLayout="column" fxLayoutAlign="start center">
+					<div class="cw-pst-content w-full" fxLayout="column" fxLayoutAlign="space-between center">
 						<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
 							<img src="https://cdn.verifik.co/wallet/info_cr.svg" alt="" />
 
 							<div class="cw-pst-title">{{ "create_wallet.biometric_instructions.title" | transloco }}</div>
 						</div>
 
-						<div class="cw-phrase-content-d" fxLayout="column" fxLayoutAlign="start start">
+						<div class="cw-phrase-content-d m-8" fxLayout="column" fxLayoutAlign="start start">
 							<div fxLayout="row" fxLayoutAlign="start center">
 								<img src="https://cdn.verifik.co/wallet/smile.svg" alt="" class="mr-4" />
 
@@ -137,9 +142,8 @@
 					</div>
 				</div>
 
-				<ng-container  *ngIf="currentStep === i && showBiometrics">
-					<biometrics-general [type]="'createWallet'" [data]="signUpForm.value" [callback]="afterBiometricsCallback">
-					</biometrics-general>
+				<ng-container *ngIf="currentStep === i && showBiometrics">
+					<biometrics-general [type]="'createWallet'" [data]="signUpForm.value" [callback]="afterBiometricsCallback"> </biometrics-general>
 				</ng-container>
 				<!-- end of step 1 -->
 			</app-step>

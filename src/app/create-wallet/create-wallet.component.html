@@ -24,7 +24,7 @@
 							<form class="example-form" [formGroup]="signUpForm" #signUpNgForm="ngForm">
 								<mat-form-field class="w-full">
 									<mat-label>{{ "create_wallet.password_step.password_label" | transloco }}</mat-label>
-									<input id="password" type="password" matInput [formControlName]="'password'" />
+									<input type="password" matInput [formControlName]="'password'" />
 									<mat-error *ngIf="signUpForm.get('password')?.hasError('required')">
 										{{ "create_wallet.password_step.password_label" | transloco }} {{ "common.is_required" | transloco }}
 									</mat-error>
@@ -32,7 +32,7 @@
 
 								<mat-form-field class="w-full">
 									<mat-label>{{ "create_wallet.password_step.repeat_password_label" | transloco }}</mat-label>
-									<input id="repeatPassword" type="password" matInput [formControlName]="'repeatPassword'" />
+									<input type="password" matInput [formControlName]="'repeatPassword'" />
 									<mat-error *ngIf="signUpForm.get('repeatPassword')?.hasError('required')">
 										{{ "create_wallet.password_step.repeat_password_label" | transloco }} {{ "common.is_required" | transloco }}
 									</mat-error>

@@ -100,6 +100,6 @@ export class CreateWalletComponent implements OnInit {
 	isPasswordCorrect(): boolean {
 		const { password, repeatPassword, termsAcceptance } = this.signUpForm.value;
 
-		return Boolean(password && repeatPassword && password === repeatPassword && termsAcceptance);
+		return Boolean(password && repeatPassword && password === repeatPassword && termsAcceptance && password.length >= 8);
 	}
 }

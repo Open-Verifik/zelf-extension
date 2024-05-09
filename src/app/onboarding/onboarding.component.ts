@@ -37,6 +37,10 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 	constructor(private _router: Router, private _translocoService: TranslocoService, private _formBuilder: UntypedFormBuilder) {
 		const currentLang = this._translocoService.getActiveLang();
+
+		localStorage.removeItem("wallet");
+
+		localStorage.removeItem("walletId");
 	}
 
 	ngOnInit(): void {

@@ -142,6 +142,174 @@
 					</div>
 				</div>
 
+				<!-- step 2 finalizar -->
+				<div class="cw-view-wallet" *ngIf="currentStep === 2">
+					<div class="cw-view-wallet-left">
+						<div class="cw-view-wallet-left-header">
+							<div class="cw-view-wallet-title-div">
+								<div class="cw-view-wallet-title">{{ "create_wallet.view_wallet.title" | transloco }}</div>
+							</div>
+							<div class="cw-view-wallet-description">
+								{{ "create_wallet.view_wallet.description" | transloco }}
+								<br /><br />
+								{{ "create_wallet.view_wallet.description_2" | transloco }}
+							</div>
+						</div>
+						<div class="cw-view-wallet-words-container">
+							<ng-container *ngFor="let i of [0, 4, 8, 12, 16, 20]; let isLast = last">
+								<!-- Only display rows if the starting index is less than the length of the words array -->
+								<div *ngIf="i < words.length" class="cw-view-wallet-words-c-div">
+									<div *ngFor="let word of words | slice : i : i + 4" class="cw-word-container">
+										<small>{{ word.id }}:</small>
+										<div class="cw-word">{{ word.word }}</div>
+									</div>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+					<div class="cw-view-wallet-right">
+						<div class="cw-view-wallet-right-address">
+							<div class="cw-view-wallet-icon" (click)="copyPublicAddress()">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="w-6 h-6"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+									/>
+								</svg>
+							</div>
+							<div
+								style="
+									flex: 1 1 0;
+									flex-direction: column;
+									justify-content: flex-start;
+									align-items: flex-start;
+									display: inline-flex;
+								"
+							>
+								<div style="align-self: stretch">
+									<span
+										style="
+											color: #010333;
+											font-size: 15px;
+											font-family: Poppins;
+											font-weight: 500;
+											line-height: 24px;
+											word-wrap: break-word;
+										"
+										>{{ "create_wallet.view_wallet.copy_public_address" | transloco }} <br /></span
+									><span
+										style="
+											color: #010333;
+											font-size: 11px;
+											font-family: Poppins;
+											font-weight: 400;
+											line-height: 24px;
+											word-wrap: break-word;
+										"
+									>
+										{{ wallet.publicData.ethAddress }}</span
+									>
+								</div>
+							</div>
+						</div>
+						<div
+							style="
+								padding: 32px;
+								background: white;
+								border-radius: 24px;
+								justify-content: flex-start;
+								align-items: flex-start;
+								gap: 8px;
+								display: inline-flex;
+							"
+						>
+							<img style="width: 216px; height: 216px" [src]="wallet.image" />
+						</div>
+						<div
+							style="
+								align-self: stretch;
+								text-align: center;
+								color: #010333;
+								font-size: 11px;
+								font-family: Poppins;
+								font-weight: 500;
+								line-height: 16px;
+								letter-spacing: 0.5px;
+								word-wrap: break-word;
+							"
+						>
+							{{ "create_wallet.view_wallet.qr_code_description" | transloco }}
+						</div>
+						<div
+							style="
+								align-self: stretch;
+								height: 56px;
+								padding-left: 12px;
+								padding-right: 12px;
+								padding-top: 8px;
+								padding-bottom: 8px;
+								background: white;
+								border-radius: 16px;
+								justify-content: flex-start;
+								align-items: center;
+								gap: 12px;
+								display: inline-flex;
+							"
+						>
+							<div class="cw-view-wallet-icon" (click)="downloadImage()">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke-width="1.5"
+									stroke="currentColor"
+									class="w-6 h-6"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+									/>
+								</svg>
+							</div>
+							<div
+								style="
+									flex: 1 1 0;
+									flex-direction: column;
+									justify-content: flex-start;
+									align-items: flex-start;
+									display: inline-flex;
+								"
+							>
+								<div class="cw-view-wallet-qr-code-label">
+									{{ "create_wallet.view_wallet.download_qr_code" | transloco }}
+								</div>
+							</div>
+						</div>
+						<div
+							style="
+								align-self: stretch;
+								height: 40px;
+								flex-direction: column;
+								justify-content: center;
+								align-items: center;
+								gap: 8px;
+								display: flex;
+							"
+						>
+							<button mat-raised-button class="w-full rounded-button main-button">{{ "common.continue" | transloco }}</button>
+						</div>
+					</div>
+				</div>
+
 				<ng-container *ngIf="currentStep === i && showBiometrics">
 					<biometrics-general [type]="'createWallet'" [data]="signUpForm.value" [callback]="afterBiometricsCallback"> </biometrics-general>
 				</ng-container>

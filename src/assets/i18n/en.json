@@ -16,7 +16,11 @@
 	"common": {
 		"is_required": "is required",
 		"more_info": "More information",
-		"recommended": "Recommended"
+		"recommended": "Recommended",
+		"continue": "Continue",
+		"copy_to_clipboard": "Copied successfully",
+		"failed_to_copy_to_clipboard": "Failed to copy",
+		"close": "Close"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -43,6 +47,14 @@
 			"instruction_1": "Ensure Good Lighting and Clear Surroundings",
 			"instruction_2": "Position Yourself in Front of the Camera",
 			"instruction_3": "Place your face inside the oval"
+		},
+		"view_wallet": {
+			"title": "You have created your wallet successfully",
+			"description": "These are the words of your security phrase, encrypted and safeguarded in the following QR code ",
+			"description_2": "You will always need your face as a main layer of security to access them.",
+			"qr_code_description": "Remember to keep the QR code of your words safe to protect your account.",
+			"download_qr_code": "Download your QR Code",
+			"copy_public_address": "Copy your ETH Address"
 		}
 	},
 	"liveness": {

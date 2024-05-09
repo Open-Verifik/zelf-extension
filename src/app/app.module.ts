@@ -37,6 +37,8 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { StepperComponent } from "./stepper/stepper.component";
 import { StepComponent } from "./step/step.component";
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ExtensionInstructionsComponent } from './extension-instructions/extension-instructions.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -54,6 +56,7 @@ import { MatInputModule } from "@angular/material/input";
 		FooterComponent,
 		StepperComponent,
 		StepComponent,
+  ExtensionInstructionsComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -78,6 +81,7 @@ import { MatInputModule } from "@angular/material/input";
 		MatCheckboxModule,
 		MatStepperModule,
 		MatInputModule,
+		MatSnackBarModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

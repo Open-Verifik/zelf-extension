@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
 import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
+import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -16,6 +17,10 @@ const routes: Routes = [
 	{
 		path: "create-wallet",
 		component: CreateWalletComponent,
+	},
+	{
+		path: "extension-instructions",
+		component: ExtensionInstructionsComponent,
 	},
 ];
 

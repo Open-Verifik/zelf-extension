@@ -566,6 +566,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 				faceBase64: payload.image,
 				password: data.password || undefined,
 				wordsCount: data.wordsCount,
+				seeWallet: 1,
 			})
 			.subscribe({
 				next: (response) => {

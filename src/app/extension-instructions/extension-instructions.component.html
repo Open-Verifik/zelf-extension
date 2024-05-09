@@ -10,55 +10,22 @@
 		<div class="inst-card">
 			<div style="align-self: stretch; height: 91px; flex-direction: column; justify-content: center; align-items: center; display: flex">
 				<div style="align-self: stretch; text-align: center">
-					<span style="color: #1c44f9; font-size: 25px; font-family: Poppins; font-weight: 500; line-height: 36px; word-wrap: break-word"
-						>¡La instalación de Biometric Wallet se ha completado!<br /></span
-					><span
-						style="color: white; font-size: 16.25px; font-family: Poppins; font-weight: 600; line-height: 18.95px; word-wrap: break-word"
-						><br /></span
-					><span
-						style="
-							color: #010333;
-							font-size: 14px;
-							font-family: Poppins;
-							font-weight: 500;
-							line-height: 20px;
-							letter-spacing: 0.1px;
-							word-wrap: break-word;
-						"
-						>Agrega la extensión a tu navegador para acceder fácilmente y ver las confirmaciones de transacciones en Biometric
-						Wallet.</span
-					>
+					<span class="inst-card-title">¡La instalación de Biometric Wallet se ha completado!<br /></span>
+					<span class="inst-card-description">
+						Agrega la extensión a tu navegador para acceder fácilmente y ver las confirmaciones de transacciones en Biometric Wallet.
+					</span>
 				</div>
 			</div>
 
 			<div class="mt-6 inst-img-div">
-				<div style="align-self: stretch; justify-content: space-between; align-items: flex-start; display: inline-flex">
-					<div
-						style="
-							width: 329px;
-							flex-direction: column;
-							justify-content: flex-start;
-							align-items: flex-start;
-							gap: 16px;
-							display: inline-flex;
-						"
-					>
-						<div style="align-self: stretch; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+				<div class="inst-img-div-1">
+					<!-- image 1 -->
+					<div class="inst-img-div-1-1" *ngIf="currentSlide === 1">
+						<div class="inst-img-div-1-1-1">
 							<div style="width: 32px; height: 32px; position: relative">
 								<div style="left: 0px; top: 0px; position: absolute"></div>
-								<div style="width: 32px; height: 32px; left: 0px; top: 0px; position: absolute">
-									<div
-										style="
-											width: 32px;
-											height: 32px;
-											left: 0px;
-											top: 0px;
-											position: absolute;
-											background: #dee0ff;
-											border-radius: 9999px;
-											border: 2px #dee0ff solid;
-										"
-									></div>
+								<div class="inst-step-icon-div">
+									<div class="inst-step-icon-circle"></div>
 									<div class="inst-step-icon">1</div>
 								</div>
 							</div>
@@ -142,23 +109,12 @@
 							></div>
 						</div>
 					</div>
-					<div style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 16px; display: inline-flex">
-						<div style="justify-content: flex-start; align-items: center; gap: 8px; display: inline-flex">
-							<div style="width: 32px; height: 32px; position: relative">
-								<div style="left: 0px; top: 0px; position: absolute"></div>
-								<div style="width: 32px; height: 32px; left: 0px; top: 0px; position: absolute">
-									<div
-										style="
-											width: 32px;
-											height: 32px;
-											left: 0px;
-											top: 0px;
-											position: absolute;
-											background: #dee0ff;
-											border-radius: 9999px;
-											border: 2px #dee0ff solid;
-										"
-									></div>
+					<!-- image 2 -->
+					<div class="inst-second-container" *ngIf="currentSlide === 1">
+						<div class="inst-second-c-div">
+							<div class="inst-step-icon-m-div">
+								<div class="inst-step-icon-div">
+									<div class="inst-step-icon-circle"></div>
 									<div class="inst-step-icon">2</div>
 								</div>
 							</div>
@@ -365,6 +321,7 @@
 													/>
 												</svg>
 											</div>
+											<div class="inst-icon-second-pointer"></div>
 											<div
 												style="
 													flex: 1 1 0;
@@ -395,17 +352,154 @@
 							</div>
 						</div>
 					</div>
+
+					<div *ngIf="currentSlide === 2" fxLayout="column" fxLayoutAlign="center center" class="w-full">
+						<div
+							style="
+								width: 329px;
+								flex-direction: column;
+								justify-content: flex-start;
+								align-items: flex-start;
+								gap: 16px;
+								display: inline-flex;
+							"
+						>
+							<div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 8px; display: inline-flex">
+								<div style="width: 32px; height: 32px; position: relative">
+									<div style="left: 0px; top: 0px; position: absolute"></div>
+									<div style="width: 32px; height: 32px; left: 0px; top: 0px; position: absolute">
+										<div class="inst-step-icon-circle"></div>
+										<div class="inst-step-icon">3</div>
+									</div>
+								</div>
+								<div class="inst-step-title">Haz clic en el ícono de extensión en tu navegador.</div>
+							</div>
+							<div style="width: 329px; height: 121px; position: relative; box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.28)">
+								<div
+									style="
+										height: 121px;
+										padding-top: 24px;
+										padding-right: 24px;
+										left: 0px;
+										top: 0px;
+										position: absolute;
+										background: #0f8bf9;
+										border-radius: 8px;
+										flex-direction: column;
+										justify-content: flex-start;
+										align-items: flex-end;
+										gap: 8px;
+										display: inline-flex;
+									"
+								>
+									<div
+										style="
+											width: 305px;
+											padding-bottom: 63px;
+											background: #fbf3fb;
+											border-top-left-radius: 16px;
+											justify-content: center;
+											align-items: center;
+											display: inline-flex;
+										"
+									>
+										<div
+											style="
+												flex: 1 1 0;
+												align-self: stretch;
+												padding-left: 12px;
+												padding-right: 12px;
+												padding-top: 6px;
+												padding-bottom: 6px;
+												background: #d9dbde;
+												border-top-left-radius: 16px;
+												justify-content: flex-start;
+												align-items: center;
+												gap: 12px;
+												display: inline-flex;
+											"
+										>
+											<div
+												style="
+													flex: 1 1 0;
+													height: 20px;
+													padding-left: 12px;
+													padding-right: 12px;
+													padding-top: 6px;
+													padding-bottom: 6px;
+													background: #f1f3f4;
+													border-radius: 20px;
+												"
+											></div>
+											<div style="justify-content: flex-start; align-items: center; gap: 11px; display: flex">
+												<div
+													style="
+														width: 20px;
+														height: 20px;
+														padding: 8px;
+														background: #f4f5f7;
+														border-radius: 2px;
+														flex-direction: column;
+														justify-content: center;
+														align-items: center;
+														gap: 8px;
+														display: inline-flex;
+													"
+												>
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+														<path
+															d="M15.9994 1.38067C15.9994 1.38067 14.0333 0.614244 12.4047 2.37004C11.1096 1.37808 9.47077 0.787109 7.7188 0.787109C5.99918 0.787109 4.30551 1.38907 2.95308 2.46083C1.62212 3.51612 0.65962 5.02441 0.243092 6.68036C-0.362154 9.08465 0.131271 12.0563 2.07902 13.7152C4.00722 15.3576 6.58232 15.6623 8.69027 14.5666C10.0065 13.8825 10.8834 12.8221 11.4848 11.4666C12.2746 9.6866 13.1567 7.63581 13.9462 5.85578C14.595 7.23386 14.6174 8.80322 14.3355 10.149C14.0539 11.4944 13.3198 12.7394 12.2823 13.6318C12.1279 13.7646 11.9632 13.8942 11.8629 14.0719C11.612 14.5152 12.0962 15.0386 12.5236 14.7016C12.7155 14.5504 12.9116 14.3782 13.0946 14.1872C14.5409 12.773 15.4691 10.7884 15.4691 8.5961C15.4691 7.21576 15.1019 5.87226 14.4771 4.74815C15.3323 2.84921 16 1.38034 16 1.38034M4.53525 11.4834C3.25458 11.5597 1.9893 10.8469 1.39207 9.70244C1.12196 9.18513 0.985472 8.59642 1.01207 8.01159C1.07422 6.64482 1.61219 5.32167 2.46799 4.26574C3.29976 3.23953 4.43047 2.46956 5.68358 2.07084C5.93382 1.99135 6.18886 1.92608 6.44679 1.87665C6.86716 1.79587 7.2949 1.7558 7.72296 1.7558C9.35927 1.7558 10.8341 2.32545 11.8591 3.16102C11.6656 3.44859 11.4714 3.73584 11.2769 4.02308C10.8184 4.70033 10.3583 5.3766 9.89627 6.05126C9.35543 6.84063 8.81234 7.62838 8.26284 8.4116C7.50893 9.48563 6.86011 10.7412 5.58714 11.2589C5.25744 11.393 4.88961 11.4624 4.53557 11.4834H4.53525Z"
+															fill="#1C44F9"
+														/>
+													</svg>
+												</div>
+												<div
+													style="
+														width: 22px;
+														height: 22px;
+														position: relative;
+														background: #dfe1e6;
+														border-radius: 50px;
+														overflow: hidden;
+													"
+												>
+													<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+														<rect width="22" height="22" rx="11" fill="#DFE1E6" />
+														<path
+															d="M11 5C11.7956 5 12.5587 5.31607 13.1213 5.87868C13.6839 6.44129 14 7.20435 14 8C14 8.79565 13.6839 9.55871 13.1213 10.1213C12.5587 10.6839 11.7956 11 11 11C10.2043 11 9.44129 10.6839 8.87868 10.1213C8.31607 9.55871 8 8.79565 8 8C8 7.20435 8.31607 6.44129 8.87868 5.87868C9.44129 5.31607 10.2043 5 11 5ZM11 12C14.315 12 17 13.3425 17 15V17H5V15C5 13.3425 7.685 12 11 12Z"
+															fill="#606368"
+														/>
+													</svg>
+												</div>
+												<div style="width: 20px; height: 20px; position: relative">
+													<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+														<path
+															d="M10.0007 13.334C10.4427 13.334 10.8666 13.5096 11.1792 13.8221C11.4917 14.1347 11.6673 14.5586 11.6673 15.0007C11.6673 15.4427 11.4917 15.8666 11.1792 16.1792C10.8666 16.4917 10.4427 16.6673 10.0007 16.6673C9.55862 16.6673 9.1347 16.4917 8.82214 16.1792C8.50958 15.8666 8.33398 15.4427 8.33398 15.0007C8.33398 14.5586 8.50958 14.1347 8.82214 13.8221C9.1347 13.5096 9.55862 13.334 10.0007 13.334ZM10.0007 8.33398C10.4427 8.33398 10.8666 8.50958 11.1792 8.82214C11.4917 9.1347 11.6673 9.55862 11.6673 10.0007C11.6673 10.4427 11.4917 10.8666 11.1792 11.1792C10.8666 11.4917 10.4427 11.6673 10.0007 11.6673C9.55862 11.6673 9.1347 11.4917 8.82214 11.1792C8.50958 10.8666 8.33398 10.4427 8.33398 10.0007C8.33398 9.55862 8.50958 9.1347 8.82214 8.82214C9.1347 8.50958 9.55862 8.33398 10.0007 8.33398ZM10.0007 3.33398C10.4427 3.33398 10.8666 3.50958 11.1792 3.82214C11.4917 4.1347 11.6673 4.55862 11.6673 5.00065C11.6673 5.44268 11.4917 5.8666 11.1792 6.17916C10.8666 6.49172 10.4427 6.66732 10.0007 6.66732C9.55862 6.66732 9.1347 6.49172 8.82214 6.17916C8.50958 5.8666 8.33398 5.44268 8.33398 5.00065C8.33398 4.55862 8.50958 4.1347 8.82214 3.82214C9.1347 3.50958 9.55862 3.33398 10.0007 3.33398Z"
+															fill="#606368"
+														/>
+													</svg>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="inst-icon-pointer"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<!-- actions -->
 			<div class="inst-actions-card">
 				<div style="justify-content: center; align-items: center; gap: 8px; display: inline-flex">
-					<div class="inst-img-dot inst-img-dot-active"></div>
-					<div class="inst-img-dot"></div>
+					<div class="inst-img-dot" [ngClass]="{ 'inst-img-dot-active': currentSlide === 1 }" (click)="changeToSlide(1)"></div>
+					<div class="inst-img-dot" [ngClass]="{ 'inst-img-dot-active': currentSlide === 2 }" (click)="changeToSlide(2)"></div>
 				</div>
 				<div class="inst-btn-container">
-					<button mat-raised-button class="w-full rounded-button main-button">{{ "common.continue" | transloco }}</button>
+					<button mat-raised-button class="w-full rounded-button main-button" (click)="changeToSlide(currentSlide + 1)">
+						{{ "common.continue" | transloco }}
+					</button>
 				</div>
 			</div>
 			<!-- end of actions -->

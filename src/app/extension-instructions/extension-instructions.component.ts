@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-extension-instructions",
@@ -7,7 +8,8 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ExtensionInstructionsComponent implements OnInit {
 	currentSlide: number = 1;
-	constructor() {}
+
+	constructor(private _router: Router) {}
 
 	ngOnInit(): void {}
 
@@ -16,7 +18,7 @@ export class ExtensionInstructionsComponent implements OnInit {
 
 		if (this.currentSlide > 2) {
 			//navigate somewhere
-			this.currentSlide = 1;
+			this._router.navigate(["home"]);
 		}
 	}
 }

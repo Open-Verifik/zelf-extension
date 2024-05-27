@@ -114,6 +114,8 @@ export class CreateWalletComponent implements OnInit {
 
 		this.wallet = response;
 
+		console.log({ wallet: this.wallet });
+
 		this._prepareWords();
 
 		this.showBiometrics = false;
@@ -134,6 +136,8 @@ export class CreateWalletComponent implements OnInit {
 
 			this.words.push({ id: key, word });
 		}
+
+		console.log({ words: this.words });
 	}
 
 	isPasswordCorrect(): boolean {
@@ -197,5 +201,9 @@ export class CreateWalletComponent implements OnInit {
 		URL.revokeObjectURL(blobUrl);
 
 		document.body.removeChild(a);
+	}
+
+	goToInstructions(): void {
+		this._router.navigate(["extension-instructions"]);
 	}
 }

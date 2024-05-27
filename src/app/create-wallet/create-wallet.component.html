@@ -305,7 +305,9 @@
 								display: flex;
 							"
 						>
-							<button mat-raised-button class="w-full rounded-button main-button">{{ "common.continue" | transloco }}</button>
+							<button mat-raised-button class="w-full rounded-button main-button" (click)="goToInstructions()">
+								{{ "common.continue" | transloco }}
+							</button>
 						</div>
 					</div>
 				</div>

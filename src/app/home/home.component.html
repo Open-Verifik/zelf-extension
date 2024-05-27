@@ -1,5 +1,373 @@
+<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
+	<div class="home-main">
+		<!-- HEADER -->
+		<div class="home-main-header">
+			<div class="home-header-left">
+				<div class="home-icon-container">
+					<div class="home-icon home-header-left">
+						<div class="home-icon-svg">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path
+									d="M16.625 6.75L14.9375 3.75H12.455L11.1875 1.5H7.8125L6.545 3.75H4.0625L2.375 6.75L3.6425 9L2.375 11.25L4.0625 14.25H6.545L7.8125 16.5H11.1875L12.455 14.25H14.9375L16.625 11.25L15.3575 9L16.625 6.75ZM14.9075 6.75L14.0675 8.25H12.4625L11.6225 6.75L12.4625 5.25H14.0675L14.9075 6.75ZM8.705 10.5L7.865 9L8.705 7.5H10.295L11.135 9L10.295 10.5H8.705ZM10.31 3L11.15 4.485L10.295 6H8.705L7.85 4.485L8.69 3H10.31ZM4.94 5.25H6.545L7.385 6.75L6.545 8.25H4.94L4.0925 6.75L4.94 5.25ZM4.0925 11.25L4.9325 9.75H6.5375L7.3775 11.25L6.5375 12.75H4.94L4.0925 11.25ZM8.69 15L7.85 13.515L8.705 12H10.295L11.1425 13.515L10.31 15H8.69ZM14.06 12.75H12.455L11.615 11.25L12.455 9.75H14.06L14.9 11.25L14.06 12.75Z"
+									fill="#46464F"
+								/>
+							</svg>
+						</div>
+						<div class="home-icon-svg">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path
+									d="M12.9425 6.22168L9.5 9.65668L6.0575 6.22168L5 7.27918L9.5 11.7792L14 7.27918L12.9425 6.22168Z"
+									fill="#46464F"
+								/>
+							</svg>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="home-header-center">
+				<div class="home-account-info">
+					<div class="home-account-name">Account 1</div>
+					<div class="home-account-dropdown">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#1F1F1F" />
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class="home-header-right">
+				<div (click)="openFullPage()" class="home-wallet">
+					<div class="home-wallet-image">
+						<img [src]="wallet.image" *ngIf="wallet && wallet.image" />
+					</div>
+				</div>
+				<div class="home-wallet-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+						<path
+							d="M12.5 8C13.6 8 14.5 7.1 14.5 6C14.5 4.9 13.6 4 12.5 4C11.4 4 10.5 4.9 10.5 6C10.5 7.1 11.4 8 12.5 8ZM12.5 10C11.4 10 10.5 10.9 10.5 12C10.5 13.1 11.4 14 12.5 14C13.6 14 14.5 13.1 14.5 12C14.5 10.9 13.6 10 12.5 10ZM12.5 16C11.4 16 10.5 16.9 10.5 18C10.5 19.1 11.4 20 12.5 20C13.6 20 14.5 19.1 14.5 18C14.5 16.9 13.6 16 12.5 16Z"
+							fill="#46464F"
+						/>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<!-- end of HEADER -->
+		<!-- Address -->
+		<div fxLayout="row" fxLayoutAlign="center center">
+			<div class="home-wallet-info" fxLayout="row" fxLayoutAlign="center center">
+				<div class="home-wallet-address">{{ getAddress() }}</div>
+				<div class="home-wallet-copy">
+					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+						<path d="M5.83398 4.66699H13.1673V14.0003H5.83398V4.66699Z" fill="#010333" />
+						<path
+							d="M11.1673 0.666992H3.16732C2.43398 0.666992 1.83398 1.26699 1.83398 2.00033V11.3337H3.16732V2.00033H11.1673V0.666992ZM13.1673 3.33366H5.83398C5.10065 3.33366 4.50065 3.93366 4.50065 4.66699V14.0003C4.50065 14.7337 5.10065 15.3337 5.83398 15.3337H13.1673C13.9007 15.3337 14.5007 14.7337 14.5007 14.0003V4.66699C14.5007 3.93366 13.9007 3.33366 13.1673 3.33366ZM13.1673 14.0003H5.83398V4.66699H13.1673V14.0003Z"
+							fill="#010333"
+						/>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<!-- end of Address -->
+		<div class="home-balance" *ngIf="balances && balances.eth">
+			<div class="home-balance-info">
+				<div class="home-balance-amount">{{ balances.eth }} ETH</div>
+				<div class="home-balance-value">123 US$</div>
+			</div>
+		</div>
+
+		<!-- actions -->
+		<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
+			<div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+							<path
+								d="M12.5 4C16.91 4 20.5 7.59 20.5 12C20.5 16.41 16.91 20 12.5 20C8.09 20 4.5 16.41 4.5 12C4.5 7.59 8.09 4 12.5 4ZM12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM13.5 12V8H11.5V12H8.5L12.5 16L16.5 12H13.5Z"
+								fill="#010333"
+							/>
+						</svg>
+					</div>
+				</div>
+				<div class="home-action-text">Recibir</div>
+			</div>
+			<div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+							<path
+								d="M9.79563 5.7041C9.79563 6.2641 10.2456 6.7041 10.7956 6.7041H16.3856L5.49562 17.5941C5.10563 17.9841 5.10563 18.6141 5.49562 19.0041C5.88563 19.3941 6.51563 19.3941 6.90563 19.0041L17.7956 8.1141V13.7041C17.7956 14.2541 18.2456 14.7041 18.7956 14.7041C19.3456 14.7041 19.7956 14.2541 19.7956 13.7041V5.7041C19.7956 5.1541 19.3456 4.7041 18.7956 4.7041H10.7956C10.2456 4.7041 9.79563 5.1541 9.79563 5.7041Z"
+								fill="#010333"
+							/>
+						</svg>
+					</div>
+				</div>
+				<div class="home-action-text">Enviar</div>
+			</div>
+		</div>
+		<!-- end of actions -->
+	</div>
+</div>
+
+<div class="home-main h-full" fxLayout="column" fxLayoutAlign="start center">
+	<div class="home-main-div">
+		<div class="home-main-header">
+			<div class="home-header-left">
+				<div class="home-icon-container">
+					<div class="home-icon home-header-left">
+						<div class="home-icon-svg">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path
+									d="M16.625 6.75L14.9375 3.75H12.455L11.1875 1.5H7.8125L6.545 3.75H4.0625L2.375 6.75L3.6425 9L2.375 11.25L4.0625 14.25H6.545L7.8125 16.5H11.1875L12.455 14.25H14.9375L16.625 11.25L15.3575 9L16.625 6.75ZM14.9075 6.75L14.0675 8.25H12.4625L11.6225 6.75L12.4625 5.25H14.0675L14.9075 6.75ZM8.705 10.5L7.865 9L8.705 7.5H10.295L11.135 9L10.295 10.5H8.705ZM10.31 3L11.15 4.485L10.295 6H8.705L7.85 4.485L8.69 3H10.31ZM4.94 5.25H6.545L7.385 6.75L6.545 8.25H4.94L4.0925 6.75L4.94 5.25ZM4.0925 11.25L4.9325 9.75H6.5375L7.3775 11.25L6.5375 12.75H4.94L4.0925 11.25ZM8.69 15L7.85 13.515L8.705 12H10.295L11.1425 13.515L10.31 15H8.69ZM14.06 12.75H12.455L11.615 11.25L12.455 9.75H14.06L14.9 11.25L14.06 12.75Z"
+									fill="#46464F"
+								/>
+							</svg>
+						</div>
+						<div class="home-icon-svg">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path
+									d="M12.9425 6.22168L9.5 9.65668L6.0575 6.22168L5 7.27918L9.5 11.7792L14 7.27918L12.9425 6.22168Z"
+									fill="#46464F"
+								/>
+							</svg>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="home-header-center">
+				<div class="home-account-info">
+					<div class="home-account-name">Account 1</div>
+					<div class="home-account-dropdown">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#1F1F1F" />
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class="home-header-right">
+				<div (click)="openFullPage()" class="home-wallet">
+					<div class="home-wallet-image">
+						<img [src]="wallet.image" *ngIf="wallet && wallet.image" />
+					</div>
+				</div>
+				<div class="home-wallet-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+						<path
+							d="M12.5 8C13.6 8 14.5 7.1 14.5 6C14.5 4.9 13.6 4 12.5 4C11.4 4 10.5 4.9 10.5 6C10.5 7.1 11.4 8 12.5 8ZM12.5 10C11.4 10 10.5 10.9 10.5 12C10.5 13.1 11.4 14 12.5 14C13.6 14 14.5 13.1 14.5 12C14.5 10.9 13.6 10 12.5 10ZM12.5 16C11.4 16 10.5 16.9 10.5 18C10.5 19.1 11.4 20 12.5 20C13.6 20 14.5 19.1 14.5 18C14.5 16.9 13.6 16 12.5 16Z"
+							fill="#46464F"
+						/>
+					</svg>
+				</div>
+			</div>
+		</div>
+
+		<div fxLayout="row" fxLayoutAlign="center center">
+			<div class="home-wallet-info" fxLayout="row" fxLayoutAlign="center center">
+				<div class="home-wallet-address">{{ getAddress() }}</div>
+				<div class="home-wallet-copy">
+					<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+						<path d="M5.83398 4.66699H13.1673V14.0003H5.83398V4.66699Z" fill="#010333" />
+						<path
+							d="M11.1673 0.666992H3.16732C2.43398 0.666992 1.83398 1.26699 1.83398 2.00033V11.3337H3.16732V2.00033H11.1673V0.666992ZM13.1673 3.33366H5.83398C5.10065 3.33366 4.50065 3.93366 4.50065 4.66699V14.0003C4.50065 14.7337 5.10065 15.3337 5.83398 15.3337H13.1673C13.9007 15.3337 14.5007 14.7337 14.5007 14.0003V4.66699C14.5007 3.93366 13.9007 3.33366 13.1673 3.33366ZM13.1673 14.0003H5.83398V4.66699H13.1673V14.0003Z"
+							fill="#010333"
+						/>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<div class="home-balance" *ngIf="balances && balances.eth">
+			<div class="home-balance-info">
+				<div class="home-balance-amount">{{ balances.eth }} ETH</div>
+				<!-- <div class="home-balance-value">658,47 US$</div> -->
+			</div>
+		</div>
+		<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
+			<div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+							<path
+								d="M12.5 4C16.91 4 20.5 7.59 20.5 12C20.5 16.41 16.91 20 12.5 20C8.09 20 4.5 16.41 4.5 12C4.5 7.59 8.09 4 12.5 4ZM12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM13.5 12V8H11.5V12H8.5L12.5 16L16.5 12H13.5Z"
+								fill="#010333"
+							/>
+						</svg>
+					</div>
+				</div>
+				<div class="home-action-text">Recibir</div>
+			</div>
+			<div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+							<path
+								d="M9.79563 5.7041C9.79563 6.2641 10.2456 6.7041 10.7956 6.7041H16.3856L5.49562 17.5941C5.10563 17.9841 5.10563 18.6141 5.49562 19.0041C5.88563 19.3941 6.51563 19.3941 6.90563 19.0041L17.7956 8.1141V13.7041C17.7956 14.2541 18.2456 14.7041 18.7956 14.7041C19.3456 14.7041 19.7956 14.2541 19.7956 13.7041V5.7041C19.7956 5.1541 19.3456 4.7041 18.7956 4.7041H10.7956C10.2456 4.7041 9.79563 5.1541 9.79563 5.7041Z"
+								fill="#010333"
+							/>
+						</svg>
+					</div>
+				</div>
+				<div class="home-action-text">Enviar</div>
+			</div>
+			<!-- <div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<div style="width: 17.57px; height: 12.59px; left: 3.21px; top: 5.71px; position: absolute; background: #010333"></div>
+					</div>
+				</div>
+				<div class="home-action-text">Intercambio</div>
+			</div> -->
+			<!-- <div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<div style="width: 19px; height: 14px; left: 2.5px; top: 5px; position: absolute; background: #010333"></div>
+					</div>
+				</div>
+				<div class="home-action-text">Puente</div>
+			</div> -->
+			<!-- <div class="home-action">
+				<div class="home-action-icon">
+					<div class="home-action-icon-box">
+						<div style="width: 16px; height: 16px; left: 4px; top: 4px; position: absolute; background: #010333"></div>
+					</div>
+				</div>
+				<div class="home-action-text">Productos</div>
+			</div> -->
+		</div>
+		<div class="home-tabs">
+			<div style="align-self: stretch; justify-content: flex-start; align-items: flex-start; display: inline-flex">
+				<div class="home-tab">
+					<div
+						style="
+							align-self: stretch;
+							flex: 1 1 0;
+							padding-left: 16px;
+							padding-right: 16px;
+							flex-direction: column;
+							justify-content: flex-end;
+							align-items: center;
+							display: flex;
+						"
+					>
+						<div
+							style="
+								width: 52px;
+								padding-top: 14px;
+								padding-bottom: 14px;
+								flex-direction: column;
+								justify-content: flex-end;
+								align-items: center;
+								gap: 12px;
+								display: flex;
+							"
+						>
+							<div class="home-tab-text">Tokens</div>
+						</div>
+					</div>
+				</div>
+				<div class="home-tab">
+					<div
+						style="
+							align-self: stretch;
+							flex: 1 1 0;
+							padding-left: 16px;
+							padding-right: 16px;
+							flex-direction: column;
+							justify-content: flex-end;
+							align-items: center;
+							display: flex;
+						"
+					>
+						<div
+							style="
+								height: 48px;
+								padding-top: 14px;
+								padding-bottom: 14px;
+								justify-content: center;
+								align-items: flex-end;
+								gap: 10px;
+								display: inline-flex;
+							"
+						>
+							<div class="home-tab-text">NFTs</div>
+						</div>
+					</div>
+				</div>
+				<div class="home-tab">
+					<div
+						style="
+							align-self: stretch;
+							flex: 1 1 0;
+							padding-left: 16px;
+							padding-right: 16px;
+							flex-direction: column;
+							justify-content: flex-end;
+							align-items: center;
+							display: flex;
+						"
+					>
+						<div
+							style="
+								height: 48px;
+								padding-top: 14px;
+								padding-bottom: 14px;
+								justify-content: center;
+								align-items: flex-end;
+								gap: 10px;
+								display: inline-flex;
+							"
+						>
+							<div class="home-tab-text">Actividad</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="align-self: stretch; height: 1px; flex-direction: column; justify-content: center; align-items: flex-start; display: flex">
+				<div style="align-self: stretch; height: 0px; border: 1px #e2e2e6 solid"></div>
+			</div>
+		</div>
+		<div class="home-transactions">
+			<div class="home-transaction">
+				<div class="home-action-extra">
+					<div class="home-action-extra-icon">
+						<div class="home-action-extra-icon-box">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path d="M15.5 9.75H10.25V15H8.75V9.75H3.5V8.25H8.75V3H10.25V8.25H15.5V9.75Z" fill="#004FE4" />
+							</svg>
+						</div>
+						<div class="home-action-extra-text">Importar tokens</div>
+					</div>
+				</div>
+				<div class="home-action-extra">
+					<div class="home-action-extra-icon">
+						<div class="home-action-extra-icon-box">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path
+									d="M14.75 6L11.75 9H14C14 11.4825 11.9825 13.5 9.5 13.5C8.7425 13.5 8.0225 13.3125 7.4 12.975L6.305 14.07C7.2275 14.655 8.3225 15 9.5 15C12.815 15 15.5 12.315 15.5 9H17.75L14.75 6ZM5 9C5 6.5175 7.0175 4.5 9.5 4.5C10.2575 4.5 10.9775 4.6875 11.6 5.025L12.695 3.93C11.7725 3.345 10.6775 3 9.5 3C6.185 3 3.5 5.685 3.5 9H1.25L4.25 12L7.25 9H5Z"
+									fill="#1C44F9"
+								/>
+							</svg>
+						</div>
+						<div class="home-action-extra-text">Actualizar lista</div>
+					</div>
+				</div>
+				<div class="home-action-extra">
+					<div class="home-action-extra-icon">
+						<div class="home-action-extra-icon-box">
+							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+								<path
+									d="M9.5 1.5C5.36 1.5 2 4.86 2 9C2 13.14 5.36 16.5 9.5 16.5C13.64 16.5 17 13.14 17 9C17 4.86 13.64 1.5 9.5 1.5ZM15.095 6.84L13.01 7.7025C12.6275 6.6825 11.825 5.8725 10.7975 5.4975L11.66 3.4125C13.235 4.0125 14.4875 5.265 15.095 6.84ZM9.5 11.25C8.255 11.25 7.25 10.245 7.25 9C7.25 7.755 8.255 6.75 9.5 6.75C10.745 6.75 11.75 7.755 11.75 9C11.75 10.245 10.745 11.25 9.5 11.25ZM7.3475 3.405L8.225 5.49C7.19 5.865 6.3725 6.6825 5.99 7.7175L3.905 6.8475C4.5125 5.265 5.765 4.0125 7.3475 3.405ZM3.905 11.1525L5.99 10.29C6.3725 11.325 7.1825 12.135 8.2175 12.51L7.34 14.595C5.765 13.9875 4.5125 12.735 3.905 11.1525ZM11.66 14.595L10.7975 12.51C11.825 12.1275 12.635 11.3175 13.01 10.2825L15.095 11.16C14.4875 12.735 13.235 13.9875 11.66 14.595Z"
+									fill="#1C44F9"
+								/>
+							</svg>
+						</div>
+						<div class="home-action-extra-text">Soporte de Biometric Wallet</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align: center" class="content app">
+<!-- <div style="text-align: center" class="content app">
 	<h1>Welcome to {{ title }}!</h1>
 	<span style="display: block">{{ title }} app is running!</span>
 </div>
@@ -18,4 +386,4 @@
 	<li>
 		<h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
 	</li>
-</ul>
+</ul> -->

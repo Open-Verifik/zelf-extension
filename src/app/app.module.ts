@@ -39,6 +39,7 @@ import { StepComponent } from "./step/step.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ExtensionInstructionsComponent } from './extension-instructions/extension-instructions.component';
+import { SendTransactionComponent } from './send-transaction/send-transaction.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -57,6 +58,7 @@ import { ExtensionInstructionsComponent } from './extension-instructions/extensi
 		StepperComponent,
 		StepComponent,
   ExtensionInstructionsComponent,
+  SendTransactionComponent,
 	],
 	imports: [
 		BrowserModule,

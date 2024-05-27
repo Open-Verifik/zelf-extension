@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Observable, Subject } from "rxjs";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -40,7 +40,7 @@ let _this = {
 		// AuthBiometricErrorsDisplayComponent,
 	],
 })
-export class BiometricsGeneralComponent implements OnInit, OnDestroy {
+export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
 	@Input() type?: string;
 	@Input() data: any;
 	@Input() callback: any;
@@ -131,12 +131,27 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	ngAfterViewInit() {
+		// this.setWillReadFrequently(this.maskResultCanvasRef?.nativeElement);
+		// this.setWillReadFrequently(this.ToSendCanvasRef?.nativeElement);
+	}
+
+	private setWillReadFrequently(canvas: HTMLCanvasElement) {
+		if (!canvas) return;
+
+		const context = canvas.getContext("2d", { willReadFrequently: true });
+		// You can now use context for operations like getImageData()
+
+		console.log({ context });
+	}
+
 	_generateSession(type?: string): void {
 		const { hash } = this._walletService.generateUniqueId();
 
 		this._walletService
 			.createLivenessSession({
-				identifier: environment.production ? hash : `${hash}-${Math.random() * 9893839}`,
+				// environment.production ? hash :
+				identifier: `${hash}-${Math.random() * 9893839}`,
 				type,
 			})
 			.subscribe((response) => {

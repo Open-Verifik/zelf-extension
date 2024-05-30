@@ -76,6 +76,11 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this._router.navigate(["/create-wallet"]);
 	}
 
+	goToImportWallet(): void {
+		console.log({ importWallet: true });
+		this._router.navigate(["/import-wallet"]);
+	}
+
 	acceptedTerms(): Boolean {
 		return Boolean(this.termsForm.value.termsAcceptance);
 	}

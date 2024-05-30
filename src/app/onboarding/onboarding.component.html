@@ -39,7 +39,7 @@
 			{{ "onboarding.create_new_wallet" | transloco }}
 		</button>
 
-		<button mat-raised-button class="w-full my-1 rounded-button secondary-button" [disabled]="!acceptedTerms()">
+		<button mat-raised-button class="w-full my-1 rounded-button secondary-button" (click)="goToImportWallet()" [disabled]="!acceptedTerms()">
 			{{ "onboarding.import_wallet" | transloco }}
 		</button>
 

@@ -69,3 +69,42 @@ h1 {
 .rounded-button {
 	border-radius: 12px; /* Adjust this value to increase or decrease the roundness */
 }
+
+.on-card {
+	width: 500px;
+	min-height: 500px;
+	padding: 32px;
+	background: white;
+	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+	border-radius: 24px;
+	border: 1px rgba(0, 0, 0, 0.35) solid;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	display: inline-flex;
+}
+
+.on-title {
+	width: 344px;
+	text-align: center;
+	color: #1c44f9;
+	font-size: 28px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 36px;
+}
+
+.on-description {
+	width: 344px;
+	left: 0px;
+	top: 52px;
+	position: absolute;
+	text-align: center;
+	color: #010333;
+	font-size: 14px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0.1px;
+	word-wrap: break-word;
+}

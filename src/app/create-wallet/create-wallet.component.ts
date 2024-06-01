@@ -58,10 +58,6 @@ export class CreateWalletComponent implements OnInit {
 	_getWallet(walletId: string): void {
 		this._walletService.requestWallet(walletId).subscribe({
 			next: (response) => {
-				console.log({
-					responseWallet: response.data,
-				});
-
 				if (!environment.production) {
 					this.wallet = JSON.parse(localStorage.getItem("wallet") || "");
 

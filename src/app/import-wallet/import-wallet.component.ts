@@ -189,5 +189,7 @@ export class ImportWalletComponent implements OnInit {
 		const encryptedWallet = await this._httpWrapperService.encryptMessage(phrase);
 
 		console.log({ encryptedWallet });
+
+		this.stepperSelected = 1;
 	}
 }

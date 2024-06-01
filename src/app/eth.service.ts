@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import Web3 from "web3";
 import { BehaviorSubject } from "rxjs";
 import * as bip39 from "bip39";
-import hdkey from "@ethereumjs/wallet";
+import { HDNodeWallet, ethers } from "ethers";
 
 @Injectable({
 	providedIn: "root",
@@ -17,13 +17,27 @@ export class EthereumService {
 	}
 
 	createAccount(): any {
-		return {
-			privateKey: "0x39179c1618f02fff134aa70df439b7bd86757d6beb82af6d1304a48d4fe14f6b",
-		};
+		// return {
+		// 	privateKey: "0x39179c1618f02fff134aa70df439b7bd86757d6beb82af6d1304a48d4fe14f6b",
+		// };
 		const account = this.web3.eth.accounts.create();
 		this.account.next(account.address);
 
 		return account; // Be extremely cautious with how you handle the private key
+	}
+
+	validateMnemonic(mnemonic: string): boolean {
+		return bip39.validateMnemonic(mnemonic);
+	}
+
+	generateAddressFromMnemonic(mnemonic: string): HDNodeWallet | null {
+		try {
+			const wallet = ethers.Wallet.fromPhrase(mnemonic);
+
+			return wallet;
+		} catch (exception) {
+			return null;
+		}
 	}
 
 	importAccount(privateKey: string): void {

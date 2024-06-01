@@ -17,10 +17,15 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
+    "skipLibCheck": true,
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "typeRoots": ["./node_modules/@types", "./node_modules"],
+    "paths": {
+      "@openpgp/web-stream-tools": ["node_modules/@openpgp/web-stream-tools"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

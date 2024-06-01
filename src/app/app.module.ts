@@ -40,6 +40,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ExtensionInstructionsComponent } from './extension-instructions/extension-instructions.component';
 import { SendTransactionComponent } from './send-transaction/send-transaction.component';
+import { ImportPhraseStepComponent } from './import-wallet/import-phrase-step/import-phrase-step.component';
+import { PasswordStepComponent } from './common-steps/password-step/password-step.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -59,6 +61,8 @@ import { SendTransactionComponent } from './send-transaction/send-transaction.co
 		StepComponent,
   ExtensionInstructionsComponent,
   SendTransactionComponent,
+  ImportPhraseStepComponent,
+  PasswordStepComponent,
 	],
 	imports: [
 		BrowserModule,

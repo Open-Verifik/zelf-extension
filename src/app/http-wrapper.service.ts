@@ -1,12 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, retry, finalize } from "rxjs";
-
+import * as openpgp from "openpgp";
 @Injectable({
 	providedIn: "root",
 })
 export class HttpWrapperService {
 	public tail: Array<any> = [];
+	private publicKey!: string;
 
 	get progress(): boolean {
 		return !!this.tail.length;
@@ -32,6 +33,9 @@ export class HttpWrapperService {
 
 		if (authToken) {
 			headers["Authorization"] = `Bearer ${authToken}`;
+		}
+
+		if (params.encryption) {
 		}
 
 		switch (method) {
@@ -79,4 +83,34 @@ export class HttpWrapperService {
 			})
 		);
 	}
+
+	setPublicKey(publicKey: string): void {
+		this.publicKey = publicKey;
+	}
+
+	async encryptMessage(data: string): Promise<any> {
+		if (!this.publicKey) return data;
+
+		const publicKey = await openpgp.readKey({ armoredKey: this.publicKey });
+
+		const encryptedMessage = await openpgp.encrypt({
+			message: await openpgp.createMessage({ text: data }),
+			encryptionKeys: publicKey,
+		});
+
+		return encryptedMessage;
+	}
+
+	// async decryptMessage(encryptedMessage: string, privateKeyArmored: string, passphrase: string): Promise<string> {
+	// 	// const privateKey = await openpgp.readKey({ armoredKey: privateKeyArmored });
+	// 	// await privateKey.decrypt(passphrase);
+	// 	// const message = await openpgp.readMessage({
+	// 	// 	armoredMessage: encryptedMessage,
+	// 	// });
+	// 	// const { data: decrypted } = await openpgp.decrypt({
+	// 	// 	message,
+	// 	// 	decryptionKeys: privateKey,
+	// 	// });
+	// 	// return decrypted;
+	// }
 }

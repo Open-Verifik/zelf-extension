@@ -5,7 +5,7 @@
 				<div class="step-number" [ngClass]="{ 'step-number-active': step.isActive, 'step-number-completed': step.isCompleted }">
 					{{ i + 1 }}
 				</div>
-				<div class="step-label">{{ step.label }}</div>
+				<div class="step-label">{{ "steps." + step.label | transloco }}</div>
 			</div>
 		</div>
 	</div>

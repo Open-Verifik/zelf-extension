@@ -5,6 +5,7 @@ import { TranslocoService } from "@ngneat/transloco";
 import { BehaviorSubject, Observable } from "rxjs";
 import * as faceapi from "@vladmandic/face-api";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import * as openpgp from "openpgp";
 
 @Injectable({
 	providedIn: "root",
@@ -159,5 +160,27 @@ export class WalletService {
 
 	createAppRegistration(data: any): Observable<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/v2/app-registrations`, data);
+	}
+
+	async generateKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
+		const { privateKey, publicKey } = await openpgp.generateKey({
+			type: "ecc",
+			curve: "curve25519",
+			userIDs: [{ name: "Your Name", email: "your.email@example.com" }],
+			passphrase: "your_passphrase",
+		});
+
+		return { publicKey, privateKey };
+	}
+
+	async encryptMessage(plainTextMessage: string, publicKeyArmored: string): Promise<any> {
+		const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+
+		const encryptedMessage = await openpgp.encrypt({
+			message: await openpgp.createMessage({ text: plainTextMessage }),
+			encryptionKeys: publicKey,
+		});
+
+		return encryptedMessage;
 	}
 }

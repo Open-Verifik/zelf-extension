@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { EthereumService } from "app/eth.service";
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "app-import-wallet",
@@ -9,13 +13,27 @@ import { Router } from "@angular/router";
 })
 export class ImportWalletComponent implements OnInit {
 	currentStep: number = 1;
+	stepperSelected: number = 0;
 	@ViewChild("importNgForm") importNgForm!: NgForm;
 	importForm: UntypedFormGroup;
 	wordsArray: number[][] = [];
 	wordsPerRow: number = 3;
 	showPassword: boolean[] = [];
 
-	constructor(private _router: Router, private _formBuilder: UntypedFormBuilder) {
+	steps = [
+		{ label: "import_wallet", isActive: true, isCompleted: false },
+		{ label: "add_password", isActive: false, isCompleted: false },
+		{ label: "qr_code_generator", isActive: false, isCompleted: false },
+	];
+
+	constructor(
+		private _router: Router,
+		private _formBuilder: UntypedFormBuilder,
+		private _walletService: WalletService,
+		private _ethService: EthereumService,
+		private snackBar: MatSnackBar,
+		private _httpWrapperService: HttpWrapperService
+	) {
 		this.importForm = this._formBuilder.group({
 			wordsCount: [12, [Validators.required]],
 			word1: ["", [Validators.required]],
@@ -124,5 +142,52 @@ export class ImportWalletComponent implements OnInit {
 	start(): void {
 		// switch to the next step
 		this.currentStep = 2;
+	}
+
+	canImportWallet(): boolean {
+		let count = 0;
+		for (const key in this.importForm.value) {
+			if (!Object.prototype.hasOwnProperty.call(this.importForm.value, key)) continue;
+
+			const element = this.importForm.value[key];
+
+			if (key.includes("Count")) continue;
+
+			if (!element) continue;
+
+			count += 1;
+		}
+
+		return Boolean(count === 12 || count === 24);
+	}
+
+	async validateWallet(): Promise<any> {
+		const value = this.importForm.value;
+
+		let phrase = ``;
+
+		for (const key in value) {
+			if (!Object.prototype.hasOwnProperty.call(value, key)) continue;
+
+			const element = value[key];
+
+			if (key.includes("Count")) continue;
+
+			phrase += `${element} `;
+		}
+
+		phrase = phrase.trim();
+
+		const wallet = this._ethService.generateAddressFromMnemonic(phrase);
+
+		if (!wallet) {
+			this.snackBar.open("Invalid mnemonic phrase", "Close", {
+				duration: 3000,
+			});
+		}
+
+		const encryptedWallet = await this._httpWrapperService.encryptMessage(phrase);
+
+		console.log({ encryptedWallet });
 	}
 }

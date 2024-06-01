@@ -94,5 +94,10 @@
 			"word1": "1.",
 			"paste_note": "You can paste the entire secret recovery phrase in any field"
 		}
+	},
+	"steps": {
+		"import_wallet": "Import your wallet",
+		"add_password": "Create password",
+		"qr_code_generator": "Finish"
 	}
 }

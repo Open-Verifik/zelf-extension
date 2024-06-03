@@ -32,15 +32,11 @@ export class AppComponent implements OnInit {
 			this.publicKey = response.publicKey;
 
 			this._httpWrapperService.setPublicKey(this.publicKey);
-
-			this.secretkey = response.privateKey; // might not be used...
-
-			this.encryptAndSend(this.publicKey);
 		});
 	}
 
 	async encryptAndSend(publicKey: any): Promise<void> {
-		const message = "ifjidjf idifjdi jfidj 111122";
+		const message = "Test test";
 
 		const encryptedMessage = await this._httpWrapperService.encryptMessage(JSON.stringify(message));
 
@@ -52,10 +48,6 @@ export class AppComponent implements OnInit {
 			})
 			.subscribe((response) => {
 				console.log({ response });
-
-				this._sampleDecrypt(response.encryptSomethingBack);
 			});
 	}
-
-	_sampleDecrypt(encryptedMessage: string): void {}
 }

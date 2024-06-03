@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { WalletService } from "app/wallet.service";
+import { environment } from "environments/environment";
 
 @Component({
 	selector: "password-step",
@@ -9,13 +12,18 @@ import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 export class PasswordStepComponent implements OnInit {
 	@ViewChild("passwordNgForm") passwordNgForm!: NgForm;
 	passwordForm!: UntypedFormGroup;
+	loading: boolean = false;
+	session: any;
 
-	constructor(private _formBuilder: UntypedFormBuilder) {}
+	constructor(private _formBuilder: UntypedFormBuilder, private _httpWrapperService: HttpWrapperService, private _walletService: WalletService) {
+		this.session = this._walletService.getSessionData();
+	}
 
 	ngOnInit(): void {
+		const defaultPassword = environment.production ? "" : "SamePassword123";
 		this.passwordForm = this._formBuilder.group({
-			password: ["", []],
-			repeatPassword: ["", []],
+			password: [defaultPassword, []],
+			repeatPassword: [defaultPassword, []],
 			termsAcceptance: [false],
 		});
 	}
@@ -23,11 +31,32 @@ export class PasswordStepComponent implements OnInit {
 	isPasswordCorrect(): boolean {
 		const { password, repeatPassword, termsAcceptance } = this.passwordForm.value;
 
-		return Boolean(password && repeatPassword && password === repeatPassword && termsAcceptance && password.length >= 8);
+		return Boolean(!this.loading && password && repeatPassword && password === repeatPassword && termsAcceptance && password.length >= 8);
 	}
 
 	continueWithoutPassword(): void {
+		this.session.password = "";
+		this.session.usePassword = false;
+		this.session.step += 1;
 		// this.currentStep++;
 		// this.updateSteps();
+	}
+
+	async addPassword(): Promise<any> {
+		this.loading = true;
+		// get it from the form
+		const password = this.passwordForm.value.password;
+
+		// encrypt it
+		this.session.password = await this._httpWrapperService.encryptMessage(password);
+
+		this.loading = false;
+
+		console.log({ session: this.session });
+
+		this.session.step += 1;
+
+		// pass the value to the service
+		// move forward into the step in the navigation
 	}
 }

@@ -12,19 +12,13 @@ import { WalletService } from "app/wallet.service";
 	styleUrls: ["./import-wallet.component.scss", "../main.scss"],
 })
 export class ImportWalletComponent implements OnInit {
-	currentStep: number = 1;
 	stepperSelected: number = 0;
 	@ViewChild("importNgForm") importNgForm!: NgForm;
 	importForm: UntypedFormGroup;
 	wordsArray: number[][] = [];
 	wordsPerRow: number = 3;
 	showPassword: boolean[] = [];
-
-	steps = [
-		{ label: "import_wallet", isActive: true, isCompleted: false },
-		{ label: "add_password", isActive: false, isCompleted: false },
-		{ label: "qr_code_generator", isActive: false, isCompleted: false },
-	];
+	session: any;
 
 	constructor(
 		private _router: Router,
@@ -67,6 +61,14 @@ export class ImportWalletComponent implements OnInit {
 		for (let i = 1; i <= 24; i++) {
 			this.showPassword.push(false);
 		}
+
+		this.session = this._walletService.getSessionData();
+
+		this._walletService.setSteps([
+			{ label: "import_wallet", isActive: true, isCompleted: false },
+			{ label: "add_password", isActive: false, isCompleted: false },
+			{ label: "qr_code_generator", isActive: false, isCompleted: false },
+		]);
 	}
 
 	ngOnInit(): void {
@@ -140,12 +142,12 @@ export class ImportWalletComponent implements OnInit {
 	}
 
 	start(): void {
-		// switch to the next step
-		this.currentStep = 2;
+		this.session.navigationStep++;
 	}
 
 	canImportWallet(): boolean {
 		let count = 0;
+
 		for (const key in this.importForm.value) {
 			if (!Object.prototype.hasOwnProperty.call(this.importForm.value, key)) continue;
 
@@ -186,10 +188,8 @@ export class ImportWalletComponent implements OnInit {
 			});
 		}
 
-		const encryptedWallet = await this._httpWrapperService.encryptMessage(phrase);
+		this.session.phrase = await this._httpWrapperService.encryptMessage(phrase);
 
-		console.log({ encryptedWallet });
-
-		this.stepperSelected = 1;
+		this._walletService.goToNextStep(this.session.step + 1);
 	}
 }

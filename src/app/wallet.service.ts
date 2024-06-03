@@ -16,6 +16,13 @@ export class WalletService {
 	deviceData: any = {
 		generalInformation: [],
 	};
+	sessionData: any = {
+		step: 0,
+		navigationStep: 1,
+		password: "",
+		usePassword: false,
+		phrase: "",
+	};
 
 	constructor(
 		private _httpWrapper: HttpWrapperService,
@@ -37,6 +44,46 @@ export class WalletService {
 
 	getDeviceData() {
 		return this.deviceData;
+	}
+
+	getSessionData() {
+		return this.sessionData;
+	}
+
+	setSteps(steps: Array<any>): void {
+		this.sessionData.steps = steps;
+	}
+
+	goToNextStep(stepIndex: number): void {
+		const step = this.sessionData.steps[stepIndex];
+
+		const previousStep = this.sessionData.steps[stepIndex - 1];
+
+		if (step) {
+			step.isActive = true;
+
+			step.isCompleted = false;
+		}
+
+		if (previousStep) {
+			previousStep.isActive = false;
+
+			previousStep.isCompleted = true;
+		}
+
+		this.sessionData.step = stepIndex;
+
+		console.log({ session: this.sessionData });
+	}
+
+	restoreSession(): void {
+		localStorage.removeItem("wallet");
+
+		localStorage.removeItem("walletId");
+
+		this.sessionData.step = 0;
+		this.sessionData.password = "";
+		this.sessionData.usePassword = false;
 	}
 
 	get faceapi$(): Observable<boolean> {

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
+import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "app-onboarding",
@@ -35,12 +36,13 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	private intervalId: any;
 	activeIndex = 0;
 
-	constructor(private _router: Router, private _translocoService: TranslocoService, private _formBuilder: UntypedFormBuilder) {
-		const currentLang = this._translocoService.getActiveLang();
-
-		localStorage.removeItem("wallet");
-
-		localStorage.removeItem("walletId");
+	constructor(
+		private _router: Router,
+		private _translocoService: TranslocoService,
+		private _formBuilder: UntypedFormBuilder,
+		private _walletService: WalletService
+	) {
+		this._walletService.restoreSession();
 	}
 
 	ngOnInit(): void {

@@ -42,6 +42,7 @@ import { ExtensionInstructionsComponent } from './extension-instructions/extensi
 import { SendTransactionComponent } from './send-transaction/send-transaction.component';
 import { ImportPhraseStepComponent } from './import-wallet/import-phrase-step/import-phrase-step.component';
 import { PasswordStepComponent } from './common-steps/password-step/password-step.component';
+import { BiometricInstructionsComponent } from './common-steps/biometric-instructions/biometric-instructions.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -63,6 +64,7 @@ import { PasswordStepComponent } from './common-steps/password-step/password-ste
   SendTransactionComponent,
   ImportPhraseStepComponent,
   PasswordStepComponent,
+  BiometricInstructionsComponent,
 	],
 	imports: [
 		BrowserModule,

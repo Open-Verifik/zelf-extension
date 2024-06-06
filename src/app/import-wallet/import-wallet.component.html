@@ -176,7 +176,12 @@
 
 				<password-step *ngIf="session.step === 1"></password-step>
 
-				<div *ngIf="session.step === 2">step 2 now</div>
+				<biometric-instructions *ngIf="session.step === 2"> </biometric-instructions>
+
+				<ng-container *ngIf="session.step === 3">
+					<biometrics-general [type]="'importWallet'" [data]="session"> </biometrics-general>
+				</ng-container>
+				<
 			</app-step>
 		</app-stepper>
 	</div>

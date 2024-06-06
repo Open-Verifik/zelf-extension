@@ -192,4 +192,12 @@ export class ImportWalletComponent implements OnInit {
 
 		this._walletService.goToNextStep(this.session.step + 1);
 	}
+
+	startEncryption(): void {
+		this.session.step += 1;
+	}
+
+	startCamera(): void {
+		this.session.step += 1;
+	}
 }

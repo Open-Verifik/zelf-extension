@@ -72,8 +72,6 @@ export class WalletService {
 		}
 
 		this.sessionData.step = stepIndex;
-
-		console.log({ session: this.sessionData });
 	}
 
 	restoreSession(): void {
@@ -203,6 +201,10 @@ export class WalletService {
 
 	decryptWAllet(data: any): Observable<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/decrypt`, data);
+	}
+
+	importWallet(data: any): Observable<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/import`, data);
 	}
 
 	createAppRegistration(data: any): Observable<any> {

@@ -12,12 +12,12 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { WalletService } from "../wallet.service";
 
-import { environment } from "environments/environment";
 // import { AuthBiometricErrorsDisplayComponent } from "../auth-biometric-errors-display/auth-biometric-errors-display.component";
 import { Router } from "@angular/router";
 import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalData, ResponseData, directionImage } from "./sdk.models";
 
 import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
+import { HttpWrapperService } from "app/http-wrapper.service";
 
 let _this = {
 	biometricsLoginCalled: false,
@@ -67,6 +67,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	direction!: directionImage;
 	showError: Boolean;
 	errorContent: any;
+	session: any;
 
 	private _unsubscribeAll: Subject<any> = new Subject<any>();
 	private takePicture: Subject<void> = new Subject<void>();
@@ -76,11 +77,13 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		private _changeDetectorRef: ChangeDetectorRef,
 		private _walletService: WalletService,
 		private _translocoService: TranslocoService,
-		// private _splashScreenService: FuseSplashScreenService,
 		private renderer: Renderer2,
-		private _navigation: Router
+		private _navigation: Router,
+		private _httpWrapperService: HttpWrapperService
 	) {
 		this.deviceData = this._walletService.getDeviceData();
+
+		this.session = this._walletService.getSessionData();
 
 		this.startDefaultValues();
 
@@ -141,8 +144,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
 		const context = canvas.getContext("2d", { willReadFrequently: true });
 		// You can now use context for operations like getImageData()
-
-		console.log({ context });
 	}
 
 	_generateSession(type?: string): void {
@@ -363,13 +364,9 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		const { isLoading = true, start, result } = paramsLoading;
 		const key: "camera" | "response" = (start && "camera") || (result && "response");
 
-		// console.log("loading triggered", paramsLoading, { response: this.response.isLoading, key });
-
 		if (key && this[key]) {
 			this[key].isLoading = isLoading;
 		}
-
-		// console.log("AFTER triggered", paramsLoading, { response: this.response.isLoading, key });
 	}
 
 	cameraError(error: WebcamInitError): void {
@@ -387,8 +384,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		img.src = webcamImage.imageAsDataUrl;
 
 		img.onload = async () => {
-			console.log("camera load");
-
 			if (img.height < this.face.minHeight) {
 				this.camera.isLowQuality = true;
 
@@ -547,7 +542,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		}
 	}
 
-	biometricsLogin(): void {
+	async biometricsLogin(): Promise<any> {
 		// Check if the function has already been called
 		if (_this["biometricsLoginCalled"]) return;
 
@@ -563,12 +558,17 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			os: this.deviceData.OS,
 		};
 
+		payload.image = await this._httpWrapperService.encryptMessage(payload.image);
+
 		switch (this.type) {
 			case "createWallet":
 				this._createWallet(payload, this.data);
 				break;
 			case "decryptWallet":
 				this._decryptWallet(payload, this.data);
+				break;
+			case "importWallet":
+				this._importWallet(payload, this.data);
 				break;
 			default:
 				break;
@@ -607,6 +607,26 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			.subscribe({
 				next: (response) => {
 					this.callback(response.data);
+				},
+				error: (err) => {
+					this.errorContent = err.error;
+					this.retryLivenessModal(err.error?.message);
+					this.loading({ isLoading: false, result: true });
+				},
+				complete: () => {},
+			});
+	}
+
+	_importWallet(payload: any, data: any): void {
+		this._walletService
+			.importWallet({
+				faceBase64: payload.image,
+				password: data.password || undefined,
+				phrase: data.phrase,
+			})
+			.subscribe({
+				next: (response) => {
+					console.log({ response });
 				},
 				error: (err) => {
 					this.errorContent = err.error;

@@ -626,11 +626,15 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.subscribe({
 				next: (response) => {
-					console.log({ response });
+					this.session.walletCreated = response.data;
+
+					this._walletService.goToNextStep(this.session.step + 1);
 				},
 				error: (err) => {
 					this.errorContent = err.error;
+
 					this.retryLivenessModal(err.error?.message);
+
 					this.loading({ isLoading: false, result: true });
 				},
 				complete: () => {},

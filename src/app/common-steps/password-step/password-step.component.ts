@@ -17,6 +17,7 @@ export class PasswordStepComponent implements OnInit {
 
 	constructor(private _formBuilder: UntypedFormBuilder, private _httpWrapperService: HttpWrapperService, private _walletService: WalletService) {
 		this.session = this._walletService.getSessionData();
+		console.log("password step ...");
 	}
 
 	ngOnInit(): void {
@@ -37,9 +38,7 @@ export class PasswordStepComponent implements OnInit {
 	continueWithoutPassword(): void {
 		this.session.password = "";
 		this.session.usePassword = false;
-		this.session.step += 1;
-		// this.currentStep++;
-		// this.updateSteps();
+		this.session.showBiometricsInstructions = true;
 	}
 
 	async addPassword(): Promise<any> {
@@ -52,9 +51,7 @@ export class PasswordStepComponent implements OnInit {
 
 		this.loading = false;
 
-		console.log({ session: this.session });
-
-		this.session.step += 1;
+		this.session.showBiometricsInstructions = true;
 
 		// pass the value to the service
 		// move forward into the step in the navigation

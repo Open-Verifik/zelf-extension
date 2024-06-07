@@ -65,9 +65,21 @@ export class ImportWalletComponent implements OnInit {
 		this.session = this._walletService.getSessionData();
 
 		this._walletService.setSteps([
-			{ label: "import_wallet", isActive: true, isCompleted: false },
-			{ label: "add_password", isActive: false, isCompleted: false },
-			{ label: "qr_code_generator", isActive: false, isCompleted: false },
+			{
+				label: "import_wallet",
+				isActive: true,
+				isCompleted: false,
+			},
+			{
+				label: "add_password",
+				isActive: false,
+				isCompleted: false,
+			},
+			{
+				label: "qr_code_generator",
+				isActive: false,
+				isCompleted: false,
+			},
 		]);
 	}
 
@@ -199,5 +211,21 @@ export class ImportWalletComponent implements OnInit {
 
 	startCamera(): void {
 		this.session.step += 1;
+	}
+
+	canSeePasswordStep(index: number): boolean {
+		return Boolean(index === 1 && this.session.step === 1 && !this.session.showBiometricsInstructions && !this.session.showBiometrics);
+	}
+
+	canSeeBiometricInstructions(index: number): boolean {
+		return Boolean(index === 1 && this.session.step === 1 && this.session.showBiometricsInstructions);
+	}
+
+	canSeeBiometrics(index: number): boolean {
+		return Boolean(index === 1 && this.session.step === 1 && this.session.showBiometrics);
+	}
+
+	canSeeQRCode(index: number): boolean {
+		return Boolean(index === 2 && this.session.step === 2);
 	}
 }

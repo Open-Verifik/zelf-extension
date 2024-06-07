@@ -38,11 +38,12 @@ import { StepperComponent } from "./stepper/stepper.component";
 import { StepComponent } from "./step/step.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { ExtensionInstructionsComponent } from './extension-instructions/extension-instructions.component';
-import { SendTransactionComponent } from './send-transaction/send-transaction.component';
-import { ImportPhraseStepComponent } from './import-wallet/import-phrase-step/import-phrase-step.component';
-import { PasswordStepComponent } from './common-steps/password-step/password-step.component';
-import { BiometricInstructionsComponent } from './common-steps/biometric-instructions/biometric-instructions.component';
+import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
+import { SendTransactionComponent } from "./send-transaction/send-transaction.component";
+import { ImportPhraseStepComponent } from "./import-wallet/import-phrase-step/import-phrase-step.component";
+import { PasswordStepComponent } from "./common-steps/password-step/password-step.component";
+import { BiometricInstructionsComponent } from "./common-steps/biometric-instructions/biometric-instructions.component";
+import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/import-qr-code-step.component";
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -60,11 +61,12 @@ import { BiometricInstructionsComponent } from './common-steps/biometric-instruc
 		FooterComponent,
 		StepperComponent,
 		StepComponent,
-  ExtensionInstructionsComponent,
-  SendTransactionComponent,
-  ImportPhraseStepComponent,
-  PasswordStepComponent,
-  BiometricInstructionsComponent,
+		ExtensionInstructionsComponent,
+		SendTransactionComponent,
+		ImportPhraseStepComponent,
+		PasswordStepComponent,
+		BiometricInstructionsComponent,
+		ImportQrCodeStepComponent,
 	],
 	imports: [
 		BrowserModule,

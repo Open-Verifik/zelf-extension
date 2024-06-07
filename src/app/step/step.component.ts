@@ -20,5 +20,6 @@ import { Component, Input } from "@angular/core";
 export class StepComponent {
 	@Input() isActive: boolean = false;
 	@Input() isCompleted: boolean = false;
+	@Input() isHidden: boolean = false;
 	@Input() label: string = "";
 }

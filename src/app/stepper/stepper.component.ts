@@ -10,10 +10,13 @@ export class StepperComponent implements AfterContentInit {
 	currentStep = 0;
 	numberOfSteps = 0;
 
+	constructor() {}
+
 	@ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
 
 	ngAfterContentInit() {
 		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
+
 		this.updateSteps();
 	}
 

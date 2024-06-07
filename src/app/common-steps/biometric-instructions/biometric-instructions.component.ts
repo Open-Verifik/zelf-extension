@@ -4,7 +4,7 @@ import { WalletService } from "app/wallet.service";
 @Component({
 	selector: "biometric-instructions",
 	template: `
-		<div class="bi-container" *ngIf="session.step === 2">
+		<div class="bi-container">
 			<div class="cw-pst-content w-full" fxLayout="column" fxLayoutAlign="space-between center">
 				<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
 					<img src="https://cdn.verifik.co/wallet/info_cr.svg" alt="" />
@@ -50,6 +50,8 @@ export class BiometricInstructionsComponent implements OnInit {
 	ngOnInit(): void {}
 
 	startCamera(): void {
-		this.session.step += 1;
+		this.session.showBiometricsInstructions = false;
+
+		this.session.showBiometrics = true;
 	}
 }

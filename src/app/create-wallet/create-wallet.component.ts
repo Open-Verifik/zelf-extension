@@ -12,11 +12,6 @@ import { TranslocoService } from "@ngneat/transloco";
 	styleUrls: ["./create-wallet.component.scss", "../main.scss"],
 })
 export class CreateWalletComponent implements OnInit {
-	steps = [
-		{ label: "Crear contraseña", isActive: false, isCompleted: false },
-		{ label: "Seguridad biométrica", isActive: false, isCompleted: false },
-		{ label: "Finalizar", isActive: false, isCompleted: false },
-	];
 	@ViewChild("signUpNgForm") signUpNgForm!: NgForm;
 	signUpForm!: UntypedFormGroup;
 	showBiometrics: boolean = false;
@@ -25,6 +20,7 @@ export class CreateWalletComponent implements OnInit {
 	formLoaded: boolean = false;
 	wallet: any;
 	words!: Array<any>;
+	session: any;
 
 	constructor(
 		private _formBuilder: UntypedFormBuilder,
@@ -33,6 +29,16 @@ export class CreateWalletComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService
 	) {
+		this.session = this._walletService.getSessionData();
+
+		this.session.type = "create";
+
+		this._walletService.setSteps([
+			{ label: "add_password", isActive: false, isCompleted: false },
+			{ label: "biometrics", isActive: false, isCompleted: false },
+			{ label: "qr_code_generator", isActive: false, isCompleted: false },
+		]);
+
 		this.afterBiometricsCallback = this.afterBiometricsCallback.bind(this);
 	}
 
@@ -86,9 +92,9 @@ export class CreateWalletComponent implements OnInit {
 	}
 
 	private updateSteps() {
-		if (!this.steps) return;
+		if (!this.session.steps) return;
 
-		this.steps.forEach((step: any, index: number) => {
+		this.session.steps.forEach((step: any, index: number) => {
 			step.isActive = index === this.currentStep;
 			step.isCompleted = index < this.currentStep;
 		});
@@ -110,8 +116,6 @@ export class CreateWalletComponent implements OnInit {
 
 		this.wallet = response;
 
-		console.log({ wallet: this.wallet });
-
 		this._prepareWords();
 
 		this.showBiometrics = false;
@@ -132,8 +136,6 @@ export class CreateWalletComponent implements OnInit {
 
 			this.words.push({ id: key, word });
 		}
-
-		console.log({ words: this.words });
 	}
 
 	isPasswordCorrect(): boolean {
@@ -201,5 +203,13 @@ export class CreateWalletComponent implements OnInit {
 
 	goToInstructions(): void {
 		this._router.navigate(["extension-instructions"]);
+	}
+
+	canSeePasswordStep(index: number): boolean {
+		return Boolean(index === 0 && this.session.step === 0 && !this.showBiometrics);
+	}
+
+	canSeeWordsCountStep(index: number): boolean {
+		return Boolean(index === 1 && this.session.step === 1 && !this.showBiometrics && !this.showBiometricsInstructions);
 	}
 }

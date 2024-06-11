@@ -14,11 +14,12 @@ import { WalletService } from "app/wallet.service";
 export class ImportWalletComponent implements OnInit {
 	stepperSelected: number = 0;
 	@ViewChild("importNgForm") importNgForm!: NgForm;
-	importForm: UntypedFormGroup;
+	importForm!: UntypedFormGroup;
 	wordsArray: number[][] = [];
 	wordsPerRow: number = 3;
 	showPassword: boolean[] = [];
 	session: any;
+	wallet: any;
 
 	constructor(
 		private _router: Router,
@@ -28,6 +29,36 @@ export class ImportWalletComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private _httpWrapperService: HttpWrapperService
 	) {
+		this._initForm();
+
+		this.session = this._walletService.getSessionData();
+
+		this.wallet = this._walletService.getWallet();
+
+		if (this.wallet) {
+			this.session.navigationStep = 3;
+		}
+
+		this._walletService.setSteps([
+			{
+				label: "import_wallet",
+				isActive: Boolean(this.session.step === 0),
+				isCompleted: Boolean(this.session.step > 0),
+			},
+			{
+				label: "add_password",
+				isActive: Boolean(this.session.step === 1),
+				isCompleted: Boolean(this.session.step > 1),
+			},
+			{
+				label: "qr_code_generator",
+				isActive: Boolean(this.session.step === 2),
+				isCompleted: Boolean(this.session.step > 2),
+			},
+		]);
+	}
+
+	_initForm(): void {
 		this.importForm = this._formBuilder.group({
 			wordsCount: [12, [Validators.required]],
 			word1: ["", [Validators.required]],
@@ -61,26 +92,6 @@ export class ImportWalletComponent implements OnInit {
 		for (let i = 1; i <= 24; i++) {
 			this.showPassword.push(false);
 		}
-
-		this.session = this._walletService.getSessionData();
-
-		this._walletService.setSteps([
-			{
-				label: "import_wallet",
-				isActive: true,
-				isCompleted: false,
-			},
-			{
-				label: "add_password",
-				isActive: false,
-				isCompleted: false,
-			},
-			{
-				label: "qr_code_generator",
-				isActive: false,
-				isCompleted: false,
-			},
-		]);
 	}
 
 	ngOnInit(): void {
@@ -211,6 +222,10 @@ export class ImportWalletComponent implements OnInit {
 
 	startCamera(): void {
 		this.session.step += 1;
+	}
+
+	canSee12WordsStep(index: number): boolean {
+		return Boolean(index === 0 && this.session.step === 0);
 	}
 
 	canSeePasswordStep(index: number): boolean {

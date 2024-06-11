@@ -629,6 +629,10 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 					this.session.walletCreated = response.data;
 
 					this._walletService.goToNextStep(this.session.step + 1);
+
+					localStorage.setItem("walletId", response.data._id);
+
+					localStorage.setItem("wallet", JSON.stringify(response.data));
 				},
 				error: (err) => {
 					this.errorContent = err.error;

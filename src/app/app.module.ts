@@ -44,6 +44,7 @@ import { ImportPhraseStepComponent } from "./import-wallet/import-phrase-step/im
 import { PasswordStepComponent } from "./common-steps/password-step/password-step.component";
 import { BiometricInstructionsComponent } from "./common-steps/biometric-instructions/biometric-instructions.component";
 import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/import-qr-code-step.component";
+import { WordsPickerStepComponent } from './create-wallet/words-picker-step/words-picker-step.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -67,6 +68,7 @@ import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/i
 		PasswordStepComponent,
 		BiometricInstructionsComponent,
 		ImportQrCodeStepComponent,
+  WordsPickerStepComponent,
 	],
 	imports: [
 		BrowserModule,

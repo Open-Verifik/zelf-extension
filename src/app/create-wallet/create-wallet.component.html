@@ -8,104 +8,18 @@
 
 	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper>
-			<app-step *ngFor="let step of steps; index as i" [isActive]="step.isActive" [isCompleted]="step.isCompleted" [label]="step.label">
+			<app-step *ngFor="let step of session.steps; index as i" [isActive]="step.isActive" [isCompleted]="step.isCompleted" [label]="step.label">
 				<!-- password step -->
-				<div class="cw-pst-container" *ngIf="currentStep === 0 && !showBiometrics">
-					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
-						<div class="cw-pst-content-d">
-							<div style="height: 112px; position: relative">
-								<div class="cw-pst-title">{{ "create_wallet.password_step.title" | transloco }}</div>
-								<div class="cr-pst-description">
-									{{ "create_wallet.password_step.description" | transloco }}
-								</div>
-							</div>
-						</div>
-						<div>
-							<form class="example-form" [formGroup]="signUpForm" #signUpNgForm="ngForm">
-								<mat-form-field class="w-full">
-									<mat-label>{{ "create_wallet.password_step.password_label" | transloco }}</mat-label>
-									<input type="password" matInput [formControlName]="'password'" />
-									<mat-error *ngIf="signUpForm.get('password')?.hasError('required')">
-										{{ "create_wallet.password_step.password_label" | transloco }} {{ "common.is_required" | transloco }}
-									</mat-error>
-								</mat-form-field>
+				<ng-container *ngIf="canSeePasswordStep(i)">
+					<password-step> </password-step>
+				</ng-container>
 
-								<mat-form-field class="w-full">
-									<mat-label>{{ "create_wallet.password_step.repeat_password_label" | transloco }}</mat-label>
-									<input type="password" matInput [formControlName]="'repeatPassword'" />
-									<mat-error *ngIf="signUpForm.get('repeatPassword')?.hasError('required')">
-										{{ "create_wallet.password_step.repeat_password_label" | transloco }} {{ "common.is_required" | transloco }}
-									</mat-error>
-								</mat-form-field>
-
-								<div fxLayout="column" fxLayoutAlign="start start">
-									<mat-checkbox [formControlName]="'termsAcceptance'" class="on-checkbox">
-										{{ "create_wallet.password_step.agreement" | transloco }}
-									</mat-checkbox>
-
-									<a href="#" class="mt-2 ml-10">{{ "common.more_info" | transloco }} </a>
-								</div>
-							</form>
-						</div>
-
-						<button mat-raised-button class="w-full rounded-button main-button" [disabled]="!isPasswordCorrect()">
-							{{ "create_wallet.password_step.add_password" | transloco }}
-						</button>
-						<button mat-raised-button class="w-full rounded-button secondary-button" (click)="continueWithoutPassword()">
-							{{ "create_wallet.password_step.continue_without_password" | transloco }}
-						</button>
-					</div>
-				</div>
 				<!-- end of password step -->
 
 				<!-- step 1 -->
-				<div class="cw-phrase-container" *ngIf="currentStep === 1 && !showBiometrics && !showBiometricsInstructions">
-					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
-						<div class="cw-phrase-content-d w-full" fxLayout="column" fxLayoutAlign="start center">
-							<div fxLayout="column" fxLayoutAlign="start center">
-								<div class="cw-pst-title">{{ "create_wallet.phrase_step.title" | transloco }}</div>
-								<div class="cw-phrase-description">
-									{{ "create_wallet.phrase_step.description" | transloco }}
-								</div>
-
-								<div class="cw-phrase-description">
-									{{ "create_wallet.phrase_step.description_2" | transloco }}
-								</div>
-
-								<div class="cw-phrase-subtitle">{{ "create_wallet.phrase_step.subtitle" | transloco }}</div>
-								<div class="cw-phrase-description">
-									{{ "create_wallet.phrase_step.description_4" | transloco }}
-								</div>
-							</div>
-						</div>
-						<div class="w-full">
-							<form class="example-form" [formGroup]="signUpForm" #signUpNgForm="ngForm">
-								<mat-form-field class="w-full">
-									<mat-label> {{ "create_wallet.phrase_step.words_input" | transloco }}</mat-label>
-									<mat-select [formControlName]="'wordsCount'">
-										<mat-select-trigger>
-											<span class="flex items-center">
-												<span class="sm:mx-0.5 font-medium text-default">{{ signUpForm.get("wordsCount")?.value }}</span>
-											</span>
-										</mat-select-trigger>
-										<ng-container *ngFor="let words of [12, 24]">
-											<mat-option [value]="words">
-												<span class="flex items-center">
-													<span class="ml-2">{{ words }}</span>
-													<span class="ml-2 font-medium" *ngIf="words === 24"> {{ "common.recommended" | transloco }}</span>
-												</span>
-											</mat-option>
-										</ng-container>
-									</mat-select>
-								</mat-form-field>
-							</form>
-						</div>
-
-						<button mat-raised-button class="w-full rounded-button main-button" (click)="startEncryption()">
-							{{ "create_wallet.phrase_step.start_encryption_button" | transloco }}
-						</button>
-					</div>
-				</div>
+				<ng-container *ngIf="canSeeWordsCountStep(i)">
+					<words-picker-step></words-picker-step>
+				</ng-container>
 
 				<!-- step 1 > show biometric instructions -->
 				<div class="cw-phrase-container" *ngIf="currentStep === 1 && showBiometricsInstructions">

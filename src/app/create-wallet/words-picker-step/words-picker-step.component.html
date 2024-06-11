@@ -1,0 +1,47 @@
+<div class="word-picker-container">
+	<div class="word-picker-content" fxLayout="column" fxLayoutAlign="space-between center">
+		<div class="word-picker-content-d w-full" fxLayout="column" fxLayoutAlign="start center">
+			<div fxLayout="column" fxLayoutAlign="start center">
+				<div class="words-picker-title">{{ "create_wallet.phrase_step.title" | transloco }}</div>
+				<div class="words-picker-description">
+					{{ "create_wallet.phrase_step.description" | transloco }}
+				</div>
+
+				<div class="words-picker-description">
+					{{ "create_wallet.phrase_step.description_2" | transloco }}
+				</div>
+
+				<div class="words-picker-subtitle">{{ "create_wallet.phrase_step.subtitle" | transloco }}</div>
+				<div class="words-picker-description">
+					{{ "create_wallet.phrase_step.description_4" | transloco }}
+				</div>
+			</div>
+		</div>
+		<div class="w-full">
+			<form [formGroup]="signUpForm" #signUpNgForm="ngForm">
+				<mat-form-field class="w-full">
+					<mat-label> {{ "create_wallet.phrase_step.words_input" | transloco }}</mat-label>
+					<mat-select [formControlName]="'wordsCount'">
+						<mat-select-trigger>
+							<span class="flex items-center">
+								<span class="sm:mx-0.5 font-medium text-default">{{ signUpForm.get("wordsCount")?.value }}</span>
+							</span>
+						</mat-select-trigger>
+						<ng-container *ngFor="let words of [12, 24]">
+							<mat-option [value]="words">
+								<span class="flex items-center">
+									<span class="ml-2">{{ words }}</span>
+									<span class="ml-2 font-medium" *ngIf="words === 24"> {{ "common.recommended" | transloco }}</span>
+								</span>
+							</mat-option>
+						</ng-container>
+					</mat-select>
+				</mat-form-field>
+			</form>
+		</div>
+
+		<button mat-raised-button class="w-full rounded-button main-button" (click)="startEncryption()">
+			{{ "create_wallet.phrase_step.start_encryption_button" | transloco }}
+		</button>
+	</div>
+</div>

@@ -93,11 +93,19 @@
 			"confirm_button": "Import wallet",
 			"word1": "1.",
 			"paste_note": "You can paste the entire secret recovery phrase in any field"
+		},
+		"qr_code_step": {
+			"success_message": "You have successfully imported your existing wallet",
+			"description": "Your security phrase and QR code are now linked to your facial biometrics. Keep the QR safe to protect your account.",
+			"understood": "Understood",
+			"copy_address": "Copy public address",
+			"download_qr": "Download QR code"
 		}
 	},
 	"steps": {
 		"import_wallet": "Import your wallet",
 		"add_password": "Create password",
+		"biometrics": "Biometric encryption",
 		"qr_code_generator": "Finish"
 	}
 }

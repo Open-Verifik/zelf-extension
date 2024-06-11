@@ -57,7 +57,7 @@
 				[label]="step.label"
 				[isHidden]="step.isHidden"
 			>
-				<div class="imp-wallet-container" *ngIf="session.step === 0">
+				<div class="imp-wallet-container" *ngIf="canSee12WordsStep(i)">
 					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
 						<div class="cw-pst-content-d">
 							<div class="cw-pst-title">{{ "import_wallet.step_one.title" | transloco }}</div>
@@ -193,9 +193,12 @@
 				<ng-container *ngIf="canSeeQRCode(i)">
 					<import-qr-code-step> </import-qr-code-step>
 				</ng-container>
-				<
 			</app-step>
 		</app-stepper>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 3 && this.wallet" class="wallet-qr-code-alone">
+		<import-qr-code-step> </import-qr-code-step>
 	</div>
 </div>
 

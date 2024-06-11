@@ -1,239 +1,55 @@
-<div
-	style="
-		width: 100%;
-		height: 100%;
-		padding: 32px;
-		background: white;
-		box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
-		border-radius: 24px;
-		border: 1px rgba(0, 0, 0, 0.25) solid;
-		justify-content: center;
-		align-items: center;
-		gap: 32px;
-		display: inline-flex;
-	"
->
-	<div style="align-self: stretch; flex-direction: column; justify-content: center; align-items: center; gap: 32px; display: inline-flex">
-		<div
-			style="
-				align-self: stretch;
-				height: 328px;
-				flex-direction: column;
-				justify-content: flex-end;
-				align-items: center;
-				gap: 24px;
-				display: flex;
-			"
-		>
-			<div
-				style="
-					align-self: stretch;
-					text-align: center;
-					color: #1c44f9;
-					font-size: 28px;
-					font-family: Poppins;
-					font-weight: 500;
-					line-height: 36px;
-					word-wrap: break-word;
-				"
-			>
-				Has logrado importar tu billetera existente con éxito
+<div class="imp-qrc-container">
+	<div class="imp-qrc-inner-container">
+		<div class="imp-qrc-message-container">
+			<div class="imp-qrc-title">
+				{{ "import_wallet.qr_code_step.success_message" | transloco }}
 			</div>
-			<div
-				style="
-					width: 317px;
-					text-align: center;
-					color: #010333;
-					font-size: 22px;
-					font-family: Poppins;
-					font-weight: 400;
-					line-height: 28px;
-					word-wrap: break-word;
-				"
-			>
-				Tu frase de seguridad y código QR están ahora vinculados a tu biometría facial. <br /><br />Mantén seguro el QR para proteger tu
-				cuenta.
+			<div class="imp-qrc-description">
+				{{ "import_wallet.qr_code_step.description" | transloco }}
 			</div>
 		</div>
-		<div
-			style="
-				align-self: stretch;
-				height: 40px;
-				flex-direction: column;
-				justify-content: flex-end;
-				align-items: center;
-				gap: 24px;
-				display: flex;
-			"
-		>
-			<div
-				style="
-					align-self: stretch;
-					height: 40px;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-					gap: 8px;
-					display: flex;
-				"
-			>
-				<div
-					style="
-						align-self: stretch;
-						height: 40px;
-						background: #1c44f9;
-						border-radius: 16px;
-						overflow: hidden;
-						flex-direction: column;
-						justify-content: center;
-						align-items: center;
-						gap: 8px;
-						display: flex;
-					"
-				>
-					<div
-						style="
-							align-self: stretch;
-							flex: 1 1 0;
-							padding-left: 24px;
-							padding-right: 24px;
-							padding-top: 10px;
-							padding-bottom: 10px;
-							justify-content: center;
-							align-items: center;
-							gap: 8px;
-							display: inline-flex;
-						"
-					>
-						<div
-							style="
-								text-align: center;
-								color: white;
-								font-size: 15px;
-								font-family: Poppins;
-								font-weight: 600;
-								line-height: 24px;
-								word-wrap: break-word;
-							"
-						>
-							Entendido
-						</div>
-					</div>
-				</div>
+		<div class="imp-qrc-button-container">
+			<div class="imp-qrc-button-wrapper">
+				<button mat-raised-button class="w-full rounded-button main-button" (click)="goToInstructions()">
+					{{ "common.continue" | transloco }}
+				</button>
 			</div>
 		</div>
 	</div>
-	<div
-		style="
-			align-self: stretch;
-			padding: 16px;
-			background: #f4f4f4;
-			border-radius: 24px;
-			flex-direction: column;
-			justify-content: flex-start;
-			align-items: center;
-			gap: 16px;
-			display: inline-flex;
-		"
-	>
-		<div
-			style="
-				align-self: stretch;
-				height: 56px;
-				padding-left: 12px;
-				padding-right: 12px;
-				padding-top: 8px;
-				padding-bottom: 8px;
-				background: white;
-				border-radius: 16px;
-				justify-content: flex-start;
-				align-items: center;
-				gap: 12px;
-				display: inline-flex;
-			"
-		>
-			<div style="width: 24px; height: 24px; justify-content: center; align-items: center; display: flex">
-				<div
-					style="
-						width: 24px;
-						height: 24px;
-						position: relative;
-						flex-direction: column;
-						justify-content: flex-start;
-						align-items: flex-start;
-						display: flex;
-					"
-				>
-					<div style="width: 19px; height: 22px; background: #010333"></div>
-				</div>
+	<div class="imp-qrc-qr-container">
+		<div class="imp-qrc-address-wrapper">
+			<div class="imp-qrc-address-icon" (click)="copyPublicAddress()">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+					/>
+				</svg>
 			</div>
-			<div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-				<div style="align-self: stretch">
-					<span style="color: #010333; font-size: 15px; font-family: Poppins; font-weight: 500; line-height: 24px; word-wrap: break-word"
-						>Copiar dirección pública<br /></span
-					><span style="color: #010333; font-size: 11px; font-family: Poppins; font-weight: 400; line-height: 24px; word-wrap: break-word"
-						>0x24dc446cb6de830b8f32a628288c129</span
-					>
+			<div class="imp-qrc-address-text">
+				<div>
+					<span class="imp-qrc-address-text-main"> {{ "import_wallet.qr_code_step.copy_address" | transloco }} </span>
+					<span class="imp-qrc-address-text-sub">{{ wallet.publicData.ethAddress }}</span>
 				</div>
 			</div>
 		</div>
-		<div
-			style="
-				padding: 32px;
-				background: white;
-				border-radius: 24px;
-				justify-content: flex-start;
-				align-items: flex-start;
-				gap: 8px;
-				display: inline-flex;
-			"
-		>
-			<img style="width: 216px; height: 216px" src="https://via.placeholder.com/216x216" />
+		<div class="imp-qrc-qr-image">
+			<img style="width: 216px; height: 216px" [src]="wallet.image" />
 		</div>
-		<div
-			style="
-				align-self: stretch;
-				height: 56px;
-				padding-left: 12px;
-				padding-right: 12px;
-				padding-top: 8px;
-				padding-bottom: 8px;
-				background: white;
-				border-radius: 16px;
-				justify-content: flex-start;
-				align-items: center;
-				gap: 12px;
-				display: inline-flex;
-			"
-		>
-			<div style="width: 24px; height: 24px; justify-content: center; align-items: center; display: flex">
-				<div
-					style="
-						width: 24px;
-						height: 24px;
-						position: relative;
-						flex-direction: column;
-						justify-content: flex-start;
-						align-items: flex-start;
-						display: flex;
-					"
-				>
-					<div style="width: 14px; height: 17px; background: #010333"></div>
-				</div>
+		<div class="imp-qrc-address-wrapper w-full" fxLayout="row" fxLayoutAlign="center center">
+			<div class="imp-qrc-address-icon" (click)="downloadImage()">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+					/>
+				</svg>
 			</div>
-			<div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-				<div
-					style="
-						align-self: stretch;
-						color: #010333;
-						font-size: 15px;
-						font-family: Poppins;
-						font-weight: 500;
-						line-height: 24px;
-						word-wrap: break-word;
-					"
-				>
-					Descargar código QR
+			<div class="imp-qrc-address-text">
+				<div class="imp-qrc-download-text">
+					{{ "import_wallet.qr_code_step.download_qr" | transloco }}
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,210 @@
+.imp-qrc-container {
+	width: 100%;
+	height: 100%;
+	padding: 16px;
+	background: white;
+	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+	border-radius: 24px;
+	border: 1px rgba(0, 0, 0, 0.25) solid;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	gap: 32px;
+}
+
+.imp-qrc-inner-container {
+	align-self: stretch;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 32px;
+}
+
+.imp-qrc-message-container {
+	align-self: stretch;
+	height: 328px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 24px;
+}
+
+.imp-qrc-title {
+	align-self: stretch;
+	text-align: center;
+	color: #1c44f9;
+	font-size: 28px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 36px;
+	word-wrap: break-word;
+}
+
+.imp-qrc-description {
+	width: 317px;
+	text-align: center;
+	color: #010333;
+	font-size: 22px;
+	font-family: Poppins;
+	font-weight: 400;
+	line-height: 28px;
+	word-wrap: break-word;
+}
+
+.imp-qrc-button-container {
+	align-self: stretch;
+	height: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 24px;
+}
+
+.imp-qrc-button-wrapper {
+	align-self: stretch;
+	height: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+}
+
+.imp-qrc-button {
+	align-self: stretch;
+	height: 40px;
+	background: #1c44f9;
+	border-radius: 16px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+}
+
+.imp-qrc-button-text {
+	align-self: stretch;
+	flex: 1 1 0;
+	padding: 10px 24px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	text-align: center;
+	color: white;
+	font-size: 15px;
+	font-family: Poppins;
+	font-weight: 600;
+	line-height: 24px;
+	word-wrap: break-word;
+}
+
+.imp-qrc-qr-container {
+	align-self: stretch;
+	padding: 16px;
+	background: #f4f4f4;
+	border-radius: 24px;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 16px;
+}
+
+.imp-qrc-address-wrapper {
+	align-self: stretch;
+	height: 56px;
+	padding: 8px 12px;
+	background: white;
+	border-radius: 16px;
+	display: inline-flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+}
+
+.imp-qrc-address-icon {
+	width: 24px;
+	height: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.imp-qrc-address-icon-inner {
+	width: 24px;
+	height: 24px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.imp-qrc-address-icon-inner > div {
+	width: 19px;
+	height: 22px;
+	background: #010333;
+}
+
+.imp-qrc-address-text {
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.imp-qrc-address-text-main {
+	align-self: stretch;
+	color: #010333;
+	font-size: 15px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 24px;
+	word-wrap: break-word;
+}
+
+.imp-qrc-address-text-sub {
+	color: #010333;
+	font-size: 11px;
+	font-family: Poppins;
+	font-weight: 400;
+	line-height: 24px;
+	word-wrap: break-word;
+}
+
+.imp-qrc-qr-image {
+	padding: 32px;
+	background: white;
+	border-radius: 24px;
+	display: inline-flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.imp-qrc-img {
+	width: 216px;
+	height: 216px;
+}
+
+.imp-qrc-download-icon-inner {
+	width: 14px;
+	height: 17px;
+	background: #010333;
+}
+
+.imp-qrc-download-text {
+	align-self: stretch;
+	color: #010333;
+	font-size: 15px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 24px;
+	word-wrap: break-word;
+}

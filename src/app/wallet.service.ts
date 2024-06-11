@@ -17,12 +17,16 @@ export class WalletService {
 		generalInformation: [],
 	};
 	sessionData: any = {
+		type: "",
 		step: 0,
+		wordsCount: 12,
 		navigationStep: 1,
 		password: "",
 		usePassword: false,
 		phrase: "",
+		wallet: null,
 	};
+	wallet: any;
 
 	constructor(
 		private _httpWrapper: HttpWrapperService,
@@ -40,6 +44,12 @@ export class WalletService {
 		});
 
 		this.deviceData.OS = this.detectOS();
+
+		const wallet = localStorage.getItem("wallet");
+
+		if (wallet) {
+			this.wallet = JSON.parse(wallet);
+		}
 	}
 
 	getDeviceData() {
@@ -48,6 +58,10 @@ export class WalletService {
 
 	getSessionData() {
 		return this.sessionData;
+	}
+
+	getWallet() {
+		return this.wallet;
 	}
 
 	setSteps(steps: Array<any>): void {

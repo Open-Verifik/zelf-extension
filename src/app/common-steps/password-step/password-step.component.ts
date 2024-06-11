@@ -17,7 +17,6 @@ export class PasswordStepComponent implements OnInit {
 
 	constructor(private _formBuilder: UntypedFormBuilder, private _httpWrapperService: HttpWrapperService, private _walletService: WalletService) {
 		this.session = this._walletService.getSessionData();
-		console.log("password step ...");
 	}
 
 	ngOnInit(): void {
@@ -39,6 +38,10 @@ export class PasswordStepComponent implements OnInit {
 		this.session.password = "";
 		this.session.usePassword = false;
 		this.session.showBiometricsInstructions = true;
+
+		if (this.session.type === "create") {
+			this._walletService.goToNextStep(this.session.step + 1);
+		}
 	}
 
 	async addPassword(): Promise<any> {
@@ -51,9 +54,10 @@ export class PasswordStepComponent implements OnInit {
 
 		this.loading = false;
 
-		this.session.showBiometricsInstructions = true;
+		if (this.session.type === "create") {
+			this._walletService.goToNextStep(this.session.step + 1);
+		}
 
-		// pass the value to the service
-		// move forward into the step in the navigation
+		this.session.showBiometricsInstructions = true;
 	}
 }

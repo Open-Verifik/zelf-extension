@@ -53,5 +53,7 @@ export class BiometricInstructionsComponent implements OnInit {
 		this.session.showBiometricsInstructions = false;
 
 		this.session.showBiometrics = true;
+
+		console.log({ session: this.session });
 	}
 }

@@ -39,9 +39,7 @@ export class PasswordStepComponent implements OnInit {
 		this.session.usePassword = false;
 		this.session.showBiometricsInstructions = true;
 
-		if (this.session.type === "create") {
-			this._walletService.goToNextStep(this.session.step + 1);
-		}
+		this._moveForward();
 	}
 
 	async addPassword(): Promise<any> {
@@ -54,8 +52,16 @@ export class PasswordStepComponent implements OnInit {
 
 		this.loading = false;
 
+		this._moveForward();
+	}
+
+	_moveForward(): void {
 		if (this.session.type === "create") {
 			this._walletService.goToNextStep(this.session.step + 1);
+
+			this.session.wordsPicker = true;
+
+			return;
 		}
 
 		this.session.showBiometricsInstructions = true;

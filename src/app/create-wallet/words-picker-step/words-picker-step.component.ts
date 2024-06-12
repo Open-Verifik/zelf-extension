@@ -25,6 +25,8 @@ export class WordsPickerStepComponent implements OnInit {
 	startEncryption() {
 		this.session.showBiometricsInstructions = true;
 
+		this.session.wordsPicker = false;
+
 		this.session.wordsCount = this.signUpForm.value.wordsCount;
 	}
 }

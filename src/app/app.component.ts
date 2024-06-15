@@ -19,7 +19,6 @@ import { WalletService } from "./wallet.service";
 export class AppComponent implements OnInit {
 	apiUrl: string = environment.apiUrl;
 	private publicKey!: string;
-	private secretkey!: string;
 
 	constructor(private _httpWrapperService: HttpWrapperService, private _walletService: WalletService) {}
 
@@ -29,7 +28,7 @@ export class AppComponent implements OnInit {
 
 	_getPublicKey(): void {
 		this._httpWrapperService.sendRequest("get", `${this.apiUrl}/api/sessions/yek-cilbup`).subscribe(async (response) => {
-			this.publicKey = response.publicKey;
+			this.publicKey = response.data.publicKey;
 
 			this._httpWrapperService.setPublicKey(this.publicKey);
 		});

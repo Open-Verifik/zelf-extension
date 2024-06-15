@@ -587,11 +587,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				next: (response) => {
 					this.session.showBiometrics = false;
 
-					this._walletService.goToNextStep(this.session.step + 1);
-
 					localStorage.setItem("walletId", response.data._id);
 
 					localStorage.setItem("wallet", JSON.stringify(response.data));
+
+					this._walletService.goToNextStep(this.session.step + 1);
 				},
 				error: (err) => {
 					this.errorContent = err.error;
@@ -633,11 +633,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				next: (response) => {
 					this.session.walletCreated = response.data;
 
-					this._walletService.goToNextStep(this.session.step + 1);
-
 					localStorage.setItem("walletId", response.data._id);
 
 					localStorage.setItem("wallet", JSON.stringify(response.data));
+
+					this._walletService.goToNextStep(this.session.step + 1);
 				},
 				error: (err) => {
 					this.errorContent = err.error;

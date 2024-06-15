@@ -49,7 +49,7 @@ export class CreateWalletComponent implements OnInit {
 
 		this.formLoaded = true;
 
-		this.wallet = JSON.parse(localStorage.getItem("wallet") || "");
+		this.wallet = this._walletService.getWallet();
 
 		if (this.wallet) this.session.navigationStep = 2;
 	}

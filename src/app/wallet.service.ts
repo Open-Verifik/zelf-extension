@@ -61,7 +61,11 @@ export class WalletService {
 	}
 
 	getWallet() {
-		return this.wallet;
+		if (this.wallet) return this.wallet;
+
+		if (!localStorage.getItem("wallet")) return null;
+
+		return JSON.parse(localStorage.getItem("wallet") || "{}");
 	}
 
 	setSteps(steps: Array<any>): void {
@@ -195,6 +199,10 @@ export class WalletService {
 		}
 
 		return hash.toString();
+	}
+
+	findWallet(adress: string): Observable<any> {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets`);
 	}
 
 	requestWallet(walletId: string): Observable<any> {

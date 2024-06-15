@@ -25,7 +25,7 @@ export class ImportQrCodeStepComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		console.log({ sessionInOnInit: this.session });
+		console.log({ sessionInOnInit: this.session, wallet: this.wallet });
 	}
 
 	// Function to download the image

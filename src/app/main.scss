@@ -760,6 +760,10 @@ $computers: 1200px;
 	cursor: pointer;
 }
 
+.y-scroll {
+	overflow-y: scroll;
+}
+
 /* For extremely small screen devices (595px and below) */
 @media only screen and (max-width: $maxExtraSmall) {
 }

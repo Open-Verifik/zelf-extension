@@ -16,13 +16,16 @@ export class UwSearchWalletComponent implements OnInit {
 	searchForm!: UntypedFormGroup;
 	searchQuery$!: Observable<string>;
 	potentialWallet: any;
+	session: any;
 
 	constructor(
 		private _walletService: WalletService,
 		private _formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService
-	) {}
+	) {
+		this.session = this._walletService.getSessionData();
+	}
 
 	ngOnInit(): void {
 		const defaultAddress = environment.production ? "" : "0xDF59C844739f3Baaa1b05eF615F150bBe90162E0";
@@ -50,8 +53,22 @@ export class UwSearchWalletComponent implements OnInit {
 			},
 			(error) => {
 				this.snackBar.open("account not found", "OK");
-				this.searchForm.patchValue({ address: "" });
+				this.startAgain();
 			}
 		);
+	}
+
+	goToNextStep(): void {
+		this._walletService.goToNextStep(this.session.step + 1);
+
+		if (!this.potentialWallet.hasPassword) {
+			this._walletService.goToNextStep(this.session.step + 1);
+		}
+	}
+
+	startAgain(): void {
+		this.potentialWallet = null;
+
+		this.searchForm.patchValue({ address: "" });
 	}
 }

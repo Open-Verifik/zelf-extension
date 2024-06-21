@@ -37,9 +37,27 @@ export class UnlockWalletComponent implements OnInit {
 		]);
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		console.log({ session: this.session });
+	}
 
 	goBack(): void {
 		this._router.navigate(["/onboarding"]);
+	}
+
+	canSeeSearchStep(index: number): boolean {
+		return Boolean(index === 0 && this.session.step === 0);
+	}
+
+	canSeePasswordStep(index: number): boolean {
+		return Boolean(index == 1 && this.session.step === 1);
+	}
+
+	canSeeBiometricInstructionsStep(index: number): boolean {
+		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions);
+	}
+
+	canSeeBiometricStep(index: number): boolean {
+		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometrics);
 	}
 }

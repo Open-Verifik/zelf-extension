@@ -15,8 +15,20 @@
 				[label]="step.label"
 				[isHidden]="step.isHidden"
 			>
-				<ng-container>
+				<ng-container *ngIf="canSeeSearchStep(i)">
 					<uw-search-wallet></uw-search-wallet>
+				</ng-container>
+
+				<ng-container *ngIf="canSeePasswordStep(i)">
+					<uw-password-step></uw-password-step>
+				</ng-container>
+
+				<ng-container *ngIf="canSeeBiometricInstructionsStep(i)">
+					<biometric-instructions> </biometric-instructions>
+				</ng-container>
+
+				<ng-container *ngIf="canSeeBiometricStep(i)">
+					<biometrics-general [type]="'decryptWallet'" [data]="session"> </biometrics-general>
 				</ng-container>
 			</app-step>
 		</app-stepper>

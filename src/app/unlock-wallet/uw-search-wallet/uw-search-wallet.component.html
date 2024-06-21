@@ -35,15 +35,17 @@
 
 		<div *ngIf="potentialWallet">
 			<!--  -->
-			<div class="unlock-title">Account found</div>
+			<div class="unlock-title">
+				{{ "unlock_wallet.account_found" | transloco }}
+			</div>
 
 			<div fxLayout="column" fxLayoutAlign="start start">
-				<p>ETH address</p>
+				<p>{{ "common.eth_address" | transloco }}</p>
 				<h3 class="m-0">
 					{{ potentialWallet.ethAddress }}
 				</h3>
 
-				<p>Solana address</p>
+				<p>{{ "common.solana_address" | transloco }}</p>
 				<h3 class="m-0">
 					{{ potentialWallet.solanaAddress }}
 				</h3>
@@ -51,11 +53,13 @@
 		</div>
 
 		<div fxLayout="row" fxLayoutAlign="center center" class="w-full mt-14" *ngIf="potentialWallet">
-			<button mat-raised-button class="unlock-button rounded-button main-button">
+			<button mat-raised-button class="unlock-button rounded-button main-button" (click)="goToNextStep()">
 				{{ "unlock_wallet.verify_button" | transloco }}
 			</button>
 
-			<button mat-raised-button class="unlock-button rounded-button">{{ "unlock_wallet.back_button" | transloco }}</button>
+			<button mat-raised-button class="unlock-button rounded-button" (click)="startAgain()">
+				{{ "unlock_wallet.back_button" | transloco }}
+			</button>
 		</div>
 	</div>
 </div>

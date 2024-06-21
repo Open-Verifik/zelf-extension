@@ -47,6 +47,7 @@ import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/i
 import { WordsPickerStepComponent } from "./create-wallet/words-picker-step/words-picker-step.component";
 import { ViewCreatedWalletQrCodeComponent } from "./create-wallet/view-created-wallet-qr-code/view-created-wallet-qr-code.component";
 import { UwSearchWalletComponent } from './unlock-wallet/uw-search-wallet/uw-search-wallet.component';
+import { UwPasswordStepComponent } from './unlock-wallet/uw-password-step/uw-password-step.component';
 //
 //
 //
@@ -78,6 +79,7 @@ import { UwSearchWalletComponent } from './unlock-wallet/uw-search-wallet/uw-sea
 		WordsPickerStepComponent,
 		ViewCreatedWalletQrCodeComponent,
   UwSearchWalletComponent,
+  UwPasswordStepComponent,
 	],
 	imports: [
 		BrowserModule,

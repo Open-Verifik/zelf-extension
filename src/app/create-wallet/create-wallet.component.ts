@@ -2,9 +2,6 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { WalletService } from "app/wallet.service";
-import { environment } from "environments/environment";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { TranslocoService } from "@ngneat/transloco";
 
 @Component({
 	selector: "app-create-wallet",
@@ -39,8 +36,6 @@ export class CreateWalletComponent implements OnInit {
 
 	ngOnInit() {
 		this.signUpForm = this._formBuilder.group({
-			password: ["", []],
-			repeatPassword: ["", []],
 			termsAcceptance: [false],
 			wordsCount: [24, []],
 		});
@@ -56,12 +51,6 @@ export class CreateWalletComponent implements OnInit {
 
 	goBack(): void {
 		this._router.navigate(["/onboarding"]);
-	}
-
-	continueWithoutPassword(): void {
-		this.currentStep++;
-
-		this.updateSteps();
 	}
 
 	private updateSteps() {
@@ -96,12 +85,6 @@ export class CreateWalletComponent implements OnInit {
 		this.currentStep++;
 
 		this.updateSteps();
-	}
-
-	isPasswordCorrect(): boolean {
-		const { password, repeatPassword, termsAcceptance } = this.signUpForm.value;
-
-		return Boolean(password && repeatPassword && password === repeatPassword && termsAcceptance && password.length >= 8);
 	}
 
 	canSeePasswordStep(index: number): boolean {

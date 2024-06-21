@@ -201,12 +201,12 @@ export class WalletService {
 		return hash.toString();
 	}
 
-	findWallet(adress: string): Observable<any> {
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets`);
+	findWallet(address: string): Observable<any> {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets?address=${address}`);
 	}
 
 	requestWallet(walletId: string): Observable<any> {
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets/${walletId}`);
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-wallets/${walletId}`);
 	}
 
 	createLivenessSession(data: any): Observable<any> {

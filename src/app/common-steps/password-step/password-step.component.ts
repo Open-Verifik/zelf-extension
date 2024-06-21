@@ -47,7 +47,6 @@ export class PasswordStepComponent implements OnInit {
 		// get it from the form
 		const password = this.passwordForm.value.password;
 
-		// encrypt it
 		this.session.password = await this._httpWrapperService.encryptMessage(password);
 
 		this.loading = false;

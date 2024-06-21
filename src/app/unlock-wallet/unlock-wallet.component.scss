@@ -23,7 +23,6 @@
 
 .unlock-inner-container {
 	align-self: stretch;
-	height: 556px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
@@ -44,7 +43,6 @@
 
 .unlock-box {
 	align-self: stretch;
-	height: 144px;
 	padding-top: 16px;
 	padding-bottom: 24px;
 	padding-left: 24px;
@@ -191,15 +189,16 @@
 
 .unlock-button {
 	width: 216px;
-	height: 40px;
+	height: 40px !important;
 	background: #e5ebfd;
-	border-radius: 16px;
+	border-radius: 16px !important;
 	overflow: hidden;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 8px;
 	display: flex;
+	margin-right: 10px;
 }
 
 .unlock-button-text {

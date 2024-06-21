@@ -102,10 +102,22 @@
 			"download_qr": "Download QR code"
 		}
 	},
+	"unlock_wallet": {
+		"title": "Open an Existing Wallet",
+		"description": "Open an existing wallet by entering its public address below:",
+		"upload_description": "Or upload the image of your QR code to continue:",
+		"upload_button": "Select QR Code",
+		"drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
+		"verify_button": "Verify",
+		"back_button": "Back"
+	},
 	"steps": {
 		"import_wallet": "Import your wallet",
 		"add_password": "Create password",
 		"biometrics": "Biometric encryption",
-		"qr_code_generator": "Finish"
+		"qr_code_generator": "Finish",
+		"search_wallet": "Search your wallet",
+		"password_unlock": "Password lock",
+		"biometric_unlock": "Biometric lock"
 	}
 }

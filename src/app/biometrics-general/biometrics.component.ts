@@ -556,6 +556,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		const payload: any = {
 			image: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
 			os: this.deviceData.OS,
+			password: this.session.password,
 		};
 
 		payload.image = await this._httpWrapperService.encryptMessage(payload.image);
@@ -579,8 +580,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		this._walletService
 			.createWallet({
 				faceBase64: payload.image,
-				password: data.password || undefined,
-				wordsCount: data.wordsCount,
+				password: payload.password,
+				wordsCount: data.wordsCount || 12,
 				seeWallet: 1,
 			})
 			.subscribe({
@@ -607,7 +608,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			.decryptWAllet({
 				faceBase64: payload.image,
 				wallet: data.hash,
-				password: data.password || undefined,
+				password: payload.password,
 			})
 			.subscribe({
 				next: (response) => {
@@ -626,7 +627,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		this._walletService
 			.importWallet({
 				faceBase64: payload.image,
-				password: data.password || undefined,
+				password: payload.password,
 				phrase: data.phrase,
 			})
 			.subscribe({

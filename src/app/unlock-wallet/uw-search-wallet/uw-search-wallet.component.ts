@@ -28,7 +28,7 @@ export class UwSearchWalletComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		const defaultAddress = environment.production ? "" : "0xDF59C844739f3Baaa1b05eF615F150bBe90162E0";
+		const defaultAddress = environment.production ? "" : "0x13901AE0F17E2875E86C86721f9943598601b0C4";
 		this.searchForm = this._formBuilder.group({
 			address: [defaultAddress, []],
 		});
@@ -61,13 +61,19 @@ export class UwSearchWalletComponent implements OnInit {
 	goToNextStep(): void {
 		this._walletService.goToNextStep(this.session.step + 1);
 
+		this.session.identifier = this.potentialWallet.ethAddress;
+
 		if (!this.potentialWallet.hasPassword) {
 			this._walletService.goToNextStep(this.session.step + 1);
+
+			this.session.showBiometricsInstructions = true;
 		}
 	}
 
 	startAgain(): void {
 		this.potentialWallet = null;
+
+		this.session.identifier = null;
 
 		this.searchForm.patchValue({ address: "" });
 	}

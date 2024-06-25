@@ -228,11 +228,11 @@ export class WalletService {
 	}
 
 	decryptWAllet(data: any): Observable<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/decrypt`, data);
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/decrypt`, data);
 	}
 
 	importWallet(data: any): Observable<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/import`, data);
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/import`, data);
 	}
 
 	createAppRegistration(data: any): Observable<any> {

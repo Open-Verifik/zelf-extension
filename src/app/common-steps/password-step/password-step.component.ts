@@ -38,6 +38,7 @@ export class PasswordStepComponent implements OnInit {
 		this.session.password = "";
 		this.session.usePassword = false;
 		this.session.showBiometricsInstructions = true;
+		this.session.showBiometrics = false;
 
 		this._moveForward();
 	}
@@ -62,6 +63,8 @@ export class PasswordStepComponent implements OnInit {
 
 			return;
 		}
+
+		this.session.showBiometrics = false;
 
 		this.session.showBiometricsInstructions = true;
 	}

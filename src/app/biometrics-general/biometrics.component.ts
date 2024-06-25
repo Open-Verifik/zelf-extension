@@ -18,6 +18,7 @@ import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalDa
 
 import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { environment } from "environments/environment";
 
 let _this = {
 	biometricsLoginCalled: false,
@@ -147,12 +148,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	}
 
 	_generateSession(type?: string): void {
-		const { hash } = this._walletService.generateUniqueId();
+		let { hash } = this._walletService.generateUniqueId();
 
 		this._walletService
 			.createLivenessSession({
-				// environment.production ? hash :
-				identifier: `${hash}-${Math.random() * 9893839}`,
+				identifier: hash,
 				type,
 			})
 			.subscribe((response) => {

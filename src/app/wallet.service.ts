@@ -178,7 +178,10 @@ export class WalletService {
 
 		const screenInfo = window.screen;
 
-		const uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
+		let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
+
+		//for development, the unique string changes all the time.
+		// if (!environment.production) uniqueString += `-${Math.random() * 9893839}`;
 
 		return { hash: this.simpleHash(uniqueString), userAgent: navigatorInfo.userAgent, height: screenInfo.height, width: screenInfo.width };
 	}
@@ -218,7 +221,10 @@ export class WalletService {
 	}
 
 	createWallet(data: any): Observable<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets`, data);
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets`, {
+			...data,
+			password: data.password || undefined,
+		});
 	}
 
 	decryptWAllet(data: any): Observable<any> {

@@ -27,11 +27,17 @@ export class AppComponent implements OnInit {
 	}
 
 	_getPublicKey(): void {
-		this._httpWrapperService.sendRequest("get", `${this.apiUrl}/api/sessions/yek-cilbup`).subscribe(async (response) => {
-			this.publicKey = response.data.publicKey;
+		let { hash } = this._walletService.generateUniqueId();
 
-			this._httpWrapperService.setPublicKey(this.publicKey);
-		});
+		this._httpWrapperService
+			.sendRequest("get", `${this.apiUrl}/api/sessions/yek-cilbup`, {
+				identifier: hash,
+			})
+			.subscribe(async (response) => {
+				this.publicKey = response.data;
+
+				this._httpWrapperService.setPublicKey(this.publicKey);
+			});
 	}
 
 	async encryptAndSend(publicKey: any): Promise<void> {

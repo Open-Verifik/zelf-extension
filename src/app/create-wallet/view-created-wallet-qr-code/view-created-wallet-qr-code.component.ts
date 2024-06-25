@@ -109,7 +109,9 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		private _walletService: WalletService,
 		private _router: Router
 	) {
-		this.wallet = JSON.parse(localStorage.getItem("wallet") || "");
+		const wallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+
+		if (Object.keys(wallet).length) this.wallet = wallet;
 	}
 
 	ngOnInit(): void {

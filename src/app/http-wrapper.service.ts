@@ -89,7 +89,7 @@ export class HttpWrapperService {
 	}
 
 	async encryptMessage(data: string): Promise<any> {
-		if (!this.publicKey) return data;
+		if (!this.publicKey) throw new Error("cannot_encrypt_message");
 
 		const publicKey = await openpgp.readKey({ armoredKey: this.publicKey });
 

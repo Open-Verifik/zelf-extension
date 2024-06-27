@@ -21,6 +21,7 @@ export class UwSearchWalletComponent implements OnInit {
 	session: any;
 	fileBase64: string | ArrayBuffer | null = null;
 	qrCodeData: string | null = null;
+	displayableError: any;
 
 	constructor(
 		private _walletService: WalletService,
@@ -29,6 +30,7 @@ export class UwSearchWalletComponent implements OnInit {
 		private _translocoService: TranslocoService
 	) {
 		this.session = this._walletService.getSessionData();
+		this.displayableError = null;
 	}
 
 	ngOnInit(): void {
@@ -144,17 +146,38 @@ export class UwSearchWalletComponent implements OnInit {
 				context.drawImage(img, 0, 0, img.width, img.height);
 				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 				const code = jsQR(imageData.data, imageData.width, imageData.height);
-				if (code && code.binaryData) {
-					const hexString = this.toHexString(code.binaryData);
-					const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
-					const base64String = buffer.toString("base64");
-					this.qrCodeData = base64String;
-					console.log("QR Code Data:", this.qrCodeData);
-				} else {
-					console.error("No QR code found or no binary data in QR code.");
-				}
+
+				this.extractBinaryData(code);
 			}
 		};
+	}
+
+	extractBinaryData(code: any): void {
+		if (code && code.binaryData) {
+			const hexString = this.toHexString(code.binaryData);
+			const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
+			const base64String = buffer.toString("base64");
+			this.qrCodeData = base64String;
+
+			this.previewQRCode();
+
+			return;
+		}
+
+		this.displayableError = {
+			type: "qr_code",
+			message: "invalid_qr_code",
+		};
+	}
+
+	previewQRCode(): void {
+		if (!this.qrCodeData) return;
+
+		this._walletService.previewWallet(this.qrCodeData).subscribe((response) => {
+			this.potentialWallet = response.data?.wallet;
+
+			this.potentialWallet.hasPassword = Boolean(response.data?.type === "WithPassword");
+		});
 	}
 
 	// Method to convert binary data to hex string

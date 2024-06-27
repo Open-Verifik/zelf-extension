@@ -6,7 +6,7 @@
 		<language-picker></language-picker>
 	</div>
 
-	<div fxLayout="row" fxLayoutAlign="start center" *ngIf="session.navigationStep !== 2 && !wallet">
+	<div fxLayout="row" fxLayoutAlign="start center" *ngIf="session.navigationStep !== 2">
 		<app-stepper>
 			<app-step
 				*ngFor="let step of session.steps; index as i"

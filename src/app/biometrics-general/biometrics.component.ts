@@ -602,13 +602,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	}
 
 	_decryptWallet(payload: any, data: any): void {
-		console.log({ payload, data });
-
 		this._walletService
 			.decryptWAllet({
 				faceBase64: payload.image,
 				wallet: data.hash,
-				password: data.usePassword ? data.password : undefined,
+				password: payload.password || undefined,
 				identifier: data.identifier,
 			})
 			.subscribe({

@@ -235,6 +235,12 @@ export class WalletService {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/import`, data);
 	}
 
+	previewWallet(hash: string): Observable<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
+			hash,
+		});
+	}
+
 	createAppRegistration(data: any): Observable<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/v2/app-registrations`, data);
 	}

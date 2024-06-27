@@ -71,6 +71,18 @@ export class UnlockWalletComponent implements OnInit {
 	}
 
 	canSeeQRCode(index: number): boolean {
-		return Boolean(index === 2 && this.session.step === 2 && !this.session.showBiometrics && this.wallet);
+		const filter = Boolean(index === 2 && this.session.step === 2 && !this.session.showBiometrics);
+
+		if (!filter) return false;
+
+		setTimeout(() => {
+			if (this.wallet) return;
+
+			const wallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+
+			if (Object.keys(wallet).length) this.wallet = wallet;
+		}, 1000);
+
+		return Boolean(filter && this.wallet);
 	}
 }

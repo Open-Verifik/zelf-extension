@@ -588,8 +588,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				next: (response) => {
 					this.session.showBiometrics = false;
 
-					localStorage.setItem("walletId", response.data._id);
-
 					localStorage.setItem("wallet", JSON.stringify(response.data));
 
 					this._walletService.goToNextStep(this.session.step + 1);
@@ -615,7 +613,9 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.subscribe({
 				next: (response) => {
-					this.callback(response.data);
+					this.session.showBiometrics = false;
+
+					localStorage.setItem("wallet", JSON.stringify(response.data));
 				},
 				error: (err) => {
 					this.errorContent = err.error;
@@ -636,8 +636,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			.subscribe({
 				next: (response) => {
 					this.session.walletCreated = response.data;
-
-					localStorage.setItem("walletId", response.data._id);
 
 					localStorage.setItem("wallet", JSON.stringify(response.data));
 

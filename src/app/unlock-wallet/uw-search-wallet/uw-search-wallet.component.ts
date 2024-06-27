@@ -5,6 +5,8 @@ import { TranslocoService } from "@ngneat/transloco";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
+import jsQR from "jsqr";
+import { Buffer } from "buffer";
 
 @Component({
 	selector: "uw-search-wallet",
@@ -17,6 +19,8 @@ export class UwSearchWalletComponent implements OnInit {
 	searchQuery$!: Observable<string>;
 	potentialWallet: any;
 	session: any;
+	fileBase64: string | ArrayBuffer | null = null;
+	qrCodeData: string | null = null;
 
 	constructor(
 		private _walletService: WalletService,
@@ -76,5 +80,87 @@ export class UwSearchWalletComponent implements OnInit {
 		this.session.identifier = null;
 
 		this.searchForm.patchValue({ address: "" });
+	}
+
+	// Method to handle file selection
+	onFileSelected(event: Event): void {
+		const input = event.target as HTMLInputElement;
+		if (input.files && input.files.length > 0) {
+			const file = input.files[0];
+			this.handleFile(file);
+		}
+	}
+
+	// Method to handle drag over event
+	onDragOver(event: DragEvent): void {
+		event.preventDefault();
+		event.stopPropagation();
+		// Add any visual indication for drag over
+	}
+
+	// Method to handle file drop event
+	onDrop(event: DragEvent): void {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+			const file = event.dataTransfer.files[0];
+			this.handleFile(file);
+		}
+	}
+
+	// Method to handle drag leave event
+	onDragLeave(event: DragEvent): void {
+		event.preventDefault();
+		event.stopPropagation();
+		// Remove any visual indication for drag leave
+	}
+
+	// Method to handle the file
+	handleFile(file: File): void {
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			this.fileBase64 = reader.result;
+			if (typeof this.fileBase64 === "string") {
+				this.decodeQRCode(this.fileBase64);
+			}
+		};
+
+		reader.readAsDataURL(file);
+	}
+
+	// Method to decode QR code from base64 image
+	decodeQRCode(base64: string): void {
+		const img = new Image();
+
+		img.src = base64;
+
+		img.onload = () => {
+			const canvas = document.createElement("canvas");
+			const context = canvas.getContext("2d");
+			if (context) {
+				canvas.width = img.width;
+				canvas.height = img.height;
+				context.drawImage(img, 0, 0, img.width, img.height);
+				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+				const code = jsQR(imageData.data, imageData.width, imageData.height);
+				if (code && code.binaryData) {
+					const hexString = this.toHexString(code.binaryData);
+					const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
+					const base64String = buffer.toString("base64");
+					this.qrCodeData = base64String;
+					console.log("QR Code Data:", this.qrCodeData);
+				} else {
+					console.error("No QR code found or no binary data in QR code.");
+				}
+			}
+		};
+	}
+
+	// Method to convert binary data to hex string
+	toHexString(byteArray: any): string {
+		return Array.from(byteArray, (byte: any) => {
+			return ("0" + (byte & 0xff).toString(16)).slice(-2);
+		}).join("");
 	}
 }

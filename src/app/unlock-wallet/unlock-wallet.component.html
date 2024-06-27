@@ -6,7 +6,7 @@
 		<language-picker></language-picker>
 	</div>
 
-	<div fxLayout="row" fxLayoutAlign="start center">
+	<div fxLayout="row" fxLayoutAlign="start center" *ngIf="session.navigationStep !== 2 && !wallet">
 		<app-stepper>
 			<app-step
 				*ngFor="let step of session.steps; index as i"
@@ -30,8 +30,16 @@
 				<ng-container *ngIf="canSeeBiometricStep(i)">
 					<biometrics-general [type]="'decryptWallet'" [data]="session"> </biometrics-general>
 				</ng-container>
+
+				<ng-container *ngIf="canSeeQRCode(i)">
+					<view-created-wallet-qr-code> </view-created-wallet-qr-code>
+				</ng-container>
 			</app-step>
 		</app-stepper>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 2 && wallet" class="wallet-qr-code-alone">
+		<view-created-wallet-qr-code></view-created-wallet-qr-code>
 	</div>
 </div>
 

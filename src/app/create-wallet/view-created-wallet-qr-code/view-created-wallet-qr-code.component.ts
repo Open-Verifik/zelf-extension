@@ -115,6 +115,8 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		if (this.wallet.cleartext_data) this.wallet.publicData = this.wallet.cleartext_data;
+
 		this._prepareWords();
 	}
 

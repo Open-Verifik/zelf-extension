@@ -147,6 +147,7 @@
 	align-items: center;
 	gap: 8px;
 	display: flex;
+	cursor: pointer;
 }
 
 .unlock-upload-button-text {
@@ -348,4 +349,15 @@
 	top: 2.43px;
 	position: absolute;
 	background: #1c44f9;
+}
+
+.unlock-upload-inner-box {
+	border: 2px dashed #ccc;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+}
+
+.unlock-upload-inner-box.drag-over {
+	border-color: #000;
 }

@@ -13,10 +13,19 @@ import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 })
 export class UnlockWalletComponent implements OnInit {
 	session: any;
+	wallet: any;
 	@ViewChild("searchNgForm") searchNgForm!: NgForm;
 
 	constructor(private _router: Router, private _walletService: WalletService) {
 		this.session = this._walletService.getSessionData();
+
+		const wallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+
+		if (Object.keys(wallet).length) {
+			this.wallet = wallet;
+
+			this.session.navigationStep = 2;
+		}
 
 		this._walletService.setSteps([
 			{
@@ -59,5 +68,9 @@ export class UnlockWalletComponent implements OnInit {
 
 	canSeeBiometricStep(index: number): boolean {
 		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometrics);
+	}
+
+	canSeeQRCode(index: number): boolean {
+		return Boolean(index === 2 && this.session.step === 2 && !this.session.showBiometrics && this.wallet);
 	}
 }

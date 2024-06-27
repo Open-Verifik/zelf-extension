@@ -24,9 +24,10 @@
 		<div class="unlock-box" *ngIf="!potentialWallet">
 			<div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div>
 			<div class="unlock-upload-box">
-				<div class="unlock-upload-inner-box">
+				<div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
 					<div class="unlock-upload-button">
-						<div class="unlock-upload-button-text">{{ "unlock_wallet.upload_button" | transloco }}</div>
+						<input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+						<div class="unlock-upload-button-text" (click)="fileInput.click()">{{ "unlock_wallet.upload_button" | transloco }}</div>
 					</div>
 					<div class="unlock-drag-drop-text">{{ "unlock_wallet.drag_drop_text" | transloco }}</div>
 				</div>
@@ -51,6 +52,11 @@
 				</h3>
 			</div>
 		</div>
+
+		<div *ngIf="fileBase64" class="uploaded-image">
+			<img [src]="fileBase64" alt="Uploaded Image" />
+		</div>
+		<div *ngIf="qrCodeData" class="qr-code-data">QR Code Data: {{ qrCodeData }}</div>
 
 		<div fxLayout="row" fxLayoutAlign="center center" class="w-full mt-14" *ngIf="potentialWallet">
 			<button mat-raised-button class="unlock-button rounded-button main-button" (click)="goToNextStep()">

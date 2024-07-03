@@ -20,7 +20,11 @@
 		"continue": "Continue",
 		"copy_to_clipboard": "Copied successfully",
 		"failed_to_copy_to_clipboard": "Failed to copy",
-		"close": "Close"
+		"close": "Close",
+		"go_back": "Go back",
+		"eth_address": "ETH Address",
+		"solana_address": "Solana Address",
+		"address": "Address"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -29,7 +33,7 @@
 			"password_label": "Password",
 			"repeat_password_label": "Repeat password",
 			"agreement": "I agree that Biometric Wallet can not recover this password, this is only used to encrypt your wallet",
-			"add_password": "Add password",
+			"add_password": "Create password",
 			"continue_without_password": "Just biometrics"
 		},
 		"phrase_step": {
@@ -75,5 +79,56 @@
 		"min_liveness_score_is": "The minimum liveness score is: ",
 		"phone_or_email_is_not_unique": "The phone or the email has been used already, try a different one",
 		"something_went_wrong": "Something went wrong, please try again"
+	},
+	"import_wallet": {
+		"step_zero": {
+			"title": "Import an existing wallet",
+			"description": "It allows you to transfer your digital assets from other platforms quickly and securely.",
+			"description2": "Our process ensures the privacy of your assets by preventing the exposure of your keys or recovery phrases.",
+			"subtitle": "What are the benefits?",
+			"description3": "Importing your wallet simplifies your cryptocurrency experience by avoiding the need to manage multiple accounts.",
+			"description4": "Easily access your funds on our platform without needing to use your recovery phrase.",
+			"import_button": "Import a wallet"
+		},
+		"step_one": {
+			"title": "Enter the recovery phrase",
+			"description": "Please enter your recovery phrase below to validate and import your existing wallet.",
+			"confirm_button": "Import wallet",
+			"word1": "1.",
+			"paste_note": "You can paste the entire secret recovery phrase in any field"
+		},
+		"qr_code_step": {
+			"success_message": "You have successfully imported your existing wallet",
+			"description": "Your security phrase and QR code are now linked to your facial biometrics. Keep the QR safe to protect your account.",
+			"understood": "Understood",
+			"copy_address": "Copy public address",
+			"download_qr": "Download QR code"
+		}
+	},
+	"unlock_wallet": {
+		"title": "Open an Existing Wallet",
+		"description": "Open an existing wallet by entering its public address below:",
+		"upload_description": "Or upload the image of your QR code to continue:",
+		"upload_button": "Select QR Code",
+		"drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
+		"verify_button": "Verify",
+		"back_button": "Back",
+		"account_found": "Account found",
+		"password": {
+			"title": "This wallet requires a password",
+			"subtitle": "Enter the password assigned to this wallet to complete the unlocking process.",
+			"label": "Password",
+			"placeholder": "********************",
+			"button": "Unlock"
+		}
+	},
+	"steps": {
+		"import_wallet": "Import your wallet",
+		"add_password": "Create password",
+		"biometrics": "Biometric encryption",
+		"qr_code_generator": "Finish",
+		"search_wallet": "Search your wallet",
+		"password_unlock": "Password lock",
+		"biometric_unlock": "Biometric lock"
 	}
 }

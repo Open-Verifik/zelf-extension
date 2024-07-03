@@ -154,13 +154,10 @@ export class WalletService {
 			outerWidth: window.outerWidth,
 			outerHeight: window.outerHeight,
 
-			// Detect touch capabilities
 			touchSupported: "ontouchstart" in window,
 
-			// Detect geolocation capabilities
 			geolocationSupported: "geolocation" in navigator,
 
-			// Browser online/offline status
 			onlineStatus: navigator.onLine ? "Online" : "Offline",
 		};
 

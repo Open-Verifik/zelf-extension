@@ -246,9 +246,8 @@
 
 .home-tabs {
 	height: 49px;
-	left: 65px;
-	top: 200px;
-	position: relative;
+	width: 100%;
+	margin-top: 32px;
 	background: white;
 	display: inline-flex;
 	justify-content: flex-start;
@@ -256,12 +255,15 @@
 }
 
 .home-tab {
-	flex: 1 1 0;
 	height: 48px;
 	background: white;
-	display: inline-flex;
-	justify-content: flex-end;
-	align-items: center;
+	cursor: pointer;
+}
+
+.home-selected-tab {
+	border-bottom: 3px solid blue;
+	flex-direction: row;
+	font-weight: 800;
 }
 
 .home-tab-text {

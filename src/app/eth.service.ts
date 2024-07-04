@@ -58,7 +58,11 @@ export class EthereumService {
 	async getBalanceByAddress(address: string): Promise<string> {
 		try {
 			const balanceWei = await this.web3.eth.getBalance(address);
+
 			const balanceEth = this.web3.utils.fromWei(balanceWei, "ether");
+
+			console.log({ balanceEth, address });
+
 			return balanceEth;
 		} catch (error) {
 			console.error("Error getting balance:", error);

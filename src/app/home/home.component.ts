@@ -1,6 +1,7 @@
 /// <reference types="chrome"/>
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
@@ -13,9 +14,20 @@ export class HomeComponent implements OnInit {
 	title: string = "something";
 	wallet: any;
 	balances: any;
+	selectedTab: string;
+	view: string;
 
-	constructor(private _router: Router, private _walletService: WalletService, private _ethService: EthereumService) {
+	constructor(
+		private _router: Router,
+		private _walletService: WalletService,
+		private _ethService: EthereumService,
+		private _cryptoService: CryptoService
+	) {
 		this.balances = {};
+
+		this.view = "home";
+
+		this.selectedTab = "assets";
 	}
 
 	openFullPage(): void {
@@ -25,16 +37,17 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		const walletId = localStorage.getItem("walletId") || "663ab8c316f85d1b95b02cb3";
+		const wallet = localStorage.getItem("wallet");
 
-		if (!walletId) {
+		if (!wallet) {
 			this._router.navigate(["/onboarding"]);
+
 			return;
 		}
 
-		this._getWallet(walletId);
+		this._getWallet(wallet);
 
-		this._testing();
+		// this._testing();
 	}
 
 	async _testing(): Promise<any> {
@@ -44,13 +57,10 @@ export class HomeComponent implements OnInit {
 
 		const _getAccount = this._ethService.getAccount();
 
-		// const transaction = await this._ethService.sendTransaction("0x6A4D2A478E5F3274c0De97903c7D4B75032Bd9a8", 0.001);
-
 		const balance = await this._ethService.getBalance();
 
 		_getAccount.subscribe(async (value) => {
 			const _balance = await this._ethService.getBalanceByAddress(value);
-			console.log({ value, balance, _balance });
 
 			this.balances = {
 				eth: parseFloat(_balance).toFixed(5),
@@ -58,17 +68,37 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	_getWallet(walletId: string): void {
-		this._walletService.requestWallet(walletId).subscribe({
-			next: (response) => {
-				this.wallet = response.data;
+	async _getWallet(wallet: string): Promise<any> {
+		this.wallet = JSON.parse(wallet);
 
-				console.log({
-					responseWallet: this.wallet,
-				});
-			},
-			error: (error) => {},
-			complete: () => {},
+		const ethBalance = await this._ethService.getBalanceByAddress(this.wallet.ethAddress);
+
+		this.balances = {
+			eth: parseFloat(ethBalance).toFixed(5),
+		};
+
+		this.getPrices();
+
+		// this.getTokens();
+	}
+
+	getTokens(): void {
+		this._cryptoService.getTokens(this.wallet.ethAddress).subscribe((data) => {
+			console.log({ tokens: data });
+
+			//   if (data.status === '1') {
+			// 	this.tokens = data.result;
+			//   } else {
+			// 	console.error('Error fetching tokens', data.message);
+			//   }
+		});
+	}
+
+	getPrices(): void {
+		this._cryptoService.getCryptoPrice("ethereum").subscribe((data) => {
+			this.balances.ethPrice = parseFloat(`${data.ethereum.usd * this.balances.eth}`).toFixed(5);
+
+			console.log({ balances: this.balances, data });
 		});
 	}
 
@@ -81,8 +111,14 @@ export class HomeComponent implements OnInit {
 
 		if (!address) return "";
 
-		const firstPart = address.slice(0, 8);
-		const lastPart = address.slice(-6);
-		return `${firstPart}...${lastPart}`;
+		return this._walletService.getDisplayableAddress(address);
+	}
+
+	openAccountsPage(): void {
+		this.view = this.view === "home" ? "accountsPage" : "home";
+	}
+
+	selectTab(tab: string): void {
+		this.selectedTab = tab;
 	}
 }

@@ -133,6 +133,10 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	}
 
 	goToInstructions(): void {
+		this.wallet.metadata = null;
+
+		localStorage.setItem("wallet", JSON.stringify(this.wallet));
+
 		this._router.navigate(["extension-instructions"]);
 	}
 

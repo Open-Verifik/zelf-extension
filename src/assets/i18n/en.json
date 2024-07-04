@@ -130,5 +130,10 @@
 		"search_wallet": "Search your wallet",
 		"password_unlock": "Password lock",
 		"biometric_unlock": "Biometric lock"
+	},
+	"wallets_connected": {
+		"title": "Select a wallet",
+		"account": "Account",
+		"create_or_import_wallet_button": "Create or import a wallet"
 	}
 }

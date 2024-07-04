@@ -48,6 +48,11 @@ import { WordsPickerStepComponent } from "./create-wallet/words-picker-step/word
 import { ViewCreatedWalletQrCodeComponent } from "./create-wallet/view-created-wallet-qr-code/view-created-wallet-qr-code.component";
 import { UwSearchWalletComponent } from './unlock-wallet/uw-search-wallet/uw-search-wallet.component';
 import { UwPasswordStepComponent } from './unlock-wallet/uw-password-step/uw-password-step.component';
+import { HomeWalletsConnectedComponent } from './home/home-wallets-connected/home-wallets-connected.component';
+import { HomeActiveWalletComponent } from './home/home-active-wallet/home-active-wallet.component';
+import { HomeWalletAssetsComponent } from './home/home-wallet-assets/home-wallet-assets.component';
+import { HomeWalletActivityComponent } from './home/home-wallet-activity/home-wallet-activity.component';
+import { HomeWalletSendAssetsComponent } from './home/home-wallet-send-assets/home-wallet-send-assets.component';
 //
 //
 //
@@ -80,6 +85,11 @@ import { UwPasswordStepComponent } from './unlock-wallet/uw-password-step/uw-pas
 		ViewCreatedWalletQrCodeComponent,
   UwSearchWalletComponent,
   UwPasswordStepComponent,
+  HomeWalletsConnectedComponent,
+  HomeActiveWalletComponent,
+  HomeWalletAssetsComponent,
+  HomeWalletActivityComponent,
+  HomeWalletSendAssetsComponent,
 	],
 	imports: [
 		BrowserModule,

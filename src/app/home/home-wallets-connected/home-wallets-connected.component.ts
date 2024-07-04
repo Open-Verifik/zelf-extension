@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
@@ -43,7 +44,7 @@ import { WalletService } from "app/wallet.service";
 					</div>
 				</div>
 
-				<div class="hwc-add-account">
+				<div class="hwc-add-account" (click)="goToOnboarding()">
 					<div class="hwc-add-account-inner">
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -64,10 +65,20 @@ import { WalletService } from "app/wallet.service";
 export class HomeWalletsConnectedComponent implements OnInit {
 	wallets!: Array<Wallet>;
 
-	constructor(private _walletService: WalletService) {
+	constructor(private _walletService: WalletService, private _router: Router) {
 		const currentWallet = JSON.parse(localStorage.getItem("wallet") || "{}");
 
+		const remainingWallets = JSON.parse(localStorage.getItem("wallets") || "[]");
+
 		this.wallets = [new WalletModel(currentWallet)];
+
+		if (Array.isArray(remainingWallets) && remainingWallets.length) {
+			for (let index = 0; index < remainingWallets.length; index++) {
+				const wallet = remainingWallets[index];
+
+				this.wallets.push(new WalletModel(wallet));
+			}
+		}
 
 		console.log({ wallets: this.wallets });
 	}
@@ -78,5 +89,9 @@ export class HomeWalletsConnectedComponent implements OnInit {
 
 	displayAddress(address: any): string {
 		return this._walletService.getDisplayableAddress(address);
+	}
+
+	goToOnboarding(): void {
+		this._router.navigate(["/onboarding"]);
 	}
 }

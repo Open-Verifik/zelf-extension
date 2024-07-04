@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@ngneat/transloco";
@@ -27,7 +27,8 @@ export class UwSearchWalletComponent implements OnInit {
 		private _walletService: WalletService,
 		private _formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
-		private _translocoService: TranslocoService
+		private _translocoService: TranslocoService,
+		private _changeDetectorRef: ChangeDetectorRef
 	) {
 		this.session = this._walletService.getSessionData();
 		this.displayableError = null;
@@ -175,6 +176,16 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this._walletService.previewWallet(this.qrCodeData).subscribe((response) => {
 			this.potentialWallet = response.data?.wallet;
+
+			if (!this.potentialWallet) {
+				this.session.step = 0;
+
+				this.qrCodeData = null;
+
+				this._changeDetectorRef.markForCheck();
+
+				return;
+			}
 
 			this.potentialWallet.hasPassword = Boolean(response.data?.type === "WithPassword");
 		});

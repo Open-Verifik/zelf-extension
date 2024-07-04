@@ -93,13 +93,31 @@ export class WalletService {
 	}
 
 	restoreSession(): void {
-		localStorage.removeItem("wallet");
+		const wallets = JSON.parse(localStorage.getItem("wallets") || "[]");
 
-		localStorage.removeItem("walletId");
+		const currentWallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+
+		if (Object.keys(currentWallet).length) {
+			wallets.push(currentWallet);
+
+			localStorage.setItem("wallets", JSON.stringify(wallets));
+
+			localStorage.removeItem("wallet");
+		}
 
 		this.sessionData.step = 0;
+
 		this.sessionData.password = "";
+
 		this.sessionData.usePassword = false;
+
+		this.sessionData.showBiometrics = false;
+
+		this.sessionData.showBiometricsInstructions = false;
+
+		this.sessionData.phrase = null;
+
+		this.sessionData.navigationStep = 1;
 	}
 
 	get faceapi$(): Observable<boolean> {

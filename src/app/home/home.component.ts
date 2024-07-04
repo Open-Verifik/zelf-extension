@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
 @Component({
@@ -12,7 +13,7 @@ import { environment } from "environments/environment";
 })
 export class HomeComponent implements OnInit {
 	title: string = "something";
-	wallet: any;
+	wallet!: Wallet;
 	balances: any;
 	selectedTab: string;
 	view: string;
@@ -69,7 +70,9 @@ export class HomeComponent implements OnInit {
 	}
 
 	async _getWallet(wallet: string): Promise<any> {
-		this.wallet = JSON.parse(wallet);
+		this.wallet = new WalletModel(JSON.parse(wallet));
+
+		console.log({ wallett: this.wallet });
 
 		const ethBalance = await this._ethService.getBalanceByAddress(this.wallet.ethAddress);
 

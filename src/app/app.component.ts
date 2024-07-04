@@ -29,8 +29,12 @@ export class AppComponent implements OnInit {
 	_getPublicKey(): void {
 		let { hash } = this._walletService.generateUniqueId();
 
+		const url = `${this.apiUrl}/api/sessions/yek-cilbup`;
+
+		console.info({ url });
+
 		this._httpWrapperService
-			.sendRequest("get", `${this.apiUrl}/api/sessions/yek-cilbup`, {
+			.sendRequest("get", url, {
 				identifier: hash,
 			})
 			.subscribe(async (response) => {

@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
-import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { environment } from "environments/environment";
-import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 
 @Component({
 	selector: "app-unlock-wallet",
@@ -13,16 +12,21 @@ import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 })
 export class UnlockWalletComponent implements OnInit {
 	session: any;
-	wallet: any;
+	wallet!: Wallet;
+
 	@ViewChild("searchNgForm") searchNgForm!: NgForm;
 
 	constructor(private _router: Router, private _walletService: WalletService) {
 		this.session = this._walletService.getSessionData();
 
-		const wallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+		const activeWallet = localStorage.getItem("tempWalletAddress");
 
-		if (Object.keys(wallet).length) {
-			this.wallet = wallet;
+		const unlockWallet = activeWallet ? null : new WalletModel(JSON.parse(localStorage.getItem("unlockWallet") || "{}"));
+
+		this.session.navigationStep = 1;
+
+		if (unlockWallet?.ethAddress) {
+			this.wallet = unlockWallet;
 
 			this.session.navigationStep = 2;
 		}
@@ -78,9 +82,9 @@ export class UnlockWalletComponent implements OnInit {
 		setTimeout(() => {
 			if (this.wallet) return;
 
-			const wallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+			const unlockWallet = new WalletModel(JSON.parse(localStorage.getItem("unlockWallet") || "{}"));
 
-			if (Object.keys(wallet).length) this.wallet = wallet;
+			if (unlockWallet.ethAddress) this.wallet = unlockWallet;
 		}, 1000);
 
 		return Boolean(filter && this.wallet);

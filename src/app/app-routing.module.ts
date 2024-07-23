@@ -7,6 +7,7 @@ import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
 import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
 import { ImportWalletComponent } from "./import-wallet/import-wallet.component";
 import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
+import { SendTransactionComponent } from "./send-transaction/send-transaction.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -31,6 +32,10 @@ const routes: Routes = [
 	{
 		path: "extension-instructions",
 		component: ExtensionInstructionsComponent,
+	},
+	{
+		path: "send-transaction",
+		component: SendTransactionComponent,
 	},
 ];
 

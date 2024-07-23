@@ -185,6 +185,7 @@
 }
 
 .hwc-account-item-balance-icon {
+	cursor: pointer;
 	width: 24px;
 	height: 48px;
 	padding-top: 12px;
@@ -279,4 +280,10 @@
 	font-weight: 600;
 	line-height: 24px;
 	word-wrap: break-word;
+}
+
+.mat-menu-item-text {
+	position: relative;
+	bottom: 6px;
+	left: 3px;
 }

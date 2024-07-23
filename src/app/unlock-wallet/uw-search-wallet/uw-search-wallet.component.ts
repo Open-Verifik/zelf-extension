@@ -31,6 +31,7 @@ export class UwSearchWalletComponent implements OnInit {
 		private _changeDetectorRef: ChangeDetectorRef
 	) {
 		this.session = this._walletService.getSessionData();
+
 		this.displayableError = null;
 	}
 
@@ -49,6 +50,23 @@ export class UwSearchWalletComponent implements OnInit {
 		this.searchQuery$.subscribe((query) => {
 			this._triggerSearch(query);
 		});
+
+		const passedActiveWallet = localStorage.getItem("tempWalletAddress");
+		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
+
+		if (passedActiveWallet && passedActiveQRCode) {
+			this.qrCodeData = passedActiveWallet;
+
+			this.fileBase64 = passedActiveQRCode;
+
+			setTimeout(() => {
+				localStorage.removeItem("unlockWallet");
+				localStorage.removeItem("tempWalletAddress");
+				localStorage.removeItem("tempWalletQrCode");
+			}, 1000);
+
+			this.previewQRCode();
+		}
 	}
 
 	_triggerSearch(query: string): void {

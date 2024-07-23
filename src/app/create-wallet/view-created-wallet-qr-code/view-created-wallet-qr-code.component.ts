@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
+import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -100,6 +101,7 @@ import { WalletService } from "app/wallet.service";
 	styleUrls: ["./view-created-wallet-qr-code.component.scss", "../../main.scss"],
 })
 export class ViewCreatedWalletQrCodeComponent implements OnInit {
+	@Input() walletType!: string; // Input property to accept view type
 	wallet: any;
 	words!: Array<any>;
 
@@ -108,14 +110,16 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		private _translocoService: TranslocoService,
 		private _walletService: WalletService,
 		private _router: Router
-	) {
-		const wallet = JSON.parse(localStorage.getItem("wallet") || "{}");
-
-		if (Object.keys(wallet).length) this.wallet = wallet;
-	}
+	) {}
 
 	ngOnInit(): void {
-		if (this.wallet.cleartext_data) this.wallet.publicData = this.wallet.cleartext_data;
+		const wallet = JSON.parse(localStorage.getItem(this.walletType) || "{}");
+
+		if (Object.keys(wallet).length) this.wallet = new WalletModel(wallet);
+
+		if (!this.wallet) return;
+
+		if (this.wallet?.cleartext_data) this.wallet.publicData = this.wallet.cleartext_data;
 
 		this._prepareWords();
 	}
@@ -124,6 +128,8 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		this.words = [];
 
 		const _words = this.wallet.metadata?.mnemonic.split(" ");
+
+		if (!_words?.length) this._router.navigate(["/home"]);
 
 		for (let index = 0; index < _words.length; index++) {
 			const word = _words[index];

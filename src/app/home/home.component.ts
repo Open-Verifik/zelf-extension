@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 	balances: any;
 	selectedTab: string;
 	view: string;
+	shareables: any;
 
 	constructor(
 		private _router: Router,
@@ -29,24 +30,44 @@ export class HomeComponent implements OnInit {
 		this.view = "home";
 
 		this.selectedTab = "assets";
+
+		this.shareables = {
+			view: this.view,
+			selectedTab: this.selectedTab,
+		};
 	}
 
 	openFullPage(): void {
 		// Use chrome.runtime.getURL to get the full URL of the extension page
-		const url = chrome.runtime.getURL("index.html");
-		chrome.tabs.create({ url });
+		try {
+			const url = chrome.runtime.getURL("index.html");
+
+			chrome.tabs.create({ url });
+		} catch (exception) {}
+
+		this.view = this.view === "home" ? "activeAccountPage" : "home";
 	}
 
 	ngOnInit(): void {
-		const wallet = localStorage.getItem("wallet");
+		let wallet = localStorage.getItem("wallet");
 
-		if (!wallet) {
+		const wallets = localStorage.getItem("wallets");
+
+		if (!wallet && !wallets) {
 			this._router.navigate(["/onboarding"]);
 
 			return;
 		}
 
-		this._getWallet(wallet);
+		if (!wallet && wallets) {
+			wallet = JSON.parse(wallets || "[]")[0];
+
+			if (wallet) wallet = JSON.stringify(wallet);
+
+			localStorage.setItem("wallet", JSON.stringify(wallet || ""));
+		}
+
+		this._getWallet(JSON.parse(wallet || "{}"));
 
 		// this._testing();
 	}
@@ -69,10 +90,10 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	async _getWallet(wallet: string): Promise<any> {
-		this.wallet = new WalletModel(JSON.parse(wallet));
+	async _getWallet(wallet: any): Promise<any> {
+		this.wallet = new WalletModel(wallet);
 
-		console.log({ wallett: this.wallet });
+		if (!this.wallet.ethAddress) return;
 
 		const ethBalance = await this._ethService.getBalanceByAddress(this.wallet.ethAddress);
 
@@ -87,13 +108,7 @@ export class HomeComponent implements OnInit {
 
 	getTokens(): void {
 		this._cryptoService.getTokens(this.wallet.ethAddress).subscribe((data) => {
-			console.log({ tokens: data });
-
-			//   if (data.status === '1') {
-			// 	this.tokens = data.result;
-			//   } else {
-			// 	console.error('Error fetching tokens', data.message);
-			//   }
+			// console.log({ tokens: data });
 		});
 	}
 
@@ -101,7 +116,7 @@ export class HomeComponent implements OnInit {
 		this._cryptoService.getCryptoPrice("ethereum").subscribe((data) => {
 			this.balances.ethPrice = parseFloat(`${data.ethereum.usd * this.balances.eth}`).toFixed(5);
 
-			console.log({ balances: this.balances, data });
+			// console.log({ balances: this.balances, data });
 		});
 	}
 
@@ -118,10 +133,14 @@ export class HomeComponent implements OnInit {
 	}
 
 	openAccountsPage(): void {
-		this.view = this.view === "home" ? "accountsPage" : "home";
+		this.shareables.view = this.shareables.view === "home" ? "accountsPage" : "home";
 	}
 
 	selectTab(tab: string): void {
-		this.selectedTab = tab;
+		this.shareables.selectedTab = tab;
+	}
+
+	sendTransaction(): void {
+		this._router.navigate(["/send-transaction"]);
 	}
 }

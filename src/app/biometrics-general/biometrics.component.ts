@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, timeout } from "rxjs";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { MatButtonModule } from "@angular/material/button";
@@ -611,9 +611,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.subscribe({
 				next: (response) => {
-					this.session.showBiometrics = false;
+					localStorage.setItem("unlockWallet", JSON.stringify(response.data));
 
-					localStorage.setItem("wallet", JSON.stringify(response.data));
+					setTimeout(() => {
+						this.session.showBiometrics = false;
+					}, 500);
 				},
 				error: (err) => {
 					this.errorContent = err.error;

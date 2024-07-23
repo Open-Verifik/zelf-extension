@@ -126,8 +126,11 @@ export class WalletService {
 
 	async loadModels(): Promise<void> {
 		const promises = [];
+
 		promises.push(faceapi.nets.ssdMobilenetv1.loadFromUri("assets/models"));
+
 		promises.push(faceapi.nets.faceLandmark68Net.loadFromUri("assets/models"));
+
 		await Promise.allSettled(promises);
 
 		this._faceapi.next(true);

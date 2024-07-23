@@ -96,6 +96,7 @@
 }
 
 .home-wallet {
+	cursor: pointer;
 	padding: 3px;
 	background: #e9e9e9;
 	border-radius: 4px;
@@ -117,9 +118,11 @@
 .home-wallet-icon {
 	width: 24px;
 	height: 24px;
+	margin-right: 10px;
 	position: relative;
 	border-radius: 40px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .home-wallet-icon-bar {
@@ -224,6 +227,7 @@
 	justify-content: flex-start;
 	align-items: flex-start;
 	gap: 8px;
+	cursor: pointer;
 }
 
 .home-action-icon-box {
@@ -431,4 +435,10 @@
 	line-height: 20px;
 	letter-spacing: 0.1px;
 	word-wrap: break-word;
+}
+
+.mat-menu-item-text {
+	position: relative;
+	bottom: 6px;
+	left: 3px;
 }

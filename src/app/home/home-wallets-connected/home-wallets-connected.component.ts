@@ -32,7 +32,8 @@ import { WalletService } from "app/wallet.service";
 							<div>1464,11 USD</div>
 						</div>
 					</div>
-					<div class="hwc-account-item-balance-icon">
+
+					<div class="hwc-account-item-balance-icon" [matMenuTriggerFor]="menu">
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path
@@ -43,6 +44,42 @@ import { WalletService } from "app/wallet.service";
 						</div>
 					</div>
 				</div>
+
+				<mat-menu #menu="matMenu" xPosition="before" yPosition="above">
+					<button mat-menu-item>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path
+									d="M19 19H5V5H12V3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V12H19V19ZM14 3V5H17.59L7.76 14.83L9.17 16.24L19 6.41V10H21V3H14Z"
+									fill="#46464F"
+								/>
+							</svg>
+						</span>
+						<span class="mat-menu-item-text">{{ "wallets_connected.see_on_scanner" | transloco }}</span>
+					</button>
+					<button mat-menu-item>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path d="M3 11H11V3H3V11ZM5 5H9V9H5V5Z" fill="#46464F" />
+								<path d="M3 21H11V13H3V21ZM5 15H9V19H5V15Z" fill="#46464F" />
+								<path d="M13 3V11H21V3H13ZM19 9H15V5H19V9Z" fill="#46464F" />
+								<path d="M21 19H19V21H21V19Z" fill="#46464F" />
+								<path d="M15 13H13V15H15V13Z" fill="#46464F" />
+								<path d="M17 15H15V17H17V15Z" fill="#46464F" />
+								<path d="M15 17H13V19H15V17Z" fill="#46464F" />
+								<path d="M17 19H15V21H17V19Z" fill="#46464F" />
+								<path d="M19 17H17V19H19V17Z" fill="#46464F" />
+								<path d="M19 13H17V15H19V13Z" fill="#46464F" />
+								<path d="M21 15H19V17H21V15Z" fill="#46464F" />
+							</svg>
+						</span>
+						<span class="mat-menu-item-text">{{ "wallets_connected.see_qr_code" | transloco }}</span>
+					</button>
+					<mat-divider> </mat-divider>
+					<button mat-menu-item>
+						<span>{{ "wallets_connected.delete_wallet" | transloco }}</span>
+					</button>
+				</mat-menu>
 
 				<div class="hwc-add-account" (click)="goToOnboarding()">
 					<div class="hwc-add-account-inner">
@@ -66,15 +103,17 @@ export class HomeWalletsConnectedComponent implements OnInit {
 	wallets!: Array<Wallet>;
 
 	constructor(private _walletService: WalletService, private _router: Router) {
-		const currentWallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+		const currentWallet = new WalletModel(JSON.parse(localStorage.getItem("wallet") || "{}"));
 
 		const remainingWallets = JSON.parse(localStorage.getItem("wallets") || "[]");
 
-		this.wallets = [new WalletModel(currentWallet)];
+		this.wallets = [currentWallet];
 
 		if (Array.isArray(remainingWallets) && remainingWallets.length) {
 			for (let index = 0; index < remainingWallets.length; index++) {
 				const wallet = remainingWallets[index];
+
+				if (wallet.ethAddress === currentWallet.ethAddress) continue;
 
 				this.wallets.push(new WalletModel(wallet));
 			}

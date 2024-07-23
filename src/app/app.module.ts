@@ -46,13 +46,16 @@ import { BiometricInstructionsComponent } from "./common-steps/biometric-instruc
 import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/import-qr-code-step.component";
 import { WordsPickerStepComponent } from "./create-wallet/words-picker-step/words-picker-step.component";
 import { ViewCreatedWalletQrCodeComponent } from "./create-wallet/view-created-wallet-qr-code/view-created-wallet-qr-code.component";
-import { UwSearchWalletComponent } from './unlock-wallet/uw-search-wallet/uw-search-wallet.component';
-import { UwPasswordStepComponent } from './unlock-wallet/uw-password-step/uw-password-step.component';
-import { HomeWalletsConnectedComponent } from './home/home-wallets-connected/home-wallets-connected.component';
-import { HomeActiveWalletComponent } from './home/home-active-wallet/home-active-wallet.component';
-import { HomeWalletAssetsComponent } from './home/home-wallet-assets/home-wallet-assets.component';
-import { HomeWalletActivityComponent } from './home/home-wallet-activity/home-wallet-activity.component';
-import { HomeWalletSendAssetsComponent } from './home/home-wallet-send-assets/home-wallet-send-assets.component';
+import { UwSearchWalletComponent } from "./unlock-wallet/uw-search-wallet/uw-search-wallet.component";
+import { UwPasswordStepComponent } from "./unlock-wallet/uw-password-step/uw-password-step.component";
+import { HomeWalletsConnectedComponent } from "./home/home-wallets-connected/home-wallets-connected.component";
+import { HomeActiveWalletComponent } from "./home/home-active-wallet/home-active-wallet.component";
+import { HomeWalletAssetsComponent } from "./home/home-wallet-assets/home-wallet-assets.component";
+import { HomeWalletActivityComponent } from "./home/home-wallet-activity/home-wallet-activity.component";
+import { HomeWalletSendAssetsComponent } from "./home/home-wallet-send-assets/home-wallet-send-assets.component";
+import { MatDividerModule } from "@angular/material/divider";
+import { HomeHeaderComponent } from './home/home-header/home-header.component';
+import { StSearchWalletComponent } from './send-transaction/st-search-wallet/st-search-wallet.component';
 //
 //
 //
@@ -83,13 +86,15 @@ import { HomeWalletSendAssetsComponent } from './home/home-wallet-send-assets/ho
 		ImportQrCodeStepComponent,
 		WordsPickerStepComponent,
 		ViewCreatedWalletQrCodeComponent,
-  UwSearchWalletComponent,
-  UwPasswordStepComponent,
-  HomeWalletsConnectedComponent,
-  HomeActiveWalletComponent,
-  HomeWalletAssetsComponent,
-  HomeWalletActivityComponent,
-  HomeWalletSendAssetsComponent,
+		UwSearchWalletComponent,
+		UwPasswordStepComponent,
+		HomeWalletsConnectedComponent,
+		HomeActiveWalletComponent,
+		HomeWalletAssetsComponent,
+		HomeWalletActivityComponent,
+		HomeWalletSendAssetsComponent,
+  HomeHeaderComponent,
+  StSearchWalletComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -115,6 +120,7 @@ import { HomeWalletSendAssetsComponent } from './home/home-wallet-send-assets/ho
 		MatStepperModule,
 		MatInputModule,
 		MatSnackBarModule,
+		MatDividerModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

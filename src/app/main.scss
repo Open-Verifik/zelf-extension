@@ -176,6 +176,22 @@ $computers: 1200px;
 	padding-right: 1.5rem;
 }
 
+.pr-4 {
+	padding-right: 1rem;
+}
+
+.pr-6 {
+	padding-right: 1.5rem;
+}
+
+.pl-4 {
+	padding-left: 1rem;
+}
+
+.pl-6 {
+	padding-left: 1.5rem;
+}
+
 /* Margins */
 .m-0 {
 	margin: 0;
@@ -666,6 +682,14 @@ $computers: 1200px;
 .secondary-button:disabled {
 	color: #4e6599 !important;
 	border: 1px solid #0b57d036 !important;
+}
+
+.link {
+	cursor: pointer;
+}
+
+.link:hover {
+	color: #0b57d0;
 }
 
 /* Margin Right Classes */

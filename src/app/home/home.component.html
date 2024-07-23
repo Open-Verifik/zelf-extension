@@ -1,60 +1,14 @@
 <div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
 	<div class="home-main">
 		<!-- HEADER -->
-		<div class="home-main-header">
-			<div class="home-header-left">
-				<div class="home-icon-container">
-					<div class="home-icon home-header-left">
-						<div class="home-icon-svg">
-							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-								<path
-									d="M16.625 6.75L14.9375 3.75H12.455L11.1875 1.5H7.8125L6.545 3.75H4.0625L2.375 6.75L3.6425 9L2.375 11.25L4.0625 14.25H6.545L7.8125 16.5H11.1875L12.455 14.25H14.9375L16.625 11.25L15.3575 9L16.625 6.75ZM14.9075 6.75L14.0675 8.25H12.4625L11.6225 6.75L12.4625 5.25H14.0675L14.9075 6.75ZM8.705 10.5L7.865 9L8.705 7.5H10.295L11.135 9L10.295 10.5H8.705ZM10.31 3L11.15 4.485L10.295 6H8.705L7.85 4.485L8.69 3H10.31ZM4.94 5.25H6.545L7.385 6.75L6.545 8.25H4.94L4.0925 6.75L4.94 5.25ZM4.0925 11.25L4.9325 9.75H6.5375L7.3775 11.25L6.5375 12.75H4.94L4.0925 11.25ZM8.69 15L7.85 13.515L8.705 12H10.295L11.1425 13.515L10.31 15H8.69ZM14.06 12.75H12.455L11.615 11.25L12.455 9.75H14.06L14.9 11.25L14.06 12.75Z"
-									fill="#46464F"
-								/>
-							</svg>
-						</div>
-						<div class="home-icon-svg">
-							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-								<path
-									d="M12.9425 6.22168L9.5 9.65668L6.0575 6.22168L5 7.27918L9.5 11.7792L14 7.27918L12.9425 6.22168Z"
-									fill="#46464F"
-								/>
-							</svg>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="home-header-center">
-				<div class="home-account-info cursor-pointer" (click)="openAccountsPage()">
-					<div class="home-account-name">Account</div>
+		<home-header [shareables]="shareables"></home-header>
 
-					<div class="home-account-dropdown">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#1F1F1F" />
-						</svg>
-					</div>
-				</div>
-			</div>
-			<div class="home-header-right">
-				<div (click)="openFullPage()" class="home-wallet">
-					<div class="home-wallet-image">
-						<img [src]="wallet.image" *ngIf="wallet && wallet.image" />
-					</div>
-				</div>
-				<div class="home-wallet-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-						<path
-							d="M12.5 8C13.6 8 14.5 7.1 14.5 6C14.5 4.9 13.6 4 12.5 4C11.4 4 10.5 4.9 10.5 6C10.5 7.1 11.4 8 12.5 8ZM12.5 10C11.4 10 10.5 10.9 10.5 12C10.5 13.1 11.4 14 12.5 14C13.6 14 14.5 13.1 14.5 12C14.5 10.9 13.6 10 12.5 10ZM12.5 16C11.4 16 10.5 16.9 10.5 18C10.5 19.1 11.4 20 12.5 20C13.6 20 14.5 19.1 14.5 18C14.5 16.9 13.6 16 12.5 16Z"
-							fill="#46464F"
-						/>
-					</svg>
-				</div>
-			</div>
-		</div>
 		<!-- end of HEADER -->
-		<home-wallets-connected *ngIf="view === 'accountsPage'"> </home-wallets-connected>
+		<home-wallets-connected *ngIf="shareables.view === 'accountsPage'"> </home-wallets-connected>
 
-		<div *ngIf="view === 'home'" class="w-full">
+		<home-active-wallet *ngIf="shareables.view === 'activeAccountPage'"></home-active-wallet>
+
+		<div *ngIf="shareables.view === 'home'" class="w-full">
 			<!-- Address -->
 			<div fxLayout="row" fxLayoutAlign="center center">
 				<div class="home-wallet-info" fxLayout="row" fxLayoutAlign="center center">
@@ -90,10 +44,10 @@
 							</svg>
 						</div>
 					</div>
-					<div class="home-action-text">Recibir</div>
+					<div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
 				</div>
 				<div class="home-action">
-					<div class="home-action-icon">
+					<div class="home-action-icon" (click)="sendTransaction()">
 						<div class="home-action-icon-box">
 							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
 								<path
@@ -103,7 +57,7 @@
 							</svg>
 						</div>
 					</div>
-					<div class="home-action-text">Enviar</div>
+					<div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
 				</div>
 			</div>
 			<!-- end of actions -->

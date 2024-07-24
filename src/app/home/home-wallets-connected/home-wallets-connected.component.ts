@@ -163,5 +163,13 @@ export class HomeWalletsConnectedComponent implements OnInit {
 		// Implement your unlink logic here
 		console.log("Unlinking wallet at index:", this.selectedIndex, this.wallets[this.selectedIndex]);
 		this.wallets.splice(this.selectedIndex, 1);
+
+		localStorage.setItem("wallets", JSON.stringify(this.wallets));
+
+		if (this.selectedIndex === 0) {
+			this.wallets.length ? localStorage.setItem("wallet", JSON.stringify(this.wallets[0])) : localStorage.removeItem("wallet");
+
+			return;
+		}
 	}
 }

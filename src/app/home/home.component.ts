@@ -49,11 +49,11 @@ export class HomeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		let wallet = localStorage.getItem("wallet");
+		let wallet = JSON.parse(localStorage.getItem("wallet") || "");
 
 		const wallets = localStorage.getItem("wallets");
 
-		if (!wallet && !wallets) {
+		if (!wallet && (!wallets || wallets.length < 10)) {
 			this._router.navigate(["/onboarding"]);
 
 			return;
@@ -62,12 +62,10 @@ export class HomeComponent implements OnInit {
 		if (!wallet && wallets) {
 			wallet = JSON.parse(wallets || "[]")[0];
 
-			if (wallet) wallet = JSON.stringify(wallet);
-
 			localStorage.setItem("wallet", JSON.stringify(wallet || ""));
 		}
 
-		this._getWallet(JSON.parse(wallet || "{}"));
+		this._getWallet(wallet);
 
 		// this._testing();
 	}

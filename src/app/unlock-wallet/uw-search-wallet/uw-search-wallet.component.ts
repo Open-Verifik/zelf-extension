@@ -22,6 +22,7 @@ export class UwSearchWalletComponent implements OnInit {
 	fileBase64: string | ArrayBuffer | null = null;
 	qrCodeData: string | null = null;
 	displayableError: any;
+	unlockQRCode: string;
 
 	constructor(
 		private _walletService: WalletService,
@@ -30,6 +31,8 @@ export class UwSearchWalletComponent implements OnInit {
 		private _translocoService: TranslocoService,
 		private _changeDetectorRef: ChangeDetectorRef
 	) {
+		this.unlockQRCode = "";
+
 		this.session = this._walletService.getSessionData();
 
 		this.displayableError = null;
@@ -134,7 +137,6 @@ export class UwSearchWalletComponent implements OnInit {
 	onDragLeave(event: DragEvent): void {
 		event.preventDefault();
 		event.stopPropagation();
-		// Remove any visual indication for drag leave
 	}
 
 	// Method to handle the file

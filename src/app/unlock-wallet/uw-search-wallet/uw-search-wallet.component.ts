@@ -108,6 +108,7 @@ export class UwSearchWalletComponent implements OnInit {
 		const input = event.target as HTMLInputElement;
 		if (input.files && input.files.length > 0) {
 			const file = input.files[0];
+
 			this.handleFile(file);
 		}
 	}
@@ -142,6 +143,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 		reader.onload = () => {
 			this.fileBase64 = reader.result;
+
 			if (typeof this.fileBase64 === "string") {
 				this.decodeQRCode(this.fileBase64);
 			}
@@ -156,6 +158,8 @@ export class UwSearchWalletComponent implements OnInit {
 
 		img.src = base64;
 
+		console.log({ img });
+
 		img.onload = () => {
 			const canvas = document.createElement("canvas");
 			const context = canvas.getContext("2d");
@@ -165,6 +169,8 @@ export class UwSearchWalletComponent implements OnInit {
 				context.drawImage(img, 0, 0, img.width, img.height);
 				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 				const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+				console.log({ code, imageData });
 
 				this.extractBinaryData(code);
 			}

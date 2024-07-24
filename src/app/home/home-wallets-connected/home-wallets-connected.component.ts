@@ -33,7 +33,7 @@ import { WalletService } from "app/wallet.service";
 						</div>
 					</div>
 
-					<div class="hwc-account-item-balance-icon" [matMenuTriggerFor]="menu">
+					<div class="hwc-account-item-balance-icon" [matMenuTriggerFor]="menu" (menuOpened)="setIndex(_index)">
 						<div>
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path
@@ -76,7 +76,7 @@ import { WalletService } from "app/wallet.service";
 						<span class="mat-menu-item-text">{{ "wallets_connected.see_qr_code" | transloco }}</span>
 					</button>
 					<mat-divider> </mat-divider>
-					<button mat-menu-item>
+					<button mat-menu-item (click)="unlinkWallet()">
 						<span>{{ "wallets_connected.delete_wallet" | transloco }}</span>
 					</button>
 				</mat-menu>
@@ -101,25 +101,46 @@ import { WalletService } from "app/wallet.service";
 })
 export class HomeWalletsConnectedComponent implements OnInit {
 	wallets!: Array<Wallet>;
+	selectedIndex: number;
 
 	constructor(private _walletService: WalletService, private _router: Router) {
+		this.selectedIndex = 0;
+
 		const currentWallet = new WalletModel(JSON.parse(localStorage.getItem("wallet") || "{}"));
 
 		const remainingWallets = JSON.parse(localStorage.getItem("wallets") || "[]");
 
-		this.wallets = [currentWallet];
+		this.wallets = [];
+
+		if (currentWallet.ethAddress) {
+			this.wallets.push(currentWallet);
+		}
+
+		const walletsMapping = {
+			[currentWallet.ethAddress]: true,
+		};
 
 		if (Array.isArray(remainingWallets) && remainingWallets.length) {
 			for (let index = 0; index < remainingWallets.length; index++) {
 				const wallet = remainingWallets[index];
 
-				if (wallet.ethAddress === currentWallet.ethAddress) continue;
+				if (walletsMapping[wallet.ethAddress]) continue;
 
-				this.wallets.push(new WalletModel(wallet));
+				walletsMapping[wallet.ethAddress] = true;
+
+				const _wallet = new WalletModel(wallet);
+
+				if (!_wallet.ethAddress) continue;
+
+				this.wallets.push(_wallet);
 			}
 		}
 
-		console.log({ wallets: this.wallets });
+		if (!currentWallet.ethAddress) {
+			localStorage.setItem("wallet", JSON.stringify(this.wallets[0]));
+		}
+
+		localStorage.setItem("wallets", JSON.stringify(this.wallets));
 	}
 
 	ngOnInit(): void {
@@ -132,5 +153,15 @@ export class HomeWalletsConnectedComponent implements OnInit {
 
 	goToOnboarding(): void {
 		this._router.navigate(["/onboarding"]);
+	}
+
+	setIndex(index: number) {
+		this.selectedIndex = index;
+	}
+
+	unlinkWallet() {
+		// Implement your unlink logic here
+		console.log("Unlinking wallet at index:", this.selectedIndex, this.wallets[this.selectedIndex]);
+		this.wallets.splice(this.selectedIndex, 1);
 	}
 }

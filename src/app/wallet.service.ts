@@ -97,6 +97,8 @@ export class WalletService {
 
 		const currentWallet = JSON.parse(localStorage.getItem("wallet") || "{}");
 
+		localStorage.removeItem("unlockWallet");
+
 		if (Object.keys(currentWallet).length) {
 			wallets.push(currentWallet);
 
@@ -286,6 +288,8 @@ export class WalletService {
 	}
 
 	getDisplayableAddress(address: string): string {
+		if (!address) return "";
+
 		const firstPart = address.slice(0, 8);
 		const lastPart = address.slice(-6);
 		return `${firstPart}...${lastPart}`;

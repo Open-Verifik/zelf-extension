@@ -113,15 +113,17 @@ export class HomeHeaderComponent implements OnInit {
 			return;
 		}
 
-		if (!wallet && wallets) {
+		this.wallet = new WalletModel(JSON.parse(wallet || "{}"));
+
+		if ((!wallet && wallets) || !this.wallet.ethAddress) {
 			wallet = JSON.parse(wallets || "[]")[0];
 
-			if (wallet) wallet = JSON.stringify(wallet);
+			if (!wallet) return;
 
-			localStorage.setItem("wallet", JSON.stringify(wallet || ""));
+			this.wallet = new WalletModel(wallet);
+
+			localStorage.setItem("wallet", JSON.stringify(wallet));
 		}
-
-		this.wallet = new WalletModel(JSON.parse(wallet || "{}"));
 	}
 
 	openAccountsPage(): void {

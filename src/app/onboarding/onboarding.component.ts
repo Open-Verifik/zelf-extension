@@ -49,6 +49,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this.termsForm = this._formBuilder.group({
 			termsAcceptance: [false, [Validators.required]],
 		});
+
 		this.startRotation();
 	}
 

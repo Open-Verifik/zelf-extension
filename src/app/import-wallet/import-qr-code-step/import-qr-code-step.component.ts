@@ -21,7 +21,7 @@ export class ImportQrCodeStepComponent implements OnInit {
 	) {
 		this.session = this._walletService.getSessionData();
 
-		this.wallet = this._walletService.getWallet();
+		this.wallet = JSON.parse(localStorage.getItem("importWallet") || "{}");
 	}
 
 	ngOnInit(): void {
@@ -87,5 +87,7 @@ export class ImportQrCodeStepComponent implements OnInit {
 
 	goToInstructions(): void {
 		this._router.navigate(["extension-instructions"]);
+
+		localStorage.setItem("wallet", JSON.stringify(this.wallet));
 	}
 }

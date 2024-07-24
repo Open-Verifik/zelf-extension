@@ -99,6 +99,8 @@ export class WalletService {
 
 		localStorage.removeItem("unlockWallet");
 
+		localStorage.removeItem("importWallet");
+
 		if (Object.keys(currentWallet).length) {
 			wallets.push(currentWallet);
 

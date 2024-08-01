@@ -19,6 +19,7 @@ import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalDa
 import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { environment } from "environments/environment";
+import { ChromeService } from "app/chrome.service";
 
 let _this = {
 	biometricsLoginCalled: false,
@@ -38,7 +39,6 @@ let _this = {
 		MatProgressBarModule,
 		MatProgressSpinnerModule,
 		WebcamModule,
-		// AuthBiometricErrorsDisplayComponent,
 	],
 })
 export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -80,7 +80,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		private _translocoService: TranslocoService,
 		private renderer: Renderer2,
 		private _navigation: Router,
-		private _httpWrapperService: HttpWrapperService
+		private _httpWrapperService: HttpWrapperService,
+		private _chromeService: ChromeService
 	) {
 		this.deviceData = this._walletService.getDeviceData();
 
@@ -155,8 +156,9 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				identifier: hash,
 				type,
 			})
-			.subscribe((response) => {
-				localStorage.setItem("accessToken", response.data.token);
+			.then((response) => {
+				this._chromeService.setItem("accessToken", response.data.token);
+				// localStorage.setItem("accessToken", response.data.token);
 			});
 	}
 
@@ -584,22 +586,20 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				wordsCount: data.wordsCount || 12,
 				seeWallet: 1,
 			})
-			.subscribe({
-				next: (response) => {
-					this.session.showBiometrics = false;
+			.then((response) => {
+				this.session.showBiometrics = false;
 
-					localStorage.setItem("wallet", JSON.stringify(response.data));
+				this._chromeService.setItem("wallet", response.data);
+				// localStorage.setItem("wallet", JSON.stringify(response.data));
 
-					this._walletService.goToNextStep(this.session.step + 1);
+				this._walletService.goToNextStep(this.session.step + 1);
 
-					_this["biometricsLoginCalled"] = false;
-				},
-				error: (err) => {
-					this.errorContent = err.error;
-					this.retryLivenessModal(err.error?.message);
-					this.loading({ isLoading: false, result: true });
-				},
-				complete: () => {},
+				_this["biometricsLoginCalled"] = false;
+			})
+			.catch((err) => {
+				this.errorContent = err.error;
+				this.retryLivenessModal(err.error?.message);
+				this.loading({ isLoading: false, result: true });
 			});
 	}
 
@@ -611,22 +611,20 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				password: payload.password || undefined,
 				identifier: data.identifier,
 			})
-			.subscribe({
-				next: (response) => {
-					localStorage.setItem("unlockWallet", JSON.stringify(response.data));
+			.then((response) => {
+				this._chromeService.setItem("unlockWallet", response.data);
+				// localStorage.setItem("unlockWallet", JSON.stringify(response.data));
 
-					setTimeout(() => {
-						this.session.showBiometrics = false;
+				setTimeout(() => {
+					this.session.showBiometrics = false;
 
-						_this["biometricsLoginCalled"] = false;
-					}, 500);
-				},
-				error: (err) => {
-					this.errorContent = err.error;
-					this.retryLivenessModal(err.error?.message);
-					this.loading({ isLoading: false, result: true });
-				},
-				complete: () => {},
+					_this["biometricsLoginCalled"] = false;
+				}, 500);
+			})
+			.catch((err) => {
+				this.errorContent = err.error;
+				this.retryLivenessModal(err.error?.message);
+				this.loading({ isLoading: false, result: true });
 			});
 	}
 
@@ -637,24 +635,22 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				password: payload.password,
 				phrase: data.phrase,
 			})
-			.subscribe({
-				next: (response) => {
-					this.session.walletCreated = response.data;
+			.then((response) => {
+				this.session.walletCreated = response.data;
 
-					localStorage.setItem("importWallet", JSON.stringify(response.data));
+				this._chromeService.setItem("importWallet", response.data);
+				// localStorage.setItem("importWallet", JSON.stringify(response.data));
 
-					this._walletService.goToNextStep(this.session.step + 1);
+				this._walletService.goToNextStep(this.session.step + 1);
 
-					_this["biometricsLoginCalled"] = false;
-				},
-				error: (err) => {
-					this.errorContent = err.error;
+				_this["biometricsLoginCalled"] = false;
+			})
+			.catch((err) => {
+				this.errorContent = err.error;
 
-					this.retryLivenessModal(err.error?.message);
+				this.retryLivenessModal(err.error?.message);
 
-					this.loading({ isLoading: false, result: true });
-				},
-				complete: () => {},
+				this.loading({ isLoading: false, result: true });
 			});
 	}
 

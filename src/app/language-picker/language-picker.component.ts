@@ -1,7 +1,6 @@
-import { NgFor, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
-import { AvailableLangs, TranslocoService } from "@ngneat/transloco";
-import { trigger, state, style, transition, animate } from "@angular/animations";
+import { TranslocoService } from "@ngneat/transloco";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
 	selector: "language-picker",
@@ -18,7 +17,7 @@ export class LanguagePickerComponent implements OnInit, OnDestroy {
 	/**
 	 * Constructor
 	 */
-	constructor(private _changeDetectorRef: ChangeDetectorRef, private _translocoService: TranslocoService) {
+	constructor(private _changeDetectorRef: ChangeDetectorRef, private _translocoService: TranslocoService, private _chromeService: ChromeService) {
 		// Set the country iso codes for languages for flags
 		this.flagCodes = {
 			en: "us",
@@ -76,7 +75,8 @@ export class LanguagePickerComponent implements OnInit, OnDestroy {
 		// Set the active lang
 		this._translocoService.setActiveLang(lang);
 
-		localStorage.setItem("currentLanguage", lang);
+		this._chromeService.setItem("currentLanguage", lang);
+		// localStorage.setItem("currentLanguage", lang);
 	}
 
 	/**

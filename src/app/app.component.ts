@@ -37,7 +37,9 @@ export class AppComponent implements OnInit {
 			.sendRequest("get", url, {
 				identifier: hash,
 			})
-			.subscribe(async (response) => {
+			.then((response) => {
+				console.log({ response });
+
 				this.publicKey = response.data;
 
 				this._httpWrapperService.setPublicKey(this.publicKey);
@@ -55,7 +57,7 @@ export class AppComponent implements OnInit {
 				encryption: true,
 				message: encryptedMessage,
 			})
-			.subscribe((response) => {
+			.then((response) => {
 				console.log({ response });
 			});
 	}

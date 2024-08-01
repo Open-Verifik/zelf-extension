@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable } from "rxjs";
 import * as faceapi from "@vladmandic/face-api";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import * as openpgp from "openpgp";
+import { ChromeService } from "./chrome.service";
+import { WalletModel } from "./wallet";
 
 @Injectable({
 	providedIn: "root",
@@ -31,7 +33,8 @@ export class WalletService {
 	constructor(
 		private _httpWrapper: HttpWrapperService,
 		private _translocoService: TranslocoService,
-		private _breakpointObserver: BreakpointObserver
+		private _breakpointObserver: BreakpointObserver,
+		private chromeService: ChromeService
 	) {
 		this.deviceData = this.getDeviceDetails();
 
@@ -44,12 +47,6 @@ export class WalletService {
 		});
 
 		this.deviceData.OS = this.detectOS();
-
-		const wallet = localStorage.getItem("wallet");
-
-		if (wallet) {
-			this.wallet = JSON.parse(wallet);
-		}
 	}
 
 	getDeviceData() {
@@ -63,9 +60,9 @@ export class WalletService {
 	getWallet() {
 		if (this.wallet) return this.wallet;
 
-		if (!localStorage.getItem("wallet")) return null;
+		const wallet = this.chromeService.getItem("wallet");
 
-		return JSON.parse(localStorage.getItem("wallet") || "{}");
+		return wallet;
 	}
 
 	setSteps(steps: Array<any>): void {
@@ -92,21 +89,23 @@ export class WalletService {
 		this.sessionData.step = stepIndex;
 	}
 
-	restoreSession(): void {
-		const wallets = JSON.parse(localStorage.getItem("wallets") || "[]");
+	async restoreSession(): Promise<any> {
+		const wallets = (await this.chromeService.getItem("wallets")) || [];
 
-		const currentWallet = JSON.parse(localStorage.getItem("wallet") || "{}");
+		const currentWallet = new WalletModel((await this.chromeService.getItem("wallet")) || {});
 
 		localStorage.removeItem("unlockWallet");
 
 		localStorage.removeItem("importWallet");
 
-		if (Object.keys(currentWallet).length) {
+		if (currentWallet.ethAddress) {
 			wallets.push(currentWallet);
 
-			localStorage.setItem("wallets", JSON.stringify(wallets));
+			this.chromeService.setItem("wallets", wallets);
+			// localStorage.setItem("wallets", JSON.stringify(wallets));
 
-			localStorage.removeItem("wallet");
+			this.chromeService.removeItem("wallet");
+			// localStorage.removeItem("wallet");
 		}
 
 		this.sessionData.step = 0;
@@ -202,9 +201,6 @@ export class WalletService {
 
 		let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
 
-		//for development, the unique string changes all the time.
-		// if (!environment.production) uniqueString += `-${Math.random() * 9893839}`;
-
 		return { hash: this.simpleHash(uniqueString), userAgent: navigatorInfo.userAgent, height: screenInfo.height, width: screenInfo.width };
 	}
 
@@ -226,15 +222,15 @@ export class WalletService {
 		return hash.toString();
 	}
 
-	findWallet(address: string): Observable<any> {
+	findWallet(address: string): Promise<any> {
 		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets?address=${address}`);
 	}
 
-	requestWallet(walletId: string): Observable<any> {
+	requestWallet(walletId: string): Promise<any> {
 		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-wallets/${walletId}`);
 	}
 
-	createLivenessSession(data: any): Observable<any> {
+	createLivenessSession(data: any): Promise<any> {
 		let url = `${this.baseUrl}/api/sessions`;
 
 		return this._httpWrapper.sendRequest("post", url, data, {
@@ -242,28 +238,28 @@ export class WalletService {
 		});
 	}
 
-	createWallet(data: any): Observable<any> {
+	createWallet(data: any): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets`, {
 			...data,
 			password: data.password || undefined,
 		});
 	}
 
-	decryptWAllet(data: any): Observable<any> {
+	decryptWAllet(data: any): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/decrypt`, data);
 	}
 
-	importWallet(data: any): Observable<any> {
+	importWallet(data: any): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/import`, data);
 	}
 
-	previewWallet(hash: string): Observable<any> {
+	previewWallet(hash: string): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
 			hash,
 		});
 	}
 
-	createAppRegistration(data: any): Observable<any> {
+	createAppRegistration(data: any): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/v2/app-registrations`, data);
 	}
 

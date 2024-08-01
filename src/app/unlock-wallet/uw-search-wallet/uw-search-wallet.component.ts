@@ -75,15 +75,16 @@ export class UwSearchWalletComponent implements OnInit {
 	_triggerSearch(query: string): void {
 		if (!query) return;
 
-		this._walletService.findWallet(query).subscribe(
-			(response) => {
+		this._walletService
+			.findWallet(query)
+			.then((response) => {
 				this.potentialWallet = response.data;
-			},
-			(error) => {
+			})
+			.catch((error) => {
 				this.snackBar.open("account not found", "OK");
+
 				this.startAgain();
-			}
-		);
+			});
 	}
 
 	goToNextStep(): void {
@@ -160,8 +161,6 @@ export class UwSearchWalletComponent implements OnInit {
 
 		img.src = base64;
 
-		console.log({ img });
-
 		img.onload = () => {
 			const canvas = document.createElement("canvas");
 			const context = canvas.getContext("2d");
@@ -171,8 +170,6 @@ export class UwSearchWalletComponent implements OnInit {
 				context.drawImage(img, 0, 0, img.width, img.height);
 				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 				const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-				console.log({ code, imageData });
 
 				this.extractBinaryData(code);
 			}
@@ -200,8 +197,10 @@ export class UwSearchWalletComponent implements OnInit {
 	previewQRCode(): void {
 		if (!this.qrCodeData) return;
 
-		this._walletService.previewWallet(this.qrCodeData).subscribe((response) => {
+		this._walletService.previewWallet(this.qrCodeData).then((response) => {
 			this.potentialWallet = response.data?.wallet;
+
+			console.log({ potentialWallet: response.data });
 
 			if (!this.potentialWallet) {
 				this.session.step = 0;

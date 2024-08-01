@@ -12,11 +12,11 @@ export class CryptoService {
 
 	constructor(private _httpWrapper: HttpWrapperService) {}
 
-	getCryptoPrice(coin: string, currency: string = "usd"): Observable<any> {
+	getCryptoPrice(coin: string, currency: string = "usd"): Promise<any> {
 		return this._httpWrapper.sendRequest("get", `${this.apiUrl}?ids=${coin}&vs_currencies=${currency}`);
 	}
 
-	getTokens(address: string): Observable<any> {
+	getTokens(address: string): Promise<any> {
 		const url = `${this.ethScanUrl}?module=account&action=tokentx&address=${address}&page=1&offset=100&sort=asc&apikey=${this.ethScanKey}`;
 
 		console.log({ tokenUrl: url });

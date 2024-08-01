@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
+import { ChromeService } from "app/chrome.service";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -11,17 +13,20 @@ import { WalletService } from "app/wallet.service";
 })
 export class ImportQrCodeStepComponent implements OnInit {
 	session: any;
-	wallet: any;
+	wallet: Wallet;
 
 	constructor(
 		private _router: Router,
 		private _walletService: WalletService,
 		private snackBar: MatSnackBar,
-		private _translocoService: TranslocoService
+		private _translocoService: TranslocoService,
+		private _chromeService: ChromeService
 	) {
 		this.session = this._walletService.getSessionData();
 
-		this.wallet = JSON.parse(localStorage.getItem("importWallet") || "{}");
+		const wallet = JSON.parse(localStorage.getItem("importWallet") || "{}");
+
+		this.wallet = new WalletModel(wallet);
 	}
 
 	ngOnInit(): void {
@@ -64,7 +69,7 @@ export class ImportQrCodeStepComponent implements OnInit {
 	}
 
 	copyPublicAddress(): void {
-		navigator.clipboard.writeText(this.wallet.publicData.ethAddress).then(
+		navigator.clipboard.writeText(this.wallet.ethAddress).then(
 			() => {
 				this.snackBar.open(this._translocoService.translate("common.copy_to_clipboard"), this._translocoService.translate("common.close"), {
 					duration: 5000,
@@ -88,6 +93,7 @@ export class ImportQrCodeStepComponent implements OnInit {
 	goToInstructions(): void {
 		this._router.navigate(["extension-instructions"]);
 
-		localStorage.setItem("wallet", JSON.stringify(this.wallet));
+		this._chromeService.setItem("wallet", this.wallet);
+		// localStorage.setItem("wallet", JSON.stringify(this.wallet));
 	}
 }

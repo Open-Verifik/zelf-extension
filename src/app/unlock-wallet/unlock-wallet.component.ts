@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
 import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
@@ -16,20 +17,8 @@ export class UnlockWalletComponent implements OnInit {
 
 	@ViewChild("searchNgForm") searchNgForm!: NgForm;
 
-	constructor(private _router: Router, private _walletService: WalletService) {
+	constructor(private _router: Router, private _walletService: WalletService, private _chromeService: ChromeService) {
 		this.session = this._walletService.getSessionData();
-
-		const activeWallet = localStorage.getItem("tempWalletAddress");
-
-		const unlockWallet = activeWallet ? null : new WalletModel(JSON.parse(localStorage.getItem("unlockWallet") || "{}"));
-
-		this.session.navigationStep = 1;
-
-		if (unlockWallet?.ethAddress) {
-			this.wallet = unlockWallet;
-
-			this.session.navigationStep = 2;
-		}
 
 		this._walletService.setSteps([
 			{
@@ -50,7 +39,20 @@ export class UnlockWalletComponent implements OnInit {
 		]);
 	}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<any> {
+		const activeWallet = await this._chromeService.getItem("tempWalletAddress");
+
+		const _unlockWallet = localStorage.getItem("unlockWallet") || {};
+
+		const unlockWallet = activeWallet ? null : new WalletModel(_unlockWallet);
+
+		this.session.navigationStep = 1;
+
+		if (unlockWallet?.ethAddress) {
+			this.wallet = unlockWallet;
+
+			this.session.navigationStep = 2;
+		}
 		console.log({ session: this.session });
 	}
 
@@ -82,9 +84,13 @@ export class UnlockWalletComponent implements OnInit {
 		setTimeout(() => {
 			if (this.wallet) return;
 
-			const unlockWallet = new WalletModel(JSON.parse(localStorage.getItem("unlockWallet") || "{}"));
+			this._chromeService.getItem("unlockWallet").then((_wallet) => {
+				const unlockWallet = new WalletModel(_wallet);
 
-			if (unlockWallet.ethAddress) this.wallet = unlockWallet;
+				if (unlockWallet.ethAddress) this.wallet = unlockWallet;
+
+				console.log({ _wallet, unlockWallet, thiss: this.wallet });
+			});
 		}, 1000);
 
 		return Boolean(filter && this.wallet);

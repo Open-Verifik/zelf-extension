@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, retry, finalize } from "rxjs";
+import { Observable, retry, finalize, from, switchMap } from "rxjs";
 import * as openpgp from "openpgp";
+import { ChromeService } from "./chrome.service";
 @Injectable({
 	providedIn: "root",
 })
@@ -13,19 +14,78 @@ export class HttpWrapperService {
 		return !!this.tail.length;
 	}
 
-	constructor(private _http: HttpClient) {}
+	constructor(private _http: HttpClient, private _chromeService: ChromeService) {}
+
+	// /**
+	//  * send request
+	//  * @param method - to determinate which function we will be using
+	//  * @param url - url that we will requesting information
+	//  * @param params - params that can go into the body or the query string param
+	//  * @param options - headers or some other sort of params
+	//  */
+	// // tslint:disable-next-line:typedef
+	// sendRequest(method: string, url: string, params: any = {}, options: any = {}) {
+	// 	method = method.toLocaleLowerCase();
+
+	// 	const authToken: string = localStorage.getItem("accessToken") || "";
+
+	// 	let headers: any = {
+	// 		timeout: 20,
+	// 	};
+
+	// 	if (authToken) {
+	// 		headers["Authorization"] = `Bearer ${authToken}`;
+	// 	}
+
+	// 	if (params.encryption) {
+	// 	}
+
+	// 	switch (method) {
+	// 		case "get":
+	// 			return this.request(
+	// 				this._http.get(url, {
+	// 					params,
+	// 					headers,
+	// 					...options,
+	// 				})
+	// 			);
+	// 		case "post":
+	// 			return this.request(
+	// 				this._http.post(url, params, {
+	// 					headers,
+	// 					...options,
+	// 				})
+	// 			);
+	// 		case "put":
+	// 			return this.request(
+	// 				this._http.put(url, params, {
+	// 					headers,
+	// 					...options,
+	// 				})
+	// 			);
+	// 		case "delete":
+	// 			return this.request(
+	// 				this._http.delete(url, {
+	// 					headers,
+	// 					...options,
+	// 				})
+	// 			);
+	// 		default:
+	// 			throw "method not provided";
+	// 	}
+	// }
+
 	/**
-	 * send request
-	 * @param method - to determinate which function we will be using
-	 * @param url - url that we will requesting information
+	 * Send request
+	 * @param method - to determine which function we will be using
+	 * @param url - URL that we will be requesting information from
 	 * @param params - params that can go into the body or the query string param
 	 * @param options - headers or some other sort of params
 	 */
-	// tslint:disable-next-line:typedef
-	sendRequest(method: string, url: string, params: any = {}, options: any = {}) {
+	async sendRequest(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
 		method = method.toLocaleLowerCase();
 
-		const authToken: string = localStorage.getItem("accessToken") || "";
+		const authToken: string = (await this._chromeService.getItem("accessToken")) || "";
 
 		let headers: any = {
 			timeout: 20,
@@ -35,54 +95,50 @@ export class HttpWrapperService {
 			headers["Authorization"] = `Bearer ${authToken}`;
 		}
 
+		// Additional header or options logic here
 		if (params.encryption) {
+			// Handle encryption
 		}
 
-		switch (method) {
-			case "get":
-				return this.request(
-					this._http.get(url, {
-						params,
-						headers,
-						...options,
-					})
-				);
-			case "post":
-				return this.request(
-					this._http.post(url, params, {
-						headers,
-						...options,
-					})
-				);
-			case "put":
-				return this.request(
-					this._http.put(url, params, {
-						headers,
-						...options,
-					})
-				);
-			case "delete":
-				return this.request(
-					this._http.delete(url, {
-						headers,
-						...options,
-					})
-				);
-			default:
-				throw "method not provided";
+		try {
+			switch (method) {
+				case "get":
+					return this.request(this._http.get(url, { params, headers, ...options }));
+				case "post":
+					return this.request(this._http.post(url, params, { headers, ...options }));
+				case "put":
+					return this.request(this._http.put(url, params, { headers, ...options }));
+				case "delete":
+					return this.request(this._http.delete(url, { headers, ...options }));
+				default:
+					throw new Error("Method not provided or unsupported");
+			}
+		} catch (error) {
+			console.error("Error in sendRequest:", error);
+			throw error;
 		}
 	}
 
-	private request(a: Observable<any>): Observable<any> {
-		this.tail.push(a);
-		return a.pipe(
-			retry(0),
-			finalize(() => {
-				const index = this.tail.indexOf(a);
-				this.tail.splice(index, 1);
-			})
-		);
+	// // Helper method to process HTTP requests (just an example of what it might look like)
+	private request(httpCall: any): Promise<any> {
+		return httpCall
+			.toPromise()
+			.then((response: any) => response)
+			.catch((error: any) => {
+				throw error;
+			});
 	}
+
+	// private request(a: Observable<any>): Observable<any> {
+	// 	this.tail.push(a);
+	// 	return a.pipe(
+	// 		retry(0),
+	// 		finalize(() => {
+	// 			const index = this.tail.indexOf(a);
+	// 			this.tail.splice(index, 1);
+	// 		})
+	// 	);
+	// }
 
 	setPublicKey(publicKey: string): void {
 		this.publicKey = publicKey;

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -15,12 +17,17 @@ export class CreateWalletComponent implements OnInit {
 	showBiometricsInstructions: boolean = false;
 	currentStep = 0;
 	formLoaded: boolean = false;
-	wallet: any;
+	wallet!: Wallet;
 	words!: Array<any>;
 	session: any;
 	showWordsStep: boolean = false;
 
-	constructor(private _formBuilder: UntypedFormBuilder, private _router: Router, private _walletService: WalletService) {
+	constructor(
+		private _formBuilder: UntypedFormBuilder,
+		private _router: Router,
+		private _walletService: WalletService,
+		private _chromeService: ChromeService
+	) {
 		this.session = this._walletService.getSessionData();
 
 		this.session.type = "create";
@@ -34,7 +41,7 @@ export class CreateWalletComponent implements OnInit {
 		this.afterBiometricsCallback = this.afterBiometricsCallback.bind(this);
 	}
 
-	ngOnInit() {
+	async ngOnInit(): Promise<any> {
 		this.signUpForm = this._formBuilder.group({
 			termsAcceptance: [false],
 			wordsCount: [24, []],
@@ -44,9 +51,13 @@ export class CreateWalletComponent implements OnInit {
 
 		this.formLoaded = true;
 
-		this.wallet = this._walletService.getWallet();
+		const wallet = await this._chromeService.getItem("wallet");
 
-		if (this.wallet) this.session.navigationStep = 2;
+		if (wallet) {
+			this.wallet = new WalletModel(wallet);
+
+			this.session.navigationStep = 2;
+		}
 	}
 
 	goBack(): void {
@@ -72,11 +83,10 @@ export class CreateWalletComponent implements OnInit {
 	}
 
 	afterBiometricsCallback(response: any): void {
-		localStorage.setItem("walletId", response._id);
+		this._chromeService.setItem("wallet", response);
+		// localStorage.setItem("wallet", JSON.stringify(response));
 
-		localStorage.setItem("wallet", JSON.stringify(response));
-
-		this.wallet = response;
+		this.wallet = new WalletModel(response);
 
 		this.showBiometrics = false;
 

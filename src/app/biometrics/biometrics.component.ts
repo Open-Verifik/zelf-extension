@@ -15,6 +15,7 @@ import { WalletService } from "../wallet.service";
 import { environment } from "environments/environment";
 // import { AuthBiometricErrorsDisplayComponent } from "../auth-biometric-errors-display/auth-biometric-errors-display.component";
 import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
 
 let _biometricLoginThis = null;
 
@@ -114,7 +115,8 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 		private _translocoService: TranslocoService,
 		private renderer: Renderer2,
 		private _walletService: WalletService,
-		private _navigation: Router
+		private _navigation: Router,
+		private _chromeService: ChromeService
 	) {
 		_biometricLoginThis = this;
 
@@ -183,8 +185,9 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 				identifier: environment.production ? hash : `${hash}-${Math.random() * 9893839}`,
 				type,
 			})
-			.subscribe((response) => {
-				localStorage.setItem("accessToken", response.data.token);
+			.then((response) => {
+				this._chromeService.setItem("accessToken", response.data?.token);
+				// localStorage.setItem("accessToken", response.data.token);
 			});
 	}
 
@@ -196,7 +199,8 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 				if (this.debugIndex === 3) {
 					this.isActiveDebug = !this.isActiveDebug;
 
-					localStorage.setItem("isActiveDebug", this.isActiveDebug ? "true" : "");
+					this._chromeService.setItem("isActiveDebug", this.isActiveDebug ? "true" : "");
+					// localStorage.setItem("isActiveDebug", this.isActiveDebug ? "true" : "");
 
 					this._changeDetectorRef.markForCheck();
 				}
@@ -628,16 +632,11 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 				password: data.password || undefined,
 				wordsCount: data.wordsCount,
 			})
-			.subscribe({
-				next: (response) => {
-					// this._navigation.navigate(["/preview-wallet/", response.data._id]);
-				},
-				error: (err) => {
-					this.errorContent = err.error;
+			.then((response) => {})
+			.catch((err) => {
+				this.errorContent = err.error;
 
-					this.showError = true;
-				},
-				complete: () => {},
+				this.showError = true;
 			});
 	}
 
@@ -648,16 +647,13 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 				wallet: data.hash,
 				password: data.password || undefined,
 			})
-			.subscribe({
-				next: (response) => {
-					this.callback(response.data);
-				},
-				error: (err) => {
-					this.errorContent = err.error;
+			.then((response) => {
+				this.callback(response.data);
+			})
+			.catch((err) => {
+				this.errorContent = err.error;
 
-					this.showError = true;
-				},
-				complete: () => {},
+				this.showError = true;
 			});
 	}
 

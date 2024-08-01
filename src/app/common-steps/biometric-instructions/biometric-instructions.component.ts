@@ -9,26 +9,26 @@ import { WalletService } from "app/wallet.service";
 				<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
 					<img src="https://cdn.verifik.co/wallet/info_cr.svg" alt="" />
 
-					<div class="cw-pst-title">{{ "create_wallet.biometric_instructions.title" | transloco }}</div>
+					<div class="main-title h1">{{ "create_wallet.biometric_instructions.title" | transloco }}</div>
 				</div>
 
 				<div class="cw-phrase-content-d m-8" fxLayout="column" fxLayoutAlign="start start">
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/smile.svg" alt="" class="mr-4" />
 
-						<span> {{ "create_wallet.biometric_instructions.instruction_1" | transloco }} </span>
+						<span class="instructions-text zelf-p"> {{ "create_wallet.biometric_instructions.instruction_1" | transloco }} </span>
 					</div>
 
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/camera.svg" alt="" class="mr-4" />
 
-						<span> {{ "create_wallet.biometric_instructions.instruction_2" | transloco }} </span>
+						<span class="instructions-text zelf-p"> {{ "create_wallet.biometric_instructions.instruction_2" | transloco }} </span>
 					</div>
 
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/instruction_1.svg" alt="" class="mr-4" />
 
-						<span> {{ "create_wallet.biometric_instructions.instruction_3" | transloco }} </span>
+						<span class="instructions-text zelf-p"> {{ "create_wallet.biometric_instructions.instruction_3" | transloco }} </span>
 					</div>
 				</div>
 

@@ -1,4 +1,4 @@
-<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet">
+<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded">
 	<div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
 	<div class="unlock-input-box">
 		<div class="unlock-input-text-container">
@@ -16,5 +16,19 @@
 				/>
 			</svg>
 		</div>
+	</div>
+
+	<!-- your accounts -->
+	<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
+		<h3>Your accounts</h3>
+
+		<wallet-card
+			(click)="selectAccount(wallet)"
+			class="p-1 w-full cursor-pointer"
+			*ngFor="let wallet of myAccounts; let _index = index"
+			[wallet]="wallet"
+			[wallets]="myAccounts"
+			[variables]="{ index: _index, hideActions: true, hideBalances: true, }"
+		></wallet-card>
 	</div>
 </form>

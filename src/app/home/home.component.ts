@@ -1,6 +1,7 @@
 /// <reference types="chrome"/>
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
 import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
 import { Wallet, WalletModel } from "app/wallet";
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
 		private _router: Router,
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
-		private _cryptoService: CryptoService
+		private _cryptoService: CryptoService,
+		private _chromeService: ChromeService
 	) {
 		this.balances = {};
 
@@ -38,36 +40,34 @@ export class HomeComponent implements OnInit {
 	}
 
 	openFullPage(): void {
-		// Use chrome.runtime.getURL to get the full URL of the extension page
 		try {
 			const url = chrome.runtime.getURL("index.html");
 
 			chrome.tabs.create({ url });
-		} catch (exception) {}
-
-		this.view = this.view === "home" ? "activeAccountPage" : "home";
+		} catch (exception) {
+			alert(exception);
+		}
 	}
 
-	ngOnInit(): void {
-		let wallet = JSON.parse(localStorage.getItem("wallet") || "");
+	async ngOnInit(): Promise<any> {
+		let wallet = await this._chromeService.getItem("wallet");
 
-		const wallets = localStorage.getItem("wallets");
+		const wallets = (await this._chromeService.getItem("wallets")) || [];
 
-		if (!wallet && (!wallets || wallets.length < 10)) {
+		if (!wallet && (!wallets || !wallets.length)) {
 			this._router.navigate(["/onboarding"]);
 
 			return;
 		}
 
 		if (!wallet && wallets) {
-			wallet = JSON.parse(wallets || "[]")[0];
+			wallet = wallets[0];
 
-			localStorage.setItem("wallet", JSON.stringify(wallet || ""));
+			this._chromeService.setItem("wallet", wallet || "");
+			// localStorage.setItem("wallet", JSON.stringify(wallet || ""));
 		}
 
 		this._getWallet(wallet);
-
-		// this._testing();
 	}
 
 	async _testing(): Promise<any> {
@@ -105,13 +105,13 @@ export class HomeComponent implements OnInit {
 	}
 
 	getTokens(): void {
-		this._cryptoService.getTokens(this.wallet.ethAddress).subscribe((data) => {
-			// console.log({ tokens: data });
+		this._cryptoService.getTokens(this.wallet.ethAddress).then((data) => {
+			console.log({ tokens: data });
 		});
 	}
 
 	getPrices(): void {
-		this._cryptoService.getCryptoPrice("ethereum").subscribe((data) => {
+		this._cryptoService.getCryptoPrice("ethereum").then((data) => {
 			this.balances.ethPrice = parseFloat(`${data.ethereum.usd * this.balances.eth}`).toFixed(5);
 
 			// console.log({ balances: this.balances, data });

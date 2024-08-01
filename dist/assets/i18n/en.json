@@ -24,7 +24,8 @@
 		"go_back": "Go back",
 		"eth_address": "ETH Address",
 		"solana_address": "Solana Address",
-		"address": "Address"
+		"address": "Address",
+		"zelf_wallet": "Zelf Wallet"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -130,5 +131,34 @@
 		"search_wallet": "Search your wallet",
 		"password_unlock": "Password lock",
 		"biometric_unlock": "Biometric lock"
+	},
+	"wallets_connected": {
+		"title": "Select a wallet",
+		"account": "Account",
+		"create_or_import_wallet_button": "Create or import a wallet",
+		"delete_wallet": "Unlink wallet",
+		"see_on_scanner": "Open explorer",
+		"see_qr_code": "See QR code"
+	},
+	"active_wallet": {
+		"show_private_key": "Show private key",
+		"warning_notice": "Remember to keep safe your QR code, make multiple copies if required. Also only unlock the secret key when exporting your wallet"
+	},
+	"home": {
+		"support_button": "Support",
+		"settings_button": "Settings",
+		"receive_transaction_button": "Receive",
+		"send_transaction_button": "Send"
+	},
+	"extension_instructions": {
+		"extensions": "Extensions",
+		"installationCompleted": "Zelf Wallet installation has been completed!",
+		"addExtension": "Add the extension to your browser to easily access and view transaction confirmations on Zelf Wallet.",
+		"clickIcon": "Click on the extension icon in your browser.",
+		"fixWallet": "Fix the Zelf Wallet.",
+		"fullAccess": "Full Access",
+		"extensionsCanChange": "These extensions can view and change information on this website.",
+		"manageExtensions": "Manage Extensions",
+		"clickExtensionIcon": "Click on the extension icon in your browser."
 	}
 }

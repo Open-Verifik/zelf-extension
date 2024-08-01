@@ -1,7 +1,7 @@
 <div class="w-full h-full" fxLayout="column" fxLayoutAlign="start center">
 	<!-- <header class="w-full"></header> -->
 	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
-		<img src="../../assets/images/logo.svg" alt="" (click)="goBack()" class="cursor-pointer" />
+		<img src="../../assets/icons/biglogo.png" alt="" (click)="goBack()" class="cursor-pointer" />
 
 		<language-picker></language-picker>
 	</div>
@@ -33,14 +33,14 @@
 
 				<!-- step 2 finalizar -->
 				<ng-container *ngIf="canSeeQRCode(i)" class="wallet-qr-code-alone">
-					<view-created-wallet-qr-code> </view-created-wallet-qr-code>
+					<view-created-wallet-qr-code [walletType]="'wallet'"> </view-created-wallet-qr-code>
 				</ng-container>
 			</app-step>
 		</app-stepper>
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 2 && wallet" class="wallet-qr-code-alone">
-		<view-created-wallet-qr-code></view-created-wallet-qr-code>
+		<view-created-wallet-qr-code [walletType]="'wallet'"></view-created-wallet-qr-code>
 	</div>
 </div>
 

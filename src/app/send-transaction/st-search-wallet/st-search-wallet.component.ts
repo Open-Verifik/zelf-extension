@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ChromeService } from "app/chrome.service";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
@@ -16,19 +18,30 @@ export class StSearchWalletComponent implements OnInit {
 	searchQuery$!: Observable<string>;
 	potentialWallet: any;
 	session: any;
-	myAccounts: Array<any>;
+	myAccounts!: Array<Wallet>;
+	loaded: boolean;
+	destination!: any;
 
-	constructor(private _formBuilder: UntypedFormBuilder, private snackBar: MatSnackBar, private _walletService: WalletService) {
-		this.myAccounts = [];
-
-		const wallets = localStorage.getItem("wallets");
-
-		if (wallets) this.myAccounts = JSON.parse(wallets || "[]");
-
-		console.log({ wallets, myAccounts: this.myAccounts });
+	constructor(
+		private _formBuilder: UntypedFormBuilder,
+		private snackBar: MatSnackBar,
+		private _walletService: WalletService,
+		private _chromeService: ChromeService
+	) {
+		this.loaded = false;
 	}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<any> {
+		this.myAccounts = [];
+
+		const wallets = (await this._chromeService.getItem("wallets")) || [];
+
+		for (let index = 0; index < wallets.length; index++) {
+			const wallet = wallets[index];
+
+			this.myAccounts.push(new WalletModel(wallet));
+		}
+
 		const defaultAddress = environment.production ? "" : "0x13901AE0F17E2875E86C86721f9943598601b0C4";
 
 		this.searchForm = this._formBuilder.group({
@@ -44,20 +57,23 @@ export class StSearchWalletComponent implements OnInit {
 		this.searchQuery$.subscribe((query) => {
 			this._triggerSearch(query);
 		});
+
+		this.loaded = true;
 	}
 
 	_triggerSearch(query: string): void {
 		if (!query) return;
 
-		this._walletService.findWallet(query).subscribe(
-			(response) => {
+		this._walletService
+			.findWallet(query)
+			.then((response) => {
 				this.potentialWallet = response.data;
-			},
-			(error) => {
+			})
+			.catch((error) => {
 				this.snackBar.open("account not found", "OK");
+
 				this.startAgain();
-			}
-		);
+			});
 	}
 
 	startAgain(): void {
@@ -66,5 +82,13 @@ export class StSearchWalletComponent implements OnInit {
 		this.session.identifier = null;
 
 		this.searchForm.patchValue({ address: "" });
+	}
+
+	selectAccount(wallet: Wallet): void {
+		this.destination = {
+			address: wallet.ethAddress,
+		};
+
+		console.log({ destination: this.destination });
 	}
 }

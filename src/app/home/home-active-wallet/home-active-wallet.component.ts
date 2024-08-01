@@ -2,12 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
+import { ChromeService } from "app/chrome.service";
 import { Wallet, WalletModel } from "app/wallet";
 
 @Component({
 	selector: "home-active-wallet",
 	template: `
-		<div class="home-active-wallet-container">
+		<div class="home-active-wallet-container" *ngIf="wallet">
 			<div class="home-active-wallet-account" fxLayout="row" fxLayoutAlign="center center">
 				<div class="home-active-wallet-account-title">
 					<div class="home-active-wallet-account-name">{{ wallet.name }}</div>
@@ -149,13 +150,20 @@ import { Wallet, WalletModel } from "app/wallet";
 export class HomeActiveWalletComponent implements OnInit {
 	wallet!: Wallet;
 
-	constructor(private _translocoService: TranslocoService, private snackBar: MatSnackBar, private _router: Router) {
-		const wallet = localStorage.getItem("wallet");
+	constructor(
+		private _translocoService: TranslocoService,
+		private snackBar: MatSnackBar,
+		private _router: Router,
+		private _chromeService: ChromeService
+	) {}
 
-		this.wallet = new WalletModel(JSON.parse(wallet || "{}"));
+	async ngOnInit(): Promise<any> {
+		const wallet = (await this._chromeService.getItem("wallet")) || {};
+
+		this.wallet = new WalletModel(wallet);
+
+		console.log({ wallet: this.wallet });
 	}
-
-	ngOnInit(): void {}
 
 	downloadQRCode(): void {
 		const parts = this.wallet.image.split(";base64,");
@@ -213,9 +221,11 @@ export class HomeActiveWalletComponent implements OnInit {
 	}
 
 	showPrivateKey(): void {
-		// this._router
-		localStorage.setItem("tempWalletAddress", this.wallet.hash);
-		localStorage.setItem("tempWalletQrCode", this.wallet.image);
+		this._chromeService.setItem("tempWalletAddress", this.wallet.hash);
+
+		this._chromeService.setItem("tempWalletQrCode", this.wallet.image);
+		// localStorage.setItem("tempWalletAddress", this.wallet.hash);
+		// localStorage.setItem("tempWalletQrCode", this.wallet.image);
 
 		this._router.navigate(["/find-wallet"]);
 	}

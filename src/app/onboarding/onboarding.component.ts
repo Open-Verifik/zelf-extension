@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
 import { WalletService } from "app/wallet.service";
 
+let isTabOpen = false;
+
 @Component({
 	selector: "app-onboarding",
 	templateUrl: "./onboarding.component.html",
@@ -51,6 +53,20 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		});
 
 		this.startRotation();
+	}
+
+	openFullPage(): void {
+		if (isTabOpen) return;
+
+		try {
+			const url = chrome.runtime.getURL("index.html");
+
+			chrome.tabs.create({ url });
+
+			isTabOpen = true; // Set the flag to prevent future invocations
+		} catch (exception) {
+			console.error("Failed to open tab:", exception);
+		}
 	}
 
 	startRotation(): void {

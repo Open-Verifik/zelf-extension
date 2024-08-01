@@ -24,7 +24,8 @@
 		"go_back": "Go back",
 		"eth_address": "ETH Address",
 		"solana_address": "Solana Address",
-		"address": "Address"
+		"address": "Address",
+		"zelf_wallet": "Zelf Wallet"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -148,5 +149,16 @@
 		"settings_button": "Settings",
 		"receive_transaction_button": "Receive",
 		"send_transaction_button": "Send"
+	},
+	"extension_instructions": {
+		"extensions": "Extensions",
+		"installationCompleted": "Zelf Wallet installation has been completed!",
+		"addExtension": "Add the extension to your browser to easily access and view transaction confirmations on Zelf Wallet.",
+		"clickIcon": "Click on the extension icon in your browser.",
+		"fixWallet": "Fix the Zelf Wallet.",
+		"fullAccess": "Full Access",
+		"extensionsCanChange": "These extensions can view and change information on this website.",
+		"manageExtensions": "Manage Extensions",
+		"clickExtensionIcon": "Click on the extension icon in your browser."
 	}
 }

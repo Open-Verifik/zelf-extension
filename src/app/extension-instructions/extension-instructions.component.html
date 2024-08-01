@@ -1,7 +1,7 @@
 <div class="w-full h-full" fxLayout="column" fxLayoutAlign="start center">
 	<!-- <header class="w-full"></header> -->
 	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
-		<img src="../../assets/images/logo.svg" alt="" class="cursor-pointer" />
+		<img src="../../assets/icons/biglogo.png" alt="" class="cursor-pointer" />
 
 		<language-picker></language-picker>
 	</div>
@@ -10,9 +10,9 @@
 		<div class="inst-card">
 			<div style="align-self: stretch; height: 91px; flex-direction: column; justify-content: center; align-items: center; display: flex">
 				<div style="align-self: stretch; text-align: center">
-					<span class="inst-card-title">¡La instalación de Biometric Wallet se ha completado!<br /></span>
+					<span class="inst-card-title">{{ "extension_instructions.installationCompleted" | transloco }}<br /></span>
 					<span class="inst-card-description">
-						Agrega la extensión a tu navegador para acceder fácilmente y ver las confirmaciones de transacciones en Biometric Wallet.
+						{{ "extension_instructions.addExtension" | transloco }}
 					</span>
 				</div>
 			</div>
@@ -29,7 +29,7 @@
 									<div class="inst-step-icon">1</div>
 								</div>
 							</div>
-							<div class="inst-step-title">Haz clic en el ícono de extensión en tu navegador.</div>
+							<div class="inst-step-title">{{ "extension_instructions.clickIcon" | transloco }}</div>
 						</div>
 						<div class="inst-first-img">
 							<div class="inst-first-img-div">
@@ -118,13 +118,13 @@
 									<div class="inst-step-icon">2</div>
 								</div>
 							</div>
-							<div class="inst-step-title">Fija a Biometric Wallet.</div>
+							<div class="inst-step-title">{{ "extension_instructions.fixWallet" | transloco }}</div>
 						</div>
 						<div class="inst-second-img">
 							<div class="inst-second-img-card">
 								<div class="inst-second-img-card-div1">
 									<div class="inst-second-img-card-div1-1">
-										<div class="inst-second-img-card-div1-2">Extensiones</div>
+										<div class="inst-second-img-card-div1-2">{{ "extension_instructions.extensions" | transloco }}</div>
 									</div>
 									<div style="width: 20px; height: 20px; position: relative">
 										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -170,7 +170,7 @@
 												word-wrap: break-word;
 											"
 										>
-											Acceso completo
+											{{ "extension_instructions.fullAccess" | transloco }}
 										</div>
 									</div>
 									<div
@@ -196,7 +196,7 @@
 												word-wrap: break-word;
 											"
 										>
-											Estas extensiones pueden ver y cambiar información en este sitio web.
+											{{ "extension_instructions.extensionsCanChange" | transloco }}
 										</div>
 									</div>
 								</div>
@@ -251,7 +251,7 @@
 													word-wrap: break-word;
 												"
 											>
-												Biometric Wallet
+												{{ "common.zelf_wallet" | transloco }}
 											</div>
 										</div>
 									</div>
@@ -343,7 +343,7 @@
 														word-wrap: break-word;
 													"
 												>
-													Gestionar extenciones
+													{{ "extension_instructions.manageExtensions" | transloco }}
 												</div>
 											</div>
 										</div>
@@ -372,7 +372,7 @@
 										<div class="inst-step-icon">3</div>
 									</div>
 								</div>
-								<div class="inst-step-title">Haz clic en el ícono de extensión en tu navegador.</div>
+								<div class="inst-step-title">{{ "extension_instructions.clickExtensionIcon" | transloco }}</div>
 							</div>
 							<div style="width: 329px; height: 121px; position: relative; box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.28)">
 								<div

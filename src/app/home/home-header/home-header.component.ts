@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
 import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
 import { Wallet, WalletModel } from "app/wallet";
@@ -44,7 +45,7 @@ import { WalletService } from "app/wallet.service";
 				</div>
 			</div>
 			<div class="home-header-right" *ngIf="wallet">
-				<div (click)="openFullPage()" class="home-wallet">
+				<div (click)="openActivePage()" class="home-wallet">
 					<div class="home-wallet-image">
 						<img [src]="wallet.image" *ngIf="wallet && wallet.image" />
 					</div>
@@ -96,16 +97,17 @@ export class HomeHeaderComponent implements OnInit {
 		private _router: Router,
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
-		private _cryptoService: CryptoService
+		private _cryptoService: CryptoService,
+		private _chromeService: ChromeService
 	) {
 		this.view = "home";
 		this.selectedTab = "assets";
 	}
 
-	ngOnInit(): void {
-		let wallet = localStorage.getItem("wallet");
+	async ngOnInit(): Promise<any> {
+		let wallet = await this._chromeService.getItem("wallet");
 
-		const wallets = localStorage.getItem("wallets");
+		const wallets = (await this._chromeService.getItem("wallets")) || [];
 
 		if (!wallet && !wallets) {
 			this._router.navigate(["/onboarding"]);
@@ -113,16 +115,17 @@ export class HomeHeaderComponent implements OnInit {
 			return;
 		}
 
-		this.wallet = new WalletModel(JSON.parse(wallet || "{}"));
+		this.wallet = new WalletModel(wallet || {});
 
 		if ((!wallet && wallets) || !this.wallet.ethAddress) {
-			wallet = JSON.parse(wallets || "[]")[0];
+			wallet = wallets[0];
 
 			if (!wallet) return;
 
 			this.wallet = new WalletModel(wallet);
 
-			localStorage.setItem("wallet", JSON.stringify(wallet));
+			this._chromeService.setItem("wallet", wallet);
+			// localStorage.setItem("wallet", JSON.stringify(wallet));
 		}
 	}
 
@@ -132,14 +135,7 @@ export class HomeHeaderComponent implements OnInit {
 		this._router.navigate(["/home"], { queryParams: { view: this.shareables.view } });
 	}
 
-	openFullPage(): void {
-		// Use chrome.runtime.getURL to get the full URL of the extension page
-		try {
-			const url = chrome.runtime.getURL("index.html");
-
-			chrome.tabs.create({ url });
-		} catch (exception) {}
-
+	openActivePage(): void {
 		this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
 	}
 }

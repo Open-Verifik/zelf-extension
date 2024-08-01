@@ -56,6 +56,8 @@ import { HomeWalletSendAssetsComponent } from "./home/home-wallet-send-assets/ho
 import { MatDividerModule } from "@angular/material/divider";
 import { HomeHeaderComponent } from './home/home-header/home-header.component';
 import { StSearchWalletComponent } from './send-transaction/st-search-wallet/st-search-wallet.component';
+import { LoaderComponent } from './loader/loader.component';
+import { WalletCardComponent } from './wallet-common/wallet-card/wallet-card.component';
 //
 //
 //
@@ -95,6 +97,8 @@ import { StSearchWalletComponent } from './send-transaction/st-search-wallet/st-
 		HomeWalletSendAssetsComponent,
   HomeHeaderComponent,
   StSearchWalletComponent,
+  LoaderComponent,
+  WalletCardComponent,
 	],
 	imports: [
 		BrowserModule,

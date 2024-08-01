@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -19,7 +21,7 @@ export class ImportWalletComponent implements OnInit {
 	wordsPerRow: number = 3;
 	showPassword: boolean[] = [];
 	session: any;
-	wallet: any;
+	wallet!: Wallet;
 
 	constructor(
 		private _router: Router,
@@ -27,17 +29,12 @@ export class ImportWalletComponent implements OnInit {
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
 		private snackBar: MatSnackBar,
-		private _httpWrapperService: HttpWrapperService
+		private _httpWrapperService: HttpWrapperService,
+		private _chromeService: ChromeService
 	) {
 		this._initForm();
 
 		this.session = this._walletService.getSessionData();
-
-		this.wallet = this._walletService.getWallet();
-
-		if (this.wallet) {
-			this.session.navigationStep = 3;
-		}
 
 		this._walletService.setSteps([
 			{
@@ -94,7 +91,15 @@ export class ImportWalletComponent implements OnInit {
 		}
 	}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<any> {
+		const wallet = await this._chromeService.getItem("wallet");
+
+		if (wallet) {
+			this.wallet = new WalletModel(wallet);
+
+			this.session.navigationStep = 3;
+		}
+
 		this.setTotalRows(12);
 
 		this.onWordsCountChange();

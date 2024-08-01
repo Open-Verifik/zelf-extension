@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
-import { WalletModel } from "app/wallet";
+import { ChromeService } from "app/chrome.service";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -16,6 +17,7 @@ import { WalletService } from "app/wallet.service";
 			fxLayoutAlign.sm="start center"
 			fxLayout.xs="column"
 			fxLayoutAlign.xs="start center"
+			*ngIf="wallet"
 		>
 			<div class="view-wallet-right">
 				<div class="view-wallet-right-address">
@@ -37,7 +39,7 @@ import { WalletService } from "app/wallet.service";
 					</div>
 					<div class="view-wallet-address-details">
 						<span class="view-wallet-address-title">{{ "create_wallet.view_wallet.copy_public_address" | transloco }} <br /></span>
-						<span class="view-wallet-address">{{ wallet.publicData.ethAddress }}</span>
+						<span class="view-wallet-address">{{ wallet.ethAddress }}</span>
 					</div>
 				</div>
 				<div class="view-wallet-image-container">
@@ -102,24 +104,29 @@ import { WalletService } from "app/wallet.service";
 })
 export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	@Input() walletType!: string; // Input property to accept view type
-	wallet: any;
+	wallet!: Wallet;
 	words!: Array<any>;
 
 	constructor(
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService,
 		private _walletService: WalletService,
+		private _chromeService: ChromeService,
 		private _router: Router
 	) {}
 
-	ngOnInit(): void {
-		const wallet = JSON.parse(localStorage.getItem(this.walletType) || "{}");
+	async ngOnInit(): Promise<any> {
+		const wallet = await this._chromeService.getItem(this.walletType || "wallet");
 
-		if (Object.keys(wallet).length) this.wallet = new WalletModel(wallet);
+		this.wallet = new WalletModel(wallet);
 
-		if (!this.wallet) return;
+		if (!this.wallet.ethAddress) {
+			this._chromeService.removeItem("wallet");
 
-		if (this.wallet?.cleartext_data) this.wallet.publicData = this.wallet.cleartext_data;
+			this._router.navigate(["/onboarding"]);
+
+			return;
+		}
 
 		this._prepareWords();
 	}
@@ -141,7 +148,9 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	goToInstructions(): void {
 		this.wallet.metadata = null;
 
-		localStorage.setItem("wallet", JSON.stringify(this.wallet));
+		this._chromeService.setItem("wallet", this.wallet);
+
+		// localStorage.setItem("wallet", JSON.stringify(this.wallet));
 
 		this._router.navigate(["extension-instructions"]);
 	}
@@ -182,7 +191,7 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	}
 
 	copyPublicAddress(): void {
-		navigator.clipboard.writeText(this.wallet.publicData.ethAddress).then(
+		navigator.clipboard.writeText(this.wallet.ethAddress).then(
 			() => {
 				this.snackBar.open(this._translocoService.translate("common.copy_to_clipboard"), this._translocoService.translate("common.close"), {
 					duration: 5000,

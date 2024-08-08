@@ -97,8 +97,6 @@ export class StSearchWalletComponent implements OnInit {
 				this.potentialWallet = new WalletModel({
 					ethAddress: this.walletToSearch,
 				});
-
-				console.log({ "still validAddress": this.potentialWallet });
 			});
 	}
 
@@ -114,6 +112,8 @@ export class StSearchWalletComponent implements OnInit {
 		this._transactionService.setTransactionData({
 			destination: wallet,
 		});
+
+		this._chromeService.setItem("temp_transactionData", { destination: wallet });
 
 		this._router.navigate(["/send-transaction-preview"]);
 	}

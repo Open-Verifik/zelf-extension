@@ -10,6 +10,17 @@ export class WalletPublicDataModel {
 	}
 }
 
+export class Asset {
+	asset: string;
+	balance: number;
+
+	constructor(data: any) {
+		this.asset = data.asset || "NA";
+
+		this.balance = data.balance || 0;
+	}
+}
+
 export interface Wallet {
 	name?: string;
 	anonymous: boolean;
@@ -23,6 +34,7 @@ export interface Wallet {
 	zkProof: string;
 	_id: string;
 	metadata: any;
+	assets: Array<Asset>;
 }
 
 export class WalletModel implements Wallet {
@@ -38,6 +50,7 @@ export class WalletModel implements Wallet {
 	zkProof: string;
 	_id: string;
 	metadata: any;
+	assets: Array<Asset>;
 
 	constructor(data: any = {}) {
 		this.name =
@@ -65,6 +78,8 @@ export class WalletModel implements Wallet {
 		this.zkProof = data.zkProof;
 		this._id = data._id;
 		this.metadata = data.metadata;
+
+		this.assets = [];
 	}
 }
 

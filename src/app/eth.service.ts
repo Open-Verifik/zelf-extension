@@ -17,6 +17,14 @@ export class EthereumService {
 		this.web3 = new Web3(new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5"));
 	}
 
+	changeNetwork(production?: boolean): void {
+		const url = production
+			? "https://mainnet.infura.io/v3/0714254b0de84112a865096da1050ae5"
+			: "https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5";
+
+		this.web3 = new Web3(new Web3.providers.HttpProvider(url));
+	}
+
 	createAccount(): any {
 		// return {
 		// 	privateKey: "0x39179c1618f02fff134aa70df439b7bd86757d6beb82af6d1304a48d4fe14f6b",

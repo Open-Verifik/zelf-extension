@@ -21,9 +21,7 @@
 		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded">
 			<div class="unlock-input-box">
 				<div class="unlock-input-text-container">
-					<mat-form-field class="w-full">
-						<input type="text" matInput [formControlName]="'address'" readonly="true" />
-					</mat-form-field>
+					<input type="text" matInput [formControlName]="'address'" readonly="true" class="w-full" />
 				</div>
 			</div>
 
@@ -36,12 +34,17 @@
 					<div fxLayout="row" fxLayout="space-between center" class="send-transaction-asset-input">
 						<img src="../../assets/images/ethicon.png" alt="" />
 
-						<div class="send-transaction-asset-input-label" fxLayout="column" fxLayoutAlign="start start">
+						<div
+							class="send-transaction-asset-input-label"
+							fxLayout="column"
+							fxLayoutAlign="start start"
+							*ngIf="wallet && wallet.assets && wallet.assets.length"
+						>
 							<span>
-								<strong> ETH </strong>
+								<strong> {{ wallet.assets[0].asset }} </strong>
 							</span>
 
-							<span> Balance 0.00112 ETH </span>
+							<small> {{ "common.balance" | transloco }} {{ wallet.assets[0].balance }} </small>
 						</div>
 
 						<div class="" fxLayoutAlign="row" fxLayoutAlign="end center">

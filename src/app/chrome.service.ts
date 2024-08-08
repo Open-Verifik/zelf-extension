@@ -30,26 +30,36 @@ export class ChromeService {
 		});
 	}
 
-	getItem(key: string): Promise<any> {
+	getItem(key: string, overrideSource?: string): Promise<any> {
+		let source = this.isExtension ? "extension" : "web";
+
+		if (overrideSource) {
+			source = ["extension", "web"].includes(overrideSource) ? overrideSource : source;
+		}
+
 		return new Promise((resolve, reject) => {
-			if (this.isExtension) {
-				chrome.storage.local.get(key, (result) => {
-					if (chrome.runtime.lastError) {
-						reject(chrome.runtime.lastError);
-					} else {
-						resolve(result[key]);
+			switch (source) {
+				case "extension":
+					chrome.storage.local.get(key, (result) => {
+						if (chrome.runtime.lastError) {
+							reject(chrome.runtime.lastError);
+						} else {
+							resolve(result[key]);
+						}
+					});
+
+					break;
+
+				default:
+					try {
+						const item = localStorage.getItem(key);
+
+						if (!item) resolve("");
+
+						resolve(item?.includes("{") ? JSON.parse(item) : item);
+					} catch (error) {
+						reject(error);
 					}
-				});
-			} else {
-				try {
-					const item = localStorage.getItem(key);
-
-					if (!item) resolve("");
-
-					resolve(item?.includes("{") ? JSON.parse(item) : item);
-				} catch (error) {
-					reject(error);
-				}
 			}
 		});
 	}

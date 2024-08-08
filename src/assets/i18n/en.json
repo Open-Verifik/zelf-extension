@@ -28,7 +28,8 @@
 		"zelf_wallet": "Zelf Wallet",
 		"cancel": "Cancel",
 		"total": "Total",
-		"edit": "Edit"
+		"edit": "Edit",
+		"balance": "Balance"
 	},
 	"create_wallet": {
 		"password_step": {

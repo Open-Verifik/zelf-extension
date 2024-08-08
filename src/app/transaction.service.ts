@@ -18,8 +18,6 @@ export class TransactionService {
 		}
 
 		this.transactionData[key] = data;
-
-		console.log({ key, transactionData: this.transactionData });
 	}
 
 	getTransactionData(): any {

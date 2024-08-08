@@ -8,6 +8,9 @@ import { ExtensionInstructionsComponent } from "./extension-instructions/extensi
 import { ImportWalletComponent } from "./import-wallet/import-wallet.component";
 import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
 import { SendTransactionComponent } from "./send-transaction/send-transaction.component";
+import { SendTransactionPreviewComponent } from "./send-transaction/send-transaction-preview/send-transaction-preview.component";
+import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
+import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -36,6 +39,18 @@ const routes: Routes = [
 	{
 		path: "send-transaction",
 		component: SendTransactionComponent,
+	},
+	{
+		path: "send-transaction-preview",
+		component: SendTransactionPreviewComponent,
+	},
+	{
+		path: "send-transaction-confirm",
+		component: SendTransactionConfirmationComponent,
+	},
+	{
+		path: "send-transaction-bridge",
+		component: SendTransactionBridgeComponent,
 	},
 ];
 

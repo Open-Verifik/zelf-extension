@@ -1,0 +1,52 @@
+<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
+	<div class="home-main" fxLayout="column" fxLayoutAlign="space-between start">
+		<div class="w-full" fxLayout="column" fxLayoutAlign="start start">
+			<div class="bridge-header">
+				<div class="bridge-back-btn" (click)="goBack()">
+					<img src="../../../assets/images/arrow_back.svg" alt="" />
+				</div>
+				<div class="bridge-header-text">{{ "send_transaction.bridge.qr_code_title" | transloco }}</div>
+				<div class="bridge-header-placeholder"></div>
+			</div>
+			<div class="bridge-qr-bg" fxLayout="row" fxLayoutAlign="center center">
+				<img class="bridge-qr-code" src="https://via.placeholder.com/249x249" />
+			</div>
+
+			<div class="bridge-text-content">
+				<div class="bridge-text">
+					<span class="bridge-title">
+						{{ "send_transaction.bridge.title" | transloco }}
+						<br />
+					</span>
+					<span class="bridge-description">
+						<br />{{ "send_transaction.bridge.description" | transloco }}.<br /><br />{{
+							"send_transaction.bridge.description_2" | transloco
+						}}
+					</span>
+				</div>
+			</div>
+
+			<div class="bridge-confirm-btn-container w-full">
+				<div class="bridge-confirm-btn">
+					<div class="bridge-confirm-btn-text">
+						{{ "send_transaction.bridge.confirm_button" | transloco }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bridge-app-prompt-container">
+			<div class="bridge-app-prompt" fxLayout="column" fxLayoutAlign="center center">
+				<span class="font-bold">
+					{{ "send_transaction.bridge.dont_have_the_app" | transloco }}
+				</span>
+				<span>
+					{{ "send_transaction.bridge.download_here" | transloco }}
+				</span>
+			</div>
+			<div class="bridge-download-btns-container">
+				<img src="../../../assets/images/google_play_button.svg" alt="" />
+				<!-- <img src="../../../assets/images/app_store_button.svg" alt="" /> -->
+			</div>
+		</div>
+	</div>
+</div>

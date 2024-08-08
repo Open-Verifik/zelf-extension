@@ -40,7 +40,8 @@ export class WalletModel implements Wallet {
 	metadata: any;
 
 	constructor(data: any = {}) {
-		this.name = data.name || "Account 1";
+		this.name =
+			["Account NaN", "Account 1"].includes(data.name) && data.index !== undefined ? `Account ${data.index + 1}` : data.name || "Account";
 
 		this.anonymous = data.anonymous || true;
 

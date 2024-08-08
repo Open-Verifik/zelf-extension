@@ -1,0 +1,166 @@
+<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
+	<div class="home-main" fxLayout="column" fxLayoutAlign="space-between start">
+		<div class="w-full">
+			<div class="st-confirm-header">
+				<div class="st-confirm-edit-btn">
+					<div class="st-confirm-edit-text-container">
+						<div class="st-confirm-edit-icon"></div>
+						<div class="st-confirm-edit-text">Editar</div>
+					</div>
+				</div>
+				<div class="st-confirm-network-btn">
+					<div class="st-confirm-network-text-container">
+						<img class="st-confirm-network-icon" src="https://via.placeholder.com/18x18" />
+						<div class="st-confirm-network-text">Callisto Network</div>
+						<div class="st-confirm-network-arrow"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="st-confirm-accounts-container" fxLayout="row" fxLayoutAlign="space-between center">
+				<div class="st-confirm-account">
+					<div class="st-confirm-account-details">
+						<div class="st-confirm-account-icon-container">
+							<div class="st-confirm-account-icon"></div>
+						</div>
+						<div class="st-confirm-account-text-container">
+							<div class="st-confirm-account-text">Cuenta 1</div>
+						</div>
+					</div>
+				</div>
+				<div class="st-confirm-checkbox">
+					<div class="st-confirm-checkbox-icon"></div>
+				</div>
+				<div class="st-confirm-account">
+					<div class="st-confirm-account-selected">
+						<div class="st-confirm-account-selected-icon-container">
+							<div class="st-confirm-account-selected-icon"></div>
+						</div>
+						<div class="st-confirm-account-text-container">
+							<div class="st-confirm-account-text">Cuenta 2</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="st-confirm-summary-container">
+				<div class="st-confirm-summary">
+					<div class="st-confirm-sending-status">
+						<div class="st-confirm-sending-status-text">ENVIANDO CLO</div>
+					</div>
+					<div class="st-confirm-sending-amount-container">
+						<div class="st-confirm-sending-amount">
+							<img class="st-confirm-amount-icon" src="https://via.placeholder.com/24x24" />
+							<div class="st-confirm-amount-text-container">
+								<div class="st-confirm-amount-text">1.06078678766867861</div>
+							</div>
+						</div>
+						<div class="st-confirm-amount-value-container">
+							<div class="st-confirm-amount-value">$1.87</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="st-confirm-market-container">
+				<div class="st-confirm-market-header">
+					<div class="st-confirm-market-text">Market</div>
+				</div>
+
+				<div class="st-confirm-market-details">
+					<div class="st-confirm-market-item">
+						<div class="st-confirm-market-gas" fxLayout="column" fxLayoutAlign="start start">
+							<div class="st-confirm-market-gas-text-container">
+								<div class="st-confirm-market-gas-text">Gas (estimada)</div>
+							</div>
+							<div class="st-confirm-market-gas-time">Probable en 30 segundos</div>
+						</div>
+						<div class="st-confirm-market-gas-amount-container" fxLayout="column" fxLayoutAlign="end start">
+							<div class="st-confirm-market-gas-amount">0.369 CLO</div>
+							<div class="st-confirm-market-gas-max-container">
+								<span class="st-confirm-market-gas-max-text">Tarifa máxima: 144,11 CLO</span>
+							</div>
+						</div>
+					</div>
+					<div class="st-confirm-divider"></div>
+					<div class="st-confirm-market-item">
+						<div class="st-confirm-market-total">
+							<div class="st-confirm-market-total-text">Total</div>
+							<div class="st-confirm-market-total-info">Importe + tarifa de gas</div>
+						</div>
+						<div class="st-confirm-market-total-amount-container" fxLayout="column" fxLayoutAlign="end start">
+							<div class="st-confirm-market-total-amount">0.369 CLO</div>
+							<div class="st-confirm-market-total-max-container">
+								<span class="st-confirm-market-total-max-text">Cantidad máxima:</span>
+								<span class="st-confirm-market-total-max-amount"> 144,11 CLO</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div fxLayout="row" fxLayoutAlign="center center" class="w-full px-3 pb-4">
+			<button mat-raised-button class="rounded-button main-button" (click)="goNext()">
+				{{ "send_transaction.confirm_transaction_button" | transloco }}
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
+	<div class="home-main">
+		<div class="st-confirm-container">
+			<div class="st-confirm-market-container">
+				<div class="st-confirm-market-header">
+					<div class="st-confirm-market-text">Market</div>
+				</div>
+				<div class="st-confirm-market-details">
+					<div class="st-confirm-market-item">
+						<div class="st-confirm-market-gas">
+							<div class="st-confirm-market-gas-text-container">
+								<div class="st-confirm-market-gas-text">Gas</div>
+								<div class="st-confirm-market-gas-estimated">(estimada)</div>
+								<div class="st-confirm-market-gas-icon"></div>
+							</div>
+							<div class="st-confirm-market-gas-time">Probable en <30 segundos</div>
+						</div>
+						<div class="st-confirm-market-gas-amount-container">
+							<div class="st-confirm-market-gas-amount">0.369 CLO</div>
+							<div class="st-confirm-market-gas-max-container">
+								<span class="st-confirm-market-gas-max-text">Tarifa máxima:</span>
+								<span class="st-confirm-market-gas-max-amount"> 144,11 CLO</span>
+							</div>
+						</div>
+					</div>
+					<div class="st-confirm-divider"></div>
+					<div class="st-confirm-market-item">
+						<div class="st-confirm-market-total">
+							<div class="st-confirm-market-total-text">Total</div>
+							<div class="st-confirm-market-total-info">Importe + tarifa de gas</div>
+						</div>
+						<div class="st-confirm-market-total-amount-container">
+							<div class="st-confirm-market-total-amount">0.369 CLO</div>
+							<div class="st-confirm-market-total-max-container">
+								<span class="st-confirm-market-total-max-text">Cantidad máxima:</span>
+								<span class="st-confirm-market-total-max-amount"> 144,11 CLO</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="st-confirm-footer">
+				<div class="st-confirm-footer-divider"></div>
+				<div class="st-confirm-footer-actions">
+					<img class="st-confirm-footer-icon" src="https://via.placeholder.com/56x41" />
+					<div class="st-confirm-footer-confirm-btn">
+						<div class="st-confirm-footer-confirm-text">Confirmar con mi biometría facial</div>
+					</div>
+					<div class="st-confirm-footer-reject-btn">
+						<div class="st-confirm-footer-reject-text">Rechazar</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

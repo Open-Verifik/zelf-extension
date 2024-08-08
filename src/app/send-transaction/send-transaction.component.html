@@ -6,14 +6,18 @@
 		<div *ngIf="shareables.view === 'home'" class="w-full">
 			<!-- Address -->
 			<div fxLayout="row" fxLayoutAlign="end center" class="pt-6 pr-4">
-				<small class="link" (click)="cancel()"> Cancel </small>
+				<small class="link" (click)="cancel()">
+					{{ "common.cancel" | transloco }}
+				</small>
 			</div>
 
 			<div fxLayout="row" fxLayoutAlign="center center">
-				<h2 class="m-0">Send to</h2>
+				<h2 class="m-0">
+					{{ "send_transaction.send_to" | transloco }}
+				</h2>
 			</div>
 		</div>
 
-		<st-search-wallet></st-search-wallet>
+		<st-search-wallet> </st-search-wallet>
 	</div>
 </div>

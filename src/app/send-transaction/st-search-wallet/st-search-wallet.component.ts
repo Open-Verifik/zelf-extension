@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
+import { TransactionService } from "app/transaction.service";
 import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
@@ -26,7 +28,9 @@ export class StSearchWalletComponent implements OnInit {
 		private _formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
 		private _walletService: WalletService,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private _transactionService: TransactionService,
+		private _router: Router
 	) {
 		this.loaded = false;
 	}
@@ -34,12 +38,16 @@ export class StSearchWalletComponent implements OnInit {
 	async ngOnInit(): Promise<any> {
 		this.myAccounts = [];
 
+		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
+
 		const wallets = (await this._chromeService.getItem("wallets")) || [];
 
 		for (let index = 0; index < wallets.length; index++) {
-			const wallet = wallets[index];
+			const wallet = new WalletModel({ index, ...wallets[index] });
 
-			this.myAccounts.push(new WalletModel(wallet));
+			if (currentWallet.ethAddress === wallet.ethAddress) continue;
+
+			this.myAccounts.push(wallet);
 		}
 
 		const defaultAddress = environment.production ? "" : "0x13901AE0F17E2875E86C86721f9943598601b0C4";
@@ -85,10 +93,10 @@ export class StSearchWalletComponent implements OnInit {
 	}
 
 	selectAccount(wallet: Wallet): void {
-		this.destination = {
-			address: wallet.ethAddress,
-		};
+		this._transactionService.setTransactionData({
+			destination: wallet,
+		});
 
-		console.log({ destination: this.destination });
+		this._router.navigate(["/send-transaction-preview"]);
 	}
 }

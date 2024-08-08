@@ -19,8 +19,10 @@
 	</div>
 
 	<!-- your accounts -->
-	<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
-		<h3>Your accounts</h3>
+	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts">
+		<h3>
+			{{ "send_transaction.your_accounts" | transloco }}
+		</h3>
 
 		<wallet-card
 			(click)="selectAccount(wallet)"
@@ -28,7 +30,7 @@
 			*ngFor="let wallet of myAccounts; let _index = index"
 			[wallet]="wallet"
 			[wallets]="myAccounts"
-			[variables]="{ index: _index, hideActions: true, hideBalances: true, }"
+			[variables]="{ index: _index, hideActions: true, hideBalances: true, origin: 'sendTransaction' }"
 		></wallet-card>
 	</div>
 </form>

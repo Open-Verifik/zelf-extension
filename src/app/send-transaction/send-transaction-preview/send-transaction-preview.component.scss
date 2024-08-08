@@ -1,0 +1,96 @@
+.mdc-text-field {
+	background-color: white !important;
+}
+
+.home-main {
+	background: white;
+	width: 440px;
+	height: 750px;
+}
+
+.home-main-div {
+	width: 440px;
+	height: 750px;
+	width: 100%;
+	position: relative;
+	background: white;
+}
+
+.send-transaction-asset-input {
+	width: 72%;
+	border: 1px solid #80808091;
+	padding: 6px;
+
+	img {
+		width: 32px;
+		height: 32px;
+		padding-right: 10px;
+	}
+
+	.send-transaction-asset-input-label {
+		width: 60%;
+	}
+
+	.send-transaction-amount-input-label {
+		width: 80%;
+	}
+}
+
+.preview-transaction-max-button {
+	height: 24px;
+	border-radius: 24px;
+	overflow: hidden;
+	border: 1px rgba(73, 69, 79, 0.12) solid;
+	justify-content: center;
+	align-items: center;
+	display: inline-flex;
+}
+
+.preview-transaction-max-button-content {
+	width: 52px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	display: flex;
+}
+
+.preview-transaction-max-button-text {
+	opacity: 0.38;
+	text-align: center;
+	color: #1c44f9;
+	font-size: 14px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0.1px;
+	word-wrap: break-word;
+}
+
+.preview-transaction-amount-input {
+	border: none !important;
+	border-color: white !important;
+	min-width: 30px;
+}
+
+.dynamic-input {
+	border: 1px solid #ccc;
+	padding: 5px;
+	font-size: 16px;
+	min-width: 20px; /* Set a minimum width for the input */
+}
+
+.hidden-span {
+	visibility: hidden;
+	white-space: pre; /* Preserve spaces and use a single line */
+}
+
+.send-transaction-gas-fee {
+	width: 100%;
+	border: 1px solid grey;
+	padding: 1rem;
+	border-radius: 12px;
+}

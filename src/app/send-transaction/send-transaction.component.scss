@@ -19,14 +19,14 @@
 }
 
 .unlock-box {
+	min-height: 480px;
 	align-self: stretch;
 	padding-top: 16px;
 	padding-bottom: 24px;
-	padding-left: 24px;
-	padding-right: 24px;
+	padding-left: 16px;
+	padding-right: 16px;
 	border-radius: 16px;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	gap: 16px;
 	display: flex;
@@ -79,4 +79,9 @@
 	top: 3px;
 	position: absolute;
 	background: #43474e;
+}
+
+.st-sw-your-accounts {
+	max-height: 45vh;
+	overflow-y: auto;
 }

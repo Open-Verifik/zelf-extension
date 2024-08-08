@@ -1,0 +1,520 @@
+.home-main {
+	background: white;
+	width: 440px;
+	height: 750px;
+}
+
+.bridge-container {
+	width: 100%;
+	height: 908px;
+	position: relative;
+	background: white;
+	border-radius: 42px;
+	overflow: hidden;
+}
+
+.bridge-bg {
+	width: 100%;
+	height: 410px;
+	background: #d9d9d9;
+}
+
+.bridge-text-container {
+	height: 189px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+	display: inline-flex;
+}
+
+.bridge-text-content {
+	align-self: stretch;
+	height: 220px;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 8px;
+	display: flex;
+}
+
+.bridge-text {
+	padding-top: 10px;
+	align-self: stretch;
+	height: 189px;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 8px;
+	display: flex;
+	text-align: center;
+	color: black;
+	font-family: Poppins;
+	word-wrap: break-word;
+}
+
+.bridge-title {
+	font-size: 28px;
+	font-weight: 500;
+	line-height: 36px;
+}
+
+.bridge-description {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0.1px;
+}
+
+.bridge-confirm-btn-container {
+	height: 40px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	display: inline-flex;
+}
+
+.bridge-confirm-btn {
+	width: 258px;
+	cursor: pointer;
+	background: black;
+	border-radius: 16px;
+	overflow: hidden;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	display: flex;
+}
+
+.bridge-confirm-btn-text {
+	align-self: stretch;
+	flex: 1 1 0;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: white;
+	font-size: 15px;
+	font-family: Poppins;
+	font-weight: 600;
+	line-height: 24px;
+	word-wrap: break-word;
+}
+
+.bridge-app-prompt-container {
+	height: 134px;
+
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 8px;
+	display: inline-flex;
+}
+
+.bridge-app-prompt {
+	align-self: stretch;
+	text-align: center;
+	color: black;
+	font-size: 14px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0.1px;
+	word-wrap: break-word;
+}
+
+.bridge-download-btns-container {
+	align-self: stretch;
+	justify-content: center;
+	align-items: center;
+	gap: 32px;
+	display: inline-flex;
+}
+
+.bridge-download-btn {
+	width: 145.38px;
+	height: 42px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.bridge-download-btn-content {
+	width: 145.38px;
+	height: 42px;
+	position: relative;
+}
+
+.bridge-download-bg1 {
+	width: 143.77px;
+	height: 40.42px;
+	background: black;
+}
+
+.bridge-download-bg2 {
+	width: 145.38px;
+	height: 42px;
+	background: #a6a6a6;
+}
+
+.bridge-download-logo1 {
+	width: 22.35px;
+	height: 26.79px;
+	background: white;
+}
+
+.bridge-download-text1 {
+	width: 83.49px;
+	height: 7.33px;
+}
+
+.bridge-download-icon1,
+.bridge-download-icon3,
+.bridge-download-icon4,
+.bridge-download-icon5,
+.bridge-download-icon6,
+.bridge-download-icon7,
+.bridge-download-icon8,
+.bridge-download-icon9,
+.bridge-download-icon10,
+.bridge-download-icon11,
+.bridge-download-icon12 {
+	background: white;
+}
+
+.bridge-download-icon1 {
+	width: 5.79px;
+	height: 6.98px;
+	left: 0px;
+	top: 0.3px;
+}
+
+.bridge-download-icon2 {
+	width: 4.97px;
+	height: 5.16px;
+	left: 7.12px;
+	top: 2.17px;
+}
+
+.bridge-download-icon3 {
+	width: 7.36px;
+	height: 4.95px;
+	left: 13.2px;
+	top: 2.27px;
+}
+
+.bridge-download-icon4 {
+	width: 4.45px;
+	height: 5.05px;
+	left: 21.96px;
+	top: 2.17px;
+}
+
+.bridge-download-icon5 {
+	width: 1.13px;
+	height: 7.22px;
+	left: 28.39px;
+	top: 0px;
+}
+
+.bridge-download-icon6 {
+	width: 4.97px;
+	height: 5.16px;
+	left: 31.19px;
+	top: 2.17px;
+}
+
+.bridge-download-icon7 {
+	width: 4.17px;
+	height: 5.16px;
+	left: 37.46px;
+	top: 2.17px;
+}
+
+.bridge-download-icon8 {
+	width: 4.85px;
+	height: 7.33px;
+	left: 43.19px;
+	top: 0px;
+}
+
+.bridge-download-icon9 {
+	width: 4.97px;
+	height: 5.16px;
+	left: 52.72px;
+	top: 2.17px;
+}
+
+.bridge-download-icon10 {
+	width: 4.45px;
+	height: 5.05px;
+	left: 59.31px;
+	top: 2.17px;
+}
+
+.bridge-download-icon11 {
+	width: 3.09px;
+	height: 6.28px;
+	left: 68.27px;
+	top: 1.04px;
+}
+
+.bridge-download-icon12 {
+	width: 4.41px;
+	height: 7.22px;
+	left: 72.92px;
+	top: 0px;
+}
+
+.bridge-download-text2 {
+	width: 85.88px;
+	height: 18.28px;
+	background: white;
+}
+
+.bridge-download-icon13,
+.bridge-download-icon14,
+.bridge-download-icon15,
+.bridge-download-icon16,
+.bridge-download-icon17,
+.bridge-download-icon18,
+.bridge-download-icon19 {
+	background: white;
+}
+
+.bridge-download-icon13 {
+	width: 12.1px;
+	height: 13.97px;
+	left: -0px;
+	top: 0.2px;
+}
+
+.bridge-download-icon14 {
+	width: 9.95px;
+	height: 14.39px;
+	left: 14.01px;
+	top: 3.9px;
+}
+
+.bridge-download-icon15 {
+	width: 9.95px;
+	height: 14.39px;
+	left: 25.9px;
+	top: 3.9px;
+}
+
+.bridge-download-icon16 {
+	width: 8.89px;
+	height: 14.39px;
+	left: 40.25px;
+	top: 0px;
+}
+
+.bridge-download-icon17 {
+	width: 6.29px;
+	height: 12.79px;
+	left: 50.44px;
+	top: 1.59px;
+}
+
+.bridge-download-icon18 {
+	width: 10.12px;
+	height: 10.51px;
+	left: 58.03px;
+	top: 3.9px;
+}
+
+.bridge-download-icon19 {
+	width: 5.53px;
+	height: 10.28px;
+	left: 70.08px;
+	top: 3.9px;
+}
+
+.bridge-download-icon20 {
+	width: 9.18px;
+	height: 10.49px;
+	left: 76.7px;
+	top: 3.88px;
+}
+
+.bridge-secondary-download-btn {
+	width: 116.31px;
+	height: 33.6px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.bridge-secondary-download-btn-content {
+	width: 116.31px;
+	height: 33.6px;
+	position: relative;
+}
+
+.bridge-secondary-download-bg1 {
+	width: 116.31px;
+	height: 33.6px;
+
+	background: black;
+}
+
+.bridge-secondary-download-bg2 {
+	width: 116.31px;
+	height: 33.6px;
+
+	background: #a6a6a6;
+}
+
+.bridge-secondary-download-logo {
+	width: 19.89px;
+	height: 21.61px;
+}
+
+.bridge-secondary-download-icon1 {
+	width: 11.14px;
+	height: 21.06px;
+	background: linear-gradient(315deg, #00a0ff 0%, #00a1ff 1%, #00beff 26%, #00d2ff 51%, #00dfff 76%, #00e3ff 100%);
+}
+
+.bridge-secondary-download-icon2 {
+	width: 8.76px;
+	height: 7.19px;
+	background: linear-gradient(270deg, #ffe000 0%, #ffbd00 41%, #ffa500 78%, #ff9c00 100%);
+}
+
+.bridge-secondary-download-icon3 {
+	width: 14.38px;
+	height: 10.8px;
+
+	background: linear-gradient(315deg, #ff3a44 0%, #c31162 100%);
+}
+
+.bridge-secondary-download-icon4 {
+	width: 14.38px;
+	height: 10.8px;
+	background: linear-gradient(45deg, #32a071 0%, #2da771 7%, #15cf74 48%, #06e775 80%, #00f076 100%);
+}
+
+.bridge-download-text3 {
+	width: 33.47px;
+	height: 5.27px;
+}
+
+.bridge-download-icon21,
+.bridge-download-icon22,
+.bridge-download-icon23,
+.bridge-download-icon24,
+.bridge-download-icon25,
+.bridge-download-icon26,
+.bridge-download-icon27 {
+	background: white;
+	border: 0.16px white solid;
+}
+
+.bridge-download-icon21 {
+	width: 5.23px;
+	height: 5.27px;
+	left: 0px;
+	top: 5.27px;
+}
+
+.bridge-download-icon22 {
+	width: 3.02px;
+	height: 5.04px;
+	left: 6.18px;
+	top: 5.15px;
+}
+
+.bridge-download-icon23 {
+	width: 3.55px;
+	height: 5.04px;
+	left: 9.89px;
+	top: 5.15px;
+}
+
+.bridge-download-icon24 {
+	width: 0.66px;
+	height: 5.04px;
+	left: 16.01px;
+	top: 5.15px;
+}
+
+.bridge-download-icon25 {
+	width: 3.55px;
+	height: 5.04px;
+	left: 17.51px;
+	top: 5.15px;
+}
+
+.bridge-download-icon26 {
+	width: 5.31px;
+	height: 5.27px;
+	left: 23.24px;
+	top: 5.27px;
+}
+
+.bridge-download-icon27 {
+	width: 3.98px;
+	height: 5.04px;
+	left: 29.49px;
+	top: 5.15px;
+}
+
+.bridge-download-text4 {
+	width: 73.04px;
+	height: 14.31px;
+	background: white;
+}
+
+.bridge-header {
+	width: 100%;
+	padding: 12px;
+	justify-content: space-between;
+	align-items: center;
+	display: inline-flex;
+}
+
+.bridge-back-btn {
+	width: 42px;
+	height: 42px;
+	position: relative;
+	cursor: pointer;
+}
+
+.bridge-back-btn-icon {
+	width: 12.97px;
+	height: 21px;
+	background: black;
+}
+
+.bridge-header-text {
+	text-align: center;
+	color: black;
+	font-size: 20px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+.bridge-header-placeholder {
+	width: 42px;
+	height: 42px;
+	position: relative;
+}
+
+.bridge-qr-bg {
+	width: 100%;
+	height: 220px;
+	background: #dededebf !important;
+	backdrop-filter: blur(25px);
+}
+
+.bridge-qr-code {
+	width: 180px;
+	height: 180px;
+}

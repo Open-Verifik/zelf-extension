@@ -51,7 +51,7 @@ export class HomeWalletsConnectedComponent implements OnInit {
 	async ngOnInit(): Promise<any> {
 		const _wallet = (await this._chromeService.getItem("wallet")) || {};
 
-		const currentWallet = new WalletModel(_wallet);
+		const currentWallet = new WalletModel({ ..._wallet, index: 0 });
 
 		const remainingWallets = (await this._chromeService.getItem("wallets")) || [];
 
@@ -73,7 +73,7 @@ export class HomeWalletsConnectedComponent implements OnInit {
 
 				walletsMapping[wallet.ethAddress] = true;
 
-				const _wallet = new WalletModel(wallet);
+				const _wallet = new WalletModel({ ...wallet, index });
 
 				if (!_wallet.ethAddress) continue;
 

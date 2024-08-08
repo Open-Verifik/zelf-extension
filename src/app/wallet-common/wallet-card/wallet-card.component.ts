@@ -1,12 +1,19 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
+import { TransactionService } from "app/transaction.service";
 import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "wallet-card",
-	template: `<div class="hwc-account-item" [ngClass]="{ 'hwc-account-item-alt': variables.index }">
+	template: `
+		<div
+			class="hwc-account-item"
+			[ngClass]="{
+				'hwc-account-item-alt': variables.index || variables.hideBalances,
+			}"
+		>
 			<div class="hwc-account-item-icon">
 				<div>
 					<div class="hwc-account-item-icon-inner">
@@ -73,7 +80,8 @@ import { WalletService } from "app/wallet.service";
 			<button mat-menu-item (click)="unlinkWallet()">
 				<span>{{ "wallets_connected.delete_wallet" | transloco }}</span>
 			</button>
-		</mat-menu> `,
+		</mat-menu>
+	`,
 	styleUrls: ["./wallet-card.component.scss"],
 })
 export class WalletCardComponent implements OnInit {
@@ -81,7 +89,12 @@ export class WalletCardComponent implements OnInit {
 	@Input() wallet!: Wallet;
 	@Input() wallets!: Array<Wallet>;
 
-	constructor(private _walletService: WalletService, private _router: Router, private _chromeService: ChromeService) {}
+	constructor(
+		private _walletService: WalletService,
+		private _router: Router,
+		private _chromeService: ChromeService,
+		private _transactionService: TransactionService
+	) {}
 
 	ngOnInit(): void {}
 
@@ -111,9 +124,7 @@ export class WalletCardComponent implements OnInit {
 				break;
 			}
 		}
-
-		console.log({
-			variablesIndex: this.variables.index,
-		});
 	}
+
+	selectAccount() {}
 }

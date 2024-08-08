@@ -58,6 +58,9 @@ import { HomeHeaderComponent } from './home/home-header/home-header.component';
 import { StSearchWalletComponent } from './send-transaction/st-search-wallet/st-search-wallet.component';
 import { LoaderComponent } from './loader/loader.component';
 import { WalletCardComponent } from './wallet-common/wallet-card/wallet-card.component';
+import { SendTransactionPreviewComponent } from './send-transaction/send-transaction-preview/send-transaction-preview.component';
+import { SendTransactionConfirmationComponent } from './send-transaction/send-transaction-confirmation/send-transaction-confirmation.component';
+import { SendTransactionBridgeComponent } from './send-transaction/send-transaction-bridge/send-transaction-bridge.component';
 //
 //
 //
@@ -99,6 +102,9 @@ import { WalletCardComponent } from './wallet-common/wallet-card/wallet-card.com
   StSearchWalletComponent,
   LoaderComponent,
   WalletCardComponent,
+  SendTransactionPreviewComponent,
+  SendTransactionConfirmationComponent,
+  SendTransactionBridgeComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -25,7 +25,8 @@
 		"eth_address": "ETH Address",
 		"solana_address": "Solana Address",
 		"address": "Address",
-		"zelf_wallet": "Zelf Wallet"
+		"zelf_wallet": "Zelf Wallet",
+		"cancel": "Cancel"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -160,5 +161,21 @@
 		"extensionsCanChange": "These extensions can view and change information on this website.",
 		"manageExtensions": "Manage Extensions",
 		"clickExtensionIcon": "Click on the extension icon in your browser."
+	},
+	"send_transaction": {
+		"send_to": "Send to",
+		"your_accounts": "Your accounts",
+		"reject_transaction_button": "Cancel",
+		"continue_transaction_button": "Next",
+		"confirm_transaction_button": "Confirm transaction",
+		"bridge": {
+			"qr_code_title": "Scan the QR Code",
+			"title": "Confirm your transaction",
+			"description": "Scan the QR Code from your Zelf Wallet. Add a security layer by decrypting in your device",
+			"description_2": "Or continue with the web extension",
+			"confirm_button": "Confirm transaction",
+			"dont_have_the_app": "Still don't have the safest wallet installed?",
+			"download_here": "Download it here and increase your security for all your transactions"
+		}
 	}
 }

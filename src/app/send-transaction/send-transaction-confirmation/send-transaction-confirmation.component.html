@@ -3,9 +3,11 @@
 		<div class="w-full">
 			<div class="st-confirm-header">
 				<div class="st-confirm-edit-btn">
-					<div class="st-confirm-edit-text-container">
-						<div class="st-confirm-edit-icon"></div>
-						<div class="st-confirm-edit-text">Editar</div>
+					<div class="st-confirm-edit-text-container" (click)="goBack()">
+						<img src="../../../assets/images/arrow_back.svg" alt="" />
+						<div class="st-confirm-edit-text">
+							{{ "common.edit" | transloco }}
+						</div>
 					</div>
 				</div>
 				<div class="st-confirm-network-btn">
@@ -104,63 +106,6 @@
 			<button mat-raised-button class="rounded-button main-button" (click)="goNext()">
 				{{ "send_transaction.confirm_transaction_button" | transloco }}
 			</button>
-		</div>
-	</div>
-</div>
-
-<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
-	<div class="home-main">
-		<div class="st-confirm-container">
-			<div class="st-confirm-market-container">
-				<div class="st-confirm-market-header">
-					<div class="st-confirm-market-text">Market</div>
-				</div>
-				<div class="st-confirm-market-details">
-					<div class="st-confirm-market-item">
-						<div class="st-confirm-market-gas">
-							<div class="st-confirm-market-gas-text-container">
-								<div class="st-confirm-market-gas-text">Gas</div>
-								<div class="st-confirm-market-gas-estimated">(estimada)</div>
-								<div class="st-confirm-market-gas-icon"></div>
-							</div>
-							<div class="st-confirm-market-gas-time">Probable en <30 segundos</div>
-						</div>
-						<div class="st-confirm-market-gas-amount-container">
-							<div class="st-confirm-market-gas-amount">0.369 CLO</div>
-							<div class="st-confirm-market-gas-max-container">
-								<span class="st-confirm-market-gas-max-text">Tarifa máxima:</span>
-								<span class="st-confirm-market-gas-max-amount"> 144,11 CLO</span>
-							</div>
-						</div>
-					</div>
-					<div class="st-confirm-divider"></div>
-					<div class="st-confirm-market-item">
-						<div class="st-confirm-market-total">
-							<div class="st-confirm-market-total-text">Total</div>
-							<div class="st-confirm-market-total-info">Importe + tarifa de gas</div>
-						</div>
-						<div class="st-confirm-market-total-amount-container">
-							<div class="st-confirm-market-total-amount">0.369 CLO</div>
-							<div class="st-confirm-market-total-max-container">
-								<span class="st-confirm-market-total-max-text">Cantidad máxima:</span>
-								<span class="st-confirm-market-total-max-amount"> 144,11 CLO</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="st-confirm-footer">
-				<div class="st-confirm-footer-divider"></div>
-				<div class="st-confirm-footer-actions">
-					<img class="st-confirm-footer-icon" src="https://via.placeholder.com/56x41" />
-					<div class="st-confirm-footer-confirm-btn">
-						<div class="st-confirm-footer-confirm-text">Confirmar con mi biometría facial</div>
-					</div>
-					<div class="st-confirm-footer-reject-btn">
-						<div class="st-confirm-footer-reject-text">Rechazar</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

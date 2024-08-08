@@ -18,8 +18,22 @@
 		</div>
 	</div>
 
+	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="potentialWallet">
+		<h3>
+			{{ "send_transaction.account_found" | transloco }}
+		</h3>
+
+		<wallet-card
+			(click)="selectAccount(potentialWallet)"
+			class="p-1 w-full cursor-pointer"
+			[wallet]="potentialWallet"
+			[wallets]="[potentialWallet]"
+			[variables]="{ index: 0, hideActions: true, hideBalances: true, origin: 'sendTransaction' }"
+		></wallet-card>
+	</div>
+
 	<!-- your accounts -->
-	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts">
+	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet">
 		<h3>
 			{{ "send_transaction.your_accounts" | transloco }}
 		</h3>

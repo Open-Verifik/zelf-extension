@@ -14,7 +14,7 @@ export class SendTransactionConfirmationComponent implements OnInit {
 	ngOnInit(): void {}
 
 	goBack(): void {
-		this._router.navigate(["/send-transaction"]);
+		this._router.navigate(["/send-transaction-preview"]);
 	}
 
 	goNext(): void {

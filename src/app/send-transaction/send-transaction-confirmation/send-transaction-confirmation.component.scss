@@ -35,12 +35,11 @@
 	flex: 1 1 0;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	padding-left: 12px;
-	padding-right: 16px;
 	justify-content: center;
 	align-items: center;
 	gap: 8px;
 	display: inline-flex;
+	cursor: pointer;
 }
 
 .st-confirm-edit-icon {
@@ -63,6 +62,10 @@
 	font-weight: 600;
 	line-height: 24px;
 	word-wrap: break-word;
+}
+
+.st-confirm-edit-text:hover {
+	text-decoration: underline;
 }
 
 .st-confirm-network-btn {

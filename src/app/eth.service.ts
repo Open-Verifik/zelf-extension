@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import Web3 from "web3";
+import { isAddress } from "web3-validator";
 import { BehaviorSubject } from "rxjs";
 import * as bip39 from "bip39";
 import { HDNodeWallet, ethers } from "ethers";
@@ -65,9 +66,14 @@ export class EthereumService {
 
 			return balanceEth;
 		} catch (error) {
-			console.error("Error getting balance:", error);
+			console.error("Error getting balance:", { error });
+
 			throw error;
 		}
+	}
+
+	checkIfValidAddress(address: string): boolean {
+		return isAddress(address);
 	}
 
 	// async sendTransaction(to: string, value: number): Promise<void> {

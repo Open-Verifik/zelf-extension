@@ -26,7 +26,9 @@
 		"solana_address": "Solana Address",
 		"address": "Address",
 		"zelf_wallet": "Zelf Wallet",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"total": "Total",
+		"edit": "Edit"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -165,9 +167,19 @@
 	"send_transaction": {
 		"send_to": "Send to",
 		"your_accounts": "Your accounts",
+		"account_found": "Address found",
 		"reject_transaction_button": "Cancel",
 		"continue_transaction_button": "Next",
 		"confirm_transaction_button": "Confirm transaction",
+		"confirm": {
+			"sending_label": "SENDING {{amount}} {{asset}}",
+			"market": "Market",
+			"gas_label": "Gas (estimated)",
+			"gas_description": "Probably in {{seconds}} seconds",
+			"max_fee": "Maximum fee:",
+			"total_to_pay_label": "Assets + gas fees",
+			"max_total": "Maximum total"
+		},
 		"bridge": {
 			"qr_code_title": "Scan the QR Code",
 			"title": "Confirm your transaction",

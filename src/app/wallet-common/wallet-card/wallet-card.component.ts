@@ -17,7 +17,8 @@ import { WalletService } from "app/wallet.service";
 			<div class="hwc-account-item-icon">
 				<div>
 					<div class="hwc-account-item-icon-inner">
-						<img [src]="wallet.image" alt="" class="w-full" />
+						<img [src]="wallet.image" alt="" class="w-full" *ngIf="wallet.image" />
+						<img src="../../../assets/images/unknown_wallet.svg" alt="" class="w-full" *ngIf="!wallet.image" />
 					</div>
 				</div>
 			</div>

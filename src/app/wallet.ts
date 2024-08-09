@@ -13,11 +13,14 @@ export class WalletPublicDataModel {
 export class Asset {
 	asset: string;
 	balance: number;
+	price: number;
 
 	constructor(data: any) {
 		this.asset = data.asset || "NA";
 
 		this.balance = data.balance || 0;
+
+		this.price = data.price || 2558.33; // hardcoded price
 	}
 }
 
@@ -87,4 +90,31 @@ export interface WalletPublicData {
 	ethAddress: string;
 	solanaAddress: string;
 	_id: string;
+}
+
+export interface Transaction {
+	receiver: any;
+	sender: any;
+	asset: string;
+	amount: number;
+	price: number;
+	balance: number;
+}
+
+export class TransactionModel implements Transaction {
+	receiver: any;
+	sender: any;
+	asset: string;
+	amount: number;
+	price: number;
+	balance: number;
+
+	constructor(data: any) {
+		this.receiver = data.receiver || null;
+		this.sender = data.sender || null;
+		this.asset = data.asset || null;
+		this.amount = data.amount || 0;
+		this.price = data.price || 0;
+		this.balance = data.balance || 0;
+	}
 }

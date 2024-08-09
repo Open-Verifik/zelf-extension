@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
-import { Wallet } from "app/wallet";
+import { Transaction, TransactionModel, Wallet } from "app/wallet";
 
 @Component({
 	selector: "app-send-transaction-preview",
@@ -15,9 +15,10 @@ export class SendTransactionPreviewComponent implements OnInit {
 	shareables: any;
 	@ViewChild("searchNgForm") searchNgForm!: NgForm;
 	searchForm!: UntypedFormGroup;
-	transactionData!: any;
+	transactionData!: Transaction;
 	loaded: Boolean;
 	wallet!: Wallet;
+	amountViewType: string = "USD";
 
 	constructor(
 		private _formBuilder: UntypedFormBuilder,
@@ -39,10 +40,10 @@ export class SendTransactionPreviewComponent implements OnInit {
 		const temp_transactionData = await this._chromeService.getItem("temp_transactionData");
 
 		if (temp_transactionData && !this.transactionData) {
-			this.transactionData = temp_transactionData;
+			this.transactionData = new TransactionModel(temp_transactionData);
 		}
 
-		if (!this.transactionData) {
+		if (!this.transactionData?.receiver) {
 			this._router.navigate(["send-transaction"]);
 
 			return;
@@ -51,7 +52,7 @@ export class SendTransactionPreviewComponent implements OnInit {
 		this.wallet = await this._chromeService.getItem("wallet");
 
 		this.searchForm = this._formBuilder.group({
-			address: [this.transactionData.destination.ethAddress, []],
+			address: [this.transactionData.receiver.ethAddress, []],
 			amount: [0, [Validators.required]],
 		});
 
@@ -63,7 +64,6 @@ export class SendTransactionPreviewComponent implements OnInit {
 	async _getAccountDetails(): Promise<any> {
 		const sampleWallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
 
-		// tsting
 		this._ethService.changeNetwork(true);
 
 		const balance = await this._ethService.getBalanceByAddress(sampleWallet);
@@ -73,22 +73,78 @@ export class SendTransactionPreviewComponent implements OnInit {
 		this.wallet.assets.push({
 			asset: "ETH",
 			balance: Number(balance),
+			price: 2558.58,
 		});
-
-		console.log({ wallet: this.wallet });
 	}
-
-	cancel(): void {}
 
 	goBack(): void {
 		this._router.navigate(["/send-transaction"]);
 	}
 
 	goNext(): void {
-		this._setTransactionData();
+		const canContinue = this._setTransactionData();
+
+		if (!canContinue) return;
 
 		this._router.navigate(["/send-transaction-confirm"]);
 	}
 
-	_setTransactionData(): void {}
+	_setTransactionData(): boolean {
+		this.amountViewType = "USD";
+
+		this._transactionService.setTransactionData(
+			{
+				amount: this.searchForm.value.amount,
+				asset: this.wallet.assets[0].asset,
+				balance: this.wallet.assets[0].balance,
+				price: this.getAmountView(),
+			},
+			true
+		);
+
+		return !this.isNextDisabled();
+	}
+
+	switchAmountView(): void {
+		if (!this.wallet.assets) return;
+
+		const previousAmount = this.getAmountView();
+
+		this.searchForm.patchValue({ amount: previousAmount });
+
+		this.amountViewType = this.amountViewType === "USD" ? this.wallet.assets[0].asset : "USD";
+	}
+
+	getAmountView(): number {
+		if (!this.amountViewType || !this.searchForm?.value?.amount || !this.wallet || !this.wallet.assets) return 0;
+		switch (this.amountViewType) {
+			case "USD":
+				return this.searchForm.value.amount * this.wallet.assets[0].price;
+
+			default:
+				return this.searchForm.value.amount / this.wallet.assets[0].price;
+		}
+	}
+
+	selectMax(): void {
+		this.amountViewType = "USD";
+
+		this.searchForm.patchValue({ amount: this.wallet.assets[0].balance });
+	}
+
+	isNextDisabled(): boolean {
+		if (!this.amountViewType || !this.searchForm?.value?.amount || !this.wallet || !this.wallet.assets) return true;
+
+		let isDisabled = true;
+		switch (this.amountViewType) {
+			case "USD": // the input is in ETH
+				isDisabled = Boolean(this.searchForm.value.amount > this.wallet.assets[0].balance);
+
+				break;
+			default: // the input is in USD
+				isDisabled = Boolean(this.searchForm.value.amount / this.wallet.assets[0].price > this.wallet.assets[0].balance);
+		}
+
+		return isDisabled;
+	}
 }

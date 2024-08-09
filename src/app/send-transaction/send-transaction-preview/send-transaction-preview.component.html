@@ -55,25 +55,36 @@
 
 				<div fxLayout="row" fxLayoutAlign="space-between center" class="w-full pb-2">
 					<div fxLayout="column" fxLayoutAlign="start start">
-						<span> Amount </span>
+						<span> {{ "common.amount" | transloco }} </span>
 
 						<!-- button to add max -->
-						<div class="preview-transaction-max-button">
+						<div class="preview-transaction-max-button cursor-pointer" (click)="selectMax()">
 							<div class="preview-transaction-max-button-content">
-								<div class="preview-transaction-max-button-text">Max</div>
+								<div class="preview-transaction-max-button-text">
+									{{ "common.max" | transloco }}
+								</div>
 							</div>
 						</div>
 					</div>
 
 					<div fxLayout="row" fxLayout="space-between center" class="send-transaction-asset-input">
 						<div class="send-transaction-amount-input-label" fxLayout="column" fxLayoutAlign="start start">
-							<input type="text" class="dynamic-input preview-transaction-amount-input" matInput [formControlName]="'amount'" />
+							<input
+								type="number"
+								min="0"
+								max="999999999999999999"
+								step="0.001"
+								class="dynamic-input preview-transaction-amount-input"
+								matInput
+								[formControlName]="'amount'"
+								autocomplete="off"
+							/>
 
-							<span class="pt-1"> $ 12.34 USD </span>
+							<small class="pt-1"> $ {{ getAmountView() }} {{ amountViewType }} </small>
 						</div>
 
 						<div class="" fxLayoutAlign="row" fxLayoutAlign="end center">
-							<img src="../../assets/images/switch_two_options.svg" alt="" />
+							<img src="../../assets/images/switch_two_options.svg" alt="" (click)="switchAmountView()" />
 						</div>
 					</div>
 				</div>
@@ -98,7 +109,7 @@
 			<button mat-raised-button class="w-full rounded-button secondary-button mr-3" (click)="goBack()">
 				{{ "send_transaction.reject_transaction_button" | transloco }}
 			</button>
-			<button mat-raised-button class="w-full rounded-button main-button" (click)="goNext()">
+			<button mat-raised-button class="w-full rounded-button main-button" (click)="goNext()" [disabled]="isNextDisabled()">
 				{{ "send_transaction.continue_transaction_button" | transloco }}
 			</button>
 		</div>

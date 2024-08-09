@@ -29,7 +29,9 @@
 		"cancel": "Cancel",
 		"total": "Total",
 		"edit": "Edit",
-		"balance": "Balance"
+		"balance": "Balance",
+		"amount": "Amount",
+		"max": "Max"
 	},
 	"create_wallet": {
 		"password_step": {

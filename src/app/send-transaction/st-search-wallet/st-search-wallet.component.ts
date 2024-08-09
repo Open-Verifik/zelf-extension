@@ -110,10 +110,10 @@ export class StSearchWalletComponent implements OnInit {
 
 	selectAccount(wallet: Wallet): void {
 		this._transactionService.setTransactionData({
-			destination: wallet,
+			receiver: wallet,
 		});
 
-		this._chromeService.setItem("temp_transactionData", { destination: wallet });
+		this._chromeService.setItem("temp_transactionData", { receiver: wallet });
 
 		this._router.navigate(["/send-transaction-preview"]);
 	}

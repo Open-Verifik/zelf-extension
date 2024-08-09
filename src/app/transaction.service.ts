@@ -1,23 +1,33 @@
 import { Injectable } from "@angular/core";
+import { Transaction, TransactionModel } from "./wallet";
 
 @Injectable({
 	providedIn: "root",
 })
 export class TransactionService {
-	transactionData!: any;
+	transactionData!: Transaction;
 
-	constructor() {}
+	constructor() {
+		const temp = localStorage.getItem("temp_transactionData");
 
-	setTransactionData(data: any, key?: string): void {
-		if (!key) {
-			this.transactionData = data;
+		if (temp) this.transactionData = new TransactionModel(JSON.parse(temp));
+	}
 
-			console.log({ transactionData: this.transactionData });
-
-			return;
+	setTransactionData(data: Partial<Transaction>, syncInStorage?: boolean): void {
+		console.log({ initial: this.transactionData });
+		// If transactionData is not initialized, initialize it first
+		if (!this.transactionData) {
+			this.transactionData = new TransactionModel(data);
+		} else {
+			// Update each key-value pair in the transactionData object
+			Object.assign(this.transactionData, data);
 		}
 
-		this.transactionData[key] = data;
+		console.log({ final: this.transactionData });
+
+		if (!syncInStorage) return;
+
+		localStorage.setItem("temp_transactionData", JSON.stringify(this.transactionData));
 	}
 
 	getTransactionData(): any {

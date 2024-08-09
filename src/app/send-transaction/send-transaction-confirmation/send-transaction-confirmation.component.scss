@@ -124,25 +124,18 @@
 
 .st-confirm-accounts-container {
 	width: 100%;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding: 4px;
 	border-top: 1px #cac4d0 solid;
 	border-bottom: 1px #cac4d0 solid;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 16px;
-	display: inline-flex;
 }
 
 .st-confirm-account {
-	width: 172px;
 	justify-content: flex-start;
 	align-items: center;
 	display: flex;
 }
 
 .st-confirm-account-details {
-	width: 122px;
 	align-self: stretch;
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -162,6 +155,10 @@
 	justify-content: center;
 	align-items: center;
 	display: inline-flex;
+
+	img {
+		width: 24px;
+	}
 }
 
 .st-confirm-account-icon-container div {
@@ -183,9 +180,6 @@
 .st-confirm-account-icon div {
 	width: 21px;
 	height: 21px;
-	left: 3.5px;
-	top: 3.5px;
-	position: absolute;
 	background: #1b1b1f;
 }
 
@@ -225,14 +219,10 @@
 .st-confirm-checkbox-icon div {
 	width: 20.78px;
 	height: 20.25px;
-	left: 5.61px;
-	top: 5.88px;
-	position: absolute;
 	background: #cac4d0;
 }
 
 .st-confirm-account-selected {
-	padding-right: 49px;
 	justify-content: flex-start;
 	align-items: center;
 	display: flex;
@@ -256,6 +246,10 @@
 	justify-content: center;
 	align-items: center;
 	display: flex;
+
+	img {
+		width: 24px;
+	}
 }
 
 .st-confirm-account-selected-icon-container div {
@@ -433,9 +427,6 @@
 	width: 100%;
 	height: 88px;
 	border-radius: 4px;
-	justify-content: space-between;
-	align-items: center;
-	display: inline-flex;
 }
 
 .st-confirm-market-gas {
@@ -493,9 +484,6 @@
 
 .st-confirm-market-gas-amount-container {
 	flex: 1 1 0;
-	align-self: stretch;
-	justify-content: space-between;
-	align-items: center;
 	display: flex;
 }
 

@@ -179,7 +179,7 @@
 			"market": "Market",
 			"gas_label": "Gas (estimated)",
 			"gas_description": "Probably in {{seconds}} seconds",
-			"max_fee": "Maximum fee:",
+			"max_gas": "Maximum fee:",
 			"total_to_pay_label": "Assets + gas fees",
 			"max_total": "Maximum total"
 		},

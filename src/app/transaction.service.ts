@@ -14,7 +14,6 @@ export class TransactionService {
 	}
 
 	setTransactionData(data: Partial<Transaction>, syncInStorage?: boolean): void {
-		console.log({ initial: this.transactionData });
 		// If transactionData is not initialized, initialize it first
 		if (!this.transactionData) {
 			this.transactionData = new TransactionModel(data);
@@ -22,8 +21,6 @@ export class TransactionService {
 			// Update each key-value pair in the transactionData object
 			Object.assign(this.transactionData, data);
 		}
-
-		console.log({ final: this.transactionData });
 
 		if (!syncInStorage) return;
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
+import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
+import { Transaction, Wallet, WalletModel } from "app/wallet";
 
 @Component({
 	selector: "app-send-transaction-confirmation",
@@ -9,9 +11,37 @@ import { TransactionService } from "app/transaction.service";
 	styleUrls: ["./send-transaction-confirmation.component.scss", "../../main.scss"],
 })
 export class SendTransactionConfirmationComponent implements OnInit {
-	constructor(private _transactionService: TransactionService, private _router: Router, private _chromeService: ChromeService) {}
+	transactionData!: Transaction;
+	wallet!: Wallet;
+	gasPrices: any;
 
-	ngOnInit(): void {}
+	constructor(
+		private _transactionService: TransactionService,
+		private _router: Router,
+		private _chromeService: ChromeService,
+		private _ethService: EthereumService
+	) {
+		this.transactionData = this._transactionService.getTransactionData();
+
+		if (!this.transactionData) {
+			this.goBack();
+
+			return;
+		}
+	}
+
+	async ngOnInit(): Promise<any> {
+		this.wallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
+
+		if (!this.transactionData?.sender) {
+			this.transactionData.sender = this.wallet;
+		}
+
+		this._ethService.getGasPrices().subscribe((response) => {
+			this.gasPrices = response["result"];
+			console.log({ gasPrices: this.gasPrices });
+		});
+	}
 
 	goBack(): void {
 		this._router.navigate(["/send-transaction-preview"]);
@@ -19,5 +49,13 @@ export class SendTransactionConfirmationComponent implements OnInit {
 
 	goNext(): void {
 		this._router.navigate(["/send-transaction-confirm"]);
+	}
+
+	displayGasInUSD(unit: string): number {
+		return (parseFloat(unit) / 1e9) * this.transactionData.price * 21000;
+	}
+
+	getTotal(unit: string): number {
+		return this.transactionData.price + this.displayGasInUSD(unit);
 	}
 }

@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import Web3 from "web3";
 import { isAddress } from "web3-validator";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import * as bip39 from "bip39";
 import { HDNodeWallet, ethers } from "ethers";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
 	providedIn: "root",
@@ -13,7 +14,7 @@ export class EthereumService {
 
 	private account: BehaviorSubject<string> = new BehaviorSubject("");
 
-	constructor() {
+	constructor(private http: HttpClient) {
 		this.web3 = new Web3(new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5"));
 	}
 
@@ -149,5 +150,14 @@ export class EthereumService {
 		};
 
 		return await this.web3.eth.sendTransaction(tx);
+	}
+
+	getGasPrices(): Observable<any> {
+		const params = {
+			module: "gastracker",
+			action: "gasoracle",
+			apikey: "ZEAEI2GIZ3ARATBHPXB6P2RZTJW38CXG3V",
+		};
+		return this.http.get(`https://api.etherscan.io/api`, { params });
 	}
 }

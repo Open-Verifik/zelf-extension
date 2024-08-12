@@ -99,6 +99,8 @@ export interface Transaction {
 	amount: number;
 	price: number;
 	balance: number;
+	gasFee: number;
+	total: number;
 }
 
 export class TransactionModel implements Transaction {
@@ -108,6 +110,8 @@ export class TransactionModel implements Transaction {
 	amount: number;
 	price: number;
 	balance: number;
+	gasFee: number;
+	total: number;
 
 	constructor(data: any) {
 		this.receiver = data.receiver || null;
@@ -116,5 +120,7 @@ export class TransactionModel implements Transaction {
 		this.amount = data.amount || 0;
 		this.price = data.price || 0;
 		this.balance = data.balance || 0;
+		this.gasFee = data.gasFee || 0;
+		this.total = data.total || this.price + this.gasFee;
 	}
 }

@@ -28,7 +28,7 @@
 
 				<!-- biometrics part -->
 				<ng-container *ngIf="canSeeBiometricsStep(i)">
-					<biometrics-general [type]="'createWallet'" [data]="signUpForm.value"> </biometrics-general>
+					<biometrics-general [type]="'createWallet'" [data]="session"> </biometrics-general>
 				</ng-container>
 
 				<!-- step 2 finalizar -->

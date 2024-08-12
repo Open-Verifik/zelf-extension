@@ -45,7 +45,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	@Input() type?: string;
 	@Input() data: any;
 	@Input() callback: any;
-	private _matDialog: MatDialog = inject(MatDialog);
 
 	//ACTIVE DEBUG GRAPHIC MODE
 	isActiveDebug!: Boolean;
@@ -583,7 +582,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			.createWallet({
 				faceBase64: payload.image,
 				password: payload.password,
-				wordsCount: data.wordsCount || 12,
+				wordsCount: data.wordsCount || payload.wordsCount || 12,
 				seeWallet: 1,
 			})
 			.then((response) => {

@@ -28,5 +28,7 @@ export class WordsPickerStepComponent implements OnInit {
 		this.session.wordsPicker = false;
 
 		this.session.wordsCount = this.signUpForm.value.wordsCount;
+
+		console.log({ session: this.session });
 	}
 }

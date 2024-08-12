@@ -14,6 +14,7 @@ export class SendTransactionConfirmationComponent implements OnInit {
 	transactionData!: Transaction;
 	wallet!: Wallet;
 	gasPrices: any;
+	selectedGasFee: any;
 
 	constructor(
 		private _transactionService: TransactionService,
@@ -48,7 +49,21 @@ export class SendTransactionConfirmationComponent implements OnInit {
 	}
 
 	goNext(): void {
-		this._router.navigate(["/send-transaction-confirm"]);
+		this._setTransactionData();
+
+		this._router.navigate(["/send-transaction-bridge"]);
+	}
+
+	_setTransactionData(): void {
+		this.selectedGasFee = this.displayGasInUSD(this.gasPrices.ProposeGasPrice);
+
+		this._transactionService.setTransactionData(
+			{
+				gasFee: this.selectedGasFee,
+				total: this.transactionData.price + this.selectedGasFee,
+			},
+			true
+		);
 	}
 
 	displayGasInUSD(unit: string): number {

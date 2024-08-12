@@ -14,7 +14,6 @@ export class TransactionService {
 	}
 
 	setTransactionData(data: Partial<Transaction>, syncInStorage?: boolean): void {
-		// If transactionData is not initialized, initialize it first
 		if (!this.transactionData) {
 			this.transactionData = new TransactionModel(data);
 		} else {

@@ -157,7 +157,8 @@
 		"receive_transaction_button": "Receive",
 		"send_transaction_button": "Send",
 		"assets": "Assets",
-		"activity": "Activity"
+		"activity": "Activity",
+		"NFTs": "NFTs"
 	},
 	"activity_card": {
 		"sent": "Sent",

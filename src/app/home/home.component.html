@@ -76,6 +76,16 @@
 
 					<div
 						class="w-50p home-tab"
+						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'nfts' }"
+						fxLayout="row"
+						fxLayoutAlign="center center"
+						(click)="selectTab('nfts')"
+					>
+						<span> {{ "home.NFTs" | transloco }} </span>
+					</div>
+
+					<div
+						class="w-50p home-tab"
 						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'activity' }"
 						fxLayout="row"
 						fxLayoutAlign="center center"
@@ -88,6 +98,14 @@
 
 			<div class="activity-content" *ngIf="shareables.selectedTab === 'activity'" fxLayout="column" fxLayoutAlign="start start">
 				<activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
+			</div>
+
+			<div class="activity-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start start">
+				<nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
+			</div>
+
+			<div class="activity-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
+				<token-card class="w-full" [data]="token" *ngFor="let token of tokens"></token-card>
 			</div>
 		</div>
 	</div>

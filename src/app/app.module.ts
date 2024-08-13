@@ -62,6 +62,8 @@ import { SendTransactionPreviewComponent } from './send-transaction/send-transac
 import { SendTransactionConfirmationComponent } from './send-transaction/send-transaction-confirmation/send-transaction-confirmation.component';
 import { SendTransactionBridgeComponent } from './send-transaction/send-transaction-bridge/send-transaction-bridge.component';
 import { ActivityCardComponent } from './home/activity-card/activity-card.component';
+import { TokenCardComponent } from './home/token-card/token-card.component';
+import { NftCardComponent } from './home/nft-card/nft-card.component';
 //
 //
 //
@@ -107,6 +109,8 @@ import { ActivityCardComponent } from './home/activity-card/activity-card.compon
   SendTransactionConfirmationComponent,
   SendTransactionBridgeComponent,
   ActivityCardComponent,
+  TokenCardComponent,
+  NftCardComponent,
 	],
 	imports: [
 		BrowserModule,

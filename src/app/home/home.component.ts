@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
 	view: string;
 	shareables: any;
 	activity!: Array<ETHTransaction>;
+	tokens!: Array<any>;
+	NFTs!: Array<any>;
 
 	constructor(
 		private _router: Router,
@@ -35,8 +37,12 @@ export class HomeComponent implements OnInit {
 
 		this.shareables = {
 			view: this.view,
-			selectedTab: "activity",
+			selectedTab: "assets",
 		};
+
+		this.NFTs = [];
+
+		this.tokens = [];
 	}
 
 	openFullPage(): void {
@@ -50,6 +56,12 @@ export class HomeComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<any> {
+		const wallet = await this._setWallet();
+
+		this._getWalletDetails(wallet);
+	}
+
+	async _setWallet(): Promise<any> {
 		let wallet = await this._chromeService.getItem("wallet");
 
 		const wallets = (await this._chromeService.getItem("wallets")) || [];
@@ -80,10 +92,10 @@ export class HomeComponent implements OnInit {
 			this._chromeService.setItem("wallet", wallet || "");
 		}
 
-		this._getWallet(wallet);
+		return wallet;
 	}
 
-	async _getWallet(wallet: Wallet): Promise<any> {
+	async _getWalletDetails(wallet: Wallet): Promise<any> {
 		this.wallet = wallet;
 
 		this.wallet.ethAddress = "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97";
@@ -107,27 +119,23 @@ export class HomeComponent implements OnInit {
 			this.activity.push(new ETHTransaction(transaction));
 		}
 
-		console.log({ activity: this.activity });
-
 		this._walletService.updateAssetValues(this.wallet, this.selectedAsset, this.wallets, undefined);
 
-		this.getPrices();
-
-		// this.getTokens();
+		this.getTokens(details.data.tokenHoldings.tokens);
 	}
 
-	getTokens(): void {
-		this._cryptoService.getTokens(this.wallet.ethAddress).then((data) => {
-			console.log({ tokens: data });
-		});
-	}
+	getTokens(tokens: Array<any>): void {
+		for (let index = 0; index < tokens.length; index++) {
+			const token = tokens[index];
 
-	getPrices(): void {
-		this._cryptoService.getCryptoPrice("ethereum").then((data) => {
-			this.balances.ethPrice = parseFloat(`${data.ethereum.usd * this.balances.eth}`).toFixed(5);
+			if (["ERC-20"].includes(token.tokenType) && token.price) {
+				this.tokens.push(token);
+			} else if (["NFT"].includes(token.tokenType)) {
+				this.NFTs.push(token);
+			}
+		}
 
-			// console.log({ balances: this.balances, data });
-		});
+		console.log({ nfts: this.NFTs });
 	}
 
 	_redirectToOnboarding(): void {

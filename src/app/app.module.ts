@@ -61,6 +61,7 @@ import { WalletCardComponent } from './wallet-common/wallet-card/wallet-card.com
 import { SendTransactionPreviewComponent } from './send-transaction/send-transaction-preview/send-transaction-preview.component';
 import { SendTransactionConfirmationComponent } from './send-transaction/send-transaction-confirmation/send-transaction-confirmation.component';
 import { SendTransactionBridgeComponent } from './send-transaction/send-transaction-bridge/send-transaction-bridge.component';
+import { ActivityCardComponent } from './home/activity-card/activity-card.component';
 //
 //
 //
@@ -105,6 +106,7 @@ import { SendTransactionBridgeComponent } from './send-transaction/send-transact
   SendTransactionPreviewComponent,
   SendTransactionConfirmationComponent,
   SendTransactionBridgeComponent,
+  ActivityCardComponent,
 	],
 	imports: [
 		BrowserModule,

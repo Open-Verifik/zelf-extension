@@ -4,9 +4,9 @@ import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
-import { Wallet, WalletModel } from "app/wallet";
+import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { environment } from "environments/environment";
+
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
@@ -15,10 +15,12 @@ import { environment } from "environments/environment";
 export class HomeComponent implements OnInit {
 	title: string = "something";
 	wallet!: Wallet;
+	wallets!: Array<Wallet>;
 	balances: any;
-	selectedTab: string;
+	selectedAsset!: Asset;
 	view: string;
 	shareables: any;
+	activity!: Array<ETHTransaction>;
 
 	constructor(
 		private _router: Router,
@@ -31,11 +33,9 @@ export class HomeComponent implements OnInit {
 
 		this.view = "home";
 
-		this.selectedTab = "assets";
-
 		this.shareables = {
 			view: this.view,
-			selectedTab: this.selectedTab,
+			selectedTab: "activity",
 		};
 	}
 
@@ -60,44 +60,56 @@ export class HomeComponent implements OnInit {
 			return;
 		}
 
-		if (!wallet && wallets) {
+		if (wallet) {
+			wallet = new WalletModel(wallet);
+		}
+
+		if (wallets) {
+			this.wallets = [];
+
+			for (let index = 0; index < wallets.length; index++) {
+				const _wallet = wallets[index];
+
+				this.wallets.push(new WalletModel(_wallet));
+			}
+		}
+
+		if (!wallet?.ethAddress && wallets) {
 			wallet = wallets[0];
 
 			this._chromeService.setItem("wallet", wallet || "");
-			// localStorage.setItem("wallet", JSON.stringify(wallet || ""));
 		}
 
 		this._getWallet(wallet);
 	}
 
-	async _testing(): Promise<any> {
-		const fakeAccount = this._ethService.createAccount();
+	async _getWallet(wallet: Wallet): Promise<any> {
+		this.wallet = wallet;
 
-		this._ethService.importAccount(fakeAccount.privateKey);
-
-		const _getAccount = this._ethService.getAccount();
-
-		const balance = await this._ethService.getBalance();
-
-		_getAccount.subscribe(async (value) => {
-			const _balance = await this._ethService.getBalanceByAddress(value);
-
-			this.balances = {
-				eth: parseFloat(_balance).toFixed(5),
-			};
-		});
-	}
-
-	async _getWallet(wallet: any): Promise<any> {
-		this.wallet = new WalletModel(wallet);
+		this.wallet.ethAddress = "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97";
 
 		if (!this.wallet.ethAddress) return;
 
-		const ethBalance = await this._ethService.getBalanceByAddress(this.wallet.ethAddress);
+		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
 
-		this.balances = {
-			eth: parseFloat(ethBalance).toFixed(5),
-		};
+		this.selectedAsset = new Asset({
+			asset: details.data.account.asset,
+			fiatBalance: details.data.account.fiatValue,
+			balance: details.data.balance,
+			price: details.data.account.price,
+		});
+
+		this.activity = [];
+
+		for (let index = 0; index < details.data.transactions.length; index++) {
+			const transaction = details.data.transactions[index];
+
+			this.activity.push(new ETHTransaction(transaction));
+		}
+
+		console.log({ activity: this.activity });
+
+		this._walletService.updateAssetValues(this.wallet, this.selectedAsset, this.wallets, undefined);
 
 		this.getPrices();
 

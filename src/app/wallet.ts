@@ -19,7 +19,7 @@ export class Asset {
 	constructor(data: any) {
 		this.asset = data.asset || "NA";
 
-		this.balance = Number(data.balance || (data.fiatBalance / data.price).toFixed(6));
+		this.balance = Number(parseFloat(data.balance).toFixed(7)) || Number((data.fiatBalance / data.price).toFixed(6));
 
 		this.fiatBalance = data.fiatBalance;
 
@@ -125,5 +125,47 @@ export class TransactionModel implements Transaction {
 		this.balance = data.balance || 0;
 		this.gasFee = data.gasFee || 0;
 		this.total = data.total || this.price + this.gasFee;
+	}
+}
+
+export class ETHTransaction {
+	age: string;
+	amount: string;
+	fiatAmount: string;
+	block: string;
+	from: string;
+	hash: string;
+	method: string;
+	to: string;
+	traffic: string;
+	txnFee: string;
+	asset: string;
+	_to: string;
+
+	// traffic = IN / OUT
+
+	constructor(data: any) {
+		this.age = data.age;
+		this.amount = data.amount;
+		this.fiatAmount = data.fiatAmount;
+		this.asset = data.asset;
+		this.block = data.block;
+		this.from = data.from;
+		this.hash = data.hash;
+		this.method = data.method;
+		this.to = data.to;
+		this._to = "";
+
+		if (this.to) {
+			const firstPart = this.to.slice(0, 6);
+
+			const lastPart = this.to.slice(-6);
+
+			this._to = `${firstPart}...${lastPart}`;
+		}
+
+		this.traffic = data.traffic;
+
+		this.txnFee = data.txnFee;
 	}
 }

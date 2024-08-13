@@ -29,7 +29,7 @@
 			<div fxLayout="column" fxLayoutAlign="start start" class="w-full p-2">
 				<!-- assets -->
 				<div fxLayout="row" fxLayoutAlign="space-between center" class="w-full pb-2">
-					<span> Asset </span>
+					<span> {{ "common.asset" | transloco }} </span>
 
 					<div fxLayout="row" fxLayout="space-between center" class="send-transaction-asset-input">
 						<img src="../../assets/images/ethicon.png" alt="" />
@@ -93,7 +93,7 @@
 			<!-- show gas price estimation -->
 			<div class="send-transaction-gas-fee" fxLayout="column" fxLayoutAlign="start start" *ngIf="selectedAsset && fees">
 				<div fxLayout="row" fxLayoutAlign="space-between center" class="w-full">
-					<span>Estimated fee</span>
+					<span>{{ "send_transaction.preview.estimated_fee" | transloco }}</span>
 
 					<span *ngIf="selectedAsset.asset === 'ETH'"> ${{ fees.average.cost }}</span>
 				</div>

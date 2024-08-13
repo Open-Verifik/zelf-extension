@@ -31,7 +31,8 @@
 		"edit": "Edit",
 		"balance": "Balance",
 		"amount": "Amount",
-		"max": "Max"
+		"max": "Max",
+		"asset": "Asset"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -154,7 +155,22 @@
 		"support_button": "Support",
 		"settings_button": "Settings",
 		"receive_transaction_button": "Receive",
-		"send_transaction_button": "Send"
+		"send_transaction_button": "Send",
+		"assets": "Assets",
+		"activity": "Activity"
+	},
+	"activity_card": {
+		"sent": "Sent",
+		"in": "Received",
+		"age": "Age",
+		"amount": "Amount",
+		"block": "Block",
+		"from": "From",
+		"hash": "Hash",
+		"method": "Method",
+		"to": "To",
+		"traffic": "Traffic",
+		"txnFee": "Txn Fee"
 	},
 	"extension_instructions": {
 		"extensions": "Extensions",
@@ -182,6 +198,9 @@
 			"max_gas": "Maximum fee:",
 			"total_to_pay_label": "Assets + gas fees",
 			"max_total": "Maximum total"
+		},
+		"preview": {
+			"estimated_fee": "Estimated fee"
 		},
 		"bridge": {
 			"qr_code_title": "Scan the QR Code",

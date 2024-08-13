@@ -25,10 +25,10 @@
 				</div>
 			</div>
 			<!-- end of Address -->
-			<div class="home-balance" *ngIf="balances && balances.eth">
+			<div class="home-balance" *ngIf="selectedAsset">
 				<div class="home-balance-info">
-					<div class="home-balance-amount">{{ balances.eth }} ETH</div>
-					<div class="home-balance-value">$ {{ balances.ethPrice }}</div>
+					<div class="home-balance-amount">{{ selectedAsset.balance }} ETH</div>
+					<div class="home-balance-value">$ {{ selectedAsset.fiatBalance }}</div>
 				</div>
 			</div>
 			<!-- actions -->
@@ -66,24 +66,28 @@
 				<div fxLayout="row" fxLayoutAlign="start center" class="w-full">
 					<div
 						class="w-50p home-tab"
-						[ngClass]="{ 'home-selected-tab': selectedTab === 'assets' }"
+						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'assets' }"
 						fxLayout="row"
 						fxLayoutAlign="center center"
 						(click)="selectTab('assets')"
 					>
-						<span> Assets </span>
+						<span> {{ "home.assets" | transloco }} </span>
 					</div>
 
 					<div
 						class="w-50p home-tab"
-						[ngClass]="{ 'home-selected-tab': selectedTab === 'activity' }"
+						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'activity' }"
 						fxLayout="row"
 						fxLayoutAlign="center center"
 						(click)="selectTab('activity')"
 					>
-						<span> Activity </span>
+						<span> {{ "home.activity" | transloco }} </span>
 					</div>
 				</div>
+			</div>
+
+			<div class="activity-content" *ngIf="shareables.selectedTab === 'activity'" fxLayout="column" fxLayoutAlign="start start">
+				<activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
 			</div>
 		</div>
 	</div>

@@ -38,13 +38,13 @@
 							class="send-transaction-asset-input-label"
 							fxLayout="column"
 							fxLayoutAlign="start start"
-							*ngIf="wallet && wallet.assets && wallet.assets.length"
+							*ngIf="wallet && wallet.assets && wallet.assets.length && selectedAsset"
 						>
 							<span>
-								<strong> {{ wallet.assets[0].asset }} </strong>
+								<strong> {{ selectedAsset.asset }} </strong>
 							</span>
 
-							<small> {{ "common.balance" | transloco }} {{ wallet.assets[0].balance }} </small>
+							<small> {{ "common.balance" | transloco }} {{ selectedAsset.balance }} </small>
 						</div>
 
 						<div class="" fxLayoutAlign="row" fxLayoutAlign="end center">
@@ -91,16 +91,16 @@
 			</div>
 
 			<!-- show gas price estimation -->
-			<div class="send-transaction-gas-fee" fxLayout="column" fxLayoutAlign="start start">
+			<div class="send-transaction-gas-fee" fxLayout="column" fxLayoutAlign="start start" *ngIf="selectedAsset && fees">
 				<div fxLayout="row" fxLayoutAlign="space-between center" class="w-full">
 					<span>Estimated fee</span>
 
-					<span> $0.016</span>
+					<span *ngIf="selectedAsset.asset === 'ETH'"> ${{ fees.average.cost }}</span>
 				</div>
 				<div fxLayout="row" fxLayoutAlign="space-between center" class="w-full pt-1">
-					<span>Market: -60 sec</span>
+					<span>Market: {{ fees.average.time }}</span>
 
-					<span> Max fee: $0.19 </span>
+					<span> Max fee: ${{ fees.high.cost }} </span>
 				</div>
 			</div>
 		</form>

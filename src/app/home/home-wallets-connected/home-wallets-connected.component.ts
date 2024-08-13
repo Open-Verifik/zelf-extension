@@ -75,7 +75,7 @@ export class HomeWalletsConnectedComponent implements OnInit {
 
 				const _wallet = new WalletModel({ ...wallet, index });
 
-				if (!_wallet.ethAddress) continue;
+				if (!_wallet.ethAddress || !_wallet.image.includes("data:image/png;base64")) continue;
 
 				this.wallets.push(_wallet);
 			}

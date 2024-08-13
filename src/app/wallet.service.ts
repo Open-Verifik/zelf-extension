@@ -7,7 +7,7 @@ import * as faceapi from "@vladmandic/face-api";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import * as openpgp from "openpgp";
 import { ChromeService } from "./chrome.service";
-import { WalletModel } from "./wallet";
+import { Asset, Wallet, WalletModel } from "./wallet";
 
 @Injectable({
 	providedIn: "root",
@@ -291,5 +291,46 @@ export class WalletService {
 		const firstPart = address.slice(0, 8);
 		const lastPart = address.slice(-6);
 		return `${firstPart}...${lastPart}`;
+	}
+
+	updateAssetValues(wallet: Wallet, syncingAsset: Asset, wallets: Array<Wallet>, index?: number): void {
+		if (!wallet.ethAddress || !syncingAsset.asset) return;
+
+		if (!wallet.assets) {
+			wallet.assets = [syncingAsset];
+		}
+
+		let found = false;
+
+		for (let _index = 0; _index < wallet.assets.length; _index++) {
+			const _asset = wallet.assets[_index];
+
+			if (_asset.asset === syncingAsset.asset) {
+				found = true;
+				_asset.balance = syncingAsset.balance;
+
+				_asset.price = syncingAsset.price;
+			}
+		}
+
+		if (!found) {
+			wallet.assets.push(syncingAsset);
+		}
+
+		this.chromeService.setItem("wallet", wallet);
+
+		if (!index) {
+			for (let _index = 0; _index < wallets.length; _index++) {
+				const _wallet = wallets[_index];
+
+				if (_wallet.ethAddress === wallet.ethAddress) index = _index;
+			}
+		}
+
+		if (index !== undefined) {
+			wallets[index] = wallet;
+
+			this.chromeService.setItem("wallets", wallets);
+		}
 	}
 }

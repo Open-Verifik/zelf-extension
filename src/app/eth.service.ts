@@ -5,16 +5,19 @@ import { BehaviorSubject, Observable } from "rxjs";
 import * as bip39 from "bip39";
 import { HDNodeWallet, ethers } from "ethers";
 import { HttpClient } from "@angular/common/http";
+import { HttpWrapperService } from "./http-wrapper.service";
+import { environment } from "environments/environment";
 
 @Injectable({
 	providedIn: "root",
 })
 export class EthereumService {
 	private web3: Web3;
+	baseUrl: String = environment.apiUrl;
 
 	private account: BehaviorSubject<string> = new BehaviorSubject("");
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private _httpWrapper: HttpWrapperService) {
 		this.web3 = new Web3(new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5"));
 	}
 
@@ -152,12 +155,13 @@ export class EthereumService {
 		return await this.web3.eth.sendTransaction(tx);
 	}
 
-	getGasPrices(): Observable<any> {
-		const params = {
-			module: "gastracker",
-			action: "gasoracle",
-			apikey: "ZEAEI2GIZ3ARATBHPXB6P2RZTJW38CXG3V",
-		};
-		return this.http.get(`https://api.etherscan.io/api`, { params });
+	getGasPrices(): Promise<any> {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/gas-tracker`);
+	}
+
+	getWalletDetails(address: string): Promise<any> {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/address`, {
+			address,
+		});
 	}
 }

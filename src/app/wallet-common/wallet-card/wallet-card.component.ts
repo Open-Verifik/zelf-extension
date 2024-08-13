@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
+import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
-import { Wallet } from "app/wallet";
+import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -29,10 +30,10 @@ import { WalletService } from "app/wallet.service";
 					{{ displayAddress(wallet.ethAddress) }}
 				</div>
 			</div>
-			<div class="hwc-account-item-balance" *ngIf="!variables.hideBalances">
+			<div class="hwc-account-item-balance" *ngIf="!variables.hideBalances && asset">
 				<div>
-					<div>123 ETH</div>
-					<div>1464,11 USD</div>
+					<div>{{ asset.balance }} {{ asset.asset }}</div>
+					<div>{{ asset.price * asset.balance }} USD</div>
 				</div>
 			</div>
 
@@ -89,15 +90,27 @@ export class WalletCardComponent implements OnInit {
 	@Input() variables?: any;
 	@Input() wallet!: Wallet;
 	@Input() wallets!: Array<Wallet>;
+	asset!: Asset;
 
-	constructor(
-		private _walletService: WalletService,
-		private _router: Router,
-		private _chromeService: ChromeService,
-		private _transactionService: TransactionService
-	) {}
+	constructor(private _walletService: WalletService, private _chromeService: ChromeService, private _ethService: EthereumService) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this._syncDetails();
+	}
+
+	async _syncDetails(): Promise<any> {
+		if (this.variables.hideActions) return;
+
+		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
+
+		this.asset = new Asset({
+			asset: details.data.account.asset,
+			balance: details.data.account.fiatValue,
+			price: details.data.account.price,
+		});
+
+		this._walletService.updateAssetValues(this.wallet, this.asset, this.wallets, this.variables.index);
+	}
 
 	unlinkWallet() {
 		this.wallets.splice(this.variables.index, 1);

@@ -4,7 +4,8 @@ import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
-import { Transaction, TransactionModel, Wallet } from "app/wallet";
+import { Asset, Transaction, TransactionModel, Wallet } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "app-send-transaction-preview",
@@ -19,13 +20,17 @@ export class SendTransactionPreviewComponent implements OnInit {
 	loaded: Boolean;
 	wallet!: Wallet;
 	amountViewType: string = "USD";
+	wallets!: Array<Wallet>;
+	selectedAsset!: Asset;
+	fees!: any;
 
 	constructor(
 		private _formBuilder: UntypedFormBuilder,
 		private _transactionService: TransactionService,
 		private _router: Router,
 		private _chromeService: ChromeService,
-		private _ethService: EthereumService
+		private _ethService: EthereumService,
+		private _walletService: WalletService
 	) {
 		this.shareables = {
 			view: "home",
@@ -51,6 +56,8 @@ export class SendTransactionPreviewComponent implements OnInit {
 
 		this.wallet = await this._chromeService.getItem("wallet");
 
+		this.wallets = await this._chromeService.getItem("wallets");
+
 		this.searchForm = this._formBuilder.group({
 			address: [this.transactionData.receiver.ethAddress, []],
 			amount: [0, [Validators.required]],
@@ -58,7 +65,17 @@ export class SendTransactionPreviewComponent implements OnInit {
 
 		this._getAccountDetails();
 
+		this._getGasFees();
+
 		this.loaded = true;
+	}
+
+	async _getGasFees(): Promise<any> {
+		const fees = await this._ethService.getGasPrices();
+
+		this.fees = fees.data;
+
+		console.log({ fees: this.fees });
 	}
 
 	async _getAccountDetails(): Promise<any> {
@@ -66,15 +83,16 @@ export class SendTransactionPreviewComponent implements OnInit {
 
 		this._ethService.changeNetwork(true);
 
-		const balance = await this._ethService.getBalanceByAddress(sampleWallet);
+		const details = await this._ethService.getWalletDetails(sampleWallet);
 
-		if (!this.wallet.assets) this.wallet.assets = [];
-
-		this.wallet.assets.push({
-			asset: "ETH",
-			balance: Number(balance),
-			price: 2558.58,
+		this.selectedAsset = new Asset({
+			asset: details.data.account.asset,
+			fiatBalance: details.data.account.fiatValue,
+			balance: details.data.balance,
+			price: details.data.account.price,
 		});
+
+		this._walletService.updateAssetValues(this.wallet, this.selectedAsset, this.wallets, undefined);
 	}
 
 	goBack(): void {
@@ -95,8 +113,8 @@ export class SendTransactionPreviewComponent implements OnInit {
 		this._transactionService.setTransactionData(
 			{
 				amount: this.searchForm.value.amount,
-				asset: this.wallet.assets[0].asset,
-				balance: this.wallet.assets[0].balance,
+				asset: this.selectedAsset.asset,
+				balance: this.selectedAsset.balance,
 				price: this.getAmountView(),
 			},
 			true
@@ -112,24 +130,24 @@ export class SendTransactionPreviewComponent implements OnInit {
 
 		this.searchForm.patchValue({ amount: previousAmount });
 
-		this.amountViewType = this.amountViewType === "USD" ? this.wallet.assets[0].asset : "USD";
+		this.amountViewType = this.amountViewType === "USD" ? this.selectedAsset.asset : "USD";
 	}
 
 	getAmountView(): number {
 		if (!this.amountViewType || !this.searchForm?.value?.amount || !this.wallet || !this.wallet.assets) return 0;
 		switch (this.amountViewType) {
 			case "USD":
-				return this.searchForm.value.amount * this.wallet.assets[0].price;
+				return Number((this.searchForm.value.amount * this.selectedAsset.price).toFixed(9));
 
 			default:
-				return this.searchForm.value.amount / this.wallet.assets[0].price;
+				return this.searchForm.value.amount / this.selectedAsset.price;
 		}
 	}
 
 	selectMax(): void {
 		this.amountViewType = "USD";
 
-		this.searchForm.patchValue({ amount: this.wallet.assets[0].balance });
+		this.searchForm.patchValue({ amount: this.selectedAsset.balance });
 	}
 
 	isNextDisabled(): boolean {
@@ -138,11 +156,11 @@ export class SendTransactionPreviewComponent implements OnInit {
 		let isDisabled = true;
 		switch (this.amountViewType) {
 			case "USD": // the input is in ETH
-				isDisabled = Boolean(this.searchForm.value.amount > this.wallet.assets[0].balance);
+				isDisabled = Boolean(this.searchForm.value.amount > this.selectedAsset.balance);
 
 				break;
 			default: // the input is in USD
-				isDisabled = Boolean(this.searchForm.value.amount / this.wallet.assets[0].price > this.wallet.assets[0].balance);
+				isDisabled = Boolean(this.searchForm.value.amount / this.selectedAsset.price > this.selectedAsset.balance);
 		}
 
 		return isDisabled;

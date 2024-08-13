@@ -13,12 +13,15 @@ export class WalletPublicDataModel {
 export class Asset {
 	asset: string;
 	balance: number;
+	fiatBalance: number;
 	price: number;
 
 	constructor(data: any) {
 		this.asset = data.asset || "NA";
 
-		this.balance = data.balance || 0;
+		this.balance = Number(data.balance || (data.fiatBalance / data.price).toFixed(6));
+
+		this.fiatBalance = data.fiatBalance;
 
 		this.price = data.price || 2558.33; // hardcoded price
 	}

@@ -38,10 +38,10 @@ export class SendTransactionConfirmationComponent implements OnInit {
 			this.transactionData.sender = this.wallet;
 		}
 
-		this._ethService.getGasPrices().subscribe((response) => {
-			this.gasPrices = response["result"];
-			console.log({ gasPrices: this.gasPrices });
-		});
+		// this._ethService.getGasPrices().subscribe((response) => {
+		// 	this.gasPrices = response["result"];
+		// 	console.log({ gasPrices: this.gasPrices });
+		// });
 	}
 
 	goBack(): void {

@@ -133,3 +133,18 @@
 	bottom: 6px;
 	left: 3px;
 }
+
+.np-network-card {
+	padding: 10px;
+	width: 100%;
+
+	img {
+		width: 32px;
+		padding-right: 18px;
+	}
+}
+
+.np-network-card:hover {
+	cursor: pointer;
+	background-color: #00ffff7a;
+}

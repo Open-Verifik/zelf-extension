@@ -28,6 +28,7 @@
 	padding-right: 26px;
 	justify-content: flex-start;
 	display: flex;
+	cursor: pointer;
 	align-items: center;
 }
 
@@ -53,9 +54,12 @@
 }
 
 .home-icon-svg {
-	width: 18px;
-	height: 18px;
 	position: relative;
+	top: 2px;
+	left: 2px;
+	img {
+		width: 24px;
+	}
 }
 
 .home-header-center {
@@ -447,4 +451,9 @@
 .activity-content {
 	height: 400px;
 	overflow: scroll;
+}
+
+.home-icon-arrow-down {
+	position: relative;
+	bottom: 2px;
 }

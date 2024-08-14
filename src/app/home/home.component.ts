@@ -1,6 +1,7 @@
 /// <reference types="chrome"/>
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
@@ -23,13 +24,14 @@ export class HomeComponent implements OnInit {
 	activity!: Array<ETHTransaction>;
 	tokens!: Array<any>;
 	NFTs!: Array<any>;
+	selectedNetwork!: string;
 
 	constructor(
 		private _router: Router,
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
-		private _cryptoService: CryptoService,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private _blockchainNetworkService: BlockchainNetworksService
 	) {
 		this.balances = {};
 
@@ -45,6 +47,23 @@ export class HomeComponent implements OnInit {
 		this.tokens = [];
 	}
 
+	async ngOnInit(): Promise<any> {
+		this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
+
+		const wallet = await this._setWallet();
+
+		// get network
+		this.selectedNetwork = await this._chromeService.getItem("network");
+
+		if (!this.selectedNetwork) {
+			this.selectedNetwork = "eth";
+
+			await this._chromeService.setItem("network", this.selectedNetwork);
+		}
+
+		this._getWalletDetails(wallet);
+	}
+
 	openFullPage(): void {
 		try {
 			const url = chrome.runtime.getURL("index.html");
@@ -53,12 +72,6 @@ export class HomeComponent implements OnInit {
 		} catch (exception) {
 			alert(exception);
 		}
-	}
-
-	async ngOnInit(): Promise<any> {
-		const wallet = await this._setWallet();
-
-		this._getWalletDetails(wallet);
 	}
 
 	async _setWallet(): Promise<any> {

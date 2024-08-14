@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { CryptoService } from "app/crypto.service";
 import { EthereumService } from "app/eth.service";
@@ -10,16 +11,17 @@ import { WalletService } from "app/wallet.service";
 	selector: "home-header",
 	template: `
 		<!-- HEADER -->
-		<div class="home-main-header">
+		<div class="home-main-header" *ngIf="selectedNetwork">
 			<div class="home-header-left">
 				<div class="home-icon-container">
-					<div class="home-icon home-header-left">
+					<div class="home-icon home-header-left" (click)="openNetworkPicker()">
 						<div class="home-icon-svg">
-							<img src="../../assets/images/eth_network.svg" />
+							<!-- <img src="../../assets/images/sepolia.png" alt="" /> -->
+							<img [src]="'../../assets/images/' + selectedNetwork + '.png'" />
 						</div>
 
 						<div class="home-icon-svg">
-							<img src="../../assets/images/arrow_down.svg" />
+							<img class="home-icon-arrow-down" src="../../assets/images/arrow_down.svg" />
 						</div>
 					</div>
 				</div>
@@ -83,16 +85,20 @@ export class HomeHeaderComponent implements OnInit {
 	wallet!: Wallet;
 	balances: any;
 	selectedTab: string;
+	selectedNetwork: string;
 
 	constructor(
 		private _router: Router,
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
 		private _cryptoService: CryptoService,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private _blockchainNetworkService: BlockchainNetworksService
 	) {
 		this.view = "home";
 		this.selectedTab = "assets";
+
+		this.selectedNetwork = this._blockchainNetworkService.getSelectedNetwork();
 	}
 
 	async ngOnInit(): Promise<any> {

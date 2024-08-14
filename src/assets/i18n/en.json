@@ -212,5 +212,9 @@
 			"dont_have_the_app": "Still don't have the safest wallet installed?",
 			"download_here": "Download it here and increase your security for all your transactions"
 		}
+	},
+	"network_picker": {
+		"title": "Select a network",
+		"testnets_title": "Select a test network"
 	}
 }

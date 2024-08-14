@@ -1,21 +1,24 @@
 <div class="hwc-wrapper">
 	<div class="hwc-content" *ngIf="loaded">
-		<div class="hwc-header">
-			<div class="hwc-header-title">{{ "wallets_connected.title" | transloco }}</div>
+		<div class="hwc-header" fxLayout="row" fxLayoutAlign="center center">
+			<div class="hwc-header-title">{{ "network_picker.title" | transloco }}</div>
 		</div>
 		<div class="hwc-account-list">
-			<div class="hwc-add-account">
-				<div class="hwc-add-account-inner">
-					<div>
-						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-							<path d="M15 9.75H9.75V15H8.25V9.75H3V8.25H8.25V3H9.75V8.25H15V9.75Z" fill="#1C44F9" />
-						</svg>
+			<div class="np-network-card" fxLayout="row" fxLayoutAlign="start center" (click)="selectThisNetwork('eth')">
+				<img src="../../../assets/images/eth_network.svg" alt="" />
 
-						<div class="hwc-add-account-text">
-							{{ "wallets_connected.create_or_import_wallet_button" | transloco }}
-						</div>
-					</div>
-				</div>
+				<h3>Ethereum mainnet</h3>
+			</div>
+		</div>
+
+		<div class="hwc-header" fxLayout="row" fxLayoutAlign="center center">
+			<div class="hwc-header-title">{{ "network_picker.testnets_title" | transloco }}</div>
+		</div>
+		<div class="hwc-account-list">
+			<div class="np-network-card" fxLayout="row" fxLayoutAlign="start center" (click)="selectThisNetwork('sepolia')">
+				<img src="../../../assets/images/ETH.png" alt="" />
+
+				<h3>Sepolia testnet</h3>
 			</div>
 		</div>
 	</div>

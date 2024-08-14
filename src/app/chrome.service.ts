@@ -19,13 +19,13 @@ export class ChromeService {
 						resolve();
 					}
 				});
-			} else {
-				try {
-					localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
-					resolve();
-				} catch (error) {
-					reject(error);
-				}
+			}
+
+			try {
+				localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
+				resolve();
+			} catch (error) {
+				reject(error);
 			}
 		});
 	}

@@ -1,5 +1,5 @@
 <div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
-	<div class="home-main">
+	<div class="home-main" *ngIf="selectedNetwork">
 		<!-- HEADER -->
 		<home-header [shareables]="shareables"></home-header>
 
@@ -7,6 +7,8 @@
 		<home-wallets-connected *ngIf="shareables.view === 'accountsPage'"> </home-wallets-connected>
 
 		<home-active-wallet *ngIf="shareables.view === 'activeAccountPage'"></home-active-wallet>
+
+		<home-network-picker [shareables]="shareables" *ngIf="shareables.view === 'networkPickerPage'"></home-network-picker>
 
 		<div *ngIf="shareables.view === 'home'" class="w-full">
 			<!-- Address -->

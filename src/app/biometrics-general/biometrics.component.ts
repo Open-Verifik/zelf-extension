@@ -97,7 +97,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		this.setDefaultInterval();
 
 		this.renderer.listen("window", "resize", () => {
-			// console.log({ deviceData: this.deviceData.time });
 			this.interval.checkNgxVideo = setInterval(() => {
 				this.setMaxVideoDimensions();
 				this.setVideoNgxCameraData();
@@ -144,7 +143,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		if (!canvas) return;
 
 		const context = canvas.getContext("2d", { willReadFrequently: true });
-		// You can now use context for operations like getImageData()
 	}
 
 	_generateSession(type?: string): void {
@@ -157,7 +155,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.then((response) => {
 				this._chromeService.setItem("accessToken", response.data.token);
-				// localStorage.setItem("accessToken", response.data.token);
 			});
 	}
 
@@ -496,6 +493,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				ctx.drawImage(this.direction.left, startX, startY, 40, 40);
 			}
 		}
+
 		this._changeDetectorRef.markForCheck();
 	}
 
@@ -612,7 +610,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.then((response) => {
 				this._chromeService.setItem("unlockWallet", response.data);
-				// localStorage.setItem("unlockWallet", JSON.stringify(response.data));
 
 				setTimeout(() => {
 					this.session.showBiometrics = false;

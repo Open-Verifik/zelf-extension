@@ -11,6 +11,7 @@ import { SendTransactionComponent } from "./send-transaction/send-transaction.co
 import { SendTransactionPreviewComponent } from "./send-transaction/send-transaction-preview/send-transaction-preview.component";
 import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
 import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
+import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -51,6 +52,10 @@ const routes: Routes = [
 	{
 		path: "send-transaction-bridge",
 		component: SendTransactionBridgeComponent,
+	},
+	{
+		path: "network-picker",
+		component: NetworkPickerComponent,
 	},
 ];
 

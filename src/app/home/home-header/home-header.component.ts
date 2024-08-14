@@ -15,27 +15,18 @@ import { WalletService } from "app/wallet.service";
 				<div class="home-icon-container">
 					<div class="home-icon home-header-left">
 						<div class="home-icon-svg">
-							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-								<path
-									d="M16.625 6.75L14.9375 3.75H12.455L11.1875 1.5H7.8125L6.545 3.75H4.0625L2.375 6.75L3.6425 9L2.375 11.25L4.0625 14.25H6.545L7.8125 16.5H11.1875L12.455 14.25H14.9375L16.625 11.25L15.3575 9L16.625 6.75ZM14.9075 6.75L14.0675 8.25H12.4625L11.6225 6.75L12.4625 5.25H14.0675L14.9075 6.75ZM8.705 10.5L7.865 9L8.705 7.5H10.295L11.135 9L10.295 10.5H8.705ZM10.31 3L11.15 4.485L10.295 6H8.705L7.85 4.485L8.69 3H10.31ZM4.94 5.25H6.545L7.385 6.75L6.545 8.25H4.94L4.0925 6.75L4.94 5.25ZM4.0925 11.25L4.9325 9.75H6.5375L7.3775 11.25L6.5375 12.75H4.94L4.0925 11.25ZM8.69 15L7.85 13.515L8.705 12H10.295L11.1425 13.515L10.31 15H8.69ZM14.06 12.75H12.455L11.615 11.25L12.455 9.75H14.06L14.9 11.25L14.06 12.75Z"
-									fill="#46464F"
-								/>
-							</svg>
+							<img src="../../assets/images/eth_network.svg" />
 						</div>
+
 						<div class="home-icon-svg">
-							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-								<path
-									d="M12.9425 6.22168L9.5 9.65668L6.0575 6.22168L5 7.27918L9.5 11.7792L14 7.27918L12.9425 6.22168Z"
-									fill="#46464F"
-								/>
-							</svg>
+							<img src="../../assets/images/arrow_down.svg" />
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="home-header-center">
+			<div class="home-header-center" *ngIf="wallet">
 				<div class="home-account-info cursor-pointer" (click)="openAccountsPage()">
-					<div class="home-account-name">Account</div>
+					<div class="home-account-name">{{ wallet.name }}</div>
 
 					<div class="home-account-dropdown">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -131,6 +122,12 @@ export class HomeHeaderComponent implements OnInit {
 
 	openAccountsPage(): void {
 		this.shareables.view = this.shareables.view === "home" ? "accountsPage" : "home";
+
+		this._router.navigate(["/home"], { queryParams: { view: this.shareables.view } });
+	}
+
+	openNetworkPicker(): void {
+		this.shareables.view = this.shareables.view === "home" ? "networkPickerPage" : "home";
 
 		this._router.navigate(["/home"], { queryParams: { view: this.shareables.view } });
 	}

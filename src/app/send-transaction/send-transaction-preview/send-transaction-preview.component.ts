@@ -74,8 +74,6 @@ export class SendTransactionPreviewComponent implements OnInit {
 		const fees = await this._ethService.getGasPrices();
 
 		this.fees = fees.data;
-
-		console.log({ fees: this.fees });
 	}
 
 	async _getAccountDetails(): Promise<any> {

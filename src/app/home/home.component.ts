@@ -134,8 +134,6 @@ export class HomeComponent implements OnInit {
 				this.NFTs.push(token);
 			}
 		}
-
-		console.log({ nfts: this.NFTs });
 	}
 
 	_redirectToOnboarding(): void {

@@ -74,8 +74,6 @@ export class EthereumService {
 
 			const balanceEth = this.web3.utils.fromWei(balanceWei, "ether");
 
-			console.log({ balanceEth, address });
-
 			return balanceEth;
 		} catch (error) {
 			console.error("Error getting balance:", { error });

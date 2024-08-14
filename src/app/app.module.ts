@@ -64,6 +64,7 @@ import { SendTransactionBridgeComponent } from './send-transaction/send-transact
 import { ActivityCardComponent } from './home/activity-card/activity-card.component';
 import { TokenCardComponent } from './home/token-card/token-card.component';
 import { NftCardComponent } from './home/nft-card/nft-card.component';
+import { NetworkPickerComponent } from './home/network-picker/network-picker.component';
 //
 //
 //
@@ -111,6 +112,7 @@ import { NftCardComponent } from './home/nft-card/nft-card.component';
   ActivityCardComponent,
   TokenCardComponent,
   NftCardComponent,
+  NetworkPickerComponent,
 	],
 	imports: [
 		BrowserModule,

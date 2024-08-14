@@ -24,7 +24,6 @@
 	display: inline-flex;
 }
 
-// Header styles
 .hwc-header {
 	align-self: stretch;
 	justify-content: flex-end;
@@ -51,26 +50,6 @@
 	word-wrap: break-word;
 }
 
-.hwc-header-icon {
-	justify-content: flex-end;
-	align-items: flex-start;
-	gap: 8px;
-	display: flex;
-	width: 24px;
-	height: 24px;
-	position: relative;
-}
-
-.hwc-header-icon div {
-	width: 14px;
-	height: 14px;
-	left: 5px;
-	top: 5px;
-	position: absolute;
-	background: #767680;
-}
-
-// Account list styles
 .hwc-account-list {
 	align-self: stretch;
 	height: 200px;
@@ -82,28 +61,6 @@
 	display: flex;
 }
 
-.hwc-account-item-name {
-	align-self: stretch;
-	color: #1b1b1f;
-	font-size: 15px;
-	font-family: Poppins;
-	font-weight: 600;
-	line-height: 24px;
-	word-wrap: break-word;
-}
-
-.hwc-account-item-address {
-	text-align: center;
-	color: #46464f;
-	font-size: 14px;
-	font-family: Poppins;
-	font-weight: 500;
-	line-height: 20px;
-	letter-spacing: 0.1px;
-	word-wrap: break-word;
-}
-
-// Add account button styles
 .hwc-add-account {
 	align-self: stretch;
 	height: 40px;

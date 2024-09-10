@@ -47,7 +47,17 @@
 						"tsConfig": "tsconfig.app.json",
 						"assets": ["src/favicon.ico", "src/assets", "src/manifest.json", "src/background.js", "src/master.css"],
 						"scripts": [],
-						"allowedCommonJsDependencies": ["@tensorflow/tfjs-core"]
+						"allowedCommonJsDependencies": [
+							"@tensorflow/tfjs-core",
+							"flat",
+							"crc-32",
+							"bip39",
+							"cross-fetch",
+							"setimmediate",
+							"@ethereumjs/rlp",
+							"buffer",
+							"jsqr"
+						]
 					},
 					"configurations": {
 						"production": {

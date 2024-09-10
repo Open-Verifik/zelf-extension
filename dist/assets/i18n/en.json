@@ -25,7 +25,14 @@
 		"eth_address": "ETH Address",
 		"solana_address": "Solana Address",
 		"address": "Address",
-		"zelf_wallet": "Zelf Wallet"
+		"zelf_wallet": "Zelf Wallet",
+		"cancel": "Cancel",
+		"total": "Total",
+		"edit": "Edit",
+		"balance": "Balance",
+		"amount": "Amount",
+		"max": "Max",
+		"asset": "Asset"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -148,7 +155,23 @@
 		"support_button": "Support",
 		"settings_button": "Settings",
 		"receive_transaction_button": "Receive",
-		"send_transaction_button": "Send"
+		"send_transaction_button": "Send",
+		"assets": "Assets",
+		"activity": "Activity",
+		"NFTs": "NFTs"
+	},
+	"activity_card": {
+		"sent": "Sent",
+		"in": "Received",
+		"age": "Age",
+		"amount": "Amount",
+		"block": "Block",
+		"from": "From",
+		"hash": "Hash",
+		"method": "Method",
+		"to": "To",
+		"traffic": "Traffic",
+		"txnFee": "Txn Fee"
 	},
 	"extension_instructions": {
 		"extensions": "Extensions",
@@ -160,5 +183,38 @@
 		"extensionsCanChange": "These extensions can view and change information on this website.",
 		"manageExtensions": "Manage Extensions",
 		"clickExtensionIcon": "Click on the extension icon in your browser."
+	},
+	"send_transaction": {
+		"send_to": "Send to",
+		"your_accounts": "Your accounts",
+		"account_found": "Address found",
+		"reject_transaction_button": "Cancel",
+		"continue_transaction_button": "Next",
+		"confirm_transaction_button": "Confirm transaction",
+		"confirm": {
+			"sending_label": "SENDING {{amount}} {{asset}}",
+			"market": "Market",
+			"gas_label": "Gas (estimated)",
+			"gas_description": "Probably in {{seconds}} seconds",
+			"max_gas": "Maximum fee:",
+			"total_to_pay_label": "Assets + gas fees",
+			"max_total": "Maximum total"
+		},
+		"preview": {
+			"estimated_fee": "Estimated fee"
+		},
+		"bridge": {
+			"qr_code_title": "Scan the QR Code",
+			"title": "Confirm your transaction",
+			"description": "Scan the QR Code from your Zelf Wallet. Add a security layer by decrypting in your device",
+			"description_2": "Or continue with the web extension",
+			"confirm_button": "Confirm transaction",
+			"dont_have_the_app": "Still don't have the safest wallet installed?",
+			"download_here": "Download it here and increase your security for all your transactions"
+		}
+	},
+	"network_picker": {
+		"title": "Select a network",
+		"testnets_title": "Select a test network"
 	}
 }

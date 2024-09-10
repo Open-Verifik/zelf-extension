@@ -16,65 +16,6 @@ export class HttpWrapperService {
 
 	constructor(private _http: HttpClient, private _chromeService: ChromeService) {}
 
-	// /**
-	//  * send request
-	//  * @param method - to determinate which function we will be using
-	//  * @param url - url that we will requesting information
-	//  * @param params - params that can go into the body or the query string param
-	//  * @param options - headers or some other sort of params
-	//  */
-	// // tslint:disable-next-line:typedef
-	// sendRequest(method: string, url: string, params: any = {}, options: any = {}) {
-	// 	method = method.toLocaleLowerCase();
-
-	// 	const authToken: string = localStorage.getItem("accessToken") || "";
-
-	// 	let headers: any = {
-	// 		timeout: 20,
-	// 	};
-
-	// 	if (authToken) {
-	// 		headers["Authorization"] = `Bearer ${authToken}`;
-	// 	}
-
-	// 	if (params.encryption) {
-	// 	}
-
-	// 	switch (method) {
-	// 		case "get":
-	// 			return this.request(
-	// 				this._http.get(url, {
-	// 					params,
-	// 					headers,
-	// 					...options,
-	// 				})
-	// 			);
-	// 		case "post":
-	// 			return this.request(
-	// 				this._http.post(url, params, {
-	// 					headers,
-	// 					...options,
-	// 				})
-	// 			);
-	// 		case "put":
-	// 			return this.request(
-	// 				this._http.put(url, params, {
-	// 					headers,
-	// 					...options,
-	// 				})
-	// 			);
-	// 		case "delete":
-	// 			return this.request(
-	// 				this._http.delete(url, {
-	// 					headers,
-	// 					...options,
-	// 				})
-	// 			);
-	// 		default:
-	// 			throw "method not provided";
-	// 	}
-	// }
-
 	/**
 	 * Send request
 	 * @param method - to determine which function we will be using
@@ -128,17 +69,6 @@ export class HttpWrapperService {
 				throw error;
 			});
 	}
-
-	// private request(a: Observable<any>): Observable<any> {
-	// 	this.tail.push(a);
-	// 	return a.pipe(
-	// 		retry(0),
-	// 		finalize(() => {
-	// 			const index = this.tail.indexOf(a);
-	// 			this.tail.splice(index, 1);
-	// 		})
-	// 	);
-	// }
 
 	setPublicKey(publicKey: string): void {
 		this.publicKey = publicKey;

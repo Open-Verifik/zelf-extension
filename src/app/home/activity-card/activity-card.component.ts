@@ -50,7 +50,7 @@ import { ETHTransaction } from "app/wallet";
 				gap: 8px;
 				display: flex;
 
-				img {
+				:is(img) {
 					width: 26px;
 				}
 			}

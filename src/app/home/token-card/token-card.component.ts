@@ -43,7 +43,7 @@ import { Component, Input, OnInit } from "@angular/core";
 				gap: 8px;
 				display: flex;
 
-				img {
+				:is(img) {
 					width: 26px;
 				}
 			}

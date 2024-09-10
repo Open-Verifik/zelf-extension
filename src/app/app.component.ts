@@ -31,8 +31,6 @@ export class AppComponent implements OnInit {
 
 		const url = `${this.apiUrl}/api/sessions/yek-cilbup`;
 
-		console.info({ url });
-
 		this._httpWrapperService
 			.sendRequest("get", url, {
 				identifier: hash,

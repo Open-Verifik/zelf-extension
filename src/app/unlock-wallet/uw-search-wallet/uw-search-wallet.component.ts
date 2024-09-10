@@ -176,9 +176,17 @@ export class UwSearchWalletComponent implements OnInit {
 		};
 	}
 
+	// Method to convert binary data to hex string
+	toHexString(byteArray: any): string {
+		return Array.from(byteArray, (byte: any) => {
+			return ("0" + (byte & 0xff).toString(16)).slice(-2);
+		}).join("");
+	}
+
 	extractBinaryData(code: any): void {
 		if (code && code.binaryData) {
 			const hexString = this.toHexString(code.binaryData);
+
 			const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
 			const base64String = buffer.toString("base64");
 			this.qrCodeData = base64String;
@@ -214,12 +222,5 @@ export class UwSearchWalletComponent implements OnInit {
 
 			this.potentialWallet.hasPassword = Boolean(response.data?.type === "WithPassword");
 		});
-	}
-
-	// Method to convert binary data to hex string
-	toHexString(byteArray: any): string {
-		return Array.from(byteArray, (byte: any) => {
-			return ("0" + (byte & 0xff).toString(16)).slice(-2);
-		}).join("");
 	}
 }

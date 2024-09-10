@@ -37,10 +37,10 @@ import { Component, Input, OnInit } from "@angular/core";
 				align-items: flex-start;
 				gap: 8px;
 				display: flex;
+			}
 
-				img {
-					width: 26px;
-				}
+			.status-icon-container img {
+				width: 26px;
 			}
 
 			.status-icon {

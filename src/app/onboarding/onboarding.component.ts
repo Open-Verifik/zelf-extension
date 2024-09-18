@@ -21,17 +21,17 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		{
 			title: "onboarding.step_1",
 			description: "onboarding.step_1_description",
-			image: "https://cdn.verifik.co/wallet/onboarding1.svg",
+			image: "../../assets/images/onboarding_lock.svg",
 		},
 		{
 			title: "onboarding.step_2",
 			description: "onboarding.step_2_description",
-			image: "https://cdn.verifik.co/wallet/onboarding2.svg",
+			image: "../../assets/images/onboarding_face.svg",
 		},
 		{
 			title: "onboarding.step_3",
 			description: "onboarding.step_3_description",
-			image: "https://cdn.verifik.co/wallet/onboarding3.svg",
+			image: "../../assets/images/onboarding_qr.svg",
 		},
 		// Add more items as needed
 	];
@@ -72,7 +72,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	startRotation(): void {
 		this.intervalId = setInterval(() => {
 			this.activeIndex = (this.activeIndex + 1) % this.items.length;
-		}, 10000); // Rotate every 5000 milliseconds (5 seconds)
+		}, 5000);
 	}
 
 	previous() {

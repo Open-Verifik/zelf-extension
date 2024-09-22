@@ -37,7 +37,7 @@ import { Component, Input, OnInit } from "@angular/core";
 			.status-icon-container {
 				padding: 8px;
 				border-radius: 16px;
-				border: 2px #1c44f9 solid;
+				border: 2px black solid;
 				justify-content: flex-start;
 				align-items: flex-start;
 				gap: 8px;
@@ -57,7 +57,7 @@ import { Component, Input, OnInit } from "@angular/core";
 				width: 9.73px;
 				height: 9.73px;
 
-				background: #1c44f9;
+				background: black;
 			}
 
 			.text-container {

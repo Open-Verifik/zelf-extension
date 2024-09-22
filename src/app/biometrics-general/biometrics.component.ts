@@ -553,12 +553,13 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		this.loading({ result: true });
 
 		const payload: any = {
-			image: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
+			faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
 			os: this.deviceData.OS,
-			password: this.session.password,
 		};
 
-		payload.image = await this._httpWrapperService.encryptMessage(payload.image);
+		if (this.session.password) payload.password = this.session.password;
+
+		payload.faceBase64 = await this._httpWrapperService.encryptMessage(payload.faceBase64);
 
 		switch (this.type) {
 			case "createWallet":
@@ -578,8 +579,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	_createWallet(payload: any, data: any): void {
 		this._walletService
 			.createWallet({
-				faceBase64: payload.image,
-				password: payload.password,
+				...payload,
 				wordsCount: data.wordsCount || payload.wordsCount || 12,
 				seeWallet: 1,
 			})
@@ -603,9 +603,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	_decryptWallet(payload: any, data: any): void {
 		this._walletService
 			.decryptWAllet({
-				faceBase64: payload.image,
-				wallet: data.hash,
-				password: payload.password || undefined,
+				...payload,
+				wallet: data.zelfProof,
 				identifier: data.identifier,
 			})
 			.then((response) => {
@@ -627,8 +626,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	_importWallet(payload: any, data: any): void {
 		this._walletService
 			.importWallet({
-				faceBase64: payload.image,
-				password: payload.password,
+				...payload,
 				phrase: data.phrase,
 			})
 			.then((response) => {

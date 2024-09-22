@@ -644,7 +644,7 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 		this._walletService
 			.decryptWAllet({
 				faceBase64: payload.image,
-				wallet: data.hash,
+				wallet: data.zelfProof,
 				password: data.password || undefined,
 			})
 			.then((response) => {

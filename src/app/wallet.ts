@@ -34,7 +34,7 @@ export interface Wallet {
 	displayEthAddress: string;
 	solanaAddress: string;
 	hasPassword: boolean;
-	hash: string;
+	zelfProof: string;
 	image: string;
 	publicData: WalletPublicData;
 	zkProof: string;
@@ -50,7 +50,7 @@ export class WalletModel implements Wallet {
 	displayEthAddress: string;
 	solanaAddress: string;
 	hasPassword: boolean;
-	hash: string;
+	zelfProof: string;
 	image: string;
 	publicData: WalletPublicData;
 	zkProof: string;
@@ -78,7 +78,7 @@ export class WalletModel implements Wallet {
 
 		this.solanaAddress = data.solanaAddress || secondaryStorage.solanaAddress;
 		this.hasPassword = data.hasPassword || Boolean(data.type === "WithPassword");
-		this.hash = data.hash;
+		this.zelfProof = data.zelfProof;
 		this.image = data.image;
 		this.publicData = secondaryStorage;
 		this.zkProof = data.zkProof;
@@ -134,7 +134,7 @@ export class ETHTransaction {
 	fiatAmount: string;
 	block: string;
 	from: string;
-	hash: string;
+	zelfProof: string;
 	method: string;
 	to: string;
 	traffic: string;
@@ -151,7 +151,7 @@ export class ETHTransaction {
 		this.asset = data.asset;
 		this.block = data.block;
 		this.from = data.from;
-		this.hash = data.hash;
+		this.zelfProof = data.zelfProof;
 		this.method = data.method;
 		this.to = data.to;
 		this._to = "";

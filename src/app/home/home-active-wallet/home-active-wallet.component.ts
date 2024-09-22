@@ -221,11 +221,9 @@ export class HomeActiveWalletComponent implements OnInit {
 	}
 
 	showPrivateKey(): void {
-		this._chromeService.setItem("tempWalletAddress", this.wallet.hash);
+		this._chromeService.setItem("tempWalletAddress", this.wallet.zelfProof);
 
 		this._chromeService.setItem("tempWalletQrCode", this.wallet.image);
-		// localStorage.setItem("tempWalletAddress", this.wallet.hash);
-		// localStorage.setItem("tempWalletQrCode", this.wallet.image);
 
 		this._router.navigate(["/find-wallet"]);
 	}

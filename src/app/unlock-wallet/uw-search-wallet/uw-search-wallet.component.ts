@@ -7,6 +7,7 @@ import { environment } from "environments/environment";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 import jsQR from "jsqr";
 import { Buffer } from "buffer";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
 	selector: "uw-search-wallet",
@@ -20,7 +21,7 @@ export class UwSearchWalletComponent implements OnInit {
 	potentialWallet: any;
 	session: any;
 	fileBase64: string | ArrayBuffer | null = null;
-	qrCodeData: string | null = null;
+	zelfProof: string | null = null;
 	displayableError: any;
 	unlockQRCode: string;
 
@@ -29,17 +30,21 @@ export class UwSearchWalletComponent implements OnInit {
 		private _formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService,
-		private _changeDetectorRef: ChangeDetectorRef
+		private _changeDetectorRef: ChangeDetectorRef,
+		private _chromeService: ChromeService
 	) {
 		this.unlockQRCode = "";
 
 		this.session = this._walletService.getSessionData();
 
 		this.displayableError = null;
+
+		localStorage.removeItem("unlockWallet");
 	}
 
 	ngOnInit(): void {
 		const defaultAddress = environment.production ? "" : "0x13901AE0F17E2875E86C86721f9943598601b0C4";
+
 		this.searchForm = this._formBuilder.group({
 			address: [defaultAddress, []],
 		});
@@ -58,7 +63,7 @@ export class UwSearchWalletComponent implements OnInit {
 		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
 
 		if (passedActiveWallet && passedActiveQRCode) {
-			this.qrCodeData = passedActiveWallet;
+			this.zelfProof = passedActiveWallet;
 
 			this.fileBase64 = passedActiveQRCode;
 
@@ -96,6 +101,8 @@ export class UwSearchWalletComponent implements OnInit {
 			this._walletService.goToNextStep(this.session.step + 1);
 
 			this.session.showBiometricsInstructions = true;
+
+			this.session.zelfProof = this.zelfProof;
 		}
 	}
 
@@ -189,7 +196,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 			const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
 			const base64String = buffer.toString("base64");
-			this.qrCodeData = base64String;
+			this.zelfProof = base64String;
 
 			this.previewQRCode();
 
@@ -203,24 +210,22 @@ export class UwSearchWalletComponent implements OnInit {
 	}
 
 	previewQRCode(): void {
-		if (!this.qrCodeData) return;
+		if (!this.zelfProof) return;
 
-		this._walletService.previewWallet(this.qrCodeData).then((response) => {
-			this.potentialWallet = response.data?.wallet;
-
-			console.log({ potentialWallet: response.data });
+		this._walletService.previewWallet(this.zelfProof).then((response) => {
+			this.potentialWallet = response.data;
 
 			if (!this.potentialWallet) {
 				this.session.step = 0;
 
-				this.qrCodeData = null;
+				this.zelfProof = null;
 
 				this._changeDetectorRef.markForCheck();
 
 				return;
 			}
 
-			this.potentialWallet.hasPassword = Boolean(response.data?.type === "WithPassword");
+			this.potentialWallet.hasPassword = Boolean(this.potentialWallet.passwordLayer === "WithPassword");
 		});
 	}
 }

@@ -142,8 +142,6 @@ export class ETHTransaction {
 	asset: string;
 	_to: string;
 
-	// traffic = IN / OUT
-
 	constructor(data: any) {
 		this.age = data.age;
 		this.amount = data.amount;

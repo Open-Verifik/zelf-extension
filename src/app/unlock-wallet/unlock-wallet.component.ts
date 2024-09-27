@@ -37,6 +37,24 @@ export class UnlockWalletComponent implements OnInit {
 				isCompleted: Boolean(this.session.step > 2),
 			},
 		]);
+
+		const interval = setInterval(() => {
+			if (this.wallet) {
+				clearInterval(interval); // Stop the interval when this.wallet is set
+				return;
+			}
+
+			this._chromeService.getItem("unlockWallet").then((_wallet) => {
+				const unlockWallet = new WalletModel(_wallet);
+
+				if (unlockWallet.ethAddress) {
+					this.wallet = unlockWallet;
+					clearInterval(interval); // Stop the interval once the wallet is set
+				}
+
+				console.log({ unlockWallet, wallet: this.wallet });
+			});
+		}, 1000);
 	}
 
 	async ngOnInit(): Promise<any> {
@@ -48,12 +66,11 @@ export class UnlockWalletComponent implements OnInit {
 
 		this.session.navigationStep = 1;
 
-		if (unlockWallet?.ethAddress) {
+		if (unlockWallet?.ethAddress && unlockWallet?.metadata) {
 			this.wallet = unlockWallet;
 
 			this.session.navigationStep = 2;
 		}
-		console.log({ session: this.session });
 	}
 
 	goBack(): void {
@@ -81,18 +98,6 @@ export class UnlockWalletComponent implements OnInit {
 
 		if (!filter) return false;
 
-		setTimeout(() => {
-			if (this.wallet) return;
-
-			this._chromeService.getItem("unlockWallet").then((_wallet) => {
-				const unlockWallet = new WalletModel(_wallet);
-
-				if (unlockWallet.ethAddress) this.wallet = unlockWallet;
-
-				console.log({ _wallet, unlockWallet, thiss: this.wallet });
-			});
-		}, 1000);
-
-		return Boolean(filter && this.wallet);
+		return Boolean(filter && this.wallet && this.wallet.metadata);
 	}
 }

@@ -116,12 +116,16 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	) {}
 
 	async ngOnInit(): Promise<any> {
-		const wallet = await this._chromeService.getItem(this.walletType || "wallet");
+		const walletType = this.walletType || "wallet";
+
+		const wallet = await this._chromeService.getItem(walletType);
 
 		this.wallet = new WalletModel(wallet);
 
+		console.log({ walleT: this.wallet });
+
 		if (!this.wallet.ethAddress) {
-			this._chromeService.removeItem("wallet");
+			this._chromeService.removeItem(walletType);
 
 			this._router.navigate(["/onboarding"]);
 

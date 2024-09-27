@@ -245,7 +245,7 @@ export class WalletService {
 		});
 	}
 
-	decryptWAllet(data: any): Promise<any> {
+	decryptWallet(data: any): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/decrypt`, data);
 	}
 
@@ -253,9 +253,9 @@ export class WalletService {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/import`, data);
 	}
 
-	previewWallet(hash: string): Promise<any> {
+	previewWallet(zelfProof: string): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
-			hash,
+			zelfProof,
 		});
 	}
 

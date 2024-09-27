@@ -1,7 +1,7 @@
 <div class="unlock-container">
 	<div class="unlock-inner-container" fxLayout="column" fxLayoutAlign="space-between center">
-		<div class="unlock-title" *ngIf="!potentialWallet && !qrCodeData">{{ "unlock_wallet.title" | transloco }}</div>
-		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet && !qrCodeData">
+		<div class="unlock-title" *ngIf="!potentialWallet && !zelfProof">{{ "unlock_wallet.title" | transloco }}</div>
+		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet && !zelfProof">
 			<div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
 			<div class="unlock-input-box">
 				<div class="unlock-input-text-container">
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 		</form>
-		<div class="unlock-box" *ngIf="!potentialWallet && !qrCodeData">
+		<div class="unlock-box" *ngIf="!potentialWallet && !zelfProof">
 			<div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div>
 			<div class="unlock-upload-box">
 				<div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
@@ -40,19 +40,19 @@
 				{{ "unlock_wallet.account_found" | transloco }}
 			</div>
 
-			<div *ngIf="qrCodeData" class="" fxLayout="row" fxLayoutAlign="center center">
+			<div *ngIf="zelfProof" class="" fxLayout="row" fxLayoutAlign="center center">
 				<img [src]="fileBase64" alt="Uploaded QR Code" class="w-35p" />
 			</div>
 
 			<div fxLayout="column" fxLayoutAlign="start start">
 				<p>{{ "common.eth_address" | transloco }}</p>
 				<h3 class="m-0">
-					{{ potentialWallet.ethAddress }}
+					{{ potentialWallet.publicData.ethAddress }}
 				</h3>
 
 				<p>{{ "common.solana_address" | transloco }}</p>
 				<h3 class="m-0">
-					{{ potentialWallet.solanaAddress }}
+					{{ potentialWallet.publicData.solanaAddress }}
 				</h3>
 			</div>
 		</div>

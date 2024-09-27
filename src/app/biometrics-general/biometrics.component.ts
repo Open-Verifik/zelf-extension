@@ -602,9 +602,9 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
 	_decryptWallet(payload: any, data: any): void {
 		this._walletService
-			.decryptWAllet({
+			.decryptWallet({
 				...payload,
-				wallet: data.zelfProof,
+				zelfProof: data.zelfProof,
 				identifier: data.identifier,
 			})
 			.then((response) => {
@@ -612,6 +612,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
 				setTimeout(() => {
 					this.session.showBiometrics = false;
+					this.session.navigationStep = 2;
 
 					_this["biometricsLoginCalled"] = false;
 				}, 500);

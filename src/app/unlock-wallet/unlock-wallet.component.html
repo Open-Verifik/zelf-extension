@@ -38,7 +38,12 @@
 		</app-stepper>
 	</div>
 
-	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 2 && wallet" class="wallet-qr-code-alone">
+	<div
+		fxLayout="column"
+		fxLayoutAlign="start center"
+		*ngIf="session.navigationStep === 2 && wallet && wallet.metadata"
+		class="wallet-qr-code-alone"
+	>
 		<view-created-wallet-qr-code [walletType]="'unlockWallet'"></view-created-wallet-qr-code>
 	</div>
 </div>

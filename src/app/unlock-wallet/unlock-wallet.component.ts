@@ -52,7 +52,7 @@ export class UnlockWalletComponent implements OnInit {
 					clearInterval(interval); // Stop the interval once the wallet is set
 				}
 
-				console.log({ unlockWallet, wallet: this.wallet });
+				// console.log({ unlockWallet, wallet: this.wallet });
 			});
 		}, 1000);
 	}

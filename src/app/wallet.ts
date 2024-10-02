@@ -19,11 +19,15 @@ export class Asset {
 	constructor(data: any) {
 		this.asset = data.asset || "NA";
 
-		this.balance = Number(parseFloat(data.balance).toFixed(7)) || Number((data.fiatBalance / data.price).toFixed(6));
+		// Explicit check for balance
+		this.balance =
+			data.balance !== undefined && data.balance !== null
+				? Number(parseFloat(data.balance).toFixed(7))
+				: Number((data.fiatBalance / data.price).toFixed(6));
 
 		this.fiatBalance = data.fiatBalance;
 
-		this.price = data.price || 2558.33; // hardcoded price
+		this.price = data.price || 0; // hardcoded price
 	}
 }
 

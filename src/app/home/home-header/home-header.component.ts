@@ -38,19 +38,19 @@ import { WalletService } from "app/wallet.service";
 				</div>
 			</div>
 			<div class="home-header-right" *ngIf="wallet">
-				<div (click)="openActivePage()" class="home-wallet">
+				<div (click)="openActivePage()" class="home-wallet mr-2">
 					<div class="home-wallet-image">
 						<img [src]="wallet.image" *ngIf="wallet && wallet.image" />
 					</div>
 				</div>
-				<div class="home-wallet-icon" [matMenuTriggerFor]="settingsMenu">
+				<!-- <div class="home-wallet-icon" [matMenuTriggerFor]="settingsMenu">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
 						<path
 							d="M12.5 8C13.6 8 14.5 7.1 14.5 6C14.5 4.9 13.6 4 12.5 4C11.4 4 10.5 4.9 10.5 6C10.5 7.1 11.4 8 12.5 8ZM12.5 10C11.4 10 10.5 10.9 10.5 12C10.5 13.1 11.4 14 12.5 14C13.6 14 14.5 13.1 14.5 12C14.5 10.9 13.6 10 12.5 10ZM12.5 16C11.4 16 10.5 16.9 10.5 18C10.5 19.1 11.4 20 12.5 20C13.6 20 14.5 19.1 14.5 18C14.5 16.9 13.6 16 12.5 16Z"
 							fill="#46464F"
 						/>
 					</svg>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -98,7 +98,7 @@ export class HomeHeaderComponent implements OnInit {
 		this.view = "home";
 		this.selectedTab = "assets";
 
-		this.selectedNetwork = this._blockchainNetworkService.getSelectedNetwork();
+		this.selectedNetwork = this._blockchainNetworkService.getSelectedNetwork().toUpperCase();
 	}
 
 	async ngOnInit(): Promise<any> {

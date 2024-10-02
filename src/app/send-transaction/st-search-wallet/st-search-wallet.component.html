@@ -33,7 +33,7 @@
 	</div>
 
 	<!-- your accounts -->
-	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet">
+	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet && myAccounts.length">
 		<h3>
 			{{ "send_transaction.your_accounts" | transloco }}
 		</h3>

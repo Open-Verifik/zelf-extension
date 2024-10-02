@@ -111,6 +111,8 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this.session.identifier = null;
 
+		this.zelfProof = null;
+
 		this.searchForm.patchValue({ address: "" });
 	}
 

@@ -111,8 +111,6 @@ export class HomeComponent implements OnInit {
 	async _getWalletDetails(wallet: Wallet): Promise<any> {
 		this.wallet = wallet;
 
-		this.wallet.ethAddress = "0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97";
-
 		if (!this.wallet.ethAddress) return;
 
 		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);

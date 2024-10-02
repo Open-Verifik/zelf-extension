@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { WalletService } from "app/wallet.service";
-import { environment } from "environments/environment";
-import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 
 @Component({
 	selector: "send-transaction",

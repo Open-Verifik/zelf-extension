@@ -94,7 +94,7 @@ export class ImportWalletComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<any> {
-		const wallet = await this._chromeService.getItem("wallet");
+		const wallet = await this._chromeService.getItem("importWallet");
 
 		if (wallet) {
 			this.wallet = new WalletModel(wallet);

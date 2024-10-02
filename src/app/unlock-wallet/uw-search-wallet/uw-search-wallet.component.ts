@@ -97,12 +97,12 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this.session.identifier = this.potentialWallet.ethAddress;
 
+		this.session.zelfProof = this.zelfProof;
+
 		if (!this.potentialWallet.hasPassword) {
 			this._walletService.goToNextStep(this.session.step + 1);
 
 			this.session.showBiometricsInstructions = true;
-
-			this.session.zelfProof = this.zelfProof;
 		}
 	}
 

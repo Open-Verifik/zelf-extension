@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
-import { TransactionService } from "app/transaction.service";
 import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
@@ -49,7 +48,7 @@ import { WalletService } from "app/wallet.service";
 			</div>
 		</div>
 		<mat-menu #menu="matMenu" xPosition="before" yPosition="above">
-			<button mat-menu-item>
+			<button mat-menu-item (click)="openScanner()">
 				<span>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path
@@ -91,8 +90,16 @@ export class WalletCardComponent implements OnInit {
 	@Input() wallet!: Wallet;
 	@Input() wallets!: Array<Wallet>;
 	asset!: Asset;
+	selectedNetwork: string;
 
-	constructor(private _walletService: WalletService, private _chromeService: ChromeService, private _ethService: EthereumService) {}
+	constructor(
+		private _walletService: WalletService,
+		private _chromeService: ChromeService,
+		private _ethService: EthereumService,
+		private _blockchainNetworkService: BlockchainNetworksService
+	) {
+		this.selectedNetwork = "";
+	}
 
 	ngOnInit(): void {
 		this._syncDetails();
@@ -101,7 +108,11 @@ export class WalletCardComponent implements OnInit {
 	async _syncDetails(): Promise<any> {
 		if (this.variables.hideActions) return;
 
-		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
+		this.selectedNetwork = await this._blockchainNetworkService.getSelectedNetwork();
+
+		const details = await this.getWalletDetailsByNetwork(this.selectedNetwork);
+
+		if (!details) return;
 
 		this.asset = new Asset({
 			asset: details.data.account.asset,
@@ -110,6 +121,29 @@ export class WalletCardComponent implements OnInit {
 		});
 
 		this._walletService.updateAssetValues(this.wallet, this.asset, this.wallets, this.variables.index);
+	}
+
+	private async getWalletDetailsByNetwork(network: string): Promise<any> {
+		let details;
+
+		switch (network) {
+			case "eth":
+				// Fetch details from Ethereum service
+				details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
+				break;
+
+			case "sol":
+				// Fetch details from Solana service (replace with actual Solana service method)
+				// details = await this._solanaService.getWalletDetails(this.wallet.ethAddress); // Assume this method exists
+				break;
+
+			default:
+				// Handle unsupported networks
+				console.warn("Unsupported network for fetching wallet details");
+				break;
+		}
+
+		return details;
 	}
 
 	unlinkWallet() {
@@ -141,4 +175,28 @@ export class WalletCardComponent implements OnInit {
 	}
 
 	selectAccount() {}
+
+	openScanner(): void {
+		switch (this.selectedNetwork) {
+			case "eth":
+				// Open Etherscan for Ethereum
+				const etherscanUrl = `https://etherscan.io/address/${this.wallet.ethAddress}`;
+
+				window.open(etherscanUrl, "_blank");
+
+				break;
+			case "sol":
+				// Open Solscan for Solana
+				const solscanUrl = `https://solscan.io/account/${this.wallet.solanaAddress}`;
+
+				window.open(solscanUrl, "_blank");
+
+				break;
+			default:
+				// Handle other networks or show an error
+				console.warn("Unsupported network for scanner");
+
+				break;
+		}
+	}
 }

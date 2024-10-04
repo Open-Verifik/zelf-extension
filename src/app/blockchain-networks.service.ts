@@ -22,7 +22,7 @@ export class BlockchainNetworksService {
 	}
 
 	getSelectedNetwork(): string {
-		return this.selectedNetwork || "ETH";
+		return this.selectedNetwork || "eth";
 	}
 
 	async setSelectedNetwork(code: string): Promise<any> {

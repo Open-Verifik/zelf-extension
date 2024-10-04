@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -18,7 +18,7 @@ export class WordsPickerStepComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.signUpForm = this._formBuilder.group({
-			wordsCount: [24, []],
+			termsAcceptance: [false, [Validators.required]],
 		});
 	}
 
@@ -30,5 +30,9 @@ export class WordsPickerStepComponent implements OnInit {
 		this.session.wordsCount = this.signUpForm.value.wordsCount;
 
 		console.log({ session: this.session });
+	}
+
+	termsAccepted(): boolean {
+		return Boolean(this.signUpForm.value.termsAcceptance);
 	}
 }

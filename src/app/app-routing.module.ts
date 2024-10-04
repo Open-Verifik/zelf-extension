@@ -12,6 +12,8 @@ import { SendTransactionPreviewComponent } from "./send-transaction/send-transac
 import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
 import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
 import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
+import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
+import { OpenZelfNameComponent } from "./open-zelf-name/open-zelf-name.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -20,6 +22,14 @@ const routes: Routes = [
 	{
 		path: "onboarding",
 		component: OnboardingComponent,
+	},
+	{
+		path: "new-zelf-name",
+		component: NewZelfNameComponent,
+	},
+	{
+		path: "open-zelf-name",
+		component: OpenZelfNameComponent,
 	},
 	{
 		path: "create-wallet",

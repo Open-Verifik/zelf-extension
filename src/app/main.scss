@@ -710,7 +710,6 @@ $computers: 1200px;
 	color: white !important;
 	height: 45px !important;
 	font-size: 18px;
-	border-radius: 20px;
 }
 
 .main-title {
@@ -725,8 +724,9 @@ h3 {
 }
 
 h1 {
-	font-size: 28px;
-	font-weight: bold;
+	font-size: 32px;
+	font-weight: 600;
+	margin: 0px;
 }
 
 h2 {
@@ -750,9 +750,8 @@ h3 {
 	background-color: white !important;
 	color: black !important;
 	border: 1px solid #0b57d08a !important;
-	height: 45px;
+	height: 45px !important;
 	font-size: 18px;
-	border-radius: 20px;
 }
 
 .secondary-button:disabled {
@@ -932,4 +931,33 @@ h3 {
 	border-bottom: 1px solid rgba(128, 128, 128, 0.386);
 	width: 100%;
 	height: 2px;
+}
+
+.zelf-content {
+	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
+	// background: linear-gradient(90deg, #f7b7b9 0%, #c196f9 50%, #85c6ff 100%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.zelf-card {
+	width: 500px;
+	min-height: 500px;
+	padding: 16px;
+	background: white;
+	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+	border: 1px rgba(0, 0, 0, 0.35) solid;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	display: inline-flex;
+	h1 {
+		text-align: center;
+	}
+
+	span {
+		text-align: center;
+	}
 }

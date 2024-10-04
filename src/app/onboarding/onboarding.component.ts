@@ -132,7 +132,13 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 				console.log({ ipfsFile: response });
 			})
 			.catch((exception) => {
-				console.error({ exception });
+				console.error({ exception: exception.error });
+
+				if (exception.error.error === "ipfs_file_not_found") {
+					this._ipfsService.setZelfName(zelfName);
+
+					this._router.navigate(["/new-zelf-name"]);
+				}
 			});
 	}
 }

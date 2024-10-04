@@ -65,6 +65,8 @@ import { ActivityCardComponent } from './home/activity-card/activity-card.compon
 import { TokenCardComponent } from './home/token-card/token-card.component';
 import { NftCardComponent } from './home/nft-card/nft-card.component';
 import { NetworkPickerComponent } from './home/network-picker/network-picker.component';
+import { NewZelfNameComponent } from './new-zelf-name/new-zelf-name.component';
+import { OpenZelfNameComponent } from './open-zelf-name/open-zelf-name.component';
 //
 //
 //
@@ -113,6 +115,8 @@ import { NetworkPickerComponent } from './home/network-picker/network-picker.com
   TokenCardComponent,
   NftCardComponent,
   NetworkPickerComponent,
+  NewZelfNameComponent,
+  OpenZelfNameComponent,
 	],
 	imports: [
 		BrowserModule,

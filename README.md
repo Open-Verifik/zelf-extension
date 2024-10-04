@@ -37,6 +37,100 @@ The **Zelf Wallet** is a secure, privacy-focused web extension designed for seam
 
 By utilizing cutting-edge cryptographic techniques, ZelfProofs create a trustless, decentralized verification system that gives users full control over their digital identity while ensuring maximum privacy and security.
 
+## IPFS Integration: Upload and Query
+
+In addition to ZelfProofs, the **Zelf Wallet** integrates with **IPFS** (InterPlanetary File System) for decentralized file storage. Below are the details on how to upload files and query them using IPFS.
+
+### Uploading Files to IPFS
+
+You can upload files (e.g., images) to IPFS via a POST request. The process also supports attaching metadata such as Ethereum and Solana addresses, email, and nickname.
+
+#### Example Request (Upload to IPFS)
+
+Here’s a sample POST request for uploading files to IPFS, including metadata:
+
+```json
+POST https://api.zelf.world/api/ipfs
+
+{
+  "base64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...", 
+  "name": "johan.zelf",
+  "metadata": {
+    "ethAddress": "0x3308f60b92915a8764b60342938a9D8406d288BE",
+    "solanaAddress": "JA6WkAYuA5FZb9nkFrBSprRMF6suMQvBEepQFFWV",
+    "email": "johan@verifik.co",
+    "nickname": "johan.zelf"
+  },
+  "pinIt": true
+}
+```
+
+In this request:
+- The **base64** field contains the image file encoded in base64 format.
+- The **metadata** includes Ethereum and Solana addresses, email, and a nickname.
+- The **pinIt** field ensures the file is pinned to IPFS, keeping it available long-term.
+
+#### Response
+
+The response will contain the following information, including the IPFS URL and metadata:
+
+```json
+{
+  "data": {
+    "url": "https://blush-selective-earwig-920.mypinata.cloud/ipfs/<IPFS_HASH>",
+    "IpfsHash": "<IPFS_HASH>",
+    "PinSize": 16241,
+    "Timestamp": "2024-10-03T21:07:19.212Z",
+    "pinned": true,
+    "web3": true,
+    "name": "johan.zelf",
+    "metadata": {
+      "ethAddress": "0x3308f60b92915a8764b60342938a9D8406d288BE",
+      "solanaAddress": "JA6WkAYuA5FZb9nkFrBSprRMF6suMQvBEepQFFWV",
+      "email": "johan@verifik.co",
+      "nickname": "johan.zelf"
+    }
+  }
+}
+```
+
+### Querying Files from IPFS
+
+You can retrieve files and metadata stored in IPFS using the **GET** method. Below is an example query to search for a file by nickname.
+
+#### Example Request (Query by Nickname)
+
+```json
+GET https://api.zelf.world/api/ipfs?key=nickname&value=johan.zelf
+```
+
+#### Response
+
+The response will return details of the pinned file, including metadata:
+
+```json
+{
+  "data": [
+    {
+      "id": "5631d85b-e86-4558-82de-373caa76475b",
+      "ipfs_pin_hash": "<IPFS_HASH>",
+      "size": 16241,
+      "user_id": "622f63b9-c03d-4702-9679-5d1409ae5e20",
+      "date_pinned": "2024-10-03T21:07:19.212Z",
+      "metadata": {
+        "name": "johan.zelf",
+        "keyvalues": {
+          "email": "johan@verifik.co",
+          "nickname": "johan.zelf",
+          "ethAddress": "0x3308f60b92915a8764b60342938a9D8406d288BE",
+          "solanaAddress": "JA6WkAYuA5FZb9nkFrBSprRMF6suMQvBEepQFFWV"
+        }
+      }
+    }
+  ]
+}
+```
+
 ---
 
 ## Getting Started

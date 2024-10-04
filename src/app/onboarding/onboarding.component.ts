@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
+import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 
 let isTabOpen = false;
@@ -15,18 +16,19 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	step: number = 1;
 	walletCreationForm: any;
 	termsAcceptance!: boolean;
-	@ViewChild("termsForm") signUpNgForm!: NgForm;
-	termsForm!: UntypedFormGroup;
+	@ViewChild("zelfForm") signUpNgForm!: NgForm;
+	zelfForm!: UntypedFormGroup;
 	items = [
 		{
 			title: "onboarding.step_1",
 			description: "onboarding.step_1_description",
-			image: "../../assets/images/onboarding_lock.svg",
+			// image: "../../assets/images/onboardingface.png",
+			image: "../../assets/images/onboarding1.png",
 		},
 		{
 			title: "onboarding.step_2",
 			description: "onboarding.step_2_description",
-			image: "../../assets/images/onboarding_face.svg",
+			image: "../../assets/images/onboardingface.png",
 		},
 		{
 			title: "onboarding.step_3",
@@ -42,14 +44,15 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		private _router: Router,
 		private _translocoService: TranslocoService,
 		private _formBuilder: UntypedFormBuilder,
-		private _walletService: WalletService
+		private _walletService: WalletService,
+		private _ipfsService: IpfsService
 	) {
 		this._walletService.restoreSession();
 	}
 
 	ngOnInit(): void {
-		this.termsForm = this._formBuilder.group({
-			termsAcceptance: [false, [Validators.required]],
+		this.zelfForm = this._formBuilder.group({
+			zelfName: ["", [Validators.required]],
 		});
 
 		this.startRotation();
@@ -104,12 +107,32 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	}
 
 	acceptedTerms(): Boolean {
-		return Boolean(this.termsForm.value.termsAcceptance);
+		return Boolean(this.zelfForm.value.termsAcceptance);
 	}
 
 	ngOnDestroy(): void {
 		if (this.intervalId) {
 			clearInterval(this.intervalId);
 		}
+	}
+
+	searchZelfName(): void {
+		const zelfName = this.zelfForm.value.zelfName;
+
+		// Validation: Ensure zelfName is at least 4 characters
+		if (!zelfName || zelfName.length < 4) {
+			// You can add an error message here if needed
+			alert("Zelf name must be at least 4 characters long.");
+			return; // Prevent further execution if validation fails
+		}
+
+		this._ipfsService
+			.queryByZelfName(zelfName)
+			.then((response) => {
+				console.log({ ipfsFile: response });
+			})
+			.catch((exception) => {
+				console.error({ exception });
+			});
 	}
 }

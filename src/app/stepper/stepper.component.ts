@@ -1,26 +1,32 @@
-import { AfterContentInit, Component, ContentChildren, QueryList } from "@angular/core";
+import { AfterContentInit, Component, ContentChildren, OnInit, QueryList } from "@angular/core";
 import { IpfsService } from "app/ipfs.service";
 import { StepComponent } from "app/step/step.component";
+import { Location } from "@angular/common";
 
 @Component({
 	selector: "app-stepper",
 	templateUrl: "./stepper.component.html",
 	styleUrls: ["./stepper.component.scss"],
 })
-export class StepperComponent implements AfterContentInit {
+export class StepperComponent implements AfterContentInit, OnInit {
 	currentStep = 0;
 	numberOfSteps = 0;
 	zelfName: string;
+	isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
 
-	constructor(private _ipfsService: IpfsService) {
+	constructor(private _ipfsService: IpfsService, private location: Location) {
 		this.zelfName = "";
+	}
+
+	async ngOnInit(): Promise<any> {
+		this.zelfName = this.isExtension ? await this._ipfsService.getZelfName() : localStorage.getItem("zelfName") || "";
+
+		console.log({ zelfName: this.zelfName });
 	}
 
 	@ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
 
 	async ngAfterContentInit(): Promise<any> {
-		this.zelfName = await this._ipfsService.getZelfName();
-
 		console.log({ zelfName: this.zelfName });
 
 		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
@@ -36,10 +42,7 @@ export class StepperComponent implements AfterContentInit {
 	}
 
 	back() {
-		if (this.currentStep > 0) {
-			this.currentStep--;
-			this.updateSteps();
-		}
+		this.location.back();
 	}
 
 	private updateSteps() {

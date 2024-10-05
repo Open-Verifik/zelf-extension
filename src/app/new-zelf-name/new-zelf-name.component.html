@@ -1,4 +1,4 @@
-<div class="w-full h-full zelf-content" fxLayout="column" fxLayoutAlign="start center">
+<div class="w-full h-full zelf-content" fxLayout="column" fxLayoutAlign="start center" *ngIf="zelfName">
 	<!-- <header class="w-full"></header> -->
 	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
 		<img src="../../assets/images/full_zelf_logo.svg" alt="" />
@@ -8,11 +8,11 @@
 
 	<app-stepper></app-stepper>
 
-	<div fxLayout="column" fxLayoutAlign="start start" class="md-card zelf-card">
+	<div fxLayout="column" fxLayoutAlign="start start" class="md-card zelf-card p-4">
 		<div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
 			<p class="m-0">Register</p>
 
-			<h3 class="m-0">miguel.zelf</h3>
+			<h3 class="m-0">{{ zelfName }}</h3>
 
 			<small class="mt-4">You’ll register this name for 1 year.</small>
 		</div>

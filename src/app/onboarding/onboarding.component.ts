@@ -55,6 +55,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			zelfName: ["", [Validators.required]],
 		});
 
+		this._ipfsService.setZelfName("");
+
 		this.startRotation();
 	}
 
@@ -135,7 +137,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 				console.error({ exception: exception.error });
 
 				if (exception.error.error === "ipfs_file_not_found") {
-					this._ipfsService.setZelfName(zelfName);
+					this._ipfsService.setZelfName(`${zelfName}.zelf`);
 
 					this._router.navigate(["/new-zelf-name"]);
 				}

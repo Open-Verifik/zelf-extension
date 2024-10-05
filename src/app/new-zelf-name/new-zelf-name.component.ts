@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { IpfsService } from "app/ipfs.service";
 
 @Component({
 	selector: "app-new-zelf-name",
@@ -10,10 +11,17 @@ import { Router } from "@angular/router";
 export class NewZelfNameComponent implements OnInit {
 	@ViewChild("zelfForm") signUpNgForm!: NgForm;
 	zelfForm!: UntypedFormGroup;
+	zelfName: string;
 
-	constructor(private _router: Router, private _formBuilder: UntypedFormBuilder) {}
+	constructor(private _router: Router, private _formBuilder: UntypedFormBuilder, private _ipfsService: IpfsService) {
+		this.zelfName = "";
+	}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<any> {
+		this.zelfName = await this._ipfsService.getZelfName();
+
+		console.log({ zelfName: this.zelfName });
+
 		this.zelfForm = this._formBuilder.group({
 			termsAcceptance: [false, [Validators.required]],
 		});

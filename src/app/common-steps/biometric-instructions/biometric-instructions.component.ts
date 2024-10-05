@@ -4,35 +4,37 @@ import { WalletService } from "app/wallet.service";
 @Component({
 	selector: "biometric-instructions",
 	template: `
-		<div class="bi-container">
+		<div class="zelf-card">
 			<div class="cw-pst-content w-full" fxLayout="column" fxLayoutAlign="space-between center">
 				<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
-					<img src="https://cdn.verifik.co/wallet/info_cr.svg" alt="" />
+					<h2>{{ "create_wallet.zelfproof_step.title" | transloco }}</h2>
 
-					<div class="main-title h1">{{ "create_wallet.biometric_instructions.title" | transloco }}</div>
+					<span class="text-center">
+						{{ "create_wallet.zelfproof_step.description" | transloco }}
+					</span>
 				</div>
 
 				<div class="cw-phrase-content-d m-8" fxLayout="column" fxLayoutAlign="start start">
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/smile.svg" alt="" class="mr-4" />
 
-						<span class="instructions-text zelf-p"> {{ "create_wallet.biometric_instructions.instruction_1" | transloco }} </span>
+						<span class="instructions-text zelf-p"> {{ "create_wallet.zelfproof_step.instruction_1" | transloco }} </span>
 					</div>
 
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/camera.svg" alt="" class="mr-4" />
 
-						<span class="instructions-text zelf-p"> {{ "create_wallet.biometric_instructions.instruction_2" | transloco }} </span>
+						<span class="instructions-text zelf-p"> {{ "create_wallet.zelfproof_step.instruction_2" | transloco }} </span>
 					</div>
 
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/instruction_1.svg" alt="" class="mr-4" />
 
-						<span class="instructions-text zelf-p"> {{ "create_wallet.biometric_instructions.instruction_3" | transloco }} </span>
+						<span class="instructions-text zelf-p"> {{ "create_wallet.zelfproof_step.instruction_3" | transloco }} </span>
 					</div>
 				</div>
 
-				<button mat-raised-button class="w-full rounded-button main-button" (click)="startCamera()">
+				<button mat-raised-button class="w-full main-button" (click)="startCamera()">
 					{{ "create_wallet.phrase_step.start_encryption_button" | transloco }}
 				</button>
 			</div>

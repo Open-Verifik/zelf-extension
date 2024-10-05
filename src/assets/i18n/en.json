@@ -45,20 +45,27 @@
 			"continue_without_password": "One layer of security"
 		},
 		"phrase_step": {
-			"title": "ZELPROOF ENCRYPTION",
+			"title": "WALLET CREATION",
 			"description": "Your private recovery phrase consists of 12 or 24 words, essential for accessing and securing your wallet.",
 			"description_2": "Zelf Wallet removes the need for manual storage by encrypting your recovery phrase into a powerful, privacy-preserving ZelfProof. This ZelfProof is securely stored within a QR code that only you can decrypt, ensuring unparalleled security.",
 			"description_3": "The QR code serves as a robust digital vault for your recovery keys, enhanced by our Zelf Name Service (ZNS). With ZNS, you can easily back up and retrieve your QR code using your Zelf Name.",
 			"description_4": "I understand that Zelf can help retrieve the QR code with ZNS. However, I am still responsible for safeguarding it to ensure secure access.",
-			"start_encryption_button": "Encrypt the wallet",
+			"start_encryption_button": "Start",
 			"12_words": "12 words phrase",
 			"24_words": "24 words phrase"
 		},
+		"zelfproof_step": {
+			"title": "ZELPROOF ENCRYPTION",
+			"description": "You are about to generate your ZelfProof, which will securely encrypt your recovery phrases. Follow the steps below to ensure the process is smooth and effective.",
+			"instruction_1": "Place your face inside the indicated mark",
+			"instruction_2": "Stare at the camera and avoid moving",
+			"instruction_3": "Be sure to perform the required facial gestures"
+		},
 		"view_wallet": {
-			"title": "You have created your wallet successfully",
-			"description": "These are the words of your security phrase, encrypted and safeguarded in the following QR code.",
-			"description_2": "You will always need your ZelfProof as a main layer of security to access them.",
-			"qr_code_description": "Remember to keep the QR code of your words safe to protect your account.",
+			"title": "WALLET SUCCESSFULLY ENCRYPTED WITH ZELFPROOF",
+			"description": "Your recovery phrase has been encrypted and safeguarded inside this QR code using your ZelfProof, a powerful privacy-preserving security layer.",
+			"description_2": "You will always need your ZelfProof as the primary way to access these encrypted words and secure your wallet. If you ever lose this QR code, you can easily retrieve it using your ZelfName via the Zelf Name Service (ZNS).",
+			"qr_code_description": "Keep this QR code safe. To access or restore your wallet, your ZelfProof and this QR code will always be required",
 			"download_qr_code": "Download your QR Code",
 			"copy_public_address": "Copy your ETH Address"
 		}

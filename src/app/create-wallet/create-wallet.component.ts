@@ -68,8 +68,8 @@ export class CreateWalletComponent implements OnInit {
 		if (!this.session.steps) return;
 
 		this.session.steps.forEach((step: any, index: number) => {
-			step.isActive = index === this.currentStep;
-			step.isCompleted = index < this.currentStep;
+			step.isActive = Boolean(index === this.currentStep);
+			step.isCompleted = Boolean(index < this.currentStep);
 		});
 	}
 

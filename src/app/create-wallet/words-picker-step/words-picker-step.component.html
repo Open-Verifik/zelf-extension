@@ -31,11 +31,11 @@
 		</div>
 
 		<div fxLayout="column" fxLayoutAlign="start start" class="w-full">
-			<button mat-raised-button class="w-full secondary-button mt-4" (click)="startEncryption()" [disabled]="!termsAccepted()">
+			<button mat-raised-button class="w-full secondary-button mt-4" (click)="startEncryption(12)" [disabled]="!termsAccepted()">
 				{{ "create_wallet.phrase_step.12_words" | transloco }}
 			</button>
 
-			<button mat-raised-button class="w-full main-button mt-4" (click)="startEncryption()" [disabled]="!termsAccepted()">
+			<button mat-raised-button class="w-full main-button mt-4" (click)="startEncryption(24)" [disabled]="!termsAccepted()">
 				{{ "create_wallet.phrase_step.24_words" | transloco }}
 			</button>
 		</div>

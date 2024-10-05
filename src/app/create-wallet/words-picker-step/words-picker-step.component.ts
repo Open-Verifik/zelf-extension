@@ -22,12 +22,12 @@ export class WordsPickerStepComponent implements OnInit {
 		});
 	}
 
-	startEncryption() {
+	startEncryption(wordsCount: number) {
 		this.session.showBiometricsInstructions = true;
 
 		this.session.wordsPicker = false;
 
-		this.session.wordsCount = this.signUpForm.value.wordsCount;
+		this.session.wordsCount = wordsCount;
 
 		console.log({ session: this.session });
 	}

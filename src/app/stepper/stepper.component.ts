@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, ContentChildren, QueryList } from "@angular/core";
+import { IpfsService } from "app/ipfs.service";
 import { StepComponent } from "app/step/step.component";
 
 @Component({
@@ -9,12 +10,19 @@ import { StepComponent } from "app/step/step.component";
 export class StepperComponent implements AfterContentInit {
 	currentStep = 0;
 	numberOfSteps = 0;
+	zelfName: string;
 
-	constructor() {}
+	constructor(private _ipfsService: IpfsService) {
+		this.zelfName = "";
+	}
 
 	@ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
 
-	ngAfterContentInit() {
+	async ngAfterContentInit(): Promise<any> {
+		this.zelfName = await this._ipfsService.getZelfName();
+
+		console.log({ zelfName: this.zelfName });
+
 		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
 
 		this.updateSteps();

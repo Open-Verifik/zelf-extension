@@ -1,4 +1,4 @@
-<div class="stepper-container" fxLayout="column" fxLayoutAlign="start center">
+<div class="zelf-header" fxLayout="column" fxLayoutAlign="start center">
 	<!-- <div class="stepper-header w-full">
 		<div *ngFor="let step of steps; let i = index" class="step-indicator" fxLayout="row" fxLayoutAlign="start start">
 			<div fxLayout="column" fxLayoutAlign="center center">
@@ -12,7 +12,15 @@
 	</div> -->
 	<div class="zelf-header">
 		<div fxLayout="row" fxLayoutAlign="start center" class="w-full">
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="32" viewBox="0 0 10 16" fill="none">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="32"
+				viewBox="0 0 10 16"
+				fill="none"
+				(click)="back()"
+				class="cursor-pointer ml-4"
+			>
 				<path d="M8.29004 16L0.290039 8L8.29004 0L9.71004 1.42L3.13004 8L9.71004 14.58L8.29004 16Z" fill="#181818" />
 			</svg>
 			<div fxLayout="column" fxLayoutAlign="center center" class="w-full">

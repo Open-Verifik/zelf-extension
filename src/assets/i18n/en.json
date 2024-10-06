@@ -52,7 +52,8 @@
 			"description_4": "I understand that Zelf can help retrieve the QR code with ZNS. However, I am still responsible for safeguarding it to ensure secure access.",
 			"start_encryption_button": "Start",
 			"12_words": "12 words phrase",
-			"24_words": "24 words phrase"
+			"24_words": "24 words phrase",
+			"words_input": "Number of words"
 		},
 		"zelfproof_step": {
 			"title": "ZELPROOF ENCRYPTION",

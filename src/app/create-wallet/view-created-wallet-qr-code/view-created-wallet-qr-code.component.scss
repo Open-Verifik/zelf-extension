@@ -98,8 +98,8 @@
 }
 
 .view-wallet-image {
-	width: 216px;
-	height: 216px;
+	width: 180px;
+	height: 180px;
 }
 
 .view-wallet-qr-code-label {
@@ -211,8 +211,8 @@
 .view-wallet-word-container {
 	height: 40px;
 	width: 85px;
-	padding-left: 16px;
-	padding-right: 16px;
+	padding-left: 8px;
+	padding-right: 20px;
 	padding-top: 8px;
 	padding-bottom: 8px;
 	background: #f4f4f4;
@@ -241,7 +241,7 @@ $computers: 1200px;
 /* For extremely small screen devices (595px and below) */
 @media only screen and (max-width: $maxExtraSmall) {
 	.view-wallet {
-		width: 365px;
+		width: 400px;
 		height: 77vh;
 		overflow-y: scroll;
 		padding-top: 16px;
@@ -263,15 +263,15 @@ $computers: 1200px;
 
 	.view-wallet-word-container {
 		height: 30px;
-		width: 50px;
+		width: 60px;
 	}
 
 	.view-wallet-word {
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	.view-wallet-words-c-div {
-		gap: 4px;
+		gap: 3px;
 	}
 
 	.view-wallet-right {
@@ -294,4 +294,20 @@ $computers: 1200px;
 
 /* Extra big screen devices (1200px and above) */
 @media only screen and (min-width: $computers) {
+	.view-wallet {
+		width: 1050px;
+		height: 70vh;
+		overflow-y: scroll;
+		padding-top: 16px;
+		padding-bottom: 16px;
+		padding-left: 16px;
+		padding-right: 16px;
+		background: white;
+		box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+		border: 1px rgba(0, 0, 0, 0.25) solid;
+		justify-content: center;
+		align-items: center;
+		gap: 32px;
+		display: inline-flex;
+	}
 }

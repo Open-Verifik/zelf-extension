@@ -5,7 +5,7 @@ import { WalletService } from "app/wallet.service";
 	selector: "biometric-instructions",
 	template: `
 		<div class="zelf-card">
-			<div class="cw-pst-content w-full" fxLayout="column" fxLayoutAlign="space-between center">
+			<div class="cw-pst-content w-full p-4" fxLayout="column" fxLayoutAlign="space-between center">
 				<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
 					<h2>{{ "create_wallet.zelfproof_step.title" | transloco }}</h2>
 

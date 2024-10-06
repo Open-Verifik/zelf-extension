@@ -945,7 +945,7 @@ h3 {
 }
 
 .zelf-card {
-	width: 500px;
+	width: 600px;
 	min-height: 500px;
 	// padding: 16px;
 	background: white;
@@ -965,9 +965,14 @@ h3 {
 	}
 }
 
+.w-fix {
+	width: 602px;
+}
+
 .zelf-header {
-	width: 498px;
+	width: 600px !important;
 	min-height: 50px;
+	height: 85px;
 	background: white;
 	border-left: 1px rgba(0, 0, 0, 0.35) solid;
 	border-right: 1px rgba(0, 0, 0, 0.35) solid;

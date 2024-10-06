@@ -6,49 +6,7 @@
 		<language-picker></language-picker>
 	</div>
 
-	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 1">
-		<div class="cw-pst-container">
-			<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
-				<div class="cw-pst-content-d">
-					<img src="https://cdn.verifik.co/wallet/importwallet.svg" alt="" />
-					<div>
-						<div class="cw-pst-title">{{ "import_wallet.step_zero.title" | transloco }}</div>
-						<div class="cr-pst-description">
-							{{ "import_wallet.step_zero.description" | transloco }}
-						</div>
-
-						<div class="cr-pst-description">
-							{{ "import_wallet.step_zero.description2" | transloco }}
-						</div>
-					</div>
-
-					<div>
-						<div class="cw-pst-subtitle">{{ "import_wallet.step_zero.subtitle" | transloco }}</div>
-						<div class="cr-pst-description">
-							{{ "import_wallet.step_zero.description3" | transloco }}
-						</div>
-
-						<div class="cr-pst-description">
-							{{ "import_wallet.step_zero.description4" | transloco }}
-						</div>
-					</div>
-				</div>
-				<div></div>
-
-				<div class="w-full">
-					<button mat-raised-button class="w-full rounded-button main-button" (click)="start()">
-						{{ "import_wallet.step_zero.import_button" | transloco }}
-					</button>
-
-					<button mat-raised-button class="w-full rounded-button secondary-button mt-4" (click)="goBack()">
-						{{ "common.go_back" | transloco }}
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 2">
+	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper>
 			<app-step
 				*ngFor="let step of session.steps; index as i"
@@ -57,10 +15,11 @@
 				[label]="step.label"
 				[isHidden]="step.isHidden"
 			>
-				<div class="imp-wallet-container" *ngIf="canSee12WordsStep(i)">
+				<div class="zelf-card" *ngIf="canSee12WordsStep(i)">
 					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
 						<div class="cw-pst-content-d">
-							<div class="cw-pst-title">{{ "import_wallet.step_one.title" | transloco }}</div>
+							<h2 class="m-0">{{ "import_wallet.step_one.title" | transloco }}</h2>
+
 							<div class="cr-pst-description">
 								{{ "import_wallet.step_one.description" | transloco }}
 							</div>
@@ -69,7 +28,7 @@
 						<!-- form area -->
 						<div class="w-full imp-phrase">
 							<form [formGroup]="importForm" #importNgForm="ngForm" class="w-full" fxLayout="column" fxLayoutAlign="start center">
-								<mat-form-field class="w-80p">
+								<mat-form-field class="w-50p">
 									<mat-label> {{ "create_wallet.phrase_step.words_input" | transloco }}</mat-label>
 									<mat-select [formControlName]="'wordsCount'">
 										<mat-select-trigger>
@@ -101,7 +60,7 @@
 									</div>
 								</div>
 
-								<div class="mt-4">
+								<div class="mt-2">
 									<div
 										style="
 											width: 100%;
@@ -167,13 +126,8 @@
 							</form>
 						</div>
 
-						<div class="w-full mt-6">
-							<button
-								mat-raised-button
-								class="w-full rounded-button main-button"
-								(click)="validateWallet()"
-								[disabled]="!canImportWallet()"
-							>
+						<div class="w-full m-5 text-center import-button">
+							<button mat-raised-button class="w-full main-button" (click)="validateWallet()" [disabled]="!canImportWallet()">
 								{{ "import_wallet.step_one.confirm_button" | transloco }}
 							</button>
 						</div>
@@ -203,3 +157,45 @@
 </div>
 
 <footer class="w-full pt-10"></footer>
+
+<!-- <div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 1">
+		<div class="cw-pst-container">
+			<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
+				<div class="cw-pst-content-d">
+					<img src="https://cdn.verifik.co/wallet/importwallet.svg" alt="" />
+					<div>
+						<div class="cw-pst-title">{{ "import_wallet.step_zero.title" | transloco }}</div>
+						<div class="cr-pst-description">
+							{{ "import_wallet.step_zero.description" | transloco }}
+						</div>
+
+						<div class="cr-pst-description">
+							{{ "import_wallet.step_zero.description2" | transloco }}
+						</div>
+					</div>
+
+					<div>
+						<div class="cw-pst-subtitle">{{ "import_wallet.step_zero.subtitle" | transloco }}</div>
+						<div class="cr-pst-description">
+							{{ "import_wallet.step_zero.description3" | transloco }}
+						</div>
+
+						<div class="cr-pst-description">
+							{{ "import_wallet.step_zero.description4" | transloco }}
+						</div>
+					</div>
+				</div>
+				<div></div>
+
+				<div class="w-full">
+					<button mat-raised-button class="w-full rounded-button main-button" (click)="start()">
+						{{ "import_wallet.step_zero.import_button" | transloco }}
+					</button>
+
+					<button mat-raised-button class="w-full rounded-button secondary-button mt-4" (click)="goBack()">
+						{{ "common.go_back" | transloco }}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div> -->

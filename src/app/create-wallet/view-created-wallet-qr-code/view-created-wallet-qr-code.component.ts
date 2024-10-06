@@ -10,6 +10,14 @@ import { WalletService } from "app/wallet.service";
 	selector: "view-created-wallet-qr-code",
 	template: `
 		<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+			<!-- class="view-wallet"
+				fxLayout="row"
+				fxLayoutAlign="start center"
+				fxLayout.sm="column"
+				fxLayoutAlign.sm="start center"
+				fxLayout.xs="column"
+				fxLayoutAlign.xs="start center"
+				*ngIf="wallet" -->
 			<div
 				class="view-wallet"
 				fxLayout="row"

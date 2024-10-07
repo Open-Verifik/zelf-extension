@@ -1,18 +1,11 @@
-<div class="imp-qrc-container">
+<div class="zelf-card">
 	<div class="imp-qrc-inner-container">
 		<div class="imp-qrc-message-container">
-			<div class="imp-qrc-title">
+			<h2 class="m-0 text-center">
 				{{ "import_wallet.qr_code_step.success_message" | transloco }}
-			</div>
+			</h2>
 			<div class="imp-qrc-description">
 				{{ "import_wallet.qr_code_step.description" | transloco }}
-			</div>
-		</div>
-		<div class="imp-qrc-button-container">
-			<div class="imp-qrc-button-wrapper">
-				<button mat-raised-button class="w-full rounded-button main-button" (click)="goToInstructions()">
-					{{ "common.continue" | transloco }}
-				</button>
 			</div>
 		</div>
 	</div>
@@ -52,6 +45,14 @@
 					{{ "import_wallet.qr_code_step.download_qr" | transloco }}
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="imp-qrc-button-container">
+		<div class="imp-qrc-button-wrapper">
+			<button mat-raised-button class="w-full main-button" (click)="goToInstructions()">
+				{{ "common.continue" | transloco }}
+			</button>
 		</div>
 	</div>
 </div>

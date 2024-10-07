@@ -108,3 +108,17 @@
 	overflow-y: auto;
 	margin-bottom: 80px;
 }
+
+$maxExtraSmall: 595px;
+$minSmall: 600px;
+$medium: 768px;
+$large: 889px;
+$computers: 1200px;
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: $maxExtraSmall) {
+	.wallet-qr-code-alone {
+		margin-left: 0px !important;
+		margin-right: 32px !important;
+	}
+}

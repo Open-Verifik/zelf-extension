@@ -1,5 +1,4 @@
 .word-picker-container {
-	width: 500px;
 	min-height: 500px;
 	padding: 32px;
 	background: white;
@@ -14,7 +13,6 @@
 }
 
 .word-picker-content {
-	height: 516px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
@@ -27,6 +25,8 @@
 	align-items: center;
 	gap: 48px;
 	display: flex;
+	padding-left: 16px;
+	padding-right: 16px;
 }
 
 .words-picker-title {
@@ -50,11 +50,10 @@
 }
 
 .words-picker-description {
-	width: 80%;
+	width: 95%;
 	margin-top: 12px;
-	text-align: center;
+	text-align: left;
 	color: #010333;
-	font-size: 12px;
 	font-weight: 500;
 	line-height: 20px;
 	letter-spacing: 0.1px;

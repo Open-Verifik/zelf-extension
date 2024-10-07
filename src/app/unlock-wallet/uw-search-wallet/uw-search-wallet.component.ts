@@ -127,6 +127,10 @@ export class UwSearchWalletComponent implements OnInit {
 
 		localStorage.setItem("zelfName", record.name);
 
+		this.session.zelfProof = record.zelfProof;
+
+		this.zelfProof = record.zelfProof;
+
 		this.potentialWallet = new WalletModel(record);
 
 		if (!this.potentialWallet?.publicData) return this._showAccountNotFound();

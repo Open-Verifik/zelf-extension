@@ -9,6 +9,7 @@ import { ChromeService } from "./chrome.service";
 export class IpfsService {
 	baseUrl: String = environment.apiUrl;
 	zelfName: string = "";
+	zelfFile: any;
 
 	constructor(private _httpWrapper: HttpWrapperService, private chromeService: ChromeService) {
 		this._initZelfName();
@@ -26,8 +27,16 @@ export class IpfsService {
 		return this.chromeService.setItem("zelfName", this.zelfName);
 	}
 
+	setZelfFile(ipfsFile: any): void {
+		this.zelfFile = ipfsFile;
+	}
+
 	getZelfName(): string {
 		return this.zelfName;
+	}
+
+	getZelfFile(): string {
+		return this.zelfFile;
 	}
 
 	queryByZelfName(zelfName: string): Promise<any> {

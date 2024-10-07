@@ -63,6 +63,12 @@ export class UwSearchWalletComponent implements OnInit {
 			this._triggerSearch(query);
 		});
 
+		this._checkForTempWallet();
+
+		this._checkForZelfFile();
+	}
+
+	_checkForTempWallet(): void {
 		const passedActiveWallet = localStorage.getItem("tempWalletAddress");
 		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
 
@@ -81,6 +87,14 @@ export class UwSearchWalletComponent implements OnInit {
 		}
 	}
 
+	_checkForZelfFile(): void {
+		const zelfFile = this._ipfsService.getZelfFile();
+
+		if (!zelfFile) return;
+
+		this._formatZelfFile(zelfFile);
+	}
+
 	_triggerSearch(query: string): void {
 		if (!query) return;
 
@@ -93,23 +107,25 @@ export class UwSearchWalletComponent implements OnInit {
 
 				const ipfsFile = response.data[0];
 
-				const record = {
-					image: ipfsFile.url,
-					publicData: ipfsFile.metadata?.keyvalues,
-					zelfProof: ipfsFile.metadata?.keyvalues.zelfProof,
-					name: ipfsFile.metadata?.name,
-					hasPassword: Boolean(ipfsFile.metadata?.keyvalues.hasPassword === "true"),
-				};
-
-				this.potentialWallet = new WalletModel(record);
-
-				if (!this.potentialWallet?.publicData) return this._showAccountNotFound();
-
-				console.log({ potentialWallet: this.potentialWallet });
+				this._formatZelfFile(ipfsFile);
 			})
 			.catch((error) => {
 				this._showAccountNotFound();
 			});
+	}
+
+	_formatZelfFile(zelfFile: any): void {
+		const record = {
+			image: zelfFile.url,
+			publicData: zelfFile.metadata?.keyvalues,
+			zelfProof: zelfFile.metadata?.keyvalues.zelfProof,
+			name: zelfFile.metadata?.name,
+			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
+		};
+
+		this.potentialWallet = new WalletModel(record);
+
+		if (!this.potentialWallet?.publicData) return this._showAccountNotFound();
 	}
 
 	_showAccountNotFound(): void {

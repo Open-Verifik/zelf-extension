@@ -134,7 +134,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			this.zelfForm.patchValue({ zelfName: "" });
 		}
 
-		const zelfName = this.zelfForm.value.zelfName;
+		const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
 
 		// Validation: Ensure zelfName is at least 4 characters
 		if (!zelfName || zelfName.length < 4) {
@@ -146,16 +146,26 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this._ipfsService
 			.queryByZelfName(zelfName)
 			.then((response) => {
-				console.log({ ipfsFile: response });
+				if (!response || !response.data || !response.data.length) return this._noZelfNameFound(zelfName);
+
+				this._ipfsService.setZelfName(`${zelfName}.zelf`);
+
+				this._ipfsService.setZelfFile(response.data[0]);
+
+				this._router.navigate(["/find-wallet"]);
 			})
 			.catch((exception) => {
 				console.error({ exception: exception.error });
 
 				if (exception.error.error === "ipfs_file_not_found") {
-					this._ipfsService.setZelfName(`${zelfName}.zelf`);
-
-					this._router.navigate(["/new-zelf-name"]);
+					this._noZelfNameFound(zelfName);
 				}
 			});
+	}
+
+	_noZelfNameFound(zelfName: string): void {
+		this._ipfsService.setZelfName(`${zelfName}.zelf`);
+
+		this._router.navigate(["/new-zelf-name"]);
 	}
 }

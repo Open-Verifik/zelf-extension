@@ -21,15 +21,11 @@ export class StepperComponent implements AfterContentInit, OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.zelfName = this.isExtension ? await this._ipfsService.getZelfName() : localStorage.getItem("zelfName") || "";
-
-		console.log({ zelfName: this.zelfName });
 	}
 
 	@ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
 
 	async ngAfterContentInit(): Promise<any> {
-		console.log({ zelfName: this.zelfName });
-
 		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
 
 		this.updateSteps();

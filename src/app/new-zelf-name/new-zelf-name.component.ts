@@ -20,8 +20,6 @@ export class NewZelfNameComponent implements OnInit {
 	async ngOnInit(): Promise<any> {
 		this.zelfName = await this._ipfsService.getZelfName();
 
-		console.log({ zelfName: this.zelfName });
-
 		this.zelfForm = this._formBuilder.group({
 			termsAcceptance: [false, [Validators.required]],
 		});

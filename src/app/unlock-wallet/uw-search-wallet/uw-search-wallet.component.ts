@@ -241,7 +241,7 @@ export class UwSearchWalletComponent implements OnInit {
 		if (!this.zelfProof) return;
 
 		this._walletService.previewWallet(this.zelfProof).then((response) => {
-			this.potentialWallet = response.data;
+			this.potentialWallet = new WalletModel(response.data);
 
 			if (!this.potentialWallet) {
 				this.session.step = 0;

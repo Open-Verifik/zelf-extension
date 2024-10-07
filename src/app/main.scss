@@ -7,6 +7,30 @@
 	font-display: swap; /* This helps to avoid invisible text during font loading */
 }
 
+@font-face {
+	font-family: "Menda";
+	src: url("../assets/fonts/Menda/Menda-Black.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Menda";
+	src: url("../assets/fonts/Menda/Menda-Bold.woff2") format("woff2");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Menda";
+	src: url("../assets/fonts/Menda/Menda-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
 * {
 	font-family: "Poppins", sans-serif; /* Always provide a fallback */
 }
@@ -686,7 +710,6 @@ $computers: 1200px;
 	color: white !important;
 	height: 45px !important;
 	font-size: 18px;
-	border-radius: 20px;
 }
 
 .main-title {
@@ -694,8 +717,24 @@ $computers: 1200px;
 	color: black !important;
 }
 
-.h1 {
-	font-size: 28px;
+h1,
+h2,
+h3 {
+	font-family: "Menda", sans-serif;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 600;
+	margin: 0px;
+}
+
+h2 {
+	font-weight: 600;
+}
+
+h3 {
+	font-weight: normal;
 }
 
 .zelf-p {
@@ -711,9 +750,8 @@ $computers: 1200px;
 	background-color: white !important;
 	color: black !important;
 	border: 1px solid #0b57d08a !important;
-	height: 45px;
+	height: 45px !important;
 	font-size: 18px;
-	border-radius: 20px;
 }
 
 .secondary-button:disabled {
@@ -843,6 +881,9 @@ $computers: 1200px;
 
 /* For extremely small screen devices (595px and below) */
 @media only screen and (max-width: $maxExtraSmall) {
+	h2 {
+		font-size: 18px;
+	}
 }
 
 /* Small screen devices (600px and above) */
@@ -877,4 +918,79 @@ $computers: 1200px;
 
 .w-32px {
 	width: 32px;
+}
+
+.text-grey {
+	color: grey;
+}
+
+.zpan {
+	font-family: "Menda", sans-serif;
+}
+
+.zline {
+	border-bottom: 2px solid black;
+	width: 100%;
+	height: 2px;
+}
+
+.zline-2 {
+	border-bottom: 1px solid rgba(128, 128, 128, 0.386);
+	width: 100%;
+	height: 2px;
+}
+
+.zelf-content {
+	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
+	// background: linear-gradient(90deg, #f7b7b9 0%, #c196f9 50%, #85c6ff 100%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.zelf-card {
+	width: 600px;
+	min-height: 500px;
+	// padding: 16px;
+	background: white;
+	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+	border: 1px rgba(0, 0, 0, 0.35) solid;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	display: inline-flex;
+	h1 {
+		text-align: center;
+	}
+
+	span {
+		text-align: center;
+	}
+}
+
+.w-fix {
+	width: 602px;
+}
+
+.zelf-header {
+	width: 600px !important;
+	min-height: 50px;
+	height: 85px;
+	background: white;
+	border-left: 1px rgba(0, 0, 0, 0.35) solid;
+	border-right: 1px rgba(0, 0, 0, 0.35) solid;
+	border-top: 0.5px rgba(0, 0, 0, 0.35) solid;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	display: inline-flex;
+	h1 {
+		text-align: center;
+	}
+
+	span {
+		text-align: center;
+	}
 }

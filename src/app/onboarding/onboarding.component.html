@@ -1,4 +1,4 @@
-<div class="w-full h-full onboarding-content" fxLayout="column" fxLayoutAlign="start center">
+<div class="w-full h-full zelf-content" fxLayout="column" fxLayoutAlign="start center">
 	<!-- <header class="w-full"></header> -->
 	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
 		<img src="../../assets/images/full_zelf_logo.svg" alt="" (click)="openFullPage()" />
@@ -7,56 +7,64 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center" class="md-card on-intro">
+		<h1 class="m-2">ZELF NAME SERVICE</h1>
+
+		<span class="zline"></span>
+
 		<ng-container *ngFor="let item of items; let i = index">
 			<div
 				fxLayout="column"
-				fxLayoutAlign="space-between center"
+				fxLayoutAlign="start center"
 				*ngIf="i === activeIndex"
 				[class.active]="i === activeIndex"
 				class="carousel-container"
 			>
 				<div fxLayout="column" fxLayoutAlign="start center">
-					<h1 class="main-title">{{ item.title | transloco }}</h1>
+					<h3 class="main-title text-center">{{ item.title | transloco }}</h3>
 					<span>
 						{{ item.description | transloco }}
 					</span>
 				</div>
 
-				<div class="carousel-image mt-4 w-full" fxLayout="row" fxLayoutAlign="center start">
+				<div class="carousel-image mt-4 w-full" [ngClass]="{ 'img-200': i === 0 }" fxLayout="row" fxLayoutAlign="center start">
 					<img class="w-full" [src]="item.image" [alt]="item.title" *ngIf="i === activeIndex" />
 				</div>
 			</div>
 		</ng-container>
 
-		<form [formGroup]="termsForm" #signUpNgForm="ngForm" class="my-5 w-full">
-			<mat-checkbox class="on-checkbox" [formControlName]="'termsAcceptance'">
-				{{ "onboarding.accept_terms_1" | transloco }}
-				<a href="https://example.com/terms" target="_blank">{{ "onboarding.accept_terms_2" | transloco }}</a>
-			</mat-checkbox>
+		<span class="zline-2"></span>
+
+		<form class="unlock-box" [formGroup]="zelfForm" #searchNgForm="ngForm" fxLayout="column" fxLayoutAlign="center center">
+			<h3 class="text-center m-0">{{ "onboarding.claim_your_zns" | transloco }}</h3>
+
+			<div class="unlock-input-box">
+				<div class="unlock-input-text-container">
+					<mat-form-field class="w-full">
+						<input
+							type="text"
+							matInput
+							[formControlName]="'zelfName'"
+							(keydown.enter)="searchZelfName()"
+							(input)="sanitizeZelfNameInput()"
+						/>
+					</mat-form-field>
+				</div>
+				<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
+					<span class="zpan"> .zelf </span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" (click)="searchZelfName()">
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M14.76 13.27L20.49 19L19 20.49L13.27 14.76C12.2 15.53 10.91 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 10.91 15.53 12.2 14.76 13.27ZM9.5 5C7.01 5 5 7.01 5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5Z"
+							fill="#43474E"
+						/>
+					</svg>
+				</div>
+			</div>
+
+			<div>
+				<span class="link cursor-pointer" (click)="goToFindWallet()"> {{ "onboarding.forgot_zelf_name" | transloco }}</span>
+			</div>
 		</form>
-
-		<button mat-raised-button class="w-full my-1 rounded-button main-button" (click)="goToCreateWallet()" [disabled]="!acceptedTerms()">
-			{{ "onboarding.create_new_wallet" | transloco }}
-		</button>
-
-		<button mat-raised-button class="w-full my-1 rounded-button secondary-button" (click)="goToImportWallet()" [disabled]="!acceptedTerms()">
-			{{ "onboarding.import_wallet" | transloco }}
-		</button>
-
-		<button mat-raised-button class="w-full my-1 rounded-button secondary-button" [disabled]="!acceptedTerms()" (click)="goToFindWallet()">
-			{{ "onboarding.open_wallet" | transloco }}
-		</button>
 	</div>
-	<!-- 
-	<div class="onboarding-content" fxLayout="row" fxLayoutAlign="center center">
-		<div *ngIf="step" class="onboarding-step-one" fxLayout="column" fxLayoutAlign="start center">
-			<h1 class="p-16 bg-blue-700">Let's get started</h1>
-
-			<h1 class="text-3xl font-bold underline">Hello world!</h1>
-			<p>Trusted by millions, MetaMask is a secure wallet making the world of web3 accessible to all.</p>
-		</div>
-	</div> -->
-	<!-- <biometrics-general [type]="'createWallet'" [data]="walletCreationForm"> </biometrics-general> -->
 </div>
-
-<footer class="w-full pt-10"></footer>

@@ -3,11 +3,13 @@ import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@ngneat/transloco";
 import { WalletService } from "app/wallet.service";
-import { environment } from "environments/environment";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 import jsQR from "jsqr";
 import { Buffer } from "buffer";
 import { ChromeService } from "app/chrome.service";
+import { IpfsService } from "app/ipfs.service";
+import { HttpClient } from "@angular/common/http";
+import { WalletModel } from "app/wallet";
 
 @Component({
 	selector: "uw-search-wallet",
@@ -31,7 +33,9 @@ export class UwSearchWalletComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService,
 		private _changeDetectorRef: ChangeDetectorRef,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private _ipfsService: IpfsService,
+		private http: HttpClient
 	) {
 		this.unlockQRCode = "";
 
@@ -43,7 +47,7 @@ export class UwSearchWalletComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		const defaultAddress = environment.production ? "" : "0x13901AE0F17E2875E86C86721f9943598601b0C4";
+		const defaultAddress = "";
 
 		this.searchForm = this._formBuilder.group({
 			address: [defaultAddress, []],
@@ -56,10 +60,17 @@ export class UwSearchWalletComponent implements OnInit {
 		);
 
 		this.searchQuery$.subscribe((query) => {
-			this._triggerSearch(query);
+			this.triggerSearch(query);
 		});
 
+		this._checkForTempWallet();
+
+		this._checkForZelfFile();
+	}
+
+	_checkForTempWallet(): void {
 		const passedActiveWallet = localStorage.getItem("tempWalletAddress");
+
 		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
 
 		if (passedActiveWallet && passedActiveQRCode) {
@@ -77,19 +88,54 @@ export class UwSearchWalletComponent implements OnInit {
 		}
 	}
 
-	_triggerSearch(query: string): void {
+	_checkForZelfFile(): void {
+		const zelfFile = this._ipfsService.getZelfFile();
+
+		if (!zelfFile) return;
+
+		this._formatZelfFile(zelfFile);
+	}
+
+	triggerSearch(query?: string): void {
+		if (!query) query = this.searchForm.value.address;
+
 		if (!query) return;
 
-		this._walletService
-			.findWallet(query)
+		this._ipfsService
+			.queryByKeyValue("ethAddress", query)
 			.then((response) => {
-				this.potentialWallet = response.data;
+				if (!response.data || !response.data.length) return this._showAccountNotFound();
+
+				const ipfsFile = response.data[0];
+
+				this._formatZelfFile(ipfsFile);
 			})
 			.catch((error) => {
-				this.snackBar.open("account not found", "OK");
-
-				this.startAgain();
+				console.log({ error });
+				this._showAccountNotFound();
 			});
+	}
+
+	_formatZelfFile(zelfFile: any): void {
+		const record = {
+			image: zelfFile.url,
+			publicData: zelfFile.metadata?.keyvalues,
+			zelfProof: zelfFile.metadata?.keyvalues.zelfProof,
+			name: zelfFile.metadata?.name,
+			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
+		};
+
+		localStorage.setItem("zelfName", record.name);
+
+		this.potentialWallet = new WalletModel(record);
+
+		if (!this.potentialWallet?.publicData) return this._showAccountNotFound();
+	}
+
+	_showAccountNotFound(): void {
+		this.snackBar.open("account not found", "OK");
+
+		this.startAgain();
 	}
 
 	goToNextStep(): void {
@@ -215,7 +261,7 @@ export class UwSearchWalletComponent implements OnInit {
 		if (!this.zelfProof) return;
 
 		this._walletService.previewWallet(this.zelfProof).then((response) => {
-			this.potentialWallet = response.data;
+			this.potentialWallet = new WalletModel(response.data);
 
 			if (!this.potentialWallet) {
 				this.session.step = 0;
@@ -229,5 +275,24 @@ export class UwSearchWalletComponent implements OnInit {
 
 			this.potentialWallet.hasPassword = Boolean(this.potentialWallet.passwordLayer === "WithPassword");
 		});
+	}
+
+	// Function to convert URL to Base64
+	public urlToBase64(url: string): Promise<string> {
+		return this.http
+			.get(url, { responseType: "blob" })
+			.toPromise()
+			.then((blob) => {
+				return new Promise((resolve, reject) => {
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						const base64data = reader.result as string;
+						resolve(base64data.split(",")[1]); // This will remove the 'data:...' part
+					};
+					reader.onerror = reject;
+
+					if (blob) reader.readAsDataURL(blob);
+				});
+			});
 	}
 }

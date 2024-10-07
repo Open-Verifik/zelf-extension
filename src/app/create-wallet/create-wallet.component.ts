@@ -47,8 +47,6 @@ export class CreateWalletComponent implements OnInit {
 			wordsCount: [24, []],
 		});
 
-		this.updateSteps();
-
 		this.formLoaded = true;
 
 		const wallet = await this._chromeService.getItem("wallet");
@@ -56,8 +54,14 @@ export class CreateWalletComponent implements OnInit {
 		if (wallet) {
 			this.wallet = new WalletModel(wallet);
 
-			this.session.navigationStep = 2;
+			this.currentStep = 2;
+
+			this.session.step = this.currentStep;
 		}
+
+		this.updateSteps();
+
+		console.log({ STEPS: this.session.steps });
 	}
 
 	goBack(): void {
@@ -84,7 +88,6 @@ export class CreateWalletComponent implements OnInit {
 
 	afterBiometricsCallback(response: any): void {
 		this._chromeService.setItem("wallet", response);
-		// localStorage.setItem("wallet", JSON.stringify(response));
 
 		this.wallet = new WalletModel(response);
 

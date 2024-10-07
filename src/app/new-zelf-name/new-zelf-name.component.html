@@ -8,7 +8,7 @@
 
 	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper>
-			<app-step>
+			<app-step [isActive]="true" [isCompleted]="false" [label]="'available'" [isStatus]="true">
 				<ng-container>
 					<div fxLayout="column" fxLayoutAlign="start start" class="zelf-card w-fix p-4">
 						<div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">

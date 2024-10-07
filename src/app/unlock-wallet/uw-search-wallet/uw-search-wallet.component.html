@@ -7,11 +7,19 @@
 			<div class="unlock-input-box">
 				<div class="unlock-input-text-container">
 					<mat-form-field class="w-full">
-						<input type="text" matInput [formControlName]="'address'" />
+						<input type="text" matInput [formControlName]="'address'" (keydown.enter)="triggerSearch()" />
 					</mat-form-field>
 				</div>
 				<div class="unlock-icon-container">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						(click)="triggerSearch()"
+						class="cursor-pointer"
+					>
 						<path
 							fill-rule="evenodd"
 							clip-rule="evenodd"

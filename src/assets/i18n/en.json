@@ -138,10 +138,12 @@
 		"import_wallet": "Import your wallet",
 		"add_password": "Add a password",
 		"biometrics": "ZelfProof",
-		"qr_code_generator": "Finish",
-		"search_wallet": "Search your wallet",
-		"password_unlock": "Password lock",
-		"biometric_unlock": "ZelfProof lock"
+		"qr_code_generator": "ZELF NAME",
+		"search_wallet": "OPEN ZELFPROOF",
+		"password_unlock": "PASSWORD",
+		"biometric_unlock": "ZelfProof lock",
+		"available": "Available",
+		"decrypt": "DECRYPT"
 	},
 	"wallets_connected": {
 		"title": "Select a wallet",

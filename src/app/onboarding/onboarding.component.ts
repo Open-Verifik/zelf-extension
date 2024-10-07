@@ -148,7 +148,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			.then((response) => {
 				if (!response || !response.data || !response.data.length) return this._noZelfNameFound(zelfName);
 
-				this._ipfsService.setZelfName(`${zelfName}.zelf`);
+				this._ipfsService.setZelfName(zelfName);
 
 				this._ipfsService.setZelfFile(response.data[0]);
 
@@ -164,7 +164,9 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	}
 
 	_noZelfNameFound(zelfName: string): void {
-		this._ipfsService.setZelfName(`${zelfName}.zelf`);
+		this._ipfsService.setZelfName(zelfName);
+
+		this._ipfsService.setZelfFile(null);
 
 		this._router.navigate(["/new-zelf-name"]);
 	}

@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 
 @Component({
 	selector: "app-step",
-	template: `<div class="step-content" [class.active]="isActive" [class.completed]="isCompleted">
+	template: `<div class="step-content" [class.active]="isActiveStep()" [class.completed]="isCompleted">
 		<ng-content> </ng-content>
 	</div>`,
 	styles: [
@@ -24,4 +24,15 @@ export class StepComponent {
 	@Input() isCompleted: boolean = false;
 	@Input() isHidden: boolean = false;
 	@Input() label: string = "";
+	@Input() isStatus: boolean = false;
+
+	async isActiveStep(): Promise<any> {
+		const value = await new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(this.isActive);
+			}, 300);
+		});
+
+		return value;
+	}
 }

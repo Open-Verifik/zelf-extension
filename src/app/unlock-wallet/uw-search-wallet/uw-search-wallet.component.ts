@@ -60,7 +60,7 @@ export class UwSearchWalletComponent implements OnInit {
 		);
 
 		this.searchQuery$.subscribe((query) => {
-			this._triggerSearch(query);
+			this.triggerSearch(query);
 		});
 
 		this._checkForTempWallet();
@@ -70,6 +70,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 	_checkForTempWallet(): void {
 		const passedActiveWallet = localStorage.getItem("tempWalletAddress");
+
 		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
 
 		if (passedActiveWallet && passedActiveQRCode) {
@@ -95,7 +96,9 @@ export class UwSearchWalletComponent implements OnInit {
 		this._formatZelfFile(zelfFile);
 	}
 
-	_triggerSearch(query: string): void {
+	triggerSearch(query?: string): void {
+		if (!query) query = this.searchForm.value.address;
+
 		if (!query) return;
 
 		this._ipfsService
@@ -103,13 +106,12 @@ export class UwSearchWalletComponent implements OnInit {
 			.then((response) => {
 				if (!response.data || !response.data.length) return this._showAccountNotFound();
 
-				console.log({ record: response.data[0] });
-
 				const ipfsFile = response.data[0];
 
 				this._formatZelfFile(ipfsFile);
 			})
 			.catch((error) => {
+				console.log({ error });
 				this._showAccountNotFound();
 			});
 	}
@@ -122,6 +124,8 @@ export class UwSearchWalletComponent implements OnInit {
 			name: zelfFile.metadata?.name,
 			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
 		};
+
+		localStorage.setItem("zelfName", record.name);
 
 		this.potentialWallet = new WalletModel(record);
 

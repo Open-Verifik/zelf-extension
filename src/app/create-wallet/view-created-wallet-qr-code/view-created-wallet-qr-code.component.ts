@@ -9,7 +9,7 @@ import { WalletService } from "app/wallet.service";
 @Component({
 	selector: "view-created-wallet-qr-code",
 	template: `
-		<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+		<div fxLayout="row" fxLayoutAlign="center center" class="zelf-card">
 			<!-- class="view-wallet"
 				fxLayout="row"
 				fxLayoutAlign="start center"
@@ -18,16 +18,7 @@ import { WalletService } from "app/wallet.service";
 				fxLayout.xs="column"
 				fxLayoutAlign.xs="start center"
 				*ngIf="wallet" -->
-			<div
-				class="view-wallet"
-				fxLayout="row"
-				fxLayoutAlign="start center"
-				fxLayout.sm="column"
-				fxLayoutAlign.sm="start center"
-				fxLayout.xs="column"
-				fxLayoutAlign.xs="start center"
-				*ngIf="wallet"
-			>
+			<div class="view-wallet" fxLayout="column" fxLayoutAlign="start center" *ngIf="wallet">
 				<div class="view-wallet-left">
 					<div class="view-wallet-left-header">
 						<div class="view-wallet-title-div">

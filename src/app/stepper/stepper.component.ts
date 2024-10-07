@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, Input } from "@angular/core";
-import { IpfsService } from "app/ipfs.service";
+import { Router } from "@angular/router";
+
 import { StepComponent } from "app/step/step.component";
-import { Location } from "@angular/common";
 
 @Component({
 	selector: "app-stepper",
@@ -10,44 +10,62 @@ import { Location } from "@angular/common";
 })
 export class StepperComponent implements AfterContentInit, OnInit {
 	@Input() hideHeader: boolean = false;
+	@Input() hideBackButton: boolean = false;
 	currentStep = 0;
 	numberOfSteps = 0;
 	zelfName: string;
 	isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
+	routeMapping: any;
 
-	constructor(private _ipfsService: IpfsService, private location: Location) {
+	constructor(private _router: Router) {
 		this.zelfName = "";
+		this.routeMapping = {
+			"/new-zelf-name": "/onboarding",
+			"/create-wallet": "/new-zelf-name",
+			"/find-wallet": "/onboarding",
+		};
 	}
 
-	async ngOnInit(): Promise<any> {
-		this.zelfName = this.isExtension ? await this._ipfsService.getZelfName() : localStorage.getItem("zelfName") || "";
+	ngOnInit(): void {
+		this.zelfName = localStorage.getItem("zelfName") || "";
 	}
 
 	@ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
 
-	async ngAfterContentInit(): Promise<any> {
+	ngAfterContentInit(): void {
 		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
-
-		this.updateSteps();
-	}
-
-	next() {
-		if (this.currentStep < this.numberOfSteps - 1) {
-			this.currentStep++;
-			this.updateSteps();
-		}
 	}
 
 	back() {
-		this.location.back();
+		let previous: StepComponent | null = null;
+
+		// Convert QueryList to array and iterate over it
+		const stepsArray = this.steps.toArray();
+
+		for (let i = 0; i < stepsArray.length; i++) {
+			const step = stepsArray[i];
+
+			// If the active step is found, break the loop
+			if (step.isActive) {
+				break;
+			}
+
+			// Save the previous step
+			previous = step;
+		}
+
+		if (!previous) this._redirectOnMapping();
 	}
 
-	private updateSteps() {
-		if (!this.steps) return;
+	_redirectOnMapping(): void {
+		const activeRoute = this._router.url;
 
-		this.steps.forEach((step: any, index: number) => {
-			step.isActive = index === this.currentStep;
-			step.isCompleted = index < this.currentStep;
-		});
+		this._router.navigate([this.routeMapping[activeRoute]]);
 	}
+
+	// isStatus(step: any): Boolean {
+	// 	if (!this.zelfName && localStorage.getItem("zelfName")) this.zelfName = localStorage.getItem("zelfName") || "";
+
+	// 	return Boolean(["available"].includes(step.label));
+	// }
 }

@@ -49,7 +49,7 @@
 				{{ "unlock_wallet.account_found" | transloco }}
 			</h2>
 
-			<div *ngIf="zelfProof" class="" fxLayout="row" fxLayoutAlign="center center">
+			<div *ngIf="zelfProof && fileBase64" class="" fxLayout="row" fxLayoutAlign="center center">
 				<img [src]="fileBase64" alt="Uploaded QR Code" class="w-35p" />
 			</div>
 

@@ -555,6 +555,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		const payload: any = {
 			faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
 			os: this.deviceData.OS,
+			zelfName: localStorage.getItem("zelfName") || "",
 		};
 
 		if (this.session.password) payload.password = this.session.password;

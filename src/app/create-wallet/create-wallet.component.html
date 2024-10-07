@@ -1,4 +1,4 @@
-<div class="w-full h-full main-bg" fxLayout="column" fxLayoutAlign="start center">
+<div class="w-full h-full zelf-content" fxLayout="column" fxLayoutAlign="start center">
 	<!-- <header class="w-full"></header> -->
 	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
 		<img src="../../assets/images/full_zelf_logo.svg" alt="" (click)="goBack()" class="cursor-pointer" />
@@ -6,7 +6,7 @@
 		<language-picker></language-picker>
 	</div>
 
-	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 1">
+	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper>
 			<app-step *ngFor="let step of session.steps; index as i" [isActive]="step.isActive" [isCompleted]="step.isCompleted" [label]="step.label">
 				<!-- password step -->
@@ -27,7 +27,7 @@
 				</ng-container>
 
 				<!-- biometrics part -->
-				<ng-container *ngIf="canSeeBiometricsStep(i)">
+				<ng-container *ngIf="canSeeBiometricsStep(1)">
 					<biometrics-general [type]="'createWallet'" [data]="session"> </biometrics-general>
 				</ng-container>
 
@@ -38,13 +38,9 @@
 			</app-step>
 		</app-stepper>
 	</div>
-
-	<div fxLayout="column" fxLayoutAlign="start center" *ngIf="session.navigationStep === 2 && wallet" class="wallet-qr-code-alone">
-		<view-created-wallet-qr-code [walletType]="'wallet'"></view-created-wallet-qr-code>
-	</div>
 </div>
 
-<footer class="w-full pt-10"></footer>
+<!-- <footer class="w-full pt-10"></footer> -->
 
 <!-- 	// {
         // 	"glob": "**/*",

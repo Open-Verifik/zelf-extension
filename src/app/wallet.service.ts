@@ -70,20 +70,21 @@ export class WalletService {
 	}
 
 	goToNextStep(stepIndex: number): void {
-		const step = this.sessionData.steps[stepIndex];
+		for (let index = 0; index < this.sessionData.steps.length; index++) {
+			const step = this.sessionData.steps[index];
 
-		const previousStep = this.sessionData.steps[stepIndex - 1];
+			if (index < stepIndex) {
+				step.isActive = false;
 
-		if (step) {
-			step.isActive = true;
+				step.isCompleted = true;
+				continue;
+			}
 
-			step.isCompleted = false;
-		}
+			if (index === stepIndex) {
+				step.isActive = true;
 
-		if (previousStep) {
-			previousStep.isActive = false;
-
-			previousStep.isCompleted = true;
+				step.isCompleted = false;
+			}
 		}
 
 		this.sessionData.step = stepIndex;

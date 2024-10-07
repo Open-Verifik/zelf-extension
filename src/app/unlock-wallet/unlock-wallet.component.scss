@@ -72,7 +72,7 @@
 	height: 40px;
 	padding-left: 10px;
 	padding-right: 10px;
-	background: whitesmoke;
+	background: white;
 	border-radius: 4px;
 	overflow: hidden;
 	border: 1px rgba(0, 0, 0, 0.2) solid;
@@ -122,7 +122,7 @@
 
 .unlock-upload-inner-box {
 	align-self: stretch;
-	height: 152px;
+	height: 120px;
 	padding-left: 32px;
 	padding-right: 32px;
 	padding-top: 24px;
@@ -139,7 +139,7 @@
 
 .unlock-upload-button {
 	width: 209px;
-	background: #004fe4;
+	background: black;
 	border-radius: 16px;
 	overflow: hidden;
 	flex-direction: column;
@@ -179,7 +179,7 @@
 	display: inline-flex;
 	flex: 1 1 0;
 	text-align: center;
-	color: #415aa9;
+	color: black;
 	font-size: 14px;
 	font-family: Poppins;
 	font-weight: 400;
@@ -314,7 +314,7 @@
 }
 
 .uw-password-subtitle {
-	width: 344px;
+	width: 80%;
 	text-align: center;
 	color: #010333;
 	font-size: 14px;
@@ -360,4 +360,14 @@
 
 .unlock-upload-inner-box.drag-over {
 	border-color: #000;
+}
+
+.public-data-content {
+	border-radius: 16px;
+	background: #f2f2f2;
+	width: 75%;
+	padding: 16px;
+	div {
+		width: 100%;
+	}
 }

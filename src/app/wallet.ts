@@ -53,6 +53,7 @@ export class WalletModel implements Wallet {
 	ethAddress: string;
 	displayEthAddress: string;
 	solanaAddress: string;
+	displaySolanaAddress: string;
 	hasPassword: boolean;
 	zelfProof: string;
 	image: string;
@@ -74,6 +75,8 @@ export class WalletModel implements Wallet {
 
 		this.displayEthAddress = "";
 
+		this.displaySolanaAddress = "";
+
 		if (this.ethAddress) {
 			const firstPart = this.ethAddress.slice(0, 8);
 			const lastPart = this.ethAddress.slice(-6);
@@ -81,6 +84,13 @@ export class WalletModel implements Wallet {
 		}
 
 		this.solanaAddress = data.solanaAddress || secondaryStorage.solanaAddress;
+
+		if (this.solanaAddress) {
+			const firstPart = this.solanaAddress.slice(0, 8);
+			const lastPart = this.solanaAddress.slice(-6);
+			this.displaySolanaAddress = `${firstPart}...${lastPart}`;
+		}
+
 		this.hasPassword = data.hasPassword || Boolean(data.type === "WithPassword");
 		this.zelfProof = data.zelfProof;
 		this.image = data.image;

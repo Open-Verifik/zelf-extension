@@ -32,7 +32,7 @@ export class UnlockWalletComponent implements OnInit {
 				isCompleted: Boolean(this.session.step > 1),
 			},
 			{
-				label: "biometric_unlock",
+				label: "decrypt",
 				isActive: Boolean(this.session.step === 2),
 				isCompleted: Boolean(this.session.step > 2),
 			},
@@ -41,6 +41,7 @@ export class UnlockWalletComponent implements OnInit {
 		const interval = setInterval(() => {
 			if (this.wallet) {
 				clearInterval(interval); // Stop the interval when this.wallet is set
+
 				return;
 			}
 

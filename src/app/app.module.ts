@@ -54,17 +54,18 @@ import { HomeWalletAssetsComponent } from "./home/home-wallet-assets/home-wallet
 import { HomeWalletActivityComponent } from "./home/home-wallet-activity/home-wallet-activity.component";
 import { HomeWalletSendAssetsComponent } from "./home/home-wallet-send-assets/home-wallet-send-assets.component";
 import { MatDividerModule } from "@angular/material/divider";
-import { HomeHeaderComponent } from './home/home-header/home-header.component';
-import { StSearchWalletComponent } from './send-transaction/st-search-wallet/st-search-wallet.component';
-import { LoaderComponent } from './loader/loader.component';
-import { WalletCardComponent } from './wallet-common/wallet-card/wallet-card.component';
-import { SendTransactionPreviewComponent } from './send-transaction/send-transaction-preview/send-transaction-preview.component';
-import { SendTransactionConfirmationComponent } from './send-transaction/send-transaction-confirmation/send-transaction-confirmation.component';
-import { SendTransactionBridgeComponent } from './send-transaction/send-transaction-bridge/send-transaction-bridge.component';
-import { ActivityCardComponent } from './home/activity-card/activity-card.component';
-import { TokenCardComponent } from './home/token-card/token-card.component';
-import { NftCardComponent } from './home/nft-card/nft-card.component';
-import { NetworkPickerComponent } from './home/network-picker/network-picker.component';
+import { HomeHeaderComponent } from "./home/home-header/home-header.component";
+import { StSearchWalletComponent } from "./send-transaction/st-search-wallet/st-search-wallet.component";
+import { LoaderComponent } from "./loader/loader.component";
+import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.component";
+import { SendTransactionPreviewComponent } from "./send-transaction/send-transaction-preview/send-transaction-preview.component";
+import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
+import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
+import { ActivityCardComponent } from "./home/activity-card/activity-card.component";
+import { TokenCardComponent } from "./home/token-card/token-card.component";
+import { NftCardComponent } from "./home/nft-card/nft-card.component";
+import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
+import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 //
 //
 //
@@ -102,17 +103,18 @@ import { NetworkPickerComponent } from './home/network-picker/network-picker.com
 		HomeWalletAssetsComponent,
 		HomeWalletActivityComponent,
 		HomeWalletSendAssetsComponent,
-  HomeHeaderComponent,
-  StSearchWalletComponent,
-  LoaderComponent,
-  WalletCardComponent,
-  SendTransactionPreviewComponent,
-  SendTransactionConfirmationComponent,
-  SendTransactionBridgeComponent,
-  ActivityCardComponent,
-  TokenCardComponent,
-  NftCardComponent,
-  NetworkPickerComponent,
+		HomeHeaderComponent,
+		StSearchWalletComponent,
+		LoaderComponent,
+		WalletCardComponent,
+		SendTransactionPreviewComponent,
+		SendTransactionConfirmationComponent,
+		SendTransactionBridgeComponent,
+		ActivityCardComponent,
+		TokenCardComponent,
+		NftCardComponent,
+		NetworkPickerComponent,
+		NewZelfNameComponent,
 	],
 	imports: [
 		BrowserModule,

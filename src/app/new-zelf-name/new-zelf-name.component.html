@@ -1,0 +1,51 @@
+<div class="w-full h-full zelf-content" fxLayout="column" fxLayoutAlign="start center" *ngIf="zelfName">
+	<!-- <header class="w-full"></header> -->
+	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
+		<img src="../../assets/images/full_zelf_logo.svg" alt="" />
+
+		<language-picker></language-picker>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="start center">
+		<app-stepper>
+			<app-step [isActive]="true" [isCompleted]="false" [label]="'available'" [isStatus]="true">
+				<ng-container>
+					<div fxLayout="column" fxLayoutAlign="start start" class="zelf-card w-fix p-4">
+						<div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
+							<p class="m-0">Register</p>
+
+							<h3 class="m-0">{{ zelfName }}</h3>
+
+							<small class="mt-4">You’ll register this name for 1 year.</small>
+						</div>
+
+						<div fxLayout="column" fxLayoutAlign="center center" class="w-full">
+							<div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="center center">
+								<h2>1 Year</h2>
+							</div>
+						</div>
+
+						<span class="zline-2"></span>
+
+						<form [formGroup]="zelfForm" #signUpNgForm="ngForm" class="my-1 w-full">
+							<mat-checkbox class="on-checkbox" [formControlName]="'termsAcceptance'">
+								{{ "onboarding.accept_terms_1" | transloco }}
+								<a href="https://example.com/terms" target="_blank">{{ "onboarding.accept_terms_2" | transloco }}</a>
+							</mat-checkbox>
+						</form>
+
+						<button mat-raised-button class="w-full my-1 main-button" (click)="goToCreateWallet()" [disabled]="!acceptedTerms()">
+							{{ "onboarding.create_new_wallet" | transloco }}
+						</button>
+
+						<button mat-raised-button class="w-full my-1 secondary-button" (click)="goToImportWallet()" [disabled]="!acceptedTerms()">
+							{{ "onboarding.import_wallet" | transloco }}
+						</button>
+					</div>
+				</ng-container>
+			</app-step>
+		</app-stepper>
+	</div>
+</div>
+
+<!-- <footer class="w-full pt-10"></footer> -->

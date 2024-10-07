@@ -24,4 +24,5 @@ export class StepComponent {
 	@Input() isCompleted: boolean = false;
 	@Input() isHidden: boolean = false;
 	@Input() label: string = "";
+	@Input() isStatus: boolean = false;
 }

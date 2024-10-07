@@ -587,7 +587,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				this.session.showBiometrics = false;
 
 				this._chromeService.setItem("wallet", response.data);
-				// localStorage.setItem("wallet", JSON.stringify(response.data));
 
 				this._walletService.goToNextStep(this.session.step + 1);
 

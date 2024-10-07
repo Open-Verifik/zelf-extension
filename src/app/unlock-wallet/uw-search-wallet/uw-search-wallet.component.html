@@ -1,7 +1,8 @@
-<div class="unlock-container">
+<div class="zelf-card">
 	<div class="unlock-inner-container" fxLayout="column" fxLayoutAlign="space-between center">
-		<div class="unlock-title" *ngIf="!potentialWallet && !zelfProof">{{ "unlock_wallet.title" | transloco }}</div>
-		<!-- <form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet && !zelfProof">
+		<h2 *ngIf="!potentialWallet && !zelfProof">{{ "unlock_wallet.title" | transloco }}</h2>
+
+		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet && !zelfProof">
 			<div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
 			<div class="unlock-input-box">
 				<div class="unlock-input-text-container">
@@ -20,50 +21,50 @@
 					</svg>
 				</div>
 			</div>
-		</form> -->
+		</form>
+
 		<div class="unlock-box" *ngIf="!potentialWallet && !zelfProof">
-			<!-- <div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div> -->
-			<div class="unlock-upload-box">
-				<div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
-					<div class="unlock-upload-button">
-						<input type="file" (change)="onFileSelected($event)" hidden #fileInput />
-						<div class="unlock-upload-button-text" (click)="fileInput.click()">{{ "unlock_wallet.upload_button" | transloco }}</div>
-					</div>
-					<div class="unlock-drag-drop-text">{{ "unlock_wallet.drag_drop_text" | transloco }}</div>
+			<div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div>
+
+			<div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
+				<div class="unlock-upload-button">
+					<input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+					<div class="unlock-upload-button-text" (click)="fileInput.click()">{{ "unlock_wallet.upload_button" | transloco }}</div>
 				</div>
+				<div class="unlock-drag-drop-text">{{ "unlock_wallet.drag_drop_text" | transloco }}</div>
 			</div>
 		</div>
 
-		<div *ngIf="potentialWallet">
+		<div *ngIf="potentialWallet" fxLayout="column" fxLayoutAlign="center center" class="w-full">
 			<!--  -->
-			<div class="unlock-title">
+			<h2 class="text-center">
 				{{ "unlock_wallet.account_found" | transloco }}
-			</div>
+			</h2>
 
 			<div *ngIf="zelfProof" class="" fxLayout="row" fxLayoutAlign="center center">
 				<img [src]="fileBase64" alt="Uploaded QR Code" class="w-35p" />
 			</div>
 
-			<div fxLayout="column" fxLayoutAlign="start start">
-				<p>{{ "common.eth_address" | transloco }}</p>
-				<h3 class="m-0">
-					{{ potentialWallet.publicData.ethAddress }}
-				</h3>
+			<div fxLayout="column" fxLayoutAlign="center center" class="public-data-content">
+				<div fxLayout="row" fxLayoutAlign="space-between center">
+					<p class="text-grey">{{ "common.eth_address" | transloco }}</p>
+					<h4 class="m-0">
+						{{ potentialWallet.displayEthAddress }}
+					</h4>
+				</div>
 
-				<p>{{ "common.solana_address" | transloco }}</p>
-				<h3 class="m-0">
-					{{ potentialWallet.publicData.solanaAddress }}
-				</h3>
+				<div fxLayout="row" fxLayoutAlign="space-between center">
+					<p class="text-grey">{{ "common.solana_address" | transloco }}</p>
+					<h4 class="m-0">
+						{{ potentialWallet.displaySolanaAddress }}
+					</h4>
+				</div>
 			</div>
 		</div>
 
-		<div fxLayout="row" fxLayoutAlign="center center" class="w-full mt-14" *ngIf="potentialWallet">
-			<button mat-raised-button class="unlock-button rounded-button main-button" (click)="goToNextStep()">
+		<div fxLayout="row" fxLayoutAlign="center center" class="w-full p-4" *ngIf="potentialWallet">
+			<button mat-raised-button class="w-full main-button" (click)="goToNextStep()">
 				{{ "unlock_wallet.verify_button" | transloco }}
-			</button>
-
-			<button mat-raised-button class="unlock-button rounded-button" (click)="startAgain()">
-				{{ "unlock_wallet.back_button" | transloco }}
 			</button>
 		</div>
 	</div>

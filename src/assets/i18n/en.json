@@ -11,7 +11,9 @@
 		"accept_terms_2": "terms and conditions",
 		"create_new_wallet": "Create a new wallet",
 		"import_wallet": "Import your wallet",
-		"open_wallet": "Open your wallet"
+		"open_wallet": "Open your wallet",
+		"claim_your_zns": "Claim your ZNS and simplify your crypto access",
+		"forgot_zelf_name": "Forgot your zelf name?"
 	},
 	"common": {
 		"is_required": "is required",
@@ -65,7 +67,7 @@
 		"view_wallet": {
 			"title": "WALLET SUCCESSFULLY ENCRYPTED WITH ZELFPROOF",
 			"description": "Your recovery phrase has been encrypted and safeguarded inside this QR code using your ZelfProof, a powerful privacy-preserving security layer.",
-			"description_2": "You will always need your ZelfProof as the primary way to access these encrypted words and secure your wallet. If you ever lose this QR code, you can easily retrieve it using your ZelfName via the Zelf Name Service (ZNS).",
+			"description_2": "If the QR is ever lost, you can retrieve it using your registered Zelf name via Zelf Name Service (ZNS).",
 			"qr_code_description": "Keep this QR code safe. To access or restore your wallet, your ZelfProof and this QR code will always be required",
 			"download_qr_code": "Download your QR Code",
 			"copy_public_address": "Copy your ETH Address"
@@ -116,20 +118,20 @@
 		}
 	},
 	"unlock_wallet": {
-		"title": "Open an Existing Wallet",
-		"description": "Open an existing wallet by entering its public address below:",
-		"upload_description": "Or upload the image of your QR code to continue:",
+		"title": "FIND ZELF NAME",
+		"description": "Find an existing Zelf Name by entering its public address below:",
+		"upload_description": "Or upload your ZelfProof QR Code to continue:",
 		"upload_button": "Select QR Code",
 		"drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
 		"verify_button": "Verify",
 		"back_button": "Back",
-		"account_found": "Account found",
+		"account_found": "ZELFPROOF FOUND",
 		"password": {
-			"title": "This wallet requires a password",
-			"subtitle": "Enter the password assigned to this wallet to complete the unlocking process.",
+			"title": "THIS ZELFPROOF REQUIRES A PASSWORD",
+			"subtitle": "Enter the password assigned to this ZelfProof to complete the opening process.",
 			"label": "Password",
 			"placeholder": "********************",
-			"button": "Unlock"
+			"button": "Continue"
 		}
 	},
 	"steps": {

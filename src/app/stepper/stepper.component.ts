@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, OnInit, QueryList } from "@angular/core";
+import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, Input } from "@angular/core";
 import { IpfsService } from "app/ipfs.service";
 import { StepComponent } from "app/step/step.component";
 import { Location } from "@angular/common";
@@ -9,6 +9,7 @@ import { Location } from "@angular/common";
 	styleUrls: ["./stepper.component.scss"],
 })
 export class StepperComponent implements AfterContentInit, OnInit {
+	@Input() hideHeader: boolean = false;
 	currentStep = 0;
 	numberOfSteps = 0;
 	zelfName: string;

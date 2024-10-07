@@ -7,7 +7,7 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center" class="md-card on-intro">
-		<h1 class="m-2">ZELF WALLET</h1>
+		<h1 class="m-2">ZELF NAME SERVICE</h1>
 
 		<span class="zline"></span>
 
@@ -35,12 +35,18 @@
 		<span class="zline-2"></span>
 
 		<form class="unlock-box" [formGroup]="zelfForm" #searchNgForm="ngForm" fxLayout="column" fxLayoutAlign="center center">
-			<h2 class="text-center m-0">Claim your ZNS and simplify your crypto access.</h2>
+			<h3 class="text-center m-0">{{ "onboarding.claim_your_zns" | transloco }}</h3>
 
 			<div class="unlock-input-box">
 				<div class="unlock-input-text-container">
 					<mat-form-field class="w-full">
-						<input type="text" matInput [formControlName]="'zelfName'" (keydown.enter)="searchZelfName()" />
+						<input
+							type="text"
+							matInput
+							[formControlName]="'zelfName'"
+							(keydown.enter)="searchZelfName()"
+							(input)="sanitizeZelfNameInput()"
+						/>
 					</mat-form-field>
 				</div>
 				<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
@@ -54,6 +60,10 @@
 						/>
 					</svg>
 				</div>
+			</div>
+
+			<div>
+				<span class="link cursor-pointer" (click)="goToFindWallet()"> {{ "onboarding.forgot_zelf_name" | transloco }}</span>
 			</div>
 		</form>
 
@@ -88,4 +98,4 @@
 	<!-- <biometrics-general [type]="'createWallet'" [data]="walletCreationForm"> </biometrics-general> -->
 </div>
 
-<footer class="w-full pt-10"></footer>
+<!-- <footer class="w-full pt-10"></footer> -->

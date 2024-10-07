@@ -41,6 +41,7 @@ export class UnlockWalletComponent implements OnInit {
 		const interval = setInterval(() => {
 			if (this.wallet) {
 				clearInterval(interval); // Stop the interval when this.wallet is set
+
 				return;
 			}
 

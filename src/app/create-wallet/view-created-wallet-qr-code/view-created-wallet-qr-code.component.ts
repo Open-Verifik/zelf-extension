@@ -150,7 +150,10 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 
 		const _words = this.wallet.metadata?.mnemonic.split(" ");
 
-		if (!_words?.length) this._router.navigate(["/home"]);
+		if (!_words?.length) {
+			alert("redirect");
+			// this._router.navigate(["/home"]);
+		}
 
 		for (let index = 0; index < _words.length; index++) {
 			const word = _words[index];

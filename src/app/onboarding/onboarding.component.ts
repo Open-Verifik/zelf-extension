@@ -52,7 +52,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.zelfForm = this._formBuilder.group({
-			zelfName: ["", [Validators.required]],
+			zelfName: ["", [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
 		});
 
 		this._ipfsService.setZelfName("");
@@ -118,7 +118,22 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	// Method to sanitize input
+	sanitizeZelfNameInput() {
+		const control = this.zelfForm.get("zelfName");
+
+		if (control) {
+			// Replace spaces and special characters on the go
+			const sanitizedValue = control.value.replace(/[^a-zA-Z]/g, "");
+			control.setValue(sanitizedValue, { emitEvent: false }); // Update form control value without triggering events
+		}
+	}
+
 	searchZelfName(): void {
+		if (!this.zelfForm.valid) {
+			this.zelfForm.patchValue({ zelfName: "" });
+		}
+
 		const zelfName = this.zelfForm.value.zelfName;
 
 		// Validation: Ensure zelfName is at least 4 characters

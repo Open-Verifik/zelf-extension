@@ -42,4 +42,8 @@ export class NewZelfNameComponent implements OnInit {
 	acceptedTerms(): Boolean {
 		return Boolean(this.zelfForm.value.termsAcceptance);
 	}
+
+	goBack(): void {
+		this._router.navigate(["/onboarding"]);
+	}
 }

@@ -87,13 +87,15 @@ export class StepperComponent implements OnInit {
 
 		this.currentStep = this.stepsMapping[previous.label];
 
-		this.updateSteps();
-
 		this.session.step = this.currentStep;
+
+		this.updateSteps();
 	}
 
 	_redirectOnMapping(): void {
 		const activeRoute = this._router.url;
+
+		this.updateSteps();
 
 		this._router.navigate([this.routeMapping[activeRoute]]);
 	}

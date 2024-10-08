@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
@@ -26,7 +26,8 @@ export class CreateWalletComponent implements OnInit {
 		private _formBuilder: UntypedFormBuilder,
 		private _router: Router,
 		private _walletService: WalletService,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private _changeDetectorRef: ChangeDetectorRef
 	) {
 		this.session = this._walletService.getSessionData();
 
@@ -78,6 +79,16 @@ export class CreateWalletComponent implements OnInit {
 			step.isActive = Boolean(index === this.currentStep);
 			step.isCompleted = Boolean(index < this.currentStep);
 		});
+
+		const steps = [...this.session.steps];
+
+		this.session.steps = [];
+
+		setTimeout(() => {
+			this.session.steps = steps;
+
+			this._changeDetectorRef.markForCheck();
+		}, 150);
 	}
 
 	startEncryption(): void {
@@ -103,15 +114,12 @@ export class CreateWalletComponent implements OnInit {
 		this.updateSteps();
 	}
 
-	canSeePasswordStep(index: number): boolean {
-		return Boolean(index === 1 && this.session.step === 1);
-	}
-
 	canSeeWordsCountStep(index: number): boolean {
 		return Boolean(index === 0 && this.session.step === 0);
-		// return Boolean(
-		// 	index === 0 && this.session.step === 0 && !this.showBiometrics && !this.showBiometricsInstructions && this.session.wordsPicker
-		// );
+	}
+
+	canSeePasswordStep(index: number): boolean {
+		return Boolean(index === 1 && this.session.step === 1);
 	}
 
 	canSeeBiometricInstructions(index: number): boolean {

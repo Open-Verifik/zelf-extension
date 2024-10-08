@@ -1,0 +1,12 @@
+/* Webfont: Menda-Bold */@font-face {
+    font-family: 'Menda';
+    src: url('Menda-Bold.eot'); /* IE9 Compat Modes */
+    src: url('Menda-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Menda-Bold.woff') format('woff'), /* Modern Browsers */
+         url('Menda-Bold.woff2') format('woff2'), /* Modern Browsers */
+         url('Menda-Bold.ttf') format('truetype'); /* Safari, Android, iOS */
+             font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+}
+

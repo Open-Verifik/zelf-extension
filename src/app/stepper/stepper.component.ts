@@ -27,6 +27,7 @@ export class StepperComponent implements OnInit {
 		};
 
 		this.zelfName = localStorage.getItem("zelfName") || "";
+
 		this.stepsMapping = {};
 
 		this.session = this._walletService.getSessionData();

@@ -125,7 +125,9 @@ export class UwSearchWalletComponent implements OnInit {
 			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
 		};
 
-		localStorage.setItem("zelfName", record.name);
+		this._ipfsService.setZelfFile(record.name);
+
+		this.session.zelfName;
 
 		this.session.zelfProof = record.zelfProof;
 

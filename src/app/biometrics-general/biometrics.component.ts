@@ -595,7 +595,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.catch((err) => {
 				this.errorContent = err.error;
-				this.retryLivenessModal(err.error?.message);
+
+				this.session.showBiometrics = false;
+
+				_this["biometricsLoginCalled"] = false;
+
 				this.loading({ isLoading: false, result: true });
 			});
 	}
@@ -617,9 +621,17 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 					_this["biometricsLoginCalled"] = false;
 				}, 500);
 			})
-			.catch((err) => {
-				this.errorContent = err.error;
-				this.retryLivenessModal(err.error?.message);
+			.catch((exception) => {
+				this.errorContent = { message: exception.error?.error };
+
+				_this["biometricsLoginCalled"] = false;
+
+				this.showError = true;
+
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
+
 				this.loading({ isLoading: false, result: true });
 			});
 	}
@@ -671,26 +683,12 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			},
 			dismissible: false,
 		};
+	}
 
-		// this._matDialog
-		// 	.open(FuseConfirmationDialogComponent, {
-		// 		autoFocus: false,
-		// 		disableClose: true,
-		// 		panelClass: "fuse-confirmation-dialog-panel",
-		// 		data,
-		// 	})
-		// 	.afterClosed()
-		// 	.subscribe((result: string) => {
-		// 		if (result === "confirmed") {
-		// 			this.setDefaultInterval();
-
-		// 			this.setDefaultFace();
-
-		// 			return this.ngOnInit();
-		// 		}
-
-		// 		this._walletService.restart();
-		// 	});
+	tryAgain(): void {
+		this.showError = false;
+		this.session.showBiometrics = false;
+		this.session.step--;
 	}
 
 	continueRedirection(): void {

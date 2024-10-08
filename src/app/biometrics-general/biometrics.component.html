@@ -73,12 +73,16 @@
 	</div>
 </div>
 
-<!-- <auth-biometric-errors-display
-	*ngIf="showError && errorContent"
-	[errorContent]="errorContent"
-	[project]="project"
-	[projectFlow]="projectFlow"
-	[callback]="continueRedirection"
-	[appLoginToken]="appLoginToken"
->
-</auth-biometric-errors-display> -->
+<div *ngIf="showError && errorContent" class="zelf-card p-4" fxLayout="column" fxLayoutAlign="start center">
+	<h2 *ngIf="errorContent.message === 'ERR_LIVENESS_FAILED' || errorContent.message === 'ERR_LIVENESS_FACE_ANGLE_TOO_LARGE'">
+		{{ "errors.liveness_failed" | transloco }}
+	</h2>
+
+	<img src="../../assets/images/biometric_error.svg" alt="" />
+
+	<p class="text-center" *ngIf="errorContent.message === 'ERR_LIVENESS_FAILED' || errorContent.message === 'ERR_LIVENESS_FACE_ANGLE_TOO_LARGE'">
+		{{ "errors.liveness_failed_description" | transloco }}
+	</p>
+
+	<p class="text-center">{{ "errors.try_again" | transloco }}</p>
+</div>

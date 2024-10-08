@@ -46,14 +46,14 @@ export class IpfsService {
 	}
 
 	queryByZelfName(zelfName: string): Promise<any> {
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ipfs`, {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/open/ipfs`, {
 			key: "zelfName",
 			value: zelfName,
 		});
 	}
 
 	queryByKeyValue(key: string, value: string): Promise<any> {
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ipfs`, {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/open/ipfs`, {
 			key,
 			value,
 		});

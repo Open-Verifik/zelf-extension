@@ -19,6 +19,7 @@ export class UwPasswordStepComponent implements OnInit {
 		this.session = this._walletService.getSessionData();
 
 		this.loading = false;
+
 		this.showPassword = false;
 	}
 
@@ -26,8 +27,14 @@ export class UwPasswordStepComponent implements OnInit {
 		const defaultPassword = environment.production ? "" : "SamePassword123";
 
 		this.passwordForm = this._formBuilder.group({
-			password: [defaultPassword, []],
+			password: ["", []],
 		});
+
+		if (!this.session.usePassword) {
+			this.setPassword();
+
+			return;
+		}
 	}
 
 	isPasswordSet(): boolean {

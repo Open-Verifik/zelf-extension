@@ -96,24 +96,42 @@ export class UwSearchWalletComponent implements OnInit {
 		this._formatZelfFile(zelfFile);
 	}
 
-	triggerSearch(query?: string): void {
+	async triggerSearch(query?: string): Promise<void> {
 		if (!query) query = this.searchForm.value.address;
-
 		if (!query) return;
 
-		this._ipfsService
-			.queryByKeyValue("ethAddress", query)
-			.then((response) => {
-				if (!response.data || !response.data.length) return this._showAccountNotFound();
+		try {
+			// First, search by ethAddress
+			const ethResponse = await this._queryZNS("ethAddress", query);
+			if (!ethResponse) {
+				// If no result for ethAddress, fallback to solanaAddress
+				const solanaResponse = await this._queryZNS("solanaAddress", query);
+				if (!solanaResponse) {
+					// Handle case where neither address type has results
+					this._showAccountNotFound("solanaAddress");
+				}
+			}
+		} catch (error) {
+			console.log({ error });
+			this._showAccountNotFound("ethAddress");
+		}
+	}
 
-				const ipfsFile = response.data[0];
+	async _queryZNS(key: string, value: string): Promise<any> {
+		try {
+			const response = await this._ipfsService.queryByKeyValue(key, value);
+			if (!response.data || !response.data.length) {
+				return null; // Return null if no data found
+			}
 
-				this._formatZelfFile(ipfsFile);
-			})
-			.catch((error) => {
-				console.log({ error });
-				this._showAccountNotFound();
-			});
+			const ipfsFile = response.data[0];
+			console.log({ ipfsFile });
+			this._formatZelfFile(ipfsFile);
+			return response; // Return the response if successful
+		} catch (error) {
+			console.log({ error });
+			return null; // Return null on error
+		}
 	}
 
 	_formatZelfFile(zelfFile: any): void {
@@ -135,11 +153,11 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this.potentialWallet = new WalletModel(record);
 
-		if (!this.potentialWallet?.publicData) return this._showAccountNotFound();
+		if (!this.potentialWallet?.publicData) return this._showAccountNotFound("");
 	}
 
-	_showAccountNotFound(): void {
-		this.snackBar.open("account not found", "OK");
+	_showAccountNotFound(key: string): void {
+		this.snackBar.open(key + " account not found", "OK");
 
 		this.startAgain();
 	}

@@ -60,8 +60,6 @@ export class CreateWalletComponent implements OnInit {
 		}
 
 		this.updateSteps();
-
-		console.log({ STEPS: this.session.steps });
 	}
 
 	goBack(): void {

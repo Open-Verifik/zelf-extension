@@ -33,6 +33,11 @@ export class CreateWalletComponent implements OnInit {
 		this.session.type = "create";
 
 		this._walletService.setSteps([
+			{
+				label: "wallet_type",
+				isActive: false,
+				isCompleted: false,
+			},
 			{ label: "add_password", isActive: false, isCompleted: false },
 			{ label: "biometrics", isActive: false, isCompleted: false },
 			{ label: "qr_code_generator", isActive: false, isCompleted: false },
@@ -99,32 +104,27 @@ export class CreateWalletComponent implements OnInit {
 	}
 
 	canSeePasswordStep(index: number): boolean {
-		return Boolean(index === 0 && this.session.step === 0 && !this.showBiometrics);
+		return Boolean(index === 1 && this.session.step === 1);
 	}
 
 	canSeeWordsCountStep(index: number): boolean {
-		return Boolean(
-			index === 1 && this.session.step === 1 && !this.showBiometrics && !this.showBiometricsInstructions && this.session.wordsPicker
-		);
+		return Boolean(index === 0 && this.session.step === 0);
+		// return Boolean(
+		// 	index === 0 && this.session.step === 0 && !this.showBiometrics && !this.showBiometricsInstructions && this.session.wordsPicker
+		// );
 	}
 
 	canSeeBiometricInstructions(index: number): boolean {
 		return Boolean(
-			index === 1 && this.session.step === 1 && this.session.showBiometricsInstructions && !this.showBiometrics && !this.session.wordsPicker
+			index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions && !this.showBiometrics && !this.session.wordsPicker
 		);
 	}
 
 	canSeeBiometricsStep(index: number): boolean {
-		return Boolean(
-			index == 1 &&
-				this.session.step === 1 &&
-				!this.session.showBiometricsInstructions &&
-				this.session.showBiometrics &&
-				!this.session.wordsPicker
-		);
+		return Boolean(index == 2 && this.session.step === 2 && !this.session.showBiometricsInstructions && this.session.showBiometrics);
 	}
 
 	canSeeQRCode(index: number): boolean {
-		return Boolean(index === 2 && this.session.step === 2);
+		return Boolean(index === 3 && this.session.step === 3);
 	}
 }

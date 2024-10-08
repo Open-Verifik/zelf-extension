@@ -146,7 +146,8 @@
 		"password_unlock": "PASSWORD",
 		"biometric_unlock": "ZelfProof lock",
 		"available": "Available",
-		"decrypt": "DECRYPT"
+		"decrypt": "DECRYPT",
+		"wallet_type": "WALLET"
 	},
 	"wallets_connected": {
 		"title": "Select a wallet",

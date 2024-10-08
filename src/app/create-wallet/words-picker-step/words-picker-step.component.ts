@@ -23,13 +23,13 @@ export class WordsPickerStepComponent implements OnInit {
 	}
 
 	startEncryption(wordsCount: number) {
-		this.session.showBiometricsInstructions = true;
+		// this.session.showBiometricsInstructions = true;
+
+		this._walletService.goToNextStep(this.session.step + 1);
 
 		this.session.wordsPicker = false;
 
 		this.session.wordsCount = wordsCount;
-
-		console.log({ session: this.session });
 	}
 
 	termsAccepted(): boolean {

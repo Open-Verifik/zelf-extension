@@ -37,8 +37,6 @@ export class PasswordStepComponent implements OnInit {
 	continueWithoutPassword(): void {
 		this.session.password = "";
 		this.session.usePassword = false;
-		this.session.showBiometricsInstructions = true;
-		this.session.showBiometrics = false;
 
 		this._moveForward();
 	}
@@ -56,16 +54,11 @@ export class PasswordStepComponent implements OnInit {
 	}
 
 	_moveForward(): void {
-		if (this.session.type === "create") {
-			this._walletService.goToNextStep(this.session.step + 1);
-
-			this.session.wordsPicker = true;
-
-			return;
-		}
-
 		this.session.showBiometrics = false;
 
 		this.session.showBiometricsInstructions = true;
+
+		// if (this.session.type === "create") {
+		this._walletService.goToNextStep(this.session.step + 1);
 	}
 }

@@ -88,6 +88,8 @@ export class WalletService {
 		}
 
 		this.sessionData.step = stepIndex;
+
+		console.log({ nextSTEP: this.sessionData.step, session: this.sessionData });
 	}
 
 	async restoreSession(): Promise<any> {

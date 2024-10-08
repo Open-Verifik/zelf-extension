@@ -7,19 +7,18 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center">
-		<app-stepper [hideBackButton]="session.step === 2" [stepsArray]="session.steps">
+		<app-stepper [hideBackButton]="session.step === 3" [stepsArray]="session.steps">
 			<app-step *ngFor="let step of session.steps; index as i" [isActive]="step.isActive" [isCompleted]="step.isCompleted" [label]="step.label">
+				<!-- step wallet type -->
+				<ng-container *ngIf="canSeeWordsCountStep(i)">
+					<words-picker-step></words-picker-step>
+				</ng-container>
+
 				<!-- password step -->
 				<ng-container *ngIf="canSeePasswordStep(i)">
 					<password-step> </password-step>
 				</ng-container>
-
 				<!-- end of password step -->
-
-				<!-- step 1 -->
-				<ng-container *ngIf="canSeeWordsCountStep(i)">
-					<words-picker-step></words-picker-step>
-				</ng-container>
 
 				<!-- step 1 > show biometric instructions -->
 				<ng-container *ngIf="canSeeBiometricInstructions(i)">
@@ -27,7 +26,7 @@
 				</ng-container>
 
 				<!-- biometrics part -->
-				<ng-container *ngIf="canSeeBiometricsStep(1)">
+				<ng-container *ngIf="canSeeBiometricsStep(i)">
 					<biometrics-general [type]="'createWallet'" [data]="session"> </biometrics-general>
 				</ng-container>
 

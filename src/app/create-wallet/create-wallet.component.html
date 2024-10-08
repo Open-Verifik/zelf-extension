@@ -7,7 +7,7 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center">
-		<app-stepper>
+		<app-stepper [hideBackButton]="session.step === 2">
 			<app-step *ngFor="let step of session.steps; index as i" [isActive]="step.isActive" [isCompleted]="step.isCompleted" [label]="step.label">
 				<!-- password step -->
 				<ng-container *ngIf="canSeePasswordStep(i)">

@@ -50,6 +50,11 @@ export class ImportWalletComponent implements OnInit {
 				isCompleted: Boolean(this.session.step > 1),
 			},
 			{
+				label: "biometrics",
+				isActive: false,
+				isCompleted: false,
+			},
+			{
 				label: "qr_code_generator",
 				isActive: Boolean(this.session.step === 2),
 				isCompleted: Boolean(this.session.step > 2),
@@ -240,14 +245,14 @@ export class ImportWalletComponent implements OnInit {
 	}
 
 	canSeeBiometricInstructions(index: number): boolean {
-		return Boolean(index === 1 && this.session.step === 1 && this.session.showBiometricsInstructions);
+		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions);
 	}
 
 	canSeeBiometrics(index: number): boolean {
-		return Boolean(index === 1 && this.session.step === 1 && this.session.showBiometrics);
+		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometrics);
 	}
 
 	canSeeQRCode(index: number): boolean {
-		return Boolean(index === 2 && this.session.step === 2);
+		return Boolean(index === 3 && this.session.step === 3);
 	}
 }

@@ -21,4 +21,8 @@ export class ExtensionInstructionsComponent implements OnInit {
 			this._router.navigate(["home"]);
 		}
 	}
+
+	goBack(): void {
+		this._router.navigate(["/onboarding"]);
+	}
 }

@@ -6,8 +6,8 @@
 		<language-picker></language-picker>
 	</div>
 
-	<div fxLayout="row" fxLayoutAlign="start center" *ngIf="session.navigationStep !== 2">
-		<app-stepper>
+	<div fxLayout="row" fxLayoutAlign="start center">
+		<app-stepper [stepsArray]="session.steps" [hideBackButton]="canSeeQRCode(2)">
 			<app-step
 				*ngFor="let step of session.steps; index as i"
 				[isActive]="step.isActive"
@@ -36,15 +36,6 @@
 				</ng-container>
 			</app-step>
 		</app-stepper>
-	</div>
-
-	<div
-		fxLayout="column"
-		fxLayoutAlign="start center"
-		*ngIf="session.navigationStep === 2 && wallet && wallet.metadata"
-		class="wallet-qr-code-alone"
-	>
-		<view-created-wallet-qr-code [walletType]="'unlockWallet'"></view-created-wallet-qr-code>
 	</div>
 </div>
 

@@ -37,6 +37,24 @@ export class UnlockWalletComponent implements OnInit {
 				isCompleted: Boolean(this.session.step > 2),
 			},
 		]);
+	}
+
+	async ngOnInit(): Promise<any> {
+		const activeWallet = await this._chromeService.getItem("tempWalletAddress");
+
+		const _unlockWallet = localStorage.getItem("unlockWallet") || {};
+
+		const unlockWallet = activeWallet ? null : new WalletModel(_unlockWallet);
+
+		this.session.navigationStep = 1;
+
+		if (unlockWallet?.ethAddress && unlockWallet?.metadata) {
+			this.wallet = unlockWallet;
+
+			this.session.navigationStep = 2;
+
+			return;
+		}
 
 		const interval = setInterval(() => {
 			if (this.wallet) {
@@ -58,40 +76,24 @@ export class UnlockWalletComponent implements OnInit {
 		}, 1000);
 	}
 
-	async ngOnInit(): Promise<any> {
-		const activeWallet = await this._chromeService.getItem("tempWalletAddress");
-
-		const _unlockWallet = localStorage.getItem("unlockWallet") || {};
-
-		const unlockWallet = activeWallet ? null : new WalletModel(_unlockWallet);
-
-		this.session.navigationStep = 1;
-
-		if (unlockWallet?.ethAddress && unlockWallet?.metadata) {
-			this.wallet = unlockWallet;
-
-			this.session.navigationStep = 2;
-		}
-	}
-
 	goBack(): void {
 		this._router.navigate(["/onboarding"]);
 	}
 
 	canSeeSearchStep(index: number): boolean {
-		return Boolean(index === 0 && this.session.step === 0);
+		return Boolean(this.session.navigationStep === 1 && index === 0 && this.session.step === 0);
 	}
 
 	canSeePasswordStep(index: number): boolean {
-		return Boolean(index == 1 && this.session.step === 1);
+		return Boolean(this.session.navigationStep === 1 && index == 1 && this.session.step === 1);
 	}
 
 	canSeeBiometricInstructionsStep(index: number): boolean {
-		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions);
+		return Boolean(this.session.navigationStep === 1 && index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions);
 	}
 
 	canSeeBiometricStep(index: number): boolean {
-		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometrics);
+		return Boolean(this.session.navigationStep === 1 && index === 2 && this.session.step === 2 && this.session.showBiometrics);
 	}
 
 	canSeeQRCode(index: number): boolean {

@@ -1,8 +1,8 @@
 .stepper-container {
 	display: flex;
 	flex-direction: column;
-	width: 650px;
 }
+
 .stepper-header {
 	display: flex;
 	justify-content: space-between;
@@ -42,4 +42,17 @@
 	display: flex;
 	justify-content: space-between;
 	padding-top: 10px;
+}
+
+.status-label {
+	border-radius: 12px;
+	background: #e7f8ed;
+	padding: 6px;
+	font-size: 14px;
+}
+
+.no-zelf-name-step {
+	text-align: center;
+	margin-top: 28px;
+	font-size: 18px;
 }

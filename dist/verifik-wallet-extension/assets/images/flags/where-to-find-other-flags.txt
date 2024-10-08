@@ -1,0 +1,79 @@
+GitHub has increased its security standards and no longer allows SSH keys that use the SHA-1 hashing algorithm due to its vulnerabilities. Instead, they require keys that use SHA-256 or better. To generate a new SSH key with a more secure algorithm, you can use the Ed25519 algorithm, which is supported by GitHub and provides better security:
+
+1. **Generate a new SSH key using the Ed25519 algorithm:**
+
+   ```sh
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+   ```
+
+   Make sure to replace `"your_email@example.com"` with the email address associated with your GitHub account. If you're using a legacy system that doesn't support the Ed25519 algorithm, you can use RSA with a key size of at least 4096 bits:
+
+   ```sh
+   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   ```
+
+2. **When prompted to "Enter a file in which to save the key," press Enter to accept the default location.**
+
+3. **Optionally, set a passphrase for the key when prompted.**
+
+4. **Ensure the SSH agent is running:**
+
+   ```sh
+   eval "$(ssh-agent -s)"
+   ```
+
+5. **Add your new SSH key to the SSH agent:**
+
+   If you used the Ed25519 algorithm:
+
+   ```sh
+   ssh-add ~/.ssh/id_ed25519
+   ```
+
+   Or, if you used RSA:
+
+   ```sh
+   ssh-add ~/.ssh/id_rsa
+   ```
+
+6. **Copy your new SSH public key to the clipboard:**
+
+   For Ed25519:
+
+   ```sh
+   cat ~/.ssh/id_ed25519.pub
+   ```
+
+   Or, for RSA:
+
+   ```sh
+   cat ~/.ssh/id_rsa.pub
+   ```
+
+   Copy the output manually. If you have `xclip` installed, you can pipe the output directly into the clipboard:
+
+   For Ed25519:
+
+   ```sh
+   cat ~/.ssh/id_ed25519.pub | xclip -selection clipboard
+   ```
+
+   Or, for RSA:
+
+   ```sh
+   cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
+   ```
+
+7. **Add the new SSH key to your GitHub account:**
+
+   Follow the same steps previously outlined to add the new key to your GitHub account.
+
+8. **Test your SSH connection to GitHub:**
+
+   ```sh
+   ssh -T git@github.com
+   ```
+
+   If everything is set up correctly, you should see a message indicating successful authentication.
+
+By following these steps, you'll generate a new SSH key using a more secure algorithm, which will be accepted by GitHub.

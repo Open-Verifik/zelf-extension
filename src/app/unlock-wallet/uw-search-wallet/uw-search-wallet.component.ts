@@ -169,6 +169,8 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this.session.zelfProof = this.zelfProof;
 
+		this.session.usePassword = this.potentialWallet.hasPassword;
+
 		if (!this.potentialWallet.hasPassword) {
 			this._walletService.goToNextStep(this.session.step + 1);
 

@@ -81,19 +81,19 @@ export class UnlockWalletComponent implements OnInit {
 	}
 
 	canSeeSearchStep(index: number): boolean {
-		return Boolean(this.session.navigationStep === 1 && index === 0 && this.session.step === 0);
+		return Boolean(index === 0 && this.session.step === 0);
 	}
 
 	canSeePasswordStep(index: number): boolean {
-		return Boolean(this.session.navigationStep === 1 && index == 1 && this.session.step === 1);
+		return Boolean(index == 1 && this.session.step === 1);
 	}
 
 	canSeeBiometricInstructionsStep(index: number): boolean {
-		return Boolean(this.session.navigationStep === 1 && index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions);
+		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometricsInstructions);
 	}
 
 	canSeeBiometricStep(index: number): boolean {
-		return Boolean(this.session.navigationStep === 1 && index === 2 && this.session.step === 2 && this.session.showBiometrics);
+		return Boolean(index === 2 && this.session.step === 2 && this.session.showBiometrics);
 	}
 
 	canSeeQRCode(index: number): boolean {

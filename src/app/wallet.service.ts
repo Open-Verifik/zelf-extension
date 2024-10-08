@@ -112,6 +112,8 @@ export class WalletService {
 
 		localStorage.removeItem("importWallet");
 
+		localStorage.removeItem("zelfName");
+
 		if (currentWallet.ethAddress) {
 			wallets.push(currentWallet);
 

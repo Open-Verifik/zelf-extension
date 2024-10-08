@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
 	selector: "app-loader",
 	template: `
 		<div class="loader" fxLayout="column" fxLayoutAlign="center center">
-			<img src="../../assets/images/full_zelf_logo.svg" alt="" />
+			<img src="../../assets/images/full_logo_zns.svg" alt="" />
 
 			<svg
 				version="1.1"

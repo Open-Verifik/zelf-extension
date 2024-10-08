@@ -48,6 +48,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		private _ipfsService: IpfsService
 	) {
 		this._walletService.restoreSession();
+		this._ipfsService.setZelfFile(null);
+		this._ipfsService.setZelfName("");
 	}
 
 	ngOnInit(): void {

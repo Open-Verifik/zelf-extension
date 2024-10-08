@@ -7,7 +7,7 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center">
-		<app-stepper>
+		<app-stepper [stepsArray]="[{ label: 'available' }]">
 			<app-step [isActive]="true" [isCompleted]="false" [label]="'available'" [isStatus]="true">
 				<ng-container>
 					<div fxLayout="column" fxLayoutAlign="start start" class="zelf-card w-fix p-4">

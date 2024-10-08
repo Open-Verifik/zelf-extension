@@ -24,6 +24,7 @@ export class StepperComponent implements OnInit {
 			"/new-zelf-name": "/onboarding",
 			"/create-wallet": "/new-zelf-name",
 			"/find-wallet": "/onboarding",
+			"/import-wallet": "/new-zelf-name",
 		};
 
 		this.zelfName = localStorage.getItem("zelfName") || "";

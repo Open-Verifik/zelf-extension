@@ -7,7 +7,7 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center">
-		<app-stepper>
+		<app-stepper [stepsArray]="session.steps">
 			<app-step
 				*ngFor="let step of session.steps; index as i"
 				[isActive]="step.isActive"

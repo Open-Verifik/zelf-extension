@@ -43,7 +43,7 @@ In addition to ZelfProofs, the **Zelf Wallet** integrates with **IPFS** (InterPl
 
 ### Uploading Files to IPFS
 
-You can upload files (e.g., images) to IPFS via a POST request. The process also supports attaching metadata such as Ethereum and Solana addresses, email, and nickname.
+You can upload files (e.g., images) to IPFS via a POST request. The process also supports attaching metadata such as Ethereum and Solana addresses, email, and zelfName.
 
 #### Example Request (Upload to IPFS)
 
@@ -59,7 +59,7 @@ POST https://api.zelf.world/api/ipfs
     "ethAddress": "0x3308f60b92915a8764b60342938a9D8406d288BE",
     "solanaAddress": "JA6WkAYuA5FZb9nkFrBSprRMF6suMQvBEepQFFWV",
     "email": "johan@verifik.co",
-    "nickname": "johan.zelf"
+    "zelfName": "johan.zelf"
   },
   "pinIt": true
 }
@@ -67,7 +67,7 @@ POST https://api.zelf.world/api/ipfs
 
 In this request:
 - The **base64** field contains the image file encoded in base64 format.
-- The **metadata** includes Ethereum and Solana addresses, email, and a nickname.
+- The **metadata** includes Ethereum and Solana addresses, email, and a zelfName.
 - The **pinIt** field ensures the file is pinned to IPFS, keeping it available long-term.
 
 #### Response
@@ -88,7 +88,7 @@ The response will contain the following information, including the IPFS URL and 
       "ethAddress": "0x3308f60b92915a8764b60342938a9D8406d288BE",
       "solanaAddress": "JA6WkAYuA5FZb9nkFrBSprRMF6suMQvBEepQFFWV",
       "email": "johan@verifik.co",
-      "nickname": "johan.zelf"
+      "zelfName": "johan.zelf"
     }
   }
 }
@@ -96,12 +96,12 @@ The response will contain the following information, including the IPFS URL and 
 
 ### Querying Files from IPFS
 
-You can retrieve files and metadata stored in IPFS using the **GET** method. Below is an example query to search for a file by nickname.
+You can retrieve files and metadata stored in IPFS using the **GET** method. Below is an example query to search for a file by zelfName.
 
-#### Example Request (Query by Nickname)
+#### Example Request (Query by zelfName)
 
 ```json
-GET https://api.zelf.world/api/ipfs?key=nickname&value=johan.zelf
+GET https://api.zelf.world/api/ipfs?key=zelfName&value=johan.zelf
 ```
 
 #### Response
@@ -121,7 +121,7 @@ The response will return details of the pinned file, including metadata:
         "name": "johan.zelf",
         "keyvalues": {
           "email": "johan@verifik.co",
-          "nickname": "johan.zelf",
+          "zelfName": "johan.zelf",
           "ethAddress": "0x3308f60b92915a8764b60342938a9D8406d288BE",
           "solanaAddress": "JA6WkAYuA5FZb9nkFrBSprRMF6suMQvBEepQFFWV"
         }

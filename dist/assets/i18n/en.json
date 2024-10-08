@@ -1,17 +1,19 @@
 {
 	"hello": "Hello",
 	"onboarding": {
-		"step_1": "Welcome",
-		"step_1_description": "Discover Biometric Wallet, the innovative wallet that frees you from having to remember security words. Access securely and quickly with your facial biometrics.",
-		"step_2": "Unlock with facial recognition",
-		"step_2_description": "Your biometrics will not be saved at any time, and it's only used to unlock the transfers between decentralized applications",
-		"step_3": "Manage your assets",
-		"step_3_description": "You will generate QR codes linked to your facial biometrics for quick and secure management of your wallets.",
+		"step_1": "WELCOME TO ZELF NAME SERVICE",
+		"step_1_description": "Discover SNS (Seed Name Service) by Zelf, the innovative name service that frees you from remembering the seed phrase. Access securely and quickly using your ZNS",
+		"step_2": "ACCESS WITH ZELFPROOF",
+		"step_2_description": "ZelfProof (ZK-Face SNARKs) is a unique, privacy-preserving binary representation derived from facial data, ensuring that no sensitive information is stored or retained during the process.",
+		"step_3": "IPFS - DECENTRALIZED STORAGE",
+		"step_3_description": "Effortless access to your wallet and seed phrase. Your ZelfProof is securely stored on a decentralized IPFS network, giving you complete control without the hassle of managing it yourself.",
 		"accept_terms_1": "I accept the",
 		"accept_terms_2": "terms and conditions",
 		"create_new_wallet": "Create a new wallet",
 		"import_wallet": "Import your wallet",
-		"open_wallet": "Open your wallet"
+		"open_wallet": "Open your wallet",
+		"claim_your_zns": "Claim your ZNS and simplify your crypto access",
+		"forgot_zelf_name": "Forgot your zelf name?"
 	},
 	"common": {
 		"is_required": "is required",
@@ -36,35 +38,37 @@
 	},
 	"create_wallet": {
 		"password_step": {
-			"title": "Add a password",
-			"description": "This password is additional to your biometrics, to enhance the security of your encrypted wallet",
+			"title": "SAFETY LAYERS",
+			"description": "This password provides a second layer of protection, working alongside your ZelfProof by combining both your face and the password to secure your encrypted wallet.",
 			"password_label": "Password",
 			"repeat_password_label": "Repeat password",
-			"agreement": "I agree that Biometric Wallet can not recover this password, this is only used to encrypt your wallet",
-			"add_password": "Create password",
-			"continue_without_password": "Just biometrics"
+			"agreement": "I understand that Zelf Wallet cannot recover this password. By choosing this additional layer of security, I acknowledge that I am solely responsible for remembering it.",
+			"add_password": "Two layers of security",
+			"continue_without_password": "One layer of security"
 		},
 		"phrase_step": {
-			"title": "Biometric encryption",
-			"description": "Your secret and security phrase consists of 12 or 24 words, necessary to access your wallet and funds.",
-			"description_2": "Your phrase will be linked to your facial biometrics and password (if you have set one) and will be encrypted, generating a QR code.",
-			"subtitle": "How is my phrase safeguarded?",
-			"description_3": "Your secure phrase will be in an encrypted QR code linked to your facial biometrics (and password if you set one). The encryption is extremely secure because only your face can decrypt it, and live detection is required.",
-			"description_4": "We use end-to-end encryption to transmit your hash (encryption over encryption) that is in the QR Code, then also to encrypt your face and afterwards decrypt it and perform a live detection, all of this happens to finally decrypt your initial hash stored in the QR Code, then authorize each of your transactions on your end.",
-			"start_encryption_button": "Encrypt the wallet",
-			"words_input": "Phrase of 12 or 24 words"
+			"title": "WALLET CREATION",
+			"description": "Your private recovery phrase consists of 12 or 24 words, essential for accessing and securing your wallet.",
+			"description_2": "Zelf Wallet removes the need for manual storage by encrypting your recovery phrase into a powerful, privacy-preserving ZelfProof. This ZelfProof is securely stored within a QR code that only you can decrypt, ensuring unparalleled security.",
+			"description_3": "The QR code serves as a robust digital vault for your recovery keys, enhanced by our Zelf Name Service (ZNS). With ZNS, you can easily back up and retrieve your QR code using your Zelf Name.",
+			"description_4": "I understand that Zelf can help retrieve the QR code with ZNS. However, I am still responsible for safeguarding it to ensure secure access.",
+			"start_encryption_button": "Start",
+			"12_words": "12 words phrase",
+			"24_words": "24 words phrase",
+			"words_input": "Number of words"
 		},
-		"biometric_instructions": {
-			"title": "Biometric instructions",
-			"instruction_1": "Ensure Good Lighting and Clear Surroundings",
-			"instruction_2": "Position Yourself in Front of the Camera",
-			"instruction_3": "Place your face inside the oval"
+		"zelfproof_step": {
+			"title": "ZELPROOF ENCRYPTION",
+			"description": "You are about to generate your ZelfProof, which will securely encrypt your recovery phrases. Follow the steps below to ensure the process is smooth and effective.",
+			"instruction_1": "Place your face inside the indicated mark",
+			"instruction_2": "Stare at the camera and avoid moving",
+			"instruction_3": "Be sure to perform the required facial gestures"
 		},
 		"view_wallet": {
-			"title": "You have created your wallet successfully",
-			"description": "These are the words of your security phrase, encrypted and safeguarded in the following QR code ",
-			"description_2": "You will always need your face as a main layer of security to access them.",
-			"qr_code_description": "Remember to keep the QR code of your words safe to protect your account.",
+			"title": "WALLET SUCCESSFULLY ENCRYPTED WITH ZELFPROOF",
+			"description": "Your recovery phrase has been encrypted and safeguarded inside this QR code using your ZelfProof, a powerful privacy-preserving security layer.",
+			"description_2": "If the QR is ever lost, you can retrieve it using your registered Zelf name via Zelf Name Service (ZNS).",
+			"qr_code_description": "Keep this QR code safe. To access or restore your wallet, your ZelfProof and this QR code will always be required",
 			"download_qr_code": "Download your QR Code",
 			"copy_public_address": "Copy your ETH Address"
 		}
@@ -76,17 +80,20 @@
 		"get_closer_subtitle": "Please come a bit closer for better face recognition.",
 		"liveness_failed": "Liveness detection failed",
 		"liveness_error_message": "The liveness check has failed with the following error:<br><strong>{{error}}</strong><br>Do you want to try again?",
-		"loading_stream": "Loading Camera"
+		"loading_stream": "Loading Camera",
+		"try_again_button": "Try again"
 	},
 	"errors": {
-		"person_already_set": "Your registration has biometrics linked already",
-		"replace_person_button": "Ok, replace biometrics",
-		"Duplicated_person": "Biometrics is being used into another record",
+		"person_already_set": "Your registration has a ZelfProof linked already",
+		"replace_person_button": "Ok, replace ZelfProof",
+		"Duplicated_person": "ZelfProof is being used for another record",
 		"liveness_failed": "Liveness detection failed",
+		"liveness_failed_description": "Sorry, there seems to have been a problem with your liveness detection.",
 		"Liveness_score_not_acceptable": "Liveness score is not acceptable",
 		"min_liveness_score_is": "The minimum liveness score is: ",
 		"phone_or_email_is_not_unique": "The phone or the email has been used already, try a different one",
-		"something_went_wrong": "Something went wrong, please try again"
+		"something_went_wrong": "Something went wrong, please try again",
+		"try_again": "Please try again."
 	},
 	"import_wallet": {
 		"step_zero": {
@@ -107,37 +114,39 @@
 		},
 		"qr_code_step": {
 			"success_message": "You have successfully imported your existing wallet",
-			"description": "Your security phrase and QR code are now linked to your facial biometrics. Keep the QR safe to protect your account.",
+			"description": "Your security phrase and QR code are now linked to your ZelfProof. Keep the QR safe to protect your account.",
 			"understood": "Understood",
 			"copy_address": "Copy public address",
 			"download_qr": "Download QR code"
 		}
 	},
 	"unlock_wallet": {
-		"title": "Open an Existing Wallet",
-		"description": "Open an existing wallet by entering its public address below:",
-		"upload_description": "Or upload the image of your QR code to continue:",
+		"title": "FIND ZELF NAME",
+		"description": "Find an existing Zelf Name by entering its public address below:",
+		"upload_description": "Or upload your ZelfProof QR Code to continue:",
 		"upload_button": "Select QR Code",
 		"drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
 		"verify_button": "Verify",
 		"back_button": "Back",
-		"account_found": "Account found",
+		"account_found": "ZELFPROOF FOUND",
 		"password": {
-			"title": "This wallet requires a password",
-			"subtitle": "Enter the password assigned to this wallet to complete the unlocking process.",
+			"title": "THIS ZELFPROOF REQUIRES A PASSWORD",
+			"subtitle": "Enter the password assigned to this ZelfProof to complete the opening process.",
 			"label": "Password",
 			"placeholder": "********************",
-			"button": "Unlock"
+			"button": "Continue"
 		}
 	},
 	"steps": {
 		"import_wallet": "Import your wallet",
-		"add_password": "Create password",
-		"biometrics": "Biometric encryption",
-		"qr_code_generator": "Finish",
-		"search_wallet": "Search your wallet",
-		"password_unlock": "Password lock",
-		"biometric_unlock": "Biometric lock"
+		"add_password": "Add a password",
+		"biometrics": "ZelfProof",
+		"qr_code_generator": "ZELF NAME",
+		"search_wallet": "OPEN ZELFPROOF",
+		"password_unlock": "PASSWORD",
+		"biometric_unlock": "ZelfProof lock",
+		"available": "Available",
+		"decrypt": "DECRYPT"
 	},
 	"wallets_connected": {
 		"title": "Select a wallet",
@@ -149,7 +158,7 @@
 	},
 	"active_wallet": {
 		"show_private_key": "Show private key",
-		"warning_notice": "Remember to keep safe your QR code, make multiple copies if required. Also only unlock the secret key when exporting your wallet"
+		"warning_notice": "Remember to keep your QR code safe; make multiple copies if required. Also, only unlock the secret key when exporting your wallet"
 	},
 	"home": {
 		"support_button": "Support",

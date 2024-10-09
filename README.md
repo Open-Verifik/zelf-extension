@@ -2,6 +2,9 @@
 
 The **Zelf Wallet** is a secure, privacy-focused web extension designed for seamless interaction with cryptocurrencies. The standout feature of the Zelf Wallet is its **ZelfProofs** technology, which ensures user privacy and security while enabling cryptographic functions such as proof of personhood, encryption, and passwordless login.
 
+## Documentation
+For extensive documentation, check the following url https://docs.zelf.world
+
 ## What are ZelfProofs?
 
 **ZelfProofs** are unique, privacy-preserving digital signatures that ensure secure, non-biometric verification of user identity. Here's how they work:

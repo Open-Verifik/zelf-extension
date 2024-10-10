@@ -10,6 +10,7 @@ import { ChromeService } from "app/chrome.service";
 import { IpfsService } from "app/ipfs.service";
 import { HttpClient } from "@angular/common/http";
 import { WalletModel } from "app/wallet";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "uw-search-wallet",
@@ -35,7 +36,8 @@ export class UwSearchWalletComponent implements OnInit {
 		private _changeDetectorRef: ChangeDetectorRef,
 		private _chromeService: ChromeService,
 		private _ipfsService: IpfsService,
-		private http: HttpClient
+		private http: HttpClient,
+		private _router: Router
 	) {
 		this.unlockQRCode = "";
 
@@ -154,6 +156,10 @@ export class UwSearchWalletComponent implements OnInit {
 		this.potentialWallet = new WalletModel(record);
 
 		if (!this.potentialWallet?.publicData) return this._showAccountNotFound("");
+
+		if (!this.potentialWallet.ethAddress) {
+			this._router.navigate(["/onboarding"]);
+		}
 	}
 
 	_showAccountNotFound(key: string): void {
@@ -170,8 +176,6 @@ export class UwSearchWalletComponent implements OnInit {
 		this.session.zelfProof = this.zelfProof;
 
 		this.session.usePassword = this.potentialWallet.hasPassword;
-
-		console.log({ hasPassword: this.session.usePassword, pPassword: this.potentialWallet.hasPassword });
 
 		if (!this.potentialWallet.hasPassword) {
 			this._walletService.goToNextStep(this.session.step + 1);

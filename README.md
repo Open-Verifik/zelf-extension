@@ -1,3 +1,10 @@
+# DEMO
+[![Watch the DEMO](https://img.youtube.com/vi/uNvTD_X4lP0/0.jpg)](https://www.youtube.com/watch?v=uNvTD_X4lP0)
+
+
+https://name.zelf.world
+
+
 # Zelf Wallet (Web Extension)
 
 The **Zelf Wallet** is a secure, privacy-focused web extension designed for seamless interaction with cryptocurrencies. The standout feature of the Zelf Wallet is its **ZelfProofs** technology, which ensures user privacy and security while enabling cryptographic functions such as proof of personhood, encryption, and passwordless login.

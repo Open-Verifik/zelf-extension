@@ -95,6 +95,7 @@
 		"something_went_wrong": "Something went wrong, please try again",
 		"try_again": "Please try again.",
 		"ERR_LIVENESS_FAILED": "Liveness detection failed",
+		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Face is too close to the border",
 		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "The Face angle is too large",
 		"ERR_INVALID_PASSWORD": "The password for this ZelfProof is invalid",
 		"ERR_DESCRIPTION": "Make sure to follow the instructions properly to unlock your ZelfProof"

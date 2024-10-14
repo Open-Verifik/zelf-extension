@@ -19,8 +19,6 @@ export class CryptoService {
 	getTokens(address: string): Promise<any> {
 		const url = `${this.ethScanUrl}?module=account&action=tokentx&address=${address}&page=1&offset=100&sort=asc&apikey=${this.ethScanKey}`;
 
-		console.log({ tokenUrl: url });
-
 		return this._httpWrapper.sendRequest("get", url);
 	}
 }

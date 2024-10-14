@@ -95,6 +95,7 @@
 		"something_went_wrong": "Algo salió mal, por favor intenta de nuevo",
 		"try_again": "Por favor intenta de nuevo.",
 		"ERR_LIVENESS_FAILED": "La detección de vitalidad falló",
+		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "El rostro está demasiado cerca del borde",
 		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "El ángulo del rostro es demasiado grande",
 		"ERR_INVALID_PASSWORD": "La contraseña para este ZelfProof es inválida",
 		"ERR_DESCRIPTION": "Asegúrate de seguir las instrucciones correctamente para desbloquear tu ZelfProof"

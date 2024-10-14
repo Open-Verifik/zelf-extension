@@ -628,9 +628,9 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
 				this.showError = true;
 
-				// setTimeout(() => {
-				// 	window.location.reload();
-				// }, 3000);
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
 
 				this.loading({ isLoading: false, result: true });
 			});

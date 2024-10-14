@@ -91,7 +91,7 @@ export class WalletModel implements Wallet {
 			this.displaySolanaAddress = `${firstPart}...${lastPart}`;
 		}
 
-		this.hasPassword = Boolean(data.hasPassword);
+		this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword");
 		this.zelfProof = data.zelfProof;
 		this.image = data.image;
 		this.publicData = secondaryStorage;

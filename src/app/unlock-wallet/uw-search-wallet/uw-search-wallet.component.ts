@@ -127,7 +127,7 @@ export class UwSearchWalletComponent implements OnInit {
 			}
 
 			const ipfsFile = response.data[0];
-			console.log({ ipfsFile });
+
 			this._formatZelfFile(ipfsFile);
 			return response; // Return the response if successful
 		} catch (error) {
@@ -145,9 +145,11 @@ export class UwSearchWalletComponent implements OnInit {
 			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
 		};
 
-		this._ipfsService.setZelfFile(record.name);
+		this._ipfsService.setZelfFile(record);
 
-		this.session.zelfName;
+		this._ipfsService.setZelfName(record.name);
+
+		this.session.zelfName = record.name;
 
 		this.session.zelfProof = record.zelfProof;
 
@@ -161,6 +163,8 @@ export class UwSearchWalletComponent implements OnInit {
 			this._router.navigate(["/onboarding"]);
 		}
 	}
+
+	_setSessionVariables(): void {}
 
 	_showAccountNotFound(key: string): void {
 		this.snackBar.open(key + " account not found", "OK");
@@ -275,7 +279,9 @@ export class UwSearchWalletComponent implements OnInit {
 			const hexString = this.toHexString(code.binaryData);
 
 			const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
+
 			const base64String = buffer.toString("base64");
+
 			this.zelfProof = base64String;
 
 			this.previewQRCode();
@@ -293,9 +299,13 @@ export class UwSearchWalletComponent implements OnInit {
 		if (!this.zelfProof) return;
 
 		this._walletService.previewWallet(this.zelfProof).then((response) => {
-			this.potentialWallet = new WalletModel(response.data);
+			this.potentialWallet = new WalletModel({
+				...response.data,
+				zelfProof: this.zelfProof,
+				image: this.fileBase64,
+			});
 
-			if (!this.potentialWallet) {
+			if (!this.potentialWallet.ethAddress) {
 				this.session.step = 0;
 
 				this.zelfProof = null;
@@ -305,7 +315,13 @@ export class UwSearchWalletComponent implements OnInit {
 				return;
 			}
 
-			this.potentialWallet.hasPassword = Boolean(this.potentialWallet.passwordLayer === "WithPassword");
+			this.session.hasPassword = this.potentialWallet.hasPassword;
+
+			this.session.zelfProof = this.potentialWallet.zelfProof;
+
+			this.session.zelfName = this.potentialWallet.publicData.zelfName;
+
+			console.log({ potentialWallet: this.potentialWallet, response: response.data, session: this.session });
 		});
 	}
 

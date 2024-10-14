@@ -20,17 +20,16 @@ import { WalletService } from "app/wallet.service";
 					[wallets]="wallets"
 				>
 				</wallet-card>
+			</div>
+			<div class="hwc-add-account" (click)="goToOnboarding()">
+				<div class="hwc-add-account-inner">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+							<path d="M15 9.75H9.75V15H8.25V9.75H3V8.25H8.25V3H9.75V8.25H15V9.75Z" fill="#1C44F9" />
+						</svg>
 
-				<div class="hwc-add-account" (click)="goToOnboarding()">
-					<div class="hwc-add-account-inner">
-						<div>
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-								<path d="M15 9.75H9.75V15H8.25V9.75H3V8.25H8.25V3H9.75V8.25H15V9.75Z" fill="#1C44F9" />
-							</svg>
-
-							<div class="hwc-add-account-text">
-								{{ "wallets_connected.create_or_import_wallet_button" | transloco }}
-							</div>
+						<div class="hwc-add-account-text">
+							{{ "wallets_connected.create_or_import_wallet_button" | transloco }}
 						</div>
 					</div>
 				</div>

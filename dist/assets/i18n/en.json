@@ -2,9 +2,9 @@
 	"hello": "Hello",
 	"onboarding": {
 		"step_1": "WELCOME TO ZELF NAME SERVICE",
-		"step_1_description": "Discover SNS (Seed Name Service) by Zelf, the innovative name service that frees you from remembering the seed phrase. Access securely and quickly using your ZNS",
+		"step_1_description": "Discover ZNS (Zelf Name Service), the innovative name service that frees you from remembering the seed phrase. Access securely and quickly using your ZNS",
 		"step_2": "ACCESS WITH ZELFPROOF",
-		"step_2_description": "ZelfProof (ZK-Face SNARKs) is a unique, privacy-preserving binary representation derived from facial data, ensuring that no sensitive information is stored or retained during the process.",
+		"step_2_description": "ZelfProof is a unique, privacy-preserving binary representation derived from facial data, ensuring that no sensitive information is stored or retained during the process.",
 		"step_3": "IPFS - DECENTRALIZED STORAGE",
 		"step_3_description": "Effortless access to your wallet and seed phrase. Your ZelfProof is securely stored on a decentralized IPFS network, giving you complete control without the hassle of managing it yourself.",
 		"accept_terms_1": "I accept the",
@@ -42,14 +42,14 @@
 			"description": "This password provides a second layer of protection, working alongside your ZelfProof by combining both your face and the password to secure your encrypted wallet.",
 			"password_label": "Password",
 			"repeat_password_label": "Repeat password",
-			"agreement": "I understand that Zelf Wallet cannot recover this password. By choosing this additional layer of security, I acknowledge that I am solely responsible for remembering it.",
+			"agreement": "I understand that Zelf cannot recover this password. By choosing this additional layer of security, I acknowledge that I am solely responsible for remembering it.",
 			"add_password": "Two layers of security",
 			"continue_without_password": "One layer of security"
 		},
 		"phrase_step": {
 			"title": "WALLET CREATION",
 			"description": "Your private recovery phrase consists of 12 or 24 words, essential for accessing and securing your wallet.",
-			"description_2": "Zelf Wallet removes the need for manual storage by encrypting your recovery phrase into a powerful, privacy-preserving ZelfProof. This ZelfProof is securely stored within a QR code that only you can decrypt, ensuring unparalleled security.",
+			"description_2": "Zelf removes the need for manual storage by encrypting your recovery phrase into a powerful, privacy-preserving ZelfProof. This ZelfProof is securely stored within a QR code that only you can decrypt, ensuring unparalleled security.",
 			"description_3": "The QR code serves as a robust digital vault for your recovery keys, enhanced by our Zelf Name Service (ZNS). With ZNS, you can easily back up and retrieve your QR code using your Zelf Name.",
 			"description_4": "I understand that Zelf can help retrieve the QR code with ZNS. However, I am still responsible for safeguarding it to ensure secure access.",
 			"start_encryption_button": "Start",
@@ -93,7 +93,11 @@
 		"min_liveness_score_is": "The minimum liveness score is: ",
 		"phone_or_email_is_not_unique": "The phone or the email has been used already, try a different one",
 		"something_went_wrong": "Something went wrong, please try again",
-		"try_again": "Please try again."
+		"try_again": "Please try again.",
+		"ERR_LIVENESS_FAILED": "Liveness detection failed",
+		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "The Face angle is too large",
+		"ERR_INVALID_PASSWORD": "The password for this ZelfProof is invalid",
+		"ERR_DESCRIPTION": "Make sure to follow the instructions properly to unlock your ZelfProof"
 	},
 	"import_wallet": {
 		"step_zero": {
@@ -185,10 +189,10 @@
 	},
 	"extension_instructions": {
 		"extensions": "Extensions",
-		"installationCompleted": "Zelf Wallet installation has been completed!",
-		"addExtension": "Add the extension to your browser to easily access and view transaction confirmations on Zelf Wallet.",
+		"installationCompleted": "Zelf Name Service installation has been completed!",
+		"addExtension": "Add the extension to your browser to easily access and view transaction confirmations on Zelf Name Service.",
 		"clickIcon": "Click on the extension icon in your browser.",
-		"fixWallet": "Fix the Zelf Wallet.",
+		"fixWallet": "Fix ZNS.",
 		"fullAccess": "Full Access",
 		"extensionsCanChange": "These extensions can view and change information on this website.",
 		"manageExtensions": "Manage Extensions",
@@ -216,7 +220,7 @@
 		"bridge": {
 			"qr_code_title": "Scan the QR Code",
 			"title": "Confirm your transaction",
-			"description": "Scan the QR Code from your Zelf Wallet. Add a security layer by decrypting in your device",
+			"description": "Scan the QR Code from your Zelf Name Service App. Add a security layer by decrypting in your device",
 			"description_2": "Or continue with the web extension",
 			"confirm_button": "Confirm transaction",
 			"dont_have_the_app": "Still don't have the safest wallet installed?",

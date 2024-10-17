@@ -100,6 +100,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 	async triggerSearch(query?: string): Promise<void> {
 		if (!query) query = this.searchForm.value.address;
+
 		if (!query) return;
 
 		try {
@@ -122,6 +123,7 @@ export class UwSearchWalletComponent implements OnInit {
 	async _queryZNS(key: string, value: string): Promise<any> {
 		try {
 			const response = await this._ipfsService.queryByKeyValue(key, value);
+
 			if (!response.data || !response.data.length) {
 				return null; // Return null if no data found
 			}
@@ -129,6 +131,9 @@ export class UwSearchWalletComponent implements OnInit {
 			const ipfsFile = response.data[0];
 
 			this._formatZelfFile(ipfsFile);
+
+			console.log({ response });
+
 			return response; // Return the response if successful
 		} catch (error) {
 			console.log({ error });
@@ -144,6 +149,8 @@ export class UwSearchWalletComponent implements OnInit {
 			name: zelfFile.metadata?.name,
 			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
 		};
+
+		this.session.hasPassword = record.hasPassword;
 
 		this._ipfsService.setZelfFile(record);
 

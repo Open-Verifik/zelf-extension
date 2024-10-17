@@ -21,6 +21,8 @@ export class UwPasswordStepComponent implements OnInit {
 		this.loading = false;
 
 		this.showPassword = false;
+
+		console.log({ session: this.session });
 	}
 
 	ngOnInit(): void {

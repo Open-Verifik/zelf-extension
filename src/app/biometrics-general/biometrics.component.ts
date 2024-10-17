@@ -582,7 +582,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			.createWallet({
 				...payload,
 				wordsCount: data.wordsCount || payload.wordsCount || 12,
-				seeWallet: 1,
+				previewZelfProof: 1,
 			})
 			.then((response) => {
 				this.session.showBiometrics = false;

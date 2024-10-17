@@ -23,9 +23,9 @@
 					<uw-password-step></uw-password-step>
 				</ng-container>
 
-				<ng-container *ngIf="canSeeBiometricInstructionsStep(i)">
-					<biometric-instructions> </biometric-instructions>
-				</ng-container>
+				<div *ngIf="canSeeBiometricInstructionsStep(i)">
+					<biometric-instructions> ...</biometric-instructions>
+				</div>
 
 				<ng-container *ngIf="canSeeBiometricStep(i)">
 					<biometrics-general [type]="'decryptWallet'" [data]="session"> </biometrics-general>

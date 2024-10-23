@@ -54,7 +54,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.zelfForm = this._formBuilder.group({
-			zelfName: ["", [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
+			zelfName: ["", [Validators.required]],
 		});
 
 		this._ipfsService.setZelfName("");

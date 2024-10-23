@@ -125,9 +125,19 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		const control = this.zelfForm.get("zelfName");
 
 		if (control) {
-			// Replace spaces and special characters on the go
-			const sanitizedValue = control.value.replace(/[^a-zA-Z]/g, "");
-			control.setValue(sanitizedValue, { emitEvent: false }); // Update form control value without triggering events
+			// Remove invalid characters, ensure lowercase
+			let sanitizedValue = control.value.replace(/[^a-z0-9.-]/g, "").toLowerCase();
+
+			// Ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
+			sanitizedValue = sanitizedValue.replace(/^[^a-z]+|[.-]$/g, "");
+
+			// Limit to 20 characters
+			if (sanitizedValue.length > 20) {
+				sanitizedValue = sanitizedValue.substring(0, 20);
+			}
+
+			// Update form control value without triggering events
+			control.setValue(sanitizedValue, { emitEvent: false });
 		}
 	}
 

@@ -109,9 +109,7 @@ import { Component, Input, OnInit } from "@angular/core";
 export class TokenCardComponent implements OnInit {
 	@Input() data: any;
 
-	constructor() {
-		// console.log({ data: this.data });
-	}
+	constructor() {}
 
 	ngOnInit(): void {}
 }

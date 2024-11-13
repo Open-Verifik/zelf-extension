@@ -79,7 +79,7 @@ export class HttpWrapperService {
 
 		if (!this.publicKey) throw new Error("cannot_encrypt_message");
 
-		const publicKey = await openpgp.readKey({ armoredKey: this.publicKey });
+		const publicKey = await openpgp.readKey({ armoredKey: this.publicKey }); // armoredKey > quitarle la armadura
 
 		const encryptedMessage = await openpgp.encrypt({
 			message: await openpgp.createMessage({ text: data }),

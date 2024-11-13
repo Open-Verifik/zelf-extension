@@ -115,7 +115,6 @@ export class UwSearchWalletComponent implements OnInit {
 				}
 			}
 		} catch (error) {
-			console.log({ error });
 			this._showAccountNotFound("ethAddress");
 		}
 	}
@@ -132,25 +131,22 @@ export class UwSearchWalletComponent implements OnInit {
 
 			this._formatZelfFile(ipfsFile);
 
-			console.log({ response });
-
 			return response; // Return the response if successful
 		} catch (error) {
-			console.log({ error });
 			return null; // Return null on error
 		}
 	}
 
 	_formatZelfFile(zelfFile: any): void {
 		const record = {
+			...zelfFile,
 			image: zelfFile.url,
-			publicData: zelfFile.metadata?.keyvalues,
-			zelfProof: zelfFile.metadata?.keyvalues.zelfProof,
-			name: zelfFile.metadata?.name,
-			hasPassword: Boolean(zelfFile.metadata?.keyvalues.hasPassword === "true"),
+			name: zelfFile.zelfName,
 		};
 
-		this.session.hasPassword = record.hasPassword;
+		this.fileBase64 = record.zelfProofQRCode;
+
+		this.session.hasPassword = record.publicData.hasPassword;
 
 		this._ipfsService.setZelfFile(record);
 
@@ -327,8 +323,6 @@ export class UwSearchWalletComponent implements OnInit {
 			this.session.zelfProof = this.potentialWallet.zelfProof;
 
 			this.session.zelfName = this.potentialWallet.publicData.zelfName;
-
-			console.log({ potentialWallet: this.potentialWallet, response: response.data, session: this.session });
 		});
 	}
 

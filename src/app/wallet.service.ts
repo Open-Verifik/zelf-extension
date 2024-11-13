@@ -94,15 +94,11 @@ export class WalletService {
 			step.isCompleted = index < stepIndex;
 		});
 
-		console.log({ BEFORE: this.sessionData.steps, sessionData: this.sessionData });
-
 		let steps = [...this.sessionData.steps];
 
 		this.sessionData.steps = [];
 
 		this.sessionData.steps = steps;
-
-		console.log({ step_s: this.sessionData.steps, steps });
 	}
 
 	async restoreSession(): Promise<any> {

@@ -29,8 +29,6 @@ export class IpfsService {
 
 	setZelfName(zelfName: string): void {
 		this.variables.zelfName = zelfName;
-
-		zelfName ? localStorage.setItem("zelfName", zelfName) : localStorage.removeItem("zelfName");
 	}
 
 	setZelfFile(ipfsFile: any): void {

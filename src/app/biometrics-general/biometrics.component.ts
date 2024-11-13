@@ -608,7 +608,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		this._walletService
 			.decryptWallet({
 				...payload,
-				zelfProof: data.zelfProof,
+				zelfProof: data.zelfProof || this._walletService.zelfProof,
 				identifier: data.identifier,
 			})
 			.then((response) => {

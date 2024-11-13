@@ -158,6 +158,8 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this.zelfProof = record.zelfProof;
 
+		this._walletService.zelfProof = this.zelfProof || "";
+
 		this.potentialWallet = new WalletModel(record);
 
 		if (!this.potentialWallet?.publicData) return this._showAccountNotFound("");

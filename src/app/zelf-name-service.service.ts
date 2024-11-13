@@ -22,11 +22,12 @@ export class ZelfNameService {
 		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search?zelfName=${zelfName}`);
 	}
 
-	setZelfName(zelfName: string, price: number, saveInStorage: boolean): void {
+	setZelfName(zelfName: string, price: number): void {
 		this.variables.zelfName = zelfName;
+
 		this.variables.price = price;
 
-		zelfName && saveInStorage ? localStorage.setItem("zelfName", zelfName) : localStorage.removeItem("zelfName");
+		zelfName ? localStorage.setItem("zelfName", zelfName) : localStorage.removeItem("zelfName");
 	}
 
 	setZelfFile(zelfNameObject: any): void {

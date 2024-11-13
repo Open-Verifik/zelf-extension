@@ -49,9 +49,7 @@ export class BiometricInstructionsComponent implements OnInit {
 		this.session = this._walletService.getSessionData();
 	}
 
-	ngOnInit(): void {
-		console.log({ start: true });
-	}
+	ngOnInit(): void {}
 
 	startCamera(): void {
 		this.session.showBiometricsInstructions = false;

@@ -123,8 +123,6 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 
 		this.wallet = new WalletModel(wallet);
 
-		console.log({ walleT: this.wallet });
-
 		if (!this.wallet.ethAddress) {
 			this._chromeService.removeItem(walletType);
 

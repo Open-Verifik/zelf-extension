@@ -101,8 +101,6 @@ export class EthereumService {
 	// 	// Check if the balance is sufficient
 	// 	const balance = await this.web3.eth.getBalance(this.account.value);
 
-	//     console.log({totalCost: this.web3.utils.toBigInt(balance).lt(totalCost)});
-
 	// 	if (false) {
 	// 		throw new Error("Insufficient funds: Balance is too low for this transaction.");
 	// 	}

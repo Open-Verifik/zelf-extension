@@ -37,11 +37,6 @@ export class SendTransactionConfirmationComponent implements OnInit {
 		if (!this.transactionData?.sender) {
 			this.transactionData.sender = this.wallet;
 		}
-
-		// this._ethService.getGasPrices().subscribe((response) => {
-		// 	this.gasPrices = response["result"];
-		// 	console.log({ gasPrices: this.gasPrices });
-		// });
 	}
 
 	goBack(): void {

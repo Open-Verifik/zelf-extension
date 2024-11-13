@@ -65,35 +65,39 @@ export class UwSearchWalletComponent implements OnInit {
 			this.triggerSearch(query);
 		});
 
-		this._checkForTempWallet();
+		const checkingTempWallet = this._checkForTempWallet();
 
-		this._checkForZelfFile();
+		if (!checkingTempWallet) {
+			this._checkForZelfFile();
+		}
 	}
 
-	_checkForTempWallet(): void {
+	_checkForTempWallet(): boolean {
 		const passedActiveWallet = localStorage.getItem("tempWalletAddress");
 
 		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
 
-		if (passedActiveWallet && passedActiveQRCode) {
-			this.zelfProof = passedActiveWallet;
+		if (!passedActiveWallet || !passedActiveQRCode) return false;
 
-			this.fileBase64 = passedActiveQRCode;
+		this.zelfProof = passedActiveWallet;
 
-			setTimeout(() => {
-				localStorage.removeItem("unlockWallet");
-				localStorage.removeItem("tempWalletAddress");
-				localStorage.removeItem("tempWalletQrCode");
-			}, 1000);
+		this.fileBase64 = passedActiveQRCode;
 
-			this.previewQRCode();
-		}
+		setTimeout(() => {
+			localStorage.removeItem("unlockWallet");
+			localStorage.removeItem("tempWalletAddress");
+			localStorage.removeItem("tempWalletQrCode");
+		}, 1000);
+
+		this.previewQRCode();
+
+		return true;
 	}
 
 	_checkForZelfFile(): void {
 		const zelfFile = this._ipfsService.getZelfFile();
 
-		if (!zelfFile) return;
+		if (!zelfFile) this._router.navigate(["/onboarding"]);
 
 		this._formatZelfFile(zelfFile);
 	}
@@ -138,6 +142,8 @@ export class UwSearchWalletComponent implements OnInit {
 	}
 
 	_formatZelfFile(zelfFile: any): void {
+		if (!zelfFile) return;
+
 		const record = {
 			...zelfFile,
 			image: zelfFile.url,
@@ -145,21 +151,13 @@ export class UwSearchWalletComponent implements OnInit {
 		};
 
 		this.fileBase64 = record.zelfProofQRCode;
-
 		this.session.hasPassword = record.publicData.hasPassword;
-
 		this._ipfsService.setZelfFile(record);
-
 		this._ipfsService.setZelfName(record.name);
-
 		this.session.zelfName = record.name;
-
 		this.session.zelfProof = record.zelfProof;
-
 		this.zelfProof = record.zelfProof;
-
 		this._walletService.zelfProof = this.zelfProof || "";
-
 		this.potentialWallet = new WalletModel(record);
 
 		if (!this.potentialWallet?.publicData) return this._showAccountNotFound("");

@@ -164,7 +164,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 				if (response?.data.price) return this._noZelfNameFound(response?.data);
 
 				this._ipfsService.setZelfName(zelfName);
-				this._zelfNameService.setZelfName(zelfName, 0, false);
+
+				this._zelfNameService.setZelfName(zelfName, 0);
 				this._ipfsService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
 				this._zelfNameService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
 
@@ -196,9 +197,10 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 	_noZelfNameFound(zelfNameOffer: any): void {
 		this._ipfsService.setZelfName(zelfNameOffer.zelfName);
+
 		this._ipfsService.setZelfFile(null);
 
-		this._zelfNameService.setZelfName(zelfNameOffer.zelfName, zelfNameOffer.price, false);
+		this._zelfNameService.setZelfName(zelfNameOffer.zelfName, zelfNameOffer.price);
 
 		this._zelfNameService.setZelfFile(null);
 

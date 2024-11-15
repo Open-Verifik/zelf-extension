@@ -18,16 +18,14 @@
 				<h2 class="mb-1 mt-2" *ngIf="zelfName">{{ zelfName || session.zelfName }}</h2>
 
 				<div *ngFor="let step of steps; let i = index" class="step-indicator" fxLayout="row" fxLayoutAlign="start start">
-					<h4
-						class="mt-1"
-						*ngIf="step && step.isActive && !step.isStatus"
-						[ngClass]="{ 'no-zelf-name-step': !zelfName && session.zelfName }"
-					>
+					<h4 class="mt-1" *ngIf="step && step.isActive && !step.isStatus" [ngClass]="{ 'no-zelf-name-step': !zelfName }">
 						<span>
 							<span class="text-grey">{{ i + 1 }} </span>
 							of {{ steps.length }}
 						</span>
-						{{ "steps." + step.label | transloco }}
+						<span>
+							{{ "steps." + step.label | transloco }}
+						</span>
 					</h4>
 
 					<span class="status-label" *ngIf="step.isStatus">

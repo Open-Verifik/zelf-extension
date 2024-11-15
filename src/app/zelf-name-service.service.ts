@@ -15,6 +15,7 @@ export class ZelfNameService {
 			zelfName: null,
 			price: 0,
 			zelfFile: null,
+			zelfProof: null,
 		};
 	}
 
@@ -34,11 +35,27 @@ export class ZelfNameService {
 		this.variables.zelfFile = zelfNameObject;
 	}
 
+	setZelfProof(zelfProof: string): void {
+		this.variables.zelfProof = zelfProof;
+	}
+
 	getZelfName(): string {
-		return this.variables.zelfName;
+		return this.variables.zelfName || localStorage.getItem("zelfName");
 	}
 
 	getZelfFile(): string {
 		return this.variables.zelfFile;
+	}
+
+	getZelfProof(): string {
+		return this.variables.zelfProof;
+	}
+
+	leaseZelfName(payload: any): Promise<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/lease`, payload);
+	}
+
+	decryptZelfName(payload: any): Promise<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/decrypt`, payload);
 	}
 }

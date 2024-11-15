@@ -4,9 +4,9 @@
 		"step_1": "WELCOME TO ZELF NAME SERVICE",
 		"step_1_description": "Discover ZNS (Zelf Name Service), the innovative name service that frees you from remembering the seed phrase. Access securely and quickly using your ZNS",
 		"step_2": "ACCESS WITH ZELFPROOF",
-		"step_2_description": "ZelfProof is a unique, privacy-preserving binary representation derived from facial data, ensuring that no sensitive information is stored or retained during the process.",
-		"step_3": "IPFS - DECENTRALIZED STORAGE",
-		"step_3_description": "Effortless access to your wallet and seed phrase. Your ZelfProof is securely stored on a decentralized IPFS network, giving you complete control without the hassle of managing it yourself.",
+		"step_2_description": "ZelfProof is a unique, privacy-preserving binary representation derived from facial data, ensuring that no stored anywhere. Keeping your phrase extremely secure",
+		"step_3": "DECENTRALIZED STORAGE",
+		"step_3_description": "Effortless access to your wallet and seed phrase. Your ZelfProof is securely stored on Arweave, giving you complete control without the hassle of managing it yourself.",
 		"accept_terms_1": "I accept the",
 		"accept_terms_2": "terms and conditions",
 		"create_new_wallet": "Create a new wallet",
@@ -98,7 +98,8 @@
 		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Face is too close to the border",
 		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "The Face angle is too large",
 		"ERR_INVALID_PASSWORD": "The password for this ZelfProof is invalid",
-		"ERR_DESCRIPTION": "Make sure to follow the instructions properly to unlock your ZelfProof"
+		"ERR_DESCRIPTION": "Make sure to follow the instructions properly to unlock your ZelfProof",
+		"zelfName_is_taken": "This zelf name is already taken"
 	},
 	"import_wallet": {
 		"step_zero": {

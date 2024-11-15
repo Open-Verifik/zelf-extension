@@ -11,6 +11,7 @@ import { IpfsService } from "app/ipfs.service";
 import { HttpClient } from "@angular/common/http";
 import { WalletModel } from "app/wallet";
 import { Router } from "@angular/router";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
 	selector: "uw-search-wallet",
@@ -34,7 +35,7 @@ export class UwSearchWalletComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService,
 		private _changeDetectorRef: ChangeDetectorRef,
-		private _chromeService: ChromeService,
+		private _zelfNameService: ZelfNameService,
 		private _ipfsService: IpfsService,
 		private http: HttpClient,
 		private _router: Router
@@ -95,9 +96,10 @@ export class UwSearchWalletComponent implements OnInit {
 	}
 
 	_checkForZelfFile(): void {
-		const zelfFile = this._ipfsService.getZelfFile();
+		const zelfFile = this._zelfNameService.getZelfFile();
+		const zelfName = this._zelfNameService.getZelfName();
 
-		if (!zelfFile) this._router.navigate(["/onboarding"]);
+		if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
 
 		this._formatZelfFile(zelfFile);
 	}
@@ -151,13 +153,17 @@ export class UwSearchWalletComponent implements OnInit {
 		};
 
 		this.fileBase64 = record.zelfProofQRCode;
-		this.session.hasPassword = record.publicData.hasPassword;
-		this._ipfsService.setZelfFile(record);
-		this._ipfsService.setZelfName(record.name);
-		this.session.zelfName = record.name;
-		this.session.zelfProof = record.zelfProof;
+
+		this.session.hasPassword = Boolean(record.publicData.hasPassword === "true");
+
+		this._zelfNameService.setZelfFile(record);
+
+		this._zelfNameService.setZelfName(record.name, 0);
+
+		this._zelfNameService.setZelfProof(record.zelfProof);
+
 		this.zelfProof = record.zelfProof;
-		this._walletService.zelfProof = this.zelfProof || "";
+
 		this.potentialWallet = new WalletModel(record);
 
 		if (!this.potentialWallet?.publicData) return this._showAccountNotFound("");
@@ -180,7 +186,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this.session.identifier = this.potentialWallet.ethAddress;
 
-		this.session.zelfProof = this.zelfProof;
+		// this.session.zelfProof = this.zelfProof;
 
 		this.session.usePassword = this.potentialWallet.hasPassword;
 
@@ -320,9 +326,9 @@ export class UwSearchWalletComponent implements OnInit {
 
 			this.session.hasPassword = this.potentialWallet.hasPassword;
 
-			this.session.zelfProof = this.potentialWallet.zelfProof;
+			this._zelfNameService.setZelfProof(this.potentialWallet.zelfProof);
 
-			this.session.zelfName = this.potentialWallet.publicData.zelfName;
+			this._zelfNameService.setZelfName(this.potentialWallet.publicData.zelfName, 0);
 		});
 	}
 

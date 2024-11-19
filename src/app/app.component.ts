@@ -36,8 +36,6 @@ export class AppComponent implements OnInit {
 				identifier: hash,
 			})
 			.then((response) => {
-				console.log({ response });
-
 				this.publicKey = response.data;
 
 				this._httpWrapperService.setPublicKey(this.publicKey);
@@ -55,8 +53,6 @@ export class AppComponent implements OnInit {
 				encryption: true,
 				message: encryptedMessage,
 			})
-			.then((response) => {
-				console.log({ response });
-			});
+			.then((response) => {});
 	}
 }

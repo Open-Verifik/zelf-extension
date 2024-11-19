@@ -9,6 +9,9 @@ https://name.zelf.world
 
 The **Zelf Wallet** is a secure, privacy-focused web extension designed for seamless interaction with cryptocurrencies. The standout feature of the Zelf Wallet is its **ZelfProofs** technology, which ensures user privacy and security while enabling cryptographic functions such as proof of personhood, encryption, and passwordless login.
 
+## Documentation
+For extensive documentation, check the following url https://docs.zelf.world
+
 ## What are ZelfProofs?
 
 **ZelfProofs** are unique, privacy-preserving digital signatures that ensure secure, non-biometric verification of user identity. Here's how they work:
@@ -186,9 +189,9 @@ If you're using macOS and need to switch to **Node.js v20**, follow these steps:
 To create a production build of the Zelf Wallet extension:
 
 1. Run the build command:
-    ```bash
+  ```bash
     ng build --output-path=dist
-    ```
+  ```
 
 2. After the build completes, the artifacts will be located in the `dist/` directory.
 

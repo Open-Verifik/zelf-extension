@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Observable, Subject, timeout } from "rxjs";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { MatButtonModule } from "@angular/material/button";
 
@@ -20,6 +20,7 @@ import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { environment } from "environments/environment";
 import { ChromeService } from "app/chrome.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 let _this = {
 	biometricsLoginCalled: false,
@@ -80,7 +81,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		private renderer: Renderer2,
 		private _navigation: Router,
 		private _httpWrapperService: HttpWrapperService,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private _zelfNameService: ZelfNameService
 	) {
 		this.deviceData = this._walletService.getDeviceData();
 
@@ -555,7 +557,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		const payload: any = {
 			faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
 			os: this.deviceData.OS,
-			zelfName: localStorage.getItem("zelfName") || "",
+			zelfName: this._zelfNameService.getZelfName(),
 		};
 
 		if (this.session.password) payload.password = this.session.password;
@@ -578,13 +580,16 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	}
 
 	_createWallet(payload: any, data: any): void {
-		this._walletService
-			.createWallet({
+		this._zelfNameService
+			.leaseZelfName({
 				...payload,
+				type: "create",
 				wordsCount: data.wordsCount || payload.wordsCount || 12,
-				seeWallet: 1,
+				previewZelfProof: 1,
 			})
 			.then((response) => {
+				console.log({ CREATE: response.data });
+
 				this.session.showBiometrics = false;
 
 				this._chromeService.setItem("wallet", response.data);
@@ -605,10 +610,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	}
 
 	_decryptWallet(payload: any, data: any): void {
-		this._walletService
-			.decryptWallet({
+		this._zelfNameService
+			.decryptZelfName({
 				...payload,
-				zelfProof: data.zelfProof,
+				zelfName: this._zelfNameService.getZelfName(),
+				zelfProof: data.zelfProof || this._zelfNameService.getZelfProof(),
 				identifier: data.identifier,
 			})
 			.then((response) => {
@@ -628,34 +634,44 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
 				this.showError = true;
 
-				setTimeout(() => {
-					window.location.reload();
-				}, 3000);
+				// setTimeout(() => {
+				// 	window.location.reload();
+				// }, 3000);
 
 				this.loading({ isLoading: false, result: true });
 			});
 	}
 
 	_importWallet(payload: any, data: any): void {
-		this._walletService
-			.importWallet({
+		this._zelfNameService
+			.leaseZelfName({
 				...payload,
-				phrase: data.phrase,
+				type: "import",
+				mnemonic: data.phrase,
 			})
 			.then((response) => {
+				console.log({ lease: response.data });
+
 				this.session.walletCreated = response.data;
 
 				this._chromeService.setItem("importWallet", response.data);
-				// localStorage.setItem("importWallet", JSON.stringify(response.data));
 
 				this._walletService.goToNextStep(this.session.step + 1);
 
 				_this["biometricsLoginCalled"] = false;
 			})
-			.catch((err) => {
-				this.errorContent = err.error;
+			.catch((exception) => {
+				this.errorContent = exception.error;
 
-				this.retryLivenessModal(err.error?.message);
+				this.errorContent = { message: exception.error?.error };
+
+				_this["biometricsLoginCalled"] = false;
+
+				this.showError = true;
+
+				setTimeout(() => {
+					window.location.reload();
+				}, 6000);
 
 				this.loading({ isLoading: false, result: true });
 			});

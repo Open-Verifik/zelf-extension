@@ -73,13 +73,14 @@
 // Account list styles
 .hwc-account-list {
 	align-self: stretch;
-	height: 200px;
+	height: 50vh;
 	background: white;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
 	gap: 16px;
 	display: flex;
+	overflow: auto;
 }
 
 .hwc-account-item-name {

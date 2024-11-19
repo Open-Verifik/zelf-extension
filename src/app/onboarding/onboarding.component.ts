@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
 import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 let isTabOpen = false;
 
@@ -45,14 +46,17 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		private _translocoService: TranslocoService,
 		private _formBuilder: UntypedFormBuilder,
 		private _walletService: WalletService,
-		private _ipfsService: IpfsService
+		private _ipfsService: IpfsService,
+		private _zelfNameService: ZelfNameService
 	) {
 		this._walletService.restoreSession();
+		this._ipfsService.setZelfFile(null);
+		this._zelfNameService.setZelfName("", 0);
 	}
 
 	ngOnInit(): void {
 		this.zelfForm = this._formBuilder.group({
-			zelfName: ["", [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]],
+			zelfName: ["", [Validators.required]],
 		});
 
 		this._ipfsService.setZelfName("");
@@ -122,11 +126,21 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	sanitizeZelfNameInput() {
 		const control = this.zelfForm.get("zelfName");
 
-		if (control) {
-			// Replace spaces and special characters on the go
-			const sanitizedValue = control.value.replace(/[^a-zA-Z]/g, "");
-			control.setValue(sanitizedValue, { emitEvent: false }); // Update form control value without triggering events
+		if (!control) return;
+
+		// Remove invalid characters, ensure lowercase
+		let sanitizedValue = control.value.replace(/[^a-z0-9.-]/g, "").toLowerCase();
+
+		// Ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
+		sanitizedValue = sanitizedValue.replace(/^[^a-z]+|[.-]$/g, "");
+
+		// Limit to 20 characters
+		if (sanitizedValue.length > 20) {
+			sanitizedValue = sanitizedValue.substring(0, 20);
 		}
+
+		// Update form control value without triggering events
+		control.setValue(sanitizedValue, { emitEvent: false });
 	}
 
 	searchZelfName(): void {
@@ -144,30 +158,51 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			return; // Prevent further execution if validation fails
 		}
 
-		this._ipfsService
-			.queryByZelfName(zelfName)
+		this._zelfNameService
+			.searchZelfName(zelfName)
 			.then((response) => {
-				if (!response || !response.data || !response.data.length) return this._noZelfNameFound(zelfName);
+				if (response?.data.price) return this._noZelfNameFound(response?.data);
 
 				this._ipfsService.setZelfName(zelfName);
 
-				this._ipfsService.setZelfFile(response.data[0]);
+				this._zelfNameService.setZelfName(zelfName, 0);
+				this._ipfsService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
+				this._zelfNameService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
 
 				this._router.navigate(["/find-wallet"]);
 			})
 			.catch((exception) => {
-				console.error({ exception: exception.error });
-
-				if (exception.error.error === "ipfs_file_not_found") {
-					this._noZelfNameFound(zelfName);
-				}
+				console.error({ exception });
 			});
+
+		// this._ipfsService
+		// 	.queryByZelfName(zelfName)
+		// 	.then((response) => {
+		// 		if (!response || !response.data || !response.data.length) return this._noZelfNameFound(zelfName);
+
+		// 		this._ipfsService.setZelfName(zelfName);
+
+		// 		this._ipfsService.setZelfFile(response.data[0]);
+
+		// 		this._router.navigate(["/find-wallet"]);
+		// 	})
+		// 	.catch((exception) => {
+		// 		console.error({ exception: exception.error });
+
+		// 		if (exception.error.error === "ipfs_file_not_found") {
+		// 			this._noZelfNameFound(zelfName);
+		// 		}
+		// 	});
 	}
 
-	_noZelfNameFound(zelfName: string): void {
-		this._ipfsService.setZelfName(zelfName);
+	_noZelfNameFound(zelfNameOffer: any): void {
+		this._ipfsService.setZelfName(zelfNameOffer.zelfName);
 
 		this._ipfsService.setZelfFile(null);
+
+		this._zelfNameService.setZelfName(zelfNameOffer.zelfName, zelfNameOffer.price);
+
+		this._zelfNameService.setZelfFile(null);
 
 		this._router.navigate(["/new-zelf-name"]);
 	}

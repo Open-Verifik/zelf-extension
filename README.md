@@ -182,9 +182,9 @@ If you're using macOS and need to switch to **Node.js v20**, follow these steps:
 To create a production build of the Zelf Wallet extension:
 
 1. Run the build command:
-    ```bash
+  ```bash
     ng build --output-path=dist
-    ```
+  ```
 
 2. After the build completes, the artifacts will be located in the `dist/` directory.
 

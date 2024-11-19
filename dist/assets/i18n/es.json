@@ -5,8 +5,8 @@
 		"step_1_description": "Descubre ZNS (Zelf Name Service), el innovador servicio de nombres que te libera de recordar la frase semilla. Accede de manera segura y rápida utilizando tu ZNS",
 		"step_2": "ACCEDER CON ZELFPROOF",
 		"step_2_description": "ZelfProof es una representación binaria única y respetuosa de la privacidad, derivada de datos faciales, que asegura que ninguna información sensible se almacene o conserve durante el proceso.",
-		"step_3": "IPFS - ALMACENAMIENTO DESCENTRALIZADO",
-		"step_3_description": "Accede sin esfuerzo a tu billetera y frase semilla. Tu ZelfProof está almacenado de forma segura en una red IPFS descentralizada, dándote control total sin las molestias de gestionarlo por ti mismo.",
+		"step_3": "ALMACENAMIENTO DESCENTRALIZADO",
+		"step_3_description": "Accede sin esfuerzo a tu billetera y frase semilla. Tu ZelfProof está almacenado de forma segura en Arweave & IPFS, dándote control total sin las molestias de gestionarlo por ti mismo.",
 		"accept_terms_1": "Acepto los",
 		"accept_terms_2": "términos y condiciones",
 		"create_new_wallet": "Crear una nueva billetera",
@@ -98,7 +98,8 @@
 		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "El rostro está demasiado cerca del borde",
 		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "El ángulo del rostro es demasiado grande",
 		"ERR_INVALID_PASSWORD": "La contraseña para este ZelfProof es inválida",
-		"ERR_DESCRIPTION": "Asegúrate de seguir las instrucciones correctamente para desbloquear tu ZelfProof"
+		"ERR_DESCRIPTION": "Asegúrate de seguir las instrucciones correctamente para desbloquear tu ZelfProof",
+		"zelfName_is_taken": "Este nombre de Zelf ya está tomado"
 	},
 	"import_wallet": {
 		"step_zero": {

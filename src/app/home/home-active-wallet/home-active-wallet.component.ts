@@ -161,8 +161,6 @@ export class HomeActiveWalletComponent implements OnInit {
 		const wallet = (await this._chromeService.getItem("wallet")) || {};
 
 		this.wallet = new WalletModel(wallet);
-
-		console.log({ wallet: this.wallet });
 	}
 
 	downloadQRCode(): void {

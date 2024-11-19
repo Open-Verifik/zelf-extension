@@ -68,10 +68,9 @@ export class UnlockWalletComponent implements OnInit {
 
 				if (unlockWallet.ethAddress) {
 					this.wallet = unlockWallet;
+
 					clearInterval(interval); // Stop the interval once the wallet is set
 				}
-
-				// console.log({ unlockWallet, wallet: this.wallet });
 			});
 		}, 1000);
 	}

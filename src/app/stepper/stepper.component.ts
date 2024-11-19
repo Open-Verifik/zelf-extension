@@ -2,6 +2,7 @@ import { OnInit, Component, ContentChildren, Input, QueryList } from "@angular/c
 import { Router } from "@angular/router";
 import { StepComponent } from "app/step/step.component";
 import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
 	selector: "app-stepper",
@@ -19,7 +20,7 @@ export class StepperComponent implements OnInit {
 	routeMapping: any;
 	session: any;
 
-	constructor(private _router: Router, private _walletService: WalletService) {
+	constructor(private _router: Router, private _walletService: WalletService, private _zelfNameService: ZelfNameService) {
 		this.routeMapping = {
 			"/new-zelf-name": "/onboarding",
 			"/create-wallet": "/new-zelf-name",
@@ -27,7 +28,7 @@ export class StepperComponent implements OnInit {
 			"/import-wallet": "/new-zelf-name",
 		};
 
-		this.zelfName = localStorage.getItem("zelfName") || "";
+		this.zelfName = this._zelfNameService.getZelfName();
 
 		this.stepsMapping = {};
 

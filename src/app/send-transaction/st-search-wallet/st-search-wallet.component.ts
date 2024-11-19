@@ -83,7 +83,6 @@ export class StSearchWalletComponent implements OnInit {
 			.findWallet(this.walletToSearch)
 			.then((response) => {
 				this.potentialWallet = new WalletModel(response.data);
-				console.log({ response: this.potentialWallet });
 			})
 			.catch((error) => {
 				if (!this._ethService.checkIfValidAddress(this.walletToSearch)) {

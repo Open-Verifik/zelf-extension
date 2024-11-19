@@ -146,8 +146,6 @@ export class BiometricsComponent implements OnInit, OnDestroy {
 	}
 
 	async ngOnInit(): Promise<void> {
-		console.log({ type: this.type, data: this.data });
-
 		this._generateSession(this.type);
 
 		this.errorFace = null;

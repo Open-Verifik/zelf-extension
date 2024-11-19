@@ -29,6 +29,7 @@ export class WalletService {
 		wallet: null,
 	};
 	wallet: any;
+	zelfProof: string = "";
 
 	constructor(
 		private _httpWrapper: HttpWrapperService,
@@ -94,13 +95,11 @@ export class WalletService {
 			step.isCompleted = index < stepIndex;
 		});
 
-		const steps = [...this.sessionData.steps];
+		let steps = [...this.sessionData.steps];
 
 		this.sessionData.steps = [];
 
-		setTimeout(() => {
-			this.sessionData.steps = steps;
-		}, 150);
+		this.sessionData.steps = steps;
 	}
 
 	async restoreSession(): Promise<any> {
@@ -111,8 +110,6 @@ export class WalletService {
 		localStorage.removeItem("unlockWallet");
 
 		localStorage.removeItem("importWallet");
-
-		localStorage.removeItem("zelfName");
 
 		if (currentWallet.ethAddress) {
 			wallets.push(currentWallet);
@@ -270,6 +267,7 @@ export class WalletService {
 	}
 
 	previewWallet(zelfProof: string): Promise<any> {
+		this.zelfProof = zelfProof;
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
 			zelfProof,
 		});

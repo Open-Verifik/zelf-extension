@@ -71,8 +71,8 @@ import { WalletService } from "app/wallet.service";
 					<div class="view-wallet-qr-code-description">
 						{{ "create_wallet.view_wallet.qr_code_description" | transloco }}
 					</div>
-					<div class="view-wallet-download-container" fxLayout="row" fxLayoutAlign="center center">
-						<div class="view-wallet-icon" (click)="downloadImage()">
+					<div class="view-wallet-download-container" fxLayout="row" fxLayoutAlign="center center" (click)="downloadImage()">
+						<div class="view-wallet-icon">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
@@ -122,8 +122,6 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		const wallet = await this._chromeService.getItem(walletType);
 
 		this.wallet = new WalletModel(wallet);
-
-		console.log({ walleT: this.wallet });
 
 		if (!this.wallet.ethAddress) {
 			this._chromeService.removeItem(walletType);

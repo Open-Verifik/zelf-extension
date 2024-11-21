@@ -1,28 +1,53 @@
-// Background code or initialization tasks can be placed here
 console.log("Background service worker initialized");
-let isOpen = false;
 
-self.addEventListener("fetch", function (event) {
-	openFullPage();
-	if (event.request.mode === "navigate") {
-		event.respondWith(fetch(event.request).catch(() => caches.match("index.html")));
-	}
-});
+// Persistent state keys
+const TAB_OPEN_STORAGE_KEY = "isExtensionTabOpen";
+const TAB_ID_STORAGE_KEY = "extensionTabId";
 
+// Function to open the extension as a tab
 const openFullPage = () => {
-	if (isOpen) return;
-
-	chrome.storage.local.get(["wallet", "wallets"], (items) => {
+	chrome.storage.local.get([TAB_OPEN_STORAGE_KEY, TAB_ID_STORAGE_KEY, "wallet", "wallets"], (items) => {
+		const isTabOpen = items[TAB_OPEN_STORAGE_KEY] || false;
 		const wallet = items.wallet || {};
 		const wallets = items.wallets || [];
-
 		const walletKeys = Object.keys(wallet);
 
-		if (!walletKeys.length && wallets.length < 10) {
+		if (!isTabOpen && !walletKeys.length && wallets.length < 10) {
 			const url = chrome.runtime.getURL("index.html");
-			chrome.tabs.create({ url });
+
+			chrome.tabs.create({ url }, (tab) => {
+				if (tab.id) {
+					chrome.storage.local.set({
+						[TAB_OPEN_STORAGE_KEY]: true,
+						[TAB_ID_STORAGE_KEY]: tab.id,
+					});
+				}
+			});
 		}
 	});
-
-	isOpen = true;
 };
+
+// Listener for tab closure
+chrome.tabs.onRemoved.addListener((closedTabId) => {
+	chrome.storage.local.get([TAB_ID_STORAGE_KEY], (items) => {
+		if (items[TAB_ID_STORAGE_KEY] === closedTabId) {
+			chrome.storage.local.set({
+				[TAB_OPEN_STORAGE_KEY]: false,
+				[TAB_ID_STORAGE_KEY]: null,
+			});
+			console.log("Extension tab closed. State reset.");
+		}
+	});
+});
+
+// Trigger the full-page open on certain events
+chrome.action.onClicked.addListener(() => {
+	openFullPage();
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+	console.log("Extension installed or updated.");
+	openFullPage();
+});
+
+openFullPage();

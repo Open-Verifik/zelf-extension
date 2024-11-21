@@ -3,6 +3,7 @@ import { HttpWrapperService } from "./http-wrapper.service";
 import { environment } from "environments/environment";
 import * as openpgp from "openpgp";
 import { WalletService } from "./wallet.service";
+import { ChromeService } from "./chrome.service";
 
 @Component({
 	selector: "app-root",
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 	apiUrl: string = environment.apiUrl;
 	private publicKey!: string;
 
-	constructor(private _httpWrapperService: HttpWrapperService, private _walletService: WalletService) {}
+	constructor(private _httpWrapperService: HttpWrapperService, private _walletService: WalletService, private _chromeService: ChromeService) {}
 
 	ngOnInit(): void {
 		this._getPublicKey();

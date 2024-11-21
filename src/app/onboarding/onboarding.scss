@@ -1,3 +1,7 @@
+$maxExtraSmall: 595px;
+$minSmall: 600px;
+$medium: 768px;
+
 .onboarding-step-one {
 	width: 400px;
 	height: 100%;
@@ -157,4 +161,11 @@ h1 {
 	top: 3px;
 	position: absolute;
 	background: #43474e;
+}
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: $maxExtraSmall) {
+	.on-intro {
+		width: 99%;
+	}
 }

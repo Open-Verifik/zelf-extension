@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
+import { ChromeService } from "app/chrome.service";
 import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -40,17 +41,21 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	];
 	private intervalId: any;
 	activeIndex = 0;
+	isTab: boolean = false;
+	isTabOpen: boolean = false;
 
 	constructor(
 		private _router: Router,
-		private _translocoService: TranslocoService,
+		private _chromeService: ChromeService,
 		private _formBuilder: UntypedFormBuilder,
 		private _walletService: WalletService,
 		private _ipfsService: IpfsService,
 		private _zelfNameService: ZelfNameService
 	) {
 		this._walletService.restoreSession();
+
 		this._ipfsService.setZelfFile(null);
+
 		this._zelfNameService.setZelfName("", 0);
 	}
 
@@ -62,20 +67,24 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this._ipfsService.setZelfName("");
 
 		this.startRotation();
+
+		this.checkIfTabOrPopup();
+
+		this.checkIfTabOpen();
 	}
 
-	openFullPage(): void {
-		if (isTabOpen) return;
+	// Check if running as a tab or popup
+	checkIfTabOrPopup(): void {
+		this.isTab = !!window.location.search.includes("tab=true");
+	}
 
-		try {
-			const url = chrome.runtime.getURL("index.html");
+	// Check if a tab with the extension is already open
+	async checkIfTabOpen(): Promise<void> {
+		this.isTabOpen = await this._chromeService.isExtensionTabOpen();
+	}
 
-			chrome.tabs.create({ url });
-
-			isTabOpen = true; // Set the flag to prevent future invocations
-		} catch (exception) {
-			console.error("Failed to open tab:", exception);
-		}
+	openFullPage(force: boolean): void {
+		this._chromeService.openFullPage(force).catch(console.error);
 	}
 
 	startRotation(): void {
@@ -143,7 +152,22 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		control.setValue(sanitizedValue, { emitEvent: false });
 	}
 
-	searchZelfName(): void {
+	async _initSession(): Promise<any> {
+		let { hash } = this._walletService.generateUniqueId();
+
+		const session = await this._walletService.createLivenessSession({
+			identifier: hash,
+			type: "general",
+		});
+
+		if (session?.data) {
+			this._chromeService.setItem("accessToken", session.data.token);
+
+			console.log({ sessionToken: session.data.token });
+		}
+	}
+
+	async searchZelfName(): Promise<any> {
 		if (!this.zelfForm.valid) {
 			this.zelfForm.patchValue({ zelfName: "" });
 		}
@@ -157,6 +181,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 			return; // Prevent further execution if validation fails
 		}
+
+		await this._initSession();
 
 		this._zelfNameService
 			.searchZelfName(zelfName)

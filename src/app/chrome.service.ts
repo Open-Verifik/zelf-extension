@@ -4,10 +4,21 @@ import { Injectable } from "@angular/core";
 	providedIn: "root",
 })
 export class ChromeService {
-	constructor() {}
-
-	// Check if running in a Chrome extension environment
 	private isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
+	private tabStorageKey = "isTabOpen";
+
+	constructor() {
+		if (this.isExtension) {
+			chrome.tabs.onRemoved.addListener(async (closedTabId) => {
+				const storedTabId = await this.getItem("tabId");
+				if (storedTabId === closedTabId) {
+					// Reset the tab state
+					await this.setItem(this.tabStorageKey, false);
+					console.log("Tab closed. State reset.");
+				}
+			});
+		}
+	}
 
 	setItem(key: string, value: any): Promise<void> {
 		return new Promise((resolve, reject) => {
@@ -81,6 +92,46 @@ export class ChromeService {
 				} catch (error) {
 					reject(error);
 				}
+			}
+		});
+	}
+
+	async isExtensionTabOpen(): Promise<boolean> {
+		if (!this.isExtension) {
+			return false;
+		}
+
+		return new Promise((resolve) => {
+			const baseUrl = chrome.runtime.getURL("#/onboarding");
+
+			chrome.tabs.query({}, (tabs) => {
+				const isTabOpen = tabs.some((tab) => tab.url?.startsWith(baseUrl));
+				resolve(isTabOpen);
+			});
+		});
+	}
+
+	async openFullPage(force: boolean): Promise<void> {
+		if (!this.isExtension) return;
+
+		chrome.tabs.getCurrent((currentTab) => {
+			if (currentTab) return; // No need to open a new tab if running in the current tab
+
+			try {
+				const url = chrome.runtime.getURL("index.html");
+
+				chrome.tabs.create({ url }, async (tab) => {
+					if (tab.id) {
+						try {
+							await this.setItem(this.tabStorageKey, true);
+							await this.setItem("tabId", tab.id);
+						} catch (error) {
+							console.error("Failed to update tab state:", error);
+						}
+					}
+				});
+			} catch (exception) {
+				console.error("Failed to open tab:", exception);
 			}
 		});
 	}

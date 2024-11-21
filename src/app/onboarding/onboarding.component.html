@@ -1,7 +1,7 @@
 <div class="w-full h-full zelf-content" fxLayout="column" fxLayoutAlign="start center">
 	<!-- <header class="w-full"></header> -->
 	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
-		<img src="../../assets/images/full_logo_zns.svg" alt="" (click)="openFullPage()" class="cursor-pointer zns-logo" />
+		<img src="../../assets/images/full_logo_zns.svg" alt="" (click)="openFullPage(true)" class="cursor-pointer zns-logo" />
 
 		<language-picker></language-picker>
 	</div>
@@ -19,7 +19,7 @@
 				[class.active]="i === activeIndex"
 				class="carousel-container"
 			>
-				<div fxLayout="column" fxLayoutAlign="start center">
+				<div fxLayout="column" fxLayoutAlign="start center" (click)="openFullPage(true)">
 					<h3 class="main-title text-center">{{ item.title | transloco }}</h3>
 					<span>
 						{{ item.description | transloco }}
@@ -37,7 +37,7 @@
 		<form class="unlock-box" [formGroup]="zelfForm" #searchNgForm="ngForm" fxLayout="column" fxLayoutAlign="center center">
 			<h3 class="text-center m-0">{{ "onboarding.claim_your_zns" | transloco }}</h3>
 
-			<div class="unlock-input-box">
+			<div class="unlock-input-box" (click)="openFullPage(true)">
 				<div class="unlock-input-text-container">
 					<mat-form-field class="w-full">
 						<input

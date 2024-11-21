@@ -109,9 +109,11 @@ export class HomeComponent implements OnInit {
 	}
 
 	async _getWalletDetails(wallet: Wallet): Promise<any> {
+		if (!wallet) return;
+
 		this.wallet = wallet;
 
-		if (!this.wallet.ethAddress) return;
+		if (!this.wallet?.ethAddress) return;
 
 		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
 

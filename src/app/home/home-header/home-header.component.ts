@@ -12,45 +12,30 @@ import { WalletService } from "app/wallet.service";
 	template: `
 		<!-- HEADER -->
 		<div class="home-main-header" *ngIf="selectedNetwork">
-			<div class="home-header-left">
-				<div class="home-icon-container">
-					<div class="home-icon home-header-left" (click)="openNetworkPicker()">
-						<div class="home-icon-svg">
-							<!-- <img src="../../assets/images/sepolia.png" alt="" /> -->
-							<img [src]="'../../assets/images/' + selectedNetwork + '.png'" />
-						</div>
-
-						<div class="home-icon-svg">
-							<img class="home-icon-arrow-down" src="../../assets/images/arrow_down.svg" />
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="home-header-center" *ngIf="wallet">
-				<div class="home-account-info cursor-pointer" (click)="openAccountsPage()">
-					<div class="home-account-name">{{ wallet.name }}</div>
-
-					<div class="home-account-dropdown">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#1F1F1F" />
-						</svg>
-					</div>
-				</div>
-			</div>
-			<div class="home-header-right" *ngIf="wallet">
-				<div (click)="openActivePage()" class="home-wallet mr-2">
-					<div class="home-wallet-image">
-						<img [src]="wallet.image" *ngIf="wallet && wallet.image" />
-					</div>
-				</div>
-				<!-- <div class="home-wallet-icon" [matMenuTriggerFor]="settingsMenu">
-					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+			<div class="home-header-left" (click)="openAccountsPage()">
+				<h4 class="f-white pl-4">{{ shareables.wallet.publicData.zelfName }}</h4>
+				<div class="home-account-dropdown pl-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path
-							d="M12.5 8C13.6 8 14.5 7.1 14.5 6C14.5 4.9 13.6 4 12.5 4C11.4 4 10.5 4.9 10.5 6C10.5 7.1 11.4 8 12.5 8ZM12.5 10C11.4 10 10.5 10.9 10.5 12C10.5 13.1 11.4 14 12.5 14C13.6 14 14.5 13.1 14.5 12C14.5 10.9 13.6 10 12.5 10ZM12.5 16C11.4 16 10.5 16.9 10.5 18C10.5 19.1 11.4 20 12.5 20C13.6 20 14.5 19.1 14.5 18C14.5 16.9 13.6 16 12.5 16Z"
-							fill="#46464F"
+							d="M15.08 9.59L12 12.67L8.92 9.59L7.5 11L12 15.5L16.5 11L15.08 9.59ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
+							fill="white"
 						/>
 					</svg>
-				</div> -->
+				</div>
+			</div>
+
+			<div class="home-header-right" *ngIf="shareables.wallet">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
+					<path
+						d="M8 19.75C9.1 19.75 10 18.85 10 17.75H6C6 18.85 6.9 19.75 8 19.75ZM14 13.75V8.75C14 5.68 12.37 3.11 9.5 2.43V1.75C9.5 0.92 8.83 0.25 8 0.25C7.17 0.25 6.5 0.92 6.5 1.75V2.43C3.64 3.11 2 5.67 2 8.75V13.75L0 15.75V16.75H16V15.75L14 13.75ZM12 14.75H4V8.75C4 6.27 5.51 4.25 8 4.25C10.49 4.25 12 6.27 12 8.75V14.75Z"
+						fill="white"
+					/>
+				</svg>
+				<div (click)="openActivePage()" class="home-wallet mr-2">
+					<div class="home-wallet-image">
+						<img [src]="shareables.wallet.image" *ngIf="shareables.wallet && shareables.wallet.image" />
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -96,34 +81,14 @@ export class HomeHeaderComponent implements OnInit {
 		private _blockchainNetworkService: BlockchainNetworksService
 	) {
 		this.view = "home";
+
 		this.selectedTab = "assets";
 
 		this.selectedNetwork = this._blockchainNetworkService.getSelectedNetwork().toUpperCase();
 	}
 
 	async ngOnInit(): Promise<any> {
-		let wallet = await this._chromeService.getItem("wallet");
-
-		const wallets = (await this._chromeService.getItem("wallets")) || [];
-
-		if (!wallet && !wallets) {
-			this._router.navigate(["/onboarding"]);
-
-			return;
-		}
-
-		this.wallet = new WalletModel(wallet || {});
-
-		if ((!wallet && wallets) || !this.wallet.ethAddress) {
-			wallet = wallets[0];
-
-			if (!wallet) return;
-
-			this.wallet = new WalletModel(wallet);
-
-			this._chromeService.setItem("wallet", wallet);
-			// localStorage.setItem("wallet", JSON.stringify(wallet));
-		}
+		console.log("shareables", this.shareables);
 	}
 
 	openAccountsPage(): void {
@@ -142,3 +107,28 @@ export class HomeHeaderComponent implements OnInit {
 		this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
 	}
 }
+
+/**
+ * 	// let wallet = await this._chromeService.getItem("wallet");
+
+		// const wallets = (await this._chromeService.getItem("wallets")) || [];
+
+		// if (!wallet && !wallets) {
+		// 	this._router.navigate(["/onboarding"]);
+
+		// 	return;
+		// }
+
+		// this.wallet = new WalletModel(wallet || {});
+
+		// if ((!wallet && wallets) || !this.wallet.ethAddress) {
+		// 	wallet = wallets[0];
+
+		// 	if (!wallet) return;
+
+		// 	this.wallet = new WalletModel(wallet);
+
+		// 	this._chromeService.setItem("wallet", wallet);
+		// 	// localStorage.setItem("wallet", JSON.stringify(wallet));
+		// }
+ */

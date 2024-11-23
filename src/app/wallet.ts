@@ -2,11 +2,13 @@ export class WalletPublicDataModel {
 	ethAddress: string;
 	solanaAddress: string;
 	_id: string;
+	zelfName: string;
 
 	constructor(data: any) {
 		this.ethAddress = data.ethAddress || "";
 		this.solanaAddress = data.solanaAddress || "";
 		this._id = data._id || "offline";
+		this.zelfName = data.zelfName;
 	}
 }
 
@@ -106,6 +108,7 @@ export class WalletModel implements Wallet {
 export interface WalletPublicData {
 	ethAddress: string;
 	solanaAddress: string;
+	zelfName: string;
 	_id: string;
 }
 

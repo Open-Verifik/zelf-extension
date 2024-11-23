@@ -1,3 +1,9 @@
+$maxExtraSmall: 595px;
+$minSmall: 600px;
+$medium: 768px;
+$large: 889px;
+$computers: 1200px;
+
 .home-main {
 	background: white;
 	min-width: 440px !important;
@@ -15,8 +21,8 @@
 
 .home-main-header {
 	width: 100%;
-	height: 60px;
-	background: white;
+	height: 52px;
+	background: black;
 	box-shadow: 0px 2px 4px 1px rgba(97, 97, 97, 0.28);
 	justify-content: space-between;
 	align-items: center;
@@ -167,7 +173,7 @@
 
 .home-balance {
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 4px;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
@@ -188,10 +194,10 @@
 	text-align: center;
 	color: #444746;
 	font-size: 32px;
-	font-family: Poppins;
 	font-weight: 500;
 	line-height: 40px;
 	word-wrap: break-word;
+	margin: 16px;
 }
 
 .home-balance-value {
@@ -225,8 +231,8 @@
 }
 
 .home-action-icon {
-	padding: 8px;
-	background: #dee0ff;
+	padding: 12px;
+	background: white;
 	border-radius: 16px;
 	display: inline-flex;
 	justify-content: flex-start;
@@ -236,8 +242,8 @@
 }
 
 .home-action-icon-box {
-	width: 24px;
-	height: 24px;
+	width: 28px;
+	height: 28px;
 	position: relative;
 }
 
@@ -270,7 +276,7 @@
 }
 
 .home-selected-tab {
-	border-bottom: 3px solid blue;
+	border-bottom: 3px solid black;
 	flex-direction: row;
 	font-weight: 800;
 }
@@ -449,11 +455,28 @@
 }
 
 .activity-content {
-	height: 400px;
+	min-height: 450px;
 	overflow: scroll;
+	background: white;
+}
+
+.home-actions-container {
+	min-height: 200px;
 }
 
 .home-icon-arrow-down {
 	position: relative;
 	bottom: 2px;
+}
+
+.home-container {
+	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
+}
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: $maxExtraSmall) {
+	.activity-content {
+		min-height: 280px;
+		max-height: 280px;
+	}
 }

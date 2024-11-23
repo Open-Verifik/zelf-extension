@@ -1,7 +1,7 @@
 {
-	"name": "verifik-wallet",
+	"name": "zelf-name-service",
 	"version": "1.0.0",
-	"description": "Verifik Wallet",
+	"description": "Zelf Name Service",
 	"author": "https://verifik.co",
 	"license": ".",
 	"private": true,

@@ -10,59 +10,48 @@
 
 		<home-network-picker [shareables]="shareables" *ngIf="shareables.view === 'networkPickerPage'"></home-network-picker>
 
-		<div *ngIf="shareables.view === 'home'" class="w-full">
-			<!-- Address -->
-			<div fxLayout="row" fxLayoutAlign="center center">
-				<div class="home-wallet-info" fxLayout="row" fxLayoutAlign="center center">
-					<div class="home-wallet-address">{{ getAddress() }}</div>
-					<div class="home-wallet-copy">
-						<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
-							<path d="M5.83398 4.66699H13.1673V14.0003H5.83398V4.66699Z" fill="#010333" />
-							<path
-								d="M11.1673 0.666992H3.16732C2.43398 0.666992 1.83398 1.26699 1.83398 2.00033V11.3337H3.16732V2.00033H11.1673V0.666992ZM13.1673 3.33366H5.83398C5.10065 3.33366 4.50065 3.93366 4.50065 4.66699V14.0003C4.50065 14.7337 5.10065 15.3337 5.83398 15.3337H13.1673C13.9007 15.3337 14.5007 14.7337 14.5007 14.0003V4.66699C14.5007 3.93366 13.9007 3.33366 13.1673 3.33366ZM13.1673 14.0003H5.83398V4.66699H13.1673V14.0003Z"
-								fill="#010333"
-							/>
-						</svg>
+		<div *ngIf="shareables.view === 'home'" class="w-full home-container">
+			<div class="home-actions-container">
+				<!-- end of Address -->
+				<div class="home-balance" *ngIf="selectedAsset">
+					<div class="home-balance-info">
+						<h3 class="home-balance-amount">${{ selectedAsset.fiatBalance }}</h3>
+						<!-- <div class="home-balance-value">$ {{ selectedAsset.fiatBalance }}</div> -->
 					</div>
 				</div>
-			</div>
-			<!-- end of Address -->
-			<div class="home-balance" *ngIf="selectedAsset">
-				<div class="home-balance-info">
-					<div class="home-balance-amount">{{ selectedAsset.balance }} ETH</div>
-					<div class="home-balance-value">$ {{ selectedAsset.fiatBalance }}</div>
+
+				<!-- actions -->
+				<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
+					<div class="home-action">
+						<div class="home-action-icon">
+							<div class="home-action-icon-box">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 25 24" fill="none">
+									<path
+										d="M12.5 4C16.91 4 20.5 7.59 20.5 12C20.5 16.41 16.91 20 12.5 20C8.09 20 4.5 16.41 4.5 12C4.5 7.59 8.09 4 12.5 4ZM12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM13.5 12V8H11.5V12H8.5L12.5 16L16.5 12H13.5Z"
+										fill="#010333"
+									/>
+								</svg>
+							</div>
+						</div>
+						<div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
+					</div>
+					<div class="home-action">
+						<div class="home-action-icon" (click)="sendTransaction()">
+							<div class="home-action-icon-box">
+								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 25 24" fill="none">
+									<path
+										d="M9.79563 5.7041C9.79563 6.2641 10.2456 6.7041 10.7956 6.7041H16.3856L5.49562 17.5941C5.10563 17.9841 5.10563 18.6141 5.49562 19.0041C5.88563 19.3941 6.51563 19.3941 6.90563 19.0041L17.7956 8.1141V13.7041C17.7956 14.2541 18.2456 14.7041 18.7956 14.7041C19.3456 14.7041 19.7956 14.2541 19.7956 13.7041V5.7041C19.7956 5.1541 19.3456 4.7041 18.7956 4.7041H10.7956C10.2456 4.7041 9.79563 5.1541 9.79563 5.7041Z"
+										fill="#010333"
+									/>
+								</svg>
+							</div>
+						</div>
+						<div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
+					</div>
 				</div>
+				<!-- end of actions -->
 			</div>
-			<!-- actions -->
-			<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
-				<!-- <div class="home-action">
-					<div class="home-action-icon">
-						<div class="home-action-icon-box">
-							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-								<path
-									d="M12.5 4C16.91 4 20.5 7.59 20.5 12C20.5 16.41 16.91 20 12.5 20C8.09 20 4.5 16.41 4.5 12C4.5 7.59 8.09 4 12.5 4ZM12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM13.5 12V8H11.5V12H8.5L12.5 16L16.5 12H13.5Z"
-									fill="#010333"
-								/>
-							</svg>
-						</div>
-					</div>
-					<div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
-				</div> -->
-				<!-- <div class="home-action">
-					<div class="home-action-icon" (click)="sendTransaction()">
-						<div class="home-action-icon-box">
-							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-								<path
-									d="M9.79563 5.7041C9.79563 6.2641 10.2456 6.7041 10.7956 6.7041H16.3856L5.49562 17.5941C5.10563 17.9841 5.10563 18.6141 5.49562 19.0041C5.88563 19.3941 6.51563 19.3941 6.90563 19.0041L17.7956 8.1141V13.7041C17.7956 14.2541 18.2456 14.7041 18.7956 14.7041C19.3456 14.7041 19.7956 14.2541 19.7956 13.7041V5.7041C19.7956 5.1541 19.3456 4.7041 18.7956 4.7041H10.7956C10.2456 4.7041 9.79563 5.1541 9.79563 5.7041Z"
-									fill="#010333"
-								/>
-							</svg>
-						</div>
-					</div>
-					<div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
-				</div> -->
-			</div>
-			<!-- end of actions -->
+
 			<div class="home-tabs">
 				<!--  -->
 				<div fxLayout="row" fxLayoutAlign="start center" class="w-full">
@@ -86,7 +75,7 @@
 						<span> {{ "home.NFTs" | transloco }} </span>
 					</div>
 
-					<div
+					<!-- <div
 						class="w-50p home-tab"
 						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'activity' }"
 						fxLayout="row"
@@ -94,7 +83,7 @@
 						(click)="selectTab('activity')"
 					>
 						<span> {{ "home.activity" | transloco }} </span>
-					</div>
+					</div> -->
 				</div>
 			</div>
 
@@ -109,6 +98,8 @@
 			<div class="activity-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
 				<token-card class="w-full" [data]="token" *ngFor="let token of tokens"></token-card>
 			</div>
+
+			<footer></footer>
 		</div>
 	</div>
 </div>

@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 		this.shareables = {
 			view: this.view,
 			selectedTab: "assets",
+			wallet: {},
 		};
 
 		this.NFTs = [];
@@ -104,6 +105,8 @@ export class HomeComponent implements OnInit {
 
 			this._chromeService.setItem("wallet", wallet || "");
 		}
+
+		this.shareables.wallet = wallet;
 
 		return wallet;
 	}

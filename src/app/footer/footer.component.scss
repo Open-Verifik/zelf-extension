@@ -1,7 +1,55 @@
 .footer {
-	background: white;
-	height: 60px;
-	position: relative;
-	top: -100px;
-	color: grey;
+	width: 100%;
+	height: 40px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background: #181818;
+	justify-content: center;
+	align-items: center;
+	display: inline-flex;
+}
+
+$maxExtraSmall: 595px;
+$minSmall: 600px;
+$medium: 768px;
+$large: 889px;
+$computers: 1200px;
+
+.footer-home {
+	flex: 1 1 0;
+	height: 29px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	display: flex;
+}
+
+.footer-zns {
+	height: 40px;
+	width: 30%;
+	border-radius: 8px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	display: flex;
+	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
+}
+
+.footer-activity {
+	flex: 1 1 0;
+	height: 29px;
+	opacity: 0.5;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	display: flex;
+}
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: $maxExtraSmall) {
+	.footer {
+		position: absolute;
+		bottom: 0px;
+		left: 1px;
+	}
 }

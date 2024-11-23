@@ -1,8 +1,8 @@
 {
 	"manifest_version": 3,
-	"name": "Zelf Wallet",
+	"name": "Zelf Name Service",
 	"version": "1.0",
-	"description": "Zelf Wallet",
+	"description": "We solved the unsolvable, now you can never lose access to your crypto",
 	"icons": {
 		"48": "assets/icons/icon.png"
 	},

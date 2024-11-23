@@ -114,6 +114,10 @@ body {
 	background-color: white;
 }
 
+.f-white {
+	color: white !important;
+}
+
 $maxExtraSmall: 595px;
 $minSmall: 600px;
 $medium: 768px;
@@ -229,12 +233,20 @@ $computers: 1200px;
 	padding-right: 1.5rem;
 }
 
+.pr-2 {
+	padding-right: 0.5rem;
+}
+
 .pr-4 {
 	padding-right: 1rem;
 }
 
 .pr-6 {
 	padding-right: 1.5rem;
+}
+
+.pl-2 {
+	padding-left: 0.5rem;
 }
 
 .pl-4 {
@@ -719,7 +731,8 @@ $computers: 1200px;
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
 	font-family: "Menda", sans-serif;
 }
 

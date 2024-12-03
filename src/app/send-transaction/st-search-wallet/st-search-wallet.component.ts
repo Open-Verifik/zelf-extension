@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
@@ -7,6 +7,7 @@ import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 import { environment } from "environments/environment";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 
@@ -17,6 +18,7 @@ import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 	encapsulation: ViewEncapsulation.None,
 })
 export class StSearchWalletComponent implements OnInit {
+	@Input() shareables: any;
 	searchForm!: UntypedFormGroup;
 	searchQuery$!: Observable<string>;
 	potentialWallet: any;
@@ -25,6 +27,7 @@ export class StSearchWalletComponent implements OnInit {
 	loaded: boolean;
 	destination!: any;
 	walletToSearch!: string;
+	domainToPurchase!: any;
 
 	constructor(
 		private _formBuilder: UntypedFormBuilder,
@@ -33,7 +36,8 @@ export class StSearchWalletComponent implements OnInit {
 		private _chromeService: ChromeService,
 		private _transactionService: TransactionService,
 		private _router: Router,
-		private _ethService: EthereumService
+		private _ethService: EthereumService,
+		private _zelfNameService: ZelfNameService
 	) {
 		this.loaded = false;
 	}
@@ -57,54 +61,105 @@ export class StSearchWalletComponent implements OnInit {
 			address: ["", []],
 		});
 
-		this.searchQuery$ = this.searchForm.get("address")!.valueChanges.pipe(
-			debounceTime(1000), // wait for 300ms pause in events
-			distinctUntilChanged(), // ignore if next search query is same as previous
-			map((value) => value.trim()) // map the value to the trimmed string
-		);
-
-		this.searchQuery$.subscribe((query) => {
-			this.walletToSearch = query;
-
-			this.triggerSearch();
-		});
-
 		this.loaded = true;
 	}
 
-	triggerSearch(): void {
+	async pasteFromClipboard() {
+		try {
+			// Check if the Clipboard API is supported
+			if (navigator.clipboard && navigator.clipboard.readText) {
+				const clipboardText = await navigator.clipboard.readText();
+
+				if (clipboardText.trim()) {
+					this.searchForm.patchValue({ address: clipboardText });
+
+					this.potentialWallet = clipboardText;
+
+					this.triggerSearch();
+				}
+			} else {
+				console.error("Clipboard API is not supported in your browser.");
+			}
+		} catch (error) {
+			console.error("Failed to read clipboard content:", error);
+		}
+	}
+
+	triggerSearch(triggeredBy: string = "subscribe"): void {
+		this.shareables.loading = true;
+
+		this.domainToPurchase = null;
+
+		if (triggeredBy === "enter" && this.searchForm.value.address.trim()) {
+			this.walletToSearch = this.searchForm.value.address;
+		}
+
 		if (!this.walletToSearch) {
 			this.potentialWallet = null;
+
+			this.shareables.loading = false;
+			return;
+		}
+
+		const key = this.walletToSearch.includes(".zelf") ? "zelfName" : "ethAddress";
+
+		this._zelfNameService
+			.searchZelfName(key, this.walletToSearch)
+			.then((response) => {
+				if (!response.data || response.data.price) {
+					this._validateAddress(response.data);
+
+					this.shareables.loading = false;
+					return;
+				}
+
+				const zelfProofObject = (response.data.arweave || response.data.ipfs)[0];
+
+				// found the zelf name
+				this.potentialWallet = new WalletModel(zelfProofObject);
+
+				this.shareables.loading = false;
+			})
+			.catch((error) => {
+				console.error({ error });
+
+				this.startAgain();
+			});
+	}
+
+	_validateAddress(payload: any): void {
+		if (this.walletToSearch.includes(".zelf") && payload.price) {
+			// it can be purchased
+			this.domainToPurchase = payload;
 
 			return;
 		}
 
-		this._walletService
-			.findWallet(this.walletToSearch)
-			.then((response) => {
-				this.potentialWallet = new WalletModel(response.data);
-			})
-			.catch((error) => {
-				if (!this._ethService.checkIfValidAddress(this.walletToSearch)) {
-					this.snackBar.open("account not found", "OK");
+		this.domainToPurchase = null;
 
-					this.startAgain();
+		if (!this._ethService.checkIfValidAddress(this.walletToSearch)) {
+			this.snackBar.open("account not found", "OK");
 
-					return;
-				}
+			this.startAgain();
 
-				this.potentialWallet = new WalletModel({
-					ethAddress: this.walletToSearch,
-				});
-			});
+			return;
+		}
+
+		this.potentialWallet = new WalletModel({
+			ethAddress: this.walletToSearch,
+		});
 	}
 
 	startAgain(): void {
 		this.potentialWallet = null;
 
-		this.session.identifier = null;
+		if (this.session) {
+			this.session.identifier = null;
+		}
 
 		this.searchForm.patchValue({ address: "" });
+
+		this.shareables.loading = false;
 	}
 
 	selectAccount(wallet: Wallet): void {
@@ -115,5 +170,13 @@ export class StSearchWalletComponent implements OnInit {
 		this._chromeService.setItem("temp_transactionData", { receiver: wallet });
 
 		this._router.navigate(["/send-transaction-preview"]);
+	}
+
+	isZNSCardVisible(): boolean {
+		const isVisible = Boolean(
+			(this.potentialWallet && !this.potentialWallet?.name) || (this.domainToPurchase && this.domainToPurchase.zelfName === this.walletToSearch)
+		);
+
+		return isVisible;
 	}
 }

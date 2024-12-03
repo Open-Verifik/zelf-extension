@@ -66,6 +66,7 @@ import { TokenCardComponent } from "./home/token-card/token-card.component";
 import { NftCardComponent } from "./home/nft-card/nft-card.component";
 import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 //
 //
 //
@@ -141,6 +142,7 @@ import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 		MatInputModule,
 		MatSnackBarModule,
 		MatDividerModule,
+		MatProgressBarModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

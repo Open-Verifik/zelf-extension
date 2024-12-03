@@ -66,8 +66,7 @@ export class WalletModel implements Wallet {
 	assets: Array<Asset>;
 
 	constructor(data: any = {}) {
-		this.name =
-			["Account NaN", "Account 1"].includes(data.name) && data.index !== undefined ? `Account ${data.index + 1}` : data.name || "Account";
+		this.name = data.name || data.zelfName || data.publicData?.zelfName;
 
 		this.anonymous = data.anonymous || true;
 
@@ -95,7 +94,7 @@ export class WalletModel implements Wallet {
 
 		this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || data.publicData?.hasPassword === "true");
 		this.zelfProof = data.zelfProof;
-		this.image = data.image;
+		this.image = data.image || data.zelfProofQRCode || data.url;
 		this.publicData = secondaryStorage;
 		this.zkProof = data.zkProof;
 		this._id = data._id;

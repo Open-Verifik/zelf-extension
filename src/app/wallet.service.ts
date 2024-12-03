@@ -35,7 +35,7 @@ export class WalletService {
 		private _httpWrapper: HttpWrapperService,
 		private _translocoService: TranslocoService,
 		private _breakpointObserver: BreakpointObserver,
-		private chromeService: ChromeService
+		private _chromeService: ChromeService
 	) {
 		this.deviceData = this.getDeviceDetails();
 
@@ -61,7 +61,7 @@ export class WalletService {
 	getWallet() {
 		if (this.wallet) return this.wallet;
 
-		const wallet = this.chromeService.getItem("wallet");
+		const wallet = this._chromeService.getItem("wallet");
 
 		return wallet;
 	}
@@ -103,9 +103,9 @@ export class WalletService {
 	}
 
 	async restoreSession(): Promise<any> {
-		const wallets = (await this.chromeService.getItem("wallets")) || [];
+		const wallets = (await this._chromeService.getItem("wallets")) || [];
 
-		const currentWallet = new WalletModel((await this.chromeService.getItem("wallet")) || {});
+		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
 
 		localStorage.removeItem("unlockWallet");
 
@@ -114,10 +114,10 @@ export class WalletService {
 		if (currentWallet.ethAddress) {
 			wallets.push(currentWallet);
 
-			this.chromeService.setItem("wallets", wallets);
+			this._chromeService.setItem("wallets", wallets);
 			// localStorage.setItem("wallets", JSON.stringify(wallets));
 
-			this.chromeService.removeItem("wallet");
+			this._chromeService.removeItem("wallet");
 			// localStorage.removeItem("wallet");
 		}
 
@@ -331,7 +331,7 @@ export class WalletService {
 			wallet.assets.push(syncingAsset);
 		}
 
-		this.chromeService.setItem("wallet", wallet);
+		this._chromeService.setItem("wallet", wallet);
 
 		if (!index) {
 			for (let _index = 0; _index < wallets.length; _index++) {
@@ -344,7 +344,37 @@ export class WalletService {
 		if (index !== undefined) {
 			wallets[index] = wallet;
 
-			this.chromeService.setItem("wallets", wallets);
+			this._chromeService.setItem("wallets", wallets);
 		}
+	}
+
+	/**
+	 * returns my current wallet
+	 * @returns Wallet
+	 */
+	async retrieveWallet(): Promise<any> {
+		let wallet = await this._chromeService.getItem("wallet");
+
+		const wallets = (await this._chromeService.getItem("wallets")) || [];
+
+		if (!wallet && (!wallets || !wallets.length)) return null;
+
+		if (wallet) wallet = new WalletModel(wallet);
+
+		if (!wallet?.ethAddress && wallets) {
+			wallet = new WalletModel(wallets[0]);
+
+			this._chromeService.setItem("wallet", wallet || "");
+		}
+
+		return wallet;
+	}
+
+	getShortAddress(address: string): string {
+		const firstPart = address.slice(0, 12);
+
+		const lastPart = address.slice(-8);
+
+		return `${firstPart}...${lastPart}`;
 	}
 }

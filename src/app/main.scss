@@ -43,6 +43,12 @@ body {
 	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
 }
 
+.home-main {
+	background: white;
+	width: 440px;
+	height: 600px;
+}
+
 .loader {
 	position: absolute;
 	width: 100%;
@@ -720,13 +726,20 @@ $computers: 1200px;
 .main-button {
 	background-color: black !important;
 	color: white !important;
-	height: 45px !important;
+	height: 52px !important;
 	font-size: 18px;
+	width: 100%;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 .main-title {
 	margin-top: 0px !important;
 	color: black !important;
+}
+
+.font-18 {
+	font-size: 18px !important;
 }
 
 h1,
@@ -908,7 +921,7 @@ h3 {
 }
 
 .text-grey {
-	color: grey;
+	color: rgba(128, 128, 128, 0.694) !important;
 }
 
 .zpan {

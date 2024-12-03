@@ -1,116 +1,62 @@
 <div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center" *ngIf="transactionData">
 	<div class="home-main" fxLayout="column" fxLayoutAlign="space-between start">
 		<div class="w-full">
-			<div class="st-confirm-header">
-				<div class="st-confirm-edit-btn">
-					<div class="st-confirm-edit-text-container" (click)="goBack()">
-						<img src="../../../assets/images/arrow_back.svg" alt="" />
-						<div class="st-confirm-edit-text">
-							{{ "common.edit" | transloco }}
-						</div>
-					</div>
+			<!-- header here -->
+			<div class="w-full" fxLayout="row" fxLayoutAlign="start center" class="send-transaction-header">
+				<div (click)="cancel()">
+					<svg class="ml-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="white" />
+					</svg>
 				</div>
-				<div class="st-confirm-network-btn">
-					<div class="st-confirm-network-text-container">
-						<img class="st-confirm-network-icon" src="https://via.placeholder.com/18x18" />
-						<div class="st-confirm-network-text">Callisto Network</div>
-						<div class="st-confirm-network-arrow"></div>
+
+				<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+					<h4 class="m-0">
+						{{ "send_transaction.confirmation_step" | transloco }}
+					</h4>
+				</div>
+			</div>
+			<!-- end of header -->
+			<!-- main content -->
+			<div class="w-full p-4" fxLayout="column" fxLayoutAlign="start center">
+				<h2>$100.00 USDT</h2>
+
+				<div class="st-confirmation-table" fxLayout="column" fxLayoutAlign="start start">
+					<div class="st-confirmation-table-row" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Withdrawal network </small>
+
+						<small> ETH ERC-20 </small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Address </small>
+
+						<small> 0x293AE4CCc60Fd539751687DAF16gf67</small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Coin </small>
+
+						<small> USDT</small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Fee </small>
+
+						<small> $2.78</small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Total </small>
+
+						<small> $102.78</small>
 					</div>
 				</div>
 			</div>
-
-			<div class="st-confirm-accounts-container" fxLayout="row" fxLayoutAlign="space-between center">
-				<div class="st-confirm-account" *ngIf="transactionData.sender">
-					<div class="st-confirm-account-details">
-						<div class="st-confirm-account-icon-container">
-							<img [src]="transactionData.sender.image || '../../../assets/images/unknown_wallet.svg'" alt="" />
-						</div>
-						<div class="st-confirm-account-text-container">
-							<div class="st-confirm-account-text">{{ transactionData.sender.displayEthAddress }}</div>
-						</div>
-					</div>
-				</div>
-				<img src="../../../assets/images/transfer_icon.svg" alt="" />
-
-				<div class="st-confirm-account">
-					<div class="st-confirm-account-selected">
-						<div class="st-confirm-account-selected-icon-container">
-							<img [src]="transactionData.receiver.image || '../../../assets/images/unknown_wallet.svg'" alt="" />
-						</div>
-						<div class="st-confirm-account-text-container">
-							<div class="st-confirm-account-text">{{ transactionData.receiver.displayEthAddress }}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="st-confirm-summary-container">
-				<div class="st-confirm-summary">
-					<div class="st-confirm-sending-status">
-						<div class="st-confirm-sending-status-text">
-							{{
-								"send_transaction.confirm.sending_label"
-									| transloco : { amount: transactionData.amount, asset: transactionData.asset }
-							}}
-						</div>
-					</div>
-					<div class="st-confirm-sending-amount-container">
-						<div class="st-confirm-sending-amount">
-							<img class="st-confirm-amount-icon" [src]="'../../../assets/images/' + transactionData.asset + '.png'" />
-							<div class="st-confirm-amount-text-container">
-								<div class="st-confirm-amount-text">{{ transactionData.amount }}</div>
-							</div>
-						</div>
-						<div class="st-confirm-amount-value-container">
-							<div class="st-confirm-amount-value">${{ transactionData.price }}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="st-confirm-market-container">
-				<div class="st-confirm-market-header">
-					<div class="st-confirm-market-text">
-						{{ "send_transaction.confirm.market" | transloco }}
-					</div>
-				</div>
-
-				<div class="st-confirm-market-details">
-					<div class="st-confirm-market-item" fxLayout="row" fxLayoutAlign="start start">
-						<div class="st-confirm-market-gas" fxLayout="column" fxLayoutAlign="start start">
-							<div class="st-confirm-market-gas-text-container">
-								<div class="st-confirm-market-gas-text">{{ "send_transaction.confirm.gas_label" | transloco }}</div>
-							</div>
-						</div>
-						<div class="st-confirm-market-gas-amount-container" fxLayout="column" fxLayoutAlign="start start" *ngIf="gasPrices">
-							<div class="st-confirm-market-gas-amount">{{ displayGasInUSD(gasPrices.ProposeGasPrice) }}</div>
-							<div class="st-confirm-market-gas-max-container">
-								<span class="st-confirm-market-gas-max-text"
-									>{{ "send_transaction.confirm.max_gas" | transloco }} {{ displayGasInUSD(gasPrices.FastGasPrice) }}</span
-								>
-							</div>
-						</div>
-					</div>
-
-					<div class="st-confirm-market-item" fxLayout="row" fxLayoutAlign="start start" *ngIf="gasPrices">
-						<div class="st-confirm-market-total">
-							<div class="st-confirm-market-total-text">{{ "common.total" | transloco }}</div>
-							<div class="st-confirm-market-total-info">{{ "send_transaction.confirm.total_to_pay_label" | transloco }}</div>
-						</div>
-						<div class="st-confirm-market-total-amount-container" fxLayout="column" fxLayoutAlign="end start">
-							<div class="st-confirm-market-total-amount">{{ getTotal(gasPrices.ProposeGasPrice) | number : "1.0-5" }}</div>
-							<div class="st-confirm-market-total-max-container">
-								<span class="st-confirm-market-total-max-text">{{ "send_transaction.confirm.max_total" | transloco }}</span>
-								<span class="st-confirm-market-total-max-amount"> {{ getTotal(gasPrices.FastGasPrice) | number : "1.0-5" }}</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<!-- end of main content -->
 		</div>
 
 		<div fxLayout="row" fxLayoutAlign="center center" class="w-full px-3 pb-4">
-			<button mat-raised-button class="rounded-button main-button" (click)="goNext()">
+			<button mat-raised-button class="main-button" (click)="goNext()">
 				{{ "send_transaction.confirm_transaction_button" | transloco }}
 			</button>
 		</div>

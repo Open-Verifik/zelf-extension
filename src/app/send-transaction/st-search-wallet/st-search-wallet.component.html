@@ -1,39 +1,44 @@
-<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded">
-	<div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
-	<div class="unlock-input-box">
-		<div class="unlock-input-text-container">
-			<mat-form-field class="w-full">
-				<input type="text" matInput [formControlName]="'address'" />
-			</mat-form-field>
+<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded" fxLayout="column" fxLayoutAlign="space-between start">
+	<!-- search section -->
+	<div class="w-full">
+		<div fxLayout="row" fxLayoutAlign="start start" class="w-full">
+			<span class="font-bold"> Address or Zelf name </span>
 		</div>
-		<div class="unlock-icon-container">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-				<path
-					fill-rule="evenodd"
-					clip-rule="evenodd"
-					d="M14.76 13.27L20.49 19L19 20.49L13.27 14.76C12.2 15.53 10.91 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 10.91 15.53 12.2 14.76 13.27ZM9.5 5C7.01 5 5 7.01 5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5Z"
-					fill="#43474E"
-				/>
-			</svg>
+		<div class="unlock-input-box">
+			<div class="unlock-input-text-container">
+				<mat-form-field class="w-full">
+					<input type="text" matInput [formControlName]="'address'" (keydown.enter)="triggerSearch('enter')" />
+				</mat-form-field>
+			</div>
+			<div class="paste-button" (click)="pasteFromClipboard()">
+				<small>PASTE</small>
+			</div>
+			<div class="unlock-icon-container">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<path
+						d="M21 4C19.89 3.65 18.67 3.5 17.5 3.5C15.55 3.5 13.45 3.9 12 5C10.55 3.9 8.45 3.5 6.5 3.5C4.55 3.5 2.45 3.9 1 5V19.65C1 19.9 1.25 20.15 1.5 20.15C1.6 20.15 1.65 20.1 1.75 20.1C3.1 19.45 5.05 19 6.5 19C8.45 19 10.55 19.4 12 20.5C13.35 19.65 15.8 19 17.5 19C19.15 19 20.85 19.3 22.25 20.05C22.35 20.1 22.4 20.1 22.5 20.1C22.75 20.1 23 19.85 23 19.6V5C22.4 4.55 21.75 4.25 21 4ZM21 17.5C19.9 17.15 18.7 17 17.5 17C15.8 17 13.35 17.65 12 18.5V7C13.35 6.15 15.8 5.5 17.5 5.5C18.7 5.5 19.9 5.65 21 6V17.5Z"
+						fill="black"
+					/>
+				</svg>
+			</div>
 		</div>
-	</div>
 
-	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="potentialWallet">
-		<h3>
-			{{ "send_transaction.account_found" | transloco }}
-		</h3>
+		<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="potentialWallet">
+			<h3>
+				{{ "send_transaction.account_found" | transloco }}
+			</h3>
 
-		<wallet-card
-			(click)="selectAccount(potentialWallet)"
-			class="p-1 w-full cursor-pointer"
-			[wallet]="potentialWallet"
-			[wallets]="[potentialWallet]"
-			[variables]="{ index: 0, hideActions: true, hideBalances: true, origin: 'sendTransaction' }"
-		></wallet-card>
+			<wallet-card
+				class="p-1 w-full"
+				[wallet]="potentialWallet"
+				[wallets]="[potentialWallet]"
+				[variables]="{ index: 0, hideActions: true, hideBalances: true, origin: 'sendTransaction' }"
+			></wallet-card>
+		</div>
 	</div>
 
 	<!-- your accounts -->
-	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet && myAccounts.length">
+	<!-- <div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet && myAccounts.length">
 		<h3>
 			{{ "send_transaction.your_accounts" | transloco }}
 		</h3>
@@ -46,5 +51,76 @@
 			[wallets]="myAccounts"
 			[variables]="{ index: _index, hideActions: true, hideBalances: true, origin: 'sendTransaction' }"
 		></wallet-card>
+	</div> -->
+
+	<div class="w-full">
+		<div class="st-send-transaction-card" *ngIf="isZNSCardVisible()">
+			<div class="st-send-transaction-header" fxLayout="row" fxLayoutAlign="center center">
+				<div class="st-send-transaction-status-icon">
+					<svg *ngIf="!domainToPurchase" xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+						<path
+							d="M12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM10.5 17L5.5 12L6.91 10.59L10.5 14.17L18.09 6.58L19.5 8L10.5 17Z"
+							fill="#1EA446"
+						/>
+					</svg>
+
+					<svg *ngIf="domainToPurchase" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path
+							d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM17 15.59L15.59 17L12 13.41L8.41 17L7 15.59L10.59 12L7 8.41L8.41 7L12 10.59L15.59 7L17 8.41L13.41 12L17 15.59Z"
+							fill="#DC362E"
+						/>
+					</svg>
+				</div>
+				<div class="st-send-transaction-title" *ngIf="domainToPurchase">ADDRESS NOT FOUND</div>
+				<div class="st-send-transaction-title" *ngIf="!domainToPurchase">ADDRESS FOUND</div>
+			</div>
+			<div class="st-send-transaction-divider"></div>
+			<div class="st-send-transaction-content" fxLayout="column" fxLayoutAlign="start center">
+				<div class="st-send-transaction-query">
+					<div class="st-send-transaction-query-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+							<path
+								d="M8.50016 1.33398C4.82016 1.33398 1.8335 4.32065 1.8335 8.00065C1.8335 11.6807 4.82016 14.6673 8.50016 14.6673C12.1802 14.6673 15.1668 11.6807 15.1668 8.00065C15.1668 4.32065 12.1802 1.33398 8.50016 1.33398ZM8.50016 11.334C8.1335 11.334 7.8335 11.034 7.8335 10.6673V8.00065C7.8335 7.63398 8.1335 7.33398 8.50016 7.33398C8.86683 7.33398 9.16683 7.63398 9.16683 8.00065V10.6673C9.16683 11.034 8.86683 11.334 8.50016 11.334ZM9.16683 6.00065H7.8335V4.66732H9.16683V6.00065Z"
+								fill="#181818"
+							/>
+						</svg>
+					</div>
+					<div class="st-send-transaction-query-text" *ngIf="!domainToPurchase">Is this address yours?</div>
+					<div class="st-send-transaction-query-text" *ngIf="domainToPurchase">The Zelf name is not registered.</div>
+				</div>
+				<div class="st-send-transaction-description" *ngIf="!domainToPurchase">If it is, secure it with a Zelf Name.</div>
+				<div class="st-send-transaction-description" *ngIf="domainToPurchase">Would you like to purchase it?</div>
+			</div>
+			<div class="st-send-transaction-action-button">
+				<div class="st-send-transaction-button-content">
+					<div class="st-send-transaction-button-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+							<path
+								d="M9.50809 0C10.5223 1.37638 11.8245 2.94543 13.4662 4.56695H6.0957C7.69048 2.87796 8.78196 1.25719 9.50961 0H9.50885H9.50809Z"
+								fill="#181818"
+							/>
+							<path
+								d="M0.5 9.0219C1.79765 8.39218 3.50233 7.40412 5.21307 5.8928C5.36391 5.75936 5.51171 5.62442 5.65345 5.49023H12.2448C12.2448 5.49023 7.47107 12.2365 4.8591 12.2567C2.70418 12.2739 1.80144 9.82479 0.5 9.02115L0.5 9.0219Z"
+								fill="#181818"
+							/>
+							<path
+								d="M9.92852 17.9992C9.13341 16.9197 8.10939 15.6873 6.8125 14.4121H12.8732C11.5892 15.706 10.6304 16.955 9.92928 17.9992H9.92852Z"
+								fill="#181818"
+							/>
+							<path
+								d="M13.8337 13.2992C13.7625 13.3621 13.6928 13.4259 13.6238 13.4888H6.54736C6.54736 13.4888 11.3999 6.65491 14.0467 6.64066C16.2555 6.62942 17.1703 9.13704 18.4998 9.95792C17.1476 10.7173 15.5013 11.7976 13.833 13.2992H13.8337Z"
+								fill="#181818"
+							/>
+						</svg>
+					</div>
+					<div class="st-send-transaction-button-text">Purchase Domain</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- next button -->
+		<div class="w-full pt-2" *ngIf="potentialWallet">
+			<button class="main-button" (click)="selectAccount(potentialWallet)">Next</button>
+		</div>
 	</div>
 </form>

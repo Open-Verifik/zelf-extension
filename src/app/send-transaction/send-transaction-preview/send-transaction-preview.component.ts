@@ -33,7 +33,7 @@ export class SendTransactionPreviewComponent implements OnInit {
 		private _walletService: WalletService
 	) {
 		this.shareables = {
-			view: "home",
+			view: "pickReceiver",
 		};
 
 		this.transactionData = this._transactionService.getTransactionData();
@@ -59,7 +59,7 @@ export class SendTransactionPreviewComponent implements OnInit {
 		this.wallets = await this._chromeService.getItem("wallets");
 
 		this.searchForm = this._formBuilder.group({
-			address: [this.transactionData.receiver.ethAddress, []],
+			address: [this._walletService.getShortAddress(this.transactionData.receiver.ethAddress), []],
 			amount: [0, [Validators.required]],
 		});
 
@@ -79,9 +79,9 @@ export class SendTransactionPreviewComponent implements OnInit {
 	async _getAccountDetails(): Promise<any> {
 		const sampleWallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
 
-		this._ethService.changeNetwork(true);
-
 		const details = await this._ethService.getWalletDetails(sampleWallet);
+
+		console.log({ details });
 
 		this.selectedAsset = new Asset({
 			asset: details.data.account.asset,
@@ -149,9 +149,10 @@ export class SendTransactionPreviewComponent implements OnInit {
 	}
 
 	isNextDisabled(): boolean {
-		if (!this.amountViewType || !this.searchForm?.value?.amount || !this.wallet || !this.wallet.assets) return true;
+		if (!this.searchForm?.value?.amount || !this.wallet || !this.wallet.assets) return true;
 
 		let isDisabled = true;
+
 		switch (this.amountViewType) {
 			case "USD": // the input is in ETH
 				isDisabled = Boolean(this.searchForm.value.amount > this.selectedAsset.balance);
@@ -162,5 +163,9 @@ export class SendTransactionPreviewComponent implements OnInit {
 		}
 
 		return isDisabled;
+	}
+
+	cancel(): void {
+		this._router.navigate(["/send-transaction"]);
 	}
 }

@@ -11,9 +11,9 @@ import { WalletService } from "app/wallet.service";
 	selector: "home-header",
 	template: `
 		<!-- HEADER -->
-		<div class="home-main-header" *ngIf="selectedNetwork">
+		<div class="home-main-header" *ngIf="selectedNetwork && shareables.wallet">
 			<div class="home-header-left" (click)="openAccountsPage()">
-				<h4 class="f-white pl-4">{{ shareables.wallet.publicData.zelfName }}</h4>
+				<h4 class="f-white pl-4" *ngIf="shareables.wallet.publicData">{{ shareables.wallet.publicData.zelfName || "****.zelf" }}</h4>
 				<div class="home-account-dropdown pl-2">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path

@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
-import { CryptoService } from "app/crypto.service";
+
 import { EthereumService } from "app/eth.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
@@ -53,16 +53,16 @@ export class HomeComponent implements OnInit {
 
 		const wallet = await this._setWallet();
 
-		// get network
-		this.selectedNetwork = await this._chromeService.getItem("network");
+		// // get network
+		// this.selectedNetwork = await this._chromeService.getItem("network");
 
-		if (!this.selectedNetwork) {
-			this.selectedNetwork = "eth";
+		// if (!this.selectedNetwork) {
+		// 	this.selectedNetwork = "eth";
 
-			await this._chromeService.setItem("network", this.selectedNetwork);
-		}
+		// 	await this._chromeService.setItem("network", this.selectedNetwork);
+		// }
 
-		this._getWalletDetails(wallet);
+		this._getETHDetails(wallet);
 	}
 
 	openFullPage(): void {
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
 		return wallet;
 	}
 
-	async _getWalletDetails(wallet: Wallet): Promise<any> {
+	async _getETHDetails(wallet: Wallet): Promise<any> {
 		if (!wallet) return;
 
 		this.wallet = wallet;
@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
 
 		this.selectedAsset = new Asset({
 			asset: details.data.account.asset,
-			fiatBalance: details.data.account.fiatValue,
+			fiatBalance: details.data.fiatBalance,
 			balance: details.data.balance,
 			price: details.data.account.price,
 		});
@@ -137,17 +137,17 @@ export class HomeComponent implements OnInit {
 
 		this._walletService.updateAssetValues(this.wallet, this.selectedAsset, this.wallets, undefined);
 
-		this.getTokens(details.data.tokenHoldings.tokens);
+		this.getTokens("Ethereum", details.data.tokenHoldings.tokens);
 	}
 
-	getTokens(tokens: Array<any>): void {
+	getTokens(network: string, tokens: Array<any>): void {
 		for (let index = 0; index < tokens.length; index++) {
 			const token = tokens[index];
 
 			if (["ERC-20"].includes(token.tokenType) && token.price) {
-				this.tokens.push(token);
+				this.tokens.push({ ...token, network });
 			} else if (["NFT"].includes(token.tokenType)) {
-				this.NFTs.push(token);
+				this.NFTs.push({ ...token, network });
 			}
 		}
 	}

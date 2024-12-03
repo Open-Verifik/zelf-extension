@@ -24,7 +24,7 @@ import { WalletService } from "app/wallet.service";
 			</div>
 			<div class="hwc-account-item-info">
 				<div class="hwc-account-item-name" *ngIf="wallet.publicData.zelfName">{{ wallet.publicData.zelfName }}</div>
-				<div class="hwc-account-item-name" *ngIf="!wallet.name">{{ "wallets_connected.account" | transloco }}</div>
+				<div class="hwc-account-item-name" *ngIf="!wallet.name">{{ "wallets_connected.no_zelf_name" | transloco }}</div>
 				<div class="hwc-account-item-address">
 					{{ displayAddress(wallet.ethAddress) }}
 				</div>

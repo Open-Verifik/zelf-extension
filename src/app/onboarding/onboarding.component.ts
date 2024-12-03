@@ -185,7 +185,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		await this._initSession();
 
 		this._zelfNameService
-			.searchZelfName(zelfName)
+			.searchZelfName("zelfName", zelfName)
 			.then((response) => {
 				if (response?.data.price) return this._noZelfNameFound(response?.data);
 

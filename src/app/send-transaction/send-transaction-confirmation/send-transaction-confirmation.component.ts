@@ -68,4 +68,8 @@ export class SendTransactionConfirmationComponent implements OnInit {
 	getTotal(unit: string): number {
 		return this.transactionData.price + this.displayGasInUSD(unit);
 	}
+
+	cancel(): void {
+		this._router.navigate(["/send-transaction-preview"]);
+	}
 }

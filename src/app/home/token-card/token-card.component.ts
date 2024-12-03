@@ -3,19 +3,24 @@ import { Component, Input, OnInit } from "@angular/core";
 @Component({
 	selector: "token-card",
 	template: `
-		<div class="card-container" fxLayout="row" fxLayoutAlign="start center">
+		<div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
 			<div class="status-icon-container">
 				<img [src]="data.image" />
 			</div>
 			<div class="text-container" fxLayout="column" fxLayoutAlign="start start">
-				<div class="status-text">{{ data.name }}</div>
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<div class="status-text font-18">{{ data.symbol }}</div>
+					<div class="pl-2 token-card-label">{{ data.network }}</div>
+				</div>
 
-				<div class="status-text">{{ data.symbol }}</div>
+				<div class="status-text text-grey">$ {{ data.price }} USD</div>
+
+				<!-- <div class="status-text">{{}}</div> -->
 			</div>
 
 			<div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
-				<div class="status-text">{{ data.amount }}</div>
-				<div class="status-text">$ {{ data.price }}</div>
+				<div class="status-text">{{ _getAmount(data.amount) }}</div>
+				<div class="status-text text-grey">$ {{ data.fiatBalance }} USD</div>
 			</div>
 		</div>
 	`,
@@ -35,16 +40,13 @@ import { Component, Input, OnInit } from "@angular/core";
 			}
 
 			.status-icon-container {
-				padding: 8px;
-				border-radius: 16px;
-				border: 2px black solid;
 				justify-content: flex-start;
 				align-items: flex-start;
 				gap: 8px;
 				display: flex;
 
 				:is(img) {
-					width: 26px;
+					width: 36px;
 				}
 			}
 
@@ -103,13 +105,38 @@ import { Component, Input, OnInit } from "@angular/core";
 				letter-spacing: 0.1px;
 				word-wrap: break-word;
 			}
+
+			.token-card-label {
+				background: #f0f0f0;
+				padding: 4px;
+				margin: 4px;
+				border-radius: 4px;
+			}
 		`,
 	],
 })
 export class TokenCardComponent implements OnInit {
 	@Input() data: any;
+	@Input() view: string;
+	@Input() shareables: any;
 
-	constructor() {}
+	constructor() {
+		this.view = "default";
+	}
 
 	ngOnInit(): void {}
+
+	_getAmount(amount: any): Number {
+		if (!amount && amount >= 0) return 0;
+
+		return Math.floor(amount * Math.pow(10, 8)) / Math.pow(10, 8);
+	}
+
+	onClick(): void {
+		console.log({ shareables: this.shareables, data: this.data });
+
+		if (this.view === "tokens") {
+			this.shareables.view = "pickReceiver";
+		}
+	}
 }

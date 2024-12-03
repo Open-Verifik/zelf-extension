@@ -156,6 +156,7 @@
 		"wallet_type": "WALLET"
 	},
 	"wallets_connected": {
+		"no_zelf_name": "Without Zelf name",
 		"title": "Select a wallet",
 		"account": "Account",
 		"create_or_import_wallet_button": "Create or import a wallet",
@@ -201,6 +202,9 @@
 		"clickExtensionIcon": "Click on the extension icon in your browser."
 	},
 	"send_transaction": {
+		"tokens_step": "Select token",
+		"pickReceiver_step": "Send",
+		"confirmation_step": "Transfer",
 		"send_to": "Send to",
 		"your_accounts": "Your accounts",
 		"account_found": "Address found",

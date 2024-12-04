@@ -186,6 +186,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			// You can add an error message here if needed
 			alert("Zelf name must be at least 4 characters long.");
 
+			this.loading = false;
+
 			return; // Prevent further execution if validation fails
 		}
 
@@ -211,25 +213,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 				this.loading = false;
 			});
-
-		// this._ipfsService
-		// 	.queryByZelfName(zelfName)
-		// 	.then((response) => {
-		// 		if (!response || !response.data || !response.data.length) return this._noZelfNameFound(zelfName);
-
-		// 		this._ipfsService.setZelfName(zelfName);
-
-		// 		this._ipfsService.setZelfFile(response.data[0]);
-
-		// 		this._router.navigate(["/find-wallet"]);
-		// 	})
-		// 	.catch((exception) => {
-		// 		console.error({ exception: exception.error });
-
-		// 		if (exception.error.error === "ipfs_file_not_found") {
-		// 			this._noZelfNameFound(zelfName);
-		// 		}
-		// 	});
 	}
 
 	_noZelfNameFound(zelfNameOffer: any): void {

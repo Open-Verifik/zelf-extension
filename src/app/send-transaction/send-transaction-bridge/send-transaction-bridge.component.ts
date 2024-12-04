@@ -20,8 +20,8 @@ export class SendTransactionBridgeComponent implements OnInit {
 		// get the asset
 	}
 
-	goBack(): void {
-		this._router.navigate(["send-transaction-confirm"]);
+	cancel(): void {
+		this._router.navigate(["/send-transaction-confirm"]);
 	}
 }
 

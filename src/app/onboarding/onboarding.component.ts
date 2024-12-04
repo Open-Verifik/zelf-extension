@@ -20,6 +20,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	termsAcceptance!: boolean;
 	@ViewChild("zelfForm") signUpNgForm!: NgForm;
 	zelfForm!: UntypedFormGroup;
+	loading: boolean;
 	items = [
 		{
 			title: "onboarding.step_1",
@@ -57,6 +58,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this._ipfsService.setZelfFile(null);
 
 		this._zelfNameService.setZelfName("", 0);
+
+		this.loading = false;
 	}
 
 	ngOnInit(): void {
@@ -172,6 +175,10 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			this.zelfForm.patchValue({ zelfName: "" });
 		}
 
+		if (this.loading) return;
+
+		this.loading = true;
+
 		const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
 
 		// Validation: Ensure zelfName is at least 4 characters
@@ -195,10 +202,14 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 				this._ipfsService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
 				this._zelfNameService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
 
+				this.loading = false;
+
 				this._router.navigate(["/find-wallet"]);
 			})
 			.catch((exception) => {
 				console.error({ exception });
+
+				this.loading = false;
 			});
 
 		// this._ipfsService

@@ -1,13 +1,21 @@
 <div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
 	<div class="home-main" fxLayout="column" fxLayoutAlign="space-between start">
 		<div class="w-full" fxLayout="column" fxLayoutAlign="start start">
-			<div class="bridge-header">
-				<div class="bridge-back-btn" (click)="goBack()">
-					<img src="../../../assets/images/arrow_back.svg" alt="" />
+			<!-- header here -->
+			<div class="w-full" fxLayout="row" fxLayoutAlign="start center" class="send-transaction-header">
+				<div (click)="cancel()">
+					<svg class="ml-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="white" />
+					</svg>
 				</div>
-				<div class="bridge-header-text">{{ "send_transaction.bridge.qr_code_title" | transloco }}</div>
-				<div class="bridge-header-placeholder"></div>
+
+				<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+					<h4 class="m-0">
+						{{ "send_transaction.confirmation_step" | transloco }}
+					</h4>
+				</div>
 			</div>
+			<!-- end of header -->
 			<div class="bridge-qr-bg" fxLayout="row" fxLayoutAlign="center center">
 				<img class="bridge-qr-code" src="https://via.placeholder.com/249x249" />
 			</div>

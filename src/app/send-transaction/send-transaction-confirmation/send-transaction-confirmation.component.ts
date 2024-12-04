@@ -44,7 +44,7 @@ export class SendTransactionConfirmationComponent implements OnInit {
 	}
 
 	goNext(): void {
-		this._setTransactionData();
+		// this._setTransactionData();
 
 		this._router.navigate(["/send-transaction-bridge"]);
 	}

@@ -9,7 +9,9 @@
 	<div fxLayout="column" fxLayoutAlign="start center" class="md-card on-intro">
 		<h1 class="m-2">ZELF NAME SERVICE</h1>
 
-		<span class="zline"></span>
+		<span class="zline" *ngIf="!loading"></span>
+
+		<mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
 
 		<ng-container *ngFor="let item of items; let i = index">
 			<div
@@ -44,6 +46,7 @@
 							type="text"
 							matInput
 							[formControlName]="'zelfName'"
+							autocomplete="off"
 							(keydown.enter)="searchZelfName()"
 							(input)="sanitizeZelfNameInput()"
 						/>

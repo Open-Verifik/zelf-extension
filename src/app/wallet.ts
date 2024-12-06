@@ -115,32 +115,60 @@ export interface Transaction {
 	receiver: any;
 	sender: any;
 	asset: string;
+
 	amount: number;
-	price: number;
+	fiatAmount: number;
+
+	fiatBalance: number;
 	balance: number;
+
+	price: number;
 	gasFee: number;
-	total: number;
+	fiatTotal: number;
+
+	network: string;
+	tokenType: string;
 }
 
 export class TransactionModel implements Transaction {
 	receiver: any;
 	sender: any;
-	asset: string;
-	amount: number;
-	price: number;
-	balance: number;
-	gasFee: number;
-	total: number;
+
+	asset: string; //ETH
+
+	amount: number; // 0.01
+	fiatAmount: number; // 38.00
+
+	fiatBalance: number; // 199 usd
+	balance: number; // 0.05
+
+	price: number; // 3800
+	gasFee: number; // 0.28
+	fiatTotal: number; // 38.28
+
+	network: string; // Ethereum
+	tokenType: string; // ERC-20
 
 	constructor(data: any) {
+		console.log({ data });
 		this.receiver = data.receiver || null;
 		this.sender = data.sender || null;
-		this.asset = data.asset || null;
-		this.amount = data.amount || 0;
-		this.price = data.price || 0;
-		this.balance = data.balance || 0;
+		this.asset = data.asset || data.symbol || data.token.symbol || "";
+
+		this.amount = Number(data.amount || 0);
+		this.fiatAmount = Number(data.fiatAmount || 0);
+
+		this.price = data.price || data.token.price || 0;
+
+		this.fiatBalance = data.fiatBalance || data.token?.fiatBalance || 0;
+		this.balance = data.balance || data.token?.amount || 0;
+
 		this.gasFee = data.gasFee || 0;
-		this.total = data.total || this.price + this.gasFee;
+
+		this.fiatTotal = data.fiatTotal || 0;
+
+		this.network = data.network || data.token.network || "";
+		this.tokenType = data.tokenType || data.token.tokenType || "";
 	}
 }
 

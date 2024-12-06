@@ -17,6 +17,7 @@ export class SendTransactionComponent implements OnInit {
 	session: any;
 	wallet?: Wallet;
 	tokens?: Array<any> = [];
+	views = ["pickReceiver", "tokens"];
 
 	constructor(
 		private _walletService: WalletService,
@@ -26,7 +27,7 @@ export class SendTransactionComponent implements OnInit {
 		private _zelfNameService: ZelfNameService
 	) {
 		this.shareables = {
-			view: "pickReceiver",
+			view: "tokens",
 		};
 
 		this.tokens = [];
@@ -54,12 +55,10 @@ export class SendTransactionComponent implements OnInit {
 		for (let index = 0; index < details.data.tokenHoldings.tokens.length; index++) {
 			const token = details.data.tokenHoldings.tokens[index];
 
-			if (["ERC-20"].includes(token.tokenType) && token.price) {
+			if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
 				this.tokens?.push({ ...token, network: "Ethereum" });
 			}
 		}
-
-		console.log({ tokens: this.tokens });
 	}
 
 	getTokens(network: string, tokens: Array<any>): void {}

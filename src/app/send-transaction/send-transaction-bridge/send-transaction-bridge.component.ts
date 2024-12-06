@@ -23,6 +23,18 @@ export class SendTransactionBridgeComponent implements OnInit {
 	cancel(): void {
 		this._router.navigate(["/send-transaction-confirm"]);
 	}
+
+	downloadApp(type: string): void {
+		switch (type) {
+			case "android":
+				window.open("https://play.google.com/store/apps/details?id=co.verifik.wallet", "_blank");
+				break;
+
+			default:
+				console.warn("Invalid app type");
+				break;
+		}
+	}
 }
 
 // {

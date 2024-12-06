@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
-import { Transaction, Wallet, WalletModel } from "app/wallet";
+import { Transaction, Wallet, WalletModel, TransactionModel } from "app/wallet";
 
 @Component({
 	selector: "app-send-transaction-confirmation",
@@ -22,7 +22,9 @@ export class SendTransactionConfirmationComponent implements OnInit {
 		private _chromeService: ChromeService,
 		private _ethService: EthereumService
 	) {
-		this.transactionData = this._transactionService.getTransactionData();
+		const temp = localStorage.getItem("temp_transactionData");
+
+		if (temp) this.transactionData = new TransactionModel(JSON.parse(temp));
 
 		if (!this.transactionData) {
 			this.goBack();
@@ -36,6 +38,26 @@ export class SendTransactionConfirmationComponent implements OnInit {
 
 		if (!this.transactionData?.sender) {
 			this.transactionData.sender = this.wallet;
+		}
+
+		if (this.transactionData.asset === "ETH") {
+			this._getETHGasFees();
+		}
+	}
+
+	async _getETHGasFees(): Promise<any> {
+		const fees = await this._ethService.getGasPrices();
+
+		if (this.transactionData.tokenType === "ETH") {
+			this.transactionData.gasFee = Number(fees.data.average.cost.replace("$", ""));
+		} else if (this.transactionData.tokenType === "ERC-20") {
+			for (let index = 0; index < fees.data.featuredActions.length; index++) {
+				const featureGasObject = fees.data.featuredActions[index];
+
+				if (featureGasObject.action === "Swap") {
+					this.transactionData.gasFee = Number(featureGasObject.average);
+				}
+			}
 		}
 	}
 
@@ -55,7 +77,7 @@ export class SendTransactionConfirmationComponent implements OnInit {
 		this._transactionService.setTransactionData(
 			{
 				gasFee: this.selectedGasFee,
-				total: this.transactionData.price + this.selectedGasFee,
+				fiatTotal: this.transactionData.price + this.selectedGasFee,
 			},
 			true
 		);

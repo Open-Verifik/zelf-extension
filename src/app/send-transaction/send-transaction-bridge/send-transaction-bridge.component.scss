@@ -24,39 +24,30 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 16px;
+	gap: 6px;
 	display: inline-flex;
 }
 
 .bridge-text-content {
 	align-self: stretch;
-	height: 220px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	gap: 8px;
+	gap: 0px;
 	display: flex;
 }
 
 .bridge-text {
-	padding-top: 10px;
 	align-self: stretch;
 	height: 189px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	gap: 8px;
 	display: flex;
 	text-align: center;
 	color: black;
 	font-family: Poppins;
 	word-wrap: break-word;
-}
-
-.bridge-title {
-	font-size: 28px;
-	font-weight: 500;
-	line-height: 36px;
 }
 
 .bridge-description {

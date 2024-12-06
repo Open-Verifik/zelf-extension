@@ -10,45 +10,45 @@
 				</div>
 
 				<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
-					<h4 class="m-0">
-						{{ "send_transaction.confirmation_step" | transloco }}
-					</h4>
+					<h4 class="m-0">{{ "send_transaction.confirmation_step" | transloco }} {{ transactionData.asset }}</h4>
 				</div>
 			</div>
 			<!-- end of header -->
 			<!-- main content -->
 			<div class="w-full p-4" fxLayout="column" fxLayoutAlign="start center">
-				<h2>$100.00 USDT</h2>
+				<h2>{{ transactionData.amount }} {{ transactionData.asset }}</h2>
 
 				<div class="st-confirmation-table" fxLayout="column" fxLayoutAlign="start start">
 					<div class="st-confirmation-table-row" fxLayout="row" fxLayoutAlign="space-between center">
 						<small> Withdrawal network </small>
 
-						<small> ETH ERC-20 </small>
+						<small> {{ transactionData.network }} ({{ transactionData.tokenType }}) </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
 						<small> Address </small>
 
-						<small> 0x293AE4CCc60Fd539751687DAF16gf67</small>
+						<small class="text-grey" *ngIf="transactionData.receiver.name"> {{ transactionData.receiver.name }}</small>
+
+						<small>{{ transactionData.receiver.displayEthAddress }} </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Coin </small>
+						<small> Amount </small>
 
-						<small> USDT</small>
+						<small> {{ transactionData.amount }} {{ transactionData.asset }} (${{ transactionData.fiatAmount }})</small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
 						<small> Fee </small>
 
-						<small> $2.78</small>
+						<small> ${{ transactionData.gasFee }}</small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
 						<small> Total </small>
 
-						<small> $102.78</small>
+						<small> ${{ transactionData.fiatAmount + transactionData.gasFee | number : "1.2-7" }} </small>
 					</div>
 				</div>
 			</div>

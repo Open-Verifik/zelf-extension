@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
-import { Wallet, WalletModel } from "app/wallet";
+import { TransactionModel, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { environment } from "environments/environment";
@@ -163,11 +163,9 @@ export class StSearchWalletComponent implements OnInit {
 	}
 
 	selectAccount(wallet: Wallet): void {
-		this._transactionService.setTransactionData({
-			receiver: wallet,
-		});
+		const transactionData = new TransactionModel({ receiver: wallet, token: this.shareables.token });
 
-		this._chromeService.setItem("temp_transactionData", { receiver: wallet });
+		this._transactionService.setTransactionData(transactionData, true);
 
 		this._router.navigate(["/send-transaction-preview"]);
 	}

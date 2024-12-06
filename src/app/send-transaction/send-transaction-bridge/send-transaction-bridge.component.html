@@ -22,23 +22,16 @@
 
 			<div class="bridge-text-content">
 				<div class="bridge-text">
-					<span class="bridge-title">
+					<h3>
 						{{ "send_transaction.bridge.title" | transloco }}
 						<br />
-					</span>
+					</h3>
 					<span class="bridge-description">
-						<br />{{ "send_transaction.bridge.description" | transloco }}.<br /><br />{{
-							"send_transaction.bridge.description_2" | transloco
-						}}
+						<br />{{ "send_transaction.bridge.description" | transloco }}.<br /><br />
+						<!-- <span class="link">
+							{{ "send_transaction.bridge.description_2" | transloco }}
+						</span> -->
 					</span>
-				</div>
-			</div>
-
-			<div class="bridge-confirm-btn-container w-full">
-				<div class="bridge-confirm-btn">
-					<div class="bridge-confirm-btn-text">
-						{{ "send_transaction.bridge.confirm_button" | transloco }}
-					</div>
 				</div>
 			</div>
 		</div>
@@ -47,12 +40,12 @@
 				<span class="font-bold">
 					{{ "send_transaction.bridge.dont_have_the_app" | transloco }}
 				</span>
-				<span>
+				<span class="text-grey">
 					{{ "send_transaction.bridge.download_here" | transloco }}
 				</span>
 			</div>
 			<div class="bridge-download-btns-container">
-				<img src="../../../assets/images/google_play_button.svg" alt="" />
+				<img src="../../../assets/images/google_play_button.svg" alt="" (click)="downloadApp('android')" class="cursor-pointer" />
 				<!-- <img src="../../../assets/images/app_store_button.svg" alt="" /> -->
 			</div>
 		</div>

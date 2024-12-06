@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { TransactionService } from "app/transaction.service";
+import { Transaction, TransactionModel } from "app/wallet";
+import * as QRCode from "qrcode";
 
 @Component({
 	selector: "app-send-transaction-bridge",
@@ -10,14 +12,28 @@ import { TransactionService } from "app/transaction.service";
 })
 export class SendTransactionBridgeComponent implements OnInit {
 	// generate QR Code for the bridge
+	transactionData!: Transaction;
+	qrCode: any;
 
 	constructor(private _transactionService: TransactionService, private _router: Router, private _chromeService: ChromeService) {}
 
 	async ngOnInit(): Promise<any> {
+		this.transactionData = new TransactionModel(this._transactionService.getTransactionData());
 		// get my current wallet sending it
 		// get the transaction data passed around
 		// get the destination
 		// get the asset
+		// Generate QR code as a base64 string
+		QRCode.toDataURL(JSON.stringify(this.transactionData.gasFee), (err, url) => {
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			this.qrCode = url;
+
+			console.log({ qrCode: this.qrCode });
+		});
 	}
 
 	cancel(): void {

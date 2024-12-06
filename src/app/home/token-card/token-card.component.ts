@@ -133,9 +133,10 @@ export class TokenCardComponent implements OnInit {
 	}
 
 	onClick(): void {
-		console.log({ shareables: this.shareables, data: this.data });
-
 		if (this.view === "tokens") {
+			// save in memory the token that was picked
+			this.shareables.token = this.data;
+
 			this.shareables.view = "pickReceiver";
 		}
 	}

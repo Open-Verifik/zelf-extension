@@ -2,7 +2,11 @@
 	/* Your custom styles here */
 	padding-top: 55px;
 	box-sizing: content-box;
-	background-color: white !important;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+	padding-top: 36px;
+	padding-bottom: 16px;
 }
 
 .preview-box {
@@ -112,11 +116,6 @@
 	border-radius: 12px;
 }
 
-input {
-	background: transparent;
-	border: none;
-}
-
 .unlock-input-text-container {
 	justify-content: flex-start;
 	align-items: center;
@@ -153,10 +152,27 @@ input {
 	padding-right: 10px;
 	border-radius: 4px;
 	overflow: hidden;
-	border: 1px rgba(0, 0, 0, 0.2) solid;
-	align-items: center;
+	align-items: flex-start;
 	display: inline-flex;
-	padding: 6px;
+	padding-left: 0px;
+	padding-top: 6px;
+	padding-bottom: 16px;
+	padding-right: 6px;
+}
+
+.amount-input-box mat-form-field {
+	border-bottom: none !important;
+	box-shadow: none !important;
+}
+
+.amount-input-box mat-form-field::after {
+	border-bottom: none !important;
+}
+
+.amount-input-box input {
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
 }
 
 .amount-input-address {
@@ -172,6 +188,7 @@ input {
 	cursor: pointer;
 	text-align: center;
 	font-weight: 18px;
+	height: 100%;
 
 	span {
 		color: black;

@@ -4,6 +4,11 @@
 	box-sizing: content-box;
 }
 
+input {
+	background: transparent;
+	border: none;
+}
+
 .home-main-div {
 	width: 440px;
 	height: 750px;
@@ -59,6 +64,11 @@
 	display: flex;
 	width: 70%;
 	padding-right: 20px;
+
+	input {
+		background: transparent;
+		border: none;
+	}
 }
 
 .unlock-icon-container {

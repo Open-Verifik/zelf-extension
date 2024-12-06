@@ -226,12 +226,12 @@
 		},
 		"bridge": {
 			"qr_code_title": "Scan the QR Code",
-			"title": "Confirm your transaction",
+			"title": "CONFIRM YOUR TRANSACTION",
 			"description": "Scan the QR Code from your Zelf Name Service App. Add a security layer by decrypting in your device",
-			"description_2": "Or continue with the web extension",
+			"description_2": "Continue in the web extension",
 			"confirm_button": "Confirm transaction",
-			"dont_have_the_app": "Still don't have the safest wallet installed?",
-			"download_here": "Download it here and increase your security for all your transactions"
+			"dont_have_the_app": "Still don't have the Zelf Name Service App installed?",
+			"download_here": "Download it here and increase your security for all your transactions & and never loose access to your crypto."
 		}
 	},
 	"network_picker": {

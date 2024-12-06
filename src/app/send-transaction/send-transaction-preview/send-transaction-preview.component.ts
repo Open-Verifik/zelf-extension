@@ -42,10 +42,10 @@ export class SendTransactionPreviewComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<any> {
-		const temp_transactionData = await this._chromeService.getItem("temp_transactionData");
+		const transactionToSend = this.transactionData ? null : await this._chromeService.getItem("temp_transactionData");
 
-		if (temp_transactionData && !this.transactionData) {
-			this.transactionData = new TransactionModel(temp_transactionData);
+		if (transactionToSend && !this.transactionData) {
+			this.transactionData = new TransactionModel(transactionToSend);
 		}
 
 		if (!this.transactionData?.receiver) {
@@ -74,20 +74,22 @@ export class SendTransactionPreviewComponent implements OnInit {
 		const fees = await this._ethService.getGasPrices();
 
 		this.fees = fees.data;
+
+		console.log({ fees });
 	}
 
 	async _getAccountDetails(): Promise<any> {
-		const sampleWallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
+		// const sampleWallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
 
-		const details = await this._ethService.getWalletDetails(sampleWallet);
+		// const details = await this._ethService.getWalletDetails(sampleWallet);
 
-		console.log({ details });
+		// console.log({ details });
 
 		this.selectedAsset = new Asset({
-			asset: details.data.account.asset,
-			fiatBalance: details.data.account.fiatValue,
-			balance: details.data.balance,
-			price: details.data.account.price,
+			asset: this.transactionData.asset,
+			fiatBalance: this.transactionData.fiatBalance,
+			balance: this.transactionData.balance,
+			price: this.transactionData.price,
 		});
 
 		this._walletService.updateAssetValues(this.wallet, this.selectedAsset, this.wallets, undefined);
@@ -111,9 +113,7 @@ export class SendTransactionPreviewComponent implements OnInit {
 		this._transactionService.setTransactionData(
 			{
 				amount: this.searchForm.value.amount,
-				asset: this.selectedAsset.asset,
-				balance: this.selectedAsset.balance,
-				price: this.getAmountView(),
+				fiatAmount: this.getAmountView(),
 			},
 			true
 		);
@@ -132,20 +132,13 @@ export class SendTransactionPreviewComponent implements OnInit {
 	}
 
 	getAmountView(): number {
-		if (!this.amountViewType || !this.searchForm?.value?.amount || !this.wallet || !this.wallet.assets) return 0;
-		switch (this.amountViewType) {
-			case "USD":
-				return Number((this.searchForm.value.amount * this.selectedAsset.price).toFixed(9));
-
-			default:
-				return this.searchForm.value.amount / this.selectedAsset.price;
-		}
+		return Number((this.searchForm.value.amount * this.selectedAsset.price).toFixed(9));
 	}
 
 	selectMax(): void {
 		this.amountViewType = "USD";
 
-		this.searchForm.patchValue({ amount: this.selectedAsset.balance });
+		this.searchForm.patchValue({ amount: Number(this.selectedAsset.balance) });
 	}
 
 	isNextDisabled(): boolean {

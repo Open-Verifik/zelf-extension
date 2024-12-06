@@ -66,29 +66,19 @@ export class SendTransactionConfirmationComponent implements OnInit {
 	}
 
 	goNext(): void {
-		// this._setTransactionData();
+		this._setTransactionData();
 
 		this._router.navigate(["/send-transaction-bridge"]);
 	}
 
 	_setTransactionData(): void {
-		this.selectedGasFee = this.displayGasInUSD(this.gasPrices.ProposeGasPrice);
-
 		this._transactionService.setTransactionData(
 			{
-				gasFee: this.selectedGasFee,
-				fiatTotal: this.transactionData.price + this.selectedGasFee,
+				gasFee: this.transactionData.gasFee,
+				fiatTotal: this.transactionData.fiatAmount + this.transactionData.gasFee,
 			},
 			true
 		);
-	}
-
-	displayGasInUSD(unit: string): number {
-		return (parseFloat(unit) / 1e9) * this.transactionData.price * 21000;
-	}
-
-	getTotal(unit: string): number {
-		return this.transactionData.price + this.displayGasInUSD(unit);
 	}
 
 	cancel(): void {

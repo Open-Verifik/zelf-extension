@@ -44,7 +44,6 @@ body {
 }
 
 .home-main {
-	background: white;
 	width: 440px;
 	height: 600px;
 }
@@ -726,6 +725,16 @@ $computers: 1200px;
 .main-button {
 	background-color: black !important;
 	color: white !important;
+	height: 52px !important;
+	font-size: 18px;
+	width: 100%;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.secondary-button {
+	background-color: white !important;
+	color: black !important;
 	height: 52px !important;
 	font-size: 18px;
 	width: 100%;

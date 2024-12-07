@@ -14,6 +14,7 @@ import { SendTransactionBridgeComponent } from "./send-transaction/send-transact
 import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { OpenZelfNameComponent } from "./open-zelf-name/open-zelf-name.component";
+import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -66,6 +67,10 @@ const routes: Routes = [
 	{
 		path: "open-zelf-name",
 		component: OpenZelfNameComponent,
+	},
+	{
+		path: "transaction",
+		component: TransactionDetailsComponent,
 	},
 ];
 

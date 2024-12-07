@@ -1,15 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-home-wallet-activity',
-  template: `
-    <p>
-      home-wallet-activity works!
-    </p>
-  `,
-  styles: [
-  ]
+	selector: "app-home-wallet-activity",
+	templateUrl: "./home-wallet-activity.component.html",
+	styles: [],
 })
-export class HomeWalletActivityComponent {
-
-}
+export class HomeWalletActivityComponent {}

@@ -10,7 +10,7 @@
 
 		<home-network-picker [shareables]="shareables" *ngIf="shareables.view === 'networkPickerPage'"></home-network-picker>
 
-		<div *ngIf="shareables.view === 'home'" class="w-full home-container">
+		<div *ngIf="shareables.view === 'home' || shareables.view === 'activity'" class="w-full home-container">
 			<div class="home-actions-container">
 				<!-- end of Address -->
 				<div class="home-balance" *ngIf="selectedAsset">
@@ -52,7 +52,8 @@
 				<!-- end of actions -->
 			</div>
 
-			<div class="home-tabs">
+			<!-- home tabs, that can potentially change -->
+			<div class="home-tabs" *ngIf="shareables.view === 'home'">
 				<!--  -->
 				<div fxLayout="row" fxLayoutAlign="start center" class="w-full">
 					<div
@@ -87,19 +88,24 @@
 				</div>
 			</div>
 
-			<div class="activity-content" *ngIf="shareables.selectedTab === 'activity'" fxLayout="column" fxLayoutAlign="start start">
-				<activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
-			</div>
-
-			<div class="activity-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start start">
+			<div class="assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start start">
 				<nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
 			</div>
 
-			<div class="activity-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
+			<div
+				class="assets-content"
+				*ngIf="shareables.selectedTab === 'assets' && shareables.view === 'home'"
+				fxLayout="column"
+				fxLayoutAlign="start start"
+			>
 				<token-card class="w-full" [data]="token" *ngFor="let token of tokens"></token-card>
 			</div>
 
-			<footer></footer>
+			<div class="activity-content" *ngIf="shareables.view === 'activity'" fxLayout="column" fxLayoutAlign="start start">
+				<activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
+			</div>
+
+			<footer [shareables]="shareables"></footer>
 		</div>
 	</div>
 </div>

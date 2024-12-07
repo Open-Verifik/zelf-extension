@@ -4,13 +4,6 @@ $medium: 768px;
 $large: 889px;
 $computers: 1200px;
 
-.home-main {
-	background: white;
-	min-width: 440px !important;
-	width: 440px;
-	height: 750px;
-}
-
 .home-main-div {
 	width: 440px;
 	height: 750px;
@@ -454,8 +447,14 @@ $computers: 1200px;
 	left: 3px;
 }
 
+.assets-content {
+	height: 420px;
+	overflow: scroll;
+	background: white;
+}
+
 .activity-content {
-	min-height: 450px;
+	height: 482px;
 	overflow: scroll;
 	background: white;
 }

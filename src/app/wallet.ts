@@ -184,7 +184,10 @@ export class ETHTransaction {
 	traffic: string;
 	txnFee: string;
 	asset: string;
+	transactionId: string;
 	_to: string;
+	_from: string;
+	_transactionId: string;
 
 	constructor(data: any) {
 		this.age = data.age;
@@ -197,13 +200,26 @@ export class ETHTransaction {
 		this.method = data.method;
 		this.to = data.to;
 		this._to = "";
+		this._from = "";
+		this.transactionId = data.hash;
+		this._transactionId = "";
 
 		if (this.to) {
-			const firstPart = this.to.slice(0, 6);
-
-			const lastPart = this.to.slice(-6);
-
+			const firstPart = this.to.slice(0, 8);
+			const lastPart = this.to.slice(-8);
 			this._to = `${firstPart}...${lastPart}`;
+		}
+
+		if (this.from) {
+			const firstPart = this.from.slice(0, 8);
+			const lastPart = this.from.slice(-8);
+			this._from = `${firstPart}...${lastPart}`;
+		}
+
+		if (this.transactionId) {
+			const firstPart = this.transactionId.slice(0, 10);
+			const lastPart = this.transactionId.slice(-10);
+			this._transactionId = `${firstPart}...${lastPart}`;
 		}
 
 		this.traffic = data.traffic;

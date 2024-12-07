@@ -67,6 +67,7 @@ import { NftCardComponent } from "./home/nft-card/nft-card.component";
 import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 
 //
 //
@@ -116,6 +117,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 		NftCardComponent,
 		NetworkPickerComponent,
 		NewZelfNameComponent,
+  TransactionDetailsComponent,
 	],
 	imports: [
 		BrowserModule,

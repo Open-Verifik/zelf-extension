@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ChromeService } from "app/chrome.service";
 import { ETHTransaction } from "app/wallet";
 
 @Component({
 	selector: "activity-card",
 	template: `
-		<div class="card-container" fxLayout="row" fxLayoutAlign="start center">
+		<div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
 			<div class="status-icon-container">
 				<img src="../../../assets/images/transaction_sent.svg" />
 			</div>
@@ -115,9 +117,16 @@ import { ETHTransaction } from "app/wallet";
 })
 export class ActivityCardComponent implements OnInit {
 	@Input()
-	data!: ETHTransaction;
+	data!: any;
 
-	constructor() {}
+	constructor(private _router: Router, private _chromeService: ChromeService) {}
 
 	ngOnInit(): void {}
+
+	onClick(): void {
+		console.log({ transaction: this.data });
+		this._chromeService.setItem("transactionDetails", this.data);
+
+		this._router.navigate(["/transaction"]);
+	}
 }

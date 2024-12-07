@@ -22,6 +22,7 @@ $computers: 1200px;
 	align-items: center;
 	gap: 10px;
 	display: flex;
+	cursor: pointer;
 }
 
 .footer-zns {
@@ -38,11 +39,11 @@ $computers: 1200px;
 .footer-activity {
 	flex: 1 1 0;
 	height: 29px;
-	opacity: 0.5;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	display: flex;
+	cursor: pointer;
 }
 
 /* For extremely small screen devices (595px and below) */

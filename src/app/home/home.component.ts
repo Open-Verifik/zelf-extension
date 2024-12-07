@@ -144,7 +144,7 @@ export class HomeComponent implements OnInit {
 		for (let index = 0; index < tokens.length; index++) {
 			const token = tokens[index];
 
-			if (["ERC-20"].includes(token.tokenType) && token.price) {
+			if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
 				this.tokens.push({ ...token, network });
 			} else if (["NFT"].includes(token.tokenType)) {
 				this.NFTs.push({ ...token, network });

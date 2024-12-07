@@ -1,49 +1,47 @@
 <div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
-	<div class="home-main">
-		<!-- HEADER -->
-		<home-header [shareables]="shareables"></home-header>
+	<div class="home-main" fxLayout="column" fxLayoutAlign="space-between start">
+		<div class="w-full">
+			<div class="w-full" fxLayout="row" fxLayoutAlign="start center" class="send-transaction-header">
+				<div (click)="cancel()">
+					<svg class="ml-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="white" />
+					</svg>
+				</div>
 
-		<div class="w-full" fxLayout="row" fxLayoutAlign="start center" class="send-transaction-header">
-			<div (click)="cancel()">
-				<svg class="ml-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="white" />
-				</svg>
+				<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+					<h4 class="m-0">{{ "send_transaction." + shareables.view + "_step" | transloco }} {{ transactionData.asset }}</h4>
+				</div>
 			</div>
 
-			<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
-				<h4 class="m-0">{{ "send_transaction." + shareables.view + "_step" | transloco }} {{ transactionData.asset }}</h4>
-			</div>
+			<form class="preview-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded">
+				<div fxLayout="row" fxLayoutAlign="start start" class="w-full">
+					<span class="font-bold"> Address or Zelf name </span>
+				</div>
+				<div class="wallet-input-box" fxLayout="row" fxLayoutAlign="space-between center">
+					<div fxLayout="row" fxLayoutAlign="start center" class="wallet-input-address">
+						<input type="text" matInput [formControlName]="'address'" readonly="true" class="w-full" />
+					</div>
+					<span> {{ transactionData.network }} ({{ transactionData.tokenType }}) </span>
+				</div>
+
+				<div fxLayout="row" fxLayoutAlign="start start" class="w-full pt-4">
+					<span class="font-bold"> Withdrawal amount </span>
+				</div>
+				<div class="amount-input-box">
+					<div class="amount-input-address">
+						<mat-form-field appearance="outline" class="w-full">
+							<input type="number" matInput [formControlName]="'amount'" />
+						</mat-form-field>
+					</div>
+					<div class="paste-button" fxLayout="row" fxLayoutAlign="center end">
+						<span class="link" (click)="selectMax()">Max</span>
+					</div>
+				</div>
+
+				<small class="text-grey">Available {{ transactionData.balance }} {{ transactionData.asset }}</small>
+			</form>
 		</div>
-
-		<form class="preview-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded">
-			<div fxLayout="row" fxLayoutAlign="start start" class="w-full">
-				<span class="font-bold"> Address or Zelf name </span>
-			</div>
-			<div class="wallet-input-box" fxLayout="row" fxLayoutAlign="space-between center">
-				<div fxLayout="row" fxLayoutAlign="start center" class="wallet-input-address">
-					<input type="text" matInput [formControlName]="'address'" readonly="true" class="w-full" />
-				</div>
-				<span> {{ transactionData.network }} ({{ transactionData.tokenType }}) </span>
-			</div>
-
-			<div fxLayout="row" fxLayoutAlign="start start" class="w-full pt-4">
-				<span class="font-bold"> Withdrawal amount </span>
-			</div>
-			<div class="amount-input-box">
-				<div class="amount-input-address">
-					<mat-form-field appearance="outline" class="w-full">
-						<input type="number" matInput [formControlName]="'amount'" />
-					</mat-form-field>
-				</div>
-				<div class="paste-button" fxLayout="row" fxLayoutAlign="center end">
-					<span class="link" (click)="selectMax()">Max</span>
-				</div>
-			</div>
-
-			<small class="text-grey">Available {{ transactionData.balance }} {{ transactionData.asset }}</small>
-		</form>
-
-		<div fxLayout="column" fxLayoutAlign="space-between center" class="w-full px-3">
+		<div fxLayout="column" fxLayoutAlign="space-between center" class="w-full p-3">
 			<button mat-raised-button class="w-full main-button" (click)="goNext()" [disabled]="isNextDisabled()">
 				{{ "send_transaction.continue_transaction_button" | transloco }}
 			</button>

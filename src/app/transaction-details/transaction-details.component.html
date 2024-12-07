@@ -1,0 +1,71 @@
+<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center" *ngIf="details">
+	<div class="home-main" fxLayout="column" fxLayoutAlign="space-between start">
+		<div class="w-full">
+			<!-- header here -->
+			<div class="w-full" fxLayout="row" fxLayoutAlign="start center" class="send-transaction-header">
+				<div (click)="cancel()">
+					<svg class="ml-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="white" />
+					</svg>
+				</div>
+
+				<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
+					<h4 class="m-0">Transaction</h4>
+				</div>
+			</div>
+			<!-- end of header -->
+			<!-- main content -->
+			<div class="w-full p-4" fxLayout="column" fxLayoutAlign="start center">
+				<h2>{{ details.amount }} {{ details.asset }}</h2>
+
+				<div class="st-confirmation-table" fxLayout="column" fxLayoutAlign="start start">
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Type </small>
+
+						<small>{{ details.method }} ({{ details.traffic }}) </small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> From </small>
+
+						<small>{{ details._from }} </small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> To </small>
+
+						<small>{{ details._to }} </small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Amount </small>
+
+						<small> {{ details.amount }} {{ details.asset }} (${{ details.fiatAmount }})</small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Fee </small>
+
+						<small> {{ details.txnFee }} {{ details.asset }} </small>
+					</div>
+
+					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
+						<small> Transaction ID </small>
+
+						<small> {{ details._transactionId }} </small>
+					</div>
+				</div>
+			</div>
+			<!-- end of main content -->
+		</div>
+		<div fxLayout="column" fxLayoutAlign="center center" class="w-full px-3 pb-4">
+			<button mat-raised-button class="secondary-button" (click)="goNext()" fxLayout="row" fxLayoutAlign="center center">
+				<span> Share transaction</span>
+			</button>
+
+			<button mat-raised-button class="main-button mt-2" (click)="goNext()" fxLayout="row" fxLayoutAlign="center center">
+				<span> View on block explorer</span>
+			</button>
+		</div>
+	</div>
+</div>

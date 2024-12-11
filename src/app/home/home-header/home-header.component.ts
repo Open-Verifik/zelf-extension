@@ -87,9 +87,7 @@ export class HomeHeaderComponent implements OnInit {
 		this.selectedNetwork = this._blockchainNetworkService.getSelectedNetwork().toUpperCase();
 	}
 
-	async ngOnInit(): Promise<any> {
-		console.log("shareables", this.shareables);
-	}
+	async ngOnInit(): Promise<any> {}
 
 	openAccountsPage(): void {
 		this.shareables.view = this.shareables.view === "home" ? "accountsPage" : "home";

@@ -1,11 +1,6 @@
-// src/styles.scss (or your component's SCSS file)
-
-// Wrapper styles
 .hwc-wrapper {
 	width: 100%;
-	height: 80%;
-	position: relative;
-	top: 32px;
+	height: 540px;
 	background-color: white;
 	justify-content: flex-start;
 	align-items: flex-start;
@@ -21,6 +16,7 @@
 	justify-content: flex-start;
 	align-items: flex-start;
 	gap: 16px;
+	padding-top: 16px;
 	display: inline-flex;
 }
 
@@ -73,7 +69,7 @@
 // Account list styles
 .hwc-account-list {
 	align-self: stretch;
-	height: 50vh;
+	height: 400px;
 	background: white;
 	flex-direction: column;
 	justify-content: flex-start;

@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
-import { EthereumService } from "app/eth.service";
 import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
@@ -27,12 +25,6 @@ import { WalletService } from "app/wallet.service";
 				<div class="hwc-account-item-name" *ngIf="!wallet.name">{{ "wallets_connected.no_zelf_name" | transloco }}</div>
 				<div class="hwc-account-item-address">
 					{{ displayAddress(wallet.ethAddress) }}
-				</div>
-			</div>
-			<div class="hwc-account-item-balance" *ngIf="!variables.hideBalances && asset">
-				<div>
-					<div>{{ asset.balance }} {{ asset.asset }}</div>
-					<div>{{ asset.price * asset.balance }} USD</div>
 				</div>
 			</div>
 
@@ -92,12 +84,7 @@ export class WalletCardComponent implements OnInit {
 	asset!: Asset;
 	selectedNetwork: string;
 
-	constructor(
-		private _walletService: WalletService,
-		private _chromeService: ChromeService,
-		private _ethService: EthereumService,
-		private _blockchainNetworkService: BlockchainNetworksService
-	) {
+	constructor(private _walletService: WalletService, private _chromeService: ChromeService) {
 		this.selectedNetwork = "";
 	}
 
@@ -107,43 +94,6 @@ export class WalletCardComponent implements OnInit {
 
 	async _syncDetails(): Promise<any> {
 		if (this.variables.hideActions) return;
-
-		this.selectedNetwork = await this._blockchainNetworkService.getSelectedNetwork();
-
-		const details = await this.getWalletDetailsByNetwork(this.selectedNetwork);
-
-		if (!details) return;
-
-		this.asset = new Asset({
-			asset: details.data.account.asset,
-			balance: details.data.account.fiatValue,
-			price: details.data.account.price,
-		});
-
-		this._walletService.updateAssetValues(this.wallet, this.asset, this.wallets, this.variables.index);
-	}
-
-	private async getWalletDetailsByNetwork(network: string): Promise<any> {
-		let details;
-
-		switch (network) {
-			case "eth":
-				// Fetch details from Ethereum service
-				details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
-				break;
-
-			case "sol":
-				// Fetch details from Solana service (replace with actual Solana service method)
-				// details = await this._solanaService.getWalletDetails(this.wallet.ethAddress); // Assume this method exists
-				break;
-
-			default:
-				// Handle unsupported networks
-				console.warn("Unsupported network for fetching wallet details");
-				break;
-		}
-
-		return details;
 	}
 
 	unlinkWallet() {

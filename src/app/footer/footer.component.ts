@@ -10,9 +10,7 @@ export class FooterComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit(): void {
-		console.log({ shareables: this.shareables });
-	}
+	ngOnInit(): void {}
 
 	changeView(view: string): void {
 		this.shareables.view = view;

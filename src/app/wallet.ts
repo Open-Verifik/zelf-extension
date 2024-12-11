@@ -150,7 +150,6 @@ export class TransactionModel implements Transaction {
 	tokenType: string; // ERC-20
 
 	constructor(data: any) {
-		console.log({ data });
 		this.receiver = data.receiver || null;
 		this.sender = data.sender || null;
 		this.asset = data.asset || data.symbol || data.token.symbol || "";

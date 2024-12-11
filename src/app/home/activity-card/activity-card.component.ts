@@ -15,10 +15,9 @@ import { ETHTransaction } from "app/wallet";
 
 				<div class="status-text" *ngIf="data.traffic === 'IN'">{{ "activity_card.in" | transloco }}</div>
 
-				<div class="date-text" fxLayout="row" fxLayoutAlign="start center">
+				<div class="date-text" fxLayout="column" fxLayoutAlign="start start">
 					<small class="date-green">{{ data.age }}</small>
-					<span>·</span>
-					<span class="date-gray">{{ "activity_card.to" | transloco }} {{ data._to }}</span>
+					<span class="date-gray">{{ data._to }}</span>
 				</div>
 			</div>
 
@@ -124,7 +123,6 @@ export class ActivityCardComponent implements OnInit {
 	ngOnInit(): void {}
 
 	onClick(): void {
-		console.log({ transaction: this.data });
 		this._chromeService.setItem("transactionDetails", this.data);
 
 		this._router.navigate(["/transaction"]);

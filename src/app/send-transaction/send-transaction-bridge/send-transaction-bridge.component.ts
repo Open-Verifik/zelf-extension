@@ -19,11 +19,7 @@ export class SendTransactionBridgeComponent implements OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.transactionData = new TransactionModel(this._transactionService.getTransactionData());
-		// get my current wallet sending it
-		// get the transaction data passed around
-		// get the destination
-		// get the asset
-		// Generate QR code as a base64 string
+
 		QRCode.toDataURL(JSON.stringify(this.transactionData.gasFee), (err, url) => {
 			if (err) {
 				console.error(err);
@@ -31,8 +27,6 @@ export class SendTransactionBridgeComponent implements OnInit {
 			}
 
 			this.qrCode = url;
-
-			console.log({ qrCode: this.qrCode });
 		});
 	}
 

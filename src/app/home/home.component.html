@@ -88,7 +88,12 @@
 				</div>
 			</div>
 
-			<div class="assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start start">
+			<div
+				class="assets-content"
+				*ngIf="shareables.view === 'home' && shareables.selectedTab === 'nfts'"
+				fxLayout="column"
+				fxLayoutAlign="start start"
+			>
 				<nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
 			</div>
 

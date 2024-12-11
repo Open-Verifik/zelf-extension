@@ -17,15 +17,13 @@
 			<div fxLayout="column" fxLayoutAlign="center center" class="w-full">
 				<h2 class="mb-1 mt-2" *ngIf="zelfName">{{ zelfName || session.zelfName }}</h2>
 
-				<div *ngFor="let step of steps; let i = index" class="step-indicator" fxLayout="row" fxLayoutAlign="start start">
+				<div *ngFor="let step of stepsArray; let i = index" class="step-indicator" fxLayout="row" fxLayoutAlign="start start">
 					<h4 class="mt-1" *ngIf="step && step.isActive && !step.isStatus" [ngClass]="{ 'no-zelf-name-step': !zelfName }">
 						<span>
 							<span class="text-grey">{{ i + 1 }} </span>
 							of {{ steps.length }}
 						</span>
-						<span>
-							{{ "steps." + step.label | transloco }}
-						</span>
+						<span> {{ "steps." + step.label | transloco }} </span>
 					</h4>
 
 					<span class="status-label" *ngIf="step.isStatus">

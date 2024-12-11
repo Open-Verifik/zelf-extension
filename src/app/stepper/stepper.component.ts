@@ -39,6 +39,7 @@ export class StepperComponent implements OnInit {
 
 	ngOnInit() {
 		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
+
 		for (let index = 0; index < this.stepsArray.length; index++) {
 			const step = this.stepsArray[index];
 
@@ -55,13 +56,6 @@ export class StepperComponent implements OnInit {
 		}
 	}
 
-	// back() {
-	// 	if (this.currentStep > 0) {
-	// 		this.currentStep--;
-	// 		this.updateSteps();
-	// 	}
-	// }
-
 	back() {
 		let previous: StepComponent | null = null;
 
@@ -71,7 +65,6 @@ export class StepperComponent implements OnInit {
 		for (let i = 0; i < stepsArray.length; i++) {
 			const step = stepsArray[i];
 
-			// If the active step is found, break the loop
 			if (step.isActive) {
 				break;
 			}

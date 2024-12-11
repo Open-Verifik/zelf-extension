@@ -103,7 +103,9 @@ export class WalletService {
 	}
 
 	async restoreSession(): Promise<any> {
-		const wallets = (await this._chromeService.getItem("wallets")) || [];
+		let wallets = (await this._chromeService.getItem("wallets")) || [];
+
+		if (!wallets) wallets = [];
 
 		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
 

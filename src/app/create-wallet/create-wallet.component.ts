@@ -36,7 +36,7 @@ export class CreateWalletComponent implements OnInit {
 		this._walletService.setSteps([
 			{
 				label: "wallet_type",
-				isActive: false,
+				isActive: true,
 				isCompleted: false,
 			},
 			{ label: "add_password", isActive: false, isCompleted: false },

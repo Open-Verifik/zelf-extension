@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 
 @Component({
 	selector: "app-step",
-	template: `<div class="step-content" [class.active]="step.isActive" [class.completed]="step.isCompleted">
+	template: `<div class="step-content" [class.active]="_isActive()" [class.completed]="_isCompleted()">
 		<ng-content> </ng-content>
 	</div>`,
 	styles: [
@@ -12,9 +12,6 @@ import { Component, Input } from "@angular/core";
 				&.active {
 					display: block;
 				}
-				&.completed {
-					color: green;
-				}
 			}
 		`,
 	],
@@ -23,15 +20,17 @@ export class StepComponent {
 	@Input() step: any;
 	@Input() isActive: boolean = false;
 	@Input() isCompleted: boolean = false;
-	isHidden: boolean = false;
-	label: string = "";
-	isStatus: boolean = false;
+	@Input() isHidden: boolean = false;
+	@Input() label: string = "";
+	@Input() isStatus: boolean = false;
 
-	constructor() {
-		this.isActive = this.step.isActive;
-		this.isCompleted = this.step.isCompleted;
-		this.isHidden = this.step.isHidden;
-		this.label = this.step.label;
-		this.isStatus = this.step.isStatus;
+	constructor() {}
+
+	_isActive(): boolean {
+		return Boolean(this.isActive || this.step?.isActive);
+	}
+
+	_isCompleted(): boolean {
+		return Boolean(this.isCompleted || this.step?.isCompleted);
 	}
 }

@@ -7,7 +7,15 @@
 
 	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper [hideBackButton]="session.step === 3" [stepsArray]="session.steps">
-			<app-step *ngFor="let step of session.steps; index as i" [step]="step">
+			<app-step
+				*ngFor="let step of session.steps; index as i"
+				[step]="step"
+				[isActive]="step.isActive"
+				[isCompleted]="step.isCompleted"
+				[label]="step.label"
+				[isStatus]="step.isStatus"
+				[isHidden]="step.isHidden"
+			>
 				<!-- step wallet type -->
 				<ng-container *ngIf="canSeeWordsCountStep(i)">
 					<words-picker-step></words-picker-step>

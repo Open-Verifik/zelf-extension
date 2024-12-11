@@ -67,7 +67,7 @@ export class ChromeService {
 
 						if (!item) resolve("");
 
-						resolve(item?.includes("{") ? JSON.parse(item) : item);
+						resolve(item?.includes("{") || item?.includes("[]") ? JSON.parse(item) : item);
 					} catch (error) {
 						reject(error);
 					}

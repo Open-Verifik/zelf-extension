@@ -52,6 +52,7 @@ export class StepperComponent implements OnInit {
 	next() {
 		if (this.currentStep < this.numberOfSteps - 1) {
 			this.currentStep++;
+
 			this.updateSteps();
 		}
 	}
@@ -81,9 +82,12 @@ export class StepperComponent implements OnInit {
 
 		this.currentStep = this.stepsMapping[previous.label];
 
-		this.session.step = this.currentStep;
+		if (previous.label === "add_password") {
+			this.session.showBiometricsInstructions = false;
+			this.session.showBiometrics = false;
+		}
 
-		console.log({ current: this.currentStep });
+		this.session.step = this.currentStep;
 
 		this.updateSteps();
 	}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -42,7 +42,7 @@ import { WalletService } from "app/wallet.service";
 	`,
 	styleUrls: ["./biometric-instructions.component.scss", "../../main.scss"],
 })
-export class BiometricInstructionsComponent implements OnInit {
+export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 	session: any;
 
 	constructor(private _walletService: WalletService) {
@@ -55,5 +55,9 @@ export class BiometricInstructionsComponent implements OnInit {
 		this.session.showBiometricsInstructions = false;
 
 		this.session.showBiometrics = true;
+	}
+
+	ngOnDestroy(): void {
+		this.session.showBiometricsInstructions = false;
 	}
 }

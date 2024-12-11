@@ -165,8 +165,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 		if (session?.data) {
 			this._chromeService.setItem("accessToken", session.data.token);
-
-			console.log({ sessionToken: session.data.token });
 		}
 	}
 

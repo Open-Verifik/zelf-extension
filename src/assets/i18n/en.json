@@ -34,7 +34,11 @@
 		"balance": "Balance",
 		"amount": "Amount",
 		"max": "Max",
-		"asset": "Asset"
+		"asset": "Asset",
+		"type": "Type",
+		"from": "From",
+		"to": "To",
+		"fee": "Fee"
 	},
 	"create_wallet": {
 		"password_step": {
@@ -179,6 +183,7 @@
 		"NFTs": "Collectibles"
 	},
 	"activity_card": {
+		"transaction": "Transaction",
 		"sent": "Sent",
 		"in": "Received",
 		"age": "Age",
@@ -189,7 +194,9 @@
 		"method": "Method",
 		"to": "To",
 		"traffic": "Traffic",
-		"txnFee": "Txn Fee"
+		"txnFee": "Txn Fee",
+		"transactionID": "Transaction ID",
+		"viewOnExplorer": "View on Block explorer"
 	},
 	"extension_instructions": {
 		"extensions": "Extensions",

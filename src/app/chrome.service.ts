@@ -14,7 +14,6 @@ export class ChromeService {
 				if (storedTabId === closedTabId) {
 					// Reset the tab state
 					await this.setItem(this.tabStorageKey, false);
-					console.log("Tab closed. State reset.");
 				}
 			});
 		}

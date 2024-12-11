@@ -10,7 +10,7 @@
 				</div>
 
 				<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
-					<h4 class="m-0">Transaction</h4>
+					<h4 class="m-0">{{ "activity_card.transaction" | transloco }}</h4>
 				</div>
 			</div>
 			<!-- end of header -->
@@ -20,37 +20,37 @@
 
 				<div class="st-confirmation-table" fxLayout="column" fxLayoutAlign="start start">
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Type </small>
+						<small> {{ "common.type" | transloco }} </small>
 
 						<small>{{ details.method }} ({{ details.traffic }}) </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> From </small>
+						<small> {{ "common.from" | transloco }} </small>
 
-						<small>{{ details._from }} </small>
+						<small class="link" (click)="openAddressExplorer(details.from)">{{ details._from }} </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> To </small>
+						<small> {{ "common.to" | transloco }} </small>
 
-						<small>{{ details._to }} </small>
+						<small class="link" (click)="openAddressExplorer(details.to)">{{ details._to }} </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Amount </small>
+						<small> {{ "common.amount" | transloco }} </small>
 
 						<small> {{ details.amount }} {{ details.asset }} (${{ details.fiatAmount }})</small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Fee </small>
+						<small> {{ "activity_card.txnFee" | transloco }} </small>
 
 						<small> {{ details.txnFee }} {{ details.asset }} </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Transaction ID </small>
+						<small> {{ "activity_card.transactionID" | transloco }} </small>
 
 						<small> {{ details._transactionId }} </small>
 					</div>
@@ -59,12 +59,8 @@
 			<!-- end of main content -->
 		</div>
 		<div fxLayout="column" fxLayoutAlign="center center" class="w-full px-3 pb-4">
-			<button mat-raised-button class="secondary-button" (click)="goNext()" fxLayout="row" fxLayoutAlign="center center">
-				<span> Share transaction</span>
-			</button>
-
-			<button mat-raised-button class="main-button mt-2" (click)="goNext()" fxLayout="row" fxLayoutAlign="center center">
-				<span> View on block explorer</span>
+			<button mat-raised-button class="main-button mt-2" (click)="viewOnExplorer()" fxLayout="row" fxLayoutAlign="center center">
+				<span> {{ "activity_card.viewOnExplorer" | transloco }}</span>
 			</button>
 		</div>
 	</div>

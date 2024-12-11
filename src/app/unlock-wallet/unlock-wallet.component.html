@@ -8,13 +8,7 @@
 
 	<div fxLayout="row" fxLayoutAlign="start center">
 		<app-stepper [stepsArray]="session.steps" [hideBackButton]="canSeeQRCode(2)">
-			<app-step
-				*ngFor="let step of session.steps; index as i"
-				[isActive]="step.isActive"
-				[isCompleted]="step.isCompleted"
-				[label]="step.label"
-				[isHidden]="step.isHidden"
-			>
+			<app-step *ngFor="let step of session.steps; index as i" [step]="step">
 				<ng-container *ngIf="canSeeSearchStep(i)">
 					<uw-search-wallet></uw-search-wallet>
 				</ng-container>

@@ -588,8 +588,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				previewZelfProof: 1,
 			})
 			.then((response) => {
-				console.log({ CREATE: response.data });
-
 				this.session.showBiometrics = false;
 
 				this._chromeService.setItem("wallet", response.data);
@@ -650,8 +648,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				mnemonic: data.phrase,
 			})
 			.then((response) => {
-				console.log({ lease: response.data });
-
 				this.session.walletCreated = response.data;
 
 				this._chromeService.setItem("importWallet", response.data);

@@ -74,17 +74,9 @@ export class SendTransactionPreviewComponent implements OnInit {
 		const fees = await this._ethService.getGasPrices();
 
 		this.fees = fees.data;
-
-		console.log({ fees });
 	}
 
 	async _getAccountDetails(): Promise<any> {
-		// const sampleWallet = "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5";
-
-		// const details = await this._ethService.getWalletDetails(sampleWallet);
-
-		// console.log({ details });
-
 		this.selectedAsset = new Asset({
 			asset: this.transactionData.asset,
 			fiatBalance: this.transactionData.fiatBalance,

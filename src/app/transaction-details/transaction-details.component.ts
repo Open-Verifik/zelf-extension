@@ -34,8 +34,34 @@ export class TransactionDetailsComponent implements OnInit {
 
 	_formatData(): void {}
 
-	goNext(): void {
+	viewOnExplorer(): void {
+		const transactionId = this.details.transactionId;
+		switch (this.details.asset) {
+			case "ETH":
+				const etherscanUrl = `https://etherscan.io/tx/${transactionId}`;
+
+				window.open(etherscanUrl, "_blank");
+
+				break;
+
+			default:
+				break;
+		}
 		// this._router.navigate(["/send-transaction-bridge"]);
+	}
+
+	openAddressExplorer(address: string): void {
+		switch (this.details.asset) {
+			case "ETH":
+				const etherscanUrl = `https://etherscan.io/address/${address}`;
+
+				window.open(etherscanUrl, "_blank");
+
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	cancel(): void {

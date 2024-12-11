@@ -12,9 +12,19 @@ export class NewZelfNameComponent implements OnInit {
 	@ViewChild("zelfForm") signUpNgForm!: NgForm;
 	zelfForm!: UntypedFormGroup;
 	zelfName: string;
+	steps: Array<any>;
 
 	constructor(private _router: Router, private _formBuilder: UntypedFormBuilder, private _ipfsService: IpfsService) {
 		this.zelfName = "";
+
+		this.steps = [
+			{
+				isActive: true,
+				isCompleted: false,
+				label: "available",
+				isStatus: true,
+			},
+		];
 	}
 
 	async ngOnInit(): Promise<any> {

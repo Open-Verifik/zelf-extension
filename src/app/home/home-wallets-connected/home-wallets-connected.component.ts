@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { Wallet, WalletModel } from "app/wallet";
@@ -8,10 +8,8 @@ import { WalletService } from "app/wallet.service";
 	selector: "home-wallets-connected",
 	template: `<div class="hwc-wrapper">
 		<div class="hwc-content" *ngIf="loaded">
-			<div class="hwc-header">
-				<div class="hwc-header-title">{{ "wallets_connected.title" | transloco }}</div>
-			</div>
 			<div class="hwc-account-list">
+				<wallet-card class="w-full" [variables]="{ index: 0 }" [wallet]="currentWallet" [wallets]="wallets"> </wallet-card>
 				<wallet-card
 					class="w-full"
 					*ngFor="let wallet of wallets; let _index = index"
@@ -38,41 +36,43 @@ import { WalletService } from "app/wallet.service";
 	</div>`,
 	styleUrls: ["./home-wallets-connected.component.scss"],
 })
-export class HomeWalletsConnectedComponent implements OnInit {
+export class HomeWalletsConnectedComponent implements OnInit, OnDestroy {
 	wallets!: Array<Wallet>;
 	selectedIndex: number;
 	loaded!: boolean;
+	currentWallet!: Wallet;
 
 	constructor(private _walletService: WalletService, private _router: Router, private _chromeService: ChromeService) {
 		this.selectedIndex = 0;
+
+		this.loaded = false;
+
+		this.wallets = [];
 	}
 
 	async ngOnInit(): Promise<any> {
 		const _wallet = (await this._chromeService.getItem("wallet")) || {};
 
-		const currentWallet = new WalletModel({ ..._wallet, index: 0 });
+		this.currentWallet = new WalletModel({ ..._wallet, index: 0 });
 
 		const remainingWallets = (await this._chromeService.getItem("wallets")) || [];
 
-		this.wallets = [];
-
-		if (currentWallet.ethAddress) {
-			this.wallets.push(currentWallet);
-		}
-
 		const walletsMapping = {
-			[currentWallet.ethAddress]: true,
+			[this.currentWallet.ethAddress]: true,
 		};
 
 		if (Array.isArray(remainingWallets) && remainingWallets.length) {
 			for (let index = 0; index < remainingWallets.length; index++) {
 				const wallet = remainingWallets[index];
 
-				if (walletsMapping[wallet.ethAddress]) continue;
+				const _wallet = new WalletModel({
+					...wallet,
+					index: index + 1,
+				});
+
+				if (walletsMapping[_wallet.ethAddress]) continue;
 
 				walletsMapping[wallet.ethAddress] = true;
-
-				const _wallet = new WalletModel({ ...wallet, index });
 
 				if (!_wallet.ethAddress || !_wallet.image.includes("data:image/png;base64")) continue;
 
@@ -80,17 +80,17 @@ export class HomeWalletsConnectedComponent implements OnInit {
 			}
 		}
 
-		if (!currentWallet.ethAddress) {
-			this._chromeService.setItem("wallet", this.wallets[0]);
-			// localStorage.setItem("wallet", JSON.stringify(this.wallets[0]));
-		}
 		this._chromeService.setItem("wallets", this.wallets);
-		// localStorage.setItem("wallets", JSON.stringify(this.wallets));
 
 		this.loaded = true;
 	}
 
 	goToOnboarding(): void {
 		this._router.navigate(["/onboarding"]);
+	}
+
+	ngOnDestroy(): void {
+		this.wallets = [];
+		this.loaded = false;
 	}
 }

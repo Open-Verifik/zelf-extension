@@ -6,9 +6,7 @@ import { Component, Input, OnInit } from "@angular/core";
 	styleUrls: ["./header.scss"],
 })
 export class HeaderComponent implements OnInit {
-	constructor() {
-		console.log("test");
-	}
+	constructor() {}
 
 	async ngOnInit(): Promise<any> {}
 }

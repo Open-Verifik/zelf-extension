@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { IpfsService } from "app/ipfs.service";
+import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "app-new-zelf-name",
@@ -13,8 +14,14 @@ export class NewZelfNameComponent implements OnInit {
 	zelfForm!: UntypedFormGroup;
 	zelfName: string;
 	steps: Array<any>;
+	session: any;
 
-	constructor(private _router: Router, private _formBuilder: UntypedFormBuilder, private _ipfsService: IpfsService) {
+	constructor(
+		private _router: Router,
+		private _formBuilder: UntypedFormBuilder,
+		private _ipfsService: IpfsService,
+		private _walletService: WalletService
+	) {
 		this.zelfName = "";
 
 		this.steps = [
@@ -25,6 +32,9 @@ export class NewZelfNameComponent implements OnInit {
 				isStatus: true,
 			},
 		];
+
+		this.session = this._walletService.getSessionData();
+		this.session.steps = [];
 	}
 
 	async ngOnInit(): Promise<any> {

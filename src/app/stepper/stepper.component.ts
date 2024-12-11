@@ -83,6 +83,8 @@ export class StepperComponent implements OnInit {
 
 		this.session.step = this.currentStep;
 
+		console.log({ current: this.currentStep });
+
 		this.updateSteps();
 	}
 
@@ -100,6 +102,10 @@ export class StepperComponent implements OnInit {
 		this.steps.forEach((step: any, index: number) => {
 			step.isActive = index === this.currentStep;
 			step.isCompleted = index < this.currentStep;
+			if (step.step) {
+				step.step.isActive = index === this.currentStep;
+				step.step.isCompleted = index < this.currentStep;
+			}
 		});
 	}
 }

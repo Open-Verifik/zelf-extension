@@ -8,7 +8,15 @@
 
 	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper [stepsArray]="session.steps">
-			<app-step *ngFor="let step of session.steps; index as i" [step]="step">
+			<app-step
+				*ngFor="let step of session.steps; index as i"
+				[step]="step"
+				[isActive]="step.isActive"
+				[isCompleted]="step.isCompleted"
+				[label]="step.label"
+				[isStatus]="step.isStatus"
+				[isHidden]="step.isHidden"
+			>
 				<div class="zelf-card" *ngIf="canSee12WordsStep(i)">
 					<div class="cw-pst-content" fxLayout="column" fxLayoutAlign="space-between center">
 						<div class="cw-pst-content-d">

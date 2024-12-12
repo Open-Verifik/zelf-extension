@@ -34,7 +34,11 @@
 		"balance": "Saldo",
 		"amount": "Cantidad",
 		"max": "Máximo",
-		"asset": "Activo"
+		"asset": "Activo",
+		"type": "Categoría",
+		"from": "De",
+		"to": "Para",
+		"fee": "Costo"
 	},
 	"create_wallet": {
 		"password_step": {

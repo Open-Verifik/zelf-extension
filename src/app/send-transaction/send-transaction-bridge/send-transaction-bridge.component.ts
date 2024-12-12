@@ -20,14 +20,39 @@ export class SendTransactionBridgeComponent implements OnInit {
 	async ngOnInit(): Promise<any> {
 		this.transactionData = new TransactionModel(this._transactionService.getTransactionData());
 
-		QRCode.toDataURL(JSON.stringify(this.transactionData.gasFee), (err, url) => {
-			if (err) {
-				console.error(err);
-				return;
-			}
+		let wallet = await this._chromeService.getItem("wallet");
 
-			this.qrCode = url;
-		});
+		QRCode.toDataURL(
+			JSON.stringify({
+				amount: this.transactionData.amount,
+				asset: this.transactionData.asset,
+				network: this.transactionData.network,
+				receiverZelfName: this.transactionData.receiver.name,
+				senderZelfName: wallet.name,
+				receiverAddress: this._getReceiverAddress(this.transactionData.network, this.transactionData.receiver),
+			}),
+			(err, url) => {
+				if (err) {
+					console.error(err);
+					return;
+				}
+
+				this.qrCode = url;
+			}
+		);
+	}
+
+	_getReceiverAddress(network: string, receiver: any): string {
+		switch (network) {
+			case "Ethereum":
+				return receiver.ethAddress;
+
+			case "Solana":
+				return receiver.solanaAddress;
+
+			default:
+				return "";
+		}
 	}
 
 	cancel(): void {

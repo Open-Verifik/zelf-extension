@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { TranslocoService } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
 import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-
-let isTabOpen = false;
 
 @Component({
 	selector: "app-onboarding",

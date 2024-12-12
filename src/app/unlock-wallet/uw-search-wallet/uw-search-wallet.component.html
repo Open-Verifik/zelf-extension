@@ -1,8 +1,8 @@
 <div class="zelf-card">
 	<div class="unlock-inner-container" fxLayout="column" fxLayoutAlign="space-between center">
-		<h2 *ngIf="!potentialWallet && !zelfProof">{{ "unlock_wallet.title" | transloco }}</h2>
+		<h2 *ngIf="!potentialWallet">{{ "unlock_wallet.title" | transloco }}</h2>
 
-		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet && !zelfProof">
+		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet">
 			<div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
 			<div class="unlock-input-box">
 				<div class="unlock-input-text-container">
@@ -31,7 +31,7 @@
 			</div>
 		</form>
 
-		<div class="unlock-box" *ngIf="!potentialWallet && !zelfProof">
+		<div class="unlock-box" *ngIf="!potentialWallet">
 			<div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div>
 
 			<div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
@@ -49,8 +49,8 @@
 				{{ "unlock_wallet.account_found" | transloco }}
 			</h2>
 
-			<div *ngIf="zelfProof && fileBase64" class="" fxLayout="row" fxLayoutAlign="center center">
-				<img [src]="fileBase64" alt="Uploaded QR Code" class="w-35p" />
+			<div *ngIf="potentialWallet.image" class="" fxLayout="row" fxLayoutAlign="center center">
+				<img [src]="potentialWallet.image" alt="Uploaded QR Code" class="w-35p" />
 			</div>
 
 			<div fxLayout="column" fxLayoutAlign="center center" class="public-data-content">

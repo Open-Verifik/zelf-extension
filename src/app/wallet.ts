@@ -38,6 +38,7 @@ export interface Wallet {
 	anonymous: boolean;
 	ethAddress: string;
 	displayEthAddress: string;
+	displaySolanaAddress: string;
 	solanaAddress: string;
 	hasPassword: boolean;
 	zelfProof: string;
@@ -66,11 +67,11 @@ export class WalletModel implements Wallet {
 	assets: Array<Asset>;
 
 	constructor(data: any = {}) {
-		this.name = data.name || data.zelfName || data.publicData?.zelfName;
-
 		this.anonymous = data.anonymous || true;
 
-		const secondaryStorage = data.publicData || data.cleartext_data || {};
+		const secondaryStorage = data.publicData || data.cleartext_data || data.metadata?.keyvalues || {};
+
+		this.name = data.name || data.zelfName || secondaryStorage.zelfName;
 
 		this.ethAddress = data.ethAddress || secondaryStorage.ethAddress;
 
@@ -92,8 +93,9 @@ export class WalletModel implements Wallet {
 			this.displaySolanaAddress = `${firstPart}...${lastPart}`;
 		}
 
-		this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || data.publicData?.hasPassword === "true");
-		this.zelfProof = data.zelfProof;
+		this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
+
+		this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
 		this.image = data.image || data.zelfProofQRCode || data.url;
 		this.publicData = secondaryStorage;
 		this.zkProof = data.zkProof;

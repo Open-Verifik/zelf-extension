@@ -55,7 +55,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	) {
 		this._walletService.restoreSession();
 
-		this._ipfsService.setZelfFile(null);
+		this._zelfNameService.setZelfFile(null);
 
 		this._zelfNameService.setZelfName("", 0);
 

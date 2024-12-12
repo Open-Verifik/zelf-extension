@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@ngneat/transloco";
@@ -6,10 +6,10 @@ import { WalletService } from "app/wallet.service";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 import jsQR from "jsqr";
 import { Buffer } from "buffer";
-import { ChromeService } from "app/chrome.service";
+
 import { IpfsService } from "app/ipfs.service";
 import { HttpClient } from "@angular/common/http";
-import { WalletModel } from "app/wallet";
+import { Wallet, WalletModel } from "app/wallet";
 import { Router } from "@angular/router";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
@@ -19,10 +19,10 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 	styleUrls: ["../unlock-wallet.component.scss", "../../main.scss"],
 	encapsulation: ViewEncapsulation.None,
 })
-export class UwSearchWalletComponent implements OnInit {
+export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	searchForm!: UntypedFormGroup;
 	searchQuery$!: Observable<string>;
-	potentialWallet: any;
+	potentialWallet!: Wallet | null;
 	session: any;
 	fileBase64: string | ArrayBuffer | null = null;
 	zelfProof: string | null = null;
@@ -97,6 +97,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 	_checkForZelfFile(): void {
 		const zelfFile = this._zelfNameService.getZelfFile();
+
 		const zelfName = this._zelfNameService.getZelfName();
 
 		if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
@@ -112,6 +113,7 @@ export class UwSearchWalletComponent implements OnInit {
 		try {
 			// First, search by ethAddress
 			const ethResponse = await this._queryZNS("ethAddress", query);
+
 			if (!ethResponse) {
 				// If no result for ethAddress, fallback to solanaAddress
 				const solanaResponse = await this._queryZNS("solanaAddress", query);
@@ -139,6 +141,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 			return response; // Return the response if successful
 		} catch (error) {
+			console.error({ error });
 			return null; // Return null on error
 		}
 	}
@@ -152,9 +155,9 @@ export class UwSearchWalletComponent implements OnInit {
 			name: zelfFile.zelfName,
 		};
 
-		this.fileBase64 = record.zelfProofQRCode;
+		this.potentialWallet = new WalletModel(record);
 
-		this.session.hasPassword = Boolean(record.publicData.hasPassword === "true");
+		this.session.hasPassword = this.potentialWallet.hasPassword;
 
 		this._zelfNameService.setZelfFile(record);
 
@@ -162,11 +165,7 @@ export class UwSearchWalletComponent implements OnInit {
 
 		this._zelfNameService.setZelfProof(record.zelfProof);
 
-		this.zelfProof = record.zelfProof;
-
-		this.potentialWallet = new WalletModel(record);
-
-		if (!this.potentialWallet?.publicData) return this._showAccountNotFound("");
+		if (!this.potentialWallet?.zelfProof) return this._showAccountNotFound("");
 
 		if (!this.potentialWallet.ethAddress) {
 			this._router.navigate(["/onboarding"]);
@@ -184,13 +183,11 @@ export class UwSearchWalletComponent implements OnInit {
 	goToNextStep(): void {
 		this._walletService.goToNextStep(this.session.step + 1);
 
-		this.session.identifier = this.potentialWallet.ethAddress;
+		this.session.identifier = this.potentialWallet?.ethAddress;
 
-		// this.session.zelfProof = this.zelfProof;
+		this.session.usePassword = this.potentialWallet?.hasPassword;
 
-		this.session.usePassword = this.potentialWallet.hasPassword;
-
-		if (!this.potentialWallet.hasPassword) {
+		if (!this.potentialWallet?.hasPassword) {
 			this._walletService.goToNextStep(this.session.step + 1);
 
 			this.session.showBiometricsInstructions = true;
@@ -349,5 +346,9 @@ export class UwSearchWalletComponent implements OnInit {
 					if (blob) reader.readAsDataURL(blob);
 				});
 			});
+	}
+
+	ngOnDestroy(): void {
+		this.potentialWallet = null;
 	}
 }

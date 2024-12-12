@@ -3,6 +3,7 @@ import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angul
 import { Router } from "@angular/router";
 import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
 	selector: "app-new-zelf-name",
@@ -20,7 +21,8 @@ export class NewZelfNameComponent implements OnInit {
 		private _router: Router,
 		private _formBuilder: UntypedFormBuilder,
 		private _ipfsService: IpfsService,
-		private _walletService: WalletService
+		private _walletService: WalletService,
+		private _zelfNameService: ZelfNameService
 	) {
 		this.zelfName = "";
 

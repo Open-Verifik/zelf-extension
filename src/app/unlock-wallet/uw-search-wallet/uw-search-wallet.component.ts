@@ -73,6 +73,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		const checkingTempWallet = await this._checkForTempWallet();
 
+		console.log({ checkingTempWallet });
+
 		if (!checkingTempWallet) {
 			this._checkForZelfFile();
 		}
@@ -109,6 +111,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		const zelfFile = this._zelfNameService.getZelfFile();
 
 		const zelfName = this._zelfNameService.getZelfName();
+
+		console.log({ zelfFile, zelfName });
 
 		if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
 
@@ -179,15 +183,17 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		this.potentialWallet = new WalletModel(record);
 
+		console.log({ potentialWallet: this.potentialWallet });
+
 		this.session.hasPassword = this.potentialWallet.hasPassword;
 
 		this._zelfNameService.setZelfFile(record);
 
 		this._zelfNameService.setZelfName(record.name, 0);
 
-		this._zelfNameService.setZelfProof(record.zelfProof);
-
-		if (!this.potentialWallet?.zelfProof) return this._showAccountNotFound("");
+		if (record.zelfProof) {
+			this._zelfNameService.setZelfProof(record.zelfProof);
+		}
 
 		if (!this.potentialWallet.ethAddress) {
 			this._router.navigate(["/onboarding"]);
@@ -338,8 +344,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 				zelfProof: this.zelfProof,
 				image: this.fileBase64,
 			});
-
-			console.log({ potentialWallet: this.potentialWallet, response });
 
 			if (!this.potentialWallet.ethAddress) {
 				this.session.step = 0;

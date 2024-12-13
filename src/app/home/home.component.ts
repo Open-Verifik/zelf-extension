@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
 	) {
 		this.balances = {};
 
-		this.view = "activeAccountPage";
+		this.view = "networkPickerPage";
 
 		this.shareables = {
 			view: this.view,

@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
 	) {
 		this.balances = {};
 
-		this.view = "home";
+		this.view = "activeAccountPage";
 
 		this.shareables = {
 			view: this.view,

@@ -12,6 +12,7 @@ import { HttpClient } from "@angular/common/http";
 import { Wallet, WalletModel } from "app/wallet";
 import { Router } from "@angular/router";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
 	selector: "uw-search-wallet",
@@ -28,6 +29,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	zelfProof: string | null = null;
 	displayableError: any;
 	unlockQRCode: string;
+	loading: boolean;
 
 	constructor(
 		private _walletService: WalletService,
@@ -38,9 +40,11 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		private _zelfNameService: ZelfNameService,
 		private _ipfsService: IpfsService,
 		private http: HttpClient,
-		private _router: Router
+		private _router: Router,
+		private _chromeService: ChromeService
 	) {
 		this.unlockQRCode = "";
+		this.loading = false;
 
 		this.session = this._walletService.getSessionData();
 
@@ -49,7 +53,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		localStorage.removeItem("unlockWallet");
 	}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<any> {
 		const defaultAddress = "";
 
 		this.searchForm = this._formBuilder.group({
@@ -63,34 +67,40 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		);
 
 		this.searchQuery$.subscribe((query) => {
+			this.loading = true;
 			this.triggerSearch(query);
 		});
 
-		const checkingTempWallet = this._checkForTempWallet();
+		const checkingTempWallet = await this._checkForTempWallet();
 
 		if (!checkingTempWallet) {
 			this._checkForZelfFile();
 		}
 	}
 
-	_checkForTempWallet(): boolean {
-		const passedActiveWallet = localStorage.getItem("tempWalletAddress");
+	async _checkForTempWallet(): Promise<any> {
+		this.loading = true;
+
+		const zelfName = await this._chromeService.getItem("currentZelfName");
 
 		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
 
-		if (!passedActiveWallet || !passedActiveQRCode) return false;
-
-		this.zelfProof = passedActiveWallet;
+		if (!zelfName || !passedActiveQRCode) {
+			this.loading = false;
+			return false;
+		}
 
 		this.fileBase64 = passedActiveQRCode;
 
 		setTimeout(() => {
 			localStorage.removeItem("unlockWallet");
+
 			localStorage.removeItem("tempWalletAddress");
+
 			localStorage.removeItem("tempWalletQrCode");
 		}, 1000);
 
-		this.previewQRCode();
+		this._queryZNS("zelfName", zelfName);
 
 		return true;
 	}
@@ -108,20 +118,27 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	async triggerSearch(query?: string): Promise<void> {
 		if (!query) query = this.searchForm.value.address;
 
-		if (!query) return;
+		if (!query) {
+			this.loading = false;
+			return;
+		}
 
 		try {
-			// First, search by ethAddress
 			const ethResponse = await this._queryZNS("ethAddress", query);
 
 			if (!ethResponse) {
-				// If no result for ethAddress, fallback to solanaAddress
 				const solanaResponse = await this._queryZNS("solanaAddress", query);
+
 				if (!solanaResponse) {
 					// Handle case where neither address type has results
 					this._showAccountNotFound("solanaAddress");
 				}
+
+				this.loading = false;
+				return;
 			}
+
+			this.loading = false;
 		} catch (error) {
 			this._showAccountNotFound("ethAddress");
 		}
@@ -139,9 +156,14 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 			this._formatZelfFile(ipfsFile);
 
+			this.loading = false;
+
 			return response; // Return the response if successful
 		} catch (error) {
 			console.error({ error });
+
+			this.loading = false;
+
 			return null; // Return null on error
 		}
 	}
@@ -201,6 +223,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		this.zelfProof = null;
 
+		this.loading = false;
+
 		this.searchForm.patchValue({ address: "" });
 	}
 
@@ -209,6 +233,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		const input = event.target as HTMLInputElement;
 		if (input.files && input.files.length > 0) {
 			const file = input.files[0];
+
+			this.loading = true;
 
 			this.handleFile(file);
 		}
@@ -295,13 +321,15 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 			return;
 		}
 
+		this.loading = false;
+
 		this.displayableError = {
 			type: "qr_code",
 			message: "invalid_qr_code",
 		};
 	}
 
-	previewQRCode(): void {
+	previewQRCode(zelfName?: string): void {
 		if (!this.zelfProof) return;
 
 		this._walletService.previewWallet(this.zelfProof).then((response) => {
@@ -310,6 +338,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 				zelfProof: this.zelfProof,
 				image: this.fileBase64,
 			});
+
+			console.log({ potentialWallet: this.potentialWallet, response });
 
 			if (!this.potentialWallet.ethAddress) {
 				this.session.step = 0;
@@ -326,6 +356,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 			this._zelfNameService.setZelfProof(this.potentialWallet.zelfProof);
 
 			this._zelfNameService.setZelfName(this.potentialWallet.publicData.zelfName, 0);
+
+			this.loading = false;
 		});
 	}
 

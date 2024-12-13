@@ -1,3 +1,4 @@
+<mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
 <div class="zelf-card">
 	<div class="unlock-inner-container" fxLayout="column" fxLayoutAlign="space-between center">
 		<h2 *ngIf="!potentialWallet">{{ "unlock_wallet.title" | transloco }}</h2>
@@ -45,8 +46,12 @@
 
 		<div *ngIf="potentialWallet" fxLayout="column" fxLayoutAlign="center center" class="w-full">
 			<!--  -->
-			<h2 class="text-center">
+			<h2 class="text-center" *ngIf="!potentialWallet.name">
 				{{ "unlock_wallet.account_found" | transloco }}
+			</h2>
+
+			<h2 class="text-center mb-1" *ngIf="potentialWallet.name">
+				{{ potentialWallet.name }}
 			</h2>
 
 			<div *ngIf="potentialWallet.image" class="" fxLayout="row" fxLayoutAlign="center center">

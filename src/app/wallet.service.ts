@@ -269,7 +269,6 @@ export class WalletService {
 	}
 
 	previewWallet(zelfProof: string): Promise<any> {
-		this.zelfProof = zelfProof;
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
 			zelfProof,
 		});

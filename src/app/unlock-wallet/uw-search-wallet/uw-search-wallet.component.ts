@@ -183,8 +183,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		this.potentialWallet = new WalletModel(record);
 
-		console.log({ potentialWallet: this.potentialWallet });
-
 		this.session.hasPassword = this.potentialWallet.hasPassword;
 
 		this._zelfNameService.setZelfFile(record);

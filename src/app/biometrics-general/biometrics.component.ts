@@ -18,7 +18,7 @@ import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalDa
 
 import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { HttpWrapperService } from "app/http-wrapper.service";
-import { environment } from "environments/environment";
+
 import { ChromeService } from "app/chrome.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
@@ -700,18 +700,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 	tryAgain(): void {
 		this.showError = false;
 		this.session.showBiometrics = false;
-		this.session.step--;
+		this.session.showBiometricsInstructions = true;
+		console.log({ session: this.session });
 	}
 
-	continueRedirection(): void {
-		// if (this.showError && this.errorContent.message === "person_not_found") {
-		// 	window.location.reload();
-		// 	return;
-		// }
-		// const token = localStorage.getItem("accessToken");
-		// const redirectUrl = Boolean(environment.verifikProject === this.project._id) ? `${environment.appUrl}/sign-in` : this.projectFlow.redirectUrl;
-		// window.location.href = `${redirectUrl}?type=login&token=${token}`;
-	}
+	continueRedirection(): void {}
 
 	ngOnDestroy(): void {
 		this._unsubscribeAll.next(null);

@@ -104,6 +104,7 @@
 		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "The Face angle is too large",
 		"ERR_INVALID_PASSWORD": "The password for this ZelfProof is invalid",
 		"ERR_DESCRIPTION": "Make sure to follow the instructions properly to unlock your ZelfProof",
+		"ERR_UNPROCESSABLE_CONTENT": "ZelfProof could not be decrypted",
 		"zelfName_is_taken": "This zelf name is already taken"
 	},
 	"import_wallet": {
@@ -150,7 +151,7 @@
 	},
 	"steps": {
 		"import_wallet": "Import your wallet",
-		"add_password": "Add a password",
+		"add_password": "ADD A PASSWORD",
 		"biometrics": "ZelfProof",
 		"qr_code_generator": "ZELF NAME",
 		"search_wallet": "OPEN ZELFPROOF",

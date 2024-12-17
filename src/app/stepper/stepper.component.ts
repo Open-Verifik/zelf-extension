@@ -82,7 +82,7 @@ export class StepperComponent implements OnInit {
 
 		this.currentStep = this.stepsMapping[previous.label];
 
-		if (previous.label === "add_password") {
+		if (["password_unlock", "add_password"].includes(previous.label)) {
 			this.session.showBiometricsInstructions = false;
 			this.session.showBiometrics = false;
 		}

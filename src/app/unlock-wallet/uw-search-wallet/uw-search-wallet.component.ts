@@ -73,8 +73,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		const checkingTempWallet = await this._checkForTempWallet();
 
-		console.log({ checkingTempWallet });
-
 		if (!checkingTempWallet) {
 			this._checkForZelfFile();
 		}
@@ -111,8 +109,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		const zelfFile = this._zelfNameService.getZelfFile();
 
 		const zelfName = this._zelfNameService.getZelfName();
-
-		console.log({ zelfFile, zelfName });
 
 		if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
 
@@ -191,6 +187,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		if (record.zelfProof) {
 			this._zelfNameService.setZelfProof(record.zelfProof);
+		} else if (zelfFile.zelfProofQRCode) {
+			this.decodeQRCode(zelfFile.zelfProofQRCode, record);
 		}
 
 		if (!this.potentialWallet.ethAddress) {
@@ -275,7 +273,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 			this.fileBase64 = reader.result;
 
 			if (typeof this.fileBase64 === "string") {
-				this.decodeQRCode(this.fileBase64);
+				this.decodeQRCode(this.fileBase64, false);
 			}
 		};
 
@@ -283,7 +281,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	}
 
 	// Method to decode QR code from base64 image
-	decodeQRCode(base64: string): void {
+	decodeQRCode(base64: string, zelfFile: any): void {
 		const img = new Image();
 
 		img.src = base64;
@@ -298,7 +296,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 				const code = jsQR(imageData.data, imageData.width, imageData.height);
 
-				this.extractBinaryData(code);
+				this.extractBinaryData(code, zelfFile);
 			}
 		};
 	}
@@ -310,7 +308,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		}).join("");
 	}
 
-	extractBinaryData(code: any): void {
+	extractBinaryData(code: any, zelfFile: any): any {
 		if (code && code.binaryData) {
 			const hexString = this.toHexString(code.binaryData);
 
@@ -318,11 +316,15 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 			const base64String = buffer.toString("base64");
 
-			this.zelfProof = base64String;
+			this._zelfNameService.setZelfProof(base64String);
 
-			this.previewQRCode();
+			if (!zelfFile) {
+				this.previewQRCode();
+			}
 
-			return;
+			zelfFile.zelfProof = base64String;
+
+			return base64String;
 		}
 
 		this.loading = false;

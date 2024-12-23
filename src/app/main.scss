@@ -44,7 +44,7 @@ body {
 }
 
 .home-main {
-	width: 440px;
+	width: 430px;
 	height: 600px;
 }
 
@@ -1026,6 +1026,12 @@ h3 {
 	.zelf-content {
 		width: 100% !important;
 		height: 100% !important;
+	}
+
+	.home-main {
+		width: 430px;
+		height: 600px;
+		// overflow: hidden !important;
 	}
 }
 

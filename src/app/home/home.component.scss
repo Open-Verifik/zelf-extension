@@ -475,7 +475,13 @@ $computers: 1200px;
 /* For extremely small screen devices (595px and below) */
 @media only screen and (max-width: $maxExtraSmall) {
 	.activity-content {
-		min-height: 280px;
-		max-height: 280px;
+		min-height: 295px;
+		max-height: 295px;
+	}
+
+	.assets-content {
+		height: 235px;
+		overflow: scroll;
+		background: white;
 	}
 }

@@ -84,7 +84,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	}
 
 	openFullPage(force: boolean): void {
-		this._chromeService.openFullPage(force).catch(console.error);
+		this._chromeService.openFullPage(force, "onboarding").catch(console.error);
 	}
 
 	startRotation(): void {
@@ -177,9 +177,9 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
 
 		// Validation: Ensure zelfName is at least 4 characters
-		if (!this.zelfForm.value.zelfName || this.zelfForm.value.zelfName.length < 4) {
+		if (!this.zelfForm.value.zelfName || this.zelfForm.value.zelfName.length < 7) {
 			// You can add an error message here if needed
-			alert("Zelf name must be at least 4 characters long.");
+			alert("Zelf name must be at least 7 characters long.");
 
 			this.loading = false;
 

@@ -111,7 +111,7 @@ export class ChromeService {
 		});
 	}
 
-	async openFullPage(force: boolean): Promise<void> {
+	async openFullPage(force: boolean, path: string): Promise<void> {
 		if (!this.isExtension) return;
 
 		chrome.tabs.getCurrent((currentTab) => {
@@ -120,10 +120,11 @@ export class ChromeService {
 			try {
 				const url = chrome.runtime.getURL("index.html");
 
-				chrome.tabs.create({ url }, async (tab) => {
+				chrome.tabs.create({ url: `${url}#${path}` }, async (tab) => {
 					if (tab.id) {
 						try {
 							await this.setItem(this.tabStorageKey, true);
+
 							await this.setItem("tabId", tab.id);
 						} catch (error) {
 							console.error("Failed to update tab state:", error);

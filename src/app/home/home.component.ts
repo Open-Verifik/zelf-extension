@@ -11,7 +11,7 @@ import { WalletService } from "app/wallet.service";
 @Component({
 	selector: "app-home",
 	templateUrl: "./home.component.html",
-	styleUrls: ["../main.scss", "./home.component.scss"],
+	styleUrls: ["./home.component.scss", "../main.scss"],
 })
 export class HomeComponent implements OnInit {
 	title: string = "something";

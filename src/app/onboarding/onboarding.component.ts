@@ -177,9 +177,9 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
 
 		// Validation: Ensure zelfName is at least 4 characters
-		if (!this.zelfForm.value.zelfName || this.zelfForm.value.zelfName.length < 4) {
+		if (!this.zelfForm.value.zelfName || this.zelfForm.value.zelfName.length < 8) {
 			// You can add an error message here if needed
-			alert("Zelf name must be at least 4 characters long.");
+			alert("[BETA] FREE Zelf names must be at least 8 characters long.");
 
 			this.loading = false;
 

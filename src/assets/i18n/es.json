@@ -47,7 +47,7 @@
 			"password_label": "Contraseña",
 			"repeat_password_label": "Repetir contraseña",
 			"agreement": "Entiendo que Zelf no puede recuperar esta contraseña. Al elegir esta capa adicional de seguridad, reconozco que soy el único responsable de recordarla.",
-			"add_password": "Dos capas de seguridad",
+			"add_password": "Continuar",
 			"continue_without_password": "Una capa de seguridad"
 		},
 		"phrase_step": {

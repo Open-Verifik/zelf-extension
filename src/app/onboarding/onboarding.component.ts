@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Event, Router } from "@angular/router";
+import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
@@ -48,7 +49,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		private _formBuilder: UntypedFormBuilder,
 		private _walletService: WalletService,
 		private _ipfsService: IpfsService,
-		private _zelfNameService: ZelfNameService
+		private _zelfNameService: ZelfNameService,
+		private captchaService: CaptchaService
 	) {
 		this._walletService.restoreSession();
 
@@ -72,6 +74,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 		this.checkIfTabOpen();
 	}
+
+	async onSubmit(event: Event) {}
 
 	// Check if running as a tab or popup
 	checkIfTabOrPopup(): void {
@@ -165,21 +169,31 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	async searchZelfName(): Promise<any> {
+	async searchZelfName(event: any): Promise<any> {
 		if (!this.zelfForm.valid) {
 			this.zelfForm.patchValue({ zelfName: "" });
 		}
 
 		if (this.loading) return;
 
+		event.preventDefault();
+
 		this.loading = true;
 
 		const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
 
+		let captchaToken = "";
+
+		try {
+			captchaToken = await this.captchaService.executeRecaptcha(this.zelfForm.value.zelfName);
+		} catch (error) {
+			console.error("reCAPTCHA failed:", error);
+		}
+
 		// Validation: Ensure zelfName is at least 4 characters
-		if (!this.zelfForm.value.zelfName || this.zelfForm.value.zelfName.length < 7) {
+		if (!this.zelfForm.value.zelfName || this.zelfForm.value.zelfName.length < 8) {
 			// You can add an error message here if needed
-			alert("Zelf name must be at least 7 characters long.");
+			alert("[BETA] FREE Zelf names must be at least 8 characters long.");
 
 			this.loading = false;
 
@@ -189,7 +203,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		await this._initSession();
 
 		this._zelfNameService
-			.searchZelfName("zelfName", zelfName)
+			.searchZelfName("zelfName", zelfName, captchaToken)
 			.then((response) => {
 				if (response?.data.price) return this._noZelfNameFound(response?.data);
 

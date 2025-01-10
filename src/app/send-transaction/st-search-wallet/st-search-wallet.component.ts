@@ -104,7 +104,7 @@ export class StSearchWalletComponent implements OnInit {
 		const key = this.walletToSearch.includes(".zelf") ? "zelfName" : "ethAddress";
 
 		this._zelfNameService
-			.searchZelfName(key, this.walletToSearch)
+			.searchZelfName(key, this.walletToSearch, "")
 			.then((response) => {
 				if (!response.data || response.data.price) {
 					this._validateAddress(response.data);

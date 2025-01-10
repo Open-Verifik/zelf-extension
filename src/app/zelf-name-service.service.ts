@@ -19,10 +19,12 @@ export class ZelfNameService {
 		};
 	}
 
-	searchZelfName(key = "zelfName", value: string): Promise<any> {
-		if (key === "zelfName") return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search?${key}=${value}`);
-
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search?key=${key}&value=${value}`);
+	searchZelfName(key = "zelfName", value: string, captchaToken: string): Promise<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
+			key,
+			value,
+			captchaToken,
+		});
 	}
 
 	setZelfName(zelfName: string, price: number): void {

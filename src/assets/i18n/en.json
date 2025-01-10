@@ -47,7 +47,7 @@
 			"password_label": "Password",
 			"repeat_password_label": "Repeat password",
 			"agreement": "I understand that Zelf cannot recover this password. By choosing this additional layer of security, I acknowledge that I am solely responsible for remembering it.",
-			"add_password": "Two layers of security",
+			"add_password": "Continue",
 			"continue_without_password": "One layer of security"
 		},
 		"phrase_step": {

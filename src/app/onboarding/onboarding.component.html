@@ -47,7 +47,7 @@
 							matInput
 							[formControlName]="'zelfName'"
 							autocomplete="off"
-							(keydown.enter)="searchZelfName()"
+							(keydown.enter)="searchZelfName($event)"
 							(input)="sanitizeZelfNameInput()"
 						/>
 					</mat-form-field>
@@ -60,7 +60,7 @@
 						height="24"
 						viewBox="0 0 24 24"
 						fill="none"
-						(click)="searchZelfName()"
+						(click)="searchZelfName($event)"
 						class="cursor-pointer"
 					>
 						<path

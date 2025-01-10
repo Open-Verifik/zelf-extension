@@ -21,6 +21,7 @@ import { HttpWrapperService } from "app/http-wrapper.service";
 import { environment } from "environments/environment";
 import { ChromeService } from "app/chrome.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { CaptchaService } from "app/captcha.service";
 
 let _this = {
 	biometricsLoginCalled: false,
@@ -82,7 +83,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		private _navigation: Router,
 		private _httpWrapperService: HttpWrapperService,
 		private _chromeService: ChromeService,
-		private _zelfNameService: ZelfNameService
+		private _zelfNameService: ZelfNameService,
+		private captchaService: CaptchaService
 	) {
 		this.deviceData = this._walletService.getDeviceData();
 
@@ -558,6 +560,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
 			os: this.deviceData.OS,
 			zelfName: this._zelfNameService.getZelfName(),
+			captchaToken: this.captchaService.getCaptchaToken(),
 		};
 
 		if (this.session.password) payload.password = this.session.password;

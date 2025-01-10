@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { CaptchaService } from "app/captcha.service";
 import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
 	selector: "biometric-instructions",
@@ -34,7 +36,7 @@ import { WalletService } from "app/wallet.service";
 					</div>
 				</div>
 
-				<button mat-raised-button class="w-full main-button" (click)="startCamera()">
+				<button mat-raised-button class="w-full main-button" (click)="startCamera($event)">
 					{{ "create_wallet.phrase_step.start_encryption_button" | transloco }}
 				</button>
 			</div>
@@ -45,16 +47,28 @@ import { WalletService } from "app/wallet.service";
 export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 	session: any;
 
-	constructor(private _walletService: WalletService) {
+	constructor(private _walletService: WalletService, private captchaService: CaptchaService, private _zelfNameService: ZelfNameService) {
 		this.session = this._walletService.getSessionData();
 	}
 
 	ngOnInit(): void {}
 
-	startCamera(): void {
-		this.session.showBiometricsInstructions = false;
+	async startCamera(event: Event): Promise<any> {
+		let captchaToken = "";
 
-		this.session.showBiometrics = true;
+		const zelfName = this._zelfNameService.getZelfName();
+
+		try {
+			captchaToken = await this.captchaService.executeRecaptcha(zelfName.split(".zelf")[0]);
+
+			this.captchaService.retainCaptchaToken(captchaToken);
+
+			this.session.showBiometricsInstructions = false;
+
+			this.session.showBiometrics = true;
+		} catch (error) {
+			console.error("reCAPTCHA failed:", { error });
+		}
 	}
 
 	ngOnDestroy(): void {

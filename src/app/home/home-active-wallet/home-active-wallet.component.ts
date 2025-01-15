@@ -15,11 +15,17 @@ import { Wallet, WalletModel } from "app/wallet";
 				</div>
 
 				<div class="home-active-wallet-button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 16 16" fill="none">
-						<circle cx="8" cy="8" r="8" fill="#E3E1EC" />
+					<svg
+						(click)="copyAddress(wallet.ethAddress)"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+					>
 						<path
-							d="M7.76699 9.78485V6.61206L4.66797 7.96957L7.76699 9.78485ZM7.76699 6.39393V2.66853L4.76783 7.70763L7.76699 6.39393ZM7.96677 2.66699V6.39393L11.0081 7.7262L7.96677 2.66699ZM7.96677 6.61206V9.78494L11.068 7.97047L7.96677 6.61206ZM7.76699 12.975V10.4231L4.68881 8.62082L7.76699 12.975ZM7.96677 12.975L11.045 8.62082L7.96677 10.4231V12.975Z"
-							fill="#1B1B1F"
+							d="M16.5 1H4.5C3.4 1 2.5 1.9 2.5 3V17H4.5V3H16.5V1ZM19.5 5H8.5C7.4 5 6.5 5.9 6.5 7V21C6.5 22.1 7.4 23 8.5 23H19.5C20.6 23 21.5 22.1 21.5 21V7C21.5 5.9 20.6 5 19.5 5ZM19.5 21H8.5V7H19.5V21Z"
+							fill="#010333"
 						/>
 					</svg>
 					<div class="home-active-wallet-button-text" (click)="copyAddress(wallet.ethAddress)">
@@ -30,79 +36,16 @@ import { Wallet, WalletModel } from "app/wallet";
 
 				<div class="home-active-wallet-button">
 					<svg
-						width="28"
-						height="28"
-						version="1.1"
-						id="Layer_1"
+						(click)="copyAddress(wallet.solanaAddress)"
 						xmlns="http://www.w3.org/2000/svg"
-						xmlns:xlink="http://www.w3.org/1999/xlink"
-						x="0px"
-						y="0px"
-						viewBox="0 0 397.7 311.7"
-						style="enable-background:new 0 0 397.7 311.7;"
-						xml:space="preserve"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
 					>
-						<style type="text/css">
-							.st0 {
-								fill: url(#SVGID_1_);
-							}
-							.st1 {
-								fill: url(#SVGID_2_);
-							}
-							.st2 {
-								fill: url(#SVGID_3_);
-							}
-						</style>
-						<linearGradient
-							id="SVGID_1_"
-							gradientUnits="userSpaceOnUse"
-							x1="360.8791"
-							y1="351.4553"
-							x2="141.213"
-							y2="-69.2936"
-							gradientTransform="matrix(1 0 0 -1 0 314)"
-						>
-							<stop offset="0" style="stop-color:#00FFA3" />
-							<stop offset="1" style="stop-color:#DC1FFF" />
-						</linearGradient>
 						<path
-							class="st0"
-							d="M64.6,237.9c2.4-2.4,5.7-3.8,9.2-3.8h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5
-		c-5.8,0-8.7-7-4.6-11.1L64.6,237.9z"
-						/>
-						<linearGradient
-							id="SVGID_2_"
-							gradientUnits="userSpaceOnUse"
-							x1="264.8291"
-							y1="401.6014"
-							x2="45.163"
-							y2="-19.1475"
-							gradientTransform="matrix(1 0 0 -1 0 314)"
-						>
-							<stop offset="0" style="stop-color:#00FFA3" />
-							<stop offset="1" style="stop-color:#DC1FFF" />
-						</linearGradient>
-						<path
-							class="st1"
-							d="M64.6,3.8C67.1,1.4,70.4,0,73.8,0h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5
-		c-5.8,0-8.7-7-4.6-11.1L64.6,3.8z"
-						/>
-						<linearGradient
-							id="SVGID_3_"
-							gradientUnits="userSpaceOnUse"
-							x1="312.5484"
-							y1="376.688"
-							x2="92.8822"
-							y2="-44.061"
-							gradientTransform="matrix(1 0 0 -1 0 314)"
-						>
-							<stop offset="0" style="stop-color:#00FFA3" />
-							<stop offset="1" style="stop-color:#DC1FFF" />
-						</linearGradient>
-						<path
-							class="st2"
-							d="M333.1,120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8,0-8.7,7-4.6,11.1l62.7,62.7c2.4,2.4,5.7,3.8,9.2,3.8h317.4
-		c5.8,0,8.7-7,4.6-11.1L333.1,120.1z"
+							d="M16.5 1H4.5C3.4 1 2.5 1.9 2.5 3V17H4.5V3H16.5V1ZM19.5 5H8.5C7.4 5 6.5 5.9 6.5 7V21C6.5 22.1 7.4 23 8.5 23H19.5C20.6 23 21.5 22.1 21.5 21V7C21.5 5.9 20.6 5 19.5 5ZM19.5 21H8.5V7H19.5V21Z"
+							fill="#010333"
 						/>
 					</svg>
 

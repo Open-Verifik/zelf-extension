@@ -1,11 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
-import { ChromeService } from "app/chrome.service";
-import { CryptoService } from "app/crypto.service";
-import { EthereumService } from "app/eth.service";
-import { Wallet, WalletModel } from "app/wallet";
-import { WalletService } from "app/wallet.service";
+import { Wallet } from "app/wallet";
 
 @Component({
 	selector: "home-header",
@@ -72,14 +68,7 @@ export class HomeHeaderComponent implements OnInit {
 	selectedTab: string;
 	selectedNetwork: string;
 
-	constructor(
-		private _router: Router,
-		private _walletService: WalletService,
-		private _ethService: EthereumService,
-		private _cryptoService: CryptoService,
-		private _chromeService: ChromeService,
-		private _blockchainNetworkService: BlockchainNetworksService
-	) {
+	constructor(private _router: Router, private route: ActivatedRoute, private _blockchainNetworkService: BlockchainNetworksService) {
 		this.view = "home";
 
 		this.selectedTab = "assets";
@@ -92,17 +81,30 @@ export class HomeHeaderComponent implements OnInit {
 	openAccountsPage(): void {
 		this.shareables.view = this.shareables.view === "home" ? "accountsPage" : "home";
 
-		this._router.navigate(["/home"], { queryParams: { view: this.shareables.view } });
+		this.updateView(this.shareables.view);
 	}
 
 	openNetworkPicker(): void {
 		this.shareables.view = this.shareables.view === "home" ? "networkPickerPage" : "home";
 
-		this._router.navigate(["/home"], { queryParams: { view: this.shareables.view } });
+		this.updateView(this.shareables.view);
 	}
 
 	openActivePage(): void {
 		this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
+
+		this.updateView(this.shareables.view);
+	}
+
+	// Method to update the URL when the variable changes
+	updateView(newView: string): void {
+		this.view = newView;
+
+		this._router.navigate([], {
+			relativeTo: this.route, // Keep the current route
+			queryParams: { view: this.view }, // Set new query params
+			queryParamsHandling: "merge", // Merge with existing query params
+		});
 	}
 }
 

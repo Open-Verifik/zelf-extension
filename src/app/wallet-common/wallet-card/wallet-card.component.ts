@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { share } from "rxjs";
 
 @Component({
 	selector: "wallet-card",
@@ -21,8 +23,15 @@ import { WalletService } from "app/wallet.service";
 				</div>
 			</div>
 			<div class="hwc-account-item-info">
-				<div class="hwc-account-item-name" *ngIf="wallet.publicData.zelfName">{{ wallet.publicData.zelfName }}</div>
-				<div class="hwc-account-item-name" *ngIf="!wallet.name">{{ "wallets_connected.no_zelf_name" | transloco }}</div>
+				<div
+					(click)="selectAccount()"
+					[ngClass]="{ 'cursor-pointer': !variables.hideActions }"
+					class="hwc-account-item-name"
+					*ngIf="wallet.publicData.zelfName"
+				>
+					{{ wallet.publicData.zelfName }}
+				</div>
+
 				<div class="hwc-account-item-address">
 					{{ displayAddress(wallet.ethAddress) }}
 				</div>
@@ -61,13 +70,20 @@ import { WalletService } from "app/wallet.service";
 	styleUrls: ["./wallet-card.component.scss"],
 })
 export class WalletCardComponent implements OnInit {
-	@Input() variables?: any;
+	@Input() variables: any;
 	@Input() wallet!: Wallet;
 	@Input() wallets!: Array<Wallet>;
+	@Input() shareables: any;
 	asset!: Asset;
 	selectedNetwork: string;
 
-	constructor(private _walletService: WalletService, private _chromeService: ChromeService) {
+	constructor(
+		private _walletService: WalletService,
+		private _chromeService: ChromeService,
+		private _router: Router,
+		private route: ActivatedRoute,
+		private cdr: ChangeDetectorRef
+	) {
 		this.selectedNetwork = "";
 	}
 
@@ -107,7 +123,48 @@ export class WalletCardComponent implements OnInit {
 		}
 	}
 
-	selectAccount() {}
+	async selectAccount(): Promise<any> {
+		const currentWallet = (await this._chromeService.getItem("wallet")) || {};
+
+		if (currentWallet.ethAddress === this.wallet.ethAddress) {
+			this.shareables.view = "home";
+
+			this._router.navigate([], {
+				relativeTo: this.route, // Keep the current route
+				queryParams: { view: "home" }, // Set new query params
+				queryParamsHandling: "merge", // Merge with existing query params
+			});
+
+			this.cdr.markForCheck();
+
+			return;
+		}
+
+		await this._chromeService.setItem("wallet", this.wallet);
+
+		this.wallets.push(currentWallet);
+
+		for (let index = this.wallets.length - 1; index >= 0; index--) {
+			const _wallet = this.wallets[index];
+
+			if (_wallet.ethAddress === this.wallet.ethAddress) {
+				this.wallets.splice(index, 1);
+			}
+		}
+
+		await this._chromeService.setItem("wallets", this.wallets);
+
+		this.shareables.view = "home";
+		this.shareables.wallet = this.wallet;
+
+		this._router.navigate([], {
+			relativeTo: this.route, // Keep the current route
+			queryParams: { view: "home" }, // Set new query params
+			queryParamsHandling: "merge", // Merge with existing query params
+		});
+
+		this.cdr.markForCheck();
+	}
 
 	openScanner(): void {
 		switch (this.selectedNetwork) {

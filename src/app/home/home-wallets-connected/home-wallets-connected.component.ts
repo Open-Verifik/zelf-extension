@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { Wallet, WalletModel } from "app/wallet";
@@ -9,11 +9,13 @@ import { WalletService } from "app/wallet.service";
 	template: `<div class="hwc-wrapper">
 		<div class="hwc-content" *ngIf="loaded">
 			<div class="hwc-account-list">
-				<wallet-card class="w-full" [variables]="{ index: 0 }" [wallet]="currentWallet" [wallets]="wallets"> </wallet-card>
+				<wallet-card [shareables]="shareables" class="w-full" [variables]="{ index: 0 }" [wallet]="currentWallet" [wallets]="wallets">
+				</wallet-card>
 				<wallet-card
 					class="w-full"
 					*ngFor="let wallet of wallets; let _index = index"
 					[variables]="{ index: _index }"
+					[shareables]="shareables"
 					[wallet]="wallet"
 					[wallets]="wallets"
 				>
@@ -41,6 +43,7 @@ export class HomeWalletsConnectedComponent implements OnInit, OnDestroy {
 	selectedIndex: number;
 	loaded!: boolean;
 	currentWallet!: Wallet;
+	@Input() shareables: any;
 
 	constructor(private _walletService: WalletService, private _router: Router, private _chromeService: ChromeService) {
 		this.selectedIndex = 0;

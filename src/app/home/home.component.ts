@@ -1,6 +1,6 @@
 /// <reference types="chrome"/>
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 	wallets!: Array<Wallet>;
 	balances: any;
 	selectedAsset!: Asset;
-	view: string;
+	view?: string;
 	shareables: any;
 	activity!: Array<ETHTransaction>;
 	tokens!: Array<any>;
@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
 
 	constructor(
 		private _router: Router,
+		private route: ActivatedRoute,
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
 		private _chromeService: ChromeService,
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
 	) {
 		this.balances = {};
 
-		this.view = "home";
+		this.view = this.route.snapshot.queryParamMap.get("view") || "home";
 
 		this.shareables = {
 			view: this.view,
@@ -53,16 +54,16 @@ export class HomeComponent implements OnInit {
 
 		const wallet = await this._setWallet();
 
-		// // get network
-		// this.selectedNetwork = await this._chromeService.getItem("network");
-
-		// if (!this.selectedNetwork) {
-		// 	this.selectedNetwork = "eth";
-
-		// 	await this._chromeService.setItem("network", this.selectedNetwork);
-		// }
-
 		this._getETHDetails(wallet);
+
+		// Using paramMap (subscribe to changes)
+		this.route.queryParamMap.subscribe((params) => {
+			const _view = params.get("view");
+
+			if (_view) {
+				this.view = _view;
+			}
+		});
 	}
 
 	openFullPage(): void {

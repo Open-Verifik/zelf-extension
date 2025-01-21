@@ -43,7 +43,7 @@
 	"create_wallet": {
 		"password_step": {
 			"title": "CAPAS DE SEGURIDAD",
-			"description": "Esta contraseña proporciona una segunda capa de protección, trabajando junto con tu ZelfProof al combinar tu rostro y la contraseña para asegurar tu cartera cifrada.",
+			"description": "Asegúrate de configurar una contraseña segura de al menos 8 caracteres para proteger tu ZelfProof.",
 			"password_label": "Contraseña",
 			"repeat_password_label": "Repetir contraseña",
 			"agreement": "Entiendo que Zelf no puede recuperar esta contraseña. Al elegir esta capa adicional de seguridad, reconozco que soy el único responsable de recordarla.",

@@ -39,7 +39,7 @@
 	"create_wallet": {
 		"password_step": {
 			"title": "COUCHES DE SÉCURITÉ",
-			"description": "Ce mot de passe offre une seconde couche de protection, fonctionnant en complément de votre ZelfProof en combinant votre visage et le mot de passe pour sécuriser votre portefeuille chiffré.",
+			"description": "Assurez-vous de configurer un mot de passe sécurisé d'au moins 8 caractères pour protéger votre ZelfProof.",
 			"password_label": "Mot de passe",
 			"repeat_password_label": "Répéter le mot de passe",
 			"agreement": "Je comprends que Zelf ne peut pas récupérer ce mot de passe. En choisissant cette couche supplémentaire de sécurité, je reconnais que je suis seul responsable de m'en souvenir.",

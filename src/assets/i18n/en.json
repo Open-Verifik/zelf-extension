@@ -43,7 +43,7 @@
 	"create_wallet": {
 		"password_step": {
 			"title": "SAFETY LAYERS",
-			"description": "This password provides a second layer of protection, working alongside your ZelfProof by combining both your face and the password to secure your encrypted wallet.",
+			"description": "Ensure that you setup a strong password of at least 8 characters to protect your ZelfProof.",
 			"password_label": "Password",
 			"repeat_password_label": "Repeat password",
 			"agreement": "I understand that Zelf cannot recover this password. By choosing this additional layer of security, I acknowledge that I am solely responsible for remembering it.",

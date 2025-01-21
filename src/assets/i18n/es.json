@@ -13,7 +13,11 @@
 		"import_wallet": "Importar tu billetera",
 		"open_wallet": "Abrir tu billetera",
 		"claim_your_zns": "Reclama tu ZNS y simplifica tu acceso a cripto",
-		"forgot_zelf_name": "¿Olvidaste tu nombre zelf?"
+		"forgot_zelf_name": "¿Olvidaste tu nombre zelf?",
+		"year": "Año",
+		"years": "Años",
+		"register": "Registrar",
+		"register_description": "Registrarás este nombre por {{duration}}"
 	},
 	"common": {
 		"is_required": "es requerido",

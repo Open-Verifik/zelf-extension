@@ -12,16 +12,20 @@
 				<ng-container>
 					<div fxLayout="column" fxLayoutAlign="start start" class="zelf-card w-fix p-4">
 						<div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
-							<p class="m-0">Register</p>
+							<p class="m-0">{{ "onboarding.register" | transloco }}</p>
 
 							<h3 class="m-0">{{ zelfName }}</h3>
 
-							<small class="mt-4">You’ll register this name for 1 year.</small>
+							<small class="mt-4">
+								{{ "onboarding.register_description" | transloco : { duration: duration } }}
+
+								{{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}.</small
+							>
 						</div>
 
 						<div fxLayout="column" fxLayoutAlign="center center" class="w-full">
 							<div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="center center">
-								<h2>1 Year</h2>
+								<h2>{{ duration }} {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}</h2>
 							</div>
 						</div>
 

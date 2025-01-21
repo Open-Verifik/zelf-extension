@@ -22,14 +22,16 @@ export class LanguagePickerComponent implements OnInit, OnDestroy {
 		this.flagCodes = {
 			en: "us",
 			es: "es",
-			// br: "br",
-			// fr: "fr",
+			br: "br",
+			fr: "fr",
 			// it: "it",
-			// ru: "ru",
-			// kr: "kr",
-			// in: "in",
-			// cn: "cn",
-			// ph: "ph",
+			ru: "ru",
+			kr: "kr",
+			in: "in",
+			cn: "cn",
+			ph: "ph",
+			ja: "ja",
+			ar: "ar",
 		};
 	}
 

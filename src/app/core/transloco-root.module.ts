@@ -35,6 +35,42 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 						id: "es",
 						label: "Spanish",
 					},
+					{
+						id: "br",
+						label: "Portuguese",
+					},
+					{
+						id: "fr",
+						label: "French",
+					},
+					{
+						id: "ru",
+						label: "Russian",
+					},
+					{
+						id: "kr",
+						label: "Korean",
+					},
+					{
+						id: "in",
+						label: "Hindi",
+					},
+					{
+						id: "cn",
+						label: "Chinese",
+					},
+					{
+						id: "ph",
+						label: "Filipino",
+					},
+					{
+						id: "ja",
+						label: "Japanese",
+					},
+					{
+						id: "ar",
+						label: "Arabic",
+					},
 				],
 				defaultLang: "en",
 				fallbackLang: "en",

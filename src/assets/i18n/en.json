@@ -13,7 +13,11 @@
 		"import_wallet": "Import your wallet",
 		"open_wallet": "Open your wallet",
 		"claim_your_zns": "Claim your FREE Zelf Name while you can!",
-		"forgot_zelf_name": "Forgot your zelf name?"
+		"forgot_zelf_name": "Forgot your zelf name?",
+		"year": "Year",
+		"years": "Years",
+		"register": "Register",
+		"register_description": "You’ll register this name for {{duration}}"
 	},
 	"common": {
 		"is_required": "is required",

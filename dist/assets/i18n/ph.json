@@ -13,7 +13,11 @@
 		"import_wallet": "I-import ang iyong wallet",
 		"open_wallet": "Buksan ang iyong wallet",
 		"claim_your_zns": "I-claim ang iyong LIBRENG Zelf Name habang maaari pa!",
-		"forgot_zelf_name": "Nakalimutan ang iyong zelf name?"
+		"forgot_zelf_name": "Nakalimutan ang iyong zelf name?",
+		"year": "Taon",
+		"years": "Mga Taon",
+		"register": "Magrehistro",
+		"register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}"
 	},
 	"common": {
 		"is_required": "ay kinakailangan",

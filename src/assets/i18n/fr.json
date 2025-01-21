@@ -13,7 +13,11 @@
 		"import_wallet": "Importer votre portefeuille",
 		"open_wallet": "Ouvrir votre portefeuille",
 		"claim_your_zns": "Réclamez votre ZNS et simplifiez votre accès aux cryptos",
-		"forgot_zelf_name": "Vous avez oublié votre nom zelf ?"
+		"forgot_zelf_name": "Vous avez oublié votre nom zelf ?",
+		"year": "Année",
+		"years": "Années",
+		"register": "Enregistrer",
+		"register_description": "Vous allez enregistrer ce nom pour {{duration}}"
 	},
 	"common": {
 		"is_required": "est requis",

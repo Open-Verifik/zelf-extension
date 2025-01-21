@@ -13,7 +13,11 @@
 		"import_wallet": "导入您的钱包",
 		"open_wallet": "打开您的钱包",
 		"claim_your_zns": "趁现在免费领取您的 Zelf 名称！",
-		"forgot_zelf_name": "忘记您的 Zelf 名称？"
+		"forgot_zelf_name": "忘记您的 Zelf 名称？",
+		"year": "年",
+		"years": "年",
+		"register": "注册",
+		"register_description": "您将注册此名称 {{duration}}"
 	},
 	"common": {
 		"is_required": "是必需的",

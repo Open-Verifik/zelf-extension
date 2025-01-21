@@ -16,6 +16,7 @@ export class NewZelfNameComponent implements OnInit {
 	zelfName: string;
 	steps: Array<any>;
 	session: any;
+	duration: number;
 
 	constructor(
 		private _router: Router,
@@ -25,6 +26,7 @@ export class NewZelfNameComponent implements OnInit {
 		private _zelfNameService: ZelfNameService
 	) {
 		this.zelfName = "";
+		this.duration = 1;
 
 		this.steps = [
 			{

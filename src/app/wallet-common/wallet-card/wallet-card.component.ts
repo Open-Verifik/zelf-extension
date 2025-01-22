@@ -96,15 +96,17 @@ export class WalletCardComponent implements OnInit {
 	}
 
 	unlinkWallet() {
-		this.wallets.splice(this.variables.index, 1);
-
-		this._chromeService.setItem("wallets", this.wallets);
-
-		if (this.variables.index === 0) {
+		if (this.variables.index === -1) {
 			this.wallets.length ? this._chromeService.setItem("wallet", this.wallets[0]) : this._chromeService.removeItem("wallet");
+
+			location.reload();
 
 			return;
 		}
+
+		this.wallets.splice(this.variables.index, 1);
+
+		this._chromeService.setItem("wallets", this.wallets);
 	}
 
 	displayAddress(address: any): string {

@@ -9,7 +9,7 @@ import { WalletService } from "app/wallet.service";
 	template: `<div class="hwc-wrapper">
 		<div class="hwc-content" *ngIf="loaded">
 			<div class="hwc-account-list">
-				<wallet-card [shareables]="shareables" class="w-full" [variables]="{ index: 0 }" [wallet]="currentWallet" [wallets]="wallets">
+				<wallet-card [shareables]="shareables" class="w-full" [variables]="{ index: -1 }" [wallet]="currentWallet" [wallets]="wallets">
 				</wallet-card>
 				<wallet-card
 					class="w-full"

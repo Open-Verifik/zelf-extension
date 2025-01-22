@@ -18,13 +18,7 @@ export class NewZelfNameComponent implements OnInit {
 	session: any;
 	duration: number;
 
-	constructor(
-		private _router: Router,
-		private _formBuilder: UntypedFormBuilder,
-		private _ipfsService: IpfsService,
-		private _walletService: WalletService,
-		private _zelfNameService: ZelfNameService
-	) {
+	constructor(private _walletService: WalletService, private _router: Router, private _ipfsService: IpfsService) {
 		this.zelfName = "";
 		this.duration = 1;
 
@@ -43,28 +37,6 @@ export class NewZelfNameComponent implements OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.zelfName = await this._ipfsService.getZelfName();
-
-		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
-
-		this.zelfForm = this._formBuilder.group({
-			termsAcceptance: [false, [Validators.required]],
-		});
-	}
-
-	goToCreateWallet(): void {
-		this._router.navigate(["/create-wallet"]);
-	}
-
-	goToImportWallet(): void {
-		this._router.navigate(["/import-wallet"]);
-	}
-
-	goToFindWallet(): void {
-		this._router.navigate(["/find-wallet"]);
-	}
-
-	acceptedTerms(): Boolean {
-		return Boolean(this.zelfForm.value.termsAcceptance);
 	}
 
 	goBack(): void {

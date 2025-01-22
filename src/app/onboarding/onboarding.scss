@@ -25,7 +25,6 @@ h1 {
 
 .on-intro {
 	width: 500px;
-	min-height: 500px;
 	padding: 16px;
 	background: white;
 	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
@@ -35,6 +34,8 @@ h1 {
 	align-items: center;
 	gap: 12px;
 	display: inline-flex;
+	margin-top: 12px;
+	margin-bottom: 12px;
 	h1 {
 		text-align: center;
 	}
@@ -44,8 +45,11 @@ h1 {
 	}
 }
 
-.on-checkbox a {
-	color: #1976d2; /* You might want to match this color with your theme */
+.on-checkbox {
+	text-align: left;
+	a {
+		color: #1976d2; /* You might want to match this color with your theme */
+	}
 }
 
 .carousel-image {
@@ -82,9 +86,6 @@ h1 {
 
 .on-description {
 	width: 100%;
-	left: 0px;
-	top: 52px;
-	position: absolute;
 	text-align: center;
 	color: #010333;
 	font-size: 14px;
@@ -99,8 +100,8 @@ h1 {
 	align-self: stretch;
 	padding-top: 16px;
 	padding-bottom: 24px;
-	padding-left: 24px;
-	padding-right: 24px;
+	padding-left: 16px;
+	padding-right: 16px;
 	border-radius: 16px;
 	flex-direction: column;
 	justify-content: center;
@@ -166,6 +167,6 @@ h1 {
 /* For extremely small screen devices (595px and below) */
 @media only screen and (max-width: $maxExtraSmall) {
 	.on-intro {
-		width: 99%;
+		width: 95%;
 	}
 }

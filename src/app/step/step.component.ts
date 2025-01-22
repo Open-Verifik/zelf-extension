@@ -9,6 +9,7 @@ import { Component, Input } from "@angular/core";
 		`
 			.step-content {
 				display: none;
+				text-align: center;
 				&.active {
 					display: block;
 				}

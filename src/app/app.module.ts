@@ -68,6 +68,7 @@ import { NetworkPickerComponent } from "./home/network-picker/network-picker.com
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { NewNameCardComponent } from './new-name-card/new-name-card.component';
 
 //
 //
@@ -118,6 +119,7 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
 		NetworkPickerComponent,
 		NewZelfNameComponent,
   TransactionDetailsComponent,
+  NewNameCardComponent,
 	],
 	imports: [
 		BrowserModule,

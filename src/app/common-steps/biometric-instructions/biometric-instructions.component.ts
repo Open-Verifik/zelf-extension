@@ -16,7 +16,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 					</span>
 				</div>
 
-				<div class="cw-phrase-content-d m-8" fxLayout="column" fxLayoutAlign="start start">
+				<div class="cw-phrase-content-d" fxLayout="column" fxLayoutAlign="start start">
 					<div fxLayout="row" fxLayoutAlign="start center">
 						<img src="https://cdn.verifik.co/wallet/smile.svg" alt="" class="mr-4" />
 

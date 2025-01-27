@@ -41,16 +41,15 @@
 
 			<div class="unlock-input-box" (click)="openFullPage(true)">
 				<div class="unlock-input-text-container">
-					<mat-form-field class="w-full">
-						<input
-							type="text"
-							matInput
-							[formControlName]="'zelfName'"
-							autocomplete="off"
-							(keydown.enter)="searchZelfName($event)"
-							(input)="sanitizeZelfNameInput()"
-						/>
-					</mat-form-field>
+					<input
+						class="w-full"
+						type="text"
+						matInput
+						[formControlName]="'zelfName'"
+						autocomplete="off"
+						(keydown.enter)="searchZelfName($event)"
+						(input)="sanitizeZelfNameInput()"
+					/>
 				</div>
 				<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
 					<span class="zpan"> .zelf </span>

@@ -97,7 +97,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 
 					<!-- referred by -->
 					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center">
-						<span class="font-bold"> Referred? Tell us who </span>
+						<span class="font-bold"> Referral code </span>
 
 						<div class="unlock-input-box">
 							<div class="unlock-input-text-container">
@@ -332,10 +332,14 @@ export class NewNameCardComponent implements OnInit {
 
 		if (!control) return;
 
-		// Remove invalid characters, ensure lowercase
-		let sanitizedValue = control.value.replace(/[^a-z0-9.-]/g, "").toLowerCase();
+		// Remove invalid characters,
+		let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]/g, "");
 
-		sanitizedValue = sanitizedValue.replace(/^[^a-z]+|[.-]$/g, "");
+		// Ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
+		sanitizedValue = sanitizedValue.replace(/^[^a-zA-Z]+|[.-]$/g, "");
+
+		// Convert to lower case at the end
+		sanitizedValue = sanitizedValue.toLowerCase();
 
 		// Limit to 20 characters
 		if (sanitizedValue.length > 20) {

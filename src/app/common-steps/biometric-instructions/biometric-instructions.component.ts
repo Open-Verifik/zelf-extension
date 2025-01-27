@@ -61,7 +61,7 @@ export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 		try {
 			const captchaKey = zelfName.split(".zelf")[0].replace(".", "_");
 
-			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
+			captchaToken = await this.captchaService.executeRecaptcha(`lease${captchaKey}`);
 
 			this.captchaService.retainCaptchaToken(captchaToken);
 

@@ -16,6 +16,7 @@ export class ZelfNameService {
 			price: 0,
 			zelfFile: null,
 			zelfProof: null,
+			duration: 1,
 		};
 	}
 
@@ -43,6 +44,12 @@ export class ZelfNameService {
 		this.variables.zelfProof = zelfProof;
 	}
 
+	setDuration(duration: any): void {
+		this.variables.duration = duration;
+
+		localStorage.setItem("duration", duration);
+	}
+
 	getZelfName(): string {
 		return this.variables.zelfName || localStorage.getItem("zelfName");
 	}
@@ -53,6 +60,10 @@ export class ZelfNameService {
 
 	getZelfProof(): string {
 		return this.variables.zelfProof;
+	}
+
+	getDuration(): any {
+		return this.variables.duration || localStorage.getItem("duration");
 	}
 
 	leaseZelfName(payload: any): Promise<any> {

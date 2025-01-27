@@ -185,7 +185,9 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		let captchaToken = "";
 
 		try {
-			captchaToken = await this.captchaService.executeRecaptcha(this.zelfForm.value.zelfName);
+			const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
+
+			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
 		} catch (error) {
 			console.error("reCAPTCHA failed:", error);
 		}
@@ -206,8 +208,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			.searchZelfName("zelfName", zelfName, captchaToken)
 			.then((response) => {
 				if (response?.data.price) return this._noZelfNameFound(response?.data);
-
-				this._ipfsService.setZelfName(zelfName);
 
 				this._zelfNameService.setZelfName(zelfName, 0);
 				this._ipfsService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);

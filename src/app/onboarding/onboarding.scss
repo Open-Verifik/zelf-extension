@@ -125,7 +125,6 @@ h1 {
 .unlock-input-box {
 	align-self: stretch;
 	height: 40px;
-	padding-left: 10px;
 	padding-right: 10px;
 	background: white;
 	border-radius: 4px;
@@ -141,6 +140,10 @@ h1 {
 	align-items: center;
 	display: flex;
 	width: 100%;
+
+	input {
+		padding: 8px;
+	}
 }
 
 .unlock-icon-container {

@@ -6,7 +6,7 @@
 	</div>
 
 	<div fxLayout="column" fxLayoutAlign="start center">
-		<app-stepper [stepsArray]="steps">
+		<app-stepper [stepsArray]="steps" class="w-full">
 			<app-step *ngFor="let step of steps; index as i" [step]="step" [isActive]="step.isActive" [isCompleted]="step.isCompleted">
 				<ng-container>
 					<new-name-card></new-name-card>

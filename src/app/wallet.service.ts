@@ -31,12 +31,7 @@ export class WalletService {
 	wallet: any;
 	zelfProof: string = "";
 
-	constructor(
-		private _httpWrapper: HttpWrapperService,
-		private _translocoService: TranslocoService,
-		private _breakpointObserver: BreakpointObserver,
-		private _chromeService: ChromeService
-	) {
+	constructor(private _httpWrapper: HttpWrapperService, private _breakpointObserver: BreakpointObserver, private _chromeService: ChromeService) {
 		this.deviceData = this.getDeviceDetails();
 
 		this.loadModels();

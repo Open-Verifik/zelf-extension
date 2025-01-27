@@ -17,7 +17,10 @@
 		"year": "Year",
 		"years": "Years",
 		"register": "Register",
-		"register_description": "You’ll register this name for {{duration}}"
+		"register_description": "You’ll register this name for {{duration}}",
+		"lifetime": "Lifetime",
+		"price_per_year": "Price per year",
+		"price_for_lifetime": "Price for lifetime"
 	},
 	"common": {
 		"is_required": "is required",

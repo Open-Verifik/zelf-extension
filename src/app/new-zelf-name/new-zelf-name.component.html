@@ -5,7 +5,7 @@
 		<language-picker></language-picker>
 	</div>
 
-	<div fxLayout="column" fxLayoutAlign="start center" class="w-full">
+	<div fxLayout="column" fxLayoutAlign="start center">
 		<app-stepper [stepsArray]="steps" class="w-full">
 			<app-step class="w-full" *ngFor="let step of steps; index as i" [step]="step" [isActive]="step.isActive" [isCompleted]="step.isCompleted">
 				<ng-container class="w-full">

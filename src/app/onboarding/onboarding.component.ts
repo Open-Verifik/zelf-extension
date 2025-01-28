@@ -213,8 +213,10 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 				if (response?.data.price) return this._noZelfNameFound(response?.data);
 
 				this._zelfNameService.setZelfName(zelfName, 0);
-				this._ipfsService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
-				this._zelfNameService.setZelfFile(response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0]);
+
+				const zelfNameObject = response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0];
+
+				this._zelfNameService.setZelfFile(zelfNameObject);
 
 				this.loading = false;
 

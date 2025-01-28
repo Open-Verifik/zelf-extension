@@ -35,7 +35,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		private _walletService: WalletService,
 		private _formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
-		private _translocoService: TranslocoService,
 		private _changeDetectorRef: ChangeDetectorRef,
 		private _zelfNameService: ZelfNameService,
 		private _ipfsService: IpfsService,
@@ -44,6 +43,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		private _chromeService: ChromeService
 	) {
 		this.unlockQRCode = "";
+
 		this.loading = false;
 
 		this.session = this._walletService.getSessionData();
@@ -185,13 +185,21 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		this._zelfNameService.setZelfName(record.name, 0);
 
+		const isHold = Boolean(this.potentialWallet.publicData.type === "hold");
+
+		console.log({ record, potentialWallet: this.potentialWallet });
+
+		if (this.potentialWallet.zelfProof) {
+			this.zelfProof = this.potentialWallet.zelfProof;
+		}
+
 		if (record.zelfProof) {
 			this._zelfNameService.setZelfProof(record.zelfProof);
 		} else if (zelfFile.zelfProofQRCode) {
-			this.decodeQRCode(zelfFile.zelfProofQRCode, record);
+			this.decodeQRCode(zelfFile.zelfProofQRCode, isHold ? null : record);
 		}
 
-		if (!this.potentialWallet.ethAddress) {
+		if (!this.potentialWallet.image || !this.potentialWallet.name) {
 			this._router.navigate(["/onboarding"]);
 		}
 	}
@@ -202,6 +210,11 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		this.snackBar.open(key + " account not found", "OK");
 
 		this.startAgain();
+	}
+
+	goToPayments(): void {
+		// go to https://payment.zelf.world
+		window.open("https://payment.zelf.world", "_blank");
 	}
 
 	goToNextStep(): void {
@@ -322,7 +335,11 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 				this.previewQRCode();
 			}
 
-			zelfFile.zelfProof = base64String;
+			this.zelfProof = base64String;
+
+			if (zelfFile) {
+				zelfFile.zelfProof = base64String;
+			}
 
 			return base64String;
 		}
@@ -335,10 +352,12 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		};
 	}
 
-	previewQRCode(zelfName?: string): void {
+	previewQRCode(): void {
 		if (!this.zelfProof) return;
 
-		this._walletService.previewWallet(this.zelfProof).then((response) => {
+		const captchaToken = "";
+
+		this._zelfNameService.previewZelfName(this.potentialWallet?.name, captchaToken).then((response) => {
 			this.potentialWallet = new WalletModel({
 				...response.data,
 				zelfProof: this.zelfProof,

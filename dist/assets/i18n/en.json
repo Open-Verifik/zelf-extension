@@ -252,5 +252,9 @@
 	"network_picker": {
 		"title": "Select a network",
 		"testnets_title": "Select a test network"
+	},
+	"payments": {
+		"continue_withoutpaying": "Continue without payment",
+		"pay_now": "Proceed to payment"
 	}
 }

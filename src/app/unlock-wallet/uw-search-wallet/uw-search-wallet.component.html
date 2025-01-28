@@ -46,11 +46,11 @@
 
 		<div *ngIf="potentialWallet" fxLayout="column" fxLayoutAlign="center center" class="w-full">
 			<!--  -->
-			<h2 class="text-center" *ngIf="!potentialWallet.name">
-				{{ "unlock_wallet.account_found" | transloco }}
+			<h2 class="text-center" *ngIf="potentialWallet.publicData.type === 'hold'">
+				{{ "unlock_wallet.hold.title" | transloco }}
 			</h2>
 
-			<h2 class="text-center mb-1" *ngIf="potentialWallet.name">
+			<h2 class="text-center mb-1" *ngIf="potentialWallet.publicData.type !== 'hold'">
 				{{ potentialWallet.name }}
 			</h2>
 
@@ -59,14 +59,29 @@
 			</div>
 
 			<div fxLayout="column" fxLayoutAlign="center center" class="public-data-content">
-				<div fxLayout="row" fxLayoutAlign="space-between center">
+				<div>
+					<h4>{{ "unlock_wallet.hold.expiration_time" | transloco }}</h4>
+
+					<p *ngIf="potentialWallet.publicData.expiresAt">
+						{{ potentialWallet.publicData.expiresAt | date : "medium" }}
+					</p>
+				</div>
+			</div>
+
+			<div
+				fxLayout="column"
+				fxLayoutAlign="center center"
+				class="public-data-content"
+				*ngIf="potentialWallet.displayEthAddress || potentialWallet.displaySolanaAddress"
+			>
+				<div fxLayout="row" fxLayoutAlign="space-between center" ngif="potentialWallet.displayEthAddress">
 					<p class="text-grey">{{ "common.eth_address" | transloco }}</p>
 					<h4 class="m-0">
 						{{ potentialWallet.displayEthAddress }}
 					</h4>
 				</div>
 
-				<div fxLayout="row" fxLayoutAlign="space-between center">
+				<div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="potentialWallet.displaySolanaAddress">
 					<p class="text-grey">{{ "common.solana_address" | transloco }}</p>
 					<h4 class="m-0">
 						{{ potentialWallet.displaySolanaAddress }}
@@ -75,10 +90,18 @@
 			</div>
 		</div>
 
-		<div fxLayout="row" fxLayoutAlign="center center" class="w-full p-4" *ngIf="potentialWallet">
-			<button mat-raised-button class="w-full main-button" (click)="goToNextStep()">
+		<div fxLayout="column" fxLayoutAlign="center center" class="w-full p-4" *ngIf="potentialWallet">
+			<button mat-raised-button class="w-full main-button" (click)="goToNextStep()" *ngIf="potentialWallet.publicData.type !== 'hold'">
 				{{ "unlock_wallet.verify_button" | transloco }}
 			</button>
+
+			<button mat-raised-button class="w-full main-button" (click)="goToPayments()" *ngIf="potentialWallet.publicData.type === 'hold'">
+				{{ "unlock_wallet.hold.purchase_reservation" | transloco }}
+			</button>
+
+			<span class="link p-4" (click)="goToNextStep()">
+				{{ "unlock_wallet.hold.unlock_without_purchase" | transloco }}
+			</span>
 		</div>
 	</div>
 </div>

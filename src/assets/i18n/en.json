@@ -154,6 +154,12 @@
 			"label": "Password",
 			"placeholder": "********************",
 			"button": "Continue"
+		},
+		"hold": {
+			"title": "RESERVATION FOUND",
+			"expiration_time": "This reservation expires on ",
+			"purchase_reservation": "Purchase reservation",
+			"unlock_without_purchase": "Verify now, purchase later"
 		}
 	},
 	"steps": {
@@ -252,5 +258,9 @@
 	"network_picker": {
 		"title": "Select a network",
 		"testnets_title": "Select a test network"
+	},
+	"payments": {
+		"continue_withoutpaying": "Continue without payment",
+		"pay_now": "Proceed to payment"
 	}
 }

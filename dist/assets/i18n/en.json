@@ -154,6 +154,12 @@
 			"label": "Password",
 			"placeholder": "********************",
 			"button": "Continue"
+		},
+		"hold": {
+			"title": "RESERVATION FOUND",
+			"expiration_time": "This reservation expires on ",
+			"purchase_reservation": "Purchase reservation",
+			"unlock_without_purchase": "Verify now, purchase later"
 		}
 	},
 	"steps": {

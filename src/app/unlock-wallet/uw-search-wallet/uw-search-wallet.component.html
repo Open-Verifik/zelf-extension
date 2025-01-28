@@ -45,7 +45,7 @@
 		</div>
 
 		<div *ngIf="potentialWallet" fxLayout="column" fxLayoutAlign="center center" class="w-full">
-			<!--  -->
+			<!-- hold title -->
 			<h2 class="text-center" *ngIf="potentialWallet.publicData.type === 'hold'">
 				{{ "unlock_wallet.hold.title" | transloco }}
 			</h2>
@@ -58,7 +58,12 @@
 				<img [src]="potentialWallet.image" alt="Uploaded QR Code" class="w-35p" />
 			</div>
 
-			<div fxLayout="column" fxLayoutAlign="center center" class="public-data-content">
+			<div
+				fxLayout="column"
+				fxLayoutAlign="center center"
+				class="public-data-content"
+				*ngIf="potentialWallet && potentialWallet.publicData.type === 'hold'"
+			>
 				<div>
 					<h4>{{ "unlock_wallet.hold.expiration_time" | transloco }}</h4>
 
@@ -72,7 +77,7 @@
 				fxLayout="column"
 				fxLayoutAlign="center center"
 				class="public-data-content"
-				*ngIf="potentialWallet.displayEthAddress || potentialWallet.displaySolanaAddress"
+				*ngIf="potentialWallet.publicData.type !== 'hold' && (potentialWallet.displayEthAddress || potentialWallet.displaySolanaAddress)"
 			>
 				<div fxLayout="row" fxLayoutAlign="space-between center" ngif="potentialWallet.displayEthAddress">
 					<p class="text-grey">{{ "common.eth_address" | transloco }}</p>
@@ -99,7 +104,7 @@
 				{{ "unlock_wallet.hold.purchase_reservation" | transloco }}
 			</button>
 
-			<span class="link p-4" (click)="goToNextStep()">
+			<span class="link p-4" (click)="goToNextStep()" *ngIf="potentialWallet.publicData.type === 'hold'">
 				{{ "unlock_wallet.hold.unlock_without_purchase" | transloco }}
 			</span>
 		</div>

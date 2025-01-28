@@ -75,6 +75,12 @@ import { WalletService } from "app/wallet.service";
 							{{ "payments.pay_now" | transloco }}
 						</button>
 					</div>
+
+					<div class="view-wallet-continue-container">
+						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToInstructions()" *ngIf="!holdData">
+							{{ "common.continue" | transloco }}
+						</button>
+					</div>
 				</div>
 				<span class="link" (click)="goToInstructions()" *ngIf="holdData"> {{ "payments.continue_withoutpaying" | transloco }} </span>
 			</div>
@@ -104,11 +110,12 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 
 		this.wallet = new WalletModel(wallet);
 
-		if (!this.wallet.ethAddress) {
-			console.log({ walletType, wallet });
-			// this._chromeService.removeItem(walletType);
+		console.log({ thisWallet: this.wallet, wallet });
 
-			// this._router.navigate(["/onboarding"]);
+		if (!this.wallet.ethAddress) {
+			this._chromeService.removeItem(walletType);
+
+			this._router.navigate(["/onboarding"]);
 
 			return;
 		}

@@ -111,6 +111,8 @@ export interface WalletPublicData {
 	solanaAddress: string;
 	zelfName: string;
 	_id: string;
+	type: string;
+	expiresAt: string;
 }
 
 export interface Transaction {

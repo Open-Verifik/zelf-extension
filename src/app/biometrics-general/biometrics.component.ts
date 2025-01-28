@@ -561,6 +561,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			os: "DESKTOP",
 			zelfName: this._zelfNameService.getZelfName(),
 			captchaToken: this.captchaService.getCaptchaToken(),
+			referralZelfName: this._zelfNameService.getReferral(),
 		};
 
 		if (this.session.password) payload.password = this.session.password;
@@ -704,7 +705,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 		this.showError = false;
 		this.session.showBiometrics = false;
 		this.session.showBiometricsInstructions = true;
-		console.log({ session: this.session });
 	}
 
 	continueRedirection(): void {}

@@ -28,6 +28,13 @@ export class ZelfNameService {
 		});
 	}
 
+	previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
+			zelfName,
+			captchaToken,
+		});
+	}
+
 	setZelfName(zelfName: string, price: number): void {
 		this.variables.zelfName = zelfName;
 
@@ -48,6 +55,14 @@ export class ZelfNameService {
 		this.variables.duration = duration;
 
 		localStorage.setItem("duration", duration);
+	}
+
+	setReferral(referralZelfName: string): void {
+		localStorage.setItem("referralZelfName", referralZelfName);
+	}
+
+	getReferral(): any {
+		return localStorage.getItem("referralZelfName");
 	}
 
 	getZelfName(): string {

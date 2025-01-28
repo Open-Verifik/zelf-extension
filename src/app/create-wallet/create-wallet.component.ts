@@ -60,7 +60,7 @@ export class CreateWalletComponent implements OnInit {
 		if (wallet) {
 			this.wallet = new WalletModel(wallet);
 
-			this.currentStep = 2;
+			this.currentStep = 3;
 
 			this.session.step = this.currentStep;
 		}

@@ -43,28 +43,6 @@ import { WalletService } from "app/wallet.service";
 				</div>
 
 				<div class="view-wallet-right">
-					<div class="view-wallet-right-address">
-						<div class="view-wallet-icon" (click)="copyPublicAddress()">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								class="w-6 h-6"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
-								/>
-							</svg>
-						</div>
-						<div class="view-wallet-address-details">
-							<span class="view-wallet-address-title">{{ "create_wallet.view_wallet.copy_public_address" | transloco }} <br /></span>
-							<span class="view-wallet-address">{{ wallet.ethAddress }}</span>
-						</div>
-					</div>
 					<div class="view-wallet-image-container">
 						<img class="view-wallet-image" [src]="wallet.image" />
 					</div>
@@ -93,11 +71,12 @@ import { WalletService } from "app/wallet.service";
 						</div>
 					</div>
 					<div class="view-wallet-continue-container">
-						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToInstructions()">
-							{{ "common.continue" | transloco }}
+						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToPaymentsPage()" *ngIf="holdData">
+							{{ "payments.pay_now" | transloco }}
 						</button>
 					</div>
 				</div>
+				<span class="link" (click)="goToInstructions()" *ngIf="holdData"> {{ "payments.continue_withoutpaying" | transloco }} </span>
 			</div>
 		</div>
 	`,
@@ -107,11 +86,11 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 	@Input() walletType!: string; // Input property to accept view type
 	wallet!: Wallet;
 	words!: Array<any>;
+	holdData: any;
 
 	constructor(
 		private snackBar: MatSnackBar,
 		private _translocoService: TranslocoService,
-		private _walletService: WalletService,
 		private _chromeService: ChromeService,
 		private _router: Router
 	) {}
@@ -121,12 +100,15 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 
 		const wallet = await this._chromeService.getItem(walletType);
 
+		this.holdData = wallet.ipfs?.metadata?.type === "hold" ? wallet.ipfs?.metadata : null;
+
 		this.wallet = new WalletModel(wallet);
 
 		if (!this.wallet.ethAddress) {
-			this._chromeService.removeItem(walletType);
+			console.log({ walletType, wallet });
+			// this._chromeService.removeItem(walletType);
 
-			this._router.navigate(["/onboarding"]);
+			// this._router.navigate(["/onboarding"]);
 
 			return;
 		}
@@ -139,11 +121,6 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 
 		const _words = this.wallet.metadata?.mnemonic.split(" ");
 
-		if (!_words?.length) {
-			alert("redirect");
-			// this._router.navigate(["/home"]);
-		}
-
 		for (let index = 0; index < _words.length; index++) {
 			const word = _words[index];
 
@@ -155,8 +132,6 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		this.wallet.metadata = null;
 
 		this._chromeService.setItem("wallet", this.wallet);
-
-		// localStorage.setItem("wallet", JSON.stringify(this.wallet));
 
 		this._router.navigate(["extension-instructions"]);
 	}
@@ -194,6 +169,11 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		URL.revokeObjectURL(blobUrl);
 
 		document.body.removeChild(a);
+	}
+
+	goToPaymentsPage(): void {
+		// go to https://payment.zelf.world
+		window.open("https://payment.zelf.world", "_blank");
 	}
 
 	copyPublicAddress(): void {

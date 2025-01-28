@@ -96,7 +96,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 					<!-- end of price -->
 
 					<!-- referred by -->
-					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center">
+					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!zelfNameObject">
 						<span class="font-bold"> Referral code </span>
 
 						<div class="unlock-input-box">
@@ -271,7 +271,7 @@ export class NewNameCardComponent implements OnInit {
 		}
 
 		// Round up to 2 decimal places
-		this.price = Math.ceil(price * 100) / 100;
+		this.price = Math.ceil(price * 100) / 100 - (this.zelfNameObject ? price * 0.1 : 0);
 	}
 
 	async searchZelfName(event: any): Promise<any> {
@@ -315,7 +315,9 @@ export class NewNameCardComponent implements OnInit {
 
 				this.zelfNameObject = response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0];
 
-				console.log({ zelfNameObject: this.zelfNameObject });
+				this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
+
+				this._calculateZelfNamePrice();
 
 				this.loading = false;
 			})

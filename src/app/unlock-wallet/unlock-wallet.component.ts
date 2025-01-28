@@ -48,7 +48,7 @@ export class UnlockWalletComponent implements OnInit {
 
 		this.session.navigationStep = 1;
 
-		if (unlockWallet?.ethAddress && unlockWallet?.metadata) {
+		if (unlockWallet?.ethAddress) {
 			this.wallet = unlockWallet;
 
 			this.session.navigationStep = 2;

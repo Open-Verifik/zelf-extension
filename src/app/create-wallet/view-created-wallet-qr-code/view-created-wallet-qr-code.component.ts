@@ -70,14 +70,15 @@ import { WalletService } from "app/wallet.service";
 							{{ "create_wallet.view_wallet.download_qr_code" | transloco }}
 						</div>
 					</div>
-					<div class="view-wallet-continue-container">
-						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToPaymentsPage()" *ngIf="holdData">
+
+					<div class="view-wallet-continue-container" *ngIf="holdData">
+						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToPaymentsPage()">
 							{{ "payments.pay_now" | transloco }}
 						</button>
 					</div>
 
-					<div class="view-wallet-continue-container">
-						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToInstructions()" *ngIf="!holdData">
+					<div class="view-wallet-continue-container" *ngIf="!holdData">
+						<button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToInstructions()">
 							{{ "common.continue" | transloco }}
 						</button>
 					</div>

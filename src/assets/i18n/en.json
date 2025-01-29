@@ -159,7 +159,8 @@
 			"title": "RESERVATION FOUND",
 			"expiration_time": "This reservation expires on ",
 			"purchase_reservation": "Purchase reservation",
-			"unlock_without_purchase": "Verify now, purchase later"
+			"unlock_without_purchase": "Verify now, purchase later",
+			"buy_now": "Buy now"
 		}
 	},
 	"steps": {
@@ -178,7 +179,7 @@
 		"no_zelf_name": "Without Zelf name",
 		"title": "Select a wallet",
 		"account": "Account",
-		"create_or_import_wallet_button": "Create or import a wallet",
+		"create_or_import_wallet_button": "Purchase new domain",
 		"delete_wallet": "Unlink wallet",
 		"see_on_scanner": "Open explorer",
 		"see_qr_code": "See QR code"

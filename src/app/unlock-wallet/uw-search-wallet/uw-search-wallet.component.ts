@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { TranslocoService } from "@ngneat/transloco";
 import { WalletService } from "app/wallet.service";
 import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
 import jsQR from "jsqr";
 import { Buffer } from "buffer";
-
+import { CaptchaService } from "app/captcha.service";
 import { IpfsService } from "app/ipfs.service";
 import { HttpClient } from "@angular/common/http";
 import { Wallet, WalletModel } from "app/wallet";
@@ -30,6 +29,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	displayableError: any;
 	unlockQRCode: string;
 	loading: boolean;
+	captchaToken?: string;
 
 	constructor(
 		private _walletService: WalletService,
@@ -40,7 +40,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		private _ipfsService: IpfsService,
 		private http: HttpClient,
 		private _router: Router,
-		private _chromeService: ChromeService
+		private _chromeService: ChromeService,
+		private captchaService: CaptchaService
 	) {
 		this.unlockQRCode = "";
 
@@ -76,6 +77,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		if (!checkingTempWallet) {
 			this._checkForZelfFile();
 		}
+
+		// create captcha token
 	}
 
 	async _checkForTempWallet(): Promise<any> {
@@ -124,13 +127,18 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		}
 
 		try {
+			await this._captchaGeneration();
+
 			const ethResponse = await this._queryZNS("ethAddress", query);
 
+			console.log({ ethResponse });
+
 			if (!ethResponse) {
+				await this._captchaGeneration();
+
 				const solanaResponse = await this._queryZNS("solanaAddress", query);
 
 				if (!solanaResponse) {
-					// Handle case where neither address type has results
 					this._showAccountNotFound("solanaAddress");
 				}
 
@@ -146,15 +154,17 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 	async _queryZNS(key: string, value: string): Promise<any> {
 		try {
-			const response = await this._ipfsService.queryByKeyValue(key, value);
+			const response = await this._zelfNameService.searchZelfName(key, value, this.captchaToken);
 
-			if (!response.data || !response.data.length) {
-				return null; // Return null if no data found
-			}
+			console.log({ queryZNS: response, key, value });
 
-			const ipfsFile = response.data[0];
+			if (!response.data) return null;
 
-			this._formatZelfFile(ipfsFile);
+			const zelfNameObject = response.data.arweave[0] || response.data.ipfs[0];
+
+			console.log({ zelfNameObject });
+
+			this._formatZelfFile(zelfNameObject);
 
 			this.loading = false;
 
@@ -186,8 +196,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		this._zelfNameService.setZelfName(record.name, 0);
 
 		const isHold = Boolean(this.potentialWallet.publicData.type === "hold");
-
-		console.log({ record, potentialWallet: this.potentialWallet });
 
 		if (this.potentialWallet.zelfProof) {
 			this.zelfProof = this.potentialWallet.zelfProof;
@@ -244,15 +252,18 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	}
 
 	// Method to handle file selection
-	onFileSelected(event: Event): void {
+	async onFileSelected(event: Event): Promise<any> {
 		const input = event.target as HTMLInputElement;
-		if (input.files && input.files.length > 0) {
-			const file = input.files[0];
 
-			this.loading = true;
+		if (!input || !input.files || !input.files.length) return;
 
-			this.handleFile(file);
-		}
+		const file = input.files[0];
+
+		this.loading = true;
+
+		await this._captchaGeneration();
+
+		this.handleFile(file);
 	}
 
 	// Method to handle drag over event
@@ -263,12 +274,25 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	}
 
 	// Method to handle file drop event
-	onDrop(event: DragEvent): void {
+	async onDrop(event: DragEvent): Promise<any> {
 		event.preventDefault();
+
 		event.stopPropagation();
+
 		if (event.dataTransfer && event.dataTransfer.files.length > 0) {
 			const file = event.dataTransfer.files[0];
+
+			await this._captchaGeneration();
+
 			this.handleFile(file);
+		}
+	}
+
+	async _captchaGeneration(): Promise<any> {
+		try {
+			this.captchaToken = await this.captchaService.executeRecaptcha("preview");
+		} catch (error) {
+			console.error("reCAPTCHA failed:", error);
 		}
 	}
 
@@ -331,11 +355,11 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 			this._zelfNameService.setZelfProof(base64String);
 
+			this.zelfProof = base64String;
+
 			if (!zelfFile) {
 				this.previewQRCode();
 			}
-
-			this.zelfProof = base64String;
 
 			if (zelfFile) {
 				zelfFile.zelfProof = base64String;
@@ -355,9 +379,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	previewQRCode(): void {
 		if (!this.zelfProof) return;
 
-		const captchaToken = "";
-
-		this._zelfNameService.previewZelfName(this.potentialWallet?.name, captchaToken).then((response) => {
+		this._zelfNameService.previewZelfProof(this.zelfProof, this.captchaToken).then((response) => {
 			this.potentialWallet = new WalletModel({
 				...response.data,
 				zelfProof: this.zelfProof,

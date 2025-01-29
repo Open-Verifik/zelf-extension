@@ -20,7 +20,7 @@ export class ZelfNameService {
 		};
 	}
 
-	searchZelfName(key = "zelfName", value: string, captchaToken: string): Promise<any> {
+	searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
 			key,
 			value,
@@ -31,6 +31,14 @@ export class ZelfNameService {
 	previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
 			zelfName,
+			captchaToken,
+		});
+	}
+
+	previewZelfProof(zelfProof: string, captchaToken?: string): Promise<any> {
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/preview-zelfproof`, {
+			os: "DESKTOP",
+			zelfProof,
 			captchaToken,
 		});
 	}

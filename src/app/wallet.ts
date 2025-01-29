@@ -1,14 +1,28 @@
 export class WalletPublicDataModel {
 	ethAddress: string;
 	solanaAddress: string;
-	_id: string;
 	zelfName: string;
+	_id: string;
+	type: string;
+	expiresAt: string;
+	isExpired: boolean;
+	leaseExpiresAt: string;
 
 	constructor(data: any) {
 		this.ethAddress = data.ethAddress || "";
 		this.solanaAddress = data.solanaAddress || "";
+		this.zelfName = data.zelfName || "";
+
+		if (this.zelfName) {
+			// remove .hold from this.zelfName
+			this.zelfName = this.zelfName.replace(".hold", "");
+		}
+
 		this._id = data._id || "offline";
-		this.zelfName = data.zelfName;
+		this.type = data.type || "";
+		this.expiresAt = data.expiresAt || "";
+		this.isExpired = data.isExpired || false;
+		this.leaseExpiresAt = data.leaseExpiresAt || "";
 	}
 }
 
@@ -34,7 +48,7 @@ export class Asset {
 }
 
 export interface Wallet {
-	name?: string;
+	name: string;
 	anonymous: boolean;
 	ethAddress: string;
 	displayEthAddress: string;
@@ -51,7 +65,7 @@ export interface Wallet {
 }
 
 export class WalletModel implements Wallet {
-	name?: string;
+	name: string;
 	anonymous: boolean;
 	ethAddress: string;
 	displayEthAddress: string;
@@ -97,7 +111,7 @@ export class WalletModel implements Wallet {
 
 		this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
 		this.image = data.image || data.zelfProofQRCode || data.url;
-		this.publicData = secondaryStorage;
+		this.publicData = new WalletPublicDataModel(secondaryStorage);
 		this.zkProof = data.zkProof;
 		this._id = data._id;
 		this.metadata = data.metadata;
@@ -113,6 +127,8 @@ export interface WalletPublicData {
 	_id: string;
 	type: string;
 	expiresAt: string;
+	isExpired: boolean;
+	leaseExpiresAt: string;
 }
 
 export interface Transaction {

@@ -594,6 +594,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			.then((response) => {
 				this.session.showBiometrics = false;
 
+				localStorage.setItem("durationToken", response.data.durationToken);
+
 				this._chromeService.setItem("wallet", response.data);
 
 				this._walletService.goToNextStep(this.session.step + 1);
@@ -653,6 +655,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			})
 			.then((response) => {
 				this.session.walletCreated = response.data;
+
+				localStorage.setItem("durationToken", response.data.durationToken);
 
 				this._chromeService.setItem("importWallet", response.data);
 

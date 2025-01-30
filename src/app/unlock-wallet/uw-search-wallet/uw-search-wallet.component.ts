@@ -156,13 +156,9 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 		try {
 			const response = await this._zelfNameService.searchZelfName(key, value, this.captchaToken);
 
-			console.log({ queryZNS: response, key, value });
-
 			if (!response.data) return null;
 
 			const zelfNameObject = response.data.arweave[0] || response.data.ipfs[0];
-
-			console.log({ zelfNameObject });
 
 			this._formatZelfFile(zelfNameObject);
 
@@ -356,6 +352,8 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 			this._zelfNameService.setZelfProof(base64String);
 
 			this.zelfProof = base64String;
+
+			console.log({ zelfProof: base64String });
 
 			if (!zelfFile) {
 				this.previewQRCode();

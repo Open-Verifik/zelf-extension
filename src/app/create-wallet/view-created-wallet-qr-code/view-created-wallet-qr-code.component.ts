@@ -171,17 +171,18 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		a.download = `${this.wallet._id}.png`; // Set the file name
 		a.style.display = "none";
 		document.body.appendChild(a);
-		a.click(); // Simulate the click event
+		a.click();
 
-		// Clean up by revoking the object URL and removing the anchor element
 		URL.revokeObjectURL(blobUrl);
 
 		document.body.removeChild(a);
 	}
 
 	goToPaymentsPage(): void {
-		// go to https://payment.zelf.world
-		window.open("https://payment.zelf.world", "_blank");
+		window.open(
+			`https://payment.zelf.world/purchase?zelfName=${this.wallet.name}&durationToken=${localStorage.getItem("durationToken")}`,
+			"_blank"
+		);
 	}
 
 	copyPublicAddress(): void {

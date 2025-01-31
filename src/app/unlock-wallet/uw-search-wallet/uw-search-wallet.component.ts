@@ -218,7 +218,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 	goToPayments(): void {
 		// go to https://payment.zelf.world
-		window.open("https://payment.zelf.world", "_blank");
+		window.open(`https://payment.zelf.world/purchase?zelfName=${this.potentialWallet?.publicData.zelfName}`, "_blank");
 	}
 
 	goToNextStep(): void {

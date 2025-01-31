@@ -200,7 +200,7 @@ export class NewNameCardComponent implements OnInit {
 
 		this.zelfForm = this._formBuilder.group({
 			termsAcceptance: [false, [Validators.required]],
-			zelfName: ["migueltrevino", []],
+			zelfName: ["", []],
 		});
 	}
 

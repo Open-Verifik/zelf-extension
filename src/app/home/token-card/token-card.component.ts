@@ -20,7 +20,8 @@ import { Component, Input, OnInit } from "@angular/core";
 
 			<div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
 				<div class="status-text">{{ _getAmount(data.amount) }}</div>
-				<div class="status-text text-grey">$ {{ data.fiatBalance }} USD</div>
+				<div class="status-text text-grey" *ngIf="data.fiatBalance > 0">$ {{ data.fiatBalance }} USD</div>
+				<div class="status-text text-grey" *ngIf="!data.fiatBalance">-</div>
 			</div>
 		</div>
 	`,

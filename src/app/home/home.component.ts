@@ -5,8 +5,10 @@ import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 
 import { EthereumService } from "app/eth.service";
+import { SolanaService } from "app/solana.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { net } from "web3";
 
 @Component({
 	selector: "app-home",
@@ -32,7 +34,8 @@ export class HomeComponent implements OnInit {
 		private _walletService: WalletService,
 		private _ethService: EthereumService,
 		private _chromeService: ChromeService,
-		private _blockchainNetworkService: BlockchainNetworksService
+		private _blockchainNetworkService: BlockchainNetworksService,
+		private _solanaService: SolanaService
 	) {
 		this.balances = {};
 
@@ -54,9 +57,10 @@ export class HomeComponent implements OnInit {
 
 		const wallet = await this._setWallet();
 
-		this._getETHDetails(wallet);
+		await this._getETHDetails(wallet);
 
-		// Using paramMap (subscribe to changes)
+		await this._getSolanaDetails(wallet);
+
 		this.route.queryParamMap.subscribe((params) => {
 			const _view = params.get("view");
 
@@ -112,6 +116,29 @@ export class HomeComponent implements OnInit {
 		return wallet;
 	}
 
+	async _getSolanaDetails(wallet: Wallet): Promise<any> {
+		if (!wallet) return;
+
+		const details = await this._solanaService.getWalletDetails(wallet.solanaAddress);
+
+		if (!details) return;
+
+		if (details.data.balance) {
+			this.tokens.push({
+				symbol: "SOL",
+				name: "Solana",
+				network: "Solana",
+				price: details.data.account.price,
+				amount: details.data.balance,
+				fiatBalance: details.data.fiatBalance,
+			});
+
+			this.selectedAsset.fiatBalance += Number(details.data.fiatBalance);
+		}
+
+		this.getTokens("Solana", details.data.tokenHoldings.tokens);
+	}
+
 	async _getETHDetails(wallet: Wallet): Promise<any> {
 		if (!wallet) return;
 
@@ -123,7 +150,7 @@ export class HomeComponent implements OnInit {
 
 		this.selectedAsset = new Asset({
 			asset: details.data.account.asset,
-			fiatBalance: details.data.fiatBalance,
+			fiatBalance: Number(details.data.fiatBalance),
 			balance: details.data.balance,
 			price: details.data.account.price,
 		});
@@ -149,6 +176,18 @@ export class HomeComponent implements OnInit {
 				this.tokens.push({ ...token, network });
 			} else if (["NFT"].includes(token.tokenType)) {
 				this.NFTs.push({ ...token, network });
+			}
+
+			if (network === "Solana") {
+				const _token = { ...token, symbol: token.symbol || token.name, network };
+
+				if (_token.name === "Zelf") {
+					_token.symbol = "ZNS";
+				}
+
+				this.tokens.push(_token);
+
+				console.log({ tokens: this.tokens });
 			}
 		}
 	}

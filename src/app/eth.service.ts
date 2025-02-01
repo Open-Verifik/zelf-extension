@@ -30,10 +30,8 @@ export class EthereumService {
 	}
 
 	createAccount(): any {
-		// return {
-		// 	privateKey: "0x39179c1618f02fff134aa70df439b7bd86757d6beb82af6d1304a48d4fe14f6b",
-		// };
 		const account = this.web3.eth.accounts.create();
+
 		this.account.next(account.address);
 
 		return account; // Be extremely cautious with how you handle the private key
@@ -85,36 +83,6 @@ export class EthereumService {
 	checkIfValidAddress(address: string): boolean {
 		return isAddress(address);
 	}
-
-	// async sendTransaction(to: string, value: number): Promise<void> {
-	// 	const valueWei = this.web3.utils.toWei(value.toString(), "ether");
-	// 	const gasPrice = await this.web3.eth.getGasPrice(); // Get current gas price
-	// 	const gasEstimate = await this.web3.eth.estimateGas({
-	// 		from: this.account.value,
-	// 		to: to,
-	// 		value: valueWei,
-	// 	});
-
-	// 	// Calculate the total cost (gas * gasPrice + value)
-	// 	const totalCost = this.web3.utils.toBigInt(gasEstimate).mul(this.web3.utils.toBigInt(gasPrice)).add(this.web3.utils.toBigInt(valueWei));
-
-	// 	// Check if the balance is sufficient
-	// 	const balance = await this.web3.eth.getBalance(this.account.value);
-
-	// 	if (false) {
-	// 		throw new Error("Insufficient funds: Balance is too low for this transaction.");
-	// 	}
-
-	// 	const tx = {
-	// 		from: this.account.value,
-	// 		to: to,
-	// 		value: valueWei,
-	// 		gas: gasEstimate,
-	// 		gasPrice: gasPrice,
-	// 	};
-
-	// 	await this.web3.eth.sendTransaction(tx);
-	// }
 
 	async sendTransaction(to: string, value: number): Promise<any> {
 		const valueWei = this.web3.utils.toWei(value.toString(), "ether");

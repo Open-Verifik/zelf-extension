@@ -426,4 +426,10 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.potentialWallet = null;
 	}
+
+	copyToClipboard(address: string): void {
+		navigator.clipboard.writeText(address).then(() => {
+			this.snackBar.open("Address copied to clipboard", "OK");
+		});
+	}
 }

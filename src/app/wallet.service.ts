@@ -108,6 +108,8 @@ export class WalletService {
 
 		localStorage.removeItem("importWallet");
 
+		localStorage.removeItem("password");
+
 		if (currentWallet.ethAddress) {
 			wallets.push(currentWallet);
 

@@ -58,7 +58,6 @@ export class PasswordStepComponent implements OnInit {
 
 		this.session.showBiometricsInstructions = true;
 
-		// if (this.session.type === "create") {
 		this._walletService.goToNextStep(this.session.step + 1);
 	}
 }

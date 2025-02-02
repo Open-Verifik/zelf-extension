@@ -81,14 +81,14 @@
 			>
 				<div fxLayout="row" fxLayoutAlign="space-between center" ngif="potentialWallet.displayEthAddress">
 					<p class="text-grey">{{ "common.eth_address" | transloco }}</p>
-					<h4 class="m-0">
+					<h4 class="m-0 link" (click)="copyToClipboard(potentialWallet.ethAddress)">
 						{{ potentialWallet.displayEthAddress }}
 					</h4>
 				</div>
 
 				<div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="potentialWallet.displaySolanaAddress">
 					<p class="text-grey">{{ "common.solana_address" | transloco }}</p>
-					<h4 class="m-0">
+					<h4 class="m-0 link" (click)="copyToClipboard(potentialWallet.solanaAddress)">
 						{{ potentialWallet.displaySolanaAddress }}
 					</h4>
 				</div>

@@ -141,13 +141,13 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 		if (!control) return;
 
-		// Remove invalid characters,
-		let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]/g, "");
+		// Remove invalid characters (allow only letters, numbers, and dashes)
+		let sanitizedValue = control.value.replace(/[^a-zA-Z0-9-]/g, "");
 
-		// Ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
-		sanitizedValue = sanitizedValue.replace(/^[^a-zA-Z]+|[.-]$/g, "");
+		// Ensure it doesn't start with a special character (only allow letters or numbers)
+		sanitizedValue = sanitizedValue.replace(/^-+|-$/g, "");
 
-		// Convert to lower case at the end
+		// Convert to lowercase
 		sanitizedValue = sanitizedValue.toLowerCase();
 
 		// Limit to 20 characters

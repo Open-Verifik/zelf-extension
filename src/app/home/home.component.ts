@@ -7,7 +7,6 @@ import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { net } from "web3";
 
 @Component({
 	selector: "app-home",

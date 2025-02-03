@@ -3,7 +3,6 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
-
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
@@ -27,6 +26,7 @@ export class HomeComponent implements OnInit {
 	tokens!: Array<any>;
 	NFTs!: Array<any>;
 	selectedNetwork!: string;
+	balancesLoaded: boolean = false;
 
 	constructor(
 		private _router: Router,
@@ -55,19 +55,45 @@ export class HomeComponent implements OnInit {
 	async ngOnInit(): Promise<any> {
 		this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
 
-		const wallet = await this._setWallet();
+		this.wallet = await this._setWallet();
 
-		await this._getETHDetails(wallet);
+		await this._getBalances();
 
-		await this._getSolanaDetails(wallet);
-
-		this.route.queryParamMap.subscribe((params) => {
+		this.route.queryParamMap.subscribe(async (params) => {
 			const _view = params.get("view");
+
+			switch (_view) {
+				case "home":
+					if (_view !== this.view) {
+						this.balancesLoaded = false;
+
+						this.wallet = await this._setWallet();
+
+						this._getBalances();
+					}
+
+					break;
+
+				default:
+					break;
+			}
 
 			if (_view) {
 				this.view = _view;
 			}
 		});
+	}
+
+	async _getBalances(): Promise<any> {
+		if (this.balancesLoaded) return;
+
+		this.tokens = [];
+
+		await this._getETHDetails();
+
+		await this._getSolanaDetails();
+
+		this.balancesLoaded = true;
 	}
 
 	openFullPage(): void {
@@ -83,43 +109,19 @@ export class HomeComponent implements OnInit {
 	async _setWallet(): Promise<any> {
 		let wallet = await this._chromeService.getItem("wallet");
 
-		const wallets = (await this._chromeService.getItem("wallets")) || [];
-
-		if (!wallet && (!wallets || !wallets.length)) {
+		if (!wallet) {
 			this._router.navigate(["/onboarding"]);
 
 			return;
 		}
 
-		if (wallet) {
-			wallet = new WalletModel(wallet);
-		}
+		this.shareables.wallet = new WalletModel(wallet);
 
-		if (wallets) {
-			this.wallets = [];
-
-			for (let index = 0; index < wallets.length; index++) {
-				const _wallet = wallets[index];
-
-				this.wallets.push(new WalletModel(_wallet));
-			}
-		}
-
-		if (!wallet?.ethAddress && wallets) {
-			wallet = wallets[0];
-
-			this._chromeService.setItem("wallet", wallet || "");
-		}
-
-		this.shareables.wallet = wallet;
-
-		return wallet;
+		return this.shareables.wallet;
 	}
 
-	async _getSolanaDetails(wallet: Wallet): Promise<any> {
-		if (!wallet) return;
-
-		const details = await this._solanaService.getWalletDetails(wallet.solanaAddress);
+	async _getSolanaDetails(): Promise<any> {
+		const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
 
 		if (!details) return;
 
@@ -139,11 +141,7 @@ export class HomeComponent implements OnInit {
 		this.getTokens("Solana", details.data.tokenHoldings.tokens);
 	}
 
-	async _getETHDetails(wallet: Wallet): Promise<any> {
-		if (!wallet) return;
-
-		this.wallet = wallet;
-
+	async _getETHDetails(): Promise<any> {
 		if (!this.wallet?.ethAddress) return;
 
 		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
@@ -162,8 +160,6 @@ export class HomeComponent implements OnInit {
 
 			this.activity.push(new ETHTransaction(transaction));
 		}
-
-		this._walletService.updateAssetValues(this.wallet, this.selectedAsset, this.wallets, undefined);
 
 		this.getTokens("Ethereum", details.data.tokenHoldings.tokens);
 	}
@@ -186,8 +182,6 @@ export class HomeComponent implements OnInit {
 				}
 
 				this.tokens.push(_token);
-
-				console.log({ tokens: this.tokens });
 			}
 		}
 	}

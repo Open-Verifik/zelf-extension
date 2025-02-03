@@ -313,7 +313,7 @@ export class NewNameCardComponent implements OnInit {
 					return;
 				}
 
-				this.zelfNameObject = response.data.arweave ? response.data.arweave[0] : response.data.ipfs[0];
+				this.zelfNameObject = response.data.ipfs ? response.data.ipfs[0] : response.data.arweave[0];
 
 				this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
 

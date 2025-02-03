@@ -158,7 +158,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 			if (!response.data) return null;
 
-			const zelfNameObject = response.data.arweave[0] || response.data.ipfs[0];
+			const zelfNameObject = response.data.ipfs[0] || response.data.arweave[0];
 
 			this._formatZelfFile(zelfNameObject);
 

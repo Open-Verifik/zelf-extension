@@ -149,7 +149,7 @@ export class WalletCardComponent implements OnInit {
 			return;
 		}
 
-		const zelfNameObject = response.data.arweave?.length ? response.data.arweave[0] : response.data.ipfs[0];
+		const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
 
 		this.wallet.publicData = zelfNameObject.publicData;
 
@@ -157,8 +157,6 @@ export class WalletCardComponent implements OnInit {
 			zelfNameObject.publicData.type === "hold" ? zelfNameObject.publicData.expiresAt : zelfNameObject.publicData.leaseExpiresAt;
 
 		this.wallet.publicData.isExpired = !this.wallet.publicData.leaseExpiresAt || moment(this.wallet.publicData.leaseExpiresAt).isBefore(moment());
-
-		console.log({ publicData: this.wallet.publicData, zelfNameObject: zelfNameObject });
 	}
 
 	unlinkWallet() {
@@ -223,6 +221,7 @@ export class WalletCardComponent implements OnInit {
 		await this._chromeService.setItem("wallets", this.wallets);
 
 		this.shareables.view = "home";
+
 		this.shareables.wallet = this.wallet;
 
 		this._router.navigate([], {
@@ -231,11 +230,12 @@ export class WalletCardComponent implements OnInit {
 			queryParamsHandling: "merge", // Merge with existing query params
 		});
 
+		console.log({ wallet: this.wallet, wallets: this.wallets });
+
 		this.cdr.markForCheck();
 	}
 
 	goToPayments(): void {
-		// go to https://payment.zelf.world
 		window.open("https://payment.zelf.world", "_blank");
 	}
 }

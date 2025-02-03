@@ -7,7 +7,7 @@ import { Wallet } from "app/wallet";
 	selector: "home-header",
 	template: `
 		<!-- HEADER -->
-		<div class="home-main-header" *ngIf="selectedNetwork && shareables.wallet">
+		<div class="home-main-header" *ngIf="shareables.wallet">
 			<div class="home-header-left" (click)="openAccountsPage()">
 				<h4 class="f-white pl-4" *ngIf="shareables.wallet.publicData">{{ shareables.wallet.publicData.zelfName || "****.zelf" }}</h4>
 				<div class="home-account-dropdown pl-2">
@@ -66,14 +66,11 @@ export class HomeHeaderComponent implements OnInit {
 	wallet!: Wallet;
 	balances: any;
 	selectedTab: string;
-	selectedNetwork: string;
 
 	constructor(private _router: Router, private route: ActivatedRoute, private _blockchainNetworkService: BlockchainNetworksService) {
 		this.view = "home";
 
 		this.selectedTab = "assets";
-
-		this.selectedNetwork = this._blockchainNetworkService.getSelectedNetwork().toUpperCase();
 	}
 
 	async ngOnInit(): Promise<any> {}

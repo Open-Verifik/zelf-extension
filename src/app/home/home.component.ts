@@ -125,15 +125,6 @@ export class HomeComponent implements OnInit {
 		if (!details) return;
 
 		if (details.data.balance) {
-			this.tokens.push({
-				symbol: "SOL",
-				name: "Solana",
-				network: "Solana",
-				price: details.data.account.price,
-				amount: details.data.balance,
-				fiatBalance: details.data.fiatBalance,
-			});
-
 			this.selectedAsset.fiatBalance += Number(details.data.fiatBalance);
 		}
 

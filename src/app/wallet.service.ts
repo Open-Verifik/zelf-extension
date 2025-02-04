@@ -104,11 +104,11 @@ export class WalletService {
 
 		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
 
-		localStorage.removeItem("unlockWallet");
+		const keysToRemove = ["unlockWallet", "importWallet", "password", "referralZelfName", "network", "durationToken", "currentZelfName"];
 
-		localStorage.removeItem("importWallet");
-
-		localStorage.removeItem("password");
+		keysToRemove.forEach((key) => {
+			localStorage.removeItem(key);
+		});
 
 		if (currentWallet.ethAddress) {
 			wallets.push(currentWallet);

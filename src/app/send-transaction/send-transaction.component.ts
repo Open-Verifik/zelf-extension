@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { EthereumService } from "app/eth.service";
+import { SolanaService } from "app/solana.service";
 import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -16,7 +17,7 @@ export class SendTransactionComponent implements OnInit {
 	shareables: any;
 	session: any;
 	wallet?: Wallet;
-	tokens?: Array<any> = [];
+	tokens: Array<any> = [];
 	views = ["pickReceiver", "tokens"];
 
 	constructor(
@@ -24,11 +25,15 @@ export class SendTransactionComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private _router: Router,
 		private _ethService: EthereumService,
-		private _zelfNameService: ZelfNameService
+		private _zelfNameService: ZelfNameService,
+		private _solanaService: SolanaService
 	) {
 		this.shareables = {
 			view: "tokens",
 		};
+
+		this._solanaService.clearTokens();
+		this._ethService.clearTokens();
 
 		this.tokens = [];
 	}
@@ -38,30 +43,36 @@ export class SendTransactionComponent implements OnInit {
 
 		const wallet = await this._walletService.retrieveWallet();
 
-		this.tokens = [];
-
-		this._getETHDetails(wallet);
-	}
-
-	async _getETHDetails(wallet: Wallet): Promise<any> {
 		if (!wallet) return;
 
 		this.wallet = wallet;
 
 		if (!this.wallet?.ethAddress) return;
 
-		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
+		await this._getETHDetails();
 
-		for (let index = 0; index < details.data.tokenHoldings.tokens.length; index++) {
-			const token = details.data.tokenHoldings.tokens[index];
+		this.tokens = this._ethService.tokens;
 
-			if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-				this.tokens?.push({ ...token, network: "Ethereum" });
-			}
-		}
+		await this._getSolanaDetails();
+
+		this.tokens.push(...this._solanaService.tokens);
 	}
 
-	getTokens(network: string, tokens: Array<any>): void {}
+	async _getETHDetails(): Promise<any> {
+		const details = await this._ethService.getWalletDetails(this.wallet?.ethAddress);
+
+		this._ethService.formatTokens(details);
+	}
+
+	async _getSolanaDetails(): Promise<any> {
+		const details = await this._solanaService.getWalletDetails(this.wallet?.solanaAddress);
+
+		if (!details) return;
+
+		this._solanaService.formatTokens(details);
+
+		this._solanaService.formatTokens(details.data.tokenHoldings.tokens);
+	}
 
 	cancel(): void {
 		this._router.navigate(["/home"]);

@@ -22,7 +22,7 @@ export class WalletPublicDataModel {
 		this.type = data.type || "";
 		this.expiresAt = data.expiresAt || "";
 		this.isExpired = data.isExpired || false;
-		this.leaseExpiresAt = data.leaseExpiresAt || "";
+		this.leaseExpiresAt = data.leaseExpiresAt || data.expiresAt || "";
 	}
 }
 

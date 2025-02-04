@@ -49,6 +49,8 @@ export class HomeComponent implements OnInit {
 		this.NFTs = [];
 
 		this.tokens = [];
+
+		localStorage.removeItem("unlockWallet");
 	}
 
 	async ngOnInit(): Promise<any> {
@@ -109,9 +111,17 @@ export class HomeComponent implements OnInit {
 		let wallet = await this._chromeService.getItem("wallet");
 
 		if (!wallet) {
-			this._router.navigate(["/onboarding"]);
+			// get wallets
+			this.wallets = await this._chromeService.getItem("wallets");
 
-			return;
+			wallet = this.wallets[0];
+
+			this._chromeService.setItem("wallet", wallet);
+
+			if (!wallet) {
+				this._router.navigate(["/onboarding"]);
+				return;
+			}
 		}
 
 		this.shareables.wallet = new WalletModel(wallet);

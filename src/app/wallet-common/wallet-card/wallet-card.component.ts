@@ -230,8 +230,6 @@ export class WalletCardComponent implements OnInit {
 			queryParamsHandling: "merge", // Merge with existing query params
 		});
 
-		console.log({ wallet: this.wallet, wallets: this.wallets });
-
 		this.cdr.markForCheck();
 	}
 

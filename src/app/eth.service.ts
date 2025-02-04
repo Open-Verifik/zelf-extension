@@ -14,6 +14,7 @@ import { environment } from "environments/environment";
 export class EthereumService {
 	private web3: Web3;
 	baseUrl: String = environment.apiUrl;
+	tokens: Array<any> = [];
 
 	private account: BehaviorSubject<string> = new BehaviorSubject("");
 
@@ -123,9 +124,29 @@ export class EthereumService {
 		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/gas-tracker`);
 	}
 
-	getWalletDetails(address: string): Promise<any> {
+	getWalletDetails(address?: string): Promise<any> {
 		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/address`, {
 			address,
 		});
+	}
+
+	formatTokens(details: any): void {
+		for (let index = 0; index < details.data.tokenHoldings.tokens.length; index++) {
+			const token = details.data.tokenHoldings.tokens[index];
+
+			if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
+				this.tokens?.push({ ...token, network: "Ethereum" });
+			}
+		}
+	}
+
+	getTokens(): Observable<Array<any>> {
+		return new Observable((observer) => {
+			observer.next(this.tokens);
+		});
+	}
+
+	clearTokens(): void {
+		this.tokens = [];
 	}
 }

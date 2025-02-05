@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
+import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
 import { Transaction, Wallet, WalletModel, TransactionModel } from "app/wallet";
 
@@ -20,7 +21,8 @@ export class SendTransactionConfirmationComponent implements OnInit {
 		private _transactionService: TransactionService,
 		private _router: Router,
 		private _chromeService: ChromeService,
-		private _ethService: EthereumService
+		private _ethService: EthereumService,
+		private _solanaService: SolanaService
 	) {
 		const temp = localStorage.getItem("temp_transactionData");
 
@@ -40,25 +42,45 @@ export class SendTransactionConfirmationComponent implements OnInit {
 			this.transactionData.sender = this.wallet;
 		}
 
-		if (this.transactionData.asset === "ETH") {
-			this._getETHGasFees();
+		await this._getGasFees();
+	}
+
+	async _getGasFees(): Promise<any> {
+		let fees;
+
+		switch (this.transactionData.network) {
+			case "Ethereum":
+				await this._getETHGasFees();
+				break;
+
+			case "Solana":
+				fees = await this._solanaService.getGasPrices();
+				this.transactionData.gasFee = parseFloat((fees.data.avg_fee * fees.data.price_usdt || 0).toFixed(6));
+				break;
+
+			default:
+				break;
 		}
 	}
 
 	async _getETHGasFees(): Promise<any> {
 		const fees = await this._ethService.getGasPrices();
 
+		let gasFees = 0;
+
 		if (this.transactionData.tokenType === "ETH") {
-			this.transactionData.gasFee = Number(fees.data.average.cost.replace("$", ""));
+			gasFees = Number(fees.data.average.cost.replace("$", ""));
 		} else if (this.transactionData.tokenType === "ERC-20") {
 			for (let index = 0; index < fees.data.featuredActions.length; index++) {
 				const featureGasObject = fees.data.featuredActions[index];
 
 				if (featureGasObject.action === "Swap") {
-					this.transactionData.gasFee = Number(featureGasObject.average);
+					gasFees = Number(featureGasObject.average);
 				}
 			}
 		}
+
+		this.transactionData.gasFee = gasFees;
 	}
 
 	goBack(): void {

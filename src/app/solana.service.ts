@@ -33,4 +33,8 @@ export class SolanaService {
 	clearTokens(): void {
 		this.tokens = [];
 	}
+
+	getGasPrices(): Promise<any> {
+		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/gas-tracker`);
+	}
 }

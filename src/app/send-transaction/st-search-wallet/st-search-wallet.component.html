@@ -1,4 +1,4 @@
-<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded" fxLayout="column" fxLayoutAlign="space-between start">
+<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="loaded" fxLayout="column" fxLayoutAlign="start start">
 	<!-- search section -->
 	<div class="w-full">
 		<div fxLayout="row" fxLayoutAlign="start start" class="w-full">
@@ -38,7 +38,7 @@
 	</div>
 
 	<!-- your accounts -->
-	<!-- <div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet && myAccounts.length">
+	<div fxLayout="column" fxLayoutAlign="start center" class="w-full st-sw-your-accounts" *ngIf="!potentialWallet && myAccounts.length">
 		<h3>
 			{{ "send_transaction.your_accounts" | transloco }}
 		</h3>
@@ -51,7 +51,7 @@
 			[wallets]="myAccounts"
 			[variables]="{ index: _index, hideActions: true, hideBalances: true, origin: 'sendTransaction' }"
 		></wallet-card>
-	</div> -->
+	</div>
 
 	<div class="w-full">
 		<div class="st-send-transaction-card" *ngIf="isZNSCardVisible()">

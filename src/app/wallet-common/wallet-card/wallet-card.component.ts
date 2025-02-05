@@ -45,7 +45,12 @@ import { share } from "rxjs";
 			</div>
 		</div>
 
-		<div class="hwc-hold-actions" fxLayout="column" fxLayoutAlign="start center" *ngIf="wallet.publicData.type === 'hold'">
+		<div
+			class="hwc-hold-actions"
+			fxLayout="column"
+			fxLayoutAlign="start center"
+			*ngIf="wallet.publicData.type === 'hold' && !variables.hideActions"
+		>
 			<!-- show message that it's going to expire soon -->
 			<div>
 				<div class="hwc-hold-actions-text" *ngIf="wallet.publicData.leaseExpiresAt">
@@ -190,6 +195,8 @@ export class WalletCardComponent implements OnInit {
 	}
 
 	async selectAccount(): Promise<any> {
+		if (this.variables?.origin === "sendTransaction") return;
+
 		const currentWallet = (await this._chromeService.getItem("wallet")) || {};
 
 		if (currentWallet.ethAddress === this.wallet.ethAddress) {

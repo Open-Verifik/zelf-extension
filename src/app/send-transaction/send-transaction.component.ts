@@ -22,10 +22,8 @@ export class SendTransactionComponent implements OnInit {
 
 	constructor(
 		private _walletService: WalletService,
-		private snackBar: MatSnackBar,
 		private _router: Router,
 		private _ethService: EthereumService,
-		private _zelfNameService: ZelfNameService,
 		private _solanaService: SolanaService
 	) {
 		this.shareables = {

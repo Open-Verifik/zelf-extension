@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
-import { TranslocoService } from "@ngneat/transloco";
 import { BehaviorSubject, Observable } from "rxjs";
 import * as faceapi from "@vladmandic/face-api";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
@@ -10,369 +9,390 @@ import { ChromeService } from "./chrome.service";
 import { Asset, Wallet, WalletModel } from "./wallet";
 
 @Injectable({
-	providedIn: "root",
+    providedIn: "root",
 })
 export class WalletService {
-	baseUrl: String = environment.apiUrl;
-	private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
-	deviceData: any = {
-		generalInformation: [],
-	};
-	sessionData: any = {
-		type: "",
-		step: 0,
-		wordsCount: 12,
-		navigationStep: 1,
-		password: "",
-		usePassword: false,
-		phrase: "",
-		wallet: null,
-	};
-	wallet: any;
-	zelfProof: string = "";
+    private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
+    private _biometricInstructionsClosed: boolean = false;
 
-	constructor(private _httpWrapper: HttpWrapperService, private _breakpointObserver: BreakpointObserver, private _chromeService: ChromeService) {
-		this.deviceData = this.getDeviceDetails();
+    baseUrl: String = environment.apiUrl;
 
-		this.loadModels();
+    deviceData: any = {
+        generalInformation: [],
+    };
 
-		this._breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
-			this.deviceData.isMobile = result.matches;
+    sessionData: any = {
+        type: "",
+        step: 0,
+        wordsCount: 12,
+        navigationStep: 1,
+        password: "",
+        usePassword: false,
+        phrase: "",
+        wallet: null,
+    };
+    wallet: any;
+    zelfProof: string = "";
 
-			this.deviceData.time = result.matches ? 500 : 250;
-		});
+    constructor(private _httpWrapper: HttpWrapperService, private _breakpointObserver: BreakpointObserver, private _chromeService: ChromeService) {
+        this._biometricInstructionsClosed = false;
+        this.deviceData = this.getDeviceDetails();
 
-		this.deviceData.OS = this.detectOS();
-	}
+        this.loadModels();
 
-	getDeviceData() {
-		return this.deviceData;
-	}
+        this._breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
+            this.deviceData.isMobile = result.matches;
+            this.deviceData.time = result.matches ? 500 : 250;
+        });
 
-	getSessionData() {
-		return this.sessionData;
-	}
+        this.deviceData.OS = this.detectOS();
+    }
 
-	getWallet() {
-		if (this.wallet) return this.wallet;
+    get instructionsClosed(): boolean {
+        return this._biometricInstructionsClosed;
+    }
 
-		const wallet = this._chromeService.getItem("wallet");
+    set instructionsClosed(status: boolean) {
+        this._biometricInstructionsClosed = status;
+    }
 
-		return wallet;
-	}
+    getDeviceData() {
+        return this.deviceData;
+    }
 
-	setSteps(steps: Array<any>): void {
-		this.sessionData.steps = steps;
-	}
+    getSessionData() {
+        return this.sessionData;
+    }
 
-	goToNextStep(stepIndex: number): void {
-		for (let index = 0; index < this.sessionData.steps.length; index++) {
-			const step = this.sessionData.steps[index];
+    getWallet() {
+        if (this.wallet) return this.wallet;
 
-			if (index < stepIndex) {
-				step.isActive = false;
+        const wallet = this._chromeService.getItem("wallet");
 
-				step.isCompleted = true;
-				continue;
-			}
+        return wallet;
+    }
 
-			if (index === stepIndex) {
-				step.isActive = true;
+    setSteps(steps: Array<any>): void {
+        this.sessionData.steps = steps;
+    }
 
-				step.isCompleted = false;
-			}
-		}
+    goToNextStep(stepIndex: number): void {
+        for (let index = 0; index < this.sessionData.steps.length; index++) {
+            const step = this.sessionData.steps[index];
 
-		this.sessionData.step = stepIndex;
+            if (index < stepIndex) {
+                step.isActive = false;
 
-		this.sessionData.steps.forEach((step: any, index: number) => {
-			step.isActive = index === stepIndex;
-			step.isCompleted = index < stepIndex;
-		});
+                step.isCompleted = true;
+                continue;
+            }
 
-		let steps = [...this.sessionData.steps];
+            if (index === stepIndex) {
+                step.isActive = true;
+
+                step.isCompleted = false;
+            }
+        }
+
+        this.sessionData.step = stepIndex;
 
-		this.sessionData.steps = [];
+        this.sessionData.steps.forEach((step: any, index: number) => {
+            step.isActive = index === stepIndex;
+            step.isCompleted = index < stepIndex;
+        });
 
-		this.sessionData.steps = steps;
-	}
+        let steps = [...this.sessionData.steps];
 
-	async restoreSession(): Promise<any> {
-		let wallets = (await this._chromeService.getItem("wallets")) || [];
+        this.sessionData.steps = [];
+        this.sessionData.steps = steps;
+    }
 
-		if (!wallets) wallets = [];
+    async restoreSession(): Promise<any> {
+        let wallets = (await this._chromeService.getItem("wallets")) || [];
 
-		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
+        if (!wallets) wallets = [];
 
-		const keysToRemove = ["unlockWallet", "importWallet", "password", "referralZelfName", "network", "durationToken", "currentZelfName"];
+        const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
+
+        localStorage.removeItem("unlockWallet");
+        localStorage.removeItem("importWallet");
+        localStorage.removeItem("password");
+
+        if (currentWallet.ethAddress) {
+            wallets.push(currentWallet);
 
-		keysToRemove.forEach((key) => {
-			localStorage.removeItem(key);
-		});
+            this._chromeService.setItem("wallets", wallets);
+            // localStorage.setItem("wallets", JSON.stringify(wallets));
 
-		if (currentWallet.ethAddress) {
-			wallets.push(currentWallet);
+            this._chromeService.removeItem("wallet");
+            // localStorage.removeItem("wallet");
+        }
 
-			this._chromeService.setItem("wallets", wallets);
-			// localStorage.setItem("wallets", JSON.stringify(wallets));
+        this.sessionData.step = 0;
+        this.sessionData.password = "";
+        this.sessionData.usePassword = false;
+        this.sessionData.showBiometrics = false;
+        this.sessionData.showBiometricsInstructions = false;
+        this.sessionData.phrase = null;
+        this.sessionData.navigationStep = 1;
+    }
 
-			this._chromeService.removeItem("wallet");
-			// localStorage.removeItem("wallet");
-		}
+    get faceapi$(): Observable<boolean> {
+        return this._faceapi.asObservable();
+    }
 
-		this.sessionData.step = 0;
+    async loadModels(): Promise<void> {
+        const promises = [];
 
-		this.sessionData.password = "";
+        promises.push(faceapi.nets.ssdMobilenetv1.loadFromUri("assets/models"));
+        promises.push(faceapi.nets.faceLandmark68Net.loadFromUri("assets/models"));
+        promises.push(faceapi.nets.tinyFaceDetector.loadFromUri("assets/models"));
+        promises.push(faceapi.nets.faceLandmark68TinyNet.loadFromUri("assets/models"));
 
-		this.sessionData.usePassword = false;
+        await Promise.allSettled(promises);
 
-		this.sessionData.showBiometrics = false;
+        this._faceapi.next(true);
+    }
 
-		this.sessionData.showBiometricsInstructions = false;
+    detectOS() {
+        const userAgent = window.navigator.userAgent.toLowerCase();
 
-		this.sessionData.phrase = null;
+        if (/android/.test(userAgent)) {
+            return "ANDROID";
+        } else if (/iphone|ipad|ipod/.test(userAgent)) {
+            return "IOS";
+        }
 
-		this.sessionData.navigationStep = 1;
-	}
+        return "DESKTOP";
+    }
 
-	get faceapi$(): Observable<boolean> {
-		return this._faceapi.asObservable();
-	}
+    getDeviceDetails(): any {
+        if (this.deviceData.generalInformation.length) return;
 
-	async loadModels(): Promise<void> {
-		const promises = [];
+        const details = {
+            // Navigator properties
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            appName: navigator.appName,
+            appVersion: navigator.appVersion,
+            language: navigator.language,
+            onLine: navigator.onLine,
+            cookiesEnabled: navigator.cookieEnabled,
+            doNotTrack: navigator.doNotTrack,
 
-		promises.push(faceapi.nets.ssdMobilenetv1.loadFromUri("assets/models"));
+            // Screen properties
+            screenResolution: `${screen.width} x ${screen.height}`,
+            screenAvailableResolution: `${screen.availWidth} x ${screen.availHeight}`,
+            colorDepth: screen.colorDepth,
+            pixelDepth: screen.pixelDepth,
+
+            // Window properties
+            innerWidth: window.innerWidth,
+            innerHeight: window.innerHeight,
+            outerWidth: window.outerWidth,
+            outerHeight: window.outerHeight,
 
-		promises.push(faceapi.nets.faceLandmark68Net.loadFromUri("assets/models"));
+            touchSupported: "ontouchstart" in window,
+
+            geolocationSupported: "geolocation" in navigator,
+
+            onlineStatus: navigator.onLine ? "Online" : "Offline",
+        };
+
+        this.deviceData.generalInformation.push(
+            { key: "device", value: details.platform },
+            { key: "language", value: details.language },
+            { key: "userAgent", value: details.userAgent }
+        );
 
-		await Promise.allSettled(promises);
+        return details;
+    }
 
-		this._faceapi.next(true);
-		return;
-	}
+    generateUniqueId(): any {
+        const navigatorInfo = window.navigator;
 
-	detectOS() {
-		const userAgent = window.navigator.userAgent.toLowerCase();
+        const screenInfo = window.screen;
 
-		if (/android/.test(userAgent)) {
-			return "ANDROID";
-		} else if (/iphone|ipad|ipod/.test(userAgent)) {
-			return "IOS";
-		}
+        let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
 
-		return "DESKTOP";
-	}
+        return { hash: this.simpleHash(uniqueString), userAgent: navigatorInfo.userAgent, height: screenInfo.height, width: screenInfo.width };
+    }
 
-	getDeviceDetails(): any {
-		if (this.deviceData.generalInformation.length) return;
+    private simpleHash(input: string): string {
+        let hash = 0;
 
-		const details = {
-			// Navigator properties
-			userAgent: navigator.userAgent,
-			platform: navigator.platform,
-			appName: navigator.appName,
-			appVersion: navigator.appVersion,
-			language: navigator.language,
-			onLine: navigator.onLine,
-			cookiesEnabled: navigator.cookieEnabled,
-			doNotTrack: navigator.doNotTrack,
+        if (input.length === 0) {
+            return hash.toString();
+        }
 
-			// Screen properties
-			screenResolution: `${screen.width} x ${screen.height}`,
-			screenAvailableResolution: `${screen.availWidth} x ${screen.availHeight}`,
-			colorDepth: screen.colorDepth,
-			pixelDepth: screen.pixelDepth,
+        for (let i = 0; i < input.length; i++) {
+            const char = input.charCodeAt(i);
 
-			// Window properties
-			innerWidth: window.innerWidth,
-			innerHeight: window.innerHeight,
-			outerWidth: window.outerWidth,
-			outerHeight: window.outerHeight,
+            hash = (hash << 5) - hash + char;
 
-			touchSupported: "ontouchstart" in window,
+            hash = hash & hash; // Convert to 32bit integer
+        }
 
-			geolocationSupported: "geolocation" in navigator,
+        return hash.toString();
+    }
 
-			onlineStatus: navigator.onLine ? "Online" : "Offline",
-		};
+    findWallet(address: string): Promise<any> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets?address=${address}`);
+    }
 
-		this.deviceData.generalInformation.push(
-			{ key: "device", value: details.platform },
-			{ key: "language", value: details.language },
-			{ key: "userAgent", value: details.userAgent }
-		);
+    requestWallet(walletId: string): Promise<any> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-wallets/${walletId}`);
+    }
 
-		return details;
-	}
+    createLivenessSession(data: any): Promise<any> {
+        let url = `${this.baseUrl}/api/sessions`;
 
-	generateUniqueId(): any {
-		const navigatorInfo = window.navigator;
+        return this._httpWrapper.sendRequest("post", url, data, {
+            Headers: {},
+        });
+    }
 
-		const screenInfo = window.screen;
+    createWallet(data: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets`, {
+            ...data,
+            password: data.password || undefined,
+        });
+    }
 
-		let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
+    decryptWallet(data: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/decrypt`, data);
+    }
 
-		return { hash: this.simpleHash(uniqueString), userAgent: navigatorInfo.userAgent, height: screenInfo.height, width: screenInfo.width };
-	}
+    importWallet(data: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/import`, data);
+    }
 
-	private simpleHash(input: string): string {
-		let hash = 0;
+    previewWallet(zelfProof: string): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
+            zelfProof,
+        });
+    }
 
-		if (input.length === 0) {
-			return hash.toString();
-		}
+    createAppRegistration(data: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/v2/app-registrations`, data);
+    }
 
-		for (let i = 0; i < input.length; i++) {
-			const char = input.charCodeAt(i);
+    async generateKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
+        const { privateKey, publicKey } = await openpgp.generateKey({
+            type: "ecc",
+            curve: "curve25519",
+            userIDs: [{ name: "Your Name", email: "your.email@example.com" }],
+            passphrase: "your_passphrase",
+        });
 
-			hash = (hash << 5) - hash + char;
+        return { publicKey, privateKey };
+    }
 
-			hash = hash & hash; // Convert to 32bit integer
-		}
+    async encryptMessage(plainTextMessage: string, publicKeyArmored: string): Promise<any> {
+        const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
 
-		return hash.toString();
-	}
+        const encryptedMessage = await openpgp.encrypt({
+            message: await openpgp.createMessage({ text: plainTextMessage }),
+            encryptionKeys: publicKey,
+        });
 
-	findWallet(address: string): Promise<any> {
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/wallets?address=${address}`);
-	}
+        return encryptedMessage;
+    }
 
-	requestWallet(walletId: string): Promise<any> {
-		return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-wallets/${walletId}`);
-	}
+    getDisplayableAddress(address: string): string {
+        if (!address) return "";
 
-	createLivenessSession(data: any): Promise<any> {
-		let url = `${this.baseUrl}/api/sessions`;
+        const firstPart = address.slice(0, 8);
+        const lastPart = address.slice(-6);
+        return `${firstPart}...${lastPart}`;
+    }
 
-		return this._httpWrapper.sendRequest("post", url, data, {
-			Headers: {},
-		});
-	}
+    updateAssetValues(wallet: Wallet, syncingAsset: Asset, wallets: Array<Wallet>, index?: number): void {
+        if (!wallet.ethAddress || !syncingAsset.asset) return;
 
-	createWallet(data: any): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets`, {
-			...data,
-			password: data.password || undefined,
-		});
-	}
+        if (!wallet.assets) {
+            wallet.assets = [syncingAsset];
+        }
 
-	decryptWallet(data: any): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/decrypt`, data);
-	}
+        let found = false;
 
-	importWallet(data: any): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-wallets/import`, data);
-	}
+        for (let _index = 0; _index < wallet.assets.length; _index++) {
+            const _asset = wallet.assets[_index];
 
-	previewWallet(zelfProof: string): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/wallets/preview`, {
-			zelfProof,
-		});
-	}
+            if (_asset.asset === syncingAsset.asset) {
+                found = true;
+                _asset.balance = syncingAsset.balance;
 
-	createAppRegistration(data: any): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/v2/app-registrations`, data);
-	}
+                _asset.price = syncingAsset.price;
+            }
+        }
 
-	async generateKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
-		const { privateKey, publicKey } = await openpgp.generateKey({
-			type: "ecc",
-			curve: "curve25519",
-			userIDs: [{ name: "Your Name", email: "your.email@example.com" }],
-			passphrase: "your_passphrase",
-		});
+        if (!found) {
+            wallet.assets.push(syncingAsset);
+        }
 
-		return { publicKey, privateKey };
-	}
+        this._chromeService.setItem("wallet", wallet);
 
-	async encryptMessage(plainTextMessage: string, publicKeyArmored: string): Promise<any> {
-		const publicKey = await openpgp.readKey({ armoredKey: publicKeyArmored });
+        if (!index) {
+            for (let _index = 0; _index < wallets.length; _index++) {
+                const _wallet = wallets[_index];
 
-		const encryptedMessage = await openpgp.encrypt({
-			message: await openpgp.createMessage({ text: plainTextMessage }),
-			encryptionKeys: publicKey,
-		});
+                if (_wallet.ethAddress === wallet.ethAddress) index = _index;
+            }
+        }
 
-		return encryptedMessage;
-	}
+        if (index !== undefined) {
+            wallets[index] = wallet;
 
-	getDisplayableAddress(address: string): string {
-		if (!address) return "";
+            this._chromeService.setItem("wallets", wallets);
+        }
+    }
 
-		const firstPart = address.slice(0, 8);
-		const lastPart = address.slice(-6);
-		return `${firstPart}...${lastPart}`;
-	}
+    /**
+     * returns my current wallet
+     * @returns Wallet
+     */
+    async retrieveWallet(): Promise<any> {
+        let wallet = await this._chromeService.getItem("wallet");
 
-	updateAssetValues(wallet: Wallet, syncingAsset: Asset, wallets: Array<Wallet>, index?: number): void {
-		if (!wallet.ethAddress || !syncingAsset.asset) return;
+        const wallets = (await this._chromeService.getItem("wallets")) || [];
 
-		if (!wallet.assets) {
-			wallet.assets = [syncingAsset];
-		}
+        if (!wallet && (!wallets || !wallets.length)) return null;
 
-		let found = false;
+        if (wallet) wallet = new WalletModel(wallet);
 
-		for (let _index = 0; _index < wallet.assets.length; _index++) {
-			const _asset = wallet.assets[_index];
+        if (!wallet?.ethAddress && wallets) {
+            wallet = new WalletModel(wallets[0]);
 
-			if (_asset.asset === syncingAsset.asset) {
-				found = true;
-				_asset.balance = syncingAsset.balance;
+            this._chromeService.setItem("wallet", wallet || "");
+        }
 
-				_asset.price = syncingAsset.price;
-			}
-		}
+        return wallet;
+    }
 
-		if (!found) {
-			wallet.assets.push(syncingAsset);
-		}
+    findBiggestFace(
+        detections: faceapi.WithFaceLandmarks<{ detection: faceapi.FaceDetection }>[]
+    ): faceapi.WithFaceLandmarks<{ detection: faceapi.FaceDetection }> | null {
+        let maxArea = 0;
+        let biggestFace: faceapi.WithFaceLandmarks<{ detection: faceapi.FaceDetection }> | null = null;
 
-		this._chromeService.setItem("wallet", wallet);
+        for (const face of detections) {
+            const tempArea = face.alignedRect.box.width * face.alignedRect.box.height;
 
-		if (!index) {
-			for (let _index = 0; _index < wallets.length; _index++) {
-				const _wallet = wallets[_index];
+            if (tempArea > maxArea) {
+                biggestFace = face;
+                maxArea = tempArea;
+            }
+        }
 
-				if (_wallet.ethAddress === wallet.ethAddress) index = _index;
-			}
-		}
+        return biggestFace;
+    }
 
-		if (index !== undefined) {
-			wallets[index] = wallet;
+    getShortAddress(address: string): string {
+        const firstPart = address.slice(0, 12);
 
-			this._chromeService.setItem("wallets", wallets);
-		}
-	}
+        const lastPart = address.slice(-8);
 
-	/**
-	 * returns my current wallet
-	 * @returns Wallet
-	 */
-	async retrieveWallet(): Promise<any> {
-		let wallet = await this._chromeService.getItem("wallet");
-
-		const wallets = (await this._chromeService.getItem("wallets")) || [];
-
-		if (!wallet && (!wallets || !wallets.length)) return null;
-
-		if (wallet) wallet = new WalletModel(wallet);
-
-		if (!wallet?.ethAddress && wallets) {
-			wallet = new WalletModel(wallets[0]);
-
-			this._chromeService.setItem("wallet", wallet || "");
-		}
-
-		return wallet;
-	}
-
-	getShortAddress(address: string): string {
-		const firstPart = address.slice(0, 12);
-
-		const lastPart = address.slice(-8);
-
-		return `${firstPart}...${lastPart}`;
-	}
+        return `${firstPart}...${lastPart}`;
+    }
 }

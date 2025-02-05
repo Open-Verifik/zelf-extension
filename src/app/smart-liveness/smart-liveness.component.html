@@ -1,0 +1,232 @@
+<ng-container *transloco="let t">
+    <video
+        #videoElement
+        autoplay
+        playsinline
+        muted
+        style="position: fixed; top: 0; left: 0; pointer-events: none; user-select: none; opacity: 0"
+    ></video>
+
+    <smart-camera-resolution-detection
+        (detected)="handleResolutionDetection($event)"
+        (failedToDetect)="onCameraError()"
+        [forceVertical]="!screen.landscape"
+    ></smart-camera-resolution-detection>
+
+    <div class="liveness-grid">
+        <div class="liveness-grid__row-a">
+            <div class="camera">
+                <div class="camera__border">
+                    <div class="viewport">
+                        <div #viewportContainer class="viewport__container">
+                            <canvas #videoCanvas></canvas>
+                        </div>
+
+                        <div
+                            [ngClass]="{ 'camera__loader--success': face.success }"
+                            *ngIf="camera.loading || !camera.permissions || !camera.quality || face.error || face.success || uploading"
+                            class="camera__loader"
+                        >
+                            <mat-progress-spinner
+                                class="camera__spinner"
+                                *ngIf="camera.loading"
+                                diameter="98"
+                                mode="indeterminate"
+                                strokeWidth="8"
+                            ></mat-progress-spinner>
+
+                            <p class="camera__uploading" *ngIf="uploading">
+                                {{ t("smart_liveness.extracting_data") }}
+                            </p>
+
+                            <ng-container *ngIf="!camera.loading">
+                                <ng-container *ngIf="face.error || !camera.permissions || !camera.quality">
+                                    <div class="camera__error">
+                                        <ng-container *ngIf="camera.permissions && camera.quality">
+                                            <svg
+                                                [ngClass]="'face--' + face.message"
+                                                class="face"
+                                                fill="none"
+                                                height="213"
+                                                viewBox="0 0 148 213"
+                                                width="148"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M77.2442 212.175C75.2178 212.228 73.1758 211.994 71.1945 211.496L67.0094 210.44C38.4474 201.461 19.9804 183.578 10.4881 155.745C2.06218 131.027 1.35624 100.817 0.668399 71.5958C0.00253391 43.2506 12.2264 21.9951 36.0258 10.1128C53.8323 1.22179 72.0938 0.699803 72.2739 0.69277C72.4541 0.685737 90.7167 0.362995 108.925 8.39809C133.255 19.1452 146.464 39.8069 147.133 68.1425C147.821 97.3634 148.534 127.586 141.282 152.664C133.111 180.911 115.51 199.653 87.4632 209.938L87.4036 209.961L83.271 211.205C81.3098 211.791 79.283 212.116 77.2567 212.169L77.2442 212.175ZM72.3385 3.69624C72.1583 3.70327 54.3269 4.22235 36.959 12.9142C13.9175 24.4449 2.55579 44.1668 3.20059 71.5319C4.61547 131.504 5.93993 188.15 67.5762 207.528L71.6945 208.562C75.2881 209.466 79.0629 209.378 82.6078 208.309L86.7088 207.066C147.324 184.809 145.997 128.172 144.591 68.2035C143.947 40.8383 131.677 21.6716 108.11 11.2338C90.3511 3.36938 72.5091 3.68625 72.3319 3.68373L72.3385 3.69624Z"
+                                                    fill="white"
+                                                />
+                                                <path
+                                                    d="M76.4623 129.493C75.7668 129.508 75.1835 128.856 75.1592 128.022L70.962 121.697L73.5278 110.977C73.5131 110.145 74.0584 109.466 74.7539 109.451C75.4495 109.436 76.0328 110.088 76.0571 110.922L74.0339 121.078L77.6884 127.967C77.7031 128.799 77.1579 129.478 76.4623 129.493Z"
+                                                    fill="white"
+                                                />
+                                                <path
+                                                    d="M43.488 99.9995C45.6468 99.9488 47.3085 96.1434 47.1994 91.5C47.0903 86.8566 45.2518 83.1334 43.093 83.1841C40.9341 83.2348 39.2725 87.0402 39.3816 91.6836C39.4906 96.3271 41.3292 100.05 43.488 99.9995Z"
+                                                    fill="white"
+                                                />
+                                                <path
+                                                    d="M103.342 98.5926C105.501 98.5419 107.162 94.7365 107.053 90.0931C106.944 85.4497 105.106 81.7265 102.947 81.7773C100.788 81.828 99.1265 85.6333 99.2355 90.2768C99.3446 94.9202 101.183 98.6433 103.342 98.5926Z"
+                                                    fill="white"
+                                                />
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    clip-rule="evenodd"
+                                                    d="M105.108 152.096C105.666 152.708 105.623 153.657 105.011 154.215L104 153.108C105.011 154.215 105.01 154.216 105.01 154.216L105.006 154.221L104.996 154.229L104.964 154.258C104.937 154.282 104.898 154.316 104.849 154.359C104.75 154.445 104.607 154.567 104.42 154.719C104.048 155.025 103.502 155.454 102.792 155.965C101.372 156.988 99.2921 158.343 96.6227 159.696C91.2854 162.4 83.5675 165.108 74.0575 165.108C64.5459 165.108 56.9211 162.399 51.6746 159.691C49.0512 158.336 47.0175 156.979 45.6326 155.954C44.9398 155.441 44.4084 155.011 44.0458 154.705C43.8644 154.552 43.7251 154.429 43.6289 154.343C43.5807 154.3 43.5434 154.266 43.5168 154.242L43.4852 154.212L43.4755 154.203L43.4709 154.199C43.4709 154.199 43.4699 154.198 44.5 153.108L43.4699 154.198C42.8677 153.629 42.8407 152.68 43.4096 152.078C43.9781 151.476 44.9266 151.448 45.5289 152.016L45.5301 152.017L45.5311 152.018L45.5481 152.034C45.5647 152.049 45.592 152.074 45.6298 152.108C45.7054 152.176 45.8229 152.279 45.9815 152.413C46.2987 152.681 46.7797 153.071 47.4172 153.543C48.6926 154.486 50.5903 155.754 53.0509 157.025C57.9726 159.566 65.1265 162.108 74.0575 162.108C82.99 162.108 90.2433 159.565 95.2667 157.02C97.7776 155.747 99.7252 154.477 101.038 153.531C101.694 153.059 102.191 152.667 102.519 152.399C102.683 152.264 102.805 152.16 102.884 152.092C102.923 152.058 102.952 152.033 102.969 152.017L102.989 152C103.6 151.441 104.549 151.485 105.108 152.096Z"
+                                                    fill="white"
+                                                />
+                                            </svg>
+
+                                            <p class="camera__error-text" *ngIf="face.error && face.message">
+                                                {{ t("smart_liveness.instructions." + face.message) }}
+                                            </p>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="!camera.permissions || !camera.quality">
+                                            <p class="camera__error-text" *ngIf="!camera.permissions">
+                                                {{ t("smart_liveness.errors.camera_permission") }}
+                                            </p>
+                                            <p class="camera__error-text" *ngIf="!camera.quality">{{ t("smart_liveness.errors.camera_quality") }}</p>
+
+                                            <button (click)="restartCamera()" class="main-button">
+                                                {{ "smart_liveness.try_again" | transloco }}
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="indicator indicator--a">
+                    <div class="indicator__pie" [style.opacity]="angleThreshold.indicatorAdjust ? 1 : 0">
+                        <div class="indicator__cut indicator__cut--a" [style.transform]="indicatorTransform"></div>
+                        <div class="indicator__clip"></div>
+                    </div>
+                </div>
+
+                <div class="indicator indicator--b">
+                    <div class="indicator__pie" [style.opacity]="angleThreshold.indicatorAdjust ? 1 : 0">
+                        <div class="indicator__cut indicator__cut--b" [style.transform]="indicatorTransform"></div>
+                        <div class="indicator__clip"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="liveness-grid__row-b">
+            <div class="tip">
+                <div class="tip__content tip__content--fill" *ngIf="angleThreshold?.instructions">
+                    <svg
+                        class="mr-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+
+                    <p class="tip__text">{{ angleThreshold.instructions }}</p>
+                </div>
+
+                <div class="tip__content" *ngIf="!angleThreshold?.instructions"><p>&nbsp;</p></div>
+
+                <div class="success">
+                    <div class="success__circle" [ngClass]="{ 'success__circle--complete': !!faceCaptures[0] }">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+
+                    <div class="success__circle" [ngClass]="{ 'success__circle--complete': !!faceCaptures[1] }">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+
+                    <div class="success__circle" [ngClass]="{ 'success__circle--complete': !!faceCaptures[2] }">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #instructions>
+    <mat-dialog-content class="instructions__content">
+        <div class="instructions__center">
+            <img src="/assets/images/liveness-instructions.gif" class="instructions__image" alt="instructions" />
+        </div>
+
+        <h4 class="instructions__title">
+            {{ "smart_liveness.instructions.before_continuing" | transloco }}
+        </h4>
+
+        <div class="instructions__step">
+            <div class="instructions__center">
+                <div class="instructions__step-index">1</div>
+
+                <p class="instructions__text">{{ "smart_liveness.instructions.step_1" | transloco }}</p>
+            </div>
+
+            <div class="instructions__center">
+                <div class="instructions__step-index">2</div>
+
+                <p class="instructions__text">{{ "smart_liveness.instructions.step_2" | transloco }}</p>
+            </div>
+
+            <div class="instructions__center">
+                <div class="instructions__step-index">3</div>
+
+                <p class="instructions__text">{{ "smart_liveness.instructions.step_3" | transloco }}</p>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="instructions__actions">
+        <button class="main-button" mat-dialog-close>
+            {{ "smart_liveness.continue" | transloco }}
+        </button>
+    </mat-dialog-actions>
+</ng-template>

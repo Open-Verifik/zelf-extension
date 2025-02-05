@@ -131,8 +131,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 			const ethResponse = await this._queryZNS("ethAddress", query);
 
-			console.log({ ethResponse });
-
 			if (!ethResponse) {
 				await this._captchaGeneration();
 
@@ -352,8 +350,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 			this._zelfNameService.setZelfProof(base64String);
 
 			this.zelfProof = base64String;
-
-			console.log({ zelfProof: base64String });
 
 			if (!zelfFile) {
 				this.previewQRCode();

@@ -2,14 +2,14 @@ import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { TransactionModel, Wallet, WalletModel } from "app/wallet";
-import { WalletService } from "app/wallet.service";
+
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { environment } from "environments/environment";
-import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
+import { Observable } from "rxjs";
 
 @Component({
 	selector: "st-search-wallet",
@@ -32,7 +32,7 @@ export class StSearchWalletComponent implements OnInit {
 	constructor(
 		private _formBuilder: UntypedFormBuilder,
 		private snackBar: MatSnackBar,
-		private _walletService: WalletService,
+		private captchaService: CaptchaService,
 		private _chromeService: ChromeService,
 		private _transactionService: TransactionService,
 		private _router: Router,
@@ -64,7 +64,7 @@ export class StSearchWalletComponent implements OnInit {
 		this.loaded = true;
 	}
 
-	async pasteFromClipboard() {
+	async pasteFromClipboard(): Promise<any> {
 		try {
 			// Check if the Clipboard API is supported
 			if (navigator.clipboard && navigator.clipboard.readText) {
@@ -75,7 +75,7 @@ export class StSearchWalletComponent implements OnInit {
 
 					this.potentialWallet = clipboardText;
 
-					this.triggerSearch();
+					await this.triggerSearch();
 				}
 			} else {
 				console.error("Clipboard API is not supported in your browser.");
@@ -85,7 +85,7 @@ export class StSearchWalletComponent implements OnInit {
 		}
 	}
 
-	triggerSearch(triggeredBy: string = "subscribe"): void {
+	async triggerSearch(triggeredBy: string = "subscribe"): Promise<any> {
 		this.shareables.loading = true;
 
 		this.domainToPurchase = null;
@@ -103,8 +103,18 @@ export class StSearchWalletComponent implements OnInit {
 
 		const key = this.walletToSearch.includes(".zelf") ? "zelfName" : "ethAddress";
 
+		let captchaToken = "";
+
+		try {
+			const captchaKey = this.walletToSearch.replace(".", "_");
+
+			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
+		} catch (error) {
+			console.error("reCAPTCHA failed:", error);
+		}
+
 		this._zelfNameService
-			.searchZelfName(key, this.walletToSearch, "")
+			.searchZelfName(key, this.walletToSearch, captchaToken)
 			.then((response) => {
 				if (!response.data || response.data.price) {
 					this._validateAddress(response.data);
@@ -113,7 +123,7 @@ export class StSearchWalletComponent implements OnInit {
 					return;
 				}
 
-				const zelfProofObject = (response.data.arweave || response.data.ipfs)[0];
+				const zelfProofObject = (response.data.ipfs || response.data.arweave)[0];
 
 				// found the zelf name
 				this.potentialWallet = new WalletModel(zelfProofObject);

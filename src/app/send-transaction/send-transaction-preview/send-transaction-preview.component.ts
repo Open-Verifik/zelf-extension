@@ -3,6 +3,7 @@ import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angul
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
+import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
 import { Asset, Transaction, TransactionModel, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
@@ -30,6 +31,7 @@ export class SendTransactionPreviewComponent implements OnInit {
 		private _router: Router,
 		private _chromeService: ChromeService,
 		private _ethService: EthereumService,
+		private _solanaService: SolanaService,
 		private _walletService: WalletService
 	) {
 		this.shareables = {
@@ -58,20 +60,43 @@ export class SendTransactionPreviewComponent implements OnInit {
 
 		this.wallets = await this._chromeService.getItem("wallets");
 
+		this.transactionData.receiver.selectedAddress = this.transactionData.receiver.ethAddress; // starts with ethAddress
+
+		// based on the network it should get either ethAddress or solanaAddress from the receiver
+		if (this.transactionData.network === "Solana") {
+			this.transactionData.receiver.selectedAddress = this.transactionData.receiver.solanaAddress;
+		}
+
+		this.transactionData.receiver.selectedShortAddress = this._walletService.getShortAddress(this.transactionData.receiver.selectedAddress);
+
 		this.searchForm = this._formBuilder.group({
-			address: [this._walletService.getShortAddress(this.transactionData.receiver.ethAddress), []],
+			address: [this.transactionData.receiver.selectedShortAddress, []],
 			amount: [0, [Validators.required]],
 		});
 
 		this._getAccountDetails();
 
-		this._getGasFees();
+		await this._getGasFees();
 
 		this.loaded = true;
 	}
 
 	async _getGasFees(): Promise<any> {
-		const fees = await this._ethService.getGasPrices();
+		let fees;
+
+		switch (this.transactionData.network) {
+			case "Ethereum":
+				fees = await this._ethService.getGasPrices();
+				break;
+
+			case "Solana":
+				fees = await this._solanaService.getGasPrices();
+
+				break;
+
+			default:
+				break;
+		}
 
 		this.fees = fees.data;
 	}

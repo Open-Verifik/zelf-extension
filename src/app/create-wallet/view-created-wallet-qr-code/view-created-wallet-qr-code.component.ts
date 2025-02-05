@@ -111,8 +111,6 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 
 		this.wallet = new WalletModel(wallet);
 
-		console.log({ thisWallet: this.wallet, wallet });
-
 		if (!this.wallet.ethAddress) {
 			this._chromeService.removeItem(walletType);
 

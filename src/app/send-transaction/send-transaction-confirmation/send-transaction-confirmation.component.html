@@ -26,27 +26,27 @@
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Address </small>
+						<small> {{ "common.address" | transloco }} </small>
 
 						<small class="text-grey" *ngIf="transactionData.receiver.name"> {{ transactionData.receiver.name }}</small>
 
-						<small>{{ transactionData.receiver.displayEthAddress }} </small>
+						<small>{{ transactionData.receiver.selectedShortAddress }} </small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Amount </small>
+						<small> {{ "common.amount" | transloco }} </small>
 
 						<small> {{ transactionData.amount }} {{ transactionData.asset }} (${{ transactionData.fiatAmount }})</small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Fee </small>
+						<small> {{ "common.fee" | transloco }} </small>
 
 						<small> ${{ transactionData.gasFee }}</small>
 					</div>
 
 					<div class="st-confirmation-table-row st-confirmation-table-row-top-b" fxLayout="row" fxLayoutAlign="space-between center">
-						<small> Total </small>
+						<small> {{ "common.total" | transloco }} </small>
 
 						<small> ${{ transactionData.fiatAmount + transactionData.gasFee | number : "1.2-7" }} </small>
 					</div>

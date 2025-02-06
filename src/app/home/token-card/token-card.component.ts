@@ -133,12 +133,5 @@ export class TokenCardComponent implements OnInit {
 		return Math.floor(amount * Math.pow(10, 8)) / Math.pow(10, 8);
 	}
 
-	onClick(): void {
-		if (this.view === "tokens") {
-			// save in memory the token that was picked
-			this.shareables.token = this.data;
-
-			this.shareables.view = "pickReceiver";
-		}
-	}
+	onClick(): void {}
 }

@@ -16,10 +16,18 @@
 				</h4>
 			</div>
 		</div>
+
 		<mat-progress-bar mode="query" *ngIf="shareables.loading"></mat-progress-bar>
 
 		<div *ngIf="shareables.view === 'tokens'" class="w-full">
-			<token-card class="w-full" [data]="token" *ngFor="let token of tokens" [view]="shareables.view" [shareables]="shareables"></token-card>
+			<token-card
+				class="w-full"
+				[data]="token"
+				*ngFor="let token of tokens"
+				[view]="shareables.view"
+				[shareables]="shareables"
+				(click)="selectToken(token)"
+			></token-card>
 		</div>
 
 		<div *ngIf="shareables.view === 'pickReceiver'" class="w-full">

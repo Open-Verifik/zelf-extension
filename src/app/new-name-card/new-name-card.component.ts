@@ -5,6 +5,7 @@ import { CaptchaService } from "app/captcha.service";
 import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { debounceTime, distinctUntilChanged } from "rxjs";
 
 @Component({
 	selector: "new-name-card",
@@ -96,7 +97,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 					<!-- end of price -->
 
 					<!-- referred by -->
-					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!zelfNameObject">
+					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center">
 						<span class="font-bold"> Referral code </span>
 
 						<div class="unlock-input-box">
@@ -109,6 +110,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 										autocomplete="off"
 										(keydown.enter)="searchZelfName($event)"
 										(input)="sanitizeZelfNameInput()"
+										[readonly]="zelfNameObject || loading"
 									/>
 								</mat-form-field>
 							</div>
@@ -117,7 +119,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 							</div>
 						</div>
 					</div>
-					<!-- end of price -->
+					<!-- end of referral -->
 				</div>
 
 				<span class="zline-2"></span>
@@ -150,6 +152,7 @@ export class NewNameCardComponent implements OnInit {
 	steps: Array<any>;
 	session: any;
 	duration: any;
+	isZelfNameEmpty: boolean;
 	zelfNamePricing: any = {
 		1: { 1: 240, 2: 432, 3: 612, 4: 768, 5: 900, lifetime: 3600 },
 		2: { 1: 120, 2: 216, 3: 306, 4: 384, 5: 450, lifetime: 1800 },
@@ -185,6 +188,7 @@ export class NewNameCardComponent implements OnInit {
 		this.duration = 1;
 		this.price = 24;
 		this.loading = false;
+		this.isZelfNameEmpty = true;
 
 		this.steps = [
 			{
@@ -210,6 +214,22 @@ export class NewNameCardComponent implements OnInit {
 		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
 
 		this._calculateZelfNamePrice();
+
+		// Track input value changes
+		// Track input changes and trigger searchZelfName after 5 seconds
+		this.zelfForm
+			.get("zelfName")
+			?.valueChanges.pipe(
+				debounceTime(5000), // Wait 5 seconds after typing stops
+				distinctUntilChanged() // Only trigger if the value actually changes
+			)
+			.subscribe((value) => {
+				this.isZelfNameEmpty = !value || value.trim() === "";
+
+				if (!this.isZelfNameEmpty) {
+					this.searchZelfName(new Event("input")); // Trigger search
+				}
+			});
 	}
 
 	goToCreateWallet(): void {
@@ -224,8 +244,10 @@ export class NewNameCardComponent implements OnInit {
 		this._router.navigate(["/find-wallet"]);
 	}
 
-	acceptedTerms(): Boolean {
-		return Boolean(this.zelfForm.value.termsAcceptance && !this.loading);
+	acceptedTerms(): boolean {
+		return Boolean(
+			this.zelfForm.value.termsAcceptance && !this.loading && !(this.isZelfNameEmpty || !this.zelfNameObject) // Disable if zelfName is empty OR zelfNameObject is not set
+		);
 	}
 
 	goBack(): void {

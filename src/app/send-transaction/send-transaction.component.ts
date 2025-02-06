@@ -75,4 +75,10 @@ export class SendTransactionComponent implements OnInit {
 	cancel(): void {
 		this._router.navigate(["/home"]);
 	}
+
+	selectToken(account: any): void {
+		this.shareables.token = account;
+
+		this.shareables.view = "pickReceiver";
+	}
 }

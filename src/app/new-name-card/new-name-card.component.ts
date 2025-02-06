@@ -246,7 +246,7 @@ export class NewNameCardComponent implements OnInit {
 
 	acceptedTerms(): boolean {
 		return Boolean(
-			this.zelfForm.value.termsAcceptance && !this.loading && !(this.isZelfNameEmpty || !this.zelfNameObject) // Disable if zelfName is empty OR zelfNameObject is not set
+			this.zelfForm.value.termsAcceptance && !this.loading // Disable if zelfName is empty OR zelfNameObject is not set
 		);
 	}
 

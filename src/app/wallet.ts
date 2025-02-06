@@ -177,7 +177,7 @@ export class TransactionModel implements Transaction {
 		this.amount = Number(data.amount || 0);
 		this.fiatAmount = Number(data.fiatAmount || 0);
 
-		this.price = data.price || data.token.price || 0;
+		this.price = data.price || data.token?.price || 0;
 
 		this.fiatBalance = data.fiatBalance || data.token?.fiatBalance || 0;
 		this.balance = data.balance || data.token?.amount || 0;
@@ -187,7 +187,7 @@ export class TransactionModel implements Transaction {
 		this.fiatTotal = data.fiatTotal || 0;
 
 		this.network = data.network || data.token.network || "";
-		this.tokenType = data.tokenType || data.token.tokenType || "";
+		this.tokenType = data.tokenType || data.token?.tokenType || "";
 	}
 }
 

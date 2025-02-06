@@ -76,8 +76,6 @@ export class SendTransactionPreviewComponent implements OnInit {
 
 		this._getAccountDetails();
 
-		await this._getGasFees();
-
 		this.loaded = true;
 	}
 

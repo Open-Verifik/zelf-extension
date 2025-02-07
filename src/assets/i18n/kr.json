@@ -1,274 +1,314 @@
 {
-	"hello": "안녕하세요",
-	"onboarding": {
-		"step_1": "ZELF 이름 서비스에 오신 것을 환영합니다",
-		"step_1_description": "시드 구문을 기억할 필요가 없는 혁신적인 이름 서비스인 ZNS(Zelf Name Service)를 발견하십시오. ZNS를 사용하여 안전하고 빠르게 액세스하십시오",
-		"step_2": "ZELFPROOF로 액세스",
-		"step_2_description": "ZelfProof는 얼굴 데이터를 기반으로 한 고유한 프라이버시 보호 이진 표현으로, 어디에도 저장되지 않습니다. 시드 구문을 매우 안전하게 유지합니다",
-		"step_3": "분산 저장",
-		"step_3_description": "지갑과 시드 구문에 쉽게 액세스할 수 있습니다. ZelfProof는 Arweave에 안전하게 저장되어 있어 관리의 번거로움 없이 완전한 제어를 제공합니다.",
-		"accept_terms_1": "저는",
-		"accept_terms_2": "이용 약관에 동의합니다",
-		"create_new_wallet": "새 지갑 만들기",
-		"import_wallet": "지갑 가져오기",
-		"open_wallet": "지갑 열기",
-		"claim_your_zns": "무료 Zelf 이름을 지금 바로 청구하세요!",
-		"forgot_zelf_name": "Zelf 이름을 잊으셨나요?",
-		"year": "년",
-		"years": "년",
-		"register": "등록",
-		"register_description": "이 이름을 {{duration}} 동안 등록합니다",
-		"zns_reward": "보상으로 {{reward}} Zelf 토큰(ZNS)을 받게 됩니다",
-		"lifetime": "평생",
-		"price_per_year": "연간 가격",
-		"price_for_lifetime": "평생 가격",
-		"referral_code": "추천 코드"
-	},
-	"common": {
-		"is_required": "필수 항목입니다",
-		"more_info": "추가 정보",
-		"recommended": "추천",
-		"continue": "계속",
-		"copy_to_clipboard": "성공적으로 복사되었습니다",
-		"failed_to_copy_to_clipboard": "복사에 실패했습니다",
-		"close": "닫기",
-		"go_back": "돌아가기",
-		"eth_address": "ETH 주소",
-		"solana_address": "Solana 주소",
-		"address": "주소",
-		"zelf_wallet": "Zelf 지갑",
-		"cancel": "취소",
-		"total": "총계",
-		"edit": "편집",
-		"balance": "잔액",
-		"amount": "금액",
-		"max": "최대",
-		"asset": "자산",
-		"type": "유형",
-		"from": "보낸 사람",
-		"to": "받는 사람",
-		"fee": "수수료"
-	},
-	"create_wallet": {
-		"password_step": {
-			"title": "안전 레이어",
-			"description": "ZelfProof를 보호하기 위해 최소 8자 이상의 강력한 비밀번호를 설정하십시오.",
-			"password_label": "비밀번호",
-			"repeat_password_label": "비밀번호 반복",
-			"agreement": "Zelf는 이 비밀번호를 복구할 수 없음을 이해합니다. 이 추가 보안 레이어를 선택함으로써, 저는 이를 기억하는 책임이 전적으로 저에게 있음을 인정합니다.",
-			"add_password": "계속",
-			"continue_without_password": "보안 레이어 하나"
-		},
-		"phrase_step": {
-			"title": "지갑 생성",
-			"description": "귀하의 개인 복구 구문은 12 또는 24개의 단어로 구성되어 있으며, 지갑에 액세스하고 보호하는 데 필수적입니다.",
-			"description_2": "Zelf는 복구 구문을 강력한 프라이버시 보호 ZelfProof로 암호화하여 수동 저장의 필요성을 제거합니다. 이 ZelfProof는 QR 코드 내에 안전하게 저장되어 있으며, 이를 해독할 수 있는 유일한 사람은 귀하입니다.",
-			"description_3": "QR 코드는 Zelf Name Service(ZNS)를 통해 복구 키를 쉽게 백업하고 검색할 수 있는 강력한 디지털 금고 역할을 합니다.",
-			"description_4": "Zelf는 ZNS를 통해 QR 코드를 복구하는 데 도움을 줄 수 있음을 이해합니다. 그러나 안전한 액세스를 보장하기 위해 이를 보호하는 책임은 여전히 저에게 있습니다.",
-			"start_encryption_button": "시작",
-			"12_words": "12 단어 구문",
-			"24_words": "24 단어 구문",
-			"words_input": "단어 수"
-		},
-		"zelfproof_step": {
-			"title": "ZELPROOF 암호화",
-			"description": "귀하의 복구 구문을 안전하게 암호화할 ZelfProof를 생성하려고 합니다. 원활하고 효과적인 과정을 보장하기 위해 아래 단계를 따르십시오.",
-			"instruction_1": "얼굴을 표시된 마크 안에 위치시키십시오",
-			"instruction_2": "카메라를 응시하고 움직이지 마십시오",
-			"instruction_3": "필요한 얼굴 제스처를 수행하십시오"
-		},
-		"view_wallet": {
-			"title": "ZELFPROOF로 성공적으로 암호화된 지갑",
-			"description": "귀하의 복구 구문은 ZelfProof를 사용하여 이 QR 코드 안에 암호화되어 안전하게 보호되었습니다.",
-			"description_2": "QR 코드를 분실한 경우, 등록된 Zelf 이름을 통해 Zelf Name Service(ZNS)를 사용하여 이를 복구할 수 있습니다.",
-			"qr_code_description": "이 QR 코드를 안전하게 보관하십시오. 지갑에 액세스하거나 복구하려면 항상 귀하의 ZelfProof와 이 QR 코드가 필요합니다",
-			"download_qr_code": "QR 코드 다운로드",
-			"copy_public_address": "ETH 주소 복사"
-		}
-	},
-	"liveness": {
-		"center_yor_face": "화면 중앙에 얼굴을 맞추십시오",
-		"center_your_face_subtitle": "얼굴이 중앙에 위치하도록 하십시오",
-		"get_closer": "더 가까이 오십시오",
-		"get_closer_subtitle": "더 나은 얼굴 인식을 위해 조금 더 가까이 오십시오.",
-		"liveness_failed": "생체 인식 실패",
-		"liveness_error_message": "생체 인식에 실패했습니다:<br><strong>{{error}}</strong><br>다시 시도하시겠습니까?",
-		"loading_stream": "카메라 로딩 중",
-		"try_again_button": "다시 시도"
-	},
-	"errors": {
-		"person_already_set": "귀하의 등록에는 이미 ZelfProof가 연결되어 있습니다",
-		"replace_person_button": "확인, ZelfProof 교체",
-		"Duplicated_person": "ZelfProof가 다른 기록에 사용되고 있습니다",
-		"liveness_failed": "생체 인식 실패",
-		"liveness_failed_description": "죄송합니다, 생체 인식에 문제가 발생했습니다.",
-		"Liveness_score_not_acceptable": "생체 인식 점수가 허용되지 않습니다",
-		"min_liveness_score_is": "최소 생체 인식 점수는: ",
-		"phone_or_email_is_not_unique": "전화번호 또는 이메일이 이미 사용 중입니다. 다른 것을 시도하십시오",
-		"something_went_wrong": "문제가 발생했습니다. 다시 시도하십시오",
-		"try_again": "다시 시도",
-		"ERR_LIVENESS_FAILED": "생체 인식 실패",
-		"ERR_VERIFICATION_FAILED": "생체 인식 실패",
-		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "얼굴이 경계에 너무 가깝습니다",
-		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "얼굴 각도가 너무 큽니다",
-		"ERR_INVALID_PASSWORD": "이 ZelfProof의 비밀번호가 잘못되었습니다",
-		"ERR_DESCRIPTION": "ZelfProof를 잠금 해제하려면 지침을 제대로 따르십시오",
-		"ERR_UNPROCESSABLE_CONTENT": "ZelfProof를 해독할 수 없습니다",
-		"zelfName_is_taken": "이 Zelf 이름은 이미 사용 중입니다"
-	},
-	"import_wallet": {
-		"step_zero": {
-			"title": "기존 지갑 가져오기",
-			"description": "다른 플랫폼에서 디지털 자산을 빠르고 안전하게 전송할 수 있습니다.",
-			"description2": "우리의 프로세스는 키나 복구 구문을 노출하지 않음으로써 자산의 프라이버시를 보장합니다.",
-			"subtitle": "어떤 이점이 있나요?",
-			"description3": "지갑을 가져오면 여러 계정을 관리할 필요 없이 암호화폐 경험을 단순화할 수 있습니다.",
-			"description4": "복구 구문을 사용할 필요 없이 플랫폼에서 자금을 쉽게 액세스할 수 있습니다.",
-			"import_button": "지갑 가져오기"
-		},
-		"step_one": {
-			"title": "복구 구문 입력",
-			"description": "기존 지갑을 검증하고 가져오기 위해 아래에 복구 구문을 입력하십시오.",
-			"confirm_button": "지갑 가져오기",
-			"word1": "1.",
-			"paste_note": "비밀 복구 구문 전체를 어떤 필드에든 붙여넣을 수 있습니다"
-		},
-		"qr_code_step": {
-			"success_message": "기존 지갑을 성공적으로 가져왔습니다",
-			"description": "보안 구문과 QR 코드는 이제 ZelfProof와 연결되었습니다. 계정을 보호하기 위해 QR 코드를 안전하게 보관하십시오.",
-			"understood": "이해했습니다",
-			"copy_address": "공개 주소 복사",
-			"download_qr": "QR 코드 다운로드"
-		}
-	},
-	"unlock_wallet": {
-		"title": "ZELF 이름 찾기",
-		"description": "아래에 공개 주소를 입력하여 기존 Zelf 이름을 찾으십시오:",
-		"upload_description": "또는 계속하려면 ZelfProof QR 코드를 업로드하십시오:",
-		"upload_button": "QR 코드 선택",
-		"drag_drop_text": "또는 .JPG 또는 PNG 확장자의 파일을 여기로 드래그 앤 드롭하십시오",
-		"verify_button": "검증",
-		"back_button": "뒤로",
-		"account_found": "ZELFPROOF 발견",
-		"password": {
-			"title": "이 ZELFPROOF는 비밀번호가 필요합니다",
-			"subtitle": "열기 과정을 완료하려면 이 ZelfProof에 할당된 비밀번호를 입력하십시오.",
-			"label": "비밀번호",
-			"placeholder": "********************",
-			"button": "계속"
-		},
-		"hold": {
-			"title": "예약 발견",
-			"expiration_time": "이 예약은 다음 날짜에 만료됩니다: ",
-			"purchase_reservation": "예약 구매",
-			"unlock_without_purchase": "지금 확인하고 나중에 구매",
-			"buy_now": "지금 구매"
-		}
-	},
-	"steps": {
-		"import_wallet": "지갑 가져오기",
-		"add_password": "비밀번호 추가",
-		"biometrics": "ZelfProof",
-		"qr_code_generator": "ZELF 이름",
-		"search_wallet": "ZELFPROOF 열기",
-		"password_unlock": "비밀번호",
-		"biometric_unlock": "ZelfProof 잠금 해제",
-		"available": "사용 가능",
-		"decrypt": "복호화",
-		"wallet_type": "지갑"
-	},
-	"wallets_connected": {
-		"no_zelf_name": "Zelf 이름 없음",
-		"title": "지갑 선택",
-		"account": "계정",
-		"create_or_import_wallet_button": "지갑 생성 또는 가져오기",
-		"delete_wallet": "지갑 연결 해제",
-		"see_on_scanner": "탐색기 열기",
-		"see_qr_code": "QR 코드 보기"
-	},
-	"active_wallet": {
-		"show_private_key": "개인 키 보기",
-		"warning_notice": "QR 코드를 안전하게 보관하십시오. 필요한 경우 여러 복사본을 만드십시오. 또한 지갑을 내보낼 때만 비밀 키를 잠금 해제하십시오."
-	},
-	"home": {
-		"support_button": "지원",
-		"settings_button": "설정",
-		"receive_transaction_button": "받기",
-		"send_transaction_button": "보내기",
-		"assets": "토큰",
-		"activity": "활동",
-		"NFTs": "수집품"
-	},
-	"activity_card": {
-		"transaction": "거래",
-		"sent": "보냄",
-		"in": "받음",
-		"age": "나이",
-		"amount": "금액",
-		"block": "블록",
-		"from": "보낸 사람",
-		"hash": "해시",
-		"method": "방법",
-		"to": "받는 사람",
-		"traffic": "트래픽",
-		"txnFee": "거래 수수료",
-		"transactionID": "거래 ID",
-		"viewOnExplorer": "블록 탐색기에서 보기"
-	},
-	"extension_instructions": {
-		"extensions": "확장 프로그램",
-		"installationCompleted": "Zelf Name Service 설치가 완료되었습니다!",
-		"addExtension": "브라우저에 확장 프로그램을 추가하여 Zelf Name Service에서 거래 확인을 쉽게 액세스하고 볼 수 있습니다.",
-		"clickIcon": "브라우저에서 확장 프로그램 아이콘을 클릭하십시오.",
-		"fixWallet": "ZNS 수정.",
-		"fullAccess": "전체 액세스",
-		"extensionsCanChange": "이 확장 프로그램은 이 웹사이트의 정보를 보고 변경할 수 있습니다.",
-		"manageExtensions": "확장 프로그램 관리",
-		"clickExtensionIcon": "브라우저에서 확장 프로그램 아이콘을 클릭하십시오."
-	},
-	"send_transaction": {
-		"tokens_step": "토큰 선택",
-		"pickReceiver_step": "보내기",
-		"confirmation_step": "전송",
-		"send_to": "보내기",
-		"your_accounts": "귀하의 계정",
-		"account_found": "주소 발견",
-		"reject_transaction_button": "취소",
-		"continue_transaction_button": "다음",
-		"confirm_transaction_button": "거래 확인",
-		"confirm": {
-			"sending_label": "{{amount}} {{asset}} 보내기",
-			"market": "시장",
-			"gas_label": "가스 (예상)",
-			"gas_description": "아마도 {{seconds}} 초 후",
-			"max_gas": "최대 수수료:",
-			"total_to_pay_label": "자산 + 가스 수수료",
-			"max_total": "최대 총액"
-		},
-		"preview": {
-			"estimated_fee": "예상 수수료"
-		},
-		"bridge": {
-			"qr_code_title": "QR 코드 스캔",
-			"title": "거래 확인",
-			"description": "Zelf Name Service 앱에서 QR 코드를 스캔하십시오. 장치에서 복호화하여 보안 레이어를 추가하십시오.",
-			"description_2": "웹 확장 프로그램에서 계속",
-			"confirm_button": "거래 확인",
-			"dont_have_the_app": "아직 Zelf Name Service 앱을 설치하지 않으셨나요?",
-			"download_here": "여기에서 다운로드하여 모든 거래의 보안을 강화하고 암호화폐에 대한 액세스를 잃지 마십시오."
-		}
-	},
-	"network_picker": {
-		"title": "네트워크 선택",
-		"testnets_title": "테스트 네트워크 선택"
-	},
-	"payments": {
-		"continue_withoutpaying": "결제 없이 계속",
-		"pay_now": "결제 진행"
-	},
-	"restricted": {
-		"title": "모바일 제한",
-		"description": "이 기능은 모바일 장치에서 사용할 수 없습니다. 데스크탑 브라우저를 사용하거나 Zelf Name Service 앱을 다운로드하십시오.",
-		"download_android_app": "안드로이드 앱 다운로드"
-	}
+    "hello": "안녕하세요",
+    "onboarding": {
+        "step_1": "ZELF 이름 서비스에 오신 것을 환영합니다",
+        "step_1_description": "시드 구문을 기억할 필요가 없는 혁신적인 이름 서비스인 ZNS(Zelf Name Service)를 발견하십시오. ZNS를 사용하여 안전하고 빠르게 액세스하십시오",
+        "step_2": "ZELFPROOF로 액세스",
+        "step_2_description": "ZelfProof는 얼굴 데이터를 기반으로 한 고유한 프라이버시 보호 이진 표현으로, 어디에도 저장되지 않습니다. 시드 구문을 매우 안전하게 유지합니다",
+        "step_3": "분산 저장",
+        "step_3_description": "지갑과 시드 구문에 쉽게 액세스할 수 있습니다. ZelfProof는 Arweave에 안전하게 저장되어 있어 관리의 번거로움 없이 완전한 제어를 제공합니다.",
+        "accept_terms_1": "저는",
+        "accept_terms_2": "이용 약관에 동의합니다",
+        "create_new_wallet": "새 지갑 만들기",
+        "import_wallet": "지갑 가져오기",
+        "open_wallet": "지갑 열기",
+        "claim_your_zns": "무료 Zelf 이름을 지금 바로 청구하세요!",
+        "forgot_zelf_name": "Zelf 이름을 잊으셨나요?",
+        "year": "년",
+        "years": "년",
+        "register": "등록",
+        "register_description": "이 이름을 {{duration}} 동안 등록합니다",
+        "zns_reward": "보상으로 {{reward}} Zelf 토큰(ZNS)을 받게 됩니다",
+        "lifetime": "평생",
+        "price_per_year": "연간 가격",
+        "price_for_lifetime": "평생 가격",
+        "referral_code": "추천 코드"
+    },
+    "common": {
+        "is_required": "필수 항목입니다",
+        "more_info": "추가 정보",
+        "recommended": "추천",
+        "continue": "계속",
+        "copy_to_clipboard": "성공적으로 복사되었습니다",
+        "failed_to_copy_to_clipboard": "복사에 실패했습니다",
+        "close": "닫기",
+        "go_back": "돌아가기",
+        "eth_address": "ETH 주소",
+        "solana_address": "Solana 주소",
+        "address": "주소",
+        "zelf_wallet": "Zelf 지갑",
+        "cancel": "취소",
+        "total": "총계",
+        "edit": "편집",
+        "balance": "잔액",
+        "amount": "금액",
+        "max": "최대",
+        "asset": "자산",
+        "type": "유형",
+        "from": "보낸 사람",
+        "to": "받는 사람",
+        "fee": "수수료"
+    },
+    "create_wallet": {
+        "password_step": {
+            "title": "안전 레이어",
+            "description": "ZelfProof를 보호하기 위해 최소 8자 이상의 강력한 비밀번호를 설정하십시오.",
+            "password_label": "비밀번호",
+            "repeat_password_label": "비밀번호 반복",
+            "agreement": "Zelf는 이 비밀번호를 복구할 수 없음을 이해합니다. 이 추가 보안 레이어를 선택함으로써, 저는 이를 기억하는 책임이 전적으로 저에게 있음을 인정합니다.",
+            "add_password": "계속",
+            "continue_without_password": "보안 레이어 하나"
+        },
+        "phrase_step": {
+            "title": "지갑 생성",
+            "description": "귀하의 개인 복구 구문은 12 또는 24개의 단어로 구성되어 있으며, 지갑에 액세스하고 보호하는 데 필수적입니다.",
+            "description_2": "Zelf는 복구 구문을 강력한 프라이버시 보호 ZelfProof로 암호화하여 수동 저장의 필요성을 제거합니다. 이 ZelfProof는 QR 코드 내에 안전하게 저장되어 있으며, 이를 해독할 수 있는 유일한 사람은 귀하입니다.",
+            "description_3": "QR 코드는 Zelf Name Service(ZNS)를 통해 복구 키를 쉽게 백업하고 검색할 수 있는 강력한 디지털 금고 역할을 합니다.",
+            "description_4": "Zelf는 ZNS를 통해 QR 코드를 복구하는 데 도움을 줄 수 있음을 이해합니다. 그러나 안전한 액세스를 보장하기 위해 이를 보호하는 책임은 여전히 저에게 있습니다.",
+            "start_encryption_button": "시작",
+            "12_words": "12 단어 구문",
+            "24_words": "24 단어 구문",
+            "words_input": "단어 수"
+        },
+        "zelfproof_step": {
+            "title": "ZELPROOF 암호화",
+            "description": "귀하의 복구 구문을 안전하게 암호화할 ZelfProof를 생성하려고 합니다. 원활하고 효과적인 과정을 보장하기 위해 아래 단계를 따르십시오.",
+            "instruction_1": "얼굴을 표시된 마크 안에 위치시키십시오",
+            "instruction_2": "카메라를 응시하고 움직이지 마십시오",
+            "instruction_3": "필요한 얼굴 제스처를 수행하십시오"
+        },
+        "view_wallet": {
+            "title": "ZELFPROOF로 성공적으로 암호화된 지갑",
+            "description": "귀하의 복구 구문은 ZelfProof를 사용하여 이 QR 코드 안에 암호화되어 안전하게 보호되었습니다.",
+            "description_2": "QR 코드를 분실한 경우, 등록된 Zelf 이름을 통해 Zelf Name Service(ZNS)를 사용하여 이를 복구할 수 있습니다.",
+            "qr_code_description": "이 QR 코드를 안전하게 보관하십시오. 지갑에 액세스하거나 복구하려면 항상 귀하의 ZelfProof와 이 QR 코드가 필요합니다",
+            "download_qr_code": "QR 코드 다운로드",
+            "copy_public_address": "ETH 주소 복사"
+        }
+    },
+    "liveness": {
+        "center_yor_face": "화면 중앙에 얼굴을 맞추십시오",
+        "center_your_face_subtitle": "얼굴이 중앙에 위치하도록 하십시오",
+        "get_closer": "더 가까이 오십시오",
+        "get_closer_subtitle": "더 나은 얼굴 인식을 위해 조금 더 가까이 오십시오.",
+        "liveness_failed": "생체 인식 실패",
+        "liveness_error_message": "생체 인식에 실패했습니다:<br><strong>{{error}}</strong><br>다시 시도하시겠습니까?",
+        "loading_stream": "카메라 로딩 중",
+        "try_again_button": "다시 시도"
+    },
+    "errors": {
+        "person_already_set": "귀하의 등록에는 이미 ZelfProof가 연결되어 있습니다",
+        "replace_person_button": "확인, ZelfProof 교체",
+        "Duplicated_person": "ZelfProof가 다른 기록에 사용되고 있습니다",
+        "liveness_failed": "생체 인식 실패",
+        "liveness_failed_description": "죄송합니다, 생체 인식에 문제가 발생했습니다.",
+        "Liveness_score_not_acceptable": "생체 인식 점수가 허용되지 않습니다",
+        "min_liveness_score_is": "최소 생체 인식 점수는: ",
+        "phone_or_email_is_not_unique": "전화번호 또는 이메일이 이미 사용 중입니다. 다른 것을 시도하십시오",
+        "something_went_wrong": "문제가 발생했습니다. 다시 시도하십시오",
+        "try_again": "다시 시도",
+        "ERR_LIVENESS_FAILED": "생체 인식 실패",
+        "ERR_VERIFICATION_FAILED": "생체 인식 실패",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "얼굴이 경계에 너무 가깝습니다",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "얼굴 각도가 너무 큽니다",
+        "ERR_INVALID_PASSWORD": "이 ZelfProof의 비밀번호가 잘못되었습니다",
+        "ERR_DESCRIPTION": "ZelfProof를 잠금 해제하려면 지침을 제대로 따르십시오",
+        "ERR_UNPROCESSABLE_CONTENT": "ZelfProof를 해독할 수 없습니다",
+        "zelfName_is_taken": "이 Zelf 이름은 이미 사용 중입니다"
+    },
+    "import_wallet": {
+        "step_zero": {
+            "title": "기존 지갑 가져오기",
+            "description": "다른 플랫폼에서 디지털 자산을 빠르고 안전하게 전송할 수 있습니다.",
+            "description2": "우리의 프로세스는 키나 복구 구문을 노출하지 않음으로써 자산의 프라이버시를 보장합니다.",
+            "subtitle": "어떤 이점이 있나요?",
+            "description3": "지갑을 가져오면 여러 계정을 관리할 필요 없이 암호화폐 경험을 단순화할 수 있습니다.",
+            "description4": "복구 구문을 사용할 필요 없이 플랫폼에서 자금을 쉽게 액세스할 수 있습니다.",
+            "import_button": "지갑 가져오기"
+        },
+        "step_one": {
+            "title": "복구 구문 입력",
+            "description": "기존 지갑을 검증하고 가져오기 위해 아래에 복구 구문을 입력하십시오.",
+            "confirm_button": "지갑 가져오기",
+            "word1": "1.",
+            "paste_note": "비밀 복구 구문 전체를 어떤 필드에든 붙여넣을 수 있습니다"
+        },
+        "qr_code_step": {
+            "success_message": "기존 지갑을 성공적으로 가져왔습니다",
+            "description": "보안 구문과 QR 코드는 이제 ZelfProof와 연결되었습니다. 계정을 보호하기 위해 QR 코드를 안전하게 보관하십시오.",
+            "understood": "이해했습니다",
+            "copy_address": "공개 주소 복사",
+            "download_qr": "QR 코드 다운로드"
+        }
+    },
+    "unlock_wallet": {
+        "title": "ZELF 이름 찾기",
+        "description": "아래에 공개 주소를 입력하여 기존 Zelf 이름을 찾으십시오:",
+        "upload_description": "또는 계속하려면 ZelfProof QR 코드를 업로드하십시오:",
+        "upload_button": "QR 코드 선택",
+        "drag_drop_text": "또는 .JPG 또는 PNG 확장자의 파일을 여기로 드래그 앤 드롭하십시오",
+        "verify_button": "검증",
+        "back_button": "뒤로",
+        "account_found": "ZELFPROOF 발견",
+        "password": {
+            "title": "이 ZELFPROOF는 비밀번호가 필요합니다",
+            "subtitle": "열기 과정을 완료하려면 이 ZelfProof에 할당된 비밀번호를 입력하십시오.",
+            "label": "비밀번호",
+            "placeholder": "********************",
+            "button": "계속"
+        },
+        "hold": {
+            "title": "예약 발견",
+            "expiration_time": "이 예약은 다음 날짜에 만료됩니다: ",
+            "purchase_reservation": "예약 구매",
+            "unlock_without_purchase": "지금 확인하고 나중에 구매",
+            "buy_now": "지금 구매"
+        }
+    },
+    "steps": {
+        "import_wallet": "지갑 가져오기",
+        "add_password": "비밀번호 추가",
+        "biometrics": "ZelfProof",
+        "qr_code_generator": "ZELF 이름",
+        "search_wallet": "ZELFPROOF 열기",
+        "password_unlock": "비밀번호",
+        "biometric_unlock": "ZelfProof 잠금 해제",
+        "available": "사용 가능",
+        "decrypt": "복호화",
+        "wallet_type": "지갑"
+    },
+    "wallets_connected": {
+        "no_zelf_name": "Zelf 이름 없음",
+        "title": "지갑 선택",
+        "account": "계정",
+        "create_or_import_wallet_button": "지갑 생성 또는 가져오기",
+        "delete_wallet": "지갑 연결 해제",
+        "see_on_scanner": "탐색기 열기",
+        "see_qr_code": "QR 코드 보기"
+    },
+    "active_wallet": {
+        "show_private_key": "개인 키 보기",
+        "warning_notice": "QR 코드를 안전하게 보관하십시오. 필요한 경우 여러 복사본을 만드십시오. 또한 지갑을 내보낼 때만 비밀 키를 잠금 해제하십시오."
+    },
+    "home": {
+        "support_button": "지원",
+        "settings_button": "설정",
+        "receive_transaction_button": "받기",
+        "send_transaction_button": "보내기",
+        "assets": "토큰",
+        "activity": "활동",
+        "NFTs": "수집품"
+    },
+    "activity_card": {
+        "transaction": "거래",
+        "sent": "보냄",
+        "in": "받음",
+        "age": "나이",
+        "amount": "금액",
+        "block": "블록",
+        "from": "보낸 사람",
+        "hash": "해시",
+        "method": "방법",
+        "to": "받는 사람",
+        "traffic": "트래픽",
+        "txnFee": "거래 수수료",
+        "transactionID": "거래 ID",
+        "viewOnExplorer": "블록 탐색기에서 보기"
+    },
+    "extension_instructions": {
+        "extensions": "확장 프로그램",
+        "installationCompleted": "Zelf Name Service 설치가 완료되었습니다!",
+        "addExtension": "브라우저에 확장 프로그램을 추가하여 Zelf Name Service에서 거래 확인을 쉽게 액세스하고 볼 수 있습니다.",
+        "clickIcon": "브라우저에서 확장 프로그램 아이콘을 클릭하십시오.",
+        "fixWallet": "ZNS 수정.",
+        "fullAccess": "전체 액세스",
+        "extensionsCanChange": "이 확장 프로그램은 이 웹사이트의 정보를 보고 변경할 수 있습니다.",
+        "manageExtensions": "확장 프로그램 관리",
+        "clickExtensionIcon": "브라우저에서 확장 프로그램 아이콘을 클릭하십시오."
+    },
+    "send_transaction": {
+        "tokens_step": "토큰 선택",
+        "pickReceiver_step": "보내기",
+        "confirmation_step": "전송",
+        "send_to": "보내기",
+        "your_accounts": "귀하의 계정",
+        "account_found": "주소 발견",
+        "reject_transaction_button": "취소",
+        "continue_transaction_button": "다음",
+        "confirm_transaction_button": "거래 확인",
+        "confirm": {
+            "sending_label": "{{amount}} {{asset}} 보내기",
+            "market": "시장",
+            "gas_label": "가스 (예상)",
+            "gas_description": "아마도 {{seconds}} 초 후",
+            "max_gas": "최대 수수료:",
+            "total_to_pay_label": "자산 + 가스 수수료",
+            "max_total": "최대 총액"
+        },
+        "preview": {
+            "estimated_fee": "예상 수수료"
+        },
+        "bridge": {
+            "qr_code_title": "QR 코드 스캔",
+            "title": "거래 확인",
+            "description": "Zelf Name Service 앱에서 QR 코드를 스캔하십시오. 장치에서 복호화하여 보안 레이어를 추가하십시오.",
+            "description_2": "웹 확장 프로그램에서 계속",
+            "confirm_button": "거래 확인",
+            "dont_have_the_app": "아직 Zelf Name Service 앱을 설치하지 않으셨나요?",
+            "download_here": "여기에서 다운로드하여 모든 거래의 보안을 강화하고 암호화폐에 대한 액세스를 잃지 마십시오."
+        }
+    },
+    "network_picker": {
+        "title": "네트워크 선택",
+        "testnets_title": "테스트 네트워크 선택"
+    },
+    "payments": {
+        "continue_withoutpaying": "결제 없이 계속",
+        "pay_now": "결제 진행"
+    },
+    "restricted": {
+        "title": "모바일 제한",
+        "description": "이 기능은 모바일 장치에서 사용할 수 없습니다. 데스크탑 브라우저를 사용하거나 Zelf Name Service 앱을 다운로드하십시오.",
+        "download_android_app": "안드로이드 앱 다운로드"
+    },
+    "smart_liveness": {
+        "try_again": "다시 시도",
+        "cancel": "취소",
+        "continue": "계속",
+        "extracting_data": "데이터 추출 중",
+        "errors": {
+            "error_title": "문제가 발생했습니다",
+            "camera_permission": "카메라 접근을 허용해 주세요",
+            "camera_quality": "사용하려는 카메라가 지원되지 않습니다",
+            "failed_to_import_wallet": "지갑 가져오기에 실패했습니다. 다시 시도해 주세요.",
+            "failed_to_decrypt_wallet": "지갑 잠금 해제에 실패했습니다. 다시 시도해 주세요.",
+            "failed_to_create_wallet": "지갑 생성에 실패했습니다. 다시 시도해 주세요."
+        },
+        "instructions": {
+            "before_continuing": "계속하기 전에:",
+            "look_down_and_left": "얼굴을 아래쪽과 왼쪽으로 살짝 돌리세요",
+            "look_down_and_right": "얼굴을 아래쪽과 오른쪽으로 살짝 돌리세요",
+            "look_down": "얼굴을 아래쪽으로 살짝 돌리세요",
+            "look_left": "얼굴을 왼쪽으로 살짝 돌리세요",
+            "look_right": "얼굴을 오른쪽으로 살짝 돌리세요",
+            "look_straight": "카메라를 정면으로 바라보세요",
+            "look_up_and_right": "얼굴을 위쪽과 오른쪽으로 살짝 돌리세요",
+            "look_up_and_left": "얼굴을 위쪽과 왼쪽으로 살짝 돌리세요",
+            "look_up": "얼굴을 위쪽으로 살짝 돌리세요",
+            "low-score": "얼굴이 선명하지 않습니다",
+            "move-away": "카메라에서 멀어지세요",
+            "move-closer": "카메라에 더 가까이 오세요",
+            "not-found": "얼굴이 감지되지 않습니다",
+            "no_face": "얼굴이 감지되지 않습니다",
+            "not-in-frame": "얼굴이 중앙에 있지 않습니다",
+            "pitch-down": "얼굴을 아래로 살짝 돌리세요",
+            "pitch-up": "얼굴을 위로 살짝 돌리세요",
+            "step_1": "카메라를 직접 바라보세요",
+            "step_2": "미리보기가 초록색일 때 움직이지 마세요",
+            "step_3": "두 번 더 반복하세요. 원을 따라 얼굴로 표시기를 따라가세요.",
+            "still": "움직이지 마세요...",
+            "yaw-left": "얼굴을 왼쪽으로 살짝 돌리세요",
+            "yaw-right": "얼굴을 오른쪽으로 살짝 돌리세요"
+        }
+    }
 }

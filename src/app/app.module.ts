@@ -67,8 +67,10 @@ import { NftCardComponent } from "./home/nft-card/nft-card.component";
 import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
-import { NewNameCardComponent } from './new-name-card/new-name-card.component';
+import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
+import { NewNameCardComponent } from "./new-name-card/new-name-card.component";
+import { Router } from "@angular/router";
+import { environment } from "environments/environment";
 
 //
 //
@@ -118,8 +120,8 @@ import { NewNameCardComponent } from './new-name-card/new-name-card.component';
 		NftCardComponent,
 		NetworkPickerComponent,
 		NewZelfNameComponent,
-  TransactionDetailsComponent,
-  NewNameCardComponent,
+		TransactionDetailsComponent,
+		NewNameCardComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -151,4 +153,15 @@ import { NewNameCardComponent } from './new-name-card/new-name-card.component';
 	providers: [],
 	bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+	constructor(private router: Router) {
+		if (this.isMobileDevice() && environment.production) {
+			this.router.navigate(["/mobile-restricted"]); // Redirect to warning page
+		}
+	}
+
+	private isMobileDevice(): boolean {
+		const userAgent = navigator.userAgent || navigator.vendor;
+		return /android|iphone|ipad|ipod/i.test(userAgent);
+	}
+}

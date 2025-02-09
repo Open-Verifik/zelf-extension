@@ -263,5 +263,10 @@
 	"payments": {
 		"continue_withoutpaying": "Continue without payment",
 		"pay_now": "Proceed to payment"
+	},
+	"restricted": {
+		"title": "Mobile restricted",
+		"description": "This feature is not available on mobile devices. Please use a desktop browser to access it or download the Zelf Name Service App.",
+		"download_android_app": "Download Android App"
 	}
 }

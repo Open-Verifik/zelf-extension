@@ -10,6 +10,7 @@ import {
 } from "@ngneat/transloco";
 import { Injectable, NgModule, APP_INITIALIZER, inject } from "@angular/core";
 import { environment } from "../../environments/environment";
+import { MobileRestrictedComponent } from "./mobile-restricted/mobile-restricted.component";
 
 @Injectable({ providedIn: "root" })
 export class TranslocoHttpLoader implements TranslocoLoader {
@@ -21,6 +22,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 }
 
 @NgModule({
+	imports: [TranslocoModule],
 	exports: [TranslocoModule],
 	providers: [
 		{
@@ -93,5 +95,6 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 			multi: true,
 		},
 	],
+	declarations: [MobileRestrictedComponent],
 })
 export class TranslocoRootModule {}

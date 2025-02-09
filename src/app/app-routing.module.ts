@@ -15,6 +15,7 @@ import { NetworkPickerComponent } from "./home/network-picker/network-picker.com
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { OpenZelfNameComponent } from "./open-zelf-name/open-zelf-name.component";
 import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
+import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restricted.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
@@ -71,6 +72,10 @@ const routes: Routes = [
 	{
 		path: "transaction",
 		component: TransactionDetailsComponent,
+	},
+	{
+		path: "mobile-restricted",
+		component: MobileRestrictedComponent,
 	},
 ];
 

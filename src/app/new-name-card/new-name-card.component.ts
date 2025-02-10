@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CaptchaService } from "app/captcha.service";
-import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { debounceTime, distinctUntilChanged } from "rxjs";
@@ -23,6 +22,8 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 
 						{{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}.</small
 					>
+
+					<small *ngIf="reward"> {{ "onboarding.zns_reward" | transloco : { reward: reward } }}. </small>
 				</div>
 
 				<div fxLayout="column" fxLayoutAlign="space-between center" class="w-full">
@@ -176,6 +177,7 @@ export class NewNameCardComponent implements OnInit {
 	price: number;
 	loading: boolean;
 	zelfNameObject: any;
+	reward: any;
 
 	constructor(
 		private _router: Router,
@@ -200,6 +202,7 @@ export class NewNameCardComponent implements OnInit {
 		];
 
 		this.session = this._walletService.getSessionData();
+
 		this.session.steps = [];
 
 		this.zelfForm = this._formBuilder.group({
@@ -209,11 +212,15 @@ export class NewNameCardComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<any> {
-		this.zelfName = await this._zelfNameService.getZelfName();
+		this.zelfName = this._zelfNameService.getZelfName();
+
+		this.price = this._zelfNameService.getZelfPrice();
+
+		this.reward = this._zelfNameService.getZelfReward();
+
+		console.log({ price: this.price, reward: this.reward });
 
 		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
-
-		this._calculateZelfNamePrice();
 
 		// Track input value changes
 		// Track input changes and trigger searchZelfName after 5 seconds
@@ -335,7 +342,7 @@ export class NewNameCardComponent implements OnInit {
 					return;
 				}
 
-				this.zelfNameObject = response.data.ipfs ? response.data.ipfs[0] : response.data.arweave[0];
+				this.zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
 
 				this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
 

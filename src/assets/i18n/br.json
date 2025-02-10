@@ -17,7 +17,12 @@
 		"year": "Ano",
 		"years": "Anos",
 		"register": "Registrar",
-		"register_description": "Você registrará este nome por {{duration}}"
+		"register_description": "Você registrará este nome por {{duration}}",
+		"zns_reward": "Você receberá {{reward}} tokens Zelf (ZNS) como recompensa",
+		"lifetime": "Vitalício",
+		"price_per_year": "Preço por ano",
+		"price_for_lifetime": "Preço vitalício",
+		"referral_code": "Código de referência"
 	},
 	"common": {
 		"is_required": "é obrigatório",
@@ -151,6 +156,13 @@
 			"label": "Senha",
 			"placeholder": "********************",
 			"button": "Continuar"
+		},
+		"hold": {
+			"title": "RESERVA ENCONTRADA",
+			"expiration_time": "Esta reserva expira em ",
+			"purchase_reservation": "Comprar reserva",
+			"unlock_without_purchase": "Verificar agora, comprar depois",
+			"buy_now": "Comprar agora"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "Selecione uma rede",
 		"testnets_title": "Selecione uma rede de teste"
+	},
+	"pagos": {
+		"continuar_sin_pagar": "Continuar sem pagar",
+		"pagar_ahora": "Proceder ao pagamento"
+	},
+	"restricted": {
+		"title": "Restrição móvel",
+		"description": "Esta função não está disponível em dispositivos móveis. Por favor, use um navegador de desktop para acessá-la ou baixe o aplicativo Zelf Name Service.",
+		"download_android_app": "Baixar aplicativo para Android"
 	}
 }

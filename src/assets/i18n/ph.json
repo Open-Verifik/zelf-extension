@@ -17,7 +17,12 @@
 		"year": "Taon",
 		"years": "Mga Taon",
 		"register": "Magrehistro",
-		"register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}"
+		"register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}",
+		"zns_reward": "Makakatanggap ka ng {{reward}} Zelf tokens (ZNS) bilang gantimpala",
+		"lifetime": "Habambuhay",
+		"price_per_year": "Presyo bawat taon",
+		"price_for_lifetime": "Presyo para sa habambuhay",
+		"referral_code": "Referral code"
 	},
 	"common": {
 		"is_required": "ay kinakailangan",
@@ -151,6 +156,13 @@
 			"label": "Password",
 			"placeholder": "********************",
 			"button": "Magpatuloy"
+		},
+		"hold": {
+			"title": "NATAGPUANG RESERBASYON",
+			"expiration_time": "Mag-e-expire ang reserbasyong ito sa ",
+			"purchase_reservation": "Bilhin ang reserbasyon",
+			"unlock_without_purchase": "I-verify ngayon, bilhin mamaya",
+			"buy_now": "Bumili ngayon"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "Piliin ang network",
 		"testnets_title": "Piliin ang test network"
+	},
+	"payments": {
+		"continue_withoutpaying": "Magpatuloy nang walang bayad",
+		"pay_now": "Magpatuloy sa pagbabayad"
+	},
+	"restricted": {
+		"title": "Limitado sa Mobile",
+		"description": "Ang tampok na ito ay hindi magagamit sa mga mobile device. Mangyaring gumamit ng desktop browser upang ma-access ito o i-download ang Zelf Name Service App.",
+		"download_android_app": "I-download ang Android App"
 	}
 }

@@ -21,7 +21,8 @@
 		"zns_reward": "You will receive {{reward}} Zelf tokens (ZNS) as a reward",
 		"lifetime": "Lifetime",
 		"price_per_year": "Price per year",
-		"price_for_lifetime": "Price for lifetime"
+		"price_for_lifetime": "Price for lifetime",
+		"referral_code": "Referral code"
 	},
 	"common": {
 		"is_required": "is required",

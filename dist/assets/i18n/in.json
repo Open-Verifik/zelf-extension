@@ -17,7 +17,12 @@
 		"year": "वर्ष",
 		"years": "वर्ष",
 		"register": "पंजीकरण करें",
-		"register_description": "आप इस नाम को {{duration}} के लिए पंजीकृत करेंगे"
+		"register_description": "आप इस नाम को {{duration}} के लिए पंजीकृत करेंगे",
+		"zns_reward": "आपको इनाम के रूप में {{reward}} ज़ेल्फ टोकन (ZNS) प्राप्त होंगे",
+		"lifetime": "आजीवन",
+		"price_per_year": "प्रति वर्ष मूल्य",
+		"price_for_lifetime": "आजीवन के लिए मूल्य",
+		"referral_code": "रेफरल कोड"
 	},
 	"common": {
 		"is_required": "आवश्यक है",
@@ -151,6 +156,13 @@
 			"label": "पासवर्ड",
 			"placeholder": "********************",
 			"button": "जारी रखें"
+		},
+		"hold": {
+			"title": "आरक्षण मिला",
+			"expiration_time": "यह आरक्षण समाप्त होता है ",
+			"purchase_reservation": "आरक्षण खरीदें",
+			"unlock_without_purchase": "अभी सत्यापित करें, बाद में खरीदें",
+			"buy_now": "अभी खरीदें"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "एक नेटवर्क चुनें",
 		"testnets_title": "एक परीक्षण नेटवर्क चुनें"
+	},
+	"payments": {
+		"continue_withoutpaying": "भुगतान के बिना जारी रखें",
+		"pay_now": "भुगतान के लिए आगे बढ़ें"
+	},
+	"restricted": {
+		"title": "मोबाइल प्रतिबंधित",
+		"description": "यह सुविधा मोबाइल उपकरणों पर उपलब्ध नहीं है। कृपया इसे एक्सेस करने के लिए डेस्कटॉप ब्राउज़र का उपयोग करें या Zelf नाम सेवा ऐप डाउनलोड करें।",
+		"download_android_app": "एंड्रॉइड ऐप डाउनलोड करें"
 	}
 }

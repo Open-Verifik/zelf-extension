@@ -17,7 +17,12 @@
 		"year": "年",
 		"years": "年",
 		"register": "登録",
-		"register_description": "この名前を{{duration}}年間登録します"
+		"register_description": "この名前を{{duration}}年間登録します",
+		"zns_reward": "報酬として{{reward}} Zelfトークン（ZNS）を受け取ります",
+		"lifetime": "生涯",
+		"price_per_year": "年間価格",
+		"price_for_lifetime": "生涯価格",
+		"referral_code": "紹介コード"
 	},
 	"common": {
 		"is_required": "は必須です",
@@ -151,6 +156,13 @@
 			"label": "パスワード",
 			"placeholder": "********************",
 			"button": "続行"
+		},
+		"hold": {
+			"title": "予約が見つかりました",
+			"expiration_time": "この予約は次の日に期限切れになります: ",
+			"purchase_reservation": "予約を購入",
+			"unlock_without_purchase": "今すぐ確認して、後で購入",
+			"buy_now": "今すぐ購入"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "ネットワークを選択",
 		"testnets_title": "テストネットワークを選択"
+	},
+	"payments": {
+		"continue_withoutpaying": "支払いなしで続行",
+		"pay_now": "支払いを進める"
+	},
+	"restricted": {
+		"title": "モバイル制限",
+		"description": "この機能はモバイルデバイスでは利用できません。デスクトップブラウザを使用してアクセスするか、Zelf Name Serviceアプリをダウンロードしてください。",
+		"download_android_app": "Androidアプリをダウンロード"
 	}
 }

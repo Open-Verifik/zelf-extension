@@ -99,7 +99,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 
 					<!-- referred by -->
 					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center">
-						<span class="font-bold"> Referral code </span>
+						<span class="font-bold"> {{ "onboarding.referral_code" | transloco }} </span>
 
 						<div class="unlock-input-box">
 							<div class="unlock-input-text-container">

@@ -17,7 +17,12 @@
 		"year": "년",
 		"years": "년",
 		"register": "등록",
-		"register_description": "이 이름을 {{duration}} 동안 등록합니다"
+		"register_description": "이 이름을 {{duration}} 동안 등록합니다",
+		"zns_reward": "보상으로 {{reward}} Zelf 토큰(ZNS)을 받게 됩니다",
+		"lifetime": "평생",
+		"price_per_year": "연간 가격",
+		"price_for_lifetime": "평생 가격",
+		"referral_code": "추천 코드"
 	},
 	"common": {
 		"is_required": "필수 항목입니다",
@@ -151,6 +156,13 @@
 			"label": "비밀번호",
 			"placeholder": "********************",
 			"button": "계속"
+		},
+		"hold": {
+			"title": "예약 발견",
+			"expiration_time": "이 예약은 다음 날짜에 만료됩니다: ",
+			"purchase_reservation": "예약 구매",
+			"unlock_without_purchase": "지금 확인하고 나중에 구매",
+			"buy_now": "지금 구매"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "네트워크 선택",
 		"testnets_title": "테스트 네트워크 선택"
+	},
+	"payments": {
+		"continue_withoutpaying": "결제 없이 계속",
+		"pay_now": "결제 진행"
+	},
+	"restricted": {
+		"title": "모바일 제한",
+		"description": "이 기능은 모바일 장치에서 사용할 수 없습니다. 데스크탑 브라우저를 사용하거나 Zelf Name Service 앱을 다운로드하십시오.",
+		"download_android_app": "안드로이드 앱 다운로드"
 	}
 }

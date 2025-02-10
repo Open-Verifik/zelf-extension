@@ -16,7 +16,12 @@
 		"forgot_zelf_name": "نسيت اسم زيلف الخاص بك؟",
 		"year": "سنة",
 		"years": "سنوات",
-		"register_description": "ستقوم بتسجيل هذا الاسم لمدة {{duration}}"
+		"register_description": "ستقوم بتسجيل هذا الاسم لمدة {{duration}}",
+		"zns_reward": "ستتلقى {{reward}} من رموز زيلف (ZNS) كمكافأة",
+		"lifetime": "مدى الحياة",
+		"price_per_year": "السعر لكل سنة",
+		"price_for_lifetime": "السعر لمدى الحياة",
+		"referral_code": "رمز الإحالة"
 	},
 	"common": {
 		"is_required": "مطلوب",
@@ -150,6 +155,13 @@
 			"label": "كلمة المرور",
 			"placeholder": "********************",
 			"button": "استمر"
+		},
+		"hold": {
+			"title": "تم العثور على الحجز",
+			"expiration_time": "ينتهي هذا الحجز في ",
+			"purchase_reservation": "شراء الحجز",
+			"unlock_without_purchase": "تحقق الآن، اشتري لاحقًا",
+			"buy_now": "اشتر الآن"
 		}
 	},
 	"steps": {
@@ -248,5 +260,14 @@
 	"network_picker": {
 		"title": "اختر شبكة",
 		"testnets_title": "اختر شبكة اختبار"
+	},
+	"payments": {
+		"continue_withoutpaying": "استمر بدون دفع",
+		"pay_now": "تابع إلى الدفع"
+	},
+	"restricted": {
+		"title": "مقيد على الجوال",
+		"description": "هذه الميزة غير متاحة على الأجهزة المحمولة. يرجى استخدام متصفح سطح المكتب للوصول إليها أو تنزيل تطبيق خدمة اسم زيلف.",
+		"download_android_app": "تنزيل تطبيق Android"
 	}
 }

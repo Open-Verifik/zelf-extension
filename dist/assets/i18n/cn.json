@@ -17,7 +17,12 @@
 		"year": "年",
 		"years": "年",
 		"register": "注册",
-		"register_description": "您将注册此名称 {{duration}}"
+		"register_description": "您将注册此名称 {{duration}}",
+		"zns_reward": "您将获得 {{reward}} Zelf 代币 (ZNS) 作为奖励",
+		"lifetime": "终身",
+		"price_per_year": "每年的价格",
+		"price_for_lifetime": "终身价格",
+		"referral_code": "推荐码"
 	},
 	"common": {
 		"is_required": "是必需的",
@@ -151,6 +156,13 @@
 			"label": "密码",
 			"placeholder": "********************",
 			"button": "继续"
+		},
+		"hold": {
+			"title": "找到预订",
+			"expiration_time": "此预订将于以下时间到期 ",
+			"purchase_reservation": "购买预订",
+			"unlock_without_purchase": "立即验证，稍后购买",
+			"buy_now": "立即购买"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "选择一个网络",
 		"testnets_title": "选择一个测试网络"
+	},
+	"payments": {
+		"continue_withoutpaying": "继续不付款",
+		"pay_now": "继续付款"
+	},
+	"restricted": {
+		"title": "移动设备受限",
+		"description": "此功能在移动设备上不可用。请使用桌面浏览器访问或下载 Zelf 名称服务应用程序。",
+		"download_android_app": "下载 Android 应用"
 	}
 }

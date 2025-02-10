@@ -17,7 +17,12 @@
 		"year": "Année",
 		"years": "Années",
 		"register": "Enregistrer",
-		"register_description": "Vous allez enregistrer ce nom pour {{duration}}"
+		"register_description": "Vous allez enregistrer ce nom pour {{duration}}",
+		"zns_reward": "Vous recevrez {{reward}} tokens Zelf (ZNS) comme récompense",
+		"lifetime": "À vie",
+		"price_per_year": "Prix par année",
+		"price_for_lifetime": "Prix à vie",
+		"referral_code": "Code de référence"
 	},
 	"common": {
 		"is_required": "est requis",
@@ -103,7 +108,9 @@
 		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Le visage est trop proche du bord",
 		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "L'angle du visage est trop grand",
 		"ERR_INVALID_PASSWORD": "Le mot de passe pour ce ZelfProof est invalide",
-		"ERR_DESCRIPTION": "Assurez-vous de suivre correctement les instructions pour déverrouiller votre ZelfProof"
+		"ERR_DESCRIPTION": "Assurez-vous de suivre correctement les instructions pour déverrouiller votre ZelfProof",
+		"ERR_UNPROCESSABLE_CONTENT": "Le ZelfProof n'a pas pu être déchiffré",
+		"zelfName_is_taken": "Ce nom de Zelf est déjà pris"
 	},
 	"import_wallet": {
 		"step_zero": {
@@ -145,6 +152,13 @@
 			"label": "Mot de passe",
 			"placeholder": "********************",
 			"button": "Continuer"
+		},
+		"hold": {
+			"title": "RÉSERVATION TROUVÉE",
+			"expiration_time": "Cette réservation expire le ",
+			"purchase_reservation": "Acheter la réservation",
+			"unlock_without_purchase": "Vérifier maintenant, acheter plus tard",
+			"buy_now": "Acheter maintenant"
 		}
 	},
 	"steps": {
@@ -160,6 +174,7 @@
 		"wallet_type": "PORTEFEUILLE"
 	},
 	"wallets_connected": {
+		"no_zelf_name": "Pas de nom Zelf",
 		"title": "Sélectionnez un portefeuille",
 		"account": "Compte",
 		"create_or_import_wallet_button": "Créer ou importer un portefeuille",
@@ -181,6 +196,7 @@
 		"NFTs": "NFTs"
 	},
 	"activity_card": {
+		"transaction": "Transaction",
 		"sent": "Envoyé",
 		"in": "Reçu",
 		"age": "Âge",
@@ -191,7 +207,9 @@
 		"method": "Méthode",
 		"to": "À",
 		"traffic": "Trafic",
-		"txnFee": "Frais de txn"
+		"txnFee": "Frais de txn",
+		"transactionID": "ID de transaction",
+		"viewOnExplorer": "Voir dans l'explorateur de blocs"
 	},
 	"extension_instructions": {
 		"extensions": "Extensions",
@@ -205,6 +223,9 @@
 		"clickExtensionIcon": "Cliquez sur l'icône de l'extension dans votre navigateur."
 	},
 	"send_transaction": {
+		"tokens_step": "Sélectionner un token",
+		"pickReceiver_step": "Envoyer",
+		"confirmation_step": "Transférer",
 		"send_to": "Envoyer à",
 		"your_accounts": "Vos comptes",
 		"account_found": "Adresse trouvée",
@@ -236,5 +257,14 @@
 	"network_picker": {
 		"title": "Sélectionnez un réseau",
 		"testnets_title": "Sélectionnez un réseau de test"
+	},
+	"payments": {
+		"continue_withoutpaying": "Continuer sans payer",
+		"pay_now": "Procéder au paiement"
+	},
+	"restricted": {
+		"title": "Restriction mobile",
+		"description": "Cette fonctionnalité n'est pas disponible sur les appareils mobiles. Veuillez utiliser un navigateur de bureau pour y accéder ou télécharger l'application Zelf Name Service.",
+		"download_android_app": "Télécharger l'application pour Android"
 	}
 }

@@ -17,7 +17,12 @@
 		"year": "Год",
 		"years": "Годы",
 		"register": "Зарегистрировать",
-		"register_description": "Вы зарегистрируете это имя на {{duration}}"
+		"register_description": "Вы зарегистрируете это имя на {{duration}}",
+		"zns_reward": "Вы получите {{reward}} Zelf токенов (ZNS) в качестве награды",
+		"lifetime": "Пожизненно",
+		"price_per_year": "Цена за год",
+		"price_for_lifetime": "Цена за пожизненное использование",
+		"referral_code": "Реферальный код"
 	},
 	"common": {
 		"is_required": "обязательно",
@@ -151,6 +156,13 @@
 			"label": "Пароль",
 			"placeholder": "********************",
 			"button": "Продолжить"
+		},
+		"hold": {
+			"title": "РЕЗЕРВАЦИЯ НАЙДЕНА",
+			"expiration_time": "Эта резервация истекает ",
+			"purchase_reservation": "Купить резервацию",
+			"unlock_without_purchase": "Проверить сейчас, купить позже",
+			"buy_now": "Купить сейчас"
 		}
 	},
 	"steps": {
@@ -249,5 +261,14 @@
 	"network_picker": {
 		"title": "Выберите сеть",
 		"testnets_title": "Выберите тестовую сеть"
+	},
+	"payments": {
+		"continue_withoutpaying": "Продолжить без оплаты",
+		"pay_now": "Перейти к оплате"
+	},
+	"restricted": {
+		"title": "Ограничено на мобильных устройствах",
+		"description": "Эта функция недоступна на мобильных устройствах. Пожалуйста, используйте настольный браузер для доступа или скачайте приложение Zelf Name Service.",
+		"download_android_app": "Скачать приложение для Android"
 	}
 }

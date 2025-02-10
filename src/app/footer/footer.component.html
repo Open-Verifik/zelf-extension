@@ -1,5 +1,5 @@
 <div class="footer">
-	<div class="footer-home" (click)="changeView('home')" [ngClass]="{ selected: shareables.view === 'home' }">
+	<div class="footer-home" (click)="changeView('home')" [ngClass]="{ selected: shareables?.view === 'home' }">
 		<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none">
 			<path
 				d="M16.0003 8.25366L22.667 14.2537V24.667H20.0003V16.667H12.0003V24.667H9.33366V14.2537L16.0003 8.25366ZM16.0003 4.66699L2.66699 16.667H6.66699V27.3337H14.667V19.3337H17.3337V27.3337H25.3337V16.667H29.3337L16.0003 4.66699Z"
@@ -8,7 +8,7 @@
 		</svg>
 	</div>
 
-	<div class="footer-zns" (click)="changeView('home')" [ngClass]="{ selected: shareables.view === 'home' }">
+	<div class="footer-zns" (click)="changeView('home')" [ngClass]="{ selected: shareables?.view === 'home' }">
 		<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none">
 			<g [attr.opacity]="shareables.view === 'zns' ? '1' : '0.5'">
 				<path

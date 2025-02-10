@@ -20,6 +20,14 @@ export class ZelfNameService {
 		};
 	}
 
+	cleanVariables(): void {
+		const keys = ["zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration"];
+
+		keys.forEach((key) => {
+			localStorage.removeItem(key);
+		});
+	}
+
 	searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
 		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
 			key,
@@ -43,12 +51,17 @@ export class ZelfNameService {
 		});
 	}
 
-	setZelfName(zelfName: string, price: number): void {
+	setZelfName(zelfName: string, priceObject: any = {}): void {
 		this.variables.zelfName = zelfName;
 
-		this.variables.price = price;
-
 		zelfName ? localStorage.setItem("zelfName", zelfName) : localStorage.removeItem("zelfName");
+
+		if (priceObject?.price) {
+			this.variables.price = priceObject.price;
+			this.variables.reward = priceObject.reward;
+			localStorage.setItem("zelfPrice", `${priceObject?.price}`);
+			localStorage.setItem("zelfReward", `${priceObject?.reward}`);
+		}
 	}
 
 	setZelfFile(zelfNameObject: any): void {
@@ -79,6 +92,14 @@ export class ZelfNameService {
 
 	getZelfFile(): string {
 		return this.variables.zelfFile;
+	}
+
+	getZelfPrice(): any {
+		return this.variables.price || localStorage.getItem("zelfPrice");
+	}
+
+	getZelfReward(): any {
+		return this.variables.reward || localStorage.getItem("zelfReward");
 	}
 
 	getZelfProof(): string {

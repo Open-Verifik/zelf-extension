@@ -156,7 +156,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 			if (!response.data) return null;
 
-			const zelfNameObject = response.data.ipfs[0] || response.data.arweave[0];
+			const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
 
 			this._formatZelfFile(zelfNameObject);
 
@@ -187,7 +187,7 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
 		this._zelfNameService.setZelfFile(record);
 
-		this._zelfNameService.setZelfName(record.name, 0);
+		this._zelfNameService.setZelfName(record.name, null);
 
 		const isHold = Boolean(this.potentialWallet.publicData.type === "hold");
 

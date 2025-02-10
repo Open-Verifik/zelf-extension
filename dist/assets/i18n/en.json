@@ -18,6 +18,7 @@
 		"years": "Years",
 		"register": "Register",
 		"register_description": "You’ll register this name for {{duration}}",
+		"zns_reward": "You will receive {{reward}} Zelf tokens (ZNS) as a reward",
 		"lifetime": "Lifetime",
 		"price_per_year": "Price per year",
 		"price_for_lifetime": "Price for lifetime"

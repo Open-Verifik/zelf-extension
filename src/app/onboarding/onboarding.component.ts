@@ -48,15 +48,12 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		private _chromeService: ChromeService,
 		private _formBuilder: UntypedFormBuilder,
 		private _walletService: WalletService,
-		private _ipfsService: IpfsService,
 		private _zelfNameService: ZelfNameService,
 		private captchaService: CaptchaService
 	) {
 		this._walletService.restoreSession();
 
-		this._zelfNameService.setZelfFile(null);
-
-		this._zelfNameService.setZelfName("", 0);
+		this._zelfNameService.cleanVariables();
 
 		this.loading = false;
 	}
@@ -65,8 +62,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this.zelfForm = this._formBuilder.group({
 			zelfName: ["", [Validators.required]],
 		});
-
-		this._ipfsService.setZelfName("");
 
 		this.startRotation();
 
@@ -151,8 +146,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		sanitizedValue = sanitizedValue.toLowerCase();
 
 		// Limit to 20 characters
-		if (sanitizedValue.length > 20) {
-			sanitizedValue = sanitizedValue.substring(0, 20);
+		if (sanitizedValue.length > 27) {
+			sanitizedValue = sanitizedValue.substring(0, 27);
 		}
 
 		// Update form control value without triggering events
@@ -209,9 +204,11 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			.then((response) => {
 				if (response?.data.price) return this._noZelfNameFound(response?.data);
 
-				this._zelfNameService.setZelfName(zelfName, 0);
+				this._zelfNameService.setZelfName(zelfName, { price: 0, reward: 0 });
 
-				const zelfNameObject = response.data.ipfs ? response.data.ipfs[0] : response.data.arweave[0];
+				const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+
+				console.log({ zelfNameObject, response: response.data });
 
 				this._zelfNameService.setZelfFile(zelfNameObject);
 
@@ -227,11 +224,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	}
 
 	_noZelfNameFound(zelfNameOffer: any): void {
-		this._ipfsService.setZelfName(zelfNameOffer.zelfName);
-
-		this._ipfsService.setZelfFile(null);
-
-		this._zelfNameService.setZelfName(zelfNameOffer.zelfName, zelfNameOffer.price);
+		this._zelfNameService.setZelfName(zelfNameOffer.zelfName, zelfNameOffer);
 
 		this._zelfNameService.setZelfFile(null);
 

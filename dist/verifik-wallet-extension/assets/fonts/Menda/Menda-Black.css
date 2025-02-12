@@ -1,0 +1,12 @@
+/* Webfont: Menda-Black */@font-face {
+    font-family: 'MendaBlack';
+    src: url('Menda-Black.eot'); /* IE9 Compat Modes */
+    src: url('Menda-Black.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Menda-Black.woff') format('woff'), /* Modern Browsers */
+         url('Menda-Black.woff2') format('woff2'), /* Modern Browsers */
+         url('Menda-Black.ttf') format('truetype'); /* Safari, Android, iOS */
+             font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+

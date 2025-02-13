@@ -17,8 +17,6 @@ export class ChromeService {
 				}
 			});
 		}
-
-		console.log({ isExtension: this.isExtension });
 	}
 
 	setItem(key: string, value: any): Promise<void> {

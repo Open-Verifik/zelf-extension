@@ -18,7 +18,7 @@ import { TransactionDetailsComponent } from "./transaction-details/transaction-d
 import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restricted.component";
 
 const routes: Routes = [
-	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
+	{ path: "", redirectTo: "home", pathMatch: "full" }, // Redirect default route to Home
 	{ path: "home", component: HomeComponent }, // Home route
 	{ path: "about", component: AboutComponent }, // About route
 	{

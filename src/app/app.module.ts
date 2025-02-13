@@ -73,10 +73,6 @@ import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 import { DiscountPipe } from "./pipes/discount.pipe";
 
-//
-//
-//
-
 @NgModule({
 	declarations: [
 		AppComponent,

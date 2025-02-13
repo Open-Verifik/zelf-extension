@@ -104,7 +104,22 @@ export class WalletService {
 
 		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
 
-		const keysToRemove = ["unlockWallet", "importWallet", "password", "referralZelfName", "network", "durationToken", "currentZelfName"];
+		const keysToRemove = [
+			"unlockWallet",
+			"importWallet",
+			"password",
+			"referralZelfName",
+			"network",
+			"durationToken",
+			"currentZelfName",
+			"zelfProof",
+			"zelfFile",
+			"zelfName",
+			"zelfPrice",
+			"zelfReward",
+			"duration",
+			"accessToken",
+		];
 
 		keysToRemove.forEach((key) => {
 			localStorage.removeItem(key);
@@ -245,9 +260,17 @@ export class WalletService {
 	createLivenessSession(data: any): Promise<any> {
 		let url = `${this.baseUrl}/api/sessions`;
 
-		return this._httpWrapper.sendRequest("post", url, data, {
-			Headers: {},
-		});
+		return this._httpWrapper.sendRequest(
+			"post",
+			url,
+			{
+				...data,
+				isWebExtension: Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime),
+			},
+			{
+				Headers: {},
+			}
+		);
 	}
 
 	createWallet(data: any): Promise<any> {

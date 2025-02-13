@@ -64,13 +64,13 @@ export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
 
 			this.captchaService.retainCaptchaToken(captchaToken);
-
-			this.session.showBiometricsInstructions = false;
-
-			this.session.showBiometrics = true;
 		} catch (error) {
 			console.error("reCAPTCHA failed:", { error });
 		}
+
+		this.session.showBiometricsInstructions = false;
+
+		this.session.showBiometrics = true;
 	}
 
 	ngOnDestroy(): void {

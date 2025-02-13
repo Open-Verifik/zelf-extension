@@ -3,7 +3,6 @@ import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angul
 import { Event, Router } from "@angular/router";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
-import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
@@ -13,12 +12,16 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 	styleUrls: ["./onboarding.scss", "../main.scss"],
 })
 export class OnboardingComponent implements OnInit, OnDestroy {
+	@ViewChild("zelfForm") signUpNgForm!: NgForm;
+
+	private intervalId: any;
+
 	step: number = 1;
 	walletCreationForm: any;
 	termsAcceptance!: boolean;
-	@ViewChild("zelfForm") signUpNgForm!: NgForm;
 	zelfForm!: UntypedFormGroup;
 	loading: boolean;
+
 	items = [
 		{
 			title: "onboarding.step_1",
@@ -38,7 +41,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		},
 		// Add more items as needed
 	];
-	private intervalId: any;
+
 	activeIndex = 0;
 	isTab: boolean = false;
 	isTabOpen: boolean = false;
@@ -61,10 +64,15 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 			zelfName: ["", [Validators.required]],
 		});
 
-		this.startRotation();
-
 		this.checkIfTabOrPopup();
 
+		if (!this.isTab) {
+			this.openFullPage(true);
+
+			return;
+		}
+
+		this.startRotation();
 		this.checkIfTabOpen();
 	}
 
@@ -180,7 +188,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 		let captchaToken = "";
 
-		if (this._chromeService.getIsExtension()) {
+		if (!this._chromeService.getIsExtension()) {
 			try {
 				const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
 

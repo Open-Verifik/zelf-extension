@@ -72,10 +72,6 @@ import { NewNameCardComponent } from "./new-name-card/new-name-card.component";
 import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 
-//
-//
-//
-
 @NgModule({
 	declarations: [
 		AppComponent,

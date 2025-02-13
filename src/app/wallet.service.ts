@@ -129,24 +129,15 @@ export class WalletService {
 			wallets.push(currentWallet);
 
 			this._chromeService.setItem("wallets", wallets);
-			// localStorage.setItem("wallets", JSON.stringify(wallets));
-
 			this._chromeService.removeItem("wallet");
-			// localStorage.removeItem("wallet");
 		}
 
 		this.sessionData.step = 0;
-
 		this.sessionData.password = "";
-
 		this.sessionData.usePassword = false;
-
 		this.sessionData.showBiometrics = false;
-
 		this.sessionData.showBiometricsInstructions = false;
-
 		this.sessionData.phrase = null;
-
 		this.sessionData.navigationStep = 1;
 	}
 

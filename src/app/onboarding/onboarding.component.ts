@@ -53,8 +53,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 	) {
 		this._walletService.restoreSession();
 
-		this._zelfNameService.cleanVariables();
-
 		this.loading = false;
 	}
 
@@ -182,12 +180,14 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 		let captchaToken = "";
 
-		try {
-			const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
+		if (this._chromeService.getIsExtension()) {
+			try {
+				const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
 
-			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
-		} catch (error) {
-			console.error("reCAPTCHA failed:", error);
+				captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
+			} catch (error) {
+				console.error("reCAPTCHA failed:", error);
+			}
 		}
 
 		// Validation: Ensure zelfName is at least 4 characters
@@ -207,8 +207,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 				this._zelfNameService.setZelfName(zelfName, { price: 0, reward: 0 });
 
 				const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
-
-				console.log({ zelfNameObject, response: response.data });
 
 				this._zelfNameService.setZelfFile(zelfNameObject);
 

@@ -21,7 +21,7 @@ export class ZelfNameService {
 	}
 
 	cleanVariables(): void {
-		const keys = ["zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration"];
+		const keys = ["zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration", "accessToken"];
 
 		keys.forEach((key) => {
 			localStorage.removeItem(key);
@@ -29,26 +29,32 @@ export class ZelfNameService {
 	}
 
 	searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
-			key,
-			value,
-			captchaToken,
-		});
+		const query: { key: string; value: string; captchaToken?: string } = { key, value };
+		if (captchaToken) {
+			query.captchaToken = captchaToken;
+		}
+
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
 	}
 
 	previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, {
-			zelfName,
-			captchaToken,
-		});
+		const query: { zelfName?: string; captchaToken?: string } = { zelfName };
+
+		if (captchaToken) {
+			query.captchaToken = captchaToken;
+		}
+
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
 	}
 
 	previewZelfProof(zelfProof: string, captchaToken?: string): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/preview-zelfproof`, {
-			os: "DESKTOP",
-			zelfProof,
-			captchaToken,
-		});
+		const query: { zelfProof: string; os: string; captchaToken?: string } = { zelfProof, os: "DESKTOP" };
+
+		if (captchaToken) {
+			query.captchaToken = captchaToken;
+		}
+
+		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/preview-zelfproof`, query);
 	}
 
 	setZelfName(zelfName: string, priceObject: any = {}): void {

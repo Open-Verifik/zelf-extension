@@ -17,6 +17,8 @@ export class ChromeService {
 				}
 			});
 		}
+
+		console.log({ isExtension: this.isExtension });
 	}
 
 	setItem(key: string, value: any): Promise<void> {
@@ -135,5 +137,9 @@ export class ChromeService {
 				console.error("Failed to open tab:", exception);
 			}
 		});
+	}
+
+	getIsExtension(): boolean {
+		return this.isExtension;
 	}
 }

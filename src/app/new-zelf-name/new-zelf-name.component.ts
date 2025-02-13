@@ -38,8 +38,6 @@ export class NewZelfNameComponent implements OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.zelfName = await this._zelfNameService.getZelfName();
-
-		alert("Zelf Name: " + this.zelfName);
 	}
 
 	goBack(): void {

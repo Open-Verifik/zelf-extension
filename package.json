@@ -10,6 +10,7 @@
 		"start": "ng serve",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
+		"watch:extension": "ng build --watch --configuration development --output-path=dist",
 		"test": "ng test"
 	},
 	"dependencies": {

@@ -37,6 +37,12 @@
 
 body {
 	margin: 0px !important;
+	height: 100vh;
+	min-width: 600px;
+}
+
+app-onboarding {
+	height: 100%;
 }
 
 .main-bg {
@@ -68,15 +74,10 @@ body {
 }
 
 .main-div {
-	// display: flex;
 	flex: 1 1 auto;
-	// min-width: 430px;
-	// min-height: 600px;
 	width: 100%;
 	max-width: 100%;
-	height: 100vh;
-	overflow-y: auto;
-	// min-width: 0;
+	height: 100%;
 	background: #d3d3d35c;
 }
 
@@ -953,17 +954,17 @@ h3 {
 }
 
 .zelf-content {
-	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
-	// background: linear-gradient(90deg, #f7b7b9 0%, #c196f9 50%, #85c6ff 100%);
-	display: flex;
-	justify-content: center;
 	align-items: center;
+	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	overflow: auto;
 }
 
 .zelf-card {
 	width: 600px;
 	min-height: 500px;
-	// padding: 16px;
 	background: white;
 	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
 	border: 1px rgba(0, 0, 0, 0.35) solid;
@@ -972,6 +973,7 @@ h3 {
 	align-items: center;
 	gap: 12px;
 	display: inline-flex;
+
 	h1 {
 		text-align: center;
 	}

@@ -218,8 +218,6 @@ export class NewNameCardComponent implements OnInit {
 
 		this.reward = this._zelfNameService.getZelfReward();
 
-		console.log({ price: this.price, reward: this.reward });
-
 		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
 
 		// Track input value changes

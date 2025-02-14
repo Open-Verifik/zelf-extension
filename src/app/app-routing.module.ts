@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
-import { AboutComponent } from "./about/about.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
 import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
 import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
@@ -17,13 +16,16 @@ import { OpenZelfNameComponent } from "./open-zelf-name/open-zelf-name.component
 import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
 import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restricted.component";
 
+import { LoginGuard } from "./login.guard";
+import { PopoutGuard } from "./popout.guard";
+
 const routes: Routes = [
-	{ path: "", redirectTo: "home", pathMatch: "full" }, // Redirect default route to Home
-	{ path: "home", component: HomeComponent }, // Home route
-	{ path: "about", component: AboutComponent }, // About route
+	{ path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
+	{ path: "home", component: HomeComponent, canActivate: [LoginGuard] },
 	{
 		path: "onboarding",
 		component: OnboardingComponent,
+		canActivate: [PopoutGuard],
 	},
 	{
 		path: "create-wallet",

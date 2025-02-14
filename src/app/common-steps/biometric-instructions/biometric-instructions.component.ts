@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { CaptchaService } from "app/captcha.service";
+import { ChromeService } from "app/chrome.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
@@ -47,7 +49,13 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 	session: any;
 
-	constructor(private _walletService: WalletService, private captchaService: CaptchaService, private _zelfNameService: ZelfNameService) {
+	constructor(
+		private router: Router,
+		private _chromeService: ChromeService,
+		private _walletService: WalletService,
+		private captchaService: CaptchaService,
+		private _zelfNameService: ZelfNameService
+	) {
 		this.session = this._walletService.getSessionData();
 	}
 
@@ -58,18 +66,21 @@ export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 
 		const zelfName = this._zelfNameService.getZelfName();
 
-		try {
-			const captchaKey = zelfName.split(".zelf")[0].replace(".", "_");
+		if (!zelfName) return this.router.navigate(["/onboarding"]);
 
-			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
+		if (!this._chromeService.getIsExtension()) {
+			try {
+				const captchaKey = zelfName.split(".zelf")[0].replace(".", "_");
 
-			this.captchaService.retainCaptchaToken(captchaToken);
-		} catch (error) {
-			console.error("reCAPTCHA failed:", { error });
+				captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
+
+				this.captchaService.retainCaptchaToken(captchaToken);
+			} catch (error) {
+				console.error("reCAPTCHA failed:", { error });
+			}
 		}
 
 		this.session.showBiometricsInstructions = false;
-
 		this.session.showBiometrics = true;
 	}
 

@@ -597,7 +597,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 				localStorage.setItem("durationToken", response.data.durationToken);
 
 				this._chromeService.setItem("wallet", response.data);
-
 				this._walletService.goToNextStep(this.session.step + 1);
 
 				_this["biometricsLoginCalled"] = false;

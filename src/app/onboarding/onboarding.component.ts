@@ -65,13 +65,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		});
 
 		this.checkIfTabOrPopup();
-
-		if (!this.isTab) {
-			this.openFullPage(true);
-
-			return;
-		}
-
 		this.startRotation();
 		this.checkIfTabOpen();
 	}
@@ -88,8 +81,8 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 		this.isTabOpen = await this._chromeService.isExtensionTabOpen();
 	}
 
-	openFullPage(force: boolean): void {
-		this._chromeService.openFullPage(force, "onboarding").catch(console.error);
+	openFullPage(): void {
+		this._chromeService.openFullPage("onboarding").catch(console.error);
 	}
 
 	startRotation(): void {

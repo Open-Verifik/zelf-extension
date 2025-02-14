@@ -12,15 +12,16 @@ import { WalletService } from "app/wallet.service";
 })
 export class CreateWalletComponent implements OnInit {
 	@ViewChild("signUpNgForm") signUpNgForm!: NgForm;
-	signUpForm!: UntypedFormGroup;
-	showBiometrics: boolean = false;
-	showBiometricsInstructions: boolean = false;
+
 	currentStep = 0;
 	formLoaded: boolean = false;
+	session: any;
+	showBiometrics: boolean = false;
+	showBiometricsInstructions: boolean = false;
+	showWordsStep: boolean = false;
+	signUpForm!: UntypedFormGroup;
 	wallet!: Wallet;
 	words!: Array<any>;
-	session: any;
-	showWordsStep: boolean = false;
 
 	constructor(
 		private _formBuilder: UntypedFormBuilder,
@@ -106,7 +107,6 @@ export class CreateWalletComponent implements OnInit {
 		this.wallet = new WalletModel(response);
 
 		this.showBiometrics = false;
-
 		this.showBiometricsInstructions = false;
 
 		this.currentStep++;

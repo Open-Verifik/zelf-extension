@@ -111,7 +111,7 @@ export class ChromeService {
 		});
 	}
 
-	async openFullPage(force: boolean, path: string): Promise<void> {
+	async openFullPage(path: string): Promise<void> {
 		if (!this.isExtension) return;
 
 		chrome.tabs.getCurrent((currentTab) => {
@@ -139,5 +139,9 @@ export class ChromeService {
 
 	getIsExtension(): boolean {
 		return this.isExtension;
+	}
+
+	isInExtensionPopOut(): boolean {
+		return chrome?.extension ? chrome.extension.getViews({ type: "popup" }).length > 0 : false;
 	}
 }

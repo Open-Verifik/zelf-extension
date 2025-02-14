@@ -4,7 +4,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
-import { AboutComponent } from "./about/about.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
 import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
 import { ImportWalletTraditionalComponent } from "./import-wallet-traditional/import-wallet-traditional.component";
@@ -77,7 +76,6 @@ import { DiscountPipe } from "./pipes/discount.pipe";
 	declarations: [
 		AppComponent,
 		HomeComponent,
-		AboutComponent,
 		OnboardingComponent,
 		CreateWalletComponent,
 		ImportWalletTraditionalComponent,

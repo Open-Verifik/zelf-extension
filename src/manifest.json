@@ -28,38 +28,6 @@
 		"extension_pages": "script-src 'self'; object-src 'self';",
 		"google": "script-src https://www.google.com/recaptcha/, https://www.gstatic.com/recaptcha/; frame-src https://www.google.com/recaptcha/, https://recaptcha.google.com/recaptcha/;"
 	},
-	"icons": [
-		{
-			"src": "assets/icons/icon16.png",
-			"purpose": "any",
-			"type": "image/png",
-			"sizes": "16x16"
-		},
-		{
-			"src": "assets/icons/icon48.png",
-			"purpose": "any",
-			"type": "image/png",
-			"sizes": "48x48"
-		},
-		{
-			"src": "assets/icons/icon128.png",
-			"purpose": "any",
-			"type": "image/png",
-			"sizes": "128x128"
-		},
-		{
-			"src": "assets/icons/icon164.png",
-			"purpose": "any",
-			"type": "image/png",
-			"sizes": "164x164"
-		},
-		{
-			"src": "assets/icons/icon256.png",
-			"purpose": "any",
-			"type": "image/png",
-			"sizes": "256x256"
-		}
-	],
 	"web_accessible_resources": [
 		{
 			"resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],

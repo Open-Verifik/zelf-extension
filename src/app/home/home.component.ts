@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
-
 		this.wallet = await this._setWallet();
 
 		await this._getBalances();
@@ -70,7 +69,6 @@ export class HomeComponent implements OnInit {
 				case "home":
 					if (_view !== this.view) {
 						this.balancesLoaded = false;
-
 						this.wallet = await this._setWallet();
 
 						this._getBalances();
@@ -99,7 +97,6 @@ export class HomeComponent implements OnInit {
 		this.tokens = [];
 
 		await this._getETHDetails();
-
 		await this._getSolanaDetails();
 
 		this.balancesLoaded = true;

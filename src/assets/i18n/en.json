@@ -195,6 +195,7 @@
 		"settings_button": "Settings",
 		"receive_transaction_button": "Receive",
 		"send_transaction_button": "Send",
+		"scan_button": "Scan",
 		"assets": "Tokens",
 		"activity": "Activity",
 		"NFTs": "Collectibles"

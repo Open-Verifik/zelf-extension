@@ -48,7 +48,7 @@
 
 					<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
 						<div class="home-action">
-							<div class="home-action-icon">
+							<div class="home-action-icon" (click)="openActivePage()">
 								<div class="home-action-icon-box">
 									<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path
@@ -61,8 +61,8 @@
 							<div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
 						</div>
 
-						<div class="home-action" (click)="sendTransaction()">
-							<div class="home-action-icon">
+						<div class="home-action">
+							<div class="home-action-icon" (click)="sendTransaction()">
 								<div class="home-action-icon-box">
 									<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path
@@ -75,7 +75,7 @@
 							<div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
 						</div>
 
-						<div class="home-action">
+						<div class="home-action" *ngIf="scanImplemented">
 							<div class="home-action-icon">
 								<div class="home-action-icon-box">
 									<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">

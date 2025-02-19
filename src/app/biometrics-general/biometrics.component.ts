@@ -560,7 +560,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 			faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
 			os: "DESKTOP",
 			zelfName: this._zelfNameService.getZelfName(),
-			captchaToken: this.captchaService.getCaptchaToken(),
+			captchaToken: this.captchaService.getCaptchaToken() || undefined,
 			referralZelfName: this._zelfNameService.getReferral(),
 		};
 

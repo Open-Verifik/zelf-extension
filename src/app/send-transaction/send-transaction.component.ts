@@ -1,12 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
 import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
 	selector: "send-transaction",

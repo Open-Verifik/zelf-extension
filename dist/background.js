@@ -4,6 +4,10 @@ console.log("Background service worker initialized");
 const TAB_OPEN_STORAGE_KEY = "isExtensionTabOpen";
 const TAB_ID_STORAGE_KEY = "extensionTabId";
 
+const DEFAULT_INDEX = "index.html";
+
+chrome?.sidePanel?.setPanelBehavior({ path: DEFAULT_INDEX, enabled: true });
+
 // Function to open the extension as a tab
 const openFullPage = () => {
 	chrome.storage.local.get([TAB_OPEN_STORAGE_KEY, TAB_ID_STORAGE_KEY, "wallet", "wallets"], (items) => {
@@ -13,7 +17,7 @@ const openFullPage = () => {
 		const walletKeys = Object.keys(wallet);
 
 		if (!isTabOpen && !walletKeys.length && wallets.length < 10) {
-			const url = chrome.runtime.getURL("index.html");
+			const url = chrome.runtime.getURL(DEFAULT_INDEX);
 
 			chrome.tabs.create({ url }, (tab) => {
 				if (tab.id) {
@@ -35,8 +39,18 @@ chrome.tabs.onRemoved.addListener((closedTabId) => {
 				[TAB_OPEN_STORAGE_KEY]: false,
 				[TAB_ID_STORAGE_KEY]: null,
 			});
+
 			console.log("Extension tab closed. State reset.");
 		}
+	});
+});
+
+// Listener for tab update
+chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+	await chrome.sidePanel.setOptions({
+		tabId,
+		path: DEFAULT_INDEX,
+		enabled: true,
 	});
 });
 
@@ -45,9 +59,15 @@ chrome.action.onClicked.addListener(() => {
 	openFullPage();
 });
 
+// On extension install or update
 chrome.runtime.onInstalled.addListener(() => {
-	console.log("Extension installed or updated.");
 	openFullPage();
 });
 
-openFullPage();
+chrome.runtime.onConnect.addListener(function (port) {
+	console.log(`port:`, port);
+});
+
+chrome.runtime.onMessage.addListener((request) => {
+	console.log(`chrome.runtime.onMessage.addListener ~ request:`, request);
+});

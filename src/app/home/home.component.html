@@ -1,116 +1,110 @@
 <div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
 	<div class="home-main">
-		<!-- HEADER -->
 		<home-header [shareables]="shareables"></home-header>
 
-		<!-- end of HEADER -->
-		<home-wallets-connected *ngIf="shareables.view === 'accountsPage'" [shareables]="shareables"> </home-wallets-connected>
+		<div class="app-content">
+			<home-wallets-connected *ngIf="shareables.view === 'accountsPage'" [shareables]="shareables"></home-wallets-connected>
 
-		<home-active-wallet *ngIf="shareables.view === 'activeAccountPage'"></home-active-wallet>
+			<home-active-wallet *ngIf="shareables.view === 'activeAccountPage'"></home-active-wallet>
 
-		<home-network-picker [shareables]="shareables" *ngIf="shareables.view === 'networkPickerPage'"></home-network-picker>
+			<home-network-picker [shareables]="shareables" *ngIf="shareables.view === 'networkPickerPage'"></home-network-picker>
 
-		<div *ngIf="shareables.view === 'home' || shareables.view === 'activity'" class="w-full home-container">
-			<div class="home-actions-container">
-				<!-- end of Address -->
-				<div class="home-balance" *ngIf="selectedAsset">
-					<div class="home-balance-info">
-						<h3 class="home-balance-amount">${{ selectedAsset.fiatBalance }}</h3>
-					</div>
-				</div>
-
-				<!-- actions -->
-				<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
-					<div class="home-action">
-						<div class="home-action-icon">
-							<div class="home-action-icon-box">
-								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 25 24" fill="none">
-									<path
-										d="M12.5 4C16.91 4 20.5 7.59 20.5 12C20.5 16.41 16.91 20 12.5 20C8.09 20 4.5 16.41 4.5 12C4.5 7.59 8.09 4 12.5 4ZM12.5 2C6.98 2 2.5 6.48 2.5 12C2.5 17.52 6.98 22 12.5 22C18.02 22 22.5 17.52 22.5 12C22.5 6.48 18.02 2 12.5 2ZM13.5 12V8H11.5V12H8.5L12.5 16L16.5 12H13.5Z"
-										fill="#010333"
-									/>
-								</svg>
-							</div>
+			<div *ngIf="shareables.view === 'home' || shareables.view === 'activity'" class="w-full home-container">
+				<div class="home-actions-container">
+					<!-- end of Address -->
+					<div class="home-balance">
+						<div class="ripple" *ngIf="!selectedAsset"></div>
+						<div class="home-balance-info" *ngIf="selectedAsset">
+							<h3 class="home-balance-amount">${{ selectedAsset.fiatBalance }}</h3>
 						</div>
-						<div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
 					</div>
-					<div class="home-action" (click)="sendTransaction()">
-						<div class="home-action-icon">
-							<div class="home-action-icon-box">
-								<svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 25 24" fill="none">
-									<path
-										d="M9.79563 5.7041C9.79563 6.2641 10.2456 6.7041 10.7956 6.7041H16.3856L5.49562 17.5941C5.10563 17.9841 5.10563 18.6141 5.49562 19.0041C5.88563 19.3941 6.51563 19.3941 6.90563 19.0041L17.7956 8.1141V13.7041C17.7956 14.2541 18.2456 14.7041 18.7956 14.7041C19.3456 14.7041 19.7956 14.2541 19.7956 13.7041V5.7041C19.7956 5.1541 19.3456 4.7041 18.7956 4.7041H10.7956C10.2456 4.7041 9.79563 5.1541 9.79563 5.7041Z"
-										fill="#010333"
-									/>
-								</svg>
+
+					<!-- actions -->
+					<div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
+						<div class="home-action">
+							<div class="home-action-icon">
+								<div class="home-action-icon-box">
+									<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M16.6755 0.834414C16.2205 0.379414 15.4855 0.379414 15.0305 0.834414L2.32552 13.5277V7.00608C2.32552 6.36441 1.80052 5.83941 1.15885 5.83941C0.517187 5.83941 -0.0078125 6.36441 -0.0078125 7.00608V16.3394C-0.0078125 16.9811 0.517187 17.5061 1.15885 17.5061H10.4922C11.1339 17.5061 11.6589 16.9811 11.6589 16.3394C11.6589 15.6977 11.1339 15.1727 10.4922 15.1727H3.97052L16.6755 2.46775C17.1189 2.02441 17.1189 1.27775 16.6755 0.834414Z"
+											fill="#181818"
+										/>
+									</svg>
+								</div>
 							</div>
+
+							<div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
 						</div>
-						<div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
+
+						<div class="home-action" (click)="sendTransaction()">
+							<div class="home-action-icon">
+								<div class="home-action-icon-box">
+									<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path
+											d="M6.34571 1.65397C6.34571 2.3073 6.87071 2.82064 7.51238 2.82064H14.034L1.32904 15.5256C0.874043 15.9806 0.874043 16.7156 1.32904 17.1706C1.78404 17.6256 2.51904 17.6256 2.97404 17.1706L15.679 4.46564V10.9873C15.679 11.629 16.204 12.154 16.8457 12.154C17.4874 12.154 18.0124 11.629 18.0124 10.9873V1.65397C18.0124 1.0123 17.4874 0.487305 16.8457 0.487305H7.51238C6.87071 0.487305 6.34571 1.0123 6.34571 1.65397Z"
+											fill="#181818"
+										/>
+									</svg>
+								</div>
+							</div>
+
+							<div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
+						</div>
+					</div>
+					<!-- end of actions -->
+				</div>
+
+				<!-- home tabs, that can potentially change -->
+				<div class="home-tabs" *ngIf="shareables.view === 'home'">
+					<!--  -->
+					<div fxLayout="row" fxLayoutAlign="start center" class="w-full">
+						<div
+							class="w-50p home-tab"
+							[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'assets' }"
+							fxLayout="row"
+							fxLayoutAlign="center center"
+							(click)="selectTab('assets')"
+						>
+							<span> {{ "home.assets" | transloco }} </span>
+						</div>
+
+						<div
+							class="w-50p home-tab"
+							[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'nfts' }"
+							fxLayout="row"
+							fxLayoutAlign="center center"
+							(click)="selectTab('nfts')"
+						>
+							<span> {{ "home.NFTs" | transloco }} </span>
+						</div>
 					</div>
 				</div>
-				<!-- end of actions -->
-			</div>
 
-			<!-- home tabs, that can potentially change -->
-			<div class="home-tabs" *ngIf="shareables.view === 'home'">
-				<!--  -->
-				<div fxLayout="row" fxLayoutAlign="start center" class="w-full">
-					<div
-						class="w-50p home-tab"
-						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'assets' }"
-						fxLayout="row"
-						fxLayoutAlign="center center"
-						(click)="selectTab('assets')"
-					>
-						<span> {{ "home.assets" | transloco }} </span>
-					</div>
+				<div
+					class="assets-content"
+					*ngIf="shareables.view === 'home' && shareables.selectedTab === 'nfts'"
+					fxLayout="column"
+					fxLayoutAlign="start start"
+				>
+					<nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
+				</div>
 
-					<div
-						class="w-50p home-tab"
-						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'nfts' }"
-						fxLayout="row"
-						fxLayoutAlign="center center"
-						(click)="selectTab('nfts')"
-					>
-						<span> {{ "home.NFTs" | transloco }} </span>
-					</div>
+				<div
+					class="assets-content"
+					*ngIf="shareables.selectedTab === 'assets' && shareables.view === 'home'"
+					fxLayout="column"
+					fxLayoutAlign="start start"
+				>
+					<token-card class="w-full" [data]="token" *ngFor="let token of tokens"></token-card>
+				</div>
 
-					<!-- <div
-						class="w-50p home-tab"
-						[ngClass]="{ 'home-selected-tab': shareables.selectedTab === 'activity' }"
-						fxLayout="row"
-						fxLayoutAlign="center center"
-						(click)="selectTab('activity')"
-					>
-						<span> {{ "home.activity" | transloco }} </span>
-					</div> -->
+				<div class="activity-content" *ngIf="shareables.view === 'activity'" fxLayout="column" fxLayoutAlign="start start">
+					<activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
 				</div>
 			</div>
-
-			<div
-				class="assets-content"
-				*ngIf="shareables.view === 'home' && shareables.selectedTab === 'nfts'"
-				fxLayout="column"
-				fxLayoutAlign="start start"
-			>
-				<nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
-			</div>
-
-			<div
-				class="assets-content"
-				*ngIf="shareables.selectedTab === 'assets' && shareables.view === 'home'"
-				fxLayout="column"
-				fxLayoutAlign="start start"
-			>
-				<token-card class="w-full" [data]="token" *ngFor="let token of tokens"></token-card>
-			</div>
-
-			<div class="activity-content" *ngIf="shareables.view === 'activity'" fxLayout="column" fxLayoutAlign="start start">
-				<activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
-			</div>
-
-			<footer [shareables]="shareables"></footer>
 		</div>
+
+		<footer [shareables]="shareables"></footer>
 	</div>
 </div>
 

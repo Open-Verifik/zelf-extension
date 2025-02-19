@@ -1,25 +1,49 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
 	providedIn: "root",
 })
 export class ChromeService {
-	private isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
+	private _isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
+	private _isSidePanel = false;
 	private tabStorageKey = "isTabOpen";
+	private _isSidePanel$ = new BehaviorSubject<boolean>(false);
 
 	constructor() {
-		if (this.isExtension) {
-			chrome.tabs.onRemoved.addListener(async (closedTabId) => {
-				const storedTabId = await this.getItem("tabId");
-				if (storedTabId === closedTabId) {
-					// Reset the tab state
-					await this.setItem(this.tabStorageKey, false);
-				}
-			});
-		}
+		if (!this.isExtension) return;
+
+		chrome.tabs.onRemoved.addListener(async (closedTabId) => {
+			const storedTabId = await this.getItem("tabId");
+
+			if (storedTabId !== closedTabId) return;
+
+			await this.setItem(this.tabStorageKey, false);
+		});
+
+		chrome.tabs.query({ active: true, lastFocusedWindow: true, windowType: "panel" }).then(([tab]) => {
+			this._isSidePanel = !tab;
+			this._isSidePanel$.next(this._isSidePanel);
+		});
 	}
 
-	setItem(key: string, value: any): Promise<void> {
+	get isSidePanel$(): BehaviorSubject<boolean> {
+		return this._isSidePanel$;
+	}
+
+	get isExtension(): boolean {
+		return this._isExtension;
+	}
+
+	get isPopOut(): boolean {
+		return chrome?.extension ? chrome.extension.getViews({ type: "popup" }).length > 0 : false;
+	}
+
+	get isSidePanel(): boolean {
+		return this._isSidePanel;
+	}
+
+	async setItem(key: string, value: any): Promise<void> {
 		return new Promise((resolve, reject) => {
 			if (this.isExtension) {
 				chrome.storage.local.set({ [key]: value }, () => {
@@ -41,7 +65,7 @@ export class ChromeService {
 		});
 	}
 
-	getItem(key: string, overrideSource?: string): Promise<any> {
+	async getItem(key: string, overrideSource?: string): Promise<any> {
 		let source = this.isExtension ? "extension" : "web";
 
 		if (overrideSource) {
@@ -97,9 +121,7 @@ export class ChromeService {
 	}
 
 	async isExtensionTabOpen(): Promise<boolean> {
-		if (!this.isExtension) {
-			return false;
-		}
+		if (!this.isExtension) return false;
 
 		return new Promise((resolve) => {
 			const baseUrl = chrome.runtime.getURL("#/onboarding");
@@ -137,11 +159,51 @@ export class ChromeService {
 		});
 	}
 
-	getIsExtension(): boolean {
-		return this.isExtension;
+	async closeTab(tabId?: number): Promise<void> {
+		if (!this.isExtension) return;
+
+		if (!tabId) tabId = await this.getItem("tabId");
+		if (!tabId) return;
+
+		chrome.tabs.remove(tabId);
 	}
 
-	isInExtensionPopOut(): boolean {
-		return chrome?.extension ? chrome.extension.getViews({ type: "popup" }).length > 0 : false;
+	async openSidePanel(): Promise<void> {
+		if (!this.isExtension) return;
+
+		const [window] = await chrome.windows.getAll({ populate: true });
+
+		if (!window?.id) return;
+
+		if (!this.isPopOut) {
+			const tabs = await chrome.tabs.query({});
+
+			if (tabs.length > 1) {
+				const [tab] = await chrome.tabs.query({
+					active: true,
+					lastFocusedWindow: true,
+				});
+
+				const tabId = tab?.id;
+
+				if (!tabId) return;
+
+				await this.closeTab(tabId);
+			}
+		} else {
+			const views = chrome.extension.getViews({ type: "popup" });
+
+			if (views.length > 0) {
+				const popupWindow = views[0];
+
+				popupWindow.close();
+			}
+		}
+
+		await chrome.sidePanel.open({ windowId: window.id });
+		await chrome.sidePanel.setOptions({
+			path: "index.html",
+			enabled: true,
+		});
 	}
 }

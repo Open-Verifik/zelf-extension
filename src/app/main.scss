@@ -38,7 +38,6 @@
 body {
 	margin: 0px !important;
 	height: 100vh;
-	min-width: 600px;
 }
 
 app-onboarding {
@@ -49,17 +48,13 @@ app-onboarding {
 	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
 }
 
-.home-main {
-	width: 430px;
-	height: 600px;
-}
-
 .loader {
 	position: absolute;
 	width: 100%;
 	height: 100vh;
 	background-color: #9b94c9b5;
 	z-index: 10;
+
 	svg {
 		margin-left: 70px;
 		width: 160px;
@@ -74,11 +69,18 @@ app-onboarding {
 }
 
 .main-div {
-	flex: 1 1 auto;
-	width: 100%;
-	max-width: 100%;
-	height: 100%;
 	background: #d3d3d35c;
+	width: 100%;
+	max-width: 780px;
+	margin: 0 auto;
+
+	&--popout {
+		height: 100vh;
+		max-height: 600px;
+		max-width: 360px;
+		min-height: 600px;
+		width: 360px;
+	}
 }
 
 .w-full {
@@ -1030,12 +1032,6 @@ h3 {
 	.zelf-content {
 		width: 100% !important;
 		height: 100%;
-	}
-
-	.home-main {
-		width: 430px;
-		height: 600px;
-		// overflow: hidden !important;
 	}
 
 	.zelf-header {

@@ -14,7 +14,7 @@ import { Component, Input, OnInit } from "@angular/core";
 			</div>
 
 			<div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
-				<div class="token-card__balance">{{ _getAmount(data.amount) }}</div>
+				<div class="token-card__balance">{{ data.amount | currency : "USD" : "symbol" : "1.2-5" }}</div>
 
 				<h4 class="stats stats--no-margin">
 					<div
@@ -39,7 +39,7 @@ import { Component, Input, OnInit } from "@angular/core";
 						</span>
 						{{ 10 }}%
 
-						<span class="stats__text stats__text--colored">\${{ data.price }}</span>
+						<span class="stats__text stats__text--colored">{{ data.price | currency : "USD" : "symbol" : "1.2-9" }}</span>
 					</div>
 				</h4>
 			</div>
@@ -57,12 +57,6 @@ export class TokenCardComponent implements OnInit {
 	}
 
 	ngOnInit(): void {}
-
-	_getAmount(amount: any): Number {
-		if (!amount && amount >= 0) return 0;
-
-		return Math.floor(amount * Math.pow(10, 8)) / Math.pow(10, 8);
-	}
 
 	onClick(): void {}
 }

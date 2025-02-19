@@ -122,12 +122,6 @@ export class HomeHeaderComponent implements OnInit, OnDestroy {
 		this.updateView(this.shareables.view);
 	}
 
-	openActivePage(): void {
-		this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
-
-		this.updateView(this.shareables.view);
-	}
-
 	// Method to update the URL when the variable changes
 	updateView(newView: string): void {
 		this.view = newView;

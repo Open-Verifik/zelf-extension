@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 	balances: any;
 	balancesLoaded: boolean = false;
 	NFTs!: Array<any>;
+	scanImplemented: boolean = false;
 	selectedAsset!: Asset;
 	selectedNetwork!: string;
 	shareables: any;
@@ -182,6 +183,22 @@ export class HomeComponent implements OnInit {
 		this.shareables.wallet = new WalletModel(wallet);
 
 		return this.shareables.wallet;
+	}
+
+	private _updateView(newView: string): void {
+		this.view = newView;
+
+		this._router.navigate([], {
+			relativeTo: this.route, // Keep the current route
+			queryParams: { view: this.view }, // Set new query params
+			queryParamsHandling: "merge", // Merge with existing query params
+		});
+	}
+
+	openActivePage(): void {
+		this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
+
+		this._updateView(this.shareables.view);
 	}
 
 	selectTab(tab: string): void {

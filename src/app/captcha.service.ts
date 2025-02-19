@@ -26,7 +26,6 @@ export class CaptchaService {
 
 	retainCaptchaToken(token: string): void {
 		this.captchaToken = token;
-		console.log({ token });
 	}
 
 	getCaptchaToken() {

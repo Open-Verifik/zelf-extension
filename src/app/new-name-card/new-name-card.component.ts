@@ -213,12 +213,8 @@ export class NewNameCardComponent implements OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.zelfName = this._zelfNameService.getZelfName();
-
 		this.price = this._zelfNameService.getZelfPrice();
-
 		this.reward = this._zelfNameService.getZelfReward();
-
-		console.log({ price: this.price, reward: this.reward });
 
 		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
 

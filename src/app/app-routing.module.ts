@@ -17,7 +17,7 @@ import { TransactionDetailsComponent } from "./transaction-details/transaction-d
 import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restricted.component";
 
 import { LoginGuard } from "./login.guard";
-import { PopoutGuard } from "./popout.guard";
+import { OnboardingGuard } from "./onboarding.guard";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -25,7 +25,7 @@ const routes: Routes = [
 	{
 		path: "onboarding",
 		component: OnboardingComponent,
-		canActivate: [PopoutGuard],
+		canActivate: [OnboardingGuard],
 	},
 	{
 		path: "create-wallet",

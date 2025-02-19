@@ -181,7 +181,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
 		let captchaToken = "";
 
-		if (!this._chromeService.getIsExtension()) {
+		if (!this._chromeService.isExtension) {
 			try {
 				const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
 

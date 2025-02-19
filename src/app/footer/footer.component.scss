@@ -5,6 +5,7 @@ $large: 889px;
 $computers: 1200px;
 
 .footer {
+	padding: 0 16px;
 	align-items: center;
 	background: white;
 	bottom: 0;
@@ -12,24 +13,42 @@ $computers: 1200px;
 	height: 40px;
 	justify-content: center;
 	max-width: 900px;
-	padding-bottom: 4px;
-	padding-top: 4px;
+	padding-bottom: 2px;
+	padding-top: 2px;
 	position: absolute;
-	width: 100%;
+	width: calc(100% - 32px);
 	z-index: 1000;
 }
 
 .footer-link {
+	align-items: center;
+	border-radius: 29px;
+	cursor: pointer;
+	display: flex;
 	flex: 1 1 0;
+	gap: 10px;
 	height: 29px;
 	justify-content: center;
-	align-items: center;
-	gap: 10px;
-	display: flex;
-	cursor: pointer;
-	fill: #c3c6cf;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+
+	svg {
+		transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		fill: #c3c6cf;
+	}
+
+	&:hover:not(.footer-link--active) {
+		background-color: #f0d3d4;
+
+		svg {
+			fill: black;
+		}
+	}
 
 	&--active {
-		fill: black;
+		svg {
+			fill: black;
+		}
 	}
 }

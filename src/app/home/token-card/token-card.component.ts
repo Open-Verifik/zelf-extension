@@ -7,114 +7,45 @@ import { Component, Input, OnInit } from "@angular/core";
 			<div class="status-icon-container">
 				<img [src]="data.image" />
 			</div>
+
 			<div class="text-container" fxLayout="column" fxLayoutAlign="start start">
-				<div fxLayout="row" fxLayoutAlign="start center">
-					<div class="status-text font-18">{{ data.symbol }}</div>
-					<div class="pl-2 token-card-label">{{ data.network }}</div>
-				</div>
-
-				<div class="status-text text-grey">$ {{ data.price }} USD</div>
-
-				<!-- <div class="status-text">{{}}</div> -->
+				<div class="token-card__symbol">{{ data.symbol }}</div>
+				<div class="token-card__network">{{ data.network }}</div>
 			</div>
 
 			<div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
-				<div class="status-text">{{ _getAmount(data.amount) }}</div>
-				<div class="status-text text-grey" *ngIf="data.fiatBalance > 0">$ {{ data.fiatBalance }} USD</div>
-				<div class="status-text text-grey" *ngIf="!data.fiatBalance">-</div>
+				<div class="token-card__balance">{{ _getAmount(data.amount) }}</div>
+
+				<h4 class="stats stats--no-margin">
+					<div
+						class="stats__percentage"
+						[ngClass]="{
+							'stats__percentage--positive': true,
+							'stats__percentage--negative': false
+						}"
+					>
+						<span class="stats__arrow">
+							<ng-container *ngIf="true">
+								<svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M4.5 0.530273L0.5 4.53027L1.44 5.47027L4.5 2.41694L7.56 5.47027L8.5 4.53027L4.5 0.530273Z" />
+								</svg>
+							</ng-container>
+
+							<ng-container *ngIf="false">
+								<svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M4.5 5.46973L8.5 1.46973L7.56 0.529726L4.5 3.58306L1.44 0.529726L0.5 1.46973L4.5 5.46973Z" />
+								</svg>
+							</ng-container>
+						</span>
+						{{ 10 }}%
+
+						<span class="stats__text stats__text--colored">\${{ data.price }}</span>
+					</div>
+				</h4>
 			</div>
 		</div>
 	`,
-	styles: [
-		`
-			.card-container {
-				width: 100%;
-				height: 88px;
-				gap: 16px;
-				display: inline-flex;
-				padding: 12px;
-			}
-
-			.card-container:hover {
-				background: #80808021;
-				cursor: pointer;
-			}
-
-			.status-icon-container {
-				justify-content: flex-start;
-				align-items: flex-start;
-				gap: 8px;
-				display: flex;
-
-				:is(img) {
-					width: 36px;
-				}
-			}
-
-			.status-icon {
-				width: 16px;
-				height: 16px;
-			}
-
-			.status-icon-inner {
-				width: 9.73px;
-				height: 9.73px;
-
-				background: black;
-			}
-
-			.text-container {
-				gap: 6px;
-				width: 60%;
-			}
-
-			.amount-container {
-				width: 30%;
-				gap: 10px;
-			}
-
-			.status-text {
-				color: #1b1b1f;
-				font-size: 14px;
-				font-family: Poppins, sans-serif;
-				font-weight: 600;
-				line-height: 24px;
-				letter-spacing: 0.15px;
-				word-wrap: break-word;
-			}
-
-			.date-text {
-				text-align: right;
-				gap: 6px;
-			}
-
-			.date-green {
-				color: #38a62b;
-				font-size: 10px;
-				font-family: Poppins, sans-serif;
-				font-weight: 500;
-				line-height: 14px;
-				letter-spacing: 0.1px;
-				word-wrap: break-word;
-			}
-			.date-gray {
-				color: #46464f;
-				font-size: 14px;
-				font-family: Poppins, sans-serif;
-				font-weight: 500;
-				line-height: 20px;
-				letter-spacing: 0.1px;
-				word-wrap: break-word;
-			}
-
-			.token-card-label {
-				background: #f0f0f0;
-				padding: 4px;
-				margin: 4px;
-				border-radius: 4px;
-			}
-		`,
-	],
+	styleUrls: ["./token-card.component.scss"],
 })
 export class TokenCardComponent implements OnInit {
 	@Input() data: any;

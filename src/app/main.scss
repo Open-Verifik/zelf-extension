@@ -1,3 +1,5 @@
+@import "../styles/animations.scss";
+
 /* Poppins Regular */
 @font-face {
 	font-family: "Poppins";
@@ -33,6 +35,10 @@
 
 * {
 	font-family: "Poppins", sans-serif; /* Always provide a fallback */
+}
+
+html {
+	color-scheme: only light;
 }
 
 body {
@@ -1044,6 +1050,75 @@ h3 {
 
 	.zelf-card {
 		width: 95%;
+	}
+}
+
+.stats {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 4px;
+	font-size: 14px;
+	margin-bottom: 0;
+
+	&--no-margin {
+		margin-top: 0;
+
+		& .stats__percentage {
+			margin-right: 0;
+		}
+	}
+
+	&__text {
+		color: #73777f;
+
+		&--colored {
+			color: inherit;
+			margin-left: 6px;
+		}
+	}
+
+	&__arrow {
+		height: 16px;
+		width: 16px;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #e3e3e3;
+		margin-right: 6px;
+		border-radius: 16px;
+	}
+
+	&__percentage {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 14px;
+		margin-right: 6px;
+
+		&--positive {
+			color: #1ea446 !important;
+
+			& .stats__arrow {
+				background-color: #e7f8ed;
+			}
+
+			& svg {
+				fill: #1ea446;
+			}
+		}
+
+		&--negative {
+			color: #dc362e !important;
+
+			& .stats__arrow {
+				background-color: #fceeee;
+			}
+
+			& svg {
+				fill: #dc362e;
+			}
+		}
 	}
 }
 

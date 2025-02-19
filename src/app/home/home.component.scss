@@ -27,10 +27,10 @@ $computers: 1200px;
 	display: inline-flex;
 	gap: 6px;
 	height: 76px;
+	padding: 0 16px;
 	justify-content: space-between;
-	width: 100%;
+	width: calc(100% - 32px);
 	z-index: 1000;
-	max-width: 900px;
 
 	&__title-container {
 		cursor: pointer;

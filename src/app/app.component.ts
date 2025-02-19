@@ -1,27 +1,28 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { environment } from "environments/environment";
-import * as openpgp from "openpgp";
 import { WalletService } from "./wallet.service";
 import { ChromeService } from "./chrome.service";
 
 @Component({
 	selector: "app-root",
-	template: `<!-- Wrapper -->
-		<div class="flex flex-col flex-auto w-full main-div">
-			<!-- Content -->
-			<div class="flex flex-col flex-auto">
-				<router-outlet *ngIf="true"></router-outlet>
-			</div>
-		</div>`,
+	template: `<div class="flex flex-col flex-auto main-div" [ngClass]="isPopOut ? 'main-div--popout' : ''">
+		<div class="flex flex-col flex-auto">
+			<router-outlet *ngIf="true"></router-outlet>
+		</div>
+	</div>`,
 	styleUrls: ["./app.component.scss", "./main.scss"],
 	encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
-	apiUrl: string = environment.apiUrl;
 	private publicKey!: string;
 
-	constructor(private _httpWrapperService: HttpWrapperService, private _walletService: WalletService, private _chromeService: ChromeService) {}
+	apiUrl: string = environment.apiUrl;
+	isPopOut: boolean = false;
+
+	constructor(private _httpWrapperService: HttpWrapperService, private _walletService: WalletService, private _chromeService: ChromeService) {
+		this.isPopOut = this._chromeService.isPopOut;
+	}
 
 	ngOnInit(): void {
 		this._getPublicKey();
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
 			.then((response) => {
 				this.publicKey = response.data;
 
+				this._chromeService.setItem("publicKey", this.publicKey);
 				this._httpWrapperService.setPublicKey(this.publicKey);
 			});
 	}

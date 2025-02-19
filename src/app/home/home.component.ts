@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
 		};
 
 		this.NFTs = [];
-
 		this.tokens = [];
 
 		localStorage.removeItem("unlockWallet");

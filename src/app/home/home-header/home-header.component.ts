@@ -1,37 +1,51 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { BlockchainNetworksService } from "app/blockchain-networks.service";
+import { ChromeService } from "app/chrome.service";
 import { Wallet } from "app/wallet";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
 	selector: "home-header",
 	template: `
-		<!-- HEADER -->
-		<div class="home-main-header" *ngIf="shareables.wallet">
-			<div class="home-header-left" (click)="openAccountsPage()">
-				<h4 class="f-white pl-4" *ngIf="shareables.wallet.publicData">{{ shareables.wallet.publicData.zelfName || "****.zelf" }}</h4>
-				<div class="home-account-dropdown pl-2">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<path
-							d="M15.08 9.59L12 12.67L8.92 9.59L7.5 11L12 15.5L16.5 11L15.08 9.59ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
-							fill="white"
-						/>
-					</svg>
-				</div>
+		<div class="home-header" *ngIf="shareables.wallet">
+			<div class="home-header__left home-header__container">&nbsp;</div>
+
+			<div class="home-header__center home-header__container" (click)="openAccountsPage()">
+				<h4 class="home-header__title pl-4" *ngIf="shareables.wallet.publicData">
+					{{ shareables.wallet.publicData.zelfName || "****.zelf" }}
+				</h4>
+
+				<svg
+					class="home-header__dropdown-icon pl-2"
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+				>
+					<path
+						d="M15.08 9.59L12 12.67L8.92 9.59L7.5 11L12 15.5L16.5 11L15.08 9.59ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
+					/>
+				</svg>
 			</div>
 
-			<div class="home-header-right" *ngIf="shareables.wallet">
-				<!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
-					<path
-						d="M8 19.75C9.1 19.75 10 18.85 10 17.75H6C6 18.85 6.9 19.75 8 19.75ZM14 13.75V8.75C14 5.68 12.37 3.11 9.5 2.43V1.75C9.5 0.92 8.83 0.25 8 0.25C7.17 0.25 6.5 0.92 6.5 1.75V2.43C3.64 3.11 2 5.67 2 8.75V13.75L0 15.75V16.75H16V15.75L14 13.75ZM12 14.75H4V8.75C4 6.27 5.51 4.25 8 4.25C10.49 4.25 12 6.27 12 8.75V14.75Z"
-						fill="white"
-					/>
-				</svg> -->
-				<div (click)="openActivePage()" class="home-wallet mr-2">
-					<div class="home-wallet-image">
-						<img [src]="shareables.wallet.image" *ngIf="shareables.wallet && shareables.wallet.image" />
-					</div>
-				</div>
+			<div class="home-header__right home-header__container" *ngIf="shareables.wallet">
+				<button class="home-header__button" (click)="openSidePanel()" *ngIf="isExtension && (!isSidePanel || isPopOut)">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="feather feather-sidebar"
+					>
+						<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+						<line x1="9" y1="3" x2="9" y2="21" />
+					</svg>
+				</button>
 			</div>
 		</div>
 
@@ -43,9 +57,12 @@ import { Wallet } from "app/wallet";
 						fill="#46464F"
 					/>
 				</svg>
+
 				<span class="mat-menu-item-text">{{ "home.support_button" | transloco }}</span>
 			</button>
-			<mat-divider> </mat-divider>
+
+			<mat-divider></mat-divider>
+
 			<button mat-menu-item>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path
@@ -59,21 +76,44 @@ import { Wallet } from "app/wallet";
 	`,
 	styleUrls: ["../home.component.scss", "../../main.scss"],
 })
-export class HomeHeaderComponent implements OnInit {
+export class HomeHeaderComponent implements OnInit, OnDestroy {
 	@Input() shareables: any;
+
+	private unsubscriber$: Subject<void> = new Subject();
+
 	view: string;
 	title: string = "something";
 	wallet!: Wallet;
 	balances: any;
 	selectedTab: string;
+	isExtension: boolean = false;
+	isSidePanel: boolean = false;
+	isPopOut: boolean = false;
 
-	constructor(private _router: Router, private route: ActivatedRoute, private _blockchainNetworkService: BlockchainNetworksService) {
+	constructor(private _router: Router, private route: ActivatedRoute, private _chromeService: ChromeService) {
 		this.view = "home";
+
+		this.isExtension = this._chromeService.isExtension;
+		this.isPopOut = this._chromeService.isPopOut;
+		this.isSidePanel = this._chromeService.isSidePanel;
 
 		this.selectedTab = "assets";
 	}
 
-	async ngOnInit(): Promise<any> {}
+	ngOnInit(): void {
+		this._chromeService.isSidePanel$.pipe(takeUntil(this.unsubscriber$)).subscribe((isSidePanel) => {
+			this.isSidePanel = isSidePanel;
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscriber$.next();
+		this.unsubscriber$.complete();
+	}
+
+	async openSidePanel(): Promise<void> {
+		this._chromeService.openSidePanel();
+	}
 
 	openAccountsPage(): void {
 		this.shareables.view = this.shareables.view === "home" ? "accountsPage" : "home";

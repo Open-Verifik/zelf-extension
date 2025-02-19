@@ -1,5 +1,4 @@
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
-	/* Your custom styles here */
 	padding-top: 55px;
 	box-sizing: content-box;
 }
@@ -10,7 +9,10 @@ input {
 }
 
 .home-main {
-	background: white !important;
+	position: relative;
+	background: white;
+	width: 100%;
+	min-height: 100vh;
 }
 
 .home-main-div {

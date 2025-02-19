@@ -1,14 +1,17 @@
+import * as openpgp from "openpgp";
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, retry, finalize, from, switchMap } from "rxjs";
-import * as openpgp from "openpgp";
+
 import { ChromeService } from "./chrome.service";
+
 @Injectable({
 	providedIn: "root",
 })
 export class HttpWrapperService {
-	public tail: Array<any> = [];
 	private publicKey!: string;
+
+	public tail: Array<any> = [];
 
 	get progress(): boolean {
 		return !!this.tail.length;

@@ -68,7 +68,7 @@ export class BiometricInstructionsComponent implements OnInit, OnDestroy {
 
 		if (!zelfName) return this.router.navigate(["/onboarding"]);
 
-		if (!this._chromeService.getIsExtension()) {
+		if (!this._chromeService.isExtension) {
 			try {
 				const captchaKey = zelfName.split(".zelf")[0].replace(".", "_");
 

@@ -39,6 +39,8 @@
 
 html {
 	color-scheme: only light;
+	position: relative !important;
+	min-width: 360px;
 }
 
 body {
@@ -1078,14 +1080,14 @@ h3 {
 	}
 
 	&__arrow {
-		height: 16px;
-		width: 16px;
-		display: inline-flex;
-		justify-content: center;
 		align-items: center;
 		background-color: #e3e3e3;
-		margin-right: 6px;
 		border-radius: 16px;
+		display: inline-flex;
+		height: 16px;
+		justify-content: center;
+		margin-right: 6px;
+		width: 16px;
 	}
 
 	&__percentage {
@@ -1121,8 +1123,22 @@ h3 {
 	}
 }
 
-.bottom-sheet {
-	border-radius: 25px 25px 0 0;
+.zelf-backdrop {
+	background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.zelf-bottom-sheet {
+	.cdk-dialog-container {
+		background-color: #f9f9fc !important;
+		border-radius: 26px 26px 0 0 !important;
+	}
+}
+
+.zelf-dialog {
+	.mdc-dialog__surface {
+		background-color: #f9f9fc !important;
+		border-radius: 26px !important;
+	}
 }
 
 /* Small screen devices (600px and above) */

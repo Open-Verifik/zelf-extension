@@ -8,7 +8,7 @@ import { ChromeService } from "./chrome.service";
 	selector: "app-root",
 	template: `<div class="flex flex-col flex-auto main-div" [ngClass]="isPopOut ? 'main-div--popout' : ''">
 		<div class="flex flex-col flex-auto">
-			<router-outlet *ngIf="true"></router-outlet>
+			<router-outlet></router-outlet>
 		</div>
 	</div>`,
 	styleUrls: ["./app.component.scss", "./main.scss"],

@@ -1121,6 +1121,10 @@ h3 {
 	}
 }
 
+.bottom-sheet {
+	border-radius: 25px 25px 0 0;
+}
+
 /* Small screen devices (600px and above) */
 @media only screen and (min-width: $minSmall) {
 }

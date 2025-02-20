@@ -16,7 +16,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
 
 			<div class="home-header__center home-header__container" (click)="openBottomSheet()">
 				<div class="home-header__title-container">
-					<h4 class="home-header__title pl-4" *ngIf="shareables.wallet.publicData">
+					<h4 class="home-header__title" *ngIf="shareables.wallet.publicData">
 						{{ shareables.wallet.publicData.zelfName || "****.zelf" }}
 					</h4>
 
@@ -28,7 +28,9 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
 				</div>
 			</div>
 
-			<div class="home-header__right home-header__container" *ngIf="shareables.wallet">
+			<div class="home-header__right home-header__container">
+				<ng-container *ngIf="!(isExtension && (!isSidePanel || isPopOut))">&nbsp;</ng-container>
+
 				<button class="home-header__button" (click)="openSidePanel()" *ngIf="isExtension && (!isSidePanel || isPopOut)">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +117,11 @@ export class HomeHeaderComponent implements OnInit, OnDestroy {
 	}
 
 	openBottomSheet(): void {
-		this._bottomSheet.open(HomeHeaderAccountsComponent, { panelClass: "bottom-sheet", data: this.shareables });
+		this._bottomSheet.open(HomeHeaderAccountsComponent, {
+			backdropClass: "zelf-backdrop",
+			panelClass: "zelf-bottom-sheet",
+			data: this.shareables,
+		});
 	}
 
 	openAccountsPage(): void {

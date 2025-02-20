@@ -18,6 +18,8 @@ import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restr
 
 import { LoginGuard } from "./login.guard";
 import { OnboardingGuard } from "./onboarding.guard";
+import { ManageDomainComponent } from "./manage-domain/manage-domain.component";
+import { WalletComponent } from "./wallet/wallet.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -34,6 +36,14 @@ const routes: Routes = [
 	{
 		path: "import-wallet",
 		component: ImportWalletComponent,
+	},
+	{
+		path: "manage-domain",
+		component: ManageDomainComponent,
+	},
+	{
+		path: "wallet",
+		component: WalletComponent,
 	},
 	{
 		path: "find-wallet",

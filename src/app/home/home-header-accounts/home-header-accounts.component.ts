@@ -2,6 +2,7 @@ import { NgFor, NgIf } from "@angular/common";
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
+import { RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
 import { WalletModel } from "app/wallet";
@@ -9,7 +10,7 @@ import { WalletModel } from "app/wallet";
 @Component({
 	selector: "home-header-accounts",
 	standalone: true,
-	imports: [NgIf, MatButtonModule, TranslocoModule, NgFor],
+	imports: [NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink],
 	templateUrl: "./home-header-accounts.component.html",
 	styleUrls: ["./home-header-accounts.component.scss"],
 })

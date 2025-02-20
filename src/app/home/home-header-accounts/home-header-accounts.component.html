@@ -8,7 +8,7 @@
 			</svg>
 		</button>
 
-		<div class="zelf-name">
+		<div class="zelf-name" (click)="close()" [routerLink]="['/wallet']">
 			<h4 class="zelf-name__title" *ngIf="shareables.wallet.publicData">
 				{{ shareables.wallet.publicData.zelfName || "****.zelf" }}
 			</h4>
@@ -26,7 +26,7 @@
 			<div class="wallets__item" (click)="close()">
 				<div class="wallets__item-avatar">{{ getItemFirstLetter(currentWallet) }}</div>
 
-				<p class="wallets__item-name">{{ currentWallet.name }}</p>
+				<p class="wallets__item-name">{{ currentWallet.publicData.zelfName || "****.zelf" }}</p>
 			</div>
 
 			<ng-container *ngIf="wallets.length">
@@ -35,7 +35,7 @@
 						{{ getItemFirstLetter(wallet) }}
 					</div>
 
-					<h4 class="wallets__item-name">{{ wallet.name }}</h4>
+					<h4 class="wallets__item-name">{{ wallet.publicData.zelfName || "****.zelf" }}</h4>
 				</div>
 			</ng-container>
 
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 
-		<div class="home-header-accounts__actions">
+		<div class="home-header-accounts__actions" (click)="close()" [routerLink]="['/manage-domain']">
 			<button class="home-header-accounts__button" mat-flat-button>{{ t("manage_domains") }}</button>
 		</div>
 	</div>

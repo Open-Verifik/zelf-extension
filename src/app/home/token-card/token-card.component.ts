@@ -14,7 +14,7 @@ import { Component, Input, OnInit } from "@angular/core";
 			</div>
 
 			<div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
-				<div class="token-card__balance">{{ data.amount | currency : "USD" : "symbol" : "1.2-5" }}</div>
+				<div class="token-card__balance">{{ data.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</div>
 
 				<h4 class="stats stats--no-margin">
 					<div

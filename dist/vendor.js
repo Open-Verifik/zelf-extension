@@ -179721,6 +179721,500 @@ class ReactiveFormsModule {
 
 /***/ }),
 
+/***/ 244:
+/*!******************************************************************!*\
+  !*** ./node_modules/@angular/material/fesm2022/bottom-sheet.mjs ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MAT_BOTTOM_SHEET_DATA: () => (/* binding */ MAT_BOTTOM_SHEET_DATA),
+/* harmony export */   MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: () => (/* binding */ MAT_BOTTOM_SHEET_DEFAULT_OPTIONS),
+/* harmony export */   MatBottomSheet: () => (/* binding */ MatBottomSheet),
+/* harmony export */   MatBottomSheetConfig: () => (/* binding */ MatBottomSheetConfig),
+/* harmony export */   MatBottomSheetContainer: () => (/* binding */ MatBottomSheetContainer),
+/* harmony export */   MatBottomSheetModule: () => (/* binding */ MatBottomSheetModule),
+/* harmony export */   MatBottomSheetRef: () => (/* binding */ MatBottomSheetRef),
+/* harmony export */   matBottomSheetAnimations: () => (/* binding */ matBottomSheetAnimations)
+/* harmony export */ });
+/* harmony import */ var _angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/dialog */ 93482);
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/portal */ 9168);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37580);
+/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/core */ 74646);
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/a11y */ 72102);
+/* harmony import */ var _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/layout */ 87912);
+/* harmony import */ var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/overlay */ 81570);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 60316);
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 47172);
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/cdk/keycodes */ 74879);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ 10819);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! rxjs */ 63617);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 51567);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! rxjs/operators */ 64334);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** Animations used by the Material bottom sheet. */
+function MatBottomSheetContainer_ng_template_0_Template(rf, ctx) {}
+const matBottomSheetAnimations = {
+  /** Animation that shows and hides a bottom sheet. */
+  bottomSheetState: (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.trigger)('state', [(0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.state)('void, hidden', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.style)({
+    transform: 'translateY(100%)'
+  })), (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.state)('visible', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.style)({
+    transform: 'translateY(0%)'
+  })), (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.transition)('visible => void, visible => hidden', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.group)([(0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.animate)(`${_angular_material_core__WEBPACK_IMPORTED_MODULE_1__.AnimationDurations.COMPLEX} ${_angular_material_core__WEBPACK_IMPORTED_MODULE_1__.AnimationCurves.ACCELERATION_CURVE}`), (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.query)('@*', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.animateChild)(), {
+    optional: true
+  })])), (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.transition)('void => visible', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.group)([(0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.animate)(`${_angular_material_core__WEBPACK_IMPORTED_MODULE_1__.AnimationDurations.EXITING} ${_angular_material_core__WEBPACK_IMPORTED_MODULE_1__.AnimationCurves.DECELERATION_CURVE}`), (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.query)('@*', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_0__.animateChild)(), {
+    optional: true
+  })]))])
+};
+
+/**
+ * Internal component that wraps user-provided bottom sheet content.
+ * @docs-private
+ */
+class MatBottomSheetContainer extends _angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__.CdkDialogContainer {
+  constructor(elementRef, focusTrapFactory, document, config, checker, ngZone, overlayRef, breakpointObserver, _changeDetectorRef, focusMonitor) {
+    super(elementRef, focusTrapFactory, document, config, checker, ngZone, overlayRef, focusMonitor);
+    this._changeDetectorRef = _changeDetectorRef;
+    /** The state of the bottom sheet animations. */
+    this._animationState = 'void';
+    /** Emits whenever the state of the animation changes. */
+    this._animationStateChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_3__.EventEmitter();
+    this._breakpointSubscription = breakpointObserver.observe([_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.Breakpoints.Medium, _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.Breakpoints.Large, _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.Breakpoints.XLarge]).subscribe(() => {
+      this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.Breakpoints.Medium));
+      this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.Breakpoints.Large));
+      this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.Breakpoints.XLarge));
+    });
+  }
+  /** Begin animation of bottom sheet entrance into view. */
+  enter() {
+    if (!this._destroyed) {
+      this._animationState = 'visible';
+      this._changeDetectorRef.detectChanges();
+    }
+  }
+  /** Begin animation of the bottom sheet exiting from view. */
+  exit() {
+    if (!this._destroyed) {
+      this._animationState = 'hidden';
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this._breakpointSubscription.unsubscribe();
+    this._destroyed = true;
+  }
+  _onAnimationDone(event) {
+    if (event.toState === 'visible') {
+      this._trapFocus();
+    }
+    this._animationStateChanged.emit(event);
+  }
+  _onAnimationStart(event) {
+    this._animationStateChanged.emit(event);
+  }
+  _captureInitialFocus() {}
+  _toggleClass(cssClass, add) {
+    this._elementRef.nativeElement.classList.toggle(cssClass, add);
+  }
+  static {
+    this.ɵfac = function MatBottomSheetContainer_Factory(t) {
+      return new (t || MatBottomSheetContainer)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_3__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__.FocusTrapFactory), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_6__.DOCUMENT, 8), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__.DialogConfig), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__.InteractivityChecker), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_3__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__.OverlayRef), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.BreakpointObserver), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_3__.ChangeDetectorRef), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__.FocusMonitor));
+    };
+  }
+  static {
+    this.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
+      type: MatBottomSheetContainer,
+      selectors: [["mat-bottom-sheet-container"]],
+      hostAttrs: ["tabindex", "-1", 1, "mat-bottom-sheet-container"],
+      hostVars: 4,
+      hostBindings: function MatBottomSheetContainer_HostBindings(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsyntheticHostListener"]("@state.start", function MatBottomSheetContainer_animation_state_start_HostBindingHandler($event) {
+            return ctx._onAnimationStart($event);
+          })("@state.done", function MatBottomSheetContainer_animation_state_done_HostBindingHandler($event) {
+            return ctx._onAnimationDone($event);
+          });
+        }
+        if (rf & 2) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵattribute"]("role", ctx._config.role)("aria-modal", ctx._config.ariaModal)("aria-label", ctx._config.ariaLabel);
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsyntheticHostProperty"]("@state", ctx._animationState);
+        }
+      },
+      features: [_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵInheritDefinitionFeature"]],
+      decls: 1,
+      vars: 0,
+      consts: [["cdkPortalOutlet", ""]],
+      template: function MatBottomSheetContainer_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](0, MatBottomSheetContainer_ng_template_0_Template, 0, 0, "ng-template", 0);
+        }
+      },
+      dependencies: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_8__.CdkPortalOutlet],
+      styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"],
+      encapsulation: 2,
+      data: {
+        animation: [matBottomSheetAnimations.bottomSheetState]
+      }
+    });
+  }
+}
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵsetClassMetadata"](MatBottomSheetContainer, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Component,
+    args: [{
+      selector: 'mat-bottom-sheet-container',
+      changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_3__.ChangeDetectionStrategy.Default,
+      encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_3__.ViewEncapsulation.None,
+      animations: [matBottomSheetAnimations.bottomSheetState],
+      host: {
+        'class': 'mat-bottom-sheet-container',
+        'tabindex': '-1',
+        '[attr.role]': '_config.role',
+        '[attr.aria-modal]': '_config.ariaModal',
+        '[attr.aria-label]': '_config.ariaLabel',
+        '[@state]': '_animationState',
+        '(@state.start)': '_onAnimationStart($event)',
+        '(@state.done)': '_onAnimationDone($event)'
+      },
+      template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
+      styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"]
+    }]
+  }], function () {
+    return [{
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.ElementRef
+    }, {
+      type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__.FocusTrapFactory
+    }, {
+      type: undefined,
+      decorators: [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Optional
+      }, {
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Inject,
+        args: [_angular_common__WEBPACK_IMPORTED_MODULE_6__.DOCUMENT]
+      }]
+    }, {
+      type: _angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__.DialogConfig
+    }, {
+      type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__.InteractivityChecker
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.NgZone
+    }, {
+      type: _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__.OverlayRef
+    }, {
+      type: _angular_cdk_layout__WEBPACK_IMPORTED_MODULE_4__.BreakpointObserver
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.ChangeDetectorRef
+    }, {
+      type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_5__.FocusMonitor
+    }];
+  }, null);
+})();
+class MatBottomSheetModule {
+  static {
+    this.ɵfac = function MatBottomSheetModule_Factory(t) {
+      return new (t || MatBottomSheetModule)();
+    };
+  }
+  static {
+    this.ɵmod = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({
+      type: MatBottomSheetModule
+    });
+  }
+  static {
+    this.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({
+      imports: [_angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__.DialogModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_1__.MatCommonModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_8__.PortalModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_1__.MatCommonModule]
+    });
+  }
+}
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵsetClassMetadata"](MatBottomSheetModule, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule,
+    args: [{
+      imports: [_angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__.DialogModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_1__.MatCommonModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_8__.PortalModule],
+      exports: [MatBottomSheetContainer, _angular_material_core__WEBPACK_IMPORTED_MODULE_1__.MatCommonModule],
+      declarations: [MatBottomSheetContainer]
+    }]
+  }], null, null);
+})();
+
+/** Injection token that can be used to access the data that was passed in to a bottom sheet. */
+const MAT_BOTTOM_SHEET_DATA = new _angular_core__WEBPACK_IMPORTED_MODULE_3__.InjectionToken('MatBottomSheetData');
+/**
+ * Configuration used when opening a bottom sheet.
+ */
+class MatBottomSheetConfig {
+  constructor() {
+    /** Data being injected into the child component. */
+    this.data = null;
+    /** Whether the bottom sheet has a backdrop. */
+    this.hasBackdrop = true;
+    /** Whether the user can use escape or clicking outside to close the bottom sheet. */
+    this.disableClose = false;
+    /** Aria label to assign to the bottom sheet element. */
+    this.ariaLabel = null;
+    /** Whether this is a modal bottom sheet. Used to set the `aria-modal` attribute. */
+    this.ariaModal = true;
+    /**
+     * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+     * Note that this usually doesn't include clicking on links (unless the user is using
+     * the `HashLocationStrategy`).
+     */
+    this.closeOnNavigation = true;
+    // Note that this is set to 'dialog' by default, because while the a11y recommendations
+    // are to focus the first focusable element, doing so prevents screen readers from reading out the
+    // rest of the bottom sheet content.
+    /**
+     * Where the bottom sheet should focus on open.
+     * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
+     * AutoFocusTarget instead.
+     */
+    this.autoFocus = 'dialog';
+    /**
+     * Whether the bottom sheet should restore focus to the
+     * previously-focused element, after it's closed.
+     */
+    this.restoreFocus = true;
+  }
+}
+
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ */
+class MatBottomSheetRef {
+  /** Instance of the component making up the content of the bottom sheet. */
+  get instance() {
+    return this._ref.componentInstance;
+  }
+  constructor(_ref, config, containerInstance) {
+    this._ref = _ref;
+    /** Subject for notifying the user that the bottom sheet has opened and appeared. */
+    this._afterOpened = new rxjs__WEBPACK_IMPORTED_MODULE_9__.Subject();
+    this.containerInstance = containerInstance;
+    this.disableClose = config.disableClose;
+    // Emit when opening animation completes
+    containerInstance._animationStateChanged.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(event => event.phaseName === 'done' && event.toState === 'visible'), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      this._afterOpened.next();
+      this._afterOpened.complete();
+    });
+    // Dispose overlay when closing animation is complete
+    containerInstance._animationStateChanged.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(event => event.phaseName === 'done' && event.toState === 'hidden'), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(() => {
+      clearTimeout(this._closeFallbackTimeout);
+      this._ref.close(this._result);
+    });
+    _ref.overlayRef.detachments().subscribe(() => {
+      this._ref.close(this._result);
+    });
+    (0,rxjs__WEBPACK_IMPORTED_MODULE_12__.merge)(this.backdropClick(), this.keydownEvents().pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(event => event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_13__.ESCAPE))).subscribe(event => {
+      if (!this.disableClose && (event.type !== 'keydown' || !(0,_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_13__.hasModifierKey)(event))) {
+        event.preventDefault();
+        this.dismiss();
+      }
+    });
+  }
+  /**
+   * Dismisses the bottom sheet.
+   * @param result Data to be passed back to the bottom sheet opener.
+   */
+  dismiss(result) {
+    if (!this.containerInstance) {
+      return;
+    }
+    // Transition the backdrop in parallel to the bottom sheet.
+    this.containerInstance._animationStateChanged.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(event => event.phaseName === 'start'), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_11__.take)(1)).subscribe(event => {
+      // The logic that disposes of the overlay depends on the exit animation completing, however
+      // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+      // timeout which will clean everything up if the animation hasn't fired within the specified
+      // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+      // vast majority of cases the timeout will have been cleared before it has fired.
+      this._closeFallbackTimeout = setTimeout(() => {
+        this._ref.close(this._result);
+      }, event.totalTime + 100);
+      this._ref.overlayRef.detachBackdrop();
+    });
+    this._result = result;
+    this.containerInstance.exit();
+    this.containerInstance = null;
+  }
+  /** Gets an observable that is notified when the bottom sheet is finished closing. */
+  afterDismissed() {
+    return this._ref.closed;
+  }
+  /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
+  afterOpened() {
+    return this._afterOpened;
+  }
+  /**
+   * Gets an observable that emits when the overlay's backdrop has been clicked.
+   */
+  backdropClick() {
+    return this._ref.backdropClick;
+  }
+  /**
+   * Gets an observable that emits when keydown events are targeted on the overlay.
+   */
+  keydownEvents() {
+    return this._ref.keydownEvents;
+  }
+}
+
+/** Injection token that can be used to specify default bottom sheet options. */
+const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_3__.InjectionToken('mat-bottom-sheet-default-options');
+/**
+ * Service to trigger Material Design bottom sheets.
+ */
+class MatBottomSheet {
+  /** Reference to the currently opened bottom sheet. */
+  get _openedBottomSheetRef() {
+    const parent = this._parentBottomSheet;
+    return parent ? parent._openedBottomSheetRef : this._bottomSheetRefAtThisLevel;
+  }
+  set _openedBottomSheetRef(value) {
+    if (this._parentBottomSheet) {
+      this._parentBottomSheet._openedBottomSheetRef = value;
+    } else {
+      this._bottomSheetRefAtThisLevel = value;
+    }
+  }
+  constructor(_overlay, injector, _parentBottomSheet, _defaultOptions) {
+    this._overlay = _overlay;
+    this._parentBottomSheet = _parentBottomSheet;
+    this._defaultOptions = _defaultOptions;
+    this._bottomSheetRefAtThisLevel = null;
+    this._dialog = injector.get(_angular_cdk_dialog__WEBPACK_IMPORTED_MODULE_2__.Dialog);
+  }
+  open(componentOrTemplateRef, config) {
+    const _config = {
+      ...(this._defaultOptions || new MatBottomSheetConfig()),
+      ...config
+    };
+    let ref;
+    this._dialog.open(componentOrTemplateRef, {
+      ..._config,
+      // Disable closing since we need to sync it up to the animation ourselves.
+      disableClose: true,
+      // Disable closing on detachments so that we can sync up the animation.
+      closeOnOverlayDetachments: false,
+      maxWidth: '100%',
+      container: MatBottomSheetContainer,
+      scrollStrategy: _config.scrollStrategy || this._overlay.scrollStrategies.block(),
+      positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0'),
+      templateContext: () => ({
+        bottomSheetRef: ref
+      }),
+      providers: (cdkRef, _cdkConfig, container) => {
+        ref = new MatBottomSheetRef(cdkRef, _config, container);
+        return [{
+          provide: MatBottomSheetRef,
+          useValue: ref
+        }, {
+          provide: MAT_BOTTOM_SHEET_DATA,
+          useValue: _config.data
+        }];
+      }
+    });
+    // When the bottom sheet is dismissed, clear the reference to it.
+    ref.afterDismissed().subscribe(() => {
+      // Clear the bottom sheet ref if it hasn't already been replaced by a newer one.
+      if (this._openedBottomSheetRef === ref) {
+        this._openedBottomSheetRef = null;
+      }
+    });
+    if (this._openedBottomSheetRef) {
+      // If a bottom sheet is already in view, dismiss it and enter the
+      // new bottom sheet after exit animation is complete.
+      this._openedBottomSheetRef.afterDismissed().subscribe(() => ref.containerInstance?.enter());
+      this._openedBottomSheetRef.dismiss();
+    } else {
+      // If no bottom sheet is in view, enter the new bottom sheet.
+      ref.containerInstance.enter();
+    }
+    this._openedBottomSheetRef = ref;
+    return ref;
+  }
+  /**
+   * Dismisses the currently-visible bottom sheet.
+   * @param result Data to pass to the bottom sheet instance.
+   */
+  dismiss(result) {
+    if (this._openedBottomSheetRef) {
+      this._openedBottomSheetRef.dismiss(result);
+    }
+  }
+  ngOnDestroy() {
+    if (this._bottomSheetRefAtThisLevel) {
+      this._bottomSheetRefAtThisLevel.dismiss();
+    }
+  }
+  static {
+    this.ɵfac = function MatBottomSheet_Factory(t) {
+      return new (t || MatBottomSheet)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__.Overlay), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injector), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](MatBottomSheet, 12), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8));
+    };
+  }
+  static {
+    this.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+      token: MatBottomSheet,
+      factory: MatBottomSheet.ɵfac,
+      providedIn: MatBottomSheetModule
+    });
+  }
+}
+(function () {
+  (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵsetClassMetadata"](MatBottomSheet, [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable,
+    args: [{
+      providedIn: MatBottomSheetModule
+    }]
+  }], function () {
+    return [{
+      type: _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_7__.Overlay
+    }, {
+      type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injector
+    }, {
+      type: MatBottomSheet,
+      decorators: [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Optional
+      }, {
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.SkipSelf
+      }]
+    }, {
+      type: MatBottomSheetConfig,
+      decorators: [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Optional
+      }, {
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_3__.Inject,
+        args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS]
+      }]
+    }];
+  }, null);
+})();
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+
+/***/ }),
+
 /***/ 84175:
 /*!************************************************************!*\
   !*** ./node_modules/@angular/material/fesm2022/button.mjs ***!

@@ -33,6 +33,12 @@ $computers: 1200px;
 	z-index: 1000;
 
 	&__title-container {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 		cursor: pointer;
 		align-items: center;
 		color: #858585;
@@ -45,7 +51,7 @@ $computers: 1200px;
 		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
 
 		svg {
-			fill: #181818;
+			fill: #858585;
 			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
 		}
 

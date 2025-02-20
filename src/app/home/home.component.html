@@ -15,7 +15,7 @@
 						<div class="ripple ripple--96" *ngIf="!selectedAsset"></div>
 
 						<div class="home-balance-info" *ngIf="selectedAsset">
-							<h3 class="home-balance-amount">${{ selectedAsset.fiatBalance }}</h3>
+							<h3 class="home-balance-amount">{{ selectedAsset.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</h3>
 
 							<h4 class="stats">
 								<span
@@ -41,7 +41,9 @@
 									{{ 10 }}%
 								</span>
 
-								<span class="home-balance-price__text">${{ selectedAsset.price }} / 24hrs</span>
+								<span class="home-balance-price__text"
+									>{{ selectedAsset.price | currency : "USD" : "symbol" : "1.2-9" }} / 24hr
+								</span>
 							</h4>
 						</div>
 					</div>

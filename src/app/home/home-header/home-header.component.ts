@@ -1,8 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { ActivatedRoute, Router } from "@angular/router";
+
 import { ChromeService } from "app/chrome.service";
 import { Wallet } from "app/wallet";
 import { Subject, takeUntil } from "rxjs";
+
+import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header-accounts.component";
 
 @Component({
 	selector: "home-header",
@@ -10,7 +14,7 @@ import { Subject, takeUntil } from "rxjs";
 		<div class="home-header" *ngIf="shareables.wallet">
 			<div class="home-header__left home-header__container">&nbsp;</div>
 
-			<div class="home-header__center home-header__container" (click)="openAccountsPage()">
+			<div class="home-header__center home-header__container" (click)="openBottomSheet()">
 				<div class="home-header__title-container">
 					<h4 class="home-header__title pl-4" *ngIf="shareables.wallet.publicData">
 						{{ shareables.wallet.publicData.zelfName || "****.zelf" }}
@@ -85,7 +89,7 @@ export class HomeHeaderComponent implements OnInit, OnDestroy {
 	isSidePanel: boolean = false;
 	isPopOut: boolean = false;
 
-	constructor(private _router: Router, private route: ActivatedRoute, private _chromeService: ChromeService) {
+	constructor(private _router: Router, private route: ActivatedRoute, private _chromeService: ChromeService, private _bottomSheet: MatBottomSheet) {
 		this.view = "home";
 
 		this.isExtension = this._chromeService.isExtension;
@@ -108,6 +112,10 @@ export class HomeHeaderComponent implements OnInit, OnDestroy {
 
 	async openSidePanel(): Promise<void> {
 		this._chromeService.openSidePanel();
+	}
+
+	openBottomSheet(): void {
+		this._bottomSheet.open(HomeHeaderAccountsComponent, { panelClass: "bottom-sheet", data: this.shareables });
 	}
 
 	openAccountsPage(): void {

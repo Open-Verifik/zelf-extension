@@ -1,0 +1,53 @@
+<ng-container *transloco="let t">
+	<div class="home-header-accounts">
+		<button mat-flat-button mat-icon-button class="home-header-accounts__exit" (click)="close()">
+			<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z"
+				/>
+			</svg>
+		</button>
+
+		<div class="zelf-name">
+			<h4 class="zelf-name__title" *ngIf="shareables.wallet.publicData">
+				{{ shareables.wallet.publicData.zelfName || "****.zelf" }}
+			</h4>
+
+			<div class="zelf-name__icon">
+				<svg width="5" height="8" viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M0.499932 0.473185C0.239932 0.733185 0.239932 1.15319 0.499932 1.41319L3.0866 3.99985L0.499932 6.58652C0.239932 6.84652 0.239932 7.26652 0.499932 7.52652C0.759932 7.78652 1.17993 7.78652 1.43993 7.52652L4.49993 4.46652C4.75993 4.20652 4.75993 3.78652 4.49993 3.52652L1.43993 0.466518C1.1866 0.213185 0.759932 0.213185 0.499932 0.473185Z"
+					/>
+				</svg>
+			</div>
+		</div>
+
+		<div class="wallets">
+			<div class="wallets__item" (click)="close()">
+				<div class="wallets__item-avatar">{{ getItemFirstLetter(currentWallet) }}</div>
+
+				<p class="wallets__item-name">{{ currentWallet.name }}</p>
+			</div>
+
+			<ng-container *ngIf="wallets.length">
+				<div class="wallets__item" *ngFor="let wallet of wallets" (click)="switchWallet(wallet)">
+					<div class="wallets__item-avatar">
+						{{ getItemFirstLetter(wallet) }}
+					</div>
+
+					<h4 class="wallets__item-name">{{ wallet.name }}</h4>
+				</div>
+			</ng-container>
+
+			<div class="wallets__item" (click)="purchaseNewWallet()">
+				<div class="wallets__item-avatar wallets__item-avatar--bg-white">+</div>
+
+				<p class="wallets__item-name">{{ t("purchase") }}</p>
+			</div>
+		</div>
+
+		<div class="home-header-accounts__actions">
+			<button class="home-header-accounts__button" mat-flat-button>{{ t("manage_domains") }}</button>
+		</div>
+	</div>
+</ng-container>

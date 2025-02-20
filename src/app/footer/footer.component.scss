@@ -5,49 +5,52 @@ $large: 889px;
 $computers: 1200px;
 
 .footer {
-	padding: 0 16px;
 	align-items: center;
 	background: white;
 	bottom: 0;
 	display: inline-flex;
-	height: 40px;
+	height: 82px;
 	justify-content: center;
-	padding-bottom: 2px;
-	padding-top: 2px;
 	position: absolute;
-	width: calc(100% - 32px);
+	width: 100%;
 	z-index: 1000;
 }
 
 .footer-link {
 	align-items: center;
-	border-radius: 29px;
-	cursor: pointer;
 	display: flex;
 	flex: 1 1 0;
-	gap: 10px;
-	height: 29px;
+	gap: 12px;
 	justify-content: center;
-	padding-bottom: 2px;
-	padding-top: 2px;
-	transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+	padding: 8px 16px;
 
-	svg {
-		transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
-		fill: #c3c6cf;
-	}
-
-	&:hover:not(.footer-link--active) {
-		background-color: #f0d3d4;
+	&__button {
+		align-items: center;
+		border-radius: 56px;
+		cursor: pointer;
+		display: flex;
+		height: 56px;
+		justify-content: center;
+		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		width: 56px;
 
 		svg {
-			fill: black;
+			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+			fill: #c3c6cf;
 		}
-	}
 
-	&--active {
-		svg {
-			fill: black;
+		&:hover:not(.footer-link__button--active) {
+			background-color: #f0d3d4;
+
+			svg {
+				fill: black;
+			}
+		}
+
+		&--active {
+			svg {
+				fill: black;
+			}
 		}
 	}
 }

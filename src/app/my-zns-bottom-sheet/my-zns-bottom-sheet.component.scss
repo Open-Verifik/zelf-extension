@@ -1,0 +1,119 @@
+:host {
+	position: relative;
+	display: block;
+	padding: 16px;
+}
+
+.my-zns {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+
+	&__exit {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 8px;
+		min-height: 32px;
+		min-width: 32px;
+		width: 32px;
+		height: 32px;
+		padding: 8px;
+		border-radius: 9999px;
+		background-color: transparent;
+		cursor: pointer;
+		outline: none;
+		border: none;
+		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+
+		svg {
+			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+			fill: #181818;
+		}
+
+		&:hover {
+			background-color: #b589f0;
+			color: white;
+
+			svg {
+				fill: white;
+			}
+		}
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__icon {
+		margin-top: 56px;
+	}
+
+	&__title {
+		font-size: 18px;
+		font-weight: 600;
+		font-family: Menda;
+		color: #181818;
+		text-transform: uppercase;
+		margin: 0;
+	}
+
+	&__text {
+		font-size: 14px;
+		margin: 0;
+	}
+
+	&__actions {
+		width: 100%;
+		margin-top: 16px;
+		display: flex;
+		gap: 8px;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__button {
+		align-items: center;
+		border-radius: 16px;
+		cursor: pointer;
+		display: inline-flex;
+		gap: 8px;
+		justify-content: center;
+		padding: 12px 16px;
+		height: 56px;
+		font-weight: 600;
+		transition: background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		user-select: none;
+		width: 100%;
+
+		&--black {
+			background-color: #181818 !important;
+			color: white !important;
+
+			&:focus,
+			&:hover {
+				background-color: #000000 !important;
+			}
+		}
+
+		&--outlined {
+			background-color: white !important;
+			color: #181818 !important;
+			border: 1px solid #181818 !important;
+
+			&:focus,
+			&:hover {
+				background-color: #f5f5f5 !important;
+			}
+		}
+	}
+}

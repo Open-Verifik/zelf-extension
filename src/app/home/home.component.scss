@@ -14,7 +14,7 @@ $computers: 1200px;
 .app-content {
 	position: absolute;
 	top: 76px;
-	bottom: 40px;
+	bottom: 82px;
 	width: 100%;
 	overflow: auto;
 }
@@ -27,9 +27,8 @@ $computers: 1200px;
 	display: inline-flex;
 	gap: 6px;
 	height: 76px;
-	padding: 0 16px;
 	justify-content: space-between;
-	width: calc(100% - 32px);
+	width: 100%;
 	z-index: 1000;
 
 	&__title-container {

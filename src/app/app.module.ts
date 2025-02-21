@@ -25,6 +25,7 @@ import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 import { WebcamModule } from "ngx-webcam";
 
+import { TranslocoModule } from "@ngneat/transloco";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BiometricsGeneralComponent } from "./biometrics-general/biometrics.component";
@@ -60,6 +61,8 @@ import { NewNameCardComponent } from "./new-name-card/new-name-card.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
 import { DiscountPipe } from "./pipes/discount.pipe";
+import { FirstLetterPipe } from "./pipes/first-letter.pipe";
+import { ZelfNamePipe } from "./pipes/zelf-name.pipe";
 import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
 import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
 import { SendTransactionPreviewComponent } from "./send-transaction/send-transaction-preview/send-transaction-preview.component";
@@ -147,10 +150,14 @@ import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.com
 		MatSnackBarModule,
 		MatDividerModule,
 		MatProgressBarModule,
+		TranslocoModule,
 		DiscountPipe,
+		FirstLetterPipe,
+		ZelfNamePipe,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
+	exports: [],
 })
 export class AppModule {
 	constructor(private router: Router) {

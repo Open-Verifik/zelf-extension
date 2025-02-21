@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .card-container {
 	cursor: pointer;
 	display: inline-flex;
@@ -42,12 +44,14 @@
 
 .text-container {
 	gap: 6px;
-	width: 45%;
+	display: inline-flex;
+	flex: 1 1 auto;
 }
 
 .amount-container {
-	width: 30%;
 	gap: 10px;
+	display: inline-flex;
+	flex: 1 1 auto;
 }
 
 .status-text {
@@ -94,7 +98,7 @@
 
 .token-card {
 	&__symbol {
-		color: #181818;
+		color: $black;
 		font-weight: semibold;
 		font-size: 14px;
 		line-height: 20px;
@@ -102,7 +106,7 @@
 	}
 
 	&__network {
-		color: #73777f;
+		color: $gray;
 		font-weight: normal;
 		font-size: 12px;
 		line-height: 20px;
@@ -110,7 +114,7 @@
 	}
 
 	&__balance {
-		color: #73777f;
+		color: $gray;
 		font-weight: semibold;
 		font-size: 14px;
 		line-height: 20px;

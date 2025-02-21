@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .new-zelf-inner-card-1 {
 	margin: 16px;
 	width: 100%;
@@ -5,7 +7,7 @@
 
 .zns-status-label {
 	border-radius: 8px;
-	background: #e7f8ed;
+	background: $correctLight;
 	margin: 2px;
 	padding: 2px 6px;
 	font-size: 12px;

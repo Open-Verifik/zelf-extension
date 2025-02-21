@@ -20,6 +20,7 @@ import { LoginGuard } from "./login.guard";
 import { OnboardingGuard } from "./onboarding.guard";
 import { ManageDomainComponent } from "./manage-domain/manage-domain.component";
 import { WalletComponent } from "./wallet/wallet.component";
+import { ManageDomainsComponent } from "./manage-domains/manage-domains.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -38,7 +39,12 @@ const routes: Routes = [
 		component: ImportWalletComponent,
 	},
 	{
-		path: "manage-domain",
+		path: "manage-domains",
+		component: ManageDomainsComponent,
+	},
+	{
+		path: "domain",
+		pathMatch: "prefix",
 		component: ManageDomainComponent,
 	},
 	{

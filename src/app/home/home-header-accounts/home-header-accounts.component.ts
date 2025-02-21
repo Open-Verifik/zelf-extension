@@ -5,12 +5,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
+import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
+import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 
 @Component({
 	selector: "home-header-accounts",
 	standalone: true,
-	imports: [NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink],
+	imports: [NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink, ZelfNamePipe, FirstLetterPipe],
 	templateUrl: "./home-header-accounts.component.html",
 	styleUrls: ["./home-header-accounts.component.scss"],
 })

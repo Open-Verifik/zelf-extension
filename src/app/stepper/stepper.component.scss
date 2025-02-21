@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .stepper-container {
 	display: flex;
 	flex-direction: column;
@@ -46,7 +48,7 @@
 
 .status-label {
 	border-radius: 12px;
-	background: #e7f8ed;
+	background: $correctLight;
 	padding: 6px;
 	font-size: 14px;
 }

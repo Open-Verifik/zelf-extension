@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 :host {
 	position: relative;
 	display: block;
@@ -27,11 +29,11 @@
 		border: none;
 		border-radius: 9999px;
 		background-color: transparent;
-		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
 		svg {
-			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
-			fill: #181818;
+			transition: fill 0.3s $smoothBezier;
+			fill: $black;
 		}
 
 		&:hover {
@@ -54,11 +56,6 @@
 	}
 
 	&__button {
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
 		user-select: none;
 		background-color: black !important;
 		border-radius: 8px;
@@ -66,7 +63,7 @@
 		color: white !important;
 		max-width: 400px;
 		padding: 12px 16px;
-		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 		width: 100%;
 
 		&:hover {
@@ -77,15 +74,10 @@
 }
 
 .zelf-name {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	cursor: pointer;
 	align-items: center;
-	color: #181818;
+	color: $black;
 	display: inline-flex;
 	gap: 8px;
 	justify-content: center;
@@ -93,11 +85,11 @@
 	border-radius: 36px;
 	padding: 0 16px;
 	margin: 42px auto 0;
-	transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+	transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
 	svg {
-		fill: #181818;
-		transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		fill: $black;
+		transition: fill 0.3s $smoothBezier;
 	}
 
 	&:hover {
@@ -114,8 +106,8 @@
 	}
 
 	svg {
-		fill: #181818;
-		transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		fill: $black;
+		transition: fill 0.3s $smoothBezier;
 	}
 
 	&__title {
@@ -130,23 +122,18 @@
 		height: 14px;
 		width: 14px;
 		border-radius: 14px;
-		background-color: #eeedf1;
+		background-color: $antiFlashWhite;
 		align-items: center;
 		display: inline-flex;
 		justify-content: center;
 
 		svg {
-			fill: #181818;
+			fill: $black;
 		}
 	}
 }
 
 .wallets {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	margin-top: 16px;
 	display: inline-flex;
@@ -156,7 +143,7 @@
 	gap: 8px;
 
 	&__item {
-		background-color: #eeedf1;
+		background-color: $antiFlashWhite;
 		border-radius: 8px;
 		display: inline-flex;
 		flex-direction: column;
@@ -165,7 +152,7 @@
 		gap: 4px;
 		padding: 6px;
 		cursor: pointer;
-		transition: background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		transition: background-color 0.3s $smoothBezier;
 
 		&:hover {
 			background-color: #b589f0;
@@ -193,9 +180,9 @@
 			height: 72px;
 			width: 72px;
 			border-radius: 72px;
-			background-color: #73777f;
+			background-color: $gray;
 			color: white;
-			transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+			transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
 			&--bg-white {
 				background-color: white;
@@ -206,7 +193,7 @@
 		&-name {
 			font-size: 12px;
 			font-weight: 600;
-			color: #181818;
+			color: $black;
 			margin-top: 4px;
 			margin-bottom: 0;
 		}

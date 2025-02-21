@@ -72,6 +72,9 @@ import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
 import { UwPasswordStepComponent } from "./unlock-wallet/uw-password-step/uw-password-step.component";
 import { UwSearchWalletComponent } from "./unlock-wallet/uw-search-wallet/uw-search-wallet.component";
 import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.component";
+import { ZelfNamePipe } from "./pipes/zelf-name.pipe";
+import { FirstLetterPipe } from "./pipes/first-letter.pipe";
+import { TranslocoModule } from "@ngneat/transloco";
 
 @NgModule({
 	declarations: [
@@ -146,9 +149,13 @@ import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.com
 		MatSnackBarModule,
 		MatDividerModule,
 		MatProgressBarModule,
+		FirstLetterPipe,
+		ZelfNamePipe,
+		TranslocoModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
+	exports: [],
 })
 export class AppModule {
 	constructor(private router: Router) {

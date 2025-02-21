@@ -1,8 +1,4 @@
-$maxExtraSmall: 595px;
-$minSmall: 600px;
-$medium: 768px;
-$large: 889px;
-$computers: 1200px;
+@import "../../styles/variables";
 
 .home-main {
 	position: relative;
@@ -32,11 +28,6 @@ $computers: 1200px;
 	z-index: 1000;
 
 	&__title-container {
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
 		user-select: none;
 		cursor: pointer;
 		align-items: center;
@@ -47,11 +38,11 @@ $computers: 1200px;
 		height: 42px;
 		border-radius: 36px;
 		padding: 0 16px;
-		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
 		svg {
 			fill: #858585;
-			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+			transition: fill 0.3s $smoothBezier;
 		}
 
 		&:hover {
@@ -328,18 +319,18 @@ $computers: 1200px;
 .home-action-icon {
 	height: 60px;
 	width: 60px;
-	background: #eeedf1;
+	background: $antiFlashWhite;
 	border-radius: 60px;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 	gap: 8px;
 	cursor: pointer;
-	transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+	transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
 	svg {
-		fill: #181818;
-		transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		fill: $black;
+		transition: fill 0.3s $smoothBezier;
 	}
 
 	&:hover {

@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
 	padding-top: 55px;
 	box-sizing: content-box;
@@ -119,7 +121,7 @@ input {
 	height: 150px;
 	padding: 16px;
 	border-radius: 16px;
-	border: 1px solid #e3e3e3;
+	border: 1px solid $platinum;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
@@ -144,11 +146,11 @@ input {
 	position: absolute;
 	top: 2px;
 	left: 2px;
-	background: #1ea446;
+	background: $correct;
 }
 
 .st-send-transaction-title {
-	color: #181818;
+	color: $black;
 	font-size: 14px;
 	font-family: Poppins, sans-serif;
 	font-weight: 600;
@@ -160,7 +162,7 @@ input {
 .st-send-transaction-divider {
 	width: 100%;
 	height: 1px;
-	background: #e3e3e3;
+	background: $platinum;
 }
 
 .st-send-transaction-content {
@@ -188,11 +190,11 @@ input {
 	position: absolute;
 	top: 1.33px;
 	left: 1.33px;
-	background: #181818;
+	background: $black;
 }
 
 .st-send-transaction-query-text {
-	color: #181818;
+	color: $black;
 	font-size: 11px;
 	font-family: Poppins, sans-serif;
 	font-weight: 600;
@@ -201,7 +203,7 @@ input {
 }
 
 .st-send-transaction-description {
-	color: #181818;
+	color: $black;
 	opacity: 0.7;
 	font-size: 11px;
 	font-family: Poppins, sans-serif;
@@ -215,7 +217,7 @@ input {
 	width: 100%;
 	height: 50px;
 	border-radius: 8px;
-	border: 1px solid #181818;
+	border: 1px solid $black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -236,7 +238,7 @@ input {
 }
 
 .st-send-transaction-button-text {
-	color: #181818;
+	color: $black;
 	font-size: 14px;
 	font-family: Poppins, sans-serif;
 	font-weight: 500;

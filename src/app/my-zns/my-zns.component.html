@@ -26,8 +26,10 @@
 		</div>
 
 		<div class="my-zns__actions">
-			<button class="my-zns__button my-zns__button--outlined" mat-flat-button (click)="close()">{{ t("dont_show_me_again") }}</button>
-			<button class="my-zns__button my-zns__button--black" mat-flat-button (click)="close()">{{ t("accept_and_go") }}</button>
+			<button class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button (click)="close()">
+				{{ t("dont_show_me_again") }}
+			</button>
+			<button class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button (click)="close()">{{ t("accept_and_go") }}</button>
 		</div>
 	</div>
 </ng-container>

@@ -1,8 +1,4 @@
-$maxExtraSmall: 595px;
-$minSmall: 600px;
-$medium: 768px;
-$large: 889px;
-$computers: 1200px;
+@import "../../styles/variables.scss";
 
 .footer {
 	align-items: center;
@@ -31,12 +27,12 @@ $computers: 1200px;
 		display: flex;
 		height: 56px;
 		justify-content: center;
-		transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 		width: 56px;
 
 		svg {
-			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
-			fill: #c3c6cf;
+			transition: fill 0.3s $smoothBezier;
+			fill: $frenchGray;
 		}
 
 		&:hover:not(.footer-link__button--active) {

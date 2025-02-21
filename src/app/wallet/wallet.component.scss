@@ -1,7 +1,11 @@
+@import "../../styles/variables";
+@import "../../styles/buttons";
+
 :host {
-	background-color: #f9f9fc;
+	background-color: $seaSalt;
 	display: block;
 	padding: 16px;
+	min-height: calc(100vh - 32px);
 
 	* {
 		box-sizing: border-box;
@@ -54,6 +58,7 @@
 		justify-content: center;
 		align-items: center;
 		gap: 8px;
+		outline: none;
 		cursor: pointer;
 		user-select: none;
 		border-radius: 52px;
@@ -61,12 +66,12 @@
 		width: 52px;
 		min-height: 52px;
 		min-width: 52px;
-		background-color: #eeedf1 !important;
-		transition: background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+		background-color: $antiFlashWhite !important;
+		transition: background-color 0.3s $smoothBezier;
 
 		svg {
-			transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
-			fill: #181818;
+			transition: fill 0.3s $smoothBezier;
+			fill: $black;
 		}
 
 		&:hover {
@@ -88,7 +93,7 @@
 		font-size: 14px;
 		font-weight: 500;
 		color: white;
-		background-color: #181818;
+		background-color: $black;
 		margin: 0;
 
 		&--active {
@@ -105,7 +110,7 @@
 		font-size: 20px;
 		font-weight: 400;
 		font-family: Menda;
-		color: #181818;
+		color: $black;
 		margin: 0;
 	}
 
@@ -127,7 +132,7 @@
 
 		&-button {
 			align-items: center;
-			background-color: #eeedf1 !important;
+			background-color: $antiFlashWhite !important;
 			border-radius: 16px;
 			border: none;
 			cursor: pointer;
@@ -137,13 +142,13 @@
 			min-height: 56px;
 			min-width: 56px;
 			outline: none;
-			transition: background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+			transition: background-color 0.3s $smoothBezier;
 			user-select: none;
 			width: 56px;
 
 			svg {
-				transition: fill 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
-				fill: #181818;
+				transition: fill 0.3s $smoothBezier;
+				fill: $black;
 			}
 
 			&:hover {
@@ -161,7 +166,7 @@
 			font-size: 11px;
 			font-weight: 500;
 			font-family: Poppins;
-			color: #181818;
+			color: $black;
 			margin: 0;
 		}
 	}
@@ -170,7 +175,7 @@
 		font-size: 18px;
 		font-weight: 600;
 		font-family: Poppins;
-		color: #181818;
+		color: $black;
 		margin: 0;
 		text-align: center;
 	}
@@ -197,21 +202,29 @@
 		gap: 4px;
 		justify-content: space-between;
 		align-items: center;
-		background-color: #eeedf1;
+		background-color: $antiFlashWhite;
 		padding: 24px 16px;
 		border-radius: 16px;
 
 		&-title {
 			margin: 0;
 			font-size: 14px;
-			color: #73777f;
+			color: $gray;
 		}
 
 		&-value {
 			margin: 0;
 			font-size: 14px;
-			color: #181818;
+			color: $black;
 		}
+	}
+
+	&__addresses {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		width: 100%;
+		margin-top: 12px;
 	}
 
 	&__actions {
@@ -221,47 +234,12 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
-	}
-
-	&__action {
-		align-items: center;
-		border-radius: 16px;
-		cursor: pointer;
-		display: inline-flex;
-		gap: 8px;
-		justify-content: center;
-		padding: 12px 16px;
-		height: 56px;
-		font-weight: 600;
-		transition: background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
-		user-select: none;
-		width: 100%;
-
-		&--black {
-			background-color: #181818 !important;
-			color: white !important;
-
-			&:focus,
-			&:hover {
-				background-color: #000000 !important;
-			}
-		}
-
-		&--outlined {
-			background-color: white !important;
-			color: #181818 !important;
-			border: 1px solid #181818 !important;
-
-			&:focus,
-			&:hover {
-				background-color: #f5f5f5 !important;
-			}
-		}
+		margin-top: 12px;
 	}
 }
 
 .qr-code {
-	border: 1px solid #e3e3e3;
+	border: 1px solid $platinum;
 	border-radius: 16px;
 	display: flex;
 	justify-content: center;
@@ -276,5 +254,44 @@
 		max-width: 196px;
 		max-height: 196px;
 		width: 100%;
+	}
+}
+
+.crypto-address {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: $white;
+	border: 1px solid $platinum;
+	border-radius: 16px;
+	padding: 16px;
+	box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+
+	&__col {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		justify-content: center;
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	&__text {
+		font-size: 14px;
+		font-weight: 600;
+		font-family: Poppins;
+		color: $black;
+		margin: 0;
+	}
+
+	&__masked-text {
+		font-size: 11px;
+		font-weight: 500;
+		font-family: Poppins;
+		color: $black;
+		margin: 0;
 	}
 }

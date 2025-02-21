@@ -17,7 +17,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
 			<div class="home-header__center home-header__container" (click)="openBottomSheet()">
 				<div class="home-header__title-container">
 					<h4 class="home-header__title" *ngIf="shareables.wallet.publicData">
-						{{ shareables.wallet.publicData.zelfName || "****.zelf" }}
+						{{ shareables.wallet.publicData.zelfName | zelfName }}
 					</h4>
 
 					<svg class="home-header__dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

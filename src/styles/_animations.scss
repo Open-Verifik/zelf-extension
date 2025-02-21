@@ -1,9 +1,4 @@
 .animated-tabs {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	border-radius: 37px;
 	width: 100%;
@@ -23,7 +18,7 @@
 		}
 
 		&:after {
-			background-color: #eeedf1;
+			background-color: $antiFlashWhite;
 			border-radius: 27.5px;
 			box-sizing: border-box;
 			content: "";
@@ -48,7 +43,7 @@
 			transition: color 200ms;
 			width: 50%;
 			z-index: 1;
-			transition: color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1), background-color 0.3s cubic-bezier(0.25, 0.4, 0.7, 1);
+			transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
 			&:hover:not(.animated-tab--active) {
 				background-color: #f0d3d4;

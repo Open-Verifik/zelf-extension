@@ -1,17 +1,19 @@
-import { CommonModule, NgIf } from "@angular/common";
+import { CommonModule, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { RouterLink, RouterModule } from "@angular/router";
+import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
-import { MyZnsBottomSheetComponent } from "app/my-zns-bottom-sheet/my-zns-bottom-sheet.component";
+import { MyZnsComponent } from "app/my-zns/my-zns.component";
+import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { WalletModel } from "app/wallet";
 
 @Component({
 	selector: "app-wallet",
 	standalone: true,
-	imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink],
+	imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, NgTemplateOutlet, MatSnackBarModule],
 	templateUrl: "./wallet.component.html",
 	styleUrls: ["./wallet.component.scss"],
 })
@@ -19,8 +21,18 @@ export class WalletComponent {
 	wallet: Partial<WalletModel> = {};
 	wallets: WalletModel[] = [];
 	loading: boolean = false;
+	copyToClipboardText: string;
+	copyToClipboardActionText: string;
 
-	constructor(private _chromeService: ChromeService, private _bottomSheet: MatBottomSheet) {}
+	constructor(
+		private _bottomSheet: MatBottomSheet,
+		private _chromeService: ChromeService,
+		private _snackBar: MatSnackBar,
+		private _translocoService: TranslocoService
+	) {
+		this.copyToClipboardText = this._translocoService.translate("copied_to_clipboard");
+		this.copyToClipboardActionText = this._translocoService.translate("close");
+	}
 
 	ngOnInit(): void {
 		this._setWallets().then(() => {
@@ -44,10 +56,13 @@ export class WalletComponent {
 		this.wallet = wallet;
 	}
 
-	openMyZnsBottomSheet(): void {
-		this._bottomSheet.open(MyZnsBottomSheetComponent, {
-			backdropClass: "zelf-backdrop",
-			panelClass: "zelf-bottom-sheet",
+	async copyToClipboard(value: string): Promise<void> {
+		await this._chromeService.copyToClipboard(value);
+
+		this._snackBar.open(this.copyToClipboardText, this.copyToClipboardActionText, {
+			duration: 2000,
+			panelClass: "zelf-snackbar",
+			verticalPosition: "top",
 		});
 	}
 
@@ -57,5 +72,19 @@ export class WalletComponent {
 		}
 
 		return "expired";
+	}
+
+	openPrivateKeyBottomSheet(): void {
+		this._bottomSheet.open(PrivateKeyComponent, {
+			backdropClass: "zelf-backdrop",
+			panelClass: "zelf-bottom-sheet",
+		});
+	}
+
+	openMyZnsBottomSheet(): void {
+		this._bottomSheet.open(MyZnsComponent, {
+			backdropClass: "zelf-backdrop",
+			panelClass: "zelf-bottom-sheet",
+		});
 	}
 }

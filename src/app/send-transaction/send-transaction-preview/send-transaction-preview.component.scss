@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
 	/* Your custom styles here */
 	padding-top: 55px;
@@ -139,7 +141,7 @@
 	align-items: center;
 	display: inline-flex;
 	padding: 6px;
-	background-color: #e3e3e394;
+	background-color: $platinum;
 }
 
 .amount-input-box {

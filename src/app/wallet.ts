@@ -83,14 +83,12 @@ export class WalletModel implements Wallet {
 	constructor(data: any = {}) {
 		this.anonymous = data.anonymous || true;
 
-		const secondaryStorage = data.publicData || data.cleartext_data || data.metadata?.keyvalues || {};
+		const secondaryStorage = data.publicData || data.cleartext_data || data.metadata?.keyvalues || data.metadata || {};
 
 		this.name = data.name || data.zelfName || secondaryStorage.zelfName;
-
 		this.ethAddress = data.ethAddress || secondaryStorage.ethAddress;
 
 		this.displayEthAddress = "";
-
 		this.displaySolanaAddress = "";
 
 		if (this.ethAddress) {
@@ -104,6 +102,7 @@ export class WalletModel implements Wallet {
 		if (this.solanaAddress) {
 			const firstPart = this.solanaAddress.slice(0, 8);
 			const lastPart = this.solanaAddress.slice(-6);
+
 			this.displaySolanaAddress = `${firstPart}...${lastPart}`;
 		}
 

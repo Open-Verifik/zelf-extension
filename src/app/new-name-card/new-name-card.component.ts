@@ -123,6 +123,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 									/>
 								</mat-form-field>
 							</div>
+
 							<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
 								<span class="zpan"> .zelf </span>
 							</div>

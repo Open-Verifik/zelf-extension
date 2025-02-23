@@ -1,44 +1,41 @@
 <div class="w-full h-full main-bg" fxLayout="column" fxLayoutAlign="start center">
-	<!-- <header class="w-full"></header> -->
-	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
-		<img src="../../assets/images/full_logo_zns.svg" alt="" class="cursor-pointer zns-logo" (click)="goBack()" />
+    <div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
+        <img src="../../assets/images/full_logo_zns.svg" alt="" class="cursor-pointer zns-logo" (click)="goBack()" />
 
-		<language-picker></language-picker>
-	</div>
+        <language-picker></language-picker>
+    </div>
 
-	<div fxLayout="row" fxLayoutAlign="start center">
-		<app-stepper [stepsArray]="session.steps" [hideBackButton]="canSeeQRCode(2)">
-			<app-step
-				*ngFor="let step of session.steps; index as i"
-				[step]="step"
-				[isActive]="step.isActive"
-				[isCompleted]="step.isCompleted"
-				[label]="step.label"
-				[isStatus]="step.isStatus"
-				[isHidden]="step.isHidden"
-			>
-				<ng-container *ngIf="canSeeSearchStep(i)">
-					<uw-search-wallet></uw-search-wallet>
-				</ng-container>
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <app-stepper [stepsArray]="session.steps" [hideBackButton]="canSeeQRCode(2)">
+            <app-step
+                *ngFor="let step of session.steps; index as i"
+                [step]="step"
+                [isActive]="step.isActive"
+                [isCompleted]="step.isCompleted"
+                [label]="step.label"
+                [isStatus]="step.isStatus"
+                [isHidden]="step.isHidden"
+            >
+                <ng-container *ngIf="canSeeSearchStep(i)">
+                    <uw-search-wallet></uw-search-wallet>
+                </ng-container>
 
-				<ng-container *ngIf="canSeePasswordStep(i)">
-					<uw-password-step></uw-password-step>
-				</ng-container>
+                <ng-container *ngIf="canSeePasswordStep(i)">
+                    <uw-password-step></uw-password-step>
+                </ng-container>
 
-				<div *ngIf="canSeeBiometricInstructionsStep(i)">
-					<biometric-instructions> ...</biometric-instructions>
-				</div>
+                <div *ngIf="canSeeBiometricInstructionsStep(i)">
+                    <biometric-instructions></biometric-instructions>
+                </div>
 
-				<ng-container *ngIf="canSeeBiometricStep(i)">
-					<biometrics-general [type]="'decryptWallet'" [data]="session"> </biometrics-general>
-				</ng-container>
+                <ng-container *ngIf="canSeeBiometricStep(i)">
+                    <biometrics-general [type]="'decryptWallet'" [data]="session"> </biometrics-general>
+                </ng-container>
 
-				<ng-container *ngIf="canSeeQRCode(i)">
-					<view-created-wallet-qr-code [walletType]="'unlockWallet'"> </view-created-wallet-qr-code>
-				</ng-container>
-			</app-step>
-		</app-stepper>
-	</div>
+                <ng-container *ngIf="canSeeQRCode(i)">
+                    <view-created-wallet-qr-code [walletType]="'unlockWallet'"> </view-created-wallet-qr-code>
+                </ng-container>
+            </app-step>
+        </app-stepper>
+    </div>
 </div>
-
-<!-- <footer class="w-full pt-10"></footer> -->

@@ -3,16 +3,21 @@ import { type CanActivateFn } from "@angular/router";
 import { ChromeService } from "./chrome.service";
 
 export const OnboardingGuard: CanActivateFn = async (route) => {
-	const _chromeService = inject(ChromeService);
+    const _chromeService = inject(ChromeService);
 
-	const isPopout = _chromeService.isPopOut;
-	const isSidePanel = _chromeService.isSidePanel;
+    const isExtension = _chromeService.isExtension;
+    const isPopout = _chromeService.isPopOut;
+    const isSidePanel = _chromeService.isSidePanel;
 
-	if (isPopout || isSidePanel) {
-		_chromeService.openFullPage("onboarding");
+    if (isExtension) {
+        if (isPopout || isSidePanel) {
+            _chromeService.openFullPage("onboarding");
 
-		return false;
-	}
+            return false;
+        }
 
-	return true;
+        return true;
+    }
+
+    return true;
 };

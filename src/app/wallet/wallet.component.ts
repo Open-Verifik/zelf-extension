@@ -7,13 +7,14 @@ import { RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
 import { MyZnsComponent } from "app/my-zns/my-zns.component";
+import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { WalletModel } from "app/wallet";
 
 @Component({
 	selector: "app-wallet",
 	standalone: true,
-	imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, NgTemplateOutlet, MatSnackBarModule],
+	imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, NgTemplateOutlet, MatSnackBarModule, ZelfNamePipe],
 	templateUrl: "./wallet.component.html",
 	styleUrls: ["./wallet.component.scss"],
 })
@@ -64,6 +65,14 @@ export class WalletComponent {
 			panelClass: "zelf-snackbar",
 			verticalPosition: "top",
 		});
+	}
+
+	downloadQRCode(): void {
+		const link = document.createElement("a");
+
+		link.href = this.wallet.image as string;
+		link.download = `zelfproof_${this.wallet.publicData?.zelfName}.png`;
+		link.click();
 	}
 
 	getWalletStatus(): string {

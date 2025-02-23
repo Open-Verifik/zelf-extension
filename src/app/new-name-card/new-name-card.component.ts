@@ -34,6 +34,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 								fill="#E2E2E6"
 							/>
 						</svg>
+
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -49,6 +50,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 								fill="#181818"
 							/>
 						</svg>
+
 						<h2 *ngIf="duration <= 5" class="p-1">
 							{{ duration }} {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}
 						</h2>
@@ -115,6 +117,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 									/>
 								</mat-form-field>
 							</div>
+
 							<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
 								<span class="zpan"> .zelf </span>
 							</div>

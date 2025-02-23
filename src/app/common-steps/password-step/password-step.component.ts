@@ -11,6 +11,7 @@ import { environment } from "environments/environment";
 })
 export class PasswordStepComponent implements OnInit {
 	@ViewChild("passwordNgForm") passwordNgForm!: NgForm;
+
 	passwordForm!: UntypedFormGroup;
 	loading: boolean = false;
 	session: any;
@@ -21,6 +22,7 @@ export class PasswordStepComponent implements OnInit {
 
 	ngOnInit(): void {
 		const defaultPassword = environment.production ? "" : "SamePassword123";
+
 		this.passwordForm = this._formBuilder.group({
 			password: [defaultPassword, []],
 			repeatPassword: [defaultPassword, []],
@@ -43,7 +45,7 @@ export class PasswordStepComponent implements OnInit {
 
 	async addPassword(): Promise<any> {
 		this.loading = true;
-		// get it from the form
+
 		const password = this.passwordForm.value.password;
 
 		this.session.password = await this._httpWrapperService.encryptMessage(password);
@@ -55,7 +57,6 @@ export class PasswordStepComponent implements OnInit {
 
 	_moveForward(): void {
 		this.session.showBiometrics = false;
-
 		this.session.showBiometricsInstructions = true;
 
 		this._walletService.goToNextStep(this.session.step + 1);

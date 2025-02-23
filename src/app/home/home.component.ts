@@ -9,195 +9,193 @@ import { SolanaService } from "app/solana.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 
 @Component({
-	selector: "app-home",
-	templateUrl: "./home.component.html",
-	styleUrls: ["./home.component.scss", "../main.scss"],
+    selector: "app-home",
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.scss", "../main.scss"],
 })
 export class HomeComponent implements OnInit {
-	scanImplemented: boolean = false;
+    activity!: Array<ETHTransaction>;
+    balances: any;
+    balancesLoaded: boolean = false;
+    NFTs!: Array<any>;
+    scanImplemented: boolean = false;
+    selectedAsset!: Asset;
+    selectedNetwork!: string;
+    shareables: any;
+    tokens!: Array<any>;
+    view?: string;
+    wallet!: Wallet;
+    wallets!: Array<Wallet>;
 
-	activity!: Array<ETHTransaction>;
-	balances: any;
-	balancesLoaded: boolean = false;
-	NFTs!: Array<any>;
-	selectedAsset!: Asset;
-	selectedNetwork!: string;
-	shareables: any;
-	tokens!: Array<any>;
-	view?: string;
-	wallet!: Wallet;
-	wallets!: Array<Wallet>;
+    constructor(
+        private _router: Router,
+        private route: ActivatedRoute,
+        private _ethService: EthereumService,
+        private _chromeService: ChromeService,
+        private _blockchainNetworkService: BlockchainNetworksService,
+        private _solanaService: SolanaService
+    ) {
+        this.balances = {};
+        this.view = this.route.snapshot.queryParamMap.get("view") || "home";
 
-	constructor(
-		private _router: Router,
-		private route: ActivatedRoute,
-		private _ethService: EthereumService,
-		private _chromeService: ChromeService,
-		private _blockchainNetworkService: BlockchainNetworksService,
-		private _solanaService: SolanaService
-	) {
-		this.balances = {};
+        this.shareables = {
+            selectedTab: "assets",
+            view: this.view,
+            wallet: {},
+        };
 
-		this.view = this.route.snapshot.queryParamMap.get("view") || "home";
+        this.NFTs = [];
+        this.tokens = [];
 
-		this.shareables = {
-			selectedTab: "assets",
-			view: this.view,
-			wallet: {},
-		};
+        localStorage.removeItem("unlockWallet");
+    }
 
-		this.NFTs = [];
-		this.tokens = [];
+    async ngOnInit(): Promise<any> {
+        this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
+        this.wallet = await this._setWallet();
 
-		localStorage.removeItem("unlockWallet");
-	}
+        await this._getBalances();
 
-	async ngOnInit(): Promise<any> {
-		this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
-		this.wallet = await this._setWallet();
+        this.route.queryParamMap.subscribe(async (params) => {
+            const _view = params.get("view");
 
-		await this._getBalances();
+            switch (_view) {
+                case "home":
+                    if (_view !== this.view) {
+                        this.balancesLoaded = false;
+                        this.wallet = await this._setWallet();
 
-		this.route.queryParamMap.subscribe(async (params) => {
-			const _view = params.get("view");
+                        this._getBalances();
+                    }
 
-			switch (_view) {
-				case "home":
-					if (_view !== this.view) {
-						this.balancesLoaded = false;
-						this.wallet = await this._setWallet();
+                    break;
 
-						this._getBalances();
-					}
+                default:
+                    break;
+            }
 
-					break;
+            if (_view) {
+                this.view = _view;
+            }
+        });
+    }
 
-				default:
-					break;
-			}
+    private async _getBalances(): Promise<any> {
+        if (this.balancesLoaded) return;
 
-			if (_view) {
-				this.view = _view;
-			}
-		});
-	}
+        this.tokens = [];
 
-	private async _getBalances(): Promise<any> {
-		if (this.balancesLoaded) return;
+        await this._getETHDetails();
+        await this._getSolanaDetails();
 
-		this.tokens = [];
+        this.balancesLoaded = true;
+    }
 
-		await this._getETHDetails();
-		await this._getSolanaDetails();
+    private async _getETHDetails(): Promise<any> {
+        if (!this.wallet?.ethAddress) return;
 
-		this.balancesLoaded = true;
-	}
+        const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
 
-	private async _getETHDetails(): Promise<any> {
-		if (!this.wallet?.ethAddress) return;
+        this.selectedAsset = new Asset({
+            asset: details.data.account.asset,
+            balance: details.data.balance,
+            fiatBalance: Number(details.data.fiatBalance),
+            price: details.data.account.price,
+        });
 
-		const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
+        this.activity = [];
 
-		this.selectedAsset = new Asset({
-			asset: details.data.account.asset,
-			balance: details.data.balance,
-			fiatBalance: Number(details.data.fiatBalance),
-			price: details.data.account.price,
-		});
+        for (let index = 0; index < details.data.transactions.length; index++) {
+            const transaction = details.data.transactions[index];
 
-		this.activity = [];
+            this.activity.push(new ETHTransaction(transaction));
+        }
 
-		for (let index = 0; index < details.data.transactions.length; index++) {
-			const transaction = details.data.transactions[index];
+        this._getTokens("Ethereum", details.data.tokenHoldings.tokens);
+    }
 
-			this.activity.push(new ETHTransaction(transaction));
-		}
+    private async _getSolanaDetails(): Promise<any> {
+        const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
 
-		this._getTokens("Ethereum", details.data.tokenHoldings.tokens);
-	}
+        if (!details) return;
 
-	private async _getSolanaDetails(): Promise<any> {
-		const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
+        if (details.data.balance) {
+            this.selectedAsset.fiatBalance += Number(details.data.fiatBalance);
+        }
 
-		if (!details) return;
+        this._getTokens("Solana", details.data.tokenHoldings.tokens);
+    }
 
-		if (details.data.balance) {
-			this.selectedAsset.fiatBalance += Number(details.data.fiatBalance);
-		}
+    private _getTokens(network: string, tokens: Array<any>): void {
+        const _tempTokens = [...this.tokens];
+        const _tempNFTs = [...this.NFTs];
 
-		this._getTokens("Solana", details.data.tokenHoldings.tokens);
-	}
+        for (let index = 0; index < tokens.length; index++) {
+            const token = tokens[index];
 
-	private _getTokens(network: string, tokens: Array<any>): void {
-		const _tempTokens = [...this.tokens];
-		const _tempNFTs = [...this.NFTs];
+            if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
+                _tempTokens.push({ ...token, network });
+            } else if (["NFT"].includes(token.tokenType)) {
+                _tempNFTs.push({ ...token, network });
+            }
 
-		for (let index = 0; index < tokens.length; index++) {
-			const token = tokens[index];
+            if (network === "Solana") {
+                const _token = { ...token, symbol: token.symbol || token.name, network };
 
-			if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-				_tempTokens.push({ ...token, network });
-			} else if (["NFT"].includes(token.tokenType)) {
-				_tempNFTs.push({ ...token, network });
-			}
+                if (_token.name === "Zelf") {
+                    _token.symbol = "ZNS";
+                }
 
-			if (network === "Solana") {
-				const _token = { ...token, symbol: token.symbol || token.name, network };
+                _tempTokens.push(_token);
+            }
+        }
 
-				if (_token.name === "Zelf") {
-					_token.symbol = "ZNS";
-				}
+        this.tokens = _tempTokens;
+        this.NFTs = _tempNFTs;
+    }
 
-				_tempTokens.push(_token);
-			}
-		}
+    private async _setWallet(): Promise<any> {
+        let wallet = await this._chromeService.getItem("wallet");
 
-		this.tokens = _tempTokens;
-		this.NFTs = _tempNFTs;
-	}
+        if (!wallet) {
+            this.wallets = await this._chromeService.getItem("wallets");
 
-	private async _setWallet(): Promise<any> {
-		let wallet = await this._chromeService.getItem("wallet");
+            wallet = this.wallets[0];
 
-		if (!wallet) {
-			this.wallets = await this._chromeService.getItem("wallets");
+            this._chromeService.setItem("wallet", wallet);
 
-			wallet = this.wallets[0];
+            if (!wallet) {
+                this._router.navigate(["/onboarding"]);
+                return;
+            }
+        }
 
-			this._chromeService.setItem("wallet", wallet);
+        this.shareables.wallet = new WalletModel(wallet);
 
-			if (!wallet) {
-				this._router.navigate(["/onboarding"]);
-				return;
-			}
-		}
+        return this.shareables.wallet;
+    }
 
-		this.shareables.wallet = new WalletModel(wallet);
+    private _updateView(newView: string): void {
+        this.view = newView;
 
-		return this.shareables.wallet;
-	}
+        this._router.navigate([], {
+            relativeTo: this.route, // Keep the current route
+            queryParams: { view: this.view }, // Set new query params
+            queryParamsHandling: "merge", // Merge with existing query params
+        });
+    }
 
-	private _updateView(newView: string): void {
-		this.view = newView;
+    openActivePage(): void {
+        this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
 
-		this._router.navigate([], {
-			relativeTo: this.route, // Keep the current route
-			queryParams: { view: this.view }, // Set new query params
-			queryParamsHandling: "merge", // Merge with existing query params
-		});
-	}
+        this._updateView(this.shareables.view);
+    }
 
-	openActivePage(): void {
-		this.shareables.view = this.shareables.view === "home" ? "activeAccountPage" : "home";
+    selectTab(tab: string): void {
+        this.shareables.selectedTab = tab;
+    }
 
-		this._updateView(this.shareables.view);
-	}
-
-	selectTab(tab: string): void {
-		this.shareables.selectedTab = tab;
-	}
-
-	sendTransaction(): void {
-		this._router.navigate(["/send-transaction"]);
-	}
+    sendTransaction(): void {
+        this._router.navigate(["/send-transaction"]);
+    }
 }

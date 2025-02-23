@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { NgForm, UntypedFormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { IpfsService } from "app/ipfs.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
@@ -12,6 +11,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 })
 export class NewZelfNameComponent implements OnInit {
 	@ViewChild("zelfForm") signUpNgForm!: NgForm;
+
 	zelfForm!: UntypedFormGroup;
 	zelfName: string;
 	steps: Array<any>;
@@ -33,11 +33,12 @@ export class NewZelfNameComponent implements OnInit {
 		];
 
 		this.session = this._walletService.getSessionData();
+
 		this.session.steps = [];
 	}
 
 	async ngOnInit(): Promise<any> {
-		this.zelfName = await this._zelfNameService.getZelfName();
+		this.zelfName = this._zelfNameService.getZelfName();
 	}
 
 	goBack(): void {

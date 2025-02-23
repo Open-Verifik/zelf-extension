@@ -6,102 +6,102 @@ import { Injectable } from "@angular/core";
 import { ChromeService } from "./chrome.service";
 
 @Injectable({
-	providedIn: "root",
+    providedIn: "root",
 })
 export class HttpWrapperService {
-	private publicKey!: string;
+    private publicKey!: string;
 
-	public tail: Array<any> = [];
+    public tail: Array<any> = [];
 
-	get progress(): boolean {
-		return !!this.tail.length;
-	}
+    get progress(): boolean {
+        return !!this.tail.length;
+    }
 
-	constructor(private _http: HttpClient, private _chromeService: ChromeService) {}
+    constructor(private _http: HttpClient, private _chromeService: ChromeService) {}
 
-	/**
-	 * Send request
-	 * @param method - to determine which function we will be using
-	 * @param url - URL that we will be requesting information from
-	 * @param params - params that can go into the body or the query string param
-	 * @param options - headers or some other sort of params
-	 */
-	async sendRequest(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
-		method = method.toLocaleLowerCase();
+    /**
+     * Send request
+     * @param method - to determine which function we will be using
+     * @param url - URL that we will be requesting information from
+     * @param params - params that can go into the body or the query string param
+     * @param options - headers or some other sort of params
+     */
+    async sendRequest(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
+        method = method.toLocaleLowerCase();
 
-		const authToken: string = (await this._chromeService.getItem("accessToken")) || "";
+        const authToken: string = (await this._chromeService.getItem("accessToken")) || "";
 
-		let headers: any = {
-			timeout: 20,
-		};
+        let headers: any = {
+            timeout: 20,
+        };
 
-		if (authToken) {
-			headers["Authorization"] = `Bearer ${authToken}`;
-		}
+        if (authToken) {
+            headers["Authorization"] = `Bearer ${authToken}`;
+        }
 
-		// Additional header or options logic here
-		if (params.encryption) {
-			// Handle encryption
-		}
+        // Additional header or options logic here
+        if (params.encryption) {
+            // Handle encryption
+        }
 
-		try {
-			switch (method) {
-				case "get":
-					return this.request(this._http.get(url, { params, headers, ...options }));
-				case "post":
-					return this.request(this._http.post(url, params, { headers, ...options }));
-				case "put":
-					return this.request(this._http.put(url, params, { headers, ...options }));
-				case "delete":
-					return this.request(this._http.delete(url, { headers, ...options }));
-				default:
-					throw new Error("Method not provided or unsupported");
-			}
-		} catch (error) {
-			console.error("Error in sendRequest:", error);
-			throw error;
-		}
-	}
+        try {
+            switch (method) {
+                case "get":
+                    return this.request(this._http.get(url, { params, headers, ...options }));
+                case "post":
+                    return this.request(this._http.post(url, params, { headers, ...options }));
+                case "put":
+                    return this.request(this._http.put(url, params, { headers, ...options }));
+                case "delete":
+                    return this.request(this._http.delete(url, { headers, ...options }));
+                default:
+                    throw new Error("Method not provided or unsupported");
+            }
+        } catch (error) {
+            console.error("Error in sendRequest:", error);
+            throw error;
+        }
+    }
 
-	// // Helper method to process HTTP requests (just an example of what it might look like)
-	private request(httpCall: any): Promise<any> {
-		return httpCall
-			.toPromise()
-			.then((response: any) => response)
-			.catch((error: any) => {
-				throw error;
-			});
-	}
+    // // Helper method to process HTTP requests (just an example of what it might look like)
+    private request(httpCall: any): Promise<any> {
+        return httpCall
+            .toPromise()
+            .then((response: any) => response)
+            .catch((error: any) => {
+                throw error;
+            });
+    }
 
-	setPublicKey(publicKey: string): void {
-		this.publicKey = publicKey;
-	}
+    setPublicKey(publicKey: string): void {
+        this.publicKey = publicKey;
+    }
 
-	async encryptMessage(data: string): Promise<any> {
-		if (!data) return data;
+    async encryptMessage(data: string): Promise<any> {
+        if (!data) return data;
 
-		if (!this.publicKey) throw new Error("cannot_encrypt_message");
+        if (!this.publicKey) throw new Error("cannot_encrypt_message");
 
-		const publicKey = await openpgp.readKey({ armoredKey: this.publicKey }); // armoredKey > quitarle la armadura
+        const publicKey = await openpgp.readKey({ armoredKey: this.publicKey }); // armoredKey > quitarle la armadura
 
-		const encryptedMessage = await openpgp.encrypt({
-			message: await openpgp.createMessage({ text: data }),
-			encryptionKeys: publicKey,
-		});
+        const encryptedMessage = await openpgp.encrypt({
+            message: await openpgp.createMessage({ text: data }),
+            encryptionKeys: publicKey,
+        });
 
-		return encryptedMessage;
-	}
+        return encryptedMessage;
+    }
 
-	// async decryptMessage(encryptedMessage: string, privateKeyArmored: string, passphrase: string): Promise<string> {
-	// 	// const privateKey = await openpgp.readKey({ armoredKey: privateKeyArmored });
-	// 	// await privateKey.decrypt(passphrase);
-	// 	// const message = await openpgp.readMessage({
-	// 	// 	armoredMessage: encryptedMessage,
-	// 	// });
-	// 	// const { data: decrypted } = await openpgp.decrypt({
-	// 	// 	message,
-	// 	// 	decryptionKeys: privateKey,
-	// 	// });
-	// 	// return decrypted;
-	// }
+    // async decryptMessage(encryptedMessage: string, privateKeyArmored: string, passphrase: string): Promise<string> {
+    // 	// const privateKey = await openpgp.readKey({ armoredKey: privateKeyArmored });
+    // 	// await privateKey.decrypt(passphrase);
+    // 	// const message = await openpgp.readMessage({
+    // 	// 	armoredMessage: encryptedMessage,
+    // 	// });
+    // 	// const { data: decrypted } = await openpgp.decrypt({
+    // 	// 	message,
+    // 	// 	decryptionKeys: privateKey,
+    // 	// });
+    // 	// return decrypted;
+    // }
 }

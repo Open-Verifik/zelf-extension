@@ -28,7 +28,6 @@ export class WordsPickerStepComponent implements OnInit {
 		this._walletService.goToNextStep(this.session.step + 1);
 
 		this.session.wordsPicker = false;
-
 		this.session.wordsCount = wordsCount;
 	}
 

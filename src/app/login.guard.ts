@@ -4,18 +4,19 @@ import { inject } from "@angular/core";
 import { WalletService } from "./wallet.service";
 
 export const LoginGuard: CanActivateFn = async (route, state) => {
-	const router = inject(Router);
-	const _walletService = inject(WalletService);
+    const _walletService = inject(WalletService);
+    const router = inject(Router);
 
-	const wallet = await _walletService.getWallet();
+    const wallet = await _walletService.getWallet();
+    const wallets = await _walletService.getWallets();
 
-	if (!!wallet) return true;
+    if (!!wallet || wallets?.length) return true;
 
-	if (state.url !== "/onboarding") {
-		router.navigate(["/onboarding"], { replaceUrl: true });
+    if (state.url !== "/onboarding") {
+        router.navigate(["/onboarding"], { replaceUrl: true });
 
-		return false;
-	}
+        return false;
+    }
 
-	return true;
+    return true;
 };

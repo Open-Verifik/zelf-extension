@@ -196,10 +196,17 @@
 		min-width: 40px;
 		min-height: 40px;
 		border-radius: 40px;
-		background-color: $secondaryColor;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		&--primary {
+			background-color: $primaryColor;
+		}
+
+		&--secondary {
+			background-color: $secondaryColor;
+		}
 	}
 
 	&__character {

@@ -1,39 +1,45 @@
 {
-	"description": "We solved the unsolvable, now you can never lose access to your crypto",
-	"host_permissions": ["*://*/*"],
-	"manifest_version": 3,
-	"name": "Zelf Name Service",
-	"orientation": "portrait-primary",
-	"permissions": ["activeTab", "storage", "script-src-elem", "sidePanel"],
-	"start_url": "index.html",
-	"version": "1.0",
-	"action": {
-		"default_popup": "index.html",
-		"default_icon": "assets/icons/icon256.png"
-	},
-	"background": {
-		"service_worker": "background.js"
-	},
-	"content_scripts": [
-		{
-			"matches": ["<all_urls>"],
-			"js": ["main.js"]
-		}
-	],
-	"chrome_url_overrides": {
-		"newtab": "index.html"
-	},
-	"content_security_policy": {
-		"extension_pages": "script-src 'self'; object-src 'self';",
-		"google": "script-src https://www.google.com/recaptcha/, https://www.gstatic.com/recaptcha/; frame-src https://www.google.com/recaptcha/, https://recaptcha.google.com/recaptcha/;"
-	},
-	"side_panel": {
-		"default_path": "index.html"
-	},
-	"web_accessible_resources": [
-		{
-			"resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],
-			"matches": ["<all_urls>"]
-		}
-	]
+    "description": "We solved the unsolvable, now you can never lose access to your crypto",
+    "host_permissions": ["*://*/*"],
+    "manifest_version": 3,
+    "name": "Zelf Name Service",
+    "orientation": "portrait-primary",
+    "permissions": ["activeTab", "storage", "script-src-elem", "sidePanel"],
+    "start_url": "index.html",
+    "version": "1.0",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "assets/icons/icon256.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["main.js"]
+        }
+    ],
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';",
+        "google": "script-src https://www.google.com/recaptcha/, https://www.gstatic.com/recaptcha/; frame-src https://www.google.com/recaptcha/, https://recaptcha.google.com/recaptcha/;"
+    },
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128.png",
+        "256": "assets/icons/icon256.png"
+    },
+    "side_panel": {
+        "default_path": "index.html"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],
+            "matches": ["<all_urls>"]
+        }
+    ]
 }

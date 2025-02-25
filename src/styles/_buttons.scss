@@ -1,122 +1,137 @@
 .zelf-button {
-	align-items: center;
-	border-radius: 16px;
-	border: none;
-	cursor: pointer;
-	display: flex;
-	font-family: Poppins;
-	font-size: 14px;
-	font-weight: 500;
-	gap: 8px;
-	height: 56px;
-	justify-content: center;
-	outline: none;
-	padding: 16px;
-	text-align: center;
-	user-select: none;
+    align-items: center;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    gap: 8px;
+    height: 56px;
+    justify-content: center;
+    outline: none;
+    padding: 16px;
+    text-align: center;
+    user-select: none;
 
-	&--wide {
-		width: 100%;
-	}
+    &--thin {
+        border-radius: 8px;
+        padding: 12px 16px;
+    }
 
-	&--black {
-		background-color: $black !important;
-		color: $white !important;
-		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    &--wide {
+        width: 100%;
+    }
 
-		&:focus,
-		&:hover {
-			background-color: $gray !important;
-		}
+    &--black {
+        background-color: $black !important;
+        color: $white !important;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
-		svg {
-			fill: $white;
-		}
-	}
+        &:focus,
+        &:hover {
+            background-color: $gray !important;
+        }
 
-	&--outlined {
-		border: 1px solid $black !important;
-		background-color: $white !important;
-		color: $black !important;
-		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        &[disabled] {
+            cursor: not-allowed;
+            background-color: $gray !important;
+            color: $white !important;
+        }
 
-		&:focus,
-		&:hover {
-			background-color: $platinum !important;
-		}
+        svg {
+            fill: $white;
+        }
+    }
 
-		svg {
-			fill: $black;
-		}
-	}
+    &--outlined {
+        border: 1px solid $black !important;
+        background-color: $white !important;
+        color: $black !important;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+
+        &:focus,
+        &:hover {
+            background-color: $platinum !important;
+        }
+
+        &[disabled] {
+            color: $gray !important;
+        }
+
+        svg {
+            fill: $black;
+        }
+    }
 }
 
 .zelf-icon-button {
-	align-items: center;
-	background-color: $antiFlashWhite !important;
-	border-radius: 56px;
-	border: none;
-	cursor: pointer;
-	display: inline-flex;
-	height: 56px;
-	justify-content: center;
-	min-height: 56px;
-	min-width: 56px;
-	outline: none;
-	transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
-	user-select: none;
-	width: 56px;
+    align-items: center;
+    background-color: $antiFlashWhite !important;
+    border-radius: 56px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    height: 56px;
+    justify-content: center;
+    min-height: 56px;
+    min-width: 56px;
+    outline: none;
+    transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    user-select: none;
+    width: 56px;
 
-	&.zelf-icon-button--border-soft {
-		border-radius: 16px;
-	}
+    &.zelf-icon-button--border-soft {
+        border-radius: 16px;
+    }
 
-	svg {
-		transition: fill 0.3s $smoothBezier;
-		fill: $black;
-	}
+    svg {
+        transition: fill 0.3s $smoothBezier;
+        fill: $black;
+    }
 
-	&:hover {
-		background-color: #b589f0 !important;
-		color: white;
+    &:hover {
+        background-color: #b589f0 !important;
+        color: white;
 
-		svg {
-			fill: white;
-		}
-	}
+        svg {
+            fill: white;
+        }
+    }
 
-	&--border-soft {
-		border-radius: 16px;
-	}
+    &--border-soft {
+        border-radius: 16px;
+    }
 
-	&--40 {
-		height: 40px;
-		min-height: 40px;
-		min-width: 40px;
-		width: 40px;
-		border-radius: 40px;
+    &--40 {
+        height: 40px;
+        min-height: 40px;
+        min-width: 40px;
+        width: 40px;
+        border-radius: 40px;
 
-		&.zelf-icon-button--border-soft {
-			border-radius: 14px;
-		}
-	}
+        &.zelf-icon-button--border-soft {
+            border-radius: 14px;
+        }
+    }
 
-	&--anti-flash-white {
-		background-color: $antiFlashWhite !important;
-		color: $black !important;
+    &--anti-flash-white {
+        background-color: $antiFlashWhite !important;
+        color: $black !important;
 
-		svg {
-			fill: $black;
-		}
+        svg {
+            fill: $black;
+        }
 
-		&:focus,
-		&:hover {
-			background-color: #b589f0 !important;
-			color: white;
+        &:focus,
+        &:hover {
+            background-color: #b589f0 !important;
+            color: white;
 
-			svg {
-				fill: $white;
-			}
-		}
-	}
+            svg {
+                fill: $white;
+            }
+        }
+    }
 }

@@ -496,8 +496,9 @@
 					<div class="inst-img-dot" [ngClass]="{ 'inst-img-dot-active': currentSlide === 1 }" (click)="changeToSlide(1)"></div>
 					<div class="inst-img-dot" [ngClass]="{ 'inst-img-dot-active': currentSlide === 2 }" (click)="changeToSlide(2)"></div>
 				</div>
+
 				<div class="inst-btn-container">
-					<button mat-raised-button class="w-full rounded-button main-button" (click)="changeToSlide(currentSlide + 1)">
+					<button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" (click)="changeToSlide(currentSlide + 1)">
 						{{ "common.continue" | transloco }}
 					</button>
 				</div>

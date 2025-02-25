@@ -81,14 +81,13 @@ export class ManageDomainsComponent {
     private async _setWallets(): Promise<void> {
         this.loading = true;
 
-        let wallet = await this._chromeService.getItem("wallet");
-        let wallets: WalletModel[] = [];
+        let wallet = (await this._chromeService.getItem("wallet")) as WalletModel;
+        let wallets = (await this._chromeService.getItem("wallets")) as WalletModel[];
 
         if (!wallet) {
-            wallets = await this._chromeService.getItem("wallets");
             wallet = wallets[0];
 
-            this._chromeService.setItem("wallet", wallet);
+            await this._chromeService.setItem("wallet", wallet);
         }
 
         this.wallet = wallet;
@@ -100,10 +99,9 @@ export class ManageDomainsComponent {
     }
 
     isExpired(wallet: WalletModel): boolean {
-        const oneDayInMs = 24 * 60 * 60 * 1000;
         const timeLeft = this._getTimeLeft(wallet);
 
-        return timeLeft <= oneDayInMs;
+        return timeLeft <= 0;
     }
 
     isExpiringSoon(wallet: WalletModel): boolean {
@@ -141,10 +139,6 @@ export class ManageDomainsComponent {
     }
 
     showDetails(wallet: WalletModel): boolean {
-        if (wallet.publicData?.isExpired || this.isExpired(wallet)) {
-            return true;
-        }
-
-        return false;
+        return this.isExpiringSoon(wallet) || this.isExpired(wallet);
     }
 }

@@ -1,14 +1,20 @@
+/// <reference types="chrome"/>
+
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { WalletModel } from "./wallet";
 
 @Injectable({
     providedIn: "root",
 })
 export class ChromeService {
-    private tabStorageKey = "isTabOpen";
+    private _isSidePanel$ = new BehaviorSubject<boolean>(false);
+    private _wallet$ = new BehaviorSubject<WalletModel | null>(null);
+    private _wallets$ = new BehaviorSubject<WalletModel[] | []>([]);
+
     private _isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
     private _isSidePanel = false;
-    private _isSidePanel$ = new BehaviorSubject<boolean>(false);
+    private _tabStorageKey = "isTabOpen";
 
     constructor() {
         if (!this.isExtension) return;
@@ -18,17 +24,18 @@ export class ChromeService {
 
             if (storedTabId !== closedTabId) return;
 
-            await this.setItem(this.tabStorageKey, false);
+            await this.setItem(this._tabStorageKey, false);
         });
 
         chrome.tabs.query({ active: true, lastFocusedWindow: true }).then(([tab]) => {
             this._isSidePanel = !tab;
             this._isSidePanel$.next(this._isSidePanel);
         });
-    }
 
-    get isSidePanel$(): BehaviorSubject<boolean> {
-        return this._isSidePanel$;
+        chrome.storage.onChanged.addListener((changes) => {
+            changes.wallet ? this._wallet$.next(changes.wallet.newValue) : null;
+            changes.wallets ? this._wallets$.next(changes.wallets.newValue) : null;
+        });
     }
 
     get isExtension(): boolean {
@@ -43,26 +50,44 @@ export class ChromeService {
         return this._isSidePanel;
     }
 
-    async setItem(key: string, value: any): Promise<void> {
-        return new Promise((resolve, reject) => {
-            if (this.isExtension) {
-                chrome.storage.local.set({ [key]: value }, () => {
-                    if (chrome.runtime.lastError) {
-                        reject(chrome.runtime.lastError);
-                    } else {
-                        resolve();
-                    }
-                });
-            }
+    get isSidePanel$(): BehaviorSubject<boolean> {
+        return this._isSidePanel$;
+    }
 
-            try {
-                localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
+    get onWalletChanged$(): BehaviorSubject<WalletModel | null> {
+        return this._wallet$;
+    }
 
-                resolve();
-            } catch (error) {
-                reject(error);
-            }
-        });
+    get onWalletsChanged$(): BehaviorSubject<WalletModel[] | []> {
+        return this._wallets$;
+    }
+
+    async closeTab(tabId?: number): Promise<void> {
+        if (!this.isExtension) return;
+
+        if (!tabId) tabId = await this.getItem("tabId");
+        if (!tabId) return;
+
+        chrome.tabs.remove(tabId);
+    }
+
+    async copyToClipboard(value: string): Promise<void> {
+        if (navigator?.clipboard) {
+            navigator?.clipboard.writeText(value);
+
+            return;
+        }
+
+        const input = document.createElement("input");
+
+        input.value = value;
+
+        document.body.appendChild(input);
+
+        input.select();
+
+        document.execCommand("copy");
+        document.body.removeChild(input);
     }
 
     async getItem(key: string, overrideSource?: string): Promise<any> {
@@ -89,33 +114,16 @@ export class ChromeService {
                     try {
                         const item = localStorage.getItem(key);
 
-                        if (!item) resolve("");
+                        try {
+                            if (!item) resolve("");
 
-                        resolve(item?.includes("{") || item?.includes("[]") ? JSON.parse(item) : item);
+                            resolve(JSON.parse(item as string));
+                        } catch (error) {
+                            resolve(item);
+                        }
                     } catch (error) {
                         reject(error);
                     }
-            }
-        });
-    }
-
-    removeItem(key: string): Promise<void> {
-        return new Promise((resolve, reject) => {
-            if (this.isExtension) {
-                chrome.storage.local.remove(key, () => {
-                    if (chrome.runtime.lastError) {
-                        reject(chrome.runtime.lastError);
-                    } else {
-                        resolve();
-                    }
-                });
-            } else {
-                try {
-                    localStorage.removeItem(key);
-                    resolve();
-                } catch (error) {
-                    reject(error);
-                }
             }
         });
     }
@@ -145,7 +153,7 @@ export class ChromeService {
                 chrome.tabs.create({ url: `${url}#${path}` }, async (tab) => {
                     if (tab.id) {
                         try {
-                            await this.setItem(this.tabStorageKey, true);
+                            await this.setItem(this._tabStorageKey, true);
 
                             await this.setItem("tabId", tab.id);
                         } catch (error) {
@@ -157,15 +165,6 @@ export class ChromeService {
                 console.error("Failed to open tab:", exception);
             }
         });
-    }
-
-    async closeTab(tabId?: number): Promise<void> {
-        if (!this.isExtension) return;
-
-        if (!tabId) tabId = await this.getItem("tabId");
-        if (!tabId) return;
-
-        chrome.tabs.remove(tabId);
     }
 
     async openSidePanel(): Promise<void> {
@@ -207,22 +206,46 @@ export class ChromeService {
         });
     }
 
-    async copyToClipboard(value: string): Promise<void> {
-        if (navigator?.clipboard) {
-            navigator?.clipboard.writeText(value);
+    async removeItem(key: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                chrome.storage.local.remove(key, () => {
+                    if (chrome.runtime.lastError) {
+                        reject(chrome.runtime.lastError);
+                    } else {
+                        resolve();
+                    }
+                });
+            } else {
+                try {
+                    localStorage.removeItem(key);
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        });
+    }
 
-            return;
-        }
+    async setItem(key: string, value: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                chrome.storage.local.set({ [key]: value }, () => {
+                    if (chrome.runtime.lastError) {
+                        reject(chrome.runtime.lastError);
+                    } else {
+                        resolve();
+                    }
+                });
+            }
 
-        const input = document.createElement("input");
+            try {
+                localStorage.setItem(key, value);
 
-        input.value = value;
-
-        document.body.appendChild(input);
-
-        input.select();
-
-        document.execCommand("copy");
-        document.body.removeChild(input);
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 }

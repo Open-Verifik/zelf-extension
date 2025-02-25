@@ -5,111 +5,114 @@ import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
-	selector: "app-stepper",
-	templateUrl: "./stepper.component.html",
-	styleUrls: ["./stepper.component.scss"],
+    selector: "app-stepper",
+    templateUrl: "./stepper.component.html",
+    styleUrls: ["./stepper.component.scss"],
 })
 export class StepperComponent implements OnInit {
-	@Input() hideHeader: boolean = false;
-	@Input() hideBackButton: boolean = false;
-	@Input() stepsArray: any;
-	currentStep = 0;
-	numberOfSteps = 0;
-	zelfName: string;
-	stepsMapping: any;
-	routeMapping: any;
-	session: any;
+    @ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
 
-	constructor(private _router: Router, private _walletService: WalletService, private _zelfNameService: ZelfNameService) {
-		this.routeMapping = {
-			"/new-zelf-name": "/onboarding",
-			"/create-wallet": "/new-zelf-name",
-			"/find-wallet": "/onboarding",
-			"/import-wallet": "/new-zelf-name",
-		};
+    @Input() hideHeader: boolean = false;
+    @Input() hideBackButton: boolean = false;
+    @Input() stepsArray: any;
 
-		this.zelfName = this._zelfNameService.getZelfName();
+    currentStep = 0;
+    numberOfSteps = 0;
+    routeMapping: any;
+    session: any;
+    stepsMapping: any;
+    zelfName!: string;
 
-		this.stepsMapping = {};
+    constructor(private _router: Router, private _walletService: WalletService, private _zelfNameService: ZelfNameService) {
+        this.routeMapping = {
+            "/new-zelf-name": "/onboarding",
+            "/create-wallet": "/new-zelf-name",
+            "/find-wallet": "/onboarding",
+            "/import-wallet": "/new-zelf-name",
+        };
 
-		this.session = this._walletService.getSessionData();
-	}
+        this.stepsMapping = {};
 
-	@ContentChildren(StepComponent) steps!: QueryList<StepComponent>;
+        this.session = this._walletService.getSessionData();
 
-	ngOnInit() {
-		this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
+        this._zelfNameService.getZelfName().then((zelfName) => {
+            this.zelfName = zelfName;
+        });
+    }
 
-		for (let index = 0; index < this.stepsArray.length; index++) {
-			const step = this.stepsArray[index];
+    ngOnInit() {
+        this.numberOfSteps = this.steps?.length || 0; // Initialize the number of steps based on the content children
 
-			this.stepsMapping[step.label] = index;
-		}
+        for (let index = 0; index < this.stepsArray.length; index++) {
+            const step = this.stepsArray[index];
 
-		this.updateSteps();
-	}
+            this.stepsMapping[step.label] = index;
+        }
 
-	next() {
-		if (this.currentStep < this.numberOfSteps - 1) {
-			this.currentStep++;
+        this.updateSteps();
+    }
 
-			this.updateSteps();
-		}
-	}
+    next() {
+        if (this.currentStep < this.numberOfSteps - 1) {
+            this.currentStep++;
 
-	back() {
-		let previous: StepComponent | null = null;
+            this.updateSteps();
+        }
+    }
 
-		// Convert QueryList to array and iterate over it
-		const stepsArray = this.steps.toArray();
+    back() {
+        let previous: StepComponent | null = null;
 
-		for (let i = 0; i < stepsArray.length; i++) {
-			const step = stepsArray[i];
+        // Convert QueryList to array and iterate over it
+        const stepsArray = this.steps.toArray();
 
-			if (step.isActive) {
-				break;
-			}
+        for (let i = 0; i < stepsArray.length; i++) {
+            const step = stepsArray[i];
 
-			// Save the previous step
-			previous = step;
-		}
+            if (step.isActive) {
+                break;
+            }
 
-		if (!previous) {
-			this._redirectOnMapping();
+            // Save the previous step
+            previous = step;
+        }
 
-			return;
-		}
+        if (!previous) {
+            this._redirectOnMapping();
 
-		this.currentStep = this.stepsMapping[previous.label];
+            return;
+        }
 
-		if (["password_unlock", "add_password"].includes(previous.label)) {
-			this.session.showBiometricsInstructions = false;
-			this.session.showBiometrics = false;
-		}
+        this.currentStep = this.stepsMapping[previous.label];
 
-		this.session.step = this.currentStep;
+        if (["password_unlock", "add_password"].includes(previous.label)) {
+            this.session.showBiometricsInstructions = false;
+            this.session.showBiometrics = false;
+        }
 
-		this.updateSteps();
-	}
+        this.session.step = this.currentStep;
 
-	_redirectOnMapping(): void {
-		const activeRoute = this._router.url;
+        this.updateSteps();
+    }
 
-		this.updateSteps();
+    _redirectOnMapping(): void {
+        const activeRoute = this._router.url;
 
-		this._router.navigate([this.routeMapping[activeRoute]]);
-	}
+        this.updateSteps();
 
-	private updateSteps() {
-		if (!this.steps) return;
+        this._router.navigate([this.routeMapping[activeRoute]]);
+    }
 
-		this.steps.forEach((step: any, index: number) => {
-			step.isActive = index === this.currentStep;
-			step.isCompleted = index < this.currentStep;
-			if (step.step) {
-				step.step.isActive = index === this.currentStep;
-				step.step.isCompleted = index < this.currentStep;
-			}
-		});
-	}
+    private updateSteps() {
+        if (!this.steps) return;
+
+        this.steps.forEach((step: any, index: number) => {
+            step.isActive = index === this.currentStep;
+            step.isCompleted = index < this.currentStep;
+            if (step.step) {
+                step.step.isActive = index === this.currentStep;
+                step.step.isCompleted = index < this.currentStep;
+            }
+        });
+    }
 }

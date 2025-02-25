@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -14,7 +15,12 @@ export class UwPasswordStepComponent implements OnInit {
     loading!: boolean;
     showPassword!: boolean;
 
-    constructor(private _walletService: WalletService, private _formBuilder: UntypedFormBuilder, private _httpWrapperService: HttpWrapperService) {
+    constructor(
+        private _walletService: WalletService,
+        private _formBuilder: UntypedFormBuilder,
+        private _httpWrapperService: HttpWrapperService,
+        private _vaultService: VaultService
+    ) {
         this.session = this._walletService.getSessionData();
 
         this.loading = false;
@@ -40,7 +46,11 @@ export class UwPasswordStepComponent implements OnInit {
     }
 
     async setPassword(): Promise<any> {
-        this.session.password = await this._httpWrapperService.encryptMessage(this.passwordForm.value.password);
+        const password = this.passwordForm.value.password;
+
+        this._vaultService.password = password;
+
+        this.session.password = await this._httpWrapperService.encryptMessage(password);
 
         this.session.showBiometricsInstructions = true;
 

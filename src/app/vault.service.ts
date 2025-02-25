@@ -5,7 +5,19 @@ import * as openpgp from "openpgp";
     providedIn: "root",
 })
 export class VaultService {
+    _password: string = "";
+
     constructor() {}
+
+    get password(): string {
+        console.log(` VaultService ~ getpassword ~ this._password:`, this._password);
+        return this._password || "";
+    }
+
+    set password(value: string) {
+        console.log(` VaultService ~ setpassword ~ value:`, value);
+        this._password = value;
+    }
 
     /**
      * Decrypts a PGP encrypted message.

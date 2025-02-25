@@ -40,8 +40,7 @@ export class UnlockWalletComponent implements OnInit {
 
     async ngOnInit(): Promise<any> {
         const activeWallet = await this._chromeService.getItem("tempWalletAddress");
-
-        const _unlockWallet = localStorage.getItem("unlockWallet") || {};
+        const _unlockWallet = (await this._chromeService.getItem("unlockWallet")) || {};
 
         const unlockWallet = activeWallet ? null : new WalletModel(_unlockWallet);
 
@@ -98,8 +97,6 @@ export class UnlockWalletComponent implements OnInit {
         const filter = Boolean(index === 2 && this.session.step === 2 && !this.session.showBiometrics);
 
         if (!filter) return false;
-
-        this.session.showBiometricsInstructions = false;
 
         return Boolean(filter && this.wallet && this.wallet.metadata);
     }

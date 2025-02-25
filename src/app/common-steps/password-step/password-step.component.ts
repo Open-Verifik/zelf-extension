@@ -1,64 +1,72 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
 
 @Component({
-	selector: "password-step",
-	templateUrl: "./password-step.component.html",
-	styleUrls: ["./password-step.component.scss", "../../main.scss", "../../onboarding/onboarding.scss"],
+    selector: "password-step",
+    templateUrl: "./password-step.component.html",
+    styleUrls: ["./password-step.component.scss", "../../main.scss", "../../onboarding/onboarding.scss"],
 })
 export class PasswordStepComponent implements OnInit {
-	@ViewChild("passwordNgForm") passwordNgForm!: NgForm;
+    @ViewChild("passwordNgForm") passwordNgForm!: NgForm;
 
-	passwordForm!: UntypedFormGroup;
-	loading: boolean = false;
-	session: any;
+    passwordForm!: UntypedFormGroup;
+    loading: boolean = false;
+    session: any;
 
-	constructor(private _formBuilder: UntypedFormBuilder, private _httpWrapperService: HttpWrapperService, private _walletService: WalletService) {
-		this.session = this._walletService.getSessionData();
-	}
+    constructor(
+        private _formBuilder: UntypedFormBuilder,
+        private _httpWrapperService: HttpWrapperService,
+        private _walletService: WalletService,
+        private _vaultService: VaultService
+    ) {
+        this.session = this._walletService.getSessionData();
+    }
 
-	ngOnInit(): void {
-		const defaultPassword = environment.production ? "" : "SamePassword123";
+    ngOnInit(): void {
+        const defaultPassword = environment.production ? "" : "SamePassword123";
 
-		this.passwordForm = this._formBuilder.group({
-			password: [defaultPassword, []],
-			repeatPassword: [defaultPassword, []],
-			termsAcceptance: [false],
-		});
-	}
+        this.passwordForm = this._formBuilder.group({
+            password: [defaultPassword, []],
+            repeatPassword: [defaultPassword, []],
+            termsAcceptance: [false],
+        });
+    }
 
-	isPasswordCorrect(): boolean {
-		const { password, repeatPassword, termsAcceptance } = this.passwordForm.value;
+    isPasswordCorrect(): boolean {
+        const { password, repeatPassword, termsAcceptance } = this.passwordForm.value;
 
-		return Boolean(!this.loading && password && repeatPassword && password === repeatPassword && termsAcceptance && password.length >= 8);
-	}
+        return Boolean(!this.loading && password && repeatPassword && password === repeatPassword && termsAcceptance && password.length >= 8);
+    }
 
-	continueWithoutPassword(): void {
-		this.session.password = "";
-		this.session.usePassword = false;
+    continueWithoutPassword(): void {
+        this.session.password = "";
+        this.session.usePassword = false;
 
-		this._moveForward();
-	}
+        this._moveForward();
+    }
 
-	async addPassword(): Promise<any> {
-		this.loading = true;
+    async addPassword(): Promise<any> {
+        this.loading = true;
 
-		const password = this.passwordForm.value.password;
+        const password = this.passwordForm.value.password;
 
-		this.session.password = await this._httpWrapperService.encryptMessage(password);
+        this._vaultService.password = password;
 
-		this.loading = false;
+        this.session.password = await this._httpWrapperService.encryptMessage(password);
 
-		this._moveForward();
-	}
+        this.loading = false;
 
-	_moveForward(): void {
-		this.session.showBiometrics = false;
-		this.session.showBiometricsInstructions = true;
+        this._moveForward();
+    }
 
-		this._walletService.goToNextStep(this.session.step + 1);
-	}
+    _moveForward(): void {
+        this.session.showBiometrics = false;
+        this.session.showBiometricsInstructions = true;
+
+        this._walletService.goToNextStep(this.session.step + 1);
+    }
 }

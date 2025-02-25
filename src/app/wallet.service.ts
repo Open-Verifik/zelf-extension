@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
-import { TranslocoService } from "@ngneat/transloco";
 import { BehaviorSubject, Observable } from "rxjs";
 import * as faceapi from "@vladmandic/face-api";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
@@ -133,9 +132,11 @@ export class WalletService {
             "zelfReward",
         ];
 
-        keysToRemove.forEach((key) => {
-            localStorage.removeItem(key);
-        });
+        await Promise.all(
+            keysToRemove.map(async (key) => {
+                this._chromeService.removeItem(key);
+            })
+        );
 
         if (currentWallet.ethAddress) {
             wallets.push(currentWallet);

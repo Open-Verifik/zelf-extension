@@ -1,17 +1,19 @@
+import { Buffer } from "buffer";
+import jsQR from "jsqr";
+import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
+
+import { HttpClient } from "@angular/common/http";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { WalletService } from "app/wallet.service";
-import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
-import jsQR from "jsqr";
-import { Buffer } from "buffer";
-import { CaptchaService } from "app/captcha.service";
-import { IpfsService } from "app/ipfs.service";
-import { HttpClient } from "@angular/common/http";
-import { Wallet, WalletModel } from "app/wallet";
 import { Router } from "@angular/router";
-import { ZelfNameService } from "app/zelf-name-service.service";
+import { TranslocoService } from "@ngneat/transloco";
+import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
+import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { Wallet, WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     selector: "uw-search-wallet",
@@ -19,7 +21,7 @@ import { ChromeService } from "app/chrome.service";
     styleUrls: ["../unlock-wallet.component.scss", "../../main.scss"],
     encapsulation: ViewEncapsulation.None,
 })
-export class UwSearchWalletComponent implements OnInit, OnDestroy {
+export class UwSearchWalletComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     searchForm!: UntypedFormGroup;
     searchQuery$!: Observable<string>;
     potentialWallet!: Wallet | null;
@@ -32,26 +34,26 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
     captchaToken?: string;
 
     constructor(
-        private _walletService: WalletService,
-        private _formBuilder: UntypedFormBuilder,
-        private snackBar: MatSnackBar,
         private _changeDetectorRef: ChangeDetectorRef,
-        private _zelfNameService: ZelfNameService,
-        private _ipfsService: IpfsService,
-        private http: HttpClient,
+        private _formBuilder: UntypedFormBuilder,
         private _router: Router,
-        private _chromeService: ChromeService,
-        private captchaService: CaptchaService
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService,
+        private captchaService: CaptchaService,
+        private http: HttpClient,
+        public _chromeService: ChromeService,
+        public _translocoService: TranslocoService,
+        public snackBar: MatSnackBar
     ) {
-        this.unlockQRCode = "";
+        super(_chromeService, snackBar, _translocoService);
 
+        this.unlockQRCode = "";
         this.loading = false;
+        this.displayableError = null;
 
         this.session = this._walletService.getSessionData();
 
-        this.displayableError = null;
-
-        localStorage.removeItem("unlockWallet");
+        this._chromeService.removeItem("unlockWallet");
     }
 
     async ngOnInit(): Promise<any> {
@@ -74,19 +76,14 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
         const checkingTempWallet = await this._checkForTempWallet();
 
-        if (!checkingTempWallet) {
-            this._checkForZelfFile();
-        }
-
-        // create captcha token
+        if (!checkingTempWallet) this._checkForZelfFile();
     }
 
     async _checkForTempWallet(): Promise<any> {
         this.loading = true;
 
         const zelfName = await this._chromeService.getItem("currentZelfName");
-
-        const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
+        const passedActiveQRCode = await this._chromeService.getItem("tempWalletQrCode");
 
         if (!zelfName || !passedActiveQRCode) {
             this.loading = false;
@@ -95,23 +92,18 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
 
         this.fileBase64 = passedActiveQRCode;
 
-        setTimeout(() => {
-            localStorage.removeItem("unlockWallet");
-
-            localStorage.removeItem("tempWalletAddress");
-
-            localStorage.removeItem("tempWalletQrCode");
-        }, 1000);
+        await this._chromeService.removeItem("unlockWallet");
+        await this._chromeService.removeItem("tempWalletAddress");
+        await this._chromeService.removeItem("tempWalletQrCode");
 
         this._queryZNS("zelfName", zelfName);
 
         return true;
     }
 
-    _checkForZelfFile(): void {
+    async _checkForZelfFile(): Promise<void> {
         const zelfFile = this._zelfNameService.getZelfFile();
-
-        const zelfName = this._zelfNameService.getZelfName();
+        const zelfName = await this._zelfNameService.getZelfName();
 
         if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
 
@@ -186,7 +178,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
         this.session.hasPassword = this.potentialWallet.hasPassword;
 
         this._zelfNameService.setZelfFile(record);
-
         this._zelfNameService.setZelfName(record.name, null);
 
         const isHold = Boolean(this.potentialWallet.publicData.type === "hold");
@@ -223,7 +214,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
         this._walletService.goToNextStep(this.session.step + 1);
 
         this.session.identifier = this.potentialWallet?.ethAddress;
-
         this.session.usePassword = this.potentialWallet?.hasPassword;
 
         if (!this.potentialWallet?.hasPassword) {
@@ -423,8 +413,6 @@ export class UwSearchWalletComponent implements OnInit, OnDestroy {
     }
 
     copyToClipboard(address: string): void {
-        navigator.clipboard.writeText(address).then(() => {
-            this.snackBar.open("Address copied to clipboard", "OK");
-        });
+        this._copyToClipboard(address);
     }
 }

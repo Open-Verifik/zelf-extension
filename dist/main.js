@@ -188,7 +188,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   AppComponent: () => (/* binding */ AppComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! environments/environment */ 45312);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _http_wrapper_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./http-wrapper.service */ 84099);
@@ -233,7 +233,7 @@ class AppComponent {
   }
   encryptAndSend(publicKey) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const message = "Test test";
       const encryptedMessage = yield _this._httpWrapperService.encryptMessage(JSON.stringify(message));
       // Send encrypted data to backend
@@ -357,7 +357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pipes_zelf_name_pipe__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./pipes/zelf-name.pipe */ 20655);
 /* harmony import */ var _pipes_first_letter_pipe__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./pipes/first-letter.pipe */ 75465);
 /* harmony import */ var _ngneat_transloco__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! @ngneat/transloco */ 40261);
-/* harmony import */ var _mnemonic_mnemonic_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./mnemonic/mnemonic.component */ 18);
+/* harmony import */ var _mnemonic_mnemonic_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./mnemonic/mnemonic.component */ 73018);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/router */ 95072);
 
@@ -484,7 +484,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CopyToClipboardBase: () => (/* binding */ CopyToClipboardBase)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 
 class CopyToClipboardBase {
   constructor(_chromeService, _snackBar, _translocoService) {
@@ -498,7 +498,7 @@ class CopyToClipboardBase {
   }
   _copyToClipboard(value, showSnackBar = true) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         yield _this._chromeService.copyToClipboard(value);
         if (showSnackBar) _this._showCopyToClipboardSnackBar();
@@ -537,7 +537,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BiometricsGeneralComponent: () => (/* binding */ BiometricsGeneralComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs */ 10819);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/dialog */ 12587);
@@ -895,7 +895,7 @@ class BiometricsGeneralComponent {
       start: true
     });
     this._walletService.faceapi$.subscribe( /*#__PURE__*/function () {
-      var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (isLoaded) {
+      var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (isLoaded) {
         _this2.camera.isLoading = !isLoaded;
         _this2.setMaxVideoDimensions();
         if (isLoaded) {
@@ -1034,7 +1034,7 @@ class BiometricsGeneralComponent {
     if (!this.interval.detectFace || this.response.base64Image) return;
     const img = new Image();
     img.src = webcamImage.imageAsDataUrl;
-    img.onload = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    img.onload = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (img.height < _this3.face.minHeight) {
         _this3.camera.isLowQuality = true;
         return;
@@ -1184,7 +1184,7 @@ class BiometricsGeneralComponent {
   }
   biometricsLogin() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Check if the function has already been called
       if (_this["biometricsLoginCalled"]) return;
       // // Set the flag to true to indicate that the function has been called
@@ -1226,7 +1226,7 @@ class BiometricsGeneralComponent {
       type: "create",
       wordsCount: data.wordsCount || payload.wordsCount || 12
     }).then( /*#__PURE__*/function () {
-      var _ref3 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (response) {
+      var _ref3 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (response) {
         _this5.session.showBiometrics = false;
         yield _this5._chromeService.setItem("durationToken", response.data.durationToken);
         yield _this5._chromeService.setItem("wallet", response.data);
@@ -1253,7 +1253,7 @@ class BiometricsGeneralComponent {
       zelfProof: data.zelfProof || this._zelfNameService.getZelfProof(),
       identifier: data.identifier
     }).then( /*#__PURE__*/function () {
-      var _ref4 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (response) {
+      var _ref4 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (response) {
         yield _this6._chromeService.setItem("unlockWallet", response.data);
         _this6.session.showBiometrics = false;
         _this6.session.navigationStep = 2;
@@ -1281,7 +1281,7 @@ class BiometricsGeneralComponent {
       type: "import",
       mnemonic: data.phrase
     }).then( /*#__PURE__*/function () {
-      var _ref5 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (response) {
+      var _ref5 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (response) {
         _this7.session.walletCreated = response.data;
         yield _this7._chromeService.setItem("durationToken", response.data.durationToken);
         yield _this7._chromeService.setItem("importWallet", response.data);
@@ -1463,7 +1463,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BiometricsComponent: () => (/* binding */ BiometricsComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 10819);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/dialog */ 12587);
@@ -1661,7 +1661,7 @@ class BiometricsComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this._generateSession(_this.type);
       _this.errorFace = null;
       _this.loadingResults = false;
@@ -1696,10 +1696,10 @@ class BiometricsComponent {
   }
   listenModeDebug() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.isActiveDebug = yield _this2._chromeService.getItem("isActiveDebug");
       document.addEventListener("keydown", /*#__PURE__*/function () {
-        var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (event) {
+        var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (event) {
           if (_this2.debugText.charAt(_this2.debugIndex) === event.key.toLowerCase()) {
             if (_this2.debugIndex === 3) {
               _this2.isActiveDebug = !_this2.isActiveDebug;
@@ -1726,7 +1726,7 @@ class BiometricsComponent {
   }
   loadImages() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this3.left = new Image();
       _this3.left.crossOrigin = "anonymous";
       _this3.left.src = "https://cdn.verifik.co/web-sdk/images/left.png";
@@ -1743,7 +1743,7 @@ class BiometricsComponent {
   }
   startAsyncVideo() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         _this4.stream = yield navigator.mediaDevices.getUserMedia({
           video: _this4.videoOptions,
@@ -1791,9 +1791,9 @@ class BiometricsComponent {
   }
   detectFaces() {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this5.setConfigCanvas();
-      _this5.detectFaceInterval = setInterval( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this5.detectFaceInterval = setInterval( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (!_this5.videoInput) return;
         try {
           const detection = yield _vladmandic_face_api__WEBPACK_IMPORTED_MODULE_6__.detectAllFaces(_this5.videoInput, new _vladmandic_face_api__WEBPACK_IMPORTED_MODULE_6__.SsdMobilenetv1Options({
@@ -1824,7 +1824,7 @@ class BiometricsComponent {
   }
   setConfigCanvas() {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this6.videoInput) return;
       if (!_this6.canvas && _this6.canvasRef) {
         _this6.canvas = yield _vladmandic_face_api__WEBPACK_IMPORTED_MODULE_6__.createCanvasFromMedia(_this6.videoInput);
@@ -1953,7 +1953,7 @@ class BiometricsComponent {
   }
   takePicture() {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this7.canvasResultRef || !_this7.canvasToSendRef) return;
       const canvasToSend = _this7.canvasToSendRef.nativeElement;
       const canvasResult = _this7.canvasResultRef.nativeElement;
@@ -2118,7 +2118,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BlockchainNetworksService: () => (/* binding */ BlockchainNetworksService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _chrome_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chrome.service */ 85043);
 
@@ -2130,7 +2130,7 @@ class BlockchainNetworksService {
   }
   _initNetwork() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.selectedNetwork = yield _this._chromeService.getItem("network");
       if (!_this.selectedNetwork) {
         _this.selectedNetwork = "eth";
@@ -2144,7 +2144,7 @@ class BlockchainNetworksService {
   }
   setSelectedNetwork(code) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.selectedNetwork = code;
       yield _this2._chromeService.setItem("network", _this2.selectedNetwork);
     })();
@@ -2232,7 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ChromeService: () => (/* binding */ ChromeService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 75797);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
 
@@ -2250,7 +2250,7 @@ class ChromeService {
     this._tabStorageKey = "isTabOpen";
     if (!this.isExtension) return;
     chrome.tabs.onRemoved.addListener( /*#__PURE__*/function () {
-      var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (closedTabId) {
+      var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (closedTabId) {
         const storedTabId = yield _this.getItem("tabId");
         if (storedTabId !== closedTabId) return;
         yield _this.setItem(_this._tabStorageKey, false);
@@ -2293,7 +2293,7 @@ class ChromeService {
   }
   closeTab(tabId) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this2.isExtension) return;
       if (!tabId) tabId = yield _this2.getItem("tabId");
       if (!tabId) return;
@@ -2301,7 +2301,7 @@ class ChromeService {
     })();
   }
   copyToClipboard(value) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (navigator?.clipboard) {
         navigator?.clipboard.writeText(value);
         return;
@@ -2316,7 +2316,7 @@ class ChromeService {
   }
   getItem(key, overrideSource) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let source = _this3.isExtension ? "extension" : "web";
       if (overrideSource) {
         source = ["extension", "web"].includes(overrideSource) ? overrideSource : source;
@@ -2350,7 +2350,7 @@ class ChromeService {
   }
   isExtensionTabOpen() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this4.isExtension) return false;
       return new Promise(resolve => {
         const baseUrl = chrome.runtime.getURL("#/onboarding");
@@ -2363,7 +2363,7 @@ class ChromeService {
   }
   openFullPage(path) {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this5.isExtension) return;
       chrome.tabs.getCurrent(currentTab => {
         if (currentTab) return; // No need to open a new tab if running in the current tab
@@ -2372,7 +2372,7 @@ class ChromeService {
           chrome.tabs.create({
             url: `${url}#${path}`
           }, /*#__PURE__*/function () {
-            var _ref2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (tab) {
+            var _ref2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (tab) {
               if (tab.id) {
                 try {
                   yield _this5.setItem(_this5._tabStorageKey, true);
@@ -2394,7 +2394,7 @@ class ChromeService {
   }
   openSidePanel() {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this6.isExtension) return;
       const [window] = yield chrome.windows.getAll({
         populate: true
@@ -2431,7 +2431,7 @@ class ChromeService {
   }
   removeItem(key) {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return new Promise((resolve, reject) => {
         if (_this7.isExtension) {
           chrome.storage.local.remove(key, () => {
@@ -2454,7 +2454,7 @@ class ChromeService {
   }
   setItem(key, value) {
     var _this8 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return new Promise((resolve, reject) => {
         if (_this8.isExtension) {
           chrome.storage.local.set({
@@ -2504,7 +2504,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BiometricInstructionsComponent: () => (/* binding */ BiometricInstructionsComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 95072);
 /* harmony import */ var app_chrome_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/chrome.service */ 85043);
@@ -2536,7 +2536,7 @@ class BiometricInstructionsComponent {
   ngOnInit() {}
   startCamera() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let captchaToken = "";
       const zelfName = yield _this._zelfNameService.getZelfName();
       if (!zelfName) return _this.router.navigate(["/onboarding"]);
@@ -2641,7 +2641,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   PasswordStepComponent: () => (/* binding */ PasswordStepComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! environments/environment */ 45312);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 34456);
@@ -2728,7 +2728,7 @@ class PasswordStepComponent {
   }
   addPassword() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.loading = true;
       const password = _this.passwordForm.value.password;
       _this._vaultService.password = password;
@@ -3145,7 +3145,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CreateWalletComponent: () => (/* binding */ CreateWalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ 34456);
@@ -3286,7 +3286,7 @@ class CreateWalletComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.signUpForm = _this._formBuilder.group({
         termsAcceptance: [false],
         wordsCount: [24, []]
@@ -3408,7 +3408,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ViewCreatedWalletQrCodeComponent: () => (/* binding */ ViewCreatedWalletQrCodeComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_base_copy_to_clipboard_copy_to_clipboard_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/base/copy-to-clipboard/copy-to-clipboard.base */ 88070);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -3417,7 +3417,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_chrome_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/chrome.service */ 85043);
 /* harmony import */ var _ngneat_transloco__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngneat/transloco */ 40261);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/snack-bar */ 3347);
-/* harmony import */ var _mnemonic_mnemonic_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mnemonic/mnemonic.component */ 18);
+/* harmony import */ var _mnemonic_mnemonic_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mnemonic/mnemonic.component */ 73018);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/flex-layout/flex */ 91447);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/button */ 84175);
@@ -3568,7 +3568,7 @@ class ViewCreatedWalletQrCodeComponent extends app_base_copy_to_clipboard_copy_t
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const walletType = _this.walletType || "wallet";
       const wallet = (yield _this._chromeService.getItem(walletType)) || (yield _this._chromeService.getItem("unlockWallet"));
       _this.holdData = wallet.ipfs?.metadata?.type === "hold" ? wallet.ipfs?.metadata : null;
@@ -3618,7 +3618,7 @@ class ViewCreatedWalletQrCodeComponent extends app_base_copy_to_clipboard_copy_t
   }
   goToPaymentsPage() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const durationToken = yield _this2._chromeService.getItem("durationToken");
       window.open(`https://payment.zelf.world/purchase?zelfName=${_this2.wallet.name}&durationToken=${durationToken}`, "_blank");
       _this2.goToInstructions();
@@ -3816,7 +3816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   EthereumService: () => (/* binding */ EthereumService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var web3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! web3 */ 37433);
 /* harmony import */ var web3_validator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! web3-validator */ 18578);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 75797);
@@ -3877,14 +3877,14 @@ class EthereumService {
   }
   getBalance() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const balance = yield _this.web3.eth.getBalance(_this.account.value);
       return _this.web3.utils.fromWei(balance, "ether");
     })();
   }
   getBalanceByAddress(address) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const balanceWei = yield _this2.web3.eth.getBalance(address);
         const balanceEth = _this2.web3.utils.fromWei(balanceWei, "ether");
@@ -3902,7 +3902,7 @@ class EthereumService {
   }
   sendTransaction(to, value) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const valueWei = _this3.web3.utils.toWei(value.toString(), "ether");
       const gasPrice = yield _this3.web3.eth.getGasPrice();
       const gasEstimate = yield _this3.web3.eth.estimateGas({
@@ -4598,7 +4598,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HeaderComponent: () => (/* binding */ HeaderComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/flex-layout/flex */ 91447);
 /* harmony import */ var _language_picker_language_picker_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../language-picker/language-picker.component */ 26008);
@@ -4609,7 +4609,7 @@ __webpack_require__.r(__webpack_exports__);
 class HeaderComponent {
   constructor() {}
   ngOnInit() {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
   }
   static {
     this.ɵfac = function HeaderComponent_Factory(t) {
@@ -4771,7 +4771,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HomeActiveWalletComponent: () => (/* binding */ HomeActiveWalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _ngneat_transloco__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngneat/transloco */ 40261);
@@ -4906,7 +4906,7 @@ class HomeActiveWalletComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const wallet = (yield _this._chromeService.getItem("wallet")) || {};
       _this.wallet = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.WalletModel(wallet);
     })();
@@ -4997,7 +4997,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HomeHeaderAccountsComponent: () => (/* binding */ HomeHeaderAccountsComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_material_bottom_sheet__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/bottom-sheet */ 15244);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/button */ 84175);
@@ -5184,7 +5184,7 @@ class HomeHeaderAccountsComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this._initWallets();
     })();
   }
@@ -5194,7 +5194,7 @@ class HomeHeaderAccountsComponent {
   }
   _initWallets() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const _wallet = (yield _this2._chromeService.getItem("wallet")) || {};
       _this2.currentWallet = new app_wallet__WEBPACK_IMPORTED_MODULE_3__.WalletModel({
         ..._wallet,
@@ -5229,7 +5229,7 @@ class HomeHeaderAccountsComponent {
   }
   switchWallet(selectedWallet) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const wallet = yield _this3._chromeService.getItem("wallet");
       if (selectedWallet.publicData.zelfName === wallet.publicData.zelfName) {
         _this3.close();
@@ -5281,7 +5281,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HomeHeaderComponent: () => (/* binding */ HomeHeaderComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 10819);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 33900);
 /* harmony import */ var _home_header_accounts_home_header_accounts_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../home-header-accounts/home-header-accounts.component */ 52628);
@@ -5403,7 +5403,7 @@ class HomeHeaderComponent {
   }
   openSidePanel() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this._chromeService.openSidePanel();
     })();
   }
@@ -5616,7 +5616,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HomeWalletsConnectedComponent: () => (/* binding */ HomeWalletsConnectedComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_wallet_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/wallet.service */ 69556);
@@ -5717,7 +5717,7 @@ class HomeWalletsConnectedComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const _wallet = (yield _this._chromeService.getItem("wallet")) || {};
       _this.currentWallet = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.WalletModel({
         ..._wallet,
@@ -5798,7 +5798,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HomeComponent: () => (/* binding */ HomeComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! rxjs */ 10819);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs */ 33900);
@@ -6153,7 +6153,7 @@ class HomeComponent {
     this.NFTs = [];
     this.tokens = [];
     this._chromeService.removeItem("unlockWallet");
-    this._chromeService.onWalletChanged$.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_16__.takeUntil)(this.unsubscriber$)).subscribe( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    this._chromeService.onWalletChanged$.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_16__.takeUntil)(this.unsubscriber$)).subscribe( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.balancesLoaded = false;
       yield _this._setWallet();
       yield _this._getBalances();
@@ -6161,13 +6161,13 @@ class HomeComponent {
   }
   ngOnInit() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.selectedNetwork = yield _this2._blockchainNetworkService._initNetwork();
     })();
   }
   _getBalances() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this3.balancesLoaded) return;
       _this3.activity = [];
       _this3.tokens = [];
@@ -6179,7 +6179,7 @@ class HomeComponent {
   }
   _getETHDetails() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this4.wallet?.ethAddress) return;
       const details = yield _this4._ethService.getWalletDetails(_this4.wallet.ethAddress);
       _this4.selectedAsset = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.Asset({
@@ -6197,7 +6197,7 @@ class HomeComponent {
   }
   _getSolanaDetails() {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const details = yield _this5._solanaService.getWalletDetails(_this5.wallet.solanaAddress);
       if (!details) return;
       if (details.data.balance) {
@@ -6236,7 +6236,7 @@ class HomeComponent {
   }
   _setWallet() {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let wallet = yield _this6._chromeService.getItem("wallet");
       if (!wallet) {
         let wallets = yield _this6._chromeService.getItem("wallets");
@@ -6333,7 +6333,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   NetworkPickerComponent: () => (/* binding */ NetworkPickerComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_chrome_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/chrome.service */ 85043);
 /* harmony import */ var app_blockchain_networks_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/blockchain-networks.service */ 29809);
@@ -6378,7 +6378,7 @@ class NetworkPickerComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.selectedNetwork = yield _this._chromeService.getItem("network");
       if (!_this.selectedNetwork) {
         _this.selectedNetwork = "eth";
@@ -6388,7 +6388,7 @@ class NetworkPickerComponent {
   }
   selectThisNetwork(code) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.selectedNetwork = code;
       yield _this2._blockchainNetworkService.setSelectedNetwork(code);
       switch (code) {
@@ -6638,7 +6638,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   HttpWrapperService: () => (/* binding */ HttpWrapperService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var openpgp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! openpgp */ 22634);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 46443);
@@ -6666,7 +6666,7 @@ class HttpWrapperService {
    */
   sendRequest(method, url, params = {}, options = {}) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       method = method.toLocaleLowerCase();
       const authToken = (yield _this._chromeService.getItem("accessToken")) || "";
       let headers = {
@@ -6722,7 +6722,7 @@ class HttpWrapperService {
   }
   encryptMessage(data) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!data) return data;
       if (!_this2.publicKey) throw new Error("cannot_encrypt_message");
       const publicKey = yield openpgp__WEBPACK_IMPORTED_MODULE_1__.readKey({
@@ -6845,7 +6845,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ImportQrCodeStepComponent: () => (/* binding */ ImportQrCodeStepComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_base_copy_to_clipboard_copy_to_clipboard_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/base/copy-to-clipboard/copy-to-clipboard.base */ 88070);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -6915,7 +6915,7 @@ class ImportQrCodeStepComponent extends app_base_copy_to_clipboard_copy_to_clipb
   }
   goToInstructions() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this._router.navigate(["extension-instructions"]);
       yield _this._chromeService.setItem("wallet", _this.wallet);
     })();
@@ -7021,7 +7021,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ImportWalletComponent: () => (/* binding */ ImportWalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 34456);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -7369,7 +7369,7 @@ class ImportWalletComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const wallet = yield _this._chromeService.getItem("importWallet");
       if (wallet) {
         _this.wallet = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.WalletModel(wallet);
@@ -7446,7 +7446,7 @@ class ImportWalletComponent {
   }
   validateWallet() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const value = _this2.importForm.value;
       let phrase = ``;
       for (const key in value) {
@@ -7552,7 +7552,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   LanguagePickerComponent: () => (/* binding */ LanguagePickerComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 10819);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ 33900);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -7676,7 +7676,7 @@ class LanguagePickerComponent {
    */
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.availableLangs = _this._translocoService.getAvailableLangs();
       const currentLanguage = yield _this._chromeService.getItem("currentLanguage");
       if (currentLanguage) {
@@ -7702,7 +7702,7 @@ class LanguagePickerComponent {
    */
   setActiveLang(lang) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Set the active lang
       _this2._translocoService.setActiveLang(lang);
       yield _this2._chromeService.setItem("currentLanguage", lang);
@@ -7827,7 +7827,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   LoginGuard: () => (/* binding */ LoginGuard)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 95072);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _wallet_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wallet.service */ 69556);
@@ -7836,7 +7836,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const LoginGuard = /*#__PURE__*/function () {
-  var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (route, state) {
+  var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (route, state) {
     const _walletService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.inject)(_wallet_service__WEBPACK_IMPORTED_MODULE_1__.WalletService);
     const router = (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.inject)(_angular_router__WEBPACK_IMPORTED_MODULE_3__.Router);
     const wallet = yield _walletService.getWallet();
@@ -7868,7 +7868,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ManageDomainComponent: () => (/* binding */ ManageDomainComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ 84175);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 95072);
@@ -8050,7 +8050,7 @@ class ManageDomainComponent {
   }
   _setWallets() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.loading = true;
       let wallet = yield _this._chromeService.getItem("wallet");
       let wallets = [];
@@ -8107,7 +8107,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ManageDomainsComponent: () => (/* binding */ ManageDomainsComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/icon */ 93840);
 /* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/menu */ 31034);
@@ -8556,7 +8556,7 @@ class ManageDomainsComponent {
       }
     });
     dialogRef.afterClosed().subscribe( /*#__PURE__*/function () {
-      var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (confirmed) {
+      var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (confirmed) {
         if (!confirmed) return;
         _this._chromeService.removeItem("wallet");
         _this._chromeService.removeItem("wallets");
@@ -8569,7 +8569,7 @@ class ManageDomainsComponent {
   }
   _setWallets() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.loading = true;
       let wallet = yield _this2._chromeService.getItem("wallet");
       let wallets = yield _this2._chromeService.getItem("wallets");
@@ -8595,7 +8595,7 @@ class ManageDomainsComponent {
   }
   logoutOfWallet(wallet) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const currentWallet = yield _this3._chromeService.getItem("wallet");
       const wallets = yield _this3._chromeService.getItem("wallets");
       if (!wallets || !wallets.length) {
@@ -8646,7 +8646,7 @@ class ManageDomainsComponent {
 
 /***/ }),
 
-/***/ 18:
+/***/ 73018:
 /*!************************************************!*\
   !*** ./src/app/mnemonic/mnemonic.component.ts ***!
   \************************************************/
@@ -8657,7 +8657,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   MnemonicComponent: () => (/* binding */ MnemonicComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 34456);
 /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/input */ 95541);
@@ -8836,7 +8836,7 @@ class MnemonicComponent extends app_base_copy_to_clipboard_copy_to_clipboard_bas
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this._prepareWords();
     })();
   }
@@ -8848,7 +8848,7 @@ class MnemonicComponent extends app_base_copy_to_clipboard_copy_to_clipboard_bas
   }
   _decryptMessage() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const encryptedMessage = _this2.wallet.pgp?.encryptedMessage;
       const privateKeyArmoured = _this2.wallet.pgp?.privateKey;
       const passphrase = _this2._password;
@@ -8862,7 +8862,7 @@ class MnemonicComponent extends app_base_copy_to_clipboard_copy_to_clipboard_bas
   }
   _prepareWords() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this3._password) {
         _this3.blurMnemonic = true;
         _this3._initPasswordForm();
@@ -9063,7 +9063,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   NewNameCardComponent: () => (/* binding */ NewNameCardComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 34456);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 52575);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ 91817);
@@ -9392,7 +9392,7 @@ class NewNameCardComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.zelfName = yield _this._zelfNameService.getZelfName();
       _this.price = yield _this._zelfNameService.getZelfPrice();
       _this.reward = _this._zelfNameService.getZelfReward();
@@ -9460,7 +9460,7 @@ class NewNameCardComponent {
   }
   searchZelfName(event) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this2.zelfForm.valid) {
         _this2.zelfForm.patchValue({
           zelfName: ""
@@ -9683,7 +9683,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   NewZelfNameComponent: () => (/* binding */ NewZelfNameComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_wallet_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet.service */ 69556);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 95072);
@@ -9761,7 +9761,7 @@ class NewZelfNameComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.zelfName = yield _this._zelfNameService.getZelfName();
     })();
   }
@@ -9817,14 +9817,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   OnboardingGuard: () => (/* binding */ OnboardingGuard)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _chrome_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chrome.service */ 85043);
 
 
 
 const OnboardingGuard = /*#__PURE__*/function () {
-  var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (route) {
+  var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (route) {
     const _chromeService = (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.inject)(_chrome_service__WEBPACK_IMPORTED_MODULE_1__.ChromeService);
     const isExtension = _chromeService.isExtension;
     const isPopout = _chromeService.isPopOut;
@@ -9856,7 +9856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   OnboardingComponent: () => (/* binding */ OnboardingComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ 34456);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 95072);
@@ -10003,7 +10003,7 @@ class OnboardingComponent {
     this.checkIfTabOpen();
   }
   onSubmit(event) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
   }
   // Check if running as a tab or popup
   checkIfTabOrPopup() {
@@ -10012,7 +10012,7 @@ class OnboardingComponent {
   // Check if a tab with the extension is already open
   checkIfTabOpen() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.isTabOpen = yield _this._chromeService.isExtensionTabOpen();
     })();
   }
@@ -10076,7 +10076,7 @@ class OnboardingComponent {
   }
   _initSession() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
         hash
       } = _this2._walletService.generateUniqueId();
@@ -10091,7 +10091,7 @@ class OnboardingComponent {
   }
   searchZelfName(event) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this3.zelfForm.valid) {
         _this3.zelfForm.patchValue({
           zelfName: ""
@@ -10472,7 +10472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_material_bottom_sheet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/bottom-sheet */ 15244);
 /* harmony import */ var _ngneat_transloco__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngneat/transloco */ 40261);
-/* harmony import */ var _mnemonic_mnemonic_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mnemonic/mnemonic.component */ 18);
+/* harmony import */ var _mnemonic_mnemonic_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mnemonic/mnemonic.component */ 73018);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37580);
 
 
@@ -10582,7 +10582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SendTransactionBridgeComponent: () => (/* binding */ SendTransactionBridgeComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ 475);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -10608,7 +10608,7 @@ class SendTransactionBridgeComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.transactionData = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.TransactionModel(_this._transactionService.getTransactionData());
       let wallet = yield _this._chromeService.getItem("wallet");
       qrcode__WEBPACK_IMPORTED_MODULE_2__.toDataURL(JSON.stringify({
@@ -10740,7 +10740,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SendTransactionConfirmationComponent: () => (/* binding */ SendTransactionConfirmationComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_transaction_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/transaction.service */ 65443);
@@ -10890,7 +10890,7 @@ class SendTransactionConfirmationComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.wallet = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.WalletModel((yield _this._chromeService.getItem("wallet")) || {});
       if (!_this.transactionData?.sender) {
         _this.transactionData.sender = _this.wallet;
@@ -10900,7 +10900,7 @@ class SendTransactionConfirmationComponent {
   }
   _getGasFees() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let fees;
       switch (_this2.transactionData.network) {
         case "Ethereum":
@@ -10917,7 +10917,7 @@ class SendTransactionConfirmationComponent {
   }
   _getETHGasFees() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const fees = yield _this3._ethService.getGasPrices();
       let gasFees = 0;
       if (_this3.transactionData.tokenType === "ETH") {
@@ -10989,7 +10989,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SendTransactionPreviewComponent: () => (/* binding */ SendTransactionPreviewComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ 34456);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -11084,7 +11084,7 @@ class SendTransactionPreviewComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const transactionToSend = _this.transactionData ? null : yield _this._chromeService.getItem("temp_transactionData");
       if (transactionToSend && !_this.transactionData) {
         _this.transactionData = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.TransactionModel(transactionToSend);
@@ -11111,7 +11111,7 @@ class SendTransactionPreviewComponent {
   }
   _getGasFees() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let fees;
       switch (_this2.transactionData.network) {
         case "Ethereum":
@@ -11128,7 +11128,7 @@ class SendTransactionPreviewComponent {
   }
   _getAccountDetails() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this3.selectedAsset = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.Asset({
         asset: _this3.transactionData.asset,
         fiatBalance: _this3.transactionData.fiatBalance,
@@ -11265,7 +11265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SendTransactionComponent: () => (/* binding */ SendTransactionComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_wallet_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet.service */ 69556);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 95072);
@@ -11355,7 +11355,7 @@ class SendTransactionComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.session = _this._walletService.getSessionData();
       const wallet = yield _this._walletService.retrieveWallet();
       if (!wallet) return;
@@ -11369,14 +11369,14 @@ class SendTransactionComponent {
   }
   _getETHDetails() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const details = yield _this2._ethService.getWalletDetails(_this2.wallet?.ethAddress);
       _this2._ethService.formatTokens(details);
     })();
   }
   _getSolanaDetails() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const details = yield _this3._solanaService.getWalletDetails(_this3.wallet?.solanaAddress);
       if (!details) return;
       _this3._solanaService.formatTokens(details);
@@ -11457,7 +11457,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   StSearchWalletComponent: () => (/* binding */ StSearchWalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 34456);
@@ -11763,7 +11763,7 @@ class StSearchWalletComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.myAccounts = [];
       const currentWallet = new app_wallet__WEBPACK_IMPORTED_MODULE_1__.WalletModel((yield _this._chromeService.getItem("wallet")) || {});
       const wallets = (yield _this._chromeService.getItem("wallets")) || [];
@@ -11783,7 +11783,7 @@ class StSearchWalletComponent {
   }
   pasteFromClipboard() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         // Check if the Clipboard API is supported
         if (navigator.clipboard && navigator.clipboard.readText) {
@@ -11805,7 +11805,7 @@ class StSearchWalletComponent {
   }
   triggerSearch(triggeredBy = "subscribe") {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this3.shareables.loading = true;
       _this3.domainToPurchase = null;
       if (triggeredBy === "enter" && _this3.searchForm.value.address.trim()) {
@@ -12357,7 +12357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   TransactionDetailsComponent: () => (/* binding */ TransactionDetailsComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_transaction_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/transaction.service */ 65443);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 95072);
@@ -12507,7 +12507,7 @@ class TransactionDetailsComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.details = yield _this._chromeService.getItem("transactionDetails");
       if (!_this.details) {
         _this._router.navigate(["/home"]);
@@ -12636,7 +12636,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   UnlockWalletComponent: () => (/* binding */ UnlockWalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var app_wallet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet */ 45965);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 95072);
@@ -12762,7 +12762,7 @@ class UnlockWalletComponent {
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const activeWallet = yield _this._chromeService.getItem("tempWalletAddress");
       const _unlockWallet = (yield _this._chromeService.getItem("unlockWallet")) || {};
       const unlockWallet = activeWallet ? null : new app_wallet__WEBPACK_IMPORTED_MODULE_1__.WalletModel(_unlockWallet);
@@ -12868,7 +12868,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   UwPasswordStepComponent: () => (/* binding */ UwPasswordStepComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var app_wallet_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/wallet.service */ 69556);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 34456);
@@ -12945,7 +12945,7 @@ class UwPasswordStepComponent {
   }
   setPassword() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const password = _this.passwordForm.value.password;
       _this._vaultService.password = password;
       _this.session.password = yield _this._httpWrapperService.encryptMessage(password);
@@ -13034,7 +13034,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   UwSearchWalletComponent: () => (/* binding */ UwSearchWalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var buffer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! buffer */ 163);
 /* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jsqr */ 22500);
 /* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_2__);
@@ -13420,7 +13420,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   }
   ngOnInit() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const defaultAddress = "";
       _this.searchForm = _this._formBuilder.group({
         address: [defaultAddress, []]
@@ -13442,7 +13442,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   }
   _checkForTempWallet() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.loading = true;
       const zelfName = yield _this2._chromeService.getItem("currentZelfName");
       const passedActiveQRCode = yield _this2._chromeService.getItem("tempWalletQrCode");
@@ -13460,7 +13460,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   }
   _checkForZelfFile() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const zelfFile = _this3._zelfNameService.getZelfFile();
       const zelfName = yield _this3._zelfNameService.getZelfName();
       if (!zelfFile && zelfName) _this3._router.navigate(["/onboarding"]);
@@ -13469,7 +13469,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   }
   triggerSearch(query) {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!query) query = _this4.searchForm.value.address;
       if (!query) {
         _this4.loading = false;
@@ -13495,7 +13495,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   }
   _queryZNS(key, value) {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const response = yield _this5._zelfNameService.searchZelfName(key, value, _this5.captchaToken);
         if (!response.data) return null;
@@ -13567,7 +13567,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   // Method to handle file selection
   onFileSelected(event) {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const input = event.target;
       if (!input || !input.files || !input.files.length) return;
       const file = input.files[0];
@@ -13585,7 +13585,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   // Method to handle file drop event
   onDrop(event) {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       event.preventDefault();
       event.stopPropagation();
       if (event.dataTransfer && event.dataTransfer.files.length > 0) {
@@ -13597,7 +13597,7 @@ class UwSearchWalletComponent extends app_base_copy_to_clipboard_copy_to_clipboa
   }
   _captchaGeneration() {
     var _this8 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         _this8.captchaToken = yield _this8.captchaService.executeRecaptcha("preview");
       } catch (error) {
@@ -13767,7 +13767,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   VaultService: () => (/* binding */ VaultService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var openpgp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! openpgp */ 22634);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37580);
 
@@ -13793,7 +13793,7 @@ class VaultService {
    * @returns The decrypted plain text.
    */
   decryptMessage(encryptedMessage, privateKeyArmoured, passphrase) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         // Parse the armored private key.
         const privateKey = yield openpgp__WEBPACK_IMPORTED_MODULE_1__.readPrivateKey({
@@ -13850,7 +13850,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   WalletCardComponent: () => (/* binding */ WalletCardComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ 39545);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37580);
@@ -14012,7 +14012,7 @@ class WalletCardComponent {
   }
   _syncDetails() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this.variables.hideActions) return;
       const leaseExpiresAt = _this.wallet.publicData.leaseExpiresAt;
       // check if it's expired
@@ -14058,7 +14058,7 @@ class WalletCardComponent {
   }
   selectAccount() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this2.variables?.origin === "sendTransaction") return;
       const currentWallet = (yield _this2._chromeService.getItem("wallet")) || {};
       if (currentWallet.ethAddress === _this2.wallet.ethAddress) {
@@ -14173,7 +14173,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   WalletService: () => (/* binding */ WalletService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! environments/environment */ 45312);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 75797);
 /* harmony import */ var _vladmandic_face_api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @vladmandic/face-api */ 12841);
@@ -14232,7 +14232,7 @@ class WalletService {
   }
   getWallet() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this.wallet) return _this.wallet;
       const wallet = yield _this._chromeService.getItem("wallet");
       _this.wallet = wallet || null;
@@ -14241,7 +14241,7 @@ class WalletService {
   }
   getWallets() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this2.wallets.length) return _this2.wallets;
       const wallets = yield _this2._chromeService.getItem("wallets", "web");
       _this2.wallets = wallets || [];
@@ -14274,13 +14274,13 @@ class WalletService {
   }
   restoreSession() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let wallets = (yield _this3._chromeService.getItem("wallets")) || [];
       if (!wallets) wallets = [];
       const currentWallet = new _wallet__WEBPACK_IMPORTED_MODULE_3__.WalletModel((yield _this3._chromeService.getItem("wallet")) || {});
       const keysToRemove = ["unlockWallet", "importWallet", "password", "referralZelfName", "network", "durationToken", "currentZelfName", "zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration"];
       yield Promise.all(keysToRemove.map( /*#__PURE__*/function () {
-        var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (key) {
+        var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (key) {
           _this3._chromeService.removeItem(key);
         });
         return function (_x) {
@@ -14306,7 +14306,7 @@ class WalletService {
   }
   loadModels() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const promises = [];
       promises.push(_vladmandic_face_api__WEBPACK_IMPORTED_MODULE_8__.nets.ssdMobilenetv1.loadFromUri("assets/models"));
       promises.push(_vladmandic_face_api__WEBPACK_IMPORTED_MODULE_8__.nets.faceLandmark68Net.loadFromUri("assets/models"));
@@ -14422,7 +14422,7 @@ class WalletService {
     return this._httpWrapper.sendRequest("post", `${this.baseUrl}/v2/app-registrations`, data);
   }
   generateKeyPair() {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const {
         privateKey,
         publicKey
@@ -14442,7 +14442,7 @@ class WalletService {
     })();
   }
   encryptMessage(plainTextMessage, publicKeyArmored) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const publicKey = yield openpgp__WEBPACK_IMPORTED_MODULE_2__.readKey({
         armoredKey: publicKeyArmored
       });
@@ -14496,7 +14496,7 @@ class WalletService {
    */
   retrieveWallet() {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let wallet = yield _this5._chromeService.getItem("wallet");
       const wallets = (yield _this5._chromeService.getItem("wallets")) || [];
       if (!wallet && (!wallets || !wallets.length)) return null;
@@ -14666,7 +14666,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   WalletComponent: () => (/* binding */ WalletComponent)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ 60316);
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/button */ 84175);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/snack-bar */ 3347);
@@ -14908,7 +14908,7 @@ class WalletComponent extends app_base_copy_to_clipboard_copy_to_clipboard_base_
   }
   _setWallets() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.loading = true;
       let wallet = yield _this._chromeService.getItem("wallet");
       let wallets = [];
@@ -14922,7 +14922,7 @@ class WalletComponent extends app_base_copy_to_clipboard_copy_to_clipboard_base_
   }
   copyToClipboard(value) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this2._copyToClipboard(value);
     })();
   }
@@ -14989,7 +14989,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ZelfNameService: () => (/* binding */ ZelfNameService)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../environments/environment */ 45312);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37580);
 /* harmony import */ var _http_wrapper_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./http-wrapper.service */ 84099);
@@ -15014,10 +15014,10 @@ class ZelfNameService {
   }
   cleanVariables() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const keys = ["zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration", "accessToken"];
       yield Promise.all(keys.map( /*#__PURE__*/function () {
-        var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (key) {
+        var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (key) {
           return _this._chromeService.removeItem(key);
         });
         return function (_x) {
@@ -15057,7 +15057,7 @@ class ZelfNameService {
   }
   setZelfName(zelfName, priceObject = {}) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this2.variables.zelfName = zelfName;
       const setPromise = zelfName ? _this2._chromeService.setItem("zelfName", zelfName) : _this2._chromeService.removeItem("zelfName");
       setPromise.then(() => {
@@ -15077,44 +15077,44 @@ class ZelfNameService {
   }
   setDuration(duration) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this3.variables.duration = duration;
       yield _this3._chromeService.setItem("duration", duration);
     })();
   }
   setReferral(referralZelfName) {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this4._chromeService.setItem("referralZelfName", referralZelfName);
     })();
   }
   getReferral() {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield _this5._chromeService.getItem("referralZelfName");
     })();
   }
   getZelfName() {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this6.variables.zelfName || (yield _this6._chromeService.getItem("zelfName"));
     })();
   }
   getZelfPrice() {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this7.variables.price || (yield _this7._chromeService.getItem("zelfPrice"));
     })();
   }
   getZelfReward() {
     var _this8 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this8.variables.reward || (yield _this8._chromeService.getItem("zelfReward"));
     })();
   }
   getDuration() {
     var _this9 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this9.variables.duration || (yield _this9._chromeService.getItem("duration"));
     })();
   }

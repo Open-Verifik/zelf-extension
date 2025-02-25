@@ -1,122 +1,86 @@
 @import "../../styles/variables";
 
 :host {
-	position: relative;
-	display: block;
-	padding: 16px;
+    position: relative;
+    display: block;
+    padding: 16px;
 }
 
 .private-key {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	gap: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 
-	&__exit {
-		position: absolute;
-		top: 0;
-		right: 0;
-		margin: 8px;
-		min-height: 32px;
-		min-width: 32px;
-		width: 32px;
-		height: 32px;
-		padding: 8px;
-		border-radius: 9999px;
-		background-color: transparent;
-		cursor: pointer;
-		outline: none;
-		border: none;
-		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    &__exit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 8px;
+        min-height: 32px;
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+        padding: 8px;
+        border-radius: 9999px;
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
-		svg {
-			transition: fill 0.3s $smoothBezier;
-			fill: $black;
-		}
+        svg {
+            transition: fill 0.3s $smoothBezier;
+            fill: $black;
+        }
 
-		&:hover {
-			background-color: #b589f0;
-			color: white;
+        &:hover {
+            background-color: #b589f0;
+            color: white;
 
-			svg {
-				fill: white;
-			}
-		}
-	}
+            svg {
+                fill: white;
+            }
+        }
+    }
 
-	&__body {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-		width: 100%;
-		justify-content: center;
-		align-items: center;
-	}
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
 
-	&__icon {
-		margin-top: 28px;
-		fill: $black;
-	}
+    &__icon {
+        margin-top: 28px;
+        fill: $black;
+    }
 
-	&__title {
-		font-size: 18px;
-		font-weight: 600;
-		font-family: Menda;
-		color: $black;
-		text-transform: uppercase;
-		margin: 0;
-	}
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: Menda;
+        color: $black;
+        text-transform: uppercase;
+        margin: 0;
+    }
 
-	&__text {
-		font-size: 14px;
-		margin: 0;
-	}
+    &__text {
+        font-size: 14px;
+        margin: 0;
+    }
 
-	&__actions {
-		width: 100%;
-		margin-top: 16px;
-		display: flex;
-		gap: 8px;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-}
-
-.mnemonic-grid {
-	margin-top: 12px;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 8px;
-	width: 100%;
-
-	&--24 {
-		grid-template-columns: repeat(8, 1fr);
-	}
-
-	&__cell {
-		display: inline-flex;
-		justify-content: flex-start;
-		align-items: center;
-		background-color: $antiFlashWhite;
-		padding: 8px;
-		border-radius: 24px;
-		height: 32px;
-		grid-column: span 1;
-
-		&-number {
-			display: inline-block;
-			user-select: none;
-			color: $taupeGray;
-			margin-right: 8px;
-		}
-
-		&-word {
-			display: inline-block;
-			user-select: none;
-			color: $black;
-		}
-	}
+    &__actions {
+        width: 100%;
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

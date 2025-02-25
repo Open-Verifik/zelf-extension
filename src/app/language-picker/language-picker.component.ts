@@ -1,93 +1,87 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { TranslocoService } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
-	selector: "language-picker",
-	templateUrl: "./language-picker.component.html",
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	styleUrls: ["../main.scss", "./language-picker.component.scss"],
-	encapsulation: ViewEncapsulation.None,
+    selector: "language-picker",
+    templateUrl: "./language-picker.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ["../main.scss", "./language-picker.component.scss"],
+    encapsulation: ViewEncapsulation.None,
 })
 export class LanguagePickerComponent implements OnInit, OnDestroy {
-	availableLangs: any;
-	activeLang: string = "";
-	flagCodes: any;
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
-	/**
-	 * Constructor
-	 */
-	constructor(private _changeDetectorRef: ChangeDetectorRef, private _translocoService: TranslocoService, private _chromeService: ChromeService) {
-		// Set the country iso codes for languages for flags
-		this.flagCodes = {
-			en: "us",
-			es: "es",
-			br: "br",
-			fr: "fr",
-			// it: "it",
-			ru: "ru",
-			kr: "kr",
-			in: "in",
-			cn: "cn",
-			ph: "ph",
-			ja: "ja",
-			ar: "ar",
-		};
-	}
+    activeLang: string = "";
+    availableLangs: any;
+    flagCodes: any;
 
-	/**
-	 * On init
-	 */
-	ngOnInit(): void {
-		// Get the available languages from transloco
-		this.availableLangs = this._translocoService.getAvailableLangs();
+    /**
+     * Constructor
+     */
+    constructor(private _changeDetectorRef: ChangeDetectorRef, private _translocoService: TranslocoService, private _chromeService: ChromeService) {
+        this.flagCodes = {
+            en: "us",
+            es: "es",
+            br: "br",
+            fr: "fr",
+            ru: "ru",
+            kr: "kr",
+            in: "in",
+            cn: "cn",
+            ph: "ph",
+            ja: "ja",
+            ar: "ar",
+        };
+    }
 
-		const currentLanguage = localStorage.getItem("currentLanguage");
+    /**
+     * On init
+     */
+    async ngOnInit(): Promise<void> {
+        this.availableLangs = this._translocoService.getAvailableLangs();
 
-		if (currentLanguage) {
-			this._translocoService.setActiveLang(currentLanguage);
+        const currentLanguage = await this._chromeService.getItem("currentLanguage");
 
-			this._changeDetectorRef.markForCheck();
-		}
+        if (currentLanguage) {
+            this._translocoService.setActiveLang(currentLanguage);
 
-		// Subscribe to language changes
-		this._translocoService.langChanges$.subscribe((activeLang) => {
-			// Get the active lang
-			this.activeLang = activeLang;
+            this._changeDetectorRef.markForCheck();
+        }
 
-			this._changeDetectorRef.markForCheck();
-		});
-	}
+        this._translocoService.langChanges$.pipe(takeUntil(this.unsubscriber$)).subscribe((activeLang) => {
+            this.activeLang = activeLang;
 
-	/**
-	 * On destroy
-	 */
-	ngOnDestroy(): void {}
+            this._changeDetectorRef.markForCheck();
+        });
+    }
 
-	// -----------------------------------------------------------------------------------------------------
-	// @ Public methods
-	// -----------------------------------------------------------------------------------------------------
+    /**
+     * On destroy
+     */
+    ngOnDestroy(): void {
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
+    }
 
-	/**
-	 * Set the active lang
-	 *
-	 * @param lang
-	 */
-	setActiveLang(lang: string): void {
-		// Set the active lang
-		this._translocoService.setActiveLang(lang);
+    /**
+     * Set the active lang
+     * @param lang
+     */
+    async setActiveLang(lang: string): Promise<void> {
+        // Set the active lang
+        this._translocoService.setActiveLang(lang);
 
-		this._chromeService.setItem("currentLanguage", lang);
-		// localStorage.setItem("currentLanguage", lang);
-	}
+        await this._chromeService.setItem("currentLanguage", lang);
+    }
 
-	/**
-	 * Track by function for ngFor loops
-	 *
-	 * @param index
-	 * @param item
-	 */
-	trackByFn(index: number, item: any): any {
-		return item.id || index;
-	}
+    /**
+     * Track by function for ngFor loops
+     * @param index
+     * @param item
+     */
+    trackByFn(index: number, item: any): any {
+        return item.id || index;
+    }
 }

@@ -44,6 +44,9 @@ let _this = {
     ],
 })
 export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
+    private unsubscriber$: Subject<any> = new Subject<any>();
+    private takePicture: Subject<void> = new Subject<void>();
+
     @Input() type?: string;
     @Input() data: any;
     @Input() callback: any;
@@ -55,24 +58,22 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
     @ViewChild("maskResult", { static: false }) public maskResultCanvasRef: ElementRef | undefined;
     @ViewChild("toSend", { static: false }) public ToSendCanvasRef: ElementRef | undefined;
-    deviceData: any;
+
+    aspectRatio = 0.75;
     attempts!: Attemps;
     camera!: CameraData;
-    response!: ResponseData;
+    deviceData: any;
+    direction!: directionImage;
+    errorContent: any;
+    errorFace!: ErrorFace | null;
     face!: FaceData;
     interval!: Intervals;
-    aspectRatio = 0.75;
+    lastFace: any;
     marginX!: number;
     marginY!: number;
-    lastFace: any;
-    errorFace!: ErrorFace | null;
-    direction!: directionImage;
-    showError: Boolean;
-    errorContent: any;
+    response!: ResponseData;
     session: any;
-
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
-    private takePicture: Subject<void> = new Subject<void>();
+    showError: Boolean;
 
     constructor(
         private _dom: ElementRef,
@@ -87,17 +88,12 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
         private captchaService: CaptchaService
     ) {
         this.deviceData = this._walletService.getDeviceData();
-
         this.session = this._walletService.getSessionData();
 
         this.startDefaultValues();
-
         this.setDefaultAttempts();
-
         this.setDefaultDirections();
-
         this.setDefaultFace();
-
         this.setDefaultInterval();
 
         this.renderer.listen("window", "resize", () => {
@@ -476,24 +472,28 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
             if (this.errorFace?.canvas?.includes("↑")) {
                 const startX = center.x - 20;
                 const startY = center.y - radius.y + 10;
+
                 ctx.drawImage(this.direction.up, startX, startY, 40, 40);
             }
 
             if (this.errorFace?.canvas?.includes("↓")) {
                 const startX = center.x - 20;
                 const startY = center.y + radius.y - 50;
+
                 ctx.drawImage(this.direction.down, startX, startY, 40, 40);
             }
 
             if (this.errorFace?.canvas?.includes("→")) {
                 const startX = center.x + radius.x - 50;
                 const startY = center.y - 20;
+
                 ctx.drawImage(this.direction.right, startX, startY, 40, 40);
             }
 
             if (this.errorFace?.canvas?.includes("←")) {
                 const startX = center.x - radius.x + 10;
                 const startY = center.y - 20;
+
                 ctx.drawImage(this.direction.left, startX, startY, 40, 40);
             }
         }
@@ -556,12 +556,15 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
         this.loading({ result: true });
 
+        const zelfName = await this._zelfNameService.getZelfName();
+        const referralZelfName = await this._zelfNameService.getReferral();
+
         const payload: any = {
             faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
             os: "DESKTOP",
-            zelfName: this._zelfNameService.getZelfName(),
+            zelfName,
             captchaToken: this.captchaService.getCaptchaToken() || undefined,
-            referralZelfName: this._zelfNameService.getReferral(),
+            referralZelfName,
         };
 
         if (this.session.password) payload.password = this.session.password;
@@ -590,12 +593,12 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
                 type: "create",
                 wordsCount: data.wordsCount || payload.wordsCount || 12,
             })
-            .then((response) => {
+            .then(async (response) => {
                 this.session.showBiometrics = false;
 
-                localStorage.setItem("durationToken", response.data.durationToken);
+                await this._chromeService.setItem("durationToken", response.data.durationToken);
+                await this._chromeService.setItem("wallet", response.data);
 
-                this._chromeService.setItem("wallet", response.data);
                 this._walletService.goToNextStep(this.session.step + 1);
 
                 _this["biometricsLoginCalled"] = false;
@@ -615,19 +618,16 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
         this._zelfNameService
             .decryptZelfName({
                 ...payload,
-                zelfName: this._zelfNameService.getZelfName(),
                 zelfProof: data.zelfProof || this._zelfNameService.getZelfProof(),
                 identifier: data.identifier,
             })
-            .then((response) => {
-                this._chromeService.setItem("unlockWallet", response.data);
+            .then(async (response) => {
+                await this._chromeService.setItem("unlockWallet", response.data);
 
-                setTimeout(() => {
-                    this.session.showBiometrics = false;
-                    this.session.navigationStep = 2;
+                this.session.showBiometrics = false;
+                this.session.navigationStep = 2;
 
-                    _this["biometricsLoginCalled"] = false;
-                }, 500);
+                _this["biometricsLoginCalled"] = false;
             })
             .catch((exception) => {
                 this.errorContent = { message: exception.error?.error };
@@ -635,10 +635,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
                 _this["biometricsLoginCalled"] = false;
 
                 this.showError = true;
-
-                // setTimeout(() => {
-                // 	window.location.reload();
-                // }, 3000);
 
                 this.loading({ isLoading: false, result: true });
             });
@@ -651,12 +647,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
                 type: "import",
                 mnemonic: data.phrase,
             })
-            .then((response) => {
+            .then(async (response) => {
                 this.session.walletCreated = response.data;
 
-                localStorage.setItem("durationToken", response.data.durationToken);
-
-                this._chromeService.setItem("importWallet", response.data);
+                await this._chromeService.setItem("durationToken", response.data.durationToken);
+                await this._chromeService.setItem("importWallet", response.data);
 
                 this._walletService.goToNextStep(this.session.step + 1);
 
@@ -705,6 +700,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
     tryAgain(): void {
         this.showError = false;
+
         this.session.showBiometrics = false;
         this.session.showBiometricsInstructions = true;
     }
@@ -712,6 +708,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
     continueRedirection(): void {}
 
     ngOnDestroy(): void {
-        this._unsubscribeAll.next(null);
+        this.unsubscriber$.next(null);
     }
 }

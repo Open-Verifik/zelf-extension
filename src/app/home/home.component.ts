@@ -1,5 +1,4 @@
-/// <reference types="chrome"/>
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
@@ -31,14 +30,16 @@ export class HomeComponent implements OnInit {
     scanImplemented: boolean = false;
 
     constructor(
-        private _router: Router,
-        private route: ActivatedRoute,
-        private _ethService: EthereumService,
-        private _chromeService: ChromeService,
         private _blockchainNetworkService: BlockchainNetworksService,
-        private _solanaService: SolanaService
+        private _changeDetectionRef: ChangeDetectorRef,
+        private _chromeService: ChromeService,
+        private _ethService: EthereumService,
+        private _router: Router,
+        private _solanaService: SolanaService,
+        private route: ActivatedRoute
     ) {
         this.balances = {};
+        this.balancesLoaded = false;
         this.view = this.route.snapshot.queryParamMap.get("view") || "home";
 
         this.shareables = {
@@ -50,37 +51,18 @@ export class HomeComponent implements OnInit {
         this.NFTs = [];
         this.tokens = [];
 
-        localStorage.removeItem("unlockWallet");
+        this._chromeService.removeItem("unlockWallet");
+
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
+            this.balancesLoaded = false;
+
+            await this._setWallet();
+            await this._getBalances();
+        });
     }
 
     async ngOnInit(): Promise<any> {
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
-        this.wallet = await this._setWallet();
-
-        await this._getBalances();
-
-        this.route.queryParamMap.pipe(takeUntil(this.unsubscriber$)).subscribe(async (params) => {
-            const _view = params.get("view");
-
-            switch (_view) {
-                case "home":
-                    if (_view !== this.view) {
-                        this.balancesLoaded = false;
-                        this.wallet = await this._setWallet();
-
-                        this._getBalances();
-                    }
-
-                    break;
-
-                default:
-                    break;
-            }
-
-            if (_view) {
-                this.view = _view;
-            }
-        });
     }
 
     ngOnDestroy(): void {
@@ -91,7 +73,9 @@ export class HomeComponent implements OnInit {
     private async _getBalances(): Promise<any> {
         if (this.balancesLoaded) return;
 
+        this.activity = [];
         this.tokens = [];
+        this.NFTs = [];
 
         await this._getETHDetails();
         await this._getSolanaDetails();
@@ -110,8 +94,6 @@ export class HomeComponent implements OnInit {
             fiatBalance: Number(details.data.fiatBalance),
             price: details.data.account.price,
         });
-
-        this.activity = [];
 
         for (let index = 0; index < details.data.transactions.length; index++) {
             const transaction = details.data.transactions[index];
@@ -135,16 +117,13 @@ export class HomeComponent implements OnInit {
     }
 
     private _getTokens(network: string, tokens: Array<any>): void {
-        const _tempTokens = [...this.tokens];
-        const _tempNFTs = [...this.NFTs];
-
         for (let index = 0; index < tokens.length; index++) {
             const token = tokens[index];
 
             if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-                _tempTokens.push({ ...token, network });
+                this.tokens.push({ ...token, network });
             } else if (["NFT"].includes(token.tokenType)) {
-                _tempNFTs.push({ ...token, network });
+                this.NFTs.push({ ...token, network });
             }
 
             if (network === "Solana") {
@@ -154,23 +133,23 @@ export class HomeComponent implements OnInit {
                     _token.symbol = "ZNS";
                 }
 
-                _tempTokens.push(_token);
+                this.tokens.push(_token);
             }
         }
 
-        this.tokens = _tempTokens;
-        this.NFTs = _tempNFTs;
+        this._changeDetectionRef.detectChanges();
     }
 
     private async _setWallet(): Promise<any> {
         let wallet = await this._chromeService.getItem("wallet");
 
-        if (!wallet?.ethAddress && !wallet?.solanaAddress) {
-            this.wallets = await this._chromeService.getItem("wallets");
+        if (!wallet) {
+            let wallets = await this._chromeService.getItem("wallets");
 
-            wallet = this.wallets[0];
+            wallet = wallets.shift();
 
-            this._chromeService.setItem("wallet", wallet);
+            await this._chromeService.setItem("wallet", wallet);
+            await this._chromeService.setItem("wallets", wallets);
 
             if (!wallet?.ethAddress && !wallet?.solanaAddress) {
                 this._router.navigate(["/onboarding"]);
@@ -181,7 +160,7 @@ export class HomeComponent implements OnInit {
 
         this.shareables.wallet = new WalletModel(wallet);
 
-        return this.shareables.wallet;
+        this.wallet = this.shareables.wallet;
     }
 
     private _updateView(newView: string): void {

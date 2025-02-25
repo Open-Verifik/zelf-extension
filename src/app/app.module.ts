@@ -1,8 +1,14 @@
+import { TranslocoModule } from "@ngneat/transloco";
+import { WebcamModule } from "ngx-webcam";
+
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { Router } from "@angular/router";
 
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
@@ -18,14 +24,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatStepperModule } from "@angular/material/stepper";
 
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { Router } from "@angular/router";
-
 import { environment } from "environments/environment";
-import { WebcamModule } from "ngx-webcam";
 
-import { TranslocoModule } from "@ngneat/transloco";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BiometricsGeneralComponent } from "./biometrics-general/biometrics.component";
@@ -57,6 +57,7 @@ import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/i
 import { ImportWalletComponent } from "./import-wallet/import-wallet.component";
 import { LanguagePickerComponent } from "./language-picker/language-picker.component";
 import { LoaderComponent } from "./loader/loader.component";
+import { MnemonicComponent } from "./mnemonic/mnemonic.component";
 import { NewNameCardComponent } from "./new-name-card/new-name-card.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
@@ -78,96 +79,97 @@ import { UwSearchWalletComponent } from "./unlock-wallet/uw-search-wallet/uw-sea
 import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.component";
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		HomeComponent,
-		OnboardingComponent,
-		CreateWalletComponent,
-		ImportWalletTraditionalComponent,
-		ImportWalletComponent,
-		BiometricsVerificationComponent,
-		HeaderComponent,
-		LanguagePickerComponent,
-		TransactionAuthComponent,
-		UnlockWalletComponent,
-		FooterComponent,
-		StepperComponent,
-		StepComponent,
-		ExtensionInstructionsComponent,
-		SendTransactionComponent,
-		ImportPhraseStepComponent,
-		PasswordStepComponent,
-		BiometricInstructionsComponent,
-		ImportQrCodeStepComponent,
-		WordsPickerStepComponent,
-		ViewCreatedWalletQrCodeComponent,
-		UwSearchWalletComponent,
-		UwPasswordStepComponent,
-		HomeWalletsConnectedComponent,
-		HomeActiveWalletComponent,
-		HomeWalletAssetsComponent,
-		HomeWalletActivityComponent,
-		HomeWalletSendAssetsComponent,
-		HomeHeaderComponent,
-		StSearchWalletComponent,
-		LoaderComponent,
-		WalletCardComponent,
-		SendTransactionPreviewComponent,
-		SendTransactionConfirmationComponent,
-		SendTransactionBridgeComponent,
-		ActivityCardComponent,
-		TokenCardComponent,
-		NftCardComponent,
-		NetworkPickerComponent,
-		NewZelfNameComponent,
-		TransactionDetailsComponent,
-		NewNameCardComponent,
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		FlexLayoutModule,
-		CommonModule,
-		MatButtonModule,
-		MatMenuModule,
-		HttpClientModule,
-		TranslocoRootModule,
-		NoopAnimationsModule,
-		BrowserAnimationsModule, // Ensure animations are enabled for testing
-		FormsModule,
-		ReactiveFormsModule,
-		MatFormFieldModule,
-		MatSelectModule,
-		BiometricsComponent,
-		BiometricsGeneralComponent,
-		WebcamModule,
-		MatBottomSheetModule,
-		MatCardModule,
-		MatIconModule,
-		MatCheckboxModule,
-		MatStepperModule,
-		MatInputModule,
-		MatSnackBarModule,
-		MatDividerModule,
-		MatProgressBarModule,
-		TranslocoModule,
-		DiscountPipe,
-		FirstLetterPipe,
-		ZelfNamePipe,
-	],
-	providers: [],
-	bootstrap: [AppComponent],
-	exports: [],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        OnboardingComponent,
+        CreateWalletComponent,
+        ImportWalletTraditionalComponent,
+        ImportWalletComponent,
+        BiometricsVerificationComponent,
+        HeaderComponent,
+        LanguagePickerComponent,
+        TransactionAuthComponent,
+        UnlockWalletComponent,
+        FooterComponent,
+        StepperComponent,
+        StepComponent,
+        ExtensionInstructionsComponent,
+        SendTransactionComponent,
+        ImportPhraseStepComponent,
+        PasswordStepComponent,
+        BiometricInstructionsComponent,
+        ImportQrCodeStepComponent,
+        WordsPickerStepComponent,
+        ViewCreatedWalletQrCodeComponent,
+        UwSearchWalletComponent,
+        UwPasswordStepComponent,
+        HomeWalletsConnectedComponent,
+        HomeActiveWalletComponent,
+        HomeWalletAssetsComponent,
+        HomeWalletActivityComponent,
+        HomeWalletSendAssetsComponent,
+        HomeHeaderComponent,
+        StSearchWalletComponent,
+        LoaderComponent,
+        WalletCardComponent,
+        SendTransactionPreviewComponent,
+        SendTransactionConfirmationComponent,
+        SendTransactionBridgeComponent,
+        ActivityCardComponent,
+        TokenCardComponent,
+        NftCardComponent,
+        NetworkPickerComponent,
+        NewZelfNameComponent,
+        TransactionDetailsComponent,
+        NewNameCardComponent,
+    ],
+    imports: [
+        MnemonicComponent,
+        BrowserModule,
+        AppRoutingModule,
+        FlexLayoutModule,
+        CommonModule,
+        MatButtonModule,
+        MatMenuModule,
+        HttpClientModule,
+        TranslocoRootModule,
+        NoopAnimationsModule,
+        BrowserAnimationsModule, // Ensure animations are enabled for testing
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        BiometricsComponent,
+        BiometricsGeneralComponent,
+        WebcamModule,
+        MatBottomSheetModule,
+        MatCardModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatStepperModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatDividerModule,
+        MatProgressBarModule,
+        DiscountPipe,
+        FirstLetterPipe,
+        ZelfNamePipe,
+        TranslocoModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    exports: [],
 })
 export class AppModule {
-	constructor(private router: Router) {
-		if (this.isMobileDevice() && environment.production) {
-			this.router.navigate(["/mobile-restricted"]); // Redirect to warning page
-		}
-	}
+    constructor(private router: Router) {
+        if (this.isMobileDevice() && environment.production) {
+            this.router.navigate(["/mobile-restricted"]); // Redirect to warning page
+        }
+    }
 
-	private isMobileDevice(): boolean {
-		const userAgent = navigator.userAgent || navigator.vendor;
-		return /android|iphone|ipad|ipod/i.test(userAgent);
-	}
+    private isMobileDevice(): boolean {
+        const userAgent = navigator.userAgent || navigator.vendor;
+        return /android|iphone|ipad|ipod/i.test(userAgent);
+    }
 }

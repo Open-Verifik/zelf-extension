@@ -74,6 +74,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
         this.wallets = wallets;
 
+        this._chromeService.setItem("wallet", this.currentWallet);
         this._chromeService.setItem("wallets", this.wallets);
 
         this.loaded = true;
@@ -83,12 +84,20 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         this._bottomSheetRef.dismiss();
     }
 
-    async switchWallet(wallet: WalletModel): Promise<void> {
-        const wallets = (await this._chromeService.getItem("wallets")) as WalletModel[];
-        const newWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== wallet.publicData.zelfName);
+    async switchWallet(selectedWallet: WalletModel): Promise<void> {
+        const wallet = (await this._chromeService.getItem("wallet")) as WalletModel;
 
-        await this._chromeService.setItem("wallet", wallet);
-        await this._chromeService.setItem("wallets", newWallets);
+        if (selectedWallet.publicData.zelfName === wallet.publicData.zelfName) {
+            this.close();
+
+            return;
+        }
+
+        const wallets = (await this._chromeService.getItem("wallets")) as WalletModel[];
+        const newWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== selectedWallet.publicData.zelfName);
+
+        await this._chromeService.setItem("wallet", selectedWallet);
+        await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
 
         this.close();
     }

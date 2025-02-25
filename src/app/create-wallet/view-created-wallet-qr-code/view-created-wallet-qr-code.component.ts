@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+
 import { TranslocoService } from "@ngneat/transloco";
+
+import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { Wallet, WalletModel } from "app/wallet";
@@ -24,25 +27,10 @@ import { Wallet, WalletModel } from "app/wallet";
                         </div>
                     </div>
 
-                    <div class="view-wallet-words-container">
-                        <ng-container *ngFor="let i of [0, 4, 8, 12, 16, 20]; let isLast = last">
-                            <div *ngIf="i < words.length" class="view-wallet-words-c-div">
-                                <div *ngFor="let word of words | slice : i : i + 4" class="view-wallet-word-container">
-                                    <small>{{ word.id }}:</small>
-
-                                    <div class="view-wallet-word">{{ word.word }}</div>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
-
-                    <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" (click)="copyToClipboard()">
-                        <span *ngIf="!copied">{{ "common.copy" | transloco }}</span>
-                        <span *ngIf="copied">{{ "common.copy_to_clipboard" | transloco }}</span>
-                    </button>
+                    <mnemonic [wallet]="wallet"></mnemonic>
                 </div>
 
-                <div class="view-wallet-right">
+                <div class="view-wallet-right mt-4">
                     <div class="view-wallet-image-container">
                         <img class="view-wallet-image" [src]="wallet.image" />
                     </div>
@@ -51,7 +39,12 @@ import { Wallet, WalletModel } from "app/wallet";
                         {{ "create_wallet.view_wallet.qr_code_description" | transloco }}
                     </div>
 
-                    <div class="view-wallet-download-container" fxLayout="row" fxLayoutAlign="center center" (click)="downloadImage()">
+                    <button
+                        class="zelf-button zelf-button--outlined zelf-button--wide"
+                        fxLayout="row"
+                        fxLayoutAlign="center center"
+                        (click)="downloadImage()"
+                    >
                         <div class="view-wallet-icon">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -72,16 +65,16 @@ import { Wallet, WalletModel } from "app/wallet";
                         <div class="view-wallet-qr-code-label" fxLayout="row" fxLayoutAlign="center center">
                             {{ "create_wallet.view_wallet.download_qr_code" | transloco }}
                         </div>
-                    </div>
+                    </button>
 
                     <div class="view-wallet-continue-container" *ngIf="holdData">
-                        <button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToPaymentsPage()">
+                        <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" (click)="goToPaymentsPage()">
                             {{ "payments.pay_now" | transloco }}
                         </button>
                     </div>
 
                     <div class="view-wallet-continue-container" *ngIf="!holdData">
-                        <button mat-raised-button class="main-button view-wallet-continue-button" (click)="goToInstructions()">
+                        <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" (click)="goToInstructions()">
                             {{ "common.continue" | transloco }}
                         </button>
                     </div>
@@ -92,64 +85,41 @@ import { Wallet, WalletModel } from "app/wallet";
     `,
     styleUrls: ["./view-created-wallet-qr-code.component.scss", "../../main.scss"],
 })
-export class ViewCreatedWalletQrCodeComponent implements OnInit {
+export class ViewCreatedWalletQrCodeComponent extends CopyToClipboardBase implements OnInit {
     @Input() walletType!: string; // Input property to accept view type
-    wallet!: Wallet;
-    words!: Array<any>;
+
     holdData: any;
-    copied: boolean = false;
     session: any;
+    wallet!: Wallet;
 
     constructor(
-        private snackBar: MatSnackBar,
-        private _translocoService: TranslocoService,
-        private _chromeService: ChromeService,
+        private _router: Router,
         private _vaultService: VaultService,
-        private _router: Router
-    ) {}
+        protected _chromeService: ChromeService,
+        protected _translocoService: TranslocoService,
+        protected snackBar: MatSnackBar
+    ) {
+        super(_chromeService, snackBar, _translocoService);
+    }
 
     async ngOnInit(): Promise<any> {
         const walletType = this.walletType || "wallet";
-        const wallet = await this._chromeService.getItem(walletType);
+        const wallet = (await this._chromeService.getItem(walletType)) || (await this._chromeService.getItem("unlockWallet"));
 
         this.holdData = wallet.ipfs?.metadata?.type === "hold" ? wallet.ipfs?.metadata : null;
         this.wallet = new WalletModel(wallet);
 
         if (!this.wallet.ethAddress) {
             this._chromeService.removeItem(walletType);
-
             this._router.navigate(["/onboarding"]);
 
             return;
         }
-
-        this._prepareWords();
     }
 
-    _prepareWords(): void {
-        // this._decryptMessage();
-        this.words = [];
-
-        const _words = this.wallet.metadata?.mnemonic.split(" ");
-
-        for (let index = 0; index < _words.length; index++) {
-            const word = _words[index];
-
-            this.words.push({ id: index + 1, word });
-        }
+    ngOnDestroy(): void {
+        this._vaultService.password = "";
     }
-
-    // async _decryptMessage(): Promise<void> {
-    //     const encryptedMessage = this.wallet.pgp?.encryptedMessage as string;
-    //     const privateKeyArmoured = this.wallet.pgp?.privateKey as string;
-
-    //     this._vaultService
-    //         .decryptMessage(encryptedMessage, privateKeyArmoured, passphrase)
-    //         .then((response) => {
-    //             console.log({ response });
-    //         })
-    //         .catch(console.error);
-    // }
 
     goToInstructions(): void {
         this.wallet.metadata = null;
@@ -193,44 +163,11 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
         document.body.removeChild(a);
     }
 
-    goToPaymentsPage(): void {
-        window.open(
-            `https://payment.zelf.world/purchase?zelfName=${this.wallet.name}&durationToken=${localStorage.getItem("durationToken")}`,
-            "_blank"
-        );
+    async goToPaymentsPage(): Promise<void> {
+        const durationToken = await this._chromeService.getItem("durationToken");
+
+        window.open(`https://payment.zelf.world/purchase?zelfName=${this.wallet.name}&durationToken=${durationToken}`, "_blank");
 
         this.goToInstructions();
-    }
-
-    copyToClipboard(): void {
-        this._chromeService.copyToClipboard(this.wallet.metadata?.mnemonic).then(() => {
-            this.copied = true;
-
-            setTimeout(() => {
-                this.copied = false;
-            }, 3000);
-        });
-    }
-
-    copyPublicAddress(): void {
-        navigator.clipboard.writeText(this.wallet.ethAddress).then(
-            () => {
-                this.snackBar.open(this._translocoService.translate("common.copy_to_clipboard"), this._translocoService.translate("common.close"), {
-                    duration: 5000,
-                    verticalPosition: "bottom",
-                });
-            },
-            (err) => {
-                this.snackBar.open(
-                    this._translocoService.translate("common.failed_to_copy_to_clipboard"),
-                    this._translocoService.translate("common.close"),
-                    {
-                        duration: 3000,
-                        horizontalPosition: "center",
-                        verticalPosition: "bottom",
-                    }
-                );
-            }
-        );
     }
 }

@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
-import { AboutComponent } from "./about/about.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
 import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
 import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
@@ -17,70 +16,89 @@ import { OpenZelfNameComponent } from "./open-zelf-name/open-zelf-name.component
 import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
 import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restricted.component";
 
+import { LoginGuard } from "./login.guard";
+import { OnboardingGuard } from "./onboarding.guard";
+import { ManageDomainComponent } from "./manage-domain/manage-domain.component";
+import { WalletComponent } from "./wallet/wallet.component";
+import { ManageDomainsComponent } from "./manage-domains/manage-domains.component";
+
 const routes: Routes = [
-	{ path: "", redirectTo: "/home", pathMatch: "full" }, // Redirect default route to Home
-	{ path: "home", component: HomeComponent }, // Home route
-	{ path: "about", component: AboutComponent }, // About route
-	{
-		path: "onboarding",
-		component: OnboardingComponent,
-	},
-	{
-		path: "create-wallet",
-		component: CreateWalletComponent,
-	},
-	{
-		path: "import-wallet",
-		component: ImportWalletComponent,
-	},
-	{
-		path: "find-wallet",
-		component: UnlockWalletComponent,
-	},
-	{
-		path: "extension-instructions",
-		component: ExtensionInstructionsComponent,
-	},
-	{
-		path: "send-transaction",
-		component: SendTransactionComponent,
-	},
-	{
-		path: "send-transaction-preview",
-		component: SendTransactionPreviewComponent,
-	},
-	{
-		path: "send-transaction-confirm",
-		component: SendTransactionConfirmationComponent,
-	},
-	{
-		path: "send-transaction-bridge",
-		component: SendTransactionBridgeComponent,
-	},
-	{
-		path: "network-picker",
-		component: NetworkPickerComponent,
-	},
-	{
-		path: "new-zelf-name",
-		component: NewZelfNameComponent,
-	},
-	{
-		path: "open-zelf-name",
-		component: OpenZelfNameComponent,
-	},
-	{
-		path: "transaction",
-		component: TransactionDetailsComponent,
-	},
-	{
-		path: "mobile-restricted",
-		component: MobileRestrictedComponent,
-	},
+    { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
+    { path: "home", component: HomeComponent, canActivate: [LoginGuard] },
+    {
+        path: "onboarding",
+        component: OnboardingComponent,
+        canActivate: [OnboardingGuard],
+    },
+    {
+        path: "create-wallet",
+        component: CreateWalletComponent,
+    },
+    {
+        path: "import-wallet",
+        component: ImportWalletComponent,
+    },
+    {
+        path: "manage-domains",
+        component: ManageDomainsComponent,
+    },
+    {
+        path: "domain",
+        pathMatch: "prefix",
+        component: ManageDomainComponent,
+    },
+    {
+        path: "wallet",
+        component: WalletComponent,
+    },
+    {
+        path: "find-wallet",
+        component: UnlockWalletComponent,
+    },
+    {
+        path: "extension-instructions",
+        component: ExtensionInstructionsComponent,
+    },
+    {
+        path: "send-transaction",
+        component: SendTransactionComponent,
+    },
+    {
+        path: "send-transaction-preview",
+        component: SendTransactionPreviewComponent,
+    },
+    {
+        path: "send-transaction-confirm",
+        component: SendTransactionConfirmationComponent,
+    },
+    {
+        path: "send-transaction-bridge",
+        component: SendTransactionBridgeComponent,
+    },
+    {
+        path: "network-picker",
+        component: NetworkPickerComponent,
+    },
+    {
+        path: "new-zelf-name",
+        component: NewZelfNameComponent,
+    },
+    {
+        path: "open-zelf-name",
+        component: OpenZelfNameComponent,
+    },
+    {
+        path: "transaction",
+        component: TransactionDetailsComponent,
+    },
+    {
+        path: "mobile-restricted",
+        component: MobileRestrictedComponent,
+    },
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes, { useHash: true })],
-	exports: [RouterModule],
+    imports: [RouterModule.forRoot(routes, { useHash: true })],
+    exports: [RouterModule],
 })
 export class AppRoutingModule {}

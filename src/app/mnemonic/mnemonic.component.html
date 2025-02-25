@@ -1,0 +1,35 @@
+<ng-container *transloco="let t">
+    <div class="mnemonic">
+        <div class="mnemonic-grid" [ngClass]="{ 'mnemonic-grid--blur': blurMnemonic }" *ngIf="words?.length">
+            <div class="mnemonic-grid__cell" *ngFor="let word of words; let i = index">
+                <div class="mnemonic-grid__cell-number">{{ i + 1 }}</div>
+                <div class="mnemonic-grid__cell-word">{{ word }}</div>
+            </div>
+        </div>
+
+        <form [formGroup]="passwordForm" class="mnemonic__form" *ngIf="showPassword">
+            <div class="mnemonic__form-inner">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{ t("password") }}</mat-label>
+
+                    <input [formControlName]="'password'" matInput type="password" name="password" ngModel required />
+                </mat-form-field>
+
+                <button
+                    (click)="onSubmit()"
+                    [disabled]="!passwordForm.valid"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                    type="submit"
+                >
+                    {{ t("unlock_key_phrase") }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" (click)="copyToClipboard()" *ngIf="!showPassword">
+        <span *ngIf="!copied">{{ "common.copy" | transloco }}</span>
+        <span *ngIf="copied">{{ "common.copy_to_clipboard" | transloco }}</span>
+    </button>
+</ng-container>

@@ -1,0 +1,10 @@
+<div class="dialog">
+	<h2 class="dialog__title">{{ this.title }}</h2>
+
+	<p class="dialog__message" *ngIf="this.message">{{ this.message }}</p>
+
+	<div class="dialog__actions">
+		<button class="zelf-button zelf-button--outlined" (click)="onCancel()">{{ this.cancel }}</button>
+		<button class="zelf-button zelf-button--black" (click)="onConfirm()">{{ this.confirm }}</button>
+	</div>
+</div>

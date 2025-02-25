@@ -15,9 +15,8 @@ import { share } from "rxjs";
 			<div class="hwc-account-item-icon">
 				<div>
 					<div class="hwc-account-item-icon-inner" (click)="selectAccount()">
-						<!-- get the first letter of the zelfName > wallet.publicData.zelfName -->
 						<div class="hwc-account-item-icon-letter" *ngIf="wallet.publicData.zelfName">
-							{{ wallet.name.charAt(0).toUpperCase() }}
+							{{ wallet.publicData.zelfName | firstLetter }}
 						</div>
 					</div>
 				</div>
@@ -29,7 +28,7 @@ import { share } from "rxjs";
 					class="hwc-account-item-name"
 					*ngIf="wallet.publicData.zelfName"
 				>
-					{{ wallet.name.toUpperCase() }}
+					{{ wallet.publicData.zelfName | zelfName }}
 				</div>
 			</div>
 

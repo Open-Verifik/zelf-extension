@@ -1,0 +1,274 @@
+{
+	"hello": "Kamusta",
+	"onboarding": {
+		"step_1": "MALIGAYANG PAGDATING SA ZELF NAME SERVICE",
+		"step_1_description": "Tuklasin ang ZNS (Zelf Name Service), ang makabagong name service na nagpapalaya sa iyo mula sa pag-alala ng seed phrase. Mag-access nang ligtas at mabilis gamit ang iyong ZNS",
+		"step_2": "MAG-ACCESS GAMIT ANG ZELFPROOF",
+		"step_2_description": "Ang ZelfProof ay isang natatanging, privacy-preserving binary representation na nagmula sa facial data, na tinitiyak na walang nakaimbak kahit saan. Pinapanatiling lubos na ligtas ang iyong phrase",
+		"step_3": "DECENTRALIZED STORAGE",
+		"step_3_description": "Madaling pag-access sa iyong wallet at seed phrase. Ang iyong ZelfProof ay ligtas na nakaimbak sa Arweave, na nagbibigay sa iyo ng kumpletong kontrol nang walang abala ng pamamahala nito.",
+		"accept_terms_1": "Tinatanggap ko ang",
+		"accept_terms_2": "mga tuntunin at kundisyon",
+		"create_new_wallet": "Lumikha ng bagong wallet",
+		"import_wallet": "I-import ang iyong wallet",
+		"open_wallet": "Buksan ang iyong wallet",
+		"claim_your_zns": "I-claim ang iyong LIBRENG Zelf Name habang maaari pa!",
+		"forgot_zelf_name": "Nakalimutan ang iyong zelf name?",
+		"year": "Taon",
+		"years": "Mga Taon",
+		"register": "Magrehistro",
+		"register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}",
+		"zns_reward": "Makakatanggap ka ng {{reward}} Zelf tokens (ZNS) bilang gantimpala",
+		"lifetime": "Habambuhay",
+		"price_per_year": "Presyo bawat taon",
+		"price_for_lifetime": "Presyo para sa habambuhay",
+		"referral_code": "Referral code"
+	},
+	"common": {
+		"is_required": "ay kinakailangan",
+		"more_info": "Karagdagang impormasyon",
+		"recommended": "Inirerekomenda",
+		"continue": "Magpatuloy",
+		"copy_to_clipboard": "Matagumpay na nakopya",
+		"failed_to_copy_to_clipboard": "Nabigong makopya",
+		"close": "Isara",
+		"go_back": "Bumalik",
+		"eth_address": "ETH Address",
+		"solana_address": "Solana Address",
+		"address": "Address",
+		"zelf_wallet": "Zelf Wallet",
+		"cancel": "Kanselahin",
+		"total": "Kabuuan",
+		"edit": "I-edit",
+		"balance": "Balanse",
+		"amount": "Halaga",
+		"max": "Pinakamataas",
+		"asset": "Asset",
+		"type": "Uri",
+		"from": "Mula sa",
+		"to": "Sa",
+		"fee": "Bayad"
+	},
+	"create_wallet": {
+		"password_step": {
+			"title": "SAFETY LAYERS",
+			"description": "Tiyakin na mag-set up ka ng malakas na password na hindi bababa sa 8 karakter upang protektahan ang iyong ZelfProof.",
+			"password_label": "Password",
+			"repeat_password_label": "Ulitin ang password",
+			"agreement": "Nauunawaan ko na hindi maaring mabawi ng Zelf ang password na ito. Sa pagpili ng karagdagang layer ng seguridad, kinikilala ko na ako lamang ang responsable sa pag-alala nito.",
+			"add_password": "Magpatuloy",
+			"continue_without_password": "Isang layer ng seguridad"
+		},
+		"phrase_step": {
+			"title": "PAGLIKHA NG WALLET",
+			"description": "Ang iyong pribadong recovery phrase ay binubuo ng 12 o 24 na salita, mahalaga para sa pag-access at pag-secure ng iyong wallet.",
+			"description_2": "Inaalis ng Zelf ang pangangailangan para sa manu-manong pag-iimbak sa pamamagitan ng pag-encrypt ng iyong recovery phrase sa isang makapangyarihang, privacy-preserving ZelfProof. Ang ZelfProof na ito ay ligtas na nakaimbak sa loob ng isang QR code na ikaw lamang ang makakapag-decrypt, na tinitiyak ang walang kapantay na seguridad.",
+			"description_3": "Ang QR code ay nagsisilbing matibay na digital vault para sa iyong recovery keys, pinahusay ng aming Zelf Name Service (ZNS). Sa ZNS, madali mong mai-back up at maibabalik ang iyong QR code gamit ang iyong Zelf Name.",
+			"description_4": "Nauunawaan ko na makakatulong ang Zelf sa pagkuha ng QR code gamit ang ZNS. Gayunpaman, ako pa rin ang responsable sa pagprotekta nito upang matiyak ang ligtas na pag-access.",
+			"start_encryption_button": "Simulan",
+			"12_words": "12 salita na phrase",
+			"24_words": "24 salita na phrase",
+			"words_input": "Bilang ng mga salita"
+		},
+		"zelfproof_step": {
+			"title": "ZELPROOF ENCRYPTION",
+			"description": "Malapit ka nang lumikha ng iyong ZelfProof, na ligtas na mag-e-encrypt ng iyong recovery phrases. Sundin ang mga hakbang sa ibaba upang matiyak na maayos at epektibo ang proseso.",
+			"instruction_1": "Ilagay ang iyong mukha sa loob ng nakasaad na marka",
+			"instruction_2": "Tumingin sa camera at iwasang gumalaw",
+			"instruction_3": "Tiyakin na gawin ang kinakailangang facial gestures"
+		},
+		"view_wallet": {
+			"title": "MATAGUMPAY NA NA-ENCRYPT ANG WALLET GAMIT ANG ZELFPROOF",
+			"description": "Ang iyong recovery phrase ay na-encrypt at ligtas na nakaimbak sa loob ng QR code na ito gamit ang iyong ZelfProof, isang makapangyarihang privacy-preserving security layer.",
+			"description_2": "Kung mawawala ang QR, maaari mo itong makuha gamit ang iyong rehistradong Zelf name sa pamamagitan ng Zelf Name Service (ZNS).",
+			"qr_code_description": "Panatilihing ligtas ang QR code na ito. Upang ma-access o maibalik ang iyong wallet, ang iyong ZelfProof at ang QR code na ito ay palaging kinakailangan",
+			"download_qr_code": "I-download ang iyong QR Code",
+			"copy_public_address": "Kopyahin ang iyong ETH Address"
+		}
+	},
+	"liveness": {
+		"center_yor_face": "I-center ang iyong mukha sa screen",
+		"center_your_face_subtitle": "Tiyakin na ang iyong mukha ay naka-center",
+		"get_closer": "Lumapit pa",
+		"get_closer_subtitle": "Mangyaring lumapit pa ng kaunti para sa mas mahusay na pagkilala sa mukha.",
+		"liveness_failed": "Nabigo ang liveness detection",
+		"liveness_error_message": "Nabigo ang liveness check sa sumusunod na error:<br><strong>{{error}}</strong><br>Gusto mo bang subukan muli?",
+		"loading_stream": "Naglo-load ng Camera",
+		"try_again_button": "Subukan muli"
+	},
+	"errors": {
+		"person_already_set": "Ang iyong rehistrasyon ay may naka-link na ZelfProof na",
+		"replace_person_button": "Ok, palitan ang ZelfProof",
+		"Duplicated_person": "Ang ZelfProof ay ginagamit na para sa ibang record",
+		"liveness_failed": "Nabigo ang liveness detection",
+		"liveness_failed_description": "Paumanhin, mukhang nagkaroon ng problema sa iyong liveness detection.",
+		"Liveness_score_not_acceptable": "Hindi katanggap-tanggap ang liveness score",
+		"min_liveness_score_is": "Ang minimum na liveness score ay: ",
+		"phone_or_email_is_not_unique": "Ang telepono o email ay nagamit na, subukan ang iba",
+		"something_went_wrong": "May nangyaring mali, subukan muli",
+		"try_again": "Subukan muli",
+		"ERR_LIVENESS_FAILED": "Nabigo ang liveness detection",
+		"ERR_VERIFICATION_FAILED": "Nabigo ang liveness detection",
+		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Ang mukha ay masyadong malapit sa gilid",
+		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "Ang anggulo ng mukha ay masyadong malaki",
+		"ERR_INVALID_PASSWORD": "Ang password para sa ZelfProof na ito ay hindi wasto",
+		"ERR_DESCRIPTION": "Tiyakin na sundin ang mga tagubilin nang maayos upang ma-unlock ang iyong ZelfProof",
+		"ERR_UNPROCESSABLE_CONTENT": "Hindi ma-decrypt ang ZelfProof",
+		"zelfName_is_taken": "Ang zelf name na ito ay ginagamit na"
+	},
+	"import_wallet": {
+		"step_zero": {
+			"title": "I-import ang umiiral na wallet",
+			"description": "Pinapayagan ka nitong ilipat ang iyong mga digital asset mula sa ibang mga platform nang mabilis at ligtas.",
+			"description2": "Tinitiyak ng aming proseso ang privacy ng iyong mga asset sa pamamagitan ng pagpigil sa pagkakalantad ng iyong mga key o recovery phrases.",
+			"subtitle": "Ano ang mga benepisyo?",
+			"description3": "Ang pag-import ng iyong wallet ay nagpapasimple sa iyong karanasan sa cryptocurrency sa pamamagitan ng pag-iwas sa pangangailangan na pamahalaan ang maraming account.",
+			"description4": "Madaling ma-access ang iyong mga pondo sa aming platform nang hindi kinakailangang gamitin ang iyong recovery phrase.",
+			"import_button": "I-import ang wallet"
+		},
+		"step_one": {
+			"title": "Ilagay ang recovery phrase",
+			"description": "Mangyaring ilagay ang iyong recovery phrase sa ibaba upang ma-validate at ma-import ang iyong umiiral na wallet.",
+			"confirm_button": "I-import ang wallet",
+			"word1": "1.",
+			"paste_note": "Maaari mong i-paste ang buong secret recovery phrase sa anumang field"
+		},
+		"qr_code_step": {
+			"success_message": "Matagumpay mong na-import ang iyong umiiral na wallet",
+			"description": "Ang iyong security phrase at QR code ay ngayon naka-link sa iyong ZelfProof. Panatilihing ligtas ang QR upang protektahan ang iyong account.",
+			"understood": "Naiintindihan",
+			"copy_address": "Kopyahin ang public address",
+			"download_qr": "I-download ang QR code"
+		}
+	},
+	"unlock_wallet": {
+		"title": "HANAPIN ANG ZELF NAME",
+		"description": "Hanapin ang umiiral na Zelf Name sa pamamagitan ng pagpasok ng public address nito sa ibaba:",
+		"upload_description": "O i-upload ang iyong ZelfProof QR Code upang magpatuloy:",
+		"upload_button": "Piliin ang QR Code",
+		"drag_drop_text": "o i-drag at i-drop ang file na may .JPG o PNG extension dito",
+		"verify_button": "I-verify",
+		"back_button": "Bumalik",
+		"account_found": "NATAGPUAN ANG ZELFPROOF",
+		"password": {
+			"title": "ANG ZELFPROOF NA ITO AY NANGANGAILANGAN NG PASSWORD",
+			"subtitle": "Ilagay ang password na itinalaga sa ZelfProof na ito upang makumpleto ang proseso ng pagbubukas.",
+			"label": "Password",
+			"placeholder": "********************",
+			"button": "Magpatuloy"
+		},
+		"hold": {
+			"title": "NATAGPUANG RESERBASYON",
+			"expiration_time": "Mag-e-expire ang reserbasyong ito sa ",
+			"purchase_reservation": "Bilhin ang reserbasyon",
+			"unlock_without_purchase": "I-verify ngayon, bilhin mamaya",
+			"buy_now": "Bumili ngayon"
+		}
+	},
+	"steps": {
+		"import_wallet": "I-import ang iyong wallet",
+		"add_password": "MAGDAGDAG NG PASSWORD",
+		"biometrics": "ZelfProof",
+		"qr_code_generator": "ZELF NAME",
+		"search_wallet": "BUKSAN ANG ZELFPROOF",
+		"password_unlock": "PASSWORD",
+		"biometric_unlock": "ZelfProof lock",
+		"available": "Magagamit",
+		"decrypt": "I-DECRYPT",
+		"wallet_type": "WALLET"
+	},
+	"wallets_connected": {
+		"no_zelf_name": "Walang Zelf name",
+		"title": "Piliin ang isang wallet",
+		"account": "Account",
+		"create_or_import_wallet_button": "Lumikha o mag-import ng wallet",
+		"delete_wallet": "I-unlink ang wallet",
+		"see_on_scanner": "Buksan ang explorer",
+		"see_qr_code": "Tingnan ang QR code"
+	},
+	"active_wallet": {
+		"show_private_key": "Ipakita ang private key",
+		"warning_notice": "Tandaan na panatilihing ligtas ang iyong QR code; gumawa ng maraming kopya kung kinakailangan. Gayundin, i-unlock lamang ang secret key kapag nag-e-export ng iyong wallet"
+	},
+	"home": {
+		"support_button": "Suporta",
+		"settings_button": "Mga Setting",
+		"receive_transaction_button": "Tumanggap",
+		"send_transaction_button": "Magpadala",
+		"assets": "Mga Token",
+		"activity": "Aktibidad",
+		"NFTs": "Mga Kolektible"
+	},
+	"activity_card": {
+		"transaction": "Transaksyon",
+		"sent": "Naipadala",
+		"in": "Natanggap",
+		"age": "Edad",
+		"amount": "Halaga",
+		"block": "Block",
+		"from": "Mula sa",
+		"hash": "Hash",
+		"method": "Paraan",
+		"to": "Sa",
+		"traffic": "Trapiko",
+		"txnFee": "Bayad sa Transaksyon",
+		"transactionID": "ID ng Transaksyon",
+		"viewOnExplorer": "Tingnan sa Block explorer"
+	},
+	"extension_instructions": {
+		"extensions": "Mga Extension",
+		"installationCompleted": "Natapos na ang pag-install ng Zelf Name Service!",
+		"addExtension": "Idagdag ang extension sa iyong browser upang madaling ma-access at makita ang mga kumpirmasyon ng transaksyon sa Zelf Name Service.",
+		"clickIcon": "I-click ang icon ng extension sa iyong browser.",
+		"fixWallet": "Ayusin ang ZNS.",
+		"fullAccess": "Buong Access",
+		"extensionsCanChange": "Maaaring tingnan at baguhin ng mga extension na ito ang impormasyon sa website na ito.",
+		"manageExtensions": "Pamahalaan ang mga Extension",
+		"clickExtensionIcon": "I-click ang icon ng extension sa iyong browser."
+	},
+	"send_transaction": {
+		"tokens_step": "Piliin ang token",
+		"pickReceiver_step": "Magpadala",
+		"confirmation_step": "Transfer",
+		"send_to": "Ipadala sa",
+		"your_accounts": "Iyong mga account",
+		"account_found": "Natagpuan ang address",
+		"reject_transaction_button": "Kanselahin",
+		"continue_transaction_button": "Susunod",
+		"confirm_transaction_button": "Kumpirmahin ang transaksyon",
+		"confirm": {
+			"sending_label": "IPINAPADALA {{amount}} {{asset}}",
+			"market": "Merkado",
+			"gas_label": "Gas (tinatayang)",
+			"gas_description": "Marahil sa {{seconds}} segundo",
+			"max_gas": "Pinakamataas na bayad:",
+			"total_to_pay_label": "Mga asset + bayad sa gas",
+			"max_total": "Pinakamataas na kabuuan"
+		},
+		"preview": {
+			"estimated_fee": "Tinatayang bayad"
+		},
+		"bridge": {
+			"qr_code_title": "I-scan ang QR Code",
+			"title": "KUMPIRMAHIN ANG IYONG TRANSAKSYON",
+			"description": "I-scan ang QR Code mula sa iyong Zelf Name Service App. Magdagdag ng security layer sa pamamagitan ng pag-decrypt sa iyong device",
+			"description_2": "Magpatuloy sa web extension",
+			"confirm_button": "Kumpirmahin ang transaksyon",
+			"dont_have_the_app": "Wala pa bang naka-install na Zelf Name Service App?",
+			"download_here": "I-download ito dito at dagdagan ang iyong seguridad para sa lahat ng iyong mga transaksyon at hindi mawawala ang access sa iyong crypto."
+		}
+	},
+	"network_picker": {
+		"title": "Piliin ang network",
+		"testnets_title": "Piliin ang test network"
+	},
+	"payments": {
+		"continue_withoutpaying": "Magpatuloy nang walang bayad",
+		"pay_now": "Magpatuloy sa pagbabayad"
+	},
+	"restricted": {
+		"title": "Limitado sa Mobile",
+		"description": "Ang tampok na ito ay hindi magagamit sa mga mobile device. Mangyaring gumamit ng desktop browser upang ma-access ito o i-download ang Zelf Name Service App.",
+		"download_android_app": "I-download ang Android App"
+	}
+}

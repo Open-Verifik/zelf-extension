@@ -1,145 +1,251 @@
+/// <reference types="chrome"/>
+
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { WalletModel } from "./wallet";
 
 @Injectable({
-	providedIn: "root",
+    providedIn: "root",
 })
 export class ChromeService {
-	private isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
-	private tabStorageKey = "isTabOpen";
+    private _isSidePanel$ = new BehaviorSubject<boolean>(false);
+    private _wallet$ = new BehaviorSubject<WalletModel | null>(null);
+    private _wallets$ = new BehaviorSubject<WalletModel[] | []>([]);
 
-	constructor() {
-		if (this.isExtension) {
-			chrome.tabs.onRemoved.addListener(async (closedTabId) => {
-				const storedTabId = await this.getItem("tabId");
-				if (storedTabId === closedTabId) {
-					// Reset the tab state
-					await this.setItem(this.tabStorageKey, false);
-				}
-			});
-		}
+    private _isExtension = Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime);
+    private _isSidePanel = false;
+    private _tabStorageKey = "isTabOpen";
 
-		console.log({ isExtension: this.isExtension });
-	}
+    constructor() {
+        if (!this.isExtension) return;
 
-	setItem(key: string, value: any): Promise<void> {
-		return new Promise((resolve, reject) => {
-			if (this.isExtension) {
-				chrome.storage.local.set({ [key]: value }, () => {
-					if (chrome.runtime.lastError) {
-						reject(chrome.runtime.lastError);
-					} else {
-						resolve();
-					}
-				});
-			}
+        chrome.tabs.onRemoved.addListener(async (closedTabId) => {
+            const storedTabId = await this.getItem("tabId");
 
-			try {
-				localStorage.setItem(key, typeof value === "string" ? value : JSON.stringify(value));
+            if (storedTabId !== closedTabId) return;
 
-				resolve();
-			} catch (error) {
-				reject(error);
-			}
-		});
-	}
+            await this.setItem(this._tabStorageKey, false);
+        });
 
-	getItem(key: string, overrideSource?: string): Promise<any> {
-		let source = this.isExtension ? "extension" : "web";
+        chrome.tabs.query({ active: true, lastFocusedWindow: true }).then(([tab]) => {
+            this._isSidePanel = !tab;
+            this._isSidePanel$.next(this._isSidePanel);
+        });
 
-		if (overrideSource) {
-			source = ["extension", "web"].includes(overrideSource) ? overrideSource : source;
-		}
+        chrome.storage.onChanged.addListener((changes) => {
+            changes.wallet ? this._wallet$.next(changes.wallet.newValue) : null;
+            changes.wallets ? this._wallets$.next(changes.wallets.newValue) : null;
+        });
+    }
 
-		return new Promise((resolve, reject) => {
-			switch (source) {
-				case "extension":
-					chrome.storage.local.get(key, (result) => {
-						if (chrome.runtime.lastError) {
-							reject(chrome.runtime.lastError);
-						} else {
-							resolve(result[key]);
-						}
-					});
+    get isExtension(): boolean {
+        return this._isExtension;
+    }
 
-					break;
+    get isPopOut(): boolean {
+        return chrome?.extension ? chrome.extension.getViews({ type: "popup" }).length > 0 : false;
+    }
 
-				default:
-					try {
-						const item = localStorage.getItem(key);
+    get isSidePanel(): boolean {
+        return this._isSidePanel;
+    }
 
-						if (!item) resolve("");
+    get isSidePanel$(): BehaviorSubject<boolean> {
+        return this._isSidePanel$;
+    }
 
-						resolve(item?.includes("{") || item?.includes("[]") ? JSON.parse(item) : item);
-					} catch (error) {
-						reject(error);
-					}
-			}
-		});
-	}
+    get onWalletChanged$(): BehaviorSubject<WalletModel | null> {
+        return this._wallet$;
+    }
 
-	removeItem(key: string): Promise<void> {
-		return new Promise((resolve, reject) => {
-			if (this.isExtension) {
-				chrome.storage.local.remove(key, () => {
-					if (chrome.runtime.lastError) {
-						reject(chrome.runtime.lastError);
-					} else {
-						resolve();
-					}
-				});
-			} else {
-				try {
-					localStorage.removeItem(key);
-					resolve();
-				} catch (error) {
-					reject(error);
-				}
-			}
-		});
-	}
+    get onWalletsChanged$(): BehaviorSubject<WalletModel[] | []> {
+        return this._wallets$;
+    }
 
-	async isExtensionTabOpen(): Promise<boolean> {
-		if (!this.isExtension) {
-			return false;
-		}
+    async closeTab(tabId?: number): Promise<void> {
+        if (!this.isExtension) return;
 
-		return new Promise((resolve) => {
-			const baseUrl = chrome.runtime.getURL("#/onboarding");
+        if (!tabId) tabId = await this.getItem("tabId");
+        if (!tabId) return;
 
-			chrome.tabs.query({}, (tabs) => {
-				const isTabOpen = tabs.some((tab) => tab.url?.startsWith(baseUrl));
-				resolve(isTabOpen);
-			});
-		});
-	}
+        chrome.tabs.remove(tabId);
+    }
 
-	async openFullPage(force: boolean, path: string): Promise<void> {
-		if (!this.isExtension) return;
+    async copyToClipboard(value: string): Promise<void> {
+        if (navigator?.clipboard) {
+            navigator?.clipboard.writeText(value);
 
-		chrome.tabs.getCurrent((currentTab) => {
-			if (currentTab) return; // No need to open a new tab if running in the current tab
+            return;
+        }
 
-			try {
-				const url = chrome.runtime.getURL("index.html");
+        const input = document.createElement("input");
 
-				chrome.tabs.create({ url: `${url}#${path}` }, async (tab) => {
-					if (tab.id) {
-						try {
-							await this.setItem(this.tabStorageKey, true);
+        input.value = value;
 
-							await this.setItem("tabId", tab.id);
-						} catch (error) {
-							console.error("Failed to update tab state:", error);
-						}
-					}
-				});
-			} catch (exception) {
-				console.error("Failed to open tab:", exception);
-			}
-		});
-	}
+        document.body.appendChild(input);
 
-	getIsExtension(): boolean {
-		return this.isExtension;
-	}
+        input.select();
+
+        document.execCommand("copy");
+        document.body.removeChild(input);
+    }
+
+    async getItem(key: string, overrideSource?: string): Promise<any> {
+        let source = this.isExtension ? "extension" : "web";
+
+        if (overrideSource) {
+            source = ["extension", "web"].includes(overrideSource) ? overrideSource : source;
+        }
+
+        return new Promise((resolve, reject) => {
+            switch (source) {
+                case "extension":
+                    chrome.storage.local.get(key, (result) => {
+                        if (chrome.runtime.lastError) {
+                            reject(chrome.runtime.lastError);
+                        } else {
+                            resolve(result[key]);
+                        }
+                    });
+
+                    break;
+
+                default:
+                    try {
+                        const item = localStorage.getItem(key);
+
+                        try {
+                            if (!item) resolve("");
+
+                            resolve(JSON.parse(item as string));
+                        } catch (error) {
+                            resolve(item);
+                        }
+                    } catch (error) {
+                        reject(error);
+                    }
+            }
+        });
+    }
+
+    async isExtensionTabOpen(): Promise<boolean> {
+        if (!this.isExtension) return false;
+
+        return new Promise((resolve) => {
+            const baseUrl = chrome.runtime.getURL("#/onboarding");
+
+            chrome.tabs.query({}, (tabs) => {
+                const isTabOpen = tabs.some((tab) => tab.url?.startsWith(baseUrl));
+                resolve(isTabOpen);
+            });
+        });
+    }
+
+    async openFullPage(path: string): Promise<void> {
+        if (!this.isExtension) return;
+
+        chrome.tabs.getCurrent((currentTab) => {
+            if (currentTab) return; // No need to open a new tab if running in the current tab
+
+            try {
+                const url = chrome.runtime.getURL("index.html");
+
+                chrome.tabs.create({ url: `${url}#${path}` }, async (tab) => {
+                    if (tab.id) {
+                        try {
+                            await this.setItem(this._tabStorageKey, true);
+
+                            await this.setItem("tabId", tab.id);
+                        } catch (error) {
+                            console.error("Failed to update tab state:", error);
+                        }
+                    }
+                });
+            } catch (exception) {
+                console.error("Failed to open tab:", exception);
+            }
+        });
+    }
+
+    async openSidePanel(): Promise<void> {
+        if (!this.isExtension) return;
+
+        const [window] = await chrome.windows.getAll({ populate: true });
+
+        if (!window?.id) return;
+
+        if (!this.isPopOut) {
+            const tabs = await chrome.tabs.query({});
+
+            if (tabs.length > 1) {
+                const [tab] = await chrome.tabs.query({
+                    active: true,
+                    lastFocusedWindow: true,
+                });
+
+                const tabId = tab?.id;
+
+                if (!tabId) return;
+
+                await this.closeTab(tabId);
+            }
+        } else {
+            const views = chrome.extension.getViews({ type: "popup" });
+
+            if (views.length > 0) {
+                const popupWindow = views[0];
+
+                popupWindow.close();
+            }
+        }
+
+        await chrome.sidePanel.open({ windowId: window.id });
+        await chrome.sidePanel.setOptions({
+            path: "index.html",
+            enabled: true,
+        });
+    }
+
+    async removeItem(key: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                chrome.storage.local.remove(key, () => {
+                    if (chrome.runtime.lastError) {
+                        reject(chrome.runtime.lastError);
+                    } else {
+                        resolve();
+                    }
+                });
+            } else {
+                try {
+                    localStorage.removeItem(key);
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        });
+    }
+
+    async setItem(key: string, value: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                chrome.storage.local.set({ [key]: value }, () => {
+                    if (chrome.runtime.lastError) {
+                        reject(chrome.runtime.lastError);
+                    } else {
+                        resolve();
+                    }
+                });
+            }
+
+            try {
+                localStorage.setItem(key, value);
+
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 }

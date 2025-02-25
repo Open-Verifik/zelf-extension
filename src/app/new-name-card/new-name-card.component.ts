@@ -7,375 +7,376 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 import { debounceTime, distinctUntilChanged } from "rxjs";
 
 @Component({
-	selector: "new-name-card",
-	template: `
-		<mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
-		<div class="zelf-card">
-			<form [formGroup]="zelfForm" #signUpNgForm="ngForm" fxLayout="column" fxLayoutAlign="start start" class="my-1 w-full">
-				<div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
-					<p class="m-0">{{ "onboarding.register" | transloco }}</p>
+    selector: "new-name-card",
+    template: `
+        <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
+        <div class="zelf-card">
+            <form [formGroup]="zelfForm" #signUpNgForm="ngForm" fxLayout="column" fxLayoutAlign="start start" class="my-1 w-full">
+                <div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
+                    <p class="m-0">{{ "onboarding.register" | transloco }}</p>
 
-					<h3 class="m-0">{{ zelfName }}</h3>
+                    <h3 class="m-0">{{ zelfName }}</h3>
 
-					<small class="mt-4">
-						{{ "onboarding.register_description" | transloco : { duration: duration } }}
+                    <small class="mt-4">
+                        {{ "onboarding.register_description" | transloco : { duration: duration } }}
 
-						{{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}.</small
-					>
+                        {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}.</small
+                    >
 
-					<small *ngIf="reward"> {{ "onboarding.zns_reward" | transloco : { reward: reward } }}. </small>
-				</div>
+                    <small *ngIf="reward"> {{ "onboarding.zns_reward" | transloco : { reward: reward } }}. </small>
+                </div>
 
-				<div fxLayout="column" fxLayoutAlign="space-between center" class="w-full">
-					<div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="space-between center">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" *ngIf="duration === 1">
-							<path
-								d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H7V11H17V13Z"
-								fill="#E2E2E6"
-							/>
-						</svg>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							*ngIf="duration !== 1"
-							class="cursor-pointer"
-							(click)="decreaseDuration()"
-						>
-							<path
-								d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H7V11H17V13Z"
-								fill="#181818"
-							/>
-						</svg>
-						<h2 *ngIf="duration <= 5" class="p-1">
-							{{ duration }} {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}
-						</h2>
+                <div fxLayout="column" fxLayoutAlign="space-between center" class="w-full">
+                    <div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="space-between center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" *ngIf="duration === 1">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H7V11H17V13Z"
+                                fill="#E2E2E6"
+                            />
+                        </svg>
 
-						<h2 *ngIf="duration === 'lifetime'">{{ "onboarding.lifetime" | transloco }}</h2>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            *ngIf="duration !== 1"
+                            class="cursor-pointer"
+                            (click)="decreaseDuration()"
+                        >
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H7V11H17V13Z"
+                                fill="#181818"
+                            />
+                        </svg>
 
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							*ngIf="duration !== 'lifetime'"
-							(click)="increaseDuration()"
-							class="cursor-pointer"
-						>
-							<path
-								d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H13V17H11V13H7V11H11V7H13V11H17V13Z"
-								fill="#181818"
-							/>
-						</svg>
+                        <h2 *ngIf="duration <= 5" class="p-1">
+                            {{ duration }} {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}
+                        </h2>
 
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							*ngIf="duration === 'lifetime'"
-						>
-							<path
-								d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H13V17H11V13H7V11H11V7H13V11H17V13Z"
-								fill="#E2E2E6"
-							/>
-						</svg>
-					</div>
+                        <h2 *ngIf="duration === 'lifetime'">{{ "onboarding.lifetime" | transloco }}</h2>
 
-					<!-- price -->
-					<div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="space-between center">
-						<span *ngIf="duration !== 'lifetime'" class="price-label">{{ "onboarding.price_per_year" | transloco }}</span>
-						<span *ngIf="duration === 'lifetime'" class="price-label">{{ "onboarding.price_for_lifetime" | transloco }}</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            *ngIf="duration !== 'lifetime'"
+                            (click)="increaseDuration()"
+                            class="cursor-pointer"
+                        >
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H13V17H11V13H7V11H11V7H13V11H17V13Z"
+                                fill="#181818"
+                            />
+                        </svg>
 
-						<h4>
-							<span class="text-bold mr-1">{{ price | currency }}</span> <span class="currency">USD</span>
-						</h4>
-					</div>
-					<!-- end of price -->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            *ngIf="duration === 'lifetime'"
+                        >
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17 13H13V17H11V13H7V11H11V7H13V11H17V13Z"
+                                fill="#E2E2E6"
+                            />
+                        </svg>
+                    </div>
 
-					<!-- referred by -->
-					<div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center">
-						<span class="font-bold"> {{ "onboarding.referral_code" | transloco }} </span>
+                    <!-- price -->
+                    <div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="space-between center">
+                        <span *ngIf="duration !== 'lifetime'" class="price-label">{{ "onboarding.price_per_year" | transloco }}</span>
+                        <span *ngIf="duration === 'lifetime'" class="price-label">{{ "onboarding.price_for_lifetime" | transloco }}</span>
 
-						<div class="unlock-input-box">
-							<div class="unlock-input-text-container">
-								<mat-form-field class="w-full">
-									<input
-										type="text"
-										matInput
-										[formControlName]="'zelfName'"
-										autocomplete="off"
-										(keydown.enter)="searchZelfName($event)"
-										(input)="sanitizeZelfNameInput()"
-										[readonly]="zelfNameObject || loading"
-									/>
-								</mat-form-field>
-							</div>
-							<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
-								<span class="zpan"> .zelf </span>
-							</div>
-						</div>
-					</div>
-					<!-- end of referral -->
-				</div>
+                        <h4>
+                            <span class="text-bold mr-1">{{ price | currency }}</span> <span class="currency">USD</span>
+                        </h4>
+                    </div>
+                    <!-- end of price -->
 
-				<span class="zline-2"></span>
+                    <!-- referred by -->
+                    <div class="new-zelf-ipfs-length-card p-3 bg-white" fxLayout="row" fxLayoutAlign="space-between center">
+                        <span class="font-bold"> {{ "onboarding.referral_code" | transloco }} </span>
 
-				<div class="my-1 w-full">
-					<mat-checkbox class="on-checkbox" formControlName="termsAcceptance">
-						{{ "onboarding.accept_terms_1" | transloco }}
-						<a href="https://docs.zelf.world/zelf-legal/terms-of-use" target="_blank">{{ "onboarding.accept_terms_2" | transloco }}</a>
-					</mat-checkbox>
-				</div>
+                        <div class="unlock-input-box">
+                            <div class="unlock-input-text-container">
+                                <mat-form-field class="w-full">
+                                    <input
+                                        type="text"
+                                        matInput
+                                        [formControlName]="'zelfName'"
+                                        autocomplete="off"
+                                        (keydown.enter)="searchZelfName($event)"
+                                        (input)="sanitizeZelfNameInput()"
+                                        [readonly]="zelfNameObject || loading"
+                                    />
+                                </mat-form-field>
+                            </div>
 
-				<div class="p-3 w-full" fxLayout="column" fxLayoutAlign="center center">
-					<button mat-raised-button class="w-full my-3 main-button" (click)="goToCreateWallet()" [disabled]="!acceptedTerms()">
-						{{ "onboarding.create_new_wallet" | transloco }}
-					</button>
+                            <div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
+                                <span class="zpan"> .zelf </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of referral -->
+                </div>
 
-					<button mat-raised-button class="w-full my-1 secondary-button" (click)="goToImportWallet()" [disabled]="!acceptedTerms()">
-						{{ "onboarding.import_wallet" | transloco }}
-					</button>
-				</div>
-			</form>
-		</div>
-	`,
-	styleUrls: ["./new-name-card.component.scss", "../main.scss"],
+                <span class="zline-2"></span>
+
+                <div class="my-1 w-full">
+                    <mat-checkbox class="on-checkbox" formControlName="termsAcceptance">
+                        {{ "onboarding.accept_terms_1" | transloco }}
+                        <a href="https://docs.zelf.world/zelf-legal/terms-of-use" target="_blank">{{ "onboarding.accept_terms_2" | transloco }}</a>
+                    </mat-checkbox>
+                </div>
+
+                <div class="p-3 w-full" fxLayout="column" fxLayoutAlign="center center">
+                    <button mat-raised-button class="w-full my-3 main-button" (click)="goToCreateWallet()" [disabled]="!acceptedTerms()">
+                        {{ "onboarding.create_new_wallet" | transloco }}
+                    </button>
+
+                    <button mat-raised-button class="w-full my-1 secondary-button" (click)="goToImportWallet()" [disabled]="!acceptedTerms()">
+                        {{ "onboarding.import_wallet" | transloco }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    `,
+    styleUrls: ["./new-name-card.component.scss", "../main.scss"],
 })
 export class NewNameCardComponent implements OnInit {
-	@ViewChild("zelfForm") signUpNgForm!: NgForm;
-	zelfForm!: UntypedFormGroup;
-	zelfName: string;
-	steps: Array<any>;
-	session: any;
-	duration: any;
-	isZelfNameEmpty: boolean;
-	zelfNamePricing: any = {
-		1: { 1: 240, 2: 432, 3: 612, 4: 768, 5: 900, lifetime: 3600 },
-		2: { 1: 120, 2: 216, 3: 306, 4: 384, 5: 450, lifetime: 1800 },
-		3: { 1: 72, 2: 130, 3: 184, 4: 230, 5: 270, lifetime: 1080 },
-		4: { 1: 36, 2: 65, 3: 92, 4: 115, 5: 135, lifetime: 540 },
-		5: { 1: 30, 2: 54, 3: 76, 4: 96, 5: 112, lifetime: 450 },
-		"6-15": { 1: 24, 2: 43, 3: 61, 4: 77, 5: 90, lifetime: 360 },
-		16: { 1: 23, 2: 41, 3: 59, 4: 74, 5: 86, lifetime: 345 },
-		17: { 1: 22, 2: 40, 3: 56, 4: 70, 5: 82, lifetime: 330 },
-		18: { 1: 21, 2: 38, 3: 54, 4: 67, 5: 79, lifetime: 315 },
-		19: { 1: 20, 2: 36, 3: 51, 4: 64, 5: 75, lifetime: 300 },
-		20: { 1: 19, 2: 34, 3: 48, 4: 61, 5: 72, lifetime: 285 },
-		21: { 1: 18, 2: 32, 3: 46, 4: 58, 5: 68, lifetime: 270 },
-		22: { 1: 17, 2: 31, 3: 43, 4: 54, 5: 64, lifetime: 255 },
-		23: { 1: 16, 2: 29, 3: 41, 4: 51, 5: 60, lifetime: 240 },
-		24: { 1: 15, 2: 27, 3: 38, 4: 48, 5: 56, lifetime: 225 },
-		25: { 1: 14, 2: 25, 3: 36, 4: 45, 5: 53, lifetime: 210 },
-		26: { 1: 13, 2: 23, 3: 33, 4: 42, 5: 49, lifetime: 195 },
-		27: { 1: 12, 2: 22, 3: 31, 4: 38, 5: 45, lifetime: 180 },
-	};
-	price: number;
-	loading: boolean;
-	zelfNameObject: any;
-	reward: any;
+    @ViewChild("zelfForm") signUpNgForm!: NgForm;
+    zelfForm!: UntypedFormGroup;
+    zelfName: string;
+    steps: Array<any>;
+    session: any;
+    duration: any;
+    isZelfNameEmpty: boolean;
+    zelfNamePricing: any = {
+        1: { 1: 240, 2: 432, 3: 612, 4: 768, 5: 900, lifetime: 3600 },
+        2: { 1: 120, 2: 216, 3: 306, 4: 384, 5: 450, lifetime: 1800 },
+        3: { 1: 72, 2: 130, 3: 184, 4: 230, 5: 270, lifetime: 1080 },
+        4: { 1: 36, 2: 65, 3: 92, 4: 115, 5: 135, lifetime: 540 },
+        5: { 1: 30, 2: 54, 3: 76, 4: 96, 5: 112, lifetime: 450 },
+        "6-15": { 1: 24, 2: 43, 3: 61, 4: 77, 5: 90, lifetime: 360 },
+        16: { 1: 23, 2: 41, 3: 59, 4: 74, 5: 86, lifetime: 345 },
+        17: { 1: 22, 2: 40, 3: 56, 4: 70, 5: 82, lifetime: 330 },
+        18: { 1: 21, 2: 38, 3: 54, 4: 67, 5: 79, lifetime: 315 },
+        19: { 1: 20, 2: 36, 3: 51, 4: 64, 5: 75, lifetime: 300 },
+        20: { 1: 19, 2: 34, 3: 48, 4: 61, 5: 72, lifetime: 285 },
+        21: { 1: 18, 2: 32, 3: 46, 4: 58, 5: 68, lifetime: 270 },
+        22: { 1: 17, 2: 31, 3: 43, 4: 54, 5: 64, lifetime: 255 },
+        23: { 1: 16, 2: 29, 3: 41, 4: 51, 5: 60, lifetime: 240 },
+        24: { 1: 15, 2: 27, 3: 38, 4: 48, 5: 56, lifetime: 225 },
+        25: { 1: 14, 2: 25, 3: 36, 4: 45, 5: 53, lifetime: 210 },
+        26: { 1: 13, 2: 23, 3: 33, 4: 42, 5: 49, lifetime: 195 },
+        27: { 1: 12, 2: 22, 3: 31, 4: 38, 5: 45, lifetime: 180 },
+    };
+    price: number;
+    loading: boolean;
+    zelfNameObject: any;
+    reward: any;
 
-	constructor(
-		private _router: Router,
-		private _formBuilder: UntypedFormBuilder,
-		private _walletService: WalletService,
-		private _zelfNameService: ZelfNameService,
-		private captchaService: CaptchaService
-	) {
-		this.zelfName = "";
-		this.duration = 1;
-		this.price = 24;
-		this.loading = false;
-		this.isZelfNameEmpty = true;
+    constructor(
+        private _router: Router,
+        private _formBuilder: UntypedFormBuilder,
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService,
+        private captchaService: CaptchaService
+    ) {
+        this.zelfName = "";
+        this.duration = 1;
+        this.price = 24;
+        this.loading = false;
+        this.isZelfNameEmpty = true;
 
-		this.steps = [
-			{
-				isActive: true,
-				isCompleted: false,
-				label: "available",
-				isStatus: true,
-			},
-		];
+        this.steps = [
+            {
+                isActive: true,
+                isCompleted: false,
+                label: "available",
+                isStatus: true,
+            },
+        ];
 
-		this.session = this._walletService.getSessionData();
+        this.session = this._walletService.getSessionData();
 
-		this.session.steps = [];
+        this.session.steps = [];
 
-		this.zelfForm = this._formBuilder.group({
-			termsAcceptance: [false, [Validators.required]],
-			zelfName: ["", []],
-		});
-	}
+        this.zelfForm = this._formBuilder.group({
+            termsAcceptance: [false, [Validators.required]],
+            zelfName: ["", []],
+        });
+    }
 
-	async ngOnInit(): Promise<any> {
-		this.zelfName = this._zelfNameService.getZelfName();
+    async ngOnInit(): Promise<any> {
+        this.zelfName = await this._zelfNameService.getZelfName();
+        this.price = await this._zelfNameService.getZelfPrice();
+        this.reward = this._zelfNameService.getZelfReward();
 
-		this.price = this._zelfNameService.getZelfPrice();
+        if (!this.zelfName) return this._router.navigate(["/onboarding"]);
 
-		this.reward = this._zelfNameService.getZelfReward();
+        // Track input value changes
+        // Track input changes and trigger searchZelfName after 5 seconds
+        this.zelfForm
+            .get("zelfName")
+            ?.valueChanges.pipe(
+                debounceTime(5000), // Wait 5 seconds after typing stops
+                distinctUntilChanged() // Only trigger if the value actually changes
+            )
+            .subscribe((value) => {
+                this.isZelfNameEmpty = !value || value.trim() === "";
 
-		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
+                if (!this.isZelfNameEmpty) {
+                    this.searchZelfName(new Event("input")); // Trigger search
+                }
+            });
+    }
 
-		// Track input value changes
-		// Track input changes and trigger searchZelfName after 5 seconds
-		this.zelfForm
-			.get("zelfName")
-			?.valueChanges.pipe(
-				debounceTime(5000), // Wait 5 seconds after typing stops
-				distinctUntilChanged() // Only trigger if the value actually changes
-			)
-			.subscribe((value) => {
-				this.isZelfNameEmpty = !value || value.trim() === "";
+    goToCreateWallet(): void {
+        this._router.navigate(["/create-wallet"]);
+    }
 
-				if (!this.isZelfNameEmpty) {
-					this.searchZelfName(new Event("input")); // Trigger search
-				}
-			});
-	}
+    goToImportWallet(): void {
+        this._router.navigate(["/import-wallet"]);
+    }
 
-	goToCreateWallet(): void {
-		this._router.navigate(["/create-wallet"]);
-	}
+    goToFindWallet(): void {
+        this._router.navigate(["/find-wallet"]);
+    }
 
-	goToImportWallet(): void {
-		this._router.navigate(["/import-wallet"]);
-	}
+    acceptedTerms(): boolean {
+        return Boolean(
+            this.zelfForm.value.termsAcceptance && !this.loading // Disable if zelfName is empty OR zelfNameObject is not set
+        );
+    }
 
-	goToFindWallet(): void {
-		this._router.navigate(["/find-wallet"]);
-	}
+    goBack(): void {
+        this._router.navigate(["/onboarding"]);
+    }
 
-	acceptedTerms(): boolean {
-		return Boolean(
-			this.zelfForm.value.termsAcceptance && !this.loading // Disable if zelfName is empty OR zelfNameObject is not set
-		);
-	}
+    increaseDuration(): void {
+        if (this.duration === "lifetime") return;
 
-	goBack(): void {
-		this._router.navigate(["/onboarding"]);
-	}
+        this.duration = this.duration === 5 ? "lifetime" : this.duration + 1;
 
-	increaseDuration(): void {
-		if (this.duration === "lifetime") return;
+        this._calculateZelfNamePrice();
+    }
 
-		this.duration = this.duration === 5 ? "lifetime" : this.duration + 1;
+    decreaseDuration(): void {
+        if (this.duration === 1) return;
 
-		this._calculateZelfNamePrice();
-	}
+        this.duration = this.duration === "lifetime" ? 5 : this.duration - 1;
 
-	decreaseDuration(): void {
-		if (this.duration === 1) return;
+        this._calculateZelfNamePrice();
+    }
 
-		this.duration = this.duration === "lifetime" ? 5 : this.duration - 1;
+    /**
+     * Get Zelf Name price based on name length and duration
+     * @param {number} length - The length of the Zelf name
+     * @param {string} duration - Duration ("1", "2", "3", "4", "5", "lifetime")
+     * @returns {number} - Price of the Zelf name
+     */
+    _calculateZelfNamePrice(): void {
+        if (!["1", "2", "3", "4", "5", "lifetime"].includes(`${this.duration}`))
+            throw new Error("Invalid duration. Use '1', '2', '3', '4', '5' or 'lifetime'.");
 
-		this._calculateZelfNamePrice();
-	}
+        let price = 24;
 
-	/**
-	 * Get Zelf Name price based on name length and duration
-	 * @param {number} length - The length of the Zelf name
-	 * @param {string} duration - Duration ("1", "2", "3", "4", "5", "lifetime")
-	 * @returns {number} - Price of the Zelf name
-	 */
-	_calculateZelfNamePrice(): void {
-		if (!["1", "2", "3", "4", "5", "lifetime"].includes(`${this.duration}`))
-			throw new Error("Invalid duration. Use '1', '2', '3', '4', '5' or 'lifetime'.");
+        const length = this.zelfName.split(".zelf")[0].length;
 
-		let price = 24;
+        if (length >= 6 && length <= 15) {
+            price = this.zelfNamePricing["6-15"][this.duration];
+        } else if (this.zelfNamePricing[length]) {
+            price = this.zelfNamePricing[length][this.duration];
+        } else {
+            throw new Error("Invalid name length. Length must be between 1 and 27.");
+        }
 
-		const length = this.zelfName.split(".zelf")[0].length;
+        // Round up to 2 decimal places
+        this.price = Math.ceil(price * 100) / 100 - (this.zelfNameObject ? price * 0.1 : 0);
+    }
 
-		if (length >= 6 && length <= 15) {
-			price = this.zelfNamePricing["6-15"][this.duration];
-		} else if (this.zelfNamePricing[length]) {
-			price = this.zelfNamePricing[length][this.duration];
-		} else {
-			throw new Error("Invalid name length. Length must be between 1 and 27.");
-		}
+    async searchZelfName(event: any): Promise<any> {
+        if (!this.zelfForm.valid) {
+            this.zelfForm.patchValue({ zelfName: "" });
+        }
 
-		// Round up to 2 decimal places
-		this.price = Math.ceil(price * 100) / 100 - (this.zelfNameObject ? price * 0.1 : 0);
-	}
+        if (this.loading) return;
 
-	async searchZelfName(event: any): Promise<any> {
-		if (!this.zelfForm.valid) {
-			this.zelfForm.patchValue({ zelfName: "" });
-		}
+        event.preventDefault();
 
-		if (this.loading) return;
+        this.loading = true;
 
-		event.preventDefault();
+        const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
 
-		this.loading = true;
+        let captchaToken = "";
 
-		const zelfName = `${this.zelfForm.value.zelfName}.zelf`;
+        try {
+            const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
 
-		let captchaToken = "";
+            captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
+        } catch (error) {
+            console.error("reCAPTCHA failed:", error);
+        }
 
-		try {
-			const captchaKey = this.zelfForm.value.zelfName.replace(".", "_");
+        // Validation: Ensure zelfName is at least 4 characters
+        if (!this.zelfForm.value.zelfName.length) {
+            this.loading = false;
 
-			captchaToken = await this.captchaService.executeRecaptcha(captchaKey);
-		} catch (error) {
-			console.error("reCAPTCHA failed:", error);
-		}
+            return; // Prevent further execution if validation fails
+        }
 
-		// Validation: Ensure zelfName is at least 4 characters
-		if (!this.zelfForm.value.zelfName.length) {
-			this.loading = false;
+        this._zelfNameService
+            .searchZelfName("zelfName", zelfName, captchaToken)
+            .then((response) => {
+                if (response?.data.price) {
+                    this.zelfForm.patchValue({ zelfName: "" });
+                    this.loading = false;
+                    return;
+                }
 
-			return; // Prevent further execution if validation fails
-		}
+                this.zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
 
-		this._zelfNameService
-			.searchZelfName("zelfName", zelfName, captchaToken)
-			.then((response) => {
-				if (response?.data.price) {
-					this.zelfForm.patchValue({ zelfName: "" });
-					this.loading = false;
-					return;
-				}
+                this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
 
-				this.zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+                this._calculateZelfNamePrice();
 
-				this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
+                this.loading = false;
+            })
+            .catch((exception) => {
+                console.error({ exception });
 
-				this._calculateZelfNamePrice();
+                this.loading = false;
+            });
+    }
 
-				this.loading = false;
-			})
-			.catch((exception) => {
-				console.error({ exception });
+    // Method to sanitize input
+    sanitizeZelfNameInput() {
+        const control = this.zelfForm.get("zelfName");
 
-				this.loading = false;
-			});
-	}
+        if (!control) return;
 
-	// Method to sanitize input
-	sanitizeZelfNameInput() {
-		const control = this.zelfForm.get("zelfName");
+        // Remove invalid characters,
+        let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]/g, "");
 
-		if (!control) return;
+        // Ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
+        sanitizedValue = sanitizedValue.replace(/^[^a-zA-Z]+|[.-]$/g, "");
 
-		// Remove invalid characters,
-		let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]/g, "");
+        // Convert to lower case at the end
+        sanitizedValue = sanitizedValue.toLowerCase();
 
-		// Ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
-		sanitizedValue = sanitizedValue.replace(/^[^a-zA-Z]+|[.-]$/g, "");
+        // Limit to 20 characters
+        if (sanitizedValue.length > 20) {
+            sanitizedValue = sanitizedValue.substring(0, 20);
+        }
 
-		// Convert to lower case at the end
-		sanitizedValue = sanitizedValue.toLowerCase();
-
-		// Limit to 20 characters
-		if (sanitizedValue.length > 20) {
-			sanitizedValue = sanitizedValue.substring(0, 20);
-		}
-
-		// Update form control value without triggering events
-		control.setValue(sanitizedValue, { emitEvent: false });
-	}
+        // Update form control value without triggering events
+        control.setValue(sanitizedValue, { emitEvent: false });
+    }
 }

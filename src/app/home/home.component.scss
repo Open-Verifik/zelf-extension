@@ -1,8 +1,120 @@
-$maxExtraSmall: 595px;
-$minSmall: 600px;
-$medium: 768px;
-$large: 889px;
-$computers: 1200px;
+@import "../../styles/variables";
+
+.home-main {
+	position: relative;
+	background: white;
+	width: 100%;
+	min-height: 100vh;
+}
+
+.app-content {
+	position: absolute;
+	top: 76px;
+	bottom: 82px;
+	width: 100%;
+	overflow: auto;
+}
+
+.home-header {
+	position: absolute;
+	top: 0;
+	align-items: center;
+	background: white;
+	display: inline-flex;
+	gap: 6px;
+	height: 76px;
+	justify-content: space-between;
+	width: 100%;
+	z-index: 1000;
+
+	&__title-container {
+		user-select: none;
+		cursor: pointer;
+		align-items: center;
+		color: #858585;
+		display: inline-flex;
+		gap: 8px;
+		justify-content: center;
+		height: 42px;
+		border-radius: 36px;
+		padding: 0 16px;
+		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+
+		svg {
+			fill: #858585;
+			transition: fill 0.3s $smoothBezier;
+		}
+
+		&:hover {
+			background-color: #b589f0;
+			color: white;
+
+			svg {
+				fill: white;
+			}
+		}
+	}
+
+	&__title {
+		cursor: pointer;
+		font-size: 18px;
+		font-weight: 600;
+		word-wrap: break-word;
+	}
+
+	&__dropdown-icon {
+		fill: #858585;
+	}
+
+	&__container {
+		padding: 0 8px;
+	}
+
+	&__button {
+		align-items: center;
+		background-color: white;
+		border-radius: 36px;
+		border: none;
+		cursor: pointer;
+		display: inline-flex;
+		flex-direction: column;
+		height: 36px;
+		justify-content: center;
+		overflow: hidden;
+		stroke: #858585;
+		transition: background-color 1.5s cubic-bezier(0.075, 0.82, 0.165, 1), stroke 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+		width: 36px;
+
+		&:hover,
+		&:focus {
+			stroke: #b589f0;
+			background: #f0d3d4;
+		}
+		&:active {
+			stroke: #b589f0;
+			background-color: #858585;
+		}
+	}
+
+	&__left {
+		align-items: center;
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	&__center {
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+
+	&__right {
+		align-items: center;
+		display: flex;
+		justify-content: flex-end;
+	}
+}
 
 .home-main-div {
 	width: 440px;
@@ -10,25 +122,6 @@ $computers: 1200px;
 	width: 100%;
 	position: relative;
 	background: white;
-}
-
-.home-main-header {
-	width: 100%;
-	height: 52px;
-	background: black;
-	box-shadow: 0px 2px 4px 1px rgba(97, 97, 97, 0.28);
-	justify-content: space-between;
-	align-items: center;
-	display: inline-flex;
-}
-
-.home-header-left {
-	width: 86px;
-	padding-right: 26px;
-	justify-content: flex-start;
-	display: flex;
-	cursor: pointer;
-	align-items: center;
 }
 
 .home-icon-container {
@@ -61,14 +154,6 @@ $computers: 1200px;
 	}
 }
 
-.home-header-center {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: flex-start;
-	gap: 6px;
-}
-
 .home-account-info {
 	align-self: stretch;
 	display: inline-flex;
@@ -90,13 +175,6 @@ $computers: 1200px;
 	width: 24px;
 	height: 24px;
 	position: relative;
-}
-
-.home-header-right {
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 16px;
 }
 
 .home-wallet {
@@ -164,13 +242,21 @@ $computers: 1200px;
 	position: relative;
 }
 
-.home-balance {
-	width: 100%;
-	margin-top: 4px;
-	display: inline-flex;
+.home-actions-container {
+	min-height: 336px;
+	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.home-balance {
+	align-items: center;
+	display: inline-flex;
 	gap: 12px;
+	justify-content: center;
+	min-height: 94px;
+	width: 100%;
 }
 
 .home-balance-info {
@@ -183,14 +269,21 @@ $computers: 1200px;
 
 .home-balance-amount {
 	width: 100%;
-	height: 27px;
 	text-align: center;
-	color: #444746;
-	font-size: 32px;
+	color: black;
+	font-size: 40px;
 	font-weight: 500;
 	line-height: 40px;
+	margin: 0;
 	word-wrap: break-word;
-	margin: 16px;
+
+	&--loading {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 44px;
+		animation: ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+	}
 }
 
 .home-balance-value {
@@ -212,7 +305,7 @@ $computers: 1200px;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
-	gap: 8px;
+	gap: 26px;
 }
 
 .home-action {
@@ -220,24 +313,43 @@ $computers: 1200px;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	gap: 4px;
+	gap: 8px;
 }
 
 .home-action-icon {
-	padding: 12px;
-	background: white;
-	border-radius: 16px;
+	height: 60px;
+	width: 60px;
+	background: $antiFlashWhite;
+	border-radius: 60px;
 	display: inline-flex;
-	justify-content: flex-start;
-	align-items: flex-start;
+	justify-content: center;
+	align-items: center;
 	gap: 8px;
 	cursor: pointer;
+	transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+
+	svg {
+		fill: $black;
+		transition: fill 0.3s $smoothBezier;
+	}
+
+	&:hover {
+		background-color: #b589f0;
+		color: white;
+
+		svg {
+			fill: white;
+		}
+	}
 }
 
 .home-action-icon-box {
 	width: 28px;
 	height: 28px;
 	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .home-action-text {
@@ -253,13 +365,8 @@ $computers: 1200px;
 }
 
 .home-tabs {
-	height: 49px;
-	width: 100%;
 	margin-top: 16px;
-	background: white;
-	display: inline-flex;
-	justify-content: flex-start;
-	align-items: flex-start;
+	padding: 0 16px;
 }
 
 .home-tab {
@@ -448,40 +555,16 @@ $computers: 1200px;
 }
 
 .assets-content {
-	height: 420px;
-	overflow: scroll;
 	background: white;
+	padding: 8px 16px;
 }
 
 .activity-content {
-	height: 482px;
-	overflow: scroll;
 	background: white;
-}
-
-.home-actions-container {
-	min-height: 200px;
+	padding: 8px 16px;
 }
 
 .home-icon-arrow-down {
 	position: relative;
 	bottom: 2px;
-}
-
-.home-container {
-	background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
-}
-
-/* For extremely small screen devices (595px and below) */
-@media only screen and (max-width: $maxExtraSmall) {
-	.activity-content {
-		min-height: 295px;
-		max-height: 295px;
-	}
-
-	.assets-content {
-		height: 235px;
-		overflow: scroll;
-		background: white;
-	}
 }

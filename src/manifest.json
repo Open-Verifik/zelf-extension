@@ -41,5 +41,10 @@
             "resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],
             "matches": ["<all_urls>"]
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "zelf@zelf.world"
+        }
+    }
 }

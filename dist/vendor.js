@@ -1397,7 +1397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   validateConfig: () => (/* binding */ DD),
 /* harmony export */   version: () => (/* binding */ cFe)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 
 /*
   Face-API
@@ -5090,7 +5090,7 @@ var jk = "tfjsflags",
     }
     getAsync(e) {
       var _this = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return e in _this.flags ? _this.flags[e] : (_this.flags[e] = yield _this.evaluateFlag(e), _this.flags[e]);
       })();
     }
@@ -5921,7 +5921,7 @@ var Ce = class {
   }
   buffer() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = yield _this2.data();
       return Sl.buffer(_this2.shape, _this2.dtype, e);
     })();
@@ -5931,7 +5931,7 @@ var Ce = class {
   }
   array() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = yield _this3.data();
       return El(_this3.shape, e, _this3.dtype === "complex64");
     })();
@@ -5941,7 +5941,7 @@ var Ce = class {
   }
   data() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this4.throwIfDisposed();
       let e = za().read(_this4.dataId);
       if (_this4.dtype === "string") {
@@ -5970,7 +5970,7 @@ var Ce = class {
   }
   bytes() {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this5.throwIfDisposed();
       let e = yield za().read(_this5.dataId);
       return _this5.dtype === "string" ? e : new Uint8Array(e.buffer);
@@ -6131,7 +6131,7 @@ var Yk = class {
     }
     ready() {
       var _this6 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this6.pendingBackendInit != null) return _this6.pendingBackendInit.then(() => {});
         if (_this6.backendInstance != null) return;
         let t = _this6.getSortedBackends();
@@ -6180,7 +6180,7 @@ var Yk = class {
     }
     setBackend(t) {
       var _this7 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this7.registryFactory[t] == null) throw new Error(`Backend name '${t}' not found in registry`);
         if (_this7.backendName = t, _this7.registry[t] == null) {
           _this7.backendInstance = null;
@@ -6489,7 +6489,7 @@ var Yk = class {
     }
     profile(t) {
       var _this8 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this8.state.profiling = !0;
         let n = _this8.state.numBytes,
           a = _this8.state.numTensors;
@@ -6602,7 +6602,7 @@ var Yk = class {
     }
     time(t) {
       var _this9 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let n = gc(),
           a = yield _this9.backend.time(t);
         return a.wallMs = gc() - n, a;
@@ -6927,7 +6927,7 @@ function oO(_x2, _x3) {
   return _oO.apply(this, arguments);
 }
 function _oO() {
-  _oO = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _oO = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = [],
       a = [],
       r = Array.isArray(e) ? e.map(i => i.name) : Object.keys(e);
@@ -6942,7 +6942,7 @@ function _oO() {
       };
       if (l.dtype === "string") {
         let p = new Promise( /*#__PURE__*/function () {
-          var _ref31 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (d) {
+          var _ref31 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (d) {
             let c = yield l.bytes(),
               h = c.reduce((g, b) => g + b.length, 0) + ls * c.length,
               m = new Uint8Array(h),
@@ -6997,7 +6997,7 @@ function uO(_x4, _x5) {
   return _uO.apply(this, arguments);
 }
 function _uO() {
-  _uO = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _uO = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = ot(e.shape),
       a;
     if ("quantization" in e) {
@@ -7074,7 +7074,7 @@ function Jk(_x6, _x7, _x8) {
   return _Jk.apply(this, arguments);
 }
 function _Jk() {
-  _Jk = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+  _Jk = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
     let a = new Uint8Array(t);
     for (; a.byteLength < n;) {
       let {
@@ -7096,13 +7096,13 @@ function pN(_x9, _x10) {
   return _pN.apply(this, arguments);
 }
 function _pN() {
-  _pN = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _pN = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = {},
       a = e.getReader(),
       r = new ArrayBuffer(0);
     for (let s of t) {
       let i = yield uO(s, /*#__PURE__*/function () {
-        var _ref32 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (u, p) {
+        var _ref32 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (u, p) {
           return r = yield Jk(a, r, p), r.slice(u, p);
         });
         return function (_x117, _x118) {
@@ -7193,7 +7193,7 @@ function Mv(_x11, _x12) {
   return _Mv.apply(this, arguments);
 }
 function _Mv() {
-  _Mv = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Mv = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n, a;
     return e.weightsManifest != null && ([n, a] = yield t(e.weightsManifest)), dN(e, n, a);
   });
@@ -7311,14 +7311,14 @@ var pi = class {
   }
   save(e) {
     var _this10 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (e.modelTopology instanceof ArrayBuffer) throw new Error("BrowserLocalStorage.save() does not support saving model topology in binary formats yet.");
       return _this10.databaseAction(_this10.modelPath, e);
     })();
   }
   load() {
     var _this11 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this11.databaseAction(_this11.modelPath);
     })();
   }
@@ -7393,7 +7393,7 @@ var SO = class {
     }
     listModels() {
       var _this12 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return new Promise((e, t) => {
           let n = _this12.indexedDB.open(Ax, Fx);
           n.onupgradeneeded = () => $x(n), n.onsuccess = () => {
@@ -7411,7 +7411,7 @@ var SO = class {
     }
     removeModel(e) {
       var _this13 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return e = IO(e), new Promise((t, n) => {
           let a = _this13.indexedDB.open(Ax, Fx);
           a.onupgradeneeded = () => $x(a), a.onsuccess = () => {
@@ -7474,7 +7474,7 @@ var ci = class {
   }
   save(e) {
     var _this14 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (e.modelTopology instanceof ArrayBuffer) throw new Error("BrowserLocalStorage.save() does not support saving model topology in binary formats yet.");
       {
         let t = JSON.stringify(e.modelTopology),
@@ -7504,7 +7504,7 @@ var ci = class {
   }
   load() {
     var _this15 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e = JSON.parse(_this15.LS.getItem(_this15.keys.info));
       if (e == null) throw new Error(`In local storage, there is no model with name '${_this15.modelPath}'`);
       if (e.modelTopologyType !== "JSON") throw new Error("BrowserLocalStorage does not support loading non-JSON model topology yet.");
@@ -7539,7 +7539,7 @@ var $O = class {
     }
     listModels() {
       var _this16 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = {},
           t = Nl + Tr,
           n = Tr + fN;
@@ -7555,7 +7555,7 @@ var $O = class {
     }
     removeModel(e) {
       var _this17 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e = AO(e);
         let t = gN(e);
         if (_this17.LS.getItem(t.info) == null) throw new Error(`Cannot find model at path '${e}'`);
@@ -7597,7 +7597,7 @@ function xN(_x13, _x14) {
   return _xN.apply(this, arguments);
 }
 function _xN() {
-  _xN = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n = !1) {
+  _xN = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n = !1) {
     A(e !== t, () => `Old path and new path are the same: '${e}'`);
     let a = ga.getLoadHandlers(e);
     A(a.length > 0, () => `Copying failed because no load handler is found for source URL ${e}.`), A(a.length < 2, () => `Copying failed because more than one (${a.length}) load handlers for source URL ${e}.`);
@@ -7619,7 +7619,7 @@ function DO() {
   return _DO.apply(this, arguments);
 }
 function _DO() {
-  _DO = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  _DO = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     let e = us.getSchemes(),
       t = {};
     for (let n of e) {
@@ -7637,7 +7637,7 @@ function RO(_x15) {
   return _RO.apply(this, arguments);
 }
 function _RO() {
-  _RO = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _RO = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = Rh(e);
     return us.getManager(t.scheme).removeModel(t.path);
   });
@@ -7647,7 +7647,7 @@ function MO(_x16, _x17) {
   return _MO.apply(this, arguments);
 }
 function _MO() {
-  _MO = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _MO = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     return xN(e, t, !1);
   });
   return _MO.apply(this, arguments);
@@ -7656,7 +7656,7 @@ function OO(_x18, _x19) {
   return _OO.apply(this, arguments);
 }
 function _OO() {
-  _OO = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _OO = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     return xN(e, t, !0);
   });
   return _OO.apply(this, arguments);
@@ -10176,7 +10176,7 @@ function OL(_x20) {
   return _OL.apply(this, arguments);
 }
 function _OL() {
-  _OL = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _OL = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     yield e.play(), "requestVideoFrameCallback" in e && (yield new Promise(t => {
       e.requestVideoFrameCallback(t);
     }));
@@ -10420,7 +10420,7 @@ function az(_x21, _x22) {
   return _az.apply(this, arguments);
 }
 function _az() {
-  _az = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _az = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = E(e, "x", "setdiff1d"),
       a = E(t, "y", "setdiff1d");
     A(n.dtype === a.dtype, () => `x and y should have the same dtype, but got x (${n.dtype}) and y (${a.dtype}).`), A(n.rank === 1, () => `x should be 1D tensor, but got x (${n.shape}).`), A(a.rank === 1, () => `y should be 1D tensor, but got y (${a.shape}).`);
@@ -10871,7 +10871,7 @@ function _z(_x23) {
   return _z2.apply(this, arguments);
 }
 function _z2() {
-  _z2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _z2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = E(e, "condition", "whereAsync", "bool"),
       n = yield t.data(),
       a = hT(t.shape, n);
@@ -10884,7 +10884,7 @@ function Az(_x24, _x25, _x26) {
   return _Az.apply(this, arguments);
 }
 function _Az() {
-  _Az = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+  _Az = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
     let a = E(e, "tensor", "boolMask"),
       r = E(t, "mask", "boolMask", "bool"),
       s = n == null ? 0 : n,
@@ -11040,7 +11040,7 @@ function zz(_x27, _x28) {
   return _zz.apply(this, arguments);
 }
 function _zz() {
-  _zz = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n = 1) {
+  _zz = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n = 1) {
     let a = E(e, "predictions", "inTopK"),
       r = E(t, "targets", "inTopK");
     A(a.rank > 1, () => `inTopK() expects the predictions to be of rank 2 or higher, but got ${a.rank}`), A(a.rank - 1 === r.rank, () => `predictions rank should be 1 larger than targets rank, but got predictions rank ${a.rank} and targets rank ${r.rank}`), Nn(a.shape.slice(0, a.shape.length - 1), r.shape, "predictions's shape should be align with the targets' shape, except the last dimension.");
@@ -11647,7 +11647,7 @@ function xW(_x29, _x30, _x31) {
   return _xW.apply(this, arguments);
 }
 function _xW() {
-  _xW = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a = .5, r = Number.NEGATIVE_INFINITY) {
+  _xW = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a = .5, r = Number.NEGATIVE_INFINITY) {
     let s = E(e, "boxes", "nonMaxSuppressionAsync"),
       i = E(t, "scores", "nonMaxSuppressionAsync"),
       o = ap(s, i, n, a, r);
@@ -11691,7 +11691,7 @@ function IW(_x32, _x33, _x34) {
   return _IW.apply(this, arguments);
 }
 function _IW() {
-  _IW = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a = .5, r = Number.NEGATIVE_INFINITY, s = 0) {
+  _IW = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a = .5, r = Number.NEGATIVE_INFINITY, s = 0) {
     let i = E(e, "boxes", "nonMaxSuppressionAsync"),
       o = E(t, "scores", "nonMaxSuppressionAsync"),
       l = ap(i, o, n, a, r, s);
@@ -11741,7 +11741,7 @@ function CW(_x35, _x36, _x37) {
   return _CW.apply(this, arguments);
 }
 function _CW() {
-  _CW = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a = .5, r = Number.NEGATIVE_INFINITY, s = !1) {
+  _CW = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a = .5, r = Number.NEGATIVE_INFINITY, s = !1) {
     let i = E(e, "boxes", "nonMaxSuppressionAsync"),
       o = E(t, "scores", "nonMaxSuppressionAsync"),
       l = ap(i, o, n, a, r, null),
@@ -12433,7 +12433,7 @@ var Rr = class extends RT {
   }
   saveIterations() {
     var _this18 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this18.iterations_ == null && (_this18.iterations_ = 0), {
         name: "iter",
         tensor: xe(_this18.iterations_, "int32")
@@ -12441,19 +12441,19 @@ var Rr = class extends RT {
     })();
   }
   getWeights() {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       throw new Error("getWeights() is not implemented for this optimizer yet.");
     })();
   }
   setWeights(e) {
     var _this19 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       throw new Error(`setWeights() is not implemented for this optimizer class ${_this19.getClassName()}`);
     })();
   }
   extractIterations(e) {
     var _this20 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this20.iterations_ = (yield e[0].tensor.data())[0], e.slice(1);
     })();
   }
@@ -12498,7 +12498,7 @@ var Vw = class extends Rr {
     }
     getWeights() {
       var _this21 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = [..._this21.accumulatedGrads, ..._this21.accumulatedUpdates];
         return [yield _this21.saveIterations()].concat(e.map(t => ({
           name: t.originalName,
@@ -12508,7 +12508,7 @@ var Vw = class extends Rr {
     }
     setWeights(e) {
       var _this22 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e = yield _this22.extractIterations(e);
         let t = e.length / 2,
           n = !1;
@@ -12562,7 +12562,7 @@ var Vw = class extends Rr {
     }
     getWeights() {
       var _this23 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return [yield _this23.saveIterations()].concat(_this23.accumulatedGrads.map(e => ({
           name: e.originalName,
           tensor: e.variable
@@ -12571,7 +12571,7 @@ var Vw = class extends Rr {
     }
     setWeights(e) {
       var _this24 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e = yield _this24.extractIterations(e);
         let t = !1;
         _this24.accumulatedGrads = e.map(n => ({
@@ -12633,7 +12633,7 @@ var Vw = class extends Rr {
     }
     getWeights() {
       var _this25 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = [..._this25.accumulatedFirstMoment, ..._this25.accumulatedSecondMoment];
         return [yield _this25.saveIterations()].concat(e.map(t => ({
           name: t.originalName,
@@ -12643,7 +12643,7 @@ var Vw = class extends Rr {
     }
     setWeights(e) {
       var _this26 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e = yield _this26.extractIterations(e), O(() => {
           _this26.accBeta1.assign(ur(_this26.beta1, _this26.iterations_ + 1)), _this26.accBeta2.assign(ur(_this26.beta2, _this26.iterations_ + 1));
         });
@@ -12712,12 +12712,12 @@ var Vw = class extends Rr {
       this.accBeta1.dispose(), this.iteration.dispose(), this.accumulatedFirstMoment != null && Ee(this.accumulatedFirstMoment.map(e => e.variable)), this.accumulatedWeightedInfNorm != null && Ee(this.accumulatedWeightedInfNorm.map(e => e.variable));
     }
     getWeights() {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         throw new Error("getWeights() is not implemented for Adamax yet.");
       })();
     }
     setWeights(e) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         throw new Error("setWeights() is not implemented for Adamax yet.");
       })();
     }
@@ -12760,13 +12760,13 @@ var Vw = class extends Rr {
     }
     getWeights() {
       var _this27 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return [yield _this27.saveIterations()];
       })();
     }
     setWeights(e) {
       var _this28 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (e = yield _this28.extractIterations(e), e.length !== 0) throw new Error("SGD optimizer does not have settable weights.");
       })();
     }
@@ -12810,7 +12810,7 @@ var Vw = class extends Rr {
     }
     getWeights() {
       var _this29 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return [yield _this29.saveIterations()].concat(_this29.accumulations.map(e => ({
           name: e.originalName,
           tensor: e.variable
@@ -12819,7 +12819,7 @@ var Vw = class extends Rr {
     }
     setWeights(e) {
       var _this30 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e = yield _this30.extractIterations(e);
         let t = !1;
         _this30.accumulations = e.map(n => ({
@@ -12889,7 +12889,7 @@ var Vw = class extends Rr {
     }
     getWeights() {
       var _this31 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = [..._this31.accumulatedMeanSquares, ..._this31.accumulatedMoments];
         return _this31.centered && e.push(..._this31.accumulatedMeanGrads), [yield _this31.saveIterations()].concat(e.map(t => ({
           name: t.originalName,
@@ -12899,7 +12899,7 @@ var Vw = class extends Rr {
     }
     setWeights(e) {
       var _this32 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e = yield _this32.extractIterations(e);
         let t = _this32.centered ? e.length / 3 : e.length / 2,
           n = !1;
@@ -12975,7 +12975,7 @@ var Yh = class Ox {
   }
   save(t) {
     var _this33 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (typeof document == "undefined") throw new Error("Browser downloads are not supported in this environment since `document` is not present");
       let n = Fr.join(t.weightData),
         a = window.URL.createObjectURL(new Blob([n], {
@@ -13011,7 +13011,7 @@ var AB = class {
     }
     load() {
       var _this34 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return new Promise((e, t) => {
           let n = new FileReader();
           n.onload = a => {
@@ -13095,7 +13095,7 @@ function PT(_x38, _x39) {
   return _PT.apply(this, arguments);
 }
 function _PT() {
-  _PT = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _PT = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     t == null && (t = {});
     let n = t.fetchFunc == null ? G().platform.fetch : t.fetchFunc,
       a = e.map(s => n(s, t.requestInit, {
@@ -13113,7 +13113,7 @@ function RB(e, t) {
     s;
   return (n = t.onProgress) === null || n === void 0 || n.call(t, 0), new ReadableStream({
     pull: function () {
-      var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (i) {
+      var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (i) {
         for (var o; r < e.length;) {
           s || (s = (yield a(e[r], t.requestInit, {
             isBinary: !0
@@ -13141,7 +13141,7 @@ function MB(_x41) {
   return _MB.apply(this, arguments);
 }
 function _MB() {
-  _MB = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = "", n, a) {
+  _MB = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = "", n, a) {
     return LT(r => PT(r, {
       requestInit: a
     }))(e, t, n);
@@ -13150,7 +13150,7 @@ function _MB() {
 }
 function LT(e) {
   return /*#__PURE__*/function () {
-    var _ref2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, n = "", a) {
+    var _ref2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, n = "", a) {
       let r = t.map(() => !1),
         s = {},
         i = a != null ? a.map(() => !1) : [],
@@ -13211,7 +13211,7 @@ var OB = "application/octet-stream",
     }
     save(e) {
       var _this35 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (e.modelTopology instanceof ArrayBuffer) throw new Error("BrowserHTTPRequest.save() does not support saving model topology in binary formats yet.");
         let t = Object.assign({
           method: _this35.DEFAULT_METHOD
@@ -13240,7 +13240,7 @@ var OB = "application/octet-stream",
     }
     loadModelJSON() {
       var _this36 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this36.fetch(_this36.path, _this36.requestInit);
         if (!e.ok) throw new Error(`Request to ${_this36.path} failed with status code ${e.status}. Please verify this URL points to the model JSON of the model to load.`);
         let t;
@@ -13258,7 +13258,7 @@ var OB = "application/octet-stream",
     }
     load() {
       var _this37 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this37.loadOptions.streamWeights) return _this37.loadStream();
         let e = yield _this37.loadModelJSON();
         return Mv(e, t => _this37.loadWeights(t));
@@ -13266,7 +13266,7 @@ var OB = "application/octet-stream",
     }
     loadStream() {
       var _this38 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this38.loadModelJSON(),
           t = yield _this38.getWeightUrls(e.weightsManifest),
           n = _x(e.weightsManifest),
@@ -13279,7 +13279,7 @@ var OB = "application/octet-stream",
     }
     getWeightUrls(e) {
       var _this39 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = Array.isArray(_this39.path) ? _this39.path[1] : _this39.path,
           [n, a] = LB(t),
           r = _this39.weightPathPrefix || n,
@@ -13291,7 +13291,7 @@ var OB = "application/octet-stream",
     }
     loadWeights(e) {
       var _this40 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this40.getWeightUrls(e),
           n = _x(e),
           a = yield PT(t, _this40.loadOptions);
@@ -13446,7 +13446,7 @@ function YB(_x43) {
   return _YB.apply(this, arguments);
 }
 function _YB() {
-  _YB = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = 3) {
+  _YB = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = 3) {
     let n = null;
     if (G().getBool("WRAP_TO_IMAGEBITMAP") && XB(e)) {
       let a;
@@ -13477,7 +13477,7 @@ function JB(_x44, _x45) {
   return _JB.apply(this, arguments);
 }
 function _JB() {
-  _JB = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _JB = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = E(e, "img", "toPixels");
     if (!(e instanceof Ce)) {
       let u = n;
@@ -17941,7 +17941,7 @@ function Kr(_x46) {
   return _Kr.apply(this, arguments);
 }
 function _Kr() {
-  _Kr = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _Kr = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     if (e == null) return;
     let t = [],
       n = [],
@@ -17980,22 +17980,22 @@ var bH = 125,
       this.params = e;
     }
     onEpochBegin(e, t) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
     }
     onEpochEnd(e, t) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
     }
     onBatchBegin(e, t) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
     }
     onBatchEnd(e, t) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
     }
     onTrainBegin(e) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
     }
     onTrainEnd(e) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {})();
     }
     setModel(e) {}
   },
@@ -18014,42 +18014,42 @@ var bH = 125,
     }
     onEpochBegin(e, t) {
       var _this41 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         t == null && (t = {});
         for (let n of _this41.callbacks) yield n.onEpochBegin(e, t);
       })();
     }
     onEpochEnd(e, t) {
       var _this42 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         t == null && (t = {});
         for (let n of _this42.callbacks) yield n.onEpochEnd(e, t);
       })();
     }
     onBatchBegin(e, t) {
       var _this43 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         t == null && (t = {});
         for (let n of _this43.callbacks) yield n.onBatchBegin(e, t);
       })();
     }
     onBatchEnd(e, t) {
       var _this44 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         t == null && (t = {});
         for (let n of _this44.callbacks) yield n.onBatchEnd(e, t);
       })();
     }
     onTrainBegin(e) {
       var _this45 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e == null && (e = {});
         for (let t of _this45.callbacks) yield t.onTrainBegin(e);
       })();
     }
     onTrainEnd(e) {
       var _this46 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         e == null && (e = {});
         for (let t of _this46.callbacks) yield t.onTrainEnd(e);
       })();
@@ -18061,13 +18061,13 @@ var bH = 125,
     }
     onEpochBegin(e) {
       var _this47 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this47.seen = 0, _this47.totals = {};
       })();
     }
     onBatchEnd(e, t) {
       var _this48 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         t == null && (t = {});
         let n = t.size == null ? 0 : t.size;
         _this48.seen += n;
@@ -18084,7 +18084,7 @@ var bH = 125,
     }
     onEpochEnd(e, t) {
       var _this49 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (t != null) for (let n of _this49.params.metrics) _this49.totals[n] != null && (typeof _this49.totals[n] == "number" ? t[n] = _this49.totals[n] / _this49.seen : O(() => {
           let a = z(he(1, _this49.seen), _this49.totals[n]);
           t[n] = a, _this49.totals[n].dispose(), Ht(t[n]);
@@ -18095,20 +18095,20 @@ var bH = 125,
   F2 = class extends Gl {
     onTrainBegin(e) {
       var _this50 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this50.epoch = [], _this50.history = {};
       })();
     }
     onEpochEnd(e, t) {
       var _this51 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         t == null && (t = {}), _this51.epoch.push(e);
         for (let n in t) _this51.history[n] == null && (_this51.history[n] = []), _this51.history[n].push(t[n]);
       })();
     }
     syncData() {
       var _this52 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = [],
           t = [],
           n = [];
@@ -18131,46 +18131,46 @@ var bH = 125,
     }
     maybeWait(e, t, n) {
       var _this53 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let a = [];
         _this53.yield != null && (yield Kr(n), a.push(_this53.yield(e, t, n))), a.push(_this53.nextFrameFunc()), yield Promise.all(a);
       })();
     }
     onEpochBegin(e, t) {
       var _this54 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this54.currentEpoch = e, _this54.epochBegin != null && (yield Kr(t), yield _this54.epochBegin(e, t));
       })();
     }
     onEpochEnd(e, t) {
       var _this55 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let n = [];
         _this55.epochEnd != null && (yield Kr(t), n.push(_this55.epochEnd(e, t))), _this55.yieldEvery === "epoch" && n.push(_this55.nextFrameFunc()), yield Promise.all(n);
       })();
     }
     onBatchBegin(e, t) {
       var _this56 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this56.batchBegin != null && (yield Kr(t), yield _this56.batchBegin(e, t));
       })();
     }
     onBatchEnd(e, t) {
       var _this57 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let n = [];
         _this57.batchEnd != null && (yield Kr(t), n.push(_this57.batchEnd(e, t))), _this57.yieldEvery === "batch" ? n.push(_this57.nextFrameFunc()) : w.isNumber(_this57.yieldEvery) && n.push(_this57.maybeWait(_this57.currentEpoch, e, t)), yield Promise.all(n);
       })();
     }
     onTrainBegin(e) {
       var _this58 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this58.trainBegin != null && (yield Kr(e), yield _this58.trainBegin(e));
       })();
     }
     onTrainEnd(e) {
       var _this59 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this59.trainEnd != null && (yield Kr(e), yield _this59.trainEnd(e));
       })();
     }
@@ -19152,7 +19152,7 @@ function V2(_x47, _x48, _x49, _x50) {
   return _V2.apply(this, arguments);
 }
 function _V2() {
-  _V2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a) {
+  _V2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a) {
     if (t != null || a != null) throw new Error("Support sampleWeight is not implemented yet");
     if (n != null) {
       let r = O(() => {
@@ -19217,7 +19217,7 @@ function ZH(_x51, _x52, _x53) {
   return _ZH.apply(this, arguments);
 }
 function _ZH() {
-  _ZH = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+  _ZH = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
     let a = n.batchesPerEpoch != null;
     if (w.assert(e.optimizer != null, () => "You must compile a model before training/testing. Use LayersModel.compile(modelCompileConfig)."), w.assert(n != null, () => "For fitDataset(), the 2nd argument (config) is required, but it is not provided in this call."), w.assert(n.epochs != null && n.epochs > 0 && Number.isInteger(n.epochs), () => `For fitDataset(), config.epochs is expected to be a positive integer, but got ${n.epochs}`), w.assert(!a || n.batchesPerEpoch > 0 && Number.isInteger(n.batchesPerEpoch), () => `For fitDataset(), config.batchesPerEpoch is expected to be a positive integer if specified, but got ${n.batchesPerEpoch}`), w.assert(n.validationSplit == null, () => "`validationSplit` is not supported by `fitDataset()`. Use validationData instead."), e.isTraining) throw new Error("Cannot start training because another fit() call is ongoing.");
     e.isTraining = !0;
@@ -19313,7 +19313,7 @@ function ej(_x54, _x55, _x56) {
   return _ej.apply(this, arguments);
 }
 function _ej() {
-  _ej = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+  _ej = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
     n = n || {};
     let a = n.batches != null,
       r = e.testFunction,
@@ -19606,7 +19606,7 @@ var sj = "layers-model",
     }
     evaluateDataset(e, t) {
       var _this60 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this60.makeTestFunction(), ej(_this60, e, t);
       })();
     }
@@ -19705,7 +19705,7 @@ var sj = "layers-model",
     }
     standardizeUserData(e, t, n, a, r = !0, s) {
       var _this61 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let [i, o] = _this61.standardizeUserDataXY(e, t, r, s);
         if (n != null) throw new Error("sample weight is not supported yet.");
         let l = null;
@@ -19828,7 +19828,7 @@ var sj = "layers-model",
     }
     fit(e, t, n = {}) {
       var _this62 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this62.isTraining) throw new Error("Cannot start training because another fit() call is ongoing.");
         _this62.isTraining = !0;
         let a, r, s, i, o, l, u, p, d;
@@ -19865,7 +19865,7 @@ var sj = "layers-model",
     }
     fitLoop(e, t, n, a, r, s, i, o, l, u, p, d, c, h) {
       var _this63 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         a == null && (a = 32), r == null && (r = 1), u == null && (u = !0), d == null && (d = 0);
         let m = !1;
         if (o != null && l != null && (m = !0), h != null && (m = !0, c == null)) throw new V("Can only use `validationSteps` when doing step-wise training, i.e., `stepsPerEpoch` must be set.");
@@ -19919,13 +19919,13 @@ var sj = "layers-model",
     }
     fitDataset(e, t) {
       var _this64 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return ZH(_this64, e, t);
       })();
     }
     trainOnBatch(e, t) {
       var _this65 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let n = yield _this65.standardizeUserData(e, t),
           a = n[0],
           r = n[1],
@@ -20025,7 +20025,7 @@ var sj = "layers-model",
     }
     save(e, t) {
       var _this66 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (typeof e == "string") {
           let r = jt.getSaveHandlers(e);
           if (r.length === 0) throw new V(`Cannot find any save handlers for URL '${e}'`);
@@ -20068,7 +20068,7 @@ function ij(_x57, _x58) {
   return _ij.apply(this, arguments);
 }
 function _ij() {
-  _ij = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _ij = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     "modelTopology" in e || (e = {
       modelTopology: e
     }), e = e;
@@ -20090,7 +20090,7 @@ function oj(_x59, _x60) {
   return _oj.apply(this, arguments);
 }
 function _oj() {
-  _oj = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _oj = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     if (t == null && (t = {}), typeof e == "string") {
       let n = jt.getLoadHandlers(e, t);
       if (n.length === 0) n.push(jt.browserHTTPRequest(e, t));else if (n.length > 1) throw new V(`Found more than one (${n.length}) load handlers for URL '${e}'`);
@@ -20104,7 +20104,7 @@ function lj(_x61, _x62, _x63) {
   return _lj.apply(this, arguments);
 }
 function _lj() {
-  _lj = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+  _lj = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
     if (n == null && (n = {}), e.load == null) throw new V("Cannot proceed with model loading because the IOHandler provided does not have the `load` method implemented.");
     let a = yield e.load(),
       r = a.modelTopology;
@@ -20223,7 +20223,7 @@ var Ef = class Kx extends Er {
   }
   evaluateDataset(t, n) {
     var _this67 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this67.built) throw new ar("The model needs to be compiled before being used.");
       return _this67.model.evaluateDataset(t, n);
     })();
@@ -20245,21 +20245,21 @@ var Ef = class Kx extends Er {
   }
   fit(t, n, a = {}) {
     var _this68 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this68.built) throw new ar("The model needs to be compiled before being used.");
       return _this68.model.fit(t, n, a);
     })();
   }
   fitDataset(t, n) {
     var _this69 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this69.built) throw new ar("The model needs to be compiled before being used.");
       return _this69.model.fitDataset(t, n);
     })();
   }
   trainOnBatch(t, n) {
     var _this70 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this70.model.trainOnBatch(t, n);
     })();
   }
@@ -23968,13 +23968,13 @@ var LC = class extends PC {
   }
   onTrainBegin(e) {
     var _this71 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this71.wait = 0, _this71.stoppedEpoch = 0, _this71.baseline != null ? _this71.best = _this71.baseline : _this71.best = _this71.monitorFunc === Nh ? 1 / 0 : -1 / 0;
     })();
   }
   onEpochEnd(e, t) {
     var _this72 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield Kr(t);
       let n = _this72.getMonitorValue(t);
       n != null && (_this72.monitorFunc(n - _this72.minDelta, _this72.best) ? (_this72.best = n, _this72.wait = 0) : (_this72.wait++, _this72.wait >= _this72.patience && (_this72.stoppedEpoch = e, _this72.model.stopTraining = !0)));
@@ -23982,7 +23982,7 @@ var LC = class extends PC {
   }
   onTrainEnd(e) {
     var _this73 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this73.stoppedEpoch > 0 && _this73.verbose && console.log(`Epoch ${_this73.stoppedEpoch}: early stopping.`);
     })();
   }
@@ -29706,7 +29706,7 @@ function Uq(e, t, n) {
   return u;
 }
 var Gq = /*#__PURE__*/function () {
-  var _ref3 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+  var _ref3 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
     switch (e.op) {
       case "If":
       case "StatelessIf":
@@ -30222,7 +30222,7 @@ function gx(e, t, n) {
   };
 }
 var qq = /*#__PURE__*/function () {
-    var _ref4 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a, r = on) {
+    var _ref4 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a, r = on) {
       switch (e.op) {
         case "NonMaxSuppressionV5":
           {
@@ -30378,7 +30378,7 @@ var qq = /*#__PURE__*/function () {
     }
     import(e, t) {
       var _this74 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this74.checkKeyAndValueTensor(e, t);
         let n = yield e.data();
         return _this74.tensorMap.forEach(a => a.dispose()), _this74.tensorMap.clear(), O(() => {
@@ -30397,7 +30397,7 @@ var qq = /*#__PURE__*/function () {
     }
     find(e, t) {
       var _this75 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this75.checkKeyAndValueTensor(e, t);
         let n = yield e.data();
         return O(() => {
@@ -30421,7 +30421,7 @@ var qq = /*#__PURE__*/function () {
     }
   },
   Zq = /*#__PURE__*/function () {
-    var _ref5 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a) {
+    var _ref5 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a) {
       switch (e.op) {
         case "HashTable":
         case "HashTableV2":
@@ -31346,7 +31346,7 @@ var jI = class oE {
     }
     executeAsync(t, n) {
       var _this76 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this76._executeAsync(t, n);
       })();
     }
@@ -31360,7 +31360,7 @@ var jI = class oE {
     }
     _executeAsync(t, n, a = !1, r = {}, s = {}) {
       var _this77 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this77.disposeIntermediateTensors(), a || (t = _this77.mapInputs(t), _this77.checkInputs(t), _this77.checkInputShapeAndType(t), n = _this77.mapOutputs(n), _this77.checkOutputs(n));
         try {
           _this77.keepIntermediateTensors = G().getBool("KEEP_INTERMEDIATE_TENSORS");
@@ -31383,14 +31383,14 @@ var jI = class oE {
     }
     executeFunctionAsync(t, n, a) {
       var _this78 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let r = t.reduce((s, i, o) => (s[_this78.inputs[o].name] = i, s), {});
         return _this78._executeAsync(r, _this78.outputNodes, !0, n, a);
       })();
     }
     executeWithControlFlow(t, n, a, r) {
       var _this79 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let s = Object.keys(t),
           i = s.map(v => _this79.graph.nodes[Xn(v)[0]]),
           o = a.map(v => Xn(v)[0]),
@@ -31572,7 +31572,7 @@ var jI = class oE {
     }
     loadStreaming(e) {
       var _this80 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (e.getWeightStream == null) throw new Error("Model artifacts missing streamWeights function");
         let t = yield pN(e.getWeightStream(), e.weightSpecs);
         return _this80.loadWithWeightMap(e, t);
@@ -31594,7 +31594,7 @@ var jI = class oE {
     }
     save(e, t) {
       var _this81 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (typeof e == "string") {
           let n = _this81.io.getSaveHandlers(e);
           if (n.length === 0) throw new Error(`Cannot find any save handlers for URL '${e}'`);
@@ -31619,7 +31619,7 @@ var jI = class oE {
     }
     predictAsync(e, t) {
       var _this82 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let n = yield _this82.executeAsync(e, _this82.outputNodes);
         return _this82.addStructuredOutputNames(n);
       })();
@@ -31652,7 +31652,7 @@ var jI = class oE {
     }
     executeInitializerGraphAsync() {
       var _this83 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this83.initializer == null ? [] : _this83.initializerSignature == null ? _this83.initializer.executeAsync({}, []) : _this83.initializer.executeAsync({}, Object.keys(_this83.initializerSignature.outputs));
       })();
     }
@@ -31674,7 +31674,7 @@ var jI = class oE {
     }
     executeAsync(e, t) {
       var _this84 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this84.resourceIdToCapturedInput == null && _this84.setResourceIdToCapturedInput(yield _this84.executeInitializerGraphAsync()), e = _this84.normalizeInputs(e), t = _this84.normalizeOutputs(t);
         let n = yield _this84.executor.executeAsync(e, t);
         return n.length > 1 ? n : n[0];
@@ -31697,7 +31697,7 @@ function w5(_x75) {
   return _w2.apply(this, arguments);
 }
 function _w2() {
-  _w2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = {}, n = jt) {
+  _w2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = {}, n = jt) {
     if (e == null) throw new Error("modelUrl in loadGraphModel() cannot be null. Please provide a url or an IOHandler that loads the model");
     t == null && (t = {}), t.fromTFHub && typeof e == "string" && (e = I5(e));
     let a = new F1(e, t, n);
@@ -31800,7 +31800,7 @@ function cE(_x76, _x77) {
   return _cE.apply(this, arguments);
 }
 function _cE() {
-  _cE = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _cE = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = new Map();
     om(e, t, n);
     for (let a of Array.from(n.keys())) {
@@ -31939,7 +31939,7 @@ function R5(e, t = es.FAIL) {
 var sn = class {
     toArray() {
       var _this85 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = [],
           t = yield _this85.next();
         for (; !t.done;) e.push(t.value), t = yield _this85.next();
@@ -31948,7 +31948,7 @@ var sn = class {
     }
     toArrayForTest() {
       var _this86 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = _this86.prefetch(100),
           t = [],
           n = yield e.next();
@@ -31958,14 +31958,14 @@ var sn = class {
     }
     resolveFully() {
       var _this87 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this87.next();
         for (; !e.done;) e = yield _this87.next();
       })();
     }
     resolveWhile(e) {
       var _this88 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this88.next(),
           n = e(t.value);
         for (; !t.done && n;) t = yield _this88.next(), n = e(t.value);
@@ -31991,13 +31991,13 @@ var sn = class {
     }
     forEachAsync(e) {
       var _this89 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this89.map(e).resolveFully();
       })();
     }
     serialForEach(e) {
       var _this90 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this90.serialMapAsync(e).resolveWhile(t => t === !0);
       })();
     }
@@ -32035,7 +32035,7 @@ var sn = class {
     }
     next() {
       var _this91 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this91.trav >= _this91.items.length) return {
           value: null,
           done: !0
@@ -32057,7 +32057,7 @@ var sn = class {
     }
     next() {
       var _this92 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         try {
           return _this92.nextFn();
         } catch (e) {
@@ -32078,13 +32078,13 @@ var sn = class {
     }
     next() {
       var _this93 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this93.lastRead = _this93.lastRead.then(() => _this93.serialNext()), _this93.lastRead;
       })();
     }
     serialNext() {
       var _this94 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this94.upstream.next();
       })();
     }
@@ -32101,13 +32101,13 @@ var sn = class {
     }
     next() {
       var _this95 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this95.lastRead = _this95.lastRead.then(() => _this95.serialNext()), _this95.lastRead;
       })();
     }
     serialNext() {
       var _this96 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (; _this96.count++ < _this96.maxCount;) {
           let e = yield _this96.upstream.next();
           if (e.done) return e;
@@ -32126,7 +32126,7 @@ var sn = class {
     }
     next() {
       var _this97 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this97.count++ >= _this97.maxCount ? {
           value: null,
           done: !0
@@ -32146,13 +32146,13 @@ var sn = class {
     }
     next() {
       var _this98 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this98.lastRead = _this98.lastRead.then(() => _this98.serialNext()), _this98.lastRead;
       })();
     }
     serialNext() {
       var _this99 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = [];
         for (; e.length < _this99.batchSize;) {
           let t = yield _this99.upstream.next();
@@ -32184,13 +32184,13 @@ var sn = class {
     }
     next() {
       var _this100 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this100.lastRead = _this100.lastRead.then(() => _this100.serialNext()), _this100.lastRead;
       })();
     }
     serialNext() {
       var _this101 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (;;) {
           let e = yield _this101.upstream.next();
           if (e.done || _this101.predicate(e.value)) return e;
@@ -32208,7 +32208,7 @@ var sn = class {
     }
     next() {
       var _this102 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this102.upstream.next();
         if (e.done) return {
           value: null,
@@ -32237,13 +32237,13 @@ var sn = class {
     }
     next() {
       var _this103 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this103.lastRead = _this103.lastRead.then(() => _this103.serialNext()), _this103.lastRead;
       })();
     }
     serialNext() {
       var _this104 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (;;) try {
           return yield _this104.upstream.next();
         } catch (e) {
@@ -32264,7 +32264,7 @@ var sn = class {
     }
     next() {
       var _this105 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this105.upstream.next();
         if (e.done) return {
           value: null,
@@ -32290,13 +32290,13 @@ var sn = class {
     }
     next() {
       var _this106 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this106.lastRead = _this106.lastRead.then(() => _this106.serialNext()), _this106.lastRead;
       })();
     }
     serialNext() {
       var _this107 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (; _this107.outputQueue.length() === 0;) if (!(yield _this107.pump())) return {
           value: null,
           done: !0
@@ -32317,7 +32317,7 @@ var sn = class {
     }
     pump() {
       var _this108 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this108.upstream.next();
         if (e.done) return !1;
         let t = Wa.getTensorsInContainer(e.value),
@@ -32338,13 +32338,13 @@ var sn = class {
     }
     next() {
       var _this109 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this109.lastRead = _this109.readFromChain(_this109.lastRead), _this109.lastRead;
       })();
     }
     readFromChain(e) {
       var _this110 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (yield e, _this110.iterator == null) {
           let n = yield _this110.moreIterators.next();
           if (n.done) return {
@@ -32371,7 +32371,7 @@ var H5 = class extends sn {
     }
     nextState(e) {
       var _this111 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         yield e;
         let t = 0,
           n = 0;
@@ -32408,7 +32408,7 @@ var H5 = class extends sn {
     }
     next() {
       var _this112 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this112.currentPromise = _this112.nextState(_this112.currentPromise), _this112.currentPromise;
       })();
     }
@@ -32439,7 +32439,7 @@ var H5 = class extends sn {
     }
     next() {
       var _this113 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this113.lastRead = _this113.lastRead.then(() => _this113.serialNext()), _this113.lastRead;
       })();
     }
@@ -32451,7 +32451,7 @@ var H5 = class extends sn {
     }
     serialNext() {
       var _this114 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (_this114.upstreamExhausted || _this114.refill(); !_this114.buffer.isEmpty();) {
           let e = _this114.chooseIndex(),
             t = yield _this114.buffer.shuffleExcise(e);
@@ -32473,54 +32473,54 @@ var H5 = class extends sn {
       w.assert(e > 0, () => `batchSize needs to be positive, but it is
       ${e}`);
       let a;
-      return this.size === 1 / 0 || this.size == null ? a = this.size : t ? a = Math.ceil(this.size / e) : a = Math.floor(this.size / e), Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return this.size === 1 / 0 || this.size == null ? a = this.size : t ? a = Math.ceil(this.size / e) : a = Math.floor(this.size / e), Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield n.iterator()).columnMajorBatch(e, t, X5);
       }), a);
     }
     concatenate(e) {
       let t = this,
         n;
-      return this.size === 1 / 0 || e.size === 1 / 0 ? n = 1 / 0 : this.size != null && e.size != null ? n = this.size + e.size : n = null, Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return this.size === 1 / 0 || e.size === 1 / 0 ? n = 1 / 0 : this.size != null && e.size != null ? n = this.size + e.size : n = null, Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).concatenate(yield e.iterator());
       }), n);
     }
     filter(e) {
       let t = this,
         n;
-      return this.size === 1 / 0 ? n = 1 / 0 : n = null, Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return this.size === 1 / 0 ? n = 1 / 0 : n = null, Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).filter(a => O(() => e(a)));
       }), n);
     }
     forEachAsync(e) {
       var _this115 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield _this115.iterator()).forEachAsync(e);
       })();
     }
     map(e) {
       let t = this;
-      return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).map(n => O(() => e(n)));
       }), this.size);
     }
     mapAsync(e) {
       let t = this;
-      return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).mapAsync(e);
       }), this.size);
     }
     prefetch(e) {
       if (e == null) throw new RangeError("`Dataset.prefetch()` requires bufferSize to be specified.");
       let t = this;
-      return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).prefetch(e);
       }), this.size);
     }
     repeat(e) {
       let t = this,
         n;
-      return this.size != null && e > 0 ? n = this.size * e : e === 0 ? n = 0 : this.size != null && (e === void 0 || e < 0) ? n = 1 / 0 : n = null, Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-        let a = $1( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return this.size != null && e > 0 ? n = this.size * e : e === 0 ? n = 0 : this.size != null && (e === void 0 || e < 0) ? n = 1 / 0 : n = null, Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        let a = $1( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           return {
             value: yield t.iterator(),
             done: !1
@@ -32532,7 +32532,7 @@ var H5 = class extends sn {
     skip(e) {
       let t = this,
         n;
-      return this.size != null && e >= 0 && this.size >= e ? n = this.size - e : this.size != null && (this.size < e || e === void 0 || e < 0) ? n = 0 : n = null, Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return this.size != null && e >= 0 && this.size >= e ? n = this.size - e : this.size != null && (this.size < e || e === void 0 || e < 0) ? n = 0 : n = null, Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).skip(e);
       }), n);
     }
@@ -32540,7 +32540,7 @@ var H5 = class extends sn {
       if (e == null || e < 0) throw this.size == null ? new RangeError("`Dataset.shuffle()` requires bufferSize to be specified.") : new RangeError(`\`Dataset.shuffle()\` requires bufferSize to be specified.  If your data fits in main memory (for regular JS objects), and/or GPU memory (for \`tf.Tensor\`s), consider setting bufferSize to the dataset size (${this.size} elements)`);
       let a = this,
         r = N5.alea(t || w.now().toString());
-      return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let s = r.int32();
         return n && (s += r.int32()), (yield a.iterator()).shuffle(e, s.toString());
       }), this.size);
@@ -32548,20 +32548,20 @@ var H5 = class extends sn {
     take(e) {
       let t = this,
         n;
-      return this.size != null && this.size > e ? n = e : this.size != null && this.size <= e ? n = this.size : n = null, Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return this.size != null && this.size > e ? n = e : this.size != null && this.size <= e ? n = this.size : n = null, Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield t.iterator()).take(e);
       }), n);
     }
     toArray() {
       var _this116 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this116.size === 1 / 0) throw new Error("Can not convert infinite data stream to array.");
         return (yield _this116.iterator()).toArray();
       })();
     }
     toArrayForTest() {
       var _this117 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this117.size === 1 / 0) throw new Error("Can not convert infinite data stream to array.");
         return (yield _this117.iterator()).toArrayForTest();
       })();
@@ -32574,14 +32574,14 @@ function Kn(e, t = null) {
       super(...arguments), this.size = t;
     }
     iterator() {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return e();
       })();
     }
   }();
 }
 function q5(e) {
-  return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     return fE(e);
   }), e.length);
 }
@@ -32589,7 +32589,7 @@ function K5(e) {
   if (!Hl(e)) throw new Error("The argument to zip() must be an object or array.");
   let t;
   if (Array.isArray(e)) for (let n = 0; n < e.length; n++) t = t == null ? e[n].size : Math.min(t, e[n].size);else if (e instanceof Object) for (let n in e) t = t == null ? e[n].size : Math.min(t, e[n].size);
-  return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     let n = yield cE(e, a => {
       if (a instanceof ip) return {
         value: a.iterator(),
@@ -32625,7 +32625,7 @@ var yE = class extends ip {
     }
     iterator() {
       var _this118 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield _this118.input.iterator()).decodeUTF8().split(`
 `).map(e => (e.endsWith("\r") && (e = e.slice(0, -1)), e));
       })();
@@ -32640,13 +32640,13 @@ var yE = class extends ip {
   xE = class extends ip {
     columnNames() {
       var _this119 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this119.columnNamesValidated || (yield _this119.setColumnNames()), _this119.configuredColumnsOnly ? Object.keys(_this119.columnConfigs) : _this119.fullColumnNames;
       })();
     }
     setColumnNames() {
       var _this120 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this120.maybeReadHeaderLine();
         if (!_this120.fullColumnNames && !e) throw new Error("Column names must be provided if there is no header line.");
         _this120.fullColumnNames && e && w.assert(e.length === _this120.fullColumnNames.length, () => "The length of provided columnNames (" + _this120.fullColumnNames.length.toString() + ") does not match the length of the header line read from file (" + e.length.toString() + ")."), _this120.fullColumnNames || (_this120.fullColumnNames = e);
@@ -32660,7 +32660,7 @@ var yE = class extends ip {
     }
     maybeReadHeaderLine() {
       var _this121 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this121.hasHeader) {
           let e = yield (yield _this121.base.iterator()).next();
           if (e.done) throw new Error("No data was found for CSV parsing.");
@@ -32674,7 +32674,7 @@ var yE = class extends ip {
     }
     iterator() {
       var _this122 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this122.columnNamesValidated || (yield _this122.setColumnNames());
         let e = yield _this122.base.iterator();
         return _this122.hasHeader && (e = e.skip(1)), e.map(t => _this122.makeDataElement(t));
@@ -32796,7 +32796,7 @@ var yE = class extends ip {
       return "microphone";
     }
     static create(t = {}) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (!G().get("IS_BROWSER")) throw new Error("microphone API is only supported in browser environment.");
         let n = new vE(t);
         return yield n.start(), n;
@@ -32804,7 +32804,7 @@ var yE = class extends ip {
     }
     start() {
       var _this123 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         try {
           _this123.stream = yield navigator.mediaDevices.getUserMedia({
             audio: _this123.audioTrackConstraints == null ? !0 : _this123.audioTrackConstraints,
@@ -32822,7 +32822,7 @@ var yE = class extends ip {
     }
     next() {
       var _this124 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this124.isClosed) return {
           value: null,
           done: !0
@@ -32849,13 +32849,13 @@ var yE = class extends ip {
     }
     capture() {
       var _this125 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield _this125.next()).value;
       })();
     }
     getAudioData() {
       var _this126 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = [],
           n = [],
           a = 0;
@@ -32907,7 +32907,7 @@ var yE = class extends ip {
       return "webcam";
     }
     static create(t, n = {}) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (!G().get("IS_BROWSER")) throw new Error("tf.data.webcam is only supported in browser environment.");
         if (!t) {
           if (t = document.createElement("video"), !n.resizeWidth || !n.resizeHeight) throw new Error("Please provide webcam video element, or resizeWidth and resizeHeight to create a hidden video element.");
@@ -32919,7 +32919,7 @@ var yE = class extends ip {
     }
     start() {
       var _this127 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this127.webcamConfig.facingMode && w.assert(_this127.webcamConfig.facingMode === "user" || _this127.webcamConfig.facingMode === "environment", () => `Invalid webcam facing mode: ${_this127.webcamConfig.facingMode}. Please provide 'user' or 'environment'`);
         try {
           _this127.stream = yield navigator.mediaDevices.getUserMedia({
@@ -32948,7 +32948,7 @@ var yE = class extends ip {
     }
     next() {
       var _this128 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (_this128.isClosed) return {
           value: null,
           done: !0
@@ -32988,7 +32988,7 @@ var yE = class extends ip {
     }
     capture() {
       var _this129 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return (yield _this129.next()).value;
       })();
     }
@@ -33020,7 +33020,7 @@ var yE = class extends ip {
     }
     next() {
       var _this130 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this130.impl.next();
       })();
     }
@@ -33034,7 +33034,7 @@ var yE = class extends ip {
     }
     pump() {
       var _this131 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this131.upstream.next();
         if (e.done) return _this131.carryover === "" ? !1 : (_this131.outputQueue.push(_this131.carryover), _this131.carryover = "", !0);
         let t = e.value.split(_this131.separator);
@@ -33058,7 +33058,7 @@ var yE = class extends ip {
     }
     next() {
       var _this132 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this132.impl.next();
       })();
     }
@@ -33077,7 +33077,7 @@ var yE = class extends ip {
     }
     pump() {
       var _this133 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let e = yield _this133.upstream.next(),
           t;
         if (e.done) return !1;
@@ -33098,7 +33098,7 @@ var yE = class extends ip {
     }
     next() {
       var _this134 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this134.offset >= (_this134.file instanceof Uint8Array ? _this134.file.byteLength : _this134.file.size) ? {
           value: null,
           done: !0
@@ -33126,7 +33126,7 @@ function r8(_x78) {
   return _r2.apply(this, arguments);
 }
 function _r2() {
-  _r2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = {}, n) {
+  _r2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = {}, n) {
     let a, r;
     typeof e == "string" ? a = e : (a = e.url, r = s8(e));
     let s = yield (n || w.fetch)(a, r);
@@ -33157,7 +33157,7 @@ var TE = class extends kE {
     }
     iterator() {
       var _this135 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (NE(_this135.input) && G().get("IS_NODE")) {
           let e = Iv();
           _this135.input = e.readFileSync(_this135.input.slice(7));
@@ -33172,7 +33172,7 @@ var TE = class extends kE {
     }
     iterator() {
       var _this136 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return NE(_this136.url) ? new TE(_this136.url, _this136.fileOptions).iterator() : r8(_this136.url, _this136.fileOptions);
       })();
     }
@@ -33182,12 +33182,12 @@ function i8(e, t = {}) {
 }
 function o8(e) {
   let t = $1(e);
-  return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     return t;
   }));
 }
 function l8(e) {
-  return Kn( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  return Kn( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     let t = yield e();
     return $1(() => t.next());
   }));
@@ -33196,7 +33196,7 @@ function u8(_x79, _x80) {
   return _u2.apply(this, arguments);
 }
 function _u2() {
-  _u2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _u2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     return J5.create(e, t);
   });
   return _u2.apply(this, arguments);
@@ -33205,7 +33205,7 @@ function p8(_x81) {
   return _p2.apply(this, arguments);
 }
 function _p2() {
-  _p2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _p2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     return Z5.create(e);
   });
   return _p2.apply(this, arguments);
@@ -33275,7 +33275,7 @@ Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dram
     }
     read(t) {
       var _this137 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this137.readSync(t);
       })();
     }
@@ -33318,7 +33318,7 @@ Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dram
       this.disposeData(t.dataId);
     }
     time(t) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let n = w.now();
         return t(), {
           kernelMs: w.now() - n
@@ -43469,7 +43469,7 @@ var Wh = class {
   }
   waitForQueryAndGetTime(e) {
     var _this138 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield w.repeatedTry(() => _this138.disposed || _this138.isQueryAvailable(e, G().getNumber("WEBGL_DISJOINT_QUERY_TIMER_EXTENSION_VERSION"))), _this138.getQueryTime(e, G().getNumber("WEBGL_DISJOINT_QUERY_TIMER_EXTENSION_VERSION"));
     })();
   }
@@ -44057,7 +44057,7 @@ var lk = class FA extends Fc {
   }
   read(t) {
     var _this139 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this139.pendingRead.has(t)) {
         let m = _this139.pendingRead.get(t);
         return new Promise(f => m.push(f));
@@ -44200,7 +44200,7 @@ var lk = class FA extends Fc {
       kernelMs: null,
       wallMs: null
     };
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (G().getNumber("WEBGL_DISJOINT_QUERY_TIMER_EXTENSION_RELIABLE") > 0) {
         let l = yield Promise.all(s);
         o.kernelMs = w.sum(l), o.getExtraProfileInfo = () => l.map((u, p) => ({
@@ -44232,7 +44232,7 @@ var lk = class FA extends Fc {
   }
   getQueryTime(t) {
     var _this141 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (G().getNumber("WEBGL_DISJOINT_QUERY_TIMER_EXTENSION_RELIABLE") > 0) return _this141.gpgpu.waitForQueryAndGetTime(t);
       let n = t;
       return n.endMs - n.startMs;
@@ -44507,7 +44507,7 @@ var lk = class FA extends Fc {
   }
   checkCompileCompletionAsync() {
     var _this142 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = [];
       if (_this142.gpgpu.parallelCompilationExtension) {
         for (let [, n] of Object.entries(_this142.binaryCache)) t.push(_this142.checkCompletionAsync_(n));
@@ -44529,7 +44529,7 @@ var lk = class FA extends Fc {
   }
   checkCompletionAsync_(t) {
     var _this143 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this143.gpgpu.gl.getProgramParameter(t.webGLProgram, _this143.gpgpu.parallelCompilationExtension.COMPLETION_STATUS_KHR) ? _this143.checkCompletion_(t) : (yield Zw(), _this143.checkCompletionAsync_(t));
     })();
   }
@@ -59454,14 +59454,14 @@ var yfe = {
   xfe = [eue, tue, nue, aue, sue, lue, gue, xue, vue, wue, kue, Iue, Sue, Nue, Tue, _ue, Lue, $ue, Mue, Vue, Kue, Zue, Que, tpe, npe, ape, ipe, ope, ppe, hpe, gpe, xpe, kpe, Ipe, Spe, Cpe, Ape, Dpe, Ope, zpe, Vpe, Hpe, Kpe, Zpe, ece, tce, rce, ice, oce, lce, uce, pce, cce, mce, fce, bce, vce, Ice, Tce, _ce, $ce, Rce, Oce, uue, Pce, Lce, zce, Vce, Gce, jce, Xce, Zce, Yce, Qce, ede, nde, rde, ode, pde, hde, fde, yde, wde, Sde, Cde, Ade, Dde, Ode, Lde, Bde, jde, qde, Xde, Yde, Qde, nhe, she, ohe, phe, dhe, mhe, d$, yhe, whe, She, The, Ehe, _he, Ahe, Fhe, zue, Rhe, Phe, Whe, Uhe, jhe, Xhe, Yhe, Zhe, eme, ame, ime, ome, pme, cme, dme, hme, jue, Ude, mme, gme, xme, kme, Sme, Tme, _me, Fme, $me, Dme, Mme, Lme, Bme, Ume, Hme, qme, Xme, Jme, Qme, efe, afe, ife, ufe, dfe, hue, mfe, gfe, yfe];
 for (let e of xfe) ed(e);
 var vv = G();
-vv.registerFlag("WASM_HAS_SIMD_SUPPORT", /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+vv.registerFlag("WASM_HAS_SIMD_SUPPORT", /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   try {
     return WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]));
   } catch (e) {
     return !1;
   }
 }));
-vv.registerFlag("WASM_HAS_MULTITHREAD_SUPPORT", /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+vv.registerFlag("WASM_HAS_MULTITHREAD_SUPPORT", /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   if (vv.get("IS_NODE")) return !1;
   try {
     return new MessageChannel().port1.postMessage(new SharedArrayBuffer(1)), WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 5, 4, 1, 3, 1, 1, 10, 11, 1, 9, 0, 65, 0, 254, 16, 2, 0, 26, 11]));
@@ -59488,7 +59488,7 @@ var TS = xs(VR()),
       return this.dataIdMap.numDataIds();
     }
     time(e) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = w.now();
         return e(), {
           kernelMs: w.now() - t
@@ -59522,7 +59522,7 @@ var TS = xs(VR()),
     }
     read(e) {
       var _this144 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return _this144.readSync(e);
       })();
     }
@@ -59632,7 +59632,7 @@ function Ife() {
   return _Ife.apply(this, arguments);
 }
 function _Ife() {
-  _Ife = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  _Ife = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     let [e, t] = yield Promise.all([G().getAsync("WASM_HAS_SIMD_SUPPORT"), G().getAsync("WASM_HAS_MULTITHREAD_SUPPORT")]);
     return new Promise((n, a) => {
       let r = {};
@@ -59715,7 +59715,7 @@ function _fe() {
 }
 var Afe = "4.21.0",
   Ffe = 2;
-Om("wasm", /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+Om("wasm", /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   let {
     wasm: e
   } = yield Ife();
@@ -60701,7 +60701,7 @@ function X$(_x82, _x83) {
   return _X$.apply(this, arguments);
 }
 function _X$() {
-  _X$ = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _X$ = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let n = t || at.getEnv().createCanvasElement(),
       [a, r, s] = e.shape.slice(wa(e) ? 1 : 0),
       i = O(() => e.as3D(a, r, s).toInt());
@@ -60825,7 +60825,7 @@ function vt(_x84) {
   return _vt.apply(this, arguments);
 }
 function _vt() {
-  _vt = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _vt = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     if (e instanceof Wr) return e;
     let t = Array.isArray(e) ? e : [e];
     if (!t.length) throw new Error("toNetInput - empty array passed as input");
@@ -60845,7 +60845,7 @@ function Pd(_x85, _x86) {
   return _Pd.apply(this, arguments);
 }
 function _Pd() {
-  _Pd = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Pd = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let {
         Canvas: n
       } = at.getEnv(),
@@ -60876,7 +60876,7 @@ function Ld(_x87, _x88) {
   return _Ld.apply(this, arguments);
 }
 function _Ld() {
-  _Ld = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Ld = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     if (!Lr(e) && !wa(e)) throw new Error("extractFaceTensors - expected image tensor to be 3D or 4D");
     if (wa(e) && e.shape[0] > 1) throw new Error("extractFaceTensors - batchSize > 1 not supported");
     return O(() => {
@@ -60895,7 +60895,7 @@ function Ms(_x89, _x90) {
   return _Ms.apply(this, arguments);
 }
 function _Ms() {
-  _Ms = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Ms = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let {
         fetch: n
       } = at.getEnv(),
@@ -60909,7 +60909,7 @@ function sIe(_x91) {
   return _sIe.apply(this, arguments);
 }
 function _sIe() {
-  _sIe = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _sIe = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = yield Ms(e),
       n = yield t.blob();
     if (!n.type.startsWith("image/")) throw new Error(`fetchImage - expected blob type to be of type image/*, instead have: ${n.type}, for url: ${t.url}`);
@@ -60921,7 +60921,7 @@ function Z$(_x92) {
   return _Z$.apply(this, arguments);
 }
 function _Z$() {
-  _Z$ = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _Z$ = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     return (yield Ms(e)).json();
   });
   return _Z$.apply(this, arguments);
@@ -60930,7 +60930,7 @@ function pIe(_x93) {
   return _pIe.apply(this, arguments);
 }
 function _pIe() {
-  _pIe = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _pIe = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     return new Float32Array(yield (yield Ms(e)).arrayBuffer());
   });
   return _pIe.apply(this, arguments);
@@ -60946,7 +60946,7 @@ function gIe(_x94) {
   return _gIe.apply(this, arguments);
 }
 function _gIe() {
-  _gIe = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _gIe = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     let t = yield Ms(e),
       n = yield t.blob();
     if (!n.type.startsWith("video/")) throw new Error(`fetchVideo - expected blob type to be of type video/*, instead have: ${n.type}, for url: ${t.url}`);
@@ -60978,7 +60978,7 @@ function Q$(_x95, _x96) {
   return _Q$.apply(this, arguments);
 }
 function _Q$() {
-  _Q$ = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Q$ = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let {
         manifestUri: n,
         modelBaseUri: a
@@ -61071,7 +61071,7 @@ var fn = class {
   }
   load(t) {
     var _this145 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (t instanceof Float32Array) {
         _this145.extractWeights(t);
         return;
@@ -61081,7 +61081,7 @@ var fn = class {
   }
   loadFromUri(t) {
     var _this146 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (t && typeof t != "string") throw new Error(`${_this146._name}.loadFromUri - expected model uri`);
       let n = yield Q$(t, _this146.getDefaultModelName());
       _this146.loadFromWeightMap(n);
@@ -61089,7 +61089,7 @@ var fn = class {
   }
   loadFromDisk(t) {
     var _this147 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (t && typeof t != "string") throw new Error(`${_this147._name}.loadFromDisk - expected model file path`);
       let {
           readFile: n
@@ -61391,7 +61391,7 @@ var _p = class extends fn {
   }
   forward(t) {
     var _this148 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this148.forwardInput(yield vt(t));
     })();
   }
@@ -61530,17 +61530,17 @@ var sg = class extends Ap {
   }
   forward(t) {
     var _this149 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this149.forwardInput(yield vt(t));
     })();
   }
   predictExpressions(t) {
     var _this150 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let n = yield vt(t),
         a = yield _this150.forwardInput(n),
         r = yield Promise.all(dt(a).map( /*#__PURE__*/function () {
-          var _ref25 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (i) {
+          var _ref25 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (i) {
             let o = i.dataSync();
             return i.dispose(), o;
           });
@@ -61853,7 +61853,7 @@ var lg = class extends fn {
   }
   forward(t) {
     var _this151 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this151.forwardInput(yield vt(t));
     })();
   }
@@ -61947,13 +61947,13 @@ var ug = class extends fn {
   }
   forward(t) {
     var _this152 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this152.forwardInput(yield vt(t));
     })();
   }
   predictAgeAndGender(t) {
     var _this153 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let n = yield vt(t),
         a = yield _this153.forwardInput(n),
         r = dt(a.age),
@@ -61963,7 +61963,7 @@ var ug = class extends fn {
           genderTensor: s[u]
         })),
         o = yield Promise.all(i.map( /*#__PURE__*/function () {
-          var _ref26 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+          var _ref26 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
             ageTensor: l,
             genderTensor: u
           }) {
@@ -62052,17 +62052,17 @@ var $p = class extends Ap {
   }
   forward(t) {
     var _this154 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this154.forwardInput(yield vt(t));
     })();
   }
   detectLandmarks(t) {
     var _this155 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let n = yield vt(t),
         a = O(() => dt(_this155.forwardInput(n))),
         r = yield Promise.all(a.map( /*#__PURE__*/function () {
-          var _ref27 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (s, i) {
+          var _ref27 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (s, i) {
             let o = Array.from(s.dataSync()),
               l = o.filter((p, d) => Hf(d)),
               u = o.filter((p, d) => !Hf(d));
@@ -62148,7 +62148,7 @@ var pg = class extends fn {
   }
   forward(t) {
     var _this156 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this156.forwardInput(yield vt(t));
     })();
   }
@@ -62423,13 +62423,13 @@ var Rp = class extends fn {
   }
   forward(t) {
     var _this157 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this157.forwardInput(yield vt(t));
     })();
   }
   computeFaceDescriptor(t) {
     var _this158 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       var s;
       if ((s = t == null ? void 0 : t.shape) != null && s.some(i => i <= 0)) return new Float32Array(128);
       let n = yield vt(t),
@@ -62949,13 +62949,13 @@ var ll = class extends fn {
   }
   forward(t) {
     var _this159 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this159.forwardInput(yield vt(t));
     })();
   }
   locateFaces(t, n = {}) {
     var _this160 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
           maxResults: a,
           minConfidence: r
@@ -63248,13 +63248,13 @@ var mg = class mg extends fn {
   }
   forward(t, n) {
     var _this161 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this161.forwardInput(yield vt(t), n);
     })();
   }
   detect(t, n = {}) {
     var _this162 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
           inputSize: a,
           scoreThreshold: r
@@ -63289,7 +63289,7 @@ var mg = class mg extends fn {
   }
   extractBoxes(t, n, a) {
     var _this163 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
           width: r,
           height: s
@@ -63344,7 +63344,7 @@ var mg = class mg extends fn {
   }
   extractPredictedClass(t, n) {
     var _this164 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let {
           row: a,
           col: r,
@@ -63384,7 +63384,7 @@ var Pp = class extends Op {
   }
   locateFaces(t, n) {
     var _this165 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return (yield _this165.detect(t, n)).map(r => new Ft(r.score, r.relativeBox, {
         width: r.imageWidth,
         height: r.imageHeight
@@ -63411,12 +63411,12 @@ var fg = class extends yr {
 var Oa = class {
   then(t) {
     var _this166 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return t(yield _this166.run());
     })();
   }
   run() {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       throw new Error("ComposableTask - run is not implemented");
     })();
   }
@@ -63425,7 +63425,7 @@ function ul(_x101, _x102, _x103, _x104) {
   return _ul.apply(this, arguments);
 }
 function _ul() {
-  _ul = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a, r = ({
+  _ul = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a, r = ({
     alignedRect: s
   }) => s) {
     let s = e.map(l => Fp(l) ? r(l) : l.detection),
@@ -63439,9 +63439,9 @@ function Lp(_x105, _x106, _x107, _x108, _x109) {
   return _Lp.apply(this, arguments);
 }
 function _Lp() {
-  _Lp = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a, r) {
+  _Lp = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n, a, r) {
     return ul([e], t, /*#__PURE__*/function () {
-      var _ref33 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (s) {
+      var _ref33 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (s) {
         return n(s[0]);
       });
       return function (_x119) {
@@ -63472,7 +63472,7 @@ var zp = class extends Op {
   }
   locateFaces(t, n) {
     var _this167 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return (yield _this167.detect(t, n)).map(r => new Ft(r.score, r.relativeBox, {
         width: r.imageWidth,
         height: r.imageHeight
@@ -63526,10 +63526,10 @@ var gg = class extends Oa {
   pl = class extends gg {
     run() {
       var _this168 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this168.parentTask,
           n = yield ul(t, _this168.input, /*#__PURE__*/function () {
-            var _ref28 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (a) {
+            var _ref28 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (a) {
               return Promise.all(a.map(r => rt.faceExpressionNet.predictExpressions(r)));
             });
             return function (_x110) {
@@ -63546,7 +63546,7 @@ var gg = class extends Oa {
   cl = class extends gg {
     run() {
       var _this169 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this169.parentTask;
         if (!t) return;
         let n = yield Lp(t, _this169.input, a => rt.faceExpressionNet.predictExpressions(a), _this169.extractedFaces);
@@ -63584,10 +63584,10 @@ var bg = class extends Oa {
   dl = class extends bg {
     run() {
       var _this170 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this170.parentTask,
           n = yield ul(t, _this170.input, /*#__PURE__*/function () {
-            var _ref29 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (a) {
+            var _ref29 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (a) {
               return Promise.all(a.map(r => rt.ageGenderNet.predictAgeAndGender(r)));
             });
             return function (_x111) {
@@ -63611,7 +63611,7 @@ var bg = class extends Oa {
   hl = class extends bg {
     run() {
       var _this171 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this171.parentTask;
         if (!t) return;
         let {
@@ -63652,7 +63652,7 @@ var yg = class extends Oa {
   Bs = class extends yg {
     run() {
       var _this172 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this172.parentTask;
         return (yield ul(t, _this172.input, a => Promise.all(a.map(r => rt.faceRecognitionNet.computeFaceDescriptor(r))), null, a => a.landmarks.align(null, {
           useDlibAlignment: !0
@@ -63669,7 +63669,7 @@ var yg = class extends Oa {
   Vs = class extends yg {
     run() {
       var _this173 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this173.parentTask;
         if (!t) return;
         let n = yield Lp(t, _this173.input, a => rt.faceRecognitionNet.computeFaceDescriptor(a), null, a => a.landmarks.align(null, {
@@ -63699,7 +63699,7 @@ var xg = class extends Oa {
   vg = class extends xg {
     run() {
       var _this174 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this174.parentTask,
           n = t.map(i => i.detection),
           a = _this174.input instanceof Ce ? yield Ld(_this174.input, n) : yield Pd(_this174.input, n),
@@ -63720,7 +63720,7 @@ var xg = class extends Oa {
   wg = class extends xg {
     run() {
       var _this175 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield _this175.parentTask;
         if (!t) return;
         let {
@@ -63751,7 +63751,7 @@ var kg = class extends Oa {
   Gd = class extends kg {
     run() {
       var _this176 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let {
             input: t,
             options: n
@@ -63779,7 +63779,7 @@ var kg = class extends Oa {
   Ig = class extends kg {
     run() {
       var _this177 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         let t = yield new Gd(_this177.input, _this177.options),
           n = t[0];
         return t.forEach(a => {
@@ -63790,7 +63790,7 @@ var kg = class extends Oa {
     runAndExtendWithFaceDetection() {
       var _this178 = this;
       return new Promise( /*#__PURE__*/function () {
-        var _ref30 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+        var _ref30 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
           let n = yield _this178.run();
           t(n ? wp({}, n) : void 0);
         });
@@ -63819,7 +63819,7 @@ function mge(_x113, _x114) {
   return _mge.apply(this, arguments);
 }
 function _mge() {
-  _mge = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _mge = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     return Dk(e, new Ma(t ? {
       minConfidence: t
     } : {})).withFaceLandmarks().withFaceDescriptors();
@@ -63830,7 +63830,7 @@ function MAe(_x115) {
   return _MAe.apply(this, arguments);
 }
 function _MAe() {
-  _MAe = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = {}) {
+  _MAe = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = {}) {
     return Dk(e, new yr(t)).withFaceLandmarks().withFaceDescriptors();
   });
   return _MAe.apply(this, arguments);
@@ -211601,7 +211601,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   wrapConstructorWithOpts: () => (/* binding */ wrapConstructorWithOpts),
 /* harmony export */   wrapXOFConstructorWithOpts: () => (/* binding */ wrapXOFConstructorWithOpts)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @noble/hashes/crypto */ 62431);
 /* harmony import */ var _assert_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_assert.js */ 48955);
 
@@ -211694,7 +211694,7 @@ function hexToBytes(hex) {
 // call of async fn will return Promise, which will be fullfiled only on
 // next scheduler queue processing step and this is exactly what we need.
 const nextTick = /*#__PURE__*/function () {
-  var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {});
+  var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {});
   return function nextTick() {
     return _ref.apply(this, arguments);
   };
@@ -211707,7 +211707,7 @@ function asyncLoop(_x, _x2, _x3) {
  * @example utf8ToBytes('abc') // new Uint8Array([97, 98, 99])
  */
 function _asyncLoop() {
-  _asyncLoop = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (iters, tick, cb) {
+  _asyncLoop = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (iters, tick, cb) {
     let ts = Date.now();
     for (let i = 0; i < iters; i++) {
       cb(i);
@@ -213160,7 +213160,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   decrypt: () => (/* binding */ decrypt),
 /* harmony export */   encrypt: () => (/* binding */ encrypt)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @noble/hashes/crypto */ 74404);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ 2901);
 
@@ -213184,7 +213184,7 @@ function getBrowserKey(_x, _x2, _x3) {
   return _getBrowserKey.apply(this, arguments);
 }
 function _getBrowserKey() {
-  _getBrowserKey = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (mode, key, iv) {
+  _getBrowserKey = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (mode, key, iv) {
     if (!crypto.web) {
       throw new Error("Browser crypto not available.");
     }
@@ -213217,7 +213217,7 @@ function encrypt(_x4, _x5, _x6) {
   return _encrypt.apply(this, arguments);
 }
 function _encrypt() {
-  _encrypt = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (msg, key, iv, mode = "aes-128-ctr", pkcs7PaddingEnabled = true) {
+  _encrypt = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (msg, key, iv, mode = "aes-128-ctr", pkcs7PaddingEnabled = true) {
     validateOpt(key, iv, mode);
     if (crypto.web) {
       const [wKey, wOpt] = yield getBrowserKey(mode, key, iv);
@@ -213242,7 +213242,7 @@ function getPadding(_x7, _x8, _x9, _x10) {
   return _getPadding.apply(this, arguments);
 }
 function _getPadding() {
-  _getPadding = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (cypherText, key, iv, mode) {
+  _getPadding = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (cypherText, key, iv, mode) {
     const lastBlock = cypherText.slice(-16);
     for (let i = 0; i < 16; i++) {
       // Undo xor of iv and fill with lastBlock ^ padding (16)
@@ -213257,7 +213257,7 @@ function decrypt(_x11, _x12, _x13) {
   return _decrypt.apply(this, arguments);
 }
 function _decrypt() {
-  _decrypt = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (cypherText, key, iv, mode = "aes-128-ctr", pkcs7PaddingEnabled = true) {
+  _decrypt = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (cypherText, key, iv, mode = "aes-128-ctr", pkcs7PaddingEnabled = true) {
     validateOpt(key, iv, mode);
     if (crypto.web) {
       const [wKey, wOpt] = yield getBrowserKey(mode, key, iv);
@@ -213330,7 +213330,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pbkdf2: () => (/* binding */ pbkdf2),
 /* harmony export */   pbkdf2Sync: () => (/* binding */ pbkdf2Sync)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_pbkdf2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @noble/hashes/pbkdf2 */ 67308);
 /* harmony import */ var _noble_hashes_sha256__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @noble/hashes/sha256 */ 20102);
 /* harmony import */ var _noble_hashes_sha512__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @noble/hashes/sha512 */ 59047);
@@ -213344,7 +213344,7 @@ function pbkdf2(_x, _x2, _x3, _x4, _x5) {
   return _pbkdf.apply(this, arguments);
 }
 function _pbkdf() {
-  _pbkdf = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, iterations, keylen, digest) {
+  _pbkdf = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, iterations, keylen, digest) {
     if (!["sha256", "sha512"].includes(digest)) {
       throw new Error("Only sha256 and sha512 are supported");
     }
@@ -213383,7 +213383,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getRandomBytes: () => (/* binding */ getRandomBytes),
 /* harmony export */   getRandomBytesSync: () => (/* binding */ getRandomBytesSync)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @noble/hashes/utils */ 12484);
 
 
@@ -213394,7 +213394,7 @@ function getRandomBytes(_x) {
   return _getRandomBytes.apply(this, arguments);
 }
 function _getRandomBytes() {
-  _getRandomBytes = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (bytes) {
+  _getRandomBytes = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (bytes) {
     return (0,_noble_hashes_utils__WEBPACK_IMPORTED_MODULE_1__.randomBytes)(bytes);
   });
   return _getRandomBytes.apply(this, arguments);
@@ -213414,7 +213414,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   scrypt: () => (/* binding */ scrypt),
 /* harmony export */   scryptSync: () => (/* binding */ scryptSync)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_scrypt__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @noble/hashes/scrypt */ 73170);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ 2901);
 
@@ -213424,7 +213424,7 @@ function scrypt(_x, _x2, _x3, _x4, _x5, _x6, _x7) {
   return _scrypt.apply(this, arguments);
 }
 function _scrypt() {
-  _scrypt = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, n, p, r, dkLen, onProgress) {
+  _scrypt = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, n, p, r, dkLen, onProgress) {
     (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.assertBytes)(password);
     (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.assertBytes)(salt);
     return (0,_noble_hashes_scrypt__WEBPACK_IMPORTED_MODULE_2__.scryptAsync)(password, salt, {
@@ -214001,7 +214001,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pbkdf2: () => (/* binding */ pbkdf2),
 /* harmony export */   pbkdf2Async: () => (/* binding */ pbkdf2Async)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _assert_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_assert.js */ 25738);
 /* harmony import */ var _hmac_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hmac.js */ 83226);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ 12484);
@@ -214088,7 +214088,7 @@ function pbkdf2Async(_x, _x2, _x3, _x4) {
   return _pbkdf2Async.apply(this, arguments);
 }
 function _pbkdf2Async() {
-  _pbkdf2Async = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (hash, password, salt, opts) {
+  _pbkdf2Async = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (hash, password, salt, opts) {
     const {
       c,
       dkLen,
@@ -214135,7 +214135,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   scrypt: () => (/* binding */ scrypt),
 /* harmony export */   scryptAsync: () => (/* binding */ scryptAsync)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _assert_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_assert.js */ 25738);
 /* harmony import */ var _sha256_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sha256.js */ 20102);
 /* harmony import */ var _pbkdf2_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pbkdf2.js */ 67308);
@@ -214392,7 +214392,7 @@ function scryptAsync(_x, _x2, _x3) {
   return _scryptAsync.apply(this, arguments);
 }
 function _scryptAsync() {
-  _scryptAsync = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, opts) {
+  _scryptAsync = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, opts) {
     const {
       N,
       r,
@@ -215145,7 +215145,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   wrapConstructorWithOpts: () => (/* binding */ wrapConstructorWithOpts),
 /* harmony export */   wrapXOFConstructorWithOpts: () => (/* binding */ wrapXOFConstructorWithOpts)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @noble/hashes/crypto */ 74404);
 /* harmony import */ var _assert_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_assert.js */ 25738);
 
@@ -215238,7 +215238,7 @@ function hexToBytes(hex) {
 // call of async fn will return Promise, which will be fullfiled only on
 // next scheduler queue processing step and this is exactly what we need.
 const nextTick = /*#__PURE__*/function () {
-  var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {});
+  var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {});
   return function nextTick() {
     return _ref.apply(this, arguments);
   };
@@ -215251,7 +215251,7 @@ function asyncLoop(_x, _x2, _x3) {
  * @example utf8ToBytes('abc') // new Uint8Array([97, 98, 99])
  */
 function _asyncLoop() {
-  _asyncLoop = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (iters, tick, cb) {
+  _asyncLoop = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (iters, tick, cb) {
     let ts = Date.now();
     for (let i = 0; i < iters; i++) {
       cb(i);
@@ -215552,7 +215552,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isAddressable: () => (/* binding */ isAddressable),
 /* harmony export */   resolveAddress: () => (/* binding */ resolveAddress)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/index.js */ 2333);
 /* harmony import */ var _address_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./address.js */ 997);
 
@@ -215648,7 +215648,7 @@ function checkAddress(_x, _x2) {
  *    //_error:
  */
 function _checkAddress() {
-  _checkAddress = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (target, promise) {
+  _checkAddress = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (target, promise) {
     const result = yield promise;
     if (result == null || result === "0x0000000000000000000000000000000000000000") {
       (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_2__.assert)(typeof target !== "string", "unconfigured name", "UNCONFIGURED_NAME", {
@@ -216139,7 +216139,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   scrypt: () => (/* binding */ scrypt),
 /* harmony export */   scryptSync: () => (/* binding */ scryptSync)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_scrypt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @noble/hashes/scrypt */ 34513);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/index.js */ 43666);
 
@@ -216148,7 +216148,7 @@ __webpack_require__.r(__webpack_exports__);
 let lockedSync = false,
   lockedAsync = false;
 const _scryptAsync = /*#__PURE__*/function () {
-  var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (passwd, salt, N, r, p, dkLen, onProgress) {
+  var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (passwd, salt, N, r, p, dkLen, onProgress) {
     return yield (0,_noble_hashes_scrypt__WEBPACK_IMPORTED_MODULE_1__.scryptAsync)(passwd, salt, {
       N,
       r,
@@ -216212,7 +216212,7 @@ function scrypt(_x8, _x9, _x10, _x11, _x12, _x13, _x14) {
   return _scrypt.apply(this, arguments);
 }
 function _scrypt() {
-  _scrypt = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (_passwd, _salt, N, r, p, dkLen, progress) {
+  _scrypt = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (_passwd, _salt, N, r, p, dkLen, progress) {
     const passwd = (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_2__.getBytes)(_passwd, "passwd");
     const salt = (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_2__.getBytes)(_salt, "salt");
     return (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_2__.hexlify)(yield __scryptAsync(passwd, salt, N, r, p, dkLen, progress));
@@ -217002,7 +217002,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TypedDataEncoder: () => (/* binding */ TypedDataEncoder),
 /* harmony export */   verifyTypedData: () => (/* binding */ verifyTypedData)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _address_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../address/index.js */ 997);
 /* harmony import */ var _crypto_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../crypto/index.js */ 99562);
 /* harmony import */ var _transaction_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../transaction/index.js */ 56353);
@@ -217455,7 +217455,7 @@ class TypedDataEncoder {
    * %%types%% and the %%domain%%.
    */
   static resolveNames(domain, types, value, resolveName) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Make a copy to isolate it from the object passed in
       domain = Object.assign({}, domain);
       // Allow passing null to ignore value
@@ -217577,7 +217577,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   AbstractSigner: () => (/* binding */ AbstractSigner),
 /* harmony export */   VoidSigner: () => (/* binding */ VoidSigner)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _address_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../address/index.js */ 26744);
 /* harmony import */ var _transaction_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../transaction/index.js */ 89373);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/index.js */ 2333);
@@ -217614,7 +217614,7 @@ function populate(_x, _x2) {
  *
  */
 function _populate() {
-  _populate = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (signer, tx) {
+  _populate = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (signer, tx) {
     let pop = (0,_provider_js__WEBPACK_IMPORTED_MODULE_2__.copyRequest)(tx);
     if (pop.to != null) {
       pop.to = (0,_address_index_js__WEBPACK_IMPORTED_MODULE_3__.resolveAddress)(pop.to, signer);
@@ -217647,20 +217647,20 @@ class AbstractSigner {
   }
   getNonce(blockTag) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return checkProvider(_this, "getTransactionCount").getTransactionCount(yield _this.getAddress(), blockTag);
     })();
   }
   populateCall(tx) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const pop = yield populate(_this2, tx);
       return pop;
     })();
   }
   populateTransaction(tx) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const provider = checkProvider(_this3, "populateTransaction");
       const pop = yield populate(_this3, tx);
       if (pop.nonce == null) {
@@ -217760,26 +217760,26 @@ class AbstractSigner {
   }
   estimateGas(tx) {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return checkProvider(_this4, "estimateGas").estimateGas(yield _this4.populateCall(tx));
     })();
   }
   call(tx) {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return checkProvider(_this5, "call").call(yield _this5.populateCall(tx));
     })();
   }
   resolveName(name) {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const provider = checkProvider(_this6, "resolveName");
       return yield provider.resolveName(name);
     })();
   }
   sendTransaction(tx) {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const provider = checkProvider(_this7, "sendTransaction");
       const pop = yield _this7.populateTransaction(tx);
       delete pop.from;
@@ -217813,7 +217813,7 @@ class VoidSigner extends AbstractSigner {
   }
   getAddress() {
     var _this8 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this8.address;
     })();
   }
@@ -217827,19 +217827,19 @@ class VoidSigner extends AbstractSigner {
   }
   signTransaction(tx) {
     var _this9 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this9.#throwUnsupported("transactions", "signTransaction");
     })();
   }
   signMessage(message) {
     var _this10 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this10.#throwUnsupported("messages", "signMessage");
     })();
   }
   signTypedData(domain, types, value) {
     var _this11 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this11.#throwUnsupported("typed-data", "signTypedData");
     })();
   }
@@ -217863,7 +217863,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TransactionResponse: () => (/* binding */ TransactionResponse),
 /* harmony export */   copyRequest: () => (/* binding */ copyRequest)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/index.js */ 65519);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/index.js */ 43666);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/index.js */ 11079);
@@ -218258,7 +218258,7 @@ class Block {
    */
   getTransaction(indexOrHash) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Find the internal value by its index or hash
       let tx = undefined;
       if (typeof indexOrHash === "number") {
@@ -218446,7 +218446,7 @@ class Log {
    */
   getBlock() {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const block = yield _this2.provider.getBlock(_this2.blockHash);
       (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_5__.assert)(!!block, "failed to find transaction", "UNKNOWN_ERROR", {});
       return block;
@@ -218457,7 +218457,7 @@ class Log {
    */
   getTransaction() {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const tx = yield _this3.provider.getTransaction(_this3.transactionHash);
       (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_5__.assert)(!!tx, "failed to find transaction", "UNKNOWN_ERROR", {});
       return tx;
@@ -218469,7 +218469,7 @@ class Log {
    */
   getTransactionReceipt() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const receipt = yield _this4.provider.getTransactionReceipt(_this4.transactionHash);
       (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_5__.assert)(!!receipt, "failed to find transaction receipt", "UNKNOWN_ERROR", {});
       return receipt;
@@ -218711,7 +218711,7 @@ class TransactionReceipt {
    */
   getBlock() {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const block = yield _this5.provider.getBlock(_this5.blockHash);
       if (block == null) {
         throw new Error("TODO");
@@ -218724,7 +218724,7 @@ class TransactionReceipt {
    */
   getTransaction() {
     var _this6 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const tx = yield _this6.provider.getTransaction(_this6.hash);
       if (tx == null) {
         throw new Error("TODO");
@@ -218740,7 +218740,7 @@ class TransactionReceipt {
    */
   getResult() {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield _this7.provider.getTransactionResult(_this7.hash);
     })();
   }
@@ -218749,7 +218749,7 @@ class TransactionReceipt {
    */
   confirmations() {
     var _this8 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return (yield _this8.provider.getBlockNumber()) - _this8.blockNumber + 1;
     })();
   }
@@ -218968,7 +218968,7 @@ class TransactionResponse {
    */
   getBlock() {
     var _this9 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let blockNumber = _this9.blockNumber;
       if (blockNumber == null) {
         const tx = yield _this9.getTransaction();
@@ -218993,7 +218993,7 @@ class TransactionResponse {
    */
   getTransaction() {
     var _this10 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this10.provider.getTransaction(_this10.hash);
     })();
   }
@@ -219002,7 +219002,7 @@ class TransactionResponse {
    */
   confirmations() {
     var _this11 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this11.blockNumber == null) {
         const {
           tx,
@@ -219032,14 +219032,14 @@ class TransactionResponse {
    */
   wait(_confirms, _timeout) {
     var _this12 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const confirms = _confirms == null ? 1 : _confirms;
       const timeout = _timeout == null ? 0 : _timeout;
       let startBlock = _this12.#startBlock;
       let nextScan = -1;
       let stopScanning = startBlock === -1 ? true : false;
       const checkReplacement = /*#__PURE__*/function () {
-        var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           // Get the current transaction count for this sender
           if (stopScanning) {
             return null;
@@ -219185,7 +219185,7 @@ class TransactionResponse {
           });
         }
         const txListener = /*#__PURE__*/function () {
-          var _ref2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (receipt) {
+          var _ref2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (receipt) {
             // Done; return it!
             if ((yield receipt.confirmations()) >= confirms) {
               cancel();
@@ -219207,7 +219207,7 @@ class TransactionResponse {
         // We support replacement detection; start checking
         if (startBlock >= 0) {
           const _replaceListener = /*#__PURE__*/function () {
-            var _ref3 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+            var _ref3 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
               try {
                 // Check for a replacement; this throws only if one is found
                 yield checkReplacement();
@@ -221250,7 +221250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   defineProperties: () => (/* binding */ defineProperties),
 /* harmony export */   resolveProperties: () => (/* binding */ resolveProperties)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 
 /**
  *  Property helper functions.
@@ -221291,7 +221291,7 @@ function resolveProperties(_x) {
  *  It %%types%% is specified, the values are checked.
  */
 function _resolveProperties() {
-  _resolveProperties = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (value) {
+  _resolveProperties = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (value) {
     const keys = Object.keys(value);
     const results = yield Promise.all(keys.map(k => Promise.resolve(value[k])));
     return results.reduce((accum, v, index) => {
@@ -221770,7 +221770,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BaseWallet: () => (/* binding */ BaseWallet)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _address_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../address/index.js */ 26744);
 /* harmony import */ var _address_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../address/index.js */ 997);
 /* harmony import */ var _hash_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../hash/index.js */ 99344);
@@ -221836,7 +221836,7 @@ class BaseWallet extends _providers_index_js__WEBPACK_IMPORTED_MODULE_1__.Abstra
   }
   getAddress() {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this.address;
     })();
   }
@@ -221845,7 +221845,7 @@ class BaseWallet extends _providers_index_js__WEBPACK_IMPORTED_MODULE_1__.Abstra
   }
   signTransaction(tx) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       tx = (0,_providers_index_js__WEBPACK_IMPORTED_MODULE_5__.copyRequest)(tx);
       // Replace any Addressable or ENS name with an address
       const {
@@ -221873,7 +221873,7 @@ class BaseWallet extends _providers_index_js__WEBPACK_IMPORTED_MODULE_1__.Abstra
   }
   signMessage(message) {
     var _this3 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return _this3.signMessageSync(message);
     })();
   }
@@ -221887,10 +221887,10 @@ class BaseWallet extends _providers_index_js__WEBPACK_IMPORTED_MODULE_1__.Abstra
   }
   signTypedData(domain, types, value) {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       // Populate any ENS names
       const populated = yield _hash_index_js__WEBPACK_IMPORTED_MODULE_10__.TypedDataEncoder.resolveNames(domain, types, value, /*#__PURE__*/function () {
-        var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (name) {
+        var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (name) {
           // @TODO: this should use resolveName; addresses don't
           //        need a provider
           (0,_utils_index_js__WEBPACK_IMPORTED_MODULE_2__.assert)(_this4.provider != null, "cannot resolve ENS names without a provider", "UNSUPPORTED_OPERATION", {
@@ -221931,7 +221931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getAccountPath: () => (/* binding */ getAccountPath),
 /* harmony export */   getIndexedAccountPath: () => (/* binding */ getIndexedAccountPath)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _crypto_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../crypto/index.js */ 69548);
 /* harmony import */ var _crypto_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../crypto/index.js */ 56167);
 /* harmony import */ var _crypto_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../crypto/index.js */ 58830);
@@ -222139,7 +222139,7 @@ class HDNodeWallet extends _base_wallet_js__WEBPACK_IMPORTED_MODULE_6__.BaseWall
    */
   encrypt(password, progressCallback) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return yield (0,_json_keystore_js__WEBPACK_IMPORTED_MODULE_9__.encryptKeystoreJson)(_this.#account(), password, {
         progressCallback
       });
@@ -222571,7 +222571,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   encryptKeystoreJsonSync: () => (/* binding */ encryptKeystoreJsonSync),
 /* harmony export */   isKeystoreJson: () => (/* binding */ isKeystoreJson)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var aes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! aes-js */ 41662);
 /* harmony import */ var _address_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../address/index.js */ 997);
 /* harmony import */ var _crypto_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../crypto/index.js */ 99562);
@@ -222761,7 +222761,7 @@ function decryptKeystoreJson(_x, _x2, _x3) {
   return _decryptKeystoreJson.apply(this, arguments);
 }
 function _decryptKeystoreJson() {
-  _decryptKeystoreJson = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (json, _password, progress) {
+  _decryptKeystoreJson = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (json, _password, progress) {
     const data = JSON.parse(json);
     const password = (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.getPassword)(_password);
     const params = getDecryptKdfParams(data);
@@ -222923,7 +222923,7 @@ function encryptKeystoreJson(_x4, _x5, _x6) {
   return _encryptKeystoreJson.apply(this, arguments);
 }
 function _encryptKeystoreJson() {
-  _encryptKeystoreJson = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (account, password, options) {
+  _encryptKeystoreJson = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (account, password, options) {
     if (options == null) {
       options = {};
     }
@@ -223294,7 +223294,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Wallet: () => (/* binding */ Wallet)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _crypto_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../crypto/index.js */ 25111);
 /* harmony import */ var _utils_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/index.js */ 2333);
 /* harmony import */ var _base_wallet_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base-wallet.js */ 99207);
@@ -223351,7 +223351,7 @@ class Wallet extends _base_wallet_js__WEBPACK_IMPORTED_MODULE_1__.BaseWallet {
    */
   encrypt(password, progressCallback) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const account = {
         address: _this.address,
         privateKey: _this.privateKey
@@ -223400,7 +223400,7 @@ class Wallet extends _base_wallet_js__WEBPACK_IMPORTED_MODULE_1__.BaseWallet {
    *  decryption so that any UI can be updated.
    */
   static fromEncryptedJson(json, password, progress) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let account = null;
       if ((0,_json_keystore_js__WEBPACK_IMPORTED_MODULE_3__.isKeystoreJson)(json)) {
         account = yield (0,_json_keystore_js__WEBPACK_IMPORTED_MODULE_3__.decryptKeystoreJson)(json, password, progress);
@@ -226753,7 +226753,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   pbkdf2: () => (/* binding */ pbkdf2),
 /* harmony export */   pbkdf2Async: () => (/* binding */ pbkdf2Async)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _assert_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_assert.js */ 20623);
 /* harmony import */ var _hmac_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hmac.js */ 10369);
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ 82829);
@@ -226840,7 +226840,7 @@ function pbkdf2Async(_x, _x2, _x3, _x4) {
   return _pbkdf2Async.apply(this, arguments);
 }
 function _pbkdf2Async() {
-  _pbkdf2Async = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (hash, password, salt, opts) {
+  _pbkdf2Async = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (hash, password, salt, opts) {
     const {
       c,
       dkLen,
@@ -227005,7 +227005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   scrypt: () => (/* binding */ scrypt),
 /* harmony export */   scryptAsync: () => (/* binding */ scryptAsync)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _assert_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_assert.js */ 20623);
 /* harmony import */ var _sha256_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sha256.js */ 89905);
 /* harmony import */ var _pbkdf2_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pbkdf2.js */ 96467);
@@ -227262,7 +227262,7 @@ function scryptAsync(_x, _x2, _x3) {
   return _scryptAsync.apply(this, arguments);
 }
 function _scryptAsync() {
-  _scryptAsync = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, opts) {
+  _scryptAsync = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (password, salt, opts) {
     const {
       N,
       r,
@@ -228007,7 +228007,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   wrapConstructorWithOpts: () => (/* binding */ wrapConstructorWithOpts),
 /* harmony export */   wrapXOFConstructorWithOpts: () => (/* binding */ wrapXOFConstructorWithOpts)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 /* harmony import */ var _noble_hashes_crypto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @noble/hashes/crypto */ 74083);
 
 /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
@@ -228066,7 +228066,7 @@ function hexToBytes(hex) {
 // call of async fn will return Promise, which will be fullfiled only on
 // next scheduler queue processing step and this is exactly what we need.
 const nextTick = /*#__PURE__*/function () {
-  var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {});
+  var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {});
   return function nextTick() {
     return _ref.apply(this, arguments);
   };
@@ -228079,7 +228079,7 @@ function asyncLoop(_x, _x2, _x3) {
  * @example utf8ToBytes('abc') // new Uint8Array([97, 98, 99])
  */
 function _asyncLoop() {
-  _asyncLoop = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (iters, tick, cb) {
+  _asyncLoop = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (iters, tick, cb) {
     let ts = Date.now();
     for (let i = 0; i < iters; i++) {
       cb(i);
@@ -228873,7 +228873,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   unarmor: () => (/* binding */ fe),
 /* harmony export */   verify: () => (/* binding */ jh)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 
 /*! OpenPGP.js v5.11.2 - 2024-06-19 - this is LGPL licensed code, see LICENSE/our website https://openpgpjs.org/ for more information. */
 const e = "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : {},
@@ -228905,7 +228905,7 @@ a.prototype.getReader = function () {
   var _this = this;
   return void 0 === this[n] && (this[n] = 0), {
     read: function () {
-      var _ref = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      var _ref = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         return yield _this[t], _this[n] === _this.length ? {
           value: void 0,
           done: !0
@@ -228920,7 +228920,7 @@ a.prototype.getReader = function () {
     }()
   };
 }, a.prototype.readToEnd = /*#__PURE__*/function () {
-  var _ref2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  var _ref2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     yield this[t];
     const r = e(this.slice(this[n]));
     return this.length = 0, r;
@@ -228934,16 +228934,16 @@ a.prototype.getReader = function () {
     e.push(...this);
   }), e;
 }, o.prototype.write = /*#__PURE__*/function () {
-  var _ref3 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  var _ref3 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     this.stream.push(e);
   });
   return function (_x2) {
     return _ref3.apply(this, arguments);
   };
-}(), o.prototype.close = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+}(), o.prototype.close = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   this.stream[r]();
 }), o.prototype.abort = /*#__PURE__*/function () {
-  var _ref5 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  var _ref5 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     return this.stream[i](e), e;
   });
   return function (_x3) {
@@ -228999,7 +228999,7 @@ if (p) {
     }
     _read(e) {
       var _this2 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         try {
           for (;;) {
             const {
@@ -229019,7 +229019,7 @@ if (p) {
     }
     _destroy(e, t) {
       var _this3 = this;
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         _this3._reader.cancel(e).then(t, t);
       })();
     }
@@ -229033,7 +229033,7 @@ const m = new WeakSet(),
 function w(e) {
   if (this.stream = e, e[g] && (this[g] = e[g].slice()), s(e)) {
     const t = e.getReader();
-    return this._read = t.read.bind(t), this._releaseLock = () => {}, void (this._cancel = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {}));
+    return this._read = t.read.bind(t), this._releaseLock = () => {}, void (this._cancel = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {}));
   }
   let t = h(e);
   if ("node" === t && (e = y(e)), t) {
@@ -229043,7 +229043,7 @@ function w(e) {
     }, void (this._cancel = t.cancel.bind(t));
   }
   let r = !1;
-  this._read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  this._read = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     return r || m.has(e) ? {
       value: void 0,
       done: !0
@@ -229057,7 +229057,7 @@ function w(e) {
     } catch (e) {}
   };
 }
-w.prototype.read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+w.prototype.read = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   if (this[g] && this[g].length) {
     return {
       done: !1,
@@ -229069,7 +229069,7 @@ w.prototype.read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_mo
   this[g] && (this.stream[g] = this[g]), this._releaseLock();
 }, w.prototype.cancel = function (e) {
   return this._cancel(e);
-}, w.prototype.readLine = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+}, w.prototype.readLine = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   let e,
     t = [];
   for (; !e;) {
@@ -229082,7 +229082,7 @@ w.prototype.read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_mo
     n && (e = K(t.concat(i.substr(0, n))), t = []), n !== i.length && t.push(i.substr(n));
   }
   return this.unshift(...t), e;
-}), w.prototype.readByte = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+}), w.prototype.readByte = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
   const {
     done: e,
     value: t
@@ -229091,7 +229091,7 @@ w.prototype.read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_mo
   const r = t[0];
   return this.unshift(L(t, 1)), r;
 }), w.prototype.readBytes = /*#__PURE__*/function () {
-  var _ref11 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  var _ref11 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     const t = [];
     let r = 0;
     for (;;) {
@@ -229110,7 +229110,7 @@ w.prototype.read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_mo
     return _ref11.apply(this, arguments);
   };
 }(), w.prototype.peekBytes = /*#__PURE__*/function () {
-  var _ref12 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  var _ref12 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     const t = yield this.readBytes(e);
     return this.unshift(t), t;
   });
@@ -229119,7 +229119,7 @@ w.prototype.read = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_mo
   };
 }(), w.prototype.unshift = function (...e) {
   this[g] || (this[g] = []), 1 === e.length && d(e[0]) && this[g].length && e[0].length && this[g][0].byteOffset >= e[0].length ? this[g][0] = new Uint8Array(this[g][0].buffer, this[g][0].byteOffset - e[0].length, this[g][0].byteLength + e[0].length) : this[g].unshift(...e.filter(e => e && e.length));
-}, w.prototype.readToEnd = /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e = K) {
+}, w.prototype.readToEnd = /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e = K) {
   const t = [];
   for (;;) {
     const {
@@ -229142,7 +229142,7 @@ function E() {
   return _E.apply(this, arguments);
 }
 function _E() {
-  _E = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  _E = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     if (S) return;
     const [t, r] = yield Promise.all([Promise.resolve().then(function () {
       return zp;
@@ -229173,7 +229173,7 @@ function x(e) {
 function M(e) {
   if (h(e)) return e;
   const t = new a();
-  return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     const r = D(t);
     yield r.write(e), yield r.close();
   })(), t;
@@ -229182,7 +229182,7 @@ function K(e) {
   return e.some(e => h(e) && !s(e)) ? function (e) {
     e = e.map(x);
     const t = I( /*#__PURE__*/function () {
-      var _ref15 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref15 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         yield Promise.all(i.map(t => j(t, e)));
       });
       return function (_x6) {
@@ -229212,7 +229212,7 @@ function U(_x7, _x8) {
   return _U.apply(this, arguments);
 }
 function _U() {
-  _U = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
+  _U = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
     preventClose: r = !1,
     preventAbort: i = !1,
     preventCancel: n = !1
@@ -229275,7 +229275,7 @@ function I(e) {
         t ? t() : n = !0;
       },
       cancel(t) {
-        return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           a = !0, e && (yield e(t)), r && r(t);
         })();
       }
@@ -229284,7 +229284,7 @@ function I(e) {
     }),
     writable: new A({
       write: function () {
-        var _ref16 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref16 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           if (a) throw Error("Stream is cancelled");
           i.enqueue(e), n ? n = !1 : (yield new Promise((e, i) => {
             t = e, r = i;
@@ -229302,7 +229302,7 @@ function I(e) {
 function B(e, t = () => {}, r = () => {}) {
   if (s(e)) {
     const i = new a();
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = D(i);
       try {
         const i = yield N(e),
@@ -229317,7 +229317,7 @@ function B(e, t = () => {}, r = () => {}) {
   }
   if (h(e)) return R(e, {
     transform(e, r) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         try {
           const i = yield t(e);
           void 0 !== i && r.enqueue(i);
@@ -229327,7 +229327,7 @@ function B(e, t = () => {}, r = () => {}) {
       })();
     },
     flush(e) {
-      return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         try {
           const t = yield r();
           void 0 !== t && e.enqueue(t);
@@ -229351,7 +229351,7 @@ function T(e, t) {
       }),
       n = U(e, i.writable),
       a = I( /*#__PURE__*/function () {
-        var _ref18 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref18 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           r.error(e), yield n, yield new Promise(setTimeout);
         });
         return function (_x10) {
@@ -229391,7 +229391,7 @@ function F(e) {
   return s(e) ? q(e) : h(e) ? new k({
     start(t) {
       const r = T(e, /*#__PURE__*/function () {
-        var _ref19 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r) {
+        var _ref19 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r) {
           const i = C(e),
             n = D(r);
           try {
@@ -229454,7 +229454,7 @@ function L(e, t = 0, r = 1 / 0) {
         i = n;
       });
     }
-    return console.warn(`stream.slice(input, ${t}, ${r}) not implemented efficiently.`), H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return console.warn(`stream.slice(input, ${t}, ${r}) not implemented efficiently.`), H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return L(yield N(e), t, r);
     }));
   }
@@ -229464,7 +229464,7 @@ function N(_x13) {
   return _N.apply(this, arguments);
 }
 function _N() {
-  _N = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = K) {
+  _N = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = K) {
     return s(e) ? e.readToEnd(t) : h(e) ? C(e).readToEnd(t) : e;
   });
   return _N.apply(this, arguments);
@@ -229473,7 +229473,7 @@ function j(_x14, _x15) {
   return _j.apply(this, arguments);
 }
 function _j() {
-  _j = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _j = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     if (h(e)) {
       if (e.cancel) return e.cancel(t);
       if (e.destroy) return e.destroy(t), yield new Promise(setTimeout), t;
@@ -229483,7 +229483,7 @@ function _j() {
 }
 function H(e) {
   const t = new a();
-  return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+  return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
     const r = D(t);
     try {
       yield r.write(yield e()), yield r.close();
@@ -230052,7 +230052,7 @@ const Z = (() => {
       return void 0 !== e && e.crypto && e.crypto.subtle;
     },
     getBigInteger: function () {
-      var _ref22 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      var _ref22 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         if (G()) return W;
         {
           const {
@@ -230134,10 +230134,10 @@ const Z = (() => {
     },
     anyPromise: function (e) {
       return new Promise( /*#__PURE__*/function () {
-        var _ref23 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+        var _ref23 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
           let i;
           yield Promise.all(e.map( /*#__PURE__*/function () {
-            var _ref24 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+            var _ref24 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
               try {
                 t(yield e);
               } catch (e) {
@@ -230292,7 +230292,7 @@ function de(e) {
 }
 function fe(e, t = ne) {
   return new Promise( /*#__PURE__*/function () {
-    var _ref25 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i) {
+    var _ref25 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i) {
       try {
         const n = /^-----[^-]+-----$/m,
           a = /^[ \f\r\t\u00a0\u2000-\u200a\u202f\u205f\u3000]*$/;
@@ -230304,7 +230304,7 @@ function fe(e, t = ne) {
           d = o,
           f = [],
           l = te(T(e, /*#__PURE__*/function () {
-            var _ref26 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+            var _ref26 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
               const p = C(e);
               try {
                 for (;;) {
@@ -230358,7 +230358,7 @@ function fe(e, t = ne) {
             };
           }()));
         l = T(l, /*#__PURE__*/function () {
-          var _ref27 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r) {
+          var _ref27 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r) {
             const i = N(oe(F(e)));
             i.catch(() => {}), yield U(e, r, {
               preventClose: !0
@@ -230384,7 +230384,7 @@ function fe(e, t = ne) {
       return _ref25.apply(this, arguments);
     };
   }()).then( /*#__PURE__*/function () {
-    var _ref28 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+    var _ref28 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
       return s(e.data) && (e.data = yield N(e.data)), e;
     });
     return function (_x25) {
@@ -233443,7 +233443,7 @@ const Fr = X.getWebCrypto(),
   Lr = Or && Or.getHashes();
 function Nr(e) {
   if (Or && Lr.includes(e)) return /*#__PURE__*/function () {
-    var _ref29 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+    var _ref29 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
       const r = Or.createHash(e);
       return B(t, e => {
         r.update(e);
@@ -233456,7 +233456,7 @@ function Nr(e) {
 }
 function jr(e, t) {
   return /*#__PURE__*/function () {
-    var _ref30 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i = ne) {
+    var _ref30 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i = ne) {
       if (s(r) && (r = yield N(r)), !X.isStream(r) && Fr && t && r.length >= i.minBytesForWebCrypto) return new Uint8Array(yield Fr.digest(t, r));
       const n = e();
       return B(r, e => {
@@ -233470,7 +233470,7 @@ function jr(e, t) {
 }
 function Hr(e, t) {
   return /*#__PURE__*/function () {
-    var _ref31 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i = ne) {
+    var _ref31 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i = ne) {
       if (s(r) && (r = yield N(r)), X.isStream(r)) {
         const t = new e();
         return B(r, e => {
@@ -233486,7 +233486,7 @@ function Hr(e, t) {
 }
 const Wr = {
   md5: Nr("md5") || /*#__PURE__*/function () {
-    var _ref32 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+    var _ref32 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
       const t = function (e) {
         const t = e.length,
           r = [1732584193, -271733879, -1732584194, 271733878];
@@ -233598,7 +233598,7 @@ const Zr = X.getWebCrypto(),
 var Jr = /*#__PURE__*/Object.freeze({
   __proto__: null,
   encrypt: function () {
-    var _ref33 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+    var _ref33 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
       const a = $.read($.symmetric, e);
       if (X.getNodeCrypto() && Qr[a]) return function (e, t, r, i) {
         const n = $.read($.symmetric, e),
@@ -233607,7 +233607,7 @@ var Jr = /*#__PURE__*/Object.freeze({
       }(e, t, r, i);
       if (X.isAES(e)) return function (e, t, r, i, n) {
         if (X.getWebCrypto() && 24 !== t.length && !X.isStream(r) && r.length >= 3e3 * n.minBytesForWebCrypto) return function () {
-          var _ref34 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+          var _ref34 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
             const n = "AES-CBC",
               a = yield Zr.importKey("raw", t, {
                 name: n
@@ -233654,7 +233654,7 @@ var Jr = /*#__PURE__*/Object.freeze({
     };
   }(),
   decrypt: function () {
-    var _ref35 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+    var _ref35 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
       const n = $.read($.symmetric, e);
       if (X.getNodeCrypto() && Qr[n]) return function (e, t, r, i) {
         const n = $.read($.symmetric, e),
@@ -233759,14 +233759,14 @@ function oi(_x43) {
   return _oi.apply(this, arguments);
 }
 function _oi() {
-  _oi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _oi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     const t = yield function () {
-        var _ref122 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref122 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           if (X.getWebCrypto() && 24 !== e.length) return e = yield ri.importKey("raw", e, {
             name: "AES-CBC",
             length: 8 * e.length
           }, !1, ["encrypt"]), /*#__PURE__*/function () {
-            var _ref123 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+            var _ref123 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
               const r = yield ri.encrypt({
                 name: "AES-CBC",
                 iv: si,
@@ -233779,7 +233779,7 @@ function _oi() {
             };
           }();
           if (X.getNodeCrypto()) return /*#__PURE__*/function () {
-            var _ref124 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+            var _ref124 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
               const r = new ii.createCipheriv("aes-" + 8 * e.length + "-cbc", e, si).update(t);
               return new Uint8Array(r);
             });
@@ -233788,7 +233788,7 @@ function _oi() {
             };
           }();
           return /*#__PURE__*/function () {
-            var _ref125 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+            var _ref125 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
               return ti.encrypt(t, e, !1, si);
             });
             return function (_x430) {
@@ -233803,7 +233803,7 @@ function _oi() {
       r = X.double(yield t(si)),
       i = X.double(r);
     return /*#__PURE__*/function () {
-      var _ref126 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref126 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         return (yield t(function (e, t, r) {
           if (e.length && e.length % ni == 0) return ai(e, t);
           const i = new Uint8Array(e.length + (ni - e.length % ni));
@@ -233831,7 +233831,7 @@ function mi(_x44) {
   return _mi.apply(this, arguments);
 }
 function _mi() {
-  _mi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _mi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     const t = yield oi(e);
     return function (e, r) {
       return t(X.concatUint8Array([e, r]));
@@ -233843,12 +233843,12 @@ function gi(_x45) {
   return _gi.apply(this, arguments);
 }
 function _gi() {
-  _gi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _gi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     return X.getWebCrypto() && 24 !== e.length ? (e = yield ci.importKey("raw", e, {
       name: "AES-CTR",
       length: 8 * e.length
     }, !1, ["encrypt"]), /*#__PURE__*/function () {
-      var _ref127 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+      var _ref127 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
         const i = yield ci.encrypt({
           name: "AES-CTR",
           counter: r,
@@ -233860,7 +233860,7 @@ function _gi() {
         return _ref127.apply(this, arguments);
       };
     }()) : X.getNodeCrypto() ? /*#__PURE__*/function () {
-      var _ref128 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+      var _ref128 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
         const i = new ui.createCipheriv("aes-" + 8 * e.length + "-ctr", e, r),
           n = hi.concat([i.update(t), i.final()]);
         return new Uint8Array(n);
@@ -233869,7 +233869,7 @@ function _gi() {
         return _ref128.apply(this, arguments);
       };
     }() : /*#__PURE__*/function () {
-      var _ref129 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+      var _ref129 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
         return ei.encrypt(t, e, r);
       });
       return function (_x436, _x437) {
@@ -233883,12 +233883,12 @@ function wi(_x46, _x47) {
   return _wi.apply(this, arguments);
 }
 function _wi() {
-  _wi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _wi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     if (e !== $.symmetric.aes128 && e !== $.symmetric.aes192 && e !== $.symmetric.aes256) throw Error("EAX mode supports only AES cipher");
     const [r, i] = yield Promise.all([mi(t), gi(t)]);
     return {
       encrypt: function () {
-        var _ref130 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+        var _ref130 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
           const [a, s] = yield Promise.all([r(pi, t), r(yi, n)]),
             o = yield i(e, a),
             c = yield r(bi, o);
@@ -233900,7 +233900,7 @@ function _wi() {
         };
       }(),
       decrypt: function () {
-        var _ref131 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
+        var _ref131 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, n) {
           if (e.length < li) throw Error("Invalid EAX ciphertext");
           const a = e.subarray(0, -li),
             s = e.subarray(-li),
@@ -233944,7 +233944,7 @@ function Mi(_x48, _x49) {
   return _Mi.apply(this, arguments);
 }
 function _Mi() {
-  _Mi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Mi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     let r,
       i,
       n,
@@ -233998,7 +233998,7 @@ function _Mi() {
       n = [], n[0] = X.double(c), n.x = o, n.$ = c;
     }(e, t), {
       encrypt: function () {
-        var _ref132 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
+        var _ref132 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, i) {
           return s(r, e, t, i);
         });
         return function encrypt(_x444, _x445, _x446) {
@@ -234006,7 +234006,7 @@ function _Mi() {
         };
       }(),
       decrypt: function () {
-        var _ref133 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+        var _ref133 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
           if (e.length < ki) throw Error("Invalid OCB ciphertext");
           const n = e.subarray(-ki);
           e = e.subarray(0, -ki);
@@ -234176,11 +234176,11 @@ function Ti(_x50, _x51) {
   return _Ti.apply(this, arguments);
 }
 function _Ti() {
-  _Ti = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Ti = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     if (e !== $.symmetric.aes128 && e !== $.symmetric.aes192 && e !== $.symmetric.aes256) throw Error("GCM mode supports only AES cipher");
     if (X.getNodeCrypto()) return {
       encrypt: function () {
-        var _ref134 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i = new Uint8Array()) {
+        var _ref134 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i = new Uint8Array()) {
           const n = new Ui.createCipheriv("aes-" + 8 * t.length + "-gcm", t, r);
           n.setAAD(i);
           const a = Ri.concat([n.update(e), n.final(), n.getAuthTag()]);
@@ -234191,7 +234191,7 @@ function _Ti() {
         };
       }(),
       decrypt: function () {
-        var _ref135 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i = new Uint8Array()) {
+        var _ref135 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i = new Uint8Array()) {
           const n = new Ui.createDecipheriv("aes-" + 8 * t.length + "-gcm", t, r);
           n.setAAD(i), n.setAuthTag(e.slice(e.length - Ii, e.length));
           const a = Ri.concat([n.update(e.slice(0, e.length - Ii)), n.final()]);
@@ -234208,7 +234208,7 @@ function _Ti() {
       }, !1, ["encrypt", "decrypt"]);
       return {
         encrypt: function () {
-          var _ref136 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i, n = new Uint8Array()) {
+          var _ref136 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i, n = new Uint8Array()) {
             if (!r.length) return Ci.encrypt(r, t, i, n);
             const a = yield Di.encrypt({
               name: Bi,
@@ -234223,7 +234223,7 @@ function _Ti() {
           };
         }(),
         decrypt: function () {
-          var _ref137 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i, n = new Uint8Array()) {
+          var _ref137 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (r, i, n = new Uint8Array()) {
             if (r.length === Ii) return Ci.decrypt(r, t, i, n);
             const a = yield Di.decrypt({
               name: Bi,
@@ -234241,7 +234241,7 @@ function _Ti() {
     }
     return {
       encrypt: function () {
-        var _ref138 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i) {
+        var _ref138 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i) {
           return Ci.encrypt(e, t, r, i);
         });
         return function encrypt(_x458, _x459, _x460) {
@@ -234249,7 +234249,7 @@ function _Ti() {
         };
       }(),
       decrypt: function () {
-        var _ref139 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i) {
+        var _ref139 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, r, i) {
           return Ci.decrypt(e, t, r, i);
         });
         return function decrypt(_x461, _x462, _x463) {
@@ -234638,7 +234638,7 @@ function Li(_x52, _x53) {
   return _Li.apply(this, arguments);
 }
 function _Li() {
-  _Li = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Li = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     const r = yield X.getBigInteger();
     if (t.lt(e)) throw Error("Illegal parameter value: max <= min");
     const i = t.sub(e),
@@ -234656,7 +234656,7 @@ function ji(_x54, _x55, _x56) {
   return _ji.apply(this, arguments);
 }
 function _ji() {
-  _ji = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+  _ji = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
     const i = yield X.getBigInteger(),
       n = new i(1),
       a = n.leftShift(new i(e - 1)),
@@ -234675,9 +234675,9 @@ function Hi(_x57, _x58, _x59) {
   return _Hi.apply(this, arguments);
 }
 function _Hi() {
-  _Hi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+  _Hi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
     return !(t && !e.dec().gcd(t).isOne()) && !!(yield function () {
-      var _ref140 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref140 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         const t = yield X.getBigInteger();
         return Wi.every(r => 0 !== e.mod(new t(r)));
       });
@@ -234685,7 +234685,7 @@ function _Hi() {
         return _ref140.apply(this, arguments);
       };
     }()(e)) && !!(yield function () {
-      var _ref141 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+      var _ref141 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
         const r = yield X.getBigInteger();
         return t = t || new r(2), t.modExp(e.dec(), e).isOne();
       });
@@ -234693,7 +234693,7 @@ function _Hi() {
         return _ref141.apply(this, arguments);
       };
     }()(e)) && !!(yield function () {
-      var _ref142 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+      var _ref142 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
         const i = yield X.getBigInteger(),
           n = e.bitLength();
         t || (t = Math.max(1, n / 48 | 0));
@@ -234753,7 +234753,7 @@ function Zi(_x60, _x61, _x62) {
   return _Zi.apply(this, arguments);
 }
 function _Zi() {
-  _Zi = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+  _Zi = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
     let i;
     if (t.length !== Gr.getHashByteLength(e)) throw Error("Invalid hash length");
     const n = new Uint8Array(Gi[e].length);
@@ -234785,12 +234785,12 @@ const Yi = X.getWebCrypto(),
 var rn = /*#__PURE__*/Object.freeze({
   __proto__: null,
   sign: function () {
-    var _ref36 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o, c) {
+    var _ref36 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o, c) {
       if (t && !X.isStream(t)) if (X.getWebCrypto()) try {
         return yield function () {
-          var _ref37 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
+          var _ref37 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
             const c = yield function () {
-                var _ref38 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+                var _ref38 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
                   const s = yield X.getBigInteger(),
                     o = new s(i),
                     c = new s(n),
@@ -234830,7 +234830,7 @@ var rn = /*#__PURE__*/Object.freeze({
       } catch (e) {
         X.printDebugError(e);
       } else if (X.getNodeCrypto()) return function () {
-        var _ref39 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
+        var _ref39 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
           const {
               default: c
             } = yield Promise.resolve().then(function () {
@@ -234872,7 +234872,7 @@ var rn = /*#__PURE__*/Object.freeze({
         };
       }()(e, t, r, i, n, a, s, o);
       return function () {
-        var _ref40 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+        var _ref40 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
           const n = yield X.getBigInteger();
           t = new n(t);
           const a = new n(yield Zi(e, i, t.byteLength()));
@@ -234889,10 +234889,10 @@ var rn = /*#__PURE__*/Object.freeze({
     };
   }(),
   verify: function () {
-    var _ref41 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref41 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       if (t && !X.isStream(t)) if (X.getWebCrypto()) try {
         return yield function () {
-          var _ref42 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+          var _ref42 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
             const a = function (e, t) {
                 return {
                   kty: "RSA",
@@ -234916,7 +234916,7 @@ var rn = /*#__PURE__*/Object.freeze({
       } catch (e) {
         X.printDebugError(e);
       } else if (X.getNodeCrypto()) return function () {
-        var _ref43 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+        var _ref43 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
           const {
               default: a
             } = yield Promise.resolve().then(function () {
@@ -234949,7 +234949,7 @@ var rn = /*#__PURE__*/Object.freeze({
         };
       }()(e, t, r, i, n);
       return function () {
-        var _ref44 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+        var _ref44 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
           const a = yield X.getBigInteger();
           if (r = new a(r), t = new a(t), i = new a(i), t.gte(r)) throw Error("Signature size cannot exceed modulus size");
           const s = t.modExp(i, r).toUint8Array("be", r.byteLength()),
@@ -234966,9 +234966,9 @@ var rn = /*#__PURE__*/Object.freeze({
     };
   }(),
   encrypt: function () {
-    var _ref45 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+    var _ref45 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
       return X.getNodeCrypto() ? function () {
-        var _ref46 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+        var _ref46 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
           const {
               default: i
             } = yield Promise.resolve().then(function () {
@@ -235000,7 +235000,7 @@ var rn = /*#__PURE__*/Object.freeze({
           return _ref46.apply(this, arguments);
         };
       }()(e, t, r) : function () {
-        var _ref47 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+        var _ref47 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
           const i = yield X.getBigInteger();
           if (t = new i(t), e = new i(Vi(e, t.byteLength())), r = new i(r), e.gte(t)) throw Error("Message size cannot exceed modulus size");
           return e.modExp(r, t).toUint8Array("be", t.byteLength());
@@ -235015,10 +235015,10 @@ var rn = /*#__PURE__*/Object.freeze({
     };
   }(),
   decrypt: function () {
-    var _ref48 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
+    var _ref48 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
       if (X.getNodeCrypto() && !o) try {
         return yield function () {
-          var _ref49 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s) {
+          var _ref49 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s) {
             const {
                 default: o
               } = yield Promise.resolve().then(function () {
@@ -235070,7 +235070,7 @@ var rn = /*#__PURE__*/Object.freeze({
         X.printDebugError(e);
       }
       return function () {
-        var _ref50 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
+        var _ref50 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
           const c = yield X.getBigInteger();
           if (e = new c(e), t = new c(t), r = new c(r), i = new c(i), n = new c(n), a = new c(a), s = new c(s), e.gte(t)) throw Error("Data too large.");
           const u = i.mod(a.dec()),
@@ -235094,7 +235094,7 @@ var rn = /*#__PURE__*/Object.freeze({
     };
   }(),
   generate: function () {
-    var _ref51 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+    var _ref51 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
       if (t = new (yield X.getBigInteger())(t), X.getWebCrypto()) {
         const r = {
             name: "RSASSA-PKCS1-v1_5",
@@ -235161,7 +235161,7 @@ var rn = /*#__PURE__*/Object.freeze({
     };
   }(),
   validateParams: function () {
-    var _ref52 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref52 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       const s = yield X.getBigInteger();
       if (e = new s(e), i = new s(i), n = new s(n), !i.mul(n).equal(e)) return !1;
       const o = new s(2);
@@ -235180,7 +235180,7 @@ var rn = /*#__PURE__*/Object.freeze({
 var nn = /*#__PURE__*/Object.freeze({
   __proto__: null,
   encrypt: function () {
-    var _ref53 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+    var _ref53 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
       const n = yield X.getBigInteger();
       t = new n(t), r = new n(r), i = new n(i);
       const a = new n(Vi(e, t.byteLength())),
@@ -235195,7 +235195,7 @@ var nn = /*#__PURE__*/Object.freeze({
     };
   }(),
   decrypt: function () {
-    var _ref54 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+    var _ref54 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
       const a = yield X.getBigInteger();
       return e = new a(e), t = new a(t), r = new a(r), i = new a(i), $i(e.modExp(i, r).modInv(r).imul(t).imod(r).toUint8Array("be", r.byteLength()), n);
     });
@@ -235204,7 +235204,7 @@ var nn = /*#__PURE__*/Object.freeze({
     };
   }(),
   validateParams: function () {
-    var _ref55 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+    var _ref55 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
       const n = yield X.getBigInteger();
       e = new n(e), t = new n(t), r = new n(r);
       const a = new n(1);
@@ -235276,7 +235276,7 @@ function cn(_x172) {
   return _cn.apply(this, arguments);
 }
 function _cn() {
-  _cn = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+  _cn = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
     if (!ne.useIndutnyElliptic) throw Error("This curve is only supported in the full build of OpenPGP.js");
     const {
       default: t
@@ -235316,7 +235316,7 @@ function yn(_x173, _x174) {
   return _yn.apply(this, arguments);
 }
 function _yn() {
-  _yn = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _yn = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     const r = C(e);
     let i, n;
     try {
@@ -235519,13 +235519,13 @@ class Sn {
   }
   genKeyPair() {
     var _this4 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let e;
       switch (_this4.type) {
         case "web":
           try {
             return yield function () {
-              var _ref56 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+              var _ref56 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
                 const t = yield gn.generateKey({
                     name: "ECDSA",
                     namedCurve: vn[e]
@@ -235547,7 +235547,7 @@ class Sn {
           }
         case "node":
           return function () {
-            var _ref57 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+            var _ref57 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
               const t = wn.createECDH(kn[e]);
               return yield t.generateKeys(), {
                 publicKey: new Uint8Array(t.getPublicKey()),
@@ -235593,7 +235593,7 @@ function En(_x177, _x178, _x179, _x180) {
   return _En.apply(this, arguments);
 }
 function _En() {
-  _En = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+  _En = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
     const n = {
         p256: !0,
         p384: !0,
@@ -235653,7 +235653,7 @@ function Dn(_x181, _x182, _x183, _x184, _x185, _x186) {
   return _Dn.apply(this, arguments);
 }
 function _Dn() {
-  _Dn = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+  _Dn = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
     const s = new Sn(e);
     if (r && !X.isStream(r)) {
       const e = {
@@ -235664,7 +235664,7 @@ function _Dn() {
         case "web":
           try {
             return yield function () {
-              var _ref143 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+              var _ref143 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
                 const n = e.payloadSize,
                   a = Mn(e.payloadSize, vn[e.name], i.publicKey, i.privateKey),
                   s = yield Kn.importKey("jwk", a, {
@@ -235698,7 +235698,7 @@ function _Dn() {
         case "node":
           {
             const i = yield function () {
-              var _ref144 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+              var _ref144 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
                 const n = Cn.createSign($.read($.hash, t));
                 n.write(r), n.end();
                 const a = Bn.encode({
@@ -235726,7 +235726,7 @@ function _Dn() {
       }
     }
     return function () {
-      var _ref145 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+      var _ref145 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
         const i = yield cn(e.name),
           n = sn(i, r),
           a = n.sign(t);
@@ -235746,13 +235746,13 @@ function Un(_x187, _x188, _x189, _x190, _x191, _x192) {
   return _Un.apply(this, arguments);
 }
 function _Un() {
-  _Un = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+  _Un = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
     const s = new Sn(e);
     if (i && !X.isStream(i)) switch (s.type) {
       case "web":
         try {
           return yield function () {
-            var _ref146 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
+            var _ref146 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
               r,
               s: i
             }, n, a) {
@@ -235784,7 +235784,7 @@ function _Un() {
         break;
       case "node":
         return function () {
-          var _ref147 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
+          var _ref147 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
             r,
             s: i
           }, n, a) {
@@ -235823,7 +235823,7 @@ function _Un() {
         }()(s, t, r, i, n);
     }
     return function () {
-      var _ref148 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+      var _ref148 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
         const n = yield cn(e.name),
           a = on(n, i);
         return a.verify(r, t);
@@ -235853,7 +235853,7 @@ var qn = /*#__PURE__*/Object.freeze({
   sign: Dn,
   verify: Un,
   validateParams: function () {
-    var _ref58 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+    var _ref58 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
       const i = new Sn(e);
       if (i.keyType !== $.publicKey.ecdsa) return !1;
       switch (i.type) {
@@ -235883,7 +235883,7 @@ qi.hash = e => new Uint8Array(Jt().update(e).digest());
 var Fn = /*#__PURE__*/Object.freeze({
   __proto__: null,
   sign: function () {
-    var _ref59 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref59 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       if (Gr.getHashByteLength(t) < Gr.getHashByteLength($.hash.sha256)) throw Error("Hash algorithm too weak for EdDSA.");
       const s = X.concatUint8Array([n, i.subarray(1)]),
         o = qi.sign.detached(a, s);
@@ -235897,7 +235897,7 @@ var Fn = /*#__PURE__*/Object.freeze({
     };
   }(),
   verify: function () {
-    var _ref60 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
+    var _ref60 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
       r,
       s: i
     }, n, a, s) {
@@ -235910,7 +235910,7 @@ var Fn = /*#__PURE__*/Object.freeze({
     };
   }(),
   validateParams: function () {
-    var _ref61 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+    var _ref61 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
       if ("ed25519" !== e.getName()) return !1;
       const {
           publicKey: i
@@ -235931,7 +235931,7 @@ qi.hash = e => new Uint8Array(Jt().update(e).digest());
 var Ln = /*#__PURE__*/Object.freeze({
   __proto__: null,
   generate: function () {
-    var _ref62 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+    var _ref62 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
       if (e === $.publicKey.ed25519) {
         const e = Oi(32),
           {
@@ -235949,7 +235949,7 @@ var Ln = /*#__PURE__*/Object.freeze({
     };
   }(),
   sign: function () {
-    var _ref63 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref63 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       if (Gr.getHashByteLength(t) < Gr.getHashByteLength(On(e))) throw Error("Hash algorithm too weak for EdDSA.");
       switch (e) {
         case $.publicKey.ed25519:
@@ -235969,7 +235969,7 @@ var Ln = /*#__PURE__*/Object.freeze({
     };
   }(),
   verify: function () {
-    var _ref64 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
+    var _ref64 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, {
       RS: r
     }, i, n, a) {
       if (Gr.getHashByteLength(t) < Gr.getHashByteLength(On(e))) throw Error("Hash algorithm too weak for EdDSA.");
@@ -235986,7 +235986,7 @@ var Ln = /*#__PURE__*/Object.freeze({
     };
   }(),
   validateParams: function () {
-    var _ref65 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+    var _ref65 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
       switch (e) {
         case $.publicKey.ed25519:
           {
@@ -236100,7 +236100,7 @@ function Jn(_x227, _x228, _x229, _x230) {
   return _Jn.apply(this, arguments);
 }
 function _Jn() {
-  _Jn = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n = !1, a = !1) {
+  _Jn = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n = !1, a = !1) {
     let s;
     if (n) {
       for (s = 0; s < t.length && 0 === t[s]; s++);
@@ -236118,7 +236118,7 @@ function ea(_x231, _x232) {
   return _ea.apply(this, arguments);
 }
 function _ea() {
-  _ea = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _ea = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     switch (e.type) {
       case "curve25519":
         {
@@ -236138,7 +236138,7 @@ function _ea() {
       case "web":
         if (e.web && X.getWebCrypto()) try {
           return yield function () {
-            var _ref149 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+            var _ref149 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
               const r = xn(e.payloadSize, e.web.web, t);
               let i = Xn.generateKey({
                   name: "ECDH",
@@ -236173,7 +236173,7 @@ function _ea() {
         break;
       case "node":
         return function () {
-          var _ref150 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+          var _ref150 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
             const r = Yn.createECDH(e.node.node);
             r.generateKeys();
             const i = new Uint8Array(r.computeSecret(t)),
@@ -236189,7 +236189,7 @@ function _ea() {
         }()(e, t);
     }
     return function () {
-      var _ref151 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+      var _ref151 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
         const r = yield cn(e.name),
           i = yield e.genKeyPair();
         t = on(r, t);
@@ -236214,7 +236214,7 @@ function ta(_x233, _x234, _x235, _x236) {
   return _ta.apply(this, arguments);
 }
 function _ta() {
-  _ta = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+  _ta = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
     if (i.length !== e.payloadSize) {
       const t = new Uint8Array(e.payloadSize);
       t.set(i, e.payloadSize - i.length), i = t;
@@ -236231,7 +236231,7 @@ function _ta() {
       case "web":
         if (e.web && X.getWebCrypto()) try {
           return yield function () {
-            var _ref152 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+            var _ref152 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
               const n = Mn(e.payloadSize, e.web.web, r, i);
               let a = Xn.importKey("jwk", n, {
                 name: "ECDH",
@@ -236266,7 +236266,7 @@ function _ta() {
         break;
       case "node":
         return function () {
-          var _ref153 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+          var _ref153 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
             const i = Yn.createECDH(e.node.node);
             i.setPrivateKey(r);
             const n = new Uint8Array(i.computeSecret(t));
@@ -236281,7 +236281,7 @@ function _ta() {
         }()(e, t, i);
     }
     return function () {
-      var _ref154 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+      var _ref154 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
         const i = yield cn(e.name);
         t = on(i, t), r = sn(i, r);
         const n = new Uint8Array(r.getPrivate()),
@@ -236303,7 +236303,7 @@ function _ta() {
 var ra = /*#__PURE__*/Object.freeze({
   __proto__: null,
   validateParams: function () {
-    var _ref66 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+    var _ref66 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
       return En($.publicKey.ecdh, e, t, r);
     });
     return function validateParams(_x237, _x238, _x239) {
@@ -236311,7 +236311,7 @@ var ra = /*#__PURE__*/Object.freeze({
     };
   }(),
   encrypt: function () {
-    var _ref67 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+    var _ref67 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
       const a = Vn(r),
         s = new Sn(e),
         {
@@ -236332,7 +236332,7 @@ var ra = /*#__PURE__*/Object.freeze({
     };
   }(),
   decrypt: function () {
-    var _ref68 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s) {
+    var _ref68 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s) {
       const o = new Sn(e),
         {
           sharedKey: c
@@ -236361,7 +236361,7 @@ function sa(_x252, _x253, _x254, _x255, _x256) {
   return _sa.apply(this, arguments);
 }
 function _sa() {
-  _sa = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+  _sa = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
     const a = $.read($.webHash, e);
     if (!a) throw Error("Hash algo not supported with HKDF");
     if (ia || aa) {
@@ -236401,7 +236401,7 @@ const oa = {
 var ca = /*#__PURE__*/Object.freeze({
     __proto__: null,
     generate: function () {
-      var _ref69 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref69 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         if (e === $.publicKey.x25519) {
           const e = Oi(32),
             {
@@ -236419,7 +236419,7 @@ var ca = /*#__PURE__*/Object.freeze({
       };
     }(),
     validateParams: function () {
-      var _ref70 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+      var _ref70 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
         if (e === $.publicKey.x25519) {
           const {
             publicKey: e
@@ -236433,7 +236433,7 @@ var ca = /*#__PURE__*/Object.freeze({
       };
     }(),
     encrypt: function () {
-      var _ref71 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+      var _ref71 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
         if (e === $.publicKey.x25519) {
           const e = Oi(32),
             i = qi.scalarMult(e, r),
@@ -236456,7 +236456,7 @@ var ca = /*#__PURE__*/Object.freeze({
       };
     }(),
     decrypt: function () {
-      var _ref72 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+      var _ref72 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
         if (e === $.publicKey.x25519) {
           const e = qi.scalarMult(n, t),
             a = X.concatUint8Array([t, i, e]),
@@ -236481,7 +236481,7 @@ var ca = /*#__PURE__*/Object.freeze({
     eddsaLegacy: Fn,
     eddsa: Ln,
     generate: function () {
-      var _ref73 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref73 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         const t = yield X.getBigInteger();
         e = new Sn(e);
         const r = yield e.genKeyPair(),
@@ -236506,7 +236506,7 @@ var ca = /*#__PURE__*/Object.freeze({
 var ha = /*#__PURE__*/Object.freeze({
     __proto__: null,
     sign: function () {
-      var _ref74 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+      var _ref74 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
         const s = yield X.getBigInteger(),
           o = new s(1);
         let c, u, h, d;
@@ -236527,7 +236527,7 @@ var ha = /*#__PURE__*/Object.freeze({
       };
     }(),
     verify: function () {
-      var _ref75 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
+      var _ref75 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s, o) {
         const c = yield X.getBigInteger(),
           u = new c(0);
         if (t = new c(t), r = new c(r), a = new c(a), s = new c(s), n = new c(n), o = new c(o), t.lte(u) || t.gte(s) || r.lte(u) || r.gte(s)) return X.printDebug("invalid DSA Signature"), !1;
@@ -236546,7 +236546,7 @@ var ha = /*#__PURE__*/Object.freeze({
       };
     }(),
     validateParams: function () {
-      var _ref76 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+      var _ref76 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
         const a = yield X.getBigInteger();
         e = new a(e), t = new a(t), r = new a(r), i = new a(i);
         const s = new a(1);
@@ -236617,7 +236617,7 @@ var fa = /*#__PURE__*/Object.freeze({
     }
   },
   verify: function () {
-    var _ref77 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref77 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       switch (e) {
         case $.publicKey.rsaEncryptSign:
         case $.publicKey.rsaEncrypt:
@@ -236682,7 +236682,7 @@ var fa = /*#__PURE__*/Object.freeze({
     };
   }(),
   sign: function () {
-    var _ref78 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref78 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       if (!r || !i) throw Error("Missing key parameters");
       switch (e) {
         case $.publicKey.rsaEncryptSign:
@@ -236818,7 +236818,7 @@ function ba(e) {
 var ma = /*#__PURE__*/Object.freeze({
   __proto__: null,
   publicKeyEncrypt: function () {
-    var _ref79 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
+    var _ref79 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n) {
       switch (e) {
         case $.publicKey.rsaEncrypt:
         case $.publicKey.rsaEncryptSign:
@@ -236883,7 +236883,7 @@ var ma = /*#__PURE__*/Object.freeze({
     };
   }(),
   publicKeyDecrypt: function () {
-    var _ref80 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
+    var _ref80 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a) {
       switch (e) {
         case $.publicKey.rsaEncryptSign:
         case $.publicKey.rsaEncrypt:
@@ -237297,7 +237297,7 @@ var ma = /*#__PURE__*/Object.freeze({
     }
   },
   validateParams: function () {
-    var _ref81 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+    var _ref81 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
       if (!t || !r) throw Error("Missing key parameters");
       switch (e) {
         case $.publicKey.rsaEncrypt:
@@ -237394,7 +237394,7 @@ var ma = /*#__PURE__*/Object.freeze({
     };
   }(),
   getPrefixRandom: function () {
-    var _ref82 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+    var _ref82 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
       const {
           blockSize: t
         } = $r(e),
@@ -239049,9 +239049,9 @@ class su {
   }
   read(e) {
     var _this5 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield z(e, /*#__PURE__*/function () {
-        var _ref83 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref83 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           const t = yield e.readByte(),
             r = yield e.readByte();
           _this5.filename = X.decodeUTF8(yield e.readBytes(r)), _this5.date = X.readDate(yield e.readBytes(4));
@@ -239094,7 +239094,7 @@ class uu {
   }
   writeParams() {
     var _this6 = this;
-    return this.params instanceof Promise ? H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return this.params instanceof Promise ? H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return ga.serializeParams(_this6.publicKeyAlgorithm, yield _this6.params);
     })) : ga.serializeParams(this.publicKeyAlgorithm, this.params);
   }
@@ -239104,7 +239104,7 @@ class uu {
   }
   sign(e, t, r = new Date(), i = !1) {
     var _this7 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       5 === e.version ? _this7.version = 5 : _this7.version = 4;
       const n = [new Uint8Array([_this7.version, _this7.signatureType, _this7.publicKeyAlgorithm, _this7.hashAlgorithm])];
       _this7.created = X.normalizeDate(r), _this7.issuerKeyVersion = e.version, _this7.issuerFingerprint = e.getFingerprintBytes(), _this7.issuerKeyID = e.getKeyID(), n.push(_this7.writeHashedSubPackets()), _this7.unhashedSubpackets = [], _this7.signatureData = X.concat(n);
@@ -239112,7 +239112,7 @@ class uu {
         s = yield _this7.hash(_this7.signatureType, t, a, i);
       _this7.signedHashValue = L(q(s), 0, 2);
       const o = /*#__PURE__*/function () {
-        var _ref85 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        var _ref85 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           return ga.signature.sign(_this7.publicKeyAlgorithm, _this7.hashAlgorithm, e.publicParams, e.privateParams, a, yield N(s));
         });
         return function o() {
@@ -239332,13 +239332,13 @@ class uu {
   }
   hash(e, t, r, i = !1) {
     var _this8 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return r || (r = _this8.toHash(e, t, i)), ga.hash.digest(_this8.hashAlgorithm, r);
     })();
   }
   verify(e, t, r, i = new Date(), n = !1, a = ne) {
     var _this9 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this9.issuerKeyID.equals(e.getKeyID())) throw Error("Signature was not issued by the given public key");
       if (_this9.publicKeyAlgorithm !== e.algorithm) throw Error("Public key algorithm used to sign signature does not match issuer key algorithm.");
       const s = t === $.signature.binary || t === $.signature.text;
@@ -239391,14 +239391,14 @@ class du {
   }
   calculateTrailer(...e) {
     var _this10 = this;
-    return H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return uu.prototype.calculateTrailer.apply(yield _this10.correspondingSig, e);
     }));
   }
   verify() {
     var _arguments = arguments,
       _this11 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const e = yield _this11.correspondingSig;
       if (!e || e.constructor.tag !== $.packet.signature) throw Error("Corresponding signature packet missing");
       if (e.signatureType !== _this11.signatureType || e.hashAlgorithm !== _this11.hashAlgorithm || e.publicKeyAlgorithm !== _this11.publicKeyAlgorithm || !e.issuerKeyID.equals(_this11.issuerKeyID)) throw Error("Corresponding signature packet does not match one-pass signature packet");
@@ -239421,25 +239421,25 @@ function fu(e, t) {
 du.prototype.hash = uu.prototype.hash, du.prototype.toHash = uu.prototype.toHash, du.prototype.toSign = uu.prototype.toSign;
 class lu extends Array {
   static fromBinary(e, t, r = ne) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = new lu();
       return yield i.read(e, t, r), i;
     })();
   }
   read(e, t, r = ne) {
     var _this12 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       r.additionalAllowedPackets.length && (t = {
         ...t,
         ...X.constructAllowedPackets(r.additionalAllowedPackets)
       }), _this12.stream = T(e, /*#__PURE__*/function () {
-        var _ref87 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, i) {
+        var _ref87 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, i) {
           const n = D(i);
           try {
             for (;;) {
               yield n.ready;
               if (yield yn(e, /*#__PURE__*/function () {
-                var _ref88 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+                var _ref88 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
                   try {
                     if (e.tag === $.packet.marker || e.tag === $.packet.trust) return;
                     const i = fu(e.tag, t);
@@ -239534,9 +239534,9 @@ class yu {
   }
   read(e, t = ne) {
     var _this13 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield z(e, /*#__PURE__*/function () {
-        var _ref89 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref89 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           _this13.algorithm = yield e.readByte(), _this13.compressed = e.remainder(), yield _this13.decompress(t);
         });
         return function (_x320) {
@@ -239550,7 +239550,7 @@ class yu {
   }
   decompress(e = ne) {
     var _this14 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const t = $.read($.compression, _this14.algorithm),
         r = ku[t];
       if (!r) throw Error(t + " decompression not supported");
@@ -239590,7 +239590,7 @@ function wu(e, t = {}) {
 }
 function vu(e) {
   return function (t) {
-    return H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return e(yield N(t));
     }));
   };
@@ -239634,9 +239634,9 @@ class Su {
   }
   read(e) {
     var _this15 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield z(e, /*#__PURE__*/function () {
-        var _ref91 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref91 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           const t = yield e.readByte();
           if (1 !== t) throw new bn(`Version ${t} of the SEIP packet is unsupported.`);
           _this15.encrypted = e.remainder();
@@ -239652,7 +239652,7 @@ class Su {
   }
   encrypt(e, t, r = ne) {
     var _this16 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const {
         blockSize: i
       } = ga.getCipher(e);
@@ -239668,7 +239668,7 @@ class Su {
   }
   decrypt(e, t, r = ne) {
     var _this17 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const {
         blockSize: i
       } = ga.getCipher(e);
@@ -239697,9 +239697,9 @@ class Pu {
   }
   read(e) {
     var _this18 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield z(e, /*#__PURE__*/function () {
-        var _ref92 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref92 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           const t = yield e.readByte();
           if (1 !== t) throw new bn(`Version ${t} of the AEAD-encrypted data packet is not supported.`);
           _this18.cipherAlgorithm = yield e.readByte(), _this18.aeadAlgorithm = yield e.readByte(), _this18.chunkSizeByte = yield e.readByte();
@@ -239717,13 +239717,13 @@ class Pu {
   }
   decrypt(e, t, r = ne) {
     var _this19 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this19.packets = yield lu.fromBinary(yield _this19.crypt("decrypt", t, q(_this19.encrypted)), Eu, r);
     })();
   }
   encrypt(e, t, r = ne) {
     var _this20 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this20.cipherAlgorithm = e;
       const {
         ivLength: i
@@ -239735,7 +239735,7 @@ class Pu {
   }
   crypt(e, t, r) {
     var _this21 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = ga.getAEADMode(_this21.aeadAlgorithm),
         n = yield i(_this21.cipherAlgorithm, t),
         a = "decrypt" === e ? i.tagLength : 0,
@@ -239753,7 +239753,7 @@ class Pu {
         b = 0;
       const m = _this21.iv;
       return T(r, /*#__PURE__*/function () {
-        var _ref93 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+        var _ref93 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
           if ("array" !== X.isStream(t)) {
             const e = new S({}, {
               highWaterMark: X.getHardwareConcurrency() * 2 ** (_this21.chunkSizeByte + 6),
@@ -239769,7 +239769,7 @@ class Pu {
               const r = t.subarray(t.length - a);
               let w, v;
               if (t = t.subarray(0, t.length - a), !l || t.length ? (c.unshift(r), w = n[e](t, i.getNonce(m, f), u), b += t.length - a + s) : (d.setInt32(17, y), w = n[e](r, i.getNonce(m, f), h), b += s, v = !0), y += t.length - a, p = p.then(() => w).then( /*#__PURE__*/function () {
-                var _ref94 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+                var _ref94 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
                   yield g.ready, yield g.write(e), b -= e.length;
                 });
                 return function (_x325) {
@@ -239810,7 +239810,7 @@ class xu {
   }
   encrypt(e) {
     var _this22 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const t = $.write($.publicKey, _this22.publicKeyAlgorithm),
         r = Mu(_this22.version, t, _this22.sessionKeyAlgorithm, _this22.sessionKey);
       _this22.encrypted = yield ga.publicKeyEncrypt(t, _this22.sessionKeyAlgorithm, e.publicParams, r, e.getFingerprintBytes());
@@ -239818,7 +239818,7 @@ class xu {
   }
   decrypt(e, t) {
     var _this23 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this23.publicKeyAlgorithm !== e.algorithm) throw Error("Decryption error");
       const r = t ? Mu(_this23.version, _this23.publicKeyAlgorithm, t.sessionKeyAlgorithm, t.sessionKey) : null,
         i = yield ga.publicKeyDecrypt(_this23.publicKeyAlgorithm, e.publicParams, e.privateParams, _this23.encrypted, e.getFingerprintBytes(), r),
@@ -239930,7 +239930,7 @@ class Ku {
   }
   produceKey(e, t) {
     var _this24 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       e = X.encodeUTF8(e);
       const r = [];
       let i = 0,
@@ -239989,7 +239989,7 @@ class Cu {
   }
   decrypt(e) {
     var _this25 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const t = null !== _this25.sessionKeyEncryptionAlgorithm ? _this25.sessionKeyEncryptionAlgorithm : _this25.sessionKeyAlgorithm,
         {
           blockSize: r,
@@ -240009,7 +240009,7 @@ class Cu {
   }
   encrypt(e, t = ne) {
     var _this26 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const r = null !== _this26.sessionKeyEncryptionAlgorithm ? _this26.sessionKeyEncryptionAlgorithm : _this26.sessionKeyAlgorithm;
       _this26.sessionKeyEncryptionAlgorithm = r, _this26.s2k = new Ku(t), _this26.s2k.salt = ga.random.getRandomBytes(8);
       const {
@@ -240051,7 +240051,7 @@ class Du {
   }
   read(e) {
     var _this27 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = 0;
       if (_this27.version = e[t++], 4 === _this27.version || 5 === _this27.version) {
         _this27.created = X.readDate(e.subarray(t, t + 4)), t += 4, _this27.algorithm = e[t++], 5 === _this27.version && (t += 4);
@@ -240085,7 +240085,7 @@ class Du {
   }
   computeFingerprintAndKeyID() {
     var _this28 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (yield _this28.computeFingerprint(), _this28.keyID = new pe(), 5 === _this28.version) _this28.keyID.read(_this28.fingerprint.subarray(0, 8));else {
         if (4 !== _this28.version) throw Error("Unsupported key version");
         _this28.keyID.read(_this28.fingerprint.subarray(12, 20));
@@ -240094,7 +240094,7 @@ class Du {
   }
   computeFingerprint() {
     var _this29 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const e = _this29.writeForHash(_this29.version);
       if (5 === _this29.version) _this29.fingerprint = yield ga.hash.sha256(e);else {
         if (4 !== _this29.version) throw Error("Unsupported key version");
@@ -240135,7 +240135,7 @@ class Ru {
   }
   decrypt(e, t, r = ne) {
     var _this30 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!r.allowUnauthenticatedMessages) throw Error("Message is not authenticated.");
       const {
           blockSize: i
@@ -240147,7 +240147,7 @@ class Ru {
   }
   encrypt(e, t, r = ne) {
     var _this31 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this31.packets.write(),
         {
           blockSize: n
@@ -240224,7 +240224,7 @@ class zu extends Du {
   }
   read(e) {
     var _this32 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let t = yield _this32.readPublicKey(e);
       const r = t;
       _this32.s2kUsage = e[t++], 5 === _this32.version && t++;
@@ -240274,7 +240274,7 @@ class zu extends Du {
   }
   encrypt(e, t = ne) {
     var _this33 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this33.isDummy()) return;
       if (!_this33.isDecrypted()) throw Error("Key packet is already encrypted");
       if (!e) throw Error("A non-empty passphrase is required for key encryption.");
@@ -240295,7 +240295,7 @@ class zu extends Du {
   }
   decrypt(e) {
     var _this34 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this34.isDummy()) return !1;
       if (_this34.unparseableKeyMaterial) throw Error("Key packet cannot be decrypted: unsupported S2K or cipher algo");
       if (_this34.isDecrypted()) throw Error("Key packet is already decrypted.");
@@ -240329,7 +240329,7 @@ class zu extends Du {
   }
   validate() {
     var _this35 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (_this35.isDummy()) return;
       if (!_this35.isDecrypted()) throw Error("Key is not decrypted");
       let e;
@@ -240343,7 +240343,7 @@ class zu extends Du {
   }
   generate(e, t) {
     var _this36 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const {
         privateParams: r,
         publicParams: i
@@ -240361,7 +240361,7 @@ function qu(_x326, _x327, _x328) {
   return _qu.apply(this, arguments);
 }
 function _qu() {
-  _qu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
+  _qu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r) {
     const {
       keySize: i
     } = ga.getCipher(r);
@@ -240895,7 +240895,7 @@ function Wu(_x329) {
   return _Wu.apply(this, arguments);
 }
 function _Wu() {
-  _Wu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Wu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     armoredSignature: e,
     binarySignature: t,
     config: r,
@@ -240928,7 +240928,7 @@ function Gu(_x330, _x331) {
   return _Gu.apply(this, arguments);
 }
 function _Gu() {
-  _Gu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Gu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     const r = new Lu(e.date, t);
     return r.packets = null, r.algorithm = $.write($.publicKey, e.algorithm), yield r.generate(e.rsaBits, e.curve), yield r.computeFingerprintAndKeyID(), r;
   });
@@ -240938,7 +240938,7 @@ function Vu(_x332, _x333) {
   return _Vu.apply(this, arguments);
 }
 function _Vu() {
-  _Vu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+  _Vu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
     const r = new zu(e.date, t);
     return r.packets = null, r.algorithm = $.write($.publicKey, e.algorithm), yield r.generate(e.rsaBits, e.curve, e.config), yield r.computeFingerprintAndKeyID(), r;
   });
@@ -240948,7 +240948,7 @@ function $u(_x334, _x335, _x336, _x337) {
   return _$u.apply(this, arguments);
 }
 function _$u() {
-  _$u = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n = new Date(), a) {
+  _$u = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n = new Date(), a) {
     let s, o;
     for (let c = e.length - 1; c >= 0; c--) try {
       (!s || e[c].created >= s.created) && (yield e[c].verify(t, r, i, n, void 0, a), s = e[c]);
@@ -240972,7 +240972,7 @@ function Xu(_x338, _x339, _x340, _x341) {
   return _Xu.apply(this, arguments);
 }
 function _Xu() {
-  _Xu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+  _Xu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
     const n = {};
     n.key = t, n.bind = e;
     const a = {
@@ -240989,7 +240989,7 @@ function Yu(_x342, _x343) {
   return _Yu.apply(this, arguments);
 }
 function _Yu() {
-  _Yu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r = new Date(), i = {}, n) {
+  _Yu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r = new Date(), i = {}, n) {
     let a = n.preferredHashAlgorithm,
       s = a;
     if (e) {
@@ -241010,7 +241010,7 @@ function Qu(_x344) {
   return _Qu.apply(this, arguments);
 }
 function _Qu() {
-  _Qu = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = [], r = new Date(), i = [], n = ne) {
+  _Qu = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = [], r = new Date(), i = [], n = ne) {
     const a = {
         symmetric: $.symmetric.aes128,
         aead: $.aead.eax,
@@ -241027,7 +241027,7 @@ function _Qu() {
         compression: "preferredCompressionAlgorithms"
       }[e],
       c = yield Promise.all(t.map( /*#__PURE__*/function () {
-        var _ref155 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+        var _ref155 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
           const a = (yield e.getPrimaryUser(r, i[t], n)).selfCertification[o];
           return !!a && a.indexOf(s) >= 0;
         });
@@ -241043,7 +241043,7 @@ function Ju(_x345, _x346, _x347, _x348, _x349, _x350) {
   return _Ju.apply(this, arguments);
 }
 function _Ju() {
-  _Ju = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s = [], o = !1, c) {
+  _Ju = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s = [], o = !1, c) {
     if (r.isDummy()) throw Error("Cannot sign with a gnu-dummy key.");
     if (!r.isDecrypted()) throw Error("Signing key is not decrypted.");
     const u = new uu();
@@ -241055,9 +241055,9 @@ function eh(_x351, _x352, _x353) {
   return _eh.apply(this, arguments);
 }
 function _eh() {
-  _eh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i = new Date(), n) {
+  _eh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i = new Date(), n) {
     (e = e[r]) && (t[r].length ? yield Promise.all(e.map( /*#__PURE__*/function () {
-      var _ref156 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref156 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         e.isExpired(i) || n && !(yield n(e)) || t[r].some(function (t) {
           return X.equalsUint8Array(t.writeParams(), e.writeParams());
         }) || t[r].push(e);
@@ -241073,11 +241073,11 @@ function th(_x354, _x355, _x356, _x357, _x358, _x359) {
   return _th.apply(this, arguments);
 }
 function _th() {
-  _th = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s = new Date(), o) {
+  _th = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i, n, a, s = new Date(), o) {
     a = a || e;
     const c = [];
     return yield Promise.all(i.map( /*#__PURE__*/function () {
-      var _ref157 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref157 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         try {
           n && !e.issuerKeyID.equals(n.issuerKeyID) || (yield e.verify(a, t, r, o.revocationsExpire ? s : null, !1, o), c.push(e.issuerKeyID));
         } catch (e) {}
@@ -241152,7 +241152,7 @@ class ch {
   }
   certify(e, t, r) {
     var _this37 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this37.mainKey.keyPacket,
         n = {
           userID: _this37.userID,
@@ -241161,7 +241161,7 @@ class ch {
         },
         a = new ch(n.userID || n.userAttribute, _this37.mainKey);
       return a.otherCertifications = yield Promise.all(e.map( /*#__PURE__*/function () {
-        var _ref95 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref95 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           if (!e.isPrivate()) throw Error("Need private key for signing");
           if (e.hasSameFingerprintAs(i)) throw Error("The user's own key can only be used for self-certifications");
           const a = yield e.getSigningKey(void 0, t, void 0, r);
@@ -241178,7 +241178,7 @@ class ch {
   }
   isRevoked(e, t, r = new Date(), i = ne) {
     var _this38 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = _this38.mainKey.keyPacket;
       return th(n, $.signature.certRevocation, {
         key: n,
@@ -241189,7 +241189,7 @@ class ch {
   }
   verifyCertificate(e, t, r = new Date(), i) {
     var _this39 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = _this39,
         a = _this39.mainKey.keyPacket,
         s = {
@@ -241202,7 +241202,7 @@ class ch {
         } = e,
         c = t.filter(e => e.getKeys(o).length > 0);
       return 0 === c.length ? null : (yield Promise.all(c.map( /*#__PURE__*/function () {
-        var _ref96 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+        var _ref96 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
           const a = yield t.getSigningKey(o, e.created, void 0, i);
           if (e.revoked || (yield n.isRevoked(e, a.keyPacket, r, i))) throw Error("User certificate is revoked");
           try {
@@ -241219,11 +241219,11 @@ class ch {
   }
   verifyAllCertifications(e, t = new Date(), r) {
     var _this40 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this40,
         n = _this40.selfCertifications.concat(_this40.otherCertifications);
       return Promise.all(n.map( /*#__PURE__*/function () {
-        var _ref97 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (n) {
+        var _ref97 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (n) {
           return {
             keyID: n.issuerKeyID,
             valid: yield i.verifyCertificate(n, e, t, r).catch(() => !1)
@@ -241237,7 +241237,7 @@ class ch {
   }
   verify(e = new Date(), t) {
     var _this41 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this41.selfCertifications.length) throw Error("No self-certifications found");
       const r = _this41,
         i = _this41.mainKey.keyPacket,
@@ -241264,7 +241264,7 @@ class ch {
   }
   update(e, t, r) {
     var _this42 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this42.mainKey.keyPacket,
         n = {
           userID: _this42.userID,
@@ -241272,7 +241272,7 @@ class ch {
           key: i
         };
       yield eh(e, _this42, "selfCertifications", t, /*#__PURE__*/function () {
-        var _ref98 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref98 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           try {
             return yield e.verify(i, $.signature.certGeneric, n, t, !1, r), !0;
           } catch (e) {
@@ -241292,7 +241292,7 @@ class ch {
     string: r = ""
   } = {}, i = new Date(), n = ne) {
     var _this43 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const a = {
           userID: _this43.userID,
           userAttribute: _this43.userAttribute,
@@ -241321,7 +241321,7 @@ class uh {
   }
   isRevoked(e, t, r = new Date(), i = ne) {
     var _this44 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = _this44.mainKey.keyPacket;
       return th(n, $.signature.subkeyRevocation, {
         key: n,
@@ -241331,7 +241331,7 @@ class uh {
   }
   verify(e = new Date(), t = ne) {
     var _this45 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const r = _this45.mainKey.keyPacket,
         i = {
           key: r,
@@ -241345,7 +241345,7 @@ class uh {
   }
   getExpirationTime(e = new Date(), t = ne) {
     var _this46 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const r = _this46.mainKey.keyPacket,
         i = {
           key: r,
@@ -241364,7 +241364,7 @@ class uh {
   }
   update(e, t = new Date(), r = ne) {
     var _this47 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this47.mainKey.keyPacket;
       if (!_this47.hasSameFingerprintAs(e)) throw Error("Subkey update method: fingerprints of subkeys not equal");
       _this47.keyPacket.constructor.tag === $.packet.publicSubkey && e.keyPacket.constructor.tag === $.packet.secretSubkey && (_this47.keyPacket = e.keyPacket);
@@ -241374,7 +241374,7 @@ class uh {
           bind: n.keyPacket
         };
       yield eh(e, _this47, "bindingSignatures", t, /*#__PURE__*/function () {
-        var _ref99 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref99 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           for (let t = 0; t < n.bindingSignatures.length; t++) if (n.bindingSignatures[t].issuerKeyID.equals(e.issuerKeyID)) return e.created > n.bindingSignatures[t].created && (n.bindingSignatures[t] = e), !1;
           try {
             return yield e.verify(i, $.signature.subkeyBinding, a, t, void 0, r), !0;
@@ -241395,7 +241395,7 @@ class uh {
     string: r = ""
   } = {}, i = new Date(), n = ne) {
     var _this48 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const a = {
           key: e,
           bind: _this48.keyPacket
@@ -241518,7 +241518,7 @@ class lh {
   }
   getSigningKey(e = null, t = new Date(), r = {}, i = ne) {
     var _this49 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this49.verifyPrimaryKey(t, r, i);
       const n = _this49.keyPacket,
         a = _this49.subkeys.slice().sort((e, t) => t.keyPacket.created - e.keyPacket.created);
@@ -241547,7 +241547,7 @@ class lh {
   }
   getEncryptionKey(e, t = new Date(), r = {}, i = ne) {
     var _this50 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this50.verifyPrimaryKey(t, r, i);
       const n = _this50.keyPacket,
         a = _this50.subkeys.slice().sort((e, t) => t.keyPacket.created - e.keyPacket.created);
@@ -241574,7 +241574,7 @@ class lh {
   }
   isRevoked(e, t, r = new Date(), i = ne) {
     var _this51 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       return th(_this51.keyPacket, $.signature.keyRevocation, {
         key: _this51.keyPacket
       }, _this51.revocationSignatures, e, t, r, i);
@@ -241582,7 +241582,7 @@ class lh {
   }
   verifyPrimaryKey(e = new Date(), t = {}, r = ne) {
     var _this52 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this52.keyPacket;
       if (yield _this52.isRevoked(null, null, e, r)) throw Error("Primary key is revoked");
       const {
@@ -241597,7 +241597,7 @@ class lh {
   }
   getExpirationTime(e, t = ne) {
     var _this53 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let r;
       try {
         const {
@@ -241620,7 +241620,7 @@ class lh {
   }
   getPrimaryUser(e = new Date(), t = {}, r = ne) {
     var _this54 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this54.keyPacket,
         n = [];
       let a;
@@ -241643,7 +241643,7 @@ class lh {
       }
       if (!n.length) throw a || Error("Could not find primary user");
       yield Promise.all(n.map( /*#__PURE__*/function () {
-        var _ref100 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+        var _ref100 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
           return t.selfCertification.revoked || t.user.isRevoked(t.selfCertification, null, e, r);
         });
         return function (_x365) {
@@ -241665,7 +241665,7 @@ class lh {
   }
   update(e, t = new Date(), r = ne) {
     var _this55 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this55.hasSameFingerprintAs(e)) throw Error("Primary key fingerprints must be equal to update the key");
       if (!_this55.isPrivate() && e.isPrivate()) {
         if (!(_this55.subkeys.length === e.subkeys.length && _this55.subkeys.every(t => e.subkeys.some(e => t.hasSameFingerprintAs(e))))) throw Error("Cannot update public key with private key if subkeys mismatch");
@@ -241673,7 +241673,7 @@ class lh {
       }
       const i = _this55.clone();
       return yield eh(e, i, "revocationSignatures", t, n => th(i.keyPacket, $.signature.keyRevocation, i, [n], null, e.keyPacket, t, r)), yield eh(e, i, "directSignatures", t), yield Promise.all(e.users.map( /*#__PURE__*/function () {
-        var _ref101 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref101 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           const n = i.users.filter(t => e.userID && e.userID.equals(t.userID) || e.userAttribute && e.userAttribute.equals(t.userAttribute));
           if (n.length > 0) yield Promise.all(n.map(i => i.update(e, t, r)));else {
             const t = e.clone();
@@ -241684,7 +241684,7 @@ class lh {
           return _ref101.apply(this, arguments);
         };
       }())), yield Promise.all(e.subkeys.map( /*#__PURE__*/function () {
-        var _ref102 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref102 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           const n = i.subkeys.filter(t => t.hasSameFingerprintAs(e));
           if (n.length > 0) yield Promise.all(n.map(i => i.update(e, t, r)));else {
             const t = e.clone();
@@ -241699,7 +241699,7 @@ class lh {
   }
   getRevocationCertificate(e = new Date(), t = ne) {
     var _this56 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const r = {
           key: _this56.keyPacket
         },
@@ -241710,7 +241710,7 @@ class lh {
   }
   applyRevocationCertificate(e, t = new Date(), r = ne) {
     var _this57 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = yield fe(e, r),
         n = (yield lu.fromBinary(i.data, hh, r)).findPacket($.packet.signature);
       if (!n || n.signatureType !== $.signature.keyRevocation) throw Error("Could not find revocation signature packet");
@@ -241728,7 +241728,7 @@ class lh {
   }
   signPrimaryUser(e, t, r, i = ne) {
     var _this58 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const {
           index: n,
           user: a
@@ -241740,7 +241740,7 @@ class lh {
   }
   signAllUsers(e, t = new Date(), r = ne) {
     var _this59 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this59.clone();
       return i.users = yield Promise.all(_this59.users.map(function (i) {
         return i.certify(e, t, r);
@@ -241749,7 +241749,7 @@ class lh {
   }
   verifyPrimaryUser(e, t = new Date(), r, i = ne) {
     var _this60 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = _this60.keyPacket,
         {
           user: a
@@ -241762,11 +241762,11 @@ class lh {
   }
   verifyAllUsers(e, t = new Date(), r = ne) {
     var _this61 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this61.keyPacket,
         n = [];
       return yield Promise.all(_this61.users.map( /*#__PURE__*/function () {
-        var _ref103 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (a) {
+        var _ref103 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (a) {
           const s = e ? yield a.verifyAllCertifications(e, t, r) : [{
             keyID: i.getKeyID(),
             valid: yield a.verify(t, r).catch(() => !1)
@@ -241835,7 +241835,7 @@ class yh extends ph {
   }
   getDecryptionKeys(e, t = new Date(), r = {}, i = ne) {
     var _this62 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = _this62.keyPacket,
         a = [];
       for (let r = 0; r < _this62.subkeys.length; r++) if (!e || _this62.subkeys[r].getKeyID().equals(e, !0)) try {
@@ -241856,7 +241856,7 @@ class yh extends ph {
   }
   validate(e = ne) {
     var _this63 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this63.isPrivate()) throw Error("Cannot validate a public key");
       let t;
       if (_this63.keyPacket.isDummy()) {
@@ -241873,7 +241873,7 @@ class yh extends ph {
           t = e.map(e => e.keyPacket.isDummy()).every(Boolean);
         if (t) throw Error("Cannot validate an all-gnu-dummy key");
         return Promise.all(e.map( /*#__PURE__*/function () {
-          var _ref104 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+          var _ref104 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
             return e.keyPacket.validate();
           });
           return function (_x369) {
@@ -241895,7 +241895,7 @@ class yh extends ph {
     string: t = ""
   } = {}, r = new Date(), i = ne) {
     var _this64 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (!_this64.isPrivate()) throw Error("Need private key for revoking");
       const n = {
           key: _this64.keyPacket
@@ -241910,7 +241910,7 @@ class yh extends ph {
   }
   addSubkey(e = {}) {
     var _this65 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const t = {
         ...ne,
         ...e.config
@@ -241944,9 +241944,9 @@ function gh(_x370, _x371, _x372, _x373) {
   return _gh.apply(this, arguments);
 }
 function _gh() {
-  _gh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
+  _gh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i) {
     r.passphrase && (yield e.encrypt(r.passphrase, i)), yield Promise.all(t.map( /*#__PURE__*/function () {
-      var _ref158 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+      var _ref158 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
         const n = r.subkeys[t].passphrase;
         n && (yield e.encrypt(n, i));
       });
@@ -241956,7 +241956,7 @@ function _gh() {
     }()));
     const n = new lu();
     n.push(e), yield Promise.all(r.userIDs.map( /*#__PURE__*/function () {
-      var _ref159 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, n) {
+      var _ref159 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, n) {
         function a(e, t) {
           return [t, ...e.filter(e => e !== t)];
         }
@@ -241981,7 +241981,7 @@ function _gh() {
         n.push(e), n.push(t);
       });
     }), yield Promise.all(t.map( /*#__PURE__*/function () {
-      var _ref160 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, n) {
+      var _ref160 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, n) {
         const a = r.subkeys[n];
         return {
           secretSubkeyPacket: t,
@@ -242007,7 +242007,7 @@ function _gh() {
       reasonForRevocationFlag: $.reasonForRevocation.noReason,
       reasonForRevocationString: ""
     }, r.date, void 0, void 0, void 0, i)), r.passphrase && e.clearPrivateParams(), yield Promise.all(t.map( /*#__PURE__*/function () {
-      var _ref161 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+      var _ref161 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
         r.subkeys[t].passphrase && e.clearPrivateParams();
       });
       return function (_x521, _x522) {
@@ -242021,7 +242021,7 @@ function wh(_x374) {
   return _wh.apply(this, arguments);
 }
 function _wh() {
-  _wh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _wh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     armoredKey: e,
     binaryKey: t,
     config: r,
@@ -242052,7 +242052,7 @@ function vh(_x375) {
   return _vh.apply(this, arguments);
 }
 function _vh() {
-  _vh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _vh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     armoredKey: e,
     binaryKey: t,
     config: r,
@@ -242084,7 +242084,7 @@ function _h(_x376) {
   return _h2.apply(this, arguments);
 }
 function _h2() {
-  _h2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _h2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     armoredKeys: e,
     binaryKeys: t,
     config: r,
@@ -242124,7 +242124,7 @@ function kh(_x377) {
   return _kh.apply(this, arguments);
 }
 function _kh() {
-  _kh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _kh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     armoredKeys: e,
     binaryKeys: t,
     config: r
@@ -242179,14 +242179,14 @@ class Ph {
   }
   decrypt(e, t, r, i = new Date(), n = ne) {
     var _this66 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const a = r || (yield _this66.decryptSessionKeys(e, t, i, n)),
         s = _this66.packets.filterByTag($.packet.symmetricallyEncryptedData, $.packet.symEncryptedIntegrityProtectedData, $.packet.aeadEncryptedData);
       if (0 === s.length) throw Error("No encrypted data found");
       const o = s[0];
       let c = null;
       const u = Promise.all(a.map( /*#__PURE__*/function () {
-        var _ref105 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+        var _ref105 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
           algorithm: e,
           data: t
         }) {
@@ -242209,17 +242209,17 @@ class Ph {
   }
   decryptSessionKeys(e, t, r = new Date(), i = ne) {
     var _this67 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       let n,
         a = [];
       if (t) {
         const e = _this67.packets.filterByTag($.packet.symEncryptedSessionKey);
         if (0 === e.length) throw Error("No symmetrically encrypted session key packet found.");
         yield Promise.all(t.map( /*#__PURE__*/function () {
-          var _ref106 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+          var _ref106 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
             let n;
             n = r ? yield lu.fromBinary(e.write(), Sh, i) : e, yield Promise.all(n.map( /*#__PURE__*/function () {
-              var _ref107 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+              var _ref107 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
                 try {
                   yield e.decrypt(t), a.push(e);
                 } catch (e) {
@@ -242241,9 +242241,9 @@ class Ph {
           const t = _this67.packets.filterByTag($.packet.publicKeyEncryptedSessionKey);
           if (0 === t.length) throw Error("No public key encrypted session key packet found.");
           yield Promise.all(t.map( /*#__PURE__*/function () {
-            var _ref108 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+            var _ref108 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
               yield Promise.all(e.map( /*#__PURE__*/function () {
-                var _ref109 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+                var _ref109 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
                   let s = [$.symmetric.aes256, $.symmetric.aes128, $.symmetric.tripledes, $.symmetric.cast5];
                   try {
                     const t = yield e.getPrimaryUser(r, void 0, i);
@@ -242251,13 +242251,13 @@ class Ph {
                   } catch (e) {}
                   const o = (yield e.getDecryptionKeys(t.publicKeyID, null, void 0, i)).map(e => e.keyPacket);
                   yield Promise.all(o.map( /*#__PURE__*/function () {
-                    var _ref110 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+                    var _ref110 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
                       if (!e || e.isDummy()) return;
                       if (!e.isDecrypted()) throw Error("Decryption key is not decrypted.");
                       if (i.constantTimePKCS1Decryption && (t.publicKeyAlgorithm === $.publicKey.rsaEncrypt || t.publicKeyAlgorithm === $.publicKey.rsaEncryptSign || t.publicKeyAlgorithm === $.publicKey.rsaSign || t.publicKeyAlgorithm === $.publicKey.elgamal)) {
                         const r = t.write();
                         yield Promise.all(Array.from(i.constantTimePKCS1DecryptionSupportedSymmetricAlgorithms).map( /*#__PURE__*/function () {
-                          var _ref111 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
+                          var _ref111 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t) {
                             const i = new xu();
                             i.read(r);
                             const s = {
@@ -242326,14 +242326,14 @@ class Ph {
     return e ? e.getText() : null;
   }
   static generateSessionKey(e = [], t = new Date(), r = [], i = ne) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const n = yield Qu("symmetric", e, t, r, i),
         a = $.read($.symmetric, n),
         s = i.aeadProtect && (yield function () {
-          var _ref112 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = new Date(), r = [], i = ne) {
+          var _ref112 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t = new Date(), r = [], i = ne) {
             let n = !0;
             return yield Promise.all(e.map( /*#__PURE__*/function () {
-              var _ref113 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, a) {
+              var _ref113 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, a) {
                 const s = yield e.getPrimaryUser(t, r[a], i);
                 s.selfCertification.features && s.selfCertification.features[0] & $.features.aead || (n = !1);
               });
@@ -242358,7 +242358,7 @@ class Ph {
   }
   encrypt(e, t, r, i = !1, n = [], a = new Date(), s = [], o = ne) {
     var _this68 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       if (r) {
         if (!X.isUint8Array(r.data) || !X.isString(r.algorithm)) throw Error("Invalid session key for encryption.");
       } else if (e && e.length) r = yield Ph.generateSessionKey(e, a, s, o);else {
@@ -242378,13 +242378,13 @@ class Ph {
     })();
   }
   static encryptSessionKey(e, t, r, i, n, a = !1, s = [], o = new Date(), c = [], u = ne) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const h = new lu(),
         d = $.write($.symmetric, t),
         f = r && $.write($.aead, r);
       if (i) {
         const t = yield Promise.all(i.map( /*#__PURE__*/function () {
-          var _ref114 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+          var _ref114 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
             const i = yield t.getEncryptionKey(s[r], o, c, u),
               n = new xu();
             return n.publicKeyID = a ? pe.wildcard() : i.getKeyID(), n.publicKeyAlgorithm = i.keyPacket.algorithm, n.sessionKey = e, n.sessionKeyAlgorithm = d, yield n.encrypt(i.keyPacket), delete n.sessionKey, n;
@@ -242397,7 +242397,7 @@ class Ph {
       }
       if (n) {
         const t = /*#__PURE__*/function () {
-            var _ref115 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, _t2) {
+            var _ref115 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, _t2) {
               try {
                 return yield e.decrypt(_t2), 1;
               } catch (e) {
@@ -242410,7 +242410,7 @@ class Ph {
           }(),
           r = (e, t) => e + t,
           _i2 = /*#__PURE__*/function () {
-            var _ref116 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, a, s, o) {
+            var _ref116 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, a, s, o) {
               const c = new Cu(u);
               if (c.sessionKey = e, c.sessionKeyAlgorithm = a, s && (c.aeadAlgorithm = s), yield c.encrypt(o, u), u.passwordCollisionCheck) {
                 if (1 !== (yield Promise.all(n.map(e => t(c, e)))).reduce(r)) return _i2(e, a, o);
@@ -242429,7 +242429,7 @@ class Ph {
   }
   sign(e = [], t = null, r = [], i = new Date(), n = [], a = [], s = ne) {
     var _this69 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const o = new lu(),
         c = _this69.packets.findPacket($.packet.literalData);
       if (!c) throw Error("No literal data packet to sign.");
@@ -242441,7 +242441,7 @@ class Ph {
         r.signatureType = t.signatureType, r.hashAlgorithm = t.hashAlgorithm, r.publicKeyAlgorithm = t.publicKeyAlgorithm, r.issuerKeyID = t.issuerKeyID, e.length || 0 !== u || (r.flags = 1), o.push(r);
       }
       return yield Promise.all(Array.from(e).reverse().map( /*#__PURE__*/function () {
-        var _ref117 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, a) {
+        var _ref117 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, a) {
           if (!t.isPrivate()) throw Error("Need private key for signing");
           const o = r[e.length - 1 - a],
             c = yield t.getSigningKey(o, i, n, s),
@@ -242465,7 +242465,7 @@ class Ph {
   }
   signDetached(e = [], t = null, r = [], i = new Date(), n = [], a = [], s = ne) {
     var _this70 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const o = _this70.packets.findPacket($.packet.literalData);
       if (!o) throw Error("No literal data packet to sign.");
       return new Hu(yield xh(o, e, t, r, i, n, a, !0, s));
@@ -242473,7 +242473,7 @@ class Ph {
   }
   verify(e, t = new Date(), r = ne) {
     var _this71 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const i = _this71.unwrapCompressed(),
         n = i.packets.filterByTag($.packet.literalData);
       if (1 !== n.length) throw Error("Can only verify message with one literal data packet.");
@@ -242481,10 +242481,10 @@ class Ph {
       const a = i.packets.filterByTag($.packet.onePassSignature).reverse(),
         o = i.packets.filterByTag($.packet.signature);
       return a.length && !o.length && X.isStream(i.packets.stream) && !s(i.packets.stream) ? (yield Promise.all(a.map( /*#__PURE__*/function () {
-        var _ref118 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+        var _ref118 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
           e.correspondingSig = new Promise((t, r) => {
             e.correspondingSigResolve = t, e.correspondingSigReject = r;
-          }), e.signatureData = H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+          }), e.signatureData = H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
             return (yield e.correspondingSig).signatureData;
           })), e.hashed = N(yield e.hash(e.signatureType, n[0], void 0, !1)), e.hashed.catch(() => {});
         });
@@ -242492,7 +242492,7 @@ class Ph {
           return _ref118.apply(this, arguments);
         };
       }())), i.packets.stream = T(i.packets.stream, /*#__PURE__*/function () {
-        var _ref120 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+        var _ref120 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
           const r = C(e),
             i = D(t);
           try {
@@ -242526,7 +242526,7 @@ class Ph {
   }
   appendSignature(e, t = ne) {
     var _this72 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       yield _this72.packets.read(X.isUint8Array(e) ? e : (yield fe(e)).data, Eh, t);
     })();
   }
@@ -242541,11 +242541,11 @@ function xh(_x402, _x403) {
   return _xh.apply(this, arguments);
 }
 function _xh() {
-  _xh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r = null, i = [], n = new Date(), a = [], s = [], o = !1, c = ne) {
+  _xh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r = null, i = [], n = new Date(), a = [], s = [], o = !1, c = ne) {
     const u = new lu(),
       h = null === e.text ? $.signature.binary : $.signature.text;
     if (yield Promise.all(t.map( /*#__PURE__*/function () {
-      var _ref162 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+      var _ref162 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
         const u = a[r];
         if (!t.isPrivate()) throw Error("Need private key for signing");
         const d = yield t.getSigningKey(i[r], n, u, c);
@@ -242570,13 +242570,13 @@ function Mh(_x404, _x405, _x406) {
   return _Mh.apply(this, arguments);
 }
 function _Mh() {
-  _Mh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i = new Date(), n = !1, a = ne) {
+  _Mh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i = new Date(), n = !1, a = ne) {
     return Promise.all(e.filter(function (e) {
       return ["text", "binary"].includes($.read($.signature, e.signatureType));
     }).map( /*#__PURE__*/function () {
-      var _ref163 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+      var _ref163 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
         return function () {
-          var _ref164 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i = new Date(), n = !1, a = ne) {
+          var _ref164 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r, i = new Date(), n = !1, a = ne) {
             let s, o;
             for (const t of r) {
               const r = t.getKeys(e.issuerKeyID);
@@ -242588,7 +242588,7 @@ function _Mh() {
             const c = e instanceof du ? e.correspondingSig : e,
               u = {
                 keyID: e.issuerKeyID,
-                verified: (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+                verified: (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
                   if (!o) throw Error("Could not find signing key with key ID " + e.issuerKeyID.toHex());
                   yield e.verify(o.keyPacket, e.signatureType, t[0], i, n, a);
                   const r = yield c;
@@ -242601,7 +242601,7 @@ function _Mh() {
                   }
                   return !0;
                 })(),
-                signature: (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+                signature: (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
                   const e = yield c,
                     t = new lu();
                   return e && t.push(e), new Hu(t);
@@ -242625,7 +242625,7 @@ function Kh(_x407) {
   return _Kh.apply(this, arguments);
 }
 function _Kh() {
-  _Kh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Kh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     armoredMessage: e,
     binaryMessage: t,
     config: r,
@@ -242660,7 +242660,7 @@ function Ch(_x408) {
   return _Ch.apply(this, arguments);
 }
 function _Ch() {
-  _Ch = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Ch = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     text: e,
     binary: t,
     filename: r,
@@ -242699,7 +242699,7 @@ class Uh {
   }
   sign(e, t = null, r = [], i = new Date(), n = [], a = [], s = ne) {
     var _this73 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const o = new su();
       o.setText(_this73.text);
       const c = new Hu(yield xh(o, e, t, r, i, n, a, !0, s));
@@ -242733,7 +242733,7 @@ function Rh(_x409) {
   return _Rh.apply(this, arguments);
 }
 function _Rh() {
-  _Rh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Rh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     cleartextMessage: e,
     config: t,
     ...r
@@ -242778,7 +242778,7 @@ function Ih(_x410) {
   return _Ih.apply(this, arguments);
 }
 function _Ih() {
-  _Ih = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Ih = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     text: e,
     ...t
   }) {
@@ -242794,7 +242794,7 @@ function Bh(_x411) {
   return _Bh.apply(this, arguments);
 }
 function _Bh() {
-  _Bh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Bh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     userIDs: e = [],
     passphrase: t,
     type: r = "ecc",
@@ -242830,7 +242830,7 @@ function _Bh() {
         key: e,
         revocationCertificate: t
       } = yield function () {
-        var _ref167 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+        var _ref167 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
           e.sign = !0, (e = ih(e)).subkeys = e.subkeys.map((t, r) => ih(e.subkeys[r], e));
           let r = [Vu(e, t)];
           r = r.concat(e.subkeys.map(e => Gu(e, t)));
@@ -242863,7 +242863,7 @@ function Th(_x412) {
   return _Th.apply(this, arguments);
 }
 function _Th() {
-  _Th = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Th = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     privateKey: e,
     userIDs: t = [],
     passphrase: r,
@@ -242892,7 +242892,7 @@ function _Th() {
         key: e,
         revocationCertificate: t
       } = yield function () {
-        var _ref168 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+        var _ref168 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
           e = o(e);
           const {
             privateKey: r
@@ -242904,7 +242904,7 @@ function _Th() {
           }) => e.isDecrypted())) throw Error("Key is not decrypted");
           const i = r.keyPacket;
           e.subkeys || (e.subkeys = yield Promise.all(r.subkeys.map( /*#__PURE__*/function () {
-            var _ref169 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
+            var _ref169 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e) {
               const r = e.keyPacket,
                 n = {
                   key: i,
@@ -242951,7 +242951,7 @@ function zh(_x413) {
   return _zh.apply(this, arguments);
 }
 function _zh() {
-  _zh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _zh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     key: e,
     revocationCertificate: t,
     reasonForRevocation: r,
@@ -242985,7 +242985,7 @@ function qh(_x414) {
   return _qh.apply(this, arguments);
 }
 function _qh() {
-  _qh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _qh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     privateKey: e,
     passphrase: t,
     config: r,
@@ -243012,7 +243012,7 @@ function Fh(_x415) {
   return _Fh.apply(this, arguments);
 }
 function _Fh() {
-  _Fh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Fh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     privateKey: e,
     passphrase: t,
     config: r,
@@ -243031,7 +243031,7 @@ function _Fh() {
     if (o.length !== s.length) throw Error("Invalid number of passphrases given for key encryption");
     try {
       return yield Promise.all(s.map( /*#__PURE__*/function () {
-        var _ref170 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+        var _ref170 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
           const {
             keyPacket: i
           } = e;
@@ -243051,7 +243051,7 @@ function Oh(_x416) {
   return _Oh.apply(this, arguments);
 }
 function _Oh() {
-  _Oh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Oh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     message: e,
     encryptionKeys: t,
     signingKeys: r,
@@ -243094,7 +243094,7 @@ function Lh(_x417) {
   return _Lh.apply(this, arguments);
 }
 function _Lh() {
-  _Lh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Lh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     message: e,
     decryptionKeys: t,
     passwords: r,
@@ -243121,7 +243121,7 @@ function _Lh() {
       if (d.signatures = o ? yield h.verifyDetached(o, n, c, u) : yield h.verify(n, c, u), d.data = "binary" === s ? h.getLiteralData() : h.getText(), d.filename = h.getFilename(), ed(d, e), a) {
         if (0 === n.length) throw Error("Verification keys are required to verify message signatures");
         if (0 === d.signatures.length) throw Error("Message is not signed");
-        d.data = K([d.data, H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        d.data = K([d.data, H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           yield X.anyPromise(d.signatures.map(e => e.verified));
         }))]);
       }
@@ -243136,7 +243136,7 @@ function Nh(_x418) {
   return _Nh.apply(this, arguments);
 }
 function _Nh() {
-  _Nh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Nh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     message: e,
     signingKeys: t,
     format: r = "armored",
@@ -243163,7 +243163,7 @@ function _Nh() {
       if (u = i ? yield e.signDetached(t, void 0, n, a, s, o, c) : yield e.sign(t, void 0, n, a, s, o, c), "object" === r) return u;
       const h = "armored" === r;
       return u = h ? u.armor(c) : u.write(), i && (u = T(e.packets.write(), /*#__PURE__*/function () {
-        var _ref172 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
+        var _ref172 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t) {
           yield Promise.all([U(u, t), N(e).catch(() => {})]);
         });
         return function (_x536, _x537) {
@@ -243180,7 +243180,7 @@ function jh(_x419) {
   return _jh.apply(this, arguments);
 }
 function _jh() {
-  _jh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _jh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     message: e,
     verificationKeys: t,
     expectSigned: r = !1,
@@ -243202,7 +243202,7 @@ function _jh() {
       const o = {};
       if (o.signatures = n ? yield e.verifyDetached(n, t, a, s) : yield e.verify(t, a, s), o.data = "binary" === i ? e.getLiteralData() : e.getText(), e.fromStream && !n && ed(o, e), r) {
         if (0 === o.signatures.length) throw Error("Message is not signed");
-        o.data = K([o.data, H( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        o.data = K([o.data, H( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           yield X.anyPromise(o.signatures.map(e => e.verified));
         }))]);
       }
@@ -243217,7 +243217,7 @@ function Hh(_x420) {
   return _Hh.apply(this, arguments);
 }
 function _Hh() {
-  _Hh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Hh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     encryptionKeys: e,
     date: t = new Date(),
     encryptionUserIDs: r = [],
@@ -243242,7 +243242,7 @@ function Wh(_x421) {
   return _Wh.apply(this, arguments);
 }
 function _Wh() {
-  _Wh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Wh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     data: e,
     algorithm: t,
     aeadAlgorithm: r,
@@ -243279,7 +243279,7 @@ function Gh(_x422) {
   return _Gh.apply(this, arguments);
 }
 function _Gh() {
-  _Gh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
+  _Gh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* ({
     message: e,
     decryptionKeys: t,
     passwords: r,
@@ -243322,7 +243322,7 @@ function Jh(_x423, _x424) {
   return _Jh.apply(this, arguments);
 }
 function _Jh() {
-  _Jh = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r = "utf8") {
+  _Jh = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (e, t, r = "utf8") {
     const i = X.isStream(e);
     return "array" === i ? N(e) : "node" === t ? (e = b(e), "binary" !== r && e.setEncoding(r), e) : "web" === t && "ponyfill" === i ? _(e) : e;
   });
@@ -243330,7 +243330,7 @@ function _Jh() {
 }
 function ed(e, t) {
   e.data = T(t.packets.stream, /*#__PURE__*/function () {
-    var _ref121 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
+    var _ref121 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (t, r) {
       yield U(e.data, r, {
         preventClose: !0
       });
@@ -282688,7 +282688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "void": () => (/* binding */ voidType),
 /* harmony export */   z: () => (/* binding */ z)
 /* harmony export */ });
-/* harmony import */ var _Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
+/* harmony import */ var _Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 81890);
 
 var util;
 (function (util) {
@@ -283076,7 +283076,7 @@ class ParseStatus {
     };
   }
   static mergeObjectAsync(status, pairs) {
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const syncPairs = [];
       for (const pair of pairs) {
         const key = yield pair.key;
@@ -283360,7 +283360,7 @@ class ZodType {
   }
   parseAsync(data, params) {
     var _this = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const result = yield _this.safeParseAsync(data, params);
       if (result.success) return result.data;
       throw result.error;
@@ -283368,7 +283368,7 @@ class ZodType {
   }
   safeParseAsync(data, params) {
     var _this2 = this;
-    return (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const ctx = {
         common: {
           issues: [],
@@ -285218,7 +285218,7 @@ class ZodObject extends ZodType {
       }
     }
     if (ctx.common.async) {
-      return Promise.resolve().then( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return Promise.resolve().then( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         const syncPairs = [];
         for (const pair of pairs) {
           const key = yield pair.key;
@@ -285506,7 +285506,7 @@ class ZodUnion extends ZodType {
     }
     if (ctx.common.async) {
       return Promise.all(options.map( /*#__PURE__*/function () {
-        var _ref2 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (option) {
+        var _ref2 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (option) {
           const childCtx = {
             ...ctx,
             common: {
@@ -285971,7 +285971,7 @@ class ZodMap extends ZodType {
     });
     if (ctx.common.async) {
       const finalMap = new Map();
-      return Promise.resolve().then( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return Promise.resolve().then( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
         for (const pair of pairs) {
           const key = yield pair.key;
           const value = yield pair.value;
@@ -286159,7 +286159,7 @@ class ZodFunction extends ZodType {
       // an alias (using an arrow function was what caused 2651).
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const me = this;
-      return OK( /*#__PURE__*/(0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (...args) {
+      return OK( /*#__PURE__*/(0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (...args) {
         const error = new ZodError([]);
         const parsedArgs = yield me._def.args.parseAsync(args, params).catch(e => {
           error.addIssue(makeArgsIssue(args, e));
@@ -286460,7 +286460,7 @@ class ZodEffects extends ZodType {
       const processed = effect.transform(ctx.data, checkCtx);
       if (ctx.common.async) {
         return Promise.resolve(processed).then( /*#__PURE__*/function () {
-          var _ref5 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (processed) {
+          var _ref5 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (processed) {
             if (status.value === "aborted") return INVALID;
             const result = yield _this3._def.schema._parseAsync({
               data: processed,
@@ -286754,7 +286754,7 @@ class ZodPipeline extends ZodType {
     } = this._processInputParams(input);
     if (ctx.common.async) {
       const handleAsync = /*#__PURE__*/function () {
-        var _ref6 = (0,_Users_ashbrnphnx_Code_zelf_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+        var _ref6 = (0,_Users_miguel_verifik_verifik_wallet_extension_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
           const inResult = yield _this4._def.in._parseAsync({
             data: ctx.data,
             path: ctx.path,

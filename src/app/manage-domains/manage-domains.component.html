@@ -1,0 +1,174 @@
+<div class="manage-domains" *transloco="let t">
+    <div class="manage-domains__header">
+        <div class="manage-domains__col1">
+            <button mat-icon-button mat-flat-button class="manage-domains__top-button" [routerLink]="['/home']">
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="manage-domains__col2">
+            <p class="manage-domains__title">{{ t("manage_domains") }}</p>
+        </div>
+
+        <div class="manage-domains__col3">
+            <button mat-icon-button mat-flat-button class="manage-domains__top-button" [routerLink]="['/onboarding']">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16 10.1673H10.1667V16.0007C10.1667 16.6423 9.64168 17.1673 9.00001 17.1673C8.35834 17.1673 7.83334 16.6423 7.83334 16.0007V10.1673H2.00001C1.35834 10.1673 0.833344 9.64232 0.833344 9.00065C0.833344 8.35898 1.35834 7.83398 2.00001 7.83398H7.83334V2.00065C7.83334 1.35898 8.35834 0.833984 9.00001 0.833984C9.64168 0.833984 10.1667 1.35898 10.1667 2.00065V7.83398H16C16.6417 7.83398 17.1667 8.35898 17.1667 9.00065C17.1667 9.64232 16.6417 10.1673 16 10.1673Z"
+                    />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="manage-domains__content">
+        <div class="ripple ripple--96" *ngIf="loading"></div>
+
+        <ng-container *ngIf="!loading">
+            <div class="domains">
+                <div class="domain" *ngFor="let wallet of wallets">
+                    <div class="domain__display">
+                        <div class="domain__dots">
+                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4 14C4 15.1 3.1 16 2 16C0.9 16 0 15.1 0 14C0 12.9 0.9 12 2 12C3.1 12 4 12.9 4 14ZM2 6C0.9 6 0 6.9 0 8C0 9.1 0.9 10 2 10C3.1 10 4 9.1 4 8C4 6.9 3.1 6 2 6ZM2 0C0.9 0 0 0.9 0 2C0 3.1 0.9 4 2 4C3.1 4 4 3.1 4 2C4 0.9 3.1 0 2 0ZM8 4C9.1 4 10 3.1 10 2C10 0.9 9.1 0 8 0C6.9 0 6 0.9 6 2C6 3.1 6.9 4 8 4ZM8 6C6.9 6 6 6.9 6 8C6 9.1 6.9 10 8 10C9.1 10 10 9.1 10 8C10 6.9 9.1 6 8 6ZM8 12C6.9 12 6 12.9 6 14C6 15.1 6.9 16 8 16C9.1 16 10 15.1 10 14C10 12.9 9.1 12 8 12Z"
+                                    fill="#96939E"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="domain__clickable" [routerLink]="['/domain', { zelfName: wallet.publicData.zelfName | zelfName : 18 }]">
+                            <div
+                                class="domain__avatar"
+                                [ngClass]="{
+                                    'domain__avatar--primary': wallet.publicData.type === 'mainnet',
+                                    'domain__avatar--secondary': wallet.publicData.type === 'hold'
+                                }"
+                            >
+                                <span class="domain__character">{{ wallet.publicData.zelfName | firstLetter }}</span>
+                            </div>
+
+                            <div class="domain__info">
+                                <h4 class="domain__name">{{ wallet.publicData.zelfName | zelfName }}</h4>
+
+                                <div class="domain__status-indicators">
+                                    <div class="domain__status-indicator domain__status-indicator--warning" *ngIf="isExpiringSoon(wallet)">
+                                        <ng-container *ngTemplateOutlet="warningIcon"></ng-container>
+                                    </div>
+
+                                    <div class="domain__status-indicator domain__status-indicator--error" *ngIf="isExpired(wallet)">
+                                        <ng-container *ngTemplateOutlet="errorIcon"></ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button mat-icon-button mat-flat-button class="domain__action" [matMenuTriggerFor]="menu">
+                            <svg width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2 0C0.9 0 0 0.9 0 2C0 3.1 0.9 4 2 4C3.1 4 4 3.1 4 2C4 0.9 3.1 0 2 0ZM14 0C12.9 0 12 0.9 12 2C12 3.1 12.9 4 14 4C15.1 4 16 3.1 16 2C16 0.9 15.1 0 14 0ZM8 0C6.9 0 6 0.9 6 2C6 3.1 6.9 4 8 4C9.1 4 10 3.1 10 2C10 0.9 9.1 0 8 0Z"
+                                />
+                            </svg>
+                        </button>
+
+                        <mat-menu class="zelf-menu" #menu>
+                            <button class="zelf-menu__button zelf-menu__button--icon-end" mat-menu-item (click)="logoutOfWallet(wallet)">
+                                <span class="zelf-menu__button-text">{{ t("logout") }}</span>
+
+                                <mat-icon class="zelf-menu__button-icon">
+                                    <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.09 1.41L14.67 5H0.5V7H14.67L11.08 10.59L12.5 12L18.5 6L12.5 0L11.09 1.41ZM19.5 0V12H21.5V0H19.5Z"
+                                        />
+                                    </svg>
+                                </mat-icon>
+                            </button>
+                        </mat-menu>
+                    </div>
+
+                    <div class="domain-detail" *ngIf="showDetails(wallet)">
+                        <div class="domain-detail__row">
+                            <div class="domain-detail__icon domain-detail__icon--warning" *ngIf="isExpiringSoon(wallet)">
+                                <ng-container *ngTemplateOutlet="warningIcon"></ng-container>
+                            </div>
+
+                            <div class="domain-detail__icon domain-detail__icon--error" *ngIf="isExpired(wallet)">
+                                <ng-container *ngTemplateOutlet="errorIcon"></ng-container>
+                            </div>
+
+                            <p class="domain-detail__text" *ngIf="isExpiringSoon(wallet)">{{ t("domain_warning") }}</p>
+                            <p class="domain-detail__text" *ngIf="isExpired(wallet)">{{ t("domain_error") }}</p>
+
+                            <p class="domain-detail__countdown" *ngIf="isExpiringSoon(wallet)">
+                                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8 13.6673L7.99333 9.66732L5.33333 7.00065L7.99333 4.32732L8 0.333984H0V4.33398L2.66667 7.00065L0 9.66065V13.6673H8ZM1.33333 4.00065V1.66732H6.66667V4.00065L4 6.66732L1.33333 4.00065Z"
+                                    />
+                                </svg>
+
+                                <span>{{ wallet.publicData.expiresAt | timer }}</span>
+                            </p>
+                        </div>
+
+                        <div class="domain-detail__col">
+                            <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" *ngIf="isExpiringSoon(wallet)">
+                                <span>{{ t("buy_now") }}</span>
+
+                                <ng-container *ngTemplateOutlet="zelfLogo"></ng-container>
+                            </button>
+
+                            <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" *ngIf="isExpired(wallet)">
+                                <span>{{ t("renew_domain") }}</span>
+
+                                <ng-container *ngTemplateOutlet="zelfLogo"></ng-container>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="manage-domains__footer">
+            <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" [routerLink]="['/onboarding']">
+                <span>{{ t("purchase_new_domain") }}</span>
+
+                <ng-container *ngTemplateOutlet="zelfLogo"></ng-container>
+            </button>
+        </div>
+    </div>
+
+    <ng-template #zelfLogo>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.00809 0C10.0223 1.37638 11.3245 2.94543 12.9662 4.56695H5.5957C7.19048 2.87796 8.28196 1.25719 9.00961 0H9.00885H9.00809Z" />
+            <path
+                d="M0 9.0219C1.29765 8.39218 3.00233 7.40412 4.71307 5.8928C4.86391 5.75936 5.01171 5.62442 5.15345 5.49023H11.7448C11.7448 5.49023 6.97107 12.2365 4.3591 12.2567C2.20418 12.2739 1.30144 9.82479 0 9.02115L0 9.0219Z"
+            />
+            <path
+                d="M9.42861 17.9992C8.6335 16.9197 7.60948 15.6873 6.31259 14.4121H12.3733C11.0893 15.706 10.1305 16.955 9.42937 17.9992H9.42861Z"
+            />
+            <path
+                d="M13.3339 13.2992C13.2627 13.3621 13.1929 13.4259 13.124 13.4888H6.04755C6.04755 13.4888 10.9001 6.65491 13.5469 6.64066C15.7557 6.62942 16.6705 9.13704 18 9.95792C16.6478 10.7173 15.0015 11.7976 13.3332 13.2992H13.3339Z"
+            />
+        </svg>
+    </ng-template>
+
+    <ng-template #warningIcon>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 15C9.45 15 9 14.55 9 14V10C9 9.45 9.45 9 10 9C10.55 9 11 9.45 11 10V14C11 14.55 10.55 15 10 15ZM11 7H9V5H11V7Z"
+            />
+        </svg>
+    </ng-template>
+
+    <ng-template #errorIcon>
+        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M2.47 17.5036H17.53C19.07 17.5036 20.03 15.8336 19.26 14.5036L11.73 1.49359C10.96 0.163594 9.04 0.163594 8.27 1.49359L0.739999 14.5036C-0.0300008 15.8336 0.929999 17.5036 2.47 17.5036ZM10 10.5036C9.45 10.5036 9 10.0536 9 9.50359V7.50359C9 6.95359 9.45 6.50359 10 6.50359C10.55 6.50359 11 6.95359 11 7.50359V9.50359C11 10.0536 10.55 10.5036 10 10.5036ZM11 14.5036H9V12.5036H11V14.5036Z"
+            />
+        </svg>
+    </ng-template>
+</div>

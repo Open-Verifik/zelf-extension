@@ -1,0 +1,69 @@
+<div class="manage-domain" *transloco="let t">
+	<div class="manage-domain__header">
+		<div class="manage-domain__col1">
+			<button mat-icon-button mat-flat-button class="manage-domain__back" [routerLink]="['/home']">
+				<svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+					/>
+				</svg>
+			</button>
+		</div>
+
+		<div class="manage-domain__col2">
+			<p class="manage-domain__title">{{ t("manage_domain") }}</p>
+		</div>
+
+		<div class="manage-domain__col3"></div>
+	</div>
+
+	<div class="manage-domain__content">
+		<div class="ripple ripple--96" *ngIf="loading"></div>
+
+		<ng-container *ngIf="!loading">
+			<div class="qr-code">
+				<img class="qr-code__image" [src]="wallet.image" />
+
+				<div
+					class="qr-code__status-chip"
+					[ngClass]="{
+                        'qr-code__status-chip--active': !wallet.publicData?.isExpired && wallet.publicData?.type !== 'hold',
+                        'qr-code__status-chip--hold': !wallet.publicData?.isExpired && wallet.publicData?.type === 'hold',
+                        'qr-code__status-chip--inactive': wallet.publicData?.isExpired,
+                    }"
+				>
+					{{ t(getWalletStatus()) }}
+				</div>
+
+				<h4 class="qr-code__name">{{ wallet.publicData?.zelfName || "****.zelf" }}</h4>
+
+				<p class="qr-code__status" *ngIf="wallet.publicData?.type === 'hold'">
+					{{ t("expires_on") }}: {{ wallet.publicData?.expiresAt | date : "dd MMM, yyyy" }}
+				</p>
+
+				<p class="qr-code__status" *ngIf="wallet.publicData?.type === 'lease'">
+					{{ t("lease_expires_on") }}: {{ wallet.publicData?.leaseExpiresAt | date : "dd MMM, yyyy" }}
+				</p>
+			</div>
+
+			<div class="manage-domain__details">
+				<div class="manage-domain__detail">
+					<p class="manage-domain__detail-title">{{ t("lease_until") }}</p>
+
+					<p class="manage-domain__detail-value">{{ wallet.publicData?.leaseExpiresAt | date : "dd MMM, yyyy" }}</p>
+				</div>
+
+				<div class="manage-domain__detail" *ngIf="wallet.publicData?.type === 'purchase'">
+					<p class="manage-domain__detail-title">{{ t("registered_until") }}</p>
+
+					<p class="manage-domain__detail-value">{{ wallet.publicData?.expiresAt | date : "dd MMM, yyyy" }}</p>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+
+	<div class="manage-domain__actions">
+		<button mat-flat-button class="manage-domain__action manage-domain__action--black">{{ t("extend_registration") }}</button>
+		<button mat-flat-button class="manage-domain__action manage-domain__action--outlined">{{ t("buy_another_zelf_name") }}</button>
+	</div>
+</div>

@@ -1,431 +1,418 @@
+import { Buffer } from "buffer";
+import jsQR from "jsqr";
+import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
+
+import { HttpClient } from "@angular/common/http";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { WalletService } from "app/wallet.service";
-import { Observable, debounceTime, distinctUntilChanged, map } from "rxjs";
-import jsQR from "jsqr";
-import { Buffer } from "buffer";
-import { CaptchaService } from "app/captcha.service";
-import { IpfsService } from "app/ipfs.service";
-import { HttpClient } from "@angular/common/http";
-import { Wallet, WalletModel } from "app/wallet";
 import { Router } from "@angular/router";
-import { ZelfNameService } from "app/zelf-name-service.service";
+import { TranslocoService } from "@ngneat/transloco";
+import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
+import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { Wallet, WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
-	selector: "uw-search-wallet",
-	templateUrl: "./uw-search-wallet.component.html",
-	styleUrls: ["../unlock-wallet.component.scss", "../../main.scss"],
-	encapsulation: ViewEncapsulation.None,
+    selector: "uw-search-wallet",
+    templateUrl: "./uw-search-wallet.component.html",
+    styleUrls: ["../unlock-wallet.component.scss", "../../main.scss"],
+    encapsulation: ViewEncapsulation.None,
 })
-export class UwSearchWalletComponent implements OnInit, OnDestroy {
-	searchForm!: UntypedFormGroup;
-	searchQuery$!: Observable<string>;
-	potentialWallet!: Wallet | null;
-	session: any;
-	fileBase64: string | ArrayBuffer | null = null;
-	zelfProof: string | null = null;
-	displayableError: any;
-	unlockQRCode: string;
-	loading: boolean;
-	captchaToken?: string;
+export class UwSearchWalletComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
+    searchForm!: UntypedFormGroup;
+    searchQuery$!: Observable<string>;
+    potentialWallet!: Wallet | null;
+    session: any;
+    fileBase64: string | ArrayBuffer | null = null;
+    zelfProof: string | null = null;
+    displayableError: any;
+    unlockQRCode: string;
+    loading: boolean;
+    captchaToken?: string;
 
-	constructor(
-		private _walletService: WalletService,
-		private _formBuilder: UntypedFormBuilder,
-		private snackBar: MatSnackBar,
-		private _changeDetectorRef: ChangeDetectorRef,
-		private _zelfNameService: ZelfNameService,
-		private _ipfsService: IpfsService,
-		private http: HttpClient,
-		private _router: Router,
-		private _chromeService: ChromeService,
-		private captchaService: CaptchaService
-	) {
-		this.unlockQRCode = "";
+    constructor(
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _formBuilder: UntypedFormBuilder,
+        private _router: Router,
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService,
+        private captchaService: CaptchaService,
+        private http: HttpClient,
+        public _chromeService: ChromeService,
+        public _translocoService: TranslocoService,
+        public snackBar: MatSnackBar
+    ) {
+        super(_chromeService, snackBar, _translocoService);
+
+        this.unlockQRCode = "";
+        this.loading = false;
+        this.displayableError = null;
 
-		this.loading = false;
+        this.session = this._walletService.getSessionData();
 
-		this.session = this._walletService.getSessionData();
+        this._chromeService.removeItem("unlockWallet");
+    }
 
-		this.displayableError = null;
+    async ngOnInit(): Promise<any> {
+        const defaultAddress = "";
 
-		localStorage.removeItem("unlockWallet");
-	}
+        this.searchForm = this._formBuilder.group({
+            address: [defaultAddress, []],
+        });
 
-	async ngOnInit(): Promise<any> {
-		const defaultAddress = "";
+        this.searchQuery$ = this.searchForm.get("address")!.valueChanges.pipe(
+            debounceTime(300), // wait for 300ms pause in events
+            distinctUntilChanged(), // ignore if next search query is same as previous
+            map((value) => value.trim()) // map the value to the trimmed string
+        );
 
-		this.searchForm = this._formBuilder.group({
-			address: [defaultAddress, []],
-		});
+        this.searchQuery$.subscribe((query) => {
+            this.loading = true;
+            this.triggerSearch(query);
+        });
 
-		this.searchQuery$ = this.searchForm.get("address")!.valueChanges.pipe(
-			debounceTime(300), // wait for 300ms pause in events
-			distinctUntilChanged(), // ignore if next search query is same as previous
-			map((value) => value.trim()) // map the value to the trimmed string
-		);
+        const checkingTempWallet = await this._checkForTempWallet();
 
-		this.searchQuery$.subscribe((query) => {
-			this.loading = true;
-			this.triggerSearch(query);
-		});
+        if (!checkingTempWallet) this._checkForZelfFile();
+    }
 
-		const checkingTempWallet = await this._checkForTempWallet();
+    async _checkForTempWallet(): Promise<any> {
+        this.loading = true;
 
-		if (!checkingTempWallet) {
-			this._checkForZelfFile();
-		}
+        const zelfName = await this._chromeService.getItem("currentZelfName");
+        const passedActiveQRCode = await this._chromeService.getItem("tempWalletQrCode");
 
-		// create captcha token
-	}
+        if (!zelfName || !passedActiveQRCode) {
+            this.loading = false;
+            return false;
+        }
 
-	async _checkForTempWallet(): Promise<any> {
-		this.loading = true;
+        this.fileBase64 = passedActiveQRCode;
 
-		const zelfName = await this._chromeService.getItem("currentZelfName");
+        await this._chromeService.removeItem("unlockWallet");
+        await this._chromeService.removeItem("tempWalletAddress");
+        await this._chromeService.removeItem("tempWalletQrCode");
 
-		const passedActiveQRCode = localStorage.getItem("tempWalletQrCode");
+        this._queryZNS("zelfName", zelfName);
 
-		if (!zelfName || !passedActiveQRCode) {
-			this.loading = false;
-			return false;
-		}
+        return true;
+    }
 
-		this.fileBase64 = passedActiveQRCode;
+    async _checkForZelfFile(): Promise<void> {
+        const zelfFile = this._zelfNameService.getZelfFile();
+        const zelfName = await this._zelfNameService.getZelfName();
 
-		setTimeout(() => {
-			localStorage.removeItem("unlockWallet");
+        if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
 
-			localStorage.removeItem("tempWalletAddress");
+        this._formatZelfFile(zelfFile);
+    }
 
-			localStorage.removeItem("tempWalletQrCode");
-		}, 1000);
+    async triggerSearch(query?: string): Promise<void> {
+        if (!query) query = this.searchForm.value.address;
 
-		this._queryZNS("zelfName", zelfName);
+        if (!query) {
+            this.loading = false;
+            return;
+        }
 
-		return true;
-	}
+        try {
+            await this._captchaGeneration();
 
-	_checkForZelfFile(): void {
-		const zelfFile = this._zelfNameService.getZelfFile();
+            const ethResponse = await this._queryZNS("ethAddress", query);
 
-		const zelfName = this._zelfNameService.getZelfName();
+            if (!ethResponse) {
+                await this._captchaGeneration();
 
-		if (!zelfFile && zelfName) this._router.navigate(["/onboarding"]);
+                const solanaResponse = await this._queryZNS("solanaAddress", query);
 
-		this._formatZelfFile(zelfFile);
-	}
+                if (!solanaResponse) {
+                    this._showAccountNotFound("solanaAddress");
+                }
 
-	async triggerSearch(query?: string): Promise<void> {
-		if (!query) query = this.searchForm.value.address;
+                this.loading = false;
+                return;
+            }
 
-		if (!query) {
-			this.loading = false;
-			return;
-		}
+            this.loading = false;
+        } catch (error) {
+            this._showAccountNotFound("ethAddress");
+        }
+    }
 
-		try {
-			await this._captchaGeneration();
+    async _queryZNS(key: string, value: string): Promise<any> {
+        try {
+            const response = await this._zelfNameService.searchZelfName(key, value, this.captchaToken);
 
-			const ethResponse = await this._queryZNS("ethAddress", query);
+            if (!response.data) return null;
 
-			if (!ethResponse) {
-				await this._captchaGeneration();
+            const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
 
-				const solanaResponse = await this._queryZNS("solanaAddress", query);
+            this._formatZelfFile(zelfNameObject);
 
-				if (!solanaResponse) {
-					this._showAccountNotFound("solanaAddress");
-				}
+            this.loading = false;
 
-				this.loading = false;
-				return;
-			}
+            return response; // Return the response if successful
+        } catch (error) {
+            console.error({ error });
 
-			this.loading = false;
-		} catch (error) {
-			this._showAccountNotFound("ethAddress");
-		}
-	}
+            this.loading = false;
 
-	async _queryZNS(key: string, value: string): Promise<any> {
-		try {
-			const response = await this._zelfNameService.searchZelfName(key, value, this.captchaToken);
+            return null; // Return null on error
+        }
+    }
 
-			if (!response.data) return null;
+    _formatZelfFile(zelfFile: any): void {
+        if (!zelfFile) return;
 
-			const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+        const record = {
+            ...zelfFile,
+            image: zelfFile.url,
+            name: zelfFile.zelfName,
+        };
 
-			this._formatZelfFile(zelfNameObject);
+        this.potentialWallet = new WalletModel(record);
 
-			this.loading = false;
+        this.session.hasPassword = this.potentialWallet.hasPassword;
 
-			return response; // Return the response if successful
-		} catch (error) {
-			console.error({ error });
+        this._zelfNameService.setZelfFile(record);
+        this._zelfNameService.setZelfName(record.name, null);
 
-			this.loading = false;
+        const isHold = Boolean(this.potentialWallet.publicData.type === "hold");
 
-			return null; // Return null on error
-		}
-	}
+        if (this.potentialWallet.zelfProof) {
+            this.zelfProof = this.potentialWallet.zelfProof;
+        }
 
-	_formatZelfFile(zelfFile: any): void {
-		if (!zelfFile) return;
+        if (record.zelfProof) {
+            this._zelfNameService.setZelfProof(record.zelfProof);
+        } else if (zelfFile.zelfProofQRCode) {
+            this.decodeQRCode(zelfFile.zelfProofQRCode, isHold ? null : record);
+        }
 
-		const record = {
-			...zelfFile,
-			image: zelfFile.url,
-			name: zelfFile.zelfName,
-		};
+        if (!this.potentialWallet.image || !this.potentialWallet.name) {
+            this._router.navigate(["/onboarding"]);
+        }
+    }
 
-		this.potentialWallet = new WalletModel(record);
+    _setSessionVariables(): void {}
 
-		this.session.hasPassword = this.potentialWallet.hasPassword;
+    _showAccountNotFound(key: string): void {
+        this.snackBar.open(key + " account not found", "OK");
 
-		this._zelfNameService.setZelfFile(record);
+        this.startAgain();
+    }
 
-		this._zelfNameService.setZelfName(record.name, null);
+    goToPayments(): void {
+        // go to https://payment.zelf.world
+        window.open(`https://payment.zelf.world/purchase?zelfName=${this.potentialWallet?.publicData.zelfName}`, "_blank");
+    }
 
-		const isHold = Boolean(this.potentialWallet.publicData.type === "hold");
+    goToNextStep(): void {
+        this._walletService.goToNextStep(this.session.step + 1);
 
-		if (this.potentialWallet.zelfProof) {
-			this.zelfProof = this.potentialWallet.zelfProof;
-		}
+        this.session.identifier = this.potentialWallet?.ethAddress;
+        this.session.usePassword = this.potentialWallet?.hasPassword;
 
-		if (record.zelfProof) {
-			this._zelfNameService.setZelfProof(record.zelfProof);
-		} else if (zelfFile.zelfProofQRCode) {
-			this.decodeQRCode(zelfFile.zelfProofQRCode, isHold ? null : record);
-		}
+        if (!this.potentialWallet?.hasPassword) {
+            this._walletService.goToNextStep(this.session.step + 1);
 
-		if (!this.potentialWallet.image || !this.potentialWallet.name) {
-			this._router.navigate(["/onboarding"]);
-		}
-	}
+            this.session.showBiometricsInstructions = true;
+        }
+    }
 
-	_setSessionVariables(): void {}
+    startAgain(): void {
+        this.potentialWallet = null;
 
-	_showAccountNotFound(key: string): void {
-		this.snackBar.open(key + " account not found", "OK");
+        this.session.identifier = null;
 
-		this.startAgain();
-	}
+        this.zelfProof = null;
 
-	goToPayments(): void {
-		// go to https://payment.zelf.world
-		window.open(`https://payment.zelf.world/purchase?zelfName=${this.potentialWallet?.publicData.zelfName}`, "_blank");
-	}
+        this.loading = false;
 
-	goToNextStep(): void {
-		this._walletService.goToNextStep(this.session.step + 1);
+        this.searchForm.patchValue({ address: "" });
+    }
 
-		this.session.identifier = this.potentialWallet?.ethAddress;
+    // Method to handle file selection
+    async onFileSelected(event: Event): Promise<any> {
+        const input = event.target as HTMLInputElement;
 
-		this.session.usePassword = this.potentialWallet?.hasPassword;
+        if (!input || !input.files || !input.files.length) return;
 
-		if (!this.potentialWallet?.hasPassword) {
-			this._walletService.goToNextStep(this.session.step + 1);
+        const file = input.files[0];
 
-			this.session.showBiometricsInstructions = true;
-		}
-	}
+        this.loading = true;
 
-	startAgain(): void {
-		this.potentialWallet = null;
+        await this._captchaGeneration();
 
-		this.session.identifier = null;
+        this.handleFile(file);
+    }
 
-		this.zelfProof = null;
+    // Method to handle drag over event
+    onDragOver(event: DragEvent): void {
+        event.preventDefault();
+        event.stopPropagation();
+        // Add any visual indication for drag over
+    }
 
-		this.loading = false;
+    // Method to handle file drop event
+    async onDrop(event: DragEvent): Promise<any> {
+        event.preventDefault();
 
-		this.searchForm.patchValue({ address: "" });
-	}
+        event.stopPropagation();
 
-	// Method to handle file selection
-	async onFileSelected(event: Event): Promise<any> {
-		const input = event.target as HTMLInputElement;
+        if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+            const file = event.dataTransfer.files[0];
 
-		if (!input || !input.files || !input.files.length) return;
+            await this._captchaGeneration();
 
-		const file = input.files[0];
+            this.handleFile(file);
+        }
+    }
 
-		this.loading = true;
+    async _captchaGeneration(): Promise<any> {
+        try {
+            this.captchaToken = await this.captchaService.executeRecaptcha("preview");
+        } catch (error) {
+            console.error("reCAPTCHA failed:", error);
+        }
+    }
 
-		await this._captchaGeneration();
+    // Method to handle drag leave event
+    onDragLeave(event: DragEvent): void {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 
-		this.handleFile(file);
-	}
+    // Method to handle the file
+    handleFile(file: File): void {
+        const reader = new FileReader();
 
-	// Method to handle drag over event
-	onDragOver(event: DragEvent): void {
-		event.preventDefault();
-		event.stopPropagation();
-		// Add any visual indication for drag over
-	}
+        reader.onload = () => {
+            this.fileBase64 = reader.result;
 
-	// Method to handle file drop event
-	async onDrop(event: DragEvent): Promise<any> {
-		event.preventDefault();
+            if (typeof this.fileBase64 === "string") {
+                this.decodeQRCode(this.fileBase64, false);
+            }
+        };
 
-		event.stopPropagation();
+        reader.readAsDataURL(file);
+    }
 
-		if (event.dataTransfer && event.dataTransfer.files.length > 0) {
-			const file = event.dataTransfer.files[0];
+    // Method to decode QR code from base64 image
+    decodeQRCode(base64: string, zelfFile: any): void {
+        const img = new Image();
 
-			await this._captchaGeneration();
+        img.src = base64;
 
-			this.handleFile(file);
-		}
-	}
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            if (context) {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                context.drawImage(img, 0, 0, img.width, img.height);
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
 
-	async _captchaGeneration(): Promise<any> {
-		try {
-			this.captchaToken = await this.captchaService.executeRecaptcha("preview");
-		} catch (error) {
-			console.error("reCAPTCHA failed:", error);
-		}
-	}
+                this.extractBinaryData(code, zelfFile);
+            }
+        };
+    }
 
-	// Method to handle drag leave event
-	onDragLeave(event: DragEvent): void {
-		event.preventDefault();
-		event.stopPropagation();
-	}
+    // Method to convert binary data to hex string
+    toHexString(byteArray: any): string {
+        return Array.from(byteArray, (byte: any) => {
+            return ("0" + (byte & 0xff).toString(16)).slice(-2);
+        }).join("");
+    }
 
-	// Method to handle the file
-	handleFile(file: File): void {
-		const reader = new FileReader();
+    extractBinaryData(code: any, zelfFile: any): any {
+        if (code && code.binaryData) {
+            const hexString = this.toHexString(code.binaryData);
 
-		reader.onload = () => {
-			this.fileBase64 = reader.result;
+            const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
 
-			if (typeof this.fileBase64 === "string") {
-				this.decodeQRCode(this.fileBase64, false);
-			}
-		};
+            const base64String = buffer.toString("base64");
 
-		reader.readAsDataURL(file);
-	}
+            this._zelfNameService.setZelfProof(base64String);
 
-	// Method to decode QR code from base64 image
-	decodeQRCode(base64: string, zelfFile: any): void {
-		const img = new Image();
+            this.zelfProof = base64String;
 
-		img.src = base64;
+            if (!zelfFile) {
+                this.previewQRCode();
+            }
 
-		img.onload = () => {
-			const canvas = document.createElement("canvas");
-			const context = canvas.getContext("2d");
-			if (context) {
-				canvas.width = img.width;
-				canvas.height = img.height;
-				context.drawImage(img, 0, 0, img.width, img.height);
-				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-				const code = jsQR(imageData.data, imageData.width, imageData.height);
+            if (zelfFile) {
+                zelfFile.zelfProof = base64String;
+            }
 
-				this.extractBinaryData(code, zelfFile);
-			}
-		};
-	}
+            return base64String;
+        }
 
-	// Method to convert binary data to hex string
-	toHexString(byteArray: any): string {
-		return Array.from(byteArray, (byte: any) => {
-			return ("0" + (byte & 0xff).toString(16)).slice(-2);
-		}).join("");
-	}
+        this.loading = false;
 
-	extractBinaryData(code: any, zelfFile: any): any {
-		if (code && code.binaryData) {
-			const hexString = this.toHexString(code.binaryData);
+        this.displayableError = {
+            type: "qr_code",
+            message: "invalid_qr_code",
+        };
+    }
 
-			const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
+    previewQRCode(): void {
+        if (!this.zelfProof) return;
 
-			const base64String = buffer.toString("base64");
+        this._zelfNameService.previewZelfProof(this.zelfProof, this.captchaToken).then((response) => {
+            this.potentialWallet = new WalletModel({
+                ...response.data,
+                zelfProof: this.zelfProof,
+                image: this.fileBase64,
+            });
 
-			this._zelfNameService.setZelfProof(base64String);
+            if (!this.potentialWallet.ethAddress) {
+                this.session.step = 0;
 
-			this.zelfProof = base64String;
+                this.zelfProof = null;
 
-			if (!zelfFile) {
-				this.previewQRCode();
-			}
+                this._changeDetectorRef.markForCheck();
 
-			if (zelfFile) {
-				zelfFile.zelfProof = base64String;
-			}
+                return;
+            }
 
-			return base64String;
-		}
+            this.session.hasPassword = this.potentialWallet.hasPassword;
 
-		this.loading = false;
+            this._zelfNameService.setZelfProof(this.potentialWallet.zelfProof);
+            this._zelfNameService.setZelfName(this.potentialWallet.publicData.zelfName, 0);
 
-		this.displayableError = {
-			type: "qr_code",
-			message: "invalid_qr_code",
-		};
-	}
+            this.loading = false;
+        });
+    }
 
-	previewQRCode(): void {
-		if (!this.zelfProof) return;
+    // Function to convert URL to Base64
+    public urlToBase64(url: string): Promise<string> {
+        return this.http
+            .get(url, { responseType: "blob" })
+            .toPromise()
+            .then((blob) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64data = reader.result as string;
+                        resolve(base64data.split(",")[1]); // This will remove the 'data:...' part
+                    };
+                    reader.onerror = reject;
 
-		this._zelfNameService.previewZelfProof(this.zelfProof, this.captchaToken).then((response) => {
-			this.potentialWallet = new WalletModel({
-				...response.data,
-				zelfProof: this.zelfProof,
-				image: this.fileBase64,
-			});
+                    if (blob) reader.readAsDataURL(blob);
+                });
+            });
+    }
 
-			if (!this.potentialWallet.ethAddress) {
-				this.session.step = 0;
+    ngOnDestroy(): void {
+        this.potentialWallet = null;
+    }
 
-				this.zelfProof = null;
-
-				this._changeDetectorRef.markForCheck();
-
-				return;
-			}
-
-			this.session.hasPassword = this.potentialWallet.hasPassword;
-
-			this._zelfNameService.setZelfProof(this.potentialWallet.zelfProof);
-
-			this._zelfNameService.setZelfName(this.potentialWallet.publicData.zelfName, 0);
-
-			this.loading = false;
-		});
-	}
-
-	// Function to convert URL to Base64
-	public urlToBase64(url: string): Promise<string> {
-		return this.http
-			.get(url, { responseType: "blob" })
-			.toPromise()
-			.then((blob) => {
-				return new Promise((resolve, reject) => {
-					const reader = new FileReader();
-					reader.onloadend = () => {
-						const base64data = reader.result as string;
-						resolve(base64data.split(",")[1]); // This will remove the 'data:...' part
-					};
-					reader.onerror = reject;
-
-					if (blob) reader.readAsDataURL(blob);
-				});
-			});
-	}
-
-	ngOnDestroy(): void {
-		this.potentialWallet = null;
-	}
-
-	copyToClipboard(address: string): void {
-		navigator.clipboard.writeText(address).then(() => {
-			this.snackBar.open("Address copied to clipboard", "OK");
-		});
-	}
+    copyToClipboard(address: string): void {
+        this._copyToClipboard(address);
+    }
 }

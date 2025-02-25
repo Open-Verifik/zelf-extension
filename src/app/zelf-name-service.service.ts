@@ -2,125 +2,132 @@ import { Injectable } from "@angular/core";
 
 import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
+import { ChromeService } from "./chrome.service";
 
 @Injectable({
-	providedIn: "root",
+    providedIn: "root",
 })
 export class ZelfNameService {
-	baseUrl: String = environment.apiUrl;
-	variables: any;
+    baseUrl: String = environment.apiUrl;
+    variables: any;
 
-	constructor(private _httpWrapper: HttpWrapperService) {
-		this.variables = {
-			zelfName: null,
-			price: 0,
-			zelfFile: null,
-			zelfProof: null,
-			duration: 1,
-		};
-	}
+    constructor(private _httpWrapper: HttpWrapperService, private _chromeService: ChromeService) {
+        this.variables = {
+            zelfName: null,
+            price: 0,
+            zelfFile: null,
+            zelfProof: null,
+            duration: 1,
+        };
+    }
 
-	cleanVariables(): void {
-		const keys = ["zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration", "accessToken"];
+    async cleanVariables(): Promise<void> {
+        const keys = ["zelfProof", "zelfFile", "zelfName", "zelfPrice", "zelfReward", "duration", "accessToken"];
 
-		keys.forEach((key) => {
-			localStorage.removeItem(key);
-		});
-	}
+        await Promise.all(
+            keys.map(async (key) => {
+                return this._chromeService.removeItem(key);
+            })
+        );
+    }
 
-	searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
-		const query: { key: string; value: string; captchaToken?: string } = { key, value };
-		if (captchaToken) {
-			query.captchaToken = captchaToken;
-		}
+    searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
+        const query: { key: string; value: string; captchaToken?: string } = { key, value };
 
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
-	}
+        if (captchaToken) {
+            query.captchaToken = captchaToken;
+        }
 
-	previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
-		const query: { zelfName?: string; captchaToken?: string } = { zelfName };
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
+    }
 
-		if (captchaToken) {
-			query.captchaToken = captchaToken;
-		}
+    previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
+        const query: { zelfName?: string; captchaToken?: string } = { zelfName };
 
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
-	}
+        if (captchaToken) {
+            query.captchaToken = captchaToken;
+        }
 
-	previewZelfProof(zelfProof: string, captchaToken?: string): Promise<any> {
-		const query: { zelfProof: string; os: string; captchaToken?: string } = { zelfProof, os: "DESKTOP" };
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
+    }
 
-		if (captchaToken) {
-			query.captchaToken = captchaToken;
-		}
+    previewZelfProof(zelfProof: string, captchaToken?: string): Promise<any> {
+        const query: { zelfProof: string; os: string; captchaToken?: string } = { zelfProof, os: "DESKTOP" };
 
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/preview-zelfproof`, query);
-	}
+        if (captchaToken) {
+            query.captchaToken = captchaToken;
+        }
 
-	setZelfName(zelfName: string, priceObject: any = {}): void {
-		this.variables.zelfName = zelfName;
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/preview-zelfproof`, query);
+    }
 
-		zelfName ? localStorage.setItem("zelfName", zelfName) : localStorage.removeItem("zelfName");
+    async setZelfName(zelfName: string, priceObject: any = {}): Promise<void> {
+        this.variables.zelfName = zelfName;
 
-		if (priceObject?.price) {
-			this.variables.price = priceObject.price;
-			this.variables.reward = priceObject.reward;
-			localStorage.setItem("zelfPrice", `${priceObject?.price}`);
-			localStorage.setItem("zelfReward", `${priceObject?.reward}`);
-		}
-	}
+        const setPromise = zelfName ? this._chromeService.setItem("zelfName", zelfName) : this._chromeService.removeItem("zelfName");
 
-	setZelfFile(zelfNameObject: any): void {
-		this.variables.zelfFile = zelfNameObject;
-	}
+        setPromise.then(() => {
+            if (!priceObject) return;
 
-	setZelfProof(zelfProof: string): void {
-		this.variables.zelfProof = zelfProof;
-	}
+            this.variables.price = priceObject.price;
+            this.variables.reward = priceObject.reward;
 
-	setDuration(duration: any): void {
-		this.variables.duration = duration;
+            this._chromeService.setItem("zelfPrice", priceObject.price);
+            this._chromeService.setItem("zelfReward", priceObject.reward);
+        });
+    }
 
-		localStorage.setItem("duration", duration);
-	}
+    setZelfFile(zelfNameObject: any): void {
+        this.variables.zelfFile = zelfNameObject;
+    }
 
-	setReferral(referralZelfName: string): void {
-		localStorage.setItem("referralZelfName", referralZelfName);
-	}
+    setZelfProof(zelfProof: string): void {
+        this.variables.zelfProof = zelfProof;
+    }
 
-	getReferral(): any {
-		return localStorage.getItem("referralZelfName");
-	}
+    async setDuration(duration: any): Promise<void> {
+        this.variables.duration = duration;
 
-	getZelfName(): string {
-		return this.variables.zelfName || localStorage.getItem("zelfName");
-	}
+        await this._chromeService.setItem("duration", duration);
+    }
 
-	getZelfFile(): string {
-		return this.variables.zelfFile;
-	}
+    async setReferral(referralZelfName: string): Promise<void> {
+        await this._chromeService.setItem("referralZelfName", referralZelfName);
+    }
 
-	getZelfPrice(): any {
-		return this.variables.price || localStorage.getItem("zelfPrice");
-	}
+    async getReferral(): Promise<any> {
+        return await this._chromeService.getItem("referralZelfName");
+    }
 
-	getZelfReward(): any {
-		return this.variables.reward || localStorage.getItem("zelfReward");
-	}
+    async getZelfName(): Promise<string> {
+        return this.variables.zelfName || (await this._chromeService.getItem("zelfName"));
+    }
 
-	getZelfProof(): string {
-		return this.variables.zelfProof;
-	}
+    async getZelfPrice(): Promise<any> {
+        return this.variables.price || (await this._chromeService.getItem("zelfPrice"));
+    }
 
-	getDuration(): any {
-		return this.variables.duration || localStorage.getItem("duration");
-	}
+    async getZelfReward(): Promise<any> {
+        return this.variables.reward || (await this._chromeService.getItem("zelfReward"));
+    }
 
-	leaseZelfName(payload: any): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/lease`, payload);
-	}
+    async getDuration(): Promise<any> {
+        return this.variables.duration || (await this._chromeService.getItem("duration"));
+    }
 
-	decryptZelfName(payload: any): Promise<any> {
-		return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/decrypt`, payload);
-	}
+    getZelfFile(): string {
+        return this.variables.zelfFile;
+    }
+
+    getZelfProof(): string {
+        return this.variables.zelfProof;
+    }
+
+    leaseZelfName(payload: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease`, payload);
+    }
+
+    decryptZelfName(payload: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/decrypt`, payload);
+    }
 }

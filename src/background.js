@@ -1,45 +1,66 @@
-console.log("Background service worker initialized");
-
-// Persistent state keys
-const TAB_OPEN_STORAGE_KEY = "isExtensionTabOpen";
-const TAB_ID_STORAGE_KEY = "extensionTabId";
+/// <reference types="webextension-polyfill"/>
 
 const DEFAULT_INDEX = "index.html";
+const TAB_ID_STORAGE_KEY = "extensionTabId";
+const TAB_OPEN_STORAGE_KEY = "isExtensionTabOpen";
 
-chrome?.sidePanel?.setPanelBehavior({ path: DEFAULT_INDEX, enabled: true });
+browser?.sidebarAction?.setPanel({ panel: DEFAULT_INDEX });
+
+// firefox specific
+browser.menus?.create({
+    id: "open-sidebar",
+    title: "Open Sidebar",
+    contexts: ["all"],
+});
+
+// firefox specific
+browser.menus?.onClicked.addListener(() => {
+    console.log(` browser.menus.onClicked.addListener ~ browser:`, browser);
+    if (browser.sidebarAction) browser.sidebarAction.open();
+});
 
 // Listener for tab closure
-chrome.tabs.onRemoved.addListener((closedTabId) => {
-    chrome.storage.local.get([TAB_ID_STORAGE_KEY], (items) => {
-        if (items[TAB_ID_STORAGE_KEY] === closedTabId) {
-            chrome.storage.local.set({
-                [TAB_OPEN_STORAGE_KEY]: false,
-                [TAB_ID_STORAGE_KEY]: null,
-            });
+browser.tabs.onRemoved.addListener(async (closedTabId) => {
+    const items = await browser.storage.local.get([TAB_ID_STORAGE_KEY]);
 
-            console.log("Extension tab closed. State reset.");
-        }
-    });
+    if (items[TAB_ID_STORAGE_KEY] === closedTabId) {
+        browser.storage.local.set({
+            [TAB_OPEN_STORAGE_KEY]: false,
+            [TAB_ID_STORAGE_KEY]: null,
+        });
+    }
 });
 
 // Listener for tab update
-chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
-    await chrome.sidePanel.setOptions({
+browser.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+    if (!chrome?.sidePanel) {
+        browser.sidebarAction.setPanel({ panel: DEFAULT_INDEX, tabId });
+
+        return;
+    }
+
+    await chrome?.sidePanel?.setOptions({
         tabId,
         path: DEFAULT_INDEX,
         enabled: true,
     });
 });
 
-// Trigger the full-page open on certain events
-chrome.action.onClicked.addListener(() => {
+const openFullPage = () => {
+    browser.storage.local.get([TAB_OPEN_STORAGE_KEY, TAB_ID_STORAGE_KEY, "wallet", "wallets"]).then((items) => {
+        const url = browser.runtime.getURL("index.html");
+
+        browser.tabs.create({ url }).then((tab) => {
+            if (!tab || !tab.id) return;
+
+            browser.storage.local.set({
+                [TAB_OPEN_STORAGE_KEY]: true,
+                [TAB_ID_STORAGE_KEY]: tab.id,
+            });
+        });
+    });
+};
+
+browser.runtime.onInstalled.addListener(() => {
     openFullPage();
-});
-
-chrome.runtime.onConnect.addListener(function (port) {
-    console.log(`port:`, port);
-});
-
-chrome.runtime.onMessage.addListener((request) => {
-    console.log(`chrome.runtime.onMessage.addListener ~ request:`, request);
 });

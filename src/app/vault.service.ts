@@ -10,12 +10,10 @@ export class VaultService {
     constructor() {}
 
     get password(): string {
-        console.log(` VaultService ~ getpassword ~ this._password:`, this._password);
         return this._password || "";
     }
 
     set password(value: string) {
-        console.log(` VaultService ~ setpassword ~ value:`, value);
         this._password = value;
     }
 

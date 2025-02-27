@@ -1,11 +1,13 @@
-import { Injectable } from "@angular/core";
-import { environment } from "environments/environment";
-import { HttpWrapperService } from "./http-wrapper.service";
-import { BehaviorSubject, Observable } from "rxjs";
 import * as faceapi from "@vladmandic/face-api";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import * as openpgp from "openpgp";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+
+import { environment } from "environments/environment";
+
 import { ChromeService } from "./chrome.service";
+import { HttpWrapperService } from "./http-wrapper.service";
 import { Asset, Wallet, WalletModel } from "./wallet";
 
 @Injectable({
@@ -15,8 +17,6 @@ export class WalletService {
     private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
 
     baseUrl: String = environment.apiUrl;
-    wallet?: WalletModel;
-    wallets: WalletModel[] = [];
     zelfProof: string = "";
 
     deviceData: any = {
@@ -41,7 +41,6 @@ export class WalletService {
 
         this._breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
             this.deviceData.isMobile = result.matches;
-
             this.deviceData.time = result.matches ? 500 : 250;
         });
 
@@ -54,26 +53,6 @@ export class WalletService {
 
     getSessionData() {
         return this.sessionData;
-    }
-
-    async getWallet() {
-        if (this.wallet) return this.wallet;
-
-        const wallet = (await this._chromeService.getItem("wallet")) as WalletModel;
-
-        this.wallet = wallet || null;
-
-        return wallet;
-    }
-
-    async getWallets() {
-        if (this.wallets.length) return this.wallets;
-
-        const wallets = (await this._chromeService.getItem("wallets", "web")) as WalletModel[];
-
-        this.wallets = wallets || [];
-
-        return wallets;
     }
 
     setSteps(steps: Array<any>): void {
@@ -110,38 +89,30 @@ export class WalletService {
     }
 
     async restoreSession(): Promise<any> {
-        let wallets = (await this._chromeService.getItem("wallets")) || [];
+        let { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
         if (!wallets) wallets = [];
 
-        const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
-
         const keysToRemove = [
-            "unlockWallet",
+            "currentZelfName",
+            "duration",
+            "durationToken",
             "importWallet",
+            "network",
             "password",
             "referralZelfName",
-            "network",
-            "durationToken",
-            "currentZelfName",
-            "zelfProof",
+            "unlockWallet",
             "zelfFile",
             "zelfName",
             "zelfPrice",
+            "zelfProof",
             "zelfReward",
-            "duration",
         ];
 
-        await Promise.all(
-            keysToRemove.map(async (key) => {
-                this._chromeService.removeItem(key);
-            })
-        );
+        await Promise.all(keysToRemove.map((key) => this._chromeService.removeItem(key)));
 
-        if (currentWallet.ethAddress) {
-            wallets.push(currentWallet);
-
-            this._chromeService.setItem("wallets", wallets);
+        if (currentWallet?.ethAddress) {
+            this._chromeService.setItem("wallets", [currentWallet, ...wallets]);
             this._chromeService.removeItem("wallet");
         }
 
@@ -162,13 +133,11 @@ export class WalletService {
         const promises = [];
 
         promises.push(faceapi.nets.ssdMobilenetv1.loadFromUri("assets/models"));
-
         promises.push(faceapi.nets.faceLandmark68Net.loadFromUri("assets/models"));
 
         await Promise.allSettled(promises);
 
         this._faceapi.next(true);
-        return;
     }
 
     detectOS() {
@@ -269,7 +238,7 @@ export class WalletService {
             url,
             {
                 ...data,
-                isWebExtension: Boolean(typeof chrome !== "undefined" && chrome.storage && chrome.runtime),
+                isWebExtension: this._chromeService.isExtension,
             },
             {
                 Headers: {},
@@ -383,7 +352,6 @@ export class WalletService {
         const wallets = (await this._chromeService.getItem("wallets")) || [];
 
         if (!wallet && (!wallets || !wallets.length)) return null;
-
         if (wallet) wallet = new WalletModel(wallet);
 
         if (!wallet?.ethAddress && wallets) {
@@ -397,9 +365,86 @@ export class WalletService {
 
     getShortAddress(address: string): string {
         const firstPart = address.slice(0, 12);
-
         const lastPart = address.slice(-8);
 
         return `${firstPart}...${lastPart}`;
+    }
+
+    async getAllWalletsFromStorage(): Promise<{ wallet: Partial<WalletModel> | null; wallets: WalletModel[] }> {
+        let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+
+        if (wallet.name) wallet = new WalletModel(wallet);
+
+        const wallets = await this.getWalletsFromStorage();
+
+        if (!wallet) {
+            if (!wallets.length) return { wallet, wallets: [] };
+
+            this._chromeService.setItem("wallet", wallet);
+            this._chromeService.setItem("wallets", wallets);
+        }
+
+        return { wallet, wallets };
+    }
+
+    async getCurrentWalletFromStorage(): Promise<Partial<WalletModel> | null> {
+        let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+
+        if (wallet.name) wallet = new WalletModel(wallet);
+        else {
+            const wallets = await this.getWalletsFromStorage();
+
+            if (!wallets.length) return {};
+
+            const shiftedWallet = wallets.shift();
+
+            wallet = shiftedWallet || {};
+
+            this._chromeService.setItem("wallet", wallet);
+            this._chromeService.setItem("wallets", wallets);
+        }
+
+        return wallet;
+    }
+
+    async getWalletsFromStorage(): Promise<WalletModel[]> {
+        return ((await this._chromeService.getItem<Wallet[]>("wallets")) || []).map((wallet: Wallet) => new WalletModel(wallet));
+    }
+
+    async switchWallet(selectedWallet: WalletModel): Promise<void> {
+        const wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+
+        if (selectedWallet.publicData.zelfName === wallet.publicData?.zelfName) return;
+
+        const wallets = (await this._chromeService.getItem<Wallet[]>("wallets")) || [];
+        const newWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== selectedWallet.publicData.zelfName);
+
+        await this._chromeService.setItem("wallet", selectedWallet);
+        await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
+    }
+
+    async logoutOfWallet(walletToRemove: WalletModel): Promise<boolean> {
+        const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
+
+        let isLastWallet = true;
+
+        if (!wallets.length) return isLastWallet;
+
+        isLastWallet = false;
+
+        if (currentWallet?.publicData?.zelfName === walletToRemove.publicData.zelfName) {
+            await this._chromeService.removeItem("wallet");
+
+            const wallet = wallets.shift();
+
+            this._chromeService.setItem("wallet", wallet);
+            this._chromeService.setItem("wallets", wallets);
+        } else {
+            const newWallets = wallets.filter((_wallet: WalletModel) => _wallet.publicData.zelfName !== walletToRemove.publicData.zelfName);
+
+            this._chromeService.setItem("wallets", newWallets);
+        }
+
+        return isLastWallet;
     }
 }

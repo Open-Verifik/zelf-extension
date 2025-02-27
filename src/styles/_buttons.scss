@@ -1,3 +1,11 @@
+.zelf-button-external-link {
+    display: block;
+
+    &--wide {
+        width: 100%;
+    }
+}
+
 .zelf-button {
     align-items: center;
     border-radius: 16px;

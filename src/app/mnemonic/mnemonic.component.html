@@ -10,9 +10,9 @@
         <form [formGroup]="passwordForm" class="mnemonic__form" *ngIf="showPassword">
             <div class="mnemonic__form-inner">
                 <mat-form-field appearance="fill">
-                    <mat-label>{{ t("password") }}</mat-label>
+                    <mat-label>{{ t("common.password") }}</mat-label>
 
-                    <input [formControlName]="'password'" matInput type="password" name="password" ngModel required />
+                    <input [formControlName]="'password'" matInput type="password" name="password" required />
                 </mat-form-field>
 
                 <button
@@ -22,7 +22,7 @@
                     mat-flat-button
                     type="submit"
                 >
-                    {{ t("unlock_key_phrase") }}
+                    {{ t("common.confirm") }}
                 </button>
             </div>
         </form>

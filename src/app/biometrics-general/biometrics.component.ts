@@ -524,7 +524,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
             if (!inRangeY) direction += `${faceCenterY < center.y ? "↓" : "↑"}`;
 
             this.errorFace = {
-                title: this._translocoService.translate("liveness.center_yor_face"),
+                title: this._translocoService.translate("liveness.center_your_face"),
                 subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
                 canvas: direction,
             };

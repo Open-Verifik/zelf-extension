@@ -1,5 +1,5 @@
 import { CommonModule, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
@@ -11,6 +11,8 @@ import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TimerPipe } from "app/pipes/timer.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "manage-domains",
@@ -32,29 +34,40 @@ import { WalletModel } from "app/wallet";
     templateUrl: "./manage-domains.component.html",
     styleUrls: ["./manage-domains.component.scss"],
 })
-export class ManageDomainsComponent {
-    wallet: Partial<WalletModel> = {};
-    wallets: WalletModel[] = [];
+export class ManageDomainsComponent implements OnInit, OnDestroy {
+    private unsubscriber$ = new Subject<void>();
+
+    wallets: Partial<WalletModel>[] = [];
     loading: boolean = false;
 
     constructor(
+        private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _dialog: MatDialog,
+        private _router: Router,
         private _translocoService: TranslocoService,
-        private _router: Router
-    ) {}
+        private _walletService: WalletService
+    ) {
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWallets);
+        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWallets);
+    }
 
     ngOnInit(): void {
-        this._setWallets().then(() => {
-            this.loading = false;
-        });
+        this._loadWallets();
     }
 
-    private _getTimeLeft(wallet: WalletModel): number {
-        const expiresAt = new Date(wallet.publicData?.expiresAt).getTime();
-
-        return expiresAt - Date.now();
+    ngOnDestroy(): void {
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
     }
+
+    private _loadWallets = () => {
+        if (this.loading) return;
+
+        this.loading = true;
+
+        this._setWallets();
+    };
 
     private _openConfirmationDialog(): void {
         const dialogRef = this._dialog.open(ConfirmationDialogComponent, {
@@ -79,66 +92,29 @@ export class ManageDomainsComponent {
     }
 
     private async _setWallets(): Promise<void> {
-        this.loading = true;
+        const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
-        let wallet = (await this._chromeService.getItem("wallet")) as WalletModel;
-        let wallets = (await this._chromeService.getItem("wallets")) as WalletModel[];
+        this.wallets = [wallet || {}, ...wallets];
+        this.loading = false;
 
-        if (!wallet) {
-            wallet = wallets[0];
-
-            await this._chromeService.setItem("wallet", wallet);
-        }
-
-        this.wallet = wallet;
-        this.wallets = [wallet, ...wallets];
+        this._changeDetectorRef.detectChanges();
     }
 
     goToPayments(): void {
         window.open("https://payment.zelf.world", "_blank");
     }
 
-    isExpired(wallet: WalletModel): boolean {
-        const timeLeft = this._getTimeLeft(wallet);
+    async logoutOfWallet(wallet: Partial<WalletModel>): Promise<void> {
+        if (!wallet.name) return;
 
-        return timeLeft <= 0;
+        const isLastWallet = await this._walletService.logoutOfWallet(wallet as WalletModel);
+
+        if (!isLastWallet) return;
+
+        this._openConfirmationDialog();
     }
 
-    isExpiringSoon(wallet: WalletModel): boolean {
-        const oneDayInMs = 24 * 60 * 60 * 1000;
-        const timeLeft = this._getTimeLeft(wallet);
-
-        return timeLeft > 0 && timeLeft <= oneDayInMs;
-    }
-
-    async logoutOfWallet(wallet: WalletModel): Promise<void> {
-        const currentWallet = await this._chromeService.getItem("wallet");
-        const wallets = await this._chromeService.getItem("wallets");
-
-        if (!wallets || !wallets.length) {
-            this._openConfirmationDialog();
-
-            return;
-        }
-
-        if (currentWallet.publicData.zelfName === wallet.publicData.zelfName) {
-            await this._chromeService.removeItem("wallet");
-
-            this.wallet = wallets.shift();
-            this.wallets = [wallet, ...wallets];
-
-            this._chromeService.setItem("wallet", this.wallet);
-            this._chromeService.setItem("wallets", wallets);
-        } else {
-            const newWallets = wallets.filter((_wallet: WalletModel) => _wallet.publicData.zelfName !== wallet.publicData.zelfName);
-
-            this.wallets = [wallet, ...newWallets];
-
-            this._chromeService.setItem("wallets", this.wallets);
-        }
-    }
-
-    showDetails(wallet: WalletModel): boolean {
-        return this.isExpiringSoon(wallet) || this.isExpired(wallet);
+    showDetails(wallet: Partial<WalletModel>): boolean {
+        return Boolean(wallet.publicData?.isExpired || wallet.publicData?.isExpiringSoon);
     }
 }

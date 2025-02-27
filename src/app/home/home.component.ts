@@ -5,7 +5,8 @@ import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
-import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
+import { Asset, ETHTransaction, Wallet } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
     tokens!: Array<any>;
     view?: string;
     wallet!: Wallet;
-    wallets!: Array<Wallet>;
+    wallets!: Wallet[];
 
     constructor(
         private _blockchainNetworkService: BlockchainNetworksService,
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
         private _ethService: EthereumService,
         private _router: Router,
         private _solanaService: SolanaService,
+        private _walletService: WalletService,
         private route: ActivatedRoute
     ) {
         this.balances = {};
@@ -136,24 +138,9 @@ export class HomeComponent implements OnInit {
     }
 
     private async _setWallet(): Promise<any> {
-        let wallet = await this._chromeService.getItem("wallet");
+        const wallet = await this._walletService.getCurrentWalletFromStorage();
 
-        if (!wallet) {
-            let wallets = await this._chromeService.getItem("wallets");
-
-            wallet = wallets.shift();
-
-            await this._chromeService.setItem("wallet", wallet);
-            await this._chromeService.setItem("wallets", wallets);
-
-            if (!wallet) {
-                this._router.navigate(["/onboarding"]);
-
-                return;
-            }
-        }
-
-        this.shareables.wallet = new WalletModel(wallet);
+        this.shareables.wallet = wallet;
 
         this.wallet = this.shareables.wallet;
     }

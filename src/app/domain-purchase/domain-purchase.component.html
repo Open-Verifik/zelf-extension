@@ -1,0 +1,130 @@
+<div class="domain-purchase" *transloco="let t">
+    <div class="domain-purchase__header">
+        <div class="domain-purchase__col1">
+            <button
+                [queryParams]="{ zelfName: wallet ? wallet.publicData?.zelfName : '' }"
+                [routerLink]="['/domain']"
+                class="domain-purchase__back"
+                mat-flat-button
+                mat-icon-button
+            >
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="domain-purchase__col2">
+            <p class="domain-purchase__title">{{ t("common.domain") }}</p>
+        </div>
+
+        <div class="domain-purchase__col3"></div>
+    </div>
+
+    <form class="domain-purchase__content">
+        <div class="ripple ripple--96" *ngIf="loading"></div>
+
+        <ng-container *ngIf="!loading">
+            <div class="purchase">
+                <h6 class="purchase__title">{{ t("domain_purchase.title") }}</h6>
+
+                <h4 class="purchase__zelf-name">{{ wallet.publicData?.zelfName | zelfName : 20 }}</h4>
+
+                <p class="purchase__description">
+                    {{
+                        t("domain_purchase.character_length_and_year", {
+                            characterLength: (wallet.publicData?.zelfName?.length || 0) - 4,
+                            costPerYear: 24
+                        })
+                    }}
+                </p>
+
+                <div class="duration-selector">
+                    <button class="zelf-icon-button zelf-icon-button--border-soft" (click)="decrementYearCount()" [disabled]="yearCount === 1">
+                        <svg width="14" height="2" viewBox="0 0 14 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2H1C0.45 2 0 1.55 0 1C0 0.45 0.45 0 1 0H13C13.55 0 14 0.45 14 1C14 1.55 13.55 2 13 2Z" />
+                        </svg>
+                    </button>
+
+                    <h3 class="duration-selector__text" *ngIf="yearCount <= 5">{{ t("domain_purchase.years", { yearCount }) }}</h3>
+                    <h3 class="duration-selector__text" *ngIf="yearCount === 6">{{ t("domain_purchase.lifetime") }}</h3>
+
+                    <button class="zelf-icon-button zelf-icon-button--border-soft" (click)="incrementYearCount()" [disabled]="yearCount === 6">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13 8H8V13C8 13.55 7.55 14 7 14C6.45 14 6 13.55 6 13V8H1C0.45 8 0 7.55 0 7C0 6.45 0.45 6 1 6H6V1C6 0.45 6.45 0 7 0C7.55 0 8 0.45 8 1V6H13C13.55 6 14 6.45 14 7C14 7.55 13.55 8 13 8Z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="purchase__spacer"></div>
+
+                <div class="purchase__price-container">
+                    <p class="purchase__price-description">{{ t("domain_purchase.price_per_year") }}</p>
+
+                    <div class="purchase__price-amount-container">
+                        <h2 class="purchase__price">{{ 24 | currency : "USD" : "symbol" }}</h2>
+
+                        <p class="purchase__price-currency">USDT</p>
+                    </div>
+                </div>
+
+                <div class="purchase__agreements">
+                    <div class="purchase__agreement">
+                        <div class="purchase__agreement-checkbox">
+                            <label class="zelf-checkbox">
+                                <input type="checkbox" id="agreement" name="agreement" [(ngModel)]="agreement" />
+
+                                <svg viewBox="0 0 21 21">
+                                    <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                                </svg>
+                                {{ t("common.agree_to_terms_and_conditions") }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="domain-length">
+                        <p class="domain-length__title">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 1.33301C4.31999 1.33301 1.33333 4.31967 1.33333 7.99967C1.33333 11.6797 4.31999 14.6663 8 14.6663C11.68 14.6663 14.6667 11.6797 14.6667 7.99967C14.6667 4.31967 11.68 1.33301 8 1.33301ZM8 8.66634C7.63333 8.66634 7.33333 8.36634 7.33333 7.99967V5.33301C7.33333 4.96634 7.63333 4.66634 8 4.66634C8.36666 4.66634 8.66666 4.96634 8.66666 5.33301V7.99967C8.66666 8.36634 8.36666 8.66634 8 8.66634ZM8.66666 11.333H7.33333V9.99967H8.66666V11.333Z"
+                                    fill="#181818"
+                                />
+                            </svg>
+
+                            {{ t("domain_purchase.domain_price_length") }}
+                        </p>
+
+                        <a href="" class="domain-length__link" target="_blank">
+                            {{ t("domain_purchase.know_more") }}
+
+                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M1.33332 0.666992V2.00033H7.05999L0.666656 8.39366L1.60666 9.33366L7.99999 2.94033V8.66699H9.33332V0.666992H1.33332Z"
+                                    fill="#181818"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </form>
+
+    <div class="domain-purchase__actions">
+        <button
+            class="zelf-button zelf-button--black zelf-button--wide"
+            mat-flat-button
+            [disabled]="!agreement"
+            [routerLink]="['/zelf-domain-purchase']"
+            [queryParams]="{
+                externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.publicData?.zelfName + '&durationToken=' + durationToken
+            }"
+        >
+            {{ t("common.pay_now") }}
+        </button>
+    </div>
+</div>

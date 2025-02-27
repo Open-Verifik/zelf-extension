@@ -484,7 +484,7 @@ export class BiometricsComponent implements OnInit, OnDestroy {
                 direction += ` ${faceCenterY < this.videoCenterY ? "↑" : "↓"}  `;
 
             this.errorFace = {
-                title: this._translocoService.translate("liveness.center_yor_face"),
+                title: this._translocoService.translate("liveness.center_your_face"),
                 subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
                 canvas: direction,
             };

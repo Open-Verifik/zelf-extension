@@ -1,274 +1,330 @@
 {
-	"hello": "你好",
-	"onboarding": {
-		"step_1": "欢迎使用 ZELF 名称服务",
-		"step_1_description": "发现 ZNS（Zelf 名称服务），这是一种创新的名称服务，让您无需记住种子短语。使用您的 ZNS 安全快速地访问",
-		"step_2": "使用 ZELFPROOF 访问",
-		"step_2_description": "ZelfProof 是一种独特的、保护隐私的二进制表示形式，源自面部数据，确保不会存储在任何地方。保持您的短语极其安全",
-		"step_3": "去中心化存储",
-		"step_3_description": "轻松访问您的钱包和种子短语。您的 ZelfProof 安全地存储在 Arweave 上，让您完全控制而无需自己管理。",
-		"accept_terms_1": "我接受",
-		"accept_terms_2": "条款和条件",
-		"create_new_wallet": "创建新钱包",
-		"import_wallet": "导入您的钱包",
-		"open_wallet": "打开您的钱包",
-		"claim_your_zns": "趁现在免费领取您的 Zelf 名称！",
-		"forgot_zelf_name": "忘记您的 Zelf 名称？",
-		"year": "年",
-		"years": "年",
-		"register": "注册",
-		"register_description": "您将注册此名称 {{duration}}",
-		"zns_reward": "您将获得 {{reward}} Zelf 代币 (ZNS) 作为奖励",
-		"lifetime": "终身",
-		"price_per_year": "每年的价格",
-		"price_for_lifetime": "终身价格",
-		"referral_code": "推荐码"
-	},
-	"common": {
-		"is_required": "是必需的",
-		"more_info": "更多信息",
-		"recommended": "推荐",
-		"continue": "继续",
-		"copy_to_clipboard": "复制成功",
-		"failed_to_copy_to_clipboard": "复制失败",
-		"close": "关闭",
-		"go_back": "返回",
-		"eth_address": "ETH 地址",
-		"solana_address": "Solana 地址",
-		"address": "地址",
-		"zelf_wallet": "Zelf 钱包",
-		"cancel": "取消",
-		"total": "总计",
-		"edit": "编辑",
-		"balance": "余额",
-		"amount": "金额",
-		"max": "最大",
-		"asset": "资产",
-		"type": "类型",
-		"from": "从",
-		"to": "到",
-		"fee": "费用"
-	},
-	"create_wallet": {
-		"password_step": {
-			"title": "安全层",
-			"description": "确保您设置一个至少 8 个字符的强密码来保护您的 ZelfProof。",
-			"password_label": "密码",
-			"repeat_password_label": "重复密码",
-			"agreement": "我理解 Zelf 无法恢复此密码。选择此额外的安全层，我承认我对记住它负全部责任。",
-			"add_password": "继续",
-			"continue_without_password": "一层安全"
-		},
-		"phrase_step": {
-			"title": "钱包创建",
-			"description": "您的私人恢复短语由 12 或 24 个单词组成，是访问和保护您的钱包的关键。",
-			"description_2": "Zelf 通过将您的恢复短语加密为强大的、保护隐私的 ZelfProof 来消除手动存储的需要。此 ZelfProof 安全地存储在一个只有您可以解密的 QR 码中，确保无与伦比的安全性。",
-			"description_3": "QR 码作为您的恢复密钥的强大数字保险库，由我们的 Zelf 名称服务（ZNS）增强。使用 ZNS，您可以轻松备份和检索您的 QR 码。",
-			"description_4": "我理解 Zelf 可以通过 ZNS 帮助检索 QR 码。然而，我仍然有责任保护它以确保安全访问。",
-			"start_encryption_button": "开始",
-			"12_words": "12 个单词短语",
-			"24_words": "24 个单词短语",
-			"words_input": "单词数量"
-		},
-		"zelfproof_step": {
-			"title": "ZELPROOF 加密",
-			"description": "您即将生成您的 ZelfProof，它将安全地加密您的恢复短语。请按照以下步骤确保过程顺利有效。",
-			"instruction_1": "将您的脸放在指示标记内",
-			"instruction_2": "注视摄像头并避免移动",
-			"instruction_3": "确保执行所需的面部动作"
-		},
-		"view_wallet": {
-			"title": "钱包已成功使用 ZELFPROOF 加密",
-			"description": "您的恢复短语已使用您的 ZelfProof 加密并保护在此 QR 码中，这是一个强大的保护隐私的安全层。",
-			"description_2": "如果 QR 丢失，您可以使用您的注册 Zelf 名称通过 Zelf 名称服务（ZNS）检索它。",
-			"qr_code_description": "请保管好此 QR 码。要访问或恢复您的钱包，始终需要您的 ZelfProof 和此 QR 码",
-			"download_qr_code": "下载您的 QR 码",
-			"copy_public_address": "复制您的 ETH 地址"
-		}
-	},
-	"liveness": {
-		"center_yor_face": "将您的脸居中在屏幕上",
-		"center_your_face_subtitle": "请确保您的脸居中",
-		"get_closer": "靠近一点",
-		"get_closer_subtitle": "请靠近一点以获得更好的面部识别。",
-		"liveness_failed": "活体检测失败",
-		"liveness_error_message": "活体检测失败，错误如下：<br><strong>{{error}}</strong><br>您想再试一次吗？",
-		"loading_stream": "加载摄像头",
-		"try_again_button": "再试一次"
-	},
-	"errors": {
-		"person_already_set": "您的注册已经链接了一个 ZelfProof",
-		"replace_person_button": "好的，替换 ZelfProof",
-		"Duplicated_person": "ZelfProof 正在用于另一个记录",
-		"liveness_failed": "活体检测失败",
-		"liveness_failed_description": "抱歉，您的活体检测似乎出现了问题。",
-		"Liveness_score_not_acceptable": "活体评分不可接受",
-		"min_liveness_score_is": "最低活体评分为：",
-		"phone_or_email_is_not_unique": "电话或电子邮件已被使用，请尝试其他",
-		"something_went_wrong": "出了点问题，请再试一次",
-		"try_again": "再试一次",
-		"ERR_LIVENESS_FAILED": "活体检测失败",
-		"ERR_VERIFICATION_FAILED": "活体检测失败",
-		"ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "脸部太靠近边缘",
-		"ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "脸部角度太大",
-		"ERR_INVALID_PASSWORD": "此 ZelfProof 的密码无效",
-		"ERR_DESCRIPTION": "请确保正确遵循说明以解锁您的 ZelfProof",
-		"ERR_UNPROCESSABLE_CONTENT": "ZelfProof 无法解密",
-		"zelfName_is_taken": "此 Zelf 名称已被占用"
-	},
-	"import_wallet": {
-		"step_zero": {
-			"title": "导入现有钱包",
-			"description": "它允许您快速安全地从其他平台转移您的数字资产。",
-			"description2": "我们的过程通过防止密钥或恢复短语的暴露来确保您的资产隐私。",
-			"subtitle": "有什么好处？",
-			"description3": "导入您的钱包简化了您的加密货币体验，避免了管理多个账户的需要。",
-			"description4": "无需使用您的恢复短语即可轻松访问我们的平台上的资金。",
-			"import_button": "导入钱包"
-		},
-		"step_one": {
-			"title": "输入恢复短语",
-			"description": "请在下方输入您的恢复短语以验证并导入您的现有钱包。",
-			"confirm_button": "导入钱包",
-			"word1": "1.",
-			"paste_note": "您可以在任何字段中粘贴整个秘密恢复短语"
-		},
-		"qr_code_step": {
-			"success_message": "您已成功导入现有钱包",
-			"description": "您的安全短语和 QR 码现在已链接到您的 ZelfProof。请保管好 QR 码以保护您的账户。",
-			"understood": "明白了",
-			"copy_address": "复制公共地址",
-			"download_qr": "下载 QR 码"
-		}
-	},
-	"unlock_wallet": {
-		"title": "查找 ZELF 名称",
-		"description": "通过在下方输入其公共地址查找现有的 Zelf 名称：",
-		"upload_description": "或上传您的 ZelfProof QR 码以继续：",
-		"upload_button": "选择 QR 码",
-		"drag_drop_text": "或将扩展名为 .JPG 或 PNG 的文件拖放到此处",
-		"verify_button": "验证",
-		"back_button": "返回",
-		"account_found": "找到 ZELFPROOF",
-		"password": {
-			"title": "此 ZELFPROOF 需要密码",
-			"subtitle": "输入分配给此 ZelfProof 的密码以完成打开过程。",
-			"label": "密码",
-			"placeholder": "********************",
-			"button": "继续"
-		},
-		"hold": {
-			"title": "找到预订",
-			"expiration_time": "此预订将于以下时间到期 ",
-			"purchase_reservation": "购买预订",
-			"unlock_without_purchase": "立即验证，稍后购买",
-			"buy_now": "立即购买"
-		}
-	},
-	"steps": {
-		"import_wallet": "导入您的钱包",
-		"add_password": "添加密码",
-		"biometrics": "ZelfProof",
-		"qr_code_generator": "ZELF 名称",
-		"search_wallet": "打开 ZELFPROOF",
-		"password_unlock": "密码",
-		"biometric_unlock": "ZelfProof 锁",
-		"available": "可用",
-		"decrypt": "解密",
-		"wallet_type": "钱包"
-	},
-	"wallets_connected": {
-		"no_zelf_name": "没有 Zelf 名称",
-		"title": "选择一个钱包",
-		"account": "账户",
-		"create_or_import_wallet_button": "创建或导入钱包",
-		"delete_wallet": "取消链接钱包",
-		"see_on_scanner": "打开浏览器",
-		"see_qr_code": "查看 QR 码"
-	},
-	"active_wallet": {
-		"show_private_key": "显示私钥",
-		"warning_notice": "记得保管好您的 QR 码；如有需要，请制作多份副本。此外，仅在导出您的钱包时解锁秘密密钥"
-	},
-	"home": {
-		"support_button": "支持",
-		"settings_button": "设置",
-		"receive_transaction_button": "接收",
-		"send_transaction_button": "发送",
-		"assets": "代币",
-		"activity": "活动",
-		"NFTs": "收藏品"
-	},
-	"activity_card": {
-		"transaction": "交易",
-		"sent": "已发送",
-		"in": "已接收",
-		"age": "年龄",
-		"amount": "金额",
-		"block": "区块",
-		"from": "从",
-		"hash": "哈希",
-		"method": "方法",
-		"to": "到",
-		"traffic": "流量",
-		"txnFee": "交易费",
-		"transactionID": "交易 ID",
-		"viewOnExplorer": "在区块浏览器上查看"
-	},
-	"extension_instructions": {
-		"extensions": "扩展",
-		"installationCompleted": "Zelf 名称服务安装已完成！",
-		"addExtension": "将扩展添加到您的浏览器，以便轻松访问和查看 Zelf 名称服务上的交易确认。",
-		"clickIcon": "点击浏览器中的扩展图标。",
-		"fixWallet": "修复 ZNS。",
-		"fullAccess": "完全访问",
-		"extensionsCanChange": "这些扩展可以查看和更改此网站上的信息。",
-		"manageExtensions": "管理扩展",
-		"clickExtensionIcon": "点击浏览器中的扩展图标。"
-	},
-	"send_transaction": {
-		"tokens_step": "选择代币",
-		"pickReceiver_step": "发送",
-		"confirmation_step": "转账",
-		"send_to": "发送到",
-		"your_accounts": "您的账户",
-		"account_found": "找到地址",
-		"reject_transaction_button": "取消",
-		"continue_transaction_button": "下一步",
-		"confirm_transaction_button": "确认交易",
-		"confirm": {
-			"sending_label": "发送 {{amount}} {{asset}}",
-			"market": "市场",
-			"gas_label": "燃气费（估计）",
-			"gas_description": "可能在 {{seconds}} 秒内",
-			"max_gas": "最大费用：",
-			"total_to_pay_label": "资产 + 燃气费",
-			"max_total": "最大总额"
-		},
-		"preview": {
-			"estimated_fee": "估计费用"
-		},
-		"bridge": {
-			"qr_code_title": "扫描 QR 码",
-			"title": "确认您的交易",
-			"description": "从您的 Zelf 名称服务应用程序扫描 QR 码。在您的设备上解密以增加安全层",
-			"description_2": "继续在网页扩展中",
-			"confirm_button": "确认交易",
-			"dont_have_the_app": "还没有安装 Zelf 名称服务应用程序？",
-			"download_here": "在此下载并增加所有交易的安全性，并且永远不会丢失对您的加密货币的访问。"
-		}
-	},
-	"network_picker": {
-		"title": "选择一个网络",
-		"testnets_title": "选择一个测试网络"
-	},
-	"payments": {
-		"continue_withoutpaying": "继续不付款",
-		"pay_now": "继续付款"
-	},
-	"restricted": {
-		"title": "移动设备受限",
-		"description": "此功能在移动设备上不可用。请使用桌面浏览器访问或下载 Zelf 名称服务应用程序。",
-		"download_android_app": "下载 Android 应用"
-	}
+    "hello": "你好",
+    "onboarding": {
+        "accept_terms_1": "我接受",
+        "accept_terms_2": "条款和条件",
+        "claim_your_zns": "获取您的Zelf名称并保护您的加密货币！",
+        "create_new_wallet": "创建新钱包",
+        "forgot_zelf_name": "忘记您的Zelf名称？",
+        "import_wallet": "导入您的钱包",
+        "lifetime": "终身",
+        "open_wallet": "打开您的钱包",
+        "price_for_lifetime": "终身价格",
+        "price_per_year": "每年价格",
+        "referral_code": "推荐码",
+        "register_description": "您将注册此名称{{duration}}",
+        "register": "注册",
+        "step_1_description": "发现ZNS（Zelf名称服务），创新的名称服务，免去记住种子短语的烦恼。使用您的ZNS安全快速访问",
+        "step_1": "欢迎使用Zelf名称服务",
+        "step_2_description": "ZelfProof是一种独特的隐私保护二进制表示形式，源自面部数据，确保不存储在任何地方。极大地保护您的短语安全",
+        "step_2": "使用ZelfProof访问",
+        "step_3_description": "轻松访问您的钱包和种子短语。您的ZelfProof安全存储在Arweave上，让您完全控制而无需自己管理。",
+        "step_3": "去中心化存储",
+        "year": "年",
+        "years": "年",
+        "zns_reward": "您将获得{{reward}} Zelf代币（ZNS）作为奖励"
+    },
+    "wallet_status": {
+        "active": "活跃",
+        "expired": "已过期",
+        "hold": "保留"
+    },
+    "common": {
+        "address": "地址",
+        "agree_to_terms_and_conditions": "我同意条款和条件",
+        "amount": "金额",
+        "asset": "资产",
+        "balance": "余额",
+        "buy_now": "立即购买",
+        "cancel": "取消",
+        "close": "关闭",
+        "confirm": "确认",
+        "continue": "继续",
+        "copy_to_clipboard": "复制成功",
+        "copy": "复制到剪贴板",
+        "domain": "域名",
+        "dont_show_me_again": "不要再显示",
+        "edit": "编辑",
+        "eth_address": "ETH地址",
+        "extend_registration": "延长注册",
+        "failed_to_copy_to_clipboard": "复制失败",
+        "fee": "费用",
+        "from": "从",
+        "go_back": "返回",
+        "is_required": "是必需的",
+        "logout": "登出",
+        "manage_domains": "管理域名",
+        "max": "最大",
+        "more_info": "更多信息",
+        "my_arns": "我的ArNS",
+        "password": "密码",
+        "pay_now": "立即支付",
+        "purchase": "购买",
+        "recommended": "推荐",
+        "renew_domain": "续订域名",
+        "settings": "设置",
+        "solana_address": "Solana地址",
+        "to": "到",
+        "total": "总计",
+        "type": "类型",
+        "zelf_wallet": "Zelf钱包"
+    },
+    "domain_purchase": {
+        "agree_to_terms_and_conditions": "我同意条款和条件",
+        "character_length_and_year": "{{characterLength}} 字符长度。每年费用 {{ costPerYear }} 美元",
+        "domain_price_length": "域名价格长度",
+        "know_more": "了解更多",
+        "lifetime": "终身",
+        "price_per_year": "每年价格",
+        "title": "购买域名",
+        "years": "{{ yearCount }} 年"
+    },
+    "wallet": {
+        "download_qr": "下载二维码",
+        "my_arns": "我的ArNS",
+        "private_key": "私钥"
+    },
+    "private_key": {
+        "description": "要查看您的私钥，请完成安全验证步骤。",
+        "got_it": "知道了",
+        "title": "私钥"
+    },
+    "my_arns": {
+        "arns_website": "ArNS 网站",
+        "description": "您的个人网站，用于接收加密货币，易于分享所有必要信息以进行直接转账。"
+    },
+    "manage_domain": {
+        "buy_another_name": "购买另一个Zelf名称",
+        "hold_until": "保留至",
+        "registered_since": "Zelf名称注册自",
+        "registered_until": "注册至"
+    },
+    "manage_domains": {
+        "domain_error": "{{ zelfName }} 的时间已过！另一个用户可能会认领此域名。立即购买以认领它！",
+        "domain_warning": "您还有时间购买",
+        "purchase_new_domain": "购买新域名"
+    },
+    "create_wallet": {
+        "password_step": {
+            "add_password": "继续",
+            "agreement": "我理解Zelf无法恢复此密码。通过选择此额外的安全层，我承认我对记住它负全部责任。",
+            "continue_without_password": "一层安全",
+            "description": "确保您设置一个至少8个字符的强密码来保护您的ZelfProof。",
+            "password_label": "密码",
+            "repeat_password_label": "重复密码",
+            "title": "安全层"
+        },
+        "phrase_step": {
+            "12_words": "12个单词短语",
+            "24_words": "24个单词短语",
+            "description_2": "Zelf通过将您的恢复短语加密为强大的隐私保护ZelfProof，消除了手动存储的需要。此ZelfProof安全地存储在一个只有您可以解密的二维码中，确保无与伦比的安全性。",
+            "description_3": "二维码作为您的恢复密钥的强大数字保险库，由我们的Zelf名称服务（ZNS）增强。通过ZNS，您可以轻松备份和检索您的二维码。",
+            "description_4": "我理解Zelf可以通过ZNS帮助检索二维码。然而，我仍然有责任保护它以确保安全访问。",
+            "description": "您的私人恢复短语由12或24个单词组成，是访问和保护您的钱包的关键。",
+            "start_encryption_button": "开始",
+            "title": "钱包创建",
+            "words_input": "单词数量"
+        },
+        "zelfproof_step": {
+            "description": "您即将生成您的ZelfProof，它将安全地加密您的恢复短语。请按照以下步骤确保过程顺利有效。",
+            "instruction_1": "将您的脸放在指定标记内",
+            "instruction_2": "注视摄像头并避免移动",
+            "instruction_3": "确保执行所需的面部动作",
+            "title": "ZelfProof加密"
+        },
+        "view_wallet": {
+            "copy_public_address": "复制您的ETH地址",
+            "description_2": "如果二维码丢失，您可以通过注册的Zelf名称使用Zelf名称服务（ZNS）检索它。",
+            "description": "您的恢复短语已使用您的ZelfProof加密并保存在此二维码中，这是一个强大的隐私保护安全层。",
+            "download_qr_code": "下载您的二维码",
+            "qr_code_description": "请妥善保管此二维码。要访问或恢复您的钱包，您的ZelfProof和此二维码始终是必需的",
+            "title": "钱包已成功使用ZelfProof加密"
+        }
+    },
+    "liveness": {
+        "center_your_face": "将您的脸放在屏幕中央",
+        "center_your_face_subtitle": "请确保您的脸在中央",
+        "get_closer_subtitle": "请靠近一些以便更好地识别面部。",
+        "get_closer": "靠近一些",
+        "liveness_error_message": "活体检测失败，错误信息如下：<br><strong>{{error}}</strong><br>您想再试一次吗？",
+        "liveness_failed": "活体检测失败",
+        "loading_stream": "加载摄像头",
+        "try_again_button": "再试一次"
+    },
+    "errors": {
+        "Duplicated_person": "ZelfProof已被用于另一个记录",
+        "ERR_DESCRIPTION": "请确保按照说明正确解锁您的ZelfProof",
+        "ERR_INVALID_PASSWORD": "此ZelfProof的密码无效",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "面部角度过大",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "面部太靠近边缘",
+        "ERR_LIVENESS_FAILED": "活体检测失败",
+        "ERR_UNPROCESSABLE_CONTENT": "ZelfProof无法解密",
+        "ERR_VERIFICATION_FAILED": "活体检测失败",
+        "liveness_failed_description": "抱歉，您的活体检测似乎出现了问题。",
+        "liveness_failed": "活体检测失败",
+        "Liveness_score_not_acceptable": "活体分数不可接受",
+        "min_liveness_score_is": "最低活体分数为：",
+        "person_already_set": "您的注册已关联一个ZelfProof",
+        "phone_or_email_is_not_unique": "电话或电子邮件已被使用，请尝试另一个",
+        "replace_person_button": "好的，替换ZelfProof",
+        "something_went_wrong": "出了点问题，请再试一次",
+        "try_again": "再试一次",
+        "zelfName_is_taken": "此Zelf名称已被占用"
+    },
+    "import_wallet": {
+        "step_zero": {
+            "description": "它允许您快速安全地从其他平台转移您的数字资产。",
+            "description2": "我们的过程通过防止密钥或恢复短语的暴露来确保您的资产隐私。",
+            "description3": "导入您的钱包简化了您的加密货币体验，避免了管理多个账户的需要。",
+            "description4": "无需使用恢复短语即可轻松访问我们平台上的资金。",
+            "import_button": "导入钱包",
+            "subtitle": "有什么好处？",
+            "title": "导入现有钱包"
+        },
+        "step_one": {
+            "confirm_button": "导入钱包",
+            "description": "请在下方输入您的恢复短语以验证并导入现有钱包。",
+            "paste_note": "您可以在任何字段中粘贴整个秘密恢复短语",
+            "title": "输入恢复短语",
+            "word1": "1."
+        },
+        "qr_code_step": {
+            "copy_address": "复制公共地址",
+            "description": "您的安全短语和二维码现在已链接到您的ZelfProof。请妥善保管二维码以保护您的账户。",
+            "download_qr": "下载二维码",
+            "success_message": "您已成功导入现有钱包",
+            "understood": "明白了"
+        }
+    },
+    "unlock_wallet": {
+        "account_found": "找到ZELFPROOF",
+        "back_button": "返回",
+        "description": "通过输入其公共地址查找现有的Zelf名称：",
+        "drag_drop_text": "或将扩展名为.JPG或PNG的文件拖放到此处",
+        "title": "查找ZELF名称",
+        "upload_button": "选择二维码",
+        "upload_description": "或上传您的ZelfProof二维码以继续：",
+        "verify_button": "验证",
+        "password": {
+            "button": "继续",
+            "label": "密码",
+            "placeholder": "********************",
+            "subtitle": "输入分配给此ZelfProof的密码以完成打开过程。",
+            "title": "此ZELFPROOF需要密码"
+        },
+        "hold": {
+            "buy_now": "立即购买",
+            "expiration_time": "此预订将于以下时间到期 ",
+            "purchase_reservation": "购买预订",
+            "title": "找到预订",
+            "unlock_without_purchase": "立即验证，稍后购买"
+        }
+    },
+    "steps": {
+        "add_password": "添加密码",
+        "available": "可用",
+        "biometric_unlock": "ZelfProof锁",
+        "biometrics": "ZelfProof",
+        "decrypt": "解密",
+        "import_wallet": "导入您的钱包",
+        "password_unlock": "密码",
+        "qr_code_generator": "ZELF名称",
+        "search_wallet": "打开ZELFPROOF",
+        "wallet_type": "钱包"
+    },
+    "wallets_connected": {
+        "account": "账户",
+        "create_or_import_wallet_button": "购买新域名",
+        "delete_wallet": "取消链接钱包",
+        "no_zelf_name": "没有Zelf名称",
+        "see_on_scanner": "打开浏览器",
+        "see_qr_code": "查看二维码",
+        "title": "选择一个钱包"
+    },
+    "active_wallet": {
+        "show_private_key": "显示私钥",
+        "warning_notice": "请记住保管好您的二维码；如有需要，请制作多份副本。此外，仅在导出钱包时解锁密钥"
+    },
+    "home": {
+        "activity": "活动",
+        "assets": "代币",
+        "NFTs": "收藏品",
+        "receive_transaction_button": "接收",
+        "scan_button": "扫描",
+        "send_transaction_button": "发送",
+        "settings_button": "设置",
+        "support_button": "支持"
+    },
+    "activity_card": {
+        "age": "年龄",
+        "amount": "金额",
+        "block": "区块",
+        "from": "从",
+        "hash": "哈希",
+        "in": "接收",
+        "method": "方法",
+        "sent": "发送",
+        "to": "到",
+        "traffic": "流量",
+        "transaction": "交易",
+        "transactionID": "交易ID",
+        "txnFee": "交易费",
+        "viewOnExplorer": "在区块浏览器上查看"
+    },
+    "extension_instructions": {
+        "addExtension": "将扩展程序添加到您的浏览器，以便轻松访问和查看Zelf名称服务上的交易确认。",
+        "clickExtensionIcon": "点击浏览器中的扩展图标。",
+        "clickIcon": "点击浏览器中的扩展图标。",
+        "extensions": "扩展",
+        "extensionsCanChange": "这些扩展可以查看和更改此网站上的信息。",
+        "fixWallet": "修复ZNS。",
+        "fullAccess": "完全访问",
+        "installationCompleted": "Zelf名称服务安装已完成！",
+        "manageExtensions": "管理扩展"
+    },
+    "send_transaction": {
+        "account_found": "地址已找到",
+        "confirm_transaction_button": "确认交易",
+        "confirmation_step": "转账",
+        "continue_transaction_button": "下一步",
+        "pickReceiver_step": "发送",
+        "reject_transaction_button": "取消",
+        "send_to": "发送到",
+        "tokens_step": "选择代币",
+        "your_accounts": "您的账户",
+        "confirm": {
+            "gas_description": "大约在{{seconds}}秒内",
+            "gas_label": "Gas（估算）",
+            "market": "市场",
+            "max_gas": "最大费用：",
+            "max_total": "最大总额",
+            "sending_label": "发送{{amount}} {{asset}}",
+            "total_to_pay_label": "资产 + gas 费用"
+        },
+        "preview": {
+            "estimated_fee": "估算费用"
+        },
+        "bridge": {
+            "confirm_button": "确认交易",
+            "description_2": "在网页扩展中继续",
+            "description": "从您的Zelf名称服务应用扫描二维码。在您的设备上解密以增加安全层",
+            "dont_have_the_app": "还没有安装Zelf名称服务应用？",
+            "download_here": "在这里下载并增加所有交易的安全性，永远不会失去对您的加密货币的访问。",
+            "qr_code_title": "扫描二维码",
+            "title": "确认您的交易"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "选择一个测试网络",
+        "title": "选择一个网络"
+    },
+    "payments": {
+        "continue_withoutpaying": "继续无需支付",
+        "pay_now": "继续支付"
+    },
+    "restricted": {
+        "description": "此功能在移动设备上不可用。请使用桌面浏览器访问或下载Zelf名称服务应用。",
+        "download_android_app": "下载安卓应用",
+        "title": "移动设备限制"
+    }
 }

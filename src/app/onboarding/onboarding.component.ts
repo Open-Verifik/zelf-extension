@@ -16,17 +16,17 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
     private intervalId: any;
 
-    step: number = 1;
-    walletCreationForm: any;
-    termsAcceptance!: boolean;
-    zelfForm!: UntypedFormGroup;
     loading: boolean;
+    showHomeButton: boolean = false;
+    step: number = 1;
+    termsAcceptance!: boolean;
+    walletCreationForm: any;
+    zelfForm!: UntypedFormGroup;
 
     items = [
         {
             title: "onboarding.step_1",
             description: "onboarding.step_1_description",
-            // image: "../../assets/images/onboardingface.png",
             image: "../../assets/images/onboarding1.png",
         },
         {
@@ -39,7 +39,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
             description: "onboarding.step_3_description",
             image: "../../assets/images/onboarding_qr.svg",
         },
-        // Add more items as needed
     ];
 
     activeIndex = 0;
@@ -59,7 +58,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
         this.loading = false;
     }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.zelfForm = this._formBuilder.group({
             zelfName: ["", [Validators.required]],
         });
@@ -67,6 +66,10 @@ export class OnboardingComponent implements OnInit, OnDestroy {
         this.checkIfTabOrPopup();
         this.startRotation();
         this.checkIfTabOpen();
+
+        const wallets = await this._walletService.getWalletsFromStorage();
+
+        if (wallets.length) this.showHomeButton = true;
     }
 
     async onSubmit(event: Event) {}

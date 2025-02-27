@@ -5,6 +5,8 @@
 /out-tsc
 .angular
 /.angular
+/dist/*
+
 # Only exists if Bazel was run
 /bazel-out
 

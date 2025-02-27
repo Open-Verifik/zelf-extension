@@ -6,7 +6,7 @@ export const OnboardingGuard: CanActivateFn = async (route) => {
     const _chromeService = inject(ChromeService);
 
     const isExtension = _chromeService.isExtension;
-    const isPopout = _chromeService.isPopOut;
+    const isPopout = _chromeService.isPopout;
     const isSidePanel = _chromeService.isSidePanel;
 
     if (isExtension) {

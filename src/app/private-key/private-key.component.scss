@@ -2,7 +2,10 @@
 
 :host {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 16px;
 }
 
@@ -13,6 +16,7 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
+    max-width: 400px;
 
     &__exit {
         position: absolute;
@@ -49,7 +53,7 @@
     &__body {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 16px;
         width: 100%;
         justify-content: center;
         align-items: center;
@@ -66,12 +70,13 @@
         font-family: Menda;
         color: $black;
         text-transform: uppercase;
-        margin: 0;
+        margin: 12px 0 0;
     }
 
     &__text {
         font-size: 14px;
         margin: 0;
+        text-align: center;
     }
 
     &__actions {

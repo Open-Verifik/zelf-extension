@@ -130,7 +130,9 @@ export class HomeComponent implements OnInit {
 	}
 
 	async _getSolanaDetails(): Promise<any> {
-		const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
+		if (!this.wallet?.solanaAddress) return;
+
+		const details = await this._solanaService.getWalletDetails(this.wallet?.solanaAddress);
 
 		if (!details) return;
 

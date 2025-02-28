@@ -20,7 +20,7 @@
 		"register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}",
 		"zns_reward": "Makakatanggap ka ng {{reward}} Zelf tokens (ZNS) bilang gantimpala",
 		"lifetime": "Habambuhay",
-		"price_per_year": "Presyo bawat taon",
+		"price_year": "Presyo para sa {{ duration }} taon",
 		"price_for_lifetime": "Presyo para sa habambuhay",
 		"referral_code": "Referral code"
 	},

@@ -20,6 +20,11 @@ export class ChromeService {
 	}
 
 	setItem(key: string, value: any): Promise<void> {
+		if (key === "wallets") {
+			console.log(` setItem ~ value passed:`, value);
+			console.log(" setItem ~ value in localStorage:", localStorage.getItem(key));
+		}
+
 		return new Promise((resolve, reject) => {
 			if (this.isExtension) {
 				chrome.storage.local.set({ [key]: value }, () => {

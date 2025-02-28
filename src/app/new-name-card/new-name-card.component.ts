@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CaptchaService } from "app/captcha.service";
+import { DiscountType } from "app/pipes/discount.pipe";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { debounceTime, distinctUntilChanged } from "rxjs";
@@ -10,6 +11,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 	selector: "new-name-card",
 	template: `
 		<mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
+
 		<div class="zelf-card">
 			<form [formGroup]="zelfForm" #signUpNgForm="ngForm" fxLayout="column" fxLayoutAlign="start start" class="my-1 w-full">
 				<div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
@@ -49,6 +51,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 								fill="#181818"
 							/>
 						</svg>
+
 						<h2 *ngIf="duration <= 5" class="p-1">
 							{{ duration }} {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}
 						</h2>
@@ -92,7 +95,11 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 						<span *ngIf="duration === 'lifetime'" class="price-label">{{ "onboarding.price_for_lifetime" | transloco }}</span>
 
 						<h4>
-							<span class="text-bold mr-1">{{ price | currency }}</span> <span class="currency">USD</span>
+							<span class="text-bold mr-1">
+								{{ price | discount : discountValue : discountType | currency : "USD" : "symbol" : "1.2" }}
+							</span>
+
+							<span class="currency">USD</span>
 						</h4>
 					</div>
 					<!-- end of price -->
@@ -148,12 +155,19 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 })
 export class NewNameCardComponent implements OnInit {
 	@ViewChild("zelfForm") signUpNgForm!: NgForm;
-	zelfForm!: UntypedFormGroup;
-	zelfName: string;
-	steps: Array<any>;
-	session: any;
+
+	discountType: DiscountType = "";
+	discountValue: number = 0;
 	duration: any;
 	isZelfNameEmpty: boolean;
+	loading: boolean;
+	price: number;
+	reward: any;
+	session: any;
+	steps: Array<any>;
+	zelfForm!: UntypedFormGroup;
+	zelfName: string;
+	zelfNameObject: any;
 	zelfNamePricing: any = {
 		1: { 1: 240, 2: 432, 3: 612, 4: 768, 5: 900, lifetime: 3600 },
 		2: { 1: 120, 2: 216, 3: 306, 4: 384, 5: 450, lifetime: 1800 },
@@ -174,10 +188,6 @@ export class NewNameCardComponent implements OnInit {
 		26: { 1: 13, 2: 23, 3: 33, 4: 42, 5: 49, lifetime: 195 },
 		27: { 1: 12, 2: 22, 3: 31, 4: 38, 5: 45, lifetime: 180 },
 	};
-	price: number;
-	loading: boolean;
-	zelfNameObject: any;
-	reward: any;
 
 	constructor(
 		private _router: Router,
@@ -186,11 +196,11 @@ export class NewNameCardComponent implements OnInit {
 		private _zelfNameService: ZelfNameService,
 		private captchaService: CaptchaService
 	) {
-		this.zelfName = "";
 		this.duration = 1;
-		this.price = 24;
-		this.loading = false;
 		this.isZelfNameEmpty = true;
+		this.loading = false;
+		this.price = 24;
+		this.zelfName = "";
 
 		this.steps = [
 			{
@@ -202,7 +212,6 @@ export class NewNameCardComponent implements OnInit {
 		];
 
 		this.session = this._walletService.getSessionData();
-
 		this.session.steps = [];
 
 		this.zelfForm = this._formBuilder.group({
@@ -213,14 +222,12 @@ export class NewNameCardComponent implements OnInit {
 
 	async ngOnInit(): Promise<any> {
 		this.zelfName = this._zelfNameService.getZelfName();
-
 		this.price = this._zelfNameService.getZelfPrice();
-
 		this.reward = this._zelfNameService.getZelfReward();
 
-		console.log({ price: this.price, reward: this.reward });
-
 		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
+
+		this._calculateZelfNamePrice();
 
 		// Track input value changes
 		// Track input changes and trigger searchZelfName after 5 seconds
@@ -265,7 +272,6 @@ export class NewNameCardComponent implements OnInit {
 		if (this.duration === "lifetime") return;
 
 		this.duration = this.duration === 5 ? "lifetime" : this.duration + 1;
-
 		this._calculateZelfNamePrice();
 	}
 
@@ -273,7 +279,6 @@ export class NewNameCardComponent implements OnInit {
 		if (this.duration === 1) return;
 
 		this.duration = this.duration === "lifetime" ? 5 : this.duration - 1;
-
 		this._calculateZelfNamePrice();
 	}
 

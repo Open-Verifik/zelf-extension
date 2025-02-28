@@ -7,6 +7,7 @@ import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
 	selector: "app-home",
@@ -14,6 +15,8 @@ import { WalletService } from "app/wallet.service";
 	styleUrls: ["./home.component.scss", "../main.scss"],
 })
 export class HomeComponent implements OnInit {
+	private unsubscriber$: Subject<void> = new Subject<void>();
+
 	title: string = "something";
 	wallet!: Wallet;
 	wallets!: Array<Wallet>;
@@ -60,7 +63,7 @@ export class HomeComponent implements OnInit {
 
 		await this._getBalances();
 
-		this.route.queryParamMap.subscribe(async (params) => {
+		this.route.queryParamMap.pipe(takeUntil(this.unsubscriber$)).subscribe(async (params) => {
 			const _view = params.get("view");
 
 			switch (_view) {
@@ -83,6 +86,11 @@ export class HomeComponent implements OnInit {
 				this.view = _view;
 			}
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscriber$.next();
+		this.unsubscriber$.complete();
 	}
 
 	async _getBalances(): Promise<any> {

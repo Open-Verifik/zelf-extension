@@ -118,8 +118,9 @@ export class HomeComponent implements OnInit {
 
 			this._chromeService.setItem("wallet", wallet);
 
-			if (!wallet) {
+			if (!wallet?.ethAddress && !wallet?.solanaAddress) {
 				this._router.navigate(["/onboarding"]);
+
 				return;
 			}
 		}

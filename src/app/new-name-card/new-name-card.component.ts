@@ -296,8 +296,7 @@ export class NewNameCardComponent implements OnInit {
 			throw new Error("Invalid name length. Length must be between 1 and 27.");
 		}
 
-		// Round up to 2 decimal places
-		this.price = Math.ceil(price * 100) / 100 - (this.zelfNameObject ? price * 0.1 : 0);
+		this.price = Math.ceil(price * 100) / 100;
 	}
 
 	async searchZelfName(event: any): Promise<any> {

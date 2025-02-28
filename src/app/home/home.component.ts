@@ -110,8 +110,7 @@ export class HomeComponent implements OnInit {
 	async _setWallet(): Promise<any> {
 		let wallet = await this._chromeService.getItem("wallet");
 
-		if (!wallet) {
-			// get wallets
+		if (!wallet?.ethAddress && !wallet?.solanaAddress) {
 			this.wallets = await this._chromeService.getItem("wallets");
 
 			wallet = this.wallets[0];

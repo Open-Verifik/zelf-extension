@@ -71,6 +71,7 @@ import { TransactionDetailsComponent } from "./transaction-details/transaction-d
 import { NewNameCardComponent } from "./new-name-card/new-name-card.component";
 import { Router } from "@angular/router";
 import { environment } from "environments/environment";
+import { DiscountPipe } from "./pipes/discount.pipe";
 
 //
 //
@@ -149,6 +150,7 @@ import { environment } from "environments/environment";
 		MatSnackBarModule,
 		MatDividerModule,
 		MatProgressBarModule,
+		DiscountPipe,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

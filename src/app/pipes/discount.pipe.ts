@@ -1,13 +1,14 @@
 import { Pipe, type PipeTransform } from "@angular/core";
 
-export type DiscountType = "" | "percentage" | "fixed";
+export type DiscountType = "" | "percentage" | "amount";
 
 @Pipe({
 	name: "discount",
 	standalone: true,
+	pure: false,
 })
 export class DiscountPipe implements PipeTransform {
-	transform(value: number, ...args: [number, "" | "percentage" | "fixed"]): number | string {
+	transform(value: number, ...args: [number, DiscountType]): number | string {
 		const discountType = args[1];
 
 		if (!discountType) return value;
@@ -18,7 +19,7 @@ export class DiscountPipe implements PipeTransform {
 
 		if (discountType === "percentage") {
 			discountedResult = value - (value * discountValue) / 100;
-		} else if (discountType === "fixed") {
+		} else if (discountType === "amount") {
 			discountedResult = value - discountValue;
 		}
 

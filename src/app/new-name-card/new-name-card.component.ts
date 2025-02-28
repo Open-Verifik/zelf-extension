@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CaptchaService } from "app/captcha.service";
 import { DiscountType } from "app/pipes/discount.pipe";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { debounceTime, distinctUntilChanged } from "rxjs";
+import { distinctUntilChanged } from "rxjs";
 
 @Component({
 	selector: "new-name-card",
@@ -96,7 +96,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 
 						<h4>
 							<span class="text-bold mr-1">
-								{{ price | discount : discountValue : discountType | currency : "USD" : "symbol" : "1.2" }}
+								{{ price | discount : discount : discountType | currency : "USD" : "symbol" : "1.2" }}
 							</span>
 
 							<span class="currency">USD</span>
@@ -112,13 +112,14 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 							<div class="unlock-input-text-container">
 								<mat-form-field class="w-full">
 									<input
-										type="text"
-										matInput
-										[formControlName]="'zelfName'"
-										autocomplete="off"
-										(keydown.enter)="searchZelfName($event)"
 										(input)="sanitizeZelfNameInput()"
+										(keydown.enter)="searchZelfName($event)"
+										(blur)="searchZelfName($event)"
+										[formControlName]="'zelfName'"
 										[readonly]="zelfNameObject || loading"
+										autocomplete="off"
+										matInput
+										type="text"
 									/>
 								</mat-form-field>
 							</div>
@@ -140,11 +141,11 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 				</div>
 
 				<div class="p-3 w-full" fxLayout="column" fxLayoutAlign="center center">
-					<button mat-raised-button class="w-full my-3 main-button" (click)="goToCreateWallet()" [disabled]="!acceptedTerms()">
+					<button mat-raised-button class="w-full my-3 main-button" (click)="goToCreateWallet()" [disabled]="disableButtons()">
 						{{ "onboarding.create_new_wallet" | transloco }}
 					</button>
 
-					<button mat-raised-button class="w-full my-1 secondary-button" (click)="goToImportWallet()" [disabled]="!acceptedTerms()">
+					<button mat-raised-button class="w-full my-1 secondary-button" (click)="goToImportWallet()" [disabled]="disableButtons()">
 						{{ "onboarding.import_wallet" | transloco }}
 					</button>
 				</div>
@@ -156,8 +157,8 @@ import { debounceTime, distinctUntilChanged } from "rxjs";
 export class NewNameCardComponent implements OnInit {
 	@ViewChild("zelfForm") signUpNgForm!: NgForm;
 
+	discount: number = 0;
 	discountType: DiscountType = "";
-	discountValue: number = 0;
 	duration: any;
 	isZelfNameEmpty: boolean;
 	loading: boolean;
@@ -190,10 +191,11 @@ export class NewNameCardComponent implements OnInit {
 	};
 
 	constructor(
-		private _router: Router,
 		private _formBuilder: UntypedFormBuilder,
+		private _router: Router,
 		private _walletService: WalletService,
 		private _zelfNameService: ZelfNameService,
+		private _changeDetectorRef: ChangeDetectorRef,
 		private captchaService: CaptchaService
 	) {
 		this.duration = 1;
@@ -228,22 +230,6 @@ export class NewNameCardComponent implements OnInit {
 		if (!this.zelfName) return this._router.navigate(["/onboarding"]);
 
 		this._calculateZelfNamePrice();
-
-		// Track input value changes
-		// Track input changes and trigger searchZelfName after 5 seconds
-		this.zelfForm
-			.get("zelfName")
-			?.valueChanges.pipe(
-				debounceTime(5000), // Wait 5 seconds after typing stops
-				distinctUntilChanged() // Only trigger if the value actually changes
-			)
-			.subscribe((value) => {
-				this.isZelfNameEmpty = !value || value.trim() === "";
-
-				if (!this.isZelfNameEmpty) {
-					this.searchZelfName(new Event("input")); // Trigger search
-				}
-			});
 	}
 
 	goToCreateWallet(): void {
@@ -256,6 +242,10 @@ export class NewNameCardComponent implements OnInit {
 
 	goToFindWallet(): void {
 		this._router.navigate(["/find-wallet"]);
+	}
+
+	disableButtons(): boolean {
+		return !this.acceptedTerms() || this.loading || !!this.zelfForm.get("zelfName")?.dirty;
 	}
 
 	acceptedTerms(): boolean {
@@ -272,6 +262,7 @@ export class NewNameCardComponent implements OnInit {
 		if (this.duration === "lifetime") return;
 
 		this.duration = this.duration === 5 ? "lifetime" : this.duration + 1;
+
 		this._calculateZelfNamePrice();
 	}
 
@@ -279,6 +270,7 @@ export class NewNameCardComponent implements OnInit {
 		if (this.duration === 1) return;
 
 		this.duration = this.duration === "lifetime" ? 5 : this.duration - 1;
+
 		this._calculateZelfNamePrice();
 	}
 
@@ -311,6 +303,7 @@ export class NewNameCardComponent implements OnInit {
 	async searchZelfName(event: any): Promise<any> {
 		if (!this.zelfForm.valid) {
 			this.zelfForm.patchValue({ zelfName: "" });
+			this.zelfForm.markAsPristine();
 		}
 
 		if (this.loading) return;
@@ -343,15 +336,27 @@ export class NewNameCardComponent implements OnInit {
 			.then((response) => {
 				if (response?.data.price) {
 					this.zelfForm.patchValue({ zelfName: "" });
+					this.zelfForm.markAsPristine();
+
+					this._changeDetectorRef.detectChanges();
+
 					this.loading = false;
+
 					return;
 				}
 
+				this.zelfForm.markAsPristine();
+
 				this.zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+
+				this.discount = this.zelfNameObject?.publicData?.discount;
+				this.discountType = this.zelfNameObject?.publicData?.discountType;
 
 				this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
 
 				this._calculateZelfNamePrice();
+
+				this._changeDetectorRef.detectChanges();
 
 				this.loading = false;
 			})

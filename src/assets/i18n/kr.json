@@ -20,7 +20,7 @@
 		"register_description": "이 이름을 {{duration}} 동안 등록합니다",
 		"zns_reward": "보상으로 {{reward}} Zelf 토큰(ZNS)을 받게 됩니다",
 		"lifetime": "평생",
-		"price_per_year": "연간 가격",
+		"price_year": "{{duration}}년 가격",
 		"price_for_lifetime": "평생 가격",
 		"referral_code": "추천 코드"
 	},

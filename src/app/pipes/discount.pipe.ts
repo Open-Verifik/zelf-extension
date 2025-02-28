@@ -20,7 +20,6 @@ export class DiscountPipe implements PipeTransform {
 		if (discountType === "percentage") {
 			discountedResult = value - (value * discountValue) / 100;
 		} else if (discountType === "amount") {
-			console.log({ value, discountValue });
 			discountedResult = value - discountValue;
 		}
 

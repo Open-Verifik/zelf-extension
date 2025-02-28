@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CaptchaService } from "app/captcha.service";
 import { DiscountType } from "app/pipes/discount.pipe";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { distinctUntilChanged } from "rxjs";
 
 @Component({
 	selector: "new-name-card",
@@ -36,6 +35,7 @@ import { distinctUntilChanged } from "rxjs";
 								fill="#E2E2E6"
 							/>
 						</svg>
+
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -56,7 +56,7 @@ import { distinctUntilChanged } from "rxjs";
 							{{ duration }} {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}
 						</h2>
 
-						<h2 *ngIf="duration === 'lifetime'">{{ "onboarding.lifetime" | transloco }}</h2>
+						<h2 *ngIf="duration === 'lifetime'" class="p-1">{{ "onboarding.lifetime" | transloco }}</h2>
 
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ import { distinctUntilChanged } from "rxjs";
 
 					<!-- price -->
 					<div class="new-zelf-ipfs-length-card" fxLayout="row" fxLayoutAlign="space-between center">
-						<span *ngIf="duration !== 'lifetime'" class="price-label">{{ "onboarding.price_per_year" | transloco }}</span>
+						<span *ngIf="duration !== 'lifetime'" class="price-label">{{ "onboarding.price_year" | transloco : { duration } }}</span>
 						<span *ngIf="duration === 'lifetime'" class="price-label">{{ "onboarding.price_for_lifetime" | transloco }}</span>
 
 						<h4>
@@ -195,7 +195,6 @@ export class NewNameCardComponent implements OnInit {
 		private _router: Router,
 		private _walletService: WalletService,
 		private _zelfNameService: ZelfNameService,
-		private _changeDetectorRef: ChangeDetectorRef,
 		private captchaService: CaptchaService
 	) {
 		this.duration = 1;
@@ -305,7 +304,9 @@ export class NewNameCardComponent implements OnInit {
 			this.zelfForm.markAsPristine();
 		}
 
-		if (this.loading) return;
+		const zelfNameCtrl = this.zelfForm.get("zelfName");
+
+		if (this.loading || !zelfNameCtrl?.dirty || !zelfNameCtrl?.value) return;
 
 		event.preventDefault();
 
@@ -323,11 +324,10 @@ export class NewNameCardComponent implements OnInit {
 			console.error("reCAPTCHA failed:", error);
 		}
 
-		// Validation: Ensure zelfName is at least 4 characters
 		if (!this.zelfForm.value.zelfName.length) {
 			this.loading = false;
 
-			return; // Prevent further execution if validation fails
+			return;
 		}
 
 		this._zelfNameService
@@ -337,8 +337,6 @@ export class NewNameCardComponent implements OnInit {
 					this.zelfForm.patchValue({ zelfName: "" });
 					this.zelfForm.markAsPristine();
 
-					this._changeDetectorRef.detectChanges();
-
 					this.loading = false;
 
 					return;
@@ -347,15 +345,12 @@ export class NewNameCardComponent implements OnInit {
 				this.zelfForm.markAsPristine();
 
 				this.zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
-
 				this.discount = this.zelfNameObject?.publicData?.discount;
 				this.discountType = this.zelfNameObject?.publicData?.discountType;
 
 				this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
 
 				this._calculateZelfNamePrice();
-
-				this._changeDetectorRef.detectChanges();
 
 				this.loading = false;
 			})

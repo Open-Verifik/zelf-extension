@@ -10,7 +10,7 @@
         "lifetime": "زندگی بھر",
         "open_wallet": "اپنا والٹ کھولیں",
         "price_for_lifetime": "زندگی بھر کی قیمت",
-        "price_per_year": "سالانہ قیمت",
+        "price_year": "{{ duration }} سال کے لیے قیمت",
         "referral_code": "ریفرل کوڈ",
         "register_description": "آپ اس نام کو {{duration}} کے لیے رجسٹر کریں گے",
         "register": "رجسٹر کریں",

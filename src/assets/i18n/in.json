@@ -10,7 +10,7 @@
         "lifetime": "जीवनकाल",
         "open_wallet": "अपना वॉलेट खोलें",
         "price_for_lifetime": "जीवनकाल के लिए मूल्य",
-        "price_per_year": "प्रति वर्ष मूल्य",
+        "price_year": "{{ duration }} वर्ष के लिए मूल्य",
         "referral_code": "रेफरल कोड",
         "register_description": "आप इस नाम को {{duration}} के लिए पंजीकृत करेंगे",
         "register": "पंजीकरण करें",

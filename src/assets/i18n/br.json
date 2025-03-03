@@ -10,7 +10,7 @@
         "lifetime": "Vitalício",
         "open_wallet": "Abrir sua carteira",
         "price_for_lifetime": "Preço vitalício",
-        "price_per_year": "Preço por ano",
+        "price_year": "Preço por {{ duration }} ano",
         "referral_code": "Código de referência",
         "register_description": "Você registrará este nome por {{duration}}",
         "register": "Registrar",

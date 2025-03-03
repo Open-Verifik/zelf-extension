@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
@@ -14,8 +14,8 @@ import { Subject, takeUntil } from "rxjs";
     templateUrl: "./home.component.html",
     styleUrls: ["./home.component.scss", "../main.scss"],
 })
-export class HomeComponent implements OnInit {
-    private unsubscriber$: Subject<any> = new Subject<any>();
+export class HomeComponent implements OnInit, OnDestroy {
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     activity!: Array<ETHTransaction>;
     balances: any;
@@ -65,6 +65,11 @@ export class HomeComponent implements OnInit {
 
     async ngOnInit(): Promise<any> {
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
     }
 
     private async _getBalances(): Promise<any> {

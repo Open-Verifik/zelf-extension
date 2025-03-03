@@ -10,7 +10,7 @@
         "lifetime": "Lifetime",
         "open_wallet": "Open your wallet",
         "price_for_lifetime": "Price for lifetime",
-        "price_per_year": "Price per year",
+        "price_year": "Price for {{ duration }} year",
         "referral_code": "Referral code",
         "register_description": "You’ll register this name for {{duration}}",
         "register": "Register",

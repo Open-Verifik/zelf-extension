@@ -10,7 +10,7 @@
         "lifetime": "مدى الحياة",
         "open_wallet": "افتح محفظتك",
         "price_for_lifetime": "السعر لمدى الحياة",
-        "price_per_year": "السعر لكل سنة",
+        "price_year": "السعر لمدة {{duration}} سنة",
         "referral_code": "رمز الإحالة",
         "register_description": "ستقوم بتسجيل هذا الاسم لمدة {{duration}}",
         "step_1_description": "اكتشف خدمة اسم زيلف (ZNS)، الخدمة المبتكرة التي تحررك من تذكر عبارة الاسترداد. الوصول الآمن والسريع باستخدام ZNS",

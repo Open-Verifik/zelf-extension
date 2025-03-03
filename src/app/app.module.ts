@@ -1,13 +1,19 @@
+import { TranslocoModule } from "@ngneat/transloco";
+import { WebcamModule } from "ngx-webcam";
+
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { Router } from "@angular/router";
 
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -18,12 +24,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatStepperModule } from "@angular/material/stepper";
 
-import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { Router } from "@angular/router";
-
 import { environment } from "environments/environment";
-import { WebcamModule } from "ngx-webcam";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -56,9 +57,13 @@ import { ImportQrCodeStepComponent } from "./import-wallet/import-qr-code-step/i
 import { ImportWalletComponent } from "./import-wallet/import-wallet.component";
 import { LanguagePickerComponent } from "./language-picker/language-picker.component";
 import { LoaderComponent } from "./loader/loader.component";
+import { MnemonicComponent } from "./mnemonic/mnemonic.component";
 import { NewNameCardComponent } from "./new-name-card/new-name-card.component";
 import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
+import { DiscountPipe } from "./pipes/discount.pipe";
+import { FirstLetterPipe } from "./pipes/first-letter.pipe";
+import { ZelfNamePipe } from "./pipes/zelf-name.pipe";
 import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
 import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
 import { SendTransactionPreviewComponent } from "./send-transaction/send-transaction-preview/send-transaction-preview.component";
@@ -72,10 +77,6 @@ import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
 import { UwPasswordStepComponent } from "./unlock-wallet/uw-password-step/uw-password-step.component";
 import { UwSearchWalletComponent } from "./unlock-wallet/uw-search-wallet/uw-search-wallet.component";
 import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.component";
-import { ZelfNamePipe } from "./pipes/zelf-name.pipe";
-import { FirstLetterPipe } from "./pipes/first-letter.pipe";
-import { TranslocoModule } from "@ngneat/transloco";
-import { MnemonicComponent } from "./mnemonic/mnemonic.component";
 
 @NgModule({
     declarations: [
@@ -151,6 +152,7 @@ import { MnemonicComponent } from "./mnemonic/mnemonic.component";
         MatSnackBarModule,
         MatDividerModule,
         MatProgressBarModule,
+        DiscountPipe,
         FirstLetterPipe,
         ZelfNamePipe,
         TranslocoModule,

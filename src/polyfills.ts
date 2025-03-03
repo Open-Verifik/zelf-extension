@@ -17,7 +17,7 @@
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
-import "webextension-polyfill"; // Required for browser extension support
+// import "webextension-polyfill"; // Required for browser extension support
 
 /**
  * IE11 requires the following for NgClass support on SVG elements

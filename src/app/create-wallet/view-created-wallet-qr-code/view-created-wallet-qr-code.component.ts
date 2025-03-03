@@ -43,7 +43,7 @@ import { Wallet, WalletModel } from "app/wallet";
                         class="zelf-button zelf-button--outlined zelf-button--wide"
                         fxLayout="row"
                         fxLayoutAlign="center center"
-                        (click)="downloadImage()"
+                        (click)="downloadQRCode()"
                     >
                         <div class="view-wallet-icon">
                             <svg
@@ -86,7 +86,7 @@ import { Wallet, WalletModel } from "app/wallet";
     styleUrls: ["./view-created-wallet-qr-code.component.scss", "../../main.scss"],
 })
 export class ViewCreatedWalletQrCodeComponent extends CopyToClipboardBase implements OnInit {
-    @Input() walletType!: string; // Input property to accept view type
+    @Input() walletType!: string;
 
     holdData: any;
     session: any;
@@ -102,11 +102,11 @@ export class ViewCreatedWalletQrCodeComponent extends CopyToClipboardBase implem
         super(_chromeService, snackBar, _translocoService);
     }
 
-    async ngOnInit(): Promise<any> {
+    async ngOnInit(): Promise<void> {
         const walletType = this.walletType || "wallet";
-        const wallet = (await this._chromeService.getItem(walletType)) || (await this._chromeService.getItem("unlockWallet"));
+        const wallet = await this._chromeService.getItem(walletType);
 
-        this.holdData = wallet.ipfs?.metadata?.type === "hold" ? wallet.ipfs?.metadata : null;
+        this.holdData = wallet.ipfs?.publicData?.type === "hold" ? wallet.ipfs?.publicData : null;
         this.wallet = new WalletModel(wallet);
 
         if (!this.wallet.ethAddress) {
@@ -129,38 +129,12 @@ export class ViewCreatedWalletQrCodeComponent extends CopyToClipboardBase implem
         this._router.navigate(["extension-instructions"]);
     }
 
-    // Function to download the image
-    downloadImage(): void {
-        // Split the base64 string to get the mime type and the data
-        const parts = this.wallet.image.split(";base64,");
-        const mimeType = parts[0].split(":")[1];
-        const imageData = parts[1];
-        const byteCharacters = atob(imageData);
-        const byteNumbers = new Array(byteCharacters.length);
+    downloadQRCode(): void {
+        const link = document.createElement("a");
 
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-
-        const byteArray = new Uint8Array(byteNumbers);
-
-        // Create a new Blob object using the byteArray and the mime type
-        const blob = new Blob([byteArray], { type: mimeType });
-
-        // Create a URL for the blob object
-        const blobUrl = URL.createObjectURL(blob);
-
-        // Create a temporary anchor element and trigger a download
-        const a = document.createElement("a");
-        a.href = blobUrl;
-        a.download = `${this.wallet._id}.png`; // Set the file name
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-
-        URL.revokeObjectURL(blobUrl);
-
-        document.body.removeChild(a);
+        link.href = this.wallet?.image as string;
+        link.download = `zelfproof_${this.wallet?.publicData?.zelfName}.png`;
+        link.click();
     }
 
     async goToPaymentsPage(): Promise<void> {

@@ -63,6 +63,7 @@
                     },
                     "configurations": {
                         "production": {
+                            "baseHref": "/",
                             "buildOptimizer": true,
                             "extractLicenses": true,
                             "namedChunks": false,
@@ -205,6 +206,7 @@
                             }
                         },
                         "development": {
+                            "baseHref": "/",
                             "buildOptimizer": false,
                             "extractLicenses": false,
                             "namedChunks": true,

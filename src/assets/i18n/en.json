@@ -169,6 +169,7 @@
         "replace_person_button": "Ok, replace ZelfProof",
         "something_went_wrong": "Something went wrong, please try again",
         "try_again": "Try again",
+        "password_incorrect": "The password is incorrect",
         "zelfName_is_taken": "This zelf name is already taken"
     },
     "import_wallet": {

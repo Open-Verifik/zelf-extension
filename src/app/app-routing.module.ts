@@ -1,12 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { LoginGuard } from "./login.guard";
-import { OnboardingGuard } from "./onboarding.guard";
+import { LoginGuard } from "./guards/login.guard";
+import { OnboardingGuard } from "./guards/onboarding.guard";
 
 import { HomeComponent } from "./home/home.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
-import { RedirectGuard } from "./Redirect.guard";
+import { ExternalRedirectGuard } from "./guards/external-redirect.guard";
+import { ExtensionGuard } from "./guards/extension.guard";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -49,6 +50,7 @@ const routes: Routes = [
     {
         path: "extension-instructions",
         loadComponent: () => import("./extension-instructions/extension-instructions.component").then((m) => m.ExtensionInstructionsComponent),
+        canActivate: [ExtensionGuard],
     },
     {
         path: "send-transaction",
@@ -94,7 +96,7 @@ const routes: Routes = [
     {
         path: "zelf-domain-purchase",
         data: { externalUrl: "https://payment.zelf.world/purchase" },
-        canActivate: [RedirectGuard],
+        canActivate: [ExternalRedirectGuard],
     },
 ];
 

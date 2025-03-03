@@ -37,7 +37,9 @@
 
                 <h4 class="qr-code__name">{{ wallet?.publicData?.zelfName || "****.zelf" }}</h4>
 
-                <p class="qr-code__status">{{ t("manage_domain.registered_since") }} {{ wallet?.publicData?.expiresAt | date : "dd MMM, yyyy" }}</p>
+                <p class="qr-code__status">
+                    {{ t("manage_domain.registered_since") }} {{ wallet?.publicData?.registeredAt | date : "dd MMM, yyyy" }}
+                </p>
             </div>
 
             <div class="manage-domain__details">

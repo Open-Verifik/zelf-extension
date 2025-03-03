@@ -1,3 +1,46 @@
+export interface IPFS {
+    GroupId: string | null;
+    ID: string;
+    IpfsHash: string;
+    MimeType: boolean;
+    name: string;
+    Name: string;
+    NumberOfFiles: number;
+    pinned: boolean;
+    PinSize: number;
+    Timestamp: string;
+    url: string;
+    web3: boolean;
+    zelfName: string;
+    Keyvalues: {
+        addresses: string;
+        expiresAt: string;
+        hasPassword: string;
+        payment: string;
+        type: string;
+        zelfName: string;
+        zelfProof: string;
+    };
+    publicData: {
+        btcAddress: string;
+        duration: number;
+        ethAddress: string;
+        expiresAt: string;
+        hasPassword: string;
+        name: string;
+        referralSolanaAddress: string;
+        referralZelfName: string;
+        solanaAddress: string;
+        type: string;
+        zelfName: string;
+    };
+}
+
+export interface PGP {
+    encryptedMessage: string;
+    privateKey: string;
+}
+
 export interface Transaction {
     amount: number;
     asset: string;
@@ -40,6 +83,7 @@ export interface WalletPublicData {
     expiresAt: string;
     isExpiringSoon: boolean;
     isExpired: boolean;
+    registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
     zelfName: string;
@@ -153,9 +197,10 @@ export class WalletModel implements Wallet {
     ethAddress: string;
     hasPassword: boolean;
     image: string;
+    ipfs: IPFS = {} as IPFS;
     metadata: any;
     name: string;
-    pgp: { encryptedMessage: string; privateKey: string } = {} as any;
+    pgp: PGP = {} as PGP;
     publicData: WalletPublicData;
     solanaAddress: string;
     zelfProof: string;
@@ -165,15 +210,19 @@ export class WalletModel implements Wallet {
         this._id = data._id;
 
         this.anonymous = data.anonymous || true;
+        this.ipfs = (data.ipfs as IPFS) || ({} as IPFS);
+        this.pgp = (data.pgp as PGP) || ({} as PGP);
 
-        const secondaryStorage = data.publicData || data.cleartext_data || data.metadata?.keyvalues || data.metadata || {};
+        const secondaryStorage = data.publicData || {};
+
+        if (this.ipfs.Timestamp) secondaryStorage.registeredAt = this.ipfs.Timestamp;
+
+        this.publicData = new WalletPublicDataModel(secondaryStorage);
 
         this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
         this.image = data.image || data.zelfProofQRCode || data.url;
         this.metadata = data.metadata;
         this.name = data.name || data.zelfName || secondaryStorage.zelfName;
-        this.pgp = data.pgp || {};
-        this.publicData = new WalletPublicDataModel(secondaryStorage);
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
         this.zkProof = data.zkProof;
 
@@ -229,6 +278,7 @@ export class WalletPublicDataModel {
     btcAddress: string;
     ethAddress: string;
     expiresAt: string;
+    registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
     zelfName: string;
@@ -241,6 +291,7 @@ export class WalletPublicDataModel {
         this.btcAddress = data.btcAddress || "";
         this.ethAddress = data.ethAddress || "";
         this.expiresAt = data.expiresAt || "";
+        this.registeredAt = data.registeredAt || "";
         this.solanaAddress = data.solanaAddress || "";
         this.type = data.type || "";
         this.zelfName = data.zelfName || "";

@@ -106,7 +106,7 @@ export class ViewCreatedWalletQrCodeComponent extends CopyToClipboardBase implem
         const walletType = this.walletType || "wallet";
         const wallet = (await this._chromeService.getItem(walletType)) || (await this._chromeService.getItem("unlockWallet"));
 
-        this.holdData = wallet.ipfs?.metadata?.type === "hold" ? wallet.ipfs?.metadata : null;
+        this.holdData = wallet.publicData?.type === "hold" ? wallet.ipfs?.metadata || wallet.ipfs?.publicData : null;
         this.wallet = new WalletModel(wallet);
 
         if (!this.wallet.ethAddress) {

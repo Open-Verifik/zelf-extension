@@ -10,7 +10,7 @@
         "lifetime": "Пожизненно",
         "open_wallet": "Открыть кошелек",
         "price_for_lifetime": "Цена за пожизненное использование",
-        "price_per_year": "Цена за год",
+        "price_year": "Цена за {{ duration }} год",
         "referral_code": "Реферальный код",
         "register_description": "Вы зарегистрируете это имя на {{duration}}",
         "register": "Зарегистрироваться",

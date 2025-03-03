@@ -10,7 +10,7 @@
         "lifetime": "À vie",
         "open_wallet": "Ouvrir votre portefeuille",
         "price_for_lifetime": "Prix à vie",
-        "price_per_year": "Prix par an",
+        "price_year": "Prix pour {{ duration }} an",
         "referral_code": "Code de parrainage",
         "register_description": "Vous allez enregistrer ce nom pour {{duration}}",
         "register": "Enregistrer",

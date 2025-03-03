@@ -10,7 +10,7 @@
         "lifetime": "Habambuhay",
         "open_wallet": "Buksan ang iyong wallet",
         "price_for_lifetime": "Presyo para sa habambuhay",
-        "price_per_year": "Presyo bawat taon",
+        "price_year": "Presyo para sa {{ duration }} taon",
         "referral_code": "Referral code",
         "register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}",
         "register": "Magrehistro",

@@ -10,7 +10,7 @@
         "lifetime": "ตลอดชีพ",
         "open_wallet": "เปิดกระเป๋าเงินของคุณ",
         "price_for_lifetime": "ราคาตลอดชีพ",
-        "price_per_year": "ราคาต่อปี",
+        "price_year": "ราคาสำหรับ {{duration}} ปี",
         "referral_code": "รหัสแนะนำ",
         "register_description": "คุณจะลงทะเบียนชื่อนี้เป็นเวลา {{duration}}",
         "register": "ลงทะเบียน",

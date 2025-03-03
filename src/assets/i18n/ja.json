@@ -10,7 +10,7 @@
         "lifetime": "生涯",
         "open_wallet": "ウォレットを開く",
         "price_for_lifetime": "生涯の価格",
-        "price_per_year": "年間の価格",
+        "price_year": "{{duration}}年間の価格",
         "referral_code": "紹介コード",
         "register_description": "この名前を{{duration}}の期間登録します",
         "register": "登録",

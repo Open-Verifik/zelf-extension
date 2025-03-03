@@ -10,7 +10,7 @@
         "lifetime": "终身",
         "open_wallet": "打开您的钱包",
         "price_for_lifetime": "终身价格",
-        "price_per_year": "每年价格",
+        "price_year": "每 {{ duration }} 年的价格",
         "referral_code": "推荐码",
         "register_description": "您将注册此名称{{duration}}",
         "register": "注册",

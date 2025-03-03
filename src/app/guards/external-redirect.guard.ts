@@ -1,6 +1,6 @@
 import { type CanActivateFn } from "@angular/router";
 
-export const RedirectGuard: CanActivateFn = (route) => {
+export const ExternalRedirectGuard: CanActivateFn = (route) => {
     let url = route.queryParams["externalUrl"] || route.data["externalUrl"];
 
     window.open(url, "_blank");

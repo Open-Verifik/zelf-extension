@@ -1,7 +1,7 @@
 import { Router, type CanActivateFn } from "@angular/router";
 
 import { inject } from "@angular/core";
-import { WalletService } from "./wallet.service";
+import { WalletService } from "../wallet.service";
 
 export const LoginGuard: CanActivateFn = async (route, state) => {
     const _walletService = inject(WalletService);

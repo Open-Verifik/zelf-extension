@@ -123,7 +123,9 @@ export class ChromeService {
                         try {
                             if (!item) resolve("" as T);
 
-                            resolve(JSON.parse(item as string) as T);
+                            const result = JSON.parse(item as string);
+
+                            resolve(result as T);
                         } catch (error) {
                             resolve(item as T);
                         }
@@ -229,7 +231,7 @@ export class ChromeService {
             }
 
             try {
-                localStorage.setItem(key, value);
+                localStorage.setItem(key, JSON.stringify(value));
 
                 resolve();
             } catch (error) {

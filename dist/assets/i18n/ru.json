@@ -20,7 +20,7 @@
 		"register_description": "Вы зарегистрируете это имя на {{duration}}",
 		"zns_reward": "Вы получите {{reward}} Zelf токенов (ZNS) в качестве награды",
 		"lifetime": "Пожизненно",
-		"price_per_year": "Цена за год",
+		"price_year": "Цена за {{ duration }} год",
 		"price_for_lifetime": "Цена за пожизненное использование",
 		"referral_code": "Реферальный код"
 	},

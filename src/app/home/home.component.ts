@@ -7,6 +7,7 @@ import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
 import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
 	selector: "app-home",
@@ -14,6 +15,8 @@ import { WalletService } from "app/wallet.service";
 	styleUrls: ["./home.component.scss", "../main.scss"],
 })
 export class HomeComponent implements OnInit {
+	private unsubscriber$: Subject<void> = new Subject<void>();
+
 	title: string = "something";
 	wallet!: Wallet;
 	wallets!: Array<Wallet>;
@@ -60,7 +63,7 @@ export class HomeComponent implements OnInit {
 
 		await this._getBalances();
 
-		this.route.queryParamMap.subscribe(async (params) => {
+		this.route.queryParamMap.pipe(takeUntil(this.unsubscriber$)).subscribe(async (params) => {
 			const _view = params.get("view");
 
 			switch (_view) {
@@ -83,6 +86,11 @@ export class HomeComponent implements OnInit {
 				this.view = _view;
 			}
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscriber$.next();
+		this.unsubscriber$.complete();
 	}
 
 	async _getBalances(): Promise<any> {
@@ -110,16 +118,16 @@ export class HomeComponent implements OnInit {
 	async _setWallet(): Promise<any> {
 		let wallet = await this._chromeService.getItem("wallet");
 
-		if (!wallet) {
-			// get wallets
+		if (!wallet?.ethAddress && !wallet?.solanaAddress) {
 			this.wallets = await this._chromeService.getItem("wallets");
 
 			wallet = this.wallets[0];
 
 			this._chromeService.setItem("wallet", wallet);
 
-			if (!wallet) {
+			if (!wallet?.ethAddress && !wallet?.solanaAddress) {
 				this._router.navigate(["/onboarding"]);
+
 				return;
 			}
 		}
@@ -130,7 +138,9 @@ export class HomeComponent implements OnInit {
 	}
 
 	async _getSolanaDetails(): Promise<any> {
-		const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
+		if (!this.wallet?.solanaAddress) return;
+
+		const details = await this._solanaService.getWalletDetails(this.wallet?.solanaAddress);
 
 		if (!details) return;
 

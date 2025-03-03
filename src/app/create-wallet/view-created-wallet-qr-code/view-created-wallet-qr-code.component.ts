@@ -4,20 +4,11 @@ import { Router } from "@angular/router";
 import { TranslocoService } from "@ngneat/transloco";
 import { ChromeService } from "app/chrome.service";
 import { Wallet, WalletModel } from "app/wallet";
-import { WalletService } from "app/wallet.service";
 
 @Component({
 	selector: "view-created-wallet-qr-code",
 	template: `
 		<div fxLayout="row" fxLayoutAlign="center center" class="zelf-card">
-			<!-- class="view-wallet"
-				fxLayout="row"
-				fxLayoutAlign="start center"
-				fxLayout.sm="column"
-				fxLayoutAlign.sm="start center"
-				fxLayout.xs="column"
-				fxLayoutAlign.xs="start center"
-				*ngIf="wallet" -->
 			<div class="view-wallet" fxLayout="column" fxLayoutAlign="start center" *ngIf="wallet">
 				<div class="view-wallet-left">
 					<div class="view-wallet-left-header">
@@ -83,6 +74,7 @@ import { WalletService } from "app/wallet.service";
 						</button>
 					</div>
 				</div>
+
 				<span class="link" (click)="goToInstructions()" *ngIf="holdData"> {{ "payments.continue_withoutpaying" | transloco }} </span>
 			</div>
 		</div>
@@ -108,7 +100,6 @@ export class ViewCreatedWalletQrCodeComponent implements OnInit {
 		const wallet = await this._chromeService.getItem(walletType);
 
 		this.holdData = wallet.ipfs?.metadata?.type === "hold" ? wallet.ipfs?.metadata : null;
-
 		this.wallet = new WalletModel(wallet);
 
 		if (!this.wallet.ethAddress) {

@@ -19,7 +19,7 @@
 		"register_description": "ستقوم بتسجيل هذا الاسم لمدة {{duration}}",
 		"zns_reward": "ستتلقى {{reward}} من رموز زيلف (ZNS) كمكافأة",
 		"lifetime": "مدى الحياة",
-		"price_per_year": "السعر لكل سنة",
+		"price_year": "السعر لمدة {{duration}} سنة",
 		"price_for_lifetime": "السعر لمدى الحياة",
 		"referral_code": "رمز الإحالة"
 	},

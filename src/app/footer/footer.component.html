@@ -1,4 +1,4 @@
-<div class="footer">
+<div class="footer" *ngIf="shareables">
 	<div class="footer-home" (click)="changeView('home')" [ngClass]="{ selected: shareables?.view === 'home' }">
 		<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32" fill="none">
 			<path

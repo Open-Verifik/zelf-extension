@@ -20,7 +20,7 @@
 		"register_description": "Registrarás este nombre por {{duration}}",
 		"zns_reward": "Recibirás {{reward}} tokens Zelf (ZNS) como recompensa",
 		"lifetime": "De por vida",
-		"price_per_year": "Precio por año",
+		"price_year": "Precio por {{ duration }} año",
 		"price_for_lifetime": "Precio de por vida",
 		"referral_code": "Código de referencia"
 	},

@@ -20,7 +20,7 @@
 		"register_description": "您将注册此名称 {{duration}}",
 		"zns_reward": "您将获得 {{reward}} Zelf 代币 (ZNS) 作为奖励",
 		"lifetime": "终身",
-		"price_per_year": "每年的价格",
+		"price_year": "每 {{ duration }} 年的价格",
 		"price_for_lifetime": "终身价格",
 		"referral_code": "推荐码"
 	},

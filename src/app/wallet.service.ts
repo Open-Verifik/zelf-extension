@@ -104,7 +104,16 @@ export class WalletService {
 
 		const currentWallet = new WalletModel((await this._chromeService.getItem("wallet")) || {});
 
-		const keysToRemove = ["unlockWallet", "importWallet", "password", "referralZelfName", "network", "durationToken", "currentZelfName"];
+		const keysToRemove = [
+			"unlockWallet",
+			"importWallet",
+			"password",
+			"referralZelfName",
+			"network",
+			"durationToken",
+			"currentZelfName",
+			"wallet",
+		];
 
 		keysToRemove.forEach((key) => {
 			localStorage.removeItem(key);

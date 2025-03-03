@@ -20,7 +20,7 @@
 		"register_description": "この名前を{{duration}}年間登録します",
 		"zns_reward": "報酬として{{reward}} Zelfトークン（ZNS）を受け取ります",
 		"lifetime": "生涯",
-		"price_per_year": "年間価格",
+		"price_year": "{{duration}}年間の価格",
 		"price_for_lifetime": "生涯価格",
 		"referral_code": "紹介コード"
 	},

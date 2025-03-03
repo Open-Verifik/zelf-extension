@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     activity!: Array<ETHTransaction>;
     balances: any;
-    balancesLoaded: boolean = false;
+    balancesLoading: boolean = false;
     NFTs!: Array<any>;
     scanImplemented: boolean = false;
     selectedAsset!: Asset;
@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     tokens!: Array<any>;
     view?: string;
     wallet!: Wallet;
-    wallets!: Wallet[];
 
     constructor(
         private _blockchainNetworkService: BlockchainNetworksService,
@@ -41,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute
     ) {
         this.balances = {};
-        this.balancesLoaded = false;
+        this.balancesLoading = false;
         this.view = this.route.snapshot.queryParamMap.get("view") || "home";
 
         this.shareables = {
@@ -50,13 +49,16 @@ export class HomeComponent implements OnInit, OnDestroy {
             wallet: {},
         };
 
+        this.activity = [];
         this.NFTs = [];
         this.tokens = [];
 
         this._chromeService.removeItem("unlockWallet");
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
-            this.balancesLoaded = false;
+            if (this.balancesLoading) return;
+
+            this.balancesLoading = true;
 
             await this._setWallet();
             await this._getBalances();
@@ -73,8 +75,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _getBalances(): Promise<any> {
-        if (this.balancesLoaded) return;
-
         this.activity = [];
         this.tokens = [];
         this.NFTs = [];
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._getETHDetails();
         await this._getSolanaDetails();
 
-        this.balancesLoaded = true;
+        this.balancesLoading = false;
     }
 
     private async _getETHDetails(): Promise<any> {

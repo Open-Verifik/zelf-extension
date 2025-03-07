@@ -145,15 +145,16 @@
 }
 
 .qr-code {
-    border: 1px solid $platinum;
+    align-items: center;
     border-radius: 16px;
+    border: 1px solid $platinum;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: initial;
+    max-width: 516px;
     padding: 36px;
     width: 100%;
-    max-width: 516px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 
     &__image {
         object-fit: contain;

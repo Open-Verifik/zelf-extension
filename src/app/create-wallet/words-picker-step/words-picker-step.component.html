@@ -1,43 +1,43 @@
-<div class="zelf-card">
-	<div class="word-picker-content p-4" fxLayout="column" fxLayoutAlign="space-between center">
-		<div class="word-picker-content-d w-full" fxLayout="column" fxLayoutAlign="start center">
-			<div fxLayout="column" fxLayoutAlign="start center">
-				<h2>{{ "create_wallet.phrase_step.title" | transloco }}</h2>
+<div class="zelf-card-old">
+    <div class="word-picker-content p-4" fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="word-picker-content-d w-full" fxLayout="column" fxLayoutAlign="start center">
+            <div fxLayout="column" fxLayoutAlign="start center">
+                <h2>{{ "create_wallet.phrase_step.title" | transloco }}</h2>
 
-				<div class="words-picker-description">
-					{{ "create_wallet.phrase_step.description" | transloco }}
-				</div>
+                <div class="words-picker-description">
+                    {{ "create_wallet.phrase_step.description" | transloco }}
+                </div>
 
-				<div class="words-picker-description">
-					{{ "create_wallet.phrase_step.description_2" | transloco }}
-				</div>
+                <div class="words-picker-description">
+                    {{ "create_wallet.phrase_step.description_2" | transloco }}
+                </div>
 
-				<div class="words-picker-description">
-					{{ "create_wallet.phrase_step.description_3" | transloco }}
-				</div>
-			</div>
-		</div>
+                <div class="words-picker-description">
+                    {{ "create_wallet.phrase_step.description_3" | transloco }}
+                </div>
+            </div>
+        </div>
 
-		<div class="w-full mt-4">
-			<form [formGroup]="signUpForm" #signUpNgForm="ngForm">
-				<div fxLayout="column" fxLayoutAlign="start start">
-					<mat-checkbox [formControlName]="'termsAcceptance'" class="on-checkbox">
-						{{ "create_wallet.phrase_step.description_4" | transloco }}
-					</mat-checkbox>
+        <div class="w-full mt-4">
+            <form [formGroup]="signUpForm" #signUpNgForm="ngForm">
+                <div fxLayout="column" fxLayoutAlign="start start">
+                    <mat-checkbox [formControlName]="'termsAcceptance'" class="on-checkbox">
+                        {{ "create_wallet.phrase_step.description_4" | transloco }}
+                    </mat-checkbox>
 
-					<a href="https://docs.zelf.world/getting-started/how-zelf-works" class="mt-2 ml-10">{{ "common.more_info" | transloco }} </a>
-				</div>
-			</form>
-		</div>
+                    <a href="https://docs.zelf.world/getting-started/how-zelf-works" class="mt-2 ml-10">{{ "common.more_info" | transloco }} </a>
+                </div>
+            </form>
+        </div>
 
-		<div fxLayout="column" fxLayoutAlign="start start" class="w-full">
-			<button mat-raised-button class="w-full secondary-button mt-4" (click)="startEncryption(12)" [disabled]="!termsAccepted()">
-				{{ "create_wallet.phrase_step.12_words" | transloco }}
-			</button>
+        <div fxLayout="column" fxLayoutAlign="start start" class="w-full">
+            <button mat-raised-button class="w-full secondary-button mt-4" (click)="startEncryption(12)" [disabled]="!termsAccepted()">
+                {{ "create_wallet.phrase_step.12_words" | transloco }}
+            </button>
 
-			<button mat-raised-button class="w-full main-button mt-4" (click)="startEncryption(24)" [disabled]="!termsAccepted()">
-				{{ "create_wallet.phrase_step.24_words" | transloco }}
-			</button>
-		</div>
-	</div>
+            <button mat-raised-button class="w-full main-button mt-4" (click)="startEncryption(24)" [disabled]="!termsAccepted()">
+                {{ "create_wallet.phrase_step.24_words" | transloco }}
+            </button>
+        </div>
+    </div>
 </div>

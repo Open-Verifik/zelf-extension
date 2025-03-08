@@ -240,25 +240,6 @@
     }
 }
 
-.qr-code {
-    border: 1px solid $platinum;
-    border-radius: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-
-    &__image {
-        object-fit: contain;
-        min-height: 196px;
-        min-width: 196px;
-        max-width: 196px;
-        max-height: 196px;
-        width: 100%;
-    }
-}
-
 .crypto-address {
     display: flex;
     flex-direction: row;

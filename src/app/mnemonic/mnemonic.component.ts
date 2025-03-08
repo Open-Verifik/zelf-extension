@@ -21,7 +21,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     @Input() wallet!: Wallet;
 
     private _password: string = "";
-    private _passwordIncorrectText: string = this._translocoService.translate("password_incorrect");
+    private _passwordIncorrectText: string = this._translocoService.translate("errors.password_incorrect");
     private _passwordIncorrectActionText: string = this._translocoService.translate("common.close");
 
     blurMnemonic: boolean = false;

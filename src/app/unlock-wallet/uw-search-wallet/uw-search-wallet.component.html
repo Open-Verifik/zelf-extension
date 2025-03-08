@@ -1,112 +1,112 @@
 <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
-<div class="zelf-card">
-	<div class="unlock-inner-container" fxLayout="column" fxLayoutAlign="space-between center">
-		<h2 *ngIf="!potentialWallet">{{ "unlock_wallet.title" | transloco }}</h2>
+<div class="zelf-card-old">
+    <div class="unlock-inner-container" fxLayout="column" fxLayoutAlign="space-between center">
+        <h2 *ngIf="!potentialWallet">{{ "unlock_wallet.title" | transloco }}</h2>
 
-		<form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet">
-			<div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
-			<div class="unlock-input-box">
-				<div class="unlock-input-text-container">
-					<mat-form-field class="w-full">
-						<input type="text" matInput [formControlName]="'address'" (keydown.enter)="triggerSearch()" />
-					</mat-form-field>
-				</div>
-				<div class="unlock-icon-container">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						(click)="triggerSearch()"
-						class="cursor-pointer"
-					>
-						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							d="M14.76 13.27L20.49 19L19 20.49L13.27 14.76C12.2 15.53 10.91 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 10.91 15.53 12.2 14.76 13.27ZM9.5 5C7.01 5 5 7.01 5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5Z"
-							fill="#43474E"
-						/>
-					</svg>
-				</div>
-			</div>
-		</form>
+        <form class="unlock-box" [formGroup]="searchForm" #searchNgForm="ngForm" *ngIf="!potentialWallet">
+            <div class="unlock-description">{{ "unlock_wallet.description" | transloco }}</div>
+            <div class="unlock-input-box">
+                <div class="unlock-input-text-container">
+                    <mat-form-field class="w-full">
+                        <input type="text" matInput [formControlName]="'address'" (keydown.enter)="triggerSearch()" />
+                    </mat-form-field>
+                </div>
+                <div class="unlock-icon-container">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        (click)="triggerSearch()"
+                        class="cursor-pointer"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M14.76 13.27L20.49 19L19 20.49L13.27 14.76C12.2 15.53 10.91 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 10.91 15.53 12.2 14.76 13.27ZM9.5 5C7.01 5 5 7.01 5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5Z"
+                            fill="#43474E"
+                        />
+                    </svg>
+                </div>
+            </div>
+        </form>
 
-		<div class="unlock-box" *ngIf="!potentialWallet">
-			<div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div>
+        <div class="unlock-box" *ngIf="!potentialWallet">
+            <div class="unlock-description">{{ "unlock_wallet.upload_description" | transloco }}</div>
 
-			<div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
-				<div class="unlock-upload-button">
-					<input type="file" (change)="onFileSelected($event)" hidden #fileInput />
-					<div class="unlock-upload-button-text" (click)="fileInput.click()">{{ "unlock_wallet.upload_button" | transloco }}</div>
-				</div>
-				<div class="unlock-drag-drop-text">{{ "unlock_wallet.drag_drop_text" | transloco }}</div>
-			</div>
-		</div>
+            <div class="unlock-upload-inner-box" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
+                <div class="unlock-upload-button">
+                    <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+                    <div class="unlock-upload-button-text" (click)="fileInput.click()">{{ "unlock_wallet.upload_button" | transloco }}</div>
+                </div>
+                <div class="unlock-drag-drop-text">{{ "unlock_wallet.drag_drop_text" | transloco }}</div>
+            </div>
+        </div>
 
-		<div *ngIf="potentialWallet" fxLayout="column" fxLayoutAlign="center center" class="w-full">
-			<!-- hold title -->
-			<h2 class="text-center" *ngIf="potentialWallet.publicData.type === 'hold'">
-				{{ "unlock_wallet.hold.title" | transloco }}
-			</h2>
+        <div *ngIf="potentialWallet" fxLayout="column" fxLayoutAlign="center center" class="w-full">
+            <!-- hold title -->
+            <h2 class="text-center" *ngIf="potentialWallet.publicData.type === 'hold'">
+                {{ "unlock_wallet.hold.title" | transloco }}
+            </h2>
 
-			<h2 class="text-center mb-1" *ngIf="potentialWallet.publicData.type !== 'hold'">
-				{{ potentialWallet.name }}
-			</h2>
+            <h2 class="text-center mb-1" *ngIf="potentialWallet.publicData.type !== 'hold'">
+                {{ potentialWallet.name }}
+            </h2>
 
-			<div *ngIf="potentialWallet.image" class="" fxLayout="row" fxLayoutAlign="center center">
-				<img [src]="potentialWallet.image" alt="Uploaded QR Code" class="w-35p" />
-			</div>
+            <div *ngIf="potentialWallet.image" class="" fxLayout="row" fxLayoutAlign="center center">
+                <img [src]="potentialWallet.image" alt="Uploaded QR Code" class="w-35p" />
+            </div>
 
-			<div
-				fxLayout="column"
-				fxLayoutAlign="center center"
-				class="public-data-content"
-				*ngIf="potentialWallet && potentialWallet.publicData.type === 'hold'"
-			>
-				<div>
-					<h4>{{ "unlock_wallet.hold.expiration_time" | transloco }}</h4>
+            <div
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                class="public-data-content"
+                *ngIf="potentialWallet && potentialWallet.publicData.type === 'hold'"
+            >
+                <div>
+                    <h4>{{ "unlock_wallet.hold.expiration_time" | transloco }}</h4>
 
-					<p *ngIf="potentialWallet.publicData.expiresAt">
-						{{ potentialWallet.publicData.expiresAt | date : "medium" }}
-					</p>
-				</div>
-			</div>
+                    <p *ngIf="potentialWallet.publicData.expiresAt">
+                        {{ potentialWallet.publicData.expiresAt | date : "medium" }}
+                    </p>
+                </div>
+            </div>
 
-			<div
-				fxLayout="column"
-				fxLayoutAlign="center center"
-				class="public-data-content"
-				*ngIf="potentialWallet.publicData.type !== 'hold' && (potentialWallet.displayEthAddress || potentialWallet.displaySolanaAddress)"
-			>
-				<div fxLayout="row" fxLayoutAlign="space-between center" ngif="potentialWallet.displayEthAddress">
-					<p class="text-grey">{{ "common.eth_address" | transloco }}</p>
-					<h4 class="m-0 link" (click)="copyToClipboard(potentialWallet.ethAddress)">
-						{{ potentialWallet.displayEthAddress }}
-					</h4>
-				</div>
+            <div
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                class="public-data-content"
+                *ngIf="potentialWallet.publicData.type !== 'hold' && (potentialWallet.displayEthAddress || potentialWallet.displaySolanaAddress)"
+            >
+                <div fxLayout="row" fxLayoutAlign="space-between center" ngif="potentialWallet.displayEthAddress">
+                    <p class="text-grey">{{ "common.eth_address" | transloco }}</p>
+                    <h4 class="m-0 link" (click)="copyToClipboard(potentialWallet.ethAddress)">
+                        {{ potentialWallet.displayEthAddress }}
+                    </h4>
+                </div>
 
-				<div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="potentialWallet.displaySolanaAddress">
-					<p class="text-grey">{{ "common.solana_address" | transloco }}</p>
-					<h4 class="m-0 link" (click)="copyToClipboard(potentialWallet.solanaAddress)">
-						{{ potentialWallet.displaySolanaAddress }}
-					</h4>
-				</div>
-			</div>
-		</div>
+                <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="potentialWallet.displaySolanaAddress">
+                    <p class="text-grey">{{ "common.solana_address" | transloco }}</p>
+                    <h4 class="m-0 link" (click)="copyToClipboard(potentialWallet.solanaAddress)">
+                        {{ potentialWallet.displaySolanaAddress }}
+                    </h4>
+                </div>
+            </div>
+        </div>
 
-		<div fxLayout="column" fxLayoutAlign="center center" class="w-full p-4" *ngIf="potentialWallet">
-			<button mat-raised-button class="w-full main-button" (click)="goToNextStep()" *ngIf="potentialWallet.publicData.type !== 'hold'">
-				{{ "unlock_wallet.verify_button" | transloco }}
-			</button>
+        <div fxLayout="column" fxLayoutAlign="center center" class="w-full p-4" *ngIf="potentialWallet">
+            <button mat-raised-button class="w-full main-button" (click)="goToNextStep()" *ngIf="potentialWallet.publicData.type !== 'hold'">
+                {{ "unlock_wallet.verify_button" | transloco }}
+            </button>
 
-			<button mat-raised-button class="w-full main-button" (click)="goToPayments()" *ngIf="potentialWallet.publicData.type === 'hold'">
-				{{ "unlock_wallet.hold.purchase_reservation" | transloco }}
-			</button>
+            <button mat-raised-button class="w-full main-button" (click)="goToPayments()" *ngIf="potentialWallet.publicData.type === 'hold'">
+                {{ "unlock_wallet.hold.purchase_reservation" | transloco }}
+            </button>
 
-			<span class="link p-4" (click)="goToNextStep()" *ngIf="potentialWallet.publicData.type === 'hold'">
-				{{ "unlock_wallet.hold.unlock_without_purchase" | transloco }}
-			</span>
-		</div>
-	</div>
+            <span class="link p-4" (click)="goToNextStep()" *ngIf="potentialWallet.publicData.type === 'hold'">
+                {{ "unlock_wallet.hold.unlock_without_purchase" | transloco }}
+            </span>
+        </div>
+    </div>
 </div>

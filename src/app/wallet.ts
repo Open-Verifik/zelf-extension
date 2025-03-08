@@ -226,7 +226,7 @@ export class WalletModel implements Wallet {
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
         this.zkProof = data.zkProof;
 
-        this.btcAddress = data.btcAddress || secondaryStorage.ethAddress;
+        this.btcAddress = data.btcAddress || secondaryStorage.btcAddress;
         if (this.btcAddress) this.displayBtcAddress = this.btcAddress;
 
         this.ethAddress = data.ethAddress || secondaryStorage.ethAddress;

@@ -12,7 +12,7 @@ import { Wallet, WalletModel } from "app/wallet";
 @Component({
     selector: "view-created-wallet-qr-code",
     template: `
-        <div fxLayout="row" fxLayoutAlign="center center" class="zelf-card">
+        <div fxLayout="row" fxLayoutAlign="center center" class="zelf-card-old">
             <div class="view-wallet" fxLayout="column" fxLayoutAlign="start center" *ngIf="wallet">
                 <div class="view-wallet-left">
                     <div class="view-wallet-left-header">

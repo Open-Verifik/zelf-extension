@@ -1,0 +1,58 @@
+@import "../../styles/variables.scss";
+@import "../../styles/buttons.scss";
+
+* {
+    box-sizing: border-box;
+}
+
+:host {
+    background-color: $antiFlashWhite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    min-width: 100%;
+}
+
+.welcome {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    &__header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        height: 96px;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    &__logo-container {
+        cursor: pointer;
+    }
+
+    &__content {
+        width: 100%;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 100px - 48px);
+    }
+
+    &__footer {
+        height: 48px;
+        align-items: center;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__logo svg {
+        fill: $black;
+    }
+}

@@ -1,0 +1,90 @@
+<div class="zelf-card welcome-registered" *transloco="let t">
+    <div class="zelf-card__header">
+        <div class="welcome-registered__header-button">
+            <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../']">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="zelf-card__content welcome-registered__content">
+        <div class="welcome-registered__details">
+            <div class="qr-code" *ngIf="zelfNameObject?.publicData?.type === 'hold'">
+                <img class="qr-code__image" [src]="zelfNameObject?.image" alt="zelf-proof" />
+            </div>
+
+            <div
+                [ngClass]="{
+                    'zelf-chip--info': zelfNameObject?.publicData?.type === 'mainnet',
+                    'zelf-chip--error': zelfNameObject?.publicData?.type === 'hold'
+                }"
+                class="zelf-chip"
+            >
+                {{ t("common.registered") }}
+            </div>
+
+            <h2 class="zelf-card__title">{{ zelfNameObject?.publicData?.zelfName }}</h2>
+
+            <p class="zelf-card__subtitle welcome-registered__subtitle">
+                {{ t("welcome.registered", { date: zelfNameObject?.publicData?.expiresAt | date : "MMMM yyyy" }) }}
+            </p>
+
+            <div class="welcome-registered__addresses">
+                <ng-container
+                    *ngTemplateOutlet="
+                        addressRow;
+                        context: {
+                            $implicit: {
+                                logo: 'assets/images/currencies/btc.png',
+                                label: t('common.btc_address'),
+                                value: zelfNameObject?.displayBtcAddress
+                            }
+                        }
+                    "
+                ></ng-container>
+
+                <ng-container
+                    *ngTemplateOutlet="
+                        addressRow;
+                        context: {
+                            $implicit: {
+                                logo: 'assets/images/currencies/eth.png',
+                                label: t('common.eth_address'),
+                                value: zelfNameObject?.displayEthAddress
+                            }
+                        }
+                    "
+                ></ng-container>
+
+                <ng-container
+                    *ngTemplateOutlet="
+                        addressRow;
+                        context: {
+                            $implicit: {
+                                logo: 'assets/images/currencies/sol.png',
+                                label: t('common.sol_address'),
+                                value: zelfNameObject?.displaySolanaAddress
+                            }
+                        }
+                    "
+                ></ng-container>
+            </div>
+        </div>
+
+        <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" [disabled]="loading" [routerLink]="['../security']">
+            {{ t("common.login") }}
+        </button>
+    </div>
+</div>
+
+<ng-template #addressRow let-address>
+    <div class="address-row" *ngIf="address.value">
+        <div class="address-row__inner">
+            <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
+            <div class="address-row__label">{{ address.label }}</div>
+            <div class="address-row__value">{{ address.value }}</div>
+        </div>
+    </div>
+</ng-template>

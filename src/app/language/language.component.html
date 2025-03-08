@@ -1,0 +1,35 @@
+<div class="language">
+    <button class="zelf-button zelf-button--white language__button" mat-flat-button [matMenuTriggerFor]="languages">
+        <div class="language__button-content">
+            <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: activeLang }"></ng-container>
+
+            <span class="zelf-button__text zelf-button__text--margin-right">{{ languageTranslations[activeLang] }}</span>
+
+            <ng-container *ngTemplateOutlet="arrow"></ng-container>
+        </div>
+    </button>
+
+    <mat-menu class="zelf-menu" #languages="matMenu" [xPosition]="'after'" [yPosition]="'below'">
+        <ng-container *ngFor="let lang of availableLangs">
+            <button class="language__button" mat-menu-item *ngIf="lang" (click)="setActiveLang(lang.id)">
+                <div class="language__button-content">
+                    <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: lang.id }"></ng-container>
+
+                    <span>{{ lang.label }}</span>
+                </div>
+            </button>
+        </ng-container>
+    </mat-menu>
+</div>
+
+<ng-template let-lang #flagImage>
+    <img class="language__flag" [src]="'assets/images/flags/' + flagCodes[lang]?.toUpperCase() + '.svg'" [alt]="'Flag image for ' + lang" />
+</ng-template>
+
+<ng-template #arrow>
+    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M9.8751 1.00002L5.9951 4.88002L2.1151 1.00002C1.7251 0.61002 1.0951 0.61002 0.705098 1.00002C0.315098 1.39002 0.315098 2.02002 0.705098 2.41002L5.2951 7.00002C5.6851 7.39002 6.3151 7.39002 6.7051 7.00002L11.2951 2.41002C11.6851 2.02002 11.6851 1.39002 11.2951 1.00002C10.9051 0.62002 10.2651 0.61002 9.8751 1.00002Z"
+        />
+    </svg>
+</ng-template>

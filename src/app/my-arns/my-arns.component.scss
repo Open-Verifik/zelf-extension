@@ -1,0 +1,92 @@
+@import "../../styles/variables";
+
+:host {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.my-zns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    max-width: 400px;
+
+    &__exit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 8px;
+        min-height: 32px;
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+        padding: 8px;
+        border-radius: 9999px;
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+
+        svg {
+            transition: fill 0.3s $smoothBezier;
+            fill: $black;
+        }
+
+        &:hover {
+            background-color: #b589f0;
+            color: white;
+
+            svg {
+                fill: white;
+            }
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__icon {
+        margin-top: 28px;
+        fill: $black;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: Menda;
+        color: $black;
+        text-transform: uppercase;
+        margin: 12px 0 0;
+    }
+
+    &__text {
+        padding: 0 24px;
+        font-size: 14px;
+        margin: 0;
+        text-align: center;
+    }
+
+    &__actions {
+        width: 100%;
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -1,201 +1,203 @@
 @import "../../../styles/variables";
+@import "../../../styles/buttons";
 
 :host {
-	position: relative;
-	display: block;
-	padding: 16px;
+    position: relative;
+    display: block;
+    padding: 16px;
 }
 
 .home-header-accounts {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	gap: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 
-	&__exit {
-		position: absolute;
-		top: 0;
-		right: 0;
-		margin: 8px;
-		min-height: 32px;
-		min-width: 32px;
-		width: 32px;
-		height: 32px;
-		padding: 8px;
-		cursor: pointer;
-		outline: none;
-		border: none;
-		border-radius: 9999px;
-		background-color: transparent;
-		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    &__exit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 8px;
+        min-height: 32px;
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+        padding: 8px;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        border-radius: 9999px;
+        background-color: transparent;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
-		svg {
-			transition: fill 0.3s $smoothBezier;
-			fill: $black;
-		}
+        svg {
+            transition: fill 0.3s $smoothBezier;
+            fill: $black;
+        }
 
-		&:hover {
-			background-color: #b589f0;
-			color: white;
+        &:hover {
+            background-color: #b589f0;
+            color: white;
 
-			svg {
-				fill: white;
-			}
-		}
-	}
+            svg {
+                fill: white;
+            }
+        }
+    }
 
-	&__actions {
-		width: 100%;
-		margin-top: 16px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
+    &__actions {
+        width: 100%;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 
-	&__button {
-		user-select: none;
-		background-color: black !important;
-		border-radius: 8px;
-		border: none;
-		color: white !important;
-		max-width: 400px;
-		padding: 12px 16px;
-		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
-		width: 100%;
+    &__button {
+        user-select: none;
+        background-color: black !important;
+        border-radius: 8px;
+        border: none;
+        color: white !important;
+        max-width: 400px;
+        padding: 12px 16px;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        width: 100%;
 
-		&:hover {
-			background-color: #b589f0 !important;
-			color: white !important;
-		}
-	}
+        &:hover {
+            background-color: #b589f0 !important;
+            color: white !important;
+        }
+    }
 }
 
 .zelf-name {
-	user-select: none;
-	cursor: pointer;
-	align-items: center;
-	color: $black;
-	display: inline-flex;
-	gap: 8px;
-	justify-content: center;
-	height: 42px;
-	border-radius: 36px;
-	padding: 0 16px;
-	margin: 42px auto 0;
-	transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    user-select: none;
+    cursor: pointer;
+    align-items: center;
+    color: $black;
+    display: inline-flex;
+    gap: 8px;
+    justify-content: center;
+    height: 42px;
+    border-radius: 36px;
+    padding: 0 16px;
+    margin: 42px auto 0;
+    transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
-	svg {
-		fill: $black;
-		transition: fill 0.3s $smoothBezier;
-	}
+    svg {
+        fill: $black;
+        transition: fill 0.3s $smoothBezier;
+    }
 
-	&:hover {
-		background-color: #b589f0;
-		color: white;
+    &:hover {
+        background-color: #b589f0;
+        color: white;
 
-		svg {
-			fill: white;
-		}
+        svg {
+            fill: white;
+        }
 
-		.zelf-name__icon {
-			background-color: #b589f0;
-		}
-	}
+        .zelf-name__icon {
+            background-color: #b589f0;
+        }
+    }
 
-	svg {
-		fill: $black;
-		transition: fill 0.3s $smoothBezier;
-	}
+    svg {
+        fill: $black;
+        transition: fill 0.3s $smoothBezier;
+    }
 
-	&__title {
-		cursor: pointer;
-		font-size: 18px;
-		font-weight: 600;
-		margin-right: 2px;
-		word-wrap: break-word;
-	}
+    &__title {
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        margin-right: 2px;
+        word-wrap: break-word;
+    }
 
-	&__icon {
-		height: 14px;
-		width: 14px;
-		border-radius: 14px;
-		background-color: $antiFlashWhite;
-		align-items: center;
-		display: inline-flex;
-		justify-content: center;
+    &__icon {
+        height: 14px;
+        width: 14px;
+        border-radius: 14px;
+        background-color: $antiFlashWhite;
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
 
-		svg {
-			fill: $black;
-		}
-	}
+        svg {
+            fill: $black;
+        }
+    }
 }
 
 .wallets {
-	user-select: none;
-	margin-top: 16px;
-	display: inline-flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	gap: 8px;
+    user-select: none;
+    margin-top: 16px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
 
-	&__item {
-		background-color: $antiFlashWhite;
-		border-radius: 8px;
-		display: inline-flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 4px;
-		padding: 6px;
-		cursor: pointer;
-		transition: background-color 0.3s $smoothBezier;
+    &__item {
+        background-color: $antiFlashWhite;
+        border-radius: 8px;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        padding: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s $smoothBezier;
 
-		&:hover {
-			background-color: #b589f0;
+        &:hover {
+            background-color: #b589f0;
 
-			.wallets__item-avatar {
-				background-color: black;
+            .wallets__item-avatar {
+                background-color: black;
 
-				&--bg-white {
-					background-color: black;
-					color: white;
-				}
-			}
+                &--bg-white {
+                    background-color: black;
+                    color: white;
+                }
+            }
 
-			.wallets__item-name {
-				color: white;
-			}
-		}
+            .wallets__item-name {
+                color: white;
+            }
+        }
 
-		&-avatar {
-			font-family: "Menda", sans-serif;
-			font-size: 40px;
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
-			height: 72px;
-			width: 72px;
-			border-radius: 72px;
-			background-color: $gray;
-			color: white;
-			transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        &-avatar {
+            font-family: "Menda", sans-serif;
+            font-size: 40px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 72px;
+            width: 72px;
+            border-radius: 72px;
+            background-color: $gray;
+            color: white;
+            transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
 
-			&--bg-white {
-				background-color: white;
-				color: black;
-			}
-		}
+            &--bg-white {
+                background-color: white;
+                color: black;
+            }
+        }
 
-		&-name {
-			font-size: 12px;
-			font-weight: 600;
-			color: $black;
-			margin-top: 4px;
-			margin-bottom: 0;
-		}
-	}
+        &-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: $black;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+    }
 }

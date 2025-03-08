@@ -1,3 +1,11 @@
+.zelf-button-external-link {
+    display: block;
+
+    &--wide {
+        width: 100%;
+    }
+}
+
 .zelf-button {
     align-items: center;
     border-radius: 16px;
@@ -15,6 +23,12 @@
     text-align: center;
     user-select: none;
 
+    &__text {
+        &--margin-right {
+            margin-right: 1rem;
+        }
+    }
+
     &--thin {
         border-radius: 8px;
         padding: 12px 16px;
@@ -22,6 +36,40 @@
 
     &--wide {
         width: 100%;
+    }
+
+    &--hyperlink {
+        background-color: transparent;
+        color: $gray;
+        font-size: 14px;
+        border-radius: 9999px;
+        transition: color 0.2s $smoothBezier, background-color 0.3s $smoothBezier;
+
+        &--small {
+            font-size: 11px;
+        }
+
+        svg {
+            fill: $gray;
+        }
+
+        &:hover {
+            color: $black;
+            background-color: $platinum;
+
+            svg {
+                fill: $black;
+            }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: $taupeGray !important;
+
+            svg {
+                fill: $taupeGray;
+            }
+        }
     }
 
     &--black {
@@ -45,6 +93,27 @@
         }
     }
 
+    &--white {
+        background-color: $white !important;
+        color: $black !important;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+
+        &:focus,
+        &:hover {
+            background-color: $antiFlashWhite !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            background-color: $antiFlashWhite !important;
+            color: $black !important;
+        }
+
+        svg {
+            fill: $black;
+        }
+    }
+
     &--outlined {
         border: 1px solid $black !important;
         background-color: $white !important;
@@ -57,11 +126,30 @@
         }
 
         &[disabled] {
+            cursor: not-allowed;
             color: $gray !important;
         }
 
         svg {
             fill: $black;
+        }
+    }
+
+    &--error {
+        background-color: $errorLight !important;
+        color: $error !important;
+
+        svg {
+            fill: $error !important;
+        }
+    }
+
+    &--success {
+        background-color: $correctLight !important;
+        color: $correct !important;
+
+        svg {
+            fill: $correct !important;
         }
     }
 }
@@ -116,6 +204,30 @@
         }
     }
 
+    &--black {
+        background-color: $black !important;
+        color: $white !important;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+
+        svg {
+            fill: $white;
+        }
+
+        &:focus,
+        &:hover {
+            background-color: $gray !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            background-color: $platinum !important;
+
+            svg {
+                fill: $frenchGray;
+            }
+        }
+    }
+
     &--anti-flash-white {
         background-color: $antiFlashWhite !important;
         color: $black !important;
@@ -132,6 +244,33 @@
             svg {
                 fill: $white;
             }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            background-color: $platinum !important;
+
+            svg {
+                fill: $frenchGray;
+            }
+        }
+    }
+
+    &--error {
+        background-color: $errorLight !important;
+        color: $error !important;
+
+        svg {
+            fill: $error !important;
+        }
+    }
+
+    &--success {
+        background-color: $correctLight !important;
+        color: $correct !important;
+
+        svg {
+            fill: $correct !important;
         }
     }
 }

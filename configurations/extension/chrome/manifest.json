@@ -4,7 +4,7 @@
     "manifest_version": 3,
     "name": "Zelf Name Service",
     "orientation": "portrait-primary",
-    "permissions": ["activeTab", "storage", "script-src-elem", "sidePanel"],
+    "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "contextMenus", "storage", "sidePanel"],
     "start_url": "index.html",
     "version": "1.0",
     "action": {
@@ -17,15 +17,11 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["main.js"]
+            "js": ["browser-polyfill.min.js", "main.js"]
         }
     ],
-    "chrome_url_overrides": {
-        "newtab": "index.html"
-    },
     "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self';",
-        "google": "script-src https://www.google.com/recaptcha/, https://www.gstatic.com/recaptcha/; frame-src https://www.google.com/recaptcha/, https://recaptcha.google.com/recaptcha/;"
+        "extension_pages": "script-src 'self'; object-src 'self';"
     },
     "icons": {
         "16": "assets/icons/icon16.png",
@@ -41,10 +37,5 @@
             "resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],
             "matches": ["<all_urls>"]
         }
-    ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "zelf@zelf.world"
-        }
-    }
+    ]
 }

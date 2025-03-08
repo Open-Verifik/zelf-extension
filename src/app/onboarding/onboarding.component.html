@@ -1,80 +1,87 @@
 <div class="w-full h-full zelf-content onb-container" fxLayout="column" fxLayoutAlign="start center">
-	<!-- <header class="w-full"></header> -->
-	<div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
-		<img src="../../assets/images/full_logo_zns.svg" alt="" (click)="openFullPage()" class="cursor-pointer zns-logo" />
+    <div class="on-header" fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-flat-button class="zelf-icon-button mr-4" [routerLink]="['/home']" *ngIf="showHomeButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32">
+                <path
+                    d="M16.0003 8.25366L22.667 14.2537V24.667H20.0003V16.667H12.0003V24.667H9.33366V14.2537L16.0003 8.25366ZM16.0003 4.66699L2.66699 16.667H6.66699V27.3337H14.667V19.3337H17.3337V27.3337H25.3337V16.667H29.3337L16.0003 4.66699Z"
+                />
+            </svg>
+        </button>
 
-		<language-picker></language-picker>
-	</div>
+        <img src="../../assets/images/full_logo_zns.svg" alt="" (click)="openFullPage()" class="cursor-pointer zns-logo" />
 
-	<div fxLayout="column" fxLayoutAlign="start center" class="md-card on-intro">
-		<h1 class="m-2">ZELF NAME SERVICE</h1>
+        <language-picker></language-picker>
+    </div>
 
-		<span class="zline" *ngIf="!loading"></span>
+    <div fxLayout="column" fxLayoutAlign="start center" class="md-card on-intro">
+        <h1 class="m-2">ZELF NAME SERVICE</h1>
 
-		<mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
+        <span class="zline" *ngIf="!loading"></span>
 
-		<ng-container *ngFor="let item of items; let i = index">
-			<div
-				fxLayout="column"
-				fxLayoutAlign="start center"
-				*ngIf="i === activeIndex"
-				[class.active]="i === activeIndex"
-				class="carousel-container"
-			>
-				<div fxLayout="column" fxLayoutAlign="start center" (click)="openFullPage()">
-					<h3 class="main-title text-center">{{ item.title | transloco }}</h3>
-					<span>
-						{{ item.description | transloco }}
-					</span>
-				</div>
+        <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
 
-				<div class="carousel-image mt-4 w-full" [ngClass]="{ 'img-200': i === 0 }" fxLayout="row" fxLayoutAlign="center start">
-					<img class="w-full" [src]="item.image" [alt]="item.title" *ngIf="i === activeIndex" />
-				</div>
-			</div>
-		</ng-container>
+        <ng-container *ngFor="let item of items; let i = index">
+            <div
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                *ngIf="i === activeIndex"
+                [class.active]="i === activeIndex"
+                class="carousel-container"
+            >
+                <div fxLayout="column" fxLayoutAlign="start center" (click)="openFullPage()">
+                    <h3 class="main-title text-center">{{ item.title | transloco }}</h3>
+                    <span>
+                        {{ item.description | transloco }}
+                    </span>
+                </div>
 
-		<span class="zline-2"></span>
+                <div class="carousel-image mt-4 w-full" [ngClass]="{ 'img-200': i === 0 }" fxLayout="row" fxLayoutAlign="center start">
+                    <img class="w-full" [src]="item.image" [alt]="item.title" *ngIf="i === activeIndex" />
+                </div>
+            </div>
+        </ng-container>
 
-		<form class="unlock-box" [formGroup]="zelfForm" #searchNgForm="ngForm" fxLayout="column" fxLayoutAlign="center center">
-			<h3 class="text-center m-0">{{ "onboarding.claim_your_zns" | transloco }}</h3>
+        <span class="zline-2"></span>
 
-			<div class="unlock-input-box" (click)="openFullPage()">
-				<div class="unlock-input-text-container">
-					<input
-						class="w-full"
-						type="text"
-						matInput
-						[formControlName]="'zelfName'"
-						autocomplete="off"
-						(keydown.enter)="searchZelfName($event)"
-						(input)="sanitizeZelfNameInput()"
-					/>
-				</div>
-				<div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
-					<span class="zpan"> .zelf </span>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						(click)="searchZelfName($event)"
-						class="cursor-pointer"
-					>
-						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							d="M14.76 13.27L20.49 19L19 20.49L13.27 14.76C12.2 15.53 10.91 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 10.91 15.53 12.2 14.76 13.27ZM9.5 5C7.01 5 5 7.01 5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5Z"
-							fill="#43474E"
-						/>
-					</svg>
-				</div>
-			</div>
+        <form class="unlock-box" [formGroup]="zelfForm" #searchNgForm="ngForm" fxLayout="column" fxLayoutAlign="center center">
+            <h3 class="text-center m-0">{{ "onboarding.claim_your_zns" | transloco }}</h3>
 
-			<div>
-				<span class="link cursor-pointer" (click)="goToFindWallet()"> {{ "onboarding.forgot_zelf_name" | transloco }}</span>
-			</div>
-		</form>
-	</div>
+            <div class="unlock-input-box" (click)="openFullPage()">
+                <div class="unlock-input-text-container">
+                    <input
+                        class="w-full"
+                        type="text"
+                        matInput
+                        [formControlName]="'zelfName'"
+                        autocomplete="off"
+                        (keydown.enter)="searchZelfName($event)"
+                        (input)="sanitizeZelfNameInput()"
+                    />
+                </div>
+                <div class="unlock-icon-container" fxLayout="row" fxLayoutAlign="start center">
+                    <span class="zpan"> .zelf </span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        (click)="searchZelfName($event)"
+                        class="cursor-pointer"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M14.76 13.27L20.49 19L19 20.49L13.27 14.76C12.2 15.53 10.91 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 10.91 15.53 12.2 14.76 13.27ZM9.5 5C7.01 5 5 7.01 5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5Z"
+                            fill="#43474E"
+                        />
+                    </svg>
+                </div>
+            </div>
+
+            <div>
+                <span class="link cursor-pointer" (click)="goToFindWallet()"> {{ "onboarding.forgot_zelf_name" | transloco }}</span>
+            </div>
+        </form>
+    </div>
 </div>

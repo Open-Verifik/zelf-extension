@@ -4,10 +4,10 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bott
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
-import { ChromeService } from "app/chrome.service";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "home-header-accounts",
@@ -17,15 +17,15 @@ import { WalletModel } from "app/wallet";
     styleUrls: ["./home-header-accounts.component.scss"],
 })
 export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
-    currentWallet: WalletModel = new WalletModel();
-    wallets: WalletModel[] = [];
     loaded: boolean = false;
     shareables: any;
+    wallet: Partial<WalletModel> = {};
+    wallets: WalletModel[] = [];
 
     constructor(
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
         private _bottomSheetRef: MatBottomSheetRef<HomeHeaderAccountsComponent>,
-        private _chromeService: ChromeService
+        private _walletService: WalletService
     ) {
         this.shareables = data;
         this.loaded = false;
@@ -41,41 +41,10 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     private async _initWallets(): Promise<void> {
-        const _wallet = (await this._chromeService.getItem("wallet")) || {};
+        const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
-        this.currentWallet = new WalletModel({ ..._wallet, index: 0 });
-
-        const remainingWallets = (await this._chromeService.getItem("wallets")) || [];
-
-        const walletsMapping = {
-            [this.currentWallet.ethAddress]: true,
-        };
-
-        const wallets = [];
-
-        if (Array.isArray(remainingWallets) && remainingWallets.length) {
-            for (let index = 0; index < remainingWallets.length; index++) {
-                const wallet = remainingWallets[index];
-
-                const _wallet = new WalletModel({
-                    ...wallet,
-                    index: index + 1,
-                });
-
-                if (walletsMapping[_wallet.ethAddress]) continue;
-
-                walletsMapping[wallet.ethAddress] = true;
-
-                if (!_wallet.ethAddress || !_wallet.image.includes("data:image/png;base64")) continue;
-
-                wallets.push(_wallet);
-            }
-        }
-
+        this.wallet = wallet || {};
         this.wallets = wallets;
-
-        this._chromeService.setItem("wallet", this.currentWallet);
-        this._chromeService.setItem("wallets", this.wallets);
 
         this.loaded = true;
     }
@@ -85,19 +54,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     async switchWallet(selectedWallet: WalletModel): Promise<void> {
-        const wallet = (await this._chromeService.getItem("wallet")) as WalletModel;
-
-        if (selectedWallet.publicData.zelfName === wallet.publicData.zelfName) {
-            this.close();
-
-            return;
-        }
-
-        const wallets = (await this._chromeService.getItem("wallets")) as WalletModel[];
-        const newWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== selectedWallet.publicData.zelfName);
-
-        await this._chromeService.setItem("wallet", selectedWallet);
-        await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
+        await this._walletService.switchWallet(selectedWallet);
 
         this.close();
     }

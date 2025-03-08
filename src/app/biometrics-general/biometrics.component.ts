@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild, inject } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Observable, Subject, timeout } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { MatDialogModule } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { MatButtonModule } from "@angular/material/button";
@@ -12,8 +12,6 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { WalletService } from "../wallet.service";
 
-// import { AuthBiometricErrorsDisplayComponent } from "../auth-biometric-errors-display/auth-biometric-errors-display.component";
-import { Router } from "@angular/router";
 import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalData, ResponseData, directionImage } from "./sdk.models";
 
 import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
@@ -81,7 +79,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
         private _walletService: WalletService,
         private _translocoService: TranslocoService,
         private renderer: Renderer2,
-        private _navigation: Router,
         private _httpWrapperService: HttpWrapperService,
         private _chromeService: ChromeService,
         private _zelfNameService: ZelfNameService,
@@ -603,8 +600,10 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
                 _this["biometricsLoginCalled"] = false;
             })
-            .catch((err) => {
-                this.errorContent = err.error;
+            .catch((exception) => {
+                console.error(` BiometricsGeneralComponent ~ _createWallet ~ err:`, exception);
+
+                this.errorContent = exception.error;
 
                 this.session.showBiometrics = false;
 
@@ -630,6 +629,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
                 _this["biometricsLoginCalled"] = false;
             })
             .catch((exception) => {
+                console.error(` BiometricsGeneralComponent ~ _decryptZelfName ~ err:`, exception);
+
                 this.errorContent = { message: exception.error?.error };
 
                 _this["biometricsLoginCalled"] = false;
@@ -658,8 +659,9 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
                 _this["biometricsLoginCalled"] = false;
             })
             .catch((exception) => {
-                this.errorContent = exception.error;
+                console.error(` BiometricsGeneralComponent ~ _importWallet ~ exception:`, exception);
 
+                this.errorContent = exception.error;
                 this.errorContent = { message: exception.error?.error };
 
                 _this["biometricsLoginCalled"] = false;

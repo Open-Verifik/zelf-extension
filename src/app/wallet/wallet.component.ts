@@ -9,10 +9,11 @@ import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { MyZnsComponent } from "app/my-zns/my-zns.component";
+import { MyArNSComponent } from "app/my-arns/my-arns.component";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "app-wallet",
@@ -28,6 +29,7 @@ export class WalletComponent extends CopyToClipboardBase {
 
     constructor(
         private _bottomSheet: MatBottomSheet,
+        private _walletService: WalletService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
@@ -44,17 +46,10 @@ export class WalletComponent extends CopyToClipboardBase {
     private async _setWallets(): Promise<void> {
         this.loading = true;
 
-        let wallet = await this._chromeService.getItem("wallet");
-        let wallets: WalletModel[] = [];
+        const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
-        if (!wallet) {
-            wallets = await this._chromeService.getItem("wallets");
-            wallet = wallets[0];
-
-            this._chromeService.setItem("wallet", wallet);
-        }
-
-        this.wallet = wallet;
+        this.wallet = wallet || {};
+        this.wallets = wallets;
     }
 
     async copyToClipboard(value: string): Promise<void> {
@@ -64,28 +59,31 @@ export class WalletComponent extends CopyToClipboardBase {
     downloadQRCode(): void {
         const link = document.createElement("a");
 
-        link.href = this.wallet.image as string;
-        link.download = `zelfproof_${this.wallet.publicData?.zelfName}.png`;
+        link.href = this.wallet?.image as string;
+        link.download = `zelfproof_${this.wallet?.publicData?.zelfName}.png`;
         link.click();
     }
 
     getWalletStatus(): string {
-        if (!this.wallet.publicData?.isExpired) {
-            return this.wallet.publicData?.type !== "hold" ? "active" : "hold";
-        }
+        if (this.wallet?.publicData?.isExpired) return "expired";
 
-        return "expired";
+        return this.wallet?.publicData?.type === "mainnet" ? "active" : "hold";
+    }
+
+    isExpired(): boolean {
+        return !!this.wallet?.publicData?.isExpired;
     }
 
     openPrivateKeyBottomSheet(): void {
         this._bottomSheet.open(PrivateKeyComponent, {
+            data: { wallet: this.wallet },
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
         });
     }
 
     openMyZnsBottomSheet(): void {
-        this._bottomSheet.open(MyZnsComponent, {
+        this._bottomSheet.open(MyArNSComponent, {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
         });

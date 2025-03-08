@@ -11,7 +11,7 @@
         </div>
 
         <div class="manage-domains__col2">
-            <p class="manage-domains__title">{{ t("manage_domains") }}</p>
+            <p class="manage-domains__title">{{ t("common.manage_domains") }}</p>
         </div>
 
         <div class="manage-domains__col3">
@@ -41,26 +41,26 @@
                             </svg>
                         </div>
 
-                        <div class="domain__clickable" [routerLink]="['/domain', { zelfName: wallet.publicData.zelfName | zelfName : 18 }]">
+                        <div class="domain__clickable" [routerLink]="['/domain']" [queryParams]="{ zelfName: wallet.publicData?.zelfName }">
                             <div
                                 class="domain__avatar"
                                 [ngClass]="{
-                                    'domain__avatar--primary': wallet.publicData.type === 'mainnet',
-                                    'domain__avatar--secondary': wallet.publicData.type === 'hold'
+                                    'domain__avatar--primary': wallet.publicData?.type === 'mainnet',
+                                    'domain__avatar--secondary': wallet.publicData?.type === 'hold'
                                 }"
                             >
-                                <span class="domain__character">{{ wallet.publicData.zelfName | firstLetter }}</span>
+                                <span class="domain__character">{{ wallet.publicData?.zelfName | firstLetter }}</span>
                             </div>
 
                             <div class="domain__info">
-                                <h4 class="domain__name">{{ wallet.publicData.zelfName | zelfName }}</h4>
+                                <h4 class="domain__name">{{ wallet.publicData?.zelfName | zelfName }}</h4>
 
                                 <div class="domain__status-indicators">
-                                    <div class="domain__status-indicator domain__status-indicator--warning" *ngIf="isExpiringSoon(wallet)">
+                                    <div class="domain__status-indicator domain__status-indicator--warning" *ngIf="wallet.publicData?.isExpiringSoon">
                                         <ng-container *ngTemplateOutlet="warningIcon"></ng-container>
                                     </div>
 
-                                    <div class="domain__status-indicator domain__status-indicator--error" *ngIf="isExpired(wallet)">
+                                    <div class="domain__status-indicator domain__status-indicator--error" *ngIf="wallet.publicData?.isExpired">
                                         <ng-container *ngTemplateOutlet="errorIcon"></ng-container>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
 
                         <mat-menu class="zelf-menu" #menu>
                             <button class="zelf-menu__button zelf-menu__button--icon-end" mat-menu-item (click)="logoutOfWallet(wallet)">
-                                <span class="zelf-menu__button-text">{{ t("logout") }}</span>
+                                <span class="zelf-menu__button-text">{{ t("common.logout") }}</span>
 
                                 <mat-icon class="zelf-menu__button-icon">
                                     <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,37 +92,45 @@
 
                     <div class="domain-detail" *ngIf="showDetails(wallet)">
                         <div class="domain-detail__row">
-                            <div class="domain-detail__icon domain-detail__icon--warning" *ngIf="isExpiringSoon(wallet)">
+                            <div class="domain-detail__icon domain-detail__icon--warning" *ngIf="wallet.publicData?.isExpiringSoon">
                                 <ng-container *ngTemplateOutlet="warningIcon"></ng-container>
                             </div>
 
-                            <div class="domain-detail__icon domain-detail__icon--error" *ngIf="isExpired(wallet)">
+                            <div class="domain-detail__icon domain-detail__icon--error" *ngIf="wallet.publicData?.isExpired">
                                 <ng-container *ngTemplateOutlet="errorIcon"></ng-container>
                             </div>
 
-                            <p class="domain-detail__text" *ngIf="isExpiringSoon(wallet)">{{ t("domain_warning") }}</p>
-                            <p class="domain-detail__text" *ngIf="isExpired(wallet)">{{ t("domain_error") }}</p>
+                            <p class="domain-detail__text" *ngIf="wallet.publicData?.isExpiringSoon">{{ t("manage_domains.domain_warning") }}</p>
+                            <p class="domain-detail__text" *ngIf="wallet.publicData?.isExpired">
+                                {{ t("manage_domains.domain_error", { zelfName: wallet.publicData?.zelfName }) }}
+                            </p>
 
-                            <p class="domain-detail__countdown" *ngIf="isExpiringSoon(wallet)">
+                            <p class="domain-detail__countdown" *ngIf="wallet.publicData?.isExpiringSoon">
                                 <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M8 13.6673L7.99333 9.66732L5.33333 7.00065L7.99333 4.32732L8 0.333984H0V4.33398L2.66667 7.00065L0 9.66065V13.6673H8ZM1.33333 4.00065V1.66732H6.66667V4.00065L4 6.66732L1.33333 4.00065Z"
                                     />
                                 </svg>
 
-                                <span>{{ wallet.publicData.expiresAt | timer }}</span>
+                                <span>{{ wallet.publicData?.expiresAt | timer }}</span>
                             </p>
                         </div>
 
                         <div class="domain-detail__col">
-                            <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" *ngIf="isExpiringSoon(wallet)">
-                                <span>{{ t("buy_now") }}</span>
+                            <button
+                                mat-flat-button
+                                class="zelf-button zelf-button--black zelf-button--wide"
+                                *ngIf="wallet.publicData?.isExpiringSoon"
+                                [routerLink]="['/domain-purchase']"
+                                [queryParams]="{ zelfName: wallet.publicData?.zelfName }"
+                            >
+                                <span>{{ t("common.buy_now") }}</span>
 
                                 <ng-container *ngTemplateOutlet="zelfLogo"></ng-container>
                             </button>
 
-                            <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" *ngIf="isExpired(wallet)">
-                                <span>{{ t("renew_domain") }}</span>
+                            <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" *ngIf="wallet.publicData?.isExpired">
+                                <span>{{ t("common.renew_domain") }}</span>
 
                                 <ng-container *ngTemplateOutlet="zelfLogo"></ng-container>
                             </button>
@@ -134,7 +142,7 @@
 
         <div class="manage-domains__footer">
             <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" [routerLink]="['/onboarding']">
-                <span>{{ t("purchase_new_domain") }}</span>
+                <span>{{ t("manage_domains.purchase_new_domain") }}</span>
 
                 <ng-container *ngTemplateOutlet="zelfLogo"></ng-container>
             </button>

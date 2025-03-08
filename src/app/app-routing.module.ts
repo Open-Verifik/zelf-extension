@@ -1,26 +1,15 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
+import { LoginGuard } from "./guards/login.guard";
+import { OnboardingGuard } from "./guards/onboarding.guard";
+
 import { HomeComponent } from "./home/home.component";
 import { OnboardingComponent } from "./onboarding/onboarding.component";
-import { CreateWalletComponent } from "./create-wallet/create-wallet.component";
-import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
-import { ImportWalletComponent } from "./import-wallet/import-wallet.component";
-import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
-import { SendTransactionComponent } from "./send-transaction/send-transaction.component";
-import { SendTransactionPreviewComponent } from "./send-transaction/send-transaction-preview/send-transaction-preview.component";
-import { SendTransactionConfirmationComponent } from "./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component";
-import { SendTransactionBridgeComponent } from "./send-transaction/send-transaction-bridge/send-transaction-bridge.component";
-import { NetworkPickerComponent } from "./home/network-picker/network-picker.component";
-import { NewZelfNameComponent } from "./new-zelf-name/new-zelf-name.component";
-import { OpenZelfNameComponent } from "./open-zelf-name/open-zelf-name.component";
-import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
-import { MobileRestrictedComponent } from "./core/mobile-restricted/mobile-restricted.component";
 
-import { LoginGuard } from "./login.guard";
-import { OnboardingGuard } from "./onboarding.guard";
-import { ManageDomainComponent } from "./manage-domain/manage-domain.component";
-import { WalletComponent } from "./wallet/wallet.component";
-import { ManageDomainsComponent } from "./manage-domains/manage-domains.component";
+import { OutletComponent } from "./outlet/outlet.component";
+import { ExternalRedirectGuard } from "./guards/external-redirect.guard";
+import { ExtensionGuard } from "./guards/extension.guard";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -31,69 +20,141 @@ const routes: Routes = [
         canActivate: [OnboardingGuard],
     },
     {
+        path: "welcome",
+        loadComponent: () => import("./welcome/welcome.component").then((m) => m.WelcomeComponent),
+        children: [
+            {
+                path: "",
+                loadComponent: () => import("./welcome-onboarding/welcome-onboarding.component").then((m) => m.WelcomeOnboardingComponent),
+                // Loads the default zelf name search screen (welcome carousel)
+            },
+            {
+                path: "available",
+                loadComponent: () => import("./welcome-available/welcome-available.component").then((m) => m.WelcomeAvailableComponent),
+                // Name is available and user can provide referral code if applicable
+            },
+            {
+                path: "registered",
+                loadComponent: () => import("./welcome-registered/welcome-registered.component").then((m) => m.WelcomeRegisteredComponent),
+                // Has two states: wallet is registered and not available, and wallet is registered and available (redirects to /safety/password)
+            },
+            {
+                path: "import",
+                loadComponent: () => import("./welcome-import/welcome-import.component").then((m) => m.WelcomeImportComponent),
+            },
+            {
+                path: "find",
+                loadComponent: () => import("./welcome-find/welcome-find.component").then((m) => m.WelcomeFindComponent),
+                // Alternative route to "welcome", for users looking to purchase an additional domain
+            },
+            {
+                path: "complete",
+                loadComponent: () => import("./welcome-complete/welcome-complete.component").then((m) => m.WelcomeCompleteComponent),
+                // Final screen. Shows mnemonic unlock, continue, or pay options
+            },
+            {
+                path: "security",
+                component: OutletComponent,
+                children: [
+                    {
+                        path: "",
+                        pathMatch: "full",
+                        redirectTo: "password",
+                    },
+                    {
+                        path: "password",
+                        loadComponent: () => import("./security-password/security-password.component").then((m) => m.SecurityPasswordComponent),
+                        // password screen will have two states: creating password, and logging in
+                    },
+                    {
+                        path: "biometrics",
+                        loadComponent: () => import("./security-biometrics/security-biometrics.component").then((m) => m.SecurityBiometricsComponent),
+                        // unlocks/decrypts wallet
+                    },
+                ],
+            },
+        ],
+    },
+    {
         path: "create-wallet",
-        component: CreateWalletComponent,
+        loadComponent: () => import("./create-wallet/create-wallet.component").then((m) => m.CreateWalletComponent),
     },
     {
         path: "import-wallet",
-        component: ImportWalletComponent,
+        loadComponent: () => import("./import-wallet/import-wallet.component").then((m) => m.ImportWalletComponent),
     },
     {
         path: "manage-domains",
-        component: ManageDomainsComponent,
+        loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
     },
     {
         path: "domain",
         pathMatch: "prefix",
-        component: ManageDomainComponent,
+        loadComponent: () => import("./manage-domain/manage-domain.component").then((m) => m.ManageDomainComponent),
+    },
+    {
+        path: "domain-purchase",
+        pathMatch: "prefix",
+        loadComponent: () => import("./domain-purchase/domain-purchase.component").then((m) => m.DomainPurchaseComponent),
     },
     {
         path: "wallet",
-        component: WalletComponent,
+        loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
     },
     {
         path: "find-wallet",
-        component: UnlockWalletComponent,
+        loadComponent: () => import("./unlock-wallet/unlock-wallet.component").then((m) => m.UnlockWalletComponent),
     },
     {
         path: "extension-instructions",
-        component: ExtensionInstructionsComponent,
+        loadComponent: () => import("./extension-instructions/extension-instructions.component").then((m) => m.ExtensionInstructionsComponent),
+        canActivate: [ExtensionGuard],
     },
     {
         path: "send-transaction",
-        component: SendTransactionComponent,
+        loadComponent: () => import("./send-transaction/send-transaction.component").then((m) => m.SendTransactionComponent),
     },
     {
         path: "send-transaction-preview",
-        component: SendTransactionPreviewComponent,
+        loadComponent: () =>
+            import("./send-transaction/send-transaction-preview/send-transaction-preview.component").then((m) => m.SendTransactionPreviewComponent),
     },
     {
         path: "send-transaction-confirm",
-        component: SendTransactionConfirmationComponent,
+        loadComponent: () =>
+            import("./send-transaction/send-transaction-confirmation/send-transaction-confirmation.component").then(
+                (m) => m.SendTransactionConfirmationComponent
+            ),
     },
     {
         path: "send-transaction-bridge",
-        component: SendTransactionBridgeComponent,
+        loadComponent: () =>
+            import("./send-transaction/send-transaction-bridge/send-transaction-bridge.component").then((m) => m.SendTransactionBridgeComponent),
     },
     {
         path: "network-picker",
-        component: NetworkPickerComponent,
+        loadComponent: () => import("./home/network-picker/network-picker.component").then((m) => m.NetworkPickerComponent),
     },
     {
         path: "new-zelf-name",
-        component: NewZelfNameComponent,
+        loadComponent: () => import("./new-zelf-name/new-zelf-name.component").then((m) => m.NewZelfNameComponent),
     },
     {
         path: "open-zelf-name",
-        component: OpenZelfNameComponent,
+        loadComponent: () => import("./open-zelf-name/open-zelf-name.component").then((m) => m.OpenZelfNameComponent),
     },
     {
         path: "transaction",
-        component: TransactionDetailsComponent,
+        loadComponent: () => import("./transaction-details/transaction-details.component").then((m) => m.TransactionDetailsComponent),
     },
     {
         path: "mobile-restricted",
-        component: MobileRestrictedComponent,
+        loadComponent: () => import("./core/mobile-restricted/mobile-restricted.component").then((m) => m.MobileRestrictedComponent),
+    },
+    {
+        path: "zelf-domain-purchase",
+        data: { externalUrl: "https://payment.zelf.world/purchase" },
+        canActivate: [ExternalRedirectGuard],
     },
 ];
 

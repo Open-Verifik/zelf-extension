@@ -24,9 +24,9 @@
 
         <div class="wallets">
             <div class="wallets__item" (click)="close()">
-                <div class="wallets__item-avatar">{{ currentWallet.publicData.zelfName | firstLetter }}</div>
+                <div class="wallets__item-avatar">{{ wallet.publicData?.zelfName | firstLetter }}</div>
 
-                <p class="wallets__item-name">{{ currentWallet.publicData.zelfName | zelfName }}</p>
+                <p class="wallets__item-name">{{ wallet.publicData?.zelfName | zelfName }}</p>
             </div>
 
             <ng-container *ngIf="wallets.length">
@@ -42,18 +42,18 @@
             <div class="wallets__item" (click)="close()" [routerLink]="['/onboarding']">
                 <div class="wallets__item-avatar wallets__item-avatar--bg-white">+</div>
 
-                <p class="wallets__item-name">{{ t("purchase") }}</p>
+                <p class="wallets__item-name">{{ t("common.purchase") }}</p>
             </div>
         </div>
 
         <div class="home-header-accounts__actions">
             <button
-                class="zelf-button zelf-button--black zelf-button--wide zelf-button--thin"
-                mat-flat-button
                 (click)="close()"
                 [routerLink]="['/manage-domains']"
+                class="zelf-button zelf-button--black zelf-button--wide zelf-button--thin"
+                mat-flat-button
             >
-                {{ t("manage_domains") }}
+                {{ t("common.manage_domains") }}
             </button>
         </div>
     </div>

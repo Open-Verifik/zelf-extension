@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -29,9 +29,9 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
             </div>
 
             <div class="home-header__right home-header__container">
-                <ng-container *ngIf="!(isExtension && (!isSidePanel || isPopOut))">&nbsp;</ng-container>
+                <ng-container *ngIf="!(isExtension && (!isSidePanel || isPopout))">&nbsp;</ng-container>
 
-                <button class="home-header__button" (click)="openSidePanel()" *ngIf="isExtension && (!isSidePanel || isPopOut)">
+                <button class="home-header__button" id="open-sidebar" (click)="openSidePanel()" *ngIf="isExtension && (!isSidePanel || isPopout)">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -77,14 +77,14 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
     `,
     styleUrls: ["../home.component.scss", "../../main.scss"],
 })
-export class HomeHeaderComponent implements OnInit, OnDestroy {
+export class HomeHeaderComponent implements OnDestroy {
     @Input() shareables: any;
 
     private unsubscriber$: Subject<void> = new Subject();
 
     balances: any;
     isExtension: boolean = false;
-    isPopOut: boolean = false;
+    isPopout: boolean = false;
     isSidePanel: boolean = false;
     selectedTab: string;
     title: string = "something";
@@ -93,15 +93,16 @@ export class HomeHeaderComponent implements OnInit, OnDestroy {
 
     constructor(private _router: Router, private route: ActivatedRoute, private _chromeService: ChromeService, private _bottomSheet: MatBottomSheet) {
         this.view = "home";
+        this.selectedTab = "assets";
 
         this.isExtension = this._chromeService.isExtension;
-        this.isPopOut = this._chromeService.isPopOut;
+        this.isPopout = this._chromeService.isPopout;
         this.isSidePanel = this._chromeService.isSidePanel;
 
-        this.selectedTab = "assets";
-    }
+        this._chromeService.isPopout$.pipe(takeUntil(this.unsubscriber$)).subscribe((isPopout) => {
+            this.isPopout = isPopout;
+        });
 
-    ngOnInit(): void {
         this._chromeService.isSidePanel$.pipe(takeUntil(this.unsubscriber$)).subscribe((isSidePanel) => {
             this.isSidePanel = isSidePanel;
         });
@@ -113,6 +114,8 @@ export class HomeHeaderComponent implements OnInit, OnDestroy {
     }
 
     async openSidePanel(): Promise<void> {
+        if (browser.sidebarAction) return browser.sidebarAction.open();
+
         this._chromeService.openSidePanel();
     }
 

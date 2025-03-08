@@ -13,7 +13,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { WalletService } from "../wallet.service";
 
 import { environment } from "environments/environment";
-import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
@@ -100,7 +99,6 @@ export class BiometricsComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private renderer: Renderer2,
         private _walletService: WalletService,
-        private _navigation: Router,
         private _chromeService: ChromeService
     ) {
         this.loadingModel = true;
@@ -484,7 +482,7 @@ export class BiometricsComponent implements OnInit, OnDestroy {
                 direction += ` ${faceCenterY < this.videoCenterY ? "↑" : "↓"}  `;
 
             this.errorFace = {
-                title: this._translocoService.translate("liveness.center_yor_face"),
+                title: this._translocoService.translate("liveness.center_your_face"),
                 subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
                 canvas: direction,
             };

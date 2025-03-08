@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
-import { Asset, ETHTransaction, Wallet, WalletModel } from "app/wallet";
+import { Asset, ETHTransaction, Wallet } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -13,21 +14,20 @@ import { Subject, takeUntil } from "rxjs";
     templateUrl: "./home.component.html",
     styleUrls: ["./home.component.scss", "../main.scss"],
 })
-export class HomeComponent implements OnInit {
-    private unsubscriber$: Subject<void> = new Subject();
+export class HomeComponent implements OnInit, OnDestroy {
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     activity!: Array<ETHTransaction>;
     balances: any;
-    balancesLoaded: boolean = false;
+    balancesLoading: boolean = false;
     NFTs!: Array<any>;
+    scanImplemented: boolean = false;
     selectedAsset!: Asset;
     selectedNetwork!: string;
     shareables: any;
     tokens!: Array<any>;
     view?: string;
     wallet!: Wallet;
-    wallets!: Array<Wallet>;
-    scanImplemented: boolean = false;
 
     constructor(
         private _blockchainNetworkService: BlockchainNetworksService,
@@ -36,10 +36,11 @@ export class HomeComponent implements OnInit {
         private _ethService: EthereumService,
         private _router: Router,
         private _solanaService: SolanaService,
+        private _walletService: WalletService,
         private route: ActivatedRoute
     ) {
         this.balances = {};
-        this.balancesLoaded = false;
+        this.balancesLoading = false;
         this.view = this.route.snapshot.queryParamMap.get("view") || "home";
 
         this.shareables = {
@@ -48,13 +49,16 @@ export class HomeComponent implements OnInit {
             wallet: {},
         };
 
+        this.activity = [];
         this.NFTs = [];
         this.tokens = [];
 
         this._chromeService.removeItem("unlockWallet");
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
-            this.balancesLoaded = false;
+            if (this.balancesLoading) return;
+
+            this.balancesLoading = true;
 
             await this._setWallet();
             await this._getBalances();
@@ -71,8 +75,6 @@ export class HomeComponent implements OnInit {
     }
 
     private async _getBalances(): Promise<any> {
-        if (this.balancesLoaded) return;
-
         this.activity = [];
         this.tokens = [];
         this.NFTs = [];
@@ -80,7 +82,7 @@ export class HomeComponent implements OnInit {
         await this._getETHDetails();
         await this._getSolanaDetails();
 
-        this.balancesLoaded = true;
+        this.balancesLoading = false;
     }
 
     private async _getETHDetails(): Promise<any> {
@@ -141,24 +143,9 @@ export class HomeComponent implements OnInit {
     }
 
     private async _setWallet(): Promise<any> {
-        let wallet = await this._chromeService.getItem("wallet");
+        const wallet = await this._walletService.getCurrentWalletFromStorage();
 
-        if (!wallet) {
-            let wallets = await this._chromeService.getItem("wallets");
-
-            wallet = wallets.shift();
-
-            await this._chromeService.setItem("wallet", wallet);
-            await this._chromeService.setItem("wallets", wallets);
-
-            if (!wallet?.ethAddress && !wallet?.solanaAddress) {
-                this._router.navigate(["/onboarding"]);
-
-                return;
-            }
-        }
-
-        this.shareables.wallet = new WalletModel(wallet);
+        this.shareables.wallet = wallet;
 
         this.wallet = this.shareables.wallet;
     }

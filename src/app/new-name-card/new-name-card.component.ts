@@ -11,7 +11,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     template: `
         <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
 
-        <div class="zelf-card">
+        <div class="zelf-card-old">
             <form [formGroup]="zelfForm" #signUpNgForm="ngForm" fxLayout="column" fxLayoutAlign="start start" class="my-1 w-full">
                 <div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
                     <p class="m-0">{{ "onboarding.register" | transloco }}</p>

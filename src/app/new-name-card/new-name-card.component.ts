@@ -11,7 +11,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     template: `
         <mat-progress-bar mode="query" *ngIf="loading"></mat-progress-bar>
 
-        <div class="zelf-card">
+        <div class="zelf-card-old">
             <form [formGroup]="zelfForm" #signUpNgForm="ngForm" fxLayout="column" fxLayoutAlign="start start" class="my-1 w-full">
                 <div fxLayout="column" fxLayoutAlign="start start" class="new-zelf-inner-card-1">
                     <p class="m-0">{{ "onboarding.register" | transloco }}</p>
@@ -19,12 +19,12 @@ import { ZelfNameService } from "app/zelf-name-service.service";
                     <h3 class="m-0">{{ zelfName }}</h3>
 
                     <small class="mt-4">
-                        {{ "onboarding.register_description" | transloco : { duration: duration } }}
+                        {{ "onboarding.register_description" | transloco : { duration } }}
 
                         {{ (duration === 1 ? "onboarding.year" : "onboarding.years") | transloco }}.</small
                     >
 
-                    <small *ngIf="reward"> {{ "onboarding.zns_reward" | transloco : { reward: reward } }}. </small>
+                    <small *ngIf="reward"> {{ "onboarding.zns_reward" | transloco : { reward } }}. </small>
                 </div>
 
                 <div fxLayout="column" fxLayoutAlign="space-between center" class="w-full">
@@ -225,7 +225,7 @@ export class NewNameCardComponent implements OnInit {
     async ngOnInit(): Promise<any> {
         this.zelfName = await this._zelfNameService.getZelfName();
         this.price = await this._zelfNameService.getZelfPrice();
-        this.reward = this._zelfNameService.getZelfReward();
+        this.reward = await this._zelfNameService.getZelfReward();
 
         if (!this.zelfName) return this._router.navigate(["/onboarding"]);
 
@@ -384,5 +384,7 @@ export class NewNameCardComponent implements OnInit {
 
         // Update form control value without triggering events
         control.setValue(sanitizedValue, { emitEvent: false });
+
+        if (!control.value) control.markAsPristine();
     }
 }

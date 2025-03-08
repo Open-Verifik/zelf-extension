@@ -34,8 +34,6 @@ export class ImportWalletComponent implements OnInit {
 	) {
 		this._initForm();
 
-		this._walletService.restoreSession();
-
 		this.session = this._walletService.getSessionData();
 
 		this._walletService.setSteps([

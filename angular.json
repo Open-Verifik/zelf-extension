@@ -63,6 +63,7 @@
                     },
                     "configurations": {
                         "production": {
+                            "baseHref": "/",
                             "buildOptimizer": true,
                             "extractLicenses": true,
                             "namedChunks": false,
@@ -89,8 +90,8 @@
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "20kb",
-                                    "maximumError": "20kb"
+                                    "maximumWarning": "25kb",
+                                    "maximumError": "25kb"
                                 }
                             ],
                             "fileReplacements": [
@@ -205,6 +206,7 @@
                             }
                         },
                         "development": {
+                            "baseHref": "/",
                             "buildOptimizer": false,
                             "extractLicenses": false,
                             "namedChunks": true,

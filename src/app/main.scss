@@ -63,14 +63,15 @@ app-onboarding {
     width: 100%;
     height: 100vh;
     background-color: #9b94c9b5;
-    z-index: 10;
+    z-index: 500;
+    inset: 0;
 
     svg {
-        margin-left: 70px;
-        width: 160px;
-        height: 160px;
         display: inline-block;
         font: black;
+        height: 160px;
+        margin-left: 70px;
+        width: 160px;
     }
 
     img {
@@ -1252,25 +1253,27 @@ h3 {
 }
 
 .zelf-card {
+    box-sizing: border-box;
     align-items: center;
     background-color: $seaSalt;
     border-radius: 40px;
     border: none;
     display: inline-flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     justify-content: center;
     padding: 40px;
     width: 564px;
+    min-height: 768px;
 
     &__header {
-        width: 100%;
+        align-items: center;
         display: flex;
         flex-direction: column;
+        gap: 4px;
         justify-content: center;
-        align-items: center;
-        gap: 16px;
         overflow: hidden;
+        width: 100%;
     }
 
     &__image {
@@ -1278,15 +1281,26 @@ h3 {
         user-select: none;
     }
 
+    &__pretitle {
+        color: $gray;
+        font-family: Menda;
+        font-size: 14px;
+        letter-spacing: 2%;
+        line-height: 16px;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
     &__title {
         color: $black;
         font-family: Menda;
-        text-transform: uppercase;
         font-size: 32px;
         font-weight: bold;
+        letter-spacing: 2%;
         line-height: 40px;
         margin: 0;
         text-align: center;
+        text-transform: uppercase;
     }
 
     &__subtitle {
@@ -1308,15 +1322,25 @@ h3 {
         min-height: 56px;
         gap: 8px;
         width: 100%;
+
+        &--grow {
+            flex-grow: 1;
+        }
     }
 
     &__actions {
         align-items: center;
         display: flex;
-        gap: 16px;
+        gap: 8px;
         justify-content: space-between;
         min-height: 56px;
         width: 100%;
+
+        &--column {
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
     }
 }
 
@@ -1333,13 +1357,30 @@ h3 {
     gap: 12px;
     height: 56px;
     position: relative;
+    transition: all 0.2s $smoothBezier;
 
-    &--wide {
-        width: 100%;
-
-        & .zelf-input__control {
-            width: 100%;
+    input[type="password"] {
+        &::-ms-reveal,
+        &::-ms-clear {
+            display: none;
+            width: 0;
+            height: 0;
         }
+    }
+
+    & .zelf-icon-button {
+        min-height: 40px !important;
+        min-width: 40px !important;
+        height: 40px !important;
+        width: 40px !important;
+        margin-right: 8px;
+    }
+
+    &__postfix {
+        font-size: 14px;
+        letter-spacing: 0.1px;
+        color: $taupeGray;
+        font-weight: 500;
     }
 
     &__floating-label {
@@ -1353,6 +1394,7 @@ h3 {
         transition: all 0.2s;
         user-select: none;
         width: 100%;
+        transition: all 0.2s $smoothBezier;
     }
 
     &__control {
@@ -1395,19 +1437,28 @@ h3 {
         }
     }
 
-    &__postfix {
-        font-size: 14px;
-        letter-spacing: 0.1px;
-        color: $taupeGray;
-        font-weight: 500;
+    &--wide {
+        width: 100%;
+
+        & .zelf-input__control {
+            width: 100%;
+        }
     }
 
-    & .zelf-icon-button {
-        min-height: 40px !important;
-        min-width: 40px !important;
-        height: 40px !important;
-        width: 40px !important;
-        margin-right: 8px;
+    &--error {
+        border-color: $error;
+
+        .zelf-input::placeholder {
+            color: $error;
+        }
+
+        .zelf-input:not(:placeholder-shown) + .zelf-input__floating-label {
+            color: $error;
+        }
+
+        .zelf-input__control + .zelf-input__floating-label {
+            color: $error;
+        }
     }
 }
 
@@ -1440,6 +1491,18 @@ h3 {
 
     &--success {
         color: $correctDark;
+    }
+
+    &--column {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &__row {
+        align-items: center;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
     }
 }
 
@@ -1478,6 +1541,8 @@ h3 {
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+    min-height: 236px;
+    min-width: 236px;
     max-height: 236px;
     max-width: 236px;
     width: 100%;
@@ -1487,6 +1552,82 @@ h3 {
     &__image {
         object-fit: contain;
         width: 100%;
+    }
+}
+
+.drag-and-drop {
+    position: relative;
+    border: 1px dashed $taupeGray;
+    transition: background-color cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+    border-radius: 16px;
+    overflow: hidden;
+
+    &--active {
+        border: 1px dashed $secondaryColor;
+        background-color: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    &__loader {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 3;
+    }
+
+    &__loader-overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        z-index: 2;
+        background-color: rgba(255, 2555, 255, 0.9);
+    }
+
+    &__preview {
+        max-height: 476px;
+        max-width: 340px;
+    }
+
+    &__data {
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 0 16px;
+        font-size: smaller;
+        color: #ffffff;
+        width: 100%;
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+    }
+
+    input {
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+}
+
+.zelf-action-row {
+    box-sizing: border-box;
+    align-items: center;
+    background-color: $white;
+    border-radius: 16px;
+    border: 1px solid $antiFlashWhite;
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
+    display: flex;
+    height: 62px;
+    justify-content: space-between;
+    padding: 16px;
+    width: 100%;
+
+    &__text {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.1px;
+        line-height: 20px;
+        margin: 0;
     }
 }
 

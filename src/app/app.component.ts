@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     _getPublicKey(): void {
-        let { hash } = this._walletService.generateUniqueId();
+        let { hash } = this._walletService.getUserFingerprint();
 
         const url = `${this.apiUrl}/api/sessions/yek-cilbup`;
 

@@ -1,1 +1,77 @@
-<p>security-biometrics works!</p>,
+<ng-container *transloco="let t">
+    <ng-container *ngIf="loading">
+        <div class="ripple ripple--268"></div>
+    </ng-container>
+
+    <ng-container *ngIf="!loading && !error">
+        <ng-container *ngIf="!showBiometrics">
+            <div class="zelf-card">
+                <div class="zelf-card__header security-biometrics__header">
+                    <div class="security-biometrics__header-button">
+                        <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../password']">
+                            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <img class="zelf-card__image" src="assets/images/welcome-image.png" alt="welcome" />
+
+                    <h2 class="zelf-card__title">{{ t("security.biometric_title") }}</h2>
+                    <p class="zelf-card__subtitle">{{ t("security.biometric_subtitle") }}</p>
+                </div>
+
+                <form [formGroup]="form" class="zelf-card__actions security-biometrics__actions">
+                    <label for="hideBiometricsCheckbox" class="zelf-checkbox">
+                        <input formControlName="hideBiometricsCheckbox" id="hideBiometricsCheckbox" name="hideBiometricsCheckbox" type="checkbox" />
+
+                        <svg viewBox="0 0 21 21">
+                            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                        </svg>
+
+                        {{ t("common.dont_show_this_message_again") }}
+                    </label>
+
+                    <button (click)="startBiometrics()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+                        {{ t("common.start") }}
+                    </button>
+                </form>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="showBiometrics">
+            <biometrics-general
+                (imageCaptured)="onBiometricsScanned($event)"
+                [failed]="notifyFailed$.asObservable()"
+                [passToParent]="true"
+            ></biometrics-general>
+        </ng-container>
+    </ng-container>
+
+    <div class="zelf-card" *ngIf="!loading && error">
+        <div class="zelf-card__header security-biometrics__header">
+            <div class="security-biometrics__header-button">
+                <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../password']">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="zelf-card__content zelf-card__content--grow">
+            <ng-container *ngTemplateOutlet="cross"></ng-container>
+
+            <p>{{ this.error }}</p>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #cross>
+    <svg width="64" height="64" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+            fill="#DC362E"
+        />
+    </svg>
+</ng-template>

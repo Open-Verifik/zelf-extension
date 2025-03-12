@@ -1,0 +1,26 @@
+<div class="zelf-card" *transloco="let t">
+    <div class="zelf-card__header security__header">
+        <div class="security__header-button">
+            <button (click)="confirmBack()" mat-icon-button class="zelf-icon-button zelf-icon-button--40">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                </svg>
+            </button>
+        </div>
+
+        <img class="zelf-card__image" src="assets/images/welcome-image.png" alt="welcome" />
+
+        <h2 class="zelf-card__title">{{ t("security.title") }}</h2>
+        <p class="zelf-card__subtitle">{{ t("security.subtitle") }}</p>
+    </div>
+
+    <div class="zelf-card__actions security__actions">
+        <button (click)="setMnemonicCount(12)" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+            {{ t("common.12_word_phrase") }}
+        </button>
+
+        <button (click)="setMnemonicCount(24)" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+            {{ t("common.24_word_phrase") }}
+        </button>
+    </div>
+</div>

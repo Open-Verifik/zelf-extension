@@ -157,7 +157,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
     }
 
     async _initSession(): Promise<any> {
-        let { hash } = this._walletService.generateUniqueId();
+        let { hash } = this._walletService.getUserFingerprint();
 
         const session = await this._walletService.createLivenessSession({
             identifier: hash,

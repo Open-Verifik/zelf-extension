@@ -1,4 +1,4 @@
-<div class="welcome">
+<div class="welcome" *transloco="let t">
     <nav class="welcome__header">
         <div class="welcome__logo-container" [routerLink]="['/welcome']">
             <ng-container *ngTemplateOutlet="logo"></ng-container>
@@ -14,11 +14,45 @@
     </section>
 
     <footer class="welcome__footer">
-        <button class="zelf-button zelf-button--hyperlink zelf-button--small">Verifik Wallet</button>
-        <button class="zelf-button zelf-button--hyperlink zelf-button--small">Marketplace</button>
-        <button class="zelf-button zelf-button--hyperlink zelf-button--small">Terms and Conditions</button>
-        <button class="zelf-button zelf-button--hyperlink zelf-button--small">Privacy Policy</button>
-        <button class="zelf-button zelf-button--hyperlink zelf-button--small">Support</button>
+        <button
+            [routerLink]="['/external-link']"
+            [queryParams]="{ externalUrl: links.documentation }"
+            class="zelf-button zelf-button--hyperlink zelf-button--small"
+        >
+            {{ t("common.documentation") }}
+        </button>
+
+        <button
+            [routerLink]="['/external-link']"
+            [queryParams]="{ externalUrl: links.invest }"
+            class="zelf-button zelf-button--hyperlink zelf-button--small"
+        >
+            {{ t("common.invest") }}
+        </button>
+
+        <button
+            [routerLink]="['/external-link']"
+            [queryParams]="{ externalUrl: links.termsAndConditions }"
+            class="zelf-button zelf-button--hyperlink zelf-button--small"
+        >
+            {{ t("common.terms_and_conditions") }}
+        </button>
+
+        <button
+            [routerLink]="['/external-link']"
+            [queryParams]="{ externalUrl: links.privacy }"
+            class="zelf-button zelf-button--hyperlink zelf-button--small"
+        >
+            {{ t("common.privacy") }}
+        </button>
+
+        <button
+            [routerLink]="['/external-link']"
+            [queryParams]="{ externalUrl: links.pricing }"
+            class="zelf-button zelf-button--hyperlink zelf-button--small"
+        >
+            {{ t("common.pricing") }}
+        </button>
     </footer>
 </div>
 

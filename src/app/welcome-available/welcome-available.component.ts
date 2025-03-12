@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
@@ -11,11 +11,11 @@ import { DiscountType } from "app/pipes/discount.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
+    imports: [CommonModule, ReactiveFormsModule, MatProgressSpinnerModule, TranslocoModule, MatButtonModule, RouterModule],
     selector: "welcome-available",
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, MatProgressSpinnerModule, TranslocoModule, MatButtonModule, RouterModule],
-    templateUrl: "./welcome-available.component.html",
     styleUrls: ["./welcome-available.component.scss"],
+    templateUrl: "./welcome-available.component.html",
 })
 export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     private _invalidTimeout!: ReturnType<typeof setTimeout>;
@@ -30,9 +30,11 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     zelfNameObject: any;
 
     constructor(
+        private _activatedRoute: ActivatedRoute,
         private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
+        private _router: Router,
         private _zelfNameService: ZelfNameService
     ) {
         this._initForm();
@@ -65,6 +67,18 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         clearTimeout(this._invalidTimeout);
 
         this.invalidReferral = false;
+    }
+
+    async goToImport(): Promise<void> {
+        await this._zelfNameService.setFlow("import");
+
+        this._router.navigate(["../import"], { relativeTo: this._activatedRoute });
+    }
+
+    async goToSecurity(): Promise<void> {
+        await this._zelfNameService.setFlow("create");
+
+        this._router.navigate(["../../security"], { relativeTo: this._activatedRoute });
     }
 
     sanitizeZelfName(): void {

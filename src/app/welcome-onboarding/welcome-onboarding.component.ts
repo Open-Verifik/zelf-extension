@@ -3,17 +3,19 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { swipeLeft } from "app/animations/swipe-left.animation";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
     animations: [swipeLeft],
-    imports: [CommonModule, TranslocoModule, MatButtonModule, ReactiveFormsModule, MatProgressSpinnerModule],
+    imports: [CommonModule, TranslocoModule, MatButtonModule, ReactiveFormsModule, MatProgressSpinnerModule, RouterLink],
     selector: "welcome-onboarding",
     standalone: true,
     styleUrls: ["./welcome-onboarding.component.scss"],
@@ -21,31 +23,54 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 })
 export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
     private _carouselItemInterval!: ReturnType<typeof setInterval>;
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     carouselIndex: number = 0;
     carouselProgress: number = 0;
     form!: UntypedFormGroup;
     loading: boolean = false;
+    showHomeButton: boolean = false;
 
     constructor(
+        private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
-        private _captchaService: CaptchaService
+        private _vaultService: VaultService,
+        private _zelfNameService: ZelfNameService
     ) {
+        this._zelfNameService.setFlow("");
+        this._zelfNameService.setMnemonicCount(0);
         this._zelfNameService.setZelfName("");
         this._zelfNameService.setZelfNameObject(null);
 
+        this._walletService.setWalletsToColdStorage();
+
+        this._vaultService.password = "";
+        this._vaultService.mnemonic = "";
+
         this._initForm();
+
+        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
+            const wallets = await this._walletService.getWalletsFromStorage();
+
+            if (wallets.length) this.showHomeButton = true;
+        });
     }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this._initCarousel();
+
+        const wallets = await this._walletService.getWalletsFromStorage();
+
+        if (wallets.length) this.showHomeButton = true;
     }
 
     ngOnDestroy(): void {
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
+
         clearInterval(this._carouselItemInterval);
     }
 
@@ -69,7 +94,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
     }
 
     async _initSession(): Promise<any> {
-        let { hash } = this._walletService.generateUniqueId();
+        let { hash } = this._walletService.getUserFingerprint();
 
         const session = await this._walletService.createLivenessSession({
             identifier: hash,

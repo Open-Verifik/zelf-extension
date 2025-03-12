@@ -3,7 +3,8 @@ import { Injectable } from "@angular/core";
 import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
-import { WalletModel } from "./wallet";
+
+export type ZelfFlow = "create" | "import" | "unlock" | "";
 
 @Injectable({
     providedIn: "root",
@@ -55,6 +56,14 @@ export class ZelfNameService {
         };
     }
 
+    decryptZelfName(payload: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/decrypt`, payload);
+    }
+
+    leaseZelfName(payload: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease`, payload);
+    }
+
     searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
         const query: { key: string; value: string; captchaToken?: string } = { key, value };
 
@@ -63,12 +72,18 @@ export class ZelfNameService {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
     }
 
+    searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
+        const query: { key: string; value: string; captchaToken?: string } = { key, value };
+
+        if (captchaToken) query.captchaToken = captchaToken;
+
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
+    }
+
     previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
         const query: { zelfName?: string; captchaToken?: string } = { zelfName };
 
-        if (captchaToken) {
-            query.captchaToken = captchaToken;
-        }
+        if (captchaToken) query.captchaToken = captchaToken;
 
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
     }
@@ -76,9 +91,7 @@ export class ZelfNameService {
     previewZelfProof(zelfProof: string, captchaToken?: string): Promise<any> {
         const query: { zelfProof: string; os: string; captchaToken?: string } = { zelfProof, os: "DESKTOP" };
 
-        if (captchaToken) {
-            query.captchaToken = captchaToken;
-        }
+        if (captchaToken) query.captchaToken = captchaToken;
 
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/preview-zelfproof`, query);
     }
@@ -113,6 +126,18 @@ export class ZelfNameService {
         await this._chromeService.setItem("zelfNameObject", zelfNameObject);
     }
 
+    async setMnemonicCount(value: 12 | 24 | 0): Promise<void> {
+        this.variables.mnemonicCount = value;
+
+        await this._chromeService.setItem("mnemonicCount", value);
+    }
+
+    async setFlow(flow: ZelfFlow): Promise<void> {
+        this.variables.flow = flow;
+
+        await this._chromeService.setItem("flow", flow);
+    }
+
     async setZelfProof(zelfProof: string): Promise<void> {
         this.variables.zelfProof = zelfProof;
 
@@ -131,8 +156,16 @@ export class ZelfNameService {
         await this._chromeService.setItem("referralZelfName", referralZelfName);
     }
 
+    async getMnemonicCount(): Promise<12 | 24 | 0> {
+        return this.variables.mnemonicCount || (await this._chromeService.getItem("mnemonicCount"));
+    }
+
     async getZelfNameObject(): Promise<any> {
-        return new WalletModel(this.variables.zelfNameObject || (await this._chromeService.getItem("zelfNameObject")) || {});
+        return this.variables.zelfNameObject || (await this._chromeService.getItem("zelfNameObject")) || {};
+    }
+
+    async getFlow(): Promise<ZelfFlow> {
+        return this.variables.flow || (await this._chromeService.getItem("flow")) || "";
     }
 
     async getReferral(): Promise<any> {
@@ -157,13 +190,5 @@ export class ZelfNameService {
 
     async getZelfProof(): Promise<string> {
         return this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
-    }
-
-    leaseZelfName(payload: any): Promise<any> {
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease`, payload);
-    }
-
-    decryptZelfName(payload: any): Promise<any> {
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/decrypt`, payload);
     }
 }

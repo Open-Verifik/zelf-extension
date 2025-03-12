@@ -24,7 +24,7 @@
     </div>
 
     <form class="domain-purchase__content">
-        <div class="ripple ripple--96" *ngIf="loading"></div>
+        <div class="ripple" *ngIf="loading"></div>
 
         <ng-container *ngIf="!loading">
             <div class="purchase">
@@ -119,7 +119,7 @@
             class="zelf-button zelf-button--black zelf-button--wide"
             mat-flat-button
             [disabled]="!agreement"
-            [routerLink]="['/zelf-domain-purchase']"
+            [routerLink]="['/external-link']"
             [queryParams]="{
                 externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.publicData?.zelfName + '&durationToken=' + durationToken
             }"

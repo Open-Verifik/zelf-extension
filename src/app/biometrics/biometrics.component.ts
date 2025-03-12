@@ -151,7 +151,7 @@ export class BiometricsComponent implements OnInit, OnDestroy {
     }
 
     _generateSession(type?: string): void {
-        const { hash } = this._walletService.generateUniqueId();
+        const { hash } = this._walletService.getUserFingerprint();
 
         this._walletService
             .createLivenessSession({

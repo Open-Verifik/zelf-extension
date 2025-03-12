@@ -11,7 +11,7 @@ export const OnboardingGuard: CanActivateFn = async () => {
 
     if (isExtension) {
         if (isPopout || isSidePanel) {
-            _chromeService.openFullPage("onboarding");
+            _chromeService.openFullPage("welcome");
 
             return false;
         }

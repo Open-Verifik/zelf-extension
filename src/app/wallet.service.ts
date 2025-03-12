@@ -10,11 +10,23 @@ import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { Asset, Wallet, WalletModel } from "./wallet";
 
+type UserFingerPrint = {
+    hash: string;
+    userAgent: string;
+    height: number;
+    width: number;
+};
+
 @Injectable({
     providedIn: "root",
 })
 export class WalletService {
     private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
+    private _userFingerPrint!: UserFingerPrint;
+
+    private _SOL_REGEX = /^(0x)?[0-9a-fA-F]{40}$/;
+    private _ETH_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+    private _BTC_REGEX = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
 
     baseUrl: String = environment.apiUrl;
     zelfProof: string = "";
@@ -36,6 +48,7 @@ export class WalletService {
 
     constructor(private _httpWrapper: HttpWrapperService, private _breakpointObserver: BreakpointObserver, private _chromeService: ChromeService) {
         this.deviceData = this.getDeviceDetails();
+        this._userFingerPrint = this.getUserFingerprint();
 
         this.loadModels();
 
@@ -45,6 +58,32 @@ export class WalletService {
         });
 
         this.deviceData.OS = this.detectOS();
+    }
+
+    private _generateUserFingerPrint(): UserFingerPrint {
+        const navigatorInfo = window.navigator;
+        const screenInfo = window.screen;
+
+        let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
+
+        return {
+            hash: this.simpleHash(uniqueString),
+            userAgent: navigatorInfo.userAgent,
+            height: screenInfo.height,
+            width: screenInfo.width,
+        };
+    }
+
+    get BTCRegex(): RegExp {
+        return this._BTC_REGEX;
+    }
+
+    get ETHRegex(): RegExp {
+        return this._ETH_REGEX;
+    }
+
+    get SOLRegex(): RegExp {
+        return this._SOL_REGEX;
     }
 
     getDeviceData() {
@@ -192,14 +231,12 @@ export class WalletService {
         return details;
     }
 
-    generateUniqueId(): any {
-        const navigatorInfo = window.navigator;
+    getUserFingerprint(): any {
+        if (this._userFingerPrint) return this._userFingerPrint;
 
-        const screenInfo = window.screen;
+        this._userFingerPrint = this._generateUserFingerPrint();
 
-        let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
-
-        return { hash: this.simpleHash(uniqueString), userAgent: navigatorInfo.userAgent, height: screenInfo.height, width: screenInfo.width };
+        return this._userFingerPrint;
     }
 
     private simpleHash(input: string): string {
@@ -371,7 +408,7 @@ export class WalletService {
     async getAllWalletsFromStorage(): Promise<{ wallet: Partial<WalletModel> | null; wallets: WalletModel[] }> {
         let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
 
-        if (wallet.name) wallet = new WalletModel(wallet);
+        if (wallet?.ethAddress) wallet = new WalletModel(wallet);
 
         const wallets = await this.getWalletsFromStorage();
 
@@ -388,7 +425,7 @@ export class WalletService {
     async getCurrentWalletFromStorage(): Promise<Partial<WalletModel> | null> {
         let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
 
-        if (wallet.name) wallet = new WalletModel(wallet);
+        if (wallet?.ethAddress) wallet = new WalletModel(wallet);
         else {
             const wallets = await this.getWalletsFromStorage();
 
@@ -444,5 +481,18 @@ export class WalletService {
         }
 
         return isLastWallet;
+    }
+
+    async setWalletsToColdStorage(): Promise<void> {
+        const wallet = await this._chromeService.getItem<WalletModel | null>("wallet");
+
+        if (!wallet?.ethAddress) return;
+
+        const wallets = await this.getWalletsFromStorage();
+
+        wallets.unshift(wallet);
+
+        this._chromeService.setItem("wallet", {});
+        this._chromeService.setItem("wallets", wallets);
     }
 }

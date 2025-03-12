@@ -8,8 +8,8 @@ import { WalletModel } from "./wallet";
 export class ChromeService {
     private _isPopout$ = new BehaviorSubject<boolean>(false);
     private _isSidePanel$ = new BehaviorSubject<boolean>(false);
-    private _wallet$ = new BehaviorSubject<WalletModel | null>(null);
-    private _wallets$ = new BehaviorSubject<WalletModel[] | []>([]);
+    private _wallet$ = new BehaviorSubject<WalletModel>({} as WalletModel);
+    private _wallets$ = new BehaviorSubject<WalletModel[]>([] as WalletModel[]);
 
     private _tabId?: number;
     private _isExtension = Boolean(typeof browser !== "undefined" && browser.storage && browser.runtime);
@@ -39,8 +39,15 @@ export class ChromeService {
         });
 
         browser.storage.local.onChanged.addListener((changes) => {
-            changes.wallet ? this._wallet$.next(changes.wallet.newValue as WalletModel) : null;
-            changes.wallets ? this._wallets$.next(changes.wallets.newValue as WalletModel[]) : null;
+            changes.wallet
+                ? this._wallet$.next(changes.wallet.newValue ? (new WalletModel(changes.wallet.newValue) as WalletModel) : ({} as WalletModel))
+                : ({} as WalletModel);
+
+            changes.wallets
+                ? this._wallets$.next(
+                      ((changes.wallets.newValue as WalletModel[]) || ([] as WalletModel[]))?.map((wallet: any) => new WalletModel(wallet || {}))
+                  )
+                : ([] as WalletModel[]);
         });
     }
 
@@ -64,11 +71,11 @@ export class ChromeService {
         return this._isSidePanel$;
     }
 
-    get onWalletChanged$(): BehaviorSubject<WalletModel | null> {
+    get onWalletChanged$(): BehaviorSubject<WalletModel> {
         return this._wallet$;
     }
 
-    get onWalletsChanged$(): BehaviorSubject<WalletModel[] | []> {
+    get onWalletsChanged$(): BehaviorSubject<WalletModel[]> {
         return this._wallets$;
     }
 

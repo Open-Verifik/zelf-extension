@@ -18,7 +18,7 @@
     </div>
 
     <div class="manage-domain__content">
-        <div class="ripple ripple--96" *ngIf="loading"></div>
+        <div class="ripple" *ngIf="loading"></div>
 
         <ng-container *ngIf="!loading">
             <div class="qr-code">
@@ -68,7 +68,7 @@
             {{ t("common.extend_registration") }}
         </button>
 
-        <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" [routerLink]="['/onboarding']">
+        <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" [routerLink]="['/welcome']">
             {{ t("manage_domain.buy_another_name") }}
         </button>
     </div>

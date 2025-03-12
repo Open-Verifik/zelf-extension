@@ -1,20 +1,36 @@
 import { Injectable } from "@angular/core";
 import * as openpgp from "openpgp";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class VaultService {
-    _password: string = "";
+    private _password$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
+    private _password: string = "";
+    private _mnemonic: string = "";
 
     constructor() {}
+
+    get password$(): Observable<void> {
+        return this._password$.asObservable();
+    }
 
     get password(): string {
         return this._password || "";
     }
 
     set password(value: string) {
+        this._password$.next();
         this._password = value;
+    }
+
+    get mnemonic(): string {
+        return this._mnemonic;
+    }
+
+    set mnemonic(value: string) {
+        this._mnemonic = value;
     }
 
     /**

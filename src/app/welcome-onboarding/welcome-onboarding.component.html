@@ -1,5 +1,15 @@
 <div class="zelf-card welcome-onboarding" *transloco="let t">
     <div class="zelf-card__header">
+        <div class="welcome-onboarding__header-button">
+            <button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['/home']" *ngIf="showHomeButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
+                    <path
+                        d="M16.0003 8.25366L22.667 14.2537V24.667H20.0003V16.667H12.0003V24.667H9.33366V14.2537L16.0003 8.25366ZM16.0003 4.66699L2.66699 16.667H6.66699V27.3337H14.667V19.3337H17.3337V27.3337H25.3337V16.667H29.3337L16.0003 4.66699Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
         <img class="zelf-card__image" src="assets/images/welcome-image.png" alt="welcome" />
 
         <div class="carousel">
@@ -58,6 +68,6 @@
             </button>
         </div>
 
-        <button class="zelf-button zelf-button--hyperlink">{{ t("welcome.dont_remember_username") }}</button>
+        <button class="zelf-button zelf-button--hyperlink" [routerLink]="['./find']">{{ t("welcome.dont_remember_username") }}</button>
     </form>
 </div>

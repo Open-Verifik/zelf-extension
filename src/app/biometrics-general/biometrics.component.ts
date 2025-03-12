@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 import { MatDialogModule } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { MatButtonModule } from "@angular/material/button";
@@ -41,13 +41,17 @@ let _this = {
         WebcamModule,
     ],
 })
-export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDestroy {
-    private unsubscriber$: Subject<any> = new Subject<any>();
+export class BiometricsGeneralComponent implements OnInit, OnDestroy {
+    private unsubscriber$: Subject<void> = new Subject<void>();
     private takePicture: Subject<void> = new Subject<void>();
 
-    @Input() type?: string;
-    @Input() data: any;
+    @Output() imageCaptured: EventEmitter<string> = new EventEmitter<string>();
+
     @Input() callback: any;
+    @Input() data: any;
+    @Input() failed: Observable<any> = new Observable<any>();
+    @Input() passToParent: boolean = false;
+    @Input() type?: string;
 
     //ACTIVE DEBUG GRAPHIC MODE
     isActiveDebug!: Boolean;
@@ -116,7 +120,17 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
         this.loading({ start: true });
 
-        this._walletService.faceapi$.subscribe(async (isLoaded) => {
+        this.failed.pipe(takeUntil(this.unsubscriber$)).subscribe((exception) => {
+            this.errorContent = { message: exception.error?.error };
+
+            _this["biometricsLoginCalled"] = false;
+
+            this.showError = true;
+
+            this.loading({ isLoading: false, result: true });
+        });
+
+        this._walletService.faceapi$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (isLoaded) => {
             this.camera.isLoading = !isLoaded;
 
             this.setMaxVideoDimensions();
@@ -131,19 +145,13 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
         });
     }
 
-    ngAfterViewInit() {
-        // this.setWillReadFrequently(this.maskResultCanvasRef?.nativeElement);
-        // this.setWillReadFrequently(this.ToSendCanvasRef?.nativeElement);
-    }
-
-    private setWillReadFrequently(canvas: HTMLCanvasElement) {
-        if (!canvas) return;
-
-        const context = canvas.getContext("2d", { willReadFrequently: true });
+    ngOnDestroy(): void {
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
     }
 
     _generateSession(type?: string): void {
-        let { hash } = this._walletService.generateUniqueId();
+        let { hash } = this._walletService.getUserFingerprint();
 
         this._walletService
             .createLivenessSession({
@@ -419,8 +427,6 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
         };
     }
 
-    _onLoadImage(): void {}
-
     takePictureLiveness(img: any) {
         const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
         this.setImageOnCanvas(maskResultCanvas, img, this.camera.dimensions.real, this.camera.dimensions.result);
@@ -430,7 +436,8 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
 
         this.response.base64Image = toSendCanvas.toDataURL("image/jpeg");
 
-        this.biometricsLogin();
+        if (this.passToParent) this.biometricsParentCall();
+        else this.biometricsLogin();
     }
 
     setImageOnCanvas = (canvas: any, inputImg: any, originalDim: any, resizeDim: any) => {
@@ -542,6 +549,17 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
         }
     }
 
+    async biometricsParentCall(): Promise<any> {
+        if (this.response.isLoading) return;
+
+        this.loading({ result: true });
+
+        const base64Image = this.response.base64Image?.replace(/^data:.*;base64,/, "") as string;
+        const encryptedImage = await this._httpWrapperService.encryptMessage(base64Image);
+
+        this.imageCaptured.emit(encryptedImage);
+    }
+
     async biometricsLogin(): Promise<any> {
         // Check if the function has already been called
         if (_this["biometricsLoginCalled"]) return;
@@ -603,7 +621,7 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
             .catch((exception) => {
                 console.error(` BiometricsGeneralComponent ~ _createWallet ~ err:`, exception);
 
-                this.errorContent = exception.error;
+                this.errorContent = { message: exception.error?.error };
 
                 this.session.showBiometrics = false;
 
@@ -661,16 +679,11 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
             .catch((exception) => {
                 console.error(` BiometricsGeneralComponent ~ _importWallet ~ exception:`, exception);
 
-                this.errorContent = exception.error;
                 this.errorContent = { message: exception.error?.error };
 
                 _this["biometricsLoginCalled"] = false;
 
                 this.showError = true;
-
-                setTimeout(() => {
-                    window.location.reload();
-                }, 6000);
 
                 this.loading({ isLoading: false, result: true });
             });
@@ -708,8 +721,4 @@ export class BiometricsGeneralComponent implements OnInit, AfterViewInit, OnDest
     }
 
     continueRedirection(): void {}
-
-    ngOnDestroy(): void {
-        this.unsubscriber$.next(null);
-    }
 }

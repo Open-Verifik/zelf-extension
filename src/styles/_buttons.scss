@@ -14,14 +14,21 @@
     display: flex;
     font-family: Poppins;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 800;
     gap: 8px;
     height: 56px;
     justify-content: center;
     outline: none;
-    padding: 16px;
+    padding: 8px;
     text-align: center;
     user-select: none;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
 
     &__text {
         &--margin-right {
@@ -29,20 +36,13 @@
         }
     }
 
-    &--thin {
-        border-radius: 8px;
-        padding: 12px 16px;
-    }
-
-    &--wide {
-        width: 100%;
-    }
-
     &--hyperlink {
         background-color: transparent;
         color: $gray;
         font-size: 14px;
+        font-weight: 500;
         border-radius: 9999px;
+        padding: 8px 16px;
         transition: color 0.2s $smoothBezier, background-color 0.3s $smoothBezier;
 
         &--small {
@@ -69,6 +69,19 @@
             svg {
                 fill: $taupeGray;
             }
+        }
+    }
+
+    &--thin {
+        border-radius: 8px;
+        padding: 12px 16px;
+    }
+
+    &--wide {
+        width: 100%;
+
+        &.zelf-button--hyperlink {
+            border-radius: 16px;
         }
     }
 
@@ -152,6 +165,20 @@
             fill: $correct !important;
         }
     }
+
+    &--no-fill {
+        svg {
+            fill: none !important;
+        }
+
+        &:focus,
+        &:hover,
+        &[disabled] {
+            svg {
+                fill: none !important;
+            }
+        }
+    }
 }
 
 .zelf-icon-button {
@@ -161,6 +188,8 @@
     border: none;
     cursor: pointer;
     display: inline-flex;
+    font-weight: 600;
+    gap: 16px;
     height: 56px;
     justify-content: center;
     min-height: 56px;
@@ -169,6 +198,13 @@
     transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
     user-select: none;
     width: 56px;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
 
     &.zelf-icon-button--border-soft {
         border-radius: 16px;
@@ -252,6 +288,43 @@
 
             svg {
                 fill: $frenchGray;
+            }
+        }
+    }
+
+    &--transparent {
+        background-color: transparent !important;
+        color: $black !important;
+
+        svg {
+            fill: $black;
+        }
+
+        &:focus,
+        &:hover {
+            background-color: $platinum !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: $gray !important;
+
+            svg {
+                fill: $frenchGray;
+            }
+        }
+    }
+
+    &--no-fill {
+        svg {
+            fill: none !important;
+        }
+
+        &:focus,
+        &:hover,
+        &[disabled] {
+            svg {
+                fill: none !important;
             }
         }
     }

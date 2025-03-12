@@ -12,6 +12,14 @@
 .welcome-onboarding {
     padding-top: 68px !important;
     padding-bottom: 68px !important;
+
+    &__header-button {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+    }
 }
 
 .carousel {

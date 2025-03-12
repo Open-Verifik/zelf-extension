@@ -74,10 +74,10 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
             panelClass: "zelf-dialog",
             backdropClass: "zelf-backdrop",
             data: {
-                message: this._translocoService.translate("last_wallet_logout"),
-                confirm: this._translocoService.translate("confirm"),
-                cancel: this._translocoService.translate("cancel"),
-                title: this._translocoService.translate("logout_of_wallet_confirm"),
+                message: this._translocoService.translate("manage_domains.last_wallet_logout"),
+                confirm: this._translocoService.translate("common.confirm"),
+                cancel: this._translocoService.translate("common.cancel"),
+                title: this._translocoService.translate("manage_domains.logout_of_wallet_confirm"),
             },
         });
 
@@ -87,7 +87,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
             this._chromeService.removeItem("wallet");
             this._chromeService.removeItem("wallets");
 
-            this._router.navigate(["/onboarding"]);
+            this._router.navigate(["/welcome"]);
         });
     }
 

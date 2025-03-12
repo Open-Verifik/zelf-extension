@@ -88,21 +88,22 @@
             </label>
 
             <button
+                (click)="goToImport()"
                 [disabled]="form.invalid || loading"
-                [routerLink]="['../import']"
                 class="zelf-button zelf-button--outlined zelf-button--wide"
                 mat-flat-button
+                *ngIf="false"
             >
-                {{ t("common.import") }}
+                {{ t("common.import_a_wallet") }}
             </button>
 
             <button
+                (click)="goToSecurity()"
                 [disabled]="form.invalid || loading"
-                [routerLink]="['../security']"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
             >
-                {{ t("common.continue") }}
+                {{ t("common.create_a_new_wallet") }}
             </button>
         </div>
     </form>

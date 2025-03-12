@@ -215,12 +215,10 @@ export class WalletModel implements Wallet {
 
         const secondaryStorage = data.publicData || {};
 
-        if (this.ipfs.Timestamp) secondaryStorage.registeredAt = this.ipfs.Timestamp;
-
         this.publicData = new WalletPublicDataModel(secondaryStorage);
 
         this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
-        this.image = data.image || data.zelfProofQRCode || data.url;
+        this.image = data.image || data.url || data.zelfProofQRCode;
         this.metadata = data.metadata;
         this.name = data.name || data.zelfName || secondaryStorage.zelfName;
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
@@ -296,6 +294,7 @@ export class WalletPublicDataModel {
         this.type = data.type || "";
         this.zelfName = data.zelfName || "";
 
+        if (!this.type) data.zelfName?.includes(".hold") ? (this.type = "hold") : (this.type = "mainnet");
         if (this.zelfName) this.zelfName = this.zelfName.replace(".hold", "");
 
         this.isExpired = this._checkIsExpired(this.expiresAt);

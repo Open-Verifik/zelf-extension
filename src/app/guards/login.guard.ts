@@ -11,8 +11,8 @@ export const LoginGuard: CanActivateFn = async (route, state) => {
 
     if (!!wallet?.name || wallets?.length) return true;
 
-    if (state.url !== "/onboarding") {
-        router.navigate(["/onboarding"], { replaceUrl: true });
+    if (state.url !== "/welcome") {
+        router.navigate(["/welcome"], { replaceUrl: true });
 
         return false;
     }

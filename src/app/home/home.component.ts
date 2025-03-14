@@ -10,9 +10,9 @@ import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
-    selector: "app-home",
-    templateUrl: "./home.component.html",
+    selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
+    templateUrl: "./home.component.html",
 })
 export class HomeComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
@@ -52,8 +52,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.activity = [];
         this.NFTs = [];
         this.tokens = [];
-
-        this._chromeService.removeItem("unlockWallet");
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
             if (this.balancesLoading) return;

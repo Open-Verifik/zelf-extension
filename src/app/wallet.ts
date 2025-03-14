@@ -81,8 +81,9 @@ export interface WalletPublicData {
     btcAddress: string;
     ethAddress: string;
     expiresAt: string;
-    isExpiringSoon: boolean;
     isExpired: boolean;
+    isExpiringSoon: boolean;
+    isExpiringWithinMonth: boolean;
     registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
@@ -271,6 +272,7 @@ export class WalletModel implements Wallet {
 export class WalletPublicDataModel {
     private _isExpired: boolean;
     private _isExpiringSoon: boolean;
+    private _isExpiringWithinMonth: boolean;
 
     _id: string;
     btcAddress: string;
@@ -285,6 +287,7 @@ export class WalletPublicDataModel {
         this._id = data._id || "offline";
         this._isExpired = false;
         this._isExpiringSoon = false;
+        this._isExpiringWithinMonth = false;
 
         this.btcAddress = data.btcAddress || "";
         this.ethAddress = data.ethAddress || "";
@@ -299,6 +302,7 @@ export class WalletPublicDataModel {
 
         this.isExpired = this._checkIsExpired(this.expiresAt);
         this.isExpiringSoon = this._checkIsExpiringSoon(this.expiresAt);
+        this.isExpiringWithinMonth = this._checkIsExpiringWithinMonth(this.expiresAt);
     }
 
     get isExpired(): boolean {
@@ -315,6 +319,14 @@ export class WalletPublicDataModel {
 
     set isExpiringSoon(value: boolean) {
         this._isExpiringSoon = value;
+    }
+
+    get isExpiringWithinMonth(): boolean {
+        return this._isExpiringWithinMonth;
+    }
+
+    set isExpiringWithinMonth(value: boolean) {
+        this._isExpiringWithinMonth = value;
     }
 
     private _timeRemaining(expiresAt: string): number {
@@ -334,5 +346,14 @@ export class WalletPublicDataModel {
         const timeLeft = this._timeRemaining(expiresAt);
 
         return timeLeft > 0 && timeLeft <= oneDayInMs;
+    }
+
+    private _checkIsExpiringWithinMonth(expiresAt: string): boolean {
+        const oneDayInMs = 24 * 60 * 60 * 1000;
+        const oneMonthInMs = 30 * oneDayInMs;
+
+        const timeLeft = this._timeRemaining(expiresAt);
+
+        return timeLeft > 0 && timeLeft <= oneMonthInMs;
     }
 }

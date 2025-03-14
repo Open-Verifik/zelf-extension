@@ -7,16 +7,26 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
 
 @Component({
-    imports: [CommonModule, TranslocoModule, ReactiveFormsModule, MatButtonModule, RouterModule, MatProgressSpinnerModule, DragAndDropDirective],
+    imports: [
+        CommonModule,
+        DragAndDropDirective,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        ReactiveFormsModule,
+        RouterModule,
+        TranslocoModule,
+        WelcomeErrorComponent,
+    ],
     selector: "welcome-find",
     standalone: true,
     styleUrls: ["./welcome-find.component.scss"],
@@ -26,6 +36,8 @@ export class WelcomeFindComponent implements OnDestroy {
     private _invalidTimeout!: ReturnType<typeof setTimeout>;
 
     captchaToken: string = "";
+    errorTitle: string = "";
+    errorMessage: string = "";
     fileBase64: string = "";
     form!: UntypedFormGroup;
     loading: boolean = false;
@@ -39,6 +51,7 @@ export class WelcomeFindComponent implements OnDestroy {
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
+        private _translocoService: TranslocoService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
     ) {
@@ -56,19 +69,19 @@ export class WelcomeFindComponent implements OnDestroy {
             await this._initSession();
             await this._captchaGeneration();
 
-            const ethResponse = await this._queryZNS("ethAddress", query);
+            let response: any;
 
-            if (!ethResponse) {
-                await this._captchaGeneration();
-
-                const solanaResponse = await this._queryZNS("solanaAddress", query);
-
-                if (!solanaResponse) this._setInvalidReferral();
+            if (this._walletService.ETHRegex.test(query)) {
+                response = await this._queryZNS("ethAddress", query);
+            } else if (this._walletService.SOLRegex.test(query)) {
+                response = await this._queryZNS("solanaAddress", query);
             }
+
+            if (!response) this._setNotFound();
 
             this.searching = false;
         } catch (error) {
-            this._setInvalidReferral();
+            this._setNotFound();
 
             this.searching = false;
         }
@@ -101,16 +114,16 @@ export class WelcomeFindComponent implements OnDestroy {
             context.drawImage(img, 0, 0, img.width, img.height);
 
             const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            const code = jsQR(imageData.data, imageData.width, imageData.height);
+            const extractedQRData = jsQR(imageData.data, imageData.width, imageData.height);
 
-            this._extractBinaryData(code, zelfNameObject);
+            this._extractBinaryData(extractedQRData, zelfNameObject);
         };
     }
 
-    private async _extractBinaryData(code: any, zelfNameObject: any): Promise<any> {
-        if (!code || !code.binaryData) return;
+    private async _extractBinaryData(extractedQRData: any, zelfNameObject: any): Promise<any> {
+        if (!extractedQRData || !extractedQRData.binaryData) return;
 
-        const hexString = this._toHexString(code.binaryData);
+        const hexString = this._toHexString(extractedQRData.binaryData);
 
         const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
         const base64String = buffer.toString("base64");
@@ -174,13 +187,18 @@ export class WelcomeFindComponent implements OnDestroy {
 
         const response = await this._zelfNameService.previewZelfProof(this.zelfProof, this.captchaToken);
 
+        if (!response.data) {
+            this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
+            this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
+
+            return;
+        }
+
         this.zelfNameObject = new WalletModel({
             ...response.data,
             zelfProof: this.zelfProof,
             image: this.fileBase64,
         });
-
-        await this._zelfNameService.setZelfNameObject(this.zelfNameObject);
 
         if (!this.zelfNameObject.ethAddress) {
             this.zelfProof = "";
@@ -188,10 +206,11 @@ export class WelcomeFindComponent implements OnDestroy {
             return;
         }
 
+        await this._zelfNameService.setZelfNameObject(this.zelfNameObject);
         await this._zelfNameService.setZelfProof(this.zelfNameObject.zelfProof);
         await this._zelfNameService.setZelfName(this.zelfNameObject.publicData.zelfName, 0);
 
-        this._router.navigate(["/welcome", "registered"]);
+        this._router.navigate(["/welcome/registered"]);
 
         this.loading = false;
     }
@@ -202,14 +221,14 @@ export class WelcomeFindComponent implements OnDestroy {
 
             if (!response.data) return null;
 
-            const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+            const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
 
             await this._zelfNameService.setZelfName(zelfNameObject.name, { price: 0, reward: 0 });
             await this._zelfNameService.setZelfNameObject(zelfNameObject);
 
             this.loading = false;
 
-            this._router.navigate(["/welcome", "registered"]);
+            this._router.navigate(["/welcome/registered"]);
 
             return response;
         } catch (error) {
@@ -221,7 +240,7 @@ export class WelcomeFindComponent implements OnDestroy {
         }
     }
 
-    private _setInvalidReferral(): void {
+    private _setNotFound(): void {
         this.notFound = true;
 
         this._invalidTimeout = setTimeout(() => {
@@ -233,6 +252,18 @@ export class WelcomeFindComponent implements OnDestroy {
         return Array.from(byteArray, (byte: any) => {
             return ("0" + (byte & 0xff).toString(16)).slice(-2);
         }).join("");
+    }
+
+    async clearError(): Promise<void> {
+        await this._zelfNameService.setZelfName("");
+        await this._zelfNameService.setZelfNameObject(null);
+        await this._zelfNameService.setZelfProof("");
+
+        this.errorTitle = "";
+        this.errorMessage = "";
+        this.zelfProof = "";
+
+        this.form.reset();
     }
 
     clearNotFound(): void {

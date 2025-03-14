@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "لا يمكن فك تشفير ZelfProof",
         "ERR_VERIFICATION_FAILED": "فشل اكتشاف الحيوية",
         "generic": "حدث خطأ، يرجى المحاولة مرة أخرى",
-        "invalid_credentials": "بيانات الاعتماد غير صحيحة",
         "invalid_format": "تنسيق غير صالح",
         "liveness_failed_description": "عذرًا، يبدو أن هناك مشكلة في اكتشاف الحيوية.",
         "liveness_failed": "فشل اكتشاف الحيوية",

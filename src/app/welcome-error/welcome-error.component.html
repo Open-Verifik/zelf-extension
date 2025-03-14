@@ -1,0 +1,48 @@
+<ng-container *transloco="let t">
+    <div class="zelf-card welcome-error">
+        <div class="zelf-card__header">
+            <div class="welcome-error__header-button">
+                <button (click)="triggerGoBack()" mat-icon-button class="zelf-icon-button zelf-icon-button--40">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="zelf-card__content zelf-card__content--grow">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M59.049 16.6L43.449 1C42.8156 0.366667 41.949 0 41.0823 0H18.949C18.0823 0 17.2156 0.366667 16.6156 0.966667L0.982292 16.6C0.382292 17.2 0.015625 18.0667 0.015625 18.9333V41.0333C0.015625 41.9333 0.382292 42.7667 0.982292 43.4L16.5823 59C17.2156 59.6333 18.0823 60 18.949 60H41.049C41.949 60 42.7823 59.6333 43.4156 59.0333L59.0156 43.4333C59.649 42.8 59.9823 41.9667 59.9823 41.0667V18.9333C60.0156 18.0667 59.649 17.2 59.049 16.6ZM53.349 39.6667L39.6823 53.3333H20.349L6.68229 39.6667V20.3333L20.349 6.66667H39.6823L53.349 20.3333V39.6667Z"
+                    fill="#FF5721"
+                />
+                <path
+                    d="M30.0156 46.6667C31.8566 46.6667 33.349 45.1743 33.349 43.3333C33.349 41.4924 31.8566 40 30.0156 40C28.1747 40 26.6823 41.4924 26.6823 43.3333C26.6823 45.1743 28.1747 46.6667 30.0156 46.6667Z"
+                    fill="#FF5721"
+                />
+                <path
+                    d="M30.0156 13.3333C28.1823 13.3333 26.6823 14.8333 26.6823 16.6667V33.3333C26.6823 35.1667 28.1823 36.6667 30.0156 36.6667C31.849 36.6667 33.349 35.1667 33.349 33.3333V16.6667C33.349 14.8333 31.849 13.3333 30.0156 13.3333Z"
+                    fill="#FF5721"
+                />
+            </svg>
+
+            <h2 class="welcome-error__title">{{ this.errorTitle }}</h2>
+            <p class="welcome-error__message">{{ this.errorMessage }}</p>
+        </div>
+
+        <div class="zelf-card__actions">
+            <button (click)="triggerGoBack()" class="zelf-button zelf-button--wide zelf-button--black">
+                {{ t("common.try_again") }}
+            </button>
+        </div>
+    </div>
+
+    <ng-template #cross>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+                fill="#DC362E"
+            />
+        </svg>
+    </ng-template>
+</ng-container>

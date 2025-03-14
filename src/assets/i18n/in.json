@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof को डिक्रिप्ट नहीं किया जा सका",
         "ERR_VERIFICATION_FAILED": "लाइवनेस डिटेक्शन विफल",
         "generic": "एक त्रुटि हुई, कृपया पुनः प्रयास करें",
-        "invalid_credentials": "अमान्य क्रेडेंशियल्स",
         "invalid_format": "अमान्य प्रारूप",
         "liveness_failed_description": "क्षमा करें, आपके लाइवनेस डिटेक्शन में कोई समस्या प्रतीत हो रही है।",
         "liveness_failed": "लाइवनेस डिटेक्शन विफल",

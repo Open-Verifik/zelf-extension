@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
@@ -8,6 +8,7 @@ import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
+import { WalletService } from "app/wallet.service";
 
 @Component({
     imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent],
@@ -22,11 +23,13 @@ export class WelcomeCompleteComponent implements OnInit {
     isExtension: boolean = false;
     wallet: Partial<WalletModel> | null = {};
 
-    constructor(private _chromeService: ChromeService, private _zelfNameService: ZelfNameService) {
+    constructor(private _chromeService: ChromeService, private _walletService: WalletService, private _zelfNameService: ZelfNameService) {
         this.isExtension = this._chromeService.isExtension;
     }
 
     async ngOnInit(): Promise<void> {
+        await this._walletService.removeDuplicateWalletsInStorage();
+
         this.wallet = new WalletModel(await this._chromeService.getItem("wallet"));
         this.flow = await this._zelfNameService.getFlow();
 

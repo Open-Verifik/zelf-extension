@@ -10,9 +10,6 @@
 }
 
 .welcome-onboarding {
-    padding-top: 68px !important;
-    padding-bottom: 68px !important;
-
     &__header-button {
         display: flex;
         justify-content: flex-start;
@@ -54,7 +51,7 @@
         width: 96px;
 
         &-bar {
-            background-color: $primaryColor;
+            background-color: $secondaryColor;
             border-radius: 6px;
             height: 100%;
             left: 0;

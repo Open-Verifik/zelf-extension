@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof n'a pas pu être déchiffré",
         "ERR_VERIFICATION_FAILED": "Échec de la détection de vitalité",
         "generic": "Une erreur s'est produite, veuillez réessayer",
-        "invalid_credentials": "Identifiants invalides",
         "invalid_format": "Format invalide",
         "liveness_failed_description": "Désolé, il semble y avoir eu un problème avec votre détection de vitalité.",
         "liveness_failed": "Échec de la détection de vitalité",

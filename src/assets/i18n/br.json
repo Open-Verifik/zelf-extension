@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof não pôde ser descriptografado",
         "ERR_VERIFICATION_FAILED": "Falha na detecção de vivacidade",
         "generic": "Ocorreu um erro, por favor tente novamente",
-        "invalid_credentials": "Credenciais inválidas",
         "invalid_format": "Formato inválido",
         "liveness_failed_description": "Desculpe, parece que houve um problema com a detecção de vivacidade.",
         "liveness_failed": "Falha na detecção de vivacidade",

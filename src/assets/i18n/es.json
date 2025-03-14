@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof no pudo ser descifrado",
         "ERR_VERIFICATION_FAILED": "La detección de liveness falló",
         "generic": "Ocurrió un error, por favor intenta de nuevo",
-        "invalid_credentials": "Credenciales inválidas",
         "invalid_format": "Formato inválido",
         "liveness_failed_description": "Lo siento, parece que hubo un problema con tu detección de liveness.",
         "liveness_failed": "La detección de liveness falló",

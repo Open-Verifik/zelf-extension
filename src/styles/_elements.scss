@@ -1,0 +1,19 @@
+.tip-box {
+    align-items: flex-start;
+    border-radius: 16px;
+    border: 1px solid $antiFlashWhite;
+    box-sizing: border-box;
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    width: 100%;
+
+    &__text {
+        color: $black;
+        font-family: Poppins;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        margin: 0 !important;
+    }
+}

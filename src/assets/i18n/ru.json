@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof не удалось расшифровать",
         "ERR_VERIFICATION_FAILED": "Проверка на живость не удалась",
         "generic": "Произошла ошибка, попробуйте еще раз",
-        "invalid_credentials": "Неверные учетные данные",
         "invalid_format": "Неверный формат",
         "liveness_failed_description": "Извините, возникла проблема с проверкой на живость.",
         "liveness_failed": "Проверка на живость не удалась",

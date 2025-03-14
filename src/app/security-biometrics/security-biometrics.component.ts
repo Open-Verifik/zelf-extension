@@ -14,9 +14,10 @@ import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.com
 import { Subject, takeUntil } from "rxjs";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { WalletModel } from "app/wallet";
+import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
 
 @Component({
-    imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule, WelcomeErrorComponent],
     selector: "security-biometrics",
     standalone: true,
     styleUrls: ["./security-biometrics.component.scss"],
@@ -25,7 +26,8 @@ import { WalletModel } from "app/wallet";
 export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    error: string = "";
+    errorTitle: string = "";
+    errorMessage: string = "";
     flow: ZelfFlow = "";
     form!: UntypedFormGroup;
     loading: boolean = true;
@@ -88,7 +90,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             .catch((exception) => {
                 console.error({ exception });
 
-                this.error = this._translocoService.translate("errors.generic");
+                this.errorTitle = this._translocoService.translate("errors.generic_title");
+                this.errorMessage = this._translocoService.translate("errors.generic_identity");
             });
     }
 
@@ -110,8 +113,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             .catch((exception) => {
                 console.error({ exception });
 
-                if (exception.error?.error === "ERR_INVALID_PASSWORD") this.error = this._translocoService.translate("errors.invalid_credentials");
-                else this.error = this._translocoService.translate("errors.generic");
+                this.errorTitle = this._translocoService.translate("errors.generic_title");
+                this.errorMessage = this._translocoService.translate("errors.generic_identity");
             });
     }
 
@@ -134,7 +137,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             .catch((exception) => {
                 console.error({ exception });
 
-                this.error = this._translocoService.translate("errors.generic");
+                this.errorTitle = this._translocoService.translate("errors.generic_title");
+                this.errorMessage = this._translocoService.translate("errors.generic_identity");
             });
     }
 
@@ -146,6 +150,13 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         }
 
         this._router.navigate(["/welcome/complete"]);
+    }
+
+    async clearError(): Promise<void> {
+        this.errorTitle = "";
+        this.errorMessage = "";
+
+        this._router.navigate(["../password"], { relativeTo: this._activatedRoute });
     }
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {

@@ -1,3 +1,5 @@
+import { debounce, DebouncedFunc } from "lodash";
+
 import { CommonModule, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -36,9 +38,10 @@ import { Subject, takeUntil } from "rxjs";
 })
 export class ManageDomainsComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();
+    private _loadWalletsDebounced: DebouncedFunc<() => void>;
 
-    wallets: Partial<WalletModel>[] = [];
     loading: boolean = false;
+    wallets: Partial<WalletModel>[] = [];
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
@@ -48,8 +51,10 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _walletService: WalletService
     ) {
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWallets);
-        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWallets);
+        this._loadWalletsDebounced = debounce(this._loadWallets, 1000);
+
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
+        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
     }
 
     ngOnInit(): void {
@@ -57,6 +62,8 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this._loadWalletsDebounced?.cancel();
+
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
     }

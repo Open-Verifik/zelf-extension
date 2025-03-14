@@ -46,7 +46,9 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this.isNew = (await this._zelfNameService.getFlow()) === "create";
+        const flow = await this._zelfNameService.getFlow();
+
+        this.isNew = flow === "create" || flow === "import";
 
         this._initForm();
     }

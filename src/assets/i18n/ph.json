@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "Hindi ma-decrypt ang ZelfProof",
         "ERR_VERIFICATION_FAILED": "Nabigo ang liveness detection",
         "generic": "Nagkaroon ng error, pakisubukang muli",
-        "invalid_credentials": "Hindi wastong mga kredensyal",
         "invalid_format": "Hindi wastong format",
         "liveness_failed_description": "Paumanhin, mukhang nagkaroon ng problema sa iyong liveness detection.",
         "liveness_failed": "Nabigo ang liveness detection",

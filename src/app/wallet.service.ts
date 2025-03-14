@@ -24,9 +24,9 @@ export class WalletService {
     private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
     private _userFingerPrint!: UserFingerPrint;
 
-    private _SOL_REGEX = /^(0x)?[0-9a-fA-F]{40}$/;
-    private _ETH_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
     private _BTC_REGEX = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+    private _ETH_REGEX = /^(0x)?[0-9a-fA-F]{40}$/;
+    private _SOL_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
 
     baseUrl: String = environment.apiUrl;
     zelfProof: string = "";
@@ -406,13 +406,10 @@ export class WalletService {
     }
 
     async getAllWalletsFromStorage(): Promise<{ wallet: Partial<WalletModel> | null; wallets: WalletModel[] }> {
-        let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
-
-        if (wallet?.ethAddress) wallet = new WalletModel(wallet);
-
+        const wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
         const wallets = await this.getWalletsFromStorage();
 
-        if (!wallet) {
+        if (!wallet?.ethAddress) {
             if (!wallets.length) return { wallet, wallets: [] };
 
             this._chromeService.setItem("wallet", wallet);
@@ -490,9 +487,23 @@ export class WalletService {
 
         const wallets = await this.getWalletsFromStorage();
 
-        wallets.unshift(wallet);
+        const walletExistsInWallets = wallets.some((_wallet) => {
+            wallet.name === _wallet.name;
+        });
+
+        if (!walletExistsInWallets) wallets.unshift(wallet);
 
         this._chromeService.setItem("wallet", {});
         this._chromeService.setItem("wallets", wallets);
+    }
+
+    async removeDuplicateWalletsInStorage(): Promise<void> {
+        const { wallet, wallets } = await this.getAllWalletsFromStorage();
+
+        if (!wallets.length || !wallet) return;
+
+        const filteredWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== wallet.publicData?.zelfName);
+
+        await this._chromeService.setItem("wallets", filteredWallets);
     }
 }

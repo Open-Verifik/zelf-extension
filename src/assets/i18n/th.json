@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ไม่สามารถถอดรหัส ZelfProof ได้",
         "ERR_VERIFICATION_FAILED": "การตรวจจับการมีชีวิตล้มเหลว",
         "generic": "เกิดข้อผิดพลาด โปรดลองอีกครั้ง",
-        "invalid_credentials": "ข้อมูลประจำตัวไม่ถูกต้อง",
         "invalid_format": "รูปแบบไม่ถูกต้อง",
         "liveness_failed_description": "ขออภัย ดูเหมือนจะมีปัญหากับการตรวจจับการมีชีวิตของคุณ",
         "liveness_failed": "การตรวจจับการมีชีวิตล้มเหลว",

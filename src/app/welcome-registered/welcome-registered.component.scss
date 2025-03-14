@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 @import "../../styles/buttons";
+@import "../../styles/elements";
 
 .welcome-registered {
     min-height: 75vh;
@@ -41,6 +42,62 @@
 
     &__subtitle {
         font-weight: 700;
+    }
+
+    &__chip {
+        margin-top: 8px;
+    }
+
+    &__date {
+        &-row {
+            margin: 16px 0;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        &-column {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: center;
+            width: 100%;
+        }
+
+        &-title {
+            color: $gray;
+            font-size: 11px;
+            font-family: Poppins;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            line-height: 16px;
+            margin: 0;
+        }
+
+        &-text__inner-row {
+            display: inline-flex;
+            flex-direction: row;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                margin-bottom: 2px;
+            }
+        }
+
+        &-text {
+            color: $black;
+            font-family: Poppins;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+            line-height: 20px;
+            margin: 0 !important;
+        }
     }
 }
 

@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProofを復号できませんでした",
         "ERR_VERIFICATION_FAILED": "ライブネス検出に失敗しました",
         "generic": "エラーが発生しました。もう一度お試しください",
-        "invalid_credentials": "無効な資格情報",
         "invalid_format": "無効な形式",
         "liveness_failed_description": "申し訳ありませんが、ライブネス検出に問題が発生しました。",
         "liveness_failed": "ライブネス検出に失敗しました",

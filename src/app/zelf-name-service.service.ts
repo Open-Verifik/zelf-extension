@@ -69,15 +69,15 @@ export class ZelfNameService {
 
         if (captchaToken) query.captchaToken = captchaToken;
 
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search`, query);
     }
 
     searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
-        const query: { key: string; value: string; captchaToken?: string } = { key, value };
+        const query: { key: string; value: string; captchaToken?: string; environment: "both" } = { key, value, environment: "both" };
 
         if (captchaToken) query.captchaToken = captchaToken;
 
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
     }
 
     previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {

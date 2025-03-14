@@ -216,7 +216,6 @@
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof无法解密",
         "ERR_VERIFICATION_FAILED": "活体检测失败",
         "generic": "发生错误，请重试",
-        "invalid_credentials": "凭证无效",
         "invalid_format": "格式无效",
         "liveness_failed_description": "抱歉，您的活体检测似乎有问题。",
         "liveness_failed": "活体检测失败",

@@ -1,27 +1,30 @@
+@import "../../styles/variables.scss";
+@import "../../styles/buttons.scss";
+
 :host {
-	display: block;
-	padding: 32px;
+    display: block;
+    padding: 32px;
 }
 
 .dialog {
-	&__title {
-		font-size: 24px;
-		font-weight: 500;
-		margin-bottom: 16px;
-		font-family: Menda;
-		margin: 0;
-	}
+    &__title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        font-family: Menda;
+        margin: 0;
+    }
 
-	&__message {
-		font-size: 16px;
-		font-family: Poppins;
-		margin-top: 16px;
-		margin-bottom: 8px;
-	}
+    &__message {
+        font-size: 16px;
+        font-family: Poppins;
+        margin-top: 16px;
+        margin-bottom: 8px;
+    }
 
-	&__actions {
-		display: flex;
-		justify-content: space-between;
-		margin-top: 32px;
-	}
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 32px;
+    }
 }

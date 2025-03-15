@@ -29,12 +29,9 @@
             <mnemonic [wallet]="wallet"></mnemonic>
         </div>
 
+        <!--  [routerLink]="isExtension ? ['../../home'] : ['../extension-installation']" -->
         <div class="zelf-card__actions welcome-complete__actions">
-            <button
-                [routerLink]="isExtension ? ['../../home'] : ['../extension-installation']"
-                class="zelf-button zelf-button--black zelf-button--wide"
-                mat-flat-button
-            >
+            <button [routerLink]="['../../home']" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
                 {{ t("common.continue") }}
             </button>
         </div>

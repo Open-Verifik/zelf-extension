@@ -10,21 +10,22 @@
             </button>
         </div>
 
-        <img class="zelf-card__image" src="assets/images/welcome-image.png" alt="welcome" />
-
         <div class="carousel">
             <div class="carousel__item-container">
                 <div @swipeLeft class="carousel__item" *ngIf="carouselIndex === 0">
+                    <img class="zelf-card__image" src="assets/images/animation_1.webp" alt="welcome" />
                     <h2 class="zelf-card__title carousel__title">{{ t("onboarding.step_1") }}</h2>
                     <p class="zelf-card__subtitle carousel__subtitle">{{ t("onboarding.step_1_description") }}</p>
                 </div>
 
                 <div @swipeLeft class="carousel__item" *ngIf="carouselIndex === 1">
+                    <img class="zelf-card__image" src="assets/images/animation_2.webp" alt="welcome" />
                     <h2 class="zelf-card__title carousel__title">{{ t("onboarding.step_2") }}</h2>
                     <p class="zelf-card__subtitle carousel__subtitle">{{ t("onboarding.step_2_description") }}</p>
                 </div>
 
                 <div @swipeLeft class="carousel__item" *ngIf="carouselIndex === 2">
+                    <img class="zelf-card__image" src="assets/images/animation_3.webp" alt="welcome" />
                     <h2 class="zelf-card__title carousel__title">{{ t("onboarding.step_3") }}</h2>
                     <p class="zelf-card__subtitle carousel__subtitle">{{ t("onboarding.step_3_description") }}</p>
                 </div>

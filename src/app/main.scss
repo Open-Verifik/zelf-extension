@@ -1222,6 +1222,7 @@ h3 {
     &__image {
         object-fit: cover;
         user-select: none;
+        max-width: 310px;
     }
 
     &__pretitle {

@@ -8,10 +8,11 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { DiscountType } from "app/pipes/discount.pipe";
+import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
-    imports: [CommonModule, ReactiveFormsModule, MatProgressSpinnerModule, TranslocoModule, MatButtonModule, RouterModule],
+    imports: [CommonModule, ReactiveFormsModule, MatProgressSpinnerModule, TranslocoModule, MatButtonModule, RouterModule, ZelfNamePipe],
     selector: "welcome-available",
     standalone: true,
     styleUrls: ["./welcome-available.component.scss"],

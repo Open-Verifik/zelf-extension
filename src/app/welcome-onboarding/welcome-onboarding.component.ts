@@ -43,6 +43,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
         this._zelfNameService.setFlow("");
         this._zelfNameService.setMnemonicCount(0);
         this._zelfNameService.setZelfName("");
+        this._zelfNameService.setReferral("");
         this._zelfNameService.setZelfNameObject(null);
 
         this._walletService.setWalletsToColdStorage();
@@ -86,7 +87,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
                 this.carouselIndex = tempIndex === 2 ? 0 : tempIndex + 1;
                 this.carouselProgress = 33 * (this.carouselIndex + 1);
             }, 500);
-        }, 5000);
+        }, 15000);
 
         setTimeout(() => {
             this.carouselProgress = 33;

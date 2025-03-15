@@ -24,11 +24,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 200px;
+    min-height: 600px;
     overflow: visible;
 
     &__item-container {
-        min-height: 150px;
+        min-height: 490px;
     }
 
     &__subtitle {
@@ -58,7 +58,7 @@
             position: absolute;
             top: 0;
             width: 0;
-            transition: width 5s;
+            transition: width 10s;
         }
     }
 }

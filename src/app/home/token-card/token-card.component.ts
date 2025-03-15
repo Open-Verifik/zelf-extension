@@ -1,62 +1,61 @@
 import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
-	selector: "token-card",
-	template: `
-		<div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
-			<div class="status-icon-container">
-				<img [src]="data.image" />
-			</div>
+    selector: "token-card",
+    template: `
+        <div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
+            <div class="status-icon-container">
+                <img [src]="data.image" />
+            </div>
 
-			<div class="text-container" fxLayout="column" fxLayoutAlign="start start">
-				<div class="token-card__symbol">{{ data.symbol }}</div>
-				<div class="token-card__network">{{ data.network }}</div>
-			</div>
+            <div class="text-container" fxLayout="column" fxLayoutAlign="start start">
+                <div class="token-card__symbol">{{ data.symbol }}</div>
+                <div class="token-card__network">{{ data.network }}</div>
+            </div>
 
-			<div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
-				<div class="token-card__balance">{{ data.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</div>
+            <div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
+                <div class="token-card__balance">{{ data.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</div>
 
-				<h4 class="stats stats--no-margin">
-					<div
-						class="stats__percentage"
-						[ngClass]="{
-							'stats__percentage--positive': true,
-							'stats__percentage--negative': false
-						}"
-					>
-						<span class="stats__arrow">
-							<ng-container *ngIf="true">
-								<svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M4.5 0.530273L0.5 4.53027L1.44 5.47027L4.5 2.41694L7.56 5.47027L8.5 4.53027L4.5 0.530273Z" />
-								</svg>
-							</ng-container>
+                <h4 class="stats stats--no-margin">
+                    <div
+                        class="stats__percentage"
+                        [ngClass]="{
+                            'stats__percentage--positive': true,
+                            'stats__percentage--negative': false
+                        }"
+                    >
+                        <!-- <span class="stats__arrow">
+                            <ng-container *ngIf="true">
+                                <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 0.530273L0.5 4.53027L1.44 5.47027L4.5 2.41694L7.56 5.47027L8.5 4.53027L4.5 0.530273Z" />
+                                </svg>
+                            </ng-container>
 
-							<ng-container *ngIf="false">
-								<svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M4.5 5.46973L8.5 1.46973L7.56 0.529726L4.5 3.58306L1.44 0.529726L0.5 1.46973L4.5 5.46973Z" />
-								</svg>
-							</ng-container>
-						</span>
-						{{ 10 }}%
+                            <ng-container *ngIf="false">
+                                <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.5 5.46973L8.5 1.46973L7.56 0.529726L4.5 3.58306L1.44 0.529726L0.5 1.46973L4.5 5.46973Z" />
+                                </svg>
+                            </ng-container>
+                        </span> -->
 
-						<span class="stats__text stats__text--colored">{{ data.price | currency : "USD" : "symbol" : "1.2-9" }}</span>
-					</div>
-				</h4>
-			</div>
-		</div>
-	`,
-	styleUrls: ["./token-card.component.scss"],
+                        <span class="stats__text stats__text--colored">{{ data.price | currency : "USD" : "symbol" : "1.2-9" }}</span>
+                    </div>
+                </h4>
+            </div>
+        </div>
+    `,
+    styleUrls: ["./token-card.component.scss"],
 })
 export class TokenCardComponent implements OnInit {
-	@Input() data: any;
-	@Input() view: string;
-	@Input() shareables: any;
+    @Input() data: any;
+    @Input() view: string;
+    @Input() shareables: any;
 
-	constructor() {
-		this.view = "default";
-	}
+    constructor() {
+        this.view = "default";
+    }
 
-	ngOnInit(): void {}
+    ngOnInit(): void {}
 
-	onClick(): void {}
+    onClick(): void {}
 }

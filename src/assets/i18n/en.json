@@ -43,6 +43,9 @@
         "paste_your_recovery_phrase": "You can paste your entire secret recovery phrase into any field",
         "welcome_back": "Welcome back",
         "import_title": "Enter the recovery secret phrase",
+        "name_expires": "Name expires",
+        "grace_period_until": "Grace period until",
+        "dont_lose_your_zelf_name": "Hey! Don't lose your Zelf Name, renew or reserve today, before someone buys it.",
         "import_subtitle": "We will use your secret recovery words to validate and import an existing wallet. Please enter them below.",
         "zelf_referral_code": "Zelf Referral Code (Optional)"
     },

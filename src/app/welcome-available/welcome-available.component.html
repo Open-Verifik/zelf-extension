@@ -10,7 +10,7 @@
 
         <div class="zelf-chip zelf-chip--success">{{ t("common.available") }}</div>
 
-        <h2 class="zelf-card__title">{{ zelfName }}</h2>
+        <h2 class="zelf-card__title">{{ zelfName | zelfName }}</h2>
 
         <p class="zelf-card__subtitle welcome-available__subtitle">
             {{ t("welcome.you_are_registering_the_domain") }} <strong>{{ zelfName }}</strong>

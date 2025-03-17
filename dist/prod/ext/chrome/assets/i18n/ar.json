@@ -1,0 +1,404 @@
+{
+    "hello": "مرحبا",
+    "onboarding": {
+        "accept_terms_1": "أوافق على",
+        "accept_terms_2": "الشروط والأحكام",
+        "claim_your_zns": "احصل على اسم زيلف الخاص بك واحمِ عملاتك المشفرة!",
+        "create_new_wallet": "إنشاء محفظة جديدة",
+        "forgot_zelf_name": "نسيت اسم زيلف الخاص بك؟",
+        "import_wallet": "استيراد محفظتك",
+        "lifetime": "مدى الحياة",
+        "open_wallet": "افتح محفظتك",
+        "price_for_lifetime": "السعر لمدى الحياة",
+        "price_year": "السعر لمدة {{ duration }} سنة",
+        "referral_code": "رمز الإحالة",
+        "register_description": "ستسجل هذا الاسم لمدة {{duration}}",
+        "register": "تسجيل",
+        "step_1_description": "خدمة اسم مبتكرة تحررك من تذكر عبارة الاسترداد.",
+        "step_1": "مرحبًا بك في خدمة اسم زيلف",
+        "step_2_description": "تمثيل ثنائي فريد يحافظ على الخصوصية مستمد من بيانات الوجه.",
+        "step_2": "الوصول باستخدام زيلف بروف",
+        "step_3_description": "يتم تخزين زيلف بروف الخاص بك بأمان على شبكة IPFS اللامركزية.",
+        "step_3": "التخزين اللامركزي",
+        "year": "سنة",
+        "years": "سنوات",
+        "zns_reward": "ستتلقى {{reward}} من عملات زيلف (ZNS) كمكافأة"
+    },
+    "wallet_status": {
+        "active": "نشط",
+        "expired": "منتهي الصلاحية",
+        "hold": "معلق"
+    },
+    "welcome": {
+        "dont_remember_username": "Don't remember your username?",
+        "find_zelf_name_subtitle": "Find an existing Zelf Name by entering its public address below:",
+        "find_zelf_name_title": "Find Zelf Name",
+        "invalid_referral_code": "Invalid referral code",
+        "public_address_input": "Enter your ETH or SOL public address here",
+        "referral_successfully_registered": "Referral successfully registered",
+        "registered": "Zelf Name registered since {{ date }}",
+        "upload_zelf_proof": "or upload your ZelfProof QR Code to continue:",
+        "you_are_registering_the_domain": "You are registering the domain:",
+        "welcome": "Welcome back",
+        "welcome_back": "Welcome back",
+        "zelf_referral_code": "Zelf Referral Code (Optional)"
+    },
+    "security": {
+        "biometric_subtitle": "اتبع الخطوات لضمان سير العملية بسلاسة وفعالية.",
+        "biometric_title": "تشفير زيلف بروف",
+        "new_password_subtitle": "محفظة زيلف، بشكل افتراضي، تشفر المحفظة باستخدام القياسات الحيوية للوجه للمستخدم. كلمة المرور التالية هي طبقة إضافية من الأمان لهذا الجهاز فقط.",
+        "password_subtitle": "أدخل كلمة المرور المخصصة لهذا اسم زيلف لإكمال عملية فك التشفير.",
+        "set_password": "تعيين كلمة مرور",
+        "subtitle": "عبارة الاسترداد الخاصة بك تتكون من 12 أو 24 كلمة، وهي ضرورية للوصول إلى محفظتك وتأمينها.",
+        "title": "طبقات أمان زيلف بروف",
+        "unhide_words": "إظهار الكلمات",
+        "hide_words": "إخفاء الكلمات",
+        "zelf_name_requires_a_password": "اسم زيلف الخاص بك يتطلب كلمة مرور"
+    },
+    "common": {
+        "12_word_phrase": "عبارة من 12 كلمة",
+        "24_word_phrase": "عبارة من 24 كلمة",
+        "address": "عنوان",
+        "agree_to_terms_and_conditions": "أوافق على الشروط والأحكام",
+        "amount": "المبلغ",
+        "are_you_sure": "هل أنت متأكد؟",
+        "asset": "الأصل",
+        "available": "متاح",
+        "balance": "الرصيد",
+        "btc_address": "عنوان BTC",
+        "buy_now": "اشتر الآن",
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "confirm_password": "تأكيد كلمة المرور",
+        "confirm": "تأكيد",
+        "continue": "استمر",
+        "copy_to_clipboard": "تم النسخ بنجاح",
+        "copy": "نسخ إلى الحافظة",
+        "create_a_new_wallet": "إنشاء محفظة جديدة",
+        "documentation": "التوثيق",
+        "domain": "النطاق",
+        "dont_show_me_again": "لا تظهر لي هذا مرة أخرى",
+        "dont_show_this_message_again": "لا تظهر هذه الرسالة مرة أخرى",
+        "edit": "تعديل",
+        "eth_address": "عنوان ETH",
+        "extend_registration": "تمديد التسجيل",
+        "failed_to_copy_to_clipboard": "فشل النسخ",
+        "fee": "الرسوم",
+        "from": "من",
+        "go_back": "العودة",
+        "import_a_wallet": "استيراد محفظة",
+        "import": "استيراد",
+        "invest": "استثمار",
+        "is_required": "مطلوب",
+        "login": "تسجيل الدخول",
+        "logout": "تسجيل الخروج",
+        "manage_domains": "إدارة النطاقات",
+        "max": "الحد الأقصى",
+        "more_info": "مزيد من المعلومات",
+        "my_arns": "ArNS الخاصة بي",
+        "navigating_away_will_cancel": "التنقل بعيدًا سيلغي أي تقدم قمت به. هل أنت متأكد أنك تريد العودة؟",
+        "or_drag_and_drop": "أو اسحب وأفلت الملف بامتداد .JPG أو PNG هنا",
+        "password": "كلمة المرور",
+        "pay_now": "ادفع الآن",
+        "pricing": "التسعير",
+        "privacy": "الخصوصية",
+        "purchase_now": "اشتر الآن",
+        "purchase": "شراء",
+        "recommended": "موصى به",
+        "registered": "مسجل",
+        "renew_domain": "تجديد النطاق",
+        "reservation_found": "تم العثور على الحجز",
+        "safety_layers": "طبقات الأمان",
+        "search_your_zelf_name": "ابحث عن اسم زيلف الخاص بك",
+        "settings": "الإعدادات",
+        "sol_address": "عنوان SOL",
+        "solana_address": "عنوان سولانا",
+        "start": "ابدأ",
+        "terms_and_conditions": "الشروط والأحكام",
+        "to": "إلى",
+        "total": "الإجمالي",
+        "type": "النوع",
+        "upload_qr_image": "تحميل صورة QR",
+        "zelf_wallet": "محفظة زيلف"
+    },
+    "domain_purchase": {
+        "agree_to_terms_and_conditions": "أوافق على الشروط والأحكام",
+        "character_length_and_year": "{{characterLength}} طول الأحرف. التكلفة لكل سنة {{ costPerYear }} دولار أمريكي",
+        "domain_price_length": "طول سعر النطاق",
+        "know_more": "اعرف المزيد",
+        "lifetime": "مدى الحياة",
+        "price_per_year": "السعر لكل سنة",
+        "title": "النطاق للشراء",
+        "years": "{{ yearCount }} سنوات"
+    },
+    "wallet": {
+        "download_qr": "رمز QR",
+        "private_key": "المفتاح الخاص",
+        "my_arns": "ArNS الخاصة بي"
+    },
+    "private_key": {
+        "description": "لعرض المفتاح الخاص بك، يرجى إكمال خطوات التحقق الأمني.",
+        "got_it": "فهمت",
+        "title": "المفتاح الخاص"
+    },
+    "my_arns": {
+        "arns_website": "موقع ArNS",
+        "description": "موقعك الشخصي لاستقبال العملات المشفرة، سهل المشاركة مع جميع المعلومات اللازمة للتحويلات المباشرة."
+    },
+    "manage_domain": {
+        "buy_another_name": "اشترِ اسم زيلف آخر",
+        "hold_until": "معلق حتى",
+        "registered_since": "اسم زيلف مسجل منذ ",
+        "registered_until": "مسجل حتى"
+    },
+    "manage_domains": {
+        "domain_error": "انتهت فترة {{ zelfName }}! يمكن لمستخدم آخر المطالبة بهذا النطاق. اشتر الآن للمطالبة به!",
+        "domain_warning": "لا يزال لديك وقت للشراء",
+        "purchase_new_domain": "شراء نطاق جديد",
+        "last_wallet_logout": "هذه هي المحفظة الأخيرة. إذا تابعت، سيتم إعادة توجيهك إلى صفحة الترحيب.",
+        "logout_of_wallet_confirm": "آخر محفظة"
+    },
+    "create_wallet": {
+        "password_step": {
+            "add_password": "استمر",
+            "agreement": "أفهم أن زيلف لا يمكنه استعادة هذه الكلمة. باختيار هذه الطبقة الإضافية من الأمان، أقر بأنني المسؤول الوحيد عن تذكرها.",
+            "continue_without_password": "طبقة واحدة من الأمان",
+            "description": "تأكد من إعداد كلمة مرور قوية لا تقل عن 8 أحرف لحماية زيلف بروف الخاص بك.",
+            "password_label": "كلمة المرور",
+            "repeat_password_label": "أعد كلمة المرور",
+            "title": "طبقات الأمان"
+        },
+        "phrase_step": {
+            "12_words": "عبارة من 12 كلمة",
+            "24_words": "عبارة من 24 كلمة",
+            "description_2": "زيلف يزيل الحاجة إلى التخزين اليدوي عن طريق تشفير عبارة الاسترداد الخاصة بك في زيلف بروف قوي يحافظ على الخصوصية. يتم تخزين زيلف بروف بأمان داخل رمز QR لا يمكن فك تشفيره إلا من قبلك، مما يضمن أمانًا لا مثيل له.",
+            "description_3": "يعمل رمز QR كخزنة رقمية قوية لمفاتيح الاسترداد الخاصة بك، معززة بخدمة اسم زيلف (ZNS). مع ZNS، يمكنك بسهولة نسخ رمز QR احتياطيًا واستعادته باستخدام اسم زيلف الخاص بك.",
+            "description_4": "أفهم أن زيلف يمكنه المساعدة في استعادة رمز QR باستخدام ZNS. ومع ذلك، أنا المسؤول عن حمايته لضمان الوصول الآمن.",
+            "description": "عبارة الاسترداد الخاصة بك تتكون من 12 أو 24 كلمة، وهي ضرورية للوصول إلى محفظتك وتأمينها.",
+            "start_encryption_button": "ابدأ",
+            "title": "إنشاء المحفظة",
+            "words_input": "عدد الكلمات"
+        },
+        "zelfproof_step": {
+            "description": "أنت على وشك إنشاء زيلف بروف الخاص بك، والذي سيقوم بتشفير عبارات الاسترداد الخاصة بك بأمان. اتبع الخطوات أدناه لضمان سير العملية بسلاسة وفعالية.",
+            "instruction_1": "ضع وجهك داخل العلامة المحددة",
+            "instruction_2": "انظر إلى الكاميرا وتجنب الحركة",
+            "instruction_3": "تأكد من أداء الإيماءات الوجهية المطلوبة",
+            "title": "تشفير زيلف بروف"
+        },
+        "view_wallet": {
+            "copy_public_address": "انسخ عنوان ETH الخاص بك",
+            "description_2": "إذا فقدت رمز QR، يمكنك استعادته باستخدام اسم زيلف المسجل الخاص بك عبر خدمة اسم زيلف (ZNS).",
+            "description": "تم تشفير عبارة الاسترداد الخاصة بك وحمايتها داخل رمز QR هذا باستخدام زيلف بروف، وهي طبقة أمان قوية تحافظ على الخصوصية.",
+            "download_qr_code": "قم بتنزيل رمز QR الخاص بك",
+            "qr_code_description": "احتفظ بهذا الرمز QR بأمان. للوصول إلى محفظتك أو استعادتها، ستحتاج دائمًا إلى زيلف بروف وهذا الرمز QR",
+            "title": "تم تشفير المحفظة بنجاح باستخدام زيلف بروف"
+        }
+    },
+    "liveness": {
+        "center_your_face": "ضع وجهك في منتصف الشاشة",
+        "center_your_face_subtitle": "يرجى التأكد من أن وجهك في المنتصف",
+        "get_closer_subtitle": "يرجى الاقتراب قليلاً لتحسين التعرف على الوجه.",
+        "get_closer": "اقترب أكثر",
+        "liveness_error_message": "فشل فحص الحيوية بالخطأ التالي:<br><strong>{{error}}</strong><br>هل تريد المحاولة مرة أخرى؟",
+        "liveness_failed": "فشل الكشف عن الحيوية",
+        "loading_stream": "جارٍ تحميل الكاميرا",
+        "try_again_button": "حاول مرة أخرى"
+    },
+    "errors": {
+        "all_fields_required": "جميع الحقول مطلوبة",
+        "Duplicated_person": "ZelfProof مستخدم لسجل آخر",
+        "ERR_DESCRIPTION": "تأكد من اتباع التعليمات بشكل صحيح لفتح ZelfProof الخاص بك",
+        "ERR_INVALID_PASSWORD": "كلمة المرور لهذا ZelfProof غير صحيحة",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "زاوية الوجه كبيرة جدًا",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "الوجه قريب جدًا من الحافة",
+        "ERR_LIVENESS_FAILED": "فشل اكتشاف الحيوية",
+        "ERR_UNPROCESSABLE_CONTENT": "لا يمكن فك تشفير ZelfProof",
+        "ERR_VERIFICATION_FAILED": "فشل اكتشاف الحيوية",
+        "generic": "حدث خطأ، يرجى المحاولة مرة أخرى",
+        "invalid_format": "تنسيق غير صالح",
+        "liveness_failed_description": "عذرًا، يبدو أن هناك مشكلة في اكتشاف الحيوية.",
+        "liveness_failed": "فشل اكتشاف الحيوية",
+        "Liveness_score_not_acceptable": "درجة الحيوية غير مقبولة",
+        "min_liveness_score_is": "الحد الأدنى لدرجة الحيوية هو: ",
+        "not_found": "لم يتم العثور على السجل",
+        "password_doesnt_match": "كلمات المرور غير متطابقة",
+        "password_incorrect": "كلمة المرور غير صحيحة",
+        "person_already_set": "تسجيلك يحتوي بالفعل على ZelfProof مرتبط",
+        "phone_or_email_is_not_unique": "الهاتف أو البريد الإلكتروني مستخدم بالفعل، جرب آخر",
+        "replace_person_button": "حسنًا، استبدل ZelfProof",
+        "something_went_wrong": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
+        "try_again": "حاول مرة أخرى",
+        "weak_password": "كلمة المرور الخاصة بك ضعيفة جدًا",
+        "zelfName_is_taken": "اسم زيلف هذا مأخوذ بالفعل"
+    },
+    "import_wallet": {
+        "step_zero": {
+            "title": "استيراد محفظة موجودة",
+            "description": "يسمح لك بنقل أصولك الرقمية من منصات أخرى بسرعة وأمان.",
+            "description2": "تضمن عمليتنا خصوصية أصولك عن طريق منع تعرض مفاتيحك أو عبارات الاسترداد.",
+            "subtitle": "ما هي الفوائد؟",
+            "description3": "يُبسط استيراد محفظتك تجربتك في العملات المشفرة عن طريق تجنب الحاجة إلى إدارة حسابات متعددة.",
+            "description4": "الوصول بسهولة إلى أموالك على منصتنا دون الحاجة إلى استخدام عبارة الاسترداد الخاصة بك.",
+            "import_button": "استيراد محفظة"
+        },
+        "step_one": {
+            "title": "أدخل عبارة الاسترداد",
+            "description": "يرجى إدخال عبارة الاسترداد الخاصة بك أدناه للتحقق واستيراد محفظتك الحالية.",
+            "confirm_button": "استيراد المحفظة",
+            "word1": "1.",
+            "paste_note": "يمكنك لصق عبارة الاسترداد السرية بالكامل في أي حقل"
+        },
+        "qr_code_step": {
+            "success_message": "لقد قمت باستيراد محفظتك الحالية بنجاح",
+            "description": "تم الآن ربط عبارة الأمان ورمز QR الخاصين بك بـ ZelfProof. احتفظ بالرمز QR بأمان لحماية حسابك.",
+            "understood": "فهمت",
+            "copy_address": "نسخ العنوان العام",
+            "download_qr": "تنزيل رمز QR"
+        }
+    },
+    "unlock_wallet": {
+        "account_found": "تم العثور على زيلف بروف",
+        "back_button": "رجوع",
+        "description": "ابحث عن اسم زيلف موجود بإدخال عنوانه العام أدناه:",
+        "drag_drop_text": "أو اسحب وأفلت الملف بامتداد .JPG أو PNG هنا",
+        "title": "البحث عن اسم زيلف",
+        "upload_button": "اختر رمز QR",
+        "upload_description": "أو قم بتحميل رمز QR الخاص بزيلف بروف للمتابعة:",
+        "verify_button": "تحقق",
+        "password": {
+            "button": "استمر",
+            "label": "كلمة المرور",
+            "placeholder": "********************",
+            "subtitle": "أدخل كلمة المرور المخصصة لهذا زيلف بروف لإكمال عملية الفتح.",
+            "title": "يتطلب هذا زيلف بروف كلمة مرور"
+        },
+        "hold": {
+            "buy_now": "اشتر الآن",
+            "expiration_time": "تنتهي هذه الحجز في ",
+            "purchase_reservation": "شراء الحجز",
+            "title": "تم العثور على الحجز",
+            "unlock_without_purchase": "تحقق الآن، اشتر لاحقًا"
+        }
+    },
+    "steps": {
+        "add_password": "إضافة كلمة مرور",
+        "available": "متاح",
+        "biometric_unlock": "فتح باستخدام ZelfProof",
+        "biometrics": "ZelfProof",
+        "decrypt": "فك التشفير",
+        "import_wallet": "استيراد محفظتك",
+        "password_unlock": "كلمة المرور",
+        "qr_code_generator": "اسم زيلف",
+        "search_wallet": "فتح ZelfProof",
+        "wallet_type": "المحفظة"
+    },
+    "wallets_connected": {
+        "account": "الحساب",
+        "create_or_import_wallet_button": "شراء نطاق جديد",
+        "delete_wallet": "إلغاء ربط المحفظة",
+        "no_zelf_name": "بدون اسم زيلف",
+        "see_on_scanner": "فتح المستكشف",
+        "see_qr_code": "عرض رمز QR",
+        "title": "اختر محفظة"
+    },
+    "active_wallet": {
+        "show_private_key": "عرض المفتاح الخاص",
+        "warning_notice": "تذكر أن تحتفظ برمز QR الخاص بك بأمان؛ قم بعمل نسخ متعددة إذا لزم الأمر. أيضًا، قم بفتح المفتاح السري فقط عند تصدير محفظتك"
+    },
+    "home": {
+        "activity": "النشاط",
+        "assets": "الرموز",
+        "NFTs": "المقتنيات",
+        "receive_transaction_button": "استلام",
+        "scan_button": "مسح",
+        "send_transaction_button": "إرسال",
+        "settings_button": "الإعدادات",
+        "support_button": "الدعم"
+    },
+    "activity_card": {
+        "age": "العمر",
+        "amount": "المبلغ",
+        "block": "الكتلة",
+        "from": "من",
+        "hash": "التجزئة",
+        "in": "مستلم",
+        "method": "الطريقة",
+        "sent": "مرسل",
+        "to": "إلى",
+        "traffic": "الحركة",
+        "transaction": "المعاملة",
+        "transactionID": "معرف المعاملة",
+        "txnFee": "رسوم المعاملة",
+        "viewOnExplorer": "عرض على مستكشف الكتل"
+    },
+    "extension_instructions": {
+        "addExtension": "أضف الامتداد إلى متصفحك للوصول بسهولة وعرض تأكيدات المعاملات على خدمة اسم زيلف.",
+        "clickExtensionIcon": "انقر على أيقونة الامتداد في متصفحك.",
+        "clickIcon": "انقر على أيقونة الامتداد في متصفحك.",
+        "extensions": "الامتدادات",
+        "extensionsCanChange": "يمكن لهذه الامتدادات عرض وتغيير المعلومات على هذا الموقع.",
+        "fixWallet": "إصلاح ZNS.",
+        "fullAccess": "الوصول الكامل",
+        "installationCompleted": "تم اكتمال تثبيت خدمة اسم زيلف!",
+        "manageExtensions": "إدارة الامتدادات"
+    },
+    "send_transaction": {
+        "account_found": "تم العثور على العنوان",
+        "confirm_transaction_button": "تأكيد المعاملة",
+        "confirmation_step": "نقل",
+        "continue_transaction_button": "التالي",
+        "pickReceiver_step": "إرسال",
+        "reject_transaction_button": "إلغاء",
+        "send_to": "إرسال إلى",
+        "tokens_step": "اختر الرمز",
+        "your_accounts": "حساباتك",
+        "confirm": {
+            "gas_description": "ربما في {{seconds}} ثانية",
+            "gas_label": "الغاز (تقديري)",
+            "market": "السوق",
+            "max_gas": "الحد الأقصى للرسوم:",
+            "max_total": "الحد الأقصى الإجمالي",
+            "sending_label": "إرسال {{amount}} {{asset}}",
+            "total_to_pay_label": "الأصول + رسوم الغاز"
+        },
+        "preview": {
+            "estimated_fee": "الرسوم التقديرية"
+        },
+        "bridge": {
+            "confirm_button": "تأكيد المعاملة",
+            "description_2": "استمر في الامتداد الويب",
+            "description": "امسح رمز QR من تطبيق خدمة اسم زيلف الخاص بك. أضف طبقة أمان عن طريق فك التشفير في جهازك",
+            "dont_have_the_app": "لا تزال لا تملك تطبيق خدمة اسم زيلف مثبتًا؟",
+            "download_here": "قم بتنزيله هنا وزد من أمان جميع معاملاتك ولا تفقد الوصول إلى عملاتك المشفرة.",
+            "qr_code_title": "امسح رمز QR",
+            "title": "تأكيد المعاملة الخاصة بك"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "اختر شبكة اختبار",
+        "title": "اختر شبكة"
+    },
+    "payments": {
+        "continue_withoutpaying": "استمر بدون دفع",
+        "pay_now": "تابع للدفع"
+    },
+    "restricted": {
+        "description": "هذه الميزة غير متاحة على الأجهزة المحمولة. يرجى استخدام متصفح سطح المكتب للوصول إليها أو تنزيل تطبيق خدمة اسم زيلف.",
+        "download_android_app": "تنزيل تطبيق Android",
+        "title": "مقيد على الأجهزة المحمولة"
+    },
+    "language": {
+        "ar": "العربية",
+        "br": "البرتغالية",
+        "cn": "الماندرين",
+        "en": "الإنجليزية",
+        "es": "الإسبانية",
+        "fr": "الفرنسية",
+        "in": "الهندية",
+        "ja": "اليابانية",
+        "kr": "الكورية",
+        "ph": "التاغالوغية",
+        "ru": "الروسية"
+    }
+}

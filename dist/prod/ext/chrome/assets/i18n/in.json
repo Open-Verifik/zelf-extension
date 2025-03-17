@@ -1,0 +1,404 @@
+{
+    "hello": "नमस्ते",
+    "onboarding": {
+        "accept_terms_1": "मैं स्वीकार करता हूँ",
+        "accept_terms_2": "नियम और शर्तें",
+        "claim_your_zns": "अपना Zelf नाम प्राप्त करें और अपने क्रिप्टो को सुरक्षित रखें!",
+        "create_new_wallet": "नया वॉलेट बनाएं",
+        "forgot_zelf_name": "अपना Zelf नाम भूल गए?",
+        "import_wallet": "अपना वॉलेट आयात करें",
+        "lifetime": "जीवनकाल",
+        "open_wallet": "अपना वॉलेट खोलें",
+        "price_for_lifetime": "जीवनकाल के लिए मूल्य",
+        "price_year": "{{ duration }} वर्ष के लिए मूल्य",
+        "referral_code": "रेफरल कोड",
+        "register_description": "आप इस नाम को {{duration}} के लिए पंजीकृत करेंगे",
+        "register": "पंजीकरण करें",
+        "step_1_description": "ZNS (Zelf नाम सेवा) की खोज करें, अभिनव नाम सेवा जो आपको बीज वाक्यांश को याद रखने से मुक्त करती है। अपने ZNS का उपयोग करके सुरक्षित और जल्दी से एक्सेस करें",
+        "step_1": "ZELF नाम सेवा में आपका स्वागत है",
+        "step_2_description": "ZelfProof एक अद्वितीय, गोपनीयता-संरक्षण बाइनरी प्रतिनिधित्व है जो चेहरे के डेटा से व्युत्पन्न होता है, यह सुनिश्चित करता है कि कहीं भी संग्रहीत नहीं है। आपके वाक्यांश को अत्यधिक सुरक्षित रखते हुए",
+        "step_2": "ZELFPROOF के साथ एक्सेस करें",
+        "step_3_description": "अपने वॉलेट और बीज वाक्यांश तक आसान पहुंच। आपका ZelfProof Arweave पर सुरक्षित रूप से संग्रहीत है, जिससे आपको इसे स्वयं प्रबंधित करने की परेशानी के बिना पूर्ण नियंत्रण मिलता है।",
+        "step_3": "विकेंद्रीकृत भंडारण",
+        "year": "वर्ष",
+        "years": "वर्षों",
+        "zns_reward": "आपको इनाम के रूप में {{reward}} Zelf टोकन (ZNS) प्राप्त होंगे"
+    },
+    "wallet_status": {
+        "active": "सक्रिय",
+        "expired": "समाप्त",
+        "hold": "रोक"
+    },
+    "welcome": {
+        "dont_remember_username": "क्या आपको अपना उपयोगकर्ता नाम याद नहीं है?",
+        "find_zelf_name_subtitle": "नीचे इसका सार्वजनिक पता दर्ज करके एक मौजूदा Zelf नाम खोजें:",
+        "find_zelf_name_title": "Zelf नाम खोजें",
+        "invalid_referral_code": "अमान्य रेफरल कोड",
+        "public_address_input": "यहां अपना ETH या SOL सार्वजनिक पता दर्ज करें",
+        "referral_successfully_registered": "रेफरल सफलतापूर्वक पंजीकृत",
+        "registered": "Zelf नाम {{ date }} से पंजीकृत",
+        "upload_zelf_proof": "या जारी रखने के लिए अपना ZelfProof QR कोड अपलोड करें:",
+        "you_are_registering_the_domain": "आप डोमेन पंजीकृत कर रहे हैं:",
+        "welcome": "वापसी पर स्वागत है",
+        "welcome_back": "वापसी पर स्वागत है",
+        "zelf_referral_code": "Zelf रेफरल कोड (वैकल्पिक)"
+    },
+    "security": {
+        "biometric_subtitle": "सुनिश्चित करने के लिए चरणों का पालन करें कि प्रक्रिया सुचारू और प्रभावी हो।",
+        "biometric_title": "ZelfProof एन्क्रिप्शन",
+        "new_password_subtitle": "Zelf वॉलेट, डिफ़ॉल्ट रूप से, उपयोगकर्ताओं के चेहरे की बायोमेट्रिक्स के साथ वॉलेट को एन्क्रिप्ट करता है। निम्नलिखित पासवर्ड केवल इस डिवाइस के लिए एक अतिरिक्त सुरक्षा परत है।",
+        "password_subtitle": "डिक्रिप्शन प्रक्रिया को पूरा करने के लिए इस Zelf नाम को सौंपा गया पासवर्ड दर्ज करें।",
+        "set_password": "पासवर्ड सेट करें",
+        "subtitle": "आपका निजी पुनर्प्राप्ति वाक्यांश 12 या 24 शब्दों का होता है और आपके वॉलेट तक पहुंचने और उसे सुरक्षित करने के लिए आवश्यक है।",
+        "title": "ZelfProof सुरक्षा परतें",
+        "unhide_words": "शब्दों को दिखाएं",
+        "hide_words": "शब्दों को छिपाएं",
+        "zelf_name_requires_a_password": "आपके Zelf नाम के लिए पासवर्ड आवश्यक है"
+    },
+    "common": {
+        "12_word_phrase": "12-शब्द वाक्यांश",
+        "24_word_phrase": "24-शब्द वाक्यांश",
+        "address": "पता",
+        "agree_to_terms_and_conditions": "मैं नियम और शर्तों से सहमत हूँ",
+        "amount": "राशि",
+        "are_you_sure": "क्या आपको यकीन है?",
+        "asset": "संपत्ति",
+        "available": "उपलब्ध",
+        "balance": "शेष राशि",
+        "btc_address": "BTC पता",
+        "buy_now": "अभी खरीदें",
+        "cancel": "रद्द करें",
+        "close": "बंद करें",
+        "confirm_password": "पासवर्ड की पुष्टि करें",
+        "confirm": "पुष्टि करें",
+        "continue": "जारी रखें",
+        "copy_to_clipboard": "सफलतापूर्वक कॉपी किया गया",
+        "copy": "क्लिपबोर्ड पर कॉपी करें",
+        "create_a_new_wallet": "नया वॉलेट बनाएं",
+        "documentation": "दस्तावेज़ीकरण",
+        "domain": "डोमेन",
+        "dont_show_me_again": "मुझे फिर से न दिखाएं",
+        "dont_show_this_message_again": "यह संदेश फिर से न दिखाएं",
+        "edit": "संपादित करें",
+        "eth_address": "ETH पता",
+        "extend_registration": "पंजीकरण बढ़ाएं",
+        "failed_to_copy_to_clipboard": "कॉपी करने में विफल",
+        "fee": "शुल्क",
+        "from": "से",
+        "go_back": "वापस जाएं",
+        "import_a_wallet": "वॉलेट आयात करें",
+        "import": "आयात करें",
+        "invest": "निवेश करें",
+        "is_required": "आवश्यक है",
+        "login": "लॉगिन",
+        "logout": "लॉगआउट",
+        "manage_domains": "डोमेन प्रबंधित करें",
+        "max": "अधिकतम",
+        "more_info": "अधिक जानकारी",
+        "my_arns": "मेरे ArNS",
+        "navigating_away_will_cancel": "दूर जाने से आपकी प्रगति रद्द हो जाएगी। क्या आप वाकई वापस जाना चाहते हैं?",
+        "or_drag_and_drop": "या .JPG या PNG एक्सटेंशन वाली फ़ाइल को यहां खींचें और छोड़ें",
+        "password": "पासवर्ड",
+        "pay_now": "अभी भुगतान करें",
+        "pricing": "मूल्य निर्धारण",
+        "privacy": "गोपनीयता",
+        "purchase_now": "अभी खरीदें",
+        "purchase": "खरीदें",
+        "recommended": "अनुशंसित",
+        "registered": "पंजीकृत",
+        "renew_domain": "डोमेन नवीनीकृत करें",
+        "reservation_found": "आरक्षण मिला",
+        "safety_layers": "सुरक्षा परतें",
+        "search_your_zelf_name": "अपने Zelf नाम की खोज करें",
+        "settings": "सेटिंग्स",
+        "sol_address": "SOL पता",
+        "solana_address": "सोलाना पता",
+        "start": "प्रारंभ करें",
+        "terms_and_conditions": "नियम और शर्तें",
+        "to": "तक",
+        "total": "कुल",
+        "type": "प्रकार",
+        "upload_qr_image": "QR छवि अपलोड करें",
+        "zelf_wallet": "Zelf वॉलेट"
+    },
+    "domain_purchase": {
+        "agree_to_terms_and_conditions": "मैं नियम और शर्तों से सहमत हूँ",
+        "character_length_and_year": "{{characterLength}} अक्षरों की लंबाई। प्रति वर्ष लागत {{ costPerYear }} USD",
+        "domain_price_length": "डोमेन मूल्य लंबाई",
+        "know_more": "अधिक जानें",
+        "lifetime": "जीवनकाल",
+        "price_per_year": "प्रति वर्ष मूल्य",
+        "title": "खरीदने के लिए डोमेन",
+        "years": "{{ yearCount }} वर्ष"
+    },
+    "wallet": {
+        "download_qr": "QR डाउनलोड करें",
+        "my_arns": "मेरे ArNS",
+        "private_key": "निजी कुंजी"
+    },
+    "private_key": {
+        "description": "अपनी निजी कुंजी देखने के लिए, कृपया सुरक्षा सत्यापन चरणों को पूरा करें।",
+        "got_it": "समझ गया",
+        "title": "निजी कुंजी"
+    },
+    "my_arns": {
+        "arns_website": "ArNS वेबसाइट",
+        "description": "क्रिप्टो प्राप्त करने के लिए आपकी व्यक्तिगत वेबसाइट, सभी आवश्यक जानकारी के साथ सीधे स्थानांतरण के लिए साझा करना आसान।"
+    },
+    "manage_domain": {
+        "buy_another_name": "एक और Zelf नाम खरीदें",
+        "hold_until": "तक रोकें",
+        "registered_since": "Zelf नाम से पंजीकृत ",
+        "registered_until": "तक पंजीकृत"
+    },
+    "manage_domains": {
+        "domain_error": "{{ zelfName }} की समय सीमा समाप्त हो गई है! कोई अन्य उपयोगकर्ता इस डोमेन का दावा कर सकता है। इसे दावा करने के लिए अभी खरीदें!",
+        "domain_warning": "आपके पास अभी भी खरीदने का समय है",
+        "purchase_new_domain": "नया डोमेन खरीदें",
+        "last_wallet_logout": "यह अंतिम वॉलेट है। यदि आप जारी रखते हैं, तो आपको स्वागत पृष्ठ पर पुनः निर्देशित किया जाएगा।",
+        "logout_of_wallet_confirm": "अंतिम वॉलेट"
+    },
+    "create_wallet": {
+        "password_step": {
+            "add_password": "जारी रखें",
+            "agreement": "मैं समझता हूँ कि Zelf इस पासवर्ड को पुनर्प्राप्त नहीं कर सकता। इस अतिरिक्त सुरक्षा परत को चुनकर, मैं स्वीकार करता हूँ कि इसे याद रखने के लिए मैं पूरी तरह से जिम्मेदार हूँ।",
+            "continue_without_password": "एक सुरक्षा परत",
+            "description": "अपने ZelfProof की सुरक्षा के लिए कम से कम 8 अक्षरों का मजबूत पासवर्ड सेटअप करना सुनिश्चित करें।",
+            "password_label": "पासवर्ड",
+            "repeat_password_label": "पासवर्ड दोहराएं",
+            "title": "सुरक्षा परतें"
+        },
+        "phrase_step": {
+            "12_words": "12 शब्दों का वाक्यांश",
+            "24_words": "24 शब्दों का वाक्यांश",
+            "description_2": "Zelf मैन्युअल भंडारण की आवश्यकता को समाप्त करता है, आपके पुनर्प्राप्ति वाक्यांश को एक शक्तिशाली, गोपनीयता-संरक्षण ZelfProof में एन्क्रिप्ट करके। यह ZelfProof एक QR कोड के भीतर सुरक्षित रूप से संग्रहीत होता है जिसे केवल आप ही डिक्रिप्ट कर सकते हैं, जो अद्वितीय सुरक्षा सुनिश्चित करता है।",
+            "description_3": "QR कोड आपके पुनर्प्राप्ति कुंजियों के लिए एक मजबूत डिजिटल वॉल्ट के रूप में कार्य करता है, जिसे हमारे Zelf नाम सेवा (ZNS) द्वारा बढ़ाया गया है। ZNS के साथ, आप अपने Zelf नाम का उपयोग करके आसानी से अपने QR कोड का बैकअप और पुनर्प्राप्त कर सकते हैं।",
+            "description_4": "मैं समझता हूँ कि Zelf ZNS के साथ QR कोड को पुनर्प्राप्त करने में मदद कर सकता है। हालांकि, मैं इसे सुरक्षित रखने के लिए जिम्मेदार हूँ ताकि सुरक्षित पहुंच सुनिश्चित हो सके।",
+            "description": "आपका निजी पुनर्प्राप्ति वाक्यांश 12 या 24 शब्दों का होता है, जो आपके वॉलेट तक पहुंचने और उसे सुरक्षित करने के लिए आवश्यक है।",
+            "start_encryption_button": "प्रारंभ करें",
+            "title": "वॉलेट निर्माण",
+            "words_input": "शब्दों की संख्या"
+        },
+        "zelfproof_step": {
+            "description": "आप अपने ZelfProof को उत्पन्न करने वाले हैं, जो आपके पुनर्प्राप्ति वाक्यांशों को सुरक्षित रूप से एन्क्रिप्ट करेगा। प्रक्रिया को सुचारू और प्रभावी बनाने के लिए नीचे दिए गए चरणों का पालन करें।",
+            "instruction_1": "अपना चेहरा निर्दिष्ट निशान के अंदर रखें",
+            "instruction_2": "कैमरे को देखें और हिलने से बचें",
+            "instruction_3": "आवश्यक चेहरे के हावभाव को सुनिश्चित करें",
+            "title": "ZelfProof एन्क्रिप्शन"
+        },
+        "view_wallet": {
+            "copy_public_address": "अपना ETH पता कॉपी करें",
+            "description_2": "यदि QR कभी खो जाता है, तो आप इसे Zelf नाम सेवा (ZNS) के माध्यम से अपने पंजीकृत Zelf नाम का उपयोग करके पुनर्प्राप्त कर सकते हैं।",
+            "description": "आपका पुनर्प्राप्ति वाक्यांश एन्क्रिप्ट किया गया है और इस QR कोड के अंदर सुरक्षित रखा गया है, आपके ZelfProof का उपयोग करके, एक शक्तिशाली गोपनीयता-संरक्षण सुरक्षा परत।",
+            "download_qr_code": "अपने QR कोड को डाउनलोड करें",
+            "qr_code_description": "इस QR कोड को सुरक्षित रखें। अपने वॉलेट तक पहुंचने या उसे पुनर्स्थापित करने के लिए, आपका ZelfProof और यह QR कोड हमेशा आवश्यक होंगे",
+            "title": "वॉलेट सफलतापूर्वक ZelfProof के साथ एन्क्रिप्ट किया गया"
+        }
+    },
+    "liveness": {
+        "center_your_face": "अपना चेहरा स्क्रीन के केंद्र में रखें",
+        "center_your_face_subtitle": "कृपया सुनिश्चित करें कि आपका चेहरा केंद्रित है",
+        "get_closer_subtitle": "बेहतर चेहरे की पहचान के लिए कृपया थोड़ा और करीब आएं।",
+        "get_closer": "और करीब आएं",
+        "liveness_error_message": "लाइवनेस चेक निम्नलिखित त्रुटि के साथ विफल हो गया है:<br><strong>{{error}}</strong><br>क्या आप फिर से प्रयास करना चाहते हैं?",
+        "liveness_failed": "लाइवनेस डिटेक्शन विफल",
+        "loading_stream": "कैमरा लोड हो रहा है",
+        "try_again_button": "फिर से प्रयास करें"
+    },
+    "errors": {
+        "all_fields_required": "सभी फ़ील्ड आवश्यक हैं",
+        "Duplicated_person": "ZelfProof का उपयोग किसी अन्य रिकॉर्ड के लिए किया जा रहा है",
+        "ERR_DESCRIPTION": "अपने ZelfProof को अनलॉक करने के लिए निर्देशों का सही से पालन करना सुनिश्चित करें",
+        "ERR_INVALID_PASSWORD": "इस ZelfProof के लिए पासवर्ड अमान्य है",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "चेहरे का कोण बहुत बड़ा है",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "चेहरा सीमा के बहुत करीब है",
+        "ERR_LIVENESS_FAILED": "लाइवनेस डिटेक्शन विफल",
+        "ERR_UNPROCESSABLE_CONTENT": "ZelfProof को डिक्रिप्ट नहीं किया जा सका",
+        "ERR_VERIFICATION_FAILED": "लाइवनेस डिटेक्शन विफल",
+        "generic": "एक त्रुटि हुई, कृपया पुनः प्रयास करें",
+        "invalid_format": "अमान्य प्रारूप",
+        "liveness_failed_description": "क्षमा करें, आपके लाइवनेस डिटेक्शन में कोई समस्या प्रतीत हो रही है।",
+        "liveness_failed": "लाइवनेस डिटेक्शन विफल",
+        "Liveness_score_not_acceptable": "लाइवनेस स्कोर स्वीकार्य नहीं है",
+        "min_liveness_score_is": "न्यूनतम लाइवनेस स्कोर है: ",
+        "not_found": "रिकॉर्ड नहीं मिला",
+        "password_doesnt_match": "पासवर्ड मेल नहीं खाते",
+        "password_incorrect": "पासवर्ड गलत है",
+        "person_already_set": "आपके पंजीकरण में पहले से ही एक ZelfProof लिंक्ड है",
+        "phone_or_email_is_not_unique": "फोन या ईमेल पहले से ही उपयोग किया जा चुका है, कृपया एक अलग प्रयास करें",
+        "replace_person_button": "ठीक है, ZelfProof बदलें",
+        "something_went_wrong": "कुछ गलत हो गया, कृपया पुनः प्रयास करें",
+        "try_again": "पुनः प्रयास करें",
+        "weak_password": "आपका पासवर्ड बहुत कमजोर है",
+        "zelfName_is_taken": "यह Zelf नाम पहले से ही लिया जा चुका है"
+    },
+    "import_wallet": {
+        "step_zero": {
+            "description": "यह आपको अन्य प्लेटफार्मों से अपने डिजिटल संपत्तियों को जल्दी और सुरक्षित रूप से स्थानांतरित करने की अनुमति देता है।",
+            "description2": "हमारी प्रक्रिया आपके कुंजियों या पुनर्प्राप्ति वाक्यांशों के खुलासे को रोककर आपकी संपत्तियों की गोपनीयता सुनिश्चित करती है।",
+            "description3": "अपने वॉलेट को आयात करना आपके क्रिप्टोक्यूरेंसी अनुभव को सरल बनाता है, जिससे कई खातों का प्रबंधन करने की आवश्यकता समाप्त हो जाती है।",
+            "description4": "अपने पुनर्प्राप्ति वाक्यांश का उपयोग किए बिना हमारे प्लेटफार्म पर आसानी से अपनी निधियों तक पहुंचें।",
+            "import_button": "वॉलेट आयात करें",
+            "subtitle": "लाभ क्या हैं?",
+            "title": "मौजूदा वॉलेट आयात करें"
+        },
+        "step_one": {
+            "confirm_button": "वॉलेट आयात करें",
+            "description": "कृपया अपने मौजूदा वॉलेट को सत्यापित और आयात करने के लिए नीचे अपना पुनर्प्राप्ति वाक्यांश दर्ज करें।",
+            "paste_note": "आप किसी भी फ़ील्ड में पूरा गुप्त पुनर्प्राप्ति वाक्यांश पेस्ट कर सकते हैं",
+            "title": "पुनर्प्राप्ति वाक्यांश दर्ज करें",
+            "word1": "1."
+        },
+        "qr_code_step": {
+            "copy_address": "सार्वजनिक पता कॉपी करें",
+            "description": "आपका सुरक्षा वाक्यांश और QR कोड अब आपके ZelfProof से जुड़े हुए हैं। अपने खाते की सुरक्षा के लिए QR को सुरक्षित रखें।",
+            "download_qr": "QR कोड डाउनलोड करें",
+            "success_message": "आपने सफलतापूर्वक अपने मौजूदा वॉलेट को आयात कर लिया है",
+            "understood": "समझ गया"
+        }
+    },
+    "unlock_wallet": {
+        "account_found": "ZELFPROOF मिला",
+        "back_button": "वापस",
+        "description": "इसके सार्वजनिक पते को नीचे दर्ज करके एक मौजूदा Zelf नाम खोजें:",
+        "drag_drop_text": "या .JPG या PNG एक्सटेंशन वाली फ़ाइल को यहां खींचें और छोड़ें",
+        "title": "ZELF नाम खोजें",
+        "upload_button": "QR कोड चुनें",
+        "upload_description": "या जारी रखने के लिए अपना ZelfProof QR कोड अपलोड करें:",
+        "verify_button": "सत्यापित करें",
+        "password": {
+            "button": "जारी रखें",
+            "label": "पासवर्ड",
+            "placeholder": "********************",
+            "subtitle": "खोलने की प्रक्रिया को पूरा करने के लिए इस ZelfProof को सौंपा गया पासवर्ड दर्ज करें।",
+            "title": "इस ZELFPROOF के लिए पासवर्ड आवश्यक है"
+        },
+        "hold": {
+            "buy_now": "अभी खरीदें",
+            "expiration_time": "यह आरक्षण समाप्त होता है ",
+            "purchase_reservation": "आरक्षण खरीदें",
+            "title": "आरक्षण मिला",
+            "unlock_without_purchase": "अभी सत्यापित करें, बाद में खरीदें"
+        }
+    },
+    "steps": {
+        "add_password": "पासवर्ड जोड़ें",
+        "available": "उपलब्ध",
+        "biometric_unlock": "ZelfProof लॉक",
+        "biometrics": "ZelfProof",
+        "decrypt": "डिक्रिप्ट",
+        "import_wallet": "अपना वॉलेट आयात करें",
+        "password_unlock": "पासवर्ड",
+        "qr_code_generator": "ZELF नाम",
+        "search_wallet": "ZELFPROOF खोलें",
+        "wallet_type": "वॉलेट"
+    },
+    "wallets_connected": {
+        "account": "खाता",
+        "create_or_import_wallet_button": "वॉलेट बनाएं या आयात करें",
+        "delete_wallet": "वॉलेट अनलिंक करें",
+        "no_zelf_name": "Zelf नाम के बिना",
+        "see_on_scanner": "एक्सप्लोरर खोलें",
+        "see_qr_code": "QR कोड देखें",
+        "title": "एक वॉलेट चुनें"
+    },
+    "active_wallet": {
+        "show_private_key": "प्राइवेट की दिखाएं",
+        "warning_notice": "याद रखें कि अपने QR कोड को सुरक्षित रखें; यदि आवश्यक हो तो कई प्रतियां बनाएं। इसके अलावा, केवल अपने वॉलेट को निर्यात करते समय गुप्त कुंजी को अनलॉक करें"
+    },
+    "home": {
+        "activity": "गतिविधि",
+        "assets": "टोकन",
+        "NFTs": "संग्रहणीय",
+        "receive_transaction_button": "प्राप्त करें",
+        "scan_button": "स्कैन करें",
+        "send_transaction_button": "भेजें",
+        "settings_button": "सेटिंग्स",
+        "support_button": "सहायता"
+    },
+    "activity_card": {
+        "age": "उम्र",
+        "amount": "राशि",
+        "block": "ब्लॉक",
+        "from": "से",
+        "hash": "हैश",
+        "in": "प्राप्त",
+        "method": "विधि",
+        "sent": "भेजा गया",
+        "to": "तक",
+        "traffic": "ट्रैफिक",
+        "transaction": "लेन-देन",
+        "transactionID": "लेन-देन आईडी",
+        "txnFee": "लेन-देन शुल्क",
+        "viewOnExplorer": "ब्लॉक एक्सप्लोरर पर देखें"
+    },
+    "extension_instructions": {
+        "addExtension": "आसानी से एक्सेस करने और Zelf नाम सेवा पर लेन-देन की पुष्टि देखने के लिए अपने ब्राउज़र में एक्सटेंशन जोड़ें।",
+        "clickExtensionIcon": "अपने ब्राउज़र में एक्सटेंशन आइकन पर क्लिक करें।",
+        "clickIcon": "अपने ब्राउज़र में एक्सटेंशन आइकन पर क्लिक करें।",
+        "extensions": "एक्सटेंशन",
+        "extensionsCanChange": "ये एक्सटेंशन इस वेबसाइट पर जानकारी देख और बदल सकते हैं।",
+        "fixWallet": "ZNS ठीक करें।",
+        "fullAccess": "पूर्ण पहुंच",
+        "installationCompleted": "Zelf नाम सेवा स्थापना पूरी हो गई है!",
+        "manageExtensions": "एक्सटेंशन प्रबंधित करें"
+    },
+    "send_transaction": {
+        "account_found": "पता मिला",
+        "confirm_transaction_button": "लेन-देन की पुष्टि करें",
+        "confirmation_step": "स्थानांतरण",
+        "continue_transaction_button": "अगला",
+        "pickReceiver_step": "भेजें",
+        "reject_transaction_button": "रद्द करें",
+        "send_to": "भेजें",
+        "tokens_step": "टोकन चुनें",
+        "your_accounts": "आपके खाते",
+        "confirm": {
+            "gas_description": "संभवतः {{seconds}} सेकंड में",
+            "gas_label": "गैस (अनुमानित)",
+            "market": "बाजार",
+            "max_gas": "अधिकतम शुल्क:",
+            "max_total": "अधिकतम कुल",
+            "sending_label": "{{amount}} {{asset}} भेजा जा रहा है",
+            "total_to_pay_label": "संपत्तियां + गैस शुल्क"
+        },
+        "preview": {
+            "estimated_fee": "अनुमानित शुल्क"
+        },
+        "bridge": {
+            "confirm_button": "लेन-देन की पुष्टि करें",
+            "description_2": "वेब एक्सटेंशन में जारी रखें",
+            "description": "अपने Zelf नाम सेवा ऐप से QR कोड स्कैन करें। अपने डिवाइस में डिक्रिप्ट करके एक सुरक्षा परत जोड़ें",
+            "dont_have_the_app": "अभी तक Zelf नाम सेवा ऐप इंस्टॉल नहीं किया है?",
+            "download_here": "इसे यहां डाउनलोड करें और अपनी सभी लेन-देन के लिए अपनी सुरक्षा बढ़ाएं और कभी भी अपने क्रिप्टो तक पहुंच न खोएं।",
+            "qr_code_title": "QR कोड स्कैन करें",
+            "title": "अपनी लेन-देन की पुष्टि करें"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "एक परीक्षण नेटवर्क चुनें",
+        "title": "एक नेटवर्क चुनें"
+    },
+    "payments": {
+        "continue_withoutpaying": "भुगतान के बिना जारी रखें",
+        "pay_now": "भुगतान के लिए आगे बढ़ें"
+    },
+    "restricted": {
+        "description": "यह सुविधा मोबाइल उपकरणों पर उपलब्ध नहीं है। कृपया इसे एक्सेस करने के लिए डेस्कटॉप ब्राउज़र का उपयोग करें या Zelf नाम सेवा ऐप डाउनलोड करें।",
+        "download_android_app": "एंड्रॉइड ऐप डाउनलोड करें",
+        "title": "मोबाइल प्रतिबंधित"
+    },
+    "language": {
+        "ar": "अरबी",
+        "br": "पुर्तगाली",
+        "cn": "मंदारिन",
+        "en": "अंग्रेज़ी",
+        "es": "स्पेनिश",
+        "fr": "फ्रेंच",
+        "in": "हिन्दी",
+        "ja": "जापानी",
+        "kr": "कोरियाई",
+        "ph": "टैगालोग",
+        "ru": "रूसी"
+    }
+}

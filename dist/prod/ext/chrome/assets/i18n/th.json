@@ -1,0 +1,404 @@
+{
+    "hello": "สวัสดี",
+    "onboarding": {
+        "accept_terms_1": "ฉันยอมรับ",
+        "accept_terms_2": "ข้อกำหนดและเงื่อนไข",
+        "claim_your_zns": "รับชื่อ Zelf ของคุณและปกป้องคริปโตของคุณ!",
+        "create_new_wallet": "สร้างกระเป๋าเงินใหม่",
+        "forgot_zelf_name": "ลืมชื่อ Zelf ของคุณ?",
+        "import_wallet": "นำเข้ากระเป๋าเงินของคุณ",
+        "lifetime": "ตลอดชีพ",
+        "open_wallet": "เปิดกระเป๋าเงินของคุณ",
+        "price_for_lifetime": "ราคาตลอดชีพ",
+        "price_year": "ราคาสำหรับ {{duration}} ปี",
+        "referral_code": "รหัสแนะนำ",
+        "register_description": "คุณจะลงทะเบียนชื่อนี้เป็นเวลา {{duration}}",
+        "register": "ลงทะเบียน",
+        "step_1_description": "ค้นพบ ZNS (บริการชื่อ Zelf) บริการชื่อที่เป็นนวัตกรรมใหม่ที่ช่วยให้คุณไม่ต้องจำวลีเมล็ดพันธุ์ เข้าถึงได้อย่างปลอดภัยและรวดเร็วโดยใช้ ZNS ของคุณ",
+        "step_1": "ยินดีต้อนรับสู่บริการชื่อ Zelf",
+        "step_2_description": "ZelfProof เป็นการแสดงผลแบบไบนารีที่ไม่ซ้ำใครและรักษาความเป็นส่วนตัวซึ่งได้มาจากข้อมูลใบหน้า ทำให้มั่นใจได้ว่าไม่มีการจัดเก็บที่ใด ๆ ทำให้วลีของคุณปลอดภัยอย่างยิ่ง",
+        "step_2": "เข้าถึงด้วย ZelfProof",
+        "step_3_description": "เข้าถึงกระเป๋าเงินและวลีเมล็ดพันธุ์ของคุณได้อย่างง่ายดาย ZelfProof ของคุณถูกจัดเก็บอย่างปลอดภัยบน Arweave ทำให้คุณควบคุมได้อย่างสมบูรณ์โดยไม่ต้องจัดการด้วยตัวเอง",
+        "step_3": "การจัดเก็บแบบกระจายศูนย์",
+        "year": "ปี",
+        "years": "ปี",
+        "zns_reward": "คุณจะได้รับโทเค็น Zelf (ZNS) จำนวน {{reward}} เป็นรางวัล"
+    },
+    "wallet_status": {
+        "active": "ใช้งานอยู่",
+        "expired": "หมดอายุ",
+        "hold": "ถือครอง"
+    },
+    "welcome": {
+        "dont_remember_username": "จำชื่อผู้ใช้ของคุณไม่ได้?",
+        "find_zelf_name_subtitle": "ค้นหาชื่อ Zelf ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",
+        "find_zelf_name_title": "ค้นหาชื่อ Zelf",
+        "invalid_referral_code": "รหัสแนะนำไม่ถูกต้อง",
+        "public_address_input": "ป้อนที่อยู่สาธารณะ ETH หรือ SOL ของคุณที่นี่",
+        "referral_successfully_registered": "ลงทะเบียนรหัสแนะนำสำเร็จ",
+        "registered": "ชื่อ Zelf ลงทะเบียนตั้งแต่ {{ date }}",
+        "upload_zelf_proof": "หรืออัปโหลด QR Code ZelfProof ของคุณเพื่อดำเนินการต่อ:",
+        "you_are_registering_the_domain": "คุณกำลังลงทะเบียนโดเมน:",
+        "welcome": "ยินดีต้อนรับกลับ",
+        "welcome_back": "ยินดีต้อนรับกลับ",
+        "zelf_referral_code": "รหัสแนะนำ Zelf (ไม่บังคับ)"
+    },
+    "security": {
+        "biometric_subtitle": "ทำตามขั้นตอนเพื่อให้แน่ใจว่ากระบวนการเป็นไปอย่างราบรื่นและมีประสิทธิภาพ",
+        "biometric_title": "การเข้ารหัส ZelfProof",
+        "new_password_subtitle": "Zelf Wallet โดยค่าเริ่มต้นจะเข้ารหัสกระเป๋าเงินด้วยการจดจำใบหน้าของผู้ใช้ รหัสผ่านต่อไปนี้เป็นชั้นความปลอดภัยเพิ่มเติมสำหรับอุปกรณ์นี้เท่านั้น",
+        "password_subtitle": "ป้อนรหัสผ่านที่กำหนดให้กับชื่อ Zelf นี้เพื่อทำกระบวนการถอดรหัสให้เสร็จสมบูรณ์",
+        "set_password": "ตั้งรหัสผ่าน",
+        "subtitle": "วลีการกู้คืนส่วนตัวของคุณประกอบด้วยคำ 12 หรือ 24 คำ ซึ่งจำเป็นสำหรับการเข้าถึงและรักษาความปลอดภัยกระเป๋าเงินของคุณ",
+        "title": "ชั้นความปลอดภัยของ ZelfProof",
+        "unhide_words": "แสดงคำ",
+        "hide_words": "ซ่อนคำ",
+        "zelf_name_requires_a_password": "ชื่อ Zelf ของคุณต้องการรหัสผ่าน"
+    },
+    "common": {
+        "12_word_phrase": "วลี 12 คำ",
+        "24_word_phrase": "วลี 24 คำ",
+        "address": "ที่อยู่",
+        "agree_to_terms_and_conditions": "ฉันยอมรับข้อกำหนดและเงื่อนไข",
+        "amount": "จำนวน",
+        "are_you_sure": "คุณแน่ใจหรือไม่?",
+        "asset": "สินทรัพย์",
+        "available": "พร้อมใช้งาน",
+        "balance": "ยอดคงเหลือ",
+        "btc_address": "ที่อยู่ BTC",
+        "buy_now": "ซื้อเดี๋ยวนี้",
+        "cancel": "ยกเลิก",
+        "close": "ปิด",
+        "confirm_password": "ยืนยันรหัสผ่าน",
+        "confirm": "ยืนยัน",
+        "continue": "ดำเนินการต่อ",
+        "copy_to_clipboard": "คัดลอกสำเร็จ",
+        "copy": "คัดลอกไปยังคลิปบอร์ด",
+        "create_a_new_wallet": "สร้างกระเป๋าเงินใหม่",
+        "documentation": "เอกสาร",
+        "domain": "โดเมน",
+        "dont_show_me_again": "ไม่ต้องแสดงอีก",
+        "dont_show_this_message_again": "ไม่ต้องแสดงข้อความนี้อีก",
+        "edit": "แก้ไข",
+        "eth_address": "ที่อยู่ ETH",
+        "extend_registration": "ขยายการลงทะเบียน",
+        "failed_to_copy_to_clipboard": "คัดลอกไม่สำเร็จ",
+        "fee": "ค่าธรรมเนียม",
+        "from": "จาก",
+        "go_back": "ย้อนกลับ",
+        "import_a_wallet": "นำเข้ากระเป๋าเงิน",
+        "import": "นำเข้า",
+        "invest": "ลงทุน",
+        "is_required": "จำเป็น",
+        "login": "เข้าสู่ระบบ",
+        "logout": "ออกจากระบบ",
+        "manage_domains": "จัดการโดเมน",
+        "max": "สูงสุด",
+        "more_info": "ข้อมูลเพิ่มเติม",
+        "my_arns": "ArNS ของฉัน",
+        "navigating_away_will_cancel": "การนำทางออกจะยกเลิกความคืบหน้าที่คุณทำไว้ คุณแน่ใจหรือไม่ว่าต้องการย้อนกลับ?",
+        "or_drag_and_drop": "หรือลากและวางไฟล์ที่มีนามสกุล .JPG หรือ PNG ที่นี่",
+        "password": "รหัสผ่าน",
+        "pay_now": "ชำระเงินเดี๋ยวนี้",
+        "pricing": "การตั้งราคา",
+        "privacy": "ความเป็นส่วนตัว",
+        "purchase_now": "ซื้อเดี๋ยวนี้",
+        "purchase": "ซื้อ",
+        "recommended": "แนะนำ",
+        "registered": "ลงทะเบียนแล้ว",
+        "renew_domain": "ต่ออายุโดเมน",
+        "reservation_found": "พบการจอง",
+        "safety_layers": "ชั้นความปลอดภัย",
+        "search_your_zelf_name": "ค้นหาชื่อ Zelf ของคุณ",
+        "settings": "การตั้งค่า",
+        "sol_address": "ที่อยู่ SOL",
+        "solana_address": "ที่อยู่ Solana",
+        "start": "เริ่ม",
+        "terms_and_conditions": "ข้อกำหนดและเงื่อนไข",
+        "to": "ถึง",
+        "total": "รวม",
+        "type": "ประเภท",
+        "upload_qr_image": "อัปโหลดภาพ QR",
+        "zelf_wallet": "กระเป๋าเงิน Zelf"
+    },
+    "domain_purchase": {
+        "agree_to_terms_and_conditions": "ฉันยอมรับข้อกำหนดและเงื่อนไข",
+        "character_length_and_year": "{{characterLength}} ความยาวตัวอักษร ค่าใช้จ่ายต่อปี {{ costPerYear }} USD",
+        "domain_price_length": "ความยาวราคาชื่อโดเมน",
+        "know_more": "รู้เพิ่มเติม",
+        "lifetime": "ตลอดชีพ",
+        "price_per_year": "ราคาต่อปี",
+        "title": "ชื่อโดเมนที่จะซื้อ",
+        "years": "{{ yearCount }} ปี"
+    },
+    "wallet": {
+        "download_qr": "QR",
+        "my_arns": "ArNS ของฉัน",
+        "private_key": "กุญแจส่วนตัว"
+    },
+    "private_key": {
+        "description": "เพื่อดูรหัสกุญแจส่วนตัวของคุณ โปรดทำตามขั้นตอนการยืนยันความปลอดภัยให้เสร็จสมบูรณ์",
+        "got_it": "เข้าใจแล้ว",
+        "title": "กุญแจส่วนตัว"
+    },
+    "my_arns": {
+        "arns_website": "เว็บไซต์ ArNS",
+        "description": "เว็บไซต์ส่วนตัวของคุณเพื่อรับคริปโต แบ่งปันได้ง่ายพร้อมข้อมูลที่จำเป็นทั้งหมดสำหรับการโอนโดยตรง"
+    },
+    "manage_domain": {
+        "buy_another_name": "ซื้อชื่อ Zelf อื่น",
+        "hold_until": "ถือครองจนถึง",
+        "registered_since": "ชื่อ Zelf ลงทะเบียนตั้งแต่",
+        "registered_until": "ลงทะเบียนจนถึง"
+    },
+    "manage_domains": {
+        "domain_error": "ช่วงเวลาของ {{ zelfName }} หมดแล้ว! ผู้ใช้อื่นสามารถอ้างสิทธิ์โดเมนนี้ได้ ซื้อเดี๋ยวนี้เพื่ออ้างสิทธิ์!",
+        "domain_warning": "คุณยังมีเวลาที่จะซื้อ",
+        "purchase_new_domain": "ซื้อโดเมนใหม่",
+        "last_wallet_logout": "นี่คือกระเป๋าเงินสุดท้าย หากคุณดำเนินการต่อ คุณจะถูกเปลี่ยนเส้นทางไปยังหน้าต้อนรับ",
+        "logout_of_wallet_confirm": "กระเป๋าเงินสุดท้าย"
+    },
+    "create_wallet": {
+        "password_step": {
+            "add_password": "ดำเนินการต่อ",
+            "agreement": "ฉันเข้าใจว่า Zelf ไม่สามารถกู้คืนรหัสผ่านนี้ได้ โดยการเลือกชั้นความปลอดภัยเพิ่มเติมนี้ ฉันยอมรับว่าฉันเป็นผู้รับผิดชอบในการจดจำรหัสผ่านนี้เอง",
+            "continue_without_password": "ชั้นความปลอดภัยเดียว",
+            "description": "ตรวจสอบให้แน่ใจว่าคุณตั้งรหัสผ่านที่แข็งแกร่งอย่างน้อย 8 ตัวอักษรเพื่อปกป้อง ZelfProof ของคุณ",
+            "password_label": "รหัสผ่าน",
+            "repeat_password_label": "ยืนยันรหัสผ่าน",
+            "title": "ชั้นความปลอดภัย"
+        },
+        "phrase_step": {
+            "12_words": "วลี 12 คำ",
+            "24_words": "วลี 24 คำ",
+            "description_2": "Zelf ช่วยลดความจำเป็นในการจัดเก็บด้วยตนเองโดยการเข้ารหัสวลีการกู้คืนของคุณเป็น ZelfProof ที่มีความเป็นส่วนตัวสูง ZelfProof นี้ถูกจัดเก็บอย่างปลอดภัยภายใน QR code ที่มีเพียงคุณเท่านั้นที่สามารถถอดรหัสได้ ทำให้มั่นใจได้ถึงความปลอดภัยที่ไม่มีใครเทียบได้",
+            "description_3": "QR code ทำหน้าที่เป็นห้องนิรภัยดิจิทัลที่แข็งแกร่งสำหรับกุญแจการกู้คืนของคุณ ซึ่งได้รับการเสริมด้วยบริการชื่อ Zelf (ZNS) ด้วย ZNS คุณสามารถสำรองและเรียกคืน QR code ของคุณได้อย่างง่ายดายโดยใช้ชื่อ Zelf ของคุณ",
+            "description_4": "ฉันเข้าใจว่า Zelf สามารถช่วยกู้คืน QR code ด้วย ZNS ได้ อย่างไรก็ตาม ฉันยังคงรับผิดชอบในการรักษาความปลอดภัยของมันเพื่อให้แน่ใจว่าการเข้าถึงที่ปลอดภัย",
+            "description": "วลีการกู้คืนส่วนตัวของคุณประกอบด้วยคำ 12 หรือ 24 คำ ซึ่งจำเป็นสำหรับการเข้าถึงและรักษาความปลอดภัยกระเป๋าเงินของคุณ",
+            "start_encryption_button": "เริ่ม",
+            "title": "การสร้างกระเป๋าเงิน",
+            "words_input": "จำนวนคำ"
+        },
+        "zelfproof_step": {
+            "description": "คุณกำลังจะสร้าง ZelfProof ของคุณ ซึ่งจะเข้ารหัสวลีการกู้คืนของคุณอย่างปลอดภัย ทำตามขั้นตอนด้านล่างเพื่อให้แน่ใจว่ากระบวนการเป็นไปอย่างราบรื่นและมีประสิทธิภาพ",
+            "instruction_1": "วางใบหน้าของคุณในเครื่องหมายที่ระบุ",
+            "instruction_2": "จ้องมองที่กล้องและหลีกเลี่ยงการเคลื่อนไหว",
+            "instruction_3": "อย่าลืมทำท่าทางใบหน้าที่จำเป็น",
+            "title": "การเข้ารหัส ZelfProof"
+        },
+        "view_wallet": {
+            "copy_public_address": "คัดลอกที่อยู่ ETH ของคุณ",
+            "description_2": "หาก QR สูญหาย คุณสามารถกู้คืนได้โดยใช้ชื่อ Zelf ที่ลงทะเบียนของคุณผ่านบริการชื่อ Zelf (ZNS)",
+            "description": "วลีการกู้คืนของคุณถูกเข้ารหัสและป้องกันภายใน QR code นี้โดยใช้ ZelfProof ของคุณ ซึ่งเป็นชั้นความปลอดภัยที่มีความเป็นส่วนตัวสูง",
+            "download_qr_code": "ดาวน์โหลด QR Code ของคุณ",
+            "qr_code_description": "เก็บ QR code นี้ให้ปลอดภัย เพื่อเข้าถึงหรือกู้คืนกระเป๋าเงินของคุณ คุณจะต้องใช้ ZelfProof และ QR code นี้เสมอ",
+            "title": "กระเป๋าเงินเข้ารหัสด้วย ZelfProof สำเร็จแล้ว"
+        }
+    },
+    "liveness": {
+        "center_your_face_subtitle": "โปรดตรวจสอบให้แน่ใจว่าใบหน้าของคุณอยู่ในศูนย์กลาง",
+        "center_your_face": "จัดศูนย์ใบหน้าของคุณบนหน้าจอ",
+        "get_closer_subtitle": "โปรดเข้ามาใกล้ขึ้นเล็กน้อยเพื่อการจดจำใบหน้าที่ดีขึ้น",
+        "get_closer": "เข้ามาใกล้ขึ้น",
+        "liveness_error_message": "การตรวจสอบการมีชีวิตล้มเหลวด้วยข้อผิดพลาดต่อไปนี้:<br><strong>{{error}}</strong><br>คุณต้องการลองอีกครั้งหรือไม่?",
+        "liveness_failed": "การตรวจจับการมีชีวิตล้มเหลว",
+        "loading_stream": "กำลังโหลดกล้อง",
+        "try_again_button": "ลองอีกครั้ง"
+    },
+    "errors": {
+        "all_fields_required": "จำเป็นต้องกรอกทุกช่อง",
+        "Duplicated_person": "ZelfProof ถูกใช้สำหรับบันทึกอื่นแล้ว",
+        "ERR_DESCRIPTION": "โปรดทำตามคำแนะนำอย่างถูกต้องเพื่อปลดล็อก ZelfProof ของคุณ",
+        "ERR_INVALID_PASSWORD": "รหัสผ่านสำหรับ ZelfProof นี้ไม่ถูกต้อง",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "มุมใบหน้าใหญ่เกินไป",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "ใบหน้าใกล้ขอบมากเกินไป",
+        "ERR_LIVENESS_FAILED": "การตรวจจับการมีชีวิตล้มเหลว",
+        "ERR_UNPROCESSABLE_CONTENT": "ไม่สามารถถอดรหัส ZelfProof ได้",
+        "ERR_VERIFICATION_FAILED": "การตรวจจับการมีชีวิตล้มเหลว",
+        "generic": "เกิดข้อผิดพลาด โปรดลองอีกครั้ง",
+        "invalid_format": "รูปแบบไม่ถูกต้อง",
+        "liveness_failed_description": "ขออภัย ดูเหมือนจะมีปัญหากับการตรวจจับการมีชีวิตของคุณ",
+        "liveness_failed": "การตรวจจับการมีชีวิตล้มเหลว",
+        "Liveness_score_not_acceptable": "คะแนนการมีชีวิตไม่เป็นที่ยอมรับ",
+        "min_liveness_score_is": "คะแนนการมีชีวิตขั้นต่ำคือ: ",
+        "not_found": "ไม่พบข้อมูล",
+        "password_doesnt_match": "รหัสผ่านไม่ตรงกัน",
+        "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
+        "person_already_set": "การลงทะเบียนของคุณมี ZelfProof เชื่อมโยงอยู่แล้ว",
+        "phone_or_email_is_not_unique": "หมายเลขโทรศัพท์หรืออีเมลนี้ถูกใช้แล้ว โปรดลองใช้หมายเลขหรืออีเมลอื่น",
+        "replace_person_button": "ตกลง แทนที่ ZelfProof",
+        "something_went_wrong": "เกิดข้อผิดพลาด โปรดลองอีกครั้ง",
+        "try_again": "ลองอีกครั้ง",
+        "weak_password": "รหัสผ่านของคุณอ่อนเกินไป",
+        "zelfName_is_taken": "ชื่อ Zelf นี้ถูกใช้แล้ว"
+    },
+    "import_wallet": {
+        "step_zero": {
+            "description": "ช่วยให้คุณโอนสินทรัพย์ดิจิทัลของคุณจากแพลตฟอร์มอื่นได้อย่างรวดเร็วและปลอดภัย",
+            "description2": "กระบวนการของเราช่วยให้มั่นใจในความเป็นส่วนตัวของสินทรัพย์ของคุณโดยป้องกันการเปิดเผยกุญแจหรือวลีการกู้คืนของคุณ",
+            "description3": "การนำเข้ากระเป๋าเงินของคุณช่วยให้ประสบการณ์การใช้สกุลเงินดิจิทัลของคุณง่ายขึ้นโดยไม่ต้องจัดการหลายบัญชี",
+            "description4": "เข้าถึงเงินของคุณได้ง่ายบนแพลตฟอร์มของเราโดยไม่ต้องใช้วลีการกู้คืนของคุณ",
+            "import_button": "นำเข้ากระเป๋าเงิน",
+            "subtitle": "ประโยชน์คืออะไร?",
+            "title": "นำเข้ากระเป๋าเงินที่มีอยู่"
+        },
+        "step_one": {
+            "confirm_button": "นำเข้ากระเป๋าเงิน",
+            "description": "โปรดป้อนวลีการกู้คืนของคุณด้านล่างเพื่อยืนยันและนำเข้ากระเป๋าเงินที่มีอยู่ของคุณ",
+            "paste_note": "คุณสามารถวางวลีการกู้คืนทั้งหมดในช่องใดก็ได้",
+            "title": "ป้อนวลีการกู้คืน",
+            "word1": "1."
+        },
+        "qr_code_step": {
+            "copy_address": "คัดลอกที่อยู่สาธารณะ",
+            "description": "วลีการรักษาความปลอดภัยและ QR code ของคุณเชื่อมโยงกับ ZelfProof ของคุณแล้ว เก็บ QR ให้ปลอดภัยเพื่อปกป้องบัญชีของคุณ",
+            "download_qr": "ดาวน์โหลด QR code",
+            "success_message": "คุณได้นำเข้ากระเป๋าเงินที่มีอยู่ของคุณสำเร็จแล้ว",
+            "understood": "เข้าใจแล้ว"
+        }
+    },
+    "unlock_wallet": {
+        "account_found": "พบ ZelfProof",
+        "back_button": "ย้อนกลับ",
+        "description": "ค้นหาชื่อ Zelf ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",
+        "drag_drop_text": "หรือลากและวางไฟล์ที่มีนามสกุล .JPG หรือ PNG ที่นี่",
+        "title": "ค้นหาชื่อ Zelf",
+        "upload_button": "เลือก QR Code",
+        "upload_description": "หรืออัปโหลด QR Code ZelfProof ของคุณเพื่อดำเนินการต่อ:",
+        "verify_button": "ตรวจสอบ",
+        "password": {
+            "button": "ดำเนินการต่อ",
+            "label": "รหัสผ่าน",
+            "placeholder": "********************",
+            "subtitle": "ป้อนรหัสผ่านที่กำหนดให้กับ ZelfProof นี้เพื่อดำเนินการเปิดให้เสร็จสมบูรณ์",
+            "title": "ZelfProof นี้ต้องการรหัสผ่าน"
+        },
+        "hold": {
+            "buy_now": "ซื้อเดี๋ยวนี้",
+            "expiration_time": "การจองนี้จะหมดอายุใน ",
+            "purchase_reservation": "ซื้อการจอง",
+            "title": "พบการจอง",
+            "unlock_without_purchase": "ยืนยันตอนนี้ ซื้อภายหลัง"
+        }
+    },
+    "steps": {
+        "add_password": "เพิ่มรหัสผ่าน",
+        "available": "พร้อมใช้งาน",
+        "biometric_unlock": "ล็อค ZelfProof",
+        "biometrics": "ZelfProof",
+        "decrypt": "ถอดรหัส",
+        "import_wallet": "นำเข้ากระเป๋าเงินของคุณ",
+        "password_unlock": "รหัสผ่าน",
+        "qr_code_generator": "ชื่อ Zelf",
+        "search_wallet": "เปิด ZelfProof",
+        "wallet_type": "ประเภทกระเป๋าเงิน"
+    },
+    "wallets_connected": {
+        "account": "บัญชี",
+        "create_or_import_wallet_button": "สร้างหรือนำเข้ากระเป๋าเงิน",
+        "delete_wallet": "ยกเลิกการเชื่อมโยงกระเป๋าเงิน",
+        "no_zelf_name": "ไม่มีชื่อ Zelf",
+        "see_on_scanner": "เปิดตัวสแกนเนอร์",
+        "see_qr_code": "ดู QR code",
+        "title": "เลือกกระเป๋าเงิน"
+    },
+    "active_wallet": {
+        "show_private_key": "แสดงกุญแจส่วนตัว",
+        "warning_notice": "อย่าลืมเก็บ QR code ของคุณให้ปลอดภัย ทำสำเนาหลายชุดหากจำเป็น และปลดล็อกกุญแจลับเฉพาะเมื่อส่งออกกระเป๋าเงินของคุณ"
+    },
+    "home": {
+        "activity": "กิจกรรม",
+        "assets": "โทเค็น",
+        "NFTs": "ของสะสม",
+        "receive_transaction_button": "รับ",
+        "scan_button": "สแกน",
+        "send_transaction_button": "ส่ง",
+        "settings_button": "การตั้งค่า",
+        "support_button": "สนับสนุน"
+    },
+    "activity_card": {
+        "age": "อายุ",
+        "amount": "จำนวน",
+        "block": "บล็อก",
+        "from": "จาก",
+        "hash": "แฮช",
+        "in": "รับ",
+        "method": "วิธีการ",
+        "sent": "ส่ง",
+        "to": "ถึง",
+        "traffic": "การจราจร",
+        "transaction": "ธุรกรรม",
+        "transactionID": "รหัสธุรกรรม",
+        "txnFee": "ค่าธรรมเนียมธุรกรรม",
+        "viewOnExplorer": "ดูบน Block explorer"
+    },
+    "extension_instructions": {
+        "addExtension": "เพิ่มส่วนขยายในเบราว์เซอร์ของคุณเพื่อเข้าถึงและดูการยืนยันธุรกรรมบนบริการชื่อ Zelf ได้อย่างง่ายดาย",
+        "clickExtensionIcon": "คลิกที่ไอคอนส่วนขยายในเบราว์เซอร์ของคุณ",
+        "clickIcon": "คลิกที่ไอคอนส่วนขยายในเบราว์เซอร์ของคุณ",
+        "extensions": "ส่วนขยาย",
+        "extensionsCanChange": "ส่วนขยายเหล่านี้สามารถดูและเปลี่ยนแปลงข้อมูลบนเว็บไซต์นี้ได้",
+        "fixWallet": "แก้ไข ZNS",
+        "fullAccess": "การเข้าถึงเต็มรูปแบบ",
+        "installationCompleted": "การติดตั้งบริการชื่อ Zelf เสร็จสมบูรณ์แล้ว!",
+        "manageExtensions": "จัดการส่วนขยาย"
+    },
+    "send_transaction": {
+        "account_found": "พบที่อยู่",
+        "confirm_transaction_button": "ยืนยันธุรกรรม",
+        "confirmation_step": "ยืนยันการโอน",
+        "continue_transaction_button": "ถัดไป",
+        "pickReceiver_step": "ส่ง",
+        "reject_transaction_button": "ยกเลิก",
+        "send_to": "ส่งถึง",
+        "tokens_step": "เลือกโทเค็น",
+        "your_accounts": "บัญชีของคุณ",
+        "confirm": {
+            "gas_description": "อาจใช้เวลา {{seconds}} วินาที",
+            "gas_label": "ค่าธรรมเนียมแก๊ส (ประมาณการ)",
+            "market": "ตลาด",
+            "max_gas": "ค่าธรรมเนียมสูงสุด:",
+            "max_total": "รวมสูงสุด",
+            "sending_label": "กำลังส่ง {{amount}} {{asset}}",
+            "total_to_pay_label": "สินทรัพย์ + ค่าธรรมเนียมแก๊ส"
+        },
+        "preview": {
+            "estimated_fee": "ค่าธรรมเนียมประมาณการ"
+        },
+        "bridge": {
+            "confirm_button": "ยืนยันธุรกรรม",
+            "description_2": "ดำเนินการต่อในส่วนขยายเว็บ",
+            "description": "สแกน QR Code จากแอปบริการชื่อ Zelf ของคุณ เพิ่มชั้นความปลอดภัยโดยการถอดรหัสในอุปกรณ์ของคุณ",
+            "dont_have_the_app": "ยังไม่มีแอปบริการชื่อ Zelf ติดตั้ง?",
+            "download_here": "ดาวน์โหลดที่นี่และเพิ่มความปลอดภัยสำหรับธุรกรรมทั้งหมดของคุณ & ไม่เคยสูญเสียการเข้าถึงคริปโตของคุณ",
+            "qr_code_title": "สแกน QR Code",
+            "title": "ยืนยันธุรกรรมของคุณ"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "เลือกเครือข่ายทดสอบ",
+        "title": "เลือกเครือข่าย"
+    },
+    "payments": {
+        "continue_withoutpaying": "ดำเนินการต่อโดยไม่ต้องชำระเงิน",
+        "pay_now": "ดำเนินการชำระเงิน"
+    },
+    "restricted": {
+        "description": "ฟีเจอร์นี้ไม่สามารถใช้งานได้บนอุปกรณ์มือถือ โปรดใช้เบราว์เซอร์เดสก์ท็อปเพื่อเข้าถึงหรือดาวน์โหลดแอปบริการชื่อ Zelf",
+        "download_android_app": "ดาวน์โหลดแอป Android",
+        "title": "จำกัดการใช้งานบนมือถือ"
+    },
+    "language": {
+        "ar": "อาหรับ",
+        "br": "โปรตุเกส",
+        "cn": "จีนกลาง",
+        "en": "อังกฤษ",
+        "es": "สเปน",
+        "fr": "ฝรั่งเศส",
+        "in": "ฮินดู",
+        "ja": "ญี่ปุ่น",
+        "kr": "เกาหลี",
+        "ph": "ตากาล็อก",
+        "ru": "รัสเซีย"
+    }
+}

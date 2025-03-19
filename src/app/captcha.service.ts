@@ -1,34 +1,39 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
+import { ChromeService } from "./chrome.service";
 
 declare var grecaptcha: any;
 
 @Injectable({
-	providedIn: "root",
+    providedIn: "root",
 })
 export class CaptchaService {
-	captchaToken: string = "";
+    captchaToken: string = "";
 
-	executeRecaptcha(action: string): Promise<string> {
-		return new Promise((resolve, reject) => {
-			if (typeof grecaptcha !== "undefined") {
-				grecaptcha.enterprise.ready(() => {
-					grecaptcha.enterprise
-						.execute(environment.captchaKey, { action })
-						.then((token: string) => resolve(token))
-						.catch((err: any) => reject(err));
-				});
-			} else {
-				reject("reCAPTCHA not loaded");
-			}
-		});
-	}
+    constructor(private _chromeService: ChromeService) {}
 
-	retainCaptchaToken(token: string): void {
-		this.captchaToken = token;
-	}
+    executeRecaptcha(action: string): Promise<string> {
+        if (this._chromeService.isExtension) return Promise.resolve("");
 
-	getCaptchaToken() {
-		return this.captchaToken;
-	}
+        return new Promise((resolve, reject) => {
+            if (typeof grecaptcha !== "undefined") {
+                grecaptcha.enterprise.ready(() => {
+                    grecaptcha.enterprise
+                        .execute(environment?.captchaKey, { action })
+                        .then((token: string) => resolve(token))
+                        .catch((err: any) => reject(err));
+                });
+            } else {
+                reject("reCAPTCHA not loaded");
+            }
+        });
+    }
+
+    retainCaptchaToken(token: string): void {
+        this.captchaToken = token;
+    }
+
+    getCaptchaToken() {
+        return this.captchaToken;
+    }
 }

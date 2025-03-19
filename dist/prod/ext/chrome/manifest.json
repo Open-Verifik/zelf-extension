@@ -4,7 +4,7 @@
     "manifest_version": 3,
     "name": "Zelf Name Service",
     "orientation": "portrait-primary",
-    "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "contextMenus", "storage", "sidePanel"],
+    "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "storage", "sidePanel"],
     "start_url": "index.html",
     "version": "1.0",
     "action": {

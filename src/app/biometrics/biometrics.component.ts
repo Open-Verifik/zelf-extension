@@ -122,8 +122,6 @@ export class BiometricsComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this._generateSession(this.type);
-
         this.errorFace = null;
         this.loadingResults = false;
         this.base64Image = null;
@@ -148,19 +146,6 @@ export class BiometricsComponent implements OnInit, OnDestroy {
                 this.startAsyncVideo();
             }
         });
-    }
-
-    _generateSession(type?: string): void {
-        const { hash } = this._walletService.getUserFingerprint();
-
-        this._walletService
-            .createLivenessSession({
-                identifier: environment.production ? hash : `${hash}-${Math.random() * 9893839}`,
-                type,
-            })
-            .then((response) => {
-                this._chromeService.setItem("accessToken", response.data?.token);
-            });
     }
 
     async listenModeDebug(): Promise<void> {

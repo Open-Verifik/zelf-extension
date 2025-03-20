@@ -156,19 +156,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
         control.setValue(sanitizedValue, { emitEvent: false });
     }
 
-    async _initSession(): Promise<any> {
-        let { hash } = this._walletService.getUserFingerprint();
-
-        const session = await this._walletService.createLivenessSession({
-            identifier: hash,
-            type: "general",
-        });
-
-        if (session?.data) {
-            this._chromeService.setItem("accessToken", session.data.token);
-        }
-    }
-
     async searchZelfName(event: any): Promise<any> {
         if (!this.zelfForm.valid) {
             this.zelfForm.patchValue({ zelfName: "" });
@@ -200,8 +187,6 @@ export class OnboardingComponent implements OnInit, OnDestroy {
 
             return; // Prevent further execution if validation fails
         }
-
-        await this._initSession();
 
         this._zelfNameService
             .searchZelfName("zelfName", zelfName, captchaToken)

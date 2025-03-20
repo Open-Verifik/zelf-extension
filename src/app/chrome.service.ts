@@ -238,7 +238,8 @@ export class ChromeService {
             }
 
             try {
-                localStorage.setItem(key, JSON.stringify(value));
+                const isObjectOrArray = typeof value === "object" && value !== null;
+                localStorage.setItem(key, isObjectOrArray ? JSON.stringify(value) : value);
 
                 resolve();
             } catch (error) {

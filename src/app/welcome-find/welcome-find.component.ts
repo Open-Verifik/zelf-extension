@@ -66,7 +66,6 @@ export class WelcomeFindComponent implements OnDestroy {
         this.searching = true;
 
         try {
-            await this._initSession();
             await this._captchaGeneration();
 
             let response: any;
@@ -133,7 +132,6 @@ export class WelcomeFindComponent implements OnDestroy {
         this.zelfProof = base64String;
 
         if (!zelfNameObject) {
-            await this._initSession();
             await this._previewQRCode();
         } else if (zelfNameObject) zelfNameObject.zelfProof = base64String;
 
@@ -169,17 +167,6 @@ export class WelcomeFindComponent implements OnDestroy {
             publicAddress: ["", [Validators.pattern(combinedPattern)]],
             zelfProof: [""],
         });
-    }
-
-    async _initSession(): Promise<any> {
-        let { hash } = this._walletService.getUserFingerprint();
-
-        const session = await this._walletService.createLivenessSession({
-            identifier: hash,
-            type: "general",
-        });
-
-        if (session?.data) this._chromeService.setItem("accessToken", session.data.token);
     }
 
     private async _previewQRCode(): Promise<void> {

@@ -64,7 +64,19 @@ export class WalletService {
         const navigatorInfo = window.navigator;
         const screenInfo = window.screen;
 
-        let uniqueString = `${navigatorInfo.userAgent}-${navigatorInfo.language}-${navigatorInfo.platform}-${screenInfo.height}x${screenInfo.width}`;
+        const fingerprintParts = [
+            navigator.userAgent, // Browser and OS info
+            navigator.language, // Primary language
+            screen.colorDepth.toString(), // Screen color depth
+            screen.width.toString(), // Screen width
+            screen.height.toString(), // Screen height
+            navigator.platform, // Platform/OS
+            navigator.hardwareConcurrency.toString(), // Number of CPU cores
+            Intl.DateTimeFormat().resolvedOptions().timeZone, // Timezone
+        ];
+
+        // Join all parts and create a simple hash
+        const uniqueString = fingerprintParts.join("|");
 
         return {
             hash: this.simpleHash(uniqueString),

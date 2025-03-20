@@ -94,17 +94,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
         });
     }
 
-    async _initSession(): Promise<any> {
-        let { hash } = this._walletService.getUserFingerprint();
-
-        const session = await this._walletService.createLivenessSession({
-            identifier: hash,
-            type: "general",
-        });
-
-        if (session?.data) this._chromeService.setItem("accessToken", session.data.token);
-    }
-
     private _initForm(): void {
         this.form = this._formBuilder.group({
             zelfName: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(27)]],
@@ -149,8 +138,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
                 console.error("reCAPTCHA failed:", error);
             }
         }
-
-        await this._initSession();
 
         this._zelfNameService
             .searchZelfName("zelfName", zelfName, captchaToken)

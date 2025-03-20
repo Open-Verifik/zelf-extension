@@ -138,8 +138,6 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
             if (isLoaded) {
                 this.interval.checkNgxVideo = setInterval(() => {
                     this.setVideoNgxCameraData();
-
-                    this._generateSession(this.type);
                 }, 100);
             }
         });
@@ -148,19 +146,6 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
-    }
-
-    _generateSession(type?: string): void {
-        let { hash } = this._walletService.getUserFingerprint();
-
-        this._walletService
-            .createLivenessSession({
-                identifier: hash,
-                type,
-            })
-            .then((response) => {
-                this._chromeService.setItem("accessToken", response.data.token);
-            });
     }
 
     public get takePicture$(): Observable<void> {

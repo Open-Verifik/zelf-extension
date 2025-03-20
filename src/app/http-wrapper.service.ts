@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 import { ChromeService } from "./chrome.service";
+import moment from "moment";
+import { environment } from "environments/environment";
 
 @Injectable({
     providedIn: "root",
@@ -19,6 +21,69 @@ export class HttpWrapperService {
 
     constructor(private _http: HttpClient, private _chromeService: ChromeService) {}
 
+    async _getAccessToken(): Promise<string> {
+        const authToken: string = (await this._chromeService.getItem("accessToken")) || "";
+        const accessTokenExpiresAt = (await this._chromeService.getItem("accessTokenExpiresAt")) || 0;
+
+        const isTokenExpired = moment.utc(accessTokenExpiresAt * 1000).isBefore(moment.utc());
+
+        // const diffInSeconds = moment.utc(accessTokenExpiresAt * 1000).diff(moment.utc(), "seconds");
+
+        // const expirationDate = moment.utc(accessTokenExpiresAt * 1000).format("YYYY-MM-DD HH:mm:ss");
+
+        if (!authToken || !accessTokenExpiresAt || isTokenExpired) {
+            const fingerprintParts = [
+                navigator.userAgent, // Browser and OS info
+                navigator.language, // Primary language
+                screen.colorDepth.toString(), // Screen color depth
+                screen.width.toString(), // Screen width
+                screen.height.toString(), // Screen height
+                navigator.platform, // Platform/OS
+                navigator.hardwareConcurrency.toString(), // Number of CPU cores
+                Intl.DateTimeFormat().resolvedOptions().timeZone, // Timezone
+            ];
+
+            // Join all parts and create a simple hash
+            const uniqueString = fingerprintParts.join("|");
+
+            const newAuthToken = await this.request(
+                this._http.post(
+                    `${environment.apiUrl}/api/sessions`,
+                    {
+                        identifier: this.simpleHash(uniqueString),
+                    },
+                    { headers: {} }
+                )
+            );
+
+            await this._chromeService.setItem("accessToken", newAuthToken.data.token);
+
+            await this._chromeService.setItem("accessTokenExpiresAt", newAuthToken.data.expiresAt);
+
+            return newAuthToken.data.token;
+        }
+
+        return authToken;
+    }
+
+    private simpleHash(input: string): string {
+        let hash = 0;
+
+        if (input.length === 0) {
+            return hash.toString();
+        }
+
+        for (let i = 0; i < input.length; i++) {
+            const char = input.charCodeAt(i);
+
+            hash = (hash << 5) - hash + char;
+
+            hash = hash & hash; // Convert to 32bit integer
+        }
+
+        return hash.toString();
+    }
+
     /**
      * Send request
      * @param method - to determine which function we will be using
@@ -29,7 +94,7 @@ export class HttpWrapperService {
     async sendRequest(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
         method = method.toLocaleLowerCase();
 
-        const authToken: string = (await this._chromeService.getItem("accessToken")) || "";
+        const authToken = await this._getAccessToken();
 
         let headers: any = {
             timeout: 20,

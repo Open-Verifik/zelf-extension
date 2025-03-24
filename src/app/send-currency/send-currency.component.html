@@ -1,0 +1,23 @@
+<div class="zelf-card" *transloco="let t">
+    <div class="send-currency__header">
+        <div class="send-currency__col1">
+            <button mat-icon-button mat-flat-button class="send-currency__back" [routerLink]="['/home']">
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="send-currency__col2">
+            <p class="send-currency__title">{{ t("common.send") }}</p>
+        </div>
+
+        <div class="send-currency__col3"></div>
+    </div>
+
+    <div class="zelf-card__content">
+        <currency-item *ngFor="let currency of currencies" [currency]="currency" (click)="onCurrencyClick(currency)"></currency-item>
+    </div>
+</div>

@@ -14,14 +14,9 @@ import { OnboardingGuard } from "./guards/onboarding.guard";
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
     { path: "home", component: HomeComponent, canActivate: [LoginGuard] },
-    // {
-    //     path: "onboarding",
-    //     component: OnboardingComponent,
-    //     canActivate: [OnboardingGuard],
-    // },
     {
         path: "welcome",
-        loadComponent: () => import("./welcome/welcome.component").then((m) => m.WelcomeComponent),
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [OnboardingGuard],
         children: [
             {
@@ -57,7 +52,7 @@ const routes: Routes = [
     },
     {
         path: "security",
-        loadComponent: () => import("./welcome/welcome.component").then((m) => m.WelcomeComponent),
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [ZelfNameGuard],
         children: [
             {
@@ -76,14 +71,17 @@ const routes: Routes = [
             },
         ],
     },
-    // {
-    //     path: "create-wallet",
-    //     loadComponent: () => import("./create-wallet/create-wallet.component").then((m) => m.CreateWalletComponent),
-    // },
-    // {
-    //     path: "import-wallet",
-    //     loadComponent: () => import("./import-wallet/import-wallet.component").then((m) => m.ImportWalletComponent),
-    // },
+    {
+        path: "send",
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        canActivate: [LoginGuard],
+        children: [
+            {
+                path: "",
+                loadComponent: () => import("./send-currency/send-currency.component").then((m) => m.SendCurrencyComponent),
+            },
+        ],
+    },
     {
         path: "manage-domains",
         loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
@@ -102,6 +100,29 @@ const routes: Routes = [
         path: "wallet",
         loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
     },
+    {
+        path: "mobile-restricted",
+        loadComponent: () => import("./core/mobile-restricted/mobile-restricted.component").then((m) => m.MobileRestrictedComponent),
+    },
+    {
+        path: "external-link",
+        data: { externalUrl: "https://payment.zelf.world/purchase" },
+        canActivate: [ExternalRedirectGuard],
+    },
+    // DEPRECATED ROUTES: Ensure all translations are also removed before deleting these components!
+    // {
+    //     path: "create-wallet",
+    //     loadComponent: () => import("./create-wallet/create-wallet.component").then((m) => m.CreateWalletComponent),
+    // },
+    // {
+    //     path: "import-wallet",
+    //     loadComponent: () => import("./import-wallet/import-wallet.component").then((m) => m.ImportWalletComponent),
+    // },
+    // {
+    //     path: "onboarding",
+    //     component: OnboardingComponent,
+    //     canActivate: [OnboardingGuard],
+    // },
     // {
     //     path: "find-wallet",
     //     loadComponent: () => import("./unlock-wallet/unlock-wallet.component").then((m) => m.UnlockWalletComponent),
@@ -148,15 +169,6 @@ const routes: Routes = [
     //     path: "transaction",
     //     loadComponent: () => import("./transaction-details/transaction-details.component").then((m) => m.TransactionDetailsComponent),
     // },
-    {
-        path: "mobile-restricted",
-        loadComponent: () => import("./core/mobile-restricted/mobile-restricted.component").then((m) => m.MobileRestrictedComponent),
-    },
-    {
-        path: "external-link",
-        data: { externalUrl: "https://payment.zelf.world/purchase" },
-        canActivate: [ExternalRedirectGuard],
-    },
 ];
 
 @NgModule({

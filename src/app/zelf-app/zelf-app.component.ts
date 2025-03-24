@@ -8,17 +8,16 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { LanguageComponent } from "app/language/language.component";
 
 @Component({
-    selector: "welcome",
+    selector: "zelf-app",
     standalone: true,
     imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule],
-    templateUrl: "./welcome.component.html",
-    styleUrls: ["./welcome.component.scss"],
+    templateUrl: "./zelf-app.component.html",
+    styleUrls: ["./zelf-app.component.scss"],
 })
-export class WelcomeComponent implements AfterViewInit, OnDestroy {
+export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     @ViewChild("contentContainer", { static: false }) contentContainer!: ElementRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
-
     links = {
         documentation: "https://docs.zelf.world/",
         invest: "https://www.pinksale.finance/solana/launchpad/HUCo6xdcGSpiDQxhrN8emvLwnkJAAdJbcACncMnU9MmF",

@@ -1,39 +1,164 @@
-<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
-	<div class="home-main">
-		<!-- HEADER -->
-		<home-header [shareables]="shareables"></home-header>
+<div class="zelf-card" *transloco="let t">
+    <div class="send-transaction__header">
+        <div class="send-transaction__col1">
+            <button mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40" [routerLink]="['/send']">
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
 
-		<div class="w-full" fxLayout="row" fxLayoutAlign="start center" class="send-transaction-header">
-			<div (click)="cancel()">
-				<svg class="ml-2 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-					<path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="white" />
-				</svg>
-			</div>
+        <div class="send-transaction__col2">
+            <p class="send-transaction__title">{{ t("common.send_network", { network: this.network }) }}</p>
+        </div>
 
-			<div fxLayout="row" fxLayoutAlign="center center" class="w-full">
-				<h4 class="m-0">
-					{{ "send_transaction." + shareables.view + "_step" | transloco }}
-				</h4>
-			</div>
-		</div>
+        <div class="send-transaction__col3"></div>
+    </div>
 
-		<mat-progress-bar mode="query" *ngIf="shareables.loading"></mat-progress-bar>
+    <form class="send-transaction__form" [formGroup]="form">
+        <div class="zelf-card__content send-transaction__content">
+            <p class="send-transaction__input-label">{{ t("common.to") }}:</p>
 
-		<div *ngIf="shareables.view === 'tokens'" class="w-full">
-			<token-card
-				class="w-full"
-				[data]="token"
-				*ngFor="let token of tokens"
-				[view]="shareables.view"
-				[shareables]="shareables"
-				(click)="selectToken(token)"
-			></token-card>
-		</div>
+            <div
+                class="zelf-input zelf-input--wide"
+                [ngClass]="{ 'zelf-input--error': form.get('toAddress')?.dirty && form.get('toAddress')?.invalid }"
+            >
+                <input
+                    (paste)="pastedAddress($event)"
+                    [disabled]="searching"
+                    [placeholder]="t('send.domain_or_address')"
+                    [readonly]="searching"
+                    autocomplete="off"
+                    class="zelf-input__control"
+                    formControlName="toAddress"
+                    id="toAddress"
+                    name="toAddress"
+                    required
+                />
 
-		<div *ngIf="shareables.view === 'pickReceiver'" class="w-full">
-			<st-search-wallet [shareables]="shareables"> </st-search-wallet>
-		</div>
+                <button
+                    [disabled]="searching || form.get('toAddress')?.invalid || !form.get('toAddress')?.value"
+                    class="zelf-icon-button zelf-icon-button--transparent"
+                    mat-icon-button
+                ></button>
+            </div>
 
-		<!-- <st-search-wallet> </st-search-wallet> -->
-	</div>
+            <div class="zelf-message zelf-message--error zelf-message--column" *ngIf="form.get('toAddress')?.dirty">
+                <ng-container *ngIf="form.get('toAddress')?.errors?.required">
+                    <div class="zelf-message__row">
+                        <ng-container *ngTemplateOutlet="cross"></ng-container>
+                        <p>{{ t("errors.required_field") }}</p>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="form.get('toAddress')?.errors?.pattern">
+                    <div class="zelf-message__row">
+                        <ng-container *ngTemplateOutlet="cross"></ng-container>
+                        <p>{{ t("errors.invalid_format") }}</p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <ng-container *ngIf="form.get('toAddress')?.dirty && !form.get('toAddress')?.invalid">
+                <p class="send-transaction__input-label">{{ t("send.withdrawal_amount") }}:</p>
+
+                <div
+                    class="zelf-input zelf-input--wide"
+                    [ngClass]="{ 'zelf-input--error': form.get('amount')?.dirty && form.get('amount')?.invalid }"
+                >
+                    <input
+                        [disabled]="searching"
+                        [readonly]="searching"
+                        autocomplete="off"
+                        class="zelf-input__control"
+                        formControlName="amount"
+                        id="amount"
+                        name="amount"
+                        required
+                        type="number"
+                        step="0.00001"
+                    />
+
+                    <button (click)="withdrawAll()" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button>
+                        {{ t("common.all") | uppercase }}
+                    </button>
+                </div>
+
+                <p class="zelf-input__tip">{{ t('send.available_balance', { network, balance }) }}</p>
+
+                <div class="zelf-message zelf-message--error zelf-message--column" *ngIf="form.get('amount')?.dirty">
+                    <ng-container *ngIf="form.get('amount')?.errors?.required">
+                        <div class="zelf-message__row">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.required_field") }}</p>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="form.get('amount')?.errors?.max">
+                        <div class="zelf-message__row">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.must_be_less_than", { value: balance }) }}</p>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="form.get('amount')?.errors?.greaterThan">
+                        <div class="zelf-message__row">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.must_be_greater_than", { value: form.get("amount")?.errors?.greaterThan?.requiredValue }) }}</p>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="recentAddresses.length">
+                <div class="zelf-action-row" *ngFor="let address of recentAddresses">
+                    <button mat-icon-button class="zelf-icon-button zelf-icon-button--border-soft zelf-icon-button--40" (click)="setToInput(address)">
+                        <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.5 0H6.5C5.4 0 4.5 0.9 4.5 2V14C4.5 15.1 5.4 16 6.5 16H15.5C16.6 16 17.5 15.1 17.5 14V2C17.5 0.9 16.6 0 15.5 0ZM15.5 14H6.5V2H15.5V14ZM0.5 13V11H2.5V13H0.5ZM0.5 7.5H2.5V9.5H0.5V7.5ZM7.5 18H9.5V20H7.5V18ZM0.5 16.5V14.5H2.5V16.5H0.5ZM2.5 20C1.4 20 0.5 19.1 0.5 18H2.5V20ZM6 20H4V18H6V20ZM11 20V18H13C13 19.1 12.1 20 11 20ZM2.5 4V6H0.5C0.5 4.9 1.4 4 2.5 4Z"
+                            />
+                        </svg>
+                    </button>
+
+                    <p class="zelf-action-row__text">
+                        <span *ngIf="!address.zelfName">{{ address.address }}</span>
+                        <span *ngIf="address.zelfName">{{ address.zelfName }}</span>
+                    </p>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="zelf-card__actions">
+            <button
+                (click)="continueToConfirmation()"
+                *ngIf="!withdrawStep"
+                class="zelf-button zelf-button--black zelf-button--wide"
+                mat-flat-button
+                type="button"
+            >
+                {{ t("common.next") }}
+            </button>
+
+            <button
+                (click)="continueToConfirmation()"
+                *ngIf="withdrawStep"
+                class="zelf-button zelf-button--black zelf-button--wide"
+                mat-flat-button
+                type="button"
+            >
+                {{ t("common.withdraw") }}
+            </button>
+        </div>
+    </form>
 </div>
+
+<ng-template #cross>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+            fill="#DC362E"
+        />
+    </svg>
+</ng-template>

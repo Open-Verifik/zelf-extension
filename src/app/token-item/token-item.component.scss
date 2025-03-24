@@ -1,0 +1,123 @@
+@import "../../styles/variables.scss";
+@import "../../styles/buttons.scss";
+
+:host {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.token-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: transparent;
+    transition: background-color 0.3s $smoothBezier;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &__icon {
+        height: 40px;
+        width: 40px;
+        min-height: 40px;
+        min-width: 40px;
+        object-fit: contain;
+    }
+
+    &__name {
+        font-size: 1rem;
+        font-weight: 500;
+        color: $black;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex: 1 1 auto;
+    }
+
+    &__network-info {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    &__network {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    &__network-chip {
+        height: 20;
+        border-radius: 24px;
+        gap: 10px;
+        padding: 2px 8px;
+        margin: 0;
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: $platinum;
+        color: $taupeGray;
+    }
+
+    &__name {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: $taupeGray;
+    }
+
+    &__balance {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    &__balance-amount {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+    }
+
+    &__fiat-amount {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        vertical-align: middle;
+        color: $taupeGray;
+    }
+
+    &:hover {
+        background-color: $antiFlashWhite;
+    }
+}

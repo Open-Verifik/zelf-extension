@@ -4,7 +4,7 @@
 .send-currency {
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
+        grid-template-columns: repeat(10, 1fr);
         column-gap: 12px;
         align-content: center;
         justify-content: start;
@@ -15,7 +15,7 @@
 
     &__col1,
     &__col3 {
-        grid-column: span 2;
+        grid-column: span 3;
         display: flex;
         align-items: center;
     }
@@ -24,46 +24,29 @@
         justify-content: start;
     }
 
+    &__col2 {
+        grid-column: span 4;
+        text-align: center;
+        align-items: center;
+    }
+
     &__col3 {
         justify-content: end;
     }
 
-    &__back {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        user-select: none;
-        border-radius: 52px;
-        height: 52px;
-        width: 52px;
-        min-height: 52px;
-        min-width: 52px;
-        background-color: $antiFlashWhite !important;
-        transition: background-color 0.3s $smoothBezier;
-
-        svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
-        }
-
-        &:hover {
-            background-color: #b589f0 !important;
-            color: white;
-
-            svg {
-                fill: white;
-            }
-        }
+    &__title {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
     }
 
-    &__title {
-        font-size: 18px;
-        font-weight: 600;
-        font-family: Poppins;
-        color: $black;
-        margin: 0;
-        text-align: center;
+    &__content {
+        flex: 1 1 auto;
+        justify-content: flex-start;
     }
 }

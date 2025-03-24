@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
+
 import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";

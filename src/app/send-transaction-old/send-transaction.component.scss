@@ -1,0 +1,253 @@
+@import "../../styles/variables";
+
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+	padding-top: 55px;
+	box-sizing: content-box;
+}
+
+input {
+	background: transparent;
+	border: none;
+}
+
+.home-main {
+	position: relative;
+	background: white;
+	width: 100%;
+	min-height: 100vh;
+}
+
+.home-main-div {
+	width: 440px;
+	height: 750px;
+	width: 100%;
+	position: relative;
+	background: white;
+}
+
+.unlock-box {
+	min-height: 540px;
+	align-self: stretch;
+	padding-top: 16px;
+	padding-bottom: 24px;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-radius: 16px;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	display: flex;
+}
+
+.unlock-description {
+	align-self: stretch;
+	text-align: center;
+	color: #010333;
+	font-size: 16px;
+	font-family: Poppins;
+	font-weight: 500;
+	line-height: 24px;
+	letter-spacing: 0.15px;
+	word-wrap: break-word;
+}
+
+.unlock-input-box {
+	align-self: stretch;
+	width: 97%;
+	height: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 4px;
+	overflow: hidden;
+	border: 1px rgba(0, 0, 0, 0.2) solid;
+	justify-content: flex-end;
+	align-items: center;
+	display: inline-flex;
+	padding: 6px;
+}
+
+.unlock-input-text-container {
+	justify-content: flex-start;
+	align-items: center;
+	display: flex;
+	width: 70%;
+	padding-right: 20px;
+
+	input {
+		background: transparent;
+		border: none;
+	}
+}
+
+.unlock-icon-container {
+	width: 34px;
+	padding-left: 10px;
+	height: 24px;
+	position: relative;
+}
+
+.unlock-icon {
+	width: 17.49px;
+	height: 17.49px;
+	left: 3px;
+	top: 3px;
+	position: absolute;
+	background: #43474e;
+}
+
+.st-sw-your-accounts {
+	max-height: 45vh;
+	overflow-y: auto;
+}
+
+.paste-button {
+	width: 15%;
+	cursor: pointer;
+	small {
+		color: black;
+		font-weight: bold;
+	}
+}
+
+.adjust-title-bottom {
+	position: relative;
+	top: 16px;
+}
+
+// actions at bottom
+
+.st-send-transaction-card {
+	width: 92%;
+	height: 150px;
+	padding: 16px;
+	border-radius: 16px;
+	border: 1px solid $platinum;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.st-send-transaction-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	text-align: center;
+}
+
+.st-send-transaction-status-icon {
+	width: 24px;
+	height: 24px;
+	position: relative;
+}
+
+.st-send-transaction-status-indicator {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	background: $correct;
+}
+
+.st-send-transaction-title {
+	color: $black;
+	font-size: 14px;
+	font-family: Poppins, sans-serif;
+	font-weight: 600;
+	line-height: 20px;
+	letter-spacing: 0.1px;
+	text-align: center;
+}
+
+.st-send-transaction-divider {
+	width: 100%;
+	height: 1px;
+	background: $platinum;
+}
+
+.st-send-transaction-content {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 8px 0;
+}
+
+.st-send-transaction-query {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.st-send-transaction-query-icon {
+	width: 16px;
+	height: 16px;
+	position: relative;
+}
+
+.st-send-transaction-query-indicator {
+	width: 13.33px;
+	height: 13.33px;
+	position: absolute;
+	top: 1.33px;
+	left: 1.33px;
+	background: $black;
+}
+
+.st-send-transaction-query-text {
+	color: $black;
+	font-size: 11px;
+	font-family: Poppins, sans-serif;
+	font-weight: 600;
+	line-height: 16px;
+	letter-spacing: 0.5px;
+}
+
+.st-send-transaction-description {
+	color: $black;
+	opacity: 0.7;
+	font-size: 11px;
+	font-family: Poppins, sans-serif;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0.5px;
+	text-align: center;
+}
+
+.st-send-transaction-action-button {
+	width: 100%;
+	height: 50px;
+	border-radius: 8px;
+	border: 1px solid $black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.st-send-transaction-button-content {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 16px;
+}
+
+.st-send-transaction-button-icon {
+	width: 18px;
+	height: 18px;
+	position: relative;
+}
+
+.st-send-transaction-button-text {
+	color: $black;
+	font-size: 14px;
+	font-family: Poppins, sans-serif;
+	font-weight: 500;
+	line-height: 20px;
+	letter-spacing: 0.1px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.st-send-transaction-button-text:hover {
+	font-weight: 800;
+}

@@ -29,6 +29,13 @@
         "expired": "Expired",
         "hold": "Hold"
     },
+    "send": {
+        "recently_used": "Recently used",
+        "used": "Used {{days}} ago",
+        "withdrawal_amount": "Withdrawal amount",
+        "available_balance": "Available {{balance}} {{network}}",
+        "domain_or_address": "Domain or address"
+    },
     "welcome": {
         "dont_remember_username": "Don't remember your username?",
         "find_zelf_name_subtitle": "Find an existing Zelf Name by entering its public address below:",
@@ -62,6 +69,12 @@
         "zelf_name_requires_a_password": "Your Zelf Name requires a password"
     },
     "common": {
+        "all": "All",
+        "send_network": "Send {{network}}",
+        "send": "Send",
+        "next": "Next",
+        "withdraw": "Withdraw",
+        "paste": "Paste",
         "12_word_phrase": "12-word phrase",
         "24_word_phrase": "24-word phrase",
         "address": "Address",
@@ -238,6 +251,9 @@
         "person_already_set": "Your registration has a ZelfProof linked already",
         "phone_or_email_is_not_unique": "The phone or the email has been used already, try a different one",
         "replace_person_button": "Ok, replace ZelfProof",
+        "required_field": "This field is required",
+        "must_be_greater_than": "Must be greater than {{ value }}",
+        "must_be_less_than": "Must be less than {{ value }}",
         "something_went_wrong": "Something went wrong, please try again",
         "try_again": "Try again",
         "weak_password": "Your password is too weak",

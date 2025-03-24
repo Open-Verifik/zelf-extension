@@ -1,81 +1,102 @@
-import { Component, OnInit } from "@angular/core";
-
-import { Router } from "@angular/router";
-import { EthereumService } from "app/eth.service";
-import { SolanaService } from "app/solana.service";
-import { Wallet } from "app/wallet";
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { Router, RouterModule } from "@angular/router";
+import { TranslocoModule } from "@ngneat/transloco";
+import { Network, RecentAddress, TransactionService } from "app/transaction.service";
 import { WalletService } from "app/wallet.service";
 
 @Component({
+    imports: [CommonModule, MatButtonModule, RouterModule, ReactiveFormsModule, TranslocoModule, MatProgressSpinnerModule],
     selector: "send-transaction",
+    standalone: true,
+    styleUrls: ["./send-transaction.component.scss"],
     templateUrl: "./send-transaction.component.html",
-    styleUrls: ["./send-transaction.component.scss", "../main.scss"],
 })
-export class SendTransactionComponent implements OnInit {
-    shareables: any;
-    session: any;
-    wallet?: Wallet;
-    tokens: Array<any> = [];
-    views = ["pickReceiver", "tokens"];
+export class SendTransactionComponent {
+    balance: number = 0;
+    form!: UntypedFormGroup;
+    fromAddress: string = "";
+    network: Network = "";
+    recentAddresses: RecentAddress[] = [];
+    searching: boolean = false;
+    withdrawStep: boolean = false;
 
     constructor(
-        private _walletService: WalletService,
+        private _formBuilder: FormBuilder,
         private _router: Router,
-        private _ethService: EthereumService,
-        private _solanaService: SolanaService
+        private _transactionService: TransactionService,
+        private _walletService: WalletService
     ) {
-        this.shareables = {
-            view: "tokens",
+        this._transactionService.toAddress = "";
+        this._transactionService.withdrawalAmount = 0;
+
+        this.balance = this._transactionService.fromBalance;
+        this.fromAddress = this._transactionService.fromAddress;
+        this.network = this._transactionService.network;
+        this.recentAddresses = this._transactionService.findRecentAddressesByCurrentNetwork();
+
+        this._initForm();
+    }
+
+    private _getAddressPattern(): RegExp {
+        let pattern: RegExp = /.*/;
+
+        if (this.network === "Ethereum") pattern = this._walletService.ETHRegex;
+        if (this.network === "Solana") pattern = this._walletService.SOLRegex;
+        if (this.network === "Bitcoin") pattern = this._walletService.BTCRegex;
+
+        return pattern;
+    }
+
+    private _greaterThanValidator(minValue: number): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+
+            return value > minValue ? null : { greaterThan: { requiredValue: minValue, actualValue: value } };
         };
-
-        this._solanaService.clearTokens();
-        this._ethService.clearTokens();
-
-        this.tokens = [];
     }
 
-    async ngOnInit(): Promise<any> {
-        this.session = this._walletService.getSessionData();
-
-        const wallet = await this._walletService.retrieveWallet();
-
-        if (!wallet) return;
-
-        this.wallet = wallet;
-
-        if (!this.wallet?.ethAddress) return;
-
-        await this._getETHDetails();
-
-        this.tokens = this._ethService.tokens;
-
-        await this._getSolanaDetails();
-
-        this.tokens.push(...this._solanaService.tokens);
+    private _initForm(): void {
+        this.form = this._formBuilder.group({
+            amount: [
+                0,
+                [Validators.required, Validators.min(0), Validators.max(this._transactionService.fromBalance), this._greaterThanValidator(0)],
+            ],
+            toAddress: ["", [Validators.required]],
+        });
     }
 
-    async _getETHDetails(): Promise<any> {
-        const details = await this._ethService.getWalletDetails(this.wallet?.ethAddress);
+    continueToConfirmation(): void {
+        // if (this.form.invalid) return;
 
-        this._ethService.formatTokens(details);
+        this._transactionService.toAddress = this.form.get("toAddress")?.value;
+        this._transactionService.withdrawalAmount = this.form.get("amount")?.value;
+
+        this._router.navigate(["/send/confirmation"]);
     }
 
-    async _getSolanaDetails(): Promise<any> {
-        const details = await this._solanaService.getWalletDetails(this.wallet?.solanaAddress);
+    async pastedAddress(event: ClipboardEvent): Promise<void> {
+        if (this.searching) return;
 
-        if (!details) return;
+        const query = event.clipboardData?.getData("text");
 
-        this._solanaService.formatTokens(details);
-        this._solanaService.formatTokens(details.data.tokenHoldings.tokens);
+        if (!query) return;
+
+        const pattern = this._getAddressPattern();
+
+        if (!pattern.test(query)) return;
+
+        this.form.get("toAddress")?.patchValue(query, { emitEvent: false });
     }
 
-    cancel(): void {
-        this._router.navigate(["/home"]);
+    setToInput(address: RecentAddress) {
+        this.form.get("toAddress")?.patchValue(address, { emitEvent: false });
     }
 
-    selectToken(account: any): void {
-        this.shareables.token = account;
-
-        this.shareables.view = "pickReceiver";
+    withdrawAll(): void {
+        this.form.get("amount")?.patchValue(this.balance, { emitEvent: false });
     }
 }

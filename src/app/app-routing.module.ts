@@ -10,6 +10,7 @@ import { ZelfNameGuard } from "./guards/zelf-name.guard";
 import { WalletGuard } from "./guards/wallet.guard";
 import { MnemonicGuard } from "./guards/mnemonic.guard";
 import { OnboardingGuard } from "./guards/onboarding.guard";
+import { SendTransactionGuard } from "./guards/send-transaction.guard";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -79,6 +80,15 @@ const routes: Routes = [
             {
                 path: "",
                 loadComponent: () => import("./send-currency/send-currency.component").then((m) => m.SendCurrencyComponent),
+            },
+            {
+                path: "transaction",
+                loadComponent: () => import("./send-transaction/send-transaction.component").then((m) => m.SendTransactionComponent),
+                canActivate: [SendTransactionGuard],
+            },
+            {
+                path: "confirmation",
+                loadComponent: () => import("./send-confirm/send-confirm.component").then((m) => m.SendConfirmComponent),
             },
         ],
     },

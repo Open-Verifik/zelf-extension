@@ -1,0 +1,17 @@
+<div class="token-item" *ngIf="token">
+    <img class="token-item__icon" [src]="token.image" alt="icon" />
+
+    <div class="token-item__info">
+        <div class="token-item__network-info">
+            <p class="token-item__network">{{ token.symbol }}</p>
+            <p class="token-item__network-chip">{{ token.network }}</p>
+        </div>
+
+        <p class="token-item__name">{{ token.name }}</p>
+    </div>
+
+    <div class="token-item__balance">
+        <span class="token-item__balance-amount">{{ token.amount | number : "1.2-8" }}</span>
+        <div class="token-item__fiat-amount">{{ token.price | currency : "USD" : "symbol" : "1.2-5" }}</div>
+    </div>
+</div>

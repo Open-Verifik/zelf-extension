@@ -64,6 +64,7 @@ export interface Wallet {
     displayBtcAddress: string;
     displayEthAddress: string;
     displaySolanaAddress: string;
+    durationToken: string;
     ethAddress: string;
     hasPassword: boolean;
     image: string;
@@ -195,6 +196,7 @@ export class WalletModel implements Wallet {
     anonymous: boolean;
     assets: Array<Asset>;
     btcAddress: string;
+    durationToken: string;
     ethAddress: string;
     hasPassword: boolean;
     image: string;
@@ -218,6 +220,7 @@ export class WalletModel implements Wallet {
 
         this.publicData = new WalletPublicDataModel(secondaryStorage);
 
+        this.durationToken = data.durationToken;
         this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
         this.image = data.image || data.url || data.zelfProofQRCode;
         this.metadata = data.metadata;

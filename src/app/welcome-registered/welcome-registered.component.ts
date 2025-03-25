@@ -17,6 +17,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     templateUrl: "./welcome-registered.component.html",
 })
 export class WelcomeRegisteredComponent implements OnInit {
+    qrCodeImage: string;
     zelfNameObject?: WalletModel;
 
     constructor(
@@ -24,10 +25,13 @@ export class WelcomeRegisteredComponent implements OnInit {
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _zelfNameService: ZelfNameService
-    ) {}
+    ) {
+        this.qrCodeImage = "./assets/images/qr-preload.png";
+    }
 
     async ngOnInit(): Promise<void> {
         this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+        this.qrCodeImage = this.zelfNameObject?.image || this.qrCodeImage;
 
         this._changeDetectorRef.markForCheck();
     }
@@ -46,7 +50,9 @@ export class WelcomeRegisteredComponent implements OnInit {
 
     purchaseNow(): void {
         this._router.navigate(["/external-link"], {
-            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.zelfNameObject?.publicData.zelfName}` },
+            queryParams: {
+                externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.zelfNameObject?.publicData?.zelfName}`,
+            },
         });
     }
 }

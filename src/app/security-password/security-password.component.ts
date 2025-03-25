@@ -7,7 +7,7 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
+import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { debounceTime, Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -21,6 +21,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
+    flow: ZelfFlow = "";
     isNew: boolean = false;
     returnState: string = "";
     showPassword: boolean = false;
@@ -46,9 +47,8 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        const flow = await this._zelfNameService.getFlow();
-
-        this.isNew = flow === "create" || flow === "import";
+        this.flow = await this._zelfNameService.getFlow();
+        this.isNew = this.flow === "create" || this.flow === "import";
 
         this._initForm();
     }
@@ -116,7 +116,8 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         if (this.returnState) {
             this._router.navigate([this.returnState]);
         } else {
-            if (this.isNew) this._router.navigate(["../"], { relativeTo: this._activatedRoute });
+            if (this.flow === "create") this._router.navigate(["../"], { relativeTo: this._activatedRoute });
+            else if (this.flow === "import") this._router.navigate(["/welcome/import"]);
             else this._router.navigate(["/welcome/registered"]);
         }
     }

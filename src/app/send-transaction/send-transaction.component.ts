@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnDestroy } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
@@ -15,7 +16,16 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 import { debounceTime, Subject, takeUntil } from "rxjs";
 
 @Component({
-    imports: [CommonModule, MatButtonModule, RouterModule, ReactiveFormsModule, TranslocoModule, MatProgressSpinnerModule, AddressMaskPipe],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        TranslocoModule,
+        MatProgressSpinnerModule,
+        AddressMaskPipe,
+        MatRippleModule,
+    ],
     selector: "send-transaction",
     standalone: true,
     styleUrls: ["./send-transaction.component.scss"],
@@ -208,25 +218,27 @@ export class SendTransactionComponent implements OnDestroy {
 
     getTimeDiff(lastUsed: Date | string | undefined): string {
         if (!lastUsed) return "";
+        console.log(` SendTransactionComponent ~ getTimeDiff ~ lastUsed:`, lastUsed);
 
         const now = new Date();
         const lastUsedDate = new Date(lastUsed);
+        console.log(` SendTransactionComponent ~ getTimeDiff ~ lastUsedDate:`, lastUsedDate);
         const diffInSeconds = Math.floor((now.getTime() - lastUsedDate.getTime()) / 1000);
 
         if (diffInSeconds < 60) {
             return `${diffInSeconds}s`;
         } else if (diffInSeconds < 3600) {
             const minutes = Math.floor(diffInSeconds / 60);
-            return `${minutes}mins`;
+            return `${minutes}min`;
         } else if (diffInSeconds < 86400) {
             const hours = Math.floor(diffInSeconds / 3600);
-            return `${hours}hrs`;
+            return `${hours}h`;
         } else if (diffInSeconds < 2592000) {
             const days = Math.floor(diffInSeconds / 86400);
-            return `${days}ds`;
+            return `${days}d`;
         } else {
             const months = Math.floor(diffInSeconds / 2592000);
-            return `${months}mo`;
+            return `${months}mnth`;
         }
     }
 
@@ -247,6 +259,10 @@ export class SendTransactionComponent implements OnDestroy {
         const text = event.clipboardData?.getData("text") as string;
 
         this._handlePaste(text);
+    }
+
+    selectRecentAddress(address: AddressBook): void {
+        this.form.get("toAddress")?.patchValue(address.address);
     }
 
     private _handlePaste(text: string): void {

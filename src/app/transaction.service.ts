@@ -86,13 +86,13 @@ export class TransactionService {
         const index = this._recentAddresses.map((recent) => recent.address).indexOf(address.address);
 
         if (index > -1) {
-            this._recentAddresses[index].lastUsed = new Date();
+            this._recentAddresses[index].lastUsed = new Date().toISOString();
 
             this._recentAddresses.sort((a, b) => new Date(b.lastUsed!).getTime() - new Date(a.lastUsed!).getTime());
         } else {
             this._recentAddresses.push({
                 ...address,
-                lastUsed: new Date(),
+                lastUsed: new Date().toISOString(),
             });
 
             if (this._recentAddresses.length > 5) {

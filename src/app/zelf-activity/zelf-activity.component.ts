@@ -1,25 +1,46 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 
-import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
 import { ZelfPendingComponent } from "app/zelf-pending/zelf-pending.component";
+import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
+
+import { BlockchainTransactionsService, Transaction } from "app/services/blockchain-transactions.service";
 
 type Tab = "history" | "pending";
 
 @Component({
-    imports: [CommonModule, ZelfHistoryComponent, ZelfPendingComponent, TranslocoModule, RouterModule, MatButtonModule],
+    imports: [CommonModule, ZelfPendingComponent, TranslocoModule, RouterModule, MatButtonModule, ZelfHistoryComponent],
     selector: "zelf-activity",
     standalone: true,
     styleUrls: ["./zelf-activity.component.scss"],
     templateUrl: "./zelf-activity.component.html",
 })
-export class ZelfActivityComponent {
+export class ZelfActivityComponent implements OnInit {
     tab: Tab = "history";
+    transactions: Transaction[] = [];
 
-    constructor() {}
+    constructor(private _blockchainTransactions: BlockchainTransactionsService) {}
+
+    ngOnInit(): void {
+        this.loadAllTransactions();
+    }
+
+    loadAllTransactions(): void {
+        this._blockchainTransactions.getAllTransactions().then((observable) => {
+            observable.subscribe(
+                (transactions) => {
+                    console.log("Transactions received:", transactions);
+                    this.transactions = transactions;
+                },
+                (error) => {
+                    console.error("Error loading transactions:", error);
+                }
+            );
+        });
+    }
 
     setTab(tab: Tab): void {
         this.tab = tab;

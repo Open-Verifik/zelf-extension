@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from "@angular/core";
     template: `
         <div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
             <div class="status-icon-container">
-                <img [src]="data.image" />
+                <img [src]="data.image || getDefaultTokenImage()" />
             </div>
 
             <div class="text-container" fxLayout="column" fxLayoutAlign="start start">
@@ -56,6 +56,19 @@ export class TokenCardComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    getDefaultTokenImage(): string {
+        switch (this.data?.network) {
+            case "Avalanche":
+                return "assets/images/tokens/avax.png";
+            case "Ethereum":
+                return "assets/images/tokens/eth.png";
+            case "Solana":
+                return "assets/images/tokens/sol.png";
+            default:
+                return "assets/images/tokens/default.png";
+        }
+    }
 
     onClick(): void {}
 }

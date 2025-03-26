@@ -379,4 +379,58 @@ export class EthereumService {
             return 2000;
         }
     }
+
+    async getAvalancheWalletDetails(address?: string): Promise<any> {
+        try {
+            const avalancheWeb3 = new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet));
+
+            const [rawBalance, avaxPrice] = await Promise.all([avalancheWeb3.eth.getBalance(address || this.account.value), this.getAVAXPrice()]);
+
+            const avaxBalance = parseFloat(avalancheWeb3.utils.fromWei(rawBalance, "ether"));
+            const fiatBalance = avaxBalance * avaxPrice;
+
+            const details = {
+                data: {
+                    tokenHoldings: {
+                        tokens: [
+                            {
+                                symbol: "AVAX",
+                                tokenType: "AVAX",
+                                balance: avaxBalance,
+                                price: avaxPrice,
+                                fiatBalance: fiatBalance,
+                                name: "Avalanche",
+                                image: "assets/images/avax.png",
+                                network: "Avalanche",
+                            },
+                        ],
+                    },
+                    account: {
+                        balance: avaxBalance,
+                        price: avaxPrice,
+                        fiatBalance: fiatBalance,
+                    },
+                },
+            };
+
+            this.formatTokens(details);
+            return details;
+        } catch (error) {
+            console.error("Error in getAvalancheWalletDetails:", error);
+            throw error;
+        }
+    }
+
+    async getAVAXPrice(): Promise<number> {
+        try {
+            const response = await this._httpWrapper.sendRequest(
+                "get",
+                "https://api.coingecko.com/api/v3/simple/price?ids=avalanche-2&vs_currencies=usd"
+            );
+            return response["avalanche-2"].usd;
+        } catch (error) {
+            console.error("Error getting AVAX price:", error);
+            return 0;
+        }
+    }
 }

@@ -3,6 +3,11 @@ export const environment = {
     baseUrl: "/",
     captchaKey: "",
     production: true,
+    networks: {
+        ethereum: "sepolia",
+        avalanche: "avalanche",
+        solana: "solana",
+    },
     ethereumRpc: {
         mainnet: "https://mainnet.infura.io/v3/0714254b0de84112a865096da1050ae5",
         testnet: "https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5",

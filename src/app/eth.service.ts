@@ -221,7 +221,6 @@ export class EthereumService {
                 }
             }
         } else if (network === "avalanche") {
-            // Asegurarse de que los tokens de Avalanche tengan el mismo formato
             if (details.data?.tokenHoldings?.tokens) {
                 details.data.tokenHoldings.tokens.forEach((token: any) => {
                     if (token.tokenType === "AVAX") {

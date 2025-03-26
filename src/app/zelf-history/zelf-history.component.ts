@@ -39,7 +39,7 @@ type History = {
 })
 export class ZelfHistoryComponent implements OnInit {
     history!: History;
-    loading: boolean = false;
+    loading: boolean = true;
 
     constructor() {}
 
@@ -48,8 +48,6 @@ export class ZelfHistoryComponent implements OnInit {
     }
 
     private async _loadHistory(): Promise<void> {
-        this.loading = true;
-
         setTimeout(() => {
             this.history = mockHistory;
             this.loading = false;
@@ -63,6 +61,7 @@ const mockHistory: History = {
             address: "0xabcdef1234",
             network: "Ethereum",
             type: "receive",
+            fiatAmount: "3200.00",
             to: {
                 address: "0xabcdef1234",
                 amount: 0.8,
@@ -82,6 +81,7 @@ const mockHistory: History = {
             address: "0x1234567890",
             network: "Ethereum",
             type: "send",
+            fiatAmount: "400.00",
             to: {
                 address: "0x0987654321",
                 amount: 0.1,
@@ -101,6 +101,7 @@ const mockHistory: History = {
             address: "0x1234567890",
             network: "Ethereum",
             type: "send",
+            fiatAmount: "400.00",
             to: {
                 address: "0x0987654321",
                 amount: 0.1,
@@ -120,6 +121,7 @@ const mockHistory: History = {
             address: "0x1234567890",
             network: "Ethereum",
             type: "send",
+            fiatAmount: "400.00",
             to: {
                 address: "0x0987654321",
                 amount: 0.1,
@@ -141,6 +143,7 @@ const mockHistory: History = {
             address: "0x1234567890",
             network: "Ethereum",
             type: "send",
+            fiatAmount: "400.00",
             to: {
                 address: "0x0987654321",
                 amount: 0.1,
@@ -162,14 +165,14 @@ const mockHistory: History = {
             type: "approve",
             to: {
                 address: "0xcontract1234",
-                amount: 1000,
+                amount: "Unlimited",
                 symbol: "USDT",
                 token: "Tether",
                 image: "https://creazilla-store.fra1.digitaloceanspaces.com/icons/3516745/tether-logo-icon-md.png",
             },
             from: {
                 address: "0xabcdef1234",
-                amount: 1000,
+                amount: "Unlimited",
                 symbol: "USDT",
                 token: "Tether",
                 image: "https://creazilla-store.fra1.digitaloceanspaces.com/icons/3516745/tether-logo-icon-md.png",
@@ -236,6 +239,7 @@ const mockHistory: History = {
             address: "0xabcdef1234",
             network: "Ethereum",
             type: "receive",
+            fiatAmount: "2000.00",
             to: {
                 address: "0xabcdef1234",
                 amount: 0.5,

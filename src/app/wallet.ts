@@ -1,3 +1,23 @@
+export type AddressBook = {
+    address: string;
+    lastUsed?: Date | string;
+    network: string;
+    tokenType: string;
+    zelfName?: string;
+};
+
+export type Token = {
+    address: string;
+    amount: number;
+    decimals?: number;
+    fiatBalance: number;
+    name: string;
+    network: string;
+    price: number;
+    symbol: string;
+    tokenType: string;
+};
+
 export interface IPFS {
     GroupId: string | null;
     ID: string;

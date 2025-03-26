@@ -329,6 +329,11 @@
         }
     }
 
+    &--text {
+        width: auto !important;
+        min-width: initial !important;
+    }
+
     &--error {
         background-color: $errorLight !important;
         color: $error !important;

@@ -30,10 +30,15 @@
         "hold": "Hold"
     },
     "send": {
+        "address_found": "Address found",
+        "zelf_name_not_registered": "Zelf Name not registered",
+        "zelf_name_registered": "Zelf Name registered",
+        "continue_process": "You can continue with the process",
+        "withdrawal_network": "Withdrawal network",
         "recently_used": "Recently used",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
-        "available_balance": "Available {{balance}} {{network}}",
+        "available_balance": "Available {{balance}} {{symbol}}",
         "domain_or_address": "Domain or address"
     },
     "welcome": {
@@ -69,8 +74,12 @@
         "zelf_name_requires_a_password": "Your Zelf Name requires a password"
     },
     "common": {
+        "coin": "Coin",
+        "verify": "Verify",
+        "transfer": "Transfer",
+        "symbol": "Coin",
         "all": "All",
-        "send_network": "Send {{network}}",
+        "send_symbol": "Send {{symbol}}",
         "send": "Send",
         "next": "Next",
         "withdraw": "Withdraw",

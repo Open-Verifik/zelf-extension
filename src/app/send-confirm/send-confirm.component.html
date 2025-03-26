@@ -1,7 +1,11 @@
 <div class="zelf-card" *transloco="let t">
     <div class="send-confirm__header">
         <div class="send-confirm__col1">
-            <button mat-icon-button mat-flat-button class="send-confirm__back" [routerLink]="['../transaction']">
+            <button
+                mat-flat-button
+                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
+                [routerLink]="['../transaction']"
+            >
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
@@ -11,7 +15,7 @@
         </div>
 
         <div class="send-confirm__col2">
-            <p class="send-confirm__title">{{ t("common.confirm") }}</p>
+            <p class="send-confirm__title">{{ t("common.transfer") }}</p>
         </div>
 
         <div class="send-confirm__col3"></div>
@@ -19,24 +23,57 @@
 
     <form class="send-confirm__form" [formGroup]="form">
         <div class="zelf-card__content zelf-card__content--grow">
-            <div class="zelf-action-row" *ngFor="let data of transactionData | keyvalue">
-                <ng-container *ngTemplateOutlet="transactionDataRow"></ng-container>
-                <!-- <ng-container *ngIf="data.value?.zelfName; else transactionDataRow">
-                    <p class="zelf-action-row__key">{{ data.value }}</p>
+            <div class="send-confirm__total">
+                <div class="zelf-chip">{{ t("common.amount") }}</div>
 
-                    <div class="zelf-action-row__value-container">
-                        <p class="zelf-action-row__value">{{ t("send." + data.key) }}</p>
+                <div class="send-confirm__price-amount-container">
+                    <h2 class="send-confirm__price">{{ amount | number : "1.2-5" }}</h2>
 
-                        <div class="zelf-action-row__chip" *ngIf="data.value?.zelfName">
-                            {{ data.value.zelfName }}
+                    <p class="send-confirm__price-currency">{{ token.symbol }}</p>
+                </div>
+            </div>
+
+            <div class="send-confirm__content">
+                <div class="send-confirm__summary">
+                    <div class="zelf-action-row">
+                        <p class="send-confirm__label">{{ t("common.from") }}</p>
+
+                        <div class="send-confirm__from-value">
+                            <p class="send-confirm__value">{{ fromAddress | addressMask }}</p>
+                            <p class="zelf-chip" *ngIf="wallet?.publicData?.zelfName">{{ wallet?.publicData?.zelfName | uppercase }}</p>
                         </div>
                     </div>
-                </ng-container> -->
 
-                <ng-template #transactionDataRow>
-                    <p class="">{{ t("send." + data.key) }}</p>
-                    <p class="zelf-action-row__value zelf-action-row__value--right">{{ data.value }}</p>
-                </ng-template>
+                    <div class="zelf-action-row">
+                        <p class="send-confirm__label">{{ t("send.withdrawal_network") }}</p>
+
+                        <p class="send-confirm__value">{{ token.tokenType }}</p>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="send-confirm__label">{{ t("common.address") }}</p>
+
+                        <p class="send-confirm__value">{{ receiver.ethAddress }}</p>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="send-confirm__label">{{ t("common.coin") }}</p>
+
+                        <p class="send-confirm__value">{{ token.symbol }}</p>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="send-confirm__label">{{ t("common.fee") }}</p>
+
+                        <p class="send-confirm__value">{{ fee | number : "1.2-20" }}</p>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="send-confirm__label">{{ t("common.total") }}</p>
+
+                        <p class="send-confirm__value">{{ total | currency : "USD" : "symbol" : "1.2-2" }}</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -74,7 +111,7 @@
 
             <button
                 (click)="confirmTransaction()"
-                [disabled]="sending"
+                [disabled]="sending || !form.get('password')?.value"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
                 type="submit"

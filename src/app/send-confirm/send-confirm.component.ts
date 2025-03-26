@@ -11,11 +11,12 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { WalletModel } from "app/wallet";
+import { Token, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 
 @Component({
-    imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
     selector: "send-confirm",
     standalone: true,
     styleUrls: ["./send-confirm.component.scss"],
@@ -32,10 +33,11 @@ export class SendConfirmComponent implements OnInit {
     form!: UntypedFormGroup;
     fromAddress: string = "";
     requiresBiometrics: boolean = false;
-    selectedToken: any;
+    receiver!: WalletModel;
     sending: boolean = false;
     showPassword: boolean = false;
     toAddress: string = "";
+    token: Token;
     total: string = "0";
     transactionData: any;
     wallet?: WalletModel;
@@ -53,7 +55,8 @@ export class SendConfirmComponent implements OnInit {
 
         this.amount = this._transactionService.withdrawalAmount;
         this.fromAddress = this._transactionService.fromAddress;
-        this.selectedToken = this._transactionService.selectedToken;
+        this.receiver = this._transactionService.receiver;
+        this.token = this._transactionService.token;
         this.toAddress = this._transactionService.toAddress;
 
         if (this._password && this._password.trim()) this.requiresBiometrics = false;
@@ -68,9 +71,13 @@ export class SendConfirmComponent implements OnInit {
         await this._decryptMnemonics();
     }
 
+    ngOnDestroy(): void {
+        this._vaultService.password = "";
+    }
+
     private async _calculateTransactionFee(): Promise<void> {
         try {
-            if (!this.selectedToken) {
+            if (!this.token) {
                 console.error("No transaction details available");
 
                 return;
@@ -78,8 +85,8 @@ export class SendConfirmComponent implements OnInit {
 
             let transactionCost;
 
-            if (this.selectedToken.tokenType !== "ETH") {
-                const tokenAddress = this.selectedToken.address;
+            if (this.token.tokenType !== "ETH") {
+                const tokenAddress = this.token.address;
 
                 if (!tokenAddress || !this._ethService.checkIfValidAddress(tokenAddress)) {
                     console.error("Invalid token address:", tokenAddress);
@@ -91,7 +98,7 @@ export class SendConfirmComponent implements OnInit {
 
                 transactionCost = await this._ethService.getTransactionCost(
                     formattedTokenAddress,
-                    this._ethService.toWei(String(this.amount || "0"), this.selectedToken.decimals)
+                    this._ethService.toWei(String(this.amount || "0"), this.token.decimals)
                 );
             } else {
                 if (!this.toAddress || !this._ethService.checkIfValidAddress(this.toAddress)) {
@@ -113,7 +120,7 @@ export class SendConfirmComponent implements OnInit {
 
             this.feeUsd = (Number(this.fee) * ethPrice).toFixed(2);
 
-            const amountInUsd = Number(this.amount) * this.selectedToken.price;
+            const amountInUsd = Number(this.amount) * this.token.price;
 
             this.total = (amountInUsd + Number(this.feeUsd)).toFixed(2);
 
@@ -131,19 +138,23 @@ export class SendConfirmComponent implements OnInit {
     }
 
     private async _decryptMnemonics(): Promise<any> {
-        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || !this._password) this.requiresBiometrics = true;
-        else {
-            const mnemonicString = await this._decryptMessage();
+        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
+            this.requiresBiometrics = true;
 
-            this._mnemonics = mnemonicString.split(" ");
-            this.canConfirm = true;
+            return;
         }
+
+        if (!this._password && !this.form.get("password")?.value) return;
+
+        this._mnemonics = JSON.parse(await this._decryptMessage()).mnemonic;
+
+        this.canConfirm = true;
     }
 
     private async _decryptMessage(): Promise<any> {
         const encryptedMessage = this.wallet?.pgp?.encryptedMessage as string;
         const privateKeyArmoured = this.wallet?.pgp?.privateKey as string;
-        const passphrase = this._password;
+        const passphrase = this._password || this.form.get("password")?.value;
 
         if (!encryptedMessage || !privateKeyArmoured || !passphrase) return;
 
@@ -158,6 +169,16 @@ export class SendConfirmComponent implements OnInit {
 
     async confirmTransaction() {
         if (this.sending) return;
+
+        if (!this._mnemonics) {
+            const error = new Error("mnemonics locked - add dialog here.");
+
+            if (!this.form.get("password")?.value) throw error;
+
+            await this._decryptMnemonics();
+
+            if (!this._mnemonics) throw error;
+        }
 
         this.sending = true;
 
@@ -174,9 +195,21 @@ export class SendConfirmComponent implements OnInit {
             const normalizedAmount = amountStr.replace(",", ".");
 
             const receipt = await this._ethService.sendTestTransaction(normalizedAmount, wallet.privateKey, this.toAddress);
+            console.log(` SendConfirmComponent ~ confirmTransaction ~ receipt:`, receipt);
+
+            this._transactionService.addToRecentAddresses({
+                address: this.receiver.ethAddress,
+                zelfName: this.receiver?.publicData?.zelfName,
+                network: this.token.network,
+                tokenType: this.token.tokenType,
+            });
+
+            this.sending = false;
 
             await this._router.navigate(["/home"]);
         } catch (error: any) {
+            this.sending = false;
+
             console.error("Error during transaction execution:", error);
         }
     }

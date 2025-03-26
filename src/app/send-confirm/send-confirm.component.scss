@@ -4,11 +4,10 @@
 .send-confirm {
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
+        grid-template-columns: repeat(10, 1fr);
         column-gap: 12px;
         align-content: center;
         justify-content: start;
-        height: 76px;
         gap: 24px;
         width: 100%;
     }
@@ -34,43 +33,15 @@
         justify-content: end;
     }
 
-    &__back {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        user-select: none;
-        border-radius: 52px;
-        height: 52px;
-        width: 52px;
-        min-height: 52px;
-        min-width: 52px;
-        background-color: $antiFlashWhite !important;
-        transition: background-color 0.3s $smoothBezier;
-
-        svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
-        }
-
-        &:hover {
-            background-color: #b589f0 !important;
-            color: white;
-
-            svg {
-                fill: white;
-            }
-        }
-    }
-
     &__title {
-        font-size: 18px;
-        font-weight: 600;
         font-family: Poppins;
-        color: $black;
-        margin: 0;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
         text-align: center;
+        vertical-align: middle;
+        color: $black;
     }
 
     &__form {
@@ -86,5 +57,76 @@
     &__content {
         flex: 1 1 auto;
         justify-content: flex-start;
+        width: 100%;
+    }
+
+    &__total {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-direction: column;
+    }
+
+    &__from-value {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__summary {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    &__label {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        color: $gray;
+    }
+
+    &__value {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        color: $black;
+    }
+
+    &__price-amount-container {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: flex-end;
+        width: 100%;
+    }
+
+    &__price {
+        font-size: 32px;
+        font-weight: 600;
+        color: $black;
+        font-family: Menda;
+        margin: 0;
+    }
+
+    &__price-currency {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: $black;
+        font-family: Poppins;
+        margin: 0 0 8px;
     }
 }

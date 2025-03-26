@@ -1357,7 +1357,10 @@ h3 {
         min-width: 40px !important;
         height: 40px !important;
         width: 40px !important;
-        margin-right: 8px;
+
+        &:last-child {
+            margin-right: 8px;
+        }
     }
 
     &__prefix-text {
@@ -1443,6 +1446,10 @@ h3 {
         line-height: 16px;
         letter-spacing: 0.5px;
         color: $gray;
+    }
+
+    &--gap-narrow {
+        gap: 4px;
     }
 
     &--wide {
@@ -1658,9 +1665,9 @@ h3 {
 }
 
 .zelf-chip {
-    background-color: $black;
+    background-color: $platinum;
     border-radius: 9999px;
-    color: $white;
+    color: $black;
     font-family: Poppins;
     font-size: 14px;
     font-weight: 500;

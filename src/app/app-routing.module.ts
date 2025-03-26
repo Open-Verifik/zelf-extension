@@ -89,6 +89,7 @@ const routes: Routes = [
             {
                 path: "confirmation",
                 loadComponent: () => import("./send-confirm/send-confirm.component").then((m) => m.SendConfirmComponent),
+                canActivate: [SendTransactionGuard],
             },
         ],
     },

@@ -157,57 +157,82 @@ export class EthereumService {
         return isAddress(address);
     }
 
-    async sendTransaction(to: string, value: number): Promise<any> {
-        const valueWei = this.web3.utils.toWei(value.toString(), "ether");
-        const gasPrice = await this.web3.eth.getGasPrice();
-        const gasEstimate = await this.web3.eth.estimateGas({
-            from: this.account.value,
-            to: to,
-            value: valueWei,
-        });
+    async sendTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {
+        try {
+            let rpcUrl;
+            switch (network.toLowerCase()) {
+                case "avalanche":
+                    rpcUrl = environment.avalancheRpc.mainnet;
+                    break;
+                case "ethereum":
+                default:
+                    rpcUrl = environment.ethereumRpc.mainnet;
+                    break;
+            }
 
-        // Convert using BigInt
-        const valueWeiBN = BigInt(valueWei);
-        const gasPriceBN = BigInt(gasPrice);
-        const gasEstimateBN = BigInt(gasEstimate);
+            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-        // Perform arithmetic using BigInt
-        const totalCost = gasEstimateBN * gasPriceBN + valueWeiBN;
+            const amountInWei = web3.utils.toWei(amount, "ether");
+            const [nonce, gasPrice] = await Promise.all([web3.eth.getTransactionCount(account.address, "latest"), web3.eth.getGasPrice()]);
 
-        const balance = await this.web3.eth.getBalance(this.account.value);
-        const balanceBN = BigInt(balance);
+            const gasEstimate = await web3.eth.estimateGas({
+                from: account.address,
+                to: toAddress,
+                value: amountInWei,
+            });
 
-        if (balanceBN < totalCost) {
-            throw new Error("Insufficient funds: Balance is too low for this transaction.");
+            const tx = {
+                from: account.address,
+                to: toAddress,
+                value: amountInWei,
+                nonce: nonce,
+                gasPrice: gasPrice,
+                gas: gasEstimate,
+            };
+
+            const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+            return await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+        } catch (error) {
+            console.error(`Error sending ${network} transaction:`, error);
+            throw error;
         }
-
-        const tx = {
-            from: this.account.value,
-            to: to,
-            value: valueWei,
-            gas: Number(gasEstimate), // BigInt to number for gas, ensure it's safe to convert
-            gasPrice: gasPrice,
-        };
-
-        return await this.web3.eth.sendTransaction(tx);
     }
 
     getGasPrices(): Promise<any> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/gas-tracker`);
     }
 
-    getWalletDetails(address?: string): Promise<any> {
+    async getWalletDetails(address?: string, network: string = "ethereum"): Promise<any> {
+        if (network === "avalanche") {
+            return this.getAvalancheWalletDetails(address);
+        }
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/address`, {
             address,
         });
     }
 
-    formatTokens(details: any): void {
-        for (let index = 0; index < details.data.tokenHoldings.tokens.length; index++) {
-            const token = details.data.tokenHoldings.tokens[index];
-
-            if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-                this.tokens?.push({ ...token, network: "Ethereum" });
+    formatTokens(details: any, network: string = "ethereum"): void {
+        if (network === "ethereum") {
+            for (let index = 0; index < details.data.tokenHoldings.tokens.length; index++) {
+                const token = details.data.tokenHoldings.tokens[index];
+                if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
+                    this.tokens?.push({ ...token, network: "Ethereum" });
+                }
+            }
+        } else if (network === "avalanche") {
+            // Asegurarse de que los tokens de Avalanche tengan el mismo formato
+            if (details.data?.tokenHoldings?.tokens) {
+                details.data.tokenHoldings.tokens.forEach((token: any) => {
+                    if (token.tokenType === "AVAX") {
+                        this.tokens?.push({
+                            ...token,
+                            network: "Avalanche",
+                            symbol: "AVAX",
+                            tokenType: "AVAX",
+                        });
+                    }
+                });
             }
         }
     }
@@ -413,7 +438,7 @@ export class EthereumService {
                 },
             };
 
-            this.formatTokens(details);
+            this.formatTokens(details, "avalanche");
             return details;
         } catch (error) {
             console.error("Error in getAvalancheWalletDetails:", error);
@@ -432,5 +457,22 @@ export class EthereumService {
             console.error("Error getting AVAX price:", error);
             return 0;
         }
+    }
+
+    getAvailableNetworks() {
+        return [
+            {
+                id: "ethereum",
+                name: "Ethereum",
+                symbol: "ETH",
+                rpcUrl: environment.ethereumRpc.mainnet,
+            },
+            {
+                id: "avalanche",
+                name: "Avalanche",
+                symbol: "AVAX",
+                rpcUrl: environment.avalancheRpc.mainnet,
+            },
+        ];
     }
 }

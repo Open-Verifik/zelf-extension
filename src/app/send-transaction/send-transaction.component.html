@@ -178,19 +178,38 @@
             </ng-container>
 
             <ng-container *ngIf="!searching && !withdrawStep && recentAddresses.length">
-                <div class="zelf-action-row" *ngFor="let address of recentAddresses">
-                    <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M16 0H4C1.79 0 0 1.79 0 4V12C0 14.21 1.79 16 4 16H16C18.21 16 20 14.21 20 12V4C20 1.79 18.21 0 16 0ZM14.14 9.77C13.9 9.97 13.57 10.05 13.26 9.97L2.15 7.25C2.45 6.52 3.16 6 4 6H16C16.67 6 17.26 6.34 17.63 6.84L14.14 9.77ZM4 2H16C17.1 2 18 2.9 18 4V4.55C17.41 4.21 16.73 4 16 4H4C3.27 4 2.59 4.21 2 4.55V4C2 2.9 2.9 2 4 2Z"
-                            fill="#181818"
-                        />
-                    </svg>
+                <div
+                    (click)="selectRecentAddress(address)"
+                    class="zelf-action-row send-transaction__address-book"
+                    *ngFor="let address of recentAddresses"
+                    matRipple
+                    [matRippleColor]="'rgba(0, 0, 0, 0.1)'"
+                >
+                    <div class="send-transaction__address-row">
+                        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 0H4C1.79 0 0 1.79 0 4V12C0 14.21 1.79 16 4 16H16C18.21 16 20 14.21 20 12V4C20 1.79 18.21 0 16 0ZM14.14 9.77C13.9 9.97 13.57 10.05 13.26 9.97L2.15 7.25C2.45 6.52 3.16 6 4 6H16C16.67 6 17.26 6.34 17.63 6.84L14.14 9.77ZM4 2H16C17.1 2 18 2.9 18 4V4.55C17.41 4.21 16.73 4 16 4H4C3.27 4 2.59 4.21 2 4.55V4C2 2.9 2.9 2 4 2Z"
+                                fill="#181818"
+                            />
+                        </svg>
 
-                    <p class="zelf-action-row__text">
-                        <span *ngIf="!address.zelfName">{{ address.address | addressMask }}</span>
-                        <span *ngIf="address.zelfName">{{ address.zelfName }}</span>
-                        <span>{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
-                    </p>
+                        <p class="zelf-action-row__text send-transaction__address-col">
+                            <span class="send-transaction__address-name" *ngIf="!address.zelfName">{{ address.address | addressMask }}</span>
+                            <span class="send-transaction__address-name" *ngIf="address.zelfName">{{ address.zelfName }}</span>
+                            <span class="send-transaction__address-used">{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
+                        </p>
+                    </div>
+
+                    <div>
+                        <ng-container *ngIf="address.address === form.get('toAddress')?.value">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM9.29 16.29L5.7 12.7C5.31 12.31 5.31 11.68 5.7 11.29C6.09 10.9 6.72 10.9 7.11 11.29L10 14.17L16.88 7.29C17.27 6.9 17.9 6.9 18.29 7.29C18.68 7.68 18.68 8.31 18.29 8.7L10.7 16.29C10.32 16.68 9.68 16.68 9.29 16.29Z"
+                                    fill="#1ea446"
+                                />
+                            </svg>
+                        </ng-container>
+                    </div>
                 </div>
             </ng-container>
 

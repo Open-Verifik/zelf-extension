@@ -1,15 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Transaction, TransactionModel } from "./wallet";
+import { AddressBook, Transaction, TransactionModel, WalletModel } from "./wallet";
 import { ChromeService } from "./chrome.service";
-
-export type Network = "Ethereum" | "Solana" | "Bitcoin" | "";
-
-export type RecentAddress = {
-    address: string;
-    lastUsed: Date | string;
-    network: string;
-    zelfName: string;
-};
 
 @Injectable({
     providedIn: "root",
@@ -17,28 +8,28 @@ export type RecentAddress = {
 export class TransactionService {
     private _fromAddress: string = "";
     private _fromBalance: number = 0;
-    private _network: Network = "";
-    private _recentAddresses: RecentAddress[] = [];
+    private _receiver!: WalletModel;
+    private _recentAddresses: AddressBook[] = [];
     private _toAddress: string = "";
+    private _token: any = null;
     private _withdrawalAmount: number = 0;
-    private _selectedToken: any = null;
 
     transactionData!: Transaction;
 
-    get selectedToken(): any {
-        return this._selectedToken;
-    }
+    constructor(private _chromeService: ChromeService) {
+        this._chromeService.getItem("temp_transactionData").then((temp) => {
+            if (temp) this.transactionData = new TransactionModel(JSON.parse(temp));
+        });
 
-    set selectedToken(value: any) {
-        this._selectedToken = value;
-    }
-
-    get network(): Network {
-        return this._network;
-    }
-
-    set network(value: Network) {
-        this._network = value;
+        this._chromeService.getItem("recentAddresses").then((response) => {
+            if (!response) {
+                this._recentAddresses = [];
+            } else {
+                response.forEach((address: AddressBook) => {
+                    this._recentAddresses.push(address);
+                });
+            }
+        });
     }
 
     get fromBalance(): number {
@@ -57,13 +48,28 @@ export class TransactionService {
         this._fromAddress = value;
     }
 
+    get receiver(): WalletModel {
+        return this._receiver;
+    }
+
+    set receiver(value: WalletModel) {
+        this._receiver = value;
+    }
+
     get toAddress(): string {
         return this._toAddress;
     }
 
     set toAddress(value: string) {
-        console.log(` TransactionService ~ settoAddress ~ value:`, value);
         this._toAddress = value;
+    }
+
+    get token(): any {
+        return this._token;
+    }
+
+    set token(value: any) {
+        this._token = value;
     }
 
     get withdrawalAmount(): number {
@@ -74,27 +80,35 @@ export class TransactionService {
         this._withdrawalAmount = value;
     }
 
-    constructor(private _chromeService: ChromeService) {
-        this._chromeService.getItem("temp_transactionData").then((temp) => {
-            if (temp) this.transactionData = new TransactionModel(JSON.parse(temp));
-        });
-    }
-
-    addRecentAddress(): void {
+    addToRecentAddresses(address: AddressBook): void {
         if (!this._toAddress) return;
 
-        if (this._recentAddresses.some((recentAddress) => recentAddress.address === this._toAddress)) return;
+        const index = this._recentAddresses.map((recent) => recent.address).indexOf(address.address);
 
-        this._recentAddresses.push({ address: this._toAddress, lastUsed: new Date(), network: this._network, zelfName: "" });
+        if (index > -1) {
+            this._recentAddresses[index].lastUsed = new Date();
+
+            this._recentAddresses.sort((a, b) => new Date(b.lastUsed!).getTime() - new Date(a.lastUsed!).getTime());
+        } else {
+            this._recentAddresses.push({
+                ...address,
+                lastUsed: new Date(),
+            });
+
+            if (this._recentAddresses.length > 5) {
+                this._recentAddresses.sort((a, b) => new Date(a.lastUsed!).getTime() - new Date(b.lastUsed!).getTime());
+                this._recentAddresses.shift();
+            }
+        }
 
         this._chromeService.setItem("recentAddresses", this._recentAddresses);
     }
 
-    findRecentAddressesByCurrentNetwork(): RecentAddress[] {
-        return this._recentAddresses.filter((recent) => recent.network === this.network);
+    findAddressInRecentAddresses<K extends keyof AddressBook>(key: K, value: any): AddressBook[] {
+        return this._recentAddresses.filter((recent) => recent[key] === value);
     }
 
-    removeRecentAddress(address: string): void {
+    removeAddressFromRecentAddresses(address: string): void {
         const index = this._recentAddresses.map((recent) => recent.address).indexOf(address);
 
         if (index === -1) return;
@@ -110,7 +124,6 @@ export class TransactionService {
         if (!this.transactionData) {
             this.transactionData = new TransactionModel(data);
         } else {
-            // Update each key-value pair in the transactionData object
             Object.assign(this.transactionData, data);
         }
 

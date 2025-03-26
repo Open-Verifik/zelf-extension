@@ -8,7 +8,6 @@
         column-gap: 12px;
         align-content: center;
         justify-content: start;
-        height: 76px;
         gap: 24px;
         width: 100%;
     }
@@ -48,5 +47,12 @@
     &__content {
         flex: 1 1 auto;
         justify-content: flex-start;
+        position: relative;
+    }
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
     }
 }

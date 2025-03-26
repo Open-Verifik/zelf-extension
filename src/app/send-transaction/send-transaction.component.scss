@@ -3,13 +3,12 @@
 
 .send-transaction {
     &__header {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
-        column-gap: 12px;
         align-content: center;
-        justify-content: start;
-        height: 76px;
+        column-gap: 12px;
+        display: grid;
         gap: 24px;
+        grid-template-columns: repeat(10, 1fr);
+        justify-content: start;
         width: 100%;
     }
 
@@ -53,6 +52,14 @@
         justify-content: center;
         gap: 24px;
         flex-grow: 1;
+        position: relative;
+    }
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 1;
     }
 
     &__content {
@@ -61,6 +68,8 @@
     }
 
     &__input-label {
+        display: flex;
+        align-items: center;
         box-sizing: border-box;
         padding-left: 16px;
         width: 100%;
@@ -71,5 +80,105 @@
         letter-spacing: 0.1px;
         margin: 0;
         text-align: left;
+    }
+
+    &__input-label-text {
+        margin-right: 4px;
+    }
+}
+
+.zelf-object-preview {
+    margin: auto 0;
+    max-width: 364px;
+    width: 100%;
+    border-radius: 16px;
+    padding: 24px 16px;
+    gap: 12px;
+    border: 1px solid $platinum;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+
+    &__chip {
+        height: 48px;
+        border-radius: 48px;
+        gap: 8px;
+        padding: 0px 16px;
+        border: 1px solid $platinum;
+        background-color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
+        margin-bottom: 12px;
+    }
+
+    &__icon-bubble {
+        background-color: $correctLight;
+        max-height: 32px;
+        max-width: 32px;
+        border-radius: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        width: 32px;
+
+        svg {
+            fill: $correct;
+        }
+    }
+
+    &__chip-text {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: $black;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    &__zelf-name {
+        font-family: Menda;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: 0%;
+        text-align: center;
+        text-transform: uppercase;
+        color: $black;
+        margin: 0;
+    }
+
+    &__address {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
+        margin: 0;
+    }
+
+    &__horizontal-rule {
+        width: 100%;
+        border: 1px solid $platinum;
+    }
+
+    &__instructions {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $gray;
     }
 }

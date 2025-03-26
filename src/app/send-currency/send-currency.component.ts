@@ -18,6 +18,7 @@ import { TokenItemComponent } from "app/token-item/token-item.component";
     templateUrl: "./send-currency.component.html",
 })
 export class SendCurrencyComponent implements OnInit {
+    loading: boolean = true;
     tokens: any[] = [];
     wallet: Partial<WalletModel> = {};
 
@@ -31,16 +32,17 @@ export class SendCurrencyComponent implements OnInit {
     ) {
         this._transactionService.fromAddress = "";
         this._transactionService.fromBalance = 0;
-        this._transactionService.network = "";
         this._transactionService.toAddress = "";
-        this._transactionService.selectedToken = "";
+        this._transactionService.token = "";
     }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWalletFromStorage()) as WalletModel;
 
         await this._getETHDetails();
-        await this._getSolanaDetails();
+        // await this._getSolanaDetails();
+
+        this.loading = false;
     }
 
     private async _getETHDetails(): Promise<any> {
@@ -98,11 +100,9 @@ export class SendCurrencyComponent implements OnInit {
 
         if (!address) return;
 
-        this._transactionService.selectedToken = token;
-        this._transactionService.network = token.network;
+        this._transactionService.token = token;
         this._transactionService.fromAddress = address;
         this._transactionService.fromBalance = token.amount;
-        this._transactionService.addRecentAddress();
 
         this._router.navigate(["/send/transaction"]);
     }

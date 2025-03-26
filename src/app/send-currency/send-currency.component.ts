@@ -40,6 +40,7 @@ export class SendCurrencyComponent implements OnInit {
         this.wallet = (await this._walletService.getCurrentWalletFromStorage()) as WalletModel;
 
         await this._getETHDetails();
+        await this._getAvalancheDetails();
         // await this._getSolanaDetails();
 
         this.loading = false;
@@ -53,6 +54,16 @@ export class SendCurrencyComponent implements OnInit {
         if (!details) return;
 
         this._getCurrencies("Ethereum", details.data.tokenHoldings.tokens);
+    }
+
+    private async _getAvalancheDetails(): Promise<any> {
+        if (!this.wallet?.ethAddress) return;
+
+        const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
+
+        if (!details) return;
+
+        this._getCurrencies("Avalanche", details.data.tokenHoldings.tokens);
     }
 
     private async _getSolanaDetails(): Promise<any> {
@@ -77,7 +88,7 @@ export class SendCurrencyComponent implements OnInit {
                 this.tokens.push(_token);
             }
 
-            if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
+            if (["ERC-20", "ETH", "AVAX"].includes(token.tokenType) && token.price) {
                 this.tokens.push({ ...token, network });
             }
         }
@@ -90,7 +101,7 @@ export class SendCurrencyComponent implements OnInit {
 
         let address = "";
 
-        if (tokenName === "ethereum") {
+        if (["ethereum", "avalanche"].includes(tokenName)) {
             address = this.wallet?.ethAddress || "";
         } else if (tokenName === "solana") {
             address = this.wallet?.solanaAddress || "";

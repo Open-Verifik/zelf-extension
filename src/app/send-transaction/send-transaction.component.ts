@@ -27,7 +27,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     balance: number = 0;
     form!: UntypedFormGroup;
-    foundAddress!: WalletModel;
+    foundAddress?: WalletModel;
     fromAddress: string = "";
     token: Token;
     recentAddresses: AddressBook[] = [];
@@ -82,9 +82,12 @@ export class SendTransactionComponent implements OnDestroy {
 
     private _greaterThanValidator(minValue: number): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            const value = control.value;
+            if (!control.value) return null;
+            const value = Number(control.value);
+            const MIN_VALUE = 1e-18; // 0.000000000000000001
 
-            return value > minValue ? null : { greaterThan: { requiredValue: minValue, actualValue: value } };
+            if (isNaN(value)) return null;
+            return value >= MIN_VALUE ? null : { greaterThan: true };
         };
     }
 
@@ -106,17 +109,33 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private async _handleToAddressChange(text?: string): Promise<any> {
-        if (this.searching || !text || !text.trim()) return;
+        if (!text || !text.trim()) return;
 
         this.searching = true;
 
         await this._captchaGeneration();
 
         if (this._getAddressPattern().test(text)) {
-            await this._queryZNS("ethAddress", text);
+            try {
+                await this._queryZNS("ethAddress", text);
+            } catch (error) {
+                console.error("Error querying ZNS:", error);
+                // Si falla la búsqueda, creamos un objeto WalletModel básico con la dirección
+                this.foundAddress = new WalletModel({
+                    ethAddress: text,
+                    publicData: {},
+                });
+            }
         } else {
-            await this._queryZNS("zelfName", text);
+            try {
+                await this._queryZNS("zelfName", text);
+            } catch (error) {
+                console.error("Error querying ZNS by name:", error);
+                this.foundAddress = undefined;
+            }
         }
+
+        this.searching = false;
     }
 
     async _queryZNS(key: string, value: string): Promise<void> {
@@ -124,18 +143,31 @@ export class SendTransactionComponent implements OnDestroy {
             const response = await this._zelfNameService.searchZelfNameV2(key, value, this._captchaToken);
 
             if (!response.data) {
-                this.searching = false;
-
+                // Si no hay datos pero es una dirección válida, creamos un objeto básico
+                if (key === "ethAddress" && this._getAddressPattern().test(value)) {
+                    this.foundAddress = new WalletModel({
+                        ethAddress: value,
+                        publicData: {},
+                    });
+                } else {
+                    this.foundAddress = undefined;
+                }
                 return;
             }
 
             this.foundAddress = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
-
-            this.searching = false;
         } catch (error) {
-            console.error({ error });
-
-            this.searching = false;
+            console.error("Error in _queryZNS:", error);
+            // Si es una dirección válida, creamos un objeto básico incluso si falla la consulta
+            if (key === "ethAddress" && this._getAddressPattern().test(value)) {
+                this.foundAddress = new WalletModel({
+                    ethAddress: value,
+                    publicData: {},
+                });
+            } else {
+                this.foundAddress = undefined;
+            }
+            throw error;
         }
     }
 
@@ -144,10 +176,22 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     continueToConfirmation(): void {
-        // if (this.form.invalid) return;
+        const toAddress = this.form.get("toAddress")?.value;
 
-        this._transactionService.receiver = this.foundAddress;
-        this._transactionService.toAddress = this.form.get("toAddress")?.value;
+        if (!this._getAddressPattern().test(toAddress)) {
+            return;
+        }
+
+        // Ensure we always have a valid WalletModel before continuing
+        if (!this.foundAddress) {
+            this.foundAddress = new WalletModel({
+                ethAddress: toAddress,
+                publicData: {},
+            });
+        }
+
+        this._transactionService.receiver = this.foundAddress; // Now foundAddress is guaranteed to be WalletModel
+        this._transactionService.toAddress = toAddress;
         this._transactionService.withdrawalAmount = this.form.get("amount")?.value;
 
         this._router.navigate(["/send/confirmation"]);

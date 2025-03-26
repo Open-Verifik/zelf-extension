@@ -41,6 +41,11 @@ export class SendConfirmComponent implements OnInit {
     total: string = "0";
     transactionData: any;
     wallet?: WalletModel;
+    selectedNetwork: string;
+    availableNetworks = [
+        { id: "ethereum", name: "Ethereum", symbol: "ETH" },
+        { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
+    ];
 
     constructor(
         private _ethService: EthereumService,
@@ -62,11 +67,11 @@ export class SendConfirmComponent implements OnInit {
         if (this._password && this._password.trim()) this.requiresBiometrics = false;
 
         this._initForm();
+        this.selectedNetwork = this.token?.network?.toLowerCase() || "ethereum";
     }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWalletFromStorage()) as WalletModel;
-
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
     }
@@ -79,23 +84,22 @@ export class SendConfirmComponent implements OnInit {
         try {
             if (!this.token) {
                 console.error("No transaction details available");
-
                 return;
             }
 
             let transactionCost;
+            const isEthereumToken = this.token.tokenType === "ETH";
+            const isAvaxToken = this.token.tokenType === "AVAX";
 
-            if (this.token.tokenType !== "ETH") {
+            if (!isEthereumToken && !isAvaxToken) {
+                // Lógica para tokens ERC20
                 const tokenAddress = this.token.address;
-
                 if (!tokenAddress || !this._ethService.checkIfValidAddress(tokenAddress)) {
                     console.error("Invalid token address:", tokenAddress);
-
                     return;
                 }
 
                 const formattedTokenAddress = tokenAddress.startsWith("0x") ? tokenAddress : `0x${tokenAddress}`;
-
                 transactionCost = await this._ethService.getTransactionCost(
                     formattedTokenAddress,
                     this._ethService.toWei(String(this.amount || "0"), this.token.decimals)
@@ -103,7 +107,6 @@ export class SendConfirmComponent implements OnInit {
             } else {
                 if (!this.toAddress || !this._ethService.checkIfValidAddress(this.toAddress)) {
                     console.error("Invalid destination address:", this.toAddress);
-
                     return;
                 }
 
@@ -116,12 +119,11 @@ export class SendConfirmComponent implements OnInit {
 
             this.fee = Number(this._ethService.fromWei(transactionCost.totalCost)).toFixed(6);
 
-            const ethPrice = await this._ethService.getETHPrice();
+            // Obtener el precio según la red
+            const price = this.selectedNetwork === "avalanche" ? await this._ethService.getAVAXPrice() : await this._ethService.getETHPrice();
 
-            this.feeUsd = (Number(this.fee) * ethPrice).toFixed(2);
-
+            this.feeUsd = (Number(this.fee) * price).toFixed(2);
             const amountInUsd = Number(this.amount) * this.token.price;
-
             this.total = (amountInUsd + Number(this.feeUsd)).toFixed(2);
 
             this.transactionData = {
@@ -131,6 +133,7 @@ export class SendConfirmComponent implements OnInit {
                 sender: this.fromAddress,
                 receiver: this.toAddress,
                 total: this.total,
+                network: this.selectedNetwork,
             };
         } catch (error) {
             console.error("Error calculating transaction fee:", error);
@@ -194,13 +197,19 @@ export class SendConfirmComponent implements OnInit {
             const amountStr = String(this.amount);
             const normalizedAmount = amountStr.replace(",", ".");
 
-            const receipt = await this._ethService.sendTestTransaction(normalizedAmount, wallet.privateKey, this.toAddress);
-            console.log(` SendConfirmComponent ~ confirmTransaction ~ receipt:`, receipt);
+            const receipt = await this._ethService.sendTransaction(
+                normalizedAmount,
+                wallet.privateKey,
+                this.toAddress,
+                this.selectedNetwork === "avalanche" ? "avalanche" : "ethereum"
+            );
+
+            console.log("Transaction receipt:", receipt);
 
             this._transactionService.addToRecentAddresses({
                 address: this.receiver.ethAddress,
                 zelfName: this.receiver?.publicData?.zelfName,
-                network: this.token.network,
+                network: this.selectedNetwork,
                 tokenType: this.token.tokenType,
             });
 
@@ -209,7 +218,6 @@ export class SendConfirmComponent implements OnInit {
             await this._router.navigate(["/home"]);
         } catch (error: any) {
             this.sending = false;
-
             console.error("Error during transaction execution:", error);
         }
     }

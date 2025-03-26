@@ -1,3 +1,15 @@
+<div class="history-container">
+    <div *ngIf="!loading && transactions.length > 0">
+        <activity-card *ngFor="let transaction of transactions" [data]="transaction"></activity-card>
+    </div>
+    <div *ngIf="!loading && transactions.length === 0" class="no-transactions">
+        {{ "" | transloco }}
+    </div>
+    <div *ngIf="loading" class="loading">
+        {{ "common.loading" | transloco }}
+    </div>
+</div>
+
 <div class="zelf-history-loader ripple" *ngIf="loading"></div>
 
 <div class="zelf-history" *transloco="let t">

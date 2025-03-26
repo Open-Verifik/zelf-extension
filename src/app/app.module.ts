@@ -40,7 +40,6 @@ import { WordsPickerStepComponent } from "./create-wallet/words-picker-step/word
 import { ExtensionInstructionsComponent } from "./extension-instructions/extension-instructions.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
-import { ActivityCardComponent } from "./home/activity-card/activity-card.component";
 import { HomeActiveWalletComponent } from "./home/home-active-wallet/home-active-wallet.component";
 import { HomeHeaderComponent } from "./home/home-header/home-header.component";
 import { HomeWalletActivityComponent } from "./home/home-wallet-activity/home-wallet-activity.component";
@@ -77,6 +76,7 @@ import { UnlockWalletComponent } from "./unlock-wallet/unlock-wallet.component";
 import { UwPasswordStepComponent } from "./unlock-wallet/uw-password-step/uw-password-step.component";
 import { UwSearchWalletComponent } from "./unlock-wallet/uw-search-wallet/uw-search-wallet.component";
 import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.component";
+import { ActivityCardComponent } from "./home/activity-card/activity-card.component";
 
 @NgModule({
     declarations: [
@@ -116,7 +116,6 @@ import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.com
         SendTransactionPreviewComponent,
         SendTransactionConfirmationComponent,
         SendTransactionBridgeComponent,
-        ActivityCardComponent,
         TokenCardComponent,
         NftCardComponent,
         NetworkPickerComponent,
@@ -156,6 +155,7 @@ import { WalletCardComponent } from "./wallet-common/wallet-card/wallet-card.com
         FirstLetterPipe,
         ZelfNamePipe,
         TranslocoModule,
+        ActivityCardComponent,
     ],
     providers: [],
     bootstrap: [AppComponent],

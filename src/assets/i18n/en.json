@@ -24,6 +24,15 @@
         "years": "Years",
         "zns_reward": "You will receive {{reward}} Zelf tokens (ZNS) as a reward"
     },
+    "activity": {
+        "history": "History",
+        "pending": "Pending",
+        "no_history_found": "No transaction history found",
+        "send": "Send",
+        "receive": "Receive",
+        "trade": "Trade",
+        "approve": "Approve"
+    },
     "wallet_status": {
         "active": "Active",
         "expired": "Expired",
@@ -74,6 +83,8 @@
         "zelf_name_requires_a_password": "Your Zelf Name requires a password"
     },
     "common": {
+        "activity": "Activity",
+        "come_back_later": "Please come back later!",
         "coin": "Coin",
         "verify": "Verify",
         "transfer": "Transfer",

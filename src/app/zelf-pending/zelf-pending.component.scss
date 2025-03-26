@@ -1,3 +1,22 @@
-:host {
-  display: block;
+@import "../../styles/variables.scss";
+
+.zelf-pending {
+    display: flex;
+    min-height: 600px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__message {
+        font-size: 1.5rem;
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        color: $gray;
+        margin-bottom: 4px;
+        padding: 16px;
+    }
 }

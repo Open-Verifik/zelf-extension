@@ -79,6 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         await this._getETHDetails();
         await this._getSolanaDetails();
+        await this._getAvalancheDetails();
 
         this.balancesLoading = false;
     }
@@ -103,7 +104,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this._getTokens("Ethereum", details.data.tokenHoldings.tokens);
     }
+    private async _getAvalancheDetails(): Promise<any> {
+        if (!this.wallet?.ethAddress) return;
 
+        try {
+            console.log("Getting AVAX details...");
+            const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
+
+            if (details?.data) {
+                if (details.data.tokenHoldings?.tokens) {
+                    this._getTokens("Avalanche", details.data.tokenHoldings.tokens);
+                }
+            }
+
+            this._changeDetectionRef.detectChanges();
+        } catch (error) {
+            console.error("Error getting AVAX details:", error);
+        }
+    }
     private async _getSolanaDetails(): Promise<any> {
         const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
 
@@ -117,17 +135,40 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private _getTokens(network: string, tokens: Array<any>): void {
+        console.log("Raw tokens received:", tokens);
         for (let index = 0; index < tokens.length; index++) {
             const token = tokens[index];
 
-            if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-                this.tokens.push({ ...token, network });
+            if (!token.symbol) {
+                continue;
+            }
+
+            if (["ERC-20", "ETH", "AVAX"].includes(token.tokenType)) {
+                if (["ETH", "AVAX"].includes(token.tokenType)) {
+                    this.tokens.push(token);
+                } else {
+                    const formattedToken = {
+                        ...token,
+                        network,
+                        balance: parseFloat(token.balance || "0"),
+                        fiatBalance: parseFloat(token.fiatBalance || "0"),
+                        price: parseFloat(token.price || "0"),
+                    };
+                    this.tokens.push(formattedToken);
+                }
             } else if (["NFT"].includes(token.tokenType)) {
                 this.NFTs.push({ ...token, network });
             }
 
             if (network === "Solana") {
-                const _token = { ...token, symbol: token.symbol || token.name, network };
+                const _token = {
+                    ...token,
+                    symbol: token.symbol || token.name,
+                    network,
+                    balance: parseFloat(token.balance || "0"),
+                    fiatBalance: parseFloat(token.fiatBalance || "0"),
+                    price: parseFloat(token.price || "0"),
+                };
 
                 if (_token.name === "Zelf") {
                     _token.symbol = "ZNS";
@@ -137,6 +178,11 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
         }
 
+        this.tokens = this.tokens.filter(
+            (token, index, self) => token.symbol && index === self.findIndex((t) => t.symbol === token.symbol && t.network === token.network)
+        );
+
+        console.log("Processed tokens:", this.tokens);
         this._changeDetectionRef.detectChanges();
     }
 

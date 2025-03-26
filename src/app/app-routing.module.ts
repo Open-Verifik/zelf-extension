@@ -73,13 +73,11 @@ const routes: Routes = [
                 path: "password",
                 loadComponent: () => import("./security-password/security-password.component").then((m) => m.SecurityPasswordComponent),
                 canActivate: [MnemonicGuard],
-                // password screen will have two states: creating password, and logging in
             },
             {
                 path: "biometrics",
                 loadComponent: () => import("./security-biometrics/security-biometrics.component").then((m) => m.SecurityBiometricsComponent),
                 canActivate: [PasswordGuard, MnemonicGuard],
-                // unlocks/decrypts wallet
             },
         ],
     },

@@ -1,10 +1,11 @@
 import { CommonModule, NgIf } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { ActivatedRoute, RouterLink, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -22,7 +23,12 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     wallet?: Partial<WalletModel> = {};
     wallets: WalletModel[] = [];
 
-    constructor(private _activatedRoute: ActivatedRoute, private _walletService: WalletService) {
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _router: Router,
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService
+    ) {
         this._selectedZelfName = this._activatedRoute.snapshot.queryParams.zelfName;
 
         this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {
@@ -53,6 +59,22 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
         }
 
         this.wallet = wallet || {};
+    }
+
+    async extendRegistration(): Promise<void> {
+        console.log(` ManageDomainComponent ~ extendRegistration ~ this.wallet?.durationToken:`, this.wallet?.durationToken);
+        if (this.wallet?.durationToken) {
+            this._router.navigate(["/external-link"], {
+                queryParams: {
+                    externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.wallet?.publicData?.zelfName}&token=${this.wallet.durationToken}`,
+                },
+            });
+
+            return;
+        }
+
+        await this._zelfNameService.setFlow("unlock");
+        this._router.navigate(["/security/password"], { queryParams: { return: "/manage-domains" } });
     }
 
     getWalletStatus(): string {

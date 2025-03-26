@@ -1,0 +1,119 @@
+<div class="zelf-history" *transloco="let t">
+    <div class="zelf-history__loader ripple" *ngIf="loading"></div>
+
+    <div class="zelf-history__no-results" *ngIf="!history && !loading">
+        <p>No history found</p>
+    </div>
+
+    <ng-container *ngIf="history">
+        <ng-container *ngFor="let data of history | keyvalue">
+            <p class="zelf-history__date">{{ data.key | date : "dd MMM, yyyy" }}</p>
+
+            <ng-container *ngFor="let item of data.value">
+                <div class="zelf-history__item">
+                    <div class="zelf-history__left">
+                        <img
+                            class="zelf-history__image"
+                            [src]="item.to.image"
+                            [alt]="item.to.symbol"
+                            *ngIf="item.type === 'receive' || item.type === 'approve'"
+                        />
+
+                        <img class="zelf-history__image" [src]="item.from.image" [alt]="item.from.symbol" *ngIf="item.type === 'send'" />
+
+                        <div class="zelf-history__trade-images" *ngIf="item.type === 'trade'">
+                            <img class="zelf-history__trade-image-a" [src]="item.from.image" [alt]="item.from.symbol" />
+                            <img class="zelf-history__trade-image-b" [src]="item.to.image" [alt]="item.to.symbol" />
+                        </div>
+
+                        <div class="zelf-history__col">
+                            <div class="zelf-history__icon-container">
+                                <div class="zelf-history__icon" [ngClass]="'zelf-history__icon--' + item.type">
+                                    <ng-container *ngIf="item.type === 'receive'">
+                                        <ng-container *ngTemplateOutlet="incomingIcon"></ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="item.type === 'send'">
+                                        <ng-container *ngTemplateOutlet="outgoingIcon"></ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="item.type === 'trade'">
+                                        <ng-container *ngTemplateOutlet="tradeIcon"></ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="item.type === 'approve'">
+                                        <ng-container *ngTemplateOutlet="checkIcon"></ng-container>
+                                    </ng-container>
+                                </div>
+
+                                <p class="zelf-history__type">{{ t("activity." + item.type) }}</p>
+                            </div>
+
+                            <p class="zelf-history__type-subtitle" *ngIf="item.type === 'trade'">{{ item.from.token }}</p>
+                            <p class="zelf-history__type-subtitle" *ngIf="item.type === 'approve'">{{ item.to.token }}</p>
+
+                            <p class="zelf-history__type-subtitle" *ngIf="item.type !== 'approve' && item.type !== 'trade'">
+                                <ng-container *ngIf="item.type === 'receive'">{{ item.from.address | addressMask }}</ng-container>
+                                <ng-container *ngIf="item.type === 'send'">{{ item.to.address | addressMask }}</ng-container>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="zelf-history__right">
+                        <ng-container *ngIf="item.type === 'receive'">
+                            <p class="zelf-history__received">+ {{ item.from.amount | number : "1.1-20" }} {{ item.from.symbol }}</p>
+                            <p class="zelf-history__received-fiat">
+                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }} {{ item.from.symbol }}
+                            </p>
+                        </ng-container>
+
+                        <ng-container *ngIf="item.type === 'send'">
+                            <p class="zelf-history__send">+ {{ item.to.amount | number : "1.1-20" }} {{ item.to.symbol }}</p>
+                            <p class="zelf-history__send-fiat">
+                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }} {{ item.from.symbol }}
+                            </p>
+                        </ng-container>
+
+                        <ng-container *ngIf="item.type === 'trade'">
+                            <p class="zelf-history__send">+ {{ item.to.amount | number : "1.1-20" }} {{ item.to.symbol }}</p>
+                            <p class="zelf-history__send-fiat">- {{ item.from.amount | number : "1.1-20" }} {{ item.from.symbol }}</p>
+                        </ng-container>
+
+                        <ng-container *ngIf="item.type === 'approve'">
+                            <p class="zelf-history__approve-text">{{ t("") }}</p>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #incomingIcon>
+    <svg width="8" height="8" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M15.0075 1.00148C14.6175 0.611484 13.9875 0.611484 13.5975 1.00148L2.70752 11.8815V6.29148C2.70752 5.74148 2.25752 5.29148 1.70752 5.29148C1.15752 5.29148 0.70752 5.74148 0.70752 6.29148V14.2915C0.70752 14.8415 1.15752 15.2915 1.70752 15.2915H9.70752C10.2575 15.2915 10.7075 14.8415 10.7075 14.2915C10.7075 13.7415 10.2575 13.2915 9.70752 13.2915H4.11752L15.0075 2.40148C15.3875 2.02148 15.3875 1.38148 15.0075 1.00148Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #outgoingIcon>
+    <svg width="8" height="8" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M5.29636 1.70361C5.29636 2.26361 5.74636 2.70361 6.29636 2.70361H11.8864L0.996357 13.5936C0.606357 13.9836 0.606357 14.6136 0.996357 15.0036C1.38636 15.3936 2.01636 15.3936 2.40636 15.0036L13.2964 4.11361V9.70361C13.2964 10.2536 13.7464 10.7036 14.2964 10.7036C14.8464 10.7036 15.2964 10.2536 15.2964 9.70361V1.70361C15.2964 1.15361 14.8464 0.703613 14.2964 0.703613H6.29636C5.74636 0.703613 5.29636 1.15361 5.29636 1.70361Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #checkIcon>
+    <svg width="8" height="6" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M5.79506 10.8754L2.32506 7.40539C1.93506 7.01539 1.30506 7.01539 0.915059 7.40539C0.525059 7.79539 0.525059 8.42539 0.915059 8.81539L5.09506 12.9954C5.48506 13.3854 6.11506 13.3854 6.50506 12.9954L17.0851 2.41539C17.4751 2.02539 17.4751 1.39539 17.0851 1.00539C16.6951 0.615391 16.0651 0.615391 15.6751 1.00539L5.79506 10.8754Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #tradeIcon>
+    <svg width="8" height="6" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M3.13563 6.85496L0.355635 9.64496C0.165635 9.84496 0.165635 10.155 0.355635 10.355L3.13563 13.145C3.44563 13.465 3.98563 13.235 3.98563 12.795V10.995H9.99564C10.5456 10.995 10.9956 10.545 10.9956 9.99496C10.9956 9.44496 10.5456 8.99496 9.99564 8.99496H3.98563V7.20496C3.98563 6.75496 3.44563 6.53496 3.13563 6.85496ZM17.6456 3.64496L14.8656 0.854961C14.5556 0.534961 14.0156 0.764961 14.0156 1.20496V2.99496H7.99564C7.44563 2.99496 6.99564 3.44496 6.99564 3.99496C6.99564 4.54496 7.44563 4.99496 7.99564 4.99496H14.0056V6.78496C14.0056 7.23496 14.5456 7.45496 14.8556 7.13496L17.6356 4.34496C17.8356 4.15496 17.8356 3.83496 17.6456 3.64496Z"
+        />
+    </svg>
+</ng-template>

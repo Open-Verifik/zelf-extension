@@ -1,0 +1,63 @@
+@import "../../styles/variables.scss";
+@import "../../styles/buttons.scss";
+@import "../../styles/animations.scss";
+
+.zelf-activity {
+    &__header {
+        align-content: center;
+        column-gap: 12px;
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(10, 1fr);
+        justify-content: start;
+        width: 100%;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        text-align: center;
+        align-items: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
+    }
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 1;
+    }
+
+    &__tabs {
+        width: 100%;
+    }
+
+    &__content {
+        min-height: 600px;
+        width: 100%;
+    }
+}

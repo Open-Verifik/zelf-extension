@@ -131,10 +131,6 @@
                         <nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
                     </div>
                 </ng-container>
-
-                <div class="activity-content" *ngIf="shareables.view === 'activity'" fxLayout="column" fxLayoutAlign="start start">
-                    <activity-card class="w-full" [data]="transaction" *ngFor="let transaction of activity"></activity-card>
-                </div>
             </div>
         </div>
 

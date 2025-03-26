@@ -29,11 +29,7 @@
     </div>
 
     <div class="footer-link">
-        <div
-            (click)="changeView('activity')"
-            [ngClass]="{ 'footer-link__button--active': shareables.view === 'activity' }"
-            class="footer-link__button"
-        >
+        <div [ngClass]="{ 'footer-link__button--active': shareables.view === 'activity' }" class="footer-link__button" [routerLink]="['/activity']">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                 <path
                     d="M18 4C11.3733 4 6 9.37333 6 16H2L7.18667 21.1867L7.28 21.3733L12.6667 16H8.66667C8.66667 10.84 12.84 6.66667 18 6.66667C23.16 6.66667 27.3333 10.84 27.3333 16C27.3333 21.16 23.16 25.3333 18 25.3333C15.4267 25.3333 13.0933 24.28 11.4133 22.5867L9.52 24.48C11.6933 26.6533 14.68 28 18 28C24.6267 28 30 22.6267 30 16C30 9.37333 24.6267 4 18 4ZM16.6667 10.6667V17.3333L22.3333 20.6933L23.36 18.9867L18.6667 16.2V10.6667H16.6667Z"

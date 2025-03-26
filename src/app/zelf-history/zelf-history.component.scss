@@ -1,0 +1,212 @@
+@import "../../styles/variables.scss";
+
+:host {
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    max-height: 600px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.zelf-history {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 2;
+    }
+
+    &__date {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        color: $gray;
+        margin-bottom: 4px;
+        width: 100%;
+        text-align: left;
+        padding: 16px;
+    }
+
+    &__item {
+        display: flex;
+        width: 100%;
+        padding: 16px;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__image {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        border-radius: 40px;
+        object-fit: contain;
+    }
+
+    &__trade-images {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    &__trade-image-a,
+    &__trade-image-b {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        min-width: 25px;
+        min-height: 25px;
+        border-radius: 25px;
+        object-fit: contain;
+    }
+
+    &__trade-image-a {
+        left: 0;
+        top: 0;
+    }
+
+    &__trade-image-b {
+        bottom: 0;
+        right: 0;
+    }
+
+    &__col,
+    &__right {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    &__col {
+        justify-content: flex-start;
+    }
+
+    &__left {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        flex: 1 1 auto;
+        gap: 16px;
+    }
+
+    &__right {
+        align-items: flex-end;
+    }
+
+    &__icon-container {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 auto;
+        gap: 8px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__icon {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        min-height: 14px;
+        background-color: $platinum;
+        border-radius: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &--trade,
+        &--approve {
+            svg {
+                fill: $black;
+            }
+        }
+
+        &--send,
+        &--receive {
+            svg {
+                fill: $correct;
+            }
+        }
+    }
+
+    &__type {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
+        margin: 0;
+    }
+
+    &__type-subtitle {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        color: $gray;
+        margin: 0;
+    }
+
+    &__received,
+    &__send,
+    &__trade,
+    &__approve-text {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    &__received,
+    &__send {
+        color: $correct;
+    }
+    &__trade,
+    &__approve-text {
+        color: $black;
+    }
+
+    &__send-fiat,
+    &__received-fiat {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        vertical-align: middle;
+        color: $gray;
+        margin: 0;
+    }
+}

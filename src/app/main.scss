@@ -48,6 +48,24 @@ html {
 body {
     margin: 0px !important;
     height: 100vh;
+    scrollbar-width: 10px;
+    scrollbar-color: linear-gradient(to left, $primaryLight, $frenchGray) rgba(0, 0, 0, 0.04);
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        background-color: $antiFlashWhite;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.04);
+        border: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: linear-gradient(to left, $primaryLight, $frenchGray);
+        transition: background-color 0.3s $smoothBezier;
+    }
 }
 
 app-onboarding {
@@ -1676,6 +1694,14 @@ h3 {
     &__image {
         object-fit: contain;
         width: 100%;
+        transition: filter 1s $smoothBezier;
+        filter: blur(0px);
+
+        &[src="./assets/images/qr-preload.png"] {
+            box-sizing: border-box;
+            padding: 32px;
+            filter: blur(18px);
+        }
     }
 }
 
@@ -1733,8 +1759,23 @@ h3 {
     }
 }
 
+.zelf-logo {
+    display: inline;
+
+    &--screen-md {
+        display: none;
+    }
+}
+
 /* Small screen devices (600px and above) */
 @media only screen and (min-width: $minSmall) {
+    .zelf-logo {
+        display: none;
+
+        &--screen-md {
+            display: inline;
+        }
+    }
 }
 
 /* Medium screen devices (768px and above) */

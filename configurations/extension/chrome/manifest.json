@@ -3,9 +3,8 @@
     "host_permissions": ["*://*/*"],
     "manifest_version": 3,
     "name": "Zelf Name Service",
-    "orientation": "portrait-primary",
+    "orientation": "portrait",
     "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "storage", "sidePanel"],
-    "start_url": "index.html",
     "version": "1.0",
     "action": {
         "default_popup": "index.html",

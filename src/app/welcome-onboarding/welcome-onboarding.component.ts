@@ -1,3 +1,5 @@
+import { Subject, takeUntil } from "rxjs";
+
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
@@ -5,13 +7,13 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
+
 import { swipeLeft } from "app/animations/swipe-left.animation";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { Subject, takeUntil } from "rxjs";
 
 @Component({
     animations: [swipeLeft],
@@ -40,13 +42,13 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
         private _vaultService: VaultService,
         private _zelfNameService: ZelfNameService
     ) {
-        this._zelfNameService.setFlow("");
-        this._zelfNameService.setMnemonicCount(0);
-        this._zelfNameService.setZelfName("");
-        this._zelfNameService.setReferral("");
-        this._zelfNameService.setZelfNameObject(null);
-
         this._walletService.setWalletsToColdStorage();
+
+        this._chromeService.removeItem("flow");
+        this._chromeService.removeItem("mnemonicCount");
+        this._chromeService.removeItem("referralZelfName");
+        this._chromeService.removeItem("zelfName");
+        this._chromeService.removeItem("zelfNameObject");
 
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";

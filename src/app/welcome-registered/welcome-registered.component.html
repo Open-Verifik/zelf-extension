@@ -12,7 +12,7 @@
     <div class="zelf-card__content welcome-registered__content">
         <div class="welcome-registered__details">
             <div class="qr-code" *ngIf="zelfNameObject?.publicData?.type === 'hold' || !zelfNameObject?.publicData?.isExpiringWithinMonth">
-                <img class="qr-code__image" [src]="zelfNameObject?.image" alt="zelf-proof" />
+                <img class="qr-code__image" [src]="qrCodeImage" alt="zelf-proof" />
             </div>
 
             <div

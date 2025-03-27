@@ -59,12 +59,7 @@
     </div>
 
     <div class="manage-domain__actions">
-        <button
-            [queryParams]="{ zelfName: wallet?.publicData?.zelfName }"
-            [routerLink]="['/domain-purchase']"
-            class="zelf-button zelf-button--black zelf-button--wide"
-            mat-flat-button
-        >
+        <button (click)="extendRegistration()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
             {{ t("common.extend_registration") }}
         </button>
 

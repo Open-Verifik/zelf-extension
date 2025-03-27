@@ -1,8 +1,15 @@
 import { inject } from "@angular/core";
 import { Router, type CanActivateFn } from "@angular/router";
+import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 export const ZelfNameGuard: CanActivateFn = async () => {
+    const _walletService = inject(WalletService);
+
+    const wallet = await _walletService.getCurrentWalletFromStorage();
+
+    if (wallet) return true;
+
     const _zelfNameService = inject(ZelfNameService);
     const router = inject(Router);
 

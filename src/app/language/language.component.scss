@@ -26,3 +26,11 @@
         margin-right: 0.2rem;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .language {
+        &__text {
+            display: none !important;
+        }
+    }
+}

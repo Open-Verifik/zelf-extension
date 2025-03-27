@@ -6,7 +6,7 @@ export const WalletGuard: CanActivateFn = async () => {
     const _walletService = inject(WalletService);
     const router = inject(Router);
 
-    const wallet = await _walletService.getCurrentWalletFromStorage();
+    const wallet = await _walletService.getCurrentWallet();
 
     if (!wallet?.ethAddress) {
         router.navigate(["/welcome"]);

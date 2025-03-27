@@ -431,7 +431,15 @@ export class WalletService {
         return { wallet, wallets };
     }
 
-    async getCurrentWalletFromStorage(): Promise<Partial<WalletModel> | null> {
+    async getCurrentWallet(): Promise<Partial<WalletModel> | null> {
+        let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+
+        if (wallet?.ethAddress) wallet = new WalletModel(wallet);
+
+        return wallet;
+    }
+
+    async getFirstWalletFromStorage(): Promise<Partial<WalletModel> | null> {
         let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
 
         if (wallet?.ethAddress) wallet = new WalletModel(wallet);

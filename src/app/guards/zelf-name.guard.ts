@@ -6,7 +6,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 export const ZelfNameGuard: CanActivateFn = async () => {
     const _walletService = inject(WalletService);
 
-    const wallet = await _walletService.getCurrentWalletFromStorage();
+    const wallet = await _walletService.getCurrentWallet();
 
     if (wallet) return true;
 

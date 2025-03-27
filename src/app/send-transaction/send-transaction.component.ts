@@ -211,7 +211,7 @@ export class SendTransactionComponent implements OnDestroy {
             this.foundAddress = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
         } catch (error) {
             console.error("Error in _queryZNS:", error);
-            // Si es una dirección válida, creamos un objeto básico incluso si falla la consulta
+
             if (key === "ethAddress" && this._getAddressPattern().test(value)) {
                 this.foundAddress = new WalletModel({
                     ethAddress: value,

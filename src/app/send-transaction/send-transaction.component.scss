@@ -225,4 +225,23 @@
         vertical-align: middle;
         color: $gray;
     }
+
+    &--error {
+        background-color: #fff2f2;
+        border: 1px solid #dc362e;
+    }
+
+    &__icon-bubble {
+        &--error {
+            background-color: #dc362e;
+            color: white;
+        }
+    }
+
+    &__error-message {
+        color: #ff5247;
+        text-align: center;
+        font-size: 16px;
+        margin: 16px 0;
+    }
 }

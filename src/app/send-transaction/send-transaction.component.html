@@ -215,8 +215,8 @@
 
             <div class="ripple send-transaction__loader" *ngIf="searching"></div>
 
-            <ng-container *ngIf="!withdrawStep && foundAddress">
-                <div class="zelf-object-preview">
+            <ng-container *ngIf="!withdrawStep">
+                <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound">
                     <div class="zelf-object-preview__chip">
                         <div class="zelf-object-preview__icon-bubble">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -225,7 +225,6 @@
                                 />
                             </svg>
                         </div>
-
                         <p class="zelf-object-preview__chip-text" *ngIf="foundAddress.name">{{ t("send.address_found") }}</p>
                         <p class="zelf-object-preview__chip-text" *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</p>
                     </div>
@@ -242,13 +241,28 @@
 
                     <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p>
                 </div>
+
+                <div class="zelf-object-preview zelf-object-preview--error" *ngIf="isZelfNameNotFound">
+                    <div class="zelf-object-preview__chip">
+                        <div class="zelf-object-preview__icon-bubble zelf-object-preview__icon-bubble--error">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </div>
+                        <p class="zelf-object-preview__chip-text">ZELF NAME NOT FOUND</p>
+                    </div>
+                    <p class="zelf-object-preview__error-message">Zelf Name Not Exist</p>
+                </div>
             </ng-container>
         </div>
 
         <div class="zelf-card__actions">
             <button
                 (click)="continueToWithdraw()"
-                [disabled]="form.get('toAddress')?.invalid || !form.get('toAddress')?.value || searching"
+                [disabled]="form.get('toAddress')?.invalid || !form.get('toAddress')?.value || searching || !foundAddress"
                 *ngIf="!withdrawStep"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
@@ -259,6 +273,7 @@
 
             <button
                 (click)="continueToConfirmation()"
+                [disabled]="form.invalid || !foundAddress"
                 *ngIf="withdrawStep"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button

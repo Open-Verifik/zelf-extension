@@ -43,6 +43,7 @@ export class SendTransactionComponent implements OnDestroy {
     recentAddresses: AddressBook[] = [];
     searching: boolean = false;
     withdrawStep: boolean = false;
+    isZelfNameNotFound: boolean = false;
 
     constructor(
         private _captchaService: CaptchaService,
@@ -107,7 +108,7 @@ export class SendTransactionComponent implements OnDestroy {
                 0,
                 [Validators.required, Validators.min(0), Validators.max(this._transactionService.fromBalance), this._greaterThanValidator(0)],
             ],
-            toAddress: ["", [Validators.required]],
+            toAddress: ["", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
         });
 
         this.form
@@ -118,31 +119,73 @@ export class SendTransactionComponent implements OnDestroy {
             });
     }
 
+    private _addressValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) return null;
+
+            // Check if it matches the pattern for the current token type
+            const pattern = this._getAddressPattern();
+            if (!pattern.test(value)) {
+                return { invalidFormat: true };
+            }
+
+            // For ETH addresses, do additional validation
+            if (this.token.tokenType === "ETH") {
+                if (!this._walletService.isValidEVMAddress(value)) {
+                    return { invalidEVM: true };
+                }
+            }
+
+            return null;
+        };
+    }
+
     private async _handleToAddressChange(text?: string): Promise<any> {
-        if (!text || !text.trim()) return;
+        if (!text || !text.trim()) {
+            this.isZelfNameNotFound = false;
+            return;
+        }
 
         this.searching = true;
-
+        this.isZelfNameNotFound = false;
         await this._captchaGeneration();
 
-        if (this._getAddressPattern().test(text)) {
-            try {
+        try {
+            // First check if it's a valid EVM address format
+            const isValidEVMFormat = this._walletService.isValidEVMAddress(text);
+
+            // Always query ZNS first
+            await this._queryZNS("zelfName", text);
+
+            // If no result found and input is valid EVM address, try as address
+            if (!this.foundAddress && isValidEVMFormat) {
                 await this._queryZNS("ethAddress", text);
-            } catch (error) {
-                console.error("Error querying ZNS:", error);
-                // Si falla la búsqueda, creamos un objeto WalletModel básico con la dirección
-                this.foundAddress = new WalletModel({
-                    ethAddress: text,
-                    publicData: {},
-                });
+
+                // If still no result, validate on-chain
+                if (!this.foundAddress) {
+                    const isValidOnChain = await this._walletService.validateEVMAddressOnChain(text);
+                    if (isValidOnChain) {
+                        this.foundAddress = new WalletModel({
+                            ethAddress: text,
+                            publicData: {},
+                        });
+                    } else {
+                        this.foundAddress = undefined;
+                    }
+                }
             }
-        } else {
-            try {
-                await this._queryZNS("zelfName", text);
-            } catch (error) {
-                console.error("Error querying ZNS by name:", error);
-                this.foundAddress = undefined;
+
+            // Set error state if searching by zelfName and no result found
+            if (!this.foundAddress && !this._getAddressPattern().test(text)) {
+                this.isZelfNameNotFound = true;
             }
+        } catch (error) {
+            console.error("Error in address search:", error);
+            if (!this._getAddressPattern().test(text)) {
+                this.isZelfNameNotFound = true;
+            }
+            this.foundAddress = undefined;
         }
 
         this.searching = false;
@@ -186,21 +229,18 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     continueToConfirmation(): void {
-        const toAddress = this.form.get("toAddress")?.value;
-
-        if (!this._getAddressPattern().test(toAddress)) {
+        if (this.form.invalid || !this.foundAddress || this.isZelfNameNotFound) {
             return;
         }
 
-        // Ensure we always have a valid WalletModel before continuing
-        if (!this.foundAddress) {
-            this.foundAddress = new WalletModel({
-                ethAddress: toAddress,
-                publicData: {},
-            });
+        const toAddress = this.form.get("toAddress")?.value;
+
+        // Double check the address is valid before proceeding
+        if (!this._getAddressPattern().test(toAddress) || (this.token.tokenType === "ETH" && !this._walletService.isValidEVMAddress(toAddress))) {
+            return;
         }
 
-        this._transactionService.receiver = this.foundAddress; // Now foundAddress is guaranteed to be WalletModel
+        this._transactionService.receiver = this.foundAddress;
         this._transactionService.toAddress = toAddress;
         this._transactionService.withdrawalAmount = this.form.get("amount")?.value;
 

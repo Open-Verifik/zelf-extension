@@ -526,4 +526,50 @@ export class WalletService {
 
         await this._chromeService.setItem("wallets", filteredWallets);
     }
+
+    public isValidEVMAddress(address: string): boolean {
+        if (!this._ETH_REGEX.test(address)) {
+            return false;
+        }
+
+        if (!address.startsWith("0x")) {
+            address = "0x" + address;
+        }
+
+        address = address.toLowerCase();
+
+        try {
+            const addressHash = this.simpleHash(address.slice(2));
+            const checksumAddress =
+                "0x" +
+                address
+                    .slice(2)
+                    .split("")
+                    .map((char, index) => {
+                        if (isNaN(parseInt(char, 16))) return char;
+                        return parseInt(addressHash[index], 16) >= 8 ? char.toUpperCase() : char;
+                    })
+                    .join("");
+
+            return address === checksumAddress.toLowerCase();
+        } catch (error) {
+            console.error("Error validating EVM address checksum:", error);
+            return false;
+        }
+    }
+
+    public async validateEVMAddressOnChain(address: string): Promise<boolean> {
+        try {
+            if (!this.isValidEVMAddress(address)) {
+                return false;
+            }
+
+            const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/validate-address?address=${address}`);
+
+            return response?.isValid || false;
+        } catch (error) {
+            console.error("Error validating EVM address on chain:", error);
+            return false;
+        }
+    }
 }

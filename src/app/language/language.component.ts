@@ -8,11 +8,11 @@ import { LanguageService } from "app/language.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
+    imports: [CommonModule, MatButtonModule, MatMenuModule],
     selector: "language",
     standalone: true,
-    imports: [CommonModule, MatButtonModule, MatMenuModule],
-    templateUrl: "./language.component.html",
     styleUrls: ["./language.component.scss"],
+    templateUrl: "./language.component.html",
 })
 export class LanguageComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();

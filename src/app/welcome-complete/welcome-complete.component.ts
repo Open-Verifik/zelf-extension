@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
@@ -9,6 +9,7 @@ import { WalletModel } from "app/wallet";
 import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
 import { WalletService } from "app/wallet.service";
+import { VaultService } from "app/vault.service";
 
 @Component({
     imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent],
@@ -17,14 +18,22 @@ import { WalletService } from "app/wallet.service";
     styleUrls: ["./welcome-complete.component.scss"],
     templateUrl: "./welcome-complete.component.html",
 })
-export class WelcomeCompleteComponent implements OnInit {
+export class WelcomeCompleteComponent implements OnInit, OnDestroy {
     flow: ZelfFlow = "";
     loading: boolean = true;
     isExtension: boolean = false;
     wallet: Partial<WalletModel> | null = {};
 
-    constructor(private _chromeService: ChromeService, private _walletService: WalletService, private _zelfNameService: ZelfNameService) {
+    constructor(
+        private _chromeService: ChromeService,
+        private _vaultService: VaultService,
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService
+    ) {
         this.isExtension = this._chromeService.isExtension;
+
+        this._chromeService.removeItem("referralZelfName");
+        this._chromeService.removeItem("zelfNameObject");
     }
 
     async ngOnInit(): Promise<void> {
@@ -34,6 +43,11 @@ export class WelcomeCompleteComponent implements OnInit {
         this.flow = await this._zelfNameService.getFlow();
 
         this.loading = false;
+    }
+
+    ngOnDestroy(): void {
+        this._vaultService.password = "";
+        this._vaultService.mnemonic = "";
     }
 
     downloadQRCode(): void {

@@ -1,14 +1,16 @@
+import { debounceTime, Subject, takeUntil } from "rxjs";
+
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
+
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
-import { debounceTime, Subject, takeUntil } from "rxjs";
+import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule],
@@ -21,6 +23,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
+    flow: ZelfFlow = "";
     isNew: boolean = false;
     returnState: string = "";
     showPassword: boolean = false;
@@ -46,9 +49,8 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        const flow = await this._zelfNameService.getFlow();
-
-        this.isNew = flow === "create" || flow === "import";
+        this.flow = await this._zelfNameService.getFlow();
+        this.isNew = this.flow === "create" || this.flow === "import";
 
         this._initForm();
     }
@@ -114,9 +116,11 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
     goBack(): void {
         if (this.returnState) {
-            this._router.navigate([this.returnState]);
+            this._router.navigate([this.returnState], { queryParams: { return: this.returnState } });
         } else {
-            if (this.isNew) this._router.navigate(["../"], { relativeTo: this._activatedRoute });
+            if (this.flow === "create") this._router.navigate(["../"], { relativeTo: this._activatedRoute });
+            else if (this.flow === "import") this._router.navigate(["/welcome/import"]);
+            else if (this.flow === "unlock") this._router.navigate(["/welcome/registered"]);
             else this._router.navigate(["/welcome/registered"]);
         }
     }

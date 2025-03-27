@@ -89,7 +89,7 @@
 
             <button
                 (click)="goToImport()"
-                [disabled]="form.invalid || loading"
+                [disabled]="form.invalid || loading || loadingReferral"
                 class="zelf-button zelf-button--outlined zelf-button--wide"
                 mat-flat-button
             >
@@ -98,7 +98,7 @@
 
             <button
                 (click)="goToSecurity()"
-                [disabled]="form.invalid || loading"
+                [disabled]="form.invalid || loading || loadingReferral"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
             >

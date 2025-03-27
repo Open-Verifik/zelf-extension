@@ -1,3 +1,5 @@
+import { Subject, takeUntil } from "rxjs";
+
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
@@ -11,7 +13,6 @@ import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.component";
-import { Subject, takeUntil } from "rxjs";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { WalletModel } from "app/wallet";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
@@ -119,12 +120,10 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _importWallet(payload: any): Promise<void> {
-        const mnemonic = this._vaultService.mnemonic;
-
         this._zelfNameService
             .leaseZelfName({
                 ...payload,
-                mnemonic,
+                mnemonic: await this._httpWrapperService.encryptMessage(this._vaultService.mnemonic),
                 type: "import",
             })
             .then(async (response) => {
@@ -144,7 +143,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     private _redirect(): void {
         if (this.returnState) {
-            this._router.navigate([this.returnState]);
+            this._router.navigate([this.returnState], { queryParams: { return: this.returnState } });
 
             return;
         }
@@ -156,7 +155,12 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.errorTitle = "";
         this.errorMessage = "";
 
-        this._router.navigate(["../password"], { relativeTo: this._activatedRoute });
+        this.goBack();
+    }
+
+    goBack(): void {
+        if (this.returnState) this._router.navigate(["/security/password"], { queryParams: { return: this.returnState } });
+        else this._router.navigate(["/security/password"]);
     }
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {

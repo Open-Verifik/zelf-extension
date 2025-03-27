@@ -17,7 +17,6 @@
 
 .welcome {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
 
     &__header {
@@ -27,6 +26,12 @@
         height: 96px;
         padding: 1rem;
         width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to bottom, $antiFlashWhite 70%, transparent);
+        z-index: 999;
     }
 
     &__logo-container {
@@ -38,9 +43,8 @@
         overflow: auto;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: calc(100vh - 100px - 48px);
+        height: 100vh;
+        padding: 100px 0 64px;
     }
 
     &__footer {
@@ -50,6 +54,12 @@
         gap: 0.5rem;
         justify-content: center;
         width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, $antiFlashWhite 70%, transparent);
+        z-index: 999;
     }
 
     &__logo svg {

@@ -24,7 +24,7 @@ export class WalletService {
     private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
     private _userFingerPrint!: UserFingerPrint;
 
-    private _BTC_REGEX = /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/;
+    private _BTC_REGEX = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/;
     private _ETH_REGEX = /^(0x)?[0-9a-fA-F]{40}$/;
     private _SOL_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
 

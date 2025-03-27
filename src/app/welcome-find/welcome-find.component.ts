@@ -284,6 +284,9 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     async pastedAddress(event: ClipboardEvent): Promise<void> {
+        event.preventDefault();
+        event.stopPropagation();
+
         if (this.searching) return;
 
         const query = event.clipboardData?.getData("text");

@@ -120,6 +120,6 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnDestroy,
     async redirectToPassword(): Promise<void> {
         await this._zelfNameService.setFlow("unlock");
 
-        this._router.navigate(["/security/password"], { queryParams: { returnUrl: "/welcome/complete" } });
+        this._router.navigate(["/security/password"], { queryParams: { return: "/welcome/complete" } });
     }
 }

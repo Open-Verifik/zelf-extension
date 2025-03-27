@@ -62,7 +62,6 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     }
 
     async extendRegistration(): Promise<void> {
-        console.log(` ManageDomainComponent ~ extendRegistration ~ this.wallet?.durationToken:`, this.wallet?.durationToken);
         if (this.wallet?.durationToken) {
             this._router.navigate(["/external-link"], {
                 queryParams: {

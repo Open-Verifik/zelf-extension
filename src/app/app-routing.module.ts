@@ -27,25 +27,21 @@ const routes: Routes = [
             {
                 path: "",
                 loadComponent: () => import("./welcome-onboarding/welcome-onboarding.component").then((m) => m.WelcomeOnboardingComponent),
-                // Loads the default zelf name search screen (welcome carousel)
             },
             {
                 path: "find",
                 loadComponent: () => import("./welcome-find/welcome-find.component").then((m) => m.WelcomeFindComponent),
                 canActivate: [],
-                // Alternative route to "welcome", for users looking to purchase an additional domain
             },
             {
                 path: "available",
                 loadComponent: () => import("./welcome-available/welcome-available.component").then((m) => m.WelcomeAvailableComponent),
                 canActivate: [ZelfNameGuard],
-                // Name is available and user can provide referral code if applicable
             },
             {
                 path: "registered",
                 loadComponent: () => import("./welcome-registered/welcome-registered.component").then((m) => m.WelcomeRegisteredComponent),
                 canActivate: [ZelfNameGuard],
-                // Has two states: wallet is registered and not available, and wallet is registered and available (redirects to /safety/password)
             },
             {
                 path: "import",
@@ -56,7 +52,6 @@ const routes: Routes = [
                 path: "complete",
                 loadComponent: () => import("./welcome-complete/welcome-complete.component").then((m) => m.WelcomeCompleteComponent),
                 canActivate: [ZelfNameGuard, WalletGuard],
-                // Final screen. Shows mnemonic unlock, continue, or pay options
             },
         ],
     },

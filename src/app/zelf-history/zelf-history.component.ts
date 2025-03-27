@@ -1,34 +1,13 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, KeyValuePipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { TranslocoModule } from "@ngneat/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { Transaction } from "app/services/blockchain-transactions.service";
 
-type HistoryType = "send" | "receive" | "trade" | "approve";
-
-type HistoryItem = {
-    address: string;
-    network: string;
-    type: HistoryType;
-    fiatAmount?: number | string;
-    to: {
-        address: string;
-        amount: number | string;
-        symbol: string;
-        token: string;
-        image: string;
-    };
-    from: {
-        address: string;
-        amount: number | string;
-        symbol: string;
-        token: string;
-        image: string;
-    };
-};
-
-type History = {
-    [date: string]: HistoryItem[];
-};
+interface TokenInfo {
+    symbol: string;
+    image: string;
+}
 
 @Component({
     imports: [NgIf, NgClass, NgFor, NgTemplateOutlet, KeyValuePipe, DatePipe, TranslocoModule, DecimalPipe, CurrencyPipe, AddressMaskPipe],
@@ -37,223 +16,88 @@ type History = {
     styleUrls: ["./zelf-history.component.scss"],
     templateUrl: "./zelf-history.component.html",
 })
-export class ZelfHistoryComponent implements OnInit {
-    history!: History;
-    loading: boolean = true;
+export class ZelfHistoryComponent implements OnChanges {
+    @Input() transactions: Transaction[] = [];
+    public history: Record<string, any[]> | null = null;
+    public loading = false;
+    private tokenImages: Map<string, string> = new Map();
 
-    constructor() {}
-
-    async ngOnInit(): Promise<void> {
-        this._loadHistory();
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes["transactions"] && changes["transactions"].currentValue) {
+            const firstTx = this.transactions[0];
+            if (firstTx?.asset && firstTx?.image) {
+                this.updateTokenImage(firstTx.asset, firstTx.image);
+            }
+            this.processTransactions();
+        }
     }
 
-    private async _loadHistory(): Promise<void> {
-        setTimeout(() => {
-            this.history = mockHistory;
-            this.loading = false;
-        }, 1000);
+    private updateTokenImage(symbol: string, image: string) {
+        if (image && !this.tokenImages.has(symbol)) {
+            this.tokenImages.set(symbol, image);
+        }
+    }
+
+    private getAssetImage(symbol: string): string {
+        const cachedImage = this.tokenImages.get(symbol);
+        if (cachedImage) {
+            return cachedImage;
+        }
+
+        return `assets/images/tokens/${symbol.toLowerCase()}.png`;
+    }
+
+    private processTransactions() {
+        if (!this.transactions.length) {
+            this.history = null;
+            return;
+        }
+
+        console.log("Transactions recibidas:", this.transactions);
+
+        const groupedByDate: Record<string, any[]> = {};
+
+        this.transactions.forEach((tx) => {
+            const date = new Date();
+            const dateStr = date.toISOString().split("T")[0];
+
+            if (!groupedByDate[dateStr]) {
+                groupedByDate[dateStr] = [];
+            }
+
+            console.log("Procesando transacción:", tx);
+            console.log("Imagen del token:", tx.image);
+
+            if (tx.asset && tx.image) {
+                this.updateTokenImage(tx.asset, tx.image);
+                console.log("Imagen actualizada en caché para", tx.asset, ":", tx.image);
+            }
+
+            const tokenImage = tx.image || this.getAssetImage(tx.asset);
+            console.log("Imagen final a usar:", tokenImage);
+
+            const processedTx = {
+                type: tx.traffic === "OUT" ? "send" : "receive",
+                from: {
+                    address: tx.from,
+                    amount: tx.amount,
+                    symbol: tx.asset,
+                    image: tokenImage,
+                },
+                to: {
+                    address: tx.to,
+                    amount: tx.amount,
+                    symbol: tx.asset,
+                    image: tokenImage,
+                },
+                fiatAmount: tx.fiatAmount,
+            };
+
+            console.log("Transacción procesada:", processedTx);
+            groupedByDate[dateStr].push(processedTx);
+        });
+
+        this.history = groupedByDate;
+        console.log("Historia final:", this.history);
     }
 }
-
-const mockHistory: History = {
-    "2021-09-09": [
-        {
-            address: "0xabcdef1234",
-            network: "Ethereum",
-            type: "receive",
-            fiatAmount: "3200.00",
-            to: {
-                address: "0xabcdef1234",
-                amount: 0.8,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-            from: {
-                address: "0x567890abcd",
-                amount: 0.8,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0x1234567890",
-            network: "Ethereum",
-            type: "send",
-            fiatAmount: "400.00",
-            to: {
-                address: "0x0987654321",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-            from: {
-                address: "0x1234567890",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0x1234567890",
-            network: "Ethereum",
-            type: "send",
-            fiatAmount: "400.00",
-            to: {
-                address: "0x0987654321",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-            from: {
-                address: "0x1234567890",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0x1234567890",
-            network: "Ethereum",
-            type: "send",
-            fiatAmount: "400.00",
-            to: {
-                address: "0x0987654321",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-            from: {
-                address: "0x1234567890",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-    ],
-    "2021-09-04": [
-        {
-            address: "0x1234567890",
-            network: "Ethereum",
-            type: "send",
-            fiatAmount: "400.00",
-            to: {
-                address: "0x0987654321",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-            from: {
-                address: "0x1234567890",
-                amount: 0.1,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0xabcdef1234",
-            network: "Ethereum",
-            type: "approve",
-            to: {
-                address: "0xcontract1234",
-                amount: "Unlimited",
-                symbol: "USDT",
-                token: "Tether",
-                image: "https://creazilla-store.fra1.digitaloceanspaces.com/icons/3516745/tether-logo-icon-md.png",
-            },
-            from: {
-                address: "0xabcdef1234",
-                amount: "Unlimited",
-                symbol: "USDT",
-                token: "Tether",
-                image: "https://creazilla-store.fra1.digitaloceanspaces.com/icons/3516745/tether-logo-icon-md.png",
-            },
-        },
-        {
-            address: "0xabcdef1234",
-            network: "Ethereum",
-            type: "trade",
-            to: {
-                address: "0xabcdef1234",
-                amount: 2.5,
-                symbol: "USDT",
-                token: "Tether",
-                image: "https://creazilla-store.fra1.digitaloceanspaces.com/icons/3516745/tether-logo-icon-md.png",
-            },
-            from: {
-                address: "0xabcdef1234",
-                amount: 0.05,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0xabcdef1234",
-            network: "Ethereum",
-            type: "trade",
-            to: {
-                address: "0xabcdef1234",
-                amount: 1.0,
-                symbol: "DAI",
-                token: "Dai Stablecoin",
-                image: "https://th.bing.com/th/id/R.26d4501f9d3f49e0a1fa9e86cd462de3?rik=nwMUJqoXjEfwow&pid=ImgRaw&r=0",
-            },
-            from: {
-                address: "0xabcdef1234",
-                amount: 0.025,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0xabcdef1234",
-            network: "Ethereum",
-            type: "trade",
-            to: {
-                address: "0xabcdef1234",
-                amount: 0.5,
-                symbol: "USDC",
-                token: "USD Coin",
-                image: "https://th.bing.com/th/id/OIP.9ud4FPqgSa_wa_zgqPTLcQAAAA?rs=1&pid=ImgDetMain",
-            },
-            from: {
-                address: "0xabcdef1234",
-                amount: 0.012,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-        {
-            address: "0xabcdef1234",
-            network: "Ethereum",
-            type: "receive",
-            fiatAmount: "2000.00",
-            to: {
-                address: "0xabcdef1234",
-                amount: 0.5,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-            from: {
-                address: "0x9876543210",
-                amount: 0.5,
-                symbol: "ETH",
-                token: "Ethereum",
-                image: "https://ankh.tv/wp-content/uploads/2022/03/eth.png",
-            },
-        },
-    ],
-};

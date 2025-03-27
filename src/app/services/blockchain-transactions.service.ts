@@ -6,6 +6,23 @@ import { environment } from "environments/environment";
 import { WalletService } from "app/wallet.service";
 import { ChromeService } from "app/chrome.service";
 
+interface ApiResponse {
+    data: {
+        transactions: Transaction[];
+        account?: {
+            asset: string;
+            fiatBalance: string;
+            price: string;
+        };
+        tokenHoldings?: {
+            tokens: {
+                symbol: string;
+                image: string;
+            }[];
+        };
+    };
+}
+
 export interface Transaction {
     hash: string;
     method: string;
@@ -19,6 +36,7 @@ export interface Transaction {
     asset: string;
     txnFee?: string;
     status?: string;
+    image?: string;
 }
 
 @Injectable({
@@ -35,31 +53,44 @@ export class BlockchainTransactionsService {
             return of([]);
         }
 
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
+        const httpHeaders = new HttpHeaders()
+            .set("Authorization", `Bearer ${token.trim()}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json");
+
+        const options = { headers: httpHeaders };
 
         return forkJoin({
-            avalanche: this._http.get(`${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, { headers }),
-            ethereum: this._http.get(`${environment.apiUrl}/api/ethereum/address?address=${wallet.ethAddress}`, { headers }),
-            solana: wallet.solAddress ? this._http.get(`${environment.apiUrl}/api/solana/address/${wallet.solAddress}`, { headers }) : of(null),
+            ethereum: this._http.get<ApiResponse>(`${environment.apiUrl}/api/ethereum/address?address=${wallet.ethAddress}`, options),
+            avalanche: this._http.get<ApiResponse>(`${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, options),
+            solana: wallet.solAddress
+                ? this._http.get<ApiResponse>(`${environment.apiUrl}/api/solana/address/${wallet.solAddress}`, options)
+                : of(null),
         }).pipe(
-            map((response: any) => {
-                const allTransactions: Transaction[] = [];
+            map((responses) => {
+                const transactions: Transaction[] = [];
 
-                if (response.avalanche?.data?.transactions) {
-                    allTransactions.push(...response.avalanche.data.transactions);
+                if (responses.ethereum?.data) {
+                    const ethImage = responses.ethereum.data.tokenHoldings?.tokens?.find((t) => t.symbol === "ETH")?.image;
+                    if (responses.ethereum.data.transactions) {
+                        transactions.push(
+                            ...responses.ethereum.data.transactions.map((tx) => ({
+                                ...tx,
+                                image: ethImage,
+                            }))
+                        );
+                    }
                 }
 
-                if (response.ethereum?.data?.transactions) {
-                    allTransactions.push(...response.ethereum.data.transactions);
+                if (responses.avalanche?.data?.transactions) {
+                    transactions.push(...responses.avalanche.data.transactions);
                 }
 
-                if (response.solana?.data?.transactions) {
-                    allTransactions.push(...response.solana.data.transactions);
+                if (responses.solana?.data?.transactions) {
+                    transactions.push(...responses.solana.data.transactions);
                 }
 
-                return allTransactions.sort((a, b) => {
-                    return Number(b.block) - Number(a.block);
-                });
+                return transactions;
             })
         );
     }

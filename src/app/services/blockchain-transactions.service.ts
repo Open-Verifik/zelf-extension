@@ -39,7 +39,7 @@ export class BlockchainTransactionsService {
 
         return forkJoin({
             avalanche: this._http.get(`${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, { headers }),
-            ethereum: this._http.get(`${environment.apiUrl}/api/ethereum/transactions?address=${wallet.ethAddress}&page=1&show=10`, { headers }),
+            ethereum: this._http.get(`${environment.apiUrl}/api/ethereum/address?address=${wallet.ethAddress}`, { headers }),
             solana: wallet.solAddress ? this._http.get(`${environment.apiUrl}/api/solana/address/${wallet.solAddress}`, { headers }) : of(null),
         }).pipe(
             map((response: any) => {

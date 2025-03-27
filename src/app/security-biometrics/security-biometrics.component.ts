@@ -84,6 +84,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 wordsCount: mnemonicCount,
             })
             .then(async (response) => {
+                await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
                 this._redirect();
@@ -107,6 +108,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 identifier: userFingerprint.hash,
             })
             .then(async (response) => {
+                await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
                 this._redirect();
@@ -127,6 +129,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 type: "import",
             })
             .then(async (response) => {
+                await this._chromeService.removeItem("flow");
                 this._vaultService.mnemonic = "";
 
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));

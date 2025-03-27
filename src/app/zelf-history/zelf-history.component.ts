@@ -53,6 +53,7 @@ type History = {
 })
 export class ZelfHistoryComponent implements OnInit {
     @Input() transactions: Transaction[] = [];
+
     history!: History;
     loading: boolean = true;
 

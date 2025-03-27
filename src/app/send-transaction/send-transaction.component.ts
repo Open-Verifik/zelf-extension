@@ -218,11 +218,9 @@ export class SendTransactionComponent implements OnDestroy {
 
     getTimeDiff(lastUsed: Date | string | undefined): string {
         if (!lastUsed) return "";
-        console.log(` SendTransactionComponent ~ getTimeDiff ~ lastUsed:`, lastUsed);
 
         const now = new Date();
         const lastUsedDate = new Date(lastUsed);
-        console.log(` SendTransactionComponent ~ getTimeDiff ~ lastUsedDate:`, lastUsedDate);
         const diffInSeconds = Math.floor((now.getTime() - lastUsedDate.getTime()) / 1000);
 
         if (diffInSeconds < 60) {

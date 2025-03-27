@@ -120,12 +120,10 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _importWallet(payload: any): Promise<void> {
-        const mnemonic = this._vaultService.mnemonic;
-
         this._zelfNameService
             .leaseZelfName({
                 ...payload,
-                mnemonic,
+                mnemonic: await this._httpWrapperService.encryptMessage(this._vaultService.mnemonic),
                 type: "import",
             })
             .then(async (response) => {

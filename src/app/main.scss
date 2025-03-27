@@ -1759,8 +1759,23 @@ h3 {
     }
 }
 
+.zelf-logo {
+    display: inline;
+
+    &--screen-md {
+        display: none;
+    }
+}
+
 /* Small screen devices (600px and above) */
 @media only screen and (min-width: $minSmall) {
+    .zelf-logo {
+        display: none;
+
+        &--screen-md {
+            display: inline;
+        }
+    }
 }
 
 /* Medium screen devices (768px and above) */

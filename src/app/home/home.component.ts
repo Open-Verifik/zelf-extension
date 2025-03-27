@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _setWallet(): Promise<any> {
-        const wallet = await this._walletService.getCurrentWalletFromStorage();
+        const wallet = await this._walletService.getFirstWalletFromStorage();
 
         this.shareables.wallet = wallet;
 

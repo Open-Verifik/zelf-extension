@@ -21,6 +21,7 @@ type UserFingerPrint = {
     providedIn: "root",
 })
 export class WalletService {
+    private _assetImageMap: Map<string, string> = new Map();
     private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
     private _userFingerPrint!: UserFingerPrint;
 
@@ -96,6 +97,23 @@ export class WalletService {
 
     get SOLRegex(): RegExp {
         return this._SOL_REGEX;
+    }
+
+    getAssetImage(symbol: string): string {
+        const cachedImage = this._assetImageMap.get(symbol);
+
+        if (cachedImage) return cachedImage;
+
+        if (!symbol) return "";
+
+        let assetSrc: string = "";
+
+        if (symbol === "ZNS") assetSrc = "./assets/icons/icon128.png";
+        else assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${symbol.toLowerCase()}.png`;
+
+        this._assetImageMap.set(symbol, assetSrc);
+
+        return assetSrc;
     }
 
     getDeviceData() {

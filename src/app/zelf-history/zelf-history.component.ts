@@ -1,83 +1,88 @@
-import { CurrencyPipe, DatePipe, DecimalPipe, KeyValuePipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
 import { TranslocoModule } from "@ngneat/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { Transaction } from "app/services/blockchain-transactions.service";
+import { BlockchainTransactionsService, Transaction } from "app/services/blockchain-transactions.service";
+import { WalletService } from "app/wallet.service";
 
-interface TokenInfo {
+type TransactionType = "send" | "receive" | "trade" | "approve" | "";
+
+type Signee = {
+    address: string;
+    amount: string | number;
     symbol: string;
+    token: string;
     image: string;
-}
+};
+
+type ProcessedTransaction = {
+    type: TransactionType;
+    from: Signee;
+    to: Signee;
+    fiatAmount: string;
+};
 
 @Component({
-    imports: [NgIf, NgClass, NgFor, NgTemplateOutlet, KeyValuePipe, DatePipe, TranslocoModule, DecimalPipe, CurrencyPipe, AddressMaskPipe],
+    imports: [NgIf, NgClass, NgFor, NgTemplateOutlet, DatePipe, TranslocoModule, DecimalPipe, CurrencyPipe, AddressMaskPipe],
     selector: "zelf-history",
     standalone: true,
     styleUrls: ["./zelf-history.component.scss"],
     templateUrl: "./zelf-history.component.html",
 })
-export class ZelfHistoryComponent implements OnChanges {
-    @Input() transactions: Transaction[] = [];
-
-    private tokenImages: Map<string, string> = new Map();
-
-    public history: Record<string, any[]> | null = null;
+export class ZelfHistoryComponent implements OnInit {
+    public history: Record<string, ProcessedTransaction[]> | null = null;
     public loading = false;
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes["transactions"] && changes["transactions"].currentValue) {
-            const firstTx = this.transactions[0];
+    constructor(private _blockchainTransactions: BlockchainTransactionsService, private _walletService: WalletService) {}
 
-            if (firstTx?.asset && firstTx?.image) {
-                this.updateTokenImage(firstTx.asset, firstTx.image);
-            }
-
-            this.processTransactions();
-        }
+    async ngOnInit(): Promise<void> {
+        this._loadFirstTransactions();
     }
 
-    private updateTokenImage(symbol: string, image: string) {
-        if (!image || this.tokenImages.has(symbol)) return;
+    get orderedHistory(): { date: string; transactions: ProcessedTransaction[] }[] {
+        if (!this.history) return [];
 
-        this.tokenImages.set(symbol, image);
+        return Object.entries(this.history)
+            .map(([date, transactions]) => ({
+                date,
+                transactions,
+            }))
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
 
-    private getAssetImage(symbol: string): string {
-        const cachedImage = this.tokenImages.get(symbol);
+    private async _loadFirstTransactions(): Promise<void> {
+        this.loading = true;
 
-        if (cachedImage) return cachedImage;
+        const wallet = await this._walletService.getCurrentWalletFromStorage();
 
-        return `assets/images/tokens/${symbol.toLowerCase()}.png`;
+        this._blockchainTransactions.getAddressData(wallet).subscribe({
+            next: (transactions) => {
+                this.processTransactions(transactions);
+
+                this.loading = false;
+            },
+            error: (error) => {
+                console.error("Error loading transactions:", error);
+            },
+        });
     }
 
-    private processTransactions() {
-        if (!this.transactions.length) {
+    private processTransactions(transactions: Transaction[]): void {
+        if (!transactions.length) {
             this.history = null;
+
             return;
         }
 
-        console.log("Transactions recibidas:", this.transactions);
-
         const groupedByDate: Record<string, any[]> = {};
 
-        this.transactions.forEach((tx) => {
-            const date = new Date();
+        transactions.forEach((tx) => {
+            const date = new Date(tx.date);
             const dateStr = date.toISOString().split("T")[0];
 
-            if (!groupedByDate[dateStr]) {
-                groupedByDate[dateStr] = [];
-            }
+            if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
 
-            console.log("Procesando transacción:", tx);
-            console.log("Imagen del token:", tx.image);
-
-            if (tx.asset && tx.image) {
-                this.updateTokenImage(tx.asset, tx.image);
-                console.log("Imagen actualizada en caché para", tx.asset, ":", tx.image);
-            }
-
-            const tokenImage = tx.image || this.getAssetImage(tx.asset);
-            console.log("Imagen final a usar:", tokenImage);
+            const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
 
             const processedTx = {
                 type: tx.traffic === "OUT" ? "send" : "receive",
@@ -94,13 +99,11 @@ export class ZelfHistoryComponent implements OnChanges {
                     image: tokenImage,
                 },
                 fiatAmount: tx.fiatAmount,
-            };
+            } as ProcessedTransaction;
 
-            console.log("Transacción procesada:", processedTx);
             groupedByDate[dateStr].push(processedTx);
         });
 
         this.history = groupedByDate;
-        console.log("Historia final:", this.history);
     }
 }

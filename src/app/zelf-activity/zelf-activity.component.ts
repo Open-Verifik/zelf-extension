@@ -7,7 +7,7 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { ZelfPendingComponent } from "app/zelf-pending/zelf-pending.component";
 import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
 
-import { BlockchainTransactionsService, Transaction } from "app/services/blockchain-transactions.service";
+import { Transaction } from "app/services/blockchain-transactions.service";
 
 type Tab = "history" | "pending";
 
@@ -22,25 +22,9 @@ export class ZelfActivityComponent implements OnInit {
     tab: Tab = "history";
     transactions: Transaction[] = [];
 
-    constructor(private _blockchainTransactions: BlockchainTransactionsService) {}
+    constructor() {}
 
-    ngOnInit(): void {
-        this.loadAllTransactions();
-    }
-
-    loadAllTransactions(): void {
-        this._blockchainTransactions.getAllTransactions().then((observable) => {
-            observable.subscribe(
-                (transactions) => {
-                    console.log("Transactions received:", transactions);
-                    this.transactions = transactions;
-                },
-                (error) => {
-                    console.error("Error loading transactions:", error);
-                }
-            );
-        });
-    }
+    ngOnInit(): void {}
 
     setTab(tab: Tab): void {
         this.tab = tab;

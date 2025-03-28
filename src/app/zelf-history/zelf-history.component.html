@@ -2,88 +2,99 @@
     <div class="zelf-history__loader ripple" *ngIf="loading"></div>
 
     <div class="zelf-history__no-results" *ngIf="!history && !loading">
-        <p>No history found</p>
+        <svg xmlns="http://www.w3.org/2000/svg" height="150px" viewBox="0 -960 960 960" width="150px" fill="#e3e3e3">
+            <path
+                d="M675-160H140q-24 0-42-18t-18-42v-520q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18h-60.36L557-367q-21 18-45 26t-51 8q-70 0-120.5-49T290-502.5q0-71.5 50.5-120T461-671q70 0 118.5 48.5T628-502q0 25.2-7.5 47.6Q613-432 599-410l186 190h35v-520H140v520h475l60 60ZM461-393q46 0 76.5-31t30.5-78.5q0-47.5-30.5-78T461-611q-46 0-78.5 30.5t-32.5 78q0 47.5 32.5 78.5t78.5 31ZM140-220v-520 520Z"
+            />
+        </svg>
+
+        <p class="zelf-history__no-results-text">{{ t("activity.no_history_found") }}</p>
     </div>
 
     <ng-container *ngIf="history">
-        <ng-container *ngFor="let data of history | keyvalue">
-            <p class="zelf-history__date">{{ data.key | date : "dd MMM, yyyy" }}</p>
+        <ng-container *ngFor="let data of orderedHistory">
+            <p class="zelf-history__date">{{ data.date | date : "dd MMM, yyyy" }}</p>
 
-            <ng-container *ngFor="let item of data.value">
-                <div class="zelf-history__item">
+            <ng-container *ngFor="let transaction of data.transactions">
+                <div class="zelf-history__transaction">
                     <div class="zelf-history__left">
                         <img
                             class="zelf-history__image"
-                            [src]="item.to.image"
-                            [alt]="item.to.symbol"
-                            *ngIf="item.type === 'receive' || item.type === 'approve'"
+                            [src]="transaction.to.image"
+                            [alt]="transaction.to.symbol"
+                            *ngIf="transaction.type === 'receive' || transaction.type === 'approve'"
                         />
-
-                        <img class="zelf-history__image" [src]="item.from.image" [alt]="item.from.symbol" *ngIf="item.type === 'send'" />
 
                         <img
                             class="zelf-history__image"
-                            [src]="item.to.image"
-                            [alt]="item.to.symbol"
-                            *ngIf="item.type === 'trade' && !item.from.image"
+                            [src]="transaction.from.image"
+                            [alt]="transaction.from.symbol"
+                            *ngIf="transaction.type === 'send'"
                         />
 
-                        <div class="zelf-history__trade-images" *ngIf="item.type === 'trade' && item.from.image">
-                            <img class="zelf-history__trade-image-a" [src]="item.from.image" [alt]="item.from.symbol" />
-                            <img class="zelf-history__trade-image-b" [src]="item.to.image" [alt]="item.to.symbol" />
+                        <img
+                            class="zelf-history__image"
+                            [src]="transaction.to.image"
+                            [alt]="transaction.to.symbol"
+                            *ngIf="transaction.type === 'trade' && !transaction.from.image"
+                        />
+
+                        <div class="zelf-history__trade-images" *ngIf="transaction.type === 'trade' && transaction.from.image">
+                            <img class="zelf-history__trade-image-a" [src]="transaction.from.image" [alt]="transaction.from.symbol" />
+                            <img class="zelf-history__trade-image-b" [src]="transaction.to.image" [alt]="transaction.to.symbol" />
                         </div>
 
                         <div class="zelf-history__col">
                             <div class="zelf-history__icon-container">
-                                <div class="zelf-history__icon" [ngClass]="'zelf-history__icon--' + item.type">
-                                    <ng-container *ngIf="item.type === 'receive'">
+                                <div class="zelf-history__icon" [ngClass]="'zelf-history__icon--' + transaction.type">
+                                    <ng-container *ngIf="transaction.type === 'receive'">
                                         <ng-container *ngTemplateOutlet="incomingIcon"></ng-container>
                                     </ng-container>
-                                    <ng-container *ngIf="item.type === 'send'">
+                                    <ng-container *ngIf="transaction.type === 'send'">
                                         <ng-container *ngTemplateOutlet="outgoingIcon"></ng-container>
                                     </ng-container>
-                                    <ng-container *ngIf="item.type === 'trade'">
+                                    <ng-container *ngIf="transaction.type === 'trade'">
                                         <ng-container *ngTemplateOutlet="tradeIcon"></ng-container>
                                     </ng-container>
-                                    <ng-container *ngIf="item.type === 'approve'">
+                                    <ng-container *ngIf="transaction.type === 'approve'">
                                         <ng-container *ngTemplateOutlet="checkIcon"></ng-container>
                                     </ng-container>
                                 </div>
 
-                                <p class="zelf-history__type">{{ t("activity." + item.type) }}</p>
+                                <p class="zelf-history__type">{{ t("activity." + transaction.type) }}</p>
                             </div>
 
-                            <p class="zelf-history__type-subtitle" *ngIf="item.type === 'trade'">{{ item.from.token }}</p>
-                            <p class="zelf-history__type-subtitle" *ngIf="item.type === 'approve'">{{ item.to.token }}</p>
+                            <p class="zelf-history__type-subtitle" *ngIf="transaction.type === 'trade'">{{ transaction.from.token }}</p>
+                            <p class="zelf-history__type-subtitle" *ngIf="transaction.type === 'approve'">{{ transaction.to.token }}</p>
 
-                            <p class="zelf-history__type-subtitle" *ngIf="item.type !== 'approve' && item.type !== 'trade'">
-                                <ng-container *ngIf="item.type === 'receive'">{{ item.from.address | addressMask }}</ng-container>
-                                <ng-container *ngIf="item.type === 'send'">{{ item.to.address | addressMask }}</ng-container>
+                            <p class="zelf-history__type-subtitle" *ngIf="transaction.type !== 'approve' && transaction.type !== 'trade'">
+                                <ng-container *ngIf="transaction.type === 'receive'">{{ transaction.from.address | addressMask }}</ng-container>
+                                <ng-container *ngIf="transaction.type === 'send'">{{ transaction.to.address | addressMask }}</ng-container>
                             </p>
                         </div>
                     </div>
 
                     <div class="zelf-history__right">
-                        <ng-container *ngIf="item.type === 'receive'">
-                            <p class="zelf-history__received">+ {{ item.from.amount | number : "1.1-20" }} {{ item.from.symbol }}</p>
+                        <ng-container *ngIf="transaction.type === 'receive'">
+                            <p class="zelf-history__received">+ {{ transaction.from.amount | number : "1.1-20" }} {{ transaction.from.symbol }}</p>
                             <p class="zelf-history__received-fiat">
-                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
+                                {{ transaction.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
-                        <ng-container *ngIf="item.type === 'send'">
-                            <p class="zelf-history__send">+ {{ item.to.amount | number : "1.1-20" }} {{ item.to.symbol }}</p>
+                        <ng-container *ngIf="transaction.type === 'send'">
+                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-20" }} {{ transaction.to.symbol }}</p>
                             <p class="zelf-history__send-fiat">
-                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
+                                {{ transaction.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
-                        <ng-container *ngIf="item.type === 'trade'">
-                            <p class="zelf-history__send">+ {{ item.to.amount | number : "1.1-20" }} {{ item.to.symbol }}</p>
-                            <p class="zelf-history__send-fiat">- {{ item.from.amount | number : "1.1-20" }} {{ item.from.symbol }}</p>
+                        <ng-container *ngIf="transaction.type === 'trade'">
+                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-20" }} {{ transaction.to.symbol }}</p>
+                            <p class="zelf-history__send-fiat">- {{ transaction.from.amount | number : "1.1-20" }} {{ transaction.from.symbol }}</p>
                         </ng-container>
 
-                        <ng-container *ngIf="item.type === 'approve'">
+                        <ng-container *ngIf="transaction.type === 'approve'">
                             <p class="zelf-history__approve-text">{{ t("") }}</p>
                         </ng-container>
                     </div>

@@ -61,10 +61,7 @@ export class BlockchainTransactionsService {
         const options = { headers: httpHeaders };
 
         return forkJoin({
-            ethereum: this._http.get<ApiResponse>(
-                `${environment.apiUrl}/api/ethereum/address?address=0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326`,
-                options
-            ),
+            ethereum: this._http.get<ApiResponse>(`${environment.apiUrl}/api/ethereum/address?address=${wallet.ethAddress}`, options),
             avalanche: this._http.get<ApiResponse>(`${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, options),
             solana: wallet.solAddress
                 ? this._http.get<ApiResponse>(`${environment.apiUrl}/api/solana/address/${wallet.solAddress}`, options)

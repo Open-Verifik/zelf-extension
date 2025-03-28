@@ -204,8 +204,6 @@ export class SendConfirmComponent implements OnInit {
                 this.selectedNetwork === "avalanche" ? "avalanche" : "ethereum"
             );
 
-            console.log("Transaction receipt:", receipt);
-
             this._transactionService.addToRecentAddresses({
                 address: this.receiver.ethAddress,
                 zelfName: this.receiver?.publicData?.zelfName,
@@ -215,7 +213,7 @@ export class SendConfirmComponent implements OnInit {
 
             this.sending = false;
 
-            await this._router.navigate(["/home"]);
+            await this._router.navigate(["/transaction", receipt.transactionHash]);
         } catch (error: any) {
             this.sending = false;
             console.error("Error during transaction execution:", error);

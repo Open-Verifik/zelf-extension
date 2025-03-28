@@ -118,6 +118,8 @@
                 *ngIf="!requiresBiometrics"
             >
                 {{ t("common.confirm") }}
+
+                <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
             </button>
         </div>
     </form>

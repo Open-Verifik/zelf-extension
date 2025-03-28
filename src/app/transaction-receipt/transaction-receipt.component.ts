@@ -75,7 +75,6 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                 if (!response || !response.data) return;
 
                 this.transaction = new EthTransactionModel(response.data).toTransaction();
-                console.log(` TransactionReceiptComponent ~ .then ~ this.transaction :`, this.transaction);
 
                 this.loading = false;
 

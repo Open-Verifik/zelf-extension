@@ -180,10 +180,10 @@
             <ng-container *ngIf="!searching && !withdrawStep && recentAddresses.length">
                 <div
                     (click)="selectRecentAddress(address)"
-                    class="zelf-action-row send-transaction__address-book"
-                    *ngFor="let address of recentAddresses"
-                    matRipple
                     [matRippleColor]="'rgba(0, 0, 0, 0.1)'"
+                    *ngFor="let address of recentAddresses"
+                    class="zelf-action-row send-transaction__address-book"
+                    matRipple
                 >
                     <div class="send-transaction__address-row">
                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">

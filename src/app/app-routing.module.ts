@@ -75,6 +75,7 @@ const routes: Routes = [
     {
         path: "activity",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        canActivate: [LoginGuard],
         children: [
             {
                 path: "",
@@ -100,6 +101,16 @@ const routes: Routes = [
                 path: "confirmation",
                 loadComponent: () => import("./send-confirm/send-confirm.component").then((m) => m.SendConfirmComponent),
                 canActivate: [SendTransactionGuard],
+            },
+        ],
+    },
+    {
+        path: "transaction",
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        children: [
+            {
+                path: ":hash",
+                loadComponent: () => import("./transaction-receipt/transaction-receipt.component").then((m) => m.TransactionReceiptComponent),
             },
         ],
     },

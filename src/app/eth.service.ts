@@ -10,6 +10,8 @@ import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 
 import { HttpWrapperService } from "./http-wrapper.service";
+import { ResponseData } from "./biometrics-general/sdk.models";
+import { EthTransaction } from "./wallet";
 
 export interface ChainConfig {
     blockExplorerUrls: string[];
@@ -473,5 +475,9 @@ export class EthereumService {
                 rpcUrl: environment.avalancheRpc.mainnet,
             },
         ];
+    }
+
+    requestTransactionDetails(transactionHash: string): Promise<{ data: EthTransaction }> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/transaction/${transactionHash}`);
     }
 }

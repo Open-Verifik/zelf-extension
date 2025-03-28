@@ -1,0 +1,115 @@
+<div class="zelf-card" *transloco="let t">
+    <div class="transaction-receipt__header">
+        <div class="transaction-receipt__col1"></div>
+
+        <div class="transaction-receipt__col2">
+            <p class="transaction-receipt__title">{{ t("common.transaction") }}</p>
+        </div>
+
+        <div class="transaction-receipt__col3"></div>
+    </div>
+
+    <div class="zelf-card__content zelf-card__content--grow">
+        <div class="transaction-receipt__loader ripple" *ngIf="loading"></div>
+
+        <ng-container *ngIf="transaction">
+            <div class="transaction-receipt__total">
+                <div
+                    class="zelf-chip"
+                    [ngClass]="{
+                        'zelf-chip--error': transaction.status !== 'success',
+                        'zelf-chip--success': transaction.status === 'success'
+                    }"
+                >
+                    <ng-container *ngIf="transaction.status === 'pending'">{{ t("common.processing") }}</ng-container>
+                    <ng-container *ngIf="transaction.status === 'failed'">{{ t("common.failed") }}</ng-container>
+                    <ng-container *ngIf="transaction.status === 'success'">{{ t("common.success") }}</ng-container>
+                </div>
+
+                <div class="transaction-receipt__price-amount-container">
+                    <h2 class="transaction-receipt__price">{{ transaction.amount | number : "1.2-5" }}</h2>
+
+                    <p class="transaction-receipt__price-currency">{{ transaction.asset }}</p>
+                </div>
+            </div>
+
+            <div class="transaction-receipt__content">
+                <div class="transaction-receipt__summary">
+                    <div class="zelf-action-row">
+                        <p class="transaction-receipt__label">{{ t("common.date") }}</p>
+
+                        <p class="transaction-receipt__value">{{ transaction.date | date : "HH:mm dd MMM, yyyy" }}</p>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="transaction-receipt__label">{{ t("common.withdrawal_network") }}</p>
+
+                        <p class="transaction-receipt__value">{{ transaction.tokenType }}</p>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="transaction-receipt__label">{{ t("common.address") }}</p>
+
+                        <div class="transaction-receipt__value-container">
+                            <p class="transaction-receipt__value">{{ transaction.to | addressMask }}</p>
+
+                            <button
+                                (click)="copyToClipboard(transaction.to)"
+                                mat-flat-button
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--border-soft"
+                            >
+                                <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="transaction-receipt__label">{{ t("common.transaction_id") }}</p>
+
+                        <div class="transaction-receipt__value-container">
+                            <p class="transaction-receipt__value">{{ transaction.hash | addressMask }}</p>
+
+                            <button
+                                (click)="copyToClipboard(transaction.hash)"
+                                mat-flat-button
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--border-soft"
+                            >
+                                <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="zelf-action-row">
+                        <p class="transaction-receipt__label">{{ t("common.withdrawal_network") }}</p>
+
+                        <p class="transaction-receipt__value">{{ transaction.asset }}</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="zelf-card__actions zelf-card__actions--column">
+        <button (click)="shareTransaction()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button type="submit">
+            <span>{{ t("transaction.share_transaction") }}</span>
+
+            <svg width="14" height="16" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M15 14.1191C14.24 14.1191 13.56 14.4191 13.04 14.8891L5.91 10.7391C5.96 10.5091 6 10.2791 6 10.0391C6 9.79906 5.96 9.56906 5.91 9.33906L12.96 5.22906C13.5 5.72906 14.21 6.03906 15 6.03906C16.66 6.03906 18 4.69906 18 3.03906C18 1.37906 16.66 0.0390625 15 0.0390625C13.34 0.0390625 12 1.37906 12 3.03906C12 3.27906 12.04 3.50906 12.09 3.73906L5.04 7.84906C4.5 7.34906 3.79 7.03906 3 7.03906C1.34 7.03906 0 8.37906 0 10.0391C0 11.6991 1.34 13.0391 3 13.0391C3.79 13.0391 4.5 12.7291 5.04 12.2291L12.16 16.3891C12.11 16.5991 12.08 16.8191 12.08 17.0391C12.08 18.6491 13.39 19.9591 15 19.9591C16.61 19.9591 17.92 18.6491 17.92 17.0391C17.92 15.4291 16.61 14.1191 15 14.1191Z"
+                />
+            </svg>
+        </button>
+
+        <button (click)="goToHistory()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button type="submit">
+            {{ t("transaction.go_to_my_history") }}
+        </button>
+    </div>
+</div>
+
+<ng-template #clipboardIcon>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M15.5 20H5.5V7C5.5 6.45 5.05 6 4.5 6C3.95 6 3.5 6.45 3.5 7V20C3.5 21.1 4.4 22 5.5 22H15.5C16.05 22 16.5 21.55 16.5 21C16.5 20.45 16.05 20 15.5 20ZM20.5 16V4C20.5 2.9 19.6 2 18.5 2H9.5C8.4 2 7.5 2.9 7.5 4V16C7.5 17.1 8.4 18 9.5 18H18.5C19.6 18 20.5 17.1 20.5 16ZM18.5 16H9.5V4H18.5V16Z"
+        />
+    </svg>
+</ng-template>

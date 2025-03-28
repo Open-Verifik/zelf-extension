@@ -7,8 +7,6 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { ZelfPendingComponent } from "app/zelf-pending/zelf-pending.component";
 import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
 
-import { Transaction } from "app/services/blockchain-transactions.service";
-
 type Tab = "history" | "pending";
 
 @Component({
@@ -20,7 +18,6 @@ type Tab = "history" | "pending";
 })
 export class ZelfActivityComponent implements OnInit {
     tab: Tab = "history";
-    transactions: Transaction[] = [];
 
     constructor() {}
 

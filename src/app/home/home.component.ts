@@ -5,7 +5,7 @@ import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
-import { Asset, ETHTransaction, Wallet } from "app/wallet";
+import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
 
@@ -17,7 +17,6 @@ import { Subject, takeUntil } from "rxjs";
 export class HomeComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    activity!: Array<ETHTransaction>;
     balances: any;
     balancesLoading: boolean = false;
     NFTs!: Array<any>;
@@ -49,7 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             wallet: {},
         };
 
-        this.activity = [];
         this.NFTs = [];
         this.tokens = [];
 
@@ -73,7 +71,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _getBalances(): Promise<any> {
-        this.activity = [];
         this.tokens = [];
         this.NFTs = [];
 
@@ -95,12 +92,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             fiatBalance: Number(details.data.fiatBalance),
             price: details.data.account.price,
         });
-
-        for (let index = 0; index < details.data.transactions.length; index++) {
-            const transaction = details.data.transactions[index];
-
-            this.activity.push(new ETHTransaction(transaction));
-        }
 
         this._getTokens("Ethereum", details.data.tokenHoldings.tokens);
     }

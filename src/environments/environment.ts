@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
+    appUrl: "https://beta.zelf.world",
     baseUrl: "/index.html",
     apiUrl: "http://localhost:3003",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",

@@ -8,7 +8,7 @@ import { environment } from "environments/environment";
 
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
-import { Asset, Wallet, WalletModel } from "./wallet";
+import { Asset, Transaction, Wallet, WalletModel } from "./wallet";
 
 type UserFingerPrint = {
     hash: string;
@@ -28,6 +28,10 @@ export class WalletService {
     private _BTC_REGEX = /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,39}$/;
     private _ETH_REGEX = /^(0x)?[0-9a-fA-F]{40}$/;
     private _SOL_REGEX = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+
+    private _BTC_TRANSACTION_REGEX = /^[a-fA-F0-9]{64}$/; // Bitcoin transaction hash
+    private _ETH_TRANSACTION_REGEX = /^0x([A-Fa-f0-9]{64})$/; // Ethereum transaction hash
+    private _SOL_TRANSACTION_REGEX = /^[A-HJ-NP-Za-km-z1-9]{88}$/; // Solana transaction hash
 
     baseUrl: String = environment.apiUrl;
     zelfProof: string = "";
@@ -97,6 +101,18 @@ export class WalletService {
 
     get SOLRegex(): RegExp {
         return this._SOL_REGEX;
+    }
+
+    get BTCTransactionRegex(): RegExp {
+        return this._BTC_TRANSACTION_REGEX;
+    }
+
+    get ETHTransactionRegex(): RegExp {
+        return this._ETH_TRANSACTION_REGEX;
+    }
+
+    get SOLTransactionRegex(): RegExp {
+        return this._SOL_TRANSACTION_REGEX;
     }
 
     getAssetImage(symbol: string): string {
@@ -588,6 +604,18 @@ export class WalletService {
         } catch (error) {
             console.error("Error validating EVM address on chain:", error);
             return false;
+        }
+    }
+
+    public async addTransactionToPending(transaction: Transaction): Promise<void> {
+        const pendingTransactions = await this._chromeService.getItem<Transaction[]>("pendingTransactions");
+
+        if (!pendingTransactions || !pendingTransactions.length) {
+            await this._chromeService.setItem("pendingTransactions", [transaction]);
+        } else {
+            pendingTransactions.push(transaction);
+
+            await this._chromeService.setItem("pendingTransactions", pendingTransactions);
         }
     }
 }

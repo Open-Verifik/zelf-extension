@@ -18,6 +18,166 @@ export type Token = {
     tokenType: string;
 };
 
+export class Asset {
+    asset: string;
+    balance: number;
+    fiatBalance: number;
+    price: number;
+
+    constructor(data: any) {
+        this.asset = data.asset || "NA";
+        this.balance =
+            data.balance !== undefined && data.balance !== null
+                ? Number(parseFloat(data.balance).toFixed(7))
+                : Number((data.fiatBalance / data.price).toFixed(6));
+
+        this.fiatBalance = data.fiatBalance;
+        this.price = data.price || 0; // hardcoded price
+    }
+}
+
+export interface Transaction {
+    age: string;
+    amount: number; // 0.01
+    asset: string; // ETH
+    balance: number; // 0.05
+    block: string;
+    confirmations?: number;
+    date: string;
+    fiatAmount: number;
+    fiatBalance?: number; // 199 usd
+    fiatTotal?: number; // 38.28
+    from?: string;
+    gasFee: number; // 0.28
+    hash: string;
+    image?: string;
+    method: string;
+    network: string; // Ethereum
+    price: number; // 3800
+    receiver?: any;
+    sender?: any;
+    status?: string;
+    to?: string;
+    tokenType: string; // ERC-20
+    traffic: string;
+}
+
+export class TransactionModel implements Transaction {
+    age: string;
+    amount: number; // 0.01
+    asset: string; // ETH
+    balance: number; // 0.05
+    block: string;
+    confirmations?: number;
+    date: string;
+    fiatAmount: number;
+    fiatBalance?: number; // 199 usd
+    fiatTotal?: number; // 38.28
+    from?: string;
+    gasFee: number; // 0.28
+    hash: string;
+    image?: string;
+    method: string;
+    network: string; // Ethereum
+    price: number; // 3800
+    receiver?: any;
+    sender?: any;
+    status?: string;
+    to?: string;
+    tokenType: string; // ERC-20
+    traffic: string;
+
+    constructor(data: any) {
+        this.age = data.age || "";
+        this.amount = Number(data.amount || 0);
+        this.block = data.block || "";
+        this.confirmations = data.confirmations || "";
+        this.date = data.date || "";
+        this.fiatAmount = Number(data.fiatAmount || 0);
+        this.fiatTotal = data.fiatTotal || 0;
+        this.from = data.from || data.sender || "";
+        this.gasFee = data.gasFee || 0;
+        this.hash = data.hash || "";
+        this.method = data.method || "";
+        this.receiver = data.receiver || data.to || null;
+        this.sender = data.sender || data.from || null;
+        this.status = data.status || "";
+        this.to = data.to || data.receiver || "";
+        this.traffic = data.traffic || "";
+
+        this.asset = data.asset || data.symbol || data.token?.symbol || "";
+        this.balance = data.balance || data.token?.amount || 0;
+        this.fiatBalance = data.fiatBalance || data.token?.fiatBalance || 0;
+        this.network = data.network || data.token?.network || "";
+        this.price = data.price || data.token?.price || 0;
+        this.tokenType = data.tokenType || data.token?.tokenType || "";
+    }
+}
+
+export type EthTransaction = {
+    block: string;
+    from: string;
+    gasPrice: string;
+    gweiETH: string;
+    id: string;
+    observation: string;
+    status: string;
+    timestamp: string;
+    to: string;
+    transactionFeeDolar: string;
+    transactionFeeETH: string;
+    valueDolar: string;
+    valueETH: string;
+};
+
+export class EthTransactionModel implements EthTransaction {
+    block: string;
+    from: string;
+    gasPrice: string;
+    gweiETH: string;
+    id: string;
+    observation: string;
+    status: string;
+    timestamp: string;
+    to: string;
+    transactionFeeDolar: string;
+    transactionFeeETH: string;
+    valueDolar: string;
+    valueETH: string;
+
+    constructor(data: EthTransaction) {
+        this.block = data.block || "";
+        this.from = data.from || "";
+        this.gasPrice = data.gasPrice || "";
+        this.gweiETH = data.gweiETH || "";
+        this.id = data.id || "";
+        this.observation = data.observation || "";
+        this.status = data.status || "";
+        this.timestamp = data.timestamp || "";
+        this.to = data.to || "";
+        this.transactionFeeDolar = data.transactionFeeDolar || "";
+        this.transactionFeeETH = data.transactionFeeETH || "";
+        this.valueDolar = data.valueDolar || "";
+        this.valueETH = data.valueETH || "";
+    }
+
+    toTransaction(): TransactionModel {
+        return new TransactionModel({
+            age: this.timestamp?.split("(")[0].trim(),
+            amount: Number(this.valueETH),
+            asset: "ETH",
+            block: this.block,
+            date: this.timestamp?.split("(")[1].split(")")[0].trim(),
+            fiatAmount: Number(this.valueDolar),
+            from: this.from,
+            hash: this.id,
+            status: this.status.toLowerCase(),
+            to: this.to,
+            tokenType: "ERC-20",
+        });
+    }
+}
+
 export interface IPFS {
     GroupId: string | null;
     ID: string;
@@ -61,21 +221,6 @@ export interface PGP {
     privateKey: string;
 }
 
-export interface Transaction {
-    amount: number;
-    asset: string;
-    balance: number;
-    fiatAmount: number;
-    fiatBalance: number;
-    fiatTotal: number;
-    gasFee: number;
-    network: string;
-    price: number;
-    receiver: any;
-    sender: any;
-    tokenType: string;
-}
-
 export interface Wallet {
     _id: string;
     anonymous: boolean;
@@ -95,116 +240,6 @@ export interface Wallet {
     solanaAddress: string;
     zelfProof: string;
     zkProof: string;
-}
-
-export interface WalletPublicData {
-    _id: string;
-    btcAddress: string;
-    ethAddress: string;
-    expiresAt: string;
-    isExpired: boolean;
-    isExpiringSoon: boolean;
-    isExpiringWithinMonth: boolean;
-    registeredAt: string;
-    solanaAddress: string;
-    type: "mainnet" | "hold" | "";
-    zelfName: string;
-}
-
-export class Asset {
-    asset: string;
-    balance: number;
-    fiatBalance: number;
-    price: number;
-
-    constructor(data: any) {
-        this.asset = data.asset || "NA";
-        this.balance =
-            data.balance !== undefined && data.balance !== null
-                ? Number(parseFloat(data.balance).toFixed(7))
-                : Number((data.fiatBalance / data.price).toFixed(6));
-
-        this.fiatBalance = data.fiatBalance;
-        this.price = data.price || 0; // hardcoded price
-    }
-}
-
-export class ETHTransaction {
-    _from: string;
-    _to: string;
-    _transactionId: string;
-    age: string;
-    amount: string;
-    asset: string;
-    block: string;
-    fiatAmount: string;
-    from: string;
-    method: string;
-    to: string;
-    traffic: string;
-    transactionId: string;
-    txnFee: string;
-    zelfProof: string;
-
-    constructor(data: any) {
-        this._from = "";
-        this._to = "";
-        this._transactionId = "";
-        this.age = data.age;
-        this.amount = data.amount;
-        this.asset = data.asset;
-        this.block = data.block;
-        this.fiatAmount = data.fiatAmount;
-        this.from = data.from;
-        this.method = data.method;
-        this.to = data.to;
-        this.traffic = data.traffic;
-        this.transactionId = data.hash;
-        this.txnFee = data.txnFee;
-        this.zelfProof = data.zelfProof;
-
-        if (this.to) this._to = this._parseAddress(this.to);
-        if (this.from) this._from = this._parseAddress(this.from);
-        if (this.transactionId) this._transactionId = this._parseAddress(this.transactionId);
-    }
-
-    private _parseAddress(value: string): string {
-        const firstPart = value.slice(0, 4);
-        const lastPart = value.slice(-4);
-
-        return `${firstPart}...${lastPart}`;
-    }
-}
-
-export class TransactionModel implements Transaction {
-    amount: number; // 0.01
-    asset: string; //ETH
-    balance: number; // 0.05
-    fiatAmount: number; // 38.00
-    fiatBalance: number; // 199 usd
-    fiatTotal: number; // 38.28
-    gasFee: number; // 0.28
-    network: string; // Ethereum
-    price: number; // 3800
-    receiver: any;
-    sender: any;
-    tokenType: string; // ERC-20
-
-    constructor(data: any) {
-        this.amount = Number(data.amount || 0);
-        this.fiatAmount = Number(data.fiatAmount || 0);
-        this.fiatTotal = data.fiatTotal || 0;
-        this.gasFee = data.gasFee || 0;
-        this.receiver = data.receiver || null;
-        this.sender = data.sender || null;
-
-        this.asset = data.asset || data.symbol || data.token.symbol || "";
-        this.balance = data.balance || data.token?.amount || 0;
-        this.fiatBalance = data.fiatBalance || data.token?.fiatBalance || 0;
-        this.network = data.network || data.token.network || "";
-        this.price = data.price || data.token?.price || 0;
-        this.tokenType = data.tokenType || data.token?.tokenType || "";
-    }
 }
 
 export class WalletModel implements Wallet {
@@ -290,6 +325,20 @@ export class WalletModel implements Wallet {
 
         return `${firstPart}...${lastPart}`;
     }
+}
+
+export interface WalletPublicData {
+    _id: string;
+    btcAddress: string;
+    ethAddress: string;
+    expiresAt: string;
+    isExpired: boolean;
+    isExpiringSoon: boolean;
+    isExpiringWithinMonth: boolean;
+    registeredAt: string;
+    solanaAddress: string;
+    type: "mainnet" | "hold" | "";
+    zelfName: string;
 }
 
 export class WalletPublicDataModel {

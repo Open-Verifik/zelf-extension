@@ -16,7 +16,12 @@
             <p class="zelf-history__date">{{ data.date | date : "dd MMM, yyyy" }}</p>
 
             <ng-container *ngFor="let transaction of data.transactions">
-                <div class="zelf-history__transaction">
+                <div
+                    [matRippleColor]="'rgba(0, 0, 0, 0.1)'"
+                    [routerLink]="transaction.from.symbol === 'ETH' ? ['/transaction', transaction.hash] : null"
+                    class="zelf-history__transaction"
+                    matRipple
+                >
                     <div class="zelf-history__left">
                         <img
                             class="zelf-history__image"

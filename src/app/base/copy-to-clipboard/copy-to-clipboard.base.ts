@@ -14,7 +14,7 @@ export class CopyToClipboardBase {
         this._copyToClipboardActionText = this._translocoService.translate("common.close");
         this._copyToClipboardErrorActionText = this._translocoService.translate("common.close");
         this._copyToClipboardErrorText = this._translocoService.translate("common.failed_to_copy_to_clipboard");
-        this._copyToClipboardText = this._translocoService.translate("copied_to_clipboard");
+        this._copyToClipboardText = this._translocoService.translate("common.copied_to_clipboard");
     }
 
     protected async _copyToClipboard(value: string, showSnackBar: boolean = true): Promise<void> {

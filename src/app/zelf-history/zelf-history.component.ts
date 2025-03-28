@@ -1,29 +1,45 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { MatRippleModule } from "@angular/material/core";
+import { RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { BlockchainTransactionsService, Transaction } from "app/services/blockchain-transactions.service";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { Transaction } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 type TransactionType = "send" | "receive" | "trade" | "approve" | "";
 
 type Signee = {
     address: string;
-    amount: string | number;
+    amount: number;
+    image: string;
     symbol: string;
     token: string;
-    image: string;
 };
 
 type ProcessedTransaction = {
-    type: TransactionType;
+    fiatAmount: string;
+    hash: string;
     from: Signee;
     to: Signee;
-    fiatAmount: string;
+    type: TransactionType;
 };
 
 @Component({
-    imports: [NgIf, NgClass, NgFor, NgTemplateOutlet, DatePipe, TranslocoModule, DecimalPipe, CurrencyPipe, AddressMaskPipe],
+    imports: [
+        AddressMaskPipe,
+        CurrencyPipe,
+        DatePipe,
+        DecimalPipe,
+        MatRippleModule,
+        NgClass,
+        NgFor,
+        NgIf,
+        NgTemplateOutlet,
+        RouterLink,
+        TranslocoModule,
+    ],
     selector: "zelf-history",
     standalone: true,
     styleUrls: ["./zelf-history.component.scss"],
@@ -85,6 +101,7 @@ export class ZelfHistoryComponent implements OnInit {
             const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
 
             const processedTx = {
+                hash: tx.hash,
                 type: tx.traffic === "OUT" ? "send" : "receive",
                 from: {
                     address: tx.from,
@@ -99,7 +116,7 @@ export class ZelfHistoryComponent implements OnInit {
                     image: tokenImage,
                 },
                 fiatAmount: tx.fiatAmount,
-            } as ProcessedTransaction;
+            };
 
             groupedByDate[dateStr].push(processedTx);
         });

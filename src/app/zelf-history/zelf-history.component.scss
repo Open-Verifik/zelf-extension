@@ -83,6 +83,14 @@
         justify-content: space-between;
         align-items: center;
         gap: 16px;
+        border-radius: 16px;
+        background-color: transparent;
+        transition: background-color 0.2s $smoothBezier;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $antiFlashWhite;
+        }
     }
 
     &__image {

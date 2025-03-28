@@ -1,26 +1,12 @@
-import { Injectable } from "@angular/core";
 import { forkJoin, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
-import { environment } from "environments/environment";
-import { HttpWrapperService } from "app/http-wrapper.service";
-import { WalletModel } from "app/wallet";
 
-export interface Transaction {
-    hash: string;
-    method: string;
-    block: string;
-    age: string;
-    date: string;
-    from: string;
-    traffic: string;
-    to: string;
-    amount: string;
-    fiatAmount?: string;
-    asset: string;
-    txnFee?: string;
-    status?: string;
-    image?: string;
-}
+import { Injectable } from "@angular/core";
+
+import { environment } from "environments/environment";
+
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { Transaction, WalletModel } from "app/wallet";
 
 @Injectable({
     providedIn: "root",

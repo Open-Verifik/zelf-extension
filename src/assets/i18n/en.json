@@ -43,12 +43,16 @@
         "zelf_name_not_registered": "Zelf Name not registered",
         "zelf_name_registered": "Zelf Name registered",
         "continue_process": "You can continue with the process",
-        "withdrawal_network": "Withdrawal network",
         "recently_used": "Recently used",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "available_balance": "Available {{balance}} {{symbol}}",
         "domain_or_address": "Domain or address"
+    },
+    "transaction": {
+        "confirmations": "Confirmations",
+        "share_transaction": "Share transaction",
+        "go_to_my_history": "Go to my history"
     },
     "welcome": {
         "dont_remember_username": "Don't remember your username?",
@@ -83,6 +87,14 @@
         "zelf_name_requires_a_password": "Your Zelf Name requires a password"
     },
     "common": {
+        "copied_to_clipboard": "Copied to clipboard",
+        "transaction": "Transaction",
+        "pending": "Pending",
+        "success": "Success",
+        "failed": "Failed",
+        "date": "Date",
+        "transaction_id": "Transaction ID",
+        "withdrawal_network": "Withdrawal network",
         "activity": "Activity",
         "come_back_later": "Please come back later!",
         "coin": "Coin",

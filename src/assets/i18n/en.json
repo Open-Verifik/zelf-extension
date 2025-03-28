@@ -87,6 +87,7 @@
         "zelf_name_requires_a_password": "Your Zelf Name requires a password"
     },
     "common": {
+        "processing": "Processing",
         "copied_to_clipboard": "Copied to clipboard",
         "transaction": "Transaction",
         "pending": "Pending",

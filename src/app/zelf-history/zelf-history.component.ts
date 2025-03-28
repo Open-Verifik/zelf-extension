@@ -18,31 +18,34 @@ interface TokenInfo {
 })
 export class ZelfHistoryComponent implements OnChanges {
     @Input() transactions: Transaction[] = [];
+
+    private tokenImages: Map<string, string> = new Map();
+
     public history: Record<string, any[]> | null = null;
     public loading = false;
-    private tokenImages: Map<string, string> = new Map();
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes["transactions"] && changes["transactions"].currentValue) {
             const firstTx = this.transactions[0];
+
             if (firstTx?.asset && firstTx?.image) {
                 this.updateTokenImage(firstTx.asset, firstTx.image);
             }
+
             this.processTransactions();
         }
     }
 
     private updateTokenImage(symbol: string, image: string) {
-        if (image && !this.tokenImages.has(symbol)) {
-            this.tokenImages.set(symbol, image);
-        }
+        if (!image || this.tokenImages.has(symbol)) return;
+
+        this.tokenImages.set(symbol, image);
     }
 
     private getAssetImage(symbol: string): string {
         const cachedImage = this.tokenImages.get(symbol);
-        if (cachedImage) {
-            return cachedImage;
-        }
+
+        if (cachedImage) return cachedImage;
 
         return `assets/images/tokens/${symbol.toLowerCase()}.png`;
     }

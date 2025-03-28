@@ -60,14 +60,14 @@
                         <ng-container *ngIf="item.type === 'receive'">
                             <p class="zelf-history__received">+ {{ item.from.amount | number : "1.1-20" }} {{ item.from.symbol }}</p>
                             <p class="zelf-history__received-fiat">
-                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }} {{ item.from.symbol }}
+                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
                         <ng-container *ngIf="item.type === 'send'">
                             <p class="zelf-history__send">+ {{ item.to.amount | number : "1.1-20" }} {{ item.to.symbol }}</p>
                             <p class="zelf-history__send-fiat">
-                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }} {{ item.from.symbol }}
+                                {{ item.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 

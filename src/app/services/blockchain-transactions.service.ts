@@ -1,33 +1,16 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { forkJoin, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "environments/environment";
-import { WalletService } from "app/wallet.service";
-import { ChromeService } from "app/chrome.service";
-
-interface ApiResponse {
-    data: {
-        transactions: Transaction[];
-        account?: {
-            asset: string;
-            fiatBalance: string;
-            price: string;
-        };
-        tokenHoldings?: {
-            tokens: {
-                symbol: string;
-                image: string;
-            }[];
-        };
-    };
-}
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { WalletModel } from "app/wallet";
 
 export interface Transaction {
     hash: string;
     method: string;
     block: string;
     age: string;
+    date: string;
     from: string;
     traffic: string;
     to: string;
@@ -43,38 +26,27 @@ export interface Transaction {
     providedIn: "root",
 })
 export class BlockchainTransactionsService {
-    constructor(private _http: HttpClient, private _walletService: WalletService, private _chromeService: ChromeService) {}
+    constructor(private _httpWrapperService: HttpWrapperService) {}
 
-    async getAllTransactions(): Promise<Observable<Transaction[]>> {
-        const wallet = await this._walletService.retrieveWallet();
-        const token = await this._chromeService.getItem<string>("accessToken");
-
-        if (!wallet || !token) {
-            return of([]);
-        }
-
-        const httpHeaders = new HttpHeaders()
-            .set("Authorization", `Bearer ${token.trim()}`)
-            .set("Accept", "application/json")
-            .set("Content-Type", "application/json");
-
-        const options = { headers: httpHeaders };
+    getAddressData(wallet: Partial<WalletModel> | null): Observable<Transaction[]> {
+        if (!wallet) return of([]);
 
         return forkJoin({
-            ethereum: this._http.get<ApiResponse>(`${environment.apiUrl}/api/ethereum/address?address=${wallet.ethAddress}`, options),
-            avalanche: this._http.get<ApiResponse>(`${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, options),
-            solana: wallet.solAddress
-                ? this._http.get<ApiResponse>(`${environment.apiUrl}/api/solana/address/${wallet.solAddress}`, options)
+            ethereum: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/ethereum/address`, { address: wallet.ethAddress }),
+            avalanche: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, {}),
+            solana: wallet.solanaAddress
+                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/solana/address/${wallet.solanaAddress}`, {})
                 : of(null),
         }).pipe(
             map((responses) => {
                 const transactions: Transaction[] = [];
 
                 if (responses.ethereum?.data) {
-                    const ethImage = responses.ethereum.data.tokenHoldings?.tokens?.find((t) => t.symbol === "ETH")?.image;
+                    const ethImage = responses.ethereum.data.tokenHoldings?.tokens?.find((t: any) => t.symbol === "ETH")?.image;
+
                     if (responses.ethereum.data.transactions) {
                         transactions.push(
-                            ...responses.ethereum.data.transactions.map((tx) => ({
+                            ...responses.ethereum.data.transactions.map((tx: any) => ({
                                 ...tx,
                                 image: ethImage,
                             }))

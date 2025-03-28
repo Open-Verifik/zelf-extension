@@ -21,7 +21,14 @@
 
                         <img class="zelf-history__image" [src]="item.from.image" [alt]="item.from.symbol" *ngIf="item.type === 'send'" />
 
-                        <div class="zelf-history__trade-images" *ngIf="item.type === 'trade'">
+                        <img
+                            class="zelf-history__image"
+                            [src]="item.to.image"
+                            [alt]="item.to.symbol"
+                            *ngIf="item.type === 'trade' && !item.from.image"
+                        />
+
+                        <div class="zelf-history__trade-images" *ngIf="item.type === 'trade' && item.from.image">
                             <img class="zelf-history__trade-image-a" [src]="item.from.image" [alt]="item.from.symbol" />
                             <img class="zelf-history__trade-image-b" [src]="item.to.image" [alt]="item.to.symbol" />
                         </div>

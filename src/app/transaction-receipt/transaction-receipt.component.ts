@@ -42,10 +42,10 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     ) {
         super(_chromeService, _snackBar, _translocoService);
 
-        this.hash = this._activatedRoute.snapshot?.params?.hash ? this._activatedRoute.snapshot.params?.hash : this._router.navigate(["/home"]);
-
         this._activatedRoute.params.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {
             this.hash = params?.hash;
+
+            if (this.loading) return;
 
             this._requestTransactionDetails();
         });
@@ -54,8 +54,6 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     async ngOnInit(): Promise<void> {
         this.loading = true;
         this.wallet = await this._walletService.getCurrentWalletFromStorage();
-
-        this._requestTransactionDetails();
     }
 
     ngOnDestroy(): void {

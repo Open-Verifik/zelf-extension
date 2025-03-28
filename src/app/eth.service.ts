@@ -10,7 +10,6 @@ import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 
 import { HttpWrapperService } from "./http-wrapper.service";
-import { ResponseData } from "./biometrics-general/sdk.models";
 import { EthTransaction } from "./wallet";
 
 export interface ChainConfig {
@@ -194,7 +193,10 @@ export class EthereumService {
             };
 
             const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
-            return await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+            web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+            return signedTx;
         } catch (error) {
             console.error(`Error sending ${network} transaction:`, error);
             throw error;

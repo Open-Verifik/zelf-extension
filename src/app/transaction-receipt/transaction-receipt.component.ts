@@ -1,5 +1,4 @@
 import { Subject, takeUntil } from "rxjs";
-import QRCode from "qrcode";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 
 import { DatePipe, DecimalPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
@@ -97,13 +96,11 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     async goToHistory(): Promise<void> {
-        if (!this.transaction) return;
-
-        if (this.transaction.status === "pending") {
+        if (this.transaction?.status === "pending") {
             this._walletService.addTransactionToPending(this.transaction);
-        } else {
-            this._router.navigate(["/activity"]);
         }
+
+        this._router.navigate(["/activity"]);
     }
 
     async shareTransaction(): Promise<void> {

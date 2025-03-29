@@ -479,6 +479,12 @@ export class EthereumService {
         ];
     }
 
+    requestTransactionFromRPC(transactionHash: string): Promise<any> {
+        const rpcUrl = environment.ethereumRpc.mainnet;
+        const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+        return web3.eth.getTransaction(transactionHash);
+    }
+
     requestTransactionDetails(transactionHash: string): Promise<{ data: EthTransaction }> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/transaction/${transactionHash}`);
     }

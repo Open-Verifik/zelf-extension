@@ -10,8 +10,8 @@ export const environment = {
         solana: "solana",
     },
     ethereumRpc: {
-        mainnet: "https://mainnet.infura.io/v3/0714254b0de84112a865096da1050ae5",
-        testnet: "https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5",
+        mainnet: "https://compatible-skilled-dew.quiknode.pro/817e4f1a5f57dfe63d5fab4ed729c8afcbd87363/",
+        testnet: "https://practical-newest-sailboat.ethereum-sepolia.quiknode.pro/4206bb8d81ddc0bb93acf60f3c76608d7e21f975/",
     },
     polygonRpc: {
         mainnet: "https://responsive-wandering-choice.matic.quiknode.pro/d4a8a38223c463bd108ee7e6c38e68b0ac736e27/",

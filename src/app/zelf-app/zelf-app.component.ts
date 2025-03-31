@@ -18,6 +18,7 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     @ViewChild("contentContainer", { static: false }) contentContainer!: ElementRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
+
     links = {
         documentation: "https://docs.zelf.world/",
         invest: "https://www.pinksale.finance/solana/launchpad/HUCo6xdcGSpiDQxhrN8emvLwnkJAAdJbcACncMnU9MmF",

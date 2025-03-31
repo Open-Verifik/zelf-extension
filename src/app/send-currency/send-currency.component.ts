@@ -40,7 +40,7 @@ export class SendCurrencyComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWalletFromStorage()) || {};
+        this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
         await this._loadTokens();
         this.loading = false;
     }

@@ -69,7 +69,7 @@ export class ZelfHistoryComponent implements OnInit {
     private async _loadFirstTransactions(): Promise<void> {
         this.loading = true;
 
-        const wallet = await this._walletService.getCurrentWalletFromStorage();
+        const wallet = await this._walletService.getFirstWalletFromStorage();
 
         this._blockchainTransactions.getAddressData(wallet).subscribe({
             next: (transactions) => {

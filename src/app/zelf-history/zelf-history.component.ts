@@ -1,5 +1,6 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
@@ -33,6 +34,7 @@ type ProcessedTransaction = {
         DatePipe,
         DecimalPipe,
         MatRippleModule,
+        MatButtonModule,
         NgClass,
         NgFor,
         NgIf,
@@ -46,8 +48,12 @@ type ProcessedTransaction = {
     templateUrl: "./zelf-history.component.html",
 })
 export class ZelfHistoryComponent implements OnInit {
+    private currentPage = 0;
+
     public history: Record<string, ProcessedTransaction[]> | null = null;
     public loading = false;
+    public noMoreTransactions = false;
+    public transactionHashMap: Record<string, boolean> = {};
 
     constructor(private _blockchainTransactions: BlockchainTransactionsService, private _walletService: WalletService) {}
 
@@ -72,8 +78,17 @@ export class ZelfHistoryComponent implements OnInit {
         const wallet = await this._walletService.getFirstWalletFromStorage();
 
         this._blockchainTransactions.getAddressData(wallet).subscribe({
-            next: (transactions) => {
-                this.processTransactions(transactions);
+            next: (response) => {
+                if (!response) {
+                    this.loading = false;
+                    this.noMoreTransactions = true;
+                    this.currentPage = 0;
+                    this.history = null;
+
+                    return;
+                }
+
+                this.processTransactions(response.transactions);
 
                 this.loading = false;
             },
@@ -83,16 +98,15 @@ export class ZelfHistoryComponent implements OnInit {
         });
     }
 
-    private processTransactions(transactions: Transaction[]): void {
-        if (!transactions.length) {
-            this.history = null;
+    private processTransactions(transactions: Transaction[], isPagination = false): void {
+        if (!transactions || !transactions.length) return;
 
-            return;
-        }
-
-        const groupedByDate: Record<string, any[]> = {};
+        const groupedByDate: Record<string, any[]> = isPagination ? { ...this.history } : {};
 
         transactions.forEach((tx) => {
+            if (this.transactionHashMap[tx.hash]) return;
+            if (!tx.from || !tx.to || !tx.date) return;
+
             const date = new Date(tx.date);
             const dateStr = date.toISOString().split("T")[0];
 
@@ -119,8 +133,36 @@ export class ZelfHistoryComponent implements OnInit {
             };
 
             groupedByDate[dateStr].push(processedTx);
+
+            this.transactionHashMap[tx.hash] = true;
         });
 
         this.history = groupedByDate;
+    }
+
+    async loadMoreTransactions(): Promise<void> {
+        this.loading = true;
+        this.currentPage += 1;
+
+        const wallet = await this._walletService.getCurrentWalletFromStorage();
+
+        this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }).subscribe({
+            next: (response) => {
+                if (!response) {
+                    this.noMoreTransactions = true;
+                    this.currentPage = 0;
+                    this.loading = false;
+
+                    return;
+                }
+
+                this.processTransactions(response, true);
+
+                this.loading = false;
+            },
+            error: (error) => {
+                console.error("Error loading transactions:", error);
+            },
+        });
     }
 }

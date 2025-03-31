@@ -37,6 +37,32 @@ export class BlockchainTransactionsService {
         );
     }
 
+    getTransactionHistory(wallet: Partial<WalletModel> | null, pagination: { page: number }): Observable<any> {
+        if (!wallet) return of([]);
+
+        return forkJoin({
+            ethereum: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/ethereum/transactions`, {
+                address: wallet.ethAddress,
+                page: pagination.page,
+                show: 25,
+            }),
+            avalanche: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}/transactions`, {
+                page: pagination.page,
+                show: 25,
+            }),
+            solana: wallet.solanaAddress
+                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/solana/transactions/${wallet.solanaAddress}`, {
+                      page: pagination.page,
+                      show: 25,
+                  })
+                : of(null),
+        }).pipe(
+            map((responses) => {
+                return this._processTransactions(responses);
+            })
+        );
+    }
+
     private _processTransactions(responses: any): Transaction[] {
         const transactions: Transaction[] = [];
 

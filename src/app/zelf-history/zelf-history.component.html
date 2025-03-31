@@ -1,6 +1,6 @@
-<div class="zelf-history" *transloco="let t">
-    <div class="zelf-history__loader ripple" *ngIf="loading"></div>
+<div class="zelf-history-loader ripple" *ngIf="loading"></div>
 
+<div class="zelf-history" *transloco="let t">
     <div class="zelf-history__no-results" *ngIf="!history && !loading">
         <svg xmlns="http://www.w3.org/2000/svg" height="150px" viewBox="0 -960 960 960" width="150px" fill="#e3e3e3">
             <path
@@ -106,6 +106,14 @@
                 </div>
             </ng-container>
         </ng-container>
+
+        <button
+            [disabled]="loading || noMoreTransactions"
+            (click)="loadMoreTransactions()"
+            class="zelf-button zelf-button--wide zelf-button--black zelf-history__load-more"
+        >
+            {{ t("common.load_more") }}
+        </button>
     </ng-container>
 </div>
 

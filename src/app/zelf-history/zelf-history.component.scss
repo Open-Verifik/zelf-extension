@@ -9,7 +9,6 @@
     max-height: 600px;
     min-height: 600px;
     overflow-y: auto;
-    position: relative;
     width: 100%;
 }
 
@@ -25,7 +24,6 @@
 }
 
 .zelf-history {
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -34,11 +32,8 @@
     height: 100%;
     flex-grow: 1;
 
-    &__loader {
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        z-index: 2;
+    &__load-more {
+        margin: 32px 0 0;
     }
 
     &__no-results {

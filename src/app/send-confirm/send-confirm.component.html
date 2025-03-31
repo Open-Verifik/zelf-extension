@@ -80,7 +80,7 @@
         <div
             class="zelf-input zelf-input--wide"
             [ngClass]="{ 'zelf-input--error': form.get('password')?.dirty && form.get('password')?.errors }"
-            *ngIf="!canConfirm"
+            *ngIf="!passwordSet"
         >
             <input
                 [type]="showPassword ? 'text' : 'password'"
@@ -100,22 +100,22 @@
         <div class="zelf-card__actions">
             <button
                 (click)="goToBiometrics()"
-                [disabled]="sending"
+                [disabled]="sending || !form.get('password')?.value"
+                *ngIf="requiresBiometrics"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
                 type="submit"
-                *ngIf="requiresBiometrics"
             >
                 {{ t("common.verify") }}
             </button>
 
             <button
                 (click)="confirmTransaction()"
-                [disabled]="sending || !form.get('password')?.value"
+                [disabled]="sending || (!passwordSet && !form.get('password')?.value)"
+                *ngIf="!requiresBiometrics"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
                 type="submit"
-                *ngIf="!requiresBiometrics"
             >
                 {{ t("common.confirm") }}
 

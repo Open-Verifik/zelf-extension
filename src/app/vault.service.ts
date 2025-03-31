@@ -1,16 +1,19 @@
 import { Injectable } from "@angular/core";
 import * as openpgp from "openpgp";
 import { BehaviorSubject, Observable } from "rxjs";
+import { WalletService } from "./wallet.service";
 
 @Injectable({
     providedIn: "root",
 })
 export class VaultService {
+    private _incorrectCount: number = 0;
+    private _incorrectMax: number = 5;
     private _password$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
     private _password: string = "";
     private _mnemonic: string = "";
 
-    constructor() {}
+    constructor(private _walletService: WalletService) {}
 
     get password$(): Observable<void> {
         return this._password$.asObservable();
@@ -66,7 +69,15 @@ export class VaultService {
 
             return decrypted as string;
         } catch (error) {
-            console.error("Error during PGP decryption:", error);
+            if (this._incorrectCount < this._incorrectMax) {
+                this._incorrectCount++;
+                console.error("Decryption failed. Attempt:", this._incorrectCount);
+            } else {
+                console.error("Max decryption attempts reached. Please check your passphrase.");
+
+                await this._walletService.clearPGPKeys();
+            }
+
             throw error;
         }
     }

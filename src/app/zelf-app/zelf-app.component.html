@@ -1,19 +1,19 @@
-<div class="welcome" *transloco="let t">
-    <nav class="welcome__header">
-        <div class="welcome__logo-container" [routerLink]="['/welcome']">
+<div class="zelf-app" *transloco="let t">
+    <nav class="zelf-app__header">
+        <div class="zelf-app__logo-container" [routerLink]="['/welcome']">
             <ng-container *ngTemplateOutlet="logo"></ng-container>
         </div>
 
-        <div class="welcome__header-language">
+        <div class="zelf-app__header-language">
             <language></language>
         </div>
     </nav>
 
-    <section #contentContainer class="welcome__content">
+    <section #contentContainer class="zelf-app__content">
         <router-outlet></router-outlet>
     </section>
 
-    <footer class="welcome__footer">
+    <footer class="zelf-app__footer">
         <button
             [routerLink]="['/external-link']"
             [queryParams]="{ externalUrl: links.documentation }"

@@ -21,7 +21,7 @@
                         'zelf-chip--success': transaction.status === 'success'
                     }"
                 >
-                    <ng-container *ngIf="transaction.status === 'pending'">{{ t("common.processing") }}</ng-container>
+                    <ng-container *ngIf="!transaction.status || transaction.status === 'pending'">{{ t("common.pending") }}</ng-container>
                     <ng-container *ngIf="transaction.status === 'failed'">{{ t("common.failed") }}</ng-container>
                     <ng-container *ngIf="transaction.status === 'success'">{{ t("common.success") }}</ng-container>
                 </div>
@@ -67,10 +67,10 @@
                         <p class="transaction-receipt__label">{{ t("common.transaction_id") }}</p>
 
                         <div class="transaction-receipt__value-container">
-                            <p class="transaction-receipt__value">{{ transaction.hash | addressMask }}</p>
+                            <p class="transaction-receipt__value">{{ hash | addressMask }}</p>
 
                             <button
-                                (click)="copyToClipboard(transaction.hash)"
+                                (click)="copyToClipboard(hash)"
                                 mat-flat-button
                                 class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--border-soft"
                             >

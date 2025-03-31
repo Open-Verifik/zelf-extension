@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
@@ -30,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     constructor(
         private _blockchainNetworkService: BlockchainNetworksService,
+        private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _ethService: EthereumService,
@@ -73,12 +76,73 @@ export class HomeComponent implements OnInit, OnDestroy {
     private async _getBalances(): Promise<any> {
         this.tokens = [];
         this.NFTs = [];
+        this.balancesLoading = true;
 
-        await this._getETHDetails();
-        await this._getSolanaDetails();
-        await this._getAvalancheDetails();
+        try {
+            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+            console.log("Full response:", response);
+
+            if (response?.ethereum?.data?.account) {
+                this.selectedAsset = new Asset({
+                    asset: response.ethereum.data.account.asset,
+                    balance: response.ethereum.data.balance,
+                    fiatBalance: Number(response.ethereum.data.fiatBalance),
+                    price: response.ethereum.data.account.price,
+                    network: "Ethereum",
+                });
+            }
+
+            if (response?.ethereum?.data?.tokenHoldings?.tokens) {
+                console.log("Processing Ethereum tokens:", response.ethereum.data.tokenHoldings.tokens);
+                this._processTokens("Ethereum", response.ethereum.data.tokenHoldings.tokens);
+            }
+
+            if (response?.solana?.data?.tokenHoldings?.tokens) {
+                console.log("Processing Solana tokens:", response.solana.data.tokenHoldings.tokens);
+                this._processTokens("Solana", response.solana.data.tokenHoldings.tokens);
+            }
+
+            if (response?.avalanche?.data?.tokenHoldings?.tokens) {
+                console.log("Processing Avalanche tokens:", response.avalanche.data.tokenHoldings.tokens);
+                this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
+            }
+
+            await this._getETHDetails();
+            await this._getSolanaDetails();
+            await this._getAvalancheDetails();
+        } catch (error) {
+            console.error("Error getting tokens:", error);
+        }
 
         this.balancesLoading = false;
+        this._changeDetectionRef.detectChanges();
+    }
+
+    private _processTokens(network: string, tokens: Array<any>): void {
+        console.log(`Processing ${network} tokens:`, tokens);
+
+        for (const token of tokens) {
+            if (!token.symbol && !token.name) continue;
+
+            const formattedToken = {
+                ...token,
+                network,
+                balance: parseFloat(token.amount || token.balance || "0"),
+                fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                price: parseFloat(token.price || "0"),
+
+                image: token.image,
+            };
+
+            const existingTokenIndex = this.tokens.findIndex((t) => t.symbol === formattedToken.symbol && t.network === formattedToken.network);
+
+            if (existingTokenIndex === -1) {
+                this.tokens.push(formattedToken);
+            }
+        }
+
+        console.log(`Final tokens array:`, this.tokens);
+        this._changeDetectionRef.detectChanges();
     }
 
     private async _getETHDetails(): Promise<any> {
@@ -86,15 +150,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
 
-        this.selectedAsset = new Asset({
-            asset: details.data.account.asset,
-            balance: details.data.balance,
-            fiatBalance: Number(details.data.fiatBalance),
-            price: details.data.account.price,
-        });
-
-        this._getTokens("Ethereum", details.data.tokenHoldings.tokens);
+        if (details?.data?.tokenHoldings?.tokens) {
+            const newTokens = details.data.tokenHoldings.tokens.filter(
+                (token: any) => !this.tokens.some((t) => t.symbol === token.symbol && t.network === "Ethereum")
+            );
+            if (newTokens.length > 0) {
+                this._processTokens("Ethereum", newTokens);
+            }
+        }
     }
+
+    private async _getSolanaDetails(): Promise<any> {
+        if (!this.wallet?.solanaAddress) return;
+
+        const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
+
+        if (details?.data?.tokenHoldings?.tokens) {
+            this._processTokens("Solana", details.data.tokenHoldings.tokens);
+        }
+    }
+
     private async _getAvalancheDetails(): Promise<any> {
         if (!this.wallet?.ethAddress) return;
 
@@ -102,79 +177,12 @@ export class HomeComponent implements OnInit, OnDestroy {
             console.log("Getting AVAX details...");
             const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
 
-            if (details?.data) {
-                if (details.data.tokenHoldings?.tokens) {
-                    this._getTokens("Avalanche", details.data.tokenHoldings.tokens);
-                }
+            if (details?.data?.tokenHoldings?.tokens) {
+                this._processTokens("Avalanche", details.data.tokenHoldings.tokens);
             }
-
-            this._changeDetectionRef.detectChanges();
         } catch (error) {
             console.error("Error getting AVAX details:", error);
         }
-    }
-    private async _getSolanaDetails(): Promise<any> {
-        const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
-
-        if (!details) return;
-
-        if (details.data.balance) {
-            this.selectedAsset.fiatBalance += Number(details.data.fiatBalance);
-        }
-
-        this._getTokens("Solana", details.data.tokenHoldings.tokens);
-    }
-
-    private _getTokens(network: string, tokens: Array<any>): void {
-        console.log("Raw tokens received:", tokens);
-        for (let index = 0; index < tokens.length; index++) {
-            const token = tokens[index];
-
-            if (!token.symbol) {
-                continue;
-            }
-
-            if (["ERC-20", "ETH", "AVAX"].includes(token.tokenType)) {
-                if (["ETH", "AVAX"].includes(token.tokenType)) {
-                    this.tokens.push(token);
-                } else {
-                    const formattedToken = {
-                        ...token,
-                        network,
-                        balance: parseFloat(token.balance || "0"),
-                        fiatBalance: parseFloat(token.fiatBalance || "0"),
-                        price: parseFloat(token.price || "0"),
-                    };
-                    this.tokens.push(formattedToken);
-                }
-            } else if (["NFT"].includes(token.tokenType)) {
-                this.NFTs.push({ ...token, network });
-            }
-
-            if (network === "Solana") {
-                const _token = {
-                    ...token,
-                    symbol: token.symbol || token.name,
-                    network,
-                    balance: parseFloat(token.balance || "0"),
-                    fiatBalance: parseFloat(token.fiatBalance || "0"),
-                    price: parseFloat(token.price || "0"),
-                };
-
-                if (_token.name === "Zelf") {
-                    _token.symbol = "ZNS";
-                }
-
-                this.tokens.push(_token);
-            }
-        }
-
-        this.tokens = this.tokens.filter(
-            (token, index, self) => token.symbol && index === self.findIndex((t) => t.symbol === token.symbol && t.network === token.network)
-        );
-
-        console.log("Processed tokens:", this.tokens);
-        this._changeDetectionRef.detectChanges();
     }
 
     private async _setWallet(): Promise<any> {

@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from "@angular/core";
     template: `
         <div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
             <div class="status-icon-container">
-                <img [src]="data.image || getDefaultTokenImage()" />
+                <img [src]="currentImage" [alt]="data.symbol" (error)="onImageError($event)" />
             </div>
 
             <div class="text-container" fxLayout="column" fxLayoutAlign="start start">
@@ -50,24 +50,21 @@ export class TokenCardComponent implements OnInit {
     @Input() data: any;
     @Input() view: string;
     @Input() shareables: any;
+    currentImage!: string;
 
     constructor() {
         this.view = "default";
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.currentImage = this.data?.image || "/assets/images/token-placeholder.png";
+    }
 
-    getDefaultTokenImage(): string {
-        switch (this.data?.network) {
-            case "Avalanche":
-                return "assets/images/tokens/avax.png";
-            case "Ethereum":
-                return "assets/images/tokens/eth.png";
-            case "Solana":
-                return "assets/images/tokens/sol.png";
-            default:
-                return "assets/images/tokens/default.png";
-        }
+    onImageError(event: any) {
+        console.log("Image load error for token:", this.data.symbol);
+        console.log("Attempted image URL:", this.currentImage);
+        // Usar imagen genérica en caso de error
+        this.currentImage = "/assets/images/token-placeholder.png";
     }
 
     onClick(): void {}

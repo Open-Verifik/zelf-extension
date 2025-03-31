@@ -1,8 +1,12 @@
 import * as bip39 from "bip39";
-import { HDNodeWallet, ethers } from "ethers";
+import { HDNodeWallet, ethers, parseEther } from "ethers";
 import { BehaviorSubject, Observable } from "rxjs";
 import Web3 from "web3";
 import { isAddress } from "web3-validator";
+
+import { Core } from "@quicknode/sdk";
+import { createWalletClient, http } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -11,6 +15,10 @@ import { environment } from "environments/environment";
 
 import { HttpWrapperService } from "./http-wrapper.service";
 import { EthTransaction } from "./wallet";
+
+const ethCore = new Core({
+    endpointUrl: environment.ethereumRpc.mainnet,
+});
 
 export interface ChainConfig {
     blockExplorerUrls: string[];
@@ -161,6 +169,7 @@ export class EthereumService {
     async sendTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {
         try {
             let rpcUrl;
+
             switch (network.toLowerCase()) {
                 case "avalanche":
                     rpcUrl = environment.avalancheRpc.mainnet;
@@ -172,9 +181,10 @@ export class EthereumService {
             }
 
             const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
+            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
             const amountInWei = web3.utils.toWei(amount, "ether");
+
             const [nonce, gasPrice] = await Promise.all([web3.eth.getTransactionCount(account.address, "latest"), web3.eth.getGasPrice()]);
 
             const gasEstimate = await web3.eth.estimateGas({
@@ -202,6 +212,50 @@ export class EthereumService {
             throw error;
         }
     }
+
+    // async sendQuickNodeTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {
+    //     if (network !== "ethereum") throw new Error("Unsupported network");
+
+    //     const account = privateKeyToAccount(privateKey as `0x${string}`);
+    //     const walletClient = createWalletClient({
+    //         chain: ethCore.client.chain,
+    //         account,
+    //         transport: http(environment.ethereumRpc.mainnet),
+    //     });
+
+    //     const results = await ethCore.client.multicall();
+
+    //     const ethSendContract = {
+    //         address: toAddress as `0x${string}`,
+    //         functionName: "transfer",
+    //         args: [toAddress as `0x${string}`, parseEther(amount)],
+    //         account,
+    //         abi: [
+    //             {
+    //                 inputs: [
+    //                     {
+    //                         internalType: "address",
+    //                         name: "to",
+    //                         type: "address",
+    //                     },
+    //                     {
+    //                         internalType: "uint256",
+    //                         name: "value",
+    //                         type: "uint256",
+    //                     },
+    //                 ],
+    //                 name: "sendTransaction",
+    //                 outputs: [],
+    //                 stateMutability: "nonpayable",
+    //                 type: "function",
+    //             },
+    //         ],
+    //     };
+
+    //     const { request } = await ethCore.client.simulateContract(ethSendContract);
+
+    //     await walletClient.writeContract(request);
+    // }
 
     getGasPrices(): Promise<any> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/gas-tracker`);
@@ -277,37 +331,6 @@ export class EthereumService {
             }
             console.error("Error switching chain:", switchError);
             return false;
-        }
-    }
-
-    async sendTestTransaction(amount: string = "0.01", privateKey: string, toAddress: string): Promise<any> {
-        try {
-            await this.switchNetwork("sepolia");
-            const web3 = new Web3(this.web3.currentProvider);
-            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-
-            const amountInWei = web3.utils.toWei(amount, "ether");
-
-            const nonce = await web3.eth.getTransactionCount(account.address, "latest");
-            const gasPrice = await web3.eth.getGasPrice();
-
-            const tx = {
-                from: account.address,
-                to: toAddress,
-                value: amountInWei,
-                nonce: nonce,
-                gasPrice: gasPrice,
-                gas: "21000",
-            };
-
-            const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
-
-            const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-
-            return receipt;
-        } catch (error) {
-            console.error("Error sending test transaction:", error);
-            throw error;
         }
     }
 

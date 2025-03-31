@@ -607,13 +607,37 @@ export class WalletService {
         }
     }
 
-    public async addTransactionToPending(transaction: Transaction): Promise<void> {
-        const pendingTransactions = await this._chromeService.getItem<Transaction[]>("pendingTransactions");
+    public async getPendingTransaction(transactionHash: string): Promise<any> {
+        if (!transactionHash) return;
 
-        if (!pendingTransactions || !pendingTransactions.length) {
-            await this._chromeService.setItem("pendingTransactions", [transaction]);
+        const pendingTransactions = await this._chromeService.getItem<any>("pendingTransactions");
+
+        if (!pendingTransactions) return null;
+
+        return pendingTransactions[transactionHash] || null;
+    }
+
+    public async removePendingTransaction(transactionHash: string): Promise<any> {
+        if (!transactionHash) return;
+
+        const pendingTransactions = await this._chromeService.getItem<any>("pendingTransactions");
+
+        if (!pendingTransactions) return null;
+
+        delete pendingTransactions[transactionHash];
+
+        await this._chromeService.setItem("pendingTransactions", pendingTransactions);
+    }
+
+    public async addTransactionToPending(transaction: any): Promise<void> {
+        const pendingTransactions = await this._chromeService.getItem<any>("pendingTransactions");
+
+        if (!pendingTransactions) {
+            await this._chromeService.setItem("pendingTransactions", { [transaction.transactionHash]: transaction });
         } else {
-            pendingTransactions.push(transaction);
+            if (pendingTransactions[transaction.transactionHash]) return;
+
+            pendingTransactions[transaction.transactionHash] = transaction;
 
             await this._chromeService.setItem("pendingTransactions", pendingTransactions);
         }

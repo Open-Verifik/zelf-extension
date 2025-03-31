@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { EthTransactionModel, Transaction, WalletModel } from "app/wallet";
+import { EthTransactionModel, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
@@ -28,7 +28,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     loading: boolean = false;
     hash: string = "";
-    transaction!: Transaction;
+    transaction!: any;
     wallet!: Partial<WalletModel> | null;
 
     constructor(
@@ -63,28 +63,38 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         this.unsubscriber$.complete();
     }
 
-    private _requestTransactionDetails(): void {
+    private async _requestTransactionDetails(): Promise<void> {
         if (!this.hash) return;
+
+        this.transaction = await this._walletService.getPendingTransaction(this.hash);
 
         this._ethService
             .requestTransactionDetails(this.hash)
             .then((response) => {
-                if (!response || !response.data) return;
+                if (!response || !response.data) {
+                    this._retryRequestTransactionDetails();
+
+                    return;
+                }
 
                 this.transaction = new EthTransactionModel(response.data).toTransaction();
-
                 this.loading = false;
 
                 if (this.transaction.status === "pending") {
-                    this._timeout = setTimeout(() => {
-                        this._requestTransactionDetails();
-                    }, 2000);
+                    this._retryRequestTransactionDetails();
+                } else {
+                    this._walletService.removePendingTransaction(this.hash);
                 }
             })
-            .catch((error: any) => {
-                console.error("Error fetching transaction details:", error);
-                this.loading = false;
+            .catch(() => {
+                this._retryRequestTransactionDetails();
             });
+    }
+
+    private async _retryRequestTransactionDetails(): Promise<void> {
+        this._timeout = setTimeout(() => {
+            this._requestTransactionDetails();
+        }, 2000);
     }
 
     async copyToClipboard(value?: string): Promise<void> {

@@ -182,6 +182,11 @@ export class EthereumService {
 
             const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
 
+            web3.eth.transactionConfirmationBlocks = 1; // Wait for at least 1 confirmation block
+            web3.eth.transactionPollingInterval = 2000; // Wait 2 seconds before first check
+            web3.eth.transactionReceiptPollingInterval = 2000; // Check for the receipt every 2 seconds
+            web3.eth.transactionPollingTimeout = 6000; // After 60 seconds stop polling
+
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
             const amountInWei = web3.utils.toWei(amount, "ether");
 
@@ -204,9 +209,11 @@ export class EthereumService {
 
             const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
 
-            web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-
-            return signedTx;
+            try {
+                return await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+            } catch (error) {
+                return signedTx;
+            }
         } catch (error) {
             console.error(`Error sending ${network} transaction:`, error);
             throw error;

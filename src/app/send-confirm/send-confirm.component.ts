@@ -196,6 +196,7 @@ export class SendConfirmComponent implements OnInit {
 
             const amountStr = String(this.amount);
             const normalizedAmount = amountStr.replace(",", ".");
+            const sendDateTime = new Date().toISOString();
 
             const receipt = await this._ethService.sendTransaction(
                 normalizedAmount,
@@ -213,7 +214,18 @@ export class SendConfirmComponent implements OnInit {
 
             this.sending = false;
 
-            await this._router.navigate(["/transaction", receipt.transactionHash]);
+            if (!receipt.blockHash) {
+                this._walletService.addTransactionToPending({
+                    ...receipt,
+                    date: sendDateTime,
+                    from: this.fromAddress,
+                    network: this.selectedNetwork,
+                    status: "pending",
+                    to: this.toAddress,
+                });
+            }
+
+            this._router.navigate(["/transaction", receipt.transactionHash]);
         } catch (error: any) {
             this.sending = false;
             console.error("Error during transaction execution:", error);

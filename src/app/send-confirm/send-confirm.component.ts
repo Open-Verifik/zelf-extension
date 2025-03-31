@@ -72,6 +72,9 @@ export class SendConfirmComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) as WalletModel;
+
+        if (this.wallet.pgp) delete this.wallet.pgp;
+
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
     }
@@ -93,12 +96,14 @@ export class SendConfirmComponent implements OnInit {
 
             if (!isEthereumToken && !isAvaxToken) {
                 const tokenAddress = this.token.address;
+
                 if (!tokenAddress || !this._ethService.checkIfValidAddress(tokenAddress)) {
                     console.error("Invalid token address:", tokenAddress);
                     return;
                 }
 
                 const formattedTokenAddress = tokenAddress.startsWith("0x") ? tokenAddress : `0x${tokenAddress}`;
+
                 transactionCost = await this._ethService.getTransactionCost(
                     formattedTokenAddress,
                     this._ethService.toWei(String(this.amount || "0"), this.token.decimals)
@@ -121,7 +126,9 @@ export class SendConfirmComponent implements OnInit {
             const price = this.selectedNetwork === "avalanche" ? await this._ethService.getAVAXPrice() : await this._ethService.getETHPrice();
 
             this.feeUsd = Number(this.fee) * price;
+
             const amountInUsd = Number(this.amount) * (this.token?.price || 0);
+
             this.total = amountInUsd + this.feeUsd;
 
             this.transactionData = {
@@ -245,7 +252,7 @@ export class SendConfirmComponent implements OnInit {
         if (!password || !password.trim()) return;
 
         this._vaultService.password = this.form.get("password")?.value;
-        this._router.navigate(["/security/biometrics"]);
+        this._router.navigate(["/security/biometrics"], { queryParams: { return: "/send/confirm" } });
     }
 
     toggleShowPassword(): void {

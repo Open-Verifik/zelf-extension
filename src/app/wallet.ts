@@ -258,7 +258,7 @@ export class WalletModel implements Wallet {
     ipfs: IPFS = {} as IPFS;
     metadata: any;
     name: string;
-    pgp: PGP = {} as PGP;
+    pgp?: PGP = {} as PGP;
     publicData: WalletPublicData;
     solanaAddress: string;
     zelfProof: string;

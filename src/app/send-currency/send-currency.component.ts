@@ -9,6 +9,8 @@ import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { TransactionService } from "app/transaction.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
@@ -28,7 +30,8 @@ export class SendCurrencyComponent implements OnInit {
         private _router: Router,
         private _solanaService: SolanaService,
         private _transactionService: TransactionService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _blockchainTransactionsService: BlockchainTransactionsService
     ) {
         this._transactionService.fromAddress = "";
         this._transactionService.fromBalance = 0;
@@ -37,75 +40,91 @@ export class SendCurrencyComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWalletFromStorage()) as WalletModel;
-
-        await this._getETHDetails();
-        await this._getAvalancheDetails();
-        // await this._getSolanaDetails();
-
+        this.wallet = (await this._walletService.getCurrentWalletFromStorage()) || {};
+        await this._loadTokens();
         this.loading = false;
     }
 
-    private async _getETHDetails(): Promise<any> {
-        if (!this.wallet?.ethAddress) return;
+    private async _loadTokens(): Promise<void> {
+        try {
+            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+            console.log("Full response:", response);
 
-        const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
+            if (response?.ethereum?.data?.tokenHoldings?.tokens) {
+                console.log("Ethereum tokens:", response.ethereum.data.tokenHoldings.tokens);
+                this._getCurrencies("Ethereum", response.ethereum.data.tokenHoldings.tokens);
+            }
 
-        if (!details) return;
+            if (response?.solana?.data?.tokenHoldings?.tokens) {
+                console.log("Solana tokens:", response.solana.data.tokenHoldings.tokens);
+                this._getCurrencies("Solana", response.solana.data.tokenHoldings.tokens);
+            }
 
-        this._getCurrencies("Ethereum", details.data.tokenHoldings.tokens);
-    }
+            if (response?.avalanche?.data) {
+                console.log("Avalanche data:", response.avalanche.data);
+                const avalancheTokens = [];
 
-    private async _getAvalancheDetails(): Promise<any> {
-        if (!this.wallet?.ethAddress) return;
+                if ("balance" in response.avalanche.data) {
+                    const avaxToken = {
+                        tokenType: "AVAX",
+                        symbol: "AVAX",
+                        name: "Avalanche",
+                        amount: response.avalanche.data.balance,
+                        price: response.avalanche.data.price,
+                        fiatBalance: response.avalanche.data.fiatBalance,
+                        image: response.avalanche.data.image,
+                    };
+                    console.log("Adding AVAX token:", avaxToken);
+                    avalancheTokens.push(avaxToken);
+                }
 
-        const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
+                console.log("Final Avalanche tokens:", avalancheTokens);
+                this._getCurrencies("Avalanche", avalancheTokens);
+            }
 
-        if (!details) return;
-
-        this._getCurrencies("Avalanche", details.data.tokenHoldings.tokens);
-    }
-
-    private async _getSolanaDetails(): Promise<any> {
-        const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
-
-        if (!details) return;
-
-        this._getCurrencies("Solana", details.data.tokenHoldings.tokens);
+            console.log("Final tokens array:", this.tokens);
+            this.loading = false;
+        } catch (error) {
+            console.error("Error loading tokens:", error);
+            this.loading = false;
+        }
     }
 
     private _getCurrencies(network: string, currencies: Array<any>): void {
-        for (let index = 0; index < currencies.length; index++) {
-            const token = currencies[index];
-
+        for (const token of currencies) {
             if (network === "Solana") {
                 const _token = { ...token, symbol: token.symbol || token.name, network };
-
                 if (_token.name === "Zelf") {
                     _token.symbol = "ZNS";
                 }
-
                 this.tokens.push(_token);
             }
 
-            if (["ERC-20", "ETH", "AVAX"].includes(token.tokenType) && token.price) {
-                this.tokens.push({ ...token, network });
+            if (network === "Ethereum") {
+                if (["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
+                    this.tokens.push({ ...token, network });
+                }
+            }
+
+            if (network === "Avalanche") {
+                if (token.tokenType === "AVAX" || token.tokenType === "ERC-20") {
+                    this.tokens.push({ ...token, network });
+                }
             }
         }
 
+        console.log(`After processing ${network}:`, this.tokens);
         this._changeDetectionRef.detectChanges();
     }
 
     onTokenClick(token: any): void {
-        const tokenName = token.name?.toLowerCase();
-
         let address = "";
 
-        if (["ethereum", "avalanche"].includes(tokenName)) {
+        if (token.network === "Ethereum" || token.network === "Avalanche") {
             address = this.wallet?.ethAddress || "";
-        } else if (tokenName === "solana") {
+        } else if (token.network === "Solana") {
             address = this.wallet?.solanaAddress || "";
-        } else if (tokenName === "bitcoin") {
+        } else if (token.network === "Bitcoin") {
             address = this.wallet?.btcAddress || "";
         }
 

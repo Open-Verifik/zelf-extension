@@ -28,8 +28,8 @@ export class SendConfirmComponent implements OnInit {
 
     amount: number = 0;
     canConfirm: boolean = false;
-    fee: string = "0";
-    feeUsd: string = "0";
+    fee: number = 0;
+    feeUsd: number = 0;
     form!: UntypedFormGroup;
     fromAddress: string = "";
     requiresBiometrics: boolean = false;
@@ -38,7 +38,7 @@ export class SendConfirmComponent implements OnInit {
     showPassword: boolean = false;
     toAddress: string = "";
     token: Token;
-    total: string = "0";
+    total: number = 0;
     transactionData: any;
     wallet?: WalletModel;
     selectedNetwork: string;
@@ -71,7 +71,7 @@ export class SendConfirmComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWalletFromStorage()) as WalletModel;
+        this.wallet = (await this._walletService.getFirstWalletFromStorage()) as WalletModel;
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
     }
@@ -92,7 +92,6 @@ export class SendConfirmComponent implements OnInit {
             const isAvaxToken = this.token.tokenType === "AVAX";
 
             if (!isEthereumToken && !isAvaxToken) {
-                // Lógica para tokens ERC20
                 const tokenAddress = this.token.address;
                 if (!tokenAddress || !this._ethService.checkIfValidAddress(tokenAddress)) {
                     console.error("Invalid token address:", tokenAddress);
@@ -117,14 +116,13 @@ export class SendConfirmComponent implements OnInit {
                 transactionCost = await this._ethService.getTransactionCost(formattedToAddress, amountInWei);
             }
 
-            this.fee = Number(this._ethService.fromWei(transactionCost.totalCost)).toFixed(6);
+            this.fee = Number(this._ethService.fromWei(transactionCost.totalCost));
 
-            // Obtener el precio según la red
             const price = this.selectedNetwork === "avalanche" ? await this._ethService.getAVAXPrice() : await this._ethService.getETHPrice();
 
-            this.feeUsd = (Number(this.fee) * price).toFixed(2);
-            const amountInUsd = Number(this.amount) * this.token.price;
-            this.total = (amountInUsd + Number(this.feeUsd)).toFixed(2);
+            this.feeUsd = Number(this.fee) * price;
+            const amountInUsd = Number(this.amount) * (this.token?.price || 0);
+            this.total = amountInUsd + this.feeUsd;
 
             this.transactionData = {
                 amount: this.amount,

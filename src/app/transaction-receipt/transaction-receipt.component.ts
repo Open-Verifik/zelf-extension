@@ -53,7 +53,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     async ngOnInit(): Promise<void> {
         this.loading = true;
-        this.wallet = await this._walletService.getCurrentWalletFromStorage();
+        this.wallet = await this._walletService.getFirstWalletFromStorage();
     }
 
     ngOnDestroy(): void {

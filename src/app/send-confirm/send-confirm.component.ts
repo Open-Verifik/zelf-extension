@@ -193,17 +193,24 @@ export class SendConfirmComponent implements OnInit {
             }
 
             const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
-
             const amountStr = String(this.amount);
             const normalizedAmount = amountStr.replace(",", ".");
-            const sendDateTime = new Date().toISOString();
 
-            const receipt = await this._ethService.sendTransaction(
-                normalizedAmount,
-                wallet.privateKey,
-                this.toAddress,
-                this.selectedNetwork === "avalanche" ? "avalanche" : "ethereum"
-            );
+            let receipt;
+
+            // Determine if it's an ERC20 token
+            if (this.token.tokenType === "ERC-20" && this.token.address) {
+                const tokenAddress = this.token.address.split("?")[0]; // Remove query parameters if present
+                receipt = await this._ethService.sendERC20Transaction(
+                    normalizedAmount,
+                    wallet.privateKey,
+                    this.toAddress,
+                    tokenAddress,
+                    this.selectedNetwork
+                );
+            } else {
+                receipt = await this._ethService.sendTransaction(normalizedAmount, wallet.privateKey, this.toAddress, this.selectedNetwork);
+            }
 
             this._transactionService.addToRecentAddresses({
                 address: this.receiver.ethAddress,
@@ -213,8 +220,10 @@ export class SendConfirmComponent implements OnInit {
             });
 
             this.sending = false;
+            await this._router.navigate(["/transaction", receipt.transactionHash]);
 
             if (!receipt.blockHash) {
+                const sendDateTime = new Date().toISOString();
                 this._walletService.addTransactionToPending({
                     ...receipt,
                     date: sendDateTime,

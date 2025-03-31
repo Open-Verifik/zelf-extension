@@ -518,4 +518,97 @@ export class EthereumService {
     requestTransactionDetails(transactionHash: string): Promise<{ data: EthTransaction }> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/transaction/${transactionHash}`);
     }
+
+    async sendERC20Transaction(
+        amount: string,
+        privateKey: string,
+        toAddress: string,
+        tokenAddress: string,
+        network: string = "ethereum"
+    ): Promise<any> {
+        try {
+            let rpcUrl;
+            switch (network.toLowerCase()) {
+                case "avalanche":
+                    rpcUrl = environment.avalancheRpc.mainnet;
+                    break;
+                case "ethereum":
+                default:
+                    rpcUrl = environment.ethereumRpc.mainnet;
+                    break;
+            }
+
+            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+
+            // ERC20 Token Contract ABI (minimal required for transfer)
+            const minABI = [
+                {
+                    constant: false,
+                    inputs: [
+                        {
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            name: "_value",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "transfer",
+                    outputs: [
+                        {
+                            name: "",
+                            type: "bool",
+                        },
+                    ],
+                    type: "function",
+                },
+                {
+                    constant: true,
+                    inputs: [],
+                    name: "decimals",
+                    outputs: [
+                        {
+                            name: "",
+                            type: "uint8",
+                        },
+                    ],
+                    type: "function",
+                },
+            ];
+
+            const contract = new web3.eth.Contract(minABI, tokenAddress);
+
+            const decimals = Number(await contract.methods.decimals().call());
+            const amountInWei = this.toWei(amount, decimals);
+
+            const transferData = contract.methods.transfer(toAddress, amountInWei).encodeABI();
+
+            const [nonce, gasPrice] = await Promise.all([web3.eth.getTransactionCount(account.address, "latest"), web3.eth.getGasPrice()]);
+
+            const gasEstimate = await web3.eth.estimateGas({
+                from: account.address,
+                to: tokenAddress,
+                data: transferData,
+            });
+
+            const tx = {
+                from: account.address,
+                to: tokenAddress,
+                data: transferData,
+                nonce: nonce,
+                gasPrice: gasPrice,
+                gas: gasEstimate,
+            };
+
+            const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+            const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+            return receipt;
+        } catch (error) {
+            console.error(`Error sending ERC20 token on ${network}:`, error);
+            throw error;
+        }
+    }
 }

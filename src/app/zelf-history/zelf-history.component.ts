@@ -144,7 +144,7 @@ export class ZelfHistoryComponent implements OnInit {
         this.loading = true;
         this.currentPage += 1;
 
-        const wallet = await this._walletService.getCurrentWalletFromStorage();
+        const wallet = await this._walletService.getFirstWalletFromStorage();
 
         this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }).subscribe({
             next: (response) => {

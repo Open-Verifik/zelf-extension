@@ -45,10 +45,10 @@ export class SendCurrencyComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
 
-        if (this.wallet.pgp) {
-            delete this.wallet.pgp;
-            await this._walletService.updateCurrentWallet(this.wallet);
-        }
+        // if (this.wallet.pgp) {
+        //     delete this.wallet.pgp;
+        //     await this._walletService.updateCurrentWallet(this.wallet);
+        // }
 
         await this._loadTokens();
 

@@ -1,13 +1,15 @@
 import { inject } from "@angular/core";
-import { Router, type CanActivateFn } from "@angular/router";
+import { ActivatedRouteSnapshot, Router, type CanActivateFn } from "@angular/router";
 import { VaultService } from "app/vault.service";
 
-export const PasswordGuard: CanActivateFn = () => {
-    const _vaultService = inject(VaultService);
+export const PasswordGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
     const router = inject(Router);
+    const _vaultService = inject(VaultService);
 
     if (!_vaultService.password) {
-        router.navigate(["/security/password"], { replaceUrl: true });
+        const returnPath = route?.queryParams?.return;
+
+        router.navigate(["/security/password"], { replaceUrl: true, queryParams: { return: returnPath } });
 
         return false;
     }

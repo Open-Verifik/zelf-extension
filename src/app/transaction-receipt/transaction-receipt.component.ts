@@ -66,7 +66,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _requestTransactionDetails(): Promise<void> {
         if (!this.hash) return;
 
-        this.transaction = await this._walletService.getPendingTransaction(this.hash);
+        if (!this.transaction) this.transaction = await this._walletService.getPendingTransaction(this.hash);
 
         this._ethService
             .requestTransactionDetails(this.hash)

@@ -2,6 +2,14 @@
 @import "../../styles/buttons.scss";
 @import "../../styles/animations.scss";
 
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
 .zelf-activity {
     &__header {
         align-content: center;

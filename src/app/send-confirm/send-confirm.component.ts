@@ -14,6 +14,7 @@ import { VaultService } from "app/vault.service";
 import { Token, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -26,14 +27,20 @@ export class SendConfirmComponent implements OnInit {
     private _password: string = "";
     private _mnemonics: string = "";
 
+    availableNetworks = [
+        { id: "ethereum", name: "Ethereum", symbol: "ETH" },
+        { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
+    ];
+
     amount: number = 0;
-    canConfirm: boolean = false;
     fee: number = 0;
     feeUsd: number = 0;
     form!: UntypedFormGroup;
     fromAddress: string = "";
-    requiresBiometrics: boolean = false;
+    passwordSet: boolean = false;
     receiver!: WalletModel;
+    requiresBiometrics: boolean = false;
+    selectedNetwork: string;
     sending: boolean = false;
     showPassword: boolean = false;
     toAddress: string = "";
@@ -41,11 +48,6 @@ export class SendConfirmComponent implements OnInit {
     total: number = 0;
     transactionData: any;
     wallet?: WalletModel;
-    selectedNetwork: string;
-    availableNetworks = [
-        { id: "ethereum", name: "Ethereum", symbol: "ETH" },
-        { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
-    ];
 
     constructor(
         private _ethService: EthereumService,
@@ -53,10 +55,14 @@ export class SendConfirmComponent implements OnInit {
         private _router: Router,
         private _transactionService: TransactionService,
         private _vaultService: VaultService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService
     ) {
-        this._mnemonics = "";
-        this._password = this._vaultService.password;
+        this._mnemonics = ""; // Should always be empty on init
+        this._password = this._vaultService.password; // Get from service, then clear immediately
+
+        this._vaultService.mnemonic = "";
+        this._vaultService.password = "";
 
         this.amount = this._transactionService.withdrawalAmount;
         this.fromAddress = this._transactionService.fromAddress;
@@ -64,23 +70,21 @@ export class SendConfirmComponent implements OnInit {
         this.token = this._transactionService.token;
         this.toAddress = this._transactionService.toAddress;
 
-        if (this._password && this._password.trim()) this.requiresBiometrics = false;
+        if (this._password && this._password.trim()) {
+            this.passwordSet = true;
+            this.requiresBiometrics = false;
+        }
 
         this._initForm();
+
         this.selectedNetwork = this.token?.network?.toLowerCase() || "ethereum";
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getFirstWalletFromStorage()) as WalletModel;
-
-        if (this.wallet.pgp) delete this.wallet.pgp;
+        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
 
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
-    }
-
-    ngOnDestroy(): void {
-        this._vaultService.password = "";
     }
 
     private async _calculateTransactionFee(): Promise<void> {
@@ -91,6 +95,7 @@ export class SendConfirmComponent implements OnInit {
             }
 
             let transactionCost;
+
             const isEthereumToken = this.token.tokenType === "ETH";
             const isAvaxToken = this.token.tokenType === "AVAX";
 
@@ -147,6 +152,7 @@ export class SendConfirmComponent implements OnInit {
 
     private async _decryptMnemonics(): Promise<any> {
         if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
+            this.passwordSet = false;
             this.requiresBiometrics = true;
 
             return;
@@ -155,8 +161,6 @@ export class SendConfirmComponent implements OnInit {
         if (!this._password && !this.form.get("password")?.value) return;
 
         this._mnemonics = JSON.parse(await this._decryptMessage()).mnemonic;
-
-        this.canConfirm = true;
     }
 
     private async _decryptMessage(): Promise<any> {
@@ -166,7 +170,18 @@ export class SendConfirmComponent implements OnInit {
 
         if (!encryptedMessage || !privateKeyArmoured || !passphrase) return;
 
-        return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
+        try {
+            return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
+        } catch (error) {
+            this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+
+            this._mnemonics = "";
+            this._password = "";
+            this.passwordSet = false;
+            this.requiresBiometrics = true;
+
+            throw error;
+        }
     }
 
     private _initForm(): void {
@@ -206,6 +221,7 @@ export class SendConfirmComponent implements OnInit {
             // Determine if it's an ERC20 token
             if (this.token.tokenType === "ERC-20" && this.token.address) {
                 const tokenAddress = this.token.address.split("?")[0]; // Remove query parameters if present
+
                 receipt = await this._ethService.sendERC20Transaction(
                     normalizedAmount,
                     wallet.privateKey,
@@ -225,10 +241,10 @@ export class SendConfirmComponent implements OnInit {
             });
 
             this.sending = false;
-            await this._router.navigate(["/transaction", receipt.transactionHash]);
 
             if (!receipt.blockHash) {
                 const sendDateTime = new Date().toISOString();
+
                 this._walletService.addTransactionToPending({
                     ...receipt,
                     date: sendDateTime,
@@ -246,13 +262,17 @@ export class SendConfirmComponent implements OnInit {
         }
     }
 
-    goToBiometrics(): void {
+    async goToBiometrics(): Promise<void> {
         const password = this.form.get("password")?.value;
 
-        if (!password || !password.trim()) return;
+        if (!password || !password.trim() || !this.wallet) return;
 
         this._vaultService.password = this.form.get("password")?.value;
-        this._router.navigate(["/security/biometrics"], { queryParams: { return: "/send/confirm" } });
+
+        await this._zelfNameService.setZelfName(this.wallet.publicData?.zelfName);
+        await this._zelfNameService.setFlow("unlock");
+
+        this._router.navigate(["security/biometrics"], { queryParams: { return: "/send/confirmation" } });
     }
 
     toggleShowPassword(): void {

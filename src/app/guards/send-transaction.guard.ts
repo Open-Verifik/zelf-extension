@@ -2,12 +2,12 @@ import { inject } from "@angular/core";
 import { Router, type CanActivateFn } from "@angular/router";
 import { TransactionService } from "app/transaction.service";
 
-export const SendTransactionGuard: CanActivateFn = (route, state) => {
+export const SendTransactionGuard: CanActivateFn = () => {
     const _transactionService = inject(TransactionService);
-    const _router = inject(Router);
+    const router = inject(Router);
 
     if (!_transactionService.fromAddress || !_transactionService.token) {
-        _router.navigate(["/send"]);
+        router.navigate(["/send"], { replaceUrl: true });
 
         return false;
     }

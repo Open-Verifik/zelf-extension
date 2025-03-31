@@ -146,7 +146,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     private _redirect(): void {
         if (this.returnState) {
-            this._router.navigate([this.returnState], { queryParams: { return: this.returnState } });
+            this._router.navigate([this.returnState], { replaceUrl: true, queryParams: { return: this.returnState } });
 
             return;
         }
@@ -162,7 +162,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     goBack(): void {
-        if (this.returnState) this._router.navigate(["/security/password"], { queryParams: { return: this.returnState } });
+        if (this.returnState) this._router.navigate(["/security/password"], { replaceUrl: true, queryParams: { return: this.returnState } });
         else this._router.navigate(["/security/password"]);
     }
 

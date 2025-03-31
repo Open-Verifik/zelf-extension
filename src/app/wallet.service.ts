@@ -493,6 +493,34 @@ export class WalletService {
         return wallet;
     }
 
+    async updateCurrentWallet(wallet: Partial<WalletModel>): Promise<void> {
+        await this._chromeService.setItem("wallet", wallet);
+    }
+
+    async clearPGPKeys(): Promise<void> {
+        const wallet = await this.getCurrentWallet();
+        const wallets = await this.getWalletsFromStorage();
+
+        if (wallet && wallet.pgp) {
+            delete wallet.pgp;
+
+            this._chromeService.setItem("wallet", wallet);
+        }
+
+        let hasUpdate = false;
+
+        const newWallets = wallets.map((_wallet) => {
+            if (!_wallet?.pgp) return _wallet;
+
+            delete _wallet.pgp;
+            hasUpdate = true;
+
+            return wallet;
+        });
+
+        if (hasUpdate) await this._chromeService.setItem("wallets", newWallets);
+    }
+
     async getWalletsFromStorage(): Promise<WalletModel[]> {
         return ((await this._chromeService.getItem<Wallet[]>("wallets")) || []).map((wallet: Wallet) => new WalletModel(wallet));
     }

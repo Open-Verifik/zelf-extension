@@ -33,7 +33,6 @@ export class SendConfirmComponent implements OnInit {
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
     ];
 
-    amount: number = 0;
     form!: UntypedFormGroup;
     loading: boolean = true;
     passwordError: boolean = false;
@@ -99,7 +98,7 @@ export class SendConfirmComponent implements OnInit {
 
                 transactionCost = await this._ethService.getTransactionCost(
                     formattedTokenAddress,
-                    this._ethService.toWei(String(this.amount || "0"), token.decimals)
+                    this._ethService.toWei(String(this.transactionData.amount || "0"), token.decimals)
                 );
             } else {
                 if (!this._ethService.checkIfValidAddress(senderAddress)) {
@@ -109,7 +108,7 @@ export class SendConfirmComponent implements OnInit {
                 }
 
                 const formattedToAddress = senderAddress.startsWith("0x") ? senderAddress : `0x${senderAddress}`;
-                const normalizedAmount = String(this.amount || "0").replace(",", ".");
+                const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
                 const amountInWei = this._ethService.toWei(normalizedAmount);
 
                 transactionCost = await this._ethService.getTransactionCost(formattedToAddress, amountInWei);
@@ -209,8 +208,7 @@ export class SendConfirmComponent implements OnInit {
             }
 
             const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
-            const amountStr = String(this.amount);
-            const normalizedAmount = amountStr.replace(",", ".");
+            const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
 
             let receipt;
 

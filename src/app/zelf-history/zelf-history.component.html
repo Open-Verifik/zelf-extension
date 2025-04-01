@@ -81,22 +81,22 @@
 
                     <div class="zelf-history__right">
                         <ng-container *ngIf="transaction.type === 'receive'">
-                            <p class="zelf-history__received">+ {{ transaction.from.amount | number : "1.1-20" }} {{ transaction.from.symbol }}</p>
+                            <p class="zelf-history__received">+ {{ transaction.from.amount | number : "1.1-18" }} {{ transaction.from.symbol }}</p>
                             <p class="zelf-history__received-fiat">
                                 {{ transaction.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'send'">
-                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-20" }} {{ transaction.to.symbol }}</p>
+                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-18" }} {{ transaction.to.symbol }}</p>
                             <p class="zelf-history__send-fiat">
                                 {{ transaction.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'trade'">
-                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-20" }} {{ transaction.to.symbol }}</p>
-                            <p class="zelf-history__send-fiat">- {{ transaction.from.amount | number : "1.1-20" }} {{ transaction.from.symbol }}</p>
+                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-18" }} {{ transaction.to.symbol }}</p>
+                            <p class="zelf-history__send-fiat">- {{ transaction.from.amount | number : "1.1-18" }} {{ transaction.from.symbol }}</p>
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'approve'">

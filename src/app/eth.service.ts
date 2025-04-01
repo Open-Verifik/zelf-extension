@@ -169,53 +169,100 @@ export class EthereumService {
     async sendTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {
         try {
             let rpcUrl;
+            let web3;
+            let chainId;
+            let maxPriorityFeePerGas;
+            let maxFeePerGas;
 
+            // Configurar Web3 según la red
             switch (network.toLowerCase()) {
                 case "avalanche":
                     rpcUrl = environment.avalancheRpc.mainnet;
+                    web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+                    chainId = 43114; // C-Chain
+                    maxPriorityFeePerGas = web3.utils.toWei("2", "gwei");
+                    maxFeePerGas = web3.utils.toWei("25", "gwei");
                     break;
                 case "ethereum":
                 default:
                     rpcUrl = environment.ethereumRpc.mainnet;
+                    web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+                    chainId = 1;
                     break;
             }
-
-            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-
-            web3.eth.transactionConfirmationBlocks = 1; // Wait for at least 1 confirmation block
-            web3.eth.transactionPollingInterval = 2000; // Wait 2 seconds before first check
-            web3.eth.transactionReceiptPollingInterval = 2000; // Check for the receipt every 2 seconds
-            web3.eth.transactionPollingTimeout = 6000; // After 60 seconds stop polling
 
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
             const amountInWei = web3.utils.toWei(amount, "ether");
 
-            const [nonce, gasPrice] = await Promise.all([web3.eth.getTransactionCount(account.address, "latest"), web3.eth.getGasPrice()]);
+            // Obtener el nonce
+            const nonce = await web3.eth.getTransactionCount(account.address, "latest");
 
-            const gasEstimate = await web3.eth.estimateGas({
-                from: account.address,
-                to: toAddress,
-                value: amountInWei,
+            // Configurar el gas según la red
+            let gasPrice;
+            let gasLimit;
+
+            if (network.toLowerCase() === "avalanche") {
+                gasPrice = web3.utils.toWei("25", "gwei"); // Precio de gas fijo para Avalanche
+                gasLimit = 21000; // Gas limit estándar para transferencias simples
+            } else {
+                gasPrice = await web3.eth.getGasPrice();
+                gasLimit = await web3.eth.estimateGas({
+                    from: account.address,
+                    to: toAddress,
+                    value: amountInWei,
+                });
+            }
+
+            // Construir la transacción según la red
+            let tx;
+            if (network.toLowerCase() === "avalanche") {
+                tx = {
+                    from: account.address,
+                    to: toAddress,
+                    value: amountInWei,
+                    nonce: nonce,
+                    gasPrice: gasPrice,
+                    gas: gasLimit,
+                    chainId: chainId,
+                    type: "0x0", // Tipo de transacción legacy para Avalanche
+                };
+            } else {
+                tx = {
+                    from: account.address,
+                    to: toAddress,
+                    value: amountInWei,
+                    nonce: nonce,
+                    gasPrice: gasPrice,
+                    gas: gasLimit,
+                    chainId: chainId,
+                };
+            }
+
+            console.log("Transaction config:", {
+                network,
+                chainId,
+                gasPrice: web3.utils.fromWei(gasPrice, "gwei") + " gwei",
+                gasLimit,
+                value: web3.utils.fromWei(amountInWei, "ether") + " AVAX/ETH",
             });
-
-            const tx = {
-                from: account.address,
-                to: toAddress,
-                value: amountInWei,
-                nonce: nonce,
-                gasPrice: gasPrice,
-                gas: gasEstimate,
-            };
 
             const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
 
             try {
                 return await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-            } catch (error) {
-                return signedTx;
+            } catch (txError) {
+                console.error(`Detailed transaction error for ${network}:`, {
+                    error: txError,
+                    tx: {
+                        ...tx,
+                        value: web3.utils.fromWei(tx.value, "ether"),
+                        gasPrice: web3.utils.fromWei(tx.gasPrice, "gwei") + " gwei",
+                    },
+                });
+                throw txError;
             }
         } catch (error) {
-            console.error(`Error sending ${network} transaction:`, error);
+            console.error(`Error in transaction preparation for ${network}:`, error);
             throw error;
         }
     }
@@ -444,8 +491,15 @@ export class EthereumService {
 
             const [rawBalance, avaxPrice] = await Promise.all([avalancheWeb3.eth.getBalance(address || this.account.value), this.getAVAXPrice()]);
 
-            const avaxBalance = parseFloat(avalancheWeb3.utils.fromWei(rawBalance, "ether"));
+            const avaxBalance = Number(avalancheWeb3.utils.fromWei(rawBalance, "ether"));
             const fiatBalance = avaxBalance * avaxPrice;
+
+            console.log("AVAX Details:", {
+                rawBalance,
+                avaxBalance,
+                avaxPrice,
+                fiatBalance,
+            });
 
             const details = {
                 data: {
@@ -455,11 +509,13 @@ export class EthereumService {
                                 symbol: "AVAX",
                                 tokenType: "AVAX",
                                 balance: avaxBalance,
+                                amount: avaxBalance.toString(),
                                 price: avaxPrice,
                                 fiatBalance: fiatBalance,
                                 name: "Avalanche",
                                 image: "assets/images/avax.png",
                                 network: "Avalanche",
+                                decimals: 18,
                             },
                         ],
                     },
@@ -467,11 +523,11 @@ export class EthereumService {
                         balance: avaxBalance,
                         price: avaxPrice,
                         fiatBalance: fiatBalance,
+                        asset: "AVAX",
                     },
                 },
             };
 
-            this.formatTokens(details, "avalanche");
             return details;
         } catch (error) {
             console.error("Error in getAvalancheWalletDetails:", error);
@@ -481,11 +537,21 @@ export class EthereumService {
 
     async getAVAXPrice(): Promise<number> {
         try {
-            const response = await this._httpWrapper.sendRequest(
-                "get",
-                "https://api.coingecko.com/api/v3/simple/price?ids=avalanche-2&vs_currencies=usd"
-            );
-            return response["avalanche-2"].usd;
+            // Intentar primero con CoinGecko
+            try {
+                const response = await this._httpWrapper.sendRequest(
+                    "get",
+                    "https://api.coingecko.com/api/v3/simple/price?ids=avalanche-2&vs_currencies=usd"
+                );
+                if (response && response["avalanche-2"] && response["avalanche-2"].usd) {
+                    return response["avalanche-2"].usd;
+                }
+            } catch (error) {
+                console.warn("CoinGecko API failed:", error);
+            }
+
+            // Fallback a otra API o valor por defecto
+            return 0; // O podrías usar otro servicio de precios como fallback
         } catch (error) {
             console.error("Error getting AVAX price:", error);
             return 0;
@@ -515,8 +581,23 @@ export class EthereumService {
         return web3.eth.getTransaction(transactionHash);
     }
 
-    requestTransactionDetails(transactionHash: string): Promise<{ data: EthTransaction }> {
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/transaction/${transactionHash}`);
+    async requestTransactionDetails(transactionHash: string, network: string = "ethereum"): Promise<{ data: EthTransaction }> {
+        // Determinar la URL base según la red
+        let baseUrl = this.baseUrl;
+        let endpoint = "";
+
+        switch (network.toLowerCase()) {
+            case "avalanche":
+                // Usar el endpoint específico de Avalanche
+                endpoint = `/api/avalanche/transaction/${transactionHash}`;
+                break;
+            case "ethereum":
+            default:
+                endpoint = `/api/ethereum/transaction/${transactionHash}`;
+                break;
+        }
+
+        return this._httpWrapper.sendRequest("get", `${baseUrl}${endpoint}`);
     }
 
     async sendERC20Transaction(

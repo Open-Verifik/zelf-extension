@@ -218,10 +218,11 @@ export class SendConfirmComponent implements OnInit {
 
             let receipt;
 
-            // Determine if it's an ERC20 token
-            if (this.token.tokenType === "ERC-20" && this.token.address) {
-                const tokenAddress = this.token.address.split("?")[0]; // Remove query parameters if present
+            const isAvaxNetwork = this.selectedNetwork.toLowerCase() === "avalanche";
+            const isERC20Token = this.token.tokenType === "ERC-20" && this.token.address;
 
+            if (isERC20Token) {
+                const tokenAddress = this.token.address.split("?")[0];
                 receipt = await this._ethService.sendERC20Transaction(
                     normalizedAmount,
                     wallet.privateKey,
@@ -233,32 +234,39 @@ export class SendConfirmComponent implements OnInit {
                 receipt = await this._ethService.sendTransaction(normalizedAmount, wallet.privateKey, this.toAddress, this.selectedNetwork);
             }
 
-            this._transactionService.addToRecentAddresses({
-                address: this.receiver.ethAddress,
-                zelfName: this.receiver?.publicData?.zelfName,
-                network: this.selectedNetwork,
-                tokenType: this.token.tokenType,
-            });
-
-            this.sending = false;
-
-            if (!receipt.blockHash) {
-                const sendDateTime = new Date().toISOString();
-
-                this._walletService.addTransactionToPending({
-                    ...receipt,
-                    date: sendDateTime,
-                    from: this.fromAddress,
+            if (receipt) {
+                await this._transactionService.addToRecentAddresses({
+                    address: this.receiver.ethAddress,
+                    zelfName: this.receiver?.publicData?.zelfName,
                     network: this.selectedNetwork,
-                    status: "pending",
-                    to: this.toAddress,
+                    tokenType: isAvaxNetwork ? "AVAX" : this.token.tokenType,
                 });
-            }
 
-            this._router.navigate(["/transaction", receipt.transactionHash]);
+                if (!receipt.blockHash) {
+                    const sendDateTime = new Date().toISOString();
+                    await this._walletService.addTransactionToPending({
+                        ...receipt,
+                        date: sendDateTime,
+                        from: this.fromAddress,
+                        network: this.selectedNetwork,
+                        status: "pending",
+                        to: this.toAddress,
+                        tokenType: isAvaxNetwork ? "AVAX" : this.token.tokenType,
+                    });
+                }
+
+                if (receipt.transactionHash) {
+                    await this._router.navigate(["/transaction", receipt.transactionHash]);
+                } else {
+                    await this._router.navigate(["/send"]);
+                }
+            }
         } catch (error: any) {
-            this.sending = false;
             console.error("Error during transaction execution:", error);
+            this.sending = false;
+        } finally {
+            this._mnemonics = "";
+            this._password = "";
         }
     }
 

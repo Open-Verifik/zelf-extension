@@ -238,6 +238,7 @@ export interface Wallet {
     pgp?: { encryptedMessage: string; privateKey: string };
     publicData: WalletPublicData;
     solanaAddress: string;
+    suiAddress: string;
     zelfProof: string;
     zkProof: string;
 }
@@ -246,6 +247,7 @@ export class WalletModel implements Wallet {
     private _displayBtcAddress?: string;
     private _displayEthAddress?: string;
     private _displaySolanaAddress?: string;
+    private _displaySuiAddress?: string;
 
     _id: string;
     anonymous: boolean;
@@ -261,6 +263,7 @@ export class WalletModel implements Wallet {
     pgp?: PGP = {} as PGP;
     publicData: WalletPublicData;
     solanaAddress: string;
+    suiAddress: string;
     zelfProof: string;
     zkProof: string;
 
@@ -292,6 +295,9 @@ export class WalletModel implements Wallet {
         this.solanaAddress = data.solanaAddress || secondaryStorage.solanaAddress;
         if (this.solanaAddress) this.displaySolanaAddress = this.solanaAddress;
 
+        this.suiAddress = data.suiAddress || secondaryStorage.suiAddress;
+        if (this.suiAddress) this.displaySolanaAddress = this.suiAddress;
+
         this.assets = [];
     }
 
@@ -307,6 +313,10 @@ export class WalletModel implements Wallet {
         return this._displaySolanaAddress || "";
     }
 
+    get displaySuiAddress(): string {
+        return this._displaySolanaAddress || "";
+    }
+
     set displayBtcAddress(value: string) {
         this._displayBtcAddress = this._parseAddress(value);
     }
@@ -316,6 +326,10 @@ export class WalletModel implements Wallet {
     }
 
     set displaySolanaAddress(value: string) {
+        this._displaySolanaAddress = this._parseAddress(value);
+    }
+
+    set displaySuiAddress(value: string) {
         this._displaySolanaAddress = this._parseAddress(value);
     }
 

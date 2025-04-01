@@ -4,6 +4,8 @@ import { mnemonicToSeed } from "@scure/bip39";
 import { HDKey } from "@scure/bip32";
 import { SuiClient } from "@mysten/sui.js/client";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { environment } from "environments/environment";
 
 const SUI_COIN_TYPE = 784;
 const SUI_RPC_URL = "https://fullnode.mainnet.sui.io:443"; // Mainnet URL
@@ -17,12 +19,17 @@ function derivationPathForCoinType(coinType: number): string {
 @Injectable({
     providedIn: "root",
 })
-export class WalletImportService {
+export class SuiService {
+    private baseUrl: String = environment.apiUrl;
     private suiClient: SuiClient;
     private networkType: string = "mainnet";
 
-    constructor() {
+    constructor(private _httpWrapper: HttpWrapperService) {
         this.suiClient = new SuiClient({ url: SUI_RPC_URL });
+    }
+
+    getWalletDetails(address?: string): Promise<any> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/sui/address/${address}`);
     }
 
     /**

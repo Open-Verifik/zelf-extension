@@ -75,7 +75,7 @@ export class ZelfHistoryComponent implements OnInit {
     private async _loadFirstTransactions(): Promise<void> {
         this.loading = true;
 
-        const wallet = await this._walletService.getFirstWalletFromStorage();
+        const wallet = await this._walletService.getCurrentWallet();
 
         this._blockchainTransactions.getAddressData(wallet).subscribe({
             next: (response) => {
@@ -144,7 +144,7 @@ export class ZelfHistoryComponent implements OnInit {
         this.loading = true;
         this.currentPage += 1;
 
-        const wallet = await this._walletService.getFirstWalletFromStorage();
+        const wallet = await this._walletService.getCurrentWallet();
 
         this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }).subscribe({
             next: (response) => {

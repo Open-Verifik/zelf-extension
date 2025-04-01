@@ -32,11 +32,11 @@ export class SendCurrencyComponent implements OnInit {
     wallet: Partial<WalletModel> = {};
 
     constructor(
+        private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
         private _router: Router,
         private _transactionService: TransactionService,
-        private _walletService: WalletService,
-        private _blockchainTransactionsService: BlockchainTransactionsService
+        private _walletService: WalletService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -112,7 +112,7 @@ export class SendCurrencyComponent implements OnInit {
                 }
             }
 
-            if (network === "Sui" && this.CAN_SEND.AVAX) {
+            if (network === "Sui" && this.CAN_SEND.SUI) {
                 if (token.tokenType === "Sui") {
                     this.tokens.push({ ...token, network });
                 }

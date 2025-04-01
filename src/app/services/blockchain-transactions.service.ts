@@ -25,6 +25,9 @@ export class BlockchainTransactionsService {
             solana: wallet.solanaAddress
                 ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/solana/address/${wallet.solanaAddress}`, {})
                 : of(null),
+            sui: wallet.suiAddress
+                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/sui/address/${wallet.suiAddress}`, {})
+                : of(null),
         }).pipe(
             map((responses) => {
                 return {
@@ -32,6 +35,7 @@ export class BlockchainTransactionsService {
                     ethereum: responses.ethereum,
                     avalanche: responses.avalanche,
                     solana: responses.solana,
+                    sui: responses.sui,
                 };
             })
         );
@@ -52,6 +56,12 @@ export class BlockchainTransactionsService {
             }),
             solana: wallet.solanaAddress
                 ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/solana/transactions/${wallet.solanaAddress}`, {
+                      page: pagination.page,
+                      show: 25,
+                  })
+                : of(null),
+            sui: wallet.suiAddress
+                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/sui/transactions/${wallet.suiAddress}`, {
                       page: pagination.page,
                       show: 25,
                   })
@@ -85,6 +95,10 @@ export class BlockchainTransactionsService {
 
         if (responses.solana?.data?.transactions) {
             transactions.push(...responses.solana.data.transactions);
+        }
+
+        if (responses.sui?.data?.transactions) {
+            transactions.push(...responses.sui.data.transactions);
         }
 
         return transactions;

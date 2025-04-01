@@ -10,6 +10,7 @@ import { SolanaService } from "app/solana.service";
 import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
+import { SuiService } from "app/services/sui.service";
 
 @Component({
     selector: "home",
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private _ethService: EthereumService,
         private _router: Router,
         private _solanaService: SolanaService,
+        private _suiService: SuiService,
         private _walletService: WalletService,
         private route: ActivatedRoute
     ) {
@@ -107,14 +109,21 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
             }
 
+            if (response?.sui?.data?.tokenHoldings?.tokens) {
+                console.log("Processing Sui tokens:", response.sui.data.tokenHoldings.tokens);
+                this._processTokens("Sui", response.sui.data.tokenHoldings.tokens);
+            }
+
             await this._getETHDetails();
             await this._getSolanaDetails();
             await this._getAvalancheDetails();
+            await this._getSuiDetails();
         } catch (error) {
             console.error("Error getting tokens:", error);
         }
 
         this.balancesLoading = false;
+
         this._changeDetectionRef.detectChanges();
     }
 
@@ -170,6 +179,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         if (details?.data?.tokenHoldings?.tokens) {
             this._processTokens("Solana", details.data.tokenHoldings.tokens);
+        }
+    }
+
+    private async _getSuiDetails(): Promise<any> {
+        if (!this.wallet?.suiAddress) return;
+
+        const details = await this._suiService.getWalletDetails(this.wallet.suiAddress);
+
+        if (details?.data?.tokenHoldings?.tokens) {
+            this._processTokens("Sui", details.data.tokenHoldings.tokens);
         }
     }
 

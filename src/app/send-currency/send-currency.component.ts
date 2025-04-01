@@ -23,6 +23,7 @@ export class SendCurrencyComponent implements OnInit {
         BTC: false,
         ETH: true,
         SOL: false,
+        SUI: true,
     };
 
     loading: boolean = true;
@@ -59,6 +60,10 @@ export class SendCurrencyComponent implements OnInit {
                 this._getCurrencies("Solana", response.solana.data.tokenHoldings.tokens);
             }
 
+            if (response?.sui?.data?.tokenHoldings?.tokens && this.CAN_SEND.SUI) {
+                this._getCurrencies("Sui", response.sui.data.tokenHoldings.tokens);
+            }
+
             if (response?.avalanche?.data && this.CAN_SEND.AVAX) {
                 const avalancheTokens = [];
 
@@ -90,9 +95,7 @@ export class SendCurrencyComponent implements OnInit {
             if (network === "Solana" && this.CAN_SEND.SOL) {
                 const _token = { ...token, symbol: token.symbol || token.name, network };
 
-                if (_token.name === "Zelf") {
-                    _token.symbol = "ZNS";
-                }
+                if (_token.name === "Zelf") _token.symbol = "ZNS";
 
                 this.tokens.push(_token);
             }
@@ -105,6 +108,12 @@ export class SendCurrencyComponent implements OnInit {
 
             if (network === "Avalanche" && this.CAN_SEND.AVAX) {
                 if (token.tokenType === "AVAX" || token.tokenType === "ERC-20") {
+                    this.tokens.push({ ...token, network });
+                }
+            }
+
+            if (network === "Sui" && this.CAN_SEND.AVAX) {
+                if (token.tokenType === "Sui") {
                     this.tokens.push({ ...token, network });
                 }
             }

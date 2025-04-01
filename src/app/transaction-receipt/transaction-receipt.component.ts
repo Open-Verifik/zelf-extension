@@ -23,8 +23,10 @@ import { environment } from "environments/environment";
     templateUrl: "./transaction-receipt.component.html",
 })
 export class TransactionReceiptComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
-    private unsubscriber$: Subject<void> = new Subject<void>();
+    private _notFoundErrorText: string = this._translocoService.translate("common.close");
+    private _notFoundErrorTitle: string = this._translocoService.translate("errors.transaction_not_found");
     private _timeout!: ReturnType<typeof setTimeout>;
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     loading: boolean = false;
     hash: string = "";
@@ -87,7 +89,16 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                 }
             })
             .catch(() => {
-                this._retryRequestTransactionDetails();
+                this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
+                    duration: 5000,
+                    panelClass: "zelf-snackbar",
+                    verticalPosition: "top",
+                });
+
+                this.transaction.status = "failed";
+                this._walletService.addTransactionToPending(this.transaction);
+
+                this.loading = false;
             });
     }
 

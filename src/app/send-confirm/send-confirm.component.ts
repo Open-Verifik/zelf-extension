@@ -6,15 +6,16 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { Token, WalletModel } from "app/wallet";
+import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -33,27 +34,24 @@ export class SendConfirmComponent implements OnInit {
     ];
 
     amount: number = 0;
-    fee: number = 0;
-    feeUsd: number = 0;
     form!: UntypedFormGroup;
-    fromAddress: string = "";
+    loading: boolean = true;
+    passwordError: boolean = false;
     passwordSet: boolean = false;
-    receiver!: WalletModel;
+    remainingAttempts: number = this._vaultService.remainingAttempts;
     requiresBiometrics: boolean = false;
-    selectedNetwork: string;
     sending: boolean = false;
     showPassword: boolean = false;
-    toAddress: string = "";
-    token: Token;
-    total: number = 0;
-    transactionData: any;
+    transactionData!: TransactionData;
     wallet?: WalletModel;
 
     constructor(
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _router: Router,
+        private _snackBar: MatSnackBar,
         private _transactionService: TransactionService,
+        private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
@@ -64,87 +62,70 @@ export class SendConfirmComponent implements OnInit {
         this._vaultService.mnemonic = "";
         this._vaultService.password = "";
 
-        this.amount = this._transactionService.withdrawalAmount;
-        this.fromAddress = this._transactionService.fromAddress;
-        this.receiver = this._transactionService.receiver;
-        this.token = this._transactionService.token;
-        this.toAddress = this._transactionService.toAddress;
-
         if (this._password && this._password.trim()) {
             this.passwordSet = true;
             this.requiresBiometrics = false;
         }
-
-        this._initForm();
-
-        this.selectedNetwork = this.token?.network?.toLowerCase() || "ethereum";
     }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+        this.transactionData = await this._transactionService.getCurrentTransactionData();
+        console.log(` SendConfirmComponent ~ ngOnInit ~ this.transactionData:`, this.transactionData);
+
+        this._initForm();
 
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
+
+        this.loading = false;
     }
 
     private async _calculateTransactionFee(): Promise<void> {
         try {
-            if (!this.token) {
-                console.error("No transaction details available");
-                return;
-            }
+            const token = this.transactionData.token;
+            const senderAddress = this.transactionData.sender.address;
 
             let transactionCost;
 
-            const isEthereumToken = this.token.tokenType === "ETH";
-            const isAvaxToken = this.token.tokenType === "AVAX";
+            if (!this.transactionData.isEthToken && !this.transactionData.isAvaxToken) {
+                if (!this._ethService.checkIfValidAddress(senderAddress)) {
+                    console.error("Invalid token address:", senderAddress);
 
-            if (!isEthereumToken && !isAvaxToken) {
-                const tokenAddress = this.token.address;
-
-                if (!tokenAddress || !this._ethService.checkIfValidAddress(tokenAddress)) {
-                    console.error("Invalid token address:", tokenAddress);
                     return;
                 }
 
-                const formattedTokenAddress = tokenAddress.startsWith("0x") ? tokenAddress : `0x${tokenAddress}`;
+                const formattedTokenAddress = senderAddress.startsWith("0x") ? senderAddress : `0x${senderAddress}`;
 
                 transactionCost = await this._ethService.getTransactionCost(
                     formattedTokenAddress,
-                    this._ethService.toWei(String(this.amount || "0"), this.token.decimals)
+                    this._ethService.toWei(String(this.amount || "0"), token.decimals)
                 );
             } else {
-                if (!this.toAddress || !this._ethService.checkIfValidAddress(this.toAddress)) {
-                    console.error("Invalid destination address:", this.toAddress);
+                if (!this._ethService.checkIfValidAddress(senderAddress)) {
+                    console.error("Invalid destination address:", senderAddress);
+
                     return;
                 }
 
-                const formattedToAddress = this.toAddress.startsWith("0x") ? this.toAddress : `0x${this.toAddress}`;
+                const formattedToAddress = senderAddress.startsWith("0x") ? senderAddress : `0x${senderAddress}`;
                 const normalizedAmount = String(this.amount || "0").replace(",", ".");
                 const amountInWei = this._ethService.toWei(normalizedAmount);
 
                 transactionCost = await this._ethService.getTransactionCost(formattedToAddress, amountInWei);
             }
 
-            this.fee = Number(this._ethService.fromWei(transactionCost.totalCost));
+            this.transactionData.fee = Number(this._ethService.fromWei(transactionCost.totalCost));
 
-            const price = this.selectedNetwork === "avalanche" ? await this._ethService.getAVAXPrice() : await this._ethService.getETHPrice();
+            const price = this.transactionData.network === "avalanche" ? await this._ethService.getAVAXPrice() : await this._ethService.getETHPrice();
 
-            this.feeUsd = Number(this.fee) * price;
+            this.transactionData.fiatFee = Number(this.transactionData.fee) * price;
 
-            const amountInUsd = Number(this.amount) * (this.token?.price || 0);
+            const amountInUsd = Number(this.transactionData.amount) * (+token.price || 0);
 
-            this.total = amountInUsd + this.feeUsd;
+            this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
-            this.transactionData = {
-                amount: this.amount,
-                gasFee: this.fee,
-                feeUsd: this.feeUsd,
-                sender: this.fromAddress,
-                receiver: this.toAddress,
-                total: this.total,
-                network: this.selectedNetwork,
-            };
+            await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
             console.error("Error calculating transaction fee:", error);
         }
@@ -174,11 +155,18 @@ export class SendConfirmComponent implements OnInit {
             return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
         } catch (error) {
             this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+            this.remainingAttempts = this._vaultService.remainingAttempts;
 
-            this._mnemonics = "";
-            this._password = "";
-            this.passwordSet = false;
-            this.requiresBiometrics = true;
+            if (!this.wallet.pgp) {
+                this._mnemonics = "";
+                this._password = "";
+
+                this.passwordError = false;
+                this.passwordSet = false;
+                this.requiresBiometrics = true;
+            } else {
+                this.passwordError = true;
+            }
 
             throw error;
         }
@@ -194,13 +182,19 @@ export class SendConfirmComponent implements OnInit {
         if (this.sending) return;
 
         if (!this._mnemonics) {
-            const error = new Error("mnemonics locked - add dialog here.");
+            if (!this.form.get("password")?.value) {
+                this.openErrorSnackBar("errors.empty_password");
 
-            if (!this.form.get("password")?.value) throw error;
+                return;
+            }
 
             await this._decryptMnemonics();
 
-            if (!this._mnemonics) throw error;
+            if (!this._mnemonics) {
+                this.openErrorSnackBar("errors.private_key_locked");
+
+                return;
+            }
         }
 
         this.sending = true;
@@ -209,7 +203,9 @@ export class SendConfirmComponent implements OnInit {
             const cleanMnemonic = this._mnemonics.trim().toLowerCase();
 
             if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
-                throw new Error("Invalid mnemonic phrase");
+                this.openErrorSnackBar("errors.invalid_private_key");
+
+                return;
             }
 
             const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
@@ -219,25 +215,30 @@ export class SendConfirmComponent implements OnInit {
             let receipt;
 
             // Determine if it's an ERC20 token
-            if (this.token.tokenType === "ERC-20" && this.token.address) {
-                const tokenAddress = this.token.address.split("?")[0]; // Remove query parameters if present
+            if (this.transactionData.tokenType === "ERC-20" && this.transactionData.sender.address) {
+                const tokenAddress = this.transactionData.sender.address.split("?")[0]; // Remove query parameters if present
 
                 receipt = await this._ethService.sendERC20Transaction(
                     normalizedAmount,
                     wallet.privateKey,
-                    this.toAddress,
+                    this.transactionData.sender.address,
                     tokenAddress,
-                    this.selectedNetwork
+                    this.transactionData.network
                 );
             } else {
-                receipt = await this._ethService.sendTransaction(normalizedAmount, wallet.privateKey, this.toAddress, this.selectedNetwork);
+                receipt = await this._ethService.sendTransaction(
+                    normalizedAmount,
+                    wallet.privateKey,
+                    this.transactionData.sender.address,
+                    this.transactionData.network
+                );
             }
 
             this._transactionService.addToRecentAddresses({
-                address: this.receiver.ethAddress,
-                zelfName: this.receiver?.publicData?.zelfName,
-                network: this.selectedNetwork,
-                tokenType: this.token.tokenType,
+                address: this.transactionData.receiver.address,
+                zelfName: this.transactionData.receiver.zelfName,
+                network: this.transactionData.network,
+                tokenType: this.transactionData.tokenType,
             });
 
             this.sending = false;
@@ -247,19 +248,36 @@ export class SendConfirmComponent implements OnInit {
 
                 this._walletService.addTransactionToPending({
                     ...receipt,
+                    ...this.transactionData,
                     date: sendDateTime,
-                    from: this.fromAddress,
-                    network: this.selectedNetwork,
+                    from: this.transactionData.sender.address,
+                    network: this.transactionData.network,
                     status: "pending",
-                    to: this.toAddress,
+                    to: this.transactionData.receiver.address,
                 });
             }
+
+            await this._transactionService.removeTransactionData();
 
             this._router.navigate(["/transaction", receipt.transactionHash]);
         } catch (error: any) {
             this.sending = false;
+
             console.error("Error during transaction execution:", error);
         }
+    }
+
+    async goBack(): Promise<void> {
+        this._vaultService.password = "";
+        this._vaultService.mnemonic = "";
+
+        this.transactionData.fee = 0;
+        this.transactionData.fiatFee = 0;
+        this.transactionData.total = 0;
+
+        await this._transactionService.setCurrentTransactionData(this.transactionData);
+
+        this._router.navigate(["/send/transaction"]);
     }
 
     async goToBiometrics(): Promise<void> {
@@ -269,10 +287,18 @@ export class SendConfirmComponent implements OnInit {
 
         this._vaultService.password = this.form.get("password")?.value;
 
-        await this._zelfNameService.setZelfName(this.wallet.publicData?.zelfName);
+        await this._zelfNameService.setZelfName(this.transactionData.sender.zelfName);
         await this._zelfNameService.setFlow("unlock");
 
         this._router.navigate(["security/biometrics"], { queryParams: { return: "/send/confirmation" } });
+    }
+
+    openErrorSnackBar(message: string): void {
+        this._snackBar.open(this._translocoService.translate(message), this._translocoService.translate("common.close"), {
+            duration: 5000,
+            panelClass: "zelf-snackbar",
+            verticalPosition: "top",
+        });
     }
 
     toggleShowPassword(): void {

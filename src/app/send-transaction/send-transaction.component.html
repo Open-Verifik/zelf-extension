@@ -1,288 +1,313 @@
-<div class="zelf-card" *transloco="let t">
-    <div class="send-transaction__header">
-        <div class="send-transaction__col1">
-            <button mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40" [routerLink]="['/send']">
-                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                    />
-                </svg>
-            </button>
-        </div>
+<div class="zelf-card send-transaction" *transloco="let t">
+    <div class="ripple send-transaction__loader" *ngIf="loading"></div>
 
-        <div class="send-transaction__col2">
-            <p class="send-transaction__title">{{ t("common.send_symbol", { symbol: this.token.symbol }) }}</p>
-        </div>
-
-        <div class="send-transaction__col3"></div>
-    </div>
-
-    <form class="send-transaction__form" [formGroup]="form">
-        <div class="zelf-card__content send-transaction__content">
-            <p class="send-transaction__input-label">
-                <span class="send-transaction__input-label-text">{{ t("common.to") }}:</span>
-
-                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"
-                        fill="#181818"
-                    />
-                </svg>
-            </p>
-
-            <div
-                class="zelf-input zelf-input--wide zelf-input--gap-narrow"
-                [ngClass]="{ 'zelf-input--error': form.get('toAddress')?.dirty && form.get('toAddress')?.invalid }"
-            >
-                <input
-                    (paste)="pastedAddress($event)"
-                    [disabled]="withdrawStep || searching"
-                    [placeholder]="t('send.domain_or_address')"
-                    [readonly]="withdrawStep"
-                    autocomplete="off"
-                    class="zelf-input__control"
-                    formControlName="toAddress"
-                    id="toAddress"
-                    name="toAddress"
-                    required
-                />
-
-                <button
-                    (click)="pasteAddress()"
-                    [disabled]="searching"
-                    *ngIf="!withdrawStep"
-                    class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--text"
-                    mat-flat-button
-                >
-                    {{ t("common.paste") | uppercase }}
-                </button>
-
-                <button *ngIf="false" [disabled]="searching" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button>
-                    <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ng-container *ngIf="!loading">
+        <div class="send-transaction__header">
+            <div class="send-transaction__col1">
+                <button mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40" [routerLink]="['/send']">
+                    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
-                            d="M16.505 0.677734C14.555 0.677734 12.455 1.07773 11.005 2.17773C9.55501 1.07773 7.455 0.677734 5.505 0.677734C4.05501 0.677734 2.515 0.897734 1.225 1.46773C0.495005 1.79773 0.00500488 2.50773 0.00500488 3.31773V14.5977C0.00500488 15.8977 1.225 16.8577 2.485 16.5377C3.465 16.2877 4.505 16.1777 5.505 16.1777C7.065 16.1777 8.72501 16.4377 10.065 17.0977C10.665 17.3977 11.345 17.3977 11.935 17.0977C13.275 16.4277 14.935 16.1777 16.495 16.1777C17.495 16.1777 18.535 16.2877 19.515 16.5377C20.775 16.8677 21.995 15.9077 21.995 14.5977V3.31773C21.995 2.50773 21.505 1.79773 20.775 1.46773C19.495 0.897734 17.955 0.677734 16.505 0.677734ZM20.005 13.4077C20.005 14.0377 19.425 14.4977 18.805 14.3877C18.055 14.2477 17.275 14.1877 16.505 14.1877C14.805 14.1877 12.355 14.8377 11.005 15.6877V4.17773C12.355 3.32773 14.805 2.67773 16.505 2.67773C17.425 2.67773 18.335 2.76773 19.205 2.95773C19.665 3.05773 20.005 3.46773 20.005 3.93773V13.4077Z"
-                        />
-                    </svg>
-                </button>
-
-                <button *ngIf="false" [disabled]="searching" class="zelf-icon-button zelf-icon-button--anti-flash-white" mat-flat-button>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 8H6C7.1 8 8 7.1 8 6V2C8 0.9 7.1 0 6 0H2C0.9 0 0 0.9 0 2V6C0 7.1 0.9 8 2 8ZM2 2H6V6H2V2Z" fill="black" />
-                        <path
-                            d="M2 18H6C7.1 18 8 17.1 8 16V12C8 10.9 7.1 10 6 10H2C0.9 10 0 10.9 0 12V16C0 17.1 0.9 18 2 18ZM2 12H6V16H2V12Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M10 2V6C10 7.1 10.9 8 12 8H16C17.1 8 18 7.1 18 6V2C18 0.9 17.1 0 16 0H12C10.9 0 10 0.9 10 2ZM16 6H12V2H16V6Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M18 17.5V16.5C18 16.22 17.78 16 17.5 16H16.5C16.22 16 16 16.22 16 16.5V17.5C16 17.78 16.22 18 16.5 18H17.5C17.78 18 18 17.78 18 17.5Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M10 10.5V11.5C10 11.78 10.22 12 10.5 12H11.5C11.78 12 12 11.78 12 11.5V10.5C12 10.22 11.78 10 11.5 10H10.5C10.22 10 10 10.22 10 10.5Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M13.5 12H12.5C12.22 12 12 12.22 12 12.5V13.5C12 13.78 12.22 14 12.5 14H13.5C13.78 14 14 13.78 14 13.5V12.5C14 12.22 13.78 12 13.5 12Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M10 14.5V15.5C10 15.78 10.22 16 10.5 16H11.5C11.78 16 12 15.78 12 15.5V14.5C12 14.22 11.78 14 11.5 14H10.5C10.22 14 10 14.22 10 14.5Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M12.5 18H13.5C13.78 18 14 17.78 14 17.5V16.5C14 16.22 13.78 16 13.5 16H12.5C12.22 16 12 16.22 12 16.5V17.5C12 17.78 12.22 18 12.5 18Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M14.5 16H15.5C15.78 16 16 15.78 16 15.5V14.5C16 14.22 15.78 14 15.5 14H14.5C14.22 14 14 14.22 14 14.5V15.5C14 15.78 14.22 16 14.5 16Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M15.5 10H14.5C14.22 10 14 10.22 14 10.5V11.5C14 11.78 14.22 12 14.5 12H15.5C15.78 12 16 11.78 16 11.5V10.5C16 10.22 15.78 10 15.5 10Z"
-                            fill="black"
-                        />
-                        <path
-                            d="M16.5 14H17.5C17.78 14 18 13.78 18 13.5V12.5C18 12.22 17.78 12 17.5 12H16.5C16.22 12 16 12.22 16 12.5V13.5C16 13.78 16.22 14 16.5 14Z"
-                            fill="black"
+                            d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
                         />
                     </svg>
                 </button>
             </div>
 
-            <div class="zelf-message zelf-message--error zelf-message--column" *ngIf="form.get('toAddress')?.dirty">
-                <ng-container *ngIf="form.get('toAddress')?.errors?.required">
-                    <div class="zelf-message__row">
-                        <ng-container *ngTemplateOutlet="cross"></ng-container>
-                        <p>{{ t("errors.required_field") }}</p>
-                    </div>
-                </ng-container>
-
-                <ng-container *ngIf="form.get('toAddress')?.errors?.pattern">
-                    <div class="zelf-message__row">
-                        <ng-container *ngTemplateOutlet="cross"></ng-container>
-                        <p>{{ t("errors.invalid_format") }}</p>
-                    </div>
-                </ng-container>
+            <div class="send-transaction__col2">
+                <p class="send-transaction__title">{{ t("common.send_symbol", { symbol: transactionData.symbol }) }}</p>
             </div>
 
-            <ng-container *ngIf="withdrawStep">
-                <p class="send-transaction__input-label">{{ t("send.withdrawal_amount") }}:</p>
+            <div class="send-transaction__col3"></div>
+        </div>
+
+        <form class="send-transaction__form" [formGroup]="form">
+            <div class="zelf-card__content send-transaction__content">
+                <p class="send-transaction__input-label">
+                    <span class="send-transaction__input-label-text">{{ t("common.to") }}:</span>
+
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"
+                            fill="#181818"
+                        />
+                    </svg>
+                </p>
 
                 <div
-                    class="zelf-input zelf-input--wide"
-                    [ngClass]="{ 'zelf-input--error': form.get('amount')?.dirty && form.get('amount')?.invalid }"
+                    class="zelf-input zelf-input--wide zelf-input--gap-narrow"
+                    [ngClass]="{ 'zelf-input--error': form.get('toAddress')?.dirty && form.get('toAddress')?.invalid }"
                 >
                     <input
+                        (paste)="pastedAddress($event)"
+                        [disabled]="withdrawStep || searching"
+                        [placeholder]="t('send.domain_or_address')"
+                        [readonly]="withdrawStep"
                         autocomplete="off"
                         class="zelf-input__control"
-                        formControlName="amount"
-                        id="amount"
-                        name="amount"
+                        formControlName="toAddress"
+                        id="toAddress"
+                        name="toAddress"
                         required
-                        type="number"
-                        step="0.00001"
                     />
 
-                    <button (click)="withdrawAll()" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button>
-                        {{ t("common.all") | uppercase }}
+                    <button
+                        (click)="pasteAddress()"
+                        [disabled]="searching"
+                        *ngIf="!withdrawStep"
+                        class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--text"
+                        mat-flat-button
+                    >
+                        {{ t("common.paste") | uppercase }}
+                    </button>
+
+                    <button *ngIf="false" [disabled]="searching" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button>
+                        <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16.505 0.677734C14.555 0.677734 12.455 1.07773 11.005 2.17773C9.55501 1.07773 7.455 0.677734 5.505 0.677734C4.05501 0.677734 2.515 0.897734 1.225 1.46773C0.495005 1.79773 0.00500488 2.50773 0.00500488 3.31773V14.5977C0.00500488 15.8977 1.225 16.8577 2.485 16.5377C3.465 16.2877 4.505 16.1777 5.505 16.1777C7.065 16.1777 8.72501 16.4377 10.065 17.0977C10.665 17.3977 11.345 17.3977 11.935 17.0977C13.275 16.4277 14.935 16.1777 16.495 16.1777C17.495 16.1777 18.535 16.2877 19.515 16.5377C20.775 16.8677 21.995 15.9077 21.995 14.5977V3.31773C21.995 2.50773 21.505 1.79773 20.775 1.46773C19.495 0.897734 17.955 0.677734 16.505 0.677734ZM20.005 13.4077C20.005 14.0377 19.425 14.4977 18.805 14.3877C18.055 14.2477 17.275 14.1877 16.505 14.1877C14.805 14.1877 12.355 14.8377 11.005 15.6877V4.17773C12.355 3.32773 14.805 2.67773 16.505 2.67773C17.425 2.67773 18.335 2.76773 19.205 2.95773C19.665 3.05773 20.005 3.46773 20.005 3.93773V13.4077Z"
+                            />
+                        </svg>
+                    </button>
+
+                    <button *ngIf="false" [disabled]="searching" class="zelf-icon-button zelf-icon-button--anti-flash-white" mat-flat-button>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 8H6C7.1 8 8 7.1 8 6V2C8 0.9 7.1 0 6 0H2C0.9 0 0 0.9 0 2V6C0 7.1 0.9 8 2 8ZM2 2H6V6H2V2Z" fill="black" />
+                            <path
+                                d="M2 18H6C7.1 18 8 17.1 8 16V12C8 10.9 7.1 10 6 10H2C0.9 10 0 10.9 0 12V16C0 17.1 0.9 18 2 18ZM2 12H6V16H2V12Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M10 2V6C10 7.1 10.9 8 12 8H16C17.1 8 18 7.1 18 6V2C18 0.9 17.1 0 16 0H12C10.9 0 10 0.9 10 2ZM16 6H12V2H16V6Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M18 17.5V16.5C18 16.22 17.78 16 17.5 16H16.5C16.22 16 16 16.22 16 16.5V17.5C16 17.78 16.22 18 16.5 18H17.5C17.78 18 18 17.78 18 17.5Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M10 10.5V11.5C10 11.78 10.22 12 10.5 12H11.5C11.78 12 12 11.78 12 11.5V10.5C12 10.22 11.78 10 11.5 10H10.5C10.22 10 10 10.22 10 10.5Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M13.5 12H12.5C12.22 12 12 12.22 12 12.5V13.5C12 13.78 12.22 14 12.5 14H13.5C13.78 14 14 13.78 14 13.5V12.5C14 12.22 13.78 12 13.5 12Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M10 14.5V15.5C10 15.78 10.22 16 10.5 16H11.5C11.78 16 12 15.78 12 15.5V14.5C12 14.22 11.78 14 11.5 14H10.5C10.22 14 10 14.22 10 14.5Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M12.5 18H13.5C13.78 18 14 17.78 14 17.5V16.5C14 16.22 13.78 16 13.5 16H12.5C12.22 16 12 16.22 12 16.5V17.5C12 17.78 12.22 18 12.5 18Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M14.5 16H15.5C15.78 16 16 15.78 16 15.5V14.5C16 14.22 15.78 14 15.5 14H14.5C14.22 14 14 14.22 14 14.5V15.5C14 15.78 14.22 16 14.5 16Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M15.5 10H14.5C14.22 10 14 10.22 14 10.5V11.5C14 11.78 14.22 12 14.5 12H15.5C15.78 12 16 11.78 16 11.5V10.5C16 10.22 15.78 10 15.5 10Z"
+                                fill="black"
+                            />
+                            <path
+                                d="M16.5 14H17.5C17.78 14 18 13.78 18 13.5V12.5C18 12.22 17.78 12 17.5 12H16.5C16.22 12 16 12.22 16 12.5V13.5C16 13.78 16.22 14 16.5 14Z"
+                                fill="black"
+                            />
+                        </svg>
                     </button>
                 </div>
 
-                <p class="zelf-input__tip">{{ t("send.available_balance", { symbol: this.token.symbol, balance }) }}</p>
-
-                <div class="zelf-message zelf-message--error zelf-message--column" *ngIf="form.get('amount')?.dirty">
-                    <ng-container *ngIf="form.get('amount')?.errors?.required">
+                <div
+                    class="zelf-message zelf-message--error zelf-message--column"
+                    *ngIf="form.get('toAddress')?.dirty && form.get('toAddress')?.errors"
+                >
+                    <ng-container *ngIf="form.get('toAddress')?.errors?.required">
                         <div class="zelf-message__row">
                             <ng-container *ngTemplateOutlet="cross"></ng-container>
                             <p>{{ t("errors.required_field") }}</p>
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="form.get('amount')?.errors?.max">
+                    <ng-container *ngIf="form.get('toAddress')?.errors?.pattern">
                         <div class="zelf-message__row">
                             <ng-container *ngTemplateOutlet="cross"></ng-container>
-                            <p>{{ t("errors.must_be_less_than", { value: balance }) }}</p>
-                        </div>
-                    </ng-container>
-
-                    <ng-container *ngIf="form.get('amount')?.errors?.greaterThan">
-                        <div class="zelf-message__row">
-                            <ng-container *ngTemplateOutlet="cross"></ng-container>
-                            <p>{{ t("errors.must_be_greater_than", { value: form.get("amount")?.errors?.greaterThan?.requiredValue }) }}</p>
+                            <p>{{ t("errors.invalid_format") }}</p>
                         </div>
                     </ng-container>
                 </div>
-            </ng-container>
 
-            <ng-container *ngIf="!searching && !withdrawStep && recentAddresses.length">
-                <div
-                    (click)="selectRecentAddress(address)"
-                    [matRippleColor]="'rgba(0, 0, 0, 0.1)'"
-                    *ngFor="let address of recentAddresses"
-                    class="zelf-action-row send-transaction__address-book"
-                    matRipple
-                >
-                    <div class="send-transaction__address-row">
-                        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16 0H4C1.79 0 0 1.79 0 4V12C0 14.21 1.79 16 4 16H16C18.21 16 20 14.21 20 12V4C20 1.79 18.21 0 16 0ZM14.14 9.77C13.9 9.97 13.57 10.05 13.26 9.97L2.15 7.25C2.45 6.52 3.16 6 4 6H16C16.67 6 17.26 6.34 17.63 6.84L14.14 9.77ZM4 2H16C17.1 2 18 2.9 18 4V4.55C17.41 4.21 16.73 4 16 4H4C3.27 4 2.59 4.21 2 4.55V4C2 2.9 2.9 2 4 2Z"
-                                fill="#181818"
-                            />
-                        </svg>
+                <ng-container *ngIf="withdrawStep">
+                    <p class="send-transaction__input-label">{{ t("send.withdrawal_amount") }}:</p>
 
-                        <p class="zelf-action-row__text send-transaction__address-col">
-                            <span class="send-transaction__address-name" *ngIf="!address.zelfName">{{ address.address | addressMask }}</span>
-                            <span class="send-transaction__address-name" *ngIf="address.zelfName">{{ address.zelfName }}</span>
-                            <span class="send-transaction__address-used">{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
-                        </p>
+                    <div
+                        class="zelf-input zelf-input--wide"
+                        [ngClass]="{ 'zelf-input--error': form.get('amount')?.dirty && form.get('amount')?.invalid }"
+                    >
+                        <input
+                            autocomplete="off"
+                            class="zelf-input__control"
+                            formControlName="amount"
+                            id="amount"
+                            name="amount"
+                            required
+                            type="string"
+                        />
+
+                        <button (click)="withdrawAll()" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button>
+                            {{ t("common.all") | uppercase }}
+                        </button>
                     </div>
 
-                    <div>
-                        <ng-container *ngIf="address.address === form.get('toAddress')?.value">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM9.29 16.29L5.7 12.7C5.31 12.31 5.31 11.68 5.7 11.29C6.09 10.9 6.72 10.9 7.11 11.29L10 14.17L16.88 7.29C17.27 6.9 17.9 6.9 18.29 7.29C18.68 7.68 18.68 8.31 18.29 8.7L10.7 16.29C10.32 16.68 9.68 16.68 9.29 16.29Z"
-                                    fill="#1ea446"
-                                />
-                            </svg>
+                    <p class="zelf-input__tip">
+                        {{ t("send.available_balance", { symbol: transactionData.symbol, balance: transactionData.balance }) }}
+                    </p>
+
+                    <div
+                        class="zelf-message zelf-message--error zelf-message--column"
+                        *ngIf="form.get('amount')?.dirty && form.get('amount')?.errors"
+                    >
+                        <ng-container *ngIf="form.get('amount')?.errors?.required">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.required_field") }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="form.get('amount')?.errors?.invalidNumber">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.invalid_number_value") }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="form.get('amount')?.errors?.lessThan">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.must_be_less_than", { value: form.get("lessThan")?.errors?.greaterThan.value }) }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="form.get('amount')?.errors?.greaterThan">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.must_be_greater_than", { value: form.get("amount")?.errors?.greaterThan.value }) }}</p>
+                            </div>
                         </ng-container>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
 
-            <div class="ripple send-transaction__loader" *ngIf="searching"></div>
-
-            <ng-container *ngIf="!withdrawStep">
-                <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound">
-                    <div class="zelf-object-preview__chip">
-                        <div class="zelf-object-preview__icon-bubble">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ng-container *ngIf="!withdrawStep && recentAddresses.length">
+                    <div
+                        (click)="selectRecentAddress(address)"
+                        [matRippleColor]="'rgba(0, 0, 0, 0.1)'"
+                        *ngFor="let address of filteredAddresses"
+                        class="zelf-action-row send-transaction__address-book"
+                        matRipple
+                    >
+                        <div class="send-transaction__address-row">
+                            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
-                                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"
+                                    d="M16 0H4C1.79 0 0 1.79 0 4V12C0 14.21 1.79 16 4 16H16C18.21 16 20 14.21 20 12V4C20 1.79 18.21 0 16 0ZM14.14 9.77C13.9 9.97 13.57 10.05 13.26 9.97L2.15 7.25C2.45 6.52 3.16 6 4 6H16C16.67 6 17.26 6.34 17.63 6.84L14.14 9.77ZM4 2H16C17.1 2 18 2.9 18 4V4.55C17.41 4.21 16.73 4 16 4H4C3.27 4 2.59 4.21 2 4.55V4C2 2.9 2.9 2 4 2Z"
+                                    fill="#181818"
                                 />
                             </svg>
+
+                            <p class="zelf-action-row__text send-transaction__address-col">
+                                <span class="send-transaction__address-name" *ngIf="!address.zelfName">{{ address.address | addressMask }}</span>
+                                <span class="send-transaction__address-name" *ngIf="address.zelfName">{{ address.zelfName }}</span>
+                                <span class="send-transaction__address-used">{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
+                            </p>
                         </div>
-                        <p class="zelf-object-preview__chip-text" *ngIf="foundAddress.name">{{ t("send.address_found") }}</p>
-                        <p class="zelf-object-preview__chip-text" *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</p>
-                    </div>
 
-                    <div class="zelf-chip zelf-chip--info">
-                        <ng-container *ngIf="foundAddress.publicData?.type === 'hold'">{{ t("send.zelf_name_not_registered") }}</ng-container>
-                        <ng-container *ngIf="foundAddress.publicData?.type === 'mainnet'">{{ t("send.zelf_name_registered") }}</ng-container>
-                    </div>
-
-                    <h3 class="zelf-object-preview__zelf-name">{{ foundAddress.publicData.zelfName }}</h3>
-                    <p class="zelf-object-preview__address">{{ foundAddress.ethAddress }}</p>
-
-                    <hr class="zelf-object-preview__horizontal-rule" />
-
-                    <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p>
-                </div>
-
-                <div class="zelf-object-preview zelf-object-preview--error" *ngIf="isZelfNameNotFound">
-                    <div class="zelf-object-preview__chip">
-                        <div class="zelf-object-preview__icon-bubble zelf-object-preview__icon-bubble--error">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z"
-                                    fill="currentColor"
-                                />
-                            </svg>
+                        <div>
+                            <ng-container *ngIf="address.address === form.get('toAddress')?.value">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM9.29 16.29L5.7 12.7C5.31 12.31 5.31 11.68 5.7 11.29C6.09 10.9 6.72 10.9 7.11 11.29L10 14.17L16.88 7.29C17.27 6.9 17.9 6.9 18.29 7.29C18.68 7.68 18.68 8.31 18.29 8.7L10.7 16.29C10.32 16.68 9.68 16.68 9.29 16.29Z"
+                                        fill="#1ea446"
+                                    />
+                                </svg>
+                            </ng-container>
                         </div>
-                        <p class="zelf-object-preview__chip-text">ZELF NAME NOT FOUND</p>
                     </div>
-                    <p class="zelf-object-preview__error-message">Zelf Name Not Exist</p>
-                </div>
-            </ng-container>
-        </div>
+                </ng-container>
 
-        <div class="zelf-card__actions">
-            <button
-                (click)="continueToWithdraw()"
-                [disabled]="form.get('toAddress')?.invalid || !form.get('toAddress')?.value || searching || !foundAddress"
-                *ngIf="!withdrawStep"
-                class="zelf-button zelf-button--black zelf-button--wide"
-                mat-flat-button
-                type="button"
-            >
-                {{ t("common.next") }}
-            </button>
+                <div class="ripple send-transaction__loader" *ngIf="searching"></div>
 
-            <button
-                (click)="continueToConfirmation()"
-                [disabled]="form.invalid || !foundAddress"
-                *ngIf="withdrawStep"
-                class="zelf-button zelf-button--black zelf-button--wide"
-                mat-flat-button
-                type="button"
-            >
-                {{ t("common.withdraw") }}
-            </button>
-        </div>
-    </form>
+                <ng-container *ngIf="!withdrawStep">
+                    <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound">
+                        <div class="zelf-object-preview__chip">
+                            <div class="zelf-object-preview__icon-bubble">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"
+                                    />
+                                </svg>
+                            </div>
+                            <p class="zelf-object-preview__chip-text" *ngIf="foundAddress.name">{{ t("send.address_found") }}</p>
+                            <p class="zelf-object-preview__chip-text" *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</p>
+                        </div>
+
+                        <div class="zelf-chip zelf-chip--info">
+                            <ng-container *ngIf="foundAddress.publicData?.type === 'hold'">{{ t("send.zelf_name_not_registered") }}</ng-container>
+                            <ng-container *ngIf="foundAddress.publicData?.type === 'mainnet'">{{ t("send.zelf_name_registered") }}</ng-container>
+                        </div>
+
+                        <h3 class="zelf-object-preview__zelf-name">{{ foundAddress.publicData.zelfName }}</h3>
+
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken">{{ foundAddress.ethAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.solanaAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.btcAddress }}</p>
+
+                        <hr class="zelf-object-preview__horizontal-rule" />
+
+                        <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p>
+                    </div>
+
+                    <div class="zelf-object-preview zelf-object-preview--error" *ngIf="isZelfNameNotFound">
+                        <div class="zelf-object-preview__chip">
+                            <div class="zelf-object-preview__icon-bubble zelf-object-preview__icon-bubble--error">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </div>
+
+                            <p class="zelf-object-preview__chip-text">{{ t("send.zelf_name_not_registered") }}</p>
+                        </div>
+
+                        <hr class="zelf-object-preview__horizontal-rule" />
+
+                        <p class="zelf-object-preview__instructions">{{ t("send.cannot_continue_process") }}</p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="zelf-card__actions">
+                <button
+                    (click)="continueToWithdraw()"
+                    [disabled]="form.get('toAddress')?.invalid || !form.get('toAddress')?.value || searching || !foundAddress"
+                    *ngIf="!withdrawStep"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                    type="button"
+                >
+                    {{ t("common.next") }}
+                </button>
+
+                <button
+                    (click)="continueToConfirmation()"
+                    [disabled]="form.invalid || !foundAddress"
+                    *ngIf="withdrawStep"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                    type="button"
+                >
+                    {{ t("common.withdraw") }}
+                </button>
+            </div>
+        </form>
+    </ng-container>
 </div>
 
 <ng-template #cross>

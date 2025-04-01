@@ -163,7 +163,7 @@ export class EthereumService {
     }
 
     checkIfValidAddress(address: string): boolean {
-        return isAddress(address);
+        return !!address && isAddress(address);
     }
 
     async sendTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {

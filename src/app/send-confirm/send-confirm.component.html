@@ -1,128 +1,133 @@
-<div class="zelf-card" *transloco="let t">
-    <div class="send-confirm__header">
-        <div class="send-confirm__col1">
-            <button
-                mat-flat-button
-                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
-                [routerLink]="['../transaction']"
-            >
-                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                    />
-                </svg>
-            </button>
-        </div>
+<div class="zelf-card send-confirm" *transloco="let t">
+    <div class="ripple send-confirm__loader" *ngIf="loading"></div>
 
-        <div class="send-confirm__col2">
-            <p class="send-confirm__title">{{ t("common.transfer") }}</p>
-        </div>
-
-        <div class="send-confirm__col3"></div>
-    </div>
-
-    <form class="send-confirm__form" [formGroup]="form">
-        <div class="zelf-card__content zelf-card__content--grow">
-            <div class="send-confirm__total">
-                <div class="zelf-chip">{{ t("common.amount") }}</div>
-
-                <div class="send-confirm__price-amount-container">
-                    <h2 class="send-confirm__price">{{ amount | number : "1.2-5" }}</h2>
-
-                    <p class="send-confirm__price-currency">{{ token.symbol }}</p>
-                </div>
+    <ng-container *ngIf="!loading">
+        <div class="send-confirm__header">
+            <div class="send-confirm__col1">
+                <button (click)="goBack()" mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40">
+                    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                        />
+                    </svg>
+                </button>
             </div>
 
-            <div class="send-confirm__content">
-                <div class="send-confirm__summary">
-                    <div class="zelf-action-row">
-                        <p class="send-confirm__label">{{ t("common.from") }}</p>
+            <div class="send-confirm__col2">
+                <p class="send-confirm__title">{{ t("common.transfer") }}</p>
+            </div>
 
-                        <div class="send-confirm__from-value">
-                            <p class="send-confirm__value">{{ fromAddress | addressMask }}</p>
-                            <p class="zelf-chip" *ngIf="wallet?.publicData?.zelfName">{{ wallet?.publicData?.zelfName | uppercase }}</p>
+            <div class="send-confirm__col3"></div>
+        </div>
+
+        <form class="send-confirm__form" [formGroup]="form">
+            <div class="zelf-card__content zelf-card__content--grow">
+                <div class="send-confirm__total">
+                    <div class="zelf-chip">{{ t("common.amount") }}</div>
+
+                    <div class="send-confirm__price-amount-container">
+                        <h2 class="send-confirm__price">{{ transactionData.amount | number : "1.2-18" }}</h2>
+
+                        <p class="send-confirm__price-currency">{{ transactionData.symbol }}</p>
+                    </div>
+                </div>
+
+                <div class="send-confirm__content">
+                    <div class="send-confirm__summary">
+                        <div class="zelf-action-row">
+                            <p class="send-confirm__label">{{ t("common.from") }}</p>
+
+                            <div class="send-confirm__from-value">
+                                <p class="send-confirm__value">{{ transactionData.sender.address | addressMask }}</p>
+                                <p class="zelf-chip" *ngIf="transactionData.sender.zelfName">{{ transactionData.sender.zelfName | uppercase }}</p>
+                            </div>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <p class="send-confirm__label">{{ t("common.withdrawal_network") }}</p>
+
+                            <p class="send-confirm__value">{{ transactionData.tokenType }}</p>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <p class="send-confirm__label">{{ t("common.address") }}</p>
+
+                            <p class="send-confirm__value">{{ transactionData.receiver.address | addressMask }}</p>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <p class="send-confirm__label">{{ t("common.coin") }}</p>
+
+                            <p class="send-confirm__value">{{ transactionData.symbol }}</p>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <p class="send-confirm__label">{{ t("common.fee") }}</p>
+
+                            <p class="send-confirm__value">{{ transactionData.fee | number : "1.2-20" }}</p>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <p class="send-confirm__label">{{ t("common.total") }}</p>
+
+                            <p class="send-confirm__value">{{ transactionData.total | currency : "USD" : "symbol" : "1.2-2" }}</p>
                         </div>
                     </div>
-
-                    <div class="zelf-action-row">
-                        <p class="send-confirm__label">{{ t("common.withdrawal_network") }}</p>
-
-                        <p class="send-confirm__value">{{ token.tokenType }}</p>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <p class="send-confirm__label">{{ t("common.address") }}</p>
-
-                        <p class="send-confirm__value">{{ receiver.ethAddress }}</p>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <p class="send-confirm__label">{{ t("common.coin") }}</p>
-
-                        <p class="send-confirm__value">{{ token.symbol }}</p>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <p class="send-confirm__label">{{ t("common.fee") }}</p>
-
-                        <p class="send-confirm__value">{{ fee | number : "1.2-20" }}</p>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <p class="send-confirm__label">{{ t("common.total") }}</p>
-
-                        <p class="send-confirm__value">{{ total | currency : "USD" : "symbol" : "1.2-2" }}</p>
-                    </div>
                 </div>
             </div>
-        </div>
 
-        <div
-            class="zelf-input zelf-input--wide"
-            [ngClass]="{ 'zelf-input--error': form.get('password')?.dirty && form.get('password')?.errors }"
-            *ngIf="!passwordSet"
-        >
-            <input
-                [type]="showPassword ? 'text' : 'password'"
-                class="zelf-input__control zelf-input__control--floating-label"
-                formControlName="password"
-                id="password"
-                name="password"
-                placeholder=" "
-                required
-            />
-
-            <label for="password" class="zelf-input__floating-label">{{ t("common.password") }}</label>
-
-            <ng-container *ngTemplateOutlet="toggleButton"></ng-container>
-        </div>
-
-        <div class="zelf-card__actions">
-            <button
-                (click)="goToBiometrics()"
-                [disabled]="sending || !form.get('password')?.value"
-                *ngIf="requiresBiometrics"
-                class="zelf-button zelf-button--black zelf-button--wide"
-                mat-flat-button
-                type="submit"
+            <div
+                class="zelf-input zelf-input--wide"
+                [ngClass]="{ 'zelf-input--error': form.get('password')?.dirty && form.get('password')?.errors }"
+                *ngIf="!passwordSet"
             >
-                {{ t("common.verify") }}
-            </button>
+                <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="zelf-input__control zelf-input__control--floating-label"
+                    formControlName="password"
+                    id="password"
+                    name="password"
+                    placeholder=" "
+                    required
+                />
 
-            <button
-                (click)="confirmTransaction()"
-                [disabled]="sending || (!passwordSet && !form.get('password')?.value)"
-                *ngIf="!requiresBiometrics"
-                class="zelf-button zelf-button--black zelf-button--wide"
-                mat-flat-button
-                type="submit"
-            >
-                {{ t("common.confirm") }}
+                <label for="password" class="zelf-input__floating-label">{{ t("common.password") }}</label>
 
-                <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
-            </button>
-        </div>
-    </form>
+                <ng-container *ngTemplateOutlet="toggleButton"></ng-container>
+            </div>
+
+            <div class="zelf-message zelf-message--error" *ngIf="passwordError">
+                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                <p>{{ t("errors.invalid_password", { remaining: remainingAttempts }) }}</p>
+            </div>
+
+            <div class="zelf-card__actions">
+                <button
+                    (click)="goToBiometrics()"
+                    [disabled]="sending || !form.get('password')?.value"
+                    *ngIf="requiresBiometrics"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                    type="submit"
+                >
+                    {{ t("common.verify") }}
+                </button>
+
+                <button
+                    (click)="confirmTransaction()"
+                    [disabled]="sending || (!passwordSet && !form.get('password')?.value)"
+                    *ngIf="!requiresBiometrics"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                    type="submit"
+                >
+                    {{ t("common.confirm") }}
+
+                    <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
+                </button>
+            </div>
+        </form>
+    </ng-container>
 </div>
 
 <ng-template #openEye>
@@ -171,4 +176,13 @@
     >
         <ng-container *ngTemplateOutlet="showPassword ? openEye : closedEye"></ng-container>
     </button>
+</ng-template>
+
+<ng-template #cross>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+            fill="#DC362E"
+        />
+    </svg>
 </ng-template>

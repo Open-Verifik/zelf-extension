@@ -15,6 +15,14 @@ export class VaultService {
 
     constructor(private _walletService: WalletService) {}
 
+    get mnemonic(): string {
+        return this._mnemonic;
+    }
+
+    set mnemonic(value: string) {
+        this._mnemonic = value;
+    }
+
     get password$(): Observable<void> {
         return this._password$.asObservable();
     }
@@ -28,12 +36,8 @@ export class VaultService {
         this._password = value;
     }
 
-    get mnemonic(): string {
-        return this._mnemonic;
-    }
-
-    set mnemonic(value: string) {
-        this._mnemonic = value;
+    get remainingAttempts(): number {
+        return this._incorrectMax - this._incorrectCount;
     }
 
     /**
@@ -69,13 +73,12 @@ export class VaultService {
 
             return decrypted as string;
         } catch (error) {
-            if (this._incorrectCount < this._incorrectMax) {
+            if (this._incorrectCount <= this._incorrectMax) {
                 this._incorrectCount++;
-                console.error("Decryption failed. Attempt:", this._incorrectCount);
             } else {
-                console.error("Max decryption attempts reached. Please check your passphrase.");
-
                 await this._walletService.clearPGPKeys();
+
+                this._incorrectCount = 0;
             }
 
             throw error;

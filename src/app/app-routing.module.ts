@@ -11,6 +11,7 @@ import { WalletGuard } from "./guards/wallet.guard";
 import { MnemonicGuard } from "./guards/mnemonic.guard";
 import { OnboardingGuard } from "./guards/onboarding.guard";
 import { SendTransactionGuard } from "./guards/send-transaction.guard";
+import { SendConfirmGuard } from "./guards/send-confirm.guard";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -100,7 +101,7 @@ const routes: Routes = [
             {
                 path: "confirmation",
                 loadComponent: () => import("./send-confirm/send-confirm.component").then((m) => m.SendConfirmComponent),
-                canActivate: [SendTransactionGuard],
+                canActivate: [SendTransactionGuard, SendConfirmGuard],
             },
         ],
     },

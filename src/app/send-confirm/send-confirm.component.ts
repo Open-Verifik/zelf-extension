@@ -257,8 +257,6 @@ export class SendConfirmComponent implements OnInit {
                 tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
             };
 
-            console.log(` SendConfirmComponent ~ confirmTransaction ~ pendingTransactionData:`, pendingTransactionData);
-
             this._walletService.addTransactionToPending(pendingTransactionData);
 
             await this._transactionService.removeTransactionData();

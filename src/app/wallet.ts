@@ -296,7 +296,7 @@ export class WalletModel implements Wallet {
         if (this.solanaAddress) this.displaySolanaAddress = this.solanaAddress;
 
         this.suiAddress = data.suiAddress || secondaryStorage.suiAddress;
-        if (this.suiAddress) this.displaySolanaAddress = this.suiAddress;
+        if (this.suiAddress) this.displaySuiAddress = this.suiAddress;
 
         this.assets = [];
     }
@@ -330,7 +330,7 @@ export class WalletModel implements Wallet {
     }
 
     set displaySuiAddress(value: string) {
-        this._displaySolanaAddress = this._parseAddress(value);
+        this._displaySuiAddress = this._parseAddress(value);
     }
 
     private _parseAddress(value: string): string {

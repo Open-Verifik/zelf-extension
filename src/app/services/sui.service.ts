@@ -67,6 +67,7 @@ export class SuiService {
     async importWalletFromMnemonic(mnemonic: string, derivationPath?: string): Promise<Ed25519Keypair> {
         try {
             const words = mnemonic.trim().split(/\s+/);
+
             if (![12, 15, 18, 21, 24].includes(words.length)) {
                 throw new Error("Mnemonic phrase must have 12, 15, 18, 21, or 24 words");
             }

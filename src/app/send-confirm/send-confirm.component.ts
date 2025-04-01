@@ -212,9 +212,11 @@ export class SendConfirmComponent implements OnInit {
 
             let receipt;
 
-            // Determine if it's an ERC20 token
-            if (this.transactionData.tokenType === "ERC-20" && this.transactionData.sender.address) {
-                const tokenAddress = this.transactionData.sender.address.split("?")[0]; // Remove query parameters if present
+            const isAvaxNetwork = this.transactionData.network === "avalanche";
+            const isERC20Token = this.transactionData.tokenType === "ERC-20" && this.transactionData.sender.address;
+
+            if (isERC20Token) {
+                const tokenAddress = this.transactionData.sender.address.split("?")[0];
 
                 receipt = await this._ethService.sendERC20Transaction(
                     normalizedAmount,
@@ -236,7 +238,7 @@ export class SendConfirmComponent implements OnInit {
                 address: this.transactionData.receiver.address,
                 zelfName: this.transactionData.receiver.zelfName,
                 network: this.transactionData.network,
-                tokenType: this.transactionData.tokenType,
+                tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
             });
 
             this.sending = false;
@@ -253,16 +255,23 @@ export class SendConfirmComponent implements OnInit {
                     network: this.transactionData.network,
                     status: "pending",
                     to: this.transactionData.receiver.address,
+                    tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
                 });
             }
 
             await this._transactionService.removeTransactionData();
 
-            this._router.navigate(["/transaction", receipt.transactionHash]);
+            if (receipt.transactionHash) {
+                await this._router.navigate(["/transaction", receipt.transactionHash]);
+            } else {
+                await this._router.navigate(["/send"]);
+            }
         } catch (error: any) {
-            this.sending = false;
-
             console.error("Error during transaction execution:", error);
+            this.sending = false;
+        } finally {
+            this._mnemonics = "";
+            this._password = "";
         }
     }
 

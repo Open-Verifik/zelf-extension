@@ -429,3 +429,127 @@ export class WalletPublicDataModel {
         return timeLeft > 0 && timeLeft <= oneMonthInMs;
     }
 }
+
+export type TokenData = {
+    amount: number | string;
+    decimals?: number;
+    fiatBalance: number | string;
+    image: string;
+    name: string;
+    network: string;
+    price: string | number;
+    symbol: string;
+    tokenType: string;
+};
+
+export type Sender = {
+    address: string;
+    zelfName: string;
+};
+
+export type Receiver = {
+    address: string;
+    tokenType?: string; // Can be left blank if same as sender currency
+    symbol?: string; // Can be left blank if same as sender currency
+    zelfName?: string;
+};
+
+export interface TransactionData {
+    amount?: number | string;
+    fee?: number | string;
+    fiatAmount?: number | string;
+    fiatFee?: number | string;
+    receiver: Receiver;
+    sender: Sender;
+    token: TokenData;
+    total?: number | string;
+}
+
+export class TransactionData implements TransactionData {
+    amount?: number | string = 0;
+    fee?: number | string = 0;
+    fiatAmount?: number | string = 0;
+    fiatFee?: number | string = 0;
+    receiver: Receiver = {} as Receiver;
+    sender: Sender = {} as Sender;
+    token: TokenData = {} as TokenData;
+    total?: number | string = 0;
+
+    constructor(data: any = {}) {
+        this.amount = data.amount || 0;
+        this.fee = data.fee || 0;
+        this.fiatAmount = data.fiatAmount || 0;
+        this.fiatFee = data.fiatFee || 0;
+        this.receiver = data.receiver || ({} as Receiver);
+        this.sender = data.sender || ({} as Sender);
+        this.token = data.token || ({} as TokenData);
+        this.total = data.total || 0;
+    }
+
+    get hasToken(): boolean {
+        return !!this.token && Object.keys(this.token).length > 0;
+    }
+
+    get hasSender(): boolean {
+        return !!this.sender && !!this.sender?.address;
+    }
+
+    get hasAmount(): boolean {
+        return (
+            !!this.amount &&
+            (typeof this.amount === "number" ? this.amount > 0 : typeof this.amount === "string" ? parseFloat(this.amount) > 0 : false)
+        );
+    }
+
+    get hasReceiver(): boolean {
+        return !!this.receiver && Object.keys(this.receiver).length > 0;
+    }
+
+    get balance(): number | string | bigint {
+        return this.token?.amount || 0;
+    }
+
+    get fiatBalance(): number | string {
+        return this.token?.fiatBalance || 0;
+    }
+
+    get network(): string {
+        return (this.token?.network || "").toLowerCase();
+    }
+
+    get tokenType(): string {
+        return this.token?.tokenType || "";
+    }
+
+    get symbol(): string {
+        return this.token?.symbol || "";
+    }
+
+    get tokenName(): string {
+        return this.token?.name || "";
+    }
+
+    get receiverSymbol(): string {
+        return this.receiver?.symbol || this.token?.symbol || "";
+    }
+
+    get receiverTokenType(): string {
+        return this.receiver?.tokenType || this.token?.tokenType || "";
+    }
+
+    get isEthToken(): boolean {
+        return this.tokenType === "ETH" || this.tokenType === "ERC-20";
+    }
+
+    get isAvaxToken(): boolean {
+        return this.tokenType === "AVAX";
+    }
+
+    get isSolToken(): boolean {
+        return this.tokenType === "SOL";
+    }
+
+    get isBtcToken(): boolean {
+        return this.tokenType === "BTC";
+    }
+}

@@ -1,6 +1,6 @@
 <div class="zelf-app" *transloco="let t">
     <nav class="zelf-app__header">
-        <div class="zelf-app__logo-container" [routerLink]="['/welcome']">
+        <div (click)="onLogoClick()" class="zelf-app__logo-container">
             <ng-container *ngTemplateOutlet="logo"></ng-container>
         </div>
 

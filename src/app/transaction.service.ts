@@ -1,30 +1,26 @@
 import { Injectable } from "@angular/core";
-import { AddressBook, Transaction, TransactionModel, WalletModel } from "./wallet";
+import { AddressBook, Transaction, TransactionData, TransactionModel } from "./wallet";
 import { ChromeService } from "./chrome.service";
 
 @Injectable({
     providedIn: "root",
 })
 export class TransactionService {
-    private _fromAddress: string = "";
-    private _fromBalance: number = 0;
-    private _receiver!: WalletModel;
     private _recentAddresses: AddressBook[] = [];
-    private _toAddress: string = "";
-    private _token: any = null;
-    private _withdrawalAmount: number = 0;
+    private _transactionData: TransactionData = new TransactionData({});
 
+    /** @deprecated */
     transactionData!: Transaction;
 
     constructor(private _chromeService: ChromeService) {
-        this._chromeService.getItem("temp_transactionData").then((temp) => {
-            if (temp) this.transactionData = new TransactionModel(JSON.parse(temp));
+        this._chromeService.getItem("transactionData").then((response) => {
+            if (!response) this._transactionData = new TransactionData({});
+            else this._transactionData = new TransactionData(response);
         });
 
         this._chromeService.getItem("recentAddresses").then((response) => {
-            if (!response) {
-                this._recentAddresses = [];
-            } else {
+            if (!response) this._recentAddresses = [];
+            else {
                 response.forEach((address: AddressBook) => {
                     this._recentAddresses.push(address);
                 });
@@ -32,56 +28,8 @@ export class TransactionService {
         });
     }
 
-    get fromBalance(): number {
-        return this._fromBalance;
-    }
-
-    set fromBalance(value: number) {
-        this._fromBalance = value;
-    }
-
-    get fromAddress(): string {
-        return this._fromAddress;
-    }
-
-    set fromAddress(value: string) {
-        this._fromAddress = value;
-    }
-
-    get receiver(): WalletModel {
-        return this._receiver;
-    }
-
-    set receiver(value: WalletModel) {
-        this._receiver = value;
-    }
-
-    get toAddress(): string {
-        return this._toAddress;
-    }
-
-    set toAddress(value: string) {
-        this._toAddress = value;
-    }
-
-    get token(): any {
-        return this._token;
-    }
-
-    set token(value: any) {
-        this._token = value;
-    }
-
-    get withdrawalAmount(): number {
-        return this._withdrawalAmount;
-    }
-
-    set withdrawalAmount(value: number) {
-        this._withdrawalAmount = value;
-    }
-
     addToRecentAddresses(address: AddressBook): void {
-        if (!this._toAddress) return;
+        if (!this._transactionData?.receiver?.address) return;
 
         const index = this._recentAddresses.map((recent) => recent.address).indexOf(address.address);
 
@@ -108,6 +56,18 @@ export class TransactionService {
         return this._recentAddresses.filter((recent) => recent[key] === value);
     }
 
+    async getCurrentTransactionData(): Promise<TransactionData> {
+        if (this._transactionData) return this._transactionData;
+
+        this._transactionData = new TransactionData((await this._chromeService.getItem("transactionData")) || {});
+
+        return this._transactionData;
+    }
+
+    async removeTransactionData(): Promise<void> {
+        await this._chromeService.removeItem("transactionData");
+    }
+
     removeAddressFromRecentAddresses(address: string): void {
         const index = this._recentAddresses.map((recent) => recent.address).indexOf(address);
 
@@ -116,10 +76,18 @@ export class TransactionService {
         this._recentAddresses.splice(index, 1);
     }
 
+    async setCurrentTransactionData(data: TransactionData): Promise<void> {
+        this._transactionData = new TransactionData(data);
+
+        await this._chromeService.setItem("transactionData", this._transactionData);
+    }
+
+    /** @deprecated */
     getTransactionData(): any {
         return this.transactionData;
     }
 
+    /** @deprecated */
     setTransactionData(data: Partial<Transaction>, syncInStorage?: boolean): void {
         if (!this.transactionData) {
             this.transactionData = new TransactionModel(data);

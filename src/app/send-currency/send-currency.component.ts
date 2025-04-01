@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
-import { WalletModel } from "app/wallet";
+import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { TransactionService } from "app/transaction.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
@@ -27,6 +27,7 @@ export class SendCurrencyComponent implements OnInit {
 
     loading: boolean = true;
     tokens: any[] = [];
+    transactionData!: TransactionData;
     wallet: Partial<WalletModel> = {};
 
     constructor(
@@ -35,20 +36,11 @@ export class SendCurrencyComponent implements OnInit {
         private _transactionService: TransactionService,
         private _walletService: WalletService,
         private _blockchainTransactionsService: BlockchainTransactionsService
-    ) {
-        this._transactionService.fromAddress = "";
-        this._transactionService.fromBalance = 0;
-        this._transactionService.toAddress = "";
-        this._transactionService.token = "";
-    }
+    ) {}
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
-
-        // if (this.wallet.pgp) {
-        //     delete this.wallet.pgp;
-        //     await this._walletService.updateCurrentWallet(this.wallet);
-        // }
+        this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         await this._loadTokens();
 
@@ -121,22 +113,29 @@ export class SendCurrencyComponent implements OnInit {
         this._changeDetectionRef.detectChanges();
     }
 
-    onTokenClick(token: any): void {
+    async removeTransactionData(): Promise<void> {
+        await this._transactionService.removeTransactionData();
+    }
+
+    async onTokenClick(token: any): Promise<void> {
         let address = "";
 
-        if (token.network === "Ethereum" || token.network === "Avalanche") {
+        if (token.tokenType === "ETH" || token.tokenType === "AVAX" || token.tokenType === "ERC-20") {
             address = this.wallet?.ethAddress || "";
-        } else if (token.network === "Solana") {
+        } else if (token.tokenType === "SOL") {
             address = this.wallet?.solanaAddress || "";
-        } else if (token.network === "Bitcoin") {
+        } else if (token.tokenType === "BTC") {
             address = this.wallet?.btcAddress || "";
         }
 
         if (!address) return;
 
-        this._transactionService.token = token;
-        this._transactionService.fromAddress = address;
-        this._transactionService.fromBalance = token.amount;
+        await this._transactionService.setCurrentTransactionData(
+            new TransactionData({
+                token,
+                sender: { address, zelfName: this.wallet?.publicData?.zelfName || "" },
+            })
+        );
 
         this._router.navigate(["/send/transaction"]);
     }

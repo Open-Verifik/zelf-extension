@@ -43,6 +43,7 @@
         "zelf_name_not_registered": "Zelf Name not registered",
         "zelf_name_registered": "Zelf Name registered",
         "continue_process": "You can continue with the process",
+        "cannot_continue_process": "You cannot continue with the process",
         "recently_used": "Recently used",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
@@ -261,6 +262,10 @@
         "try_again_button": "Try again"
     },
     "errors": {
+        "empty_password": "Password cannot be empty",
+        "private_key_locked": "Private key has been locked. You must perform a biometrics check to move forward.",
+        "invalid_private_key": "Private key is invalid.",
+        "transaction_not_found": "Transaction not found",
         "all_fields_required": "All fields are required",
         "Duplicated_person": "ZelfProof is being used for another record",
         "ERR_DESCRIPTION": "Make sure to follow the instructions properly to unlock your ZelfProof",
@@ -287,6 +292,7 @@
         "required_field": "This field is required",
         "must_be_greater_than": "Must be greater than {{ value }}",
         "must_be_less_than": "Must be less than {{ value }}",
+        "invalid_password": "Invalid password. You have {{remaining}} attempts left before you will be required to login with biometrics.",
         "something_went_wrong": "Something went wrong, please try again",
         "try_again": "Try again",
         "weak_password": "Your password is too weak",

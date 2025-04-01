@@ -10,6 +10,15 @@
 }
 
 .send-transaction {
+    position: relative;
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 2;
+    }
+
     &__header {
         align-content: center;
         column-gap: 12px;
@@ -100,11 +109,13 @@
     }
 
     &__address-row {
+        align-items: center;
+        cursor: pointer;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
         gap: 16px;
+        justify-content: flex-start;
+        user-select: none;
         width: 100%;
     }
 

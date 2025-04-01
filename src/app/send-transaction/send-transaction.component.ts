@@ -10,21 +10,21 @@ import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { TransactionService } from "app/transaction.service";
-import { AddressBook, Token, WalletModel } from "app/wallet";
+import { AddressBook, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { debounceTime, Subject, takeUntil } from "rxjs";
 
 @Component({
     imports: [
+        AddressMaskPipe,
         CommonModule,
         MatButtonModule,
-        RouterModule,
-        ReactiveFormsModule,
-        TranslocoModule,
         MatProgressSpinnerModule,
-        AddressMaskPipe,
         MatRippleModule,
+        ReactiveFormsModule,
+        RouterModule,
+        TranslocoModule,
     ],
     selector: "send-transaction",
     standalone: true,
@@ -32,18 +32,17 @@ import { debounceTime, Subject, takeUntil } from "rxjs";
     templateUrl: "./send-transaction.component.html",
 })
 export class SendTransactionComponent implements OnDestroy {
-    private unsubcriber$: Subject<void> = new Subject<void>();
     private _captchaToken: string = "";
+    private unsubcriber$: Subject<void> = new Subject<void>();
 
-    balance: number = 0;
     form!: UntypedFormGroup;
     foundAddress?: WalletModel;
-    fromAddress: string = "";
-    token: Token;
+    isZelfNameNotFound: boolean = false;
     recentAddresses: AddressBook[] = [];
     searching: boolean = false;
+    transactionData!: TransactionData;
     withdrawStep: boolean = false;
-    isZelfNameNotFound: boolean = false;
+    loading: boolean = true;
 
     constructor(
         private _captchaService: CaptchaService,
@@ -53,15 +52,13 @@ export class SendTransactionComponent implements OnDestroy {
         private _transactionService: TransactionService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
-    ) {
-        this._transactionService.toAddress = "";
-        this._transactionService.withdrawalAmount = 0;
+    ) {}
 
-        this.token = this._transactionService.token;
+    async ngOnInit(): Promise<void> {
+        this.transactionData = await this._transactionService.getCurrentTransactionData();
+        this.recentAddresses = this._transactionService.findAddressInRecentAddresses("tokenType", this.transactionData.tokenType);
 
-        this.balance = this._transactionService.fromBalance;
-        this.fromAddress = this._transactionService.fromAddress;
-        this.recentAddresses = this._transactionService.findAddressInRecentAddresses("tokenType", this.token.tokenType);
+        this.loading = false;
 
         this._initForm();
     }
@@ -69,6 +66,26 @@ export class SendTransactionComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.unsubcriber$.next();
         this.unsubcriber$.complete();
+    }
+
+    private _addressValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+
+            if (!value) return null;
+
+            // Check if it matches the pattern for the current token type
+            const pattern = this._getAddressPattern();
+
+            if (!pattern.test(value)) return { invalidFormat: true };
+
+            // For ETH addresses, do additional validation
+            if ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(value)) {
+                return { invalidEVM: true };
+            }
+
+            return null;
+        };
     }
 
     private async _captchaGeneration(): Promise<any> {
@@ -84,71 +101,48 @@ export class SendTransactionComponent implements OnDestroy {
     private _getAddressPattern(): RegExp {
         let pattern: RegExp = /.*/;
 
-        if (this.token.tokenType === "ETH") pattern = this._walletService.ETHRegex;
-        if (this.token.tokenType === "SOL") pattern = this._walletService.SOLRegex;
-        if (this.token.tokenType === "BTC") pattern = this._walletService.BTCRegex;
+        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) pattern = this._walletService.ETHRegex;
+        if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
+        if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
 
         return pattern;
     }
 
-    private _greaterThanValidator(minValue: number): ValidatorFn {
+    private _amountValidation(maxValue: number | string): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            if (!control.value) return null;
-            const value = Number(control.value);
+            if (!control.value) return { greaterThan: true };
+
             const MIN_VALUE = 1e-18; // 0.000000000000000001
+            const value = +control.value;
 
-            if (isNaN(value)) return null;
-            return value >= MIN_VALUE ? null : { greaterThan: true };
-        };
-    }
-
-    private _initForm(): void {
-        this.form = this._formBuilder.group({
-            amount: [
-                0,
-                [Validators.required, Validators.min(0), Validators.max(this._transactionService.fromBalance), this._greaterThanValidator(0)],
-            ],
-            toAddress: ["", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
-        });
-
-        this.form
-            .get("toAddress")
-            ?.valueChanges.pipe(takeUntil(this.unsubcriber$), debounceTime(500))
-            .subscribe((value: string) => {
-                this._handleToAddressChange(value);
-            });
-    }
-
-    private _addressValidator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            const value = control.value;
-            if (!value) return null;
-
-            // Check if it matches the pattern for the current token type
-            const pattern = this._getAddressPattern();
-            if (!pattern.test(value)) {
-                return { invalidFormat: true };
-            }
-
-            // For ETH addresses, do additional validation
-            if (this.token.tokenType === "ETH") {
-                if (!this._walletService.isValidEVMAddress(value)) {
-                    return { invalidEVM: true };
-                }
-            }
+            if (isNaN(value)) return { invalidNumber: true };
+            if (value < MIN_VALUE) return { greaterThan: { value: "0.000000000000000001" } };
+            if (value > +maxValue) return { lessThan: { value: maxValue } };
 
             return null;
         };
     }
 
+    private _handlePaste(text: string): void {
+        if (!text) return;
+
+        const pattern = this._getAddressPattern();
+
+        if (!pattern.test(text)) return;
+
+        this.form.get("toAddress")?.patchValue(text);
+    }
+
     private async _handleToAddressChange(text?: string): Promise<any> {
         if (!text || !text.trim()) {
             this.isZelfNameNotFound = false;
+
             return;
         }
 
         this.searching = true;
         this.isZelfNameNotFound = false;
+
         await this._captchaGeneration();
 
         try {
@@ -165,6 +159,7 @@ export class SendTransactionComponent implements OnDestroy {
                 // If still no result, validate on-chain
                 if (!this.foundAddress) {
                     const isValidOnChain = await this._walletService.validateEVMAddressOnChain(text);
+
                     if (isValidOnChain) {
                         this.foundAddress = new WalletModel({
                             ethAddress: text,
@@ -182,13 +177,37 @@ export class SendTransactionComponent implements OnDestroy {
             }
         } catch (error) {
             console.error("Error in address search:", error);
+
             if (!this._getAddressPattern().test(text)) {
                 this.isZelfNameNotFound = true;
             }
+
             this.foundAddress = undefined;
         }
 
         this.searching = false;
+    }
+
+    private _initForm(): void {
+        this.form = this._formBuilder.group({
+            amount: [
+                this.transactionData?.amount || 0,
+                [
+                    Validators.required,
+                    Validators.min(0),
+                    Validators.max(this.transactionData.balance as number),
+                    this._amountValidation(this.transactionData.balance as number),
+                ],
+            ],
+            toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
+        });
+
+        this.form
+            .get("toAddress")
+            ?.valueChanges.pipe(takeUntil(this.unsubcriber$), debounceTime(500))
+            .subscribe((value: string) => {
+                this._handleToAddressChange(value);
+            });
     }
 
     async _queryZNS(key: string, value: string): Promise<void> {
@@ -205,6 +224,7 @@ export class SendTransactionComponent implements OnDestroy {
                 } else {
                     this.foundAddress = undefined;
                 }
+
                 return;
             }
 
@@ -220,6 +240,7 @@ export class SendTransactionComponent implements OnDestroy {
             } else {
                 this.foundAddress = undefined;
             }
+
             throw error;
         }
     }
@@ -228,32 +249,46 @@ export class SendTransactionComponent implements OnDestroy {
         this.withdrawStep = true;
     }
 
-    continueToConfirmation(): void {
-        if (this.form.invalid || !this.foundAddress || this.isZelfNameNotFound) {
-            return;
-        }
+    async continueToConfirmation(): Promise<void> {
+        if (this.form.invalid || !this.foundAddress) return;
 
         const toAddress = this.form.get("toAddress")?.value;
 
         // Double check the address is valid before proceeding
-        if (!this._getAddressPattern().test(toAddress) || (this.token.tokenType === "ETH" && !this._walletService.isValidEVMAddress(toAddress))) {
+        if (
+            !this._getAddressPattern().test(toAddress) ||
+            ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress))
+        ) {
             return;
         }
 
-        this._transactionService.receiver = this.foundAddress;
-        this._transactionService.toAddress = toAddress;
-        this._transactionService.withdrawalAmount = this.form.get("amount")?.value;
+        let address = "";
+
+        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
+            address = this.foundAddress.ethAddress;
+        } else if (this.transactionData.isSolToken) {
+            address = this.foundAddress.solanaAddress;
+        } else if (this.transactionData.isBtcToken) {
+            address = this.foundAddress.btcAddress;
+        }
+
+        this.transactionData.amount = this.form.get("amount")?.value;
+        this.transactionData.receiver.address = address;
+        this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName;
+
+        await this._transactionService.setCurrentTransactionData(this.transactionData);
 
         this._router.navigate(["/send/confirmation"]);
     }
 
-    goBack(): void {
-        if (this.withdrawStep) {
-            this.withdrawStep = false;
-            return;
-        }
+    get filteredAddresses(): AddressBook[] {
+        const searchValue = this.form.get("toAddress")?.value;
 
-        this._router.navigate(["/send"]);
+        return this.recentAddresses.filter((address) => {
+            if (!searchValue || !searchValue.trim()) return true;
+
+            return new RegExp(searchValue, "i").test(address.address) || (address.zelfName && new RegExp(searchValue, "i").test(address.zelfName));
+        });
     }
 
     getTimeDiff(lastUsed: Date | string | undefined): string {
@@ -280,6 +315,24 @@ export class SendTransactionComponent implements OnDestroy {
         }
     }
 
+    goBack(): void {
+        this.transactionData.amount = 0;
+        this.transactionData.receiver.address = "";
+        this.transactionData.receiver.zelfName = "";
+
+        if (this.withdrawStep) {
+            this.withdrawStep = false;
+
+            this._transactionService.setCurrentTransactionData(this.transactionData);
+
+            return;
+        }
+
+        this._transactionService.setCurrentTransactionData(this.transactionData);
+
+        this._router.navigate(["/send"]);
+    }
+
     async pasteAddress(): Promise<void> {
         if (this.withdrawStep || this.searching) return;
 
@@ -300,17 +353,9 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     selectRecentAddress(address: AddressBook): void {
+        if (this.searching || this.form.get("toAddress")?.value === address) return;
+
         this.form.get("toAddress")?.patchValue(address.address);
-    }
-
-    private _handlePaste(text: string): void {
-        if (!text) return;
-
-        const pattern = this._getAddressPattern();
-
-        if (!pattern.test(text)) return;
-
-        this.form.get("toAddress")?.patchValue(text);
     }
 
     setToInput(address: AddressBook): void {
@@ -318,6 +363,6 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     withdrawAll(): void {
-        this.form.get("amount")?.patchValue(this.balance);
+        this.form.get("amount")?.patchValue(this.transactionData.balance);
     }
 }

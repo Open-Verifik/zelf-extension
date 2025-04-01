@@ -6,6 +6,7 @@ import { NavigationEnd, Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 
 import { LanguageComponent } from "app/language/language.component";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
     selector: "zelf-app",
@@ -19,6 +20,8 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
 
     private unsubscriber$: Subject<void> = new Subject<void>();
 
+    canGoHome: boolean = false;
+
     links = {
         documentation: "https://docs.zelf.world/",
         invest: "https://www.pinksale.finance/solana/launchpad/HUCo6xdcGSpiDQxhrN8emvLwnkJAAdJbcACncMnU9MmF",
@@ -27,9 +30,13 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
         pricing: "https://docs.zelf.world/airdrop/pricing-per-domain",
     };
 
-    constructor(private _router: Router) {}
+    constructor(private _router: Router, private _chromeService: ChromeService) {}
 
     ngAfterViewInit(): void {
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet) => {
+            this.canGoHome = !!wallet?.ethAddress;
+        });
+
         this._router.events.pipe(takeUntil(this.unsubscriber$)).subscribe((event) => {
             if (!(event instanceof NavigationEnd)) return;
 
@@ -40,5 +47,10 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
+    }
+
+    onLogoClick(): void {
+        if (this.canGoHome) this._router.navigate(["/home"]);
+        else this._router.navigate(["/welcome"]);
     }
 }

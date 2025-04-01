@@ -138,9 +138,9 @@ export class HomeComponent implements OnInit, OnDestroy {
                 network,
                 balance: parseFloat(token.balance || token.amount || "0"),
                 fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : token.image),
                 price: parseFloat(token.price || "0"),
                 tokenType: token.tokenType || (network === "Avalanche" ? "AVAX" : "ERC-20"),
-                image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : token.image),
             };
 
             const tokenKey = `${formattedToken.symbol}-${formattedToken.network}-${formattedToken.tokenType}`;
@@ -199,19 +199,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             console.log("Getting AVAX details...");
             const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
 
-            if (details?.data) {
-                const balance = details.data._balance !== undefined ? details.data._balance : details.data.balance || 0;
-
-                this.selectedAsset = new Asset({
-                    asset: "AVAX",
-                    balance: balance,
-                    fiatBalance: parseFloat(details.data.fiatBalance || "0"),
-                    price: parseFloat(details.data.account?.price || "0"),
-                    network: "Avalanche",
-                    image: details.data.image || "assets/images/avax.png",
-                });
-            }
-
             if (details?.data?.tokenHoldings?.tokens) {
                 const formattedTokens = details.data.tokenHoldings.tokens.map((token: any) => ({
                     ...token,
@@ -229,14 +216,13 @@ export class HomeComponent implements OnInit, OnDestroy {
             if (details?.data) {
                 if ("_balance" in details.data) {
                     this.balances.avalanche = details.data._balance;
-                    this._changeDetectionRef.detectChanges();
                 } else if ("balance" in details.data) {
                     this.balances.avalanche = details.data.balance;
-                    this._changeDetectionRef.detectChanges();
                 } else if (details?.data?.account?.balance) {
                     this.balances.avalanche = details.data.account.balance;
-                    this._changeDetectionRef.detectChanges();
                 }
+
+                this._changeDetectionRef.detectChanges();
             }
         } catch (error) {
             console.error("Error getting AVAX details:", error);

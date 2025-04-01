@@ -68,7 +68,6 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _requestTransactionDetails(): Promise<void> {
         if (!this.hash) return;
         if (!this.transaction) this.transaction = await this._walletService.getPendingTransaction(this.hash);
-        console.log(` TransactionReceiptComponent ~ _requestTransactionDetails ~ this.transaction:`, this.transaction);
 
         this._ethService
             .requestTransactionDetails(this.hash, this.transaction?.network.toLowerCase() || "ethereum")

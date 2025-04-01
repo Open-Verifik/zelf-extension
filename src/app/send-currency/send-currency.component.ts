@@ -23,7 +23,7 @@ export class SendCurrencyComponent implements OnInit {
         BTC: false,
         ETH: true,
         SOL: false,
-        SUI: true,
+        SUI: false,
     };
 
     loading: boolean = true;
@@ -69,13 +69,13 @@ export class SendCurrencyComponent implements OnInit {
 
                 if ("balance" in response.avalanche.data) {
                     const avaxToken = {
-                        tokenType: "AVAX",
-                        symbol: "AVAX",
-                        name: "Avalanche",
                         amount: response.avalanche.data.balance,
-                        price: response.avalanche.data.price,
                         fiatBalance: response.avalanche.data.fiatBalance,
                         image: response.avalanche.data.image,
+                        name: "Avalanche",
+                        price: response.avalanche.data.price,
+                        symbol: "AVAX",
+                        tokenType: "AVAX",
                     };
 
                     avalancheTokens.push(avaxToken);

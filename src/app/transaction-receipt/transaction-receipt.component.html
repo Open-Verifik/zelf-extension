@@ -38,7 +38,7 @@
                     <div class="zelf-action-row">
                         <p class="transaction-receipt__label">{{ t("common.date") }}</p>
 
-                        <p class="transaction-receipt__value">{{ transaction.date | date : "HH:mm dd MMM, yyyy" }}</p>
+                        <p class="transaction-receipt__value">{{ transaction.date | date : "dd MMM, yyyy HH:mm" }}</p>
                     </div>
 
                     <div class="zelf-action-row">
@@ -77,12 +77,6 @@
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
                             </button>
                         </div>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <p class="transaction-receipt__label">{{ t("common.withdrawal_network") }}</p>
-
-                        <p class="transaction-receipt__value">{{ transaction.asset }}</p>
                     </div>
                 </div>
             </div>

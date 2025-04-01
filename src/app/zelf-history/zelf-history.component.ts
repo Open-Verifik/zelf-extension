@@ -101,6 +101,8 @@ export class ZelfHistoryComponent implements OnInit {
     private processTransactions(transactions: Transaction[], isPagination = false): void {
         if (!transactions || !transactions.length) return;
 
+        transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
         const groupedByDate: Record<string, any[]> = isPagination ? { ...this.history } : {};
 
         transactions.forEach((tx) => {

@@ -243,21 +243,23 @@ export class SendConfirmComponent implements OnInit {
 
             this.sending = false;
 
-            if (!receipt.blockHash) {
-                const sendDateTime = new Date().toISOString();
+            const sendDateTime = new Date().toISOString();
 
-                this._walletService.addTransactionToPending({
-                    ...this.transactionData,
-                    ...receipt,
-                    amount: this.transactionData.total,
-                    date: sendDateTime,
-                    from: this.transactionData.sender.address,
-                    network: this.transactionData.network,
-                    status: "pending",
-                    to: this.transactionData.receiver.address,
-                    tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
-                });
-            }
+            const pendingTransactionData = {
+                ...this.transactionData,
+                ...receipt,
+                amount: this.transactionData.total,
+                date: sendDateTime,
+                from: this.transactionData.sender.address,
+                network: this.transactionData.network,
+                status: "pending",
+                to: this.transactionData.receiver.address,
+                tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
+            };
+
+            console.log(` SendConfirmComponent ~ confirmTransaction ~ pendingTransactionData:`, pendingTransactionData);
+
+            this._walletService.addTransactionToPending(pendingTransactionData);
 
             await this._transactionService.removeTransactionData();
 

@@ -245,8 +245,9 @@ export class SendConfirmComponent implements OnInit {
                 const sendDateTime = new Date().toISOString();
 
                 this._walletService.addTransactionToPending({
-                    ...receipt,
                     ...this.transactionData,
+                    ...receipt,
+                    amount: this.transactionData.total,
                     date: sendDateTime,
                     from: this.transactionData.sender.address,
                     network: this.transactionData.network,

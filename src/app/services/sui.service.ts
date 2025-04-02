@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Ed25519Keypair } from "@mysten/sui.js/keypairs/ed25519";
 
+import { mnemonicToSeed } from "@mysten/sui.js/cryptography";
+
 import { SuiClient } from "@mysten/sui.js/client";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
 import { HttpWrapperService } from "app/http-wrapper.service";
@@ -97,36 +99,34 @@ export class SuiService {
 
     /**
      * Imports a SUI wallet using a mnemonic phrase
-     * @param mnemonic - The mnemonic phrase (12, 15, 18, 21 or 24 words)
-     * @param derivationPath - Custom derivation path (optional)
+     * @param mnemonic - The mnemonic phrase
      * @returns The keypair object containing the imported wallet
      */
-    async importWalletFromMnemonic(mnemonic: string, derivationPath?: string): Promise<Ed25519Keypair> {
+    async importWalletFromMnemonic(mnemonic: string): Promise<Ed25519Keypair> {
         try {
             console.log("Importing SUI wallet from mnemonic...");
-            const words = mnemonic.trim().split(/\s+/);
 
-            if (![12, 15, 18, 21, 24].includes(words.length)) {
-                throw new Error("Mnemonic phrase must have 12, 15, 18, 21, or 24 words");
-            }
+            // First get the seed from mnemonic
+            const seed = await mnemonicToSeed(mnemonic);
 
-            const path = derivationPath || derivationPathForCoinType(SUI_COIN_TYPE);
-            console.log(`Using Ed25519 derivation path: ${path}`);
+            // Create keypair using the standard derivation path for SUI
+            const DERIVATION_PATH = "m/44'/784'/0'/0'/0'";
+            const keypair = Ed25519Keypair.deriveKeypair(mnemonic, DERIVATION_PATH);
 
-            const keypair = Ed25519Keypair.deriveKeypair(mnemonic, path);
+            // Get and log the address to verify
             const address = keypair.getPublicKey().toSuiAddress();
-
             console.log(`Generated SUI address: ${address}`);
+
             return keypair;
         } catch (error) {
-            console.error("Error importing wallet:", error);
-            throw error; // Throw the original error to preserve the stack trace
+            console.error("Error importing SUI wallet:", error);
+            throw error;
         }
     }
 
     /**
-     * Gets the SUI address from a keypair
-     * @param keypair - The wallet keypair
+     * Gets the address from a keypair
+     * @param keypair - The Ed25519Keypair
      * @returns The SUI address
      */
     getAddressFromKeypair(keypair: Ed25519Keypair): string {

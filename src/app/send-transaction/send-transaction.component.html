@@ -126,7 +126,14 @@
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="form.get('toAddress')?.errors?.pattern">
+                    <ng-container *ngIf="form.get('toAddress')?.errors?.maxLength">
+                        <div class="zelf-message__row">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.address_too_long") }}</p>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="form.get('toAddress')?.errors?.invalidEVM || form.get('toAddress')?.errors?.invalidSUI">
                         <div class="zelf-message__row">
                             <ng-container *ngTemplateOutlet="cross"></ng-container>
                             <p>{{ t("errors.invalid_format") }}</p>

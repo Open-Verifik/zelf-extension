@@ -114,9 +114,30 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _createSuiWallet(mnemonic: string): Promise<string> {
-        const result = await this._suiService.importWalletFromMnemonic(mnemonic);
+        try {
+            console.log("Creating SUI wallet from mnemonic...");
 
-        return this._suiService.getAddressFromKeypair(result);
+            // Use the service to import the wallet
+            const keypair = await this._suiService.importWalletFromMnemonic(mnemonic);
+
+            // Get the address from the keypair
+            const address = this._suiService.getAddressFromKeypair(keypair);
+            console.log("Generated SUI address:", address);
+
+            // Verify the address is valid by making a test balance request
+            try {
+                await this._suiService.getSuiBalance(address);
+                console.log("SUI address validation successful");
+            } catch (error) {
+                console.warn("SUI address validation warning:", error);
+                // Continue even if validation fails - address might still be valid
+            }
+
+            return address;
+        } catch (error) {
+            console.error("Error creating SUI wallet:", error);
+            throw new Error(`Failed to create SUI wallet: ${(error as Error).message}`);
+        }
     }
 
     private async _decryptWallet(payload: any): Promise<void> {

@@ -100,9 +100,16 @@ export class SendTransactionComponent implements OnDestroy {
 
             if (!pattern.test(value)) return { invalidFormat: true };
 
-            // For ETH addresses, do additional validation
+            // For ETH/AVAX addresses, do additional validation
             if ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(value)) {
                 return { invalidEVM: true };
+            }
+
+            if (this.transactionData.network === "sui") {
+                const suiAddressPattern = /^0x[a-fA-F0-9]{32,64}$/;
+                if (!suiAddressPattern.test(value)) {
+                    return { invalidSUI: true };
+                }
             }
 
             return null;
@@ -125,6 +132,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) pattern = this._walletService.ETHRegex;
         if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
+        if (this.transactionData.network === "sui") pattern = /^0x[a-fA-F0-9]{32,64}$/;
 
         return pattern;
     }
@@ -220,7 +228,14 @@ export class SendTransactionComponent implements OnDestroy {
                     this._amountValidation(this.transactionData.balance as number),
                 ],
             ],
-            toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
+            toAddress: [
+                this.transactionData?.receiver?.address || "",
+                [
+                    Validators.required,
+                    this.transactionData.network === "sui" ? Validators.pattern(/^0x[a-fA-F0-9]{64}$/) : Validators.maxLength(42),
+                    this._addressValidator(),
+                ],
+            ],
         });
 
         const toAddressCtrl = this.form?.get("toAddress");
@@ -279,39 +294,51 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     continueToWithdraw(): void {
-        this.withdrawStep = true;
+        if (this.form.valid && this.foundAddress) {
+            this.withdrawStep = true;
+        }
     }
 
     async continueToConfirmation(): Promise<void> {
-        if (this.form.invalid || !this.foundAddress) return;
+        if (this.form.valid && this.foundAddress) {
+            const toAddress = this.form.get("toAddress")?.value;
 
-        const toAddress = this.form.get("toAddress")?.value;
+            // Para SUI, solo verificamos el patrón
+            if (this.transactionData.network === "sui") {
+                const suiAddressPattern = /^0x[a-fA-F0-9]{64}$/;
+                if (!suiAddressPattern.test(toAddress)) {
+                    return;
+                }
+            } else {
+                // Validación existente para otras redes
+                if (
+                    !this._getAddressPattern().test(toAddress) ||
+                    ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress))
+                ) {
+                    return;
+                }
+            }
 
-        // Double check the address is valid before proceeding
-        if (
-            !this._getAddressPattern().test(toAddress) ||
-            ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress))
-        ) {
-            return;
+            let address = "";
+
+            if (this.transactionData.network === "sui") {
+                address = toAddress;
+            } else if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
+                address = this.foundAddress.ethAddress;
+            } else if (this.transactionData.isSolToken) {
+                address = this.foundAddress.solanaAddress;
+            } else if (this.transactionData.isBtcToken) {
+                address = this.foundAddress.btcAddress;
+            }
+
+            this.transactionData.amount = this.form.get("amount")?.value;
+            this.transactionData.receiver.address = address;
+            this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName;
+
+            await this._transactionService.setCurrentTransactionData(this.transactionData);
+
+            this._router.navigate(["/send/confirmation"]);
         }
-
-        let address = "";
-
-        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
-            address = this.foundAddress.ethAddress;
-        } else if (this.transactionData.isSolToken) {
-            address = this.foundAddress.solanaAddress;
-        } else if (this.transactionData.isBtcToken) {
-            address = this.foundAddress.btcAddress;
-        }
-
-        this.transactionData.amount = this.form.get("amount")?.value;
-        this.transactionData.receiver.address = address;
-        this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName;
-
-        await this._transactionService.setCurrentTransactionData(this.transactionData);
-
-        this._router.navigate(["/send/confirmation"]);
     }
 
     get filteredAddresses(): AddressBook[] {

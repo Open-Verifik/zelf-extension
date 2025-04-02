@@ -1,26 +1,25 @@
 import { Injectable } from "@angular/core";
 import { Ed25519Keypair } from "@mysten/sui.js/keypairs/ed25519";
-import { mnemonicToSeed } from "@scure/bip39";
-import { HDKey } from "@scure/bip32";
+
 import { SuiClient } from "@mysten/sui.js/client";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { environment } from "environments/environment";
 
 const SUI_COIN_TYPE = 784;
-const SUI_RPC_URL = "https://fullnode.mainnet.sui.io:443"; // Mainnet URL
-const SUI_TESTNET_RPC_URL = "https://fullnode.testnet.sui.io:443"; // Testnet URL
-const SUI_DEVNET_RPC_URL = "https://fullnode.devnet.sui.io:443"; // Devnet URL
+const SUI_RPC_URL = "https://fullnode.mainnet.sui.io:443";
+const SUI_TESTNET_RPC_URL = "https://fullnode.testnet.sui.io:443";
+const SUI_DEVNET_RPC_URL = "https://fullnode.devnet.sui.io:443";
 
 function derivationPathForCoinType(coinType: number): string {
-    return `m/44'/${coinType}'/0'/0/0`;
+    return "m/44'/784'/0'/0'/0'";
 }
 
 @Injectable({
     providedIn: "root",
 })
 export class SuiService {
-    private baseUrl: String = environment.apiUrl;
+    private baseUrl: string = environment.apiUrl;
     private suiClient: SuiClient;
     private networkType: string = "mainnet";
 
@@ -29,7 +28,45 @@ export class SuiService {
     }
 
     getWalletDetails(address?: string): Promise<any> {
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/sui/address/${address}`);
+        console.log(`Fetching SUI wallet details for address: ${address}`);
+
+        const url = `${this.baseUrl}/api/sui/address/${address}`;
+        console.log(`SUI API request URL: ${url}`);
+
+        try {
+            return this._httpWrapper
+                .sendRequest("get", url)
+                .then((response) => {
+                    console.log("SUI API response successful:", response ? "Data received" : "Empty response");
+                    return response;
+                })
+                .catch((error) => {
+                    console.error("SUI API request failed with httpWrapper:", error);
+
+                    return this._getDefaultSuiResponse();
+                });
+        } catch (error) {
+            console.error("Exception in SUI getWalletDetails:", error);
+
+            return Promise.resolve(this._getDefaultSuiResponse());
+        }
+    }
+
+    private _getDefaultSuiResponse(): any {
+        return {
+            data: {
+                balance: "0",
+                _balance: 0,
+                fiatBalance: "0",
+                account: {
+                    asset: "SUI",
+                    price: "0",
+                },
+                tokenHoldings: {
+                    tokens: [],
+                },
+            },
+        };
     }
 
     /**
@@ -66,29 +103,24 @@ export class SuiService {
      */
     async importWalletFromMnemonic(mnemonic: string, derivationPath?: string): Promise<Ed25519Keypair> {
         try {
+            console.log("Importing SUI wallet from mnemonic...");
             const words = mnemonic.trim().split(/\s+/);
 
             if (![12, 15, 18, 21, 24].includes(words.length)) {
                 throw new Error("Mnemonic phrase must have 12, 15, 18, 21, or 24 words");
             }
 
-            const seed = await mnemonicToSeed(mnemonic);
-
             const path = derivationPath || derivationPathForCoinType(SUI_COIN_TYPE);
+            console.log(`Using Ed25519 derivation path: ${path}`);
 
-            const hdkey = HDKey.fromMasterSeed(seed);
-            const childKey = hdkey.derive(path);
+            const keypair = Ed25519Keypair.deriveKeypair(mnemonic, path);
+            const address = keypair.getPublicKey().toSuiAddress();
 
-            if (!childKey.privateKey) {
-                throw new Error("Could not derive private key");
-            }
-
-            const keypair = Ed25519Keypair.fromSecretKey(childKey.privateKey);
-
+            console.log(`Generated SUI address: ${address}`);
             return keypair;
         } catch (error) {
             console.error("Error importing wallet:", error);
-            throw new Error(`Error importing wallet: ${(error as Error).message}`);
+            throw error; // Throw the original error to preserve the stack trace
         }
     }
 

@@ -109,11 +109,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
             }
 
-            if (response?.sui?.data?.tokenHoldings?.tokens) {
-                console.log("Processing Sui tokens:", response.sui.data.tokenHoldings.tokens);
-                this._processTokens("Sui", response.sui.data.tokenHoldings.tokens);
-            }
-
             await this._getETHDetails();
             await this._getSolanaDetails();
             await this._getAvalancheDetails();

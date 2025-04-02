@@ -509,7 +509,7 @@ export class WalletService {
 
         let hasUpdate = false;
 
-        const newWallets = wallets.map((_wallet) => {
+        const newWallets = (wallets || []).map((_wallet) => {
             if (!_wallet?.pgp) return _wallet;
 
             delete _wallet.pgp;

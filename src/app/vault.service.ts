@@ -8,7 +8,7 @@ import { WalletService } from "./wallet.service";
 })
 export class VaultService {
     private _incorrectCount: number = 0;
-    private _incorrectMax: number = 5;
+    private _incorrectMax: number = 4;
     private _password$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
     private _password: string = "";
     private _mnemonic: string = "";
@@ -71,9 +71,11 @@ export class VaultService {
                 decryptionKeys: decryptedPrivateKey,
             });
 
+            this._incorrectCount = 0;
+
             return decrypted as string;
         } catch (error) {
-            if (this._incorrectCount <= this._incorrectMax) {
+            if (this.remainingAttempts > 0) {
                 this._incorrectCount++;
             } else {
                 await this._walletService.clearPGPKeys();

@@ -4,8 +4,9 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators, Abstrac
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
@@ -49,18 +50,38 @@ export class SendTransactionComponent implements OnDestroy {
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
+        private _snackBar: MatSnackBar,
         private _transactionService: TransactionService,
+        private _translocoService: TranslocoService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
-    ) {}
+    ) {
+        this.loading = true;
+    }
 
     async ngOnInit(): Promise<void> {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
-        this.recentAddresses = this._transactionService.findAddressInRecentAddresses("tokenType", this.transactionData.tokenType);
 
-        this.loading = false;
+        if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
+            this._initTransactionData()
+                .catch(() => this.goBack())
+                .finally(() => (this.loading = false));
 
-        this._initForm();
+            return;
+        }
+
+        this._transactionService.transactionData$.pipe(takeUntil(this.unsubcriber$)).subscribe((transactionData) => {
+            this.transactionData = transactionData;
+
+            if (!this.transactionData || !this.transactionData.hasTransactionData) {
+                this._router.navigate(["/send"]);
+                return;
+            }
+
+            this._initTransactionData()
+                .catch(() => this.goBack())
+                .finally(() => (this.loading = false));
+        });
     }
 
     ngOnDestroy(): void {
@@ -176,7 +197,7 @@ export class SendTransactionComponent implements OnDestroy {
                 this.isZelfNameNotFound = true;
             }
         } catch (error) {
-            console.error("Error in address search:", error);
+            this.openErrorSnackBar("errors.address_not_found");
 
             if (!this._getAddressPattern().test(text)) {
                 this.isZelfNameNotFound = true;
@@ -202,12 +223,24 @@ export class SendTransactionComponent implements OnDestroy {
             toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
         });
 
-        this.form
-            .get("toAddress")
-            ?.valueChanges.pipe(takeUntil(this.unsubcriber$), debounceTime(500))
-            .subscribe((value: string) => {
-                this._handleToAddressChange(value);
-            });
+        const toAddressCtrl = this.form?.get("toAddress");
+
+        if (!toAddressCtrl) return;
+
+        toAddressCtrl.valueChanges.pipe(takeUntil(this.unsubcriber$), debounceTime(500)).subscribe((value: string) => {
+            this._handleToAddressChange(value);
+        });
+
+        if (!toAddressCtrl.value || !toAddressCtrl.value.trim()) return;
+
+        toAddressCtrl.updateValueAndValidity();
+    }
+
+    private async _initTransactionData(): Promise<void> {
+        this.transactionData = await this._transactionService.getCurrentTransactionData();
+        this.recentAddresses = this._transactionService.findAddressInRecentAddresses("tokenType", this.transactionData.tokenType);
+
+        this._initForm();
     }
 
     async _queryZNS(key: string, value: string): Promise<void> {
@@ -331,6 +364,14 @@ export class SendTransactionComponent implements OnDestroy {
         this._transactionService.setCurrentTransactionData(this.transactionData);
 
         this._router.navigate(["/send"]);
+    }
+
+    openErrorSnackBar(message: string): void {
+        this._snackBar.open(this._translocoService.translate(message), this._translocoService.translate("common.close"), {
+            duration: 5000,
+            panelClass: "zelf-snackbar",
+            verticalPosition: "top",
+        });
     }
 
     async pasteAddress(): Promise<void> {

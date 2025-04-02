@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { AddressBook, Transaction, TransactionData, TransactionModel } from "./wallet";
 import { ChromeService } from "./chrome.service";
+import { Observable, Subject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class TransactionService {
+    private _transactionData$: Subject<TransactionData> = new Subject<TransactionData>();
     private _recentAddresses: AddressBook[] = [];
     private _transactionData: TransactionData = new TransactionData({});
 
@@ -16,6 +18,8 @@ export class TransactionService {
         this._chromeService.getItem("transactionData").then((response) => {
             if (!response) this._transactionData = new TransactionData({});
             else this._transactionData = new TransactionData(response);
+
+            this._transactionData$.next(this._transactionData);
         });
 
         this._chromeService.getItem("recentAddresses").then((response) => {
@@ -26,6 +30,10 @@ export class TransactionService {
                 });
             }
         });
+    }
+
+    get transactionData$(): Observable<TransactionData> {
+        return this._transactionData$.asObservable();
     }
 
     addToRecentAddresses(address: AddressBook): void {

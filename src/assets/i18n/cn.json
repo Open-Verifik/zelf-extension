@@ -1,5 +1,7 @@
 {
     "hello": "你好",
+    "logout_title": "登出前：",
+    "logout_message": "登出将从此设备/浏览器中移除您所有的钱包。您需要重新登录每个钱包以重新获得访问权限。您确定要继续吗？",
     "onboarding": {
         "accept_terms_1": "我接受",
         "accept_terms_2": "条款和条件",

@@ -124,6 +124,21 @@ export class SuiService {
         }
     }
 
+    async createWalletFromMnemonic(mnemonic: string): Promise<string> {
+        try {
+            const keypair = await this.importWalletFromMnemonic(mnemonic);
+            const address = this.getAddressFromKeypair(keypair);
+
+            try {
+                await this.getSuiBalance(address);
+            } catch (error) {}
+
+            return address;
+        } catch (error) {
+            throw new Error(`Failed to create SUI wallet: ${(error as Error).message}`);
+        }
+    }
+
     /**
      * Gets the SUI address from a keypair
      * @param keypair - The wallet keypair

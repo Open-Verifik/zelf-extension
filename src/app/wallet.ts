@@ -559,7 +559,7 @@ export class TransactionData implements TransactionData {
     }
 
     get hasTransactionData(): boolean {
-        return this.hasAmount && this.hasReceiver && this.hasSender;
+        return this.hasToken && this.hasSender;
     }
 
     get hasToken(): boolean {

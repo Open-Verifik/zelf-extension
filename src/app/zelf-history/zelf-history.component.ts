@@ -2,7 +2,7 @@ import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOu
 import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
-import { RouterLink } from "@angular/router";
+import { Router } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
@@ -39,7 +39,6 @@ type ProcessedTransaction = {
         NgFor,
         NgIf,
         NgTemplateOutlet,
-        RouterLink,
         TranslocoModule,
     ],
     selector: "zelf-history",
@@ -55,7 +54,7 @@ export class ZelfHistoryComponent implements OnInit {
     public noMoreTransactions = false;
     public transactionHashMap: Record<string, boolean> = {};
 
-    constructor(private _blockchainTransactions: BlockchainTransactionsService, private _walletService: WalletService) {}
+    constructor(private _blockchainTransactions: BlockchainTransactionsService, private _router: Router, private _walletService: WalletService) {}
 
     async ngOnInit(): Promise<void> {
         this._loadFirstTransactions();
@@ -88,7 +87,7 @@ export class ZelfHistoryComponent implements OnInit {
                     return;
                 }
 
-                this.processTransactions(response.transactions);
+                this._processTransactions(response.transactions);
 
                 this.loading = false;
             },
@@ -98,7 +97,7 @@ export class ZelfHistoryComponent implements OnInit {
         });
     }
 
-    private processTransactions(transactions: Transaction[], isPagination = false): void {
+    private _processTransactions(transactions: Transaction[], isPagination = false): void {
         if (!transactions || !transactions.length) return;
 
         transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -158,7 +157,7 @@ export class ZelfHistoryComponent implements OnInit {
                     return;
                 }
 
-                this.processTransactions(response, true);
+                this._processTransactions(response, true);
 
                 this.loading = false;
             },
@@ -166,5 +165,9 @@ export class ZelfHistoryComponent implements OnInit {
                 console.error("Error loading transactions:", error);
             },
         });
+    }
+
+    async navigateToTransaction(transaction: ProcessedTransaction): Promise<void> {
+        this._router.navigate(["/transaction", transaction.hash], { queryParams: { tokenType: transaction.from.symbol } });
     }
 }

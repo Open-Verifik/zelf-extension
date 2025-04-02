@@ -1,4 +1,4 @@
-import { Subject, takeUntil } from "rxjs";
+import { forkJoin, take } from "rxjs";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 
 import { DatePipe, DecimalPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { EthTransactionModel, WalletModel } from "app/wallet";
+import { AvaxTransactionModel, EthTransactionModel, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
@@ -26,10 +26,10 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private _notFoundErrorText: string = this._translocoService.translate("common.close");
     private _notFoundErrorTitle: string = this._translocoService.translate("errors.transaction_not_found");
     private _timeout!: ReturnType<typeof setTimeout>;
-    private unsubscriber$: Subject<void> = new Subject<void>();
 
-    loading: boolean = false;
     hash: string = "";
+    loading: boolean = false;
+    tokenType: string = "";
     transaction!: any;
     wallet!: Partial<WalletModel> | null;
 
@@ -44,8 +44,12 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     ) {
         super(_chromeService, _snackBar, _translocoService);
 
-        this._activatedRoute.params.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {
-            this.hash = params?.hash;
+        forkJoin({
+            params: this._activatedRoute.params.pipe(take(1)),
+            queryParams: this._activatedRoute.queryParams.pipe(take(1)),
+        }).subscribe((responses) => {
+            this.hash = responses.params.hash;
+            this.tokenType = responses.queryParams.tokenType;
 
             if (this.loading) return;
 
@@ -60,25 +64,41 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     ngOnDestroy(): void {
         clearTimeout(this._timeout);
+    }
 
-        this.unsubscriber$.next();
-        this.unsubscriber$.complete();
+    _determineNetwork(): string {
+        if (this.transaction?.network) return this.transaction?.network;
+        else if (this.tokenType) {
+            if (this.tokenType === "AVAX") return "avalanche";
+            else if (this.tokenType === "MATIC") return "polygon";
+            else if (this.tokenType === "BNB") return "binance";
+            else if (this.tokenType === "ETH") return "ethereum";
+            else if (this.tokenType === "ZELF") return "zelf";
+            else return "ethereum";
+        } else return "ethereum";
     }
 
     private async _requestTransactionDetails(): Promise<void> {
         if (!this.hash) return;
         if (!this.transaction) this.transaction = await this._walletService.getPendingTransaction(this.hash);
 
+        const network = this._determineNetwork();
+
         this._ethService
-            .requestTransactionDetails(this.hash, this.transaction?.network.toLowerCase() || "ethereum")
-            .then((response) => {
+            .requestTransactionDetails(this.hash, network)
+            .then((response: any) => {
                 if (!response || !response.data) {
                     this._retryRequestTransactionDetails();
 
                     return;
                 }
 
-                this.transaction = new EthTransactionModel(response.data).toTransaction();
+                if (network === "ethereum") {
+                    this.transaction = new EthTransactionModel(response.data).toTransaction();
+                } else if (network === "avalanche") {
+                    this.transaction = new AvaxTransactionModel(response.data).toTransaction();
+                }
+
                 this.loading = false;
 
                 if (this.transaction.status === "pending") {

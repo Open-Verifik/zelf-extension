@@ -314,7 +314,7 @@ export class WalletModel implements Wallet {
     ipfs: IPFS = {} as IPFS;
     metadata: any;
     name: string;
-    pgp?: PGP = {} as PGP;
+    pgp?: PGP = undefined;
     publicData: WalletPublicData;
     solanaAddress: string;
     suiAddress: string;
@@ -326,7 +326,7 @@ export class WalletModel implements Wallet {
 
         this.anonymous = data.anonymous || true;
         this.ipfs = (data.ipfs as IPFS) || ({} as IPFS);
-        this.pgp = (data.pgp as PGP) || ({} as PGP);
+        this.pgp = (data.pgp as PGP) || undefined;
 
         const secondaryStorage = data.publicData || {};
 
@@ -368,7 +368,7 @@ export class WalletModel implements Wallet {
     }
 
     get displaySuiAddress(): string {
-        return this._displaySolanaAddress || "";
+        return this._displaySuiAddress || "";
     }
 
     set displayBtcAddress(value: string) {
@@ -552,6 +552,14 @@ export class TransactionData implements TransactionData {
         this.sender = data.sender || ({} as Sender);
         this.token = data.token || ({} as TokenData);
         this.total = data.total || 0;
+    }
+
+    get hasCompletePaymentData(): boolean {
+        return this.hasAmount && this.hasReceiver && this.hasSender && this.hasToken;
+    }
+
+    get hasTransactionData(): boolean {
+        return this.hasAmount && this.hasReceiver && this.hasSender;
     }
 
     get hasToken(): boolean {

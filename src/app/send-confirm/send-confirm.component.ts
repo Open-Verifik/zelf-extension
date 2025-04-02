@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -16,6 +16,7 @@ import { WalletService } from "app/wallet.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -24,9 +25,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
     styleUrls: ["./send-confirm.component.scss"],
     templateUrl: "./send-confirm.component.html",
 })
-export class SendConfirmComponent implements OnInit {
+export class SendConfirmComponent implements OnInit, OnDestroy {
     private _password: string = "";
     private _mnemonics: string = "";
+    private unsubcriber$: Subject<void> = new Subject<void>();
 
     availableNetworks = [
         { id: "ethereum", name: "Ethereum", symbol: "ETH" },
@@ -34,7 +36,7 @@ export class SendConfirmComponent implements OnInit {
     ];
 
     form!: UntypedFormGroup;
-    loading: boolean = true;
+    loading: boolean;
     passwordError: boolean = false;
     passwordSet: boolean = false;
     remainingAttempts: number = this._vaultService.remainingAttempts;
@@ -55,6 +57,8 @@ export class SendConfirmComponent implements OnInit {
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
     ) {
+        this.loading = true;
+
         this._mnemonics = ""; // Should always be empty on init
         this._password = this._vaultService.password; // Get from service, then clear immediately
 
@@ -68,16 +72,36 @@ export class SendConfirmComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
         this.transactionData = await this._transactionService.getCurrentTransactionData();
-        console.log(` SendConfirmComponent ~ ngOnInit ~ this.transactionData:`, this.transactionData);
 
-        this._initForm();
+        if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
+            this._initTransactionData()
+                .catch(() => this.goBack())
+                .finally(() => (this.loading = false));
 
-        await this._calculateTransactionFee();
-        await this._decryptMnemonics();
+            return;
+        }
 
-        this.loading = false;
+        this._transactionService.transactionData$.pipe(takeUntil(this.unsubcriber$)).subscribe((transactionData) => {
+            this.transactionData = transactionData;
+
+            if (!this.transactionData || !this.transactionData.hasTransactionData) {
+                this._router.navigate(["/send"]);
+                return;
+            } else if (!this.transactionData.hasCompletePaymentData) {
+                this._router.navigate(["/send/transaction"]);
+                return;
+            }
+
+            this._initTransactionData()
+                .catch(() => this.goBack())
+                .finally(() => (this.loading = false));
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.unsubcriber$.next();
+        this.unsubcriber$.complete();
     }
 
     private async _calculateTransactionFee(): Promise<void> {
@@ -89,7 +113,7 @@ export class SendConfirmComponent implements OnInit {
 
             if (!this.transactionData.isEthToken && !this.transactionData.isAvaxToken) {
                 if (!this._ethService.checkIfValidAddress(senderAddress)) {
-                    console.error("Invalid token address:", senderAddress);
+                    this.openErrorSnackBar("errors.invalid_address");
 
                     return;
                 }
@@ -102,7 +126,7 @@ export class SendConfirmComponent implements OnInit {
                 );
             } else {
                 if (!this._ethService.checkIfValidAddress(senderAddress)) {
-                    console.error("Invalid destination address:", senderAddress);
+                    this.openErrorSnackBar("errors.invalid_address");
 
                     return;
                 }
@@ -126,7 +150,7 @@ export class SendConfirmComponent implements OnInit {
 
             await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
-            console.error("Error calculating transaction fee:", error);
+            this.openErrorSnackBar("errors.invalid_transaction_fee");
         }
     }
 
@@ -154,9 +178,9 @@ export class SendConfirmComponent implements OnInit {
             return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
         } catch (error) {
             this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
-            this.remainingAttempts = this._vaultService.remainingAttempts;
+            this.remainingAttempts = this._vaultService.remainingAttempts + 1;
 
-            if (!this.wallet.pgp) {
+            if (!this.wallet?.pgp) {
                 this._mnemonics = "";
                 this._password = "";
 
@@ -175,6 +199,16 @@ export class SendConfirmComponent implements OnInit {
         this.form = this._formBuilder.group({
             password: ["", [Validators.required]],
         });
+    }
+
+    private async _initTransactionData(): Promise<void> {
+        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+        this.transactionData = await this._transactionService.getCurrentTransactionData();
+
+        this._initForm();
+
+        await this._calculateTransactionFee();
+        await this._decryptMnemonics();
     }
 
     async confirmTransaction() {
@@ -267,7 +301,8 @@ export class SendConfirmComponent implements OnInit {
                 await this._router.navigate(["/send"]);
             }
         } catch (error: any) {
-            console.error("Error during transaction execution:", error);
+            this.openErrorSnackBar("errors.something_went_wrong");
+
             this.sending = false;
         } finally {
             this._mnemonics = "";

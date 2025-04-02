@@ -105,11 +105,8 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidEVM: true };
             }
 
-            if (this.transactionData.network === "sui") {
-                const suiAddressPattern = /^0x[a-fA-F0-9]{32,64}$/;
-                if (!suiAddressPattern.test(value)) {
-                    return { invalidSUI: true };
-                }
+            if (this.transactionData.isSuiToken && this._walletService.isValidSuiAddress(value)) {
+                return { invalidSUI: true };
             }
 
             return null;
@@ -132,6 +129,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) pattern = this._walletService.ETHRegex;
         if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
+        if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
         if (this.transactionData.network === "sui") pattern = /^0x[a-fA-F0-9]{32,64}$/;
 
         return pattern;
@@ -175,29 +173,12 @@ export class SendTransactionComponent implements OnDestroy {
         await this._captchaGeneration();
 
         try {
-            // First check if it's a valid EVM address format
-            const isValidEVMFormat = this._walletService.isValidEVMAddress(text);
-
-            // Always query ZNS first
             await this._queryZNS("zelfName", text);
 
-            // If no result found and input is valid EVM address, try as address
-            if (!this.foundAddress && isValidEVMFormat) {
-                await this._queryZNS("ethAddress", text);
-
-                // If still no result, validate on-chain
-                if (!this.foundAddress) {
-                    const isValidOnChain = await this._walletService.validateEVMAddressOnChain(text);
-
-                    if (isValidOnChain) {
-                        this.foundAddress = new WalletModel({
-                            ethAddress: text,
-                            publicData: {},
-                        });
-                    } else {
-                        this.foundAddress = undefined;
-                    }
-                }
+            if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
+                await this._checkEVMAddress(text);
+            } else if (this.transactionData.isSuiToken) {
+                await this._checkSuiAddress(text);
             }
 
             // Set error state if searching by zelfName and no result found
@@ -217,6 +198,52 @@ export class SendTransactionComponent implements OnDestroy {
         this.searching = false;
     }
 
+    private async _checkEVMAddress(text: string): Promise<void> {
+        const isValidEVMFormat = this._walletService.isValidEVMAddress(text);
+
+        if (this.foundAddress && isValidEVMFormat) return;
+
+        await this._queryZNS("ethAddress", text);
+
+        if (this.foundAddress) return;
+
+        const isValidOnChain = await this._walletService.validateEVMAddressOnChain(text);
+
+        if (isValidOnChain) {
+            this.foundAddress = new WalletModel({
+                ethAddress: text,
+                publicData: {},
+            });
+        } else {
+            this.foundAddress = undefined;
+        }
+    }
+
+    private async _checkSuiAddress(text: string): Promise<void> {
+        const isValidSuiFormat = this._walletService.isValidSuiAddress(text);
+        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ isValidSuiFormat:`, isValidSuiFormat);
+
+        if (this.foundAddress && isValidSuiFormat) return;
+        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ this.foundAddress:`, this.foundAddress);
+
+        await this._queryZNS("suiAddress", text);
+        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ this.foundAddress:`, this.foundAddress);
+
+        if (this.foundAddress) return;
+
+        const isValidOnChain = await this._walletService.validateSUIAddressOnChain(text);
+        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ isValidOnChain:`, isValidOnChain);
+
+        if (isValidOnChain) {
+            this.foundAddress = new WalletModel({
+                suiAddress: text,
+                publicData: {},
+            });
+        } else {
+            this.foundAddress = undefined;
+        }
+    }
+
     private _initForm(): void {
         this.form = this._formBuilder.group({
             amount: [
@@ -228,7 +255,7 @@ export class SendTransactionComponent implements OnDestroy {
                     this._amountValidation(this.transactionData.balance as number),
                 ],
             ],
-            toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
+            toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(66), this._addressValidator()]],
         });
 
         const toAddressCtrl = this.form?.get("toAddress");
@@ -256,15 +283,7 @@ export class SendTransactionComponent implements OnDestroy {
             const response = await this._zelfNameService.searchZelfNameV2(key, value, this._captchaToken);
 
             if (!response.data) {
-                // Si no hay datos pero es una dirección válida, creamos un objeto básico
-                if (key === "ethAddress" && this._getAddressPattern().test(value)) {
-                    this.foundAddress = new WalletModel({
-                        ethAddress: value,
-                        publicData: {},
-                    });
-                } else {
-                    this.foundAddress = undefined;
-                }
+                this.foundAddress = undefined;
 
                 return;
             }
@@ -273,14 +292,7 @@ export class SendTransactionComponent implements OnDestroy {
         } catch (error) {
             console.error("Error in _queryZNS:", error);
 
-            if (key === "ethAddress" && this._getAddressPattern().test(value)) {
-                this.foundAddress = new WalletModel({
-                    ethAddress: value,
-                    publicData: {},
-                });
-            } else {
-                this.foundAddress = undefined;
-            }
+            this.foundAddress = undefined;
 
             throw error;
         }
@@ -295,10 +307,10 @@ export class SendTransactionComponent implements OnDestroy {
 
         const toAddress = this.form.get("toAddress")?.value;
 
-        // Double check the address is valid before proceeding
         if (
             !this._getAddressPattern().test(toAddress) ||
-            ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress))
+            ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress)) ||
+            (this.transactionData.isSuiToken && !this._walletService.isValidSuiAddress(toAddress))
         ) {
             return;
         }
@@ -311,6 +323,8 @@ export class SendTransactionComponent implements OnDestroy {
             address = this.foundAddress.solanaAddress;
         } else if (this.transactionData.isBtcToken) {
             address = this.foundAddress.btcAddress;
+        } else if (this.transactionData.isSuiToken) {
+            address = this.foundAddress.suiAddress;
         }
 
         this.transactionData.amount = this.form.get("amount")?.value;

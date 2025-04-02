@@ -7,11 +7,12 @@ import { TranslocoModule } from "@ngneat/transloco";
 
 import { LanguageComponent } from "app/language/language.component";
 import { ChromeService } from "app/chrome.service";
+import { MatMenuModule } from "@angular/material/menu";
 
 @Component({
     selector: "zelf-app",
     standalone: true,
-    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule],
+    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule, MatMenuModule],
     templateUrl: "./zelf-app.component.html",
     styleUrls: ["./zelf-app.component.scss"],
 })
@@ -22,13 +23,28 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
 
     canGoHome: boolean = false;
 
-    links = {
-        documentation: "https://docs.zelf.world/",
-        invest: "https://www.pinksale.finance/solana/launchpad/HUCo6xdcGSpiDQxhrN8emvLwnkJAAdJbcACncMnU9MmF",
-        termsAndConditions: "https://docs.zelf.world/zelf-legal/terms-of-use",
-        privacy: "https://docs.zelf.world/zelf-legal/privacy-policy",
-        pricing: "https://docs.zelf.world/airdrop/pricing-per-domain",
-    };
+    footerLinks = [
+        {
+            url: "https://docs.zelf.world/",
+            text: "common.documentation",
+        },
+        {
+            url: "https://www.pinksale.finance/solana/launchpad/HUCo6xdcGSpiDQxhrN8emvLwnkJAAdJbcACncMnU9MmF",
+            text: "common.invest",
+        },
+        {
+            url: "https://docs.zelf.world/zelf-legal/terms-of-use",
+            text: "common.terms_and_conditions",
+        },
+        {
+            url: "https://docs.zelf.world/zelf-legal/privacy-policy",
+            text: "common.privacy",
+        },
+        {
+            url: "https://docs.zelf.world/airdrop/pricing-per-domain",
+            text: "common.pricing",
+        },
+    ];
 
     constructor(private _router: Router, private _chromeService: ChromeService) {}
 

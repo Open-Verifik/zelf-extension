@@ -13,51 +13,43 @@
         <router-outlet></router-outlet>
     </section>
 
-    <footer class="zelf-app__footer">
-        <button
-            [routerLink]="['/external-link']"
-            [queryParams]="{ externalUrl: links.documentation }"
-            class="zelf-button zelf-button--hyperlink zelf-button--small"
-        >
-            {{ t("common.documentation") }}
+    <footer class="zelf-app__footer zelf-app__footer--small">
+        <button class="zelf-icon-button zelf-icon-button--40 zelf-app__footer-menu-trigger" mat-flat-button [matMenuTriggerFor]="links">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                <path
+                    d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z"
+                    fill="#181818"
+                />
+            </svg>
         </button>
 
-        <button
-            [routerLink]="['/external-link']"
-            [queryParams]="{ externalUrl: links.invest }"
-            class="zelf-button zelf-button--hyperlink zelf-button--small"
-        >
-            {{ t("common.invest") }}
-        </button>
+        <mat-menu class="zelf-menu" #links="matMenu" [xPosition]="'before'" [yPosition]="'above'">
+            <button [routerLink]="['/external-link']" [queryParams]="{ externalUrl: link.url }" *ngFor="let link of footerLinks" mat-menu-item>
+                {{ t(link.text) }}
+            </button>
+        </mat-menu>
 
         <button
+            [queryParams]="{ externalUrl: link.url }"
             [routerLink]="['/external-link']"
-            [queryParams]="{ externalUrl: links.termsAndConditions }"
-            class="zelf-button zelf-button--hyperlink zelf-button--small"
+            *ngFor="let link of footerLinks"
+            class="zelf-button zelf-button--hyperlink zelf-button--small zelf-app__footer-links"
         >
-            {{ t("common.terms_and_conditions") }}
-        </button>
-
-        <button
-            [routerLink]="['/external-link']"
-            [queryParams]="{ externalUrl: links.privacy }"
-            class="zelf-button zelf-button--hyperlink zelf-button--small"
-        >
-            {{ t("common.privacy") }}
-        </button>
-
-        <button
-            [routerLink]="['/external-link']"
-            [queryParams]="{ externalUrl: links.pricing }"
-            class="zelf-button zelf-button--hyperlink zelf-button--small"
-        >
-            {{ t("common.pricing") }}
+            {{ t(link.text) }}
         </button>
     </footer>
 </div>
 
+<ng-template #arrow>
+    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M9.8751 1.00002L5.9951 4.88002L2.1151 1.00002C1.7251 0.61002 1.0951 0.61002 0.705098 1.00002C0.315098 1.39002 0.315098 2.02002 0.705098 2.41002L5.2951 7.00002C5.6851 7.39002 6.3151 7.39002 6.7051 7.00002L11.2951 2.41002C11.6851 2.02002 11.6851 1.39002 11.2951 1.00002C10.9051 0.62002 10.2651 0.61002 9.8751 1.00002Z"
+        />
+    </svg>
+</ng-template>
+
 <ng-template #logo>
-    <svg class="zelf-logo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="zelf-logo" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M12.0108 0C13.363 1.83518 15.0993 3.92724 17.2883 6.08926H7.46094C9.5873 3.83728 11.0426 1.67625 12.0128 0H12.0108Z"
             fill="#181818"

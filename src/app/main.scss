@@ -1227,6 +1227,13 @@ h3 {
     width: 564px;
     min-height: 768px;
 
+    @media screen and (max-width: 768px) {
+        background: $white;
+        width: 100%;
+        padding: 12px;
+        border-radius: 0px;
+    }
+
     &__header {
         align-items: center;
         display: flex;

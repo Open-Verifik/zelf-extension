@@ -62,7 +62,7 @@ export class SendTransactionComponent implements OnDestroy {
     async ngOnInit(): Promise<void> {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
-        if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
+        if (this.transactionData && this.transactionData.hasTransactionData) {
             this._initTransactionData()
                 .catch(() => this.goBack())
                 .finally(() => (this.loading = false));

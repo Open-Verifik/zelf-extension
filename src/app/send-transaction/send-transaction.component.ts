@@ -228,14 +228,7 @@ export class SendTransactionComponent implements OnDestroy {
                     this._amountValidation(this.transactionData.balance as number),
                 ],
             ],
-            toAddress: [
-                this.transactionData?.receiver?.address || "",
-                [
-                    Validators.required,
-                    this.transactionData.network === "sui" ? Validators.pattern(/^0x[a-fA-F0-9]{64}$/) : Validators.maxLength(42),
-                    this._addressValidator(),
-                ],
-            ],
+            toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(42), this._addressValidator()]],
         });
 
         const toAddressCtrl = this.form?.get("toAddress");
@@ -294,51 +287,39 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     continueToWithdraw(): void {
-        if (this.form.valid && this.foundAddress) {
-            this.withdrawStep = true;
-        }
+        this.withdrawStep = true;
     }
 
     async continueToConfirmation(): Promise<void> {
-        if (this.form.valid && this.foundAddress) {
-            const toAddress = this.form.get("toAddress")?.value;
+        if (this.form.invalid || !this.foundAddress) return;
 
-            // Para SUI, solo verificamos el patrón
-            if (this.transactionData.network === "sui") {
-                const suiAddressPattern = /^0x[a-fA-F0-9]{64}$/;
-                if (!suiAddressPattern.test(toAddress)) {
-                    return;
-                }
-            } else {
-                // Validación existente para otras redes
-                if (
-                    !this._getAddressPattern().test(toAddress) ||
-                    ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress))
-                ) {
-                    return;
-                }
-            }
+        const toAddress = this.form.get("toAddress")?.value;
 
-            let address = "";
-
-            if (this.transactionData.network === "sui") {
-                address = toAddress;
-            } else if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
-                address = this.foundAddress.ethAddress;
-            } else if (this.transactionData.isSolToken) {
-                address = this.foundAddress.solanaAddress;
-            } else if (this.transactionData.isBtcToken) {
-                address = this.foundAddress.btcAddress;
-            }
-
-            this.transactionData.amount = this.form.get("amount")?.value;
-            this.transactionData.receiver.address = address;
-            this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName;
-
-            await this._transactionService.setCurrentTransactionData(this.transactionData);
-
-            this._router.navigate(["/send/confirmation"]);
+        // Double check the address is valid before proceeding
+        if (
+            !this._getAddressPattern().test(toAddress) ||
+            ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(toAddress))
+        ) {
+            return;
         }
+
+        let address = "";
+
+        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
+            address = this.foundAddress.ethAddress;
+        } else if (this.transactionData.isSolToken) {
+            address = this.foundAddress.solanaAddress;
+        } else if (this.transactionData.isBtcToken) {
+            address = this.foundAddress.btcAddress;
+        }
+
+        this.transactionData.amount = this.form.get("amount")?.value;
+        this.transactionData.receiver.address = address;
+        this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName;
+
+        await this._transactionService.setCurrentTransactionData(this.transactionData);
+
+        this._router.navigate(["/send/confirmation"]);
     }
 
     get filteredAddresses(): AddressBook[] {

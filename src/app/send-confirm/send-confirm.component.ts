@@ -17,6 +17,7 @@ import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Subject, takeUntil } from "rxjs";
+import { SuiService } from "app/services/sui.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -55,7 +56,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _suiService: SuiService
     ) {
         this.loading = true;
 
@@ -217,7 +219,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         if (!this._mnemonics) {
             if (!this.form.get("password")?.value) {
                 this.openErrorSnackBar("errors.empty_password");
-
                 return;
             }
 
@@ -225,7 +226,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             if (!this._mnemonics) {
                 this.openErrorSnackBar("errors.private_key_locked");
-
                 return;
             }
         }
@@ -234,45 +234,61 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         try {
             const cleanMnemonic = this._mnemonics.trim().toLowerCase();
-
-            if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
-                this.openErrorSnackBar("errors.invalid_private_key");
-
-                return;
-            }
-
-            const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
-            const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
-
             let receipt;
 
-            const isAvaxNetwork = this.transactionData.network === "avalanche";
-            const isERC20Token = this.transactionData.tokenType === "ERC-20" && this.transactionData.sender.address;
+            if (this.transactionData.network === "sui") {
+                try {
+                    const keypair = await this._suiService.importWalletFromMnemonic(cleanMnemonic);
+                    const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-            if (isERC20Token) {
-                const tokenAddress = this.transactionData.sender.address.split("?")[0];
+                    const txHash = await this._suiService.transferSui(keypair, this.transactionData.receiver.address, normalizedAmount);
 
-                receipt = await this._ethService.sendERC20Transaction(
-                    normalizedAmount,
-                    wallet.privateKey,
-                    this.transactionData.sender.address,
-                    tokenAddress,
-                    this.transactionData.network
-                );
+                    receipt = { transactionHash: txHash };
+                } catch (error) {
+                    console.error("SUI transaction error:", error);
+                    throw error;
+                }
             } else {
-                receipt = await this._ethService.sendTransaction(
-                    normalizedAmount,
-                    wallet.privateKey,
-                    this.transactionData.sender.address,
-                    this.transactionData.network
-                );
+                if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
+                    this.openErrorSnackBar("errors.invalid_private_key");
+                    return;
+                }
+
+                const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+                const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
+
+                const isAvaxNetwork = this.transactionData.network === "avalanche";
+                const isERC20Token = this.transactionData.tokenType === "ERC-20" && this.transactionData.sender.address;
+
+                if (isERC20Token) {
+                    const tokenAddress = this.transactionData.sender.address.split("?")[0];
+                    receipt = await this._ethService.sendERC20Transaction(
+                        normalizedAmount,
+                        wallet.privateKey,
+                        this.transactionData.sender.address,
+                        tokenAddress,
+                        this.transactionData.network
+                    );
+                } else {
+                    receipt = await this._ethService.sendTransaction(
+                        normalizedAmount,
+                        wallet.privateKey,
+                        this.transactionData.receiver.address,
+                        this.transactionData.network
+                    );
+                }
             }
 
             this._transactionService.addToRecentAddresses({
                 address: this.transactionData.receiver.address,
                 zelfName: this.transactionData.receiver.zelfName,
                 network: this.transactionData.network,
-                tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
+                tokenType:
+                    this.transactionData.network === "sui"
+                        ? "SUI"
+                        : this.transactionData.network === "avalanche"
+                        ? "AVAX"
+                        : this.transactionData.tokenType,
             });
 
             this.sending = false;
@@ -288,11 +304,15 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 network: this.transactionData.network,
                 status: "pending",
                 to: this.transactionData.receiver.address,
-                tokenType: isAvaxNetwork ? "AVAX" : this.transactionData.tokenType,
+                tokenType:
+                    this.transactionData.network === "sui"
+                        ? "SUI"
+                        : this.transactionData.network === "avalanche"
+                        ? "AVAX"
+                        : this.transactionData.tokenType,
             };
 
             this._walletService.addTransactionToPending(pendingTransactionData);
-
             await this._transactionService.removeTransactionData();
 
             if (receipt.transactionHash) {
@@ -301,8 +321,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._router.navigate(["/send"]);
             }
         } catch (error: any) {
+            console.error("Transaction error:", error);
             this.openErrorSnackBar("errors.something_went_wrong");
-
             this.sending = false;
         } finally {
             this._mnemonics = "";

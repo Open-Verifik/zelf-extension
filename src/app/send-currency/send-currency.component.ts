@@ -23,7 +23,7 @@ export class SendCurrencyComponent implements OnInit {
         BTC: false,
         ETH: true,
         SOL: false,
-        SUI: false,
+        SUI: true,
     };
 
     loading: boolean = true;
@@ -60,24 +60,60 @@ export class SendCurrencyComponent implements OnInit {
                 this._getCurrencies("Solana", response.solana.data.tokenHoldings.tokens);
             }
 
-            if (response?.sui?.data?.tokenHoldings?.tokens && this.CAN_SEND.SUI) {
-                this._getCurrencies("Sui", response.sui.data.tokenHoldings.tokens);
+            if (response?.sui?.data && this.CAN_SEND.SUI) {
+                const balance = parseFloat(response.sui.data.balance || response.sui.data._balance || "0");
+                const fiatBalance = parseFloat(response.sui.data.fiatBalance || response.sui.data._fiatBalance || "0");
+                const price = parseFloat(response.sui.data.account?.price || "0");
+
+                const suiToken = {
+                    symbol: "SUI",
+                    name: "Sui",
+                    balance: balance.toString(),
+                    amount: balance.toString(),
+                    fiatBalance: fiatBalance,
+                    price: price,
+                    tokenType: "SUI",
+                    network: "Sui",
+                    image: "assets/images/sui.png",
+                };
+
+                this._getCurrencies("Sui", [suiToken]);
+
+                if (response.sui.data.tokenHoldings?.tokens) {
+                    const otherTokens = response.sui.data.tokenHoldings.tokens.filter((token: any) => token.symbol !== "SUI");
+                    if (otherTokens.length > 0) {
+                        this._getCurrencies("Sui", otherTokens);
+                    }
+                }
             }
 
             if (response?.avalanche?.data && this.CAN_SEND.AVAX) {
                 const avalancheTokens = [];
 
                 if ("balance" in response.avalanche.data) {
+                    console.log("AVAX data received:", response.avalanche.data);
+
+                    const price =
+                        response.avalanche.data.account?.price ||
+                        response.avalanche.data.price ||
+                        response.avalanche.data.tokenHoldings?.tokens?.[0]?.price ||
+                        "0";
+
+                    console.log("AVAX price found:", price);
+
                     const avaxToken = {
                         amount: response.avalanche.data.balance,
+                        balance: response.avalanche.data.balance,
                         fiatBalance: response.avalanche.data.fiatBalance,
-                        image: response.avalanche.data.image,
+                        image: response.avalanche.data.image || "assets/images/avax.png",
                         name: "Avalanche",
-                        price: response.avalanche.data.price,
+                        price: parseFloat(price),
                         symbol: "AVAX",
                         tokenType: "AVAX",
+                        network: "Avalanche",
                     };
 
+                    console.log("Created AVAX token:", avaxToken);
                     avalancheTokens.push(avaxToken);
                 }
 
@@ -113,12 +149,14 @@ export class SendCurrencyComponent implements OnInit {
             }
 
             if (network === "Sui" && this.CAN_SEND.SUI) {
-                if (token.tokenType === "Sui") {
+                if (token.tokenType === "SUI") {
+                    console.log("Adding SUI token:", token);
                     this.tokens.push({ ...token, network });
                 }
             }
         }
 
+        console.log("Current tokens array:", this.tokens);
         this._changeDetectionRef.detectChanges();
     }
 
@@ -135,6 +173,8 @@ export class SendCurrencyComponent implements OnInit {
             address = this.wallet?.solanaAddress || "";
         } else if (token.tokenType === "BTC") {
             address = this.wallet?.btcAddress || "";
+        } else if (token.tokenType === "SUI") {
+            address = this.wallet?.suiAddress || "";
         }
 
         if (!address) return;

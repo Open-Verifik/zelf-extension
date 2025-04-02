@@ -247,4 +247,22 @@ export class ChromeService {
             }
         });
     }
+
+    async clearLocalStorage(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                browser.storage.local.clear().then(resolve).catch(reject);
+
+                return;
+            }
+
+            try {
+                localStorage.clear();
+
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 }

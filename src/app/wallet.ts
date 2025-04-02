@@ -628,4 +628,8 @@ export class TransactionData implements TransactionData {
     get isBtcToken(): boolean {
         return this.tokenType === "BTC";
     }
+
+    get isSuiToken(): boolean {
+        return this.tokenType === "SUI";
+    }
 }

@@ -77,7 +77,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _createAdditionalAddresses(response: any): Promise<void> {
-        if (response.data.suiAddress) return;
+        // if (response.data.suiAddress) return;
 
         const mnemonic = await this._vaultService.decryptMessage(
             response.data.pgp.encryptedMessage,
@@ -86,6 +86,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         );
 
         response.data.suiAddress = await this._createSuiWallet(mnemonic);
+        console.log(` SecurityBiometricsComponent ~ _createAdditionalAddresses ~ response.data.suiAddress:`, response.data.suiAddress);
     }
 
     async _createWallet(payload: any): Promise<void> {
@@ -114,30 +115,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _createSuiWallet(mnemonic: string): Promise<string> {
-        try {
-            console.log("Creating SUI wallet from mnemonic...");
-
-            // Use the service to import the wallet
-            const keypair = await this._suiService.importWalletFromMnemonic(mnemonic);
-
-            // Get the address from the keypair
-            const address = this._suiService.getAddressFromKeypair(keypair);
-            console.log("Generated SUI address:", address);
-
-            // Verify the address is valid by making a test balance request
-            try {
-                await this._suiService.getSuiBalance(address);
-                console.log("SUI address validation successful");
-            } catch (error) {
-                console.warn("SUI address validation warning:", error);
-                // Continue even if validation fails - address might still be valid
-            }
-
-            return address;
-        } catch (error) {
-            console.error("Error creating SUI wallet:", error);
-            throw new Error(`Failed to create SUI wallet: ${(error as Error).message}`);
-        }
+        return await this._suiService.createWalletFromMnemonic(mnemonic);
     }
 
     private async _decryptWallet(payload: any): Promise<void> {

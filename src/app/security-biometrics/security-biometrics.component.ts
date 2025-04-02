@@ -77,7 +77,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _createAdditionalAddresses(response: any): Promise<void> {
-        // if (response.data.suiAddress) return;
+        if (response.data.suiAddress) return;
 
         const mnemonic = await this._vaultService.decryptMessage(
             response.data.pgp.encryptedMessage,

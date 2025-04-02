@@ -178,6 +178,60 @@ export class EthTransactionModel implements EthTransaction {
     }
 }
 
+export type AvaxTransaction = {
+    age: string;
+    amount: string;
+    assetPrice: string;
+    date: string;
+    from: string;
+    gasPrice: string;
+    hash: string;
+    status: string;
+    to: string;
+    txnFee: string;
+};
+
+export class AvaxTransactionModel implements AvaxTransaction {
+    age: string;
+    amount: string;
+    assetPrice: string;
+    date: string;
+    from: string;
+    gasPrice: string;
+    hash: string;
+    status: string;
+    to: string;
+    txnFee: string;
+
+    constructor(data: AvaxTransaction) {
+        this.age = data.age || "";
+        this.amount = data.amount || "";
+        this.assetPrice = data.assetPrice || "";
+        this.date = data.date || "";
+        this.from = data.from || "";
+        this.gasPrice = data.gasPrice || "";
+        this.hash = data.hash || "";
+        this.status = data.status || "";
+        this.to = data.to || "";
+        this.txnFee = data.txnFee || "";
+    }
+
+    toTransaction(): TransactionModel {
+        return new TransactionModel({
+            age: this.age,
+            amount: Number(this.amount),
+            asset: "AVAX",
+            date: new Date(this.date),
+            fiatAmount: Number(this.assetPrice),
+            from: this.from,
+            hash: this.hash,
+            status: this.status.toLowerCase(),
+            to: this.to,
+            tokenType: "ERC-20",
+        });
+    }
+}
+
 export interface IPFS {
     GroupId: string | null;
     ID: string;

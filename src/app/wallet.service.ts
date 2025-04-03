@@ -632,7 +632,6 @@ export class WalletService {
     }
 
     public isValidSuiAddress(address: string): boolean {
-        console.log(` WalletService ~ isValidSuiAddress ~ this._SUI_REGEX.test(address):`, this._SUI_REGEX.test(address));
         if (!this._SUI_REGEX.test(address)) return false;
 
         if (address.length !== 66) return false;
@@ -663,7 +662,6 @@ export class WalletService {
 
             const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/validate-sui-address?address=${address}`);
 
-            console.log(` WalletService ~ validateSUIAddressOnChain ~ response:`, response);
             return response?.isValid || false;
         } catch (error) {
             console.error("Error validating SUI address on chain:", error);

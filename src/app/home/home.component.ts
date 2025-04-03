@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
@@ -9,7 +9,6 @@ import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
 import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { Subject, takeUntil } from "rxjs";
 import { SuiService } from "app/services/sui.service";
 
 @Component({
@@ -151,14 +150,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const details = await this._ethService.getWalletDetails(this.wallet.ethAddress);
 
-        if (details?.data?.tokenHoldings?.tokens) {
-            const newTokens = details.data.tokenHoldings.tokens.filter(
-                (token: any) => !this.tokens.some((t) => t.symbol === token.symbol && t.network === "Ethereum")
-            );
-            if (newTokens.length > 0) {
-                this._processTokens("Ethereum", newTokens);
-            }
-        }
+        if (!details?.data?.tokenHoldings?.tokens) return;
+
+        const newTokens = details.data.tokenHoldings.tokens.filter(
+            (token: any) => !this.tokens.some((t) => t.symbol === token.symbol && t.network === "Ethereum")
+        );
+
+        if (!newTokens.length) return;
+
+        this._processTokens("Ethereum", newTokens);
     }
 
     private async _getSolanaDetails(): Promise<any> {
@@ -166,9 +166,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
 
-        if (details?.data?.tokenHoldings?.tokens) {
-            this._processTokens("Solana", details.data.tokenHoldings.tokens);
-        }
+        if (!details?.data?.tokenHoldings?.tokens) return;
+
+        this._processTokens("Solana", details.data.tokenHoldings.tokens);
     }
 
     private async _getSuiDetails(): Promise<any> {
@@ -176,9 +176,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const details = await this._suiService.getWalletDetails(this.wallet.suiAddress);
 
-        if (details?.data?.tokenHoldings?.tokens) {
-            this._processTokens("Sui", details.data.tokenHoldings.tokens);
-        }
+        if (!details?.data?.tokenHoldings?.tokens) return;
+
+        this._processTokens("Sui", details.data.tokenHoldings.tokens);
     }
 
     private async _getAvalancheDetails(): Promise<any> {

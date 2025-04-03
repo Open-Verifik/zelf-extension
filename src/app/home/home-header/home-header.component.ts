@@ -31,20 +31,17 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
             <div class="home-header__right home-header__container">
                 <ng-container *ngIf="!(isExtension && (!isSidePanel || isPopout))">&nbsp;</ng-container>
 
-                <button class="home-header__button" id="open-sidebar" (click)="openSidePanel()" *ngIf="isExtension && (!isSidePanel || isPopout)">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="feather feather-sidebar"
-                    >
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <line x1="9" y1="3" x2="9" y2="21" />
+                <button
+                    (click)="openSidePanel()"
+                    *ngIf="isExtension && (!isSidePanel || isPopout)"
+                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white"
+                    id="open-sidebar"
+                    mat-flat-button
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                        <path
+                            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z"
+                        />
                     </svg>
                 </button>
             </div>
@@ -75,7 +72,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
             </button>
         </mat-menu>
     `,
-    styleUrls: ["../home.component.scss", "../../main.scss"],
+    styleUrls: ["./home-header.component.scss", "../../main.scss"],
 })
 export class HomeHeaderComponent implements OnDestroy {
     @Input() shareables: any;

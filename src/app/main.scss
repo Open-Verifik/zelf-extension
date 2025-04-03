@@ -809,11 +809,6 @@ h3 {
     font-size: 16px;
 }
 
-.main-button:disabled {
-    background-color: #e5ebfd !important;
-    color: #4e6599 !important;
-}
-
 .secondary-button {
     background-color: white !important;
     color: black !important;
@@ -1811,6 +1806,10 @@ h3 {
 
 /* Small screen devices (600px and above) */
 @media only screen and (min-width: $minSmall) {
+}
+
+/* Medium screen devices (768px and above) */
+@media only screen and (min-width: $medium) {
     .zelf-logo {
         display: none;
 
@@ -1818,10 +1817,6 @@ h3 {
             display: inline;
         }
     }
-}
-
-/* Medium screen devices (768px and above) */
-@media only screen and (min-width: $medium) {
 }
 
 /* Big screen devices (889px and above) */

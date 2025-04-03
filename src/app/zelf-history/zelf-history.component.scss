@@ -10,6 +10,11 @@
     min-height: 600px;
     overflow-y: auto;
     width: 100%;
+
+    @media screen and (max-width: 768px) {
+        min-height: 600px;
+        max-height: initial;
+    }
 }
 
 * {

@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { LoginGuard } from "./guards/login.guard";
-import { HomeComponent } from "./home/home.component";
 
 import { ExternalRedirectGuard } from "./guards/external-redirect.guard";
 import { PasswordGuard } from "./guards/password.guard";
@@ -13,7 +12,17 @@ import { OnboardingGuard } from "./guards/onboarding.guard";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
-    { path: "home", component: HomeComponent, canActivate: [LoginGuard] },
+    {
+        path: "",
+        canActivate: [LoginGuard],
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        children: [
+            {
+                path: "home",
+                loadComponent: () => import("./home/home.component").then((m) => m.HomeComponent),
+            },
+        ],
+    },
     {
         path: "welcome",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),

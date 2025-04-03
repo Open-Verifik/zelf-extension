@@ -1,139 +1,135 @@
-<div class="h-main w-full h-full" fxLayout="column" fxLayoutAlign="start center">
-    <div class="home-main">
-        <home-header [shareables]="shareables"></home-header>
+<div class="zelf-card home" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
+    <home-header [shareables]="shareables"></home-header>
 
-        <div class="app-content">
-            <home-wallets-connected *ngIf="shareables.view === 'accountsPage'" [shareables]="shareables"></home-wallets-connected>
+    <div class="home__app-content">
+        <div class="home__container" *ngIf="shareables.view === 'home' || shareables.view === 'activity'">
+            <div class="home__actions-container">
+                <div class="home-balance">
+                    <div class="ripple" *ngIf="!selectedAsset"></div>
 
-            <home-active-wallet *ngIf="shareables.view === 'activeAccountPage'"></home-active-wallet>
+                    <div class="home-balance__info" *ngIf="selectedAsset">
+                        <h3 class="home-balance__amount">{{ selectedAsset.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</h3>
 
-            <home-network-picker [shareables]="shareables" *ngIf="shareables.view === 'networkPickerPage'"></home-network-picker>
+                        <h4 class="stats">
+                            <span
+                                *ngIf="false"
+                                class="stats__percentage"
+                                [ngClass]="{
+                                    'stats__percentage--positive': true,
+                                    'stats__percentage--negative': false
+                                }"
+                            >
+                                <span class="stats__arrow">
+                                    <ng-container *ngIf="true">
+                                        <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.5 0.530273L0.5 4.53027L1.44 5.47027L4.5 2.41694L7.56 5.47027L8.5 4.53027L4.5 0.530273Z" />
+                                        </svg>
+                                    </ng-container>
 
-            <div *ngIf="shareables.view === 'home' || shareables.view === 'activity'" class="w-full home-container">
-                <div class="home-actions-container">
-                    <div class="home-balance">
-                        <div class="ripple" *ngIf="!selectedAsset"></div>
-
-                        <div class="home-balance-info" *ngIf="selectedAsset">
-                            <h3 class="home-balance-amount">{{ selectedAsset.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</h3>
-
-                            <h4 class="stats">
-                                <span
-                                    *ngIf="false"
-                                    class="stats__percentage"
-                                    [ngClass]="{
-                                        'stats__percentage--positive': true,
-                                        'stats__percentage--negative': false
-                                    }"
-                                >
-                                    <span class="stats__arrow">
-                                        <ng-container *ngIf="true">
-                                            <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M4.5 0.530273L0.5 4.53027L1.44 5.47027L4.5 2.41694L7.56 5.47027L8.5 4.53027L4.5 0.530273Z" />
-                                            </svg>
-                                        </ng-container>
-
-                                        <ng-container *ngIf="false">
-                                            <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M4.5 5.46973L8.5 1.46973L7.56 0.529726L4.5 3.58306L1.44 0.529726L0.5 1.46973L4.5 5.46973Z" />
-                                            </svg>
-                                        </ng-container>
-                                    </span>
-                                    {{ 10 }}%
+                                    <ng-container *ngIf="false">
+                                        <svg width="9" height="6" viewBox="0 0 9 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4.5 5.46973L8.5 1.46973L7.56 0.529726L4.5 3.58306L1.44 0.529726L0.5 1.46973L4.5 5.46973Z" />
+                                        </svg>
+                                    </ng-container>
                                 </span>
+                                {{ 10 }}%
+                            </span>
 
-                                <span class="home-balance-price__text"
-                                    >{{ selectedAsset.price | currency : "USD" : "symbol" : "1.2-9" }} / 24hr
-                                </span>
-                            </h4>
+                            <span>{{ selectedAsset.price | currency : "USD" : "symbol" : "1.2-9" }} / 24hr </span>
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="home__actions" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="home-action">
+                        <div class="home-action__icon" [routerLink]="['/receive']">
+                            <div class="home-action__icon-box">
+                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M16.6755 0.834414C16.2205 0.379414 15.4855 0.379414 15.0305 0.834414L2.32552 13.5277V7.00608C2.32552 6.36441 1.80052 5.83941 1.15885 5.83941C0.517187 5.83941 -0.0078125 6.36441 -0.0078125 7.00608V16.3394C-0.0078125 16.9811 0.517187 17.5061 1.15885 17.5061H10.4922C11.1339 17.5061 11.6589 16.9811 11.6589 16.3394C11.6589 15.6977 11.1339 15.1727 10.4922 15.1727H3.97052L16.6755 2.46775C17.1189 2.02441 17.1189 1.27775 16.6755 0.834414Z"
+                                    />
+                                </svg>
+                            </div>
                         </div>
+
+                        <div class="home-action__text">{{ t("home.receive_transaction_button") }}</div>
                     </div>
 
-                    <div class="home-actions" fxLayout="row" fxLayoutAlign="center center">
-                        <div class="home-action">
-                            <div class="home-action-icon" [routerLink]="['/receive']">
-                                <div class="home-action-icon-box">
-                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.6755 0.834414C16.2205 0.379414 15.4855 0.379414 15.0305 0.834414L2.32552 13.5277V7.00608C2.32552 6.36441 1.80052 5.83941 1.15885 5.83941C0.517187 5.83941 -0.0078125 6.36441 -0.0078125 7.00608V16.3394C-0.0078125 16.9811 0.517187 17.5061 1.15885 17.5061H10.4922C11.1339 17.5061 11.6589 16.9811 11.6589 16.3394C11.6589 15.6977 11.1339 15.1727 10.4922 15.1727H3.97052L16.6755 2.46775C17.1189 2.02441 17.1189 1.27775 16.6755 0.834414Z"
-                                        />
-                                    </svg>
-                                </div>
+                    <div class="home-action">
+                        <div class="home-action__icon" [routerLink]="['/send']">
+                            <div class="home-action__icon-box">
+                                <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6.34571 1.65397C6.34571 2.3073 6.87071 2.82064 7.51238 2.82064H14.034L1.32904 15.5256C0.874043 15.9806 0.874043 16.7156 1.32904 17.1706C1.78404 17.6256 2.51904 17.6256 2.97404 17.1706L15.679 4.46564V10.9873C15.679 11.629 16.204 12.154 16.8457 12.154C17.4874 12.154 18.0124 11.629 18.0124 10.9873V1.65397C18.0124 1.0123 17.4874 0.487305 16.8457 0.487305H7.51238C6.87071 0.487305 6.34571 1.0123 6.34571 1.65397Z"
+                                    />
+                                </svg>
                             </div>
-
-                            <div class="home-action-text">{{ "home.receive_transaction_button" | transloco }}</div>
                         </div>
 
-                        <div class="home-action">
-                            <div class="home-action-icon" [routerLink]="['/send']">
-                                <div class="home-action-icon-box">
-                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M6.34571 1.65397C6.34571 2.3073 6.87071 2.82064 7.51238 2.82064H14.034L1.32904 15.5256C0.874043 15.9806 0.874043 16.7156 1.32904 17.1706C1.78404 17.6256 2.51904 17.6256 2.97404 17.1706L15.679 4.46564V10.9873C15.679 11.629 16.204 12.154 16.8457 12.154C17.4874 12.154 18.0124 11.629 18.0124 10.9873V1.65397C18.0124 1.0123 17.4874 0.487305 16.8457 0.487305H7.51238C6.87071 0.487305 6.34571 1.0123 6.34571 1.65397Z"
-                                        />
-                                    </svg>
-                                </div>
-                            </div>
+                        <div class="home-action__text cursor-pointer">{{ t("home.send_transaction_button") }}</div>
+                    </div>
 
-                            <div class="home-action-text cursor-pointer">{{ "home.send_transaction_button" | transloco }}</div>
+                    <div class="home-action" *ngIf="scanImplemented">
+                        <div class="home-action__icon">
+                            <div class="home-action__icon-box">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.58325 5.58301V9.08301H6.08325V5.58301H9.58325ZM11.3333 3.83301H4.33325V10.833H11.3333V3.83301ZM9.58325 14.9163V18.4163H6.08325V14.9163H9.58325ZM11.3333 13.1663H4.33325V20.1663H11.3333V13.1663ZM18.9166 5.58301V9.08301H15.4166V5.58301H18.9166ZM20.6666 3.83301H13.6666V10.833H20.6666V3.83301ZM13.6666 13.1663H15.4166V14.9163H13.6666V13.1663ZM15.4166 14.9163H17.1666V16.6663H15.4166V14.9163ZM17.1666 13.1663H18.9166V14.9163H17.1666V13.1663ZM13.6666 16.6663H15.4166V18.4163H13.6666V16.6663ZM15.4166 18.4163H17.1666V20.1663H15.4166V18.4163ZM17.1666 16.6663H18.9166V18.4163H17.1666V16.6663ZM18.9166 14.9163H20.6666V16.6663H18.9166V14.9163ZM18.9166 18.4163H20.6666V20.1663H18.9166V18.4163ZM22.9999 6.16634C22.3583 6.16634 21.8333 5.64134 21.8333 4.99967V2.66634H19.4999C18.8583 2.66634 18.3333 2.14134 18.3333 1.49967C18.3333 0.858008 18.8583 0.333008 19.4999 0.333008H22.9999C23.6416 0.333008 24.1666 0.858008 24.1666 1.49967V4.99967C24.1666 5.64134 23.6416 6.16634 22.9999 6.16634ZM24.1666 22.4997V18.9997C24.1666 18.358 23.6416 17.833 22.9999 17.833C22.3583 17.833 21.8333 18.358 21.8333 18.9997V21.333H19.4999C18.8583 21.333 18.3333 21.858 18.3333 22.4997C18.3333 23.1413 18.8583 23.6663 19.4999 23.6663H22.9999C23.6416 23.6663 24.1666 23.1413 24.1666 22.4997ZM1.99992 23.6663H5.49992C6.14159 23.6663 6.66659 23.1413 6.66659 22.4997C6.66659 21.858 6.14159 21.333 5.49992 21.333H3.16659V18.9997C3.16659 18.358 2.64159 17.833 1.99992 17.833C1.35825 17.833 0.833252 18.358 0.833252 18.9997V22.4997C0.833252 23.1413 1.35825 23.6663 1.99992 23.6663ZM0.833252 1.49967V4.99967C0.833252 5.64134 1.35825 6.16634 1.99992 6.16634C2.64159 6.16634 3.16659 5.64134 3.16659 4.99967V2.66634H5.49992C6.14159 2.66634 6.66659 2.14134 6.66659 1.49967C6.66659 0.858008 6.14159 0.333008 5.49992 0.333008H1.99992C1.35825 0.333008 0.833252 0.858008 0.833252 1.49967Z"
+                                    />
+                                </svg>
+                            </div>
                         </div>
 
-                        <div class="home-action" *ngIf="scanImplemented">
-                            <div class="home-action-icon">
-                                <div class="home-action-icon-box">
-                                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.58325 5.58301V9.08301H6.08325V5.58301H9.58325ZM11.3333 3.83301H4.33325V10.833H11.3333V3.83301ZM9.58325 14.9163V18.4163H6.08325V14.9163H9.58325ZM11.3333 13.1663H4.33325V20.1663H11.3333V13.1663ZM18.9166 5.58301V9.08301H15.4166V5.58301H18.9166ZM20.6666 3.83301H13.6666V10.833H20.6666V3.83301ZM13.6666 13.1663H15.4166V14.9163H13.6666V13.1663ZM15.4166 14.9163H17.1666V16.6663H15.4166V14.9163ZM17.1666 13.1663H18.9166V14.9163H17.1666V13.1663ZM13.6666 16.6663H15.4166V18.4163H13.6666V16.6663ZM15.4166 18.4163H17.1666V20.1663H15.4166V18.4163ZM17.1666 16.6663H18.9166V18.4163H17.1666V16.6663ZM18.9166 14.9163H20.6666V16.6663H18.9166V14.9163ZM18.9166 18.4163H20.6666V20.1663H18.9166V18.4163ZM22.9999 6.16634C22.3583 6.16634 21.8333 5.64134 21.8333 4.99967V2.66634H19.4999C18.8583 2.66634 18.3333 2.14134 18.3333 1.49967C18.3333 0.858008 18.8583 0.333008 19.4999 0.333008H22.9999C23.6416 0.333008 24.1666 0.858008 24.1666 1.49967V4.99967C24.1666 5.64134 23.6416 6.16634 22.9999 6.16634ZM24.1666 22.4997V18.9997C24.1666 18.358 23.6416 17.833 22.9999 17.833C22.3583 17.833 21.8333 18.358 21.8333 18.9997V21.333H19.4999C18.8583 21.333 18.3333 21.858 18.3333 22.4997C18.3333 23.1413 18.8583 23.6663 19.4999 23.6663H22.9999C23.6416 23.6663 24.1666 23.1413 24.1666 22.4997ZM1.99992 23.6663H5.49992C6.14159 23.6663 6.66659 23.1413 6.66659 22.4997C6.66659 21.858 6.14159 21.333 5.49992 21.333H3.16659V18.9997C3.16659 18.358 2.64159 17.833 1.99992 17.833C1.35825 17.833 0.833252 18.358 0.833252 18.9997V22.4997C0.833252 23.1413 1.35825 23.6663 1.99992 23.6663ZM0.833252 1.49967V4.99967C0.833252 5.64134 1.35825 6.16634 1.99992 6.16634C2.64159 6.16634 3.16659 5.64134 3.16659 4.99967V2.66634H5.49992C6.14159 2.66634 6.66659 2.14134 6.66659 1.49967C6.66659 0.858008 6.14159 0.333008 5.49992 0.333008H1.99992C1.35825 0.333008 0.833252 0.858008 0.833252 1.49967Z"
-                                        />
-                                    </svg>
-                                </div>
+                        <div class="home-action-text cursor-pointer">{{ t("home.scan_button") }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="shareables.view === 'home'">
+                <div class="home__tabs">
+                    <div class="animated-tabs">
+                        <div
+                            class="animated-tabs__switch"
+                            [ngClass]="{
+                                'animated-tabs__switch--left': shareables.selectedTab === 'assets',
+                                'animated-tabs__switch--right': shareables.selectedTab === 'nfts'
+                            }"
+                        >
+                            <div
+                                (click)="selectTab('assets')"
+                                [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'assets' }"
+                                class="animated-tab"
+                            >
+                                <span>{{ t("home.assets") }}</span>
                             </div>
 
-                            <div class="home-action-text cursor-pointer">{{ "home.scan_button" | transloco }}</div>
+                            <div
+                                (click)="selectTab('nfts')"
+                                [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'nfts' }"
+                                class="animated-tab"
+                            >
+                                <span>{{ t("home.NFTs") }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <ng-container *ngIf="shareables.view === 'home'">
-                    <div class="home-tabs">
-                        <div class="animated-tabs">
-                            <div
-                                class="animated-tabs__switch"
-                                [ngClass]="{
-                                    'animated-tabs__switch--left': shareables.selectedTab === 'assets',
-                                    'animated-tabs__switch--right': shareables.selectedTab === 'nfts'
-                                }"
-                            >
-                                <div
-                                    (click)="selectTab('assets')"
-                                    [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'assets' }"
-                                    class="animated-tab"
-                                >
-                                    <span>{{ "home.assets" | transloco }}</span>
-                                </div>
+                <div class="home__assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
+                    <token-card [data]="token" *ngFor="let token of tokens"></token-card>
+                </div>
 
-                                <div
-                                    (click)="selectTab('nfts')"
-                                    [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'nfts' }"
-                                    class="animated-tab"
-                                >
-                                    <span>{{ "home.NFTs" | transloco }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="home__assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="center center">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="150px" viewBox="0 -960 960 960" width="150px" fill="#e3e3e3">
+                        <path
+                            d="M42-120v-92q0-34 16-56.5t45-36.5q54-26 115.5-43T358-365q78 0 139.5 17T613-305q29 14 45 36.5t16 56.5v92H42Zm60-60h512v-32q0-15-8.5-24.5T585-251q-43-19-96-36.5T358-305q-78 0-131 17.5T131-251q-12 5-20.5 14.5T102-212v32Zm256-245q-66 0-108-43t-42-107h-10q-8 0-14-6t-6-14q0-8 6-14t14-6h10q0-40 20-72t52-52v39q0 6 4.5 10.5T295-685q7 0 11-4.5t4-10.5v-52q8-2 22-3.5t27-1.5q13 0 27 1.5t22 3.5v52q0 6 4 10.5t11 4.5q6 0 10.5-4.5T438-700v-39q32 20 51 52t19 72h10q8 0 14 6t6 14q0 8-6 14t-14 6h-10q0 64-42 107t-108 43Zm0-60q42 0 66-25t24-65H268q0 40 24 65t66 25Zm302 124-2-29q-7-4-14.5-9T630-409l-26 14-22-32 26-19q-2-4-2-7.5v-15q0-3.5 2-7.5l-26-19 22-32 26 14 14-10q7-5 14-9l2-29h40l2 29q7 4 14 9l14 10 26-14 22 32-26 19q2 4 2 7.5v15q0 3.5-2 7.5l26 19-22 32-26-14q-6 5-13.5 10t-14.5 9l-2 29h-40Zm20-62q16 0 27-11t11-27q0-16-11-27t-27-11q-16 0-27 11t-11 27q0 16 11 27t27 11Zm88-155-9-35q-10-4-20.5-11T721-639l-44 16-20-35 35-28q-2-5-3.5-11t-1.5-12q0-6 1.5-12t3.5-11l-35-28 20-35 44 16q7-8 17.5-15.5T759-805l9-35h38l9 35q10 3 20.5 10.5T853-779l44-16 20 35-35 28q2 5 3.5 11t1.5 12q0 6-1.5 12t-3.5 11l35 28-20 35-44-16q-7 8-17.5 15T815-613l-9 35h-38Zm19-73q25 0 41.5-16.5T845-709q0-25-16.5-41.5T787-767q-25 0-41.5 16.5T729-709q0 25 16.5 41.5T787-651ZM358-180Z"
+                        />
+                    </svg>
 
-                    <div class="assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
-                        <token-card class="w-full" [data]="token" *ngFor="let token of tokens"></token-card>
-                    </div>
-
-                    <div class="assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start start">
-                        <nft-card class="w-full" [data]="nft" *ngFor="let nft of NFTs"></nft-card>
-                    </div>
-                </ng-container>
-            </div>
+                    <p class="home__no-results-text">{{ t("common.come_back_later") }}</p>
+                </div>
+            </ng-container>
         </div>
-
-        <footer [shareables]="shareables"></footer>
     </div>
+
+    <footer [shareables]="shareables"></footer>
 </div>

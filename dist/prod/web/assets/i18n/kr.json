@@ -1,5 +1,7 @@
 {
     "hello": "안녕하세요",
+    "logout_title": "로그아웃 전에:",
+    "logout_message": "로그아웃하면 이 장치/브라우저에서 모든 지갑이 제거됩니다. 다시 액세스하려면 각 지갑에 다시 로그인해야 합니다. 계속하시겠습니까?",
     "onboarding": {
         "accept_terms_1": "저는",
         "accept_terms_2": "이용 약관에 동의합니다",

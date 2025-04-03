@@ -1,5 +1,7 @@
 {
     "hello": "Kamusta",
+    "logout_title": "Bago mag-logout:",
+    "logout_message": "Ang pag-logout ay mag-aalis ng lahat ng iyong mga wallet mula sa device/browser na ito. Kailangan mong mag-login muli sa bawat wallet upang maibalik ang access sa mga ito. Sigurado ka bang nais mong magpatuloy?",
     "onboarding": {
         "accept_terms_1": "Tinatanggap ko ang",
         "accept_terms_2": "mga tuntunin at kundisyon",

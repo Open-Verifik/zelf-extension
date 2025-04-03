@@ -87,7 +87,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.selectedAsset = new Asset({
                     asset: response.ethereum.data.account.asset,
                     balance: response.ethereum.data.balance,
-                    fiatBalance: Number(response.ethereum.data.fiatBalance),
+                    fiatBalance: 0,
                     price: response.ethereum.data.account.price,
                     network: "Ethereum",
                 });
@@ -137,6 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
             if (existingTokenIndex === -1) {
                 this.tokens.push(formattedToken);
+                this.selectedAsset.fiatBalance += formattedToken.fiatBalance || 0;
             } else {
                 this.tokens[existingTokenIndex] = formattedToken;
             }

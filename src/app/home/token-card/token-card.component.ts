@@ -38,7 +38,7 @@ import { Component, Input, OnInit } from "@angular/core";
                             </ng-container>
                         </span> -->
 
-                        <span class="stats__text stats__text--colored">{{ data.price | currency : "USD" : "symbol" : "1.2-9" }}</span>
+                        <span class="stats__text stats__text--colored">{{ data.amount }}</span>
                     </div>
                 </h4>
             </div>

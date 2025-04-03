@@ -111,14 +111,17 @@ const routes: Routes = [
             },
         ],
     },
-    // {
-    //     path: "create-wallet",
-    //     loadComponent: () => import("./create-wallet/create-wallet.component").then((m) => m.CreateWalletComponent),
-    // },
-    // {
-    //     path: "import-wallet",
-    //     loadComponent: () => import("./import-wallet/import-wallet.component").then((m) => m.ImportWalletComponent),
-    // },
+    {
+        path: "settings",
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        canActivate: [LoginGuard],
+        children: [
+            {
+                path: "",
+                loadComponent: () => import("./zelf-settings/zelf-settings.component").then((m) => m.ZelfSettingsComponent),
+            },
+        ],
+    },
     {
         path: "manage-domains",
         loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),

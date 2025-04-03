@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "Hey! Don't lose your Zelf Name, renew or reserve today, before someone buys it.",
-        "dont_remember_username": "Don't remember your username?",
+        "dont_remember_zelfname": "Don't remember your ZelfName?",
         "find_zelf_name_subtitle": "Find an existing Zelf Name by entering its public address below:",
         "find_zelf_name_title": "Find Zelf Name",
         "grace_period_until": "Grace period until",
@@ -88,6 +88,10 @@
         "title": "ZelfProof Security Layers",
         "unhide_words": "Unhide words",
         "zelf_name_requires_a_password": "Your Zelf Name requires a password"
+    },
+    "receive": {
+        "your_token_address": "Your {{ name }} address",
+        "information": "This address can only be used to receive compatible tokens."
     },
     "common": {
         "12_word_phrase": "12-word phrase",
@@ -130,8 +134,8 @@
         "hide_words": "Hide words",
         "import_a_wallet": "Import a wallet",
         "import": "Import",
-        "invest": "Invest",
         "is_required": "is required",
+        "learn_more": "Learn more",
         "load_more": "Load more",
         "login": "Login",
         "logout": "Logout",
@@ -150,6 +154,7 @@
         "privacy": "Privacy",
         "purchase_now": "Purchase now",
         "purchase": "Purchase",
+        "receive": "Receive",
         "recommended": "Recommended",
         "registered": "Registered",
         "renew_domain": "Renew domain",

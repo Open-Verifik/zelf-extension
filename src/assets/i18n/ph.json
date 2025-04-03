@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "Hoy! Huwag mawala ang iyong Zelf Name, mag-renew o magreserba ngayon, bago ito bilhin ng iba.",
-        "dont_remember_username": "Hindi maalala ang iyong username?",
+        "dont_remember_zelfname": "Nakalimutan ang iyong ZelfName?",
         "find_zelf_name_subtitle": "Hanapin ang umiiral na Zelf Name sa pamamagitan ng pagpasok ng pampublikong address nito sa ibaba:",
         "find_zelf_name_title": "Hanapin ang Zelf Name",
         "grace_period_until": "Panahon ng palugit hanggang",
@@ -88,6 +88,10 @@
         "title": "ZelfProof Security Layers",
         "unhide_words": "Ipakita ang mga salita",
         "zelf_name_requires_a_password": "Ang iyong Zelf Name ay nangangailangan ng password"
+    },
+    "receive": {
+        "your_token_address": "Ang iyong {{ name }} address",
+        "information": "Ang address na ito ay maaari lamang gamitin upang tumanggap ng mga compatible na token."
     },
     "common": {
         "12_word_phrase": "12-salitang phrase",
@@ -130,8 +134,8 @@
         "hide_words": "Itago ang mga salita",
         "import_a_wallet": "Mag-import ng wallet",
         "import": "I-import",
-        "invest": "Mamuhunan",
         "is_required": "ay kinakailangan",
+        "learn_more": "Alamin pa",
         "load_more": "Mag-load pa",
         "login": "Mag-login",
         "logout": "Mag-logout",
@@ -150,6 +154,7 @@
         "privacy": "Privacy",
         "purchase_now": "Bumili ngayon",
         "purchase": "Bumili",
+        "receive": "Tumanggap",
         "recommended": "Inirerekomenda",
         "registered": "Nakarehistro",
         "renew_domain": "I-renew ang domain",

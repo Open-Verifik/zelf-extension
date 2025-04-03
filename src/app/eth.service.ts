@@ -494,13 +494,6 @@ export class EthereumService {
             const avaxBalance = Number(avalancheWeb3.utils.fromWei(rawBalance, "ether"));
             const fiatBalance = avaxBalance * avaxPrice;
 
-            console.log("AVAX Details:", {
-                rawBalance,
-                avaxBalance,
-                avaxPrice,
-                fiatBalance,
-            });
-
             const details = {
                 data: {
                     tokenHoldings: {

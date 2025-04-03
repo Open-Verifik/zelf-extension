@@ -221,18 +221,14 @@ export class SendTransactionComponent implements OnDestroy {
 
     private async _checkSuiAddress(text: string): Promise<void> {
         const isValidSuiFormat = this._walletService.isValidSuiAddress(text);
-        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ isValidSuiFormat:`, isValidSuiFormat);
 
         if (this.foundAddress && isValidSuiFormat) return;
-        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ this.foundAddress:`, this.foundAddress);
 
         await this._queryZNS("suiAddress", text);
-        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ this.foundAddress:`, this.foundAddress);
 
         if (this.foundAddress) return;
 
         const isValidOnChain = await this._walletService.validateSUIAddressOnChain(text);
-        console.log(` SendTransactionComponent ~ _checkSuiAddress ~ isValidOnChain:`, isValidOnChain);
 
         if (isValidOnChain) {
             this.foundAddress = new WalletModel({

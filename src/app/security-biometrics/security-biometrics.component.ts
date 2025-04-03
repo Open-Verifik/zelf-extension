@@ -108,8 +108,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 identifier: userFingerprint.hash,
             })
             .then(async (response) => {
-                console.log(` SecurityBiometricsComponent ~ .then ~ response:`, response);
-
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 

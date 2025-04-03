@@ -91,15 +91,11 @@ export class SendCurrencyComponent implements OnInit {
                 const avalancheTokens = [];
 
                 if ("balance" in response.avalanche.data) {
-                    console.log("AVAX data received:", response.avalanche.data);
-
                     const price =
                         response.avalanche.data.account?.price ||
                         response.avalanche.data.price ||
                         response.avalanche.data.tokenHoldings?.tokens?.[0]?.price ||
                         "0";
-
-                    console.log("AVAX price found:", price);
 
                     const avaxToken = {
                         amount: response.avalanche.data.balance,
@@ -113,7 +109,6 @@ export class SendCurrencyComponent implements OnInit {
                         network: "Avalanche",
                     };
 
-                    console.log("Created AVAX token:", avaxToken);
                     avalancheTokens.push(avaxToken);
                 }
 
@@ -150,13 +145,11 @@ export class SendCurrencyComponent implements OnInit {
 
             if (network === "Sui" && this.CAN_SEND.SUI) {
                 if (token.tokenType === "SUI") {
-                    console.log("Adding SUI token:", token);
                     this.tokens.push({ ...token, network });
                 }
             }
         }
 
-        console.log("Current tokens array:", this.tokens);
         this._changeDetectionRef.detectChanges();
     }
 

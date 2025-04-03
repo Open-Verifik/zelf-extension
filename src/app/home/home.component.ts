@@ -82,7 +82,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         try {
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-            console.log("Full response:", response);
 
             if (response?.ethereum?.data?.account) {
                 this.selectedAsset = new Asset({
@@ -95,17 +94,14 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
 
             if (response?.ethereum?.data?.tokenHoldings?.tokens) {
-                console.log("Processing Ethereum tokens:", response.ethereum.data.tokenHoldings.tokens);
                 this._processTokens("Ethereum", response.ethereum.data.tokenHoldings.tokens);
             }
 
             if (response?.solana?.data?.tokenHoldings?.tokens) {
-                console.log("Processing Solana tokens:", response.solana.data.tokenHoldings.tokens);
                 this._processTokens("Solana", response.solana.data.tokenHoldings.tokens);
             }
 
             if (response?.avalanche?.data?.tokenHoldings?.tokens) {
-                console.log("Processing Avalanche tokens:", response.avalanche.data.tokenHoldings.tokens);
                 this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
             }
 
@@ -123,8 +119,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private _processTokens(network: string, tokens: Array<any>): void {
-        console.log(`Processing ${network} tokens:`, tokens);
-
         for (const token of tokens) {
             if (!token.symbol && !token.name) continue;
 
@@ -148,7 +142,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             }
         }
 
-        console.log(`Final tokens array:`, this.tokens);
         this._changeDetectionRef.detectChanges();
     }
 
@@ -191,7 +184,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (!this.wallet?.ethAddress) return;
 
         try {
-            console.log("Getting AVAX details...");
             const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
 
             if (details?.data?.tokenHoldings?.tokens) {

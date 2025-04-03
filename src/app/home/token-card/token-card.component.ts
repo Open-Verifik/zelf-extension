@@ -61,9 +61,6 @@ export class TokenCardComponent implements OnInit {
     }
 
     onImageError(event: any) {
-        console.log("Image load error for token:", this.data.symbol);
-        console.log("Attempted image URL:", this.currentImage);
-        // Usar imagen genérica en caso de error
         this.currentImage = "/assets/images/token-placeholder.png";
     }
 

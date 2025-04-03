@@ -30,16 +30,12 @@ export class SuiService {
     }
 
     getWalletDetails(address?: string): Promise<any> {
-        console.log(`Fetching SUI wallet details for address: ${address}`);
-
         const url = `${this.baseUrl}/api/sui/address/${address}`;
-        console.log(`SUI API request URL: ${url}`);
 
         try {
             return this._httpWrapper
                 .sendRequest("get", url)
                 .then((response) => {
-                    console.log("SUI API response successful:", response ? "Data received" : "Empty response");
                     return response;
                 })
                 .catch((error) => {
@@ -86,7 +82,6 @@ export class SuiService {
         }
 
         this.suiClient = new SuiClient({ url: rpcUrl });
-        console.log(`SUI network changed to ${network}: ${rpcUrl}`);
     }
 
     /**
@@ -104,8 +99,6 @@ export class SuiService {
      */
     async importWalletFromMnemonic(mnemonic: string): Promise<Ed25519Keypair> {
         try {
-            console.log("Importing SUI wallet from mnemonic...");
-
             // First get the seed from mnemonic
             const seed = await mnemonicToSeed(mnemonic);
 
@@ -115,7 +108,6 @@ export class SuiService {
 
             // Get and log the address to verify
             const address = keypair.getPublicKey().toSuiAddress();
-            console.log(`Generated SUI address: ${address}`);
 
             return keypair;
         } catch (error) {
@@ -152,8 +144,6 @@ export class SuiService {
      */
     async getSuiBalance(address: string): Promise<number> {
         try {
-            console.log(`Fetching real SUI balance for address: ${address}`);
-
             // Call the SUI API to get the balance
             const { totalBalance } = await this.suiClient.getBalance({
                 owner: address,
@@ -162,8 +152,6 @@ export class SuiService {
 
             // Convert from MIST (base unit) to SUI (1 SUI = 10^9 MIST)
             const balanceInSui = Number(totalBalance) / 1_000_000_000;
-
-            console.log(`SUI balance obtained: ${balanceInSui} SUI (${totalBalance} MIST)`);
 
             return balanceInSui;
         } catch (error) {
@@ -184,8 +172,6 @@ export class SuiService {
                 return false;
             }
 
-            console.log(`Requesting funds from faucet for ${address} on ${this.networkType}`);
-
             let faucetUrl = "https://faucet.testnet.sui.io/gas";
             if (this.networkType === "devnet") {
                 faucetUrl = "https://faucet.devnet.sui.io/gas";
@@ -198,7 +184,7 @@ export class SuiService {
             });
 
             const result = await response.json();
-            console.log("Faucet response:", result);
+
             return true;
         } catch (error) {
             console.error("Error requesting funds from faucet:", error);
@@ -216,18 +202,15 @@ export class SuiService {
     async transferSui(keypair: Ed25519Keypair, recipientAddress: string, amount?: number): Promise<string> {
         try {
             const senderAddress = this.getAddressFromKeypair(keypair);
-            console.log(`Starting transfer from ${senderAddress} to ${recipientAddress}`);
 
             // Get current balance if amount is not specified
             if (!amount) {
                 const balance = await this.getSuiBalance(senderAddress);
                 // Leave a small margin for fees (0.01 SUI)
                 amount = Math.max(0, balance - 0.01);
-                console.log(`Balance obtained: ${balance} SUI, will transfer: ${amount} SUI`);
             }
 
             if (amount <= 0) {
-                console.log("Transfer cancelled: insufficient balance");
                 throw new Error("Insufficient balance to perform the transfer");
             }
 
@@ -236,23 +219,18 @@ export class SuiService {
 
             // Convert to MIST (smallest unit of SUI - 1 SUI = 10^9 MIST)
             const amountInMist = Math.floor(amount * 1_000_000_000);
-            console.log(`Amount in MIST to transfer: ${amountInMist}`);
 
             // Split the gas coin to get the specific amount
             const [coin] = tx.splitCoins(tx.gas, [tx.pure(amountInMist)]);
 
             // Transfer the split coin to the recipient
             tx.transferObjects([coin], tx.pure(recipientAddress));
-            console.log("Transaction prepared, sending...");
 
             // Sign and send the transaction
             const result = await this.suiClient.signAndExecuteTransactionBlock({
                 signer: keypair,
                 transactionBlock: tx,
             });
-
-            console.log(`Transfer completed successfully. Hash: ${result.digest}`);
-            console.log("Complete transaction details:", JSON.stringify(result, null, 2));
 
             return result.digest;
         } catch (error) {

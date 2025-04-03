@@ -16,7 +16,6 @@ import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.com
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { WalletModel } from "app/wallet";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
-import { SuiService } from "app/services/sui.service";
 
 @Component({
     imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule, WelcomeErrorComponent],
@@ -46,7 +45,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _httpWrapperService: HttpWrapperService,
         private _router: Router,
-        private _suiService: SuiService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
@@ -76,19 +74,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    private async _createAdditionalAddresses(response: any): Promise<void> {
-        if (response.data.suiAddress) return;
-
-        const mnemonic = await this._vaultService.decryptMessage(
-            response.data.pgp.encryptedMessage,
-            response.data.pgp.privateKey,
-            this._vaultService.password
-        );
-
-        response.data.suiAddress = await this._createSuiWallet(mnemonic);
-        console.log(` SecurityBiometricsComponent ~ _createAdditionalAddresses ~ response.data.suiAddress:`, response.data.suiAddress);
-    }
-
     async _createWallet(payload: any): Promise<void> {
         const mnemonicCount = (await this._zelfNameService.getMnemonicCount()) || 12;
 
@@ -99,8 +84,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 wordsCount: mnemonicCount,
             })
             .then(async (response) => {
-                await this._createAdditionalAddresses(response);
-
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -114,10 +97,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             });
     }
 
-    private async _createSuiWallet(mnemonic: string): Promise<string> {
-        return await this._suiService.createWalletFromMnemonic(mnemonic);
-    }
-
     private async _decryptWallet(payload: any): Promise<void> {
         const zelfProof = await this._zelfNameService.getZelfProof();
         const userFingerprint = this._walletService.getUserFingerprint();
@@ -129,7 +108,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 identifier: userFingerprint.hash,
             })
             .then(async (response) => {
-                await this._createAdditionalAddresses(response);
+                console.log(` SecurityBiometricsComponent ~ .then ~ response:`, response);
 
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
@@ -152,8 +131,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 type: "import",
             })
             .then(async (response) => {
-                await this._createAdditionalAddresses(response);
-
                 this._vaultService.mnemonic = "";
 
                 await this._chromeService.removeItem("flow");

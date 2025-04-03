@@ -126,12 +126,9 @@ export class SuiService {
 
     async createWalletFromMnemonic(mnemonic: string): Promise<string> {
         try {
-            const keypair = await this.importWalletFromMnemonic(mnemonic);
-            const address = this.getAddressFromKeypair(keypair);
-
-            try {
-                await this.getSuiBalance(address);
-            } catch (error) {}
+            const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
+            const publicKey = keypair.getPublicKey();
+            const address = publicKey.toSuiAddress();
 
             return address;
         } catch (error) {

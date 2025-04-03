@@ -1,5 +1,7 @@
 {
     "hello": "Bonjour",
+    "logout_title": "Avant de vous déconnecter :",
+    "logout_message": "La déconnexion supprimera tous vos portefeuilles de cet appareil/navigateur. Vous devrez vous reconnecter à chaque portefeuille pour y accéder à nouveau. Êtes-vous sûr de vouloir continuer ?",
     "onboarding": {
         "accept_terms_1": "J'accepte les",
         "accept_terms_2": "termes et conditions",

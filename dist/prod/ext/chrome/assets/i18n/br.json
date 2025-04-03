@@ -1,5 +1,7 @@
 {
     "hello": "Olá",
+    "logout_title": "Antes de sair:",
+    "logout_message": "Sair removerá todas as suas carteiras deste dispositivo/navegador. Você precisará fazer login em cada carteira novamente para recuperar o acesso a elas. Tem certeza de que deseja continuar?",
     "onboarding": {
         "accept_terms_1": "Eu aceito os",
         "accept_terms_2": "termos e condições",

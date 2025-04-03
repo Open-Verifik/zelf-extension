@@ -1,5 +1,7 @@
 {
     "hello": "Hola",
+    "logout_title": "Antes de cerrar sesión:",
+    "logout_message": "Cerrar sesión eliminará todas tus billeteras de este dispositivo/navegador. Necesitarás iniciar sesión en cada billetera nuevamente para recuperar el acceso a ellas. ¿Estás seguro de que deseas continuar?",
     "onboarding": {
         "accept_terms_1": "Acepto los",
         "accept_terms_2": "términos y condiciones",

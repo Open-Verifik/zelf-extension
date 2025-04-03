@@ -29,10 +29,6 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
             text: "common.documentation",
         },
         {
-            url: "https://www.pinksale.finance/solana/launchpad/HUCo6xdcGSpiDQxhrN8emvLwnkJAAdJbcACncMnU9MmF",
-            text: "common.invest",
-        },
-        {
             url: "https://docs.zelf.world/zelf-legal/terms-of-use",
             text: "common.terms_and_conditions",
         },

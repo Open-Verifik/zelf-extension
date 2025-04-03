@@ -125,6 +125,16 @@ export class WalletService {
         return this._SUI_TRANSACTION_REGEX;
     }
 
+    setAssetSymbol(symbol: string, imageSrc: string): void {
+        if (!symbol || !imageSrc) return;
+
+        const cachedImage = this._assetImageMap.get(symbol);
+
+        if (cachedImage) return;
+
+        this._assetImageMap.set(symbol, imageSrc);
+    }
+
     getAssetImage(symbol: string): string {
         const cachedImage = this._assetImageMap.get(symbol);
 

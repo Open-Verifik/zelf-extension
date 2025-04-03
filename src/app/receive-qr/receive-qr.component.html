@@ -1,0 +1,80 @@
+<div class="zelf-card receive-qr" *transloco="let t">
+    <div class="receive-qr__header">
+        <div class="receive-qr__col1">
+            <button
+                [routerLink]="['/receive']"
+                queryParamsHandling
+                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
+                mat-flat-button
+            >
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="receive-qr__col2">
+            <p class="receive-qr__title">{{ t("common.receive") }}</p>
+        </div>
+
+        <div class="receive-qr__col3"></div>
+    </div>
+
+    <div class="zelf-card__content receive-qr__content">
+        <div class="ripple receive-qr__loader" *ngIf="loading"></div>
+
+        <div class="zelf-chip receive-qr__chip" *ngIf="!loading">
+            <img [src]="qrCodeOptions.image" alt="icon" class="zelf-chip__image" />
+
+            {{ t("receive.your_token_address", { name }) }}
+        </div>
+
+        <div class="qr-code receive-qr__qr-code" #qrCodeContainer></div>
+
+        <ng-container *ngIf="!loading">
+            <div class="zelf-action-row receive-qr__action-row">
+                <div class="receive-qr__action-col">
+                    <p class="receive-qr__token-type">{{ symbol }} ({{ tokenType }})</p>
+                    <p class="receive-qr__address">{{ address }}</p>
+                </div>
+
+                <button
+                    (click)="copyToClipboard()"
+                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                    mat-flat-button
+                >
+                    <ng-container *ngTemplateOutlet="copyIcon"></ng-container>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="zelf-card__actions zelf-card__actions--end">
+        <div class="tip-box">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"
+                    fill="#FF5721"
+                />
+            </svg>
+
+            <span class="tip-box__text">
+                {{ t("receive.information") }} <a class="tip-box__link" target="_blank">{{ t("common.learn_more") }}</a>
+            </span>
+        </div>
+
+        <button [routerLink]="['/receive']" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+            <p>{{ t("common.close") }}</p>
+        </button>
+    </div>
+</div>
+
+<ng-template #copyIcon>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M15.5 20H5.5V7C5.5 6.45 5.05 6 4.5 6C3.95 6 3.5 6.45 3.5 7V20C3.5 21.1 4.4 22 5.5 22H15.5C16.05 22 16.5 21.55 16.5 21C16.5 20.45 16.05 20 15.5 20ZM20.5 16V4C20.5 2.9 19.6 2 18.5 2H9.5C8.4 2 7.5 2.9 7.5 4V16C7.5 17.1 8.4 18 9.5 18H18.5C19.6 18 20.5 17.1 20.5 16ZM18.5 16H9.5V4H18.5V16Z"
+        />
+    </svg>
+</ng-template>

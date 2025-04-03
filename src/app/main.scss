@@ -1679,6 +1679,10 @@ h3 {
 }
 
 .zelf-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     background-color: $platinum;
     border-radius: 9999px;
     color: $black;
@@ -1688,6 +1692,14 @@ h3 {
     letter-spacing: 0.1px;
     line-height: 20px;
     padding: 4px 16px;
+
+    &__image {
+        border-radius: 9999px;
+        height: 32px;
+        width: 32px;
+        object-fit: contain;
+        margin-left: -10px;
+    }
 
     &--info {
         color: #3998d3;

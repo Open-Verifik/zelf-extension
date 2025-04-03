@@ -50,6 +50,7 @@
         "ngx-webcam": "^0.4.1",
         "openpgp": "^5.11.1",
         "perfect-scrollbar": "1.5.5",
+        "qr-code-styling": "^1.9.1",
         "qrcode": "^1.5.4",
         "rxjs": "7.8.1",
         "web3": "^4.8.0",

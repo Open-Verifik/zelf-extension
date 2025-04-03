@@ -1,0 +1,120 @@
+@import "../../styles/variables.scss";
+@import "../../styles/buttons.scss";
+@import "../../styles/elements.scss";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.receive-qr {
+    width: 100%;
+    max-width: 524px;
+
+    &__header {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: 12px;
+        align-content: center;
+        justify-content: start;
+        gap: 24px;
+        width: 100%;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        text-align: center;
+        align-items: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
+    }
+
+    &__content {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        position: relative;
+        gap: 24px;
+    }
+
+    &__chip {
+        margin-top: 12px;
+    }
+
+    &__qr-code {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        height: 312px;
+        max-height: 312px;
+        width: 100%;
+    }
+
+    &__action-row {
+        gap: 12px;
+        min-height: 62px;
+        height: auto;
+    }
+
+    &__action-col {
+        width: 86%;
+    }
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+    }
+
+    &__token-type {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: $black;
+    }
+
+    &__address {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        margin: 0;
+        color: $black;
+        word-wrap: break-word;
+    }
+}

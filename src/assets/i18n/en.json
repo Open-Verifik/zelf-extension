@@ -1,5 +1,7 @@
 {
     "hello": "Hello",
+    "logout_title": "Before logging out:",
+    "logout_message": "Logging out will remove all of your wallets from this device/browser. You will need to login to each wallet again to regain access to them. Are you sure you want to continue?",
     "onboarding": {
         "accept_terms_1": "I accept the",
         "accept_terms_2": "terms and conditions",

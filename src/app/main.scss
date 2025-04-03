@@ -1303,6 +1303,13 @@ h3 {
             justify-content: center;
             width: 100%;
         }
+
+        &--end {
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            flex-grow: 1;
+        }
     }
 }
 

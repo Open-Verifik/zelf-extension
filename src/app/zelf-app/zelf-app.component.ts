@@ -2,19 +2,22 @@ import { Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
-import { NavigationEnd, Router, RouterModule } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 
 import { LanguageComponent } from "app/language/language.component";
-import { ChromeService } from "app/chrome.service";
 import { MatMenuModule } from "@angular/material/menu";
+import { VaultService } from "app/vault.service";
+import { WalletService } from "app/wallet.service";
+import { WalletModel } from "app/wallet";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
+    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule, MatMenuModule],
     selector: "zelf-app",
     standalone: true,
-    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule, MatMenuModule],
-    templateUrl: "./zelf-app.component.html",
     styleUrls: ["./zelf-app.component.scss"],
+    templateUrl: "./zelf-app.component.html",
 })
 export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     @ViewChild("contentContainer", { static: false }) contentContainer!: ElementRef<HTMLDivElement>;
@@ -22,6 +25,8 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
     canGoHome: boolean = false;
+    wallet: Partial<WalletModel> = {};
+    wallets: any[] = [];
 
     footerLinks = [
         {
@@ -42,11 +47,19 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
         },
     ];
 
-    constructor(private _router: Router, private _chromeService: ChromeService) {}
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _chromeService: ChromeService,
+        private _router: Router,
+        private _vaultService: VaultService,
+        private _walletService: WalletService
+    ) {}
 
-    ngAfterViewInit(): void {
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet) => {
-            this.canGoHome = !!wallet?.ethAddress;
+    async ngAfterViewInit(): Promise<void> {
+        await this._setCanGoHome();
+
+        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
+            await this._setCanGoHome();
         });
 
         this._router.events.pipe(takeUntil(this.unsubscriber$)).subscribe((event) => {
@@ -61,7 +74,19 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
+    private async _setCanGoHome(): Promise<void> {
+        this.wallet = (await this._walletService.getCurrentWallet()) as Partial<WalletModel>;
+        this.wallets = await this._walletService.getWalletsFromStorage();
+
+        const path = this._activatedRoute.snapshot.url[0]?.path;
+
+        this.canGoHome = !!path && path !== "home" && (!!this.wallet?.ethAddress || this.wallets.length > 0);
+    }
+
     onLogoClick(): void {
+        this._vaultService.mnemonic = "";
+        this._vaultService.password = "";
+
         if (this.canGoHome) this._router.navigate(["/home"]);
         else this._router.navigate(["/welcome"]);
     }

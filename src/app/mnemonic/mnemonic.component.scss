@@ -4,6 +4,7 @@
 :host {
     display: block;
     width: 100%;
+    margin: 16px 0;
 }
 
 .mnemonic {
@@ -15,6 +16,15 @@
     justify-content: center;
     width: 100%;
     gap: 24px;
+
+    &__password-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
 }
 
 .mnemonic-grid {

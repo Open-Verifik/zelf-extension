@@ -23,7 +23,7 @@
                 {{ t("private_key.description") }}
             </p>
 
-            <mnemonic [wallet]="wallet"></mnemonic>
+            <mnemonic (redirect)="onMnemonicRedirect()"></mnemonic>
         </div>
 
         <div class="private-key__actions">

@@ -1,5 +1,5 @@
 import { CommonModule, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
@@ -22,8 +22,9 @@ import { WalletService } from "app/wallet.service";
     templateUrl: "./wallet.component.html",
     styleUrls: ["./wallet.component.scss"],
 })
-export class WalletComponent extends CopyToClipboardBase {
+export class WalletComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     loading: boolean = true;
+    parameters: any = {};
     wallet: Partial<WalletModel> = {};
 
     constructor(
@@ -38,9 +39,16 @@ export class WalletComponent extends CopyToClipboardBase {
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) || {};
+        this.parameters = (await this._chromeService.getItem("parameters")) || {};
+
+        await this._chromeService.removeItem("parameters");
+
+        if (this.parameters.openPrivateKeyBottomSheet) this.openPrivateKeyBottomSheet();
 
         this.loading = false;
     }
+
+    ngOnDestroy(): void {}
 
     async copyToClipboard(value: string): Promise<void> {
         await this._copyToClipboard(value);

@@ -27,7 +27,7 @@ import { Wallet, WalletModel } from "app/wallet";
                         </div>
                     </div>
 
-                    <mnemonic [wallet]="wallet"></mnemonic>
+                    <mnemonic></mnemonic>
                 </div>
 
                 <div class="view-wallet-right mt-4">

@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 
 import { ChromeService } from "app/chrome.service";
@@ -27,6 +27,7 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
 
     constructor(
         private _chromeService: ChromeService,
+        private _router: Router,
         private _vaultService: VaultService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
@@ -40,15 +41,22 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
     async ngOnInit(): Promise<void> {
         await this._walletService.removeDuplicateWalletsInStorage();
 
-        this.wallet = new WalletModel(await this._chromeService.getItem("wallet"));
+        this.wallet = await this._walletService.getCurrentWallet();
         this.flow = await this._zelfNameService.getFlow();
 
         this.loading = false;
     }
 
     ngOnDestroy(): void {
-        this._vaultService.password = "";
         this._vaultService.mnemonic = "";
+    }
+
+    complete(): void {
+        this._vaultService.password = "";
+
+        this._chromeService.removeItem("zelfName");
+        this._chromeService.removeItem("zelfPrice");
+        this._chromeService.removeItem("zelfReward");
     }
 
     downloadQRCode(): void {
@@ -57,5 +65,12 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
         link.href = this.wallet?.image as string;
         link.download = `zelfproof_${this.wallet?.publicData?.zelfName}.png`;
         link.click();
+    }
+
+    async onMnemonicUnlock(): Promise<void> {
+        await this._zelfNameService.setFlow("unlock");
+        await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
+
+        this._router.navigate(["/security/biometrics"], { queryParams: { return: "/welcome/complete" } });
     }
 }

@@ -1,50 +1,119 @@
 <ng-container *transloco="let t">
     <div class="mnemonic">
-        <div class="mnemonic-grid" [ngClass]="{ 'mnemonic-grid--blur': blurMnemonic }" *ngIf="words?.length">
-            <div class="mnemonic-grid__cell" *ngFor="let word of words; let i = index">
-                <div class="mnemonic-grid__cell-number">{{ i + 1 }}</div>
-                <div class="mnemonic-grid__cell-word">{{ word }}</div>
+        <ng-container *ngIf="!showPasswordForm">
+            <div class="mnemonic-grid" [ngClass]="{ 'mnemonic-grid--blur': blurMnemonic }" *ngIf="words?.length">
+                <div class="mnemonic-grid__cell" *ngFor="let word of words; let i = index">
+                    <div class="mnemonic-grid__cell-number">{{ i + 1 }}</div>
+                    <div class="mnemonic-grid__cell-word">{{ word }}</div>
+                </div>
             </div>
-        </div>
 
-        <div class="zelf-action-row" *ngIf="!blurMnemonic">
-            <p class="zelf-action-row__text">
-                <span *ngIf="!copied">{{ "common.copy" | transloco }}</span>
-                <span *ngIf="copied">{{ "common.copy_to_clipboard" | transloco }}</span>
-            </p>
+            <div class="zelf-action-row" *ngIf="!blurMnemonic">
+                <p class="zelf-action-row__text">
+                    <span *ngIf="!copied">{{ "common.copy" | transloco }}</span>
+                    <span *ngIf="copied">{{ "common.copy_to_clipboard" | transloco }}</span>
+                </p>
 
-            <button mat-icon-button class="zelf-icon-button zelf-icon-button--border-soft zelf-icon-button--40" (click)="copyToClipboard()">
-                <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M15.5 0H6.5C5.4 0 4.5 0.9 4.5 2V14C4.5 15.1 5.4 16 6.5 16H15.5C16.6 16 17.5 15.1 17.5 14V2C17.5 0.9 16.6 0 15.5 0ZM15.5 14H6.5V2H15.5V14ZM0.5 13V11H2.5V13H0.5ZM0.5 7.5H2.5V9.5H0.5V7.5ZM7.5 18H9.5V20H7.5V18ZM0.5 16.5V14.5H2.5V16.5H0.5ZM2.5 20C1.4 20 0.5 19.1 0.5 18H2.5V20ZM6 20H4V18H6V20ZM11 20V18H13C13 19.1 12.1 20 11 20ZM2.5 4V6H0.5C0.5 4.9 1.4 4 2.5 4Z"
-                    />
-                </svg>
+                <button mat-icon-button class="zelf-icon-button zelf-icon-button--border-soft zelf-icon-button--40" (click)="copyToClipboard()">
+                    <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15.5 0H6.5C5.4 0 4.5 0.9 4.5 2V14C4.5 15.1 5.4 16 6.5 16H15.5C16.6 16 17.5 15.1 17.5 14V2C17.5 0.9 16.6 0 15.5 0ZM15.5 14H6.5V2H15.5V14ZM0.5 13V11H2.5V13H0.5ZM0.5 7.5H2.5V9.5H0.5V7.5ZM7.5 18H9.5V20H7.5V18ZM0.5 16.5V14.5H2.5V16.5H0.5ZM2.5 20C1.4 20 0.5 19.1 0.5 18H2.5V20ZM6 20H4V18H6V20ZM11 20V18H13C13 19.1 12.1 20 11 20ZM2.5 4V6H0.5C0.5 4.9 1.4 4 2.5 4Z"
+                        />
+                    </svg>
+                </button>
+            </div>
+
+            <button
+                (click)="handleUnhide()"
+                *ngIf="blurMnemonic"
+                class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill"
+                mat-flat-button
+            >
+                <ng-container *ngTemplateOutlet="closedEye"></ng-container>
+
+                <span>{{ t("security.unhide_words") }}</span>
             </button>
-        </div>
 
-        <button
-            (click)="redirectToPassword()"
-            class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill"
-            mat-flat-button
-            *ngIf="blurMnemonic"
-        >
-            <ng-container *ngTemplateOutlet="closedEye"></ng-container>
+            <button
+                (click)="hideMnemonics()"
+                class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill"
+                mat-flat-button
+                *ngIf="!blurMnemonic"
+            >
+                <ng-container *ngTemplateOutlet="closedEye"></ng-container>
 
-            <span>{{ t("security.unhide_words") }}</span>
-        </button>
+                <span>{{ t("security.hide_words") }}</span>
+            </button>
+        </ng-container>
 
-        <button
-            (click)="hideMnemonics()"
-            class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill"
-            mat-flat-button
-            *ngIf="!blurMnemonic"
-        >
-            <ng-container *ngTemplateOutlet="closedEye"></ng-container>
+        <ng-container *ngIf="showPasswordForm">
+            <form [formGroup]="form" class="mnemonic__password-form">
+                <div
+                    class="zelf-input zelf-input--wide"
+                    [ngClass]="{ 'zelf-input--error': form.get('password')?.dirty && form.get('password')?.errors }"
+                >
+                    <input
+                        [type]="showPassword ? 'text' : 'password'"
+                        class="zelf-input__control zelf-input__control--floating-label"
+                        formControlName="password"
+                        id="password"
+                        name="password"
+                        placeholder=" "
+                        required
+                    />
 
-            <span>{{ t("security.hide_words") }}</span>
-        </button>
+                    <label for="password" class="zelf-input__floating-label">{{ t("common.password") }}</label>
+
+                    <ng-container *ngTemplateOutlet="toggleButton"></ng-container>
+                </div>
+
+                <div class="zelf-message zelf-message--error" *ngIf="passwordError && form.get('password')?.dirty">
+                    <ng-container *ngTemplateOutlet="cross"></ng-container>
+                    <p>{{ t("errors.invalid_password", { remaining: remainingAttempts }) }}</p>
+                </div>
+
+                <button
+                    (click)="submitPassword()"
+                    [disabled]="!form.dirty || form.invalid"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                >
+                    <span *ngIf="canUnlockWithPasswordOnly">{{ t("common.unlock") }}</span>
+                    <span *ngIf="!canUnlockWithPasswordOnly">{{ t("common.verify") }}</span>
+                </button>
+            </form>
+        </ng-container>
     </div>
 </ng-container>
+
+<ng-template #toggleButton>
+    <button
+        (click)="toggleShowPassword()"
+        class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--no-fill"
+        type="button"
+        mat-icon-button
+        tabindex="-1"
+    >
+        <ng-container *ngTemplateOutlet="showPassword ? openEye : closedEye"></ng-container>
+    </button>
+</ng-template>
+
+<ng-template #openEye>
+    <svg
+        fill="none"
+        height="24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        stroke="#181818"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+</ng-template>
 
 <ng-template #closedEye>
     <svg
@@ -62,5 +131,14 @@
             d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
         ></path>
         <line x1="1" y1="1" x2="23" y2="23"></line>
+    </svg>
+</ng-template>
+
+<ng-template #cross>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+            fill="#DC362E"
+        />
     </svg>
 </ng-template>

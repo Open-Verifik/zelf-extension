@@ -1,7 +1,7 @@
 import { Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -23,7 +23,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     styleUrls: ["./welcome-onboarding.component.scss"],
     templateUrl: "./welcome-onboarding.component.html",
 })
-export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
+export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterContentInit {
     private _carouselItemInterval!: ReturnType<typeof setInterval>;
     private unsubscriber$: Subject<void> = new Subject<void>();
 
@@ -42,8 +42,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
         private _vaultService: VaultService,
         private _zelfNameService: ZelfNameService
     ) {
-        this._walletService.setWalletsToColdStorage();
-
         this._chromeService.removeItem("flow");
         this._chromeService.removeItem("mnemonicCount");
         this._chromeService.removeItem("referralZelfName");
@@ -63,8 +61,12 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this._initCarousel();
+        await this._walletService.setWalletsToColdStorage();
 
+        this._initCarousel();
+    }
+
+    async ngAfterContentInit(): Promise<void> {
         const wallets = await this._walletService.getWalletsFromStorage();
 
         if (wallets.length) this.showHomeButton = true;

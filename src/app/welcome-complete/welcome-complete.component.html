@@ -26,12 +26,12 @@
                 </button>
             </div>
 
-            <mnemonic [wallet]="wallet"></mnemonic>
+            <mnemonic (redirect)="onMnemonicUnlock()"></mnemonic>
         </div>
 
         <!--  [routerLink]="isExtension ? ['../../home'] : ['../extension-installation']" -->
         <div class="zelf-card__actions welcome-complete__actions">
-            <button [routerLink]="['../../home']" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+            <button (click)="complete()" [routerLink]="['../../home']" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
                 {{ t("common.continue") }}
             </button>
         </div>

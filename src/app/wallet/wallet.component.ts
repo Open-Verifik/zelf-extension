@@ -23,9 +23,8 @@ import { WalletService } from "app/wallet.service";
     styleUrls: ["./wallet.component.scss"],
 })
 export class WalletComponent extends CopyToClipboardBase {
-    loading: boolean = false;
+    loading: boolean = true;
     wallet: Partial<WalletModel> = {};
-    wallets: WalletModel[] = [];
 
     constructor(
         private _bottomSheet: MatBottomSheet,
@@ -37,19 +36,10 @@ export class WalletComponent extends CopyToClipboardBase {
         super(_chromeService, _snackBar, _translocoService);
     }
 
-    ngOnInit(): void {
-        this._setWallets().then(() => {
-            this.loading = false;
-        });
-    }
+    async ngOnInit(): Promise<void> {
+        this.wallet = (await this._walletService.getCurrentWallet()) || {};
 
-    private async _setWallets(): Promise<void> {
-        this.loading = true;
-
-        const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
-
-        this.wallet = wallet || {};
-        this.wallets = wallets;
+        this.loading = false;
     }
 
     async copyToClipboard(value: string): Promise<void> {

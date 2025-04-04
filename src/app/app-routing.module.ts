@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { LoginGuard } from "./guards/login.guard";
-import { HomeComponent } from "./home/home.component";
 
 import { ExternalRedirectGuard } from "./guards/external-redirect.guard";
 import { PasswordGuard } from "./guards/password.guard";
@@ -13,7 +12,35 @@ import { OnboardingGuard } from "./guards/onboarding.guard";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
-    { path: "home", component: HomeComponent, canActivate: [LoginGuard] },
+    {
+        path: "",
+        canActivate: [LoginGuard],
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        children: [
+            {
+                path: "home",
+                loadComponent: () => import("./home/home.component").then((m) => m.HomeComponent),
+            },
+            {
+                path: "manage-domains",
+                loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
+            },
+            {
+                path: "domain",
+                pathMatch: "prefix",
+                loadComponent: () => import("./manage-domain/manage-domain.component").then((m) => m.ManageDomainComponent),
+            },
+            {
+                path: "domain-purchase",
+                pathMatch: "prefix",
+                loadComponent: () => import("./domain-purchase/domain-purchase.component").then((m) => m.DomainPurchaseComponent),
+            },
+            {
+                path: "wallet",
+                loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
+            },
+        ],
+    },
     {
         path: "welcome",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
@@ -136,24 +163,6 @@ const routes: Routes = [
                 loadComponent: () => import("./zelf-settings/zelf-settings.component").then((m) => m.ZelfSettingsComponent),
             },
         ],
-    },
-    {
-        path: "manage-domains",
-        loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
-    },
-    {
-        path: "domain",
-        pathMatch: "prefix",
-        loadComponent: () => import("./manage-domain/manage-domain.component").then((m) => m.ManageDomainComponent),
-    },
-    {
-        path: "domain-purchase",
-        pathMatch: "prefix",
-        loadComponent: () => import("./domain-purchase/domain-purchase.component").then((m) => m.DomainPurchaseComponent),
-    },
-    {
-        path: "wallet",
-        loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
     },
     {
         path: "mobile-restricted",

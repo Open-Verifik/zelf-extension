@@ -1,52 +1,53 @@
 @import "../../styles/variables.scss";
 
 .footer {
-	align-items: center;
-	background: white;
-	bottom: 0;
-	display: inline-flex;
-	height: 82px;
-	justify-content: center;
-	position: absolute;
-	width: 100%;
-	z-index: 1000;
+    align-items: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: inline-flex;
+    height: 82px;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
 }
 
 .footer-link {
-	align-items: center;
-	display: flex;
-	flex: 1 1 0;
-	gap: 12px;
-	justify-content: center;
-	padding: 8px 16px;
+    align-items: center;
+    display: flex;
+    flex: 1 1 0;
+    gap: 12px;
+    justify-content: center;
+    padding: 8px 16px;
 
-	&__button {
-		align-items: center;
-		border-radius: 56px;
-		cursor: pointer;
-		display: flex;
-		height: 56px;
-		justify-content: center;
-		transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
-		width: 56px;
+    &__button {
+        align-items: center;
+        border-radius: 56px;
+        cursor: pointer;
+        display: flex;
+        height: 56px;
+        justify-content: center;
+        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        width: 56px;
 
-		svg {
-			transition: fill 0.3s $smoothBezier;
-			fill: $frenchGray;
-		}
+        svg {
+            transition: fill 0.3s $smoothBezier;
+            fill: $frenchGray;
+        }
 
-		&:hover:not(.footer-link__button--active) {
-			background-color: #f0d3d4;
+        &:hover:not(.footer-link__button--active) {
+            background-color: #f0d3d4;
 
-			svg {
-				fill: black;
-			}
-		}
+            svg {
+                fill: black;
+            }
+        }
 
-		&--active {
-			svg {
-				fill: black;
-			}
-		}
-	}
+        &--active {
+            svg {
+                fill: black;
+            }
+        }
+    }
 }

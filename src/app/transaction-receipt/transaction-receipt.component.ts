@@ -114,8 +114,10 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     verticalPosition: "top",
                 });
 
-                this.transaction.status = "failed";
-                this._walletService.addTransactionToPending(this.transaction);
+                if (this.transaction) {
+                    this.transaction.status = "failed";
+                    this._walletService.addTransactionToPending(this.transaction);
+                }
 
                 this.loading = false;
             });

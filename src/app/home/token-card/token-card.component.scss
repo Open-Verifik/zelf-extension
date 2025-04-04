@@ -103,23 +103,55 @@
 .token-card {
     &__symbol {
         color: $black;
-        font-weight: semibold;
+        font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
     }
 
+    &__network-info {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
     &__network {
-        color: $gray;
-        font-weight: normal;
-        font-size: 12px;
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    &__network-chip {
+        height: 20;
+        border-radius: 24px;
+        gap: 10px;
+        padding: 2px 8px;
+        margin: 0;
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: $platinum;
+        color: $taupeGray;
+    }
+
+    &__name {
+        margin: 0;
     }
 
     &__balance {
         color: $gray;
-        font-weight: semibold;
+        font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;

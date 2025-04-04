@@ -9,18 +9,24 @@ import { Component, Input, OnInit } from "@angular/core";
             </div>
 
             <div class="text-container" fxLayout="column" fxLayoutAlign="start start">
-                <div class="token-card__symbol">{{ data.symbol }}</div>
-                <div class="token-card__network">{{ data.network }}</div>
+                <div class="token-card__network-info">
+                    <p class="token-card__network">{{ data.symbol }}</p>
+                    <p class="token-card__network-chip">{{ data.network }}</p>
+                </div>
+
+                <p class="token-card__name">{{ data.price | currency : "USD" : "symbol" : "1.2-5" }}</p>
             </div>
 
             <div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
-                <div class="token-card__balance">{{ data.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</div>
+                <div class="token-card__balance">
+                    {{ data.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}
+                </div>
 
                 <h4 class="stats stats--no-margin">
                     <div
                         class="stats__percentage"
                         [ngClass]="{
-                            'stats__percentage--positive': true,
+                            'stats__percentage--positive': false,
                             'stats__percentage--negative': false
                         }"
                     >

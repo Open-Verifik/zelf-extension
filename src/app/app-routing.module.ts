@@ -21,6 +21,24 @@ const routes: Routes = [
                 path: "home",
                 loadComponent: () => import("./home/home.component").then((m) => m.HomeComponent),
             },
+            {
+                path: "manage-domains",
+                loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
+            },
+            {
+                path: "domain",
+                pathMatch: "prefix",
+                loadComponent: () => import("./manage-domain/manage-domain.component").then((m) => m.ManageDomainComponent),
+            },
+            {
+                path: "domain-purchase",
+                pathMatch: "prefix",
+                loadComponent: () => import("./domain-purchase/domain-purchase.component").then((m) => m.DomainPurchaseComponent),
+            },
+            {
+                path: "wallet",
+                loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
+            },
         ],
     },
     {
@@ -145,24 +163,6 @@ const routes: Routes = [
                 loadComponent: () => import("./zelf-settings/zelf-settings.component").then((m) => m.ZelfSettingsComponent),
             },
         ],
-    },
-    {
-        path: "manage-domains",
-        loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
-    },
-    {
-        path: "domain",
-        pathMatch: "prefix",
-        loadComponent: () => import("./manage-domain/manage-domain.component").then((m) => m.ManageDomainComponent),
-    },
-    {
-        path: "domain-purchase",
-        pathMatch: "prefix",
-        loadComponent: () => import("./domain-purchase/domain-purchase.component").then((m) => m.DomainPurchaseComponent),
-    },
-    {
-        path: "wallet",
-        loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
     },
     {
         path: "mobile-restricted",

@@ -130,7 +130,6 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
         if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
-        if (this.transactionData.network === "sui") pattern = /^0x[a-fA-F0-9]{32,64}$/;
 
         return pattern;
     }

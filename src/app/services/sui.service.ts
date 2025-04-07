@@ -7,14 +7,16 @@ import { SuiClient } from "@mysten/sui.js/client";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { environment } from "environments/environment";
+import { VaultService } from "../vault.service";
+import * as bip39 from "bip39";
 
-const SUI_COIN_TYPE = 784;
 const SUI_RPC_URL = "https://fullnode.mainnet.sui.io:443";
 const SUI_TESTNET_RPC_URL = "https://fullnode.testnet.sui.io:443";
 const SUI_DEVNET_RPC_URL = "https://fullnode.devnet.sui.io:443";
 
-function derivationPathForCoinType(coinType: number): string {
-    return "m/44'/784'/0'/0'/0'";
+interface TransactionCostEstimate {
+    estimatedFee: number;
+    estimatedFeeUsd: number;
 }
 
 @Injectable({
@@ -25,7 +27,7 @@ export class SuiService {
     private suiClient: SuiClient;
     private networkType: string = "mainnet";
 
-    constructor(private _httpWrapper: HttpWrapperService) {
+    constructor(private _httpWrapper: HttpWrapperService, private _vaultService: VaultService) {
         this.suiClient = new SuiClient({ url: SUI_RPC_URL });
     }
 
@@ -144,13 +146,11 @@ export class SuiService {
      */
     async getSuiBalance(address: string): Promise<number> {
         try {
-            // Call the SUI API to get the balance
             const { totalBalance } = await this.suiClient.getBalance({
                 owner: address,
-                coinType: "0x2::sui::SUI", // SUI coin type
+                coinType: "0x2::sui::SUI",
             });
 
-            // Convert from MIST (base unit) to SUI (1 SUI = 10^9 MIST)
             const balanceInSui = Number(totalBalance) / 1_000_000_000;
 
             return balanceInSui;
@@ -194,49 +194,47 @@ export class SuiService {
 
     /**
      * Transfers SUI tokens to a specific address
-     * @param keypair - The source wallet keypair
+     * @param mnemonic - The source wallet mnemonic
      * @param recipientAddress - The destination address
      * @param amount - Amount to transfer (optional, default transfers almost all balance)
      * @returns The transaction hash
      */
-    async transferSui(keypair: Ed25519Keypair, recipientAddress: string, amount?: number): Promise<string> {
+    async transferSui(mnemonic: string, recipientAddress: string, amount?: number): Promise<any> {
         try {
-            const senderAddress = this.getAddressFromKeypair(keypair);
+            const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
 
-            // Get current balance if amount is not specified
-            if (!amount) {
-                const balance = await this.getSuiBalance(senderAddress);
-                // Leave a small margin for fees (0.01 SUI)
-                amount = Math.max(0, balance - 0.01);
-            }
-
-            if (amount <= 0) {
-                throw new Error("Insufficient balance to perform the transfer");
-            }
-
-            // Create a transaction block
             const tx = new TransactionBlock();
+            const amountInMist = Math.floor((amount || 0) * 1_000_000_000);
 
-            // Convert to MIST (smallest unit of SUI - 1 SUI = 10^9 MIST)
-            const amountInMist = Math.floor(amount * 1_000_000_000);
-
-            // Split the gas coin to get the specific amount
             const [coin] = tx.splitCoins(tx.gas, [tx.pure(amountInMist)]);
-
-            // Transfer the split coin to the recipient
             tx.transferObjects([coin], tx.pure(recipientAddress));
 
-            // Sign and send the transaction
             const result = await this.suiClient.signAndExecuteTransactionBlock({
                 signer: keypair,
                 transactionBlock: tx,
+                options: {
+                    showEffects: true,
+                    showEvents: true,
+                    showObjectChanges: true,
+                },
             });
 
-            return result.digest;
-        } catch (error) {
-            console.error("Error transferring SUI:", error);
-            console.error("Error details:", JSON.stringify(error, null, 2));
-            throw new Error(`Error transferring SUI: ${(error as Error).message}`);
+            if (result.effects?.status?.error) {
+                throw new Error(`Transaction failed: ${result.effects.status.error}`);
+            }
+
+            return {
+                transactionHash: result.digest,
+                ...result,
+            };
+        } catch (error: any) {
+            console.error("Detailed error in SUI transfer:", {
+                error,
+                errorMessage: error.message,
+                errorStack: error.stack,
+            });
+
+            throw error;
         }
     }
 
@@ -257,7 +255,6 @@ export class SuiService {
      * @returns The byte array
      */
     hexToBytes(hex: string): Uint8Array {
-        // Remove 0x prefix if present
         const cleanHex = hex.startsWith("0x") ? hex.slice(2) : hex;
         const bytes = new Uint8Array(cleanHex.length / 2);
 
@@ -266,5 +263,178 @@ export class SuiService {
         }
 
         return bytes;
+    }
+
+    async transferToken(mnemonic: string, recipientAddress: string, tokenObjectId: string, amount: number, decimals: number = 9): Promise<any> {
+        try {
+            const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
+            const senderAddress = keypair.getPublicKey().toSuiAddress();
+
+            const allObjects = await this.suiClient.getOwnedObjects({
+                owner: senderAddress,
+                options: {
+                    showContent: true,
+                    showType: true,
+                },
+            });
+
+            const coinType = `${tokenObjectId}::coin::COIN`;
+
+            const { data: tokenObjects } = await this.suiClient.getOwnedObjects({
+                owner: senderAddress,
+                filter: {
+                    StructType: `0x2::coin::Coin<${coinType}>`,
+                },
+                options: {
+                    showContent: true,
+                    showType: true,
+                },
+            });
+
+            if (!tokenObjects || tokenObjects.length === 0) {
+                throw new Error(`No coins found in wallet for type: ${coinType}`);
+            }
+
+            if (!tokenObjects[0]?.data?.objectId) {
+                throw new Error(`No valid coin object found for type: ${coinType}`);
+            }
+
+            const suiCoins = await this.suiClient.getCoins({
+                owner: senderAddress,
+                coinType: "0x2::sui::SUI",
+            });
+
+            if (!suiCoins.data.length) {
+                throw new Error("No SUI coins available for gas fees");
+            }
+
+            const tx = new TransactionBlock();
+
+            const USDT_DECIMALS = 6;
+            const amountInSmallestUnit = BigInt(Math.floor(amount * Math.pow(10, USDT_DECIMALS)));
+
+            tx.setGasPayment([{ objectId: suiCoins.data[0].coinObjectId, digest: suiCoins.data[0].digest, version: suiCoins.data[0].version }]);
+            tx.setGasBudget(30000000);
+
+            const availableBalance = BigInt((tokenObjects[0].data.content as unknown as { fields: { balance: string } })?.fields?.balance || 0);
+            if (availableBalance < amountInSmallestUnit) {
+                throw new Error(`Insufficient balance. Available: ${availableBalance}, Required: ${amountInSmallestUnit}`);
+            }
+
+            const [coin] = tx.splitCoins(tx.object(tokenObjects[0].data.objectId), [tx.pure(amountInSmallestUnit)]);
+            tx.transferObjects([coin], tx.pure(recipientAddress));
+
+            const result = await this.suiClient.signAndExecuteTransactionBlock({
+                signer: keypair,
+                transactionBlock: tx,
+                options: {
+                    showEffects: true,
+                    showEvents: true,
+                    showInput: true,
+                },
+            });
+
+            if (result.effects?.status?.error) {
+                throw new Error(`Transaction failed: ${result.effects.status.error}`);
+            }
+
+            return { transactionHash: result.digest, ...result };
+        } catch (error: any) {
+            console.error("Error in token transfer:", error);
+            throw error;
+        }
+    }
+
+    async estimateSuiTransactionFee(receiverAddress: string, amount: number): Promise<TransactionCostEstimate> {
+        try {
+            const tx = new TransactionBlock();
+            const amountInMist = Math.floor(amount * 1_000_000_000);
+            const [coin] = tx.splitCoins(tx.gas, [tx.pure(amountInMist)]);
+            tx.transferObjects([coin], tx.pure(receiverAddress));
+
+            const dryRunResult = await this.suiClient.dryRunTransactionBlock({
+                transactionBlock: tx.serialize(),
+            });
+
+            const estimatedFee = Number(dryRunResult.effects.gasUsed.computationCost) / 1_000_000_000;
+
+            const suiPrice = 2;
+            const estimatedFeeUsd = estimatedFee * suiPrice;
+
+            return {
+                estimatedFee,
+                estimatedFeeUsd,
+            };
+        } catch (error) {
+            console.error("Error estimating SUI transaction fee:", error);
+
+            return {
+                estimatedFee: 0.001,
+                estimatedFeeUsd: 0.002,
+            };
+        }
+    }
+
+    async estimateTokenTransactionFee(
+        receiverAddress: string,
+        contractAddress: string,
+        amount: number,
+        decimals: number = 9
+    ): Promise<TransactionCostEstimate> {
+        try {
+            const tx = new TransactionBlock();
+            const amountInBaseUnits = BigInt(Math.floor(amount * Math.pow(10, decimals)));
+
+            tx.moveCall({
+                target: `${contractAddress}::transfer::transfer`,
+                arguments: [tx.pure(amountInBaseUnits), tx.pure(receiverAddress)],
+            });
+
+            const dryRunResult = await this.suiClient.dryRunTransactionBlock({
+                transactionBlock: tx.serialize(),
+            });
+
+            const estimatedFee = Number(dryRunResult.effects.gasUsed.computationCost) / 1_000_000_000;
+
+            return {
+                estimatedFee,
+                estimatedFeeUsd: estimatedFee * 2,
+            };
+        } catch (error) {
+            console.error("Error estimating token transaction fee:", error);
+            return {
+                estimatedFee: 0.002,
+                estimatedFeeUsd: 0.004,
+            };
+        }
+    }
+
+    isValidSuiAddress(address: string): boolean {
+        return /^0x[a-fA-F0-9]{64}$/.test(address);
+    }
+
+    generateAddressFromMnemonic(mnemonic: string): { address: string; privateKey: string } | null {
+        try {
+            const seed = bip39.mnemonicToSeedSync(mnemonic);
+            const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
+            const privateKey = `0x${Buffer.from(keypair.export().privateKey).toString("hex")}`;
+            const address = keypair.getPublicKey().toSuiAddress();
+
+            return {
+                address,
+                privateKey,
+            };
+        } catch (exception) {
+            console.error("Error generating SUI address from mnemonic:", exception);
+            return null;
+        }
+    }
+
+    async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/sui/transaction/${transactionHash}`);
+    }
+
+    validateMnemonic(mnemonic: string): boolean {
+        return bip39.validateMnemonic(mnemonic);
     }
 }

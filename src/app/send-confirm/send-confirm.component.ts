@@ -108,36 +108,50 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     private async _calculateTransactionFee(): Promise<void> {
         try {
-            const token = this.transactionData.token;
-            const senderAddress = this.transactionData.sender.address;
+            const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
+
+            if (this.transactionData.network === "sui") {
+                if (this.transactionData.tokenType === "SUI") {
+                    const feeEstimate = await this._suiService.estimateSuiTransactionFee(this.transactionData.receiver.address, normalizedAmount);
+
+                    this.transactionData.fee = feeEstimate.estimatedFee;
+                    this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
+                } else {
+                    if (!this.transactionData.token?.address_token) {
+                        throw new Error("Contract address is required for token transfer");
+                    }
+
+                    const feeEstimate = await this._suiService.estimateTokenTransactionFee(
+                        this.transactionData.receiver.address,
+                        this.transactionData.token.address_token,
+                        normalizedAmount,
+                        9
+                    );
+
+                    this.transactionData.fee = feeEstimate.estimatedFee;
+                    this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
+                }
+
+                await this._transactionService.setCurrentTransactionData(this.transactionData);
+
+                return;
+            }
 
             let transactionCost;
 
-            if (!this.transactionData.isEthToken && !this.transactionData.isAvaxToken) {
-                if (!this._ethService.checkIfValidAddress(senderAddress)) {
-                    this.openErrorSnackBar("errors.invalid_address");
+            const receiverAddress = this.transactionData.receiver.address;
 
-                    return;
+            if (this.transactionData.tokenType === "ERC-20") {
+                if (!this.transactionData.token?.address_token) {
+                    throw new Error("Contract address is required for ERC-20 transfer");
                 }
-
-                const formattedTokenAddress = senderAddress.startsWith("0x") ? senderAddress : `0x${senderAddress}`;
 
                 transactionCost = await this._ethService.getTransactionCost(
-                    formattedTokenAddress,
-                    this._ethService.toWei(String(this.transactionData.amount || "0"), token.decimals)
+                    receiverAddress,
+                    this._ethService.toWei(String(normalizedAmount), this.transactionData.token.decimals)
                 );
             } else {
-                if (!this._ethService.checkIfValidAddress(senderAddress)) {
-                    this.openErrorSnackBar("errors.invalid_address");
-
-                    return;
-                }
-
-                const formattedToAddress = senderAddress.startsWith("0x") ? senderAddress : `0x${senderAddress}`;
-                const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
-                const amountInWei = this._ethService.toWei(normalizedAmount);
-
-                transactionCost = await this._ethService.getTransactionCost(formattedToAddress, amountInWei);
+                transactionCost = await this._ethService.getTransactionCost(receiverAddress, this._ethService.toWei(String(normalizedAmount)));
             }
 
             this.transactionData.fee = Number(this._ethService.fromWei(transactionCost.totalCost));
@@ -146,12 +160,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             this.transactionData.fiatFee = Number(this.transactionData.fee) * price;
 
-            const amountInUsd = Number(this.transactionData.amount) * (+token.price || 0);
+            const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
 
             this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
             await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
+            console.error("Fee calculation error:", error);
             this.openErrorSnackBar("errors.invalid_transaction_fee");
         }
     }
@@ -240,10 +255,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             if (this.transactionData.network === "sui") {
                 try {
-                    const keypair = await this._suiService.importWalletFromMnemonic(cleanMnemonic);
                     const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-                    const txHash = await this._suiService.transferSui(keypair, this.transactionData.receiver.address, normalizedAmount);
+                    const txHash = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
 
                     receipt = { transactionHash: txHash };
                 } catch (error) {

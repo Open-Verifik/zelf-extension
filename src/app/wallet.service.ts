@@ -611,45 +611,11 @@ export class WalletService {
     }
 
     public isValidEVMAddress(address: string): boolean {
-        if (!this._ETH_REGEX.test(address)) {
-            return false;
-        }
-
-        if (!address.startsWith("0x")) {
-            address = "0x" + address;
-        }
-
-        address = address.toLowerCase();
-
-        try {
-            const addressHash = this.simpleHash(address.slice(2));
-            const checksumAddress =
-                "0x" +
-                address
-                    .slice(2)
-                    .split("")
-                    .map((char, index) => {
-                        if (isNaN(parseInt(char, 16))) return char;
-                        return parseInt(addressHash[index], 16) >= 8 ? char.toUpperCase() : char;
-                    })
-                    .join("");
-
-            return address === checksumAddress.toLowerCase();
-        } catch (error) {
-            console.error("Error validating EVM address checksum:", error);
-            return false;
-        }
+        return this._ETH_REGEX.test(address);
     }
 
     public isValidSuiAddress(address: string): boolean {
-        if (!this._SUI_REGEX.test(address)) return false;
-
-        if (address.length !== 66) return false;
-
-        const hexPart = address.slice(2);
-        const isValidHex = /^[0-9a-fA-F]+$/.test(hexPart);
-
-        return isValidHex;
+        return this._SUI_REGEX.test(address);
     }
 
     public async validateEVMAddressOnChain(address: string): Promise<boolean> {

@@ -114,6 +114,78 @@ export class TransactionModel implements Transaction {
     }
 }
 
+export type SuiTransaction = {
+    age: string;
+    amount: number;
+    block: string;
+    computationCostFee: number;
+    confirmedNumber: number;
+    date: string;
+    from: string;
+    gasBudget: number;
+    gasPayment: string;
+    gasPrice: number;
+    hash: string;
+    nonRefundableStorageFee: number;
+    status: string;
+    to: string[];
+    tokenTransferNum: number;
+    txFee: number;
+};
+
+export class SuiTransactionModel implements SuiTransaction {
+    age: string;
+    amount: number;
+    block: string;
+    computationCostFee: number;
+    confirmedNumber: number;
+    date: string;
+    from: string;
+    gasBudget: number;
+    gasPayment: string;
+    gasPrice: number;
+    hash: string;
+    nonRefundableStorageFee: number;
+    status: string;
+    to: string[];
+    tokenTransferNum: number;
+    txFee: number;
+
+    constructor(data: any) {
+        this.age = data.age || "";
+        this.amount = Number(data.amount) || 0;
+        this.block = data.block || "";
+        this.computationCostFee = Number(data.computationCostFee) || 0;
+        this.confirmedNumber = Number(data.confirmedNumber) || 0;
+        this.date = data.date || "";
+        this.from = data.from || "";
+        this.gasBudget = Number(data.gasBudget) || 0;
+        this.gasPayment = data.gasPayment || "";
+        this.gasPrice = Number(data.gasPrice) || 0;
+        this.hash = data.hash || "";
+        this.nonRefundableStorageFee = Number(data.nonRefundableStorageFee) || 0;
+        this.status = data.status || "";
+        this.to = data.to || [];
+        this.tokenTransferNum = Number(data.tokenTransferNum) || 0;
+        this.txFee = Number(data.txFee) || 0;
+    }
+
+    toTransaction(): TransactionModel {
+        return new TransactionModel({
+            age: this.age,
+            amount: Number(this.amount),
+            asset: "SUI",
+            date: new Date(this.date),
+            fiatAmount: 0,
+            from: this.from,
+            hash: this.hash,
+            status: this.status.toLowerCase(),
+            to: this.to,
+            tokenType: "SUI",
+        });
+    }
+}
+
 export type EthTransaction = {
     block: string;
     from: string;

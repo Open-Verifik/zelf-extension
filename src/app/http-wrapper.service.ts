@@ -91,7 +91,7 @@ export class HttpWrapperService {
      * @param params - params that can go into the body or the query string param
      * @param options - headers or some other sort of params
      */
-    async sendRequest(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
+    async sendRequest<T = any>(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
         method = method.toLocaleLowerCase();
 
         const authToken = await this._getAccessToken();
@@ -112,13 +112,13 @@ export class HttpWrapperService {
         try {
             switch (method) {
                 case "get":
-                    return this.request(this._http.get(url, { params, headers, ...options }));
+                    return this.request(this._http.get<T>(url, { params, headers, ...options }));
                 case "post":
-                    return this.request(this._http.post(url, params, { headers, ...options }));
+                    return this.request(this._http.post<T>(url, params, { headers, ...options }));
                 case "put":
-                    return this.request(this._http.put(url, params, { headers, ...options }));
+                    return this.request(this._http.put<T>(url, params, { headers, ...options }));
                 case "delete":
-                    return this.request(this._http.delete(url, { headers, ...options }));
+                    return this.request(this._http.delete<T>(url, { headers, ...options }));
                 default:
                     throw new Error("Method not provided or unsupported");
             }

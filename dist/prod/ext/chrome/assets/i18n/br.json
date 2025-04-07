@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "Ei! Não perca seu Nome Zelf, renove ou reserve hoje, antes que alguém o compre.",
-        "dont_remember_username": "Não se lembra do seu nome de usuário?",
+        "dont_remember_zelfname": "Não se lembra do seu Nome Zelf?",
         "find_zelf_name_subtitle": "Encontre um Nome Zelf existente inserindo seu endereço público abaixo:",
         "find_zelf_name_title": "Encontrar Nome Zelf",
         "grace_period_until": "Período de carência até",
@@ -88,6 +88,10 @@
         "title": "Camadas de Segurança ZelfProof",
         "unhide_words": "Mostrar palavras",
         "zelf_name_requires_a_password": "Seu Nome Zelf requer uma senha"
+    },
+    "receive": {
+        "your_token_address": "Seu endereço {{ name }}",
+        "information": "Este endereço só pode ser usado para receber tokens compatíveis."
     },
     "common": {
         "12_word_phrase": "Frase de 12 palavras",
@@ -130,8 +134,8 @@
         "hide_words": "Ocultar palavras",
         "import_a_wallet": "Importar uma carteira",
         "import": "Importar",
-        "invest": "Investir",
         "is_required": "é obrigatório",
+        "learn_more": "Saiba mais",
         "load_more": "Carregar mais",
         "login": "Entrar",
         "logout": "Sair",
@@ -150,6 +154,7 @@
         "privacy": "Privacidade",
         "purchase_now": "Comprar agora",
         "purchase": "Comprar",
+        "receive": "Receber",
         "recommended": "Recomendado",
         "registered": "Registrado",
         "renew_domain": "Renovar domínio",

@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "अरे! अपना Zelf नाम न खोएं, इसे नवीनीकृत करें या आज ही आरक्षित करें, इससे पहले कि कोई और इसे खरीद ले।",
-        "dont_remember_username": "क्या आप अपना उपयोगकर्ता नाम याद नहीं कर पा रहे हैं?",
+        "dont_remember_zelfname": "क्या आप अपना Zelf नाम भूल गए हैं?",
         "find_zelf_name_subtitle": "इसके सार्वजनिक पते को नीचे दर्ज करके एक मौजूदा Zelf नाम खोजें:",
         "find_zelf_name_title": "Zelf नाम खोजें",
         "grace_period_until": "अनुग्रह अवधि तक",
@@ -88,6 +88,10 @@
         "title": "ZelfProof सुरक्षा परतें",
         "unhide_words": "शब्द दिखाएं",
         "zelf_name_requires_a_password": "आपके Zelf नाम के लिए पासवर्ड आवश्यक है"
+    },
+    "receive": {
+        "your_token_address": "आपका {{ name }} पता",
+        "information": "यह पता केवल संगत टोकन प्राप्त करने के लिए उपयोग किया जा सकता है।"
     },
     "common": {
         "12_word_phrase": "12-शब्द वाक्यांश",
@@ -130,8 +134,8 @@
         "hide_words": "शब्द छिपाएं",
         "import_a_wallet": "एक वॉलेट आयात करें",
         "import": "आयात करें",
-        "invest": "निवेश करें",
         "is_required": "आवश्यक है",
+        "learn_more": "अधिक जानें",
         "load_more": "और लोड करें",
         "login": "लॉगिन करें",
         "logout": "लॉगआउट करें",
@@ -150,6 +154,7 @@
         "privacy": "गोपनीयता",
         "purchase_now": "अभी खरीदें",
         "purchase": "खरीदें",
+        "receive": "प्राप्त करें",
         "recommended": "अनुशंसित",
         "registered": "पंजीकृत",
         "renew_domain": "डोमेन नवीनीकरण करें",

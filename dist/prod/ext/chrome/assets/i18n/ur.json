@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "ارے! اپنا زیلف نام نہ کھوئیں، آج ہی تجدید کریں یا محفوظ کریں، اس سے پہلے کہ کوئی اور اسے خرید لے۔",
-        "dont_remember_username": "اپنا صارف نام یاد نہیں؟",
+        "dont_remember_zelfname": "اپنا زیلف نام یاد نہیں؟",
         "find_zelf_name_subtitle": "موجودہ زیلف نام تلاش کرنے کے لیے اس کا عوامی پتہ نیچے درج کریں:",
         "find_zelf_name_title": "زیلف نام تلاش کریں",
         "grace_period_until": "مہلت کی مدت تک",
@@ -88,6 +88,10 @@
         "title": "زیلف پروف حفاظتی پرتیں",
         "unhide_words": "الفاظ ظاہر کریں",
         "zelf_name_requires_a_password": "آپ کے زیلف نام کے لیے پاس ورڈ درکار ہے"
+    },
+    "receive": {
+        "your_token_address": "آپ کا {{ name }} پتہ",
+        "information": "یہ پتہ صرف ہم آہنگ ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔"
     },
     "common": {
         "12_word_phrase": "12 الفاظ کا فریز",
@@ -130,8 +134,8 @@
         "hide_words": "الفاظ چھپائیں",
         "import_a_wallet": "ایک والٹ درآمد کریں",
         "import": "درآمد کریں",
-        "invest": "سرمایہ کاری کریں",
         "is_required": "ضروری ہے",
+        "learn_more": "مزید جانیں",
         "load_more": "مزید لوڈ کریں",
         "login": "لاگ ان",
         "logout": "لاگ آؤٹ",
@@ -150,6 +154,7 @@
         "privacy": "رازداری",
         "purchase_now": "ابھی خریدیں",
         "purchase": "خریداری",
+        "receive": "وصول کریں",
         "recommended": "تجویز کردہ",
         "registered": "رجسٹرڈ",
         "renew_domain": "ڈومین کی تجدید کریں",

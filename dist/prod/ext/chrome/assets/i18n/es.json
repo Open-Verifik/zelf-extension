@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "¡Hey! No pierdas tu Nombre Zelf, renuévalo o resérvalo hoy, antes de que alguien más lo compre.",
-        "dont_remember_username": "¿No recuerdas tu nombre de usuario?",
+        "dont_remember_zelfname": "¿No recuerdas tu Nombre Zelf?",
         "find_zelf_name_subtitle": "Encuentra un Nombre Zelf existente ingresando su dirección pública a continuación:",
         "find_zelf_name_title": "Encontrar Nombre Zelf",
         "grace_period_until": "Período de gracia hasta",
@@ -88,6 +88,10 @@
         "title": "Capas de Seguridad ZelfProof",
         "unhide_words": "Mostrar palabras",
         "zelf_name_requires_a_password": "Tu Nombre Zelf requiere una contraseña"
+    },
+    "receive": {
+        "your_token_address": "Tu dirección de {{ name }}",
+        "information": "Esta dirección solo puede ser utilizada para recibir tokens compatibles."
     },
     "common": {
         "12_word_phrase": "Frase de 12 palabras",
@@ -130,8 +134,8 @@
         "hide_words": "Ocultar palabras",
         "import_a_wallet": "Importar una billetera",
         "import": "Importar",
-        "invest": "Invertir",
         "is_required": "es requerido",
+        "learn_more": "Saber más",
         "load_more": "Cargar más",
         "login": "Iniciar sesión",
         "logout": "Cerrar sesión",
@@ -150,6 +154,7 @@
         "privacy": "Privacidad",
         "purchase_now": "Comprar ahora",
         "purchase": "Comprar",
+        "receive": "Recibir",
         "recommended": "Recomendado",
         "registered": "Registrado",
         "renew_domain": "Renovar dominio",

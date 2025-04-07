@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "嘿！不要丢失您的Zelf名称，立即续订或预订，以免被他人购买。",
-        "dont_remember_username": "不记得您的用户名？",
+        "dont_remember_zelfname": "不记得您的Zelf名称？",
         "find_zelf_name_subtitle": "通过输入其公共地址查找现有的Zelf名称：",
         "find_zelf_name_title": "查找Zelf名称",
         "grace_period_until": "宽限期至",
@@ -88,6 +88,10 @@
         "title": "ZelfProof安全层",
         "unhide_words": "显示单词",
         "zelf_name_requires_a_password": "您的Zelf名称需要密码"
+    },
+    "receive": {
+        "your_token_address": "您的 {{ name }} 地址",
+        "information": "此地址只能用于接收兼容的代币。"
     },
     "common": {
         "12_word_phrase": "12个单词短语",
@@ -130,8 +134,8 @@
         "hide_words": "隐藏单词",
         "import_a_wallet": "导入钱包",
         "import": "导入",
-        "invest": "投资",
         "is_required": "是必需的",
+        "learn_more": "了解更多",
         "load_more": "加载更多",
         "login": "登录",
         "logout": "登出",
@@ -150,6 +154,7 @@
         "privacy": "隐私",
         "purchase_now": "立即购买",
         "purchase": "购买",
+        "receive": "接收",
         "recommended": "推荐",
         "registered": "已注册",
         "renew_domain": "续订域名",

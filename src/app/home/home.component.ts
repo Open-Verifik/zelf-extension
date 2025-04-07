@@ -7,9 +7,10 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
-import { Asset, Wallet } from "app/wallet";
+import { Asset, TokenData, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { SuiService } from "app/services/sui.service";
+import { AssetService } from "app/asset.service";
 
 @Component({
     selector: "home",
@@ -22,7 +23,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     balances: any;
     balancesLoading: boolean = false;
     NFTs!: Array<any>;
-    scanImplemented: boolean = false;
     selectedAsset!: Asset;
     selectedNetwork!: string;
     shareables: any;
@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     wallet!: Wallet;
 
     constructor(
+        private _assetService: AssetService,
         private _blockchainNetworkService: BlockchainNetworksService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
@@ -231,5 +232,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     sendTransaction(): void {
         this._router.navigate(["/send-transaction"]);
+    }
+
+    async setSelectedAsset(asset: any): Promise<any> {
+        await this._assetService.setAsset(asset);
+
+        this._router.navigate(["/asset"]);
     }
 }

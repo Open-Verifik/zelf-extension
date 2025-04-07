@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "お知らせ！Zelf Nameを失わないように、誰かに購入される前に更新または予約してください。",
-        "dont_remember_username": "ユーザー名を覚えていませんか？",
+        "dont_remember_zelfname": "Zelf Nameを忘れましたか？",
         "find_zelf_name_subtitle": "以下に公開アドレスを入力して既存のZelf Nameを見つけてください:",
         "find_zelf_name_title": "Zelf Nameを見つける",
         "grace_period_until": "猶予期間は次の日まで",
@@ -88,6 +88,10 @@
         "title": "ZelfProofセキュリティレイヤー",
         "unhide_words": "単語を表示",
         "zelf_name_requires_a_password": "Zelf Nameにはパスワードが必要です"
+    },
+    "receive": {
+        "your_token_address": "あなたの{{ name }}アドレス",
+        "information": "このアドレスは互換性のあるトークンを受信するためにのみ使用できます。"
     },
     "common": {
         "12_word_phrase": "12単語のフレーズ",
@@ -130,8 +134,8 @@
         "hide_words": "単語を隠す",
         "import_a_wallet": "ウォレットをインポート",
         "import": "インポート",
-        "invest": "投資",
         "is_required": "が必要です",
+        "learn_more": "詳細を学ぶ",
         "load_more": "さらに読み込む",
         "login": "ログイン",
         "logout": "ログアウト",
@@ -150,6 +154,7 @@
         "privacy": "プライバシー",
         "purchase_now": "今すぐ購入",
         "purchase": "購入",
+        "receive": "受信",
         "recommended": "推奨",
         "registered": "登録済み",
         "renew_domain": "ドメインを更新",

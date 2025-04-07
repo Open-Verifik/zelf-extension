@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "안녕하세요! Zelf 이름을 잃지 마세요. 누군가가 구매하기 전에 갱신하거나 예약하세요.",
-        "dont_remember_username": "사용자 이름을 기억하지 못하나요?",
+        "dont_remember_zelfname": "Zelf 이름을 기억하지 못하셨나요?",
         "find_zelf_name_subtitle": "아래에 공개 주소를 입력하여 기존 Zelf 이름을 찾으세요:",
         "find_zelf_name_title": "Zelf 이름 찾기",
         "grace_period_until": "유예 기간: ",
@@ -76,6 +76,10 @@
         "welcome": "다시 오신 것을 환영합니다",
         "you_are_registering_the_domain": "도메인을 등록 중입니다:",
         "zelf_referral_code": "Zelf 추천 코드 (선택 사항)"
+    },
+    "receive": {
+        "your_token_address": "귀하의 {{ name }} 주소",
+        "information": "이 주소는 호환 가능한 토큰을 받는 데만 사용할 수 있습니다."
     },
     "security": {
         "biometric_subtitle": "원활하고 효과적인 과정을 보장하기 위해 단계를 따르세요.",
@@ -130,8 +134,8 @@
         "hide_words": "단어 숨기기",
         "import_a_wallet": "지갑 가져오기",
         "import": "가져오기",
-        "invest": "투자",
         "is_required": "필수입니다",
+        "learn_more": "더 알아보기",
         "load_more": "더 보기",
         "login": "로그인",
         "logout": "로그아웃",
@@ -150,6 +154,7 @@
         "privacy": "개인정보",
         "purchase_now": "지금 구매",
         "purchase": "구매",
+        "receive": "받기",
         "recommended": "추천",
         "registered": "등록됨",
         "renew_domain": "도메인 갱신",

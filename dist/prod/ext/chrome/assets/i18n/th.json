@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "เฮ้! อย่าทำชื่อ Zelf ของคุณหาย ต่ออายุหรือจองวันนี้ก่อนที่คนอื่นจะซื้อไป",
-        "dont_remember_username": "จำชื่อผู้ใช้ของคุณไม่ได้?",
+        "dont_remember_zelfname": "จำชื่อ Zelf ของคุณไม่ได้?",
         "find_zelf_name_subtitle": "ค้นหาชื่อ Zelf ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",
         "find_zelf_name_title": "ค้นหาชื่อ Zelf",
         "grace_period_until": "ระยะเวลาผ่อนผันจนถึง",
@@ -88,6 +88,10 @@
         "title": "ชั้นความปลอดภัยของ ZelfProof",
         "unhide_words": "แสดงคำ",
         "zelf_name_requires_a_password": "ชื่อ Zelf ของคุณต้องการรหัสผ่าน"
+    },
+    "receive": {
+        "your_token_address": "ที่อยู่ {{ name }} ของคุณ",
+        "information": "ที่อยู่นี้สามารถใช้รับโทเค็นที่เข้ากันได้เท่านั้น"
     },
     "common": {
         "12_word_phrase": "วลี 12 คำ",
@@ -130,8 +134,8 @@
         "hide_words": "ซ่อนคำ",
         "import_a_wallet": "นำเข้ากระเป๋าเงิน",
         "import": "นำเข้า",
-        "invest": "ลงทุน",
         "is_required": "จำเป็น",
+        "learn_more": "เรียนรู้เพิ่มเติม",
         "load_more": "โหลดเพิ่มเติม",
         "login": "เข้าสู่ระบบ",
         "logout": "ออกจากระบบ",

@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "مرحبًا! لا تفقد اسم زيلف الخاص بك، قم بتجديده أو حجزه اليوم قبل أن يشتريه شخص آخر.",
-        "dont_remember_username": "لا تتذكر اسم المستخدم الخاص بك؟",
+        "dont_remember_zelfname": "لا تتذكر اسم زيلف الخاص بك؟",
         "find_zelf_name_subtitle": "ابحث عن اسم زيلف موجود بإدخال عنوانه العام أدناه:",
         "find_zelf_name_title": "ابحث عن اسم زيلف",
         "grace_period_until": "فترة السماح حتى",
@@ -88,6 +88,10 @@
         "title": "طبقات أمان زيلف بروف",
         "unhide_words": "إظهار الكلمات",
         "zelf_name_requires_a_password": "اسم زيلف الخاص بك يتطلب كلمة مرور"
+    },
+    "receive": {
+        "your_token_address": "عنوان {{ name }} الخاص بك",
+        "information": "يمكن استخدام هذا العنوان فقط لاستلام الرموز المتوافقة."
     },
     "common": {
         "12_word_phrase": "عبارة من 12 كلمة",
@@ -130,8 +134,8 @@
         "hide_words": "إخفاء الكلمات",
         "import_a_wallet": "استيراد محفظة",
         "import": "استيراد",
-        "invest": "استثمار",
         "is_required": "مطلوب",
+        "learn_more": "اعرف المزيد",
         "load_more": "تحميل المزيد",
         "login": "تسجيل الدخول",
         "logout": "تسجيل الخروج",

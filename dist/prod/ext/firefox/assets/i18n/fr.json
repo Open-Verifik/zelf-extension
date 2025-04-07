@@ -59,7 +59,7 @@
     },
     "welcome": {
         "dont_lose_your_zelf_name": "Hey ! Ne perdez pas votre nom Zelf, renouvelez ou réservez-le aujourd'hui, avant que quelqu'un ne l'achète.",
-        "dont_remember_username": "Vous ne vous souvenez pas de votre nom d'utilisateur ?",
+        "dont_remember_zelfname": "Vous ne vous souvenez pas de votre nom Zelf?",
         "find_zelf_name_subtitle": "Trouvez un nom Zelf existant en entrant son adresse publique ci-dessous :",
         "find_zelf_name_title": "Trouver un nom Zelf",
         "grace_period_until": "Période de grâce jusqu'à",
@@ -88,6 +88,10 @@
         "unhide_words": "Afficher les mots",
         "hide_words": "Masquer les mots",
         "zelf_name_requires_a_password": "Votre nom Zelf nécessite un mot de passe"
+    },
+    "receive": {
+        "your_token_address": "Votre adresse {{ name }}",
+        "information": "Cette adresse peut uniquement être utilisée pour recevoir des tokens compatibles."
     },
     "common": {
         "12_word_phrase": "Phrase de 12 mots",
@@ -130,8 +134,8 @@
         "hide_words": "Masquer les mots",
         "import_a_wallet": "Importer un portefeuille",
         "import": "Importer",
-        "invest": "Investir",
         "is_required": "est requis",
+        "learn_more": "En savoir plus",
         "load_more": "Charger plus",
         "login": "Connexion",
         "logout": "Déconnexion",
@@ -150,6 +154,7 @@
         "privacy": "Confidentialité",
         "purchase_now": "Acheter maintenant",
         "purchase": "Acheter",
+        "receive": "Recevoir",
         "recommended": "Recommandé",
         "registered": "Enregistré",
         "renew_domain": "Renouveler le domaine",

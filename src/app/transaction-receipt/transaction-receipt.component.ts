@@ -9,7 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { AvaxTransactionModel, EthTransactionModel, WalletModel } from "app/wallet";
+import { AvaxTransactionModel, EthTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
@@ -76,6 +76,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             else if (this.tokenType === "BNB") return "binance";
             else if (this.tokenType === "ETH") return "ethereum";
             else if (this.tokenType === "ZELF") return "zelf";
+            else if (this.tokenType === "SUI") return "sui";
             else return "ethereum";
         } else return "ethereum";
     }
@@ -134,7 +135,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         return;
                     }
 
-                    this.transaction = new EthTransactionModel(response.data).toTransaction();
+                    this.transaction = new SuiTransactionModel(response.data).toTransaction();
                     this.loading = false;
 
                     if (this.transaction.status === "pending") {
@@ -143,7 +144,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         this._walletService.removePendingTransaction(this.hash);
                     }
                 })
-                .catch(() => {
+                .catch((e) => {
                     this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
                         duration: 5000,
                         panelClass: "zelf-snackbar",

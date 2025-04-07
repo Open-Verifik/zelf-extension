@@ -498,7 +498,7 @@ export class WalletPublicDataModel {
     }
 }
 
-export type TokenData = {
+export interface TokenData {
     amount: number | string;
     decimals?: number;
     fiatBalance: number | string;
@@ -508,7 +508,9 @@ export type TokenData = {
     price: string | number;
     symbol: string;
     tokenType: string;
-};
+    address_token?: string;
+    contractAddress?: string;
+}
 
 export type Sender = {
     address: string;

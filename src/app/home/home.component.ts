@@ -172,13 +172,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _getSuiDetails(): Promise<any> {
-        if (!this.wallet?.suiAddress) return;
+        try {
+            const details = await this._suiService.getWalletDetails(this.wallet.suiAddress);
 
-        const details = await this._suiService.getWalletDetails(this.wallet.suiAddress);
+            if (details?.data?.tokenHoldings?.tokens) {
+                this._processTokens("Sui", details.data.tokenHoldings.tokens);
+            }
 
-        if (!details?.data?.tokenHoldings?.tokens) return;
+            if (details?.data) {
+                if ("_balance" in details.data) {
+                    this.balances.sui = details.data._balance;
+                } else if ("balance" in details.data) {
+                    this.balances.sui = details.data.balance;
+                } else if (details?.data?.account?.balance) {
+                    this.balances.sui = details.data.account.balance;
+                }
 
-        this._processTokens("Sui", details.data.tokenHoldings.tokens);
+                this._changeDetectionRef.detectChanges();
+            }
+        } catch (error) {
+            console.error("Error getting SUI details:", error);
+        }
     }
 
     private async _getAvalancheDetails(): Promise<any> {

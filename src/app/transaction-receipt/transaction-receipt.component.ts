@@ -14,6 +14,7 @@ import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { environment } from "environments/environment";
+import { SuiService } from "app/services/sui.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
@@ -37,6 +38,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         private _activatedRoute: ActivatedRoute,
         private _ethService: EthereumService,
         private _router: Router,
+        private _suiService: SuiService,
         private _walletService: WalletService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
@@ -84,43 +86,78 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
         const network = this._determineNetwork();
 
-        this._ethService
-            .requestTransactionDetails(this.hash, network)
-            .then((response: any) => {
-                if (!response || !response.data) {
-                    this._retryRequestTransactionDetails();
+        if (network === "ethereum" || network === "avalanche") {
+            this._ethService
+                .requestTransactionDetails(this.hash, network)
+                .then((response: any) => {
+                    if (!response || !response.data) {
+                        this._retryRequestTransactionDetails();
 
-                    return;
-                }
+                        return;
+                    }
 
-                if (network === "ethereum") {
-                    this.transaction = new EthTransactionModel(response.data).toTransaction();
-                } else if (network === "avalanche") {
-                    this.transaction = new AvaxTransactionModel(response.data).toTransaction();
-                }
+                    if (network === "ethereum") {
+                        this.transaction = new EthTransactionModel(response.data).toTransaction();
+                    } else if (network === "avalanche") {
+                        this.transaction = new AvaxTransactionModel(response.data).toTransaction();
+                    }
 
-                this.loading = false;
+                    this.loading = false;
 
-                if (this.transaction.status === "pending") {
-                    this._retryRequestTransactionDetails();
-                } else {
-                    this._walletService.removePendingTransaction(this.hash);
-                }
-            })
-            .catch(() => {
-                this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
-                    duration: 5000,
-                    panelClass: "zelf-snackbar",
-                    verticalPosition: "top",
+                    if (this.transaction.status === "pending") {
+                        this._retryRequestTransactionDetails();
+                    } else {
+                        this._walletService.removePendingTransaction(this.hash);
+                    }
+                })
+                .catch(() => {
+                    this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
+                        duration: 5000,
+                        panelClass: "zelf-snackbar",
+                        verticalPosition: "top",
+                    });
+
+                    if (this.transaction) {
+                        this.transaction.status = "failed";
+                        this._walletService.addTransactionToPending(this.transaction);
+                    }
+
+                    this.loading = false;
                 });
+        } else if (network === "sui") {
+            this._suiService
+                .requestTransactionDetails(this.hash)
+                .then((response: any) => {
+                    if (!response || !response.data) {
+                        this._retryRequestTransactionDetails();
 
-                if (this.transaction) {
-                    this.transaction.status = "failed";
-                    this._walletService.addTransactionToPending(this.transaction);
-                }
+                        return;
+                    }
 
-                this.loading = false;
-            });
+                    this.transaction = new EthTransactionModel(response.data).toTransaction();
+                    this.loading = false;
+
+                    if (this.transaction.status === "pending") {
+                        this._retryRequestTransactionDetails();
+                    } else {
+                        this._walletService.removePendingTransaction(this.hash);
+                    }
+                })
+                .catch(() => {
+                    this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
+                        duration: 5000,
+                        panelClass: "zelf-snackbar",
+                        verticalPosition: "top",
+                    });
+
+                    if (this.transaction) {
+                        this.transaction.status = "failed";
+                        this._walletService.addTransactionToPending(this.transaction);
+                    }
+
+                    this.loading = false;
+                });
+        }
     }
 
     private async _retryRequestTransactionDetails(): Promise<void> {

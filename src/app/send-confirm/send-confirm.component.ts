@@ -116,13 +116,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             if (this.transactionData.network === "sui") {
                 if (this.transactionData.tokenType === "SUI") {
                     const feeEstimate = await this._suiService.estimateSuiTransactionFee(this.transactionData.receiver.address, normalizedAmount);
+
                     this.transactionData.fee = feeEstimate.estimatedFee;
                     this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
                 } else {
                     const tokenAddress = this.transactionData.token?.address_token;
-                    if (!tokenAddress) {
-                        throw new Error("Token address is required");
-                    }
+
+                    if (!tokenAddress) throw new Error("Token address is required");
 
                     const feeEstimate = await this._suiService.estimateTokenTransactionFee(
                         this.transactionData.receiver.address,
@@ -130,10 +130,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                         normalizedAmount,
                         this.transactionData.token.decimals || 9
                     );
+
                     this.transactionData.fee = feeEstimate.estimatedFee;
                     this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
                 }
+
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
+
                 return;
             }
 
@@ -248,32 +251,26 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         try {
             const cleanMnemonic = this._mnemonics.trim().toLowerCase();
+
             let receipt;
 
             if (this.transactionData.network === "sui") {
-                try {
-                    const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
+                const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-                    if (this.transactionData.tokenType === "SUI") {
-                        const txHash = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
-                        receipt = { transactionHash: txHash };
-                    } else {
-                        const tokenAddress = this.transactionData.token?.address_token;
-                        if (!tokenAddress) {
-                            throw new Error("Token address is required");
-                        }
+                if (this.transactionData.tokenType === "SUI") {
+                    receipt = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
+                } else {
+                    const tokenAddress = this.transactionData.token?.address_token;
 
-                        const txHash = await this._suiService.transferToken(
-                            cleanMnemonic,
-                            this.transactionData.receiver.address,
-                            tokenAddress,
-                            normalizedAmount,
-                            this.transactionData.token.decimals || 9
-                        );
-                        receipt = { transactionHash: txHash };
-                    }
-                } catch (error) {
-                    throw error;
+                    if (!tokenAddress) throw new Error("Token address is required");
+
+                    receipt = await this._suiService.transferToken(
+                        cleanMnemonic,
+                        this.transactionData.receiver.address,
+                        tokenAddress,
+                        normalizedAmount,
+                        this.transactionData.token.decimals || 9
+                    );
                 }
             } else {
                 if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
@@ -363,17 +360,21 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                         : this.transactionData.tokenType,
             };
 
-            this._walletService.addTransactionToPending(pendingTransactionData);
+            await this._walletService.addTransactionToPending(pendingTransactionData);
             await this._transactionService.removeTransactionData();
 
             if (receipt.transactionHash) {
-                await this._router.navigate(["/transaction", receipt.transactionHash]);
+                await this._router.navigate(["/transaction", receipt.transactionHash], {
+                    queryParams: { tokenType: this.transactionData.tokenType },
+                });
             } else {
                 await this._router.navigate(["/send"]);
             }
         } catch (error: any) {
             console.error("Transaction error:", error);
+
             this.openErrorSnackBar(error.message || "errors.something_went_wrong");
+
             this.sending = false;
         } finally {
             this._mnemonics = "";

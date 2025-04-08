@@ -46,6 +46,7 @@
         "cannot_continue_process": "You cannot continue with the process",
         "continue_process": "You can continue with the process",
         "domain_or_address": "Domain or address",
+        "external_address_found": "External address found",
         "recently_used": "Recently used",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",

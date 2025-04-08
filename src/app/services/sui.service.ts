@@ -224,8 +224,8 @@ export class SuiService {
             }
 
             return {
-                transactionHash: result.digest,
                 ...result,
+                transactionHash: result.digest,
             };
         } catch (error: any) {
             console.error("Detailed error in SUI transfer:", {
@@ -270,14 +270,6 @@ export class SuiService {
             const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
             const senderAddress = keypair.getPublicKey().toSuiAddress();
 
-            const allObjects = await this.suiClient.getOwnedObjects({
-                owner: senderAddress,
-                options: {
-                    showContent: true,
-                    showType: true,
-                },
-            });
-
             const coinType = `${tokenObjectId}::coin::COIN`;
 
             const { data: tokenObjects } = await this.suiClient.getOwnedObjects({
@@ -317,6 +309,7 @@ export class SuiService {
             tx.setGasBudget(30000000);
 
             const availableBalance = BigInt((tokenObjects[0].data.content as unknown as { fields: { balance: string } })?.fields?.balance || 0);
+
             if (availableBalance < amountInSmallestUnit) {
                 throw new Error(`Insufficient balance. Available: ${availableBalance}, Required: ${amountInSmallestUnit}`);
             }
@@ -338,9 +331,10 @@ export class SuiService {
                 throw new Error(`Transaction failed: ${result.effects.status.error}`);
             }
 
-            return { transactionHash: result.digest, ...result };
+            return { ...result, transactionHash: result.digest };
         } catch (error: any) {
             console.error("Error in token transfer:", error);
+
             throw error;
         }
     }
@@ -350,6 +344,7 @@ export class SuiService {
             const tx = new TransactionBlock();
             const amountInMist = Math.floor(amount * 1_000_000_000);
             const [coin] = tx.splitCoins(tx.gas, [tx.pure(amountInMist)]);
+
             tx.transferObjects([coin], tx.pure(receiverAddress));
 
             const dryRunResult = await this.suiClient.dryRunTransactionBlock({

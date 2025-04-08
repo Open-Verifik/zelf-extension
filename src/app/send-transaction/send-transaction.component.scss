@@ -220,7 +220,7 @@
     &__address {
         font-family: Poppins;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
@@ -243,11 +243,6 @@
         text-align: center;
         vertical-align: middle;
         color: $gray;
-    }
-
-    &--error {
-        background-color: #fff2f2;
-        border: 1px solid #dc362e;
     }
 
     &__icon-bubble {

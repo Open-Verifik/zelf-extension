@@ -253,23 +253,33 @@
                             <p class="zelf-object-preview__chip-text" *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</p>
                         </div>
 
-                        <div class="zelf-chip zelf-chip--info">
-                            <ng-container *ngIf="foundAddress.publicData?.type === 'hold'">{{ t("send.zelf_name_not_registered") }}</ng-container>
+                        <div
+                            class="zelf-chip"
+                            [ngClass]="{
+                                'zelf-chip--error': foundAddress.publicData.type !== 'mainnet',
+                                'zelf-chip--info': foundAddress.publicData.type === 'mainnet'
+                            }"
+                        >
+                            <ng-container *ngIf="foundAddress.publicData?.type !== 'mainnet'">{{ t("send.zelf_name_not_registered") }}</ng-container>
                             <ng-container *ngIf="foundAddress.publicData?.type === 'mainnet'">{{ t("send.zelf_name_registered") }}</ng-container>
                         </div>
 
                         <h3 class="zelf-object-preview__zelf-name">{{ foundAddress.publicData.zelfName }}</h3>
 
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken">{{ foundAddress.ethAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.solanaAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.btcAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">
+                            {{ foundAddress.ethAddress | addressMask }}
+                        </p>
+
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.solanaAddress | addressMask }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.btcAddress | addressMask }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.suiAddress | addressMask }}</p>
 
                         <hr class="zelf-object-preview__horizontal-rule" />
 
                         <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p>
                     </div>
 
-                    <div class="zelf-object-preview zelf-object-preview--error" *ngIf="isZelfNameNotFound">
+                    <div class="zelf-object-preview" *ngIf="isZelfNameNotFound">
                         <div class="zelf-object-preview__chip">
                             <div class="zelf-object-preview__icon-bubble zelf-object-preview__icon-bubble--error">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

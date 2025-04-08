@@ -509,7 +509,7 @@ export class WalletPublicDataModel {
         this.type = data.type || "";
         this.zelfName = data.zelfName || "";
 
-        if (!this.type) data.zelfName?.includes(".hold") ? (this.type = "hold") : (this.type = "mainnet");
+        if (!this.type) data.zelfName ? (data.zelfName?.includes(".hold") ? (this.type = "hold") : (this.type = "mainnet")) : "";
         if (this.zelfName) this.zelfName = this.zelfName.replace(".hold", "");
 
         this.isExpired = this._checkIsExpired(this.expiresAt);

@@ -61,8 +61,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     ) {
         this.loading = true;
 
-        this._mnemonics = ""; // Should always be empty on init
-        this._password = this._vaultService.password; // Get from service, then clear immediately
+        this._mnemonics = "";
+        this._password = this._vaultService.password;
 
         this._vaultService.mnemonic = "";
         this._vaultService.password = "";
@@ -113,27 +113,24 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             if (this.transactionData.network === "sui") {
                 if (this.transactionData.tokenType === "SUI") {
                     const feeEstimate = await this._suiService.estimateSuiTransactionFee(this.transactionData.receiver.address, normalizedAmount);
-
                     this.transactionData.fee = feeEstimate.estimatedFee;
                     this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
                 } else {
-                    if (!this.transactionData.token?.address_token) {
-                        throw new Error("Contract address is required for token transfer");
+                    const tokenAddress = this.transactionData.token?.address_token;
+                    if (!tokenAddress) {
+                        throw new Error("Token address is required");
                     }
 
                     const feeEstimate = await this._suiService.estimateTokenTransactionFee(
                         this.transactionData.receiver.address,
-                        this.transactionData.token.address_token,
+                        tokenAddress,
                         normalizedAmount,
-                        9
+                        this.transactionData.token.decimals || 9
                     );
-
                     this.transactionData.fee = feeEstimate.estimatedFee;
                     this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
                 }
-
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
-
                 return;
             }
 
@@ -166,7 +163,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
-            console.error("Fee calculation error:", error);
             this.openErrorSnackBar("errors.invalid_transaction_fee");
         }
     }
@@ -257,12 +253,25 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 try {
                     const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-                    const txHash = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
+                    if (this.transactionData.tokenType === "SUI") {
+                        const txHash = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
+                        receipt = { transactionHash: txHash };
+                    } else {
+                        const tokenAddress = this.transactionData.token?.address_token;
+                        if (!tokenAddress) {
+                            throw new Error("Token address is required");
+                        }
 
-                    receipt = { transactionHash: txHash };
+                        const txHash = await this._suiService.transferToken(
+                            cleanMnemonic,
+                            this.transactionData.receiver.address,
+                            tokenAddress,
+                            normalizedAmount,
+                            this.transactionData.token.decimals || 9
+                        );
+                        receipt = { transactionHash: txHash };
+                    }
                 } catch (error) {
-                    console.error("SUI transaction error:", error);
-
                     throw error;
                 }
             } else {
@@ -338,7 +347,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._router.navigate(["/send"]);
             }
         } catch (error: any) {
-            console.error("Transaction error:", error);
             this.openErrorSnackBar("errors.something_went_wrong");
             this.sending = false;
         } finally {

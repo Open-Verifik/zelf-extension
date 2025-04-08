@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { firstValueFrom } from "rxjs";
 
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -18,6 +19,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Subject, takeUntil } from "rxjs";
 import { SuiService } from "app/services/sui.service";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -57,7 +59,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _vaultService: VaultService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService,
-        private _suiService: SuiService
+        private _suiService: SuiService,
+        private _blockchainTransactionsService: BlockchainTransactionsService
     ) {
         this.loading = true;
 
@@ -230,7 +233,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         if (!this._mnemonics) {
             if (!this.form.get("password")?.value) {
                 this.openErrorSnackBar("errors.empty_password");
-
                 return;
             }
 
@@ -238,7 +240,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             if (!this._mnemonics) {
                 this.openErrorSnackBar("errors.private_key_locked");
-
                 return;
             }
         }
@@ -277,21 +278,45 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             } else {
                 if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
                     this.openErrorSnackBar("errors.invalid_private_key");
-
                     return;
                 }
 
                 const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
                 const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
-                const isERC20Token = this.transactionData.tokenType === "ERC-20" && this.transactionData.sender.address;
 
-                if (isERC20Token) {
-                    const tokenAddress = this.transactionData.sender.address.split("?")[0];
+                let tokenAddress = this.transactionData.token?.address_token;
+                const tokenSymbol = this.transactionData.token?.symbol || "";
 
+                if (!tokenAddress && this.wallet && tokenSymbol !== "AVAX" && tokenSymbol !== "ETH") {
+                    try {
+                        const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+
+                        if (this.transactionData.network.toLowerCase() === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
+                            const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+
+                            if (foundToken) {
+                                tokenAddress = foundToken.address;
+                            }
+                        } else if (this.transactionData.network.toLowerCase() === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
+                            const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+
+                            if (foundToken) {
+                                tokenAddress = foundToken.address;
+                            }
+                        }
+                    } catch (error) {
+                        console.error("Error fetching token data from API:", error);
+                    }
+                }
+
+                const isNativeToken = ["AVAX", "ETH"].includes(tokenSymbol);
+                const isERC20 = !!tokenAddress && !isNativeToken;
+
+                if (isERC20 && tokenAddress) {
                     receipt = await this._ethService.sendERC20Transaction(
                         normalizedAmount,
                         wallet.privateKey,
-                        this.transactionData.sender.address,
+                        this.transactionData.receiver.address,
                         tokenAddress,
                         this.transactionData.network
                     );
@@ -347,7 +372,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._router.navigate(["/send"]);
             }
         } catch (error: any) {
-            this.openErrorSnackBar("errors.something_went_wrong");
+            console.error("Transaction error:", error);
+            this.openErrorSnackBar(error.message || "errors.something_went_wrong");
             this.sending = false;
         } finally {
             this._mnemonics = "";

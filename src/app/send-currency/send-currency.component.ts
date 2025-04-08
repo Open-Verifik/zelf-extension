@@ -10,6 +10,7 @@ import { TokenItemComponent } from "app/token-item/token-item.component";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { firstValueFrom } from "rxjs";
 import { SuiService } from "app/services/sui.service";
+import { EthereumService } from "app/eth.service";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
@@ -38,7 +39,8 @@ export class SendCurrencyComponent implements OnInit {
         private _router: Router,
         private _transactionService: TransactionService,
         private _walletService: WalletService,
-        private _suiService: SuiService
+        private _suiService: SuiService,
+        private _ethService: EthereumService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -113,12 +115,20 @@ export class SendCurrencyComponent implements OnInit {
                     avalancheTokens.push(avaxToken);
                 }
 
+                if (response.avalanche.data.tokenHoldings?.tokens) {
+                    avalancheTokens.push(...response.avalanche.data.tokenHoldings.tokens);
+                }
+
                 this._getCurrencies("Avalanche", avalancheTokens);
             }
+
+            await this._getSuiDetails();
+            await this._getAvaxDetails();
 
             this.loading = false;
             this._changeDetectionRef.detectChanges();
         } catch (error) {
+            console.error("Error loading tokens:", error);
             this.loading = false;
         }
     }
@@ -152,9 +162,30 @@ export class SendCurrencyComponent implements OnInit {
         } catch (error) {}
     }
 
+    private async _getAvaxDetails(): Promise<void> {
+        if (!this.wallet?.ethAddress || !this.CAN_SEND.AVAX) return;
+
+        try {
+            const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
+
+            if (details?.data?.tokenHoldings?.tokens) {
+                const tokensToAdd = details.data.tokenHoldings.tokens.map((token: any) => ({
+                    ...token,
+                    network: "Avalanche",
+                }));
+
+                this._getCurrencies("Avalanche", tokensToAdd);
+            }
+        } catch (error) {
+            console.error("Error getting AVAX details:", error);
+        }
+    }
+
     private _getCurrencies(network: string, currencies: Array<any>): void {
         for (const token of currencies) {
-            if (!token.symbol && !token.name) continue;
+            if (!token.symbol && !token.name) {
+                continue;
+            }
 
             if (network === "Solana" && this.CAN_SEND.SOL) {
                 const _token = { ...token, symbol: token.symbol || token.name, network };
@@ -168,8 +199,25 @@ export class SendCurrencyComponent implements OnInit {
                 this.tokens.push({ ...token, network });
             }
 
-            if (network === "Avalanche" && this.CAN_SEND.AVAX && (token.tokenType === "AVAX" || token.tokenType === "ERC-20")) {
-                this.tokens.push({ ...token, network });
+            if (network === "Avalanche" && this.CAN_SEND.AVAX) {
+                const tokenKey = `${token.symbol}-${network}-${token.tokenType || "ERC-20"}`;
+                const existingTokenIndex = this.tokens.findIndex((t) => `${t.symbol}-${t.network}-${t.tokenType || "ERC-20"}` === tokenKey);
+
+                if (existingTokenIndex === -1) {
+                    const avaxToken = {
+                        ...token,
+                        network,
+                        balance: parseFloat(token.balance || token.amount || "0"),
+                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                        price: parseFloat(token.price || "0"),
+                        tokenType: token.tokenType || "ERC-20",
+                        image: token.image || (token.symbol === "AVAX" ? "assets/images/avax.png" : undefined),
+                        name: token.name || token.symbol,
+                        symbol: token.symbol || token.name,
+                    };
+
+                    this.tokens.push(avaxToken);
+                }
             }
 
             if (network === "Sui" && this.CAN_SEND.SUI) {

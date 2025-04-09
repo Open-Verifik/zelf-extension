@@ -186,11 +186,6 @@ export class EthereumService {
                     break;
             }
 
-            web3.eth.transactionConfirmationBlocks = 1;
-            web3.eth.transactionPollingInterval = 2000;
-            web3.eth.transactionReceiptPollingInterval = 2000;
-            web3.eth.transactionPollingTimeout = 6000;
-
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
             const amountInWei = web3.utils.toWei(amount, "ether");
 
@@ -229,7 +224,7 @@ export class EthereumService {
                         gasPrice: web3.utils.fromWei(tx.gasPrice, "gwei") + " gwei",
                     },
                 });
-                throw txError;
+                return signedTx;
             }
         } catch (error) {
             console.error(`Error in transaction preparation for ${network}:`, error);
@@ -395,35 +390,50 @@ export class EthereumService {
             const web3 =
                 network.toLowerCase() === "avalanche" ? new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet)) : this.web3;
 
-            let estimateGasParams;
+            let estimatedGas;
             if (tokenAddress) {
-                const transferFnSignature = web3.eth.abi.encodeFunctionSignature("transfer(address,uint256)");
-                const params = web3.eth.abi.encodeParameters(["address", "uint256"], [to, value]);
-                const data = transferFnSignature + params.slice(2);
-                estimateGasParams = {
+                // ABI mínimo para tokens ERC20
+                const minABI = [
+                    {
+                        constant: false,
+                        inputs: [
+                            { name: "_to", type: "address" },
+                            { name: "_value", type: "uint256" },
+                        ],
+                        name: "transfer",
+                        outputs: [{ name: "", type: "bool" }],
+                        type: "function",
+                    },
+                ];
+
+                const contract = new web3.eth.Contract(minABI, tokenAddress);
+                const data = contract.methods.transfer(to, value).encodeABI();
+
+                // Estimación de gas con un buffer del 20%
+                estimatedGas = await web3.eth.estimateGas({
                     from: this.account.value || "0x0000000000000000000000000000000000000000",
                     to: tokenAddress,
                     data,
                     value: "0",
-                };
+                });
+                estimatedGas = Math.floor(Number(estimatedGas) * 1.2); // 20% buffer
             } else {
-                estimateGasParams = {
+                estimatedGas = await web3.eth.estimateGas({
                     from: this.account.value || "0x0000000000000000000000000000000000000000",
                     to,
                     value,
                     data,
-                };
+                });
             }
 
             let gasPrice;
-            const estimatedGas = await web3.eth.estimateGas(estimateGasParams);
-
             if (network.toLowerCase() === "ethereum") {
                 const gasTracker = await this.getGasPrices();
-
-                gasPrice = web3.utils.toWei(gasTracker.data.average.gwei, "gwei");
+                gasPrice = web3.utils.toWei(gasTracker.data.high.gwei, "gwei"); // Usar gas price alto para ERC20
             } else {
                 gasPrice = await web3.eth.getGasPrice();
+                // Para Avalanche, aumentar el gas price en un 10%
+                gasPrice = ((BigInt(gasPrice) * BigInt(110)) / BigInt(100)).toString();
             }
 
             const totalCost = (BigInt(gasPrice) * BigInt(estimatedGas)).toString();
@@ -617,7 +627,10 @@ export class EthereumService {
 
             const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-
+            web3.eth.transactionConfirmationBlocks = 1;
+            web3.eth.transactionPollingInterval = 2000;
+            web3.eth.transactionReceiptPollingInterval = 2000;
+            web3.eth.transactionPollingTimeout = 6000;
             // ERC20 Token Contract ABI (minimal required for transfer)
             const minABI = [
                 {

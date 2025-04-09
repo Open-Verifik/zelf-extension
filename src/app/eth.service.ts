@@ -58,7 +58,7 @@ export class EthereumService {
                 symbol: "ETH",
                 decimals: 18,
             },
-            rpcUrls: [environment.ethereumRpc.testnet],
+            rpcUrls: [environment.ethereumRpc.mainnet],
             blockExplorerUrls: ["https://etherscan.io"],
         },
         polygon: {

@@ -370,7 +370,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 });
             } else if (receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { tokenType: this.transactionData.tokenType },
+                    queryParams: { tokenType: this.transactionData.symbol },
                 });
             } else {
                 await this._router.navigate(["/send"]);

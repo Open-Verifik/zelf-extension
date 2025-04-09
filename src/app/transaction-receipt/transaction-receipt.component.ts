@@ -112,16 +112,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     }
                 })
                 .catch(() => {
-                    this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
-                        duration: 5000,
-                        panelClass: "zelf-snackbar",
-                        verticalPosition: "top",
-                    });
-
-                    if (this.transaction) {
-                        this.transaction.status = "failed";
-                        this._walletService.addTransactionToPending(this.transaction);
-                    }
+                    this._retryRequestTransactionDetails();
 
                     this.loading = false;
                 });

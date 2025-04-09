@@ -75,7 +75,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             else if (this.tokenType === "MATIC") return "polygon";
             else if (this.tokenType === "BNB") return "binance";
             else if (this.tokenType === "ETH") return "ethereum";
-            else if (this.tokenType === "ZELF") return "solana";
+            else if (this.tokenType === "ZELF" || this.tokenType === "SOL") return "solana";
             else if (this.tokenType === "SUI") return "sui";
             else return "ethereum";
         } else return "ethereum";

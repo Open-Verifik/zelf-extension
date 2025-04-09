@@ -83,6 +83,7 @@ export class TransactionModel implements Transaction {
     receiver?: any;
     sender?: any;
     status?: string;
+    symbol?: string;
     to?: string;
     tokenType: string; // ERC-20
     traffic: string;
@@ -111,6 +112,11 @@ export class TransactionModel implements Transaction {
         this.network = data.network || data.token?.network || "";
         this.price = data.price || data.token?.price || 0;
         this.tokenType = data.tokenType || data.token?.tokenType || "";
+    }
+
+    get total(): number {
+        console.log("total", this.amount, this.gasFee, this);
+        return Number(this.amount) + Number(this.gasFee);
     }
 }
 
@@ -168,7 +174,7 @@ export class SuiTransactionModel implements SuiTransaction {
         this.nonRefundableStorageFee = Number(data.nonRefundableStorageFee) || 0;
         this.status = data.status || "";
         this.symbol = data.symbol || "SUI";
-        this.to = data.to || [];
+        this.to = data.to?.length ? data.to[0] : [];
         this.tokenTransferNum = Number(data.tokenTransferNum) || 0;
         this.txFee = Number(data.txFee) || 0;
     }
@@ -249,7 +255,7 @@ export class EthTransactionModel implements EthTransaction {
             date: this.timestamp?.split("(")[1].split(")")[0].trim(),
             fiatAmount: Number(this.valueDolar),
             from: this.from,
-            gasFee: this.gasPrice,
+            gasFee: this.transactionFeeETH,
             hash: this.id,
             status: this.status.toLowerCase(),
             to: this.to,
@@ -291,7 +297,7 @@ export class AvaxTransactionModel implements AvaxTransaction {
         this.assetPrice = data.assetPrice || "";
         this.date = data.date || "";
         this.from = data.from || "";
-        this.gasPrice = data.gasPrice || "";
+        this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
         this.hash = data.hash || "";
         this.status = data.status || "";
         this.symbol = data.symbol || "AVAX";
@@ -307,7 +313,65 @@ export class AvaxTransactionModel implements AvaxTransaction {
             date: new Date(this.date),
             fiatAmount: Number(this.assetPrice),
             from: this.from,
-            gasFee: this.gasPrice,
+            gasFee: this.txnFee,
+            hash: this.hash,
+            status: this.status.toLowerCase(),
+            to: this.to,
+            tokenType: "ERC-20",
+        });
+    }
+}
+
+export type SolTransaction = {
+    age: string;
+    amount: string;
+    assetPrice: string;
+    date: string;
+    from: string;
+    gasPrice: string;
+    hash: string;
+    status: string;
+    symbol: string;
+    to: string;
+    txnFee: string;
+};
+
+export class SolTransactionModel implements SolTransaction {
+    age: string;
+    amount: string;
+    assetPrice: string;
+    date: string;
+    from: string;
+    gasPrice: string;
+    hash: string;
+    status: string;
+    symbol: string = "SOL";
+    to: string;
+    txnFee: string;
+
+    constructor(data: SolTransaction) {
+        this.age = data.age || "";
+        this.amount = data.amount || "";
+        this.assetPrice = data.assetPrice || "";
+        this.date = data.date || "";
+        this.from = data.from || "";
+        this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
+        this.hash = data.hash || "";
+        this.status = data.status || "";
+        this.symbol = data.symbol || "SOL";
+        this.to = data.to || "";
+        this.txnFee = data.txnFee || "";
+    }
+
+    toTransaction(): TransactionModel {
+        return new TransactionModel({
+            age: this.age,
+            amount: Number(this.amount),
+            asset: this.symbol,
+            date: new Date(this.date),
+            fiatAmount: Number(this.assetPrice),
+            from: this.from,
+            gasFee: this.txnFee,
             hash: this.hash,
             status: this.status.toLowerCase(),
             to: this.to,

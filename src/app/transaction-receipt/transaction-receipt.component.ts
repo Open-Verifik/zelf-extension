@@ -9,12 +9,13 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { AvaxTransactionModel, EthTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
+import { AvaxTransactionModel, EthTransactionModel, SolTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { environment } from "environments/environment";
 import { SuiService } from "app/services/sui.service";
+import { SolanaService } from "app/solana.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
@@ -24,8 +25,6 @@ import { SuiService } from "app/services/sui.service";
     templateUrl: "./transaction-receipt.component.html",
 })
 export class TransactionReceiptComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
-    private _notFoundErrorText: string = this._translocoService.translate("common.close");
-    private _notFoundErrorTitle: string = this._translocoService.translate("errors.transaction_not_found");
     private _timeout!: ReturnType<typeof setTimeout>;
 
     hash: string = "";
@@ -38,6 +37,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         private _activatedRoute: ActivatedRoute,
         private _ethService: EthereumService,
         private _router: Router,
+        private _solService: SolanaService,
         private _suiService: SuiService,
         private _walletService: WalletService,
         protected _chromeService: ChromeService,
@@ -131,6 +131,32 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     response.data.symbol = this.tokenType;
 
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
+                    this.loading = false;
+
+                    if (this.transaction.status === "pending") {
+                        this._retryRequestTransactionDetails();
+                    } else {
+                        this._walletService.removePendingTransaction(this.hash);
+                    }
+                })
+                .catch(() => {
+                    this._retryRequestTransactionDetails();
+
+                    this.loading = false;
+                });
+        } else if (network === "solana") {
+            this._solService
+                .requestTransactionDetails(this.hash)
+                .then((response: any) => {
+                    if (!response || !response.data) {
+                        this._retryRequestTransactionDetails();
+
+                        return;
+                    }
+
+                    response.data.symbol = this.tokenType;
+
+                    this.transaction = new SolTransactionModel(response.data).toTransaction();
                     this.loading = false;
 
                     if (this.transaction.status === "pending") {

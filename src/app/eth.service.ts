@@ -5,6 +5,9 @@ import Web3 from "web3";
 import { isAddress } from "web3-validator";
 
 import { Core } from "@quicknode/sdk";
+import { createWalletClient, http } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
@@ -97,11 +100,14 @@ export class EthereumService {
     tokens: Array<any> = [];
 
     constructor(private http: HttpClient, private _httpWrapper: HttpWrapperService) {
-        this.web3 = new Web3(new Web3.providers.HttpProvider(environment.ethereumRpc.mainnet));
+        this.web3 = new Web3(new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5"));
     }
 
-    changeNetwork(): void {
-        const url = environment.ethereumRpc.mainnet;
+    changeNetwork(production?: boolean): void {
+        const url = production
+            ? "https://mainnet.infura.io/v3/0714254b0de84112a865096da1050ae5"
+            : "https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5";
+
         this.web3 = new Web3(new Web3.providers.HttpProvider(url));
     }
 
@@ -110,7 +116,7 @@ export class EthereumService {
 
         this.account.next(account.address);
 
-        return account;
+        return account; // Be extremely cautious with how you handle the private key
     }
 
     validateMnemonic(mnemonic: string): boolean {
@@ -163,46 +169,119 @@ export class EthereumService {
     async sendTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {
         try {
             let rpcUrl;
+            let web3;
             let chainId;
 
+            // Configurar Web3 según la red
             switch (network.toLowerCase()) {
                 case "avalanche":
                     rpcUrl = environment.avalancheRpc.mainnet;
-                    chainId = 43114;
+                    web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+                    chainId = 43114; // C-Chain
                     break;
                 case "ethereum":
                 default:
                     rpcUrl = environment.ethereumRpc.mainnet;
+                    web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
                     chainId = 1;
                     break;
             }
 
-            const provider = new ethers.JsonRpcProvider(rpcUrl);
-            const wallet = new ethers.Wallet(privateKey, provider);
-            const amountInEth = ethers.parseEther(amount);
+            web3.eth.transactionConfirmationBlocks = 1;
+            web3.eth.transactionPollingInterval = 2000;
+            web3.eth.transactionReceiptPollingInterval = 2000;
+            web3.eth.transactionPollingTimeout = 6000;
 
-            const gasEstimate = await provider.estimateGas({
-                from: wallet.address,
+            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+            const amountInWei = web3.utils.toWei(amount, "ether");
+
+            // Obtener el nonce
+            const nonce = await web3.eth.getTransactionCount(account.address, "latest");
+
+            const transactionCost = await this.getTransactionCost(toAddress, amountInWei, "0x", network);
+
+            const tx = {
+                from: account.address,
                 to: toAddress,
-                value: amountInEth,
-            });
-
-            const gasLimit = gasEstimate + gasEstimate / BigInt(5);
-
-            const tx = await wallet.sendTransaction({
-                to: toAddress,
-                value: amountInEth,
-                gasLimit: gasLimit,
+                value: amountInWei,
+                nonce: nonce,
+                gasPrice: transactionCost.gasPrice,
+                gas: transactionCost.estimatedGas,
                 chainId: chainId,
+            };
+
+            console.log("Transaction config:", {
+                network,
+                chainId,
+                gasPrice: web3.utils.fromWei(tx.gasPrice, "gwei") + " gwei",
+                gasLimit: tx.gas,
+                value: web3.utils.fromWei(tx.value, "ether") + " AVAX/ETH",
             });
 
-            const receipt = await tx.wait();
-            return receipt;
+            const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+
+            try {
+                return await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+            } catch (txError) {
+                console.error(`Detailed transaction error for ${network}:`, {
+                    error: txError,
+                    tx: {
+                        ...tx,
+                        value: web3.utils.fromWei(tx.value, "ether"),
+                        gasPrice: web3.utils.fromWei(tx.gasPrice, "gwei") + " gwei",
+                    },
+                });
+                throw txError;
+            }
         } catch (error) {
-            console.error(`Error sending native token on ${network}:`, error);
+            console.error(`Error in transaction preparation for ${network}:`, error);
             throw error;
         }
     }
+
+    // async sendQuickNodeTransaction(amount: string, privateKey: string, toAddress: string, network: string = "ethereum"): Promise<any> {
+    //     if (network !== "ethereum") throw new Error("Unsupported network");
+
+    //     const account = privateKeyToAccount(privateKey as `0x${string}`);
+    //     const walletClient = createWalletClient({
+    //         chain: ethCore.client.chain,
+    //         account,
+    //         transport: http(environment.ethereumRpc.mainnet),
+    //     });
+
+    //     const results = await ethCore.client.multicall();
+
+    //     const ethSendContract = {
+    //         address: toAddress as `0x${string}`,
+    //         functionName: "transfer",
+    //         args: [toAddress as `0x${string}`, parseEther(amount)],
+    //         account,
+    //         abi: [
+    //             {
+    //                 inputs: [
+    //                     {
+    //                         internalType: "address",
+    //                         name: "to",
+    //                         type: "address",
+    //                     },
+    //                     {
+    //                         internalType: "uint256",
+    //                         name: "value",
+    //                         type: "uint256",
+    //                     },
+    //                 ],
+    //                 name: "sendTransaction",
+    //                 outputs: [],
+    //                 stateMutability: "nonpayable",
+    //                 type: "function",
+    //             },
+    //         ],
+    //     };
+
+    //     const { request } = await ethCore.client.simulateContract(ethSendContract);
+
+    //     await walletClient.writeContract(request);
+    // }
 
     getGasPrices(): Promise<any> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/gas-tracker`);
@@ -251,6 +330,7 @@ export class EthereumService {
         this.tokens = [];
     }
 
+    // Switch network function (updated to include Sepolia)
     async switchNetwork(networkName: "sepolia"): Promise<boolean> {
         if (!window.ethereum) return false;
 
@@ -284,7 +364,7 @@ export class EthereumService {
         if (decimals === 18) {
             return this.web3.utils.toWei(amount, "ether");
         }
-
+        // For non-standard decimals (ERC20 tokens)
         return ethers.parseUnits(amount, decimals).toString();
     }
 
@@ -292,41 +372,68 @@ export class EthereumService {
         if (decimals === 18) {
             return this.web3.utils.fromWei(amount, "ether");
         }
-
+        // For non-standard decimals (ERC20 tokens)
         return ethers.formatUnits(amount, decimals);
     }
 
     async getTransactionCost(
         to: string,
         value: string,
-        data: string = "0x"
+        data: string = "0x",
+        network: string = "ethereum",
+        tokenAddress?: string
     ): Promise<{
         estimatedGas: number;
         gasPrice: string;
         totalCost: string;
+        fiatFee?: number;
+        total?: number;
     }> {
         try {
             if (!to || !this.checkIfValidAddress(to)) {
                 throw new Error("Invalid address");
             }
             const formattedAddress = to.toLowerCase();
-
             const from = this.account.value || "0x0000000000000000000000000000000000000000";
 
-            const [gasPrice, estimatedGas] = await Promise.all([
-                this.web3.eth.getGasPrice(),
-                this.web3.eth.estimateGas({
+            const web3 =
+                network.toLowerCase() === "avalanche" ? new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet)) : this.web3;
+
+            let estimateGasParams;
+            if (tokenAddress) {
+                // ERC20 transfer function signature
+                const transferFnSignature = web3.eth.abi.encodeFunctionSignature("transfer(address,uint256)");
+                const params = web3.eth.abi.encodeParameters(["address", "uint256"], [to, value]);
+                const data = transferFnSignature + params.slice(2);
+
+                estimateGasParams = {
+                    from,
+                    to: tokenAddress, // Dirección del contrato del token
+                    data, // Data para la función transfer
+                    value: "0", // Para ERC20, el value es 0
+                };
+            } else {
+                estimateGasParams = {
                     from,
                     to: formattedAddress,
                     value,
                     data,
-                }),
-            ]);
+                };
+            }
+
+            const [gasPrice, estimatedGas] = await Promise.all([web3.eth.getGasPrice(), web3.eth.estimateGas(estimateGasParams)]);
+
+            const totalCost = (BigInt(gasPrice) * BigInt(estimatedGas)).toString();
+            const nativeFee = Number(web3.utils.fromWei(totalCost, "ether"));
+
+            const price = network.toLowerCase() === "avalanche" ? await this.getAVAXPrice() : await this.getETHPrice();
 
             return {
                 estimatedGas: Number(estimatedGas),
                 gasPrice: gasPrice.toString(),
-                totalCost: (BigInt(gasPrice) * BigInt(estimatedGas)).toString(),
+                totalCost,
+                fiatFee: nativeFee * price,
+                total: nativeFee * price,
             };
         } catch (error) {
             console.error("Error in getTransactionCost:", error);
@@ -420,6 +527,7 @@ export class EthereumService {
 
     async getAVAXPrice(): Promise<number> {
         try {
+            // Intentar primero con CoinGecko
             try {
                 const response = await this._httpWrapper.sendRequest(
                     "get",
@@ -432,7 +540,8 @@ export class EthereumService {
                 console.warn("CoinGecko API failed:", error);
             }
 
-            return 0;
+            // Fallback a otra API o valor por defecto
+            return 0; // O podrías usar otro servicio de precios como fallback
         } catch (error) {
             console.error("Error getting AVAX price:", error);
             return 0;
@@ -463,11 +572,13 @@ export class EthereumService {
     }
 
     async requestTransactionDetails(transactionHash: string, network: string = "ethereum"): Promise<{ data: EthTransaction }> {
+        // Determinar la URL base según la red
         let baseUrl = this.baseUrl;
         let endpoint = "";
 
         switch (network.toLowerCase()) {
             case "avalanche":
+                // Usar el endpoint específico de Avalanche
                 endpoint = `/api/avalanche/transaction/${transactionHash}`;
                 break;
             case "ethereum":
@@ -488,63 +599,89 @@ export class EthereumService {
     ): Promise<any> {
         try {
             let rpcUrl;
-            let chainId;
 
             switch (network.toLowerCase()) {
                 case "avalanche":
                     rpcUrl = environment.avalancheRpc.mainnet;
-                    chainId = 43114; // C-Chain
+
                     break;
                 case "ethereum":
-                    rpcUrl = environment.ethereumRpc.mainnet;
-                    chainId = 1; // Mainnet
-                    break;
                 default:
-                    throw new Error(`Unsupported network: ${network}`);
+                    rpcUrl = environment.ethereumRpc.mainnet;
+
+                    break;
             }
 
-            const provider = new ethers.JsonRpcProvider(rpcUrl);
-            const wallet = new ethers.Wallet(privateKey, provider);
+            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-            const nativeBalance = await provider.getBalance(wallet.address);
-            const minGasBalance = ethers.parseEther("0.01");
-
-            if (nativeBalance < minGasBalance) {
-                throw new Error(`Insufficient ${network === "avalanche" ? "AVAX" : "ETH"} for gas fees`);
-            }
-
-            const tokenAbi = [
-                "function symbol() view returns (string)",
-                "function decimals() view returns (uint8)",
-                "function balanceOf(address) view returns (uint256)",
-                "function transfer(address to, uint amount) returns (bool)",
+            // ERC20 Token Contract ABI (minimal required for transfer)
+            const minABI = [
+                {
+                    constant: false,
+                    inputs: [
+                        {
+                            name: "_to",
+                            type: "address",
+                        },
+                        {
+                            name: "_value",
+                            type: "uint256",
+                        },
+                    ],
+                    name: "transfer",
+                    outputs: [
+                        {
+                            name: "",
+                            type: "bool",
+                        },
+                    ],
+                    type: "function",
+                },
+                {
+                    constant: true,
+                    inputs: [],
+                    name: "decimals",
+                    outputs: [
+                        {
+                            name: "",
+                            type: "uint8",
+                        },
+                    ],
+                    type: "function",
+                },
             ];
 
-            const contract = new ethers.Contract(tokenAddress, tokenAbi, wallet);
+            const contract = new web3.eth.Contract(minABI, tokenAddress);
 
-            const [symbol, decimals, tokenBalance] = await Promise.all([contract.symbol(), contract.decimals(), contract.balanceOf(wallet.address)]);
+            const decimals = Number(await contract.methods.decimals().call());
+            const amountInWei = this.toWei(amount, decimals);
 
-            const parsedAmount = ethers.parseUnits(amount, decimals);
+            const transferData = contract.methods.transfer(toAddress, amountInWei).encodeABI();
 
-            if (tokenBalance < parsedAmount) {
-                throw new Error(`Insufficient ${symbol} balance`);
-            }
+            const [nonce, gasPrice] = await Promise.all([web3.eth.getTransactionCount(account.address, "latest"), web3.eth.getGasPrice()]);
 
-            const gasEstimate = await contract.transfer.estimateGas(toAddress, parsedAmount);
-            const adjustedGas = gasEstimate + gasEstimate / BigInt(5); // 20% extra
-
-            const tx = await contract.transfer(toAddress, parsedAmount, {
-                gasLimit: adjustedGas,
+            const gasEstimate = await web3.eth.estimateGas({
+                from: account.address,
+                to: tokenAddress,
+                data: transferData,
             });
 
-            const receipt = await tx.wait();
-
-            return {
-                ...receipt,
-                transactionHash: receipt.hash,
+            const tx = {
+                from: account.address,
+                to: tokenAddress,
+                data: transferData,
+                nonce: nonce,
+                gasPrice: gasPrice,
+                gas: gasEstimate,
             };
+
+            const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+            const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+            return receipt;
         } catch (error) {
-            console.error(`Transaction error: ${error instanceof Error ? error.message : "Unknown error"}`);
+            console.error(`Error sending ERC20 token on ${network}:`, error);
             throw error;
         }
     }

@@ -172,7 +172,6 @@ export class EthereumService {
             let web3;
             let chainId;
 
-            // Configurar Web3 según la red
             switch (network.toLowerCase()) {
                 case "avalanche":
                     rpcUrl = environment.avalancheRpc.mainnet;
@@ -195,7 +194,6 @@ export class EthereumService {
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
             const amountInWei = web3.utils.toWei(amount, "ether");
 
-            // Obtener el nonce
             const nonce = await web3.eth.getTransactionCount(account.address, "latest");
 
             const transactionCost = await this.getTransactionCost(toAddress, amountInWei, "0x", network);
@@ -393,35 +391,40 @@ export class EthereumService {
             if (!to || !this.checkIfValidAddress(to)) {
                 throw new Error("Invalid address");
             }
-            const formattedAddress = to.toLowerCase();
-            const from = this.account.value || "0x0000000000000000000000000000000000000000";
 
             const web3 =
                 network.toLowerCase() === "avalanche" ? new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet)) : this.web3;
 
             let estimateGasParams;
             if (tokenAddress) {
-                // ERC20 transfer function signature
                 const transferFnSignature = web3.eth.abi.encodeFunctionSignature("transfer(address,uint256)");
                 const params = web3.eth.abi.encodeParameters(["address", "uint256"], [to, value]);
                 const data = transferFnSignature + params.slice(2);
-
                 estimateGasParams = {
-                    from,
-                    to: tokenAddress, // Dirección del contrato del token
-                    data, // Data para la función transfer
-                    value: "0", // Para ERC20, el value es 0
+                    from: this.account.value || "0x0000000000000000000000000000000000000000",
+                    to: tokenAddress,
+                    data,
+                    value: "0",
                 };
             } else {
                 estimateGasParams = {
-                    from,
-                    to: formattedAddress,
+                    from: this.account.value || "0x0000000000000000000000000000000000000000",
+                    to,
                     value,
                     data,
                 };
             }
 
-            const [gasPrice, estimatedGas] = await Promise.all([web3.eth.getGasPrice(), web3.eth.estimateGas(estimateGasParams)]);
+            let gasPrice;
+            const estimatedGas = await web3.eth.estimateGas(estimateGasParams);
+
+            if (network.toLowerCase() === "ethereum") {
+                const gasTracker = await this.getGasPrices();
+
+                gasPrice = web3.utils.toWei(gasTracker.data.average.gwei, "gwei");
+            } else {
+                gasPrice = await web3.eth.getGasPrice();
+            }
 
             const totalCost = (BigInt(gasPrice) * BigInt(estimatedGas)).toString();
             const nativeFee = Number(web3.utils.fromWei(totalCost, "ether"));

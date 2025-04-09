@@ -87,6 +87,7 @@
         background-color: transparent;
         transition: background-color 0.2s $smoothBezier;
         cursor: pointer;
+        min-height: 64px;
 
         &:hover {
             background-color: $antiFlashWhite;

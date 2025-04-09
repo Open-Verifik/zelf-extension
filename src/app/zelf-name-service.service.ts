@@ -56,6 +56,10 @@ export class ZelfNameService {
         };
     }
 
+    generateArNS(zelfName: string): string {
+        return `https://${zelfName.replace(".", "_")}.arweave.zelf.world`;
+    }
+
     decryptZelfName(payload: any): Promise<any> {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/decrypt`, payload);
     }

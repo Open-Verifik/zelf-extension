@@ -182,6 +182,7 @@
 }
 
 .zelf-icon-button {
+    font-family: Poppins;
     align-items: center;
     background-color: $antiFlashWhite !important;
     border-radius: 56px;
@@ -237,6 +238,42 @@
 
         &.zelf-icon-button--border-soft {
             border-radius: 14px;
+        }
+    }
+
+    &--hyperlink {
+        background-color: transparent;
+        color: $gray;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 9999px;
+        padding: 8px 16px;
+        transition: color 0.2s $smoothBezier, background-color 0.3s $smoothBezier;
+
+        &--small {
+            font-size: 11px;
+        }
+
+        svg {
+            fill: $gray;
+        }
+
+        &:hover {
+            color: $black;
+            background-color: $platinum;
+
+            svg {
+                fill: $black;
+            }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: $taupeGray !important;
+
+            svg {
+                fill: $taupeGray;
+            }
         }
     }
 

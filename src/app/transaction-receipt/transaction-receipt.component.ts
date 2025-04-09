@@ -75,7 +75,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             else if (this.tokenType === "MATIC") return "polygon";
             else if (this.tokenType === "BNB") return "binance";
             else if (this.tokenType === "ETH") return "ethereum";
-            else if (this.tokenType === "ZELF") return "zelf";
+            else if (this.tokenType === "ZELF") return "solana";
             else if (this.tokenType === "SUI") return "sui";
             else return "ethereum";
         } else return "ethereum";
@@ -96,6 +96,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
                         return;
                     }
+
+                    response.data.symbol = this.tokenType;
 
                     if (network === "ethereum") {
                         this.transaction = new EthTransactionModel(response.data).toTransaction();
@@ -126,6 +128,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         return;
                     }
 
+                    response.data.symbol = this.tokenType;
+
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
                     this.loading = false;
 
@@ -135,17 +139,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         this._walletService.removePendingTransaction(this.hash);
                     }
                 })
-                .catch((e) => {
-                    this._snackBar.open(this._notFoundErrorTitle, this._notFoundErrorText, {
-                        duration: 5000,
-                        panelClass: "zelf-snackbar",
-                        verticalPosition: "top",
-                    });
-
-                    if (this.transaction) {
-                        this.transaction.status = "failed";
-                        this._walletService.addTransactionToPending(this.transaction);
-                    }
+                .catch(() => {
+                    this._retryRequestTransactionDetails();
 
                     this.loading = false;
                 });

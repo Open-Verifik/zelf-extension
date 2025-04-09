@@ -363,7 +363,11 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             await this._walletService.addTransactionToPending(pendingTransactionData);
             await this._transactionService.removeTransactionData();
 
-            if (receipt.transactionHash) {
+            if (this.transactionData.network === "sui" && receipt && receipt.digest) {
+                await this._router.navigate(["/transaction", receipt.digest], {
+                    queryParams: { tokenType: "SUI" },
+                });
+            } else if (receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
                     queryParams: { tokenType: this.transactionData.tokenType },
                 });

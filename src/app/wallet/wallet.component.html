@@ -74,7 +74,7 @@
                     <p class="wallet__task-text">{{ t("wallet.private_key") }}</p>
                 </div>
 
-                <div class="wallet__task">
+                <div class="wallet__task" *ngIf="showArnsButton">
                     <button
                         class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
                         (click)="openMyZnsBottomSheet()"

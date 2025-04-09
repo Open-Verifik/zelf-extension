@@ -141,30 +141,31 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             }
 
             let transactionCost;
-
             const receiverAddress = this.transactionData.receiver.address;
+            const isERC20 = this.transactionData.tokenType === "ERC-20";
+            const tokenAddress = this.transactionData.token?.address_token;
 
-            if (this.transactionData.tokenType === "ERC-20") {
-                if (!this.transactionData.token?.address_token) {
-                    throw new Error("Contract address is required for ERC-20 transfer");
-                }
-
+            if (isERC20 && tokenAddress) {
                 transactionCost = await this._ethService.getTransactionCost(
                     receiverAddress,
-                    this._ethService.toWei(String(normalizedAmount), this.transactionData.token.decimals)
+                    this._ethService.toWei(String(normalizedAmount), this.transactionData.token.decimals),
+                    "0x",
+                    this.transactionData.network,
+                    tokenAddress
                 );
             } else {
-                transactionCost = await this._ethService.getTransactionCost(receiverAddress, this._ethService.toWei(String(normalizedAmount)));
+                transactionCost = await this._ethService.getTransactionCost(
+                    receiverAddress,
+                    this._ethService.toWei(String(normalizedAmount)),
+                    "0x",
+                    this.transactionData.network
+                );
             }
 
             this.transactionData.fee = Number(this._ethService.fromWei(transactionCost.totalCost));
-
-            const price = this.transactionData.network === "avalanche" ? await this._ethService.getAVAXPrice() : await this._ethService.getETHPrice();
-
-            this.transactionData.fiatFee = Number(this.transactionData.fee) * price;
+            this.transactionData.fiatFee = transactionCost.fiatFee || 0;
 
             const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-
             this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
             await this._transactionService.setCurrentTransactionData(this.transactionData);

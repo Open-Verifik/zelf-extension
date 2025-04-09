@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { Router } from "@angular/router";
@@ -47,6 +47,8 @@ type ProcessedTransaction = {
     templateUrl: "./zelf-history.component.html",
 })
 export class ZelfHistoryComponent implements OnInit {
+    @Input("token") token?: string = "";
+
     private currentPage = 0;
 
     public history: Record<string, ProcessedTransaction[]> | null = null;
@@ -107,6 +109,7 @@ export class ZelfHistoryComponent implements OnInit {
         transactions.forEach((tx) => {
             if (this.transactionHashMap[tx.hash]) return;
             if (!tx.from || !tx.to || !tx.date) return;
+            if (this.token && tx.asset !== this.token) return;
 
             const date = new Date(tx.date);
             const dateStr = date.toISOString().split("T")[0];

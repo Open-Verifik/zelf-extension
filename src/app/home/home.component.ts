@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { firstValueFrom, Subject, takeUntil } from "rxjs";
+import { firstValueFrom, forkJoin, Subject, takeUntil } from "rxjs";
 
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
-import { Asset, Wallet } from "app/wallet";
+import { Asset, TokenData, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { SuiService } from "app/services/sui.service";
+import { AssetService } from "app/asset.service";
 
 @Component({
     selector: "home",
@@ -18,11 +19,11 @@ import { SuiService } from "app/services/sui.service";
 })
 export class HomeComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
+    private unsubscriberForBalances$: Subject<void> = new Subject<void>();
 
     balances: any;
     balancesLoading: boolean = false;
     NFTs!: Array<any>;
-    scanImplemented: boolean = false;
     selectedAsset!: Asset;
     selectedNetwork!: string;
     shareables: any;
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     wallet!: Wallet;
 
     constructor(
+        private _assetService: AssetService,
         private _blockchainNetworkService: BlockchainNetworksService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
@@ -55,8 +57,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.NFTs = [];
         this.tokens = [];
 
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
-            if (this.balancesLoading) return;
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (wallet) => {
+            if (this.balancesLoading) {
+                this.unsubscriberForBalances$.next();
+                this.unsubscriberForBalances$.complete();
+
+                this.unsubscriberForBalances$ = new Subject<void>();
+            }
 
             this.balancesLoading = true;
 
@@ -72,6 +79,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
+
+        this.unsubscriberForBalances$.next();
+        this.unsubscriberForBalances$.complete();
     }
 
     private async _getBalances(): Promise<any> {
@@ -80,7 +90,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.balancesLoading = true;
 
         try {
-            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+            const response = await firstValueFrom(
+                this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
+            );
 
             if (response?.ethereum?.data?.account) {
                 this.selectedAsset = new Asset({
@@ -104,10 +116,14 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
             }
 
-            await this._getETHDetails();
-            await this._getSolanaDetails();
-            await this._getAvalancheDetails();
-            await this._getSuiDetails();
+            forkJoin({
+                eth: this._getETHDetails(),
+                solana: this._getSolanaDetails(),
+                avalanche: this._getAvalancheDetails(),
+                sui: this._getSuiDetails(),
+            })
+                .pipe(takeUntil(this.unsubscriberForBalances$))
+                .subscribe();
         } catch (error) {
             console.error("Error getting tokens:", error);
         }
@@ -245,5 +261,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     sendTransaction(): void {
         this._router.navigate(["/send-transaction"]);
+    }
+
+    async setSelectedAsset(asset: any): Promise<any> {
+        await this._assetService.setAsset(asset);
+
+        this._router.navigate(["/asset"]);
     }
 }

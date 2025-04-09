@@ -72,6 +72,10 @@ app-onboarding {
     height: 100%;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .main-bg {
     background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
 }
@@ -105,9 +109,31 @@ app-onboarding {
     &--popout {
         height: 100vh;
         max-height: 600px;
-        max-width: 360px;
+        max-width: 375px;
         min-height: 600px;
-        width: 360px;
+        width: 375px;
+
+        .zelf-app__content {
+            padding: 0 !important;
+            overflow: hidden !important;
+        }
+
+        .home__assets-content {
+            padding: 0 !important;
+        }
+
+        .zelf-app__footer,
+        .zelf-app__header {
+            display: none !important;
+        }
+
+        .home__actions-container {
+            min-height: 234px !important;
+        }
+
+        .zelf-card {
+            min-height: 100% !important;
+        }
     }
 }
 
@@ -1802,6 +1828,10 @@ h3 {
     &--screen-md {
         display: none;
     }
+}
+
+.tv-lightweight-charts a {
+    display: none !important;
 }
 
 /* Small screen devices (600px and above) */

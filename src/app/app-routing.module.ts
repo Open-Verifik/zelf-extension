@@ -39,6 +39,10 @@ const routes: Routes = [
                 path: "wallet",
                 loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
             },
+            {
+                path: "asset",
+                loadComponent: () => import("./token-detail/token-detail.component").then((m) => m.TokenDetailComponent),
+            },
         ],
     },
     {

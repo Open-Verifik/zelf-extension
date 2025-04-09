@@ -90,6 +90,20 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="zelf-action-row" *ngIf="transaction.gasFee || transaction.gasPrice">
+                        <p class="transaction-receipt__label">{{ t("common.fee") }}</p>
+
+                        <p class="transaction-receipt__value">
+                            {{ transaction.gasFee || transaction.gasPrice | number : "1.2-8" }} {{ transaction.asset }}
+                        </p>
+                    </div>
+
+                    <div class="zelf-action-row" *ngIf="transaction.total">
+                        <p class="transaction-receipt__label">{{ t("common.total") }}</p>
+
+                        <p class="transaction-receipt__value">{{ transaction.total | number : "1.2-8" }} {{ transaction.asset }}</p>
+                    </div>
                 </div>
             </div>
         </ng-container>

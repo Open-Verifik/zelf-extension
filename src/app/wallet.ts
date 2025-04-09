@@ -128,6 +128,7 @@ export type SuiTransaction = {
     hash: string;
     nonRefundableStorageFee: number;
     status: string;
+    symbol: string;
     to: string[];
     tokenTransferNum: number;
     txFee: number;
@@ -147,6 +148,7 @@ export class SuiTransactionModel implements SuiTransaction {
     hash: string;
     nonRefundableStorageFee: number;
     status: string;
+    symbol: string = "SUI";
     to: string[];
     tokenTransferNum: number;
     txFee: number;
@@ -165,6 +167,7 @@ export class SuiTransactionModel implements SuiTransaction {
         this.hash = data.hash || "";
         this.nonRefundableStorageFee = Number(data.nonRefundableStorageFee) || 0;
         this.status = data.status || "";
+        this.symbol = data.symbol || "SUI";
         this.to = data.to || [];
         this.tokenTransferNum = Number(data.tokenTransferNum) || 0;
         this.txFee = Number(data.txFee) || 0;
@@ -174,10 +177,11 @@ export class SuiTransactionModel implements SuiTransaction {
         return new TransactionModel({
             age: this.age,
             amount: Number(this.amount),
-            asset: "SUI",
+            asset: this.symbol,
             date: new Date(this.date),
             fiatAmount: 0,
             from: this.from,
+            gasFee: this.gasPrice,
             hash: this.hash,
             status: this.status.toLowerCase(),
             to: this.to,
@@ -194,6 +198,7 @@ export type EthTransaction = {
     id: string;
     observation: string;
     status: string;
+    symbol: string;
     timestamp: string;
     to: string;
     transactionFeeDolar: string;
@@ -210,6 +215,7 @@ export class EthTransactionModel implements EthTransaction {
     id: string;
     observation: string;
     status: string;
+    symbol: string = "ETH";
     timestamp: string;
     to: string;
     transactionFeeDolar: string;
@@ -225,6 +231,7 @@ export class EthTransactionModel implements EthTransaction {
         this.id = data.id || "";
         this.observation = data.observation || "";
         this.status = data.status || "";
+        this.symbol = data.symbol || "ETH";
         this.timestamp = data.timestamp || "";
         this.to = data.to || "";
         this.transactionFeeDolar = data.transactionFeeDolar || "";
@@ -237,11 +244,12 @@ export class EthTransactionModel implements EthTransaction {
         return new TransactionModel({
             age: this.timestamp?.split("(")[0].trim(),
             amount: Number(this.valueETH),
-            asset: "ETH",
+            asset: this.symbol,
             block: this.block,
             date: this.timestamp?.split("(")[1].split(")")[0].trim(),
             fiatAmount: Number(this.valueDolar),
             from: this.from,
+            gasFee: this.gasPrice,
             hash: this.id,
             status: this.status.toLowerCase(),
             to: this.to,
@@ -259,6 +267,7 @@ export type AvaxTransaction = {
     gasPrice: string;
     hash: string;
     status: string;
+    symbol: string;
     to: string;
     txnFee: string;
 };
@@ -272,6 +281,7 @@ export class AvaxTransactionModel implements AvaxTransaction {
     gasPrice: string;
     hash: string;
     status: string;
+    symbol: string = "AVAX";
     to: string;
     txnFee: string;
 
@@ -284,6 +294,7 @@ export class AvaxTransactionModel implements AvaxTransaction {
         this.gasPrice = data.gasPrice || "";
         this.hash = data.hash || "";
         this.status = data.status || "";
+        this.symbol = data.symbol || "AVAX";
         this.to = data.to || "";
         this.txnFee = data.txnFee || "";
     }
@@ -292,10 +303,11 @@ export class AvaxTransactionModel implements AvaxTransaction {
         return new TransactionModel({
             age: this.age,
             amount: Number(this.amount),
-            asset: "AVAX",
+            asset: this.symbol,
             date: new Date(this.date),
             fiatAmount: Number(this.assetPrice),
             from: this.from,
+            gasFee: this.gasPrice,
             hash: this.hash,
             status: this.status.toLowerCase(),
             to: this.to,

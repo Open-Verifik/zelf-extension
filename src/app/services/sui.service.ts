@@ -307,17 +307,6 @@ export class SuiService {
             const decimals = tokenInfo.decimals || 6;
             const amountInSmallestUnit = BigInt(Math.floor(amount * Math.pow(10, decimals)));
 
-            console.log("Debug balances:", {
-                tokenObjectId,
-                actualTokenBalance,
-                totalBalance: totalBalance.toString(),
-                amountRequested: amount,
-                amountInSmallestUnit: amountInSmallestUnit.toString(),
-                decimals,
-                availableFormatted: Number(totalBalance) / Math.pow(10, decimals),
-                numberOfCoinObjects: validCoinObjects.length,
-            });
-
             if (totalBalance < amountInSmallestUnit) {
                 const availableFormatted = Number(totalBalance) / Math.pow(10, decimals);
                 throw new Error(`Insufficient total balance. Available: ${availableFormatted}, Required: ${amount}`);

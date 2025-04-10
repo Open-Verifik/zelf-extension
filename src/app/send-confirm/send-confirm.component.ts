@@ -252,25 +252,22 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         try {
             const cleanMnemonic = this._mnemonics.trim().toLowerCase();
+            const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
             let receipt;
 
             if (this.transactionData.network === "sui") {
-                const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
-
                 if (this.transactionData.tokenType === "SUI") {
                     receipt = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
                 } else {
                     const tokenAddress = this.transactionData.token?.address_token;
-
                     if (!tokenAddress) throw new Error("Token address is required");
 
                     receipt = await this._suiService.transferToken(
                         cleanMnemonic,
                         this.transactionData.receiver.address,
                         tokenAddress,
-                        normalizedAmount,
-                        this.transactionData.token.decimals || 9
+                        normalizedAmount
                     );
                 }
             } else {
@@ -377,9 +374,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             }
         } catch (error: any) {
             console.error("Transaction error:", error);
-
             this.openErrorSnackBar(error.message || "errors.something_went_wrong");
-
             this.sending = false;
         } finally {
             this._mnemonics = "";

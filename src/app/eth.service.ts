@@ -203,14 +203,6 @@ export class EthereumService {
                 chainId: chainId,
             };
 
-            console.log("Transaction config:", {
-                network,
-                chainId,
-                gasPrice: web3.utils.fromWei(tx.gasPrice, "gwei") + " gwei",
-                gasLimit: tx.gas,
-                value: web3.utils.fromWei(tx.value, "ether") + " AVAX/ETH",
-            });
-
             const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
 
             try {

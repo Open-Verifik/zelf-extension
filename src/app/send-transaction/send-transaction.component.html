@@ -303,7 +303,7 @@
             <div class="zelf-card__actions">
                 <button
                     (click)="continueToWithdraw()"
-                    [disabled]="form.get('toAddress')?.invalid || !form.get('toAddress')?.value || searching || !foundAddress"
+                    [disabled]="isWithdrawDisabled()"
                     *ngIf="!withdrawStep"
                     class="zelf-button zelf-button--black zelf-button--wide"
                     mat-flat-button
@@ -314,7 +314,7 @@
 
                 <button
                     (click)="continueToConfirmation()"
-                    [disabled]="form.invalid || !foundAddress"
+                    [disabled]="isConfirmationDisabled()"
                     *ngIf="withdrawStep"
                     class="zelf-button zelf-button--black zelf-button--wide"
                     mat-flat-button

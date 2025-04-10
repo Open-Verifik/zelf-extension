@@ -118,9 +118,9 @@ export class SendTransactionComponent implements OnDestroy {
     private async _captchaGeneration(): Promise<any> {
         if (this._chromeService.isExtension) return;
 
-        try {
-            this._captchaToken = await this._captchaService.executeRecaptcha("preview");
-        } catch (error) {}
+        // try {
+        //     this._captchaToken = await this._captchaService.executeRecaptcha("preview");
+        // } catch (error) {}
     }
 
     private _getAddressPattern(): RegExp {
@@ -266,7 +266,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     async _queryZNS(key: string, value: string): Promise<void> {
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, value, this._captchaToken);
+            const response = await this._zelfNameService.searchZelfNameV2(key, value);
 
             if (!response.data) {
                 this.foundAddress = undefined;
@@ -288,6 +288,11 @@ export class SendTransactionComponent implements OnDestroy {
                 zelfObjectContainsAddress = true;
             }
 
+            console.log("foundAddress", foundAddress);
+            console.log("zelfObjectContainsAddress", zelfObjectContainsAddress);
+            console.log("foundAddress.publicData", foundAddress.publicData);
+            console.log("foundAddress.publicData.zelfName", foundAddress.publicData?.zelfName);
+
             this.foundAddress = zelfObjectContainsAddress ? foundAddress : undefined;
         } catch (error) {
             this.foundAddress = undefined;
@@ -301,12 +306,25 @@ export class SendTransactionComponent implements OnDestroy {
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
 
-        if (!this.foundAddress) {
-            if (isSuiTokenOrNetwork && this._suiService.isValidSuiAddress(address)) {
-                this._setRawAddressToFoundAddress(address, "suiAddress");
-            } else if (isEthereumToken && this._checkEVMAddress(address)) {
-                this._setRawAddressToFoundAddress(address, "ethAddress");
+        if (this.foundAddress) {
+            const toAddressCtrl = this.form.get("toAddress");
+
+            if (toAddressCtrl) {
+                toAddressCtrl.setValue(
+                    this.foundAddress[isSuiTokenOrNetwork ? "suiAddress" : isEthereumToken ? "ethAddress" : "solanaAddress"] || ""
+                );
+                toAddressCtrl.updateValueAndValidity({ emitEvent: false });
             }
+
+            this.withdrawStep = true;
+
+            return;
+        }
+
+        if (isSuiTokenOrNetwork && this._suiService.isValidSuiAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "suiAddress");
+        } else if (isEthereumToken && this._checkEVMAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "ethAddress");
         }
 
         this.withdrawStep = true;
@@ -400,6 +418,21 @@ export class SendTransactionComponent implements OnDestroy {
         this._transactionService.setCurrentTransactionData(this.transactionData);
 
         this._router.navigate(["/send"]);
+    }
+
+    isWithdrawDisabled(): boolean {
+        if (!this.foundAddress) return true;
+        if (this.searching) return true;
+        if (this.form.get("amount")?.value && this.form.get("amount")?.invalid) return true;
+
+        return false;
+    }
+
+    isConfirmationDisabled(): boolean {
+        if (!this.foundAddress) return true;
+        if (this.form.invalid) return true;
+
+        return false;
     }
 
     openErrorSnackBar(message: string): void {

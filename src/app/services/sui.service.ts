@@ -101,14 +101,9 @@ export class SuiService {
      */
     async importWalletFromMnemonic(mnemonic: string): Promise<Ed25519Keypair> {
         try {
-            // First get the seed from mnemonic
-            const seed = await mnemonicToSeed(mnemonic);
-
-            // Create keypair using the standard derivation path for SUI
             const DERIVATION_PATH = "m/44'/784'/0'/0'/0'";
             const keypair = Ed25519Keypair.deriveKeypair(mnemonic, DERIVATION_PATH);
 
-            // Get and log the address to verify
             const address = keypair.getPublicKey().toSuiAddress();
 
             return keypair;
@@ -265,10 +260,23 @@ export class SuiService {
         return bytes;
     }
 
-    async transferToken(mnemonic: string, recipientAddress: string, tokenObjectId: string, amount: number, decimals: number = 9): Promise<any> {
+    async transferToken(mnemonic: string, recipientAddress: string, tokenObjectId: string, amount: number): Promise<any> {
         try {
             const keypair = Ed25519Keypair.deriveKeypair(mnemonic);
             const senderAddress = keypair.getPublicKey().toSuiAddress();
+
+            const walletDetails = await this.getWalletDetails(senderAddress);
+            const tokenInfo = walletDetails?.data?.tokenHoldings?.tokens?.find((token: any) => token.address_token === tokenObjectId);
+
+            if (!tokenInfo) {
+                throw new Error(`Token information not found for address: ${tokenObjectId}`);
+            }
+
+            const actualTokenBalance = Number(tokenInfo.amount || 0);
+
+            if (actualTokenBalance < amount) {
+                throw new Error(`Insufficient token balance. Available: ${actualTokenBalance}, Required: ${amount}`);
+            }
 
             const coinType = `${tokenObjectId}::coin::COIN`;
 
@@ -287,35 +295,49 @@ export class SuiService {
                 throw new Error(`No coins found in wallet for type: ${coinType}`);
             }
 
-            if (!tokenObjects[0]?.data?.objectId) {
-                throw new Error(`No valid coin object found for type: ${coinType}`);
+            // Calculate total balance across all coin objects
+            let totalBalance = BigInt(0);
+            const validCoinObjects = tokenObjects.filter((obj) => (obj.data?.content as any)?.fields?.balance && obj.data?.objectId);
+
+            for (const obj of validCoinObjects) {
+                const coinData = obj.data?.content as unknown as { fields: { balance: string } };
+                totalBalance += BigInt(coinData.fields.balance);
             }
 
-            const suiCoins = await this.suiClient.getCoins({
-                owner: senderAddress,
-                coinType: "0x2::sui::SUI",
+            const decimals = tokenInfo.decimals || 6;
+            const amountInSmallestUnit = BigInt(Math.floor(amount * Math.pow(10, decimals)));
+
+            console.log("Debug balances:", {
+                tokenObjectId,
+                actualTokenBalance,
+                totalBalance: totalBalance.toString(),
+                amountRequested: amount,
+                amountInSmallestUnit: amountInSmallestUnit.toString(),
+                decimals,
+                availableFormatted: Number(totalBalance) / Math.pow(10, decimals),
+                numberOfCoinObjects: validCoinObjects.length,
             });
 
-            if (!suiCoins.data.length) {
-                throw new Error("No SUI coins available for gas fees");
+            if (totalBalance < amountInSmallestUnit) {
+                const availableFormatted = Number(totalBalance) / Math.pow(10, decimals);
+                throw new Error(`Insufficient total balance. Available: ${availableFormatted}, Required: ${amount}`);
             }
 
             const tx = new TransactionBlock();
+            if (validCoinObjects.length > 1) {
+                const primaryCoin = tx.object(validCoinObjects[0].data!.objectId);
 
-            const USDT_DECIMALS = 6;
-            const amountInSmallestUnit = BigInt(Math.floor(amount * Math.pow(10, USDT_DECIMALS)));
+                const coinsToMerge = validCoinObjects.slice(1).map((obj) => tx.object(obj.data!.objectId));
 
-            tx.setGasPayment([{ objectId: suiCoins.data[0].coinObjectId, digest: suiCoins.data[0].digest, version: suiCoins.data[0].version }]);
-            tx.setGasBudget(30000000);
+                tx.mergeCoins(primaryCoin, coinsToMerge);
 
-            const availableBalance = BigInt((tokenObjects[0].data.content as unknown as { fields: { balance: string } })?.fields?.balance || 0);
-
-            if (availableBalance < amountInSmallestUnit) {
-                throw new Error(`Insufficient balance. Available: ${availableBalance}, Required: ${amountInSmallestUnit}`);
+                const [sendCoin] = tx.splitCoins(primaryCoin, [tx.pure(amountInSmallestUnit)]);
+                tx.transferObjects([sendCoin], tx.pure(recipientAddress));
+            } else {
+                const coin = tx.object(validCoinObjects[0].data!.objectId);
+                const [sendCoin] = tx.splitCoins(coin, [tx.pure(amountInSmallestUnit)]);
+                tx.transferObjects([sendCoin], tx.pure(recipientAddress));
             }
-
-            const [coin] = tx.splitCoins(tx.object(tokenObjects[0].data.objectId), [tx.pure(amountInSmallestUnit)]);
-            tx.transferObjects([coin], tx.pure(recipientAddress));
 
             const result = await this.suiClient.signAndExecuteTransactionBlock({
                 signer: keypair,
@@ -334,7 +356,6 @@ export class SuiService {
             return { ...result, transactionHash: result.digest };
         } catch (error: any) {
             console.error("Error in token transfer:", error);
-
             throw error;
         }
     }

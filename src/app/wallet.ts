@@ -115,7 +115,6 @@ export class TransactionModel implements Transaction {
     }
 
     get total(): number {
-        console.log("total", this.amount, this.gasFee, this);
         return Number(this.amount) + Number(this.gasFee);
     }
 }

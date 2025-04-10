@@ -209,7 +209,7 @@
     },
     "domain_purchase": {
         "agree_to_terms_and_conditions": "I agree to the terms and conditions",
-        "character_length_and_year": "{{characterLength}} characters length. Cost per year {{ costPerYear }} USD",
+        "character_length_and_year": "{{characterLength}} characters length. Total cost {{ costPerYear }} USD",
         "domain_price_length": "Domain price length",
         "know_more": "Know more",
         "lifetime": "Lifetime",

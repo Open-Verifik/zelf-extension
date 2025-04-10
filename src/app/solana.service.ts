@@ -2,12 +2,38 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { environment } from "environments/environment";
+import {
+    Connection,
+    PublicKey,
+    TransactionMessage,
+    VersionedTransaction,
+    Keypair,
+    ComputeBudgetProgram,
+    SystemProgram,
+    LAMPORTS_PER_SOL,
+    Transaction,
+} from "@solana/web3.js";
+import {
+    getAssociatedTokenAddress,
+    createAssociatedTokenAccountInstruction,
+    createTransferInstruction,
+    getOrCreateAssociatedTokenAccount,
+} from "@solana/spl-token";
+import { Buffer } from "buffer";
+import * as bip39 from "bip39";
+import * as nacl from "tweetnacl";
+
+import { encode as bs58encode, decode as bs58decode } from "bs58";
+
+if (typeof window !== "undefined") {
+    window.Buffer = window.Buffer || Buffer;
+}
 
 @Injectable({
     providedIn: "root",
 })
 export class SolanaService {
-    baseUrl: String = environment.apiUrl;
+    baseUrl: string = environment.apiUrl;
     tokens: Array<any> = [];
 
     constructor(private http: HttpClient, private _httpWrapper: HttpWrapperService) {}
@@ -34,11 +60,275 @@ export class SolanaService {
         this.tokens = [];
     }
 
-    getGasPrices(): Promise<any> {
+    async getGasPrices(): Promise<any> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/gas-tracker`);
     }
 
     async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/transaction/${transactionHash}`);
+    }
+
+    async sendTokens(mnemonic: string, toAddress: string, mintAddress: string, amount: number, priorityFee: number = 12345): Promise<string> {
+        try {
+            const connection = new Connection(environment.solanaRpc.mainnet, {
+                commitment: "finalized",
+                confirmTransactionInitialTimeout: 60000,
+            });
+
+            if (!this.isValidSolanaAddress(toAddress)) {
+                throw new Error("Invalid recipient address");
+            }
+
+            if (!this.validateMnemonic(mnemonic)) {
+                throw new Error("Invalid mnemonic phrase");
+            }
+
+            const fromKeypair = await this.getKeypairFromMnemonic(mnemonic);
+            const fromAddress = fromKeypair.publicKey.toBase58();
+
+            console.log("Sending from wallet address:", fromAddress);
+
+            if (mintAddress && mintAddress.trim() !== "") {
+                return this.sendSPLTokens(connection, fromKeypair, toAddress, mintAddress, amount, priorityFee);
+            } else {
+                return this.sendSOL(connection, fromKeypair, toAddress, amount, priorityFee);
+            }
+        } catch (error: any) {
+            console.error("Transaction failed:", {
+                error,
+                errorMessage: error.message,
+                errorStack: error.stack,
+            });
+            throw error;
+        }
+    }
+
+    private async sendSOL(connection: Connection, fromKeypair: Keypair, toAddress: string, amount: number, priorityFee: number): Promise<string> {
+        try {
+            const walletBalance = await connection.getBalance(fromKeypair.publicKey);
+            const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
+            const estimatedFee = await this.getTransactionCost(toAddress, amount);
+
+            if (walletBalance < lamports + Number(estimatedFee.estimatedGas)) {
+                throw new Error(
+                    `Insufficient funds. Required: ${(lamports + Number(estimatedFee.estimatedGas)) / LAMPORTS_PER_SOL} SOL, Available: ${
+                        walletBalance / LAMPORTS_PER_SOL
+                    } SOL`
+                );
+            }
+
+            const transaction = new Transaction().add(
+                SystemProgram.transfer({
+                    fromPubkey: fromKeypair.publicKey,
+                    toPubkey: new PublicKey(toAddress),
+                    lamports,
+                })
+            );
+
+            if (priorityFee > 0) {
+                transaction.add(
+                    ComputeBudgetProgram.setComputeUnitPrice({
+                        microLamports: priorityFee,
+                    })
+                );
+            }
+
+            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = fromKeypair.publicKey;
+            transaction.sign(fromKeypair);
+
+            const signature = await connection.sendRawTransaction(transaction.serialize());
+            const confirmation = await connection.confirmTransaction({
+                signature,
+                blockhash,
+                lastValidBlockHeight,
+            });
+
+            if (confirmation.value.err) {
+                throw new Error(`Transaction failed: ${confirmation.value.err}`);
+            }
+
+            return signature;
+        } catch (error: any) {
+            console.error("SOL transfer failed:", error);
+            throw error;
+        }
+    }
+
+    private async sendSPLTokens(
+        connection: Connection,
+        fromKeypair: Keypair,
+        toAddress: string,
+        mintAddress: string,
+        amount: number,
+        priorityFee: number
+    ): Promise<string> {
+        try {
+            const mint = new PublicKey(mintAddress);
+            const recipientAddress = new PublicKey(toAddress);
+
+            const senderTokenAccount = await getAssociatedTokenAddress(mint, fromKeypair.publicKey);
+            const recipientTokenAccount = await getAssociatedTokenAddress(mint, recipientAddress);
+
+            const tokenInfo = await connection.getParsedAccountInfo(mint);
+            const tokenDecimals = tokenInfo.value?.data ? (tokenInfo.value?.data as any).parsed.info.decimals : 9;
+            const amountInTokenUnits = Math.floor(amount * 10 ** tokenDecimals);
+
+            const tokenBalance = await connection.getTokenAccountBalance(senderTokenAccount);
+            if (!tokenBalance.value || Number(tokenBalance.value.amount) < amountInTokenUnits) {
+                throw new Error(
+                    `Insufficient token balance. Required: ${amount}, Available: ${Number(tokenBalance.value?.amount || 0) / 10 ** tokenDecimals}`
+                );
+            }
+
+            const transaction = new Transaction();
+
+            const recipientTokenAccountInfo = await connection.getAccountInfo(recipientTokenAccount);
+            if (!recipientTokenAccountInfo) {
+                transaction.add(createAssociatedTokenAccountInstruction(fromKeypair.publicKey, recipientTokenAccount, recipientAddress, mint));
+            }
+
+            transaction.add(createTransferInstruction(senderTokenAccount, recipientTokenAccount, fromKeypair.publicKey, amountInTokenUnits));
+
+            if (priorityFee > 0) {
+                transaction.add(
+                    ComputeBudgetProgram.setComputeUnitPrice({
+                        microLamports: priorityFee,
+                    })
+                );
+            }
+
+            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = fromKeypair.publicKey;
+            transaction.sign(fromKeypair);
+
+            const signature = await connection.sendRawTransaction(transaction.serialize());
+            const confirmation = await connection.confirmTransaction({
+                signature,
+                blockhash,
+                lastValidBlockHeight,
+            });
+
+            if (confirmation.value.err) {
+                throw new Error(`Transaction failed: ${confirmation.value.err}`);
+            }
+
+            return signature;
+        } catch (error: any) {
+            console.error("SPL token transfer failed:", error);
+            throw error;
+        }
+    }
+
+    isValidSolanaAddress(address: string): boolean {
+        try {
+            if (!address) return false;
+
+            const publicKey = new PublicKey(address);
+            return PublicKey.isOnCurve(publicKey);
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async getTransactionCost(
+        toAddress: string,
+        amount: number,
+        tokenAddress?: string
+    ): Promise<{ estimatedGas: number; gasPrice: string; totalCost: string; fiatFee?: number }> {
+        try {
+            const connection = new Connection("https://flashy-ultra-choice.solana-mainnet.quiknode.pro/dfa09ac3f7fe0fca5ac6cd762ec0d3a0db52712c/", {
+                commitment: "confirmed",
+            });
+
+            const baseCostLamports = tokenAddress ? 10000 : 5000;
+
+            const recentBlocks = await connection.getRecentPrioritizationFees();
+
+            let prioritizationFees = recentBlocks.map((fee) => fee.prioritizationFee);
+            prioritizationFees.sort((a, b) => a - b);
+            const medianPrioritizationFee = prioritizationFees[Math.floor(prioritizationFees.length / 2)] || 12345;
+
+            const computeUnits = tokenAddress ? 200000 : 150000;
+
+            const prioritizationFeeLamports = (medianPrioritizationFee * computeUnits) / 1000000;
+
+            const totalLamports = baseCostLamports + prioritizationFeeLamports;
+
+            const totalCostSOL = totalLamports / LAMPORTS_PER_SOL;
+
+            let solPriceUSD = 0;
+            try {
+                const response = await this.http.get<any>("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd").toPromise();
+                solPriceUSD = response?.solana?.usd || 0;
+            } catch (error) {
+                console.warn("Failed to fetch SOL price, using 0 for fiat conversion", error);
+            }
+
+            const fiatFee = totalCostSOL * solPriceUSD;
+
+            return {
+                estimatedGas: Math.round(totalLamports),
+                gasPrice: totalCostSOL.toString(),
+                totalCost: totalCostSOL.toString(),
+                fiatFee: fiatFee,
+            };
+        } catch (error) {
+            console.error("Error getting Solana transaction cost:", error);
+
+            const baseFee = 0.000005;
+            return {
+                estimatedGas: 5000,
+                gasPrice: baseFee.toString(),
+                totalCost: baseFee.toString(),
+                fiatFee: baseFee,
+            };
+        }
+    }
+
+    validateMnemonic(mnemonic: string): boolean {
+        return bip39.validateMnemonic(mnemonic);
+    }
+
+    async getKeypairFromMnemonic(mnemonic: string): Promise<Keypair> {
+        if (!this.validateMnemonic(mnemonic)) {
+            throw new Error("Invalid mnemonic phrase");
+        }
+
+        try {
+            const seed = await bip39.mnemonicToSeedSync(mnemonic);
+            const seedBuffer = Buffer.from(seed);
+
+            const path = `m/44'/501'/0'/0'`;
+            const keypair = Keypair.fromSeed(seedBuffer.slice(0, 32));
+
+            console.log("Derived keypair public key:", keypair.publicKey.toBase58());
+            return keypair;
+        } catch (error) {
+            console.error("Error deriving keypair from mnemonic:", error);
+            throw error;
+        }
+    }
+
+    async generateAddressFromMnemonic(mnemonic: string): Promise<{ address: string; privateKey: string } | null> {
+        try {
+            if (!this.validateMnemonic(mnemonic)) {
+                return null;
+            }
+
+            const keypair = await this.getKeypairFromMnemonic(mnemonic);
+            const privateKey = bs58encode(keypair.secretKey);
+            const address = keypair.publicKey.toBase58();
+
+            return {
+                address,
+                privateKey,
+            };
+        } catch (exception) {
+            console.error("Error generating Solana address from mnemonic:", exception);
+            return null;
+        }
     }
 }

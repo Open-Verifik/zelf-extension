@@ -2,8 +2,8 @@ import { debounceTime, Subject, takeUntil } from "rxjs";
 import { Web3 } from "web3";
 
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, ChangeDetectorRef } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { ChangeDetectorRef, Component, OnDestroy } from "@angular/core";
+import { AbstractControl, FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -11,15 +11,16 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 
+import { AssetService } from "app/asset.service";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { SuiService } from "app/services/sui.service";
+import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
 import { AddressBook, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { SuiService } from "app/services/sui.service";
-import { AssetService } from "app/asset.service";
 
 @Component({
     imports: [
@@ -60,6 +61,7 @@ export class SendTransactionComponent implements OnDestroy {
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _snackBar: MatSnackBar,
+        private _solanaService: SolanaService,
         private _suiService: SuiService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
@@ -140,6 +142,10 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidSUI: true };
             }
 
+            if (this.transactionData.isSolToken && !this._solanaService.isValidSolanaAddress(value)) {
+                return { invalidSOL: true };
+            }
+
             return null;
         };
     }
@@ -203,6 +209,7 @@ export class SendTransactionComponent implements OnDestroy {
 
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+        const isSolanaToken = this.transactionData.isSolToken || this.transactionData.tokenType === "SPL";
 
         await this._captchaGeneration();
 
@@ -218,6 +225,10 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._queryZNS("ethAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "ethAddress");
+                } else if (isSolanaToken && this._solanaService.isValidSolanaAddress(text)) {
+                    await this._queryZNS("solanaAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "solanaAddress");
                 }
             }
 
@@ -229,6 +240,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "suiAddress");
             } else if (isEthereumToken && this._checkEVMAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "ethAddress");
+            } else if (isSolanaToken && this._solanaService.isValidSolanaAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "solanaAddress");
             } else {
                 this.isZelfNameNotFound = true;
                 this.foundAddress = undefined;
@@ -377,13 +390,16 @@ export class SendTransactionComponent implements OnDestroy {
         const address = this.form.get("toAddress")?.value;
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+        const isSolanaToken = this.transactionData.isSolToken || this.transactionData.tokenType === "SPL";
 
         if (this.foundAddress) {
             const toAddressCtrl = this.form.get("toAddress");
 
             if (toAddressCtrl) {
                 toAddressCtrl.setValue(
-                    this.foundAddress[isSuiTokenOrNetwork ? "suiAddress" : isEthereumToken ? "ethAddress" : "solanaAddress"] || ""
+                    this.foundAddress[
+                        isSuiTokenOrNetwork ? "suiAddress" : isEthereumToken ? "ethAddress" : isSolanaToken ? "solanaAddress" : "solanaAddress"
+                    ] || ""
                 );
 
                 toAddressCtrl.updateValueAndValidity({ emitEvent: false });
@@ -400,6 +416,8 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(address, "suiAddress");
         } else if (isEthereumToken && this._checkEVMAddress(address)) {
             this._setRawAddressToFoundAddress(address, "ethAddress");
+        } else if (isSolanaToken && this._solanaService.isValidSolanaAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "solanaAddress");
         }
 
         await this._setToCurrentTransactionData();

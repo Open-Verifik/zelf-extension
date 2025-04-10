@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -9,18 +9,18 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AssetService } from "app/asset.service";
 import { EthereumService } from "app/eth.service";
+import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { SuiService } from "app/services/sui.service";
+import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Subject, takeUntil } from "rxjs";
-import { SuiService } from "app/services/sui.service";
-import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { AssetService } from "app/asset.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -64,7 +64,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService,
         private _suiService: SuiService,
-        private _blockchainTransactionsService: BlockchainTransactionsService
+        private _blockchainTransactionsService: BlockchainTransactionsService,
+        private _solanaService: SolanaService
     ) {
         this.loading = true;
 
@@ -133,7 +134,25 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         try {
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-            if (this.transactionData.network === "sui") {
+            if (this.transactionData.network === "solana") {
+                const tokenAddress = this.transactionData.tokenType === "SPL" ? this.transactionData.token?.address_token : undefined;
+
+                const feeEstimate = await this._solanaService.getTransactionCost(
+                    this.transactionData.receiver.address,
+                    normalizedAmount,
+                    tokenAddress
+                );
+
+                this.transactionData.fee = feeEstimate.fiatFee || 0;
+                this.transactionData.fiatFee = feeEstimate.fiatFee || 0;
+
+                const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+                this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
+                await this._transactionService.setCurrentTransactionData(this.transactionData);
+
+                return;
+            } else if (this.transactionData.network === "sui") {
                 if (this.transactionData.tokenType === "SUI") {
                     const feeEstimate = await this._suiService.estimateSuiTransactionFee(this.transactionData.receiver.address, normalizedAmount);
 
@@ -159,8 +178,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
-
-                return;
             } else {
                 let transactionCost;
                 const receiverAddress = this.transactionData.receiver.address;
@@ -293,7 +310,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             let receipt;
 
-            if (this.transactionData.network === "sui") {
+            if (this.transactionData.network === "solana") {
+                const tokenAddress = this.transactionData.tokenType === "SPL" ? this.transactionData.token?.address_token : "";
+
+                receipt = await this._solanaService.sendTokens(
+                    cleanMnemonic,
+                    this.transactionData.receiver.address,
+                    tokenAddress || "",
+                    normalizedAmount
+                );
+
+                receipt = { transactionHash: receipt };
+            } else if (this.transactionData.network === "sui") {
                 if (this.transactionData.tokenType === "SUI") {
                     receipt = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
                 } else {
@@ -397,9 +425,17 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             await this._walletService.addTransactionToPending(pendingTransactionData);
             await this._transactionService.removeTransactionData();
 
-            if (receipt.transactionHash) {
-                this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { symbol: this.transactionData.symbol },
+            if (this.transactionData.network === "solana" && receipt && receipt.transactionHash) {
+                await this._router.navigate(["/transaction", receipt.transactionHash], {
+                    queryParams: { tokenType: this.transactionData.tokenType === "SPL" ? "SPL" : "SOL" },
+                });
+            } else if (this.transactionData.network === "sui" && receipt && receipt.digest) {
+                await this._router.navigate(["/transaction", receipt.digest], {
+                    queryParams: { tokenType: "SUI" },
+                });
+            } else if (receipt.transactionHash) {
+                await this._router.navigate(["/transaction", receipt.transactionHash], {
+                    queryParams: { tokenType: this.transactionData.symbol },
                 });
             } else {
                 this._router.navigate(["/send"]);

@@ -11,6 +11,7 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { firstValueFrom } from "rxjs";
 import { SuiService } from "app/services/sui.service";
 import { EthereumService } from "app/eth.service";
+import { SolanaService } from "app/solana.service";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
@@ -24,7 +25,7 @@ export class SendCurrencyComponent implements OnInit {
         AVAX: true,
         BTC: false,
         ETH: true,
-        SOL: false,
+        SOL: true,
         SUI: true,
     };
 
@@ -40,7 +41,8 @@ export class SendCurrencyComponent implements OnInit {
         private _transactionService: TransactionService,
         private _walletService: WalletService,
         private _suiService: SuiService,
-        private _ethService: EthereumService
+        private _ethService: EthereumService,
+        private _solanaService: SolanaService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -122,6 +124,7 @@ export class SendCurrencyComponent implements OnInit {
                 this._getCurrencies("Avalanche", avalancheTokens);
             }
 
+            await this._getSolanaDetails();
             await this._getSuiDetails();
             await this._getAvaxDetails();
 
@@ -130,6 +133,36 @@ export class SendCurrencyComponent implements OnInit {
         } catch (error) {
             console.error("Error loading tokens:", error);
             this.loading = false;
+        }
+    }
+
+    private async _getSolanaDetails(): Promise<void> {
+        if (!this.wallet?.solanaAddress) return;
+
+        try {
+            const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
+
+            if (details?.data?.tokenHoldings?.tokens) {
+                const tokensToAdd = details.data.tokenHoldings.tokens
+                    .filter((token: any) => token.symbol && !this.tokens.some((t) => t.symbol === token.symbol && t.network === "Solana"))
+                    .map((token: any) => ({
+                        ...token,
+                        network: "Solana",
+                        balance: parseFloat(token.balance || token.amount || "0"),
+                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                        price: parseFloat(token.price || "0"),
+                        tokenType: "SPL",
+                        image: token.image || "assets/images/sol.png",
+                        name: token.name || token.symbol,
+                        symbol: token.symbol || token.name,
+                    }));
+
+                if (tokensToAdd.length > 0) {
+                    this._getCurrencies("Solana", tokensToAdd);
+                }
+            }
+        } catch (error) {
+            console.error("Error getting Solana details:", error);
         }
     }
 

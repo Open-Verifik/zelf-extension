@@ -171,6 +171,6 @@ export class ZelfHistoryComponent implements OnInit {
     }
 
     async navigateToTransaction(transaction: ProcessedTransaction): Promise<void> {
-        this._router.navigate(["/transaction", transaction.hash], { queryParams: { tokenType: transaction.from.symbol } });
+        this._router.navigate(["/transaction", transaction.hash], { queryParams: { symbol: transaction.from.symbol } });
     }
 }

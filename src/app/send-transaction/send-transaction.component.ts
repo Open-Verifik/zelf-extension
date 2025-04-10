@@ -85,6 +85,7 @@ export class SendTransactionComponent implements OnDestroy {
 
             if (!this.transactionData || !this.transactionData.hasTransactionData) {
                 this._router.navigate(["/send"]);
+
                 return;
             }
 
@@ -106,6 +107,16 @@ export class SendTransactionComponent implements OnDestroy {
         const fiatPrice = this.price || 0;
 
         return amount * fiatPrice || 0;
+    }
+
+    get filteredAddresses(): AddressBook[] {
+        const searchValue = this.form.get("toAddress")?.value;
+
+        return this.recentAddresses.filter((address) => {
+            if (!searchValue || !searchValue.trim()) return true;
+
+            return new RegExp(searchValue, "i").test(address.address) || (address.zelfName && new RegExp(searchValue, "i").test(address.zelfName));
+        });
     }
 
     private _addressValidator(): ValidatorFn {
@@ -178,6 +189,8 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private async _handleToAddressChange(text?: string): Promise<any> {
+        if (this.searching) return;
+
         if (!text || !text.trim()) {
             this.isZelfNameNotFound = false;
             this.foundAddress = undefined;
@@ -223,6 +236,8 @@ export class SendTransactionComponent implements OnDestroy {
         } finally {
             this.searching = false;
 
+            if (this.foundAddress) this._setToCurrentTransactionData();
+
             this._changeDetectionRef.detectChanges();
         }
     }
@@ -239,6 +254,31 @@ export class SendTransactionComponent implements OnDestroy {
         const toAddressCtrl = this.form.get("toAddress");
 
         if (toAddressCtrl) toAddressCtrl.updateValueAndValidity({ emitEvent: false });
+    }
+
+    private async _setToCurrentTransactionData(): Promise<void> {
+        if (this.withdrawStep) {
+            const amount = Number(String(this.form.get("amount")?.value || "0").replace(",", "."));
+
+            this.transactionData.amount = amount;
+        }
+
+        const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
+        const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+
+        if (isEthereumToken) {
+            this.transactionData.receiver.address = this.foundAddress?.ethAddress || "";
+        } else if (this.transactionData.isSolToken) {
+            this.transactionData.receiver.address = this.foundAddress?.solanaAddress || "";
+        } else if (this.transactionData.isBtcToken) {
+            this.transactionData.receiver.address = this.foundAddress?.btcAddress || "";
+        } else if (isSuiTokenOrNetwork) {
+            this.transactionData.receiver.address = this.foundAddress?.suiAddress || "";
+        }
+
+        this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName || "";
+
+        await this._transactionService.setCurrentTransactionData(this.transactionData);
     }
 
     private _checkEVMAddress(text: string): boolean {
@@ -271,6 +311,14 @@ export class SendTransactionComponent implements OnDestroy {
         });
 
         if (!toAddressCtrl.value || !toAddressCtrl.value.trim()) return;
+
+        if (this.transactionData?.receiver?.address) {
+            this._setRawAddressToFoundAddress(this.transactionData.receiver.address, "suiAddress");
+
+            this.withdrawStep = true;
+
+            return;
+        }
 
         toAddressCtrl.updateValueAndValidity();
     }
@@ -341,6 +389,8 @@ export class SendTransactionComponent implements OnDestroy {
                 toAddressCtrl.updateValueAndValidity({ emitEvent: false });
             }
 
+            await this._setToCurrentTransactionData();
+
             this.withdrawStep = true;
 
             return;
@@ -351,6 +401,8 @@ export class SendTransactionComponent implements OnDestroy {
         } else if (isEthereumToken && this._checkEVMAddress(address)) {
             this._setRawAddressToFoundAddress(address, "ethAddress");
         }
+
+        await this._setToCurrentTransactionData();
 
         this.withdrawStep = true;
     }
@@ -372,35 +424,9 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (!this.foundAddress) return;
 
-        const amount = Number(String(this.form.get("amount")?.value || "0").replace(",", "."));
-
-        this.transactionData.amount = amount;
-
-        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) {
-            this.transactionData.receiver.address = this.foundAddress.ethAddress || "";
-        } else if (this.transactionData.isSolToken) {
-            this.transactionData.receiver.address = this.foundAddress.solanaAddress || "";
-        } else if (this.transactionData.isBtcToken) {
-            this.transactionData.receiver.address = this.foundAddress.btcAddress || "";
-        } else if (isSuiTokenOrNetwork) {
-            this.transactionData.receiver.address = this.foundAddress.suiAddress || "";
-        }
-
-        this.transactionData.receiver.zelfName = this.foundAddress.publicData?.zelfName || "";
-
-        await this._transactionService.setCurrentTransactionData(this.transactionData);
+        await this._setToCurrentTransactionData();
 
         this._router.navigate(["/send/confirmation"]);
-    }
-
-    get filteredAddresses(): AddressBook[] {
-        const searchValue = this.form.get("toAddress")?.value;
-
-        return this.recentAddresses.filter((address) => {
-            if (!searchValue || !searchValue.trim()) return true;
-
-            return new RegExp(searchValue, "i").test(address.address) || (address.zelfName && new RegExp(searchValue, "i").test(address.zelfName));
-        });
     }
 
     getTimeDiff(lastUsed: Date | string | undefined): string {
@@ -433,9 +459,14 @@ export class SendTransactionComponent implements OnDestroy {
         this.transactionData.receiver.zelfName = "";
 
         if (this.withdrawStep) {
-            this.withdrawStep = false;
+            this.foundAddress = undefined;
+
+            this.form.get("toAddress")?.patchValue(this.transactionData.receiver.address);
+            this.form.get("amount")?.patchValue(this.transactionData.amount);
 
             this._transactionService.setCurrentTransactionData(this.transactionData);
+
+            this.withdrawStep = false;
 
             return;
         }

@@ -135,41 +135,60 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                     this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
                 }
 
+                const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+                this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
 
                 return;
-            }
-
-            let transactionCost;
-            const receiverAddress = this.transactionData.receiver.address;
-            const isERC20 = this.transactionData.tokenType === "ERC-20";
-            const tokenAddress = this.transactionData.token?.address_token;
-
-            if (isERC20 && tokenAddress) {
-                transactionCost = await this._ethService.getTransactionCost(
-                    receiverAddress,
-                    this._ethService.toWei(String(normalizedAmount), this.transactionData.token.decimals),
-                    "0x",
-                    this.transactionData.network,
-                    tokenAddress
-                );
             } else {
-                transactionCost = await this._ethService.getTransactionCost(
+                let transactionCost;
+                const receiverAddress = this.transactionData.receiver.address;
+                const isERC20 = this.transactionData.tokenType === "ERC-20";
+                const tokenAddress = this.transactionData.token?.address_token;
+
+                console.log("Calculating fee for network:", this.transactionData.network);
+                console.log("Transaction details:", {
                     receiverAddress,
-                    this._ethService.toWei(String(normalizedAmount)),
-                    "0x",
-                    this.transactionData.network
-                );
+                    amount: normalizedAmount,
+                    isERC20,
+                    tokenAddress,
+                });
+
+                if (isERC20 && tokenAddress) {
+                    transactionCost = await this._ethService.getTransactionCost(
+                        receiverAddress,
+                        this._ethService.toWei(String(normalizedAmount), this.transactionData.token.decimals),
+                        "0x",
+                        this.transactionData.network,
+                        tokenAddress
+                    );
+                } else {
+                    transactionCost = await this._ethService.getTransactionCost(
+                        receiverAddress,
+                        this._ethService.toWei(String(normalizedAmount)),
+                        "0x",
+                        this.transactionData.network
+                    );
+                }
+
+                console.log("Transaction cost result:", transactionCost);
+
+                this.transactionData.fee = transactionCost.fiatFee || 0;
+                this.transactionData.fiatFee = transactionCost.fiatFee || 0;
+
+                console.log("Calculated fees:", {
+                    fee: this.transactionData.fee,
+                    fiatFee: this.transactionData.fiatFee,
+                });
+
+                const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+                this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
+                await this._transactionService.setCurrentTransactionData(this.transactionData);
             }
-
-            this.transactionData.fee = Number(this._ethService.fromWei(transactionCost.totalCost));
-            this.transactionData.fiatFee = transactionCost.fiatFee || 0;
-
-            const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-            this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
-
-            await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
+            console.error("Fee calculation error:", error);
             this.openErrorSnackBar("errors.invalid_transaction_fee");
         }
     }

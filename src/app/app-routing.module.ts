@@ -155,7 +155,7 @@ const routes: Routes = [
                 loadComponent: () => import("./receive-currency/receive-currency.component").then((m) => m.ReceiveCurrencyComponent),
             },
             {
-                path: "qr/:symbol/:tokenType/:name",
+                path: "qr/:network",
                 loadComponent: () => import("./receive-qr/receive-qr.component").then((m) => m.ReceiveQrComponent),
             },
         ],

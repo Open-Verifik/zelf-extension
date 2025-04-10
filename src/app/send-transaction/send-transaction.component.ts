@@ -1,3 +1,6 @@
+import { debounceTime, Subject, takeUntil } from "rxjs";
+import { Web3 } from "web3";
+
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
@@ -7,6 +10,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
@@ -14,9 +18,8 @@ import { TransactionService } from "app/transaction.service";
 import { AddressBook, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { debounceTime, Subject, takeUntil } from "rxjs";
-import { Web3 } from "web3";
 import { SuiService } from "app/services/sui.service";
+import { AssetService } from "app/asset.service";
 
 @Component({
     imports: [
@@ -36,29 +39,32 @@ import { SuiService } from "app/services/sui.service";
 })
 export class SendTransactionComponent implements OnDestroy {
     private _captchaToken: string = "";
+    private _priceInterval!: ReturnType<typeof setInterval>;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
     foundAddress?: WalletModel;
     isZelfNameNotFound: boolean = false;
+    loading: boolean = true;
+    price: number = 0;
     recentAddresses: AddressBook[] = [];
     searching: boolean = false;
     transactionData!: TransactionData;
     withdrawStep: boolean = false;
-    loading: boolean = true;
 
     constructor(
+        private _assetService: AssetService,
         private _captchaService: CaptchaService,
+        private _changeDetectionRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _snackBar: MatSnackBar,
+        private _suiService: SuiService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
-        private _suiService: SuiService,
-        private _changeDetectionRef: ChangeDetectorRef
+        private _zelfNameService: ZelfNameService
     ) {
         this.loading = true;
     }
@@ -89,8 +95,17 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
+        clearInterval(this._priceInterval);
+
         this.unsubcriber$.next();
         this.unsubcriber$.complete();
+    }
+
+    get fiatPrice(): number {
+        const amount = this.form.get("amount")?.value || 0;
+        const fiatPrice = this.price || 0;
+
+        return amount * fiatPrice || 0;
     }
 
     private _addressValidator(): ValidatorFn {
@@ -100,8 +115,11 @@ export class SendTransactionComponent implements OnDestroy {
             if (!value) return null;
 
             const pattern = this._getAddressPattern();
+            const isValidZelfName = this._walletService.ZelfRegex.test(value);
 
-            if (!pattern.test(value)) return { invalidFormat: true };
+            if (!pattern.test(value) && !isValidZelfName) return { invalidFormat: true };
+
+            if (isValidZelfName) return null;
 
             if ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(value)) {
                 return { invalidEVM: true };
@@ -118,9 +136,9 @@ export class SendTransactionComponent implements OnDestroy {
     private async _captchaGeneration(): Promise<any> {
         if (this._chromeService.isExtension) return;
 
-        // try {
-        //     this._captchaToken = await this._captchaService.executeRecaptcha("preview");
-        // } catch (error) {}
+        try {
+            this._captchaToken = await this._captchaService.executeRecaptcha(this.form.get("toAddress")?.value || "");
+        } catch (error) {}
     }
 
     private _getAddressPattern(): RegExp {
@@ -258,8 +276,19 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private async _initTransactionData(): Promise<void> {
-        this.transactionData = await this._transactionService.getCurrentTransactionData();
-        this.recentAddresses = this._transactionService.findAddressInRecentAddresses("tokenType", this.transactionData.tokenType);
+        this.recentAddresses = this._transactionService.findAddressInRecentAddresses("network", this.transactionData.network);
+
+        clearInterval(this._priceInterval);
+
+        this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
+            this.price = response.data[0].open;
+        });
+
+        this._priceInterval = setInterval(() => {
+            this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
+                this.price = response.data[0].open;
+            });
+        }, 5000);
 
         this._initForm();
     }
@@ -288,11 +317,6 @@ export class SendTransactionComponent implements OnDestroy {
                 zelfObjectContainsAddress = true;
             }
 
-            console.log("foundAddress", foundAddress);
-            console.log("zelfObjectContainsAddress", zelfObjectContainsAddress);
-            console.log("foundAddress.publicData", foundAddress.publicData);
-            console.log("foundAddress.publicData.zelfName", foundAddress.publicData?.zelfName);
-
             this.foundAddress = zelfObjectContainsAddress ? foundAddress : undefined;
         } catch (error) {
             this.foundAddress = undefined;
@@ -301,7 +325,7 @@ export class SendTransactionComponent implements OnDestroy {
         }
     }
 
-    continueToWithdraw(): void {
+    async continueToWithdraw(): Promise<void> {
         const address = this.form.get("toAddress")?.value;
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
@@ -313,6 +337,7 @@ export class SendTransactionComponent implements OnDestroy {
                 toAddressCtrl.setValue(
                     this.foundAddress[isSuiTokenOrNetwork ? "suiAddress" : isEthereumToken ? "ethAddress" : "solanaAddress"] || ""
                 );
+
                 toAddressCtrl.updateValueAndValidity({ emitEvent: false });
             }
 
@@ -420,17 +445,17 @@ export class SendTransactionComponent implements OnDestroy {
         this._router.navigate(["/send"]);
     }
 
-    isWithdrawDisabled(): boolean {
+    isConfirmationDisabled(): boolean {
         if (!this.foundAddress) return true;
-        if (this.searching) return true;
-        if (this.form.get("amount")?.value && this.form.get("amount")?.invalid) return true;
+        if (this.form.invalid) return true;
 
         return false;
     }
 
-    isConfirmationDisabled(): boolean {
+    isWithdrawDisabled(): boolean {
         if (!this.foundAddress) return true;
-        if (this.form.invalid) return true;
+        if (this.searching) return true;
+        if (this.form.get("amount")?.value && this.form.get("amount")?.invalid) return true;
 
         return false;
     }
@@ -441,6 +466,13 @@ export class SendTransactionComponent implements OnDestroy {
             panelClass: "zelf-snackbar",
             verticalPosition: "top",
         });
+    }
+
+    onKeydown(event: KeyboardEvent): void {
+        if (event.key !== "Enter") return;
+
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     async pasteAddress(): Promise<void> {

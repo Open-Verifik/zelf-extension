@@ -89,6 +89,13 @@ export class AssetService {
         });
     }
 
+    fetchAssetPrice(symbol: string) {
+        return this._httpWrapperService.sendRequest<{ data: AssetChart[] }>("get", `${this._baseUrl}/chart/${symbol.toUpperCase()}`, {
+            interval: "1m",
+            limit: 1,
+        });
+    }
+
     async setAsset(asset: Partial<TokenData>) {
         await this._chromeService.setItem("selectedAsset", asset);
 

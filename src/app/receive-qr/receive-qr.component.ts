@@ -26,8 +26,9 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
     address: string = "";
     loading: boolean = true;
     name: string = "";
+    network: string = "";
     symbol: string = "";
-    tokenType: string = "";
+    type: string = "";
     wallet: Partial<WalletModel> = {};
 
     qrCode!: QRCodeStyling;
@@ -45,6 +46,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             },
         ],
     };
+
     qrCodeOptions: QRCodeStylingOptions = {
         data: "",
         height: 240,
@@ -92,23 +94,20 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
     ) {
         super(_chromeService, _snackBar, _translocoService);
 
-        this.symbol = this._activatedRoute.snapshot.params["symbol"];
-        this.name = this._activatedRoute.snapshot.params["name"];
-        this.tokenType = this._activatedRoute.snapshot.params["tokenType"];
+        this.network = this._activatedRoute.snapshot.params["network"];
 
         this._activatedRoute.params.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {
-            this.symbol = params["symbol"];
-            this.name = params["name"];
-            this.tokenType = params["tokenType"];
+            this.network = params["network"];
 
-            this._setAddress();
+            this._setNetwork();
+            this._setQRCode();
         });
     }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
 
-        this._setAddress();
+        this._setNetwork();
         this._setQRCode();
 
         this.loading = false;
@@ -119,23 +118,34 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
         this.unsubscriber$.complete();
     }
 
-    private _setAddress(): void {
-        if (!this.tokenType) return;
+    private _setNetwork(): void {
+        if (!this.network) return;
 
-        if (this.tokenType === "ETH" || this.tokenType === "AVAX" || this.tokenType === "ERC-20") {
+        const network = this.network.toLowerCase();
+
+        if (network === "ethereum") {
             this.address = this.wallet.ethAddress || "";
-        }
-
-        if (this.tokenType === "SUI") {
+            this.name = "Ethereum";
+            this.symbol = "ETH";
+            this.type = "ERC-20";
+        } else if (network === "avalanche") {
+            this.address = this.wallet.ethAddress || "";
+            this.name = "Avalanche";
+            this.symbol = "AVAX";
+            this.type = "ERC-20";
+        } else if (network === "sui") {
             this.address = this.wallet.suiAddress || "";
-        }
-
-        if (this.tokenType === "SOL" || this.tokenType === "ZNS") {
+            this.name = "Sui";
+            this.symbol = "SUI";
+        } else if (network === "solana") {
             this.address = this.wallet.solanaAddress || "";
-        }
-
-        if (this.tokenType === "BTC") {
+            this.name = "Solana";
+            this.symbol = "SOL";
+            this.type = "SPL";
+        } else if (network === "bitcoin") {
             this.address = this.wallet.btcAddress || "";
+            this.name = "Bitcoin";
+            this.symbol = "BTC";
         }
     }
 

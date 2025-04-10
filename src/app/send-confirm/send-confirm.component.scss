@@ -120,6 +120,34 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: $black;
+
+        &--col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &--items-end {
+            justify-content: center;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        &--address {
+            max-width: 60%;
+            overflow-wrap: anywhere;
+            text-align: right;
+            font-size: 13px;
+        }
+    }
+
+    &__fee {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        color: $gray;
     }
 
     &__price-amount-container {

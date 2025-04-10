@@ -19,7 +19,7 @@ export const JWTResolver: ResolveFn<boolean> = async () => {
 const _getAccessToken = async (_chromeService: ChromeService, _httpClient: HttpClient): Promise<void> => {
     const authToken: string = (await _chromeService.getItem("accessToken")) || "";
     const accessTokenExpiresAt = (await _chromeService.getItem("accessTokenExpiresAt")) || 0;
-    const isTokenExpired = moment.utc(accessTokenExpiresAt * 1000).isBefore(moment.utc());
+    const isTokenExpired = moment.unix(accessTokenExpiresAt).local().isBefore(moment());
 
     if (!authToken || !accessTokenExpiresAt || isTokenExpired) {
         const fingerprintParts = [

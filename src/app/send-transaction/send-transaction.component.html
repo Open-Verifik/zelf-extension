@@ -38,6 +38,7 @@
                     [ngClass]="{ 'zelf-input--error': form.get('toAddress')?.dirty && form.get('toAddress')?.invalid }"
                 >
                     <input
+                        (keydown)="onKeydown($event)"
                         (paste)="pastedAddress($event)"
                         [disabled]="withdrawStep || searching"
                         [placeholder]="t('send.domain_or_address')"
@@ -163,6 +164,8 @@
                         </button>
                     </div>
 
+                    <p class="send-transaction__fiat-price">~{{ fiatPrice | currency : "USD" : "symbol" : "1.2" }}</p>
+
                     <p class="zelf-input__tip">
                         {{ t("send.available_balance", { symbol: transactionData.symbol, balance: transactionData.balance }) }}
                     </p>
@@ -267,12 +270,12 @@
                         <h3 class="zelf-object-preview__zelf-name">{{ foundAddress.publicData.zelfName }}</h3>
 
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">
-                            {{ foundAddress.ethAddress | addressMask }}
+                            {{ foundAddress.ethAddress }}
                         </p>
 
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.solanaAddress | addressMask }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.btcAddress | addressMask }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.suiAddress | addressMask }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.solanaAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.btcAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.suiAddress }}</p>
 
                         <hr class="zelf-object-preview__horizontal-rule" />
 

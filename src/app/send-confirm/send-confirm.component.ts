@@ -20,6 +20,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Subject, takeUntil } from "rxjs";
 import { SuiService } from "app/services/sui.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { AssetService } from "app/asset.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -31,6 +32,7 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 export class SendConfirmComponent implements OnInit, OnDestroy {
     private _password: string = "";
     private _mnemonics: string = "";
+    private _priceInterval!: ReturnType<typeof setInterval>;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
     availableNetworks = [
@@ -38,6 +40,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
     ];
 
+    price: number = 0;
     form!: UntypedFormGroup;
     loading: boolean;
     passwordError: boolean = false;
@@ -50,6 +53,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     wallet?: WalletModel;
 
     constructor(
+        private _assetService: AssetService,
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -105,8 +109,24 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        clearInterval(this._priceInterval);
+
         this.unsubcriber$.next();
         this.unsubcriber$.complete();
+    }
+
+    get fiatPrice(): number {
+        const amount = Number(this.transactionData.amount) || 0;
+        const fiatPrice = this.price || 0;
+
+        return amount * fiatPrice || 0;
+    }
+
+    get fiatFeePrice(): number {
+        const amount = Number(this.transactionData.fee) || 0;
+        const fiatPrice = this.price || 0;
+
+        return amount * fiatPrice || 0;
     }
 
     private async _calculateTransactionFee(): Promise<void> {
@@ -168,6 +188,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this.transactionData.fiatFee = transactionCost.fiatFee || 0;
 
                 const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+
                 this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
@@ -228,6 +249,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     private async _initTransactionData(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
         this.transactionData = await this._transactionService.getCurrentTransactionData();
+
+        clearInterval(this._priceInterval);
+
+        this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
+            this.price = response.data[0].open;
+        });
+
+        this._priceInterval = setInterval(() => {
+            this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
+                this.price = response.data[0].open;
+            });
+        }, 5000);
 
         this._initForm();
 

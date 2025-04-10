@@ -17,6 +17,13 @@ type UserFingerPrint = {
     width: number;
 };
 
+export type Network = {
+    symbol: string;
+    name: string;
+    address: string;
+    image: string;
+};
+
 @Injectable({
     providedIn: "root",
 })
@@ -94,7 +101,7 @@ export class WalletService {
     }
 
     get ZelfRegex(): RegExp {
-        return /^[a-z][a-z0-9]*(\.zelf)?$/;
+        return /^[a-z][a-z0-9]*\.zelf$/;
     }
 
     get BTCRegex(): RegExp {
@@ -717,5 +724,79 @@ export class WalletService {
 
             await this._chromeService.setItem("pendingTransactions", pendingTransactions);
         }
+    }
+
+    public async getWalletAddressByTokenType(tokenType: string): Promise<string> {
+        const wallet = await this.getCurrentWallet();
+
+        if (!wallet) return "";
+
+        let address = "";
+
+        if (tokenType === "ETH" || tokenType === "AVAX" || tokenType === "ERC-20") {
+            address = wallet?.ethAddress || "";
+        } else if (tokenType === "SOL") {
+            address = wallet?.solanaAddress || "";
+        } else if (tokenType === "BTC") {
+            address = wallet?.btcAddress || "";
+        } else if (tokenType === "SUI" || tokenType === "SUI_TOKEN") {
+            address = wallet?.suiAddress || "";
+        }
+
+        return address;
+    }
+
+    public async getAvailableWalletNetworks(): Promise<Network[]> {
+        const wallet = await this.getCurrentWallet();
+
+        if (!wallet) return [];
+
+        const networks: Network[] = [];
+
+        if (wallet?.ethAddress) {
+            networks.push(
+                {
+                    address: wallet?.ethAddress,
+                    image: this.getAssetImage("ETH"),
+                    name: "Ethereum",
+                    symbol: "ETH",
+                },
+                {
+                    address: wallet?.ethAddress,
+                    image: this.getAssetImage("AVAX"),
+                    name: "Avalanche",
+                    symbol: "AVAX",
+                }
+            );
+        }
+
+        if (wallet?.btcAddress) {
+            networks.push({
+                address: wallet?.btcAddress,
+                image: this.getAssetImage("BTC"),
+                name: "Bitcoin",
+                symbol: "BTC",
+            });
+        }
+
+        if (wallet?.solanaAddress) {
+            networks.push({
+                address: wallet?.solanaAddress,
+                image: this.getAssetImage("SOL"),
+                name: "Solana",
+                symbol: "SOL",
+            });
+        }
+
+        if (wallet?.suiAddress) {
+            networks.push({
+                address: wallet?.suiAddress,
+                image: this.getAssetImage("SUI"),
+                name: "Sui",
+                symbol: "SUI",
+            });
+        }
+
+        return networks;
     }
 }

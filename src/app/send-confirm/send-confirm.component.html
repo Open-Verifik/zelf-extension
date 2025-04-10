@@ -30,6 +30,8 @@
 
                         <p class="send-confirm__price-currency">{{ transactionData.symbol }}</p>
                     </div>
+
+                    <p class="send-confirm__price-currency">~{{ fiatPrice | currency : "USD" : "symbol" : "1.2" }}</p>
                 </div>
 
                 <div class="send-confirm__content">
@@ -52,7 +54,7 @@
                         <div class="zelf-action-row">
                             <p class="send-confirm__label">{{ t("common.address") }}</p>
 
-                            <p class="send-confirm__value">{{ transactionData.receiver.address | addressMask }}</p>
+                            <p class="send-confirm__value send-confirm__value--address">{{ transactionData.receiver.address }}</p>
                         </div>
 
                         <div class="zelf-action-row">
@@ -64,7 +66,10 @@
                         <div class="zelf-action-row">
                             <p class="send-confirm__label">{{ t("common.fee") }}</p>
 
-                            <p class="send-confirm__value">{{ transactionData.fee | number : "1.2-8" }}</p>
+                            <p class="send-confirm__value send-confirm__value--col send-confirm__value--items-end">
+                                <span>{{ transactionData.fee | number : "1.2-8" }} {{ transactionData.symbol }}</span>
+                                <span class="send-confirm__fee">~{{ fiatFeePrice | currency : "USD" : "symbol" : "1.2" }}</span>
+                            </p>
                         </div>
 
                         <div class="zelf-action-row">

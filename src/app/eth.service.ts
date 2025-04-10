@@ -383,6 +383,7 @@ export class EthereumService {
                 network.toLowerCase() === "avalanche" ? new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet)) : this.web3;
 
             let estimatedGas;
+
             if (tokenAddress) {
                 // ABI mínimo para tokens ERC20
                 const minABI = [
@@ -408,6 +409,7 @@ export class EthereumService {
                     data,
                     value: "0",
                 });
+
                 estimatedGas = Math.floor(Number(estimatedGas) * 1.2); // 20% buffer
             } else {
                 estimatedGas = await web3.eth.estimateGas({
@@ -419,11 +421,14 @@ export class EthereumService {
             }
 
             let gasPrice;
+
             if (network.toLowerCase() === "ethereum") {
                 const gasTracker = await this.getGasPrices();
-                gasPrice = web3.utils.toWei(gasTracker.data.high.gwei, "gwei"); // Usar gas price alto para ERC20
+
+                gasPrice = web3.utils.toWei(gasTracker.data.average.gwei, "gwei"); // Usar gas price alto para ERC20
             } else {
                 gasPrice = await web3.eth.getGasPrice();
+
                 // Para Avalanche, aumentar el gas price en un 10%
                 gasPrice = ((BigInt(gasPrice) * BigInt(110)) / BigInt(100)).toString();
             }
@@ -437,7 +442,7 @@ export class EthereumService {
                 estimatedGas: Number(estimatedGas),
                 gasPrice: gasPrice.toString(),
                 totalCost,
-                fiatFee: nativeFee * price,
+                fiatFee: nativeFee,
                 total: nativeFee * price,
             };
         } catch (error) {

@@ -9,6 +9,7 @@ import { ZelfNameGuard } from "./guards/zelf-name.guard";
 import { WalletGuard } from "./guards/wallet.guard";
 import { MnemonicGuard } from "./guards/mnemonic.guard";
 import { OnboardingGuard } from "./guards/onboarding.guard";
+import { JWTResolver } from "./resolvers/jwt.resolver";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
@@ -16,6 +17,9 @@ const routes: Routes = [
         path: "",
         canActivate: [LoginGuard],
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        resolve: {
+            initialData: JWTResolver,
+        },
         children: [
             {
                 path: "home",
@@ -106,6 +110,9 @@ const routes: Routes = [
         path: "activity",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
+        resolve: {
+            initialData: JWTResolver,
+        },
         children: [
             {
                 path: "",
@@ -117,6 +124,9 @@ const routes: Routes = [
         path: "send",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
+        resolve: {
+            initialData: JWTResolver,
+        },
         children: [
             {
                 path: "",
@@ -136,6 +146,9 @@ const routes: Routes = [
         path: "receive",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
+        resolve: {
+            initialData: JWTResolver,
+        },
         children: [
             {
                 path: "",
@@ -161,6 +174,9 @@ const routes: Routes = [
         path: "settings",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
+        resolve: {
+            initialData: JWTResolver,
+        },
         children: [
             {
                 path: "",

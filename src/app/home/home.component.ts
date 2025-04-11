@@ -7,7 +7,7 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
-import { Asset, TokenData, Wallet } from "app/wallet";
+import { Asset, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { SuiService } from "app/services/sui.service";
 import { AssetService } from "app/asset.service";
@@ -123,12 +123,16 @@ export class HomeComponent implements OnInit, OnDestroy {
                 sui: this._getSuiDetails(),
             })
                 .pipe(takeUntil(this.unsubscriberForBalances$))
-                .subscribe();
+                .subscribe({
+                    complete: () => {
+                        this.tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
+
+                        this.balancesLoading = false;
+                    },
+                });
         } catch (error) {
             console.error("Error getting tokens:", error);
         }
-
-        this.balancesLoading = false;
 
         this._changeDetectionRef.detectChanges();
     }

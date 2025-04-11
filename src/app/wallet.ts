@@ -1,3 +1,5 @@
+import { SuiTransactionBlockResponse } from "@mysten/sui.js/dist/cjs/client";
+
 export type AddressBook = {
     address: string;
     lastUsed?: Date | string;

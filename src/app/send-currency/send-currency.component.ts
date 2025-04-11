@@ -244,6 +244,8 @@ export class SendCurrencyComponent implements OnInit {
             }
         }
 
+        this.tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
+
         this._changeDetectionRef.detectChanges();
     }
 

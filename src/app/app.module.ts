@@ -25,6 +25,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatStepperModule } from "@angular/material/stepper";
 
 import { environment } from "environments/environment";
+import { HttpInterceptorProviders } from "./interceptors";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -157,7 +158,7 @@ import { ActivityCardComponent } from "./home/activity-card/activity-card.compon
         TranslocoModule,
         ActivityCardComponent,
     ],
-    providers: [],
+    providers: [HttpInterceptorProviders],
     bootstrap: [AppComponent],
     exports: [],
 })

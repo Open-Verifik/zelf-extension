@@ -1,13 +1,15 @@
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@ngneat/transloco";
 import { AssetService } from "app/asset.service";
 import { AssetChart, AssetDetails, AssetIntervalOptions, AssetRange } from "app/models/asset.model";
 import { SafeHtmlPipe } from "app/pipes/safe-html.pipe";
 import { TruncateNumberPipe } from "app/pipes/truncate-number.pipe";
-import { TokenData } from "app/wallet";
+import { TransactionService } from "app/transaction.service";
+import { TokenData, TransactionData } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
 import { AreaData, AreaSeries, AreaSeriesOptions, ChartOptionsBase, ColorType, createChart, IChartApi, ISeriesApi } from "lightweight-charts";
 import { Subject, takeUntil } from "rxjs";
@@ -50,7 +52,14 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     selectedRange: AssetRange = "1d";
     selectedTab: string = "about";
 
-    constructor(private _assetService: AssetService, private _changeDetectorRef: ChangeDetectorRef, private _renderer: Renderer2) {}
+    constructor(
+        private _assetService: AssetService,
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _renderer: Renderer2,
+        private _router: Router,
+        private _transactionService: TransactionService,
+        private _walletService: WalletService
+    ) {}
 
     ngAfterViewInit(): void {
         this.asset = this._assetService.asset;
@@ -253,6 +262,23 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
             .replace(/\n{2,}/g, "\n")
             .replace(/\n/g, "\n\n")
             .trim();
+    }
+
+    async prepareSend(): Promise<void> {
+        const address = await this._walletService.getWalletAddressByTokenType(this.asset.tokenType as string);
+
+        if (!address) throw new Error("No address found");
+
+        const zelfName = (await this._walletService.getCurrentWallet())?.publicData?.zelfName;
+
+        await this._transactionService.setCurrentTransactionData(
+            new TransactionData({
+                sender: { address, zelfName },
+                token: this.asset,
+            })
+        );
+
+        this._router.navigate(["/send", "transaction"]);
     }
 
     removeAsset() {

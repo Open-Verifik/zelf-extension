@@ -3,10 +3,6 @@ import * as openpgp from "openpgp";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { ChromeService } from "./chrome.service";
-import moment from "moment";
-import { environment } from "environments/environment";
-
 @Injectable({
     providedIn: "root",
 })
@@ -19,7 +15,7 @@ export class HttpWrapperService {
         return !!this.tail.length;
     }
 
-    constructor(private _http: HttpClient, private _chromeService: ChromeService) {}
+    constructor(private _http: HttpClient) {}
 
     /**
      * Send request
@@ -31,31 +27,16 @@ export class HttpWrapperService {
     async sendRequest<T = any>(method: string, url: string, params: any = {}, options: any = {}): Promise<any> {
         method = method.toLocaleLowerCase();
 
-        const authToken: string = await this._chromeService.getItem("accessToken");
-
-        let headers: any = {
-            timeout: 20,
-        };
-
-        if (authToken) {
-            headers["Authorization"] = `Bearer ${authToken}`;
-        }
-
-        // Additional header or options logic here
-        if (params.encryption) {
-            // Handle encryption
-        }
-
         try {
             switch (method) {
                 case "get":
-                    return this.request(this._http.get<T>(url, { params, headers, ...options }));
+                    return this.request(this._http.get<T>(url, { params, ...options }));
                 case "post":
-                    return this.request(this._http.post<T>(url, params, { headers, ...options }));
+                    return this.request(this._http.post<T>(url, params, { ...options }));
                 case "put":
-                    return this.request(this._http.put<T>(url, params, { headers, ...options }));
+                    return this.request(this._http.put<T>(url, params, { ...options }));
                 case "delete":
-                    return this.request(this._http.delete<T>(url, { headers, ...options }));
+                    return this.request(this._http.delete<T>(url, { ...options }));
                 default:
                     throw new Error("Method not provided or unsupported");
             }
@@ -93,17 +74,4 @@ export class HttpWrapperService {
 
         return encryptedMessage;
     }
-
-    // async decryptMessage(encryptedMessage: string, privateKeyArmored: string, passphrase: string): Promise<string> {
-    // 	// const privateKey = await openpgp.readKey({ armoredKey: privateKeyArmored });
-    // 	// await privateKey.decrypt(passphrase);
-    // 	// const message = await openpgp.readMessage({
-    // 	// 	armoredMessage: encryptedMessage,
-    // 	// });
-    // 	// const { data: decrypted } = await openpgp.decrypt({
-    // 	// 	message,
-    // 	// 	decryptionKeys: privateKey,
-    // 	// });
-    // 	// return decrypted;
-    // }
 }

@@ -48,6 +48,7 @@
         "ethers": "^6.12.1",
         "jsqr": "^1.4.0",
         "lightweight-charts": "^5.0.5",
+        "micro-key-producer": "^0.7.5",
         "moment": "^2.29.4",
         "ngx-webcam": "^0.4.1",
         "openpgp": "^5.11.1",

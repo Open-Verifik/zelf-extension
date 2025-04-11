@@ -659,6 +659,8 @@ export interface TokenData {
     tokenType: string;
     address_token?: string;
     contractAddress?: string;
+    tokenAddress?: string;
+    mint?: string;
 }
 
 export type Sender = {
@@ -773,7 +775,7 @@ export class TransactionData implements TransactionData {
     }
 
     get isSolToken(): boolean {
-        return this.tokenType === "SOL";
+        return this.tokenType === "SOL" || this.tokenType === "SPL";
     }
 
     get isBtcToken(): boolean {

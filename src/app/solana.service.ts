@@ -12,6 +12,7 @@ import {
     SystemProgram,
     LAMPORTS_PER_SOL,
     Transaction,
+    sendAndConfirmTransaction,
 } from "@solana/web3.js";
 import {
     getAssociatedTokenAddress,
@@ -21,7 +22,8 @@ import {
 } from "@solana/spl-token";
 import { Buffer } from "buffer";
 import * as bip39 from "bip39";
-import * as nacl from "tweetnacl";
+
+import slip10 from "micro-key-producer/slip10.js";
 
 import { encode as bs58encode, decode as bs58decode } from "bs58";
 
@@ -68,14 +70,38 @@ export class SolanaService {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/transaction/${transactionHash}`);
     }
 
-    async sendTokens(mnemonic: string, toAddress: string, mintAddress: string, amount: number, priorityFee: number = 12345): Promise<string> {
+    private async retryWithBackoff<T>(operation: () => Promise<T>, maxRetries = 3): Promise<T> {
+        let retries = 0;
+
+        while (true) {
+            try {
+                return await operation();
+            } catch (error: any) {
+                if (error?.response?.status !== 429 || retries >= maxRetries) {
+                    throw error;
+                }
+
+                retries++;
+                const delay = Math.min(1000 * Math.pow(2, retries), 10000);
+                await new Promise((resolve) => setTimeout(resolve, delay));
+            }
+        }
+    }
+
+    async sendTokens(mnemonic: string, toAddress: string, tokenAddress: string, amount: number): Promise<string> {
         try {
             const connection = new Connection(environment.solanaRpc.mainnet, {
                 commitment: "finalized",
                 confirmTransactionInitialTimeout: 60000,
             });
 
-            if (!this.isValidSolanaAddress(toAddress)) {
+            try {
+                const recipientPubKey = new PublicKey(toAddress);
+                if (!PublicKey.isOnCurve(recipientPubKey.toBytes())) {
+                    throw new Error("Invalid recipient address format");
+                }
+            } catch (error) {
+                console.error("Address validation error:", error);
                 throw new Error("Invalid recipient address");
             }
 
@@ -87,23 +113,32 @@ export class SolanaService {
             const fromAddress = fromKeypair.publicKey.toBase58();
 
             console.log("Sending from wallet address:", fromAddress);
+            console.log("Sending to address:", toAddress);
+            console.log("Token address:", tokenAddress);
+            console.log("Amount:", amount);
 
-            if (mintAddress && mintAddress.trim() !== "") {
-                return this.sendSPLTokens(connection, fromKeypair, toAddress, mintAddress, amount, priorityFee);
+            if (tokenAddress && tokenAddress.trim() !== "") {
+                try {
+                    new PublicKey(tokenAddress);
+                } catch (error) {
+                    throw new Error("Invalid token address");
+                }
+                return this.sendSPLTokens(connection, fromKeypair, toAddress, tokenAddress, amount);
             } else {
-                return this.sendSOL(connection, fromKeypair, toAddress, amount, priorityFee);
+                return this.sendSOL(connection, fromKeypair, toAddress, amount);
             }
         } catch (error: any) {
             console.error("Transaction failed:", {
                 error,
                 errorMessage: error.message,
                 errorStack: error.stack,
+                params: { toAddress, tokenAddress, amount },
             });
             throw error;
         }
     }
 
-    private async sendSOL(connection: Connection, fromKeypair: Keypair, toAddress: string, amount: number, priorityFee: number): Promise<string> {
+    private async sendSOL(connection: Connection, fromKeypair: Keypair, toAddress: string, amount: number): Promise<string> {
         try {
             const walletBalance = await connection.getBalance(fromKeypair.publicKey);
             const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
@@ -125,31 +160,25 @@ export class SolanaService {
                 })
             );
 
-            if (priorityFee > 0) {
-                transaction.add(
-                    ComputeBudgetProgram.setComputeUnitPrice({
-                        microLamports: priorityFee,
-                    })
-                );
-            }
-
-            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
-            transaction.recentBlockhash = blockhash;
-            transaction.feePayer = fromKeypair.publicKey;
-            transaction.sign(fromKeypair);
-
-            const signature = await connection.sendRawTransaction(transaction.serialize());
-            const confirmation = await connection.confirmTransaction({
-                signature,
-                blockhash,
-                lastValidBlockHeight,
+            const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair], {
+                skipPreflight: true,
+                maxRetries: 3,
             });
 
-            if (confirmation.value.err) {
-                throw new Error(`Transaction failed: ${confirmation.value.err}`);
-            }
+            try {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            return signature;
+                const status = await connection.getSignatureStatus(signature);
+
+                if (status.value?.err) {
+                    throw new Error("Transaction failed: " + status.value.err.toString());
+                }
+
+                return signature;
+            } catch (confirmError) {
+                console.warn("Confirmation check failed, but transaction might still be successful:", confirmError);
+                return signature;
+            }
         } catch (error: any) {
             console.error("SOL transfer failed:", error);
             throw error;
@@ -161,18 +190,31 @@ export class SolanaService {
         fromKeypair: Keypair,
         toAddress: string,
         mintAddress: string,
-        amount: number,
-        priorityFee: number
+        amount: number
     ): Promise<string> {
         try {
+            console.log("Starting SPL token transfer with params:", {
+                fromPubKey: fromKeypair.publicKey.toBase58(),
+                toAddress,
+                mintAddress,
+                amount,
+            });
+
             const mint = new PublicKey(mintAddress);
             const recipientAddress = new PublicKey(toAddress);
 
             const senderTokenAccount = await getAssociatedTokenAddress(mint, fromKeypair.publicKey);
+            console.log("Sender token account:", senderTokenAccount.toBase58());
+
             const recipientTokenAccount = await getAssociatedTokenAddress(mint, recipientAddress);
+            console.log("Recipient token account:", recipientTokenAccount.toBase58());
 
             const tokenInfo = await connection.getParsedAccountInfo(mint);
-            const tokenDecimals = tokenInfo.value?.data ? (tokenInfo.value?.data as any).parsed.info.decimals : 9;
+            if (!tokenInfo.value?.data) {
+                throw new Error("Invalid token mint address");
+            }
+
+            const tokenDecimals = (tokenInfo.value.data as any).parsed.info.decimals;
             const amountInTokenUnits = Math.floor(amount * 10 ** tokenDecimals);
 
             const tokenBalance = await connection.getTokenAccountBalance(senderTokenAccount);
@@ -191,31 +233,25 @@ export class SolanaService {
 
             transaction.add(createTransferInstruction(senderTokenAccount, recipientTokenAccount, fromKeypair.publicKey, amountInTokenUnits));
 
-            if (priorityFee > 0) {
-                transaction.add(
-                    ComputeBudgetProgram.setComputeUnitPrice({
-                        microLamports: priorityFee,
-                    })
-                );
-            }
-
-            const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
-            transaction.recentBlockhash = blockhash;
-            transaction.feePayer = fromKeypair.publicKey;
-            transaction.sign(fromKeypair);
-
-            const signature = await connection.sendRawTransaction(transaction.serialize());
-            const confirmation = await connection.confirmTransaction({
-                signature,
-                blockhash,
-                lastValidBlockHeight,
+            const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair], {
+                skipPreflight: true,
+                maxRetries: 3,
             });
 
-            if (confirmation.value.err) {
-                throw new Error(`Transaction failed: ${confirmation.value.err}`);
-            }
+            try {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            return signature;
+                const status = await connection.getSignatureStatus(signature);
+
+                if (status.value?.err) {
+                    throw new Error("Transaction failed: " + status.value.err.toString());
+                }
+
+                return signature;
+            } catch (confirmError) {
+                console.warn("Confirmation check failed, but transaction might still be successful:", confirmError);
+                return signature;
+            }
         } catch (error: any) {
             console.error("SPL token transfer failed:", error);
             throw error;
@@ -239,7 +275,7 @@ export class SolanaService {
         tokenAddress?: string
     ): Promise<{ estimatedGas: number; gasPrice: string; totalCost: string; fiatFee?: number }> {
         try {
-            const connection = new Connection("https://flashy-ultra-choice.solana-mainnet.quiknode.pro/dfa09ac3f7fe0fca5ac6cd762ec0d3a0db52712c/", {
+            const connection = new Connection(environment.solanaRpc.mainnet, {
                 commitment: "confirmed",
             });
 
@@ -298,11 +334,9 @@ export class SolanaService {
         }
 
         try {
-            const seed = await bip39.mnemonicToSeedSync(mnemonic);
-            const seedBuffer = Buffer.from(seed);
-
-            const path = `m/44'/501'/0'/0'`;
-            const keypair = Keypair.fromSeed(seedBuffer.slice(0, 32));
+            const seed = bip39.mnemonicToSeedSync(mnemonic, "");
+            const hd = slip10.fromMasterSeed(seed.toString("hex"));
+            const keypair = Keypair.fromSeed(hd.derive("m/44'/501'/0'/0'").privateKey);
 
             console.log("Derived keypair public key:", keypair.publicKey.toBase58());
             return keypair;
@@ -318,9 +352,11 @@ export class SolanaService {
                 return null;
             }
 
-            const keypair = await this.getKeypairFromMnemonic(mnemonic);
-            const privateKey = bs58encode(keypair.secretKey);
+            const seed = bip39.mnemonicToSeedSync(mnemonic, "");
+            const hd = slip10.fromMasterSeed(seed.toString("hex"));
+            const keypair = Keypair.fromSeed(hd.derive("m/44'/501'/0'/0'").privateKey);
             const address = keypair.publicKey.toBase58();
+            const privateKey = bs58encode(keypair.secretKey);
 
             return {
                 address,

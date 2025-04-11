@@ -221,11 +221,30 @@ export class SendCurrencyComponent implements OnInit {
             }
 
             if (network === "Solana" && this.CAN_SEND.SOL) {
-                const _token = { ...token, symbol: token.symbol || token.name, network };
+                const _token = {
+                    ...token,
+                    symbol: token.symbol || token.name,
+                    network,
+                    tokenType: token.symbol === "SOL" ? "SOL" : "SPL",
+                    balance: parseFloat(token.balance || token.amount || "0"),
+                    fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                    price: parseFloat(token.price || "0"),
+                    image: token.image || "assets/images/sol.png",
+                    name: token.name || token.symbol,
+                };
 
                 if (_token.name === "Zelf") _token.symbol = "ZNS";
 
-                this.tokens.push(_token);
+                console.log("Processing Solana token:", _token);
+
+                const tokenKey = `${_token.symbol}-${network}-${_token.tokenType}`;
+                const existingTokenIndex = this.tokens.findIndex((t) => `${t.symbol}-${t.network}-${t.tokenType}` === tokenKey);
+
+                if (existingTokenIndex === -1) {
+                    this.tokens.push(_token);
+                } else {
+                    this.tokens[existingTokenIndex] = _token;
+                }
             }
 
             if (network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
@@ -287,27 +306,45 @@ export class SendCurrencyComponent implements OnInit {
     }
 
     async onTokenClick(token: any): Promise<void> {
+        console.log("Token clicked:", token);
+
         let address = "";
+        let tokenType = token.tokenType;
 
         if (token.tokenType === "ETH" || token.tokenType === "AVAX" || token.tokenType === "ERC-20") {
             address = this.wallet?.ethAddress || "";
-        } else if (token.tokenType === "SOL") {
+        } else if (token.tokenType === "SOL" || token.tokenType === "SPL" || token.tokenType === "token") {
             address = this.wallet?.solanaAddress || "";
+            tokenType = token.symbol === "SOL" ? "SOL" : "SPL";
         } else if (token.tokenType === "BTC") {
             address = this.wallet?.btcAddress || "";
         } else if (token.tokenType === "SUI" || token.tokenType === "SUI_TOKEN") {
             address = this.wallet?.suiAddress || "";
         }
 
-        if (!address) return;
+        if (!address) {
+            console.error("No address found for token type:", token.tokenType);
+            return;
+        }
 
-        await this._transactionService.setCurrentTransactionData(
-            new TransactionData({
-                token,
-                sender: { address, zelfName: this.wallet?.publicData?.zelfName || "" },
-            })
-        );
+        const transactionData = new TransactionData({
+            token: {
+                ...token,
+                tokenType: tokenType,
+            },
+            sender: {
+                address,
+                zelfName: this.wallet?.publicData?.zelfName || "",
+            },
+        });
 
-        this._router.navigate(["/send/transaction"]);
+        console.log("Setting transaction data:", transactionData);
+
+        try {
+            await this._transactionService.setCurrentTransactionData(transactionData);
+            this._router.navigate(["/send/transaction"]);
+        } catch (error) {
+            console.error("Error setting transaction data:", error);
+        }
     }
 }

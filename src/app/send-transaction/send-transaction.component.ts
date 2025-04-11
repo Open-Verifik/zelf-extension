@@ -209,7 +209,6 @@ export class SendTransactionComponent implements OnDestroy {
 
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
-        const isSolanaToken = this.transactionData.isSolToken || this.transactionData.tokenType === "SPL";
 
         await this._captchaGeneration();
 
@@ -225,7 +224,7 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._queryZNS("ethAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "ethAddress");
-                } else if (isSolanaToken && this._solanaService.isValidSolanaAddress(text)) {
+                } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
                     await this._queryZNS("solanaAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "solanaAddress");
@@ -240,7 +239,7 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "suiAddress");
             } else if (isEthereumToken && this._checkEVMAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "ethAddress");
-            } else if (isSolanaToken && this._solanaService.isValidSolanaAddress(text)) {
+            } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "solanaAddress");
             } else {
                 this.isZelfNameNotFound = true;
@@ -249,7 +248,7 @@ export class SendTransactionComponent implements OnDestroy {
         } finally {
             this.searching = false;
 
-            if (this.foundAddress) this._setToCurrentTransactionData();
+            if (this.foundAddress) await this._setToCurrentTransactionData();
 
             this._changeDetectionRef.detectChanges();
         }
@@ -390,7 +389,6 @@ export class SendTransactionComponent implements OnDestroy {
         const address = this.form.get("toAddress")?.value;
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
-        const isSolanaToken = this.transactionData.isSolToken || this.transactionData.tokenType === "SPL";
 
         if (this.foundAddress) {
             const toAddressCtrl = this.form.get("toAddress");
@@ -416,7 +414,7 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(address, "suiAddress");
         } else if (isEthereumToken && this._checkEVMAddress(address)) {
             this._setRawAddressToFoundAddress(address, "ethAddress");
-        } else if (isSolanaToken && this._solanaService.isValidSolanaAddress(address)) {
+        } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
             this._setRawAddressToFoundAddress(address, "solanaAddress");
         }
 
@@ -429,6 +427,11 @@ export class SendTransactionComponent implements OnDestroy {
         if (!this.form.valid) return;
 
         const address = this.form.get("toAddress")?.value;
+        if (!address) {
+            console.error("No address provided");
+            return;
+        }
+
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
 
@@ -437,10 +440,15 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(address, "suiAddress");
             } else if (isEthereumToken && this._checkEVMAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "ethAddress");
+            } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
+                this._setRawAddressToFoundAddress(address, "solanaAddress");
             }
         }
 
-        if (!this.foundAddress) return;
+        if (!this.foundAddress) {
+            console.error("No valid address found");
+            return;
+        }
 
         await this._setToCurrentTransactionData();
 

@@ -17,6 +17,7 @@ export class TokenItemComponent extends CopyToClipboardBase {
     @Output("onQRCodeClick") onQRCodeClick: EventEmitter<any> = new EventEmitter<any>();
 
     @Input("token") token: any;
+    @Input("showFiatBalance") showFiatBalance: boolean = false;
     @Input("showPrice") showPrice: boolean = false;
     @Input("showCopyAddress") showCopyAddress: boolean = false;
     @Input("showQRCode") showQRCode: boolean = false;

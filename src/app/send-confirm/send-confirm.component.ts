@@ -311,16 +311,36 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             let receipt;
 
             if (this.transactionData.network === "solana") {
-                const tokenAddress = this.transactionData.tokenType === "SPL" ? this.transactionData.token?.address_token : "";
+                console.log("Transaction data:", {
+                    type: this.transactionData.tokenType,
+                    token: this.transactionData.token,
+                });
 
-                receipt = await this._solanaService.sendTokens(
-                    cleanMnemonic,
-                    this.transactionData.receiver.address,
-                    tokenAddress || "",
-                    normalizedAmount
-                );
+                let tokenAddress = "";
+                if (this.transactionData.tokenType === "SPL") {
+                    tokenAddress = this.transactionData.token?.tokenAddress || this.transactionData.token?.address_token || "";
 
-                receipt = { transactionHash: receipt };
+                    if (!tokenAddress) {
+                        throw new Error("Token address not found for SPL token");
+                    }
+
+                    console.log("Using SPL token address:", tokenAddress);
+                }
+
+                console.log("Sending Solana transaction:", {
+                    type: this.transactionData.tokenType,
+                    tokenAddress,
+                    receiverAddress: this.transactionData.receiver.address,
+                    amount: normalizedAmount,
+                });
+
+                receipt = await this._solanaService.sendTokens(cleanMnemonic, this.transactionData.receiver.address, tokenAddress, normalizedAmount);
+
+                receipt = {
+                    transactionHash: receipt,
+                    network: "solana",
+                    tokenType: this.transactionData.tokenType,
+                };
             } else if (this.transactionData.network === "sui") {
                 if (this.transactionData.tokenType === "SUI") {
                     receipt = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
@@ -414,22 +434,20 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 network: this.transactionData.network,
                 status: "pending",
                 to: this.transactionData.receiver.address,
-                tokenType:
-                    this.transactionData.network === "sui"
-                        ? "SUI"
-                        : this.transactionData.network === "avalanche"
-                        ? "AVAX"
-                        : this.transactionData.tokenType,
+                tokenType: this.transactionData.tokenType,
             };
 
             await this._walletService.addTransactionToPending(pendingTransactionData);
             await this._transactionService.removeTransactionData();
 
-            if (this.transactionData.network === "solana" && receipt && receipt.transactionHash) {
+            if (this.transactionData.network === "solana" && receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { tokenType: this.transactionData.tokenType === "SPL" ? "SPL" : "SOL" },
+                    queryParams: {
+                        network: "solana",
+                        tokenType: this.transactionData.tokenType,
+                    },
                 });
-            } else if (this.transactionData.network === "sui" && receipt && receipt.digest) {
+            } else if (this.transactionData.network === "sui" && receipt.digest) {
                 await this._router.navigate(["/transaction", receipt.digest], {
                     queryParams: { tokenType: "SUI" },
                 });

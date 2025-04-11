@@ -34,7 +34,7 @@ export class AuthService {
     private _isValidToken(): boolean {
         if (!this._accessToken || !this._accessTokenExpiresAt) return false;
 
-        return moment.unix(this._accessTokenExpiresAt).local().isBefore(moment());
+        return moment.unix(this._accessTokenExpiresAt).local().isAfter(moment());
     }
 
     private async _requestAuthToken(fingerprint: string): Promise<{ data: { token: string; expiresAt: number } }> {

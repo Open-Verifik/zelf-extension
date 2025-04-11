@@ -23,7 +23,13 @@
     </div>
 
     <div class="zelf-card__content send-currency__content">
-        <token-item *ngFor="let token of tokens" [token]="token" (click)="onTokenClick(token)" [showPrice]="true"></token-item>
+        <token-item
+            *ngFor="let token of tokens"
+            [token]="token"
+            (click)="onTokenClick(token)"
+            [showPrice]="true"
+            [showFiatBalance]="true"
+        ></token-item>
 
         <div class="ripple send-currency__loader" *ngIf="loading"></div>
     </div>

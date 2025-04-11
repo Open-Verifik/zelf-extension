@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private _processTokens(network: string, tokens: Array<any>): void {
         for (const token of tokens) {
-            if (!token.symbol && !token.name) continue;
+            if ((!token.symbol && !token.name) || /^nft/i.test(token?.tokenType)) continue;
 
             const formattedToken = {
                 ...token,

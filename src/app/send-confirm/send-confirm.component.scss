@@ -120,6 +120,7 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: $black;
+        transition: color 0.2s $smoothBezier;
 
         &--col {
             display: flex;
@@ -137,6 +138,10 @@
             overflow-wrap: anywhere;
             text-align: right;
             font-size: 13px;
+        }
+
+        &--error {
+            color: $error;
         }
     }
 

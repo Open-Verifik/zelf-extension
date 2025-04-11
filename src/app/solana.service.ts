@@ -2,30 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { environment } from "environments/environment";
-import {
-    Connection,
-    PublicKey,
-    TransactionMessage,
-    VersionedTransaction,
-    Keypair,
-    ComputeBudgetProgram,
-    SystemProgram,
-    LAMPORTS_PER_SOL,
-    Transaction,
-    sendAndConfirmTransaction,
-} from "@solana/web3.js";
-import {
-    getAssociatedTokenAddress,
-    createAssociatedTokenAccountInstruction,
-    createTransferInstruction,
-    getOrCreateAssociatedTokenAccount,
-} from "@solana/spl-token";
+import { Connection, PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
+import { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction, createTransferInstruction } from "@solana/spl-token";
 import { Buffer } from "buffer";
 import * as bip39 from "bip39";
 
 import slip10 from "micro-key-producer/slip10.js";
 
-import { encode as bs58encode, decode as bs58decode } from "bs58";
+import { encode as bs58encode } from "bs58";
 
 if (typeof window !== "undefined") {
     window.Buffer = window.Buffer || Buffer;

@@ -99,10 +99,20 @@
             cursor: not-allowed;
             background-color: $gray !important;
             color: $white !important;
+
+            mat-spinner svg {
+                fill: $black !important;
+                stroke: $black !important;
+            }
         }
 
         svg {
             fill: $white;
+        }
+
+        mat-spinner svg {
+            fill: $white !important;
+            stroke: $white !important;
         }
     }
 
@@ -120,10 +130,20 @@
             cursor: not-allowed;
             background-color: $antiFlashWhite !important;
             color: $black !important;
+
+            mat-spinner svg {
+                fill: $gray !important;
+                stroke: $gray !important;
+            }
         }
 
         svg {
             fill: $black;
+        }
+
+        mat-spinner svg {
+            fill: $black !important;
+            stroke: $black !important;
         }
     }
 
@@ -274,6 +294,11 @@
             svg {
                 fill: $taupeGray;
             }
+
+            mat-spinner svg {
+                fill: $taupeGray !important;
+                stroke: $taupeGray !important;
+            }
         }
     }
 
@@ -297,6 +322,11 @@
 
             svg {
                 fill: $frenchGray;
+            }
+
+            mat-spinner svg {
+                fill: $black !important;
+                stroke: $black !important;
             }
         }
     }
@@ -325,6 +355,11 @@
 
             svg {
                 fill: $frenchGray;
+            }
+
+            mat-spinner svg {
+                fill: $gray !important;
+                stroke: $gray !important;
             }
         }
     }

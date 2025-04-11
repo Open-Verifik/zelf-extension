@@ -54,7 +54,7 @@
 
             <p class="zelf-input__postfix">.zelf</p>
 
-            <button mat-icon-button type="submit" class="zelf-icon-button zelf-icon-button--black" [disabled]="form.invalid">
+            <button mat-icon-button type="submit" class="zelf-icon-button zelf-icon-button--black" [disabled]="form.invalid || loading">
                 <ng-container *ngIf="!loading">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

@@ -20,6 +20,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Subject, takeUntil } from "rxjs";
 import { SuiService } from "app/services/sui.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { AssetService } from "app/asset.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -29,8 +30,9 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
     templateUrl: "./send-confirm.component.html",
 })
 export class SendConfirmComponent implements OnInit, OnDestroy {
-    private _password: string = "";
     private _mnemonics: string = "";
+    private _password: string = "";
+    private _priceInterval!: ReturnType<typeof setInterval>;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
     availableNetworks = [
@@ -42,6 +44,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     loading: boolean;
     passwordError: boolean = false;
     passwordSet: boolean = false;
+    price: number = 0;
     remainingAttempts: number = this._vaultService.remainingAttempts;
     requiresBiometrics: boolean = false;
     sending: boolean = false;
@@ -50,6 +53,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     wallet?: WalletModel;
 
     constructor(
+        private _assetService: AssetService,
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -105,8 +109,24 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        clearInterval(this._priceInterval);
+
         this.unsubcriber$.next();
         this.unsubcriber$.complete();
+    }
+
+    get fiatPrice(): number {
+        const amount = Number(this.transactionData.amount) || 0;
+        const fiatPrice = this.price || 0;
+
+        return amount * fiatPrice || 0;
+    }
+
+    get fiatFeePrice(): number {
+        const amount = Number(this.transactionData.fee) || 0;
+        const fiatPrice = this.price || 0;
+
+        return amount * fiatPrice || 0;
     }
 
     private async _calculateTransactionFee(): Promise<void> {
@@ -168,6 +188,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this.transactionData.fiatFee = transactionCost.fiatFee || 0;
 
                 const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+
                 this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
@@ -229,6 +250,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
+        clearInterval(this._priceInterval);
+
+        this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
+            this.price = response.data[0].open;
+        });
+
+        this._priceInterval = setInterval(() => {
+            this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
+                this.price = response.data[0].open;
+            });
+        }, 5000);
+
         this._initForm();
 
         await this._calculateTransactionFee();
@@ -265,6 +298,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                     receipt = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
                 } else {
                     const tokenAddress = this.transactionData.token?.address_token;
+
                     if (!tokenAddress) throw new Error("Token address is required");
 
                     receipt = await this._suiService.transferToken(
@@ -282,26 +316,22 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
                 const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
                 const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
+                const tokenSymbol = this.transactionData.token?.symbol || "";
 
                 let tokenAddress = this.transactionData.token?.address_token;
-                const tokenSymbol = this.transactionData.token?.symbol || "";
 
                 if (!tokenAddress && this.wallet && tokenSymbol !== "AVAX" && tokenSymbol !== "ETH") {
                     try {
                         const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
 
-                        if (this.transactionData.network.toLowerCase() === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
+                        if (this.transactionData.network === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
                             const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
 
-                            if (foundToken) {
-                                tokenAddress = foundToken.address;
-                            }
-                        } else if (this.transactionData.network.toLowerCase() === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
+                            if (foundToken) tokenAddress = foundToken.address;
+                        } else if (this.transactionData.network === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
                             const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
 
-                            if (foundToken) {
-                                tokenAddress = foundToken.address;
-                            }
+                            if (foundToken) tokenAddress = foundToken.address;
                         }
                     } catch (error) {
                         console.error("Error fetching token data from API:", error);
@@ -348,7 +378,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             const pendingTransactionData = {
                 ...this.transactionData,
                 ...receipt,
-                amount: this.transactionData.total,
+                amount: this.transactionData.amount,
+                total: this.transactionData.total,
+                fee: this.transactionData.fee,
                 date: sendDateTime,
                 from: this.transactionData.sender.address,
                 network: this.transactionData.network,
@@ -363,19 +395,14 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             };
 
             await this._walletService.addTransactionToPending(pendingTransactionData);
-
             await this._transactionService.removeTransactionData();
 
-            if (this.transactionData.network === "sui" && receipt && receipt.digest) {
-                await this._router.navigate(["/transaction", receipt.digest], {
-                    queryParams: { tokenType: "SUI" },
-                });
-            } else if (receipt.transactionHash) {
-                await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { tokenType: this.transactionData.symbol },
+            if (receipt.transactionHash) {
+                this._router.navigate(["/transaction", receipt.transactionHash], {
+                    queryParams: { symbol: this.transactionData.symbol },
                 });
             } else {
-                await this._router.navigate(["/send"]);
+                this._router.navigate(["/send"]);
             }
         } catch (error: any) {
             console.error("Transaction error:", error);

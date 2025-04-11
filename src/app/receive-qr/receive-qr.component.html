@@ -36,7 +36,10 @@
         <ng-container *ngIf="!loading">
             <div class="zelf-action-row receive-qr__action-row">
                 <div class="receive-qr__action-col">
-                    <p class="receive-qr__token-type">{{ symbol }} ({{ tokenType }})</p>
+                    <p class="receive-qr__token-type">
+                        {{ symbol }} <ng-container *ngIf="type"> ({{ type }})</ng-container>
+                    </p>
+
                     <p class="receive-qr__address">{{ address }}</p>
                 </div>
 

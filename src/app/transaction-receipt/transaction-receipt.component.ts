@@ -29,7 +29,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     hash: string = "";
     loading: boolean = false;
-    tokenType: string = "";
+    symbol: string = "";
     transaction!: any;
     wallet!: Partial<WalletModel> | null;
 
@@ -51,7 +51,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             queryParams: this._activatedRoute.queryParams.pipe(take(1)),
         }).subscribe((responses) => {
             this.hash = responses.params.hash;
-            this.tokenType = responses.queryParams.tokenType;
+            this.symbol = responses.queryParams.symbol;
 
             if (this.loading) return;
 
@@ -70,13 +70,13 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     _determineNetwork(): string {
         if (this.transaction?.network) return this.transaction?.network;
-        else if (this.tokenType) {
-            if (this.tokenType === "AVAX") return "avalanche";
-            else if (this.tokenType === "MATIC") return "polygon";
-            else if (this.tokenType === "BNB") return "binance";
-            else if (this.tokenType === "ETH") return "ethereum";
-            else if (this.tokenType === "ZELF" || this.tokenType === "SOL") return "solana";
-            else if (this.tokenType === "SUI") return "sui";
+        else if (this.symbol) {
+            if (this.symbol === "AVAX") return "avalanche";
+            else if (this.symbol === "MATIC") return "polygon";
+            else if (this.symbol === "BNB") return "binance";
+            else if (this.symbol === "ETH") return "ethereum";
+            else if (this.symbol === "ZELF" || this.symbol === "SOL") return "solana";
+            else if (this.symbol === "SUI") return "sui";
             else return "ethereum";
         } else return "ethereum";
     }
@@ -97,7 +97,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         return;
                     }
 
-                    response.data.symbol = this.tokenType;
+                    response.data.symbol = this.symbol;
 
                     if (network === "ethereum") {
                         this.transaction = new EthTransactionModel(response.data).toTransaction();
@@ -128,7 +128,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         return;
                     }
 
-                    response.data.symbol = this.tokenType;
+                    response.data.symbol = this.symbol;
 
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
                     this.loading = false;
@@ -141,7 +141,6 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                 })
                 .catch(() => {
                     this._retryRequestTransactionDetails();
-
                     this.loading = false;
                 });
         } else if (network === "solana") {
@@ -154,7 +153,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                         return;
                     }
 
-                    response.data.symbol = this.tokenType;
+                    response.data.symbol = this.symbol;
 
                     this.transaction = new SolTransactionModel(response.data).toTransaction();
                     this.loading = false;

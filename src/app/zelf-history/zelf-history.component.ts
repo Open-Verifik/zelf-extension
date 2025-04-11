@@ -122,13 +122,13 @@ export class ZelfHistoryComponent implements OnInit {
                 hash: tx.hash,
                 type: tx.traffic === "OUT" ? "send" : "receive",
                 from: {
-                    address: tx.from,
+                    address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
                     amount: tx.amount,
                     symbol: tx.asset,
                     image: tokenImage,
                 },
                 to: {
-                    address: tx.to,
+                    address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
                     amount: tx.amount,
                     symbol: tx.asset,
                     image: tokenImage,
@@ -171,6 +171,6 @@ export class ZelfHistoryComponent implements OnInit {
     }
 
     async navigateToTransaction(transaction: ProcessedTransaction): Promise<void> {
-        this._router.navigate(["/transaction", transaction.hash], { queryParams: { tokenType: transaction.from.symbol } });
+        this._router.navigate(["/transaction", transaction.hash], { queryParams: { symbol: transaction.from.symbol } });
     }
 }

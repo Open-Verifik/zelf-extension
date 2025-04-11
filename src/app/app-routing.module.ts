@@ -12,13 +12,21 @@ import { OnboardingGuard } from "./guards/onboarding.guard";
 import { JWTResolver } from "./resolvers/jwt.resolver";
 
 const routes: Routes = [
-    { path: "", redirectTo: "home", pathMatch: "full", canActivate: [LoginGuard] },
+    {
+        path: "",
+        redirectTo: "home",
+        pathMatch: "full",
+        canActivate: [LoginGuard],
+        resolve: {
+            auth: JWTResolver,
+        },
+    },
     {
         path: "",
         canActivate: [LoginGuard],
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         resolve: {
-            initialData: JWTResolver,
+            auth: JWTResolver,
         },
         children: [
             {
@@ -53,6 +61,9 @@ const routes: Routes = [
         path: "welcome",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [OnboardingGuard],
+        resolve: {
+            auth: JWTResolver,
+        },
         children: [
             {
                 path: "",
@@ -89,6 +100,9 @@ const routes: Routes = [
         path: "security",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [ZelfNameGuard],
+        resolve: {
+            auth: JWTResolver,
+        },
         children: [
             {
                 path: "",
@@ -111,7 +125,7 @@ const routes: Routes = [
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
         resolve: {
-            initialData: JWTResolver,
+            auth: JWTResolver,
         },
         children: [
             {
@@ -125,7 +139,7 @@ const routes: Routes = [
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
         resolve: {
-            initialData: JWTResolver,
+            auth: JWTResolver,
         },
         children: [
             {
@@ -147,7 +161,7 @@ const routes: Routes = [
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
         resolve: {
-            initialData: JWTResolver,
+            auth: JWTResolver,
         },
         children: [
             {
@@ -155,7 +169,7 @@ const routes: Routes = [
                 loadComponent: () => import("./receive-currency/receive-currency.component").then((m) => m.ReceiveCurrencyComponent),
             },
             {
-                path: "qr/:symbol/:tokenType/:name",
+                path: "qr/:network",
                 loadComponent: () => import("./receive-qr/receive-qr.component").then((m) => m.ReceiveQrComponent),
             },
         ],
@@ -163,6 +177,9 @@ const routes: Routes = [
     {
         path: "transaction",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        resolve: {
+            auth: JWTResolver,
+        },
         children: [
             {
                 path: ":hash",
@@ -175,7 +192,7 @@ const routes: Routes = [
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         canActivate: [LoginGuard],
         resolve: {
-            initialData: JWTResolver,
+            auth: JWTResolver,
         },
         children: [
             {

@@ -1,4 +1,4 @@
-import { SuiTransactionBlockResponse } from "@mysten/sui.js/dist/cjs/client";
+import moment from "moment";
 
 export type AddressBook = {
     address: string;
@@ -324,59 +324,56 @@ export class AvaxTransactionModel implements AvaxTransaction {
 }
 
 export type SolTransaction = {
-    age: string;
-    amount: string;
-    assetPrice: string;
-    date: string;
+    amount: number;
+    block: number;
+    fee: number;
     from: string;
-    gasPrice: string;
-    hash: string;
+    id: string;
     status: string;
     symbol: string;
+    timestamp: number;
     to: string;
-    txnFee: string;
+    _source: SOLSource;
 };
 
 export class SolTransactionModel implements SolTransaction {
-    age: string;
-    amount: string;
-    assetPrice: string;
-    date: string;
+    amount: number;
+    block: number;
+    fee: number;
     from: string;
-    gasPrice: string;
-    hash: string;
+    id: string;
     status: string;
     symbol: string = "SOL";
+    timestamp: number;
     to: string;
-    txnFee: string;
+    _source: SOLSource;
 
     constructor(data: SolTransaction) {
-        this.age = data.age || "";
-        this.amount = data.amount || "";
-        this.assetPrice = data.assetPrice || "";
-        this.date = data.date || "";
+        this.amount = data.amount ? data.amount / 1e9 : 0;
+        this.block = data.block || 0;
+        this.fee = data.fee ? data.fee / 1e9 : 0;
         this.from = data.from || "";
-        this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
-        this.hash = data.hash || "";
+        this.id = data.id || "";
         this.status = data.status || "";
         this.symbol = data.symbol || "SOL";
+        this.timestamp = data.timestamp || 0;
         this.to = data.to || "";
-        this.txnFee = data.txnFee || "";
+        this._source = data._source || ({} as SOLSource);
     }
 
     toTransaction(): TransactionModel {
         return new TransactionModel({
-            age: this.age,
+            age: moment(this.timestamp).fromNow(),
             amount: Number(this.amount),
-            asset: this.symbol,
-            date: new Date(this.date),
-            fiatAmount: Number(this.assetPrice),
+            asset: "SOL",
+            date: new Date(this.timestamp),
+            fiatAmount: Number(0),
             from: this.from,
-            gasFee: this.txnFee,
-            hash: this.hash,
-            status: this.status.toLowerCase(),
+            gasFee: this.fee,
+            hash: this.id,
+            status: this.status?.toLowerCase() || "",
             to: this.to,
-            tokenType: "ERC-20",
+            tokenType: "SPL",
         });
     }
 }
@@ -786,3 +783,158 @@ export class TransactionData implements TransactionData {
         return this.tokenType === "SUI";
     }
 }
+
+export type SOLSource = {
+    trans_id: string;
+    block_id: number;
+    trans_time: number;
+    fee: number;
+    reward: any[];
+    sol_bal_change: Array<{
+        address: string;
+        pre_balance: number;
+        post_balance: number;
+        change_amount: number;
+    }>;
+    token_bal_change: any[];
+    tokens_involved: any[];
+    parsed_instructions: Array<{
+        ins_index: number;
+        parsed_type: string;
+        type: string;
+        program_id: string;
+        program: string;
+        outer_program_id: string | null;
+        outer_ins_index: number;
+        data_raw: {
+            info: {
+                destination: string;
+                lamports: number;
+                source: string;
+            };
+            type: string;
+        };
+        accounts: any[];
+        activities: any[];
+        transfers: Array<{
+            source_owner: string;
+            source: string;
+            destination: string;
+            destination_owner: string;
+            transfer_type: string;
+            token_address: string;
+            decimals: number;
+            amount_str: string;
+            amount: number;
+            program_id: string;
+            outer_program_id: string | null;
+            ins_index: number;
+            outer_ins_index: number;
+            event: string;
+            fee: Record<string, any>;
+        }>;
+        program_invoke_level: number;
+        display: {
+            accounts: any[];
+            input_args: any | null;
+            data: {
+                source: string;
+                destination: string;
+                amount: {
+                    token_amount: {
+                        number: number;
+                        decimals: number;
+                        token_address: string;
+                    };
+                };
+            };
+            events: any | null;
+        };
+        render_actions: any[];
+    }>;
+    accounts_involved: string[];
+    programs_involved: string[];
+    index_block: number;
+    signer: string[];
+    list_signer: string[];
+    status: number;
+    metadata: {
+        token_metadata: Record<string, any>;
+        account_metadata: Record<
+            string,
+            {
+                account_address: string;
+                signer: boolean;
+                writable: boolean;
+            }
+        >;
+        init_token_account_metadata: Record<string, any>;
+    };
+    source_store_tx: string;
+    account_keys: Array<{
+        pubkey: string;
+        writable: boolean;
+        signer: boolean;
+        source: string;
+    }>;
+    compute_units_consumed: number;
+    render_legacy_main_actions: Array<{
+        title: Array<
+            Array<{
+                text?: string;
+                instruction?: string;
+                account?: string;
+                origin_data?: {
+                    program_id: string;
+                    parsed_type: string;
+                    activity_type: string;
+                };
+                index?: {
+                    ins_index: number;
+                    outer_ins_index: number;
+                };
+            }>
+        >;
+        body: Array<
+            Array<{
+                icon?: string;
+                text?: string;
+                account?: string;
+                token_amount?: {
+                    number: number;
+                    decimals: number;
+                    token_address: string;
+                };
+                origin_data?: {
+                    source_owner: string;
+                    source: string;
+                    destination: string;
+                    destination_owner: string;
+                    transfer_type: string;
+                    token_address: string;
+                    decimals: number;
+                    amount_str: string;
+                    amount: number;
+                    program_id: string;
+                    outer_program_id: string | null;
+                    ins_index: number;
+                    outer_ins_index: number;
+                    event: string;
+                    fee: Record<string, any>;
+                    activity_type: string;
+                };
+                index?: {
+                    ins_index: number;
+                    outer_ins_index: number;
+                };
+            }>
+        >;
+    }>;
+    render_summary_main_actions: any[];
+    txStatus: string;
+    confirmations: number | null;
+    version: string;
+    logMessage: string[];
+    recentBlockhash: string;
+    priority_fee: number;
+};

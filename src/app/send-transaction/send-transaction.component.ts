@@ -396,7 +396,13 @@ export class SendTransactionComponent implements OnDestroy {
             if (toAddressCtrl) {
                 toAddressCtrl.setValue(
                     this.foundAddress[
-                        isSuiTokenOrNetwork ? "suiAddress" : isEthereumToken ? "ethAddress" : isSolanaToken ? "solanaAddress" : "solanaAddress"
+                        isSuiTokenOrNetwork
+                            ? "suiAddress"
+                            : isEthereumToken
+                            ? "ethAddress"
+                            : this.transactionData.isSolToken
+                            ? "solanaAddress"
+                            : "solanaAddress"
                     ] || ""
                 );
 

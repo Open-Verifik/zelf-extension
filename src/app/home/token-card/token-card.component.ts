@@ -26,7 +26,7 @@ import { Component, Input, OnInit } from "@angular/core";
                             'stats__percentage--negative': false
                         }"
                     >
-                        <span class="stats__text stats__text--colored">{{ data.amount }}</span>
+                        <span class="stats__text stats__text--colored">{{ data.amount | number : "1.0-6" }}</span>
                     </div>
                 </h4>
 

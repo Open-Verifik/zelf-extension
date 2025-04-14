@@ -279,16 +279,21 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private async _setToCurrentTransactionData(): Promise<void> {
-        if (this.withdrawStep) {
-            const amount = Number(String(this.form.get("amount")?.value || "0").replace(",", "."));
+        try {
+            if (this.withdrawStep) {
+                const amount = Number(String(this.form.get("amount")?.value || "0").replace(",", "."));
 
-            this.transactionData.amount = amount;
+                this.transactionData.amount = amount;
+            }
+
+            this.transactionData.receiver.address = (this.foundAddress && this.foundAddress[this.addressKey]) || "";
+            this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName || "";
+
+            await this._transactionService.setCurrentTransactionData(this.transactionData);
+        } catch (exception) {
+            console.error("Error setting transaction data", exception);
+            this.openErrorSnackBar("send-transaction.error-setting-transaction-data");
         }
-
-        this.transactionData.receiver.address = (this.foundAddress && this.foundAddress[this.addressKey]) || "";
-        this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName || "";
-
-        await this._transactionService.setCurrentTransactionData(this.transactionData);
     }
 
     private _checkEVMAddress(text: string): boolean {
@@ -342,12 +347,6 @@ export class SendTransactionComponent implements OnDestroy {
             this.price = response.data[0].open;
         });
 
-        this._priceInterval = setInterval(() => {
-            this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
-                this.price = response.data[0].open;
-            });
-        }, 5000);
-
         this._initForm();
     }
 
@@ -374,6 +373,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     async continueToWithdraw(): Promise<void> {
         const address = this.form.get("toAddress")?.value;
+
         const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
 
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";

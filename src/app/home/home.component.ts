@@ -102,6 +102,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         try {
             await this._fetchTokens();
         } catch (error) {
+            this.balancesLoading = false;
+
             console.error("Error getting tokens:", error);
         }
 
@@ -316,6 +318,24 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.shareables.wallet = wallet;
 
         this.wallet = this.shareables.wallet;
+    }
+
+    async refreshTokens(): Promise<any> {
+        if (this.balancesLoading) return;
+
+        this.balancesLoading = true;
+        this.tokens = [];
+        this.NFTs = [];
+
+        try {
+            await this._fetchTokens();
+        } catch (error) {
+            this.balancesLoading = false;
+
+            console.error("Error getting tokens:", error);
+        }
+
+        this._changeDetectionRef.detectChanges();
     }
 
     selectTab(tab: string): void {

@@ -40,7 +40,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 })
 export class SendTransactionComponent implements OnDestroy {
     private _captchaToken: string = "";
-    private _priceInterval!: ReturnType<typeof setInterval>;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
@@ -98,8 +97,6 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        clearInterval(this._priceInterval);
-
         this.unsubcriber$.next();
         this.unsubcriber$.complete();
     }
@@ -341,13 +338,19 @@ export class SendTransactionComponent implements OnDestroy {
     private async _initTransactionData(): Promise<void> {
         this.recentAddresses = this._transactionService.findAddressInRecentAddresses("network", this.transactionData.network);
 
-        clearInterval(this._priceInterval);
-
-        this._assetService.fetchAssetPrice(this.transactionData.symbol).then((response) => {
-            this.price = response.data[0].open;
-        });
+        await this._fetchTokenPrice();
 
         this._initForm();
+    }
+
+    async _fetchTokenPrice(): Promise<void> {
+        try {
+            const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
+
+            if (!response?.data || !response?.data?.length) return;
+
+            this.price = response.data[0].open;
+        } catch (error: any) {}
     }
 
     async _queryZNS(key: string, value: string): Promise<void> {

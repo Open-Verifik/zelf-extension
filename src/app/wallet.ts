@@ -429,6 +429,7 @@ export interface Wallet {
     displayBtcAddress: string;
     displayEthAddress: string;
     displaySolanaAddress: string;
+    displaySuiAddress: string;
     durationToken: string;
     ethAddress: string;
     hasPassword: boolean;
@@ -534,8 +535,8 @@ export class WalletModel implements Wallet {
     }
 
     private _parseAddress(value: string): string {
-        const firstPart = value.slice(0, 4);
-        const lastPart = value.slice(-4);
+        const firstPart = value.slice(0, 8);
+        const lastPart = value.slice(-8);
 
         return `${firstPart}...${lastPart}`;
     }
@@ -780,7 +781,7 @@ export class TransactionData implements TransactionData {
     }
 
     get isSuiToken(): boolean {
-        return this.tokenType === "SUI";
+        return this.tokenType === "SUI" || this.tokenType === "SUI_TOKEN";
     }
 }
 

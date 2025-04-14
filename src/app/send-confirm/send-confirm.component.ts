@@ -21,7 +21,7 @@ import { VaultService } from "app/vault.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { NetworkService } from "app/services/network.service";
+import { NetworkName, NetworkService } from "app/services/network.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -35,6 +35,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     private _password: string = "";
     private _interval!: ReturnType<typeof setInterval>;
     private _intervalTime: number = 30000;
+    private _skipPriceFetch: boolean = false;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
     availableNetworks = [
@@ -54,6 +55,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     showPassword: boolean = false;
     transactionData!: TransactionData;
     wallet?: WalletModel;
+    networkToken?: any;
+    isNativeAsset: boolean = false;
 
     constructor(
         private _assetService: AssetService,
@@ -89,9 +92,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
-            this._initTransactionData()
-                .catch(() => this.goBack())
-                .finally(() => (this.loading = false));
+            this._initTransactionData().finally(() => (this.loading = false));
 
             return;
         }
@@ -101,15 +102,15 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             if (!this.transactionData || !this.transactionData.hasTransactionData) {
                 this._router.navigate(["/send"]);
+
                 return;
             } else if (!this.transactionData.hasCompletePaymentData) {
                 this._router.navigate(["/send/transaction"]);
+
                 return;
             }
 
-            this._initTransactionData()
-                .catch(() => this.goBack())
-                .finally(() => (this.loading = false));
+            this._initTransactionData().finally(() => (this.loading = false));
         });
     }
 
@@ -120,22 +121,32 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.unsubcriber$.complete();
     }
 
-    get hasBalance(): boolean {
-        return Number(this.transactionData?.token?.fiatBalance) > 0 && Number(this.transactionData?.token?.fiatBalance) > this.total;
-    }
-
     get fiatPrice(): number {
         const amount = Number(this.transactionData.amount) || 0;
         const fiatPrice = this.price || 0;
 
-        return amount * fiatPrice || 0;
+        return amount * fiatPrice || amount * Number(this.transactionData.token.price || 0) || 0;
     }
 
     get fiatFeePrice(): number {
         const amount = Number(this.transactionData.fee) || 0;
         const fiatPrice = this.networkPrice || 0;
 
-        return amount * fiatPrice || 0;
+        return amount * fiatPrice || Number(this.transactionData.fiatFee) || 0;
+    }
+
+    get hasBalance(): boolean {
+        if (this.isNativeAsset) {
+            return Number(this.transactionData?.token?.fiatBalance) > 0 && Number(this.transactionData?.token?.fiatBalance) > this.total;
+        }
+
+        const canCoverNetworkCharges =
+            Number(this.networkToken?.fiatBalance) > 0 && Number(this.transactionData.fiatFee) <= Number(this.networkToken?.fiatBalance);
+
+        const canCoverTokenBalance =
+            Number(this.transactionData.amount) > 0 && Number(this.transactionData.amount) <= Number(this.transactionData.token.amount);
+
+        return canCoverNetworkCharges && canCoverTokenBalance;
     }
 
     get networkCurrency(): string {
@@ -144,6 +155,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     get total(): number {
         return this.fiatPrice + this.fiatFeePrice || 0;
+    }
+
+    private async _getNetworkToken(): Promise<void> {
+        const network = this.transactionData.network as NetworkName;
+
+        this.networkToken = await this._networkService.getNetworkToken(network);
+        this.isNativeAsset = network === this.networkToken?.name;
     }
 
     private async _calculateTransactionFee(): Promise<void> {
@@ -159,7 +177,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                     tokenAddress
                 );
 
-                this.transactionData.fee = feeEstimate.fiatFee || 0;
+                this.transactionData.fee = feeEstimate.gasPrice || 0;
                 this.transactionData.fiatFee = feeEstimate.fiatFee || 0;
 
                 const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
@@ -274,6 +292,20 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         }
     }
 
+    async _fetchTokenPrice(): Promise<void> {
+        if (this._skipPriceFetch) return;
+
+        try {
+            const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
+
+            if (!response?.data || !response?.data?.length) return;
+
+            this.price = response.data[0].open;
+        } catch (error: any) {
+            if (error?.status === 400) this._skipPriceFetch = true;
+        }
+    }
+
     private _initForm(): void {
         this.form = this._formBuilder.group({
             password: ["", [Validators.required]],
@@ -287,6 +319,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this._initInterval();
         this._initForm();
 
+        await this._getNetworkToken();
         await this._fetchTokenPrice();
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
@@ -299,14 +332,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             this._calculateTransactionFee();
             this._fetchTokenPrice();
         }, this._intervalTime);
-    }
-
-    async _fetchTokenPrice(): Promise<void> {
-        const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
-
-        if (!response?.data || !response?.data?.length) return;
-
-        this.price = response.data[0].open;
     }
 
     async confirmTransaction() {

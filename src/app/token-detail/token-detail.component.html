@@ -141,15 +141,15 @@
 
                     <div class="zelf-action-row">
                         <p class="zelf-action-row__label">{{ t("common.symbol") }}</p>
-                        <p class="zelf-action-row__value">{{ details.about.symbol }}</p>
+                        <p class="zelf-action-row__value">{{ details.about.symbol || asset.symbol }}</p>
                     </div>
 
                     <div class="zelf-action-row">
                         <p class="zelf-action-row__label">{{ t("common.network") }}</p>
-                        <p class="zelf-action-row__value">{{ details.about.network }}</p>
+                        <p class="zelf-action-row__value">{{ details.about.network || asset.network }}</p>
                     </div>
 
-                    <div class="zelf-action-row token-about__description-row">
+                    <div class="zelf-action-row token-about__description-row" *ngIf="details.about.description">
                         <div class="token-about__description-container">
                             <p
                                 class="token-about__description"

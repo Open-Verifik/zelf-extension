@@ -735,7 +735,7 @@ export class WalletService {
 
         if (tokenType === "ETH" || tokenType === "AVAX" || tokenType === "ERC-20") {
             address = wallet?.ethAddress || "";
-        } else if (tokenType === "SOL") {
+        } else if (tokenType === "SOL" || tokenType === "SPL") {
             address = wallet?.solanaAddress || "";
         } else if (tokenType === "BTC") {
             address = wallet?.btcAddress || "";

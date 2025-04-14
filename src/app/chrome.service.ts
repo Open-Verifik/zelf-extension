@@ -265,4 +265,85 @@ export class ChromeService {
             }
         });
     }
+
+    async getItemSession<T = any>(key: string): Promise<T> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                browser.storage.session
+                    .get(key)
+                    .then((result) => {
+                        resolve(result[key] as T);
+                    })
+                    .catch(reject);
+            } else {
+                try {
+                    const item = sessionStorage.getItem(key);
+
+                    try {
+                        if (!item) resolve("" as T);
+
+                        const result = JSON.parse(item as string);
+
+                        resolve(result as T);
+                    } catch (error) {
+                        resolve(item as T);
+                    }
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        });
+    }
+
+    async setItemSession(key: string, value: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                browser.storage.session
+                    .set({ [key]: value })
+                    .then(resolve)
+                    .catch(reject);
+            } else {
+                try {
+                    const isObjectOrArray = typeof value === "object" && value !== null;
+                    sessionStorage.setItem(key, isObjectOrArray ? JSON.stringify(value) : value);
+
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        });
+    }
+
+    async removeItemSession(key: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                browser.storage.session.remove(key).then(resolve).catch(reject);
+            } else {
+                try {
+                    sessionStorage.removeItem(key);
+
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        });
+    }
+
+    async clearSessionStorage(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                browser.storage.session.clear().then(resolve).catch(reject);
+            } else {
+                try {
+                    sessionStorage.clear();
+
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
+            }
+        });
+    }
 }

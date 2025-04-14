@@ -370,7 +370,9 @@ export class EthereumService {
     ): Promise<{
         estimatedGas: number;
         gasPrice: string;
+        networkPrice: number;
         totalCost: string;
+        fee?: number;
         fiatFee?: number;
         total?: number;
     }> {
@@ -435,15 +437,16 @@ export class EthereumService {
 
             const totalCost = (BigInt(gasPrice) * BigInt(estimatedGas)).toString();
             const nativeFee = Number(web3.utils.fromWei(totalCost, "ether"));
-
             const price = network.toLowerCase() === "avalanche" ? await this.getAVAXPrice() : await this.getETHPrice();
 
             return {
                 estimatedGas: Number(estimatedGas),
+                fee: nativeFee,
+                fiatFee: nativeFee * price,
                 gasPrice: gasPrice.toString(),
-                totalCost,
-                fiatFee: nativeFee,
+                networkPrice: price,
                 total: nativeFee * price,
+                totalCost,
             };
         } catch (error) {
             console.error("Error in getTransactionCost:", error);
@@ -607,6 +610,8 @@ export class EthereumService {
         tokenAddress: string,
         network: string = "ethereum"
     ): Promise<any> {
+        let signedTx: any;
+
         try {
             let rpcUrl;
 
@@ -624,10 +629,12 @@ export class EthereumService {
 
             const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+
             web3.eth.transactionConfirmationBlocks = 1;
             web3.eth.transactionPollingInterval = 2000;
             web3.eth.transactionReceiptPollingInterval = 2000;
-            web3.eth.transactionPollingTimeout = 6000;
+            web3.eth.transactionPollingTimeout = 30000;
+
             // ERC20 Token Contract ABI (minimal required for transfer)
             const minABI = [
                 {
@@ -689,12 +696,16 @@ export class EthereumService {
                 gas: gasEstimate,
             };
 
-            const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+            signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+
             const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
             return receipt;
         } catch (error) {
+            if (signedTx) return signedTx;
+
             console.error(`Error sending ERC20 token on ${network}:`, error);
+
             throw error;
         }
     }

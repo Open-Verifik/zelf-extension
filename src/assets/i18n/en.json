@@ -327,6 +327,7 @@
         "transaction_not_found": "Transaction not found",
         "try_again": "Try again",
         "weak_password": "Your password is too weak",
+        "insufficient_funds": "Insufficient funds. Ensure you have enough funds in your wallet to cover the transaction fees.",
         "zelfName_is_taken": "This zelf name is already taken"
     },
     "import_wallet": {

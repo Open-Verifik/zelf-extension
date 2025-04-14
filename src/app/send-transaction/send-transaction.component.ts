@@ -376,11 +376,26 @@ export class SendTransactionComponent implements OnDestroy {
         const address = this.form.get("toAddress")?.value;
         const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
 
+        const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
+
+        const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+
         if (this.foundAddress) {
             const toAddressCtrl = this.form.get("toAddress");
 
             if (toAddressCtrl) {
-                toAddressCtrl.setValue(this.foundAddress[this.addressKey] || "");
+                toAddressCtrl.setValue(
+                    this.foundAddress[
+                        isSuiTokenOrNetwork
+                            ? "suiAddress"
+                            : isEthereumToken
+                            ? "ethAddress"
+                            : this.transactionData.isSolToken
+                            ? "solanaAddress"
+                            : "solanaAddress"
+                    ] || ""
+                );
+
                 toAddressCtrl.updateValueAndValidity({ emitEvent: false });
             }
 

@@ -85,56 +85,115 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _getBalances(): Promise<any> {
+        this.balancesLoading = true;
         this.tokens = [];
         this.NFTs = [];
-        this.balancesLoading = true;
+
+        await this._getTokensFromSession();
+
+        if (this.tokens && this.tokens.length) {
+            this.balancesLoading = false;
+
+            this._changeDetectionRef.detectChanges();
+
+            return;
+        }
 
         try {
-            const response = await firstValueFrom(
-                this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
-            );
-
-            if (response?.ethereum?.data?.account) {
-                this.selectedAsset = new Asset({
-                    asset: response.ethereum.data.account.asset,
-                    balance: response.ethereum.data.balance,
-                    fiatBalance: 0,
-                    price: response.ethereum.data.account.price,
-                    network: "Ethereum",
-                });
-            }
-
-            if (response?.ethereum?.data?.tokenHoldings?.tokens) {
-                this._processTokens("Ethereum", response.ethereum.data.tokenHoldings.tokens);
-            }
-
-            if (response?.solana?.data?.tokenHoldings?.tokens) {
-                this._processTokens("Solana", response.solana.data.tokenHoldings.tokens);
-            }
-
-            if (response?.avalanche?.data?.tokenHoldings?.tokens) {
-                this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
-            }
-
-            forkJoin({
-                eth: this._getETHDetails(),
-                solana: this._getSolanaDetails(),
-                avalanche: this._getAvalancheDetails(),
-                sui: this._getSuiDetails(),
-            })
-                .pipe(takeUntil(this.unsubscriberForBalances$))
-                .subscribe({
-                    complete: () => {
-                        this.tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
-
-                        this.balancesLoading = false;
-                    },
-                });
+            await this._fetchTokens();
         } catch (error) {
             console.error("Error getting tokens:", error);
         }
 
         this._changeDetectionRef.detectChanges();
+    }
+
+    private async _getTokensFromSession(): Promise<void> {
+        const sessionTokens = await this._chromeService.getItemSession("tokens");
+
+        if (!sessionTokens || !sessionTokens.length) return;
+
+        const sessionTokenTtl = await this._chromeService.getItemSession("tokensTtl");
+
+        if (!sessionTokenTtl || sessionTokenTtl <= Date.now()) return;
+
+        this.selectedAsset = new Asset({
+            asset: "Ethereum",
+            balance: 0,
+            fiatBalance: 0,
+            network: "Ethereum",
+            price: 0,
+        });
+
+        this._processTokens(
+            "Ethereum",
+            sessionTokens.filter((token: any) => token.network === "Ethereum")
+        );
+
+        this._processTokens(
+            "Solana",
+            sessionTokens.filter((token: any) => token.network === "Solana")
+        );
+
+        this._processTokens(
+            "Avalanche",
+            sessionTokens.filter((token: any) => token.network === "Avalanche")
+        );
+
+        this._processTokens(
+            "Sui",
+            sessionTokens.filter((token: any) => token.network === "Sui")
+        );
+    }
+
+    private async _setTokensToSession(): Promise<void> {
+        this._chromeService.setItemSession("tokens", this.tokens);
+        this._chromeService.setItemSession("tokensTtl", Date.now() + 3600000);
+    }
+
+    private async _fetchTokens(): Promise<any> {
+        const response = await firstValueFrom(
+            this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
+        );
+
+        if (response?.ethereum?.data?.account) {
+            this.selectedAsset = new Asset({
+                asset: response.ethereum.data.account.asset,
+                balance: response.ethereum.data.balance,
+                fiatBalance: 0,
+                price: response.ethereum.data.account.price,
+                network: "Ethereum",
+            });
+        }
+
+        if (response?.ethereum?.data?.tokenHoldings?.tokens) {
+            this._processTokens("Ethereum", response.ethereum.data.tokenHoldings.tokens);
+        }
+
+        if (response?.solana?.data?.tokenHoldings?.tokens) {
+            this._processTokens("Solana", response.solana.data.tokenHoldings.tokens);
+        }
+
+        if (response?.avalanche?.data?.tokenHoldings?.tokens) {
+            this._processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens);
+        }
+
+        forkJoin({
+            avalanche: this._getAvalancheDetails(),
+            eth: this._getETHDetails(),
+            solana: this._getSolanaDetails(),
+            sui: this._getSuiDetails(),
+        })
+            .pipe(takeUntil(this.unsubscriberForBalances$))
+            .subscribe({
+                complete: async () => {
+                    this.tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
+
+                    await this._setTokensToSession();
+
+                    this.balancesLoading = false;
+                },
+            });
     }
 
     private _processTokens(network: string, tokens: Array<any>): void {

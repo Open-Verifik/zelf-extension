@@ -12,6 +12,7 @@ import { firstValueFrom } from "rxjs";
 import { SuiService } from "app/services/sui.service";
 import { EthereumService } from "app/eth.service";
 import { SolanaService } from "app/solana.service";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
@@ -37,6 +38,7 @@ export class SendCurrencyComponent implements OnInit {
     constructor(
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
+        private _chromeService: ChromeService,
         private _router: Router,
         private _transactionService: TransactionService,
         private _walletService: WalletService,
@@ -54,86 +56,103 @@ export class SendCurrencyComponent implements OnInit {
         this.loading = false;
     }
 
+    private async _getTokensFromSession(): Promise<void> {
+        const sessionTokens = await this._chromeService.getItemSession("tokens");
+
+        if (!sessionTokens) return;
+
+        this.tokens = sessionTokens;
+    }
+
     private async _loadTokens(): Promise<void> {
         try {
-            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+            await this._getTokensFromSession();
 
-            if (response?.ethereum?.data?.tokenHoldings?.tokens && this.CAN_SEND.ETH) {
-                this._getCurrencies("Ethereum", response.ethereum.data.tokenHoldings.tokens);
+            if (!this.tokens || !this.tokens.length) {
+                await this._fetchTokens();
             }
-
-            if (response?.solana?.data?.tokenHoldings?.tokens && this.CAN_SEND.SOL) {
-                this._getCurrencies("Solana", response.solana.data.tokenHoldings.tokens);
-            }
-
-            if (response?.sui?.data && this.CAN_SEND.SUI) {
-                if ("balance" in response.sui.data || "_balance" in response.sui.data) {
-                    const balance = parseFloat(response.sui.data.balance || response.sui.data._balance || "0");
-                    const fiatBalance = parseFloat(response.sui.data.fiatBalance || response.sui.data._fiatBalance || "0");
-                    const price = parseFloat(response.sui.data.account?.price || response.sui.data.price || "0");
-
-                    const suiToken = {
-                        amount: balance.toString(),
-                        balance: balance.toString(),
-                        fiatBalance: fiatBalance,
-                        image: "assets/images/sui.png",
-                        name: "Sui",
-                        network: "Sui",
-                        price: price,
-                        symbol: "SUI",
-                        tokenType: "SUI",
-                    };
-
-                    this._getCurrencies("Sui", [suiToken]);
-                }
-
-                if (response.sui.data.tokenHoldings?.tokens) {
-                    this._getCurrencies("Sui", response.sui.data.tokenHoldings.tokens);
-                }
-            }
-
-            if (response?.avalanche?.data && this.CAN_SEND.AVAX) {
-                const avalancheTokens = [];
-
-                if ("balance" in response.avalanche.data) {
-                    const price =
-                        response.avalanche.data.account?.price ||
-                        response.avalanche.data.price ||
-                        response.avalanche.data.tokenHoldings?.tokens?.[0]?.price ||
-                        "0";
-
-                    const avaxToken = {
-                        amount: response.avalanche.data.balance,
-                        balance: response.avalanche.data.balance,
-                        fiatBalance: response.avalanche.data.fiatBalance,
-                        image: response.avalanche.data.image || "assets/images/avax.png",
-                        name: "Avalanche",
-                        price: parseFloat(price),
-                        symbol: "AVAX",
-                        tokenType: "AVAX",
-                        network: "Avalanche",
-                    };
-
-                    avalancheTokens.push(avaxToken);
-                }
-
-                if (response.avalanche.data.tokenHoldings?.tokens) {
-                    avalancheTokens.push(...response.avalanche.data.tokenHoldings.tokens);
-                }
-
-                this._getCurrencies("Avalanche", avalancheTokens);
-            }
-
-            await this._getSolanaDetails();
-            await this._getSuiDetails();
-            await this._getAvaxDetails();
 
             this.loading = false;
+
             this._changeDetectionRef.detectChanges();
         } catch (error) {
             console.error("Error loading tokens:", error);
             this.loading = false;
         }
+    }
+
+    private async _fetchTokens(): Promise<void> {
+        const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+
+        if (response?.ethereum?.data?.tokenHoldings?.tokens && this.CAN_SEND.ETH) {
+            this._getCurrencies("Ethereum", response.ethereum.data.tokenHoldings.tokens);
+        }
+
+        if (response?.solana?.data?.tokenHoldings?.tokens && this.CAN_SEND.SOL) {
+            this._getCurrencies("Solana", response.solana.data.tokenHoldings.tokens);
+        }
+
+        if (response?.sui?.data && this.CAN_SEND.SUI) {
+            if ("balance" in response.sui.data || "_balance" in response.sui.data) {
+                const balance = parseFloat(response.sui.data.balance || response.sui.data._balance || "0");
+                const fiatBalance = parseFloat(response.sui.data.fiatBalance || response.sui.data._fiatBalance || "0");
+                const price = parseFloat(response.sui.data.account?.price || response.sui.data.price || "0");
+
+                const suiToken = {
+                    amount: balance.toString(),
+                    balance: balance.toString(),
+                    fiatBalance: fiatBalance,
+                    image: "assets/images/sui.png",
+                    name: "Sui",
+                    network: "Sui",
+                    price: price,
+                    symbol: "SUI",
+                    tokenType: "SUI",
+                };
+
+                this._getCurrencies("Sui", [suiToken]);
+            }
+
+            if (response.sui.data.tokenHoldings?.tokens) {
+                this._getCurrencies("Sui", response.sui.data.tokenHoldings.tokens);
+            }
+        }
+
+        if (response?.avalanche?.data && this.CAN_SEND.AVAX) {
+            const avalancheTokens = [];
+
+            if ("balance" in response.avalanche.data) {
+                const price =
+                    response.avalanche.data.account?.price ||
+                    response.avalanche.data.price ||
+                    response.avalanche.data.tokenHoldings?.tokens?.[0]?.price ||
+                    "0";
+
+                const avaxToken = {
+                    amount: response.avalanche.data.balance,
+                    balance: response.avalanche.data.balance,
+                    fiatBalance: response.avalanche.data.fiatBalance,
+                    image: response.avalanche.data.image || "assets/images/avax.png",
+                    name: "Avalanche",
+                    price: parseFloat(price),
+                    symbol: "AVAX",
+                    tokenType: "AVAX",
+                    network: "Avalanche",
+                };
+
+                avalancheTokens.push(avaxToken);
+            }
+
+            if (response.avalanche.data.tokenHoldings?.tokens) {
+                avalancheTokens.push(...response.avalanche.data.tokenHoldings.tokens);
+            }
+
+            this._getCurrencies("Avalanche", avalancheTokens);
+        }
+
+        await this._getSolanaDetails();
+        await this._getSuiDetails();
+        await this._getAvaxDetails();
     }
 
     private async _getSolanaDetails(): Promise<void> {

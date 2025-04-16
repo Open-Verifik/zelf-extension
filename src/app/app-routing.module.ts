@@ -90,6 +90,16 @@ const routes: Routes = [
                 canActivate: [ZelfNameGuard],
             },
             {
+                path: "grace",
+                loadComponent: () => import("./welcome-grace/welcome-grace.component").then((m) => m.WelcomeGraceComponent),
+                canActivate: [ZelfNameGuard],
+            },
+            {
+                path: "recover",
+                loadComponent: () => import("./welcome-recover/welcome-recover.component").then((m) => m.WelcomeRecoverComponent),
+                canActivate: [ZelfNameGuard],
+            },
+            {
                 path: "complete",
                 loadComponent: () => import("./welcome-complete/welcome-complete.component").then((m) => m.WelcomeCompleteComponent),
                 canActivate: [ZelfNameGuard, WalletGuard],

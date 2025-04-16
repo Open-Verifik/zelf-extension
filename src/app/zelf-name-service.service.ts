@@ -4,7 +4,7 @@ import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 
-export type ZelfFlow = "create" | "import" | "unlock" | "";
+export type ZelfFlow = "create" | "import" | "unlock" | "renew" | "recovery" | "";
 
 @Injectable({
     providedIn: "root",
@@ -66,6 +66,10 @@ export class ZelfNameService {
 
     leaseZelfName(payload: any): Promise<any> {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease`, payload);
+    }
+
+    zelfNameLeaseRecovery(payload: any): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease-recovery`, payload);
     }
 
     searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
@@ -130,6 +134,12 @@ export class ZelfNameService {
         await this._chromeService.setItem("zelfNameObject", zelfNameObject);
     }
 
+    async setNewZelfName(newZelfName: string): Promise<void> {
+        this.variables.newZelfName = newZelfName;
+
+        await this._chromeService.setItem("newZelfName", newZelfName);
+    }
+
     async setMnemonicCount(value: 12 | 24 | 0): Promise<void> {
         this.variables.mnemonicCount = value;
 
@@ -166,6 +176,10 @@ export class ZelfNameService {
 
     async getZelfNameObject(): Promise<any> {
         return this.variables.zelfNameObject || (await this._chromeService.getItem("zelfNameObject")) || {};
+    }
+
+    async getNewZelfName(): Promise<any> {
+        return this.variables.newZelfName || (await this._chromeService.getItem("newZelfName")) || {};
     }
 
     async getFlow(): Promise<ZelfFlow> {

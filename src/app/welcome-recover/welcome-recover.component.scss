@@ -1,0 +1,181 @@
+@import "../../styles/variables";
+@import "../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.welcome-recover {
+    min-height: 75vh;
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    max-width: 562px;
+
+    &__header-button {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    &__content {
+        align-items: center;
+        gap: 16px;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    &__instructions-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    &__title {
+        font-family: Menda;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: center;
+        color: $black;
+        margin-top: 12px;
+    }
+
+    &__subtitle {
+        font-family: Poppins;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        color: $black;
+    }
+
+    &__form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__not-available-chip {
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    &__expiration {
+        margin: 16px 0;
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: $gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__expiration-date {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        color: $black;
+        text-transform: uppercase;
+    }
+
+    &__zelf-name {
+        font-family: Menda;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: center;
+        color: $black;
+        margin: 16px 0 0;
+        text-transform: uppercase;
+    }
+
+    &__actions {
+        width: 100%;
+    }
+}
+
+.transfer-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.transfer {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    justify-content: space-around;
+    align-items: center;
+
+    &__col {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__label {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: $gray;
+        margin: 0;
+    }
+
+    &__value {
+        font-family: Poppins;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        color: $black;
+        margin: 0;
+        text-transform: uppercase;
+        overflow-wrap: anywhere;
+    }
+
+    &__icon {
+        min-height: 20px;
+        min-width: 20px;
+        height: 20px;
+        width: 20px;
+        border-radius: 20px;
+        background-color: $platinum;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

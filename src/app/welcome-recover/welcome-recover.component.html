@@ -1,0 +1,222 @@
+<div class="zelf-card welcome-recover" *transloco="let t">
+    <div class="zelf-card__header">
+        <div class="welcome-recover__header-button">
+            <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../find']">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="zelf-card__content welcome-recover__content">
+        <ng-container *ngIf="zelfNameObject && !showResult">
+            <div class="welcome-recover__instructions-container">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12.0108 0C13.363 1.83518 15.0993 3.92724 17.2883 6.08926H7.46094C9.5873 3.83728 11.0426 1.67625 12.0128 0H12.0108Z"
+                        fill="#181818"
+                    />
+                    <path
+                        d="M0 12.0282C1.7302 11.1886 4.0031 9.87119 6.28409 7.85609C6.48521 7.67817 6.68228 7.49826 6.87127 7.31934H15.6597C15.6597 7.31934 9.29476 16.3143 5.81213 16.3413C2.93891 16.3643 1.73525 13.0987 0 12.0272V12.0282Z"
+                        fill="#181818"
+                    />
+                    <path
+                        d="M12.5714 23.9996C11.5113 22.5603 10.1459 20.917 8.41675 19.2168H16.4977C14.7857 20.942 13.5073 22.6073 12.5725 23.9996H12.5714Z"
+                        fill="#181818"
+                    />
+                    <path
+                        d="M17.7785 17.7316C17.6835 17.8155 17.5906 17.9005 17.4986 17.9845H8.06335C8.06335 17.9845 14.5334 8.87256 18.0625 8.85357C21.0075 8.83857 22.2273 12.1821 24 13.2766C22.197 14.2891 20.0029 15.7295 17.7785 17.7316Z"
+                        fill="#181818"
+                    />
+                </svg>
+
+                <h2 class="zelf-card__title welcome-recover__title">{{ t("welcome.pick_your_new_zelfname") }}</h2>
+
+                <p
+                    [innerHTML]="t('welcome.pick_your_new_zelfname_description', { zelfName: zelfNameObject.publicData.zelfName })"
+                    *ngIf="zelfNameObject"
+                    class="welcome-recover__subtitle"
+                ></p>
+            </div>
+
+            <form [formGroup]="form" class="welcome-recover__form">
+                <div class="zelf-chip zelf-chip--error welcome-recover__not-available-chip">{{ t("common.not_available") }}</div>
+
+                <h5 class="welcome-recover__zelf-name">{{ zelfNameObject.publicData.zelfName }}</h5>
+
+                <p class="welcome-recover__expiration">
+                    {{ t("welcome.expiration_date") }}
+
+                    <span class="welcome-recover__expiration-date">{{ zelfNameObject.publicData.expiresAt | date : "dd MMM, YYYY" }}</span>
+
+                    <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M7.4935 0.333984C3.8135 0.333984 0.833496 3.32065 0.833496 7.00065C0.833496 10.6807 3.8135 13.6673 7.4935 13.6673C11.1802 13.6673 14.1668 10.6807 14.1668 7.00065C14.1668 3.32065 11.1802 0.333984 7.4935 0.333984ZM10.1668 9.66732C9.90683 9.92732 9.48683 9.92732 9.22683 9.66732L7.0335 7.47398C6.90683 7.34732 6.8335 7.18065 6.8335 7.00065V4.33398C6.8335 3.96732 7.1335 3.66732 7.50016 3.66732C7.86683 3.66732 8.16683 3.96732 8.16683 4.33398V6.72732L10.1668 8.72732C10.4268 8.98732 10.4268 9.40732 10.1668 9.66732Z"
+                            fill="#0E26FF"
+                        />
+                    </svg>
+                </p>
+
+                <div class="zelf-card__content welcome-recover__content">
+                    <div
+                        class="zelf-input zelf-input--wide"
+                        [ngClass]="{ 'zelf-input--error': form.controls.zelfName.invalid && form.controls.zelfName.dirty }"
+                    >
+                        <input
+                            (keydown.enter)="searchZelfName()"
+                            (paste)="pastedZelfName($event)"
+                            [disabled]="searching"
+                            [readonly]="searching"
+                            autocomplete="off"
+                            class="zelf-input__control zelf-input__control--floating-label"
+                            formControlName="zelfName"
+                            required
+                            id="zelfName"
+                            name="zelfName"
+                            placeholder=" "
+                        />
+
+                        <label for="zelfName" class="zelf-input__floating-label">{{ t("welcome.search_your_new_zelfname") }}</label>
+
+                        <button
+                            (click)="searchZelfName()"
+                            [disabled]="searching || form.controls.zelfName.invalid || !form.controls.zelfName.value"
+                            class="zelf-icon-button zelf-icon-button--black"
+                            mat-icon-button
+                            type="button"
+                        >
+                            <ng-container *ngIf="!searching">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
+                                    />
+                                </svg>
+                            </ng-container>
+
+                            <mat-spinner *ngIf="searching" mode="indeterminate" diameter="18"></mat-spinner>
+                        </button>
+                    </div>
+
+                    <div
+                        class="zelf-message zelf-message--error zelf-message--column"
+                        *ngIf="form.controls.zelfName.invalid && form.controls.zelfName.dirty"
+                    >
+                        <ng-container *ngIf="form.controls.zelfName?.errors?.pattern">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.invalid_format") }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="form.controls.zelfName?.errors?.required">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.required_field") }}</p>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+
+        <ng-container *ngIf="showResult">
+            <ng-container *ngIf="showError">
+                <ng-container *ngIf="zelfNameObjectResult">
+                    <div class="zelf-chip zelf-chip--error">{{ t("common.registered") }}</div>
+
+                    <h2 class="zelf-card__title welcome-recover__title">{{ zelfNameObjectResult.publicData.zelfName }}</h2>
+
+                    <p class="welcome-recover__expiration">
+                        {{ t("welcome.registered_since", { date: zelfNameObjectResult.publicData.registeredAt | date : "MMM, YYYY" }) }}
+                    </p>
+                </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="!showError">
+                <div class="zelf-chip zelf-chip--success">{{ t("common.available") }}</div>
+
+                <h2 class="zelf-card__title welcome-recover__title">{{ form.get("zelfName")?.value }}.zelf</h2>
+
+                <p class="welcome-recover__expiration">
+                    {{ t("welcome.you_can_transfer_this_domain") }}
+
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 15C9.45 15 9 14.55 9 14V10C9 9.45 9.45 9 10 9C10.55 9 11 9.45 11 10V14C11 14.55 10.55 15 10 15ZM11 7H9V5H11V7Z"
+                            fill="#181818"
+                        />
+                    </svg>
+                </p>
+
+                <div class="transfer">
+                    <div class="transfer__col">
+                        <p class="transfer__label">{{ t("welcome.old_domain") }}</p>
+                        <p class="transfer__value">{{ zelfNameObject.publicData.zelfName }}</p>
+                    </div>
+
+                    <div class="transfer__icon">
+                        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20 10C20 4.48 15.52 0 10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10ZM10 12.79V11H7C6.45 11 6 10.55 6 10C6 9.45 6.45 9 7 9H10V7.21C10 6.76 10.54 6.54 10.85 6.86L13.64 9.65C13.84 9.85 13.84 10.16 13.64 10.36L10.85 13.15C10.54 13.46 10 13.24 10 12.79Z"
+                                fill="#181818"
+                            />
+                        </svg>
+                    </div>
+
+                    <div class="transfer__col">
+                        <p class="transfer__label">{{ t("welcome.new_domain") }}</p>
+                        <p class="transfer__value">{{ form.get("zelfName")?.value }}</p>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div class="zelf-card__actions zelf-card__actions--column welcome-recover__actions" *ngIf="showResult">
+        <ng-container *ngIf="showError">
+            <button (click)="returnToForm()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button type="button">
+                {{ t("welcome.pick_another_zelfname") }}
+            </button>
+        </ng-container>
+
+        <ng-container *ngIf="!showError">
+            <form [formGroup]="termsForm" class="transfer-form">
+                <label class="zelf-checkbox">
+                    <input formControlName="termsAndConditions" id="termsAndConditions" name="termsAndConditions" type="checkbox" />
+
+                    <svg viewBox="0 0 21 21">
+                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                    </svg>
+
+                    {{ t("common.agree_to_terms_and_conditions") }}
+                </label>
+
+                <button (click)="returnToForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button type="button">
+                    {{ t("welcome.pick_another_zelfname") }}
+                </button>
+
+                <button
+                    (click)="startReservation()"
+                    [disabled]="termsForm.get('termsAndConditions')?.invalid"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                    type="button"
+                >
+                    {{ t("welcome.start_reservation") }}
+                </button>
+            </form>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #cross>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+            fill="#DC362E"
+        />
+    </svg>
+</ng-template>

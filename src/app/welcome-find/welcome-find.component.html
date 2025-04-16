@@ -96,7 +96,13 @@
                         <div class="ripple"></div>
                     </div>
 
-                    <button class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button (click)="fileInput.click()" type="button">
+                    <button
+                        (click)="fileInput.click()"
+                        [disabled]="searching || loading"
+                        class="zelf-button zelf-button--outlined zelf-button--wide"
+                        mat-flat-button
+                        type="button"
+                    >
                         {{ t("common.upload_qr_image") }}
 
                         <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">

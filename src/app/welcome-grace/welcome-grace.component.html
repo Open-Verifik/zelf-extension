@@ -1,0 +1,154 @@
+<div class="zelf-card welcome-grace" *transloco="let t">
+    <div class="zelf-card__header">
+        <div class="welcome-grace__header-button">
+            <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../find']">
+                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="zelf-card__content welcome-grace__content">
+        <ng-container *ngIf="zelfNameObject">
+            <div class="welcome-grace__details">
+                <div class="zelf-chip welcome-grace__chip zelf-chip--error">
+                    <ng-container *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("common.registered") }}</ng-container>
+                    <ng-container *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("common.domain_expired") }}</ng-container>
+                </div>
+
+                <h2 class="zelf-card__title">{{ zelfNameObject.publicData.zelfName | zelfName }}</h2>
+
+                <p class="zelf-card__subtitle welcome-grace__subtitle">
+                    <span *ngIf="zelfNameObject.publicData.isInGracePeriod">
+                        {{ t("welcome.registered_since", { date: zelfNameObject.publicData.registeredAt | date : "dd MMM, yyyy" }) }}
+                    </span>
+
+                    <span *ngIf="!zelfNameObject.publicData.isInGracePeriod">
+                        {{ t("welcome.domain_expired_since", { date: zelfNameObject.publicData.gracePeriod | date : "dd MMM, yyyy" }) }}
+                    </span>
+                </p>
+
+                <div class="welcome-grace__addresses">
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
+                                    logo: 'assets/images/currencies/btc.png',
+                                    label: 'Bitcoin',
+                                    value: zelfNameObject?.displayBtcAddress
+                                }
+                            }
+                        "
+                    ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
+                                    logo: 'assets/images/currencies/eth.png',
+                                    label: 'Ethereum',
+                                    value: zelfNameObject?.displayEthAddress
+                                }
+                            }
+                        "
+                    ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
+                                    logo: 'assets/images/currencies/sol.png',
+                                    label: 'Solana',
+                                    value: zelfNameObject?.displaySolanaAddress
+                                }
+                            }
+                        "
+                    ></ng-container>
+                </div>
+
+                <div class="welcome-grace__date-row" *ngIf="zelfNameObject.publicData.expiresAt">
+                    <div class="welcome-grace__date-column">
+                        <p class="welcome-grace__date-title">
+                            {{ t("welcome.name_expires") }}
+                        </p>
+
+                        <div class="welcome-grace__date-text__inner-row">
+                            <p class="welcome-grace__date-text">
+                                {{ zelfNameObject.publicData.expiresAt | date : "dd MMM, yyyy" }}
+                            </p>
+
+                            <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.4935 0.333984C3.8135 0.333984 0.833496 3.32065 0.833496 7.00065C0.833496 10.6807 3.8135 13.6673 7.4935 13.6673C11.1802 13.6673 14.1668 10.6807 14.1668 7.00065C14.1668 3.32065 11.1802 0.333984 7.4935 0.333984ZM10.1668 9.66732C9.90683 9.92732 9.48683 9.92732 9.22683 9.66732L7.0335 7.47398C6.90683 7.34732 6.8335 7.18065 6.8335 7.00065V4.33398C6.8335 3.96732 7.1335 3.66732 7.50016 3.66732C7.86683 3.66732 8.16683 3.96732 8.16683 4.33398V6.72732L10.1668 8.72732C10.4268 8.98732 10.4268 9.40732 10.1668 9.66732Z"
+                                    fill="#0E26FF"
+                                />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="welcome-grace__date-column">
+                        <p class="welcome-grace__date-title">
+                            {{ t("welcome.grace_period_until") }}
+                        </p>
+
+                        <div class="welcome-grace__date-text__inner-row">
+                            <p class="welcome-grace__date-text" *ngIf="zelfNameObject.publicData.gracePeriod">
+                                {{ zelfNameObject.publicData.gracePeriod | date : "dd MMM, yyyy" }}
+                            </p>
+
+                            <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.50016 0.333984C3.82016 0.333984 0.833496 3.32065 0.833496 7.00065C0.833496 10.6807 3.82016 13.6673 7.50016 13.6673C11.1802 13.6673 14.1668 10.6807 14.1668 7.00065C14.1668 3.32065 11.1802 0.333984 7.50016 0.333984ZM7.50016 10.334C7.1335 10.334 6.8335 10.034 6.8335 9.66732V7.00065C6.8335 6.63398 7.1335 6.33398 7.50016 6.33398C7.86683 6.33398 8.16683 6.63398 8.16683 7.00065V9.66732C8.16683 10.034 7.86683 10.334 7.50016 10.334ZM8.16683 5.00065H6.8335V3.66732H8.16683V5.00065Z"
+                                    fill="#0E26FF"
+                                />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="zelf-card__actions zelf-card__actions--column">
+        <ng-container *ngIf="zelfNameObject">
+            <div class="tip-box">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"
+                        fill="#FF5721"
+                    />
+                </svg>
+
+                <p class="tip-box__text" *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.renew_your_domain_today") }}</p>
+                <p class="tip-box__text" *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.dont_lose_your_zelfname") }}</p>
+            </div>
+
+            <button
+                (click)="renewZelfName()"
+                *ngIf="zelfNameObject.publicData.isExpired"
+                class="zelf-button zelf-button--outlined zelf-button--wide"
+                mat-flat-button
+            >
+                {{ t("common.renew_subscription") }}
+            </button>
+
+            <button (click)="decryptZelfName()" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+                {{ t("common.decrypt_zelfname") }}
+            </button>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #addressRow let-address>
+    <div class="address-row" *ngIf="address.value">
+        <div class="address-row__inner">
+            <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
+            <div class="address-row__label">{{ address.label }}</div>
+            <div class="address-row__value">{{ address.value }}</div>
+        </div>
+    </div>
+</ng-template>

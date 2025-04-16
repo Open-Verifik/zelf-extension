@@ -62,30 +62,6 @@ export class WelcomeFindComponent implements OnDestroy {
         clearTimeout(this._invalidTimeout);
     }
 
-    private async _beginQuery(query: string): Promise<any> {
-        this.searching = true;
-
-        try {
-            await this._captchaGeneration();
-
-            let response: any;
-
-            if (this._walletService.ETHRegex.test(query)) {
-                response = await this._queryZNS("ethAddress", query);
-            } else if (this._walletService.SOLRegex.test(query)) {
-                response = await this._queryZNS("solanaAddress", query);
-            }
-
-            if (!response) this._setNotFound();
-
-            this.searching = false;
-        } catch (error) {
-            this._setNotFound();
-
-            this.searching = false;
-        }
-    }
-
     private async _captchaGeneration(): Promise<any> {
         if (this._chromeService.isExtension) return;
 
@@ -96,7 +72,7 @@ export class WelcomeFindComponent implements OnDestroy {
         }
     }
 
-    private _decodeQRCode(base64: string, zelfNameObject: any): void {
+    private _decodeQRCode(base64: string): void {
         const img = new Image();
 
         img.src = base64;
@@ -113,14 +89,14 @@ export class WelcomeFindComponent implements OnDestroy {
             context.drawImage(img, 0, 0, img.width, img.height);
 
             const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            const extractedQRData = jsQR(imageData.data, imageData.width, imageData.height);
+            const extractedQRData = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "attemptBoth" });
 
-            this._extractBinaryData(extractedQRData, zelfNameObject);
+            this._extractBinaryData(extractedQRData);
         };
     }
 
-    private async _extractBinaryData(extractedQRData: any, zelfNameObject: any): Promise<any> {
-        if (!extractedQRData || !extractedQRData.binaryData) return;
+    private async _extractBinaryData(extractedQRData: any): Promise<any> {
+        if (!extractedQRData || !extractedQRData.binaryData) return this._setNotFound();
 
         const hexString = this._toHexString(extractedQRData.binaryData);
 
@@ -131,11 +107,7 @@ export class WelcomeFindComponent implements OnDestroy {
 
         this.zelfProof = base64String;
 
-        if (!zelfNameObject) {
-            await this._previewQRCode();
-        } else if (zelfNameObject) zelfNameObject.zelfProof = base64String;
-
-        return base64String;
+        await this._previewQRCode();
     }
 
     private _getAddressPattern(): RegExp {
@@ -154,7 +126,7 @@ export class WelcomeFindComponent implements OnDestroy {
 
             if (typeof this.fileBase64 !== "string") return;
 
-            this._decodeQRCode(this.fileBase64, false);
+            this._decodeQRCode(this.fileBase64);
         };
 
         reader.readAsDataURL(file);
@@ -181,25 +153,45 @@ export class WelcomeFindComponent implements OnDestroy {
             return;
         }
 
-        this.zelfNameObject = new WalletModel({
-            ...response.data,
-            zelfProof: this.zelfProof,
-            image: this.fileBase64,
-        });
+        this.form.patchValue({ publicAddress: response.data.publicData.ethAddress });
 
-        if (!this.zelfNameObject.ethAddress) {
-            this.zelfProof = "";
+        this._zelfNameService.setZelfProof(this.zelfProof);
 
-            return;
+        const zelfNameObject = await this._queryForZelfObject(response.data.publicData.ethAddress);
+
+        if (!zelfNameObject) return;
+
+        this._redirectAfterZelfProofSearch(zelfNameObject);
+    }
+
+    private async _queryForZelfObject(query: string): Promise<any> {
+        this.searching = true;
+
+        try {
+            await this._captchaGeneration();
+
+            let zelfNameObject: WalletModel | null = null;
+
+            if (this._walletService.ETHRegex.test(query)) {
+                zelfNameObject = await this._queryZNS("ethAddress", query);
+            } else if (this._walletService.SOLRegex.test(query)) {
+                zelfNameObject = await this._queryZNS("solanaAddress", query);
+            } else if (this._walletService.BTCRegex.test(query)) {
+                zelfNameObject = await this._queryZNS("btcAddress", query);
+            }
+
+            if (!zelfNameObject) {
+                this._setNotFound();
+
+                return;
+            }
+
+            return zelfNameObject;
+        } catch (error) {
+            this._setNotFound();
+        } finally {
+            this.searching = false;
         }
-
-        await this._zelfNameService.setZelfNameObject(this.zelfNameObject);
-        await this._zelfNameService.setZelfProof(this.zelfNameObject.zelfProof);
-        await this._zelfNameService.setZelfName(this.zelfNameObject.publicData.zelfName, 0);
-
-        this._router.navigate(["/welcome/registered"]);
-
-        this.loading = false;
     }
 
     async _queryZNS(key: string, value: string): Promise<any> {
@@ -215,15 +207,35 @@ export class WelcomeFindComponent implements OnDestroy {
 
             this.loading = false;
 
-            this._router.navigate(["/welcome/registered"]);
-
-            return response;
+            return zelfNameObject;
         } catch (error) {
             console.error({ error });
 
             this.loading = false;
 
             return null;
+        }
+    }
+
+    // In this flow - we don't know who owns the name
+    private _redirectAfterTextSearch(zelfNameObject: WalletModel): void {
+        if (zelfNameObject.publicData.isInGracePeriod() || zelfNameObject.publicData?.isExpired) {
+            this._router.navigate(["/welcome/grace"]);
+        } else {
+            this._router.navigate(["/welcome/registered"]);
+        }
+    }
+
+    // In this flow, we know who owns a zelfproof to the name, but it may have been taken if they let the grace period expire
+    private _redirectAfterZelfProofSearch(zelfNameObject: WalletModel): void {
+        const ownedByThisUser = zelfNameObject.zelfProof === this.zelfProof;
+
+        if (ownedByThisUser && (zelfNameObject.publicData.isInGracePeriod() || zelfNameObject.publicData?.isExpired)) {
+            this._router.navigate(["/welcome/grace"]);
+        } else if (!ownedByThisUser) {
+            this._router.navigate(["/welcome/recover"]);
+        } else {
+            this._router.navigate(["/welcome/registered"]);
         }
     }
 
@@ -242,9 +254,9 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     async clearError(): Promise<void> {
-        await this._zelfNameService.setZelfName("");
-        await this._zelfNameService.setZelfNameObject(null);
-        await this._zelfNameService.setZelfProof("");
+        await this._chromeService.removeItem("zelfName");
+        await this._chromeService.removeItem("zelfNameObject");
+        await this._chromeService.removeItem("zelfProof");
 
         this.errorTitle = "";
         this.errorMessage = "";
@@ -299,7 +311,11 @@ export class WelcomeFindComponent implements OnDestroy {
 
         this.form.patchValue({ publicAddress: query }, { emitEvent: false });
 
-        await this._beginQuery(query);
+        const zelfNameObject = await this._queryForZelfObject(query);
+
+        if (!zelfNameObject) return;
+
+        this._redirectAfterTextSearch(zelfNameObject);
     }
 
     async searchAddress(): Promise<void> {
@@ -309,6 +325,10 @@ export class WelcomeFindComponent implements OnDestroy {
 
         if (!query) return;
 
-        await this._beginQuery(query);
+        const zelfNameObject = await this._queryForZelfObject(query);
+
+        if (!zelfNameObject) return;
+
+        this._redirectAfterTextSearch(zelfNameObject);
     }
 }

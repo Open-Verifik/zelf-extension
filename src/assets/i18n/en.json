@@ -59,6 +59,17 @@
         "share_transaction": "Share transaction"
     },
     "welcome": {
+        "pick_another_zelfname": "Pick another ZelfName",
+        "start_reservation": "Start reservation",
+        "search_your_new_zelfname": "Search for your new ZelfName",
+        "pick_your_new_zelfname": "Pick your new ZelfName",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> has been taken, but don't worry! You can access your ZelfProof and reserve a new ZelfName with the same seed phrase.",
+        "new_domain": "New domain",
+        "old_domain": "Old domain",
+        "you_can_transfer_this_domain": "You can transfer this domain",
+        "expiration_date": "Expiration date {{ date }}",
+        "renew_your_domain_today": "Renew your domain today before someone buys it.",
+        "registered_since": "Registered since {{ date }}",
         "dont_lose_your_zelf_name": "Hey! Don't lose your Zelf Name, renew or reserve today, before someone buys it.",
         "dont_remember_zelfname": "Don't remember your ZelfName?",
         "find_zelf_name_subtitle": "Find an existing Zelf Name by entering its public address below:",
@@ -95,6 +106,8 @@
         "information": "This address can only be used to receive compatible tokens."
     },
     "common": {
+        "not_available": "Not available",
+        "decrypt_zelfname": "Decrypt ZelfName",
         "12_word_phrase": "12-word phrase",
         "24_word_phrase": "24-word phrase",
         "about": "About",

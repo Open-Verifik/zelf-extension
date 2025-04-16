@@ -55,23 +55,6 @@
         justify-content: center;
         align-items: center;
     }
-
-    &__button {
-        user-select: none;
-        background-color: black !important;
-        border-radius: 8px;
-        border: none;
-        color: white !important;
-        max-width: 400px;
-        padding: 12px 16px;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
-        width: 100%;
-
-        &:hover {
-            background-color: #b589f0 !important;
-            color: white !important;
-        }
-    }
 }
 
 .zelf-name {

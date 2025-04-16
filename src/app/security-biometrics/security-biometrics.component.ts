@@ -17,6 +17,8 @@ import { HttpWrapperService } from "app/http-wrapper.service";
 import { WalletModel } from "app/wallet";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
 import { ErrorService } from "app/services/error.service";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-sheet.component";
 
 @Component({
     imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule, WelcomeErrorComponent],
@@ -42,6 +44,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     constructor(
         private _activatedRoute: ActivatedRoute,
+        private _bottomSheet: MatBottomSheet,
         private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
         private _errorService: ErrorService,
@@ -152,7 +155,11 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 await this._chromeService.removeItem("newZelfName");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
-                this._redirect();
+                this._bottomSheet.open(ReserveDoneSheetComponent, {
+                    backdropClass: "zelf-backdrop",
+                    panelClass: "zelf-bottom-sheet",
+                    data: { zelfName: this.newZelfName },
+                });
             })
             .catch(this._onBiometricsFailed);
     }

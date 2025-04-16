@@ -59,12 +59,15 @@
         "share_transaction": "Share transaction"
     },
     "welcome": {
+        "got_it": "Got it, I'll do it later",
+        "transfer_done": "Transfer done",
+        "enjoy_your_domain": "Enjoy your domain. Remember to purchase it before somebody else does!",
+        "decrypt_and_reserve": "Decrypt and reserve",
         "decrypt_now_pay_later": "Decrypt now, pay later",
         "decrypt_now_renew_later": "Decrypt now, renew later",
         "recover_your_zelfname": "Recover your ZelfName",
         "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> is still available. You can access your ZelfProof and recover your ZelfName with the same seed phrase.",
-        "pick_another_zelfname": "Pick another ZelfName",
-        "start_reservation": "Start reservation",
+        "search_another_zelfname": "Search for another ZelfName",
         "search_your_new_zelfname": "Search for your new ZelfName",
         "pick_your_new_zelfname": "Pick your new ZelfName",
         "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> has been taken, but don't worry! You can access your ZelfProof and reserve a new ZelfName with the same seed phrase.",

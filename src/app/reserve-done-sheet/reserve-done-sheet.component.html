@@ -1,0 +1,42 @@
+<ng-container *transloco="let t">
+    <div class="reserve-done-sheet">
+        <button mat-flat-button class="reserve-done-sheet__exit" (click)="goToWelcomeComplete()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z"
+                />
+            </svg>
+        </button>
+
+        <div class="reserve-done-sheet__body">
+            <svg class="reserve-done-sheet__icon" width="53" height="66" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8 0L0 3V9.09C0 14.14 3.41 18.85 8 20C12.59 18.85 16 14.14 16 9.09V3L8 0ZM14 9.09C14 13.09 11.45 16.79 8 17.92C4.55 16.79 2 13.1 2 9.09V4.31L8 2.19L14 4.31V9.09ZM4.82 8.59L3.4 10L6.94 13.54L12.6 7.88L11.19 6.47L6.95 10.71L4.82 8.59Z"
+                    fill="#181818"
+                />
+            </svg>
+
+            <h4 class="reserve-done-sheet__pretitle">
+                {{ t("welcome.transfer_done") }}
+            </h4>
+
+            <h3 class="reserve-done-sheet__title">
+                {{ this.data.zelfName }}
+            </h3>
+
+            <p class="reserve-done-sheet__text">
+                {{ t("welcome.enjoy_your_domain") }}
+            </p>
+        </div>
+
+        <div class="reserve-done-sheet__actions">
+            <button (click)="goToWelcomeComplete()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                {{ t("welcome.got_it") }}
+            </button>
+
+            <button (click)="purchaseNow()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+                {{ t("common.purchase_now") }}
+            </button>
+        </div>
+    </div>
+</ng-container>

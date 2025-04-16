@@ -58,7 +58,7 @@
         "share_transaction": "लेन-देन साझा करें"
     },
     "welcome": {
-        "dont_lose_your_zelf_name": "अरे! अपना Zelf नाम न खोएं, इसे नवीनीकृत करें या आज ही आरक्षित करें, इससे पहले कि कोई और इसे खरीद ले।",
+        "dont_lose_your_zelfname": "अरे! अपना Zelf नाम न खोएं, इसे नवीनीकृत करें या आज ही आरक्षित करें, इससे पहले कि कोई और इसे खरीद ले।",
         "dont_remember_zelfname": "क्या आप अपना Zelf नाम भूल गए हैं?",
         "find_zelf_name_subtitle": "इसके सार्वजनिक पते को नीचे दर्ज करके एक मौजूदा Zelf नाम खोजें:",
         "find_zelf_name_title": "Zelf नाम खोजें",

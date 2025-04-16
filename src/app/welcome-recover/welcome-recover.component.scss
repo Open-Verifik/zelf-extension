@@ -75,6 +75,12 @@
         text-transform: uppercase;
     }
 
+    &__input {
+        &--margin-top {
+            margin-top: 16px;
+        }
+    }
+
     &__expiration {
         margin: 16px 0;
         font-family: Poppins;

@@ -58,7 +58,7 @@
         "share_transaction": "Partager la transaction"
     },
     "welcome": {
-        "dont_lose_your_zelf_name": "Hey ! Ne perdez pas votre nom Zelf, renouvelez ou réservez-le aujourd'hui, avant que quelqu'un ne l'achète.",
+        "dont_lose_your_zelfname": "Hey ! Ne perdez pas votre nom Zelf, renouvelez ou réservez-le aujourd'hui, avant que quelqu'un ne l'achète.",
         "dont_remember_zelfname": "Vous ne vous souvenez pas de votre nom Zelf?",
         "find_zelf_name_subtitle": "Trouvez un nom Zelf existant en entrant son adresse publique ci-dessous :",
         "find_zelf_name_title": "Trouver un nom Zelf",

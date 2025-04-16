@@ -58,7 +58,7 @@
         "share_transaction": "トランザクションを共有"
     },
     "welcome": {
-        "dont_lose_your_zelf_name": "お知らせ！Zelf Nameを失わないように、誰かに購入される前に更新または予約してください。",
+        "dont_lose_your_zelfname": "お知らせ！Zelf Nameを失わないように、誰かに購入される前に更新または予約してください。",
         "dont_remember_zelfname": "Zelf Nameを忘れましたか？",
         "find_zelf_name_subtitle": "以下に公開アドレスを入力して既存のZelf Nameを見つけてください:",
         "find_zelf_name_title": "Zelf Nameを見つける",

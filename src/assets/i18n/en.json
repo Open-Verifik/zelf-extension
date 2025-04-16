@@ -59,6 +59,10 @@
         "share_transaction": "Share transaction"
     },
     "welcome": {
+        "decrypt_now_pay_later": "Decrypt now, pay later",
+        "decrypt_now_renew_later": "Decrypt now, renew later",
+        "recover_your_zelfname": "Recover your ZelfName",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> is still available. You can access your ZelfProof and recover your ZelfName with the same seed phrase.",
         "pick_another_zelfname": "Pick another ZelfName",
         "start_reservation": "Start reservation",
         "search_your_new_zelfname": "Search for your new ZelfName",
@@ -70,7 +74,7 @@
         "expiration_date": "Expiration date {{ date }}",
         "renew_your_domain_today": "Renew your domain today before someone buys it.",
         "registered_since": "Registered since {{ date }}",
-        "dont_lose_your_zelf_name": "Hey! Don't lose your Zelf Name, renew or reserve today, before someone buys it.",
+        "dont_lose_your_zelfname": "Hey! Don't lose your Zelf Name, renew or reserve today, before someone buys it.",
         "dont_remember_zelfname": "Don't remember your ZelfName?",
         "find_zelf_name_subtitle": "Find an existing Zelf Name by entering its public address below:",
         "find_zelf_name_title": "Find Zelf Name",
@@ -106,6 +110,8 @@
         "information": "This address can only be used to receive compatible tokens."
     },
     "common": {
+        "domain_expired": "Domain expired",
+        "renew_subscription": "Renew subscription",
         "not_available": "Not available",
         "decrypt_zelfname": "Decrypt ZelfName",
         "12_word_phrase": "12-word phrase",
@@ -390,7 +396,7 @@
             "expiration_time": "This reservation expires on ",
             "purchase_reservation": "Purchase reservation",
             "title": "RESERVATION FOUND",
-            "unlock_without_purchase": "Verify now, purchase later"
+            "unlock_without_purchase": "Decrypt ZelfName now, purchase later"
         }
     },
     "steps": {

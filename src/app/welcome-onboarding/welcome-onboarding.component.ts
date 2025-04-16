@@ -44,9 +44,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     ) {
         this._chromeService.removeItem("flow");
         this._chromeService.removeItem("mnemonicCount");
+        this._chromeService.removeItem("newZelfName");
         this._chromeService.removeItem("referralZelfName");
         this._chromeService.removeItem("zelfName");
         this._chromeService.removeItem("zelfNameObject");
+        this._chromeService.removeItem("zelfReward");
 
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";
@@ -104,9 +106,9 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         });
     }
 
-    private async _noZelfNameFound(zelfNameOffer: any): Promise<void> {
-        await this._zelfNameService.setZelfName(zelfNameOffer.zelfName, zelfNameOffer);
-        await this._zelfNameService.setZelfNameObject(null);
+    private async _noZelfNameFound(zelfNameObject: any): Promise<void> {
+        await this._zelfNameService.setZelfName(zelfNameObject.zelfName, zelfNameObject);
+        await this._zelfNameService.setZelfNameObject(zelfNameObject);
 
         this.form.clearValidators();
         this.form.reset({ zelfName: "" });

@@ -4,7 +4,7 @@ import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 
-export type ZelfFlow = "create" | "import" | "unlock" | "renew" | "recovery" | "";
+export type ZelfFlow = "create" | "import" | "unlock" | "recover" | "";
 
 @Injectable({
     providedIn: "root",
@@ -81,7 +81,7 @@ export class ZelfNameService {
     }
 
     searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
-        const query: { key: string; value: string; captchaToken?: string; environment: "both" } = { key, value, environment: "both" };
+        const query: { key: string; value: string; captchaToken?: string } = { key, value };
 
         if (captchaToken) query.captchaToken = captchaToken;
 
@@ -175,11 +175,11 @@ export class ZelfNameService {
     }
 
     async getZelfNameObject(): Promise<any> {
-        return this.variables.zelfNameObject || (await this._chromeService.getItem("zelfNameObject")) || {};
+        return this.variables.zelfNameObject || (await this._chromeService.getItem("zelfNameObject")) || null;
     }
 
     async getNewZelfName(): Promise<any> {
-        return this.variables.newZelfName || (await this._chromeService.getItem("newZelfName")) || {};
+        return this.variables.newZelfName || (await this._chromeService.getItem("newZelfName")) || "";
     }
 
     async getFlow(): Promise<ZelfFlow> {

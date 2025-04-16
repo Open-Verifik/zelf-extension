@@ -69,6 +69,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.newZelfName = await this._zelfNameService.getNewZelfName();
         this.showBiometrics = (await this._chromeService.getItem("hideBiometricsMessage")) || false;
         this.zelfNameObject = await this._zelfNameService.getZelfNameObject();
+        this.zelfProof = await this._zelfNameService.getZelfProof();
 
         this.loading = false;
     }
@@ -140,32 +141,11 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             .catch(this._onBiometricsFailed);
     }
 
-    private async _renewWallet(payload: any): Promise<void> {
-        this._zelfNameService
-            .zelfNameLeaseRecovery({
-                ...payload,
-                newZelfName: this.zelfNameObject.publicData.zelfName,
-            })
-            .then(async (response) => {
-                this._vaultService.mnemonic = "";
-                this._vaultService.password = "";
-
-                const wallet = new WalletModel(response.data);
-
-                await this._chromeService.removeItem("flow");
-                await this._chromeService.setItem("wallet", wallet);
-
-                this._router.navigate(["/external-link"], {
-                    queryParams: { url: `https://payment.zelf.world/purchase?zelfName=${wallet.publicData.zelfName}` },
-                });
-            })
-            .catch(this._onBiometricsFailed);
-    }
-
     private async _leaseRecovery(payload: any): Promise<void> {
         this._zelfNameService
             .zelfNameLeaseRecovery({
                 ...payload,
+                zelfProof: this.zelfProof,
                 newZelfName: this.newZelfName,
             })
             .then(async (response) => {
@@ -219,9 +199,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             this._createWallet(payload);
         } else if (this.flow === "import") {
             this._importWallet(payload);
-        } else if (this.flow === "renew") {
-            this._renewWallet(payload);
-        } else if (this.flow === "recovery") {
+        } else if (this.flow === "recover") {
             this._leaseRecovery(payload);
         } else {
             this._decryptWallet(payload);

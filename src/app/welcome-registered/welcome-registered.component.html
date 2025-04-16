@@ -105,8 +105,8 @@
                         </p>
 
                         <div class="welcome-registered__date-text__inner-row">
-                            <p class="welcome-registered__date-text">
-                                {{ getGracePeriod(zelfNameObject?.publicData?.expiresAt) | date : "dd MMM, yyyy" }}
+                            <p class="welcome-registered__date-text" *ngIf="zelfNameObject?.publicData?.gracePeriod">
+                                {{ zelfNameObject?.publicData?.gracePeriod | date : "dd MMM, yyyy" }}
                             </p>
 
                             <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +146,7 @@
             </div>
 
             <button (click)="login()" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
-                {{ t("common.login") }}
+                {{ t("common.decrypt_zelfname") }}
             </button>
         </ng-container>
     </div>

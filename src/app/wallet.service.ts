@@ -104,6 +104,10 @@ export class WalletService {
         return /^[a-z][a-z0-9]*\.zelf$/;
     }
 
+    get ZelfRegexNoPostfix(): RegExp {
+        return /^[a-z][a-z0-9]*$/;
+    }
+
     get BTCRegex(): RegExp {
         return this._BTC_REGEX;
     }

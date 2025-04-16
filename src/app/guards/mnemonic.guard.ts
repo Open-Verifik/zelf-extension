@@ -16,7 +16,7 @@ export const MnemonicGuard: CanActivateFn = async () => {
         if (!flow) router.navigate(["/welcome/onboarding"]);
         else if (flow === "import") router.navigate(["/welcome/import"]);
         else if (flow === "create") router.navigate(["/security"]);
-        else if (flow === "unlock") return true;
+        else if (flow === "unlock" || flow === "recovery" || flow === "renew") return true;
 
         return false;
     }

@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -21,6 +19,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class WelcomeRegisteredComponent extends CopyToClipboardBase implements OnInit {
     qrCodeImage: string;
+    zelfProof: string | undefined;
     zelfNameObject?: WalletModel;
 
     constructor(
@@ -38,16 +37,16 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
     }
 
     async ngOnInit(): Promise<void> {
+        this.zelfProof = await this._zelfNameService.getZelfProof();
         this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+
         this.qrCodeImage = this.zelfNameObject?.image || this.qrCodeImage;
 
         this._changeDetectorRef.markForCheck();
     }
 
-    getGracePeriod(date?: string): string {
-        if (!date) return "";
-
-        return moment(date).add(7, "days").toISOString();
+    doesZelfProofMatch(): boolean {
+        return !this.zelfProof || this.zelfProof === this.zelfNameObject?.zelfProof;
     }
 
     async login(): Promise<void> {

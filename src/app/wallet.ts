@@ -547,6 +547,7 @@ export interface WalletPublicData {
     btcAddress: string;
     ethAddress: string;
     expiresAt: string;
+    gracePeriod: Date | null;
     isExpired: boolean;
     isExpiringSoon: boolean;
     isExpiringWithinMonth: boolean;
@@ -554,6 +555,9 @@ export interface WalletPublicData {
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
     zelfName: string;
+
+    isInGracePeriod(): boolean;
+    timeLeftInGracePeriodSeconds(): number;
 }
 
 export class WalletPublicDataModel {
@@ -565,6 +569,7 @@ export class WalletPublicDataModel {
     btcAddress: string;
     ethAddress: string;
     expiresAt: string;
+    gracePeriod: Date | null;
     registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
@@ -587,9 +592,10 @@ export class WalletPublicDataModel {
         if (!this.type) data.zelfName ? (data.zelfName?.includes(".hold") ? (this.type = "hold") : (this.type = "mainnet")) : "";
         if (this.zelfName) this.zelfName = this.zelfName.replace(".hold", "");
 
-        this.isExpired = this._checkIsExpired(this.expiresAt);
-        this.isExpiringSoon = this._checkIsExpiringSoon(this.expiresAt);
-        this.isExpiringWithinMonth = this._checkIsExpiringWithinMonth(this.expiresAt);
+        this.gracePeriod = this._calculateGracePeriod();
+        this.isExpired = this._checkIsExpired();
+        this.isExpiringSoon = this._checkIsExpiringSoon();
+        this.isExpiringWithinMonth = this._checkIsExpiringWithinMonth();
     }
 
     get isExpired(): boolean {
@@ -616,32 +622,59 @@ export class WalletPublicDataModel {
         this._isExpiringWithinMonth = value;
     }
 
-    private _timeRemaining(expiresAt: string): number {
-        const expiresAtTime = new Date(expiresAt).getTime();
+    private _calculateGracePeriod(): Date | null {
+        if (this.type !== "mainnet") return null;
 
-        return expiresAtTime - Date.now();
+        const gracePeriod = new Date(this.expiresAt);
+
+        gracePeriod.setDate(gracePeriod.getDate() + 30);
+
+        return gracePeriod;
     }
 
-    private _checkIsExpired(expiresAt: string): boolean {
-        const timeLeft = this._timeRemaining(expiresAt);
+    private _checkIsExpired(): boolean {
+        const timeLeft = this._timeRemaining();
 
         return timeLeft <= 0;
     }
 
-    private _checkIsExpiringSoon(expiresAt: string): boolean {
+    private _checkIsExpiringSoon(): boolean {
         const oneDayInMs = 24 * 60 * 60 * 1000;
-        const timeLeft = this._timeRemaining(expiresAt);
+        const timeLeft = this._timeRemaining();
 
         return timeLeft > 0 && timeLeft <= oneDayInMs;
     }
 
-    private _checkIsExpiringWithinMonth(expiresAt: string): boolean {
+    private _checkIsExpiringWithinMonth(): boolean {
         const oneDayInMs = 24 * 60 * 60 * 1000;
         const oneMonthInMs = 30 * oneDayInMs;
 
-        const timeLeft = this._timeRemaining(expiresAt);
+        const timeLeft = this._timeRemaining();
 
         return timeLeft > 0 && timeLeft <= oneMonthInMs;
+    }
+
+    private _timeRemaining(): number {
+        const expiresAtTime = new Date(this.expiresAt).getTime();
+
+        return expiresAtTime - Date.now();
+    }
+
+    isInGracePeriod(): boolean {
+        if (this.type !== "mainnet" || !this.gracePeriod) return false;
+
+        const now = new Date();
+
+        return now > this.gracePeriod && now < new Date(this.expiresAt);
+    }
+
+    timeLeftInGracePeriodSeconds(): number {
+        if (this.type !== "mainnet" || !this.gracePeriod) return 0;
+
+        const now = new Date().getTime();
+        const gracePeriodEnd = this.gracePeriod.getTime() * 24 * 60 * 60 * 1000;
+
+        return Math.max(0, Math.floor((gracePeriodEnd - now) / 1000));
     }
 }
 

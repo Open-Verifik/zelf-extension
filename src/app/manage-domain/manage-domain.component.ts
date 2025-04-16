@@ -62,18 +62,11 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     }
 
     async extendRegistration(): Promise<void> {
-        if (this.wallet?.durationToken) {
-            this._router.navigate(["/external-link"], {
-                queryParams: {
-                    externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.wallet?.publicData?.zelfName}&token=${this.wallet.durationToken}`,
-                },
-            });
-
-            return;
-        }
-
-        await this._zelfNameService.setFlow("unlock");
-        this._router.navigate(["/security/password"], { queryParams: { return: "/manage-domains" } });
+        this._router.navigate(["/external-link"], {
+            queryParams: {
+                externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.wallet?.publicData?.zelfName}`,
+            },
+        });
     }
 
     getWalletStatus(): string {

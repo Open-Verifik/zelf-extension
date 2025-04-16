@@ -38,6 +38,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     showBiometrics: boolean = true;
     zelfProof: string = "";
     zelfNameObject: any;
+    newZelfName: string = "";
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -65,6 +66,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<void> {
         this.flow = (await this._zelfNameService.getFlow()) || "create";
+        this.newZelfName = await this._zelfNameService.getNewZelfName();
         this.showBiometrics = (await this._chromeService.getItem("hideBiometricsMessage")) || false;
         this.zelfNameObject = await this._zelfNameService.getZelfNameObject();
 
@@ -75,6 +77,13 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
     }
+
+    private _onBiometricsFailed = async (exception: any) => {
+        console.error({ exception });
+
+        this.errorTitle = this._translocoService.translate("errors.generic_title");
+        this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
+    };
 
     async _createWallet(payload: any): Promise<void> {
         const mnemonicCount = (await this._zelfNameService.getMnemonicCount()) || 12;
@@ -91,12 +100,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 this._redirect();
             })
-            .catch((exception) => {
-                console.error({ exception });
-
-                this.errorTitle = this._translocoService.translate("errors.generic_title");
-                this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
-            });
+            .catch(this._onBiometricsFailed);
     }
 
     private async _decryptWallet(payload: any): Promise<void> {
@@ -115,12 +119,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 this._redirect();
             })
-            .catch((exception) => {
-                console.error({ exception });
-
-                this.errorTitle = this._translocoService.translate("errors.generic_title");
-                this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
-            });
+            .catch(this._onBiometricsFailed);
     }
 
     private async _importWallet(payload: any): Promise<void> {
@@ -138,12 +137,44 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 this._redirect();
             })
-            .catch((exception) => {
-                console.error({ exception });
+            .catch(this._onBiometricsFailed);
+    }
 
-                this.errorTitle = this._translocoService.translate("errors.generic_title");
-                this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
-            });
+    private async _renewWallet(payload: any): Promise<void> {
+        this._zelfNameService
+            .zelfNameLeaseRecovery({
+                ...payload,
+                newZelfName: this.zelfNameObject.publicData.zelfName,
+            })
+            .then(async (response) => {
+                this._vaultService.mnemonic = "";
+                this._vaultService.password = "";
+
+                const wallet = new WalletModel(response.data);
+
+                await this._chromeService.removeItem("flow");
+                await this._chromeService.setItem("wallet", wallet);
+
+                this._router.navigate(["/external-link"], {
+                    queryParams: { url: `https://payment.zelf.world/purchase?zelfName=${wallet.publicData.zelfName}` },
+                });
+            })
+            .catch(this._onBiometricsFailed);
+    }
+
+    private async _leaseRecovery(payload: any): Promise<void> {
+        this._zelfNameService
+            .zelfNameLeaseRecovery({
+                ...payload,
+                newZelfName: this.newZelfName,
+            })
+            .then(async (response) => {
+                await this._chromeService.removeItem("newZelfName");
+                await this._chromeService.setItem("wallet", new WalletModel(response.data));
+
+                this._redirect();
+            })
+            .catch(this._onBiometricsFailed);
     }
 
     private _redirect(): void {
@@ -188,6 +219,10 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             this._createWallet(payload);
         } else if (this.flow === "import") {
             this._importWallet(payload);
+        } else if (this.flow === "renew") {
+            this._renewWallet(payload);
+        } else if (this.flow === "recovery") {
+            this._leaseRecovery(payload);
         } else {
             this._decryptWallet(payload);
         }

@@ -13,18 +13,18 @@
         <ng-container *ngIf="zelfNameObject">
             <div class="welcome-grace__details">
                 <div class="zelf-chip welcome-grace__chip zelf-chip--error">
-                    <ng-container *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("common.registered") }}</ng-container>
-                    <ng-container *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("common.domain_expired") }}</ng-container>
+                    <ng-container *ngIf="zelfNameObject.publicData.isInGracePeriod()">{{ t("common.registered") }}</ng-container>
+                    <ng-container *ngIf="!zelfNameObject.publicData.isInGracePeriod()">{{ t("common.domain_expired") }}</ng-container>
                 </div>
 
                 <h2 class="zelf-card__title">{{ zelfNameObject.publicData.zelfName | zelfName }}</h2>
 
                 <p class="zelf-card__subtitle welcome-grace__subtitle">
-                    <span *ngIf="zelfNameObject.publicData.isInGracePeriod">
+                    <span *ngIf="zelfNameObject.publicData.isInGracePeriod()">
                         {{ t("welcome.registered_since", { date: zelfNameObject.publicData.registeredAt | date : "dd MMM, yyyy" }) }}
                     </span>
 
-                    <span *ngIf="!zelfNameObject.publicData.isInGracePeriod">
+                    <span *ngIf="!zelfNameObject.publicData.isInGracePeriod()">
                         {{ t("welcome.domain_expired_since", { date: zelfNameObject.publicData.gracePeriod | date : "dd MMM, yyyy" }) }}
                     </span>
                 </p>
@@ -123,21 +123,21 @@
                     />
                 </svg>
 
-                <p class="tip-box__text" *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.renew_your_domain_today") }}</p>
-                <p class="tip-box__text" *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.dont_lose_your_zelfname") }}</p>
+                <p class="tip-box__text" *ngIf="zelfNameObject.publicData.isInGracePeriod()">{{ t("welcome.renew_your_domain_today") }}</p>
+                <p class="tip-box__text" *ngIf="!zelfNameObject.publicData.isInGracePeriod()">{{ t("welcome.dont_lose_your_zelfname") }}</p>
             </div>
 
-            <button
-                (click)="renewZelfName()"
-                *ngIf="zelfNameObject.publicData.isExpired"
-                class="zelf-button zelf-button--outlined zelf-button--wide"
-                mat-flat-button
-            >
+            <button (click)="renewZelfName()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
                 {{ t("common.renew_subscription") }}
             </button>
 
-            <button (click)="decryptZelfName()" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
-                {{ t("common.decrypt_zelfname") }}
+            <button
+                (click)="decryptZelfName()"
+                *ngIf="zelfNameObject.publicData.isInGracePeriod() && zelfNameObject.publicData.isExpired"
+                class="zelf-button zelf-button--hyperlink zelf-button--wide"
+                mat-flat-button
+            >
+                {{ t("welcome.decrypt_now_renew_later") }}
             </button>
         </ng-container>
     </div>

@@ -35,7 +35,7 @@ export class WelcomeGraceComponent implements OnInit {
         this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
         this.zelfProof = await this._zelfNameService.getZelfProof();
 
-        await this._queryZNS(this.zelfName!);
+        await this._queryZNS(this.zelfName);
     }
 
     get externalUrl(): string {
@@ -46,7 +46,7 @@ export class WelcomeGraceComponent implements OnInit {
         if (this._chromeService.isExtension) return;
 
         try {
-            this.captchaToken = await this._captchaService.executeRecaptcha(zelfName);
+            this.captchaToken = await this._captchaService.executeRecaptcha(zelfName.replace(".", "_"));
         } catch (error) {
             console.error("reCAPTCHA failed:", error);
         }
@@ -88,8 +88,8 @@ export class WelcomeGraceComponent implements OnInit {
     }
 
     renewZelfName(): void {
-        this._zelfNameService.setFlow("renew");
-
-        this._router.navigate(["/security/password"], { queryParams: { return: "/welcome/grace" } });
+        this._router.navigate(["/external-link"], {
+            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName="${this.zelfNameObject.publicData.zelfName}"` },
+        });
     }
 }

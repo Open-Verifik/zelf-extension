@@ -11,6 +11,7 @@ import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
+import { WalletModel } from "app/wallet";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule],
@@ -27,6 +28,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     isNew: boolean = false;
     returnState: string = "";
     showPassword: boolean = false;
+    zelfNameObject: any;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -50,7 +52,9 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<void> {
         this.flow = await this._zelfNameService.getFlow();
-        this.isNew = this.flow === "create" || this.flow === "import";
+        this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+
+        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.zelfNameObject?.available);
 
         this._initForm();
     }

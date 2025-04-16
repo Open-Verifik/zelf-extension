@@ -10,7 +10,7 @@
     </div>
 
     <div class="zelf-card__content welcome-recover__content">
-        <ng-container *ngIf="zelfNameObject && !showResult">
+        <ng-container *ngIf="oldZelfNameObject && !showResult">
             <div class="welcome-recover__instructions-container">
                 <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -31,24 +31,35 @@
                     />
                 </svg>
 
-                <h2 class="zelf-card__title welcome-recover__title">{{ t("welcome.pick_your_new_zelfname") }}</h2>
+                <h2 class="zelf-card__title welcome-recover__title">
+                    {{ t(oldZelfNameObject.available ? "welcome.recover_your_zelfname" : "welcome.pick_your_new_zelfname") }}
+                </h2>
 
                 <p
-                    [innerHTML]="t('welcome.pick_your_new_zelfname_description', { zelfName: zelfNameObject.publicData.zelfName })"
-                    *ngIf="zelfNameObject"
                     class="welcome-recover__subtitle"
+                    [innerHTML]="
+                        t(oldZelfNameObject.available ? 'welcome.recover_your_zelfname_description' : 'welcome.pick_your_new_zelfname_description', {
+                            zelfName: oldZelfNameObject.publicData.zelfName
+                        })
+                    "
                 ></p>
             </div>
 
             <form [formGroup]="form" class="welcome-recover__form">
-                <div class="zelf-chip zelf-chip--error welcome-recover__not-available-chip">{{ t("common.not_available") }}</div>
+                <div
+                    class="zelf-chip"
+                    [ngClass]="{ 'zelf-chip--error': !oldZelfNameObject.available, 'zelf-chip--success': oldZelfNameObject.available }"
+                >
+                    <ng-container *ngIf="!oldZelfNameObject.available">{{ t("common.not_available") }}</ng-container>
+                    <ng-container *ngIf="oldZelfNameObject.available">{{ t("common.available") }}</ng-container>
+                </div>
 
-                <h5 class="welcome-recover__zelf-name">{{ zelfNameObject.publicData.zelfName }}</h5>
+                <h5 class="welcome-recover__zelf-name">{{ oldZelfNameObject.publicData.zelfName }}</h5>
 
-                <p class="welcome-recover__expiration">
+                <p class="welcome-recover__expiration" *ngIf="oldZelfNameObject.publicData.expiresAt">
                     {{ t("welcome.expiration_date") }}
 
-                    <span class="welcome-recover__expiration-date">{{ zelfNameObject.publicData.expiresAt | date : "dd MMM, YYYY" }}</span>
+                    <span class="welcome-recover__expiration-date">{{ oldZelfNameObject.publicData.expiresAt | date : "dd MMM, YYYY" }}</span>
 
                     <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -58,10 +69,13 @@
                     </svg>
                 </p>
 
-                <div class="zelf-card__content welcome-recover__content">
+                <div class="zelf-card__content welcome-recover__content" *ngIf="showSearch">
                     <div
-                        class="zelf-input zelf-input--wide"
-                        [ngClass]="{ 'zelf-input--error': form.controls.zelfName.invalid && form.controls.zelfName.dirty }"
+                        class="zelf-input zelf-input--wide welcome-recover__input"
+                        [ngClass]="{
+                            'zelf-input--error': form.controls.zelfName.invalid && form.controls.zelfName.dirty,
+                            'welcome-recover__input--margin-top': oldZelfNameObject.available
+                        }"
                     >
                         <input
                             (keydown.enter)="searchZelfName()"
@@ -124,23 +138,23 @@
 
         <ng-container *ngIf="showResult">
             <ng-container *ngIf="showError">
-                <ng-container *ngIf="zelfNameObjectResult">
-                    <div class="zelf-chip zelf-chip--error">{{ t("common.registered") }}</div>
+                <div class="zelf-chip zelf-chip--error">{{ t("common.not_available") }}</div>
 
-                    <h2 class="zelf-card__title welcome-recover__title">{{ zelfNameObjectResult.publicData.zelfName }}</h2>
+                <h2 class="zelf-card__title welcome-recover__title">{{ newZelfNameObject.publicData.zelfName }}</h2>
 
-                    <p class="welcome-recover__expiration">
-                        {{ t("welcome.registered_since", { date: zelfNameObjectResult.publicData.registeredAt | date : "MMM, YYYY" }) }}
-                    </p>
-                </ng-container>
+                <p class="welcome-recover__expiration">
+                    {{ t("welcome.registered_since", { date: newZelfNameObject.publicData.registeredAt | date : "MMM, YYYY" }) }}
+                </p>
             </ng-container>
 
             <ng-container *ngIf="!showError">
                 <div class="zelf-chip zelf-chip--success">{{ t("common.available") }}</div>
 
-                <h2 class="zelf-card__title welcome-recover__title">{{ form.get("zelfName")?.value }}.zelf</h2>
+                <h2 class="zelf-card__title welcome-recover__title">
+                    {{ newZelfNameObject?.publicData?.zelfName || form.get("zelfName")?.value + ".zelf" }}
+                </h2>
 
-                <p class="welcome-recover__expiration">
+                <p class="welcome-recover__expiration" *ngIf="oldZelfNameObject.available">
                     {{ t("welcome.you_can_transfer_this_domain") }}
 
                     <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +168,7 @@
                 <div class="transfer">
                     <div class="transfer__col">
                         <p class="transfer__label">{{ t("welcome.old_domain") }}</p>
-                        <p class="transfer__value">{{ zelfNameObject.publicData.zelfName }}</p>
+                        <p class="transfer__value">{{ oldZelfNameObject.publicData.zelfName }}</p>
                     </div>
 
                     <div class="transfer__icon">
@@ -168,14 +182,14 @@
 
                     <div class="transfer__col">
                         <p class="transfer__label">{{ t("welcome.new_domain") }}</p>
-                        <p class="transfer__value">{{ form.get("zelfName")?.value }}</p>
+                        <p class="transfer__value">{{ newZelfNameObject?.publicData?.zelfName || form.get("zelfName")?.value + ".zelf" }}</p>
                     </div>
                 </div>
             </ng-container>
         </ng-container>
     </div>
 
-    <div class="zelf-card__actions zelf-card__actions--column welcome-recover__actions" *ngIf="showResult">
+    <div class="zelf-card__actions zelf-card__actions--column welcome-recover__actions" *ngIf="!showSearch">
         <ng-container *ngIf="showError">
             <button (click)="returnToForm()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button type="button">
                 {{ t("welcome.pick_another_zelfname") }}

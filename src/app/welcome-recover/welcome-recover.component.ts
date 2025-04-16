@@ -36,8 +36,10 @@ export class WelcomeRecoverComponent implements OnInit {
     showError: boolean = false;
     searching: boolean = false;
     showResult: boolean = false;
-    zelfNameObject: any;
-    zelfNameObjectResult: any;
+    showSearch: boolean = false;
+    zelfName: string = "";
+    oldZelfNameObject: any;
+    newZelfNameObject: any;
 
     constructor(
         private _captchaService: CaptchaService,
@@ -51,14 +53,22 @@ export class WelcomeRecoverComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.zelfNameObject = await this._zelfNameService.getZelfNameObject();
+        this.oldZelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+
+        if (!this.oldZelfNameObject?.available) {
+            this.showSearch = true;
+
+            return;
+        }
+
+        this.newZelfNameObject = this.oldZelfNameObject;
     }
 
     private async _captchaGeneration(): Promise<any> {
         if (this._chromeService.isExtension) return;
 
         try {
-            this.captchaToken = await this._captchaService.executeRecaptcha(this.form.get("zelfName")?.value);
+            this.captchaToken = await this._captchaService.executeRecaptcha(this.form.get("zelfName")?.value.replace(".", "_"));
         } catch (error) {
             console.error("reCAPTCHA failed:", error);
         }
@@ -80,9 +90,18 @@ export class WelcomeRecoverComponent implements OnInit {
         try {
             await this._captchaGeneration();
 
-            this.zelfNameObjectResult = await this._queryZNS("zelfName", query);
+            const zelfNameObject = await this._queryZNS("zelfName", query);
 
-            if (this.zelfNameObjectResult) this._setError();
+            if (!zelfNameObject?.available) {
+                this._setError();
+
+                return zelfNameObject;
+            }
+
+            this.showSearch = false;
+            this.showResult = true;
+
+            return zelfNameObject;
         } catch (error) {
             this._setError();
         } finally {
@@ -92,12 +111,10 @@ export class WelcomeRecoverComponent implements OnInit {
 
     async _queryZNS(key: string, value: string): Promise<any> {
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, `${value}.zelf`, this.captchaToken);
+            const response = await this._zelfNameService.searchZelfNameV2(key, value, this.captchaToken);
 
             if (!response.data || response.data.available) {
-                this._setResult();
-
-                return null;
+                return new WalletModel({ zelfName: value, available: true });
             }
 
             const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
@@ -117,13 +134,9 @@ export class WelcomeRecoverComponent implements OnInit {
     }
 
     private _setError(): void {
+        this.showSearch = false;
         this.showResult = true;
         this.showError = true;
-    }
-
-    private _setResult(): void {
-        this.showResult = true;
-        this.showError = false;
     }
 
     async pastedZelfName(event: ClipboardEvent): Promise<void> {
@@ -140,16 +153,17 @@ export class WelcomeRecoverComponent implements OnInit {
 
         this.form.patchValue({ zelfName: query });
 
-        await this._queryForZelfObject(query);
+        this.newZelfNameObject = await this._queryForZelfObject(query + ".zelf");
     }
 
     returnToForm(): void {
         this.form.patchValue({ zelfName: "" }, { emitEvent: false });
         this.form.markAsPristine();
 
+        this.showSearch = true;
         this.showResult = false;
         this.showError = false;
-        this.zelfNameObjectResult = null;
+        this.newZelfNameObject = null;
     }
 
     async searchZelfName(): Promise<void> {
@@ -159,12 +173,12 @@ export class WelcomeRecoverComponent implements OnInit {
 
         if (!query) return;
 
-        await this._queryForZelfObject(query);
+        this.newZelfNameObject = await this._queryForZelfObject(query + ".zelf");
     }
 
     async startReservation(): Promise<void> {
-        await this._zelfNameService.setNewZelfName(this.form.value.zelfName);
-        await this._zelfNameService.setFlow("recovery");
+        await this._zelfNameService.setNewZelfName(this.newZelfNameObject?.name || this.form.value.zelfName + ".zelf");
+        await this._zelfNameService.setFlow("recover");
 
         this._router.navigate(["/security/password"], { queryParams: { return: "/welcome/recover" } });
     }

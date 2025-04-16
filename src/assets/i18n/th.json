@@ -58,7 +58,7 @@
         "share_transaction": "แชร์ธุรกรรม"
     },
     "welcome": {
-        "dont_lose_your_zelf_name": "เฮ้! อย่าทำชื่อ Zelf ของคุณหาย ต่ออายุหรือจองวันนี้ก่อนที่คนอื่นจะซื้อไป",
+        "dont_lose_your_zelfname": "เฮ้! อย่าทำชื่อ Zelf ของคุณหาย ต่ออายุหรือจองวันนี้ก่อนที่คนอื่นจะซื้อไป",
         "dont_remember_zelfname": "จำชื่อ Zelf ของคุณไม่ได้?",
         "find_zelf_name_subtitle": "ค้นหาชื่อ Zelf ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",
         "find_zelf_name_title": "ค้นหาชื่อ Zelf",

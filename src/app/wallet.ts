@@ -423,6 +423,7 @@ export interface PGP {
 
 export interface Wallet {
     _id: string;
+    available: boolean;
     anonymous: boolean;
     assets: Array<Asset>;
     btcAddress: string;
@@ -451,6 +452,7 @@ export class WalletModel implements Wallet {
     private _displaySuiAddress?: string;
 
     _id: string;
+    available: boolean = false;
     anonymous: boolean;
     assets: Array<Asset>;
     btcAddress: string;
@@ -471,6 +473,7 @@ export class WalletModel implements Wallet {
     constructor(data: any = {}) {
         this._id = data._id;
 
+        this.available = data.available || false;
         this.anonymous = data.anonymous || true;
         this.ipfs = (data.ipfs as IPFS) || ({} as IPFS);
         this.pgp = (data.pgp as PGP) || undefined;
@@ -486,6 +489,8 @@ export class WalletModel implements Wallet {
         this.name = data.name || data.zelfName || secondaryStorage.zelfName;
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
         this.zkProof = data.zkProof;
+
+        if (!this.publicData.zelfName) this.publicData.zelfName = this.name;
 
         this.btcAddress = data.btcAddress || secondaryStorage.btcAddress;
         if (this.btcAddress) this.displayBtcAddress = this.btcAddress;
@@ -665,7 +670,7 @@ export class WalletPublicDataModel {
 
         const now = new Date();
 
-        return now > this.gracePeriod && now < new Date(this.expiresAt);
+        return now < this.gracePeriod && now > new Date(this.expiresAt);
     }
 
     timeLeftInGracePeriodSeconds(): number {

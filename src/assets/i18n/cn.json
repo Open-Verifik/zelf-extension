@@ -58,7 +58,7 @@
         "share_transaction": "分享交易"
     },
     "welcome": {
-        "dont_lose_your_zelf_name": "嘿！不要丢失您的Zelf名称，立即续订或预订，以免被他人购买。",
+        "dont_lose_your_zelfname": "嘿！不要丢失您的Zelf名称，立即续订或预订，以免被他人购买。",
         "dont_remember_zelfname": "不记得您的Zelf名称？",
         "find_zelf_name_subtitle": "通过输入其公共地址查找现有的Zelf名称：",
         "find_zelf_name_title": "查找Zelf名称",

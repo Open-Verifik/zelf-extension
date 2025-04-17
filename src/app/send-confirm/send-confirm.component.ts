@@ -22,6 +22,7 @@ import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
+import { ChromeService } from "app/chrome.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -60,6 +61,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _chromeService: ChromeService,
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -488,6 +490,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             await this._walletService.addTransactionToPending(pendingTransactionData);
             await this._transactionService.removeTransactionData();
+            await this._chromeService.removeItemSession("tokensTtl");
 
             if (this.transactionData.network === "solana" && receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {

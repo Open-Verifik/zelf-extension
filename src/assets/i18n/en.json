@@ -143,7 +143,7 @@
         "load_more": "Load more",
         "login": "Decrypt ZelfProof",
         "logout": "Logout",
-        "manage_domains": "Manage domains",
+        "manage_domains": "Manage ZelfNames",
         "max": "Max",
         "more_info": "More information",
         "my_arns": "My ArNS",
@@ -241,7 +241,7 @@
     "manage_domains": {
         "domain_error": "{{ zelfName }}'s time period is over! Another user could claim this domain. Buy now to claim it!",
         "domain_warning": "You still have time to buy",
-        "purchase_new_domain": "Purchase a new domain",
+        "purchase_new_domain": "Add a new ZelfName",
         "last_wallet_logout": "This is the last wallet. If you continue, you will be redirected to the welcome page.",
         "logout_of_wallet_confirm": "Last Wallet"
     },

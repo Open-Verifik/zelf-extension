@@ -136,13 +136,15 @@
 
 .wallets {
     user-select: none;
-    margin-top: 16px;
     display: inline-flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
     width: 100%;
+    overflow-x: auto;
+    padding: 16px;
+    box-sizing: border-box;
 
     &__item {
         background-color: $antiFlashWhite;

@@ -39,9 +39,13 @@ export class ChromeService {
         });
 
         browser.storage.local.onChanged.addListener((changes) => {
-            changes.wallet
-                ? this._wallet$.next(changes.wallet.newValue ? (new WalletModel(changes.wallet.newValue) as WalletModel) : ({} as WalletModel))
-                : ({} as WalletModel);
+            if (changes.wallet) {
+                this.removeItemSession("tokensTtl");
+
+                changes.wallet
+                    ? this._wallet$.next(changes.wallet.newValue ? (new WalletModel(changes.wallet.newValue) as WalletModel) : ({} as WalletModel))
+                    : ({} as WalletModel);
+            }
 
             changes.wallets
                 ? this._wallets$.next(

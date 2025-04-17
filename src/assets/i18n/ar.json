@@ -237,7 +237,7 @@
     "manage_domains": {
         "domain_error": "انتهت فترة {{ zelfName }}! يمكن لمستخدم آخر المطالبة بهذا النطاق. اشتر الآن للمطالبة به!",
         "domain_warning": "لا يزال لديك وقت للشراء",
-        "purchase_new_domain": "شراء نطاق جديد",
+        "purchase_new_domain": "إضافة نطاق جديد",
         "last_wallet_logout": "هذه هي المحفظة الأخيرة. إذا تابعت، سيتم إعادة توجيهك إلى صفحة الترحيب.",
         "logout_of_wallet_confirm": "آخر محفظة"
     },

@@ -239,7 +239,7 @@
     "manage_domains": {
         "domain_error": "¡El período de tiempo de {{ zelfName }} ha terminado! Otro usuario podría reclamar este dominio. ¡Compra ahora para reclamarlo!",
         "domain_warning": "Aún tienes tiempo para comprar",
-        "purchase_new_domain": "Comprar un nuevo dominio",
+        "purchase_new_domain": "Agregar un nuevo dominio",
         "last_wallet_logout": "Esta es la última billetera. Si continúas, serás redirigido a la página de bienvenida.",
         "logout_of_wallet_confirm": "Última Billetera"
     },

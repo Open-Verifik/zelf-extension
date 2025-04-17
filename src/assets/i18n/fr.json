@@ -239,7 +239,7 @@
     "manage_domains": {
         "domain_error": "La période de {{ zelfName }} est terminée ! Un autre utilisateur pourrait revendiquer ce domaine. Achetez maintenant pour le revendiquer !",
         "domain_warning": "Vous avez encore le temps d'acheter",
-        "purchase_new_domain": "Acheter un nouveau domaine",
+        "purchase_new_domain": "Ajouter un nouveau domaine",
         "last_wallet_logout": "Ceci est le dernier portefeuille. Si vous continuez, vous serez redirigé vers la page d'accueil.",
         "logout_of_wallet_confirm": "Dernier portefeuille"
     },

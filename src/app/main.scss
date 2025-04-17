@@ -37,11 +37,12 @@
 
 * {
     font-family: "Poppins", sans-serif; /* Always provide a fallback */
-    scrollbar-width: 10px;
-    scrollbar-color: linear-gradient(to left, $platinum, $frenchGray) rgba(0, 0, 0, 0.05);
+    scrollbar-width: 6px;
+    scrollbar-color: $taupeGray rgba(0, 0, 0, 0.05);
 
     &::-webkit-scrollbar {
-        width: 10px;
+        width: 6px;
+        height: 6px;
         background-color: $white;
     }
 
@@ -52,7 +53,7 @@
 
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: linear-gradient(to left, $platinum, $frenchGray);
+        background: $taupeGray;
         transition: background-color 0.3s $smoothBezier;
     }
 }

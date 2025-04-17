@@ -21,3 +21,41 @@
         text-decoration: underline;
     }
 }
+
+.tooltip {
+    font: Poppins;
+    position: absolute;
+    background-color: $black;
+    color: $white;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 9999px;
+    white-space: nowrap;
+    top: -44px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: $black transparent transparent transparent;
+    }
+}
+
+.tooltip-container {
+    position: relative;
+    cursor: pointer;
+
+    &:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}

@@ -140,7 +140,7 @@
         "is_required": "是必需的",
         "learn_more": "了解更多",
         "load_more": "加载更多",
-        "login": "登录",
+        "login": "解密ZelfProof",
         "logout": "登出",
         "manage_domains": "管理域名",
         "max": "最大",
@@ -238,7 +238,7 @@
     "manage_domains": {
         "domain_error": "{{ zelfName }} 的期限已结束！其他用户可以申请此域名。立即购买以申请它！",
         "domain_warning": "您还有时间购买",
-        "purchase_new_domain": "购买新域名",
+        "purchase_new_domain": "添加新域名",
         "last_wallet_logout": "这是最后一个钱包。如果继续，您将被重定向到欢迎页面。",
         "logout_of_wallet_confirm": "最后一个钱包"
     },

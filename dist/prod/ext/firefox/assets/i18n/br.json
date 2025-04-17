@@ -140,7 +140,7 @@
         "is_required": "é obrigatório",
         "learn_more": "Saiba mais",
         "load_more": "Carregar mais",
-        "login": "Entrar",
+        "login": "Descriptografar ZelfProof",
         "logout": "Sair",
         "manage_domains": "Gerenciar domínios",
         "max": "Máximo",
@@ -238,7 +238,7 @@
     "manage_domains": {
         "domain_error": "O período de {{ zelfName }} acabou! Outro usuário pode reivindicar este domínio. Compre agora para reivindicá-lo!",
         "domain_warning": "Você ainda tem tempo para comprar",
-        "purchase_new_domain": "Comprar um novo domínio",
+        "purchase_new_domain": "Adicionar um novo domínio",
         "last_wallet_logout": "Esta é a última carteira. Se você continuar, será redirecionado para a página de boas-vindas.",
         "logout_of_wallet_confirm": "Última Carteira"
     },

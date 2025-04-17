@@ -141,9 +141,9 @@
         "is_required": "is required",
         "learn_more": "Learn more",
         "load_more": "Load more",
-        "login": "Login",
+        "login": "Decrypt ZelfProof",
         "logout": "Logout",
-        "manage_domains": "Manage domains",
+        "manage_domains": "Manage ZelfNames",
         "max": "Max",
         "more_info": "More information",
         "my_arns": "My ArNS",
@@ -161,6 +161,7 @@
         "purchase": "Purchase",
         "receive": "Receive",
         "recommended": "Recommended",
+        "refresh": "Refresh",
         "registered": "Registered",
         "renew_domain": "Renew domain",
         "reservation_found": "Reservation found",
@@ -209,7 +210,7 @@
     },
     "domain_purchase": {
         "agree_to_terms_and_conditions": "I agree to the terms and conditions",
-        "character_length_and_year": "{{characterLength}} characters length. Cost per year {{ costPerYear }} USD",
+        "character_length_and_year": "{{characterLength}} characters length. Total cost {{ costPerYear }} USD",
         "domain_price_length": "Domain price length",
         "know_more": "Know more",
         "lifetime": "Lifetime",
@@ -240,7 +241,7 @@
     "manage_domains": {
         "domain_error": "{{ zelfName }}'s time period is over! Another user could claim this domain. Buy now to claim it!",
         "domain_warning": "You still have time to buy",
-        "purchase_new_domain": "Purchase a new domain",
+        "purchase_new_domain": "Add a new ZelfName",
         "last_wallet_logout": "This is the last wallet. If you continue, you will be redirected to the welcome page.",
         "logout_of_wallet_confirm": "Last Wallet"
     },
@@ -327,6 +328,7 @@
         "transaction_not_found": "Transaction not found",
         "try_again": "Try again",
         "weak_password": "Your password is too weak",
+        "insufficient_funds": "Insufficient funds. Ensure you have enough funds in your wallet to cover the transaction fees.",
         "zelfName_is_taken": "This zelf name is already taken"
     },
     "import_wallet": {

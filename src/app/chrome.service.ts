@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { WalletModel } from "./wallet";
 
 @Injectable({
@@ -59,24 +59,24 @@ export class ChromeService {
         return this._isPopout;
     }
 
-    get isPopout$(): BehaviorSubject<boolean> {
-        return this._isPopout$;
+    get isPopout$(): Observable<boolean> {
+        return this._isPopout$.asObservable();
     }
 
     get isSidePanel(): boolean {
         return this._isSidePanel;
     }
 
-    get isSidePanel$(): BehaviorSubject<boolean> {
-        return this._isSidePanel$;
+    get isSidePanel$(): Observable<boolean> {
+        return this._isSidePanel$.asObservable();
     }
 
-    get onWalletChanged$(): BehaviorSubject<WalletModel> {
-        return this._wallet$;
+    get onWalletChanged$(): Observable<WalletModel> {
+        return this._wallet$.asObservable();
     }
 
-    get onWalletsChanged$(): BehaviorSubject<WalletModel[]> {
-        return this._wallets$;
+    get onWalletsChanged$(): Observable<WalletModel[]> {
+        return this._wallets$.asObservable();
     }
 
     async closeTab(): Promise<void> {
@@ -240,6 +240,15 @@ export class ChromeService {
             try {
                 const isObjectOrArray = typeof value === "object" && value !== null;
                 localStorage.setItem(key, isObjectOrArray ? JSON.stringify(value) : value);
+
+                if (key === "wallet") {
+                    this.removeItemSession("tokensTtl");
+                    this._wallet$.next(new WalletModel(value) as WalletModel);
+                }
+
+                if (key === "wallets") {
+                    this._wallets$.next((value as WalletModel[])?.map((wallet: any) => new WalletModel(wallet || {})) || ([] as WalletModel[]));
+                }
 
                 resolve();
             } catch (error) {

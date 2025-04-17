@@ -16,6 +16,7 @@ import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.com
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { WalletModel } from "app/wallet";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
+import { ErrorService } from "app/services/error.service";
 
 @Component({
     imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule, WelcomeErrorComponent],
@@ -42,6 +43,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
+        private _errorService: ErrorService,
         private _formBuilder: FormBuilder,
         private _httpWrapperService: HttpWrapperService,
         private _router: Router,
@@ -93,7 +95,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 console.error({ exception });
 
                 this.errorTitle = this._translocoService.translate("errors.generic_title");
-                this.errorMessage = this._translocoService.translate("errors.generic_identity");
+                this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
             });
     }
 
@@ -117,7 +119,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 console.error({ exception });
 
                 this.errorTitle = this._translocoService.translate("errors.generic_title");
-                this.errorMessage = this._translocoService.translate("errors.generic_identity");
+                this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
             });
     }
 
@@ -140,7 +142,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 console.error({ exception });
 
                 this.errorTitle = this._translocoService.translate("errors.generic_title");
-                this.errorMessage = this._translocoService.translate("errors.generic_identity");
+                this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
             });
     }
 

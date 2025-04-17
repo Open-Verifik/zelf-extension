@@ -42,7 +42,8 @@
                             $implicit: {
                                 logo: 'assets/images/currencies/btc.png',
                                 label: t('common.btc_address'),
-                                value: zelfNameObject?.displayBtcAddress
+                                value: zelfNameObject?.displayBtcAddress,
+                                address: zelfNameObject?.publicData?.btcAddress,
                             }
                         }
                     "
@@ -55,7 +56,8 @@
                             $implicit: {
                                 logo: 'assets/images/currencies/eth.png',
                                 label: t('common.eth_address'),
-                                value: zelfNameObject?.displayEthAddress
+                                value: zelfNameObject?.displayEthAddress,
+                                address: zelfNameObject?.publicData?.ethAddress,
                             }
                         }
                     "
@@ -68,7 +70,8 @@
                             $implicit: {
                                 logo: 'assets/images/currencies/sol.png',
                                 label: t('common.sol_address'),
-                                value: zelfNameObject?.displaySolanaAddress
+                                value: zelfNameObject?.displaySolanaAddress,
+                                address: zelfNameObject?.publicData?.solanaAddress,
                             }
                         }
                     "
@@ -150,11 +153,16 @@
 </div>
 
 <ng-template #addressRow let-address>
-    <div class="address-row" *ngIf="address.value">
-        <div class="address-row__inner">
-            <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
-            <div class="address-row__label">{{ address.label }}</div>
-            <div class="address-row__value">{{ address.value }}</div>
+    <ng-container *transloco="let t">
+        <div (click)="copyToClipboard(address.address)" class="address-row tooltip-container" *ngIf="address.value">
+            <div class="address-row__inner">
+                <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
+
+                <div class="address-row__label">{{ address.label }}</div>
+                <div class="address-row__value">{{ address.value }}</div>
+            </div>
+
+            <div class="tooltip">{{ t("common.copy") }}</div>
         </div>
-    </div>
+    </ng-container>
 </ng-template>

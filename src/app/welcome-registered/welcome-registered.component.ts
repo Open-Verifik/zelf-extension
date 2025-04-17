@@ -4,10 +4,13 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
+import { ChromeService } from "app/chrome.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, ZelfNamePipe],
@@ -16,7 +19,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     styleUrls: ["./welcome-registered.component.scss"],
     templateUrl: "./welcome-registered.component.html",
 })
-export class WelcomeRegisteredComponent implements OnInit {
+export class WelcomeRegisteredComponent extends CopyToClipboardBase implements OnInit {
     qrCodeImage: string;
     zelfNameObject?: WalletModel;
 
@@ -24,8 +27,13 @@ export class WelcomeRegisteredComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        public _chromeService: ChromeService,
+        public _translocoService: TranslocoService,
+        public _snackBar: MatSnackBar
     ) {
+        super(_chromeService, _snackBar, _translocoService);
+
         this.qrCodeImage = "./assets/images/qr-preload.png";
     }
 
@@ -46,6 +54,10 @@ export class WelcomeRegisteredComponent implements OnInit {
         await this._zelfNameService.setFlow("unlock");
 
         this._router.navigate(["../../security/password"], { relativeTo: this._activatedRoute });
+    }
+
+    async copyToClipboard(address: string): Promise<void> {
+        await this._copyToClipboard(address);
     }
 
     purchaseNow(): void {

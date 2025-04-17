@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.NFTs = [];
         this.tokens = [];
 
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (wallet) => {
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
             if (this.balancesLoading) {
                 this.unsubscriberForBalances$.next();
                 this.unsubscriberForBalances$.complete();
@@ -102,22 +102,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         try {
             await this._fetchTokens();
         } catch (error) {
-            this.balancesLoading = false;
-
             console.error("Error getting tokens:", error);
         }
-
-        this._changeDetectionRef.detectChanges();
     }
 
     private async _getTokensFromSession(): Promise<void> {
-        const sessionTokens = await this._chromeService.getItemSession("tokens");
-
-        if (!sessionTokens || !sessionTokens.length) return;
-
         const sessionTokenTtl = await this._chromeService.getItemSession("tokensTtl");
 
         if (!sessionTokenTtl || sessionTokenTtl <= Date.now()) return;
+
+        const sessionTokens = await this._chromeService.getItemSession("tokens");
+
+        if (!sessionTokens || !sessionTokens.length) return;
 
         this.selectedAsset = new Asset({
             asset: "Ethereum",
@@ -188,12 +184,24 @@ export class HomeComponent implements OnInit, OnDestroy {
         })
             .pipe(takeUntil(this.unsubscriberForBalances$))
             .subscribe({
-                complete: async () => {
+                next: async () => {
                     this.tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
 
                     await this._setTokensToSession();
 
                     this.balancesLoading = false;
+
+                    this._changeDetectionRef.detectChanges();
+                },
+                error: () => {
+                    this.balancesLoading = false;
+
+                    this._changeDetectionRef.detectChanges();
+                },
+                complete: () => {
+                    this.balancesLoading = false;
+
+                    this._changeDetectionRef.detectChanges();
                 },
             });
     }
@@ -313,7 +321,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _setWallet(): Promise<any> {
-        const wallet = await this._walletService.getFirstWalletFromStorage();
+        const wallet = await this._walletService.getCurrentWallet();
 
         this.shareables.wallet = wallet;
 

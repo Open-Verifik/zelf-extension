@@ -7,8 +7,8 @@
                 <div class="home-balance">
                     <div class="ripple" *ngIf="balancesLoading"></div>
 
-                    <div class="home-balance__info" *ngIf="!balancesLoading">
-                        <h3 class="home-balance__amount">{{ selectedAsset.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</h3>
+                    <div class="home-balance__info" *ngIf="!balancesLoading && selectedAsset">
+                        <h3 class="home-balance__amount">{{ selectedAsset.fiatBalance || 0 | currency : "USD" : "symbol" : "1.2-5" }}</h3>
 
                         <h4 class="stats">
                             <span

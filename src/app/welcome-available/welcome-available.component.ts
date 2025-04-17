@@ -27,6 +27,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     loading: boolean = false;
     loadingReferral: boolean = false;
     invalidReferral: boolean = false;
+    referralExpanded: boolean = false;
     zelfName: string = "";
     zelfNameObject: any;
 
@@ -68,6 +69,10 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         clearTimeout(this._invalidTimeout);
 
         this.invalidReferral = false;
+    }
+
+    expandReferral(): void {
+        this.referralExpanded = !this.referralExpanded;
     }
 
     async goToImport(): Promise<void> {

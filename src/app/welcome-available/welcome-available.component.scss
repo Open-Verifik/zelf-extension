@@ -16,6 +16,7 @@
 
     &__header {
         gap: 8px;
+        flex-grow: 1;
     }
 
     &__header-button {
@@ -26,15 +27,34 @@
         width: 100%;
     }
 
+    &__wrapper {
+        margin-top: 8px;
+        box-sizing: border-box;
+        border: 1px solid $frenchGray;
+        border-radius: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 16px;
+        width: 100%;
+        flex-grow: 1;
+    }
+
     &__subtitle {
-        strong {
-            color: $black;
-        }
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $gray;
+        margin-top: 8px;
     }
 
     &__content {
         margin-top: 16px;
-        flex-grow: 1;
     }
 
     &__top {
@@ -44,6 +64,10 @@
         align-items: center;
         flex-direction: column;
         gap: 16px;
+        padding: 8px 0;
+        box-sizing: border-box;
+        border-radius: 16px;
+        background: $platinum;
     }
 
     &__buttons {
@@ -53,6 +77,63 @@
         flex-direction: column;
         gap: 8px;
         width: 100%;
-        flex: 1 1 auto;
+    }
+}
+
+.expandable {
+    width: 100%;
+    box-sizing: border-box;
+
+    &__label {
+        min-height: 40px;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 24px 8px;
+
+        svg {
+            transition: transform 0.2s $smoothBezier;
+            fill: $black;
+        }
+
+        &--active {
+            color: $gray;
+
+            svg {
+                transform: rotate(180deg);
+                fill: $gray;
+            }
+        }
+    }
+
+    &__text {
+        margin: 0;
+    }
+
+    &__content {
+        box-sizing: border-box;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out;
+
+        &--active {
+            max-height: 128px;
+        }
+    }
+
+    &__inner-content {
+        box-sizing: border-box;
+        padding: 16px;
     }
 }

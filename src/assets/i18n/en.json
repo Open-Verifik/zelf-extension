@@ -93,7 +93,7 @@
         "upload_zelf_proof": "or upload your ZelfProof QR Code to continue:",
         "welcome_back": "Welcome back",
         "welcome": "Welcome back",
-        "you_are_registering_the_domain": "You are registering the domain:",
+        "you_will_register_this_domain": "You will register this domain",
         "zelf_referral_code": "Zelf Referral Code (Optional)"
     },
     "security": {

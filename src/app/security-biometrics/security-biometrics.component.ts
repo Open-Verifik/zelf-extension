@@ -30,17 +30,18 @@ import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-s
 export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    errorTitle: string = "";
     errorMessage: string = "";
+    errorTitle: string = "";
     flow: ZelfFlow = "";
     form!: UntypedFormGroup;
+    isNew: boolean = false;
     loading: boolean = true;
+    newZelfName: string = "";
     notifyFailed$: Subject<void> = new Subject<any>();
     returnState: string = "";
     showBiometrics: boolean = true;
-    zelfProof: string = "";
     zelfNameObject: any;
-    newZelfName: string = "";
+    zelfProof: string = "";
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -73,6 +74,9 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.showBiometrics = (await this._chromeService.getItem("hideBiometricsMessage")) || false;
         this.zelfNameObject = await this._zelfNameService.getZelfNameObject();
         this.zelfProof = await this._zelfNameService.getZelfProof();
+        this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+
+        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.zelfNameObject?.available);
 
         this.loading = false;
     }

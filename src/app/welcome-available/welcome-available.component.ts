@@ -120,7 +120,11 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
         this.loadingReferral = true;
 
-        const zelfName = `${referralNameCtrl.value}.zelf`;
+        const zelfName = referralNameCtrl.value
+            ? referralNameCtrl.value.endsWith(".zelf")
+                ? referralNameCtrl.value
+                : `${referralNameCtrl.value}.zelf`
+            : "";
 
         let captchaToken = "";
 

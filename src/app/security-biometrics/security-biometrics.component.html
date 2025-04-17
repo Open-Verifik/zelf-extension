@@ -27,8 +27,11 @@
 
                         <img class="zelf-card__image" src="assets/images/lock.png" alt="welcome" />
 
-                        <h2 class="zelf-card__title">{{ t("security.biometric_title") }}</h2>
-                        <p class="zelf-card__subtitle">{{ t("security.biometric_subtitle") }}</p>
+                        <h2 class="zelf-card__title">{{ t(isNew ? "security.biometric_title" : "security.biometric_decryption_title") }}</h2>
+                        <p
+                            class="zelf-card__subtitle"
+                            [innerHTML]="t(isNew ? 'security.biometric_subtitle' : 'security.biometric_decryption_subtitle')"
+                        ></p>
                     </div>
 
                     <form [formGroup]="form" class="zelf-card__actions security-biometrics__actions">

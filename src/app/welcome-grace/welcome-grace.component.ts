@@ -1,8 +1,10 @@
 import { DatePipe, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
@@ -16,7 +18,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     styleUrls: ["./welcome-grace.component.scss"],
     templateUrl: "./welcome-grace.component.html",
 })
-export class WelcomeGraceComponent implements OnInit {
+export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit {
     loading: boolean = false;
     captchaToken: string | undefined;
     zelfNameObject!: WalletModel;
@@ -24,11 +26,15 @@ export class WelcomeGraceComponent implements OnInit {
     zelfName: string | undefined;
 
     constructor(
-        private _chromeService: ChromeService,
         private _captchaService: CaptchaService,
         private _router: Router,
-        private _zelfNameService: ZelfNameService
-    ) {}
+        private _zelfNameService: ZelfNameService,
+        protected _chromeService: ChromeService,
+        protected _translocoService: TranslocoService,
+        protected _snackBar: MatSnackBar
+    ) {
+        super(_chromeService, _snackBar, _translocoService);
+    }
 
     async ngOnInit(): Promise<void> {
         this.zelfName = await this._zelfNameService.getZelfName();
@@ -79,6 +85,10 @@ export class WelcomeGraceComponent implements OnInit {
 
             this.loading = false;
         }
+    }
+
+    async copyToClipboard(address: string): Promise<void> {
+        await this._copyToClipboard(address);
     }
 
     decryptZelfName(): void {

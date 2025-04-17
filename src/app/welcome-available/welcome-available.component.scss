@@ -30,7 +30,7 @@
     &__wrapper {
         margin-top: 8px;
         box-sizing: border-box;
-        border: 1px solid $frenchGray;
+        border: 1px solid $antiFlashWhite;
         border-radius: 16px;
         display: flex;
         justify-content: center;
@@ -67,7 +67,7 @@
         padding: 8px 0;
         box-sizing: border-box;
         border-radius: 16px;
-        background: $platinum;
+        background: $antiFlashWhite;
     }
 
     &__buttons {
@@ -95,24 +95,26 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: $gray;
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 8px 24px 8px;
+        transition: color 0.3s $smoothBezier;
 
         svg {
-            transition: transform 0.2s $smoothBezier;
-            fill: $black;
+            transform: rotate(180deg);
+            transition: transform 0.3s $smoothBezier;
+            fill: $gray;
         }
 
         &--active {
-            color: $gray;
+            color: $black;
 
             svg {
-                transform: rotate(180deg);
-                fill: $gray;
+                transform: rotate(0deg);
+                fill: $black;
             }
         }
     }

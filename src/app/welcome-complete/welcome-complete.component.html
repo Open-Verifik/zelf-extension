@@ -5,8 +5,7 @@
 <ng-container *ngIf="!loading">
     <div class="zelf-card" *transloco="let t">
         <div class="zelf-card__header welcome-complete__header">
-            <h3 class="zelf-card__pretitle" *ngIf="flow === 'create'">{{ t("welcome.welcome") }}</h3>
-            <h3 class="zelf-card__pretitle" *ngIf="flow !== 'create'">{{ t("welcome.welcome_back") }}</h3>
+            <h3 class="zelf-card__pretitle">{{ t("welcome.your_zelf_name") }}</h3>
 
             <h2 class="zelf-card__title">{{ wallet?.publicData?.zelfName | zelfName }}</h2>
 
@@ -15,7 +14,7 @@
 
         <div class="zelf-card__content">
             <div class="zelf-action-row">
-                <p class="zelf-action-row__text">{{ t("create_wallet.view_wallet.download_qr_code") }}</p>
+                <p class="zelf-action-row__text">{{ t("common.download_zelfproof") }}</p>
 
                 <button (click)="downloadQRCode()" mat-icon-button class="zelf-icon-button zelf-icon-button--border-soft zelf-icon-button--40">
                     <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +28,6 @@
             <mnemonic (redirect)="onMnemonicUnlock()"></mnemonic>
         </div>
 
-        <!--  [routerLink]="isExtension ? ['../../home'] : ['../extension-installation']" -->
         <div class="zelf-card__actions welcome-complete__actions">
             <button (click)="complete()" [routerLink]="['../../home']" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
                 {{ t("common.continue") }}

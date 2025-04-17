@@ -10,7 +10,7 @@
 
             <div class="zelf-action-row" *ngIf="!blurMnemonic">
                 <p class="zelf-action-row__text">
-                    <span *ngIf="!copied">{{ "common.copy" | transloco }}</span>
+                    <span *ngIf="!copied">{{ "common.copy_recovery_phrase" | transloco }}</span>
                     <span *ngIf="copied">{{ "common.copy_to_clipboard" | transloco }}</span>
                 </p>
 
@@ -80,6 +80,10 @@
                 >
                     <span *ngIf="canUnlockWithPasswordOnly">{{ t("common.unlock") }}</span>
                     <span *ngIf="!canUnlockWithPasswordOnly">{{ t("common.verify") }}</span>
+                </button>
+
+                <button (click)="hidePasswordForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                    <span>{{ t("common.cancel") }}</span>
                 </button>
             </form>
         </ng-container>

@@ -23,7 +23,7 @@
         <div class="welcome-available__top">
             <div class="expandable">
                 <div (click)="expandReferral()" class="expandable__label" [ngClass]="{ 'expandable__label--active': referralExpanded }">
-                    <p class="expandable__text">{{ t("welcome.zelf_referral_code") }}</p>
+                    <p class="expandable__text">{{ t("welcome.referral_code") }}</p>
 
                     <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -52,9 +52,7 @@
                                 placeholder=" "
                             />
 
-                            <label for="referralName" class="zelf-input__floating-label">ZelfName</label>
-
-                            <p class="zelf-input__postfix">.zelf</p>
+                            <label for="referralName" class="zelf-input__floating-label">{{ t("welcome.code_name") }}</label>
 
                             <button
                                 (click)="searchZelfName($event)"
@@ -102,7 +100,7 @@
                     <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                 </svg>
 
-                {{ t("common.agree_to_terms_and_conditions") }}
+                <span [innerHTML]="t('common.agree_to_terms_and_conditions')"></span>
             </label>
 
             <button

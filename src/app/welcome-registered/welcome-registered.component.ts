@@ -45,18 +45,14 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
         this._changeDetectorRef.markForCheck();
     }
 
-    doesZelfProofMatch(): boolean {
-        return !this.zelfProof || this.zelfProof === this.zelfNameObject?.zelfProof;
+    async copyToClipboard(address: string): Promise<void> {
+        await this._copyToClipboard(address);
     }
 
     async login(): Promise<void> {
         await this._zelfNameService.setFlow("unlock");
 
         this._router.navigate(["../../security/password"], { relativeTo: this._activatedRoute });
-    }
-
-    async copyToClipboard(address: string): Promise<void> {
-        await this._copyToClipboard(address);
     }
 
     purchaseNow(): void {

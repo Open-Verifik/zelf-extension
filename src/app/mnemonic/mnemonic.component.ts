@@ -127,6 +127,13 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
         this.words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
     }
 
+    hidePasswordForm(): void {
+        this.form.get("password")?.patchValue("");
+        this.form.reset();
+        this.showPasswordForm = false;
+        this.passwordError = false;
+    }
+
     submitPassword(): void {
         if (this.form.invalid) return;
 

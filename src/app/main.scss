@@ -1237,7 +1237,7 @@ h3 {
 .zelf-card {
     box-sizing: border-box;
     align-items: center;
-    background-color: $seaSalt;
+    background-color: $white;
     border-radius: 40px;
     border: none;
     display: inline-flex;
@@ -1291,6 +1291,7 @@ h3 {
         margin: 0;
         text-align: center;
         text-transform: uppercase;
+        margin-top: 8px;
     }
 
     &__subtitle {
@@ -1652,6 +1653,25 @@ h3 {
         left: 28px;
         top: 50%;
         transform: translateY(100%) scale(0) translateZ(0);
+    }
+
+    a {
+        color: $black;
+        text-decoration: underline;
+
+        &:hover,
+        &:visited,
+        &:active {
+            color: $black;
+            text-decoration: none;
+        }
+
+        &:focus,
+        &:focus-visible,
+        &:focus-within {
+            color: $primaryColor;
+            text-decoration: underline;
+        }
     }
 }
 

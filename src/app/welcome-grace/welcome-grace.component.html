@@ -35,9 +35,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    logo: 'assets/images/currencies/btc.png',
+                                    address: zelfNameObject?.btcAddress,
                                     label: 'Bitcoin',
-                                    value: zelfNameObject?.displayBtcAddress
+                                    logo: 'assets/images/currencies/btc.png',
+                                    value: zelfNameObject?.displayBtcAddress,
                                 }
                             }
                         "
@@ -48,9 +49,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    logo: 'assets/images/currencies/eth.png',
+                                    address: zelfNameObject?.ethAddress,
                                     label: 'Ethereum',
-                                    value: zelfNameObject?.displayEthAddress
+                                    logo: 'assets/images/currencies/eth.png',
+                                    value: zelfNameObject?.displayEthAddress,
                                 }
                             }
                         "
@@ -61,9 +63,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    logo: 'assets/images/currencies/sol.png',
+                                    address: zelfNameObject?.solanaAddress,
                                     label: 'Solana',
-                                    value: zelfNameObject?.displaySolanaAddress
+                                    logo: 'assets/images/currencies/sol.png',
+                                    value: zelfNameObject?.displaySolanaAddress,
                                 }
                             }
                         "
@@ -144,11 +147,16 @@
 </div>
 
 <ng-template #addressRow let-address>
-    <div class="address-row" *ngIf="address.value">
-        <div class="address-row__inner">
-            <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
-            <div class="address-row__label">{{ address.label }}</div>
-            <div class="address-row__value">{{ address.value }}</div>
+    <ng-container *transloco="let t">
+        <div (click)="copyToClipboard(address.address)" class="address-row tooltip-container" *ngIf="address.value">
+            <div class="address-row__inner">
+                <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
+
+                <div class="address-row__label">{{ address.label }}</div>
+                <div class="address-row__value">{{ address.value }}</div>
+            </div>
+
+            <div class="tooltip">{{ t("common.copy") }}</div>
         </div>
-    </div>
+    </ng-container>
 </ng-template>

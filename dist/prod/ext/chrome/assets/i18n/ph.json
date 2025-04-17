@@ -140,7 +140,7 @@
         "is_required": "ay kinakailangan",
         "learn_more": "Matuto pa",
         "load_more": "Mag-load pa",
-        "login": "Mag-login",
+        "login": "I-decrypt ang ZelfProof",
         "logout": "Mag-logout",
         "manage_domains": "Pamahalaan ang mga domain",
         "max": "Pinakamataas",
@@ -239,7 +239,7 @@
     "manage_domains": {
         "domain_error": "Ang panahon ng {{ zelfName }} ay tapos na! Maaaring i-claim ng ibang user ang domain na ito. Bumili ngayon upang i-claim ito!",
         "domain_warning": "May oras ka pa upang bumili",
-        "purchase_new_domain": "Bumili ng bagong domain",
+        "purchase_new_domain": "Magdagdag ng bagong domain",
         "last_wallet_logout": "Ito na ang huling wallet. Kung magpapatuloy ka, ikaw ay ire-redirect sa welcome page.",
         "logout_of_wallet_confirm": "Huling Wallet"
     },

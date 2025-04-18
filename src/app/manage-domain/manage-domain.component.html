@@ -40,23 +40,25 @@
                 </div>
 
                 <h4 class="qr-code__name">{{ wallet?.publicData?.zelfName || "****.zelf" }}</h4>
-
-                <p class="qr-code__status">
-                    {{ t("manage_domain.registered_since") }} {{ wallet?.publicData?.registeredAt | date : "dd MMM, yyyy" }}
-                </p>
             </div>
 
             <div class="manage-domain__details">
+                <div class="manage-domain__detail mb-2" *ngIf="wallet?.publicData?.registeredAt">
+                    <p class="manage-domain__detail-title">{{ t("manage_domain.registered_since") }}</p>
+
+                    <p class="manage-domain__detail-value">{{ wallet?.publicData?.registeredAt | date : "dd MMM, yyyy, hh:mm aa" }}</p>
+                </div>
+
                 <div class="manage-domain__detail" *ngIf="wallet?.publicData?.type === 'hold'">
                     <p class="manage-domain__detail-title">{{ t("manage_domain.hold_until") }}</p>
 
                     <p class="manage-domain__detail-value">{{ wallet?.publicData?.expiresAt | date : "dd MMM, yyyy" }}</p>
                 </div>
 
-                <div class="manage-domain__detail" *ngIf="wallet?.publicData?.type === 'mainnet'">
+                <div class="manage-domain__detail" *ngIf="wallet && wallet.publicData && wallet.publicData?.type === 'mainnet'">
                     <p class="manage-domain__detail-title">{{ t("manage_domain.registered_until") }}</p>
 
-                    <p class="manage-domain__detail-value">{{ wallet?.publicData?.expiresAt | date : "dd MMM, yyyy" }}</p>
+                    <p class="manage-domain__detail-value">{{ wallet.publicData.expiresAt | date : "dd MMM, yyyy, hh:mm aa" }}</p>
                 </div>
             </div>
         </ng-container>
@@ -65,10 +67,6 @@
     <div class="zelf-card__actions manage-domain__actions">
         <button (click)="extendRegistration()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
             {{ t("common.extend_registration") }}
-        </button>
-
-        <button mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide" [routerLink]="['/welcome']">
-            {{ t("manage_domain.buy_another_name") }}
         </button>
     </div>
 </div>

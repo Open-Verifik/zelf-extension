@@ -5,7 +5,6 @@ import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/route
 import { TranslocoModule } from "@ngneat/transloco";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -23,12 +22,7 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     wallet?: Partial<WalletModel> = {};
     wallets: WalletModel[] = [];
 
-    constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _router: Router,
-        private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
-    ) {
+    constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _walletService: WalletService) {
         this._selectedZelfName = this._activatedRoute.snapshot.queryParams.zelfName;
 
         this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {

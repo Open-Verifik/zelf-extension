@@ -1,6 +1,7 @@
 {
     "hello": "Hello",
     "logout_title": "DELETE ALL ZELFPROOFS",
+    "logout_message": "By confirming this action, you will remove all your ZelfProofs from the extension. You will need to decrypt each ZelfProof again to regain access to them. Are you sure you want to continue?",
     "onboarding": {
         "accept_terms_1": "I accept the",
         "accept_terms_2": "terms and conditions",

@@ -121,7 +121,7 @@
     justify-content: center;
     max-height: initial;
     max-width: 516px;
-    padding: 36px;
+    padding: 16px;
     width: 100%;
 
     &__image {
@@ -141,7 +141,7 @@
         font-weight: 500;
         color: white;
         background-color: $black;
-        margin: 16px 0 0;
+        margin: 4px 0 0;
 
         &--active {
             background-color: #d7f2e2;

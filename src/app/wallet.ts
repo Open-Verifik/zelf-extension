@@ -582,6 +582,7 @@ export class WalletPublicDataModel {
 
     constructor(data: any) {
         this._id = data._id || "offline";
+
         this._isExpired = false;
         this._isExpiringSoon = false;
         this._isExpiringWithinMonth = false;

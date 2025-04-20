@@ -486,7 +486,7 @@ export class WalletModel implements Wallet {
         this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
         this.image = data.image || data.url || data.zelfProofQRCode;
         this.metadata = data.metadata;
-        this.name = data.name || data.zelfName || secondaryStorage.zelfName;
+        this.name = `${data.name || data.zelfName || secondaryStorage.zelfName}`.toLowerCase();
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
         this.zkProof = data.zkProof;
 

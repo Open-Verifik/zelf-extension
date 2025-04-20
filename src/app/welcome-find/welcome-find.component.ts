@@ -15,6 +15,7 @@ import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
+import { eth } from "web3";
 
 @Component({
     imports: [
@@ -64,10 +65,14 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     private async _captchaGeneration(query: string, type = "preview"): Promise<any> {
-        if (this._chromeService.isExtension) return;
+        return null;
+
+        // if (this._chromeService.isExtension) return;
+
+        const action = query.replace(".", "_");
 
         try {
-            this.captchaToken = await this._captchaService.executeRecaptcha(type === "preview" ? "preview" : query.replace(".", "_"));
+            this.captchaToken = await this._captchaService.executeRecaptcha(action);
         } catch (error) {
             console.error("reCAPTCHA failed:", error);
         }
@@ -156,12 +161,15 @@ export class WelcomeFindComponent implements OnDestroy {
 
         this.ethAddress = response.data.publicData.ethAddress;
 
-        this.form.patchValue({ publicAddress: response.data.publicData.ethAddress });
+        this.form.patchValue({ publicAddress: this.ethAddress });
+
+        response.data.publicData.zelfName = `${response.data.publicData.zelfName}`.toLowerCase();
 
         this._zelfNameService.setZelfName(response.data.publicData.zelfName);
+
         this._zelfNameService.setZelfProof(this.zelfProof);
 
-        await this._queryForZelfObject(response.data.publicData.ethAddress);
+        await this._queryForZelfObject(this.ethAddress);
 
         const currentZelfNameObject = await this._queryForZelfObjectByZelfName(response.data.publicData.zelfName);
 
@@ -175,7 +183,6 @@ export class WelcomeFindComponent implements OnDestroy {
 
         try {
             await this._captchaGeneration(query, "zelfName");
-
             return await this._queryZNS("zelfName", query);
         } catch (error) {
             this._setNotFound();
@@ -210,9 +217,10 @@ export class WelcomeFindComponent implements OnDestroy {
 
     async _queryZNS(key: string, value: string): Promise<any> {
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, value, this.captchaToken);
+            const response = await this._zelfNameService.searchZelfNameV2(key, value);
 
             if (!response.data) return null;
+
             if (response.data?.available) return response.data;
 
             const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
@@ -220,6 +228,7 @@ export class WelcomeFindComponent implements OnDestroy {
             // Do not store this zelfNameObject - it is only used to check for ownership
             if (key === "zelfName") {
                 await this._zelfNameService.setZelfName(zelfNameObject.name, { price: 0, reward: 0 });
+
                 await this._zelfNameService.setZelfNameObject(zelfNameObject);
             }
 

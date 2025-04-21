@@ -516,6 +516,13 @@
         "continue_withoutpaying": "Continuer sans payer",
         "pay_now": "Procéder au paiement"
     },
+    "swap": {
+        "fees": "Frais",
+        "pricing": "Tarification",
+        "slippage": "Glissement",
+        "you_receive": "Vous recevez",
+        "you_pay": "Vous payez"
+    },
     "restricted": {
         "description": "Cette fonctionnalité n'est pas disponible sur les appareils mobiles. Veuillez utiliser un navigateur de bureau pour y accéder ou télécharger l'application Zelf Name Service.",
         "download_android_app": "Télécharger l'application pour Android",

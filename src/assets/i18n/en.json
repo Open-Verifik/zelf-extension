@@ -439,10 +439,18 @@
         "show_private_key": "Show private key",
         "warning_notice": "Remember to keep your QR code safe; make multiple copies if required. Also, only unlock the secret key when exporting your wallet"
     },
+    "swap": {
+        "fees": "Fees",
+        "pricing": "Pricing",
+        "slippage": "Slippage",
+        "you_receive": "You receive",
+        "you_pay": "You pay"
+    },
     "home": {
         "activity": "Activity",
         "assets": "Tokens",
         "NFTs": "Collectibles",
+        "swap": "Swap",
         "receive_transaction_button": "Receive",
         "scan_button": "Scan",
         "send_transaction_button": "Send",

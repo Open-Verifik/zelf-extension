@@ -516,6 +516,13 @@
         "continue_withoutpaying": "继续无需支付",
         "pay_now": "继续支付"
     },
+    "swap": {
+        "fees": "费用",
+        "pricing": "定价",
+        "slippage": "滑点",
+        "you_receive": "您收到",
+        "you_pay": "您支付"
+    },
     "restricted": {
         "description": "此功能在移动设备上不可用。请使用桌面浏览器访问或下载Zelf名称服务应用。",
         "download_android_app": "下载安卓应用",

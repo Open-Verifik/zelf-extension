@@ -516,6 +516,13 @@
         "continue_withoutpaying": "결제 없이 계속",
         "pay_now": "결제 진행"
     },
+    "swap": {
+        "fees": "수수료",
+        "pricing": "가격 책정",
+        "slippage": "슬리피지",
+        "you_receive": "받는 금액",
+        "you_pay": "지불 금액"
+    },
     "restricted": {
         "description": "이 기능은 모바일 장치에서 사용할 수 없습니다. 데스크탑 브라우저를 사용하거나 Zelf Name Service 앱을 다운로드하십시오.",
         "download_android_app": "안드로이드 앱 다운로드",

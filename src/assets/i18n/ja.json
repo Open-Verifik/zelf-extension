@@ -516,6 +516,13 @@
         "continue_withoutpaying": "支払いなしで続行",
         "pay_now": "支払いを進める"
     },
+    "swap": {
+        "fees": "手数料",
+        "pricing": "価格設定",
+        "slippage": "スリッページ",
+        "you_receive": "受取額",
+        "you_pay": "支払額"
+    },
     "restricted": {
         "description": "この機能はモバイルデバイスでは利用できません。デスクトップブラウザを使用してアクセスするか、Zelf Name Serviceアプリをダウンロードしてください。",
         "download_android_app": "Androidアプリをダウンロード",

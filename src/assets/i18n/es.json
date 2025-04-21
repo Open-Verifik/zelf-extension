@@ -516,6 +516,13 @@
         "continue_withoutpaying": "Continuar sin pagar",
         "pay_now": "Proceder al pago"
     },
+    "swap": {
+        "fees": "Tarifas",
+        "pricing": "Precios",
+        "slippage": "Deslizamiento",
+        "you_receive": "Recibes",
+        "you_pay": "Pagas"
+    },
     "restricted": {
         "description": "Esta función no está disponible en dispositivos móviles. Por favor, usa un navegador de escritorio para acceder o descarga la App del Servicio de Nombres Zelf.",
         "download_android_app": "Descargar App para Android",

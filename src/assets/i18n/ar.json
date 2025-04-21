@@ -516,6 +516,13 @@
         "continue_withoutpaying": "استمر بدون دفع",
         "pay_now": "تابع للدفع"
     },
+    "swap": {
+        "fees": "الرسوم",
+        "pricing": "التسعير",
+        "slippage": "الانزلاق",
+        "you_receive": "تستلم",
+        "you_pay": "تدفع"
+    },
     "restricted": {
         "description": "هذه الميزة غير متاحة على الأجهزة المحمولة. يرجى استخدام متصفح سطح المكتب للوصول إليها أو تنزيل تطبيق خدمة اسم زيلف.",
         "download_android_app": "تنزيل تطبيق Android",

@@ -201,6 +201,13 @@
             }
         }
     }
+
+    &--pill {
+        border-radius: 9999px;
+        min-height: 0;
+        min-width: 0;
+        padding: 4px 12px;
+    }
 }
 
 .zelf-icon-button {
@@ -425,5 +432,14 @@
         svg {
             fill: variables.$correct !important;
         }
+    }
+
+    &--pill {
+        border-radius: 9999px;
+        height: auto;
+        min-height: 0;
+        min-width: 0;
+        padding: 4px 12px;
+        width: auto;
     }
 }

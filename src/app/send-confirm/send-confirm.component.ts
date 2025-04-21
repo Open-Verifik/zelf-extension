@@ -152,7 +152,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     get networkCurrency(): string {
-        return this._networkService.getNetworkCurrency(this.transactionData.network);
+        return this._networkService.getNetworkSymbol(this.transactionData.network);
     }
 
     get total(): number {

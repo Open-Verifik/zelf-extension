@@ -516,6 +516,13 @@
         "continue_withoutpaying": "Continuar sem pagamento",
         "pay_now": "Proceder ao pagamento"
     },
+    "swap": {
+        "fees": "Taxas",
+        "pricing": "Preços",
+        "slippage": "Deslizamento",
+        "you_receive": "Você recebe",
+        "you_pay": "Você paga"
+    },
     "restricted": {
         "description": "Este recurso não está disponível em dispositivos móveis. Por favor, use um navegador de desktop para acessá-lo ou baixe o App Zelf Name Service.",
         "download_android_app": "Baixar App Android",

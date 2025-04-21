@@ -9,7 +9,7 @@ export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana";
 export class NetworkService {
     constructor(private _chromeService: ChromeService) {}
 
-    getNetworkCurrency(network: string): string {
+    getNetworkSymbol(network: string): string {
         switch (network) {
             case "ethereum":
                 return "ETH";

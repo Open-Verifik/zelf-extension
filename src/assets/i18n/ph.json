@@ -516,6 +516,13 @@
         "continue_withoutpaying": "Magpatuloy nang walang bayad",
         "pay_now": "Magpatuloy sa pagbabayad"
     },
+    "swap": {
+        "fees": "Mga Bayarin",
+        "pricing": "Presyo",
+        "slippage": "Pagkakaiba",
+        "you_receive": "Matatanggap mo",
+        "you_pay": "Babayaran mo"
+    },
     "restricted": {
         "description": "Ang tampok na ito ay hindi magagamit sa mga mobile device. Mangyaring gumamit ng desktop browser upang ma-access ito o i-download ang Zelf Name Service App.",
         "download_android_app": "I-download ang Android App",

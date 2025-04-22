@@ -368,3 +368,50 @@
         min-width: 260px;
     }
 }
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+
+    &:hover .tooltip {
+        visibility: visible;
+    }
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    border: 1px solid $antiFlashWhite;
+    border-radius: 16px;
+    transform: translateX(-50%);
+    background-color: $white;
+    box-shadow: 0px 8px 24px 0px #0000000a;
+
+    &__content {
+        width: 254px;
+        gap: 8px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        svg {
+            min-width: 24px;
+            fill: $black;
+        }
+    }
+
+    &__content-text {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: $black;
+    }
+}

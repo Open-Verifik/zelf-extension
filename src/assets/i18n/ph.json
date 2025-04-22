@@ -518,10 +518,17 @@
     },
     "swap": {
         "fees": "Mga Bayarin",
-        "pricing": "Presyo",
-        "slippage": "Pagkakaiba",
+        "pricing": "Pagpepresyo",
+        "slippage": "Slippage",
+        "slipping_adjustments": "Mga Pagsasaayos ng Slippage",
+        "slipping": "Toleransya sa Slippage",
+        "slipping_text": "Ang maximum na pagbabago ng presyo na handa kang tanggapin. Mababalewala ang iyong transaksyon kung magbabago ang presyo ng hindi pabor ng higit sa porsyentong ito.",
+        "priority_commission": "Priority Commission",
+        "priority_commission_text": "Ang mas mataas na priority commission ay maaaring magresulta sa mas mabilis na pagproseso ng transaksyon sa panahon ng pagkasiksik ng network.",
         "you_receive": "Matatanggap mo",
-        "you_pay": "Babayaran mo"
+        "you_pay": "Babayaran mo",
+        "automatic": "Awtomatiko",
+        "manual": "Manual"
     },
     "restricted": {
         "description": "Ang tampok na ito ay hindi magagamit sa mga mobile device. Mangyaring gumamit ng desktop browser upang ma-access ito o i-download ang Zelf Name Service App.",

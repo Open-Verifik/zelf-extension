@@ -520,8 +520,15 @@
         "fees": "Frais",
         "pricing": "Tarification",
         "slippage": "Glissement",
+        "slipping_adjustments": "Ajustements du Glissement",
+        "slipping": "Tolérance de Glissement",
+        "slipping_text": "Le mouvement maximum de prix que vous êtes prêt à accepter. Votre transaction sera annulée si le prix change défavorablement de plus que ce pourcentage.",
+        "priority_commission": "Commission Prioritaire",
+        "priority_commission_text": "Des commissions de priorité plus élevée peuvent entraîner un traitement plus rapide des transactions pendant la congestion du réseau.",
         "you_receive": "Vous recevez",
-        "you_pay": "Vous payez"
+        "you_pay": "Vous payez",
+        "automatic": "Automatique",
+        "manual": "Manuel"
     },
     "restricted": {
         "description": "Cette fonctionnalité n'est pas disponible sur les appareils mobiles. Veuillez utiliser un navigateur de bureau pour y accéder ou télécharger l'application Zelf Name Service.",

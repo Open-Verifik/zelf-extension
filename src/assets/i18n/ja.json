@@ -520,8 +520,15 @@
         "fees": "手数料",
         "pricing": "価格設定",
         "slippage": "スリッページ",
+        "slipping_adjustments": "スリッページ調整",
+        "slipping": "スリッページ許容度",
+        "slipping_text": "許容する最大価格変動。価格がこの割合以上に不利に変動した場合、取引は取り消されます。",
+        "priority_commission": "優先手数料",
+        "priority_commission_text": "優先度の高い手数料を設定すると、ネットワーク混雑時でも取引処理が速くなる可能性があります。",
         "you_receive": "受取額",
-        "you_pay": "支払額"
+        "you_pay": "支払額",
+        "automatic": "自動",
+        "manual": "手動"
     },
     "restricted": {
         "description": "この機能はモバイルデバイスでは利用できません。デスクトップブラウザを使用してアクセスするか、Zelf Name Serviceアプリをダウンロードしてください。",

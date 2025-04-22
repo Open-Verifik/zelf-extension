@@ -183,7 +183,7 @@
                             mat-flat-button
                             [matMenuTriggerFor]="bridgeMenu"
                         >
-                            <span>{{ getBridgeLabel() }}</span>
+                            <span [innerHTML]="t('swap.powered_by', { bridge: getBridgeLabel() })"></span>
                             <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
                         </button>
 
@@ -217,7 +217,16 @@
                         <div class="swap__detail-field swap__detail-field--gray">
                             <p class="swap__details-label">{{ t("swap.pricing") }}</p>
 
-                            <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                            <div class="tooltip-container">
+                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+
+                                <div class="tooltip">
+                                    <div class="tooltip__content">
+                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                                        <p class="tooltip__content-text">{{ t("swap.pricing_text") }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="swap__detail-field swap__detail-field--black">
@@ -229,11 +238,20 @@
                         <div class="swap__detail-field swap__detail-field--gray">
                             <p class="swap__details-label">{{ t("swap.fees") }}</p>
 
-                            <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                            <div class="tooltip-container">
+                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+
+                                <div class="tooltip">
+                                    <div class="tooltip__content">
+                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                                        <p class="tooltip__content-text">{{ t("swap.fees_text") }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="swap__detail-field swap__detail-field--black">
-                            <p class="swap__details-value">{{ networkFee | currency : "USD" : "symbol" : "1.2-8" }}</p>
+                            <p class="swap__details-value">{{ form.get("fee")?.value | currency : "USD" : "symbol" : "1.2-8" }}</p>
                         </div>
                     </div>
 
@@ -241,13 +259,26 @@
                         <div class="swap__detail-field swap__detail-field--gray">
                             <p class="swap__details-label">{{ t("swap.slippage") }}</p>
 
-                            <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                            <div class="tooltip-container">
+                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+
+                                <div class="tooltip">
+                                    <div class="tooltip__content">
+                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                                        <p class="tooltip__content-text">{{ t("swap.slippage_text", { slippage: form.get("slippage")?.value }) }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="swap__detail-field swap__detail-field--black">
-                            <p class="swap__details-value">{{ slippage | number : "1.2-2" }} %</p>
+                            <p class="swap__details-value">{{ form.get("slippage")?.value | number : "1.2-2" }} %</p>
 
-                            <button (click)="openSlippageSheet()" class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--no-fill">
+                            <button
+                                (click)="openSlippageSheet()"
+                                class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--40"
+                                mat-flat-button
+                            >
                                 <ng-container *ngTemplateOutlet="editIcon"></ng-container>
                             </button>
                         </div>
@@ -288,7 +319,7 @@
                     mat-flat-button
                     class="zelf-button zelf-button--black zelf-button--wide"
                 >
-                    {{ t("common.confirm_swap") }}
+                    {{ t("swap.confirm_swap") }}
                 </button>
             </div>
         </ng-container>

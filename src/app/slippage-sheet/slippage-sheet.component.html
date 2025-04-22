@@ -1,0 +1,59 @@
+<ng-container *transloco="let t">
+    <div class="slippage-sheet">
+        <button mat-flat-button class="slippage-sheet__exit" (click)="close()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z"
+                />
+            </svg>
+        </button>
+
+        <div class="slippage-sheet__body">
+            <h3 class="slippage-sheet__title">
+                {{ t("swap.slipping_adjustments") }}
+            </h3>
+
+            <div class="slippage-sheet__container">
+                <div class="slippage-sheet__switch-container">
+                    <div class="slippage-sheet__switch-label">{{ t("swap.slipping") }}</div>
+
+                    <div class="slippage-sheet__switch">
+                        <p class="slippage-sheet__switch-label">{{ this.form.get("slippageToggle")?.value | transloco }}</p>
+                        <div class="slippage-sheet__switch-button"></div>
+                    </div>
+                </div>
+
+                <p class="slippage-sheet__text">{{ t("swap.slipping_text") }}</p>
+
+                <div *ngIf="this.form.get('slippageToggle')?.value === 'manual'" class="slippage-sheet__slider-input-container">
+                    <input type="range" min="0.1" max="0.8" step="0.1" class="slippage-sheet__slider" [formControlName]="'slippage'" />
+
+                    <div class="slippage-sheet__slider-value">{{ form.get("slippage")?.value }}%</div>
+                </div>
+            </div>
+
+            <div class="slippage-sheet__container">
+                <div class="slippage-sheet__switch-container">
+                    <div class="slippage-sheet__switch-label">{{ t("swap.priority_commission") }}</div>
+
+                    <div class="slippage-sheet__switch">
+                        <p class="slippage-sheet__switch-label">{{ this.form.get("commissionToggle")?.value | transloco }}</p>
+                        <div class="slippage-sheet__switch-button"></div>
+                    </div>
+                </div>
+
+                <p class="slippage-sheet__text">{{ t("swap.priority_commission_text") }}</p>
+
+                <div *ngIf="this.form.get('commissionToggle')?.value === 'manual'" class="slippage-sheet__input-container">
+                    <input class="slippage-sheet__input" [formControlName]="'commission'" />
+                </div>
+            </div>
+        </div>
+
+        <div class="slippage-sheet__actions">
+            <button (click)="confirm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                {{ t("common.confirm") }}
+            </button>
+        </div>
+    </div>
+</ng-container>

@@ -56,6 +56,7 @@
         flex: 1 1 auto;
         justify-content: flex-start;
         position: relative;
+        gap: 16px;
     }
 
     &__loader {
@@ -81,8 +82,8 @@
     }
 
     &__asset-switch {
-        margin-top: -22px;
-        margin-bottom: -22px;
+        margin-top: -32px;
+        margin-bottom: -32px;
     }
 
     &__actions {
@@ -295,7 +296,75 @@
         min-height: 18px;
     }
 
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        flex-grow: 1;
+    }
+
     &__details {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__detail-field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        &--gray {
+            svg {
+                fill: $gray;
+            }
+        }
+
+        &--black {
+            svg {
+                fill: $black;
+            }
+        }
+    }
+
+    &__details-label {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        color: $gray;
+        margin: 0;
+
+        svg {
+            fill: $gray;
+        }
+    }
+
+    &__details-value {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        color: $black;
+    }
+
+    &__settings {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    &__settings-button {
+        min-width: 260px;
     }
 }

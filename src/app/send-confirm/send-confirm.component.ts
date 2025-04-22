@@ -60,20 +60,20 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _blockchainTransactionsService: BlockchainTransactionsService,
         private _chromeService: ChromeService,
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
+        private _networkService: NetworkService,
         private _router: Router,
         private _snackBar: MatSnackBar,
+        private _solanaService: SolanaService,
+        private _suiService: SuiService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
-        private _suiService: SuiService,
-        private _blockchainTransactionsService: BlockchainTransactionsService,
-        private _solanaService: SolanaService,
-        private _networkService: NetworkService
+        private _zelfNameService: ZelfNameService
     ) {
         this.loading = true;
         this.remainingAttempts = this._vaultService.remainingAttempts;

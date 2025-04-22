@@ -1592,6 +1592,37 @@ h3 {
         transform: translateY(100%) scale(0) translateZ(0);
         transition: opacity 0.4s variables.$smoothBezier;
     }
+
+    &--plain {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100%;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        svg {
+            left: 89.8%;
+        }
+    }
+
+    &--gap-lg {
+        gap: 16px;
+    }
+}
+
+.zelf-menu-item {
+    & > span {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        width: 100% !important;
+    }
 }
 
 .zelf-checkbox {

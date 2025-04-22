@@ -6,7 +6,6 @@ import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { VaultService } from "app/vault.service";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, MatButtonModule, TranslocoModule, WelcomeErrorComponent, RouterModule],
@@ -23,12 +22,7 @@ export class WelcomeImportComponent implements OnInit {
     mnemonicForm!: UntypedFormGroup;
     showWords: boolean = false;
 
-    constructor(
-        private _formBuilder: FormBuilder,
-        private _router: Router,
-        private _vaultService: VaultService,
-        private _zelfNameService: ZelfNameService
-    ) {}
+    constructor(private _formBuilder: FormBuilder, private _router: Router, private _vaultService: VaultService) {}
 
     async ngOnInit(): Promise<void> {
         this._initForm();

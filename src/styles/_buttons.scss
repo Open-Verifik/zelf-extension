@@ -118,6 +118,40 @@
         }
     }
 
+    &--anti-flash-white {
+        background-color: variables.$antiFlashWhite !important;
+        color: variables.$black !important;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+
+        svg {
+            fill: variables.$black;
+        }
+
+        &:focus,
+        &:hover {
+            background-color: #b589f0 !important;
+            color: white;
+
+            svg {
+                fill: variables.$white;
+            }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            background-color: variables.$platinum !important;
+
+            svg {
+                fill: variables.$frenchGray;
+            }
+
+            mat-spinner svg {
+                fill: variables.$gray !important;
+                stroke: variables.$gray !important;
+            }
+        }
+    }
+
     &--white {
         background-color: variables.$white !important;
         color: variables.$black !important;
@@ -344,6 +378,7 @@
     &--anti-flash-white {
         background-color: variables.$antiFlashWhite !important;
         color: variables.$black !important;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$black;

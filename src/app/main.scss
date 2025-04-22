@@ -3,13 +3,36 @@
 @use "../styles/buttons";
 @use "../styles/animations";
 
-/* Poppins Regular */
 @font-face {
     font-family: "Poppins";
     src: url("../assets/fonts/Poppins/Poppins-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
-    font-display: swap; /* This helps to avoid invisible text during font loading */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-ExtraBold.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {

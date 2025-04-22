@@ -520,8 +520,15 @@
         "fees": "Taxas",
         "pricing": "Preços",
         "slippage": "Deslizamento",
+        "slipping_adjustments": "Ajustes de Deslizamento",
+        "slipping": "Tolerância de Deslizamento",
+        "slipping_text": "O movimento máximo de preço que você está disposto a aceitar. Sua transação será revertida se o preço mudar desfavoravelmente mais do que essa porcentagem.",
+        "priority_commission": "Comissão Prioritária",
+        "priority_commission_text": "Comissões de maior prioridade podem resultar em processamento mais rápido de transações durante congestionamento da rede.",
         "you_receive": "Você recebe",
-        "you_pay": "Você paga"
+        "you_pay": "Você paga",
+        "automatic": "Automático",
+        "manual": "Manual"
     },
     "restricted": {
         "description": "Este recurso não está disponível em dispositivos móveis. Por favor, use um navegador de desktop para acessá-lo ou baixe o App Zelf Name Service.",

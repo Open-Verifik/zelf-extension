@@ -520,8 +520,15 @@
         "fees": "Tarifas",
         "pricing": "Precios",
         "slippage": "Deslizamiento",
+        "slipping_adjustments": "Ajustes de Deslizamiento",
+        "slipping": "Tolerancia de Deslizamiento",
+        "slipping_text": "El movimiento máximo de precio que estás dispuesto a aceptar. Tu transacción se revertirá si el precio cambia desfavorablemente por más de este porcentaje.",
+        "priority_commission": "Comisión Prioritaria",
+        "priority_commission_text": "Las comisiones de mayor prioridad pueden resultar en un procesamiento más rápido de transacciones durante la congestión de la red.",
         "you_receive": "Recibes",
-        "you_pay": "Pagas"
+        "you_pay": "Pagas",
+        "automatic": "Automático",
+        "manual": "Manual"
     },
     "restricted": {
         "description": "Esta función no está disponible en dispositivos móviles. Por favor, usa un navegador de escritorio para acceder o descarga la App del Servicio de Nombres Zelf.",

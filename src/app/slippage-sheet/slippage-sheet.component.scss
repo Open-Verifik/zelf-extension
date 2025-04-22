@@ -5,6 +5,7 @@
     position: relative;
     display: block;
     padding: 16px;
+    max-width: 400px;
 }
 
 .slippage-sheet {
@@ -47,6 +48,12 @@
         }
     }
 
+    &__exit-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     &__body {
         display: flex;
         flex-direction: column;
@@ -54,6 +61,100 @@
         width: 100%;
         justify-content: center;
         align-items: center;
+    }
+
+    &__container {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 16px;
+        margin-bottom: 12px;
+        border-radius: 16px;
+        border: 1px solid $frenchGray;
+    }
+
+    &__switch-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    &__switch-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__switch-title {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $black;
+        margin: 0;
+    }
+
+    &__switch {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        gap: 16px;
+    }
+
+    &__switch-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    &__switch-track {
+        position: relative;
+        width: 46px;
+        height: 26px;
+        background-color: $seaSalt;
+        border: 2px solid $gray;
+        border-radius: 14px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    &__switch-thumb {
+        position: absolute;
+        left: 5px;
+        height: 16px;
+        width: 16px;
+        background-color: $gray;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    &__switch-input:checked + &__switch-track {
+        background-color: $black;
+        border-color: $black;
+    }
+
+    &__switch-input:checked + &__switch-track &__switch-thumb {
+        left: calc(100% - 23px);
+        background-color: $white;
+        width: 20px;
+        height: 20px;
+    }
+
+    &__switch-label {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+        color: $taupeGray;
+
+        &--active {
+            color: $black;
+        }
     }
 
     &__icon {
@@ -64,20 +165,19 @@
     &__title {
         font-family: Menda;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 24px;
         line-height: 24px;
         letter-spacing: 0px;
         text-align: center;
         vertical-align: middle;
         text-transform: uppercase;
-        margin: 8px 0;
+        margin: 16px 0 8px;
     }
 
     &__text {
-        padding: 0 24px;
         font-size: 14px;
         margin: 0;
-        text-align: center;
+        color: $gray;
     }
 
     &__actions {
@@ -88,5 +188,171 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    &__slider-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 12px;
+        width: 100%;
+    }
+
+    &__slider-input-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    &__slider-subtitle {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: $black;
+    }
+
+    &__slider-input-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-sizing: border-box;
+        gap: 12px;
+        height: 32px;
+        border-radius: 32px;
+        background-color: $antiFlashWhite;
+        padding: 0 8px;
+    }
+
+    &__slider-value {
+        text-align: right;
+        font-weight: 500;
+        font-size: 14px;
+        background-color: $antiFlashWhite;
+        border-radius: 12px;
+        padding: 0 8px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 42px;
+    }
+
+    &__slider-label {
+        position: relative;
+        width: 100%;
+        height: 16px;
+    }
+
+    &__slider-dots {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 3;
+        padding: 0 8px;
+        pointer-events: none;
+    }
+
+    &__slider-dot {
+        width: 4px;
+        height: 4px;
+        background-color: $white;
+        opacity: 0.2;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    &__slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 16px;
+        border-radius: 20px;
+        background: $antiFlashWhite;
+        outline: none;
+        position: relative;
+        margin: 0;
+        z-index: 2;
+
+        &::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, $gray var(--progress, 0%), transparent var(--progress, 0%));
+            border-radius: 20px;
+            height: 16px;
+            width: 100%;
+        }
+
+        &::-webkit-slider-thumb {
+            box-sizing: content-box;
+            -webkit-appearance: none;
+            appearance: none;
+            background: $white;
+            border-radius: 20px;
+            border: 6px solid $gray;
+            box-shadow: none;
+            cursor: pointer;
+            height: 8px;
+            position: relative;
+            width: 8px;
+            z-index: 2;
+            margin-top: -2px;
+        }
+
+        &::-moz-range-track {
+            background: linear-gradient(to right, $gray var(--progress, 0%), transparent var(--progress, 0%));
+            border-radius: 20px;
+            height: 16px;
+            width: 100%;
+        }
+
+        &::-moz-range-progress {
+            background-color: $gray;
+            border-radius: 20px;
+            height: 16px;
+        }
+
+        &::-moz-range-thumb {
+            box-sizing: content-box;
+            margin-top: -3px;
+            background: $white;
+            border-radius: 50%;
+            border: 6px solid $gray;
+            box-shadow: none;
+            cursor: pointer;
+            height: 8px;
+            width: 8px;
+            margin-top: -2px;
+        }
+    }
+
+    &__input-container {
+        width: 100%;
+        margin-top: 12px;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        outline: none;
+        font-size: 14px;
+    }
+
+    &__input-postfix {
+        color: $black;
+        margin-right: 16px;
     }
 }

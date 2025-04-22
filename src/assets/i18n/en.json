@@ -441,10 +441,23 @@
     },
     "swap": {
         "fees": "Fees",
+        "fees_text": "The quote includes commission fees.",
         "pricing": "Pricing",
+        "pricing_text": "The best rate found in multiple decentralized markets.",
+        "confirm_swap": "Confirm Swap",
         "slippage": "Slippage",
+        "slippage_text": "Your transaction will not be completed if the price changes unfavorably by more than {{ slippage }}%.",
+        "slipping_adjustments": "Slipping Adjustments",
+        "slipping": "Slipping",
+        "slipping_subtitle": "Zelf will find you the lowest slip to exchange successfully.",
+        "slipping_more_info": "Your transaction will not be completed if the price changes more than the deviation. Too high a value will result in an unfavourable transaction.",
+        "priority_commission": "Priority Commission",
+        "priority_commission_subtitle": "Higher priority commissions can result in faster transaction processing during network congestion.",
         "you_receive": "You receive",
-        "you_pay": "You pay"
+        "you_pay": "You pay",
+        "automatic": "Automatic",
+        "powered_by": "Powered by <strong>{{ bridge }}</strong>",
+        "manual": "Manual"
     },
     "home": {
         "activity": "Activity",

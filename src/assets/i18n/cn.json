@@ -520,8 +520,15 @@
         "fees": "费用",
         "pricing": "定价",
         "slippage": "滑点",
+        "slipping_adjustments": "滑点调整",
+        "slipping": "滑点容忍度",
+        "slipping_text": "您愿意接受的最大价格变动。如果价格不利变动超过这个百分比，您的交易将被撤销。",
+        "priority_commission": "优先佣金",
+        "priority_commission_text": "更高的优先佣金可能导致在网络拥堵期间更快的交易处理。",
         "you_receive": "您收到",
-        "you_pay": "您支付"
+        "you_pay": "您支付",
+        "automatic": "自动",
+        "manual": "手动"
     },
     "restricted": {
         "description": "此功能在移动设备上不可用。请使用桌面浏览器访问或下载Zelf名称服务应用。",

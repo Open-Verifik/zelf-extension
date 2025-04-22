@@ -56,7 +56,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         SUI: true,
     };
 
-    bridge: string = "automatic";
+    bridge: string = "li.fi";
     form!: UntypedFormGroup;
     loading: boolean = true;
     network: NetworkName = "ethereum";
@@ -77,11 +77,7 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     bridgeOptions = [
         {
-            label: this._translocoService.translate("bridges.automatic"),
-            value: "automatic",
-        },
-        {
-            label: "Li.fi",
+            label: "Li.Fi",
             value: "li.fi",
         },
         {
@@ -238,7 +234,7 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            bridge: ["automatic", [Validators.required]],
+            bridge: ["li.fi", [Validators.required]],
             commission: [0, [Validators.required, Validators.min(0)]],
             commissionToggle: ["automatic", [Validators.required]],
             fee: [0, [Validators.required, Validators.min(0)]],
@@ -328,36 +324,12 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
     }
 
-    openSlippageSheet(): void {
-        this._bottomSheet
-            .open(SlippageSheetComponent, {
-                backdropClass: "zelf-backdrop",
-                panelClass: "zelf-bottom-sheet",
-                data: {
-                    commission: this.form.get("commission")?.value,
-                    commissionToggle: this.form.get("commissionToggle")?.value,
-                    network: this.network,
-                    slippage: this.form.get("slippage")?.value,
-                    slippageToggle: this.form.get("slippageToggle")?.value,
-                },
-            })
-            .afterDismissed()
-            .subscribe((result) => {
-                if (!result) return;
-
-                this.form.get("slippage")?.setValue(result.slippage, { emitEvent: true });
-                this.form.get("slippageToggle")?.setValue(result.slippageToggle, { emitEvent: true });
-                this.form.get("commission")?.setValue(result.commission, { emitEvent: true });
-                this.form.get("commissionToggle")?.setValue(result.commissionToggle, { emitEvent: true });
-            });
+    getBridgeLabel(): string {
+        return this.bridgeOptions.find((option) => option.value === this.form.get("bridge")?.value)?.label || "";
     }
 
     findToken(symbol: string): TokenData | undefined {
         return this.tokens.find((token) => token.symbol === symbol);
-    }
-
-    getBridgeLabel(): string {
-        return this.bridgeOptions.find((option) => option.value === this.form.get("bridge")?.value)?.label || "";
     }
 
     handleBalanceDisplayChange(): void {
@@ -420,6 +392,34 @@ export class SwapComponent implements OnInit, OnDestroy {
             panelClass: "zelf-snackbar",
             verticalPosition: "top",
         });
+    }
+
+    openSlippageSheet(): void {
+        this._bottomSheet
+            .open(SlippageSheetComponent, {
+                backdropClass: "zelf-backdrop",
+                panelClass: "zelf-bottom-sheet",
+                data: {
+                    commission: this.form.get("commission")?.value,
+                    commissionToggle: this.form.get("commissionToggle")?.value,
+                    network: this.network,
+                    slippage: this.form.get("slippage")?.value,
+                    slippageToggle: this.form.get("slippageToggle")?.value,
+                },
+            })
+            .afterDismissed()
+            .subscribe({
+                next: (result) => {
+                    if (!result) return;
+
+                    this.form.get("slippage")?.setValue(result.slippage, { emitEvent: true });
+                    this.form.get("slippageToggle")?.setValue(result.slippageToggle, { emitEvent: true });
+                    this.form.get("commission")?.setValue(result.commission, { emitEvent: true });
+                    this.form.get("commissionToggle")?.setValue(result.commissionToggle, { emitEvent: true });
+
+                    this._changeDetectionRef.detectChanges();
+                },
+            });
     }
 
     toggleShowPassword(): void {

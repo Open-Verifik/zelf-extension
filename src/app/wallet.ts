@@ -984,3 +984,5 @@ export type SOLSource = {
     recentBlockhash: string;
     priority_fee: number;
 };
+
+export type SwapSource = "source" | "target" | "";

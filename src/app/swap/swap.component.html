@@ -22,8 +22,8 @@
         <div class="swap__col3"></div>
     </div>
 
-    <form [formGroup]="form" class="swap__form">
-        <ng-container *ngIf="!swapSource">
+    <ng-container *ngIf="!swapSource">
+        <form [formGroup]="form" class="swap__form">
             <div class="zelf-card__content swap__content">
                 <div class="ripple swap__loader" *ngIf="loading"></div>
 
@@ -73,18 +73,19 @@
                     <div class="swap__asset-card-actions swap__asset-card-actions--right">
                         <div (click)="swapSource = 'source'" class="swap__dropdown-selector">
                             <div class="swap__asset-logo-container">
-                                <img class="swap__asset-logo" [src]="selectedSourceAsset.image" alt="Source Asset" />
                                 <img
-                                    [src]="networkImage"
-                                    *ngIf="network === selectedSourceAsset.name"
-                                    alt="Source Network"
-                                    class="swap__asset-network-logo"
+                                    [src]="selectedSourceAsset.image"
+                                    *ngIf="selectedSourceAsset.image"
+                                    alt="Source Asset"
+                                    class="swap__asset-logo"
                                 />
+
+                                <img [src]="getNetworkImage(selectedSourceAsset.network)" alt="Source Network" class="swap__asset-network-logo" />
                             </div>
 
                             <div class="swap__asset-info">
                                 <p class="swap__asset-name">{{ selectedSourceAsset.symbol }}</p>
-                                <p class="swap__asset-symbol" *ngIf="networkSymbol !== selectedSourceAsset.symbol">{{ networkSymbol }}</p>
+                                <p class="swap__asset-symbol">{{ getNetworkSymbol(selectedSourceAsset.network) }}</p>
                             </div>
 
                             <button
@@ -154,21 +155,33 @@
                     </div>
 
                     <div class="swap__asset-card-actions swap__asset-card-actions--right">
-                        <div (click)="swapSource = 'source'" class="swap__dropdown-selector">
-                            <div class="swap__asset-logo-container">
-                                <img class="swap__asset-logo" [src]="selectedTargetAsset.image" alt="Source Asset" />
-                                <img
-                                    [src]="networkImage"
-                                    *ngIf="network === selectedTargetAsset.name"
-                                    alt="Source Network"
-                                    class="swap__asset-network-logo"
-                                />
-                            </div>
+                        <div (click)="swapSource = 'target'" class="swap__dropdown-selector">
+                            <ng-container *ngIf="!hasSelectedTargetAsset">
+                                <p class="swap__asset-placeholder">{{ t("swap.select_asset") }}</p>
+                            </ng-container>
 
-                            <div class="swap__asset-info">
-                                <p class="swap__asset-name">{{ selectedTargetAsset.symbol }}</p>
-                                <p class="swap__asset-symbol" *ngIf="networkSymbol !== selectedTargetAsset.symbol">{{ networkSymbol }}</p>
-                            </div>
+                            <ng-container *ngIf="hasSelectedTargetAsset">
+                                <div class="swap__asset-logo-container">
+                                    <img
+                                        [src]="selectedTargetAsset.image"
+                                        *ngIf="selectedTargetAsset.image"
+                                        alt="Source Asset"
+                                        class="swap__asset-logo"
+                                    />
+
+                                    <img
+                                        [src]="getNetworkImage(selectedTargetAsset.network)"
+                                        *ngIf="selectedTargetAsset.network"
+                                        alt="Source Network"
+                                        class="swap__asset-network-logo"
+                                    />
+                                </div>
+
+                                <div class="swap__asset-info">
+                                    <p class="swap__asset-name">{{ selectedTargetAsset.symbol }}</p>
+                                    <p class="swap__asset-symbol">{{ getNetworkSymbol(selectedTargetAsset.network) }}</p>
+                                </div>
+                            </ng-container>
 
                             <button
                                 mat-flat-button
@@ -338,21 +351,23 @@
                     {{ t("swap.confirm_swap") }}
                 </button>
             </div>
-        </ng-container>
 
-        <input type="hidden" formControlName="bridge" />
-        <input type="hidden" formControlName="slippageToggle" />
-        <input type="hidden" formControlName="slippage" />
-        <input type="hidden" formControlName="commissionToggle" />
-        <input type="hidden" formControlName="commission" />
-        <input type="hidden" formControlName="sourceAsset" />
-        <input type="hidden" formControlName="targetAsset" />
-    </form>
+            <input type="hidden" formControlName="bridge" />
+            <input type="hidden" formControlName="slippageToggle" />
+            <input type="hidden" formControlName="slippage" />
+            <input type="hidden" formControlName="commissionToggle" />
+            <input type="hidden" formControlName="commission" />
+            <input type="hidden" formControlName="sourceAsset" />
+            <input type="hidden" formControlName="targetAsset" />
+        </form>
+    </ng-container>
 
     <swap-currency
+        (assetChange)="handleAssetChange($event)"
         *ngIf="swapSource"
         [source]="swapSource"
         [selectedAsset]="swapSource === 'source' ? selectedSourceAsset : selectedTargetAsset"
+        [myAssets]="tokens"
     ></swap-currency>
 </div>
 

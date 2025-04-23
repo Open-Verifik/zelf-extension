@@ -8,19 +8,17 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
-import { SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
-import { TokenData, WalletModel } from "app/wallet";
+import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
+import { SwapSource, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { MatMenuModule } from "@angular/material/menu";
 import { VaultService } from "app/vault.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@ngneat/transloco";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
-
-export type SwapSource = "source" | "target" | "";
 
 @Component({
     imports: [
@@ -91,11 +89,12 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
-        private _bottomSheet: MatBottomSheet,
         private _blockchainTransactionsService: BlockchainTransactionsService,
+        private _bottomSheet: MatBottomSheet,
         private _changeDetectionRef: ChangeDetectorRef,
         private _formBuilder: FormBuilder,
         private _networkService: NetworkService,
+        private _router: Router,
         private _snackBar: MatSnackBar,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
@@ -133,7 +132,11 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     get hasBothAssetsSet(): boolean {
-        return Object.keys(this.selectedSourceAsset).length > 0 && Object.keys(this.selectedTargetAsset).length > 0;
+        return !!Object.keys(this.selectedSourceAsset).length && !!Object.keys(this.selectedTargetAsset).length;
+    }
+
+    get hasSelectedTargetAsset(): boolean {
+        return !!Object.keys(this.selectedTargetAsset).length;
     }
 
     get targetTokenPricePerDollar(): number {
@@ -152,12 +155,13 @@ export class SwapComponent implements OnInit, OnDestroy {
             ?.setValidators([Validators.required, Validators.min(0), Validators.max(this.selectedSourceAsset.amount as number)]);
 
         this.form.get("sourceAmount")?.updateValueAndValidity();
+        this.form.get("targetAsset")?.setValue({}, { emitEvent: true });
 
         this.network = asset.network as NetworkName;
         this.networkSymbol = this._networkService.getNetworkSymbol(this.network.toLowerCase());
         this.networkImage = this._walletService.getAssetImage(this.networkSymbol);
 
-        this.form.get("sourceAmount")?.updateValueAndValidity();
+        this._changeDetectionRef.detectChanges();
 
         if (!this._selectedTargetAsset?.network || this._selectedTargetAsset.network === this.network) return;
 
@@ -254,11 +258,7 @@ export class SwapComponent implements OnInit, OnDestroy {
                     return;
                 }
 
-                const sourceValue = this.swapBalanceDisplay === "token" ? value : value / (this.selectedSourceAsset.price as number);
-                const fiatValue = sourceValue * (this.selectedSourceAsset.price as number);
-                const targetValue = this.swapBalanceDisplay === "token" ? fiatValue / (this.selectedTargetAsset.price as number) : fiatValue;
-
-                this.form.get("targetAmount")?.setValue(targetValue);
+                this._updateTargetAmount();
             });
 
         this.form
@@ -266,6 +266,8 @@ export class SwapComponent implements OnInit, OnDestroy {
             ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
             .subscribe((value) => {
                 this.selectedSourceAsset = value;
+
+                this._updateTargetAmount();
             });
 
         this.form
@@ -273,6 +275,8 @@ export class SwapComponent implements OnInit, OnDestroy {
             ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
             .subscribe((value) => {
                 this.selectedTargetAsset = value;
+
+                this._updateTargetAmount();
             });
     }
 
@@ -319,22 +323,61 @@ export class SwapComponent implements OnInit, OnDestroy {
         this.selectedTargetAsset = this.tokens.find((token) => token.network === this.network && token !== this.tokens[0]) || {};
     }
 
-    async confirmSwap(): Promise<void> {
-        if (this.sending) return;
+    private _updateTargetAmount(): void {
+        const value = this.form.get("sourceAmount")?.value;
+
+        if (!value || !this.selectedTargetAsset.price || !this.selectedSourceAsset.price) {
+            this.form.get("targetAmount")?.setValue("");
+
+            return;
+        }
+
+        const sourceValue = this.swapBalanceDisplay === "token" ? value : value / (this.selectedSourceAsset.price as number);
+        const fiatValue = sourceValue * (this.selectedSourceAsset.price as number);
+        const targetValue = this.swapBalanceDisplay === "token" ? fiatValue / (this.selectedTargetAsset.price as number) : fiatValue;
+
+        this.form.get("targetAmount")?.setValue(targetValue, { emitEvent: true });
+    }
+
+    private async _validateCredentials(): Promise<boolean> {
+        if (!this.form.get("password")?.value) {
+            this.openErrorSnackBar("errors.empty_password");
+
+            return false;
+        }
+
+        if (this.requiresBiometrics) {
+            this._vaultService.password = this.form.get("password")?.value;
+            this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+
+            return false;
+        }
 
         if (!this._mnemonics) {
-            if (!this.form.get("password")?.value) {
-                this.openErrorSnackBar("errors.empty_password");
-                return;
-            }
-
             await this._decryptMnemonics();
+
+            if (this.requiresBiometrics) {
+                this._vaultService.password = this.form.get("password")?.value;
+                this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+
+                return false;
+            }
 
             if (!this._mnemonics) {
                 this.openErrorSnackBar("errors.private_key_locked");
-                return;
+
+                return false;
             }
         }
+
+        return true;
+    }
+
+    async confirmSwap(): Promise<void> {
+        if (this.sending) return;
+        if (!(await this._validateCredentials())) return;
+
+        // TODO: Implement swap
     }
 
     getBridgeLabel(): string {
@@ -343,6 +386,29 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     findToken(symbol: string): TokenData | undefined {
         return this.tokens.find((token) => token.symbol === symbol);
+    }
+
+    getNetworkImage(network?: string): string {
+        if (!network) return "";
+        return this._walletService.getAssetImage(this._networkService.getNetworkSymbol(network.toLowerCase()));
+    }
+
+    getNetworkSymbol(network?: string): string {
+        if (!network) return "";
+        return this._networkService.getNetworkSymbol(network.toLowerCase());
+    }
+
+    handleAssetChange(event: AssetChangeData): void {
+        if (event.source === "source") {
+            this.form.get("sourceAsset")?.setValue(event.asset, { emitEvent: true });
+            this.form.get("targetAsset")?.setValue({}, { emitEvent: true });
+        } else {
+            this.form.get("targetAsset")?.setValue(event.asset, { emitEvent: true });
+        }
+
+        this.swapSource = "";
+
+        this._changeDetectionRef.detectChanges();
     }
 
     handleBalanceDisplayChange(): void {
@@ -378,9 +444,6 @@ export class SwapComponent implements OnInit, OnDestroy {
         const _tempSource = { ...this.selectedSourceAsset };
         const _tempTarget = { ...this.selectedTargetAsset };
 
-        this.selectedSourceAsset = _tempTarget;
-        this.selectedTargetAsset = _tempSource;
-
         const currentAmount = this.form.get("sourceAmount")?.value || 0;
 
         let newSourceAmount;
@@ -396,8 +459,8 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         this.form.get("sourceAmount")?.setValue(newSourceAmount, { emitEvent: true });
 
-        this.form.get("sourceAsset")?.setValue(this.selectedSourceAsset, { emitEvent: true });
-        this.form.get("targetAsset")?.setValue(this.selectedTargetAsset, { emitEvent: true });
+        this.form.get("sourceAsset")?.setValue(_tempTarget, { emitEvent: true });
+        this.form.get("targetAsset")?.setValue(_tempSource, { emitEvent: true });
 
         this._changeDetectionRef.detectChanges();
     }

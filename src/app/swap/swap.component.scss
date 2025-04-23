@@ -108,11 +108,18 @@
         align-items: center;
         box-shadow: 0px 6px 24px 0px #00000014;
         border-radius: 16px;
-        border-color: 1px solid$antiFlashWhite;
+        border-color: 1px solid $antiFlashWhite;
         justify-content: space-between;
         background: $white;
         gap: 12px;
         padding: 8px;
+        min-width: 168px;
+        cursor: pointer;
+        transition: background-color 0.2s $smoothBezier;
+
+        &:hover {
+            background-color: $antiFlashWhite;
+        }
     }
 
     &__asset-card-actions {
@@ -184,6 +191,17 @@
         vertical-align: middle;
         margin: 0;
         color: $frenchGray;
+    }
+
+    &__asset-placeholder {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: $gray;
     }
 
     &__asset-dropdown-button {

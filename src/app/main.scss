@@ -1791,6 +1791,16 @@ h3 {
         margin-left: -10px;
     }
 
+    &--pill {
+        padding: 2px 8px;
+        height: 24px;
+        font-size: 12px;
+        line-height: 16px;
+        border-radius: 9999px;
+        color: $gray;
+        background-color: $antiFlashWhite;
+    }
+
     &--info {
         color: #3998d3;
         background-color: #ecf3fe;

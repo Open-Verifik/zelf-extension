@@ -123,6 +123,7 @@
     "common": {
         "12_word_phrase": "12 word phrase",
         "24_word_phrase": "24 word phrase",
+        "search": "Search...",
         "about": "About",
         "import_wallet": "Import wallet",
         "activity": "Activity",
@@ -457,7 +458,8 @@
         "you_pay": "You pay",
         "automatic": "Automatic",
         "powered_by": "Powered by <strong>{{ bridge }}</strong>",
-        "manual": "Manual"
+        "manual": "Manual",
+        "select_asset": "Select asset"
     },
     "home": {
         "activity": "Activity",

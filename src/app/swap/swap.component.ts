@@ -19,6 +19,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@ngneat/transloco";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
+
 export type SwapSource = "source" | "target" | "";
 
 @Component({
@@ -56,11 +57,9 @@ export class SwapComponent implements OnInit, OnDestroy {
         SUI: true,
     };
 
-    bridge: string = "li.fi";
     form!: UntypedFormGroup;
     loading: boolean = true;
     network: NetworkName = "ethereum";
-    networkFee: number = 0;
     networkImage: string = "";
     networkSymbol: string = "";
     passwordError: boolean = false;
@@ -80,14 +79,14 @@ export class SwapComponent implements OnInit, OnDestroy {
             label: "Li.Fi",
             value: "li.fi",
         },
-        {
-            label: "0x",
-            value: "0x",
-        },
-        {
-            label: "Swap Kit (Thor Chain)",
-            value: "swapkit",
-        },
+        // {
+        //     label: "0x",
+        //     value: "0x",
+        // },
+        // {
+        //     label: "Swap Kit (Thor Chain)",
+        //     value: "swapkit",
+        // },
     ];
 
     constructor(
@@ -116,14 +115,6 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         this._initForm();
-
-        this._assetService.sourceAsset$.pipe(takeUntil(this.unsubscriber$)).subscribe((asset) => {
-            this._selectedSourceAsset = asset;
-        });
-
-        this._assetService.targetAsset$.pipe(takeUntil(this.unsubscriber$)).subscribe((asset) => {
-            this._selectedTargetAsset = asset;
-        });
     }
 
     async ngOnInit(): Promise<void> {
@@ -155,11 +146,18 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     set selectedSourceAsset(asset: Partial<TokenData>) {
         this._selectedSourceAsset = asset;
-        this._assetService.setSourceAsset(asset);
+
+        this.form
+            .get("sourceAmount")
+            ?.setValidators([Validators.required, Validators.min(0), Validators.max(this.selectedSourceAsset.amount as number)]);
+
+        this.form.get("sourceAmount")?.updateValueAndValidity();
 
         this.network = asset.network as NetworkName;
         this.networkSymbol = this._networkService.getNetworkSymbol(this.network.toLowerCase());
         this.networkImage = this._walletService.getAssetImage(this.networkSymbol);
+
+        this.form.get("sourceAmount")?.updateValueAndValidity();
 
         if (!this._selectedTargetAsset?.network || this._selectedTargetAsset.network === this.network) return;
 
@@ -172,7 +170,6 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     set selectedTargetAsset(asset: Partial<TokenData>) {
         this._selectedTargetAsset = asset;
-        this._assetService.setTargetAsset(asset);
     }
 
     get totalSourceFiat(): number {
@@ -239,28 +236,44 @@ export class SwapComponent implements OnInit, OnDestroy {
             commissionToggle: ["automatic", [Validators.required]],
             fee: [0, [Validators.required, Validators.min(0)]],
             password: [this._password || "", [Validators.required]],
-            slippage: [0.5, [Validators.required, Validators.min(0), Validators.max(100)]],
+            slippage: [0.5, [Validators.required, Validators.min(0), Validators.max(0.8)]],
             slippageToggle: ["automatic", [Validators.required]],
             sourceAmount: ["", [Validators.required, Validators.min(0)]],
-            sourceToken: ["", [Validators.required]],
+            sourceAsset: [this.selectedSourceAsset, [Validators.required]],
             targetAmount: ["", [Validators.required, Validators.min(0)]],
-            targetToken: ["", [Validators.required]],
-            totalSourceToken: [0, [Validators.required, Validators.min(0)]],
+            targetAsset: [this.selectedTargetAsset, [Validators.required]],
         });
 
-        this.form.get("sourceAmount")?.valueChanges.subscribe((value) => {
-            if (!value || !this.selectedSourceAsset?.price || !this.selectedTargetAsset?.price) {
-                this.form.get("targetAmount")?.setValue("");
+        this.form
+            .get("sourceAmount")
+            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
+            .subscribe((value) => {
+                if (!value || !this.selectedSourceAsset?.price || !this.selectedTargetAsset?.price) {
+                    this.form.get("targetAmount")?.setValue("");
 
-                return;
-            }
+                    return;
+                }
 
-            const sourceValue = this.swapBalanceDisplay === "token" ? value : value / (this.selectedSourceAsset.price as number);
-            const fiatValue = sourceValue * (this.selectedSourceAsset.price as number);
-            const targetValue = this.swapBalanceDisplay === "token" ? fiatValue / (this.selectedTargetAsset.price as number) : fiatValue;
+                const sourceValue = this.swapBalanceDisplay === "token" ? value : value / (this.selectedSourceAsset.price as number);
+                const fiatValue = sourceValue * (this.selectedSourceAsset.price as number);
+                const targetValue = this.swapBalanceDisplay === "token" ? fiatValue / (this.selectedTargetAsset.price as number) : fiatValue;
 
-            this.form.get("targetAmount")?.setValue(targetValue);
-        });
+                this.form.get("targetAmount")?.setValue(targetValue);
+            });
+
+        this.form
+            .get("sourceAsset")
+            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
+            .subscribe((value) => {
+                this.selectedSourceAsset = value;
+            });
+
+        this.form
+            .get("targetAsset")
+            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
+            .subscribe((value) => {
+                this.selectedTargetAsset = value;
+            });
     }
 
     private async _fetchTokens(): Promise<void> {
@@ -382,6 +395,9 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         this.form.get("sourceAmount")?.setValue(newSourceAmount, { emitEvent: true });
+
+        this.form.get("sourceAsset")?.setValue(this.selectedSourceAsset, { emitEvent: true });
+        this.form.get("targetAsset")?.setValue(this.selectedTargetAsset, { emitEvent: true });
 
         this._changeDetectionRef.detectChanges();
     }

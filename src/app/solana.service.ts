@@ -2,7 +2,16 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { environment } from "environments/environment";
-import { Connection, PublicKey, Keypair, SystemProgram, LAMPORTS_PER_SOL, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
+import {
+    Connection,
+    PublicKey,
+    Keypair,
+    SystemProgram,
+    LAMPORTS_PER_SOL,
+    Transaction,
+    sendAndConfirmTransaction,
+    ComputeBudgetProgram,
+} from "@solana/web3.js";
 import { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction, createTransferInstruction } from "@solana/spl-token";
 import { Buffer } from "buffer";
 import * as bip39 from "bip39";
@@ -144,9 +153,23 @@ export class SolanaService {
                 })
             );
 
+            const recentBlockhash = await connection.getLatestBlockhash("finalized");
+            transaction.recentBlockhash = recentBlockhash.blockhash;
+            transaction.feePayer = fromKeypair.publicKey;
+
+            transaction.add(
+                ComputeBudgetProgram.setComputeUnitPrice({
+                    microLamports: 12345,
+                }),
+                ComputeBudgetProgram.setComputeUnitLimit({
+                    units: 1000000,
+                })
+            );
+
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair], {
                 skipPreflight: true,
-                maxRetries: 3,
+                maxRetries: 5,
+                preflightCommitment: "confirmed",
             });
 
             try {
@@ -217,9 +240,23 @@ export class SolanaService {
 
             transaction.add(createTransferInstruction(senderTokenAccount, recipientTokenAccount, fromKeypair.publicKey, amountInTokenUnits));
 
+            const recentBlockhash = await connection.getLatestBlockhash("finalized");
+            transaction.recentBlockhash = recentBlockhash.blockhash;
+            transaction.feePayer = fromKeypair.publicKey;
+
+            transaction.add(
+                ComputeBudgetProgram.setComputeUnitPrice({
+                    microLamports: 12345,
+                }),
+                ComputeBudgetProgram.setComputeUnitLimit({
+                    units: 1500000,
+                })
+            );
+
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair], {
                 skipPreflight: true,
-                maxRetries: 3,
+                maxRetries: 5,
+                preflightCommitment: "confirmed",
             });
 
             try {

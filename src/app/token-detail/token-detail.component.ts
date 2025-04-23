@@ -62,12 +62,12 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     ) {}
 
     ngAfterViewInit(): void {
-        this.asset = this._assetService.asset;
+        this.asset = this._assetService.sourceAsset;
         this.loading = !Object.keys(this.asset).length;
 
         if (!this.loading) setTimeout(() => this._setChart(), 100);
 
-        this._assetService.asset$.pipe(takeUntil(this.unsubscriber$)).subscribe((asset) => {
+        this._assetService.sourceAsset$.pipe(takeUntil(this.unsubscriber$)).subscribe((asset) => {
             this.asset = asset;
 
             if (!this.loading) return;
@@ -282,7 +282,7 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     }
 
     removeAsset() {
-        this._assetService.removeAsset();
+        this._assetService.removeSourceAsset();
     }
 
     selectTab(tab: string) {

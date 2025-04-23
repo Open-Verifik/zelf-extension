@@ -267,7 +267,9 @@
                             <ng-container *ngIf="foundAddress.publicData?.type === 'mainnet'">{{ t("send.zelf_name_registered") }}</ng-container>
                         </div>
 
-                        <h3 class="zelf-object-preview__zelf-name">{{ foundAddress.publicData.zelfName }}</h3>
+                        <h3 class="zelf-object-preview__zelf-name" *ngIf="foundAddress.publicData.zelfName">
+                            {{ foundAddress.publicData.zelfName }}
+                        </h3>
 
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">
                             {{ foundAddress.ethAddress }}

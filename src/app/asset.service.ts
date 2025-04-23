@@ -5,27 +5,58 @@ import { TokenData } from "./wallet";
 import { ChromeService } from "./chrome.service";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AssetChart, AssetDetails, AssetInterval, AssetIntervalOptions, AssetRange } from "./models/asset.model";
+import { Asset, Wallet } from "./wallet";
+import { EthereumService } from "./eth.service";
+import { SolanaService } from "./solana.service";
+import { SuiService } from "./services/sui.service";
+
+export interface NetworkPermissions {
+    AVAX?: boolean;
+    BTC?: boolean;
+    ETH?: boolean;
+    SOL?: boolean;
+    SUI?: boolean;
+}
 
 @Injectable({
     providedIn: "root",
 })
 export class AssetService {
-    private _asset$ = new BehaviorSubject<Partial<TokenData>>({});
-    private _asset: Partial<TokenData> = {};
     private _baseUrl = `${environment.apiUrl}/api/asset`;
+    private _sourceAsset: Partial<TokenData> = {};
+    private _sourceAsset$ = new BehaviorSubject<Partial<TokenData>>({});
+    private _targetAsset: Partial<TokenData> = {};
+    private _targetAsset$ = new BehaviorSubject<Partial<TokenData>>({});
 
-    constructor(private _chromeService: ChromeService, private _httpWrapperService: HttpWrapperService) {
-        this._chromeService.getItem("selectedAsset").then((asset: Partial<TokenData>) => {
-            if (asset) this.setAsset(asset);
+    constructor(
+        private _chromeService: ChromeService,
+        private _httpWrapperService: HttpWrapperService,
+        private _ethService: EthereumService,
+        private _solanaService: SolanaService,
+        private _suiService: SuiService
+    ) {
+        this._chromeService.getItem("sourceAsset").then((asset: Partial<TokenData>) => {
+            if (asset) this.setSourceAsset(asset);
+        });
+        this._chromeService.getItem("targetAsset").then((asset: Partial<TokenData>) => {
+            if (asset) this.setTargetAsset(asset);
         });
     }
 
-    get asset$(): Observable<Partial<TokenData>> {
-        return this._asset$.asObservable();
+    get sourceAsset$(): Observable<Partial<TokenData>> {
+        return this._sourceAsset$.asObservable();
     }
 
-    get asset(): Partial<TokenData> {
-        return this._asset;
+    get sourceAsset(): Partial<TokenData> {
+        return this._sourceAsset;
+    }
+
+    get targetAsset$(): Observable<Partial<TokenData>> {
+        return this._targetAsset$.asObservable();
+    }
+
+    get targetAsset(): Partial<TokenData> {
+        return this._targetAsset;
     }
 
     get intervals(): AssetIntervalOptions {
@@ -96,17 +127,180 @@ export class AssetService {
         });
     }
 
-    async setAsset(asset: Partial<TokenData>) {
-        await this._chromeService.setItem("selectedAsset", asset);
+    async setSourceAsset(asset: Partial<TokenData>) {
+        await this._chromeService.setItem("sourceAsset", asset);
 
-        this._asset = asset;
-        this._asset$.next(asset);
+        this._sourceAsset = asset;
+        this._sourceAsset$.next(asset);
     }
 
-    async removeAsset() {
-        await this._chromeService.removeItem("selectedAsset");
+    async setTargetAsset(asset: Partial<TokenData>) {
+        await this._chromeService.setItem("targetAsset", asset);
 
-        this._asset = {};
-        this._asset$.next(this._asset);
+        this._targetAsset = asset;
+        this._targetAsset$.next(asset);
+    }
+
+    async removeSourceAsset() {
+        await this._chromeService.removeItem("sourceAsset");
+
+        this._sourceAsset = {};
+        this._sourceAsset$.next(this._sourceAsset);
+    }
+
+    async loadTokensFromSession(): Promise<any[]> {
+        const sessionTokenTtl = await this._chromeService.getItemSession("tokensTtl");
+
+        if (!sessionTokenTtl || sessionTokenTtl <= Date.now()) return [];
+
+        const sessionTokens = await this._chromeService.getItemSession("tokens");
+
+        if (!sessionTokens || !sessionTokens.length) return [];
+
+        return sessionTokens;
+    }
+
+    async saveTokensToSession(tokens: Array<any>): Promise<void> {
+        this._chromeService.setItemSession("tokens", tokens);
+        this._chromeService.setItemSession("tokensTtl", Date.now() + 3600000);
+    }
+
+    processTokens(network: string, tokens: Array<any>, processedTokens: Array<any> = [], permissions?: NetworkPermissions): Array<any> {
+        for (const token of tokens) {
+            if ((!token.symbol && !token.name) || /^nft/i.test(token?.tokenType)) continue;
+
+            if (permissions) {
+                if (
+                    (network === "Ethereum" && !permissions.ETH) ||
+                    (network === "Solana" && !permissions.SOL) ||
+                    (network === "Avalanche" && !permissions.AVAX) ||
+                    (network === "Sui" && !permissions.SUI)
+                ) {
+                    continue;
+                }
+            }
+
+            const formattedToken = {
+                ...token,
+                network,
+                balance: parseFloat(token.balance || token.amount || "0"),
+                fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : token.image),
+                price: parseFloat(token.price || "0"),
+                tokenType: token.tokenType || (network === "Avalanche" ? "AVAX" : "ERC-20"),
+            };
+
+            const tokenKey = `${formattedToken.symbol}-${formattedToken.network}-${formattedToken.tokenType}`;
+            const existingTokenIndex = processedTokens.findIndex((t) => `${t.symbol}-${t.network}-${t.tokenType}` === tokenKey);
+
+            if (existingTokenIndex === -1) {
+                processedTokens.push(formattedToken);
+            } else {
+                processedTokens[existingTokenIndex] = formattedToken;
+            }
+        }
+
+        return processedTokens;
+    }
+
+    async processTokensFromResponse(
+        response: any,
+        wallet: Wallet,
+        permissions?: NetworkPermissions
+    ): Promise<{ tokens: any[]; totalFiatBalance: number }> {
+        let tokens: any[] = [];
+
+        if (response?.ethereum?.data?.tokenHoldings?.tokens && (!permissions || permissions.ETH)) {
+            tokens = this.processTokens("Ethereum", response.ethereum.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.solana?.data?.tokenHoldings?.tokens && (!permissions || permissions.SOL)) {
+            tokens = this.processTokens("Solana", response.solana.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.avalanche?.data?.tokenHoldings?.tokens && (!permissions || permissions.AVAX)) {
+            tokens = this.processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.sui?.data?.tokenHoldings?.tokens && (!permissions || permissions.SUI)) {
+            tokens = this.processTokens("Sui", response.sui.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        try {
+            tokens = await this.fetchAdditionalTokenDetails(tokens, wallet, permissions);
+
+            tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
+
+            await this.saveTokensToSession(tokens);
+        } catch (error) {
+            console.error("Error processing tokens:", error);
+        }
+
+        return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
+    }
+
+    private updateSelectedAssetFiatBalance(selectedAsset: Asset, tokens: any[]): void {
+        tokens.forEach((token) => {
+            if (!token.fiatBalance) return;
+
+            selectedAsset.fiatBalance += token.fiatBalance || 0;
+        });
+    }
+
+    async fetchAdditionalTokenDetails(tokens: any[], wallet: Wallet, permissions?: NetworkPermissions): Promise<any[]> {
+        try {
+            if (wallet.ethAddress && (!permissions || permissions.ETH)) {
+                const details = await this._ethService.getWalletDetails(wallet.ethAddress);
+
+                if (details?.data?.tokenHoldings?.tokens) {
+                    const newTokens = details.data.tokenHoldings.tokens.filter(
+                        (token: any) => !tokens.some((t) => t.symbol === token.symbol && t.network === "Ethereum")
+                    );
+
+                    if (newTokens.length) {
+                        tokens = this.processTokens("Ethereum", newTokens, tokens, permissions);
+                    }
+                }
+            }
+
+            if (wallet.solanaAddress && (!permissions || permissions.SOL)) {
+                const details = await this._solanaService.getWalletDetails(wallet.solanaAddress);
+
+                if (details?.data?.tokenHoldings?.tokens) {
+                    tokens = this.processTokens("Solana", details.data.tokenHoldings.tokens, tokens, permissions);
+                }
+            }
+
+            if (wallet.suiAddress && (!permissions || permissions.SUI)) {
+                const details = await this._suiService.getWalletDetails(wallet.suiAddress);
+
+                if (details?.data?.tokenHoldings?.tokens) {
+                    tokens = this.processTokens("Sui", details.data.tokenHoldings.tokens, tokens, permissions);
+                }
+            }
+
+            if (wallet.ethAddress && (!permissions || permissions.AVAX)) {
+                const details = await this._ethService.getAvalancheWalletDetails(wallet.ethAddress);
+
+                if (details?.data?.tokenHoldings?.tokens) {
+                    const formattedTokens = details.data.tokenHoldings.tokens.map((token: any) => ({
+                        ...token,
+                        network: "Avalanche",
+                        balance: parseFloat(token.balance || token.amount || "0"),
+                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
+                        price: parseFloat(token.price || "0"),
+                        tokenType: token.tokenType || "ERC-20",
+                        image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : undefined),
+                    }));
+
+                    tokens = this.processTokens("Avalanche", formattedTokens, tokens, permissions);
+                }
+            }
+
+            return tokens;
+        } catch (error) {
+            console.error("Error fetching additional token details:", error);
+            return tokens;
+        }
     }
 }

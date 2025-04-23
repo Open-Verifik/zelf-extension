@@ -263,19 +263,19 @@ export class SolanaService {
                 commitment: "confirmed",
             });
 
-            const baseCostLamports = tokenAddress ? 20000 : 10000;
+            const baseCostLamports = tokenAddress ? 60000 : 30000;
 
             const recentBlocks = await connection.getRecentPrioritizationFees();
 
             let prioritizationFees = recentBlocks.map((fee) => fee.prioritizationFee);
             prioritizationFees.sort((a, b) => a - b);
-            const medianPrioritizationFee = prioritizationFees[Math.floor(prioritizationFees.length * 0.75)] || 12345;
+            const medianPrioritizationFee = prioritizationFees[Math.floor(prioritizationFees.length * 0.9)] || 12345;
 
-            const computeUnits = tokenAddress ? 300000 : 200000;
+            const computeUnits = tokenAddress ? 900000 : 600000;
 
             const prioritizationFeeLamports = (medianPrioritizationFee * computeUnits) / 1000000;
 
-            const totalLamports = Math.ceil((baseCostLamports + prioritizationFeeLamports) * 1.2);
+            const totalLamports = Math.ceil((baseCostLamports + prioritizationFeeLamports) * 1.3);
 
             const totalCostSOL = totalLamports / LAMPORTS_PER_SOL;
 
@@ -298,9 +298,9 @@ export class SolanaService {
         } catch (error) {
             console.error("Error getting Solana transaction cost:", error);
 
-            const baseFee = 0.00001;
+            const baseFee = 0.00003;
             return {
-                estimatedGas: 10000,
+                estimatedGas: 30000,
                 gasPrice: baseFee.toString(),
                 totalCost: baseFee.toString(),
                 fiatFee: baseFee,

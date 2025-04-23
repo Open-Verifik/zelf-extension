@@ -27,15 +27,21 @@
             <div class="zelf-card__content swap__content">
                 <div class="ripple swap__loader" *ngIf="loading"></div>
 
-                <div class="swap__asset-card">
+                <div
+                    [ngClass]="{ 'swap__asset-card--error': form.get('sourceAmount')?.invalid && form.get('sourceAmount')?.dirty }"
+                    class="swap__asset-card"
+                >
                     <div class="swap__asset-card-actions swap__asset-card-actions--left">
                         <div class="swap__asset-input-label">{{ t("swap.you_pay") }}</div>
 
                         <input
-                            [class.swap__amount-input--dollar]="swapBalanceDisplay === 'fiat'"
+                            [ngClass]="{ 'swap__amount-input--dollar': swapBalanceDisplay === 'fiat' }"
+                            [max]="selectedSourceAsset.amount || null"
                             class="swap__amount-input"
                             formControlName="sourceAmount"
+                            min="0"
                             placeholder="0"
+                            required
                             type="number"
                         />
 
@@ -90,7 +96,9 @@
                         </div>
 
                         <div class="swap__quick-amounts">
-                            <p class="swap__quick-amount">{{ selectedSourceAsset.amount | number : "1.2-4" }}</p>
+                            <p class="swap__quick-amount" [ngClass]="{ 'swap__quick-amount--error': form.get('sourceAmount')?.errors?.max }">
+                                {{ selectedSourceAsset.amount | number : "1.2-4" }}
+                            </p>
 
                             <button
                                 (click)="setAmount(0.5)"
@@ -176,113 +184,121 @@
                     </div>
                 </div>
 
-                <div class="swap__details" *ngIf="form.get('sourceAmount')?.value > 0">
-                    <div class="swap__settings">
-                        <button
-                            class="zelf-button zelf-button--anti-flash-white swap__settings-button"
-                            mat-flat-button
-                            [matMenuTriggerFor]="bridgeMenu"
-                        >
-                            <span [innerHTML]="t('swap.powered_by', { bridge: getBridgeLabel() })"></span>
-                            <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
-                        </button>
-
-                        <mat-menu class="zelf-menu" #bridgeMenu="matMenu">
+                <div class="swap__details">
+                    <ng-container *ngIf="form.get('sourceAmount')?.value > 0">
+                        <div class="swap__settings">
                             <button
-                                (click)="setBridge(bridgeOption.value)"
-                                *ngFor="let bridgeOption of bridgeOptions"
-                                class="zelf-menu-item"
-                                mat-menu-item
-                            >
-                                <label [for]="bridgeOption.value" class="zelf-radio zelf-radio--plain zelf-radio--gap-lg">
-                                    <span>{{ bridgeOption.label }}</span>
-
-                                    <input
-                                        [id]="bridgeOption.value"
-                                        [value]="bridgeOption.value"
-                                        formControlName="bridge"
-                                        name="bridge"
-                                        type="radio"
-                                    />
-
-                                    <svg viewBox="0 0 21 21">
-                                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                                    </svg>
-                                </label>
-                            </button>
-                        </mat-menu>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <div class="swap__detail-field swap__detail-field--gray">
-                            <p class="swap__details-label">{{ t("swap.pricing") }}</p>
-
-                            <div class="tooltip-container">
-                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-
-                                <div class="tooltip">
-                                    <div class="tooltip__content">
-                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-                                        <p class="tooltip__content-text">{{ t("swap.pricing_text") }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swap__detail-field swap__detail-field--black">
-                            <p class="swap__details-value">1 USD ~ {{ targetTokenPricePerDollar | currency : "USD" : "symbol" : "1.2-8" }}</p>
-                        </div>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <div class="swap__detail-field swap__detail-field--gray">
-                            <p class="swap__details-label">{{ t("swap.fees") }}</p>
-
-                            <div class="tooltip-container">
-                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-
-                                <div class="tooltip">
-                                    <div class="tooltip__content">
-                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-                                        <p class="tooltip__content-text">{{ t("swap.fees_text") }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swap__detail-field swap__detail-field--black">
-                            <p class="swap__details-value">{{ form.get("fee")?.value | currency : "USD" : "symbol" : "1.2-8" }}</p>
-                        </div>
-                    </div>
-
-                    <div class="zelf-action-row">
-                        <div class="swap__detail-field swap__detail-field--gray">
-                            <p class="swap__details-label">{{ t("swap.slippage") }}</p>
-
-                            <div class="tooltip-container">
-                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-
-                                <div class="tooltip">
-                                    <div class="tooltip__content">
-                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-                                        <p class="tooltip__content-text">{{ t("swap.slippage_text", { slippage: form.get("slippage")?.value }) }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swap__detail-field swap__detail-field--black">
-                            <p class="swap__details-value">{{ form.get("slippage")?.value | number : "1.2-2" }} %</p>
-
-                            <button
-                                (click)="openSlippageSheet()"
-                                class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--40"
+                                [disabled]="bridgeOptions.length < 2"
+                                [matMenuTriggerFor]="bridgeMenu"
+                                class="zelf-button zelf-button--anti-flash-white swap__settings-button"
                                 mat-flat-button
                             >
-                                <ng-container *ngTemplateOutlet="editIcon"></ng-container>
+                                <span [innerHTML]="t('swap.powered_by', { bridge: getBridgeLabel() })"></span>
+
+                                <ng-container *ngIf="bridgeOptions.length > 1">
+                                    <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
+                                </ng-container>
                             </button>
+
+                            <mat-menu class="zelf-menu" #bridgeMenu="matMenu">
+                                <button
+                                    (click)="setBridge(bridgeOption.value)"
+                                    *ngFor="let bridgeOption of bridgeOptions"
+                                    class="zelf-menu-item"
+                                    mat-menu-item
+                                >
+                                    <label [for]="bridgeOption.value" class="zelf-radio zelf-radio--plain zelf-radio--gap-lg">
+                                        <span>{{ bridgeOption.label }}</span>
+
+                                        <input
+                                            [id]="bridgeOption.value"
+                                            [value]="bridgeOption.value"
+                                            formControlName="bridge"
+                                            name="bridge"
+                                            type="radio"
+                                        />
+
+                                        <svg viewBox="0 0 21 21">
+                                            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                                        </svg>
+                                    </label>
+                                </button>
+                            </mat-menu>
                         </div>
-                    </div>
+
+                        <div class="zelf-action-row">
+                            <div class="swap__detail-field swap__detail-field--gray">
+                                <p class="swap__details-label">{{ t("swap.pricing") }}</p>
+
+                                <div class="tooltip-container">
+                                    <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+
+                                    <div class="tooltip">
+                                        <div class="tooltip__content">
+                                            <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                                            <p class="tooltip__content-text">{{ t("swap.pricing_text") }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swap__detail-field swap__detail-field--black">
+                                <p class="swap__details-value">1 USD ~ {{ targetTokenPricePerDollar | currency : "USD" : "symbol" : "1.2-8" }}</p>
+                            </div>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <div class="swap__detail-field swap__detail-field--gray">
+                                <p class="swap__details-label">{{ t("swap.fees") }}</p>
+
+                                <div class="tooltip-container">
+                                    <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+
+                                    <div class="tooltip">
+                                        <div class="tooltip__content">
+                                            <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                                            <p class="tooltip__content-text">{{ t("swap.fees_text") }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swap__detail-field swap__detail-field--black">
+                                <p class="swap__details-value">{{ form.get("fee")?.value | currency : "USD" : "symbol" : "1.2-8" }}</p>
+                            </div>
+                        </div>
+
+                        <div class="zelf-action-row">
+                            <div class="swap__detail-field swap__detail-field--gray">
+                                <p class="swap__details-label">{{ t("swap.slippage") }}</p>
+
+                                <div class="tooltip-container">
+                                    <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+
+                                    <div class="tooltip">
+                                        <div class="tooltip__content">
+                                            <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
+                                            <p class="tooltip__content-text">
+                                                {{ t("swap.slippage_text", { slippage: form.get("slippage")?.value }) }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swap__detail-field swap__detail-field--black">
+                                <p class="swap__details-value">{{ form.get("slippage")?.value | number : "1.2-2" }} %</p>
+
+                                <button
+                                    (click)="openSlippageSheet()"
+                                    class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--40"
+                                    mat-flat-button
+                                >
+                                    <ng-container *ngTemplateOutlet="editIcon"></ng-container>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
 
@@ -325,14 +341,12 @@
         </ng-container>
 
         <input type="hidden" formControlName="bridge" />
-        <input type="hidden" formControlName="fee" [value]="networkFee" />
-        <input type="hidden" formControlName="slippageToggle" value="automatic" />
+        <input type="hidden" formControlName="slippageToggle" />
         <input type="hidden" formControlName="slippage" />
-        <input type="hidden" formControlName="commissionToggle" value="automatic" />
+        <input type="hidden" formControlName="commissionToggle" />
         <input type="hidden" formControlName="commission" />
-        <input type="hidden" formControlName="sourceToken" [value]="selectedSourceAsset" />
-        <input type="hidden" formControlName="targetToken" [value]="selectedTargetAsset" />
-        <input type="hidden" formControlName="totalSourceToken" [value]="totalSourceToken" />
+        <input type="hidden" formControlName="sourceAsset" />
+        <input type="hidden" formControlName="targetAsset" />
     </form>
 
     <swap-currency

@@ -10,8 +10,13 @@ export class ErrorService {
     constructor(private _translocoService: TranslocoService) {}
 
     translateErrorMessage(key: string, fallbackErrorKey: string = ""): string {
-        const translation = this._translocoService.translate(`errors.${key}`);
+        const formattedKey = `errors.${key}`;
+        const translation = this._translocoService.translate(formattedKey);
 
-        return translation !== key ? translation : fallbackErrorKey ? this._translocoService.translate(fallbackErrorKey) : this._defaultErrorMessage;
+        return translation !== formattedKey
+            ? translation
+            : fallbackErrorKey
+            ? this._translocoService.translate(fallbackErrorKey)
+            : this._defaultErrorMessage;
     }
 }

@@ -1,0 +1,96 @@
+@import "../../styles/variables.scss";
+@import "../../styles/buttons.scss";
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.expandable {
+    width: 100%;
+    box-sizing: border-box;
+
+    &__label {
+        min-height: 40px;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: $gray;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 24px 8px;
+        transition: color 0.3s $smoothBezier;
+
+        svg {
+            transform: rotate(180deg);
+            transition: transform 0.3s $smoothBezier;
+            fill: $gray;
+        }
+
+        &--active {
+            color: $black;
+
+            svg {
+                transform: rotate(0deg);
+                fill: $black;
+            }
+        }
+    }
+
+    &__text {
+        margin: 0;
+    }
+
+    &__content {
+        box-sizing: border-box;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out;
+
+        &--active {
+            max-height: 128px;
+        }
+    }
+
+    &__inner-content {
+        box-sizing: border-box;
+        padding: 16px;
+    }
+}
+
+.zelf-input {
+    position: relative;
+    margin-bottom: 16px;
+
+    &--wide {
+        width: 100%;
+    }
+}
+
+.zelf-message {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+
+    &--success {
+        background-color: rgba(30, 164, 70, 0.08);
+    }
+
+    &--error {
+        background-color: rgba(220, 54, 46, 0.08);
+    }
+
+    p {
+        margin: 0 0 0 8px;
+    }
+}

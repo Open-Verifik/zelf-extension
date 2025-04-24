@@ -30,17 +30,6 @@
 
             <ng-container *ngIf="zelfNameObject?.publicData?.origin === 'offline'">
                 <p class="zelf-card__subtitle">{{ t("welcome.offline_subtitle") }}</p>
-
-                <div class="tip-box">
-                    <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M7.3 0.1878L1.3 2.4378C0.52 2.7378 0 3.4778 0 4.3178V9.0278C0 14.0778 3.41 18.7878 8 19.9378C12.59 18.7878 16 14.0778 16 9.0278V4.3178C16 3.4878 15.48 2.7378 14.7 2.4478L8.7 0.1978C8.25 0.0178002 7.75 0.0178002 7.3 0.1878ZM6.23 12.7578L4.11 10.6378C3.72 10.2478 3.72 9.6178 4.11 9.2278C4.5 8.8378 5.13 8.8378 5.52 9.2278L6.93 10.6378L10.47 7.0978C10.86 6.7078 11.49 6.7078 11.88 7.0978C12.27 7.4878 12.27 8.1178 11.88 8.5078L7.64 12.7478C7.26 13.1478 6.62 13.1478 6.23 12.7578Z"
-                            fill="#0e26ff"
-                        />
-                    </svg>
-
-                    <p class="tip-box__text">{{ t("welcome.offline_tip") }}</p>
-                </div>
             </ng-container>
 
             <ng-container *ngIf="zelfNameObject?.publicData?.origin !== 'offline'">
@@ -141,8 +130,19 @@
 
     <div class="zelf-card__actions zelf-card__actions--column">
         <ng-container *ngIf="zelfNameObject?.publicData?.origin === 'offline'">
-            <button [routerLink]="['/home']" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
-                {{ t("common.import_a_wallet") }}
+            <div class="tip-box">
+                <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M7.3 0.1878L1.3 2.4378C0.52 2.7378 0 3.4778 0 4.3178V9.0278C0 14.0778 3.41 18.7878 8 19.9378C12.59 18.7878 16 14.0778 16 9.0278V4.3178C16 3.4878 15.48 2.7378 14.7 2.4478L8.7 0.1978C8.25 0.0178002 7.75 0.0178002 7.3 0.1878ZM6.23 12.7578L4.11 10.6378C3.72 10.2478 3.72 9.6178 4.11 9.2278C4.5 8.8378 5.13 8.8378 5.52 9.2278L6.93 10.6378L10.47 7.0978C10.86 6.7078 11.49 6.7078 11.88 7.0978C12.27 7.4878 12.27 8.1178 11.88 8.5078L7.64 12.7478C7.26 13.1478 6.62 13.1478 6.23 12.7578Z"
+                        fill="#0e26ff"
+                    />
+                </svg>
+
+                <p class="tip-box__text">{{ t("welcome.offline_tip") }}</p>
+            </div>
+
+            <button [routerLink]="['../offline-import']" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+                {{ t("common.import_wallet") }}
             </button>
 
             <button [routerLink]="['/home']" mat-flat-button class="zelf-button zelf-button--hyperlink zelf-button--wide">

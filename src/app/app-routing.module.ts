@@ -90,6 +90,11 @@ const routes: Routes = [
                 canActivate: [ZelfNameGuard],
             },
             {
+                path: "offline-import",
+                loadComponent: () => import("./welcome-registered/welcome-registered.component").then((m) => m.WelcomeRegisteredComponent),
+                canActivate: [ZelfNameGuard],
+            },
+            {
                 path: "grace",
                 loadComponent: () => import("./welcome-grace/welcome-grace.component").then((m) => m.WelcomeGraceComponent),
                 canActivate: [ZelfNameGuard],

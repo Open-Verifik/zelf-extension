@@ -87,10 +87,10 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private _onBiometricsFailed = async (exception: any) => {
-        console.error({ exception });
+        console.error(exception);
 
         this.errorTitle = this._translocoService.translate("errors.generic_title");
-        this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message, "errors.generic_identity");
+        this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message || exception?.error?.error, "errors.generic_identity");
     };
 
     async _createWallet(payload: any): Promise<void> {

@@ -327,6 +327,7 @@ export type SolTransaction = {
     amount: number;
     block: number;
     fee: number;
+    priorityFee: number;
     from: string;
     id: string;
     status: string;
@@ -340,6 +341,7 @@ export class SolTransactionModel implements SolTransaction {
     amount: number;
     block: number;
     fee: number;
+    priorityFee: number;
     from: string;
     id: string;
     status: string;
@@ -352,6 +354,7 @@ export class SolTransactionModel implements SolTransaction {
         this.amount = data.amount ? data.amount / 1e9 : 0;
         this.block = data.block || 0;
         this.fee = data.fee ? data.fee / 1e9 : 0;
+        this.priorityFee = data.priorityFee ? data.priorityFee / 1e9 : 0;
         this.from = data.from || "";
         this.id = data.id || "";
         this.status = data.status || "";
@@ -556,6 +559,7 @@ export interface WalletPublicData {
     isExpired: boolean;
     isExpiringSoon: boolean;
     isExpiringWithinMonth: boolean;
+    origin: "offline" | "online" | "";
     registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
@@ -575,6 +579,7 @@ export class WalletPublicDataModel {
     ethAddress: string;
     expiresAt: string;
     gracePeriod: Date | null;
+    origin: "offline" | "online" | "";
     registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
@@ -590,6 +595,7 @@ export class WalletPublicDataModel {
         this.btcAddress = data.btcAddress || "";
         this.ethAddress = data.ethAddress || "";
         this.expiresAt = data.expiresAt || "";
+        this.origin = data.origin || "";
         this.registeredAt = data.registeredAt || "";
         this.solanaAddress = data.solanaAddress || "";
         this.type = data.type || "";

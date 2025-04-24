@@ -20,18 +20,18 @@
         "test": "ng test"
     },
     "dependencies": {
-        "@angular/animations": "16.0.3",
-        "@angular/cdk": "^16.0.2",
-        "@angular/common": "16.0.3",
-        "@angular/compiler": "16.0.3",
-        "@angular/core": "16.0.3",
+        "@angular/animations": "17.3.12",
+        "@angular/cdk": "^17.3.10",
+        "@angular/common": "17.3.12",
+        "@angular/compiler": "17.3.12",
+        "@angular/core": "17.3.12",
         "@angular/flex-layout": "^15.0.0-beta.42",
-        "@angular/forms": "16.0.3",
-        "@angular/material": "16.0.2",
-        "@angular/material-luxon-adapter": "16.0.2",
-        "@angular/platform-browser": "16.0.3",
-        "@angular/platform-browser-dynamic": "16.0.3",
-        "@angular/router": "16.0.3",
+        "@angular/forms": "17.3.12",
+        "@angular/material": "17.3.10",
+        "@angular/material-luxon-adapter": "17.3.10",
+        "@angular/platform-browser": "17.3.12",
+        "@angular/platform-browser-dynamic": "17.3.12",
+        "@angular/router": "17.3.12",
         "@babel/runtime": "^7.26.0",
         "@ethereumjs/wallet": "^2.0.3",
         "@mysten/sui.js": "^0.54.1",
@@ -59,12 +59,12 @@
         "web3": "^4.8.0",
         "web3-validator": "^2.0.6",
         "webextension-polyfill": "^0.12.0",
-        "zone.js": "0.13.0"
+        "zone.js": "0.14.10"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "^16.2.16",
-        "@angular/cli": "^16.2.6",
-        "@angular/compiler-cli": "16.0.3",
+        "@angular-devkit/build-angular": "^17.3.16",
+        "@angular/cli": "^17.3.16",
+        "@angular/compiler-cli": "17.3.12",
         "@types/bs58": "^4.0.4",
         "@types/chroma-js": "2.4.0",
         "@types/chrome": "^0.0.266",
@@ -88,8 +88,8 @@
         "process": "^0.11.10",
         "stream-browserify": "^3.0.0",
         "stream-http": "^3.2.0",
-        "typescript": "5.0.4",
+        "typescript": "5.4.5",
         "url": "^0.11.4",
-        "web-ext": "^8.4.0"
+        "web-ext": "^8.6.0"
     }
 }

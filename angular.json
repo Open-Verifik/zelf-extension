@@ -284,10 +284,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "verifik-wallet-extension:build:production"
+                            "buildTarget": "verifik-wallet-extension:build:production"
                         },
                         "development": {
-                            "browserTarget": "verifik-wallet-extension:build:development"
+                            "buildTarget": "verifik-wallet-extension:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -295,7 +295,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "verifik-wallet-extension:build"
+                        "buildTarget": "verifik-wallet-extension:build"
                     }
                 }
             }

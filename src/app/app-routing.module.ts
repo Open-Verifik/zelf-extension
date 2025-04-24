@@ -91,7 +91,7 @@ const routes: Routes = [
             },
             {
                 path: "offline-import",
-                loadComponent: () => import("./welcome-registered/welcome-registered.component").then((m) => m.WelcomeRegisteredComponent),
+                loadComponent: () => import("./welcome-offline-import/welcome-offline-import.component").then((m) => m.WelcomeOfflineImportComponent),
                 canActivate: [ZelfNameGuard],
             },
             {

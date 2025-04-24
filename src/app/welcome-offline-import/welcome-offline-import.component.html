@@ -1,11 +1,25 @@
 <div class="zelf-card welcome-offline-import" *transloco="let t">
-    <div class="zelf-card__header">
-        <h1 class="zelf-card__title">{{ t("welcome.safeguard_your_crypto") }}</h1>
-        <p class="zelf-card__subtitle">{{ t("welcome.offline_import_subtitle") }}</p>
+    <div class="welcome-offline-import__header-button">
+        <button
+            (click)="showAvailable = false; showRegistered = false"
+            [routerLink]="showAvailable || showRegistered ? null : ['../']"
+            class="zelf-icon-button zelf-icon-button--40"
+            mat-icon-button
+        >
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+            </svg>
+        </button>
     </div>
 
     <ng-container *ngIf="!showAvailable && !showRegistered">
-        <form [formGroup]="form" class="zelf-card__content">
+        <div class="welcome-offline-import__wrapper">
+            <img src="assets/images/lock.png" alt="offline-import" />
+            <h1 class="zelf-card__title">{{ t("welcome.safeguard_your_crypto") }}</h1>
+            <p class="zelf-card__subtitle">{{ t("welcome.offline_import_subtitle") }}</p>
+        </div>
+
+        <form [formGroup]="form" class="zelf-card__content" (ngSubmit)="searchZelfName($event)">
             <div class="zelf-input">
                 <input
                     (input)="sanitizeZelfName()"
@@ -15,7 +29,7 @@
                     class="zelf-input__control"
                     formControlName="zelfName"
                     id="zelfName"
-                    maxlength="27"
+                    maxlength="26"
                     minlength="1"
                     name="zelfName"
                     required
@@ -41,6 +55,140 @@
     </ng-container>
 
     <ng-container *ngIf="showAvailable">
-        <div class="zelf-card__content"></div>
+        <div class="welcome-offline-import__available-wrapper">
+            <div class="zelf-chip zelf-chip--success">{{ t("common.available") }}</div>
+
+            <h2 class="zelf-card__title">{{ zelfName | zelfName }}</h2>
+
+            <p class="zelf-card__subtitle welcome-offline-import__available-subtitle">
+                {{ t("welcome.you_will_register_this_domain") }}
+            </p>
+        </div>
+
+        <form [formGroup]="referralForm" class="zelf-card__content">
+            <div class="welcome-offline-import__top">
+                <welcome-available-content
+                    (clearInvalidReferralEvent)="clearInvalidReferral()"
+                    (sanitizeZelfNameEvent)="sanitizeZelfName()"
+                    (searchZelfName)="searchReferralZelfName($event)"
+                    [form]="referralForm"
+                    [invalidReferral]="invalidReferral"
+                    [loading]="loading"
+                    [loadingReferral]="loadingReferral"
+                    [zelfNameObject]="zelfNameObject"
+                ></welcome-available-content>
+            </div>
+
+            <div class="welcome-offline-import__buttons">
+                <label class="zelf-checkbox">
+                    <input formControlName="termsAndConditions" id="termsAndConditions" name="termsAndConditions" type="checkbox" />
+
+                    <svg viewBox="0 0 21 21">
+                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                    </svg>
+
+                    <span [innerHTML]="t('common.agree_to_terms_and_conditions')"></span>
+                </label>
+
+                <button
+                    (click)="goToImport()"
+                    [disabled]="referralForm.invalid || loading || loadingReferral"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    mat-flat-button
+                >
+                    {{ t("common.import_a_wallet") }}
+                </button>
+            </div>
+        </form>
     </ng-container>
+
+    <ng-container *ngIf="showRegistered">
+        <div class="zelf-card__content">
+            <div class="qr-code" *ngIf="zelfNameObject?.publicData?.type === 'hold' || !zelfNameObject?.publicData?.isExpiringWithinMonth">
+                <img class="qr-code__image" [src]="qrCodeImage" alt="zelf-proof" />
+            </div>
+
+            <div
+                [ngClass]="{
+                    'zelf-chip--info': zelfNameObject?.publicData?.type === 'mainnet' && !zelfNameObject?.publicData?.isExpiringWithinMonth,
+                    'zelf-chip--error': zelfNameObject?.publicData?.type === 'hold' || zelfNameObject?.publicData?.isExpiringWithinMonth
+                }"
+                class="zelf-chip welcome-offline-import__chip"
+            >
+                <ng-container *ngIf="zelfNameObject?.publicData?.type === 'hold'">{{ t("common.reservation_found") }}</ng-container>
+                <ng-container *ngIf="zelfNameObject?.publicData?.type === 'mainnet'">{{ t("common.registered") }}</ng-container>
+            </div>
+
+            <h2 class="zelf-card__title">{{ zelfNameObject?.publicData?.zelfName | zelfName }}</h2>
+
+            <p class="zelf-card__subtitle welcome-offline-import__subtitle">
+                <span *ngIf="zelfNameObject?.publicData?.registeredAt">
+                    {{ t("welcome.registered", { date: zelfNameObject?.publicData?.registeredAt | date : "MMMM yyyy" }) }}
+                </span>
+            </p>
+
+            <div class="welcome-offline-import__addresses">
+                <ng-container
+                    *ngTemplateOutlet="
+                        addressRow;
+                        context: {
+                            $implicit: {
+                                address: zelfNameObject?.publicData?.btcAddress,
+                                label: t('common.btc_address'),
+                                logo: 'assets/images/currencies/btc.png',
+                                value: zelfNameObject?.displayBtcAddress,
+                            }
+                        }
+                    "
+                ></ng-container>
+
+                <ng-container
+                    *ngTemplateOutlet="
+                        addressRow;
+                        context: {
+                            $implicit: {
+                                address: zelfNameObject?.publicData?.ethAddress,
+                                label: t('common.eth_address'),
+                                logo: 'assets/images/currencies/eth.png',
+                                value: zelfNameObject?.displayEthAddress,
+                            }
+                        }
+                    "
+                ></ng-container>
+
+                <ng-container
+                    *ngTemplateOutlet="
+                        addressRow;
+                        context: {
+                            $implicit: {
+                                address: zelfNameObject?.publicData?.solanaAddress,
+                                label: t('common.sol_address'),
+                                logo: 'assets/images/currencies/sol.png',
+                                value: zelfNameObject?.displaySolanaAddress,
+                            }
+                        }
+                    "
+                ></ng-container>
+            </div>
+        </div>
+
+        <div class="zelf-card__actions welcome-offline-import__actions">
+            <button (click)="showRegistered = false" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+                {{ t("common.try_another_one") }}
+            </button>
+        </div>
+    </ng-container>
+
+    <ng-template #addressRow let-address>
+        <ng-container *transloco="let t">
+            <div class="address-row" *ngIf="address.value">
+                <div class="address-row__inner">
+                    <img class="address-row__logo" [src]="address.logo" alt="Currency Logo" />
+
+                    <div class="address-row__label">{{ address.label }}</div>
+                    <div class="address-row__value">{{ address.value }}</div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-template>
 </div>

@@ -1,0 +1,86 @@
+<form [formGroup]="form" class="expandable" *transloco="let t">
+    <div (click)="expandReferral()" class="expandable__label" [ngClass]="{ 'expandable__label--active': referralExpanded }">
+        <p class="expandable__text">{{ t("welcome.referral_code") }}</p>
+
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M2.1251 6.99953L6.0051 3.11953L9.8851 6.99953C10.2751 7.38953 10.9051 7.38953 11.2951 6.99953C11.6851 6.60953 11.6851 5.97953 11.2951 5.58953L6.7051 0.999531C6.3151 0.609531 5.6851 0.609531 5.2951 0.999531L0.705098 5.58953C0.315098 5.97953 0.315098 6.60953 0.705098 6.99953C1.0951 7.37953 1.7351 7.38953 2.1251 6.99953Z"
+            />
+        </svg>
+    </div>
+
+    <div class="expandable__content" [ngClass]="{ 'expandable__content--active': referralExpanded }">
+        <div class="expandable__inner-content">
+            <div class="zelf-input zelf-input--wide">
+                <input
+                    (blur)="onSearchZelfName($event)"
+                    (click)="clearInvalidReferral()"
+                    (input)="sanitizeZelfName()"
+                    (keydown.enter)="onSearchZelfName($event)"
+                    [disabled]="loadingReferral || loading || zelfNameObject"
+                    [readonly]="loadingReferral || loading || zelfNameObject"
+                    autocomplete="off"
+                    class="zelf-input__control zelf-input__control--floating-label"
+                    formControlName="referralName"
+                    id="referralName"
+                    maxlength="26"
+                    name="referralName"
+                    placeholder=" "
+                />
+
+                <label for="referralName" class="zelf-input__floating-label">{{ t("welcome.code_name") }}</label>
+
+                <button
+                    (click)="onSearchZelfName($event)"
+                    [disabled]="loading || form.get('referralName')?.invalid"
+                    [ngClass]="{ 'zelf-icon-button--success': zelfNameObject, 'zelf-icon-button--error': invalidReferral }"
+                    class="zelf-icon-button zelf-icon-button--black"
+                    mat-icon-button
+                >
+                    <ng-container *ngIf="!loadingReferral && !zelfNameObject && !invalidReferral">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
+                            />
+                        </svg>
+                    </ng-container>
+
+                    <ng-container *ngIf="zelfNameObject"><ng-container *ngTemplateOutlet="check"></ng-container></ng-container>
+                    <ng-container *ngIf="invalidReferral"><ng-container *ngTemplateOutlet="cross"></ng-container></ng-container>
+
+                    <mat-spinner *ngIf="loadingReferral" mode="indeterminate" diameter="18"></mat-spinner>
+                </button>
+            </div>
+
+            <div class="zelf-message zelf-message--success" *ngIf="zelfNameObject">
+                <ng-container *ngTemplateOutlet="check"></ng-container>
+                <p>{{ t("welcome.referral_successfully_registered") }}</p>
+            </div>
+
+            <div class="zelf-message zelf-message--error" *ngIf="invalidReferral">
+                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                <p>{{ t("welcome.invalid_referral_code") }}</p>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #check>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM7.29 14.29L3.7 10.7C3.31 10.31 3.31 9.68 3.7 9.29C4.09 8.9 4.72 8.9 5.11 9.29L8 12.17L14.88 5.29C15.27 4.9 15.9 4.9 16.29 5.29C16.68 5.68 16.68 6.31 16.29 6.7L8.7 14.29C8.32 14.68 7.68 14.68 7.29 14.29Z"
+            fill="#1EA446"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #cross>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM14.3 14.3C13.91 14.69 13.28 14.69 12.89 14.3L10 11.41L7.11 14.3C6.72 14.69 6.09 14.69 5.7 14.3C5.31 13.91 5.31 13.28 5.7 12.89L8.59 10L5.7 7.11C5.31 6.72 5.31 6.09 5.7 5.7C6.09 5.31 6.72 5.31 7.11 5.7L10 8.59L12.89 5.7C13.28 5.31 13.91 5.31 14.3 5.7C14.69 6.09 14.69 6.72 14.3 7.11L11.41 10L14.3 12.89C14.68 13.27 14.68 13.91 14.3 14.3Z"
+            fill="#DC362E"
+        />
+    </svg>
+</ng-template>

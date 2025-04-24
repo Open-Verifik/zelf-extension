@@ -97,6 +97,8 @@
         "upload_zelf_proof": "or upload your ZelfProof QR Code to continue:",
         "you_can_transfer_this_domain": "You can transfer this domain",
         "you_will_register_this_domain": "You will register this domain",
+        "safeguard_your_crypto": "Safeguard Your Crypto!",
+        "offline_import_subtitle": "Before you can import your offline-wallet, you need to choose a new ZelfName.",
         "your_zelf_name": "Your Zelf Name"
     },
     "security": {
@@ -216,6 +218,7 @@
         "transaction": "Transaction",
         "transfer": "Transfer",
         "try_again": "Try again",
+        "try_another_one": "Try another one",
         "type": "Type",
         "unlock": "Unlock",
         "upload_qr_image": "Upload QR image",

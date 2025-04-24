@@ -10,9 +10,19 @@ import { ChromeService } from "app/chrome.service";
 import { DiscountType } from "app/pipes/discount.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { WelcomeAvailableContentComponent } from "./welcome-available-content.component";
 
 @Component({
-    imports: [CommonModule, ReactiveFormsModule, MatProgressSpinnerModule, TranslocoModule, MatButtonModule, RouterModule, ZelfNamePipe],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        ReactiveFormsModule,
+        RouterModule,
+        TranslocoModule,
+        WelcomeAvailableContentComponent,
+        ZelfNamePipe,
+    ],
     selector: "welcome-available",
     standalone: true,
     styleUrls: ["./welcome-available.component.scss"],
@@ -27,7 +37,6 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     loading: boolean = false;
     loadingReferral: boolean = false;
     invalidReferral: boolean = false;
-    referralExpanded: boolean = false;
     zelfName: string = "";
     zelfNameObject: any;
 
@@ -52,7 +61,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            referralName: ["", Validators.maxLength(27)],
+            referralName: ["", Validators.maxLength(26)],
             termsAndConditions: [false, Validators.requiredTrue],
         });
     }
@@ -69,10 +78,6 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         clearTimeout(this._invalidTimeout);
 
         this.invalidReferral = false;
-    }
-
-    expandReferral(): void {
-        this.referralExpanded = !this.referralExpanded;
     }
 
     async goToImport(): Promise<void> {

@@ -2,7 +2,7 @@ import { TranslocoModule } from "@ngneat/transloco";
 import { WebcamModule } from "ngx-webcam";
 
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -124,6 +124,8 @@ import { ActivityCardComponent } from "./home/activity-card/activity-card.compon
         TransactionDetailsComponent,
         NewNameCardComponent,
     ],
+    bootstrap: [AppComponent],
+    exports: [],
     imports: [
         MnemonicComponent,
         BrowserModule,
@@ -132,7 +134,6 @@ import { ActivityCardComponent } from "./home/activity-card/activity-card.compon
         CommonModule,
         MatButtonModule,
         MatMenuModule,
-        HttpClientModule,
         TranslocoRootModule,
         NoopAnimationsModule,
         BrowserAnimationsModule, // Ensure animations are enabled for testing
@@ -158,9 +159,7 @@ import { ActivityCardComponent } from "./home/activity-card/activity-card.compon
         TranslocoModule,
         ActivityCardComponent,
     ],
-    providers: [HttpInterceptorProviders],
-    bootstrap: [AppComponent],
-    exports: [],
+    providers: [HttpInterceptorProviders, provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule {
     constructor(private router: Router) {

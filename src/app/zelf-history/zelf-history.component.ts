@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { Router } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { Transaction } from "app/wallet";
@@ -42,7 +42,6 @@ type ProcessedTransaction = {
         TranslocoModule,
     ],
     selector: "zelf-history",
-    standalone: true,
     styleUrls: ["./zelf-history.component.scss"],
     templateUrl: "./zelf-history.component.html",
 })

@@ -9,9 +9,10 @@ import { Asset, Transaction, TransactionModel, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
-	selector: "app-send-transaction-preview",
-	templateUrl: "./send-transaction-preview.component.html",
-	styleUrls: ["../../main.scss", "./send-transaction-preview.component.scss", "../send-transaction.component.scss"],
+    selector: "app-send-transaction-preview",
+    templateUrl: "./send-transaction-preview.component.html",
+    styleUrls: ["../../main.scss", "./send-transaction-preview.component.scss", "../send-transaction.component.scss"],
+    standalone: false
 })
 export class SendTransactionPreviewComponent implements OnInit {
 	shareables: any;

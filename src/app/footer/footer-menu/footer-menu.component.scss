@@ -1,125 +1,125 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables";
 
 :host {
-	display: block;
-	padding: 32px;
+    display: block;
+    padding: 32px;
 }
 
 .footer-menu {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	gap: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 
-	&__item {
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		gap: 8px;
-		cursor: pointer;
-		border: none;
-		outline: none;
-		user-select: none;
-		width: 100%;
-		border-radius: 12px;
-		padding: 12px 16px;
-		transition: background-color 0.3s $smoothBezier;
+    &__item {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        user-select: none;
+        width: 100%;
+        border-radius: 12px;
+        padding: 12px 16px;
+        transition: background-color 0.3s variables.$smoothBezier;
 
-		svg {
-			transition: fill 0.3s $smoothBezier;
-			fill: $black;
-		}
+        svg {
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
+        }
 
-		&:hover {
-			background-color: #b589f0;
-			color: white;
+        &:hover {
+            background-color: #b589f0;
+            color: white;
 
-			.footer-menu__icon-container {
-				background-color: $black;
-			}
+            .footer-menu__icon-container {
+                background-color: variables.$black;
+            }
 
-			svg {
-				fill: white;
-			}
+            svg {
+                fill: white;
+            }
 
-			.footer-menu__arrow-container {
-				svg {
-					fill: $black;
-				}
-			}
-		}
-	}
+            .footer-menu__arrow-container {
+                svg {
+                    fill: variables.$black;
+                }
+            }
+        }
+    }
 
-	&__icon-container {
-		background: white;
-		border-radius: 12px;
-		padding: 8px;
-		width: 24px;
-		height: 24px;
-		min-width: 24px;
-		min-height: 24px;
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-		transition: background-color 0.3s $smoothBezier;
-	}
+    &__icon-container {
+        background: white;
+        border-radius: 12px;
+        padding: 8px;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        min-height: 24px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s variables.$smoothBezier;
+    }
 
-	&__text {
-		font-size: 14px;
-		font-weight: 500;
-		color: $black;
-		margin-left: 8px;
-		width: 100%;
-	}
+    &__text {
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$black;
+        margin-left: 8px;
+        width: 100%;
+    }
 
-	&__arrow-container {
-		svg {
-			transition: fill 0.3s $smoothBezier;
-			fill: $taupeGray;
-		}
-	}
+    &__arrow-container {
+        svg {
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$taupeGray;
+        }
+    }
 
-	&__close-container {
-		position: fixed !important;
-		bottom: 20px;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+    &__close-container {
+        position: fixed !important;
+        bottom: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-	&__close {
-		cursor: pointer;
-		min-height: 64px;
-		min-width: 64px;
-		width: 64px;
-		height: 64px;
-		border-radius: 64px;
-		border: none;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: white;
+    &__close {
+        cursor: pointer;
+        min-height: 64px;
+        min-width: 64px;
+        width: 64px;
+        height: 64px;
+        border-radius: 64px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
 
-		&:focus {
-			outline: none;
-			border: none;
-		}
+        &:focus {
+            outline: none;
+            border: none;
+        }
 
-		svg {
-			transition: fill 0.3s $smoothBezier;
-			fill: $black;
-		}
+        svg {
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
+        }
 
-		&:hover {
-			background-color: #b589f0;
-			color: white;
+        &:hover {
+            background-color: #b589f0;
+            color: white;
 
-			svg {
-				fill: white;
-			}
-		}
-	}
+            svg {
+                fill: white;
+            }
+        }
+    }
 }

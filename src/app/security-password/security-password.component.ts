@@ -5,7 +5,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
@@ -16,7 +16,6 @@ import { WalletModel } from "app/wallet";
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule],
     selector: "security-password",
-    standalone: true,
     styleUrls: ["./security-password.component.scss"],
     templateUrl: "./security-password.component.html",
 })

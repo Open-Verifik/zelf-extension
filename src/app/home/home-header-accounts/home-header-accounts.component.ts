@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
@@ -11,7 +11,6 @@ import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "home-header-accounts",
-    standalone: true,
     imports: [NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink, ZelfNamePipe, FirstLetterPipe],
     templateUrl: "./home-header-accounts.component.html",
     styleUrls: ["./home-header-accounts.component.scss"],

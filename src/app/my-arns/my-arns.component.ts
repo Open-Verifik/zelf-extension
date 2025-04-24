@@ -1,14 +1,13 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { Router } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     selector: "my-arns",
-    standalone: true,
     imports: [TranslocoModule],
     templateUrl: "./my-arns.component.html",
     styleUrls: ["./my-arns.component.scss"],
@@ -23,9 +22,8 @@ export class MyArNSComponent {
         private _zelfNameService: ZelfNameService
     ) {}
 
-    async dontShowAgain(): Promise<void> {
-        await this._chromeService.setItem("myArnsDontShowAgain", true);
-        await this.close();
+    cancel(): void {
+        this._bottomSheetRef.dismiss();
     }
 
     async close(): Promise<void> {
@@ -38,5 +36,10 @@ export class MyArNSComponent {
         }
 
         this._bottomSheetRef.dismiss();
+    }
+
+    async dontShowAgain(): Promise<void> {
+        await this._chromeService.setItem("myArnsDontShowAgain", true);
+        await this.close();
     }
 }

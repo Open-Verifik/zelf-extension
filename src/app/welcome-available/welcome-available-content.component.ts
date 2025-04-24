@@ -3,12 +3,11 @@ import { Component, Input, OnDestroy, Output, EventEmitter } from "@angular/core
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, MatProgressSpinnerModule, TranslocoModule, MatButtonModule],
     selector: "welcome-available-content",
-    standalone: true,
     styleUrls: ["./welcome-available-content.component.scss"],
     templateUrl: "./welcome-available-content.component.html",
 })

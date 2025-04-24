@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -42,7 +42,7 @@
 
     &__actions-drag-drop {
         align-items: center;
-        border: 1px dashed $taupeGray;
+        border: 1px dashed variables.$taupeGray;
         display: flex;
         flex-direction: column;
         justify-content: center;

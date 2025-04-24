@@ -154,6 +154,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         </div>
     `,
     styleUrls: ["./new-name-card.component.scss", "../main.scss"],
+    standalone: false
 })
 export class NewNameCardComponent implements OnInit {
     @ViewChild("zelfForm") signUpNgForm!: NgForm;

@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -48,7 +48,7 @@
         line-height: 24px;
         letter-spacing: 0px;
         text-align: center;
-        color: $black;
+        color: variables.$black;
         margin-top: 12px;
     }
 
@@ -59,7 +59,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
-        color: $black;
+        color: variables.$black;
     }
 
     &__form {
@@ -89,7 +89,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
-        color: $gray;
+        color: variables.$gray;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -103,7 +103,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
-        color: $black;
+        color: variables.$black;
         text-transform: uppercase;
     }
 
@@ -114,7 +114,7 @@
         line-height: 24px;
         letter-spacing: 0px;
         text-align: center;
-        color: $black;
+        color: variables.$black;
         margin: 16px 0 0;
         text-transform: uppercase;
     }
@@ -156,7 +156,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
     }
 
@@ -167,7 +167,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-transform: uppercase;
         overflow-wrap: anywhere;
@@ -179,7 +179,7 @@
         height: 20px;
         width: 20px;
         border-radius: 20px;
-        background-color: $platinum;
+        background-color: variables.$platinum;
         display: flex;
         justify-content: center;
         align-items: center;

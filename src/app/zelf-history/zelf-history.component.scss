@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/variables";
 
 :host {
     align-items: center;
@@ -50,7 +50,7 @@
 
         &-text {
             font-size: 1.5rem;
-            color: $gray;
+            color: variables.$gray;
             font-family: Poppins;
             font-weight: 500;
             font-size: 14px;
@@ -69,7 +69,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin-bottom: 4px;
         width: 100%;
         text-align: left;
@@ -85,12 +85,12 @@
         gap: 16px;
         border-radius: 16px;
         background-color: transparent;
-        transition: background-color 0.2s $smoothBezier;
+        transition: background-color 0.2s variables.$smoothBezier;
         cursor: pointer;
         min-height: 64px;
 
         &:hover {
-            background-color: $antiFlashWhite;
+            background-color: variables.$antiFlashWhite;
         }
     }
 
@@ -169,7 +169,7 @@
         height: 14px;
         min-width: 14px;
         min-height: 14px;
-        background-color: $platinum;
+        background-color: variables.$platinum;
         border-radius: 14px;
         display: flex;
         justify-content: center;
@@ -178,14 +178,14 @@
         &--trade,
         &--approve {
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
         }
 
         &--send,
         &--receive {
             svg {
-                fill: $correct;
+                fill: variables.$correct;
             }
         }
     }
@@ -198,7 +198,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
     }
 
@@ -209,7 +209,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
     }
 
@@ -233,11 +233,11 @@
 
     &__received,
     &__send {
-        color: $correct;
+        color: variables.$correct;
     }
     &__trade,
     &__approve-text {
-        color: $black;
+        color: variables.$black;
     }
 
     &__send-fiat,
@@ -249,7 +249,7 @@
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
     }
 }

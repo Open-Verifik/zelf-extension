@@ -6,9 +6,10 @@ import { Transaction, TransactionModel } from "app/wallet";
 import * as QRCode from "qrcode";
 
 @Component({
-	selector: "app-send-transaction-bridge",
-	templateUrl: "./send-transaction-bridge.component.html",
-	styleUrls: ["../../main.scss", "./send-transaction-bridge.component.scss"],
+    selector: "app-send-transaction-bridge",
+    templateUrl: "./send-transaction-bridge.component.html",
+    styleUrls: ["../../main.scss", "./send-transaction-bridge.component.scss"],
+    standalone: false
 })
 export class SendTransactionBridgeComponent implements OnInit {
 	// generate QR Code for the bridge

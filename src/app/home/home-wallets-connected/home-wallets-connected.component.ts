@@ -5,8 +5,8 @@ import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
-	selector: "home-wallets-connected",
-	template: `<div class="hwc-wrapper">
+    selector: "home-wallets-connected",
+    template: `<div class="hwc-wrapper">
 		<div class="hwc-content" *ngIf="loaded">
 			<div class="hwc-account-list">
 				<wallet-card [shareables]="shareables" class="w-full" [variables]="{ index: -1 }" [wallet]="currentWallet" [wallets]="wallets">
@@ -51,7 +51,8 @@ import { WalletService } from "app/wallet.service";
 			</div>
 		</div>
 	</div>`,
-	styleUrls: ["./home-wallets-connected.component.scss"],
+    styleUrls: ["./home-wallets-connected.component.scss"],
+    standalone: false
 })
 export class HomeWalletsConnectedComponent implements OnInit, OnDestroy {
 	wallets!: Array<Wallet>;

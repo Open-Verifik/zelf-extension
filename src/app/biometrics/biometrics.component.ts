@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Ren
 import { CommonModule } from "@angular/common";
 import { Subject } from "rxjs";
 import { MatDialogModule } from "@angular/material/dialog";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { MatButtonModule } from "@angular/material/button";
 
 import * as faceapi from "@vladmandic/face-api";
@@ -12,12 +12,10 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { WalletService } from "../wallet.service";
 
-import { environment } from "environments/environment";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
     selector: "biometrics",
-    standalone: true,
     templateUrl: "./biometrics.component.html",
     styleUrls: ["./biometrics.component.scss"],
     imports: [FlexLayoutModule, CommonModule, MatDialogModule, TranslocoModule, MatButtonModule, MatProgressBarModule, MatProgressSpinnerModule],

@@ -52,11 +52,18 @@
                             "@tensorflow/tfjs-core",
                             "flat",
                             "crc-32",
+                            "tweetnacl",
+                            "lodash",
+                            "bigint-buffer",
+                            "qr-code-styling",
+                            "qrcode",
+                            "bs58",
                             "bip39",
                             "cross-fetch",
                             "setimmediate",
                             "@ethereumjs/rlp",
                             "buffer",
+                            "moment",
                             "webextension-polyfill",
                             "jsqr"
                         ]

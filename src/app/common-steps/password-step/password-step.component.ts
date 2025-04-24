@@ -9,6 +9,7 @@ import { environment } from "environments/environment";
     selector: "password-step",
     templateUrl: "./password-step.component.html",
     styleUrls: ["./password-step.component.scss", "../../main.scss", "../../onboarding/onboarding.scss"],
+    standalone: false
 })
 export class PasswordStepComponent implements OnInit {
     @ViewChild("passwordNgForm") passwordNgForm!: NgForm;

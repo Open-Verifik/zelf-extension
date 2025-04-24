@@ -11,11 +11,10 @@ type ConfirmationData = {
 };
 
 @Component({
-	selector: "confirmation-dialog",
-	standalone: true,
-	imports: [NgIf, MatButtonModule],
-	templateUrl: "./confirmation-dialog.component.html",
-	styleUrls: ["./confirmation-dialog.component.scss"],
+    selector: "confirmation-dialog",
+    imports: [NgIf, MatButtonModule],
+    templateUrl: "./confirmation-dialog.component.html",
+    styleUrls: ["./confirmation-dialog.component.scss"]
 })
 export class ConfirmationDialogComponent {
 	cancel: string;

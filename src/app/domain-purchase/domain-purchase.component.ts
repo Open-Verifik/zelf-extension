@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterLink, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
@@ -12,7 +12,6 @@ import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "domain-purchase",
-    standalone: true,
     imports: [TranslocoModule, CommonModule, MatButtonModule, RouterLink, RouterModule, ZelfNamePipe, FormsModule],
     templateUrl: "./domain-purchase.component.html",
     styleUrls: ["./domain-purchase.component.scss"],

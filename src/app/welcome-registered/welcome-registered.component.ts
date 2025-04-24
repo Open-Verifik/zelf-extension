@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -13,7 +13,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, ZelfNamePipe],
     selector: "welcome-registered",
-    standalone: true,
     styleUrls: ["./welcome-registered.component.scss"],
     templateUrl: "./welcome-registered.component.html",
 })

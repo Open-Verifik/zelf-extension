@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
-import { LangDefinition, TranslocoService } from "@ngneat/transloco";
+import { LangDefinition, TranslocoService } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { LanguageService } from "app/language.service";
 import { Subject, takeUntil } from "rxjs";
@@ -10,7 +10,6 @@ import { Subject, takeUntil } from "rxjs";
 @Component({
     imports: [CommonModule, MatButtonModule, MatMenuModule],
     selector: "language",
-    standalone: true,
     styleUrls: ["./language.component.scss"],
     templateUrl: "./language.component.html",
 })

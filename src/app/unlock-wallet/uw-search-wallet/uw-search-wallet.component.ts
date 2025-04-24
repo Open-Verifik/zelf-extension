@@ -7,7 +7,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } fr
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
@@ -20,6 +20,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     templateUrl: "./uw-search-wallet.component.html",
     styleUrls: ["../unlock-wallet.component.scss", "../../main.scss"],
     encapsulation: ViewEncapsulation.None,
+    standalone: false,
 })
 export class UwSearchWalletComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     searchForm!: UntypedFormGroup;

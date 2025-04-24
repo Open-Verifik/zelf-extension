@@ -73,6 +73,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
         </mat-menu>
     `,
     styleUrls: ["./home-header.component.scss", "../../main.scss"],
+    standalone: false
 })
 export class HomeHeaderComponent implements OnDestroy {
     @Input() shareables: any;

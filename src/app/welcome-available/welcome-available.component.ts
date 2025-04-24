@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { DiscountType } from "app/pipes/discount.pipe";
@@ -24,7 +24,6 @@ import { WelcomeAvailableContentComponent } from "./welcome-available-content.co
         ZelfNamePipe,
     ],
     selector: "welcome-available",
-    standalone: true,
     styleUrls: ["./welcome-available.component.scss"],
     templateUrl: "./welcome-available.component.html",
 })

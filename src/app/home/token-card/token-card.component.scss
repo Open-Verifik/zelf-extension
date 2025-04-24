@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables";
 
 :host {
     width: 100%;
@@ -102,7 +102,7 @@
 
 .token-card {
     &__symbol {
-        color: $black;
+        color: variables.$black;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -141,8 +141,8 @@
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        background-color: $platinum;
-        color: $taupeGray;
+        background-color: variables.$platinum;
+        color: variables.$taupeGray;
     }
 
     &__name {
@@ -150,7 +150,7 @@
     }
 
     &__balance {
-        color: $gray;
+        color: variables.$gray;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;

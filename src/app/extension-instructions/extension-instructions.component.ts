@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
     selector: "app-extension-instructions",
     templateUrl: "./extension-instructions.component.html",
     styleUrls: ["./extension-instructions.component.scss", "../main.scss"],
+    standalone: false
 })
 export class ExtensionInstructionsComponent implements OnInit {
     currentSlide: number = 1;

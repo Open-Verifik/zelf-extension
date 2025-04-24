@@ -5,7 +5,7 @@ import { NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { WalletModel } from "app/wallet";
@@ -14,7 +14,6 @@ import { WalletService } from "app/wallet.service";
 @Component({
     imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink],
     selector: "receive-qr",
-    standalone: true,
     styleUrls: ["./receive-qr.component.scss"],
     templateUrl: "./receive-qr.component.html",
 })

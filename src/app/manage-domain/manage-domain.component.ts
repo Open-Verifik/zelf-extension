@@ -2,14 +2,13 @@ import { CommonModule, NgIf } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "manage-domain",
-    standalone: true,
     imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule],
     templateUrl: "./manage-domain.component.html",
     styleUrls: ["./manage-domain.component.scss"],

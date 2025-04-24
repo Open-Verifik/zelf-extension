@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -58,7 +58,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
     }
 
     &__form {
@@ -109,7 +109,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin-bottom: 4px;
         padding: 16px;
     }
@@ -132,7 +132,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
         width: 100%;
     }
@@ -154,7 +154,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         width: 100%;
     }
@@ -170,7 +170,7 @@
     &__price {
         font-size: 32px;
         font-weight: 600;
-        color: $black;
+        color: variables.$black;
         font-family: Menda;
         margin: 0;
     }
@@ -179,7 +179,7 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         margin: 0 0 8px;
     }

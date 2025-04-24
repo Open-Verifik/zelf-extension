@@ -3,9 +3,10 @@ import { NgForm, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angul
 import { WalletService } from "app/wallet.service";
 
 @Component({
-	selector: "words-picker-step",
-	templateUrl: "./words-picker-step.component.html",
-	styleUrls: ["../../main.scss", "./word-picker-step.component.scss"],
+    selector: "words-picker-step",
+    templateUrl: "./words-picker-step.component.html",
+    styleUrls: ["../../main.scss", "./word-picker-step.component.scss"],
+    standalone: false
 })
 export class WordsPickerStepComponent implements OnInit {
 	@ViewChild("signUpNgForm") signUpNgForm!: NgForm;

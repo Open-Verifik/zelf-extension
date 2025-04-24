@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/variables";
 
 .zelf-pending {
     display: flex;
@@ -15,7 +15,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin-bottom: 4px;
         padding: 16px;
     }

@@ -5,7 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router, RouterLink, RouterModule } from "@angular/router";
 
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
@@ -19,7 +19,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 @Component({
     imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, NgTemplateOutlet, MatSnackBarModule, ZelfNamePipe],
     selector: "wallet",
-    standalone: true,
     styleUrls: ["./wallet.component.scss"],
     templateUrl: "./wallet.component.html",
 })
@@ -89,7 +88,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         });
     }
 
-    openMyZnsBottomSheet(): void {
+    openMyArnsBottomSheet(): void {
         if (this._showArnsInstructions) {
             this._bottomSheet.open(MyArNSComponent, {
                 backdropClass: "zelf-backdrop",

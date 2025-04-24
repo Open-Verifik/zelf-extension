@@ -1,20 +1,12 @@
 import { HttpClient } from "@angular/common/http";
-import {
-    TRANSLOCO_LOADER,
-    Translation,
-    TranslocoLoader,
-    TRANSLOCO_CONFIG,
-    translocoConfig,
-    TranslocoModule,
-    TranslocoService,
-} from "@ngneat/transloco";
-import { Injectable, NgModule, APP_INITIALIZER, inject } from "@angular/core";
+import { Translation, TranslocoLoader, TranslocoModule, TranslocoService, provideTransloco } from "@jsverse/transloco";
+import { Injectable, NgModule, inject, provideAppInitializer } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { MobileRestrictedComponent } from "./mobile-restricted/mobile-restricted.component";
 
 @Injectable({ providedIn: "root" })
 export class TranslocoHttpLoader implements TranslocoLoader {
-    constructor(private http: HttpClient) {}
+    private http = inject(HttpClient);
 
     getTranslation(lang: string) {
         return this.http.get<Translation>(`/assets/i18n/${lang}.json`);
@@ -25,9 +17,13 @@ export class TranslocoHttpLoader implements TranslocoLoader {
     imports: [TranslocoModule],
     exports: [TranslocoModule],
     providers: [
-        {
-            provide: TRANSLOCO_CONFIG,
-            useValue: translocoConfig({
+        provideTransloco({
+            loader: TranslocoHttpLoader,
+            config: {
+                defaultLang: "en",
+                fallbackLang: "en",
+                reRenderOnLangChange: true,
+                prodMode: environment.production,
                 availableLangs: [
                     {
                         id: "en",
@@ -74,26 +70,20 @@ export class TranslocoHttpLoader implements TranslocoLoader {
                         label: "Arabic",
                     },
                 ],
-                defaultLang: "en",
-                fallbackLang: "en",
-                // Remove this option if your application doesn't support changing language in runtime.
-                reRenderOnLangChange: true,
-                prodMode: environment.production,
-            }),
-        },
-        { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader },
-        {
-            // Preload the default language before the app starts to prevent empty/jumping content
-            provide: APP_INITIALIZER,
-            useFactory: () => {
+            },
+        }),
+        provideAppInitializer(() => {
+            const initializerFn = (() => {
                 const translocoService = inject(TranslocoService);
                 const defaultLang = translocoService.getDefaultLang();
+
                 translocoService.setActiveLang(defaultLang);
 
                 return () => translocoService.load(defaultLang).toPromise();
-            },
-            multi: true,
-        },
+            })();
+
+            return initializerFn();
+        }),
     ],
     declarations: [MobileRestrictedComponent],
 })

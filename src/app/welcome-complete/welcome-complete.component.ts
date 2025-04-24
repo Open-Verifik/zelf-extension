@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
@@ -15,7 +15,6 @@ import { VaultService } from "app/vault.service";
 @Component({
     imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent],
     selector: "welcome-complete",
-    standalone: true,
     styleUrls: ["./welcome-complete.component.scss"],
     templateUrl: "./welcome-complete.component.html",
 })

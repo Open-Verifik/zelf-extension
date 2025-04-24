@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@use "../../styles/variables";
 
 :host {
     position: relative;
@@ -19,25 +19,28 @@
     max-width: 400px;
 
     &__exit {
-        position: absolute;
-        top: 0;
-        right: 0;
+        align-items: center;
+        background-color: transparent;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        height: 32px;
+        justify-content: center;
         margin: 8px;
         min-height: 32px;
         min-width: 32px;
-        width: 32px;
-        height: 32px;
-        padding: 8px;
-        border-radius: 9999px;
-        background-color: transparent;
-        cursor: pointer;
         outline: none;
-        border: none;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        padding: 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        width: 32px;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
@@ -61,14 +64,14 @@
 
     &__icon {
         margin-top: 28px;
-        fill: $black;
+        fill: variables.$black;
     }
 
     &__title {
         font-size: 18px;
         font-weight: 600;
         font-family: Menda;
-        color: $black;
+        color: variables.$black;
         text-transform: uppercase;
         margin: 12px 0 0;
     }

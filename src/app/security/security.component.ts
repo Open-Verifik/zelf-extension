@@ -2,14 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [RouterModule, TranslocoModule, MatButtonModule],
     selector: "security",
-    standalone: true,
     styleUrls: ["./security.component.scss"],
     templateUrl: "./security.component.html",
 })

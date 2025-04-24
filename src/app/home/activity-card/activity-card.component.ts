@@ -2,11 +2,10 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { CommonModule } from "@angular/common";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 @Component({
     selector: "activity-card",
-    standalone: true,
     imports: [CommonModule, TranslocoModule],
     template: `
         <div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">

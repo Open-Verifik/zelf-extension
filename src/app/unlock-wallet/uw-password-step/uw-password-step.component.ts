@@ -8,6 +8,7 @@ import { WalletService } from "app/wallet.service";
     selector: "uw-password-step",
     templateUrl: "./uw-password-step.component.html",
     styleUrls: ["../unlock-wallet.component.scss", "../../main.scss"],
+    standalone: false
 })
 export class UwPasswordStepComponent implements OnInit {
     session: any;

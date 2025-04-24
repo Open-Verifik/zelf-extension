@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
@@ -14,7 +14,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 @Component({
     imports: [RouterModule, NgIf, NgTemplateOutlet, DatePipe, ZelfNamePipe, TranslocoModule, MatButtonModule],
     selector: "welcome-grace",
-    standalone: true,
     styleUrls: ["./welcome-grace.component.scss"],
     templateUrl: "./welcome-grace.component.html",
 })

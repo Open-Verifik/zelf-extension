@@ -1,176 +1,173 @@
-$maxExtraSmall: 595px;
-$minSmall: 600px;
-$medium: 768px;
-
+@use "../../styles/variables";
 .onboarding-step-one {
-	width: 400px;
-	height: 100%;
-	padding: 32px;
-	background: white;
-	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
-	border-radius: 24px;
-	border: 1px rgba(0, 0, 0, 0.35) solid;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 16px;
-	display: inline-flex;
+    width: 400px;
+    height: 100%;
+    padding: 32px;
+    background: white;
+    box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+    border-radius: 24px;
+    border: 1px rgba(0, 0, 0, 0.35) solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    display: inline-flex;
 }
 
 h1 {
-	font-size: 32px;
-	font-weight: 600;
-	margin-bottom: 0px;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 0px;
 }
 
 .on-intro {
-	width: 500px;
-	padding: 16px;
-	background: white;
-	box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
-	border: 1px rgba(0, 0, 0, 0.35) solid;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 12px;
-	display: inline-flex;
-	margin-top: 12px;
-	margin-bottom: 12px;
-	h1 {
-		text-align: center;
-	}
+    width: 500px;
+    padding: 16px;
+    background: white;
+    box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
+    border: 1px rgba(0, 0, 0, 0.35) solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: inline-flex;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    h1 {
+        text-align: center;
+    }
 
-	span {
-		text-align: center;
-	}
+    span {
+        text-align: center;
+    }
 }
 
 .on-checkbox {
-	text-align: left;
-	a {
-		color: #1976d2; /* You might want to match this color with your theme */
-	}
+    text-align: left;
+    a {
+        color: #1976d2; /* You might want to match this color with your theme */
+    }
 }
 
 .carousel-image {
-	display: flex;
-	align-items: center;
-	overflow: hidden;
-	position: relative;
-	width: 150px !important;
-	height: 150px !important;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    width: 150px !important;
+    height: 150px !important;
 }
 
 .carousel-container {
-	min-height: 320px;
+    min-height: 320px;
 }
 
 .img-200 {
-	width: 190px !important;
-	height: 190px !important;
+    width: 190px !important;
+    height: 190px !important;
 }
 
 .bg-red-700 {
-	background-color: rgba(255, 0, 0, 0.698);
+    background-color: rgba(255, 0, 0, 0.698);
 }
 
 .on-title {
-	width: 344px;
-	text-align: center;
-	color: black;
-	font-size: 28px;
-	font-family: Poppins;
-	font-weight: 500;
-	line-height: 36px;
+    width: 344px;
+    text-align: center;
+    color: black;
+    font-size: 28px;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: 36px;
 }
 
 .on-description {
-	width: 100%;
-	text-align: center;
-	color: #010333;
-	font-size: 14px;
-	font-family: Poppins;
-	font-weight: 500;
-	line-height: 20px;
-	letter-spacing: 0.1px;
-	word-wrap: break-word;
+    width: 100%;
+    text-align: center;
+    color: #010333;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    word-wrap: break-word;
 }
 
 .unlock-box {
-	align-self: stretch;
-	padding-top: 16px;
-	padding-bottom: 24px;
-	padding-left: 16px;
-	padding-right: 16px;
-	border-radius: 16px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 16px;
-	display: flex;
+    align-self: stretch;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    display: flex;
 }
 
 .unlock-description {
-	align-self: stretch;
-	text-align: center;
-	color: #010333;
-	font-size: 16px;
-	font-family: Poppins;
-	font-weight: 500;
-	line-height: 24px;
-	letter-spacing: 0.15px;
-	word-wrap: break-word;
+    align-self: stretch;
+    text-align: center;
+    color: #010333;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    word-wrap: break-word;
 }
 
 .unlock-input-box {
-	align-self: stretch;
-	height: 40px;
-	padding-right: 10px;
-	background: white;
-	border-radius: 4px;
-	overflow: hidden;
-	border: 1px rgba(0, 0, 0, 0.2) solid;
-	justify-content: space-between;
-	align-items: center;
-	display: inline-flex;
+    align-self: stretch;
+    height: 40px;
+    padding-right: 10px;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px rgba(0, 0, 0, 0.2) solid;
+    justify-content: space-between;
+    align-items: center;
+    display: inline-flex;
 }
 
 .unlock-input-text-container {
-	justify-content: flex-start;
-	align-items: center;
-	display: flex;
-	width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    width: 100%;
 
-	input {
-		padding: 8px;
-		border: none;
-	}
+    input {
+        padding: 8px;
+        border: none;
+    }
 }
 
 .unlock-icon-container {
-	width: 70%;
-	padding-left: 10px;
-	height: 24px;
-	position: relative;
+    width: 70%;
+    padding-left: 10px;
+    height: 24px;
+    position: relative;
 
-	span {
-		width: 80%;
-		text-align: left;
-	}
+    span {
+        width: 80%;
+        text-align: left;
+    }
 }
 
 .unlock-icon {
-	width: 17.49px;
-	height: 17.49px;
-	left: 3px;
-	top: 3px;
-	position: absolute;
-	background: #43474e;
+    width: 17.49px;
+    height: 17.49px;
+    left: 3px;
+    top: 3px;
+    position: absolute;
+    background: #43474e;
 }
 
 /* For extremely small screen devices (595px and below) */
-@media only screen and (max-width: $maxExtraSmall) {
-	.on-intro {
-		width: 95%;
-	}
+@media only screen and (max-width: variables.$maxExtraSmall) {
+    .on-intro {
+        width: 95%;
+    }
 }

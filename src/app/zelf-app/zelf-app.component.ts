@@ -3,7 +3,7 @@ import { Subject, takeUntil } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 import { LanguageComponent } from "app/language/language.component";
 import { MatMenuModule } from "@angular/material/menu";
@@ -15,7 +15,6 @@ import { ChromeService } from "app/chrome.service";
 @Component({
     imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule, MatMenuModule],
     selector: "zelf-app",
-    standalone: true,
     styleUrls: ["./zelf-app.component.scss"],
     templateUrl: "./zelf-app.component.html",
 })

@@ -13,6 +13,7 @@ import { AssetService } from "app/asset.service";
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
     templateUrl: "./home.component.html",
+    standalone: false
 })
 export class HomeComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();

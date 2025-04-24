@@ -37,6 +37,7 @@ import { Component, Input, OnInit } from "@angular/core";
         </div>
     `,
     styleUrls: ["./token-card.component.scss"],
+    standalone: false
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;

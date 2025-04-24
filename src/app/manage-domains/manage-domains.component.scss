@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -56,7 +56,7 @@
         font-size: 20px;
         font-weight: 400;
         font-family: Menda;
-        color: $black;
+        color: variables.$black;
         margin: 0;
     }
 
@@ -73,7 +73,7 @@
         font-size: 18px;
         font-weight: 600;
         font-family: Poppins;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-align: center;
     }
@@ -117,9 +117,9 @@
     gap: 8px;
     padding: 16px;
     border-radius: 16px;
-    background-color: $antiFlashWhite;
+    background-color: variables.$antiFlashWhite;
     width: 100%;
-    transition: background-color 0.3s $smoothBezier;
+    transition: background-color 0.3s variables.$smoothBezier;
 
     &:hover {
         background-color: #e2e2e2;
@@ -134,7 +134,7 @@
         cursor: pointer;
 
         svg {
-            fill: $taupeGray;
+            fill: variables.$taupeGray;
         }
     }
 
@@ -169,11 +169,11 @@
         align-items: center;
 
         &--primary {
-            background-color: $primaryColor;
+            background-color: variables.$primaryColor;
         }
 
         &--secondary {
-            background-color: $secondaryColor;
+            background-color: variables.$secondaryColor;
         }
     }
 
@@ -217,25 +217,25 @@
         min-width: 40px;
         user-select: none;
         border-radius: 14px;
-        background-color: $seaSalt;
+        background-color: variables.$seaSalt;
 
         svg {
-            fill: $black;
+            fill: variables.$black;
         }
 
         &--warning {
-            background-color: $errorLight;
+            background-color: variables.$errorLight;
 
             svg {
-                fill: $secondaryColor;
+                fill: variables.$secondaryColor;
             }
         }
 
         &--error {
-            background-color: $errorLight;
+            background-color: variables.$errorLight;
 
             svg {
-                fill: $error;
+                fill: variables.$error;
             }
         }
     }
@@ -253,12 +253,12 @@
         cursor: pointer;
         user-select: none;
         border-radius: 14px;
-        background-color: $seaSalt;
-        transition: background-color 0.3s $smoothBezier;
+        background-color: variables.$seaSalt;
+        transition: background-color 0.3s variables.$smoothBezier;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
@@ -298,18 +298,18 @@
 
         &__icon {
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
 
             &--warning {
                 svg {
-                    fill: $secondaryColor;
+                    fill: variables.$secondaryColor;
                 }
             }
 
             &--error {
                 svg {
-                    fill: $error;
+                    fill: variables.$error;
                 }
             }
         }
@@ -317,7 +317,7 @@
         &__text {
             font-family: Poppins;
             font-size: 11px;
-            color: $black;
+            color: variables.$black;
             font-weight: 600;
             margin: 0;
             display: flex;
@@ -331,12 +331,12 @@
             justify-content: flex-end;
             font-family: Poppins;
             font-size: 11px;
-            color: $black;
+            color: variables.$black;
             font-weight: 600;
             margin: 0;
 
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
         }
     }

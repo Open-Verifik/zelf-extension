@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -52,7 +52,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
     }
 
     &__content {
@@ -76,7 +76,7 @@
     padding: 16px;
     border-radius: 16px;
     background-color: transparent;
-    transition: background-color 0.3s $smoothBezier;
+    transition: background-color 0.3s variables.$smoothBezier;
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
@@ -92,7 +92,7 @@
     &__name {
         font-size: 1rem;
         font-weight: 500;
-        color: $black;
+        color: variables.$black;
     }
 
     &__info {
@@ -136,8 +136,8 @@
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        background-color: $platinum;
-        color: $taupeGray;
+        background-color: variables.$platinum;
+        color: variables.$taupeGray;
     }
 
     &__name {
@@ -148,7 +148,7 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: $taupeGray;
+        color: variables.$taupeGray;
     }
 
     &__balance {
@@ -176,7 +176,7 @@
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        color: $taupeGray;
+        color: variables.$taupeGray;
     }
 
     &__buttons {
@@ -188,6 +188,6 @@
     }
 
     &:hover {
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
     }
 }

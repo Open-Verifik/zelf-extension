@@ -1,3 +1,5 @@
+@use "./variables";
+
 .animated-tabs {
     user-select: none;
     border-radius: 37px;
@@ -18,7 +20,7 @@
         }
 
         &:after {
-            background-color: $antiFlashWhite;
+            background-color: variables.$antiFlashWhite;
             border-radius: 27.5px;
             box-sizing: border-box;
             content: "";
@@ -43,7 +45,7 @@
             transition: color 200ms;
             width: 50%;
             z-index: 1;
-            transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+            transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
             &:hover:not(.animated-tab--active) {
                 background-color: #f0d3d4;

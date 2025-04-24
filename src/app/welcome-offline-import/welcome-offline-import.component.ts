@@ -6,7 +6,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { RouterLink } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { WalletService } from "app/wallet.service";
 import { ChromeService } from "app/chrome.service";
 import { CaptchaService } from "app/captcha.service";
@@ -29,7 +29,6 @@ import { WalletModel } from "app/wallet";
         ZelfNamePipe,
     ],
     selector: "welcome-offline-import",
-    standalone: true,
     styleUrls: ["./welcome-offline-import.component.scss"],
     templateUrl: "./welcome-offline-import.component.html",
 })

@@ -1,60 +1,60 @@
-@import "../../styles/variables";
+@use "../../styles/variables";
 
 .stepper-container {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .stepper-header {
-	display: flex;
-	justify-content: space-between;
-	padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
 }
 
 .step-number {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	background-color: #ccc;
-	color: black;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-weight: bold;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 
 .step-number-active {
-	background-color: white;
-	color: blue !important;
-	border: 1px solid rgba(0, 0, 255, 0.444);
-	font-weight: 800;
-	color: white;
+    background-color: white;
+    color: blue !important;
+    border: 1px solid rgba(0, 0, 255, 0.444);
+    font-weight: 800;
+    color: white;
 }
 
 .step-number-completed {
-	background-color: blue;
-	color: white;
+    background-color: blue;
+    color: white;
 }
 
 .step-label {
-	text-align: center;
+    text-align: center;
 }
 
 .stepper-navigation {
-	display: flex;
-	justify-content: space-between;
-	padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
 }
 
 .status-label {
-	border-radius: 12px;
-	background: $correctLight;
-	padding: 6px;
-	font-size: 14px;
+    border-radius: 12px;
+    background: variables.$correctLight;
+    padding: 6px;
+    font-size: 14px;
 }
 
 .no-zelf-name-step {
-	text-align: center;
-	margin-top: 28px;
-	font-size: 18px;
+    text-align: center;
+    margin-top: 28px;
+    font-size: 18px;
 }

@@ -2,12 +2,11 @@ import { Component, Inject } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 @Component({
     imports: [TranslocoModule, MatButtonModule],
     selector: "reserve-done-sheet",
-    standalone: true,
     styleUrls: ["./reserve-done-sheet.component.scss"],
     templateUrl: "./reserve-done-sheet.component.html",
 })

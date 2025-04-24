@@ -6,7 +6,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterLink } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 
 import { swipeLeft } from "app/animations/swipe-left.animation";
 import { CaptchaService } from "app/captcha.service";
@@ -19,7 +19,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     animations: [swipeLeft],
     imports: [CommonModule, TranslocoModule, MatButtonModule, ReactiveFormsModule, MatProgressSpinnerModule, RouterLink],
     selector: "welcome-onboarding",
-    standalone: true,
     styleUrls: ["./welcome-onboarding.component.scss"],
     templateUrl: "./welcome-onboarding.component.html",
 })

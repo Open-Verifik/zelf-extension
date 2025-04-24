@@ -7,7 +7,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
@@ -29,7 +29,6 @@ import { eth } from "web3";
         WelcomeErrorComponent,
     ],
     selector: "welcome-find",
-    standalone: true,
     styleUrls: ["./welcome-find.component.scss"],
     templateUrl: "./welcome-find.component.html",
 })

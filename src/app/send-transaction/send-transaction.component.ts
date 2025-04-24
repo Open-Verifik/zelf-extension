@@ -9,7 +9,7 @@ import { MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
 import { CaptchaService } from "app/captcha.service";
@@ -34,7 +34,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         TranslocoModule,
     ],
     selector: "send-transaction",
-    standalone: true,
     styleUrls: ["./send-transaction.component.scss"],
     templateUrl: "./send-transaction.component.html",
 })

@@ -6,9 +6,10 @@ import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
-	selector: "app-create-wallet",
-	templateUrl: "./create-wallet.component.html",
-	styleUrls: ["./create-wallet.component.scss", "../main.scss"],
+    selector: "app-create-wallet",
+    templateUrl: "./create-wallet.component.html",
+    styleUrls: ["./create-wallet.component.scss", "../main.scss"],
+    standalone: false
 })
 export class CreateWalletComponent implements OnInit {
 	@ViewChild("signUpNgForm") signUpNgForm!: NgForm;

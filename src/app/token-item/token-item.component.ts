@@ -2,14 +2,13 @@ import { CurrencyPipe, DecimalPipe, NgIf, NgTemplateOutlet } from "@angular/comm
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, CurrencyPipe, DecimalPipe, MatButtonModule],
     selector: "token-item",
-    standalone: true,
     styleUrls: ["./token-item.component.scss"],
     templateUrl: "./token-item.component.html",
 })

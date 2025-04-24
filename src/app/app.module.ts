@@ -1,4 +1,4 @@
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { WebcamModule } from "ngx-webcam";
 
 import { CommonModule } from "@angular/common";
@@ -30,7 +30,6 @@ import { HttpInterceptorProviders } from "./interceptors";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BiometricsGeneralComponent } from "./biometrics-general/biometrics.component";
-import { BiometricsVerificationComponent } from "./biometrics-verification/biometrics-verification.component";
 import { BiometricsComponent } from "./biometrics/biometrics.component";
 import { BiometricInstructionsComponent } from "./common-steps/biometric-instructions/biometric-instructions.component";
 import { PasswordStepComponent } from "./common-steps/password-step/password-step.component";
@@ -87,7 +86,6 @@ import { ActivityCardComponent } from "./home/activity-card/activity-card.compon
         CreateWalletComponent,
         ImportWalletTraditionalComponent,
         ImportWalletComponent,
-        BiometricsVerificationComponent,
         HeaderComponent,
         LanguagePickerComponent,
         TransactionAuthComponent,

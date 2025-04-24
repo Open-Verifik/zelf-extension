@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
@@ -84,6 +84,7 @@ import { Wallet, WalletModel } from "app/wallet";
         </div>
     `,
     styleUrls: ["./view-created-wallet-qr-code.component.scss", "../../main.scss"],
+    standalone: false,
 })
 export class ViewCreatedWalletQrCodeComponent extends CopyToClipboardBase implements OnInit {
     @Input() walletType!: string;

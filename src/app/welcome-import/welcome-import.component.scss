@@ -1,6 +1,6 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
-@import "../../styles/elements";
+@use "../../styles/variables";
+@use "../../styles/buttons";
+@use "../../styles/elements";
 
 :host {
     align-items: center;

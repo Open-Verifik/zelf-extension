@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { TransactionService } from "app/transaction.service";
@@ -17,7 +17,6 @@ import { ChromeService } from "app/chrome.service";
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
     selector: "send-currency",
-    standalone: true,
     styleUrls: ["./send-currency.component.scss"],
     templateUrl: "./send-currency.component.html",
 })

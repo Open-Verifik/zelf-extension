@@ -14,6 +14,7 @@ import { Subject, takeUntil } from "rxjs";
     </div>`,
     styleUrls: ["./app.component.scss", "./main.scss"],
     encapsulation: ViewEncapsulation.None,
+    standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();

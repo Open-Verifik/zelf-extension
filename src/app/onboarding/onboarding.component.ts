@@ -10,6 +10,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     selector: "app-onboarding",
     templateUrl: "./onboarding.component.html",
     styleUrls: ["./onboarding.scss", "../main.scss"],
+    standalone: false
 })
 export class OnboardingComponent implements OnInit, OnDestroy {
     @ViewChild("zelfForm") signUpNgForm!: NgForm;

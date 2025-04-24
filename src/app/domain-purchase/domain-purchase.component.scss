@@ -1,8 +1,8 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
-    background-color: $seaSalt;
+    background-color: variables.$seaSalt;
     display: flex;
     min-height: 100vh;
     width: 100%;
@@ -67,12 +67,12 @@
         width: 52px;
         min-height: 52px;
         min-width: 52px;
-        background-color: $antiFlashWhite !important;
-        transition: background-color 0.3s $smoothBezier;
+        background-color: variables.$antiFlashWhite !important;
+        transition: background-color 0.3s variables.$smoothBezier;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
@@ -89,7 +89,7 @@
         font-size: 18px;
         font-weight: 600;
         font-family: Poppins;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-align: center;
     }
@@ -117,20 +117,20 @@
         gap: 4px;
         justify-content: space-between;
         align-items: center;
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         padding: 24px 16px;
         border-radius: 16px;
 
         &-title {
             margin: 0;
             font-size: 14px;
-            color: $gray;
+            color: variables.$gray;
         }
 
         &-value {
             margin: 0;
             font-size: 14px;
-            color: $black;
+            color: variables.$black;
         }
     }
 
@@ -156,7 +156,7 @@
     &__title {
         font-size: 14px;
         font-weight: 500;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         margin: 0;
     }
@@ -164,7 +164,7 @@
     &__zelf-name {
         font-size: 24px;
         font-weight: 600;
-        color: $black;
+        color: variables.$black;
         font-family: Menda;
         margin: 2px 0 0;
     }
@@ -172,7 +172,7 @@
     &__description {
         font-size: 14px;
         font-weight: 400;
-        color: $gray;
+        color: variables.$gray;
         font-family: Poppins;
         margin: 2px 0 0;
     }
@@ -186,7 +186,7 @@
     }
 
     &__price-container {
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         border-radius: 16px;
         display: flex;
         flex-direction: column;
@@ -199,7 +199,7 @@
     &__price-description {
         font-size: 14px;
         font-weight: 400;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         text-align: center;
         margin: 0;
@@ -216,7 +216,7 @@
     &__price {
         font-size: 32px;
         font-weight: 600;
-        color: $black;
+        color: variables.$black;
         font-family: Menda;
         margin: 0;
     }
@@ -225,7 +225,7 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         margin: 0 0 8px;
     }
@@ -253,7 +253,7 @@
 
 .duration-selector {
     align-items: center;
-    background-color: $antiFlashWhite;
+    background-color: variables.$antiFlashWhite;
     border-radius: 16px;
     display: flex;
     gap: 12px;
@@ -264,7 +264,7 @@
     margin: 24px 0 8px;
 
     &__text {
-        color: $black;
+        color: variables.$black;
         cursor: default;
         font-family: Menda;
         font-size: 24px;
@@ -283,7 +283,7 @@
     width: 100%;
     border-radius: 16px;
     padding: 16px;
-    border: 1px solid $taupeGray;
+    border: 1px solid variables.$taupeGray;
 
     &__title {
         display: flex;
@@ -292,7 +292,7 @@
         gap: 8px;
         font-size: 14px;
         font-weight: 600;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         margin: 0;
     }
@@ -304,7 +304,7 @@
         gap: 12px;
         font-size: 14px;
         font-weight: 600;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         margin: 0;
     }

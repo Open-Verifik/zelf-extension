@@ -9,6 +9,7 @@ import { WalletService } from "app/wallet.service";
     selector: "app-unlock-wallet",
     templateUrl: "./unlock-wallet.component.html",
     styleUrls: ["./unlock-wallet.component.scss", "../main.scss"],
+    standalone: false
 })
 export class UnlockWalletComponent implements OnInit {
     session: any;

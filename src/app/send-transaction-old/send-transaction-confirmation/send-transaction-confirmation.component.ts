@@ -10,6 +10,7 @@ import { Transaction, Wallet, WalletModel, TransactionModel } from "app/wallet";
     selector: "app-send-transaction-confirmation",
     templateUrl: "./send-transaction-confirmation.component.html",
     styleUrls: ["./send-transaction-confirmation.component.scss", "../../main.scss"],
+    standalone: false
 })
 export class SendTransactionConfirmationComponent implements OnInit {
     gasPrices: any;

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestro
 import { CommonModule } from "@angular/common";
 import { Observable, Subject, takeUntil } from "rxjs";
 import { MatDialogModule } from "@angular/material/dialog";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { MatButtonModule } from "@angular/material/button";
 
 import * as faceapi from "@vladmandic/face-api";
@@ -27,7 +27,6 @@ let _this = {
 
 @Component({
     selector: "biometrics-general",
-    standalone: true,
     templateUrl: "./biometrics.component.html",
     styleUrls: ["./biometrics.component.scss"],
     imports: [

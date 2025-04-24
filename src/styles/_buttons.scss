@@ -1,3 +1,5 @@
+@use "./variables";
+
 .zelf-button-external-link {
     display: block;
 
@@ -38,36 +40,36 @@
 
     &--hyperlink {
         background-color: transparent;
-        color: $gray;
+        color: variables.$gray;
         font-size: 14px;
         font-weight: 500;
         border-radius: 9999px;
         padding: 8px 16px;
-        transition: color 0.2s $smoothBezier, background-color 0.3s $smoothBezier;
+        transition: color 0.2s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         &--small {
             font-size: 11px;
         }
 
         svg {
-            fill: $gray;
+            fill: variables.$gray;
         }
 
         &:hover {
-            color: $black;
-            background-color: $platinum;
+            color: variables.$black;
+            background-color: variables.$platinum;
 
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: $taupeGray !important;
+            color: variables.$taupeGray !important;
 
             svg {
-                fill: $taupeGray;
+                fill: variables.$taupeGray;
             }
         }
     }
@@ -86,103 +88,103 @@
     }
 
     &--black {
-        background-color: $black !important;
-        color: $white !important;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        background-color: variables.$black !important;
+        color: variables.$white !important;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
-            background-color: $gray !important;
+            background-color: variables.$gray !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: $gray !important;
-            color: $white !important;
+            background-color: variables.$gray !important;
+            color: variables.$white !important;
 
             mat-spinner svg {
-                fill: $black !important;
-                stroke: $black !important;
+                fill: variables.$black !important;
+                stroke: variables.$black !important;
             }
         }
 
         svg {
-            fill: $white;
+            fill: variables.$white;
         }
 
         mat-spinner svg {
-            fill: $white !important;
-            stroke: $white !important;
+            fill: variables.$white !important;
+            stroke: variables.$white !important;
         }
     }
 
     &--white {
-        background-color: $white !important;
-        color: $black !important;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        background-color: variables.$white !important;
+        color: variables.$black !important;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
-            background-color: $antiFlashWhite !important;
+            background-color: variables.$antiFlashWhite !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: $antiFlashWhite !important;
-            color: $black !important;
+            background-color: variables.$antiFlashWhite !important;
+            color: variables.$black !important;
 
             mat-spinner svg {
-                fill: $gray !important;
-                stroke: $gray !important;
+                fill: variables.$gray !important;
+                stroke: variables.$gray !important;
             }
         }
 
         svg {
-            fill: $black;
+            fill: variables.$black;
         }
 
         mat-spinner svg {
-            fill: $black !important;
-            stroke: $black !important;
+            fill: variables.$black !important;
+            stroke: variables.$black !important;
         }
     }
 
     &--outlined {
-        border: 1px solid $black !important;
-        background-color: $white !important;
-        color: $black !important;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        border: 1px solid variables.$black !important;
+        background-color: variables.$white !important;
+        color: variables.$black !important;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
-            background-color: $platinum !important;
+            background-color: variables.$platinum !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: $gray !important;
+            color: variables.$gray !important;
         }
 
         svg {
-            fill: $black;
+            fill: variables.$black;
         }
     }
 
     &--error {
-        background-color: $errorLight !important;
-        color: $error !important;
+        background-color: variables.$errorLight !important;
+        color: variables.$error !important;
 
         svg {
-            fill: $error !important;
+            fill: variables.$error !important;
         }
     }
 
     &--success {
-        background-color: $correctLight !important;
-        color: $correct !important;
+        background-color: variables.$correctLight !important;
+        color: variables.$correct !important;
 
         svg {
-            fill: $correct !important;
+            fill: variables.$correct !important;
         }
     }
 
@@ -204,7 +206,7 @@
 .zelf-icon-button {
     font-family: Poppins;
     align-items: center;
-    background-color: $antiFlashWhite !important;
+    background-color: variables.$antiFlashWhite !important;
     border-radius: 56px;
     border: none;
     cursor: pointer;
@@ -216,7 +218,7 @@
     min-height: 56px;
     min-width: 56px;
     outline: none;
-    transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
     user-select: none;
     width: 56px;
 
@@ -232,8 +234,8 @@
     }
 
     svg {
-        transition: fill 0.3s $smoothBezier;
-        fill: $black;
+        transition: fill 0.3s variables.$smoothBezier;
+        fill: variables.$black;
     }
 
     &:hover {
@@ -255,6 +257,7 @@
         min-width: 40px;
         width: 40px;
         border-radius: 40px;
+        padding: 0 8px;
 
         &.zelf-icon-button--border-soft {
             border-radius: 14px;
@@ -263,80 +266,80 @@
 
     &--hyperlink {
         background-color: transparent;
-        color: $gray;
+        color: variables.$gray;
         font-size: 14px;
         font-weight: 500;
         border-radius: 9999px;
         padding: 8px 16px;
-        transition: color 0.2s $smoothBezier, background-color 0.3s $smoothBezier;
+        transition: color 0.2s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         &--small {
             font-size: 11px;
         }
 
         svg {
-            fill: $gray;
+            fill: variables.$gray;
         }
 
         &:hover {
-            color: $black;
-            background-color: $platinum;
+            color: variables.$black;
+            background-color: variables.$platinum;
 
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: $taupeGray !important;
+            color: variables.$taupeGray !important;
 
             svg {
-                fill: $taupeGray;
+                fill: variables.$taupeGray;
             }
 
             mat-spinner svg {
-                fill: $taupeGray !important;
-                stroke: $taupeGray !important;
+                fill: variables.$taupeGray !important;
+                stroke: variables.$taupeGray !important;
             }
         }
     }
 
     &--black {
-        background-color: $black !important;
-        color: $white !important;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        background-color: variables.$black !important;
+        color: variables.$white !important;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: $white;
+            fill: variables.$white;
         }
 
         &:focus,
         &:hover {
-            background-color: $gray !important;
+            background-color: variables.$gray !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: $platinum !important;
+            background-color: variables.$platinum !important;
 
             svg {
-                fill: $frenchGray;
+                fill: variables.$frenchGray;
             }
 
             mat-spinner svg {
-                fill: $black !important;
-                stroke: $black !important;
+                fill: variables.$black !important;
+                stroke: variables.$black !important;
             }
         }
     }
 
     &--anti-flash-white {
-        background-color: $antiFlashWhite !important;
-        color: $black !important;
+        background-color: variables.$antiFlashWhite !important;
+        color: variables.$black !important;
 
         svg {
-            fill: $black;
+            fill: variables.$black;
         }
 
         &:focus,
@@ -345,44 +348,44 @@
             color: white;
 
             svg {
-                fill: $white;
+                fill: variables.$white;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: $platinum !important;
+            background-color: variables.$platinum !important;
 
             svg {
-                fill: $frenchGray;
+                fill: variables.$frenchGray;
             }
 
             mat-spinner svg {
-                fill: $gray !important;
-                stroke: $gray !important;
+                fill: variables.$gray !important;
+                stroke: variables.$gray !important;
             }
         }
     }
 
     &--transparent {
         background-color: transparent !important;
-        color: $black !important;
+        color: variables.$black !important;
 
         svg {
-            fill: $black;
+            fill: variables.$black;
         }
 
         &:focus,
         &:hover {
-            background-color: $platinum !important;
+            background-color: variables.$platinum !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: $gray !important;
+            color: variables.$gray !important;
 
             svg {
-                fill: $frenchGray;
+                fill: variables.$frenchGray;
             }
         }
     }
@@ -407,20 +410,20 @@
     }
 
     &--error {
-        background-color: $errorLight !important;
-        color: $error !important;
+        background-color: variables.$errorLight !important;
+        color: variables.$error !important;
 
         svg {
-            fill: $error !important;
+            fill: variables.$error !important;
         }
     }
 
     &--success {
-        background-color: $correctLight !important;
-        color: $correct !important;
+        background-color: variables.$correctLight !important;
+        color: variables.$correct !important;
 
         svg {
-            fill: $correct !important;
+            fill: variables.$correct !important;
         }
     }
 }

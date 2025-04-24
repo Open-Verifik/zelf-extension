@@ -1,0 +1,8 @@
+@use "@angular/material" as mat;
+@use "./variables";
+
+@include mat.menu-overrides(
+    (
+        container-color: variables.$white,
+    )
+);

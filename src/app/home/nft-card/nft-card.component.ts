@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
-	selector: "nft-card",
-	template: `
+    selector: "nft-card",
+    template: `
 		<div class="card-container" fxLayout="row" fxLayoutAlign="start center">
 			<div class="status-icon-container">
 				<img [src]="data.image" />
@@ -14,8 +14,8 @@ import { Component, Input, OnInit } from "@angular/core";
 			</div>
 		</div>
 	`,
-	styles: [
-		`
+    styles: [
+        `
 			.card-container {
 				width: 100%;
 				height: 88px;
@@ -99,7 +99,8 @@ import { Component, Input, OnInit } from "@angular/core";
 				word-wrap: break-word;
 			}
 		`,
-	],
+    ],
+    standalone: false
 })
 export class NftCardComponent implements OnInit {
 	@Input() data: any;

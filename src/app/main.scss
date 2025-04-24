@@ -1,6 +1,7 @@
-@import "../styles/variables";
-@import "../styles/buttons";
-@import "../styles/animations";
+@use "../styles/theme";
+@use "../styles/variables";
+@use "../styles/buttons";
+@use "../styles/animations";
 
 /* Poppins Regular */
 @font-face {
@@ -38,12 +39,12 @@
 * {
     font-family: "Poppins", sans-serif; /* Always provide a fallback */
     scrollbar-width: 6px;
-    scrollbar-color: $taupeGray rgba(0, 0, 0, 0.05);
+    scrollbar-color: variables.$taupeGray rgba(0, 0, 0, 0.05);
 
     &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
-        background-color: $white;
+        background-color: variables.$white;
     }
 
     &::-webkit-scrollbar-track {
@@ -53,8 +54,8 @@
 
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: $taupeGray;
-        transition: background-color 0.3s $smoothBezier;
+        background: variables.$taupeGray;
+        transition: background-color 0.3s variables.$smoothBezier;
     }
 }
 
@@ -180,12 +181,6 @@ app-onboarding {
 .f-white {
     color: white !important;
 }
-
-$maxExtraSmall: 595px;
-$minSmall: 600px;
-$medium: 768px;
-$large: 889px;
-$computers: 1200px;
 
 .primaryColor {
     color: #01236d !important;
@@ -1021,7 +1016,7 @@ h3 {
 }
 
 /* For extremely small screen devices (595px and below) */
-@media only screen and (max-width: $maxExtraSmall) {
+@media only screen and (max-width: variables.$maxExtraSmall) {
     h2 {
         font-size: 18px;
     }
@@ -1061,7 +1056,7 @@ h3 {
     }
 
     &__text {
-        color: $taupeGray;
+        color: variables.$taupeGray;
 
         &--colored {
             color: inherit;
@@ -1071,7 +1066,7 @@ h3 {
 
     &__arrow {
         align-items: center;
-        background-color: #e3e3e3;
+        background-color: variables.$platinum;
         border-radius: 16px;
         display: inline-flex;
         height: 16px;
@@ -1088,26 +1083,26 @@ h3 {
         margin-right: 6px;
 
         &--positive {
-            color: #1ea446 !important;
+            color: variables.$correct !important;
 
             & .stats__arrow {
-                background-color: #e7f8ed;
+                background-color: variables.$correctLight;
             }
 
             & svg {
-                fill: #1ea446;
+                fill: variables.$correct;
             }
         }
 
         &--negative {
-            color: #dc362e !important;
+            color: variables.$error !important;
 
             & .stats__arrow {
-                background-color: #fceeee;
+                background-color: variables.$errorLight;
             }
 
             & svg {
-                fill: #dc362e;
+                fill: variables.$error;
             }
         }
     }
@@ -1172,33 +1167,33 @@ h3 {
 
 .zelf-bottom-sheet {
     .cdk-dialog-container {
-        color: $black;
-        background-color: $seaSalt !important;
+        color: variables.$black;
+        background-color: variables.$seaSalt !important;
         border-radius: 26px 26px 0 0 !important;
     }
 }
 
 .zelf-dialog {
     .mdc-dialog__surface {
-        color: $black;
-        background-color: $seaSalt !important;
+        color: variables.$black;
+        background-color: variables.$seaSalt !important;
         border-radius: 26px !important;
     }
 }
 
 .zelf-snackbar {
     .mdc-snackbar__surface {
-        background-color: $seaSalt !important;
+        background-color: variables.$seaSalt !important;
         border-radius: 14px !important;
         overflow: hidden;
 
         .mat-mdc-snack-bar-label {
             font-family: Poppins;
-            color: $black !important;
+            color: variables.$black !important;
         }
 
         .mdc-snackbar__action {
-            background-color: $antiFlashWhite !important;
+            background-color: variables.$antiFlashWhite !important;
             border-radius: 14px !important;
             font-family: Poppins !important;
         }
@@ -1207,7 +1202,7 @@ h3 {
 
 .zelf-menu {
     border-radius: 14px !important;
-    color: $black;
+    color: variables.$black;
 
     &__button {
         &--icon-end {
@@ -1228,7 +1223,7 @@ h3 {
 
         &-icon {
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
         }
     }
@@ -1237,7 +1232,7 @@ h3 {
 .zelf-card {
     box-sizing: border-box;
     align-items: center;
-    background-color: $white;
+    background-color: variables.$white;
     border-radius: 40px;
     border: none;
     display: inline-flex;
@@ -1249,7 +1244,7 @@ h3 {
     min-height: 768px;
 
     @media screen and (max-width: 768px) {
-        background: $white;
+        background: variables.$white;
         width: 100%;
         padding: 12px;
         border-radius: 0px;
@@ -1272,7 +1267,7 @@ h3 {
     }
 
     &__pretitle {
-        color: $gray;
+        color: variables.$gray;
         font-family: Menda;
         font-size: 14px;
         letter-spacing: 2%;
@@ -1282,7 +1277,7 @@ h3 {
     }
 
     &__title {
-        color: $black;
+        color: variables.$black;
         font-family: Menda;
         font-size: 32px;
         font-weight: bold;
@@ -1302,7 +1297,7 @@ h3 {
         letter-spacing: 0.1px;
         text-align: center;
         margin: 0;
-        color: $gray;
+        color: variables.$gray;
     }
 
     &__content {
@@ -1345,9 +1340,9 @@ h3 {
 .zelf-action-row {
     box-sizing: border-box;
     align-items: center;
-    background-color: $white;
+    background-color: variables.$white;
     border-radius: 16px;
-    border: 1px solid $antiFlashWhite;
+    border: 1px solid variables.$antiFlashWhite;
     box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
     display: flex;
     height: 62px;
@@ -1365,19 +1360,19 @@ h3 {
 }
 
 .zelf-input {
-    * {
-        box-sizing: border-box;
-    }
-
     align-items: center;
-    background-color: $white;
+    background-color: variables.$white;
     border-radius: 9999px;
-    border: 1px $gray solid;
+    border: 1px variables.$gray solid;
     display: flex;
     gap: 12px;
     height: 56px;
     position: relative;
-    transition: all 0.2s $smoothBezier;
+    transition: all 0.2s variables.$smoothBezier;
+
+    * {
+        box-sizing: border-box;
+    }
 
     input[type="password"] {
         &::-ms-reveal,
@@ -1400,11 +1395,11 @@ h3 {
     }
 
     &__prefix-text {
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         font-size: 15px;
         border-radius: 9999px;
         letter-spacing: 0.1px;
-        color: $taupeGray;
+        color: variables.$taupeGray;
         font-weight: 800;
         height: 32px;
         width: 32px;
@@ -1417,13 +1412,13 @@ h3 {
     &__postfix {
         font-size: 14px;
         letter-spacing: 0.1px;
-        color: $taupeGray;
+        color: variables.$taupeGray;
         font-weight: 500;
     }
 
     &__floating-label {
         bottom: 0;
-        color: $taupeGray;
+        color: variables.$taupeGray;
         font-family: Poppins;
         font-size: 14px;
         left: 17px;
@@ -1432,7 +1427,7 @@ h3 {
         transition: all 0.2s;
         user-select: none;
         width: 100%;
-        transition: all 0.2s $smoothBezier;
+        transition: all 0.2s variables.$smoothBezier;
     }
 
     &__control {
@@ -1440,7 +1435,7 @@ h3 {
         background: none;
         border: none;
         box-shadow: none;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         font-size: 14px;
         font-weight: 500;
@@ -1456,7 +1451,7 @@ h3 {
         }
 
         &::placeholder {
-            color: $taupeGray;
+            color: variables.$taupeGray;
         }
 
         &:not(:placeholder-shown) + .zelf-input__floating-label {
@@ -1465,7 +1460,7 @@ h3 {
         }
 
         &:focus {
-            border-color: $primaryColor;
+            border-color: variables.$primaryColor;
             outline: none;
 
             & + .zelf-input__floating-label {
@@ -1481,7 +1476,7 @@ h3 {
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
-        color: $gray;
+        color: variables.$gray;
     }
 
     &--gap-narrow {
@@ -1497,18 +1492,18 @@ h3 {
     }
 
     &--error {
-        border-color: $error;
+        border-color: variables.$error;
 
         .zelf-input::placeholder {
-            color: $error;
+            color: variables.$error;
         }
 
         .zelf-input:not(:placeholder-shown) + .zelf-input__floating-label {
-            color: $error;
+            color: variables.$error;
         }
 
         .zelf-input__control + .zelf-input__floating-label {
-            color: $error;
+            color: variables.$error;
         }
     }
 }
@@ -1522,9 +1517,9 @@ h3 {
 
 .zelf-radio {
     align-items: center;
-    background-color: $antiFlashWhite;
+    background-color: variables.$antiFlashWhite;
     border-radius: 16px;
-    color: $black;
+    color: variables.$black;
     cursor: pointer;
     display: flex;
     font-family: Poppins;
@@ -1535,11 +1530,11 @@ h3 {
     min-height: 56px;
     margin: 0;
     padding: 12px 16px;
-    transition: background-color 0.5s $smoothBezier;
+    transition: background-color 0.5s variables.$smoothBezier;
     position: relative;
 
     &:hover {
-        background-color: $platinum;
+        background-color: variables.$platinum;
     }
 
     input[type="radio"],
@@ -1553,7 +1548,7 @@ h3 {
         -moz-appearance: none;
         -webkit-appearance: none;
         appearance: none;
-        background-color: $frenchGray;
+        background-color: variables.$frenchGray;
         border-radius: 50%;
         border: none;
         cursor: pointer;
@@ -1576,7 +1571,7 @@ h3 {
                 display: block;
                 width: 100%;
                 height: 100%;
-                background-color: $black;
+                background-color: variables.$black;
                 border-radius: 50%;
                 position: absolute;
             }
@@ -1589,13 +1584,13 @@ h3 {
         stroke-width: 3px;
         stroke-linecap: round;
         stroke-linejoin: round;
-        stroke: $white;
+        stroke: variables.$white;
         position: absolute;
         left: 84.6%;
         top: 50%;
         opacity: 0;
         transform: translateY(100%) scale(0) translateZ(0);
-        transition: opacity 0.4s $smoothBezier;
+        transition: opacity 0.4s variables.$smoothBezier;
     }
 }
 
@@ -1625,15 +1620,15 @@ h3 {
         -moz-appearance: none;
         -webkit-appearance: none;
         appearance: none;
-        background-color: $white;
+        background-color: variables.$white;
         border-radius: 50%;
-        border: 1px solid $black;
+        border: 1px solid variables.$black;
         cursor: pointer;
         margin: 0 12px;
-        transition: background-color 0.3s $smoothBezier;
+        transition: background-color 0.3s variables.$smoothBezier;
 
         &:checked {
-            background-color: $black;
+            background-color: variables.$black;
 
             & + svg {
                 animation: checkbox-bounce 0.4s linear forwards;
@@ -1648,7 +1643,7 @@ h3 {
         stroke-width: 3px;
         stroke-linecap: round;
         stroke-linejoin: round;
-        stroke: $white;
+        stroke: variables.$white;
         position: absolute;
         left: 28px;
         top: 50%;
@@ -1656,20 +1651,20 @@ h3 {
     }
 
     a {
-        color: $black;
+        color: variables.$black;
         text-decoration: underline;
 
         &:hover,
         &:visited,
         &:active {
-            color: $black;
+            color: variables.$black;
             text-decoration: none;
         }
 
         &:focus,
         &:focus-visible,
         &:focus-within {
-            color: $primaryColor;
+            color: variables.$primaryColor;
             text-decoration: underline;
         }
     }
@@ -1677,7 +1672,7 @@ h3 {
 
 .zelf-message {
     align-items: center;
-    color: $gray;
+    color: variables.$gray;
     display: flex;
     font-family: Poppins;
     font-size: 14px;
@@ -1699,11 +1694,11 @@ h3 {
     }
 
     &--error {
-        color: $errorDark;
+        color: variables.$errorDark;
     }
 
     &--success {
-        color: $correctDark;
+        color: variables.$correctDark;
     }
 
     &--column {
@@ -1724,9 +1719,9 @@ h3 {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: $platinum;
+    background-color: variables.$platinum;
     border-radius: 9999px;
-    color: $black;
+    color: variables.$black;
     font-family: Poppins;
     font-size: 14px;
     font-weight: 500;
@@ -1759,7 +1754,7 @@ h3 {
 }
 
 .qr-code {
-    border: 1px solid $platinum;
+    border: 1px solid variables.$platinum;
     border-radius: 16px;
     display: flex;
     justify-content: center;
@@ -1772,12 +1767,12 @@ h3 {
     max-width: 236px;
     width: 100%;
     padding: 4px;
-    background-color: $white;
+    background-color: variables.$white;
 
     &__image {
         object-fit: contain;
         width: 100%;
-        transition: filter 1s $smoothBezier;
+        transition: filter 1s variables.$smoothBezier;
         filter: blur(0px);
 
         &[src="./assets/images/qr-preload.png"] {
@@ -1790,13 +1785,13 @@ h3 {
 
 .drag-and-drop {
     position: relative;
-    border: 1px dashed $taupeGray;
+    border: 1px dashed variables.$taupeGray;
     transition: background-color cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
     border-radius: 16px;
     overflow: hidden;
 
     &--active {
-        border: 1px dashed $secondaryColor;
+        border: 1px dashed variables.$secondaryColor;
         background-color: rgba(0, 0, 0, 0.08) !important;
     }
 
@@ -1855,11 +1850,11 @@ h3 {
 }
 
 /* Small screen devices (600px and above) */
-@media only screen and (min-width: $minSmall) {
+@media only screen and (min-width: variables.$minSmall) {
 }
 
 /* Medium screen devices (768px and above) */
-@media only screen and (min-width: $medium) {
+@media only screen and (min-width: variables.$medium) {
     .zelf-logo {
         display: none;
 
@@ -1870,9 +1865,9 @@ h3 {
 }
 
 /* Big screen devices (889px and above) */
-@media only screen and (min-width: $large) {
+@media only screen and (min-width: variables.$large) {
 }
 
 /* Extra big screen devices (1200px and above) */
-@media only screen and (min-width: $computers) {
+@media only screen and (min-width: variables.$computers) {
 }

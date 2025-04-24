@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -25,7 +25,7 @@
     }
 
     &__message {
-        color: $gray;
+        color: variables.$gray;
         font-size: 16px;
         margin: 0;
         text-align: center;

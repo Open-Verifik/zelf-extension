@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { RouterLink } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
@@ -12,7 +12,6 @@ import { Network, WalletService } from "app/wallet.service";
 @Component({
     imports: [NgIf, NgFor, NgTemplateOutlet, RouterLink, TranslocoModule, MatButtonModule, AddressMaskPipe],
     selector: "receive-currency",
-    standalone: true,
     styleUrls: ["./receive-currency.component.scss"],
     templateUrl: "./receive-currency.component.html",
 })

@@ -2,12 +2,12 @@ import { ethers } from "ethers";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AssetService } from "app/asset.service";
@@ -27,7 +27,6 @@ import { ChromeService } from "app/chrome.service";
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
     selector: "send-confirm",
-    standalone: true,
     styleUrls: ["./send-confirm.component.scss"],
     templateUrl: "./send-confirm.component.html",
 })
@@ -50,7 +49,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     passwordSet: boolean = false;
     price: number = 0;
     networkPrice: number = 0;
-    remainingAttempts: number = this._vaultService.remainingAttempts;
+    remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
     sending: boolean = false;
     showPassword: boolean = false;
@@ -77,6 +76,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _networkService: NetworkService
     ) {
         this.loading = true;
+        this.remainingAttempts = this._vaultService.remainingAttempts;
 
         this._mnemonics = "";
         this._password = this._vaultService.password;

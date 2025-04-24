@@ -1,5 +1,5 @@
-@import "../../../styles/variables";
-@import "../../../styles/buttons";
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
 
 :host {
     position: absolute;
@@ -30,11 +30,11 @@
         height: 42px;
         border-radius: 36px;
         padding: 0 16px;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: #858585;
-            transition: fill 0.3s $smoothBezier;
+            transition: fill 0.3s variables.$smoothBezier;
         }
 
         &:hover {

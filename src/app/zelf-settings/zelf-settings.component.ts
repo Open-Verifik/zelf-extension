@@ -2,14 +2,13 @@ import { Component } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router, RouterLink } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
     imports: [TranslocoModule, MatButtonModule, RouterLink],
     selector: "zelf-settings",
-    standalone: true,
     styleUrls: ["./zelf-settings.component.scss"],
     templateUrl: "./zelf-settings.component.html",
 })

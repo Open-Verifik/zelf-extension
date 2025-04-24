@@ -6,7 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { Router, RouterLink, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
@@ -18,7 +18,6 @@ import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "manage-domains",
-    standalone: true,
     imports: [
         CommonModule,
         FirstLetterPipe,

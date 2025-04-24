@@ -8,6 +8,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     selector: "app-new-zelf-name",
     templateUrl: "./new-zelf-name.component.html",
     styleUrls: ["./new-zelf-name.component.scss"],
+    standalone: false
 })
 export class NewZelfNameComponent implements OnInit {
     @ViewChild("zelfForm") signUpNgForm!: NgForm;

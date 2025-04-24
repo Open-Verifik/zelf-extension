@@ -1,6 +1,6 @@
 import { MatSnackBar } from "@angular/material/snack-bar";
 
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 
 import { ChromeService } from "app/chrome.service";
 

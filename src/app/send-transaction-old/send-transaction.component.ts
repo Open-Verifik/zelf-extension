@@ -10,6 +10,7 @@ import { WalletService } from "app/wallet.service";
     selector: "send-transaction",
     templateUrl: "./send-transaction.component.html",
     styleUrls: ["./send-transaction.component.scss", "../main.scss"],
+    standalone: false
 })
 export class SendTransactionComponent implements OnInit {
     shareables: any;

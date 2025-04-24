@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 
 @Injectable({
     providedIn: "root",
 })
 export class ErrorService {
-    _defaultErrorMessage = this._translocoService.translate("errors.generic");
+    _defaultErrorMessage = "";
 
-    constructor(private _translocoService: TranslocoService) {}
+    constructor(private _translocoService: TranslocoService) {
+        this._defaultErrorMessage = this._translocoService.translate("errors.generic");
+    }
 
     translateErrorMessage(key: string, fallbackErrorKey: string = ""): string {
         const formattedKey = `errors.${key}`;

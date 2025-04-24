@@ -3,9 +3,10 @@ import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
-	selector: "home-network-picker",
-	templateUrl: "./network-picker.component.html",
-	styleUrls: ["./network-picker.component.scss"],
+    selector: "home-network-picker",
+    templateUrl: "./network-picker.component.html",
+    styleUrls: ["./network-picker.component.scss"],
+    standalone: false
 })
 export class NetworkPickerComponent implements OnInit {
 	@Input() shareables: any;

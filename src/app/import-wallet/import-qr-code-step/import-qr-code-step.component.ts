@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { Wallet, WalletModel } from "app/wallet";
@@ -11,6 +11,7 @@ import { WalletService } from "app/wallet.service";
     selector: "import-qr-code-step",
     templateUrl: "./import-qr-code-step.component.html",
     styleUrls: ["../../main.scss", "./import-qr-code-step.component.scss"],
+    standalone: false,
 })
 export class ImportQrCodeStepComponent extends CopyToClipboardBase implements OnInit {
     session: any;

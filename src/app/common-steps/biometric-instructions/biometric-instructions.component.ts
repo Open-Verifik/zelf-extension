@@ -45,6 +45,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         </div>
     `,
     styleUrls: ["./biometric-instructions.component.scss", "../../main.scss"],
+    standalone: false,
 })
 export class BiometricInstructionsComponent implements OnInit, OnDestroy {
     session: any;

@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -38,11 +38,11 @@
     }
 
     &__col1 {
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     &__col3 {
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     &__col2 {
@@ -56,7 +56,7 @@
         font-size: 18px;
         font-weight: 600;
         font-family: Poppins;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-align: center;
     }
@@ -84,20 +84,20 @@
         gap: 4px;
         justify-content: space-between;
         align-items: center;
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         padding: 24px 16px;
         border-radius: 16px;
 
         &-title {
             margin: 0;
             font-size: 14px;
-            color: $gray;
+            color: variables.$gray;
         }
 
         &-value {
             margin: 0;
             font-size: 14px;
-            color: $black;
+            color: variables.$black;
         }
     }
 
@@ -115,7 +115,7 @@
 .qr-code {
     align-items: center;
     border-radius: 16px;
-    border: 1px solid $platinum;
+    border: 1px solid variables.$platinum;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -140,7 +140,7 @@
         font-size: 14px;
         font-weight: 500;
         color: white;
-        background-color: $black;
+        background-color: variables.$black;
         margin: 4px 0 0;
 
         &--active {
@@ -157,12 +157,12 @@
         font-size: 20px;
         font-weight: 400;
         font-family: Menda;
-        color: $black;
+        color: variables.$black;
         margin: 16px 0 0;
     }
 
     &__status {
-        color: $gray;
+        color: variables.$gray;
         margin: 8px 0 0;
     }
 }

@@ -1,6 +1,6 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
-@import "../../styles/animations.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
+@use "../../styles/animations";
 
 :host {
     align-items: center;
@@ -50,7 +50,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
     }
 
     &__content {
@@ -105,7 +105,7 @@
     &__interval {
         align-items: center;
         border-radius: 9999px;
-        color: $gray;
+        color: variables.$gray;
         cursor: pointer;
         display: inline-flex;
         font-family: Poppins;
@@ -117,16 +117,16 @@
         line-height: 16px;
         padding: 4px 16px;
         background-color: transparent;
-        transition: background-color 0.3s $smoothBezier;
+        transition: background-color 0.3s variables.$smoothBezier;
         vertical-align: middle;
 
         &:hover {
-            background-color: $platinum;
+            background-color: variables.$platinum;
         }
 
         &--active {
-            color: $black;
-            border: 1px solid $black;
+            color: variables.$black;
+            border: 1px solid variables.$black;
         }
     }
 
@@ -148,7 +148,7 @@
         text-align: center;
         vertical-align: middle;
         text-transform: uppercase;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         padding: 0;
     }
@@ -161,7 +161,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
         padding: 0;
     }
@@ -185,7 +185,7 @@
     justify-content: flex-start;
     align-items: center;
     min-height: 76px;
-    border: 1px solid $platinum;
+    border: 1px solid variables.$platinum;
     border-radius: 16px;
     gap: 16px;
     width: 100%;
@@ -255,7 +255,7 @@
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
     }
 
@@ -268,7 +268,7 @@
         text-align: center;
         vertical-align: middle;
         margin: 0;
-        color: $black;
+        color: variables.$black;
     }
 }
 
@@ -282,18 +282,18 @@
     &__icon {
         height: 60px;
         width: 60px;
-        background: $antiFlashWhite;
+        background: variables.$antiFlashWhite;
         border-radius: 60px;
         display: inline-flex;
         justify-content: center;
         align-items: center;
         gap: 8px;
         cursor: pointer;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: $black;
-            transition: fill 0.3s $smoothBezier;
+            fill: variables.$black;
+            transition: fill 0.3s variables.$smoothBezier;
         }
 
         &:hover {
@@ -336,7 +336,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
     }
     &__value {
@@ -346,7 +346,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
     }
 
@@ -385,7 +385,7 @@
         max-height: 96px;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
         width: 100%;
 
@@ -401,7 +401,7 @@
     &__website-button {
         font-family: Poppins;
         align-items: center;
-        background-color: $antiFlashWhite !important;
+        background-color: variables.$antiFlashWhite !important;
         border-radius: 40px;
         border: none;
         cursor: pointer;
@@ -412,29 +412,29 @@
         justify-content: center;
         min-height: 40px;
         outline: none;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
         user-select: none;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
-            color: $black;
-            background-color: $platinum;
+            color: variables.$black;
+            background-color: variables.$platinum;
 
             svg {
-                fill: $black;
+                fill: variables.$black;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: $taupeGray !important;
+            color: variables.$taupeGray !important;
 
             svg {
-                fill: $taupeGray;
+                fill: variables.$taupeGray;
             }
         }
     }
@@ -447,7 +447,7 @@
         letter-spacing: 2%;
         vertical-align: middle;
         text-transform: uppercase;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-align: center;
     }
@@ -462,13 +462,13 @@
         max-height: 96px;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
         cursor: pointer;
         text-decoration: underline;
 
         &:hover {
-            color: $black;
+            color: variables.$black;
             text-decoration: none;
         }
     }
@@ -520,15 +520,15 @@
     margin: 0;
 
     &--positive {
-        background-color: $correct;
+        background-color: variables.$correct;
         color: white;
     }
     &--negative {
-        background-color: $error;
+        background-color: variables.$error;
         color: white;
     }
     &--neutral {
-        background-color: $platinum;
-        color: $gray;
+        background-color: variables.$platinum;
+        color: variables.$gray;
     }
 }

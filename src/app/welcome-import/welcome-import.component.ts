@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { VaultService } from "app/vault.service";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -11,7 +11,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 @Component({
     imports: [CommonModule, ReactiveFormsModule, MatButtonModule, TranslocoModule, WelcomeErrorComponent, RouterModule],
     selector: "welcome-import",
-    standalone: true,
     styleUrls: ["./welcome-import.component.scss"],
     templateUrl: "./welcome-import.component.html",
 })

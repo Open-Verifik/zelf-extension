@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -58,7 +58,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
     }
 
     &__form {
@@ -109,7 +109,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
     }
 
     &__value {
@@ -119,8 +119,8 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $black;
-        transition: color 0.2s $smoothBezier;
+        color: variables.$black;
+        transition: color 0.2s variables.$smoothBezier;
 
         &--col {
             display: flex;
@@ -141,7 +141,7 @@
         }
 
         &--error {
-            color: $error;
+            color: variables.$error;
         }
     }
 
@@ -152,7 +152,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
     }
 
     &__price-amount-container {
@@ -166,7 +166,7 @@
     &__price {
         font-size: 32px;
         font-weight: 600;
-        color: $black;
+        color: variables.$black;
         font-family: Menda;
         margin: 0;
     }
@@ -175,7 +175,7 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: $black;
+        color: variables.$black;
         font-family: Poppins;
         margin: 0 0 8px;
     }

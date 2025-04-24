@@ -1,5 +1,5 @@
-@import "../../../styles/variables";
-@import "../../../styles/buttons";
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
 
 :host {
     position: relative;
@@ -16,25 +16,28 @@
     gap: 16px;
 
     &__exit {
-        position: absolute;
-        top: 0;
-        right: 0;
+        align-items: center;
+        background-color: transparent;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        height: 32px;
+        justify-content: center;
         margin: 8px;
         min-height: 32px;
         min-width: 32px;
-        width: 32px;
-        height: 32px;
-        padding: 8px;
-        cursor: pointer;
         outline: none;
-        border: none;
-        border-radius: 9999px;
-        background-color: transparent;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        padding: 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        width: 32px;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
@@ -61,7 +64,7 @@
     user-select: none;
     cursor: pointer;
     align-items: center;
-    color: $black;
+    color: variables.$black;
     display: inline-flex;
     gap: 8px;
     justify-content: center;
@@ -69,11 +72,11 @@
     border-radius: 36px;
     padding: 0 16px;
     margin: 42px auto 0;
-    transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+    transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
     svg {
-        fill: $black;
-        transition: fill 0.3s $smoothBezier;
+        fill: variables.$black;
+        transition: fill 0.3s variables.$smoothBezier;
     }
 
     &:hover {
@@ -90,8 +93,8 @@
     }
 
     svg {
-        fill: $black;
-        transition: fill 0.3s $smoothBezier;
+        fill: variables.$black;
+        transition: fill 0.3s variables.$smoothBezier;
     }
 
     &__title {
@@ -106,13 +109,13 @@
         height: 14px;
         width: 14px;
         border-radius: 14px;
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         align-items: center;
         display: inline-flex;
         justify-content: center;
 
         svg {
-            fill: $black;
+            fill: variables.$black;
         }
     }
 }
@@ -130,7 +133,7 @@
     box-sizing: border-box;
 
     &__item {
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         border-radius: 8px;
         display: inline-flex;
         flex-direction: column;
@@ -139,7 +142,7 @@
         gap: 4px;
         padding: 6px;
         cursor: pointer;
-        transition: background-color 0.3s $smoothBezier;
+        transition: background-color 0.3s variables.$smoothBezier;
 
         &:hover {
             background-color: #b589f0;
@@ -167,9 +170,9 @@
             height: 72px;
             width: 72px;
             border-radius: 72px;
-            background-color: $gray;
+            background-color: variables.$gray;
             color: white;
-            transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+            transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
             &--bg-white {
                 background-color: white;
@@ -180,7 +183,7 @@
         &-name {
             font-size: 12px;
             font-weight: 600;
-            color: $black;
+            color: variables.$black;
             margin-top: 4px;
             margin-bottom: 0;
         }

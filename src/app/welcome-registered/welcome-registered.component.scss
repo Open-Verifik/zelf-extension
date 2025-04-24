@@ -1,6 +1,6 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
-@import "../../styles/elements";
+@use "../../styles/variables";
+@use "../../styles/buttons";
+@use "../../styles/elements";
 
 :host {
     align-items: center;
@@ -76,7 +76,7 @@
         }
 
         &-title {
-            color: $gray;
+            color: variables.$gray;
             font-size: 11px;
             font-family: Poppins;
             font-weight: 500;
@@ -98,7 +98,7 @@
         }
 
         &-text {
-            color: $black;
+            color: variables.$black;
             font-family: Poppins;
             font-size: 14px;
             font-weight: 600;
@@ -110,7 +110,7 @@
 }
 
 .address-row {
-    background-color: $antiFlashWhite;
+    background-color: variables.$antiFlashWhite;
     border-radius: 16px;
     height: 48px;
     width: 100%;
@@ -140,7 +140,7 @@
     }
 
     &__label {
-        color: $gray;
+        color: variables.$gray;
         font-size: 14px;
         font-weight: 500;
         display: flex;
@@ -149,7 +149,7 @@
     }
 
     &__value {
-        color: $black;
+        color: variables.$black;
         font-family: monospace;
         font-size: 14px;
         font-weight: 500;

@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -43,7 +43,7 @@
     }
 
     &__progress {
-        background-color: $platinum;
+        background-color: variables.$platinum;
         border-radius: 6px;
         height: 6px;
         overflow: hidden;
@@ -51,7 +51,7 @@
         width: 96px;
 
         &-bar {
-            background-color: $secondaryColor;
+            background-color: variables.$secondaryColor;
             border-radius: 6px;
             height: 100%;
             left: 0;

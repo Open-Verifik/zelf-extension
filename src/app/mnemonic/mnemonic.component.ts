@@ -5,7 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
@@ -15,7 +15,6 @@ import { WalletService } from "app/wallet.service";
 @Component({
     imports: [CommonModule, TranslocoModule, MatInputModule, MatButtonModule, RouterModule, ReactiveFormsModule],
     selector: "mnemonic",
-    standalone: true,
     styleUrls: ["./mnemonic.component.scss"],
     templateUrl: "./mnemonic.component.html",
 })
@@ -28,7 +27,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
     copied: boolean = false;
     form!: UntypedFormGroup;
     passwordError: boolean = false;
-    remainingAttempts: number = this._vaultService.remainingAttempts + 1;
+    remainingAttempts: number = 0;
     showPassword: boolean = false;
     showPasswordForm: boolean = false;
     words: string[] = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
@@ -44,6 +43,8 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
         protected _snackbar: MatSnackBar
     ) {
         super(_chromeService, _snackbar, _translocoService);
+
+        this.remainingAttempts = this._vaultService.remainingAttempts + 1;
     }
 
     async ngOnInit(): Promise<void> {

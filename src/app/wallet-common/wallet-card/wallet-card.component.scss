@@ -1,163 +1,163 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables";
 
 .hwc-account-item {
-	align-self: stretch;
-	height: 64px;
-	padding-top: 0px;
-	padding-bottom: 0px;
+    align-self: stretch;
+    height: 64px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 
-	border-radius: 8px;
-	justify-content: center;
-	align-items: flex-start;
-	gap: 8px;
-	display: inline-flex;
-	width: 90%;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    display: inline-flex;
+    width: 90%;
 }
 
 .hwc-account-item-icon {
-	padding-top: 8px;
-	padding-bottom: 8px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	display: inline-flex;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
 }
 
 .hwc-account-item-icon-letter {
-	background: black !important;
-	color: white;
-	width: 100%;
-	cursor: pointer;
+    background: black !important;
+    color: white;
+    width: 100%;
+    cursor: pointer;
 }
 
 .hwc-account-item-icon-letter:hover {
-	background: linear-gradient(170deg, $white 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%) !important;
-	color: black;
-	font-weight: 800;
+    background: linear-gradient(170deg, variables.$white 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%) !important;
+    color: black;
+    font-weight: 800;
 }
 
 .hwc-account-item-icon div {
-	align-self: stretch;
-	padding: 2px;
-	background: white;
-	border-radius: 8px;
-	justify-content: center;
-	align-items: center;
-	display: inline-flex;
+    align-self: stretch;
+    padding: 2px;
+    background: white;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
 }
 
 .hwc-account-item-icon-inner {
-	width: 36px;
-	height: 36px;
-	position: relative;
+    width: 36px;
+    height: 36px;
+    position: relative;
 }
 
 .hwc-account-item-info {
-	flex: 1 1 0;
-	align-self: stretch;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	display: inline-flex;
+    flex: 1 1 0;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    display: inline-flex;
 }
 
 .hwc-account-item-name {
-	align-self: stretch;
-	color: #1b1b1f;
-	font-size: 15px;
-	font-family: Poppins;
-	font-weight: 600;
-	line-height: 24px;
-	word-wrap: break-word;
+    align-self: stretch;
+    color: #1b1b1f;
+    font-size: 15px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 24px;
+    word-wrap: break-word;
 }
 
 .hwc-account-item-name:hover {
-	color: #0b57d0;
+    color: #0b57d0;
 }
 
 .hwc-account-item-address {
-	text-align: center;
-	color: #46464f;
-	font-size: 14px;
-	font-family: Poppins;
-	font-weight: 500;
-	line-height: 20px;
-	letter-spacing: 0.1px;
-	word-wrap: break-word;
+    text-align: center;
+    color: #46464f;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    word-wrap: break-word;
 }
 
 .hwc-account-item-balance {
-	width: 112px;
-	align-self: stretch;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 8px;
-	display: flex;
+    width: 112px;
+    align-self: stretch;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    display: flex;
 }
 
 .hwc-account-item-balance div {
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-end;
-	gap: 8px;
-	display: inline-flex;
-	width: 112px;
-	height: 10px;
-	text-align: right;
-	color: #1b1b1f;
-	font-size: 14px;
-	font-family: Poppins;
-	font-weight: 500;
-	line-height: 20px;
-	letter-spacing: 0.1px;
-	word-wrap: break-word;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    display: inline-flex;
+    width: 112px;
+    height: 10px;
+    text-align: right;
+    color: #1b1b1f;
+    font-size: 14px;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    word-wrap: break-word;
 }
 
 .hwc-account-item-balance-icon {
-	cursor: pointer;
-	width: 24px;
-	height: 48px;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	display: inline-flex;
+    cursor: pointer;
+    width: 24px;
+    height: 48px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
 }
 
 .hwc-account-item-balance-icon div {
-	width: 24px;
-	height: 24px;
-	position: relative;
-	border-radius: 40px;
-	overflow: hidden;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: flex-start;
-	display: flex;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
 }
 
 .hwc-account-item-balance-icon-inner {
-	width: 4px;
-	height: 16px;
-	background: #46464f;
+    width: 4px;
+    height: 16px;
+    background: #46464f;
 }
 
 .mat-menu-item-text {
-	position: relative;
-	bottom: 6px;
-	left: 3px;
+    position: relative;
+    bottom: 6px;
+    left: 3px;
 }
 
 .hwc-hold-actions {
-	border: 1px solid #80808042;
-	border-radius: 12px;
-	height: 120px;
-	padding: 16px;
-	gap: 12px;
+    border: 1px solid #80808042;
+    border-radius: 12px;
+    height: 120px;
+    padding: 16px;
+    gap: 12px;
 
-	button svg {
-		position: relative;
-		top: 3px;
-	}
+    button svg {
+        position: relative;
+        top: 3px;
+    }
 }

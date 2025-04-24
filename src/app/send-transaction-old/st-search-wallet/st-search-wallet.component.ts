@@ -12,10 +12,11 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 import { Observable } from "rxjs";
 
 @Component({
-	selector: "st-search-wallet",
-	templateUrl: "./st-search-wallet.component.html",
-	styleUrls: ["../send-transaction.component.scss"],
-	encapsulation: ViewEncapsulation.None,
+    selector: "st-search-wallet",
+    templateUrl: "./st-search-wallet.component.html",
+    styleUrls: ["../send-transaction.component.scss"],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class StSearchWalletComponent implements OnInit {
 	@Input() shareables: any;

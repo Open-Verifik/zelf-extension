@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
-import { TranslocoService } from "@ngneat/transloco";
+import { TranslocoService } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { Subject, takeUntil } from "rxjs";
 
@@ -9,6 +9,7 @@ import { Subject, takeUntil } from "rxjs";
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ["../main.scss", "./language-picker.component.scss"],
     encapsulation: ViewEncapsulation.None,
+    standalone: false,
 })
 export class LanguagePickerComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();

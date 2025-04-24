@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 
 @Component({
-	selector: "app-loader",
-	template: `
+    selector: "app-loader",
+    template: `
 		<div class="loader" fxLayout="column" fxLayoutAlign="center center">
 			<img src="../../assets/images/full_logo_zns.svg" alt="" />
 
@@ -29,6 +29,7 @@ import { Component } from "@angular/core";
 			</svg>
 		</div>
 	`,
-	styles: [],
+    styles: [],
+    standalone: false
 })
 export class LoaderComponent {}

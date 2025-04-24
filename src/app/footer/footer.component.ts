@@ -3,9 +3,10 @@ import { MatDialog } from "@angular/material/dialog";
 import { FooterMenuComponent } from "./footer-menu/footer-menu.component";
 
 @Component({
-	selector: "footer",
-	templateUrl: "./footer.component.html",
-	styleUrls: ["../main.scss", "./footer.component.scss"],
+    selector: "footer",
+    templateUrl: "./footer.component.html",
+    styleUrls: ["../main.scss", "./footer.component.scss"],
+    standalone: false
 })
 export class FooterComponent implements OnInit {
 	@Input() shareables: any;

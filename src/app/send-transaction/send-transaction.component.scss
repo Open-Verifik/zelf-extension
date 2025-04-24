@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -58,7 +58,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
     }
 
     &__form {
@@ -121,7 +121,7 @@
 
     &__fiat-price {
         box-sizing: border-box;
-        color: $gray;
+        color: variables.$gray;
         font-family: Poppins;
         font-size: 14px;
         font-weight: 500;
@@ -151,7 +151,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
     }
 
     &__address-used {
@@ -161,7 +161,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
     }
 }
 
@@ -172,20 +172,20 @@
     border-radius: 16px;
     padding: 24px 16px;
     gap: 12px;
-    border: 1px solid $platinum;
+    border: 1px solid variables.$platinum;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $white;
+    background-color: variables.$white;
 
     &__chip {
         height: 48px;
         border-radius: 48px;
         gap: 8px;
         padding: 0px 16px;
-        border: 1px solid $platinum;
-        background-color: $white;
+        border: 1px solid variables.$platinum;
+        background-color: variables.$white;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -194,7 +194,7 @@
     }
 
     &__icon-bubble {
-        background-color: $correctLight;
+        background-color: variables.$correctLight;
         max-height: 32px;
         max-width: 32px;
         border-radius: 48px;
@@ -205,7 +205,7 @@
         width: 32px;
 
         svg {
-            fill: $correct;
+            fill: variables.$correct;
         }
     }
 
@@ -215,7 +215,7 @@
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-transform: uppercase;
     }
@@ -228,7 +228,7 @@
         letter-spacing: 0%;
         text-align: center;
         text-transform: uppercase;
-        color: $black;
+        color: variables.$black;
         margin: 0;
     }
 
@@ -240,14 +240,14 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         overflow-wrap: anywhere;
     }
 
     &__horizontal-rule {
         width: 100%;
-        border: 1px solid $platinum;
+        border: 1px solid variables.$platinum;
     }
 
     &__instructions {
@@ -258,7 +258,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
     }
 
     &__icon-bubble {

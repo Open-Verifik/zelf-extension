@@ -7,9 +7,10 @@ import { TransactionModel, WalletModel, Transaction, Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
-	selector: "app-transaction-details",
-	templateUrl: "./transaction-details.component.html",
-	styleUrls: ["./transaction-details.component.scss", "../main.scss"],
+    selector: "app-transaction-details",
+    templateUrl: "./transaction-details.component.html",
+    styleUrls: ["./transaction-details.component.scss", "../main.scss"],
+    standalone: false
 })
 export class TransactionDetailsComponent implements OnInit {
 	details!: any;

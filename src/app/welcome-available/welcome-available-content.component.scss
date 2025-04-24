@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     display: block;
@@ -21,26 +21,26 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 8px 24px 8px;
-        transition: color 0.3s $smoothBezier;
+        transition: color 0.3s variables.$smoothBezier;
 
         svg {
             transform: rotate(180deg);
-            transition: transform 0.3s $smoothBezier;
-            fill: $gray;
+            transition: transform 0.3s variables.$smoothBezier;
+            fill: variables.$gray;
         }
 
         &--active {
-            color: $black;
+            color: variables.$black;
 
             svg {
                 transform: rotate(0deg);
-                fill: $black;
+                fill: variables.$black;
             }
         }
     }

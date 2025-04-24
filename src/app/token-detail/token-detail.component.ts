@@ -1,8 +1,8 @@
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf } from "@angular/common";
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, Renderer2, ViewChild, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterLink } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { AssetService } from "app/asset.service";
 import { AssetChart, AssetDetails, AssetIntervalOptions, AssetRange } from "app/models/asset.model";
 import { SafeHtmlPipe } from "app/pipes/safe-html.pipe";
@@ -29,7 +29,6 @@ import { Subject, takeUntil } from "rxjs";
         ZelfHistoryComponent,
     ],
     selector: "token-detail",
-    standalone: true,
     styleUrls: ["./token-detail.component.scss"],
     templateUrl: "./token-detail.component.html",
 })
@@ -44,7 +43,7 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     asset: Partial<TokenData> = {};
     chartData: AssetChart[] | null = null;
     details: AssetDetails = new AssetDetails({} as AssetDetails);
-    intervals: AssetIntervalOptions = this._assetService.intervals;
+    intervals: AssetIntervalOptions = [];
     loading: boolean = true;
     loadingChart: boolean = true;
     loadingDetails: boolean = true;
@@ -59,7 +58,9 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         private _router: Router,
         private _transactionService: TransactionService,
         private _walletService: WalletService
-    ) {}
+    ) {
+        this.intervals = this._assetService.intervals;
+    }
 
     ngAfterViewInit(): void {
         this.asset = this._assetService.sourceAsset;

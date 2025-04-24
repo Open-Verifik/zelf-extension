@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, Inject } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
 import { Wallet } from "app/wallet";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -10,7 +10,6 @@ import { ChromeService } from "app/chrome.service";
 
 @Component({
     selector: "private-key",
-    standalone: true,
     imports: [CommonModule, TranslocoModule, MnemonicComponent],
     templateUrl: "./private-key.component.html",
     styleUrls: ["./private-key.component.scss"],

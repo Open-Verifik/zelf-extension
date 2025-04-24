@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     position: relative;
@@ -16,25 +16,28 @@
     gap: 16px;
 
     &__exit {
-        position: absolute;
-        top: 0;
-        right: 0;
+        align-items: center;
+        background-color: transparent;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        height: 32px;
+        justify-content: center;
         margin: 8px;
         min-height: 32px;
         min-width: 32px;
-        width: 32px;
-        height: 32px;
-        padding: 8px;
-        cursor: pointer;
         outline: none;
-        border: none;
-        border-radius: 9999px;
-        background-color: transparent;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        padding: 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        width: 32px;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
@@ -58,7 +61,7 @@
 
     &__icon {
         margin-top: 28px;
-        fill: $black;
+        fill: variables.$black;
     }
 
     &__pretitle {
@@ -69,7 +72,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
     }
 

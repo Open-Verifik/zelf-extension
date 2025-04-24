@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { WalletModel } from "app/wallet";
@@ -24,7 +24,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         TranslocoModule,
     ],
     selector: "welcome-recover",
-    standalone: true,
     styleUrls: ["./welcome-recover.component.scss"],
     templateUrl: "./welcome-recover.component.html",
 })

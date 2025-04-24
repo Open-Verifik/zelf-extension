@@ -1,5 +1,5 @@
-@import "../../styles/variables.scss";
-@import "../../styles/buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     display: block;
@@ -25,7 +25,7 @@
         justify-content: center;
         gap: 16px;
         padding: 16px;
-        border: 1px solid $antiFlashWhite;
+        border: 1px solid variables.$antiFlashWhite;
         border-radius: 16px;
         margin: 16px 0;
     }
@@ -36,7 +36,7 @@
     gap: 8px;
     grid-template-columns: repeat(4, 1fr);
     margin-top: 12px;
-    transition: filter 0.3s $smoothBezier;
+    transition: filter 0.3s variables.$smoothBezier;
     width: 100%;
 
     &--blur {
@@ -48,7 +48,7 @@
         display: inline-flex;
         justify-content: flex-start;
         align-items: center;
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         padding: 8px;
         border-radius: 24px;
         height: 32px;
@@ -57,14 +57,14 @@
         &-number {
             display: inline-block;
             user-select: none;
-            color: $taupeGray;
+            color: variables.$taupeGray;
             margin-right: 8px;
         }
 
         &-word {
             display: inline-block;
             user-select: none;
-            color: $black;
+            color: variables.$black;
         }
     }
 }

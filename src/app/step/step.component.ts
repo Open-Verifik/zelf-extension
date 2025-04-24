@@ -1,12 +1,12 @@
 import { Component, Input } from "@angular/core";
 
 @Component({
-	selector: "app-step",
-	template: `<div class="step-content" [class.active]="_isActive()" [class.completed]="_isCompleted()">
+    selector: "app-step",
+    template: `<div class="step-content" [class.active]="_isActive()" [class.completed]="_isCompleted()">
 		<ng-content> </ng-content>
 	</div>`,
-	styles: [
-		`
+    styles: [
+        `
 			.step-content {
 				display: none;
 				text-align: center;
@@ -15,7 +15,8 @@ import { Component, Input } from "@angular/core";
 				}
 			}
 		`,
-	],
+    ],
+    standalone: false
 })
 export class StepComponent {
 	@Input() step: any;

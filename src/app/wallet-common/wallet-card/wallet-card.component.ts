@@ -94,6 +94,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         </mat-menu>
     `,
     styleUrls: ["./wallet-card.component.scss"],
+    standalone: false
 })
 export class WalletCardComponent implements OnInit {
     @Input() variables: any;

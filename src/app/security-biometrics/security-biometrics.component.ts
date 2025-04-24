@@ -5,7 +5,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
@@ -23,7 +23,6 @@ import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-s
 @Component({
     imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule, WelcomeErrorComponent],
     selector: "security-biometrics",
-    standalone: true,
     styleUrls: ["./security-biometrics.component.scss"],
     templateUrl: "./security-biometrics.component.html",
 })

@@ -9,9 +9,10 @@ import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
-	selector: "app-import-wallet",
-	templateUrl: "./import-wallet.component.html",
-	styleUrls: ["./import-wallet.component.scss", "../main.scss"],
+    selector: "app-import-wallet",
+    templateUrl: "./import-wallet.component.html",
+    styleUrls: ["./import-wallet.component.scss", "../main.scss"],
+    standalone: false
 })
 export class ImportWalletComponent implements OnInit {
 	stepperSelected: number = 0;

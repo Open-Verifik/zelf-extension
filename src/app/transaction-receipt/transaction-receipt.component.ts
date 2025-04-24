@@ -1,5 +1,5 @@
 import { forkJoin, take } from "rxjs";
-import { TranslocoModule, TranslocoService } from "@ngneat/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { DatePipe, DecimalPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
@@ -20,7 +20,6 @@ import { SolanaService } from "app/solana.service";
 @Component({
     imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
     selector: "transaction-receipt",
-    standalone: true,
     styleUrls: ["./transaction-receipt.component.scss"],
     templateUrl: "./transaction-receipt.component.html",
 })

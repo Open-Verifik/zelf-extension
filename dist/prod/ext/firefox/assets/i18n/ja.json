@@ -94,7 +94,12 @@
         "upload_zelf_proof": "またはZelfProof QRコードをアップロードして続行してください:",
         "you_can_transfer_this_domain": "このドメインを転送できます",
         "you_will_register_this_domain": "このドメインを登録します",
-        "your_zelf_name": "あなたのZelf Name"
+        "your_zelf_name": "あなたのZelf Name",
+        "offline_subtitle": "この ZelfProof はオフラインで作成されたため、異なるセキュリティシステムを使用しています。現時点では、拡張機能との互換性はありません。まもなく利用可能になります。",
+        "offline_tip": "でも、心配しないでください！別の ZelfName で ZelfProof をインポートすれば、拡張機能からアクセスできます。",
+        "i_understand_go_back": "理解しました、ホームに戻ります",
+        "safeguard_your_crypto": "暗号資産を守りましょう！",
+        "offline_import_subtitle": "オフラインウォレットをインポートする前に、新しい ZelfName を選択する必要があります。"
     },
     "security": {
         "biometric_decryption_subtitle": "次に、パスワードと組み合わせてセルフィーを撮影し、ZelfProofを復号化するために使用される秘密鍵を生成します。<strong>私たちはあなたの生体認証データを他の目的で収集または使用しません。</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "引き出し",
         "withdrawal_network": "引き出しネットワーク",
         "your_token": "あなたの{{ symbol }}",
-        "zelf_wallet": "Zelfウォレット"
+        "zelf_wallet": "Zelfウォレット",
+        "import_wallet": "ウォレットをインポート",
+        "try_another_one": "別のものを試す"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",

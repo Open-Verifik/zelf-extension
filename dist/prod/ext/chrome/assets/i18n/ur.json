@@ -94,7 +94,12 @@
         "upload_zelf_proof": "یا جاری رکھنے کے لیے اپنا زیلف پروف کیو آر کوڈ اپ لوڈ کریں:",
         "you_can_transfer_this_domain": "آپ اس ڈومین کو منتقل کر سکتے ہیں",
         "you_will_register_this_domain": "آپ اس ڈومین کو رجسٹر کریں گے",
-        "your_zelf_name": "آپ کا زیلف نام"
+        "your_zelf_name": "آپ کا زیلف نام",
+        "offline_subtitle": "یہ ZelfProof آف لائن بنایا گیا تھا، لہذا یہ ایک مختلف سیکیورٹی سسٹم استعمال کرتا ہے۔ اس وقت، یہ ایکسٹینشن کے ساتھ مطابقت نہیں رکھتا۔ یہ جلد ہی دستیاب ہوگا۔",
+        "offline_tip": "لیکن فکر نہ کریں! آپ ایکسٹینشن سے رسائی حاصل کرنے کے لیے اپنے ZelfProof کو دوسرے ZelfName کے ساتھ درآمد کر سکتے ہیں۔",
+        "i_understand_go_back": "میں سمجھتا ہوں، ہوم پیج پر واپس جائیں",
+        "safeguard_your_crypto": "اپنی کریپٹو کی حفاظت کریں!",
+        "offline_import_subtitle": "آپ کے آف لائن والیٹ کو درآمد کرنے سے پہلے، آپ کو ایک نیا ZelfName منتخب کرنا ہوگا۔"
     },
     "security": {
         "biometric_decryption_subtitle": "آپ کے زیلف پروف کو ان لاک کرنے کے لیے بایومیٹرک ڈکرپشن ضروری ہے۔",
@@ -220,7 +225,9 @@
         "withdraw": "نکالیں",
         "withdrawal_network": "نکالنے کا نیٹ ورک",
         "your_token": "آپ کا {{ symbol }}",
-        "zelf_wallet": "زیلف والٹ"
+        "zelf_wallet": "زیلف والٹ",
+        "import_wallet": "والیٹ درآمد کریں",
+        "try_another_one": "دوسرا آزمائیں"
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",

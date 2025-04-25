@@ -94,7 +94,12 @@
         "upload_zelf_proof": "或上传您的ZelfProof二维码以继续：",
         "you_can_transfer_this_domain": "您可以转移此域名",
         "you_will_register_this_domain": "您将注册此域名",
-        "your_zelf_name": "您的Zelf名称"
+        "your_zelf_name": "您的Zelf名称",
+        "offline_subtitle": "此 ZelfProof 是离线创建的，因此使用不同的安全系统。目前，它与扩展程序不兼容。它将很快可用。",
+        "offline_tip": "但是，不要担心！您可以使用另一个 ZelfName 导入您的 ZelfProof，以便从扩展程序访问。",
+        "i_understand_go_back": "我理解，返回首页",
+        "safeguard_your_crypto": "保护您的加密货币！",
+        "offline_import_subtitle": "在导入离线钱包之前，您需要选择一个新的 ZelfName。"
     },
     "security": {
         "biometric_decryption_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于解密您的 ZelfProof 的私钥。<strong>我们不会收集或将您的生物识别数据用于其他目的。</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "提现",
         "withdrawal_network": "提现网络",
         "your_token": "您的 {{ symbol }}",
-        "zelf_wallet": "Zelf钱包"
+        "zelf_wallet": "Zelf钱包",
+        "import_wallet": "导入钱包",
+        "try_another_one": "尝试另一个"
     },
     "token": {
         "24h_performance": "24小时表现",

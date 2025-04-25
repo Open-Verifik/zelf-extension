@@ -94,7 +94,12 @@
         "upload_zelf_proof": "ou téléchargez votre code QR ZelfProof pour continuer :",
         "you_can_transfer_this_domain": "Vous pouvez transférer ce domaine",
         "you_will_register_this_domain": "Vous allez enregistrer ce domaine",
-        "your_zelf_name": "Votre Nom Zelf"
+        "your_zelf_name": "Votre Nom Zelf",
+        "offline_subtitle": "Cette ZelfProof a été créée hors ligne, elle utilise donc un système de sécurité différent. Actuellement, elle n'est pas compatible avec l'extension. Elle sera disponible bientôt.",
+        "offline_tip": "Mais ne vous inquiétez pas! Vous pouvez importer votre ZelfProof avec un autre ZelfName pour y avoir accès depuis l'extension.",
+        "i_understand_go_back": "Je comprends, retourner à l'accueil",
+        "safeguard_your_crypto": "Protégez vos cryptomonnaies!",
+        "offline_import_subtitle": "Avant de pouvoir importer votre portefeuille hors ligne, vous devez choisir un nouveau ZelfName."
     },
     "security": {
         "biometric_decryption_subtitle": "Ensuite, nous prenons un selfie, en combinaison avec votre mot de passe, pour générer la clé privée utilisée pour décrypter votre ZelfProof. <strong>Nous ne collectons ni n'utilisons vos données biométriques à d'autres fins.</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "Retirer",
         "withdrawal_network": "Réseau de retrait",
         "your_token": "Votre {{ symbol }}",
-        "zelf_wallet": "Portefeuille Zelf"
+        "zelf_wallet": "Portefeuille Zelf",
+        "import_wallet": "Importer le portefeuille",
+        "try_another_one": "Essayer un autre"
     },
     "token": {
         "24h_performance": "Performance sur 24h",

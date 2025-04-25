@@ -94,7 +94,12 @@
         "upload_zelf_proof": "أو قم بتحميل رمز QR الخاص بزيلف بروف للمتابعة:",
         "you_can_transfer_this_domain": "يمكنك نقل هذا النطاق",
         "you_will_register_this_domain": "ستقوم بتسجيل هذا النطاق",
-        "your_zelf_name": "اسم زيلف الخاص بك"
+        "your_zelf_name": "اسم زيلف الخاص بك",
+        "offline_subtitle": "تم إنشاء ZelfProof هذا في وضع عدم الاتصال ، لذلك يستخدم نظام أمان مختلف. في هذا الوقت ، غير متوافق مع الملحق. سيكون متاحًا قريبًا.",
+        "offline_tip": "لكن لا تقلق! يمكنك استيراد ZelfProof باستخدام اسم ZelfName آخر للوصول من الملحق.",
+        "i_understand_go_back": "أفهم ، العودة إلى الصفحة الرئيسية",
+        "safeguard_your_crypto": "حماية عملاتك المشفرة!",
+        "offline_import_subtitle": "قبل أن تتمكن من استيراد محفظتك دون اتصال ، تحتاج إلى اختيار اسم ZelfName جديد."
     },
     "security": {
         "biometric_decryption_subtitle": "بعد ذلك، سنأخذ صورة شخصية، بالاشتراك مع كلمة المرور الخاصة بك، لتوليد المفتاح الخاص المستخدم لفك تشفير ZelfProof الخاص بك. <strong>نحن لا نجمع أو نستخدم بياناتك البيومترية لأي أغراض أخرى.</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "سحب",
         "withdrawal_network": "شبكة السحب",
         "your_token": "رمزك {{ symbol }}",
-        "zelf_wallet": "محفظة زيلف"
+        "zelf_wallet": "محفظة زيلف",
+        "import_wallet": "استيراد المحفظة",
+        "try_another_one": "جرب واحدة أخرى"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",

@@ -71,9 +71,12 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.flow = (await this._zelfNameService.getFlow()) || "create";
         this.newZelfName = await this._zelfNameService.getNewZelfName();
         this.showBiometrics = (await this._chromeService.getItem("hideBiometricsMessage")) || false;
-        this.zelfNameObject = await this._zelfNameService.getZelfNameObject();
         this.zelfProof = await this._zelfNameService.getZelfProof();
-        this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+
+        const zelfNameObject = await this._zelfNameService.getZelfNameObject();
+
+        if (zelfNameObject) this.zelfNameObject = new WalletModel(zelfNameObject);
+        else this.zelfNameObject = this.zelfNameObject;
 
         this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.zelfNameObject?.available);
 

@@ -1,25 +1,31 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { WalletModel } from "./wallet";
+import { Settings } from "./models/settings.model";
 
 @Injectable({
     providedIn: "root",
 })
 export class ChromeService {
+    private _isExtension = Boolean(typeof browser !== "undefined" && browser.storage && browser.runtime);
+    private _isPopout = false;
     private _isPopout$ = new BehaviorSubject<boolean>(false);
+    private _isSidePanel = false;
     private _isSidePanel$ = new BehaviorSubject<boolean>(false);
+    private _lastVerified$ = new BehaviorSubject<number>(0);
+    private _settings$ = new BehaviorSubject<Settings>({} as Settings);
+    private _tabId?: number;
+    private _tabStorageKey = "isTabOpen";
     private _wallet$ = new BehaviorSubject<WalletModel>({} as WalletModel);
     private _wallets$ = new BehaviorSubject<WalletModel[]>([] as WalletModel[]);
-
-    private _tabId?: number;
-    private _isExtension = Boolean(typeof browser !== "undefined" && browser.storage && browser.runtime);
-    private _isSidePanel = false;
-    private _isPopout = false;
-    private _tabStorageKey = "isTabOpen";
 
     constructor() {
         if (!this.isExtension) return;
 
+        this._initBrowserListeners();
+    }
+
+    private _initBrowserListeners(): void {
         browser.tabs.getCurrent().then((tab) => {
             this._tabId = tab?.id;
 
@@ -39,6 +45,14 @@ export class ChromeService {
         });
 
         browser.storage.local.onChanged.addListener((changes) => {
+            if (changes.lastVerified) {
+                this._lastVerified$.next(changes.lastVerified.newValue as number);
+            }
+
+            if (changes.settings) {
+                this._settings$.next(changes.settings.newValue as Settings);
+            }
+
             if (changes.wallet) {
                 this.removeItemSession("tokensTtl");
 
@@ -47,12 +61,48 @@ export class ChromeService {
                     : ({} as WalletModel);
             }
 
-            changes.wallets
-                ? this._wallets$.next(
-                      ((changes.wallets.newValue as WalletModel[]) || ([] as WalletModel[]))?.map((wallet: any) => new WalletModel(wallet || {}))
-                  )
-                : ([] as WalletModel[]);
+            if (changes.wallets) {
+                changes.wallets
+                    ? this._wallets$.next(
+                          ((changes.wallets.newValue as WalletModel[]) || ([] as WalletModel[]))?.map((wallet: any) => new WalletModel(wallet || {}))
+                      )
+                    : ([] as WalletModel[]);
+            }
         });
+
+        if (!this.isExtension) {
+            window.addEventListener("localstorage", (event: CustomEvent<{ key: string; oldValue: string; newValue: string }>) => {
+                if (!event?.detail?.key) return;
+
+                if (event.detail.key === "lastVerified") {
+                    this._lastVerified$.next(event.detail.newValue ? parseInt(event.detail.newValue) : 0);
+                }
+
+                if (event.detail.key === "settings") {
+                    this._settings$.next(event.detail.newValue ? (JSON.parse(event.detail.newValue) as Settings) : ({} as Settings));
+                }
+
+                if (event.detail.key === "wallet") {
+                    this.removeItemSession("tokensTtl");
+
+                    event
+                        ? this._wallet$.next(
+                              event.detail.newValue ? (new WalletModel(JSON.parse(event.detail.newValue)) as WalletModel) : ({} as WalletModel)
+                          )
+                        : ({} as WalletModel);
+                }
+
+                if (event.detail.key === "wallets") {
+                    event
+                        ? this._wallets$.next(
+                              (((JSON.parse(event.detail.newValue) || []) as WalletModel[]) || ([] as WalletModel[]))?.map(
+                                  (wallet: any) => new WalletModel(wallet || {})
+                              )
+                          )
+                        : ([] as WalletModel[]);
+                }
+            });
+        }
     }
 
     get isExtension(): boolean {
@@ -81,6 +131,14 @@ export class ChromeService {
 
     get onWalletsChanged$(): Observable<WalletModel[]> {
         return this._wallets$.asObservable();
+    }
+
+    get onSettingsChanged$(): Observable<Settings> {
+        return this._settings$.asObservable();
+    }
+
+    get onLastVerifiedChanged$(): Observable<number> {
+        return this._lastVerified$.asObservable();
     }
 
     async closeTab(): Promise<void> {
@@ -244,15 +302,6 @@ export class ChromeService {
             try {
                 const isObjectOrArray = typeof value === "object" && value !== null;
                 localStorage.setItem(key, isObjectOrArray ? JSON.stringify(value) : value);
-
-                if (key === "wallet") {
-                    this.removeItemSession("tokensTtl");
-                    this._wallet$.next(new WalletModel(value) as WalletModel);
-                }
-
-                if (key === "wallets") {
-                    this._wallets$.next((value as WalletModel[])?.map((wallet: any) => new WalletModel(wallet || {})) || ([] as WalletModel[]));
-                }
 
                 resolve();
             } catch (error) {

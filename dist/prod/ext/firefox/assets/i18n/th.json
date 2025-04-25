@@ -94,7 +94,12 @@
         "upload_zelf_proof": "หรืออัปโหลด QR Code ZelfProof ของคุณเพื่อดำเนินการต่อ:",
         "you_can_transfer_this_domain": "คุณสามารถโอนโดเมนนี้ได้",
         "you_will_register_this_domain": "คุณจะลงทะเบียนโดเมนนี้",
-        "your_zelf_name": "ชื่อ Zelf ของคุณ"
+        "your_zelf_name": "ชื่อ Zelf ของคุณ",
+        "offline_subtitle": "ZelfProof นี้ถูกสร้างแบบออฟไลน์ จึงใช้ระบบความปลอดภัยที่แตกต่างกัน ในขณะนี้ ไม่สามารถใช้งานร่วมกับส่วนขยายได้ จะพร้อมใช้งานในเร็วๆ นี้",
+        "offline_tip": "แต่อย่ากังวล! คุณสามารถนำเข้า ZelfProof ของคุณด้วย ZelfName อื่นเพื่อเข้าถึงจากส่วนขยาย",
+        "i_understand_go_back": "ฉันเข้าใจแล้ว กลับไปที่หน้าหลัก",
+        "safeguard_your_crypto": "ปกป้องคริปโตของคุณ!",
+        "offline_import_subtitle": "ก่อนที่คุณจะสามารถนำเข้ากระเป๋าเงินแบบออฟไลน์ คุณต้องเลือก ZelfName ใหม่"
     },
     "security": {
         "biometric_decryption_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการถอดรหัส ZelfProof ของคุณ <strong>เราไม่เก็บรวบรวมหรือใช้ข้อมูลไบโอเมตริกซ์ของคุณเพื่อวัตถุประสงค์อื่น</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "ถอน",
         "withdrawal_network": "เครือข่ายการถอน",
         "your_token": "โทเค็น {{ symbol }} ของคุณ",
-        "zelf_wallet": "กระเป๋าเงิน Zelf"
+        "zelf_wallet": "กระเป๋าเงิน Zelf",
+        "import_wallet": "นำเข้ากระเป๋าเงิน",
+        "try_another_one": "ลองอันอื่น"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",

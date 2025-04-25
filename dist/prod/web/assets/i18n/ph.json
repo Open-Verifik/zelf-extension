@@ -94,7 +94,12 @@
         "upload_zelf_proof": "o i-upload ang iyong ZelfProof QR Code upang magpatuloy:",
         "you_can_transfer_this_domain": "Maaari mong ilipat ang domain na ito",
         "you_will_register_this_domain": "Ire-rehistro mo ang domain na ito",
-        "your_zelf_name": "Ang iyong Zelf Name"
+        "your_zelf_name": "Ang iyong Zelf Name",
+        "offline_subtitle": "Ang ZelfProof na ito ay ginawa nang offline, kaya ito ay gumagamit ng ibang sistema ng seguridad. Sa ngayon, hindi ito magagamit sa extension. Magagamit ito sa lalong madaling panahon.",
+        "offline_tip": "Pero, huwag mag-alala! Maaari mong i-import ang iyong ZelfProof gamit ang ibang ZelfName upang magkaroon ng access mula sa extension.",
+        "i_understand_go_back": "Nauunawaan ko, bumalik sa home",
+        "safeguard_your_crypto": "Protektahan ang Iyong Crypto!",
+        "offline_import_subtitle": "Bago mo ma-import ang iyong offline-wallet, kailangan mong pumili ng bagong ZelfName."
     },
     "security": {
         "biometric_decryption_subtitle": "Kinakailangan ang biometric decryption upang ma-unlock ang iyong ZelfProof.",
@@ -220,7 +225,9 @@
         "withdraw": "Mag-withdraw",
         "withdrawal_network": "Network ng withdrawal",
         "your_token": "Ang iyong {{ symbol }}",
-        "zelf_wallet": "Zelf Wallet"
+        "zelf_wallet": "Zelf Wallet",
+        "import_wallet": "Mag-import ng wallet",
+        "try_another_one": "Sumubok ng iba pa"
     },
     "token": {
         "24h_performance": "24h Performance",
@@ -355,7 +362,8 @@
         "transaction_not_found": "Hindi natagpuan ang transaksyon",
         "try_again": "Subukang muli",
         "weak_password": "Ang iyong password ay masyadong mahina",
-        "zelfName_is_taken": "Ang Zelf name na ito ay ginagamit na"
+        "zelfName_is_taken": "Ang Zelf name na ito ay ginagamit na",
+        "insufficient_funds": "Hindi sapat ang pondo. Tiyaking mayroon kang sapat na pondo sa iyong wallet upang masaklaw ang mga bayarin sa transaksyon."
     },
     "import_wallet": {
         "step_zero": {

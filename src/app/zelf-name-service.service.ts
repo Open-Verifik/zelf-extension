@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
+import { VaultService } from "./vault.service";
 
 export type ZelfFlow = "create" | "import" | "unlock" | "recover" | "";
 
@@ -13,13 +14,13 @@ export class ZelfNameService {
     baseUrl: String = environment.apiUrl;
     variables: any;
 
-    constructor(private _httpWrapper: HttpWrapperService, private _chromeService: ChromeService) {
+    constructor(private _httpWrapper: HttpWrapperService, private _chromeService: ChromeService, private _vaultService: VaultService) {
         this.variables = {
-            zelfName: null,
+            duration: 1,
             price: 0,
             zelfFile: null,
+            zelfName: null,
             zelfProof: null,
-            duration: 1,
         };
     }
 
@@ -61,7 +62,11 @@ export class ZelfNameService {
     }
 
     decryptZelfName(payload: any): Promise<any> {
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/decrypt`, payload);
+        const promise = this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/decrypt`, payload);
+
+        promise.then(() => this._vaultService.setLastVerified());
+
+        return promise;
     }
 
     leaseZelfName(payload: any): Promise<any> {
@@ -69,7 +74,11 @@ export class ZelfNameService {
     }
 
     zelfNameLeaseRecovery(payload: any): Promise<any> {
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease-recovery`, payload);
+        const promise = this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease-recovery`, payload);
+
+        promise.then(() => this._vaultService.setLastVerified());
+
+        return promise;
     }
 
     searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {

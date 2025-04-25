@@ -94,7 +94,12 @@
         "upload_zelf_proof": "или загрузите ваш QR-код ZelfProof для продолжения:",
         "you_can_transfer_this_domain": "Вы можете передать этот домен",
         "you_will_register_this_domain": "Вы зарегистрируете этот домен",
-        "your_zelf_name": "Ваше имя Zelf"
+        "your_zelf_name": "Ваше имя Zelf",
+        "offline_subtitle": "Этот ZelfProof был создан в офлайн-режиме, поэтому он использует другую систему безопасности. В настоящее время он несовместим с расширением. Он будет доступен в ближайшее время.",
+        "offline_tip": "Но не волнуйтесь! Вы можете импортировать свой ZelfProof с другим ZelfName, чтобы получить доступ из расширения.",
+        "i_understand_go_back": "Я понимаю, вернуться на главную",
+        "safeguard_your_crypto": "Защитите свою криптовалюту!",
+        "offline_import_subtitle": "Прежде чем импортировать офлайн-кошелек, вам нужно выбрать новый ZelfName."
     },
     "security": {
         "biometric_decryption_subtitle": "Далее мы делаем селфи в сочетании с вашим паролем для генерации закрытого ключа, используемого для расшифровки вашего ZelfProof. <strong>Мы не собираем и не используем ваши биометрические данные для других целей.</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "Вывести",
         "withdrawal_network": "Сеть вывода",
         "your_token": "Ваш {{ symbol }}",
-        "zelf_wallet": "Кошелек Zelf"
+        "zelf_wallet": "Кошелек Zelf",
+        "import_wallet": "Импортировать кошелек",
+        "try_another_one": "Попробовать другой"
     },
     "token": {
         "24h_performance": "Производительность за 24 часа",

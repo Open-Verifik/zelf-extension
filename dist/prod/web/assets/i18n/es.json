@@ -94,7 +94,12 @@
         "upload_zelf_proof": "o sube tu Código QR de ZelfProof para continuar:",
         "you_can_transfer_this_domain": "Puedes transferir este dominio",
         "you_will_register_this_domain": "Registrarás este dominio",
-        "your_zelf_name": "Tu Nombre Zelf"
+        "your_zelf_name": "Tu Nombre Zelf",
+        "offline_subtitle": "Este ZelfProof fue creado sin conexión, por lo que utiliza un sistema de seguridad diferente. En este momento, no es compatible con la extensión. Estará disponible pronto.",
+        "offline_tip": "¡Pero no te preocupes! Puedes importar tu ZelfProof con otro ZelfName para tener acceso desde la extensión.",
+        "i_understand_go_back": "Entiendo, volver al inicio",
+        "safeguard_your_crypto": "¡Protege tus criptomonedas!",
+        "offline_import_subtitle": "Antes de poder importar tu billetera sin conexión, debes elegir un nuevo ZelfName."
     },
     "security": {
         "biometric_decryption_subtitle": "A continuación, tomaremos una selfie, en combinación con tu contraseña, para generar la clave privada utilizada para descifrar tu ZelfProof. <strong>No recopilamos ni usamos tus datos biométricos para otros fines.</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "Retirar",
         "withdrawal_network": "Red de retiro",
         "your_token": "Tu {{ symbol }}",
-        "zelf_wallet": "Billetera Zelf"
+        "zelf_wallet": "Billetera Zelf",
+        "import_wallet": "Importar billetera",
+        "try_another_one": "Probar otro"
     },
     "token": {
         "24h_performance": "Rendimiento 24h",

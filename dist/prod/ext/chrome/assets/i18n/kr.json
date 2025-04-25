@@ -94,7 +94,12 @@
         "upload_zelf_proof": "또는 계속하려면 ZelfProof QR 코드를 업로드하세요:",
         "you_can_transfer_this_domain": "이 도메인을 전송할 수 있습니다",
         "you_will_register_this_domain": "이 도메인을 등록할 예정입니다",
-        "your_zelf_name": "귀하의 Zelf 이름"
+        "your_zelf_name": "귀하의 Zelf 이름",
+        "offline_subtitle": "이 ZelfProof는 오프라인에서 생성되었으므로 다른 보안 시스템을 사용합니다. 현재는 확장 프로그램과 호환되지 않습니다. 곧 사용 가능해질 예정입니다.",
+        "offline_tip": "하지만 걱정하지 마세요! 다른 ZelfName으로 ZelfProof를 가져와 확장 프로그램에서 액세스할 수 있습니다.",
+        "i_understand_go_back": "이해했습니다, 홈으로 돌아가기",
+        "safeguard_your_crypto": "암호화폐를 안전하게 보호하세요!",
+        "offline_import_subtitle": "오프라인 지갑을 가져오기 전에 새 ZelfName을 선택해야 합니다."
     },
     "security": {
         "biometric_decryption_subtitle": "다음으로, 비밀번호와 함께 셀카를 찍어 ZelfProof를 해독하는 데 사용되는 개인 키를 생성합니다. <strong>우리는 귀하의 생체 인식 데이터를 다른 목적으로 수집하거나 사용하지 않습니다.</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "출금",
         "withdrawal_network": "출금 네트워크",
         "your_token": "귀하의 {{ symbol }}",
-        "zelf_wallet": "Zelf 지갑"
+        "zelf_wallet": "Zelf 지갑",
+        "import_wallet": "지갑 가져오기",
+        "try_another_one": "다른 것 시도하기"
     },
     "token": {
         "24h_performance": "24시간 성과",

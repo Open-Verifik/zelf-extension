@@ -198,7 +198,8 @@
                         <ng-container *ngIf="form.get('amount')?.errors?.greaterThan">
                             <div class="zelf-message__row">
                                 <ng-container *ngTemplateOutlet="cross"></ng-container>
-                                <p>{{ t("errors.must_be_greater_than", { value: form.get("amount")?.errors?.greaterThan.value }) }}</p>
+
+                                <p>{{ t("errors.must_be_greater_than", { value: 0 }) }}</p>
                             </div>
                         </ng-container>
                     </div>

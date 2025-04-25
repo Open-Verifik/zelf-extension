@@ -94,7 +94,12 @@
         "upload_zelf_proof": "या जारी रखने के लिए अपना ZelfProof QR कोड अपलोड करें:",
         "you_can_transfer_this_domain": "आप इस डोमेन को स्थानांतरित कर सकते हैं",
         "you_will_register_this_domain": "आप इस डोमेन को पंजीकृत करेंगे",
-        "your_zelf_name": "आपका Zelf नाम"
+        "your_zelf_name": "आपका Zelf नाम",
+        "offline_subtitle": "यह ZelfProof ऑफलाइन बनाया गया था, इसलिए यह एक अलग सुरक्षा प्रणाली का उपयोग करता है। इस समय, यह एक्सटेंशन के साथ संगत नहीं है। यह जल्द ही उपलब्ध होगा।",
+        "offline_tip": "लेकिन चिंता न करें! आप एक्सटेंशन से एक्सेस प्राप्त करने के लिए अपने ZelfProof को दूसरे ZelfName के साथ आयात कर सकते हैं।",
+        "i_understand_go_back": "मैं समझता हूँ, होम पेज पर वापस जाएं",
+        "safeguard_your_crypto": "अपनी क्रिप्टो की सुरक्षा करें!",
+        "offline_import_subtitle": "अपने ऑफलाइन वॉलेट को आयात करने से पहले, आपको एक नया ZelfName चुनना होगा।"
     },
     "security": {
         "biometric_decryption_subtitle": "अगला, हम आपके पासवर्ड के साथ मिलाकर एक सेल्फी लेते हैं, जो आपके ZelfProof को डिक्रिप्ट करने के लिए उपयोग की जाने वाली प्राइवेट की को जनरेट करने के लिए है। <strong>हम आपके बायोमेट्रिक डेटा को किसी अन्य उद्देश्य के लिए एकत्र या उपयोग नहीं करते हैं।</strong>",
@@ -220,7 +225,9 @@
         "withdraw": "निकासी",
         "withdrawal_network": "निकासी नेटवर्क",
         "your_token": "आपका {{ symbol }}",
-        "zelf_wallet": "Zelf वॉलेट"
+        "zelf_wallet": "Zelf वॉलेट",
+        "import_wallet": "वॉलेट आयात करें",
+        "try_another_one": "दूसरा प्रयास करें"
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",
@@ -526,11 +533,5 @@
         "kr": "कोरियाई",
         "ph": "टैगालोग",
         "ru": "रूसी"
-    },
-    "dont_show_this_message_again": "इन निर्देशों को फिर से न दिखाएं",
-    "extend_registration": "सदस्यता बढ़ाएं",
-    "logout": "ZelfProof हटाएं",
-    "registered_since": "पंजीकृत तिथि",
-    "registered_until": "समाप्ति तिथि",
-    "domain_error": "{{ zelfName }} का परीक्षण काल समाप्त हो गया है, इस ZelfName का उपयोग जारी रखने के लिए आपको सदस्यता खरीदनी होगी"
+    }
 }

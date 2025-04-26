@@ -1,7 +1,8 @@
 {
-    "hello": "Hello",
-    "logout_title": "DELETE ALL ZELFPROOFS",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
     "logout_message": "By confirming this action, you will remove all your ZelfProofs from the extension. You will need to decrypt each ZelfProof again to regain access to them. Are you sure you want to continue?",
+    "logout_title": "DELETE ALL ZELFPROOFS",
     "onboarding": {
         "accept_terms_1": "I accept the",
         "accept_terms_2": "terms and conditions",
@@ -10,7 +11,6 @@
         "forgot_zelf_name": "Forgot your zelf name?",
         "import_wallet": "Import your wallet",
         "lifetime": "Lifetime",
-        "open_wallet": "Open your wallet",
         "price_for_lifetime": "Price for lifetime",
         "price_year": "Price for {{ duration }} year",
         "referral_code": "Referral code",
@@ -47,19 +47,18 @@
         "continue_process": "You can continue with the process",
         "domain_or_address": "Domain or address",
         "external_address_found": "External address found",
-        "recently_used": "Recently used",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "zelf_name_not_registered": "Zelf Name not registered",
         "zelf_name_registered": "Zelf Name registered"
     },
     "transaction": {
-        "confirmations": "Confirmations",
         "go_to_my_history": "Go to my history",
         "share_transaction": "Share transaction"
     },
     "welcome": {
         "code_name": "Code name",
+        "domain_expired_since": "Domain expired since {{ date }}",
         "decrypt_and_reserve": "Decrypt and reserve",
         "decrypt_now_pay_later": "Decrypt now, pay later",
         "decrypt_now_renew_later": "Decrypt now, renew later",
@@ -112,13 +111,14 @@
         }
     },
     "security": {
+        "biometric_decryption_title": "Biometric Decryption",
+        "biometric_decryption_subtitle": "To finalize the decryption process, we need to verify your identity using your biometrics.",
         "biometric_subtitle": "Next, we take a selfie, in combination with your password, to generate the private key used to encrypt your ZelfProof. <strong>We do not collect or use your biometrics for any other purposes.</strong>",
         "biometric_title": "Biometric Encryption Layer",
         "hide_words": "Hide words",
         "new_password_subtitle": "The following password is a required encryption layer for your ZelfProof.",
         "password_decryption": "ZELFNAME REQUIRES A PASSWORD",
         "password_subtitle": "Enter the password assigned to this Zelf Name to complete the decryption process.",
-        "password_encryption_subtitle": "Enter the password assigned to this Zelf Name to complete the encryption process.",
         "set_password": "Set Password",
         "subtitle": "Select the length of your seed phrase and proceed with the encryption process.",
         "title": "ZelfProof Encryption Layers",
@@ -246,12 +246,10 @@
         "price_detail": "Price detail",
         "total_supply": "Total Supply",
         "traders": "Traders",
-        "trades": "Trades",
         "volume_24h": "Volume 24h",
         "volume": "Volume"
     },
     "domain_purchase": {
-        "agree_to_terms_and_conditions": "I agree to the terms and conditions",
         "character_length_and_year": "{{characterLength}} characters length. Total cost {{ costPerYear }} USD",
         "domain_price_length": "Domain price length",
         "know_more": "Know more",
@@ -262,7 +260,6 @@
     },
     "wallet": {
         "download_qr": "QR",
-        "my_arns": "My ArNS",
         "private_key": "Private Key"
     },
     "private_key": {
@@ -275,7 +272,6 @@
         "description": "Your personal website to receive crypto, easy to share with all necessary info for direct transfers."
     },
     "manage_domain": {
-        "buy_another_name": "Buy another Zelf name",
         "hold_until": "Hold until",
         "registered_since": "Registered At",
         "registered_until": "Expires At"
@@ -316,7 +312,6 @@
             "title": "ZELPROOF ENCRYPTION"
         },
         "view_wallet": {
-            "copy_public_address": "Copy your ETH Address",
             "description_2": "If the QR is ever lost, you can retrieve it using your registered Zelf name via Zelf Name Service (ZNS).",
             "description": "Your recovery phrase has been encrypted and safeguarded inside this QR code using your ZelfProof, a powerful privacy-preserving security layer.",
             "download_qr_code": "Download your QR Code",
@@ -330,11 +325,10 @@
         "get_closer_subtitle": "Please come a bit closer for better face recognition.",
         "get_closer": "Get closer",
         "liveness_error_message": "The liveness check has failed with the following error:<br><strong>{{error}}</strong><br>Do you want to try again?",
-        "liveness_failed": "Liveness detection failed",
-        "loading_stream": "Loading Camera",
-        "try_again_button": "Try again"
+        "liveness_failed": "Liveness detection failed"
     },
     "errors": {
+        "address_too_long": "Address is too long",
         "all_fields_required": "All fields are required",
         "chart_not_found": "Chart data not available",
         "Duplicated_person": "ZelfProof is being used for another record",
@@ -350,7 +344,10 @@
         "generic_title": "An error has occured",
         "generic": "Sorry, there was a problem processing this request. Please try again.",
         "insufficient_funds": "Insufficient funds. Ensure you have enough funds in your wallet to cover the transaction fees.",
+        "incorrect_zelf_proof_title": "Incorrect ZelfProof",
+        "incorrect_zelf_proof_message": "The provided file does not appear to be a valid ZelfProof. Please try again.",
         "invalid_format": "Invalid format",
+        "invalid_number_value": "Invalid number value",
         "invalid_password": "Invalid password. You have {{remaining}} attempts left before you will be required to login with biometrics.",
         "invalid_private_key": "Private key is invalid.",
         "liveness_failed_description": "Sorry, there seems to have been a problem with your liveness detection.",
@@ -363,9 +360,7 @@
         "password_doesnt_match": "Passwords do not match",
         "password_incorrect": "The password is incorrect",
         "person_already_set": "Your registration has a ZelfProof linked already",
-        "phone_or_email_is_not_unique": "The phone or the email has been used already, try a different one",
         "private_key_locked": "Private key has been locked. You must perform a biometrics check to move forward.",
-        "replace_person_button": "Ok, replace ZelfProof",
         "required_field": "This field is required",
         "something_went_wrong": "Something went wrong, please try again",
         "transaction_not_found": "Transaction not found",
@@ -399,8 +394,6 @@
         }
     },
     "unlock_wallet": {
-        "account_found": "ZELFPROOF FOUND",
-        "back_button": "Back",
         "description": "Find an existing Zelf Name by entering its public address below:",
         "drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
         "title": "FIND ZELF NAME",
@@ -409,8 +402,6 @@
         "verify_button": "Verify",
         "password": {
             "button": "Continue",
-            "label": "Password",
-            "placeholder": "********************",
             "subtitle": "Enter the password assigned to this ZelfProof to complete the opening process.",
             "title": "THIS ZELFPROOF REQUIRES A PASSWORD"
         },
@@ -435,39 +426,23 @@
         "wallet_type": "WALLET"
     },
     "wallets_connected": {
-        "account": "Account",
         "create_or_import_wallet_button": "Purchase new domain",
-        "delete_wallet": "Unlink wallet",
-        "no_zelf_name": "Without Zelf name",
-        "see_on_scanner": "Open explorer",
-        "see_qr_code": "See QR code",
-        "title": "Select a wallet"
+        "delete_wallet": "Unlink wallet"
     },
     "active_wallet": {
-        "show_private_key": "Show private key",
-        "warning_notice": "Remember to keep your QR code safe; make multiple copies if required. Also, only unlock the secret key when exporting your wallet"
+        "show_private_key": "Show private key"
     },
     "home": {
-        "activity": "Activity",
         "assets": "Tokens",
         "NFTs": "Collectibles",
         "receive_transaction_button": "Receive",
-        "scan_button": "Scan",
         "send_transaction_button": "Send",
         "settings_button": "Settings",
         "support_button": "Support"
     },
     "activity_card": {
-        "age": "Age",
-        "amount": "Amount",
-        "block": "Block",
-        "from": "From",
-        "hash": "Hash",
         "in": "Received",
-        "method": "Method",
         "sent": "Sent",
-        "to": "To",
-        "traffic": "Traffic",
         "transaction": "Transaction",
         "transactionID": "Transaction ID",
         "txnFee": "Txn Fee",
@@ -489,35 +464,16 @@
         "confirm_transaction_button": "Confirm transaction",
         "confirmation_step": "Transfer",
         "continue_transaction_button": "Next",
-        "pickReceiver_step": "Send",
-        "reject_transaction_button": "Cancel",
-        "send_to": "Send to",
-        "tokens_step": "Select token",
         "your_accounts": "Your accounts",
-        "confirm": {
-            "gas_description": "Probably in {{seconds}} seconds",
-            "gas_label": "Gas (estimated)",
-            "market": "Market",
-            "max_gas": "Maximum fee:",
-            "max_total": "Maximum total",
-            "sending_label": "SENDING {{amount}} {{asset}}",
-            "total_to_pay_label": "Assets + gas fees"
-        },
-        "preview": {
-            "estimated_fee": "Estimated fee"
-        },
         "bridge": {
-            "confirm_button": "Confirm transaction",
             "description_2": "Continue in the web extension",
             "description": "Scan the QR Code from your Zelf Name Service App. Add a security layer by decrypting in your device",
             "dont_have_the_app": "Still don't have the Zelf Name Service App installed?",
             "download_here": "Download it here and increase your security for all your transactions & and never loose access to your crypto.",
-            "qr_code_title": "Scan the QR Code",
             "title": "CONFIRM YOUR TRANSACTION"
         }
     },
     "network_picker": {
-        "testnets_title": "Select a test network",
         "title": "Select a network"
     },
     "payments": {
@@ -528,6 +484,10 @@
         "description": "This feature is not available on mobile devices. Please use a desktop browser to access it or download the Zelf Name Service App.",
         "download_android_app": "Download Android App",
         "title": "Mobile restricted"
+    },
+    "id_scanning": {
+        "camera_not_found": "Camera not found",
+        "camera_not_found_description": "Failed to access the camera. Please check your device settings and refresh to try again."
     },
     "language": {
         "ar": "Arabic",

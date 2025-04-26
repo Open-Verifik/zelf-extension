@@ -1,7 +1,8 @@
 {
-    "hello": "Bonjour",
-    "logout_title": "SUPPRIMER TOUS LES ZELFPROOFS",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
     "logout_message": "En confirmant cette action, vous supprimerez tous vos ZelfProofs de l'extension. Vous devrez déchiffrer chaque ZelfProof à nouveau pour retrouver l'accès. Êtes-vous sûr de vouloir continuer ?",
+    "logout_title": "SUPPRIMER TOUS LES ZELFPROOFS",
     "onboarding": {
         "accept_terms_1": "J'accepte les",
         "accept_terms_2": "termes et conditions",
@@ -10,7 +11,6 @@
         "forgot_zelf_name": "Nom Zelf oublié?",
         "import_wallet": "Importer votre portefeuille",
         "lifetime": "À vie",
-        "open_wallet": "Ouvrir votre portefeuille",
         "price_for_lifetime": "Prix à vie",
         "price_year": "Prix pour {{ duration }} an",
         "referral_code": "Code de parrainage",
@@ -47,19 +47,18 @@
         "continue_process": "Vous pouvez continuer le processus",
         "domain_or_address": "Domaine ou adresse",
         "external_address_found": "Adresse externe trouvée",
-        "recently_used": "Utilisé récemment",
         "used": "Utilisé il y a {{days}} jours",
         "withdrawal_amount": "Montant du retrait",
         "zelf_name_not_registered": "Nom Zelf non enregistré",
         "zelf_name_registered": "Nom Zelf enregistré"
     },
     "transaction": {
-        "confirmations": "Confirmations",
         "go_to_my_history": "Aller à mon historique",
         "share_transaction": "Partager la transaction"
     },
     "welcome": {
         "code_name": "Nom de code",
+        "domain_expired_since": "Domaine expiré depuis {{ date }}",
         "decrypt_and_reserve": "Décrypter et réserver",
         "decrypt_now_pay_later": "Décrypter maintenant, payer plus tard",
         "decrypt_now_renew_later": "Décrypter maintenant, renouveler plus tard",
@@ -76,6 +75,9 @@
         "invalid_referral_code": "Code de parrainage invalide",
         "name_expires": "Le nom expire",
         "new_domain": "Nouveau domaine",
+        "offline_subtitle": "Cette ZelfProof a été créée hors ligne, elle utilise donc un système de sécurité différent. Actuellement, elle n'est pas compatible avec l'extension. Elle sera disponible bientôt.",
+        "offline_tip": "Mais ne vous inquiétez pas! Vous pouvez importer votre ZelfProof avec un autre ZelfName pour y avoir accès depuis l'extension.",
+        "i_understand_go_back": "Je comprends, retourner à l'accueil",
         "old_domain": "Ancien domaine",
         "paste_your_recovery_phrase": "Vous pouvez coller toute votre phrase secrète de récupération dans n'importe quel champ",
         "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> a été pris, mais ne vous inquiétez pas ! Vous pouvez accéder à votre ZelfProof et réserver un nouveau Nom Zelf avec la même phrase secrète.",
@@ -83,7 +85,7 @@
         "public_address_input": "Entrez votre adresse publique ETH ou SOL ici",
         "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> est toujours disponible. Vous pouvez accéder à votre ZelfProof et récupérer votre Nom Zelf avec la même phrase secrète.",
         "recover_your_zelfname": "Récupérez votre Nom Zelf",
-        "referral_code": "Code de parrainage (Optionnel)",
+        "referral_code": "Code de parrainage",
         "referral_successfully_registered": "Parrainage enregistré avec succès",
         "registered_since": "Enregistré depuis {{ date }}",
         "registered": "Nom Zelf enregistré depuis {{ date }}",
@@ -94,22 +96,28 @@
         "upload_zelf_proof": "ou téléchargez votre code QR ZelfProof pour continuer :",
         "you_can_transfer_this_domain": "Vous pouvez transférer ce domaine",
         "you_will_register_this_domain": "Vous allez enregistrer ce domaine",
-        "your_zelf_name": "Votre Nom Zelf",
-        "offline_subtitle": "Cette ZelfProof a été créée hors ligne, elle utilise donc un système de sécurité différent. Actuellement, elle n'est pas compatible avec l'extension. Elle sera disponible bientôt.",
-        "offline_tip": "Mais ne vous inquiétez pas! Vous pouvez importer votre ZelfProof avec un autre ZelfName pour y avoir accès depuis l'extension.",
-        "i_understand_go_back": "Je comprends, retourner à l'accueil",
         "safeguard_your_crypto": "Protégez vos cryptomonnaies!",
-        "offline_import_subtitle": "Avant de pouvoir importer votre portefeuille hors ligne, vous devez choisir un nouveau ZelfName."
+        "offline_import_subtitle": "Avant de pouvoir importer votre portefeuille hors ligne, vous devez choisir un nouveau ZelfName.",
+        "your_zelf_name": "Votre Nom Zelf"
+    },
+    "settings": {
+        "security_label": "Sécurité",
+        "security": {
+            "biometric_verification_title": "Intervalle de vérification biométrique",
+            "biometric_verification_description": "Définissez la durée pendant laquelle l'entrée par mot de passe uniquement est autorisée avant que la vérification biométrique ne soit nécessaire. Vous pouvez définir cette durée de 1 à 24 heures.",
+            "password_attempts_title": "Tentatives de mot de passe",
+            "hours_before_reverification": "Heures avant revérification",
+            "password_attempts_description": "Définissez le nombre maximum de tentatives de mot de passe échouées avant que la vérification biométrique ne soit requise. Vous pouvez définir ce nombre de 1 à 8 tentatives."
+        }
     },
     "security": {
-        "biometric_decryption_subtitle": "Ensuite, nous prenons un selfie, en combinaison avec votre mot de passe, pour générer la clé privée utilisée pour décrypter votre ZelfProof. <strong>Nous ne collectons ni n'utilisons vos données biométriques à d'autres fins.</strong>",
         "biometric_decryption_title": "Couche de Décryptage Biométrique",
+        "biometric_decryption_subtitle": "Ensuite, nous prenons un selfie, en combinaison avec votre mot de passe, pour générer la clé privée utilisée pour décrypter votre ZelfProof. <strong>Nous ne collectons ni n'utilisons vos données biométriques à d'autres fins.</strong>",
         "biometric_subtitle": "Ensuite, nous prenons un selfie, en combinaison avec votre mot de passe, pour générer la clé privée utilisée pour crypter votre ZelfProof. <strong>Nous ne collectons ni n'utilisons vos données biométriques à d'autres fins.</strong>",
         "biometric_title": "Couche de chiffrement biométrique",
         "hide_words": "Masquer les mots",
         "new_password_subtitle": "Le mot de passe suivant est une couche de chiffrement requise pour votre ZelfProof.",
         "password_decryption": "LE NOM ZELF REQUIERT UN MOT DE PASSE",
-        "password_encryption_subtitle": "Entrez le mot de passe assigné à ce nom Zelf pour compléter le processus de chiffrement.",
         "password_subtitle": "Entrez le mot de passe assigné à ce nom Zelf pour compléter le processus de déchiffrement.",
         "set_password": "Définir un mot de passe",
         "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
@@ -124,6 +132,7 @@
         "12_word_phrase": "Phrase de 12 mots",
         "24_word_phrase": "Phrase de 24 mots",
         "about": "À propos",
+        "import_wallet": "Importer votre portefeuille",
         "activity": "Activité",
         "address": "Adresse",
         "agree_to_terms_and_conditions": "J'accepte les <a href='https://docs.zelf.world/zelf-legal/terms-of-use' target='_blank'>termes et conditions</a>",
@@ -167,7 +176,7 @@
         "history": "Historique",
         "import_a_wallet": "Importer un portefeuille",
         "import": "Importer",
-        "information": "Information",
+        "information": "Cette adresse ne peut être utilisée que pour recevoir des tokens compatibles.",
         "is_required": "est requis",
         "learn_more": "En savoir plus",
         "load_more": "Charger plus",
@@ -194,7 +203,7 @@
         "receive": "Recevoir",
         "recommended": "Recommandé",
         "refresh": "Rafraîchir",
-        "registered": "Enregistré",
+        "registered": "Nom Zelf enregistré depuis {{ date }}",
         "renew_domain": "Renouveler le domaine",
         "renew_subscription": "Renouveler l'abonnement",
         "reservation_found": "Réservation trouvée",
@@ -217,6 +226,7 @@
         "transaction": "Transaction",
         "transfer": "Transférer",
         "try_again": "Réessayer",
+        "try_another_one": "Essayer un autre",
         "type": "Type",
         "unlock": "Déverrouiller",
         "upload_qr_image": "Télécharger une image QR",
@@ -225,51 +235,45 @@
         "withdraw": "Retirer",
         "withdrawal_network": "Réseau de retrait",
         "your_token": "Votre {{ symbol }}",
-        "zelf_wallet": "Portefeuille Zelf",
-        "import_wallet": "Importer le portefeuille",
-        "try_another_one": "Essayer un autre"
+        "zelf_wallet": "Portefeuille Zelf"
     },
     "token": {
         "24h_performance": "Performance sur 24h",
-        "about": "À propos de {{ network }}",
+        "about": "À propos",
         "circulating_supply": "Offre en circulation",
         "holders": "Détenteurs",
         "market_cap": "Capitalisation boursière",
         "price_detail": "Détail du prix",
         "total_supply": "Offre totale",
         "traders": "Traders",
-        "trades": "Transactions",
         "volume_24h": "Volume sur 24h",
         "volume": "Volume"
     },
     "domain_purchase": {
-        "agree_to_terms_and_conditions": "J'accepte les termes et conditions",
         "character_length_and_year": "{{characterLength}} caractères de longueur. Coût par an {{ costPerYear }} USD",
         "domain_price_length": "Longueur du prix du domaine",
         "know_more": "En savoir plus",
         "lifetime": "À vie",
         "price_per_year": "Prix par an",
-        "title": "Domaine à acheter",
-        "years": "{{ yearCount }} ans"
+        "title": "Couches de chiffrement ZelfProof",
+        "years": "Ans"
     },
     "wallet": {
-        "download_qr": "QR",
-        "my_arns": "Mes ArNS",
+        "download_qr": "Télécharger le code QR",
         "private_key": "Clé privée"
     },
     "private_key": {
         "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-        "got_it": "Compris",
-        "title": "Clé privée"
+        "got_it": "Compris, je le ferai plus tard",
+        "title": "Couches de chiffrement ZelfProof"
     },
     "my_arns": {
         "arns_website": "Site Web ArNS",
-        "description": "Votre site web personnel pour recevoir des cryptos, facile à partager avec toutes les informations nécessaires pour des transferts directs."
+        "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité."
     },
     "manage_domain": {
-        "buy_another_name": "Acheter un autre nom Zelf",
         "hold_until": "En attente jusqu'à",
-        "registered_since": "Nom Zelf enregistré depuis ",
+        "registered_since": "Enregistré depuis {{ date }}",
         "registered_until": "Enregistré jusqu'à"
     },
     "manage_domains": {
@@ -284,10 +288,10 @@
             "add_password": "Deux couches de sécurité",
             "agreement": "Je comprends que Zelf ne peut pas récupérer ce mot de passe. En choisissant cette couche supplémentaire de sécurité, je reconnais que je suis seul responsable de m'en souvenir.",
             "continue_without_password": "Une couche de sécurité",
-            "description": "Assurez-vous de configurer un mot de passe sécurisé d'au moins 8 caractères pour protéger votre ZelfProof.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "password_label": "Mot de passe",
             "repeat_password_label": "Répéter le mot de passe",
-            "title": "COUCHES DE SÉCURITÉ"
+            "title": "Couches de chiffrement ZelfProof"
         },
         "phrase_step": {
             "12_words": "Phrase de 12 mots",
@@ -295,25 +299,24 @@
             "description_2": "Zelf élimine le besoin de stockage manuel en chiffrant votre phrase de récupération dans un puissant ZelfProof respectueux de la vie privée. Ce ZelfProof est stocké en toute sécurité dans un code QR que vous seul pouvez déchiffrer, garantissant une sécurité inégalée.",
             "description_3": "Le code QR sert de coffre-fort numérique robuste pour vos clés de récupération, amélioré par notre Zelf Name Service (ZNS). Avec ZNS, vous pouvez facilement sauvegarder et récupérer votre code QR en utilisant votre nom Zelf.",
             "description_4": "Je comprends que Zelf peut aider à récupérer le code QR avec ZNS. Cependant, je reste responsable de sa protection pour garantir un accès sécurisé.",
-            "description": "Votre phrase de récupération privée est composée de 12 ou 24 mots, essentiels pour accéder et sécuriser votre portefeuille.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "start_encryption_button": "Commencer",
-            "title": "CRÉATION DE PORTEFEUILLE",
+            "title": "Couches de chiffrement ZelfProof",
             "words_input": "Nombre de mots"
         },
         "zelfproof_step": {
-            "description": "Vous êtes sur le point de générer votre ZelfProof, qui chiffrera en toute sécurité vos phrases de récupération. Suivez les étapes ci-dessous pour assurer que le processus soit fluide et efficace.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "instruction_1": "Placez votre visage dans la marque indiquée",
             "instruction_2": "Regardez la caméra et évitez de bouger",
             "instruction_3": "Assurez-vous d'effectuer les gestes faciaux requis",
-            "title": "CHIFFREMENT ZELFPROOF"
+            "title": "Couches de chiffrement ZelfProof"
         },
         "view_wallet": {
-            "copy_public_address": "Copier votre adresse ETH",
-            "description_2": "Si le code QR est perdu, vous pouvez le récupérer en utilisant votre nom Zelf enregistré via le Zelf Name Service (ZNS).",
-            "description": "Votre phrase de récupération a été chiffrée et protégée dans ce code QR grâce à votre ZelfProof, une puissante couche de sécurité respectueuse de la vie privée.",
+            "description_2": "Zelf élimine le besoin de stockage manuel en chiffrant votre phrase de récupération dans un puissant ZelfProof respectueux de la vie privée. Ce ZelfProof est stocké en toute sécurité dans un code QR que vous seul pouvez déchiffrer, garantissant une sécurité inégalée.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "download_qr_code": "Téléchargez votre code QR",
             "qr_code_description": "Gardez ce code QR en sécurité. Pour accéder ou restaurer votre portefeuille, votre ZelfProof et ce code QR seront toujours nécessaires",
-            "title": "PORTEFEUILLE CHIFFRÉ AVEC SUCCÈS AVEC ZELFPROOF"
+            "title": "Couches de chiffrement ZelfProof"
         }
     },
     "liveness": {
@@ -322,11 +325,10 @@
         "get_closer_subtitle": "Veuillez vous rapprocher un peu plus pour une meilleure reconnaissance faciale.",
         "get_closer": "Rapprochez-vous",
         "liveness_error_message": "La vérification de vitalité a échoué avec l'erreur suivante:<br><strong>{{error}}</strong><br>Voulez-vous réessayer?",
-        "liveness_failed": "Échec de la détection de vitalité",
-        "loading_stream": "Chargement de la caméra",
-        "try_again_button": "Réessayer"
+        "liveness_failed": "Échec de la détection de vitalité"
     },
     "errors": {
+        "address_too_long": "L'adresse est trop longue",
         "all_fields_required": "Tous les champs sont requis",
         "chart_not_found": "Données du graphique non disponibles",
         "Duplicated_person": "ZelfProof est utilisé pour un autre enregistrement",
@@ -342,11 +344,14 @@
         "generic_title": "Une erreur s'est produite",
         "generic": "Désolé, il y a eu un problème lors du traitement de cette demande. Veuillez réessayer.",
         "insufficient_funds": "Fonds insuffisants. Assurez-vous d'avoir suffisamment de fonds dans votre portefeuille pour couvrir les frais de transaction.",
+        "incorrect_zelf_proof_title": "ZelfProof incorrect",
+        "incorrect_zelf_proof_message": "Le fichier fourni n'apparaît pas comme un ZelfProof valide. Veuillez réessayer.",
         "invalid_format": "Format invalide",
+        "invalid_number_value": "Valeur numérique invalide",
         "invalid_password": "Mot de passe invalide. Il vous reste {{remaining}} tentatives avant de devoir vous connecter avec des données biométriques.",
         "invalid_private_key": "La clé privée est invalide.",
         "liveness_failed_description": "Désolé, il semble y avoir eu un problème avec la détection de vitalité.",
-        "liveness_failed": "La détection de vitalité a échoué",
+        "liveness_failed": "Échec de la détection de vitalité",
         "Liveness_score_not_acceptable": "Le score de vitalité n'est pas acceptable",
         "min_liveness_score_is": "Le score de vitalité minimum est : ",
         "must_be_greater_than": "Doit être supérieur à {{ value }}",
@@ -355,9 +360,7 @@
         "password_doesnt_match": "Les mots de passe ne correspondent pas",
         "password_incorrect": "Le mot de passe est incorrect",
         "person_already_set": "Votre enregistrement a déjà un ZelfProof lié",
-        "phone_or_email_is_not_unique": "Le téléphone ou l'email a déjà été utilisé, essayez-en un autre",
         "private_key_locked": "La clé privée a été verrouillée. Vous devez effectuer une vérification biométrique pour continuer.",
-        "replace_person_button": "Ok, remplacer ZelfProof",
         "required_field": "Ce champ est requis",
         "something_went_wrong": "Une erreur s'est produite, veuillez réessayer",
         "transaction_not_found": "Transaction non trouvée",
@@ -367,55 +370,51 @@
     },
     "import_wallet": {
         "step_zero": {
-            "description": "Cela vous permet de transférer vos actifs numériques depuis d'autres plateformes rapidement et en toute sécurité.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "description2": "Notre processus garantit la confidentialité de vos actifs en évitant l'exposition de vos clés ou phrases de récupération.",
             "description3": "Importer votre portefeuille simplifie votre expérience avec les cryptomonnaies en évitant la gestion de plusieurs comptes.",
             "description4": "Accédez facilement à vos fonds sur notre plateforme sans avoir à utiliser votre phrase de récupération.",
             "import_button": "Importer un portefeuille",
-            "subtitle": "Quels sont les avantages?",
-            "title": "Importer un portefeuille existant"
+            "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
+            "title": "Couches de chiffrement ZelfProof"
         },
         "step_one": {
             "confirm_button": "Importer le portefeuille",
-            "description": "Veuillez entrer votre phrase de récupération ci-dessous pour valider et importer votre portefeuille existant.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "paste_note": "Vous pouvez coller toute la phrase de récupération secrète dans n'importe quel champ",
-            "title": "Entrez la phrase de récupération",
+            "title": "Couches de chiffrement ZelfProof",
             "word1": "1."
         },
         "qr_code_step": {
             "copy_address": "Copier l'adresse publique",
-            "description": "Votre phrase de sécurité et le code QR sont désormais liés à votre ZelfProof. Gardez le code QR en sécurité pour protéger votre compte.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "download_qr": "Télécharger le code QR",
             "success_message": "Vous avez importé avec succès votre portefeuille existant",
             "understood": "Compris"
         }
     },
     "unlock_wallet": {
-        "account_found": "ZELFPROOF TROUVÉ",
-        "back_button": "Retour",
-        "description": "Trouvez un Zelf Name existant en entrant son adresse publique ci-dessous :",
+        "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
         "drag_drop_text": "ou glissez et déposez le fichier avec extension .JPG ou PNG ici",
-        "title": "TROUVER LE NOM ZELF",
+        "title": "Couches de chiffrement ZelfProof",
         "upload_button": "Sélectionner le code QR",
         "upload_description": "Ou téléchargez votre code QR ZelfProof pour continuer :",
         "verify_button": "Vérifier",
         "password": {
             "button": "Continuer",
-            "label": "Mot de passe",
-            "placeholder": "********************",
-            "subtitle": "Entrez le mot de passe assigné à ce ZelfProof pour compléter l'ouverture.",
-            "title": "CE ZELFPROOF NÉCESSITE UN MOT DE PASSE"
+            "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
+            "title": "Couches de chiffrement ZelfProof"
         },
         "hold": {
             "buy_now": "Acheter maintenant",
             "expiration_time": "Cette réservation expire le ",
             "purchase_reservation": "Acheter la réservation",
-            "title": "RÉSERVATION TROUVÉE",
+            "title": "Couches de chiffrement ZelfProof",
             "unlock_without_purchase": "Vérifier maintenant, acheter plus tard"
         }
     },
     "steps": {
-        "add_password": "Ajouter un mot de passe",
+        "add_password": "Deux couches de sécurité",
         "available": "Disponible",
         "biometric_unlock": "Verrouillage ZelfProof",
         "biometrics": "ZelfProof",
@@ -427,39 +426,23 @@
         "wallet_type": "PORTEFEUILLE"
     },
     "wallets_connected": {
-        "account": "Compte",
         "create_or_import_wallet_button": "Créer ou importer un portefeuille",
-        "delete_wallet": "Dissocier portefeuille",
-        "no_zelf_name": "Pas de nom Zelf",
-        "see_on_scanner": "Ouvrir l'explorateur",
-        "see_qr_code": "Voir le code QR",
-        "title": "Sélectionnez un portefeuille"
+        "delete_wallet": "Dissocier portefeuille"
     },
     "active_wallet": {
-        "show_private_key": "Afficher la clé privée",
-        "warning_notice": "N'oubliez pas de garder votre code QR en sécurité ; faites plusieurs copies si nécessaire. De plus, ne déverrouillez la clé secrète que lors de l'exportation de votre portefeuille"
+        "show_private_key": "Afficher la clé privée"
     },
     "home": {
-        "activity": "Activité",
         "assets": "Tokens",
         "NFTs": "Objets de collection",
         "receive_transaction_button": "Recevoir",
-        "scan_button": "Scanner",
         "send_transaction_button": "Envoyer",
         "settings_button": "Paramètres",
         "support_button": "Support"
     },
     "activity_card": {
-        "age": "Âge",
-        "amount": "Montant",
-        "block": "Bloc",
-        "from": "De",
-        "hash": "Hash",
         "in": "Reçu",
-        "method": "Méthode",
         "sent": "Envoyé",
-        "to": "À",
-        "traffic": "Trafic",
         "transaction": "Transaction",
         "transactionID": "ID de transaction",
         "txnFee": "Frais de txn",
@@ -481,45 +464,30 @@
         "confirm_transaction_button": "Confirmer la transaction",
         "confirmation_step": "Transférer",
         "continue_transaction_button": "Suivant",
-        "pickReceiver_step": "Envoyer",
-        "reject_transaction_button": "Annuler",
-        "send_to": "Envoyer à",
-        "tokens_step": "Sélectionner un token",
         "your_accounts": "Vos comptes",
-        "confirm": {
-            "gas_description": "Probablement dans {{seconds}} secondes",
-            "gas_label": "Gas (estimé)",
-            "market": "Marché",
-            "max_gas": "Frais maximum :",
-            "max_total": "Total maximum",
-            "sending_label": "ENVOI DE {{amount}} {{asset}}",
-            "total_to_pay_label": "Actifs + frais de gas"
-        },
-        "preview": {
-            "estimated_fee": "Frais estimés"
-        },
         "bridge": {
-            "confirm_button": "Confirmer la transaction",
-            "description_2": "Ou continuez avec l'extension web",
-            "description": "Scannez le code QR depuis votre Zelf Name Service App. Ajoutez une couche de sécurité en déchiffrant sur votre appareil",
+            "description_2": "Zelf élimine le besoin de stockage manuel en chiffrant votre phrase de récupération dans un puissant ZelfProof respectueux de la vie privée. Ce ZelfProof est stocké en toute sécurité dans un code QR que vous seul pouvez déchiffrer, garantissant une sécurité inégalée.",
+            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
             "dont_have_the_app": "Vous n'avez toujours pas installé le portefeuille le plus sûr ?",
             "download_here": "Téléchargez-le ici et améliorez la sécurité de toutes vos transactions",
-            "qr_code_title": "Scannez le code QR",
-            "title": "Confirmez votre transaction"
+            "title": "Couches de chiffrement ZelfProof"
         }
     },
     "network_picker": {
-        "testnets_title": "Sélectionnez un réseau de test",
-        "title": "Sélectionnez un réseau"
+        "title": "Couches de chiffrement ZelfProof"
     },
     "payments": {
         "continue_withoutpaying": "Continuer sans payer",
-        "pay_now": "Procéder au paiement"
+        "pay_now": "Payer maintenant"
     },
     "restricted": {
-        "description": "Cette fonctionnalité n'est pas disponible sur les appareils mobiles. Veuillez utiliser un navigateur de bureau pour y accéder ou télécharger l'application Zelf Name Service.",
+        "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
         "download_android_app": "Télécharger l'application pour Android",
-        "title": "Restriction mobile"
+        "title": "Couches de chiffrement ZelfProof"
+    },
+    "id_scanning": {
+        "camera_not_found": "Caméra non trouvée",
+        "camera_not_found_description": "Impossible d'accéder à la caméra. Veuillez vérifier vos paramètres de périphérique et actualiser pour réessayer."
     },
     "language": {
         "ar": "Arabe",
@@ -528,7 +496,7 @@
         "en": "Anglais",
         "es": "Espagnol",
         "fr": "Français",
-        "in": "Hindou",
+        "in": "Reçu",
         "ja": "Japonais",
         "kr": "Coréen",
         "ph": "Tagalog",

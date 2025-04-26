@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { FooterMenuComponent } from "./footer-menu/footer-menu.component";
 
 @Component({
+    standalone: false,
     selector: "footer",
     templateUrl: "./footer.component.html",
     styleUrls: ["../main.scss", "./footer.component.scss"],

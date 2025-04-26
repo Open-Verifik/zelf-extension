@@ -1,7 +1,8 @@
 {
-    "hello": "ہیلو",
-    "logout_title": "تمام ZELFPROOFS حذف کریں",
+    "cancel": "منسوخ کریں",
+    "confirm": "تصدیق کریں",
     "logout_message": "اس عمل کی تصدیق کرکے، آپ اپنے تمام ZelfProofs کو ایکسٹینشن سے ہٹا دیں گے۔ آپ کو دوبارہ رسائی حاصل کرنے کے لیے ہر ZelfProof کو دوبارہ ڈیکرپٹ کرنا ہوگا۔ کیا آپ واقعی آگے بڑھنا چاہتے ہیں؟",
+    "logout_title": "تمام ZELFPROOFS حذف کریں",
     "onboarding": {
         "accept_terms_1": "میں قبول کرتا ہوں",
         "accept_terms_2": "شرائط و ضوابط",
@@ -100,6 +101,16 @@
         "i_understand_go_back": "میں سمجھتا ہوں، ہوم پیج پر واپس جائیں",
         "safeguard_your_crypto": "اپنی کریپٹو کی حفاظت کریں!",
         "offline_import_subtitle": "آپ کے آف لائن والیٹ کو درآمد کرنے سے پہلے، آپ کو ایک نیا ZelfName منتخب کرنا ہوگا۔"
+    },
+    "settings": {
+        "security_label": "سیکیورٹی",
+        "security": {
+            "biometric_verification_title": "بایومیٹرک تصدیق کا وقفہ",
+            "biometric_verification_description": "طے کریں کہ بایومیٹرک تصدیق کی ضرورت سے پہلے صرف پاس ورڈ کی اندراج کتنی دیر تک اجازت دی جائے۔ آپ اسے 1 سے 24 گھنٹوں تک سیٹ کر سکتے ہیں۔",
+            "password_attempts_title": "پاس ورڈ کی کوششیں",
+            "hours_before_reverification": "دوبارہ تصدیق سے پہلے گھنٹے",
+            "password_attempts_description": "بایومیٹرک تصدیق کی ضرورت سے پہلے زیادہ سے زیادہ ناکام پاس ورڈ کی کوششوں کی تعداد طے کریں۔ آپ اسے 1 سے 8 کوششوں تک سیٹ کر سکتے ہیں۔"
+        }
     },
     "security": {
         "biometric_decryption_subtitle": "آپ کے زیلف پروف کو ان لاک کرنے کے لیے بایومیٹرک ڈکرپشن ضروری ہے۔",

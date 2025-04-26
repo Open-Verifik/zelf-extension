@@ -1,8 +1,24 @@
 @use "@angular/material" as mat;
 @use "./variables";
 
+html {
+    @include mat.theme(
+        (
+            typography: Poppins,
+        )
+    );
+}
+
 @include mat.menu-overrides(
     (
         container-color: variables.$white,
+    )
+);
+
+@include mat.icon-button-overrides(
+    (
+        icon-size: 16px,
+        icon-color: variables.$black,
+        disabled-icon-color: variables.$gray,
     )
 );

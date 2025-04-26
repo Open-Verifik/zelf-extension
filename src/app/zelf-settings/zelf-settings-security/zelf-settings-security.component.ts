@@ -1,16 +1,15 @@
-import { Component, OnDestroy } from "@angular/core";
-import { SettingsService } from "app/services/settings.service";
-import { Settings } from "app/models/settings.model";
-import { takeUntil } from "rxjs/operators";
-import { Subject } from "rxjs";
 import { NgClass } from "@angular/common";
+import { Component, OnDestroy } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
+import { Settings } from "app/models/settings.model";
+import { SettingsService } from "app/services/settings.service";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     imports: [ReactiveFormsModule, TranslocoModule, NgClass],
     selector: "zelf-settings-security",
-    standalone: true,
     styleUrls: ["./zelf-settings-security.component.scss"],
     templateUrl: "./zelf-settings-security.component.html",
 })

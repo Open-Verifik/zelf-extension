@@ -101,9 +101,17 @@
         "offline_import_subtitle": "Before you can import your offline-wallet, you need to choose a new ZelfName.",
         "your_zelf_name": "Your Zelf Name"
     },
+    "settings": {
+        "security_label": "Security",
+        "security": {
+            "biometric_verification_title": "Biometric verification interval",
+            "biometric_verification_description": "Set how long password-only entry is allowed before biometric verification is needed. You can set this from 1 to 24 hours.",
+            "password_attempts_title": "Password attempts",
+            "hours_before_reverification": "Hours before reverification",
+            "password_attempts_description": "Set maximum failed password attempts before biometric verification is required. You can set this from 1 to 8 attempts."
+        }
+    },
     "security": {
-        "biometric_decryption_subtitle": "Next, we take a selfie, in combination with your password, to generate the private key used to decrypt your ZelfProof. <strong>We do not collect or use your biometrics for any other purposes.</strong>",
-        "biometric_decryption_title": "Biometric Decryption Layer",
         "biometric_subtitle": "Next, we take a selfie, in combination with your password, to generate the private key used to encrypt your ZelfProof. <strong>We do not collect or use your biometrics for any other purposes.</strong>",
         "biometric_title": "Biometric Encryption Layer",
         "hide_words": "Hide words",

@@ -78,11 +78,11 @@
         gap: 16px;
         cursor: pointer;
         border-radius: 16px;
-        transition: background-color 0.2s $smoothBezier;
+        transition: background-color 0.2s variables.$smoothBezier;
         width: 100%;
 
         &:hover {
-            background-color: $antiFlashWhite;
+            background-color: variables.$antiFlashWhite;
         }
     }
 
@@ -100,12 +100,12 @@
         height: 38px;
         width: 38px;
         border-radius: 38px;
-        background-color: $black;
+        background-color: variables.$black;
 
         svg {
             height: 16px;
             width: 16px;
-            fill: $white;
+            fill: variables.$white;
         }
     }
 
@@ -117,7 +117,7 @@
         svg {
             height: 16px;
             width: 16px;
-            fill: $gray;
+            fill: variables.$gray;
         }
     }
 }

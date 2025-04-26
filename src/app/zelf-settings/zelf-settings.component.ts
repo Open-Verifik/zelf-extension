@@ -64,7 +64,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     private _setSettingItems() {
         this.settingsItems = [
             {
-                title: "settings.security_label",
+                title: this._translocoService.translate("settings.security_label"),
                 icon: "securityIcon",
                 queryParams: {
                     edit: "security",

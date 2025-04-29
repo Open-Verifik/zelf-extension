@@ -1,5 +1,9 @@
 import { TranslocoModule } from "@ngneat/transloco";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
+import { catchError, finalize } from "rxjs/operators";
+import { of } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
@@ -19,6 +23,15 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@ngneat/transloco";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { LifiService } from "../services/lifi.service";
+import { HttpClient } from "@angular/common/http";
+import * as ethers from "ethers";
+import { EthereumService } from "app/eth.service";
+import { ChromeService } from "app/chrome.service";
+
+interface LifiExecuteResponse {
+    transactionHash: string;
+}
 
 @Component({
     imports: [
@@ -68,37 +81,63 @@ export class SwapComponent implements OnInit, OnDestroy {
     showPassword: boolean = false;
     slippage: number = 0.5;
     swapBalanceDisplay: "token" | "fiat" = "token";
-    swapSource: SwapSource = "";
+    swapSource: "source" | "target" | "" = "";
     tokens: TokenData[] = [];
     wallet?: WalletModel;
+    swapQuote: any = null;
+    quoteLoading: boolean = false;
+    transactionHash: string = "";
+    swapError: string = "";
 
     bridgeOptions = [
         {
             label: "Li.Fi",
             value: "li.fi",
         },
-        // {
-        //     label: "0x",
-        //     value: "0x",
-        // },
-        // {
-        //     label: "Swap Kit (Thor Chain)",
-        //     value: "swapkit",
-        // },
     ];
+
+    selectedSourceAsset: TokenData = {
+        amount: "0",
+        decimals: 0,
+        fiatBalance: "0",
+        image: "",
+        name: "",
+        network: "",
+        price: 0,
+        symbol: "",
+        tokenType: "",
+        contractAddress: "",
+    };
+
+    selectedTargetAsset: TokenData = {
+        amount: "0",
+        decimals: 0,
+        fiatBalance: "0",
+        image: "",
+        name: "",
+        network: "",
+        price: 0,
+        symbol: "",
+        tokenType: "",
+        contractAddress: "",
+    };
 
     constructor(
         private _assetService: AssetService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _bottomSheet: MatBottomSheet,
         private _changeDetectionRef: ChangeDetectorRef,
+        private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _networkService: NetworkService,
         private _router: Router,
         private _snackBar: MatSnackBar,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _lifiService: LifiService,
+        private _http: HttpClient,
+        private _chromeService: ChromeService
     ) {
         this.wallet = {} as WalletModel;
 
@@ -119,11 +158,53 @@ export class SwapComponent implements OnInit, OnDestroy {
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
 
-        if (Object.keys(this._assetService.sourceAsset).length) this.selectedSourceAsset = this._assetService.sourceAsset;
-        if (Object.keys(this._assetService.targetAsset).length) this.selectedTargetAsset = this._assetService.targetAsset;
+        if (Object.keys(this._assetService.sourceAsset).length) {
+            this.selectedSourceAsset = {
+                ...this.selectedSourceAsset,
+                ...(this._assetService.sourceAsset as TokenData),
+            };
+        }
+        if (Object.keys(this._assetService.targetAsset).length) {
+            this.selectedTargetAsset = {
+                ...this.selectedTargetAsset,
+                ...(this._assetService.targetAsset as TokenData),
+            };
+        }
 
         await this._loadTokensFromSession();
         await this._decryptMnemonics();
+        this._setupQuoteUpdates();
+
+        console.log("Form initialized:", {
+            sourceAmount: this.form.get("sourceAmount")?.value,
+            controls: Object.keys(this.form.controls),
+        });
+
+        console.log("Token details:", {
+            source: {
+                symbol: this.selectedSourceAsset.symbol,
+                contractAddress: this.selectedSourceAsset.contractAddress,
+            },
+            target: {
+                symbol: this.selectedTargetAsset.symbol,
+                contractAddress: this.selectedTargetAsset.contractAddress,
+            },
+        });
+
+        const fromToken =
+            this.selectedSourceAsset.symbol === "AVAX" ? "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" : this.selectedSourceAsset.contractAddress;
+
+        const toToken =
+            this.selectedTargetAsset.symbol === "AVAX"
+                ? "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+                : this.selectedTargetAsset.contractAddress || "0xc7198437980c041c805A1EDcbA50c1Ce5db95118";
+
+        if (!fromToken || !toToken) {
+            console.error("Missing token addresses:", { fromToken, toToken });
+            throw new Error(`Invalid token addresses: from=${fromToken}, to=${toToken}`);
+        }
+
+        return Promise.resolve();
     }
 
     ngOnDestroy(): void {
@@ -141,39 +222,6 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     get targetTokenPricePerDollar(): number {
         return 1 / ((this.selectedTargetAsset?.price as number) || 1);
-    }
-
-    get selectedSourceAsset(): Partial<TokenData> {
-        return this._selectedSourceAsset;
-    }
-
-    set selectedSourceAsset(asset: Partial<TokenData>) {
-        this._selectedSourceAsset = asset;
-
-        this.form
-            .get("sourceAmount")
-            ?.setValidators([Validators.required, Validators.min(0), Validators.max(this.selectedSourceAsset.amount as number)]);
-
-        this.form.get("sourceAmount")?.updateValueAndValidity();
-        this.form.get("targetAsset")?.setValue({}, { emitEvent: true });
-
-        this.network = asset.network as NetworkName;
-        this.networkSymbol = this._networkService.getNetworkSymbol(this.network.toLowerCase());
-        this.networkImage = this._walletService.getAssetImage(this.networkSymbol);
-
-        this._changeDetectionRef.detectChanges();
-
-        if (!this._selectedTargetAsset?.network || this._selectedTargetAsset.network === this.network) return;
-
-        this.selectedTargetAsset = {};
-    }
-
-    get selectedTargetAsset(): Partial<TokenData> {
-        return this._selectedTargetAsset;
-    }
-
-    set selectedTargetAsset(asset: Partial<TokenData>) {
-        this._selectedTargetAsset = asset;
     }
 
     get totalSourceFiat(): number {
@@ -244,21 +292,19 @@ export class SwapComponent implements OnInit, OnDestroy {
             slippageToggle: ["automatic", [Validators.required]],
             sourceAmount: ["", [Validators.required, Validators.min(0)]],
             sourceAsset: [this.selectedSourceAsset, [Validators.required]],
-            targetAmount: ["", [Validators.required, Validators.min(0)]],
+            targetAmount: [{ value: "", disabled: true }],
             targetAsset: [this.selectedTargetAsset, [Validators.required]],
         });
 
         this.form
             .get("sourceAmount")
             ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
-            .subscribe((value) => {
-                if (!value || !this.selectedSourceAsset?.price || !this.selectedTargetAsset?.price) {
-                    this.form.get("targetAmount")?.setValue("");
-
-                    return;
+            .subscribe(() => {
+                if (this.hasBothAssetsSet) {
+                    this.getSwapQuote().catch((error) => {
+                        console.error("Error getting swap quote:", error);
+                    });
                 }
-
-                this._updateTargetAmount();
             });
 
         this.form
@@ -320,10 +366,25 @@ export class SwapComponent implements OnInit, OnDestroy {
     private _setDefaultTargetAsset(): void {
         if (!this.tokens.length) return;
 
-        this.selectedTargetAsset = this.tokens.find((token) => token.network === this.network && token !== this.tokens[0]) || {};
+        this.selectedTargetAsset = this.tokens.find((token) => token.network === this.network && token !== this.tokens[0]) || {
+            amount: "0",
+            decimals: 0,
+            fiatBalance: "0",
+            image: "",
+            name: "",
+            network: "",
+            price: 0,
+            symbol: "",
+            tokenType: "",
+            contractAddress: "",
+        };
     }
 
     private _updateTargetAmount(): void {
+        if (this.swapQuote) {
+            return;
+        }
+
         const value = this.form.get("sourceAmount")?.value;
 
         if (!value || !this.selectedTargetAsset.price || !this.selectedSourceAsset.price) {
@@ -373,11 +434,225 @@ export class SwapComponent implements OnInit, OnDestroy {
         return true;
     }
 
-    async confirmSwap(): Promise<void> {
-        if (this.sending) return;
-        if (!(await this._validateCredentials())) return;
+    async getSwapQuote(): Promise<void> {
+        const sourceAmount = this.form.get("sourceAmount")?.value;
+        console.log("Starting getSwapQuote with amount:", sourceAmount);
 
-        // TODO: Implement swap
+        if (!this.hasBothAssetsSet || !sourceAmount || sourceAmount === "0") {
+            this.form.patchValue({ targetAmount: "0" });
+            return;
+        }
+
+        this.quoteLoading = true;
+
+        try {
+            const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
+            const targetNetwork = this.selectedTargetAsset.network?.toLowerCase();
+
+            console.log("Selected assets:", {
+                source: this.selectedSourceAsset,
+                target: this.selectedTargetAsset,
+            });
+
+            const fromChain = this._lifiService.getChainIdentifier(sourceNetwork);
+            const toChain = this._lifiService.getChainIdentifier(targetNetwork);
+
+            let fromToken: string;
+            let toToken: string;
+
+            if (this.selectedSourceAsset.symbol === "AVAX") {
+                fromToken = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
+            } else {
+                console.log("Source token properties:", {
+                    address: (this.selectedSourceAsset as any).address,
+                    contractAddress: this.selectedSourceAsset.contractAddress,
+                    fullObject: this.selectedSourceAsset,
+                });
+
+                fromToken =
+                    this.selectedSourceAsset.contractAddress ||
+                    (this.selectedSourceAsset as any).address ||
+                    (this.selectedSourceAsset as any).tokenAddress;
+
+                if (!fromToken && this.selectedSourceAsset.image && this.selectedSourceAsset.image.includes("43114-0x")) {
+                    const matches = this.selectedSourceAsset.image.match(/43114-([^\.]+)/);
+                    if (matches && matches[1]) {
+                        fromToken = matches[1];
+                        console.log("Extracted address from image URL:", fromToken);
+                    }
+                }
+            }
+
+            if (this.selectedTargetAsset.symbol === "AVAX") {
+                toToken = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
+            } else {
+                console.log("Target token properties:", {
+                    address: (this.selectedTargetAsset as any).address,
+                    contractAddress: this.selectedTargetAsset.contractAddress,
+                    fullObject: this.selectedTargetAsset,
+                });
+
+                toToken =
+                    this.selectedTargetAsset.contractAddress ||
+                    (this.selectedTargetAsset as any).address ||
+                    (this.selectedTargetAsset as any).tokenAddress ||
+                    "0xc7198437980c041c805A1EDcbA50c1Ce5db95118";
+
+                if (!toToken && this.selectedTargetAsset.image && this.selectedTargetAsset.image.includes("43114-0x")) {
+                    const matches = this.selectedTargetAsset.image.match(/43114-([^\.]+)/);
+                    if (matches && matches[1]) {
+                        toToken = matches[1];
+                        console.log("Extracted address from image URL:", toToken);
+                    }
+                }
+            }
+
+            console.log("Final token addresses:", { fromToken, toToken });
+
+            if (!fromToken || !toToken) {
+                console.error("Missing token addresses:", { fromToken, toToken });
+                throw new Error(`Invalid token addresses: from=${fromToken}, to=${toToken}`);
+            }
+
+            const fromAmount = this._lifiService.formatAmount(parseFloat(sourceAmount), this.selectedSourceAsset.decimals as number);
+
+            const fromAddress = this._getAddressForNetwork(sourceNetwork);
+            const slippage = this.form.get("slippage")?.value || 0.5;
+
+            console.log("Quote Request:", {
+                fromChain,
+                toChain,
+                fromToken,
+                toToken,
+                fromAmount,
+                fromAddress,
+                slippage,
+                sourceAsset: this.selectedSourceAsset,
+                targetAsset: this.selectedTargetAsset,
+            });
+
+            const quote = await firstValueFrom(this._lifiService.getQuote(fromChain, fromToken, toChain, toToken, fromAmount, fromAddress, slippage));
+
+            console.log("Quote Response:", quote);
+
+            if (quote && quote.estimate) {
+                this.swapQuote = quote;
+                const estimatedAmount = parseFloat(quote.estimate.toAmount) / Math.pow(10, this.selectedTargetAsset.decimals as number);
+
+                console.log("Setting target amount:", estimatedAmount);
+
+                this.form.patchValue(
+                    {
+                        targetAmount: estimatedAmount.toString(),
+                    },
+                    { emitEvent: false }
+                );
+
+                this._changeDetectionRef.detectChanges();
+            }
+        } catch (error) {
+            console.error("Quote error:", error);
+            this.form.patchValue({ targetAmount: "0" }, { emitEvent: false });
+        } finally {
+            this.quoteLoading = false;
+            this._changeDetectionRef.detectChanges();
+        }
+    }
+
+    private _getAddressForNetwork(network: string): string {
+        if (!this.wallet) return "";
+
+        switch (network.toLowerCase()) {
+            case "ethereum":
+                return this.wallet.ethAddress;
+            case "solana":
+                return this.wallet.solanaAddress;
+            case "avalanche":
+                return this.wallet.ethAddress;
+            case "sui":
+                return this.wallet.suiAddress;
+            case "bitcoin":
+                return this.wallet.btcAddress;
+            default:
+                return this.wallet.ethAddress;
+        }
+    }
+
+    async confirmSwap(): Promise<void> {
+        if (!this.swapQuote) {
+            this.openErrorSnackBar("errors.no_quote_available");
+            return;
+        }
+
+        this.sending = true;
+        this.swapError = "";
+
+        try {
+            if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
+                throw new Error("Missing required keys");
+            }
+
+            const password = this.form.get("password")?.value;
+            const decryptedData = await this._vaultService.decryptMessage(this.wallet.pgp.encryptedMessage, this.wallet.pgp.privateKey, password);
+
+            const cleanMnemonic = JSON.parse(decryptedData).mnemonic.trim().toLowerCase();
+
+            if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
+                throw new Error("Invalid mnemonic");
+            }
+
+            const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+            const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
+
+            if (sourceNetwork === "avalanche" || sourceNetwork === "ethereum") {
+                const txData = this.swapQuote.transactionRequest;
+                console.log("Original transaction request:", txData);
+
+                const modifiedTxData = {
+                    ...txData,
+                    gasLimit: "0x493e0",
+                    maxFeePerGas: "0x" + (3 * 1e9).toString(16),
+                    maxPriorityFeePerGas: "0x" + (2 * 1e9).toString(16),
+                    gasPrice: "0x" + (3 * 1e9).toString(16),
+                };
+
+                console.log("Modified gas parameters:", {
+                    original: {
+                        gasLimit: txData.gasLimit,
+                        gasPrice: txData.gasPrice,
+                    },
+                    modified: {
+                        gasLimit: modifiedTxData.gasLimit,
+                        gasPrice: modifiedTxData.gasPrice,
+                    },
+                });
+
+                const receipt = await this._lifiService.sendTransaction({
+                    value: modifiedTxData.value?.toString() || "0",
+                    privateKey: wallet.privateKey,
+                    to: modifiedTxData.to,
+                    network: sourceNetwork,
+                    data: modifiedTxData.data,
+                    gasLimit: "300000",
+                });
+
+                console.log("Transaction receipt:", receipt);
+
+                if (receipt?.transactionHash) {
+                    this.transactionHash = receipt.transactionHash;
+                    this._handleSuccessfulSwap();
+                }
+            } else {
+                throw new Error(`Unsupported network: ${sourceNetwork}`);
+            }
+        } catch (error: any) {
+            console.error("Swap execution error:", error);
+            this.swapError = error?.message || "Failed to execute swap";
+            this.openErrorSnackBar(this.swapError);
+        } finally {
+            this.sending = false;
+            this._changeDetectionRef.detectChanges();
+        }
     }
 
     getBridgeLabel(): string {
@@ -400,15 +675,11 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     handleAssetChange(event: AssetChangeData): void {
         if (event.source === "source") {
-            this.form.get("sourceAsset")?.setValue(event.asset, { emitEvent: true });
-            this.form.get("targetAsset")?.setValue({}, { emitEvent: true });
+            this.selectedSourceAsset = event.asset;
         } else {
-            this.form.get("targetAsset")?.setValue(event.asset, { emitEvent: true });
+            this.selectedTargetAsset = event.asset;
         }
-
         this.swapSource = "";
-
-        this._changeDetectionRef.detectChanges();
     }
 
     handleBalanceDisplayChange(): void {
@@ -503,5 +774,60 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     toggleShowPassword(): void {
         this.showPassword = !this.showPassword;
+    }
+
+    /**
+     * Setup watchers for form changes that should trigger quote updates
+     */
+    private _setupQuoteUpdates(): void {
+        this.form
+            .get("sourceAmount")
+            ?.valueChanges.pipe(
+                takeUntil(this.unsubscriber$),
+                filter((value) => value !== null && value !== ""),
+                distinctUntilChanged(),
+                debounceTime(300)
+            )
+            .subscribe(async (value) => {
+                console.log("Source amount changed to:", value);
+                if (this.hasBothAssetsSet) {
+                    try {
+                        await this.getSwapQuote();
+                    } catch (error) {
+                        console.error("Error getting swap quote:", error);
+                    }
+                }
+            });
+
+        this.form
+            .get("slippage")
+            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
+            .subscribe(async () => {
+                if (this.hasBothAssetsSet && this.form.get("sourceAmount")?.value) {
+                    try {
+                        await this.getSwapQuote();
+                    } catch (error) {
+                        console.error("Error getting swap quote:", error);
+                    }
+                }
+            });
+    }
+
+    handleSourceAmountChange(event: any) {
+        console.log("Source amount input changed:", event.target.value);
+        this.form.get("sourceAmount")?.setValue(event.target.value, { emitEvent: true });
+    }
+
+    private async _handleSuccessfulSwap(): Promise<void> {
+        this.sending = false;
+        this.swapError = "";
+
+        await this._chromeService.removeItemSession("tokensTtl");
+
+        if (this.transactionHash) {
+            this._router.navigate(["/transaction", this.transactionHash], {
+                queryParams: { tokenType: this.selectedSourceAsset.symbol },
+            });
+        }
     }
 }

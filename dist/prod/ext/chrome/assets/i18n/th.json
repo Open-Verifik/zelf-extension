@@ -102,9 +102,9 @@
         "offline_import_subtitle": "ก่อนที่คุณจะสามารถนำเข้ากระเป๋าเงินแบบออฟไลน์ คุณต้องเลือก ZelfName ใหม่"
     },
     "security": {
-        "biometric_decryption_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการถอดรหัส ZelfProof ของคุณ <strong>เราไม่เก็บรวบรวมหรือใช้ข้อมูลไบโอเมตริกซ์ของคุณเพื่อวัตถุประสงค์อื่น</strong>",
+        "biometric_decryption_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการถอดรหัส ZelfProof ของคุณ <strong>เราไม่เก็บรวบรวมหรือใช้ข้อมูลไบโอเมตริกของคุณเพื่อวัตถุประสงค์อื่น</strong>",
         "biometric_decryption_title": "ชั้นการถอดรหัสไบโอเมตริกซ์",
-        "biometric_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการเข้ารหัส ZelfProof ของคุณ <strong>เราไม่เก็บรวบรวมหรือใช้ข้อมูลไบโอเมตริกซ์ของคุณเพื่อวัตถุประสงค์อื่น</strong>",
+        "biometric_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการเข้ารหัส ZelfProof ของคุณ <strong>เราไม่เก็บรวบรวมหรือใช้ข้อมูลไบโอเมตริกของคุณเพื่อวัตถุประสงค์อื่น</strong>",
         "biometric_title": "ชั้นการเข้ารหัสไบโอเมตริก",
         "hide_words": "ซ่อนคำ",
         "new_password_subtitle": "รหัสผ่านต่อไปนี้เป็นชั้นการเข้ารหัสที่จำเป็นสำหรับ ZelfProof ของคุณ",
@@ -121,6 +121,7 @@
         "your_token_address": "ที่อยู่ {{ name }} ของคุณ"
     },
     "common": {
+        "days": "วัน",
         "12_word_phrase": "วลี 12 คำ",
         "24_word_phrase": "วลี 24 คำ",
         "about": "เกี่ยวกับ",
@@ -275,9 +276,10 @@
     "manage_domains": {
         "domain_error": "ระยะเวลาทดลองใช้ {{ zelfName }} หมดอายุแล้ว คุณต้องซื้อการสมัครสมาชิกเพื่อใช้ ZelfName นี้ต่อไป",
         "domain_warning": "คุณยังมีเวลาที่จะซื้อ",
-        "purchase_new_domain": "เพิ่มโดเมนใหม่",
-        "last_wallet_logout": "นี่คือกระเป๋าเงินสุดท้าย หากคุณดำเนินการต่อ คุณจะถูกเปลี่ยนเส้นทางไปยังหน้าต้อนรับ",
-        "logout_of_wallet_confirm": "กระเป๋าเงินสุดท้าย"
+        "purchase_new_domain": "เพิ่มชื่อ ZelfName ใหม่",
+        "last_wallet_logout": "นี่คือวอลเล็ตสุดท้าย การดำเนินการนี้จะลบ ZelfProof ของคุณออกจากอุปกรณ์ โปรดตรวจสอบว่าคุณได้สำรอง seed phrase และรหัส QR ของ ZelfProof แล้ว คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ? คุณจะถูกเปลี่ยนเส้นทางไปยังหน้าต้อนรับ",
+        "logout_of_wallet_message": "คุณกำลังจะออกจากระบบวอลเล็ตของคุณ การดำเนินการนี้จะลบ ZelfProof ของคุณออกจากอุปกรณ์ โปรดตรวจสอบว่าคุณได้สำรอง seed phrase และรหัส QR ของ ZelfProof แล้ว คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?",
+        "logout_of_wallet_confirm": "ออกจากระบบวอลเล็ต"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "เกาหลี",
         "ph": "ตากาล็อก",
         "ru": "รัสเซีย"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "ฉันไม่ต้องการกระเป๋าเงินนี้อีกต่อไป",
+        "choose_new_zelfname": "เลือกชื่อ ZelfName ใหม่",
+        "recover_it_now": "กู้คืนตอนนี้",
+        "delete_wallet_title": "ลบกระเป๋าเงิน",
+        "delete_wallet_message": "ก่อนลบกระเป๋าเงินของคุณ โปรดตรวจสอบว่าคุณได้สำรองวลีเริ่มต้นและรหัส QR ของ ZelfProof แล้ว",
+        "yes_because": "ใช่ เพราะ:",
+        "thanks_for_subscribing": "ขอบคุณที่สมัครสมาชิก",
+        "make_zelfname_yours": "ทำให้ {{ zelfName }} เป็นของคุณ",
+        "keep_zelfname_yours": "เก็บ {{ zelfName }} ไว้เป็นของคุณ",
+        "love_your_zelfname": "คุณชอบ ZelfName ของคุณไหม?",
+        "time_is_running_out": "เวลาใกล้จะหมดลง",
+        "not_much_time_left": "ชื่อ ZelfName ของคุณยังถูกจองไว้อีกสักระยะ แต่ อย่ารอช้านัก!",
+        "oh_no": "แย่แล้ว!",
+        "thanks_for_reserving": "ขอบคุณที่จอง",
+        "is_no_longer_available": "ไม่พร้อมใช้งานแล้ว",
+        "has_been_taken": "ถูกใช้งานไปแล้ว",
+        "benefit_title": "ด้วย ZelfName ของคุณ คุณจะได้รับ:",
+        "benefit_1_title": "การเข้ารหัสออฟไลน์",
+        "benefit_1_subtitle": "กุญแจของคุณ การควบคุมอยู่ที่คุณ",
+        "benefit_2_title": "การถอดรหัสส่วนตัวขั้นสูงสุด",
+        "benefit_2_subtitle": "มีเพียงใบหน้าของคุณเท่านั้นที่ปลดล็อคได้",
+        "benefit_3_title": "ไม่มีคนกลาง ไม่มีการรั่วไหล",
+        "benefit_3_subtitle": "ควบคุมข้อมูลของคุณได้เต็มที่",
+        "you_have_subscribed_to": "สมัครสำเร็จแล้ว",
+        "you_have_reserved": "จองสำเร็จแล้ว",
+        "secure_it_now": "ปกป้องตอนนี้เลย!",
+        "secure_it_now_title": "เหลือเวลาอีกเพียง {{ days }} วันเท่านั้น",
+        "with_just_x_days_left": "เหลือเพียง {{ days }} วัน",
+        "with_just_x_hours_left": "เหลือเพียง {{ hours }} ชั่วโมง",
+        "what_do_you_think": "คุณคิดว่าอย่างไร? ต้องการปกป้องตอนนี้ไหม?",
+        "is_no_longer_yours": "ไม่ใช่ของคุณอีกต่อไป มาจัดการกันเถอะ!",
+        "good_news": "ข่าวดี!",
+        "is_still_available": "ยังพร้อมใช้งาน",
+        "resubscribe_within": "สมัครใหม่ภายใน {{ days }} วัน",
+        "complete_purchase_within": "ทำการซื้อให้เสร็จภายใน {{ days }} วัน เพื่อรักษาไว้เป็นเวลา 1 ปี",
+        "have_you_explored_the_benefits": "คุณได้สำรวจประโยชน์ของ ZelfName และ ZkProofs ของคุณแล้วหรือยัง?",
+        "but_someone_else_could_grab_it": "แต่คนอื่นอาจคว้ามันไปได้! อย่าเสี่ยงสูญเสียมัน หรือจดวลีเริ่มต้นบนกระดาษ!",
+        "but_dont_worry_you_can_access_your_zelfproof": "แต่ไม่ต้องกังวล คุณสามารถเข้าถึง ZelfName ของคุณและจอง ZelfName ใหม่ด้วยวลีเริ่มต้นเดิมได้",
+        "considerations_description_1": "ความปลอดภัยที่ไม่อาจถูกเจาะได้",
+        "considerations_description_2": "เอกลักษณ์เฉพาะตัว",
+        "considerations_description_3": "การป้องกันที่รองรับอนาคต"
     }
 }

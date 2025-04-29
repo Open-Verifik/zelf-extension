@@ -121,6 +121,7 @@
         "your_token_address": "Ваш адрес {{ name }}"
     },
     "common": {
+        "days": "дней",
         "12_word_phrase": "Фраза из 12 слов",
         "24_word_phrase": "Фраза из 24 слов",
         "about": "О нас",
@@ -276,8 +277,9 @@
         "domain_error": "Пробный период {{ zelfName }} закончился, вам нужно приобрести подписку, чтобы продолжить использование этого ZelfName",
         "domain_warning": "У вас еще есть время для покупки",
         "purchase_new_domain": "Добавить новый домен",
-        "last_wallet_logout": "Это последний кошелек. Если вы продолжите, вы будете перенаправлены на страницу приветствия.",
-        "logout_of_wallet_confirm": "Последний кошелек"
+        "last_wallet_logout": "Это последний кошелек. Это действие удалит ваш ZelfProof с вашего устройства. Убедитесь, что вы сделали резервную копию фразы восстановления и QR-кода ZelfProof. Вы уверены, что хотите продолжить? Вы будете перенаправлены на страницу приветствия.",
+        "logout_of_wallet_message": "Вы собираетесь выйти из вашего кошелька. Это действие удалит ваш ZelfProof с вашего устройства. Убедитесь, что вы сделали резервную копию фразы восстановления и QR-кода ZelfProof. Вы уверены, что хотите продолжить?",
+        "logout_of_wallet_confirm": "Выйти из кошелька"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "Корейский",
         "ph": "Тагальский",
         "ru": "Русский"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "Этот кошелек мне больше не нужен",
+        "choose_new_zelfname": "Выберите новый ZelfName",
+        "recover_it_now": "Восстановить сейчас",
+        "delete_wallet_title": "Удалить кошелек",
+        "delete_wallet_message": "Перед удалением кошелька убедитесь, что вы сохранили сид-фразу и QR-код ZelfProof.",
+        "yes_because": "Да, потому что:",
+        "thanks_for_subscribing": "Спасибо за подписку",
+        "make_zelfname_yours": "Сделайте {{ zelfName }} своим",
+        "keep_zelfname_yours": "Оставьте {{ zelfName }} за собой",
+        "love_your_zelfname": "Вам нравится ваш ZelfName?",
+        "time_is_running_out": "Время на исходе",
+        "not_much_time_left": "Ваш ZelfName всё ещё зарезервирован, но не ждите слишком долго!",
+        "oh_no": "О нет!",
+        "thanks_for_reserving": "Спасибо за резервирование",
+        "is_no_longer_available": "больше не доступен",
+        "has_been_taken": "занят",
+        "benefit_title": "С вашим ZelfName вы получаете:",
+        "benefit_1_title": "Оффлайн-шифрование",
+        "benefit_1_subtitle": "Ваши ключи — ваш контроль",
+        "benefit_2_title": "Сверхконфиденциальная расшифровка",
+        "benefit_2_subtitle": "Только ваше лицо может её разблокировать",
+        "benefit_3_title": "Никаких посредников, никаких утечек",
+        "benefit_3_subtitle": "Полный контроль над вашими данными",
+        "you_have_subscribed_to": "Вы подписались на",
+        "you_have_reserved": "Вы зарезервировали",
+        "secure_it_now": "Защитите его сейчас!",
+        "secure_it_now_title": "Осталось всего {{ days }} дней",
+        "with_just_x_days_left": "Осталось лишь {{ days }} дней",
+        "with_just_x_hours_left": "Осталось лишь {{ hours }} часов",
+        "what_do_you_think": "Что вы думаете? Хотите защитить его сейчас?",
+        "is_no_longer_yours": "уже не ваш, давайте исправим это!",
+        "good_news": "Хорошие новости!",
+        "is_still_available": "всё ещё доступно",
+        "resubscribe_within": "Возобновите подписку в течение {{ days }} дней",
+        "complete_purchase_within": "Завершите покупку в течение {{ days }} дней, чтобы продлить регистрацию на 1 год",
+        "have_you_explored_the_benefits": "Вы уже изучили преимущества вашего ZelfName и ZkProofs?",
+        "but_someone_else_could_grab_it": "Но кто-то ещё может его забрать! Не рискуйте потерять его или записывать сид-фразы на бумаге!",
+        "but_dont_worry_you_can_access_your_zelfproof": "Но не волнуйтесь, вы можете получить доступ к своему ZelfName и зарезервировать новый ZelfName с той же сид-фразой.",
+        "considerations_description_1": "Непробиваемая безопасность.",
+        "considerations_description_2": "Уникальная идентичность.",
+        "considerations_description_3": "Защита от будущих угроз."
     }
 }

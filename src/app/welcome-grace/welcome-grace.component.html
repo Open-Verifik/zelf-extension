@@ -2,8 +2,10 @@
     <div class="zelf-card__header">
         <div class="welcome-grace__header-button">
             <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../find']">
-                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" />
+                <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
                 </svg>
             </button>
         </div>
@@ -13,18 +15,18 @@
         <ng-container *ngIf="zelfNameObject">
             <div class="welcome-grace__details">
                 <div class="zelf-chip welcome-grace__chip zelf-chip--error">
-                    <ng-container *ngIf="zelfNameObject.publicData.isInGracePeriod()">{{ t("common.registered") }}</ng-container>
-                    <ng-container *ngIf="!zelfNameObject.publicData.isInGracePeriod()">{{ t("common.domain_expired") }}</ng-container>
+                    <ng-container *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("common.registered") }}</ng-container>
+                    <ng-container *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("common.domain_expired") }}</ng-container>
                 </div>
 
                 <h2 class="zelf-card__title">{{ zelfNameObject.publicData.zelfName | zelfName }}</h2>
 
                 <p class="zelf-card__subtitle welcome-grace__subtitle">
-                    <span *ngIf="zelfNameObject.publicData.isInGracePeriod()">
+                    <span *ngIf="zelfNameObject.publicData.isInGracePeriod">
                         {{ t("welcome.registered_since", { date: zelfNameObject.publicData.registeredAt | date : "dd MMM, yyyy" }) }}
                     </span>
 
-                    <span *ngIf="!zelfNameObject.publicData.isInGracePeriod()">
+                    <span *ngIf="!zelfNameObject.publicData.isInGracePeriod">
                         {{ t("welcome.domain_expired_since", { date: zelfNameObject.publicData.gracePeriod | date : "dd MMM, yyyy" }) }}
                     </span>
                 </p>
@@ -126,8 +128,8 @@
                     />
                 </svg>
 
-                <p class="tip-box__text" *ngIf="zelfNameObject.publicData.isInGracePeriod()">{{ t("welcome.renew_your_domain_today") }}</p>
-                <p class="tip-box__text" *ngIf="!zelfNameObject.publicData.isInGracePeriod()">{{ t("welcome.dont_lose_your_zelfname") }}</p>
+                <p class="tip-box__text" *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.renew_your_domain_today") }}</p>
+                <p class="tip-box__text" *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.dont_lose_your_zelfname") }}</p>
             </div>
 
             <button (click)="renewZelfName()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
@@ -136,7 +138,7 @@
 
             <button
                 (click)="decryptZelfName()"
-                *ngIf="zelfNameObject.publicData.isInGracePeriod() && zelfNameObject.publicData.isExpired"
+                *ngIf="zelfNameObject.publicData.isInGracePeriod && zelfNameObject.publicData.isExpired"
                 class="zelf-button zelf-button--hyperlink zelf-button--wide"
                 mat-flat-button
             >

@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from "@angular/common";
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
@@ -11,7 +11,7 @@ import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "home-header-accounts",
-    imports: [NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink, ZelfNamePipe, FirstLetterPipe],
+    imports: [NgClass, NgTemplateOutlet, NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink, ZelfNamePipe, FirstLetterPipe],
     templateUrl: "./home-header-accounts.component.html",
     styleUrls: ["./home-header-accounts.component.scss"],
 })

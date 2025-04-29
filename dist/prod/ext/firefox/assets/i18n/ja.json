@@ -121,6 +121,7 @@
         "your_token_address": "あなたの{{ name }}アドレス"
     },
     "common": {
+        "days": "日",
         "12_word_phrase": "12単語のフレーズ",
         "24_word_phrase": "24単語のフレーズ",
         "about": "概要",
@@ -276,8 +277,9 @@
         "domain_error": "{{ zelfName }}の試用期間が終了しました。このZelfNameを引き続き使用するには、サブスクリプションを購入する必要があります",
         "domain_warning": "購入する時間はまだあります",
         "purchase_new_domain": "新しいドメインを追加",
-        "last_wallet_logout": "これは最後のウォレットです。続行すると、ウェルカムページにリダイレクトされます。",
-        "logout_of_wallet_confirm": "最後のウォレット"
+        "last_wallet_logout": "これは最後のウォレットです。この操作によりお使いのデバイスからあなたのZelfProofが削除されます。シードフレーズとZelfProofのQRコードを必ずバックアップしてください。続行してもよろしいですか？ウェルカムページにリダイレクトされます。",
+        "logout_of_wallet_message": "ウォレットからログアウトしようとしています。この操作によりお使いのデバイスからあなたのZelfProofが削除されます。シードフレーズとZelfProofのQRコードを必ずバックアップしてください。続行してもよろしいですか？",
+        "logout_of_wallet_confirm": "ウォレットからログアウト"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "韓国語",
         "ph": "タガログ語",
         "ru": "ロシア語"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "もうこのウォレットはいりません",
+        "choose_new_zelfname": "新しいZelf Nameを選択",
+        "recover_it_now": "今すぐ復元",
+        "delete_wallet_title": "ウォレットを削除",
+        "delete_wallet_message": "ウォレットを削除する前に、シードフレーズとZelfProof QRコードのバックアップを行ったことを確認してください。",
+        "yes_because": "はい、その理由：",
+        "thanks_for_subscribing": "ご登録ありがとうございます",
+        "make_zelfname_yours": "{{ zelfName }}をあなたのものにしましょう",
+        "keep_zelfname_yours": "{{ zelfName }}をあなたのものに保ちましょう",
+        "love_your_zelfname": "Zelf Nameは気に入っていますか？",
+        "time_is_running_out": "時間が迫っています",
+        "not_much_time_left": "あなたのZelf Nameはあと少しの間予約されていますが、あまり長く待たないでください！",
+        "oh_no": "おっと！",
+        "thanks_for_reserving": "ご予約ありがとうございます",
+        "is_no_longer_available": "はもう利用できません",
+        "has_been_taken": "は既に取得されています",
+        "benefit_title": "Zelf Nameを持つと、次の特典が得られます：",
+        "benefit_1_title": "オフライン暗号化",
+        "benefit_1_subtitle": "あなたの鍵、あなたの管理。",
+        "benefit_2_title": "超プライベートな復号化",
+        "benefit_2_subtitle": "あなたの顔だけがアンロックできます。",
+        "benefit_3_title": "仲介者なし、漏洩なし",
+        "benefit_3_subtitle": "データに対する完全な制御。",
+        "you_have_subscribed_to": "登録しました",
+        "you_have_reserved": "予約しました",
+        "secure_it_now": "今すぐ確保しよう！",
+        "secure_it_now_title": "残り{{ days }}日だけ",
+        "with_just_x_days_left": "残りわずか{{ days }}日",
+        "with_just_x_hours_left": "残りわずか{{ hours }}時間",
+        "what_do_you_think": "いかがですか？今すぐ確保しますか？",
+        "is_no_longer_yours": "はもうあなたのものではありません。一緒に解決しましょう！",
+        "good_news": "朗報！",
+        "is_still_available": "はまだ利用可能です",
+        "resubscribe_within": "{{ days }}日以内に再登録してください",
+        "complete_purchase_within": "{{ days }}日以内に購入を完了して1年分を確保してください",
+        "have_you_explored_the_benefits": "Zelf NameとZkProofsの利点をご確認いただけましたか？",
+        "but_someone_else_could_grab_it": "でも、他の誰かに取られるかもしれません！失うリスクを冒さないよう、シードフレーズを紙に書き留めたりしないでください！",
+        "but_dont_worry_you_can_access_your_zelfproof": "でも心配しないでください。同じシードフレーズでZelf Nameにアクセスし、新しいZelf Nameを予約できます。",
+        "considerations_description_1": "破られないセキュリティ。",
+        "considerations_description_2": "ユニークなアイデンティティ。",
+        "considerations_description_3": "将来にわたる保護。"
     }
 }

@@ -121,6 +121,7 @@
         "your_token_address": "आपका {{ name }} पता"
     },
     "common": {
+        "days": "दिन",
         "12_word_phrase": "12 शब्दों का वाक्यांश",
         "24_word_phrase": "24 शब्दों का वाक्यांश",
         "about": "के बारे में",
@@ -276,8 +277,9 @@
         "domain_error": "{{ zelfName }} की समय सीमा समाप्त हो गई है! कोई अन्य उपयोगकर्ता इस डोमेन का दावा कर सकता है। इसे दावा करने के लिए अभी खरीदें!",
         "domain_warning": "आपके पास अभी भी खरीदने का समय है",
         "purchase_new_domain": "नया डोमेन जोड़ें",
-        "last_wallet_logout": "यह अंतिम वॉलेट है। यदि आप जारी रखते हैं, तो आपको स्वागत पृष्ठ पर पुनः निर्देशित किया जाएगा।",
-        "logout_of_wallet_confirm": "अंतिम वॉलेट"
+        "last_wallet_logout": "यह आपका आखिरी वॉलेट है। यह क्रिया आपके डिवाइस से आपका ZelfProof हटा देगी। सुनिश्चित करें कि आपने अपनी सीड फ़्रेज़ और ZelfProof QR कोड का बैकअप ले लिया है। क्या आप जारी रखना चाहते हैं? आपको स्वागत पृष्ठ पर ले जाया जाएगा।",
+        "logout_of_wallet_message": "आप अपने वॉलेट से लॉगआउट होने वाले हैं। यह क्रिया आपके डिवाइस से आपका ZelfProof हटा देगी। सुनिश्चित करें कि आपने अपनी सीड फ़्रेज़ और ZelfProof QR कोड का बैकअप ले लिया है। क्या आप जारी रखना चाहते हैं?",
+        "logout_of_wallet_confirm": "वॉलेट से लॉगआउट करें"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "कोरियाई",
         "ph": "टैगालोग",
         "ru": "रूसी"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "मुझे अब यह वॉलेट नहीं चाहिए",
+        "choose_new_zelfname": "एक नया ZelfName चुनें",
+        "recover_it_now": "इसे अभी पुनर्प्राप्त करें",
+        "delete_wallet_title": "वॉलेट हटाएं",
+        "delete_wallet_message": "वॉलेट हटाने से पहले सुनिश्चित करें कि आपने अपनी सीड फ़्रेज़ और ZelfProof QR कोड का बैकअप ले लिया है।",
+        "yes_because": "हाँ, क्योंकि:",
+        "thanks_for_subscribing": "सदस्यता लेने के लिए धन्यवाद",
+        "make_zelfname_yours": "{{ zelfName }} को अपना बनाएं",
+        "keep_zelfname_yours": "{{ zelfName }} को अपने पास रखें",
+        "love_your_zelfname": "क्या आपको अपना ZelfName पसंद है?",
+        "time_is_running_out": "समय खत्म होने को है",
+        "not_much_time_left": "आपका ZelfName थोड़ी देर के लिए आरक्षित है, लेकिन बहुत देर न करें!",
+        "oh_no": "ओह नहीं!",
+        "thanks_for_reserving": "आरक्षण के लिए धन्यवाद",
+        "is_no_longer_available": "अब उपलब्ध नहीं है",
+        "has_been_taken": "ले लिया गया है",
+        "benefit_title": "अपने ZelfName के साथ, आपको ये मिलते हैं:",
+        "benefit_1_title": "ऑफ़लाइन एन्क्रिप्शन",
+        "benefit_1_subtitle": "आपकी कुंजियाँ, आपका नियंत्रण",
+        "benefit_2_title": "अति-निजी डिक्रिप्शन",
+        "benefit_2_subtitle": "केवल आपका चेहरा ही इसे अनलॉक कर सकता है",
+        "benefit_3_title": "कोई मध्यस्थ नहीं, कोई लीक नहीं",
+        "benefit_3_subtitle": "अपने डेटा पर पूर्ण नियंत्रण",
+        "you_have_subscribed_to": "आपने सदस्यता ली है",
+        "you_have_reserved": "आपने आरक्षण किया है",
+        "secure_it_now": "इसे अभी सुरक्षित करें!",
+        "secure_it_now_title": "केवल {{ days }} दिन बचे हैं",
+        "with_just_x_days_left": "सिर्फ {{ days }} दिन शेष हैं",
+        "with_just_x_hours_left": "सिर्फ {{ hours }} घंटे शेष हैं",
+        "what_do_you_think": "आप क्या सोचते हैं? क्या आप इसे अभी सुरक्षित करना चाहते हैं?",
+        "is_no_longer_yours": "यह अब आपका नहीं रहा है, आइए इसे ठीक करें!",
+        "good_news": "अच्छी खबर!",
+        "is_still_available": "अभी भी उपलब्ध है",
+        "resubscribe_within": "{{ days }} दिनों के भीतर फिर से सदस्यता लें",
+        "complete_purchase_within": "एक वर्ष के लिए सुरक्षित करने के लिए {{ days }} दिनों के भीतर अपनी खरीदारी पूरी करें",
+        "have_you_explored_the_benefits": "क्या आपने अपने ZelfName और ZkProofs के लाभों का पता लगाया है?",
+        "but_someone_else_could_grab_it": "लेकिन कोई और अभी भी इसे ले सकता है! इसे खोने का जोखिम न लें, और अपनी सीड फ़्रेज़ को कागज पर न लिखें!",
+        "but_dont_worry_you_can_access_your_zelfproof": "लेकिन चिंता न करें, आप अपने ZelfName तक पहुंच सकते हैं और उसी सीड फ़्रेज़ के साथ नया ZelfName आरक्षित कर सकते हैं।",
+        "considerations_description_1": "अटूट सुरक्षा।",
+        "considerations_description_2": "अद्वितीय पहचान।",
+        "considerations_description_3": "भविष्य-प्रूफ़ सुरक्षा।"
     }
 }

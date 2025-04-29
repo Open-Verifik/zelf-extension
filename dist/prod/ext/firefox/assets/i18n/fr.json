@@ -121,6 +121,7 @@
         "your_token_address": "Votre adresse {{ name }}"
     },
     "common": {
+        "days": "jours",
         "12_word_phrase": "Phrase de 12 mots",
         "24_word_phrase": "Phrase de 24 mots",
         "about": "À propos",
@@ -276,8 +277,9 @@
         "domain_error": "La période d'essai de {{ zelfName }} est terminée, vous devez acheter un abonnement pour continuer à utiliser ce ZelfName",
         "domain_warning": "Vous avez encore le temps d'acheter",
         "purchase_new_domain": "Ajouter un nouveau domaine",
-        "last_wallet_logout": "Ceci est le dernier portefeuille. Si vous continuez, vous serez redirigé vers la page d'accueil.",
-        "logout_of_wallet_confirm": "Dernier portefeuille"
+        "last_wallet_logout": "C'est le dernier portefeuille. Cette action supprimera votre ZelfProof de votre appareil. Assurez-vous d'avoir sauvegardé votre phrase de récupération et le code QR de votre ZelfProof. Êtes-vous sûr de vouloir continuer? Vous serez redirigé vers la page de bienvenue.",
+        "logout_of_wallet_message": "Vous êtes sur le point de vous déconnecter de votre portefeuille. Cette action supprimera votre ZelfProof de votre appareil. Assurez-vous d'avoir sauvegardé votre phrase de récupération et le code QR de votre ZelfProof. Êtes-vous sûr de vouloir continuer?",
+        "logout_of_wallet_confirm": "Se déconnecter du portefeuille"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "Coréen",
         "ph": "Tagalog",
         "ru": "Russe"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "Je ne veux plus de ce portefeuille",
+        "choose_new_zelfname": "Choisissez un nouveau nom Zelf",
+        "recover_it_now": "Récupérez-le maintenant",
+        "delete_wallet_title": "Supprimer le portefeuille",
+        "delete_wallet_message": "Avant de supprimer votre portefeuille, assurez-vous d'avoir sauvegardé votre phrase de récupération et le code QR de votre ZelfProof.",
+        "yes_because": "Oui, parce que :",
+        "thanks_for_subscribing": "Merci de vous être abonné",
+        "make_zelfname_yours": "Faites de {{ zelfName }} le vôtre",
+        "keep_zelfname_yours": "Gardez {{ zelfName }} pour vous",
+        "love_your_zelfname": "Vous aimez votre nom Zelf ?",
+        "time_is_running_out": "Le temps presse",
+        "not_much_time_left": "Votre nom Zelf est réservé un peu plus longtemps, mais ne tardez pas trop !",
+        "oh_no": "Oh non !",
+        "thanks_for_reserving": "Merci d'avoir réservé",
+        "is_no_longer_available": "n'est plus disponible",
+        "has_been_taken": "a été pris",
+        "benefit_title": "Avec votre nom Zelf, vous obtenez :",
+        "benefit_1_title": "Chiffrement hors ligne",
+        "benefit_1_subtitle": "Vos clés, votre contrôle",
+        "benefit_2_title": "Déchiffrement ultra privé",
+        "benefit_2_subtitle": "Seul votre visage peut le déverrouiller",
+        "benefit_3_title": "Pas d'intermédiaires, pas de fuites",
+        "benefit_3_subtitle": "Contrôle total de vos données",
+        "you_have_subscribed_to": "Vous vous êtes abonné à",
+        "you_have_reserved": "Vous avez réservé",
+        "secure_it_now": "Sécurisez-le maintenant !",
+        "secure_it_now_title": "Il ne reste plus que {{ days }} jours",
+        "with_just_x_days_left": "Avec seulement {{ days }} jours restants",
+        "with_just_x_hours_left": "Avec seulement {{ hours }} heures restantes",
+        "what_do_you_think": "Qu'en pensez-vous ? Voulez-vous le sécuriser maintenant ?",
+        "is_no_longer_yours": "n'est plus à vous, réparons cela !",
+        "good_news": "Bonne nouvelle !",
+        "is_still_available": "est toujours disponible",
+        "resubscribe_within": "Réabonnez-vous dans {{ days }} jours",
+        "complete_purchase_within": "Terminez votre achat dans {{ days }} jours pour garantir une validité d'un an",
+        "have_you_explored_the_benefits": "Avez-vous exploré les avantages de votre nom Zelf et des ZkProofs ?",
+        "but_someone_else_could_grab_it": "Mais quelqu'un d'autre pourrait toujours vous le voler ! Ne prenez pas le risque de le perdre, ni de noter vos phrases de récupération sur du papier !",
+        "but_dont_worry_you_can_access_your_zelfproof": "Mais ne vous inquiétez pas, vous pouvez accéder à votre nom Zelf et réserver un nouveau nom Zelf avec la même phrase de récupération.",
+        "considerations_description_1": "Sécurité inébranlable.",
+        "considerations_description_2": "Identité unique.",
+        "considerations_description_3": "Protection à l'épreuve du temps."
     }
 }

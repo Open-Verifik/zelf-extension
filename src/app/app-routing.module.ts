@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { environment } from "../environments/environment";
 
 import { LoginGuard } from "./guards/login.guard";
 
@@ -286,6 +287,13 @@ const routes: Routes = [
     //     loadComponent: () => import("./transaction-details/transaction-details.component").then((m) => m.TransactionDetailsComponent),
     // },
 ];
+
+if (environment.production) {
+    routes.push({
+        path: "e2e-test",
+        loadChildren: () => import("./testing/e2e-test-helpers/e2e-test-helpers.module").then((m) => m.E2ETestHelpersModule),
+    });
+}
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, { useHash: true })],

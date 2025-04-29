@@ -95,7 +95,7 @@
         "you_can_transfer_this_domain": "آپ اس ڈومین کو منتقل کر سکتے ہیں",
         "you_will_register_this_domain": "آپ اس ڈومین کو رجسٹر کریں گے",
         "your_zelf_name": "آپ کا زیلف نام",
-        "offline_subtitle": "یہ ZelfProof آف لائن بنایا گیا تھا، لہذا یہ ایک مختلف سیکیورٹی سسٹم استعمال کرتا ہے۔ اس وقت، یہ ایکسٹینشن کے ساتھ مطابقت نہیں رکھتا۔ یہ جلد ہی دستیاب ہوگا۔",
+        "offline_subtitle": "یہ ZelfProof آف لائن بنایا گیا تھا، لہذا یہ ایکسٹینشن کے ساتھ مطابقت نہیں رکھتا۔ یہ جلد ہی دستیاب ہوگا۔",
         "offline_tip": "لیکن فکر نہ کریں! آپ ایکسٹینشن سے رسائی حاصل کرنے کے لیے اپنے ZelfProof کو دوسرے ZelfName کے ساتھ درآمد کر سکتے ہیں۔",
         "i_understand_go_back": "میں سمجھتا ہوں، ہوم پیج پر واپس جائیں",
         "safeguard_your_crypto": "اپنی کریپٹو کی حفاظت کریں!",
@@ -121,6 +121,7 @@
         "your_token_address": "آپ کا {{ name }} پتہ"
     },
     "common": {
+        "days": "دن",
         "12_word_phrase": "12 الفاظ کا فریز",
         "24_word_phrase": "24 الفاظ کا فریز",
         "about": "کے بارے میں",
@@ -275,9 +276,10 @@
     "manage_domains": {
         "domain_error": "{{ zelfName }} کی ٹرائل مدت ختم ہو گئی ہے، اس ZelfName کو جاری رکھنے کے لیے آپ کو سبسکرپشن خریدنی ہوگی",
         "domain_warning": "آپ کے پاس خریدنے کے لیے ابھی وقت ہے",
-        "purchase_new_domain": "نیا ڈومین شامل کریں",
-        "last_wallet_logout": "یہ آخری والٹ ہے۔ اگر آپ جاری رکھتے ہیں، تو آپ کو خوش آمدید صفحہ پر بھیج دیا جائے گا۔",
-        "logout_of_wallet_confirm": "آخری والٹ"
+        "purchase_new_domain": "إضافة نطاق جديد",
+        "last_wallet_logout": "هذه هي آخر محفظة. سيؤدي هذا الإجراء إلى إزالة ZelfProof من جهازك. تأكد من عمل نسخة احتياطية من عبارة الاسترداد ورمز الاستجابة السريعة (QR) الخاص بـ ZelfProof. هل أنت متأكد أنك تريد المتابعة؟ سيتم توجيهك إلى صفحة الترحيب.",
+        "logout_of_wallet_message": "أنت على وشك تسجيل الخروج من محفظتك. سيؤدي هذا الإجراء إلى إزالة ZelfProof من جهازك. تأكد من عمل نسخة احتياطية من عبارة الاسترداد ورمز الاستجابة السريعة (QR) الخاص بـ ZelfProof. هل أنت متأكد أنك تريد المتابعة؟",
+        "logout_of_wallet_confirm": "تسجيل الخروج من المحفظة"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "کوریائی",
         "ph": "ٹیگالوگ",
         "ru": "روسی"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "مجھے یہ والٹ اب مزید نہیں چاہیے",
+        "choose_new_zelfname": "نیا ZelfName منتخب کریں",
+        "recover_it_now": "ابھی بحال کریں",
+        "delete_wallet_title": "والٹ حذف کریں",
+        "delete_wallet_message": "اپنا والٹ حذف کرنے سے پہلے یقین دہانی کریں کہ آپ نے اپنی سیڈ فریز اور ZelfProof QR کوڈ کا بیک اپ کر لیا ہے۔",
+        "yes_because": "ہاں، کیونکہ:",
+        "thanks_for_subscribing": "سبسکرائب کرنے کے لیے شکریہ",
+        "make_zelfname_yours": "اپنا {{ zelfName }} بنائیں",
+        "keep_zelfname_yours": "اپنا {{ zelfName }} اپنے پاس رکھیں",
+        "love_your_zelfname": "کیا آپ اپنا ZelfName پسند کرتے ہیں؟",
+        "time_is_running_out": "وقت ختم ہونے کو ہے",
+        "not_much_time_left": "آپ کا ZelfName ابھی کچھ دیر کے لیے محفوظ ہے، لیکن زیادہ دیر انتظار نہ کریں!",
+        "oh_no": "اوہ نہیں!",
+        "thanks_for_reserving": "رزرو کرنے کے لیے شکریہ",
+        "is_no_longer_available": "اب دستیاب نہیں ہے",
+        "has_been_taken": "لے لیا گیا ہے",
+        "benefit_title": "اپنے ZelfName کے ساتھ آپ کو یہ فوائد ملتے ہیں:",
+        "benefit_1_title": "آفلائن خفیہ کاری",
+        "benefit_1_subtitle": "آپ کی چابیاں، آپ کا کنٹرول",
+        "benefit_2_title": "انتہائی نجی ڈی کرپشن",
+        "benefit_2_subtitle": "صرف آپ کا چہرہ ہی اسے انلاک کر سکتا ہے",
+        "benefit_3_title": "نہ کوئی درمیانی، نہ کوئی لیک",
+        "benefit_3_subtitle": "آپ کے ڈیٹا پر مکمل کنٹرول",
+        "you_have_subscribed_to": "آپ نے سبسکرائب کر لیا ہے",
+        "you_have_reserved": "آپ نے ریزرو کر لیا ہے",
+        "secure_it_now": "ابھی محفوظ کریں!",
+        "secure_it_now_title": "صرف {{ days }} دن باقی ہیں",
+        "with_just_x_days_left": "صرف {{ days }} دن رہ گئے ہیں",
+        "with_just_x_hours_left": "صرف {{ hours }} گھنٹے رہ گئے ہیں",
+        "what_do_you_think": "آپ کیا سوچتے ہیں؟ کیا آپ ابھی اسے محفوظ کرنا چاہتے ہیں؟",
+        "is_no_longer_yours": "اب آپ کا نہیں رہا، آئیے اسے درست کریں!",
+        "good_news": "اچھی خبر!",
+        "is_still_available": "ابھی بھی دستیاب ہے",
+        "resubscribe_within": "{{ days }} دن کے اندر دوبارہ سبسکرائب کریں",
+        "complete_purchase_within": "{{ days }} دن کے اندر اپنی خریداری مکمل کریں تاکہ اسے 1 سال کے لیے محفوظ کیا جا سکے",
+        "have_you_explored_the_benefits": "کیا آپ نے اپنے ZelfName اور ZkProofs کے فوائد دریافت کیے ہیں؟",
+        "but_someone_else_could_grab_it": "لیکن کوئی اور اسے ابھی بھی حاصل کر سکتا ہے! اسے کھونے یا سیڈ فریز کو کاغذ پر لکھنے کا خطرہ نہ اٹھائیں!",
+        "but_dont_worry_you_can_access_your_zelfproof": "لیکن فکر نہ کریں، آپ اپنے ZelfName تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ نیا ZelfName رزرو کر سکتے ہیں۔",
+        "considerations_description_1": "ناقابلِ شکست سیکیورٹی۔",
+        "considerations_description_2": "منفرد شناخت۔",
+        "considerations_description_3": "مستقبل کے لیے موزوں تحفظ۔"
     }
 }

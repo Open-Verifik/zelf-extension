@@ -558,22 +558,18 @@ export interface WalletPublicData {
     gracePeriod: Date | null;
     isExpired: boolean;
     isExpiringSoon: boolean;
-    isExpiringWithinMonth: boolean;
+    isFullyExpired: boolean;
+    isInGracePeriod: boolean;
     origin: "offline" | "online" | "";
     registeredAt: string;
     solanaAddress: string;
     type: "mainnet" | "hold" | "";
     zelfName: string;
 
-    isInGracePeriod(): boolean;
     timeLeftInGracePeriodSeconds(): number;
 }
 
 export class WalletPublicDataModel {
-    private _isExpired: boolean;
-    private _isExpiringSoon: boolean;
-    private _isExpiringWithinMonth: boolean;
-
     _id: string;
     btcAddress: string;
     ethAddress: string;
@@ -588,10 +584,6 @@ export class WalletPublicDataModel {
     constructor(data: any) {
         this._id = data._id || "offline";
 
-        this._isExpired = false;
-        this._isExpiringSoon = false;
-        this._isExpiringWithinMonth = false;
-
         this.btcAddress = data.btcAddress || "";
         this.ethAddress = data.ethAddress || "";
         this.expiresAt = data.expiresAt || "";
@@ -605,33 +597,26 @@ export class WalletPublicDataModel {
         if (this.zelfName) this.zelfName = this.zelfName.replace(".hold", "");
 
         this.gracePeriod = this._calculateGracePeriod();
-        this.isExpired = this._checkIsExpired();
-        this.isExpiringSoon = this._checkIsExpiringSoon();
-        this.isExpiringWithinMonth = this._checkIsExpiringWithinMonth();
     }
 
     get isExpired(): boolean {
-        return this._isExpired;
-    }
-
-    set isExpired(value: boolean) {
-        this._isExpired = value;
+        return this._checkIsExpired();
     }
 
     get isExpiringSoon(): boolean {
-        return this._isExpiringSoon;
+        return this._checkIsExpiringSoon();
     }
 
-    set isExpiringSoon(value: boolean) {
-        this._isExpiringSoon = value;
+    get isFullyExpired(): boolean {
+        return this._checkIsFullyExpired();
     }
 
-    get isExpiringWithinMonth(): boolean {
-        return this._isExpiringWithinMonth;
-    }
+    get isInGracePeriod(): boolean {
+        if (this.type !== "mainnet" || !this.gracePeriod) return false;
 
-    set isExpiringWithinMonth(value: boolean) {
-        this._isExpiringWithinMonth = value;
+        const now = new Date();
+
+        return now < this.gracePeriod && now > new Date(this.expiresAt);
     }
 
     private _calculateGracePeriod(): Date | null {
@@ -651,33 +636,21 @@ export class WalletPublicDataModel {
     }
 
     private _checkIsExpiringSoon(): boolean {
-        const oneDayInMs = 24 * 60 * 60 * 1000;
-        const timeLeft = this._timeRemaining();
-
-        return timeLeft > 0 && timeLeft <= oneDayInMs;
-    }
-
-    private _checkIsExpiringWithinMonth(): boolean {
-        const oneDayInMs = 24 * 60 * 60 * 1000;
-        const oneMonthInMs = 30 * oneDayInMs;
+        const oneMonthInMs = 24 * 60 * 60 * 1000 * 30;
 
         const timeLeft = this._timeRemaining();
 
         return timeLeft > 0 && timeLeft <= oneMonthInMs;
     }
 
+    private _checkIsFullyExpired(): boolean {
+        return this.isExpired && !this.isInGracePeriod;
+    }
+
     private _timeRemaining(): number {
         const expiresAtTime = new Date(this.expiresAt).getTime();
 
         return expiresAtTime - Date.now();
-    }
-
-    isInGracePeriod(): boolean {
-        if (this.type !== "mainnet" || !this.gracePeriod) return false;
-
-        const now = new Date();
-
-        return now < this.gracePeriod && now > new Date(this.expiresAt);
     }
 
     timeLeftInGracePeriodSeconds(): number {

@@ -251,7 +251,7 @@ export class WelcomeFindComponent implements OnDestroy {
             return;
         }
 
-        if (zelfNameObject.publicData.isInGracePeriod() || zelfNameObject.publicData?.isExpired) {
+        if (zelfNameObject.publicData.isInGracePeriod || zelfNameObject.publicData?.isExpired) {
             this._router.navigate(["/welcome/grace"]);
         } else {
             this._router.navigate(["/welcome/registered"]);
@@ -262,7 +262,7 @@ export class WelcomeFindComponent implements OnDestroy {
     private _redirectAfterZelfProofSearch(zelfNameObject: WalletModel | any): void {
         const ownedByThisUser = zelfNameObject.ethAddress === this.ethAddress;
 
-        if (ownedByThisUser && (zelfNameObject.publicData?.isInGracePeriod() || zelfNameObject.publicData?.isExpired)) {
+        if (ownedByThisUser && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
             this._router.navigate(["/welcome/grace"]);
         } else if (!ownedByThisUser) {
             this._router.navigate(["/welcome/recover"]);
@@ -314,7 +314,6 @@ export class WelcomeFindComponent implements OnDestroy {
         this._handleFile(file);
     }
 
-    // Method to handle file drop event
     async onDrop(event: DragEvent): Promise<any> {
         event.preventDefault();
         event.stopPropagation();

@@ -22,22 +22,24 @@
         border: none;
         cursor: pointer;
         display: flex;
-        height: 32px;
+        height: 48px;
         justify-content: center;
         margin: 8px;
-        min-height: 32px;
-        min-width: 32px;
+        min-height: 48px;
+        min-width: 48px;
         outline: none;
         padding: 8px;
         position: absolute;
         right: 0;
         top: 0;
         transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
-        width: 32px;
+        width: 48px;
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
             fill: variables.$black;
+            height: 16px;
+            width: 16px;
         }
 
         &:hover {

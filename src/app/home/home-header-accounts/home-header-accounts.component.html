@@ -23,24 +23,20 @@
         </div>
 
         <div class="wallets">
-            <div class="wallets__item" (click)="close()">
-                <div class="wallets__item-avatar">{{ wallet.publicData?.zelfName | firstLetter }}</div>
-
-                <p class="wallets__item-name">{{ wallet.publicData?.zelfName | zelfName }}</p>
+            <div class="wallets__item wallets__item--current" (click)="close()">
+                <ng-container *ngTemplateOutlet="walletTemplate; context: { $implicit: wallet }"></ng-container>
             </div>
 
             <ng-container *ngIf="wallets.length">
-                <div class="wallets__item" *ngFor="let wallet of wallets" (click)="switchWallet(wallet)">
-                    <div class="wallets__item-avatar">
-                        {{ wallet.publicData.zelfName | firstLetter }}
-                    </div>
-
-                    <p class="wallets__item-name">{{ wallet.publicData.zelfName | zelfName }}</p>
+                <div class="wallets__item" *ngFor="let otherWallet of wallets" (click)="switchWallet(otherWallet)">
+                    <ng-container *ngTemplateOutlet="walletTemplate; context: { $implicit: otherWallet }"></ng-container>
                 </div>
             </ng-container>
 
             <div class="wallets__item" (click)="close()" [routerLink]="['/welcome']">
-                <div class="wallets__item-avatar wallets__item-avatar--bg-white">+</div>
+                <div class="wallets__item-avatar wallets__item-avatar--bg-white">
+                    <h3 class="wallets__item-avatar-letter">+</h3>
+                </div>
 
                 <p class="wallets__item-name">{{ t("common.purchase") }}</p>
             </div>
@@ -57,4 +53,44 @@
             </button>
         </div>
     </div>
+
+    <ng-template #walletTemplate let-wallet>
+        <div
+            class="wallets__item-avatar"
+            [ngClass]="{
+                'wallets__item-avatar--warn': wallet.publicData?.isExpiringSoon,
+                'wallets__item-avatar--error': wallet.publicData?.isExpired,
+                'wallets__item-avatar--mainnet': wallet.publicData?.type === 'mainnet',
+                'wallets__item-avatar--hold': wallet.publicData?.type === 'hold',
+            }"
+        >
+            <h3 class="wallets__item-avatar-letter">{{ wallet.publicData?.zelfName | firstLetter }}</h3>
+
+            <span *ngIf="wallet.publicData?.isExpiringSoon" class="wallets__item-avatar-icon wallets__item-avatar-icon--warn-icon">
+                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 15C9.45 15 9 14.55 9 14V10C9 9.45 9.45 9 10 9C10.55 9 11 9.45 11 10V14C11 14.55 10.55 15 10 15ZM11 7H9V5H11V7Z"
+                    />
+                </svg>
+            </span>
+
+            <span *ngIf="wallet.publicData?.isInGracePeriod" class="wallets__item-avatar-icon wallets__item-avatar-icon--error-icon">
+                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14.24 5.76C13.07 4.59 11.54 4 10 4V10L5.76 14.24C8.1 16.58 11.9 16.58 14.25 14.24C16.59 11.9 16.59 8.1 14.24 5.76ZM10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 18C5.58 18 2 14.42 2 10C2 5.58 5.58 2 10 2C14.42 2 18 5.58 18 10C18 14.42 14.42 18 10 18Z"
+                    />
+                </svg>
+            </span>
+
+            <span *ngIf="wallet.publicData?.isFullyExpired" class="wallets__item-avatar-icon wallets__item-avatar-icon--error-icon">
+                <svg viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M2.47 17.5036H17.53C19.07 17.5036 20.03 15.8336 19.26 14.5036L11.73 1.49359C10.96 0.163594 9.04 0.163594 8.27 1.49359L0.739999 14.5036C-0.0300008 15.8336 0.929999 17.5036 2.47 17.5036ZM10 10.5036C9.45 10.5036 9 10.0536 9 9.50359V7.50359C9 6.95359 9.45 6.50359 10 6.50359C10.55 6.50359 11 6.95359 11 7.50359V9.50359C11 10.0536 10.55 10.5036 10 10.5036ZM11 14.5036H9V12.5036H11V14.5036Z"
+                    />
+                </svg>
+            </span>
+        </div>
+
+        <p class="wallets__item-name">{{ wallet.publicData?.zelfName | zelfName }}</p>
+    </ng-template>
 </ng-container>

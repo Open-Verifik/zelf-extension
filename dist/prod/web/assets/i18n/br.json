@@ -121,6 +121,7 @@
         "your_token_address": "Seu endereço {{ name }}"
     },
     "common": {
+        "days": "dias",
         "12_word_phrase": "Frase de 12 palavras",
         "24_word_phrase": "Frase de 24 palavras",
         "about": "Sobre",
@@ -276,8 +277,9 @@
         "domain_error": "O período de teste do {{ zelfName }} acabou, você precisa comprar a assinatura para continuar usando este ZelfName",
         "domain_warning": "Você ainda tem tempo para comprar",
         "purchase_new_domain": "Adicionar um novo domínio",
-        "last_wallet_logout": "Esta é a última carteira. Se você continuar, será redirecionado para a página de boas-vindas.",
-        "logout_of_wallet_confirm": "Última Carteira"
+        "last_wallet_logout": "Esta é a última carteira. Esta ação removerá seu ZelfProof do seu dispositivo. Certifique-se de ter feito backup da sua frase seed e do código QR do ZelfProof. Tem certeza de que deseja continuar? Você será redirecionado para a página de boas-vindas.",
+        "logout_of_wallet_message": "Você está prestes a sair da sua carteira. Esta ação removerá seu ZelfProof do seu dispositivo. Certifique-se de ter feito backup da sua frase seed e do código QR do ZelfProof. Tem certeza de que deseja continuar?",
+        "logout_of_wallet_confirm": "Sair da carteira"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "Coreano",
         "ph": "Tagalo",
         "ru": "Russo"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "Eu não quero mais esta carteira",
+        "choose_new_zelfname": "Escolher um novo ZelfName",
+        "recover_it_now": "Recuperar agora",
+        "delete_wallet_title": "Excluir carteira",
+        "delete_wallet_message": "Antes de excluir sua carteira, certifique-se de ter feito backup da sua frase seed e do código QR do ZelfProof.",
+        "yes_because": "Sim, porque:",
+        "thanks_for_subscribing": "Obrigado por se inscrever",
+        "make_zelfname_yours": "Torne {{ zelfName }} seu",
+        "keep_zelfname_yours": "Mantenha {{ zelfName }} seu",
+        "love_your_zelfname": "Ama seu ZelfName?",
+        "time_is_running_out": "O tempo está acabando",
+        "not_much_time_left": "Seu ZelfName está reservado por mais algum tempo, mas não espere muito!",
+        "oh_no": "Oh não!",
+        "thanks_for_reserving": "Obrigado por reservar",
+        "is_no_longer_available": "não está mais disponível",
+        "has_been_taken": "foi reservado",
+        "benefit_title": "Com seu ZelfName, você recebe:",
+        "benefit_1_title": "Criptografia offline",
+        "benefit_1_subtitle": "Suas chaves, seu controle",
+        "benefit_2_title": "Descriptografia ultraprivada",
+        "benefit_2_subtitle": "Apenas seu rosto pode desbloqueá-la",
+        "benefit_3_title": "Sem intermediários, sem vazamentos",
+        "benefit_3_subtitle": "Controle total sobre seus dados",
+        "you_have_subscribed_to": "Você se inscreveu em",
+        "you_have_reserved": "Você reservou",
+        "secure_it_now": "Proteja agora!",
+        "secure_it_now_title": "Apenas {{ days }} dias restantes",
+        "with_just_x_days_left": "Com apenas {{ days }} dias restantes",
+        "with_just_x_hours_left": "Com apenas {{ hours }} horas restantes",
+        "what_do_you_think": "O que você acha? Quer garantir agora?",
+        "is_no_longer_yours": "não é mais seu, vamos resolver isso!",
+        "good_news": "Boas notícias!",
+        "is_still_available": "ainda está disponível",
+        "resubscribe_within": "Reinscreva-se dentro de {{ days }} dias",
+        "complete_purchase_within": "Conclua sua compra dentro de {{ days }} dias para garantir por 1 ano",
+        "have_you_explored_the_benefits": "Você explorou os benefícios do seu ZelfName e dos ZkProofs?",
+        "but_someone_else_could_grab_it": "Mas outra pessoa ainda pode pegá-lo! Não corra o risco de perdê-lo ou de anotar suas frases seed no papel!",
+        "but_dont_worry_you_can_access_your_zelfproof": "Mas não se preocupe, você pode acessar seu ZelfName e reservar um novo ZelfName com a mesma frase seed.",
+        "considerations_description_1": "Segurança inquebrável.",
+        "considerations_description_2": "Identidade única.",
+        "considerations_description_3": "Proteção à prova de futuro."
     }
 }

@@ -1,7 +1,8 @@
-import { Wallet } from './wallet';
+import { WalletModel } from "./wallet";
 
-describe('Wallet', () => {
-  it('should create an instance', () => {
-    expect(new Wallet()).toBeTruthy();
-  });
+describe("Wallet", () => {
+    it("should create a wallet instance", () => {
+        const wallet = new WalletModel();
+        expect(wallet).toBeTruthy();
+    });
 });

@@ -236,6 +236,8 @@
     svg {
         transition: fill 0.3s variables.$smoothBezier;
         fill: variables.$black;
+        height: 24px;
+        width: 24px;
     }
 
     &:hover {
@@ -261,6 +263,11 @@
 
         &.zelf-icon-button--border-soft {
             border-radius: 14px;
+        }
+
+        svg {
+            height: 20px;
+            width: 20px;
         }
     }
 

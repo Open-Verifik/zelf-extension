@@ -121,6 +121,7 @@
         "your_token_address": "Ang iyong {{ name }} address"
     },
     "common": {
+        "days": "araw",
         "12_word_phrase": "12 salita na phrase",
         "24_word_phrase": "24 salita na phrase",
         "about": "Tungkol",
@@ -276,8 +277,9 @@
         "domain_error": "Tapos na ang trial period ng {{ zelfName }}, kailangan mong bumili ng subscription para magpatuloy sa paggamit ng ZelfName na ito",
         "domain_warning": "May oras ka pa upang bumili",
         "purchase_new_domain": "Magdagdag ng bagong domain",
-        "last_wallet_logout": "Ito na ang huling wallet. Kung magpapatuloy ka, ikaw ay ire-redirect sa welcome page.",
-        "logout_of_wallet_confirm": "Huling Wallet"
+        "last_wallet_logout": "Ito na ang huling wallet. Tatanggalin ng aksyong ito ang iyong ZelfProof mula sa iyong device. Tiyakin na naka-backup na ang iyong seed phrase at ang iyong ZelfProof QR code. Sigurado ka bang nais mong magpatuloy? I-redirect ka sa welcome page.",
+        "logout_of_wallet_message": "Malapit ka nang mag-logout sa iyong wallet. Tatanggalin ng aksyong ito ang iyong ZelfProof mula sa iyong device. Tiyakin na naka-backup na ang iyong seed phrase at ang iyong ZelfProof QR code. Sigurado ka bang gusto mong magpatuloy?",
+        "logout_of_wallet_confirm": "Mag-logout ng wallet"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "Koreano",
         "ph": "Tagalog",
         "ru": "Ruso"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "Ayaw ko na sa wallet na ito",
+        "choose_new_zelfname": "Pumili ng bagong ZelfName",
+        "recover_it_now": "I-recover na ngayon",
+        "delete_wallet_title": "Tanggalin ang wallet",
+        "delete_wallet_message": "Bago tanggalin ang iyong wallet, tiyaking na-backup mo na ang iyong seed phrase at ang QR code ng iyong ZelfProof.",
+        "yes_because": "Oo, dahil:",
+        "thanks_for_subscribing": "Salamat sa pag-subscribe",
+        "make_zelfname_yours": "Gawing iyo ang {{ zelfName }}",
+        "keep_zelfname_yours": "Panatilihin mong iyo ang {{ zelfName }}",
+        "love_your_zelfname": "Gusto mo ba ang iyong ZelfName?",
+        "time_is_running_out": "Mauubos na ang oras",
+        "not_much_time_left": "Nakareserba pa ng kaunti ang iyong ZelfName, ngunit huwag maghintay nang matagal!",
+        "oh_no": "Naku!",
+        "thanks_for_reserving": "Salamat sa pagreserba",
+        "is_no_longer_available": "ay hindi na available",
+        "has_been_taken": "ay nakuha na",
+        "benefit_title": "Sa iyong ZelfName, makakakuha ka ng:",
+        "benefit_1_title": "Offline na Pag-encrypt",
+        "benefit_1_subtitle": "Ang iyong mga susi, ang iyong kontrol",
+        "benefit_2_title": "Ultra-pribadong Pag-decrypt",
+        "benefit_2_subtitle": "Tanging ang iyong mukha lang ang makaka-unlock nito",
+        "benefit_3_title": "Walang tagapamagitan, walang pagtagas ng data",
+        "benefit_3_subtitle": "Buong kontrol sa iyong data",
+        "you_have_subscribed_to": "Nakapag-subscribe na",
+        "you_have_reserved": "Nakapag-reserba na",
+        "secure_it_now": "I-secure na ngayon!",
+        "secure_it_now_title": "Tanging {{ days }} araw na lang ang natitira",
+        "with_just_x_days_left": "May natitira pang {{ days }} araw",
+        "with_just_x_hours_left": "May natitira pang {{ hours }} oras",
+        "what_do_you_think": "Ano sa tingin mo? Gusto mo bang i-secure na ngayon?",
+        "is_no_longer_yours": "hindi na sa'yo, ayusin natin ito!",
+        "good_news": "Magandang balita!",
+        "is_still_available": "ay available pa",
+        "resubscribe_within": "Mag-resubscribe muli sa loob ng {{ days }} araw",
+        "complete_purchase_within": "Kumpletuhin ang iyong pagbili sa loob ng {{ days }} araw upang masiguro ito nang 1 taon",
+        "have_you_explored_the_benefits": "Nalaman mo na ba ang mga benepisyo ng iyong ZelfName at ZkProofs?",
+        "but_someone_else_could_grab_it": "Pero maaaring maagaw pa ito ng iba! Huwag ipagsapalaran ang pagkawala nito o isulat ang iyong seed phrase sa papel!",
+        "but_dont_worry_you_can_access_your_zelfproof": "Pero huwag mag-alala, maa-access mo ang iyong ZelfName at makakapag-reserve ka ng bagong ZelfName gamit ang parehong seed phrase.",
+        "considerations_description_1": "Hindi matitinag na seguridad.",
+        "considerations_description_2": "Natatanging pagkakakilanlan.",
+        "considerations_description_3": "Proteksyon para sa hinaharap."
     }
 }

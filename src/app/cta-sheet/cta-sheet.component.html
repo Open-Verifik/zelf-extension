@@ -1,0 +1,335 @@
+<ng-container *transloco="let t">
+    <div class="cta-sheet">
+        <button mat-flat-button mat-icon-button class="cta-sheet__exit" (click)="cancel()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z"
+                />
+            </svg>
+        </button>
+
+        <div class="cta-sheet__body">
+            <div
+                class="cta-sheet__status-bubble"
+                [ngClass]="{
+                    'cta-sheet__status-bubble--soon': has30To16DaysLeft(expiresAt) || has15To7DaysLeft(expiresAt),
+                    'cta-sheet__status-bubble--warning': data.wallet.publicData?.isInGracePeriod || has7DaysLeft(expiresAt),
+                    'cta-sheet__status-bubble--alert': data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired
+                }"
+            >
+                <ng-container *ngIf="has30To16DaysLeft(expiresAt) || has15To7DaysLeft(expiresAt)">
+                    <ng-container *ngTemplateOutlet="checkIcon"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="data.wallet.publicData?.isInGracePeriod || has7DaysLeft(expiresAt)">
+                    <ng-container *ngTemplateOutlet="timerIcon"></ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="!data.wallet.publicData?.isInGracePeriod && data.wallet.publicData?.isFullyExpired">
+                    <ng-container *ngTemplateOutlet="alertIcon"></ng-container>
+                </ng-container>
+            </div>
+
+            <ng-container *ngIf="(has7DaysLeft(expiresAt) || data.wallet.publicData?.isInGracePeriod) && !data.wallet.publicData?.isFullyExpired">
+                <div class="zelf-chip">{{ t("cta_sheet.time_is_running_out") }}</div>
+            </ng-container>
+
+            <ng-container [ngSwitch]="data.wallet.publicData?.type">
+                <ng-container *ngSwitchCase="'mainnet'">
+                    <h4 class="cta-sheet__pretitle" *ngIf="has30To16DaysLeft(expiresAt)">{{ t("cta_sheet.thanks_for_subscribing") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="has15To7DaysLeft(expiresAt)">
+                        {{ t("cta_sheet.keep_zelfname_yours", { zelfName: data.wallet.publicData?.zelfName | uppercase }) }}
+                    </h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="has7DaysLeft(expiresAt)">{{ t("cta_sheet.love_your_zelfname") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="data.wallet.publicData?.isInGracePeriod">{{ t("cta_sheet.not_much_time_left") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="data.wallet.publicData?.isFullyExpired">{{ t("cta_sheet.oh_no") }}</h4>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                    <h4 class="cta-sheet__pretitle" *ngIf="has30To16DaysLeft(expiresAt)">{{ t("cta_sheet.thanks_for_reserving") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="has15To7DaysLeft(expiresAt)">
+                        {{ t("cta_sheet.make_zelfname_yours", { zelfName: data.wallet.publicData?.zelfName | uppercase }) }}
+                    </h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="has7DaysLeft(expiresAt)">{{ t("cta_sheet.love_your_zelfname") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="isExpired(expiresAt)">{{ t("cta_sheet.oh_no") }}</h4>
+                </ng-container>
+            </ng-container>
+
+            <h3 class="cta-sheet__title">
+                {{ data.wallet.publicData?.zelfName }}
+            </h3>
+
+            <ng-container [ngSwitch]="data.wallet.publicData?.type">
+                <ng-container *ngSwitchCase="'mainnet'">
+                    <h4 class="cta-sheet__subtitle" *ngIf="data.wallet.publicData?.isFullyExpired && !isAvailable">
+                        {{ t("cta_sheet.is_no_longer_available") }}
+                    </h4>
+
+                    <h4 class="cta-sheet__subtitle" *ngIf="data.wallet.publicData?.isFullyExpired && isAvailable">
+                        {{ t("cta_sheet.is_still_available") }}
+                    </h4>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                    <h4 class="cta-sheet__subtitle" *ngIf="isExpired(expiresAt) && !isAvailable">{{ t("cta_sheet.is_no_longer_available") }}</h4>
+
+                    <h4 class="cta-sheet__subtitle" *ngIf="isExpired(expiresAt) && isAvailable">
+                        {{ t("cta_sheet.is_still_available") }}
+                    </h4>
+                </ng-container>
+            </ng-container>
+
+            <div class="cta-sheet__benefits">
+                <div class="cta-sheet__benefit-bar-container">
+                    <div class="cta-sheet__benefit-bar">
+                        <div class="cta-sheet__benefit-bar-icon">
+                            <ng-container *ngTemplateOutlet="sparkleIcon"></ng-container>
+                        </div>
+
+                        <h4 class="cta-sheet__benefit-bar-title">
+                            {{ t("cta_sheet.benefit_title") }}
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="cta-sheet__benefit-item-container">
+                    <div class="cta-sheet__benefit-item" *ngFor="let benefit of benefits">
+                        <div class="cta-sheet__benefit-item-icon">
+                            <ng-container *ngTemplateOutlet="checkIcon"></ng-container>
+                        </div>
+
+                        <div class="cta-sheet__benefit-item-text">
+                            <h4 class="cta-sheet__benefit-item-title">{{ benefit.title }}</h4>
+                            <h4 class="cta-sheet__benefit-item-subtitle">{{ benefit.subtitle }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-sheet__actions">
+            <div class="cta-sheet__info">
+                <div class="cta-sheet__info-row">
+                    <div class="cta-sheet__info-icon">
+                        <ng-container *ngIf="has30To16DaysLeft(this.expiresAt)">
+                            <ng-container *ngTemplateOutlet="padlockIcon"></ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="has15To7DaysLeft(this.expiresAt)">
+                            <ng-container *ngTemplateOutlet="hourglassIcon"></ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="has7DaysLeft(this.expiresAt) || data.wallet.publicData?.isInGracePeriod">
+                            <ng-container *ngTemplateOutlet="timerIcon"></ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="data.wallet.publicData?.isFullyExpired && isAvailable">
+                            <ng-container *ngTemplateOutlet="securityIcon"></ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="data.wallet.publicData?.isFullyExpired && !isAvailable">
+                            <ng-container *ngTemplateOutlet="hexAlertIcon"></ng-container>
+                        </ng-container>
+                    </div>
+
+                    <div class="cta-sheet__info-content">
+                        <ng-container *ngIf="has30To16DaysLeft(this.expiresAt)" [ngSwitch]="data.wallet.publicData?.type">
+                            <ng-container *ngSwitchCase="'mainnet'">
+                                <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.you_have_subscribed_to") }}</p>
+                            </ng-container>
+
+                            <ng-container *ngSwitchDefault>
+                                <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.you_have_reserved") }}</p>
+                            </ng-container>
+
+                            <h4 class="cta-sheet__info-title">{{ data.wallet.publicData?.zelfName | uppercase }}</h4>
+                        </ng-container>
+
+                        <ng-container *ngIf="has15To7DaysLeft(this.expiresAt)">
+                            <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.secure_it_now") }}</p>
+
+                            <h4 class="cta-sheet__info-title">{{ t("cta_sheet.secure_it_now_title", { days: daysLeft }) }}</h4>
+                        </ng-container>
+
+                        <ng-container *ngIf="has7DaysLeft(this.expiresAt)">
+                            <p class="cta-sheet__info-pretitle" *ngIf="daysLeft">{{ t("cta_sheet.with_just_x_days_left", { days: daysLeft }) }}</p>
+
+                            <p class="cta-sheet__info-pretitle" *ngIf="!daysLeft">
+                                {{ t("cta_sheet.with_just_x_hours_left", { hours: hoursLeft }) }}
+                            </p>
+
+                            <h4 class="cta-sheet__info-title">{{ t("cta_sheet.what_do_you_think") }}</h4>
+                        </ng-container>
+
+                        <ng-container *ngIf="data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired">
+                            <ng-container *ngIf="isAvailable">
+                                <h4 class="cta-sheet__info-title">{{ data.wallet.publicData?.zelfName | uppercase }}</h4>
+
+                                <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.has_been_taken") }}</p>
+                            </ng-container>
+
+                            <ng-container *ngIf="!isAvailable">
+                                <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.good_news") }}</p>
+
+                                <h4 class="cta-sheet__info-title">{{ data.wallet.publicData?.zelfName | uppercase }}</h4>
+
+                                <h4 class="cta-sheet__info-posttitle">{{ t("cta_sheet.is_still_available") }}</h4>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="cta-sheet__info-row">
+                    <ng-container *ngIf="has30To16DaysLeft(this.expiresAt)" [ngSwitch]="data.wallet.publicData?.type">
+                        <ng-container *ngSwitchCase="'mainnet'">
+                            <p class="cta-sheet__description">{{ t("cta_sheet.resubscribe_within", { days: daysLeft }) }}</p>
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault>
+                            <p class="cta-sheet__description">{{ t("cta_sheet.complete_purchase_within", { days: daysLeft }) }}</p>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="has15To7DaysLeft(this.expiresAt)">
+                        <p class="cta-sheet__description">{{ t("cta_sheet.have_you_explored_the_benefits") }}</p>
+                    </ng-container>
+
+                    <ng-container *ngIf="has7DaysLeft(this.expiresAt)">
+                        <div (click)="toggleExpand()" class="expandable__label" [ngClass]="{ 'expandable__label--active': isExpanded }">
+                            <p class="expandable__text">{{ t("cta_sheet.yes_because") }}</p>
+
+                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.1251 6.99953L6.0051 3.11953L9.8851 6.99953C10.2751 7.38953 10.9051 7.38953 11.2951 6.99953C11.6851 6.60953 11.6851 5.97953 11.2951 5.58953L6.7051 0.999531C6.3151 0.609531 5.6851 0.609531 5.2951 0.999531L0.705098 5.58953C0.315098 5.97953 0.315098 6.60953 0.705098 6.99953C1.0951 7.37953 1.7351 7.38953 2.1251 6.99953Z"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="expandable__content" [ngClass]="{ 'expandable__content--active': isExpanded }">
+                            <div class="expandable__inner-content">
+                                <div class="considerations-item">
+                                    <p class="considerations-item-number">1</p>
+                                    <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_1") }}</p>
+                                </div>
+
+                                <div class="considerations-item">
+                                    <p class="considerations-item-number">2</p>
+                                    <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_2") }}</p>
+                                </div>
+
+                                <div class="considerations-item">
+                                    <p class="considerations-item-number">3</p>
+                                    <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_3") }}</p>
+                                </div>
+
+                                <h4 class="considerations-item__title">{{ t("cta_sheet.secure_it_now") }}</h4>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired">
+                        <p class="cta-sheet__description" *ngIf="isAvailable">{{ t("cta_sheet.but_someone_else_could_grab_it") }}</p>
+                        <p class="cta-sheet__description" *ngIf="!isAvailable">{{ t("cta_sheet.but_dont_worry_you_can_access_your_zelfproof") }}</p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="cta-sheet__actions-buttons-container">
+                <ng-container *ngIf="!data.wallet.publicData?.isFullyExpired">
+                    <button (click)="goToPayments()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+                        {{ t("common.purchase_now") }}
+                    </button>
+
+                    <button (click)="confirm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                        {{ t("common.do_it_later") }}
+                    </button>
+                </ng-container>
+
+                <ng-container *ngIf="data.wallet.publicData?.isFullyExpired">
+                    <ng-container *ngIf="isAvailable">
+                        <button (click)="goToRecovery()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+                            {{ t("cta_sheet.recover_it_now") }}
+                        </button>
+                    </ng-container>
+
+                    <ng-container *ngIf="!isAvailable">
+                        <button (click)="chooseNewZelfName()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+                            {{ t("cta_sheet.choose_new_zelfname") }}
+                        </button>
+                    </ng-container>
+
+                    <button (click)="deleteWallet()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                        {{ t("cta_sheet.i_dont_want_this_wallet") }}
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #sparkleIcon>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+            fill-rule="evenodd"
+            d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z"
+            clip-rule="evenodd"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #checkIcon>
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM7.29 14.29L3.7 10.7C3.31 10.31 3.31 9.68 3.7 9.29C4.09 8.9 4.72 8.9 5.11 9.29L8 12.17L14.88 5.29C15.27 4.9 15.9 4.9 16.29 5.29C16.68 5.68 16.68 6.31 16.29 6.7L8.7 14.29C8.32 14.68 7.68 14.68 7.29 14.29Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #alertIcon>
+    <svg viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M2.47 17.5036H17.53C19.07 17.5036 20.03 15.8336 19.26 14.5036L11.73 1.49359C10.96 0.163594 9.04 0.163594 8.27 1.49359L0.739999 14.5036C-0.0300008 15.8336 0.929999 17.5036 2.47 17.5036ZM10 10.5036C9.45 10.5036 9 10.0536 9 9.50359V7.50359C9 6.95359 9.45 6.50359 10 6.50359C10.55 6.50359 11 6.95359 11 7.50359V9.50359C11 10.0536 10.55 10.5036 10 10.5036ZM11 14.5036H9V12.5036H11V14.5036Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #timerIcon>
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M14.24 5.76C13.07 4.59 11.54 4 10 4V10L5.76 14.24C8.1 16.58 11.9 16.58 14.25 14.24C16.59 11.9 16.59 8.1 14.24 5.76ZM10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 18C5.58 18 2 14.42 2 10C2 5.58 5.58 2 10 2C14.42 2 18 5.58 18 10C18 14.42 14.42 18 10 18Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #hourglassIcon>
+    <svg viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M10 20C11.1 20 12 19.1 12 18L11.99 14.82C11.99 14.29 11.78 13.79 11.41 13.41L8 10L11.41 6.57C11.78 6.2 11.99 5.69 11.99 5.16L12 2C12 0.9 11.1 0 10 0H2C0.9 0 0 0.9 0 2V5.16C0 5.69 0.21 6.2 0.58 6.58L4 10L0.59 13.4C0.21 13.78 0 14.29 0 14.82V18C0 19.1 0.9 20 2 20H10ZM2 5.09V3C2 2.45 2.45 2 3 2H9C9.55 2 10 2.45 10 3V5.09C10 5.36 9.89 5.61 9.71 5.8L6 9.5L2.29 5.79C2.11 5.61 2 5.35 2 5.09Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #padlockIcon>
+    <svg width="16" height="22" viewBox="0 0 16 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M14 7.5H13V5.5C13 2.74 10.76 0.5 8 0.5C5.24 0.5 3 2.74 3 5.5V7.5H2C0.9 7.5 0 8.4 0 9.5V19.5C0 20.6 0.9 21.5 2 21.5H14C15.1 21.5 16 20.6 16 19.5V9.5C16 8.4 15.1 7.5 14 7.5ZM8 16.5C6.9 16.5 6 15.6 6 14.5C6 13.4 6.9 12.5 8 12.5C9.1 12.5 10 13.4 10 14.5C10 15.6 9.1 16.5 8 16.5ZM5 7.5V5.5C5 3.84 6.34 2.5 8 2.5C9.66 2.5 11 3.84 11 5.5V7.5H5Z"
+            fill="black"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #securityIcon>
+    <svg viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M7.3 0.1878L1.3 2.4378C0.52 2.7378 0 3.4778 0 4.3178V9.0278C0 14.0778 3.41 18.7878 8 19.9378C12.59 18.7878 16 14.0778 16 9.0278V4.3178C16 3.4878 15.48 2.7378 14.7 2.4478L8.7 0.1978C8.25 0.0178002 7.75 0.0178002 7.3 0.1878ZM6.23 12.7578L4.11 10.6378C3.72 10.2478 3.72 9.6178 4.11 9.2278C4.5 8.8378 5.13 8.8378 5.52 9.2278L6.93 10.6378L10.47 7.0978C10.86 6.7078 11.49 6.7078 11.88 7.0978C12.27 7.4878 12.27 8.1178 11.88 8.5078L7.64 12.7478C7.26 13.1478 6.62 13.1478 6.23 12.7578Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #hexAlertIcon>
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M12.325 0H5.68501C5.425 0 5.165 0.11 4.985 0.29L0.295005 4.98C0.115005 5.16 0.00500488 5.42 0.00500488 5.68V12.31C0.00500488 12.58 0.115005 12.83 0.295005 13.02L4.975 17.7C5.165 17.89 5.425 18 5.68501 18H12.315C12.585 18 12.835 17.89 13.025 17.71L17.705 13.03C17.895 12.84 17.995 12.59 17.995 12.32V5.68C17.995 5.41 17.885 5.16 17.705 4.97L13.025 0.29C12.845 0.11 12.585 0 12.325 0ZM9.005 14.3C8.285 14.3 7.705 13.72 7.705 13C7.705 12.28 8.285 11.7 9.005 11.7C9.72501 11.7 10.305 12.28 10.305 13C10.305 13.72 9.72501 14.3 9.005 14.3ZM9.005 10C8.455 10 8.005 9.55 8.005 9V5C8.005 4.45 8.455 4 9.005 4C9.55501 4 10.005 4.45 10.005 5V9C10.005 9.55 9.55501 10 9.005 10Z"
+        />
+    </svg>
+</ng-template>

@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "../",
+    "outDir": "build/",
+    "types": ["jasmine"]
+  },
+  "include": [
+    "tests/**/*.ts",
+    "../src/**/*.e2e.ts"
+  ]
+}

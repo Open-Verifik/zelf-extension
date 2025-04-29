@@ -3,13 +3,14 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "manage-domain",
-    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule],
+    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfNamePipe],
     templateUrl: "./manage-domain.component.html",
     styleUrls: ["./manage-domain.component.scss"],
 })

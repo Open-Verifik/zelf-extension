@@ -121,6 +121,7 @@
         "your_token_address": "귀하의 {{ name }} 주소"
     },
     "common": {
+        "days": "일",
         "12_word_phrase": "12단어 구문",
         "24_word_phrase": "24단어 구문",
         "about": "정보",
@@ -276,8 +277,9 @@
         "domain_error": "{{ zelfName }}의 시험 기간이 종료되었습니다. 이 ZelfName을 계속 사용하려면 구독을 구매해야 합니다",
         "domain_warning": "구매할 시간이 아직 남아 있습니다",
         "purchase_new_domain": "새 도메인 추가",
-        "last_wallet_logout": "이것은 마지막 지갑입니다. 계속하면 환영 페이지로 리디렉션됩니다.",
-        "logout_of_wallet_confirm": "마지막 지갑"
+        "last_wallet_logout": "이것은 마지막 지갑입니다. 이 작업을 수행하면 기기에서 ZelfProof가 제거됩니다. 복구 구문과 ZelfProof QR 코드를 백업했는지 확인하십시오. 계속하시겠습니까? 환영 페이지로 이동됩니다.",
+        "logout_of_wallet_message": "지갑에서 로그아웃하려고 합니다. 이 작업을 수행하면 기기에서 ZelfProof가 제거됩니다. 복구 구문과 ZelfProof QR 코드를 백업했는지 확인하십시오. 계속하시겠습니까?",
+        "logout_of_wallet_confirm": "지갑에서 로그아웃"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "한국어",
         "ph": "타갈로그어",
         "ru": "러시아어"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "더 이상 이 지갑이 필요하지 않아요",
+        "choose_new_zelfname": "새로운 ZelfName 선택",
+        "recover_it_now": "지금 복원",
+        "delete_wallet_title": "지갑 삭제",
+        "delete_wallet_message": "지갑을 삭제하기 전에 시드 문구와 ZelfProof QR 코드를 백업했는지 확인하세요.",
+        "yes_because": "네, 이유는:",
+        "thanks_for_subscribing": "등록해 주셔서 감사합니다",
+        "make_zelfname_yours": "{{ zelfName }}을 내 것으로 만드세요",
+        "keep_zelfname_yours": "계속 {{ zelfName }}을 내 것으로 유지하세요",
+        "love_your_zelfname": "당신의 ZelfName이 마음에 드시나요?",
+        "time_is_running_out": "시간이 얼마 남지 않았습니다",
+        "not_much_time_left": "귀하의 ZelfName은 잠시 더 예약되어 있으니 너무 오래 기다리지 마세요!",
+        "oh_no": "어머나!",
+        "thanks_for_reserving": "예약해 주셔서 감사합니다",
+        "is_no_longer_available": "은(는) 더 이상 사용할 수 없습니다",
+        "has_been_taken": "은(는) 이미 사용 중입니다",
+        "benefit_title": "ZelfName을 사용하면 다음과 같은 혜택을 누릴 수 있습니다:",
+        "benefit_1_title": "오프라인 암호화",
+        "benefit_1_subtitle": "키는 당신의 것, 통제도 당신의 것",
+        "benefit_2_title": "완전 비공개 복호화",
+        "benefit_2_subtitle": "오직 당신의 얼굴만 잠금을 해제할 수 있습니다",
+        "benefit_3_title": "중개자도, 누출도 없습니다",
+        "benefit_3_subtitle": "데이터에 대한 완전한 제어",
+        "you_have_subscribed_to": "등록하셨습니다",
+        "you_have_reserved": "예약하셨습니다",
+        "secure_it_now": "지금 확보하세요!",
+        "secure_it_now_title": "단 {{ days }}일 남았습니다",
+        "with_just_x_days_left": "단 {{ days }}일만 남았습니다",
+        "with_just_x_hours_left": "단 {{ hours }}시간만 남았습니다",
+        "what_do_you_think": "어떻게 생각하시나요? 지금 확보하시겠습니까?",
+        "is_no_longer_yours": "더 이상 당신의 것이 아닙니다. 함께 해결해 봅시다!",
+        "good_news": "좋은 소식이에요!",
+        "is_still_available": "아직 사용 가능합니다",
+        "resubscribe_within": "{{ days }}일 이내에 재등록하세요",
+        "complete_purchase_within": "{{ days }}일 이내에 구매를 완료하여 1년 동안 확보하세요",
+        "have_you_explored_the_benefits": "ZelfName과 ZkProofs의 혜택을 확인해 보셨나요?",
+        "but_someone_else_could_grab_it": "하지만 다른 사람이 가져갈 수도 있습니다! 분실 위험을 감수하거나 시드 문구를 종이에 적어두지 마세요!",
+        "but_dont_worry_you_can_access_your_zelfproof": "하지만 걱정하지 마세요. 동일한 시드 문구로 ZelfName에 접근하여 새로운 ZelfName을 예약할 수 있습니다.",
+        "considerations_description_1": "깨지지 않는 보안.",
+        "considerations_description_2": "독특한 정체성.",
+        "considerations_description_3": "미래에도 안전한 보호."
     }
 }

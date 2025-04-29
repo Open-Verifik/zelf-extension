@@ -11,5 +11,12 @@
   ],
   "include": [
     "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.e2e.ts",
+    "src/test.ts",
+    "src/testing"
   ]
 }

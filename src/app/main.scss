@@ -37,7 +37,7 @@
 }
 
 * {
-    font-family: "Poppins", sans-serif; /* Always provide a fallback */
+    font-family: "Poppins", sans-serif;
     scrollbar-width: 6px;
     scrollbar-color: variables.$taupeGray rgba(0, 0, 0, 0.05);
 
@@ -1166,24 +1166,25 @@ h3 {
 }
 
 .zelf-bottom-sheet {
-    .cdk-dialog-container {
-        color: variables.$black;
-        background-color: variables.$seaSalt !important;
+    .mat-bottom-sheet-container {
+        background-color: variables.$white !important;
         border-radius: 26px 26px 0 0 !important;
+        color: variables.$black;
+        max-height: 100vh !important;
     }
 }
 
 .zelf-dialog {
     .mdc-dialog__surface {
         color: variables.$black;
-        background-color: variables.$seaSalt !important;
+        background-color: variables.$white !important;
         border-radius: 26px !important;
     }
 }
 
 .zelf-snackbar {
     .mdc-snackbar__surface {
-        background-color: variables.$seaSalt !important;
+        background-color: variables.$white !important;
         border-radius: 14px !important;
         overflow: hidden;
 

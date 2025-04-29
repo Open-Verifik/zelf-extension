@@ -60,7 +60,11 @@ export class WalletService {
         wallet: null,
     };
 
-    constructor(private _httpWrapper: HttpWrapperService, private _breakpointObserver: BreakpointObserver, private _chromeService: ChromeService) {
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _breakpointObserver: BreakpointObserver,
+        private _chromeService: ChromeService
+    ) {
         this.deviceData = this.getDeviceDetails();
         this._userFingerPrint = this.getUserFingerprint();
 
@@ -488,7 +492,7 @@ export class WalletService {
     }
 
     async getAllWalletsFromStorage(): Promise<{ wallet: Partial<WalletModel> | null; wallets: WalletModel[] }> {
-        const wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+        const wallet = new WalletModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
         const wallets = await this.getWalletsFromStorage();
 
         if (!wallet?.ethAddress) {
@@ -502,7 +506,7 @@ export class WalletService {
     }
 
     async getCurrentWallet(): Promise<Partial<WalletModel> | null> {
-        let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+        let wallet = new WalletModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
 
         if (wallet?.ethAddress) wallet = new WalletModel(wallet);
 
@@ -510,7 +514,7 @@ export class WalletService {
     }
 
     async getFirstWalletFromStorage(): Promise<Partial<WalletModel> | null> {
-        let wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+        let wallet = new WalletModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
 
         if (wallet?.ethAddress) wallet = new WalletModel(wallet);
         else {
@@ -520,7 +524,7 @@ export class WalletService {
 
             const shiftedWallet = wallets.shift();
 
-            wallet = shiftedWallet || {};
+            wallet = new WalletModel(shiftedWallet || {});
 
             this._chromeService.setItem("wallet", wallet);
             this._chromeService.setItem("wallets", wallets);
@@ -573,14 +577,14 @@ export class WalletService {
         await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
     }
 
-    async logoutOfWallet(walletToRemove: WalletModel): Promise<boolean> {
+    async checkIfLastWallet(): Promise<boolean> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
-        let isLastWallet = true;
+        return !currentWallet?.ethAddress && !wallets.length;
+    }
 
-        if (!wallets.length) return isLastWallet;
-
-        isLastWallet = false;
+    async logoutOfWallet(walletToRemove: WalletModel): Promise<void> {
+        const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
         if (currentWallet?.publicData?.zelfName === walletToRemove.publicData.zelfName) {
             await this._chromeService.removeItem("wallet");
@@ -594,8 +598,6 @@ export class WalletService {
 
             this._chromeService.setItem("wallets", newWallets);
         }
-
-        return isLastWallet;
     }
 
     async setWalletsToColdStorage(): Promise<void> {

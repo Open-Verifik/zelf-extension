@@ -48,7 +48,7 @@
         "domain_or_address": "النطاق أو العنوان",
         "external_address_found": "تم العثور على عنوان خارجي",
         "recently_used": "تم استخدامه مؤخرًا",
-        "used": "تم استخدامه منذ {{days}} يومًا",
+        "used": "تم استخدامه منذ {{days}} أيام",
         "withdrawal_amount": "مبلغ السحب",
         "zelf_name_not_registered": "اسم زيلف غير مسجل",
         "zelf_name_registered": "اسم زيلف مسجل"
@@ -121,6 +121,7 @@
         "your_token_address": "عنوان {{ name }} الخاص بك"
     },
     "common": {
+        "days": "أيام",
         "12_word_phrase": "عبارة من 12 كلمة",
         "24_word_phrase": "عبارة من 24 كلمة",
         "about": "حول",
@@ -276,8 +277,9 @@
         "domain_error": "انتهت فترة تجربة {{ zelfName }}، تحتاج إلى شراء اشتراك لمواصلة استخدام هذا ZelfName",
         "domain_warning": "لا يزال لديك وقت للشراء",
         "purchase_new_domain": "إضافة نطاق جديد",
-        "last_wallet_logout": "هذه هي المحفظة الأخيرة. إذا تابعت، سيتم إعادة توجيهك إلى صفحة الترحيب.",
-        "logout_of_wallet_confirm": "آخر محفظة"
+        "last_wallet_logout": "هذه هي المحفظة الأخيرة. سيتم إزالة ZelfProof من الجهاز. تأكد من أن لديك نسخة احتياطية من عبارة الاسترداد ورمز QR للمحفظة. هل أنت متأكد أنك تريد المتابعة؟ سيتم توجيهك إلى الصفحة الرئيسية.",
+        "logout_of_wallet_message": "أنت على وشك إنشاء زيلف بروف الخاص بك، والذي سيقوم بتشفير عبارات الاسترداد الخاصة بك بأمان. اتبع الخطوات أدناه لضمان سير العملية بسلاسة وفعالية.",
+        "logout_of_wallet_confirm": "إنشاء زيلف بروف"
     },
     "create_wallet": {
         "password_step": {
@@ -533,5 +535,48 @@
         "kr": "الكورية",
         "ph": "التاغالوغية",
         "ru": "الروسية"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "لا أريد هذه المحفظة بعد الآن",
+        "choose_new_zelfname": "اختر اسم زيلف جديد",
+        "recover_it_now": "استرجعها الآن",
+        "delete_wallet_title": "حذف المحفظة",
+        "delete_wallet_message": "قبل حذف محفظتك، تأكد من قيامك بعمل نسخة احتياطية لعبارة الاسترداد ورمز QR الخاص بزيلف بروف.",
+        "yes_because": "نعم، لأن:",
+        "thanks_for_subscribing": "شكرًا لاشتراكك",
+        "make_zelfname_yours": "اجعل {{ zelfName }} اسمك",
+        "keep_zelfname_yours": "احتفظ بـ{{ zelfName }} كاسمك",
+        "love_your_zelfname": "هل تحب اسم زيلف الخاص بك؟",
+        "time_is_running_out": "الوقت ينفد",
+        "not_much_time_left": "اسم زيلف الخاص بك محجوز لبضعة أيام إضافية، لكن لا تنتظر طويلاً!",
+        "oh_no": "أوه لا!",
+        "thanks_for_reserving": "شكرًا على الحجز",
+        "is_no_longer_available": "لم يعد متاحًا",
+        "has_been_taken": "تم حجزه",
+        "benefit_title": "مع اسم زيلف الخاص بك، ستحصل على:",
+        "benefit_1_title": "التشفير في وضع عدم الاتصال",
+        "benefit_1_subtitle": "مفاتيحك، تحكمك",
+        "benefit_2_title": "فك التشفير شديد الخصوصية",
+        "benefit_2_subtitle": "لا يفتحه إلا وجهك",
+        "benefit_3_title": "لا وسطاء، لا تسريبات",
+        "benefit_3_subtitle": "التحكم الكامل في بياناتك",
+        "you_have_subscribed_to": "لقد اشتركت في",
+        "you_have_reserved": "لقد حجزت",
+        "secure_it_now": "أمّن اسمك الآن!",
+        "secure_it_now_title": "تبقى {{ days }} يومًا فقط",
+        "with_just_x_days_left": "تبقى {{ days }} أيام فقط",
+        "with_just_x_hours_left": "تبقى {{ hours }} ساعات فقط",
+        "what_do_you_think": "ما رأيك؟ هل تريد تأمين اسمك الآن؟",
+        "is_no_longer_yours": "لم يعد ملكك، دعنا نصلح هذا!",
+        "good_news": "خبر سار!",
+        "is_still_available": "لا يزال متاحًا",
+        "resubscribe_within": "أعد الاشتراك خلال {{ days }} يومًا",
+        "complete_purchase_within": "أكمل الشراء خلال {{ days }} يومًا لتأمينه لمدة سنة واحدة",
+        "have_you_explored_the_benefits": "هل استكشفت فوائد اسم زيلف الخاص بك و ZkProofs؟",
+        "but_someone_else_could_grab_it": "لكن قد يحجزه شخص آخر! لا تخاطر بفقدانه أو بكتابة عبارات الاسترداد على الورق!",
+        "but_dont_worry_you_can_access_your_zelfproof": "لكن لا تقلق، يمكنك الوصول إلى اسم زيلف الخاص بك وحجز اسم زيلف جديد باستخدام نفس عبارة الاسترداد.",
+        "considerations_description_1": "أمان لا يُخترق.",
+        "considerations_description_2": "هوية فريدة.",
+        "considerations_description_3": "حماية تواكب المستقبل."
     }
 }

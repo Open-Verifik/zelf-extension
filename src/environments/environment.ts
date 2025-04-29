@@ -26,4 +26,7 @@ export const environment = {
     solanaRpc: {
         mainnet: "https://flashy-ultra-choice.solana-mainnet.quiknode.pro/dfa09ac3f7fe0fca5ac6cd762ec0d3a0db52712c/",
     },
+    lifiApi: {
+        url: "https://api.lifi.io/v1",
+    },
 };

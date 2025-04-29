@@ -39,4 +39,19 @@ export class NetworkService {
 
         return tokens.find((token: any) => token.name.toLowerCase() === network);
     }
+
+    getChainId(network: string): number {
+        switch (network.toLowerCase()) {
+            case "ethereum":
+                return 1;
+            case "avalanche":
+                return 43114;
+            case "solana":
+                return 1399811149;
+            case "sui":
+                return 784;
+            default:
+                return 1;
+        }
+    }
 }

@@ -7,12 +7,20 @@ import { environment } from "environments/environment";
 
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { Transaction, WalletModel } from "app/wallet";
+import { EthereumService } from "../eth.service";
+import { SolanaService } from "../solana.service";
+import { SuiService } from "./sui.service";
 
 @Injectable({
     providedIn: "root",
 })
 export class BlockchainTransactionsService {
-    constructor(private _httpWrapperService: HttpWrapperService) {}
+    constructor(
+        private _httpWrapperService: HttpWrapperService,
+        private _ethereumService: EthereumService,
+        private _solanaService: SolanaService,
+        private _suiService: SuiService
+    ) {}
 
     getAddressData(wallet: Partial<WalletModel> | null): Observable<any> {
         if (!wallet) return of([]);
@@ -102,5 +110,76 @@ export class BlockchainTransactionsService {
         }
 
         return transactions;
+    }
+
+    /**
+     * Send a transaction on the appropriate blockchain based on network
+     * @param txParams Transaction parameters including network, from, to, data, value
+     * @returns Transaction hash or receipt
+     */
+    async sendTransaction(txParams: {
+        from: string;
+        to: string;
+        data?: string;
+        value?: string;
+        chainId?: number;
+        network?: string;
+        privateKey?: string;
+        mnemonic?: string;
+        tokenAddress?: string;
+    }): Promise<string> {
+        const network = txParams.network?.toLowerCase() || "ethereum";
+
+        switch (network) {
+            case "ethereum":
+            case "avalanche":
+                if (!txParams.privateKey) {
+                    throw new Error("Private key is required for Ethereum/Avalanche transactions");
+                }
+
+                if (txParams.tokenAddress) {
+                    // ERC20 transfer
+                    const result = await this._ethereumService.sendERC20Transaction(
+                        txParams.value || "0",
+                        txParams.privateKey,
+                        txParams.to,
+                        txParams.tokenAddress,
+                        network
+                    );
+                    return result.transactionHash || result.hash;
+                } else {
+                    // Native token transfer
+                    const result = await this._ethereumService.sendTransaction(txParams.value || "0", txParams.privateKey, txParams.to, network);
+                    return result.transactionHash || result.hash;
+                }
+
+            case "solana":
+                if (!txParams.mnemonic) {
+                    throw new Error("Mnemonic is required for Solana transactions");
+                }
+
+                return this._solanaService.sendTokens(txParams.mnemonic, txParams.to, txParams.tokenAddress || "", parseFloat(txParams.value || "0"));
+
+            case "sui":
+                if (!txParams.mnemonic) {
+                    throw new Error("Mnemonic is required for Sui transactions");
+                }
+
+                if (txParams.tokenAddress) {
+                    const result = await this._suiService.transferToken(
+                        txParams.mnemonic,
+                        txParams.to,
+                        txParams.tokenAddress,
+                        parseFloat(txParams.value || "0")
+                    );
+                    return result.transactionHash;
+                } else {
+                    const result = await this._suiService.transferSui(txParams.mnemonic, txParams.to, parseFloat(txParams.value || "0"));
+                    return result.transactionHash;
+                }
+
+            default:
+                throw new Error(`Unsupported network: ${network}`);
+        }
     }
 }

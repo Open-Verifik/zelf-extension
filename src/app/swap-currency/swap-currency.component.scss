@@ -1,5 +1,5 @@
-@import "../../styles/_variables.scss";
-@import "../../styles/_buttons.scss";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     display: flex;
@@ -31,7 +31,7 @@
     }
 
     &__search-icon {
-        color: $gray;
+        color: variables.$gray;
         margin-right: 24px;
         display: flex;
         align-items: center;
@@ -40,7 +40,7 @@
         svg {
             width: 24px;
             height: 24px;
-            fill: $gray;
+            fill: variables.$gray;
         }
     }
 
@@ -89,14 +89,14 @@
         max-height: 72px;
         border-radius: 16px;
         box-sizing: border-box;
-        transition: background-color 0.2s $smoothBezier;
+        transition: background-color 0.2s variables.$smoothBezier;
 
         &:hover {
-            background-color: $antiFlashWhite;
+            background-color: variables.$antiFlashWhite;
         }
 
         &--selected {
-            background-color: $antiFlashWhite;
+            background-color: variables.$antiFlashWhite;
         }
     }
 
@@ -138,7 +138,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         display: inline-flex;
         align-items: center;
@@ -152,7 +152,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
     }
 
@@ -162,7 +162,7 @@
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
-        color: $black;
+        color: variables.$black;
         margin: 0;
         text-align: right;
     }
@@ -173,7 +173,7 @@
         font-size: 12px;
         line-height: 18px;
         letter-spacing: 0.1px;
-        color: $gray;
+        color: variables.$gray;
         margin: 0;
         text-align: right;
     }

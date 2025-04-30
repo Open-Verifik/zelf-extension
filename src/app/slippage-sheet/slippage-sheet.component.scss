@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/buttons";
+@use "../../styles/variables";
+@use "../../styles/buttons";
 
 :host {
     position: relative;
@@ -31,11 +31,11 @@
         border: none;
         border-radius: 9999px;
         background-color: transparent;
-        transition: color 0.3s $smoothBezier, background-color 0.3s $smoothBezier;
+        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
 
         svg {
-            transition: fill 0.3s $smoothBezier;
-            fill: $black;
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
         }
 
         &:hover {
@@ -69,7 +69,7 @@
         padding: 16px;
         margin-bottom: 12px;
         border-radius: 16px;
-        border: 1px solid $frenchGray;
+        border: 1px solid variables.$frenchGray;
     }
 
     &__switch-container {
@@ -93,7 +93,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: $black;
+        color: variables.$black;
         margin: 0;
     }
 
@@ -116,8 +116,8 @@
         position: relative;
         width: 46px;
         height: 26px;
-        background-color: $seaSalt;
-        border: 2px solid $gray;
+        background-color: variables.$seaSalt;
+        border: 2px solid variables.$gray;
         border-radius: 14px;
         transition: all 0.3s ease;
         display: flex;
@@ -129,19 +129,19 @@
         left: 5px;
         height: 16px;
         width: 16px;
-        background-color: $gray;
+        background-color: variables.$gray;
         border-radius: 50%;
         transition: all 0.3s ease;
     }
 
     &__switch-input:checked + &__switch-track {
-        background-color: $black;
-        border-color: $black;
+        background-color: variables.$black;
+        border-color: variables.$black;
     }
 
     &__switch-input:checked + &__switch-track &__switch-thumb {
         left: calc(100% - 23px);
-        background-color: $white;
+        background-color: variables.$white;
         width: 20px;
         height: 20px;
     }
@@ -150,16 +150,16 @@
         font-size: 14px;
         font-weight: 600;
         margin: 0;
-        color: $taupeGray;
+        color: variables.$taupeGray;
 
         &--active {
-            color: $black;
+            color: variables.$black;
         }
     }
 
     &__icon {
         margin-top: 28px;
-        fill: $black;
+        fill: variables.$black;
     }
 
     &__title {
@@ -177,7 +177,7 @@
     &__text {
         font-size: 14px;
         margin: 0;
-        color: $gray;
+        color: variables.$gray;
     }
 
     &__actions {
@@ -217,7 +217,7 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: $black;
+        color: variables.$black;
     }
 
     &__slider-input-container {
@@ -229,7 +229,7 @@
         gap: 12px;
         height: 32px;
         border-radius: 32px;
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         padding: 0 8px;
     }
 
@@ -237,7 +237,7 @@
         text-align: right;
         font-weight: 500;
         font-size: 14px;
-        background-color: $antiFlashWhite;
+        background-color: variables.$antiFlashWhite;
         border-radius: 12px;
         padding: 0 8px;
         height: 32px;
@@ -269,7 +269,7 @@
     &__slider-dot {
         width: 4px;
         height: 4px;
-        background-color: $white;
+        background-color: variables.$white;
         opacity: 0.2;
         border-radius: 50%;
         z-index: 1;
@@ -281,14 +281,14 @@
         width: 100%;
         height: 16px;
         border-radius: 20px;
-        background: $antiFlashWhite;
+        background: variables.$antiFlashWhite;
         outline: none;
         position: relative;
         margin: 0;
         z-index: 2;
 
         &::-webkit-slider-runnable-track {
-            background: linear-gradient(to right, $gray var(--progress, 0%), transparent var(--progress, 0%));
+            background: linear-gradient(to right, variables.$gray var(--progress, 0%), transparent var(--progress, 0%));
             border-radius: 20px;
             height: 16px;
             width: 100%;
@@ -298,9 +298,9 @@
             box-sizing: content-box;
             -webkit-appearance: none;
             appearance: none;
-            background: $white;
+            background: variables.$white;
             border-radius: 20px;
-            border: 6px solid $gray;
+            border: 6px solid variables.$gray;
             box-shadow: none;
             cursor: pointer;
             height: 8px;
@@ -311,14 +311,14 @@
         }
 
         &::-moz-range-track {
-            background: linear-gradient(to right, $gray var(--progress, 0%), transparent var(--progress, 0%));
+            background: linear-gradient(to right, variables.$gray var(--progress, 0%), transparent var(--progress, 0%));
             border-radius: 20px;
             height: 16px;
             width: 100%;
         }
 
         &::-moz-range-progress {
-            background-color: $gray;
+            background-color: variables.$gray;
             border-radius: 20px;
             height: 16px;
         }
@@ -326,9 +326,9 @@
         &::-moz-range-thumb {
             box-sizing: content-box;
             margin-top: -3px;
-            background: $white;
+            background: variables.$white;
             border-radius: 50%;
-            border: 6px solid $gray;
+            border: 6px solid variables.$gray;
             box-shadow: none;
             cursor: pointer;
             height: 8px;
@@ -352,7 +352,7 @@
     }
 
     &__input-postfix {
-        color: $black;
+        color: variables.$black;
         margin-right: 16px;
     }
 }

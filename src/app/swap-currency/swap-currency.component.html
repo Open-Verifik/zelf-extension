@@ -31,20 +31,26 @@
         </div>
     </div>
 
-    <div class="swap-currency__assets">
+    <div #assetsContainer class="swap-currency__assets" (scroll)="onScroll($event)">
         <div
             (click)="selectAsset(asset)"
             [ngClass]="{ 'swap-currency__asset--selected': asset.name === selectedAsset.name }"
-            *ngFor="let asset of filteredAssets"
+            *ngFor="let asset of displayedAssets"
             class="swap-currency__asset"
             md-ripple
         >
-            <div class="swap-currency__asset-info">
-                <img [src]="getAssetImage(asset.symbol)" [alt]="asset.symbol" class="swap-currency__asset-image" />
+            <div class="swap-currency__asset-info swap-currency__asset-info--left">
+                <img
+                    (error)="onImageError(asset)"
+                    [alt]="asset.symbol"
+                    [src]="getAssetImage(asset) || 'assets/icons/placeholder-coin.png'"
+                    class="swap-currency__asset-image"
+                />
 
                 <div class="swap-currency__asset-col">
                     <p class="swap-currency__asset-name">
-                        {{ asset.name }} <span class="zelf-chip zelf-chip--pill">{{ asset.network }}</span>
+                        <span class="swap-currency__asset-name-text">{{ asset.name }}</span>
+                        <span class="zelf-chip zelf-chip--pill">{{ asset.network }}</span>
                     </p>
 
                     <p class="swap-currency__asset-symbol">{{ asset.symbol }}</p>

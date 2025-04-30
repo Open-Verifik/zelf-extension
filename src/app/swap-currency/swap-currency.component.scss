@@ -102,13 +102,18 @@
 
     &__asset-info {
         display: flex;
-        width: 100%;
         gap: 8px;
         align-items: center;
-        flex: 1 1 auto;
+
+        &--left {
+            justify-content: flex-start;
+            flex: 1 1 auto;
+            width: 100%;
+        }
 
         &--right {
             justify-content: flex-end;
+            flex: 0 0 auto;
         }
     }
 
@@ -125,8 +130,10 @@
     &__asset-image {
         width: 32px;
         height: 32px;
+        min-width: 32px;
+        min-height: 32px;
         border-radius: 32px;
-        object-fit: cover;
+        object-fit: contain;
         overflow: hidden;
     }
 
@@ -136,13 +143,20 @@
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
-        text-align: center;
+        text-align: left;
         vertical-align: middle;
         color: variables.$black;
         margin: 0;
         display: inline-flex;
         align-items: center;
         gap: 8px;
+    }
+
+    &__asset-name-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 240px;
     }
 
     &__asset-symbol {

@@ -78,6 +78,10 @@ export class LifiService {
         return this._http.get(`${this.LIFI_API_URL}/tools`);
     }
 
+    requestTokens(): Promise<any> {
+        return firstValueFrom(this._http.get(`${this.LIFI_API_URL}/tokens`));
+    }
+
     getTokens(): Observable<any> {
         const chains = ["eth", "avax", "sol", "sui"];
         const requests: Observable<any>[] = [];
@@ -268,7 +272,14 @@ export class LifiService {
             console.log("Sending transaction with params:", tx);
 
             const transaction = await signer.sendTransaction(tx);
-            return transaction.wait();
+
+            try {
+                const receipt = await transaction.wait();
+
+                return { ...(receipt || {}), transactionHash: receipt?.hash || transaction?.hash };
+            } catch (error) {
+                return { ...transaction, transactionHash: transaction.hash };
+            }
         } catch (error) {
             console.error("Detailed swap execution error:", error);
             throw error;
@@ -342,7 +353,14 @@ export class LifiService {
             };
 
             const transaction = await signer.sendTransaction(tx);
-            return transaction.wait();
+
+            try {
+                const receipt = await transaction.wait();
+
+                return { ...(receipt || {}), transactionHash: receipt?.hash || transaction?.hash };
+            } catch (error) {
+                return { ...transaction, transactionHash: transaction.hash };
+            }
         } catch (error) {
             console.error("Error sending transaction:", error);
             throw error;
@@ -350,10 +368,9 @@ export class LifiService {
     }
 
     getTokenImage(token: TokenData): string {
-        if (token.image?.startsWith("http")) {
-            return token.image;
-        }
-        return `/assets/images/default-token.png`;
+        if (token.image?.startsWith("http")) return token.image;
+
+        return `assets/icons/placeholder-coin.png`;
     }
 
     getTokenAddress(network: string, symbol: string): string {

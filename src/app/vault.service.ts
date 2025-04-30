@@ -86,4 +86,19 @@ export class VaultService {
             throw error;
         }
     }
+
+    async getWallet(): Promise<any> {
+        if (!this.password) {
+            throw new Error("Password not set");
+        }
+
+        const wallet = await this._walletService.getCurrentWallet();
+        if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) {
+            throw new Error("No wallet available");
+        }
+
+        const decryptedData = await this.decryptMessage(wallet.pgp.encryptedMessage, wallet.pgp.privateKey, this.password);
+
+        return JSON.parse(decryptedData);
+    }
 }

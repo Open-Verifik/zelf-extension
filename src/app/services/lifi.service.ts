@@ -8,11 +8,53 @@ import { EthereumService } from "app/eth.service";
 import Web3 from "web3";
 import { ethers } from "ethers";
 
+interface TransactionParams {
+    from: string;
+    to: string;
+    data: string;
+    value: string;
+    gasLimit: string;
+    gasPrice?: string;
+    maxFeePerGas?: string;
+    maxPriorityFeePerGas?: string;
+}
+
+interface SwapTx {
+    from: string;
+    to: string;
+    data: string;
+    value: string;
+    gasPrice: string;
+    gas?: string;
+}
+
 @Injectable({
     providedIn: "root",
 })
 export class LifiService {
-    private readonly _API_URL = "https://li.quest/v1";
+    private readonly _lifiApiUrl = "https://li.quest/v1";
+    private readonly ERC20_ABI = [
+        {
+            name: "approve",
+            inputs: [
+                { name: "spender", type: "address" },
+                { name: "amount", type: "uint256" },
+            ],
+            outputs: [{ name: "", type: "bool" }],
+            stateMutability: "nonpayable",
+            type: "function",
+        },
+        {
+            name: "allowance",
+            inputs: [
+                { name: "owner", type: "address" },
+                { name: "spender", type: "address" },
+            ],
+            outputs: [{ name: "amount", type: "uint256" }],
+            stateMutability: "view",
+            type: "function",
+        },
+    ];
 
     private readonly CHAIN_MAPPINGS: Record<string, string> = {
         ethereum: "eth",
@@ -24,16 +66,16 @@ export class LifiService {
 
     constructor(private _http: HttpClient, private _ethService: EthereumService) {}
 
-    get API_URL(): string {
-        return this._API_URL;
+    get LIFI_API_URL(): string {
+        return this._lifiApiUrl;
     }
 
     getChains(): Observable<any> {
-        return this._http.get(`${this.API_URL}/chains`);
+        return this._http.get(`${this.LIFI_API_URL}/chains`);
     }
 
     getTools(): Observable<any> {
-        return this._http.get(`${this.API_URL}/tools`);
+        return this._http.get(`${this.LIFI_API_URL}/tools`);
     }
 
     getTokens(): Observable<any> {
@@ -42,7 +84,7 @@ export class LifiService {
 
         chains.forEach((chain) => {
             requests.push(
-                this._http.get(`${this.API_URL}/tokens?chain=${chain}`).pipe(
+                this._http.get(`${this.LIFI_API_URL}/tokens?chain=${chain}`).pipe(
                     catchError((err) => {
                         console.warn(`Failed to fetch tokens for chain ${chain}:`, err);
                         return of(null);
@@ -71,18 +113,11 @@ export class LifiService {
     }
 
     getConnections(): Observable<any> {
-        return this._http.get(`${this.API_URL}/connections`);
+        return this._http.get(`${this.LIFI_API_URL}/connections`);
     }
 
     /**
      * Get a quote for swapping tokens
-     * @param fromChain Source chain
-     * @param fromToken Source token address
-     * @param toChain Target chain
-     * @param toToken Target token address
-     * @param fromAmount Amount to swap in smallest unit
-     * @param fromAddress Sender's address
-     * @param slippage Slippage tolerance percentage
      */
     getQuote(
         fromChain: number,
@@ -91,9 +126,9 @@ export class LifiService {
         toToken: string,
         fromAmount: string,
         fromAddress: string,
-        slippage: number
+        slippage: number = 3
     ): Observable<any> {
-        return this._http.get<any>(`${this._API_URL}/quote`, {
+        return this._http.get<any>(`${this.LIFI_API_URL}/quote`, {
             params: {
                 fromChain: fromChain.toString(),
                 fromToken,
@@ -107,21 +142,12 @@ export class LifiService {
     }
 
     /**
-     * Get transaction status
-     * @param bridge Bridge name
-     * @param fromChain Source chain
-     * @param toChain Target chain
-     * @param txHash Transaction hash
+     * Check transaction status
      */
     getStatus(bridge: string, fromChain: string, toChain: string, txHash: string): Observable<any> {
-        const params = {
-            bridge,
-            fromChain,
-            toChain,
-            txHash,
-        };
-
-        return this._http.get(`${this.API_URL}/status`, { params });
+        return this._http.get(`${this.LIFI_API_URL}/status`, {
+            params: { bridge, fromChain, toChain, txHash },
+        });
     }
 
     getChainIdentifier(network: string): number {
@@ -138,8 +164,6 @@ export class LifiService {
             matic: 137,
             binance: 56,
             bsc: 56,
-            arbitrum: 42161,
-            arb: 42161,
         };
 
         const chainId = chainIds[network.toLowerCase()];
@@ -162,20 +186,20 @@ export class LifiService {
     }
 
     getToken(chainId: string, tokenAddress: string): Observable<any> {
-        return this._http.get(`${this.API_URL}/token?chain=${chainId}&token=${tokenAddress}`);
+        return this._http.get(`${this.LIFI_API_URL}/token?chain=${chainId}&token=${tokenAddress}`);
     }
 
     trackTransaction(txHash: string, fromChain: string, toChain: string): Observable<any> {
         const fromChainId = this.getChainIdentifier(fromChain);
         const toChainId = this.getChainIdentifier(toChain);
 
-        return this._http.get(`${this.API_URL}/status?txHash=${txHash}&fromChain=${fromChainId}&toChain=${toChainId}`);
+        return this._http.get(`${this.LIFI_API_URL}/status?txHash=${txHash}&fromChain=${fromChainId}&toChain=${toChainId}`);
     }
 
     getTokensForNetworks(networks: string[]): Observable<any> {
         return forkJoin(
             networks.map((network) =>
-                this._http.get(`${this.API_URL}/tokens?chain=${this.CHAIN_MAPPINGS[network]}`).pipe(
+                this._http.get(`${this.LIFI_API_URL}/tokens?chain=${this.CHAIN_MAPPINGS[network]}`).pipe(
                     catchError((error) => {
                         console.error(`Error fetching tokens for ${network}:`, error);
                         return of([]);
@@ -192,53 +216,144 @@ export class LifiService {
         );
     }
 
-    async executeSwap(swapData: any): Promise<any> {
+    /**
+     * Execute a swap transaction
+     */
+    async executeSwap(quote: any, wallet: any): Promise<any> {
         try {
-            const quote = await firstValueFrom(
-                this.getQuote(
-                    swapData.fromChainId,
-                    swapData.fromToken.contractAddress,
-                    swapData.toChainId,
-                    swapData.toToken.contractAddress,
-                    swapData.fromAmount,
-                    this._getWalletAddress(swapData.fromToken.network),
-                    0.5
-                )
-            );
+            const provider = new ethers.JsonRpcProvider(this.getNetworkRPC(quote.action.fromChainId));
+            const signer = new ethers.Wallet(wallet.privateKey, provider);
 
-            const response = await firstValueFrom(
-                this._http.post(`${this.API_URL}/execute`, {
-                    route: quote,
-                    fromAddress: this._getWalletAddress(swapData.fromToken.network),
-                })
-            );
-            return response;
+            const NATIVE_TOKEN_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
+            const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+
+            const isFromNative =
+                quote.action.fromToken.address.toLowerCase() === NATIVE_TOKEN_ADDRESS.toLowerCase() ||
+                quote.action.fromToken.address.toLowerCase() === ZERO_ADDRESS.toLowerCase();
+
+            console.log("Swap details:", {
+                fromToken: quote.action.fromToken.address,
+                isFromNative,
+                value: quote.transactionRequest.value,
+                fromTokenSymbol: quote.action.fromToken.symbol,
+            });
+
+            const feeData = await provider.getFeeData();
+            const nonce = await provider.getTransactionCount(signer.address);
+
+            const tx = {
+                to: quote.transactionRequest.to,
+                data: quote.transactionRequest.data,
+                nonce: nonce,
+                value: isFromNative ? quote.transactionRequest.value : "0",
+                maxFeePerGas: feeData.maxFeePerGas,
+                maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+                gasLimit: ethers.parseUnits("800000", "wei"),
+            };
+
+            if (!isFromNative) {
+                console.log("Checking allowance for non-native token");
+                await this.checkAndSetAllowance(
+                    quote.action.fromToken.address,
+                    quote.estimate.approvalAddress,
+                    quote.action.fromAmount,
+                    wallet.address,
+                    wallet.privateKey,
+                    quote.action.fromChainId.toString()
+                );
+            } else {
+                console.log("Skipping allowance check for native token");
+            }
+
+            console.log("Sending transaction with params:", tx);
+
+            const transaction = await signer.sendTransaction(tx);
+            return transaction.wait();
         } catch (error) {
-            console.error("Error executing swap:", error);
+            console.error("Detailed swap execution error:", error);
             throw error;
         }
     }
 
-    private _getWalletAddress(network: string): string {
-        return "";
+    private async checkAndSetAllowance(
+        tokenAddress: string,
+        spender: string,
+        amount: string,
+        owner: string,
+        privateKey: string,
+        network: string
+    ): Promise<void> {
+        try {
+            const provider = new ethers.JsonRpcProvider(this.getNetworkRPC(network));
+            const signer = new ethers.Wallet(privateKey, provider);
+            const contract = new ethers.Contract(tokenAddress, this.ERC20_ABI, signer);
+
+            const currentAllowance = await contract.allowance.staticCall(owner, spender);
+
+            if (BigInt(currentAllowance.toString()) < BigInt(amount)) {
+                const feeData = await provider.getFeeData();
+                const tx = await contract.approve(spender, amount, {
+                    gasLimit: ethers.parseUnits("200000", "wei"),
+                    maxFeePerGas: feeData.maxFeePerGas,
+                    maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+                });
+                await tx.wait();
+            }
+        } catch (error) {
+            console.error("Error in checkAndSetAllowance:", error);
+            throw error;
+        }
+    }
+
+    private getNetworkRPC(chainId: string | number): string {
+        const networkMappings: { [key: string]: string } = {
+            "1": environment.ethereumRpc.mainnet,
+            "137": environment.polygonRpc.mainnet,
+
+            "43114": environment.avalancheRpc.mainnet,
+        };
+
+        const rpc = networkMappings[chainId.toString()];
+        if (!rpc) {
+            throw new Error(`Unsupported network: ${chainId}`);
+        }
+        return rpc;
+    }
+
+    async sendTransaction(params: any): Promise<any> {
+        try {
+            const provider = new ethers.JsonRpcProvider(params.network);
+            const signer = new ethers.Wallet(params.privateKey, provider);
+
+            const gasEstimate = await provider.estimateGas({
+                to: params.to,
+                data: params.data,
+                value: params.value,
+            });
+
+            const feeData = await provider.getFeeData();
+            const tx = {
+                to: params.to,
+                data: params.data,
+                value: params.value,
+                gasLimit: ethers.parseUnits(Math.floor(Number(gasEstimate) * 1.2).toString(), "wei"),
+                maxFeePerGas: feeData.maxFeePerGas,
+                maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+            };
+
+            const transaction = await signer.sendTransaction(tx);
+            return transaction.wait();
+        } catch (error) {
+            console.error("Error sending transaction:", error);
+            throw error;
+        }
     }
 
     getTokenImage(token: TokenData): string {
-        if (token.image && token.image.startsWith("http") && !token.image.includes("monerium.app") && !token.image.includes("onbons.ai")) {
+        if (token.image?.startsWith("http")) {
             return token.image;
         }
-
-        const trustWalletUrl = token.contractAddress
-            ? `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${token.contractAddress}/logo.png`
-            : null;
-
-        const fallbackUrls = [
-            trustWalletUrl,
-            `https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/128/color/${token.symbol.toLowerCase()}.png`,
-            "/assets/images/default-token.png",
-        ].filter((url) => url !== null);
-
-        return fallbackUrls[0] || "/assets/images/default-token.png";
+        return `/assets/images/default-token.png`;
     }
 
     getTokenAddress(network: string, symbol: string): string {
@@ -266,279 +381,201 @@ export class LifiService {
         }
     }
 
-    private getNetworkRPC(network: string): string {
-        const rpcs: { [key: string]: string } = {
-            ethereum: environment.networks.ethereum,
-            avalanche: environment.networks.avalanche,
-        };
-
-        console.log("Getting RPC for network:", network);
-        return rpcs[network.toLowerCase()] || rpcs.avalanche;
-    }
-
     /**
-     * Send a transaction for a swap
-     * @param params Transaction parameters
-     * @returns Transaction receipt
+     * Get a swap quote from Li.Fi API with simplified parameters
      */
-    async sendTransaction(params: any): Promise<any> {
+    async getSwapQuote(
+        fromChain: string,
+        fromToken: string,
+        toChain: string,
+        toToken: string,
+        fromAmount: string,
+        fromAddress: string,
+        slippage: number = 3
+    ): Promise<any> {
         try {
-            console.log("Transaction parameters received:", params);
+            console.log("Getting swap quote with params:", {
+                fromChain,
+                fromToken,
+                toChain,
+                toToken,
+                fromAmount,
+                fromAddress,
+                slippage,
+            });
 
-            let txRequest;
-            if (params.transactionRequest) {
-                txRequest = params.transactionRequest;
-            } else if (params.data && params.to) {
-                txRequest = {
-                    to: params.to,
-                    data: params.data,
-                    value: params.value || "0x0",
-                    gasLimit: params.gasLimit || "300000",
-                    gasPrice: params.gasPrice,
-                    chainId: this.getChainIdentifier(params.network),
-                };
-            } else {
-                txRequest = params;
+            slippage = Math.max(slippage, 3);
+
+            const url = `${this.LIFI_API_URL}/quote?fromChain=${fromChain}&fromToken=${fromToken}&toChain=${toChain}&toToken=${toToken}&fromAmount=${fromAmount}&fromAddress=${fromAddress}&slippage=${slippage}&allowExchanges=openocean,paraswap,0x&fee=0`;
+
+            const response = await firstValueFrom(
+                this._http.get(url).pipe(
+                    catchError((error) => {
+                        console.error("Error getting swap quote:", error);
+                        throw new Error("Error al obtener cotización de swap");
+                    })
+                )
+            );
+
+            const quote: any = response;
+
+            console.log("Quote recibido de LiFi:", quote);
+            if (quote?.action) {
+                console.log("Ruta de swap:", {
+                    fromToken: quote.action.fromToken,
+                    toToken: quote.action.toToken,
+                    tool: quote.tool,
+                    toolDetails: quote.toolDetails,
+                    steps: quote.steps,
+                });
+            }
+            if (quote?.estimate) {
+                console.log("Montos estimados:", {
+                    fromAmount: quote.estimate.fromAmount,
+                    toAmount: quote.estimate.toAmount,
+                    gasCosts: quote.estimate.gasCosts,
+                });
             }
 
-            let privateKey = params.privateKey;
-            const network = params.network;
-
-            if (!txRequest || !txRequest.to) {
-                console.error("Transaction request is undefined or missing required fields", params);
-                throw new Error("Solicitud de transacción inválida");
-            }
-
-            if (!privateKey.startsWith("0x")) {
-                privateKey = "0x" + privateKey;
-            }
-
-            const rpcUrl = this.getNetworkRPC(network);
-            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-
-            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-
-            let gasPrice = txRequest.gasPrice;
-            if (!gasPrice) {
-                gasPrice = await web3.eth.getGasPrice();
-                console.log("Using network gas price:", gasPrice);
-            }
-
-            const chainId = txRequest.chainId || this.getChainIdentifier(network);
-            const nonce = await web3.eth.getTransactionCount(account.address, "latest");
-
-            let gasLimit = txRequest.gasLimit || txRequest.gas || "300000";
-            if (gasLimit && !gasLimit.toString().startsWith("0x")) {
-                gasLimit = "0x" + parseInt(gasLimit.toString()).toString(16);
-            }
-
-            let tx: any = {
-                from: account.address,
-                to: txRequest.to,
-                value: txRequest.value || "0x0",
-                data: txRequest.data,
-                nonce: nonce,
-                chainId: chainId,
-            };
-
-            if (txRequest.maxFeePerGas && txRequest.maxPriorityFeePerGas) {
-                tx.maxFeePerGas = txRequest.maxFeePerGas;
-                tx.maxPriorityFeePerGas = txRequest.maxPriorityFeePerGas;
-                tx.gas = gasLimit;
-                console.log("Using EIP-1559 transaction format");
-            } else {
-                tx.gasPrice = gasPrice;
-                tx.gas = gasLimit;
-                console.log("Using legacy transaction format");
-            }
-
-            console.log("Final transaction object:", tx);
-
-            const signedTx = await account.signTransaction(tx);
-            const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-
-            return receipt;
-        } catch (error: any) {
-            console.error("Error sending transaction:", error);
-
-            if (error.message?.includes("insufficient funds")) {
-                throw new Error("Fondos insuficientes para la transacción");
-            } else if (error.message?.includes("reverted")) {
-                throw new Error("Transacción revertida: posiblemente slippage demasiado bajo o ruta de swap no disponible");
-            } else if (error.message?.includes("gas")) {
-                throw new Error("Error con los parámetros de gas: " + error.message);
-            }
-
+            return quote;
+        } catch (error) {
+            console.error("Error in getSwapQuote:", error);
             throw error;
         }
     }
 
-    /**
-     * Check if token approval is needed and execute it if required
-     * @param tokenAddress ERC20 token address
-     * @param owner Owner address
-     * @param spender Spender address (usually the router contract)
-     * @param amount Amount to approve
-     * @param privateKey Private key for signing
-     * @param network Network name
-     */
-    async checkAndApproveToken(
+    async executeSwapWithApproval(quote: any, wallet: any, sourceNetwork: string, sourceToken: any, targetToken: any): Promise<any> {
+        try {
+            if (!quote || !quote.estimate || Number(quote.estimate.toAmount) === 0) {
+                console.error("No hay ruta de swap o liquidez insuficiente. Aborting swap.");
+                throw new Error("No hay ruta de swap o liquidez insuficiente");
+            }
+
+            if (sourceNetwork === "avalanche") {
+                return this.executeDirectSwap(wallet, sourceNetwork, sourceToken, targetToken, quote.action.fromAmount);
+            }
+        } catch (error) {
+            console.error("Error ejecutando swap:", error);
+            throw error;
+        }
+    }
+
+    async executeDirectSwap(wallet: any, sourceNetwork: string, sourceToken: any, targetToken: any, amount: string): Promise<any> {
+        try {
+            const ROUTER_ADDRESS = "0x60aE616a2155Ee3d9A68541Ba4544862310933d4";
+            const WAVAX_ADDRESS = "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7";
+            const ROUTER_ABI = [
+                {
+                    inputs: [
+                        { name: "amountIn", type: "uint256" },
+                        { name: "amountOutMin", type: "uint256" },
+                        { name: "path", type: "address[]" },
+                        { name: "to", type: "address" },
+                        { name: "deadline", type: "uint256" },
+                    ],
+                    name: "swapExactTokensForTokens",
+                    outputs: [{ name: "amounts", type: "uint256[]" }],
+                    type: "function",
+                },
+
+                {
+                    inputs: [
+                        { name: "amountIn", type: "uint256" },
+                        { name: "amountOutMin", type: "uint256" },
+                        { name: "path", type: "address[]" },
+                        { name: "to", type: "address" },
+                        { name: "deadline", type: "uint256" },
+                    ],
+                    name: "swapExactTokensForAVAX",
+                    outputs: [{ name: "amounts", type: "uint256[]" }],
+                    type: "function",
+                },
+
+                {
+                    inputs: [
+                        { name: "amountOutMin", type: "uint256" },
+                        { name: "path", type: "address[]" },
+                        { name: "to", type: "address" },
+                        { name: "deadline", type: "uint256" },
+                    ],
+                    name: "swapExactAVAXForTokens",
+                    outputs: [{ name: "amounts", type: "uint256[]" }],
+                    stateMutability: "payable",
+                    type: "function",
+                },
+            ];
+
+            const rpcUrl = this.getNetworkRPC(sourceNetwork);
+            const provider = new ethers.JsonRpcProvider(rpcUrl);
+            const privateKey = wallet.privateKey.startsWith("0x")
+                ? wallet.privateKey
+                : ethers.Wallet.fromPhrase(wallet.mnemonic.trim().toLowerCase()).privateKey;
+            const signer = new ethers.Wallet(privateKey, provider);
+            const router = new ethers.Contract(ROUTER_ADDRESS, ROUTER_ABI, signer);
+            const deadline = Math.floor(Date.now() / 1000) + 1200;
+
+            const isSourceNative = !sourceToken.address || sourceToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
+            const isTargetNative = !targetToken.address || targetToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
+
+            try {
+                if (isSourceNative && !isTargetNative) {
+                    const path = [WAVAX_ADDRESS, targetToken.address];
+                    return await router.swapExactAVAXForTokens(
+                        ethers.parseUnits(amount, "wei"),
+                        ethers.parseUnits("1", "wei"),
+                        path,
+                        signer.address,
+                        deadline
+                    );
+                } else if (!isSourceNative && isTargetNative) {
+                    const path = [sourceToken.address, WAVAX_ADDRESS];
+
+                    await this.approveToken(sourceToken.address, signer.address, ROUTER_ADDRESS, amount, privateKey, sourceNetwork);
+
+                    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+                    return await router.swapExactTokensForAVAX(
+                        ethers.parseUnits(amount, "wei"),
+                        ethers.parseUnits("1", "wei"),
+                        path,
+                        signer.address,
+                        deadline
+                    );
+                } else if (!isSourceNative && !isTargetNative) {
+                    const path = [sourceToken.address, WAVAX_ADDRESS, targetToken.address];
+
+                    await this.approveToken(sourceToken.address, signer.address, ROUTER_ADDRESS, amount, privateKey, sourceNetwork);
+
+                    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+                    return await router.swapExactTokensForTokens(
+                        ethers.parseUnits(amount, "wei"),
+                        ethers.parseUnits("1", "wei"),
+                        path,
+                        signer.address,
+                        deadline
+                    );
+                } else {
+                    throw new Error("Tipo de swap inválido: AVAX a AVAX");
+                }
+            } catch (error) {
+                console.error("Error ejecutando swap directo:", error);
+                throw new Error("Error en la transacción: " + (error as Error).message || "Desconocido");
+            }
+        } catch (error) {
+            console.error("Error ejecutando swap directo:", error);
+            throw error;
+        }
+    }
+
+    private async approveToken(
         tokenAddress: string,
         owner: string,
         spender: string,
         amount: string,
         privateKey: string,
         network: string
-    ): Promise<boolean> {
-        try {
-            const rpcUrl = this.getNetworkRPC(network);
-            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-
-            if (tokenAddress === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE") {
-                return true;
-            }
-
-            if (!privateKey.startsWith("0x")) {
-                privateKey = "0x" + privateKey;
-            }
-
-            const erc20ABI = [
-                {
-                    constant: true,
-                    inputs: [
-                        { name: "_owner", type: "address" },
-                        { name: "_spender", type: "address" },
-                    ],
-                    name: "allowance",
-                    outputs: [{ name: "", type: "uint256" }],
-                    type: "function",
-                },
-                {
-                    constant: false,
-                    inputs: [
-                        { name: "_spender", type: "address" },
-                        { name: "_value", type: "uint256" },
-                    ],
-                    name: "approve",
-                    outputs: [{ name: "", type: "bool" }],
-                    type: "function",
-                },
-            ];
-
-            const tokenContract = new web3.eth.Contract(erc20ABI, tokenAddress);
-
-            const currentAllowance = await tokenContract.methods.allowance(owner, spender).call();
-
-            const allowanceBigInt = currentAllowance && /^\d+$/.test(currentAllowance.toString()) ? BigInt(currentAllowance.toString()) : BigInt(0);
-
-            if (allowanceBigInt < BigInt(amount)) {
-                console.log("Approving token...", {
-                    token: tokenAddress,
-                    owner,
-                    spender,
-                    amount,
-                });
-
-                const approveData = tokenContract.methods.approve(spender, amount).encodeABI();
-
-                const nonce = await web3.eth.getTransactionCount(owner, "latest");
-                const gasPrice = await web3.eth.getGasPrice();
-
-                let gasLimit;
-                try {
-                    gasLimit = await tokenContract.methods.approve(spender, amount).estimateGas({ from: owner });
-                } catch (error) {
-                    console.warn("Error estimating gas for approval:", error);
-                    gasLimit = 100000;
-                }
-
-                const approveTx = {
-                    from: owner,
-                    to: tokenAddress,
-                    data: approveData,
-                    gas: gasLimit,
-                    gasPrice: gasPrice,
-                    nonce: nonce,
-                    chainId: this.getChainIdentifier(network),
-                };
-
-                const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-                const signedTx = await account.signTransaction(approveTx);
-                const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-
-                console.log("Token approval successful:", receipt.transactionHash);
-                return true;
-            }
-
-            console.log("Token already approved");
-            return true;
-        } catch (error) {
-            console.error("Error in token approval:", error);
-            throw error;
-        }
-    }
-
-    /**
-     * Execute a swap including any necessary approvals
-     */
-    async executeSwapWithApproval(quote: any, wallet: any, sourceNetwork: string, sourceToken: any, targetToken: any): Promise<any> {
-        try {
-            const rpcUrl = this.getNetworkRPC(sourceNetwork);
-            const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-
-            let privateKey = wallet.privateKey;
-
-            if (wallet.mnemonic && !privateKey.startsWith("0x")) {
-                const ethWallet = ethers.Wallet.fromPhrase(wallet.mnemonic.trim().toLowerCase());
-                privateKey = ethWallet.privateKey;
-            }
-
-            const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-
-            console.log("Executing swap with quote:", {
-                fromToken: quote.action?.fromToken?.symbol,
-                toToken: quote.action?.toToken?.symbol,
-                fromAmount: quote.action?.fromAmount,
-                toAmount: quote.estimate?.toAmount,
-            });
-
-            if (!quote.transactionRequest) {
-                console.error("Transaction request is missing in quote", quote);
-                throw new Error("Falta la solicitud de transacción en la cotización");
-            }
-
-            if (sourceToken.address && sourceToken.address !== "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE") {
-                const approvalAddress = quote.estimate?.approvalAddress || quote.action?.toAddress || quote.transactionRequest?.to;
-
-                if (approvalAddress) {
-                    console.log("Checking approval for token", {
-                        token: sourceToken.address,
-                        owner: account.address,
-                        spender: approvalAddress,
-                        amount: quote.action?.fromAmount || "0",
-                    });
-
-                    await this.checkAndApproveToken(
-                        sourceToken.address,
-                        account.address,
-                        approvalAddress,
-                        quote.action?.fromAmount || "0",
-                        privateKey,
-                        sourceNetwork
-                    );
-
-                    await new Promise((resolve) => setTimeout(resolve, 8000));
-                }
-            }
-
-            return await this.sendTransaction({
-                transactionRequest: quote.transactionRequest,
-                privateKey: privateKey,
-                network: sourceNetwork,
-            });
-        } catch (error) {
-            console.error("Error ejecutando swap:", error);
-            throw error;
-        }
+    ): Promise<void> {
+        await this.checkAndSetAllowance(tokenAddress, spender, amount, owner, privateKey, network);
     }
 }

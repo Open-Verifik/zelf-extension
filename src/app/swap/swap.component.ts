@@ -127,7 +127,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _bottomSheet: MatBottomSheet,
         private _changeDetectionRef: ChangeDetectorRef,
-        private _ethService: EthereumService,
+        private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _networkService: NetworkService,
         private _router: Router,
@@ -136,8 +136,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _vaultService: VaultService,
         private _walletService: WalletService,
         private _lifiService: LifiService,
-        private _http: HttpClient,
-        private _chromeService: ChromeService
+        private _http: HttpClient
     ) {
         this.wallet = {} as WalletModel;
 
@@ -244,7 +243,6 @@ export class SwapComponent implements OnInit, OnDestroy {
         if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
             this.passwordSet = false;
             this.requiresBiometrics = true;
-
             return;
         }
 
@@ -403,14 +401,12 @@ export class SwapComponent implements OnInit, OnDestroy {
     private async _validateCredentials(): Promise<boolean> {
         if (!this.form.get("password")?.value) {
             this.openErrorSnackBar("errors.empty_password");
-
             return false;
         }
 
         if (this.requiresBiometrics) {
             this._vaultService.password = this.form.get("password")?.value;
             this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
-
             return false;
         }
 
@@ -420,13 +416,11 @@ export class SwapComponent implements OnInit, OnDestroy {
             if (this.requiresBiometrics) {
                 this._vaultService.password = this.form.get("password")?.value;
                 this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
-
                 return false;
             }
 
             if (!this._mnemonics) {
                 this.openErrorSnackBar("errors.private_key_locked");
-
                 return false;
             }
         }
@@ -579,76 +573,51 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     async confirmSwap(): Promise<void> {
-        if (!this.swapQuote) {
-            this.openErrorSnackBar("errors.no_quote_available");
-            return;
-        }
-
         this.sending = true;
         this.swapError = "";
 
         try {
-            if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
-                throw new Error("Missing required keys");
+            const wallet = await this._walletService.getCurrentWallet();
+            if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) {
+                throw new Error("No wallet available");
             }
 
-            const password = this.form.get("password")?.value;
-            const decryptedData = await this._vaultService.decryptMessage(this.wallet.pgp.encryptedMessage, this.wallet.pgp.privateKey, password);
+            const decryptedData = await this._vaultService.decryptMessage(
+                wallet.pgp.encryptedMessage,
+                wallet.pgp.privateKey,
+                this._password || this.form.get("password")?.value
+            );
 
             const cleanMnemonic = JSON.parse(decryptedData).mnemonic.trim().toLowerCase();
-
             if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
                 throw new Error("Invalid mnemonic");
             }
 
-            const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+            const ethWallet = ethers.Wallet.fromPhrase(cleanMnemonic);
             const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
 
             if (sourceNetwork === "avalanche" || sourceNetwork === "ethereum") {
-                const txData = this.swapQuote.transactionRequest;
-                console.log("Original transaction request:", txData);
+                const isFromNative =
+                    this.swapQuote.action.fromToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" ||
+                    this.swapQuote.action.fromToken.address === "0x0000000000000000000000000000000000000000";
 
-                const modifiedTxData = {
-                    ...txData,
-                    gasLimit: "0x493e0",
-                    maxFeePerGas: "0x" + (3 * 1e9).toString(16),
-                    maxPriorityFeePerGas: "0x" + (2 * 1e9).toString(16),
-                    gasPrice: "0x" + (3 * 1e9).toString(16),
-                };
-
-                console.log("Modified gas parameters:", {
-                    original: {
-                        gasLimit: txData.gasLimit,
-                        gasPrice: txData.gasPrice,
-                    },
-                    modified: {
-                        gasLimit: modifiedTxData.gasLimit,
-                        gasPrice: modifiedTxData.gasPrice,
-                    },
+                const receipt = await this._lifiService.executeSwap(this.swapQuote, {
+                    privateKey: ethWallet.privateKey,
+                    address: ethWallet.address,
+                    isFromNative,
                 });
-
-                const receipt = await this._lifiService.sendTransaction({
-                    value: modifiedTxData.value?.toString() || "0",
-                    privateKey: wallet.privateKey,
-                    to: modifiedTxData.to,
-                    network: sourceNetwork,
-                    data: modifiedTxData.data,
-                    gasLimit: "300000",
-                });
-
-                console.log("Transaction receipt:", receipt);
 
                 if (receipt?.transactionHash) {
                     this.transactionHash = receipt.transactionHash;
-                    this._handleSuccessfulSwap();
+                    await this._handleSuccessfulSwap();
                 }
             } else {
                 throw new Error(`Unsupported network: ${sourceNetwork}`);
             }
         } catch (error: any) {
             console.error("Swap execution error:", error);
-            this.swapError = error?.message || "Failed to execute swap";
-            this.openErrorSnackBar(this.swapError);
+            this.swapError = error.message;
+            this.openErrorSnackBar(error.message || "errors.something_went_wrong");
         } finally {
             this.sending = false;
             this._changeDetectionRef.detectChanges();
@@ -819,13 +788,19 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     private async _handleSuccessfulSwap(): Promise<void> {
+        console.log("Handling successful swap with hash:", this.transactionHash);
         this.sending = false;
         this.swapError = "";
 
         await this._chromeService.removeItemSession("tokensTtl");
 
         if (this.transactionHash) {
-            this._router.navigate(["/transaction", this.transactionHash], {
+            console.log("Navigating to transaction page with params:", {
+                hash: this.transactionHash,
+                tokenType: this.selectedSourceAsset.symbol,
+            });
+
+            await this._router.navigate(["/transaction", this.transactionHash], {
                 queryParams: { tokenType: this.selectedSourceAsset.symbol },
             });
         }

@@ -1797,23 +1797,23 @@ h3 {
         font-size: 12px;
         line-height: 16px;
         border-radius: 9999px;
-        color: $gray;
-        background-color: $antiFlashWhite;
+        color: variables.$gray;
+        background-color: variables.$antiFlashWhite;
     }
 
     &--info {
-        color: #3998d3;
-        background-color: #ecf3fe;
+        color: variables.$info;
+        background-color: variables.$infoLight;
     }
 
     &--error {
-        color: #dc362e;
-        background-color: #fceeee;
+        color: variables.$error;
+        background-color: variables.$errorLight;
     }
 
     &--success {
-        color: #1ea446;
-        background-color: #f2ffee;
+        color: variables.$correct;
+        background-color: variables.$correctLight;
     }
 }
 

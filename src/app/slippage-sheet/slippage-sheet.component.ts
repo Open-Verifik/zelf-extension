@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, AfterViewInit, ElementRef, ViewChild } fr
 import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
-import { TranslocoModule } from "@ngneat/transloco";
+import { TranslocoModule } from "@jsverse/transloco";
 import { NetworkService } from "app/services/network.service";
 import { Subject, takeUntil } from "rxjs";
 
@@ -129,6 +129,7 @@ export class SlippageSheetComponent implements OnDestroy, AfterViewInit {
         if (!this.form) return;
 
         const control = this.form.get(controlName);
+
         if (!control) return;
 
         const currentValue = control.value;

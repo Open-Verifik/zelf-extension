@@ -1,37 +1,26 @@
-import { TranslocoModule } from "@ngneat/transloco";
+import * as ethers from "ethers";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
-import { catchError, finalize } from "rxjs/operators";
-import { of } from "rxjs";
 import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 
+import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { CurrencyPipe, DecimalPipe } from "@angular/common";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router, RouterLink } from "@angular/router";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { AssetService, NetworkPermissions } from "app/asset.service";
+import { ChromeService } from "app/chrome.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
-import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
-import { SwapSource, TokenData, WalletModel } from "app/wallet";
-import { WalletService } from "app/wallet.service";
-import { MatButtonModule } from "@angular/material/button";
-import { Router, RouterLink } from "@angular/router";
-import { MatMenuModule } from "@angular/material/menu";
-import { VaultService } from "app/vault.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { TranslocoService } from "@ngneat/transloco";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { VaultService } from "app/vault.service";
+import { TokenData, WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
 import { LifiService } from "../services/lifi.service";
-import { HttpClient } from "@angular/common/http";
-import * as ethers from "ethers";
-import { EthereumService } from "app/eth.service";
-import { ChromeService } from "app/chrome.service";
-
-interface LifiExecuteResponse {
-    transactionHash: string;
-}
+import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
 
 @Component({
     imports: [
@@ -57,8 +46,6 @@ export class SwapComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
     private _password: string = "";
     private _mnemonics: string = "";
-    private _selectedSourceAsset: Partial<TokenData> = {};
-    private _selectedTargetAsset: Partial<TokenData> = {};
 
     private CAN_SWAP: NetworkPermissions = {
         AVAX: true,
@@ -75,7 +62,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     networkSymbol: string = "";
     passwordError: boolean = false;
     passwordSet: boolean = false;
-    remainingAttempts: number = this._vaultService.remainingAttempts;
+    remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
     sending: boolean = false;
     showPassword: boolean = false;
@@ -135,10 +122,10 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _lifiService: LifiService,
-        private _http: HttpClient
+        private _lifiService: LifiService
     ) {
         this.wallet = {} as WalletModel;
+        this.remainingAttempts = this._vaultService.remainingAttempts;
 
         this._mnemonics = "";
         this._password = this._vaultService.password;

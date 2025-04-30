@@ -1,15 +1,13 @@
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgTemplateOutlet } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
-import { TranslocoModule } from "@ngneat/transloco";
-import { SwapSource, TokenData } from "app/wallet";
+import { TranslocoModule } from "@jsverse/transloco";
+import { TokenData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { LifiService } from "../services/lifi.service";
-import { catchError, take } from "rxjs/operators";
-import { of } from "rxjs";
 import { firstValueFrom } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { LifiService } from "../services/lifi.service";
 
 export interface AssetChangeData {
     asset: TokenData;
@@ -34,37 +32,35 @@ export class SwapCurrencyComponent implements OnInit {
     private _myAssetsMap: Record<string, TokenData> = {};
     private _allTokens: TokenData[] = [];
 
-    form = this._fb.group({
-        textFilter: [""],
-        networkFilter: ["all"],
-    });
-
+    form: UntypedFormGroup;
     networkOptions = ["all", "ethereum", "avalanche", "polygon", "arbitrum"];
     loading = false;
     selectedNetworkFilter = "all";
 
     assets: TokenData[] = [];
 
-    constructor(private _fb: FormBuilder, private http: HttpClient, private _walletService: WalletService, private _lifiService: LifiService) {}
+    constructor(private _fb: FormBuilder, private http: HttpClient, private _walletService: WalletService, private _lifiService: LifiService) {
+        this.form = this._fb.group({
+            textFilter: [""],
+            networkFilter: ["all"],
+        });
+
+        this.loading = true;
+    }
 
     async ngOnInit(): Promise<void> {
         try {
-            this.loading = true;
             const lifiTokens = await this.getTokensFromLiFi();
+
             this._allTokens = [...this.myAssets, ...lifiTokens];
             this.assets = this._allTokens;
+
             this._setMyAssetsMap(this._allTokens);
         } catch (error) {
             console.error("Error in ngOnInit:", error);
         } finally {
             this.loading = false;
         }
-    }
-
-    private _isTokenInMyAssets(token: TokenData): boolean {
-        return this.myAssets.some(
-            (asset) => asset.symbol.toLowerCase() === token.symbol.toLowerCase() && asset.network.toLowerCase() === token.network.toLowerCase()
-        );
     }
 
     get filteredAssets(): TokenData[] {

@@ -402,7 +402,6 @@ export class SwapComponent implements OnInit, OnDestroy {
                     });
                 }
 
-                // Comisiones adicionales
                 if (quote.estimate.feeCosts) {
                     quote.estimate.feeCosts.forEach((feeCost: { amountUSD?: string }) => {
                         if (feeCost.amountUSD) {
@@ -411,7 +410,6 @@ export class SwapComponent implements OnInit, OnDestroy {
                     });
                 }
 
-                // Comisiones de puente si existen
                 if (quote.estimate.bridgeCosts) {
                     quote.estimate.bridgeCosts.forEach((bridgeCost: { amountUSD?: string }) => {
                         if (bridgeCost.amountUSD) {
@@ -420,7 +418,6 @@ export class SwapComponent implements OnInit, OnDestroy {
                     });
                 }
 
-                // Comisiones de ejecución si existen
                 if (quote.estimate.executionCosts) {
                     quote.estimate.executionCosts.forEach((executionCost: { amountUSD?: string }) => {
                         if (executionCost.amountUSD) {
@@ -430,7 +427,6 @@ export class SwapComponent implements OnInit, OnDestroy {
                 }
             }
 
-            // Verificar si hay comisiones en la ruta de intercambio
             if (quote.includedSteps) {
                 quote.includedSteps.forEach((step: { estimate: { feeCosts: { amountUSD?: string }[] } }) => {
                     if (step.estimate && step.estimate.feeCosts) {

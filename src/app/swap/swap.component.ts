@@ -288,7 +288,8 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         if (!value || !this.selectedTargetAsset.price || !this.selectedSourceAsset.price) {
             this.form.get("targetAmount")?.setValue("");
-
+            this.form.get("targetSwapValue")?.setValue("");
+            this.form.get("fee")?.setValue(0);
             return;
         }
 
@@ -296,7 +297,10 @@ export class SwapComponent implements OnInit, OnDestroy {
         const fiatValue = sourceValue * (this.selectedSourceAsset.price as number);
         const targetValue = this.swapBalanceDisplay === "token" ? fiatValue / (this.selectedTargetAsset.price as number) : fiatValue;
 
+        const targetSwapValue = (this.selectedSourceAsset.price as number) / (this.selectedTargetAsset.price as number);
+
         this.form.get("targetAmount")?.setValue(targetValue, { emitEvent: true });
+        this.form.get("targetSwapValue")?.setValue(targetSwapValue.toString(), { emitEvent: false });
     }
 
     private async _validateCredentials(): Promise<boolean> {
@@ -338,15 +342,13 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         if (!this.selectedSourceAsset.contractAddress || !this.selectedTargetAsset.contractAddress) {
             this.openErrorSnackBar("errors.missing_contract_address");
-
             return;
         }
 
         const sourceAmount = this.form.get("sourceAmount")?.value;
 
         if (!+sourceAmount) {
-            this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" });
-
+            this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
             return;
         }
 
@@ -374,35 +376,11 @@ export class SwapComponent implements OnInit, OnDestroy {
                 toToken = this.selectedTargetAsset.contractAddress || "";
             }
 
-            console.log("Target token properties:", {
-                address: (this.selectedTargetAsset as any).address,
-                contractAddress: this.selectedTargetAsset.contractAddress,
-                fullObject: this.selectedTargetAsset,
-            });
-
-            console.log("Source token properties:", {
-                address: (this.selectedSourceAsset as any).address,
-                contractAddress: this.selectedSourceAsset.contractAddress,
-                fullObject: this.selectedSourceAsset,
-            });
-
             const fromAmount = this._lifiService.formatAmount(parseFloat(sourceAmount), this.selectedSourceAsset.decimals as number);
             const fromAddress = this._getAddressForNetwork(sourceNetwork || "");
             const slippage = this.form.get("slippage")?.value || 0.5;
 
-            console.log("Quote Request:", {
-                fromChain,
-                toChain,
-                fromToken,
-                toToken,
-                fromAmount,
-                fromAddress,
-                slippage,
-            });
-
             const quote = await firstValueFrom(this._lifiService.getQuote(fromChain, fromToken, toChain, toToken, fromAmount, fromAddress, slippage));
-
-            console.log("Quote Response:", quote);
 
             if (!quote || !quote?.estimate) throw new Error("Quote error");
 
@@ -410,14 +388,65 @@ export class SwapComponent implements OnInit, OnDestroy {
 
             const estimatedAmount = parseFloat(quote.estimate.toAmount) / Math.pow(10, this.selectedTargetAsset.decimals as number);
 
-            console.log("Setting target amount:", estimatedAmount);
+            const sourceTokenAmount = parseFloat(sourceAmount);
+            const targetSwapValue = estimatedAmount / sourceTokenAmount;
+
+            let fee = 0;
+
+            if (quote.estimate) {
+                if (quote.estimate.gasCosts) {
+                    quote.estimate.gasCosts.forEach((gasCost: { amountUSD?: string }) => {
+                        if (gasCost.amountUSD) {
+                            fee += parseFloat(gasCost.amountUSD);
+                        }
+                    });
+                }
+
+                // Comisiones adicionales
+                if (quote.estimate.feeCosts) {
+                    quote.estimate.feeCosts.forEach((feeCost: { amountUSD?: string }) => {
+                        if (feeCost.amountUSD) {
+                            fee += parseFloat(feeCost.amountUSD);
+                        }
+                    });
+                }
+
+                // Comisiones de puente si existen
+                if (quote.estimate.bridgeCosts) {
+                    quote.estimate.bridgeCosts.forEach((bridgeCost: { amountUSD?: string }) => {
+                        if (bridgeCost.amountUSD) {
+                            fee += parseFloat(bridgeCost.amountUSD);
+                        }
+                    });
+                }
+
+                // Comisiones de ejecución si existen
+                if (quote.estimate.executionCosts) {
+                    quote.estimate.executionCosts.forEach((executionCost: { amountUSD?: string }) => {
+                        if (executionCost.amountUSD) {
+                            fee += parseFloat(executionCost.amountUSD);
+                        }
+                    });
+                }
+            }
+
+            // Verificar si hay comisiones en la ruta de intercambio
+            if (quote.includedSteps) {
+                quote.includedSteps.forEach((step: { estimate: { feeCosts: { amountUSD?: string }[] } }) => {
+                    if (step.estimate && step.estimate.feeCosts) {
+                        step.estimate.feeCosts.forEach((feeCost: { amountUSD?: string }) => {
+                            if (feeCost.amountUSD) {
+                                fee += parseFloat(feeCost.amountUSD);
+                            }
+                        });
+                    }
+                });
+            }
 
             this.form.patchValue(
                 {
-                    // Calculate fees
-                    // fee: 0.000000000000000000,
-                    // Calculate how many target tokens are equal to 1 of source tokens
-                    // targetSwapValue: 0.000000000000000000,
+                    fee: fee,
+                    targetSwapValue: targetSwapValue.toString(),
                     targetAmount: estimatedAmount.toString(),
                 },
                 { emitEvent: false }
@@ -426,7 +455,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             this._changeDetectionRef.detectChanges();
         } catch (error) {
             console.error("Quote error:", error);
-            this.form.patchValue({ targetAmount: "0" }, { emitEvent: false });
+            this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
         } finally {
             this.quoteLoading = false;
             this._changeDetectionRef.detectChanges();
@@ -453,19 +482,12 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     private async _handleSuccessfulSwap(): Promise<void> {
-        console.log("Handling successful swap with hash:", this.transactionHash);
-
         this.sending = false;
         this.swapError = "";
 
         await this._chromeService.removeItemSession("tokensTtl");
 
         if (!this.transactionHash) return;
-
-        console.log("Navigating to transaction page with params:", {
-            hash: this.transactionHash,
-            tokenType: this.selectedSourceAsset.symbol,
-        });
 
         await this._router.navigate(["/transaction", this.transactionHash], {
             queryParams: { tokenType: this.selectedSourceAsset.symbol },
@@ -627,6 +649,12 @@ export class SwapComponent implements OnInit, OnDestroy {
                     this.form.get("commission")?.setValue(result.commission, { emitEvent: true });
                     this.form.get("commissionToggle")?.setValue(result.commissionToggle, { emitEvent: true });
 
+                    if (this.form.get("sourceAmount")?.value && this.hasBothAssetsSet) {
+                        this.getSwapQuote().catch((error) => {
+                            console.error("Error updating quote after slippage change:", error);
+                        });
+                    }
+
                     this._changeDetectionRef.detectChanges();
                 },
             });
@@ -673,7 +701,6 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     handleSourceAmountChange(event: any) {
-        console.log("Source amount input changed:", event.target.value);
         this.form.get("sourceAmount")?.setValue(event.target.value, { emitEvent: true });
     }
 

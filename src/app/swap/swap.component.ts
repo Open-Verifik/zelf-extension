@@ -477,19 +477,6 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
     }
 
-    private async _handleSuccessfulSwap(): Promise<void> {
-        this.sending = false;
-        this.swapError = "";
-
-        await this._chromeService.removeItemSession("tokensTtl");
-
-        if (!this.transactionHash) return;
-
-        await this._router.navigate(["/transaction", this.transactionHash], {
-            queryParams: { tokenType: this.selectedSourceAsset.symbol },
-        });
-    }
-
     async confirmSwap(): Promise<void> {
         if (this.isConfirmDisabled()) return;
 
@@ -497,39 +484,67 @@ export class SwapComponent implements OnInit, OnDestroy {
         this.swapError = "";
 
         try {
-            if (!(await this._validateCredentials())) throw new Error("errors.invalid_credentials");
-            if (!ethers.Mnemonic.isValidMnemonic(this._mnemonics)) throw new Error("Invalid mnemonic");
+            if (!(await this._validateCredentials())) {
+                throw new Error("Invalid credentials");
+            }
 
+            const wallet = await this._walletService.getCurrentWallet();
+            if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) {
+                throw new Error("No wallet available");
+            }
+
+            const decryptedData = await this._vaultService.decryptMessage(
+                wallet.pgp.encryptedMessage,
+                wallet.pgp.privateKey,
+                this._password || this.form.get("password")?.value
+            );
+
+            const cleanMnemonic = JSON.parse(decryptedData).mnemonic.trim().toLowerCase();
+            if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
+                throw new Error("Invalid mnemonic");
+            }
+
+            const ethWallet = ethers.Wallet.fromPhrase(cleanMnemonic);
             const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
 
-            if (sourceNetwork !== "avalanche" && sourceNetwork !== "ethereum") throw new Error(`Unsupported network: ${sourceNetwork}`);
+            if (sourceNetwork === "avalanche" || sourceNetwork === "ethereum") {
+                const isFromNative =
+                    this.swapQuote.action.fromToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" ||
+                    this.swapQuote.action.fromToken.address === "0x0000000000000000000000000000000000000000";
 
-            const ethWallet = ethers.Wallet.fromPhrase(this._mnemonics);
+                const receipt = await this._lifiService.executeSwap(this.swapQuote, {
+                    privateKey: ethWallet.privateKey,
+                    address: ethWallet.address,
+                    isFromNative,
+                });
 
-            const isFromNative =
-                this.swapQuote.action.fromToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" ||
-                this.swapQuote.action.fromToken.address === "0x0000000000000000000000000000000000000000";
-
-            const receipt = await this._lifiService.executeSwap(this.swapQuote, {
-                privateKey: ethWallet.privateKey,
-                address: ethWallet.address,
-                isFromNative,
-            });
-
-            if (!receipt?.transactionHash) throw new Error("errors.swap_failed");
-
-            this.transactionHash = receipt.transactionHash;
-
-            await this._handleSuccessfulSwap();
+                if (receipt?.transactionHash) {
+                    this.transactionHash = receipt.transactionHash;
+                    await this._handleSuccessfulSwap();
+                }
+            } else {
+                throw new Error(`Unsupported network: ${sourceNetwork}`);
+            }
         } catch (error: any) {
             console.error("Swap execution error:", error);
-
-            this.openErrorSnackBar(error?.message || "errors.something_went_wrong");
             this.swapError = error.message;
+            this.openErrorSnackBar(error.message || "errors.something_went_wrong");
         } finally {
             this.sending = false;
-
             this._changeDetectionRef.detectChanges();
+        }
+    }
+
+    private async _handleSuccessfulSwap(): Promise<void> {
+        this.sending = false;
+        this.swapError = "";
+
+        await this._chromeService.removeItemSession("tokensTtl");
+
+        if (this.transactionHash) {
+            await this._router.navigate(["/transaction", this.transactionHash], {
+                queryParams: { tokenType: this.selectedSourceAsset.symbol },
+            });
         }
     }
 
@@ -701,6 +716,13 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     isConfirmDisabled(): boolean {
-        return this.form.invalid || !this.form.dirty || this.sending;
+        const hasValidAmount = !!this.form.get("sourceAmount")?.value && parseFloat(this.form.get("sourceAmount")?.value) > 0;
+        const hasValidQuote = !!this.swapQuote;
+
+        const isNotSending = !this.sending;
+
+        const hasAssets = this.hasBothAssetsSet;
+
+        return !(hasValidAmount && hasValidQuote && isNotSending && hasAssets);
     }
 }

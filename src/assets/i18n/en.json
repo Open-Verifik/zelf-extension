@@ -33,7 +33,7 @@
         "pending": "Pending",
         "receive": "Receive",
         "send": "Send",
-        "trade": "Trade"
+        "swap": "Swap"
     },
     "wallet_status": {
         "active": "Active",

@@ -53,26 +53,34 @@ export class BlockchainTransactionsService {
         if (!wallet) return of([]);
 
         return forkJoin({
-            ethereum: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/ethereum/transactions`, {
-                address: wallet.ethAddress,
-                page: pagination.page,
-                show: 25,
-            }),
-            avalanche: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}/transactions`, {
-                page: pagination.page,
-                show: 25,
-            }),
+            ethereum: this._httpWrapperService
+                .sendRequest("get", `${environment.apiUrl}/api/ethereum/transactions`, {
+                    address: wallet.ethAddress,
+                    page: pagination.page,
+                    show: 25,
+                })
+                .catch(() => of(undefined)),
+            avalanche: this._httpWrapperService
+                .sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}/transactions`, {
+                    page: pagination.page,
+                    show: 25,
+                })
+                .catch(() => of(undefined)),
             solana: wallet.solanaAddress
-                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/solana/transactions/${wallet.solanaAddress}`, {
-                      page: pagination.page,
-                      show: 25,
-                  })
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/solana/transactions/${wallet.solanaAddress}`, {
+                          page: pagination.page,
+                          show: 25,
+                      })
+                      .catch(() => of(undefined))
                 : of(null),
             sui: wallet.suiAddress
-                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/sui/transactions/${wallet.suiAddress}`, {
-                      page: pagination.page,
-                      show: 25,
-                  })
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/sui/transactions/${wallet.suiAddress}`, {
+                          page: pagination.page,
+                          show: 25,
+                      })
+                      .catch(() => of(undefined))
                 : of(null),
         }).pipe(
             map((responses) => {

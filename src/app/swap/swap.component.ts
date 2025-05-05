@@ -532,14 +532,20 @@ export class SwapComponent implements OnInit, OnDestroy {
         const pendingTransactionData = {
             ...receipt,
             amount: this.form.get("sourceAmount")?.value,
-            total: this.form.get("sourceAmount")?.value + this.form.get("fee")?.value,
-            fee: this.form.get("fee")?.value,
             date: new Date().toISOString(),
+            fee: this.form.get("fee")?.value,
             from: this.wallet?.ethAddress,
             network: this.selectedSourceAsset.network,
             status: "pending",
+            swapAmount: this.form.get("targetAmount")?.value,
+            swapContractAddress: this.selectedTargetAsset.contractAddress,
+            swapLogo: this.selectedTargetAsset.image,
+            swapNetwork: this.selectedTargetAsset.network,
+            swapSymbol: this.selectedTargetAsset.symbol,
             to: this.selectedTargetAsset.contractAddress,
             tokenType: this.selectedSourceAsset.symbol,
+            total: this.form.get("sourceAmount")?.value + this.form.get("fee")?.value,
+            type: "swap",
         };
 
         await this._walletService.addTransactionToPending(pendingTransactionData);

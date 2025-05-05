@@ -584,23 +584,8 @@ export class EthereumService {
         return web3.eth.getTransaction(transactionHash);
     }
 
-    async requestTransactionDetails(transactionHash: string, network: string = "ethereum"): Promise<{ data: EthTransaction }> {
-        // Determinar la URL base según la red
-        let baseUrl = this.baseUrl;
-        let endpoint = "";
-
-        switch (network.toLowerCase()) {
-            case "avalanche":
-                // Usar el endpoint específico de Avalanche
-                endpoint = `/api/avalanche/transaction/${transactionHash}`;
-                break;
-            case "ethereum":
-            default:
-                endpoint = `/api/ethereum/transaction/${transactionHash}`;
-                break;
-        }
-
-        return this._httpWrapper.sendRequest("get", `${baseUrl}${endpoint}`);
+    async requestTransactionDetails(transactionHash: string): Promise<{ data: EthTransaction }> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/avalanche/transaction/${transactionHash}`);
     }
 
     async sendERC20Transaction(

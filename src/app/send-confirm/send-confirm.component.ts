@@ -496,16 +496,16 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
                     queryParams: {
                         network: "solana",
-                        tokenType: this.transactionData.tokenType,
+                        symbol: this.transactionData.tokenType,
                     },
                 });
             } else if (this.transactionData.network === "sui" && receipt.digest) {
                 await this._router.navigate(["/transaction", receipt.digest], {
-                    queryParams: { tokenType: "SUI" },
+                    queryParams: { network: "sui", symbol: "SUI" },
                 });
             } else if (receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { tokenType: this.transactionData.symbol },
+                    queryParams: { network: this.transactionData.network, symbol: this.transactionData.symbol },
                 });
             } else {
                 this._router.navigate(["/send"]);

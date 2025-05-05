@@ -1,21 +1,23 @@
-import { forkJoin, take } from "rxjs";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
+import { forkJoin, take } from "rxjs";
 
 import { DatePipe, DecimalPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ActivatedRoute, Router } from "@angular/router";
 
-import { EthereumService } from "app/eth.service";
-import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { AvaxTransactionModel, EthTransactionModel, SolTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
-import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { environment } from "environments/environment";
+import { EthereumService } from "app/eth.service";
+import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { AvaxService } from "app/services/avax.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
+import { AvaxTransactionModel, EthTransactionModel, SolTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
+
+import { environment } from "environments/environment";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
@@ -28,12 +30,14 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     hash: string = "";
     loading: boolean = false;
+    network: string = "";
     symbol: string = "";
     transaction!: any;
     wallet!: Partial<WalletModel> | null;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
+        private _avaxService: AvaxService,
         private _ethService: EthereumService,
         private _router: Router,
         private _solService: SolanaService,
@@ -51,6 +55,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         }).subscribe((responses) => {
             this.hash = responses.params.hash;
             this.symbol = responses.queryParams.symbol;
+            this.network = responses.queryParams.network?.toLowerCase();
 
             if (this.loading) return;
 
@@ -68,7 +73,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     _determineNetwork(): string {
-        if (this.transaction?.network) return this.transaction?.network;
+        if (this.transaction?.network || this.network) return this.transaction?.network?.toLowerCase() || this.network;
         else if (this.symbol) {
             if (this.symbol === "AVAX") return "avalanche";
             else if (this.symbol === "MATIC") return "polygon";
@@ -86,90 +91,87 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
         const network = this._determineNetwork();
 
-        if (network === "ethereum" || network === "avalanche") {
-            this._ethService
-                .requestTransactionDetails(this.hash, network)
-                .then((response: any) => {
-                    if (!response || !response.data) {
-                        this._retryRequestTransactionDetails();
+        let promise: Promise<any> | null = null;
 
-                        return;
-                    }
+        if (network === "ethereum") {
+            promise = this._ethService.requestTransactionDetails(this.hash);
 
-                    response.data.symbol = this.symbol;
+            promise.then((response: any) => {
+                if (!response || !response.data) return false;
 
-                    if (network === "ethereum") {
-                        this.transaction = new EthTransactionModel(response.data).toTransaction();
-                    } else if (network === "avalanche") {
-                        this.transaction = new AvaxTransactionModel(response.data).toTransaction();
-                    }
+                response.data.symbol = this.symbol;
 
-                    this.loading = false;
+                this.transaction = new EthTransactionModel(response.data).toTransaction();
 
-                    if (this.transaction.status === "pending") {
-                        this._retryRequestTransactionDetails();
-                    } else {
-                        this._walletService.removePendingTransaction(this.hash);
-                    }
-                })
-                .catch(() => {
-                    this._retryRequestTransactionDetails();
+                return true;
+            });
+        } else if (network === "avalanche") {
+            promise = this._avaxService.requestTransactionDetails(this.hash);
 
-                    this.loading = false;
-                });
+            promise.then((response: any) => {
+                if (!response || !response.data) return false;
+
+                response.data.symbol = this.symbol;
+
+                this.transaction = new AvaxTransactionModel(response.data).toTransaction();
+
+                return true;
+            });
         } else if (network === "sui") {
-            this._suiService
-                .requestTransactionDetails(this.hash)
-                .then((response: any) => {
-                    if (!response || !response.data) {
-                        this._retryRequestTransactionDetails();
+            promise = this._suiService.requestTransactionDetails(this.hash);
 
-                        return;
-                    }
+            promise.then((response: any) => {
+                if (!response || !response.data) return false;
 
-                    response.data.symbol = this.symbol;
+                response.data.symbol = this.symbol;
 
-                    this.transaction = new SuiTransactionModel(response.data).toTransaction();
-                    this.loading = false;
+                this.transaction = new SuiTransactionModel(response.data).toTransaction();
 
-                    if (this.transaction.status === "pending") {
-                        this._retryRequestTransactionDetails();
-                    } else {
-                        this._walletService.removePendingTransaction(this.hash);
-                    }
-                })
-                .catch(() => {
-                    this._retryRequestTransactionDetails();
-                    this.loading = false;
-                });
+                return true;
+            });
         } else if (network === "solana") {
-            this._solService
-                .requestTransactionDetails(this.hash)
-                .then((response: any) => {
-                    if (!response || !response.data) {
-                        this._retryRequestTransactionDetails();
+            promise = this._solService.requestTransactionDetails(this.hash);
 
-                        return;
-                    }
+            promise.then((response: any) => {
+                if (!response || !response.data) return false;
 
-                    response.data.symbol = this.symbol;
+                response.data.symbol = this.symbol;
 
-                    this.transaction = new SolTransactionModel(response.data).toTransaction();
-                    this.loading = false;
+                this.transaction = new SolTransactionModel(response.data).toTransaction();
 
-                    if (this.transaction.status === "pending") {
-                        this._retryRequestTransactionDetails();
-                    } else {
-                        this._walletService.removePendingTransaction(this.hash);
-                    }
-                })
-                .catch(() => {
+                return true;
+            });
+        }
+
+        if (!promise) {
+            this.loading = false;
+
+            return;
+        }
+
+        promise
+            .then((response: boolean) => {
+                if (!response) {
                     this._retryRequestTransactionDetails();
 
+                    return;
+                }
+
+                if (this.transaction.status === "pending") {
+                    this._retryRequestTransactionDetails();
+                } else {
+                    this._walletService.removePendingTransaction(this.hash);
                     this.loading = false;
-                });
-        }
+                }
+            })
+            .catch(this._handleTransactionDetailsError);
     }
+
+    private _handleTransactionDetailsError = () => {
+        this._retryRequestTransactionDetails();
+
+        this.loading = false;
+    };
 
     private async _retryRequestTransactionDetails(): Promise<void> {
         this._timeout = setTimeout(() => {

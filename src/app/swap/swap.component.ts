@@ -8,6 +8,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
@@ -28,6 +29,7 @@ import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-cu
         DecimalPipe,
         MatButtonModule,
         MatMenuModule,
+        MatProgressSpinnerModule,
         NgClass,
         NgFor,
         NgIf,
@@ -51,8 +53,8 @@ export class SwapComponent implements OnInit, OnDestroy {
         AVAX: true,
         BTC: false,
         ETH: true,
-        SOL: true,
-        SUI: true,
+        SOL: false,
+        SUI: false,
     };
 
     form!: UntypedFormGroup;
@@ -62,19 +64,19 @@ export class SwapComponent implements OnInit, OnDestroy {
     networkSymbol: string = "";
     passwordError: boolean = false;
     passwordSet: boolean = false;
+    quoteLoading: boolean = false;
     remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
     sending: boolean = false;
     showPassword: boolean = false;
     slippage: number = 0.5;
     swapBalanceDisplay: "token" | "fiat" = "token";
+    swapError: string = "";
+    swapQuote: any = null;
     swapSource: "source" | "target" | "" = "";
     tokens: TokenData[] = [];
-    wallet?: WalletModel;
-    swapQuote: any = null;
-    quoteLoading: boolean = false;
     transactionHash: string = "";
-    swapError: string = "";
+    wallet?: WalletModel;
 
     bridgeOptions = [
         {
@@ -123,8 +125,6 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         await this._loadTokensFromSession();
         await this._decryptMnemonics();
-
-        this._setupQuoteUpdates();
     }
 
     ngOnDestroy(): void {
@@ -132,8 +132,12 @@ export class SwapComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
+    get canCheckQuote(): boolean {
+        return this.hasBothAssetsSet && !!this.form.get("sourceAmount")?.valid;
+    }
+
     get hasBothAssetsSet(): boolean {
-        return !!Object.keys(this.selectedSourceAsset).length && !!Object.keys(this.selectedTargetAsset).length;
+        return !!this.hasSelectedSourceAsset && !!this.hasSelectedTargetAsset;
     }
 
     get hasSelectedSourceAsset(): boolean {
@@ -174,7 +178,9 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         if (!this._password && !this.form.get("password")?.value) return;
 
-        this._mnemonics = JSON.parse(await this._decryptMessage()).mnemonic;
+        this._mnemonics = JSON.parse(await this._decryptMessage())
+            .mnemonic?.trim()
+            ?.toLowerCase();
     }
 
     private async _decryptMessage(): Promise<any> {
@@ -222,23 +228,16 @@ export class SwapComponent implements OnInit, OnDestroy {
         });
 
         this.form
-            .get("sourceAmount")
-            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
-            .subscribe(() => {
-                if (!this.hasBothAssetsSet) return;
-
-                this.getSwapQuote().catch((error) => {
-                    console.error("Error getting swap quote:", error);
-                });
-            });
-
-        this.form
             .get("sourceAsset")
             ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
             .subscribe((value) => {
                 this.selectedSourceAsset = value;
 
                 this._updateTargetAmount();
+
+                this.getSwapQuote().catch((error) => {
+                    console.error("Error getting swap quote:", error);
+                });
             });
 
         this.form
@@ -248,7 +247,13 @@ export class SwapComponent implements OnInit, OnDestroy {
                 this.selectedTargetAsset = value;
 
                 this._updateTargetAmount();
+
+                this.getSwapQuote().catch((error) => {
+                    console.error("Error getting swap quote:", error);
+                });
             });
+
+        this._setupQuoteUpdates();
     }
 
     private async _fetchTokens(): Promise<void> {
@@ -280,9 +285,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     private _updateTargetAmount(): void {
-        if (this.swapQuote) {
-            return;
-        }
+        if (this.swapQuote) return;
 
         const value = this.form.get("sourceAmount")?.value;
 
@@ -290,6 +293,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             this.form.get("targetAmount")?.setValue("");
             this.form.get("targetSwapValue")?.setValue("");
             this.form.get("fee")?.setValue(0);
+
             return;
         }
 
@@ -338,7 +342,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     async getSwapQuote(): Promise<void> {
-        if (!this.selectedSourceAsset || !this.selectedTargetAsset) return;
+        if (!this.canCheckQuote) return;
 
         if (!this.selectedSourceAsset.contractAddress || !this.selectedTargetAsset.contractAddress) {
             this.openErrorSnackBar("errors.missing_contract_address");
@@ -387,75 +391,70 @@ export class SwapComponent implements OnInit, OnDestroy {
             this.swapQuote = quote;
 
             const estimatedAmount = parseFloat(quote.estimate.toAmount) / Math.pow(10, this.selectedTargetAsset.decimals as number);
-
             const sourceTokenAmount = parseFloat(sourceAmount);
             const targetSwapValue = estimatedAmount / sourceTokenAmount;
 
-            let fee = 0;
-
-            if (quote.estimate) {
-                if (quote.estimate.gasCosts) {
-                    quote.estimate.gasCosts.forEach((gasCost: { amountUSD?: string }) => {
-                        if (gasCost.amountUSD) {
-                            fee += parseFloat(gasCost.amountUSD);
-                        }
-                    });
-                }
-
-                if (quote.estimate.feeCosts) {
-                    quote.estimate.feeCosts.forEach((feeCost: { amountUSD?: string }) => {
-                        if (feeCost.amountUSD) {
-                            fee += parseFloat(feeCost.amountUSD);
-                        }
-                    });
-                }
-
-                if (quote.estimate.bridgeCosts) {
-                    quote.estimate.bridgeCosts.forEach((bridgeCost: { amountUSD?: string }) => {
-                        if (bridgeCost.amountUSD) {
-                            fee += parseFloat(bridgeCost.amountUSD);
-                        }
-                    });
-                }
-
-                if (quote.estimate.executionCosts) {
-                    quote.estimate.executionCosts.forEach((executionCost: { amountUSD?: string }) => {
-                        if (executionCost.amountUSD) {
-                            fee += parseFloat(executionCost.amountUSD);
-                        }
-                    });
-                }
-            }
-
-            if (quote.includedSteps) {
-                quote.includedSteps.forEach((step: { estimate: { feeCosts: { amountUSD?: string }[] } }) => {
-                    if (step.estimate && step.estimate.feeCosts) {
-                        step.estimate.feeCosts.forEach((feeCost: { amountUSD?: string }) => {
-                            if (feeCost.amountUSD) {
-                                fee += parseFloat(feeCost.amountUSD);
-                            }
-                        });
-                    }
-                });
-            }
+            let fee = this._getFeeFromQuote(quote);
 
             this.form.patchValue(
                 {
-                    fee: fee,
+                    fee,
                     targetSwapValue: targetSwapValue.toString(),
                     targetAmount: estimatedAmount.toString(),
                 },
                 { emitEvent: false }
             );
-
-            this._changeDetectionRef.detectChanges();
         } catch (error) {
             console.error("Quote error:", error);
+            this.openErrorSnackBar("errors.failed_to_get_quote");
+
             this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
         } finally {
             this.quoteLoading = false;
             this._changeDetectionRef.detectChanges();
         }
+    }
+
+    private _getFeeFromQuote(quote: any): number {
+        let fee = 0;
+
+        if (!quote.estimate) return fee;
+
+        quote.estimate.gasCosts?.forEach((gasCost: { amountUSD?: string }) => {
+            if (!gasCost.amountUSD) return;
+
+            fee += parseFloat(gasCost.amountUSD);
+        });
+
+        quote.estimate.feeCosts?.forEach((feeCost: { amountUSD?: string }) => {
+            if (!feeCost.amountUSD) return;
+
+            fee += parseFloat(feeCost.amountUSD);
+        });
+
+        quote.estimate.bridgeCosts?.forEach((bridgeCost: { amountUSD?: string }) => {
+            if (!bridgeCost.amountUSD) return;
+
+            fee += parseFloat(bridgeCost.amountUSD);
+        });
+
+        quote.estimate.executionCosts?.forEach((executionCost: { amountUSD?: string }) => {
+            if (!executionCost.amountUSD) return;
+
+            fee += parseFloat(executionCost.amountUSD);
+        });
+
+        quote.includedSteps?.forEach((step: { estimate: { feeCosts: { amountUSD?: string }[] } }) => {
+            if (!step.estimate || !step.estimate.feeCosts) return;
+
+            step.estimate.feeCosts.forEach((feeCost: { amountUSD?: string }) => {
+                if (!feeCost.amountUSD) return;
+
+                fee += parseFloat(feeCost.amountUSD);
+            });
+        });
+
+        return fee;
     }
 
     private _getAddressForNetwork(network: string): string {
@@ -488,23 +487,11 @@ export class SwapComponent implements OnInit, OnDestroy {
                 throw new Error("Invalid credentials");
             }
 
-            const wallet = await this._walletService.getCurrentWallet();
-            if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) {
-                throw new Error("No wallet available");
-            }
-
-            const decryptedData = await this._vaultService.decryptMessage(
-                wallet.pgp.encryptedMessage,
-                wallet.pgp.privateKey,
-                this._password || this.form.get("password")?.value
-            );
-
-            const cleanMnemonic = JSON.parse(decryptedData).mnemonic.trim().toLowerCase();
-            if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
+            if (!ethers.Mnemonic.isValidMnemonic(this._mnemonics)) {
                 throw new Error("Invalid mnemonic");
             }
 
-            const ethWallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+            const ethWallet = ethers.Wallet.fromPhrase(this._mnemonics);
             const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
 
             if (sourceNetwork === "avalanche" || sourceNetwork === "ethereum") {
@@ -518,10 +505,11 @@ export class SwapComponent implements OnInit, OnDestroy {
                     isFromNative,
                 });
 
-                if (receipt?.transactionHash) {
-                    this.transactionHash = receipt.transactionHash;
-                    await this._handleSuccessfulSwap();
-                }
+                if (!receipt?.transactionHash) return;
+
+                this.transactionHash = receipt.transactionHash;
+
+                await this._handleSuccessfulSwap(receipt);
             } else {
                 throw new Error(`Unsupported network: ${sourceNetwork}`);
             }
@@ -535,17 +523,31 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
     }
 
-    private async _handleSuccessfulSwap(): Promise<void> {
+    private async _handleSuccessfulSwap(receipt: any): Promise<void> {
         this.sending = false;
         this.swapError = "";
 
+        if (!this.transactionHash) return;
+
+        const pendingTransactionData = {
+            ...receipt,
+            amount: this.form.get("sourceAmount")?.value,
+            total: this.form.get("sourceAmount")?.value + this.form.get("fee")?.value,
+            fee: this.form.get("fee")?.value,
+            date: new Date().toISOString(),
+            from: this.wallet?.ethAddress,
+            network: this.selectedSourceAsset.network,
+            status: "pending",
+            to: this.selectedTargetAsset.contractAddress,
+            tokenType: this.selectedSourceAsset.symbol,
+        };
+
+        await this._walletService.addTransactionToPending(pendingTransactionData);
         await this._chromeService.removeItemSession("tokensTtl");
 
-        if (this.transactionHash) {
-            await this._router.navigate(["/transaction", this.transactionHash], {
-                queryParams: { tokenType: this.selectedSourceAsset.symbol },
-            });
-        }
+        await this._router.navigate(["/transaction", this.transactionHash], {
+            queryParams: { network: this.selectedSourceAsset.network },
+        });
     }
 
     getBridgeLabel(): string {
@@ -572,6 +574,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         } else {
             this.selectedTargetAsset = event.asset;
         }
+
         this.swapSource = "";
     }
 
@@ -622,7 +625,6 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         this.form.get("sourceAmount")?.setValue(newSourceAmount, { emitEvent: true });
-
         this.form.get("sourceAsset")?.setValue(_tempTarget, { emitEvent: true });
         this.form.get("targetAsset")?.setValue(_tempSource, { emitEvent: true });
 
@@ -655,16 +657,10 @@ export class SwapComponent implements OnInit, OnDestroy {
                 next: (result) => {
                     if (!result) return;
 
-                    this.form.get("slippage")?.setValue(result.slippage, { emitEvent: true });
-                    this.form.get("slippageToggle")?.setValue(result.slippageToggle, { emitEvent: true });
                     this.form.get("commission")?.setValue(result.commission, { emitEvent: true });
                     this.form.get("commissionToggle")?.setValue(result.commissionToggle, { emitEvent: true });
-
-                    if (this.form.get("sourceAmount")?.value && this.hasBothAssetsSet) {
-                        this.getSwapQuote().catch((error) => {
-                            console.error("Error updating quote after slippage change:", error);
-                        });
-                    }
+                    this.form.get("slippage")?.setValue(result.slippage, { emitEvent: true });
+                    this.form.get("slippageToggle")?.setValue(result.slippageToggle, { emitEvent: true });
 
                     this._changeDetectionRef.detectChanges();
                 },
@@ -688,8 +684,6 @@ export class SwapComponent implements OnInit, OnDestroy {
                 debounceTime(300)
             )
             .subscribe(async () => {
-                if (!this.hasBothAssetsSet) return;
-
                 try {
                     await this.getSwapQuote();
                 } catch (error) {
@@ -701,8 +695,6 @@ export class SwapComponent implements OnInit, OnDestroy {
             .get("slippage")
             ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
             .subscribe(async () => {
-                if (!this.hasBothAssetsSet || !this.form.get("sourceAmount")?.value) return;
-
                 try {
                     await this.getSwapQuote();
                 } catch (error) {
@@ -718,9 +710,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     isConfirmDisabled(): boolean {
         const hasValidAmount = !!this.form.get("sourceAmount")?.value && parseFloat(this.form.get("sourceAmount")?.value) > 0;
         const hasValidQuote = !!this.swapQuote;
-
         const isNotSending = !this.sending;
-
         const hasAssets = this.hasBothAssetsSet;
 
         return !(hasValidAmount && hasValidQuote && isNotSending && hasAssets);

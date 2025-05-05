@@ -1,4 +1,8 @@
 <div class="zelf-card swap" *transloco="let t">
+    <div class="swap__loader-overlay" *ngIf="quoteLoading">
+        <div class="ripple swap__loader"></div>
+    </div>
+
     <div class="swap__header">
         <div class="swap__col1">
             <button
@@ -360,6 +364,8 @@
                     mat-flat-button
                 >
                     {{ t("swap.confirm_swap") }}
+
+                    <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
                 </button>
             </div>
 

@@ -10,6 +10,17 @@
 }
 
 .swap {
+    position: relative;
+
+    &__loader-overlay {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        background-color: variables.$white;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
@@ -254,7 +265,7 @@
         box-sizing: border-box;
         color: inherit;
         font-family: Menda, sans-serif;
-        font-size: 32px;
+        font-size: 24px;
         font-weight: 700;
         letter-spacing: 0%;
         line-height: 40px;

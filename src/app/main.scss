@@ -13,6 +13,14 @@
 
 @font-face {
     font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
     src: url("../assets/fonts/Poppins/Poppins-SemiBold.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
@@ -45,16 +53,16 @@
 
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-Bold.woff2") format("woff2");
-    font-weight: bold;
+    src: url("../assets/fonts/Menda/Menda-SemiBold.woff2") format("woff2");
+    font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-SemiBold.woff2") format("woff2");
-    font-weight: 600;
+    src: url("../assets/fonts/Menda/Menda-Bold.woff2") format("woff2");
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }

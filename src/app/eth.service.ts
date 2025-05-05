@@ -585,7 +585,11 @@ export class EthereumService {
     }
 
     async requestTransactionDetails(transactionHash: string): Promise<{ data: EthTransaction }> {
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/avalanche/transaction/${transactionHash}`);
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/transaction/${transactionHash}`);
+    }
+
+    async requestTransactionDetailsV2(transactionHash: string): Promise<{ data: EthTransaction }> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ethereum/v2/transaction/${transactionHash}`);
     }
 
     async sendERC20Transaction(

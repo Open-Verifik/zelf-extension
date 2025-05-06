@@ -45,21 +45,21 @@
             </label>
 
             <button
-                (click)="goToImport()"
-                [disabled]="form.invalid || loading || loadingReferral"
-                class="zelf-button zelf-button--outlined zelf-button--wide"
-                mat-flat-button
-            >
-                {{ t("common.import_a_wallet") }}
-            </button>
-
-            <button
                 (click)="goToSecurity()"
                 [disabled]="form.invalid || loading || loadingReferral"
                 class="zelf-button zelf-button--black zelf-button--wide"
                 mat-flat-button
             >
                 {{ t("common.create_a_new_wallet") }}
+            </button>
+
+            <button
+                (click)="goToImport()"
+                [disabled]="form.invalid || loading || loadingReferral"
+                class="zelf-button zelf-button--outlined zelf-button--wide"
+                mat-flat-button
+            >
+                {{ t("common.import_a_wallet") }}
             </button>
         </div>
     </form>

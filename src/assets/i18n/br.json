@@ -119,7 +119,6 @@
         "new_password_subtitle": "A senha a seguir é uma camada de criptografia obrigatória para seu ZelfProof.",
         "password_decryption": "O NOME ZELF REQUER UMA SENHA",
         "password_subtitle": "Digite a senha atribuída a este Nome Zelf para concluir o processo de descriptografia.",
-        "set_password": "Definir Senha",
         "subtitle": "Selecione o comprimento de sua frase semente e prossiga com o processo de criptografia.",
         "title": "Camadas de Criptografia do ZelfProof",
         "unhide_words": "Mostrar palavras"

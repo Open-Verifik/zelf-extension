@@ -1,19 +1,38 @@
+import { CurrencyPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { TranslocoModule } from "@jsverse/transloco";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { AssetService } from "app/asset.service";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
-import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { ChromeService } from "app/chrome.service";
+import { FooterComponent } from "app/footer/footer.component";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { AssetService } from "app/asset.service";
+import { HomeHeaderComponent } from "./home-header/home-header.component";
+import { TokenCardComponent } from "./token-card/token-card.component";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
+    imports: [
+        CurrencyPipe,
+        FlexLayoutModule,
+        FooterComponent,
+        HomeHeaderComponent,
+        MatButtonModule,
+        NgClass,
+        NgFor,
+        NgIf,
+        RouterLink,
+        TokenCardComponent,
+        TranslocoModule,
+    ],
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
     templateUrl: "./home.component.html",
-    standalone: false
 })
 export class HomeComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();

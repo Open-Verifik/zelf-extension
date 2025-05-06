@@ -119,7 +119,6 @@
         "new_password_subtitle": "The following password is a required encryption layer for your ZelfProof.",
         "password_decryption": "ZELFNAME REQUIRES A PASSWORD",
         "password_subtitle": "Enter the password assigned to this Zelf Name to complete the decryption process.",
-        "set_password": "Set Password",
         "subtitle": "Select the length of your seed phrase and proceed with the encryption process.",
         "title": "ZelfProof Encryption Layers",
         "unhide_words": "Unhide words"

@@ -119,7 +119,6 @@
         "new_password_subtitle": "Le mot de passe suivant est une couche de chiffrement requise pour votre ZelfProof.",
         "password_decryption": "LE NOM ZELF REQUIERT UN MOT DE PASSE",
         "password_subtitle": "Entrez le mot de passe assigné à ce nom Zelf pour compléter le processus de déchiffrement.",
-        "set_password": "Définir un mot de passe",
         "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
         "title": "Couches de chiffrement ZelfProof",
         "unhide_words": "Afficher les mots"

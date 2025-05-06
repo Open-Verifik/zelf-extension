@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { CurrencyPipe, DecimalPipe, NgClass } from "@angular/common";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @Component({
     selector: "token-card",
@@ -37,12 +39,13 @@ import { Component, Input, OnInit } from "@angular/core";
         </div>
     `,
     styleUrls: ["./token-card.component.scss"],
-    standalone: false
+    imports: [CurrencyPipe, NgClass, DecimalPipe, FlexLayoutModule],
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;
     @Input() view: string;
     @Input() shareables: any;
+
     currentImage!: string;
 
     constructor() {

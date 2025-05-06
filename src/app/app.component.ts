@@ -6,15 +6,15 @@ import { ChromeService } from "./chrome.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
+    encapsulation: ViewEncapsulation.None,
     selector: "app-root",
+    standalone: false,
+    styleUrls: ["./app.component.scss", "./main.scss"],
     template: `<div class="flex flex-col flex-auto main-div" [ngClass]="isPopout ? 'main-div--popout' : ''">
         <div class="flex flex-col flex-auto">
             <router-outlet></router-outlet>
         </div>
     </div>`,
-    styleUrls: ["./app.component.scss", "./main.scss"],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();

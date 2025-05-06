@@ -1,15 +1,21 @@
+import { NgIf } from "@angular/common";
 import { Component, Input, OnDestroy } from "@angular/core";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { MatBottomSheet, MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatMenuModule } from "@angular/material/menu";
 import { ActivatedRoute, Router } from "@angular/router";
-
-import { ChromeService } from "app/chrome.service";
-import { Wallet } from "app/wallet";
+import { TranslocoPipe } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
+import { ChromeService } from "app/chrome.service";
+import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
+import { Wallet } from "app/wallet";
 import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header-accounts.component";
 
 @Component({
+    imports: [NgIf, MatBottomSheetModule, MatMenuModule, MatDividerModule, TranslocoPipe, ZelfNamePipe],
     selector: "home-header",
+    styleUrls: ["./home-header.component.scss", "../../main.scss"],
     template: `
         <div class="home-header" *ngIf="shareables.wallet">
             <div class="home-header__left home-header__container">&nbsp;</div>
@@ -72,8 +78,6 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
             </button>
         </mat-menu>
     `,
-    styleUrls: ["./home-header.component.scss", "../../main.scss"],
-    standalone: false
 })
 export class HomeHeaderComponent implements OnDestroy {
     @Input() shareables: any;

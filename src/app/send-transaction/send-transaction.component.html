@@ -164,7 +164,7 @@
                         </button>
                     </div>
 
-                    <p class="send-transaction__fiat-price">~{{ fiatPrice | currency : "USD" : "symbol" : "1.2" }}</p>
+                    <p class="send-transaction__fiat-price">~{{ fiatPrice | currency: "USD" : "symbol" : "1.2" }}</p>
 
                     <p class="zelf-input__tip">
                         {{ t("send.available_balance", { symbol: transactionData.symbol, balance: transactionData.balance }) }}
@@ -261,7 +261,7 @@
                             class="zelf-chip"
                             [ngClass]="{
                                 'zelf-chip--error': foundAddress.publicData.type !== 'mainnet',
-                                'zelf-chip--info': foundAddress.publicData.type === 'mainnet'
+                                'zelf-chip--info': foundAddress.publicData.type === 'mainnet',
                             }"
                         >
                             <ng-container *ngIf="foundAddress.publicData?.type !== 'mainnet'">{{ t("send.zelf_name_not_registered") }}</ng-container>

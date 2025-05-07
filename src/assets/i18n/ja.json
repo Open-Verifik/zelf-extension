@@ -1,7 +1,8 @@
 {
-    "hello": "こんにちは",
-    "logout_title": "すべてのZELFPROOFSを削除",
+    "cancel": "キャンセル",
+    "confirm": "確認",
     "logout_message": "この操作を確認すると、拡張機能からすべてのZelfProofsが削除されます。再度アクセスするには、各ZelfProofを再度復号化する必要があります。続行してもよろしいですか？",
+    "logout_title": "すべてのZELFPROOFSを削除",
     "onboarding": {
         "accept_terms_1": "私は",
         "accept_terms_2": "利用規約に同意します",
@@ -10,7 +11,6 @@
         "forgot_zelf_name": "Zelf Nameを忘れましたか？",
         "import_wallet": "ウォレットをインポート",
         "lifetime": "生涯",
-        "open_wallet": "ウォレットを開く",
         "price_for_lifetime": "生涯の価格",
         "price_year": "{{ duration }}年の価格",
         "referral_code": "紹介コード",
@@ -47,19 +47,18 @@
         "continue_process": "このプロセスを続行できます",
         "domain_or_address": "ドメインまたはアドレス",
         "external_address_found": "外部アドレスが見つかりました",
-        "recently_used": "最近使用されました",
         "used": "{{days}}日前に使用されました",
         "withdrawal_amount": "引き出し金額",
         "zelf_name_not_registered": "Zelf Nameが登録されていません",
         "zelf_name_registered": "Zelf Nameが登録されています"
     },
     "transaction": {
-        "confirmations": "確認",
         "go_to_my_history": "履歴に移動",
         "share_transaction": "トランザクションを共有"
     },
     "welcome": {
         "code_name": "コードネーム",
+        "domain_expired_since": "ドメインは {{ date }} から期限切れです",
         "decrypt_and_reserve": "復号して予約",
         "decrypt_now_pay_later": "今すぐ復号して後で支払う",
         "decrypt_now_renew_later": "今すぐ復号して後で更新",
@@ -76,6 +75,9 @@
         "invalid_referral_code": "無効な紹介コード",
         "name_expires": "名前の有効期限",
         "new_domain": "新しいドメイン",
+        "offline_subtitle": "この ZelfProof はオフラインで作成されたため、異なるセキュリティシステムを使用しています。現時点では、拡張機能との互換性はありません。まもなく利用可能になります。",
+        "offline_tip": "でも、心配しないでください！別の ZelfName で ZelfProof をインポートすれば、拡張機能からアクセスできます。",
+        "i_understand_go_back": "理解しました、ホームに戻ります",
         "old_domain": "古いドメイン",
         "paste_your_recovery_phrase": "秘密のリカバリーフレーズ全体を任意のフィールドに貼り付けることができます",
         "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> は既に使用されていますが、ご安心ください！同じシードフレーズでZelfProofにアクセスして新しいZelf Nameを予約できます。",
@@ -83,7 +85,7 @@
         "public_address_input": "ここにETHまたはSOLの公開アドレスを入力してください",
         "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> はまだ利用可能です。同じシードフレーズでZelfProofにアクセスしてZelf Nameを復元できます。",
         "recover_your_zelfname": "Zelf Nameを復元",
-        "referral_code": "紹介コード（オプション）",
+        "referral_code": "紹介コード",
         "referral_successfully_registered": "紹介が正常に登録されました",
         "registered_since": "{{ date }} から登録済み",
         "registered": "Zelf Nameは {{ date }} から登録されています",
@@ -94,22 +96,28 @@
         "upload_zelf_proof": "またはZelfProof QRコードをアップロードして続行してください:",
         "you_can_transfer_this_domain": "このドメインを転送できます",
         "you_will_register_this_domain": "このドメインを登録します",
-        "your_zelf_name": "あなたのZelf Name",
-        "offline_subtitle": "この ZelfProof はオフラインで作成されたため、異なるセキュリティシステムを使用しています。現時点では、拡張機能との互換性はありません。まもなく利用可能になります。",
-        "offline_tip": "でも、心配しないでください！別の ZelfName で ZelfProof をインポートすれば、拡張機能からアクセスできます。",
-        "i_understand_go_back": "理解しました、ホームに戻ります",
         "safeguard_your_crypto": "暗号資産を守りましょう！",
-        "offline_import_subtitle": "オフラインウォレットをインポートする前に、新しい ZelfName を選択する必要があります。"
+        "offline_import_subtitle": "オフラインウォレットをインポートする前に、新しい ZelfName を選択する必要があります。",
+        "your_zelf_name": "あなたのZelf Name"
+    },
+    "settings": {
+        "security_label": "セキュリティ",
+        "security": {
+            "biometric_verification_title": "生体認証の確認間隔",
+            "biometric_verification_description": "生体認証が必要になるまでパスワードのみの入力が許可される時間を設定します。これを1〜24時間の間で設定できます。",
+            "password_attempts_title": "パスワード試行回数",
+            "hours_before_reverification": "再確認までの時間",
+            "password_attempts_description": "生体認証が必要になる前の最大失敗パスワード試行回数を設定します。これを1〜8回の試行の間で設定できます。"
+        }
     },
     "security": {
-        "biometric_decryption_subtitle": "次に、パスワードと組み合わせてセルフィーを撮影し、ZelfProofを復号化するために使用される秘密鍵を生成します。<strong>私たちはあなたの生体認証データを他の目的で収集または使用しません。</strong>",
         "biometric_decryption_title": "生体認証復号化レイヤー",
+        "biometric_decryption_subtitle": "次に、パスワードと組み合わせてセルフィーを撮影し、ZelfProofを復号化するために使用される秘密鍵を生成します。<strong>私たちはあなたの生体認証データを他の目的で収集または使用しません。</strong>",
         "biometric_subtitle": "次に、パスワードと組み合わせてセルフィーを撮影し、ZelfProofを暗号化するために使用される秘密鍵を生成します。<strong>私たちはあなたの生体認証データを他の目的で収集または使用しません。</strong>",
         "biometric_title": "生体認証暗号化レイヤー",
         "hide_words": "単語を隠す",
         "new_password_subtitle": "以下のパスワードは、ZelfProofの必須暗号化レイヤーです。",
         "password_decryption": "ZELF名にはパスワードが必要です",
-        "password_encryption_subtitle": "暗号化プロセスを完了するには、このZelf名に割り当てられたパスワードを入力してください。",
         "password_subtitle": "復号プロセスを完了するには、このZelf名に割り当てられたパスワードを入力してください。",
         "set_password": "パスワードを設定",
         "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
@@ -125,6 +133,7 @@
         "12_word_phrase": "12単語のフレーズ",
         "24_word_phrase": "24単語のフレーズ",
         "about": "概要",
+        "import_wallet": "ウォレットをインポート",
         "activity": "アクティビティ",
         "address": "アドレス",
         "agree_to_terms_and_conditions": "<a href='https://docs.zelf.world/zelf-legal/terms-of-use' target='_blank'>利用規約</a>に同意します",
@@ -168,7 +177,7 @@
         "history": "履歴",
         "import_a_wallet": "ウォレットをインポート",
         "import": "インポート",
-        "information": "情報",
+        "information": "このアドレスは互換性のあるトークンを受信するためにのみ使用できます。",
         "is_required": "は必須です",
         "learn_more": "詳細を学ぶ",
         "load_more": "さらに読み込む",
@@ -195,7 +204,7 @@
         "receive": "受信",
         "recommended": "推奨",
         "refresh": "更新",
-        "registered": "登録済み",
+        "registered": "Zelf Nameは {{ date }} から登録されています",
         "renew_domain": "ドメインを更新",
         "renew_subscription": "サブスクリプションを更新",
         "reservation_found": "予約が見つかりました",
@@ -218,6 +227,7 @@
         "transaction": "トランザクション",
         "transfer": "転送",
         "try_again": "もう一度試す",
+        "try_another_one": "別のものを試す",
         "type": "タイプ",
         "unlock": "解除",
         "upload_qr_image": "QR画像をアップロード",
@@ -226,51 +236,45 @@
         "withdraw": "引き出し",
         "withdrawal_network": "引き出しネットワーク",
         "your_token": "あなたの{{ symbol }}",
-        "zelf_wallet": "Zelfウォレット",
-        "import_wallet": "ウォレットをインポート",
-        "try_another_one": "別のものを試す"
+        "zelf_wallet": "Zelfウォレット"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",
-        "about": "{{ network }}について",
+        "about": "概要",
         "circulating_supply": "流通供給量",
         "holders": "保有者",
         "market_cap": "時価総額",
         "price_detail": "価格の詳細",
         "total_supply": "総供給量",
         "traders": "トレーダー",
-        "trades": "取引",
         "volume_24h": "24時間の取引量",
         "volume": "取引量"
     },
     "domain_purchase": {
-        "agree_to_terms_and_conditions": "利用規約に同意します",
         "character_length_and_year": "{{characterLength}}文字の長さ。年間費用{{ costPerYear }} USD",
         "domain_price_length": "ドメイン価格の長さ",
         "know_more": "詳細を知る",
         "lifetime": "生涯",
         "price_per_year": "年間価格",
-        "title": "購入するドメイン",
-        "years": "{{ yearCount }}年"
+        "title": "ZelfProof暗号化レイヤー",
+        "years": "年"
     },
     "wallet": {
         "download_qr": "QRコードをダウンロード",
-        "my_arns": "私のArNS",
         "private_key": "秘密鍵"
     },
     "private_key": {
         "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-        "got_it": "了解しました",
-        "title": "秘密鍵"
+        "got_it": "了解しました、後でやります",
+        "title": "ZelfProof暗号化レイヤー"
     },
     "my_arns": {
         "arns_website": "ArNSウェブサイト",
-        "description": "暗号を受け取るための個人用ウェブサイトで、直接転送のための必要な情報を簡単に共有できます。"
+        "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。"
     },
     "manage_domain": {
-        "buy_another_name": "別のZelf Nameを購入",
         "hold_until": "保持期限",
-        "registered_since": "Zelf Name登録日",
+        "registered_since": "{{ date }} から登録済み",
         "registered_until": "登録期限"
     },
     "manage_domains": {
@@ -286,10 +290,10 @@
             "add_password": "続行",
             "agreement": "Zelfはこのパスワードを回復できないことを理解しています。この追加のセキュリティレイヤーを選択することで、私はそれを覚えている責任が私にあることを認識しています。",
             "continue_without_password": "1つのセキュリティレイヤー",
-            "description": "ZelfProofを保護するために、少なくとも8文字の強力なパスワードを設定してください。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "password_label": "パスワード",
             "repeat_password_label": "パスワードを再入力",
-            "title": "安全レイヤー"
+            "title": "ZelfProof暗号化レイヤー"
         },
         "phrase_step": {
             "12_words": "12単語のフレーズ",
@@ -297,38 +301,36 @@
             "description_2": "Zelfは、リカバリーフレーズを強力なプライバシー保護ZelfProofに暗号化することで、手動での保存の必要性を排除します。このZelfProofは、あなただけが復号できるQRコード内に安全に保存され、比類のないセキュリティを提供します。",
             "description_3": "QRコードは、Zelf Name Service（ZNS）によって強化されたリカバリーキーの強力なデジタルボールトとして機能します。ZNSを使用すると、Zelf Nameを使用してQRコードを簡単にバックアップおよび取得できます。",
             "description_4": "ZelfはZNSを使用してQRコードを取得するのを手伝うことができますが、安全なアクセスを確保するためにそれを保護する責任は私にあります。",
-            "description": "あなたのプライベートリカバリーフレーズは12または24の単語で構成されており、ウォレットへのアクセスとセキュリティに不可欠です。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "start_encryption_button": "開始",
-            "title": "ウォレット作成",
+            "title": "ZelfProof暗号化レイヤー",
             "words_input": "単語の数"
         },
         "zelfproof_step": {
-            "description": "あなたはZelfProofを生成しようとしています。これにより、リカバリーフレーズが安全に暗号化されます。プロセスがスムーズかつ効果的に進むように、以下の手順に従ってください。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "instruction_1": "顔を指定されたマーク内に配置してください",
             "instruction_2": "カメラを見つめ、動かないようにしてください",
             "instruction_3": "必要な顔のジェスチャーを確実に行ってください",
-            "title": "ZELPROOF暗号化"
+            "title": "ZelfProof暗号化レイヤー"
         },
         "view_wallet": {
-            "copy_public_address": "ETHアドレスをコピー",
-            "description_2": "QRコードが失われた場合、Zelf Name Service（ZNS）を使用して登録されたZelf Nameを使用して取得できます。",
-            "description": "リカバリーフレーズはZelfProofを使用して暗号化され、このQRコード内に安全に保護されています。これは強力なプライバシー保護セキュリティレイヤーです。",
+            "description_2": "Zelfは、リカバリーフレーズを強力なプライバシー保護ZelfProofに暗号化することで、手動での保存の必要性を排除します。このZelfProofは、あなただけが復号できるQRコード内に安全に保存され、比類のないセキュリティを提供します。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "download_qr_code": "QRコードをダウンロード",
             "qr_code_description": "このQRコードを安全に保管してください。ウォレットにアクセスまたは復元するには、ZelfProofとこのQRコードが常に必要です",
-            "title": "ZELFPROOFでウォレットが正常に暗号化されました"
+            "title": "ZelfProof暗号化レイヤー"
         }
     },
     "liveness": {
-        "center_your_face_subtitle": "顔が中央にあることを確認してください",
         "center_your_face": "画面の中央に顔を合わせてください",
+        "center_your_face_subtitle": "顔が中央にあることを確認してください",
         "get_closer_subtitle": "顔認識を向上させるために、もう少し近づいてください。",
         "get_closer": "もっと近づいてください",
         "liveness_error_message": "ライブネスチェックに次のエラーが発生しました:<br><strong>{{error}}</strong><br>もう一度試しますか？",
-        "liveness_failed": "ライブネス検出に失敗しました",
-        "loading_stream": "カメラを読み込んでいます",
-        "try_again_button": "もう一度試す"
+        "liveness_failed": "ライブネス検出に失敗しました"
     },
     "errors": {
+        "address_too_long": "アドレスが長すぎます",
         "all_fields_required": "すべてのフィールドが必要です",
         "chart_not_found": "チャートデータが利用できません",
         "Duplicated_person": "ZelfProofは別の記録に使用されています",
@@ -344,7 +346,10 @@
         "generic_title": "エラーが発生しました",
         "generic": "申し訳ありませんが、このリクエストの処理中に問題が発生しました。もう一度お試しください。",
         "insufficient_funds": "残高不足です。トランザクション手数料をカバーするのに十分な資金がウォレットにあることを確認してください。",
+        "incorrect_zelf_proof_title": "無効なZelfProof",
+        "incorrect_zelf_proof_message": "提供されたファイルが有効なZelfProofではないようです。もう一度試してください。",
         "invalid_format": "無効な形式です",
+        "invalid_number_value": "無効な数値です",
         "invalid_password": "無効なパスワードです。残り{{remaining}}回の試行で、バイオメトリクスでログインする必要があります。",
         "invalid_private_key": "秘密鍵が無効です。",
         "liveness_failed_description": "申し訳ありませんが、ライブネス検出に問題が発生しました。",
@@ -357,67 +362,61 @@
         "password_doesnt_match": "パスワードが一致しません",
         "password_incorrect": "パスワードが正しくありません",
         "person_already_set": "登録にはすでにZelfProofがリンクされています",
-        "phone_or_email_is_not_unique": "電話番号またはメールアドレスがすでに使用されています。別のものを試してください",
         "private_key_locked": "秘密鍵がロックされています。先に進むにはバイオメトリクスチェックを実行する必要があります。",
-        "replace_person_button": "了解、ZelfProofを置き換えます",
         "required_field": "このフィールドは必須です",
         "something_went_wrong": "問題が発生しました。もう一度お試しください",
         "transaction_not_found": "トランザクションが見つかりません",
-        "try_again": "もう一度試してください",
+        "try_again": "もう一度試す",
         "weak_password": "パスワードが弱すぎます",
         "zelfName_is_taken": "このZelf Nameはすでに使用されています"
     },
     "import_wallet": {
         "step_zero": {
-            "description": "他のプラットフォームからデジタル資産を迅速かつ安全に転送できます。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "description2": "私たちのプロセスは、キーやリカバリーフレーズの露出を防ぐことで、資産のプライバシーを確保します。",
             "description3": "ウォレットのインポートは、複数のアカウントを管理する必要を避けることで、暗号通貨の体験を簡素化します。",
             "description4": "リカバリーフレーズを使用せずに、私たちのプラットフォームで資金に簡単にアクセスできます。",
             "import_button": "ウォレットをインポート",
-            "subtitle": "利点は何ですか？",
-            "title": "既存のウォレットをインポート"
+            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
+            "title": "ZelfProof暗号化レイヤー"
         },
         "step_one": {
             "confirm_button": "ウォレットをインポート",
-            "description": "既存のウォレットを検証してインポートするために、以下にリカバリーフレーズを入力してください。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "paste_note": "シークレットリカバリーフレーズ全体を任意のフィールドに貼り付けることができます",
-            "title": "リカバリーフレーズを入力",
+            "title": "ZelfProof暗号化レイヤー",
             "word1": "1."
         },
         "qr_code_step": {
             "copy_address": "公開アドレスをコピー",
-            "description": "セキュリティフレーズとQRコードは現在、あなたのZelfProofにリンクされています。アカウントを保護するためにQRコードを安全に保管してください。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "download_qr": "QRコードをダウンロード",
             "success_message": "既存のウォレットを正常にインポートしました",
             "understood": "了解しました"
         }
     },
     "unlock_wallet": {
-        "account_found": "ZELFPROOFが見つかりました",
-        "back_button": "戻る",
-        "description": "以下に公開アドレスを入力して既存のZelf Nameを見つけてください:",
+        "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
         "drag_drop_text": "または.JPGまたはPNG拡張子のファイルをここにドラッグ＆ドロップしてください",
-        "title": "ZELF NAMEを見つける",
+        "title": "ZelfProof暗号化レイヤー",
         "upload_button": "QRコードを選択",
         "upload_description": "またはZelfProof QRコードをアップロードして続行してください:",
         "verify_button": "確認",
         "password": {
             "button": "続行",
-            "label": "パスワード",
-            "placeholder": "********************",
-            "subtitle": "ZelfProofを開くために割り当てられたパスワードを入力してください。",
-            "title": "このZELFPROOFにはパスワードが必要です"
+            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
+            "title": "ZelfProof暗号化レイヤー"
         },
         "hold": {
             "buy_now": "今すぐ購入",
             "expiration_time": "この予約は次の日に期限切れになります: ",
             "purchase_reservation": "予約を購入",
-            "title": "予約が見つかりました",
+            "title": "ZelfProof暗号化レイヤー",
             "unlock_without_purchase": "今すぐ確認して、後で購入"
         }
     },
     "steps": {
-        "add_password": "パスワードを追加",
+        "add_password": "続行",
         "available": "利用可能",
         "biometric_unlock": "ZelfProofロック",
         "biometrics": "ZelfProof",
@@ -429,39 +428,23 @@
         "wallet_type": "ウォレット"
     },
     "wallets_connected": {
-        "account": "アカウント",
         "create_or_import_wallet_button": "ウォレットを作成またはインポート",
-        "delete_wallet": "ウォレットを解除",
-        "no_zelf_name": "Zelf Nameなし",
-        "see_on_scanner": "エクスプローラーを開く",
-        "see_qr_code": "QRコードを見る",
-        "title": "ウォレットを選択"
+        "delete_wallet": "ウォレットを解除"
     },
     "active_wallet": {
-        "show_private_key": "秘密鍵を表示",
-        "warning_notice": "QRコードを安全に保管してください。必要に応じて複数のコピーを作成してください。また、ウォレットをエクスポートする際にのみ秘密鍵を解除してください"
+        "show_private_key": "秘密鍵を表示"
     },
     "home": {
-        "activity": "アクティビティ",
         "assets": "トークン",
         "NFTs": "コレクティブル",
         "receive_transaction_button": "受信",
-        "scan_button": "スキャン",
         "send_transaction_button": "送信",
         "settings_button": "設定",
         "support_button": "サポート"
     },
     "activity_card": {
-        "age": "年齢",
-        "amount": "金額",
-        "block": "ブロック",
-        "from": "送信元",
-        "hash": "ハッシュ",
         "in": "受信",
-        "method": "方法",
         "sent": "送信",
-        "to": "送信先",
-        "traffic": "トラフィック",
         "transaction": "トランザクション",
         "transactionID": "トランザクションID",
         "txnFee": "トランザクション手数料",
@@ -483,45 +466,30 @@
         "confirm_transaction_button": "トランザクションを確認",
         "confirmation_step": "転送",
         "continue_transaction_button": "次へ",
-        "pickReceiver_step": "送信",
-        "reject_transaction_button": "キャンセル",
-        "send_to": "送信先",
-        "tokens_step": "トークンを選択",
         "your_accounts": "あなたのアカウント",
-        "confirm": {
-            "gas_description": "おそらく{{seconds}}秒以内",
-            "gas_label": "ガス（推定）",
-            "market": "市場",
-            "max_gas": "最大手数料:",
-            "max_total": "最大合計",
-            "sending_label": "{{amount}} {{asset}}を送信中",
-            "total_to_pay_label": "資産 + ガス手数料"
-        },
-        "preview": {
-            "estimated_fee": "推定手数料"
-        },
         "bridge": {
-            "confirm_button": "トランザクションを確認",
-            "description_2": "ウェブ拡張機能で続行",
-            "description": "Zelf Name ServiceアプリからQRコードをスキャンしてください。デバイスで復号することでセキュリティレイヤーを追加します",
+            "description_2": "Zelfは、リカバリーフレーズを強力なプライバシー保護ZelfProofに暗号化することで、手動での保存の必要性を排除します。このZelfProofは、あなただけが復号できるQRコード内に安全に保存され、比類のないセキュリティを提供します。",
+            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
             "dont_have_the_app": "まだZelf Name Serviceアプリをインストールしていませんか？",
             "download_here": "ここからダウンロードして、すべてのトランザクションのセキュリティを強化し、暗号通貨へのアクセスを失わないようにしてください。",
-            "qr_code_title": "QRコードをスキャン",
-            "title": "トランザクションを確認"
+            "title": "ZelfProof暗号化レイヤー"
         }
     },
     "network_picker": {
-        "testnets_title": "テストネットワークを選択",
-        "title": "ネットワークを選択"
+        "title": "ZelfProof暗号化レイヤー"
     },
     "payments": {
         "continue_withoutpaying": "支払いなしで続行",
-        "pay_now": "支払いを進める"
+        "pay_now": "今すぐ支払う"
     },
     "restricted": {
-        "description": "この機能はモバイルデバイスでは利用できません。デスクトップブラウザを使用してアクセスするか、Zelf Name Serviceアプリをダウンロードしてください。",
+        "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
         "download_android_app": "Androidアプリをダウンロード",
-        "title": "モバイル制限"
+        "title": "ZelfProof暗号化レイヤー"
+    },
+    "id_scanning": {
+        "camera_not_found": "カメラが見つかりません",
+        "camera_not_found_description": "カメラにアクセスできませんでした。デバイスの設定を確認し、更新して再試行してください。"
     },
     "language": {
         "ar": "アラビア語",
@@ -530,7 +498,7 @@
         "en": "英語",
         "es": "スペイン語",
         "fr": "フランス語",
-        "in": "ヒンディー語",
+        "in": "受信",
         "ja": "日本語",
         "kr": "韓国語",
         "ph": "タガログ語",

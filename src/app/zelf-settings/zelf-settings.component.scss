@@ -69,4 +69,55 @@
         min-height: 600px;
         width: 100%;
     }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        gap: 16px;
+        cursor: pointer;
+        border-radius: 16px;
+        transition: background-color 0.2s variables.$smoothBezier;
+        width: 100%;
+
+        &:hover {
+            background-color: variables.$antiFlashWhite;
+        }
+    }
+
+    &__item-col1 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+
+    &__item-col1-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 38px;
+        width: 38px;
+        border-radius: 38px;
+        background-color: variables.$black;
+
+        svg {
+            height: 16px;
+            width: 16px;
+            fill: variables.$white;
+        }
+    }
+
+    &__item-col2 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        svg {
+            height: 16px;
+            width: 16px;
+            fill: variables.$gray;
+        }
+    }
 }

@@ -1,0 +1,53 @@
+<form [formGroup]="form" class="zelf-settings-security" *transloco="let t">
+    <div class="zelf-card__content zelf-settings-security__content">
+        <div class="zelf-settings-security__box">
+            <h4 class="zelf-settings-security__title">{{ t("settings.security.biometric_verification_title") }}</h4>
+
+            <p class="zelf-settings-security__description">{{ t("settings.security.biometric_verification_description") }}</p>
+
+            <div
+                [ngClass]="{ 'zelf-input--error': form.get('biometricVerificationHours')?.dirty && form.get('biometricVerificationHours')?.errors }"
+                class="zelf-input zelf-input--wide"
+            >
+                <input
+                    [value]="settings.security.biometricVerificationHours"
+                    class="zelf-input__control zelf-input__control--floating-label"
+                    formControlName="biometricVerificationHours"
+                    id="biometricVerificationHours"
+                    name="biometricVerificationHours"
+                    placeholder=" "
+                    required
+                    type="number"
+                />
+
+                <label for="biometricVerificationHours" class="zelf-input__floating-label">{{
+                    t("settings.security.hours_before_reverification")
+                }}</label>
+            </div>
+        </div>
+
+        <div class="zelf-settings-security__box">
+            <h4 class="zelf-settings-security__title">{{ t("settings.security.password_attempts_title") }}</h4>
+
+            <p class="zelf-settings-security__description">{{ t("settings.security.password_attempts_description") }}</p>
+
+            <div
+                [ngClass]="{ 'zelf-input--error': form.get('passwordAttempts')?.dirty && form.get('passwordAttempts')?.errors }"
+                class="zelf-input zelf-input--wide"
+            >
+                <input
+                    [value]="settings.security.passwordAttempts"
+                    class="zelf-input__control zelf-input__control--floating-label"
+                    formControlName="passwordAttempts"
+                    id="passwordAttempts"
+                    name="passwordAttempts"
+                    placeholder=" "
+                    required
+                    type="number"
+                />
+
+                <label for="passwordAttempts" class="zelf-input__floating-label">{{ t("settings.security.password_attempts_title") }}</label>
+            </div>
+        </div>
+    </div>
+</form>

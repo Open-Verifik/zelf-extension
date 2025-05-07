@@ -4,10 +4,12 @@ import { Browser } from "webextension-polyfill";
 
 declare global {
     const browser: Browser;
-}
 
-declare global {
     interface Window {
         ethereum?: any;
+    }
+
+    interface WindowEventMap {
+        localstorage: CustomEvent<{ key: string; oldValue: string; newValue: string }>;
     }
 }

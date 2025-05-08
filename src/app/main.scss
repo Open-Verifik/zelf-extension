@@ -1244,7 +1244,7 @@ h3 {
     width: 564px;
     min-height: 768px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: variables.$medium) {
         background: variables.$white;
         width: 100%;
         padding: 12px;
@@ -1346,7 +1346,7 @@ h3 {
     border: 1px solid variables.$antiFlashWhite;
     box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
     display: flex;
-    height: 62px;
+    min-height: 62px;
     justify-content: space-between;
     padding: 16px;
     width: 100%;

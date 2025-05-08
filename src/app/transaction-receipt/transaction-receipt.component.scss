@@ -183,4 +183,20 @@
         font-family: Poppins;
         margin: 0 0 8px;
     }
+
+    @media (max-width: variables.$minSmall) {
+        &__price {
+            font-size: 28px;
+        }
+
+        &__label {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        &__value {
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
 }

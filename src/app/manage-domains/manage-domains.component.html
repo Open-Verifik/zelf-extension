@@ -130,11 +130,10 @@
 
                         <div class="domain-detail__col">
                             <button
-                                mat-flat-button
-                                class="zelf-button zelf-button--black zelf-button--wide"
+                                (click)="goToPurchase(wallet)"
                                 *ngIf="wallet.publicData?.isExpiringSoon"
-                                [routerLink]="['/domain-purchase']"
-                                [queryParams]="{ zelfName: wallet.publicData?.zelfName }"
+                                class="zelf-button zelf-button--black zelf-button--wide"
+                                mat-flat-button
                             >
                                 <span>{{ t("common.buy_now") }}</span>
 

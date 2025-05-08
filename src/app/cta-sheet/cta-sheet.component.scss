@@ -40,7 +40,9 @@
         position: absolute;
         right: 0;
         top: 0;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
         width: 48px;
 
         svg {
@@ -315,6 +317,7 @@
             align-items: center;
             justify-content: center;
             gap: 16px;
+            width: 100%;
         }
 
         &-posttitle {
@@ -354,7 +357,7 @@
             font-size: 18px;
             line-height: 24px;
             letter-spacing: 0px;
-            text-align: center;
+            text-align: left;
             vertical-align: middle;
             color: variables.$black;
             margin: 0;
@@ -390,6 +393,12 @@
 .expandable {
     width: 100%;
     box-sizing: border-box;
+    border: 1px solid variables.$correctLight;
+    border-radius: 16px;
+    transition:
+        background-color 0.3s variables.$smoothBezier,
+        color 0.3s variables.$smoothBezier;
+    overflow-y: hidden;
 
     &__label {
         background-color: variables.$correctLight;
@@ -397,6 +406,7 @@
         box-sizing: border-box;
         cursor: pointer;
         font-family: Poppins;
+        border-radius: 16px;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -409,8 +419,9 @@
         justify-content: space-between;
         align-items: center;
         padding: 8px 24px 8px;
-        border: 1px solid variables.$correctLight;
-        transition: background-color 0.3s variables.$smoothBezier, color 0.3s variables.$smoothBezier;
+        transition:
+            background-color 0.3s variables.$smoothBezier,
+            color 0.3s variables.$smoothBezier;
 
         svg {
             transform: rotate(0deg);
@@ -447,13 +458,19 @@
         transition: max-height 0.3s ease-in-out;
 
         &--active {
-            max-height: 128px;
+            max-height: 158px;
         }
     }
 
     &__inner-content {
         box-sizing: border-box;
-        padding: 16px;
+        padding: 12px 24px 16px;
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
     }
 }
 
@@ -461,7 +478,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 8px;
 
     &-number {
@@ -474,6 +491,7 @@
         background-color: variables.$correctLight;
         color: variables.$black;
         margin: 0;
+        font-size: 12px;
     }
 
     &-text {
@@ -487,6 +505,7 @@
     }
 
     &__title {
+        margin: 8px 0 0;
         font-family: Menda;
         font-weight: 700;
         font-size: 14px;
@@ -496,6 +515,6 @@
         vertical-align: middle;
         text-transform: uppercase;
         color: variables.$black;
-        margin: 0;
+        width: 100%;
     }
 }

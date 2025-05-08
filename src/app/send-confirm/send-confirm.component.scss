@@ -90,6 +90,11 @@
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
+
+        @media (max-width: variables.$minSmall) {
+            flex-direction: column;
+            align-items: flex-end;
+        }
     }
 
     &__summary {
@@ -110,6 +115,7 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$gray;
+        margin: 0;
     }
 
     &__value {
@@ -121,6 +127,7 @@
         vertical-align: middle;
         color: variables.$black;
         transition: color 0.2s variables.$smoothBezier;
+        margin: 0;
 
         &--col {
             display: flex;
@@ -178,5 +185,21 @@
         color: variables.$black;
         font-family: Poppins;
         margin: 0 0 8px;
+    }
+
+    @media (max-width: variables.$minSmall) {
+        &__price {
+            font-size: 28px;
+        }
+
+        &__label {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        &__value {
+            font-size: 12px;
+            line-height: 16px;
+        }
     }
 }

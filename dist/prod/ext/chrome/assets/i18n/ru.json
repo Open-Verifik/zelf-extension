@@ -367,7 +367,6 @@
         "something_went_wrong": "Что-то пошло не так, пожалуйста, попробуйте снова",
         "transaction_not_found": "Транзакция не найдена",
         "try_again": "Попробовать снова",
-        "weak_password": "Ваш пароль слишком слабый",
         "zelfName_is_taken": "Это имя Zelf уже занято"
     },
     "import_wallet": {

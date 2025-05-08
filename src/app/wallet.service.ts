@@ -51,7 +51,6 @@ export class WalletService {
 
     sessionData: any = {
         type: "",
-        step: 0,
         wordsCount: 12,
         navigationStep: 1,
         password: "",
@@ -531,6 +530,24 @@ export class WalletService {
         }
 
         return wallet;
+    }
+
+    async updateWallet(walletToUpdate: Partial<WalletModel>): Promise<void> {
+        if (!walletToUpdate || !walletToUpdate.publicData?.zelfName) return;
+
+        const { wallet, wallets } = await this.getAllWalletsFromStorage();
+
+        if (wallet && wallet.publicData?.zelfName && wallet.publicData?.zelfName === walletToUpdate.publicData?.zelfName) {
+            await this._chromeService.setItem("wallet", walletToUpdate);
+
+            return;
+        }
+
+        const index = wallets.findIndex((_wallet) => _wallet.publicData.zelfName === walletToUpdate.publicData?.zelfName);
+
+        if (index !== -1) wallets[index] = walletToUpdate as WalletModel;
+
+        await this._chromeService.setItem("wallets", wallets);
     }
 
     async updateCurrentWallet(wallet: Partial<WalletModel>): Promise<void> {

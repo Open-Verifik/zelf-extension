@@ -367,7 +367,6 @@
         "something_went_wrong": "出了点问题，请重试",
         "transaction_not_found": "未找到交易",
         "try_again": "再试一次",
-        "weak_password": "您的密码太弱",
         "zelfName_is_taken": "此 Zelf 名称已被占用"
     },
     "import_wallet": {

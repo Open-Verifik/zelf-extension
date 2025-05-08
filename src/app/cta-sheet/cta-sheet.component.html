@@ -14,7 +14,7 @@
                 [ngClass]="{
                     'cta-sheet__status-bubble--soon': has30To16DaysLeft(expiresAt) || has15To7DaysLeft(expiresAt),
                     'cta-sheet__status-bubble--warning': data.wallet.publicData?.isInGracePeriod || has7DaysLeft(expiresAt),
-                    'cta-sheet__status-bubble--alert': data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired
+                    'cta-sheet__status-bubble--alert': data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired,
                 }"
             >
                 <ng-container *ngIf="has30To16DaysLeft(expiresAt) || has15To7DaysLeft(expiresAt)">
@@ -154,8 +154,21 @@
                         <ng-container *ngIf="has7DaysLeft(this.expiresAt)">
                             <p class="cta-sheet__info-pretitle" *ngIf="daysLeft">{{ t("cta_sheet.with_just_x_days_left", { days: daysLeft }) }}</p>
 
-                            <p class="cta-sheet__info-pretitle" *ngIf="!daysLeft">
+                            <p class="cta-sheet__info-pretitle" *ngIf="!daysLeft && hoursLeft">
                                 {{ t("cta_sheet.with_just_x_hours_left", { hours: hoursLeft }) }}
+                            </p>
+
+                            <p class="cta-sheet__info-pretitle cta-sheet__info-pretitle--warning" *ngIf="!hoursLeft && minutesLeft">
+                                {{
+                                    t("cta_sheet.with_just_x_minutes_left", {
+                                        minutes: minutesLeft <= 15 ? minutesLeft : minutesLeftCount,
+                                        seconds: secondsLeftCount,
+                                    })
+                                }}
+                            </p>
+
+                            <p class="cta-sheet__info-pretitle cta-sheet__info-pretitle--warning" *ngIf="!minutesLeft">
+                                {{ t("cta_sheet.with_just_x_seconds_left", { seconds: secondsLeftCount }) }}
                             </p>
 
                             <h4 class="cta-sheet__info-title">{{ t("cta_sheet.what_do_you_think") }}</h4>
@@ -195,34 +208,36 @@
                     </ng-container>
 
                     <ng-container *ngIf="has7DaysLeft(this.expiresAt)">
-                        <div (click)="toggleExpand()" class="expandable__label" [ngClass]="{ 'expandable__label--active': isExpanded }">
-                            <p class="expandable__text">{{ t("cta_sheet.yes_because") }}</p>
+                        <div class="expandable">
+                            <div (click)="toggleExpand()" class="expandable__label" [ngClass]="{ 'expandable__label--active': isExpanded }">
+                                <p class="expandable__text">{{ t("cta_sheet.yes_because") }}</p>
 
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M2.1251 6.99953L6.0051 3.11953L9.8851 6.99953C10.2751 7.38953 10.9051 7.38953 11.2951 6.99953C11.6851 6.60953 11.6851 5.97953 11.2951 5.58953L6.7051 0.999531C6.3151 0.609531 5.6851 0.609531 5.2951 0.999531L0.705098 5.58953C0.315098 5.97953 0.315098 6.60953 0.705098 6.99953C1.0951 7.37953 1.7351 7.38953 2.1251 6.99953Z"
-                                />
-                            </svg>
-                        </div>
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M2.1251 6.99953L6.0051 3.11953L9.8851 6.99953C10.2751 7.38953 10.9051 7.38953 11.2951 6.99953C11.6851 6.60953 11.6851 5.97953 11.2951 5.58953L6.7051 0.999531C6.3151 0.609531 5.6851 0.609531 5.2951 0.999531L0.705098 5.58953C0.315098 5.97953 0.315098 6.60953 0.705098 6.99953C1.0951 7.37953 1.7351 7.38953 2.1251 6.99953Z"
+                                    />
+                                </svg>
+                            </div>
 
-                        <div class="expandable__content" [ngClass]="{ 'expandable__content--active': isExpanded }">
-                            <div class="expandable__inner-content">
-                                <div class="considerations-item">
-                                    <p class="considerations-item-number">1</p>
-                                    <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_1") }}</p>
+                            <div class="expandable__content" [ngClass]="{ 'expandable__content--active': isExpanded }">
+                                <div class="expandable__inner-content">
+                                    <div class="considerations-item">
+                                        <p class="considerations-item-number">1</p>
+                                        <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_1") }}</p>
+                                    </div>
+
+                                    <div class="considerations-item">
+                                        <p class="considerations-item-number">2</p>
+                                        <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_2") }}</p>
+                                    </div>
+
+                                    <div class="considerations-item">
+                                        <p class="considerations-item-number">3</p>
+                                        <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_3") }}</p>
+                                    </div>
+
+                                    <h4 class="considerations-item__title">{{ t("cta_sheet.secure_it_now") }}</h4>
                                 </div>
-
-                                <div class="considerations-item">
-                                    <p class="considerations-item-number">2</p>
-                                    <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_2") }}</p>
-                                </div>
-
-                                <div class="considerations-item">
-                                    <p class="considerations-item-number">3</p>
-                                    <p class="considerations-item-text">{{ t("cta_sheet.considerations_description_3") }}</p>
-                                </div>
-
-                                <h4 class="considerations-item__title">{{ t("cta_sheet.secure_it_now") }}</h4>
                             </div>
                         </div>
                     </ng-container>

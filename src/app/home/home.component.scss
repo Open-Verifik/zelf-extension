@@ -57,12 +57,25 @@
         justify-content: center;
         align-items: center;
         gap: 26px;
+
+        @media (max-width: variables.$minSmall) {
+            gap: 12px;
+        }
+
+        @media (max-width: variables.$medium) {
+            gap: 20px;
+        }
     }
 
     &__tabs {
         margin-top: 16px;
+        margin-bottom: 8px;
         padding: 0 16px;
         width: 100%;
+
+        @media (max-width: variables.$minSmall) {
+            padding: 0;
+        }
     }
 
     &__assets-content {
@@ -86,6 +99,10 @@
         vertical-align: middle;
         margin-bottom: 4px;
         padding: 16px;
+
+        @media (max-width: variables.$minSmall) {
+            padding: 0;
+        }
     }
 }
 
@@ -122,6 +139,11 @@
             min-height: 44px;
             animation: ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
         }
+
+        @media (max-width: variables.$minSmall) {
+            font-size: 32px;
+            line-height: 32px;
+        }
     }
 }
 
@@ -142,7 +164,9 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$black;

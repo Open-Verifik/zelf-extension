@@ -7,6 +7,7 @@ import { environment } from "environments/environment";
 
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { Transaction, WalletModel } from "app/wallet";
+import { NetworkName } from "./network.service";
 
 @Injectable({
     providedIn: "root",
@@ -102,5 +103,25 @@ export class BlockchainTransactionsService {
         }
 
         return transactions;
+    }
+
+    generateShareLink(hash: string, network: NetworkName): string {
+        if (network === "ethereum") {
+            return `http://etherscan.io/tx/${hash}`;
+        }
+
+        if (network === "avalanche") {
+            return `https://avascan.info/blockchain/c/tx/${hash}`;
+        }
+
+        if (network === "solana") {
+            return `https://solscan.io/tx/${hash}`;
+        }
+
+        if (network === "sui") {
+            return `https://suiscan.xyz/tx/${hash}`;
+        }
+
+        return "";
     }
 }

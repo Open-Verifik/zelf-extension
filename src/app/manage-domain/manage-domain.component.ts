@@ -6,7 +6,8 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { Subject, takeUntil } from "rxjs";
+import { ZelfNameService } from "app/zelf-name-service.service";
+import { async, Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "manage-domain",
@@ -19,10 +20,15 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     private _selectedZelfName: string = "";
 
     loading: boolean = false;
-    wallet?: Partial<WalletModel> = {};
+    wallet: Partial<WalletModel> = {};
     wallets: WalletModel[] = [];
 
-    constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _walletService: WalletService) {
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _router: Router,
+        private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService
+    ) {
         this._selectedZelfName = this._activatedRoute.snapshot.queryParams.zelfName;
 
         this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {
@@ -33,6 +39,8 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._setWallets().then(() => {
             this.loading = false;
+
+            this._updateWallet();
         });
     }
 
@@ -47,12 +55,21 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
         if (this._selectedZelfName) {
-            this.wallet = wallets.find((w) => w.publicData.zelfName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || {};
-
-            return;
+            this.wallet =
+                wallets.find((w) => w.publicData.zelfName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || ({} as WalletModel);
+        } else {
+            this.wallet = wallet || ({} as WalletModel);
         }
+    }
 
-        this.wallet = wallet || {};
+    private async _updateWallet(): Promise<void> {
+        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as WalletModel);
+
+        if (!updatedWallet) return;
+
+        this.wallet = updatedWallet;
+
+        this._walletService.updateWallet(this.wallet);
     }
 
     async extendRegistration(): Promise<void> {

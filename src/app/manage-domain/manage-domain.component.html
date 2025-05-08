@@ -26,39 +26,39 @@
 
         <ng-container *ngIf="!loading">
             <div class="qr-code">
-                <img class="qr-code__image" [src]="wallet?.image" />
+                <img class="qr-code__image" [src]="wallet.image" />
 
                 <div
                     class="qr-code__status-chip"
                     [ngClass]="{
-                        'qr-code__status-chip--active': !wallet?.publicData?.isExpired && wallet?.publicData?.type === 'mainnet',
-                        'qr-code__status-chip--hold': !wallet?.publicData?.isExpired && wallet?.publicData?.type === 'hold',
-                        'qr-code__status-chip--inactive': wallet?.publicData?.isExpired,
+                        'qr-code__status-chip--active': !wallet.publicData?.isExpired && wallet.publicData?.type === 'mainnet',
+                        'qr-code__status-chip--hold': !wallet.publicData?.isExpired && wallet.publicData?.type === 'hold',
+                        'qr-code__status-chip--inactive': wallet.publicData?.isExpired,
                     }"
                 >
                     {{ t("wallet_status." + getWalletStatus()) }}
                 </div>
 
-                <h4 class="qr-code__name">{{ wallet?.publicData?.zelfName || "****.zelf" | zelfName }}</h4>
+                <h4 class="qr-code__name">{{ wallet.publicData?.zelfName || "****.zelf" | zelfName }}</h4>
             </div>
 
             <div class="manage-domain__details">
-                <div class="manage-domain__detail mb-2" *ngIf="wallet?.publicData?.registeredAt">
+                <div class="manage-domain__detail mb-2" *ngIf="wallet.publicData?.registeredAt">
                     <p class="manage-domain__detail-title">{{ t("manage_domain.registered_since") }}</p>
 
-                    <p class="manage-domain__detail-value">{{ wallet?.publicData?.registeredAt | date : "dd MMM, yyyy, hh:mm aa" }}</p>
+                    <p class="manage-domain__detail-value">{{ wallet.publicData?.registeredAt | date: "dd MMM, yyyy, hh:mm aa" }}</p>
                 </div>
 
-                <div class="manage-domain__detail" *ngIf="wallet?.publicData?.type === 'hold'">
+                <div class="manage-domain__detail" *ngIf="wallet.publicData?.type === 'hold'">
                     <p class="manage-domain__detail-title">{{ t("manage_domain.hold_until") }}</p>
 
-                    <p class="manage-domain__detail-value">{{ wallet?.publicData?.expiresAt | date : "dd MMM, yyyy" }}</p>
+                    <p class="manage-domain__detail-value">{{ wallet.publicData?.expiresAt | date: "dd MMM, yyyy" }}</p>
                 </div>
 
                 <div class="manage-domain__detail" *ngIf="wallet && wallet.publicData && wallet.publicData?.type === 'mainnet'">
                     <p class="manage-domain__detail-title">{{ t("manage_domain.registered_until") }}</p>
 
-                    <p class="manage-domain__detail-value">{{ wallet.publicData.expiresAt | date : "dd MMM, yyyy, hh:mm aa" }}</p>
+                    <p class="manage-domain__detail-value">{{ wallet.publicData.expiresAt | date: "dd MMM, yyyy, hh:mm aa" }}</p>
                 </div>
             </div>
         </ng-container>

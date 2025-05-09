@@ -10,7 +10,8 @@ module.exports = function (config) {
         browsers: ["Chrome"],
         colors: true,
         failOnFailingTestSuite: true,
-        logLevel: config.LOG_WARN,
+        // Set to ERROR level to hide the WARN messages about failed proxies
+        logLevel: config.LOG_ERROR,
         port: 9876,
         reporters: ["progress", "kjhtml"],
         restartOnFileChange: true,

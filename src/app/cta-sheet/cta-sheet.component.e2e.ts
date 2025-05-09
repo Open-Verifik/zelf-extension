@@ -156,9 +156,9 @@ describe("CTA Sheet Component E2E Tests", function () {
         const { page } = getBrowserState();
 
         const now = Date.now();
-        const expiresAtDate = new Date(now + 10 * 24 * 60 * 60 * 1000); // 10 days from now
+        const expiresAtDate = new Date(now + 10 * 24 * 60 * 60 * 1000 + 20 * 1000); // 10 + 20 seconds from now
         const expiresAt = expiresAtDate.toISOString();
-        const daysBetweenNowAndExpiresAt = Math.ceil((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
+        const daysBetweenNowAndExpiresAt = Math.floor((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
 
         const mockWallet = {
             publicData: {
@@ -221,9 +221,9 @@ describe("CTA Sheet Component E2E Tests", function () {
         const { page } = getBrowserState();
 
         const now = Date.now();
-        const expiresAtDate = new Date(now + 10 * 24 * 60 * 60 * 1000); // 10 days from now
+        const expiresAtDate = new Date(now + 10 * 24 * 60 * 60 * 1000 + 20 * 1000); // 10 + 20 seconds from now
         const expiresAt = expiresAtDate.toISOString();
-        const daysBetweenNowAndExpiresAt = Math.ceil((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
+        const daysBetweenNowAndExpiresAt = Math.floor((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
 
         const mockWallet = {
             publicData: {
@@ -282,13 +282,13 @@ describe("CTA Sheet Component E2E Tests", function () {
         expect(buttonTexts).toContain("Do it later");
     });
 
-    it("should show warning style for Mainnet with 7 days remaining", async function () {
+    it("should show warning style for Mainnet with <7 days remaining", async function () {
         const { page } = getBrowserState();
 
         const now = Date.now();
-        const expiresAtDate = new Date(now + 6 * 24 * 60 * 60 * 1000); // 6 days from now
+        const expiresAtDate = new Date(now + 6 * 24 * 60 * 60 * 1000 + 20 * 1000); // 6 + 20 seconds from now
         const expiresAt = expiresAtDate.toISOString();
-        const daysBetweenNowAndExpiresAt = Math.ceil((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
+        const daysBetweenNowAndExpiresAt = Math.floor((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
 
         const mockWallet = {
             publicData: {
@@ -347,13 +347,13 @@ describe("CTA Sheet Component E2E Tests", function () {
         expect(buttonTexts).toContain("Do it later");
     });
 
-    it("should show warning style for Hold with 7 days remaining", async function () {
+    it("should show warning style for Hold with <7 days remaining", async function () {
         const { page } = getBrowserState();
 
         const now = Date.now();
-        const expiresAtDate = new Date(now + 6 * 24 * 60 * 60 * 1000); // 6 days from now
+        const expiresAtDate = new Date(now + 6 * 24 * 60 * 60 * 1000 + 20 * 1000); // 6 + 20 seconds from now
         const expiresAt = expiresAtDate.toISOString();
-        const daysBetweenNowAndExpiresAt = Math.ceil((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
+        const daysBetweenNowAndExpiresAt = Math.floor((expiresAtDate.getTime() - now) / (1000 * 60 * 60 * 24));
 
         const mockWallet = {
             publicData: {

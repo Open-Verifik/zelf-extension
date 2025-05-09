@@ -119,7 +119,6 @@
         "new_password_subtitle": "以下のパスワードは、ZelfProofの必須暗号化レイヤーです。",
         "password_decryption": "ZELF名にはパスワードが必要です",
         "password_subtitle": "復号プロセスを完了するには、このZelf名に割り当てられたパスワードを入力してください。",
-        "set_password": "パスワードを設定",
         "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
         "title": "ZelfProof暗号化レイヤー",
         "unhide_words": "単語を表示"

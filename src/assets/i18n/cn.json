@@ -119,7 +119,6 @@
         "new_password_subtitle": "以下密码是您的ZelfProof所需的加密层。",
         "password_decryption": "ZELF名称需要密码",
         "password_subtitle": "输入分配给此Zelf名称的密码以完成解密过程。",
-        "set_password": "设置密码",
         "subtitle": "选择您的种子短语长度并继续加密过程。",
         "title": "ZelfProof加密层",
         "unhide_words": "显示单词"

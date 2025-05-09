@@ -119,7 +119,6 @@
         "new_password_subtitle": "La siguiente contraseña es una capa de cifrado requerida para tu ZelfProof.",
         "password_decryption": "EL NOMBRE ZELF REQUIERE UNA CONTRASEÑA",
         "password_subtitle": "Ingresa la contraseña asignada a este Nombre Zelf para completar el proceso de descifrado.",
-        "set_password": "Establecer contraseña",
         "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de cifrado.",
         "title": "Capas de Cifrado de ZelfProof",
         "unhide_words": "Mostrar palabras"

@@ -1165,12 +1165,25 @@ h3 {
     background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
+.zelf-botton-sheet-full,
 .zelf-bottom-sheet {
     .mat-bottom-sheet-container {
         background-color: variables.$white !important;
         border-radius: 26px 26px 0 0 !important;
         color: variables.$black;
         max-height: 100vh !important;
+    }
+}
+
+.zelf-botton-sheet-full {
+    width: 100vw !important;
+
+    .mat-bottom-sheet-container {
+        display: flex;
+        justify-content: center;
+        max-width: 100vw !important;
+        width: 100vw !important;
+        border-radius: 0 !important;
     }
 }
 

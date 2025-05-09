@@ -251,6 +251,8 @@
     },
     "wallet": {
         "download_qr": "下载二维码",
+        "info_title": "保存您的二维码",
+        "info_description": "记住要保存您的二维码以保护您的账户。下载它并将其保存在安全的地方。",
         "private_key": "私钥"
     },
     "private_key": {

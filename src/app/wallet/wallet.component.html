@@ -15,7 +15,7 @@
         </div>
 
         <div class="wallet__col3">
-            <button mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white">
+            <button (click)="openInfoSheet()" mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M10.8334 6.16732H13.1667V8.50065H10.8334V6.16732ZM10.8334 10.834H13.1667V17.834H10.8334V10.834ZM12 0.333984C5.56004 0.333984 0.333374 5.56065 0.333374 12.0007C0.333374 18.4407 5.56004 23.6673 12 23.6673C18.44 23.6673 23.6667 18.4407 23.6667 12.0007C23.6667 5.56065 18.44 0.333984 12 0.333984ZM12 21.334C6.85504 21.334 2.66671 17.1457 2.66671 12.0007C2.66671 6.85565 6.85504 2.66732 12 2.66732C17.145 2.66732 21.3334 6.85565 21.3334 12.0007C21.3334 17.1457 17.145 21.334 12 21.334Z"
@@ -44,7 +44,7 @@
                 {{ t("wallet_status." + getWalletStatus()) }}
             </div>
 
-            <h4 class="wallet__name">{{ wallet.publicData?.zelfName | zelfName : 18 }}</h4>
+            <h4 class="wallet__name">{{ wallet.publicData?.zelfName | zelfName: 18 }}</h4>
 
             <div class="wallet__tasks">
                 <div class="wallet__task">

@@ -4,27 +4,14 @@
     "logout_message": "Sa pagpapatibay ng aksyong ito, tatanggalin mo ang lahat ng iyong ZelfProofs mula sa extension. Kakailanganin mong i-decrypt muli ang bawat ZelfProof upang maibalik ang access sa mga ito. Sigurado ka bang nais mong magpatuloy?",
     "logout_title": "TANGGALIN ANG LAHAT NG ZELFPROOFS",
     "onboarding": {
-        "accept_terms_1": "Tinatanggap ko ang",
-        "accept_terms_2": "mga tuntunin at kundisyon",
-        "claim_your_zns": "Kunin ang iyong Zelf Name at protektahan ang iyong crypto!",
-        "create_new_wallet": "Lumikha ng bagong wallet",
-        "forgot_zelf_name": "Nakalimutan ang iyong zelf name?",
-        "import_wallet": "I-import ang iyong wallet",
         "lifetime": "Habambuhay",
-        "price_for_lifetime": "Presyo para sa habambuhay",
-        "price_year": "Presyo para sa {{ duration }} taon",
-        "referral_code": "Referral Code (Opsyonal)",
-        "register_description": "Ire-rehistro mo ang pangalang ito para sa {{duration}}",
-        "register": "Magrehistro",
         "step_1_description": "Tuklasin ang ZNS (Zelf Name Service), ang makabagong name service na nagpapalaya sa iyo mula sa pag-alala ng seed phrase. Mag-access nang ligtas at mabilis gamit ang iyong ZNS",
         "step_1": "MALIGAYANG PAGDATING SA ZELF NAME SERVICE",
         "step_2_description": "Ang ZelfProof ay isang natatanging, privacy-preserving binary representation na nagmula sa facial data, na tinitiyak na walang nakaimbak kahit saan. Pinapanatiling lubos na ligtas ang iyong phrase",
         "step_2": "MAG-ACCESS GAMIT ANG ZELFPROOF",
         "step_3_description": "Madaling pag-access sa iyong wallet at seed phrase. Ang iyong ZelfProof ay ligtas na nakaimbak sa Arweave, na nagbibigay sa iyo ng kumpletong kontrol nang walang abala ng pamamahala nito.",
         "step_3": "DECENTRALIZED STORAGE",
-        "year": "Taon",
-        "years": "Mga Taon",
-        "zns_reward": "Makakatanggap ka ng {{reward}} Zelf tokens (ZNS) bilang gantimpala"
+        "year": "Taon"
     },
     "activity": {
         "approve": "Aprubahan",
@@ -184,7 +171,6 @@
         "logout": "Alisin ang ZelfProof",
         "manage_domains": "Pamahalaan ang mga ZelfName",
         "max": "Pinakamataas",
-        "more_info": "Karagdagang impormasyon",
         "my_arns": "Aking ArNS",
         "navigating_away_will_cancel": "Ang pag-alis ay magkakansela ng anumang progreso na iyong nagawa. Sigurado ka bang nais mong bumalik?",
         "network": "Network",
@@ -215,7 +201,6 @@
         "show_more": "Ipakita nang higit pa",
         "show_words": "Ipakita ang mga salita",
         "sol_address": "SOL Address",
-        "solana_address": "Solana Address",
         "start": "Simulan",
         "success": "Tagumpay",
         "symbol": "Simbolo",
@@ -284,42 +269,6 @@
         "logout_of_wallet_message": "Malapit ka nang mag-logout sa iyong wallet. Tatanggalin ng aksyong ito ang iyong ZelfProof mula sa iyong device. Tiyakin na naka-backup na ang iyong seed phrase at ang iyong ZelfProof QR code. Sigurado ka bang gusto mong magpatuloy?",
         "logout_of_wallet_confirm": "Mag-logout ng wallet"
     },
-    "create_wallet": {
-        "password_step": {
-            "add_password": "Magpatuloy",
-            "agreement": "Nauunawaan ko na hindi maaring mabawi ng Zelf ang password na ito. Sa pagpili ng karagdagang layer ng seguridad, kinikilala ko na ako lamang ang responsable sa pag-alala nito.",
-            "continue_without_password": "Isang layer ng seguridad",
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "password_label": "Password",
-            "repeat_password_label": "Ulitin ang password",
-            "title": "Domain na bibilhin"
-        },
-        "phrase_step": {
-            "12_words": "12 salita na phrase",
-            "24_words": "24 salita na phrase",
-            "description_2": "Inaalis ng Zelf ang pangangailangan para sa manu-manong pag-iimbak sa pamamagitan ng pag-encrypt ng iyong recovery phrase sa isang makapangyarihang, privacy-preserving ZelfProof. Ang ZelfProof na ito ay ligtas na nakaimbak sa loob ng isang QR code na ikaw lamang ang makakapag-decrypt, na tinitiyak ang walang kapantay na seguridad.",
-            "description_3": "Ang QR code ay nagsisilbing matibay na digital vault para sa iyong recovery keys, pinahusay ng aming Zelf Name Service (ZNS). Sa ZNS, madali mong mai-back up at maibabalik ang iyong QR code gamit ang iyong Zelf Name.",
-            "description_4": "Nauunawaan ko na makakatulong ang Zelf sa pagkuha ng QR code gamit ang ZNS. Gayunpaman, ako pa rin ang responsable sa pagprotekta nito upang matiyak ang ligtas na pag-access.",
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "start_encryption_button": "Simulan",
-            "title": "Domain na bibilhin",
-            "words_input": "Bilang ng mga salita"
-        },
-        "zelfproof_step": {
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "instruction_1": "Ilagay ang iyong mukha sa loob ng nakasaad na marka",
-            "instruction_2": "Tumingin sa camera at iwasang gumalaw",
-            "instruction_3": "Tiyakin na gawin ang kinakailangang facial gestures",
-            "title": "Domain na bibilhin"
-        },
-        "view_wallet": {
-            "description_2": "Inaalis ng Zelf ang pangangailangan para sa manu-manong pag-iimbak sa pamamagitan ng pag-encrypt ng iyong recovery phrase sa isang makapangyarihang, privacy-preserving ZelfProof. Ang ZelfProof na ito ay ligtas na nakaimbak sa loob ng isang QR code na ikaw lamang ang makakapag-decrypt, na tinitiyak ang walang kapantay na seguridad.",
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "download_qr_code": "I-download ang iyong QR Code",
-            "qr_code_description": "Panatilihing ligtas ang QR code na ito. Upang ma-access o maibalik ang iyong wallet, ang iyong ZelfProof at ang QR code na ito ay palaging kinakailangan",
-            "title": "Domain na bibilhin"
-        }
-    },
     "liveness": {
         "center_your_face": "I-center ang iyong mukha sa screen",
         "center_your_face_subtitle": "Tiyakin na ang iyong mukha ay naka-center",
@@ -368,70 +317,6 @@
         "try_again": "Subukang muli",
         "zelfName_is_taken": "Ang Zelf name na ito ay ginagamit na"
     },
-    "import_wallet": {
-        "step_zero": {
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "description2": "Tinitiyak ng aming proseso ang privacy ng iyong mga asset sa pamamagitan ng pagpigil sa pagkakalantad ng iyong mga key o recovery phrases.",
-            "description3": "Ang pag-import ng iyong wallet ay nagpapasimple sa iyong karanasan sa cryptocurrency sa pamamagitan ng pag-iwas sa pangangailangan na pamahalaan ang maraming account.",
-            "description4": "Madaling ma-access ang iyong mga pondo sa aming platform nang hindi kinakailangang gamitin ang iyong recovery phrase.",
-            "import_button": "I-import ang wallet",
-            "subtitle": "Piliin ang haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
-            "title": "Domain na bibilhin"
-        },
-        "step_one": {
-            "confirm_button": "I-import ang wallet",
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "paste_note": "Maaari mong i-paste ang buong secret recovery phrase sa anumang field",
-            "title": "Domain na bibilhin",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "Kopyahin ang public address",
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "download_qr": "I-download ang QR code",
-            "success_message": "Matagumpay mong na-import ang iyong umiiral na wallet",
-            "understood": "Naiintindihan"
-        }
-    },
-    "unlock_wallet": {
-        "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-        "drag_drop_text": "o i-drag at i-drop ang file na may .JPG o PNG extension dito",
-        "title": "Domain na bibilhin",
-        "upload_button": "Piliin ang QR Code",
-        "upload_description": "O i-upload ang iyong ZelfProof QR Code upang magpatuloy:",
-        "verify_button": "I-verify",
-        "password": {
-            "button": "Magpatuloy",
-            "subtitle": "Piliin ang haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
-            "title": "Domain na bibilhin"
-        },
-        "hold": {
-            "buy_now": "Bumili ngayon",
-            "expiration_time": "Mag-e-expire ang reserbasyong ito sa ",
-            "purchase_reservation": "Bilhin ang reserbasyon",
-            "title": "Domain na bibilhin",
-            "unlock_without_purchase": "I-verify ngayon, bilhin mamaya"
-        }
-    },
-    "steps": {
-        "add_password": "Magpatuloy",
-        "available": "Magagamit",
-        "biometric_unlock": "ZelfProof lock",
-        "biometrics": "ZelfProof",
-        "decrypt": "I-DECRYPT",
-        "import_wallet": "I-import ang iyong wallet",
-        "password_unlock": "PASSWORD",
-        "qr_code_generator": "ZELF NAME",
-        "search_wallet": "BUKSAN ANG ZELFPROOF",
-        "wallet_type": "WALLET"
-    },
-    "wallets_connected": {
-        "create_or_import_wallet_button": "Lumikha o mag-import ng wallet",
-        "delete_wallet": "I-unlink ang wallet"
-    },
-    "active_wallet": {
-        "show_private_key": "Ipakita ang private key"
-    },
     "home": {
         "assets": "Mga Token",
         "NFTs": "Mga Kolektible",
@@ -439,14 +324,6 @@
         "send_transaction_button": "Magpadala",
         "settings_button": "Mga Setting",
         "support_button": "Suporta"
-    },
-    "activity_card": {
-        "in": "Natanggap",
-        "sent": "Naipadala",
-        "transaction": "Transaksyon",
-        "transactionID": "ID ng Transaksyon",
-        "txnFee": "Bayad sa Transaksyon",
-        "viewOnExplorer": "Tingnan sa Block explorer"
     },
     "extension_instructions": {
         "addExtension": "Idagdag ang extension sa iyong browser upang madaling ma-access at makita ang mga kumpirmasyon ng transaksyon sa Zelf Name Service.",
@@ -458,27 +335,6 @@
         "fullAccess": "Buong Access",
         "installationCompleted": "Natapos na ang pag-install ng Zelf Name Service!",
         "manageExtensions": "Pamahalaan ang mga Extension"
-    },
-    "send_transaction": {
-        "account_found": "Natagpuan ang address",
-        "confirm_transaction_button": "Kumpirmahin ang transaksyon",
-        "confirmation_step": "Transfer",
-        "continue_transaction_button": "Susunod",
-        "your_accounts": "Iyong mga account",
-        "bridge": {
-            "description_2": "Inaalis ng Zelf ang pangangailangan para sa manu-manong pag-iimbak sa pamamagitan ng pag-encrypt ng iyong recovery phrase sa isang makapangyarihang, privacy-preserving ZelfProof. Ang ZelfProof na ito ay ligtas na nakaimbak sa loob ng isang QR code na ikaw lamang ang makakapag-decrypt, na tinitiyak ang walang kapantay na seguridad.",
-            "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
-            "dont_have_the_app": "Wala pa bang naka-install na Zelf Name Service App?",
-            "download_here": "I-download ito dito at dagdagan ang iyong seguridad para sa lahat ng iyong mga transaksyon at hindi mawawala ang access sa iyong crypto.",
-            "title": "Domain na bibilhin"
-        }
-    },
-    "network_picker": {
-        "title": "Domain na bibilhin"
-    },
-    "payments": {
-        "continue_withoutpaying": "Magpatuloy nang walang bayad",
-        "pay_now": "Magbayad ngayon"
     },
     "restricted": {
         "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",

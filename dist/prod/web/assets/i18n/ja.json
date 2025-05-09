@@ -4,27 +4,14 @@
     "logout_message": "この操作を確認すると、拡張機能からすべてのZelfProofsが削除されます。再度アクセスするには、各ZelfProofを再度復号化する必要があります。続行してもよろしいですか？",
     "logout_title": "すべてのZELFPROOFSを削除",
     "onboarding": {
-        "accept_terms_1": "私は",
-        "accept_terms_2": "利用規約に同意します",
-        "claim_your_zns": "Zelf Nameを取得して暗号を保護しましょう！",
-        "create_new_wallet": "新しいウォレットを作成",
-        "forgot_zelf_name": "Zelf Nameを忘れましたか？",
-        "import_wallet": "ウォレットをインポート",
         "lifetime": "生涯",
-        "price_for_lifetime": "生涯の価格",
-        "price_year": "{{ duration }}年の価格",
-        "referral_code": "紹介コード",
-        "register_description": "この名前を{{duration}}年間登録します",
-        "register": "登録",
         "step_1_description": "シードフレーズを覚える必要がない革新的なネームサービス。",
         "step_1": "ZELF NAME SERVICEへようこそ",
         "step_2_description": "顔データから派生したユニークでプライバシーを保護するバイナリ表現。",
         "step_2": "ZELFPROOFでアクセス",
         "step_3_description": "あなたのZelfProofは分散型IPFSネットワークに安全に保存されます。",
         "step_3": "分散型ストレージ",
-        "year": "年",
-        "years": "年",
-        "zns_reward": "報酬として{{reward}} Zelfトークン（ZNS）を受け取ります"
+        "year": "年"
     },
     "activity": {
         "approve": "承認",
@@ -119,7 +106,6 @@
         "new_password_subtitle": "以下のパスワードは、ZelfProofの必須暗号化レイヤーです。",
         "password_decryption": "ZELF名にはパスワードが必要です",
         "password_subtitle": "復号プロセスを完了するには、このZelf名に割り当てられたパスワードを入力してください。",
-        "set_password": "パスワードを設定",
         "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
         "title": "ZelfProof暗号化レイヤー",
         "unhide_words": "単語を表示"
@@ -185,7 +171,6 @@
         "logout": "ZelfProofを削除",
         "manage_domains": "Zelf Nameを管理",
         "max": "最大",
-        "more_info": "詳細情報",
         "my_arns": "私のArNS",
         "navigating_away_will_cancel": "移動すると、進行中の作業がキャンセルされます。本当に戻りますか？",
         "network": "ネットワーク",
@@ -216,7 +201,6 @@
         "show_more": "もっと表示",
         "show_words": "単語を表示",
         "sol_address": "SOLアドレス",
-        "solana_address": "Solanaアドレス",
         "start": "開始",
         "success": "成功",
         "symbol": "シンボル",
@@ -285,42 +269,6 @@
         "logout_of_wallet_message": "ウォレットからログアウトしようとしています。この操作によりお使いのデバイスからあなたのZelfProofが削除されます。シードフレーズとZelfProofのQRコードを必ずバックアップしてください。続行してもよろしいですか？",
         "logout_of_wallet_confirm": "ウォレットからログアウト"
     },
-    "create_wallet": {
-        "password_step": {
-            "add_password": "続行",
-            "agreement": "Zelfはこのパスワードを回復できないことを理解しています。この追加のセキュリティレイヤーを選択することで、私はそれを覚えている責任が私にあることを認識しています。",
-            "continue_without_password": "1つのセキュリティレイヤー",
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "password_label": "パスワード",
-            "repeat_password_label": "パスワードを再入力",
-            "title": "ZelfProof暗号化レイヤー"
-        },
-        "phrase_step": {
-            "12_words": "12単語のフレーズ",
-            "24_words": "24単語のフレーズ",
-            "description_2": "Zelfは、リカバリーフレーズを強力なプライバシー保護ZelfProofに暗号化することで、手動での保存の必要性を排除します。このZelfProofは、あなただけが復号できるQRコード内に安全に保存され、比類のないセキュリティを提供します。",
-            "description_3": "QRコードは、Zelf Name Service（ZNS）によって強化されたリカバリーキーの強力なデジタルボールトとして機能します。ZNSを使用すると、Zelf Nameを使用してQRコードを簡単にバックアップおよび取得できます。",
-            "description_4": "ZelfはZNSを使用してQRコードを取得するのを手伝うことができますが、安全なアクセスを確保するためにそれを保護する責任は私にあります。",
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "start_encryption_button": "開始",
-            "title": "ZelfProof暗号化レイヤー",
-            "words_input": "単語の数"
-        },
-        "zelfproof_step": {
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "instruction_1": "顔を指定されたマーク内に配置してください",
-            "instruction_2": "カメラを見つめ、動かないようにしてください",
-            "instruction_3": "必要な顔のジェスチャーを確実に行ってください",
-            "title": "ZelfProof暗号化レイヤー"
-        },
-        "view_wallet": {
-            "description_2": "Zelfは、リカバリーフレーズを強力なプライバシー保護ZelfProofに暗号化することで、手動での保存の必要性を排除します。このZelfProofは、あなただけが復号できるQRコード内に安全に保存され、比類のないセキュリティを提供します。",
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "download_qr_code": "QRコードをダウンロード",
-            "qr_code_description": "このQRコードを安全に保管してください。ウォレットにアクセスまたは復元するには、ZelfProofとこのQRコードが常に必要です",
-            "title": "ZelfProof暗号化レイヤー"
-        }
-    },
     "liveness": {
         "center_your_face": "画面の中央に顔を合わせてください",
         "center_your_face_subtitle": "顔が中央にあることを確認してください",
@@ -369,70 +317,6 @@
         "try_again": "もう一度試す",
         "zelfName_is_taken": "このZelf Nameはすでに使用されています"
     },
-    "import_wallet": {
-        "step_zero": {
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "description2": "私たちのプロセスは、キーやリカバリーフレーズの露出を防ぐことで、資産のプライバシーを確保します。",
-            "description3": "ウォレットのインポートは、複数のアカウントを管理する必要を避けることで、暗号通貨の体験を簡素化します。",
-            "description4": "リカバリーフレーズを使用せずに、私たちのプラットフォームで資金に簡単にアクセスできます。",
-            "import_button": "ウォレットをインポート",
-            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
-            "title": "ZelfProof暗号化レイヤー"
-        },
-        "step_one": {
-            "confirm_button": "ウォレットをインポート",
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "paste_note": "シークレットリカバリーフレーズ全体を任意のフィールドに貼り付けることができます",
-            "title": "ZelfProof暗号化レイヤー",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "公開アドレスをコピー",
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "download_qr": "QRコードをダウンロード",
-            "success_message": "既存のウォレットを正常にインポートしました",
-            "understood": "了解しました"
-        }
-    },
-    "unlock_wallet": {
-        "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-        "drag_drop_text": "または.JPGまたはPNG拡張子のファイルをここにドラッグ＆ドロップしてください",
-        "title": "ZelfProof暗号化レイヤー",
-        "upload_button": "QRコードを選択",
-        "upload_description": "またはZelfProof QRコードをアップロードして続行してください:",
-        "verify_button": "確認",
-        "password": {
-            "button": "続行",
-            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを進めてください。",
-            "title": "ZelfProof暗号化レイヤー"
-        },
-        "hold": {
-            "buy_now": "今すぐ購入",
-            "expiration_time": "この予約は次の日に期限切れになります: ",
-            "purchase_reservation": "予約を購入",
-            "title": "ZelfProof暗号化レイヤー",
-            "unlock_without_purchase": "今すぐ確認して、後で購入"
-        }
-    },
-    "steps": {
-        "add_password": "続行",
-        "available": "利用可能",
-        "biometric_unlock": "ZelfProofロック",
-        "biometrics": "ZelfProof",
-        "decrypt": "復号",
-        "import_wallet": "ウォレットをインポート",
-        "password_unlock": "パスワード",
-        "qr_code_generator": "ZELF NAME",
-        "search_wallet": "ZELFPROOFを開く",
-        "wallet_type": "ウォレット"
-    },
-    "wallets_connected": {
-        "create_or_import_wallet_button": "ウォレットを作成またはインポート",
-        "delete_wallet": "ウォレットを解除"
-    },
-    "active_wallet": {
-        "show_private_key": "秘密鍵を表示"
-    },
     "home": {
         "assets": "トークン",
         "NFTs": "コレクティブル",
@@ -440,14 +324,6 @@
         "send_transaction_button": "送信",
         "settings_button": "設定",
         "support_button": "サポート"
-    },
-    "activity_card": {
-        "in": "受信",
-        "sent": "送信",
-        "transaction": "トランザクション",
-        "transactionID": "トランザクションID",
-        "txnFee": "トランザクション手数料",
-        "viewOnExplorer": "ブロックエクスプローラーで表示"
     },
     "extension_instructions": {
         "addExtension": "拡張機能をブラウザに追加して、Zelf Name Serviceでトランザクション確認を簡単にアクセスおよび表示できます。",
@@ -459,27 +335,6 @@
         "fullAccess": "フルアクセス",
         "installationCompleted": "Zelf Name Serviceのインストールが完了しました！",
         "manageExtensions": "拡張機能を管理"
-    },
-    "send_transaction": {
-        "account_found": "アドレスが見つかりました",
-        "confirm_transaction_button": "トランザクションを確認",
-        "confirmation_step": "転送",
-        "continue_transaction_button": "次へ",
-        "your_accounts": "あなたのアカウント",
-        "bridge": {
-            "description_2": "Zelfは、リカバリーフレーズを強力なプライバシー保護ZelfProofに暗号化することで、手動での保存の必要性を排除します。このZelfProofは、あなただけが復号できるQRコード内に安全に保存され、比類のないセキュリティを提供します。",
-            "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
-            "dont_have_the_app": "まだZelf Name Serviceアプリをインストールしていませんか？",
-            "download_here": "ここからダウンロードして、すべてのトランザクションのセキュリティを強化し、暗号通貨へのアクセスを失わないようにしてください。",
-            "title": "ZelfProof暗号化レイヤー"
-        }
-    },
-    "network_picker": {
-        "title": "ZelfProof暗号化レイヤー"
-    },
-    "payments": {
-        "continue_withoutpaying": "支払いなしで続行",
-        "pay_now": "今すぐ支払う"
     },
     "restricted": {
         "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",

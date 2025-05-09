@@ -4,27 +4,14 @@
     "logout_message": "Ao confirmar esta ação, você removerá todos os seus ZelfProofs da extensão. Você precisará descriptografar cada ZelfProof novamente para recuperar o acesso a eles. Tem certeza que deseja continuar?",
     "logout_title": "EXCLUIR TODOS OS ZELFPROOFS",
     "onboarding": {
-        "accept_terms_1": "Eu aceito os",
-        "accept_terms_2": "termos e condições",
-        "claim_your_zns": "Obtenha seu Nome Zelf e proteja seu cripto!",
-        "create_new_wallet": "Criar uma nova carteira",
-        "forgot_zelf_name": "Esqueceu seu nome zelf?",
-        "import_wallet": "Importar sua carteira",
         "lifetime": "Vitalício",
-        "price_for_lifetime": "Preço vitalício",
-        "price_year": "Preço por {{ duration }} ano",
-        "referral_code": "Código de referência",
-        "register_description": "Você registrará este nome por {{duration}}",
-        "register": "Registrar",
         "step_1_description": "Descubra o ZNS (Zelf Name Service), o serviço de nomes inovador que te liberta de lembrar a frase semente. Acesse com segurança e rapidez usando seu ZNS",
         "step_1": "BEM-VINDO AO ZELF NAME SERVICE",
         "step_2_description": "ZelfProof é uma representação binária única e preservadora de privacidade derivada de dados faciais, garantindo que não seja armazenada em nenhum lugar. Mantendo sua frase extremamente segura",
         "step_2": "ACESSO COM ZELFPROOF",
         "step_3_description": "Acesso fácil à sua carteira e frase semente. Seu ZelfProof é armazenado com segurança no Arweave, dando a você controle total sem o incômodo de gerenciá-lo sozinho.",
         "step_3": "ARMAZENAMENTO DESCENTRALIZADO",
-        "year": "Ano",
-        "years": "Anos",
-        "zns_reward": "Você receberá {{reward}} tokens Zelf (ZNS) como recompensa"
+        "year": "Ano"
     },
     "activity": {
         "approve": "Aprovar",
@@ -184,7 +171,6 @@
         "logout": "Remover ZelfProof",
         "manage_domains": "Gerenciar Nomes Zelf",
         "max": "Máximo",
-        "more_info": "Mais informações",
         "my_arns": "Meus ArNS",
         "navigating_away_will_cancel": "Navegar para longe cancelará qualquer progresso que você tenha feito. Tem certeza de que deseja voltar?",
         "network": "Rede",
@@ -215,7 +201,6 @@
         "show_more": "Mostrar mais",
         "show_words": "Mostrar palavras",
         "sol_address": "Endereço SOL",
-        "solana_address": "Endereço Solana",
         "start": "Iniciar",
         "success": "Sucesso",
         "symbol": "Símbolo",
@@ -284,42 +269,6 @@
         "logout_of_wallet_message": "Você está prestes a sair da sua carteira. Esta ação removerá seu ZelfProof do seu dispositivo. Certifique-se de ter feito backup da sua frase seed e do código QR do ZelfProof. Tem certeza de que deseja continuar?",
         "logout_of_wallet_confirm": "Sair da carteira"
     },
-    "create_wallet": {
-        "password_step": {
-            "add_password": "Continuar",
-            "agreement": "Eu entendo que a Zelf não pode recuperar esta senha. Ao escolher esta camada adicional de segurança, reconheço que sou o único responsável por lembrá-la.",
-            "continue_without_password": "Uma camada de segurança",
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "password_label": "Senha",
-            "repeat_password_label": "Repetir senha",
-            "title": "Camadas de Criptografia do ZelfProof"
-        },
-        "phrase_step": {
-            "12_words": "Frase de 12 palavras",
-            "24_words": "Frase de 24 palavras",
-            "description_2": "A Zelf elimina a necessidade de armazenamento manual ao criptografar sua frase de recuperação em um poderoso, preservador de privacidade ZelfProof. Este ZelfProof é armazenado com segurança dentro de um código QR que só você pode descriptografar, garantindo segurança incomparável.",
-            "description_3": "O código QR serve como um robusto cofre digital para suas chaves de recuperação, aprimorado pelo nosso Zelf Name Service (ZNS). Com o ZNS, você pode facilmente fazer backup e recuperar seu código QR usando seu Nome Zelf.",
-            "description_4": "Eu entendo que a Zelf pode ajudar a recuperar o código QR com o ZNS. No entanto, ainda sou responsável por protegê-lo para garantir acesso seguro.",
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "start_encryption_button": "Iniciar",
-            "title": "Camadas de Criptografia do ZelfProof",
-            "words_input": "Número de palavras"
-        },
-        "zelfproof_step": {
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "instruction_1": "Coloque seu rosto dentro da marca indicada",
-            "instruction_2": "Olhe para a câmera e evite se mover",
-            "instruction_3": "Certifique-se de realizar os gestos faciais necessários",
-            "title": "Camadas de Criptografia do ZelfProof"
-        },
-        "view_wallet": {
-            "description_2": "A Zelf elimina a necessidade de armazenamento manual ao criptografar sua frase de recuperação em um poderoso, preservador de privacidade ZelfProof. Este ZelfProof é armazenado com segurança dentro de um código QR que só você pode descriptografar, garantindo segurança incomparável.",
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "download_qr_code": "Baixar seu código QR",
-            "qr_code_description": "Mantenha este código QR seguro. Para acessar ou restaurar sua carteira, seu ZelfProof e este código QR sempre serão necessários",
-            "title": "Camadas de Criptografia do ZelfProof"
-        }
-    },
     "liveness": {
         "center_your_face": "Centralize seu rosto na tela",
         "center_your_face_subtitle": "Por favor, certifique-se de que seu rosto está centralizado",
@@ -368,70 +317,6 @@
         "try_again": "Tente novamente",
         "zelfName_is_taken": "Este nome Zelf já está em uso"
     },
-    "import_wallet": {
-        "step_zero": {
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "description2": "Nosso processo garante a privacidade de seus ativos, evitando a exposição de suas chaves ou frases de recuperação.",
-            "description3": "Importar sua carteira simplifica sua experiência com criptomoedas, evitando a necessidade de gerenciar várias contas.",
-            "description4": "Acesse seus fundos facilmente em nossa plataforma sem precisar usar sua frase de recuperação.",
-            "import_button": "Importar uma carteira",
-            "subtitle": "Selecione o comprimento de sua frase semente e prossiga com o processo de criptografia.",
-            "title": "Camadas de Criptografia do ZelfProof"
-        },
-        "step_one": {
-            "confirm_button": "Importar carteira",
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "paste_note": "Você pode colar a frase de recuperação secreta inteira em qualquer campo",
-            "title": "Camadas de Criptografia do ZelfProof",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "Copiar endereço público",
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "download_qr": "Baixar código QR",
-            "success_message": "Você importou com sucesso sua carteira existente",
-            "understood": "Entendi"
-        }
-    },
-    "unlock_wallet": {
-        "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-        "drag_drop_text": "ou arraste e solte o arquivo com extensão .JPG ou PNG aqui",
-        "title": "Camadas de Criptografia do ZelfProof",
-        "upload_button": "Selecionar Código QR",
-        "upload_description": "Ou carregue seu Código QR ZelfProof para continuar:",
-        "verify_button": "Verificar",
-        "password": {
-            "button": "Continuar",
-            "subtitle": "Selecione o comprimento de sua frase semente e prossiga com o processo de criptografia.",
-            "title": "Camadas de Criptografia do ZelfProof"
-        },
-        "hold": {
-            "buy_now": "Compre agora",
-            "expiration_time": "Esta reserva expira em ",
-            "purchase_reservation": "Comprar reserva",
-            "title": "Camadas de Criptografia do ZelfProof",
-            "unlock_without_purchase": "Verificar agora, comprar depois"
-        }
-    },
-    "steps": {
-        "add_password": "Continuar",
-        "available": "Disponível",
-        "biometric_unlock": "Bloqueio ZelfProof",
-        "biometrics": "ZelfProof",
-        "decrypt": "DESCRIPTOGRAFAR",
-        "import_wallet": "Importar sua carteira",
-        "password_unlock": "SENHA",
-        "qr_code_generator": "ZELF NAME",
-        "search_wallet": "ABRIR ZELFPROOF",
-        "wallet_type": "CARTEIRA"
-    },
-    "wallets_connected": {
-        "create_or_import_wallet_button": "Comprar novo domínio",
-        "delete_wallet": "Desvincular carteira"
-    },
-    "active_wallet": {
-        "show_private_key": "Mostrar chave privada"
-    },
     "home": {
         "assets": "Tokens",
         "NFTs": "Colecionáveis",
@@ -439,14 +324,6 @@
         "send_transaction_button": "Enviar",
         "settings_button": "Configurações",
         "support_button": "Suporte"
-    },
-    "activity_card": {
-        "in": "Recebido",
-        "sent": "Enviado",
-        "transaction": "Transação",
-        "transactionID": "ID da Transação",
-        "txnFee": "Taxa de Transação",
-        "viewOnExplorer": "Ver no explorador de blocos"
     },
     "extension_instructions": {
         "addExtension": "Adicione a extensão ao seu navegador para acessar e visualizar facilmente as confirmações de transações no Zelf Name Service.",
@@ -458,27 +335,6 @@
         "fullAccess": "Acesso Total",
         "installationCompleted": "A instalação do Zelf Name Service foi concluída!",
         "manageExtensions": "Gerenciar Extensões"
-    },
-    "send_transaction": {
-        "account_found": "Endereço encontrado",
-        "confirm_transaction_button": "Confirmar transação",
-        "confirmation_step": "Transferir",
-        "continue_transaction_button": "Próximo",
-        "your_accounts": "Suas contas",
-        "bridge": {
-            "description_2": "A Zelf elimina a necessidade de armazenamento manual ao criptografar sua frase de recuperação em um poderoso, preservador de privacidade ZelfProof. Este ZelfProof é armazenado com segurança dentro de um código QR que só você pode descriptografar, garantindo segurança incomparável.",
-            "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-            "dont_have_the_app": "Ainda não tem o App Zelf Name Service instalado?",
-            "download_here": "Baixe aqui e aumente sua segurança para todas as suas transações e nunca perca acesso ao seu cripto.",
-            "title": "Camadas de Criptografia do ZelfProof"
-        }
-    },
-    "network_picker": {
-        "title": "Camadas de Criptografia do ZelfProof"
-    },
-    "payments": {
-        "continue_withoutpaying": "Continuar sem pagamento",
-        "pay_now": "Pagar agora"
     },
     "restricted": {
         "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",

@@ -4,18 +4,7 @@
     "logout_message": "By confirming this action, you will remove all your ZelfProofs from the extension. You will need to decrypt each ZelfProof again to regain access to them. Are you sure you want to continue?",
     "logout_title": "DELETE ALL ZELFPROOFS",
     "onboarding": {
-        "accept_terms_1": "I accept the",
-        "accept_terms_2": "terms and conditions",
-        "claim_your_zns": "Get your Zelf Name and safeguard your crypto!",
-        "create_new_wallet": "Create a new wallet",
-        "forgot_zelf_name": "Forgot your zelf name?",
-        "import_wallet": "Import your wallet",
         "lifetime": "Lifetime",
-        "price_for_lifetime": "Price for lifetime",
-        "price_year": "Price for {{ duration }} year",
-        "referral_code": "Referral code",
-        "register_description": "You'll register this name for {{duration}}",
-        "register": "Register",
         "step_1_description": "Never worry about forgetting, losing, or compromising your seed phrase.",
         "step_1": "3 Steps to encrypt your seed phrase",
         "step_2_description": "Backup your seed phrase in seconds by decrypting your ZelfProof",
@@ -23,8 +12,7 @@
         "step_3_description": "Store a zk-FaceProof of your seed phrase in the blockchain instead of on a local device",
         "step_3": "Hack-proof your seed phrase",
         "year": "Year",
-        "years": "Years",
-        "zns_reward": "You will receive {{reward}} Zelf tokens (ZNS) as a reward"
+        "years": "Years"
     },
     "activity": {
         "approve": "Approve",
@@ -121,7 +109,6 @@
         "new_password_subtitle": "The following password is a required encryption layer for your ZelfProof.",
         "password_decryption": "ZELFNAME REQUIRES A PASSWORD",
         "password_subtitle": "Enter the password assigned to this Zelf Name to complete the decryption process.",
-        "set_password": "Set Password",
         "subtitle": "Select the length of your seed phrase and proceed with the encryption process.",
         "title": "ZelfProof Encryption Layers",
         "weak": "Weak",
@@ -192,7 +179,6 @@
         "logout": "Remove ZelfProof",
         "manage_domains": "Manage ZelfNames",
         "max": "Max",
-        "more_info": "More information",
         "my_arns": "My ArNS",
         "navigating_away_will_cancel": "Navigating away will cancel any progress you have made. Are you sure you would like to go back?",
         "network": "Network",
@@ -223,7 +209,6 @@
         "show_more": "Show more",
         "show_words": "Show words",
         "sol_address": "SOL Address",
-        "solana_address": "Solana Address",
         "start": "Start",
         "success": "Success",
         "symbol": "Symbol",
@@ -292,42 +277,6 @@
         "logout_of_wallet_message": "You are about to logout of your wallet. This action will remove your ZelfProof from your device. Make sure you have backed up your seed phrase and ZelfProof QR code. Are you sure you want to continue?",
         "logout_of_wallet_confirm": "Logout of Wallet"
     },
-    "create_wallet": {
-        "password_step": {
-            "add_password": "Continue",
-            "agreement": "I understand that Zelf cannot recover this password. By choosing this additional layer of security, I acknowledge that I am solely responsible for remembering it.",
-            "continue_without_password": "One layer of security",
-            "description": "Ensure that you setup a strong password of at least 8 characters to protect your ZelfProof.",
-            "password_label": "Password",
-            "repeat_password_label": "Repeat password",
-            "title": "SAFETY LAYERS"
-        },
-        "phrase_step": {
-            "12_words": "12 words phrase",
-            "24_words": "24 words phrase",
-            "description_2": "Zelf removes the need for manual storage by encrypting your recovery phrase into a powerful, privacy-preserving ZelfProof. This ZelfProof is securely stored within a QR code that only you can decrypt, ensuring unparalleled security.",
-            "description_3": "The QR code serves as a robust digital vault for your recovery keys, enhanced by our Zelf Name Service (ZNS). With ZNS, you can easily back up and retrieve your QR code using your Zelf Name.",
-            "description_4": "I understand that Zelf can help retrieve the QR code with ZNS. However, I am still responsible for safeguarding it to ensure secure access.",
-            "description": "Your private recovery phrase consists of 12 or 24 words, essential for accessing and securing your wallet.",
-            "start_encryption_button": "Start",
-            "title": "WALLET CREATION",
-            "words_input": "Number of words"
-        },
-        "zelfproof_step": {
-            "description": "You are about to generate your ZelfProof, which will securely encrypt your recovery phrases. Follow the steps below to ensure the process is smooth and effective.",
-            "instruction_1": "Place your face inside the indicated mark",
-            "instruction_2": "Stare at the camera and avoid moving",
-            "instruction_3": "Be sure to perform the required facial gestures",
-            "title": "ZELPROOF ENCRYPTION"
-        },
-        "view_wallet": {
-            "description_2": "If the QR is ever lost, you can retrieve it using your registered Zelf name via Zelf Name Service (ZNS).",
-            "description": "Your recovery phrase has been encrypted and safeguarded inside this QR code using your ZelfProof, a powerful privacy-preserving security layer.",
-            "download_qr_code": "Download your QR Code",
-            "qr_code_description": "Keep this QR code safe. To access or restore your wallet, your ZelfProof and this QR code will always be required",
-            "title": "WALLET SUCCESSFULLY ENCRYPTED WITH ZELFPROOF"
-        }
-    },
     "liveness": {
         "center_your_face": "Center your face on the screen",
         "center_your_face_subtitle": "Please make sure your face is centered",
@@ -376,70 +325,6 @@
         "try_again": "Try again",
         "zelfName_is_taken": "This zelf name is already taken"
     },
-    "import_wallet": {
-        "step_zero": {
-            "description": "It allows you to transfer your digital assets from other platforms quickly and securely.",
-            "description2": "Our process ensures the privacy of your assets by preventing the exposure of your keys or recovery phrases.",
-            "description3": "Importing your wallet simplifies your cryptocurrency experience by avoiding the need to manage multiple accounts.",
-            "description4": "Easily access your funds on our platform without needing to use your recovery phrase.",
-            "import_button": "Import a wallet",
-            "subtitle": "What are the benefits?",
-            "title": "Import an existing wallet"
-        },
-        "step_one": {
-            "confirm_button": "Import wallet",
-            "description": "Please enter your recovery phrase below to validate and import your existing wallet.",
-            "paste_note": "You can paste the entire secret recovery phrase in any field",
-            "title": "Enter the recovery phrase",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "Copy public address",
-            "description": "Your security phrase and QR code are now linked to your ZelfProof. Keep the QR safe to protect your account.",
-            "download_qr": "Download QR code",
-            "success_message": "You have successfully imported your existing wallet",
-            "understood": "Understood"
-        }
-    },
-    "unlock_wallet": {
-        "description": "Find an existing Zelf Name by entering its public address below:",
-        "drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
-        "title": "FIND ZELF NAME",
-        "upload_button": "Select QR Code",
-        "upload_description": "Or upload your ZelfProof QR Code to continue:",
-        "verify_button": "Verify",
-        "password": {
-            "button": "Continue",
-            "subtitle": "Enter the password assigned to this ZelfProof to complete the opening process.",
-            "title": "THIS ZELFPROOF REQUIRES A PASSWORD"
-        },
-        "hold": {
-            "buy_now": "Buy now",
-            "expiration_time": "This reservation expires on ",
-            "purchase_reservation": "Purchase reservation",
-            "title": "RESERVATION FOUND",
-            "unlock_without_purchase": "Decrypt ZelfName now, purchase later"
-        }
-    },
-    "steps": {
-        "add_password": "ADD A PASSWORD",
-        "available": "Available",
-        "biometric_unlock": "ZelfProof lock",
-        "biometrics": "ZelfProof",
-        "decrypt": "DECRYPT",
-        "import_wallet": "Import your wallet",
-        "password_unlock": "PASSWORD",
-        "qr_code_generator": "ZELF NAME",
-        "search_wallet": "OPEN ZELFPROOF",
-        "wallet_type": "WALLET"
-    },
-    "wallets_connected": {
-        "create_or_import_wallet_button": "Purchase new domain",
-        "delete_wallet": "Unlink wallet"
-    },
-    "active_wallet": {
-        "show_private_key": "Show private key"
-    },
     "home": {
         "assets": "Tokens",
         "NFTs": "Collectibles",
@@ -447,14 +332,6 @@
         "send_transaction_button": "Send",
         "settings_button": "Settings",
         "support_button": "Support"
-    },
-    "activity_card": {
-        "in": "Received",
-        "sent": "Sent",
-        "transaction": "Transaction",
-        "transactionID": "Transaction ID",
-        "txnFee": "Txn Fee",
-        "viewOnExplorer": "View on Block explorer"
     },
     "extension_instructions": {
         "addExtension": "Add the extension to your browser to easily access and view transaction confirmations on Zelf Name Service.",
@@ -466,27 +343,6 @@
         "fullAccess": "Full Access",
         "installationCompleted": "Zelf Name Service installation has been completed!",
         "manageExtensions": "Manage Extensions"
-    },
-    "send_transaction": {
-        "account_found": "Address found",
-        "confirm_transaction_button": "Confirm transaction",
-        "confirmation_step": "Transfer",
-        "continue_transaction_button": "Next",
-        "your_accounts": "Your accounts",
-        "bridge": {
-            "description_2": "Continue in the web extension",
-            "description": "Scan the QR Code from your Zelf Name Service App. Add a security layer by decrypting in your device",
-            "dont_have_the_app": "Still don't have the Zelf Name Service App installed?",
-            "download_here": "Download it here and increase your security for all your transactions & and never loose access to your crypto.",
-            "title": "CONFIRM YOUR TRANSACTION"
-        }
-    },
-    "network_picker": {
-        "title": "Select a network"
-    },
-    "payments": {
-        "continue_withoutpaying": "Continue without payment",
-        "pay_now": "Proceed to payment"
     },
     "restricted": {
         "description": "This feature is not available on mobile devices. Please use a desktop browser to access it or download the Zelf Name Service App.",

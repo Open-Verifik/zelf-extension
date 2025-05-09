@@ -4,27 +4,14 @@
     "logout_message": "En confirmant cette action, vous supprimerez tous vos ZelfProofs de l'extension. Vous devrez déchiffrer chaque ZelfProof à nouveau pour retrouver l'accès. Êtes-vous sûr de vouloir continuer ?",
     "logout_title": "SUPPRIMER TOUS LES ZELFPROOFS",
     "onboarding": {
-        "accept_terms_1": "J'accepte les",
-        "accept_terms_2": "termes et conditions",
-        "claim_your_zns": "Obtenez votre nom Zelf et protégez votre crypto!",
-        "create_new_wallet": "Créer un nouveau portefeuille",
-        "forgot_zelf_name": "Nom Zelf oublié?",
-        "import_wallet": "Importer votre portefeuille",
         "lifetime": "À vie",
-        "price_for_lifetime": "Prix à vie",
-        "price_year": "Prix pour {{ duration }} an",
-        "referral_code": "Code de parrainage",
-        "register_description": "Vous allez enregistrer ce nom pour {{duration}}",
-        "register": "Enregistrer",
         "step_1_description": "Découvrez ZNS (Zelf Name Service), le service de nom innovant qui vous libère de la mémorisation de la phrase de récupération. Accédez de manière sécurisée et rapide en utilisant votre ZNS",
         "step_1": "BIENVENUE AU ZELF NAME SERVICE",
         "step_2_description": "ZelfProof est une représentation binaire unique et respectueuse de la vie privée dérivée des données faciales, garantissant qu'aucune donnée n'est stockée nulle part. Gardant votre phrase extrêmement sécurisée",
         "step_2": "ACCÉDER AVEC ZELFPROOF",
         "step_3_description": "Accès sans effort à votre portefeuille et à votre phrase de récupération. Votre ZelfProof est stocké en toute sécurité sur Arweave, vous donnant un contrôle total sans les tracas de la gestion.",
         "step_3": "STOCKAGE DÉCENTRALISÉ",
-        "year": "An",
-        "years": "Ans",
-        "zns_reward": "Vous recevrez {{reward}} tokens Zelf (ZNS) en récompense"
+        "year": "An"
     },
     "activity": {
         "approve": "Approuver",
@@ -119,7 +106,6 @@
         "new_password_subtitle": "Le mot de passe suivant est une couche de chiffrement requise pour votre ZelfProof.",
         "password_decryption": "LE NOM ZELF REQUIERT UN MOT DE PASSE",
         "password_subtitle": "Entrez le mot de passe assigné à ce nom Zelf pour compléter le processus de déchiffrement.",
-        "set_password": "Définir un mot de passe",
         "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
         "title": "Couches de chiffrement ZelfProof",
         "unhide_words": "Afficher les mots"
@@ -185,7 +171,6 @@
         "logout": "Supprimer ZelfProof",
         "manage_domains": "Gérer les Noms Zelf",
         "max": "Max",
-        "more_info": "Plus d'informations",
         "my_arns": "Mes ArNS",
         "navigating_away_will_cancel": "Quitter cette page annulera tout progrès que vous avez fait. Êtes-vous sûr de vouloir revenir en arrière ?",
         "network": "Réseau",
@@ -216,7 +201,6 @@
         "show_more": "Afficher plus",
         "show_words": "Afficher les mots",
         "sol_address": "Adresse SOL",
-        "solana_address": "Adresse Solana",
         "start": "Commencer",
         "success": "Succès",
         "symbol": "Symbole",
@@ -285,42 +269,6 @@
         "logout_of_wallet_message": "Vous êtes sur le point de vous déconnecter de votre portefeuille. Cette action supprimera votre ZelfProof de votre appareil. Assurez-vous d'avoir sauvegardé votre phrase de récupération et le code QR de votre ZelfProof. Êtes-vous sûr de vouloir continuer?",
         "logout_of_wallet_confirm": "Se déconnecter du portefeuille"
     },
-    "create_wallet": {
-        "password_step": {
-            "add_password": "Deux couches de sécurité",
-            "agreement": "Je comprends que Zelf ne peut pas récupérer ce mot de passe. En choisissant cette couche supplémentaire de sécurité, je reconnais que je suis seul responsable de m'en souvenir.",
-            "continue_without_password": "Une couche de sécurité",
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "password_label": "Mot de passe",
-            "repeat_password_label": "Répéter le mot de passe",
-            "title": "Couches de chiffrement ZelfProof"
-        },
-        "phrase_step": {
-            "12_words": "Phrase de 12 mots",
-            "24_words": "Phrase de 24 mots",
-            "description_2": "Zelf élimine le besoin de stockage manuel en chiffrant votre phrase de récupération dans un puissant ZelfProof respectueux de la vie privée. Ce ZelfProof est stocké en toute sécurité dans un code QR que vous seul pouvez déchiffrer, garantissant une sécurité inégalée.",
-            "description_3": "Le code QR sert de coffre-fort numérique robuste pour vos clés de récupération, amélioré par notre Zelf Name Service (ZNS). Avec ZNS, vous pouvez facilement sauvegarder et récupérer votre code QR en utilisant votre nom Zelf.",
-            "description_4": "Je comprends que Zelf peut aider à récupérer le code QR avec ZNS. Cependant, je reste responsable de sa protection pour garantir un accès sécurisé.",
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "start_encryption_button": "Commencer",
-            "title": "Couches de chiffrement ZelfProof",
-            "words_input": "Nombre de mots"
-        },
-        "zelfproof_step": {
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "instruction_1": "Placez votre visage dans la marque indiquée",
-            "instruction_2": "Regardez la caméra et évitez de bouger",
-            "instruction_3": "Assurez-vous d'effectuer les gestes faciaux requis",
-            "title": "Couches de chiffrement ZelfProof"
-        },
-        "view_wallet": {
-            "description_2": "Zelf élimine le besoin de stockage manuel en chiffrant votre phrase de récupération dans un puissant ZelfProof respectueux de la vie privée. Ce ZelfProof est stocké en toute sécurité dans un code QR que vous seul pouvez déchiffrer, garantissant une sécurité inégalée.",
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "download_qr_code": "Téléchargez votre code QR",
-            "qr_code_description": "Gardez ce code QR en sécurité. Pour accéder ou restaurer votre portefeuille, votre ZelfProof et ce code QR seront toujours nécessaires",
-            "title": "Couches de chiffrement ZelfProof"
-        }
-    },
     "liveness": {
         "center_your_face": "Centrez votre visage à l'écran",
         "center_your_face_subtitle": "Veuillez vous assurer que votre visage est centré",
@@ -369,70 +317,6 @@
         "try_again": "Réessayer",
         "zelfName_is_taken": "Ce nom Zelf est déjà pris"
     },
-    "import_wallet": {
-        "step_zero": {
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "description2": "Notre processus garantit la confidentialité de vos actifs en évitant l'exposition de vos clés ou phrases de récupération.",
-            "description3": "Importer votre portefeuille simplifie votre expérience avec les cryptomonnaies en évitant la gestion de plusieurs comptes.",
-            "description4": "Accédez facilement à vos fonds sur notre plateforme sans avoir à utiliser votre phrase de récupération.",
-            "import_button": "Importer un portefeuille",
-            "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
-            "title": "Couches de chiffrement ZelfProof"
-        },
-        "step_one": {
-            "confirm_button": "Importer le portefeuille",
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "paste_note": "Vous pouvez coller toute la phrase de récupération secrète dans n'importe quel champ",
-            "title": "Couches de chiffrement ZelfProof",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "Copier l'adresse publique",
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "download_qr": "Télécharger le code QR",
-            "success_message": "Vous avez importé avec succès votre portefeuille existant",
-            "understood": "Compris"
-        }
-    },
-    "unlock_wallet": {
-        "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-        "drag_drop_text": "ou glissez et déposez le fichier avec extension .JPG ou PNG ici",
-        "title": "Couches de chiffrement ZelfProof",
-        "upload_button": "Sélectionner le code QR",
-        "upload_description": "Ou téléchargez votre code QR ZelfProof pour continuer :",
-        "verify_button": "Vérifier",
-        "password": {
-            "button": "Continuer",
-            "subtitle": "Sélectionnez la longueur de votre phrase secrète et procédez au processus de chiffrement.",
-            "title": "Couches de chiffrement ZelfProof"
-        },
-        "hold": {
-            "buy_now": "Acheter maintenant",
-            "expiration_time": "Cette réservation expire le ",
-            "purchase_reservation": "Acheter la réservation",
-            "title": "Couches de chiffrement ZelfProof",
-            "unlock_without_purchase": "Vérifier maintenant, acheter plus tard"
-        }
-    },
-    "steps": {
-        "add_password": "Deux couches de sécurité",
-        "available": "Disponible",
-        "biometric_unlock": "Verrouillage ZelfProof",
-        "biometrics": "ZelfProof",
-        "decrypt": "DÉCRYPTER",
-        "import_wallet": "Importer votre portefeuille",
-        "password_unlock": "MOT DE PASSE",
-        "qr_code_generator": "NOM ZELF",
-        "search_wallet": "OUVRIR ZELFPROOF",
-        "wallet_type": "PORTEFEUILLE"
-    },
-    "wallets_connected": {
-        "create_or_import_wallet_button": "Créer ou importer un portefeuille",
-        "delete_wallet": "Dissocier portefeuille"
-    },
-    "active_wallet": {
-        "show_private_key": "Afficher la clé privée"
-    },
     "home": {
         "assets": "Tokens",
         "NFTs": "Objets de collection",
@@ -440,14 +324,6 @@
         "send_transaction_button": "Envoyer",
         "settings_button": "Paramètres",
         "support_button": "Support"
-    },
-    "activity_card": {
-        "in": "Reçu",
-        "sent": "Envoyé",
-        "transaction": "Transaction",
-        "transactionID": "ID de transaction",
-        "txnFee": "Frais de txn",
-        "viewOnExplorer": "Voir dans l'explorateur de blocs"
     },
     "extension_instructions": {
         "addExtension": "Ajoutez l'extension à votre navigateur pour accéder facilement et voir les confirmations de transactions sur Zelf Name Service.",
@@ -459,27 +335,6 @@
         "fullAccess": "Accès complet",
         "installationCompleted": "L'installation de Zelf Name Service est terminée !",
         "manageExtensions": "Gérer les extensions"
-    },
-    "send_transaction": {
-        "account_found": "Adresse trouvée",
-        "confirm_transaction_button": "Confirmer la transaction",
-        "confirmation_step": "Transférer",
-        "continue_transaction_button": "Suivant",
-        "your_accounts": "Vos comptes",
-        "bridge": {
-            "description_2": "Zelf élimine le besoin de stockage manuel en chiffrant votre phrase de récupération dans un puissant ZelfProof respectueux de la vie privée. Ce ZelfProof est stocké en toute sécurité dans un code QR que vous seul pouvez déchiffrer, garantissant une sécurité inégalée.",
-            "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
-            "dont_have_the_app": "Vous n'avez toujours pas installé le portefeuille le plus sûr ?",
-            "download_here": "Téléchargez-le ici et améliorez la sécurité de toutes vos transactions",
-            "title": "Couches de chiffrement ZelfProof"
-        }
-    },
-    "network_picker": {
-        "title": "Couches de chiffrement ZelfProof"
-    },
-    "payments": {
-        "continue_withoutpaying": "Continuer sans payer",
-        "pay_now": "Payer maintenant"
     },
     "restricted": {
         "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",

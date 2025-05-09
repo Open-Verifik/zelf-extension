@@ -15,7 +15,10 @@ export class VaultService {
     private _mnemonic: string = "";
     private _lastVerified: number = 0;
 
-    constructor(private _walletService: WalletService, private _chromeService: ChromeService) {
+    constructor(
+        private _walletService: WalletService,
+        private _chromeService: ChromeService
+    ) {
         this._chromeService.onLastVerifiedChanged$.subscribe((lastVerified) => {
             if (this._lastVerified === lastVerified) return;
 

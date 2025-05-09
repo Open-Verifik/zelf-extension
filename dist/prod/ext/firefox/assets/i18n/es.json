@@ -4,27 +4,14 @@
     "logout_message": "Al confirmar esta acción, eliminarás todos tus ZelfProofs de la extensión. Necesitarás descifrar cada ZelfProof nuevamente para recuperar el acceso a ellos. ¿Estás seguro de que deseas continuar?",
     "logout_title": "ELIMINAR TODOS LOS ZELFPROOFS",
     "onboarding": {
-        "accept_terms_1": "Acepto los",
-        "accept_terms_2": "términos y condiciones",
-        "claim_your_zns": "¡Obtén tu Nombre Zelf y protege tu cripto!",
-        "create_new_wallet": "Crear una nueva billetera",
-        "forgot_zelf_name": "¿Olvidaste tu nombre zelf?",
-        "import_wallet": "Importar tu billetera",
         "lifetime": "De por vida",
-        "price_for_lifetime": "Precio de por vida",
-        "price_year": "Precio por {{ duration }} año",
-        "referral_code": "Código de referencia",
-        "register_description": "Registrarás este nombre por {{duration}}",
-        "register": "Registrar",
         "step_1_description": "Descubre ZNS (Servicio de Nombres Zelf), el innovador servicio de nombres que te libera de recordar la frase semilla. Accede de manera segura y rápida usando tu ZNS",
         "step_1": "BIENVENIDO AL SERVICIO DE NOMBRES ZELF",
         "step_2_description": "ZelfProof es una representación binaria única y preservadora de la privacidad derivada de datos faciales, asegurando que no se almacene en ningún lugar. Manteniendo tu frase extremadamente segura",
         "step_2": "ACCESO CON ZELFPROOF",
         "step_3_description": "Acceso sin esfuerzo a tu billetera y frase semilla. Tu ZelfProof se almacena de manera segura en Arweave, dándote control total sin la molestia de gestionarlo tú mismo.",
         "step_3": "ALMACENAMIENTO DESCENTRALIZADO",
-        "year": "Año",
-        "years": "Años",
-        "zns_reward": "Recibirás {{reward}} tokens Zelf (ZNS) como recompensa"
+        "year": "Año"
     },
     "activity": {
         "approve": "Aprobar",
@@ -119,7 +106,6 @@
         "new_password_subtitle": "La siguiente contraseña es una capa de cifrado requerida para tu ZelfProof.",
         "password_decryption": "EL NOMBRE ZELF REQUIERE UNA CONTRASEÑA",
         "password_subtitle": "Ingresa la contraseña asignada a este Nombre Zelf para completar el proceso de descifrado.",
-        "set_password": "Establecer contraseña",
         "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de cifrado.",
         "title": "Capas de Cifrado de ZelfProof",
         "unhide_words": "Mostrar palabras"
@@ -185,7 +171,6 @@
         "logout": "Eliminar ZelfProof",
         "manage_domains": "Gestionar Nombres Zelf",
         "max": "Máx",
-        "more_info": "Más información",
         "my_arns": "Mis ArNS",
         "navigating_away_will_cancel": "Navegar fuera cancelará cualquier progreso que hayas hecho. ¿Estás seguro de que deseas regresar?",
         "network": "Red",
@@ -216,7 +201,6 @@
         "show_more": "Mostrar más",
         "show_words": "Mostrar palabras",
         "sol_address": "Dirección SOL",
-        "solana_address": "Dirección Solana",
         "start": "Iniciar",
         "success": "Éxito",
         "symbol": "Símbolo",
@@ -285,42 +269,6 @@
         "logout_of_wallet_message": "Estás a punto de cerrar sesión de tu billetera. Esta acción eliminará tu ZelfProof de tu dispositivo. Asegúrate de haber respaldado tu frase semilla y el código QR de tu ZelfProof. ¿Estás seguro de que deseas continuar?",
         "logout_of_wallet_confirm": "Cerrar sesión de la billetera"
     },
-    "create_wallet": {
-        "password_step": {
-            "add_password": "Continuar",
-            "agreement": "Entiendo que Zelf no puede recuperar esta contraseña. Al elegir esta capa adicional de seguridad, reconozco que soy el único responsable de recordarla.",
-            "continue_without_password": "Una capa de seguridad",
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "password_label": "Contraseña",
-            "repeat_password_label": "Repetir contraseña",
-            "title": "Capas de Cifrado de ZelfProof"
-        },
-        "phrase_step": {
-            "12_words": "Frase de 12 palabras",
-            "24_words": "Frase de 24 palabras",
-            "description_2": "Zelf elimina la necesidad de almacenamiento manual al encriptar tu frase de recuperación en un poderoso ZelfProof que preserva la privacidad. Este ZelfProof se almacena de manera segura dentro de un código QR que solo tú puedes descifrar, asegurando una seguridad sin igual.",
-            "description_3": "El código QR sirve como una robusta bóveda digital para tus claves de recuperación, mejorada por nuestro Servicio de Nombres Zelf (ZNS). Con ZNS, puedes respaldar y recuperar fácilmente tu código QR usando tu Nombre Zelf.",
-            "description_4": "Entiendo que Zelf puede ayudar a recuperar el código QR con ZNS. Sin embargo, sigo siendo responsable de protegerlo para asegurar el acceso seguro.",
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "start_encryption_button": "Iniciar",
-            "title": "Capas de Cifrado de ZelfProof",
-            "words_input": "Número de palabras"
-        },
-        "zelfproof_step": {
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "instruction_1": "Coloca tu rostro dentro de la marca indicada",
-            "instruction_2": "Mira a la cámara y evita moverte",
-            "instruction_3": "Asegúrate de realizar los gestos faciales requeridos",
-            "title": "Capas de Cifrado de ZelfProof"
-        },
-        "view_wallet": {
-            "description_2": "Zelf elimina la necesidad de almacenamiento manual al encriptar tu frase de recuperación en un poderoso ZelfProof que preserva la privacidad. Este ZelfProof se almacena de manera segura dentro de un código QR que solo tú puedes descifrar, asegurando una seguridad sin igual.",
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "download_qr_code": "Descargar tu código QR",
-            "qr_code_description": "Mantén este código QR seguro. Para acceder o restaurar tu billetera, siempre se requerirá tu ZelfProof y este código QR",
-            "title": "Capas de Cifrado de ZelfProof"
-        }
-    },
     "liveness": {
         "center_your_face": "Centra tu rostro en la pantalla",
         "center_your_face_subtitle": "Por favor, asegúrate de que tu rostro esté centrado",
@@ -369,70 +317,6 @@
         "try_again": "Intentar de nuevo",
         "zelfName_is_taken": "Este nombre Zelf ya está en uso"
     },
-    "import_wallet": {
-        "step_zero": {
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "description2": "Nuestro proceso asegura la privacidad de tus activos al evitar la exposición de tus claves o frases de recuperación.",
-            "description3": "Importar tu billetera simplifica tu experiencia con criptomonedas al evitar la necesidad de gestionar múltiples cuentas.",
-            "description4": "Accede fácilmente a tus fondos en nuestra plataforma sin necesidad de usar tu frase de recuperación.",
-            "import_button": "Importar una billetera",
-            "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de cifrado.",
-            "title": "Capas de Cifrado de ZelfProof"
-        },
-        "step_one": {
-            "confirm_button": "Importar billetera",
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "paste_note": "Puedes pegar la frase de recuperación completa en cualquier campo",
-            "title": "Capas de Cifrado de ZelfProof",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "Copiar dirección pública",
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "download_qr": "Descargar código QR",
-            "success_message": "Has importado exitosamente tu billetera existente",
-            "understood": "Entendido"
-        }
-    },
-    "unlock_wallet": {
-        "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-        "drag_drop_text": "o arrastra y suelta el archivo con extensión .JPG o PNG aquí",
-        "title": "Capas de Cifrado de ZelfProof",
-        "upload_button": "Seleccionar Código QR",
-        "upload_description": "O sube tu Código QR de ZelfProof para continuar:",
-        "verify_button": "Verificar",
-        "password": {
-            "button": "Continuar",
-            "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de cifrado.",
-            "title": "Capas de Cifrado de ZelfProof"
-        },
-        "hold": {
-            "buy_now": "Comprar ahora",
-            "expiration_time": "Esta reserva expira el ",
-            "purchase_reservation": "Comprar reserva",
-            "title": "Capas de Cifrado de ZelfProof",
-            "unlock_without_purchase": "Verificar ahora, comprar más tarde"
-        }
-    },
-    "steps": {
-        "add_password": "Continuar",
-        "available": "Disponible",
-        "biometric_unlock": "Bloqueo ZelfProof",
-        "biometrics": "ZelfProof",
-        "decrypt": "DESCIFRAR",
-        "import_wallet": "Importar tu billetera",
-        "password_unlock": "CONTRASEÑA",
-        "qr_code_generator": "NOMBRE ZELF",
-        "search_wallet": "ABRIR ZELFPROOF",
-        "wallet_type": "BILLETERA"
-    },
-    "wallets_connected": {
-        "create_or_import_wallet_button": "Comprar nuevo dominio",
-        "delete_wallet": "Desvincular billetera"
-    },
-    "active_wallet": {
-        "show_private_key": "Mostrar clave privada"
-    },
     "home": {
         "assets": "Tokens",
         "NFTs": "Coleccionables",
@@ -440,14 +324,6 @@
         "send_transaction_button": "Enviar",
         "settings_button": "Configuraciones",
         "support_button": "Soporte"
-    },
-    "activity_card": {
-        "in": "Recibido",
-        "sent": "Enviado",
-        "transaction": "Transacción",
-        "transactionID": "ID de Transacción",
-        "txnFee": "Tarifa de Txn",
-        "viewOnExplorer": "Ver en el explorador de bloques"
     },
     "extension_instructions": {
         "addExtension": "Agrega la extensión a tu navegador para acceder y ver fácilmente las confirmaciones de transacciones en el Servicio de Nombres Zelf.",
@@ -459,27 +335,6 @@
         "fullAccess": "Acceso completo",
         "installationCompleted": "¡La instalación del Servicio de Nombres Zelf se ha completado!",
         "manageExtensions": "Gestionar extensiones"
-    },
-    "send_transaction": {
-        "account_found": "Dirección encontrada",
-        "confirm_transaction_button": "Confirmar transacción",
-        "confirmation_step": "Transferir",
-        "continue_transaction_button": "Siguiente",
-        "your_accounts": "Tus cuentas",
-        "bridge": {
-            "description_2": "Zelf elimina la necesidad de almacenamiento manual al encriptar tu frase de recuperación en un poderoso ZelfProof que preserva la privacidad. Este ZelfProof se almacena de manera segura dentro de un código QR que solo tú puedes descifrar, asegurando una seguridad sin igual.",
-            "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
-            "dont_have_the_app": "¿Aún no tienes instalada la App del Servicio de Nombres Zelf?",
-            "download_here": "Descárgala aquí y aumenta tu seguridad para todas tus transacciones y nunca pierdas acceso a tu cripto.",
-            "title": "Capas de Cifrado de ZelfProof"
-        }
-    },
-    "network_picker": {
-        "title": "Capas de Cifrado de ZelfProof"
-    },
-    "payments": {
-        "continue_withoutpaying": "Continuar sin pagar",
-        "pay_now": "Pagar ahora"
     },
     "restricted": {
         "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",

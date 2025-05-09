@@ -47,12 +47,8 @@
         "continue_process": "يمكنك المتابعة في العملية",
         "domain_or_address": "النطاق أو العنوان",
         "external_address_found": "تم العثور على عنوان خارجي",
-<<<<<<< HEAD
         "recently_used": "تم استخدامه مؤخرًا",
         "used": "تم استخدامه منذ {{days}} أيام",
-=======
-        "used": "تم استخدامه منذ {{days}} يومًا",
->>>>>>> origin/extension
         "withdrawal_amount": "مبلغ السحب",
         "zelf_name_not_registered": "اسم زيلف غير مسجل",
         "zelf_name_registered": "اسم زيلف مسجل"
@@ -372,7 +368,6 @@
         "something_went_wrong": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
         "transaction_not_found": "لم يتم العثور على المعاملة",
         "try_again": "حاول مرة أخرى",
-        "weak_password": "كلمة المرور الخاصة بك ضعيفة جدًا",
         "zelfName_is_taken": "اسم زيلف هذا محجوز بالفعل"
     },
     "import_wallet": {

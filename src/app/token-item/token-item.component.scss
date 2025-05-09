@@ -19,6 +19,10 @@
     box-sizing: border-box;
     cursor: pointer;
 
+    @media (max-width: variables.$minSmall) {
+        gap: 18px;
+    }
+
     &__icon {
         height: 40px;
         width: 40px;

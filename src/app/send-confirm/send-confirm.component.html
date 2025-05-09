@@ -26,12 +26,12 @@
                     <div class="zelf-chip">{{ t("common.amount") }}</div>
 
                     <div class="send-confirm__price-amount-container">
-                        <h2 class="send-confirm__price">{{ transactionData.amount | number : "1.1-18" }}</h2>
+                        <h2 class="send-confirm__price">{{ transactionData.amount | number: "1.1-18" }}</h2>
 
                         <p class="send-confirm__price-currency">{{ transactionData.symbol }}</p>
                     </div>
 
-                    <p class="send-confirm__price-currency">~{{ fiatPrice | currency : "USD" : "symbol" : "1.2-8" }}</p>
+                    <p class="send-confirm__price-currency">~{{ fiatPrice | currency: "USD" : "symbol" : "1.2-8" }}</p>
                 </div>
 
                 <div class="send-confirm__content">
@@ -41,7 +41,8 @@
 
                             <div class="send-confirm__from-value">
                                 <p class="send-confirm__value">{{ transactionData.sender.address | addressMask }}</p>
-                                <p class="zelf-chip" *ngIf="transactionData.sender.zelfName">{{ transactionData.sender.zelfName | uppercase }}</p>
+
+                                <div class="zelf-chip" *ngIf="transactionData.sender.zelfName">{{ transactionData.sender.zelfName | uppercase }}</div>
                             </div>
                         </div>
 
@@ -54,7 +55,13 @@
                         <div class="zelf-action-row">
                             <p class="send-confirm__label">{{ t("common.address") }}</p>
 
-                            <p class="send-confirm__value send-confirm__value--address">{{ transactionData.receiver.address }}</p>
+                            <div class="send-confirm__from-value">
+                                <p class="send-confirm__value send-confirm__value--address">{{ transactionData.receiver.address }}</p>
+
+                                <div class="zelf-chip" *ngIf="transactionData.receiver?.zelfName">
+                                    {{ transactionData.receiver.zelfName | uppercase }}
+                                </div>
+                            </div>
                         </div>
 
                         <div class="zelf-action-row">
@@ -67,8 +74,8 @@
                             <p class="send-confirm__label">{{ t("common.fee") }}</p>
 
                             <p class="send-confirm__value send-confirm__value--col send-confirm__value--items-end">
-                                <span>{{ transactionData.fee | number : "1.2-8" }} {{ networkCurrency }}</span>
-                                <span class="send-confirm__fee">~{{ fiatFeePrice | currency : "USD" : "symbol" : "1.2-8" }}</span>
+                                <span>{{ transactionData.fee | number: "1.2-8" }} {{ networkCurrency }}</span>
+                                <span class="send-confirm__fee">~{{ fiatFeePrice | currency: "USD" : "symbol" : "1.2-8" }}</span>
                             </p>
                         </div>
 
@@ -76,7 +83,7 @@
                             <p class="send-confirm__label">{{ t("common.total") }}</p>
 
                             <p class="send-confirm__value" [ngClass]="{ 'send-confirm__value--error': !hasBalance }">
-                                {{ total | currency : "USD" : "symbol" : "1.2-8" }}
+                                {{ total | currency: "USD" : "symbol" : "1.2-8" }}
                             </p>
                         </div>
                     </div>

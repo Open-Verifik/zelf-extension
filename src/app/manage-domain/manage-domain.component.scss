@@ -53,12 +53,14 @@
     }
 
     &__title {
-        font-size: 18px;
-        font-weight: 600;
         font-family: Poppins;
-        color: variables.$black;
-        margin: 0;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
         text-align: center;
+        vertical-align: middle;
+        color: variables.$black;
     }
 
     &__content {

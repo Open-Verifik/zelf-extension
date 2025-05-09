@@ -15,7 +15,7 @@
     min-width: 100%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: variables.$medium) {
     :host {
         background-color: variables.$white;
     }
@@ -39,7 +39,7 @@
         background: linear-gradient(to bottom, variables.$antiFlashWhite 70%, transparent);
         z-index: 999;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: variables.$medium) {
             height: 72px;
             background: linear-gradient(to bottom, variables.$white 70%, transparent);
         }
@@ -57,7 +57,7 @@
         height: 100vh;
         padding: 100px 0 64px;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: variables.$medium) {
             padding: 72px 0 64px;
         }
     }
@@ -77,7 +77,7 @@
         z-index: 999;
         padding: 0 1rem;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: variables.$medium) {
             background: linear-gradient(to top, variables.$white 70%, transparent);
             justify-content: flex-end;
         }
@@ -86,7 +86,7 @@
             display: none;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: variables.$medium) {
             &-menu-trigger {
                 display: flex;
             }

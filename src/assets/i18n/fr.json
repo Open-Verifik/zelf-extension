@@ -366,7 +366,6 @@
         "something_went_wrong": "Une erreur s'est produite, veuillez réessayer",
         "transaction_not_found": "Transaction non trouvée",
         "try_again": "Réessayer",
-        "weak_password": "Votre mot de passe est trop faible",
         "zelfName_is_taken": "Ce nom Zelf est déjà pris"
     },
     "import_wallet": {

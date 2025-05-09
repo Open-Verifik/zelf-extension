@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet, UpperCasePipe } from "@angular/common";
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnDestroy, ChangeDetectorRef } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
@@ -25,8 +25,11 @@ type BenefitItem = {
     styleUrl: "./cta-sheet.component.scss",
     templateUrl: "./cta-sheet.component.html",
 })
-export class CtaSheetComponent {
+export class CtaSheetComponent implements OnDestroy {
     private _isAvailable: boolean = false;
+    private _timeUpdateInterval: any;
+    private _minutesLeftCount: number = 0;
+    private _secondsLeftCount: number = 0;
 
     benefits: BenefitItem[] = [];
     isExpanded: boolean = false;
@@ -34,6 +37,7 @@ export class CtaSheetComponent {
     constructor(
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: CtaSheetData,
         private _bottomSheetRef: MatBottomSheetRef<CtaSheetComponent>,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
         private _router: Router,
         private _translocoService: TranslocoService,
@@ -46,11 +50,16 @@ export class CtaSheetComponent {
     async ngOnInit(): Promise<void> {
         if (!this.data.wallet.publicData?.isFullyExpired) {
             this._isAvailable = false;
+            this._startTimeUpdateInterval();
 
             return;
         }
 
         await this._checkZelfNameAvailability();
+    }
+
+    ngOnDestroy(): void {
+        this._stopTimeUpdateInterval();
     }
 
     get isAvailable(): boolean {
@@ -77,12 +86,32 @@ export class CtaSheetComponent {
         return this.data.wallet.publicData?.gracePeriod || "";
     }
 
+    get secondsLeftCount(): number {
+        return this._secondsLeftCount;
+    }
+
+    get minutesLeftCount(): number {
+        return this._minutesLeftCount;
+    }
+
+    get secondsLeft(): number {
+        const totalSeconds = Math.floor(this._getTimeDiff(this.expiresAt) / 1000);
+        return Math.max(0, totalSeconds % 60);
+    }
+
+    get minutesLeft(): number {
+        const timeDiff = this._getTimeDiff(this.expiresAt);
+        return Math.max(0, Math.floor(timeDiff / (1000 * 60)));
+    }
+
     get hoursLeft(): number {
-        return Math.ceil(this._getTimeDiff(this.expiresAt) / (1000 * 60 * 60));
+        const timeDiff = this._getTimeDiff(this.expiresAt);
+        return Math.max(0, Math.floor(timeDiff / (1000 * 60 * 60)));
     }
 
     get daysLeft(): number {
-        return Math.ceil(this._getTimeDiff(this.expiresAt) / (1000 * 60 * 60 * 24));
+        const timeDiff = this._getTimeDiff(this.expiresAt);
+        return Math.max(0, Math.floor(timeDiff / (1000 * 60 * 60 * 24)));
     }
 
     private async _checkZelfNameAvailability(): Promise<void> {
@@ -92,10 +121,13 @@ export class CtaSheetComponent {
     }
 
     private _getTimeDiff(dateToCompare: string): number {
+        if (!dateToCompare) return 0;
+
         const now = new Date();
         const expirationDate = new Date(dateToCompare);
 
-        return expirationDate.getTime() - now.getTime();
+        const diff = expirationDate.getTime() - now.getTime();
+        return diff;
     }
 
     private _setBenefits(): void {
@@ -113,6 +145,37 @@ export class CtaSheetComponent {
                 subtitle: this._translocoService.translate("cta_sheet.benefit_3_subtitle"),
             },
         ];
+    }
+
+    private _startTimeUpdateInterval(): void {
+        this._stopTimeUpdateInterval();
+
+        if (this.minutesLeft >= 15) return;
+
+        this._minutesLeftCount = this.minutesLeft;
+        this._secondsLeftCount = this.secondsLeft;
+
+        this._timeUpdateInterval = setInterval(() => {
+            const timeDiff = this._getTimeDiff(this.expiresAt);
+
+            if (timeDiff <= 0) {
+                this._minutesLeftCount = 0;
+                this._secondsLeftCount = 0;
+                return;
+            }
+
+            this._minutesLeftCount = this.minutesLeft;
+            this._secondsLeftCount = this.secondsLeft;
+
+            this._changeDetectorRef.detectChanges();
+        }, 1000);
+    }
+
+    private _stopTimeUpdateInterval(): void {
+        if (!this._timeUpdateInterval) return;
+
+        clearInterval(this._timeUpdateInterval);
+        this._timeUpdateInterval = null;
     }
 
     cancel(): void {
@@ -176,21 +239,29 @@ export class CtaSheetComponent {
         if (!dateToCompare) return false;
 
         const timeDiff = this._getTimeDiff(dateToCompare);
-        return timeDiff <= 30 * 24 * 60 * 60 * 1000 && timeDiff > 16 * 24 * 60 * 60 * 1000;
+        const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+        const sixteenDays = 16 * 24 * 60 * 60 * 1000;
+
+        return timeDiff <= thirtyDays && timeDiff > sixteenDays;
     }
 
     has15To7DaysLeft(dateToCompare: string): boolean {
         if (!dateToCompare) return false;
 
         const timeDiff = this._getTimeDiff(dateToCompare);
-        return timeDiff <= 15 * 24 * 60 * 60 * 1000 && timeDiff > 7 * 24 * 60 * 60 * 1000;
+        const fifteenDays = 15 * 24 * 60 * 60 * 1000;
+        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+        return timeDiff <= fifteenDays && timeDiff > sevenDays;
     }
 
     has7DaysLeft(dateToCompare: string): boolean {
         if (!dateToCompare) return false;
 
         const timeDiff = this._getTimeDiff(dateToCompare);
-        return timeDiff > 0 && timeDiff <= 7 * 24 * 60 * 60 * 1000;
+        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+        return timeDiff <= sevenDays && timeDiff > 0;
     }
 
     isExpired(dateToCompare: string): boolean {

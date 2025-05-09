@@ -11,7 +11,7 @@
     overflow-y: auto;
     width: 100%;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: variables.$medium) {
         min-height: 600px;
         max-height: initial;
     }

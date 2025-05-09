@@ -98,17 +98,23 @@
         }
     },
     "security": {
-        "biometric_decryption_title": "生物识别解密层",
-        "biometric_decryption_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于解密您的 ZelfProof 的私钥。<strong>我们不会收集或将您的生物识别数据用于其他目的。</strong>",
-        "biometric_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于加密您的 ZelfProof 的私钥。<strong>我们不会收集或将您的生物识别数据用于其他目的。</strong>",
+        "biometric_decryption_subtitle": "要完成解密过程，我们需要使用您的生物识别信息验证您的身份。",
+        "biometric_decryption_title": "生物识别解密",
+        "biometric_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于加密您的ZelfProof的私钥。<strong>我们不会出于任何其他目的收集或使用您的生物识别信息。</strong>",
         "biometric_title": "生物识别加密层",
         "hide_words": "隐藏单词",
+        "medium": "中等",
         "new_password_subtitle": "以下密码是您的ZelfProof所需的加密层。",
-        "password_decryption": "ZELF名称需要密码",
+        "password_decryption": "ZELFNAME需要密码",
+        "password_parameters_title": "密码指南",
+        "password_parameters": "我们的密码指南如下：<ul><li>长度必须在8到128个字符之间</li><li>必须包含至少一个大写字母</li><li>必须包含一个小写字母</li><li>必须包含一个数字</li><li>必须包含一个特殊字符</li><li>避免使用常见密码</li><li>避免重复字符</li></ul>",
+        "password_strength_label": "密码强度",
         "password_subtitle": "输入分配给此Zelf名称的密码以完成解密过程。",
+        "strong": "强",
         "subtitle": "选择您的种子短语长度并继续加密过程。",
         "title": "ZelfProof加密层",
-        "unhide_words": "显示单词"
+        "unhide_words": "显示单词",
+        "weak": "弱"
     },
     "receive": {
         "information": "此地址只能用于接收兼容的代币。",
@@ -388,6 +394,8 @@
         "secure_it_now_title": "仅剩 {{ days }} 天",
         "with_just_x_days_left": "仅剩 {{ days }} 天",
         "with_just_x_hours_left": "仅剩 {{ hours }} 小时",
+        "with_just_x_minutes_left": "仅剩 {{ minutes }} 分钟和 {{ seconds }} 秒",
+        "with_just_x_seconds_left": "仅剩 {{ seconds }} 秒",
         "what_do_you_think": "您觉得如何？想现在就保护它吗？",
         "is_no_longer_yours": "不再属于您，让我们来修复它！",
         "good_news": "好消息！",

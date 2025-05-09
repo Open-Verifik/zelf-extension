@@ -98,17 +98,23 @@
         }
     },
     "security": {
-        "biometric_decryption_title": "Capa de Descifrado Biométrico",
-        "biometric_decryption_subtitle": "A continuación, tomaremos una selfie, en combinación con tu contraseña, para generar la clave privada utilizada para descifrar tu ZelfProof. <strong>No recopilamos ni usamos tus datos biométricos para otros fines.</strong>",
-        "biometric_subtitle": "A continuación, tomaremos una selfie, en combinación con tu contraseña, para generar la clave privada utilizada para cifrar tu ZelfProof. <strong>No recopilamos ni usamos tus datos biométricos para otros fines.</strong>",
+        "biometric_decryption_subtitle": "Para finalizar el proceso de descifrado, necesitamos verificar tu identidad usando tus datos biométricos.",
+        "biometric_decryption_title": "Descifrado Biométrico",
+        "biometric_subtitle": "A continuación, tomamos una selfie, en combinación con tu contraseña, para generar la clave privada utilizada para cifrar tu ZelfProof. <strong>No recopilamos ni utilizamos tus datos biométricos para ningún otro propósito.</strong>",
         "biometric_title": "Capa de Cifrado Biométrico",
         "hide_words": "Ocultar palabras",
+        "medium": "Medio",
         "new_password_subtitle": "La siguiente contraseña es una capa de cifrado requerida para tu ZelfProof.",
-        "password_decryption": "EL NOMBRE ZELF REQUIERE UNA CONTRASEÑA",
+        "password_decryption": "ZELFNAME REQUIERE UNA CONTRASEÑA",
+        "password_parameters_title": "Directrices de Contraseña",
+        "password_parameters": "Nuestras directrices para tu contraseña son: <ul><li>debe tener entre 8 y 128 caracteres</li> <li>debe contener al menos una letra mayúscula</li> <li>debe contener una letra minúscula</li> <li>debe contener un número</li> <li>debe contener un carácter especial</li> <li>evitar contraseñas comunes</li> <li>evitar caracteres repetidos</li></ul>",
+        "password_strength_label": "Fortaleza de la Contraseña",
         "password_subtitle": "Ingresa la contraseña asignada a este Nombre Zelf para completar el proceso de descifrado.",
+        "strong": "Fuerte",
         "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de cifrado.",
-        "title": "Capas de Cifrado de ZelfProof",
-        "unhide_words": "Mostrar palabras"
+        "title": "Capas de Cifrado ZelfProof",
+        "unhide_words": "Mostrar palabras",
+        "weak": "Débil"
     },
     "receive": {
         "information": "Esta dirección solo puede ser utilizada para recibir tokens compatibles.",
@@ -388,6 +394,8 @@
         "secure_it_now_title": "Solo quedan {{ days }} días",
         "with_just_x_days_left": "Con solo {{ days }} días restantes",
         "with_just_x_hours_left": "Con solo {{ hours }} horas restantes",
+        "with_just_x_minutes_left": "Con solo {{ minutes }} minutos y {{ seconds }} segundos restantes",
+        "with_just_x_seconds_left": "Con solo {{ seconds }} segundos restantes",
         "what_do_you_think": "¿Qué opinas? ¿Quieres protegerlo ahora?",
         "is_no_longer_yours": "ya no es tuyo, ¡arreglemos esto!",
         "good_news": "¡Buenas noticias!",

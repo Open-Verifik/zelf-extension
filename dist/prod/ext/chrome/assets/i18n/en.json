@@ -11,8 +11,7 @@
         "step_2": "Find and decrypt your ZelfProof",
         "step_3_description": "Store a zk-FaceProof of your seed phrase in the blockchain instead of on a local device",
         "step_3": "Hack-proof your seed phrase",
-        "year": "Year",
-        "years": "Years"
+        "year": "Year"
     },
     "activity": {
         "approve": "Approve",
@@ -99,23 +98,23 @@
         }
     },
     "security": {
-        "password_strength_label": "Password Strength",
-        "password_parameters": "Our guidelines for your password are: <ul><li>must be between 8 and 128 characters long</li> <li>must contain at least one uppercase letter</li> <li>must contain one lowercase letter</li> <li>must contain one number</li> <li>must contain one special character</li> <li>avoid common passwords</li> <li>avoid repeating characters</li></ul>",
-        "biometric_decryption_title": "Biometric Decryption",
         "biometric_decryption_subtitle": "To finalize the decryption process, we need to verify your identity using your biometrics.",
+        "biometric_decryption_title": "Biometric Decryption",
         "biometric_subtitle": "Next, we take a selfie, in combination with your password, to generate the private key used to encrypt your ZelfProof. <strong>We do not collect or use your biometrics for any other purposes.</strong>",
         "biometric_title": "Biometric Encryption Layer",
         "hide_words": "Hide words",
+        "medium": "Medium",
         "new_password_subtitle": "The following password is a required encryption layer for your ZelfProof.",
         "password_decryption": "ZELFNAME REQUIRES A PASSWORD",
+        "password_parameters_title": "Password Guidelines",
+        "password_parameters": "Our guidelines for your password are: <ul><li>must be between 8 and 128 characters long</li> <li>must contain at least one uppercase letter</li> <li>must contain one lowercase letter</li> <li>must contain one number</li> <li>must contain one special character</li> <li>avoid common passwords</li> <li>avoid repeating characters</li></ul>",
+        "password_strength_label": "Password Strength",
         "password_subtitle": "Enter the password assigned to this Zelf Name to complete the decryption process.",
+        "strong": "Strong",
         "subtitle": "Select the length of your seed phrase and proceed with the encryption process.",
         "title": "ZelfProof Encryption Layers",
-        "weak": "Weak",
-        "medium": "Medium",
-        "strong": "Strong",
-        "password_parameters_title": "Password Guidelines",
-        "unhide_words": "Unhide words"
+        "unhide_words": "Unhide words",
+        "weak": "Weak"
     },
     "receive": {
         "information": "This address can only be used to receive compatible tokens.",

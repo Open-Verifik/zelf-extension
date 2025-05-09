@@ -261,6 +261,8 @@
     },
     "wallet": {
         "download_qr": "QRコードをダウンロード",
+        "info_title": "QRコードを安全に保存",
+        "info_description": "QRコードを安全に保存して、アカウントを保護してください。ダウンロードして安全な場所に保存してください。",
         "private_key": "秘密鍵"
     },
     "private_key": {

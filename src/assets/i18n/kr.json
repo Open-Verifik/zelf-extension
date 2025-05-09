@@ -261,6 +261,8 @@
     },
     "wallet": {
         "download_qr": "QR 다운로드",
+        "info_title": "QR 코드를 안전하게 저장하세요",
+        "info_description": "QR 코드를 안전하게 저장하여 계정을 보호하세요. 다운로드하고 안전한 장소에 저장하세요.",
         "private_key": "개인 키"
     },
     "private_key": {

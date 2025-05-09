@@ -9,6 +9,7 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
+import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
@@ -91,11 +92,12 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         return !!this.wallet?.publicData?.isExpired;
     }
 
-    openPrivateKeyBottomSheet(): void {
-        this._bottomSheet.open(PrivateKeyComponent, {
-            data: { wallet: this.wallet },
-            backdropClass: "zelf-backdrop",
-            panelClass: "zelf-bottom-sheet",
+    openInfoSheet(): void {
+        this._bottomSheet.open(InfoSheetComponent, {
+            backdropClass: "zelf-backdrop-full",
+            panelClass: "zelf-botton-sheet-full",
+            height: "100vh",
+            maxHeight: "100vh",
         });
     }
 
@@ -114,5 +116,13 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         const url = this._zelfNameService.generateArNS(this.wallet.publicData.zelfName);
 
         this._router.navigate(["/external-link"], { queryParams: { externalUrl: url } });
+    }
+
+    openPrivateKeyBottomSheet(): void {
+        this._bottomSheet.open(PrivateKeyComponent, {
+            data: { wallet: this.wallet },
+            backdropClass: "zelf-backdrop",
+            panelClass: "zelf-bottom-sheet",
+        });
     }
 }

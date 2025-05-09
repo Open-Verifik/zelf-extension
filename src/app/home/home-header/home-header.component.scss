@@ -30,7 +30,9 @@
         height: 42px;
         border-radius: 36px;
         padding: 0 16px;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: #858585;
@@ -53,6 +55,11 @@
         font-weight: 600;
         word-wrap: break-word;
         margin: 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: 16px;
+            line-height: 16px;
+        }
     }
 
     &__dropdown-icon {
@@ -75,7 +82,9 @@
         justify-content: center;
         overflow: hidden;
         stroke: #858585;
-        transition: background-color 1.5s cubic-bezier(0.075, 0.82, 0.165, 1), stroke 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition:
+            background-color 1.5s cubic-bezier(0.075, 0.82, 0.165, 1),
+            stroke 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
         width: 36px;
 
         &:hover,

@@ -98,8 +98,7 @@
         "offline_tip": "لیکن فکر نہ کریں! آپ ایکسٹینشن سے رسائی حاصل کرنے کے لیے اپنے ZelfProof کو دوسرے ZelfName کے ساتھ درآمد کر سکتے ہیں۔",
         "i_understand_go_back": "میں سمجھتا ہوں، ہوم پیج پر واپس جائیں",
         "safeguard_your_crypto": "اپنی کریپٹو کی حفاظت کریں!",
-        "offline_import_subtitle": "آپ کے آف لائن والیٹ کو درآمد کرنے سے پہلے، آپ کو ایک نیا ZelfName منتخب کرنا ہوگا۔",
-      
+        "offline_import_subtitle": "آپ کے آف لائن والیٹ کو درآمد کرنے سے پہلے، آپ کو ایک نیا ZelfName منتخب کرنا ہوگا۔"
     },
     "settings": {
         "security_label": "سیکیورٹی",
@@ -367,7 +366,6 @@
         "something_went_wrong": "کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں",
         "transaction_not_found": "ٹرانزیکشن نہیں ملی",
         "try_again": "دوبارہ کوشش کریں",
-        "weak_password": "آپ کا پاس ورڈ بہت کمزور ہے",
         "zelfName_is_taken": "یہ زیلف نام پہلے ہی لیا جا چکا ہے"
     },
     "import_wallet": {

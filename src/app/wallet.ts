@@ -446,6 +446,8 @@ export interface Wallet {
     suiAddress: string;
     zelfProof: string;
     zkProof: string;
+
+    updatePublicData(data: any): void;
 }
 
 export class WalletModel implements Wallet {
@@ -547,6 +549,10 @@ export class WalletModel implements Wallet {
         const lastPart = value.slice(-8);
 
         return `${firstPart}...${lastPart}`;
+    }
+
+    updatePublicData(data: any) {
+        this.publicData = new WalletPublicDataModel({ ...this.publicData, ...data });
     }
 }
 

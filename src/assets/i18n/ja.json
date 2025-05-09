@@ -366,7 +366,6 @@
         "something_went_wrong": "問題が発生しました。もう一度お試しください",
         "transaction_not_found": "トランザクションが見つかりません",
         "try_again": "もう一度試す",
-        "weak_password": "パスワードが弱すぎます",
         "zelfName_is_taken": "このZelf Nameはすでに使用されています"
     },
     "import_wallet": {

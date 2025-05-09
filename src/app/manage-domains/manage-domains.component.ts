@@ -129,6 +129,12 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         });
     }
 
+    private _refreshWallets = async (): Promise<void> => {
+        await this._zelfNameService.refreshAllWalletsPublicData(this.wallets as WalletModel[]);
+
+        this._changeDetectorRef.detectChanges();
+    };
+
     private async _setWallets(): Promise<void> {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
@@ -136,6 +142,8 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this.loading = false;
 
         this._changeDetectorRef.detectChanges();
+
+        await this._refreshWallets();
     }
 
     downloadZelfProof(wallet: Partial<WalletModel>): void {
@@ -158,8 +166,12 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this._router.navigate(["/domain"], { queryParams: { zelfName: wallet.publicData?.zelfName } });
     }
 
-    goToPayments(): void {
-        window.open("https://payment.zelf.world", "_blank");
+    goToPurchase(wallet: Partial<WalletModel>): void {
+        this._router.navigate(["/external-link"], {
+            queryParams: {
+                externalUrl: `https://payment.zelf.world/purchase?zelfName=${wallet.publicData?.zelfName}`,
+            },
+        });
     }
 
     async goToRecovery(wallet: Partial<WalletModel>): Promise<void> {

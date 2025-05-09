@@ -17,6 +17,12 @@
     &:hover {
         background: #a8a8a821;
     }
+
+    @media (max-width: variables.$minSmall) {
+        gap: 8px;
+        height: 72px;
+        padding: 8px 12px;
+    }
 }
 
 .status-icon-container {
@@ -56,6 +62,10 @@
     gap: 10px;
     display: inline-flex;
     flex: 1 1 auto;
+
+    @media (max-width: variables.$minSmall) {
+        gap: 8px;
+    }
 }
 
 .status-text {

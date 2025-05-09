@@ -366,7 +366,6 @@
         "something_went_wrong": "เกิดข้อผิดพลาด โปรดลองอีกครั้ง",
         "transaction_not_found": "ไม่พบธุรกรรม",
         "try_again": "ลองอีกครั้ง",
-        "weak_password": "รหัสผ่านของคุณอ่อนแอเกินไป",
         "zelfName_is_taken": "ชื่อ Zelf นี้ถูกใช้ไปแล้ว"
     },
     "import_wallet": {

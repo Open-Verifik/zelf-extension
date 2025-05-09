@@ -366,7 +366,6 @@
         "something_went_wrong": "कुछ गलत हो गया, कृपया पुनः प्रयास करें",
         "transaction_not_found": "लेन-देन नहीं मिला",
         "try_again": "पुनः प्रयास करें",
-        "weak_password": "आपका पासवर्ड बहुत कमजोर है",
         "zelfName_is_taken": "यह Zelf नाम पहले से लिया जा चुका है"
     },
     "import_wallet": {

@@ -1,21 +1,22 @@
-import { forkJoin, take } from "rxjs";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
+import { forkJoin, take } from "rxjs";
 
 import { DatePipe, DecimalPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ActivatedRoute, Router } from "@angular/router";
 
-import { EthereumService } from "app/eth.service";
-import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { AvaxTransactionModel, EthTransactionModel, SolTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
-import { WalletService } from "app/wallet.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { environment } from "environments/environment";
+import { EthereumService } from "app/eth.service";
+import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
+import { AvaxTransactionModel, EthTransactionModel, SolTransactionModel, SuiTransactionModel, WalletModel } from "app/wallet";
+import { WalletService } from "app/wallet.service";
+import { NetworkName } from "app/services/network.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
@@ -34,6 +35,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     constructor(
         private _activatedRoute: ActivatedRoute,
+        private _blockchainTransactionsService: BlockchainTransactionsService,
         private _ethService: EthereumService,
         private _router: Router,
         private _solService: SolanaService,
@@ -194,7 +196,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     async shareTransaction(): Promise<void> {
         if (!this.hash) return;
 
-        const transactionUrl = `${environment.appUrl}/transaction/${this.transaction.hash}`;
+        const transactionUrl = this._blockchainTransactionsService.generateShareLink(this.hash, this._determineNetwork() as NetworkName);
 
         await this.copyToClipboard(transactionUrl);
     }

@@ -151,6 +151,11 @@
         color: variables.$black;
         margin: 0;
         padding: 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: 32px;
+            line-height: 32px;
+        }
     }
 
     &__price {
@@ -289,7 +294,9 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$black;
@@ -412,7 +419,9 @@
         justify-content: center;
         min-height: 40px;
         outline: none;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
         user-select: none;
 
         svg {

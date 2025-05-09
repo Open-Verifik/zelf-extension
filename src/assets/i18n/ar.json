@@ -367,7 +367,6 @@
         "something_went_wrong": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
         "transaction_not_found": "لم يتم العثور على المعاملة",
         "try_again": "حاول مرة أخرى",
-        "weak_password": "كلمة المرور الخاصة بك ضعيفة جدًا",
         "zelfName_is_taken": "اسم زيلف هذا محجوز بالفعل"
     },
     "import_wallet": {

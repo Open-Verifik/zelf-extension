@@ -51,11 +51,22 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
 
         if (this.parameters.openPrivateKeyBottomSheet) this.openPrivateKeyBottomSheet();
 
+        this._updateWallet();
+
         this.loading = false;
     }
 
     get showArnsButton(): boolean {
         return !!this.wallet?.publicData?.zelfName && this.wallet?.publicData?.type === "mainnet";
+    }
+
+    private async _updateWallet(): Promise<void> {
+        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as WalletModel);
+
+        if (!updatedWallet) return;
+
+        this.wallet = updatedWallet;
+        this._walletService.updateWallet(this.wallet);
     }
 
     async copyToClipboard(value: string): Promise<void> {

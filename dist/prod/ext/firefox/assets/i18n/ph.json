@@ -251,6 +251,8 @@
     },
     "wallet": {
         "download_qr": "I-download ang QR code",
+        "info_title": "QR code na ligtas",
+        "info_description": "Tiyaking ligtas ang QR code na ito para sa iyong account. I-download ito at i-save sa isang ligtas na lugar.",
         "private_key": "Pribadong Susi"
     },
     "private_key": {

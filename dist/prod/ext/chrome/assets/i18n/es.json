@@ -251,6 +251,8 @@
     },
     "wallet": {
         "download_qr": "Descargar código QR",
+        "info_title": "Guarda tu código QR seguro",
+        "info_description": "Recuerda guardar tu código QR de manera segura para proteger tu cuenta. Descárgalo y guarda en un lugar seguro.",
         "private_key": "Clave privada"
     },
     "private_key": {

@@ -252,6 +252,8 @@
     },
     "wallet": {
         "download_qr": "QR",
+        "info_title": "Keep your QR code safe",
+        "info_description": "Remember to keep your QR code secure to protect your account. Download it and save it in a safe place.",
         "private_key": "Private Key"
     },
     "private_key": {

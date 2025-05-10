@@ -30,6 +30,7 @@ import { MatButtonModule } from "@angular/material/button";
         TokenCardComponent,
         TranslocoModule,
     ],
+    standalone: true,
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
     templateUrl: "./home.component.html",
@@ -140,6 +141,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private async _setWallet(): Promise<any> {
         const wallet = await this._walletService.getFirstWalletFromStorage();
+
+        if (!wallet?.name) {
+            this._router.navigate(["/welcome"]);
+            return;
+        }
 
         this.shareables.wallet = wallet;
         this.wallet = this.shareables.wallet;

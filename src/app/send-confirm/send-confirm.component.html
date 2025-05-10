@@ -125,6 +125,7 @@
                     (click)="goToBiometrics()"
                     [disabled]="!hasBalance || sending || !form.get('password')?.value"
                     *ngIf="requiresBiometrics"
+                    autocomplete="off"
                     class="zelf-button zelf-button--black zelf-button--wide"
                     mat-flat-button
                     type="submit"

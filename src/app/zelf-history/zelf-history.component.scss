@@ -103,7 +103,7 @@
         object-fit: contain;
     }
 
-    &__trade-images {
+    &__swap-images {
         position: relative;
         width: 40px;
         height: 40px;
@@ -111,8 +111,8 @@
         min-height: 40px;
     }
 
-    &__trade-image-a,
-    &__trade-image-b {
+    &__swap-image-a,
+    &__swap-image-b {
         position: absolute;
         width: 25px;
         height: 25px;
@@ -122,12 +122,12 @@
         object-fit: contain;
     }
 
-    &__trade-image-a {
+    &__swap-image-a {
         left: 0;
         top: 0;
     }
 
-    &__trade-image-b {
+    &__swap-image-b {
         bottom: 0;
         right: 0;
     }
@@ -175,7 +175,7 @@
         justify-content: center;
         align-items: center;
 
-        &--trade,
+        &--swap,
         &--approve {
             svg {
                 fill: variables.$black;
@@ -215,7 +215,7 @@
 
     &__received,
     &__send,
-    &__trade,
+    &__swap,
     &__approve-text {
         font-family: Poppins;
         font-weight: 600;
@@ -227,7 +227,7 @@
     }
     &__received,
     &__send,
-    &__trade {
+    &__swap {
         text-transform: uppercase;
     }
 
@@ -235,7 +235,7 @@
     &__send {
         color: variables.$correct;
     }
-    &__trade,
+    &__swap,
     &__approve-text {
         color: variables.$black;
     }

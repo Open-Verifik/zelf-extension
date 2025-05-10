@@ -60,8 +60,16 @@ export interface Transaction {
     sender?: any;
     status?: string;
     to?: string;
+    type: string;
     tokenType: string; // ERC-20
     traffic: string;
+
+    targetAddress?: string;
+    targetAmount?: number;
+    targetImage?: string;
+    targetNetwork?: string;
+    targetSymbol?: string;
+    targetToken?: string;
 }
 
 export class TransactionModel implements Transaction {
@@ -89,31 +97,45 @@ export class TransactionModel implements Transaction {
     to?: string;
     tokenType: string; // ERC-20
     traffic: string;
+    type: string;
+
+    targetAddress?: string;
+    targetAmount?: number;
+    targetImage?: string;
+    targetNetwork?: string;
+    targetSymbol?: string;
+    targetToken?: string;
 
     constructor(data: any) {
         this.age = data.age || "";
         this.amount = Number(data.amount || 0);
+        this.asset = data.asset || data.symbol || data.token?.symbol || "";
+        this.balance = data.balance || data.token?.amount || 0;
         this.block = data.block || "";
         this.confirmations = data.confirmations || "";
         this.date = data.date || "";
         this.fiatAmount = Number(data.fiatAmount || 0);
+        this.fiatBalance = data.fiatBalance || data.token?.fiatBalance || 0;
         this.fiatTotal = data.fiatTotal || 0;
         this.from = data.from || data.sender || "";
         this.gasFee = data.gasFee || 0;
         this.hash = data.hash || "";
         this.method = data.method || "";
+        this.network = data.network || data.token?.network || "";
+        this.price = data.price || data.token?.price || 0;
         this.receiver = data.receiver || data.to || null;
         this.sender = data.sender || data.from || null;
         this.status = data.status || "";
         this.to = data.to || data.receiver || "";
-        this.traffic = data.traffic || "";
-
-        this.asset = data.asset || data.symbol || data.token?.symbol || "";
-        this.balance = data.balance || data.token?.amount || 0;
-        this.fiatBalance = data.fiatBalance || data.token?.fiatBalance || 0;
-        this.network = data.network || data.token?.network || "";
-        this.price = data.price || data.token?.price || 0;
         this.tokenType = data.tokenType || data.token?.tokenType || "";
+        this.traffic = data.traffic || "";
+        this.type = data.type || "";
+
+        this.targetAddress = data.targetAddress || data.targetToken || "";
+        this.targetAmount = data.targetAmount || data.token?.amount || 0;
+        this.targetImage = data.targetImage || data.token?.image || "";
+        this.targetNetwork = data.targetNetwork || data.token?.network || "";
+        this.targetSymbol = data.targetSymbol || data.token?.symbol || "";
     }
 
     get total(): number {
@@ -265,7 +287,7 @@ export class EthTransactionModel implements EthTransaction {
     }
 }
 
-export type AvaxTransaction = {
+export type OkLinkTransaction = {
     age: string;
     amount: string;
     assetPrice: string;
@@ -274,12 +296,18 @@ export type AvaxTransaction = {
     gasPrice: string;
     hash: string;
     status: string;
+    swapAmount?: number;
+    swapContractAddress?: string;
+    swapLogo?: string;
+    swapNetwork?: string;
+    swapSymbol?: string;
     symbol: string;
     to: string;
+    type: string;
     txnFee: string;
 };
 
-export class AvaxTransactionModel implements AvaxTransaction {
+export class OkLinkTransactionModel implements OkLinkTransaction {
     age: string;
     amount: string;
     assetPrice: string;
@@ -288,11 +316,17 @@ export class AvaxTransactionModel implements AvaxTransaction {
     gasPrice: string;
     hash: string;
     status: string;
+    swapAmount?: number;
+    swapContractAddress?: string;
+    swapLogo?: string;
+    swapNetwork?: string;
+    swapSymbol?: string;
     symbol: string = "AVAX";
     to: string;
     txnFee: string;
+    type: string;
 
-    constructor(data: AvaxTransaction) {
+    constructor(data: OkLinkTransaction) {
         this.age = data.age || "";
         this.amount = data.amount || "";
         this.assetPrice = data.assetPrice || "";
@@ -301,9 +335,15 @@ export class AvaxTransactionModel implements AvaxTransaction {
         this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
         this.hash = data.hash || "";
         this.status = data.status || "";
+        this.swapAmount = data.swapAmount || 0;
+        this.swapContractAddress = data.swapContractAddress || "";
+        this.swapLogo = data.swapLogo || "";
+        this.swapNetwork = data.swapNetwork || "";
+        this.swapSymbol = data.swapSymbol || "";
         this.symbol = data.symbol || "AVAX";
         this.to = data.to || "";
         this.txnFee = data.txnFee || "";
+        this.type = data.type || "";
     }
 
     toTransaction(): TransactionModel {
@@ -317,8 +357,14 @@ export class AvaxTransactionModel implements AvaxTransaction {
             gasFee: this.txnFee,
             hash: this.hash,
             status: this.status.toLowerCase(),
+            targetAddress: this.swapContractAddress,
+            targetAmount: this.swapAmount,
+            targetImage: this.swapLogo,
+            targetNetwork: this.swapNetwork,
+            targetSymbol: this.swapSymbol,
             to: this.to,
             tokenType: "ERC-20",
+            type: this.type,
         });
     }
 }
@@ -670,19 +716,20 @@ export class WalletPublicDataModel {
 }
 
 export interface TokenData {
+    address_token?: string;
+    address?: string;
     amount: number | string;
+    contractAddress?: string;
     decimals?: number;
     fiatBalance: number | string;
     image: string;
+    mint?: string;
     name: string;
     network: string;
     price: string | number;
     symbol: string;
-    tokenType: string;
-    address_token?: string;
-    contractAddress?: string;
     tokenAddress?: string;
-    mint?: string;
+    tokenType: string;
 }
 
 export type Sender = {
@@ -963,3 +1010,5 @@ export type SOLSource = {
     recentBlockhash: string;
     priority_fee: number;
 };
+
+export type SwapSource = "source" | "target" | "";

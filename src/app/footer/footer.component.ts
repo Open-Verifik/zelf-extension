@@ -9,6 +9,7 @@ import { FooterMenuComponent } from "./footer-menu/footer-menu.component";
     selector: "footer",
     styleUrls: ["../main.scss", "./footer.component.scss"],
     templateUrl: "./footer.component.html",
+    standalone: true,
 })
 export class FooterComponent implements OnInit {
     @Input() shareables: any;

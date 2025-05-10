@@ -1,0 +1,76 @@
+<form class="swap-currency" [formGroup]="form" *transloco="let t">
+    <div class="swap-currency__filters">
+        <div class="swap-currency__filter">
+            <div class="zelf-input zelf-input--wide">
+                <input
+                    class="zelf-input__control"
+                    formControlName="textFilter"
+                    id="textFilter"
+                    name="textFilter"
+                    [placeholder]="t('common.search')"
+                    required
+                    type="text"
+                />
+
+                <div class="zelf-input__postfix swap-currency__search-icon">
+                    <ng-container *ngTemplateOutlet="search"></ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="swap-currency__network-filters">
+            <button
+                (click)="toggleNetworkFilter(network)"
+                [ngClass]="{ 'zelf-button--black': form.get('networkFilter')?.value === network }"
+                *ngFor="let network of networkOptions"
+                class="zelf-button zelf-button--pill swap-currency__network-filter"
+                mat-flat-button
+            >
+                {{ network === "all" ? t("common.all") : network }}
+            </button>
+        </div>
+    </div>
+
+    <div #assetsContainer class="swap-currency__assets" (scroll)="onScroll($event)">
+        <div
+            (click)="selectAsset(asset)"
+            [ngClass]="{ 'swap-currency__asset--selected': asset.name === selectedAsset.name }"
+            *ngFor="let asset of displayedAssets"
+            class="swap-currency__asset"
+            md-ripple
+        >
+            <div class="swap-currency__asset-info swap-currency__asset-info--left">
+                <img
+                    (error)="onImageError(asset)"
+                    [alt]="asset.symbol"
+                    [src]="getAssetImage(asset) || 'assets/icons/placeholder-coin.png'"
+                    class="swap-currency__asset-image"
+                />
+
+                <div class="swap-currency__asset-col">
+                    <p class="swap-currency__asset-name">
+                        <span class="swap-currency__asset-name-text">{{ asset.name }}</span>
+                        <span class="zelf-chip zelf-chip--pill">{{ asset.network }}</span>
+                    </p>
+
+                    <p class="swap-currency__asset-symbol">{{ asset.symbol }}</p>
+                </div>
+            </div>
+
+            <div class="swap-currency__asset-info swap-currency__asset-info--right">
+                <div class="swap-currency__asset-col">
+                    <p class="swap-currency__asset-balance">{{ asset.amount | number : "1.2-8" }}</p>
+                    <p class="swap-currency__asset-balance-fiat">{{ asset.fiatBalance | currency : "USD" : "symbol" : "1.2-2" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #search>
+    <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
+        />
+    </svg>
+</ng-template>

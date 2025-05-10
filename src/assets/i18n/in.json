@@ -346,6 +346,60 @@
         "installationCompleted": "Zelf नाम सेवा स्थापना पूरी हो गई है!",
         "manageExtensions": "एक्सटेंशन प्रबंधित करें"
     },
+    "send_transaction": {
+        "account_found": "पता मिला",
+        "confirm_transaction_button": "लेन-देन की पुष्टि करें",
+        "confirmation_step": "स्थानांतरण",
+        "continue_transaction_button": "अगला",
+        "pickReceiver_step": "भेजें",
+        "reject_transaction_button": "रद्द करें",
+        "send_to": "भेजें",
+        "tokens_step": "टोकन चुनें",
+        "your_accounts": "आपके खाते",
+        "confirm": {
+            "gas_description": "संभवतः {{seconds}} सेकंड में",
+            "gas_label": "गैस (अनुमानित)",
+            "market": "बाजार",
+            "max_gas": "अधिकतम शुल्क:",
+            "max_total": "अधिकतम कुल",
+            "sending_label": "{{amount}} {{asset}} भेजा जा रहा है",
+            "total_to_pay_label": "संपत्तियां + गैस शुल्क"
+        },
+        "preview": {
+            "estimated_fee": "अनुमानित शुल्क"
+        },
+        "bridge": {
+            "confirm_button": "लेन-देन की पुष्टि करें",
+            "description_2": "वेब एक्सटेंशन में जारी रखें",
+            "description": "अपने Zelf नाम सेवा ऐप से QR कोड स्कैन करें। अपने डिवाइस में डिक्रिप्ट करके एक सुरक्षा परत जोड़ें",
+            "dont_have_the_app": "अभी तक Zelf नाम सेवा ऐप इंस्टॉल नहीं किया है?",
+            "download_here": "इसे यहां डाउनलोड करें और अपनी सभी लेन-देन के लिए अपनी सुरक्षा बढ़ाएं और कभी भी अपने क्रिप्टो तक पहुंच न खोएं।",
+            "qr_code_title": "QR कोड स्कैन करें",
+            "title": "अपनी लेन-देन की पुष्टि करें"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "एक परीक्षण नेटवर्क चुनें",
+        "title": "एक नेटवर्क चुनें"
+    },
+    "payments": {
+        "continue_withoutpaying": "भुगतान के बिना जारी रखें",
+        "pay_now": "भुगतान के लिए आगे बढ़ें"
+    },
+    "swap": {
+        "fees": "शुल्क",
+        "pricing": "मूल्य निर्धारण",
+        "slippage": "स्लिपेज",
+        "slipping_adjustments": "स्लिपेज समायोजन",
+        "slipping": "स्लिपेज सहनशीलता",
+        "slipping_text": "अधिकतम मूल्य परिवर्तन जिसे आप स्वीकार करने के लिए तैयार हैं। यदि कीमत इस प्रतिशत से अधिक प्रतिकूल रूप से बदलती है, तो आपका लेनदेन वापस हो जाएगा।",
+        "priority_commission": "प्राथमिकता कमीशन",
+        "priority_commission_text": "उच्च प्राथमिकता वाले कमीशन नेटवर्क भीड़ के दौरान तेज़ लेनदेन प्रसंस्करण का परिणाम दे सकते हैं।",
+        "you_receive": "आप प्राप्त करते हैं",
+        "you_pay": "आप भुगतान करते हैं",
+        "automatic": "स्वचालित",
+        "manual": "मैनुअल"
+    },
     "restricted": {
         "description": "अपनी निजी कुंजी देखने के लिए, कृपया सुरक्षा सत्यापन चरणों को पूरा करें।",
         "download_android_app": "एंड्रॉइड ऐप डाउनलोड करें",

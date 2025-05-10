@@ -60,20 +60,20 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _blockchainTransactionsService: BlockchainTransactionsService,
         private _chromeService: ChromeService,
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
+        private _networkService: NetworkService,
         private _router: Router,
         private _snackBar: MatSnackBar,
+        private _solanaService: SolanaService,
+        private _suiService: SuiService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
-        private _suiService: SuiService,
-        private _blockchainTransactionsService: BlockchainTransactionsService,
-        private _solanaService: SolanaService,
-        private _networkService: NetworkService
+        private _zelfNameService: ZelfNameService
     ) {
         this.loading = true;
         this.remainingAttempts = this._vaultService.remainingAttempts;
@@ -152,7 +152,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     get networkCurrency(): string {
-        return this._networkService.getNetworkCurrency(this.transactionData.network);
+        return this._networkService.getNetworkSymbol(this.transactionData.network);
     }
 
     get total(): number {
@@ -496,16 +496,16 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
                     queryParams: {
                         network: "solana",
-                        tokenType: this.transactionData.tokenType,
+                        symbol: this.transactionData.tokenType,
                     },
                 });
             } else if (this.transactionData.network === "sui" && receipt.digest) {
                 await this._router.navigate(["/transaction", receipt.digest], {
-                    queryParams: { tokenType: "SUI" },
+                    queryParams: { network: "sui", symbol: "SUI" },
                 });
             } else if (receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { tokenType: this.transactionData.symbol },
+                    queryParams: { network: this.transactionData.network, symbol: this.transactionData.symbol },
                 });
             } else {
                 this._router.navigate(["/send"]);

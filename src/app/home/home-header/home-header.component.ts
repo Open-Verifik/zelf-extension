@@ -16,6 +16,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
     imports: [NgIf, MatBottomSheetModule, MatMenuModule, MatDividerModule, TranslocoPipe, ZelfNamePipe],
     selector: "home-header",
     styleUrls: ["./home-header.component.scss", "../../main.scss"],
+    standalone: true,
     template: `
         <div class="home-header" *ngIf="shareables.wallet">
             <div class="home-header__left home-header__container">&nbsp;</div>

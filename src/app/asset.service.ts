@@ -5,7 +5,7 @@ import { TokenData } from "./wallet";
 import { ChromeService } from "./chrome.service";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AssetChart, AssetDetails, AssetInterval, AssetIntervalOptions, AssetRange } from "./models/asset.model";
-import { Asset, Wallet } from "./wallet";
+import { Wallet } from "./wallet";
 import { EthereumService } from "./eth.service";
 import { SolanaService } from "./solana.service";
 import { SuiService } from "./services/sui.service";
@@ -27,6 +27,14 @@ export class AssetService {
     private _sourceAsset$ = new BehaviorSubject<Partial<TokenData>>({});
     private _targetAsset: Partial<TokenData> = {};
     private _targetAsset$ = new BehaviorSubject<Partial<TokenData>>({});
+
+    private CAN_SWAP: NetworkPermissions = {
+        AVAX: true,
+        BTC: false,
+        ETH: true,
+        SOL: false,
+        SUI: false,
+    };
 
     constructor(
         private _chromeService: ChromeService,
@@ -237,14 +245,6 @@ export class AssetService {
         }
 
         return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
-    }
-
-    private updateSelectedAssetFiatBalance(selectedAsset: Asset, tokens: any[]): void {
-        tokens.forEach((token) => {
-            if (!token.fiatBalance) return;
-
-            selectedAsset.fiatBalance += token.fiatBalance || 0;
-        });
     }
 
     async fetchAdditionalTokenDetails(tokens: any[], wallet: Wallet, permissions?: NetworkPermissions): Promise<any[]> {

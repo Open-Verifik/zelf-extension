@@ -1,0 +1,131 @@
+<ng-container *transloco="let t">
+    <form [formGroup]="form" class="slippage-sheet">
+        <button mat-flat-button class="slippage-sheet__exit" (click)="close()">
+            <div class="slippage-sheet__exit-icon">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z"
+                    />
+                </svg>
+            </div>
+        </button>
+
+        <div class="slippage-sheet__body">
+            <h3 class="slippage-sheet__title">
+                {{ t("swap.slipping_adjustments") }}
+            </h3>
+
+            <div class="slippage-sheet__container">
+                <div class="slippage-sheet__switch-container">
+                    <div class="slippage-sheet__switch-title">{{ t("swap.slipping") }}</div>
+
+                    <div class="slippage-sheet__switch-group">
+                        <div class="slippage-sheet__switch" (click)="toggleMode('slippageToggle')">
+                            <p
+                                class="slippage-sheet__switch-label"
+                                [ngClass]="{ 'slippage-sheet__switch-label--active': form.get('slippageToggle')?.value === 'automatic' }"
+                            >
+                                {{ "swap." + form.get("slippageToggle")?.value | transloco }}
+                            </p>
+
+                            <input
+                                [checked]="form.get('slippageToggle')?.value === 'automatic'"
+                                class="slippage-sheet__switch-input"
+                                type="checkbox"
+                            />
+
+                            <div class="slippage-sheet__switch-track">
+                                <div class="slippage-sheet__switch-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="slippage-sheet__text">{{ t("swap.slipping_subtitle") }}</p>
+
+                <div class="slippage-sheet__slider-container" [style.display]="form.get('slippageToggle')?.value === 'manual' ? 'flex' : 'none'">
+                    <div class="slippage-sheet__slider-input-row">
+                        <div class="slippage-sheet__slider-input-container">
+                            <label for="slippage" class="slippage-sheet__slider-label">
+                                <div class="slippage-sheet__slider-dots">
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                    <div class="slippage-sheet__slider-dot"></div>
+                                </div>
+                                <input
+                                    #slippageSlider
+                                    formControlName="slippage"
+                                    class="slippage-sheet__slider"
+                                    max="0.8"
+                                    min="0.1"
+                                    step="0.1"
+                                    type="range"
+                                />
+                            </label>
+                        </div>
+
+                        <div class="slippage-sheet__slider-value">{{ form.get("slippage")?.value }}%</div>
+                    </div>
+
+                    <p class="slippage-sheet__slider-subtitle">{{ t("swap.slipping_more_info") }}</p>
+                </div>
+            </div>
+
+            <div class="slippage-sheet__container">
+                <div class="slippage-sheet__switch-container">
+                    <div class="slippage-sheet__switch-title">{{ t("swap.priority_commission") }}</div>
+
+                    <div class="slippage-sheet__switch-group">
+                        <div class="slippage-sheet__switch" (click)="toggleMode('commissionToggle')">
+                            <p
+                                class="slippage-sheet__switch-label"
+                                [ngClass]="{ 'slippage-sheet__switch-label--active': form.get('commissionToggle')?.value === 'automatic' }"
+                            >
+                                {{ "swap." + form.get("commissionToggle")?.value | transloco }}
+                            </p>
+
+                            <input
+                                [checked]="form.get('commissionToggle')?.value === 'automatic'"
+                                class="slippage-sheet__switch-input"
+                                type="checkbox"
+                            />
+
+                            <div class="slippage-sheet__switch-track">
+                                <div class="slippage-sheet__switch-thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="slippage-sheet__text">{{ t("swap.priority_commission_subtitle") }}</p>
+
+                <div class="slippage-sheet__input-container" [style.display]="form.get('commissionToggle')?.value === 'manual' ? 'block' : 'none'">
+                    <div class="zelf-input zelf-input--wide">
+                        <input
+                            class="zelf-input__control"
+                            formControlName="commission"
+                            id="commission"
+                            name="commission"
+                            placeholder="0.1"
+                            required
+                            type="number"
+                        />
+
+                        <p class="zelf-input__postfix slippage-sheet__input-postfix">{{ networkSymbol }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slippage-sheet__actions">
+            <button (click)="confirm()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+                {{ t("common.confirm") }}
+            </button>
+        </div>
+    </form>
+</ng-container>

@@ -20,7 +20,7 @@
         "pending": "Pending",
         "receive": "Receive",
         "send": "Send",
-        "trade": "Trade"
+        "swap": "Swap"
     },
     "wallet_status": {
         "active": "Active",
@@ -125,6 +125,7 @@
         "do_it_later": "Do it later",
         "12_word_phrase": "12 word phrase",
         "24_word_phrase": "24 word phrase",
+        "search": "Search...",
         "about": "About",
         "import_wallet": "Import wallet",
         "activity": "Activity",
@@ -326,9 +327,105 @@
         "try_again": "Try again",
         "zelfName_is_taken": "This zelf name is already taken"
     },
+    "import_wallet": {
+        "step_zero": {
+            "description": "It allows you to transfer your digital assets from other platforms quickly and securely.",
+            "description2": "Our process ensures the privacy of your assets by preventing the exposure of your keys or recovery phrases.",
+            "description3": "Importing your wallet simplifies your cryptocurrency experience by avoiding the need to manage multiple accounts.",
+            "description4": "Easily access your funds on our platform without needing to use your recovery phrase.",
+            "import_button": "Import a wallet",
+            "subtitle": "What are the benefits?",
+            "title": "Import an existing wallet"
+        },
+        "step_one": {
+            "confirm_button": "Import wallet",
+            "description": "Please enter your recovery phrase below to validate and import your existing wallet.",
+            "paste_note": "You can paste the entire secret recovery phrase in any field",
+            "title": "Enter the recovery phrase",
+            "word1": "1."
+        },
+        "qr_code_step": {
+            "copy_address": "Copy public address",
+            "description": "Your security phrase and QR code are now linked to your ZelfProof. Keep the QR safe to protect your account.",
+            "download_qr": "Download QR code",
+            "success_message": "You have successfully imported your existing wallet",
+            "understood": "Understood"
+        }
+    },
+    "unlock_wallet": {
+        "account_found": "ZELFPROOF FOUND",
+        "back_button": "Back",
+        "description": "Find an existing Zelf Name by entering its public address below:",
+        "drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
+        "title": "FIND ZELF NAME",
+        "upload_button": "Select QR Code",
+        "upload_description": "Or upload your ZelfProof QR Code to continue:",
+        "verify_button": "Verify",
+        "password": {
+            "button": "Continue",
+            "label": "Password",
+            "placeholder": "********************",
+            "subtitle": "Enter the password assigned to this ZelfProof to complete the opening process.",
+            "title": "THIS ZELFPROOF REQUIRES A PASSWORD"
+        },
+        "hold": {
+            "buy_now": "Buy now",
+            "expiration_time": "This reservation expires on ",
+            "purchase_reservation": "Purchase reservation",
+            "title": "RESERVATION FOUND",
+            "unlock_without_purchase": "Decrypt ZelfName now, purchase later"
+        }
+    },
+    "steps": {
+        "add_password": "ADD A PASSWORD",
+        "available": "Available",
+        "biometric_unlock": "ZelfProof lock",
+        "biometrics": "ZelfProof",
+        "decrypt": "DECRYPT",
+        "import_wallet": "Import your wallet",
+        "password_unlock": "PASSWORD",
+        "qr_code_generator": "ZELF NAME",
+        "search_wallet": "OPEN ZELFPROOF",
+        "wallet_type": "WALLET"
+    },
+    "wallets_connected": {
+        "account": "Account",
+        "create_or_import_wallet_button": "Purchase new domain",
+        "delete_wallet": "Unlink wallet",
+        "no_zelf_name": "Without Zelf name",
+        "see_on_scanner": "Open explorer",
+        "see_qr_code": "See QR code",
+        "title": "Select a wallet"
+    },
+    "active_wallet": {
+        "show_private_key": "Show private key",
+        "warning_notice": "Remember to keep your QR code safe; make multiple copies if required. Also, only unlock the secret key when exporting your wallet"
+    },
+    "swap": {
+        "fees": "Fees",
+        "fees_text": "The quote includes commission fees.",
+        "pricing": "Pricing",
+        "pricing_text": "The best rate found in multiple decentralized markets.",
+        "confirm_swap": "Confirm Swap",
+        "slippage": "Slippage",
+        "slippage_text": "Your transaction will not be completed if the price changes unfavorably by more than {{ slippage }}%.",
+        "slipping_adjustments": "Slipping Adjustments",
+        "slipping": "Slipping",
+        "slipping_subtitle": "Zelf will find you the lowest slip to exchange successfully.",
+        "slipping_more_info": "Your transaction will not be completed if the price changes more than the deviation. Too high a value will result in an unfavourable transaction.",
+        "priority_commission": "Priority Commission",
+        "priority_commission_subtitle": "Higher priority commissions can result in faster transaction processing during network congestion.",
+        "you_receive": "You receive",
+        "you_pay": "You pay",
+        "automatic": "Automatic",
+        "powered_by": "Powered by <strong>{{ bridge }}</strong>",
+        "manual": "Manual",
+        "select_asset": "Select asset"
+    },
     "home": {
         "assets": "Tokens",
         "NFTs": "Collectibles",
+        "swap": "Swap",
         "receive_transaction_button": "Receive",
         "send_transaction_button": "Send",
         "settings_button": "Settings",

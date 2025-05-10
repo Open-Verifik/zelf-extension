@@ -16,7 +16,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
                     <p class="token-card__network-chip">{{ data.network }}</p>
                 </div>
 
-                <p class="token-card__name">{{ data.price | currency : "USD" : "symbol" : "1.2-5" }}</p>
+                <p class="token-card__name">{{ data.price | currency: "USD" : "symbol" : "1.2-5" }}</p>
             </div>
 
             <div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
@@ -25,21 +25,22 @@ import { FlexLayoutModule } from "@angular/flex-layout";
                         class="stats__percentage"
                         [ngClass]="{
                             'stats__percentage--positive': false,
-                            'stats__percentage--negative': false
+                            'stats__percentage--negative': false,
                         }"
                     >
-                        <span class="stats__text stats__text--colored">{{ data.amount | number : "1.0-6" }}</span>
+                        <span class="stats__text stats__text--colored">{{ data.amount | number: "1.0-6" }}</span>
                     </div>
                 </h4>
 
                 <div class="token-card__balance">
-                    {{ data.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}
+                    {{ data.fiatBalance | currency: "USD" : "symbol" : "1.2-5" }}
                 </div>
             </div>
         </div>
     `,
     styleUrls: ["./token-card.component.scss"],
     imports: [CurrencyPipe, NgClass, DecimalPipe, FlexLayoutModule],
+    standalone: true,
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;

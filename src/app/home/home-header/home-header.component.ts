@@ -93,7 +93,12 @@ export class HomeHeaderComponent implements OnDestroy {
     view: string;
     wallet!: Wallet;
 
-    constructor(private _router: Router, private route: ActivatedRoute, private _chromeService: ChromeService, private _bottomSheet: MatBottomSheet) {
+    constructor(
+        private _router: Router,
+        private route: ActivatedRoute,
+        private _chromeService: ChromeService,
+        private _bottomSheet: MatBottomSheet
+    ) {
         this.view = "home";
         this.selectedTab = "assets";
 

@@ -345,10 +345,20 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            await this._decryptMnemonics();
+            try {
+                await this._decryptMnemonics();
+            } catch (error: unknown) {
+                if ((error as { message?: string })?.message === "expired") {
+                    this._vaultService.password = this.form.get("password")?.value;
+                    this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+
+                    return;
+                }
+            }
 
             if (!this._mnemonics) {
                 this.openErrorSnackBar("errors.private_key_locked");
+
                 return;
             }
         }
@@ -466,8 +476,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                     this.transactionData.network === "sui"
                         ? "SUI"
                         : this.transactionData.network === "avalanche"
-                        ? "AVAX"
-                        : this.transactionData.tokenType,
+                          ? "AVAX"
+                          : this.transactionData.tokenType,
             });
 
             this.sending = false;

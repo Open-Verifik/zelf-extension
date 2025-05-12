@@ -350,7 +350,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             } catch (error: unknown) {
                 if ((error as { message?: string })?.message === "expired") {
                     this._vaultService.password = this.form.get("password")?.value;
-                    this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+                    this._router.navigate(["/security/biometrics"], { queryParams: { return: "/send/confirmation" } });
 
                     return;
                 }

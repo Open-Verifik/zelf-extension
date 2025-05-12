@@ -308,6 +308,7 @@
         "incorrect_zelf_proof_message": "The provided file does not appear to be a valid ZelfProof. Please try again.",
         "invalid_format": "Invalid format",
         "invalid_number_value": "Invalid number value",
+        "invalid_credentials": "Invalid credentials",
         "invalid_password": "Invalid password. You have {{remaining}} attempts left before you will be required to login with biometrics.",
         "invalid_private_key": "Private key is invalid.",
         "liveness_failed_description": "Sorry, there seems to have been a problem with your liveness detection.",

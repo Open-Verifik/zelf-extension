@@ -12,15 +12,17 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
+
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { LifiService } from "app/services/lifi.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
 import { VaultService } from "app/vault.service";
 import { TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { LifiService } from "../services/lifi.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
 
 @Component({
@@ -101,7 +103,8 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _lifiService: LifiService
+        private _lifiService: LifiService,
+        private _zelfNameService: ZelfNameService
     ) {
         this.wallet = {} as WalletModel;
         this.remainingAttempts = this._vaultService.remainingAttempts;
@@ -315,38 +318,42 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         if (this.requiresBiometrics) {
-            this._vaultService.password = this.form.get("password")?.value;
-            this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+            await this._redirectToBiometrics();
 
             return false;
         }
 
-        if (!this._mnemonics) {
-            try {
-                await this._decryptMnemonics();
-            } catch (error: unknown) {
-                if ((error as { message?: string })?.message === "expired") {
-                    this._vaultService.password = this.form.get("password")?.value;
-                    this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+        if (this._mnemonics) return true;
 
-                    return false;
-                }
+        try {
+            await this._decryptMnemonics();
 
-                this.openErrorSnackBar("errors.private_key_locked");
-
+            if (this._mnemonics) return true;
+        } catch (error: unknown) {
+            if ((error as { message?: string })?.message === "expired") {
+                await this._redirectToBiometrics();
                 return false;
             }
 
-            if (this.requiresBiometrics) return false;
+            this.openErrorSnackBar("errors.invalid_credentials");
 
-            if (!this._mnemonics) {
-                this.openErrorSnackBar("errors.private_key_locked");
-
-                return false;
-            }
+            return false;
         }
 
-        return true;
+        if (this.requiresBiometrics) return false;
+        if (this._mnemonics) return true;
+
+        this.openErrorSnackBar("errors.private_key_locked");
+
+        return false;
+    }
+
+    async _redirectToBiometrics(): Promise<void> {
+        await this._zelfNameService.setFlow("unlock");
+        await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
+
+        this._vaultService.password = this.form.get("password")?.value;
+        this._router.navigate(["/security/biometrics"], { queryParams: { return: "/swap" } });
     }
 
     async getSwapQuote(): Promise<void> {
@@ -491,9 +498,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         this.swapError = "";
 
         try {
-            if (!(await this._validateCredentials())) {
-                throw new Error("Invalid credentials");
-            }
+            if (!(await this._validateCredentials())) return;
 
             if (!ethers.Mnemonic.isValidMnemonic(this._mnemonics)) {
                 throw new Error("Invalid mnemonic");

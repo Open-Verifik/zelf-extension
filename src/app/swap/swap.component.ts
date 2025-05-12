@@ -322,14 +322,22 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         if (!this._mnemonics) {
-            await this._decryptMnemonics();
+            try {
+                await this._decryptMnemonics();
+            } catch (error: unknown) {
+                if ((error as { message?: string })?.message === "expired") {
+                    this._vaultService.password = this.form.get("password")?.value;
+                    this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
 
-            if (this.requiresBiometrics) {
-                this._vaultService.password = this.form.get("password")?.value;
-                this._router.navigate(["/biometrics"], { queryParams: { return: "/swap" } });
+                    return false;
+                }
+
+                this.openErrorSnackBar("errors.private_key_locked");
 
                 return false;
             }
+
+            if (this.requiresBiometrics) return false;
 
             if (!this._mnemonics) {
                 this.openErrorSnackBar("errors.private_key_locked");

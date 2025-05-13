@@ -21,7 +21,7 @@
     height: 56px;
     justify-content: center;
     outline: none;
-    padding: 8px 16px;
+    padding: 8px 24px;
     text-align: center;
     user-select: none;
 
@@ -45,7 +45,9 @@
         font-weight: 500;
         border-radius: 9999px;
         padding: 8px 16px;
-        transition: color 0.2s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.2s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &--small {
             font-size: 11px;
@@ -90,7 +92,9 @@
     &--black {
         background-color: variables.$black !important;
         color: variables.$white !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
@@ -121,7 +125,9 @@
     &--anti-flash-white {
         background-color: variables.$antiFlashWhite !important;
         color: variables.$black !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$black;
@@ -155,7 +161,9 @@
     &--white {
         background-color: variables.$white !important;
         color: variables.$black !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
@@ -187,7 +195,9 @@
         border: 1px solid variables.$black !important;
         background-color: variables.$white !important;
         color: variables.$black !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
@@ -201,6 +211,29 @@
 
         svg {
             fill: variables.$black;
+        }
+    }
+
+    &--red {
+        border: none !important;
+        background-color: transparent !important;
+        color: variables.$error !important;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+
+        &:focus,
+        &:hover {
+            background-color: variables.$errorLight !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: variables.$gray !important;
+        }
+
+        svg {
+            fill: variables.$error;
         }
     }
 
@@ -259,7 +292,9 @@
     min-height: 56px;
     min-width: 56px;
     outline: none;
-    transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+    transition:
+        color 0.3s variables.$smoothBezier,
+        background-color 0.3s variables.$smoothBezier;
     user-select: none;
     width: 56px;
 
@@ -319,7 +354,9 @@
         font-weight: 500;
         border-radius: 9999px;
         padding: 8px 16px;
-        transition: color 0.2s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.2s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &--small {
             font-size: 11px;
@@ -356,7 +393,9 @@
     &--black {
         background-color: variables.$black !important;
         color: variables.$white !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$white;
@@ -385,7 +424,9 @@
     &--anti-flash-white {
         background-color: variables.$antiFlashWhite !important;
         color: variables.$black !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$black;

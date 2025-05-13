@@ -1455,9 +1455,11 @@ h3 {
     }
 
     &__postfix {
+        font-family: Menda, sans-serif;
         font-size: 14px;
         letter-spacing: 0.1px;
-        color: variables.$taupeGray;
+        color: variables.$black;
+        text-transform: uppercase;
         font-weight: 500;
     }
 

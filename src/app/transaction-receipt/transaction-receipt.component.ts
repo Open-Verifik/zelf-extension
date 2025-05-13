@@ -109,7 +109,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             else if (this.symbol === "MATIC") return "polygon";
             else if (this.symbol === "BNB") return "binance";
             else if (this.symbol === "ETH") return "ethereum";
-            else if (this.symbol === "ZELF" || this.symbol === "SOL") return "solana";
+            else if (this.symbol === "ZNS" || this.symbol === "SOL") return "solana";
             else if (this.symbol === "SUI") return "sui";
             else return "ethereum";
         } else return "ethereum";
@@ -172,40 +172,10 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             } else {
                 promise = this._ethService.requestTransactionDetailsV2(this.hash);
             }
-
-            promise.then((response: any) => {
-                if (!response || !response.data) return false;
-
-                response.data.symbol = this.symbol;
-
-                this.transaction = new OkLinkTransactionModel(response.data).toTransaction();
-
-                return true;
-            });
         } else if (network === "sui") {
             promise = this._suiService.requestTransactionDetails(this.hash);
-
-            promise.then((response: any) => {
-                if (!response || !response.data) return false;
-
-                response.data.symbol = this.symbol;
-
-                this.transaction = new SuiTransactionModel(response.data).toTransaction();
-
-                return true;
-            });
         } else if (network === "solana") {
             promise = this._solService.requestTransactionDetails(this.hash);
-
-            promise.then((response: any) => {
-                if (!response || !response.data) return false;
-
-                response.data.symbol = this.symbol;
-
-                this.transaction = new SolTransactionModel(response.data).toTransaction();
-
-                return true;
-            });
         }
 
         if (!promise) {
@@ -215,19 +185,35 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         }
 
         promise
-            .then((response: boolean) => {
-                this._setNetworkProperties();
-
-                if (!response) {
+            .then((response: any) => {
+                if (!response || !response.data) {
                     this._retryRequestTransactionDetails();
 
                     return;
                 }
 
+                response.data.symbol = this.symbol;
+
+                if (network === "ethereum" || network === "avalanche") {
+                    this.transaction = new OkLinkTransactionModel(response.data).toTransaction();
+                } else if (network === "solana") {
+                    this.transaction = new SolTransactionModel(response.data).toTransaction();
+                } else if (network === "sui") {
+                    this.transaction = new SuiTransactionModel(response.data).toTransaction();
+                }
+
+                console.log(` TransactionReceiptComponent ~ promise ~ this.transaction:`, this.transaction);
+
+                this.transaction.image = this._walletService.getAssetImage(this.transaction?.symbol);
+                this.transaction.targetImage = this._walletService.getAssetImage(this.transaction?.targetSymbol);
+
+                this._setNetworkProperties();
+
                 if (this.transaction.status === "pending") {
                     this._retryRequestTransactionDetails();
                 } else {
                     this._walletService.removePendingTransaction(this.hash);
+
                     this.loading = false;
                 }
             })

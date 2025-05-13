@@ -36,8 +36,7 @@
                             <div
                                 class="domain__avatar"
                                 [ngClass]="{
-                                    'domain__avatar--warn': wallet.publicData?.isExpiringSoon,
-                                    'domain__avatar--error': wallet.publicData?.isExpired,
+                                    'domain__avatar--current': wallet.publicData?.zelfName === currentWallet.publicData?.zelfName,
                                     'domain__avatar--mainnet': wallet.publicData?.type === 'mainnet',
                                     'domain__avatar--hold': wallet.publicData?.type === 'hold',
                                 }"

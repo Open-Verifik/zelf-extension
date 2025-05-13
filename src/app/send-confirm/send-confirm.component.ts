@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -263,7 +263,11 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         if (!this._password && !this.form.get("password")?.value) return;
 
-        this._mnemonics = JSON.parse(await this._decryptMessage()).mnemonic;
+        const secret = JSON.parse(await this._decryptMessage());
+
+        this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
+
+        this.requiresBiometrics = !this._mnemonics;
     }
 
     private async _decryptMessage(): Promise<any> {
@@ -336,32 +340,57 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         }, this._intervalTime);
     }
 
+    async _redirectToBiometrics(): Promise<void> {
+        this._vaultService.password = this.form.get("password")?.value;
+
+        await this._zelfNameService.setZelfName(this.transactionData.sender.zelfName);
+        await this._zelfNameService.setFlow("unlock");
+
+        this._router.navigate(["security/biometrics"], { queryParams: { return: "/send/confirmation" } });
+    }
+
+    private async _validateCredentials(): Promise<boolean> {
+        if (!this._password && !this.form.get("password")?.value) {
+            this.openErrorSnackBar("errors.empty_password");
+
+            return false;
+        }
+
+        if (this.requiresBiometrics) {
+            await this._redirectToBiometrics();
+
+            return false;
+        }
+
+        if (this._mnemonics) return true;
+
+        try {
+            await this._decryptMnemonics();
+
+            if (this._mnemonics) return true;
+        } catch (error: unknown) {
+            if ((error as { message?: string })?.message === "expired") {
+                await this._redirectToBiometrics();
+
+                return false;
+            }
+
+            this.openErrorSnackBar("errors.invalid_credentials");
+
+            return false;
+        }
+
+        if (this.requiresBiometrics) return false;
+        if (this._mnemonics) return true;
+
+        this.openErrorSnackBar("errors.private_key_locked");
+
+        return false;
+    }
+
     async confirmTransaction() {
         if (this.sending) return;
-
-        if (!this._mnemonics) {
-            if (!this.form.get("password")?.value) {
-                this.openErrorSnackBar("errors.empty_password");
-                return;
-            }
-
-            try {
-                await this._decryptMnemonics();
-            } catch (error: unknown) {
-                if ((error as { message?: string })?.message === "expired") {
-                    this._vaultService.password = this.form.get("password")?.value;
-                    this._router.navigate(["/security/biometrics"], { queryParams: { return: "/send/confirmation" } });
-
-                    return;
-                }
-            }
-
-            if (!this._mnemonics) {
-                this.openErrorSnackBar("errors.private_key_locked");
-
-                return;
-            }
-        }
+        if (!(await this._validateCredentials())) return;
 
         this.sending = true;
 
@@ -372,28 +401,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             let receipt;
 
             if (this.transactionData.network === "solana") {
-                console.log("Transaction data:", {
-                    type: this.transactionData.tokenType,
-                    token: this.transactionData.token,
-                });
-
                 let tokenAddress = "";
+
                 if (this.transactionData.tokenType === "SPL") {
                     tokenAddress = this.transactionData.token?.tokenAddress || this.transactionData.token?.address_token || "";
 
-                    if (!tokenAddress) {
-                        throw new Error("Token address not found for SPL token");
-                    }
-
-                    console.log("Using SPL token address:", tokenAddress);
+                    if (!tokenAddress) throw new Error("Token address not found for SPL token");
                 }
-
-                console.log("Sending Solana transaction:", {
-                    type: this.transactionData.tokenType,
-                    tokenAddress,
-                    receiverAddress: this.transactionData.receiver.address,
-                    amount: normalizedAmount,
-                });
 
                 receipt = await this._solanaService.sendTokens(cleanMnemonic, this.transactionData.receiver.address, tokenAddress, normalizedAmount);
 
@@ -420,6 +434,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             } else {
                 if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
                     this.openErrorSnackBar("errors.invalid_private_key");
+
                     return;
                 }
 
@@ -548,12 +563,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         if (!password || !password.trim() || !this.wallet) return;
 
-        this._vaultService.password = this.form.get("password")?.value;
-
-        await this._zelfNameService.setZelfName(this.transactionData.sender.zelfName);
-        await this._zelfNameService.setFlow("unlock");
-
-        this._router.navigate(["security/biometrics"], { queryParams: { return: "/send/confirmation" } });
+        await this._redirectToBiometrics();
     }
 
     openErrorSnackBar(message: string): void {

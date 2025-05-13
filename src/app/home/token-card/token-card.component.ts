@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { CurrencyPipe, DecimalPipe, NgClass } from "@angular/common";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "token-card",
@@ -40,7 +41,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     `,
     styleUrls: ["./token-card.component.scss"],
     imports: [CurrencyPipe, NgClass, DecimalPipe, FlexLayoutModule],
-    standalone: true,
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;
@@ -49,12 +49,13 @@ export class TokenCardComponent implements OnInit {
 
     currentImage!: string;
 
-    constructor() {
+    constructor(private _walletService: WalletService) {
         this.view = "default";
     }
 
     ngOnInit(): void {
-        this.currentImage = this.data?.image || "/assets/images/token-placeholder.png";
+        this._walletService.setAssetImage(this.data.symbol, this.data?.image);
+        this.currentImage = this._walletService.getAssetImage(this.data.symbol);
     }
 
     onImageError(event: any) {

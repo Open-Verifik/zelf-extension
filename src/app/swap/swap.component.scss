@@ -221,6 +221,12 @@
         min-width: 24px;
         min-height: 24px;
         border-radius: 9999px;
+
+        svg {
+            width: 12px;
+            height: 12px;
+            fill: variables.$black;
+        }
     }
 
     &__quick-amounts {

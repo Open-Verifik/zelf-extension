@@ -21,7 +21,7 @@ export class AppModule {
     constructor(private router: Router) {
         if (!this.isMobileDevice() || !environment.production) return;
 
-        this.router.navigate(["/mobile-restricted"]);
+        this.router.navigate(["/external-link"], { queryParams: { url: "https://zelf.world/download" } });
     }
 
     private isMobileDevice(): boolean {

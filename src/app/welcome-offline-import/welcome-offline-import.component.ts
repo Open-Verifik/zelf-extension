@@ -131,7 +131,7 @@ export class WelcomeOfflineImportComponent {
 
         let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]|^[^a-zA-Z]+|[.-]$/g, "");
 
-        sanitizedValue = sanitizedValue.toLowerCase().trim();
+        sanitizedValue = sanitizedValue.toUpperCase().trim();
 
         control.patchValue(sanitizedValue, { emitEvent: false });
 

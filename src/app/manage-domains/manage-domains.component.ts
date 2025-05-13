@@ -45,6 +45,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
 
     loading: boolean = false;
     wallets: Partial<WalletModel>[] = [];
+    currentWallet: Partial<WalletModel> = {};
 
     constructor(
         private _bottomSheet: MatBottomSheet,
@@ -82,18 +83,23 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     };
 
     private _openConfirmationDialog(isLastWallet: boolean, wallet: Partial<WalletModel> = {}): void {
+        let message = "";
+
+        if (wallet.publicData?.isFullyExpired || wallet.publicData?.isExpiringSoon) {
+            message = this._translocoService.translate("manage_domains.expired_wallet_logout_message");
+        } else {
+            message = this._translocoService.translate("manage_domains.logout_of_wallet_message");
+        }
+
         const dialogRef = this._dialog.open(ConfirmationDialogComponent, {
             panelClass: "zelf-dialog",
             backdropClass: "zelf-backdrop",
             data: {
-                message: this._translocoService.translate(
-                    isLastWallet ? "manage_domains.last_wallet_logout" : "manage_domains.logout_of_wallet_message"
-                ),
-                confirm: this._translocoService.translate("common.confirm"),
                 cancel: this._translocoService.translate("common.cancel"),
-                title: this._translocoService.translate(
-                    isLastWallet ? "manage_domains.last_wallet_logout" : "manage_domains.logout_of_wallet_confirm"
-                ),
+                confirm: this._translocoService.translate("common.remove"),
+                destructiveButton: true,
+                message,
+                title: this._translocoService.translate("manage_domains.are_you_sure_you_want_to_delete"),
             },
         });
 
@@ -138,6 +144,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     private async _setWallets(): Promise<void> {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
+        this.currentWallet = wallet || {};
         this.wallets = [wallet || {}, ...wallets];
         this.loading = false;
 

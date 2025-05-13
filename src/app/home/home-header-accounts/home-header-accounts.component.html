@@ -58,8 +58,6 @@
         <div
             class="wallets__item-avatar"
             [ngClass]="{
-                'wallets__item-avatar--warn': wallet.publicData?.isExpiringSoon,
-                'wallets__item-avatar--error': wallet.publicData?.isExpired,
                 'wallets__item-avatar--mainnet': wallet.publicData?.type === 'mainnet',
                 'wallets__item-avatar--hold': wallet.publicData?.type === 'hold',
             }"

@@ -227,10 +227,6 @@ const routes: Routes = [
         ],
     },
     {
-        path: "mobile-restricted",
-        loadComponent: () => import("./core/mobile-restricted/mobile-restricted.component").then((m) => m.MobileRestrictedComponent),
-    },
-    {
         path: "external-link",
         data: { externalUrl: "https://payment.zelf.world/purchase" },
         canActivate: [ExternalRedirectGuard],

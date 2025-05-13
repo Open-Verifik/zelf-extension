@@ -30,7 +30,7 @@
                     class="zelf-chip"
                     [ngClass]="{
                         'zelf-chip--error': transaction.status !== 'success',
-                        'zelf-chip--success': transaction.status === 'success'
+                        'zelf-chip--success': transaction.status === 'success',
                     }"
                 >
                     <ng-container *ngIf="!transaction.status || transaction.status === 'pending'">{{ t("common.pending") }}</ng-container>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="transaction-receipt__price-amount-container">
-                    <h2 class="transaction-receipt__price">{{ transaction.amount | number : "1.2-18" }}</h2>
+                    <h2 class="transaction-receipt__price">{{ transaction.amount | number: "1.0-18" }}</h2>
 
                     <p class="transaction-receipt__price-currency">{{ transaction.asset }}</p>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="zelf-action-row">
                         <p class="transaction-receipt__label">{{ t("common.date") }}</p>
 
-                        <p class="transaction-receipt__value">{{ transaction.date | date : "dd MMM, yyyy HH:mm" }}</p>
+                        <p class="transaction-receipt__value">{{ transaction.date | date: "dd MMM, yyyy HH:mm" }}</p>
                     </div>
 
                     <ng-container *ngIf="transactionType === 'swap'">
@@ -103,7 +103,7 @@
                                     </div>
 
                                     <p class="transaction-receipt__value">
-                                        {{ transaction.amount | number : "1.2-18" }}
+                                        {{ transaction.amount | number: "1.2-18" }}
                                         <span class="transaction-receipt__value-light">{{ tokenProperties.sourceSymbol }}</span>
                                     </p>
                                 </div>
@@ -121,7 +121,7 @@
                                     </div>
 
                                     <p class="transaction-receipt__value">
-                                        {{ transaction.targetAmount | number : "1.2-18" }}
+                                        {{ transaction.targetAmount | number: "1.2-18" }}
                                         <span class="transaction-receipt__value-light">{{ tokenProperties.targetSymbol }}</span>
                                     </p>
                                 </div>
@@ -132,7 +132,7 @@
                             <p class="transaction-receipt__label">{{ t("common.network_fee") }}</p>
 
                             <p class="transaction-receipt__value">
-                                {{ transaction.gasFee || transaction.gasPrice | number : "1.2-8" }}
+                                {{ transaction.gasFee || transaction.gasPrice | number: "1.2-8" }}
                                 <span class="transaction-receipt__value-light">{{ transaction.asset }}</span>
                             </p>
                         </div>
@@ -181,14 +181,14 @@
                             <p class="transaction-receipt__label">{{ t("common.fee") }}</p>
 
                             <p class="transaction-receipt__value">
-                                {{ transaction.gasFee || transaction.gasPrice | number : "1.2-8" }} {{ transaction.asset }}
+                                {{ transaction.gasFee || transaction.gasPrice | number: "1.2-8" }} {{ transaction.asset }}
                             </p>
                         </div>
 
                         <div class="zelf-action-row" *ngIf="transaction.total">
                             <p class="transaction-receipt__label">{{ t("common.total") }}</p>
 
-                            <p class="transaction-receipt__value">{{ transaction.total | number : "1.2-8" }} {{ transaction.asset }}</p>
+                            <p class="transaction-receipt__value">{{ transaction.total | number: "1.2-8" }} {{ transaction.asset }}</p>
                         </div>
                     </ng-container>
                 </div>

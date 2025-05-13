@@ -4,10 +4,6 @@ import { BehaviorSubject, Observable } from "rxjs";
 import Web3 from "web3";
 import { isAddress } from "web3-validator";
 
-import { Core } from "@quicknode/sdk";
-import { createWalletClient, http } from "viem";
-import { privateKeyToAccount } from "viem/accounts";
-
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
@@ -15,10 +11,6 @@ import { environment } from "environments/environment";
 
 import { HttpWrapperService } from "./http-wrapper.service";
 import { EthTransaction } from "./wallet";
-
-const ethCore = new Core({
-    endpointUrl: environment.ethereumRpc.mainnet,
-});
 
 export interface ChainConfig {
     blockExplorerUrls: string[];
@@ -99,7 +91,10 @@ export class EthereumService {
     baseUrl: String = environment.apiUrl;
     tokens: Array<any> = [];
 
-    constructor(private http: HttpClient, private _httpWrapper: HttpWrapperService) {
+    constructor(
+        private http: HttpClient,
+        private _httpWrapper: HttpWrapperService
+    ) {
         this.web3 = new Web3(new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/0714254b0de84112a865096da1050ae5"));
     }
 

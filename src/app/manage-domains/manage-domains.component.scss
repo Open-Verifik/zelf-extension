@@ -159,12 +159,8 @@
         color: white;
         box-sizing: border-box;
 
-        &--warn {
-            border: 4px solid variables.$warning;
-        }
-
-        &--error {
-            border: 4px solid variables.$error;
+        &--current {
+            border: 2px solid variables.$secondaryColor;
         }
 
         &--mainnet {

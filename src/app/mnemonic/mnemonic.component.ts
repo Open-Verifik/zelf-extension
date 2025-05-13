@@ -52,11 +52,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
         await this._chromeService.removeItem("flow");
 
         this.wallet = (await this._walletService.getCurrentWallet()) || {};
-        this._password = this._vaultService.password;
-
         this._vaultService.password = "";
-
-        if (this._password) this._prepareWords();
 
         this._initForm();
     }

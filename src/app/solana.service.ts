@@ -31,7 +31,10 @@ export class SolanaService {
     baseUrl: string = environment.apiUrl;
     tokens: Array<any> = [];
 
-    constructor(private http: HttpClient, private _httpWrapper: HttpWrapperService) {}
+    constructor(
+        private http: HttpClient,
+        private _httpWrapper: HttpWrapperService
+    ) {}
 
     getWalletDetails(address?: string): Promise<any> {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/address/${address}`);

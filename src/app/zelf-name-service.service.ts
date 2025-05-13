@@ -242,29 +242,19 @@ export class ZelfNameService {
 
         if (!shouldRefreshWallets) return;
 
-        const walletUpdatePromises = [];
-
         for (const wallet of wallets) {
-            const promise = this.refreshWalletPublicData(wallet);
+            const updatedWallet = await this.refreshWalletPublicData(wallet);
 
-            promise.then((updatedWallet) => {
-                if (!updatedWallet) return;
+            if (!updatedWallet) continue;
 
-                this._walletService.updateWallet(updatedWallet);
-
-                return updatedWallet;
-            });
-
-            walletUpdatePromises.push(promise);
+            this._walletService.updateWallet(updatedWallet);
         }
-
-        await Promise.all(walletUpdatePromises);
     }
 
     async refreshWalletPublicData(wallet: WalletModel): Promise<WalletModel | null> {
         if (!wallet || !wallet.publicData?.zelfName) return null;
 
-        const response = await this.searchZelfName("zelfName", wallet.publicData?.zelfName || "");
+        const response = await this.searchZelfName("zelfName", wallet.publicData.zelfName);
 
         if (!response.data.ipfs?.length && !response.data.arweave?.length) return null;
 

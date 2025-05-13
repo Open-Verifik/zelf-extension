@@ -92,9 +92,9 @@
         "security_label": "Security",
         "security": {
             "biometric_verification_title": "Biometric verification interval",
-            "biometric_verification_description": "Set how long password-only entry is allowed before biometric verification is needed. You can set this from 1 to 24 hours.",
+            "biometric_verification_description": "Set how long password-only entry is allowed before biometric verification is needed. You can set this from 5 to 60 minutes.",
             "password_attempts_title": "Password attempts",
-            "hours_before_reverification": "Hours before reverification",
+            "minutes_before_reverification": "Minutes before reverification",
             "password_attempts_description": "Set maximum failed password attempts before biometric verification is required. You can set this from 1 to 8 attempts."
         }
     },
@@ -178,6 +178,7 @@
         "load_more": "Load more",
         "login": "Decrypt ZelfProof",
         "logout": "Remove ZelfProof",
+        "remove_all_zelfproofs": "Remove all ZelfProofs",
         "manage_domains": "Manage ZelfNames",
         "max": "Max",
         "my_arns": "My ArNS",

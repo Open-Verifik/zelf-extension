@@ -345,6 +345,60 @@
         "installationCompleted": "تم اكتمال تثبيت خدمة اسم زيلف!",
         "manageExtensions": "إدارة الامتدادات"
     },
+    "send_transaction": {
+        "account_found": "تم العثور على العنوان",
+        "confirm_transaction_button": "تأكيد المعاملة",
+        "confirmation_step": "نقل",
+        "continue_transaction_button": "التالي",
+        "pickReceiver_step": "إرسال",
+        "reject_transaction_button": "إلغاء",
+        "send_to": "إرسال إلى",
+        "tokens_step": "اختر الرمز",
+        "your_accounts": "حساباتك",
+        "confirm": {
+            "gas_description": "ربما في {{seconds}} ثانية",
+            "gas_label": "الغاز (تقديري)",
+            "market": "السوق",
+            "max_gas": "الحد الأقصى للرسوم:",
+            "max_total": "الحد الأقصى الإجمالي",
+            "sending_label": "إرسال {{amount}} {{asset}}",
+            "total_to_pay_label": "الأصول + رسوم الغاز"
+        },
+        "preview": {
+            "estimated_fee": "الرسوم التقديرية"
+        },
+        "bridge": {
+            "confirm_button": "تأكيد المعاملة",
+            "description_2": "استمر في الامتداد الويب",
+            "description": "امسح رمز QR من تطبيق خدمة اسم زيلف الخاص بك. أضف طبقة أمان عن طريق فك التشفير في جهازك",
+            "dont_have_the_app": "لا تزال لا تملك تطبيق خدمة اسم زيلف مثبتًا؟",
+            "download_here": "قم بتنزيله هنا وزد من أمان جميع معاملاتك ولا تفقد الوصول إلى عملاتك المشفرة.",
+            "qr_code_title": "امسح رمز QR",
+            "title": "تأكيد المعاملة الخاصة بك"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "اختر شبكة اختبار",
+        "title": "اختر شبكة"
+    },
+    "payments": {
+        "continue_withoutpaying": "استمر بدون دفع",
+        "pay_now": "تابع للدفع"
+    },
+    "swap": {
+        "fees": "الرسوم",
+        "pricing": "التسعير",
+        "slippage": "الانزلاق",
+        "slipping_adjustments": "تعديلات الانزلاق",
+        "slipping": "تحمل الانزلاق",
+        "slipping_text": "الحد الأقصى لتغير السعر الذي ترغب في قبوله. سيتم إلغاء معاملتك إذا تغير السعر بشكل غير مفضل بأكثر من هذه النسبة.",
+        "priority_commission": "عمولة الأولوية",
+        "priority_commission_text": "يمكن أن تؤدي العمولات ذات الأولوية العالية إلى معالجة أسرع للمعاملات خلال ازدحام الشبكة.",
+        "you_receive": "تستلم",
+        "you_pay": "تدفع",
+        "automatic": "تلقائي",
+        "manual": "يدوي"
+    },
     "restricted": {
         "description": "لعرض المفتاح الخاص بك، يرجى إكمال خطوات التحقق الأمني.",
         "download_android_app": "تنزيل تطبيق Android",

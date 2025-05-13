@@ -6,22 +6,24 @@
             <p class="zelf-settings-security__description">{{ t("settings.security.biometric_verification_description") }}</p>
 
             <div
-                [ngClass]="{ 'zelf-input--error': form.get('biometricVerificationHours')?.dirty && form.get('biometricVerificationHours')?.errors }"
+                [ngClass]="{
+                    'zelf-input--error': form.get('biometricVerificationInterval')?.dirty && form.get('biometricVerificationInterval')?.errors,
+                }"
                 class="zelf-input zelf-input--wide"
             >
                 <input
-                    [value]="settings.security.biometricVerificationHours"
+                    [value]="settings.security.biometricVerificationInterval"
                     class="zelf-input__control zelf-input__control--floating-label"
-                    formControlName="biometricVerificationHours"
-                    id="biometricVerificationHours"
-                    name="biometricVerificationHours"
+                    formControlName="biometricVerificationInterval"
+                    id="biometricVerificationInterval"
+                    name="biometricVerificationInterval"
                     placeholder=" "
                     required
                     type="number"
                 />
 
-                <label for="biometricVerificationHours" class="zelf-input__floating-label">{{
-                    t("settings.security.hours_before_reverification")
+                <label for="biometricVerificationInterval" class="zelf-input__floating-label">{{
+                    t("settings.security.minutes_before_reverification")
                 }}</label>
             </div>
         </div>

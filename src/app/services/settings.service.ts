@@ -12,10 +12,14 @@ export class SettingsService {
     private _settings$ = new BehaviorSubject<Settings>({} as Settings);
     private _settings: Settings = {} as Settings;
 
-    constructor(private _chromeService: ChromeService, private _vaultService: VaultService, private _walletService: WalletService) {
+    constructor(
+        private _chromeService: ChromeService,
+        private _vaultService: VaultService,
+        private _walletService: WalletService
+    ) {
         this._settings = {
             security: {
-                biometricVerificationHours: 8,
+                biometricVerificationInterval: 10,
                 passwordAttempts: 4,
             },
         };
@@ -59,9 +63,9 @@ export class SettingsService {
             return;
         }
 
-        const hoursSinceLastVerified = Math.floor((new Date().getTime() - new Date(lastVerified).getTime()) / (1000 * 60 * 60));
+        const minutesSinceLastVerified = Math.floor((new Date().getTime() - new Date(lastVerified).getTime()) / (1000 * 60));
 
-        if (hoursSinceLastVerified < this._settings.security.biometricVerificationHours) return;
+        if (minutesSinceLastVerified < (this._settings?.security?.biometricVerificationInterval || 10)) return;
 
         await this._walletService.clearPGPKeys();
     }

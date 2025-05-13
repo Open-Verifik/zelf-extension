@@ -19,8 +19,9 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { LifiService } from "app/services/lifi.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
+import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { TokenData, WalletModel } from "app/wallet";
+import { SwapData, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
@@ -73,6 +74,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     showPassword: boolean = false;
     slippage: number = 0.5;
     swapBalanceDisplay: "token" | "fiat" = "token";
+    swapData: SwapData = new SwapData({});
     swapError: string = "";
     swapQuote: any = null;
     swapSource: "source" | "target" | "" = "";
@@ -97,13 +99,14 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _changeDetectionRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
+        private _lifiService: LifiService,
         private _networkService: NetworkService,
         private _router: Router,
         private _snackBar: MatSnackBar,
+        private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _lifiService: LifiService,
         private _zelfNameService: ZelfNameService
     ) {
         this.wallet = {} as WalletModel;
@@ -119,15 +122,33 @@ export class SwapComponent implements OnInit, OnDestroy {
             this.passwordSet = true;
             this.requiresBiometrics = false;
         }
-
-        this._initForm();
     }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
 
+        this._initForm();
+
         await this._loadTokensFromSession();
         await this._decryptMnemonics();
+
+        this.swapData = await this._transactionService.getCurrentSwapData();
+
+        if (this.swapData && this.swapData.hasSwapData) {
+            this._initSwapData().finally(() => (this.loading = false));
+
+            return;
+        }
+
+        this._transactionService.swapData$.pipe(takeUntil(this.unsubscriber$)).subscribe((swapData) => {
+            this.swapData = swapData;
+
+            this._initSwapData().finally(() => (this.loading = false));
+        });
+    }
+
+    private async _initSwapData(): Promise<void> {
+        this.form.patchValue(this.swapData);
     }
 
     ngOnDestroy(): void {
@@ -354,6 +375,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         await this._zelfNameService.setFlow("unlock");
         await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
 
+        this._transactionService.swapData = this.form.value;
         this._vaultService.password = this.form.get("password")?.value;
         this._router.navigate(["/security/biometrics"], { queryParams: { return: "/swap" } });
     }

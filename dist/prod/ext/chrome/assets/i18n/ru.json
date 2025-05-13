@@ -344,6 +344,60 @@
         "installationCompleted": "Установка службы имен Zelf завершена!",
         "manageExtensions": "Управление расширениями"
     },
+    "send_transaction": {
+        "account_found": "Адрес найден",
+        "confirm_transaction_button": "Подтвердить транзакцию",
+        "confirmation_step": "Перевод",
+        "continue_transaction_button": "Далее",
+        "pickReceiver_step": "Отправить",
+        "reject_transaction_button": "Отмена",
+        "send_to": "Отправить",
+        "tokens_step": "Выбрать токен",
+        "your_accounts": "Ваши аккаунты",
+        "confirm": {
+            "gas_description": "Вероятно через {{seconds}} секунд",
+            "gas_label": "Газ (оценка)",
+            "market": "Рынок",
+            "max_gas": "Максимальная комиссия:",
+            "max_total": "Максимальная сумма",
+            "sending_label": "ОТПРАВКА {{amount}} {{asset}}",
+            "total_to_pay_label": "Активы + комиссии за газ"
+        },
+        "preview": {
+            "estimated_fee": "Оценочная комиссия"
+        },
+        "bridge": {
+            "confirm_button": "Подтвердить транзакцию",
+            "description_2": "Продолжите в веб-расширении",
+            "description": "Сканируйте QR-код из вашего приложения Zelf Name Service. Добавьте уровень безопасности, расшифровывая на вашем устройстве",
+            "dont_have_the_app": "Еще не установили приложение Zelf Name Service?",
+            "download_here": "Скачайте его здесь и увеличьте вашу безопасность для всех ваших транзакций и никогда не потеряйте доступ к вашей криптовалюте.",
+            "qr_code_title": "Сканируйте QR-код",
+            "title": "ПОДТВЕРДИТЕ ВАШУ ТРАНЗАКЦИЮ"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "Выберите тестовую сеть",
+        "title": "Выберите сеть"
+    },
+    "payments": {
+        "continue_withoutpaying": "Продолжить без оплаты",
+        "pay_now": "Перейти к оплате"
+    },
+    "swap": {
+        "fees": "Комиссии",
+        "pricing": "Расценки",
+        "slippage": "Проскальзывание",
+        "slipping_adjustments": "Настройки Проскальзывания",
+        "slipping": "Допуск Проскальзывания",
+        "slipping_text": "Максимальное движение цены, которое вы готовы принять. Ваша транзакция будет отменена, если цена изменится неблагоприятно более чем на этот процент.",
+        "priority_commission": "Приоритетная Комиссия",
+        "priority_commission_text": "Комиссии с более высоким приоритетом могут привести к более быстрой обработке транзакций при перегрузке сети.",
+        "you_receive": "Вы получаете",
+        "you_pay": "Вы платите",
+        "automatic": "Автоматический",
+        "manual": "Ручной"
+    },
     "restricted": {
         "description": "Чтобы просмотреть ваш приватный ключ, пожалуйста, завершите шаги проверки безопасности.",
         "download_android_app": "Скачать приложение для Android",

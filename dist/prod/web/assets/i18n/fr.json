@@ -344,6 +344,60 @@
         "installationCompleted": "L'installation de Zelf Name Service est terminée !",
         "manageExtensions": "Gérer les extensions"
     },
+    "send_transaction": {
+        "account_found": "Adresse trouvée",
+        "confirm_transaction_button": "Confirmer la transaction",
+        "confirmation_step": "Transférer",
+        "continue_transaction_button": "Suivant",
+        "pickReceiver_step": "Envoyer",
+        "reject_transaction_button": "Annuler",
+        "send_to": "Envoyer à",
+        "tokens_step": "Sélectionner un token",
+        "your_accounts": "Vos comptes",
+        "confirm": {
+            "gas_description": "Probablement dans {{seconds}} secondes",
+            "gas_label": "Gas (estimé)",
+            "market": "Marché",
+            "max_gas": "Frais maximum :",
+            "max_total": "Total maximum",
+            "sending_label": "ENVOI DE {{amount}} {{asset}}",
+            "total_to_pay_label": "Actifs + frais de gas"
+        },
+        "preview": {
+            "estimated_fee": "Frais estimés"
+        },
+        "bridge": {
+            "confirm_button": "Confirmer la transaction",
+            "description_2": "Ou continuez avec l'extension web",
+            "description": "Scannez le code QR depuis votre Zelf Name Service App. Ajoutez une couche de sécurité en déchiffrant sur votre appareil",
+            "dont_have_the_app": "Vous n'avez toujours pas installé le portefeuille le plus sûr ?",
+            "download_here": "Téléchargez-le ici et améliorez la sécurité de toutes vos transactions",
+            "qr_code_title": "Scannez le code QR",
+            "title": "Confirmez votre transaction"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "Sélectionnez un réseau de test",
+        "title": "Sélectionnez un réseau"
+    },
+    "payments": {
+        "continue_withoutpaying": "Continuer sans payer",
+        "pay_now": "Procéder au paiement"
+    },
+    "swap": {
+        "fees": "Frais",
+        "pricing": "Tarification",
+        "slippage": "Glissement",
+        "slipping_adjustments": "Ajustements du Glissement",
+        "slipping": "Tolérance de Glissement",
+        "slipping_text": "Le mouvement maximum de prix que vous êtes prêt à accepter. Votre transaction sera annulée si le prix change défavorablement de plus que ce pourcentage.",
+        "priority_commission": "Commission Prioritaire",
+        "priority_commission_text": "Des commissions de priorité plus élevée peuvent entraîner un traitement plus rapide des transactions pendant la congestion du réseau.",
+        "you_receive": "Vous recevez",
+        "you_pay": "Vous payez",
+        "automatic": "Automatique",
+        "manual": "Manuel"
+    },
     "restricted": {
         "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",
         "download_android_app": "Télécharger l'application pour Android",

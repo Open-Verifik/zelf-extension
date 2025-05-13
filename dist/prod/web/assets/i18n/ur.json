@@ -368,6 +368,60 @@
         "installationCompleted": "زیلف نام سروس کی تنصیب مکمل ہو گئی ہے!",
         "manageExtensions": "ایکسٹینشنز کا انتظام کریں"
     },
+    "send_transaction": {
+        "account_found": "پتہ ملا",
+        "confirm_transaction_button": "ٹرانزیکشن کی تصدیق کریں",
+        "confirmation_step": "منتقلی",
+        "continue_transaction_button": "اگلا",
+        "pickReceiver_step": "بھیجیں",
+        "reject_transaction_button": "منسوخ کریں",
+        "send_to": "بھیجیں",
+        "tokens_step": "ٹوکن منتخب کریں",
+        "your_accounts": "آپ کے اکاؤنٹس",
+        "confirm": {
+            "gas_description": "شاید {{seconds}} سیکنڈ میں",
+            "gas_label": "گیس (اندازہ)",
+            "market": "مارکیٹ",
+            "max_gas": "زیادہ سے زیادہ فیس:",
+            "max_total": "زیادہ سے زیادہ کل",
+            "sending_label": "{{amount}} {{asset}} بھیج رہے ہیں",
+            "total_to_pay_label": "اثاثے + گیس فیس"
+        },
+        "preview": {
+            "estimated_fee": "اندازہ فیس"
+        },
+        "bridge": {
+            "confirm_button": "ٹرانزیکشن کی تصدیق کریں",
+            "description_2": "ویب ایکسٹینشن میں جاری رکھیں",
+            "description": "اپنے زیلف نام سروس ایپ سے کیو آر کوڈ اسکین کریں۔ اپنے ڈیوائس میں انکرپٹ کرکے ایک حفاظتی پرت شامل کریں",
+            "dont_have_the_app": "ابھی تک زیلف نام سروس ایپ انسٹال نہیں کی؟",
+            "download_here": "یہاں ڈاؤن لوڈ کریں اور اپنی تمام ٹرانزیکشنز کے لیے اپنی سیکیورٹی بڑھائیں اور کبھی بھی اپنے کرپٹو تک رسائی نہ کھوئیں۔",
+            "qr_code_title": "کیو آر کوڈ اسکین کریں",
+            "title": "اپنی ٹرانزیکشن کی تصدیق کریں"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "ایک ٹیسٹ نیٹ ورک منتخب کریں",
+        "title": "ایک نیٹ ورک منتخب کریں"
+    },
+    "payments": {
+        "continue_withoutpaying": "ادائیگی کے بغیر جاری رکھیں",
+        "pay_now": "ادائیگی کے لیے آگے بڑھیں"
+    },
+    "swap": {
+        "fees": "فیس",
+        "pricing": "قیمت",
+        "slippage": "سلیپیج",
+        "slipping_adjustments": "سلیپیج ایڈجسٹمنٹس",
+        "slipping": "سلیپیج کی حد",
+        "slipping_text": "زیادہ سے زیادہ قیمت کی تبدیلی جسے آپ قبول کرنے کے لیے تیار ہیں۔ اگر قیمت اس فیصد سے زیادہ ناموافق طور پر تبدیل ہوتی ہے تو آپ کا لین دین منسوخ ہو جائے گا۔",
+        "priority_commission": "ترجیحی کمیشن",
+        "priority_commission_text": "زیادہ ترجیحی کمیشن نیٹ ورک کی بھیڑ کے دوران تیز لین دین کی پروسیسنگ کا باعث بن سکتے ہیں۔",
+        "you_receive": "آپ وصول کرتے ہیں",
+        "you_pay": "آپ ادا کرتے ہیں",
+        "automatic": "خودکار",
+        "manual": "دستی"
+    },
     "restricted": {
         "description": "اپنی نجی کلید دیکھنے کے لیے، براہ کرم حفاظتی تصدیق کے مراحل مکمل کریں۔",
         "download_android_app": "اینڈرائیڈ ایپ ڈاؤن لوڈ کریں",

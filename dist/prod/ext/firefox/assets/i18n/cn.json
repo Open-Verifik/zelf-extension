@@ -344,6 +344,60 @@
         "installationCompleted": "Zelf名称服务安装已完成！",
         "manageExtensions": "管理扩展"
     },
+    "send_transaction": {
+        "account_found": "地址已找到",
+        "confirm_transaction_button": "确认交易",
+        "confirmation_step": "转账",
+        "continue_transaction_button": "下一步",
+        "pickReceiver_step": "发送",
+        "reject_transaction_button": "取消",
+        "send_to": "发送到",
+        "tokens_step": "选择代币",
+        "your_accounts": "您的账户",
+        "confirm": {
+            "gas_description": "大约在{{seconds}}秒内",
+            "gas_label": "Gas（估算）",
+            "market": "市场",
+            "max_gas": "最大费用：",
+            "max_total": "最大总额",
+            "sending_label": "发送{{amount}} {{asset}}",
+            "total_to_pay_label": "资产 + gas 费用"
+        },
+        "preview": {
+            "estimated_fee": "估算费用"
+        },
+        "bridge": {
+            "confirm_button": "确认交易",
+            "description_2": "在网页扩展中继续",
+            "description": "从您的Zelf名称服务应用扫描二维码。在您的设备上解密以增加安全层",
+            "dont_have_the_app": "还没有安装Zelf名称服务应用？",
+            "download_here": "在这里下载并增加所有交易的安全性，永远不会失去对您的加密货币的访问。",
+            "qr_code_title": "扫描二维码",
+            "title": "确认您的交易"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "选择一个测试网络",
+        "title": "选择一个网络"
+    },
+    "payments": {
+        "continue_withoutpaying": "继续无需支付",
+        "pay_now": "继续支付"
+    },
+    "swap": {
+        "fees": "费用",
+        "pricing": "定价",
+        "slippage": "滑点",
+        "slipping_adjustments": "滑点调整",
+        "slipping": "滑点容忍度",
+        "slipping_text": "您愿意接受的最大价格变动。如果价格不利变动超过这个百分比，您的交易将被撤销。",
+        "priority_commission": "优先佣金",
+        "priority_commission_text": "更高的优先佣金可能导致在网络拥堵期间更快的交易处理。",
+        "you_receive": "您收到",
+        "you_pay": "您支付",
+        "automatic": "自动",
+        "manual": "手动"
+    },
     "restricted": {
         "description": "要查看您的私钥，请完成安全验证步骤。",
         "download_android_app": "下载安卓应用",

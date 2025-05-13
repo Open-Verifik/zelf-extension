@@ -344,6 +344,60 @@
         "installationCompleted": "Natapos na ang pag-install ng Zelf Name Service!",
         "manageExtensions": "Pamahalaan ang mga Extension"
     },
+    "send_transaction": {
+        "account_found": "Natagpuan ang address",
+        "confirm_transaction_button": "Kumpirmahin ang transaksyon",
+        "confirmation_step": "Transfer",
+        "continue_transaction_button": "Susunod",
+        "pickReceiver_step": "Magpadala",
+        "reject_transaction_button": "Kanselahin",
+        "send_to": "Ipadala sa",
+        "tokens_step": "Piliin ang token",
+        "your_accounts": "Iyong mga account",
+        "confirm": {
+            "gas_description": "Marahil sa {{seconds}} segundo",
+            "gas_label": "Gas (tinatayang)",
+            "market": "Merkado",
+            "max_gas": "Pinakamataas na bayad:",
+            "max_total": "Pinakamataas na kabuuan",
+            "sending_label": "IPINAPADALA {{amount}} {{asset}}",
+            "total_to_pay_label": "Mga asset + bayad sa gas"
+        },
+        "preview": {
+            "estimated_fee": "Tinatayang bayad"
+        },
+        "bridge": {
+            "confirm_button": "Kumpirmahin ang transaksyon",
+            "description_2": "Magpatuloy sa web extension",
+            "description": "I-scan ang QR Code mula sa iyong Zelf Name Service App. Magdagdag ng security layer sa pamamagitan ng pag-decrypt sa iyong device",
+            "dont_have_the_app": "Wala pa bang naka-install na Zelf Name Service App?",
+            "download_here": "I-download ito dito at dagdagan ang iyong seguridad para sa lahat ng iyong mga transaksyon at hindi mawawala ang access sa iyong crypto.",
+            "qr_code_title": "I-scan ang QR Code",
+            "title": "KUMPIRMAHIN ANG IYONG TRANSAKSYON"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "Piliin ang test network",
+        "title": "Piliin ang network"
+    },
+    "payments": {
+        "continue_withoutpaying": "Magpatuloy nang walang bayad",
+        "pay_now": "Magpatuloy sa pagbabayad"
+    },
+    "swap": {
+        "fees": "Mga Bayarin",
+        "pricing": "Pagpepresyo",
+        "slippage": "Slippage",
+        "slipping_adjustments": "Mga Pagsasaayos ng Slippage",
+        "slipping": "Toleransya sa Slippage",
+        "slipping_text": "Ang maximum na pagbabago ng presyo na handa kang tanggapin. Mababalewala ang iyong transaksyon kung magbabago ang presyo ng hindi pabor ng higit sa porsyentong ito.",
+        "priority_commission": "Priority Commission",
+        "priority_commission_text": "Ang mas mataas na priority commission ay maaaring magresulta sa mas mabilis na pagproseso ng transaksyon sa panahon ng pagkasiksik ng network.",
+        "you_receive": "Matatanggap mo",
+        "you_pay": "Babayaran mo",
+        "automatic": "Awtomatiko",
+        "manual": "Manual"
+    },
     "restricted": {
         "description": "Upang makita ang iyong pribadong susi, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",
         "download_android_app": "I-download ang Android App",

@@ -1,13 +1,11 @@
-import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, of, forkJoin, firstValueFrom } from "rxjs";
+import { Injectable } from "@angular/core";
+import { ethers } from "ethers";
+import { firstValueFrom, forkJoin, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+
 import { TokenData } from "app/wallet";
 import { environment } from "environments/environment";
-import { EthereumService } from "app/eth.service";
-import Web3 from "web3";
-import { ethers } from "ethers";
-
 
 @Injectable({
     providedIn: "root",
@@ -45,7 +43,7 @@ export class LifiService {
         bitcoin: "btc",
     };
 
-    constructor(private _http: HttpClient, private _ethService: EthereumService) {}
+    constructor(private _http: HttpClient) {}
 
     get LIFI_API_URL(): string {
         return this._lifiApiUrl;
@@ -152,10 +150,12 @@ export class LifiService {
         };
 
         const chainId = chainIds[network.toLowerCase()];
+
         if (!chainId) {
             console.error(`Unsupported network: ${network}`);
             throw new Error(`Unsupported network: ${network}`);
         }
+
         return chainId;
     }
 
@@ -193,10 +193,13 @@ export class LifiService {
             )
         ).pipe(
             map((responses) => {
-                return networks.reduce((acc, network, index) => {
-                    acc[network] = responses[index];
-                    return acc;
-                }, {} as Record<string, any>);
+                return networks.reduce(
+                    (acc, network, index) => {
+                        acc[network] = responses[index];
+                        return acc;
+                    },
+                    {} as Record<string, any>
+                );
             })
         );
     }
@@ -237,7 +240,6 @@ export class LifiService {
             };
 
             if (!isFromNative) {
-                console.log("Checking allowance for non-native token");
                 await this.checkAndSetAllowance(
                     quote.action.fromToken.address,
                     quote.estimate.approvalAddress,
@@ -246,21 +248,19 @@ export class LifiService {
                     wallet.privateKey,
                     quote.action.fromChainId.toString()
                 );
-            } else {
-                console.log("Skipping allowance check for native token");
             }
 
-            console.log("Sending transaction with params:", tx);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
             const latestNonce = await provider.getTransactionCount(signer.address, "latest");
+
             tx.nonce = latestNonce;
 
             const transaction = await signer.sendTransaction(tx);
 
             try {
                 const receipt = await transaction.wait();
+
                 return { ...(receipt || {}), transactionHash: receipt?.hash || transaction?.hash };
             } catch (error) {
                 return { ...transaction, transactionHash: transaction.hash };

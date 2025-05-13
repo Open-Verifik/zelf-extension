@@ -43,6 +43,7 @@ export class TransactionService {
     }
 
     set swapData(value: SwapData) {
+        this._chromeService.setItem("swapData", value);
         this._swapData = value;
         this._swapData$.next(this._swapData);
     }

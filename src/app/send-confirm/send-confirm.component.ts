@@ -254,7 +254,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     private async _decryptMnemonics(): Promise<any> {
-        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
+        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || !(await this._vaultService.biometricsRequired())) {
             this.passwordSet = false;
             this.requiresBiometrics = true;
 

@@ -1,12 +1,13 @@
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf } from "@angular/common";
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, Renderer2, ViewChild, inject } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
-import { AssetService } from "app/asset.service";
+import { AssetService, NetworkPermissions } from "app/asset.service";
 import { AssetChart, AssetDetails, AssetIntervalOptions, AssetRange } from "app/models/asset.model";
 import { SafeHtmlPipe } from "app/pipes/safe-html.pipe";
 import { TruncateNumberPipe } from "app/pipes/truncate-number.pipe";
+import { NetworkService } from "app/services/network.service";
 import { TransactionService } from "app/transaction.service";
 import { TokenData, TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
@@ -36,6 +37,8 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     @ViewChild("chartContainer", { static: false }) chartContainer!: ElementRef<HTMLDivElement>;
 
     private areaSeries!: ISeriesApi<"Area">;
+    private CAN_SEND: NetworkPermissions = {};
+    private CAN_SWAP: NetworkPermissions = {};
     private chart!: IChartApi;
     private unsubscriber$: Subject<void> = new Subject<void>();
     private windowResizeListener: () => void = () => {};
@@ -54,11 +57,14 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     constructor(
         private _assetService: AssetService,
         private _changeDetectorRef: ChangeDetectorRef,
+        private _networkService: NetworkService,
         private _renderer: Renderer2,
         private _router: Router,
         private _transactionService: TransactionService,
         private _walletService: WalletService
     ) {
+        this.CAN_SEND = this._assetService.canSend;
+        this.CAN_SWAP = this._assetService.canSwap;
         this.intervals = this._assetService.intervals;
     }
 
@@ -98,6 +104,10 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         const circulatingSupplyInFiat = circulatingSupply * price;
 
         return `$ ${new TruncateNumberPipe().transform(circulatingSupplyInFiat)}`;
+    }
+
+    get networkSymbol(): string {
+        return this._networkService.getNetworkSymbol(this.asset.network?.toLowerCase() as string);
     }
 
     get priceChangePercentage(): number {
@@ -147,7 +157,6 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
             const response = await this._assetService.fetchAssetDetails(this.asset.symbol, "1h", 10);
 
             this.details = new AssetDetails(response.data);
-
             this.details.about.description = this.cleanMarkdown(this.details.about.description);
 
             this._changeDetectorRef.markForCheck();
@@ -244,6 +253,14 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         const chartWidth = isSmallerScreen ? this.chartContainer.nativeElement.clientWidth * 0.8 : this.chartContainer.nativeElement.clientWidth;
 
         this.chart.resize(chartWidth, chartHeight);
+    }
+
+    checkCanSend(): boolean {
+        return this.CAN_SEND[this.networkSymbol as keyof NetworkPermissions] || false;
+    }
+
+    checkCanSwap(): boolean {
+        return this.CAN_SWAP[this.networkSymbol as keyof NetworkPermissions] || false;
     }
 
     async changeRange(range: AssetRange): Promise<void> {

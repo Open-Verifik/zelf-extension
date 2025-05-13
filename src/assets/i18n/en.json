@@ -33,8 +33,8 @@
         "cannot_continue_process": "You cannot continue with the process",
         "continue_process": "You can continue with the process",
         "domain_or_address": "Domain or address",
-        "external_address_found": "External address found",
         "enter_amount_to_send": "Enter amount to send",
+        "external_address_found": "External address found",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "zelf_name_not_registered": "Zelf Name not registered",
@@ -122,13 +122,9 @@
         "your_token_address": "Your {{ name }} address"
     },
     "common": {
-        "days": "days",
-        "do_it_later": "Do it later",
         "12_word_phrase": "12 word phrase",
         "24_word_phrase": "24 word phrase",
-        "search": "Search...",
         "about": "About",
-        "import_wallet": "Import wallet",
         "activity": "Activity",
         "address": "Address",
         "agree_to_terms_and_conditions": "I agree to the <a href='https://docs.zelf.world/zelf-legal/terms-of-use' target='_blank'>terms and conditions</a>",
@@ -153,7 +149,9 @@
         "copy": "Copy to clipboard",
         "create_a_new_wallet": "Create a new wallet",
         "date": "Date",
+        "days": "days",
         "decrypt_zelfname": "Decrypt ZelfName",
+        "do_it_later": "Do it later",
         "documentation": "Documentation",
         "domain_expired": "Domain expired",
         "domain": "Domain",
@@ -171,6 +169,7 @@
         "hide_words": "Hide words",
         "history": "History",
         "import_a_wallet": "Import a wallet",
+        "import_wallet": "Import wallet",
         "import": "Import",
         "information": "Information",
         "is_required": "is required",
@@ -178,13 +177,12 @@
         "load_more": "Load more",
         "login": "Decrypt ZelfProof",
         "logout": "Remove ZelfProof",
-        "remove_all_zelfproofs": "Remove all ZelfProofs",
         "manage_domains": "Manage ZelfNames",
         "max": "Max",
         "my_arns": "My ArNS",
         "navigating_away_will_cancel": "Navigating away will cancel any progress you have made. Are you sure you would like to go back?",
-        "network": "Network",
         "network_fee": "Network fee",
+        "network": "Network",
         "next": "Next",
         "not_available": "Not available",
         "or_drag_and_drop": "or drag and drop the file with .JPG or PNG extension here",
@@ -201,11 +199,13 @@
         "recommended": "Recommended",
         "refresh": "Refresh",
         "registered": "Registered",
+        "remove_all_zelfproofs": "Remove all ZelfProofs",
         "remove": "Remove",
         "renew_domain": "Renew domain",
         "renew_subscription": "Renew subscription",
         "reservation_found": "Reservation found",
         "search_your_zelf_name": "Search for your Zelf Name",
+        "search": "Search...",
         "send_symbol": "Send {{symbol}}",
         "send": "Send",
         "settings": "Settings",
@@ -304,6 +304,7 @@
         "ERR_LIVENESS_FAILED": "Liveness detection failed",
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof could not be decrypted",
         "ERR_VERIFICATION_FAILED": "Liveness detection failed",
+        "failed_to_get_quote": "Failed to get a quote for this swap.",
         "generic_identity": "Sorry, there seems to have been a problem with your identity verification. Please try it again.",
         "generic_title": "An error has occured",
         "generic": "Sorry, there was a problem processing this request. Please try again.",
@@ -319,6 +320,7 @@
         "liveness_failed": "Liveness detection failed",
         "Liveness_score_not_acceptable": "Liveness score is not acceptable",
         "min_liveness_score_is": "The minimum liveness score is: ",
+        "missing_contract_address": "Swap contract address is missing. Try again later.",
         "must_be_greater_than": "Must be greater than {{ value }}",
         "must_be_less_than": "Must be less than {{ value }}",
         "not_found": "Record not found",
@@ -331,80 +333,6 @@
         "transaction_not_found": "Transaction not found",
         "try_again": "Try again",
         "zelfName_is_taken": "This zelf name is already taken"
-    },
-    "import_wallet": {
-        "step_zero": {
-            "description": "It allows you to transfer your digital assets from other platforms quickly and securely.",
-            "description2": "Our process ensures the privacy of your assets by preventing the exposure of your keys or recovery phrases.",
-            "description3": "Importing your wallet simplifies your cryptocurrency experience by avoiding the need to manage multiple accounts.",
-            "description4": "Easily access your funds on our platform without needing to use your recovery phrase.",
-            "import_button": "Import a wallet",
-            "subtitle": "What are the benefits?",
-            "title": "Import an existing wallet"
-        },
-        "step_one": {
-            "confirm_button": "Import wallet",
-            "description": "Please enter your recovery phrase below to validate and import your existing wallet.",
-            "paste_note": "You can paste the entire secret recovery phrase in any field",
-            "title": "Enter the recovery phrase",
-            "word1": "1."
-        },
-        "qr_code_step": {
-            "copy_address": "Copy public address",
-            "description": "Your security phrase and QR code are now linked to your ZelfProof. Keep the QR safe to protect your account.",
-            "download_qr": "Download QR code",
-            "success_message": "You have successfully imported your existing wallet",
-            "understood": "Understood"
-        }
-    },
-    "unlock_wallet": {
-        "account_found": "ZELFPROOF FOUND",
-        "back_button": "Back",
-        "description": "Find an existing Zelf Name by entering its public address below:",
-        "drag_drop_text": "or drag and drop the file with .JPG or PNG extension here",
-        "title": "FIND ZELF NAME",
-        "upload_button": "Select QR Code",
-        "upload_description": "Or upload your ZelfProof QR Code to continue:",
-        "verify_button": "Verify",
-        "password": {
-            "button": "Continue",
-            "label": "Password",
-            "placeholder": "********************",
-            "subtitle": "Enter the password assigned to this ZelfProof to complete the opening process.",
-            "title": "THIS ZELFPROOF REQUIRES A PASSWORD"
-        },
-        "hold": {
-            "buy_now": "Buy now",
-            "expiration_time": "This reservation expires on ",
-            "purchase_reservation": "Purchase reservation",
-            "title": "RESERVATION FOUND",
-            "unlock_without_purchase": "Decrypt ZelfName now, purchase later"
-        }
-    },
-    "steps": {
-        "add_password": "ADD A PASSWORD",
-        "available": "Available",
-        "biometric_unlock": "ZelfProof lock",
-        "biometrics": "ZelfProof",
-        "decrypt": "DECRYPT",
-        "import_wallet": "Import your wallet",
-        "password_unlock": "PASSWORD",
-        "qr_code_generator": "ZELF NAME",
-        "search_wallet": "OPEN ZELFPROOF",
-        "wallet_type": "WALLET"
-    },
-    "wallets_connected": {
-        "account": "Account",
-        "create_or_import_wallet_button": "Purchase new domain",
-        "delete_wallet": "Unlink wallet",
-        "no_zelf_name": "Without Zelf name",
-        "see_on_scanner": "Open explorer",
-        "see_qr_code": "See QR code",
-        "title": "Select a wallet"
-    },
-    "active_wallet": {
-        "show_private_key": "Show private key",
-        "warning_notice": "Remember to keep your QR code safe; make multiple copies if required. Also, only unlock the secret key when exporting your wallet"
     },
     "swap": {
         "automatic": "Automatic",
@@ -431,27 +359,11 @@
     "home": {
         "assets": "Tokens",
         "NFTs": "Collectibles",
-        "swap": "Swap",
         "receive_transaction_button": "Receive",
         "send_transaction_button": "Send",
         "settings_button": "Settings",
-        "support_button": "Support"
-    },
-    "extension_instructions": {
-        "addExtension": "Add the extension to your browser to easily access and view transaction confirmations on Zelf Name Service.",
-        "clickExtensionIcon": "Click on the extension icon in your browser.",
-        "clickIcon": "Click on the extension icon in your browser.",
-        "extensions": "Extensions",
-        "extensionsCanChange": "These extensions can view and change information on this website.",
-        "fixWallet": "Fix ZNS.",
-        "fullAccess": "Full Access",
-        "installationCompleted": "Zelf Name Service installation has been completed!",
-        "manageExtensions": "Manage Extensions"
-    },
-    "restricted": {
-        "description": "This feature is not available on mobile devices. Please use a desktop browser to access it or download the Zelf Name Service App.",
-        "download_android_app": "Download Android App",
-        "title": "Mobile restricted"
+        "support_button": "Support",
+        "swap": "Swap"
     },
     "id_scanning": {
         "camera_not_found": "Camera not found",

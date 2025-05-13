@@ -1,6 +1,6 @@
 import * as ethers from "ethers";
-import { firstValueFrom, Subject, takeUntil } from "rxjs";
-import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
+import { firstValueFrom, merge, Observable, Subject, takeUntil } from "rxjs";
+import { debounceTime, distinctUntilChanged, filter, tap } from "rxjs/operators";
 
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
@@ -25,6 +25,7 @@ import { SwapData, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
+import { environment } from "environments/environment";
 
 @Component({
     imports: [
@@ -47,17 +48,13 @@ import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-cu
     templateUrl: "./swap.component.html",
 })
 export class SwapComponent implements OnInit, OnDestroy {
-    private unsubscriber$: Subject<void> = new Subject<void>();
-    private _password: string = "";
+    private _feeUpdateInterval: ReturnType<typeof setInterval> | null = null;
     private _mnemonics: string = "";
+    private _password: string = "";
+    private _requiresBiometricsInterval: ReturnType<typeof setInterval> | null = null;
 
-    private CAN_SWAP: NetworkPermissions = {
-        AVAX: true,
-        BTC: false,
-        ETH: true,
-        SOL: false,
-        SUI: false,
-    };
+    private CAN_SWAP: NetworkPermissions = {};
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
     loading: boolean = true;
@@ -108,6 +105,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
     ) {
+        this.CAN_SWAP = this._assetService.canSwap;
         this.wallet = {} as WalletModel;
         this.remainingAttempts = this._vaultService.remainingAttempts;
 
@@ -121,6 +119,8 @@ export class SwapComponent implements OnInit, OnDestroy {
             this.passwordSet = true;
             this.requiresBiometrics = false;
         }
+
+        this._setRequiresBiometricsInterval();
     }
 
     async ngOnInit(): Promise<void> {
@@ -130,35 +130,30 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         await this._loadTokensFromSession();
         await this._decryptMnemonics();
+        await this._findPreviousSwapData();
 
-        this.swapData = await this._transactionService.getCurrentSwapData();
+        if (this.swapData && this.swapData.hasSwapData) return;
 
-        if (this.swapData && this.swapData.hasSwapData) {
-            this._initSwapData().finally(() => (this.loading = false));
-
-            return;
-        }
-
-        this._transactionService.swapData$.pipe(takeUntil(this.unsubscriber$)).subscribe((swapData) => {
-            this.swapData = swapData;
-
-            this._initSwapData().finally(() => (this.loading = false));
-        });
-    }
-
-    private async _initSwapData(): Promise<void> {
-        this.form.patchValue(this.swapData);
-
-        this._changeDetectionRef.detectChanges();
+        this.loading = false;
     }
 
     ngOnDestroy(): void {
+        this._clearFeeUpdateInterval();
+        this._clearRequiresBiometricsInterval();
+
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
     }
 
     get canCheckQuote(): boolean {
-        return this.hasBothAssetsSet && !!this.form.get("sourceAmount")?.valid && !!this.form.get("targetAsset")?.valid;
+        return (
+            !this.loading &&
+            !this.quoteLoading &&
+            !this.sending &&
+            this.hasBothAssetsSet &&
+            !!this.form.get("sourceAmount")?.valid &&
+            !!this.form.get("targetAsset")?.valid
+        );
     }
 
     get hasBothAssetsSet(): boolean {
@@ -194,9 +189,10 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     private async _decryptMnemonics(): Promise<any> {
-        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
+        this.requiresBiometrics = await this._vaultService.biometricsRequired();
+
+        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || this.requiresBiometrics) {
             this.passwordSet = false;
-            this.requiresBiometrics = true;
 
             return;
         }
@@ -205,8 +201,7 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         const secret = JSON.parse(await this._decryptMessage());
 
-        this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
-
+        this._mnemonics = secret?.mnemonic?.trim()?.toLowerCase();
         this.requiresBiometrics = !this._mnemonics;
     }
 
@@ -254,33 +249,21 @@ export class SwapComponent implements OnInit, OnDestroy {
             targetAsset: [null, [Validators.required, this._notMatchingValidator("sourceAsset")]],
         });
 
-        this.form
-            .get("sourceAsset")
-            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
-            .subscribe((value) => {
-                this.selectedSourceAsset = value;
-
-                this._updateTargetAmount();
-
-                this.getSwapQuote().catch((error) => {
-                    console.error("Error getting swap quote:", error);
-                });
-            });
-
-        this.form
-            .get("targetAsset")
-            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
-            .subscribe((value) => {
-                this.selectedTargetAsset = value;
-
-                this._updateTargetAmount();
-
-                this.getSwapQuote().catch((error) => {
-                    console.error("Error getting swap quote:", error);
-                });
-            });
-
         this._setupQuoteUpdates();
+    }
+
+    private async _findPreviousSwapData(): Promise<void> {
+        this.swapData = await this._transactionService.getCurrentSwapData();
+
+        if (this.swapData && this.swapData.hasSwapData) {
+            this._initSwapData().finally(() => (this.loading = false));
+
+            return;
+        }
+    }
+
+    private async _initSwapData(): Promise<void> {
+        this.form.patchValue(this.swapData);
     }
 
     private async _fetchTokens(): Promise<void> {
@@ -370,6 +353,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         } catch (error: unknown) {
             if ((error as { message?: string })?.message === "expired") {
                 await this._redirectToBiometrics();
+
                 return false;
             }
 
@@ -390,16 +374,25 @@ export class SwapComponent implements OnInit, OnDestroy {
         await this._zelfNameService.setFlow("unlock");
         await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
 
-        this._transactionService.swapData = this.form.value;
+        const { password: _password, ...rest } = this.form.value;
+
+        this._transactionService.swapData = new SwapData(rest);
         this._vaultService.password = this.form.get("password")?.value;
         this._router.navigate(["/security/biometrics"], { queryParams: { return: "/swap" } });
     }
 
-    async getSwapQuote(): Promise<void> {
-        if (!this.canCheckQuote) return;
+    async getSwapQuote(silentLoading: boolean = false): Promise<void> {
+        if (!this.canCheckQuote) {
+            this._clearFeeUpdateInterval();
+
+            return;
+        }
 
         if (!this.selectedSourceAsset.contractAddress || !this.selectedTargetAsset.contractAddress) {
             this.openErrorSnackBar("errors.missing_contract_address");
+
+            this._clearFeeUpdateInterval();
+
             return;
         }
 
@@ -409,10 +402,13 @@ export class SwapComponent implements OnInit, OnDestroy {
         if (!+sourceAmount || isSameAsset) {
             this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
 
+            this._clearFeeUpdateInterval();
+
             return;
         }
 
-        this.quoteLoading = true;
+        this._clearFeeUpdateInterval();
+        this.quoteLoading = !silentLoading;
 
         try {
             const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
@@ -452,6 +448,8 @@ export class SwapComponent implements OnInit, OnDestroy {
 
             let fee = this._getFeeFromQuote(quote);
 
+            this._updateTargetAmount();
+
             this.form.patchValue(
                 {
                     fee,
@@ -460,15 +458,54 @@ export class SwapComponent implements OnInit, OnDestroy {
                 },
                 { emitEvent: false }
             );
+
+            this._setFeeUpdateInterval();
         } catch (error) {
             console.error("Quote error:", error);
             this.openErrorSnackBar("errors.failed_to_get_quote");
 
             this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
+
+            this._clearFeeUpdateInterval();
         } finally {
             this.quoteLoading = false;
+
             this._changeDetectionRef.detectChanges();
         }
+    }
+
+    private _clearFeeUpdateInterval(): void {
+        if (!this._feeUpdateInterval) return;
+
+        clearInterval(this._feeUpdateInterval as ReturnType<typeof setInterval>);
+
+        this._feeUpdateInterval = null;
+    }
+
+    private _clearRequiresBiometricsInterval(): void {
+        if (!this._requiresBiometricsInterval) return;
+
+        clearInterval(this._requiresBiometricsInterval as ReturnType<typeof setInterval>);
+    }
+
+    private _setFeeUpdateInterval(): void {
+        if (!environment.production) return;
+
+        if (this._feeUpdateInterval) this._clearFeeUpdateInterval();
+
+        this._feeUpdateInterval = setInterval(() => {
+            if (!this.canCheckQuote) return this._clearFeeUpdateInterval();
+
+            this.getSwapQuote(true);
+        }, 1000 * 15);
+    }
+
+    private _setRequiresBiometricsInterval(): void {
+        if (this._requiresBiometricsInterval) this._clearRequiresBiometricsInterval();
+
+        this._requiresBiometricsInterval = setInterval(() => {
+            this._vaultService.biometricsRequired().then((result) => (this.requiresBiometrics = result));
+        }, 2000);
     }
 
     private _getFeeFromQuote(quote: any): number {
@@ -604,6 +641,7 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         await this._walletService.addTransactionToPending(pendingTransactionData);
         await this._chromeService.removeItemSession("tokensTtl");
+        await this._chromeService.removeItem("swapData");
 
         await this._router.navigate(["/transaction", this.transactionHash], {
             queryParams: { network: this.selectedSourceAsset.network, symbol: this.selectedSourceAsset.symbol },
@@ -743,25 +781,25 @@ export class SwapComponent implements OnInit, OnDestroy {
      * Setup watchers for form changes that should trigger quote updates
      */
     private _setupQuoteUpdates(): void {
-        this.form
-            .get("sourceAmount")
-            ?.valueChanges.pipe(
-                takeUntil(this.unsubscriber$),
+        merge(
+            this.form.get("sourceAmount")?.valueChanges.pipe(
                 filter((value) => value !== null && value !== ""),
                 distinctUntilChanged(),
                 debounceTime(300)
-            )
-            .subscribe(async () => {
-                try {
-                    await this.getSwapQuote();
-                } catch (error) {
-                    console.error("Error getting swap quote:", error);
-                }
-            });
-
-        this.form
-            .get("slippage")
-            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
+            ) as Observable<any>,
+            this.form.get("slippage")?.valueChanges as Observable<any>,
+            this.form.get("sourceAsset")?.valueChanges.pipe(
+                tap((value) => {
+                    this.selectedSourceAsset = value;
+                })
+            ) as Observable<any>,
+            this.form.get("targetAsset")?.valueChanges.pipe(
+                tap((value) => {
+                    this.selectedTargetAsset = value;
+                })
+            ) as Observable<any>
+        )
+            .pipe(takeUntil(this.unsubscriber$))
             .subscribe(async () => {
                 try {
                     await this.getSwapQuote();
@@ -778,5 +816,9 @@ export class SwapComponent implements OnInit, OnDestroy {
         const hasAssets = this.hasBothAssetsSet;
 
         return !(hasValidAmount && hasValidQuote && isNotLoadingOrSending && hasAssets);
+    }
+
+    showDetails(): boolean {
+        return !!(this.form.dirty && this.form.get("sourceAmount")?.valid && this.form.get("targetAsset")?.valid);
     }
 }

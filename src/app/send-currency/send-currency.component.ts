@@ -20,13 +20,7 @@ import { firstValueFrom, Subject } from "rxjs";
 export class SendCurrencyComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();
 
-    private CAN_SEND: NetworkPermissions = {
-        AVAX: true,
-        BTC: false,
-        ETH: true,
-        SOL: true,
-        SUI: true,
-    };
+    private CAN_SEND: NetworkPermissions = {};
 
     loading: boolean = true;
     tokens: any[] = [];
@@ -41,6 +35,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         private _transactionService: TransactionService,
         private _walletService: WalletService
     ) {
+        this.CAN_SEND = this._assetService.canSend;
         this.loading = true;
     }
 

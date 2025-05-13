@@ -8,7 +8,7 @@ import { WalletService } from "app/wallet.service";
     template: `
         <div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
             <div class="status-icon-container">
-                <img [src]="currentImage" [alt]="data.symbol" (error)="onImageError($event)" />
+                <img [src]="currentImage" [alt]="data.symbol" (error)="onImageError()" />
             </div>
 
             <div class="text-container" fxLayout="column" fxLayoutAlign="start start">
@@ -54,12 +54,11 @@ export class TokenCardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._walletService.setAssetImage(this.data.symbol, this.data?.image);
-        this.currentImage = this._walletService.getAssetImage(this.data.symbol);
+        this.currentImage = this._walletService.getAssetImage(this.data.symbol, this.data?.image);
     }
 
-    onImageError(event: any) {
-        this.currentImage = "/assets/images/token-placeholder.png";
+    onImageError() {
+        this.currentImage = this._walletService.getAssetImage(this.data.symbol, "/assets/images/token-placeholder.png");
     }
 
     onClick(): void {}

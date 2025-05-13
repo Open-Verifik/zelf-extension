@@ -1,4 +1,6 @@
 <form class="swap-currency" [formGroup]="form" *transloco="let t">
+    <div class="ripple swap-currency__loader" *ngIf="loading"></div>
+
     <div class="swap-currency__filters">
         <div class="swap-currency__filter">
             <div class="zelf-input zelf-input--wide">
@@ -43,7 +45,7 @@
                 <img
                     (error)="onImageError(asset)"
                     [alt]="asset.symbol"
-                    [src]="getAssetImage(asset) || 'assets/icons/placeholder-coin.png'"
+                    [src]="asset.image || 'assets/icons/placeholder-coin.png'"
                     class="swap-currency__asset-image"
                 />
 
@@ -59,8 +61,8 @@
 
             <div class="swap-currency__asset-info swap-currency__asset-info--right">
                 <div class="swap-currency__asset-col">
-                    <p class="swap-currency__asset-balance">{{ asset.amount | number : "1.2-8" }}</p>
-                    <p class="swap-currency__asset-balance-fiat">{{ asset.fiatBalance | currency : "USD" : "symbol" : "1.2-2" }}</p>
+                    <p class="swap-currency__asset-balance">{{ asset.amount | number: "1.2-8" }}</p>
+                    <p class="swap-currency__asset-balance-fiat">{{ asset.fiatBalance | currency: "USD" : "symbol" : "1.2-2" }}</p>
                 </div>
             </div>
         </div>

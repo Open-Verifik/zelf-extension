@@ -1,11 +1,12 @@
-import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgTemplateOutlet } from "@angular/common";
+import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, DestroyRef, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
 import { TranslocoModule } from "@jsverse/transloco";
+import { LifiService } from "app/services/lifi.service";
 import { TokenData } from "app/wallet";
-import { LifiService } from "../services/lifi.service";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { WalletService } from "app/wallet.service";
 
 export interface AssetChangeData {
     asset: TokenData;
@@ -13,9 +14,8 @@ export interface AssetChangeData {
 }
 
 @Component({
-    imports: [NgFor, NgClass, NgTemplateOutlet, ReactiveFormsModule, TranslocoModule, CurrencyPipe, DecimalPipe, MatRippleModule],
+    imports: [NgIf, NgFor, NgClass, NgTemplateOutlet, ReactiveFormsModule, TranslocoModule, CurrencyPipe, DecimalPipe, MatRippleModule],
     selector: "swap-currency",
-    standalone: true,
     styleUrls: ["./swap-currency.component.scss"],
     templateUrl: "./swap-currency.component.html",
 })
@@ -40,7 +40,12 @@ export class SwapCurrencyComponent implements OnInit {
     networkOptions = ["all", "ethereum", "avalanche"];
     selectedNetworkFilter = "all";
 
-    constructor(private _fb: FormBuilder, private _lifiService: LifiService, private _destroyRef: DestroyRef) {
+    constructor(
+        private _destroyRef: DestroyRef,
+        private _fb: FormBuilder,
+        private _lifiService: LifiService,
+        private _walletService: WalletService
+    ) {
         this.loading = true;
 
         this._initForm();
@@ -134,33 +139,44 @@ export class SwapCurrencyComponent implements OnInit {
     private _mapTokenResponse = ([chainId, tokens]: [string, any], allTokens: TokenData[]): void => {
         if (!Array.isArray(tokens)) return;
 
+        const chainMap: Record<string, boolean> = {};
         const network = this._getNetworkFromChainId(parseInt(chainId));
 
         if (network !== "ethereum" && network !== "avalanche") return;
 
-        const chainTokens = tokens.map((token: any) => {
-            const key = `${token.symbol.toLowerCase()}-${network.toLowerCase()}`;
+        const chainTokens: TokenData[] = [];
+
+        tokens.forEach((token: any) => {
+            const key = `${token.symbol.toLowerCase()}-${network}`;
+
+            if (chainMap[key]) return;
+
+            chainMap[key] = true;
 
             let myAsset = {};
 
             if (this._myAssetsMap[key]) myAsset = this._myAssetsMap[key];
 
-            return {
+            const asset = {
                 amount: "0",
                 balance: "0",
                 balanceUsd: "0",
-                chainId: parseInt(chainId),
-                decimals: token.decimals,
                 fiatBalance: "0",
-                image: token.logoURI || "",
-                name: token.name,
-                network,
-                price: token.priceUSD ? parseFloat(token.priceUSD) : 0,
-                symbol: token.symbol,
                 tokenType: "token",
                 ...myAsset,
+                chainId: parseInt(chainId),
+                decimals: token.decimals,
+                image: token.logoURI || "",
+                name: token.name,
+                network: network.charAt(0).toUpperCase() + network.slice(1),
+                price: token.priceUSD ? parseFloat(token.priceUSD) : 0,
+                symbol: token.symbol,
                 contractAddress: token.address,
             } as TokenData;
+
+            if (asset.image) this._walletService.setAssetImage(asset.symbol, asset.image);
+
+            chainTokens.push(asset);
         });
 
         allTokens.push(...chainTokens);
@@ -172,13 +188,16 @@ export class SwapCurrencyComponent implements OnInit {
     }
 
     private _setMyAssetsMap(assets: TokenData[]): void {
-        this._myAssetsMap = assets.reduce((acc, asset) => {
-            const key = `${asset.symbol.toLowerCase()}-${asset.network.toLowerCase()}`;
+        this._myAssetsMap = assets.reduce(
+            (acc, asset) => {
+                const key = `${asset.symbol.toLowerCase()}-${asset.network.toLowerCase()}`;
 
-            acc[key] = asset;
+                acc[key] = asset;
 
-            return acc;
-        }, {} as Record<string, TokenData>);
+                return acc;
+            },
+            {} as Record<string, TokenData>
+        );
     }
 
     private _sortAssets(a: TokenData, b: TokenData): number {
@@ -191,7 +210,7 @@ export class SwapCurrencyComponent implements OnInit {
     }
 
     getAssetImage(asset: TokenData): string {
-        return this._lifiService.getTokenImage(asset);
+        return this._walletService.getAssetImage(asset.symbol, asset.image);
     }
 
     isNetworkSelected(network: string): boolean {

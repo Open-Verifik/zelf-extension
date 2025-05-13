@@ -18,7 +18,6 @@ export interface SlippageSheetData {
 @Component({
     imports: [NgClass, ReactiveFormsModule, FormsModule, MatButtonModule, TranslocoModule],
     selector: "slippage-sheet",
-    standalone: true,
     styleUrls: ["./slippage-sheet.component.scss"],
     templateUrl: "./slippage-sheet.component.html",
 })

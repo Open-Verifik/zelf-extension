@@ -2,7 +2,6 @@ import { Pipe, type PipeTransform } from "@angular/core";
 
 @Pipe({
     name: "firstLetter",
-    standalone: true,
 })
 export class FirstLetterPipe implements PipeTransform {
     transform(value?: string): unknown {

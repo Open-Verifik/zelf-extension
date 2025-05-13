@@ -719,6 +719,9 @@ export interface TokenData {
     address_token?: string;
     address?: string;
     amount: number | string;
+    balance?: number | string;
+    balanceUsd?: number | string;
+    chainId?: number;
     contractAddress?: string;
     decimals?: number;
     fiatBalance: number | string;

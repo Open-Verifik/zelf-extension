@@ -414,7 +414,7 @@ export class SolTransactionModel implements SolTransaction {
         return new TransactionModel({
             age: moment(this.timestamp).fromNow(),
             amount: Number(this.amount),
-            asset: "SOL",
+            asset: this.symbol,
             date: new Date(this.timestamp),
             fiatAmount: Number(0),
             from: this.from,

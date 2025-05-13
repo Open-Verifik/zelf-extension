@@ -143,28 +143,38 @@ export class WalletService {
         return this._SUI_TRANSACTION_REGEX;
     }
 
-    setAssetSymbol(symbol: string, imageSrc: string): void {
+    setAssetImage(symbol: string, imageSrc: string): void {
         if (!symbol || !imageSrc) return;
 
         const cachedImage = this._assetImageMap.get(symbol);
 
-        if (cachedImage) return;
+        if (cachedImage && cachedImage === imageSrc) return;
 
-        this._assetImageMap.set(symbol, imageSrc);
+        if (!imageSrc) this._assetImageMap.set(symbol, "/assets/images/token-placeholder.png");
+        else this._assetImageMap.set(symbol, imageSrc);
     }
 
-    getAssetImage(symbol: string): string {
-        const cachedImage = this._assetImageMap.get(symbol);
-
-        if (cachedImage) return cachedImage;
-
+    getAssetImage(symbol: string, imageSrc?: string): string {
         if (!symbol) return "";
 
         let assetSrc: string = "";
 
+        if (imageSrc) {
+            this._assetImageMap.set(symbol, imageSrc);
+
+            return imageSrc;
+        }
+
+        const cachedImage = this._assetImageMap.get(symbol);
+
+        if (cachedImage) return cachedImage;
+
         if (symbol === "ZNS") assetSrc = "./assets/icons/icon128.png";
         else if (symbol === "SUI") assetSrc = "./assets/crypto-icons/sui.png";
-        else assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${symbol.toLowerCase()}.png`;
+        else {
+            const cleanSymbol = symbol.toLowerCase().replace(/[^a-z].*$/, "");
+            assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${cleanSymbol}.png`;
+        }
 
         this._assetImageMap.set(symbol, assetSrc);
 
@@ -572,7 +582,7 @@ export class WalletService {
             delete _wallet.pgp;
             hasUpdate = true;
 
-            return wallet;
+            return _wallet;
         });
 
         if (hasUpdate) await this._chromeService.setItem("wallets", newWallets);
@@ -597,7 +607,7 @@ export class WalletService {
     async checkIfLastWallet(): Promise<boolean> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
-        return !currentWallet?.ethAddress && !wallets.length;
+        return (currentWallet?.ethAddress && !wallets.length) || (!currentWallet?.ethAddress && wallets.length === 1);
     }
 
     async logoutOfWallet(walletToRemove: WalletModel): Promise<void> {

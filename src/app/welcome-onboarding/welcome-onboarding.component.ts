@@ -173,7 +173,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         // Remove invalid characters, ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
         let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]|^[^a-zA-Z]+|[.-]$/g, "");
 
-        sanitizedValue = sanitizedValue.toLowerCase().trim();
+        sanitizedValue = sanitizedValue.toUpperCase().trim();
 
         control.patchValue(sanitizedValue, { emitEvent: false });
 

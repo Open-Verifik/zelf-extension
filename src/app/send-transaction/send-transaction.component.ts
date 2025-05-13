@@ -302,7 +302,7 @@ export class SendTransactionComponent implements OnDestroy {
     private _initForm(): void {
         this.form = this._formBuilder.group({
             amount: [
-                this.transactionData?.amount || 0,
+                this.transactionData?.amount || "",
                 [
                     Validators.required,
                     Validators.min(0),
@@ -391,10 +391,10 @@ export class SendTransactionComponent implements OnDestroy {
                         isSuiTokenOrNetwork
                             ? "suiAddress"
                             : isEthereumToken
-                            ? "ethAddress"
-                            : this.transactionData.isSolToken
-                            ? "solanaAddress"
-                            : "solanaAddress"
+                              ? "ethAddress"
+                              : this.transactionData.isSolToken
+                                ? "solanaAddress"
+                                : "solanaAddress"
                     ] || ""
                 );
 

@@ -28,14 +28,6 @@ export class AssetService {
     private _targetAsset: Partial<TokenData> = {};
     private _targetAsset$ = new BehaviorSubject<Partial<TokenData>>({});
 
-    private CAN_SWAP: NetworkPermissions = {
-        AVAX: true,
-        BTC: false,
-        ETH: true,
-        SOL: false,
-        SUI: false,
-    };
-
     constructor(
         private _chromeService: ChromeService,
         private _httpWrapperService: HttpWrapperService,

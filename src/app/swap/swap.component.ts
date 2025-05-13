@@ -181,9 +181,11 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         if (!this._password && !this.form.get("password")?.value) return;
 
-        this._mnemonics = JSON.parse(await this._decryptMessage())
-            .mnemonic?.trim()
-            ?.toLowerCase();
+        const secret = JSON.parse(await this._decryptMessage());
+
+        this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
+
+        this.requiresBiometrics = !this._mnemonics;
     }
 
     private async _decryptMessage(): Promise<any> {
@@ -311,7 +313,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     private async _validateCredentials(): Promise<boolean> {
-        if (!this.form.get("password")?.value) {
+        if (!this._password && !this.form.get("password")?.value) {
             this.openErrorSnackBar("errors.empty_password");
 
             return false;

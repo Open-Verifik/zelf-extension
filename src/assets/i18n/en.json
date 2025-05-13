@@ -34,6 +34,7 @@
         "continue_process": "You can continue with the process",
         "domain_or_address": "Domain or address",
         "external_address_found": "External address found",
+        "enter_amount_to_send": "Enter amount to send",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "zelf_name_not_registered": "Zelf Name not registered",
@@ -182,6 +183,7 @@
         "my_arns": "My ArNS",
         "navigating_away_will_cancel": "Navigating away will cancel any progress you have made. Are you sure you would like to go back?",
         "network": "Network",
+        "network_fee": "Network fee",
         "next": "Next",
         "not_available": "Not available",
         "or_drag_and_drop": "or drag and drop the file with .JPG or PNG extension here",
@@ -198,6 +200,7 @@
         "recommended": "Recommended",
         "refresh": "Refresh",
         "registered": "Registered",
+        "remove": "Remove",
         "renew_domain": "Renew domain",
         "renew_subscription": "Renew subscription",
         "reservation_found": "Reservation found",
@@ -272,12 +275,12 @@
         "registered_until": "Expires At"
     },
     "manage_domains": {
+        "are_you_sure_you_want_to_delete": "Are you sure you want to remove this ZelfProof?",
         "domain_error": "The trial period of {{ zelfName }} has ended, you need to purchase a subscription to continue using this ZelfName",
         "domain_warning": "You still have time to buy",
-        "purchase_new_domain": "Add a new ZelfName",
-        "last_wallet_logout": "This is the last wallet. This action will remove your ZelfProof from your device. Make sure you have backed up your seed phrase and ZelfProof QR code. Are you sure you want to continue? You will be redirected to the welcome page.",
-        "logout_of_wallet_message": "You are about to logout of your wallet. This action will remove your ZelfProof from your device. Make sure you have backed up your seed phrase and ZelfProof QR code. Are you sure you want to continue?",
-        "logout_of_wallet_confirm": "Logout of Wallet"
+        "expired_wallet_logout_message": "You can decrypt this ZelfProof again if you search by your ZelfName. However, you risk losing it if you don't purchase soon.",
+        "logout_of_wallet_message": "You can decrypt this ZelfProof again if you search by your ZelfName, or load your ZelfProof QR code.",
+        "purchase_new_domain": "Add a new ZelfName"
     },
     "liveness": {
         "center_your_face": "Center your face on the screen",

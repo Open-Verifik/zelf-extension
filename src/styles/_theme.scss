@@ -9,6 +9,12 @@ html {
     );
 }
 
+@include mat.dialog-overrides(
+    (
+        container-max-width: variables.$minSmall,
+    )
+);
+
 @include mat.menu-overrides(
     (
         container-color: variables.$white,
@@ -20,5 +26,12 @@ html {
         icon-size: 16px,
         icon-color: variables.$black,
         disabled-icon-color: variables.$gray,
+    )
+);
+
+@include mat.menu-overrides(
+    (
+        item-with-icon-leading-spacing: 24px,
+        item-with-icon-trailing-spacing: 24px,
     )
 );

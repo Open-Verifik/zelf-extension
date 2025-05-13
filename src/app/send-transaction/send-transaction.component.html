@@ -150,6 +150,7 @@
                         [ngClass]="{ 'zelf-input--error': form.get('amount')?.dirty && form.get('amount')?.invalid }"
                     >
                         <input
+                            [placeholder]="t('send.enter_amount_to_send')"
                             autocomplete="off"
                             class="zelf-input__control"
                             formControlName="amount"

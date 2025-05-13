@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
-import { HttpWrapperService } from "./http-wrapper.service";
-import { environment } from "environments/environment";
-import { WalletService } from "./wallet.service";
-import { ChromeService } from "./chrome.service";
 import { Subject, takeUntil } from "rxjs";
+
+import { environment } from "environments/environment";
+
+import { ChromeService } from "./chrome.service";
+import { HttpWrapperService } from "./http-wrapper.service";
+import { WalletService } from "./wallet.service";
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -23,7 +25,11 @@ export class AppComponent implements OnInit, OnDestroy {
     apiUrl: string = environment.apiUrl;
     isPopout: boolean = false;
 
-    constructor(private _httpWrapperService: HttpWrapperService, private _walletService: WalletService, private _chromeService: ChromeService) {
+    constructor(
+        private _httpWrapperService: HttpWrapperService,
+        private _walletService: WalletService,
+        private _chromeService: ChromeService
+    ) {
         this.isPopout = this._chromeService.isPopout;
 
         this._chromeService.isPopout$.pipe(takeUntil(this.unsubscriber$)).subscribe((isPopout) => {
@@ -55,19 +61,5 @@ export class AppComponent implements OnInit, OnDestroy {
                 this._chromeService.setItem("publicKey", this.publicKey);
                 this._httpWrapperService.setPublicKey(this.publicKey);
             });
-    }
-
-    async encryptAndSend(publicKey: any): Promise<void> {
-        const message = "Test test";
-
-        const encryptedMessage = await this._httpWrapperService.encryptMessage(JSON.stringify(message));
-
-        // Send encrypted data to backend
-        this._httpWrapperService
-            .sendRequest("post", `${this.apiUrl}/api/sessions/decrypt-content`, {
-                encryption: true,
-                message: encryptedMessage,
-            })
-            .then((response) => {});
     }
 }

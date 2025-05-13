@@ -344,6 +344,60 @@
         "installationCompleted": "¡La instalación del Servicio de Nombres Zelf se ha completado!",
         "manageExtensions": "Gestionar extensiones"
     },
+    "send_transaction": {
+        "account_found": "Dirección encontrada",
+        "confirm_transaction_button": "Confirmar transacción",
+        "confirmation_step": "Transferir",
+        "continue_transaction_button": "Siguiente",
+        "pickReceiver_step": "Enviar",
+        "reject_transaction_button": "Cancelar",
+        "send_to": "Enviar a",
+        "tokens_step": "Seleccionar token",
+        "your_accounts": "Tus cuentas",
+        "confirm": {
+            "gas_description": "Probablemente en {{seconds}} segundos",
+            "gas_label": "Gas (estimado)",
+            "market": "Mercado",
+            "max_gas": "Tarifa máxima:",
+            "max_total": "Total máximo",
+            "sending_label": "ENVIANDO {{amount}} {{asset}}",
+            "total_to_pay_label": "Activos + tarifas de gas"
+        },
+        "preview": {
+            "estimated_fee": "Tarifa estimada"
+        },
+        "bridge": {
+            "confirm_button": "Confirmar transacción",
+            "description_2": "Continúa en la extensión web",
+            "description": "Escanea el código QR desde tu App del Servicio de Nombres Zelf. Agrega una capa de seguridad descifrando en tu dispositivo",
+            "dont_have_the_app": "¿Aún no tienes instalada la App del Servicio de Nombres Zelf?",
+            "download_here": "Descárgala aquí y aumenta tu seguridad para todas tus transacciones y nunca pierdas acceso a tu cripto.",
+            "qr_code_title": "Escanea el código QR",
+            "title": "CONFIRMA TU TRANSACCIÓN"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "Selecciona una red de prueba",
+        "title": "Selecciona una red"
+    },
+    "payments": {
+        "continue_withoutpaying": "Continuar sin pagar",
+        "pay_now": "Proceder al pago"
+    },
+    "swap": {
+        "fees": "Tarifas",
+        "pricing": "Precios",
+        "slippage": "Deslizamiento",
+        "slipping_adjustments": "Ajustes de Deslizamiento",
+        "slipping": "Tolerancia de Deslizamiento",
+        "slipping_text": "El movimiento máximo de precio que estás dispuesto a aceptar. Tu transacción se revertirá si el precio cambia desfavorablemente por más de este porcentaje.",
+        "priority_commission": "Comisión Prioritaria",
+        "priority_commission_text": "Las comisiones de mayor prioridad pueden resultar en un procesamiento más rápido de transacciones durante la congestión de la red.",
+        "you_receive": "Recibes",
+        "you_pay": "Pagas",
+        "automatic": "Automático",
+        "manual": "Manual"
+    },
     "restricted": {
         "description": "Para ver tu clave privada, completa los pasos de verificación de seguridad.",
         "download_android_app": "Descargar App para Android",

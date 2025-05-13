@@ -1012,3 +1012,37 @@ export type SOLSource = {
 };
 
 export type SwapSource = "source" | "target" | "";
+
+export class SwapData {
+    bridge: string;
+    commission: number;
+    commissionToggle: boolean;
+    fee: number;
+    password: string;
+    slippage: number;
+    slippageToggle: boolean;
+    sourceAmount: number;
+    sourceAsset: TokenData;
+    targetAmount: number;
+    targetAsset: TokenData;
+    targetSwapValue: number;
+
+    constructor(data: any = {}) {
+        this.bridge = data.bridge || "";
+        this.commission = data.commission || 0;
+        this.commissionToggle = data.commissionToggle || false;
+        this.fee = data.fee || 0;
+        this.password = data.password || "";
+        this.slippage = data.slippage || 0;
+        this.slippageToggle = data.slippageToggle || false;
+        this.sourceAmount = data.sourceAmount || 0;
+        this.sourceAsset = data.sourceAsset || ({} as TokenData);
+        this.targetAmount = data.targetAmount || 0;
+        this.targetAsset = data.targetAsset || ({} as TokenData);
+        this.targetSwapValue = data.targetSwapValue || 0;
+    }
+
+    get hasSwapData(): boolean {
+        return Object.keys(this.sourceAsset).length > 0 && Object.keys(this.targetAsset).length > 0;
+    }
+}

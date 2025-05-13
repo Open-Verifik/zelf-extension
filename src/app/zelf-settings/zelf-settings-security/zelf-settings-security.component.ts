@@ -19,7 +19,10 @@ export class ZelfSettingsSecurityComponent implements OnDestroy {
     form!: UntypedFormGroup;
     settings!: Settings;
 
-    constructor(private _settingsService: SettingsService, private _formBuilder: FormBuilder) {
+    constructor(
+        private _settingsService: SettingsService,
+        private _formBuilder: FormBuilder
+    ) {
         this.settings = this._settingsService.settings;
 
         this._settingsService.settings$.pipe(takeUntil(this.unsubscriber$)).subscribe((settings) => {
@@ -40,15 +43,17 @@ export class ZelfSettingsSecurityComponent implements OnDestroy {
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            biometricVerificationHours: [
-                this.settings.security.biometricVerificationHours,
-                [Validators.required, Validators.min(1), Validators.max(24)],
+            biometricVerificationInterval: [
+                this.settings.security.biometricVerificationInterval,
+                [Validators.required, Validators.min(5), Validators.max(60)],
             ],
             passwordAttempts: [this.settings.security.passwordAttempts, [Validators.required, Validators.min(1), Validators.max(8)]],
         });
 
         this.form.valueChanges.pipe(takeUntil(this.unsubscriber$)).subscribe((value) => {
-            this.settings.security.biometricVerificationHours = value.biometricVerificationHours;
+            if (!this.form.valid) return;
+
+            this.settings.security.biometricVerificationInterval = value.biometricVerificationInterval;
             this.settings.security.passwordAttempts = value.passwordAttempts;
 
             this._settingsService.settings = this.settings;

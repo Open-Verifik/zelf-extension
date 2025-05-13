@@ -86,7 +86,7 @@ export class VaultService {
         const settings = await this._chromeService.getItem("settings");
         const hoursSinceLastVerified = Math.floor((new Date().getTime() - new Date(lastVerified).getTime()) / (1000 * 60 * 60));
 
-        if (hoursSinceLastVerified > (settings?.security?.biometricVerificationHours || 8)) return false;
+        if (hoursSinceLastVerified > (settings?.security?.biometricVerificationInterval || 5)) return false;
 
         return true;
     }

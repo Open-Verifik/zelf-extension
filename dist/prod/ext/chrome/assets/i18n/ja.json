@@ -344,6 +344,60 @@
         "installationCompleted": "Zelf Name Serviceのインストールが完了しました！",
         "manageExtensions": "拡張機能を管理"
     },
+    "send_transaction": {
+        "account_found": "アドレスが見つかりました",
+        "confirm_transaction_button": "トランザクションを確認",
+        "confirmation_step": "転送",
+        "continue_transaction_button": "次へ",
+        "pickReceiver_step": "送信",
+        "reject_transaction_button": "キャンセル",
+        "send_to": "送信先",
+        "tokens_step": "トークンを選択",
+        "your_accounts": "あなたのアカウント",
+        "confirm": {
+            "gas_description": "おそらく{{seconds}}秒以内",
+            "gas_label": "ガス（推定）",
+            "market": "市場",
+            "max_gas": "最大手数料:",
+            "max_total": "最大合計",
+            "sending_label": "{{amount}} {{asset}}を送信中",
+            "total_to_pay_label": "資産 + ガス手数料"
+        },
+        "preview": {
+            "estimated_fee": "推定手数料"
+        },
+        "bridge": {
+            "confirm_button": "トランザクションを確認",
+            "description_2": "ウェブ拡張機能で続行",
+            "description": "Zelf Name ServiceアプリからQRコードをスキャンしてください。デバイスで復号することでセキュリティレイヤーを追加します",
+            "dont_have_the_app": "まだZelf Name Serviceアプリをインストールしていませんか？",
+            "download_here": "ここからダウンロードして、すべてのトランザクションのセキュリティを強化し、暗号通貨へのアクセスを失わないようにしてください。",
+            "qr_code_title": "QRコードをスキャン",
+            "title": "トランザクションを確認"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "テストネットワークを選択",
+        "title": "ネットワークを選択"
+    },
+    "payments": {
+        "continue_withoutpaying": "支払いなしで続行",
+        "pay_now": "支払いを進める"
+    },
+    "swap": {
+        "fees": "手数料",
+        "pricing": "価格設定",
+        "slippage": "スリッページ",
+        "slipping_adjustments": "スリッページ調整",
+        "slipping": "スリッページ許容度",
+        "slipping_text": "許容する最大価格変動。価格がこの割合以上に不利に変動した場合、取引は取り消されます。",
+        "priority_commission": "優先手数料",
+        "priority_commission_text": "優先度の高い手数料を設定すると、ネットワーク混雑時でも取引処理が速くなる可能性があります。",
+        "you_receive": "受取額",
+        "you_pay": "支払額",
+        "automatic": "自動",
+        "manual": "手動"
+    },
     "restricted": {
         "description": "秘密鍵を表示するには、セキュリティ確認手順を完了してください。",
         "download_android_app": "Androidアプリをダウンロード",

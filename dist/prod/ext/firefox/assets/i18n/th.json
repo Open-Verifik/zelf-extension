@@ -344,6 +344,60 @@
         "installationCompleted": "การติดตั้งบริการชื่อ Zelf เสร็จสมบูรณ์แล้ว!",
         "manageExtensions": "จัดการส่วนขยาย"
     },
+    "send_transaction": {
+        "account_found": "พบที่อยู่",
+        "confirm_transaction_button": "ยืนยันธุรกรรม",
+        "confirmation_step": "ยืนยันการโอน",
+        "continue_transaction_button": "ถัดไป",
+        "pickReceiver_step": "ส่ง",
+        "reject_transaction_button": "ยกเลิก",
+        "send_to": "ส่งถึง",
+        "tokens_step": "เลือกโทเค็น",
+        "your_accounts": "บัญชีของคุณ",
+        "confirm": {
+            "gas_description": "อาจใช้เวลา {{seconds}} วินาที",
+            "gas_label": "ค่าธรรมเนียมแก๊ส (ประมาณการ)",
+            "market": "ตลาด",
+            "max_gas": "ค่าธรรมเนียมสูงสุด:",
+            "max_total": "รวมสูงสุด",
+            "sending_label": "กำลังส่ง {{amount}} {{asset}}",
+            "total_to_pay_label": "สินทรัพย์ + ค่าธรรมเนียมแก๊ส"
+        },
+        "preview": {
+            "estimated_fee": "ค่าธรรมเนียมประมาณการ"
+        },
+        "bridge": {
+            "confirm_button": "ยืนยันธุรกรรม",
+            "description_2": "ดำเนินการต่อในส่วนขยายเว็บ",
+            "description": "สแกน QR Code จากแอปบริการชื่อ Zelf ของคุณ เพิ่มชั้นความปลอดภัยโดยการถอดรหัสในอุปกรณ์ของคุณ",
+            "dont_have_the_app": "ยังไม่มีแอปบริการชื่อ Zelf ติดตั้ง?",
+            "download_here": "ดาวน์โหลดที่นี่และเพิ่มความปลอดภัยสำหรับธุรกรรมทั้งหมดของคุณ & ไม่เคยสูญเสียการเข้าถึงคริปโตของคุณ",
+            "qr_code_title": "สแกน QR Code",
+            "title": "ยืนยันธุรกรรมของคุณ"
+        }
+    },
+    "network_picker": {
+        "testnets_title": "เลือกเครือข่ายทดสอบ",
+        "title": "เลือกเครือข่าย"
+    },
+    "payments": {
+        "continue_withoutpaying": "ดำเนินการต่อโดยไม่ต้องชำระเงิน",
+        "pay_now": "ดำเนินการชำระเงิน"
+    },
+    "swap": {
+        "fees": "ค่าธรรมเนียม",
+        "pricing": "การกำหนดราคา",
+        "slippage": "สลิปเปจ",
+        "slipping_adjustments": "การปรับสลิปเปจ",
+        "slipping": "ความทนต่อสลิปเปจ",
+        "slipping_text": "การเคลื่อนไหวของราคาสูงสุดที่คุณยินดีจะยอมรับ ธุรกรรมของคุณจะถูกย้อนกลับหากราคาเปลี่ยนแปลงในทางที่ไม่พึงประสงค์เกินกว่าเปอร์เซ็นต์นี้",
+        "priority_commission": "ค่าคอมมิชชั่นพิเศษ",
+        "priority_commission_text": "ค่าคอมมิชชั่นที่มีความสำคัญสูงอาจส่งผลให้การประมวลผลธุรกรรมเร็วขึ้นในช่วงที่เครือข่ายมีความแออัด",
+        "you_receive": "คุณได้รับ",
+        "you_pay": "คุณจ่าย",
+        "automatic": "อัตโนมัติ",
+        "manual": "ด้วยตนเอง"
+    },
     "restricted": {
         "description": "เพื่อดูรหัสกุญแจส่วนตัวของคุณ โปรดทำตามขั้นตอนการยืนยันความปลอดภัยให้เสร็จสมบูรณ์",
         "download_android_app": "ดาวน์โหลดแอป Android",

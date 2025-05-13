@@ -39,7 +39,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 })
 export class SendTransactionComponent implements OnDestroy {
     private _captchaToken: string = "";
-    private unsubcriber$: Subject<void> = new Subject<void>();
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
     foundAddress?: WalletModel;
@@ -80,7 +80,7 @@ export class SendTransactionComponent implements OnDestroy {
             return;
         }
 
-        this._transactionService.transactionData$.pipe(takeUntil(this.unsubcriber$)).subscribe((transactionData) => {
+        this._transactionService.transactionData$.pipe(takeUntil(this.unsubscriber$)).subscribe((transactionData) => {
             this.transactionData = transactionData;
 
             if (!this.transactionData || !this.transactionData.hasTransactionData) {
@@ -96,8 +96,8 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.unsubcriber$.next();
-        this.unsubcriber$.complete();
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
     }
 
     get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" {
@@ -317,7 +317,7 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (!toAddressCtrl) return;
 
-        toAddressCtrl.valueChanges.pipe(takeUntil(this.unsubcriber$), debounceTime(1000)).subscribe((value: string) => {
+        toAddressCtrl.valueChanges.pipe(takeUntil(this.unsubscriber$), debounceTime(1000)).subscribe((value: string) => {
             this._handleToAddressChange(value);
         });
 

@@ -8,25 +8,6 @@ import { EthereumService } from "app/eth.service";
 import Web3 from "web3";
 import { ethers } from "ethers";
 
-interface TransactionParams {
-    from: string;
-    to: string;
-    data: string;
-    value: string;
-    gasLimit: string;
-    gasPrice?: string;
-    maxFeePerGas?: string;
-    maxPriorityFeePerGas?: string;
-}
-
-interface SwapTx {
-    from: string;
-    to: string;
-    data: string;
-    value: string;
-    gasPrice: string;
-    gas?: string;
-}
 
 @Injectable({
     providedIn: "root",
@@ -243,7 +224,7 @@ export class LifiService {
             });
 
             const feeData = await provider.getFeeData();
-            const nonce = await provider.getTransactionCount(signer.address);
+            const nonce = await provider.getTransactionCount(signer.address, "latest");
 
             const tx = {
                 to: quote.transactionRequest.to,
@@ -271,11 +252,15 @@ export class LifiService {
 
             console.log("Sending transaction with params:", tx);
 
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            const latestNonce = await provider.getTransactionCount(signer.address, "latest");
+            tx.nonce = latestNonce;
+
             const transaction = await signer.sendTransaction(tx);
 
             try {
                 const receipt = await transaction.wait();
-
                 return { ...(receipt || {}), transactionHash: receipt?.hash || transaction?.hash };
             } catch (error) {
                 return { ...transaction, transactionHash: transaction.hash };

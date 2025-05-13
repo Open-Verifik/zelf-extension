@@ -210,13 +210,13 @@
                         </div>
                     </div>
 
-                    <div class="zelf-message zelf-message--error" *ngIf="form.get('targetAsset')?.errors?.mustNotMatch">
-                        <ng-container *ngTemplateOutlet="cross"></ng-container>
-                        <p>{{ t("errors.swap_same_asset") }}</p>
-                    </div>
-
                     <div class="swap__details">
-                        <ng-container *ngIf="form.dirty && form.get('sourceAmount')?.valid && form.get('targetAsset')?.valid">
+                        <div class="zelf-message zelf-message--error" *ngIf="form.get('targetAsset')?.errors?.mustNotMatch">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.swap_same_asset") }}</p>
+                        </div>
+
+                        <ng-container *ngIf="showDetails()">
                             <div class="swap__settings">
                                 <button
                                     [disabled]="bridgeOptions.length < 2"

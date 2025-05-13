@@ -55,7 +55,11 @@ export class ZelfHistoryComponent implements OnInit {
     public noMoreTransactions = false;
     public transactionHashMap: Record<string, boolean> = {};
 
-    constructor(private _blockchainTransactions: BlockchainTransactionsService, private _router: Router, private _walletService: WalletService) {}
+    constructor(
+        private _blockchainTransactions: BlockchainTransactionsService,
+        private _router: Router,
+        private _walletService: WalletService
+    ) {}
 
     async ngOnInit(): Promise<void> {
         this._loadFirstTransactions();

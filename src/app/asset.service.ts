@@ -59,6 +59,26 @@ export class AssetService {
         return this._targetAsset;
     }
 
+    get canSwap(): NetworkPermissions {
+        return {
+            AVAX: true,
+            BTC: false,
+            ETH: true,
+            SOL: false,
+            SUI: false,
+        };
+    }
+
+    get canSend(): NetworkPermissions {
+        return {
+            AVAX: true,
+            BTC: false,
+            ETH: true,
+            SOL: true,
+            SUI: true,
+        };
+    }
+
     get intervals(): AssetIntervalOptions {
         return [
             { label: "1D", range: "1d" },
@@ -231,7 +251,7 @@ export class AssetService {
 
             tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
 
-            await this.saveTokensToSession(tokens);
+            if (!permissions) await this.saveTokensToSession(tokens);
         } catch (error) {
             console.error("Error processing tokens:", error);
         }

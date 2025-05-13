@@ -58,13 +58,17 @@
             display: inline-block;
             user-select: none;
             color: variables.$taupeGray;
-            margin-right: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            margin: 0 6px;
         }
 
         &-word {
             display: inline-block;
             user-select: none;
             color: variables.$black;
+            font-size: 12px;
+            font-weight: 500;
         }
     }
 }

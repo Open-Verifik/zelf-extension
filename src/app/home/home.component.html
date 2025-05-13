@@ -8,7 +8,7 @@
                     <div class="ripple" *ngIf="balancesLoading"></div>
 
                     <div class="home-balance__info" *ngIf="!balancesLoading">
-                        <h3 class="home-balance__amount">{{ totalFiatBalance || 0 | currency : "USD" : "symbol" : "1.2-5" }}</h3>
+                        <h3 class="home-balance__amount">{{ totalFiatBalance || 0 | currency: "USD" : "symbol" : "1.2-5" }}</h3>
 
                         <h4 class="stats">
                             <span
@@ -16,7 +16,7 @@
                                 class="stats__percentage"
                                 [ngClass]="{
                                     'stats__percentage--positive': true,
-                                    'stats__percentage--negative': false
+                                    'stats__percentage--negative': false,
                                 }"
                             >
                                 <span class="stats__arrow">
@@ -67,7 +67,7 @@
                         <div class="home-action__text cursor-pointer">{{ t("home.send_transaction_button") }}</div>
                     </div>
 
-                    <div class="home-action">
+                    <div class="home-action" *ngIf="false">
                         <div class="home-action__icon" [routerLink]="['/swap']">
                             <div class="home-action__icon-box">
                                 <svg width="24" height="19" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,7 @@
                             class="animated-tabs__switch"
                             [ngClass]="{
                                 'animated-tabs__switch--left': shareables.selectedTab === 'assets',
-                                'animated-tabs__switch--right': shareables.selectedTab === 'nfts'
+                                'animated-tabs__switch--right': shareables.selectedTab === 'nfts',
                             }"
                         >
                             <div

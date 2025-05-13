@@ -188,7 +188,7 @@
                         <div class="zelf-action-row" *ngIf="transaction.total">
                             <p class="transaction-receipt__label">{{ t("common.total") }}</p>
 
-                            <p class="transaction-receipt__value">{{ transaction.total | number: "1.2-8" }} {{ transaction.asset }}</p>
+                            <p class="transaction-receipt__value">{{ transaction.total | number: "1.2-8" }} {{ networkSymbol }}</p>
                         </div>
                     </ng-container>
                 </div>

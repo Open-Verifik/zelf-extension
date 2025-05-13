@@ -51,12 +51,13 @@ export class SettingsService {
         this._settings = value;
         this._chromeService.setItem("settings", value);
 
-        this._checkBiometricInterval();
+        this._biometricsRequired();
     }
 
-    private async _checkBiometricInterval(): Promise<void> {
+    private async _biometricsRequired(): Promise<void> {
         const lastVerified = await this._chromeService.getItem("lastVerified");
 
+        // Force biometrics if someone has tampered with the lastVerified timestamp
         if (!lastVerified || this._vaultService.lastVerified !== lastVerified) {
             await this._walletService.clearPGPKeys();
 

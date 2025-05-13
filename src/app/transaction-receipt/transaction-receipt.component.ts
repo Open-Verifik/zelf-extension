@@ -37,13 +37,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     transaction!: any;
     wallet!: Partial<WalletModel> | null;
 
-    private CAN_SWAP: NetworkPermissions = {
-        AVAX: true,
-        BTC: false,
-        ETH: true,
-        SOL: false,
-        SUI: false,
-    };
+    private CAN_SWAP: NetworkPermissions = {};
 
     tokenProperties: any = {
         sourceImage: "",
@@ -73,6 +67,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     ) {
         super(_chromeService, _snackBar, _translocoService);
 
+        this.CAN_SWAP = this._assetService.canSwap;
+
         forkJoin({
             params: this._activatedRoute.params.pipe(take(1)),
             queryParams: this._activatedRoute.queryParams.pipe(take(1)),
@@ -101,6 +97,10 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         else return "transfer";
     }
 
+    get networkSymbol(): string {
+        return this._networkService.getNetworkSymbol(this.network?.toLowerCase() as NetworkName);
+    }
+
     _determineNetwork(): string {
         if (this.transaction?.network || this.network) return this.transaction?.network?.toLowerCase() || this.network;
         else if (this.symbol) {
@@ -118,7 +118,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (!this.wallet) return [];
 
         const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-        const result = await this._assetService.processTokensFromResponse(response, this.wallet as any);
+        const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SWAP);
 
         return result.tokens;
     }
@@ -126,7 +126,6 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _loadTokensFromSession(): Promise<TokenData[]> {
         try {
             const sessionTokens = await this._assetService.loadTokensFromSession();
-            console.log(` TransactionReceiptComponent ~ _loadTokensFromSession ~ sessionTokens:`, sessionTokens);
 
             if (sessionTokens.length > 0) {
                 return sessionTokens;
@@ -160,21 +159,20 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (!this.hash) return;
         if (!this.transaction) this.transaction = await this._walletService.getPendingTransaction(this.hash);
 
-        const network = this._determineNetwork();
-
+        this.network = this._determineNetwork();
         this._setNetworkProperties();
 
         let promise: Promise<any> | null = null;
 
-        if (network === "ethereum" || network === "avalanche") {
-            if (network === "avalanche") {
+        if (this.network === "ethereum" || this.network === "avalanche") {
+            if (this.network === "avalanche") {
                 promise = this._avaxService.requestTransactionDetails(this.hash);
             } else {
                 promise = this._ethService.requestTransactionDetailsV2(this.hash);
             }
-        } else if (network === "sui") {
+        } else if (this.network === "sui") {
             promise = this._suiService.requestTransactionDetails(this.hash);
-        } else if (network === "solana") {
+        } else if (this.network === "solana") {
             promise = this._solService.requestTransactionDetails(this.hash);
         }
 
@@ -194,20 +192,18 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
                 response.data.symbol = this.symbol;
 
-                if (network === "ethereum" || network === "avalanche") {
+                if (this.network === "ethereum" || this.network === "avalanche") {
                     this.transaction = new OkLinkTransactionModel(response.data).toTransaction();
-                } else if (network === "solana") {
+                } else if (this.network === "solana") {
                     this.transaction = new SolTransactionModel(response.data).toTransaction();
-                } else if (network === "sui") {
+                } else if (this.network === "sui") {
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
                 }
-
-                console.log(` TransactionReceiptComponent ~ promise ~ this.transaction:`, this.transaction);
 
                 this.transaction.image = this._walletService.getAssetImage(this.transaction?.symbol);
                 this.transaction.targetImage = this._walletService.getAssetImage(this.transaction?.targetSymbol);
 
-                if (!this.transaction.network) this.transaction.network = network;
+                if (!this.transaction.network) this.transaction.network = this.network;
 
                 this._setNetworkProperties();
 
@@ -229,6 +225,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     private async _setNetworkProperties(): Promise<void> {
+        if (!this.network) return;
         if (!this.transaction || this.transaction.type !== "swap" || Object.values(this.tokenProperties).join("").trim()) return;
 
         const tokens = await this._loadTokensFromSession();

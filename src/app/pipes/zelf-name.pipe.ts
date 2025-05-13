@@ -14,7 +14,6 @@ import { Pipe, type PipeTransform, ChangeDetectorRef, Injectable, NgZone, OnDest
  */
 @Pipe({
     name: "zelfName",
-    standalone: true,
     pure: false,
 })
 @Injectable()

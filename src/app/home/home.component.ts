@@ -30,7 +30,6 @@ import { MatButtonModule } from "@angular/material/button";
         TokenCardComponent,
         TranslocoModule,
     ],
-    standalone: true,
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
     templateUrl: "./home.component.html",

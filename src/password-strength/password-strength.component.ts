@@ -11,7 +11,6 @@ import commonPasswords from "./common-password-list";
     selector: "password-strength",
     styleUrl: "./password-strength.component.scss",
     templateUrl: "./password-strength.component.html",
-    standalone: true,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

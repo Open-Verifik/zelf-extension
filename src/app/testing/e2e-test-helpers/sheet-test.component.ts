@@ -7,7 +7,6 @@ import { WalletModel } from "app/wallet";
 
 @Component({
     selector: "sheet-test",
-    standalone: true,
     imports: [CommonModule, MatButtonModule],
     template: `
         <div class="cta-sheet-test-container">

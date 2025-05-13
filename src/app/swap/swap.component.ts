@@ -4,7 +4,7 @@ import { debounceTime, distinctUntilChanged, filter } from "rxjs/operators";
 
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, ReactiveFormsModule, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
@@ -43,7 +43,6 @@ import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-cu
         TranslocoModule,
     ],
     selector: "swap",
-    standalone: true,
     styleUrls: ["./swap.component.scss"],
     templateUrl: "./swap.component.html",
 })
@@ -149,6 +148,8 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     private async _initSwapData(): Promise<void> {
         this.form.patchValue(this.swapData);
+
+        this._changeDetectionRef.detectChanges();
     }
 
     ngOnDestroy(): void {
@@ -157,7 +158,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     get canCheckQuote(): boolean {
-        return this.hasBothAssetsSet && !!this.form.get("sourceAmount")?.valid;
+        return this.hasBothAssetsSet && !!this.form.get("sourceAmount")?.valid && !!this.form.get("targetAsset")?.valid;
     }
 
     get hasBothAssetsSet(): boolean {
@@ -250,7 +251,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             sourceAmount: ["", [Validators.required, Validators.min(0)]],
             sourceAsset: [null, [Validators.required]],
             targetAmount: [{ value: "", disabled: true }, [Validators.required, Validators.min(0)]],
-            targetAsset: [null, [Validators.required]],
+            targetAsset: [null, [Validators.required, this._notMatchingValidator("sourceAsset")]],
         });
 
         this.form
@@ -308,6 +309,20 @@ export class SwapComponent implements OnInit, OnDestroy {
             this._initForm();
             this.loading = false;
         }
+    }
+
+    private _notMatchingValidator(matchTo: string): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            if (!control.value) return null;
+
+            const targetAsset = control.value;
+            const sourceAsset = control.parent?.get(matchTo)?.value;
+
+            const targetKey = `${targetAsset?.symbol}-${targetAsset?.network}`;
+            const sourceKey = `${sourceAsset?.symbol}-${sourceAsset?.network}`;
+
+            return targetKey === sourceKey ? { mustNotMatch: true } : null;
+        };
     }
 
     private _updateTargetAmount(): void {
@@ -389,9 +404,11 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         const sourceAmount = this.form.get("sourceAmount")?.value;
+        const isSameAsset = this.selectedSourceAsset.contractAddress === this.selectedTargetAsset.contractAddress;
 
-        if (!+sourceAmount) {
+        if (!+sourceAmount || isSameAsset) {
             this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
+
             return;
         }
 
@@ -589,7 +606,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         await this._chromeService.removeItemSession("tokensTtl");
 
         await this._router.navigate(["/transaction", this.transactionHash], {
-            queryParams: { network: this.selectedSourceAsset.network },
+            queryParams: { network: this.selectedSourceAsset.network, symbol: this.selectedSourceAsset.symbol },
         });
     }
 
@@ -613,9 +630,9 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     handleAssetChange(event: AssetChangeData): void {
         if (event.source === "source") {
-            this.selectedSourceAsset = event.asset;
+            this.form.patchValue({ sourceAsset: event.asset });
         } else {
-            this.selectedTargetAsset = event.asset;
+            this.form.patchValue({ targetAsset: event.asset });
         }
 
         this.swapSource = "";
@@ -629,6 +646,10 @@ export class SwapComponent implements OnInit, OnDestroy {
         });
 
         this._changeDetectionRef.detectChanges();
+    }
+
+    handleSourceAmountChange(event: any) {
+        this.form.get("sourceAmount")?.setValue(event.target.value, { emitEvent: true });
     }
 
     setAmount(modifier: number): void {
@@ -667,9 +688,13 @@ export class SwapComponent implements OnInit, OnDestroy {
             newSourceAmount = newSourceAmount * ((this.selectedSourceAsset.price as number) || 1);
         }
 
-        this.form.get("sourceAmount")?.setValue(newSourceAmount, { emitEvent: true });
-        this.form.get("sourceAsset")?.setValue(_tempTarget, { emitEvent: true });
-        this.form.get("targetAsset")?.setValue(_tempSource, { emitEvent: true });
+        this.form.get("sourceAmount")?.setValue(newSourceAmount || "", { emitEvent: false });
+        this.form.get("sourceAsset")?.setValue(_tempTarget, { emitEvent: false });
+        this.form.get("targetAsset")?.setValue(_tempSource, { emitEvent: false });
+
+        this.form.get("sourceAmount")?.updateValueAndValidity();
+        this.form.get("sourceAsset")?.updateValueAndValidity();
+        this.form.get("targetAsset")?.updateValueAndValidity();
 
         this._changeDetectionRef.detectChanges();
     }
@@ -746,16 +771,12 @@ export class SwapComponent implements OnInit, OnDestroy {
             });
     }
 
-    handleSourceAmountChange(event: any) {
-        this.form.get("sourceAmount")?.setValue(event.target.value, { emitEvent: true });
-    }
-
     isConfirmDisabled(): boolean {
         const hasValidAmount = !!this.form.get("sourceAmount")?.value && parseFloat(this.form.get("sourceAmount")?.value) > 0;
         const hasValidQuote = !!this.swapQuote;
-        const isNotSending = !this.sending;
+        const isNotLoadingOrSending = !this.sending && !this.loading && !this.quoteLoading;
         const hasAssets = this.hasBothAssetsSet;
 
-        return !(hasValidAmount && hasValidQuote && isNotSending && hasAssets);
+        return !(hasValidAmount && hasValidQuote && isNotLoadingOrSending && hasAssets);
     }
 }

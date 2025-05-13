@@ -3,13 +3,13 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { AssetService, NetworkPermissions } from "app/asset.service";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { TokenItemComponent } from "app/token-item/token-item.component";
+import { TransactionService } from "app/transaction.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { TransactionService } from "app/transaction.service";
-import { TokenItemComponent } from "app/token-item/token-item.component";
-import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { firstValueFrom, Subject } from "rxjs";
-import { AssetService, NetworkPermissions } from "app/asset.service";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
@@ -40,7 +40,9 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _transactionService: TransactionService,
         private _walletService: WalletService
-    ) {}
+    ) {
+        this.loading = true;
+    }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) || {};
@@ -56,14 +58,10 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
 
     private async _loadTokensFromSession(): Promise<void> {
         try {
-            this.loading = true;
-
             const sessionTokens = await this._assetService.loadTokensFromSession();
 
             if (sessionTokens.length > 0) {
-                this.tokens = sessionTokens.filter((token) => {
-                    return this.isTokenSendable(token);
-                });
+                this.tokens = sessionTokens.filter((token) => this.isTokenSendable(token));
             } else {
                 await this._fetchTokens();
             }
@@ -100,9 +98,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         try {
             this.loading = true;
 
-            if (!this.wallet || !this.wallet._id) {
-                return;
-            }
+            if (!this.wallet || !this.wallet._id) return;
 
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
             const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SEND);

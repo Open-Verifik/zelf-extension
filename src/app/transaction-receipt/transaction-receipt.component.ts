@@ -26,7 +26,6 @@ import { WalletService } from "app/wallet.service";
     selector: "transaction-receipt",
     styleUrls: ["./transaction-receipt.component.scss"],
     templateUrl: "./transaction-receipt.component.html",
-    standalone: true,
 })
 export class TransactionReceiptComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     private _timeout!: ReturnType<typeof setTimeout>;
@@ -119,7 +118,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (!this.wallet) return [];
 
         const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-        const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SWAP);
+        const result = await this._assetService.processTokensFromResponse(response, this.wallet as any);
 
         return result.tokens;
     }
@@ -127,12 +126,13 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _loadTokensFromSession(): Promise<TokenData[]> {
         try {
             const sessionTokens = await this._assetService.loadTokensFromSession();
+            console.log(` TransactionReceiptComponent ~ _loadTokensFromSession ~ sessionTokens:`, sessionTokens);
 
             if (sessionTokens.length > 0) {
                 return sessionTokens;
+            } else {
+                return await this._fetchTokens();
             }
-
-            return await this._fetchTokens();
         } catch (error) {
             console.error("Error loading tokens:", error);
         }
@@ -207,6 +207,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                 this.transaction.image = this._walletService.getAssetImage(this.transaction?.symbol);
                 this.transaction.targetImage = this._walletService.getAssetImage(this.transaction?.targetSymbol);
 
+                if (!this.transaction.network) this.transaction.network = network;
+
                 this._setNetworkProperties();
 
                 if (this.transaction.status === "pending") {
@@ -230,7 +232,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (!this.transaction || this.transaction.type !== "swap" || Object.values(this.tokenProperties).join("").trim()) return;
 
         const tokens = await this._loadTokensFromSession();
-        const token = tokens.find((token) => token.symbol === this.symbol);
+        const token = tokens.find((token) => token.symbol === this.symbol && token.network?.toLowerCase() === this.network.toLowerCase());
 
         this.tokenProperties.sourceImage = token?.image || "";
         this.tokenProperties.sourceNetwork = this._networkSymbol(token?.network.toLowerCase() as NetworkName);

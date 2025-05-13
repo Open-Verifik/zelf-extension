@@ -10,13 +10,20 @@
 }
 
 .swap-currency {
-    margin-top: 16px;
+    position: relative;
     display: flex;
     flex-direction: column;
+    gap: 16px;
     width: 100%;
     flex: 1 1 auto;
-    justify-content: center;
-    gap: 16px;
+    height: 100%;
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 100;
+    }
 
     &__filters {
         display: flex;

@@ -1,7 +1,5 @@
 <div class="zelf-card swap" *transloco="let t">
-    <div class="swap__loader-overlay" *ngIf="loading || quoteLoading">
-        <div class="ripple swap__loader"></div>
-    </div>
+    <div class="ripple swap__loader" *ngIf="loading || quoteLoading"></div>
 
     <ng-container *ngIf="!loading">
         <div class="swap__header">
@@ -212,8 +210,13 @@
                         </div>
                     </div>
 
+                    <div class="zelf-message zelf-message--error" *ngIf="form.get('targetAsset')?.errors?.mustNotMatch">
+                        <ng-container *ngTemplateOutlet="cross"></ng-container>
+                        <p>{{ t("errors.swap_same_asset") }}</p>
+                    </div>
+
                     <div class="swap__details">
-                        <ng-container *ngIf="form.get('sourceAmount')?.value > 0">
+                        <ng-container *ngIf="form.dirty && form.get('sourceAmount')?.valid && form.get('targetAsset')?.valid">
                             <div class="swap__settings">
                                 <button
                                     [disabled]="bridgeOptions.length < 2"
@@ -369,7 +372,8 @@
                         class="zelf-button zelf-button--black zelf-button--wide"
                         mat-flat-button
                     >
-                        {{ t("swap.confirm_swap") }}
+                        <ng-container *ngIf="!requiresBiometrics"> {{ t("swap.confirm_swap") }}</ng-container>
+                        <ng-container *ngIf="requiresBiometrics"> {{ t("swap.verify") }}</ng-container>
 
                         <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
                     </button>

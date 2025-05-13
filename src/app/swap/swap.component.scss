@@ -12,15 +12,6 @@
 .swap {
     position: relative;
 
-    &__loader-overlay {
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        background-color: variables.$white;
-        opacity: 0.5;
-        z-index: 1;
-    }
-
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
@@ -74,6 +65,7 @@
         position: absolute;
         inset: 0;
         margin: auto;
+        z-index: 1;
     }
 
     &__asset-card {

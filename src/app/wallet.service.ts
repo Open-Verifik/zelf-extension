@@ -148,33 +148,39 @@ export class WalletService {
 
         const cachedImage = this._assetImageMap.get(symbol);
 
-        if (cachedImage && cachedImage === imageSrc) return;
+        if (cachedImage) return;
 
-        if (!imageSrc) this._assetImageMap.set(symbol, "/assets/images/token-placeholder.png");
+        if (!imageSrc) this._assetImageMap.set(symbol, "./assets/icons/placeholder-coin.png");
         else this._assetImageMap.set(symbol, imageSrc);
     }
 
     getAssetImage(symbol: string, imageSrc?: string): string {
         if (!symbol) return "";
 
-        let assetSrc: string = "";
-
-        if (imageSrc) {
-            this._assetImageMap.set(symbol, imageSrc);
-
-            return imageSrc;
-        }
-
         const cachedImage = this._assetImageMap.get(symbol);
 
-        if (cachedImage) return cachedImage;
+        let assetSrc: string = "";
 
-        if (symbol === "ZNS") assetSrc = "./assets/icons/icon128.png";
+        if (symbol === "AVAX") assetSrc = "./assets/images/avax.png";
+        else if (symbol === "ZNS") assetSrc = "./assets/icons/icon128.png";
         else if (symbol === "SUI") assetSrc = "./assets/crypto-icons/sui.png";
-        else {
+        else if (cachedImage) return cachedImage;
+        else if (imageSrc) {
+            assetSrc = imageSrc;
+        } else {
             const cleanSymbol = symbol.toLowerCase().replace(/[^a-z].*$/, "");
+
             assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${cleanSymbol}.png`;
         }
+
+        let img: HTMLImageElement | null = new Image();
+
+        img.src = assetSrc;
+        img.onerror = () => {
+            this._assetImageMap.set(symbol, "./assets/icons/placeholder-coin.png");
+
+            img = null;
+        };
 
         this._assetImageMap.set(symbol, assetSrc);
 

@@ -179,7 +179,7 @@ export class WelcomeOfflineImportComponent {
         }
 
         this._zelfNameService
-            .searchZelfName("zelfName", zelfName, captchaToken)
+            .searchZelfNameV2("zelfName", zelfName, captchaToken)
             .then(async (response) => {
                 this.zelfName = zelfName;
 
@@ -236,13 +236,15 @@ export class WelcomeOfflineImportComponent {
         }
 
         this._zelfNameService
-            .searchZelfName("zelfName", zelfName, captchaToken)
+            .searchZelfNameV2("zelfName", zelfName, captchaToken)
             .then((response) => {
                 if (response?.data.price) {
                     this.referralForm.patchValue({ referralName: "" });
+
                     this.referralForm.markAsPristine();
 
                     this.loadingReferral = false;
+
                     this._setInvalidReferral();
 
                     return;

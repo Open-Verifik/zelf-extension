@@ -15,7 +15,6 @@ import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
-import { eth } from "web3";
 
 @Component({
     imports: [

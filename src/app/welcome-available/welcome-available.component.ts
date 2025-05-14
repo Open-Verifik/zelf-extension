@@ -143,7 +143,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         }
 
         this._zelfNameService
-            .searchZelfName("zelfName", zelfName, captchaToken)
+            .searchZelfNameV2("zelfName", zelfName, captchaToken)
             .then((response) => {
                 if (response?.data.price) {
                     this.form.patchValue({ referralName: "" });

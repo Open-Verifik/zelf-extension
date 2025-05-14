@@ -6,7 +6,7 @@ import { FooterMenuComponent } from "./footer-menu/footer-menu.component";
 
 @Component({
     imports: [NgClass, RouterLink, NgIf],
-    selector: "footer",
+    selector: "zelf-footer",
     styleUrls: ["../main.scss", "./footer.component.scss"],
     templateUrl: "./footer.component.html",
 })

@@ -21,6 +21,10 @@
     justify-content: center;
     padding: 8px 16px;
 
+    @media (max-width: variables.$medium) {
+        padding: 6px;
+    }
+
     &__button {
         align-items: center;
         border-radius: 56px;
@@ -28,8 +32,10 @@
         display: flex;
         height: 56px;
         justify-content: center;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
         width: 56px;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;

@@ -96,9 +96,21 @@
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
-        &:focus,
+        &:active {
+            background-color: variables.$taupeGray !important;
+        }
+
         &:hover {
             background-color: variables.$gray !important;
+        }
+
+        svg {
+            fill: variables.$white;
+        }
+
+        mat-spinner svg {
+            fill: variables.$white !important;
+            stroke: variables.$white !important;
         }
 
         &[disabled] {
@@ -110,15 +122,6 @@
                 fill: variables.$black !important;
                 stroke: variables.$black !important;
             }
-        }
-
-        svg {
-            fill: variables.$white;
-        }
-
-        mat-spinner svg {
-            fill: variables.$white !important;
-            stroke: variables.$white !important;
         }
     }
 
@@ -397,13 +400,21 @@
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
+        &:active {
+            background-color: variables.$taupeGray !important;
+        }
+
+        &:hover {
+            background-color: variables.$gray !important;
+        }
+
         svg {
             fill: variables.$white;
         }
 
-        &:focus,
-        &:hover {
-            background-color: variables.$gray !important;
+        mat-spinner svg {
+            fill: variables.$white !important;
+            stroke: variables.$white !important;
         }
 
         &[disabled] {

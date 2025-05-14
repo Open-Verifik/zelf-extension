@@ -105,6 +105,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 wordsCount: mnemonicCount,
             })
             .then(async (response) => {
+                this._vaultService.setLastVerified();
+
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -124,6 +126,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 identifier: userFingerprint.hash,
             })
             .then(async (response) => {
+                this._vaultService.setLastVerified();
+
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -141,6 +145,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 this._vaultService.mnemonic = "";
+                this._vaultService.setLastVerified();
 
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
@@ -158,6 +163,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 newZelfName: this.newZelfName,
             })
             .then(async (response) => {
+                this._vaultService.setLastVerified();
+
                 await this._chromeService.removeItem("newZelfName");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 

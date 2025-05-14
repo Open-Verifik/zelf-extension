@@ -1,10 +1,11 @@
 import { CurrencyPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { AssetService } from "app/asset.service";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
@@ -14,7 +15,6 @@ import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { HomeHeaderComponent } from "./home-header/home-header.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
-import { MatButtonModule } from "@angular/material/button";
 
 @Component({
     imports: [

@@ -355,7 +355,7 @@ export class LifiService {
     getTokenImage(token: TokenData): string {
         if (token.image?.startsWith("http")) return token.image;
 
-        return `assets/icons/placeholder-coin.png`;
+        return `assets/tokens/placeholder-coin.png`;
     }
 
     getTokenAddress(network: string, symbol: string): string {

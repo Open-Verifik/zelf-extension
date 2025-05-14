@@ -511,7 +511,7 @@ export class EthereumService {
                                 price: avaxPrice,
                                 fiatBalance: fiatBalance,
                                 name: "Avalanche",
-                                image: "assets/images/avax.png",
+                                image: "assets/networks/avax.png",
                                 network: "Avalanche",
                                 decimals: 18,
                             },

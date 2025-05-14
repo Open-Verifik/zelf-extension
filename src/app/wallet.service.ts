@@ -150,22 +150,32 @@ export class WalletService {
 
         if (cachedImage) return;
 
-        if (!imageSrc) this._assetImageMap.set(symbol, "./assets/icons/placeholder-coin.png");
+        if (!imageSrc) this._assetImageMap.set(symbol, "./assets/tokens/placeholder-coin.png");
         else this._assetImageMap.set(symbol, imageSrc);
     }
 
     getAssetImage(symbol: string, imageSrc?: string): string {
-        if (!symbol) return "";
+        if (!symbol) return "./assets/tokens/placeholder-coin.png";
 
         const cachedImage = this._assetImageMap.get(symbol);
 
+        if (cachedImage) return cachedImage;
+
         let assetSrc: string = "";
 
-        if (symbol === "AVAX") assetSrc = "./assets/images/avax.png";
-        else if (symbol === "ZNS") assetSrc = "./assets/icons/icon128.png";
-        else if (symbol === "SUI") assetSrc = "./assets/crypto-icons/sui.png";
-        else if (cachedImage) return cachedImage;
-        else if (imageSrc) {
+        if (symbol === "AVAX") assetSrc = "./assets/networks/avax.png";
+        else if (symbol === "SOL") assetSrc = "./assets/networks/sol.svg";
+        else if (symbol === "ETH") assetSrc = "./assets/networks/eth.png";
+        else if (symbol === "ZNS") assetSrc = "./assets/tokens/zns.png";
+        else if (symbol === "SUI") assetSrc = "./assets/networks/sui.svg";
+
+        if (assetSrc) {
+            this._assetImageMap.set(symbol, assetSrc);
+
+            return assetSrc;
+        }
+
+        if (imageSrc) {
             assetSrc = imageSrc;
         } else {
             const cleanSymbol = symbol.toLowerCase().replace(/[^a-z].*$/, "");
@@ -177,7 +187,7 @@ export class WalletService {
 
         img.src = assetSrc;
         img.onerror = () => {
-            this._assetImageMap.set(symbol, "./assets/icons/placeholder-coin.png");
+            this._assetImageMap.set(symbol, "./assets/tokens/placeholder-coin.png");
 
             img = null;
         };

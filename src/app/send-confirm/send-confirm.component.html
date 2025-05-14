@@ -34,16 +34,28 @@
                     <p class="send-confirm__price-currency">~{{ fiatPrice | currency: "USD" : "symbol" : "1.2-8" }}</p>
                 </div>
 
+                <div class="send-confirm__zelf-name-display">
+                    <div class="zelf-chip" *ngIf="transactionData.sender.zelfName">{{ transactionData.sender.zelfName | uppercase }}</div>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M21.2544 11.65L18.4644 8.86003C18.1444 8.54003 17.6044 8.76003 17.6044 9.21003V11H3.60437C3.05437 11 2.60437 11.45 2.60437 12C2.60437 12.55 3.05437 13 3.60437 13H17.6044V14.79C17.6044 15.24 18.1444 15.46 18.4544 15.14L21.2444 12.35C21.4444 12.16 21.4444 11.84 21.2544 11.65Z"
+                            fill="#181818"
+                        />
+                    </svg>
+
+                    <div class="zelf-chip">
+                        <ng-container *ngIf="transactionData.receiver.zelfName">{{ transactionData.receiver.zelfName | uppercase }}</ng-container>
+                        <ng-container *ngIf="!transactionData.receiver.zelfName">{{ t("common.unknown") }}</ng-container>
+                    </div>
+                </div>
+
                 <div class="send-confirm__content">
                     <div class="send-confirm__summary">
                         <div class="zelf-action-row">
                             <p class="send-confirm__label">{{ t("common.from") }}</p>
 
-                            <div class="send-confirm__from-value">
-                                <p class="send-confirm__value">{{ transactionData.sender.address | addressMask }}</p>
-
-                                <div class="zelf-chip" *ngIf="transactionData.sender.zelfName">{{ transactionData.sender.zelfName | uppercase }}</div>
-                            </div>
+                            <p class="send-confirm__value">{{ transactionData.sender.address | addressMask }}</p>
                         </div>
 
                         <div class="zelf-action-row">
@@ -55,13 +67,7 @@
                         <div class="zelf-action-row">
                             <p class="send-confirm__label">{{ t("common.address") }}</p>
 
-                            <div class="send-confirm__from-value">
-                                <p class="send-confirm__value send-confirm__value--address">{{ transactionData.receiver.address }}</p>
-
-                                <div class="zelf-chip" *ngIf="transactionData.receiver?.zelfName">
-                                    {{ transactionData.receiver.zelfName | uppercase }}
-                                </div>
-                            </div>
+                            <p class="send-confirm__value send-confirm__value--address">{{ transactionData.receiver.address }}</p>
                         </div>
 
                         <div class="zelf-action-row">

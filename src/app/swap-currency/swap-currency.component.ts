@@ -218,7 +218,7 @@ export class SwapCurrencyComponent implements OnInit {
     }
 
     onImageError(asset: TokenData): void {
-        asset.image = "assets/icons/placeholder-coin.png";
+        asset.image = "assets/tokens/placeholder-coin.png";
     }
 
     onScroll(event: Event): void {

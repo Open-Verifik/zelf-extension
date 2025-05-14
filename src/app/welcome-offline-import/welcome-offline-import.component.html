@@ -125,7 +125,7 @@
 
             <p class="zelf-card__subtitle welcome-offline-import__subtitle">
                 <span *ngIf="zelfNameObject?.publicData?.registeredAt">
-                    {{ t("welcome.registered", { date: zelfNameObject?.publicData?.registeredAt | date : "MMMM yyyy" }) }}
+                    {{ t("welcome.registered", { date: zelfNameObject?.publicData?.registeredAt | date: "MMMM yyyy" }) }}
                 </span>
             </p>
 
@@ -137,7 +137,7 @@
                             $implicit: {
                                 address: zelfNameObject?.publicData?.btcAddress,
                                 label: t('common.btc_address'),
-                                logo: 'assets/images/currencies/btc.png',
+                                logo: 'assets/networks/btc.png',
                                 value: zelfNameObject?.displayBtcAddress,
                             },
                         }
@@ -151,7 +151,7 @@
                             $implicit: {
                                 address: zelfNameObject?.publicData?.ethAddress,
                                 label: t('common.eth_address'),
-                                logo: 'assets/images/currencies/eth.png',
+                                logo: 'assets/networks/eth.png',
                                 value: zelfNameObject?.displayEthAddress,
                             },
                         }
@@ -165,7 +165,7 @@
                             $implicit: {
                                 address: zelfNameObject?.publicData?.solanaAddress,
                                 label: t('common.sol_address'),
-                                logo: 'assets/images/currencies/sol.png',
+                                logo: 'assets/networks/sol.svg',
                                 value: zelfNameObject?.displaySolanaAddress,
                             },
                         }

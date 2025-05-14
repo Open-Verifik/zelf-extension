@@ -38,7 +38,6 @@
                     [ngClass]="{ 'zelf-input--error': form.get('toAddress')?.dirty && form.get('toAddress')?.invalid }"
                 >
                     <input
-                        (keydown)="onKeydown($event)"
                         (paste)="pastedAddress($event)"
                         [disabled]="withdrawStep || searching"
                         [placeholder]="t('send.domain_or_address')"
@@ -56,6 +55,7 @@
                         [disabled]="searching"
                         *ngIf="!withdrawStep"
                         class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--text"
+                        type="button"
                         mat-flat-button
                     >
                         {{ t("common.paste") | uppercase }}
@@ -127,6 +127,13 @@
                         </div>
                     </ng-container>
 
+                    <ng-container *ngIf="form.get('toAddress')?.errors?.sameAddress">
+                        <div class="zelf-message__row">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.same_address") }}</p>
+                        </div>
+                    </ng-container>
+
                     <ng-container *ngIf="form.get('toAddress')?.errors?.maxLength">
                         <div class="zelf-message__row">
                             <ng-container *ngTemplateOutlet="cross"></ng-container>
@@ -134,7 +141,7 @@
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="form.get('toAddress')?.errors?.invalidEVM || form.get('toAddress')?.errors?.invalidSUI">
+                    <ng-container *ngIf="form.get('toAddress')?.errors?.invalidFormat">
                         <div class="zelf-message__row">
                             <ng-container *ngTemplateOutlet="cross"></ng-container>
                             <p>{{ t("errors.invalid_format") }}</p>

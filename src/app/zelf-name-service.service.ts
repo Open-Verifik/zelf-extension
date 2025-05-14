@@ -104,11 +104,19 @@ export class ZelfNameService {
 
         if (captchaToken) query.captchaToken = captchaToken;
 
+        if (query.key === "zelfName") {
+            query.value = query.value.toLowerCase();
+        }
+
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search`, query);
     }
 
     searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
         const query: { key: string; value: string; captchaToken?: string } = { key, value };
+
+        if (query.key === "zelfName") {
+            query.value = query.value.toLowerCase();
+        }
 
         if (captchaToken) query.captchaToken = captchaToken;
 

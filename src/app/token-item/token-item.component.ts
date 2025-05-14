@@ -1,5 +1,5 @@
 import { CurrencyPipe, DecimalPipe, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslocoService } from "@jsverse/transloco";
@@ -14,7 +14,7 @@ import { WalletService } from "app/wallet.service";
     styleUrls: ["./token-item.component.scss"],
     templateUrl: "./token-item.component.html",
 })
-export class TokenItemComponent extends CopyToClipboardBase {
+export class TokenItemComponent extends CopyToClipboardBase implements OnInit {
     @Output("onQRCodeClick") onQRCodeClick: EventEmitter<any> = new EventEmitter<any>();
 
     @Input("token") token: any;
@@ -34,13 +34,12 @@ export class TokenItemComponent extends CopyToClipboardBase {
         this.token = {};
     }
 
+    ngOnInit(): void {
+        this.token.image = this._walletService.getAssetImage(this.token.symbol, this.token?.image);
+    }
+
     public copyToClipboard(): void {
         if (!this.token?.address) return;
-
-        if (this.token?.symbol) {
-            this._walletService.setAssetImage(this.token.symbol, this.token?.image);
-            this.token.image = this._walletService.getAssetImage(this.token.symbol);
-        }
 
         this._copyToClipboard(this.token.address);
     }

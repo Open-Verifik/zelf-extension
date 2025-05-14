@@ -36,6 +36,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         private _walletService: WalletService
     ) {
         this.CAN_SEND = this._assetService.canSend;
+
         this.loading = true;
     }
 
@@ -55,7 +56,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         try {
             const sessionTokens = await this._assetService.loadTokensFromSession();
 
-            if (sessionTokens.length > 0) {
+            if (sessionTokens.length) {
                 this.tokens = sessionTokens.filter((token) => this.isTokenSendable(token));
             } else {
                 await this._fetchTokens();
@@ -91,9 +92,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
 
     private async _fetchTokens(): Promise<void> {
         try {
-            this.loading = true;
-
-            if (!this.wallet || !this.wallet._id) return;
+            if (!this.wallet || !this.wallet.ethAddress) return;
 
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
             const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SEND);

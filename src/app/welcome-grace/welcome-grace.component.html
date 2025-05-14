@@ -23,11 +23,11 @@
 
                 <p class="zelf-card__subtitle welcome-grace__subtitle">
                     <span *ngIf="zelfNameObject.publicData.isInGracePeriod">
-                        {{ t("welcome.registered_since", { date: zelfNameObject.publicData.registeredAt | date : "dd MMM, yyyy" }) }}
+                        {{ t("welcome.registered_since", { date: zelfNameObject.publicData.registeredAt | date: "dd MMM, yyyy" }) }}
                     </span>
 
                     <span *ngIf="!zelfNameObject.publicData.isInGracePeriod">
-                        {{ t("welcome.domain_expired_since", { date: zelfNameObject.publicData.gracePeriod | date : "dd MMM, yyyy" }) }}
+                        {{ t("welcome.domain_expired_since", { date: zelfNameObject.publicData.gracePeriod | date: "dd MMM, yyyy" }) }}
                     </span>
                 </p>
 
@@ -39,9 +39,9 @@
                                 $implicit: {
                                     address: zelfNameObject?.btcAddress,
                                     label: 'Bitcoin',
-                                    logo: 'assets/images/currencies/btc.png',
+                                    logo: 'assets/networks/btc.png',
                                     value: zelfNameObject?.displayBtcAddress,
-                                }
+                                },
                             }
                         "
                     ></ng-container>
@@ -53,9 +53,9 @@
                                 $implicit: {
                                     address: zelfNameObject?.ethAddress,
                                     label: 'Ethereum',
-                                    logo: 'assets/images/currencies/eth.png',
+                                    logo: 'assets/networks/eth.png',
                                     value: zelfNameObject?.displayEthAddress,
-                                }
+                                },
                             }
                         "
                     ></ng-container>
@@ -67,9 +67,9 @@
                                 $implicit: {
                                     address: zelfNameObject?.solanaAddress,
                                     label: 'Solana',
-                                    logo: 'assets/images/currencies/sol.png',
+                                    logo: 'assets/networks/sol.svg',
                                     value: zelfNameObject?.displaySolanaAddress,
-                                }
+                                },
                             }
                         "
                     ></ng-container>
@@ -83,7 +83,7 @@
 
                         <div class="welcome-grace__date-text__inner-row">
                             <p class="welcome-grace__date-text">
-                                {{ zelfNameObject.publicData.expiresAt | date : "dd MMM, yyyy" }}
+                                {{ zelfNameObject.publicData.expiresAt | date: "dd MMM, yyyy" }}
                             </p>
 
                             <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +102,7 @@
 
                         <div class="welcome-grace__date-text__inner-row">
                             <p class="welcome-grace__date-text" *ngIf="zelfNameObject.publicData.gracePeriod">
-                                {{ zelfNameObject.publicData.gracePeriod | date : "dd MMM, yyyy" }}
+                                {{ zelfNameObject.publicData.gracePeriod | date: "dd MMM, yyyy" }}
                             </p>
 
                             <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">

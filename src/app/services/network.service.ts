@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "app/chrome.service";
 
-export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana";
+export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin";
+export type NetworkSymbol = "ETH" | "SUI" | "AVAX" | "SOL" | "BTC";
 
 @Injectable({
     providedIn: "root",
@@ -52,6 +53,28 @@ export class NetworkService {
                 return 784;
             default:
                 return 1;
+        }
+    }
+
+    getNetworkImage(network: NetworkName | NetworkSymbol): string {
+        switch (network) {
+            case "ethereum":
+            case "ETH":
+                return "./assets/networks/eth.png";
+            case "sui":
+            case "SUI":
+                return "./assets/networks/sui.png";
+            case "avalanche":
+            case "AVAX":
+                return "./assets/networks/avax.png";
+            case "solana":
+            case "SOL":
+                return "./assets/networks/sol.png";
+            case "bitcoin":
+            case "BTC":
+                return "./assets/networks/btc.png";
+            default:
+                return "";
         }
     }
 }

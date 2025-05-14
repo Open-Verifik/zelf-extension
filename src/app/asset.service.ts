@@ -205,7 +205,7 @@ export class AssetService {
                 network,
                 balance: parseFloat(token.balance || token.amount || "0"),
                 fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : token.image),
+                image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : token.image),
                 price: parseFloat(token.price || "0"),
                 tokenType: token.tokenType || (network === "Avalanche" ? "AVAX" : "ERC-20"),
             };
@@ -302,7 +302,7 @@ export class AssetService {
                         fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
                         price: parseFloat(token.price || "0"),
                         tokenType: token.tokenType || "ERC-20",
-                        image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : undefined),
+                        image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : undefined),
                     }));
 
                     tokens = this.processTokens("Avalanche", formattedTokens, tokens, permissions);

@@ -134,7 +134,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         this.loading = true;
 
-        const zelfName = `${this.form.value.zelfName}.zelf`;
+        const zelfName = `${this.form.value.zelfName}.zelf`.toLowerCase();
 
         let captchaToken = "";
 

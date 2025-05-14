@@ -167,7 +167,7 @@
 
 .zelf-object-preview {
     margin: auto 0;
-    max-width: 364px;
+    max-width: 484px;
     width: 100%;
     border-radius: 16px;
     padding: 24px 16px;
@@ -231,10 +231,13 @@
         font-size: 24px;
         line-height: 32px;
         letter-spacing: 0%;
+        width: 100%;
         text-align: center;
         text-transform: uppercase;
         color: variables.$black;
         margin: 0;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
 
         @media (max-width: variables.$minSmall) {
             font-size: 18px;
@@ -252,6 +255,7 @@
         vertical-align: middle;
         color: variables.$black;
         margin: 0;
+        word-wrap: break-word;
         overflow-wrap: anywhere;
     }
 

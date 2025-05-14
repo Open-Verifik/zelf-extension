@@ -3,6 +3,7 @@ import { Component, Input, OnDestroy } from "@angular/core";
 import { MatBottomSheet, MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatIconModule } from "@angular/material/icon";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslocoPipe } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
@@ -13,7 +14,7 @@ import { Wallet } from "app/wallet";
 import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header-accounts.component";
 
 @Component({
-    imports: [NgIf, MatBottomSheetModule, MatMenuModule, MatDividerModule, TranslocoPipe, ZelfNamePipe],
+    imports: [NgIf, MatBottomSheetModule, MatIconModule, MatMenuModule, MatDividerModule, TranslocoPipe, ZelfNamePipe],
     selector: "home-header",
     styleUrls: ["./home-header.component.scss", "../../main.scss"],
     template: `
@@ -38,18 +39,52 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
                 <ng-container *ngIf="!(isExtension && (!isSidePanel || isPopout))">&nbsp;</ng-container>
 
                 <button
-                    (click)="openSidePanel()"
+                    [matMenuTriggerFor]="menu"
                     *ngIf="isExtension && (!isSidePanel || isPopout)"
                     class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white"
                     id="open-sidebar"
                     mat-flat-button
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                        <path
-                            d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z"
-                        />
+                        <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
                     </svg>
                 </button>
+
+                <mat-menu class="zelf-menu" #menu>
+                    <button
+                        class="zelf-menu__button zelf-menu__button--icon-end"
+                        mat-menu-item
+                        (click)="openSidePanel()"
+                        *ngIf="isPopout || !isSidePanel"
+                    >
+                        <span class="zelf-menu__button-text">{{ "common.open_in_sidebar" | transloco }}</span>
+
+                        <mat-icon class="zelf-menu__button-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path
+                                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z"
+                                />
+                            </svg>
+                        </mat-icon>
+                    </button>
+
+                    <button
+                        class="zelf-menu__button zelf-menu__button--icon-end"
+                        mat-menu-item
+                        (click)="openFullScreen()"
+                        *ngIf="isPopout || isSidePanel"
+                    >
+                        <span class="zelf-menu__button-text">{{ "common.open_fullscreen" | transloco }}</span>
+
+                        <mat-icon class="zelf-menu__button-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                <path
+                                    d="M120-120v-200h80v120h120v80H120Zm520 0v-80h120v-120h80v200H640ZM120-640v-200h200v80H200v120h-80Zm640 0v-120H640v-80h200v200h-80Z"
+                                />
+                            </svg>
+                        </mat-icon>
+                    </button>
+                </mat-menu>
             </div>
         </div>
 
@@ -144,6 +179,10 @@ export class HomeHeaderComponent implements OnDestroy {
         this.shareables.view = this.shareables.view === "home" ? "networkPickerPage" : "home";
 
         this.updateView(this.shareables.view);
+    }
+
+    openFullScreen(): void {
+        this._chromeService.openFullPage("home");
     }
 
     // Method to update the URL when the variable changes

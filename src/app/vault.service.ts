@@ -129,6 +129,7 @@ export class VaultService {
         }
 
         const wallet = await this._walletService.getCurrentWallet();
+
         if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) {
             throw new Error("No wallet available");
         }

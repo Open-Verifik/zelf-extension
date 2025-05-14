@@ -54,7 +54,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         this.flow = await this._zelfNameService.getFlow();
         this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
 
-        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.zelfNameObject?.available);
+        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && !this.zelfNameObject?.available);
 
         this._initForm();
     }

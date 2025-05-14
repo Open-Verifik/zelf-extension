@@ -1,8 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { NgModule } from "@angular/core";
-import { Router } from "@angular/router";
 import { BrowserModule } from "@angular/platform-browser";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { Router } from "@angular/router";
 
 import { environment } from "environments/environment";
 import { HttpInterceptorProviders } from "./interceptors";
@@ -15,7 +16,7 @@ import { TranslocoRootModule } from "./core/transloco-root.module";
     declarations: [AppComponent],
     bootstrap: [AppComponent],
     imports: [AppRoutingModule, TranslocoRootModule, BrowserModule, CommonModule],
-    providers: [HttpInterceptorProviders, provideHttpClient(withInterceptorsFromDi())],
+    providers: [HttpInterceptorProviders, provideHttpClient(withInterceptorsFromDi()), provideAnimations()],
 })
 export class AppModule {
     constructor(private router: Router) {

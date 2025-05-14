@@ -18,6 +18,7 @@ html {
 @include mat.menu-overrides(
     (
         container-color: variables.$white,
+        item-hover-state-layer-color: variables.$antiFlashWhite,
     )
 );
 

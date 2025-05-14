@@ -58,7 +58,7 @@
         padding: 100px 0 64px;
 
         @media screen and (max-width: variables.$medium) {
-            padding: 72px 0 64px;
+            padding: 56px 0 32px;
         }
     }
 
@@ -80,6 +80,7 @@
         @media screen and (max-width: variables.$medium) {
             background: linear-gradient(to top, variables.$white 70%, transparent);
             justify-content: flex-end;
+            padding: 6px;
         }
 
         &-menu-trigger {

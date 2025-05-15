@@ -219,12 +219,12 @@ export class LifiService {
                 quote.action.fromToken.address.toLowerCase() === NATIVE_TOKEN_ADDRESS.toLowerCase() ||
                 quote.action.fromToken.address.toLowerCase() === ZERO_ADDRESS.toLowerCase();
 
-            console.log("Swap details:", {
-                fromToken: quote.action.fromToken.address,
-                isFromNative,
-                value: quote.transactionRequest.value,
-                fromTokenSymbol: quote.action.fromToken.symbol,
-            });
+            // console.log("Swap details:", {
+            //     fromToken: quote.action.fromToken.address,
+            //     isFromNative,
+            //     value: quote.transactionRequest.value,
+            //     fromTokenSymbol: quote.action.fromToken.symbol,
+            // });
 
             const feeData = await provider.getFeeData();
             const nonce = await provider.getTransactionCount(signer.address, "latest");
@@ -396,15 +396,15 @@ export class LifiService {
         slippage: number = 3
     ): Promise<any> {
         try {
-            console.log("Getting swap quote with params:", {
-                fromChain,
-                fromToken,
-                toChain,
-                toToken,
-                fromAmount,
-                fromAddress,
-                slippage,
-            });
+            // console.log("Getting swap quote with params:", {
+            //     fromChain,
+            //     fromToken,
+            //     toChain,
+            //     toToken,
+            //     fromAmount,
+            //     fromAddress,
+            //     slippage,
+            // });
 
             slippage = Math.max(slippage, 3);
 
@@ -421,22 +421,22 @@ export class LifiService {
 
             const quote: any = response;
 
-            console.log("Quote recibido de LiFi:", quote);
+            // console.log("Quote recibido de LiFi:", quote);
             if (quote?.action) {
-                console.log("Ruta de swap:", {
-                    fromToken: quote.action.fromToken,
-                    toToken: quote.action.toToken,
-                    tool: quote.tool,
-                    toolDetails: quote.toolDetails,
-                    steps: quote.steps,
-                });
+                // console.log("Ruta de swap:", {
+                //     fromToken: quote.action.fromToken,
+                //     toToken: quote.action.toToken,
+                //     tool: quote.tool,
+                //     toolDetails: quote.toolDetails,
+                //     steps: quote.steps,
+                // });
             }
             if (quote?.estimate) {
-                console.log("Montos estimados:", {
-                    fromAmount: quote.estimate.fromAmount,
-                    toAmount: quote.estimate.toAmount,
-                    gasCosts: quote.estimate.gasCosts,
-                });
+                // console.log("Montos estimados:", {
+                //     fromAmount: quote.estimate.fromAmount,
+                //     toAmount: quote.estimate.toAmount,
+                //     gasCosts: quote.estimate.gasCosts,
+                // });
             }
 
             return quote;

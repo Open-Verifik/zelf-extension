@@ -496,13 +496,13 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     isConfirmationDisabled(): boolean {
-        if (!this.foundAddress || this.searching || this.form.invalid) return true;
+        if (!this.foundAddress || this.searching || this.form.invalid || this.form.get("amount")?.invalid) return true;
 
         return false;
     }
 
     isWithdrawDisabled(): boolean {
-        if (!this.foundAddress || this.searching || this.form.get("amount")?.invalid) return true;
+        if (!this.foundAddress || this.searching) return true;
 
         return false;
     }

@@ -140,7 +140,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             },
         });
 
-        console.log("Setting transaction data:", transactionData);
+        // console.log("Setting transaction data:", transactionData);
 
         try {
             await this._transactionService.setCurrentTransactionData(transactionData);

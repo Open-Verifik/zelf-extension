@@ -86,10 +86,10 @@ export class SolanaService {
 
     async sendTokens(mnemonic: string, toAddress: string, tokenAddress: string, amount: number): Promise<string> {
         try {
-            console.log("Sending from wallet address:", this.generateAddressFromMnemonic(mnemonic));
-            console.log("Sending to address:", toAddress);
-            console.log("Token address:", tokenAddress);
-            console.log("Amount:", amount);
+            // console.log("Sending from wallet address:", this.generateAddressFromMnemonic(mnemonic));
+            // console.log("Sending to address:", toAddress);
+            // console.log("Token address:", tokenAddress);
+            // console.log("Amount:", amount);
 
             const connection = new Connection(environment.solanaRpc.mainnet, {
                 commitment: "confirmed",
@@ -153,12 +153,12 @@ export class SolanaService {
 
     private async sendSPLTokens(params: { fromPubKey: Keypair; toAddress: string; mintAddress: string; amount: number }): Promise<string> {
         try {
-            console.log("Starting SPL token transfer with params:", {
-                fromPubKey: params.fromPubKey.publicKey.toString(),
-                toAddress: params.toAddress,
-                mintAddress: params.mintAddress,
-                amount: params.amount,
-            });
+            // console.log("Starting SPL token transfer with params:", {
+            //     fromPubKey: params.fromPubKey.publicKey.toString(),
+            //     toAddress: params.toAddress,
+            //     mintAddress: params.mintAddress,
+            //     amount: params.amount,
+            // });
 
             const connection = new Connection(environment.solanaRpc.mainnet, {
                 commitment: "confirmed",
@@ -169,10 +169,10 @@ export class SolanaService {
             const recipientAddress = new PublicKey(params.toAddress);
 
             const senderTokenAccount = await getAssociatedTokenAddress(mint, fromKeypair.publicKey);
-            console.log("Sender token account:", senderTokenAccount.toBase58());
+            // console.log("Sender token account:", senderTokenAccount.toBase58());
 
             const recipientTokenAccount = await getAssociatedTokenAddress(mint, recipientAddress);
-            console.log("Recipient token account:", recipientTokenAccount.toBase58());
+            // console.log("Recipient token account:", recipientTokenAccount.toBase58());
 
             const tokenInfo = await connection.getParsedAccountInfo(mint);
             if (!tokenInfo.value) {
@@ -206,10 +206,10 @@ export class SolanaService {
 
             transaction.add(createTransferInstruction(senderTokenAccount, recipientTokenAccount, fromKeypair.publicKey, amountInTokenUnits));
 
-            console.log("Using prioritization fee for SPL token: 500000 microLamports");
+            // console.log("Using prioritization fee for SPL token: 500000 microLamports");
 
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
-            console.log("Transaction sent with signature:", signature);
+            // console.log("Transaction sent with signature:", signature);
             return signature;
         } catch (error: any) {
             console.error("SPL token transfer failed:", error);
@@ -293,7 +293,7 @@ export class SolanaService {
             const hd = slip10.fromMasterSeed(seed.toString("hex"));
             const keypair = Keypair.fromSeed(hd.derive("m/44'/501'/0'/0'").privateKey);
 
-            console.log("Derived keypair public key:", keypair.publicKey.toBase58());
+            // console.log("Derived keypair public key:", keypair.publicKey.toBase58());
             return keypair;
         } catch (error) {
             console.error("Error deriving keypair from mnemonic:", error);

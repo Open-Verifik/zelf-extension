@@ -27,17 +27,10 @@ chrome?.sidePanel?.setOptions({
 });
 
 // firefox specific
-browser.menus?.create({
-    id: "open-sidebar",
-    title: "Open Sidebar",
-    contexts: ["all"],
-});
-
-// firefox specific
 browser.menus?.onClicked.addListener(() => {
     if (browser.sidebarAction) browser.sidebarAction.open();
 });
 
-browser.runtime.onInstalled.addListener((event) => {
+browser.runtime.onInstalled.addListener(() => {
     openFullPage();
 });

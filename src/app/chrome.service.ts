@@ -261,13 +261,9 @@ export class ChromeService {
             if (tabs.length > 1 && tabs[0].id === this._tabId) await this.closeTab();
         }
 
-        if (chrome?.sidePanel) {
-            await chrome.sidePanel.open({ windowId: window.id });
-            await chrome.sidePanel.setOptions({
-                path: "index.html",
-                enabled: true,
-            });
-        }
+        if (!chrome?.sidePanel) return;
+
+        await chrome.sidePanel.open({ windowId: window.id });
     }
 
     async removeItem(key: string): Promise<void> {

@@ -1,6 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, isDevMode } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { provideTransloco, TranslocoConfig } from "@jsverse/transloco";
+
+import { environment } from "environments/environment";
 
 @Injectable({
     providedIn: "root",
@@ -18,7 +20,7 @@ export const translocoConfig: TranslocoConfig = {
     failedRetries: 1,
     fallbackLang: "en",
     interpolation: ["{{", "}}"],
-    prodMode: !isDevMode(),
+    prodMode: environment.production,
     reRenderOnLangChange: true,
     availableLangs: [
         {
@@ -67,7 +69,7 @@ export const translocoConfig: TranslocoConfig = {
         },
     ],
     flatten: {
-        aot: !isDevMode(),
+        aot: !environment.production,
     },
     missingHandler: {
         allowEmpty: true,

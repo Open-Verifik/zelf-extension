@@ -5,7 +5,8 @@ export const environment = {
     apiUrl: "http://localhost:3003",
     // apiUrl: "https://api.zelf.world",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
-    testnetAddress: "tb1phkg7rlfp8d6zkk699rlacnwyuc9g2jh02ehscztncuew4c4y5mkstxw2c9",
+    // testnetAddress: "tb1phkg7rlfp8d6zkk699rlacnwyuc9g2jh02ehscztncuew4c4y5mkstxw2c9",
+    testnetAddress: "",
     networks: {
         ethereum: "sepolia",
         avalanche: "avalanche",

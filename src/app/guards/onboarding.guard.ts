@@ -10,7 +10,18 @@ export const OnboardingGuard: CanActivateFn = async () => {
     const isSidePanel = _chromeService.isSidePanel;
 
     if (isExtension) {
-        if (isPopout || isSidePanel) {
+        if (isSidePanel) {
+            _chromeService.openFullPage("welcome");
+
+            await chrome.sidePanel.setOptions({
+                path: "index.html",
+                enabled: false,
+            });
+
+            return false;
+        }
+
+        if (isPopout) {
             _chromeService.openFullPage("welcome");
 
             return false;

@@ -58,6 +58,15 @@ const routes: Routes = [
             },
         ],
     },
+    // {
+    //     path: "swap",
+    //     loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+    //     canActivate: [LoginGuard],
+    //     resolve: {
+    //         auth: JWTResolver,
+    //     },
+    //     children: [{ path: "", loadComponent: () => import("./swap/swap.component").then((m) => m.SwapComponent) }],
+    // },
     {
         path: "welcome",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),

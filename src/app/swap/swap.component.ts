@@ -723,9 +723,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             const slippage = this.form.get("slippage")?.value || 0.5;
             const slippageStr = slippage.toString();
 
-            const quote = await firstValueFrom(
-                this._lifiService.getQuote(fromChain, fromToken, toChain, toToken, fromAmount, fromAddress, slippageStr)
-            );
+            const quote = await this._lifiService.getQuote(fromChain, fromToken, toChain, toToken, fromAmount, fromAddress, slippageStr);
 
             const toTokenDecimals = this.selectedTargetAsset.decimals || 9;
 

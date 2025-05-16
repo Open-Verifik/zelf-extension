@@ -112,10 +112,10 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            await this._chromeService.removeItem("wallet");
-            await this._chromeService.removeItem("wallets");
+            this._chromeService.clearLocalStorage();
+            this._chromeService.clearSessionStorage();
 
-            this._router.navigate(["/welcome"]);
+            this._router.navigate(["/welcome"], { replaceUrl: true });
         });
     }
 

@@ -8,6 +8,199 @@ import { SolanaService } from "app/solana.service";
 import { TokenData } from "app/wallet";
 import { environment } from "environments/environment";
 
+export type LifiQuote = {
+    id: string;
+    type: string;
+    tool: string;
+    toolDetails: {
+        key: string;
+        logoURI: string;
+        name: string;
+    };
+    action: {
+        fromChainId: number;
+        toChainId: number;
+        fromToken: {
+            address: string;
+            symbol: string;
+            decimals: number;
+            chainId: number;
+            name: string;
+            coinKey: string;
+            priceUSD: string;
+            logoURI: string;
+        };
+        toToken: {
+            name: string;
+            symbol: string;
+            coinKey: string;
+            decimals: number;
+            chainId: number;
+            logoURI: string;
+            address: string;
+        };
+        fromAmount: string;
+        slippage: number;
+        fromAddress: string;
+        toAddress: string;
+    };
+    estimate: {
+        fromAmount: string;
+        toAmount: string;
+        toAmountMin: string;
+        approvalAddress: string;
+        feeCosts: any[];
+        gasCosts: Array<{
+            type: string;
+            price: string;
+            estimate: string;
+            limit: string;
+            amount: string;
+            amountUSD: string;
+            token: {
+                address: string;
+                symbol: string;
+                decimals: number;
+                chainId: number;
+                name: string;
+                coinKey: string;
+                priceUSD: string;
+                logoURI: string;
+            };
+        }>;
+        data: {
+            fromToken: {
+                name: string;
+                address: string;
+                symbol: string;
+                decimals: number;
+                logoURI: string;
+            };
+            toToken: {
+                name: string;
+                address: string;
+                symbol: string;
+                decimals: number;
+                logoURI: string;
+            };
+            toTokenAmount: string;
+            fromTokenAmount: string;
+            protocols: Array<
+                Array<
+                    Array<{
+                        name: string;
+                        part: number;
+                        fromTokenAddress: string;
+                        toTokenAddress: string;
+                    }>
+                >
+            >;
+            estimatedGas: number;
+        };
+    };
+    integrator: string;
+    transactionRequest: {
+        from: string;
+        to: string;
+        chainId: number;
+        data: string;
+        value: string;
+        gasPrice: string;
+        gasLimit: string;
+    };
+    includedSteps: Array<{
+        id: string;
+        type: string;
+        tool: string;
+        toolDetails: {
+            key: string;
+            logoURI: string;
+            name: string;
+        };
+        action: {
+            fromChainId: number;
+            toChainId: number;
+            fromToken: {
+                address: string;
+                symbol: string;
+                decimals: number;
+                chainId: number;
+                name: string;
+                coinKey: string;
+                priceUSD: string;
+                logoURI: string;
+            };
+            toToken: {
+                name: string;
+                symbol: string;
+                coinKey: string;
+                decimals: number;
+                chainId: number;
+                logoURI: string;
+                address: string;
+            };
+            fromAmount: string;
+            slippage: number;
+            fromAddress: string;
+            toAddress: string;
+        };
+        estimate: {
+            fromAmount: string;
+            toAmount: string;
+            toAmountMin: string;
+            approvalAddress: string;
+            feeCosts: any[];
+            gasCosts: Array<{
+                type: string;
+                price: string;
+                estimate: string;
+                limit: string;
+                amount: string;
+                amountUSD: string;
+                token: {
+                    address: string;
+                    symbol: string;
+                    decimals: number;
+                    chainId: number;
+                    name: string;
+                    coinKey: string;
+                    priceUSD: string;
+                    logoURI: string;
+                };
+            }>;
+            data: {
+                fromToken: {
+                    name: string;
+                    address: string;
+                    symbol: string;
+                    decimals: number;
+                    logoURI: string;
+                };
+                toToken: {
+                    name: string;
+                    address: string;
+                    symbol: string;
+                    decimals: number;
+                    logoURI: string;
+                };
+                toTokenAmount: string;
+                fromTokenAmount: string;
+                protocols: Array<
+                    Array<
+                        Array<{
+                            name: string;
+                            part: number;
+                            fromTokenAddress: string;
+                            toTokenAddress: string;
+                        }>
+                    >
+                >;
+                estimatedGas: number;
+            };
+        };
+    }>;
+};
+
 @Injectable({
     providedIn: "root",
 })
@@ -321,15 +514,12 @@ export class LifiService {
         const networkMappings: { [key: string]: string } = {
             "1": environment.ethereumRpc.mainnet,
             "137": environment.polygonRpc.mainnet,
-
             "43114": environment.avalancheRpc.mainnet,
         };
 
         const rpc = networkMappings[chainId.toString()];
 
-        if (!rpc) {
-            throw new Error(`Unsupported network: ${chainId}`);
-        }
+        if (!rpc) throw new Error(`Unsupported network: ${chainId}`);
 
         return rpc;
     }
@@ -449,108 +639,22 @@ export class LifiService {
     /**
      * Get a quote for a swap
      */
-    getQuote(
+    async getQuote(
         fromChain: string,
         fromToken: string,
         toChain: string,
         toToken: string,
         fromAmount: string,
         fromAddress: string,
-        slippage: string
-    ): Observable<any> {
-        const formattedAmount = this._formatAmount(fromAmount.toString());
-
-        const params = {
-            fromChain,
-            fromToken,
-            toChain,
-            toToken,
-            fromAmount: formattedAmount,
-            fromAddress,
-            slippage: slippage.toString(),
-        };
-
-        return this._http.get<any>(`${this.LIFI_API_URL}/quote`, { params }).pipe(
-            map((response) => {
-                if (fromToken.toLowerCase().includes("usdc") && toToken.toLowerCase().includes("sol")) {
-                    const usdcAmount = parseFloat(formattedAmount);
-                    const solPrice = 146;
-                    const expectedSolAmount = usdcAmount / solPrice;
-
-                    if (response.estimate) {
-                        response.estimate.toAmount = expectedSolAmount.toFixed(9);
-                        response.estimate.toAmountMin = (expectedSolAmount * 0.99).toFixed(9);
-                    }
-                }
-
-                return response;
-            }),
-            catchError((error) => {
-                console.error("Error getting quote:", error);
-                throw error;
-            })
-        );
-    }
-
-    /**
-     * Format amount to avoid scientific notation
-     */
-    private _formatAmount(amount: string): string {
-        const numAmount = parseFloat(amount);
-
-        if (numAmount < 0.000001 && numAmount > 0) {
-            return numAmount.toFixed(18).replace(/\.?0+$/, "");
-        }
-
-        return numAmount.toString();
-    }
-
-    /**
-     * Get a swap quote from Li.Fi API with simplified parameters and Solana support
-     */
-    async getSwapQuote(
-        fromChain: string | number,
-        fromToken: string,
-        toChain: string | number,
-        toToken: string,
-        fromAmount: string,
-        fromAddress: string,
-        toAddress: string,
         slippage: number = 3
     ): Promise<any> {
         try {
             slippage = Math.max(slippage, 3);
 
-            if (fromChain === "SOL" || toChain === "SOL") {
-                const requestBody = {
-                    fromChainId: fromChain,
-                    fromAmount,
-                    toChainId: toChain,
-                    fromTokenAddress: fromToken,
-                    toTokenAddress: toToken,
-                    fromAddress,
-                    toAddress,
-                    options: {
-                        slippage: slippage / 100,
-                    },
-                };
-
-                const response = await firstValueFrom(
-                    this._http.post(`${this.LIFI_API_URL}/advanced/routes`, requestBody).pipe(
-                        catchError((error) => {
-                            console.error("Error getting Solana swap quote:", error);
-                            throw new Error("Error al obtener cotización de swap para Solana");
-                        })
-                    )
-                );
-
-                return response;
-            }
-
-            const url = `${this.LIFI_API_URL}/quote?fromChain=${fromChain}&fromToken=${fromToken}&toChain=${toChain}&toToken=${toToken}&fromAmount=${fromAmount}&fromAddress=${fromAddress}&toAddress=${toAddress}&slippage=${slippage}&allowExchanges=openocean,paraswap,0x&fee=0`;
+            const url = `${this.LIFI_API_URL}/quote?fromChain=${fromChain}&fromToken=${fromToken}&toChain=${toChain}&toToken=${toToken}&fromAmount=${fromAmount}&fromAddress=${fromAddress}&slippage=${slippage}&allowExchanges=openocean,paraswap,0x&fee=0`;
 
             const response = await firstValueFrom(
-                this._http.get(url).pipe(
+                this._http.get<LifiQuote>(url).pipe(
                     catchError((error) => {
                         console.error("Error getting swap quote:", error);
                         throw new Error("Error al obtener cotización de swap");
@@ -558,9 +662,7 @@ export class LifiService {
                 )
             );
 
-            const quote: any = response;
-
-            return quote;
+            return response;
         } catch (error) {
             console.error("Error in getSwapQuote:", error);
             throw error;

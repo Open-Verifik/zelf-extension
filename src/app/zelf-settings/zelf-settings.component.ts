@@ -93,6 +93,8 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
             if (!result) return;
 
             this._chromeService.clearLocalStorage();
+            this._chromeService.clearSessionStorage();
+
             this._router.navigate(["/welcome"], { replaceUrl: true });
         });
     }

@@ -2,7 +2,6 @@ import { Pipe, type PipeTransform } from "@angular/core";
 
 @Pipe({
     name: "addressMask",
-    standalone: true,
 })
 export class AddressMaskPipe implements PipeTransform {
     transform(value?: string): unknown {

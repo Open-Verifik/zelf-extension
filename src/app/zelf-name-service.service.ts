@@ -4,7 +4,8 @@ import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
-
+import { WalletModel } from "./wallet";
+import { WalletService } from "./wallet.service";
 export type ZelfFlow = "create" | "import" | "unlock" | "recover" | "";
 
 @Injectable({
@@ -14,7 +15,12 @@ export class ZelfNameService {
     baseUrl: String = environment.apiUrl;
     variables: any;
 
-    constructor(private _httpWrapper: HttpWrapperService, private _chromeService: ChromeService, private _vaultService: VaultService) {
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _chromeService: ChromeService,
+        private _vaultService: VaultService,
+        private _walletService: WalletService
+    ) {
         this.variables = {
             duration: 1,
             price: 0,
@@ -57,6 +63,18 @@ export class ZelfNameService {
         };
     }
 
+    private _shouldRefreshWallets = async (): Promise<boolean> => {
+        const walletTtl = await this._chromeService.getItemSession("walletTtl");
+
+        if (!walletTtl || walletTtl < Date.now()) {
+            this._chromeService.setItemSession("walletTtl", Date.now() + 1000 * 60 * 30);
+
+            return true;
+        }
+
+        return false;
+    };
+
     generateArNS(zelfName: string): string {
         return `https://${zelfName.replace(".", "_")}.arweave.zelf.world`;
     }
@@ -86,11 +104,19 @@ export class ZelfNameService {
 
         if (captchaToken) query.captchaToken = captchaToken;
 
+        if (query.key === "zelfName") {
+            query.value = query.value.toLowerCase();
+        }
+
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search`, query);
     }
 
     searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
         const query: { key: string; value: string; captchaToken?: string } = { key, value };
+
+        if (query.key === "zelfName") {
+            query.value = query.value.toLowerCase();
+        }
 
         if (captchaToken) query.captchaToken = captchaToken;
 
@@ -217,5 +243,35 @@ export class ZelfNameService {
 
     async getZelfProof(): Promise<string> {
         return this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
+    }
+
+    async refreshAllWalletsPublicData(wallets: WalletModel[]): Promise<void> {
+        const shouldRefreshWallets = await this._shouldRefreshWallets();
+
+        if (!shouldRefreshWallets) return;
+
+        for (const wallet of wallets) {
+            const updatedWallet = await this.refreshWalletPublicData(wallet);
+
+            if (!updatedWallet) continue;
+
+            this._walletService.updateWallet(updatedWallet);
+        }
+    }
+
+    async refreshWalletPublicData(wallet: WalletModel): Promise<WalletModel | null> {
+        if (!wallet || !wallet.publicData?.zelfName) return null;
+
+        const response = await this.searchZelfName("zelfName", wallet.publicData.zelfName);
+
+        if (!response.data.ipfs?.length && !response.data.arweave?.length) return null;
+
+        const publicData = response.data.ipfs?.length ? response.data.ipfs[0]?.publicData : response.data.arweave?.[0]?.publicData;
+
+        if (!publicData || !wallet) return null;
+
+        (wallet as WalletModel)?.updatePublicData(publicData);
+
+        return wallet;
     }
 }

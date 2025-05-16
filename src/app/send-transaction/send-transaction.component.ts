@@ -12,8 +12,6 @@ import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
-import { CaptchaService } from "app/captcha.service";
-import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
@@ -38,8 +36,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
     templateUrl: "./send-transaction.component.html",
 })
 export class SendTransactionComponent implements OnDestroy {
-    private _captchaToken: string = "";
-    private unsubcriber$: Subject<void> = new Subject<void>();
+    private unsubscriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
     foundAddress?: WalletModel;
@@ -53,9 +50,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     constructor(
         private _assetService: AssetService,
-        private _captchaService: CaptchaService,
         private _changeDetectionRef: ChangeDetectorRef,
-        private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _snackBar: MatSnackBar,
@@ -80,7 +75,7 @@ export class SendTransactionComponent implements OnDestroy {
             return;
         }
 
-        this._transactionService.transactionData$.pipe(takeUntil(this.unsubcriber$)).subscribe((transactionData) => {
+        this._transactionService.transactionData$.pipe(takeUntil(this.unsubscriber$)).subscribe((transactionData) => {
             this.transactionData = transactionData;
 
             if (!this.transactionData || !this.transactionData.hasTransactionData) {
@@ -96,8 +91,8 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.unsubcriber$.next();
-        this.unsubcriber$.complete();
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
     }
 
     get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" {
@@ -132,6 +127,8 @@ export class SendTransactionComponent implements OnDestroy {
 
             if (!value) return null;
 
+            if (control.value === this.transactionData.sender.address) return { sameAddress: true };
+
             const pattern = this._getAddressPattern();
             const isValidZelfName = this._walletService.ZelfRegex.test(value);
 
@@ -140,27 +137,19 @@ export class SendTransactionComponent implements OnDestroy {
             if (isValidZelfName) return null;
 
             if ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(value)) {
-                return { invalidEVM: true };
+                return { invalidFormat: true };
             }
 
             if (this.transactionData.isSuiToken && !this._suiService.isValidSuiAddress(value)) {
-                return { invalidSUI: true };
+                return { invalidFormat: true };
             }
 
             if (this.transactionData.isSolToken && !this._solanaService.isValidSolanaAddress(value)) {
-                return { invalidSOL: true };
+                return { invalidFormat: true };
             }
 
             return null;
         };
-    }
-
-    private async _captchaGeneration(): Promise<any> {
-        if (this._chromeService.isExtension) return;
-
-        try {
-            this._captchaToken = await this._captchaService.executeRecaptcha(this.form.get("toAddress")?.value || "");
-        } catch (error) {}
     }
 
     private _getAddressPattern(): RegExp {
@@ -192,15 +181,17 @@ export class SendTransactionComponent implements OnDestroy {
     private _handlePaste(text: string): void {
         if (!text) return;
 
-        const pattern = this._getAddressPattern();
+        const toAddressCtrl = this.form.get("toAddress");
 
-        if (!pattern.test(text) && !this._walletService.ZelfRegex.test(text)) return;
+        if (!toAddressCtrl) return;
 
-        this.form.get("toAddress")?.patchValue(text);
+        toAddressCtrl.patchValue(text, { emitEvent: true, onlySelf: false });
+        toAddressCtrl.markAsDirty();
+        toAddressCtrl.updateValueAndValidity({ emitEvent: true, onlySelf: false });
     }
 
     private async _handleToAddressChange(text?: string): Promise<any> {
-        if (this.searching) return;
+        if (this.searching || this.form.get("toAddress")?.invalid) return;
 
         if (!text || !text.trim()) {
             this.isZelfNameNotFound = false;
@@ -213,8 +204,6 @@ export class SendTransactionComponent implements OnDestroy {
         this.isZelfNameNotFound = false;
 
         const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
-
-        await this._captchaGeneration();
 
         try {
             if (this._walletService.ZelfRegex.test(text)) await this._queryZNS("zelfName", text);
@@ -264,7 +253,7 @@ export class SendTransactionComponent implements OnDestroy {
 
         this.foundAddress = new WalletModel({
             [addressKey]: text,
-            publicData: {},
+            publicData: { zelfName: this.transactionData?.receiver?.zelfName },
         });
 
         if (this.withdrawStep) return;
@@ -302,7 +291,7 @@ export class SendTransactionComponent implements OnDestroy {
     private _initForm(): void {
         this.form = this._formBuilder.group({
             amount: [
-                this.transactionData?.amount || 0,
+                this.transactionData?.amount || "",
                 [
                     Validators.required,
                     Validators.min(0),
@@ -317,7 +306,15 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (!toAddressCtrl) return;
 
-        toAddressCtrl.valueChanges.pipe(takeUntil(this.unsubcriber$), debounceTime(1000)).subscribe((value: string) => {
+        toAddressCtrl.valueChanges.pipe(takeUntil(this.unsubscriber$), debounceTime(1000)).subscribe((value: string) => {
+            if (!value || !value.trim() || this.form.get("toAddress")?.invalid) {
+                this.foundAddress = undefined;
+                this.isZelfNameNotFound = false;
+                this._setToCurrentTransactionData();
+
+                return;
+            }
+
             this._handleToAddressChange(value);
         });
 
@@ -377,9 +374,7 @@ export class SendTransactionComponent implements OnDestroy {
         const address = this.form.get("toAddress")?.value;
 
         const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
-
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
-
         const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
 
         if (this.foundAddress) {
@@ -391,10 +386,10 @@ export class SendTransactionComponent implements OnDestroy {
                         isSuiTokenOrNetwork
                             ? "suiAddress"
                             : isEthereumToken
-                            ? "ethAddress"
-                            : this.transactionData.isSolToken
-                            ? "solanaAddress"
-                            : "solanaAddress"
+                              ? "ethAddress"
+                              : this.transactionData.isSolToken
+                                ? "solanaAddress"
+                                : "solanaAddress"
                     ] || ""
                 );
 
@@ -501,16 +496,13 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     isConfirmationDisabled(): boolean {
-        if (!this.foundAddress) return true;
-        if (this.form.invalid) return true;
+        if (!this.foundAddress || this.searching || this.form.invalid || this.form.get("amount")?.invalid) return true;
 
         return false;
     }
 
     isWithdrawDisabled(): boolean {
-        if (!this.foundAddress) return true;
-        if (this.searching) return true;
-        if (this.form.get("amount")?.value && this.form.get("amount")?.invalid) return true;
+        if (!this.foundAddress || this.searching) return true;
 
         return false;
     }
@@ -523,13 +515,6 @@ export class SendTransactionComponent implements OnDestroy {
         });
     }
 
-    onKeydown(event: KeyboardEvent): void {
-        if (event.key !== "Enter") return;
-
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
     async pasteAddress(): Promise<void> {
         if (this.withdrawStep || this.searching) return;
 
@@ -540,7 +525,6 @@ export class SendTransactionComponent implements OnDestroy {
 
     async pastedAddress(event: ClipboardEvent): Promise<void> {
         event.preventDefault();
-        event.stopPropagation();
 
         if (this.withdrawStep || this.searching) return;
 

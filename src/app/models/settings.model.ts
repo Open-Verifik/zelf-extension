@@ -1,6 +1,6 @@
 export interface Settings {
     security: {
-        biometricVerificationHours: number;
+        biometricVerificationInterval: number;
         passwordAttempts: number;
     };
 }

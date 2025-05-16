@@ -12,9 +12,10 @@ import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { WalletModel } from "app/wallet";
+import { PasswordStrengthComponent } from "password-strength/password-strength.component";
 
 @Component({
-    imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, PasswordStrengthComponent],
     selector: "security-password",
     styleUrls: ["./security-password.component.scss"],
     templateUrl: "./security-password.component.html",
@@ -53,7 +54,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         this.flow = await this._zelfNameService.getFlow();
         this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
 
-        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.zelfNameObject?.available);
+        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && !this.zelfNameObject?.available);
 
         this._initForm();
     }
@@ -98,21 +99,13 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         }
 
         this.form = this._formBuilder.group({
-            password: [
-                "",
-                [
-                    Validators.required,
-                    Validators.minLength(8),
-                    Validators.maxLength(26),
-                    Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\p{L}\p{N}\p{P}\p{S}])[^\s]{8,26}$/u),
-                ],
-            ],
+            password: ["", [Validators.required, Validators.minLength(8)]],
             confirmPassword: ["", [Validators.required, this._compareToValidator("password")]],
+            passwordStrength: [0, [Validators.required, Validators.min(8)]],
         });
 
         this.form.valueChanges.pipe(takeUntil(this.unsubscriber$), debounceTime(500)).subscribe(() => {
             if (!this.form.get("confirmPassword")?.dirty) return;
-
             this.form.get("confirmPassword")?.updateValueAndValidity();
         });
     }

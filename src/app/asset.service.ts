@@ -5,7 +5,7 @@ import { TokenData } from "./wallet";
 import { ChromeService } from "./chrome.service";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AssetChart, AssetDetails, AssetInterval, AssetIntervalOptions, AssetRange } from "./models/asset.model";
-import { Asset, Wallet } from "./wallet";
+import { Wallet } from "./wallet";
 import { EthereumService } from "./eth.service";
 import { SolanaService } from "./solana.service";
 import { SuiService } from "./services/sui.service";
@@ -57,6 +57,26 @@ export class AssetService {
 
     get targetAsset(): Partial<TokenData> {
         return this._targetAsset;
+    }
+
+    get canSwap(): NetworkPermissions {
+        return {
+            AVAX: true,
+            BTC: false,
+            ETH: true,
+            SOL: false,
+            SUI: false,
+        };
+    }
+
+    get canSend(): NetworkPermissions {
+        return {
+            AVAX: true,
+            BTC: false,
+            ETH: true,
+            SOL: true,
+            SUI: true,
+        };
     }
 
     get intervals(): AssetIntervalOptions {
@@ -185,7 +205,7 @@ export class AssetService {
                 network,
                 balance: parseFloat(token.balance || token.amount || "0"),
                 fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : token.image),
+                image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : token.image),
                 price: parseFloat(token.price || "0"),
                 tokenType: token.tokenType || (network === "Avalanche" ? "AVAX" : "ERC-20"),
             };
@@ -231,20 +251,12 @@ export class AssetService {
 
             tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
 
-            await this.saveTokensToSession(tokens);
+            if (!permissions) await this.saveTokensToSession(tokens);
         } catch (error) {
             console.error("Error processing tokens:", error);
         }
 
         return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
-    }
-
-    private updateSelectedAssetFiatBalance(selectedAsset: Asset, tokens: any[]): void {
-        tokens.forEach((token) => {
-            if (!token.fiatBalance) return;
-
-            selectedAsset.fiatBalance += token.fiatBalance || 0;
-        });
     }
 
     async fetchAdditionalTokenDetails(tokens: any[], wallet: Wallet, permissions?: NetworkPermissions): Promise<any[]> {
@@ -290,7 +302,7 @@ export class AssetService {
                         fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
                         price: parseFloat(token.price || "0"),
                         tokenType: token.tokenType || "ERC-20",
-                        image: token.image || (token.tokenType === "AVAX" ? "assets/images/avax.png" : undefined),
+                        image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : undefined),
                     }));
 
                     tokens = this.processTokens("Avalanche", formattedTokens, tokens, permissions);

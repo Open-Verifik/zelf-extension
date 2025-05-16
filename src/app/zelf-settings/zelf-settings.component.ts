@@ -57,6 +57,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 confirm: this._translocoService.translate("common.confirm"),
                 cancel: this._translocoService.translate("common.cancel"),
                 title: this._translocoService.translate("logout_title"),
+                destructiveButton: true,
             },
         });
     }

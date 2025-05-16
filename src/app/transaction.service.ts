@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AddressBook, Transaction, TransactionData, TransactionModel } from "./wallet";
+import { AddressBook, SwapData, TransactionData } from "./wallet";
 import { ChromeService } from "./chrome.service";
 import { Observable, Subject } from "rxjs";
 
@@ -7,12 +7,11 @@ import { Observable, Subject } from "rxjs";
     providedIn: "root",
 })
 export class TransactionService {
-    private _transactionData$: Subject<TransactionData> = new Subject<TransactionData>();
     private _recentAddresses: AddressBook[] = [];
+    private _swapData: SwapData = new SwapData({});
+    private _swapData$: Subject<SwapData> = new Subject<SwapData>();
     private _transactionData: TransactionData = new TransactionData({});
-
-    /** @deprecated */
-    transactionData!: Transaction;
+    private _transactionData$: Subject<TransactionData> = new Subject<TransactionData>();
 
     constructor(private _chromeService: ChromeService) {
         this._chromeService.getItem("transactionData").then((response) => {
@@ -20,6 +19,13 @@ export class TransactionService {
             else this._transactionData = new TransactionData(response);
 
             this._transactionData$.next(this._transactionData);
+        });
+
+        this._chromeService.getItem("swapData").then((response) => {
+            if (!response) this._swapData = new SwapData({});
+            else this._swapData = new SwapData(response);
+
+            this._swapData$.next(this._swapData);
         });
 
         this._chromeService.getItem("recentAddresses").then((response) => {
@@ -30,6 +36,16 @@ export class TransactionService {
                 });
             }
         });
+    }
+
+    get swapData$(): Observable<SwapData> {
+        return this._swapData$.asObservable();
+    }
+
+    set swapData(value: SwapData) {
+        this._chromeService.setItem("swapData", value);
+        this._swapData = value;
+        this._swapData$.next(this._swapData);
     }
 
     get transactionData$(): Observable<TransactionData> {
@@ -72,6 +88,14 @@ export class TransactionService {
         return this._transactionData;
     }
 
+    async getCurrentSwapData(): Promise<SwapData> {
+        if (this._swapData) return this._swapData;
+
+        this._swapData = new SwapData((await this._chromeService.getItem("swapData")) || {});
+
+        return this._swapData;
+    }
+
     async removeTransactionData(): Promise<void> {
         await this._chromeService.removeItem("transactionData");
     }
@@ -88,23 +112,5 @@ export class TransactionService {
         this._transactionData = new TransactionData(data);
 
         await this._chromeService.setItem("transactionData", this._transactionData);
-    }
-
-    /** @deprecated */
-    getTransactionData(): any {
-        return this.transactionData;
-    }
-
-    /** @deprecated */
-    setTransactionData(data: Partial<Transaction>, syncInStorage?: boolean): void {
-        if (!this.transactionData) {
-            this.transactionData = new TransactionModel(data);
-        } else {
-            Object.assign(this.transactionData, data);
-        }
-
-        if (!syncInStorage) return;
-
-        this._chromeService.setItem("temp_transactionData", this.transactionData);
     }
 }

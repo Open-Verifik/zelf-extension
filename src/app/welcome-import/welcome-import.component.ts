@@ -2,11 +2,11 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { VaultService } from "app/vault.service";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, MatButtonModule, TranslocoModule, WelcomeErrorComponent, RouterModule],
@@ -26,8 +26,9 @@ export class WelcomeImportComponent implements OnInit {
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _vaultService: VaultService,
-        private _zelfNameService: ZelfNameService
+        private _snackbar: MatSnackBar,
+        private _translocoService: TranslocoService,
+        private _vaultService: VaultService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -86,6 +87,29 @@ export class WelcomeImportComponent implements OnInit {
         const query = event.clipboardData?.getData("text");
 
         if (!query || typeof query !== "string" || !query?.trim()) return;
+
+        const mnemonicCountControl = this.mnemonicCountForm.get("mnemonicCount");
+
+        if (!mnemonicCountControl) return;
+
+        const formerValue = mnemonicCountControl?.value;
+        const words = query.split(" ");
+
+        if (words.length === 24) {
+            mnemonicCountControl.patchValue(24);
+        } else if (words.length === 12) {
+            mnemonicCountControl.patchValue(12);
+        } else {
+            this._snackbar.open(this._translocoService.translate("errors.invalid_mnemonic"), this._translocoService.translate("common.close"), {
+                duration: 5000,
+                panelClass: "zelf-snackbar",
+                verticalPosition: "top",
+            });
+
+            return;
+        }
+
+        if (formerValue !== mnemonicCountControl.value) this._initWordsForm();
 
         query.split(" ").forEach((word, index) => {
             this.mnemonicForm.get(`word${index + 1}`)!.setValue(word);

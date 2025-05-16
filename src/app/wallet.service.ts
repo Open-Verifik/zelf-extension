@@ -51,7 +51,6 @@ export class WalletService {
 
     sessionData: any = {
         type: "",
-        step: 0,
         wordsCount: 12,
         navigationStep: 1,
         password: "",
@@ -144,28 +143,54 @@ export class WalletService {
         return this._SUI_TRANSACTION_REGEX;
     }
 
-    setAssetSymbol(symbol: string, imageSrc: string): void {
+    setAssetImage(symbol: string, imageSrc: string): void {
         if (!symbol || !imageSrc) return;
 
         const cachedImage = this._assetImageMap.get(symbol);
 
         if (cachedImage) return;
 
-        this._assetImageMap.set(symbol, imageSrc);
+        if (!imageSrc) this._assetImageMap.set(symbol, "./assets/tokens/placeholder-coin.png");
+        else this._assetImageMap.set(symbol, imageSrc);
     }
 
-    getAssetImage(symbol: string): string {
+    getAssetImage(symbol: string, imageSrc?: string): string {
+        if (!symbol) return "./assets/tokens/placeholder-coin.png";
+
         const cachedImage = this._assetImageMap.get(symbol);
 
         if (cachedImage) return cachedImage;
 
-        if (!symbol) return "";
-
         let assetSrc: string = "";
 
-        if (symbol === "ZNS") assetSrc = "./assets/icons/icon128.png";
-        else if (symbol === "SUI") assetSrc = "./assets/crypto-icons/sui.png";
-        else assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${symbol.toLowerCase()}.png`;
+        if (symbol === "AVAX") assetSrc = "./assets/networks/avax.png";
+        else if (symbol === "SOL") assetSrc = "./assets/networks/sol.svg";
+        else if (symbol === "ETH") assetSrc = "./assets/networks/eth.png";
+        else if (symbol === "ZNS") assetSrc = "./assets/tokens/zns.png";
+        else if (symbol === "SUI") assetSrc = "./assets/networks/sui.svg";
+
+        if (assetSrc) {
+            this._assetImageMap.set(symbol, assetSrc);
+
+            return assetSrc;
+        }
+
+        if (imageSrc) {
+            assetSrc = imageSrc;
+        } else {
+            const cleanSymbol = symbol.toLowerCase().replace(/[^a-z].*$/, "");
+
+            assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${cleanSymbol}.png`;
+        }
+
+        let img: HTMLImageElement | null = new Image();
+
+        img.src = assetSrc;
+        img.onerror = () => {
+            this._assetImageMap.set(symbol, "./assets/tokens/placeholder-coin.png");
+
+            img = null;
+        };
 
         this._assetImageMap.set(symbol, assetSrc);
 
@@ -533,6 +558,24 @@ export class WalletService {
         return wallet;
     }
 
+    async updateWallet(walletToUpdate: Partial<WalletModel>): Promise<void> {
+        if (!walletToUpdate || !walletToUpdate.publicData?.zelfName) return;
+
+        const { wallet, wallets } = await this.getAllWalletsFromStorage();
+
+        if (wallet && wallet.publicData?.zelfName && wallet.publicData?.zelfName === walletToUpdate.publicData?.zelfName) {
+            await this._chromeService.setItem("wallet", walletToUpdate);
+
+            return;
+        }
+
+        const index = wallets.findIndex((_wallet) => _wallet.publicData.zelfName === walletToUpdate.publicData?.zelfName);
+
+        if (index !== -1) wallets[index] = walletToUpdate as WalletModel;
+
+        await this._chromeService.setItem("wallets", wallets);
+    }
+
     async updateCurrentWallet(wallet: Partial<WalletModel>): Promise<void> {
         await this._chromeService.setItem("wallet", wallet);
     }
@@ -555,7 +598,7 @@ export class WalletService {
             delete _wallet.pgp;
             hasUpdate = true;
 
-            return wallet;
+            return _wallet;
         });
 
         if (hasUpdate) await this._chromeService.setItem("wallets", newWallets);
@@ -580,7 +623,7 @@ export class WalletService {
     async checkIfLastWallet(): Promise<boolean> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
-        return !currentWallet?.ethAddress && !wallets.length;
+        return (currentWallet?.ethAddress && !wallets.length) || (!currentWallet?.ethAddress && wallets.length === 1);
     }
 
     async logoutOfWallet(walletToRemove: WalletModel): Promise<void> {

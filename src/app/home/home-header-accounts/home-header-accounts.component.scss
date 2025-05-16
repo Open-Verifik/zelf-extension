@@ -32,8 +32,10 @@
         position: absolute;
         right: 0;
         top: 0;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
         width: 48px;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
@@ -74,7 +76,9 @@
     border-radius: 36px;
     padding: 0 16px;
     margin: 42px auto 0;
-    transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+    transition:
+        color 0.3s variables.$smoothBezier,
+        background-color 0.3s variables.$smoothBezier;
 
     svg {
         fill: variables.$black;
@@ -105,6 +109,11 @@
         font-weight: 600;
         margin-right: 2px;
         word-wrap: break-word;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: 16px;
+            line-height: 16px;
+        }
     }
 
     &__icon {
@@ -144,7 +153,9 @@
         gap: 4px;
         padding: 16px;
         cursor: pointer;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
         box-sizing: border-box;
 
         &:hover {
@@ -152,7 +163,9 @@
 
             .wallets__item-avatar {
                 background-color: black;
-                transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+                transition:
+                    color 0.3s variables.$smoothBezier,
+                    background-color 0.3s variables.$smoothBezier;
 
                 &--bg-white {
                     background-color: black;
@@ -169,6 +182,10 @@
         &--current {
             background-color: variables.$platinum;
             border: 1px solid variables.$taupeGray;
+
+            & .wallets__item-avatar {
+                border: 4px solid variables.$secondaryColor;
+            }
         }
 
         &-avatar {
@@ -181,19 +198,13 @@
             border-radius: 72px;
             color: white;
             box-sizing: border-box;
-            transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+            transition:
+                color 0.3s variables.$smoothBezier,
+                background-color 0.3s variables.$smoothBezier;
 
             &--bg-white {
                 background-color: white;
                 color: black;
-            }
-
-            &--warn {
-                border: 4px solid variables.$warning;
-            }
-
-            &--error {
-                border: 4px solid variables.$error;
             }
 
             &--mainnet {

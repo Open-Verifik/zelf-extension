@@ -3,7 +3,6 @@ import { TranslocoService } from "@jsverse/transloco";
 
 @Pipe({
     name: "timer",
-    standalone: true,
     pure: false,
 })
 export class TimerPipe implements PipeTransform {

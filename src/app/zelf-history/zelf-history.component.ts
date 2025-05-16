@@ -6,10 +6,10 @@ import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { Transaction } from "app/wallet";
+import { TokenData, Transaction } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
-type TransactionType = "send" | "receive" | "trade" | "approve" | "";
+type TransactionType = "send" | "receive" | "swap" | "approve" | "";
 
 type Signee = {
     address: string;
@@ -20,7 +20,7 @@ type Signee = {
 };
 
 type ProcessedTransaction = {
-    fiatAmount: string;
+    fiatAmount: number;
     hash: string;
     from: Signee;
     to: Signee;
@@ -55,7 +55,11 @@ export class ZelfHistoryComponent implements OnInit {
     public noMoreTransactions = false;
     public transactionHashMap: Record<string, boolean> = {};
 
-    constructor(private _blockchainTransactions: BlockchainTransactionsService, private _router: Router, private _walletService: WalletService) {}
+    constructor(
+        private _blockchainTransactions: BlockchainTransactionsService,
+        private _router: Router,
+        private _walletService: WalletService
+    ) {}
 
     async ngOnInit(): Promise<void> {
         this._loadFirstTransactions();
@@ -115,11 +119,13 @@ export class ZelfHistoryComponent implements OnInit {
 
             if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
 
+            const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
             const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
 
             const processedTx = {
+                fiatAmount: tx.fiatAmount,
                 hash: tx.hash,
-                type: tx.traffic === "OUT" ? "send" : "receive",
+                type,
                 from: {
                     address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
                     amount: tx.amount,
@@ -132,8 +138,7 @@ export class ZelfHistoryComponent implements OnInit {
                     symbol: tx.asset,
                     image: tokenImage,
                 },
-                fiatAmount: tx.fiatAmount,
-            };
+            } as ProcessedTransaction;
 
             groupedByDate[dateStr].push(processedTx);
 

@@ -38,14 +38,16 @@
             border-radius: 27.5px;
             display: inline-block;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 500;
             line-height: normal;
             padding: 8px 0;
             position: relative;
             transition: color 200ms;
             width: 50%;
             z-index: 1;
-            transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+            transition:
+                color 0.3s variables.$smoothBezier,
+                background-color 0.3s variables.$smoothBezier;
 
             &:hover:not(.animated-tab--active) {
                 background-color: #f0d3d4;
@@ -54,6 +56,10 @@
 
             &--active {
                 color: black;
+            }
+
+            @media (max-width: variables.$minSmall) {
+                font-size: 12px;
             }
         }
     }

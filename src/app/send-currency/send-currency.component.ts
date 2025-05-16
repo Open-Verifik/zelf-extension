@@ -1,18 +1,15 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { AssetService, NetworkPermissions } from "app/asset.service";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { TokenItemComponent } from "app/token-item/token-item.component";
+import { TransactionService } from "app/transaction.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { TransactionService } from "app/transaction.service";
-import { TokenItemComponent } from "app/token-item/token-item.component";
-import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { firstValueFrom } from "rxjs";
-import { SuiService } from "app/services/sui.service";
-import { EthereumService } from "app/eth.service";
-import { SolanaService } from "app/solana.service";
-import { ChromeService } from "app/chrome.service";
+import { firstValueFrom, Subject } from "rxjs";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
@@ -20,14 +17,10 @@ import { ChromeService } from "app/chrome.service";
     styleUrls: ["./send-currency.component.scss"],
     templateUrl: "./send-currency.component.html",
 })
-export class SendCurrencyComponent implements OnInit {
-    private CAN_SEND = {
-        AVAX: true,
-        BTC: false,
-        ETH: true,
-        SOL: true,
-        SUI: true,
-    };
+export class SendCurrencyComponent implements OnInit, OnDestroy {
+    private unsubscriber$ = new Subject<void>();
+
+    private CAN_SEND: NetworkPermissions = {};
 
     loading: boolean = true;
     tokens: any[] = [];
@@ -35,288 +28,81 @@ export class SendCurrencyComponent implements OnInit {
     wallet: Partial<WalletModel> = {};
 
     constructor(
+        private _assetService: AssetService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
-        private _chromeService: ChromeService,
         private _router: Router,
         private _transactionService: TransactionService,
-        private _walletService: WalletService,
-        private _suiService: SuiService,
-        private _ethService: EthereumService,
-        private _solanaService: SolanaService
-    ) {}
+        private _walletService: WalletService
+    ) {
+        this.CAN_SEND = this._assetService.canSend;
+
+        this.loading = true;
+    }
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) || {};
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
-        await this._loadTokens();
-
-        this.loading = false;
+        await this._loadTokensFromSession();
     }
 
-    private async _getTokensFromSession(): Promise<void> {
-        const sessionTokens = await this._chromeService.getItemSession("tokens");
-
-        if (!sessionTokens) return;
-
-        this.tokens = sessionTokens;
+    ngOnDestroy(): void {
+        this.unsubscriber$.next();
+        this.unsubscriber$.complete();
     }
 
-    private async _loadTokens(): Promise<void> {
+    private async _loadTokensFromSession(): Promise<void> {
         try {
-            await this._getTokensFromSession();
+            const sessionTokens = await this._assetService.loadTokensFromSession();
 
-            if (!this.tokens || !this.tokens.length) {
+            if (sessionTokens.length) {
+                this.tokens = sessionTokens.filter((token) => this.isTokenSendable(token));
+            } else {
                 await this._fetchTokens();
             }
-
-            this.loading = false;
 
             this._changeDetectionRef.detectChanges();
         } catch (error) {
             console.error("Error loading tokens:", error);
+        } finally {
             this.loading = false;
         }
     }
 
+    private isTokenSendable(token: any): boolean {
+        if (token.network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
+            return true;
+        }
+
+        if (token.network === "Solana" && this.CAN_SEND.SOL) {
+            return true;
+        }
+
+        if (token.network === "Avalanche" && this.CAN_SEND.AVAX) {
+            return true;
+        }
+
+        if (token.network === "Sui" && this.CAN_SEND.SUI) {
+            return true;
+        }
+
+        return false;
+    }
+
     private async _fetchTokens(): Promise<void> {
-        const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-
-        if (response?.ethereum?.data?.tokenHoldings?.tokens && this.CAN_SEND.ETH) {
-            this._getCurrencies("Ethereum", response.ethereum.data.tokenHoldings.tokens);
-        }
-
-        if (response?.solana?.data?.tokenHoldings?.tokens && this.CAN_SEND.SOL) {
-            this._getCurrencies("Solana", response.solana.data.tokenHoldings.tokens);
-        }
-
-        if (response?.sui?.data && this.CAN_SEND.SUI) {
-            if ("balance" in response.sui.data || "_balance" in response.sui.data) {
-                const balance = parseFloat(response.sui.data.balance || response.sui.data._balance || "0");
-                const fiatBalance = parseFloat(response.sui.data.fiatBalance || response.sui.data._fiatBalance || "0");
-                const price = parseFloat(response.sui.data.account?.price || response.sui.data.price || "0");
-
-                const suiToken = {
-                    amount: balance.toString(),
-                    balance: balance.toString(),
-                    fiatBalance: fiatBalance,
-                    image: "assets/images/sui.png",
-                    name: "Sui",
-                    network: "Sui",
-                    price: price,
-                    symbol: "SUI",
-                    tokenType: "SUI",
-                };
-
-                this._getCurrencies("Sui", [suiToken]);
-            }
-
-            if (response.sui.data.tokenHoldings?.tokens) {
-                this._getCurrencies("Sui", response.sui.data.tokenHoldings.tokens);
-            }
-        }
-
-        if (response?.avalanche?.data && this.CAN_SEND.AVAX) {
-            const avalancheTokens = [];
-
-            if ("balance" in response.avalanche.data) {
-                const price =
-                    response.avalanche.data.account?.price ||
-                    response.avalanche.data.price ||
-                    response.avalanche.data.tokenHoldings?.tokens?.[0]?.price ||
-                    "0";
-
-                const avaxToken = {
-                    amount: response.avalanche.data.balance,
-                    balance: response.avalanche.data.balance,
-                    fiatBalance: response.avalanche.data.fiatBalance,
-                    image: response.avalanche.data.image || "assets/images/avax.png",
-                    name: "Avalanche",
-                    price: parseFloat(price),
-                    symbol: "AVAX",
-                    tokenType: "AVAX",
-                    network: "Avalanche",
-                };
-
-                avalancheTokens.push(avaxToken);
-            }
-
-            if (response.avalanche.data.tokenHoldings?.tokens) {
-                avalancheTokens.push(...response.avalanche.data.tokenHoldings.tokens);
-            }
-
-            this._getCurrencies("Avalanche", avalancheTokens);
-        }
-
-        await this._getSolanaDetails();
-        await this._getSuiDetails();
-        await this._getAvaxDetails();
-    }
-
-    private async _getSolanaDetails(): Promise<void> {
-        if (!this.wallet?.solanaAddress) return;
-
         try {
-            const details = await this._solanaService.getWalletDetails(this.wallet.solanaAddress);
+            if (!this.wallet || !this.wallet.ethAddress) return;
 
-            if (details?.data?.tokenHoldings?.tokens) {
-                const tokensToAdd = details.data.tokenHoldings.tokens
-                    .filter((token: any) => token.symbol && !this.tokens.some((t) => t.symbol === token.symbol && t.network === "Solana"))
-                    .map((token: any) => ({
-                        ...token,
-                        network: "Solana",
-                        balance: parseFloat(token.balance || token.amount || "0"),
-                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                        price: parseFloat(token.price || "0"),
-                        tokenType: "SPL",
-                        image: token.image || "assets/images/sol.png",
-                        name: token.name || token.symbol,
-                        symbol: token.symbol || token.name,
-                    }));
+            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+            const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SEND);
 
-                if (tokensToAdd.length > 0) {
-                    this._getCurrencies("Solana", tokensToAdd);
-                }
-            }
+            this.tokens = result.tokens.filter((token) => this.isTokenSendable(token));
         } catch (error) {
-            console.error("Error getting Solana details:", error);
+            console.error("Error fetching tokens:", error);
+        } finally {
+            this.loading = false;
         }
-    }
-
-    private async _getSuiDetails(): Promise<void> {
-        if (!this.wallet?.suiAddress) return;
-
-        try {
-            const details = await this._suiService.getWalletDetails(this.wallet.suiAddress);
-
-            if (details?.data?.tokenHoldings?.tokens) {
-                const newTokens = details.data.tokenHoldings.tokens
-                    .filter((token: any) => token.symbol && !this.tokens.some((t) => t.symbol === token.symbol && t.network === "Sui"))
-                    .map((token: any) => ({
-                        ...token,
-                        network: "Sui",
-                        balance: parseFloat(token.balance || token.amount || "0"),
-                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                        price: parseFloat(token.price || "0"),
-                        tokenType: "SUI_TOKEN",
-                        image: token.image || "assets/images/sui.png",
-                        name: token.name || token.symbol,
-                        symbol: token.symbol || token.name,
-                    }));
-
-                if (newTokens.length > 0) {
-                    this.tokens.push(...newTokens);
-                    this._changeDetectionRef.detectChanges();
-                }
-            }
-        } catch (error) {}
-    }
-
-    private async _getAvaxDetails(): Promise<void> {
-        if (!this.wallet?.ethAddress || !this.CAN_SEND.AVAX) return;
-
-        try {
-            const details = await this._ethService.getAvalancheWalletDetails(this.wallet.ethAddress);
-
-            if (details?.data?.tokenHoldings?.tokens) {
-                const tokensToAdd = details.data.tokenHoldings.tokens.map((token: any) => ({
-                    ...token,
-                    network: "Avalanche",
-                }));
-
-                this._getCurrencies("Avalanche", tokensToAdd);
-            }
-        } catch (error) {
-            console.error("Error getting AVAX details:", error);
-        }
-    }
-
-    private _getCurrencies(network: string, currencies: Array<any>): void {
-        for (const token of currencies) {
-            if (!token.symbol && !token.name) {
-                continue;
-            }
-
-            if (network === "Solana" && this.CAN_SEND.SOL) {
-                const _token = {
-                    ...token,
-                    symbol: token.symbol || token.name,
-                    network,
-                    tokenType: token.symbol === "SOL" ? "SOL" : "SPL",
-                    balance: parseFloat(token.balance || token.amount || "0"),
-                    fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                    price: parseFloat(token.price || "0"),
-                    image: token.image || "assets/images/sol.png",
-                    name: token.name || token.symbol,
-                };
-
-                if (_token.name === "Zelf") _token.symbol = "ZNS";
-
-                console.log("Processing Solana token:", _token);
-
-                const tokenKey = `${_token.symbol}-${network}-${_token.tokenType}`;
-                const existingTokenIndex = this.tokens.findIndex((t) => `${t.symbol}-${t.network}-${t.tokenType}` === tokenKey);
-
-                if (existingTokenIndex === -1) {
-                    this.tokens.push(_token);
-                } else {
-                    this.tokens[existingTokenIndex] = _token;
-                }
-            }
-
-            if (network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-                this.tokens.push({ ...token, network });
-            }
-
-            if (network === "Avalanche" && this.CAN_SEND.AVAX) {
-                const tokenKey = `${token.symbol}-${network}-${token.tokenType || "ERC-20"}`;
-                const existingTokenIndex = this.tokens.findIndex((t) => `${t.symbol}-${t.network}-${t.tokenType || "ERC-20"}` === tokenKey);
-
-                if (existingTokenIndex === -1) {
-                    const avaxToken = {
-                        ...token,
-                        network,
-                        balance: parseFloat(token.balance || token.amount || "0"),
-                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                        price: parseFloat(token.price || "0"),
-                        tokenType: token.tokenType || "ERC-20",
-                        image: token.image || (token.symbol === "AVAX" ? "assets/images/avax.png" : undefined),
-                        name: token.name || token.symbol,
-                        symbol: token.symbol || token.name,
-                    };
-
-                    this.tokens.push(avaxToken);
-                }
-            }
-
-            if (network === "Sui" && this.CAN_SEND.SUI) {
-                const tokenToAdd = {
-                    ...token,
-                    network: "Sui",
-                    balance: parseFloat(token.balance || token.amount || "0"),
-                    fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                    price: parseFloat(token.price || "0"),
-                    tokenType: token.symbol === "SUI" ? "SUI" : "SUI_TOKEN",
-                    image: token.image || "assets/images/sui.png",
-                    name: token.name || token.symbol,
-                    symbol: token.symbol || token.name,
-                };
-
-                const tokenKey = `${tokenToAdd.symbol}-${tokenToAdd.network}-${tokenToAdd.tokenType}`;
-                const existingTokenIndex = this.tokens.findIndex((t) => `${t.symbol}-${t.network}-${t.tokenType}` === tokenKey);
-
-                if (existingTokenIndex === -1) {
-                    this.tokens.push(tokenToAdd);
-                } else {
-                    this.tokens[existingTokenIndex] = tokenToAdd;
-                }
-            }
-        }
-
-        this.tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
-
-        this._changeDetectionRef.detectChanges();
     }
 
     async removeTransactionData(): Promise<void> {
@@ -324,8 +110,6 @@ export class SendCurrencyComponent implements OnInit {
     }
 
     async onTokenClick(token: any): Promise<void> {
-        console.log("Token clicked:", token);
-
         let address = "";
         let tokenType = token.tokenType;
 
@@ -356,13 +140,18 @@ export class SendCurrencyComponent implements OnInit {
             },
         });
 
-        console.log("Setting transaction data:", transactionData);
+        // console.log("Setting transaction data:", transactionData);
 
         try {
             await this._transactionService.setCurrentTransactionData(transactionData);
+
             this._router.navigate(["/send/transaction"]);
         } catch (error) {
             console.error("Error setting transaction data:", error);
         }
+    }
+
+    async setSourceAsset(asset: any): Promise<any> {
+        await this._assetService.setSourceAsset(asset);
     }
 }

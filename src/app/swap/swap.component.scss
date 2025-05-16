@@ -1,0 +1,471 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.swap {
+    position: relative;
+
+    &__header {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: 12px;
+        align-content: center;
+        justify-content: start;
+        gap: 24px;
+        width: 100%;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        text-align: center;
+        align-items: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: variables.$black;
+    }
+
+    &__content {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        position: relative;
+        gap: 16px;
+    }
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 1;
+    }
+
+    &__asset-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid variables.$platinum;
+        border-radius: 32px;
+        padding: 32px;
+        box-sizing: border-box;
+        background-color: variables.$white;
+        box-shadow: 0px 8px 24px 0px #0000000a;
+
+        &--error {
+            border-color: variables.$error;
+
+            .swap__amount-input {
+                color: variables.$error;
+            }
+        }
+    }
+
+    &__asset-switch {
+        margin-top: -32px;
+        margin-bottom: -32px;
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 12px;
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    &__dropdown-selector {
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 6px 24px 0px #00000014;
+        border-radius: 16px;
+        border-color: 1px solid variables.$antiFlashWhite;
+        justify-content: space-between;
+        background: variables.$white;
+        gap: 12px;
+        padding: 8px;
+        min-width: 168px;
+        cursor: pointer;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background-color: variables.$antiFlashWhite;
+        }
+    }
+
+    &__asset-card-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 auto;
+    }
+
+    &__asset-card-actions--left {
+        justify-content: center;
+        gap: 8px;
+        align-items: flex-start;
+        min-width: 50%;
+    }
+
+    &__asset-card-actions--right {
+        justify-content: center;
+        align-items: flex-end;
+        gap: 24px;
+    }
+
+    &__asset-logo-container {
+        position: relative;
+        width: 36px;
+        height: 36px;
+    }
+
+    &__asset-logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 36px;
+    }
+
+    &__asset-network-logo {
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        border: 1px solid variables.$white;
+    }
+
+    &__asset-info {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        flex: 1 1 auto;
+    }
+
+    &__asset-name {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$black;
+    }
+
+    &__asset-symbol {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$frenchGray;
+    }
+
+    &__asset-placeholder {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$gray;
+    }
+
+    &__asset-dropdown-button {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        min-height: 24px;
+        border-radius: 9999px;
+
+        svg {
+            width: 12px;
+            height: 12px;
+            fill: variables.$black;
+        }
+    }
+
+    &__quick-amounts {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__quick-amount {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$black;
+
+        &--error {
+            color: variables.$error;
+        }
+    }
+
+    &__asset-input-label {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$frenchGray;
+    }
+
+    &__amount-input-container {
+        position: relative;
+        width: 100%;
+
+        &--fiat {
+            &:before {
+                color: variables.$gray;
+                align-items: center;
+                bottom: 0;
+                content: "$";
+                display: flex;
+                font-family: Menda, sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                height: 40px;
+                left: 0;
+                letter-spacing: 0.1px;
+                line-height: 20px;
+                margin: auto;
+                position: absolute;
+                top: 0;
+                width: 40px;
+            }
+
+            .swap__amount-input {
+                padding-left: 24px;
+            }
+        }
+    }
+    &__amount-input {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background: none;
+        border: none;
+        box-sizing: border-box;
+        color: inherit;
+        font-family: Menda, sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0%;
+        line-height: 40px;
+        margin: 0;
+        outline: none;
+        padding: 0;
+        text-transform: uppercase;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+    }
+
+    &__amount-input::placeholder {
+        color: variables.$frenchGray;
+    }
+
+    &__balance-value {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 12px;
+    }
+
+    &__balance-value-label {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$black;
+    }
+
+    &__balance-value-button {
+        width: 18px;
+        height: 18px;
+        border-radius: 18px;
+        min-width: 18px;
+        min-height: 18px;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    &__details {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        min-height: 278px;
+    }
+
+    &__detail-field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        &--gray {
+            svg {
+                fill: variables.$gray;
+            }
+        }
+
+        &--black {
+            svg {
+                fill: variables.$black;
+            }
+        }
+    }
+
+    &__details-label {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        color: variables.$gray;
+        margin: 0;
+
+        svg {
+            fill: variables.$gray;
+        }
+    }
+
+    &__details-value {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        color: variables.$black;
+    }
+
+    &__settings {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    &__settings-button {
+        min-width: 260px;
+        min-height: 40px;
+        height: 40px;
+    }
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+
+    &:hover .tooltip {
+        visibility: visible;
+    }
+}
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    border: 1px solid variables.$antiFlashWhite;
+    border-radius: 16px;
+    transform: translateX(-50%);
+    background-color: variables.$white;
+    box-shadow: 0px 8px 24px 0px #0000000a;
+
+    &__content {
+        width: 254px;
+        gap: 8px;
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        svg {
+            min-width: 24px;
+            fill: variables.$black;
+        }
+    }
+
+    &__content-text {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        margin: 0;
+        color: variables.$black;
+    }
+}

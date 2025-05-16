@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
@@ -18,10 +18,11 @@ import { WalletService } from "app/wallet.service";
     styleUrls: ["./mnemonic.component.scss"],
     templateUrl: "./mnemonic.component.html",
 })
-export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
+export class MnemonicComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     @Output() redirect: EventEmitter<void> = new EventEmitter<void>();
 
     private _password: string = "";
+    private _requiresBiometricsInterval: ReturnType<typeof setInterval> | null = null;
 
     blurMnemonic: boolean = true;
     copied: boolean = false;
@@ -32,6 +33,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
     showPasswordForm: boolean = false;
     words: string[] = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
     wallet: Partial<WalletModel> = {};
+    requiresBiometrics: boolean = false;
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
@@ -45,6 +47,8 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
         super(_chromeService, _snackbar, _translocoService);
 
         this.remainingAttempts = this._vaultService.remainingAttempts + 1;
+
+        this._initForm();
     }
 
     async ngOnInit(): Promise<void> {
@@ -52,17 +56,23 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
         await this._chromeService.removeItem("flow");
 
         this.wallet = (await this._walletService.getCurrentWallet()) || {};
-        this._password = this._vaultService.password;
-
         this._vaultService.password = "";
 
-        if (this._password) this._prepareWords();
+        this._setRequiresBiometricsInterval();
+    }
 
-        this._initForm();
+    ngOnDestroy(): void {
+        this._clearRequiresBiometricsInterval();
     }
 
     get canUnlockWithPasswordOnly(): boolean {
-        return !!this.wallet?.pgp?.encryptedMessage && !!this.wallet?.pgp?.privateKey;
+        return !!this.wallet?.pgp?.encryptedMessage && !!this.wallet?.pgp?.privateKey && !this.requiresBiometrics;
+    }
+
+    private _clearRequiresBiometricsInterval(): void {
+        if (!this._requiresBiometricsInterval) return;
+
+        clearInterval(this._requiresBiometricsInterval as ReturnType<typeof setInterval>);
     }
 
     private async _decryptMessage(): Promise<any> {
@@ -104,6 +114,14 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit {
 
             this.hideMnemonics();
         }
+    }
+
+    private _setRequiresBiometricsInterval(): void {
+        if (this._requiresBiometricsInterval) this._clearRequiresBiometricsInterval();
+
+        this._requiresBiometricsInterval = setInterval(() => {
+            this._vaultService.biometricsRequired().then((result) => (this.requiresBiometrics = result));
+        }, 2000);
     }
 
     copyToClipboard(): void {

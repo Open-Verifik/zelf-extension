@@ -2,7 +2,6 @@ import { Directive, Output, EventEmitter, HostBinding, HostListener } from "@ang
 
 @Directive({
     selector: "[dragAndDrop]",
-    standalone: true,
 })
 export class DragAndDropDirective {
     @HostBinding("class.drag-and-drop--active") fileOver: boolean = false;

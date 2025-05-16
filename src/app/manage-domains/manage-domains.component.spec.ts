@@ -52,6 +52,9 @@ describe("ManageDomainsComponent", () => {
         mockChangeDetectorRef = jasmine.createSpyObj("ChangeDetectorRef", ["detectChanges"]);
 
         mockChromeService = jasmine.createSpyObj("ChromeService", ["removeItem"], {
+            getItem: () => Promise.resolve(null),
+            setItem: () => Promise.resolve(null),
+            onLastVerifiedChanged$: new BehaviorSubject(0).asObservable(),
             onWalletChanged$: new BehaviorSubject({}).asObservable(),
             onWalletsChanged$: new BehaviorSubject([]).asObservable(),
         });
@@ -118,12 +121,14 @@ describe("ManageDomainsComponent", () => {
         expect(mockCreateElement).not.toHaveBeenCalled();
     });
 
-    it("should open payments in new window", () => {
-        const windowSpy = spyOn(window, "open");
+    it("should navigate to payments route", () => {
+        const routerSpy = mockRouter.navigate;
 
-        component.goToPayments();
+        component.goToPurchase(mockWallet);
 
-        expect(windowSpy).toHaveBeenCalledWith("https://payment.zelf.world", "_blank");
+        expect(routerSpy).toHaveBeenCalledWith(["/external-link"], {
+            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${mockPublicData.zelfName}` },
+        });
     });
 
     it("should handle logout for last wallet", async () => {

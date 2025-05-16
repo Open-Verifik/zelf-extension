@@ -1,4 +1,6 @@
-<div class="zelf-card" *transloco="let t">
+<div class="zelf-card send-currency" *transloco="let t">
+    <div class="ripple send-currency__loader" *ngIf="loading"></div>
+
     <div class="send-currency__header">
         <div class="send-currency__col1">
             <button
@@ -24,13 +26,11 @@
 
     <div class="zelf-card__content send-currency__content">
         <token-item
-            *ngFor="let token of tokens"
-            [token]="token"
             (click)="onTokenClick(token)"
-            [showPrice]="true"
             [showFiatBalance]="true"
+            [showPrice]="true"
+            [token]="token"
+            *ngFor="let token of tokens"
         ></token-item>
-
-        <div class="ripple send-currency__loader" *ngIf="loading"></div>
     </div>
 </div>

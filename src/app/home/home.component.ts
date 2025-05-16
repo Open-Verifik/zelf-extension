@@ -1,19 +1,38 @@
+import { CurrencyPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatButtonModule } from "@angular/material/button";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { TranslocoModule } from "@jsverse/transloco";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
+import { AssetService } from "app/asset.service";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
-import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { ChromeService } from "app/chrome.service";
+import { FooterComponent } from "app/footer/footer.component";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { AssetService } from "app/asset.service";
+import { HomeHeaderComponent } from "./home-header/home-header.component";
+import { TokenCardComponent } from "./token-card/token-card.component";
 
 @Component({
+    imports: [
+        CurrencyPipe,
+        FlexLayoutModule,
+        FooterComponent,
+        HomeHeaderComponent,
+        MatButtonModule,
+        NgClass,
+        NgFor,
+        NgIf,
+        RouterLink,
+        TokenCardComponent,
+        TranslocoModule,
+    ],
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
     templateUrl: "./home.component.html",
-    standalone: false
 })
 export class HomeComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
@@ -121,6 +140,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private async _setWallet(): Promise<any> {
         const wallet = await this._walletService.getFirstWalletFromStorage();
+
+        if (!wallet?.name) {
+            this._router.navigate(["/welcome"]);
+            return;
+        }
 
         this.shareables.wallet = wallet;
         this.wallet = this.shareables.wallet;

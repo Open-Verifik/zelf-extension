@@ -1,11 +1,14 @@
+import { NgClass, NgIf } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { Router } from "@angular/router";
+import { TranslocoPipe } from "@jsverse/transloco";
 
 @Component({
-    selector: "app-extension-instructions",
+    imports: [NgClass, NgIf, TranslocoPipe, FlexLayoutModule],
+    selector: "extension-instructions",
     templateUrl: "./extension-instructions.component.html",
     styleUrls: ["./extension-instructions.component.scss", "../main.scss"],
-    standalone: false
 })
 export class ExtensionInstructionsComponent implements OnInit {
     currentSlide: number = 1;

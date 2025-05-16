@@ -16,12 +16,12 @@
     display: flex;
     font-family: Poppins;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 500;
     gap: 8px;
     height: 56px;
     justify-content: center;
     outline: none;
-    padding: 8px 16px;
+    padding: 8px 24px;
     text-align: center;
     user-select: none;
 
@@ -45,7 +45,9 @@
         font-weight: 500;
         border-radius: 9999px;
         padding: 8px 16px;
-        transition: color 0.2s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.2s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &--small {
             font-size: 11px;
@@ -90,11 +92,25 @@
     &--black {
         background-color: variables.$black !important;
         color: variables.$white !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
-        &:focus,
+        &:active {
+            background-color: variables.$taupeGray !important;
+        }
+
         &:hover {
             background-color: variables.$gray !important;
+        }
+
+        svg {
+            fill: variables.$white;
+        }
+
+        mat-spinner svg {
+            fill: variables.$white !important;
+            stroke: variables.$white !important;
         }
 
         &[disabled] {
@@ -107,21 +123,50 @@
                 stroke: variables.$black !important;
             }
         }
+    }
+
+    &--anti-flash-white {
+        background-color: variables.$antiFlashWhite !important;
+        color: variables.$black !important;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: variables.$white;
+            fill: variables.$black;
         }
 
-        mat-spinner svg {
-            fill: variables.$white !important;
-            stroke: variables.$white !important;
+        &:focus,
+        &:hover {
+            background-color: #b589f0 !important;
+            color: white;
+
+            svg {
+                fill: variables.$white;
+            }
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            background-color: variables.$platinum !important;
+
+            svg {
+                fill: variables.$frenchGray;
+            }
+
+            mat-spinner svg {
+                fill: variables.$gray !important;
+                stroke: variables.$gray !important;
+            }
         }
     }
 
     &--white {
         background-color: variables.$white !important;
         color: variables.$black !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
@@ -153,7 +198,9 @@
         border: 1px solid variables.$black !important;
         background-color: variables.$white !important;
         color: variables.$black !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
@@ -167,6 +214,29 @@
 
         svg {
             fill: variables.$black;
+        }
+    }
+
+    &--red {
+        border: none !important;
+        background-color: transparent !important;
+        color: variables.$error !important;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+
+        &:focus,
+        &:hover {
+            background-color: variables.$errorLight !important;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            color: variables.$gray !important;
+        }
+
+        svg {
+            fill: variables.$error;
         }
     }
 
@@ -201,6 +271,13 @@
             }
         }
     }
+
+    &--pill {
+        border-radius: 9999px;
+        min-height: 0;
+        min-width: 0;
+        padding: 4px 12px;
+    }
 }
 
 .zelf-icon-button {
@@ -218,7 +295,9 @@
     min-height: 56px;
     min-width: 56px;
     outline: none;
-    transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+    transition:
+        color 0.3s variables.$smoothBezier,
+        background-color 0.3s variables.$smoothBezier;
     user-select: none;
     width: 56px;
 
@@ -278,7 +357,9 @@
         font-weight: 500;
         border-radius: 9999px;
         padding: 8px 16px;
-        transition: color 0.2s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.2s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         &--small {
             font-size: 11px;
@@ -315,15 +396,25 @@
     &--black {
         background-color: variables.$black !important;
         color: variables.$white !important;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+
+        &:active {
+            background-color: variables.$taupeGray !important;
+        }
+
+        &:hover {
+            background-color: variables.$gray !important;
+        }
 
         svg {
             fill: variables.$white;
         }
 
-        &:focus,
-        &:hover {
-            background-color: variables.$gray !important;
+        mat-spinner svg {
+            fill: variables.$white !important;
+            stroke: variables.$white !important;
         }
 
         &[disabled] {
@@ -344,6 +435,9 @@
     &--anti-flash-white {
         background-color: variables.$antiFlashWhite !important;
         color: variables.$black !important;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             fill: variables.$black;
@@ -432,5 +526,14 @@
         svg {
             fill: variables.$correct !important;
         }
+    }
+
+    &--pill {
+        border-radius: 9999px;
+        height: auto;
+        min-height: 0;
+        min-width: 0;
+        padding: 4px 12px;
+        width: auto;
     }
 }

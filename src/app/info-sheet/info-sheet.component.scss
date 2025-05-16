@@ -1,0 +1,114 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    position: relative;
+    display: flex;
+    padding: 16px;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 16px;
+    max-width: variables.$maxExtraSmall;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.info-sheet {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+
+    &__exit {
+        align-items: center;
+        background-color: transparent;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        height: 48px;
+        justify-content: center;
+        margin: 8px;
+        min-height: 48px;
+        min-width: 48px;
+        outline: none;
+        padding: 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+        width: 48px;
+
+        svg {
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$black;
+            height: 16px;
+            width: 16px;
+        }
+
+        &:hover {
+            background-color: #b589f0;
+            color: white;
+
+            svg {
+                fill: white;
+            }
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+
+        svg {
+            fill: variables.$warning;
+        }
+    }
+
+    &__title {
+        font-family: Menda;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: 0%;
+        text-align: center;
+        vertical-align: middle;
+        text-transform: uppercase;
+        margin: 0;
+        color: variables.$black;
+    }
+
+    &__description {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: variables.$gray;
+        margin: 0;
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+}

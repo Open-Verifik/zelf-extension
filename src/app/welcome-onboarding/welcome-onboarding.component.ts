@@ -106,10 +106,14 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     }
 
     private async _noZelfNameFound(zelfNameObject: any): Promise<void> {
+        zelfNameObject.zelfName = zelfNameObject.zelfName.toLowerCase();
+
         await this._zelfNameService.setZelfName(zelfNameObject.zelfName, zelfNameObject);
+
         await this._zelfNameService.setZelfNameObject(zelfNameObject);
 
         this.form.clearValidators();
+
         this.form.reset({ zelfName: "" });
 
         this._router.navigate(["/welcome", "available"]);
@@ -130,7 +134,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         this.loading = true;
 
-        const zelfName = `${this.form.value.zelfName}.zelf`;
+        const zelfName = `${this.form.value.zelfName}.zelf`.toLowerCase();
 
         let captchaToken = "";
 
@@ -145,13 +149,14 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         }
 
         this._zelfNameService
-            .searchZelfName("zelfName", zelfName, captchaToken)
+            .searchZelfNameV2("zelfName", zelfName, captchaToken)
             .then(async (response) => {
                 if (response?.data.price) return await this._noZelfNameFound(response?.data);
 
                 const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
 
                 await this._zelfNameService.setZelfName(zelfName, { price: 0, reward: 0 });
+
                 await this._zelfNameService.setZelfNameObject(zelfNameObject);
 
                 this.loading = false;
@@ -173,7 +178,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         // Remove invalid characters, ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
         let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]|^[^a-zA-Z]+|[.-]$/g, "");
 
-        sanitizedValue = sanitizedValue.toLowerCase().trim();
+        sanitizedValue = sanitizedValue.toUpperCase().trim();
 
         control.patchValue(sanitizedValue, { emitEvent: false });
 

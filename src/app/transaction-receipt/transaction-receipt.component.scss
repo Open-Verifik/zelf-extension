@@ -127,7 +127,7 @@
     &__label {
         display: flex;
         font-family: Poppins;
-        font-weight: 500;
+        font-weight: 400;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
@@ -142,14 +142,23 @@
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
-        width: 100%;
+
+        svg {
+            min-width: 12px;
+            min-height: 12px;
+        }
+
+        &--column {
+            flex-direction: column;
+            align-items: flex-end;
+        }
     }
 
     &__value {
         display: flex;
         justify-content: flex-end;
         font-family: Poppins;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 15px;
         line-height: 20px;
         letter-spacing: 0.1px;
@@ -157,6 +166,49 @@
         color: variables.$black;
         margin: 0;
         width: 100%;
+    }
+
+    &__swap-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__value-light {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: variables.$frenchGray;
+        margin-left: 8px;
+    }
+
+    &__logo-container {
+        position: relative;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: flex-end;
+        width: 36px;
+        height: 36px;
+    }
+
+    &__logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 36px;
+        object-fit: contain;
+
+        &--network {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            height: 16px;
+            width: 16px;
+            object-fit: contain;
+            border-radius: 16px;
+            border: 2px solid variables.$white;
+        }
     }
 
     &__price-amount-container {
@@ -182,5 +234,26 @@
         color: variables.$black;
         font-family: Poppins;
         margin: 0 0 8px;
+    }
+
+    &__action-row--auto-height {
+        height: auto;
+        min-height: 67px;
+    }
+
+    @media (max-width: variables.$minSmall) {
+        &__price {
+            font-size: 28px;
+        }
+
+        &__label {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        &__value {
+            font-size: 12px;
+            line-height: 16px;
+        }
     }
 }

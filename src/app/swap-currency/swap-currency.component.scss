@@ -1,0 +1,201 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+.swap-currency {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    flex: 1 1 auto;
+    height: 100%;
+
+    &__loader {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        z-index: 100;
+    }
+
+    &__filters {
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &__filter {
+        display: flex;
+        width: 100%;
+    }
+
+    &__search-icon {
+        color: variables.$gray;
+        margin-right: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            fill: variables.$gray;
+        }
+    }
+
+    &__network-filters {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        gap: 8px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+
+    &__network-filter {
+        display: flex;
+        min-width: 51px;
+        gap: 8px;
+        height: 36px;
+        min-height: 36px;
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        vertical-align: middle;
+    }
+
+    &__assets {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
+        flex: 1 1 auto;
+        height: 100%;
+        max-height: 490px;
+        overflow-y: auto;
+    }
+
+    &__asset {
+        display: flex;
+        width: 100%;
+        gap: 16px;
+        align-items: center;
+        flex: 1 1 auto;
+        cursor: pointer;
+        padding: 16px;
+        max-height: 72px;
+        border-radius: 16px;
+        box-sizing: border-box;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background-color: variables.$antiFlashWhite;
+        }
+
+        &--selected {
+            background-color: variables.$antiFlashWhite;
+        }
+    }
+
+    &__asset-info {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        &--left {
+            justify-content: flex-start;
+            flex: 1 1 auto;
+            width: 100%;
+        }
+
+        &--right {
+            justify-content: flex-end;
+            flex: 0 0 auto;
+        }
+    }
+
+    &__asset-col {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        &--right {
+            justify-content: flex-end;
+        }
+    }
+
+    &__asset-image {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        border-radius: 32px;
+        object-fit: contain;
+        overflow: hidden;
+    }
+
+    &__asset-name {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: left;
+        vertical-align: middle;
+        color: variables.$black;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__asset-name-text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 240px;
+    }
+
+    &__asset-symbol {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        color: variables.$gray;
+        margin: 0;
+    }
+
+    &__asset-balance {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: variables.$black;
+        margin: 0;
+        text-align: right;
+    }
+
+    &__asset-balance-fiat {
+        font-family: Poppins;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+        color: variables.$gray;
+        margin: 0;
+        text-align: right;
+    }
+}

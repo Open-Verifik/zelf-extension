@@ -3,13 +3,44 @@
 @use "../styles/buttons";
 @use "../styles/animations";
 
-/* Poppins Regular */
 @font-face {
     font-family: "Poppins";
     src: url("../assets/fonts/Poppins/Poppins-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
-    font-display: swap; /* This helps to avoid invisible text during font loading */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins/Poppins-ExtraBold.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -22,16 +53,16 @@
 
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-Bold.woff2") format("woff2");
-    font-weight: bold;
+    src: url("../assets/fonts/Menda/Menda-SemiBold.woff2") format("woff2");
+    font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-SemiBold.woff2") format("woff2");
-    font-weight: 600;
+    src: url("../assets/fonts/Menda/Menda-Bold.woff2") format("woff2");
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
@@ -62,7 +93,7 @@
 html {
     color-scheme: only light;
     position: relative !important;
-    min-width: 360px;
+    min-width: 347px;
 }
 
 body {
@@ -1165,12 +1196,25 @@ h3 {
     background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
+.zelf-botton-sheet-full,
 .zelf-bottom-sheet {
     .mat-bottom-sheet-container {
         background-color: variables.$white !important;
         border-radius: 26px 26px 0 0 !important;
         color: variables.$black;
         max-height: 100vh !important;
+    }
+}
+
+.zelf-botton-sheet-full {
+    width: 100vw !important;
+
+    .mat-bottom-sheet-container {
+        display: flex;
+        justify-content: center;
+        max-width: 100vw !important;
+        width: 100vw !important;
+        border-radius: 0 !important;
     }
 }
 
@@ -1244,7 +1288,7 @@ h3 {
     width: 564px;
     min-height: 768px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: variables.$medium) {
         background: variables.$white;
         width: 100%;
         padding: 12px;
@@ -1346,7 +1390,7 @@ h3 {
     border: 1px solid variables.$antiFlashWhite;
     box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
     display: flex;
-    height: 62px;
+    min-height: 62px;
     justify-content: space-between;
     padding: 16px;
     width: 100%;
@@ -1401,7 +1445,7 @@ h3 {
         border-radius: 9999px;
         letter-spacing: 0.1px;
         color: variables.$taupeGray;
-        font-weight: 800;
+        font-weight: 600;
         height: 32px;
         width: 32px;
         min-width: 32px;
@@ -1411,9 +1455,11 @@ h3 {
     }
 
     &__postfix {
+        font-family: Menda, sans-serif;
         font-size: 14px;
         letter-spacing: 0.1px;
-        color: variables.$taupeGray;
+        color: variables.$black;
+        text-transform: uppercase;
         font-weight: 500;
     }
 
@@ -1593,6 +1639,37 @@ h3 {
         transform: translateY(100%) scale(0) translateZ(0);
         transition: opacity 0.4s variables.$smoothBezier;
     }
+
+    &--plain {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        width: 100%;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        svg {
+            left: 89.8%;
+        }
+    }
+
+    &--gap-lg {
+        gap: 16px;
+    }
+}
+
+.zelf-menu-item {
+    & > span {
+        font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        width: 100% !important;
+    }
 }
 
 .zelf-checkbox {
@@ -1738,19 +1815,29 @@ h3 {
         margin-left: -10px;
     }
 
+    &--pill {
+        padding: 2px 8px;
+        height: 24px;
+        font-size: 12px;
+        line-height: 16px;
+        border-radius: 9999px;
+        color: variables.$gray;
+        background-color: variables.$antiFlashWhite;
+    }
+
     &--info {
-        color: #3998d3;
-        background-color: #ecf3fe;
+        color: variables.$info;
+        background-color: variables.$infoLight;
     }
 
     &--error {
-        color: #dc362e;
-        background-color: #fceeee;
+        color: variables.$error;
+        background-color: variables.$errorLight;
     }
 
     &--success {
-        color: #1ea446;
-        background-color: #f2ffee;
+        color: variables.$correct;
+        background-color: variables.$correctLight;
     }
 }
 

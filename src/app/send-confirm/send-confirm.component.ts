@@ -6,14 +6,17 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { AssetService } from "app/asset.service";
+import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { NetworkName, NetworkService } from "app/services/network.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
@@ -21,8 +24,6 @@ import { VaultService } from "app/vault.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { NetworkName, NetworkService } from "app/services/network.service";
-import { ChromeService } from "app/chrome.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
@@ -60,6 +61,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _chromeService: ChromeService,
         private _ethService: EthereumService,
@@ -160,27 +162,60 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     private async _getNetworkToken(): Promise<void> {
-        const network = this.transactionData.network as NetworkName;
+        const network = this.transactionData.network as NetworkName | "bitcoin";
 
-        this.networkToken = await this._networkService.getNetworkToken(network);
-        this.isNativeAsset = network === this.networkToken?.name;
+        this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
+        this.isNativeAsset = network === this.networkToken?.name || network === "bitcoin";
+
+        if (network === "bitcoin") {
+            try {
+                const response = await this._assetService.fetchAssetPrice("BTC");
+                if (response?.data?.length) {
+                    this.networkPrice = response.data[0].open;
+                }
+            } catch (error) {
+                console.error("Error fetching Bitcoin price:", error);
+            }
+        }
     }
 
     private async _calculateTransactionFee(): Promise<void> {
         try {
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-            if (this.transactionData.network === "solana") {
-                const tokenAddress = this.transactionData.tokenType === "SPL" ? this.transactionData.token?.address_token : undefined;
+            if (this.transactionData.network === "bitcoin") {
+                const receiverAddress = this.transactionData.receiver.address;
 
-                const feeEstimate = await this._solanaService.getTransactionCost(
-                    this.transactionData.receiver.address,
-                    normalizedAmount,
-                    tokenAddress
-                );
+                const isTestnet = receiverAddress.startsWith("tb1");
+                const network = isTestnet ? "testnet" : "mainnet";
 
-                this.transactionData.fee = feeEstimate.gasPrice || 0;
-                this.transactionData.fiatFee = feeEstimate.fiatFee || 0;
+                console.log("Calculating Bitcoin fee:", {
+                    receiverAddress,
+                    amount: normalizedAmount,
+                    network,
+                });
+
+                try {
+                    const feeRate = await this._bitcoinService.getFeeRates();
+
+                    const estimatedSize = 150;
+                    const estimatedFeeInSatoshis = estimatedSize * feeRate;
+
+                    const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
+                    const fiatFee = feeBTC * (this.networkPrice || 0);
+
+                    this.transactionData.fee = feeBTC;
+                    this.transactionData.fiatFee = fiatFee;
+                } catch (error) {
+                    console.warn("Failed to fetch fee rates, using fallback", error);
+
+                    const estimatedFeeInSatoshis = 150 * 20;
+                    const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
+                    const fiatFee = feeBTC * (this.networkPrice || 0);
+
+                    this.transactionData.fee = feeBTC;
+                    this.transactionData.fiatFee = fiatFee;
+                }
 
                 const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
                 this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
@@ -188,6 +223,43 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
 
                 return;
+            } else if (this.transactionData.network === "solana") {
+                if (this.transactionData.tokenType === "SPL") {
+                    const tokenAddress = this.transactionData.token?.tokenAddress || this.transactionData.token?.address_token || "";
+
+                    if (!tokenAddress) {
+                        throw new Error("Token address not found for SPL token");
+                    }
+
+                    console.log("Using SPL token address:", tokenAddress);
+                }
+
+                console.log("Sending Solana transaction:", {
+                    type: this.transactionData.tokenType,
+                    tokenAddress: this.transactionData.token?.tokenAddress || this.transactionData.token?.address_token || "",
+                    receiverAddress: this.transactionData.receiver.address,
+                    amount: normalizedAmount,
+                });
+
+                const tokenAddress = this.transactionData.token?.tokenAddress || this.transactionData.token?.address_token || "";
+                const receipt = await this._solanaService.sendTokens(
+                    this._mnemonics,
+                    this.transactionData.receiver.address,
+                    tokenAddress,
+                    normalizedAmount
+                );
+
+                if (typeof receipt === "string") {
+                    this.transactionData.fee = 0;
+                    this.transactionData.fiatFee = 0;
+                    this.transactionData.total = 0;
+                } else {
+                    this.transactionData.fee = (receipt as any).fee;
+                    this.transactionData.fiatFee = (receipt as any).fiatFee;
+                    this.transactionData.total = (receipt as any).total;
+                }
+
+                await this._transactionService.setCurrentTransactionData(this.transactionData);
             } else if (this.transactionData.network === "sui") {
                 if (this.transactionData.tokenType === "SUI") {
                     const feeEstimate = await this._suiService.estimateSuiTransactionFee(this.transactionData.receiver.address, normalizedAmount);
@@ -249,7 +321,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             }
         } catch (error) {
             console.error("Fee calculation error:", error);
-            this.openErrorSnackBar("errors.invalid_transaction_fee");
+            this.openErrorSnackBar((error as Error).message || "errors.invalid_transaction_fee");
         }
     }
 
@@ -400,7 +472,34 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             let receipt;
 
-            if (this.transactionData.network === "solana") {
+            if (this.transactionData.network === "bitcoin") {
+                const receiverAddress = this.transactionData.receiver.address;
+                const isTestnet = receiverAddress.startsWith("tb1");
+
+                console.log("Sending Bitcoin transaction:", {
+                    receiverAddress,
+                    amount: normalizedAmount,
+                    network: isTestnet ? "testnet" : "mainnet",
+                });
+
+                try {
+                    const txHash = await this._bitcoinService.createBitcoinTransaction(cleanMnemonic, receiverAddress, normalizedAmount, isTestnet);
+
+                    receipt = {
+                        transactionHash: txHash,
+                        network: "bitcoin",
+                        tokenType: "BTC",
+                        fee: this.transactionData.fee,
+                        fiatFee: this.transactionData.fiatFee,
+                        total: this.transactionData.total,
+                    };
+
+                    console.log("Bitcoin transaction successful:", receipt);
+                } catch (error) {
+                    console.error("Bitcoin transaction error:", error);
+                    throw new Error("Failed to create Bitcoin transaction. " + (error as any).message);
+                }
+            } else if (this.transactionData.network === "solana") {
                 let tokenAddress = "";
 
                 if (this.transactionData.tokenType === "SPL") {
@@ -492,7 +591,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                         ? "SUI"
                         : this.transactionData.network === "avalanche"
                           ? "AVAX"
-                          : this.transactionData.tokenType,
+                          : this.transactionData.network === "bitcoin"
+                            ? "BTC"
+                            : this.transactionData.tokenType,
             });
 
             this.sending = false;
@@ -527,6 +628,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             } else if (this.transactionData.network === "sui" && receipt.digest) {
                 await this._router.navigate(["/transaction", receipt.digest], {
                     queryParams: { network: "sui", symbol: "SUI" },
+                });
+            } else if (this.transactionData.network === "bitcoin" && receipt.transactionHash) {
+                await this._router.navigate(["/transaction", receipt.transactionHash], {
+                    queryParams: {
+                        network: "bitcoin",
+                        tokenType: "BTC",
+                    },
                 });
             } else if (receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {

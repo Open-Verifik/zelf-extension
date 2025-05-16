@@ -161,6 +161,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             const response = await firstValueFrom(
                 this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
             );
+            console.log(` HomeComponent ~ refreshTokens ~ response:`, response);
 
             const result = await this._assetService.processTokensFromResponse(response, this.wallet);
 

@@ -13,6 +13,7 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { BitcoinService } from "app/services/bitcoin.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
@@ -50,6 +51,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _bitcoinService: BitcoinService,
         private _changeDetectionRef: ChangeDetectorRef,
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -148,6 +150,10 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidFormat: true };
             }
 
+            if (this.transactionData.isBtcToken && !this._bitcoinService.isValidBTCAddress(value)) {
+                return { invalidBTC: true };
+            }
+
             return null;
         };
     }
@@ -221,6 +227,10 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._queryZNS("solanaAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "solanaAddress");
+                } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
+                    await this._queryZNS("btcAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "btcAddress");
                 }
             }
 
@@ -234,6 +244,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "solanaAddress");
+            } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "btcAddress");
             } else {
                 this.isZelfNameNotFound = true;
                 this.foundAddress = undefined;
@@ -389,7 +401,9 @@ export class SendTransactionComponent implements OnDestroy {
                               ? "ethAddress"
                               : this.transactionData.isSolToken
                                 ? "solanaAddress"
-                                : "solanaAddress"
+                                : this.transactionData.isBtcToken
+                                  ? "btcAddress"
+                                  : "solanaAddress"
                     ] || ""
                 );
 
@@ -409,6 +423,8 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(address, "ethAddress");
         } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
             this._setRawAddressToFoundAddress(address, "solanaAddress");
+        } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "btcAddress");
         }
 
         await this._setToCurrentTransactionData();
@@ -435,6 +451,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(address, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "solanaAddress");
+            } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(address)) {
+                this._setRawAddressToFoundAddress(address, "btcAddress");
             }
         }
 

@@ -6,7 +6,8 @@
     "license": ".",
     "private": true,
     "scripts": {
-        "build": "npm test && npm run build:web && npm run build:ext",
+        "build": "npm test && npm run build:prod",
+        "build:prod": "npm run build:ext:chrome",
         "build:ext": "npm run build:ext:chrome && npm run build:ext:firefox",
         "build:ext:chrome": "ng build --configuration 'ext_prod_chrome'",
         "build:ext:firefox": "ng build --configuration 'ext_prod_firefox'",

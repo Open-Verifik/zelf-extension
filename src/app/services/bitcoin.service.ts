@@ -106,14 +106,65 @@ export class BitcoinService {
 
             let totalInput = 0;
 
-            utxoDetails.forEach((utxo: any) => {
+           
+            const sortedUtxos = [...utxoDetails].sort((a, b) => b.value - a.value);
+            
+            
+            let amountInSatoshis = this.convertBTCToSatoshi(amount);
+            
+            
+            const feeRateResponse = await fetch("https://mempool.space/api/v1/fees/recommended");
+            const feeRates = await feeRateResponse.json();
+            
+          
+            const feeRate = isTestnet ? 5 : feeRates.economyFee || 10;
+            
+            console.log(`Using fee rate: ${feeRate} sat/vB`);
+            
+          
+            const estimatedSizePerInput = 68; 
+            const estimatedOutputSize = 31;
+            const estimatedOverhead = 10; 
+            
+           
+            let selectedUtxos = [];
+            let estimatedFee = 0;
+            
+            for (const utxo of sortedUtxos) {
+                selectedUtxos.push(utxo);
+                totalInput += utxo.value;
+                
+                
+                const estimatedSize = selectedUtxos.length * estimatedSizePerInput + 2 * estimatedOutputSize + estimatedOverhead;
+                estimatedFee = estimatedSize * feeRate;
+                
+               
+                if (totalInput >= amountInSatoshis + estimatedFee) {
+                    break;
+                }
+            }
+            
+          
+            if (totalInput < amountInSatoshis + estimatedFee) {
+                const adjustedAmount = totalInput - estimatedFee;
+                
+                if (adjustedAmount < 546) { 
+                    throw new Error(`Amount too small. Minimum amount after fees: 0.00000546 BTC`);
+                }
+                
+                console.log(`Adjusting amount from ${amountInSatoshis} to ${adjustedAmount} satoshis to accommodate fee of ${estimatedFee} satoshis`);
+                amountInSatoshis = adjustedAmount;
+            }
+            
+          
+            for (const utxo of selectedUtxos) {
                 const tx = bitcoin.Transaction.fromHex(utxo.txHex);
-
+                
                 const p2wpkh = bitcoin.payments.p2wpkh({
                     pubkey: Buffer.from(keyPair.publicKey),
                     network,
                 });
-
+                
                 psbt.addInput({
                     hash: utxo.txid,
                     index: utxo.vout,
@@ -122,41 +173,27 @@ export class BitcoinService {
                         value: utxo.value,
                     },
                 });
-
-                totalInput += utxo.value;
-            });
-
-            let amountInSatoshis = this.convertBTCToSatoshi(amount);
-
-            const feeRateResponse = await fetch("https://mempool.space/api/v1/fees/recommended");
-            const feeRates = await feeRateResponse.json();
-
-            const feeRate = isTestnet ? 5 : feeRates.fastestFee || 20;
-
-            const estimatedSize = utxos.length * 100 + 2 * 50 + 20;
-            const fee = estimatedSize * feeRate;
-
-            if (totalInput < amountInSatoshis + fee) {
-                const adjustedAmount = totalInput - fee;
-
-                if (adjustedAmount < 546) {
-                    throw new Error(`Amount too small. Minimum amount after fees: 0.00000546 BTC`);
-                }
-
-                console.log(`Adjusting amount from ${amountInSatoshis} to ${adjustedAmount} satoshis to accommodate fee of ${fee} satoshis`);
-                amountInSatoshis = adjustedAmount;
             }
 
-            if (amountInSatoshis < 546) {
-                throw new Error(`Amount too small. Minimum amount: 0.00000546 BTC`);
-            }
-
+        
             psbt.addOutput({
                 address: targetAddress,
                 value: amountInSatoshis,
             });
-
-            for (let i = 0; i < utxos.length; i++) {
+            
+            
+            const change = totalInput - amountInSatoshis - estimatedFee;
+            
+           
+            if (change > 546) {
+                psbt.addOutput({
+                    address: sourceAddress, 
+                    value: change,
+                });
+            }
+            
+           
+            for (let i = 0; i < selectedUtxos.length; i++) {
                 try {
                     psbt.signInput(i, {
                         publicKey: Buffer.from(keyPair.publicKey),
@@ -177,6 +214,11 @@ export class BitcoinService {
 
             const tx = psbt.extractTransaction();
             const txHex = tx.toHex();
+            
+           
+            const actualFee = totalInput - (amountInSatoshis + (change > 546 ? change : 0));
+            console.log(`Actual fee: ${actualFee} satoshis (${this.convertSatoshiToBTC(actualFee)} BTC)`);
+            console.log(`Fee rate: ${(actualFee / tx.virtualSize()).toFixed(2)} sat/vB`);
 
             const broadcastResponse = await fetch(`${baseUrl}/tx`, {
                 method: "POST",
@@ -194,7 +236,7 @@ export class BitcoinService {
             console.log(`From: ${sourceAddress}`);
             console.log(`To: ${targetAddress}`);
             console.log(`Amount: ${amount} BTC`);
-            console.log(`Fee: ${this.convertSatoshiToBTC(fee)} BTC`);
+            console.log(`Fee: ${this.convertSatoshiToBTC(actualFee)} BTC`);
 
             return txid;
         } catch (error) {

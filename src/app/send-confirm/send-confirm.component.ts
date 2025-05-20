@@ -196,31 +196,54 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 });
 
                 try {
-                    const feeRate = await this._bitcoinService.getFeeRates();
-
-                    const estimatedSize = 150;
+                    const feeRateResponse = await fetch("https://mempool.space/api/v1/fees/recommended");
+                    const feeRates = await feeRateResponse.json();
+                    
+                    const feeRate = isTestnet ? 5 : feeRates.economyFee || 10;
+                    
+                    const estimatedInputs = 1;
+                    const estimatedOutputs = 2;
+                    const estimatedSize = (estimatedInputs * 68) + (estimatedOutputs * 31) + 10;
+                    
                     const estimatedFeeInSatoshis = estimatedSize * feeRate;
-
+                    
                     const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
+                    
+                    try {
+                        const response = await this._assetService.fetchAssetPrice("BTC");
+                        if (response?.data?.length) {
+                            this.networkPrice = response.data[0].open;
+                        }
+                    } catch (error) {
+                        console.error("Error fetching Bitcoin price:", error);
+                    }
+                    
                     const fiatFee = feeBTC * (this.networkPrice || 0);
 
                     this.transactionData.fee = feeBTC;
                     this.transactionData.fiatFee = fiatFee;
+                    
+                    console.log(`Estimated Bitcoin fee: ${feeBTC} BTC (${fiatFee} USD) at ${feeRate} sat/vB`);
+                    
+                    const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+                    this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
+                    await this._transactionService.setCurrentTransactionData(this.transactionData);
                 } catch (error) {
                     console.warn("Failed to fetch fee rates, using fallback", error);
 
-                    const estimatedFeeInSatoshis = 150 * 20;
+                    const estimatedFeeInSatoshis = 150 * 10;
                     const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
                     const fiatFee = feeBTC * (this.networkPrice || 0);
 
                     this.transactionData.fee = feeBTC;
                     this.transactionData.fiatFee = fiatFee;
+                    
+                    const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+                    this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
+                    await this._transactionService.setCurrentTransactionData(this.transactionData);
                 }
-
-                const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-                this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
-
-                await this._transactionService.setCurrentTransactionData(this.transactionData);
 
                 return;
             } else if (this.transactionData.network === "solana") {
@@ -320,8 +343,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
             }
         } catch (error) {
-            console.error("Fee calculation error:", error);
-            this.openErrorSnackBar((error as Error).message || "errors.invalid_transaction_fee");
+            console.error("Error calculating transaction fee:", error);
         }
     }
 

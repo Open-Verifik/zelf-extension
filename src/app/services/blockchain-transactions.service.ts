@@ -1,7 +1,7 @@
 import { forkJoin, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 
 import { environment } from "environments/environment";
 
@@ -11,6 +11,7 @@ import { NetworkName } from "./network.service";
 import { EthereumService } from "../eth.service";
 import { SolanaService } from "../solana.service";
 import { SuiService } from "./sui.service";
+import { BitcoinService } from "./bitcoin.service";
 
 @Injectable({
     providedIn: "root",
@@ -20,7 +21,8 @@ export class BlockchainTransactionsService {
         private _httpWrapperService: HttpWrapperService,
         private _ethereumService: EthereumService,
         private _solanaService: SolanaService,
-        private _suiService: SuiService
+        private _suiService: SuiService,
+        private _injector: Injector
     ) {}
 
     getAddressData(wallet: Partial<WalletModel> | null): Observable<any> {
@@ -245,6 +247,21 @@ export class BlockchainTransactionsService {
                     const result = await this._suiService.transferSui(txParams.mnemonic, txParams.to, parseFloat(txParams.value || "0"));
                     return result.transactionHash;
                 }
+
+            case "bitcoin":
+                if (!txParams.mnemonic) {
+                    throw new Error("Mnemonic is required for Bitcoin transactions");
+                }
+
+             
+                const bitcoinService = this._injector.get(BitcoinService);
+                
+                
+                return bitcoinService.sendBitcoin(
+                    txParams.mnemonic,
+                    txParams.to,
+                    parseFloat(txParams.value || "0")
+                );
 
             default:
                 throw new Error(`Unsupported network: ${network}`);

@@ -6,7 +6,7 @@ import { ECPairFactory, ECPairInterface } from "ecpair";
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { firstValueFrom } from "rxjs";
+
 
 import { environment } from "../../environments/environment";
 import { HttpWrapperService } from "./../http-wrapper.service";
@@ -246,6 +246,60 @@ export class BitcoinService {
         } catch (error) {
             console.error("Error fetching fee rates:", error);
             return 20;
+        }
+    }
+
+    /**
+     * Send Bitcoin to an address
+     * @param mnemonic Bitcoin wallet mnemonic
+     * @param targetAddress Destination address
+     * @param amount Amount in BTC
+     * @returns Transaction hash
+     */
+    async sendBitcoin(mnemonic: string, targetAddress: string, amount: number): Promise<string> {
+        console.log(`Sending ${amount} BTC to ${targetAddress}`);
+        
+        try {
+          
+            const isTestnet = false;
+            
+           
+            const txid = await this.createBitcoinTransaction(mnemonic, targetAddress, amount, isTestnet);
+            
+            console.log(`Transaction sent successfully: ${txid}`);
+            return txid;
+        } catch (error) {
+            console.error('Error sending Bitcoin:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Get the Bitcoin balance of an address
+     * @param address Bitcoin address
+     * @returns balance in BTC and additional data
+     */
+    async getBitcoinBalance(address: string): Promise<{balance: number, fiatBalance: number, transactions: any[]}> {
+        try {
+         
+            const response = await this._httpWrapperService.sendRequest(
+                "get", 
+                `${environment.apiUrl}/api/bitcoin/address/${address}`, 
+                {}
+            );
+            
+            if (!response || !response.data) {
+                throw new Error('No data received from Bitcoin API');
+            }
+            
+            return {
+                balance: response.data.balance || 0,
+                fiatBalance: response.data.fiatBalance || 0,
+                transactions: response.data.transactions || []
+            };
+        } catch (error) {
+            console.error('Error fetching Bitcoin balance:', error);
+            return { balance: 0, fiatBalance: 0, transactions: [] };
         }
     }
 }

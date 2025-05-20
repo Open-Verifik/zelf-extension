@@ -12,6 +12,7 @@ import { TokenItemComponent } from "app/token-item/token-item.component";
 import { TransactionService } from "app/transaction.service";
 import { TokenData, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { BitcoinService } from "app/services/bitcoin.service";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent, ReactiveFormsModule, NgTemplateOutlet],
@@ -37,7 +38,8 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _transactionService: TransactionService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _bitcoinService: BitcoinService
     ) {
         this.CAN_SEND = this._assetService.canSend;
 
@@ -102,6 +104,10 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Sui" && this.CAN_SEND.SUI) {
             return true;
         }
+        
+        if (token.network === "Bitcoin" && token.tokenType === "BTC") {
+            return true;
+        }
 
         return false;
     }
@@ -112,6 +118,30 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
 
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
             const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SEND);
+
+            if (this.wallet.btcAddress) {
+                try {
+                    const btcBalance = await this._bitcoinService.getBitcoinBalance(this.wallet.btcAddress);
+                    
+                    if (btcBalance && btcBalance.balance > 0) {
+                        const btcToken = {
+                            address: this.wallet.btcAddress,
+                            amount: btcBalance.balance,
+                            decimals: 8,
+                            fiatBalance: btcBalance.fiatBalance,
+                            name: "Bitcoin",
+                            network: "Bitcoin",
+                            price: btcBalance.fiatBalance / btcBalance.balance,
+                            symbol: "BTC",
+                            tokenType: "BTC"
+                        };
+                        
+                        result.tokens.push(btcToken);
+                    }
+                } catch (error) {
+                    console.error("Error fetching Bitcoin balance:", error);
+                }
+            }
 
             this.tokens = result.tokens.filter((token: TokenData) => this.isTokenSendable(token));
         } catch (error) {

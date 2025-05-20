@@ -20,6 +20,7 @@ import { TransactionService } from "app/transaction.service";
 import { AddressBook, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { VaultService } from "app/vault.service";
 
 @Component({
     imports: [
@@ -61,7 +62,8 @@ export class SendTransactionComponent implements OnDestroy {
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _vaultService: VaultService
     ) {
         this.loading = true;
     }
@@ -425,10 +427,29 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(address, "solanaAddress");
         } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(address)) {
             this._setRawAddressToFoundAddress(address, "btcAddress");
+            
+          
+            try {
+                if (this.foundAddress && 'btcAddress' in this.foundAddress) {
+                    const address = (this.foundAddress as any).btcAddress || "";
+                    const btcBalance = await this._bitcoinService.getBitcoinBalance(address);
+                    
+                 
+                    if (btcBalance.balance < parseFloat(this.form.get("amount")?.value || "0")) {
+                        this._snackBar.open(
+                            this._translocoService.translate("INSUFFICIENT_FUNDS"),
+                            this._translocoService.translate("CLOSE"),
+                            { duration: 5000 }
+                        );
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.error("Error checking Bitcoin balance:", error);
+            }
         }
 
         await this._setToCurrentTransactionData();
-
         this.withdrawStep = true;
     }
 
@@ -563,5 +584,62 @@ export class SendTransactionComponent implements OnDestroy {
 
     withdrawAll(): void {
         this.form.get("amount")?.patchValue(this.transactionData.balance);
+    }
+
+    async sendTransaction(): Promise<void> {
+        if (this.form.invalid) return;
+
+        this.loading = true;
+
+        try {
+
+            const walletData = await this._walletService.getCurrentWallet();
+            const mnemonic = this._vaultService.mnemonic;
+
+            if (!walletData || !mnemonic) {
+                throw new Error("No wallet data or mnemonic available");
+            }
+
+            const amount = parseFloat(this.form.get("amount")?.value || "0");
+            const toAddress = this.form.get("toAddress")?.value;
+
+            if (this.transactionData.isBtcToken) {
+              
+                const txHash = await this._bitcoinService.sendBitcoin(
+                    mnemonic,
+                    toAddress,
+                    amount
+                );
+
+              
+                this._snackBar.open(
+                    this._translocoService.translate("TRANSACTION_SENT"),
+                    this._translocoService.translate("CLOSE"),
+                    { duration: 5000 }
+                );
+
+             
+                this._router.navigate(["/transaction-confirmation"], {
+                    state: {
+                        hash: txHash,
+                        network: "bitcoin",
+                        amount: amount,
+                        to: toAddress,
+                        symbol: "BTC"
+                    }
+                });
+            } else {
+            
+            }
+        } catch (error) {
+            console.error("Error sending transaction:", error);
+            this._snackBar.open(
+                this._translocoService.translate("TRANSACTION_FAILED"),
+                this._translocoService.translate("CLOSE"),
+                { duration: 5000 }
+            );
+        } finally {
+            this.loading = false;
+        }
     }
 }

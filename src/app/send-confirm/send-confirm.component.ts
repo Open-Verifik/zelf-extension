@@ -14,7 +14,7 @@ import { AssetService } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { BitcoinService } from "app/services/bitcoin.service";
+import { BitcoinService, MempoolFeeRates } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { SuiService } from "app/services/sui.service";
@@ -39,6 +39,14 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     private _skipPriceFetch: boolean = false;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
+    feeRates: MempoolFeeRates = {
+        fastestFee: 0,
+        halfHourFee: 0,
+        hourFee: 0,
+        economyFee: 0,
+        minimumFee: 0,
+    };
+
     availableNetworks = [
         { id: "ethereum", name: "Ethereum", symbol: "ETH" },
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
@@ -53,7 +61,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
     sending: boolean = false;
+    selectedFeeRate: number = 0;
     showPassword: boolean = false;
+    showFeeInfo: boolean = false;
     transactionData!: TransactionData;
     wallet?: WalletModel;
     networkToken?: any;
@@ -161,6 +171,24 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         return this.fiatPrice + this.fiatFeePrice || 0;
     }
 
+    get fiatFastestFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.fastestFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
+    }
+
+    get fiatHalfHourFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.halfHourFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
+    }
+
+    get fiatEconomyFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.economyFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
+    }
+
     private async _getNetworkToken(): Promise<void> {
         const network = this.transactionData.network as NetworkName | "bitcoin";
 
@@ -184,48 +212,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
             if (this.transactionData.network === "bitcoin") {
-                const receiverAddress = this.transactionData.receiver.address;
-
-                const isTestnet = receiverAddress.startsWith("tb1");
-                const network = isTestnet ? "testnet" : "mainnet";
-
-                console.log("Calculating Bitcoin fee:", {
-                    receiverAddress,
-                    amount: normalizedAmount,
-                    network,
-                });
-
                 try {
-                    const feeRateResponse = await fetch("https://mempool.space/api/v1/fees/recommended");
-                    const feeRates = await feeRateResponse.json();
-                    
-                    const feeRate = isTestnet ? 5 : feeRates.economyFee || 10;
-                    
-                    const estimatedInputs = 1;
-                    const estimatedOutputs = 2;
-                    const estimatedSize = (estimatedInputs * 68) + (estimatedOutputs * 31) + 10;
-                    
-                    const estimatedFeeInSatoshis = estimatedSize * feeRate;
-                    
-                    const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
-                    
-                    try {
-                        const response = await this._assetService.fetchAssetPrice("BTC");
-                        if (response?.data?.length) {
-                            this.networkPrice = response.data[0].open;
-                        }
-                    } catch (error) {
-                        console.error("Error fetching Bitcoin price:", error);
-                    }
-                    
-                    const fiatFee = feeBTC * (this.networkPrice || 0);
+                    const response = await this._assetService.fetchAssetPrice("BTC");
 
-                    this.transactionData.fee = feeBTC;
-                    this.transactionData.fiatFee = fiatFee;
-                    
-                    console.log(`Estimated Bitcoin fee: ${feeBTC} BTC (${fiatFee} USD) at ${feeRate} sat/vB`);
-                    
+                    if (response?.data?.length) this.networkPrice = response.data[0].open;
+
+                    const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.selectedFeeRate, this.networkPrice);
+
+                    this.transactionData.fee = calculatedFee.feeBTC;
+                    this.transactionData.fiatFee = calculatedFee.fiatFee;
+
                     const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+
                     this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
                     await this._transactionService.setCurrentTransactionData(this.transactionData);
@@ -238,7 +236,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
                     this.transactionData.fee = feeBTC;
                     this.transactionData.fiatFee = fiatFee;
-                    
+
                     const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
                     this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
 
@@ -419,10 +417,45 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this._initInterval();
         this._initForm();
 
+        await this._initFeeRates();
         await this._getNetworkToken();
         await this._fetchTokenPrice();
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
+    }
+
+    async _initFeeRates(): Promise<void> {
+        if (this.transactionData.network !== "bitcoin") return;
+
+        this.feeRates = await this._bitcoinService.getFeeRates();
+        this.selectedFeeRate = this._bitcoinService.selectedFeeRate;
+
+        if (this.selectedFeeRate === 0) {
+            this.selectedFeeRate = this.feeRates.halfHourFee;
+
+            return;
+        }
+
+        const keys = ["minimumFee", "economyFee", "hourFee", "halfHourFee", "fastestFee"];
+
+        let lastFeeRate: number = 0;
+
+        // Find the fee rate that is the closest to the selected fee rate as the rates may have changed
+        for (const key of keys) {
+            const feeRate = this.feeRates[key as keyof MempoolFeeRates];
+
+            if (feeRate === this.selectedFeeRate) {
+                this.selectedFeeRate = feeRate;
+
+                break;
+            } else if (feeRate > this.selectedFeeRate || key === "fastestFee") {
+                this.selectedFeeRate = lastFeeRate;
+
+                break;
+            } else {
+                lastFeeRate = feeRate;
+            }
+        }
     }
 
     async _initInterval(): Promise<void> {
@@ -505,7 +538,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 });
 
                 try {
-                    const txHash = await this._bitcoinService.createBitcoinTransaction(cleanMnemonic, receiverAddress, normalizedAmount, isTestnet);
+                    const txHash = await this._bitcoinService.createBitcoinTransaction(
+                        cleanMnemonic,
+                        receiverAddress,
+                        normalizedAmount,
+                        this.selectedFeeRate,
+                        isTestnet
+                    );
 
                     receipt = {
                         transactionHash: txHash,
@@ -676,6 +715,12 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     async goBack(): Promise<void> {
+        if (this.showFeeInfo) {
+            this.showFeeInfo = false;
+
+            return;
+        }
+
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";
 
@@ -702,6 +747,16 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             panelClass: "zelf-snackbar",
             verticalPosition: "top",
         });
+    }
+
+    openFeeInfo(): void {
+        this.showFeeInfo = true;
+    }
+
+    selectFeeRate(feeRate: number): void {
+        this.showFeeInfo = false;
+        this.selectedFeeRate = feeRate;
+        this._calculateTransactionFee();
     }
 
     toggleShowPassword(): void {

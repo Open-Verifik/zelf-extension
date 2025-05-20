@@ -15,16 +15,41 @@ const bip32 = BIP32Factory(secp256k1);
 
 bitcoin.initEccLib(secp256k1);
 
+export type MempoolFeeRates = {
+    fastestFee: number;
+    halfHourFee: number;
+    hourFee: number;
+    economyFee: number;
+    minimumFee: number;
+};
+
 @Injectable({
     providedIn: "root",
 })
 export class BitcoinService {
     private _BTC_REGEX = /^(?:(?:bc1|tb1|1|32)[a-zA-HJ-NP-Z0-9]{25,59})$/;
+    private _selectedFeeRate: number = 0;
 
     constructor(
         private _httpClient: HttpClient,
         private _httpWrapperService: HttpWrapperService
     ) {}
+
+    public feeRates: MempoolFeeRates = {
+        fastestFee: 0,
+        halfHourFee: 0,
+        hourFee: 0,
+        economyFee: 0,
+        minimumFee: 0,
+    };
+
+    public get selectedFeeRate(): number {
+        return this._selectedFeeRate;
+    }
+
+    public set selectedFeeRate(value: number) {
+        this._selectedFeeRate = value;
+    }
 
     public convertBTCToSatoshi(amount: number): number {
         return Math.floor(amount * 100000000);
@@ -32,6 +57,19 @@ export class BitcoinService {
 
     public convertSatoshiToBTC(amount: number): number {
         return amount / 100000000;
+    }
+
+    public calculateBitcoinTransactionFee(feeRate: number, networkPrice: number): { feeBTC: number; fiatFee: number } {
+        const estimatedInputs = 1;
+        const estimatedOutputs = 2;
+        const estimatedSize = estimatedInputs * 68 + estimatedOutputs * 31 + 10;
+        const estimatedFeeInSatoshis = estimatedSize * feeRate;
+
+        const feeBTC = this.convertSatoshiToBTC(estimatedFeeInSatoshis);
+
+        const fiatFee = feeBTC * (networkPrice || 0);
+
+        return { feeBTC, fiatFee };
     }
 
     private _getAddressType(address: string): "segwit" | "testnet" | "legacy" {
@@ -56,7 +94,7 @@ export class BitcoinService {
         return utxos?.map((tx: any) => [...tx.outputs.map((output: any) => (sourceAddress === output.scriptpubkey_address ? output.value : 0))]);
     }
 
-    async createBitcoinTransaction(mnemonic: string, targetAddress: string, amount: number, isTestnet: boolean = false) {
+    async createBitcoinTransaction(mnemonic: string, targetAddress: string, amount: number, feeRate: number = 10, isTestnet: boolean = false) {
         try {
             const seed = bip39.mnemonicToSeedSync(mnemonic);
             const network = isTestnet ? bitcoin.networks.testnet : bitcoin.networks.bitcoin;
@@ -111,11 +149,6 @@ export class BitcoinService {
             let totalInput = 0;
 
             const amountInSatoshis = this.convertBTCToSatoshi(amount);
-
-            const feeRateResponse = await fetch("https://mempool.space/api/v1/fees/recommended");
-            const feeRates = await feeRateResponse.json();
-
-            const feeRate = isTestnet ? 5 : feeRates.economyFee || 10;
 
             console.log(`Using fee rate: ${feeRate} sat/vB`);
 
@@ -262,14 +295,21 @@ export class BitcoinService {
         return this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/bitcoin/testnet/transactions/${address}`);
     }
 
-    public async getFeeRates(): Promise<number> {
+    public async getFeeRates(): Promise<MempoolFeeRates> {
         try {
             const response = await fetch("https://mempool.space/api/v1/fees/recommended");
             const data = await response.json();
-            return data.fastestFee || 20;
+            return data;
         } catch (error) {
             console.error("Error fetching fee rates:", error);
-            return 20;
+
+            return {
+                fastestFee: 12,
+                halfHourFee: 9,
+                hourFee: 6,
+                economyFee: 2,
+                minimumFee: 1,
+            };
         }
     }
 
@@ -284,9 +324,7 @@ export class BitcoinService {
         console.log(`Sending ${amount} BTC to ${targetAddress}`);
 
         try {
-            const isTestnet = false;
-
-            const txid = await this.createBitcoinTransaction(mnemonic, targetAddress, amount, isTestnet);
+            const txid = await this.createBitcoinTransaction(mnemonic, targetAddress, amount);
 
             console.log(`Transaction sent successfully: ${txid}`);
             return txid;

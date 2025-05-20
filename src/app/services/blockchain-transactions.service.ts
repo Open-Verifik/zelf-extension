@@ -37,11 +37,6 @@ export class BlockchainTransactionsService {
             avalanche: this._httpWrapperService
                 .sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, {})
                 .catch(() => of(null)),
-            bitcoin: wallet.btcAddress
-                ? this._httpWrapperService
-                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/address/${wallet.btcAddress}`, {})
-                      .catch(() => of(null))
-                : of(null),
             solana: wallet.solanaAddress
                 ? this._httpWrapperService
                       .sendRequest("get", `${environment.apiUrl}/api/solana/address/${wallet.solanaAddress}`, {})
@@ -49,6 +44,11 @@ export class BlockchainTransactionsService {
                 : of(null),
             sui: wallet.suiAddress
                 ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/sui/address/${wallet.suiAddress}`, {}).catch(() => of(null))
+                : of(null),
+            bitcoin: wallet.btcAddress
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/address/${wallet.btcAddress}`, {})
+                      .catch(() => of(null))
                 : of(null),
             bitcoinTestnet: environment.testnetAddress
                 ? this._httpWrapperService
@@ -87,14 +87,6 @@ export class BlockchainTransactionsService {
                     show: 25,
                 })
                 .catch(() => of(null)),
-            bitcoin: wallet.btcAddress
-                ? this._httpWrapperService
-                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/transactions/${wallet.btcAddress}`, {
-                          page: pagination.page,
-                          show: 25,
-                      })
-                      .catch(() => of(null))
-                : of(null),
             solana: wallet.solanaAddress
                 ? this._httpWrapperService
                       .sendRequest("get", `${environment.apiUrl}/api/solana/transactions/${wallet.solanaAddress}`, {
@@ -106,6 +98,14 @@ export class BlockchainTransactionsService {
             sui: wallet.suiAddress
                 ? this._httpWrapperService
                       .sendRequest("get", `${environment.apiUrl}/api/sui/transactions/${wallet.suiAddress}`, {
+                          page: pagination.page,
+                          show: 25,
+                      })
+                      .catch(() => of(null))
+                : of(null),
+            bitcoin: wallet.btcAddress
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/transactions/${wallet.btcAddress}`, {
                           page: pagination.page,
                           show: 25,
                       })
@@ -253,15 +253,9 @@ export class BlockchainTransactionsService {
                     throw new Error("Mnemonic is required for Bitcoin transactions");
                 }
 
-             
                 const bitcoinService = this._injector.get(BitcoinService);
-                
-                
-                return bitcoinService.sendBitcoin(
-                    txParams.mnemonic,
-                    txParams.to,
-                    parseFloat(txParams.value || "0")
-                );
+
+                return bitcoinService.sendBitcoin(txParams.mnemonic, txParams.to, parseFloat(txParams.value || "0"));
 
             default:
                 throw new Error(`Unsupported network: ${network}`);

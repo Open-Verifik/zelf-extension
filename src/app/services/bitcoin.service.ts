@@ -7,7 +7,6 @@ import { ECPairFactory, ECPairInterface } from "ecpair";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-
 import { environment } from "../../environments/environment";
 import { HttpWrapperService } from "./../http-wrapper.service";
 
@@ -22,7 +21,10 @@ bitcoin.initEccLib(secp256k1);
 export class BitcoinService {
     private _BTC_REGEX = /^(?:(?:bc1|tb1|1|32)[a-zA-HJ-NP-Z0-9]{25,59})$/;
 
-    constructor(private _httpClient: HttpClient, private _httpWrapperService: HttpWrapperService) {}
+    constructor(
+        private _httpClient: HttpClient,
+        private _httpWrapperService: HttpWrapperService
+    ) {}
 
     public convertBTCToSatoshi(amount: number): number {
         return Math.floor(amount * 100000000);
@@ -59,12 +61,14 @@ export class BitcoinService {
             const seed = bip39.mnemonicToSeedSync(mnemonic);
             const network = isTestnet ? bitcoin.networks.testnet : bitcoin.networks.bitcoin;
 
-            const path = isTestnet ? "m/84'/1'/0'/0/0" : "m/84'/0'/0'/0/0";
+            // NOTE: Testnet addresses are not supported for p2wpkh use p2tr instead
+            const path = isTestnet ? "m/86'/1'/0'/0/0" : "m/84'/0'/0'/0/0";
 
             const keyPair = this._getPrivateKey(seed, path, network);
+            const pubkey = Buffer.from(keyPair.publicKey);
 
             const { address: sourceAddress } = bitcoin.payments.p2wpkh({
-                pubkey: Buffer.from(keyPair.publicKey),
+                pubkey,
                 network,
             });
 
@@ -74,14 +78,14 @@ export class BitcoinService {
 
             console.log(`Derived ${isTestnet ? "testnet" : "mainnet"} address: ${sourceAddress}`);
 
-            const baseUrl = isTestnet ? "https://blockstream.info/testnet/api" : "https://blockstream.info/api";
-
+            const baseUrl = isTestnet ? "https://mempool.space/testnet/api" : "https://mempool.space/api";
             const utxoResponse = await fetch(`${baseUrl}/address/${sourceAddress}/utxo`);
 
             if (!utxoResponse.ok) {
                 if (utxoResponse.status === 404 || utxoResponse.status === 400) {
                     throw new Error(`No funds available in address ${sourceAddress}. Please fund this address first.`);
                 }
+
                 throw new Error(`Failed to fetch UTXOs: ${utxoResponse.statusText}`);
             }
 
@@ -107,51 +111,52 @@ export class BitcoinService {
             let totalInput = 0;
 
             const amountInSatoshis = this.convertBTCToSatoshi(amount);
-            
+
             const feeRateResponse = await fetch("https://mempool.space/api/v1/fees/recommended");
             const feeRates = await feeRateResponse.json();
-            
+
             const feeRate = isTestnet ? 5 : feeRates.economyFee || 10;
-            
+
             console.log(`Using fee rate: ${feeRate} sat/vB`);
-            
+
             const estimatedSizePerInput = 68;
             const estimatedOutputSize = 31;
             const estimatedOverhead = 10;
-            
-            const minTransactionSize = estimatedSizePerInput + (2 * estimatedOutputSize) + estimatedOverhead;
-            
+
+            const minTransactionSize = estimatedSizePerInput + 2 * estimatedOutputSize + estimatedOverhead;
             const minFee = minTransactionSize * feeRate;
-            
+
             console.log(`Minimum estimated fee: ${minFee} satoshis`);
-            
+
             const sortedUtxos = [...utxoDetails].sort((a, b) => a.value - b.value);
-            
+
             let selectedUtxos = [];
             let estimatedFee = minFee;
-            
+
             for (const utxo of sortedUtxos) {
                 selectedUtxos.push(utxo);
                 totalInput += utxo.value;
-                
+
                 const estimatedSize = selectedUtxos.length * estimatedSizePerInput + 2 * estimatedOutputSize + estimatedOverhead;
                 estimatedFee = estimatedSize * feeRate;
-                
+
                 if (totalInput >= amountInSatoshis + estimatedFee + 1000) {
                     break;
                 }
             }
-            
+
             if (totalInput < amountInSatoshis + estimatedFee) {
-                throw new Error(`Insufficient funds. Available: ${this.convertSatoshiToBTC(totalInput)} BTC, Required: ${this.convertSatoshiToBTC(amountInSatoshis + estimatedFee)} BTC`);
+                throw new Error(
+                    `Insufficient funds. Available: ${this.convertSatoshiToBTC(totalInput)} BTC, Required: ${this.convertSatoshiToBTC(amountInSatoshis + estimatedFee)} BTC`
+                );
             }
-            
+
             for (const utxo of selectedUtxos) {
                 const p2wpkh = bitcoin.payments.p2wpkh({
-                    pubkey: Buffer.from(keyPair.publicKey),
+                    pubkey,
                     network,
                 });
-                
+
                 psbt.addInput({
                     hash: utxo.txid,
                     index: utxo.vout,
@@ -166,9 +171,9 @@ export class BitcoinService {
                 address: targetAddress,
                 value: amountInSatoshis,
             });
-            
+
             const change = totalInput - amountInSatoshis - estimatedFee;
-            
+
             if (change > 546) {
                 psbt.addOutput({
                     address: sourceAddress,
@@ -178,10 +183,10 @@ export class BitcoinService {
             } else {
                 console.log(`Change too small (${change} satoshis), adding to fee`);
             }
-            
+
             for (let i = 0; i < selectedUtxos.length; i++) {
                 psbt.signInput(i, {
-                    publicKey: Buffer.from(keyPair.publicKey),
+                    publicKey: pubkey,
                     sign: (hash: Buffer) => Buffer.from(keyPair.sign(hash)),
                 });
             }
@@ -190,7 +195,7 @@ export class BitcoinService {
 
             const tx = psbt.extractTransaction();
             const txHex = tx.toHex();
-            
+
             const actualFee = totalInput - amountInSatoshis - (change > 546 ? change : 0);
             console.log(`Actual fee: ${actualFee} satoshis (${this.convertSatoshiToBTC(actualFee)} BTC)`);
             console.log(`Fee rate: ${(actualFee / tx.virtualSize()).toFixed(2)} sat/vB`);
@@ -277,18 +282,16 @@ export class BitcoinService {
      */
     async sendBitcoin(mnemonic: string, targetAddress: string, amount: number): Promise<string> {
         console.log(`Sending ${amount} BTC to ${targetAddress}`);
-        
+
         try {
-          
             const isTestnet = false;
-            
-           
+
             const txid = await this.createBitcoinTransaction(mnemonic, targetAddress, amount, isTestnet);
-            
+
             console.log(`Transaction sent successfully: ${txid}`);
             return txid;
         } catch (error) {
-            console.error('Error sending Bitcoin:', error);
+            console.error("Error sending Bitcoin:", error);
             throw error;
         }
     }
@@ -298,26 +301,21 @@ export class BitcoinService {
      * @param address Bitcoin address
      * @returns balance in BTC and additional data
      */
-    async getBitcoinBalance(address: string): Promise<{balance: number, fiatBalance: number, transactions: any[]}> {
+    async getBitcoinBalance(address: string): Promise<{ balance: number; fiatBalance: number; transactions: any[] }> {
         try {
-         
-            const response = await this._httpWrapperService.sendRequest(
-                "get", 
-                `${environment.apiUrl}/api/bitcoin/address/${address}`, 
-                {}
-            );
-            
+            const response = await this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/bitcoin/address/${address}`, {});
+
             if (!response || !response.data) {
-                throw new Error('No data received from Bitcoin API');
+                throw new Error("No data received from Bitcoin API");
             }
-            
+
             return {
                 balance: response.data.balance || 0,
                 fiatBalance: response.data.fiatBalance || 0,
-                transactions: response.data.transactions || []
+                transactions: response.data.transactions || [],
             };
         } catch (error) {
-            console.error('Error fetching Bitcoin balance:', error);
+            console.error("Error fetching Bitcoin balance:", error);
             return { balance: 0, fiatBalance: 0, transactions: [] };
         }
     }

@@ -72,7 +72,7 @@ export class AssetService {
     get canSend(): NetworkPermissions {
         return {
             AVAX: true,
-            BTC: false,
+            BTC: true,
             ETH: true,
             SOL: true,
             SUI: true,

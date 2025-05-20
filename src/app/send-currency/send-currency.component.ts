@@ -89,25 +89,11 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
     }
 
     private isTokenSendable(token: any): boolean {
-        if (token.network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-            return true;
-        }
-
-        if (token.network === "Solana" && this.CAN_SEND.SOL) {
-            return true;
-        }
-
-        if (token.network === "Avalanche" && this.CAN_SEND.AVAX) {
-            return true;
-        }
-
-        if (token.network === "Sui" && this.CAN_SEND.SUI) {
-            return true;
-        }
-        
-        if (token.network === "Bitcoin" && token.tokenType === "BTC") {
-            return true;
-        }
+        if (token.network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) return true;
+        if (token.network === "Solana" && this.CAN_SEND.SOL) return true;
+        if (token.network === "Avalanche" && this.CAN_SEND.AVAX) return true;
+        if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
+        if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
 
         return false;
     }
@@ -122,7 +108,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             if (this.wallet.btcAddress) {
                 try {
                     const btcBalance = await this._bitcoinService.getBitcoinBalance(this.wallet.btcAddress);
-                    
+
                     if (btcBalance && btcBalance.balance > 0) {
                         const btcToken = {
                             address: this.wallet.btcAddress,
@@ -133,9 +119,9 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
                             network: "Bitcoin",
                             price: btcBalance.fiatBalance / btcBalance.balance,
                             symbol: "BTC",
-                            tokenType: "BTC"
+                            tokenType: "BTC",
                         };
-                        
+
                         result.tokens.push(btcToken);
                     }
                 } catch (error) {

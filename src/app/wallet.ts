@@ -120,6 +120,7 @@ export class TransactionModel implements Transaction {
         this.from = data.from || data.sender || "";
         this.gasFee = data.gasFee || 0;
         this.hash = data.hash || "";
+        this.image = data.image || "";
         this.method = data.method || "";
         this.network = data.network || data.token?.network || "";
         this.price = data.price || data.token?.price || 0;
@@ -283,6 +284,147 @@ export class EthTransactionModel implements EthTransaction {
             status: this.status.toLowerCase(),
             to: this.to,
             tokenType: "ERC-20",
+        });
+    }
+}
+
+export interface EthereumTransaction {
+    age: string;
+    block: string;
+    date: string;
+    from: string;
+    gasPrice: string;
+    gweiETH: string;
+    hash: string;
+    id: string;
+    image: string;
+    network: string;
+    observation: string;
+    status: string;
+    symbol: string;
+    timestamp: string;
+    to: string;
+    transactionFeeDolar: string;
+    transactionFeeETH: string;
+    transactionType: "swap" | "transfer" | "call" | "";
+    valueDolar: string;
+    valueETH: string;
+    tokensTransferred: {
+        amount: string;
+        from: string;
+        icon: string;
+        network: string;
+        symbol: string;
+        to: string;
+        token: string;
+    }[];
+}
+
+export class EthereumTransactionModel implements EthereumTransaction {
+    age: string;
+    block: string;
+    date: string;
+    from: string;
+    gasPrice: string;
+    gweiETH: string;
+    hash: string;
+    id: string;
+    image: string;
+    network: string;
+    observation: string;
+    status: string;
+    symbol: string;
+    timestamp: string;
+    to: string;
+    transactionFeeDolar: string;
+    transactionFeeETH: string;
+    transactionType: "swap" | "transfer" | "call" | "";
+    valueDolar: string;
+    valueETH: string;
+    tokensTransferred: {
+        from: string;
+        to: string;
+        amount: string;
+        token: string;
+        network: string;
+        symbol: string;
+        icon: string;
+    }[];
+
+    constructor(data: any) {
+        this.age = data.age || "";
+        this.block = data.block || "";
+        this.date = data.date || "";
+        this.from = data.from || "";
+        this.gasPrice = data.gasPrice || "";
+        this.gweiETH = data.gweiETH || "";
+        this.hash = data.hash || "";
+        this.id = data.id || "";
+        this.image = data.image || "";
+        this.network = data.network || "";
+        this.observation = data.observation || "";
+        this.status = data.status || "";
+        this.symbol = data.symbol || "";
+        this.timestamp = data.timestamp || "";
+        this.to = data.to || "";
+        this.tokensTransferred = data.tokensTransferred || [];
+        this.transactionFeeDolar = data.transactionFeeDolar || "";
+        this.transactionFeeETH = data.transactionFeeETH || "";
+        this.transactionType = (data.transactionType || "").toLowerCase() as "swap" | "transfer" | "call" | "";
+        this.valueDolar = data.valueDolar || "";
+        this.valueETH = data.valueETH || "";
+    }
+
+    toTransaction(): TransactionModel {
+        const transactionData = {
+            age: this.age,
+            amount: Number(this.valueETH),
+            asset: this.symbol,
+            block: this.block,
+            date: this.timestamp?.split("(")[1].split(")")[0].trim(),
+            fiatAmount: Number(this.valueDolar),
+            from: this.from,
+            gasFee: this.transactionFeeETH,
+            hash: this.id,
+            image: this.image,
+            network: this.network,
+            status: this.status.toLowerCase(),
+            to: this.to,
+            tokenType: "ERC-20",
+            type: this.transactionType,
+        };
+
+        let additionalData = {};
+
+        if (this.transactionType === "swap" || this.transactionType === "call") {
+            transactionData.type = "swap";
+
+            const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
+
+            additionalData = {
+                targetAddress: lastTokenTransfer.to,
+                targetAmount: lastTokenTransfer.amount,
+                targetImage: lastTokenTransfer.icon,
+                targetNetwork: lastTokenTransfer.network,
+                targetSymbol: lastTokenTransfer.symbol,
+                targetToken: lastTokenTransfer.token,
+            };
+        } else if (this.tokensTransferred.length > 0) {
+            // Likely a bridge transaction (ERC-20 to ERC-20)
+            const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
+
+            additionalData = {
+                amount: lastTokenTransfer.amount,
+                asset: lastTokenTransfer.symbol,
+                image: lastTokenTransfer.icon,
+                network: lastTokenTransfer.network,
+                to: lastTokenTransfer.to,
+            };
+        }
+
+        return new TransactionModel({
+            ...transactionData,
+            ...additionalData,
         });
     }
 }

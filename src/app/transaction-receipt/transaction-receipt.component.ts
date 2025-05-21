@@ -18,7 +18,7 @@ import { NetworkName, NetworkService } from "app/services/network.service";
 
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
-import { OkLinkTransactionModel, SolTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
+import { EthereumTransactionModel, OkLinkTransactionModel, SolTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -195,9 +195,9 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     return;
                 }
 
-                response.data.symbol = this.symbol;
-
-                if (this.network === "ethereum" || this.network === "avalanche") {
+                if (this.network === "ethereum") {
+                    this.transaction = new EthereumTransactionModel(response.data).toTransaction();
+                } else if (this.network === "avalanche") {
                     this.transaction = new OkLinkTransactionModel(response.data).toTransaction();
                 } else if (this.network === "solana") {
                     this.transaction = new SolTransactionModel(response.data).toTransaction();
@@ -205,10 +205,9 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
                 }
 
-                this.transaction.image = this._walletService.getAssetImage(this.transaction?.symbol);
-                this.transaction.targetImage = this._walletService.getAssetImage(this.transaction?.targetSymbol);
-
                 if (!this.transaction.network) this.transaction.network = this.network;
+
+                this.transaction.networkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
 
                 this._setNetworkProperties();
 
@@ -230,19 +229,18 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     private async _setNetworkProperties(): Promise<void> {
-        if (!this.network) return;
-        if (!this.transaction || this.transaction.type !== "swap" || Object.values(this.tokenProperties).join("").trim()) return;
+        if (!this.transaction || this.transaction.type !== "swap") return;
 
-        if (!this.tokens) this.tokens = await this._loadTokensFromSession();
-
-        const token = this.tokens.find((token) => token.symbol === this.symbol && token.network?.toLowerCase() === this.network.toLowerCase());
-
-        this.tokenProperties.sourceImage = token?.image || "";
-        this.tokenProperties.sourceNetwork = this._networkSymbol(token?.network.toLowerCase() as NetworkName);
-        this.tokenProperties.sourceNetworkImage = await this._networkImage(token?.network.toLowerCase() as NetworkName);
-        this.tokenProperties.sourceSymbol = token?.symbol || "";
+        this.tokenProperties.sourceImage = this.transaction.image;
+        this.tokenProperties.sourceNetwork = this._networkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceNetworkImage = await this._networkImage(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceNetworkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceSymbol = this.transaction.asset;
 
         this.tokenProperties.targetImage = this.transaction.targetImage;
+        this.tokenProperties.targetNetwork = this._networkSymbol(this.transaction.targetNetwork.toLowerCase() as NetworkName);
+        this.tokenProperties.targetNetworkImage = await this._networkImage(this.transaction.targetNetwork.toLowerCase() as NetworkName);
+        this.tokenProperties.targetNetworkSymbol = this._networkService.getNetworkSymbol(this.transaction.targetNetwork.toLowerCase() as NetworkName);
         this.tokenProperties.targetSymbol = this.transaction.targetSymbol;
     }
 

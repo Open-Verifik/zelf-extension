@@ -80,10 +80,17 @@
                             <div class="transaction-receipt__value-container">
                                 <div class="transaction-receipt__logo-container">
                                     <img [src]="transaction.targetImage" alt="logo" class="transaction-receipt__logo" />
+                                    <img
+                                        [src]="tokenProperties.targetNetworkImage"
+                                        alt="logo"
+                                        class="transaction-receipt__logo transaction-receipt__logo--network"
+                                    />
                                 </div>
+
 
                                 <p class="transaction-receipt__value">
                                     {{ tokenProperties.targetSymbol }}
+                                    <span class="transaction-receipt__value-light">{{ tokenProperties.targetNetworkSymbol }}</span>
                                 </p>
                             </div>
                         </div>
@@ -118,6 +125,11 @@
 
                                     <div class="transaction-receipt__logo-container">
                                         <img [src]="transaction.targetImage" alt="logo" class="transaction-receipt__logo" />
+                                        <img
+                                            [src]="tokenProperties.sourceNetworkImage"
+                                            alt="logo"
+                                            class="transaction-receipt__logo transaction-receipt__logo--network"
+                                        />
                                     </div>
 
                                     <p class="transaction-receipt__value">
@@ -181,14 +193,26 @@
                             <p class="transaction-receipt__label">{{ t("common.fee") }}</p>
 
                             <p class="transaction-receipt__value">
-                                {{ transaction.gasFee || transaction.gasPrice | number: "1.2-8" }} {{ transaction.asset }}
+                                {{ transaction.gasFee || transaction.gasPrice | number: "1.2-8" }} {{ networkSymbol }}
                             </p>
                         </div>
 
-                        <div class="zelf-action-row" *ngIf="transaction.total">
+                        <div class="zelf-action-row transaction-receipt__action-row--auto-height">
                             <p class="transaction-receipt__label">{{ t("common.total") }}</p>
 
-                            <p class="transaction-receipt__value">{{ transaction.total | number: "1.2-8" }} {{ networkSymbol }}</p>
+                            <div class="transaction-receipt__value-container transaction-receipt__value-container--column">
+                                <div class="transaction-receipt__swap-row">
+                                    <p class="transaction-receipt__value" *ngIf="networkSymbol === transaction.asset">{{ transaction.total | number: "1.0-18" }} {{ networkSymbol }}</p>
+
+                                    <p class="transaction-receipt__value" *ngIf="networkSymbol !== transaction.asset">
+                                        {{ transaction.gasFee | number: "1.2-8" }} {{ networkSymbol }}
+                                    </p>
+                                </div>
+
+                                <div class="transaction-receipt__swap-row" *ngIf="networkSymbol !== transaction.asset">
+                                    <p class="transaction-receipt__value"><small>{{ transaction.amount | number: "1.0-18" }} {{ transaction.asset }}</small></p>
+                                </div>
+                            </div>
                         </div>
                     </ng-container>
 

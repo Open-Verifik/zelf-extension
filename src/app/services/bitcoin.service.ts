@@ -110,11 +110,7 @@ export class BitcoinService {
                 network,
             });
 
-            if (!sourceAddress) {
-                throw new Error("Failed to derive Bitcoin address");
-            }
-
-            console.log(`Derived ${isTestnet ? "testnet" : "mainnet"} address: ${sourceAddress}`);
+            if (!sourceAddress) throw new Error("Failed to derive Bitcoin address");
 
             const baseUrl = isTestnet ? "https://mempool.space/testnet/api" : "https://mempool.space/api";
             const utxoResponse = await fetch(`${baseUrl}/address/${sourceAddress}/utxo`);
@@ -150,16 +146,12 @@ export class BitcoinService {
 
             const amountInSatoshis = this.convertBTCToSatoshi(amount);
 
-            console.log(`Using fee rate: ${feeRate} sat/vB`);
-
             const estimatedSizePerInput = 68;
             const estimatedOutputSize = 31;
             const estimatedOverhead = 10;
 
             const minTransactionSize = estimatedSizePerInput + 2 * estimatedOutputSize + estimatedOverhead;
             const minFee = minTransactionSize * feeRate;
-
-            console.log(`Minimum estimated fee: ${minFee} satoshis`);
 
             const sortedUtxos = [...utxoDetails].sort((a, b) => a.value - b.value);
 
@@ -229,11 +221,6 @@ export class BitcoinService {
             const tx = psbt.extractTransaction();
             const txHex = tx.toHex();
 
-            const actualFee = totalInput - amountInSatoshis - (change > 546 ? change : 0);
-            console.log(`Actual fee: ${actualFee} satoshis (${this.convertSatoshiToBTC(actualFee)} BTC)`);
-            console.log(`Fee rate: ${(actualFee / tx.virtualSize()).toFixed(2)} sat/vB`);
-            console.log(`Total input: ${totalInput} satoshis, Output: ${amountInSatoshis} satoshis, Change: ${change > 546 ? change : 0} satoshis`);
-
             const broadcastResponse = await fetch(`${baseUrl}/tx`, {
                 method: "POST",
                 body: txHex,
@@ -245,13 +232,6 @@ export class BitcoinService {
             }
 
             const txid = await broadcastResponse.text();
-
-            console.log(`Transaction broadcast successfully: ${txid}`);
-            console.log(`From: ${sourceAddress}`);
-            console.log(`To: ${targetAddress}`);
-            console.log(`Amount: ${amount} BTC (${amountInSatoshis} satoshis)`);
-            console.log(`Fee: ${this.convertSatoshiToBTC(actualFee)} BTC (${actualFee} satoshis)`);
-            console.log(`Change: ${change > 546 ? this.convertSatoshiToBTC(change) : 0} BTC (${change > 546 ? change : 0} satoshis)`);
 
             return txid;
         } catch (error) {
@@ -288,11 +268,15 @@ export class BitcoinService {
     }
 
     public requestTransactions(address: string) {
-        return this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/bitcoin/transactions/${address}`);
+        return this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/bitcoin/transactions/${address}`);
     }
 
     public requestTestnetTransactions(address: string) {
-        return this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/bitcoin/testnet/transactions/${address}`);
+        return this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/bitcoin/testnet/transactions/${address}`);
+    }
+
+    public async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
+        return this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/bitcoin/transaction/${transactionHash}`);
     }
 
     public async getFeeRates(): Promise<MempoolFeeRates> {

@@ -179,6 +179,14 @@ export class BlockchainTransactionsService {
             return `https://suiscan.xyz/tx/${hash}`;
         }
 
+        if (network === "bitcoin") {
+            return `https://mempool.space/tx/${hash}`;
+        }
+
+        if (network === "bitcoinTestnet") {
+            return `https://mempool.space/testnet/tx/${hash}`;
+        }
+
         return "";
     }
 

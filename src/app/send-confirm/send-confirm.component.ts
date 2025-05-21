@@ -531,12 +531,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 const receiverAddress = this.transactionData.receiver.address;
                 const isTestnet = receiverAddress.startsWith("tb1");
 
-                console.log("Sending Bitcoin transaction:", {
-                    receiverAddress,
-                    amount: normalizedAmount,
-                    network: isTestnet ? "testnet" : "mainnet",
-                });
-
                 try {
                     const txHash = await this._bitcoinService.createBitcoinTransaction(
                         cleanMnemonic,
@@ -554,10 +548,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                         fiatFee: this.transactionData.fiatFee,
                         total: this.transactionData.total,
                     };
-
-                    console.log("Bitcoin transaction successful:", receipt);
                 } catch (error) {
-                    console.error("Bitcoin transaction error:", error);
                     throw new Error("Failed to create Bitcoin transaction. " + (error as any).message);
                 }
             } else if (this.transactionData.network === "solana") {

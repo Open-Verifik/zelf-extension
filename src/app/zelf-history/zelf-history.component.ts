@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { TokenData, Transaction } from "app/wallet";
+import { BitcoinTransactionModel, Transaction } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 type TransactionType = "send" | "receive" | "swap" | "approve" | "";
@@ -22,6 +22,7 @@ type Signee = {
 type ProcessedTransaction = {
     fiatAmount: number;
     hash: string;
+    network: string;
     from: Signee;
     to: Signee;
     type: TransactionType;
@@ -82,7 +83,7 @@ export class ZelfHistoryComponent implements OnInit {
         const wallet = await this._walletService.getCurrentWallet();
 
         this._blockchainTransactions.getAddressData(wallet).subscribe({
-            next: (response) => {
+            next: async (response) => {
                 if (!response) {
                     this.loading = false;
                     this.noMoreTransactions = true;
@@ -92,7 +93,7 @@ export class ZelfHistoryComponent implements OnInit {
                     return;
                 }
 
-                this._processTransactions(response.transactions);
+                await this._processTransactions(response.transactions);
 
                 this.loading = false;
             },
@@ -102,43 +103,88 @@ export class ZelfHistoryComponent implements OnInit {
         });
     }
 
-    private _processTransactions(transactions: Transaction[], isPagination = false): void {
+    private async _processTransactions(transactions: Transaction[], isPagination = false): Promise<void> {
         if (!transactions || !transactions.length) return;
 
-        transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        transactions.sort(
+            (a, b) =>
+                new Date(typeof b.date === "string" ? b.date : b.date * 1000).getTime() -
+                new Date(typeof a.date === "string" ? a.date : a.date * 1000).getTime()
+        );
 
         const groupedByDate: Record<string, any[]> = isPagination ? { ...this.history } : {};
+        const wallet = await this._walletService.getCurrentWallet();
 
         transactions.forEach((tx) => {
             if (this.transactionHashMap[tx.hash]) return;
-            if (!tx.from || !tx.to || !tx.date) return;
-            if (this.token && tx.asset !== this.token) return;
 
-            const date = new Date(tx.date);
-            const dateStr = date.toISOString().split("T")[0];
+            let dateStr: string;
+            let processedTx: ProcessedTransaction;
 
-            if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
+            if (tx.network === "bitcoin") {
+                if (!wallet) return;
 
-            const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
-            const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
+                let btcTx = new BitcoinTransactionModel(tx);
 
-            const processedTx = {
-                fiatAmount: tx.fiatAmount,
-                hash: tx.hash,
-                type,
-                from: {
-                    address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
-                    amount: tx.amount,
-                    symbol: tx.asset,
-                    image: tokenImage,
-                },
-                to: {
-                    address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
-                    amount: tx.amount,
-                    symbol: tx.asset,
-                    image: tokenImage,
-                },
-            } as ProcessedTransaction;
+                if (btcTx.block?.mempool) return;
+
+                btcTx = btcTx.setInOut(wallet?.btcAddress);
+                dateStr = new Date(btcTx.time * 1000).toLocaleDateString("en-US");
+
+                if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
+
+                processedTx = {
+                    fiatAmount: tx.fiatAmount,
+                    hash: btcTx.txid,
+                    network: "bitcoin",
+                    type: wallet?.btcAddress === btcTx.from ? "send" : "receive",
+                    from: {
+                        address: btcTx.from,
+                        amount: btcTx.amount,
+                        symbol: "BTC",
+                        image: "./assets/networks/btc.png",
+                        token: "BTC",
+                    },
+                    to: {
+                        address: btcTx.to,
+                        amount: btcTx.amount,
+                        symbol: "BTC",
+                        image: "./assets/networks/btc.png",
+                        token: "BTC",
+                    },
+                };
+            } else {
+                if (!tx.from || !tx.to || !tx.date) return;
+                if (this.token && tx.asset !== this.token) return;
+
+                dateStr = new Date(tx.date).toLocaleDateString("en-US");
+
+                if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
+
+                const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
+                const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
+
+                processedTx = {
+                    fiatAmount: tx.fiatAmount,
+                    hash: tx.hash,
+                    network: tx.network,
+                    type,
+                    from: {
+                        address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
+                        amount: tx.amount,
+                        symbol: tx.asset,
+                        image: tokenImage,
+                        token: tx.asset,
+                    },
+                    to: {
+                        address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
+                        amount: tx.amount,
+                        symbol: tx.asset,
+                        image: tokenImage,
+                        token: tx.asset,
+                    },
+                };
+            }
 
             groupedByDate[dateStr].push(processedTx);
 
@@ -155,7 +201,7 @@ export class ZelfHistoryComponent implements OnInit {
         const wallet = await this._walletService.getCurrentWallet();
 
         this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }).subscribe({
-            next: (response) => {
+            next: async (response) => {
                 if (!response) {
                     this.noMoreTransactions = true;
                     this.currentPage = 0;
@@ -164,7 +210,7 @@ export class ZelfHistoryComponent implements OnInit {
                     return;
                 }
 
-                this._processTransactions(response, true);
+                await this._processTransactions(response, true);
 
                 this.loading = false;
             },
@@ -175,6 +221,6 @@ export class ZelfHistoryComponent implements OnInit {
     }
 
     async navigateToTransaction(transaction: ProcessedTransaction): Promise<void> {
-        this._router.navigate(["/transaction", transaction.hash], { queryParams: { symbol: transaction.from.symbol } });
+        this._router.navigate(["/transaction", transaction.hash], { queryParams: { symbol: transaction.from.symbol, network: transaction.network } });
     }
 }

@@ -1,5 +1,5 @@
 import * as bip39 from "bip39";
-import { HDNodeWallet, ethers, parseEther } from "ethers";
+import { HDNodeWallet, ethers } from "ethers";
 import { BehaviorSubject, Observable } from "rxjs";
 import Web3 from "web3";
 import { isAddress } from "web3-validator";

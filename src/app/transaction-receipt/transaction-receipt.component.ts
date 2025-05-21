@@ -18,7 +18,7 @@ import { NetworkName, NetworkService } from "app/services/network.service";
 
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
-import { EthereumTransactionModel, OkLinkTransactionModel, SolTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
+import { TransactionDetailModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -196,11 +196,11 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                 }
 
                 if (this.network === "ethereum") {
-                    this.transaction = new EthereumTransactionModel(response.data).toTransaction();
+                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
                 } else if (this.network === "avalanche") {
-                    this.transaction = new OkLinkTransactionModel(response.data).toTransaction();
+                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
                 } else if (this.network === "solana") {
-                    this.transaction = new SolTransactionModel(response.data).toTransaction();
+                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
                 } else if (this.network === "sui") {
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
                 }
@@ -225,7 +225,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _retryRequestTransactionDetails(): Promise<void> {
         this._timeout = setTimeout(() => {
             this._requestTransactionDetails();
-        }, 2000);
+        }, 5000);
     }
 
     private async _setNetworkProperties(): Promise<void> {

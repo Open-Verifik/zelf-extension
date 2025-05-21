@@ -64,7 +64,7 @@ export class AssetService {
             AVAX: true,
             BTC: false,
             ETH: true,
-            SOL: false,
+            SOL: true,
             SUI: false,
         };
     }

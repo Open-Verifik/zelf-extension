@@ -288,7 +288,7 @@ export class EthTransactionModel implements EthTransaction {
     }
 }
 
-export interface EthereumTransaction {
+export interface TransactionDetail {
     age: string;
     block: string;
     date: string;
@@ -320,7 +320,7 @@ export interface EthereumTransaction {
     }[];
 }
 
-export class EthereumTransactionModel implements EthereumTransaction {
+export class TransactionDetailModel implements TransactionDetail {
     age: string;
     block: string;
     date: string;
@@ -425,150 +425,6 @@ export class EthereumTransactionModel implements EthereumTransaction {
         return new TransactionModel({
             ...transactionData,
             ...additionalData,
-        });
-    }
-}
-
-export type OkLinkTransaction = {
-    age: string;
-    amount: string;
-    assetPrice: string;
-    confirmations: number;
-    date: string;
-    from: string;
-    gasPrice: string;
-    hash: string;
-    status: string;
-    swapAmount?: number;
-    swapContractAddress?: string;
-    swapLogo?: string;
-    swapNetwork?: string;
-    swapSymbol?: string;
-    symbol: string;
-    to: string;
-    type: string;
-    txnFee: string;
-};
-
-export class OkLinkTransactionModel implements OkLinkTransaction {
-    age: string;
-    amount: string;
-    assetPrice: string;
-    confirmations: number;
-    date: string;
-    from: string;
-    gasPrice: string;
-    hash: string;
-    status: string;
-    swapAmount?: number;
-    swapContractAddress?: string;
-    swapLogo?: string;
-    swapNetwork?: string;
-    swapSymbol?: string;
-    symbol: string = "AVAX";
-    to: string;
-    txnFee: string;
-    type: string;
-
-    constructor(data: OkLinkTransaction) {
-        this.age = data.age || "";
-        this.amount = data.amount || "";
-        this.assetPrice = data.assetPrice || "";
-        this.confirmations = data.confirmations || 0;
-        this.date = data.date || "";
-        this.from = data.from || "";
-        this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
-        this.hash = data.hash || "";
-        this.status = data.status || "";
-        this.swapAmount = data.swapAmount || 0;
-        this.swapContractAddress = data.swapContractAddress || "";
-        this.swapLogo = data.swapLogo || "";
-        this.swapNetwork = data.swapNetwork || "";
-        this.swapSymbol = data.swapSymbol || "";
-        this.symbol = data.symbol || "AVAX";
-        this.to = data.to || "";
-        this.txnFee = data.txnFee || "";
-        this.type = data.type || "";
-    }
-
-    toTransaction(): TransactionModel {
-        return new TransactionModel({
-            age: this.age,
-            amount: Number(this.amount),
-            asset: this.symbol,
-            confirmations: this.confirmations,
-            date: new Date(this.date),
-            fiatAmount: Number(this.assetPrice),
-            from: this.from,
-            gasFee: this.txnFee,
-            hash: this.hash,
-            status: this.status.toLowerCase(),
-            targetAddress: this.swapContractAddress,
-            targetAmount: this.swapAmount,
-            targetImage: this.swapLogo,
-            targetNetwork: this.swapNetwork,
-            targetSymbol: this.swapSymbol,
-            to: this.to,
-            tokenType: "ERC-20",
-            type: this.type,
-        });
-    }
-}
-
-export type SolTransaction = {
-    amount: number;
-    block: number;
-    fee: number;
-    priorityFee: number;
-    from: string;
-    id: string;
-    status: string;
-    symbol: string;
-    timestamp: number;
-    to: string;
-    _source: SOLSource;
-};
-
-export class SolTransactionModel implements SolTransaction {
-    amount: number;
-    block: number;
-    fee: number;
-    priorityFee: number;
-    from: string;
-    id: string;
-    status: string;
-    symbol: string = "SOL";
-    timestamp: number;
-    to: string;
-    _source: SOLSource;
-
-    constructor(data: SolTransaction) {
-        this.amount = data.amount ? data.amount / 1e9 : 0;
-        this.block = data.block || 0;
-        this.fee = data.fee ? data.fee / 1e9 : 0;
-        this.priorityFee = data.priorityFee ? data.priorityFee / 1e9 : 0;
-        this.from = data.from || "";
-        this.id = data.id || "";
-        this.status = data.status || "";
-        this.symbol = data.symbol || "SOL";
-        this.timestamp = data.timestamp || 0;
-        this.to = data.to || "";
-        this._source = data._source || ({} as SOLSource);
-    }
-
-    toTransaction(): TransactionModel {
-        return new TransactionModel({
-            age: moment(this.timestamp).fromNow(),
-            amount: Number(this.amount),
-            asset: this.symbol,
-            date: new Date(this.timestamp),
-            fiatAmount: Number(0),
-            from: this.from,
-            gasFee: this.fee,
-            hash: this.id,
-            status: this.status?.toLowerCase() || "",
-            to: this.to,
-            tokenType: "SPL",
         });
     }
 }

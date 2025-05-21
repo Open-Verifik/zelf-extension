@@ -164,163 +164,79 @@ export type SuiTransaction = {
 };
 
 export type BitcoinTransaction = {
-    deleted: boolean;
-    fee_btc: number;
-    fee_satoshis: number;
-    fee: number;
-    locktime: number;
-    rbf: boolean;
-    size: number;
-    time: number;
-    txid: string;
-    version: number;
-    weight: number;
-    inputs: {
-        address: string;
-        coinbase: boolean;
-        output: number;
-        pkscript: string;
-        sequence: number;
-        sigscript: string;
-        txid: string;
-        value_btc: number;
-        value_satoshis: number;
-        value: number;
-        witness: string[];
-    }[];
-    outputs: {
-        address: string;
-        pkscript: string;
-        spender: null | string;
-        spent: boolean;
-        value_btc: number;
-        value_satoshis: number;
-        value: number;
-    }[];
-    block: {
-        height: number;
-        mempool?: number;
-        position: number;
-    };
+    hash: string;
+    amount: string;
+    amountSats: number;
+    fiatAmount: string;
+    from: string;
+    to: string[];
+    txnFee: string;
+    txnFeeSats: string;
+    networkFeePayer: string;
+    status: string;
+    block: string;
+    logoURI: string;
+    asset: string;
+    decimals: number;
+    date: string;
+    age: string;
+    traffic: string;
 };
 
 export class BitcoinTransactionModel implements BitcoinTransaction {
-    amount: number;
-    deleted: boolean;
-    fee_btc: number;
-    fee_satoshis: number;
-    fee: number;
+    age: string;
+    amount: string;
+    amountSats: number;
+    asset: string;
+    block: string;
+    date: string;
+    decimals: number;
+    fiatAmount: string;
     from: string;
-    locktime: number;
-    rbf: boolean;
-    size: number;
-    time: number;
-    to: string;
-    txid: string;
-    version: number;
-    weight: number;
-    inputs: {
-        address: string;
-        coinbase: boolean;
-        output: number;
-        pkscript: string;
-        sequence: number;
-        sigscript: string;
-        txid: string;
-        value_btc: number;
-        value_satoshis: number;
-        value: number;
-        witness: string[];
-    }[];
-    outputs: {
-        address: string;
-        pkscript: string;
-        spender: null | string;
-        spent: boolean;
-        value_btc: number;
-        value_satoshis: number;
-        value: number;
-    }[];
-    block: {
-        height: number;
-        mempool?: number;
-        position: number;
-    };
+    hash: string;
+    logoURI: string;
+    networkFeePayer: string;
+    status: string;
+    to: string[];
+    traffic: string;
+    txnFee: string;
+    txnFeeSats: string;
 
     constructor(data: any) {
-        this.amount = data.amount || 0;
-        this.block = data.block || {};
-        this.deleted = data.deleted || false;
-        this.fee = data.fee || 0;
-        this.fee_btc = data.fee_btc || 0;
-        this.fee_satoshis = data.fee_satoshis || 0;
+        this.age = data.age || "";
+        this.amount = data.amount || "";
+        this.amountSats = data.amountSats || 0;
+        this.asset = data.asset || "";
+        this.block = data.block || "";
+        this.date = data.date || "";
+        this.decimals = data.decimals || 0;
+        this.fiatAmount = data.fiatAmount || "";
         this.from = data.from || "";
-        this.inputs = data.inputs || [];
-        this.locktime = data.locktime || 0;
-        this.outputs = data.outputs || [];
-        this.rbf = data.rbf || false;
-        this.size = data.size || 0;
-        this.time = data.time || 0;
-        this.to = data.to || "";
-        this.txid = data.txid || "";
-        this.version = data.version || 0;
-        this.weight = data.weight || 0;
-    }
-
-    setInOut(myAddress?: string): BitcoinTransactionModel {
-        if (!myAddress) return this;
-
-        return this.setInput(myAddress).setOutput();
-    }
-
-    setInput(myAddress?: string): BitcoinTransactionModel {
-        if (!myAddress) return this;
-
-        this.inputs.forEach((input) => {
-            if (input.address === myAddress) {
-                this.from = input.address;
-
-                return;
-            }
-
-            if (this.from === myAddress) return;
-
-            this.from = input.address;
-        });
-
-        return this;
-    }
-
-    setOutput(): BitcoinTransactionModel {
-        if (!this.from) return this;
-
-        this.amount = 0;
-
-        this.outputs.forEach((output) => {
-            if (this.from === output.address) return;
-
-            this.amount += output.value_btc;
-            this.to = output.address;
-        });
-
-        return this;
+        this.hash = data.hash || "";
+        this.logoURI = data.logoURI || "";
+        this.networkFeePayer = data.networkFeePayer || "";
+        this.status = data.status || "";
+        this.to = data.to || [];
+        this.traffic = data.traffic || "";
+        this.txnFee = data.txnFee || "";
+        this.txnFeeSats = data.txnFeeSats || "";
     }
 
     toTransaction(): TransactionModel {
         return new TransactionModel({
-            age: moment(this.time).fromNow(),
+            age: this.age,
             amount: Number(this.amount),
-            asset: "BTC",
-            date: new Date(this.time),
+            asset: this.asset,
+            date: new Date(this.date),
             network: "bitcoin",
             fiatAmount: 0,
             from: this.from,
-            gasFee: this.fee_btc,
-            hash: this.txid,
-            status: this.block?.mempool ? "pending" : "success",
-            to: this.to,
+            gasFee: this.txnFee,
+            hash: this.hash,
+            status: this.status.toLowerCase(),
+            to: this.to[0],
             tokenType: "BTC",
-            type: "BTC",
+            type: this.traffic === "IN" ? "receive" : "send",
         });
     }
 }

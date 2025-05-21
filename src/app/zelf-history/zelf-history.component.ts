@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { BitcoinTransactionModel, Transaction } from "app/wallet";
+import { Transaction } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 
 type TransactionType = "send" | "receive" | "swap" | "approve" | "";
@@ -116,75 +116,38 @@ export class ZelfHistoryComponent implements OnInit {
         const wallet = await this._walletService.getCurrentWallet();
 
         transactions.forEach((tx) => {
-            if (this.transactionHashMap[tx.hash]) return;
+            if (this.transactionHashMap[tx.hash] || !wallet) return;
 
-            let dateStr: string;
-            let processedTx: ProcessedTransaction;
+            if (!tx.from || !tx.to || !tx.date) return;
+            if (this.token && tx.asset !== this.token) return;
 
-            if (tx.network === "bitcoin") {
-                if (!wallet) return;
+            const dateStr = new Date(tx.date).toLocaleDateString("en-US");
 
-                let btcTx = new BitcoinTransactionModel(tx);
+            if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
 
-                if (btcTx.block?.mempool) return;
+            const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
+            const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
 
-                btcTx = btcTx.setInOut(wallet?.btcAddress);
-                dateStr = new Date(btcTx.time * 1000).toLocaleDateString("en-US");
-
-                if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
-
-                processedTx = {
-                    fiatAmount: tx.fiatAmount,
-                    hash: btcTx.txid,
-                    network: "bitcoin",
-                    type: wallet?.btcAddress === btcTx.from ? "send" : "receive",
-                    from: {
-                        address: btcTx.from,
-                        amount: btcTx.amount,
-                        symbol: "BTC",
-                        image: "./assets/networks/btc.png",
-                        token: "BTC",
-                    },
-                    to: {
-                        address: btcTx.to,
-                        amount: btcTx.amount,
-                        symbol: "BTC",
-                        image: "./assets/networks/btc.png",
-                        token: "BTC",
-                    },
-                };
-            } else {
-                if (!tx.from || !tx.to || !tx.date) return;
-                if (this.token && tx.asset !== this.token) return;
-
-                dateStr = new Date(tx.date).toLocaleDateString("en-US");
-
-                if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
-
-                const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
-                const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
-
-                processedTx = {
-                    fiatAmount: tx.fiatAmount,
-                    hash: tx.hash,
-                    network: tx.network,
-                    type,
-                    from: {
-                        address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
-                        amount: tx.amount,
-                        symbol: tx.asset,
-                        image: tokenImage,
-                        token: tx.asset,
-                    },
-                    to: {
-                        address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
-                        amount: tx.amount,
-                        symbol: tx.asset,
-                        image: tokenImage,
-                        token: tx.asset,
-                    },
-                };
-            }
+            const processedTx = {
+                fiatAmount: tx.fiatAmount,
+                hash: tx.hash,
+                network: tx.network,
+                type,
+                from: {
+                    address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
+                    amount: tx.amount,
+                    symbol: tx.asset,
+                    image: tokenImage,
+                    token: tx.asset,
+                },
+                to: {
+                    address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
+                    amount: tx.amount,
+                    symbol: tx.asset,
+                    image: tokenImage,
+                    token: tx.asset,
+                },
+            };
 
             groupedByDate[dateStr].push(processedTx);
 

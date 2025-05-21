@@ -202,7 +202,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                 } else if (this.network === "sui") {
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
                 } else if (this.network === "bitcoin") {
-                    this.transaction = new BitcoinTransactionModel(response.data).setInOut(this.wallet?.btcAddress).toTransaction();
+                    this.transaction = new BitcoinTransactionModel(response.data[0]).toTransaction();
                 }
 
                 this.transaction.image = this._walletService.getAssetImage(this.transaction?.symbol);

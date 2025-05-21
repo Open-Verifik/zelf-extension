@@ -291,6 +291,7 @@ export type OkLinkTransaction = {
     age: string;
     amount: string;
     assetPrice: string;
+    confirmations: number;
     date: string;
     from: string;
     gasPrice: string;
@@ -311,6 +312,7 @@ export class OkLinkTransactionModel implements OkLinkTransaction {
     age: string;
     amount: string;
     assetPrice: string;
+    confirmations: number;
     date: string;
     from: string;
     gasPrice: string;
@@ -330,6 +332,7 @@ export class OkLinkTransactionModel implements OkLinkTransaction {
         this.age = data.age || "";
         this.amount = data.amount || "";
         this.assetPrice = data.assetPrice || "";
+        this.confirmations = data.confirmations || 0;
         this.date = data.date || "";
         this.from = data.from || "";
         this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
@@ -351,6 +354,7 @@ export class OkLinkTransactionModel implements OkLinkTransaction {
             age: this.age,
             amount: Number(this.amount),
             asset: this.symbol,
+            confirmations: this.confirmations,
             date: new Date(this.date),
             fiatAmount: Number(this.assetPrice),
             from: this.from,

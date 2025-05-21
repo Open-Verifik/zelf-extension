@@ -31,6 +31,7 @@
         "address_found": "Address found",
         "available_balance": "Available {{balance}} {{symbol}}",
         "cannot_continue_process": "You cannot continue with the process",
+        "confirmations": "Confirmations",
         "continue_process": "You can continue with the process",
         "domain_or_address": "Domain or address",
         "enter_amount_to_send": "Enter amount to send",

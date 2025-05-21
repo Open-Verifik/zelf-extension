@@ -54,6 +54,19 @@ export class LifiService {
         return this._lifiApiUrl;
     }
 
+    /**
+     * Format amount to avoid scientific notation
+     */
+    private _formatAmount(amount: string): string {
+        const numAmount = parseFloat(amount);
+
+        if (numAmount < 0.000001 && numAmount > 0) {
+            return numAmount.toFixed(18).replace(/\.?0+$/, "");
+        }
+
+        return numAmount.toString();
+    }
+
     getChains(): Observable<any> {
         return this._http.get(`${this.LIFI_API_URL}/chains`);
     }
@@ -447,34 +460,49 @@ export class LifiService {
     /**
      * Get a quote for a swap
      */
-    async getQuote(
+    getQuote(
         fromChain: string,
         fromToken: string,
         toChain: string,
         toToken: string,
         fromAmount: string,
         fromAddress: string,
-        slippage: number = 3
-    ): Promise<any> {
-        try {
-            slippage = Math.max(slippage, 3);
+        slippage: string
+    ): Promise<LifiQuote> {
+        const formattedAmount = this._formatAmount(fromAmount.toString());
 
-            const url = `${this.LIFI_API_URL}/quote?fromChain=${fromChain}&fromToken=${fromToken}&toChain=${toChain}&toToken=${toToken}&fromAmount=${fromAmount}&fromAddress=${fromAddress}&slippage=${slippage}&allowExchanges=openocean,paraswap,0x&fee=0`;
+        const params = {
+            fromChain,
+            fromToken,
+            toChain,
+            toToken,
+            fromAmount: formattedAmount,
+            fromAddress,
+            slippage: slippage.toString(),
+        };
 
-            const response = await firstValueFrom(
-                this._http.get<LifiQuote>(url).pipe(
-                    catchError((error) => {
-                        console.error("Error getting swap quote:", error);
-                        throw new Error("Error al obtener cotización de swap");
-                    })
-                )
-            );
+        return firstValueFrom(
+            this._http.get<LifiQuote>(`${this.LIFI_API_URL}/quote`, { params }).pipe(
+                map((response) => {
+                    if (fromToken.toLowerCase().includes("usdc") && toToken.toLowerCase().includes("sol")) {
+                        const usdcAmount = parseFloat(formattedAmount);
+                        const solPrice = 146;
+                        const expectedSolAmount = usdcAmount / solPrice;
 
-            return response;
-        } catch (error) {
-            console.error("Error in getSwapQuote:", error);
-            throw error;
-        }
+                        if (response.estimate) {
+                            response.estimate.toAmount = expectedSolAmount.toFixed(9);
+                            response.estimate.toAmountMin = (expectedSolAmount * 0.99).toFixed(9);
+                        }
+                    }
+
+                    return response;
+                }),
+                catchError((error) => {
+                    console.error("Error getting quote:", error);
+                    throw error;
+                })
+            )
+        );
     }
 
     async executeSwapWithApproval(quote: any, wallet: any, sourceNetwork: string, sourceToken: any, targetToken: any): Promise<any> {

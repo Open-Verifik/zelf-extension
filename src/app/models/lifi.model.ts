@@ -1,192 +1,81 @@
-export type LifiQuote = {
+export interface Token {
+    address: string;
+    chainId: number;
+    symbol: string;
+    decimals: number;
+    name: string;
+    coinKey: string;
+    logoURI: string;
+    priceUSD: string;
+}
+
+export interface ToolDetails {
+    key: string;
+    name: string;
+    logoURI: string;
+}
+
+export interface GasCost {
+    type: string;
+    price: string;
+    estimate: string;
+    limit: string;
+    amount: string;
+    amountUSD: string;
+    token: Token;
+}
+
+export interface Action {
+    fromToken: Token;
+    fromAmount: string;
+    toToken: Token;
+    fromChainId: number;
+    toChainId: number;
+    slippage: number;
+    fromAddress: string;
+    toAddress: string;
+}
+
+export interface Estimate {
+    tool: string;
+    approvalAddress: string;
+    toAmountMin: string;
+    toAmount: string;
+    fromAmount: string;
+    feeCosts: any[];
+    gasCosts: GasCost[];
+    executionDuration: number;
+    fromAmountUSD: string;
+    toAmountUSD: string;
+}
+
+export interface IncludedStep {
     id: string;
     type: string;
+    action: Action;
+    estimate: Estimate;
     tool: string;
-    toolDetails: {
-        key: string;
-        logoURI: string;
-        name: string;
-    };
-    action: {
-        fromChainId: number;
-        toChainId: number;
-        fromToken: {
-            address: string;
-            symbol: string;
-            decimals: number;
-            chainId: number;
-            name: string;
-            coinKey: string;
-            priceUSD: string;
-            logoURI: string;
-        };
-        toToken: {
-            name: string;
-            symbol: string;
-            coinKey: string;
-            decimals: number;
-            chainId: number;
-            logoURI: string;
-            address: string;
-        };
-        fromAmount: string;
-        slippage: number;
-        fromAddress: string;
-        toAddress: string;
-    };
-    estimate: {
-        fromAmount: string;
-        toAmount: string;
-        toAmountMin: string;
-        approvalAddress: string;
-        feeCosts: any[];
-        gasCosts: Array<{
-            type: string;
-            price: string;
-            estimate: string;
-            limit: string;
-            amount: string;
-            amountUSD: string;
-            token: {
-                address: string;
-                symbol: string;
-                decimals: number;
-                chainId: number;
-                name: string;
-                coinKey: string;
-                priceUSD: string;
-                logoURI: string;
-            };
-        }>;
-        data: {
-            fromToken: {
-                name: string;
-                address: string;
-                symbol: string;
-                decimals: number;
-                logoURI: string;
-            };
-            toToken: {
-                name: string;
-                address: string;
-                symbol: string;
-                decimals: number;
-                logoURI: string;
-            };
-            toTokenAmount: string;
-            fromTokenAmount: string;
-            protocols: Array<
-                Array<
-                    Array<{
-                        name: string;
-                        part: number;
-                        fromTokenAddress: string;
-                        toTokenAddress: string;
-                    }>
-                >
-            >;
-            estimatedGas: number;
-        };
-    };
+    toolDetails: ToolDetails;
+}
+
+export interface TransactionRequest {
+    value: string;
+    to: string;
+    data: string;
+    chainId: number;
+    gasPrice: string;
+    gasLimit: string;
+    from: string;
+}
+
+export interface LifiQuote {
+    type: string;
+    id: string;
+    tool: string;
+    toolDetails: ToolDetails;
+    action: Action;
+    estimate: Estimate;
+    includedSteps: IncludedStep[];
     integrator: string;
-    transactionRequest: {
-        from: string;
-        to: string;
-        chainId: number;
-        data: string;
-        value: string;
-        gasPrice: string;
-        gasLimit: string;
-    };
-    includedSteps: Array<{
-        id: string;
-        type: string;
-        tool: string;
-        toolDetails: {
-            key: string;
-            logoURI: string;
-            name: string;
-        };
-        action: {
-            fromChainId: number;
-            toChainId: number;
-            fromToken: {
-                address: string;
-                symbol: string;
-                decimals: number;
-                chainId: number;
-                name: string;
-                coinKey: string;
-                priceUSD: string;
-                logoURI: string;
-            };
-            toToken: {
-                name: string;
-                symbol: string;
-                coinKey: string;
-                decimals: number;
-                chainId: number;
-                logoURI: string;
-                address: string;
-            };
-            fromAmount: string;
-            slippage: number;
-            fromAddress: string;
-            toAddress: string;
-        };
-        estimate: {
-            fromAmount: string;
-            toAmount: string;
-            toAmountMin: string;
-            approvalAddress: string;
-            feeCosts: any[];
-            gasCosts: Array<{
-                type: string;
-                price: string;
-                estimate: string;
-                limit: string;
-                amount: string;
-                amountUSD: string;
-                token: {
-                    address: string;
-                    symbol: string;
-                    decimals: number;
-                    chainId: number;
-                    name: string;
-                    coinKey: string;
-                    priceUSD: string;
-                    logoURI: string;
-                };
-            }>;
-            data: {
-                fromToken: {
-                    name: string;
-                    address: string;
-                    symbol: string;
-                    decimals: number;
-                    logoURI: string;
-                };
-                toToken: {
-                    name: string;
-                    address: string;
-                    symbol: string;
-                    decimals: number;
-                    logoURI: string;
-                };
-                toTokenAmount: string;
-                fromTokenAmount: string;
-                protocols: Array<
-                    Array<
-                        Array<{
-                            name: string;
-                            part: number;
-                            fromTokenAddress: string;
-                            toTokenAddress: string;
-                        }>
-                    >
-                >;
-                estimatedGas: number;
-            };
-        };
-    }>;
-};
+    transactionRequest: TransactionRequest;
+}

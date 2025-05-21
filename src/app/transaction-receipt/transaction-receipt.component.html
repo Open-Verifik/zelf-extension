@@ -191,6 +191,12 @@
                             <p class="transaction-receipt__value">{{ transaction.total | number: "1.2-8" }} {{ networkSymbol }}</p>
                         </div>
                     </ng-container>
+
+                    <div class="zelf-action-row" *ngIf="transaction.confirmations">
+                        <p class="transaction-receipt__label">{{ t("send.confirmations") }}</p>
+
+                        <p class="transaction-receipt__value">{{ transaction.confirmations }}</p>
+                    </div>
                 </div>
             </div>
         </ng-container>

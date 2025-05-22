@@ -204,9 +204,6 @@ export class BitcoinService {
                     address: sourceAddress,
                     value: change,
                 });
-                console.log(`Adding change output: ${this.convertSatoshiToBTC(change)} BTC back to ${sourceAddress}`);
-            } else {
-                console.log(`Change too small (${change} satoshis), adding to fee`);
             }
 
             for (let i = 0; i < selectedUtxos.length; i++) {
@@ -219,6 +216,7 @@ export class BitcoinService {
             psbt.finalizeAllInputs();
 
             const tx = psbt.extractTransaction();
+
             const txHex = tx.toHex();
 
             const broadcastResponse = await fetch(`${baseUrl}/tx`, {
@@ -305,12 +303,9 @@ export class BitcoinService {
      * @returns Transaction hash
      */
     async sendBitcoin(mnemonic: string, targetAddress: string, amount: number): Promise<string> {
-        console.log(`Sending ${amount} BTC to ${targetAddress}`);
-
         try {
             const txid = await this.createBitcoinTransaction(mnemonic, targetAddress, amount);
 
-            console.log(`Transaction sent successfully: ${txid}`);
             return txid;
         } catch (error) {
             console.error("Error sending Bitcoin:", error);
@@ -338,6 +333,7 @@ export class BitcoinService {
             };
         } catch (error) {
             console.error("Error fetching Bitcoin balance:", error);
+
             return { balance: 0, fiatBalance: 0, transactions: [] };
         }
     }

@@ -5,7 +5,7 @@
         <div class="home__container" *ngIf="shareables.view === 'home' || shareables.view === 'activity'">
             <div class="home__actions-container">
                 <div class="home-balance">
-                    <div class="ripple" *ngIf="balancesLoading"></div>
+                    <zelf-loader [diameter]="60" *ngIf="balancesLoading"></zelf-loader>
 
                     <div class="home-balance__info" *ngIf="!balancesLoading">
                         <h3 class="home-balance__amount">{{ totalFiatBalance || 0 | currency: "USD" : "symbol" : "1.2-5" }}</h3>

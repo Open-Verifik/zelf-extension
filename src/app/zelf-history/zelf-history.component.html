@@ -1,5 +1,3 @@
-<div class="zelf-history-loader ripple" *ngIf="loading"></div>
-
 <div class="zelf-history" *transloco="let t">
     <div class="zelf-history__no-results" *ngIf="!history && !loading">
         <svg xmlns="http://www.w3.org/2000/svg" height="150px" viewBox="0 -960 960 960" width="150px" fill="#e3e3e3">
@@ -13,7 +11,7 @@
 
     <ng-container *ngIf="history">
         <ng-container *ngFor="let data of orderedHistory">
-            <p class="zelf-history__date">{{ data.date | date : "dd MMM, yyyy" }}</p>
+            <p class="zelf-history__date">{{ data.date | date: "dd MMM, yyyy" }}</p>
 
             <ng-container *ngFor="let transaction of data.transactions">
                 <div (click)="navigateToTransaction(transaction)" [matRippleColor]="'rgba(0, 0, 0, 0.1)'" class="zelf-history__transaction" matRipple>
@@ -77,22 +75,22 @@
 
                     <div class="zelf-history__right">
                         <ng-container *ngIf="transaction.type === 'receive'">
-                            <p class="zelf-history__received">+ {{ transaction.from.amount | number : "1.1-18" }} {{ transaction.from.symbol }}</p>
+                            <p class="zelf-history__received">+ {{ transaction.from.amount | number: "1.1-18" }} {{ transaction.from.symbol }}</p>
                             <p class="zelf-history__received-fiat">
-                                {{ transaction.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
+                                {{ transaction.fiatAmount | currency: "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'send'">
-                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-18" }} {{ transaction.to.symbol }}</p>
+                            <p class="zelf-history__send">+ {{ transaction.to.amount | number: "1.1-18" }} {{ transaction.to.symbol }}</p>
                             <p class="zelf-history__send-fiat">
-                                {{ transaction.fiatAmount | currency : "USD" : "symbol" : "1.2-2" }}
+                                {{ transaction.fiatAmount | currency: "USD" : "symbol" : "1.2-2" }}
                             </p>
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'swap'">
-                            <p class="zelf-history__send">+ {{ transaction.to.amount | number : "1.1-18" }} {{ transaction.to.symbol }}</p>
-                            <p class="zelf-history__send-fiat">- {{ transaction.from.amount | number : "1.1-18" }} {{ transaction.from.symbol }}</p>
+                            <p class="zelf-history__send">+ {{ transaction.to.amount | number: "1.1-18" }} {{ transaction.to.symbol }}</p>
+                            <p class="zelf-history__send-fiat">- {{ transaction.from.amount | number: "1.1-18" }} {{ transaction.from.symbol }}</p>
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'approve'">
@@ -112,6 +110,8 @@
         </button>
     </ng-container>
 </div>
+
+<zelf-loader [diameter]="120" *ngIf="loading"></zelf-loader>
 
 <ng-template #incomingIcon>
     <svg width="8" height="8" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -19,6 +19,7 @@ import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     imports: [
@@ -34,6 +35,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         TimerPipe,
         TranslocoModule,
         ZelfNamePipe,
+        ZelfLoaderComponent,
     ],
     selector: "manage-domains",
     styleUrls: ["./manage-domains.component.scss"],

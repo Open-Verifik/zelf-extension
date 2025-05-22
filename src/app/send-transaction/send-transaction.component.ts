@@ -19,6 +19,7 @@ import { TransactionService } from "app/transaction.service";
 import { AddressBook, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     imports: [
@@ -30,6 +31,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         ReactiveFormsModule,
         RouterModule,
         TranslocoModule,
+        ZelfLoaderComponent,
     ],
     selector: "send-transaction",
     styleUrls: ["./send-transaction.component.scss"],

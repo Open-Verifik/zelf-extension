@@ -26,8 +26,6 @@
     </div>
 
     <div class="zelf-card__content wallet__content">
-        <div class="ripple" *ngIf="loading"></div>
-
         <ng-container *ngIf="!loading">
             <div class="qr-code">
                 <img class="qr-code__image" [src]="wallet.image" />
@@ -148,6 +146,8 @@
                 </div>
             </div>
         </ng-container>
+
+        <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
     </div>
 
     <div class="zelf-card__actions wallet__actions">

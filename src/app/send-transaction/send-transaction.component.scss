@@ -51,7 +51,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -91,7 +91,7 @@
         box-sizing: border-box;
         padding-left: 16px;
         width: 100%;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -122,7 +122,7 @@
     &__fiat-price {
         box-sizing: border-box;
         color: variables.$gray;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0.1px;
@@ -145,7 +145,7 @@
     }
 
     &__address-name {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -155,7 +155,7 @@
     }
 
     &__address-used {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
@@ -215,7 +215,7 @@
     }
 
     &__chip-text {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -226,7 +226,7 @@
     }
 
     &__zelf-name {
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         font-weight: 700;
         font-size: 24px;
         line-height: 32px;
@@ -246,7 +246,7 @@
     }
 
     &__address {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 12px;
         line-height: 20px;
@@ -265,7 +265,7 @@
     }
 
     &__instructions {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;

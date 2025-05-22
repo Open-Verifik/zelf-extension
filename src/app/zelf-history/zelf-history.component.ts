@@ -6,8 +6,9 @@ import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { TokenData, Transaction } from "app/wallet";
+import { Transaction } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 type TransactionType = "send" | "receive" | "swap" | "approve" | "";
 
@@ -40,6 +41,7 @@ type ProcessedTransaction = {
         NgIf,
         NgTemplateOutlet,
         TranslocoModule,
+        ZelfLoaderComponent,
     ],
     selector: "zelf-history",
     styleUrls: ["./zelf-history.component.scss"],

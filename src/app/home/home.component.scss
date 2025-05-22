@@ -91,7 +91,7 @@
     &__no-results-text {
         font-size: 1.5rem;
         color: variables.$gray;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -107,6 +107,7 @@
 }
 
 .home-balance {
+    position: relative;
     align-items: center;
     display: inline-flex;
     gap: 12px;
@@ -197,7 +198,7 @@
         text-align: center;
         color: #46464f;
         font-size: 11px;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         line-height: 16px;
         letter-spacing: 0.5px;

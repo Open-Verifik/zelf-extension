@@ -1,6 +1,4 @@
 <div class="zelf-card swap" *transloco="let t">
-    <div class="ripple swap__loader" *ngIf="loading || quoteLoading"></div>
-
     <ng-container *ngIf="!loading">
         <div class="swap__header">
             <div class="swap__col1">
@@ -28,7 +26,7 @@
         <ng-container *ngIf="!swapSource">
             <form [formGroup]="form" class="swap__form">
                 <div class="zelf-card__content swap__content">
-                    <div class="ripple swap__loader" *ngIf="loading"></div>
+                    <zelf-loader [diameter]="30" *ngIf="loading"></zelf-loader>
 
                     <div
                         [ngClass]="{ 'swap__asset-card--error': form.get('sourceAmount')?.errors && form.get('sourceAmount')?.dirty }"
@@ -444,6 +442,8 @@
             *ngIf="swapSource"
         ></swap-currency>
     </ng-container>
+
+    <zelf-loader [diameter]="100" *ngIf="loading || quoteLoading"></zelf-loader>
 </div>
 
 <ng-template #downArrowIcon>

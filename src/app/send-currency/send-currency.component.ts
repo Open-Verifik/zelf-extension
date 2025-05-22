@@ -3,16 +3,18 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { firstValueFrom, Subject } from "rxjs";
+
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
 import { TransactionService } from "app/transaction.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { firstValueFrom, Subject } from "rxjs";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
+    imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent, ZelfLoaderComponent],
     selector: "send-currency",
     styleUrls: ["./send-currency.component.scss"],
     templateUrl: "./send-currency.component.html",

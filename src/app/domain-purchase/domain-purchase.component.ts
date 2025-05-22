@@ -8,11 +8,12 @@ import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "domain-purchase",
-    imports: [TranslocoModule, CommonModule, MatButtonModule, RouterLink, RouterModule, ZelfNamePipe, FormsModule],
+    imports: [TranslocoModule, CommonModule, MatButtonModule, RouterLink, RouterModule, ZelfNamePipe, FormsModule, ZelfLoaderComponent],
     templateUrl: "./domain-purchase.component.html",
     styleUrls: ["./domain-purchase.component.scss"],
 })
@@ -26,7 +27,11 @@ export class DomainPurchaseComponent implements OnInit, OnDestroy {
     loading: boolean = false;
     wallet: Partial<WalletModel> = {};
 
-    constructor(private _activatedRoute: ActivatedRoute, private _chromeService: ChromeService, private _walletService: WalletService) {
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _chromeService: ChromeService,
+        private _walletService: WalletService
+    ) {
         this._selectedZelfName = this._activatedRoute.snapshot.queryParams.zelfName;
 
         this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {

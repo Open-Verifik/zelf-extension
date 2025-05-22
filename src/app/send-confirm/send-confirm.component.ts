@@ -23,9 +23,19 @@ import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { ChromeService } from "app/chrome.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, MatProgressSpinnerModule, AddressMaskPipe],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule,
+        TranslocoModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        AddressMaskPipe,
+        ZelfLoaderComponent,
+    ],
     selector: "send-confirm",
     styleUrls: ["./send-confirm.component.scss"],
     templateUrl: "./send-confirm.component.html",

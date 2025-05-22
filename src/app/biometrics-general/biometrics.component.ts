@@ -20,6 +20,7 @@ import { HttpWrapperService } from "app/http-wrapper.service";
 import { ChromeService } from "app/chrome.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { CaptchaService } from "app/captcha.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 let _this = {
     biometricsLoginCalled: false,
@@ -38,6 +39,7 @@ let _this = {
         MatProgressBarModule,
         MatProgressSpinnerModule,
         WebcamModule,
+        ZelfLoaderComponent,
     ],
 })
 export class BiometricsGeneralComponent implements OnInit, OnDestroy {

@@ -1,6 +1,4 @@
 <div class="zelf-card send-confirm" *transloco="let t">
-    <div class="ripple send-confirm__loader" *ngIf="loading"></div>
-
     <ng-container *ngIf="!loading">
         <div class="send-confirm__header">
             <div class="send-confirm__col1">
@@ -154,6 +152,8 @@
             </div>
         </form>
     </ng-container>
+
+    <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
 </div>
 
 <ng-template #openEye>

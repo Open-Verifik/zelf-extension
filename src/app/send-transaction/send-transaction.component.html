@@ -1,6 +1,4 @@
 <div class="zelf-card send-transaction" *transloco="let t">
-    <div class="ripple send-transaction__loader" *ngIf="loading"></div>
-
     <ng-container *ngIf="!loading">
         <div class="send-transaction__header">
             <div class="send-transaction__col1">
@@ -249,7 +247,7 @@
                     </div>
                 </ng-container>
 
-                <div class="ripple send-transaction__loader" *ngIf="searching"></div>
+                <zelf-loader [diameter]="30" *ngIf="searching"></zelf-loader>
 
                 <ng-container *ngIf="!withdrawStep">
                     <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound">
@@ -339,6 +337,8 @@
             </div>
         </form>
     </ng-container>
+
+    <zelf-loader [diameter]="120" *ngIf="loading"></zelf-loader>
 </div>
 
 <ng-template #cross>

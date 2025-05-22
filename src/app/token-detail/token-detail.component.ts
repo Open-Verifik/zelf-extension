@@ -12,6 +12,7 @@ import { TransactionService } from "app/transaction.service";
 import { TokenData, TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { AreaData, AreaSeries, AreaSeriesOptions, ChartOptionsBase, ColorType, createChart, IChartApi, ISeriesApi } from "lightweight-charts";
 import { Subject, takeUntil } from "rxjs";
 
@@ -28,6 +29,7 @@ import { Subject, takeUntil } from "rxjs";
         TranslocoModule,
         TruncateNumberPipe,
         ZelfHistoryComponent,
+        ZelfLoaderComponent,
     ],
     selector: "token-detail",
     styleUrls: ["./token-detail.component.scss"],

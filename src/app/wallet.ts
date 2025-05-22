@@ -290,6 +290,7 @@ export class EthTransactionModel implements EthTransaction {
 
 export interface TransactionDetail {
     age: string;
+    amount: string;
     block: string;
     date: string;
     from: string;
@@ -322,6 +323,7 @@ export interface TransactionDetail {
 
 export class TransactionDetailModel implements TransactionDetail {
     age: string;
+    amount: string;
     block: string;
     date: string;
     from: string;
@@ -353,6 +355,7 @@ export class TransactionDetailModel implements TransactionDetail {
 
     constructor(data: any) {
         this.age = data.age || "";
+        this.amount = data.amount || "";
         this.block = data.block || "";
         this.date = data.date || "";
         this.from = data.from || "";
@@ -363,7 +366,7 @@ export class TransactionDetailModel implements TransactionDetail {
         this.image = data.image || "";
         this.network = data.network || "";
         this.observation = data.observation || "";
-        this.status = data.status || "";
+        this.status = `${data.status}`.toLowerCase();
         this.symbol = data.symbol || "";
         this.timestamp = data.timestamp || "";
         this.to = data.to || "";
@@ -378,10 +381,10 @@ export class TransactionDetailModel implements TransactionDetail {
     toTransaction(): TransactionModel {
         const transactionData = {
             age: this.age,
-            amount: Number(this.valueNetwork),
+            amount: Number(this.valueNetwork || this.amount),
             asset: this.symbol,
             block: this.block,
-            date: this.timestamp?.split("(")[1].split(")")[0].trim(),
+            date: this.date,
             fiatAmount: Number(this.valueDolar),
             from: this.from,
             gasFee: this.transactionFeeNetwork,

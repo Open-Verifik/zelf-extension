@@ -26,7 +26,7 @@
     </div>
 
     <div class="zelf-card__content manage-domains__content">
-        <div class="ripple" *ngIf="loading"></div>
+        <zelf-loader [diameter]="120" *ngIf="loading"></zelf-loader>
 
         <ng-container *ngIf="!loading">
             <div class="domains">

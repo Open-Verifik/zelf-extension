@@ -20,9 +20,10 @@ import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { TransactionDetailModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
+    imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule, ZelfLoaderComponent],
     selector: "transaction-receipt",
     styleUrls: ["./transaction-receipt.component.scss"],
     templateUrl: "./transaction-receipt.component.html",
@@ -154,7 +155,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         return token?.image || "";
     }
 
-    private _handleTransactionDetailsError = () => {
+    private _handleTransactionDetailsError = (e: any) => {
         this._retryRequestTransactionDetails();
 
         this.loading = false;

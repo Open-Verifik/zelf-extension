@@ -26,6 +26,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
 import { environment } from "environments/environment";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     imports: [
@@ -42,6 +43,7 @@ import { environment } from "environments/environment";
         RouterLink,
         SwapCurrencyComponent,
         TranslocoModule,
+        ZelfLoaderComponent,
     ],
     selector: "swap",
     styleUrls: ["./swap.component.scss"],

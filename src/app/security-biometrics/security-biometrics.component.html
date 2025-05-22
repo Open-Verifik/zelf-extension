@@ -4,9 +4,7 @@
 
 <ng-container *ngIf="!errorTitle">
     <ng-container *transloco="let t">
-        <ng-container *ngIf="loading">
-            <div class="ripple ripple--268"></div>
-        </ng-container>
+        <zelf-loader [diameter]="256" *ngIf="loading"></zelf-loader>
 
         <ng-container *ngIf="!loading">
             <ng-container *ngIf="!showBiometrics">

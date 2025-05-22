@@ -14,7 +14,7 @@
     border: none;
     cursor: pointer;
     display: flex;
-    font-family: Poppins;
+    font-family: "Poppins", Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
     gap: 8px;
@@ -281,7 +281,7 @@
 }
 
 .zelf-icon-button {
-    font-family: Poppins;
+    font-family: "Poppins", Arial, sans-serif;
     align-items: center;
     background-color: variables.$antiFlashWhite !important;
     border-radius: 56px;

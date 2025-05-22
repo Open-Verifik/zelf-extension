@@ -4,11 +4,13 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
 import { TranslocoModule } from "@jsverse/transloco";
+
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { LifiService } from "app/services/lifi.service";
 import { NetworkName, NetworkService, NetworkSymbol } from "app/services/network.service";
 import { TokenData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 export interface AssetChangeData {
     asset: TokenData;
@@ -16,7 +18,18 @@ export interface AssetChangeData {
 }
 
 @Component({
-    imports: [NgIf, NgFor, NgClass, NgTemplateOutlet, ReactiveFormsModule, TranslocoModule, CurrencyPipe, DecimalPipe, MatRippleModule],
+    imports: [
+        NgIf,
+        NgFor,
+        NgClass,
+        NgTemplateOutlet,
+        ReactiveFormsModule,
+        TranslocoModule,
+        CurrencyPipe,
+        DecimalPipe,
+        MatRippleModule,
+        ZelfLoaderComponent,
+    ],
     selector: "swap-currency",
     styleUrls: ["./swap-currency.component.scss"],
     templateUrl: "./swap-currency.component.html",

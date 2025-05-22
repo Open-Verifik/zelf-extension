@@ -19,9 +19,19 @@ import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component
 import { ErrorService } from "app/services/error.service";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-sheet.component";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [CommonModule, RouterModule, MatButtonModule, TranslocoModule, BiometricsGeneralComponent, ReactiveFormsModule, WelcomeErrorComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatButtonModule,
+        TranslocoModule,
+        BiometricsGeneralComponent,
+        ReactiveFormsModule,
+        WelcomeErrorComponent,
+        ZelfLoaderComponent,
+    ],
     selector: "security-biometrics",
     styleUrls: ["./security-biometrics.component.scss"],
     templateUrl: "./security-biometrics.component.html",

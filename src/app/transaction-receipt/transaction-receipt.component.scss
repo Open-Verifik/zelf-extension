@@ -51,7 +51,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -103,7 +103,7 @@
 
     &__message {
         font-size: 1.5rem;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -126,7 +126,7 @@
 
     &__label {
         display: flex;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
@@ -134,7 +134,7 @@
         vertical-align: middle;
         color: variables.$gray;
         margin: 0;
-        width: 100%;
+        min-width: 156px;
     }
 
     &__value-container {
@@ -159,7 +159,7 @@
     &__value {
         display: flex;
         justify-content: flex-end;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 15px;
         line-height: 20px;
@@ -168,6 +168,7 @@
         color: variables.$black;
         margin: 0;
         width: 100%;
+        text-align: right;
     }
 
     &__swap-row {
@@ -175,6 +176,7 @@
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
+        text-align: right;
     }
 
     &__value-light {
@@ -225,7 +227,7 @@
         font-size: 32px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         margin: 0;
     }
 
@@ -234,7 +236,7 @@
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0 0 8px;
     }
 

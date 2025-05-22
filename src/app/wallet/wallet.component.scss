@@ -77,7 +77,7 @@
     &__name {
         font-size: 20px;
         font-weight: 400;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         color: variables.$black;
         margin: 0;
 
@@ -137,14 +137,14 @@
             margin: 0;
             font-size: 11px;
             font-weight: 500;
-            font-family: Poppins;
+            font-family: "Poppins", Arial, sans-serif;
             color: variables.$black;
             margin: 0;
         }
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -238,7 +238,7 @@
     &__text {
         font-size: 14px;
         font-weight: 600;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         color: variables.$black;
         margin: 0;
     }

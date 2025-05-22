@@ -22,8 +22,6 @@
         <div class="token-detail__col3"></div>
     </div>
 
-    <div class="ripple token-detail__loader" *ngIf="loading"></div>
-
     <ng-container *ngIf="!loading">
         <div class="zelf-card__content token-detail__content">
             <div class="zelf-chip token-detail__chip">
@@ -74,7 +72,7 @@
                         </ng-container>
                     </div>
 
-                    <div class="ripple token-detail__loader" *ngIf="loadingChart"></div>
+                    <zelf-loader [diameter]="40" *ngIf="loadingChart"></zelf-loader>
 
                     <div class="chart-box__right" #chartContainer [class.hidden]="!chartData"></div>
                     <div class="chart-box__right" [class.hidden]="loadingChart || chartData">
@@ -148,7 +146,7 @@
             </div>
 
             <div class="token-detail__tab-content">
-                <div class="ripple token-detail__loader" *ngIf="!loading && loadingDetails"></div>
+                <zelf-loader [diameter]="120" *ngIf="!loading && loadingDetails"></zelf-loader>
 
                 <ng-container *ngIf="!loadingDetails && details && selectedTab === 'about'">
                     <h5 class="token-about__title">{{ t("token.about", { network: details.about.network }) }}</h5>

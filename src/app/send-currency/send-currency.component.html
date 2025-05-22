@@ -1,6 +1,4 @@
 <div class="zelf-card send-currency" *transloco="let t">
-    <div class="ripple send-currency__loader" *ngIf="loading"></div>
-
     <div class="send-currency__header">
         <div class="send-currency__col1">
             <button
@@ -23,6 +21,8 @@
 
         <div class="send-currency__col3"></div>
     </div>
+
+    <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
 
     <div class="zelf-card__content send-currency__content">
         <token-item

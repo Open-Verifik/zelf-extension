@@ -1,6 +1,4 @@
 <form class="swap-currency" [formGroup]="form" *transloco="let t">
-    <div class="ripple swap-currency__loader" *ngIf="loading"></div>
-
     <div class="swap-currency__filters">
         <div class="swap-currency__filter">
             <div class="zelf-input zelf-input--wide">
@@ -67,6 +65,8 @@
             </div>
         </div>
     </div>
+
+    <zelf-loader [diameter]="100" *ngIf="loading"></zelf-loader>
 </form>
 
 <ng-template #search>

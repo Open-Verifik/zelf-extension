@@ -24,19 +24,19 @@
     </div>
 
     <form class="domain-purchase__content">
-        <div class="ripple" *ngIf="loading"></div>
+        <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
 
         <ng-container *ngIf="!loading">
             <div class="purchase">
                 <h6 class="purchase__title">{{ t("domain_purchase.title") }}</h6>
 
-                <h4 class="purchase__zelf-name">{{ wallet.publicData?.zelfName | zelfName : 20 }}</h4>
+                <h4 class="purchase__zelf-name">{{ wallet.publicData?.zelfName | zelfName: 20 }}</h4>
 
                 <p class="purchase__description">
                     {{
                         t("domain_purchase.character_length_and_year", {
                             characterLength: (wallet.publicData?.zelfName?.length || 0) - 4,
-                            costPerYear: 24
+                            costPerYear: 24,
                         })
                     }}
                 </p>
@@ -66,7 +66,7 @@
                     <p class="purchase__price-description">{{ t("domain_purchase.price_per_year") }}</p>
 
                     <div class="purchase__price-amount-container">
-                        <h2 class="purchase__price">{{ 24 | currency : "USD" : "symbol" }}</h2>
+                        <h2 class="purchase__price">{{ 24 | currency: "USD" : "symbol" }}</h2>
 
                         <p class="purchase__price-currency">USDT</p>
                     </div>
@@ -122,7 +122,7 @@
             [disabled]="!agreement"
             [routerLink]="['/external-link']"
             [queryParams]="{
-                externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.publicData?.zelfName + '&durationToken=' + durationToken
+                externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.publicData?.zelfName + '&durationToken=' + durationToken,
             }"
         >
             {{ t("common.pay_now") }}

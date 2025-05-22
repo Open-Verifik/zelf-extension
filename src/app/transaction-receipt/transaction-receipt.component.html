@@ -10,8 +10,6 @@
     </div>
 
     <div class="zelf-card__content zelf-card__content--grow">
-        <div class="transaction-receipt__loader ripple" *ngIf="loading"></div>
-
         <ng-container *ngIf="!loading && !transaction">
             <div class="transaction-receipt__empty">
                 <svg xmlns="http://www.w3.org/2000/svg" height="150px" viewBox="0 -960 960 960" width="150px" fill="#e3e3e3">
@@ -38,10 +36,16 @@
                     <ng-container *ngIf="transaction.status === 'success'">{{ t("common.success") }}</ng-container>
                 </div>
 
-                <div class="transaction-receipt__price-amount-container">
+                <div class="transaction-receipt__price-amount-container" *ngIf="transaction.type !== 'swap'">
                     <h2 class="transaction-receipt__price">{{ transaction.amount | number: "1.0-18" }}</h2>
 
                     <p class="transaction-receipt__price-currency">{{ transaction.asset }}</p>
+                </div>
+
+                <div class="transaction-receipt__price-amount-container" *ngIf="transaction.type === 'swap'">
+                    <h2 class="transaction-receipt__price">{{ transaction.targetAmount | number: "1.0-18" }}</h2>
+
+                    <p class="transaction-receipt__price-currency">{{ transaction.targetSymbol }}</p>
                 </div>
             </div>
 
@@ -86,7 +90,6 @@
                                         class="transaction-receipt__logo transaction-receipt__logo--network"
                                     />
                                 </div>
-
 
                                 <p class="transaction-receipt__value">
                                     {{ tokenProperties.targetSymbol }}
@@ -193,7 +196,7 @@
                             <p class="transaction-receipt__label">{{ t("common.fee") }}</p>
 
                             <p class="transaction-receipt__value">
-                                {{ transaction.gasFee || transaction.gasPrice | number: "1.2-8" }} {{ networkSymbol }}
+                                {{ transaction.gasFee || transaction.gasPrice | number: "1.2-18" }} {{ networkSymbol }}
                             </p>
                         </div>
 
@@ -202,15 +205,19 @@
 
                             <div class="transaction-receipt__value-container transaction-receipt__value-container--column">
                                 <div class="transaction-receipt__swap-row">
-                                    <p class="transaction-receipt__value" *ngIf="networkSymbol === transaction.asset">{{ transaction.total | number: "1.0-18" }} {{ networkSymbol }}</p>
+                                    <p class="transaction-receipt__value" *ngIf="networkSymbol === transaction.asset">
+                                        {{ transaction.total | number: "1.0-18" }} {{ networkSymbol }}
+                                    </p>
 
                                     <p class="transaction-receipt__value" *ngIf="networkSymbol !== transaction.asset">
-                                        {{ transaction.gasFee | number: "1.2-8" }} {{ networkSymbol }}
+                                        {{ transaction.gasFee | number: "1.2-18" }} {{ networkSymbol }}
                                     </p>
                                 </div>
 
                                 <div class="transaction-receipt__swap-row" *ngIf="networkSymbol !== transaction.asset">
-                                    <p class="transaction-receipt__value"><small>{{ transaction.amount | number: "1.0-18" }} {{ transaction.asset }}</small></p>
+                                    <p class="transaction-receipt__value">
+                                        <small>{{ transaction.amount | number: "1.0-18" }} {{ transaction.asset }}</small>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -224,6 +231,8 @@
                 </div>
             </div>
         </ng-container>
+
+        <zelf-loader [diameter]="120" *ngIf="loading"></zelf-loader>
     </div>
 
     <div class="zelf-card__actions zelf-card__actions--column">

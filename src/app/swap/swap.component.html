@@ -76,6 +76,7 @@
                                 <button
                                     (click)="handleBalanceDisplayChange()"
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
                                 >
                                     <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,6 +118,7 @@
 
                                 <button
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--border-soft swap__asset-dropdown-button"
                                 >
                                     <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
@@ -131,6 +133,7 @@
                                 <button
                                     (click)="setAmount(0.5)"
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
                                 >
                                     50%
@@ -139,6 +142,7 @@
                                 <button
                                     (click)="setAmount(1)"
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
                                 >
                                     Max
@@ -152,6 +156,7 @@
                             [disabled]="!hasBothAssetsSet"
                             (click)="swapTargetWithSource()"
                             mat-flat-button
+                            type="button"
                             class="zelf-icon-button zelf-icon-button--black zelf-icon-button--40 zelf-icon-button--border-soft"
                         >
                             <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -233,6 +238,7 @@
 
                                 <button
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--border-soft swap__asset-dropdown-button"
                                 >
                                     <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
@@ -266,6 +272,7 @@
                                 <button
                                     [disabled]="bridgeOptions.length < 2"
                                     [matMenuTriggerFor]="bridgeMenu"
+                                    type="button"
                                     class="zelf-button zelf-button--anti-flash-white swap__settings-button"
                                     mat-flat-button
                                 >
@@ -281,6 +288,7 @@
                                         (click)="setBridge(bridgeOption.value)"
                                         *ngFor="let bridgeOption of bridgeOptions"
                                         class="zelf-menu-item"
+                                        type="button"
                                         mat-menu-item
                                     >
                                         <label [for]="bridgeOption.value" class="zelf-radio zelf-radio--plain zelf-radio--gap-lg">
@@ -373,6 +381,7 @@
 
                                     <button
                                         (click)="openSlippageSheet()"
+                                        type="button"
                                         class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--40"
                                         mat-flat-button
                                     >

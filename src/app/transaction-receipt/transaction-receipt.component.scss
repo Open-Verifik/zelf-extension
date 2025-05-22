@@ -169,6 +169,7 @@
         margin: 0;
         width: 100%;
         text-align: right;
+        align-items: center;
     }
 
     &__swap-row {
@@ -195,6 +196,7 @@
         align-items: flex-end;
         width: 36px;
         height: 36px;
+        margin-right: 12px;
     }
 
     &__logo {

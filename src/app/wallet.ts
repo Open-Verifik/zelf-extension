@@ -480,9 +480,15 @@ export class TransactionDetailModel implements TransactionDetail {
         if (this.transactionType === "swap" || this.transactionType === "call") {
             transactionData.type = "swap";
 
+            const firstTokenTransfer = this.tokensTransferred[0];
             const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
 
             additionalData = {
+                amount: firstTokenTransfer.amount,
+                asset: firstTokenTransfer.symbol,
+                image: firstTokenTransfer.icon,
+                network: firstTokenTransfer.network,
+                to: firstTokenTransfer.to,
                 targetAddress: lastTokenTransfer.to,
                 targetAmount: lastTokenTransfer.amount,
                 targetImage: lastTokenTransfer.icon,
@@ -491,7 +497,6 @@ export class TransactionDetailModel implements TransactionDetail {
                 targetToken: lastTokenTransfer.token,
             };
         } else if (this.tokensTransferred.length > 0) {
-            // Likely a bridge transaction (ERC-20 to ERC-20)
             const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
 
             additionalData = {

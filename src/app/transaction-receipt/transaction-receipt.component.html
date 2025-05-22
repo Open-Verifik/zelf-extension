@@ -62,19 +62,19 @@
                             <p class="transaction-receipt__label">{{ t("common.from") }}</p>
 
                             <div class="transaction-receipt__value-container">
-                                <div class="transaction-receipt__logo-container">
-                                    <img [src]="tokenProperties.sourceImage" alt="logo" class="transaction-receipt__logo" />
-                                    <img
-                                        [src]="tokenProperties.sourceNetworkImage"
-                                        alt="logo"
-                                        class="transaction-receipt__logo transaction-receipt__logo--network"
-                                    />
-                                </div>
+                                <div class="transaction-receipt__value">
+                                    <div class="transaction-receipt__logo-container">
+                                        <img [src]="tokenProperties.sourceImage" alt="logo" class="transaction-receipt__logo" />
+                                        <img
+                                            [src]="tokenProperties.sourceNetworkImage"
+                                            alt="logo"
+                                            class="transaction-receipt__logo transaction-receipt__logo--network"
+                                        />
+                                    </div>
 
-                                <p class="transaction-receipt__value">
-                                    {{ tokenProperties.sourceSymbol }}
+                                    <span>{{ tokenProperties.sourceSymbol }}</span>
                                     <span class="transaction-receipt__value-light">{{ tokenProperties.sourceNetwork }}</span>
-                                </p>
+                                </div>
                             </div>
                         </div>
 
@@ -82,19 +82,19 @@
                             <p class="transaction-receipt__label">{{ t("common.to") }}</p>
 
                             <div class="transaction-receipt__value-container">
-                                <div class="transaction-receipt__logo-container">
-                                    <img [src]="transaction.targetImage" alt="logo" class="transaction-receipt__logo" />
-                                    <img
-                                        [src]="tokenProperties.targetNetworkImage"
-                                        alt="logo"
-                                        class="transaction-receipt__logo transaction-receipt__logo--network"
-                                    />
-                                </div>
+                                <div class="transaction-receipt__value">
+                                    <div class="transaction-receipt__logo-container">
+                                        <img [src]="transaction.targetImage" alt="logo" class="transaction-receipt__logo" />
+                                        <img
+                                            [src]="tokenProperties.targetNetworkImage"
+                                            alt="logo"
+                                            class="transaction-receipt__logo transaction-receipt__logo--network"
+                                        />
+                                    </div>
 
-                                <p class="transaction-receipt__value">
-                                    {{ tokenProperties.targetSymbol }}
+                                    <span>{{ tokenProperties.targetSymbol }}</span>
                                     <span class="transaction-receipt__value-light">{{ tokenProperties.targetNetworkSymbol }}</span>
-                                </p>
+                                </div>
                             </div>
                         </div>
 

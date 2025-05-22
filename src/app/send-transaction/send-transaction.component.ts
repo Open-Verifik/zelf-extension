@@ -13,13 +13,15 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { BitcoinService } from "app/services/bitcoin.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
+import { VaultService } from "app/vault.service";
 import { AddressBook, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [
@@ -52,6 +54,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _bitcoinService: BitcoinService,
         private _changeDetectionRef: ChangeDetectorRef,
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -61,7 +64,8 @@ export class SendTransactionComponent implements OnDestroy {
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _vaultService: VaultService
     ) {
         this.loading = true;
     }
@@ -150,6 +154,10 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidFormat: true };
             }
 
+            if (this.transactionData.isBtcToken && !this._bitcoinService.isValidBTCAddress(value)) {
+                return { invalidBTC: true };
+            }
+
             return null;
         };
     }
@@ -223,6 +231,10 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._queryZNS("solanaAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "solanaAddress");
+                } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
+                    await this._queryZNS("btcAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "btcAddress");
                 }
             }
 
@@ -236,6 +248,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "solanaAddress");
+            } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "btcAddress");
             } else {
                 this.isZelfNameNotFound = true;
                 this.foundAddress = undefined;
@@ -391,7 +405,9 @@ export class SendTransactionComponent implements OnDestroy {
                               ? "ethAddress"
                               : this.transactionData.isSolToken
                                 ? "solanaAddress"
-                                : "solanaAddress"
+                                : this.transactionData.isBtcToken
+                                  ? "btcAddress"
+                                  : "solanaAddress"
                     ] || ""
                 );
 
@@ -411,10 +427,27 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(address, "ethAddress");
         } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
             this._setRawAddressToFoundAddress(address, "solanaAddress");
+        } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "btcAddress");
+
+            try {
+                if (this.foundAddress && "btcAddress" in this.foundAddress) {
+                    const address = (this.foundAddress as any).btcAddress || "";
+                    const btcBalance = await this._bitcoinService.getBitcoinBalance(address);
+
+                    if (btcBalance.balance < parseFloat(this.form.get("amount")?.value || "0")) {
+                        this._snackBar.open(this._translocoService.translate("INSUFFICIENT_FUNDS"), this._translocoService.translate("CLOSE"), {
+                            duration: 5000,
+                        });
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.error("Error checking Bitcoin balance:", error);
+            }
         }
 
         await this._setToCurrentTransactionData();
-
         this.withdrawStep = true;
     }
 
@@ -437,6 +470,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(address, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "solanaAddress");
+            } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(address)) {
+                this._setRawAddressToFoundAddress(address, "btcAddress");
             }
         }
 
@@ -547,5 +582,49 @@ export class SendTransactionComponent implements OnDestroy {
 
     withdrawAll(): void {
         this.form.get("amount")?.patchValue(this.transactionData.balance);
+    }
+
+    async sendTransaction(): Promise<void> {
+        if (this.form.invalid) return;
+
+        this.loading = true;
+
+        try {
+            const walletData = await this._walletService.getCurrentWallet();
+            const mnemonic = this._vaultService.mnemonic;
+
+            if (!walletData || !mnemonic) {
+                throw new Error("No wallet data or mnemonic available");
+            }
+
+            const amount = parseFloat(this.form.get("amount")?.value || "0");
+            const toAddress = this.form.get("toAddress")?.value;
+
+            if (this.transactionData.isBtcToken) {
+                const txHash = await this._bitcoinService.sendBitcoin(mnemonic, toAddress, amount);
+
+                this._snackBar.open(this._translocoService.translate("TRANSACTION_SENT"), this._translocoService.translate("CLOSE"), {
+                    duration: 5000,
+                });
+
+                this._router.navigate(["/transaction-confirmation"], {
+                    state: {
+                        hash: txHash,
+                        network: "bitcoin",
+                        amount: amount,
+                        to: toAddress,
+                        symbol: "BTC",
+                    },
+                });
+            } else {
+            }
+        } catch (error) {
+            console.error("Error sending transaction:", error);
+            this._snackBar.open(this._translocoService.translate("TRANSACTION_FAILED"), this._translocoService.translate("CLOSE"), {
+                duration: 5000,
+            });
+        } finally {
+            this.loading = false;
+        }
     }
 }

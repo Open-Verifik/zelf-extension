@@ -4,6 +4,7 @@ export const environment = {
     baseUrl: "/",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
     production: true,
+    testnetAddress: "",
     networks: {
         ethereum: "sepolia",
         avalanche: "avalanche",

@@ -12,13 +12,13 @@
             </div>
 
             <div class="send-confirm__col2">
-                <p class="send-confirm__title">{{ t("common.transfer") }}</p>
+                <p class="send-confirm__title">{{ showFeeInfo ? t("send.transaction_settings") : t("common.transfer") }}</p>
             </div>
 
             <div class="send-confirm__col3"></div>
         </div>
 
-        <form class="send-confirm__form" [formGroup]="form">
+        <form class="send-confirm__form" [formGroup]="form" *ngIf="!showFeeInfo">
             <div class="zelf-card__content zelf-card__content--grow">
                 <div class="send-confirm__total">
                     <div class="zelf-chip">{{ t("common.amount") }}</div>
@@ -74,13 +74,25 @@
                             <p class="send-confirm__value">{{ transactionData.symbol }}</p>
                         </div>
 
-                        <div class="zelf-action-row">
+                        <div
+                            (click)="(transactionData.network === 'bitcoin' && openFeeInfo()) || null"
+                            [ngClass]="{ 'zelf-action-row--clickable': transactionData.network === 'bitcoin' }"
+                            class="zelf-action-row"
+                        >
                             <p class="send-confirm__label">{{ t("common.fee") }}</p>
 
-                            <p class="send-confirm__value send-confirm__value--col send-confirm__value--items-end">
-                                <span>{{ transactionData.fee | number: "1.2-8" }} {{ networkCurrency }}</span>
-                                <span class="send-confirm__fee">~{{ fiatFeePrice | currency: "USD" : "symbol" : "1.2-8" }}</span>
-                            </p>
+                            <div class="send-confirm__value send-confirm__value-row">
+                                <p class="send-confirm__value send-confirm__value--col send-confirm__value--items-end">
+                                    <span>{{ transactionData.fee | number: "1.2-8" }} {{ networkCurrency }}</span>
+                                    <span class="send-confirm__fee">~{{ fiatFeePrice | currency: "USD" : "symbol" : "1.2-8" }}</span>
+                                </p>
+
+                                <ng-container *ngIf="transactionData.network === 'bitcoin'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px">
+                                        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+                                    </svg>
+                                </ng-container>
+                            </div>
                         </div>
 
                         <div class="zelf-action-row">
@@ -151,6 +163,70 @@
                 </button>
             </div>
         </form>
+
+        <ng-container *ngIf="showFeeInfo">
+            <div class="zelf-card__content send-confirm__content">
+                <div
+                    class="zelf-action-row send-confirm__fee-row zelf-action-row--clickable"
+                    (click)="selectFeeRate(feeRates.fastestFee)"
+                    [ngClass]="{ 'zelf-action-row--selected': selectedFeeRate === feeRates.fastestFee }"
+                >
+                    <div class="send-confirm__value send-confirm__value--col">
+                        <p class="send-confirm__label">{{ t("send.fastest") }}</p>
+
+                        <p class="send-confirm__value">
+                            {{
+                                t("send.upto_sats", {
+                                    sats: feeRates.fastestFee,
+                                    feeAmountUSD: fiatFastestFee | currency: "USD" : "symbol" : "1.2",
+                                    time: "< 30",
+                                })
+                            }}
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="zelf-action-row send-confirm__fee-row zelf-action-row--clickable"
+                    (click)="selectFeeRate(feeRates.halfHourFee)"
+                    [ngClass]="{ 'zelf-action-row--selected': selectedFeeRate === feeRates.halfHourFee }"
+                >
+                    <div class="send-confirm__value send-confirm__value--col">
+                        <p class="send-confirm__label">{{ t("send.average") }}</p>
+
+                        <p class="send-confirm__value">
+                            {{
+                                t("send.upto_sats", {
+                                    sats: feeRates.halfHourFee,
+                                    feeAmountUSD: fiatHalfHourFee | currency: "USD" : "symbol" : "1.2",
+                                    time: "~ 30",
+                                })
+                            }}
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="zelf-action-row send-confirm__fee-row zelf-action-row--clickable"
+                    (click)="selectFeeRate(feeRates.economyFee)"
+                    [ngClass]="{ 'zelf-action-row--selected': selectedFeeRate === feeRates.economyFee }"
+                >
+                    <div class="send-confirm__value send-confirm__value--col">
+                        <p class="send-confirm__label">{{ t("send.economical") }}</p>
+
+                        <p class="send-confirm__value">
+                            {{
+                                t("send.upto_sats", {
+                                    sats: feeRates.economyFee,
+                                    feeAmountUSD: fiatEconomyFee | currency: "USD" : "symbol" : "1.2",
+                                    time: "> 30",
+                                })
+                            }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
     </ng-container>
 
     <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>

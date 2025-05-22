@@ -165,7 +165,7 @@
                             type="string"
                         />
 
-                        <button (click)="withdrawAll()" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button>
+                        <button (click)="withdrawAll()" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button type="button">
                             {{ t("common.all") | uppercase }}
                         </button>
                     </div>
@@ -274,7 +274,7 @@
                             <ng-container *ngIf="foundAddress.publicData?.type === 'mainnet'">{{ t("send.zelf_name_registered") }}</ng-container>
                         </div>
 
-                        <h3 class="zelf-object-preview__zelf-name" *ngIf="foundAddress.publicData.zelfName">
+                        <h3 class="zelf-object-preview__zelf-name">
                             {{ foundAddress.publicData.zelfName }}
                         </h3>
 

@@ -23,6 +23,7 @@ type Signee = {
 type ProcessedTransaction = {
     fiatAmount: number;
     hash: string;
+    network: string;
     from: Signee;
     to: Signee;
     type: TransactionType;
@@ -84,7 +85,7 @@ export class ZelfHistoryComponent implements OnInit {
         const wallet = await this._walletService.getCurrentWallet();
 
         this._blockchainTransactions.getAddressData(wallet).subscribe({
-            next: (response) => {
+            next: async (response) => {
                 if (!response) {
                     this.loading = false;
                     this.noMoreTransactions = true;
@@ -94,7 +95,7 @@ export class ZelfHistoryComponent implements OnInit {
                     return;
                 }
 
-                this._processTransactions(response.transactions);
+                await this._processTransactions(response.transactions);
 
                 this.loading = false;
             },
@@ -104,20 +105,25 @@ export class ZelfHistoryComponent implements OnInit {
         });
     }
 
-    private _processTransactions(transactions: Transaction[], isPagination = false): void {
+    private async _processTransactions(transactions: Transaction[], isPagination = false): Promise<void> {
         if (!transactions || !transactions.length) return;
 
-        transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        transactions.sort(
+            (a, b) =>
+                new Date(typeof b.date === "string" ? b.date : b.date * 1000).getTime() -
+                new Date(typeof a.date === "string" ? a.date : a.date * 1000).getTime()
+        );
 
         const groupedByDate: Record<string, any[]> = isPagination ? { ...this.history } : {};
+        const wallet = await this._walletService.getCurrentWallet();
 
         transactions.forEach((tx) => {
-            if (this.transactionHashMap[tx.hash]) return;
+            if (this.transactionHashMap[tx.hash] || !wallet) return;
+
             if (!tx.from || !tx.to || !tx.date) return;
             if (this.token && tx.asset !== this.token) return;
 
-            const date = new Date(tx.date);
-            const dateStr = date.toISOString().split("T")[0];
+            const dateStr = new Date(tx.date).toLocaleDateString("en-US");
 
             if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
 
@@ -127,20 +133,23 @@ export class ZelfHistoryComponent implements OnInit {
             const processedTx = {
                 fiatAmount: tx.fiatAmount,
                 hash: tx.hash,
+                network: tx.network,
                 type,
                 from: {
                     address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
                     amount: tx.amount,
                     symbol: tx.asset,
                     image: tokenImage,
+                    token: tx.asset,
                 },
                 to: {
                     address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
                     amount: tx.amount,
                     symbol: tx.asset,
                     image: tokenImage,
+                    token: tx.asset,
                 },
-            } as ProcessedTransaction;
+            };
 
             groupedByDate[dateStr].push(processedTx);
 
@@ -157,7 +166,7 @@ export class ZelfHistoryComponent implements OnInit {
         const wallet = await this._walletService.getCurrentWallet();
 
         this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }).subscribe({
-            next: (response) => {
+            next: async (response) => {
                 if (!response) {
                     this.noMoreTransactions = true;
                     this.currentPage = 0;
@@ -166,7 +175,7 @@ export class ZelfHistoryComponent implements OnInit {
                     return;
                 }
 
-                this._processTransactions(response, true);
+                await this._processTransactions(response, true);
 
                 this.loading = false;
             },
@@ -177,6 +186,6 @@ export class ZelfHistoryComponent implements OnInit {
     }
 
     async navigateToTransaction(transaction: ProcessedTransaction): Promise<void> {
-        this._router.navigate(["/transaction", transaction.hash], { queryParams: { symbol: transaction.from.symbol } });
+        this._router.navigate(["/transaction", transaction.hash], { queryParams: { symbol: transaction.from.symbol, network: transaction.network } });
     }
 }

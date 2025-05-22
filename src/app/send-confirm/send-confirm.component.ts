@@ -6,14 +6,17 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { AssetService } from "app/asset.service";
+import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { BitcoinService, MempoolFeeRates } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
+import { NetworkName, NetworkService } from "app/services/network.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
@@ -21,8 +24,6 @@ import { VaultService } from "app/vault.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { NetworkName, NetworkService } from "app/services/network.service";
-import { ChromeService } from "app/chrome.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
@@ -48,6 +49,14 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     private _skipPriceFetch: boolean = false;
     private unsubcriber$: Subject<void> = new Subject<void>();
 
+    feeRates: MempoolFeeRates = {
+        fastestFee: 0,
+        halfHourFee: 0,
+        hourFee: 0,
+        economyFee: 0,
+        minimumFee: 0,
+    };
+
     availableNetworks = [
         { id: "ethereum", name: "Ethereum", symbol: "ETH" },
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
@@ -62,7 +71,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
     sending: boolean = false;
+    selectedFeeRate: number = 0;
     showPassword: boolean = false;
+    showFeeInfo: boolean = false;
     transactionData!: TransactionData;
     wallet?: WalletModel;
     networkToken?: any;
@@ -70,6 +81,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _chromeService: ChromeService,
         private _ethService: EthereumService,
@@ -169,18 +181,80 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         return this.fiatPrice + this.fiatFeePrice || 0;
     }
 
-    private async _getNetworkToken(): Promise<void> {
-        const network = this.transactionData.network as NetworkName;
+    get fiatFastestFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.fastestFee, this.networkPrice);
 
-        this.networkToken = await this._networkService.getNetworkToken(network);
-        this.isNativeAsset = network === this.networkToken?.name;
+        return calculatedFee.fiatFee;
+    }
+
+    get fiatHalfHourFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.halfHourFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
+    }
+
+    get fiatEconomyFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.economyFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
+    }
+
+    private async _getNetworkToken(): Promise<void> {
+        const network = this.transactionData.network as NetworkName | "bitcoin";
+
+        this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
+        this.isNativeAsset = network === this.networkToken?.name || network === "bitcoin";
+
+        if (network === "bitcoin") {
+            try {
+                const response = await this._assetService.fetchAssetPrice("BTC");
+                if (response?.data?.length) {
+                    this.networkPrice = response.data[0].open;
+                }
+            } catch (error) {
+                console.error("Error fetching Bitcoin price:", error);
+            }
+        }
     }
 
     private async _calculateTransactionFee(): Promise<void> {
         try {
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-            if (this.transactionData.network === "solana") {
+            if (this.transactionData.network === "bitcoin") {
+                try {
+                    const response = await this._assetService.fetchAssetPrice("BTC");
+
+                    if (response?.data?.length) this.networkPrice = response.data[0].open;
+
+                    const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.selectedFeeRate, this.networkPrice);
+
+                    this.transactionData.fee = calculatedFee.feeBTC;
+                    this.transactionData.fiatFee = calculatedFee.fiatFee;
+
+                    const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+
+                    this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
+                    await this._transactionService.setCurrentTransactionData(this.transactionData);
+                } catch (error) {
+                    console.warn("Failed to fetch fee rates, using fallback", error);
+
+                    const estimatedFeeInSatoshis = 150 * 10;
+                    const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
+                    const fiatFee = feeBTC * (this.networkPrice || 0);
+
+                    this.transactionData.fee = feeBTC;
+                    this.transactionData.fiatFee = fiatFee;
+
+                    const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
+                    this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
+
+                    await this._transactionService.setCurrentTransactionData(this.transactionData);
+                }
+
+                return;
+            } else if (this.transactionData.network === "solana") {
                 const tokenAddress = this.transactionData.tokenType === "SPL" ? this.transactionData.token?.address_token : undefined;
 
                 const feeEstimate = await this._solanaService.getTransactionCost(tokenAddress);
@@ -255,8 +329,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
             }
         } catch (error) {
-            console.error("Fee calculation error:", error);
-            this.openErrorSnackBar("errors.invalid_transaction_fee");
+            console.error("Error calculating transaction fee:", error);
         }
     }
 
@@ -332,10 +405,45 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this._initInterval();
         this._initForm();
 
+        await this._initFeeRates();
         await this._getNetworkToken();
         await this._fetchTokenPrice();
         await this._calculateTransactionFee();
         await this._decryptMnemonics();
+    }
+
+    async _initFeeRates(): Promise<void> {
+        if (this.transactionData.network !== "bitcoin") return;
+
+        this.feeRates = await this._bitcoinService.getFeeRates();
+        this.selectedFeeRate = this._bitcoinService.selectedFeeRate;
+
+        if (this.selectedFeeRate === 0) {
+            this.selectedFeeRate = this.feeRates.halfHourFee;
+
+            return;
+        }
+
+        const keys = ["minimumFee", "economyFee", "hourFee", "halfHourFee", "fastestFee"];
+
+        let lastFeeRate: number = 0;
+
+        // Find the fee rate that is the closest to the selected fee rate as the rates may have changed
+        for (const key of keys) {
+            const feeRate = this.feeRates[key as keyof MempoolFeeRates];
+
+            if (feeRate === this.selectedFeeRate) {
+                this.selectedFeeRate = feeRate;
+
+                break;
+            } else if (feeRate > this.selectedFeeRate || key === "fastestFee") {
+                this.selectedFeeRate = lastFeeRate;
+
+                break;
+            } else {
+                lastFeeRate = feeRate;
+            }
+        }
     }
 
     async _initInterval(): Promise<void> {
@@ -407,7 +515,31 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             let receipt;
 
-            if (this.transactionData.network === "solana") {
+            if (this.transactionData.network === "bitcoin") {
+                const receiverAddress = this.transactionData.receiver.address;
+                const isTestnet = receiverAddress.startsWith("tb1");
+
+                try {
+                    const txHash = await this._bitcoinService.createBitcoinTransaction(
+                        cleanMnemonic,
+                        receiverAddress,
+                        normalizedAmount,
+                        this.selectedFeeRate,
+                        isTestnet
+                    );
+
+                    receipt = {
+                        transactionHash: txHash,
+                        network: "bitcoin",
+                        tokenType: "BTC",
+                        fee: this.transactionData.fee,
+                        fiatFee: this.transactionData.fiatFee,
+                        total: this.transactionData.total,
+                    };
+                } catch (error) {
+                    throw new Error("Failed to create Bitcoin transaction. " + (error as any).message);
+                }
+            } else if (this.transactionData.network === "solana") {
                 let tokenAddress = "";
 
                 if (this.transactionData.tokenType === "SPL") {
@@ -499,7 +631,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                         ? "SUI"
                         : this.transactionData.network === "avalanche"
                           ? "AVAX"
-                          : this.transactionData.tokenType,
+                          : this.transactionData.network === "bitcoin"
+                            ? "BTC"
+                            : this.transactionData.tokenType,
             });
 
             this.sending = false;
@@ -535,6 +669,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 await this._router.navigate(["/transaction", receipt.digest], {
                     queryParams: { network: "sui", symbol: "SUI" },
                 });
+            } else if (this.transactionData.network === "bitcoin" && receipt.transactionHash) {
+                await this._router.navigate(["/transaction", receipt.transactionHash], {
+                    queryParams: {
+                        network: "bitcoin",
+                        tokenType: "BTC",
+                    },
+                });
             } else if (receipt.transactionHash) {
                 await this._router.navigate(["/transaction", receipt.transactionHash], {
                     queryParams: { network: this.transactionData.network, symbol: this.transactionData.symbol },
@@ -553,6 +694,12 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     async goBack(): Promise<void> {
+        if (this.showFeeInfo) {
+            this.showFeeInfo = false;
+
+            return;
+        }
+
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";
 
@@ -579,6 +726,16 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             panelClass: "zelf-snackbar",
             verticalPosition: "top",
         });
+    }
+
+    openFeeInfo(): void {
+        this.showFeeInfo = true;
+    }
+
+    selectFeeRate(feeRate: number): void {
+        this.showFeeInfo = false;
+        this.selectedFeeRate = feeRate;
+        this._calculateTransactionFee();
     }
 
     toggleShowPassword(): void {

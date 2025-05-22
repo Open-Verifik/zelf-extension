@@ -164,6 +164,84 @@ export type SuiTransaction = {
     txFee: number;
 };
 
+export type BitcoinTransaction = {
+    hash: string;
+    amount: string;
+    amountSats: number;
+    fiatAmount: string;
+    from: string;
+    to: string[];
+    txnFee: string;
+    txnFeeSats: string;
+    networkFeePayer: string;
+    status: string;
+    block: string;
+    logoURI: string;
+    asset: string;
+    decimals: number;
+    date: string;
+    age: string;
+    traffic: string;
+};
+
+export class BitcoinTransactionModel implements BitcoinTransaction {
+    age: string;
+    amount: string;
+    amountSats: number;
+    asset: string;
+    block: string;
+    date: string;
+    decimals: number;
+    fiatAmount: string;
+    from: string;
+    hash: string;
+    logoURI: string;
+    networkFeePayer: string;
+    status: string;
+    to: string[];
+    traffic: string;
+    txnFee: string;
+    txnFeeSats: string;
+
+    constructor(data: any) {
+        this.age = data.age || "";
+        this.amount = data.amount || "";
+        this.amountSats = data.amountSats || 0;
+        this.asset = data.asset || "";
+        this.block = data.block || "";
+        this.date = data.date || "";
+        this.decimals = data.decimals || 0;
+        this.fiatAmount = data.fiatAmount || "";
+        this.from = data.from || "";
+        this.hash = data.hash || "";
+        this.logoURI = data.logoURI || "";
+        this.networkFeePayer = data.networkFeePayer || "";
+        this.status = data.status || "";
+        this.to = data.to || [];
+        this.traffic = data.traffic || "";
+        this.txnFee = data.txnFee || "";
+        this.txnFeeSats = data.txnFeeSats || "";
+    }
+
+    toTransaction(): TransactionModel {
+        return new TransactionModel({
+            age: this.age,
+            amount: Number(this.amount),
+            asset: this.asset,
+            date: new Date(this.date),
+            network: "bitcoin",
+            fiatAmount: 0,
+            from: this.from,
+            gasFee: this.txnFee,
+            hash: this.hash,
+            status: this.status.toLowerCase(),
+            to: this.to[0],
+            tokenType: "BTC",
+            type: this.traffic === "IN" ? "receive" : "send",
+        });
+    }
+}
+
 export class SuiTransactionModel implements SuiTransaction {
     age: string;
     amount: number;
@@ -542,9 +620,11 @@ export class WalletModel implements Wallet {
         this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
         this.image = data.image || data.url || data.zelfProofQRCode;
         this.metadata = data.metadata;
-        this.name = `${data.name || data.zelfName || secondaryStorage.zelfName}`.toLowerCase();
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
         this.zkProof = data.zkProof;
+
+        this.name =
+            data.name || data.zelfName || secondaryStorage.zelfName ? `${data.name || data.zelfName || secondaryStorage.zelfName}`.toLowerCase() : "";
 
         if (!this.publicData.zelfName) this.publicData.zelfName = this.name;
 

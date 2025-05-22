@@ -13,12 +13,13 @@ import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { AvaxService } from "app/services/avax.service";
+import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
-import { TransactionDetailModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
+import { TransactionDetailModel, BitcoinTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
@@ -56,6 +57,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
         private _avaxService: AvaxService,
+        private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _ethService: EthereumService,
         private _networkService: NetworkService,
@@ -109,8 +111,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (this.transaction?.network || this.network) return this.transaction?.network?.toLowerCase() || this.network;
         else if (this.symbol) {
             if (this.symbol === "AVAX") return "avalanche";
-            else if (this.symbol === "MATIC") return "polygon";
-            else if (this.symbol === "BNB") return "binance";
+            else if (this.symbol === "BTC") return "bitcoin";
             else if (this.symbol === "ETH") return "ethereum";
             else if (this.symbol === "ZNS" || this.symbol === "SOL") return "solana";
             else if (this.symbol === "SUI") return "sui";
@@ -180,6 +181,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             promise = this._suiService.requestTransactionDetails(this.hash);
         } else if (this.network === "solana") {
             promise = this._solService.requestTransactionDetails(this.hash);
+        } else if (this.network === "bitcoin") {
+            promise = this._bitcoinService.requestTransactionDetails(this.hash);
         }
 
         if (!promise) {
@@ -204,6 +207,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     this.transaction = new TransactionDetailModel(response.data).toTransaction();
                 } else if (this.network === "sui") {
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
+                } else if (this.network === "bitcoin") {
+                    this.transaction = new BitcoinTransactionModel(response.data[0]).toTransaction();
                 }
 
                 if (!this.transaction.network) this.transaction.network = this.network;

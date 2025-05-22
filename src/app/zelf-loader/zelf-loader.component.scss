@@ -3,6 +3,7 @@
 .zelf-loader-container {
     position: relative;
     background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, transparent 62%);
+    z-index: 100;
 
     &--absolute {
         position: absolute;
@@ -13,8 +14,6 @@
     svg {
         opacity: 1;
     }
-
-    z-index: 100;
 }
 
 .zelf-loader {

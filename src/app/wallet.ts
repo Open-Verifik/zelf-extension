@@ -484,11 +484,15 @@ export class TransactionDetailModel implements TransactionDetail {
             const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
 
             additionalData = {
-                amount: firstTokenTransfer.amount,
-                asset: firstTokenTransfer.symbol,
-                image: firstTokenTransfer.icon,
-                network: firstTokenTransfer.network,
-                to: firstTokenTransfer.to,
+                ...(firstTokenTransfer.network === "solana"
+                    ? {
+                          amount: firstTokenTransfer.amount,
+                          asset: firstTokenTransfer.symbol,
+                          image: firstTokenTransfer.icon,
+                          network: firstTokenTransfer.network,
+                          to: firstTokenTransfer.to,
+                      }
+                    : {}),
                 targetAddress: lastTokenTransfer.to,
                 targetAmount: lastTokenTransfer.amount,
                 targetImage: lastTokenTransfer.icon,

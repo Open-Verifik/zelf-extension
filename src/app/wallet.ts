@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export type AddressBook = {
     address: string;
     lastUsed?: Date | string;
@@ -371,6 +369,7 @@ export interface TransactionDetail {
     amount: string;
     block: string;
     date: string;
+    fiatAmount: number;
     from: string;
     gasPrice: string;
     gwei: string;
@@ -383,11 +382,9 @@ export interface TransactionDetail {
     symbol: string;
     timestamp: string;
     to: string;
-    transactionFeeDolar: string;
-    transactionFeeNetwork: string;
+    transactionFee: string;
+    transactionFeeFiat: string;
     transactionType: "swap" | "transfer" | "call" | "";
-    valueDolar: string;
-    valueNetwork: string;
     tokensTransferred: {
         amount: string;
         from: string;
@@ -404,6 +401,7 @@ export class TransactionDetailModel implements TransactionDetail {
     amount: string;
     block: string;
     date: string;
+    fiatAmount: number;
     from: string;
     gasPrice: string;
     gwei: string;
@@ -416,11 +414,9 @@ export class TransactionDetailModel implements TransactionDetail {
     symbol: string;
     timestamp: string;
     to: string;
-    transactionFeeDolar: string;
-    transactionFeeNetwork: string;
+    transactionFee: string;
+    transactionFeeFiat: string;
     transactionType: "swap" | "transfer" | "call" | "";
-    valueDolar: string;
-    valueNetwork: string;
     tokensTransferred: {
         from: string;
         to: string;
@@ -436,6 +432,7 @@ export class TransactionDetailModel implements TransactionDetail {
         this.amount = data.amount || "";
         this.block = data.block || "";
         this.date = data.date || "";
+        this.fiatAmount = data.fiatAmount || "";
         this.from = data.from || "";
         this.gasPrice = data.gasPrice || "";
         this.gwei = data.gwei || "";
@@ -449,23 +446,21 @@ export class TransactionDetailModel implements TransactionDetail {
         this.timestamp = data.timestamp || "";
         this.to = data.to || "";
         this.tokensTransferred = data.tokensTransferred || [];
-        this.transactionFeeDolar = data.transactionFeeDolar || "";
-        this.transactionFeeNetwork = data.transactionFeeNetwork || "";
+        this.transactionFee = data.transactionFee || "";
+        this.transactionFeeFiat = data.transactionFeeFiat || "";
         this.transactionType = (data.transactionType || "").toLowerCase() as "swap" | "transfer" | "call" | "";
-        this.valueDolar = data.valueDolar || "";
-        this.valueNetwork = data.valueNetwork || "";
     }
 
     toTransaction(): TransactionModel {
         const transactionData = {
             age: this.age,
-            amount: Number(this.valueNetwork || this.amount),
+            amount: Number(this.amount),
             asset: this.symbol,
             block: this.block,
             date: this.date,
-            fiatAmount: Number(this.valueDolar),
+            fiatAmount: Number(this.fiatAmount),
             from: this.from,
-            gasFee: this.transactionFeeNetwork,
+            gasFee: this.transactionFee,
             hash: this.id,
             image: this.image,
             network: this.network,

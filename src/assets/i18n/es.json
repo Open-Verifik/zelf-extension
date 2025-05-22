@@ -115,7 +115,8 @@
         "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de encriptación.",
         "title": "Capas de Encriptación de ZelfProof",
         "unhide_words": "Mostrar palabras",
-        "weak": "Débil"
+        "weak": "Débil",
+        "weak_password": "Contraseña débil"
     },
     "receive": {
         "information": "Esta dirección solo puede usarse para recibir tokens compatibles.",

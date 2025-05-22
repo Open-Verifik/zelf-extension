@@ -217,12 +217,12 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
                 this._setNetworkProperties();
 
+                this.loading = false;
+
                 if (this.transaction.status === "pending") {
                     this._retryRequestTransactionDetails();
                 } else {
                     this._walletService.removePendingTransaction(this.hash);
-
-                    this.loading = false;
                 }
             })
             .catch(this._handleTransactionDetailsError);

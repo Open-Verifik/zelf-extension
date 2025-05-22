@@ -247,7 +247,7 @@
                     </div>
                 </ng-container>
 
-                <zelf-loader [diameter]="30" *ngIf="searching"></zelf-loader>
+                <zelf-loader *ngIf="searching"></zelf-loader>
 
                 <ng-container *ngIf="!withdrawStep">
                     <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound">
@@ -338,7 +338,7 @@
         </form>
     </ng-container>
 
-    <zelf-loader [diameter]="120" *ngIf="loading"></zelf-loader>
+    <zelf-loader *ngIf="loading"></zelf-loader>
 </div>
 
 <ng-template #cross>

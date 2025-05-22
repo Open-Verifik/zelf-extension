@@ -23,7 +23,7 @@
     </div>
 
     <div class="zelf-card__content receive-qr__content">
-        <zelf-loader [diameter]="120" *ngIf="loading"></zelf-loader>
+        <zelf-loader *ngIf="loading"></zelf-loader>
 
         <div class="zelf-chip receive-qr__chip" *ngIf="!loading">
             <img [src]="qrCodeOptions.image" alt="icon" class="zelf-chip__image" />

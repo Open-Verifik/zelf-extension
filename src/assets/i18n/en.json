@@ -121,7 +121,8 @@
         "subtitle": "Select the length of your seed phrase and proceed with the encryption process.",
         "title": "ZelfProof Encryption Layers",
         "unhide_words": "Unhide words",
-        "weak": "Weak"
+        "weak": "Weak",
+        "weak_password": "Weak password"
     },
     "receive": {
         "information": "This address can only be used to receive compatible tokens.",

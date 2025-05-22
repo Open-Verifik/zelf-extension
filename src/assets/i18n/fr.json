@@ -115,7 +115,8 @@
         "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
         "title": "Couches de Chiffrement ZelfProof",
         "unhide_words": "Afficher les mots",
-        "weak": "Faible"
+        "weak": "Faible",
+        "weak_password": "Mot de passe faible"
     },
     "receive": {
         "information": "Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",

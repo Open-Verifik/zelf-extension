@@ -15,7 +15,7 @@ import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
-
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 @Component({
     imports: [
         CommonModule,
@@ -26,6 +26,7 @@ import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component"
         RouterModule,
         TranslocoModule,
         WelcomeErrorComponent,
+        ZelfLoaderComponent,
     ],
     selector: "welcome-find",
     styleUrls: ["./welcome-find.component.scss"],

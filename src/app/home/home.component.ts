@@ -15,6 +15,7 @@ import { Wallet } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { HomeHeaderComponent } from "./home-header/home-header.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     imports: [
@@ -29,6 +30,7 @@ import { TokenCardComponent } from "./token-card/token-card.component";
         RouterLink,
         TokenCardComponent,
         TranslocoModule,
+        ZelfLoaderComponent,
     ],
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],
@@ -161,6 +163,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             const response = await firstValueFrom(
                 this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
             );
+            console.log(` HomeComponent ~ refreshTokens ~ response:`, response);
 
             const result = await this._assetService.processTokensFromResponse(response, this.wallet);
 

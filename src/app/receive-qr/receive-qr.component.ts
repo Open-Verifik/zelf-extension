@@ -10,9 +10,10 @@ import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboar
 import { ChromeService } from "app/chrome.service";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink],
+    imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink, ZelfLoaderComponent],
     selector: "receive-qr",
     styleUrls: ["./receive-qr.component.scss"],
     templateUrl: "./receive-qr.component.html",

@@ -11,9 +11,10 @@ import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
 import { WalletService } from "app/wallet.service";
 import { VaultService } from "app/vault.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent],
+    imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent, ZelfLoaderComponent],
     selector: "welcome-complete",
     styleUrls: ["./welcome-complete.component.scss"],
     templateUrl: "./welcome-complete.component.html",

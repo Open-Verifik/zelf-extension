@@ -44,7 +44,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -75,7 +75,6 @@
         justify-content: flex-start;
         gap: 16px;
         width: 100%;
-        height: 100%;
         border: 1px solid variables.$platinum;
         border-radius: 32px;
         padding: 32px;
@@ -136,6 +135,7 @@
         justify-content: center;
         gap: 8px;
         align-items: flex-start;
+        min-width: 50%;
     }
 
     &__asset-card-actions--right {
@@ -175,7 +175,7 @@
     }
 
     &__asset-name {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -186,7 +186,7 @@
     }
 
     &__asset-symbol {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 10px;
         line-height: 16px;
@@ -197,7 +197,7 @@
     }
 
     &__asset-placeholder {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 10px;
         line-height: 16px;
@@ -229,7 +229,7 @@
     }
 
     &__quick-amount {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -244,7 +244,7 @@
     }
 
     &__asset-input-label {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -254,6 +254,35 @@
         color: variables.$frenchGray;
     }
 
+    &__amount-input-container {
+        position: relative;
+        width: 100%;
+
+        &--fiat {
+            &:before {
+                color: variables.$gray;
+                align-items: center;
+                bottom: 0;
+                content: "$";
+                display: flex;
+                font-family: Menda, sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                height: 40px;
+                left: 0;
+                letter-spacing: 0.1px;
+                line-height: 20px;
+                margin: auto;
+                position: absolute;
+                top: 0;
+                width: 40px;
+            }
+
+            .swap__amount-input {
+                padding-left: 24px;
+            }
+        }
+    }
     &__amount-input {
         -moz-appearance: none;
         -webkit-appearance: none;
@@ -285,24 +314,6 @@
             -moz-appearance: textfield;
             appearance: textfield;
         }
-
-        &--dollar {
-            padding-left: 32px;
-
-            &:before {
-                content: "$";
-                position: absolute;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                font-family: Menda, sans-serif;
-                font-weight: 600;
-                font-size: 14px;
-                line-height: 20px;
-                letter-spacing: 0.1px;
-            }
-        }
     }
 
     &__amount-input::placeholder {
@@ -317,7 +328,7 @@
     }
 
     &__balance-value-label {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 16px;
@@ -373,7 +384,7 @@
     }
 
     &__details-label {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -388,7 +399,7 @@
     }
 
     &__details-value {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -447,7 +458,7 @@
     }
 
     &__content-text {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;

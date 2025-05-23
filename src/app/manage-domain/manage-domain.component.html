@@ -22,7 +22,7 @@
     </div>
 
     <div class="zelf-card__content manage-domain__content">
-        <div class="ripple" *ngIf="loading"></div>
+        <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
 
         <ng-container *ngIf="!loading">
             <div class="qr-code">

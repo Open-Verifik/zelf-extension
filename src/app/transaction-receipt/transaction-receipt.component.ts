@@ -12,17 +12,19 @@ import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboar
 import { ChromeService } from "app/chrome.service";
 import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-
 import { AvaxService } from "app/services/avax.service";
+import { BitcoinService } from "app/services/bitcoin.service";
+import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
+
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
-import { OkLinkTransactionModel, SolTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
+import { TransactionDetailModel, BitcoinTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule],
+    imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule, ZelfLoaderComponent],
     selector: "transaction-receipt",
     styleUrls: ["./transaction-receipt.component.scss"],
     templateUrl: "./transaction-receipt.component.html",
@@ -35,6 +37,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     network: string = "";
     symbol: string = "";
     transaction!: any;
+    tokens: TokenData[] = [];
     wallet!: Partial<WalletModel> | null;
 
     private CAN_SWAP: NetworkPermissions = {};
@@ -54,6 +57,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
         private _avaxService: AvaxService,
+        private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _ethService: EthereumService,
         private _networkService: NetworkService,
@@ -85,6 +89,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     async ngOnInit(): Promise<void> {
         this.loading = true;
+
+        this.tokens = await this._loadTokensFromSession();
         this.wallet = await this._walletService.getFirstWalletFromStorage();
     }
 
@@ -105,8 +111,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (this.transaction?.network || this.network) return this.transaction?.network?.toLowerCase() || this.network;
         else if (this.symbol) {
             if (this.symbol === "AVAX") return "avalanche";
-            else if (this.symbol === "MATIC") return "polygon";
-            else if (this.symbol === "BNB") return "binance";
+            else if (this.symbol === "BTC") return "bitcoin";
             else if (this.symbol === "ETH") return "ethereum";
             else if (this.symbol === "ZNS" || this.symbol === "SOL") return "solana";
             else if (this.symbol === "SUI") return "sui";
@@ -124,6 +129,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     private async _loadTokensFromSession(): Promise<TokenData[]> {
+        if (this.tokens) return this.tokens;
+
         try {
             const sessionTokens = await this._assetService.loadTokensFromSession();
 
@@ -149,7 +156,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         return token?.image || "";
     }
 
-    private _handleTransactionDetailsError = () => {
+    private _handleTransactionDetailsError = (e: any) => {
         this._retryRequestTransactionDetails();
 
         this.loading = false;
@@ -174,6 +181,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             promise = this._suiService.requestTransactionDetails(this.hash);
         } else if (this.network === "solana") {
             promise = this._solService.requestTransactionDetails(this.hash);
+        } else if (this.network === "bitcoin") {
+            promise = this._bitcoinService.requestTransactionDetails(this.hash);
         }
 
         if (!promise) {
@@ -190,29 +199,30 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
                     return;
                 }
 
-                response.data.symbol = this.symbol;
-
-                if (this.network === "ethereum" || this.network === "avalanche") {
-                    this.transaction = new OkLinkTransactionModel(response.data).toTransaction();
+                if (this.network === "ethereum") {
+                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
+                } else if (this.network === "avalanche") {
+                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
                 } else if (this.network === "solana") {
-                    this.transaction = new SolTransactionModel(response.data).toTransaction();
+                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
                 } else if (this.network === "sui") {
                     this.transaction = new SuiTransactionModel(response.data).toTransaction();
+                } else if (this.network === "bitcoin") {
+                    this.transaction = new BitcoinTransactionModel(response.data[0]).toTransaction();
                 }
-
-                this.transaction.image = this._walletService.getAssetImage(this.transaction?.symbol);
-                this.transaction.targetImage = this._walletService.getAssetImage(this.transaction?.targetSymbol);
 
                 if (!this.transaction.network) this.transaction.network = this.network;
 
+                this.transaction.networkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+
                 this._setNetworkProperties();
+
+                this.loading = false;
 
                 if (this.transaction.status === "pending") {
                     this._retryRequestTransactionDetails();
                 } else {
                     this._walletService.removePendingTransaction(this.hash);
-
-                    this.loading = false;
                 }
             })
             .catch(this._handleTransactionDetailsError);
@@ -221,22 +231,22 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _retryRequestTransactionDetails(): Promise<void> {
         this._timeout = setTimeout(() => {
             this._requestTransactionDetails();
-        }, 2000);
+        }, 5000);
     }
 
     private async _setNetworkProperties(): Promise<void> {
-        if (!this.network) return;
-        if (!this.transaction || this.transaction.type !== "swap" || Object.values(this.tokenProperties).join("").trim()) return;
+        if (!this.transaction || this.transaction.type !== "swap") return;
 
-        const tokens = await this._loadTokensFromSession();
-        const token = tokens.find((token) => token.symbol === this.symbol && token.network?.toLowerCase() === this.network.toLowerCase());
-
-        this.tokenProperties.sourceImage = token?.image || "";
-        this.tokenProperties.sourceNetwork = this._networkSymbol(token?.network.toLowerCase() as NetworkName);
-        this.tokenProperties.sourceNetworkImage = await this._networkImage(token?.network.toLowerCase() as NetworkName);
-        this.tokenProperties.sourceSymbol = token?.symbol || "";
+        this.tokenProperties.sourceImage = this.transaction.image;
+        this.tokenProperties.sourceNetwork = this._networkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceNetworkImage = await this._networkImage(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceNetworkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceSymbol = this.transaction.asset;
 
         this.tokenProperties.targetImage = this.transaction.targetImage;
+        this.tokenProperties.targetNetwork = this._networkSymbol(this.transaction.targetNetwork.toLowerCase() as NetworkName);
+        this.tokenProperties.targetNetworkImage = await this._networkImage(this.transaction.targetNetwork.toLowerCase() as NetworkName);
+        this.tokenProperties.targetNetworkSymbol = this._networkService.getNetworkSymbol(this.transaction.targetNetwork.toLowerCase() as NetworkName);
         this.tokenProperties.targetSymbol = this.transaction.targetSymbol;
     }
 

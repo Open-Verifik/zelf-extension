@@ -1,6 +1,4 @@
 <div class="zelf-card swap" *transloco="let t">
-    <div class="ripple swap__loader" *ngIf="loading || quoteLoading"></div>
-
     <ng-container *ngIf="!loading">
         <div class="swap__header">
             <div class="swap__col1">
@@ -28,40 +26,57 @@
         <ng-container *ngIf="!swapSource">
             <form [formGroup]="form" class="swap__form">
                 <div class="zelf-card__content swap__content">
-                    <div class="ripple swap__loader" *ngIf="loading"></div>
+                    <zelf-loader [diameter]="30" *ngIf="loading"></zelf-loader>
 
                     <div
-                        [ngClass]="{ 'swap__asset-card--error': form.get('sourceAmount')?.invalid && form.get('sourceAmount')?.dirty }"
+                        [ngClass]="{ 'swap__asset-card--error': form.get('sourceAmount')?.errors && form.get('sourceAmount')?.dirty }"
                         class="swap__asset-card"
                     >
                         <div class="swap__asset-card-actions swap__asset-card-actions--left">
                             <div class="swap__asset-input-label">{{ t("swap.you_pay") }}</div>
 
-                            <input
-                                [ngClass]="{ 'swap__amount-input--dollar': swapBalanceDisplay === 'fiat' }"
-                                [max]="selectedSourceAsset.amount || null"
-                                class="swap__amount-input"
-                                formControlName="sourceAmount"
-                                min="0"
-                                placeholder="0"
-                                required
-                                type="number"
-                            />
+                            <div
+                                class="swap__amount-input-container"
+                                [ngClass]="{ 'swap__amount-input-container--fiat': swapBalanceDisplay === 'fiat' }"
+                            >
+                                <input
+                                    [hidden]="swapBalanceDisplay === 'fiat'"
+                                    [max]="selectedSourceAsset.amount || null"
+                                    class="swap__amount-input"
+                                    formControlName="sourceAmount"
+                                    min="0"
+                                    placeholder="0"
+                                    required
+                                    type="number"
+                                />
+
+                                <input
+                                    [hidden]="swapBalanceDisplay === 'token'"
+                                    [max]="selectedSourceAsset.amount || null"
+                                    class="swap__amount-input"
+                                    formControlName="sourceFiat"
+                                    min="0"
+                                    placeholder="0"
+                                    required
+                                    type="number"
+                                />
+                            </div>
 
                             <div class="swap__balance-value">
                                 <p class="swap__balance-value-label">
                                     <ng-container *ngIf="swapBalanceDisplay === 'token'">
-                                        {{ totalSourceFiat | currency: "USD" : "symbol" : "1.2-2" }}
+                                        {{ form.get("sourceFiat")?.value | currency: "USD" : "symbol" : "1.2-2" }}
                                     </ng-container>
 
                                     <ng-container *ngIf="swapBalanceDisplay === 'fiat'">
-                                        {{ totalSourceToken | number: "1.2-4" }}
+                                        {{ form.get("sourceAsset")?.value?.symbol }} {{ form.get("sourceAmount")?.value || 0 | number: "1.0-8" }}
                                     </ng-container>
                                 </p>
 
                                 <button
                                     (click)="handleBalanceDisplayChange()"
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
                                 >
                                     <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,6 +118,7 @@
 
                                 <button
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--border-soft swap__asset-dropdown-button"
                                 >
                                     <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
@@ -117,6 +133,7 @@
                                 <button
                                     (click)="setAmount(0.5)"
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
                                 >
                                     50%
@@ -125,6 +142,7 @@
                                 <button
                                     (click)="setAmount(1)"
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
                                 >
                                     Max
@@ -138,6 +156,7 @@
                             [disabled]="!hasBothAssetsSet"
                             (click)="swapTargetWithSource()"
                             mat-flat-button
+                            type="button"
                             class="zelf-icon-button zelf-icon-button--black zelf-icon-button--40 zelf-icon-button--border-soft"
                         >
                             <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,16 +171,37 @@
                         <div class="swap__asset-card-actions swap__asset-card-actions--left">
                             <div class="swap__asset-input-label">{{ t("swap.you_receive") }}</div>
 
-                            <input placeholder="0" readonly formControlName="targetAmount" type="number" class="swap__amount-input" />
+                            <div
+                                class="swap__amount-input-container"
+                                [ngClass]="{ 'swap__amount-input-container--fiat': swapBalanceDisplay === 'fiat' }"
+                            >
+                                <input
+                                    [hidden]="swapBalanceDisplay === 'fiat'"
+                                    class="swap__amount-input"
+                                    formControlName="targetAmount"
+                                    placeholder="0"
+                                    readonly
+                                    type="number"
+                                />
+
+                                <input
+                                    [hidden]="swapBalanceDisplay === 'token'"
+                                    class="swap__amount-input"
+                                    formControlName="targetFiat"
+                                    placeholder="0"
+                                    readonly
+                                    type="number"
+                                />
+                            </div>
 
                             <div class="swap__balance-value">
                                 <p class="swap__balance-value-label">
                                     <ng-container *ngIf="swapBalanceDisplay === 'token'">
-                                        {{ totalTargetFiat | currency: "USD" : "symbol" : "1.2-2" }}
+                                        {{ form.get("targetFiat")?.value | currency: "USD" : "symbol" : "1.2-2" }}
                                     </ng-container>
 
                                     <ng-container *ngIf="swapBalanceDisplay === 'fiat'">
-                                        {{ totalTargetToken | number: "1.2-4" }}
+                                        {{ form.get("targetAsset")?.value?.symbol }} {{ form.get("targetAmount")?.value || 0 | number: "1.0-8" }}
                                     </ng-container>
                                 </p>
                             </div>
@@ -198,6 +238,7 @@
 
                                 <button
                                     mat-flat-button
+                                    type="button"
                                     class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--border-soft swap__asset-dropdown-button"
                                 >
                                     <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
@@ -216,11 +257,22 @@
                             <p>{{ t("errors.swap_same_asset") }}</p>
                         </div>
 
+                        <div class="zelf-message zelf-message--error" *ngIf="form.errors?.insufficientFunds">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.insufficient_funds") }}</p>
+                        </div>
+
+                        <div class="zelf-message zelf-message--error" *ngIf="form.errors?.crossNetwork">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.cannot_swap_across_these_networks") }}</p>
+                        </div>
+
                         <ng-container *ngIf="showDetails()">
                             <div class="swap__settings">
                                 <button
                                     [disabled]="bridgeOptions.length < 2"
                                     [matMenuTriggerFor]="bridgeMenu"
+                                    type="button"
                                     class="zelf-button zelf-button--anti-flash-white swap__settings-button"
                                     mat-flat-button
                                 >
@@ -236,6 +288,7 @@
                                         (click)="setBridge(bridgeOption.value)"
                                         *ngFor="let bridgeOption of bridgeOptions"
                                         class="zelf-menu-item"
+                                        type="button"
                                         mat-menu-item
                                     >
                                         <label [for]="bridgeOption.value" class="zelf-radio zelf-radio--plain zelf-radio--gap-lg">
@@ -328,6 +381,7 @@
 
                                     <button
                                         (click)="openSlippageSheet()"
+                                        type="button"
                                         class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--40"
                                         mat-flat-button
                                     >
@@ -372,8 +426,8 @@
                         class="zelf-button zelf-button--black zelf-button--wide"
                         mat-flat-button
                     >
-                        <ng-container *ngIf="!requiresBiometrics"> {{ t("swap.confirm_swap") }}</ng-container>
-                        <ng-container *ngIf="requiresBiometrics"> {{ t("swap.verify") }}</ng-container>
+                        <ng-container *ngIf="!requiresBiometrics">{{ t("swap.confirm_swap") }}</ng-container>
+                        <ng-container *ngIf="requiresBiometrics">{{ t("common.verify") }}</ng-container>
 
                         <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
                     </button>
@@ -391,12 +445,14 @@
 
         <swap-currency
             (assetChange)="handleAssetChange($event)"
-            *ngIf="swapSource"
-            [source]="swapSource"
-            [selectedAsset]="swapSource === 'source' ? selectedSourceAsset : selectedTargetAsset"
             [myAssets]="tokens"
+            [selectedAsset]="swapSource === 'source' ? selectedSourceAsset : selectedTargetAsset"
+            [source]="swapSource"
+            *ngIf="swapSource"
         ></swap-currency>
     </ng-container>
+
+    <zelf-loader *ngIf="loading || quoteLoading"></zelf-loader>
 </div>
 
 <ng-template #downArrowIcon>

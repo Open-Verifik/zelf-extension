@@ -3,15 +3,17 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { Subject, takeUntil } from "rxjs";
+
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { async, Subject, takeUntil } from "rxjs";
 
 @Component({
     selector: "manage-domain",
-    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfNamePipe],
+    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfNamePipe, ZelfLoaderComponent],
     templateUrl: "./manage-domain.component.html",
     styleUrls: ["./manage-domain.component.scss"],
 })

@@ -30,11 +30,17 @@
     "send": {
         "address_found": "Address found",
         "available_balance": "Available {{balance}} {{symbol}}",
+        "average": "Average",
         "cannot_continue_process": "You cannot continue with the process",
+        "confirmations": "Confirmations",
         "continue_process": "You can continue with the process",
         "domain_or_address": "Domain or address",
+        "economical": "Economical",
         "enter_amount_to_send": "Enter amount to send",
         "external_address_found": "External address found",
+        "fastest": "Fastest",
+        "transaction_settings": "Transaction Settings",
+        "upto_sats": "Up to {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutes",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "zelf_name_not_registered": "Zelf Name not registered",
@@ -298,6 +304,7 @@
     "errors": {
         "address_too_long": "Address is too long",
         "all_fields_required": "All fields are required",
+        "cannot_swap_across_these_networks": "You cannot swap across these networks just yet. Please try again later.",
         "chart_not_found": "Chart data not available",
         "Duplicated_person": "ZelfProof is being used for another record",
         "empty_password": "Password cannot be empty",
@@ -336,6 +343,7 @@
         "required_field": "This field is required",
         "same_address": "You cannot send funds to the same address",
         "something_went_wrong": "Something went wrong, please try again",
+        "swap_same_asset": "You cannot swap to the same asset",
         "transaction_not_found": "Transaction not found",
         "try_again": "Try again",
         "zelfName_is_taken": "This zelf name is already taken"

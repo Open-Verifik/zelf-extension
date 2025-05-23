@@ -51,7 +51,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -103,7 +103,7 @@
 
     &__message {
         font-size: 1.5rem;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -126,7 +126,7 @@
 
     &__label {
         display: flex;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
@@ -134,7 +134,7 @@
         vertical-align: middle;
         color: variables.$gray;
         margin: 0;
-        width: 100%;
+        min-width: 156px;
     }
 
     &__value-container {
@@ -142,6 +142,7 @@
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
+        flex: 1 1 auto;
 
         svg {
             min-width: 12px;
@@ -151,13 +152,14 @@
         &--column {
             flex-direction: column;
             align-items: flex-end;
+            width: 100%;
         }
     }
 
     &__value {
         display: flex;
         justify-content: flex-end;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 15px;
         line-height: 20px;
@@ -166,6 +168,8 @@
         color: variables.$black;
         margin: 0;
         width: 100%;
+        text-align: right;
+        align-items: center;
     }
 
     &__swap-row {
@@ -173,6 +177,7 @@
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
+        text-align: right;
     }
 
     &__value-light {
@@ -191,6 +196,7 @@
         align-items: flex-end;
         width: 36px;
         height: 36px;
+        margin-right: 12px;
     }
 
     &__logo {
@@ -223,7 +229,7 @@
         font-size: 32px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         margin: 0;
     }
 
@@ -232,8 +238,13 @@
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0 0 8px;
+    }
+
+    &__action-row--auto-height {
+        height: auto;
+        min-height: 67px;
     }
 
     @media (max-width: variables.$minSmall) {
@@ -249,10 +260,6 @@
         &__value {
             font-size: 12px;
             line-height: 16px;
-        }
-        &__action-row--auto-height {
-            height: auto;
-            min-height: 67px;
         }
     }
 }

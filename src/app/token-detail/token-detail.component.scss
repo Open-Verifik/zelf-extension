@@ -43,7 +43,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -94,7 +94,7 @@
     }
 
     &__interval-label {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -108,7 +108,7 @@
         color: variables.$gray;
         cursor: pointer;
         display: inline-flex;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-size: 11px;
         font-weight: 600;
         height: 24px;
@@ -131,7 +131,7 @@
     }
 
     &__interval-title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -140,7 +140,7 @@
     }
 
     &__amount {
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         font-weight: 700;
         font-size: 40px;
         line-height: 40px;
@@ -159,7 +159,7 @@
     }
 
     &__price {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -253,7 +253,7 @@
     }
 
     &__percentage {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -265,7 +265,7 @@
     }
 
     &__fiat {
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         font-weight: 700;
         font-size: 18px;
         line-height: 24px;
@@ -327,7 +327,7 @@
         text-align: center;
         color: #46464f;
         font-size: 11px;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         line-height: 16px;
         letter-spacing: 0.5px;
@@ -337,7 +337,7 @@
 
 .zelf-action-row {
     &__label {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -347,7 +347,7 @@
         margin: 0;
     }
     &__value {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -383,7 +383,7 @@
     }
 
     &__description {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -406,7 +406,7 @@
     }
 
     &__website-button {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         align-items: center;
         background-color: variables.$antiFlashWhite !important;
         border-radius: 40px;
@@ -449,7 +449,7 @@
     }
 
     &__cap-menda {
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         font-weight: 700;
         font-size: 14px;
         line-height: 16px;
@@ -462,7 +462,7 @@
     }
 
     &__show-more {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
@@ -493,7 +493,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -523,7 +523,7 @@
     align-items: center;
     padding: 2px 8px;
     border-radius: 9999px;
-    font-family: Poppins;
+    font-family: "Poppins", Arial, sans-serif;
     font-weight: 900;
     gap: 4px;
     margin: 0;

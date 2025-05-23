@@ -5,7 +5,7 @@
         <div class="home__container" *ngIf="shareables.view === 'home' || shareables.view === 'activity'">
             <div class="home__actions-container">
                 <div class="home-balance">
-                    <div class="ripple" *ngIf="balancesLoading"></div>
+                    <zelf-loader [diameter]="60" *ngIf="balancesLoading"></zelf-loader>
 
                     <div class="home-balance__info" *ngIf="!balancesLoading">
                         <h3 class="home-balance__amount">{{ totalFiatBalance || 0 | currency: "USD" : "symbol" : "1.2-5" }}</h3>
@@ -68,6 +68,20 @@
                     </div>
 
                     <div class="home-action" *ngIf="false">
+                        <div class="home-action__icon" [routerLink]="['/swap']">
+                            <div class="home-action__icon-box">
+                                <svg width="24" height="19" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.13563 6.85496L0.355635 9.64496C0.165635 9.84496 0.165635 10.155 0.355635 10.355L3.13563 13.145C3.44563 13.465 3.98563 13.235 3.98563 12.795V10.995H9.99564C10.5456 10.995 10.9956 10.545 10.9956 9.99496C10.9956 9.44496 10.5456 8.99496 9.99564 8.99496H3.98563V7.20496C3.98563 6.75496 3.44563 6.53496 3.13563 6.85496ZM17.6456 3.64496L14.8656 0.854961C14.5556 0.534961 14.0156 0.764961 14.0156 1.20496V2.99496H7.99564C7.44563 2.99496 6.99564 3.44496 6.99564 3.99496C6.99564 4.54496 7.44563 4.99496 7.99564 4.99496H14.0056V6.78496C14.0056 7.23496 14.5456 7.45496 14.8556 7.13496L17.6356 4.34496C17.8356 4.15496 17.8356 3.83496 17.6456 3.64496Z"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="home-action__text cursor-pointer">{{ t("home.swap") }}</div>
+                    </div>
+
+                    <div class="home-action">
                         <div class="home-action__icon" [routerLink]="['/swap']">
                             <div class="home-action__icon-box">
                                 <svg width="24" height="19" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">

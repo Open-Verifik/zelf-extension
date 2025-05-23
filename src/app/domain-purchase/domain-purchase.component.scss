@@ -88,7 +88,7 @@
     &__title {
         font-size: 18px;
         font-weight: 600;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         color: variables.$black;
         margin: 0;
         text-align: center;
@@ -157,7 +157,7 @@
         font-size: 14px;
         font-weight: 500;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0;
     }
 
@@ -165,7 +165,7 @@
         font-size: 24px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         margin: 2px 0 0;
     }
 
@@ -173,7 +173,7 @@
         font-size: 14px;
         font-weight: 400;
         color: variables.$gray;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 2px 0 0;
     }
 
@@ -200,7 +200,7 @@
         font-size: 14px;
         font-weight: 400;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         text-align: center;
         margin: 0;
     }
@@ -217,7 +217,7 @@
         font-size: 32px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         margin: 0;
     }
 
@@ -226,7 +226,7 @@
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0 0 8px;
     }
 
@@ -266,7 +266,7 @@
     &__text {
         color: variables.$black;
         cursor: default;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         font-size: 24px;
         font-weight: 600;
         margin: 8px 0 0;
@@ -293,7 +293,7 @@
         font-size: 14px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0;
     }
 
@@ -305,7 +305,7 @@
         font-size: 14px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0;
     }
 }

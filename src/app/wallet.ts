@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export type AddressBook = {
     address: string;
     lastUsed?: Date | string;
@@ -120,6 +118,7 @@ export class TransactionModel implements Transaction {
         this.from = data.from || data.sender || "";
         this.gasFee = data.gasFee || 0;
         this.hash = data.hash || "";
+        this.image = data.image || "";
         this.method = data.method || "";
         this.network = data.network || data.token?.network || "";
         this.price = data.price || data.token?.price || 0;
@@ -162,6 +161,84 @@ export type SuiTransaction = {
     tokenTransferNum: number;
     txFee: number;
 };
+
+export type BitcoinTransaction = {
+    hash: string;
+    amount: string;
+    amountSats: number;
+    fiatAmount: string;
+    from: string;
+    to: string[];
+    txnFee: string;
+    txnFeeSats: string;
+    networkFeePayer: string;
+    status: string;
+    block: string;
+    logoURI: string;
+    asset: string;
+    decimals: number;
+    date: string;
+    age: string;
+    traffic: string;
+};
+
+export class BitcoinTransactionModel implements BitcoinTransaction {
+    age: string;
+    amount: string;
+    amountSats: number;
+    asset: string;
+    block: string;
+    date: string;
+    decimals: number;
+    fiatAmount: string;
+    from: string;
+    hash: string;
+    logoURI: string;
+    networkFeePayer: string;
+    status: string;
+    to: string[];
+    traffic: string;
+    txnFee: string;
+    txnFeeSats: string;
+
+    constructor(data: any) {
+        this.age = data.age || "";
+        this.amount = data.amount || "";
+        this.amountSats = data.amountSats || 0;
+        this.asset = data.asset || "";
+        this.block = data.block || "";
+        this.date = data.date || "";
+        this.decimals = data.decimals || 0;
+        this.fiatAmount = data.fiatAmount || "";
+        this.from = data.from || "";
+        this.hash = data.hash || "";
+        this.logoURI = data.logoURI || "";
+        this.networkFeePayer = data.networkFeePayer || "";
+        this.status = data.status || "";
+        this.to = data.to || [];
+        this.traffic = data.traffic || "";
+        this.txnFee = data.txnFee || "";
+        this.txnFeeSats = data.txnFeeSats || "";
+    }
+
+    toTransaction(): TransactionModel {
+        return new TransactionModel({
+            age: this.age,
+            amount: Number(this.amount),
+            asset: this.asset,
+            date: new Date(this.date),
+            network: "bitcoin",
+            fiatAmount: 0,
+            from: this.from,
+            gasFee: this.txnFee,
+            hash: this.hash,
+            status: this.status.toLowerCase(),
+            to: this.to[0],
+            tokenType: "BTC",
+            type: this.traffic === "IN" ? "receive" : "send",
+        });
+    }
+}
 
 export class SuiTransactionModel implements SuiTransaction {
     age: string;
@@ -287,142 +364,152 @@ export class EthTransactionModel implements EthTransaction {
     }
 }
 
-export type OkLinkTransaction = {
+export interface TransactionDetail {
     age: string;
     amount: string;
-    assetPrice: string;
+    block: string;
     date: string;
+    fiatAmount: number;
     from: string;
     gasPrice: string;
+    gwei: string;
     hash: string;
+    id: string;
+    image: string;
+    network: string;
+    observation: string;
     status: string;
-    swapAmount?: number;
-    swapContractAddress?: string;
-    swapLogo?: string;
-    swapNetwork?: string;
-    swapSymbol?: string;
     symbol: string;
+    timestamp: string;
     to: string;
-    type: string;
-    txnFee: string;
-};
+    transactionFee: string;
+    transactionFeeFiat: string;
+    transactionType: "swap" | "transfer" | "call" | "";
+    tokensTransferred: {
+        amount: string;
+        from: string;
+        icon: string;
+        network: string;
+        symbol: string;
+        to: string;
+        token: string;
+    }[];
+}
 
-export class OkLinkTransactionModel implements OkLinkTransaction {
+export class TransactionDetailModel implements TransactionDetail {
     age: string;
     amount: string;
-    assetPrice: string;
+    block: string;
     date: string;
+    fiatAmount: number;
     from: string;
     gasPrice: string;
+    gwei: string;
     hash: string;
+    id: string;
+    image: string;
+    network: string;
+    observation: string;
     status: string;
-    swapAmount?: number;
-    swapContractAddress?: string;
-    swapLogo?: string;
-    swapNetwork?: string;
-    swapSymbol?: string;
-    symbol: string = "AVAX";
+    symbol: string;
+    timestamp: string;
     to: string;
-    txnFee: string;
-    type: string;
+    transactionFee: string;
+    transactionFeeFiat: string;
+    transactionType: "swap" | "transfer" | "call" | "";
+    tokensTransferred: {
+        from: string;
+        to: string;
+        amount: string;
+        token: string;
+        network: string;
+        symbol: string;
+        icon: string;
+    }[];
 
-    constructor(data: OkLinkTransaction) {
+    constructor(data: any) {
         this.age = data.age || "";
         this.amount = data.amount || "";
-        this.assetPrice = data.assetPrice || "";
+        this.block = data.block || "";
         this.date = data.date || "";
+        this.fiatAmount = data.fiatAmount || "";
         this.from = data.from || "";
-        this.gasPrice = (Number(data.gasPrice) / 1e18).toString() || "";
+        this.gasPrice = data.gasPrice || "";
+        this.gwei = data.gwei || "";
         this.hash = data.hash || "";
-        this.status = data.status || "";
-        this.swapAmount = data.swapAmount || 0;
-        this.swapContractAddress = data.swapContractAddress || "";
-        this.swapLogo = data.swapLogo || "";
-        this.swapNetwork = data.swapNetwork || "";
-        this.swapSymbol = data.swapSymbol || "";
-        this.symbol = data.symbol || "AVAX";
+        this.id = data.id || "";
+        this.image = data.image || "";
+        this.network = data.network || "";
+        this.observation = data.observation || "";
+        this.status = `${data.status}`.toLowerCase();
+        this.symbol = data.symbol || "";
+        this.timestamp = data.timestamp || "";
         this.to = data.to || "";
-        this.txnFee = data.txnFee || "";
-        this.type = data.type || "";
+        this.tokensTransferred = data.tokensTransferred || [];
+        this.transactionFee = data.transactionFee || "";
+        this.transactionFeeFiat = data.transactionFeeFiat || "";
+        this.transactionType = (data.transactionType || "").toLowerCase() as "swap" | "transfer" | "call" | "";
     }
 
     toTransaction(): TransactionModel {
-        return new TransactionModel({
+        const transactionData = {
             age: this.age,
             amount: Number(this.amount),
             asset: this.symbol,
-            date: new Date(this.date),
-            fiatAmount: Number(this.assetPrice),
+            block: this.block,
+            date: this.date,
+            fiatAmount: Number(this.fiatAmount),
             from: this.from,
-            gasFee: this.txnFee,
-            hash: this.hash,
+            gasFee: this.transactionFee,
+            hash: this.id,
+            image: this.image,
+            network: this.network,
             status: this.status.toLowerCase(),
-            targetAddress: this.swapContractAddress,
-            targetAmount: this.swapAmount,
-            targetImage: this.swapLogo,
-            targetNetwork: this.swapNetwork,
-            targetSymbol: this.swapSymbol,
             to: this.to,
             tokenType: "ERC-20",
-            type: this.type,
-        });
-    }
-}
+            type: this.transactionType,
+        };
 
-export type SolTransaction = {
-    amount: number;
-    block: number;
-    fee: number;
-    priorityFee: number;
-    from: string;
-    id: string;
-    status: string;
-    symbol: string;
-    timestamp: number;
-    to: string;
-    _source: SOLSource;
-};
+        let additionalData = {};
 
-export class SolTransactionModel implements SolTransaction {
-    amount: number;
-    block: number;
-    fee: number;
-    priorityFee: number;
-    from: string;
-    id: string;
-    status: string;
-    symbol: string = "SOL";
-    timestamp: number;
-    to: string;
-    _source: SOLSource;
+        if (this.transactionType === "swap" || this.transactionType === "call") {
+            transactionData.type = "swap";
 
-    constructor(data: SolTransaction) {
-        this.amount = data.amount ? data.amount / 1e9 : 0;
-        this.block = data.block || 0;
-        this.fee = data.fee ? data.fee / 1e9 : 0;
-        this.priorityFee = data.priorityFee ? data.priorityFee / 1e9 : 0;
-        this.from = data.from || "";
-        this.id = data.id || "";
-        this.status = data.status || "";
-        this.symbol = data.symbol || "SOL";
-        this.timestamp = data.timestamp || 0;
-        this.to = data.to || "";
-        this._source = data._source || ({} as SOLSource);
-    }
+            const firstTokenTransfer = this.tokensTransferred[0];
+            const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
 
-    toTransaction(): TransactionModel {
+            additionalData = {
+                ...(firstTokenTransfer.network === "solana"
+                    ? {
+                          amount: firstTokenTransfer.amount,
+                          asset: firstTokenTransfer.symbol,
+                          image: firstTokenTransfer.icon,
+                          network: firstTokenTransfer.network,
+                          to: firstTokenTransfer.to,
+                      }
+                    : {}),
+                targetAddress: lastTokenTransfer.to,
+                targetAmount: lastTokenTransfer.amount,
+                targetImage: lastTokenTransfer.icon,
+                targetNetwork: lastTokenTransfer.network,
+                targetSymbol: lastTokenTransfer.symbol,
+                targetToken: lastTokenTransfer.token,
+            };
+        } else if (this.tokensTransferred.length > 0) {
+            const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
+
+            additionalData = {
+                amount: lastTokenTransfer.amount,
+                asset: lastTokenTransfer.symbol,
+                image: lastTokenTransfer.icon,
+                network: lastTokenTransfer.network,
+                to: lastTokenTransfer.to,
+            };
+        }
+
         return new TransactionModel({
-            age: moment(this.timestamp).fromNow(),
-            amount: Number(this.amount),
-            asset: this.symbol,
-            date: new Date(this.timestamp),
-            fiatAmount: Number(0),
-            from: this.from,
-            gasFee: this.fee,
-            hash: this.id,
-            status: this.status?.toLowerCase() || "",
-            to: this.to,
-            tokenType: "SPL",
+            ...transactionData,
+            ...additionalData,
         });
     }
 }
@@ -537,9 +624,11 @@ export class WalletModel implements Wallet {
         this.hasPassword = Boolean(data.hasPassword || data.passwordLayer === "WithPassword" || secondaryStorage.hasPassword === "true");
         this.image = data.image || data.url || data.zelfProofQRCode;
         this.metadata = data.metadata;
-        this.name = `${data.name || data.zelfName || secondaryStorage.zelfName}`.toLowerCase();
         this.zelfProof = data.zelfProof || secondaryStorage.zelfProof;
         this.zkProof = data.zkProof;
+
+        this.name =
+            data.name || data.zelfName || secondaryStorage.zelfName ? `${data.name || data.zelfName || secondaryStorage.zelfName}`.toLowerCase() : "";
 
         if (!this.publicData.zelfName) this.publicData.zelfName = this.name;
 
@@ -721,7 +810,7 @@ export interface TokenData {
     amount: number | string;
     balance?: number | string;
     balanceUsd?: number | string;
-    chainId?: number;
+    chainId?: number | string;
     contractAddress?: string;
     decimals?: number;
     fiatBalance: number | string;

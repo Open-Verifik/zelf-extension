@@ -64,7 +64,7 @@ export class AssetService {
             AVAX: true,
             BTC: false,
             ETH: true,
-            SOL: false,
+            SOL: true,
             SUI: false,
         };
     }
@@ -72,7 +72,7 @@ export class AssetService {
     get canSend(): NetworkPermissions {
         return {
             AVAX: true,
-            BTC: false,
+            BTC: true,
             ETH: true,
             SOL: true,
             SUI: true,
@@ -193,6 +193,7 @@ export class AssetService {
                 if (
                     (network === "Ethereum" && !permissions.ETH) ||
                     (network === "Solana" && !permissions.SOL) ||
+                    (network === "Bitcoin" && !permissions.BTC) ||
                     (network === "Avalanche" && !permissions.AVAX) ||
                     (network === "Sui" && !permissions.SUI)
                 ) {
@@ -244,6 +245,14 @@ export class AssetService {
 
         if (response?.sui?.data?.tokenHoldings?.tokens && (!permissions || permissions.SUI)) {
             tokens = this.processTokens("Sui", response.sui.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.bitcoin?.data?.tokenHoldings?.tokens && (!permissions || permissions.BTC)) {
+            tokens = this.processTokens("Bitcoin", response.bitcoin.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.bitcoinTestnet?.data?.tokenHoldings?.tokens && (!permissions || permissions.BTC)) {
+            tokens = this.processTokens("Bitcoin", response.bitcoinTestnet.data.tokenHoldings.tokens, tokens, permissions);
         }
 
         try {

@@ -4,9 +4,13 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
 import { TranslocoModule } from "@jsverse/transloco";
+
+import { AssetService, NetworkPermissions } from "app/asset.service";
 import { LifiService } from "app/services/lifi.service";
+import { NetworkName, NetworkService, NetworkSymbol } from "app/services/network.service";
 import { TokenData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 export interface AssetChangeData {
     asset: TokenData;
@@ -14,7 +18,18 @@ export interface AssetChangeData {
 }
 
 @Component({
-    imports: [NgIf, NgFor, NgClass, NgTemplateOutlet, ReactiveFormsModule, TranslocoModule, CurrencyPipe, DecimalPipe, MatRippleModule],
+    imports: [
+        NgIf,
+        NgFor,
+        NgClass,
+        NgTemplateOutlet,
+        ReactiveFormsModule,
+        TranslocoModule,
+        CurrencyPipe,
+        DecimalPipe,
+        MatRippleModule,
+        ZelfLoaderComponent,
+    ],
     selector: "swap-currency",
     styleUrls: ["./swap-currency.component.scss"],
     templateUrl: "./swap-currency.component.html",
@@ -37,18 +52,36 @@ export class SwapCurrencyComponent implements OnInit {
     loading = false;
     maxPage = 1;
     minPage = 1;
-    networkOptions = ["all", "ethereum", "avalanche"];
+    networkOptions = [] as string[];
     selectedNetworkFilter = "all";
 
     constructor(
+        private _assetService: AssetService,
         private _destroyRef: DestroyRef,
         private _fb: FormBuilder,
         private _lifiService: LifiService,
+        private _networkService: NetworkService,
         private _walletService: WalletService
     ) {
         this.loading = true;
 
+        this._initNetworkOptions();
         this._initForm();
+    }
+
+    private _initNetworkOptions(): void {
+        this.networkOptions = [
+            "all",
+            ...Object.keys(this._assetService.canSwap)
+                .map((networkSymbol) => {
+                    const canSwap = this._assetService.canSwap[networkSymbol as keyof NetworkPermissions];
+
+                    if (!canSwap) return "";
+
+                    return this._networkService.getNetworkName(networkSymbol as NetworkSymbol);
+                })
+                .filter((networkName) => networkName !== ""),
+        ];
     }
 
     async ngOnInit(): Promise<void> {
@@ -105,13 +138,14 @@ export class SwapCurrencyComponent implements OnInit {
         }
     }
 
-    private _getNetworkFromChainId(chainId: number): string {
-        const networkMap: Record<number, string> = {
+    private _getNetworkFromChainId(chainId: number | string): string {
+        const networkMap: Record<number | string, string> = {
             1: "ethereum",
             43114: "avalanche",
             137: "polygon",
             56: "binance",
             42161: "arbitrum",
+            SOL: "solana",
         };
 
         return networkMap[chainId] || "unknown";
@@ -129,7 +163,9 @@ export class SwapCurrencyComponent implements OnInit {
     private async _initializeAssets(): Promise<void> {
         this._setMyAssetsMap(this.myAssets);
 
-        this.assets = await this._fetchAndMapTokens();
+        try {
+            this.assets = await this._fetchAndMapTokens();
+        } catch (error) {}
 
         this._resetPaging();
 
@@ -140,9 +176,10 @@ export class SwapCurrencyComponent implements OnInit {
         if (!Array.isArray(tokens)) return;
 
         const chainMap: Record<string, boolean> = {};
-        const network = this._getNetworkFromChainId(parseInt(chainId));
+        const network = this._getNetworkFromChainId(chainId);
+        const canSwap = this._assetService.canSwap[this._networkService.getNetworkSymbol(network as NetworkName) as keyof NetworkPermissions];
 
-        if (network !== "ethereum" && network !== "avalanche") return;
+        if (!canSwap) return;
 
         const chainTokens: TokenData[] = [];
 
@@ -161,17 +198,17 @@ export class SwapCurrencyComponent implements OnInit {
                 amount: "0",
                 balance: "0",
                 balanceUsd: "0",
+                chainId,
+                decimals: token.decimals,
                 fiatBalance: "0",
                 tokenType: "token",
                 ...myAsset,
-                chainId: parseInt(chainId),
-                decimals: token.decimals,
+                contractAddress: token.address,
                 image: token.logoURI || "",
                 name: token.name,
                 network: network.charAt(0).toUpperCase() + network.slice(1),
                 price: token.priceUSD ? parseFloat(token.priceUSD) : 0,
                 symbol: token.symbol,
-                contractAddress: token.address,
             } as TokenData;
 
             if (asset.image) this._walletService.setAssetImage(asset.symbol, asset.image);

@@ -1,18 +1,31 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { firstValueFrom, Subject } from "rxjs";
+
 import { AssetService, NetworkPermissions } from "app/asset.service";
+import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
 import { TransactionService } from "app/transaction.service";
-import { TransactionData, WalletModel } from "app/wallet";
+import { TokenData, TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { firstValueFrom, Subject } from "rxjs";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, TokenItemComponent],
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslocoModule,
+        MatButtonModule,
+        TokenItemComponent,
+        ReactiveFormsModule,
+        NgTemplateOutlet,
+        ZelfLoaderComponent,
+    ],
     selector: "send-currency",
     styleUrls: ["./send-currency.component.scss"],
     templateUrl: "./send-currency.component.html",
@@ -22,6 +35,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
 
     private CAN_SEND: NetworkPermissions = {};
 
+    form!: UntypedFormGroup;
     loading: boolean = true;
     tokens: any[] = [];
     transactionData!: TransactionData;
@@ -31,11 +45,17 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         private _assetService: AssetService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectionRef: ChangeDetectorRef,
+        private _formBuilder: FormBuilder,
         private _router: Router,
         private _transactionService: TransactionService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _bitcoinService: BitcoinService
     ) {
         this.CAN_SEND = this._assetService.canSend;
+
+        this.form = this._formBuilder.group({
+            searchFilter: "",
+        });
 
         this.loading = true;
     }
@@ -52,12 +72,20 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
+    get filteredTokens(): any[] {
+        return this.tokens.filter((token) => {
+            const searchValue = this.form.get("searchFilter")?.value.toLowerCase();
+
+            return token.name.toLowerCase().includes(searchValue) || token.symbol.toLowerCase().includes(searchValue);
+        });
+    }
+
     private async _loadTokensFromSession(): Promise<void> {
         try {
             const sessionTokens = await this._assetService.loadTokensFromSession();
 
             if (sessionTokens.length) {
-                this.tokens = sessionTokens.filter((token) => this.isTokenSendable(token));
+                this.tokens = sessionTokens.filter((token: TokenData) => this.isTokenSendable(token));
             } else {
                 await this._fetchTokens();
             }
@@ -71,21 +99,11 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
     }
 
     private isTokenSendable(token: any): boolean {
-        if (token.network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) {
-            return true;
-        }
-
-        if (token.network === "Solana" && this.CAN_SEND.SOL) {
-            return true;
-        }
-
-        if (token.network === "Avalanche" && this.CAN_SEND.AVAX) {
-            return true;
-        }
-
-        if (token.network === "Sui" && this.CAN_SEND.SUI) {
-            return true;
-        }
+        if (token.network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) return true;
+        if (token.network === "Solana" && this.CAN_SEND.SOL) return true;
+        if (token.network === "Avalanche" && this.CAN_SEND.AVAX) return true;
+        if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
+        if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
 
         return false;
     }
@@ -97,7 +115,31 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
             const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SEND);
 
-            this.tokens = result.tokens.filter((token) => this.isTokenSendable(token));
+            if (this.wallet.btcAddress) {
+                try {
+                    const btcBalance = await this._bitcoinService.getBitcoinBalance(this.wallet.btcAddress);
+
+                    if (btcBalance && btcBalance.balance > 0) {
+                        const btcToken = {
+                            address: this.wallet.btcAddress,
+                            amount: btcBalance.balance,
+                            decimals: 8,
+                            fiatBalance: btcBalance.fiatBalance,
+                            name: "Bitcoin",
+                            network: "Bitcoin",
+                            price: btcBalance.fiatBalance / btcBalance.balance,
+                            symbol: "BTC",
+                            tokenType: "BTC",
+                        };
+
+                        result.tokens.push(btcToken);
+                    }
+                } catch (error) {
+                    console.error("Error fetching Bitcoin balance:", error);
+                }
+            }
+
+            this.tokens = result.tokens.filter((token: TokenData) => this.isTokenSendable(token));
         } catch (error) {
             console.error("Error fetching tokens:", error);
         } finally {
@@ -139,8 +181,6 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
                 zelfName: this.wallet?.publicData?.zelfName || "",
             },
         });
-
-        // console.log("Setting transaction data:", transactionData);
 
         try {
             await this._transactionService.setCurrentTransactionData(transactionData);

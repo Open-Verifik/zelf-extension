@@ -1,7 +1,7 @@
 import { forkJoin, Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 
 import { environment } from "environments/environment";
 
@@ -11,6 +11,7 @@ import { NetworkName } from "./network.service";
 import { EthereumService } from "../eth.service";
 import { SolanaService } from "../solana.service";
 import { SuiService } from "./sui.service";
+import { BitcoinService } from "./bitcoin.service";
 
 @Injectable({
     providedIn: "root",
@@ -20,31 +21,50 @@ export class BlockchainTransactionsService {
         private _httpWrapperService: HttpWrapperService,
         private _ethereumService: EthereumService,
         private _solanaService: SolanaService,
-        private _suiService: SuiService
+        private _suiService: SuiService,
+        private _injector: Injector
     ) {}
 
     getAddressData(wallet: Partial<WalletModel> | null): Observable<any> {
         if (!wallet) return of([]);
 
         return forkJoin({
-            ethereum: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/ethereum/address`, {
-                address: wallet.ethAddress,
-            }),
-            avalanche: this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, {}),
+            ethereum: this._httpWrapperService
+                .sendRequest("get", `${environment.apiUrl}/api/ethereum/address`, {
+                    address: wallet.ethAddress,
+                })
+                .catch(() => of(null)),
+            avalanche: this._httpWrapperService
+                .sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, {})
+                .catch(() => of(null)),
             solana: wallet.solanaAddress
-                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/solana/address/${wallet.solanaAddress}`, {})
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/solana/address/${wallet.solanaAddress}`, {})
+                      .catch(() => of(null))
                 : of(null),
             sui: wallet.suiAddress
-                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/sui/address/${wallet.suiAddress}`, {})
+                ? this._httpWrapperService.sendRequest("get", `${environment.apiUrl}/api/sui/address/${wallet.suiAddress}`, {}).catch(() => of(null))
+                : of(null),
+            bitcoin: wallet.btcAddress
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/address/${wallet.btcAddress}`, {})
+                      .catch(() => of(null))
+                : of(null),
+            bitcoinTestnet: environment.testnetAddress
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/testnet/address/${environment.testnetAddress}`, {})
+                      .catch(() => of(null))
                 : of(null),
         }).pipe(
             map((responses) => {
                 return {
-                    transactions: this._processTransactions(responses),
-                    ethereum: responses.ethereum,
                     avalanche: responses.avalanche,
+                    bitcoin: responses.bitcoin,
+                    bitcoinTestnet: responses.bitcoinTestnet,
+                    ethereum: responses.ethereum,
                     solana: responses.solana,
                     sui: responses.sui,
+                    transactions: this._processTransactions(responses),
                 };
             })
         );
@@ -60,20 +80,20 @@ export class BlockchainTransactionsService {
                     page: pagination.page,
                     show: 25,
                 })
-                .catch(() => of(undefined)),
+                .catch(() => of(null)),
             avalanche: this._httpWrapperService
                 .sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}/transactions`, {
                     page: pagination.page,
                     show: 25,
                 })
-                .catch(() => of(undefined)),
+                .catch(() => of(null)),
             solana: wallet.solanaAddress
                 ? this._httpWrapperService
                       .sendRequest("get", `${environment.apiUrl}/api/solana/transactions/${wallet.solanaAddress}`, {
                           page: pagination.page,
                           show: 25,
                       })
-                      .catch(() => of(undefined))
+                      .catch(() => of(null))
                 : of(null),
             sui: wallet.suiAddress
                 ? this._httpWrapperService
@@ -81,10 +101,27 @@ export class BlockchainTransactionsService {
                           page: pagination.page,
                           show: 25,
                       })
-                      .catch(() => of(undefined))
+                      .catch(() => of(null))
+                : of(null),
+            bitcoin: wallet.btcAddress
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/transactions/${wallet.btcAddress}`, {
+                          page: pagination.page,
+                          show: 25,
+                      })
+                      .catch(() => of(null))
+                : of(null),
+            bitcoinTestnet: environment.testnetAddress
+                ? this._httpWrapperService
+                      .sendRequest("get", `${environment.apiUrl}/api/bitcoin/testnet/transactions/${environment.testnetAddress}`, {
+                          page: pagination.page,
+                          show: 25,
+                      })
+                      .catch(() => of(null))
                 : of(null),
         }).pipe(
             map((responses) => {
+                console.log(` BlockchainTransactionsService ~ map ~ responses:`, responses);
                 return this._processTransactions(responses);
             })
         );
@@ -104,6 +141,10 @@ export class BlockchainTransactionsService {
                     }))
                 );
             }
+        }
+
+        if (responses.bitcoin?.data?.transactions) {
+            transactions.push(...responses.bitcoin.data.transactions);
         }
 
         if (responses.avalanche?.data?.transactions) {
@@ -136,6 +177,14 @@ export class BlockchainTransactionsService {
 
         if (network === "sui") {
             return `https://suiscan.xyz/tx/${hash}`;
+        }
+
+        if (network === "bitcoin") {
+            return `https://mempool.space/tx/${hash}`;
+        }
+
+        if (network === "bitcoinTestnet") {
+            return `https://mempool.space/testnet/tx/${hash}`;
         }
 
         return "";
@@ -206,6 +255,15 @@ export class BlockchainTransactionsService {
                     const result = await this._suiService.transferSui(txParams.mnemonic, txParams.to, parseFloat(txParams.value || "0"));
                     return result.transactionHash;
                 }
+
+            case "bitcoin":
+                if (!txParams.mnemonic) {
+                    throw new Error("Mnemonic is required for Bitcoin transactions");
+                }
+
+                const bitcoinService = this._injector.get(BitcoinService);
+
+                return bitcoinService.sendBitcoin(txParams.mnemonic, txParams.to, parseFloat(txParams.value || "0"));
 
             default:
                 throw new Error(`Unsupported network: ${network}`);

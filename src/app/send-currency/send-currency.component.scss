@@ -51,7 +51,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -61,11 +61,30 @@
         color: variables.$black;
     }
 
+    &__form {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 8px;
+    }
+
+    &__search-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 16px;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: variables.$gray;
+        }
+    }
+
     &__content {
         flex: 1 1 auto;
         justify-content: flex-start;
         position: relative;
         max-height: 632px;
+        height: 100%;
         overflow-y: auto;
     }
 

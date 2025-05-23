@@ -1,0 +1,49 @@
+<div
+    class="zelf-loader-container"
+    [ngStyle]="{ height: diameter + 'px', width: diameter + 'px' }"
+    [ngClass]="{ 'zelf-loader-container--absolute': absolute }"
+>
+    <div class="zelf-loader">
+        <div class="zelf-loader__circle" [ngStyle]="{ height: diameter + 'px', width: diameter + 'px' }"></div>
+
+        <div
+            class="zelf-loader__line-mask"
+            [ngStyle]="{
+                height: diameter + 'px',
+                width: diameter / 2 + 'px',
+                'margin-left': '-' + diameter / 2 + 'px',
+                'margin-top': '-' + diameter / 2 + 'px',
+                'transform-origin': diameter / 2 + 'px ' + diameter / 2 + 'px',
+            }"
+        >
+            <div
+                class="zelf-loader__line"
+                [ngStyle]="{
+                    height: diameter + 'px',
+                    width: diameter + 'px',
+                }"
+            ></div>
+        </div>
+
+        <div class="zelf-loader__logo-container" [ngStyle]="{ width: logoDiameter + 'px', height: logoDiameter + 'px' }">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12.0108 0C13.363 1.83518 15.0993 3.92724 17.2883 6.08926H7.46094C9.5873 3.83728 11.0426 1.67625 12.0128 0H12.0108Z"
+                    fill="#181818"
+                />
+                <path
+                    d="M0 12.0282C1.7302 11.1886 4.0031 9.87119 6.28409 7.85609C6.48521 7.67817 6.68228 7.49826 6.87127 7.31934H15.6597C15.6597 7.31934 9.29476 16.3143 5.81213 16.3413C2.93891 16.3643 1.73525 13.0987 0 12.0272V12.0282Z"
+                    fill="#181818"
+                />
+                <path
+                    d="M12.5714 23.9996C11.5113 22.5603 10.1459 20.917 8.41675 19.2168H16.4977C14.7857 20.942 13.5073 22.6073 12.5725 23.9996H12.5714Z"
+                    fill="#181818"
+                />
+                <path
+                    d="M17.7785 17.7316C17.6835 17.8155 17.5906 17.9005 17.4986 17.9845H8.06335C8.06335 17.9845 14.5334 8.87256 18.0625 8.85357C21.0075 8.83857 22.2273 12.1821 24 13.2766C22.197 14.2891 20.0029 15.7295 17.7785 17.7316Z"
+                    fill="#181818"
+                />
+            </svg>
+        </div>
+    </div>
+</div>

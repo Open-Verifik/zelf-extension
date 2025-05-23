@@ -51,7 +51,7 @@
     }
 
     &__title {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -114,7 +114,7 @@
     }
 
     &__label {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -124,8 +124,19 @@
         margin: 0;
     }
 
+    &__value-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        svg {
+            transition: fill 0.2s variables.$smoothBezier;
+            fill: variables.$black;
+        }
+    }
+
     &__value {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 600;
         font-size: 15px;
         line-height: 20px;
@@ -159,7 +170,7 @@
     }
 
     &__fee {
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         font-weight: 500;
         font-size: 12px;
         line-height: 20px;
@@ -180,7 +191,7 @@
         font-size: 32px;
         font-weight: 600;
         color: variables.$black;
-        font-family: Menda;
+        font-family: "Menda", "Arial Black", sans-serif;
         margin: 0;
     }
 
@@ -189,8 +200,18 @@
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$black;
-        font-family: Poppins;
+        font-family: "Poppins", Arial, sans-serif;
         margin: 0 0 8px;
+    }
+
+    &__fee-row {
+        .send-confirm__value {
+            font-weight: 400;
+        }
+
+        .send-confirm__label {
+            font-weight: 600;
+        }
     }
 
     @media (max-width: variables.$minSmall) {
@@ -207,5 +228,51 @@
             font-size: 12px;
             line-height: 16px;
         }
+    }
+}
+
+.zelf-action-row--clickable {
+    transition: background-color 0.2s variables.$smoothBezier;
+    cursor: pointer;
+
+    .send-confirm__value {
+        transition: color 0.2s variables.$smoothBezier;
+    }
+
+    .send-confirm__label {
+        transition: color 0.2s variables.$smoothBezier;
+    }
+
+    &:hover {
+        background-color: variables.$black;
+
+        .send-confirm__value {
+            color: variables.$white;
+        }
+
+        .send-confirm__label {
+            color: variables.$taupeGray;
+        }
+
+        .send-confirm__value-row svg {
+            fill: variables.$white;
+        }
+    }
+}
+
+.zelf-action-row--selected {
+    transition: background-color 0.2s variables.$smoothBezier;
+    background-color: variables.$black;
+
+    .send-confirm__value {
+        transition: color 0.2s variables.$smoothBezier;
+        color: variables.$white;
+        font-weight: 400;
+    }
+
+    .send-confirm__label {
+        transition: color 0.2s variables.$smoothBezier;
+        color: variables.$taupeGray;
+        font-weight: 600;
     }
 }

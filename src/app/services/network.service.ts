@@ -33,6 +33,21 @@ export class NetworkService {
         }
     }
 
+    getNetworkName(network: NetworkSymbol): NetworkName | "" {
+        switch (network) {
+            case "ETH":
+                return "ethereum";
+            case "SUI":
+                return "sui";
+            case "AVAX":
+                return "avalanche";
+            case "SOL":
+                return "solana";
+            default:
+                return "";
+        }
+    }
+
     async getNetworkToken(network: NetworkName): Promise<any> {
         const tokens = await this._chromeService.getItemSession("tokens");
 

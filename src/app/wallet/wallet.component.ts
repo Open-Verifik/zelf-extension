@@ -15,10 +15,22 @@ import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
-    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, NgTemplateOutlet, MatSnackBarModule, ZelfNamePipe],
+    imports: [
+        CommonModule,
+        NgIf,
+        MatButtonModule,
+        TranslocoModule,
+        RouterLink,
+        RouterModule,
+        NgTemplateOutlet,
+        MatSnackBarModule,
+        ZelfNamePipe,
+        ZelfLoaderComponent,
+    ],
     selector: "wallet",
     styleUrls: ["./wallet.component.scss"],
     templateUrl: "./wallet.component.html",

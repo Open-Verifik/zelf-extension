@@ -1,9 +1,5 @@
-<ng-container *ngIf="loading">
-    <div class="ripple ripple--268"></div>
-</ng-container>
-
-<ng-container *ngIf="!loading">
-    <div class="zelf-card" *transloco="let t">
+<div class="zelf-card" *transloco="let t">
+    <ng-container *ngIf="!loading">
         <div class="zelf-card__header welcome-complete__header">
             <h3 class="zelf-card__pretitle">{{ t("welcome.your_zelf_name") }}</h3>
 
@@ -33,5 +29,7 @@
                 {{ t("common.continue") }}
             </button>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
+
+    <zelf-loader [diameter]="30" *ngIf="loading"></zelf-loader>
+</div>

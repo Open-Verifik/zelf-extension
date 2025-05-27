@@ -115,8 +115,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 wordsCount: mnemonicCount,
             })
             .then(async (response) => {
-                this._vaultService.setLastVerified();
-
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -136,8 +134,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 identifier: userFingerprint.hash,
             })
             .then(async (response) => {
-                this._vaultService.setLastVerified();
-
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -155,7 +151,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 this._vaultService.mnemonic = "";
-                this._vaultService.setLastVerified();
 
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
@@ -173,8 +168,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 newZelfName: this.newZelfName,
             })
             .then(async (response) => {
-                this._vaultService.setLastVerified();
-
                 await this._chromeService.removeItem("newZelfName");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -205,8 +198,9 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     goBack(): void {
-        if (this.returnState) this._router.navigate(["/security/password"], { replaceUrl: true, queryParams: { return: this.returnState } });
-        else this._router.navigate(["/security/password"]);
+        if (this.returnState) {
+            this._router.navigate([this.returnState], { queryParams: { return: this.returnState } });
+        } else this._router.navigate(["/security/password"]);
     }
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {

@@ -197,7 +197,6 @@ export class ChromeService {
                         .catch(reject);
 
                     break;
-
                 default:
                     try {
                         const item = localStorage.getItem(key);

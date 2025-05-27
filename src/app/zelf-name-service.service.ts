@@ -88,7 +88,11 @@ export class ZelfNameService {
     }
 
     leaseZelfName(payload: any): Promise<any> {
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease`, payload);
+        const promise = this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/lease`, payload);
+
+        promise.then(() => this._vaultService.setLastVerified());
+
+        return promise;
     }
 
     zelfNameLeaseRecovery(payload: any): Promise<any> {

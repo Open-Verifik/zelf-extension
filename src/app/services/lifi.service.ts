@@ -1,19 +1,18 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ethers } from "ethers";
-import { firstValueFrom, forkJoin, Observable, of } from "rxjs";
+import { firstValueFrom, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
 import { SolanaService } from "app/solana.service";
 import { TokenData } from "app/wallet";
 import { environment } from "environments/environment";
-import { LifiQuote } from "app/models/lifi.model";
+import { LifiQuote, LifiToken, LifiTokensResponse } from "app/models/lifi.model";
 
 @Injectable({
     providedIn: "root",
 })
 export class LifiService {
-    private readonly _lifiApiUrl = "https://li.quest/v1";
     private readonly ERC20_ABI = [
         {
             name: "approve",
@@ -37,21 +36,29 @@ export class LifiService {
         },
     ];
 
-    private readonly CHAIN_MAPPINGS: Record<string, string> = {
-        ethereum: "eth",
-        avalanche: "avax",
-        solana: "sol",
-        sui: "sui",
-        bitcoin: "btc",
-    };
-
     constructor(
         private _http: HttpClient,
         private _solanaService: SolanaService
     ) {}
 
+    get MIN_PRICE_USD(): number {
+        return 0.01;
+    }
+
     get LIFI_API_URL(): string {
-        return this._lifiApiUrl;
+        return `${environment.apiUrl}/api/lifi`;
+    }
+
+    get chainIdToSymbol(): Record<string, string> {
+        return {
+            "1": "ETH",
+            "137": "MATIC",
+            "43114": "AVAX",
+        };
+    }
+
+    get lifiChainSymbols(): string[] {
+        return ["eth", "ava", "sol"];
     }
 
     /**
@@ -60,104 +67,83 @@ export class LifiService {
     private _formatAmount(amount: string): string {
         const numAmount = parseFloat(amount);
 
-        if (numAmount < 0.000001 && numAmount > 0) {
-            return numAmount.toFixed(18).replace(/\.?0+$/, "");
-        }
+        if (numAmount < 0.000001 && numAmount > 0) return numAmount.toFixed(18).replace(/\.?0+$/, "");
 
         return numAmount.toString();
     }
 
-    getChains(): Observable<any> {
-        return this._http.get(`${this.LIFI_API_URL}/chains`);
-    }
+    async requestTokens(): Promise<{ tokens: { [chainId: string]: LifiToken[] } }> {
+        const defaultResponse = { data: { tokens: {} } };
 
-    getTools(): Observable<any> {
-        return this._http.get(`${this.LIFI_API_URL}/tools`);
-    }
-
-    async requestTokens(): Promise<any> {
         try {
-            const standardResponse = await firstValueFrom(this._http.get(`${this._lifiApiUrl}/tokens`));
+            const { data: standardResponse } = await firstValueFrom<LifiTokensResponse>(
+                this._http
+                    .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, { params: { chains: "ETH,AVA,SUI", minPriceUSD: this.MIN_PRICE_USD } })
+                    .pipe(
+                        catchError((err) => {
+                            console.warn("Failed to fetch standard tokens:", err);
 
-            const solanaResponse = await firstValueFrom(
-                this._http.get(`${this._lifiApiUrl}/tokens?chains=SOL&chainTypes=SVM`).pipe(
-                    catchError((err) => {
-                        console.warn("Failed to fetch Solana tokens:", err);
-                        return of({ tokens: {} });
-                    })
-                )
+                            return of(defaultResponse);
+                        })
+                    )
             );
 
-            const combinedResponse = { ...standardResponse } as any;
+            const { data: solanaResponse } = await firstValueFrom<LifiTokensResponse>(
+                this._http
+                    .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, {
+                        params: { chains: "SOL", chainTypes: "SVM", minPriceUSD: this.MIN_PRICE_USD },
+                    })
+                    .pipe(
+                        catchError((err) => {
+                            console.warn("Failed to fetch Solana tokens:", err);
 
-            if (!combinedResponse.tokens) combinedResponse.tokens = {};
+                            return of(defaultResponse);
+                        })
+                    )
+            );
 
-            if (solanaResponse && (solanaResponse as any).tokens) {
-                if ((solanaResponse as any).tokens.SOL) {
-                    combinedResponse.tokens.SOL = (solanaResponse as any).tokens.SOL;
-                } else if ((solanaResponse as any).tokens.sol) {
-                    combinedResponse.tokens.SOL = (solanaResponse as any).tokens.sol;
-                } else {
-                    const tokenKeys = Object.keys((solanaResponse as any).tokens);
+            const result = { tokens: { ...(standardResponse.tokens || {}) } };
 
-                    if (tokenKeys.length > 0) {
-                        combinedResponse.tokens.SOL = (solanaResponse as any).tokens[tokenKeys[0]];
-                    }
-                }
+            if (solanaResponse?.tokens) {
+                result.tokens.SOL = solanaResponse.tokens?.SOL || solanaResponse.tokens?.sol || [];
+
+                if (!result.tokens.SOL.length) result.tokens.SOL = Object.values(solanaResponse.tokens).flat();
             }
 
-            return combinedResponse;
+            return result;
         } catch (error) {
             console.error("Error in requestTokens:", error);
+
             return { tokens: {} };
         }
     }
 
-    getTokens(): Observable<any> {
-        const chains = ["eth", "avax", "sol", "sui"];
-        const requests: Observable<any>[] = [];
+    getTokens(): Observable<Record<string, LifiToken[]>> {
+        const chains = this.lifiChainSymbols;
+        const combined: Record<string, LifiToken[]> = {};
 
-        chains.forEach((chain) => {
-            requests.push(
-                this._http.get(`${this.LIFI_API_URL}/tokens?chain=${chain}`).pipe(
-                    catchError((err) => {
-                        console.warn(`Failed to fetch tokens for chain ${chain}:`, err);
-                        return of(null);
-                    })
-                )
+        return this._http
+            .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, { params: { chains: chains.join(","), minPriceUSD: this.MIN_PRICE_USD } })
+            .pipe(
+                map((result) => {
+                    if (!result?.data?.tokens) return combined;
+
+                    chains.forEach((chain) => {
+                        const chainSymbol = this.chainIdToSymbol[chain];
+
+                        if (!chainSymbol) return;
+
+                        combined[chainSymbol] = result.data.tokens[chain] || [];
+                    });
+
+                    return combined;
+                }),
+                catchError((error) => {
+                    console.error("Error in combined token request:", error);
+
+                    return of(combined);
+                })
             );
-        });
-
-        return forkJoin(requests).pipe(
-            map((results) => {
-                const combined: any = {};
-
-                chains.forEach((chain, index) => {
-                    if (results[index]) {
-                        combined[chain] = results[index].tokens || [];
-                    }
-                });
-
-                return combined;
-            }),
-            catchError((error) => {
-                console.error("Error in combined token request:", error);
-                return of({});
-            })
-        );
-    }
-
-    getConnections(): Observable<any> {
-        return this._http.get(`${this.LIFI_API_URL}/connections`);
-    }
-
-    /**
-     * Check transaction status
-     */
-    getStatus(bridge: string, fromChain: string, toChain: string, txHash: string): Observable<any> {
-        return this._http.get(`${this.LIFI_API_URL}/status`, {
-            params: { bridge, fromChain, toChain, txHash },
-        });
     }
 
     /**
@@ -195,48 +181,6 @@ export class LifiService {
 
             return "0";
         }
-    }
-
-    getToken(chainId: string, tokenAddress: string): Observable<any> {
-        return this._http.get(`${this.LIFI_API_URL}/token?chain=${chainId}&token=${tokenAddress}`);
-    }
-
-    trackTransaction(txHash: string, fromChain: string, toChain: string): Observable<any> {
-        const fromChainId = this.getChainIdentifier(fromChain);
-        const toChainId = this.getChainIdentifier(toChain);
-
-        return this._http.get(`${this.LIFI_API_URL}/status?txHash=${txHash}&fromChain=${fromChainId}&toChain=${toChainId}`);
-    }
-
-    getTokensForNetworks(networks: string[]): Observable<any> {
-        return forkJoin(
-            networks.map((network) => {
-                const chainKey = this.CHAIN_MAPPINGS[network.toLowerCase()];
-
-                if (!chainKey) {
-                    console.error(`No chain mapping for network: ${network}`);
-
-                    return of([]);
-                }
-
-                return this._http.get(`${this.LIFI_API_URL}/tokens?chain=${chainKey}`).pipe(
-                    catchError((error) => {
-                        console.error(`Error fetching tokens for ${network}:`, error);
-                        return of([]);
-                    })
-                );
-            })
-        ).pipe(
-            map((responses) => {
-                return networks.reduce(
-                    (acc, network, index) => {
-                        acc[network] = responses[index];
-                        return acc;
-                    },
-                    {} as Record<string, any>
-                );
-            })
-        );
     }
 
     /**
@@ -405,6 +349,7 @@ export class LifiService {
             }
 
             console.warn(`Token ${symbol} no reconocido en Solana, usando SOL nativo como fallback`);
+
             return "So11111111111111111111111111111111111111112";
         }
 
@@ -454,7 +399,7 @@ export class LifiService {
             },
         };
 
-        return this._http.post(`${this.LIFI_API_URL}/advanced/routes`, requestBody);
+        return this._http.post<{ data: any }>(`${this.LIFI_API_URL}/advanced/routes`, requestBody);
     }
 
     /**
@@ -482,20 +427,22 @@ export class LifiService {
         };
 
         return firstValueFrom(
-            this._http.get<LifiQuote>(`${this.LIFI_API_URL}/quote`, { params }).pipe(
+            this._http.get<{ data: LifiQuote }>(`${this.LIFI_API_URL}/quote`, { params }).pipe(
                 map((response) => {
+                    const quote = response.data;
+
                     if (fromToken.toLowerCase().includes("usdc") && toToken.toLowerCase().includes("sol")) {
                         const usdcAmount = parseFloat(formattedAmount);
                         const solPrice = 146;
                         const expectedSolAmount = usdcAmount / solPrice;
 
-                        if (response.estimate) {
-                            response.estimate.toAmount = expectedSolAmount.toFixed(9);
-                            response.estimate.toAmountMin = (expectedSolAmount * 0.99).toFixed(9);
+                        if (quote.estimate) {
+                            quote.estimate.toAmount = expectedSolAmount.toFixed(9);
+                            quote.estimate.toAmountMin = (expectedSolAmount * 0.99).toFixed(9);
                         }
                     }
 
-                    return response;
+                    return quote;
                 }),
                 catchError((error) => {
                     console.error("Error getting quote:", error);
@@ -645,9 +592,7 @@ export class LifiService {
      */
     async executeSolanaSwap(quote: any, wallet: any, mnemonic?: string): Promise<any> {
         try {
-            if (!quote) {
-                throw new Error("Invalid quote for Solana swap: Quote is null or undefined");
-            }
+            if (!quote) throw new Error("Invalid quote for Solana swap: Quote is null or undefined");
 
             let step;
 
@@ -657,21 +602,15 @@ export class LifiService {
                 step = quote;
             } else if (quote.includedSteps && quote.includedSteps.length > 0) {
                 step = quote.includedSteps[0];
-            } else {
-                throw new Error("Invalid quote structure: No steps or direct quote found");
-            }
+            } else throw new Error("Invalid quote structure: No steps or direct quote found");
 
-            if (!step.tool) {
-                throw new Error("Invalid step: Missing tool information");
-            }
+            if (!step.tool) throw new Error("Invalid step: Missing tool information");
 
             if (!quote.estimate || !quote.estimate.toAmount || parseFloat(quote.estimate.toAmount) <= 0) {
                 throw new Error("Invalid quote: The estimated output amount is zero or missing");
             }
 
-            if (!wallet || !wallet.solanaAddress) {
-                throw new Error("Wallet address is required for Solana swap");
-            }
+            if (!wallet || !wallet.solanaAddress) throw new Error("Wallet address is required for Solana swap");
 
             const requestBody = {
                 ...quote,
@@ -680,21 +619,16 @@ export class LifiService {
                 slippage: quote.slippage || 1,
             };
 
-            const txResponse = await firstValueFrom(this._http.post<any>(`${this.LIFI_API_URL}/advanced/stepTransaction`, requestBody));
+            const { data: txResponse } = await firstValueFrom(
+                this._http.post<{ data: any }>(`${this.LIFI_API_URL}/execute-advanced-step-transaction`, requestBody)
+            );
 
-            if (!txResponse || !txResponse.transactionRequest) {
-                throw new Error("Failed to get transaction data");
-            }
+            if (!txResponse || !txResponse.transactionRequest) throw new Error("Failed to get transaction data");
 
             const transactionData = txResponse.transactionRequest.data;
 
-            if (!transactionData) {
-                throw new Error("No transaction data received");
-            }
-
-            if (!mnemonic) {
-                throw new Error("Mnemonic phrase is required for signing Solana transactions");
-            }
+            if (!transactionData) throw new Error("No transaction data received");
+            if (!mnemonic) throw new Error("Mnemonic phrase is required for signing Solana transactions");
 
             try {
                 const cleanMnemonic = mnemonic.trim();

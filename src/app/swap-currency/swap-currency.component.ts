@@ -122,11 +122,12 @@ export class SwapCurrencyComponent implements OnInit {
     private async _fetchAndMapTokens(): Promise<TokenData[]> {
         try {
             const allTokens: TokenData[] = [];
-            const response: any = await this._lifiService.requestTokens();
 
-            if (!response.tokens || !Object.keys(response.tokens).length) return allTokens;
+            const { tokens } = await this._lifiService.requestTokens();
 
-            Object.entries(response.tokens).forEach(([chainId, tokens]) => this._mapTokenResponse([chainId, tokens], allTokens));
+            if (!tokens || !Object.keys(tokens).length) return allTokens;
+
+            Object.entries(tokens).forEach(([chainId, tokens]) => this._mapTokenResponse([chainId, tokens], allTokens));
 
             allTokens.sort(this._sortAssets);
 
@@ -241,7 +242,7 @@ export class SwapCurrencyComponent implements OnInit {
         const aBalance = parseFloat(`${a.fiatBalance}` || "0");
         const bBalance = parseFloat(`${b.fiatBalance}` || "0");
 
-        if (aBalance === 0 && bBalance === 0) return a.network.localeCompare(b.network);
+        if (!aBalance && !bBalance) return (a.priceUSD as string)?.localeCompare(b.priceUSD as string) || 0;
 
         return bBalance - aBalance;
     }

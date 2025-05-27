@@ -9,11 +9,11 @@ import { WalletService } from "./wallet.service";
 })
 export class VaultService {
     private _incorrectCount: number = 0;
-    private _passwordAttempts: number = 4;
-    private _password$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
-    private _password: string = "";
-    private _mnemonic: string = "";
     private _lastVerified: number = 0;
+    private _mnemonic: string = "";
+    private _password: string = "";
+    private _password$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
+    private _passwordAttempts: number = 4;
 
     constructor(
         private _walletService: WalletService,
@@ -24,11 +24,12 @@ export class VaultService {
 
             if (!lastVerified) {
                 this._lastVerified = 0;
+
                 return;
             }
 
             // Tamper resistance
-            this._chromeService.setItem("lastVerified", this._lastVerified);
+            this._chromeService.setItem("lastVerified", 0);
         });
 
         this._chromeService.getItem("lastVerified").then((lastVerified) => {
@@ -141,7 +142,10 @@ export class VaultService {
 
     setLastVerified(): void {
         this._incorrectCount = 0;
-        this._lastVerified = new Date().getTime();
-        this._chromeService.setItem("lastVerified", this._lastVerified);
+
+        const newLastVerified = new Date().getTime();
+
+        this._lastVerified = newLastVerified;
+        this._chromeService.setItem("lastVerified", newLastVerified);
     }
 }

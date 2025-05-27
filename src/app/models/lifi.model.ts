@@ -79,3 +79,22 @@ export interface LifiQuote {
     integrator: string;
     transactionRequest: TransactionRequest;
 }
+
+export interface LifiToken {
+    address: string;
+    decimals: number;
+    symbol: string;
+    chainId: number;
+    coinKey: string;
+    name: string;
+    logoURI: string;
+    priceUSD: string;
+}
+
+export interface LifiTokensResponse {
+    data: {
+        tokens: {
+            [chainId: string]: LifiToken[];
+        };
+    };
+}

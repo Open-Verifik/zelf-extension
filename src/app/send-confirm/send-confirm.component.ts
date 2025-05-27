@@ -160,17 +160,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     get hasBalance(): boolean {
+        const canCoverTokenBalance =
+            Number(this.transactionData.token.balance) > 0 && Number(this.transactionData.amount) <= Number(this.transactionData.token.balance);
+
         if (this.isNativeAsset) {
-            return Number(this.transactionData?.token?.fiatBalance) > 0 && Number(this.transactionData?.token?.fiatBalance) > this.total;
+            const canCoverTotal = Number(this.transactionData.amount) + Number(this.transactionData.fee) <= Number(this.transactionData.token.amount);
+
+            return canCoverTokenBalance && canCoverTotal;
         }
 
-        const canCoverNetworkCharges =
-            Number(this.networkToken?.fiatBalance) > 0 && Number(this.transactionData.fiatFee) <= Number(this.networkToken?.fiatBalance);
+        const canCoverNetworkFee = this.networkToken?.balance > 0 && Number(this.transactionData.fee) <= Number(this.networkToken?.balance);
 
-        const canCoverTokenBalance =
-            Number(this.transactionData.amount) > 0 && Number(this.transactionData.amount) <= Number(this.transactionData.token.amount);
-
-        return canCoverNetworkCharges && canCoverTokenBalance;
+        return canCoverTokenBalance && canCoverNetworkFee;
     }
 
     get networkCurrency(): string {
@@ -200,20 +201,19 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     private async _getNetworkToken(): Promise<void> {
-        const network = this.transactionData.network as NetworkName | "bitcoin";
+        const network = this.transactionData.network?.toLowerCase() as NetworkName | "bitcoin";
 
         this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
-        this.isNativeAsset = network === this.networkToken?.name || network === "bitcoin";
+        this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
 
-        if (network === "bitcoin") {
-            try {
-                const response = await this._assetService.fetchAssetPrice("BTC");
-                if (response?.data?.length) {
-                    this.networkPrice = response.data[0].open;
-                }
-            } catch (error) {
-                console.error("Error fetching Bitcoin price:", error);
-            }
+        if (network !== "bitcoin") return;
+
+        try {
+            const response = await this._assetService.fetchAssetPrice("BTC");
+
+            if (response?.data?.length) this.networkPrice = response.data[0].open;
+        } catch (error) {
+            console.error("Error fetching Bitcoin price:", error);
         }
     }
 

@@ -792,6 +792,18 @@ export class WalletService {
                     image: this.getAssetImage("AVAX"),
                     name: "Avalanche",
                     symbol: "AVAX",
+                },
+                {
+                    address: wallet?.ethAddress,
+                    image: this.getAssetImage("BNB"),
+                    name: "Binance",
+                    symbol: "BNB",
+                },
+                {
+                    address: wallet?.ethAddress,
+                    image: this.getAssetImage("MATIC"),
+                    name: "Polygon",
+                    symbol: "MATIC",
                 }
             );
         }

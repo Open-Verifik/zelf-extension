@@ -220,6 +220,30 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     private async _calculateTransactionFee(): Promise<void> {
         try {
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
+            let tokenAddress = this.transactionData.token?.address_token;
+            const tokenSymbol = this.transactionData.token?.symbol;
+
+            if (!tokenAddress && this.wallet && !["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol)) {
+                try {
+                    const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+
+                    if (this.transactionData.network === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    } else if (this.transactionData.network === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    } else if (this.transactionData.network === "binance" && addressData?.binance?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.binance.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    } else if (this.transactionData.network === "polygon" && addressData?.polygon?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.polygon.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    }
+                } catch (error) {
+                    console.error("Error fetching token data from API:", error);
+                }
+            }
 
             if (this.transactionData.network === "bitcoin") {
                 try {
@@ -301,7 +325,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
                 const receiverAddress = this.transactionData.receiver.address;
                 const isERC20 = this.transactionData.tokenType === "ERC-20";
-                const tokenAddress = this.transactionData.token?.address_token;
 
                 if (isERC20 && tokenAddress) {
                     transactionCost = await this._ethService.getTransactionCost(
@@ -327,6 +350,31 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this.transactionData.total = transactionCost.total || 0;
 
                 await this._transactionService.setCurrentTransactionData(this.transactionData);
+            }
+
+            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol);
+            const isERC20 = !!tokenAddress && !isNativeToken;
+
+            if (!tokenAddress && this.wallet && !isNativeToken) {
+                try {
+                    const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+
+                    if (this.transactionData.network === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    } else if (this.transactionData.network === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    } else if (this.transactionData.network === "binance" && addressData?.binance?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.binance.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    } else if (this.transactionData.network === "polygon" && addressData?.polygon?.data?.tokenHoldings?.tokens) {
+                        const foundToken = addressData.polygon.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
+                        if (foundToken) tokenAddress = foundToken.address;
+                    }
+                } catch (error) {
+                    console.error("Error fetching token data from API:", error);
+                }
             }
         } catch (error) {
             console.error("Error calculating transaction fee:", error);
@@ -583,25 +631,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
                 let tokenAddress = this.transactionData.token?.address_token;
 
-                if (!tokenAddress && this.wallet && tokenSymbol !== "AVAX" && tokenSymbol !== "ETH") {
-                    try {
-                        const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-
-                        if (this.transactionData.network === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
-                            const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-
-                            if (foundToken) tokenAddress = foundToken.address;
-                        } else if (this.transactionData.network === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
-                            const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-
-                            if (foundToken) tokenAddress = foundToken.address;
-                        }
-                    } catch (error) {
-                        console.error("Error fetching token data from API:", error);
-                    }
-                }
-
-                const isNativeToken = ["AVAX", "ETH"].includes(tokenSymbol);
+                const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol);
                 const isERC20 = !!tokenAddress && !isNativeToken;
 
                 if (isERC20 && tokenAddress) {

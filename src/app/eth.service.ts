@@ -297,6 +297,22 @@ export class EthereumService {
                     }
                 });
             }
+        } else if (network === "binance") {
+            if (details.data?.tokenHoldings?.tokens) {
+                details.data.tokenHoldings.tokens.forEach((token: any) => {
+                    if (["BEP-20", "BNB"].includes(token.tokenType) && token.price) {
+                        this.tokens?.push({ ...token, network: "Binance" });
+                    }
+                });
+            }
+        } else if (network === "polygon") {
+            if (details.data?.tokenHoldings?.tokens) {
+                details.data.tokenHoldings.tokens.forEach((token: any) => {
+                    if (["ERC-20", "MATIC"].includes(token.tokenType) && token.price) {
+                        this.tokens?.push({ ...token, network: "Polygon" });
+                    }
+                });
+            }
         }
     }
 
@@ -569,6 +585,18 @@ export class EthereumService {
                 name: "Avalanche",
                 symbol: "AVAX",
                 rpcUrl: environment.avalancheRpc.mainnet,
+            },
+            {
+                id: "binance",
+                name: "Binance",
+                symbol: "BNB",
+                rpcUrl: environment.binanceRpc.mainnet,
+            },
+            {
+                id: "polygon",
+                name: "Polygon",
+                symbol: "MATIC",
+                rpcUrl: environment.polygonRpc.mainnet,
             },
         ];
     }

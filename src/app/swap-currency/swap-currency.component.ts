@@ -1,5 +1,5 @@
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, DestroyRef, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, DestroyRef, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
@@ -61,7 +61,8 @@ export class SwapCurrencyComponent implements OnInit {
         private _fb: FormBuilder,
         private _lifiService: LifiService,
         private _networkService: NetworkService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _cdr: ChangeDetectorRef
     ) {
         this.loading = true;
 
@@ -78,9 +79,11 @@ export class SwapCurrencyComponent implements OnInit {
 
                     if (!canSwap) return "";
 
-                    return this._networkService.getNetworkName(networkSymbol as NetworkSymbol);
+                    const networkName = this._networkService.getNetworkName(networkSymbol as NetworkSymbol);
+
+                    return networkName;
                 })
-                .filter((networkName) => networkName !== ""),
+                .filter((networkName) => networkName !== "" && networkName !== undefined && networkName !== null),
         ];
     }
 
@@ -120,6 +123,8 @@ export class SwapCurrencyComponent implements OnInit {
     }
 
     private async _fetchAndMapTokens(): Promise<TokenData[]> {
+        this.loading = true;
+
         try {
             const allTokens: TokenData[] = [];
 
@@ -131,10 +136,53 @@ export class SwapCurrencyComponent implements OnInit {
 
             allTokens.sort(this._sortAssets);
 
-            return allTokens;
-        } catch (error) {
-            console.error("Error fetching tokens from LI.FI:", error);
+                    if (networkName && networkName !== "unknown") {
+                        const tokensOnChain: any[] = response.tokens[chainIdStr];
+                        if (Array.isArray(tokensOnChain)) {
+                            tokensOnChain.forEach((token: any, index: number) => {
+                                if (!token.address || !token.symbol || !token.name || token.decimals === undefined || token.decimals === null) {
+                                    console.warn(
+                                        `SwapCurrencyComponent: Omitiendo token en chain ${chainIdStr} por datos incompletos:`,
+                                        token ? JSON.parse(JSON.stringify(token)) : "Token nulo o indefinido"
+                                    );
+                                    return;
+                                }
+                                allTokens.push({
+                                    address: token.address,
+                                    symbol: token.symbol,
+                                    name: token.name,
+                                    decimals: token.decimals,
+                                    image: token.logoURI || "assets/tokens/placeholder-coin.png",
+                                    network: networkName,
+                                    amount: "0",
+                                    fiatBalance: 0,
+                                    price: token.priceUSD || 0,
+                                    chainId: parseInt(chainIdStr, 10),
+                                    tokenType: "token",
+                                });
+                            });
+                        } else {
+                            console.warn(`SwapCurrencyComponent: tokensOnChain para chainId '${chainIdStr}' no es un array:`, tokensOnChain);
+                        }
+                    } else {
+                        console.warn(
+                            `SwapCurrencyComponent: Se omitió el chainId '${chainIdStr}' porque networkName es desconocido o no mapeado: '${networkName}'`
+                        );
+                    }
+                }
+            } else {
+                console.warn("SwapCurrencyComponent: No hubo respuesta o response.tokens de _lifiService.requestTokens()");
+            }
 
+            this.assets = [...allTokens].sort((a, b) => this._sortAssets(a, b));
+            this._resetPaging();
+
+            this.loading = false;
+            return this.assets;
+        } catch (error) {
+            this.loading = false;
+            this.assets = [];
+            this._resetPaging();
             return [];
         }
     }
@@ -165,7 +213,7 @@ export class SwapCurrencyComponent implements OnInit {
         this._setMyAssetsMap(this.myAssets);
 
         try {
-            this.assets = await this._fetchAndMapTokens();
+            await this._fetchAndMapTokens();
         } catch (error) {}
 
         this._resetPaging();

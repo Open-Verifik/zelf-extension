@@ -292,6 +292,10 @@ export class SwapComponent implements OnInit, OnDestroy {
                 return this.wallet.solanaAddress;
             case "avalanche":
                 return this.wallet.ethAddress;
+            case "binance":
+                return this.wallet.ethAddress;
+            case "polygon":
+                return this.wallet.ethAddress;
             default:
                 return this.wallet.ethAddress;
         }
@@ -615,7 +619,9 @@ export class SwapComponent implements OnInit, OnDestroy {
             const ethWallet = ethers.Wallet.fromPhrase(this._mnemonics);
             const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
 
-            if (sourceNetwork === "avalanche" || sourceNetwork === "ethereum") {
+            const EVM_NETWORKS = ["ethereum", "avalanche", "binance", "polygon"];
+
+            if (sourceNetwork && EVM_NETWORKS.includes(sourceNetwork)) {
                 const isFromNative =
                     this.swapQuote.action.fromToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" ||
                     this.swapQuote.action.fromToken.address === "0x0000000000000000000000000000000000000000";

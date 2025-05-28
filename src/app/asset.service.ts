@@ -16,6 +16,8 @@ export interface NetworkPermissions {
     ETH?: boolean;
     SOL?: boolean;
     SUI?: boolean;
+    BSC?: boolean;
+    POLYGON?: boolean;
 }
 
 @Injectable({
@@ -66,6 +68,8 @@ export class AssetService {
             ETH: true,
             SOL: true,
             SUI: false,
+            BSC: true,
+            POLYGON: true,
         };
     }
 
@@ -76,6 +80,8 @@ export class AssetService {
             ETH: true,
             SOL: true,
             SUI: true,
+            BSC: true,
+            POLYGON: true,
         };
     }
 
@@ -195,7 +201,9 @@ export class AssetService {
                     (network === "Solana" && !permissions.SOL) ||
                     (network === "Bitcoin" && !permissions.BTC) ||
                     (network === "Avalanche" && !permissions.AVAX) ||
-                    (network === "Sui" && !permissions.SUI)
+                    (network === "Sui" && !permissions.SUI) ||
+                    (network === "Binance" && !permissions.BSC) ||
+                    (network === "Polygon" && !permissions.POLYGON)
                 ) {
                     continue;
                 }
@@ -241,6 +249,14 @@ export class AssetService {
 
         if (response?.avalanche?.data?.tokenHoldings?.tokens && (!permissions || permissions.AVAX)) {
             tokens = this.processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.bsc?.data?.tokenHoldings?.tokens && (!permissions || permissions.BSC)) {
+            tokens = this.processTokens("Binance", response.bsc.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.polygon?.data?.tokenHoldings?.tokens && (!permissions || permissions.POLYGON)) {
+            tokens = this.processTokens("Polygon", response.polygon.data.tokenHoldings.tokens, tokens, permissions);
         }
 
         if (response?.sui?.data?.tokenHoldings?.tokens && (!permissions || permissions.SUI)) {
@@ -315,6 +331,22 @@ export class AssetService {
                     }));
 
                     tokens = this.processTokens("Avalanche", formattedTokens, tokens, permissions);
+                }
+            }
+
+            if (wallet.ethAddress && (!permissions || permissions.BSC)) {
+                const details = await this._ethService.getWalletDetails(wallet.ethAddress);
+
+                if (details?.data?.tokenHoldings?.tokens) {
+                    tokens = this.processTokens("Binance", details.data.tokenHoldings.tokens, tokens, permissions);
+                }
+            }
+
+            if (wallet.ethAddress && (!permissions || permissions.POLYGON)) {
+                const details = await this._ethService.getWalletDetails(wallet.ethAddress);
+
+                if (details?.data?.tokenHoldings?.tokens) {
+                    tokens = this.processTokens("Polygon", details.data.tokenHoldings.tokens, tokens, permissions);
                 }
             }
 

@@ -208,7 +208,7 @@ export class LifiService {
                 value: isFromNative ? quote.transactionRequest.value : "0",
                 maxFeePerGas: feeData.maxFeePerGas,
                 maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
-                gasLimit: ethers.parseUnits("800000", "wei"),
+                gasLimit: quote.transactionRequest.gasLimit ? BigInt(quote.transactionRequest.gasLimit) : ethers.parseUnits("800000", "wei"),
             };
 
             if (!isFromNative) {

@@ -13,6 +13,7 @@ export class ChromeService {
     private _isSidePanel = false;
     private _isSidePanel$ = new BehaviorSubject<boolean>(false);
     private _lastVerified$ = new BehaviorSubject<number>(0);
+    private _myArnsDontShowAgain$ = new BehaviorSubject<boolean>(false);
     private _settings$ = new BehaviorSubject<Settings>({} as Settings);
     private _tabId?: number;
     private _tabStorageKey = "isTabOpen";
@@ -68,6 +69,10 @@ export class ChromeService {
                       )
                     : ([] as WalletModel[]);
             }
+
+            if (changes.myArnsDontShowAgain) {
+                this._myArnsDontShowAgain$.next(changes.myArnsDontShowAgain.newValue as boolean);
+            }
         });
 
         if (!this.isExtension) {
@@ -101,6 +106,10 @@ export class ChromeService {
                           )
                         : ([] as WalletModel[]);
                 }
+
+                if (event.detail.key === "myArnsDontShowAgain") {
+                    this._myArnsDontShowAgain$.next(event.detail.newValue === "true");
+                }
             });
         }
     }
@@ -125,20 +134,24 @@ export class ChromeService {
         return this._isSidePanel$.asObservable();
     }
 
-    get onWalletChanged$(): Observable<WalletModel> {
-        return this._wallet$.asObservable();
+    get onLastVerifiedChanged$(): Observable<number> {
+        return this._lastVerified$.asObservable();
     }
 
-    get onWalletsChanged$(): Observable<WalletModel[]> {
-        return this._wallets$.asObservable();
+    get onMyArnsDontShowAgainChanged$(): Observable<boolean> {
+        return this._myArnsDontShowAgain$.asObservable();
     }
 
     get onSettingsChanged$(): Observable<Settings> {
         return this._settings$.asObservable();
     }
 
-    get onLastVerifiedChanged$(): Observable<number> {
-        return this._lastVerified$.asObservable();
+    get onWalletChanged$(): Observable<WalletModel> {
+        return this._wallet$.asObservable();
+    }
+
+    get onWalletsChanged$(): Observable<WalletModel[]> {
+        return this._wallets$.asObservable();
     }
 
     async closeTab(): Promise<void> {

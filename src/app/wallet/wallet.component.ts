@@ -1,5 +1,6 @@
 import { CommonModule, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, DestroyRef, OnInit } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
@@ -44,6 +45,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
 
     constructor(
         private _bottomSheet: MatBottomSheet,
+        private _destroyRef: DestroyRef,
         private _router: Router,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService,
@@ -52,6 +54,10 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         protected _translocoService: TranslocoService
     ) {
         super(_chromeService, _snackBar, _translocoService);
+
+        this._chromeService.onMyArnsDontShowAgainChanged$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((value) => {
+            this._showArnsInstructions = !value;
+        });
     }
 
     async ngOnInit(): Promise<void> {

@@ -11,6 +11,7 @@ import { WalletGuard } from "./guards/wallet.guard";
 import { MnemonicGuard } from "./guards/mnemonic.guard";
 import { OnboardingGuard } from "./guards/onboarding.guard";
 import { JWTResolver } from "./resolvers/jwt.resolver";
+import { SecurityBiometricsComponent } from "./security-biometrics/security-biometrics.component";
 
 const routes: Routes = [
     {
@@ -142,6 +143,7 @@ const routes: Routes = [
                 path: "biometrics",
                 loadComponent: () => import("./security-biometrics/security-biometrics.component").then((m) => m.SecurityBiometricsComponent),
                 canActivate: [PasswordGuard, MnemonicGuard],
+                canDeactivate: [(component: SecurityBiometricsComponent) => component.canNavigateAway()],
             },
         ],
     },

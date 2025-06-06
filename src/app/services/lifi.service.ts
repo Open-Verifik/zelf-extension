@@ -52,13 +52,14 @@ export class LifiService {
     get chainIdToSymbol(): Record<string, string> {
         return {
             "1": "ETH",
-            "137": "MATIC",
+            "137": "POL",
             "43114": "AVAX",
+            "56": "BNB",
         };
     }
 
     get lifiChainSymbols(): string[] {
-        return ["eth", "ava", "sol"];
+        return ["eth", "ava", "sol", "pol", "bsc"];
     }
 
     /**

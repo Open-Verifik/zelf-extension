@@ -136,44 +136,6 @@ export class SwapCurrencyComponent implements OnInit {
 
             allTokens.sort(this._sortAssets);
 
-                    if (networkName && networkName !== "unknown") {
-                        const tokensOnChain: any[] = response.tokens[chainIdStr];
-                        if (Array.isArray(tokensOnChain)) {
-                            tokensOnChain.forEach((token: any, index: number) => {
-                                if (!token.address || !token.symbol || !token.name || token.decimals === undefined || token.decimals === null) {
-                                    console.warn(
-                                        `SwapCurrencyComponent: Omitiendo token en chain ${chainIdStr} por datos incompletos:`,
-                                        token ? JSON.parse(JSON.stringify(token)) : "Token nulo o indefinido"
-                                    );
-                                    return;
-                                }
-                                allTokens.push({
-                                    address: token.address,
-                                    symbol: token.symbol,
-                                    name: token.name,
-                                    decimals: token.decimals,
-                                    image: token.logoURI || "assets/tokens/placeholder-coin.png",
-                                    network: networkName,
-                                    amount: "0",
-                                    fiatBalance: 0,
-                                    price: token.priceUSD || 0,
-                                    chainId: parseInt(chainIdStr, 10),
-                                    tokenType: "token",
-                                });
-                            });
-                        } else {
-                            console.warn(`SwapCurrencyComponent: tokensOnChain para chainId '${chainIdStr}' no es un array:`, tokensOnChain);
-                        }
-                    } else {
-                        console.warn(
-                            `SwapCurrencyComponent: Se omitió el chainId '${chainIdStr}' porque networkName es desconocido o no mapeado: '${networkName}'`
-                        );
-                    }
-                }
-            } else {
-                console.warn("SwapCurrencyComponent: No hubo respuesta o response.tokens de _lifiService.requestTokens()");
-            }
-
             this.assets = [...allTokens].sort((a, b) => this._sortAssets(a, b));
             this._resetPaging();
 

@@ -37,6 +37,12 @@ export class BlockchainTransactionsService {
             avalanche: this._httpWrapperService
                 .sendRequest("get", `${environment.apiUrl}/api/avalanche/address/${wallet.ethAddress}`, {})
                 .catch(() => of(null)),
+            binance: this._httpWrapperService
+                .sendRequest("get", `${environment.apiUrl}/api/bnb/address/${wallet.ethAddress}`, {})
+                .catch(() => of(null)),
+            polygon: this._httpWrapperService
+                .sendRequest("get", `${environment.apiUrl}/api/polygon/address/${wallet.ethAddress}`, {})
+                .catch(() => of(null)),
             solana: wallet.solanaAddress
                 ? this._httpWrapperService
                       .sendRequest("get", `${environment.apiUrl}/api/solana/address/${wallet.solanaAddress}`, {})

@@ -316,6 +316,7 @@ export class SendTransactionComponent implements OnDestroy {
                 ],
             ],
             toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(66), this._addressValidator()]],
+            fromAddress: [this.transactionData?.sender?.address || ""],
         });
 
         const toAddressCtrl = this.form?.get("toAddress");
@@ -367,7 +368,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     async _queryZNS(key: string, value: string): Promise<void> {
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, value);
+            const response = await this._zelfNameService.searchZelfNameV2(key, value.toLowerCase());
 
             if (!response.data) {
                 this.foundAddress = undefined;

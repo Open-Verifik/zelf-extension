@@ -1409,6 +1409,11 @@ h3 {
         box-sizing: border-box;
     }
 
+    input[readonly] {
+        cursor: default;
+        color: variables.$gray;
+    }
+
     input[type="password"] {
         &::-ms-reveal,
         &::-ms-clear {

@@ -98,14 +98,14 @@
         letter-spacing: 0.1px;
         margin: 0;
         text-align: left;
+
+        &--mt-8 {
+            margin-top: 8px;
+        }
     }
 
     &__input-label-text {
         margin-right: 4px;
-    }
-
-    &__address-book {
-        margin-top: 16px;
     }
 
     &__address-row {
@@ -152,6 +152,35 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$black;
+
+        &--zelf-name {
+            font-family: "Menda", "Arial Black", sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.1px;
+            text-transform: uppercase;
+        }
+    }
+
+    &__address-book {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    &__address-name-zelf-name {
+        font-family: "Menda", "Arial Black", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+        color: variables.$black;
+        margin: 0 16px 0 0 !important;
     }
 
     &__address-used {

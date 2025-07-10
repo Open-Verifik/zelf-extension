@@ -807,6 +807,7 @@ export class WalletPublicDataModel {
 export interface TokenData {
     address_token?: string;
     address?: string;
+    priceUSD?: string;
     amount: number | string;
     balance?: number | string;
     balanceUsd?: number | string;

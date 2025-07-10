@@ -497,7 +497,7 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         this._requiresBiometricsInterval = setInterval(() => {
             this._vaultService.biometricsRequired().then((result) => (this.requiresBiometrics = result));
-        }, 2000);
+        }, 1000);
     }
 
     private _setupQuoteUpdates(): void {

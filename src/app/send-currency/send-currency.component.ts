@@ -32,7 +32,6 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 })
 export class SendCurrencyComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();
-
     private CAN_SEND: NetworkPermissions = {};
 
     form!: UntypedFormGroup;
@@ -54,7 +53,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         this.CAN_SEND = this._assetService.canSend;
 
         this.form = this._formBuilder.group({
-            searchFilter: "",
+            searchFilter: ["", { updateOn: "change" }],
         });
 
         this.loading = true;
@@ -76,7 +75,11 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         return this.tokens.filter((token) => {
             const searchValue = this.form.get("searchFilter")?.value.toLowerCase();
 
-            return token.name.toLowerCase().includes(searchValue) || token.symbol.toLowerCase().includes(searchValue);
+            return (
+                token.name?.toLowerCase().includes(searchValue) ||
+                token.symbol?.toLowerCase().includes(searchValue) ||
+                token.network?.toLowerCase().includes(searchValue)
+            );
         });
     }
 

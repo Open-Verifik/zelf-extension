@@ -28,11 +28,11 @@
         <form class="send-currency__form" [formGroup]="form" [class.hidden]="tokens.length < 5">
             <div class="zelf-input zelf-input--wide">
                 <input
+                    [placeholder]="t('common.search')"
                     class="zelf-input__control"
                     formControlName="searchFilter"
                     id="searchFilter"
                     name="searchFilter"
-                    [placeholder]="t('common.search')"
                     required
                     type="text"
                 />
@@ -48,7 +48,7 @@
             [showFiatBalance]="true"
             [showPrice]="true"
             [token]="token"
-            *ngFor="let token of tokens"
+            *ngFor="let token of filteredTokens"
         ></token-item>
     </div>
 </div>

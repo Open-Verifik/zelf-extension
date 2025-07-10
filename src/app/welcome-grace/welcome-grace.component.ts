@@ -98,7 +98,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
 
     renewZelfName(): void {
         this._router.navigate(["/external-link"], {
-            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName="${this.zelfNameObject.publicData.zelfName}"` },
+            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.zelfNameObject.publicData.zelfName}` },
         });
     }
 }

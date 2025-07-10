@@ -368,7 +368,9 @@ export class SendTransactionComponent implements OnDestroy {
 
     async _queryZNS(key: string, value: string): Promise<void> {
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, value.toLowerCase());
+            if (key === "zelfName") value = value.toLowerCase();
+
+            const response = await this._zelfNameService.searchZelfNameV2(key, value);
 
             if (!response.data) {
                 this.foundAddress = undefined;

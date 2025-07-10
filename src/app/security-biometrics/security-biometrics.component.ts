@@ -1,34 +1,33 @@
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
-import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-sheet.component";
+import { ErrorService } from "app/services/error.service";
 import { VaultService } from "app/vault.service";
+import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.component";
-import { HttpWrapperService } from "app/http-wrapper.service";
-import { WalletModel } from "app/wallet";
-import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
-import { ErrorService } from "app/services/error.service";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
-import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-sheet.component";
-import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     imports: [
-        CommonModule,
-        RouterModule,
-        MatButtonModule,
-        TranslocoModule,
         BiometricsGeneralComponent,
+        CommonModule,
+        MatButtonModule,
         ReactiveFormsModule,
+        RouterModule,
+        TranslocoModule,
         WelcomeErrorComponent,
         ZelfLoaderComponent,
     ],
@@ -38,6 +37,7 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 })
 export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
+    private _canNavigate: boolean = true;
 
     errorMessage: string = "";
     errorTitle: string = "";
@@ -46,7 +46,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     isNew: boolean = false;
     loading: boolean = true;
     newZelfName: string = "";
-    notifyFailed$: Subject<void> = new Subject<any>();
     returnState: string = "";
     showBiometrics: boolean = true;
     zelfNameObject: any;
@@ -55,7 +54,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _bottomSheet: MatBottomSheet,
-        private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
         private _errorService: ErrorService,
         private _formBuilder: FormBuilder,
@@ -98,13 +96,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    private _onBiometricsFailed = async (exception: any) => {
-        console.error(exception);
-
-        this.errorTitle = this._translocoService.translate("errors.generic_title");
-        this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message || exception?.error?.error, "errors.generic_identity");
-    };
-
     async _createWallet(payload: any): Promise<void> {
         const mnemonicCount = (await this._zelfNameService.getMnemonicCount()) || 12;
 
@@ -122,7 +113,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 this._redirect();
             })
-            .catch(this._onBiometricsFailed);
+            .catch(this.onBiometricsFailed);
     }
 
     private async _decryptWallet(payload: any): Promise<void> {
@@ -143,7 +134,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 this._redirect();
             })
-            .catch(this._onBiometricsFailed);
+            .catch(this.onBiometricsFailed);
     }
 
     private async _importWallet(payload: any): Promise<void> {
@@ -162,7 +153,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 this._redirect();
             })
-            .catch(this._onBiometricsFailed);
+            .catch(this.onBiometricsFailed);
     }
 
     private async _leaseRecovery(payload: any): Promise<void> {
@@ -184,7 +175,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                     data: { zelfName: this.newZelfName },
                 });
             })
-            .catch(this._onBiometricsFailed);
+            .catch(this.onBiometricsFailed);
     }
 
     private _redirect(): void {
@@ -197,17 +188,25 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this._router.navigate(["/welcome/complete"]);
     }
 
-    async clearError(): Promise<void> {
-        this.errorTitle = "";
-        this.errorMessage = "";
+    canNavigateAway(): boolean {
+        return this._canNavigate;
+    }
 
-        this.goBack();
+    canNavigateAwayHandler(canNavigate: boolean = false): void {
+        this._canNavigate = canNavigate;
     }
 
     goBack(): void {
         if (this.returnState) this._router.navigate(["/security/password"], { replaceUrl: true, queryParams: { return: this.returnState } });
         else this._router.navigate(["/security/password"]);
     }
+
+    onBiometricsFailed = (exception: any): void => {
+        console.error(exception);
+
+        this.errorTitle = this._translocoService.translate("errors.generic_title");
+        this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message || exception?.error?.error, "errors.generic_identity");
+    };
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {
         const zelfName = await this._zelfNameService.getZelfName();
@@ -217,13 +216,9 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             faceBase64: encryptedImage,
             os: "DESKTOP",
             password: await this._httpWrapperService.encryptMessage(this._vaultService.password),
-            zelfName,
             referralZelfName,
+            zelfName,
         };
-
-        if (!this._chromeService.isExtension) {
-            payload.captcha = this._captchaService.getCaptchaToken() || undefined;
-        }
 
         if (this.flow === "create") {
             this._createWallet(payload);
@@ -238,19 +233,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     async startBiometrics(): Promise<void> {
         this._chromeService.setItem("hideBiometricsMessage", this.form.controls.hideBiometricsCheckbox.value);
-
-        if (!this._chromeService.isExtension) {
-            const zelfName = await this._zelfNameService.getZelfName();
-
-            try {
-                const captchaKey = zelfName.split(".zelf")[0].replace(".", "_");
-                const captchaToken = await this._captchaService.executeRecaptcha(captchaKey);
-
-                this._captchaService.retainCaptchaToken(captchaToken);
-            } catch (error) {
-                console.error("reCAPTCHA failed:", { error });
-            }
-        }
 
         this.showBiometrics = true;
     }

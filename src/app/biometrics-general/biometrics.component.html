@@ -1,42 +1,45 @@
-<div *ngIf="!showError" fxLayout="column" fxLayoutAlign="center center" class="min-h-[60vh] justify-center p-4 sm:p-1 xs:p-1 w-full">
+<div fxLayout="column" fxLayoutAlign="center center" class="min-h-[60vh] justify-center p-4 sm:p-1 xs:p-1 w-full">
     <div
+        *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality"
+        class="justify-center w-full"
         fxLayout="column"
         fxLayoutAlign="center center"
-        class="justify-center w-full"
-        *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality"
     >
         <div fxLayout="column" fxLayoutAlign="center center" class="justify-center text-center h-20 sm:h-8 xs:h-8 my-2">
-            <div *ngIf="errorFace && !response.isLoading">
-                <div class="text-3xl font-bold">{{ errorFace.title }}</div>
-                <div class="text-gray-600">{{ errorFace.subtitle }}</div>
+            <div *ngIf="errorFace && !response.isLoading" class="biometric__error">
+                <div class="biometric__error-title">{{ errorFace.title }}</div>
+                <div class="biometric__error-subtitle">{{ errorFace.subtitle }}</div>
             </div>
         </div>
 
         <div class="relative" [style.width.px]="camera.dimensions.video.width" [style.height.px]="camera.dimensions.video.height">
             <webcam
-                [height]="camera.dimensions.video.max.height"
-                [width]="camera.dimensions.video.max.width"
-                [videoOptions]="camera.configuration"
-                [imageQuality]="1"
-                [captureImageData]="true"
-                [allowCameraSwitch]="false"
-                [trigger]="takePicture$"
-                [mirrorImage]="deviceData.isMobile ? 'never' : 'always'"
-                (imageCapture)="proccessImage($event)"
+                (imageCapture)="processImage($event)"
                 (initError)="cameraError($event)"
+                [allowCameraSwitch]="false"
+                [captureImageData]="true"
+                [height]="camera.dimensions.video.max.height"
+                [imageQuality]="1"
+                [trigger]="takePicture$"
+                [videoOptions]="camera.configuration"
+                [width]="camera.dimensions.video.max.width"
                 *ngIf="!response.base64Image"
+                #webcam
+                mirrorImage="always"
             ></webcam>
+
             <canvas
+                [style.height.px]="response.base64Image ? camera.dimensions.result?.height : camera.dimensions.video.height"
+                [style.width.px]="response.base64Image ? camera.dimensions.result?.width : camera.dimensions.video.width"
                 #maskResult
                 class="absolute top-0 left-0"
-                [style.width.px]="response.base64Image ? camera.dimensions.result?.width : camera.dimensions.video.width"
-                [style.height.px]="response.base64Image ? camera.dimensions.result?.height : camera.dimensions.video.height"
             ></canvas>
+
             <canvas #toSend hidden="true"></canvas>
         </div>
     </div>
 
-    <div class="loader" fxLayout="column" fxLayoutAlign="center center" *ngIf="response.base64Image">
+    <div class="loader" fxLayout="column" fxLayoutAlign="center center" *ngIf="response.base64Image || camera.isLoading">
         <zelf-loader [diameter]="120"></zelf-loader>
     </div>
 
@@ -49,20 +52,4 @@
             {{ "id_scanning.camera_not_found_description" | transloco }}
         </p>
     </div>
-</div>
-
-<div *ngIf="showError && errorContent" class="zelf-card-old p-4" fxLayout="column" fxLayoutAlign="start center">
-    <h2 class="text-center">
-        {{ "errors." + errorContent.message | transloco }}
-    </h2>
-
-    <img src="../../assets/images/biometric_error.svg" alt="" />
-
-    <p class="text-center">
-        {{ "errors.ERR_DESCRIPTION" | transloco }}
-    </p>
-
-    <button class="main-button w-50p" (click)="tryAgain()">
-        {{ "errors.try_again" | transloco }}
-    </button>
 </div>

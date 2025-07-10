@@ -23,6 +23,6 @@ export class WelcomeErrorComponent {
     }
 
     triggerGoBack() {
-        window.location.reload();
+        this.goBack.emit();
     }
 }

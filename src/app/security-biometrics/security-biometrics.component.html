@@ -1,7 +1,3 @@
-<ng-container *ngIf="errorTitle">
-    <welcome-error (goBack)="clearError()" [errorTitle]="errorTitle" [errorMessage]="errorMessage"></welcome-error>
-</ng-container>
-
 <ng-container *ngIf="!errorTitle">
     <ng-container *transloco="let t">
         <zelf-loader [diameter]="256" *ngIf="loading"></zelf-loader>
@@ -28,6 +24,7 @@
                         <img class="zelf-card__image" src="assets/images/biometric_zkfp.svg" alt="welcome" />
 
                         <h2 class="zelf-card__title">{{ t(isNew ? "security.biometric_title" : "security.biometric_decryption_title") }}</h2>
+
                         <p
                             class="zelf-card__subtitle"
                             [innerHTML]="t(isNew ? 'security.biometric_subtitle' : 'security.biometric_decryption_subtitle')"
@@ -59,13 +56,17 @@
 
             <ng-container *ngIf="showBiometrics">
                 <biometrics-general
+                    (canNavigate)="canNavigateAwayHandler($event)"
+                    (error)="onBiometricsFailed($event)"
                     (imageCaptured)="onBiometricsScanned($event)"
-                    [failed]="notifyFailed$.asObservable()"
-                    [passToParent]="true"
                 ></biometrics-general>
             </ng-container>
         </ng-container>
     </ng-container>
+</ng-container>
+
+<ng-container *ngIf="errorTitle">
+    <welcome-error (goBack)="goBack()" [errorTitle]="errorTitle" [errorMessage]="errorMessage"></welcome-error>
 </ng-container>
 
 <ng-template #cross>

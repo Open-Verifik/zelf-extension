@@ -1,302 +1,172 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { Observable, Subject, takeUntil } from "rxjs";
-import { MatDialogModule } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { MatButtonModule } from "@angular/material/button";
-
 import * as faceapi from "@vladmandic/face-api";
+import { debounce, DebouncedFunc } from "lodash";
+import { WebcamComponent, WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
+import { Observable, Subject, takeUntil } from "rxjs";
+
+import { CommonModule } from "@angular/common";
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { WalletService } from "../wallet.service";
-
-import { Attemps, CameraData, ErrorFace, FaceData, FacingMode, Intervals, OvalData, ResponseData, directionImage } from "./sdk.models";
-
-import { WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { HttpWrapperService } from "app/http-wrapper.service";
-
-import { ChromeService } from "app/chrome.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
-import { CaptchaService } from "app/captcha.service";
+import { MediaStreamService } from "app/services/media-stream.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-
-let _this = {
-    biometricsLoginCalled: false,
-};
+import { WalletService } from "../wallet.service";
+import { CameraData, directionImage, ErrorFace, FaceData, FacingMode, Intervals, OvalData, ResponseData } from "./sdk.models";
 
 @Component({
-    selector: "biometrics-general",
-    templateUrl: "./biometrics.component.html",
-    styleUrls: ["./biometrics.component.scss"],
     imports: [
-        FlexLayoutModule,
         CommonModule,
-        MatDialogModule,
-        TranslocoModule,
+        FlexLayoutModule,
         MatButtonModule,
+        MatDialogModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
+        TranslocoModule,
         WebcamModule,
         ZelfLoaderComponent,
     ],
+    selector: "biometrics-general",
+    styleUrls: ["./biometrics.component.scss"],
+    templateUrl: "./biometrics.component.html",
 })
 export class BiometricsGeneralComponent implements OnInit, OnDestroy {
-    private unsubscriber$: Subject<void> = new Subject<void>();
-    private takePicture: Subject<void> = new Subject<void>();
-
-    @Output() imageCaptured: EventEmitter<string> = new EventEmitter<string>();
-
-    @Input() callback: any;
-    @Input() data: any;
-    @Input() failed: Observable<any> = new Observable<any>();
-    @Input() passToParent: boolean = false;
-    @Input() type?: string;
-
-    //ACTIVE DEBUG GRAPHIC MODE
-    isActiveDebug!: Boolean;
-    debugIndex!: number;
-    debugText: string = "debug";
-
     @ViewChild("maskResult", { static: false }) public maskResultCanvasRef: ElementRef | undefined;
     @ViewChild("toSend", { static: false }) public ToSendCanvasRef: ElementRef | undefined;
+    @ViewChild("webcam", { static: false }) public webcamRef?: WebcamComponent;
+
+    @Output() canNavigate: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() error: EventEmitter<any> = new EventEmitter<any>();
+    @Output() imageCaptured: EventEmitter<string> = new EventEmitter<string>();
+
+    private _resizeUnlisten: () => void = () => {};
+
+    private _debounceWindowResize: DebouncedFunc<() => void>;
+    private _intervals: Intervals = {};
+    private _takePicture: Subject<void> = new Subject<void>();
+    private unsubscriber$: Subject<void> = new Subject<void>();
+
+    //ACTIVE DEBUG GRAPHIC MODE
+    debugIndex!: number;
+    debugText: string = "debug";
+    isActiveDebug!: Boolean;
 
     aspectRatio = 0.75;
-    attempts!: Attemps;
     camera!: CameraData;
     deviceData: any;
     direction!: directionImage;
-    errorContent: any;
     errorFace!: ErrorFace | null;
     face!: FaceData;
-    interval!: Intervals;
     lastFace: any;
     marginX!: number;
     marginY!: number;
     response!: ResponseData;
-    session: any;
-    showError: Boolean;
 
     constructor(
-        private _dom: ElementRef,
         private _changeDetectorRef: ChangeDetectorRef,
-        private _walletService: WalletService,
-        private _translocoService: TranslocoService,
-        private renderer: Renderer2,
         private _httpWrapperService: HttpWrapperService,
-        private _chromeService: ChromeService,
-        private _zelfNameService: ZelfNameService,
-        private captchaService: CaptchaService
+        private _mediaStreamService: MediaStreamService,
+        private _renderer: Renderer2,
+        private _translocoService: TranslocoService,
+        private _walletService: WalletService
     ) {
         this.deviceData = this._walletService.getDeviceData();
-        this.session = this._walletService.getSessionData();
 
-        this.startDefaultValues();
-        this.setDefaultAttempts();
-        this.setDefaultDirections();
-        this.setDefaultFace();
-        this.setDefaultInterval();
+        this._debounceWindowResize = debounce(async () => {
+            this.canNavigate.emit(false);
 
-        this.renderer.listen("window", "resize", () => {
-            this.interval.checkNgxVideo = setInterval(() => {
-                this.setMaxVideoDimensions();
-                this.setVideoNgxCameraData();
-            }, this.deviceData.time);
-        });
+            await this._setMaxVideoDimensions();
 
-        this.showError = false;
-
-        this.errorContent = {
-            message: "",
-        };
-
-        this._changeDetectorRef.markForCheck();
+            this._startNgxVideoInterval();
+        }, 300);
     }
 
-    ngOnInit(): void {
-        this.startDefaultValues();
+    async ngOnInit(): Promise<void> {
+        await this._startDefaultValues();
 
-        this.camera.hasPermissions = true;
-
-        this.loading({ start: true });
-
-        this.failed.pipe(takeUntil(this.unsubscriber$)).subscribe((exception) => {
-            this.errorContent = { message: exception.error?.error };
-
-            _this["biometricsLoginCalled"] = false;
-
-            this.showError = true;
-
-            this.loading({ isLoading: false, result: true });
-        });
+        this._resizeUnlisten = this._renderer.listen("window", "resize", this._debounceWindowResize);
 
         this._walletService.faceapi$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (isLoaded) => {
+            this.canNavigate.emit(false);
+
             this.camera.isLoading = !isLoaded;
 
-            this.setMaxVideoDimensions();
+            if (!isLoaded) return;
 
-            if (isLoaded) {
-                this.interval.checkNgxVideo = setInterval(() => {
-                    this.setVideoNgxCameraData();
-                }, 100);
-            }
+            await this._setMaxVideoDimensions();
+
+            this._startNgxVideoInterval();
         });
     }
 
-    ngOnDestroy(): void {
+    async ngOnDestroy(): Promise<void> {
+        await this._mediaStreamService.stopAllStreams();
+
+        this.canNavigate.emit(true);
+
+        this._resizeUnlisten();
+        this._killIntervals();
+
+        this._debounceWindowResize.cancel();
+
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
     }
 
     public get takePicture$(): Observable<void> {
-        return this.takePicture.asObservable();
+        return this._takePicture.asObservable();
     }
 
-    setDefaultFace = () => {
-        this.face = {
-            successPosition: 0,
-            minPixels: 240,
-            minHeight: 600,
-            threshold: 0.25,
-        };
-    };
-
-    setDefaultDirections = () => {
-        this.direction = {
-            left: new Image(),
-            right: new Image(),
-            up: new Image(),
-            down: new Image(),
-        };
-        this.direction.right.crossOrigin = "anonymous";
-        this.direction.up.crossOrigin = "anonymous";
-        this.direction.down.crossOrigin = "anonymous";
-        this.direction.left.crossOrigin = "anonymous";
-
-        this.direction.left.src = "https://cdn.verifik.co/web-sdk/images/left.png";
-        this.direction.right.src = "https://cdn.verifik.co/web-sdk/images/right.png";
-        this.direction.up.src = "https://cdn.verifik.co/web-sdk/images/up.png";
-        this.direction.down.src = "https://cdn.verifik.co/web-sdk/images/down.png";
-    };
-
-    setDefaultAttempts = () => {
-        this.attempts = {
-            current: 0,
-            limit: 3,
-        };
-    };
-
-    setDefaultCamera = () => {
-        let key = this.deviceData.isMobile ? "width" : "height";
-
-        this.camera = {
-            hasPermissions: false,
-            isLoading: false,
-            isLowQuality: false,
-            configuration: {
-                frameRate: { ideal: 30, max: 30 },
-                [key]: { ideal: 1080 },
-                facingMode: FacingMode.USER,
-            },
-            dimensions: {
-                video: {
-                    max: {
-                        height: Math.ceil(window.innerHeight * 0.7),
-                        width: Math.ceil(window.innerWidth * 0.9),
-                    },
-                },
-            },
-        };
-    };
-
-    setDefaultResponse = () => {
-        this.response = {
-            isLoading: false,
-            isFailed: false,
-        };
-    };
-
-    setDefaultInterval = () => {
-        this.interval = {};
-    };
-
-    startDefaultValues() {
-        this.setDefaultResponse();
-        this.setDefaultCamera();
-        this.setMaxVideoDimensions();
-    }
-
-    setVideoNgxCameraData = () => {
-        const videoNgx = this._dom.nativeElement.querySelector("video");
+    private _checkVideoStreamReady = () => {
+        const videoNgx = this.webcamRef?.nativeVideoElement;
 
         if (!videoNgx) return;
 
-        videoNgx.addEventListener("loadeddata", () => {
-            this.setVideoDimensions(videoNgx);
-            this.drawOvalCenterAndMask();
+        clearInterval(this._intervals.checkNgxVideo);
+        this._intervals.checkNgxVideo = null;
 
-            if (!this.interval.detectFace) {
-                this.interval.detectFace = setInterval(() => {
-                    if (this.response.base64Image) {
-                        this.interval.detectFace = clearInterval(this.interval.detectFace);
-                        return;
-                    }
+        videoNgx.addEventListener(
+            "loadeddata",
+            () => {
+                this._startFaceDetectionInterval();
+                this.canNavigate.emit(true);
+            },
+            { once: true }
+        );
 
-                    this.takePicture.next();
-                }, this.deviceData.time);
-            }
-        });
-
-        this.interval.checkNgxVideo = clearInterval(this.interval.checkNgxVideo);
-
-        this.setVideoDimensions(videoNgx);
-        this.drawOvalCenterAndMask();
-
-        this.loading({ isLoading: false, start: true });
+        this._setVideoDimensions(videoNgx);
+        this._drawOvalCenterAndMask();
     };
 
-    setVideoDimensions(videoNgx: any) {
-        this.camera.dimensions.video.height = videoNgx.clientHeight;
-        this.camera.dimensions.video.width = videoNgx.clientWidth;
+    private _detectFace = () => {
+        if (this.response.base64Image) {
+            this._intervals.detectFace = clearInterval(this._intervals.detectFace);
 
-        this.camera.dimensions.result = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
-        this.setResultDimensions("result", videoNgx.clientHeight, videoNgx.clientWidth);
+            return;
+        }
 
-        this.face.video = this.getCenterAndRadius(videoNgx.clientHeight, videoNgx.clientWidth);
+        this._takePicture.next();
+    };
 
-        const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
-        maskResultCanvas.style.marginLeft = `0px`;
-        maskResultCanvas.style.marginTop = `0px`;
-    }
-
-    setMaxVideoDimensions(): void {
-        this.camera.dimensions.video = {
-            max: {
-                height: Math.ceil(window.innerHeight * 0.7),
-                width: Math.ceil(window.innerWidth * 0.9),
-            },
-        };
-        this.camera.dimensions.result = undefined;
-    }
-
-    drawOvalCenterAndMask(): void {
+    private _drawOvalCenterAndMask(): void {
         const videoDim = this.camera.dimensions.video;
         const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
+
         maskResultCanvas.height = videoDim.height;
         maskResultCanvas.width = videoDim.width;
 
         const ctx: CanvasRenderingContext2D = maskResultCanvas.getContext("2d");
 
-        //CLEAR CANVAS
         ctx.clearRect(0, 0, videoDim.width || 0, videoDim.height || 0);
 
-        //OPACITY OUTSIDE THE ELLIPSE
-        ctx.fillStyle = "rgba(255, 255, 255, 0.75)"; // Color de la máscara
+        ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
         ctx.fillRect(0, 0, videoDim.width || 0, videoDim.height || 0);
         ctx.globalCompositeOperation = "destination-out";
 
-        //DRAW ELIPSE CON RELLENO VACIO
         const { center, radius } = this.face.video || { center: { x: 0, y: 0 }, radius: { x: 0, y: 0 } };
 
         ctx.fillStyle = "rgba(255, 255, 255, 1)";
@@ -307,148 +177,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         ctx.globalCompositeOperation = "source-over";
     }
 
-    setResultDimensions(key: "real" | "result", height: number, width: number) {
-        const { center, radius } = (this.face[key] = this.getCenterAndRadius(height, width));
-        const dimensions = this.camera.dimensions[key];
-
-        if (dimensions) {
-            dimensions.height = height;
-            dimensions.offsetY = 0;
-
-            dimensions.width = Math.min(2.8 * radius.x, width);
-            dimensions.offsetX = center.x - dimensions.width / 2;
-        }
-    }
-
-    getCenterAndRadius = (height: number, width: number) => {
-        const data: OvalData = {
-            center: {
-                x: width / 2,
-                y: height / 2,
-            },
-            radius: {
-                x: 0,
-                y: 0,
-            },
-            margin: {
-                y: height * 0.05,
-                x: 0,
-            },
-        };
-
-        data.margin.x = data.margin.y * 0.8;
-
-        data.radius.y = height * 0.42;
-        data.radius.x = data.radius.y * this.aspectRatio;
-
-        if (data.radius.x * 2 >= width) {
-            data.radius.x = width * 0.48;
-            data.radius.y = data.radius.x / this.aspectRatio;
-        }
-
-        return data;
-    };
-
-    loading(paramsLoading: any) {
-        const { isLoading = true, start, result } = paramsLoading;
-        const key: "camera" | "response" = (start && "camera") || (result && "response");
-
-        if (key && this[key]) {
-            this[key].isLoading = isLoading;
-        }
-    }
-
-    cameraError(error: WebcamInitError): void {
-        if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
-            this.loading({ isLoading: false, start: true });
-            this.camera.hasPermissions = false;
-        }
-    }
-
-    proccessImage(webcamImage: WebcamImage): void {
-        if (!this.interval.detectFace || this.response.base64Image) return;
-
-        const img = new Image();
-
-        img.src = webcamImage.imageAsDataUrl;
-
-        img.onload = async () => {
-            if (img.height < this.face.minHeight) {
-                this.camera.isLowQuality = true;
-
-                return;
-            }
-
-            try {
-                this.camera.dimensions.real = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
-                this.setResultDimensions("real", img.height, img.width);
-                this.face.real = this.getCenterAndRadius(img.height, img.width);
-
-                const detection = await faceapi.detectAllFaces(img, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.2 })).withFaceLandmarks();
-
-                const context = this.maskResultCanvasRef?.nativeElement.getContext("2d");
-
-                if (detection.length > 0) {
-                    this.lastFace = detection[0];
-                    this.errorFace = null;
-
-                    this.drawOvalCenterAndMask();
-                    this.isFaceCentered(this.lastFace.landmarks.getNose()[3]);
-                    this.isFaceClose(this.lastFace.landmarks);
-                    this.drawStatusOval(context, !this.errorFace);
-
-                    !this.errorFace ? ++this.face.successPosition : (this.face.successPosition = 0);
-
-                    if (!this.errorFace && this.face.successPosition > 2) {
-                        this.face.successPosition = 0;
-                        this.takePictureLiveness(img);
-                        return;
-                    }
-                }
-
-                this._changeDetectorRef.markForCheck();
-            } catch (error: any) {
-                alert(error.message);
-            }
-        };
-    }
-
-    takePictureLiveness(img: any) {
-        const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
-        this.setImageOnCanvas(maskResultCanvas, img, this.camera.dimensions.real, this.camera.dimensions.result);
-
-        const toSendCanvas = this.ToSendCanvasRef?.nativeElement;
-        this.setImageOnCanvas(toSendCanvas, img, this.camera.dimensions.real, this.camera.dimensions.real);
-
-        this.response.base64Image = toSendCanvas.toDataURL("image/jpeg");
-
-        if (this.passToParent) this.biometricsParentCall();
-        else this.biometricsLogin();
-    }
-
-    setImageOnCanvas = (canvas: any, inputImg: any, originalDim: any, resizeDim: any) => {
-        canvas.width = resizeDim.width;
-        canvas.height = resizeDim.height;
-        canvas.style.marginLeft = `${resizeDim.offsetX || 0}px`;
-        canvas.style.marginTop = `${resizeDim.offsetY || 0}px`;
-
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, originalDim.width, originalDim.height);
-
-        ctx.drawImage(
-            inputImg,
-            originalDim.offsetX,
-            originalDim.offsetY,
-            originalDim.width,
-            originalDim.height,
-            0,
-            0,
-            resizeDim.width,
-            resizeDim.height
-        );
-    };
-
-    drawStatusOval(ctx: any, isOk?: any): void {
+    private _drawStatusOval(ctx: any, isOk?: any): void {
         const { center, radius } = this.face.video || { center: { x: 0, y: 0 }, radius: { x: 0, y: 0 } };
 
         ctx.beginPath();
@@ -491,37 +220,75 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
     }
 
-    inRange(value: number, min: number, max: number) {
+    private async _emitBiometricCapture(): Promise<any> {
+        if (this.response.isLoading) return;
+
+        this._loading({ result: true });
+
+        const base64Image = this.response.base64Image?.replace(/^data:.*;base64,/, "") as string;
+        const encryptedImage = await this._httpWrapperService.encryptMessage(base64Image);
+
+        this.imageCaptured.emit(encryptedImage);
+    }
+
+    private _getCenterAndRadius = (height: number, width: number) => {
+        const data: OvalData = {
+            center: {
+                x: width / 2,
+                y: height / 2,
+            },
+            radius: {
+                x: 0,
+                y: 0,
+            },
+            margin: {
+                y: height * 0.05,
+                x: 0,
+            },
+        };
+
+        data.margin.x = data.margin.y * 0.8;
+        data.radius.y = height * 0.42;
+        data.radius.x = data.radius.y * this.aspectRatio;
+
+        if (data.radius.x * 2 >= width) {
+            data.radius.x = width * 0.48;
+            data.radius.y = data.radius.x / this.aspectRatio;
+        }
+
+        return data;
+    };
+
+    private _inRange(value: number, min: number, max: number) {
         return value >= min && value <= max;
     }
 
-    isFaceCentered(nose: any): void {
+    private _isFaceCentered(nose: any): void {
         const faceCenterX = nose.x;
         const faceCenterY = nose.y;
 
         const { center, margin } = this.face.real || { center: { x: 0, y: 0 }, margin: { x: 0, y: 0 } };
 
-        const inRangeX = this.inRange(faceCenterX, center.x - margin.x, center.x + margin.x);
-        const inRangeY = this.inRange(faceCenterY, center.y, center.y + margin.y * 2.5);
+        const inRangeX = this._inRange(faceCenterX, center.x - margin.x, center.x + margin.x);
+        const inRangeY = this._inRange(faceCenterY, center.y, center.y + margin.y * 2.5);
 
         const isFaceCentered = inRangeX && inRangeY;
 
-        if (!isFaceCentered) {
-            let direction = "";
+        if (isFaceCentered) return;
 
-            if (!inRangeX) direction += `${faceCenterX < center.x - margin.x ? "→" : "←"}`;
+        let direction = "";
 
-            if (!inRangeY) direction += `${faceCenterY < center.y ? "↓" : "↑"}`;
+        if (!inRangeX) direction += `${faceCenterX < center.x - margin.x ? "→" : "←"}`;
+        if (!inRangeY) direction += `${faceCenterY < center.y ? "↓" : "↑"}`;
 
-            this.errorFace = {
-                title: this._translocoService.translate("liveness.center_your_face"),
-                subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
-                canvas: direction,
-            };
-        }
+        this.errorFace = {
+            canvas: direction,
+            subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
+            title: this._translocoService.translate("liveness.center_your_face"),
+        };
     }
 
-    isFaceClose(landmarks: faceapi.FaceLandmarks68): void {
+    private _isFaceClose(landmarks: faceapi.FaceLandmarks68): void {
         const realDim = this.camera.dimensions.real || { center: { x: 0, y: 0 }, margin: { x: 0, y: 0 }, height: 0, width: 0, offsetX: 0 };
         const totalFaceArea = landmarks.imageHeight * landmarks.imageWidth;
         const totalImageArea = Math.floor(realDim.height * (realDim.width - realDim.offsetX));
@@ -535,176 +302,267 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         }
     }
 
-    async biometricsParentCall(): Promise<any> {
-        if (this.response.isLoading) return;
+    private _killIntervals(): void {
+        clearInterval(this._intervals.checkNgxVideo);
+        clearInterval(this._intervals.detectFace);
 
-        this.loading({ result: true });
-
-        const base64Image = this.response.base64Image?.replace(/^data:.*;base64,/, "") as string;
-        const encryptedImage = await this._httpWrapperService.encryptMessage(base64Image);
-
-        this.imageCaptured.emit(encryptedImage);
+        this._intervals = {};
     }
 
-    async biometricsLogin(): Promise<any> {
-        // Check if the function has already been called
-        if (_this["biometricsLoginCalled"]) return;
+    private _loading(paramsLoading: any) {
+        const { isLoading = true, start, result } = paramsLoading;
+        const key: "camera" | "response" = (start && "camera") || (result && "response");
 
-        // // Set the flag to true to indicate that the function has been called
-        _this["biometricsLoginCalled"] = true;
+        if (!key || !this[key]) return;
 
-        if (this.response.isLoading) return;
+        this[key].isLoading = isLoading;
+    }
 
-        this.loading({ result: true });
+    private _startFaceDetectionInterval = (): void => {
+        if (this._intervals.detectFace) {
+            clearInterval(this._intervals.detectFace);
 
-        const zelfName = await this._zelfNameService.getZelfName();
-        const referralZelfName = await this._zelfNameService.getReferral();
-
-        const payload: any = {
-            faceBase64: this.response?.base64Image?.replace(/^data:.*;base64,/, ""),
-            os: "DESKTOP",
-            zelfName,
-            captchaToken: this.captchaService.getCaptchaToken() || undefined,
-            referralZelfName,
-        };
-
-        if (this.session.password) payload.password = this.session.password;
-
-        payload.faceBase64 = await this._httpWrapperService.encryptMessage(payload.faceBase64);
-
-        switch (this.type) {
-            case "createWallet":
-                this._createWallet(payload, this.data);
-                break;
-            case "decryptWallet":
-                this._decryptWallet(payload, this.data);
-                break;
-            case "importWallet":
-                this._importWallet(payload, this.data);
-                break;
-            default:
-                break;
+            this._intervals.detectFace = null;
         }
-    }
 
-    _createWallet(payload: any, data: any): void {
-        this._zelfNameService
-            .leaseZelfName({
-                ...payload,
-                type: "create",
-                wordsCount: data.wordsCount || payload.wordsCount || 12,
-            })
-            .then(async (response) => {
-                this.session.showBiometrics = false;
+        this._intervals.detectFace = setInterval(this._detectFace, this.deviceData.time);
+    };
 
-                await this._chromeService.setItem("durationToken", response.data.durationToken);
-                await this._chromeService.setItem("wallet", response.data);
+    private _startNgxVideoInterval = (): void => {
+        if (this._intervals.checkNgxVideo) {
+            clearInterval(this._intervals.checkNgxVideo);
 
-                this._walletService.goToNextStep(this.session.step + 1);
+            this._intervals.checkNgxVideo = null;
+        }
 
-                _this["biometricsLoginCalled"] = false;
-            })
-            .catch((exception) => {
-                console.error(` BiometricsGeneralComponent ~ _createWallet ~ err:`, exception);
+        this._intervals.checkNgxVideo = setInterval(this._checkVideoStreamReady, this.deviceData.time);
+    };
 
-                this.errorContent = { message: exception.error?.error };
+    private _setDefaultCamera = () => {
+        const maxDimensions = {
+            height: Math.ceil(window.innerHeight * 0.7),
+            width: Math.ceil(window.innerWidth * 0.9),
+        };
 
-                this.session.showBiometrics = false;
-
-                _this["biometricsLoginCalled"] = false;
-
-                this.loading({ isLoading: false, result: true });
-            });
-    }
-
-    _decryptWallet(payload: any, data: any): void {
-        this._zelfNameService
-            .decryptZelfName({
-                ...payload,
-                zelfProof: data.zelfProof || this._zelfNameService.getZelfProof(),
-                identifier: data.identifier,
-            })
-            .then(async (response) => {
-                await this._chromeService.setItem("unlockWallet", response.data);
-
-                this.session.showBiometrics = false;
-                this.session.navigationStep = 2;
-
-                _this["biometricsLoginCalled"] = false;
-            })
-            .catch((exception) => {
-                console.error(` BiometricsGeneralComponent ~ _decryptZelfName ~ err:`, exception);
-
-                this.errorContent = { message: exception.error?.error };
-
-                _this["biometricsLoginCalled"] = false;
-
-                this.showError = true;
-
-                this.loading({ isLoading: false, result: true });
-            });
-    }
-
-    _importWallet(payload: any, data: any): void {
-        this._zelfNameService
-            .leaseZelfName({
-                ...payload,
-                type: "import",
-                mnemonic: data.phrase,
-            })
-            .then(async (response) => {
-                this.session.walletCreated = response.data;
-
-                await this._chromeService.setItem("durationToken", response.data.durationToken);
-                await this._chromeService.setItem("importWallet", response.data);
-
-                this._walletService.goToNextStep(this.session.step + 1);
-
-                _this["biometricsLoginCalled"] = false;
-            })
-            .catch((exception) => {
-                console.error(` BiometricsGeneralComponent ~ _importWallet ~ exception:`, exception);
-
-                this.errorContent = { message: exception.error?.error };
-
-                _this["biometricsLoginCalled"] = false;
-
-                this.showError = true;
-
-                this.loading({ isLoading: false, result: true });
-            });
-    }
-
-    retryLivenessModal(error: any) {
-        const data = {
-            title: this._translocoService.translate("liveness.liveness_failed"),
-            message: this._translocoService.translate("liveness.liveness_error_message", { error }),
-            icon: {
-                show: true,
-                name: "heroicons_outline:exclamation-triangle",
-                color: "warn",
+        this.camera = {
+            hasPermissions: true,
+            isLoading: true,
+            isLowQuality: false,
+            configuration: {
+                height: { ideal: maxDimensions.height },
+                width: { ideal: maxDimensions.width },
+                facingMode: FacingMode.USER,
+                frameRate: { ideal: 30, max: 30 },
             },
-            actions: {
-                confirm: {
-                    show: true,
-                    label: this._translocoService.translate("confirm"),
-                    color: "primary",
-                },
-                cancel: {
-                    show: true,
-                    label: this._translocoService.translate("cancel"),
+            dimensions: {
+                video: {
+                    max: maxDimensions,
                 },
             },
-            dismissible: false,
+        };
+    };
+
+    private _setDefaultDirections = () => {
+        this.direction = {
+            down: new Image(),
+            left: new Image(),
+            right: new Image(),
+            up: new Image(),
+        };
+
+        this.direction.down.crossOrigin = "anonymous";
+        this.direction.left.crossOrigin = "anonymous";
+        this.direction.right.crossOrigin = "anonymous";
+        this.direction.up.crossOrigin = "anonymous";
+
+        this.direction.down.src = "https://cdn.verifik.co/web-sdk/images/down.png";
+        this.direction.left.src = "https://cdn.verifik.co/web-sdk/images/left.png";
+        this.direction.right.src = "https://cdn.verifik.co/web-sdk/images/right.png";
+        this.direction.up.src = "https://cdn.verifik.co/web-sdk/images/up.png";
+    };
+
+    private _setDefaultFace = () => {
+        this.face = {
+            minHeight: 600,
+            minPixels: 240,
+            successPosition: 0,
+            threshold: 0.25,
+        };
+    };
+
+    private _setDefaultResponse = () => {
+        this.response = {
+            isLoading: false,
+            isFailed: false,
+        };
+    };
+
+    private _setImageOnCanvas = (canvas: any, inputImg: any, originalDim: any, resizeDim: any) => {
+        canvas.width = resizeDim.width;
+        canvas.height = resizeDim.height;
+        canvas.style.marginLeft = `${resizeDim.offsetX || 0}px`;
+        canvas.style.marginTop = `${resizeDim.offsetY || 0}px`;
+
+        const ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, originalDim.width, originalDim.height);
+
+        ctx.drawImage(
+            inputImg,
+            originalDim.offsetX,
+            originalDim.offsetY,
+            originalDim.width,
+            originalDim.height,
+            0,
+            0,
+            resizeDim.width,
+            resizeDim.height
+        );
+    };
+
+    private async _setMaxVideoDimensions(): Promise<void> {
+        const maxDimensions = {
+            height: Math.ceil(window.innerHeight * 0.7),
+            width: Math.ceil(window.innerWidth * 0.9),
+        };
+
+        this.camera.isLoading = true;
+        this._changeDetectorRef.markForCheck();
+
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                this.camera.dimensions.video = {
+                    max: maxDimensions,
+                };
+
+                this.camera.configuration = {
+                    height: { ideal: maxDimensions.height },
+                    width: { ideal: maxDimensions.width },
+                    facingMode: FacingMode.USER,
+                    frameRate: { ideal: 30, max: 30 },
+                };
+
+                this.camera.dimensions.result = undefined;
+                this.camera.isLoading = false;
+
+                this.webcamRef?.videoResize();
+
+                this._changeDetectorRef.markForCheck();
+
+                resolve();
+            });
+        });
+    }
+
+    private async _startDefaultValues() {
+        this._setDefaultResponse();
+        this._setDefaultCamera();
+        this._setDefaultDirections();
+        this._setDefaultFace();
+
+        await this._setMaxVideoDimensions();
+    }
+
+    private _setResultDimensions(key: "real" | "result", height: number, width: number) {
+        const { center, radius } = (this.face[key] = this._getCenterAndRadius(height, width));
+        const dimensions = this.camera.dimensions[key];
+
+        if (!dimensions) return;
+
+        dimensions.height = height;
+        dimensions.offsetY = 0;
+        dimensions.width = Math.min(2.8 * radius.x, width);
+        dimensions.offsetX = center.x - dimensions.width / 2;
+    }
+
+    private _setVideoDimensions(videoNgx: HTMLVideoElement) {
+        this.camera.dimensions.video.height = videoNgx.clientHeight;
+        this.camera.dimensions.video.width = videoNgx.clientWidth;
+        this.camera.dimensions.result = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
+
+        this._setResultDimensions("result", videoNgx.clientHeight, videoNgx.clientWidth);
+
+        this.face.video = this._getCenterAndRadius(videoNgx.clientHeight, videoNgx.clientWidth);
+
+        const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
+
+        maskResultCanvas.style.marginLeft = `0px`;
+        maskResultCanvas.style.marginTop = `0px`;
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    private _takePictureLiveness(img: any) {
+        const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
+        const toSendCanvas = this.ToSendCanvasRef?.nativeElement;
+
+        this._setImageOnCanvas(maskResultCanvas, img, this.camera.dimensions.real, this.camera.dimensions.result);
+        this._setImageOnCanvas(toSendCanvas, img, this.camera.dimensions.real, this.camera.dimensions.real);
+
+        this.response.base64Image = toSendCanvas.toDataURL("image/jpeg");
+
+        this._emitBiometricCapture();
+    }
+
+    cameraError(error: WebcamInitError): void {
+        this.canNavigate.emit(true);
+        this.error.emit(error);
+
+        if (!error.mediaStreamError || error.mediaStreamError.name !== "NotAllowedError") return;
+
+        this._loading({ isLoading: false, start: true });
+        this.camera.hasPermissions = false;
+    }
+
+    processImage(webcamImage: WebcamImage): void {
+        if (!this._intervals.detectFace || this.response.base64Image) return;
+
+        const img = new Image();
+
+        img.src = webcamImage.imageAsDataUrl;
+
+        img.onload = async () => {
+            if (img.height < this.face.minHeight) {
+                this.camera.isLowQuality = true;
+                this.canNavigate.emit(true);
+                this.error.emit({ error: "low_quality" });
+
+                return;
+            }
+
+            try {
+                this.camera.dimensions.real = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
+
+                this._setResultDimensions("real", img.height, img.width);
+
+                this.face.real = this._getCenterAndRadius(img.height, img.width);
+
+                const detection = await faceapi.detectAllFaces(img, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.2 })).withFaceLandmarks();
+                const context = this.maskResultCanvasRef?.nativeElement.getContext("2d", { willReadFrequently: true });
+
+                if (detection.length > 0) {
+                    this.lastFace = detection[0];
+                    this.errorFace = null;
+
+                    this._drawOvalCenterAndMask();
+                    this._isFaceCentered(this.lastFace.landmarks.getNose()[3]);
+                    this._isFaceClose(this.lastFace.landmarks);
+                    this._drawStatusOval(context, !this.errorFace);
+
+                    !this.errorFace ? ++this.face.successPosition : (this.face.successPosition = 0);
+
+                    if (!this.errorFace && this.face.successPosition > 2) {
+                        this.face.successPosition = 0;
+                        this._takePictureLiveness(img);
+
+                        return;
+                    }
+                }
+
+                this._changeDetectorRef.markForCheck();
+            } catch (error: any) {
+                alert(error.message);
+            }
         };
     }
-
-    tryAgain(): void {
-        this.showError = false;
-
-        this.session.showBiometrics = false;
-        this.session.showBiometricsInstructions = true;
-    }
-
-    continueRedirection(): void {}
 }

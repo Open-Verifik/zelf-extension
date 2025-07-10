@@ -101,7 +101,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         this.form = this._formBuilder.group({
             password: ["", [Validators.required, Validators.minLength(8)]],
             confirmPassword: ["", [Validators.required, this._compareToValidator("password")]],
-            passwordStrength: [0, [Validators.required, Validators.min(8)]],
+            passwordStrength: [0, [Validators.required, Validators.min(1)]],
         });
 
         this.form.valueChanges.pipe(takeUntil(this.unsubscriber$), debounceTime(500)).subscribe(() => {

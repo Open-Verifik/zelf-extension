@@ -175,13 +175,13 @@
                         </ng-container>
 
                         <ng-container *ngIf="data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired">
-                            <ng-container *ngIf="isAvailable">
+                            <ng-container *ngIf="isExpired(expiresAt) && !isAvailable">
                                 <h4 class="cta-sheet__info-title">{{ data.wallet.publicData?.zelfName | uppercase }}</h4>
 
                                 <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.has_been_taken") }}</p>
                             </ng-container>
 
-                            <ng-container *ngIf="!isAvailable">
+                            <ng-container *ngIf="isExpired(expiresAt) && isAvailable">
                                 <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.good_news") }}</p>
 
                                 <h4 class="cta-sheet__info-title">{{ data.wallet.publicData?.zelfName | uppercase }}</h4>

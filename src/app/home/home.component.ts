@@ -4,18 +4,19 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
-import { firstValueFrom, Subject, takeUntil } from "rxjs";
+import { firstValueFrom, Subject, take, takeUntil } from "rxjs";
 
 import { AssetService } from "app/asset.service";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { FooterComponent } from "app/footer/footer.component";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { Wallet } from "app/wallet";
+import { Wallet, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { HomeHeaderComponent } from "./home-header/home-header.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [
@@ -54,10 +55,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         private _assetService: AssetService,
         private _blockchainNetworkService: BlockchainNetworksService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
-        private _changeDetectionRef: ChangeDetectorRef,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _router: Router,
         private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService,
         private route: ActivatedRoute
     ) {
         this.balances = {};
@@ -72,24 +74,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.NFTs = [];
         this.tokens = [];
-
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
-            if (this.balancesLoading) {
-                this.unsubscriberForBalances$.next();
-                this.unsubscriberForBalances$.complete();
-
-                this.unsubscriberForBalances$ = new Subject<void>();
-            }
-
-            this.balancesLoading = true;
-
-            await this._setWallet();
-            await this._getBalances();
-        });
     }
 
     async ngOnInit(): Promise<any> {
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
+
+        this._chromeService.onWalletChanged$.pipe(take(1)).subscribe(this._initializeWallet);
     }
 
     ngOnDestroy(): void {
@@ -118,7 +108,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.totalFiatBalance = totalFiatBalance;
 
             this.balancesLoading = false;
-            this._changeDetectionRef.detectChanges();
+
+            this._changeDetectorRef.detectChanges();
 
             return;
         }
@@ -136,20 +127,68 @@ export class HomeComponent implements OnInit, OnDestroy {
             console.error("Error getting tokens:", error);
         } finally {
             this.balancesLoading = false;
-            this._changeDetectionRef.detectChanges();
+
+            this._changeDetectorRef.detectChanges();
         }
     }
+
+    /**
+     * First call to initialize wallet, balances and refresh wallet if needed
+     */
+    private _initializeWallet = async (): Promise<void> => {
+        if (this.balancesLoading) {
+            this.unsubscriberForBalances$.next();
+            this.unsubscriberForBalances$.complete();
+
+            this.unsubscriberForBalances$ = new Subject<void>();
+        }
+
+        this.balancesLoading = true;
+
+        await this._setWallet();
+        await this._getBalances();
+        await this._refreshWallets();
+
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._listenForWalletUpdates);
+    };
+
+    /**
+     * Set this listener once initialization is complete.
+     * This helps prevent endless component update cycles should the wallet update in storage during initialization.
+     */
+    private _listenForWalletUpdates = async (): Promise<void> => {
+        const currentWallet = this.wallet;
+
+        await this._setWallet();
+
+        const nextWallet = this.wallet;
+
+        if (currentWallet.publicData.zelfName === nextWallet.publicData.zelfName) return;
+
+        await this.refreshTokens();
+    };
+
+    /**
+     * Use with caution.
+     * This updates the wallet in local storage and could trigger an endless update cycle with out subscription to onWalletChanged$.
+     */
+    private _refreshWallets = async (forceRefresh = false): Promise<void> => {
+        await this._zelfNameService.refreshAllWalletsPublicData([this.wallet] as WalletModel[], forceRefresh);
+    };
 
     private async _setWallet(): Promise<any> {
         const wallet = await this._walletService.getFirstWalletFromStorage();
 
         if (!wallet?.name) {
             this._router.navigate(["/welcome"]);
+
             return;
         }
 
         this.shareables.wallet = wallet;
         this.wallet = this.shareables.wallet;
+
+        this._changeDetectorRef.detectChanges();
     }
 
     async refreshTokens(): Promise<any> {
@@ -163,7 +202,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             const response = await firstValueFrom(
                 this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
             );
-            console.log(` HomeComponent ~ refreshTokens ~ response:`, response);
 
             const result = await this._assetService.processTokensFromResponse(response, this.wallet);
 
@@ -173,7 +211,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             console.error("Error getting tokens:", error);
         } finally {
             this.balancesLoading = false;
-            this._changeDetectionRef.detectChanges();
+
+            await this._refreshWallets(true);
+
+            this._changeDetectorRef.detectChanges();
         }
     }
 

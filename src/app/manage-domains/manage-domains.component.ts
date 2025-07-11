@@ -1,5 +1,5 @@
 import { debounce, DebouncedFunc } from "lodash";
-import { Subject, takeUntil } from "rxjs";
+import { Subject, take, takeUntil } from "rxjs";
 
 import { CommonModule, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
@@ -60,13 +60,11 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         private _zelfNameService: ZelfNameService
     ) {
         this._loadWalletsDebounced = debounce(this._loadWallets, 1000);
-
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
-        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
     }
 
     ngOnInit(): void {
-        this._loadWallets();
+        this._chromeService.onWalletChanged$.pipe(take(1)).subscribe(this._initLoadWallets);
+        this._chromeService.onWalletsChanged$.pipe(take(1)).subscribe(this._initLoadWallets);
     }
 
     ngOnDestroy(): void {
@@ -76,12 +74,28 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
+    private _initLoadWallets = async (): Promise<void> => {
+        if (this.loading) return;
+
+        this.loading = true;
+
+        await this._setWallets();
+        await this._refreshWallets();
+
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
+        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
+    };
+
     private _loadWallets = () => {
         if (this.loading) return;
 
         this.loading = true;
 
-        this._setWallets();
+        this._setWallets().finally(() => {
+            this.loading = false;
+
+            this._changeDetectorRef.detectChanges();
+        });
     };
 
     private _openConfirmationDialog(isLastWallet: boolean, wallet: Partial<WalletModel> = {}): void {
@@ -138,9 +152,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     private _refreshWallets = async (): Promise<void> => {
-        await this._zelfNameService.refreshAllWalletsPublicData(this.wallets as WalletModel[]);
-
-        this._changeDetectorRef.detectChanges();
+        await this._zelfNameService.refreshAllWalletsPublicData(this.wallets as WalletModel[], true);
     };
 
     private async _setWallets(): Promise<void> {
@@ -151,8 +163,6 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this.loading = false;
 
         this._changeDetectorRef.detectChanges();
-
-        await this._refreshWallets();
     }
 
     downloadZelfProof(wallet: Partial<WalletModel>): void {

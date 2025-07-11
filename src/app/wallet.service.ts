@@ -571,7 +571,9 @@ export class WalletService {
 
         const index = wallets.findIndex((_wallet) => _wallet.publicData.zelfName === walletToUpdate.publicData?.zelfName);
 
-        if (index !== -1) wallets[index] = walletToUpdate as WalletModel;
+        if (index === -1) return;
+
+        wallets[index] = walletToUpdate as WalletModel;
 
         await this._chromeService.setItem("wallets", wallets);
     }
@@ -731,31 +733,6 @@ export class WalletService {
     public async addTransactionToPending(transaction: any): Promise<void> {
         const pendingTransactions = await this._chromeService.getItem<any>("pendingTransactions");
 
-        // const formattedTransaction = {
-        //     amount: transaction.amount,
-        //     blockHash: transaction.blockHash,
-        //     blockNumber: transaction.blockNumber,
-        //     cumulativeGasUsed: transaction.cumulativeGasUsed,
-        //     date: transaction.date,
-        //     effectiveGasPrice: transaction.effectiveGasPrice,
-        //     fee: transaction.fee,
-        //     fiatAmount: transaction.fiatAmount,
-        //     fiatFee: transaction.fiatFee,
-        //     from: transaction.from,
-        //     network: transaction.network,
-        //     receiver: transaction.receiver,
-        //     sender: transaction.sender,
-        //     status: transaction.status,
-        //     to: transaction.to,
-        //     token: transaction.token,
-        //     tokenType: transaction.tokenType,
-        //     total: transaction.total,
-        //     transactionHash: transaction.transactionHash,
-        //     transactionIndex: transaction.transactionIndex,
-        //     type: transaction.type,
-        // };
-
-        // look now in transaction keys to find bigInt and remove those keys
         const bigIntKeys = Object.keys(transaction).filter((key) => {
             return typeof transaction[key] === "bigint";
         });

@@ -6,6 +6,7 @@ import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
 import { WalletModel } from "./wallet";
 import { WalletService } from "./wallet.service";
+
 export type ZelfFlow = "create" | "import" | "unlock" | "recover" | "";
 
 @Injectable({
@@ -249,18 +250,16 @@ export class ZelfNameService {
         return this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
     }
 
-    async refreshAllWalletsPublicData(wallets: WalletModel[]): Promise<void> {
-        const shouldRefreshWallets = await this._shouldRefreshWallets();
+    async refreshAllWalletsPublicData(wallets: WalletModel[], forceRefresh = false): Promise<boolean> {
+        const shouldRefreshWallets = forceRefresh || (await this._shouldRefreshWallets());
 
-        if (!shouldRefreshWallets) return;
+        if (!shouldRefreshWallets) return false;
 
         for (const wallet of wallets) {
-            const updatedWallet = await this.refreshWalletPublicData(wallet);
-
-            if (!updatedWallet) continue;
-
-            this._walletService.updateWallet(updatedWallet);
+            await this.refreshWalletPublicData(wallet);
         }
+
+        return true;
     }
 
     async refreshWalletPublicData(wallet: WalletModel): Promise<WalletModel | null> {
@@ -268,13 +267,24 @@ export class ZelfNameService {
 
         const response = await this.searchZelfName("zelfName", wallet.publicData.zelfName);
 
-        if (!response.data.ipfs?.length && !response.data.arweave?.length) return null;
+        if (!response.data.ipfs?.length && !response.data.arweave?.length && response.data?.price) {
+            (wallet as WalletModel)?.updatePublicData({
+                ...wallet.publicData,
+                expiresAt: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
+            });
+
+            await this._walletService.updateWallet(wallet);
+
+            return wallet;
+        }
 
         const publicData = response.data.ipfs?.length ? response.data.ipfs[0]?.publicData : response.data.arweave?.[0]?.publicData;
 
         if (!publicData || !wallet) return null;
 
         (wallet as WalletModel)?.updatePublicData(publicData);
+
+        await this._walletService.updateWallet(wallet);
 
         return wallet;
     }

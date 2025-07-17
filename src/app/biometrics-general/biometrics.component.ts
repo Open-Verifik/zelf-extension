@@ -5,7 +5,7 @@ import { WebcamComponent, WebcamImage, WebcamInitError, WebcamModule } from "ngx
 import { Observable, Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -278,7 +278,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 
         let direction = "";
 
-        if (!inRangeX) direction += `${faceCenterX < center.x - margin.x ? "→" : "←"}`;
+        if (!inRangeX) direction += `${faceCenterX < center.x - margin.x ? "←" : "→"}`;
         if (!inRangeY) direction += `${faceCenterY < center.y ? "↓" : "↑"}`;
 
         this.errorFace = {
@@ -383,7 +383,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 
     private _setDefaultFace = () => {
         this.face = {
-            minHeight: 600,
+            minHeight: 240,
             minPixels: 240,
             successPosition: 0,
             threshold: 0.25,

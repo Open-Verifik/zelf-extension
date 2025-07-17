@@ -5,7 +5,7 @@
     "name": "Zelf Name Service",
     "orientation": "portrait",
     "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "storage", "sidePanel"],
-    "version": "1.0.8",
+    "version": "1.0.9",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"

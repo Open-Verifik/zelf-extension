@@ -4,7 +4,7 @@
     "manifest_version": 3,
     "name": "Zelf Name Service",
     "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "contextMenus", "menus", "storage", "tabs"],
-    "version": "1.0.2",
+    "version": "1.0.9",
     "action": {
         "default_popup": "popup.html",
         "default_path": "index.html",

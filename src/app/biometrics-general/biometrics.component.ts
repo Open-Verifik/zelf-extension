@@ -121,12 +121,44 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         return this._takePicture.asObservable();
     }
 
+    private _calculateDisplayDimensions() {
+        const isLandscape = window.innerHeight < window.innerWidth;
+
+        const maxAvailableHeight = Math.ceil(window.innerHeight * 0.7);
+        const maxAvailableWidth = Math.ceil(window.innerWidth * 0.9);
+
+        const targetAspectRatio = 16 / 9;
+
+        if (isLandscape) {
+            const maxHeight = Math.min(maxAvailableHeight, 1920);
+            const calculatedWidth = Math.round(maxHeight * targetAspectRatio);
+            const maxWidth = Math.min(maxAvailableWidth, 1920);
+
+            return {
+                isLandscape,
+                height: maxHeight,
+                width: Math.min(calculatedWidth, maxWidth),
+            };
+        } else {
+            const maxHeight = Math.min(maxAvailableHeight, 1920);
+            const calculatedWidth = Math.round(maxHeight * targetAspectRatio);
+            const maxWidth = Math.min(maxAvailableWidth, 1080);
+
+            return {
+                isLandscape,
+                height: maxHeight,
+                width: Math.min(calculatedWidth, maxWidth),
+            };
+        }
+    }
+
     private _checkVideoStreamReady = () => {
         const videoNgx = this.webcamRef?.nativeVideoElement;
 
         if (!videoNgx) return;
 
         clearInterval(this._intervals.checkNgxVideo);
+
         this._intervals.checkNgxVideo = null;
 
         videoNgx.addEventListener(
@@ -134,6 +166,9 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
             () => {
                 this._startFaceDetectionInterval();
                 this.canNavigate.emit(true);
+
+                this._setVideoDimensions(videoNgx);
+                this._drawOvalCenterAndMask();
             },
             { once: true }
         );
@@ -339,27 +374,26 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
     };
 
     private _setDefaultCamera = () => {
-        const maxDimensions = {
-            height: Math.ceil(window.innerHeight * 0.7),
-            width: Math.ceil(window.innerWidth * 0.9),
-        };
+        const displayDimensions = this._calculateDisplayDimensions();
 
         this.camera = {
             hasPermissions: true,
             isLoading: true,
             isLowQuality: false,
             configuration: {
-                height: { ideal: maxDimensions.height },
-                width: { ideal: maxDimensions.width },
+                height: { ideal: displayDimensions.isLandscape ? 1080 : 1920 },
+                width: { ideal: displayDimensions.isLandscape ? 1920 : 1080 },
                 facingMode: FacingMode.USER,
                 frameRate: { ideal: 30, max: 30 },
             },
             dimensions: {
                 video: {
-                    max: maxDimensions,
+                    max: displayDimensions,
                 },
             },
         };
+
+        this._changeDetectorRef.markForCheck();
     };
 
     private _setDefaultDirections = () => {
@@ -421,10 +455,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
     };
 
     private async _setMaxVideoDimensions(): Promise<void> {
-        const maxDimensions = {
-            height: Math.ceil(window.innerHeight * 0.7),
-            width: Math.ceil(window.innerWidth * 0.9),
-        };
+        const displayDimensions = this._calculateDisplayDimensions();
 
         this.camera.isLoading = true;
         this._changeDetectorRef.markForCheck();
@@ -432,12 +463,12 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         return await new Promise((resolve) => {
             setTimeout(() => {
                 this.camera.dimensions.video = {
-                    max: maxDimensions,
+                    max: displayDimensions,
                 };
 
                 this.camera.configuration = {
-                    height: { ideal: maxDimensions.height },
-                    width: { ideal: maxDimensions.width },
+                    height: { ideal: displayDimensions.isLandscape ? 1080 : 1920 },
+                    width: { ideal: displayDimensions.isLandscape ? 1920 : 1080 },
                     facingMode: FacingMode.USER,
                     frameRate: { ideal: 30, max: 30 },
                 };
@@ -475,14 +506,17 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         dimensions.offsetX = center.x - dimensions.width / 2;
     }
 
-    private _setVideoDimensions(videoNgx: HTMLVideoElement) {
-        this.camera.dimensions.video.height = videoNgx.clientHeight;
-        this.camera.dimensions.video.width = videoNgx.clientWidth;
+    private _setVideoDimensions(videoElement: HTMLVideoElement) {
+        const actualWidth = videoElement.clientWidth;
+        const actualHeight = videoElement.clientHeight;
+
+        this.camera.dimensions.video.height = actualHeight;
+        this.camera.dimensions.video.width = actualWidth;
         this.camera.dimensions.result = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
 
-        this._setResultDimensions("result", videoNgx.clientHeight, videoNgx.clientWidth);
+        this._setResultDimensions("result", actualHeight, actualWidth);
 
-        this.face.video = this._getCenterAndRadius(videoNgx.clientHeight, videoNgx.clientWidth);
+        this.face.video = this._getCenterAndRadius(actualHeight, actualWidth);
 
         const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
 
@@ -524,7 +558,9 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
         img.onload = async () => {
             if (img.height < this.face.minHeight) {
                 this.camera.isLowQuality = true;
+
                 this.canNavigate.emit(true);
+
                 this.error.emit({ error: "low_quality" });
 
                 return;

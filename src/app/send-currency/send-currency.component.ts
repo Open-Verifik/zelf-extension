@@ -18,12 +18,12 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 @Component({
     imports: [
         CommonModule,
-        RouterModule,
-        TranslocoModule,
         MatButtonModule,
-        TokenItemComponent,
-        ReactiveFormsModule,
         NgTemplateOutlet,
+        ReactiveFormsModule,
+        RouterModule,
+        TokenItemComponent,
+        TranslocoModule,
         ZelfLoaderComponent,
     ],
     selector: "send-currency",
@@ -106,6 +106,8 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Solana" && this.CAN_SEND.SOL) return true;
         if (token.network === "Avalanche" && this.CAN_SEND.AVAX) return true;
         if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
+        if (token.network === "Binance" && this.CAN_SEND.BSC) return true;
+        if (token.network === "Polygon" && this.CAN_SEND.POLYGON) return true;
         if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
 
         return false;
@@ -116,7 +118,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             if (!this.wallet || !this.wallet.ethAddress) return;
 
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-            const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SEND);
+            const result = await this._assetService.processTokensFromResponse(response, this.CAN_SEND);
 
             if (this.wallet.btcAddress) {
                 try {
@@ -167,12 +169,13 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             address = this.wallet?.btcAddress || "";
         } else if (token.tokenType === "SUI" || token.tokenType === "SUI_TOKEN") {
             address = this.wallet?.suiAddress || "";
+        } else if (token.network === "Binance" && this.CAN_SEND.BSC) {
+            address = this.wallet?.ethAddress || "";
+        } else if (token.network === "Polygon" && this.CAN_SEND.POLYGON) {
+            address = this.wallet?.ethAddress || "";
         }
 
-        if (!address) {
-            console.error("No address found for token type:", token.tokenType);
-            return;
-        }
+        if (!address) return console.error("No address found for token type:", token.tokenType);
 
         const transactionData = new TransactionData({
             token: {

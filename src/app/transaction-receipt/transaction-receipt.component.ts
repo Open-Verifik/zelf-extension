@@ -10,16 +10,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { EthereumService } from "app/eth.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { AvaxService } from "app/services/avax.service";
-import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
-
-import { SuiService } from "app/services/sui.service";
-import { SolanaService } from "app/solana.service";
-import { TransactionDetailModel, BitcoinTransactionModel, SuiTransactionModel, TokenData, WalletModel } from "app/wallet";
+import { TokenData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
@@ -56,14 +50,9 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
-        private _avaxService: AvaxService,
-        private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
-        private _ethService: EthereumService,
         private _networkService: NetworkService,
         private _router: Router,
-        private _solService: SolanaService,
-        private _suiService: SuiService,
         private _walletService: WalletService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
@@ -123,7 +112,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         if (!this.wallet) return [];
 
         const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-        const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SWAP);
+        const result = await this._assetService.processTokensFromResponse(response, this.CAN_SWAP);
 
         return result.tokens;
     }
@@ -169,63 +158,28 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         this.network = this._determineNetwork();
         this._setNetworkProperties();
 
-        let promise: Promise<any> | null = null;
+        try {
+            const response = await this._blockchainTransactionsService.requestTransactionDetails(this.hash, this.network);
 
-        if (this.network === "ethereum" || this.network === "avalanche") {
-            if (this.network === "avalanche") {
-                promise = this._avaxService.requestTransactionDetails(this.hash);
-            } else {
-                promise = this._ethService.requestTransactionDetailsV2(this.hash);
-            }
-        } else if (this.network === "sui") {
-            promise = this._suiService.requestTransactionDetails(this.hash);
-        } else if (this.network === "solana") {
-            promise = this._solService.requestTransactionDetails(this.hash);
-        } else if (this.network === "bitcoin") {
-            promise = this._bitcoinService.requestTransactionDetails(this.hash);
-        }
+            if (!response || !response.data) return this._retryRequestTransactionDetails();
 
-        if (!promise) {
+            this.transaction = this._blockchainTransactionsService.processTransactionResponse(response, this.network);
+
+            if (!this.transaction) return this._retryRequestTransactionDetails();
+
+            if (!this.transaction.network) this.transaction.network = this.network;
+
+            this.transaction.networkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+
+            this._setNetworkProperties();
+
             this.loading = false;
 
-            return;
+            if (this.transaction.status === "pending") this._retryRequestTransactionDetails();
+            else this._walletService.removePendingTransaction(this.hash);
+        } catch (error) {
+            this._handleTransactionDetailsError(error);
         }
-
-        promise
-            .then((response: any) => {
-                if (!response || !response.data) {
-                    this._retryRequestTransactionDetails();
-
-                    return;
-                }
-
-                if (this.network === "ethereum") {
-                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
-                } else if (this.network === "avalanche") {
-                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
-                } else if (this.network === "solana") {
-                    this.transaction = new TransactionDetailModel(response.data).toTransaction();
-                } else if (this.network === "sui") {
-                    this.transaction = new SuiTransactionModel(response.data).toTransaction();
-                } else if (this.network === "bitcoin") {
-                    this.transaction = new BitcoinTransactionModel(response.data[0]).toTransaction();
-                }
-
-                if (!this.transaction.network) this.transaction.network = this.network;
-
-                this.transaction.networkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
-
-                this._setNetworkProperties();
-
-                this.loading = false;
-
-                if (this.transaction.status === "pending") {
-                    this._retryRequestTransactionDetails();
-                } else {
-                    this._walletService.removePendingTransaction(this.hash);
-                }
-            })
-            .catch(this._handleTransactionDetailsError);
     }
 
     private async _retryRequestTransactionDetails(): Promise<void> {

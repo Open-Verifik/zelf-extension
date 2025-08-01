@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Untyped
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { TranslocoModule } from "@jsverse/transloco";
-import { NetworkService } from "app/services/network.service";
+import { NetworkName, NetworkService } from "app/services/network.service";
 import { Subject, takeUntil } from "rxjs";
 
 export interface SlippageSheetData {
@@ -47,7 +47,7 @@ export class SlippageSheetComponent implements OnDestroy, AfterViewInit {
     }
 
     get networkSymbol(): string {
-        return this._networkService.getNetworkSymbol(this.data.network.toLowerCase());
+        return this._networkService.getNetworkSymbol(this.data.network.toLowerCase() as NetworkName);
     }
 
     private _initForm(): void {

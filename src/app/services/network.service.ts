@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "app/chrome.service";
-import { TokenData } from "app/wallet";
-import { environment } from "environments/environment";
 
 export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin" | "binance" | "polygon" | "Bitcoin" | "bitcoinTestnet";
 export type NetworkSymbol =
@@ -25,36 +23,24 @@ export type NetworkSymbol =
     providedIn: "root",
 })
 export class NetworkService {
-    private readonly _networkData = {
-        eth: { name: "ethereum", image: "assets/networks/eth.png", symbol: "ETH", chainId: 1, canSwap: true },
-        sol: { name: "solana", image: "assets/networks/sol.png", symbol: "SOL", chainId: "SOLANA_MAINNET", canSwap: true },
-        avax: { name: "avalanche", image: "assets/networks/avax.png", symbol: "AVAX", chainId: 43114, canSwap: true },
-        sui: { name: "sui", image: "assets/networks/sui.png", symbol: "SUI", chainId: "SUI_MAINNET", canSwap: false },
-        btc: { name: "bitcoin", image: "assets/networks/btc.png", symbol: "BTC", chainId: 0, canSwap: false },
-        bsc: { name: "binance", image: "assets/networks/bsc.png", symbol: "BSC", chainId: 56, canSwap: true },
-        polygon: { name: "polygon", image: "assets/networks/polygon.png", symbol: "POLYGON", chainId: 137, canSwap: true },
-    };
-
     constructor(private _chromeService: ChromeService) {}
 
-    getNetworkSymbol(network: string): string {
+    getNetworkSymbol(network: NetworkName): string {
         switch (network) {
             case "ethereum":
                 return "ETH";
             case "sui":
                 return "SUI";
-            case "tron":
-                return "TRX";
             case "polygon":
                 return "MATIC";
             case "avalanche":
                 return "AVAX";
             case "bitcoin":
                 return "BTC";
+            case "binance":
+                return "BSC";
             case "solana":
                 return "SOL";
-            case "ripple":
-                return "XRP";
             default:
                 return "";
         }

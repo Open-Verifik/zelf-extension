@@ -119,10 +119,12 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
             );
 
-            const result = await this._assetService.processTokensFromResponse(response, this.wallet);
+            const result = await this._assetService.processTokensFromResponse(response);
 
             this.tokens = result.tokens;
             this.totalFiatBalance = result.totalFiatBalance;
+
+            this._changeDetectorRef.detectChanges();
         } catch (error) {
             console.error("Error getting tokens:", error);
         } finally {
@@ -203,7 +205,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
             );
 
-            const result = await this._assetService.processTokensFromResponse(response, this.wallet);
+            const result = await this._assetService.processTokensFromResponse(response);
 
             this.tokens = result.tokens;
             this.totalFiatBalance = result.totalFiatBalance;

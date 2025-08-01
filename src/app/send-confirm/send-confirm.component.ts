@@ -12,29 +12,27 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
-import { EthereumService } from "app/eth.service";
+import { FeeCalculationParams, TransactionFeeEstimate, TransactionParams, TransactionResult } from "app/core/models/transaction-fee.model";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService, MempoolFeeRates } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
-import { SuiService } from "app/services/sui.service";
-import { SolanaService } from "app/solana.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
 import { TransactionData, WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [
+        AddressMaskPipe,
         CommonModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
         ReactiveFormsModule,
         RouterModule,
         TranslocoModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        AddressMaskPipe,
         ZelfLoaderComponent,
     ],
     selector: "send-confirm",
@@ -63,34 +61,31 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     ];
 
     form!: UntypedFormGroup;
+    isNativeAsset: boolean = false;
     loading: boolean;
+    networkPrice: number = 0;
+    networkToken?: any;
     passwordError: boolean = false;
     passwordSet: boolean = false;
     price: number = 0;
-    networkPrice: number = 0;
     remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
-    sending: boolean = false;
     selectedFeeRate: number = 0;
-    showPassword: boolean = false;
+    sending: boolean = false;
     showFeeInfo: boolean = false;
+    showPassword: boolean = false;
     transactionData!: TransactionData;
     wallet?: WalletModel;
-    networkToken?: any;
-    isNativeAsset: boolean = false;
 
     constructor(
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _chromeService: ChromeService,
-        private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _networkService: NetworkService,
         private _router: Router,
         private _snackBar: MatSnackBar,
-        private _solanaService: SolanaService,
-        private _suiService: SuiService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
@@ -106,10 +101,10 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this._vaultService.mnemonic = "";
         this._vaultService.password = "";
 
-        if (this._password && this._password.trim()) {
-            this.passwordSet = true;
-            this.requiresBiometrics = false;
-        }
+        if (!this._password || !this._password.trim()) return;
+
+        this.passwordSet = true;
+        this.requiresBiometrics = false;
     }
 
     async ngOnInit(): Promise<void> {
@@ -145,11 +140,16 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.unsubcriber$.complete();
     }
 
-    get fiatPrice(): number {
-        const amount = Number(this.transactionData.amount) || 0;
-        const fiatPrice = this.price || 0;
+    get fiatEconomyFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.economyFee, this.networkPrice);
 
-        return amount * fiatPrice || amount * Number(this.transactionData.token.price || 0) || 0;
+        return calculatedFee.fiatFee;
+    }
+
+    get fiatFastestFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.fastestFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
     }
 
     get fiatFeePrice(): number {
@@ -157,6 +157,19 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         const fiatPrice = this.networkPrice || 0;
 
         return amount * fiatPrice || Number(this.transactionData.fiatFee) || 0;
+    }
+
+    get fiatHalfHourFee(): number {
+        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.halfHourFee, this.networkPrice);
+
+        return calculatedFee.fiatFee;
+    }
+
+    get fiatPrice(): number {
+        const amount = Number(this.transactionData.amount) || 0;
+        const fiatPrice = this.price || 0;
+
+        return amount * fiatPrice || amount * Number(this.transactionData.token.price || 0) || 0;
     }
 
     get hasBalance(): boolean {
@@ -175,227 +188,61 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     get networkCurrency(): string {
-        return this._networkService.getNetworkSymbol(this.transactionData.network);
+        return this._networkService.getNetworkSymbol(this.transactionData.network as NetworkName);
     }
 
     get total(): number {
         return this.fiatPrice + this.fiatFeePrice || 0;
     }
 
-    get fiatFastestFee(): number {
-        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.fastestFee, this.networkPrice);
-
-        return calculatedFee.fiatFee;
-    }
-
-    get fiatHalfHourFee(): number {
-        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.halfHourFee, this.networkPrice);
-
-        return calculatedFee.fiatFee;
-    }
-
-    get fiatEconomyFee(): number {
-        const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.feeRates.economyFee, this.networkPrice);
-
-        return calculatedFee.fiatFee;
-    }
-
-    private async _getNetworkToken(): Promise<void> {
-        const network = this.transactionData.network?.toLowerCase() as NetworkName | "bitcoin";
-
-        this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
-        this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
-
-        if (network !== "bitcoin") return;
-
-        try {
-            const response = await this._assetService.fetchAssetPrice("BTC");
-
-            if (response?.data?.length) this.networkPrice = response.data[0].open;
-        } catch (error) {
-            console.error("Error fetching Bitcoin price:", error);
-        }
-    }
-
     private async _calculateTransactionFee(): Promise<void> {
         try {
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
-            let tokenAddress = this.transactionData.token?.address_token;
             const tokenSymbol = this.transactionData.token?.symbol;
 
-            if (!tokenAddress && this.wallet && !["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol)) {
-                try {
-                    const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-
-                    if (this.transactionData.network === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    } else if (this.transactionData.network === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    } else if (this.transactionData.network === "binance" && addressData?.binance?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.binance.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    } else if (this.transactionData.network === "polygon" && addressData?.polygon?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.polygon.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    }
-                } catch (error) {
-                    console.error("Error fetching token data from API:", error);
-                }
-            }
-
-            if (this.transactionData.network === "bitcoin") {
-                try {
-                    const response = await this._assetService.fetchAssetPrice("BTC");
-
-                    if (response?.data?.length) this.networkPrice = response.data[0].open;
-
-                    const calculatedFee = this._bitcoinService.calculateBitcoinTransactionFee(this.selectedFeeRate, this.networkPrice);
-
-                    this.transactionData.fee = calculatedFee.feeBTC;
-                    this.transactionData.fiatFee = calculatedFee.fiatFee;
-
-                    const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-
-                    this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
-
-                    await this._transactionService.setCurrentTransactionData(this.transactionData);
-                } catch (error) {
-                    console.warn("Failed to fetch fee rates, using fallback", error);
-
-                    const estimatedFeeInSatoshis = 150 * 10;
-                    const feeBTC = this._bitcoinService.convertSatoshiToBTC(estimatedFeeInSatoshis);
-                    const fiatFee = feeBTC * (this.networkPrice || 0);
-
-                    this.transactionData.fee = feeBTC;
-                    this.transactionData.fiatFee = fiatFee;
-
-                    const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-                    this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
-
-                    await this._transactionService.setCurrentTransactionData(this.transactionData);
-                }
-
-                return;
-            } else if (this.transactionData.network === "solana") {
-                const tokenAddress = this.transactionData.tokenType === "SPL" ? this.transactionData.token?.address_token : undefined;
-
-                const feeEstimate = await this._solanaService.getTransactionCost(tokenAddress);
-
-                this.transactionData.fee = feeEstimate.gasPrice || 0;
-                this.transactionData.fiatFee = feeEstimate.fiatFee || 0;
-
-                const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-
-                this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
-
-                await this._transactionService.setCurrentTransactionData(this.transactionData);
-
-                return;
-            } else if (this.transactionData.network === "sui") {
-                if (this.transactionData.tokenType === "SUI") {
-                    const feeEstimate = await this._suiService.estimateSuiTransactionFee(this.transactionData.receiver.address, normalizedAmount);
-
-                    this.transactionData.fee = feeEstimate.estimatedFee;
-                    this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
-                } else {
-                    const tokenAddress = this.transactionData.token?.address_token;
-
-                    if (!tokenAddress) throw new Error("Token address is required");
-
-                    const feeEstimate = await this._suiService.estimateTokenTransactionFee(
-                        this.transactionData.receiver.address,
-                        tokenAddress,
-                        normalizedAmount,
-                        this.transactionData.token.decimals || 9
-                    );
-
-                    this.transactionData.fee = feeEstimate.estimatedFee;
-                    this.transactionData.fiatFee = feeEstimate.estimatedFeeUsd;
-                }
-
-                const amountInUsd = normalizedAmount * (+this.transactionData.token.price || 0);
-
-                this.transactionData.total = amountInUsd + this.transactionData.fiatFee;
-
-                await this._transactionService.setCurrentTransactionData(this.transactionData);
-            } else {
-                let transactionCost;
-
-                const receiverAddress = this.transactionData.receiver.address;
-                const isERC20 = this.transactionData.tokenType === "ERC-20";
-
-                if (isERC20 && tokenAddress) {
-                    transactionCost = await this._ethService.getTransactionCost(
-                        receiverAddress,
-                        this._ethService.toWei(String(normalizedAmount), this.transactionData.token.decimals),
-                        "0x",
-                        this.transactionData.network,
-                        tokenAddress
-                    );
-                } else {
-                    transactionCost = await this._ethService.getTransactionCost(
-                        receiverAddress,
-                        this._ethService.toWei(String(normalizedAmount)),
-                        "0x",
-                        this.transactionData.network
-                    );
-                }
-
-                this.networkPrice = transactionCost.networkPrice || 0;
-
-                this.transactionData.fee = transactionCost.fee || 0;
-                this.transactionData.fiatFee = transactionCost.fiatFee || 0;
-                this.transactionData.total = transactionCost.total || 0;
-
-                await this._transactionService.setCurrentTransactionData(this.transactionData);
-            }
+            let tokenAddress = this.transactionData.token?.address_token;
 
             const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol);
-            const isERC20 = !!tokenAddress && !isNativeToken;
 
             if (!tokenAddress && this.wallet && !isNativeToken) {
                 try {
                     const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
 
-                    if (this.transactionData.network === "avalanche" && addressData?.avalanche?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.avalanche.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    } else if (this.transactionData.network === "ethereum" && addressData?.ethereum?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.ethereum.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    } else if (this.transactionData.network === "binance" && addressData?.binance?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.binance.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    } else if (this.transactionData.network === "polygon" && addressData?.polygon?.data?.tokenHoldings?.tokens) {
-                        const foundToken = addressData.polygon.data.tokenHoldings.tokens.find((t: any) => t.symbol === tokenSymbol);
-                        if (foundToken) tokenAddress = foundToken.address;
-                    }
+                    const foundToken = addressData?.[this.transactionData.network]?.data?.tokenHoldings?.tokens.find(
+                        (t: any) => t.symbol === tokenSymbol
+                    );
+
+                    if (foundToken) tokenAddress = foundToken.address;
                 } catch (error) {
                     console.error("Error fetching token data from API:", error);
                 }
             }
+
+            const feeParams: FeeCalculationParams = {
+                network: this.transactionData.network,
+                receiverAddress: this.transactionData.receiver.address,
+                amount: normalizedAmount,
+                tokenType: this.transactionData.tokenType,
+                tokenAddress: tokenAddress,
+                tokenDecimals: this.transactionData.token.decimals,
+                tokenPrice: +this.transactionData.token.price || 0,
+                selectedFeeRate: this.selectedFeeRate,
+            };
+
+            const feeEstimate: TransactionFeeEstimate = await this._blockchainTransactionsService.calculateTransactionFees(feeParams);
+
+            this.transactionData.fee = feeEstimate.fee;
+            this.transactionData.fiatFee = feeEstimate.fiatFee;
+            this.transactionData.total = feeEstimate.total;
+
+            if (feeEstimate.networkPrice !== undefined) {
+                this.networkPrice = feeEstimate.networkPrice;
+            }
+
+            await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
             console.error("Error calculating transaction fee:", error);
         }
-    }
-
-    private async _decryptMnemonics(): Promise<any> {
-        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || (await this._vaultService.biometricsRequired())) {
-            this.passwordSet = false;
-            this.requiresBiometrics = true;
-
-            return;
-        }
-
-        if (!this._password && !this.form.get("password")?.value) return;
-
-        const secret = JSON.parse(await this._decryptMessage());
-
-        this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
-
-        this.requiresBiometrics = !this._mnemonics;
     }
 
     private async _decryptMessage(): Promise<any> {
@@ -426,6 +273,23 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         }
     }
 
+    private async _decryptMnemonics(): Promise<any> {
+        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || (await this._vaultService.biometricsRequired())) {
+            this.passwordSet = false;
+            this.requiresBiometrics = true;
+
+            return;
+        }
+
+        if (!this._password && !this.form.get("password")?.value) return;
+
+        const secret = JSON.parse(await this._decryptMessage());
+
+        this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
+
+        this.requiresBiometrics = !this._mnemonics;
+    }
+
     async _fetchTokenPrice(): Promise<void> {
         if (this._skipPriceFetch) return;
 
@@ -440,24 +304,27 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         }
     }
 
+    private async _getNetworkToken(): Promise<void> {
+        const network = this.transactionData.network?.toLowerCase() as NetworkName | "bitcoin";
+
+        this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
+        this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
+
+        if (network !== "bitcoin") return;
+
+        try {
+            const response = await this._assetService.fetchAssetPrice("BTC");
+
+            if (response?.data?.length) this.networkPrice = response.data[0].open;
+        } catch (error) {
+            console.error("Error fetching Bitcoin price:", error);
+        }
+    }
+
     private _initForm(): void {
         this.form = this._formBuilder.group({
             password: ["", [Validators.required]],
         });
-    }
-
-    private async _initTransactionData(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
-        this.transactionData = await this._transactionService.getCurrentTransactionData();
-
-        this._initInterval();
-        this._initForm();
-
-        await this._initFeeRates();
-        await this._getNetworkToken();
-        await this._fetchTokenPrice();
-        await this._calculateTransactionFee();
-        await this._decryptMnemonics();
     }
 
     async _initFeeRates(): Promise<void> {
@@ -476,7 +343,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         let lastFeeRate: number = 0;
 
-        // Find the fee rate that is the closest to the selected fee rate as the rates may have changed
         for (const key of keys) {
             const feeRate = this.feeRates[key as keyof MempoolFeeRates];
 
@@ -501,6 +367,20 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             this._calculateTransactionFee();
             this._fetchTokenPrice();
         }, this._intervalTime);
+    }
+
+    private async _initTransactionData(): Promise<void> {
+        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+        this.transactionData = await this._transactionService.getCurrentTransactionData();
+
+        this._initInterval();
+        this._initForm();
+
+        await this._initFeeRates();
+        await this._getNetworkToken();
+        await this._fetchTokenPrice();
+        await this._calculateTransactionFee();
+        await this._decryptMnemonics();
     }
 
     async _redirectToBiometrics(): Promise<void> {
@@ -561,64 +441,17 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             const cleanMnemonic = this._mnemonics.trim().toLowerCase();
             const normalizedAmount = Number(String(this.transactionData.amount || "0").replace(",", "."));
 
-            let receipt;
+            const transactionParams: TransactionParams = {
+                from: "",
+                to: this.transactionData.receiver.address,
+                value: String(normalizedAmount),
+                network: this.transactionData.network,
+                mnemonic: cleanMnemonic,
+                tokenAddress: this.transactionData.token?.address_token || this.transactionData.token?.tokenAddress,
+                tokenDecimals: this.transactionData.token?.decimals,
+            };
 
-            if (this.transactionData.network === "bitcoin") {
-                const receiverAddress = this.transactionData.receiver.address;
-                const isTestnet = receiverAddress.startsWith("tb1");
-
-                try {
-                    const txHash = await this._bitcoinService.createBitcoinTransaction(
-                        cleanMnemonic,
-                        receiverAddress,
-                        normalizedAmount,
-                        this.selectedFeeRate,
-                        isTestnet
-                    );
-
-                    receipt = {
-                        transactionHash: txHash,
-                        network: "bitcoin",
-                        tokenType: "BTC",
-                        fee: this.transactionData.fee,
-                        fiatFee: this.transactionData.fiatFee,
-                        total: this.transactionData.total,
-                    };
-                } catch (error) {
-                    throw new Error("Failed to create Bitcoin transaction. " + (error as any).message);
-                }
-            } else if (this.transactionData.network === "solana") {
-                let tokenAddress = "";
-
-                if (this.transactionData.tokenType === "SPL") {
-                    tokenAddress = this.transactionData.token?.tokenAddress || this.transactionData.token?.address_token || "";
-
-                    if (!tokenAddress) throw new Error("Token address not found for SPL token");
-                }
-
-                receipt = await this._solanaService.sendTokens(cleanMnemonic, this.transactionData.receiver.address, tokenAddress, normalizedAmount);
-
-                receipt = {
-                    transactionHash: receipt,
-                    network: "solana",
-                    tokenType: this.transactionData.tokenType,
-                };
-            } else if (this.transactionData.network === "sui") {
-                if (this.transactionData.tokenType === "SUI") {
-                    receipt = await this._suiService.transferSui(cleanMnemonic, this.transactionData.receiver.address, normalizedAmount);
-                } else {
-                    const tokenAddress = this.transactionData.token?.address_token;
-
-                    if (!tokenAddress) throw new Error("Token address is required");
-
-                    receipt = await this._suiService.transferToken(
-                        cleanMnemonic,
-                        this.transactionData.receiver.address,
-                        tokenAddress,
-                        normalizedAmount
-                    );
-                }
-            } else {
+            if (["ethereum", "avalanche", "binance", "polygon"].includes(this.transactionData.network)) {
                 if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
                     this.openErrorSnackBar("errors.invalid_private_key");
 
@@ -626,31 +459,26 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 }
 
                 const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
-                const normalizedAmount = String(this.transactionData.amount || "0").replace(",", ".");
-                const tokenSymbol = this.transactionData.token?.symbol || "";
 
-                let tokenAddress = this.transactionData.token?.address_token;
+                transactionParams.privateKey = wallet.privateKey;
+                transactionParams.from = wallet.address;
 
-                const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol);
-                const isERC20 = !!tokenAddress && !isNativeToken;
-
-                if (isERC20 && tokenAddress) {
-                    receipt = await this._ethService.sendERC20Transaction(
-                        normalizedAmount,
-                        wallet.privateKey,
-                        this.transactionData.receiver.address,
-                        tokenAddress,
-                        this.transactionData.network
-                    );
-                } else {
-                    receipt = await this._ethService.sendTransaction(
-                        normalizedAmount,
-                        wallet.privateKey,
-                        this.transactionData.receiver.address,
-                        this.transactionData.network
-                    );
-                }
+                delete transactionParams.mnemonic;
             }
+
+            const result: TransactionResult = await this._blockchainTransactionsService.sendTransaction(transactionParams);
+
+            const receipt = {
+                transactionHash: result.hash,
+                hash: result.hash,
+                digest: result.hash,
+                network: this.transactionData.network,
+                tokenType: this.transactionData.tokenType,
+                fee: this.transactionData.fee,
+                fiatFee: this.transactionData.fiatFee,
+                total: this.transactionData.total,
+                status: result.status,
+            };
 
             this._transactionService.addToRecentAddresses({
                 address: this.transactionData.receiver.address,
@@ -715,7 +543,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             }
         } catch (error: any) {
             console.error("Transaction error:", error);
+
             this.openErrorSnackBar(error.message || "errors.something_went_wrong");
+
             this.sending = false;
         } finally {
             this._mnemonics = "";
@@ -765,6 +595,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     selectFeeRate(feeRate: number): void {
         this.showFeeInfo = false;
         this.selectedFeeRate = feeRate;
+
         this._calculateTransactionFee();
     }
 

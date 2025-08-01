@@ -3,8 +3,8 @@ export const environment = {
     appUrl: "https://beta.zelf.world",
     baseUrl: "/index.html",
     apiUrl: "http://localhost:3003",
-    // apiUrl: "https://api.zelf.world",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
+    // apiUrl: "https://api.zelf.world",
     // testnetAddress: "tb1phkg7rlfp8d6zkk699rlacnwyuc9g2jh02ehscztncuew4c4y5mkstxw2c9",
     testnetAddress: "",
     networks: {
@@ -31,5 +31,10 @@ export const environment = {
     },
     solanaRpc: {
         mainnet: "https://flashy-ultra-choice.solana-mainnet.quiknode.pro/dfa09ac3f7fe0fca5ac6cd762ec0d3a0db52712c/",
+    },
+    suiRpc: {
+        mainnet: "https://fullnode.mainnet.sui.io:443",
+        testnet: "https://fullnode.testnet.sui.io:443",
+        devnet: "https://fullnode.devnet.sui.io:443",
     },
 };

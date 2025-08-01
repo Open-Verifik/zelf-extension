@@ -63,3 +63,9 @@ import "zone.js"; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+// Buffer polyfill for browser environments
+import { Buffer } from "buffer";
+if (typeof window !== "undefined") {
+    (window as any).Buffer = Buffer;
+}

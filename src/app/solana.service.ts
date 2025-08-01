@@ -1,7 +1,4 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
 import { createAssociatedTokenAccountInstruction, createTransferInstruction, getAssociatedTokenAddress } from "@solana/spl-token";
-
 import {
     ComputeBudgetProgram,
     Connection,
@@ -9,31 +6,57 @@ import {
     LAMPORTS_PER_SOL,
     MessageV0,
     PublicKey,
+    sendAndConfirmTransaction,
     SystemProgram,
     Transaction,
     VersionedTransaction,
-    sendAndConfirmTransaction,
 } from "@solana/web3.js";
-
 import * as bip39 from "bip39";
 import { Buffer } from "buffer";
-import { environment } from "environments/environment";
-import { firstValueFrom } from "rxjs";
-import { HttpWrapperService } from "./http-wrapper.service";
-
 import slip10 from "micro-key-producer/slip10.js";
 
-import { encode as bs58encode } from "bs58";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { firstValueFrom } from "rxjs";
 
-if (typeof window !== "undefined") {
-    window.Buffer = window.Buffer || Buffer;
-}
+import { environment } from "environments/environment";
+import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "./core/models/transaction-fee.model";
+import { HttpWrapperService } from "./http-wrapper.service";
+
+if (typeof window !== "undefined") window.Buffer = window.Buffer || Buffer;
 
 @Injectable({
     providedIn: "root",
 })
 export class SolanaService {
-    baseUrl: string = environment.apiUrl;
+    private readonly _baseUrl: string = environment.apiUrl;
+
+    private readonly _chainConfigs = {
+        mainnet: {
+            blockExplorerUrls: ["https://solscan.io"],
+            chainId: 101,
+            chainName: "Solana Mainnet",
+            rpcUrls: [environment.solanaRpc.mainnet],
+            nativeCurrency: {
+                decimals: 9,
+                name: "SOL",
+                symbol: "SOL",
+            },
+        },
+        // Testnet configuration can be added when needed
+        // testnet: {
+        //     blockExplorerUrls: ["https://explorer.solana.com/?cluster=testnet"],
+        //     chainId: 102,
+        //     chainName: "Solana Testnet",
+        //     rpcUrls: ["https://api.testnet.solana.com"],
+        //     nativeCurrency: {
+        //         decimals: 9,
+        //         name: "SOL",
+        //         symbol: "SOL",
+        //     },
+        // },
+    };
+
     tokens: Array<any> = [];
 
     constructor(
@@ -41,79 +64,42 @@ export class SolanaService {
         private _httpWrapper: HttpWrapperService
     ) {}
 
-    getWalletDetails(address?: string): Promise<any> {
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/address/${address}`);
+    private _createConnection(): Connection {
+        return new Connection(this._chainConfigs.mainnet.rpcUrls[0], { commitment: "confirmed" });
     }
 
-    formatTokens(tokens: Array<any>): void {
-        for (let index = 0; index < tokens.length; index++) {
-            const token = tokens[index];
-
-            const _token = { ...token, symbol: token.symbol || token.name, network: "Solana" };
-
-            if (_token.name === "Zelf") {
-                _token.symbol = "ZNS";
-            }
-
-            this.tokens.push(_token);
-        }
+    private _defaultResponse(): any {
+        return {
+            data: {
+                _balance: 0,
+                balance: "0",
+                fiatBalance: "0",
+                account: {
+                    asset: "SOL",
+                    price: "0",
+                },
+                tokenHoldings: {
+                    tokens: [],
+                },
+            },
+        };
     }
 
-    clearTokens(): void {
-        this.tokens = [];
-    }
+    private async _getKeypairFromMnemonic(mnemonic: string): Promise<Keypair> {
+        if (!this._validateMnemonic(mnemonic)) throw new Error("Invalid mnemonic phrase");
 
-    async getGasPrices(): Promise<any> {
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/gas-tracker`);
-    }
-
-    async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/solana/transaction/${transactionHash}`);
-    }
-
-    private async retryWithBackoff<T>(operation: () => Promise<T>, maxRetries = 3): Promise<T> {
-        let retries = 0;
-
-        while (true) {
-            try {
-                return await operation();
-            } catch (error: any) {
-                if (error?.response?.status !== 429 || retries >= maxRetries) {
-                    throw error;
-                }
-
-                retries++;
-                const delay = Math.min(1000 * Math.pow(2, retries), 10000);
-                await new Promise((resolve) => setTimeout(resolve, delay));
-            }
-        }
-    }
-
-    async sendTokens(mnemonic: string, toAddress: string, tokenAddress: string, amount: number): Promise<string> {
         try {
-            const connection = new Connection(environment.solanaRpc.mainnet, {
-                commitment: "confirmed",
-            });
+            const seed = bip39.mnemonicToSeedSync(mnemonic, "");
+            const hd = slip10.fromMasterSeed(seed.toString("hex"));
+            const keypair = Keypair.fromSeed(hd.derive("m/44'/501'/0'/0'").privateKey);
 
-            const fromKeypair = await this.getKeypairFromMnemonic(mnemonic);
-
-            if (tokenAddress) {
-                return this.sendSPLTokens({
-                    fromPubKey: fromKeypair,
-                    toAddress,
-                    mintAddress: tokenAddress,
-                    amount,
-                });
-            } else {
-                return this.sendSOL(connection, fromKeypair, toAddress, amount);
-            }
-        } catch (error: any) {
-            console.error("Error sending tokens:", error);
+            return keypair;
+        } catch (error) {
             throw error;
         }
     }
 
-    private async sendSOL(connection: Connection, fromKeypair: Keypair, toAddress: string, amount: number): Promise<string> {
+    private async _sendSOL(connection: Connection, fromKeypair: Keypair, toAddress: string, amount: number): Promise<string> {
         try {
             const walletBalance = await connection.getBalance(fromKeypair.publicKey);
             const lamports = Math.floor(amount * LAMPORTS_PER_SOL);
@@ -144,18 +130,18 @@ export class SolanaService {
             );
 
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
+
             return signature;
         } catch (error: any) {
             console.error("SOL transfer failed:", error);
+
             throw error;
         }
     }
 
-    private async sendSPLTokens(params: { fromPubKey: Keypair; toAddress: string; mintAddress: string; amount: number }): Promise<string> {
+    private async _sendSPLTokens(params: { fromPubKey: Keypair; toAddress: string; mintAddress: string; amount: number }): Promise<string> {
         try {
-            const connection = new Connection(environment.solanaRpc.mainnet, {
-                commitment: "confirmed",
-            });
+            const connection = this._createConnection();
 
             const fromKeypair = params.fromPubKey;
             const mint = new PublicKey(params.mintAddress);
@@ -166,9 +152,7 @@ export class SolanaService {
 
             const tokenInfo = await connection.getParsedAccountInfo(mint);
 
-            if (!tokenInfo.value) {
-                throw new Error("Token not found");
-            }
+            if (!tokenInfo.value) throw new Error("Token not found");
 
             const decimals = (tokenInfo.value.data as any).parsed.info.decimals;
             const amountInTokenUnits = Math.floor(params.amount * Math.pow(10, decimals));
@@ -204,19 +188,64 @@ export class SolanaService {
             return signature;
         } catch (error: any) {
             console.error("SPL token transfer failed:", error);
+
             throw error;
         }
     }
 
-    isValidSolanaAddress(address: string): boolean {
+    private async _sendTokens(mnemonic: string, toAddress: string, tokenAddress: string, amount: number): Promise<string> {
         try {
-            if (!address) return false;
+            const connection = this._createConnection();
 
-            const publicKey = new PublicKey(address);
+            const fromKeypair = await this._getKeypairFromMnemonic(mnemonic);
 
-            return PublicKey.isOnCurve(publicKey);
+            if (tokenAddress) {
+                return this._sendSPLTokens({
+                    fromPubKey: fromKeypair,
+                    toAddress,
+                    mintAddress: tokenAddress,
+                    amount,
+                });
+            } else {
+                return this._sendSOL(connection, fromKeypair, toAddress, amount);
+            }
+        } catch (error: any) {
+            console.error("Error sending tokens:", error);
+
+            throw error;
+        }
+    }
+
+    private _validateMnemonic(mnemonic: string): boolean {
+        return bip39.validateMnemonic(mnemonic);
+    }
+
+    async calculateTransactionFees(tokenAddress: string | undefined, amount: number, tokenPrice: number): Promise<TransactionFeeEstimate> {
+        const feeEstimate = await this.getTransactionCost(tokenAddress);
+        const amountInUsd = amount * tokenPrice;
+        const fee = typeof feeEstimate.gasPrice === "number" ? feeEstimate.gasPrice : parseFloat(feeEstimate.gasPrice || "0");
+        const fiatFee = typeof feeEstimate.fiatFee === "number" ? feeEstimate.fiatFee : parseFloat(feeEstimate.fiatFee || "0");
+
+        return {
+            fee,
+            fiatFee,
+            total: amountInUsd + fiatFee,
+        };
+    }
+
+    async getSolPrice(): Promise<number> {
+        try {
+            const response = await firstValueFrom(this.http.get<any>("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd"));
+
+            if (response && response.solana && response.solana.usd) return response.solana.usd;
+
+            console.warn("Could not fetch SOL price, using default value");
+
+            return 150;
         } catch (error) {
-            return false;
+            console.error("Error fetching SOL price:", error);
+
+            return 150;
         }
     }
 
@@ -231,8 +260,10 @@ export class SolanaService {
             const totalCostSOL = totalLamports / LAMPORTS_PER_SOL;
 
             let solPriceUSD = 0;
+
             try {
                 const response = await this.http.get<any>("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd").toPromise();
+
                 solPriceUSD = response?.solana?.usd || 0;
             } catch (error) {
                 console.warn("Failed to fetch SOL price, using 0 for fiat conversion", error);
@@ -242,9 +273,9 @@ export class SolanaService {
 
             return {
                 estimatedGas: Math.round(totalLamports),
+                fiatFee: fiatFee,
                 gasPrice: totalCostSOL.toString(),
                 totalCost: totalCostSOL.toString(),
-                fiatFee: fiatFee,
             };
         } catch (error) {
             console.error("Error getting Solana transaction cost:", error);
@@ -253,50 +284,65 @@ export class SolanaService {
 
             return {
                 estimatedGas: 50000,
+                fiatFee: baseFee,
                 gasPrice: baseFee.toString(),
                 totalCost: baseFee.toString(),
-                fiatFee: baseFee,
             };
         }
     }
 
-    validateMnemonic(mnemonic: string): boolean {
-        return bip39.validateMnemonic(mnemonic);
-    }
-
-    async getKeypairFromMnemonic(mnemonic: string): Promise<Keypair> {
-        if (!this.validateMnemonic(mnemonic)) {
-            throw new Error("Invalid mnemonic phrase");
-        }
+    async getWalletDetails(address: string): Promise<any> {
+        const url = `${this._baseUrl}/api/solana/address/${address}`;
 
         try {
-            const seed = bip39.mnemonicToSeedSync(mnemonic, "");
-            const hd = slip10.fromMasterSeed(seed.toString("hex"));
-            const keypair = Keypair.fromSeed(hd.derive("m/44'/501'/0'/0'").privateKey);
-
-            return keypair;
+            return this._httpWrapper
+                .sendRequest("get", url)
+                .then((response) => response)
+                .catch(() => this._defaultResponse());
         } catch (error) {
-            throw error;
+            console.error("Exception in Solana getWalletDetails:", error);
+
+            return Promise.resolve(this._defaultResponse());
         }
     }
 
-    async generateAddressFromMnemonic(mnemonic: string): Promise<{ address: string; privateKey: string } | null> {
+    checkIfValidAddress(address: string): boolean {
+        return this.isValidSolanaAddress(address);
+    }
+
+    isValidSolanaAddress(address: string): boolean {
         try {
-            if (!this.validateMnemonic(mnemonic)) return null;
+            if (!address) return false;
 
-            const seed = bip39.mnemonicToSeedSync(mnemonic, "");
-            const hd = slip10.fromMasterSeed(seed.toString("hex"));
-            const keypair = Keypair.fromSeed(hd.derive("m/44'/501'/0'/0'").privateKey);
-            const address = keypair.publicKey.toBase58();
-            const privateKey = bs58encode(keypair.secretKey);
+            const publicKey = new PublicKey(address);
 
-            return {
-                address,
-                privateKey,
-            };
-        } catch (exception) {
-            console.error("Error generating Solana address from mnemonic:", exception);
-            return null;
+            return PublicKey.isOnCurve(publicKey);
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
+        return this._httpWrapper.sendRequest("get", `${this._baseUrl}/api/solana/transaction/${transactionHash}`);
+    }
+
+    async requestTransactionHistory(address: string, pagination: { page: number; show?: number }): Promise<any> {
+        const url = `${this._baseUrl}/api/solana/transactions/${address}`;
+
+        const params = {
+            page: pagination.page,
+            show: pagination.show || 25,
+        };
+
+        try {
+            return this._httpWrapper
+                .sendRequest("get", url, params)
+                .then((response) => response)
+                .catch(() => ({ data: [] }));
+        } catch (error) {
+            console.error("Exception in Solana requestTransactionHistory:", error);
+
+            return Promise.resolve({ data: [] });
         }
     }
 
@@ -308,11 +354,9 @@ export class SolanaService {
      */
     async sendSerializedTransaction(mnemonic: string, serializedTransaction: string): Promise<string> {
         try {
-            const connection = new Connection(environment.solanaRpc.mainnet, {
-                commitment: "confirmed",
-            });
+            const connection = this._createConnection();
 
-            const fromKeypair = await this.getKeypairFromMnemonic(mnemonic);
+            const fromKeypair = await this._getKeypairFromMnemonic(mnemonic);
             const transactionBuffer = Buffer.from(serializedTransaction, "base64");
 
             const { blockhash } = await connection.getLatestBlockhash("finalized");
@@ -372,87 +416,14 @@ export class SolanaService {
         }
     }
 
-    /**
-     * Check the status of a transaction
-     * @param signature The transaction signature to check
-     * @returns The transaction status
-     */
-    async checkTransactionStatus(signature: string): Promise<any> {
-        try {
-            const connection = new Connection(environment.solanaRpc.mainnet, {
-                commitment: "confirmed",
-            });
+    async sendTransaction(params: TransactionParams): Promise<TransactionResult> {
+        if (!params.mnemonic) throw new Error("Mnemonic is required for Solana transactions");
 
-            const status = await connection.getSignatureStatus(signature, {
-                searchTransactionHistory: true,
-            });
+        const hash = await this._sendTokens(params.mnemonic, params.to, params.tokenAddress || "", parseFloat(params.value));
 
-            return status.value;
-        } catch (error) {
-            console.error("Error checking transaction status:", error);
-            throw error;
-        }
-    }
-
-    /**
-     * Send a transaction via our custom endpoint
-     * @param mnemonic The mnemonic phrase to derive the keypair
-     * @param transactionData The base64 encoded transaction data
-     * @returns The transaction signature
-     */
-    async sendTransactionViaEndpoint(mnemonic: string, transactionData: string): Promise<string> {
-        try {
-            if (!this.validateMnemonic(mnemonic)) {
-                throw new Error("Invalid mnemonic phrase");
-            }
-
-            const fromKeypair = await this.getKeypairFromMnemonic(mnemonic);
-
-            const connection = new Connection(environment.solanaRpc.mainnet, {
-                commitment: "confirmed",
-            });
-
-            const balance = await connection.getBalance(fromKeypair.publicKey);
-
-            const response = await this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/solana/send-transaction`, {
-                transactionData: transactionData,
-                privateKey: bs58encode(fromKeypair.secretKey),
-            });
-
-            if (!response || !response.signature) {
-                throw new Error("Failed to send transaction");
-            }
-
-            return response.signature;
-        } catch (error: any) {
-            console.error("Error sending transaction via endpoint:", error);
-
-            if (error.error && error.error.message) {
-                throw new Error(error.error.message);
-            }
-
-            throw error;
-        }
-    }
-
-    /**
-     * Get the current price of SOL in USD
-     * @returns The price of SOL in USD
-     */
-    async getSolPrice(): Promise<number> {
-        try {
-            const response = await firstValueFrom(this.http.get<any>("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd"));
-
-            if (response && response.solana && response.solana.usd) {
-                return response.solana.usd;
-            }
-
-            console.warn("Could not fetch SOL price, using default value");
-            return 150;
-        } catch (error) {
-            console.error("Error fetching SOL price:", error);
-
-            return 150;
-        }
+        return {
+            hash,
+            status: "pending",
+        };
     }
 }

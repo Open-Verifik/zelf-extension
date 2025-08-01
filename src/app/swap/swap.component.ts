@@ -261,7 +261,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         if (!this.wallet) return;
 
         const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-        const result = await this._assetService.processTokensFromResponse(response, this.wallet as any, this.CAN_SWAP);
+        const result = await this._assetService.processTokensFromResponse(response, this.CAN_SWAP);
 
         this.tokens = result.tokens;
     }
@@ -669,12 +669,13 @@ export class SwapComponent implements OnInit, OnDestroy {
     getNetworkImage(network?: string): string {
         if (!network) return "";
 
-        return this._walletService.getAssetImage(this._networkService.getNetworkSymbol(network.toLowerCase()));
+        return this._walletService.getAssetImage(this._networkService.getNetworkSymbol(network.toLowerCase() as NetworkName));
     }
 
     getNetworkSymbol(network?: string): string {
         if (!network) return "";
-        return this._networkService.getNetworkSymbol(network.toLowerCase());
+
+        return this._networkService.getNetworkSymbol(network.toLowerCase() as NetworkName);
     }
 
     async getSwapQuote(silentLoading: boolean = false): Promise<void> {

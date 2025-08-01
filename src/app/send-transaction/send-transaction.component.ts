@@ -1,5 +1,4 @@
 import { debounceTime, Subject, takeUntil } from "rxjs";
-import { Web3 } from "web3";
 
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy } from "@angular/core";
@@ -14,8 +13,10 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { AssetService } from "app/asset.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService } from "app/services/bitcoin.service";
+import { TransactionParams } from "app/core/models/transaction-fee.model";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
+import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
 import { AddressBook, TransactionData, WalletModel } from "app/wallet";
@@ -56,6 +57,7 @@ export class SendTransactionComponent implements OnDestroy {
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
         private _changeDetectionRef: ChangeDetectorRef,
+        private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _snackBar: MatSnackBar,
@@ -299,7 +301,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     private _checkEVMAddress(text: string): boolean {
         const isValidFormat = this._walletService.isValidEVMAddress(text);
-        const isValidWeb3 = Web3.utils.isAddress(text.toLowerCase());
+        const isValidWeb3 = this._ethService.checkIfValidAddress(text.toLowerCase());
 
         return isValidFormat && isValidWeb3;
     }
@@ -604,7 +606,15 @@ export class SendTransactionComponent implements OnDestroy {
             const toAddress = this.form.get("toAddress")?.value;
 
             if (this.transactionData.isBtcToken) {
-                const txHash = await this._bitcoinService.sendBitcoin(mnemonic, toAddress, amount);
+                const transactionParams: TransactionParams = {
+                    from: "", // Will be derived from mnemonic in Bitcoin service
+                    to: toAddress,
+                    value: String(amount),
+                    network: "bitcoin",
+                    mnemonic: mnemonic,
+                };
+
+                const result = await this._bitcoinService.sendTransaction(transactionParams);
 
                 this._snackBar.open(this._translocoService.translate("TRANSACTION_SENT"), this._translocoService.translate("CLOSE"), {
                     duration: 5000,
@@ -612,7 +622,7 @@ export class SendTransactionComponent implements OnDestroy {
 
                 this._router.navigate(["/transaction-confirmation"], {
                     state: {
-                        hash: txHash,
+                        hash: result.hash,
                         network: "bitcoin",
                         amount: amount,
                         to: toAddress,

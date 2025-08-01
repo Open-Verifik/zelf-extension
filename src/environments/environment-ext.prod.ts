@@ -26,4 +26,9 @@ export const environment = {
     solanaRpc: {
         mainnet: "https://flashy-ultra-choice.solana-mainnet.quiknode.pro/dfa09ac3f7fe0fca5ac6cd762ec0d3a0db52712c/",
     },
+    suiRpc: {
+        mainnet: "https://fullnode.mainnet.sui.io:443",
+        testnet: "https://fullnode.testnet.sui.io:443",
+        devnet: "https://fullnode.devnet.sui.io:443",
+    },
 };

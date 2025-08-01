@@ -1,23 +1,22 @@
 import { Injectable } from "@angular/core";
-import { HttpWrapperService } from "./http-wrapper.service";
-import { environment } from "environments/environment";
-import { TokenData } from "./wallet";
-import { ChromeService } from "./chrome.service";
 import { BehaviorSubject, Observable } from "rxjs";
+
+import { environment } from "environments/environment";
+
+import { ChromeService } from "./chrome.service";
+import { HttpWrapperService } from "./http-wrapper.service";
+
 import { AssetChart, AssetDetails, AssetInterval, AssetIntervalOptions, AssetRange } from "./models/asset.model";
-import { Wallet } from "./wallet";
-import { EthereumService } from "./eth.service";
-import { SolanaService } from "./solana.service";
-import { SuiService } from "./services/sui.service";
+import { TokenData } from "./wallet";
 
 export interface NetworkPermissions {
     AVAX?: boolean;
+    BSC?: boolean;
     BTC?: boolean;
     ETH?: boolean;
+    POLYGON?: boolean;
     SOL?: boolean;
     SUI?: boolean;
-    BSC?: boolean;
-    POLYGON?: boolean;
 }
 
 @Injectable({
@@ -32,14 +31,12 @@ export class AssetService {
 
     constructor(
         private _chromeService: ChromeService,
-        private _httpWrapperService: HttpWrapperService,
-        private _ethService: EthereumService,
-        private _solanaService: SolanaService,
-        private _suiService: SuiService
+        private _httpWrapperService: HttpWrapperService
     ) {
         this._chromeService.getItem("sourceAsset").then((asset: Partial<TokenData>) => {
             if (asset) this.setSourceAsset(asset);
         });
+
         this._chromeService.getItem("targetAsset").then((asset: Partial<TokenData>) => {
             if (asset) this.setTargetAsset(asset);
         });
@@ -64,24 +61,24 @@ export class AssetService {
     get canSwap(): NetworkPermissions {
         return {
             AVAX: true,
+            BSC: false,
             BTC: false,
             ETH: true,
+            POLYGON: false,
             SOL: true,
             SUI: false,
-            BSC: true,
-            POLYGON: true,
         };
     }
 
     get canSend(): NetworkPermissions {
         return {
             AVAX: true,
+            BSC: true,
             BTC: true,
             ETH: true,
+            POLYGON: true,
             SOL: true,
             SUI: true,
-            BSC: true,
-            POLYGON: true,
         };
     }
 
@@ -211,10 +208,10 @@ export class AssetService {
 
             const formattedToken = {
                 ...token,
-                network,
                 balance: parseFloat(token.balance || token.amount || "0"),
                 fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
                 image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : token.image),
+                network,
                 price: parseFloat(token.price || "0"),
                 tokenType: token.tokenType || (network === "Avalanche" ? "AVAX" : "ERC-20"),
             };
@@ -232,11 +229,7 @@ export class AssetService {
         return processedTokens;
     }
 
-    async processTokensFromResponse(
-        response: any,
-        wallet: Wallet,
-        permissions?: NetworkPermissions
-    ): Promise<{ tokens: any[]; totalFiatBalance: number }> {
+    async processTokensFromResponse(response: any, permissions?: NetworkPermissions): Promise<{ tokens: any[]; totalFiatBalance: number }> {
         let tokens: any[] = [];
 
         if (response?.ethereum?.data?.tokenHoldings?.tokens && (!permissions || permissions.ETH)) {
@@ -271,89 +264,10 @@ export class AssetService {
             tokens = this.processTokens("Bitcoin", response.bitcoinTestnet.data.tokenHoldings.tokens, tokens, permissions);
         }
 
-        try {
-            tokens = await this.fetchAdditionalTokenDetails(tokens, wallet, permissions);
+        tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
 
-            tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
-
-            if (!permissions) await this.saveTokensToSession(tokens);
-        } catch (error) {
-            console.error("Error processing tokens:", error);
-        }
+        if (!permissions) await this.saveTokensToSession(tokens);
 
         return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
-    }
-
-    async fetchAdditionalTokenDetails(tokens: any[], wallet: Wallet, permissions?: NetworkPermissions): Promise<any[]> {
-        try {
-            if (wallet.ethAddress && (!permissions || permissions.ETH)) {
-                const details = await this._ethService.getWalletDetails(wallet.ethAddress);
-
-                if (details?.data?.tokenHoldings?.tokens) {
-                    const newTokens = details.data.tokenHoldings.tokens.filter(
-                        (token: any) => !tokens.some((t) => t.symbol === token.symbol && t.network === "Ethereum")
-                    );
-
-                    if (newTokens.length) {
-                        tokens = this.processTokens("Ethereum", newTokens, tokens, permissions);
-                    }
-                }
-            }
-
-            if (wallet.solanaAddress && (!permissions || permissions.SOL)) {
-                const details = await this._solanaService.getWalletDetails(wallet.solanaAddress);
-
-                if (details?.data?.tokenHoldings?.tokens) {
-                    tokens = this.processTokens("Solana", details.data.tokenHoldings.tokens, tokens, permissions);
-                }
-            }
-
-            if (wallet.suiAddress && (!permissions || permissions.SUI)) {
-                const details = await this._suiService.getWalletDetails(wallet.suiAddress);
-
-                if (details?.data?.tokenHoldings?.tokens) {
-                    tokens = this.processTokens("Sui", details.data.tokenHoldings.tokens, tokens, permissions);
-                }
-            }
-
-            if (wallet.ethAddress && (!permissions || permissions.AVAX)) {
-                const details = await this._ethService.getAvalancheWalletDetails(wallet.ethAddress);
-
-                if (details?.data?.tokenHoldings?.tokens) {
-                    const formattedTokens = details.data.tokenHoldings.tokens.map((token: any) => ({
-                        ...token,
-                        network: "Avalanche",
-                        balance: parseFloat(token.balance || token.amount || "0"),
-                        fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                        price: parseFloat(token.price || "0"),
-                        tokenType: token.tokenType || "ERC-20",
-                        image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : undefined),
-                    }));
-
-                    tokens = this.processTokens("Avalanche", formattedTokens, tokens, permissions);
-                }
-            }
-
-            if (wallet.ethAddress && (!permissions || permissions.BSC)) {
-                const details = await this._ethService.getWalletDetails(wallet.ethAddress);
-
-                if (details?.data?.tokenHoldings?.tokens) {
-                    tokens = this.processTokens("Binance", details.data.tokenHoldings.tokens, tokens, permissions);
-                }
-            }
-
-            if (wallet.ethAddress && (!permissions || permissions.POLYGON)) {
-                const details = await this._ethService.getWalletDetails(wallet.ethAddress);
-
-                if (details?.data?.tokenHoldings?.tokens) {
-                    tokens = this.processTokens("Polygon", details.data.tokenHoldings.tokens, tokens, permissions);
-                }
-            }
-
-            return tokens;
-        } catch (error) {
-            console.error("Error fetching additional token details:", error);
-            return tokens;
-        }
     }
 }

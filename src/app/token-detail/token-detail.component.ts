@@ -7,7 +7,7 @@ import { AssetService, NetworkPermissions } from "app/asset.service";
 import { AssetChart, AssetDetails, AssetIntervalOptions, AssetRange } from "app/models/asset.model";
 import { SafeHtmlPipe } from "app/pipes/safe-html.pipe";
 import { TruncateNumberPipe } from "app/pipes/truncate-number.pipe";
-import { NetworkService } from "app/services/network.service";
+import { NetworkName, NetworkService } from "app/services/network.service";
 import { TransactionService } from "app/transaction.service";
 import { TokenData, TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
@@ -109,7 +109,7 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
     }
 
     get networkSymbol(): string {
-        return this._networkService.getNetworkSymbol(this.asset.network?.toLowerCase() as string);
+        return this._networkService.getNetworkSymbol(this.asset.network?.toLowerCase() as NetworkName);
     }
 
     get priceChangePercentage(): number {

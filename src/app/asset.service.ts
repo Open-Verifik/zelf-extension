@@ -312,8 +312,8 @@ export class AssetService {
             tokens = this.processTokens("Avalanche", response.avalanche.data.tokenHoldings.tokens, tokens, permissions);
         }
 
-        if (response?.bsc?.data?.tokenHoldings?.tokens && (!permissions || permissions.BSC)) {
-            tokens = this.processTokens("Binance", response.bsc.data.tokenHoldings.tokens, tokens, permissions);
+        if (response?.binance?.data?.tokenHoldings?.tokens && (!permissions || permissions.BSC)) {
+            tokens = this.processTokens("Binance", response.binance.data.tokenHoldings.tokens, tokens, permissions);
         }
 
         if (response?.polygon?.data?.tokenHoldings?.tokens && (!permissions || permissions.POL)) {

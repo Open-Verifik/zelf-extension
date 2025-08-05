@@ -181,6 +181,19 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         this._setChartData();
     }
 
+    private _resizeChart() {
+        if (!this.chart) return;
+
+        const isSmallerScreen = window.innerWidth <= 468;
+        const chartHeight = isSmallerScreen ? 100 : 50;
+
+        this.chart.resize(0, chartHeight);
+
+        const chartWidth = isSmallerScreen ? this.chartContainer.nativeElement.clientWidth * 0.8 : this.chartContainer.nativeElement.clientWidth;
+
+        this.chart.resize(chartWidth, chartHeight);
+    }
+
     private _setChart(): void {
         if (!this.chartContainer) return;
 
@@ -244,17 +257,12 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         this._resizeChart();
     }
 
-    private _resizeChart() {
-        if (!this.chart) return;
+    async changeRange(range: AssetRange): Promise<void> {
+        if (!this.chartData?.length) return;
 
-        const isSmallerScreen = window.innerWidth <= 468;
-        const chartHeight = isSmallerScreen ? 100 : 50;
+        this.selectedRange = range;
 
-        this.chart.resize(0, chartHeight);
-
-        const chartWidth = isSmallerScreen ? this.chartContainer.nativeElement.clientWidth * 0.8 : this.chartContainer.nativeElement.clientWidth;
-
-        this.chart.resize(chartWidth, chartHeight);
+        await this._requestChartData();
     }
 
     checkCanSend(): boolean {
@@ -263,14 +271,6 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
 
     checkCanSwap(): boolean {
         return this.CAN_SWAP[this.networkSymbol as keyof NetworkPermissions] || false;
-    }
-
-    async changeRange(range: AssetRange): Promise<void> {
-        if (!this.chartData?.length) return;
-
-        this.selectedRange = range;
-
-        await this._requestChartData();
     }
 
     cleanMarkdown(input: string): string {

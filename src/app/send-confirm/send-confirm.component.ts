@@ -312,9 +312,11 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     private async _getNetworkToken(): Promise<void> {
         const network = this.transactionData.network?.toLowerCase() as NetworkName | "bitcoin";
+        console.log(`🚀 ~ SendConfirmComponent ~ _getNetworkToken ~ network:`, network);
 
         this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
         this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
+        console.log(`🚀 ~ SendConfirmComponent ~ _getNetworkToken ~ this.networkToken?.name?:`, this.networkToken?.name);
 
         if (network !== "bitcoin") return;
 

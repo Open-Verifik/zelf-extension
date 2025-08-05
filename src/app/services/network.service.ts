@@ -38,7 +38,7 @@ export class NetworkService {
             case "bitcoin":
                 return "BTC";
             case "binance":
-                return "BSC";
+                return "BNB";
             case "solana":
                 return "SOL";
             default:
@@ -62,7 +62,7 @@ export class NetworkService {
                 return "sui";
             case "BTC":
                 return "bitcoin";
-            case "BSC":
+            case "BNB":
                 return "binance";
             case "POL":
                 return "polygon";
@@ -90,6 +90,12 @@ export class NetworkService {
                 return 1399811149;
             case "sui":
                 return 784;
+            case "polygon":
+                return 137;
+            case "bitcoin":
+                return 0;
+            case "binance":
+                return 56;
             default:
                 return 1;
         }
@@ -102,38 +108,24 @@ export class NetworkService {
                 return "./assets/networks/eth.png";
             case "sui":
             case "SUI":
-                return "./assets/networks/sui.png";
+                return "./assets/networks/sui.svg";
             case "avalanche":
             case "AVAX":
                 return "./assets/networks/avax.png";
             case "solana":
             case "SOL":
-                return "./assets/networks/sol.png";
+                return "./assets/networks/sol.svg";
             case "bitcoin":
             case "BTC":
                 return "./assets/networks/btc.png";
+            case "binance":
+            case "BNB":
+                return "./assets/networks/bnb.png";
+            case "polygon":
+            case "POL":
+                return "./assets/networks/pol.png";
             default:
                 return "";
         }
-    }
-
-    getNetworkData(symbolOrName: NetworkSymbol | NetworkName | string): any {
-        return undefined;
-    }
-
-    getExplorerUrl(networkNameOrSymbol: NetworkName | NetworkSymbol | string): string | undefined {
-        return undefined;
-    }
-
-    getNativeTokenSymbol(networkNameOrSymbol: NetworkName | NetworkSymbol | string): string | undefined {
-        return undefined;
-    }
-
-    canSwap(networkNameOrSymbol: NetworkName | NetworkSymbol | string): boolean {
-        return false;
-    }
-
-    isNetworkSupported(networkNameOrSymbol: NetworkName | NetworkSymbol | string): boolean {
-        return false;
     }
 }

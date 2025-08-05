@@ -765,7 +765,8 @@ export class WalletService {
             tokenType === "POL" ||
             tokenType === "MATIC" ||
             tokenType === "ERC-20" ||
-            tokenType === "BSC"
+            tokenType === "BSC" ||
+            tokenType === "BNB"
         ) {
             address = wallet?.ethAddress || "";
         } else if (tokenType === "SOL" || tokenType === "SPL") {

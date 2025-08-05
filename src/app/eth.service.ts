@@ -342,11 +342,11 @@ export class EthereumService {
         tokenDecimals: number | undefined,
         senderAddress?: string
     ): Promise<TransactionFeeEstimate> {
-        const isERC20 = tokenType === "ERC-20";
+        const isNonNative = tokenType === "ERC-20" || tokenType === "BEP-20";
 
         let transactionCost;
 
-        if (isERC20 && tokenAddress) {
+        if (isNonNative && tokenAddress) {
             transactionCost = await this._getTransactionCost(
                 receiverAddress,
                 this._toWei(String(amount), tokenDecimals || 18),

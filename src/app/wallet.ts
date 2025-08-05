@@ -937,7 +937,7 @@ export class TransactionData implements TransactionData {
     }
 
     get isBscToken(): boolean {
-        return this.tokenType === "BSC" || this.tokenType === "BNB";
+        return this.tokenType === "BSC" || this.tokenType === "BNB" || this.tokenType === "BEP-20";
     }
 
     get isAvaxToken(): boolean {

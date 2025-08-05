@@ -130,9 +130,10 @@ export class AssetService {
         switch (network) {
             case "Ethereum":
             case "Avalanche":
-            case "Binance":
             case "Polygon":
                 return "ERC-20";
+            case "Binance":
+                return "BEP-20";
             case "Solana":
                 return "SPL";
             case "Sui":
@@ -146,13 +147,13 @@ export class AssetService {
 
     private _isNativeToken(token: any, network: string): boolean {
         const nativeTokenSymbols: Record<string, string[]> = {
-            Ethereum: ["ETH", "ETHER"],
             Avalanche: ["AVAX", "AVALANCHE"],
-            Solana: ["SOL", "SOLANA"],
+            Binance: ["BNB", "BINANCE", "BSC"],
             Bitcoin: ["BTC", "BITCOIN"],
-            Sui: ["SUI"],
-            Binance: ["BNB", "BSC"],
-            Polygon: ["MATIC", "POLYGON"],
+            Ethereum: ["ETH", "ETHEREUM"],
+            Polygon: ["MATIC", "POLYGON", "POL"],
+            Solana: ["SOL", "SOLANA"],
+            Sui: ["SUI", "SUI-TOKEN"],
         };
 
         const networkNativeSymbols = nativeTokenSymbols[network] || [];

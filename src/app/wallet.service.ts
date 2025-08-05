@@ -765,6 +765,7 @@ export class WalletService {
             tokenType === "POL" ||
             tokenType === "MATIC" ||
             tokenType === "ERC-20" ||
+            tokenType === "BEP-20" ||
             tokenType === "BSC" ||
             tokenType === "BNB"
         ) {

@@ -234,7 +234,7 @@ export class SendTransactionComponent implements OnDestroy {
         this.searching = true;
         this.isZelfNameNotFound = false;
 
-        const isERC20orETH =
+        const isEVM =
             this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
 
         try {
@@ -245,7 +245,7 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._queryZNS("suiAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "suiAddress");
-                } else if (isERC20orETH && this._checkEVMAddress(text)) {
+                } else if (isEVM && this._checkEVMAddress(text)) {
                     await this._queryZNS("ethAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "ethAddress");
@@ -266,7 +266,7 @@ export class SendTransactionComponent implements OnDestroy {
         } catch (error) {
             if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "suiAddress");
-            } else if (isERC20orETH && this._checkEVMAddress(text)) {
+            } else if (isEVM && this._checkEVMAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "solanaAddress");
@@ -397,7 +397,7 @@ export class SendTransactionComponent implements OnDestroy {
     async continueToWithdraw(): Promise<void> {
         const address = this.form.get("toAddress")?.value;
 
-        const isERC20orETH =
+        const isEVM =
             this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken;
 
@@ -409,7 +409,7 @@ export class SendTransactionComponent implements OnDestroy {
                     this.foundAddress[
                         isSuiTokenOrNetwork
                             ? "suiAddress"
-                            : isERC20orETH
+                            : isEVM
                               ? "ethAddress"
                               : this.transactionData.isSolToken
                                 ? "solanaAddress"
@@ -431,7 +431,7 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(address)) {
             this._setRawAddressToFoundAddress(address, "suiAddress");
-        } else if (isERC20orETH && this._checkEVMAddress(address)) {
+        } else if (isEVM && this._checkEVMAddress(address)) {
             this._setRawAddressToFoundAddress(address, "ethAddress");
         } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
             this._setRawAddressToFoundAddress(address, "solanaAddress");
@@ -470,13 +470,13 @@ export class SendTransactionComponent implements OnDestroy {
             return;
         }
 
-        const isERC20orETH =
+        const isEVM =
             this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
 
         if (!this.foundAddress) {
             if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "suiAddress");
-            } else if (isERC20orETH && this._checkEVMAddress(address)) {
+            } else if (isEVM && this._checkEVMAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "solanaAddress");

@@ -160,7 +160,16 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         let address = "";
         let tokenType = token.tokenType;
 
-        if (token.tokenType === "ETH" || token.tokenType === "AVAX" || token.tokenType === "ERC-20") {
+        if (
+            token.tokenType === "ETH" ||
+            token.tokenType === "AVAX" ||
+            token.tokenType === "ERC-20" ||
+            token.tokenType === "BEP-20" ||
+            token.tokenType === "BNB" ||
+            token.tokenType === "BSC" ||
+            token.tokenType === "POL" ||
+            token.tokenType === "MATIC"
+        ) {
             address = this.wallet?.ethAddress || "";
         } else if (token.tokenType === "SOL" || token.tokenType === "SPL" || token.tokenType === "token") {
             address = this.wallet?.solanaAddress || "";
@@ -169,10 +178,6 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             address = this.wallet?.btcAddress || "";
         } else if (token.tokenType === "SUI" || token.tokenType === "SUI_TOKEN") {
             address = this.wallet?.suiAddress || "";
-        } else if (token.network === "Binance" && this.CAN_SEND.BSC) {
-            address = this.wallet?.ethAddress || "";
-        } else if (token.network === "Polygon" && this.CAN_SEND.POL) {
-            address = this.wallet?.ethAddress || "";
         }
 
         if (!address) return console.error("No address found for token type:", token.tokenType);

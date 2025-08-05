@@ -759,7 +759,14 @@ export class WalletService {
 
         let address = "";
 
-        if (tokenType === "ETH" || tokenType === "AVAX" || tokenType === "ERC-20") {
+        if (
+            tokenType === "ETH" ||
+            tokenType === "AVAX" ||
+            tokenType === "POL" ||
+            tokenType === "MATIC" ||
+            tokenType === "ERC-20" ||
+            tokenType === "BSC"
+        ) {
             address = wallet?.ethAddress || "";
         } else if (tokenType === "SOL" || tokenType === "SPL") {
             address = wallet?.solanaAddress || "";

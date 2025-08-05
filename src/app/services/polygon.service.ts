@@ -70,7 +70,8 @@ export class PolygonService {
         to: string,
         value: string,
         data: string = "0x",
-        tokenAddress?: string
+        tokenAddress?: string,
+        senderAddress?: string
     ): Promise<{
         estimatedGas: number;
         fee?: number;
@@ -100,15 +101,23 @@ export class PolygonService {
                 const contract = new this._web3.eth.Contract(minABI, tokenAddress);
                 const encodedData = contract.methods.transfer(to, value).encodeABI();
 
+                // Use sender address if provided, otherwise fall back to zero address
+                const fromAddress =
+                    senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
+
                 estimatedGas = await this._web3.eth.estimateGas({
-                    from: "0x0000000000000000000000000000000000000000",
+                    from: fromAddress,
                     to: tokenAddress,
                     data: encodedData,
                     value: "0",
                 });
             } else {
+                // Use sender address if provided, otherwise fall back to zero address
+                const fromAddress =
+                    senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
+
                 estimatedGas = await this._web3.eth.estimateGas({
-                    from: "0x0000000000000000000000000000000000000000",
+                    from: fromAddress,
                     to,
                     value,
                     data,
@@ -150,7 +159,8 @@ export class PolygonService {
         amount: number,
         tokenType: string,
         tokenAddress: string | undefined,
-        tokenDecimals: number | undefined
+        tokenDecimals: number | undefined,
+        senderAddress?: string
     ): Promise<TransactionFeeEstimate> {
         try {
             const isNonNative = tokenType === "ERC-20";
@@ -162,10 +172,11 @@ export class PolygonService {
                     receiverAddress,
                     this._toWei(String(amount), tokenDecimals || 18),
                     "0x",
-                    tokenAddress
+                    tokenAddress,
+                    senderAddress
                 );
             } else {
-                transactionCost = await this._getTransactionCost(receiverAddress, this._toWei(String(amount)), "0x");
+                transactionCost = await this._getTransactionCost(receiverAddress, this._toWei(String(amount)), "0x", undefined, senderAddress);
             }
 
             return {

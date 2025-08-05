@@ -932,6 +932,14 @@ export class TransactionData implements TransactionData {
         return this.tokenType === "ETH" || this.tokenType === "ERC-20";
     }
 
+    get isPolToken(): boolean {
+        return this.tokenType === "POL" || this.tokenType === "MATIC";
+    }
+
+    get isBscToken(): boolean {
+        return this.tokenType === "BSC" || this.tokenType === "BNB";
+    }
+
     get isAvaxToken(): boolean {
         return this.tokenType === "AVAX";
     }

@@ -46,12 +46,12 @@ export class BlockchainTransactionsService {
             }
         }
 
-        if (responses.bitcoin?.data?.transactions) transactions.push(...responses.bitcoin.data.transactions);
         if (responses.avalanche?.data?.transactions) transactions.push(...responses.avalanche.data.transactions);
+        if (responses.binance?.data?.transactions) transactions.push(...responses.binance.data.transactions);
+        if (responses.bitcoin?.data?.transactions) transactions.push(...responses.bitcoin.data.transactions);
+        if (responses.polygon?.data?.transactions) transactions.push(...responses.polygon.data.transactions);
         if (responses.solana?.data?.transactions) transactions.push(...responses.solana.data.transactions);
         if (responses.sui?.data?.transactions) transactions.push(...responses.sui.data.transactions);
-        if (responses.bsc?.data?.transactions) transactions.push(...responses.bsc.data.transactions);
-        if (responses.polygon?.data?.transactions) transactions.push(...responses.polygon.data.transactions);
 
         return transactions;
     }
@@ -72,17 +72,45 @@ export class BlockchainTransactionsService {
                         tokenType,
                         tokenAddress,
                         tokenDecimals,
-                        tokenPrice || 0
+                        tokenPrice || 0,
+                        params.senderAddress
                     );
                 case "polygon":
-                    return await this._polygonService.calculateTransactionFees(receiverAddress, amount, tokenType, tokenAddress, tokenDecimals);
+                    return await this._polygonService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenType,
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
                 case "binance":
-                    return await this._bscService.calculateTransactionFees(receiverAddress, amount, tokenType, tokenAddress, tokenDecimals);
+                    return await this._bscService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenType,
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
                 case "avalanche":
-                    return await this._avaxService.calculateTransactionFees(receiverAddress, amount, tokenAddress, tokenDecimals);
+                    return await this._avaxService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
                 case "ethereum":
                 default:
-                    return await this._ethereumService.calculateTransactionFees(receiverAddress, amount, tokenType, tokenAddress, tokenDecimals);
+                    return await this._ethereumService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenType,
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
             }
         } catch (error) {
             console.error(`Error calculating fees for ${network}:`, error);
@@ -117,26 +145,26 @@ export class BlockchainTransactionsService {
         return forkJoin({
             ethereum: wallet.ethAddress ? from(this._ethereumService.getWalletDetails(wallet.ethAddress)).pipe(catchError(() => of(null))) : of(null),
             avalanche: wallet.ethAddress ? from(this._avaxService.getWalletDetails(wallet.ethAddress)).pipe(catchError(() => of(null))) : of(null),
-            bsc: wallet.ethAddress ? from(this._bscService.getWalletDetails(wallet.ethAddress)).pipe(catchError(() => of(null))) : of(null),
-            polygon: wallet.ethAddress ? from(this._polygonService.getWalletDetails(wallet.ethAddress)).pipe(catchError(() => of(null))) : of(null),
-            solana: wallet.solanaAddress
-                ? from(this._solanaService.getWalletDetails(wallet.solanaAddress)).pipe(catchError(() => of(null)))
-                : of(null),
-            sui: wallet.suiAddress ? from(this._suiService.getWalletDetails(wallet.suiAddress)).pipe(catchError(() => of(null))) : of(null),
+            binance: wallet.ethAddress ? from(this._bscService.getWalletDetails(wallet.ethAddress)).pipe(catchError(() => of(null))) : of(null),
             bitcoin: wallet.btcAddress
                 ? from(this._bitcoinService.getWalletDetails(wallet.btcAddress, false)).pipe(catchError(() => of(null)))
                 : of(null),
             bitcoinTestnet: environment.testnetAddress
                 ? from(this._bitcoinService.getWalletDetails(environment.testnetAddress, true)).pipe(catchError(() => of(null)))
                 : of(null),
+            polygon: wallet.ethAddress ? from(this._polygonService.getWalletDetails(wallet.ethAddress)).pipe(catchError(() => of(null))) : of(null),
+            solana: wallet.solanaAddress
+                ? from(this._solanaService.getWalletDetails(wallet.solanaAddress)).pipe(catchError(() => of(null)))
+                : of(null),
+            sui: wallet.suiAddress ? from(this._suiService.getWalletDetails(wallet.suiAddress)).pipe(catchError(() => of(null))) : of(null),
         }).pipe(
             map((responses) => {
                 return {
+                    ethereum: responses.ethereum,
                     avalanche: responses.avalanche,
+                    binance: responses.binance,
                     bitcoin: responses.bitcoin,
                     bitcoinTestnet: responses.bitcoinTestnet,
-                    bsc: responses.bsc,
-                    ethereum: responses.ethereum,
                     polygon: responses.polygon,
                     solana: responses.solana,
                     sui: responses.sui,
@@ -146,18 +174,72 @@ export class BlockchainTransactionsService {
         );
     }
 
+    getAddressDataByToken(wallet: Partial<WalletModel> | null, token: string): Observable<any> {
+        if (!wallet) return of([]);
+
+        let observable: Observable<any> | null = null;
+
+        if (wallet.ethAddress) {
+            if (token === "ETH") {
+                observable = forkJoin({ ethereum: from(this._ethereumService.getWalletDetails(wallet.ethAddress)) });
+            } else if (token === "AVAX") {
+                observable = forkJoin({ avalanche: from(this._avaxService.getWalletDetails(wallet.ethAddress)) });
+            } else if (token === "BNB") {
+                observable = forkJoin({ binance: from(this._bscService.getWalletDetails(wallet.ethAddress)) });
+            } else if (token === "POL") {
+                observable = forkJoin({ polygon: from(this._polygonService.getWalletDetails(wallet.ethAddress)) });
+            }
+        }
+
+        if (wallet.solanaAddress) {
+            if (token === "SOL") {
+                observable = forkJoin({ ethereum: from(this._solanaService.getWalletDetails(wallet.solanaAddress)) });
+            }
+        }
+
+        if (wallet.suiAddress) {
+            if (token === "SUI") {
+                observable = forkJoin({ sui: from(this._suiService.getWalletDetails(wallet.suiAddress)) });
+            }
+        }
+
+        return observable
+            ? observable.pipe(
+                  map((responses) => {
+                      return {
+                          ethereum: responses.ethereum,
+                          avalanche: responses.avalanche,
+                          binance: responses.binance,
+                          bitcoin: responses.bitcoin,
+                          bitcoinTestnet: responses.bitcoinTestnet,
+                          polygon: responses.polygon,
+                          solana: responses.solana,
+                          sui: responses.sui,
+                          transactions: this._processTransactions(responses),
+                      };
+                  })
+              )
+            : of([]);
+    }
+
     getTransactionHistory(wallet: Partial<WalletModel> | null, pagination: { page: number }): Observable<any> {
         if (!wallet) return of([]);
 
         return forkJoin({
-            ethereum: wallet.ethAddress
-                ? from(this._ethereumService.requestTransactionHistory(wallet.ethAddress, pagination)).pipe(catchError(() => of(null)))
-                : of(null),
             avalanche: wallet.ethAddress
                 ? from(this._avaxService.requestTransactionHistory(wallet.ethAddress, pagination)).pipe(catchError(() => of(null)))
                 : of(null),
-            bsc: wallet.ethAddress
+            binance: wallet.ethAddress
                 ? from(this._bscService.requestTransactionHistory(wallet.ethAddress, pagination)).pipe(catchError(() => of(null)))
+                : of(null),
+            bitcoin: wallet.btcAddress
+                ? from(this._bitcoinService.requestTransactionHistory(wallet.btcAddress, pagination, false)).pipe(catchError(() => of(null)))
+                : of(null),
+            bitcoinTestnet: environment.testnetAddress
+                ? from(this._bitcoinService.requestTransactionHistory(environment.testnetAddress, pagination, true)).pipe(catchError(() => of(null)))
+                : of(null),
+            ethereum: wallet.ethAddress
+                ? from(this._ethereumService.requestTransactionHistory(wallet.ethAddress, pagination)).pipe(catchError(() => of(null)))
                 : of(null),
             polygon: wallet.ethAddress
                 ? from(this._polygonService.requestTransactionHistory(wallet.ethAddress, pagination)).pipe(catchError(() => of(null)))
@@ -167,12 +249,6 @@ export class BlockchainTransactionsService {
                 : of(null),
             sui: wallet.suiAddress
                 ? from(this._suiService.requestTransactionHistory(wallet.suiAddress, pagination)).pipe(catchError(() => of(null)))
-                : of(null),
-            bitcoin: wallet.btcAddress
-                ? from(this._bitcoinService.requestTransactionHistory(wallet.btcAddress, pagination, false)).pipe(catchError(() => of(null)))
-                : of(null),
-            bitcoinTestnet: environment.testnetAddress
-                ? from(this._bitcoinService.requestTransactionHistory(environment.testnetAddress, pagination, true)).pipe(catchError(() => of(null)))
                 : of(null),
         }).pipe(map((responses) => this._processTransactions(responses)));
     }

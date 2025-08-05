@@ -56,8 +56,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     };
 
     availableNetworks = [
-        { id: "ethereum", name: "Ethereum", symbol: "ETH" },
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
+        { id: "binance", name: "Binance", symbol: "BSC" },
+        { id: "bitcoin", name: "Bitcoin", symbol: "BTC" },
+        { id: "ethereum", name: "Ethereum", symbol: "ETH" },
+        { id: "polygon", name: "Polygon", symbol: "POL" },
+        { id: "solana", name: "Solana", symbol: "SOL" },
+        { id: "sui", name: "Sui", symbol: "SUI" },
     ];
 
     form!: UntypedFormGroup;
@@ -227,6 +232,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 tokenDecimals: this.transactionData.token.decimals,
                 tokenPrice: +this.transactionData.token.price || 0,
                 selectedFeeRate: this.selectedFeeRate,
+                senderAddress: this.transactionData.sender.address,
             };
 
             const feeEstimate: TransactionFeeEstimate = await this._blockchainTransactionsService.calculateTransactionFees(feeParams);

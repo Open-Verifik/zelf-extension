@@ -14,6 +14,7 @@ export interface FeeCalculationParams {
     tokenDecimals?: number;
     tokenPrice?: number;
     selectedFeeRate?: number;
+    senderAddress?: string;
 }
 
 export interface TransactionParams {

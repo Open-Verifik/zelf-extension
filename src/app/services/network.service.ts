@@ -16,7 +16,7 @@ export type NetworkSymbol =
     | "SUI"
     | "BTC"
     | "BSC"
-    | "POLYGON"
+    | "POL"
     | "BTCTEST";
 
 @Injectable({
@@ -32,7 +32,7 @@ export class NetworkService {
             case "sui":
                 return "SUI";
             case "polygon":
-                return "MATIC";
+                return "POL";
             case "avalanche":
                 return "AVAX";
             case "bitcoin":
@@ -48,6 +48,7 @@ export class NetworkService {
 
     getNetworkName(symbol: NetworkSymbol | string): NetworkName | string {
         if (!symbol) return "";
+
         const upperSymbol = symbol.toUpperCase();
 
         switch (upperSymbol) {
@@ -63,7 +64,7 @@ export class NetworkService {
                 return "bitcoin";
             case "BSC":
                 return "binance";
-            case "POLYGON":
+            case "POL":
                 return "polygon";
             default:
                 console.warn(`NetworkService: No name mapping for symbol: ${symbol}`);

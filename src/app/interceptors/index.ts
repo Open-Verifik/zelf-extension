@@ -1,4 +1,4 @@
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { JWTInterceptor } from "./JWT.interceptor";
+import { JWTInterceptor } from "./jwt.interceptor";
 
 export const HttpInterceptorProviders = [{ provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }];

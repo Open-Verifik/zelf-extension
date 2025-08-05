@@ -107,7 +107,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Avalanche" && this.CAN_SEND.AVAX) return true;
         if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
         if (token.network === "Binance" && this.CAN_SEND.BSC) return true;
-        if (token.network === "Polygon" && this.CAN_SEND.POLYGON) return true;
+        if (token.network === "Polygon" && this.CAN_SEND.POL) return true;
         if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
 
         return false;
@@ -171,7 +171,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             address = this.wallet?.suiAddress || "";
         } else if (token.network === "Binance" && this.CAN_SEND.BSC) {
             address = this.wallet?.ethAddress || "";
-        } else if (token.network === "Polygon" && this.CAN_SEND.POLYGON) {
+        } else if (token.network === "Polygon" && this.CAN_SEND.POL) {
             address = this.wallet?.ethAddress || "";
         }
 

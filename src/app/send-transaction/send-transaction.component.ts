@@ -104,9 +104,11 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" {
-        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) return "ethAddress";
-        if (this.transactionData.isSolToken) return "solanaAddress";
+        if (this.transactionData.isBscToken) return "ethAddress";
         if (this.transactionData.isBtcToken) return "btcAddress";
+        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) return "ethAddress";
+        if (this.transactionData.isPolToken) return "ethAddress";
+        if (this.transactionData.isSolToken) return "solanaAddress";
         if (this.transactionData.isSuiToken) return "suiAddress";
 
         throw new Error("Network address key unavailable");
@@ -164,17 +166,6 @@ export class SendTransactionComponent implements OnDestroy {
         };
     }
 
-    private _getAddressPattern(): RegExp {
-        let pattern: RegExp = /.*/;
-
-        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) pattern = this._walletService.ETHRegex;
-        if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
-        if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
-        if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
-
-        return pattern;
-    }
-
     private _amountValidation(maxValue: number | string): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             if (!control.value) return { greaterThan: true };
@@ -188,6 +179,34 @@ export class SendTransactionComponent implements OnDestroy {
 
             return null;
         };
+    }
+
+    private _checkEVMAddress(text: string): boolean {
+        const isValidFormat = this._walletService.isValidEVMAddress(text);
+        const isValidWeb3 = this._ethService.checkIfValidAddress(text.toLowerCase());
+
+        return isValidFormat && isValidWeb3;
+    }
+
+    async _fetchTokenPrice(): Promise<void> {
+        try {
+            const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
+
+            if (!response?.data || !response?.data?.length) return;
+
+            this.price = response.data[0].open;
+        } catch (error: any) {}
+    }
+
+    private _getAddressPattern(): RegExp {
+        let pattern: RegExp = /.*/;
+
+        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) pattern = this._walletService.ETHRegex;
+        if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
+        if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
+        if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
+
+        return pattern;
     }
 
     private _handlePaste(text: string): void {
@@ -215,7 +234,8 @@ export class SendTransactionComponent implements OnDestroy {
         this.searching = true;
         this.isZelfNameNotFound = false;
 
-        const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+        const isERC20orETH =
+            this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
 
         try {
             if (this._walletService.ZelfRegex.test(text)) await this._queryZNS("zelfName", text);
@@ -263,47 +283,6 @@ export class SendTransactionComponent implements OnDestroy {
 
             this._changeDetectionRef.detectChanges();
         }
-    }
-
-    private _setRawAddressToFoundAddress(text: string, addressKey: string): void {
-        this.searching = false;
-        this.isZelfNameNotFound = false;
-
-        this.foundAddress = new WalletModel({
-            [addressKey]: text,
-            publicData: { zelfName: this.transactionData?.receiver?.zelfName },
-        });
-
-        if (this.withdrawStep) return;
-
-        const toAddressCtrl = this.form.get("toAddress");
-
-        if (toAddressCtrl) toAddressCtrl.updateValueAndValidity({ emitEvent: false });
-    }
-
-    private async _setToCurrentTransactionData(): Promise<void> {
-        try {
-            if (this.withdrawStep) {
-                const amount = Number(String(this.form.get("amount")?.value || "0").replace(",", "."));
-
-                this.transactionData.amount = amount;
-            }
-
-            this.transactionData.receiver.address = (this.foundAddress && this.foundAddress[this.addressKey]) || "";
-            this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName || "";
-
-            await this._transactionService.setCurrentTransactionData(this.transactionData);
-        } catch (exception) {
-            console.error("Error setting transaction data", exception);
-            this.openErrorSnackBar("send-transaction.error-setting-transaction-data");
-        }
-    }
-
-    private _checkEVMAddress(text: string): boolean {
-        const isValidFormat = this._walletService.isValidEVMAddress(text);
-        const isValidWeb3 = this._ethService.checkIfValidAddress(text.toLowerCase());
-
-        return isValidFormat && isValidWeb3;
     }
 
     private _initForm(): void {
@@ -358,16 +337,6 @@ export class SendTransactionComponent implements OnDestroy {
         this._initForm();
     }
 
-    async _fetchTokenPrice(): Promise<void> {
-        try {
-            const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
-
-            if (!response?.data || !response?.data?.length) return;
-
-            this.price = response.data[0].open;
-        } catch (error: any) {}
-    }
-
     async _queryZNS(key: string, value: string): Promise<void> {
         try {
             if (key === "zelfName") value = value.toLowerCase();
@@ -391,12 +360,46 @@ export class SendTransactionComponent implements OnDestroy {
         }
     }
 
+    private _setRawAddressToFoundAddress(text: string, addressKey: string): void {
+        this.searching = false;
+        this.isZelfNameNotFound = false;
+
+        this.foundAddress = new WalletModel({
+            [addressKey]: text,
+            publicData: { zelfName: this.transactionData?.receiver?.zelfName },
+        });
+
+        if (this.withdrawStep) return;
+
+        const toAddressCtrl = this.form.get("toAddress");
+
+        if (toAddressCtrl) toAddressCtrl.updateValueAndValidity({ emitEvent: false });
+    }
+
+    private async _setToCurrentTransactionData(): Promise<void> {
+        try {
+            if (this.withdrawStep) {
+                const amount = Number(String(this.form.get("amount")?.value || "0").replace(",", "."));
+
+                this.transactionData.amount = amount;
+            }
+
+            this.transactionData.receiver.address = (this.foundAddress && this.foundAddress[this.addressKey]) || "";
+            this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName || "";
+
+            await this._transactionService.setCurrentTransactionData(this.transactionData);
+        } catch (exception) {
+            console.error("Error setting transaction data", exception);
+            this.openErrorSnackBar("send-transaction.error-setting-transaction-data");
+        }
+    }
+
     async continueToWithdraw(): Promise<void> {
         const address = this.form.get("toAddress")?.value;
 
-        const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
-        const isSuiTokenOrNetwork = this.transactionData.isSuiToken || this.transactionData.tokenType === "SUI_TOKEN";
-        const isEthereumToken = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+        const isERC20orETH =
+            this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
+        const isSuiTokenOrNetwork = this.transactionData.isSuiToken;
 
         if (this.foundAddress) {
             const toAddressCtrl = this.form.get("toAddress");
@@ -406,7 +409,7 @@ export class SendTransactionComponent implements OnDestroy {
                     this.foundAddress[
                         isSuiTokenOrNetwork
                             ? "suiAddress"
-                            : isEthereumToken
+                            : isERC20orETH
                               ? "ethAddress"
                               : this.transactionData.isSolToken
                                 ? "solanaAddress"
@@ -453,6 +456,7 @@ export class SendTransactionComponent implements OnDestroy {
         }
 
         await this._setToCurrentTransactionData();
+
         this.withdrawStep = true;
     }
 
@@ -466,7 +470,8 @@ export class SendTransactionComponent implements OnDestroy {
             return;
         }
 
-        const isERC20orETH = this.transactionData.isEthToken || this.transactionData.isAvaxToken;
+        const isERC20orETH =
+            this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
 
         if (!this.foundAddress) {
             if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(address)) {
@@ -581,14 +586,6 @@ export class SendTransactionComponent implements OnDestroy {
         this.form.get("toAddress")?.patchValue(address.address);
     }
 
-    setToInput(address: AddressBook): void {
-        this.form.get("toAddress")?.patchValue(address.address);
-    }
-
-    withdrawAll(): void {
-        this.form.get("amount")?.patchValue(this.transactionData.balance);
-    }
-
     async sendTransaction(): Promise<void> {
         if (this.form.invalid) return;
 
@@ -639,5 +636,13 @@ export class SendTransactionComponent implements OnDestroy {
         } finally {
             this.loading = false;
         }
+    }
+
+    setToInput(address: AddressBook): void {
+        this.form.get("toAddress")?.patchValue(address.address);
+    }
+
+    withdrawAll(): void {
+        this.form.get("amount")?.patchValue(this.transactionData.balance);
     }
 }

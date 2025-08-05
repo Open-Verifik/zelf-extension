@@ -14,7 +14,7 @@ export interface NetworkPermissions {
     BSC?: boolean;
     BTC?: boolean;
     ETH?: boolean;
-    POLYGON?: boolean;
+    POL?: boolean;
     SOL?: boolean;
     SUI?: boolean;
 }
@@ -64,7 +64,7 @@ export class AssetService {
             BSC: false,
             BTC: false,
             ETH: true,
-            POLYGON: false,
+            POL: false,
             SOL: true,
             SUI: false,
         };
@@ -76,7 +76,7 @@ export class AssetService {
             BSC: true,
             BTC: true,
             ETH: true,
-            POLYGON: true,
+            POL: true,
             SOL: true,
             SUI: true,
         };
@@ -98,6 +98,68 @@ export class AssetService {
             "1M": "1h",
             "1y": "1d",
         };
+    }
+
+    private _determineTokenType(token: any, network: string): string {
+        // If token already has a tokenType, use it
+        if (token.tokenType && token.tokenType !== "ERC-20") return token.tokenType;
+
+        // Check if this is a native token
+        if (this._isNativeToken(token, network)) {
+            switch (network) {
+                case "Ethereum":
+                    return "ETH";
+                case "Avalanche":
+                    return "AVAX";
+                case "Solana":
+                    return "SOL";
+                case "Bitcoin":
+                    return "BTC";
+                case "Sui":
+                    return "SUI";
+                case "Binance":
+                    return "BNB";
+                case "Polygon":
+                    return "MATIC";
+                default:
+                    return "NATIVE";
+            }
+        }
+
+        // Return appropriate non-native token type for each network
+        switch (network) {
+            case "Ethereum":
+            case "Avalanche":
+            case "Binance":
+            case "Polygon":
+                return "ERC-20";
+            case "Solana":
+                return "SPL";
+            case "Sui":
+                return "SUI-TOKEN";
+            case "Bitcoin":
+                return "BTC-TOKEN";
+            default:
+                return "TOKEN";
+        }
+    }
+
+    private _isNativeToken(token: any, network: string): boolean {
+        const nativeTokenSymbols: Record<string, string[]> = {
+            Ethereum: ["ETH", "ETHER"],
+            Avalanche: ["AVAX", "AVALANCHE"],
+            Solana: ["SOL", "SOLANA"],
+            Bitcoin: ["BTC", "BITCOIN"],
+            Sui: ["SUI"],
+            Binance: ["BNB", "BSC"],
+            Polygon: ["MATIC", "POLYGON"],
+        };
+
+        const networkNativeSymbols = nativeTokenSymbols[network] || [];
+        const tokenSymbol = token.symbol?.toUpperCase();
+        const tokenName = token.name?.toUpperCase();
+
+        return networkNativeSymbols.some((nativeSymbol) => tokenSymbol === nativeSymbol || tokenName === nativeSymbol);
     }
 
     private _setStartEndDates(range: AssetRange) {
@@ -188,6 +250,10 @@ export class AssetService {
         this._chromeService.setItemSession("tokensTtl", Date.now() + 3600000);
     }
 
+    isNativeToken(token: any, network: string): boolean {
+        return this._isNativeToken(token, network);
+    }
+
     processTokens(network: string, tokens: Array<any>, processedTokens: Array<any> = [], permissions?: NetworkPermissions): Array<any> {
         for (const token of tokens) {
             if ((!token.symbol && !token.name) || /^nft/i.test(token?.tokenType)) continue;
@@ -200,20 +266,22 @@ export class AssetService {
                     (network === "Avalanche" && !permissions.AVAX) ||
                     (network === "Sui" && !permissions.SUI) ||
                     (network === "Binance" && !permissions.BSC) ||
-                    (network === "Polygon" && !permissions.POLYGON)
+                    (network === "Polygon" && !permissions.POL)
                 ) {
                     continue;
                 }
             }
 
+            const determinedTokenType = this._determineTokenType(token, network);
+
             const formattedToken = {
                 ...token,
                 balance: parseFloat(token.balance || token.amount || "0"),
                 fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
-                image: token.image || (token.tokenType === "AVAX" ? "assets/networks/avax.png" : token.image),
+                image: token.image || (determinedTokenType === "AVAX" ? "assets/networks/avax.png" : token.image),
                 network,
                 price: parseFloat(token.price || "0"),
-                tokenType: token.tokenType || (network === "Avalanche" ? "AVAX" : "ERC-20"),
+                tokenType: determinedTokenType,
             };
 
             const tokenKey = `${formattedToken.symbol}-${formattedToken.network}-${formattedToken.tokenType}`;
@@ -248,7 +316,7 @@ export class AssetService {
             tokens = this.processTokens("Binance", response.bsc.data.tokenHoldings.tokens, tokens, permissions);
         }
 
-        if (response?.polygon?.data?.tokenHoldings?.tokens && (!permissions || permissions.POLYGON)) {
+        if (response?.polygon?.data?.tokenHoldings?.tokens && (!permissions || permissions.POL)) {
             tokens = this.processTokens("Polygon", response.polygon.data.tokenHoldings.tokens, tokens, permissions);
         }
 

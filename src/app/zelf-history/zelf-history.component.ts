@@ -65,6 +65,7 @@ export class ZelfHistoryComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
+        console.log("token", this.token);
         this._loadFirstTransactions();
     }
 
@@ -84,13 +85,15 @@ export class ZelfHistoryComponent implements OnInit {
 
         const wallet = await this._walletService.getCurrentWallet();
 
-        this._blockchainTransactions.getAddressData(wallet).subscribe({
+        (this.token
+            ? this._blockchainTransactions.getAddressDataByToken(wallet, this.token)
+            : this._blockchainTransactions.getAddressData(wallet)
+        ).subscribe({
             next: async (response) => {
                 if (!response) {
+                    this.currentPage = 0;
                     this.loading = false;
                     this.noMoreTransactions = true;
-                    this.currentPage = 0;
-                    this.history = null;
 
                     return;
                 }

@@ -103,6 +103,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             else if (this.symbol === "BTC") return "bitcoin";
             else if (this.symbol === "ETH") return "ethereum";
             else if (this.symbol === "ZNS" || this.symbol === "SOL") return "solana";
+            else if (this.symbol === "BNB") return "binance";
+            else if (this.symbol === "POL") return "polygon";
             else if (this.symbol === "SUI") return "sui";
             else return "ethereum";
         } else return "ethereum";

@@ -203,16 +203,17 @@ export class SuiService {
         tokenType: string,
         tokenAddress: string | undefined,
         tokenDecimals: number | undefined,
-        tokenPrice: number
+        tokenPrice: number,
+        senderAddress?: string
     ): Promise<TransactionFeeEstimate> {
         let feeEstimate;
 
         if (tokenType === "SUI") {
-            feeEstimate = await this.estimateSuiTransactionFee(receiverAddress, amount);
+            feeEstimate = await this.estimateSuiTransactionFee(receiverAddress, amount, senderAddress);
         } else {
             if (!tokenAddress) throw new Error("Token address is required for SUI token transfers");
 
-            feeEstimate = await this.estimateTokenTransactionFee(receiverAddress, tokenAddress, amount, tokenDecimals || 9);
+            feeEstimate = await this.estimateTokenTransactionFee(receiverAddress, tokenAddress, amount, tokenDecimals || 9, senderAddress);
         }
 
         const amountInUsd = amount * tokenPrice;
@@ -224,16 +225,20 @@ export class SuiService {
         };
     }
 
-    async estimateSuiTransactionFee(receiverAddress: string, amount: number): Promise<TransactionCostEstimate> {
+    async estimateSuiTransactionFee(receiverAddress: string, amount: number, senderAddress?: string): Promise<TransactionCostEstimate> {
         try {
             const tx = new TransactionBlock();
+
+            tx.setGasBudget(1000000);
+            tx.setSender(senderAddress || "0x0000000000000000000000000000000000000000000000000000000000000000");
+
             const amountInMist = Math.floor(amount * 1_000_000_000);
             const [coin] = tx.splitCoins(tx.gas, [tx.pure(amountInMist)]);
 
             tx.transferObjects([coin], tx.pure(receiverAddress));
 
             const dryRunResult = await this._suiClient.dryRunTransactionBlock({
-                transactionBlock: tx.serialize(),
+                transactionBlock: await tx.build({ client: this._suiClient }),
             });
 
             const estimatedFee = Number(dryRunResult.effects.gasUsed.computationCost) / 1_000_000_000;
@@ -259,10 +264,15 @@ export class SuiService {
         receiverAddress: string,
         contractAddress: string,
         amount: number,
-        decimals: number = 9
+        decimals: number = 9,
+        senderAddress?: string
     ): Promise<TransactionCostEstimate> {
         try {
             const tx = new TransactionBlock();
+
+            tx.setGasBudget(1000000);
+            tx.setSender(senderAddress || "0x0000000000000000000000000000000000000000000000000000000000000000");
+
             const amountInBaseUnits = BigInt(Math.floor(amount * Math.pow(10, decimals)));
 
             tx.moveCall({
@@ -271,7 +281,7 @@ export class SuiService {
             });
 
             const dryRunResult = await this._suiClient.dryRunTransactionBlock({
-                transactionBlock: tx.serialize(),
+                transactionBlock: await tx.build({ client: this._suiClient }),
             });
 
             const estimatedFee = Number(dryRunResult.effects.gasUsed.computationCost) / 1_000_000_000;

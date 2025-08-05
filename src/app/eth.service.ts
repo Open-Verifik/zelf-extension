@@ -88,7 +88,8 @@ export class EthereumService {
         to: string,
         value: string,
         data: string = "0x",
-        tokenAddress?: string
+        tokenAddress?: string,
+        senderAddress?: string
     ): Promise<{
         estimatedGas: number;
         gasPrice: string;
@@ -120,21 +121,39 @@ export class EthereumService {
                 const contract = new this._web3.eth.Contract(minABI, tokenAddress);
                 const data = contract.methods.transfer(to, value).encodeABI();
 
-                estimatedGas = await this._web3.eth.estimateGas({
-                    from: this._account.value || "0x0000000000000000000000000000000000000000",
-                    to: tokenAddress,
-                    data,
-                    value: "0",
-                });
+                const fromAddress =
+                    senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
 
-                estimatedGas = Math.floor(Number(estimatedGas) * 1.2); // 20% buffer
+                try {
+                    estimatedGas = await this._web3.eth.estimateGas({
+                        from: fromAddress,
+                        to: tokenAddress,
+                        data,
+                        value: "0",
+                    });
+
+                    estimatedGas = Math.floor(Number(estimatedGas) * 1.2); // 20% buffer
+                } catch (gasError) {
+                    console.warn("Gas estimation failed, using fallback:", gasError);
+
+                    estimatedGas = 65000;
+                }
             } else {
-                estimatedGas = await this._web3.eth.estimateGas({
-                    from: this._account.value || "0x0000000000000000000000000000000000000000",
-                    to,
-                    value,
-                    data,
-                });
+                const fromAddress =
+                    senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
+
+                try {
+                    estimatedGas = await this._web3.eth.estimateGas({
+                        from: fromAddress,
+                        to,
+                        value,
+                        data,
+                    });
+                } catch (gasError) {
+                    console.warn("Gas estimation failed, using fallback:", gasError);
+
+                    estimatedGas = 21000;
+                }
             }
 
             const gasTracker = await this.getGasPrices();
@@ -320,16 +339,23 @@ export class EthereumService {
         amount: number,
         tokenType: string,
         tokenAddress: string | undefined,
-        tokenDecimals: number | undefined
+        tokenDecimals: number | undefined,
+        senderAddress?: string
     ): Promise<TransactionFeeEstimate> {
         const isERC20 = tokenType === "ERC-20";
 
         let transactionCost;
 
         if (isERC20 && tokenAddress) {
-            transactionCost = await this._getTransactionCost(receiverAddress, this._toWei(String(amount), tokenDecimals || 18), "0x", tokenAddress);
+            transactionCost = await this._getTransactionCost(
+                receiverAddress,
+                this._toWei(String(amount), tokenDecimals || 18),
+                "0x",
+                tokenAddress,
+                senderAddress
+            );
         } else {
-            transactionCost = await this._getTransactionCost(receiverAddress, this._toWei(String(amount)), "0x");
+            transactionCost = await this._getTransactionCost(receiverAddress, this._toWei(String(amount)), "0x", undefined, senderAddress);
         }
 
         return {

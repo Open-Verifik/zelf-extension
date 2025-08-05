@@ -213,7 +213,8 @@ export class AvaxService {
         receiverAddress: string,
         amount: number,
         tokenAddress?: string,
-        tokenDecimals?: number
+        tokenDecimals?: number,
+        senderAddress?: string
     ): Promise<TransactionFeeEstimate> {
         try {
             if (!receiverAddress || !this.checkIfValidAddress(receiverAddress)) {
@@ -242,8 +243,12 @@ export class AvaxService {
                 const contract = new web3.eth.Contract(minABI, tokenAddress);
                 const data = contract.methods.transfer(receiverAddress, value).encodeABI();
 
+                // Use sender address if provided, otherwise fall back to zero address
+                const fromAddress =
+                    senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
+
                 estimatedGas = await web3.eth.estimateGas({
-                    from: "0x0000000000000000000000000000000000000000",
+                    from: fromAddress,
                     to: tokenAddress,
                     data,
                     value: "0",
@@ -251,8 +256,12 @@ export class AvaxService {
 
                 estimatedGas = Math.floor(Number(estimatedGas) * 1.2); // 20% buffer
             } else {
+                // Use sender address if provided, otherwise fall back to zero address
+                const fromAddress =
+                    senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
+
                 estimatedGas = await web3.eth.estimateGas({
-                    from: "0x0000000000000000000000000000000000000000",
+                    from: fromAddress,
                     to: receiverAddress,
                     value,
                 });

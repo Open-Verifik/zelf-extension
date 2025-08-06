@@ -41,6 +41,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
 
     loading: boolean = true;
     parameters: any = {};
+    selectedTab: string = "addresses";
     wallet: Partial<WalletModel> = {};
 
     constructor(
@@ -69,6 +70,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         await this._chromeService.removeItem("parameters");
 
         if (this.parameters.openPrivateKeyBottomSheet) this.openPrivateKeyBottomSheet();
+        else if (this.parameters.openMyArnsBottomSheet) this.openMyArnsBottomSheet();
 
         this._updateWallet();
 
@@ -142,5 +144,9 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
         });
+    }
+
+    selectTab(tab: string): void {
+        this.selectedTab = tab;
     }
 }

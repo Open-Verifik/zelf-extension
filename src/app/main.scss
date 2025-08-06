@@ -1186,12 +1186,19 @@ h3 {
 }
 
 .zelf-botton-sheet-full,
+.zelf-bottom-sheet-seasalt,
 .zelf-bottom-sheet {
     .mat-bottom-sheet-container {
         background-color: variables.$white !important;
         border-radius: 26px 26px 0 0 !important;
         color: variables.$black;
         max-height: 100vh !important;
+    }
+}
+
+.zelf-bottom-sheet-seasalt {
+    .mat-bottom-sheet-container {
+        background-color: variables.$seaSalt !important;
     }
 }
 
@@ -1207,11 +1214,18 @@ h3 {
     }
 }
 
-.zelf-dialog {
+.zelf-dialog,
+.zelf-dialog-seasalt {
     .mdc-dialog__surface {
         color: variables.$black;
         background-color: variables.$white !important;
         border-radius: 26px !important;
+    }
+}
+
+.zelf-dialog-seasalt {
+    .mdc-dialog__surface {
+        background-color: variables.$seaSalt !important;
     }
 }
 

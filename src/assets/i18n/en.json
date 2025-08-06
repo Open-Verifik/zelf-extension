@@ -164,6 +164,7 @@
         "domain": "Domain",
         "dont_show_me_again": "Don't show me again",
         "dont_show_this_message_again": "Don't show these instructions again",
+        "download_qr": "Download QR",
         "download_zelfproof": "Download ZelfProof",
         "edit": "Edit",
         "eth_address": "ETH Address",
@@ -215,6 +216,7 @@
         "reservation_found": "Reservation found",
         "search_your_zelf_name": "Search for your Zelf Name",
         "search": "Search...",
+        "seed_phrase": "Seed Phrase",
         "send_symbol": "Send {{symbol}}",
         "send": "Send",
         "settings": "Settings",
@@ -242,6 +244,7 @@
         "withdraw": "Withdraw",
         "withdrawal_network": "Withdrawal network",
         "your_token": "Your {{ symbol }}",
+        "zelf_link": "Zelf Link",
         "zelf_wallet": "Zelf Wallet"
     },
     "token": {
@@ -269,12 +272,14 @@
         "download_qr": "QR",
         "info_title": "Keep your QR code safe",
         "info_description": "Remember to keep your QR code secure to protect your account. Download it and save it in a safe place.",
-        "private_key": "Private Key"
+        "private_key": "Seed Phrase",
+        "addresses": "Addresses",
+        "info": "Info"
     },
     "private_key": {
-        "description": "To view your private key, please complete the security verification steps.",
+        "description": "To view your seed phrase, please complete the security verification steps.",
         "got_it": "Got it",
-        "title": "Private Key"
+        "title": "Seed Phrase"
     },
     "my_arns": {
         "arns_website": "ArNS Website",

@@ -1,5 +1,6 @@
 @use "../../styles/variables";
 @use "../../styles/buttons";
+@use "../../styles/animations";
 
 :host {
     align-items: center;
@@ -68,6 +69,7 @@
             background-color: #d7f2e2;
             color: #2ecc71;
         }
+
         &--inactive {
             background-color: #ffd8d3;
             color: #e74c3c;
@@ -89,9 +91,10 @@
     &__tasks {
         display: flex;
         flex-direction: row;
-        gap: 24px;
+        gap: 8px;
         justify-content: center;
         align-items: center;
+        margin-top: 8px;
         width: 100%;
     }
 
@@ -103,20 +106,22 @@
         align-items: center;
 
         &-button {
-            align-items: center;
-            background-color: variables.$antiFlashWhite !important;
-            border-radius: 16px;
-            border: none;
+            background-color: variables.$seaSalt;
+            border-radius: 12px;
+            color: variables.$black;
             cursor: pointer;
-            display: inline-flex;
-            height: 56px;
-            justify-content: center;
-            min-height: 56px;
-            min-width: 56px;
-            outline: none;
-            transition: background-color 0.3s variables.$smoothBezier;
-            user-select: none;
-            width: 56px;
+            display: flex;
+            flex: 1;
+            font-family: "Poppins", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 104px;
+            padding: 12px;
+            border: none;
+            transition:
+                background-color 0.2s variables.$smoothBezier,
+                color 0.2s variables.$smoothBezier;
+            width: 96px;
 
             svg {
                 transition: fill 0.3s variables.$smoothBezier;
@@ -124,7 +129,7 @@
             }
 
             &:hover {
-                background-color: #b589f0 !important;
+                background-color: variables.$secondaryColor !important;
                 color: white;
 
                 svg {
@@ -140,6 +145,28 @@
             font-family: "Poppins", Arial, sans-serif;
             color: variables.$black;
             margin: 0;
+        }
+    }
+
+    &__task-button-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        span {
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 14px;
         }
     }
 
@@ -159,7 +186,7 @@
         max-width: 400px;
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 8px;
         justify-content: center;
         align-items: center;
     }
@@ -167,6 +194,7 @@
     &__details {
         width: 100%;
         gap: 6px;
+        max-width: 400px;
     }
 
     &__detail {
@@ -176,7 +204,7 @@
         gap: 4px;
         justify-content: space-between;
         align-items: center;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$seaSalt;
         padding: 24px 16px;
         border-radius: 16px;
 
@@ -198,7 +226,23 @@
         flex-direction: column;
         gap: 12px;
         width: 100%;
-        margin-top: 12px;
+        margin-top: 24px;
+    }
+
+    &__tabs {
+        margin-top: 16px;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+    &__tab-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        min-height: 200px;
     }
 
     &__actions {
@@ -216,20 +260,20 @@
 .crypto-address {
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 16px;
     justify-content: center;
     align-items: center;
     width: 100%;
     background-color: variables.$white;
-    border: 1px solid variables.$platinum;
+    border: 1px solid variables.$antiFlashWhite;
     border-radius: 16px;
-    padding: 8px 16px;
+    padding: 16px 8px;
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
 
     &__col {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 2px;
         justify-content: center;
         align-items: flex-start;
         width: 100%;
@@ -243,11 +287,12 @@
         margin: 0;
     }
 
-    &__masked-text {
+    &__address-text {
         font-size: 11px;
         font-weight: 500;
         font-family: monospace;
         color: variables.$black;
+        word-break: break-all;
         margin: 0;
     }
 }

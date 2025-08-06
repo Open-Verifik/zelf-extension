@@ -262,7 +262,9 @@
         "download_qr": "QR",
         "info_title": "QRコードを安全に保管してください",
         "info_description": "アカウントを保護するためにQRコードを安全に保管してください。ダウンロードして安全な場所に保存してください。",
-        "private_key": "秘密鍵"
+        "private_key": "秘密鍵",
+        "addresses": "アドレス",
+        "info": "情報"
     },
     "private_key": {
         "description": "秘密鍵を表示するには、セキュリティ検証手順を完了してください。",

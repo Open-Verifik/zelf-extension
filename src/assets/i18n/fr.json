@@ -263,7 +263,9 @@
         "download_qr": "QR",
         "info_title": "Gardez votre code QR en sécurité",
         "info_description": "N'oubliez pas de garder votre code QR en sécurité pour protéger votre compte. Téléchargez-le et sauvegardez-le dans un endroit sûr.",
-        "private_key": "Clé privée"
+        "private_key": "Clé Privée",
+        "addresses": "Adresses",
+        "info": "Info"
     },
     "private_key": {
         "description": "Pour voir votre clé privée, veuillez compléter les étapes de vérification de sécurité.",

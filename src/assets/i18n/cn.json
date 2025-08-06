@@ -259,10 +259,12 @@
         "years": "{{ yearCount }}年"
     },
     "wallet": {
-        "download_qr": "二维码",
+        "download_qr": "QR",
         "info_title": "保护您的二维码安全",
         "info_description": "请记住保护您的二维码安全以保护您的账户。下载并保存在安全的地方。",
-        "private_key": "私钥"
+        "private_key": "私钥",
+        "addresses": "地址",
+        "info": "信息"
     },
     "private_key": {
         "description": "要查看您的私钥，请完成安全验证步骤。",

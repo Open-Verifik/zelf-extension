@@ -101,7 +101,7 @@
         }
 
         &:hover {
-            background-color: variables.$gray !important;
+            background-color: variables.$secondaryColor !important;
         }
 
         svg {
@@ -138,7 +138,7 @@
 
         &:focus,
         &:hover {
-            background-color: #b589f0 !important;
+            background-color: variables.$secondaryColor !important;
             color: white;
 
             svg {
@@ -320,7 +320,7 @@
     }
 
     &:hover {
-        background-color: #b589f0 !important;
+        background-color: variables.$secondaryColor !important;
         color: white;
 
         svg {
@@ -445,7 +445,7 @@
 
         &:focus,
         &:hover {
-            background-color: #b589f0 !important;
+            background-color: variables.$secondaryColor !important;
             color: white;
 
             svg {

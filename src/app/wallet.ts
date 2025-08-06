@@ -704,6 +704,7 @@ export interface WalletPublicData {
     origin: "offline" | "online" | "";
     registeredAt: string;
     solanaAddress: string;
+    suiAddress: string;
     type: "mainnet" | "hold" | "";
     zelfName: string;
 
@@ -719,6 +720,7 @@ export class WalletPublicDataModel {
     origin: "offline" | "online" | "";
     registeredAt: string;
     solanaAddress: string;
+    suiAddress: string;
     type: "mainnet" | "hold" | "";
     zelfName: string;
 
@@ -731,6 +733,7 @@ export class WalletPublicDataModel {
         this.origin = data.origin || "";
         this.registeredAt = data.registeredAt || "";
         this.solanaAddress = data.solanaAddress || "";
+        this.suiAddress = data.suiAddress || "";
         this.type = data.type || "";
         this.zelfName = data.zelfName || "";
 

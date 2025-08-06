@@ -59,6 +59,7 @@ export class SheetTestComponent {
                     origin: "online",
                     registeredAt: registeredAt,
                     solanaAddress: "mock-solana-address",
+                    suiAddress: "mock-sui-address",
                     type: "mainnet",
                     zelfName: "test.zelf",
                     timeLeftInGracePeriodSeconds: () => 0,

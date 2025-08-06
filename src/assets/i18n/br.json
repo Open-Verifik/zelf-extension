@@ -262,7 +262,9 @@
         "download_qr": "QR",
         "info_title": "Mantenha seu código QR seguro",
         "info_description": "Lembre-se de manter seu código QR seguro para proteger sua conta. Baixe-o e salve-o em um local seguro.",
-        "private_key": "Chave Privada"
+        "private_key": "Chave Privada",
+        "addresses": "Endereços",
+        "info": "Info"
     },
     "private_key": {
         "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",

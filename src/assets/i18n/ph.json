@@ -262,7 +262,9 @@
         "download_qr": "QR",
         "info_title": "Panatilihing ligtas ang iyong QR code",
         "info_description": "Tandaan na panatilihing ligtas ang iyong QR code para maprotektahan ang iyong account. I-download ito at i-save sa ligtas na lugar.",
-        "private_key": "Private Key"
+        "private_key": "Pribadong Key",
+        "addresses": "Mga Address",
+        "info": "Impormasyon"
     },
     "private_key": {
         "description": "Para makita ang iyong private key, mangyaring kumpletuhin ang mga hakbang sa pag-verify ng seguridad.",

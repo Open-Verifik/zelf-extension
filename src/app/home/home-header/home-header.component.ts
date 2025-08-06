@@ -164,7 +164,7 @@ export class HomeHeaderComponent implements OnDestroy {
     openBottomSheet(): void {
         this._bottomSheet.open(HomeHeaderAccountsComponent, {
             backdropClass: "zelf-backdrop",
-            panelClass: "zelf-bottom-sheet",
+            panelClass: "zelf-bottom-sheet-seasalt",
             data: this.shareables,
         });
     }

@@ -1,11 +1,19 @@
 {
     "description": "We solved the unsolvable, now you can never lose access to your crypto",
-    "host_permissions": ["*://*/*"],
+    "host_permissions": [
+        "*://*/*"
+    ],
     "manifest_version": 3,
     "name": "Zelf Name Service",
     "orientation": "portrait",
-    "permissions": ["activeTab", "clipboardWrite", "clipboardRead", "storage", "sidePanel"],
-    "version": "1.1.5",
+    "permissions": [
+        "activeTab",
+        "clipboardWrite",
+        "clipboardRead",
+        "storage",
+        "sidePanel"
+    ],
+    "version": "1.1.6",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"
@@ -15,8 +23,13 @@
     },
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
-            "js": ["browser-polyfill.min.js", "main.js"]
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "browser-polyfill.min.js",
+                "main.js"
+            ]
         }
     ],
     "content_security_policy": {
@@ -33,8 +46,17 @@
     },
     "web_accessible_resources": [
         {
-            "resources": ["index.html", "styles.css", "main.js", "runtime.js", "polyfills.js", "background.js"],
-            "matches": ["<all_urls>"]
+            "resources": [
+                "index.html",
+                "styles.css",
+                "main.js",
+                "runtime.js",
+                "polyfills.js",
+                "background.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
         }
     ]
 }

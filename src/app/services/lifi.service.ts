@@ -157,8 +157,7 @@ export class LifiService {
             case "polygon":
                 return "POL";
             case "binance":
-            case "bsc":
-                return "BSC";
+                return "BNB";
             case "avalanche":
                 return "AVA";
             case "solana":

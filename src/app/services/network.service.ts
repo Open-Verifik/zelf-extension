@@ -8,14 +8,14 @@ export type NetworkSymbol =
     | "avax"
     | "sui"
     | "btc"
-    | "bsc"
+    | "bnb"
     | "polygon"
     | "ETH"
     | "SOL"
     | "AVAX"
     | "SUI"
     | "BTC"
-    | "BSC"
+    | "BNB"
     | "POL"
     | "BTCTEST";
 

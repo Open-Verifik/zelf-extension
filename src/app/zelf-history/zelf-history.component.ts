@@ -65,7 +65,6 @@ export class ZelfHistoryComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
-        console.log("token", this.token);
         this._loadFirstTransactions();
     }
 

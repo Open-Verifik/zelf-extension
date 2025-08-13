@@ -164,6 +164,7 @@ export class BscService {
     ): Promise<TransactionFeeEstimate> {
         try {
             let transactionCost;
+
             const isBEP20 = tokenType === "BEP-20" || tokenType === "ERC-20"; // BEP20 is compatible with ERC20
 
             if (isBEP20 && tokenAddress) {
@@ -186,6 +187,7 @@ export class BscService {
             };
         } catch (error) {
             console.error("Error calculating BSC transaction fees:", error);
+
             throw error;
         }
     }

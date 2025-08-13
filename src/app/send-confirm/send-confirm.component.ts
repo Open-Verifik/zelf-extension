@@ -57,7 +57,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     availableNetworks = [
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
-        { id: "binance", name: "Binance", symbol: "BSC" },
+        { id: "binance", name: "Binance", symbol: "BNB" },
         { id: "bitcoin", name: "Bitcoin", symbol: "BTC" },
         { id: "ethereum", name: "Ethereum", symbol: "ETH" },
         { id: "polygon", name: "Polygon", symbol: "POL" },

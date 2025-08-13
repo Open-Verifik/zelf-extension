@@ -106,7 +106,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Solana" && this.CAN_SEND.SOL) return true;
         if (token.network === "Avalanche" && this.CAN_SEND.AVAX) return true;
         if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
-        if (token.network === "Binance" && this.CAN_SEND.BSC) return true;
+        if (token.network === "Binance" && this.CAN_SEND.BNB) return true;
         if (token.network === "Polygon" && this.CAN_SEND.POL) return true;
         if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
 

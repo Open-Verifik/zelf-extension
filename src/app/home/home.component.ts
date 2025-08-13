@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     async ngOnInit(): Promise<any> {
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
 
-        this._chromeService.onWalletChanged$.pipe(take(1)).subscribe(this._initializeWallet);
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._initializeWallet);
     }
 
     ngOnDestroy(): void {
@@ -137,7 +137,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     /**
      * First call to initialize wallet, balances and refresh wallet if needed
      */
-    private _initializeWallet = async (): Promise<void> => {
+    private _initializeWallet = async (wallet: Wallet): Promise<void> => {
+        if (this.wallet && this.wallet?.publicData?.zelfName === wallet?.publicData?.zelfName) return;
+
         if (this.balancesLoading) {
             this.unsubscriberForBalances$.next();
             this.unsubscriberForBalances$.complete();

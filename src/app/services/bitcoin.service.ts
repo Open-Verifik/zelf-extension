@@ -241,7 +241,7 @@ export class BitcoinService {
     }
 
     async requestTransactions(address: string) {
-        return this._httpWrapperService.sendRequest("get", `${this._baseUrl}/api/bitcoin/transactions/${address}`);
+        return this._httpWrapperService.sendRequest("get", `${this._baseUrl}/api/bitcoin/${address}/transactions`);
     }
 
     async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
@@ -260,7 +260,7 @@ export class BitcoinService {
             if (isTestnet) {
                 url = `${this._baseUrl}/api/bitcoin/testnet/transactions/${address}`;
             } else {
-                url = `${this._baseUrl}/api/bitcoin/transactions/${address}`;
+                url = `${this._baseUrl}/api/bitcoin/${address}/transactions`;
             }
 
             return this._httpWrapperService

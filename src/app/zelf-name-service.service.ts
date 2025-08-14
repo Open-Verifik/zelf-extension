@@ -113,7 +113,7 @@ export class ZelfNameService {
             query.value = query.value.toLowerCase();
         }
 
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/search`, query);
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
     }
 
     searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
@@ -133,7 +133,7 @@ export class ZelfNameService {
 
         if (captchaToken) query.captchaToken = captchaToken;
 
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/search`, query);
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
     }
 
     previewZelfProof(zelfProof: string, captchaToken?: string): Promise<any> {

@@ -341,7 +341,7 @@ export class SuiService {
     }
 
     async requestTransactionHistory(address: string, pagination: { page: number; show?: number }): Promise<any> {
-        const url = `${this._baseUrl}/api/sui/transactions/${address}`;
+        const url = `${this._baseUrl}/api/sui/address/${address}/transactions`;
 
         const params = {
             page: pagination.page,

@@ -168,6 +168,9 @@ export class WalletService {
         else if (symbol === "ETH") assetSrc = "./assets/networks/eth.png";
         else if (symbol === "ZNS") assetSrc = "./assets/tokens/zns.png";
         else if (symbol === "SUI") assetSrc = "./assets/networks/sui.svg";
+        else if (symbol === "BNB" || symbol === "BSC") assetSrc = "./assets/networks/bnb.png";
+        else if (symbol === "POL" || symbol === "MATIC") assetSrc = "./assets/networks/pol.png";
+        else if (symbol === "BTC") assetSrc = "./assets/networks/btc.png";
 
         if (assetSrc) {
             this._assetImageMap.set(symbol, assetSrc);
@@ -188,6 +191,8 @@ export class WalletService {
         img.src = assetSrc;
         img.onerror = () => {
             this._assetImageMap.set(symbol, "./assets/tokens/placeholder-coin.png");
+
+            // apply the change angular
 
             img = null;
         };

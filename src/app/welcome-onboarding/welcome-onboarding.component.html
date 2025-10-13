@@ -104,33 +104,50 @@
                     </svg>
                 </span>
                 <ng-template #searchIcon>
-                    <button
-                        type="submit"
-                        [disabled]="form.invalid || loading"
-                        style="
-                            background: rgba(255, 255, 255, 0.2);
-                            border: none;
-                            outline: none;
-                            border-radius: 24px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            width: 24px;
-                            height: 24px;
-                            cursor: pointer;
-                            padding: 0;
-                        "
-                        aria-label="Search"
-                    >
-                        <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
-                                fill="#FFFFFF"
-                            />
-                        </svg>
-                    </button>
+                    <ng-container *ngIf="loading; else searchBtn">
+                        <span
+                            style="
+                                background: rgb(255, 255, 255);
+                                border-radius: 24px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 24px;
+                                height: 24px;
+                            "
+                        >
+                            <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
+                        </span>
+                    </ng-container>
+                    <ng-template #searchBtn>
+                        <button
+                            type="submit"
+                            [disabled]="form.invalid || loading"
+                            style="
+                                background: rgba(255, 255, 255, 0.2);
+                                border: none;
+                                outline: none;
+                                border-radius: 24px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 24px;
+                                height: 24px;
+                                cursor: pointer;
+                                padding: 0;
+                            "
+                            aria-label="Search"
+                        >
+                            <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
+                                    fill="#FFFFFF"
+                                />
+                            </svg>
+                        </button>
+                    </ng-template>
                 </ng-template>
             </div>
         </div>

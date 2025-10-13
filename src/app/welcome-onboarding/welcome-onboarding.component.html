@@ -1,5 +1,7 @@
 <div class="zelf-card welcome-onboarding" *transloco="let t">
     <div class="zelf-card__header">
+        <!-- add a loading bar here while things are loading -->
+
         <div class="welcome-onboarding__header-button">
             <button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['/home']" *ngIf="showHomeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
@@ -53,21 +55,84 @@
                 autocomplete="off"
             />
 
-            <p class="zelf-input__postfix">.zelf</p>
-
-            <button mat-icon-button type="submit" class="zelf-icon-button zelf-icon-button--black" [disabled]="form.invalid || loading">
-                <ng-container *ngIf="!loading">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
-                        />
+            <div
+                class="zelf-input__postfix zelf-input__postfix--dropdown mr-2"
+                (mouseenter)="domainHover = true"
+                (mouseleave)="domainHover = false"
+                style="padding: 8px 8px 8px 10px; background: #181818; border-radius: 32px; display: inline-flex; align-items: center; gap: 8px"
+            >
+                <mat-select
+                    #domainSelect
+                    class="zelf-domain-select"
+                    formControlName="domain"
+                    aria-label="Domain"
+                    disableOptionCentering
+                    panelClass="zelf-domain-panel"
+                    style="
+                        background: transparent;
+                        color: #fff;
+                        border: none;
+                        outline: none;
+                        font-family: inherit;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 20px;
+                        letter-spacing: 0.1px;
+                        cursor: pointer;
+                        min-width: 86px;
+                    "
+                >
+                    <mat-option value="zelf">.zelf</mat-option>
+                    <mat-option value="bdag">.bdag</mat-option>
+                    <mat-option value="avax">.avax</mat-option>
+                </mat-select>
+                <span
+                    *ngIf="isZelfNameEmpty || domainHover; else searchIcon"
+                    style="
+                        background: rgba(255, 255, 255, 0.2);
+                        border-radius: 24px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 24px;
+                        height: 24px;
+                    "
+                    (click)="$event.stopPropagation(); domainSelect.open()"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 10l5 5 5-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                </ng-container>
-
-                <mat-spinner *ngIf="loading" mode="indeterminate" diameter="18"></mat-spinner>
-            </button>
+                </span>
+                <ng-template #searchIcon>
+                    <button
+                        type="submit"
+                        [disabled]="form.invalid || loading"
+                        style="
+                            background: rgba(255, 255, 255, 0.2);
+                            border: none;
+                            outline: none;
+                            border-radius: 24px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 24px;
+                            height: 24px;
+                            cursor: pointer;
+                            padding: 0;
+                        "
+                        aria-label="Search"
+                    >
+                        <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
+                                fill="#FFFFFF"
+                            />
+                        </svg>
+                    </button>
+                </ng-template>
+            </div>
         </div>
 
         <button class="zelf-button zelf-button--hyperlink" [routerLink]="['./find']">{{ t("welcome.dont_remember_zelfname") }}</button>

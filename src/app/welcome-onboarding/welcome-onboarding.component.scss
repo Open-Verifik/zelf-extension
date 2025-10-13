@@ -10,6 +10,20 @@
 }
 
 .welcome-onboarding {
+    position: relative;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+
+    .welcome-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        overflow: hidden;
+    }
     &__header-button {
         display: flex;
         justify-content: flex-start;
@@ -17,6 +31,41 @@
         flex-direction: row;
         width: 100%;
     }
+}
+
+/* Hide the default mat-select arrow to avoid double icons */
+:host ::ng-deep .zelf-domain-select .mat-mdc-select-arrow-wrapper,
+:host ::ng-deep .zelf-domain-select .mdc-select__dropdown-icon {
+    display: none !important;
+}
+
+/* Keep the postfix width fixed so the input doesn't stretch */
+:host ::ng-deep .zelf-input__postfix--dropdown {
+    min-width: 100px;
+}
+
+/* Ensure selected value is visible on dark background */
+:host ::ng-deep .zelf-domain-select .mat-mdc-select-trigger,
+:host ::ng-deep .zelf-domain-select .mat-mdc-select-value,
+:host ::ng-deep .zelf-domain-select .mat-mdc-select-value-text {
+    color: #ffffff !important;
+}
+
+/* Material panel theming to match dark chip */
+:host ::ng-deep .zelf-domain-panel {
+    background: #181818 !important;
+    color: #ffffff !important;
+}
+:host ::ng-deep .zelf-domain-panel .mat-mdc-option .mdc-list-item__primary-text {
+    color: #ffffff !important;
+}
+:host ::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+    font-weight: 700;
+}
+
+/* Optional: tune the panel appearance */
+:host ::ng-deep .zelf-domain-panel .mat-mdc-option {
+    font-weight: 600;
 }
 
 .carousel {

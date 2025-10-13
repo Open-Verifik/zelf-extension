@@ -5,6 +5,8 @@ import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatSelectModule } from "@angular/material/select";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
@@ -17,7 +19,16 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     animations: [swipeLeft],
-    imports: [CommonModule, TranslocoModule, MatButtonModule, ReactiveFormsModule, MatProgressSpinnerModule, RouterLink],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatSelectModule,
+        RouterLink,
+    ],
     selector: "welcome-onboarding",
     styleUrls: ["./welcome-onboarding.component.scss"],
     templateUrl: "./welcome-onboarding.component.html",
@@ -31,6 +42,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     form!: UntypedFormGroup;
     loading: boolean = false;
     showHomeButton: boolean = false;
+    domainHover: boolean = false;
 
     constructor(
         private _captchaService: CaptchaService,
@@ -71,6 +83,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         const wallets = await this._walletService.getWalletsFromStorage();
 
         if (wallets.length) this.showHomeButton = true;
+
+        // Enforce default domain on initial render (prevents browser autofill overriding it)
+        if (!this.form.value.domain) {
+            this.form.patchValue({ domain: "zelf" }, { emitEvent: false });
+        }
     }
 
     ngOnDestroy(): void {
@@ -102,6 +119,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     private _initForm(): void {
         this.form = this._formBuilder.group({
             zelfName: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(27)]],
+            domain: ["zelf", [Validators.required]],
         });
     }
 
@@ -134,7 +152,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         this.loading = true;
 
-        const zelfName = `${this.form.value.zelfName}.zelf`.toLowerCase();
+        const domain: string = this.form.value.domain || "zelf";
+        const zelfName = `${this.form.value.zelfName}.${domain}`.toLowerCase();
 
         let captchaToken = "";
 
@@ -183,5 +202,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         control.patchValue(sanitizedValue, { emitEvent: false });
 
         if (!sanitizedValue) control.markAsPristine();
+    }
+
+    get isZelfNameEmpty(): boolean {
+        const value = (this.form?.value?.zelfName || "").trim();
+        return value.length === 0;
     }
 }

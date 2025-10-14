@@ -52,9 +52,7 @@
 }
 
 /* Material panel theming to match dark chip */
-:host ::ng-deep .zelf-domain-panel,
-:host ::ng-deep .mat-mdc-select-panel.zelf-domain-panel,
-:host ::ng-deep [role="listbox"].zelf-domain-panel {
+::ng-deep .zelf-domain-panel {
     background: #000000 !important;
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -62,42 +60,60 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
-.list-box {
-    background: #000000 !important;
-    color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-}
-
-:host ::ng-deep .zelf-domain-panel .mat-mdc-option .mdc-list-item__primary-text,
-:host ::ng-deep .mat-mdc-select-panel.zelf-domain-panel .mat-mdc-option .mdc-list-item__primary-text,
-:host ::ng-deep [role="listbox"].zelf-domain-panel .mat-mdc-option .mdc-list-item__primary-text {
+::ng-deep .zelf-domain-panel .mdc-list-item__primary-text {
     color: #ffffff !important;
 }
 
-:host ::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text,
-:host ::ng-deep .mat-mdc-select-panel.zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text,
-:host ::ng-deep [role="listbox"].zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+/* Style selected option */
+::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
     font-weight: 700;
+    color: #ffffff !important;
 }
 
-:host ::ng-deep .zelf-domain-panel .mat-mdc-option,
-:host ::ng-deep .mat-mdc-select-panel.zelf-domain-panel .mat-mdc-option,
-:host ::ng-deep [role="listbox"].zelf-domain-panel .mat-mdc-option {
+/* Style option backgrounds */
+::ng-deep .zelf-domain-panel .mat-mdc-option {
     background: transparent !important;
+    cursor: pointer !important;
 }
 
-:host ::ng-deep .zelf-domain-panel .mat-mdc-option:hover,
-:host ::ng-deep .mat-mdc-select-panel.zelf-domain-panel .mat-mdc-option:hover,
-:host ::ng-deep [role="listbox"].zelf-domain-panel .mat-mdc-option:hover {
+::ng-deep .zelf-domain-panel .mat-mdc-option:hover {
     background: rgba(255, 255, 255, 0.1) !important;
 }
 
-:host ::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected,
-:host ::ng-deep .mat-mdc-select-panel.zelf-domain-panel .mat-mdc-option.mdc-list-item--selected,
-:host ::ng-deep [role="listbox"].zelf-domain-panel .mat-mdc-option.mdc-list-item--selected {
+::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected {
     background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Ensure dropdown icon has pointer cursor */
+:host ::ng-deep .zelf-domain-select {
+    cursor: pointer !important;
+}
+
+/* Dropdown icon container styles */
+.dropdown-icon-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* Search button container styles */
+.search-button-container {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    outline: none;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    padding: 0;
 }
 
 /* Optional: tune the panel appearance */

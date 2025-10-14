@@ -82,21 +82,11 @@
                         min-width: 86px;
                     "
                 >
-                    <mat-option value="zelf">.zelf</mat-option>
-                    <mat-option value="bdag">.bdag</mat-option>
-                    <mat-option value="avax">.avax</mat-option>
+                    <mat-option *ngFor="let domain of availableDomains" [value]="domain.name">.{{ domain.name }}</mat-option>
                 </mat-select>
                 <span
                     *ngIf="isZelfNameEmpty || domainHover; else searchIcon"
-                    style="
-                        background: rgba(255, 255, 255, 0.2);
-                        border-radius: 24px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 24px;
-                        height: 24px;
-                    "
+                    class="dropdown-icon-container"
                     (click)="$event.stopPropagation(); domainSelect.open()"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -104,40 +94,13 @@
                     </svg>
                 </span>
                 <ng-template #searchIcon>
-                    <ng-container *ngIf="loading; else searchBtn">
-                        <span
-                            style="
-                                background: rgb(255, 255, 255);
-                                border-radius: 24px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: 24px;
-                                height: 24px;
-                            "
-                        >
+                    <ng-container *ngIf="loading || loadingDomains; else searchBtn">
+                        <span class="dropdown-icon-container">
                             <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
                         </span>
                     </ng-container>
                     <ng-template #searchBtn>
-                        <button
-                            type="submit"
-                            [disabled]="form.invalid || loading"
-                            style="
-                                background: rgba(255, 255, 255, 0.2);
-                                border: none;
-                                outline: none;
-                                border-radius: 24px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                width: 24px;
-                                height: 24px;
-                                cursor: pointer;
-                                padding: 0;
-                            "
-                            aria-label="Search"
-                        >
+                        <button type="submit" class="search-button-container" [disabled]="form.invalid || loading" aria-label="Search">
                             <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     fill-rule="evenodd"

@@ -16,6 +16,7 @@ import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { DomainService, DomainConfig } from "app/domain.service";
 
 @Component({
     animations: [swipeLeft],
@@ -43,6 +44,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     loading: boolean = false;
     showHomeButton: boolean = false;
     domainHover: boolean = false;
+    availableDomains: DomainConfig[] = [];
+    loadingDomains: boolean = false;
 
     constructor(
         private _captchaService: CaptchaService,
@@ -51,7 +54,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _router: Router,
         private _walletService: WalletService,
         private _vaultService: VaultService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _domainService: DomainService
     ) {
         this._chromeService.removeItem("flow");
         this._chromeService.removeItem("mnemonicCount");
@@ -77,6 +81,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         await this._walletService.setWalletsToColdStorage();
 
         this._initCarousel();
+        await this._loadDomains();
     }
 
     async ngAfterContentInit(): Promise<void> {
@@ -206,6 +211,255 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
     get isZelfNameEmpty(): boolean {
         const value = (this.form?.value?.zelfName || "").trim();
-        return value.length === 0;
+        return value?.length === 0;
+    }
+
+    /**
+     * Load available domains from storage first, then API
+     */
+    private async _loadDomains(): Promise<void> {
+        this.loadingDomains = true;
+        try {
+            // Try to load from cache first
+            const loadedFromCache = await this._loadDomainsFromCache();
+
+            if (loadedFromCache) return; // Successfully loaded from cache
+
+            // Cache is invalid or empty, fetch from API
+            await this._loadDomainsFromAPI();
+        } catch (error) {
+            console.error("Error loading domains:", error);
+            // Fallback to default domains if API fails
+            this._loadFallbackDomains();
+        } finally {
+            this.loadingDomains = false;
+        }
+    }
+
+    /**
+     * Load fallback domains when API fails
+     */
+    private _loadFallbackDomains(): void {
+        console.log("Loading fallback domains...");
+        this.availableDomains = [
+            {
+                name: "zelf",
+                type: "license",
+                holdSuffix: ".hold",
+                status: "active",
+                owner: "miguel@zelf.world",
+                description: "Official Zelf domain",
+                features: [],
+                tags: {
+                    minLength: 1,
+                    maxLength: 27,
+                    allowedChars: {},
+                    reserved: ["www", "api", "admin", "support", "help", "google"],
+                    customRules: [],
+                    payment: {
+                        methods: ["coinbase", "crypto", "stripe"],
+                        currencies: ["BTC", "ETH", "USDC", "BDAG", "ZNS", "AVAX"],
+                        discounts: { yearly: 0.1, lifetime: 0.2 },
+                        rewardPrice: 10,
+                        whitelist: {},
+                        pricingTable: {},
+                    },
+                    storage: {
+                        keyPrefix: "zelfName",
+                        ipfsEnabled: true,
+                        arweaveEnabled: true,
+                        walrusEnabled: true,
+                        backupEnabled: false,
+                    },
+                },
+                zelfkeys: {
+                    plans: [],
+                    payment: { whitelist: {}, pricingTable: {} },
+                    storage: {
+                        keyPrefix: "zelfKey",
+                        ipfsEnabled: true,
+                        arweaveEnabled: true,
+                        walrusEnabled: true,
+                        backupEnabled: false,
+                    },
+                },
+                storage: {
+                    keyPrefix: "zelfName",
+                    ipfsEnabled: true,
+                    arweaveEnabled: true,
+                    walrusEnabled: true,
+                    backupEnabled: false,
+                },
+                metadata: {
+                    launchDate: "2023-01-01",
+                    version: "1.0.0",
+                    documentation: "https://docs.zelf.world",
+                    support: "standard",
+                },
+            },
+            {
+                name: "bdag",
+                type: "license",
+                holdSuffix: ".hold",
+                status: "active",
+                owner: "miguel@zelf.world",
+                description: "BDAG domain",
+                features: [],
+                tags: {
+                    minLength: 1,
+                    maxLength: 27,
+                    allowedChars: {},
+                    reserved: ["www", "api", "admin"],
+                    customRules: [],
+                    payment: {
+                        methods: ["crypto"],
+                        currencies: ["BDAG"],
+                        whitelist: {},
+                        pricingTable: {},
+                    },
+                    storage: {
+                        keyPrefix: "bdagName",
+                        ipfsEnabled: true,
+                        arweaveEnabled: false,
+                        walrusEnabled: false,
+                        backupEnabled: false,
+                    },
+                },
+                zelfkeys: {
+                    plans: [],
+                    payment: { whitelist: {}, pricingTable: {} },
+                    storage: {
+                        keyPrefix: "bdagKey",
+                        ipfsEnabled: true,
+                        arweaveEnabled: false,
+                        walrusEnabled: false,
+                        backupEnabled: false,
+                    },
+                },
+                storage: {
+                    keyPrefix: "bdagName",
+                    ipfsEnabled: true,
+                    arweaveEnabled: false,
+                    walrusEnabled: false,
+                    backupEnabled: false,
+                },
+            },
+            {
+                name: "avax",
+                type: "license",
+                holdSuffix: ".hold",
+                status: "active",
+                owner: "miguel@zelf.world",
+                description: "AVAX domain",
+                features: [],
+                tags: {
+                    minLength: 1,
+                    maxLength: 27,
+                    allowedChars: {},
+                    reserved: ["www", "api", "admin"],
+                    customRules: [],
+                    payment: {
+                        methods: ["crypto"],
+                        currencies: ["AVAX"],
+                        whitelist: {},
+                        pricingTable: {},
+                    },
+                    storage: {
+                        keyPrefix: "avaxName",
+                        ipfsEnabled: true,
+                        arweaveEnabled: false,
+                        walrusEnabled: false,
+                        backupEnabled: false,
+                    },
+                },
+                zelfkeys: {
+                    plans: [],
+                    payment: { whitelist: {}, pricingTable: {} },
+                    storage: {
+                        keyPrefix: "avaxKey",
+                        ipfsEnabled: true,
+                        arweaveEnabled: false,
+                        walrusEnabled: false,
+                        backupEnabled: false,
+                    },
+                },
+                storage: {
+                    keyPrefix: "avaxName",
+                    ipfsEnabled: true,
+                    arweaveEnabled: false,
+                    walrusEnabled: false,
+                    backupEnabled: false,
+                },
+            },
+        ];
+        console.log("Fallback domains loaded:", this.availableDomains);
+    }
+
+    /**
+     * Load domains from cache if valid
+     * @returns boolean - true if successfully loaded from cache, false otherwise
+     */
+    private async _loadDomainsFromCache(): Promise<boolean> {
+        try {
+            // Check if we have valid cached data
+            const isCacheValid = await this._domainService.isCacheValid();
+
+            if (!isCacheValid) {
+                console.log("Cache is invalid or expired");
+                return false;
+            }
+
+            // Load from cache
+            await this._domainService.loadDomainsFromStorage();
+            const cachedDomains = this._domainService.getAllDomainConfigs();
+
+            if (Object.keys(cachedDomains).length === 0) {
+                console.log("No cached domains found");
+                return false;
+            }
+
+            // Use cached domains
+            this.availableDomains = Object.values(cachedDomains);
+            console.log("Loaded domains from valid cache:", this.availableDomains);
+            this.loadingDomains = false;
+
+            // Still fetch fresh data in background for next time
+            this._refreshDomainsInBackground();
+            return true;
+        } catch (error) {
+            console.error("Error loading domains from cache:", error);
+            return false;
+        }
+    }
+
+    /**
+     * Load domains from API
+     */
+    private async _loadDomainsFromAPI(): Promise<void> {
+        console.log("Fetching domains from API...");
+        const response = await this._domainService.getDomains();
+
+        if (!response) throw new Error("No domains found");
+
+        // Convert the domain map to an array for the dropdown
+        this.availableDomains = Object.values(response.data);
+
+        console.log("Loaded domains from API:", this.availableDomains);
+    }
+
+    /**
+     * Refresh domains in background without affecting UI
+     */
+    private async _refreshDomainsInBackground(): Promise<void> {
+        try {
+            const response = await this._domainService.getDomains();
+            if (response?.success && response.data) {
+                // Update the dropdown with fresh data
+                this.availableDomains = Object.values(response.data);
+                console.log("Domains refreshed in background:", this.availableDomains);
+            }
+        } catch (error) {
+            console.error("Error refreshing domains in background:", error);
+        }
     }
 }

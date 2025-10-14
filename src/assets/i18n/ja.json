@@ -37,8 +37,8 @@
         "external_address_found": "外部アドレスが見つかりました",
         "used": "{{days}}日前に使用",
         "withdrawal_amount": "出金額",
-        "zelf_name_not_registered": "Zelf名が登録されていません",
-        "zelf_name_registered": "Zelf名が登録されています"
+        "zelf_name_not_registered": "タグ名が登録されていません",
+        "zelf_name_registered": "タグ名が登録されています"
     },
     "transaction": {
         "go_to_my_history": "履歴に移動",
@@ -50,12 +50,12 @@
         "decrypt_and_reserve": "復号化して予約",
         "decrypt_now_pay_later": "今すぐ復号化、後で支払い",
         "decrypt_now_renew_later": "今すぐ復号化、後で更新",
-        "dont_lose_your_zelfname": "おっと！Zelf名を失わないように、誰かが購入する前に今日更新または予約しましょう。",
-        "dont_remember_zelfname": "Zelf名を覚えていませんか？",
+        "dont_lose_your_zelfname": "おっと！タグ名を失わないように、誰かが購入する前に今日更新または予約しましょう。",
+        "dont_remember_zelfname": "タグ名を覚えていませんか？",
         "enjoy_your_domain": "ドメインをお楽しみください。他の人が購入する前に必ず購入してください！",
         "expiration_date": "有効期限 {{ date }}",
-        "find_zelf_name_subtitle": "下の公開アドレスを入力して既存のZelf名を検索：",
-        "find_zelf_name_title": "Zelf名を検索",
+        "find_zelf_name_subtitle": "下の公開アドレスを入力して既存のタグ名を検索：",
+        "find_zelf_name_title": "タグ名を検索",
         "got_it": "了解しました、後で行います",
         "grace_period_until": "猶予期間は",
         "import_subtitle": "既存のウォレットを検証してインポートするために、秘密の回復ワードを使用します。下に入力してください。",
@@ -76,7 +76,7 @@
         "referral_code": "紹介コード（任意）",
         "referral_successfully_registered": "紹介が正常に登録されました",
         "registered_since": "{{ date }}から登録",
-        "registered": "{{ date }}からZelf名が登録されています",
+        "registered": "{{ date }}からタグ名が登録されています",
         "renew_your_domain_today": "誰かが購入する前に今日ドメインを更新してください。",
         "search_another_zelfname": "別のZelfNameを検索",
         "search_your_new_zelfname": "新しいZelfNameを検索",
@@ -86,7 +86,7 @@
         "you_will_register_this_domain": "このドメインを登録します",
         "safeguard_your_crypto": "暗号資産を保護しましょう！",
         "offline_import_subtitle": "オフラインウォレットをインポートする前に、新しいZelfNameを選択する必要があります。",
-        "your_zelf_name": "あなたのZelf名"
+        "your_zelf_name": "あなたのタグ名"
     },
     "settings": {
         "security_label": "セキュリティ",
@@ -110,7 +110,7 @@
         "password_parameters_title": "パスワードのガイドライン",
         "password_parameters": "パスワードのガイドラインは以下の通りです：<ul><li>8文字から128文字の間である必要があります</li><li>少なくとも1つの大文字を含める必要があります</li><li>1つの小文字を含める必要があります</li><li>1つの数字を含める必要があります</li><li>1つの特殊文字を含める必要があります</li><li>一般的なパスワードを避けてください</li><li>文字の繰り返しを避けてください</li></ul>",
         "password_strength_label": "パスワードの強度",
-        "password_subtitle": "復号化プロセスを完了するために、このZelf名に割り当てられたパスワードを入力してください。",
+        "password_subtitle": "復号化プロセスを完了するために、このタグ名に割り当てられたパスワードを入力してください。",
         "strong": "強い",
         "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。",
         "title": "ZelfProof暗号化レイヤー",
@@ -150,7 +150,7 @@
         "create_a_new_wallet": "新しいウォレットを作成",
         "date": "日付",
         "days": "日",
-        "decrypt_zelfname": "ZelfNameを復号化",
+        "decrypt_zelfname": "タグ名を復号化",
         "do_it_later": "後で行う",
         "documentation": "ドキュメント",
         "domain_expired": "ドメインの有効期限切れ",
@@ -206,7 +206,7 @@
         "renew_domain": "ドメインを更新",
         "renew_subscription": "サブスクリプションを更新",
         "reservation_found": "予約が見つかりました",
-        "search_your_zelf_name": "Zelf名を検索",
+        "search_your_zelf_name": "タグ名を検索",
         "search": "検索...",
         "send_symbol": "{{symbol}}を送信",
         "send": "送信",
@@ -341,7 +341,7 @@
         "swap_same_asset": "同じ資産にスワップすることはできません",
         "transaction_not_found": "取引が見つかりません",
         "try_again": "もう一度試す",
-        "zelfName_is_taken": "このZelf名は既に使用されています"
+        "zelfName_is_taken": "このタグ名は既に使用されています"
     },
     "swap": {
         "automatic": "自動",

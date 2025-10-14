@@ -43,8 +43,8 @@
         "upto_sats": "Up to {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutes",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
-        "zelf_name_not_registered": "Zelf Name not registered",
-        "zelf_name_registered": "Zelf Name registered"
+        "zelf_name_not_registered": "Tag Name not registered",
+        "zelf_name_registered": "Tag Name registered"
     },
     "transaction": {
         "go_to_my_history": "Go to my history",
@@ -56,12 +56,12 @@
         "decrypt_and_reserve": "Decrypt and reserve",
         "decrypt_now_pay_later": "Decrypt now, pay later",
         "decrypt_now_renew_later": "Decrypt now, renew later",
-        "dont_lose_your_zelfname": "Hey! Don't lose your Zelf Name, renew or reserve today, before someone buys it.",
+        "dont_lose_your_zelfname": "Hey! Don't lose your Tag Name, renew or reserve today, before someone buys it.",
         "dont_remember_zelfname": "Don't remember your ZelfName?",
         "enjoy_your_domain": "Enjoy your domain. Remember to purchase it before somebody else does!",
         "expiration_date": "Expiration date {{ date }}",
-        "find_zelf_name_subtitle": "Find an existing Zelf Name by entering its public address below:",
-        "find_zelf_name_title": "Find Zelf Name",
+        "find_zelf_name_subtitle": "Find an existing Tag Name by entering its public address below:",
+        "find_zelf_name_title": "Find Tag Name",
         "got_it": "Got it, I'll do it later",
         "grace_period_until": "Grace period until",
         "import_subtitle": "We will use your secret recovery words to validate and import an existing wallet. Please enter them below.",
@@ -82,7 +82,7 @@
         "referral_code": "Referral Code (Optional)",
         "referral_successfully_registered": "Referral successfully registered",
         "registered_since": "Registered since {{ date }}",
-        "registered": "Zelf Name registered since {{ date }}",
+        "registered": "Tag Name registered since {{ date }}",
         "renew_your_domain_today": "Renew your domain today before someone buys it.",
         "search_another_zelfname": "Search for another ZelfName",
         "search_your_new_zelfname": "Search for your new ZelfName",
@@ -92,7 +92,7 @@
         "you_will_register_this_domain": "You will register this domain",
         "safeguard_your_crypto": "Safeguard Your Crypto!",
         "offline_import_subtitle": "Before you can import your offline-wallet, you need to choose a new ZelfName.",
-        "your_zelf_name": "Your Zelf Name"
+        "your_zelf_name": "Your Tag Name"
     },
     "settings": {
         "security_label": "Security",
@@ -116,7 +116,7 @@
         "password_parameters_title": "Password Guidelines",
         "password_parameters": "Our guidelines for your password are: <ul><li>must be between 8 and 128 characters long</li> <li>must contain at least one uppercase letter</li> <li>must contain one lowercase letter</li> <li>must contain one number</li> <li>must contain one special character</li> <li>avoid common passwords</li> <li>avoid repeating characters</li></ul>",
         "password_strength_label": "Password Strength",
-        "password_subtitle": "Enter the password assigned to this Zelf Name to complete the decryption process.",
+        "password_subtitle": "Enter the password assigned to this Tag Name to complete the decryption process.",
         "strong": "Strong",
         "subtitle": "Select the length of your seed phrase and proceed with the encryption process.",
         "title": "ZelfProof Encryption Layers",
@@ -157,7 +157,7 @@
         "create_a_new_wallet": "Create a new wallet",
         "date": "Date",
         "days": "days",
-        "decrypt_zelfname": "Decrypt ZelfName",
+        "decrypt_zelfname": "Decrypt Tag Name",
         "do_it_later": "Do it later",
         "documentation": "Documentation",
         "domain_expired": "Domain expired",

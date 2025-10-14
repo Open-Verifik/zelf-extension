@@ -37,8 +37,8 @@
         "external_address_found": "외부 주소를 찾았습니다",
         "used": "{{days}}일 전에 사용됨",
         "withdrawal_amount": "출금 금액",
-        "zelf_name_not_registered": "Zelf 이름이 등록되지 않음",
-        "zelf_name_registered": "Zelf 이름이 등록됨"
+        "zelf_name_not_registered": "태그 이름이 등록되지 않음",
+        "zelf_name_registered": "태그 이름이 등록됨"
     },
     "transaction": {
         "go_to_my_history": "내 내역으로 이동",
@@ -50,12 +50,12 @@
         "decrypt_and_reserve": "복호화 및 예약",
         "decrypt_now_pay_later": "지금 복호화하고 나중에 결제",
         "decrypt_now_renew_later": "지금 복호화하고 나중에 갱신",
-        "dont_lose_your_zelfname": "안녕하세요! 다른 사람이 구매하기 전에 오늘 Zelf 이름을 갱신하거나 예약하세요.",
+        "dont_lose_your_zelfname": "안녕하세요! 다른 사람이 구매하기 전에 오늘 태그 이름을 갱신하거나 예약하세요.",
         "dont_remember_zelfname": "ZelfName을 기억하지 못하시나요?",
         "enjoy_your_domain": "도메인을 즐기세요. 다른 사람이 구매하기 전에 구매하는 것을 잊지 마세요!",
         "expiration_date": "만료일 {{ date }}",
-        "find_zelf_name_subtitle": "아래에 공개 주소를 입력하여 기존 Zelf 이름을 찾으세요:",
-        "find_zelf_name_title": "Zelf 이름 찾기",
+        "find_zelf_name_subtitle": "아래에 공개 주소를 입력하여 기존 태그 이름을 찾으세요:",
+        "find_zelf_name_title": "태그 이름 찾기",
         "got_it": "알겠습니다. 나중에 하겠습니다",
         "grace_period_until": "유예 기간 만료일",
         "import_subtitle": "기존 지갑을 검증하고 가져오기 위해 비밀 복구 단어를 사용합니다. 아래에 입력해 주세요.",
@@ -76,7 +76,7 @@
         "referral_code": "추천 코드 (선택사항)",
         "referral_successfully_registered": "추천 코드가 성공적으로 등록됨",
         "registered_since": "{{ date }}부터 등록됨",
-        "registered": "{{ date }}부터 등록된 Zelf 이름",
+        "registered": "{{ date }}부터 등록된 태그 이름",
         "renew_your_domain_today": "다른 사람이 구매하기 전에 오늘 도메인을 갱신하세요.",
         "search_another_zelfname": "다른 ZelfName 검색",
         "search_your_new_zelfname": "새로운 ZelfName 검색",
@@ -86,7 +86,7 @@
         "you_will_register_this_domain": "이 도메인을 등록할 예정입니다",
         "safeguard_your_crypto": "암호화폐를 안전하게 보호하세요!",
         "offline_import_subtitle": "오프라인 지갑을 가져오기 전에 새로운 ZelfName을 선택해야 합니다.",
-        "your_zelf_name": "귀하의 Zelf 이름"
+        "your_zelf_name": "귀하의 태그 이름"
     },
     "settings": {
         "security_label": "보안",
@@ -110,7 +110,7 @@
         "password_parameters_title": "비밀번호 가이드라인",
         "password_parameters": "비밀번호 가이드라인은 다음과 같습니다: <ul><li>8자에서 128자 사이여야 합니다</li><li>최소 1개의 대문자를 포함해야 합니다</li><li>1개의 소문자를 포함해야 합니다</li><li>1개의 숫자를 포함해야 합니다</li><li>1개의 특수문자를 포함해야 합니다</li><li>일반적인 비밀번호를 피하세요</li><li>문자 반복을 피하세요</li></ul>",
         "password_strength_label": "비밀번호 강도",
-        "password_subtitle": "복호화 프로세스를 완료하기 위해 이 Zelf 이름에 할당된 비밀번호를 입력하세요.",
+        "password_subtitle": "복호화 프로세스를 완료하기 위해 이 태그 이름에 할당된 비밀번호를 입력하세요.",
         "strong": "강함",
         "subtitle": "시드 구문의 길이를 선택하고 암호화 프로세스를 진행하세요.",
         "title": "ZelfProof 암호화 레이어",
@@ -150,7 +150,7 @@
         "create_a_new_wallet": "새 지갑 만들기",
         "date": "날짜",
         "days": "일",
-        "decrypt_zelfname": "ZelfName 복호화",
+        "decrypt_zelfname": "태그 이름 복호화",
         "do_it_later": "나중에 하기",
         "documentation": "문서",
         "domain_expired": "도메인 만료됨",

@@ -1,0 +1,36 @@
+<div class="domain-modal">
+    <!-- Header -->
+    <div class="modal-header">
+        <div class="spacer"></div>
+        <h2 class="modal-title">Choose domain for your tag name</h2>
+        <button class="close-button" (click)="onCancel()">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M1 1L12 12M12 1L1 12" stroke="#181818" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Domain Options -->
+    <div class="domain-options">
+        <div
+            *ngFor="let domain of data.domains"
+            class="domain-option"
+            [class.selected]="selectedDomain === domain.name"
+            (click)="selectedDomain = domain.name"
+        >
+            <div class="domain-info">
+                <div class="domain-icon" [style.background-color]="getDomainIconBackground(domain.name)">
+                    <img [src]="getDomainIcon(domain.name)" [alt]="domain.name" class="icon-image" />
+                </div>
+                <span class="domain-name">.{{ domain.name }}</span>
+            </div>
+
+            <div class="radio-button">
+                <div class="radio-circle" [class.selected]="selectedDomain === domain.name"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Button -->
+    <button class="confirm-button" (click)="onConfirm()">Confirm</button>
+</div>

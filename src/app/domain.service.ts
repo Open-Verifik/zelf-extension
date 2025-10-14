@@ -76,6 +76,7 @@ export interface DomainConfig {
         version?: string;
         documentation?: string;
         support?: "standard" | "premium" | "enterprise";
+        logo?: string;
     };
 }
 

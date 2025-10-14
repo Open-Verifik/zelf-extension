@@ -84,9 +84,38 @@
     background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Ensure dropdown icon has pointer cursor */
-:host ::ng-deep .zelf-domain-select {
-    cursor: pointer !important;
+/* Domain display styling */
+.domain-display {
+    background: transparent;
+    color: #fff;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    min-width: 86px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal dialog positioning */
+:host ::ng-deep .domain-selection-dialog {
+    .mat-mdc-dialog-container {
+        position: fixed !important;
+        bottom: 0 !important;
+        top: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin: 0 !important;
+        max-height: 80vh !important;
+        border-radius: 32px 32px 0 0 !important;
+    }
 }
 
 /* Dropdown icon container styles */

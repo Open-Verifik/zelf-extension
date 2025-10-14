@@ -7,6 +7,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSelectModule } from "@angular/material/select";
+import { MatDialog } from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
@@ -17,6 +19,7 @@ import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { DomainService, DomainConfig } from "app/domain.service";
+import { DomainSelectionModalComponent, DomainSelectionData } from "app/domain-selection-modal/domain-selection-modal.component";
 
 @Component({
     animations: [swipeLeft],
@@ -28,6 +31,7 @@ import { DomainService, DomainConfig } from "app/domain.service";
         MatProgressSpinnerModule,
         MatProgressBarModule,
         MatSelectModule,
+        MatDialogModule,
         RouterLink,
     ],
     selector: "welcome-onboarding",
@@ -55,7 +59,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _walletService: WalletService,
         private _vaultService: VaultService,
         private _zelfNameService: ZelfNameService,
-        private _domainService: DomainService
+        private _domainService: DomainService,
+        private _dialog: MatDialog
     ) {
         this._chromeService.removeItem("flow");
         this._chromeService.removeItem("mnemonicCount");
@@ -215,6 +220,30 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     }
 
     /**
+     * Open domain selection modal
+     */
+    openDomainSelectionModal(): void {
+        const dialogData: DomainSelectionData = {
+            domains: this.availableDomains,
+            selectedDomain: this.form.get("domain")?.value || "zelf",
+        };
+
+        const dialogRef = this._dialog.open(DomainSelectionModalComponent, {
+            data: dialogData,
+            width: "450px",
+            maxWidth: "90vw",
+            position: { bottom: "0" },
+            panelClass: "domain-selection-dialog",
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.form.get("domain")?.setValue(result);
+            }
+        });
+    }
+
+    /**
      * Load available domains from storage first, then API
      */
     private async _loadDomains(): Promise<void> {
@@ -240,7 +269,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
      * Load fallback domains when API fails
      */
     private _loadFallbackDomains(): void {
-        console.log("Loading fallback domains...");
         this.availableDomains = [
             {
                 name: "zelf",
@@ -392,7 +420,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
                 },
             },
         ];
-        console.log("Fallback domains loaded:", this.availableDomains);
     }
 
     /**
@@ -405,7 +432,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             const isCacheValid = await this._domainService.isCacheValid();
 
             if (!isCacheValid) {
-                console.log("Cache is invalid or expired");
                 return false;
             }
 
@@ -414,13 +440,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             const cachedDomains = this._domainService.getAllDomainConfigs();
 
             if (Object.keys(cachedDomains).length === 0) {
-                console.log("No cached domains found");
                 return false;
             }
 
             // Use cached domains
             this.availableDomains = Object.values(cachedDomains);
-            console.log("Loaded domains from valid cache:", this.availableDomains);
             this.loadingDomains = false;
 
             // Still fetch fresh data in background for next time
@@ -436,15 +460,12 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
      * Load domains from API
      */
     private async _loadDomainsFromAPI(): Promise<void> {
-        console.log("Fetching domains from API...");
         const response = await this._domainService.getDomains();
 
         if (!response) throw new Error("No domains found");
 
         // Convert the domain map to an array for the dropdown
         this.availableDomains = Object.values(response.data);
-
-        console.log("Loaded domains from API:", this.availableDomains);
     }
 
     /**
@@ -456,7 +477,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             if (response?.success && response.data) {
                 // Update the dropdown with fresh data
                 this.availableDomains = Object.values(response.data);
-                console.log("Domains refreshed in background:", this.availableDomains);
             }
         } catch (error) {
             console.error("Error refreshing domains in background:", error);

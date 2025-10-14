@@ -1,0 +1,204 @@
+.domain-modal {
+    width: 400px;
+    padding: 24px;
+    background: #f9f9fc;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    font-family: "Poppins", sans-serif;
+}
+
+.modal-header {
+    align-self: stretch;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+.spacer {
+    width: 24px;
+    height: 24px;
+}
+
+.modal-title {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #181818;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    margin: 0;
+}
+
+.close-button {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.domain-options {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 11px;
+    display: flex;
+}
+
+.domain-option {
+    align-self: stretch;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 15px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #f5f5f5;
+    }
+}
+
+.domain-info {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    display: flex;
+}
+
+.domain-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &.zelf {
+        background: #181818;
+    }
+
+    &.avax {
+        background: #e84142;
+    }
+
+    &.bdag {
+        background: #030c43;
+    }
+
+    &.eth {
+        background: #627eea;
+    }
+
+    &.sol {
+        background: #f5f2ff;
+    }
+}
+
+.icon-image {
+    width: 24px;
+    height: 24px;
+}
+
+.zelf-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.domain-name {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #181818;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
+
+.radio-button {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.radio-circle {
+    width: 20px;
+    height: 20px;
+    left: 2px;
+    top: 2px;
+    position: absolute;
+    background: #e3e3e3;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+
+    &.selected {
+        background: #181818;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+        }
+    }
+}
+
+.confirm-button {
+    align-self: stretch;
+    height: 56px;
+    padding: 0 24px;
+    background: #181818;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #333333;
+    }
+
+    &:active {
+        background: #000000;
+    }
+}
+
+// Override Material Dialog styles
+:host ::ng-deep .mat-mdc-dialog-container {
+    padding: 0 !important;
+    border-radius: 32px 32px 0 0 !important;
+    overflow: hidden !important;
+}
+
+:host ::ng-deep .mat-mdc-dialog-surface {
+    border-radius: 32px 32px 0 0 !important;
+}

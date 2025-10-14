@@ -61,33 +61,11 @@
                 (mouseleave)="domainHover = false"
                 style="padding: 8px 8px 8px 10px; background: #181818; border-radius: 32px; display: inline-flex; align-items: center; gap: 8px"
             >
-                <mat-select
-                    #domainSelect
-                    class="zelf-domain-select"
-                    formControlName="domain"
-                    aria-label="Domain"
-                    disableOptionCentering
-                    panelClass="zelf-domain-panel"
-                    style="
-                        background: transparent;
-                        color: #fff;
-                        border: none;
-                        outline: none;
-                        font-family: inherit;
-                        font-weight: 500;
-                        font-size: 14px;
-                        line-height: 20px;
-                        letter-spacing: 0.1px;
-                        cursor: pointer;
-                        min-width: 86px;
-                    "
-                >
-                    <mat-option *ngFor="let domain of availableDomains" [value]="domain.name">.{{ domain.name }}</mat-option>
-                </mat-select>
+                <div class="domain-display" (click)="openDomainSelectionModal()">.{{ form.get("domain")?.value || "zelf" }}</div>
                 <span
                     *ngIf="isZelfNameEmpty || domainHover; else searchIcon"
                     class="dropdown-icon-container"
-                    (click)="$event.stopPropagation(); domainSelect.open()"
+                    (click)="$event.stopPropagation(); openDomainSelectionModal()"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none">
                         <path d="M7 10l5 5 5-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

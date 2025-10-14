@@ -13,7 +13,7 @@
         <div class="welcome-available__wrapper">
             <div class="zelf-chip zelf-chip--success">{{ t("common.available") }}</div>
 
-            <h2 class="zelf-card__title">{{ zelfName | zelfName }}</h2>
+            <h2 class="zelf-card__title">{{ tagName | zelfName }}.{{ domain }}</h2>
 
             <p class="zelf-card__subtitle welcome-available__subtitle">
                 {{ t("welcome.you_will_register_this_domain") }}
@@ -31,7 +31,7 @@
                 [invalidReferral]="invalidReferral"
                 [loading]="loading"
                 [loadingReferral]="loadingReferral"
-                [zelfNameObject]="zelfNameObject"
+                [zelfNameObject]="tagModel"
             ></welcome-available-content>
         </div>
 

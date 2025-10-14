@@ -10,6 +10,7 @@ import { ChromeService } from "app/chrome.service";
 import { DiscountType } from "app/pipes/discount.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagsService, TagModel, TagSearchResponse } from "app/tags.service";
 import { WelcomeAvailableContentComponent } from "./welcome-available-content.component";
 
 @Component({
@@ -36,8 +37,10 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     loading: boolean = false;
     loadingReferral: boolean = false;
     invalidReferral: boolean = false;
-    zelfName: string = "";
-    zelfNameObject: any;
+    tagName: string = "";
+    domain: string = "";
+    tagModel: TagModel | null = null;
+    tagResponse: TagSearchResponse | null = null;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -45,13 +48,25 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService
     ) {
         this._initForm();
     }
 
     async ngOnInit(): Promise<void> {
-        this.zelfName = await this._zelfNameService.getZelfName();
+        // Load tag data from localStorage (saved from search)
+        this.tagName = await this._tagsService.getTagName();
+        this.domain = await this._tagsService.getDomain();
+        this.tagModel = await this._tagsService.getTagNameObject();
+        this.tagResponse = await this._tagsService.getTagResponse();
+
+        console.log("Available page loaded with:", {
+            tagName: this.tagName,
+            domain: this.domain,
+            tagModel: this.tagModel,
+            tagResponse: this.tagResponse,
+        });
     }
 
     ngOnDestroy(): void {
@@ -80,13 +95,13 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     }
 
     async goToImport(): Promise<void> {
-        await this._zelfNameService.setFlow("import");
+        await this._tagsService.setFlow("import");
 
         this._router.navigate(["../import"], { relativeTo: this._activatedRoute });
     }
 
     async goToSecurity(): Promise<void> {
-        await this._zelfNameService.setFlow("create");
+        await this._tagsService.setFlow("create");
 
         this._router.navigate(["../../security"], { relativeTo: this._activatedRoute });
     }
@@ -124,11 +139,9 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
         this.loadingReferral = true;
 
-        const zelfName = referralNameCtrl.value
-            ? referralNameCtrl.value.endsWith(".zelf")
-                ? referralNameCtrl.value
-                : `${referralNameCtrl.value}.zelf`
-            : "";
+        // Get current domain from saved tag data, default to "zelf"
+        const currentDomain = this.tagModel?.domain || "zelf";
+        const referralTagName = referralNameCtrl.value.toLowerCase();
 
         let captchaToken = "";
 
@@ -142,10 +155,15 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
             }
         }
 
-        this._zelfNameService
-            .searchZelfNameV2("zelfName", zelfName, captchaToken)
+        this._tagsService
+            .searchTag({
+                tagName: referralTagName,
+                domain: currentDomain,
+                captchaToken: captchaToken,
+            })
             .then((response) => {
-                if (response?.data.price) {
+                // If tag is available (not found), it's invalid as referral
+                if (response?.data.available) {
                     this.form.patchValue({ referralName: "" });
                     this.form.markAsPristine();
 
@@ -157,9 +175,13 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
                 this.form.markAsPristine();
 
-                this.zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+                // Create TagModel from the found referral tag
+                const referralTagModel = this._tagsService.createTagModelFromSearchResponse(response.data);
 
-                this._zelfNameService.setReferral(this.zelfNameObject.zelfName);
+                if (referralTagModel) {
+                    const referralTagName = referralTagModel.publicData.tagName || referralTagModel.name;
+                    this._tagsService.setReferral(referralTagName);
+                }
 
                 this.loadingReferral = false;
             })

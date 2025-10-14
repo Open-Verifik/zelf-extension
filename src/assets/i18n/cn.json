@@ -51,7 +51,7 @@
         "decrypt_now_pay_later": "现在解密，稍后付款",
         "decrypt_now_renew_later": "现在解密，稍后续期",
         "dont_lose_your_zelfname": "嘿！不要丢失您的标签名称，在别人购买之前今天就续期或保留。",
-        "dont_remember_zelfname": "不记得您的ZelfName了？",
+        "dont_remember_zelfname": "不记得您的标签名称了？",
         "enjoy_your_domain": "享受您的域名。记得在别人购买之前购买它！",
         "expiration_date": "到期日期 {{ date }}",
         "find_zelf_name_subtitle": "通过在下面输入其公共地址来查找现有的标签名称：",

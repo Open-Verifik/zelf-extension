@@ -51,7 +51,7 @@
         "decrypt_now_pay_later": "Расшифровать сейчас, оплатить позже",
         "decrypt_now_renew_later": "Расшифровать сейчас, продлить позже",
         "dont_lose_your_zelfname": "Эй! Не теряйте свой Tag Name, продлите или зарезервируйте сегодня, пока его не купил кто-то другой.",
-        "dont_remember_zelfname": "Не помните свой ZelfName?",
+        "dont_remember_zelfname": "Не помните свой Tag Name?",
         "enjoy_your_domain": "Наслаждайтесь своим доменом. Не забудьте приобрести его, пока это не сделал кто-то другой!",
         "expiration_date": "Дата истечения {{ date }}",
         "find_zelf_name_subtitle": "Найдите существующий Tag Name, введя его публичный адрес ниже:",

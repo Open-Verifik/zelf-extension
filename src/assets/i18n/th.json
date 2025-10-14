@@ -51,7 +51,7 @@
         "decrypt_now_pay_later": "ถอดรหัสตอนนี้ จ่ายทีหลัง",
         "decrypt_now_renew_later": "ถอดรหัสตอนนี้ ต่ออายุทีหลัง",
         "dont_lose_your_zelfname": "เฮ้! อย่าให้เสีย Tag Name ของคุณ ต่ออายุหรือจองวันนี้ ก่อนที่คนอื่นจะซื้อไป",
-        "dont_remember_zelfname": "จำ ZelfName ของคุณไม่ได้?",
+        "dont_remember_zelfname": "จำ Tag Name ของคุณไม่ได้?",
         "enjoy_your_domain": "เพลิดเพลินกับโดเมนของคุณ อย่าลืมซื้อก่อนที่คนอื่นจะซื้อ!",
         "expiration_date": "วันที่หมดอายุ {{ date }}",
         "find_zelf_name_subtitle": "ค้นหา Tag Name ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",

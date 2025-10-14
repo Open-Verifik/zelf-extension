@@ -6,6 +6,7 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagsService, TagModel, TagSearchResponse } from "app/tags.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -19,13 +20,15 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class WelcomeRegisteredComponent extends CopyToClipboardBase implements OnInit {
     qrCodeImage: string;
     zelfProof: string | undefined;
-    zelfNameObject?: WalletModel;
+    tagModel?: TagModel;
+    tagResponse?: TagSearchResponse;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService,
         public _chromeService: ChromeService,
         public _translocoService: TranslocoService,
         public _snackBar: MatSnackBar
@@ -36,10 +39,23 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
     }
 
     async ngOnInit(): Promise<void> {
-        this.zelfProof = await this._zelfNameService.getZelfProof();
-        this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+        // Load tag data from the new TagsService
+        this.zelfProof = await this._tagsService.getZelfProof();
+        const tagData = await this._tagsService.getTagNameObject();
+        this.tagResponse = (await this._tagsService.getTagResponse()) || undefined;
 
-        this.qrCodeImage = this.zelfNameObject?.image || this.qrCodeImage;
+        // Create TagModel if we have tag data
+        if (tagData) {
+            this.tagModel = tagData instanceof TagModel ? tagData : new TagModel(tagData);
+        }
+
+        this.qrCodeImage = this.tagModel?.image || this.qrCodeImage;
+
+        console.log("Registered page loaded with:", {
+            zelfProof: this.zelfProof,
+            tagModel: this.tagModel,
+            tagResponse: this.tagResponse,
+        });
 
         this._changeDetectorRef.markForCheck();
     }
@@ -49,15 +65,16 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
     }
 
     async login(): Promise<void> {
-        await this._zelfNameService.setFlow("unlock");
+        await this._tagsService.setFlow("unlock");
 
         this._router.navigate(["../../security/password"], { relativeTo: this._activatedRoute });
     }
 
     purchaseNow(): void {
+        const tagName = this.tagModel?.publicData?.tagName || this.tagModel?.name;
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.zelfNameObject?.publicData?.zelfName}`,
+                externalUrl: `https://payment.zelf.world/purchase?tagName=${tagName}`,
             },
         });
     }

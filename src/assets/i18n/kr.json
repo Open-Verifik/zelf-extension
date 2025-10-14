@@ -51,7 +51,7 @@
         "decrypt_now_pay_later": "지금 복호화하고 나중에 결제",
         "decrypt_now_renew_later": "지금 복호화하고 나중에 갱신",
         "dont_lose_your_zelfname": "안녕하세요! 다른 사람이 구매하기 전에 오늘 태그 이름을 갱신하거나 예약하세요.",
-        "dont_remember_zelfname": "ZelfName을 기억하지 못하시나요?",
+        "dont_remember_zelfname": "태그 이름을 기억하지 못하시나요?",
         "enjoy_your_domain": "도메인을 즐기세요. 다른 사람이 구매하기 전에 구매하는 것을 잊지 마세요!",
         "expiration_date": "만료일 {{ date }}",
         "find_zelf_name_subtitle": "아래에 공개 주소를 입력하여 기존 태그 이름을 찾으세요:",

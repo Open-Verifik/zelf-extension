@@ -13,31 +13,31 @@
 
     <div class="zelf-card__content welcome-registered__content">
         <div class="welcome-registered__details">
-            <div class="qr-code" *ngIf="zelfNameObject?.publicData?.type === 'hold' || !zelfNameObject?.publicData?.isExpiringSoon">
+            <div class="qr-code" *ngIf="tagModel?.publicData?.type === 'hold' || !tagModel?.isExpired">
                 <img class="qr-code__image" [src]="qrCodeImage" alt="zelf-proof" />
             </div>
 
             <div
                 [ngClass]="{
-                    'zelf-chip--info': zelfNameObject?.publicData?.type === 'mainnet' && !zelfNameObject?.publicData?.isExpiringSoon,
-                    'zelf-chip--error': zelfNameObject?.publicData?.type === 'hold' || zelfNameObject?.publicData?.isExpiringSoon,
+                    'zelf-chip--info': tagModel?.publicData?.type === 'mainnet' && !tagModel?.isExpired,
+                    'zelf-chip--error': tagModel?.publicData?.type === 'hold' || tagModel?.isExpired,
                 }"
                 class="zelf-chip welcome-registered__chip"
             >
-                <ng-container *ngIf="zelfNameObject?.publicData?.type === 'hold'">{{ t("common.reservation_found") }}</ng-container>
-                <ng-container *ngIf="zelfNameObject?.publicData?.type === 'mainnet'">{{ t("common.registered") }}</ng-container>
+                <ng-container *ngIf="tagModel?.publicData?.type === 'hold'">{{ t("common.reservation_found") }}</ng-container>
+                <ng-container *ngIf="tagModel?.publicData?.type === 'mainnet'">{{ t("common.registered") }}</ng-container>
             </div>
 
-            <h2 class="zelf-card__title">{{ zelfNameObject?.publicData?.zelfName | zelfName }}</h2>
+            <h2 class="zelf-card__title">{{ tagModel?.name | zelfName }}.{{ tagModel?.publicData?.domain }}</h2>
 
-            <ng-container *ngIf="zelfNameObject?.publicData?.origin === 'offline'">
+            <ng-container *ngIf="tagModel?.publicData?.origin === 'offline'">
                 <p class="zelf-card__subtitle">{{ t("welcome.offline_subtitle") }}</p>
             </ng-container>
 
-            <ng-container *ngIf="zelfNameObject?.publicData?.origin !== 'offline'">
+            <ng-container *ngIf="tagModel?.publicData?.origin !== 'offline'">
                 <p class="zelf-card__subtitle welcome-registered__subtitle">
-                    <span *ngIf="zelfNameObject?.publicData?.registeredAt">
-                        {{ t("welcome.registered", { date: zelfNameObject?.publicData?.registeredAt | date: "MMMM yyyy" }) }}
+                    <span *ngIf="tagModel?.publicData?.registeredAt">
+                        {{ t("welcome.registered", { date: tagModel?.publicData?.registeredAt | date: "MMMM dd, yyyy" }) }}
                     </span>
                 </p>
 
@@ -47,10 +47,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    address: zelfNameObject?.publicData?.btcAddress,
+                                    address: tagModel?.publicData?.btcAddress,
                                     label: t('common.btc_address'),
                                     logo: 'assets/networks/btc.png',
-                                    value: zelfNameObject?.displayBtcAddress,
+                                    value: tagModel?.displayBtcAddress,
                                 },
                             }
                         "
@@ -61,10 +61,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    address: zelfNameObject?.publicData?.ethAddress,
+                                    address: tagModel?.publicData?.ethAddress,
                                     label: t('common.eth_address'),
                                     logo: 'assets/networks/eth.png',
-                                    value: zelfNameObject?.displayEthAddress,
+                                    value: tagModel?.displayEthAddress,
                                 },
                             }
                         "
@@ -75,18 +75,18 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    address: zelfNameObject?.publicData?.solanaAddress,
+                                    address: tagModel?.publicData?.solanaAddress,
                                     label: t('common.sol_address'),
                                     logo: 'assets/networks/sol.svg',
-                                    value: zelfNameObject?.displaySolanaAddress,
+                                    value: tagModel?.displaySolanaAddress,
                                 },
                             }
                         "
                     ></ng-container>
                 </div>
 
-                <ng-container *ngIf="zelfNameObject?.publicData?.type === 'mainnet' && zelfNameObject?.publicData?.isExpiringSoon">
-                    <div class="welcome-registered__date-row" *ngIf="zelfNameObject?.publicData?.expiresAt">
+                <ng-container *ngIf="tagModel?.publicData?.type === 'mainnet' && tagModel?.isExpired">
+                    <div class="welcome-registered__date-row" *ngIf="tagModel?.publicData?.expiresAt">
                         <div class="welcome-registered__date-column">
                             <p class="welcome-registered__date-title">
                                 {{ t("welcome.name_expires") }}
@@ -94,7 +94,7 @@
 
                             <div class="welcome-registered__date-text__inner-row">
                                 <p class="welcome-registered__date-text">
-                                    {{ zelfNameObject?.publicData?.expiresAt | date: "dd MMM, yyyy" }}
+                                    {{ tagModel?.publicData?.expiresAt | date: "dd MMM, yyyy" }}
                                 </p>
 
                                 <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,8 +112,8 @@
                             </p>
 
                             <div class="welcome-registered__date-text__inner-row">
-                                <p class="welcome-registered__date-text" *ngIf="zelfNameObject?.publicData?.gracePeriod">
-                                    {{ zelfNameObject?.publicData?.gracePeriod | date: "dd MMM, yyyy" }}
+                                <p class="welcome-registered__date-text" *ngIf="tagModel?.publicData?.expiresAt">
+                                    {{ tagModel?.publicData?.expiresAt | date: "dd MMM, yyyy" }}
                                 </p>
 
                                 <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +131,7 @@
     </div>
 
     <div class="zelf-card__actions zelf-card__actions--column">
-        <ng-container *ngIf="zelfNameObject?.publicData?.origin === 'offline'">
+        <ng-container *ngIf="tagModel?.publicData?.origin === 'offline'">
             <div class="tip-box">
                 <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -152,8 +152,8 @@
             </button>
         </ng-container>
 
-        <ng-container *ngIf="zelfNameObject?.publicData?.origin !== 'offline'">
-            <ng-container *ngIf="zelfNameObject?.publicData?.type === 'hold'">
+        <ng-container *ngIf="tagModel?.publicData?.origin !== 'offline'">
+            <ng-container *ngIf="tagModel?.publicData?.type === 'hold'">
                 <button (click)="purchaseNow()" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
                     {{ t("common.purchase_now") }}
                 </button>
@@ -163,8 +163,8 @@
                 </button>
             </ng-container>
 
-            <ng-container *ngIf="zelfNameObject?.publicData?.type === 'mainnet'">
-                <div class="tip-box" *ngIf="zelfNameObject?.publicData?.isExpiringSoon">
+            <ng-container *ngIf="tagModel?.publicData?.type === 'mainnet'">
+                <div class="tip-box" *ngIf="tagModel?.isExpired">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"

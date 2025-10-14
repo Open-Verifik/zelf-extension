@@ -18,6 +18,7 @@ import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagsService } from "app/tags.service";
 import { DomainService, DomainConfig } from "app/domain.service";
 import { DomainSelectionModalComponent, DomainSelectionData } from "app/domain-selection-modal/domain-selection-modal.component";
 
@@ -59,6 +60,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _walletService: WalletService,
         private _vaultService: VaultService,
         private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService,
         private _domainService: DomainService,
         private _dialog: MatDialog
     ) {
@@ -128,30 +130,43 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            zelfName: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(27)]],
+            tagName: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(27)]],
             domain: ["zelf", [Validators.required]],
         });
     }
 
-    private async _noZelfNameFound(zelfNameObject: any): Promise<void> {
-        zelfNameObject.zelfName = zelfNameObject.zelfName.toLowerCase();
+    private async _existingTagName(responseData: any): Promise<void> {
+        // Create TagModel from the tagObject (selected record)
+        const tagModel = this._tagsService.createTagModelFromSearchResponse(responseData);
 
-        await this._zelfNameService.setZelfName(zelfNameObject.zelfName, zelfNameObject);
+        if (!tagModel) {
+            this.loading = false;
+            return;
+        }
 
-        await this._zelfNameService.setZelfNameObject(zelfNameObject);
+        // Get the tag name from publicData (could be tagName or zelfName based on domain config)
+        const tagName = tagModel.publicData.tagName || tagModel.name;
+
+        if (tagName) {
+            await this._tagsService.setTagName(tagName.toLowerCase(), responseData);
+            await this._tagsService.setZelfProof(tagModel.zelfProof);
+            await this._tagsService.setDomain(tagModel.publicData.domain);
+            await this._tagsService.setTagNameObject(tagModel);
+            await this._tagsService.setTagResponse(responseData);
+        }
 
         this.form.clearValidators();
 
-        this.form.reset({ zelfName: "" });
+        this.form.reset({ tagName: "" });
 
-        this._router.navigate(["/welcome", "available"]);
+        this._router.navigate(["/welcome", "registered"]);
 
         this.loading = false;
     }
 
     async searchZelfName(event: any): Promise<any> {
         if (!this.form.valid) {
-            this.form.patchValue({ zelfName: "" });
+            this.form.patchValue({ tagName: "" });
 
             return;
         }
@@ -163,13 +178,13 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         this.loading = true;
 
         const domain: string = this.form.value.domain || "zelf";
-        const zelfName = `${this.form.value.zelfName}.${domain}`.toLowerCase();
+        const tagName = `${this.form.value.tagName}`.toLowerCase();
 
         let captchaToken = "";
 
         if (!this._chromeService.isExtension) {
             try {
-                const captchaKey = this.form.value.zelfName.replace(".", "_");
+                const captchaKey = this.form.value.tagName.replace(".", "_");
 
                 captchaToken = await this._captchaService.executeRecaptcha(captchaKey);
             } catch (error) {
@@ -177,20 +192,49 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             }
         }
 
-        this._zelfNameService
-            .searchZelfNameV2("zelfName", zelfName, captchaToken)
+        this._tagsService
+            .searchTag({ tagName, domain: domain, captchaToken: captchaToken })
             .then(async (response) => {
-                if (response?.data.price) return await this._noZelfNameFound(response?.data);
+                // Check if tag is available (not found)
+                if (!response?.data.available) {
+                    await this._existingTagName(response?.data);
+                    return;
+                }
 
-                const zelfNameObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+                // Tag is available, proceed with registration flow
+                await this._tagsService.setTagName(tagName, { price: 0, reward: 0 });
 
-                await this._zelfNameService.setZelfName(zelfName, { price: 0, reward: 0 });
+                await this._tagsService.setDomain(domain);
 
-                await this._zelfNameService.setZelfNameObject(zelfNameObject);
+                // Save the complete response data for the available page
+                await this._tagsService.setTagResponse(response.data);
+
+                // Create a basic tag object for available tags (no tagObject exists yet)
+                const availableTagData = {
+                    name: tagName,
+                    available: true,
+                    publicData: {
+                        tagName: tagName,
+                        domain: domain,
+                        btcAddress: "",
+                        ethAddress: "",
+                        solanaAddress: "",
+                        suiAddress: "",
+                        hasPassword: "false",
+                        type: "",
+                        origin: "",
+                        registeredAt: "",
+                        expiresAt: "",
+                        blockDAGAddress: "",
+                        avalancheAddress: "",
+                    },
+                };
+
+                await this._tagsService.setTagNameObject(availableTagData);
 
                 this.loading = false;
 
-                this._router.navigate(["/welcome", "registered"]);
+                this._router.navigate(["/welcome", "available"]);
             })
             .catch((exception) => {
                 console.error({ exception });
@@ -200,7 +244,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     }
 
     sanitizeZelfName(): void {
-        const control = this.form.get("zelfName");
+        const control = this.form.get("tagName");
 
         if (!control) return;
 
@@ -215,7 +259,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     }
 
     get isZelfNameEmpty(): boolean {
-        const value = (this.form?.value?.zelfName || "").trim();
+        const value = (this.form?.value?.tagName || "").trim();
         return value?.length === 0;
     }
 

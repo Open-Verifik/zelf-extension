@@ -65,6 +65,7 @@ export class WalletService {
         private _chromeService: ChromeService
     ) {
         this.deviceData = this.getDeviceDetails();
+
         this._userFingerPrint = this.getUserFingerprint();
 
         this.loadModels();

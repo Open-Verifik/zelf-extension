@@ -17,8 +17,9 @@ import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.component";
+import { TagFlow, TagsService } from "app/tags.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -41,14 +42,14 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     errorMessage: string = "";
     errorTitle: string = "";
-    flow: ZelfFlow = "";
+    flow: TagFlow = "";
     form!: UntypedFormGroup;
     isNew: boolean = false;
     loading: boolean = true;
-    newZelfName: string = "";
+    newTagName: string = "";
     returnState: string = "";
     showBiometrics: boolean = true;
-    zelfNameObject: any;
+    tagObject: TagModel = new TagModel();
     zelfProof: string = "";
 
     constructor(
@@ -62,7 +63,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _tagsService: TagsService
     ) {
         this.form = this._formBuilder.group({
             hideBiometricsCheckbox: [false],
@@ -76,17 +77,19 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this.flow = (await this._zelfNameService.getFlow()) || "create";
-        this.newZelfName = await this._zelfNameService.getNewZelfName();
+        this.flow = (await this._tagsService.getFlow()) || "create";
+
+        this.newTagName = await this._tagsService.getNewTagName();
+
         this.showBiometrics = (await this._chromeService.getItem("hideBiometricsMessage")) || false;
-        this.zelfProof = await this._zelfNameService.getZelfProof();
 
-        const zelfNameObject = await this._zelfNameService.getZelfNameObject();
+        this.zelfProof = await this._tagsService.getZelfProof();
 
-        if (zelfNameObject) this.zelfNameObject = new WalletModel(zelfNameObject);
-        else this.zelfNameObject = this.zelfNameObject;
+        const tagObject = await this._tagsService.getTagNameObject();
 
-        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.zelfNameObject?.available);
+        if (tagObject) this.tagObject = new TagModel(tagObject);
+
+        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && this.tagObject?.available);
 
         this.loading = false;
     }
@@ -97,15 +100,17 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     async _createWallet(payload: any): Promise<void> {
-        const mnemonicCount = (await this._zelfNameService.getMnemonicCount()) || 12;
+        const mnemonicCount = (await this._tagsService.getMnemonicCount()) || 12;
 
-        this._zelfNameService
-            .leaseZelfName({
+        this._tagsService
+            .leaseTag({
                 ...payload,
                 type: "create",
                 wordsCount: mnemonicCount,
             })
             .then(async (response) => {
+                console.log({ leaseTag: response });
+
                 await this._chromeService.removeItem("flow");
                 await this._chromeService.setItem("wallet", new WalletModel(response.data));
 
@@ -115,11 +120,12 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _decryptWallet(payload: any): Promise<void> {
-        const zelfProof = await this._zelfNameService.getZelfProof();
+        const zelfProof = await this._tagsService.getZelfProof();
+
         const userFingerprint = this._walletService.getUserFingerprint();
 
-        this._zelfNameService
-            .decryptZelfName({
+        this._tagsService
+            .decryptTag({
                 ...payload,
                 zelfProof,
                 identifier: userFingerprint.hash,
@@ -134,8 +140,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _importWallet(payload: any): Promise<void> {
-        this._zelfNameService
-            .leaseZelfName({
+        this._tagsService
+            .leaseTag({
                 ...payload,
                 mnemonic: await this._httpWrapperService.encryptMessage(this._vaultService.mnemonic),
                 type: "import",
@@ -152,20 +158,21 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _leaseRecovery(payload: any): Promise<void> {
-        this._zelfNameService
-            .zelfNameLeaseRecovery({
+        this._tagsService
+            .leaseRecovery({
                 ...payload,
                 zelfProof: this.zelfProof,
-                newZelfName: this.newZelfName,
+                newTagName: this.newTagName,
             })
             .then(async (response) => {
-                await this._chromeService.removeItem("newZelfName");
-                await this._chromeService.setItem("wallet", new WalletModel(response.data));
+                await this._chromeService.removeItem("newTagName");
+
+                await this._chromeService.setItem("wallet", new TagModel(response.data));
 
                 this._bottomSheet.open(ReserveDoneSheetComponent, {
                     backdropClass: "zelf-backdrop",
                     panelClass: "zelf-bottom-sheet",
-                    data: { zelfName: this.newZelfName },
+                    data: { tagName: this.newTagName },
                 });
             })
             .catch(this.onBiometricsFailed);
@@ -203,15 +210,19 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     };
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {
-        const zelfName = await this._zelfNameService.getZelfName();
-        const referralZelfName = await this._zelfNameService.getReferral();
+        const tagName = (await this._tagsService.getTagName()) || (await this._tagsService.getNewTagName());
+
+        const referralTagName = await this._tagsService.getReferral();
+
+        const domain = await this._tagsService.getDomain();
 
         const payload: any = {
             faceBase64: encryptedImage,
             os: "DESKTOP",
             password: await this._httpWrapperService.encryptMessage(this._vaultService.password),
-            referralZelfName,
-            zelfName,
+            referralTagName,
+            tagName,
+            domain,
         };
 
         if (this.flow === "create") {

@@ -10,6 +10,7 @@ import { ChromeService } from "app/chrome.service";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagsService } from "app/tags.service";
 
 @Component({
     imports: [
@@ -46,13 +47,14 @@ export class WelcomeRecoverComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService
     ) {
         this._initForm();
     }
 
     async ngOnInit(): Promise<void> {
-        this.oldZelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+        this.oldZelfNameObject = new WalletModel(await this._tagsService.getTagNameObject());
 
         if (!this.oldZelfNameObject?.available) {
             this.showSearch = true;
@@ -152,7 +154,7 @@ export class WelcomeRecoverComponent implements OnInit {
 
         this.form.patchValue({ zelfName: query });
 
-        this.newZelfNameObject = await this._queryForZelfObject(query + ".zelf");
+        this.newZelfNameObject = await this._queryForZelfObject(query);
     }
 
     returnToForm(): void {
@@ -172,12 +174,13 @@ export class WelcomeRecoverComponent implements OnInit {
 
         if (!query) return;
 
-        this.newZelfNameObject = await this._queryForZelfObject(query + ".zelf");
+        this.newZelfNameObject = await this._queryForZelfObject(query);
     }
 
     async startReservation(): Promise<void> {
-        await this._zelfNameService.setNewZelfName(this.newZelfNameObject?.name || this.form.value.zelfName + ".zelf");
-        await this._zelfNameService.setFlow("recover");
+        await this._tagsService.setNewTagName(this.newZelfNameObject?.name || this.form.value.zelfName);
+
+        await this._tagsService.setFlow("recover");
 
         this._router.navigate(["/security/password"], { queryParams: { return: "/welcome/recover" } });
     }

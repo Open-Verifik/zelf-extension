@@ -10,9 +10,9 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
-import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
-import { WalletModel } from "app/wallet";
+import { ZelfFlow } from "app/zelf-name-service.service";
 import { PasswordStrengthComponent } from "password-strength/password-strength.component";
+import { TagModel, TagsService } from "app/tags.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, PasswordStrengthComponent],
@@ -28,7 +28,10 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     isNew: boolean = false;
     returnState: string = "";
     showPassword: boolean = false;
-    zelfNameObject: any;
+    tagName: string = "";
+    domain: string = "";
+    tagModel: TagModel = new TagModel();
+    tagResponse: any;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -37,7 +40,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _vaultService: VaultService,
-        private _zelfNameService: ZelfNameService
+        private _tagsService: TagsService
     ) {
         this._vaultService.password = "";
 
@@ -51,10 +54,15 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this.flow = await this._zelfNameService.getFlow();
-        this.zelfNameObject = new WalletModel(await this._zelfNameService.getZelfNameObject());
+        // this.flow = await this._zelfNameService.getFlow();
+        this.flow = await this._tagsService.getFlow();
 
-        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && !this.zelfNameObject?.available);
+        this.tagName = await this._tagsService.getTagName();
+        this.domain = await this._tagsService.getDomain();
+        this.tagModel = await this._tagsService.getTagNameObject();
+        this.tagResponse = await this._tagsService.getTagResponse();
+
+        this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && !this.tagModel?.available);
 
         this._initForm();
     }
@@ -77,10 +85,10 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
         if (!generateCaptchaNow) return;
 
-        const zelfName = await this._zelfNameService.getZelfName();
+        const tagName = await this._tagsService.getTagName();
 
         try {
-            const captchaKey = zelfName.split(".zelf")[0].replace(".", "_");
+            const captchaKey = tagName.split(".zelf")[0].replace(".", "_");
             const captchaToken = await this._captchaService.executeRecaptcha(captchaKey);
 
             this._captchaService.retainCaptchaToken(captchaToken);

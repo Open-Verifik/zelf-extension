@@ -202,7 +202,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
                 }
 
                 // Tag is available, proceed with registration flow
-                await this._tagsService.setTagName(tagName, { price: 0, reward: 0 });
+                await this._tagsService.setNewTagName(tagName);
 
                 await this._tagsService.setDomain(domain);
 

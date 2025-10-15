@@ -56,7 +56,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<void> {
         // Load tag data from localStorage (saved from search)
-        this.tagName = await this._tagsService.getTagName();
+        this.tagName = await this._tagsService.getNewTagName();
         this.domain = await this._tagsService.getDomain();
         this.tagModel = await this._tagsService.getTagNameObject();
         this.tagResponse = await this._tagsService.getTagResponse();

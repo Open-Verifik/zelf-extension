@@ -6,6 +6,7 @@ import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
 import { WalletModel } from "./wallet";
 import { WalletService } from "./wallet.service";
+import { TagModel } from "./tags.service";
 
 export type ZelfFlow = "create" | "import" | "unlock" | "recover" | "";
 
@@ -250,7 +251,7 @@ export class ZelfNameService {
         return this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
     }
 
-    async refreshAllWalletsPublicData(wallets: WalletModel[], forceRefresh = false): Promise<boolean> {
+    async refreshAllWalletsPublicData(wallets: TagModel[], forceRefresh = false): Promise<boolean> {
         const shouldRefreshWallets = forceRefresh || (await this._shouldRefreshWallets());
 
         if (!shouldRefreshWallets) return false;
@@ -262,15 +263,16 @@ export class ZelfNameService {
         return true;
     }
 
-    async refreshWalletPublicData(wallet: WalletModel): Promise<WalletModel | null> {
-        if (!wallet || !wallet.publicData?.zelfName) return null;
+    async refreshWalletPublicData(wallet: TagModel): Promise<TagModel | null> {
+        if (!wallet || !wallet.tagName) return null;
 
-        const response = await this.searchZelfName("zelfName", wallet.publicData.zelfName);
+        const response = await this.searchZelfName("zelfName", wallet.tagName);
 
         if (!response.data.ipfs?.length && !response.data.arweave?.length && response.data?.price) {
-            (wallet as WalletModel)?.updatePublicData({
+            (wallet as TagModel)?.updatePublicData({
                 ...wallet.publicData,
                 expiresAt: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
+                gracePeriod: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
             });
 
             await this._walletService.updateWallet(wallet);
@@ -282,7 +284,7 @@ export class ZelfNameService {
 
         if (!publicData || !wallet) return null;
 
-        (wallet as WalletModel)?.updatePublicData(publicData);
+        (wallet as TagModel)?.updatePublicData(publicData);
 
         await this._walletService.updateWallet(wallet);
 

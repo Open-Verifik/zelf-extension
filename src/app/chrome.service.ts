@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { WalletModel } from "./wallet";
 import { Settings } from "./models/settings.model";
+import { TagModel } from "./tags.service";
 
 @Injectable({
     providedIn: "root",
@@ -17,8 +17,8 @@ export class ChromeService {
     private _settings$ = new BehaviorSubject<Settings>({} as Settings);
     private _tabId?: number;
     private _tabStorageKey = "isTabOpen";
-    private _wallet$ = new BehaviorSubject<WalletModel>({} as WalletModel);
-    private _wallets$ = new BehaviorSubject<WalletModel[]>([] as WalletModel[]);
+    private _wallet$ = new BehaviorSubject<TagModel>({} as TagModel);
+    private _wallets$ = new BehaviorSubject<TagModel[]>([] as TagModel[]);
 
     constructor() {
         if (!this.isExtension) return;
@@ -58,16 +58,16 @@ export class ChromeService {
                 this.removeItemSession("tokensTtl");
 
                 changes.wallet
-                    ? this._wallet$.next(changes.wallet.newValue ? (new WalletModel(changes.wallet.newValue) as WalletModel) : ({} as WalletModel))
-                    : ({} as WalletModel);
+                    ? this._wallet$.next(changes.wallet.newValue ? (new TagModel(changes.wallet.newValue) as TagModel) : ({} as TagModel))
+                    : ({} as TagModel);
             }
 
             if (changes.wallets) {
                 changes.wallets
                     ? this._wallets$.next(
-                          ((changes.wallets.newValue as WalletModel[]) || ([] as WalletModel[]))?.map((wallet: any) => new WalletModel(wallet || {}))
+                          ((changes.wallets.newValue as TagModel[]) || ([] as TagModel[]))?.map((wallet: any) => new TagModel(wallet || {}))
                       )
-                    : ([] as WalletModel[]);
+                    : ([] as TagModel[]);
             }
 
             if (changes.myArnsDontShowAgain) {
@@ -91,20 +91,18 @@ export class ChromeService {
                     this.removeItemSession("tokensTtl");
 
                     event
-                        ? this._wallet$.next(
-                              event.detail.newValue ? (new WalletModel(JSON.parse(event.detail.newValue)) as WalletModel) : ({} as WalletModel)
-                          )
-                        : ({} as WalletModel);
+                        ? this._wallet$.next(event.detail.newValue ? (new TagModel(JSON.parse(event.detail.newValue)) as TagModel) : ({} as TagModel))
+                        : ({} as TagModel);
                 }
 
                 if (event.detail.key === "wallets") {
                     event
                         ? this._wallets$.next(
-                              (((JSON.parse(event.detail.newValue) || []) as WalletModel[]) || ([] as WalletModel[]))?.map(
-                                  (wallet: any) => new WalletModel(wallet || {})
+                              (((JSON.parse(event.detail.newValue) || []) as TagModel[]) || ([] as TagModel[]))?.map(
+                                  (wallet: any) => new TagModel(wallet || {})
                               )
                           )
-                        : ([] as WalletModel[]);
+                        : ([] as TagModel[]);
                 }
 
                 if (event.detail.key === "myArnsDontShowAgain") {
@@ -146,11 +144,11 @@ export class ChromeService {
         return this._settings$.asObservable();
     }
 
-    get onWalletChanged$(): Observable<WalletModel> {
+    get onWalletChanged$(): Observable<TagModel> {
         return this._wallet$.asObservable();
     }
 
-    get onWalletsChanged$(): Observable<WalletModel[]> {
+    get onWalletsChanged$(): Observable<TagModel[]> {
         return this._wallets$.asObservable();
     }
 

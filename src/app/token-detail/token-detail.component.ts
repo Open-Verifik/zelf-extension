@@ -289,7 +289,7 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
 
         if (!address) throw new Error("No address found");
 
-        const zelfName = (await this._walletService.getCurrentWallet())?.publicData?.zelfName;
+        const zelfName = (await this._walletService.getCurrentWallet())?.tagName;
 
         await this._transactionService.setCurrentTransactionData(
             new TransactionData({

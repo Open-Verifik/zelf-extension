@@ -11,12 +11,13 @@ import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { FooterComponent } from "app/footer/footer.component";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { Wallet, WalletModel } from "app/wallet";
+
 import { WalletService } from "app/wallet.service";
 import { HomeHeaderComponent } from "./home-header/home-header.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -49,7 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     tokens!: Array<any>;
     totalFiatBalance: number = 0;
     view?: string;
-    wallet!: Wallet;
+    wallet!: TagModel;
 
     constructor(
         private _assetService: AssetService,
@@ -137,8 +138,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     /**
      * First call to initialize wallet, balances and refresh wallet if needed
      */
-    private _initializeWallet = async (wallet: Wallet): Promise<void> => {
-        if (this.wallet && this.wallet?.publicData?.zelfName === wallet?.publicData?.zelfName) return;
+    private _initializeWallet = async (wallet: TagModel): Promise<void> => {
+        if (this.wallet && this.wallet.tagName === wallet.tagName) return;
 
         if (this.balancesLoading) {
             this.unsubscriberForBalances$.next();
@@ -167,7 +168,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         const nextWallet = this.wallet;
 
-        if (currentWallet.publicData.zelfName === nextWallet.publicData.zelfName) return;
+        if (currentWallet.tagName === nextWallet.tagName) return;
 
         await this.refreshTokens();
     };
@@ -177,7 +178,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      * This updates the wallet in local storage and could trigger an endless update cycle with out subscription to onWalletChanged$.
      */
     private _refreshWallets = async (forceRefresh = false): Promise<void> => {
-        await this._zelfNameService.refreshAllWalletsPublicData([this.wallet] as WalletModel[], forceRefresh);
+        await this._zelfNameService.refreshAllWalletsPublicData([this.wallet] as TagModel[], forceRefresh);
     };
 
     private async _setWallet(): Promise<any> {

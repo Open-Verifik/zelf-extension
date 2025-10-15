@@ -27,6 +27,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
 import { environment } from "environments/environment";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -79,7 +80,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     swapSource: "source" | "target" | "" = "";
     tokens: TokenData[] = [];
     transactionHash: string = "";
-    wallet?: WalletModel;
+    wallet?: TagModel;
     swapExecuting: boolean = false;
     swapExecuted: boolean = false;
     swapLoading: boolean = false;
@@ -112,7 +113,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _zelfNameService: ZelfNameService
     ) {
         this.CAN_SWAP = this._assetService.canSwap;
-        this.wallet = {} as WalletModel;
+        this.wallet = {} as TagModel;
         this.remainingAttempts = this._vaultService.remainingAttempts;
 
         this._mnemonics = "";
@@ -130,7 +131,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+        this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
 
         this._initForm();
 
@@ -239,7 +240,8 @@ export class SwapComponent implements OnInit, OnDestroy {
         try {
             return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
         } catch (error) {
-            this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+            this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
+
             this.remainingAttempts = this._vaultService.remainingAttempts + 1;
 
             if (!this.wallet?.pgp) {
@@ -287,17 +289,17 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         switch (network.toLowerCase()) {
             case "ethereum":
-                return this.wallet.ethAddress;
+                return this.wallet.publicData?.ethAddress;
             case "solana":
-                return this.wallet.solanaAddress;
+                return this.wallet.publicData?.solanaAddress;
             case "avalanche":
-                return this.wallet.ethAddress;
+                return this.wallet.publicData?.ethAddress;
             case "binance":
-                return this.wallet.ethAddress;
+                return this.wallet.publicData?.ethAddress;
             case "polygon":
-                return this.wallet.ethAddress;
+                return this.wallet.publicData?.ethAddress;
             default:
-                return this.wallet.ethAddress;
+                return this.wallet.publicData?.ethAddress;
         }
     }
 
@@ -355,7 +357,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             asset: this.selectedSourceAsset.symbol,
             date: new Date().toISOString(),
             fee: this.form.get("fee")?.value,
-            from: this.wallet?.ethAddress,
+            from: this.wallet?.publicData?.ethAddress,
             image: this.selectedSourceAsset.image,
             network: this.selectedSourceAsset.network,
             status: "pending",
@@ -475,7 +477,8 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     async _redirectToBiometrics(): Promise<void> {
         await this._zelfNameService.setFlow("unlock");
-        await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
+
+        await this._zelfNameService.setZelfName(this.wallet?.tagName as string);
 
         const { password: _password, ...rest } = this.form.value;
 

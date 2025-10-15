@@ -36,16 +36,16 @@
                             <div
                                 class="domain__avatar"
                                 [ngClass]="{
-                                    'domain__avatar--current': wallet.publicData?.zelfName === currentWallet.publicData?.zelfName,
+                                    'domain__avatar--current': wallet.tagName === currentWallet.tagName,
                                     'domain__avatar--mainnet': wallet.publicData?.type === 'mainnet',
                                     'domain__avatar--hold': wallet.publicData?.type === 'hold',
                                 }"
                             >
-                                <span class="domain__character">{{ wallet.publicData?.zelfName | firstLetter }}</span>
+                                <span class="domain__character">{{ wallet.tagName | firstLetter }}</span>
                             </div>
 
                             <div class="domain__info">
-                                <h4 class="domain__name">{{ wallet.publicData?.zelfName | zelfName }}</h4>
+                                <h4 class="domain__name">{{ wallet.tagName | zelfName }}</h4>
 
                                 <div class="domain__status-indicators">
                                     <div class="domain__status-indicator domain__status-indicator--warning" *ngIf="wallet.publicData?.isExpiringSoon">
@@ -113,7 +113,7 @@
                             <p class="domain-detail__text" *ngIf="wallet.publicData?.isExpiringSoon">{{ t("manage_domains.domain_warning") }}</p>
                             <p class="domain-detail__text" *ngIf="wallet.publicData?.isInGracePeriod">{{ t("manage_domains.domain_warning") }}</p>
                             <p class="domain-detail__text" *ngIf="wallet.publicData?.isFullyExpired">
-                                {{ t("manage_domains.domain_error", { zelfName: wallet.publicData?.zelfName }) }}
+                                {{ t("manage_domains.domain_error", { zelfName: wallet.tagName }) }}
                             </p>
 
                             <p class="domain-detail__countdown" *ngIf="wallet.publicData?.isExpiringSoon">

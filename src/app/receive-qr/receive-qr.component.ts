@@ -8,9 +8,9 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink, ZelfLoaderComponent],
@@ -29,7 +29,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
     network: string = "";
     symbol: string = "";
     type: string = "";
-    wallet: Partial<WalletModel> = {};
+    wallet: Partial<TagModel> = {};
 
     qrCode!: QRCodeStyling;
     qrCodeGradient: QRCodeStylingGradient = {
@@ -124,26 +124,26 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
         const network = this.network.toLowerCase();
 
         if (network === "ethereum") {
-            this.address = this.wallet.ethAddress || "";
+            this.address = this.wallet.publicData?.ethAddress || "";
             this.name = "Ethereum";
             this.symbol = "ETH";
             this.type = "ERC-20";
         } else if (network === "avalanche") {
-            this.address = this.wallet.ethAddress || "";
+            this.address = this.wallet.publicData?.ethAddress || "";
             this.name = "Avalanche";
             this.symbol = "AVAX";
             this.type = "ERC-20";
         } else if (network === "sui") {
-            this.address = this.wallet.suiAddress || "";
+            this.address = this.wallet.publicData?.suiAddress || "";
             this.name = "Sui";
             this.symbol = "SUI";
         } else if (network === "solana") {
-            this.address = this.wallet.solanaAddress || "";
+            this.address = this.wallet.publicData?.solanaAddress || "";
             this.name = "Solana";
             this.symbol = "SOL";
             this.type = "SPL";
         } else if (network === "bitcoin") {
-            this.address = this.wallet.btcAddress || "";
+            this.address = this.wallet.publicData?.btcAddress || "";
             this.name = "Bitcoin";
             this.symbol = "BTC";
         }

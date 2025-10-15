@@ -6,12 +6,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { WalletService } from "app/wallet.service";
-import { WalletModel } from "app/wallet";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
+import { TagModel } from "app/tags.service";
 
 type CtaSheetData = {
-    wallet: Partial<WalletModel>;
+    wallet: Partial<TagModel>;
 };
 
 type BenefitItem = {
@@ -79,7 +79,7 @@ export class CtaSheetComponent implements OnDestroy {
     }
 
     get expiresAt(): string {
-        return this.data.wallet.publicData?.expiresAt as string;
+        return this.data.wallet.publicData?.expiresAt || "";
     }
 
     get gracePeriod(): Date | string {
@@ -115,7 +115,7 @@ export class CtaSheetComponent implements OnDestroy {
     }
 
     private async _checkZelfNameAvailability(): Promise<void> {
-        const response = await this._zelfNameService.searchZelfNameV2("zelfName", this.data.wallet.publicData?.zelfName || "");
+        const response = await this._zelfNameService.searchZelfNameV2("zelfName", this.data.wallet.tagName || "");
 
         this._isAvailable = response?.data?.available || false;
     }
@@ -183,7 +183,7 @@ export class CtaSheetComponent implements OnDestroy {
     }
 
     async chooseNewZelfName(): Promise<void> {
-        await this._zelfNameService.setZelfName(this.data.wallet.publicData?.zelfName || "");
+        await this._zelfNameService.setZelfName(this.data.wallet.tagName || "");
         await this._zelfNameService.setZelfProof(this.data.wallet.zelfProof || "");
         await this._zelfNameService.setZelfNameObject({ ...this.data.wallet, available: false });
 
@@ -208,14 +208,14 @@ export class CtaSheetComponent implements OnDestroy {
         dialogRef.afterClosed().subscribe(async (result: boolean) => {
             if (!result) return;
 
-            await this._walletService.logoutOfWallet(this.data.wallet as WalletModel);
+            await this._walletService.logoutOfWallet(this.data.wallet as TagModel);
 
             this._bottomSheetRef.dismiss();
         });
     }
 
     async goToRecovery(): Promise<void> {
-        await this._zelfNameService.setZelfName(this.data.wallet.publicData?.zelfName || "");
+        await this._zelfNameService.setZelfName(this.data.wallet.tagName || "");
         await this._zelfNameService.setZelfProof(this.data.wallet.zelfProof || "");
         await this._zelfNameService.setZelfNameObject(this.data.wallet);
 
@@ -228,7 +228,7 @@ export class CtaSheetComponent implements OnDestroy {
     async goToPayments(): Promise<void> {
         await this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world?zelfName=${this.data.wallet.publicData?.zelfName}`,
+                externalUrl: `https://payment.zelf.world?zelfName=${this.data.wallet.tagName}`,
             },
         });
 

@@ -35,14 +35,14 @@
                 class="wallet__status-chip"
                 [ngClass]="{
                     'wallet__status-chip--active': getWalletStatus() === 'active',
-                    'wallet__status-chip--hold': !wallet.publicData?.isExpired && wallet.publicData?.type === 'hold',
-                    'wallet__status-chip--inactive': wallet.publicData?.isExpired,
+                    'wallet__status-chip--hold': !wallet.isExpired && wallet.publicData?.type === 'hold',
+                    'wallet__status-chip--inactive': wallet.isExpired,
                 }"
             >
                 {{ t("wallet_status." + getWalletStatus()) }}
             </div>
 
-            <h4 class="wallet__name">{{ wallet.publicData?.zelfName | zelfName: 18 }}</h4>
+            <h4 class="wallet__name">{{ wallet.tagName | zelfName: 18 }}</h4>
 
             <div class="wallet__tasks">
                 <button class="wallet__task-button" (click)="downloadQRCode()">
@@ -112,7 +112,7 @@
 
                             <button
                                 class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.ethAddress || '')"
+                                (click)="copyToClipboard(wallet.publicData?.ethAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
                             </button>
@@ -135,26 +135,26 @@
                         <div class="crypto-address">
                             <div class="crypto-address__col">
                                 <p class="crypto-address__text">Bitcoin</p>
-                                <p class="crypto-address__address-text">{{ wallet.btcAddress }}</p>
+                                <p class="crypto-address__address-text">{{ wallet.publicData?.btcAddress }}</p>
                             </div>
 
                             <button
                                 class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.btcAddress || '')"
+                                (click)="copyToClipboard(wallet.publicData?.btcAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
                             </button>
                         </div>
 
-                        <div class="crypto-address" *ngIf="wallet.suiAddress">
+                        <div class="crypto-address" *ngIf="wallet.publicData?.suiAddress">
                             <div class="crypto-address__col">
                                 <p class="crypto-address__text">Sui</p>
-                                <p class="crypto-address__address-text">{{ wallet.suiAddress }}</p>
+                                <p class="crypto-address__address-text">{{ wallet.publicData?.suiAddress }}</p>
                             </div>
 
                             <button
                                 class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.suiAddress || '')"
+                                (click)="copyToClipboard(wallet.publicData?.suiAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
                             </button>

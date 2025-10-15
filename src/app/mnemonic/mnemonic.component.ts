@@ -11,6 +11,7 @@ import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [CommonModule, TranslocoModule, MatInputModule, MatButtonModule, RouterModule, ReactiveFormsModule],
@@ -32,7 +33,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     showPassword: boolean = false;
     showPasswordForm: boolean = false;
     words: string[] = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
-    wallet: Partial<WalletModel> = {};
+    wallet: Partial<TagModel> = {};
     requiresBiometrics: boolean = false;
 
     constructor(
@@ -55,7 +56,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
         await this._chromeService.removeItem("parameters");
         await this._chromeService.removeItem("flow");
 
-        this.wallet = (await this._walletService.getCurrentWallet()) || {};
+        this.wallet = (await this._walletService.getCurrentWallet()) || ({} as TagModel);
         this._vaultService.password = "";
 
         this._setRequiresBiometricsInterval();
@@ -108,7 +109,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
 
             this._changeDetectorRef.detectChanges();
         } catch (error) {
-            this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+            this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
             this.remainingAttempts = this._vaultService.remainingAttempts + 1;
             this.passwordError = !!this.wallet?.pgp;
 

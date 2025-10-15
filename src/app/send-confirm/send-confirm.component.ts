@@ -19,10 +19,11 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { TransactionData, WalletModel } from "app/wallet";
+import { TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -80,7 +81,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     showFeeInfo: boolean = false;
     showPassword: boolean = false;
     transactionData!: TransactionData;
-    wallet?: WalletModel;
+    wallet?: TagModel;
 
     constructor(
         private _assetService: AssetService,
@@ -209,7 +210,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol);
 
-            if (!tokenAddress && this.wallet && !isNativeToken) {
+            if (!tokenAddress && this.wallet && this.wallet.publicData?.ethAddress && !isNativeToken) {
                 try {
                     const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
 
@@ -253,7 +254,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     private async _decryptMessage(): Promise<any> {
         const encryptedMessage = this.wallet?.pgp?.encryptedMessage as string;
+
         const privateKeyArmoured = this.wallet?.pgp?.privateKey as string;
+
         const passphrase = this._password || this.form.get("password")?.value;
 
         if (!encryptedMessage || !privateKeyArmoured || !passphrase) return;
@@ -261,7 +264,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         try {
             return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
         } catch (error) {
-            this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+            this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
             this.remainingAttempts = this._vaultService.remainingAttempts + 1;
 
             if (!this.wallet?.pgp) {
@@ -378,7 +381,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     private async _initTransactionData(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWallet()) as WalletModel;
+        this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         this._initInterval();

@@ -6,10 +6,11 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
+
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     selector: "manage-domain",
@@ -22,8 +23,8 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     private _selectedZelfName: string = "";
 
     loading: boolean = false;
-    wallet: Partial<WalletModel> = {};
-    wallets: WalletModel[] = [];
+    wallet: Partial<TagModel> = {};
+    wallets: TagModel[] = [];
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -57,27 +58,26 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
         if (this._selectedZelfName) {
-            this.wallet =
-                wallets.find((w) => w.publicData.zelfName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || ({} as WalletModel);
+            this.wallet = wallets.find((w) => w.tagName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || ({} as TagModel);
         } else {
-            this.wallet = wallet || ({} as WalletModel);
+            this.wallet = wallet || ({} as TagModel);
         }
     }
 
     private async _updateWallet(): Promise<void> {
-        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as WalletModel);
+        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
 
         if (!updatedWallet) return;
 
         this.wallet = updatedWallet;
 
-        this._walletService.updateWallet(this.wallet);
+        this._walletService.updateWallet(this.wallet as TagModel);
     }
 
     async extendRegistration(): Promise<void> {
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.wallet?.publicData?.zelfName}`,
+                externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.wallet?.tagName}`,
             },
         });
     }

@@ -5,10 +5,10 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { environment } from "environments/environment";
-
+import { TagModel } from "./tags.service";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
-import { Asset, Wallet, WalletModel } from "./wallet";
+import { Asset, Wallet } from "./wallet";
 
 type UserFingerPrint = {
     hash: string;
@@ -265,7 +265,7 @@ export class WalletService {
 
         await Promise.all(keysToRemove.map((key) => this._chromeService.removeItem(key)));
 
-        if (currentWallet?.ethAddress) {
+        if (currentWallet?.publicData?.ethAddress) {
             this._chromeService.setItem("wallets", [currentWallet, ...wallets]);
             this._chromeService.removeItem("wallet");
         }
@@ -504,10 +504,10 @@ export class WalletService {
         const wallets = (await this._chromeService.getItem("wallets")) || [];
 
         if (!wallet && (!wallets || !wallets.length)) return null;
-        if (wallet) wallet = new WalletModel(wallet);
+        if (wallet) wallet = new TagModel(wallet);
 
-        if (!wallet?.ethAddress && wallets) {
-            wallet = new WalletModel(wallets[0]);
+        if (!wallet?.publicData?.ethAddress && wallets) {
+            wallet = new TagModel(wallets[0]);
 
             this._chromeService.setItem("wallet", wallet || "");
         }
@@ -522,11 +522,11 @@ export class WalletService {
         return `${firstPart}...${lastPart}`;
     }
 
-    async getAllWalletsFromStorage(): Promise<{ wallet: Partial<WalletModel> | null; wallets: WalletModel[] }> {
-        const wallet = new WalletModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+    async getAllWalletsFromStorage(): Promise<{ wallet: Partial<TagModel> | null; wallets: TagModel[] }> {
+        const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
         const wallets = await this.getWalletsFromStorage();
 
-        if (!wallet?.ethAddress) {
+        if (!wallet?.publicData?.tagName) {
             if (!wallets.length) return { wallet, wallets: [] };
 
             this._chromeService.setItem("wallet", wallet);
@@ -536,18 +536,18 @@ export class WalletService {
         return { wallet, wallets };
     }
 
-    async getCurrentWallet(): Promise<Partial<WalletModel> | null> {
-        let wallet = new WalletModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+    async getCurrentWallet(): Promise<Partial<TagModel> | null> {
+        let wallet = new TagModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
 
-        if (wallet?.ethAddress) wallet = new WalletModel(wallet);
+        if (wallet?.tagName) wallet = new TagModel(wallet);
 
         return wallet;
     }
 
-    async getFirstWalletFromStorage(): Promise<Partial<WalletModel> | null> {
-        let wallet = new WalletModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+    async getFirstWalletFromStorage(): Promise<Partial<TagModel> | null> {
+        let wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
 
-        if (wallet?.ethAddress) wallet = new WalletModel(wallet);
+        if (wallet?.publicData?.ethAddress) wallet = new TagModel(wallet);
         else {
             const wallets = await this.getWalletsFromStorage();
 
@@ -555,7 +555,7 @@ export class WalletService {
 
             const shiftedWallet = wallets.shift();
 
-            wallet = new WalletModel(shiftedWallet || {});
+            wallet = new TagModel(shiftedWallet || {});
 
             this._chromeService.setItem("wallet", wallet);
             this._chromeService.setItem("wallets", wallets);
@@ -564,27 +564,27 @@ export class WalletService {
         return wallet;
     }
 
-    async updateWallet(walletToUpdate: Partial<WalletModel>): Promise<void> {
-        if (!walletToUpdate || !walletToUpdate.publicData?.zelfName) return;
+    async updateWallet(walletToUpdate: Partial<TagModel>): Promise<void> {
+        if (!walletToUpdate || !walletToUpdate.publicData?.tagName) return;
 
         const { wallet, wallets } = await this.getAllWalletsFromStorage();
 
-        if (wallet && wallet.publicData?.zelfName && wallet.publicData?.zelfName === walletToUpdate.publicData?.zelfName) {
+        if (wallet && wallet.publicData?.tagName && wallet.publicData?.tagName === walletToUpdate.publicData?.tagName) {
             await this._chromeService.setItem("wallet", walletToUpdate);
 
             return;
         }
 
-        const index = wallets.findIndex((_wallet) => _wallet.publicData.zelfName === walletToUpdate.publicData?.zelfName);
+        const index = wallets.findIndex((_wallet) => _wallet.publicData.tagName === walletToUpdate.publicData?.tagName);
 
         if (index === -1) return;
 
-        wallets[index] = walletToUpdate as WalletModel;
+        wallets[index] = walletToUpdate as TagModel;
 
         await this._chromeService.setItem("wallets", wallets);
     }
 
-    async updateCurrentWallet(wallet: Partial<WalletModel>): Promise<void> {
+    async updateCurrentWallet(wallet: Partial<TagModel>): Promise<void> {
         await this._chromeService.setItem("wallet", wallet);
     }
 
@@ -612,17 +612,18 @@ export class WalletService {
         if (hasUpdate) await this._chromeService.setItem("wallets", newWallets);
     }
 
-    async getWalletsFromStorage(): Promise<WalletModel[]> {
-        return ((await this._chromeService.getItem<Wallet[]>("wallets")) || []).map((wallet: Wallet) => new WalletModel(wallet));
+    async getWalletsFromStorage(): Promise<TagModel[]> {
+        return ((await this._chromeService.getItem<TagModel[]>("wallets")) || []).map((wallet: TagModel) => new TagModel(wallet));
     }
 
-    async switchWallet(selectedWallet: WalletModel): Promise<void> {
-        const wallet = (await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+    async switchWallet(selectedWallet: TagModel): Promise<void> {
+        const wallet = (await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
 
-        if (selectedWallet.publicData.zelfName === wallet.publicData?.zelfName) return;
+        if (selectedWallet.tagName === wallet?.tagName) return;
 
-        const wallets = (await this._chromeService.getItem<Wallet[]>("wallets")) || [];
-        const newWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== selectedWallet.publicData.zelfName);
+        const wallets = (await this._chromeService.getItem<TagModel[]>("wallets")) || [];
+
+        const newWallets = wallets.filter((_wallet) => _wallet.tagName !== selectedWallet.publicData.tagName);
 
         await this._chromeService.setItem("wallet", selectedWallet);
         await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
@@ -631,13 +632,13 @@ export class WalletService {
     async checkIfLastWallet(): Promise<boolean> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
-        return (currentWallet?.ethAddress && !wallets.length) || (!currentWallet?.ethAddress && wallets.length === 1);
+        return (currentWallet?.publicData?.ethAddress && !wallets.length) || (!currentWallet?.publicData?.ethAddress && wallets.length === 1);
     }
 
-    async logoutOfWallet(walletToRemove: WalletModel): Promise<void> {
+    async logoutOfWallet(walletToRemove: TagModel): Promise<void> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
-        if (currentWallet?.publicData?.zelfName === walletToRemove.publicData.zelfName) {
+        if (currentWallet?.publicData?.tagName === walletToRemove.publicData.tagName) {
             await this._chromeService.removeItem("wallet");
 
             const wallet = wallets.shift();
@@ -645,21 +646,21 @@ export class WalletService {
             this._chromeService.setItem("wallet", wallet);
             this._chromeService.setItem("wallets", wallets);
         } else {
-            const newWallets = wallets.filter((_wallet: WalletModel) => _wallet.publicData.zelfName !== walletToRemove.publicData.zelfName);
+            const newWallets = wallets.filter((_wallet: TagModel) => _wallet.tagName !== walletToRemove.tagName);
 
             this._chromeService.setItem("wallets", newWallets);
         }
     }
 
     async setWalletsToColdStorage(): Promise<void> {
-        const wallet = await this._chromeService.getItem<WalletModel | null>("wallet");
+        const wallet = await this._chromeService.getItem<TagModel | null>("wallet");
 
-        if (!wallet?.ethAddress) return;
+        if (!wallet?.publicData?.tagName) return;
 
         const wallets = await this.getWalletsFromStorage();
 
         const walletExistsInWallets = wallets.some((_wallet) => {
-            wallet.name === _wallet.name;
+            wallet.tagName === _wallet.tagName;
         });
 
         if (!walletExistsInWallets) wallets.unshift(wallet);
@@ -673,7 +674,7 @@ export class WalletService {
 
         if (!wallets.length || !wallet) return;
 
-        const filteredWallets = wallets.filter((_wallet) => _wallet.publicData.zelfName !== wallet.publicData?.zelfName);
+        const filteredWallets = wallets.filter((_wallet) => _wallet.publicData.tagName !== wallet.publicData?.tagName);
 
         await this._chromeService.setItem("wallets", filteredWallets);
     }
@@ -774,13 +775,13 @@ export class WalletService {
             tokenType === "BEP-20" ||
             tokenType === "BNB"
         ) {
-            address = wallet?.ethAddress || "";
+            address = wallet?.publicData?.ethAddress || "";
         } else if (tokenType === "SOL" || tokenType === "SPL") {
-            address = wallet?.solanaAddress || "";
+            address = wallet?.publicData?.solanaAddress || "";
         } else if (tokenType === "BTC") {
-            address = wallet?.btcAddress || "";
+            address = wallet?.publicData?.btcAddress || "";
         } else if (tokenType === "SUI" || tokenType === "SUI_TOKEN") {
-            address = wallet?.suiAddress || "";
+            address = wallet?.publicData?.suiAddress || "";
         }
 
         return address;
@@ -793,28 +794,28 @@ export class WalletService {
 
         const networks: Network[] = [];
 
-        if (wallet?.ethAddress) {
+        if (wallet?.publicData?.ethAddress) {
             networks.push(
                 {
-                    address: wallet?.ethAddress,
+                    address: wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("ETH"),
                     name: "Ethereum",
                     symbol: "ETH",
                 },
                 {
-                    address: wallet?.ethAddress,
+                    address: wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("AVAX"),
                     name: "Avalanche",
                     symbol: "AVAX",
                 },
                 {
-                    address: wallet?.ethAddress,
+                    address: wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("BNB"),
                     name: "Binance",
                     symbol: "BNB",
                 },
                 {
-                    address: wallet?.ethAddress,
+                    address: wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("MATIC"),
                     name: "Polygon",
                     symbol: "MATIC",
@@ -822,27 +823,27 @@ export class WalletService {
             );
         }
 
-        if (wallet?.btcAddress) {
+        if (wallet?.publicData?.btcAddress) {
             networks.push({
-                address: wallet?.btcAddress,
+                address: wallet?.publicData?.btcAddress,
                 image: this.getAssetImage("BTC"),
                 name: "Bitcoin",
                 symbol: "BTC",
             });
         }
 
-        if (wallet?.solanaAddress) {
+        if (wallet?.publicData?.solanaAddress) {
             networks.push({
-                address: wallet?.solanaAddress,
+                address: wallet?.publicData?.solanaAddress,
                 image: this.getAssetImage("SOL"),
                 name: "Solana",
                 symbol: "SOL",
             });
         }
 
-        if (wallet?.suiAddress) {
+        if (wallet?.publicData?.suiAddress) {
             networks.push({
-                address: wallet?.suiAddress,
+                address: wallet?.publicData?.suiAddress,
                 image: this.getAssetImage("SUI"),
                 name: "Sui",
                 symbol: "SUI",

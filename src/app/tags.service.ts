@@ -160,6 +160,7 @@ export interface TagPublicData {
     origin: "offline" | "online" | "";
     registeredAt: string;
     expiresAt: string;
+    gracePeriod?: string;
     blockDAGAddress: string;
     avalancheAddress: string;
 }
@@ -181,12 +182,97 @@ export interface TagStorageData {
     zelfProof?: string;
 }
 
+export interface PGP {
+    encryptedMessage: string;
+    privateKey: string;
+}
 export interface TagSearchResponse {
     ipfs: TagStorageData[];
     arweave: TagStorageData[];
     available: boolean;
     tagName: string;
     tagObject?: TagStorageData;
+}
+
+export class TagPublicDataModel {
+    btcAddress: string;
+    domain: string;
+    ethAddress: string;
+    solanaAddress: string;
+    suiAddress: string;
+    tagName: string;
+    hasPassword: string;
+    type: "mainnet" | "hold" | "";
+    origin: "offline" | "online" | "";
+    registeredAt: string;
+    expiresAt?: string;
+    gracePeriod?: Date | null;
+    blockDAGAddress: string;
+    avalancheAddress: string;
+
+    constructor(data: any) {
+        this.btcAddress = data.btcAddress || "";
+        this.domain = data.domain || "";
+        this.ethAddress = data.ethAddress || "";
+        this.solanaAddress = data.solanaAddress || "";
+        this.suiAddress = data.suiAddress || "";
+        this.tagName = data.tagName || "";
+        this.hasPassword = data.hasPassword || "false";
+        this.type = data.type || "";
+        this.origin = data.origin || "";
+        this.registeredAt = data.registeredAt || "";
+        this.expiresAt = data.expiresAt || "";
+        this.blockDAGAddress = data.blockDAGAddress || "";
+        this.avalancheAddress = data.avalancheAddress || "";
+
+        this.gracePeriod = this._calculateGracePeriod();
+    }
+
+    get isExpired(): boolean {
+        if (!this.expiresAt) return false;
+        return new Date(this.expiresAt) < new Date();
+    }
+
+    get isExpiringSoon(): boolean {
+        if (!this.expiresAt) return false;
+        const oneMonthInMs = 24 * 60 * 60 * 1000 * 30;
+        const timeLeft = this._timeRemaining();
+        return timeLeft > 0 && timeLeft <= oneMonthInMs;
+    }
+
+    get isFullyExpired(): boolean {
+        return this.isExpired && !this.isInGracePeriod;
+    }
+
+    get isInGracePeriod(): boolean {
+        if (this.type !== "mainnet" || !this.gracePeriod) return false;
+        const now = new Date();
+        return now < this.gracePeriod && now > new Date(this.expiresAt || "");
+    }
+
+    private _calculateGracePeriod(): Date | null {
+        if (this.type !== "mainnet") return null;
+
+        const gracePeriod = new Date(this.expiresAt || "");
+        gracePeriod.setDate(gracePeriod.getDate() + 30);
+
+        return gracePeriod;
+    }
+
+    private _timeRemaining(): number {
+        if (!this.expiresAt) return 0;
+        const expiresAtTime = new Date(this.expiresAt || "").getTime();
+        return expiresAtTime - Date.now();
+    }
+
+    timeLeftInGracePeriodSeconds(): number {
+        if (this.type !== "mainnet" || !this.gracePeriod) return 0;
+
+        const now = new Date().getTime();
+        const gracePeriodEnd = this.gracePeriod.getTime();
+
+        return Math.max(0, Math.floor((gracePeriodEnd - now) / 1000));
+    }
 }
 
 export class TagModel {
@@ -203,9 +289,10 @@ export class TagModel {
     image: string;
     metadata: any;
     name: string;
-    publicData: TagPublicData;
+    publicData: TagPublicDataModel;
     zelfProof: string;
     zelfProofQRCode: string;
+    pgp?: PGP = { encryptedMessage: "", privateKey: "" };
 
     constructor(data: any = {}) {
         console.log("TagModel constructor", data);
@@ -217,7 +304,7 @@ export class TagModel {
         this.metadata = data.metadata || {};
         this.zelfProof = data.zelfProof || "";
         this.zelfProofQRCode = data.zelfProofQRCode || "";
-
+        this.pgp = (data.pgp as PGP) || { encryptedMessage: "", privateKey: "" };
         // Get the tag name from various possible sources
         const rawTagName = data.name || data.publicData?.tagName || data.publicData?.zelfName || "";
         this.name = rawTagName ? rawTagName.replace(".hold", "") : "";
@@ -241,7 +328,7 @@ export class TagModel {
         const explicitDomain = data.publicData?.domain;
         const extractedDomain = explicitDomain || extractDomain(rawTagName);
 
-        this.publicData = {
+        this.publicData = new TagPublicDataModel({
             btcAddress: data.publicData?.btcAddress || "",
             domain: extractedDomain,
             ethAddress: data.publicData?.ethAddress || "",
@@ -255,7 +342,7 @@ export class TagModel {
             expiresAt: data.publicData?.expiresAt || "",
             blockDAGAddress: data.publicData?.blockDAGAddress || "",
             avalancheAddress: data.publicData?.avalancheAddress || "",
-        };
+        });
 
         // Set display addresses
         if (this.publicData.btcAddress) this.displayBtcAddress = this.publicData.btcAddress;
@@ -322,12 +409,23 @@ export class TagModel {
     }
 
     updatePublicData(data: Partial<TagPublicData>): void {
-        this.publicData = { ...this.publicData, ...data };
+        this.publicData = new TagPublicDataModel({ ...this.publicData, ...data });
     }
 
     get isExpired(): boolean {
-        if (!this.publicData.expiresAt) return false;
-        return new Date(this.publicData.expiresAt) < new Date();
+        return this.publicData.isExpired;
+    }
+
+    get isExpiringSoon(): boolean {
+        return this.publicData.isExpiringSoon;
+    }
+
+    get isFullyExpired(): boolean {
+        return this.publicData.isFullyExpired;
+    }
+
+    get isInGracePeriod(): boolean {
+        return this.publicData.isInGracePeriod;
     }
 
     get isHold(): boolean {
@@ -642,6 +740,7 @@ export class TagsService {
             tag.updatePublicData({
                 ...tag.publicData,
                 expiresAt: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
+                gracePeriod: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
             });
 
             return tag;

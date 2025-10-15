@@ -11,9 +11,10 @@ import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
 import { TransactionService } from "app/transaction.service";
-import { TokenData, TransactionData, WalletModel } from "app/wallet";
+import { TokenData, TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -38,7 +39,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
     loading: boolean = true;
     tokens: any[] = [];
     transactionData!: TransactionData;
-    wallet: Partial<WalletModel> = {};
+    wallet: Partial<TagModel> = {};
 
     constructor(
         private _assetService: AssetService,
@@ -60,7 +61,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWallet()) || {};
+        this.wallet = (await this._walletService.getCurrentWallet()) || ({} as TagModel);
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         await this._loadTokensFromSession();
@@ -115,18 +116,18 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
 
     private async _fetchTokens(): Promise<void> {
         try {
-            if (!this.wallet || !this.wallet.ethAddress) return;
+            if (!this.wallet || !this.wallet.publicData?.ethAddress) return;
 
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
             const result = await this._assetService.processTokensFromResponse(response, this.CAN_SEND);
 
-            if (this.wallet.btcAddress) {
+            if (this.wallet.publicData?.btcAddress) {
                 try {
-                    const btcBalance = await this._bitcoinService.getBitcoinBalance(this.wallet.btcAddress);
+                    const btcBalance = await this._bitcoinService.getBitcoinBalance(this.wallet.publicData?.btcAddress);
 
                     if (btcBalance && btcBalance.balance > 0) {
                         const btcToken = {
-                            address: this.wallet.btcAddress,
+                            address: this.wallet.publicData?.btcAddress,
                             amount: btcBalance.balance,
                             decimals: 8,
                             fiatBalance: btcBalance.fiatBalance,
@@ -170,14 +171,14 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             token.tokenType === "POL" ||
             token.tokenType === "MATIC"
         ) {
-            address = this.wallet?.ethAddress || "";
+            address = this.wallet?.publicData?.ethAddress || "";
         } else if (token.tokenType === "SOL" || token.tokenType === "SPL" || token.tokenType === "token") {
-            address = this.wallet?.solanaAddress || "";
+            address = this.wallet?.publicData?.solanaAddress || "";
             tokenType = token.symbol === "SOL" ? "SOL" : "SPL";
         } else if (token.tokenType === "BTC") {
-            address = this.wallet?.btcAddress || "";
+            address = this.wallet?.publicData?.btcAddress || "";
         } else if (token.tokenType === "SUI" || token.tokenType === "SUI_TOKEN") {
-            address = this.wallet?.suiAddress || "";
+            address = this.wallet?.publicData?.suiAddress || "";
         }
 
         if (!address) return console.error("No address found for token type:", token.tokenType);
@@ -189,7 +190,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             },
             sender: {
                 address,
-                zelfName: this.wallet?.publicData?.zelfName || "",
+                zelfName: this.wallet?.tagName || "",
             },
         });
 

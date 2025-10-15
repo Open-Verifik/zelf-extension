@@ -14,7 +14,7 @@ import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
-import { WalletModel } from "app/wallet";
+import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -42,7 +42,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     loading: boolean = true;
     parameters: any = {};
     selectedTab: string = "addresses";
-    wallet: Partial<WalletModel> = {};
+    wallet: Partial<TagModel> = {};
 
     constructor(
         private _bottomSheet: MatBottomSheet,
@@ -78,11 +78,11 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     }
 
     get showArnsButton(): boolean {
-        return !!this.wallet?.publicData?.zelfName && this.wallet?.publicData?.type === "mainnet";
+        return !!this.wallet?.tagName && this.wallet?.publicData?.type === "mainnet";
     }
 
     private async _updateWallet(): Promise<void> {
-        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as WalletModel);
+        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
 
         if (!updatedWallet) return;
 
@@ -98,18 +98,18 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         const link = document.createElement("a");
 
         link.href = this.wallet?.image as string;
-        link.download = `zelfproof_${this.wallet?.publicData?.zelfName}.png`;
+        link.download = `zelfproof_${this.wallet?.tagName}.png`;
         link.click();
     }
 
     getWalletStatus(): string {
-        if (this.wallet?.publicData?.isExpired) return "expired";
+        if (this.wallet?.isExpired) return "expired";
 
-        return this.wallet?.publicData?.type === "mainnet" ? "active" : "hold";
+        return this.wallet?.isMainnet ? "active" : "hold";
     }
 
     isExpired(): boolean {
-        return !!this.wallet?.publicData?.isExpired;
+        return !!this.wallet?.isExpired;
     }
 
     openInfoSheet(): void {
@@ -131,9 +131,9 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
             return;
         }
 
-        if (!this.wallet?.publicData?.zelfName) return;
+        if (!this.wallet?.tagName) return;
 
-        const url = this._zelfNameService.generateArNS(this.wallet.publicData.zelfName);
+        const url = this._zelfNameService.generateArNS(this.wallet.tagName);
 
         this._router.navigate(["/external-link"], { queryParams: { externalUrl: url } });
     }

@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [TranslocoModule],
@@ -29,10 +30,10 @@ export class MyArNSComponent {
     }
 
     async close(): Promise<void> {
-        const wallet = await this._walletService.getCurrentWallet();
+        const wallet = (await this._walletService.getCurrentWallet()) as TagModel;
 
-        if (wallet?.publicData?.zelfName) {
-            const url = this._zelfNameService.generateArNS(wallet.publicData.zelfName);
+        if (wallet?.tagName) {
+            const url = this._zelfNameService.generateArNS(wallet.tagName as string);
 
             this._router.navigate(["/external-link"], { queryParams: { externalUrl: url } });
         }

@@ -16,10 +16,10 @@ import { CtaSheetComponent } from "app/cta-sheet/cta-sheet.component";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TimerPipe } from "app/pipes/timer.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -46,8 +46,8 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     private _loadWalletsDebounced: DebouncedFunc<() => void>;
 
     loading: boolean = false;
-    wallets: Partial<WalletModel>[] = [];
-    currentWallet: Partial<WalletModel> = {};
+    wallets: Partial<TagModel>[] = [];
+    currentWallet: Partial<TagModel> = {};
 
     constructor(
         private _bottomSheet: MatBottomSheet,
@@ -98,10 +98,10 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         });
     };
 
-    private _openConfirmationDialog(isLastWallet: boolean, wallet: Partial<WalletModel> = {}): void {
+    private _openConfirmationDialog(isLastWallet: boolean, wallet: Partial<TagModel> = {}): void {
         let message = "";
 
-        if (wallet.publicData?.isFullyExpired || wallet.publicData?.isExpiringSoon) {
+        if (wallet?.isFullyExpired || wallet?.isExpiringSoon) {
             message = this._translocoService.translate("manage_domains.expired_wallet_logout_message");
         } else {
             message = this._translocoService.translate("manage_domains.logout_of_wallet_message");
@@ -123,7 +123,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
             if (!confirmed) return;
 
             if (!isLastWallet) {
-                await this._walletService.logoutOfWallet(wallet as WalletModel);
+                await this._walletService.logoutOfWallet(wallet as TagModel);
 
                 return;
             }
@@ -135,7 +135,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         });
     }
 
-    private _openCTASheet(wallet: Partial<WalletModel>): void {
+    private _openCTASheet(wallet: Partial<TagModel>): void {
         const bottomSheetRef = this._bottomSheet.open(CtaSheetComponent, {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
@@ -147,54 +147,54 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         bottomSheetRef.afterDismissed().subscribe((confirmed) => {
             if (!confirmed) return;
 
-            this._router.navigate(["/domain"], { queryParams: { zelfName: wallet.publicData?.zelfName } });
+            this._router.navigate(["/domain"], { queryParams: { zelfName: wallet.tagName } });
         });
     }
 
     private _refreshWallets = async (): Promise<void> => {
-        await this._zelfNameService.refreshAllWalletsPublicData(this.wallets as WalletModel[], true);
+        await this._zelfNameService.refreshAllWalletsPublicData(this.wallets as TagModel[], true);
     };
 
     private async _setWallets(): Promise<void> {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
-        this.currentWallet = wallet || {};
-        this.wallets = [wallet || {}, ...wallets];
+        this.currentWallet = wallet || ({} as TagModel);
+        this.wallets = [wallet || ({} as TagModel), ...wallets];
         this.loading = false;
 
         this._changeDetectorRef.detectChanges();
     }
 
-    downloadZelfProof(wallet: Partial<WalletModel>): void {
+    downloadZelfProof(wallet: Partial<TagModel>): void {
         if (!wallet.name) return;
 
         const link = document.createElement("a");
 
         link.href = wallet?.image as string;
-        link.download = `zelfproof_${wallet?.publicData?.zelfName}.png`;
+        link.download = `zelfproof_${wallet?.tagName}.png`;
         link.click();
     }
 
-    goToDomain(wallet: Partial<WalletModel>): void {
+    goToDomain(wallet: Partial<TagModel>): void {
         if (this.showDetails(wallet)) {
             this._openCTASheet(wallet);
 
             return;
         }
 
-        this._router.navigate(["/domain"], { queryParams: { zelfName: wallet.publicData?.zelfName } });
+        this._router.navigate(["/domain"], { queryParams: { zelfName: wallet.tagName } });
     }
 
-    goToPurchase(wallet: Partial<WalletModel>): void {
+    goToPurchase(wallet: Partial<TagModel>): void {
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world/purchase?zelfName=${wallet.publicData?.zelfName}`,
+                externalUrl: `https://payment.zelf.world/purchase?zelfName=${wallet.tagName}`,
             },
         });
     }
 
-    async goToRecovery(wallet: Partial<WalletModel>): Promise<void> {
-        await this._zelfNameService.setZelfName(wallet.publicData?.zelfName || "");
+    async goToRecovery(wallet: Partial<TagModel>): Promise<void> {
+        await this._zelfNameService.setZelfName(wallet.tagName || "");
         await this._zelfNameService.setZelfProof(wallet.zelfProof || "");
         await this._zelfNameService.setZelfNameObject(wallet);
 
@@ -203,17 +203,17 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this._router.navigate(["/welcome/grace"]);
     }
 
-    async logoutOfWallet(wallet: Partial<WalletModel>): Promise<void> {
+    async logoutOfWallet(wallet: Partial<TagModel>): Promise<void> {
         if (!wallet.name) return;
 
         const isLastWallet = await this._walletService.checkIfLastWallet();
 
-        if (!isLastWallet) return this._openConfirmationDialog(isLastWallet, wallet as WalletModel);
+        if (!isLastWallet) return this._openConfirmationDialog(isLastWallet, wallet as TagModel);
 
         this._openConfirmationDialog(isLastWallet);
     }
 
-    showDetails(wallet: Partial<WalletModel>): boolean {
+    showDetails(wallet: Partial<TagModel>): boolean {
         return Boolean(wallet.publicData?.isFullyExpired || wallet.publicData?.isExpiringSoon || wallet.publicData?.isInGracePeriod);
     }
 }

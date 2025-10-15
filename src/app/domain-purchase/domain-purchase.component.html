@@ -2,7 +2,7 @@
     <div class="domain-purchase__header">
         <div class="domain-purchase__col1">
             <button
-                [queryParams]="{ zelfName: wallet ? wallet.publicData?.zelfName : '' }"
+                [queryParams]="{ zelfName: wallet ? wallet.tagName : '' }"
                 [routerLink]="['/domain']"
                 class="domain-purchase__back"
                 mat-flat-button
@@ -30,12 +30,12 @@
             <div class="purchase">
                 <h6 class="purchase__title">{{ t("domain_purchase.title") }}</h6>
 
-                <h4 class="purchase__zelf-name">{{ wallet.publicData?.zelfName | zelfName: 20 }}</h4>
+                <h4 class="purchase__zelf-name">{{ wallet.tagName | zelfName: 20 }}</h4>
 
                 <p class="purchase__description">
                     {{
                         t("domain_purchase.character_length_and_year", {
-                            characterLength: (wallet.publicData?.zelfName?.length || 0) - 4,
+                            characterLength: (wallet.tagName?.length || 0) - 4,
                             costPerYear: 24,
                         })
                     }}
@@ -122,7 +122,7 @@
             [disabled]="!agreement"
             [routerLink]="['/external-link']"
             [queryParams]="{
-                externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.publicData?.zelfName + '&durationToken=' + durationToken,
+                externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.tagName + '&durationToken=' + durationToken,
             }"
         >
             {{ t("common.pay_now") }}

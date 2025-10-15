@@ -13,9 +13,10 @@ import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
-import { TokenData, WalletModel } from "app/wallet";
+import { TokenData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, DecimalPipe, NgClass, AddressMaskPipe, DatePipe, MatButtonModule, TranslocoModule, ZelfLoaderComponent],
@@ -32,7 +33,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     symbol: string = "";
     transaction!: any;
     tokens: TokenData[] = [];
-    wallet!: Partial<WalletModel> | null;
+    wallet!: Partial<TagModel> | null;
 
     private CAN_SWAP: NetworkPermissions = {};
 

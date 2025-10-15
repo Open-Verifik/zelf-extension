@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
+import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { Subject, takeUntil } from "rxjs";
@@ -25,7 +25,7 @@ export class DomainPurchaseComponent implements OnInit, OnDestroy {
     agreement: boolean = false;
     yearCount: number = 1;
     loading: boolean = false;
-    wallet: Partial<WalletModel> = {};
+    wallet: Partial<TagModel> = {};
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -57,7 +57,7 @@ export class DomainPurchaseComponent implements OnInit, OnDestroy {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
         if (this._selectedZelfName) {
-            this.wallet = wallets.find((w) => w.publicData.zelfName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || {};
+            this.wallet = wallets.find((w) => w.tagName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || {};
 
             return;
         }

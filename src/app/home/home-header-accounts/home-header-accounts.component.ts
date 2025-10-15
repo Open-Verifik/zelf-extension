@@ -9,7 +9,7 @@ import { ChromeService } from "app/chrome.service";
 
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
+import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -21,8 +21,8 @@ import { WalletService } from "app/wallet.service";
 export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     loaded: boolean = false;
     shareables: any;
-    wallet: Partial<WalletModel> = {};
-    wallets: WalletModel[] = [];
+    wallet: Partial<TagModel> = {};
+    wallets: TagModel[] = [];
     selectionModel = new SelectionModel<string>(false);
 
     constructor(
@@ -66,7 +66,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         return this.selectionModel.isSelected(walletId);
     }
 
-    async navigateToSeedPhrase(selectedWallet: WalletModel): Promise<void> {
+    async navigateToSeedPhrase(selectedWallet: TagModel): Promise<void> {
         await this._walletService.switchWallet(selectedWallet);
         await this._chromeService.setItem("parameters", { openPrivateKeyBottomSheet: true });
 
@@ -77,7 +77,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         this.close();
     }
 
-    async navigateToZelfLink(selectedWallet: WalletModel): Promise<void> {
+    async navigateToZelfLink(selectedWallet: TagModel): Promise<void> {
         await this._walletService.switchWallet(selectedWallet);
         await this._chromeService.setItem("parameters", { openMyArnsBottomSheet: true });
 
@@ -88,7 +88,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         this.close();
     }
 
-    async navigateToDownloadQR(selectedWallet: WalletModel): Promise<void> {
+    async navigateToDownloadQR(selectedWallet: TagModel): Promise<void> {
         await this._walletService.switchWallet(selectedWallet);
 
         const navigated = await this._router.navigate(["/wallet"]);
@@ -98,7 +98,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         this.close();
     }
 
-    async switchWallet(selectedWallet: WalletModel): Promise<void> {
+    async switchWallet(selectedWallet: TagModel): Promise<void> {
         await this._walletService.switchWallet(selectedWallet);
 
         this.close();

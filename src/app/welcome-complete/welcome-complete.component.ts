@@ -6,12 +6,12 @@ import { TranslocoModule } from "@jsverse/transloco";
 
 import { ChromeService } from "app/chrome.service";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
-import { ZelfFlow, ZelfNameService } from "app/zelf-name-service.service";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
 import { WalletService } from "app/wallet.service";
 import { VaultService } from "app/vault.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel, TagsService } from "app/tags.service";
+import { TagFlow } from "app/tags.service";
 
 @Component({
     imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent, ZelfLoaderComponent],
@@ -20,29 +20,30 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
     templateUrl: "./welcome-complete.component.html",
 })
 export class WelcomeCompleteComponent implements OnInit, OnDestroy {
-    flow: ZelfFlow = "";
+    flow: TagFlow = "";
     loading: boolean = true;
     isExtension: boolean = false;
-    wallet: Partial<WalletModel> | null = {};
+    wallet: Partial<TagModel> | null = {};
 
     constructor(
         private _chromeService: ChromeService,
         private _router: Router,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _tagsService: TagsService
     ) {
         this.isExtension = this._chromeService.isExtension;
 
-        this._chromeService.removeItem("referralZelfName");
-        this._chromeService.removeItem("zelfNameObject");
+        this._chromeService.removeItem("referralTagName");
+
+        this._chromeService.removeItem("tagObject");
     }
 
     async ngOnInit(): Promise<void> {
         await this._walletService.removeDuplicateWalletsInStorage();
 
         this.wallet = await this._walletService.getCurrentWallet();
-        this.flow = await this._zelfNameService.getFlow();
+        this.flow = await this._tagsService.getFlow();
 
         this.loading = false;
     }
@@ -63,13 +64,16 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
         const link = document.createElement("a");
 
         link.href = this.wallet?.image as string;
-        link.download = `zelfproof_${this.wallet?.publicData?.zelfName}.png`;
+
+        link.download = `zelfproof_${this.wallet?.tagName}.png`;
+
         link.click();
     }
 
     async onMnemonicUnlock(): Promise<void> {
-        await this._zelfNameService.setFlow("unlock");
-        await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
+        await this._tagsService.setFlow("unlock");
+
+        await this._tagsService.setTagName(this.wallet?.name as string);
 
         this._router.navigate(["/security/biometrics"], { queryParams: { return: "/welcome/complete" } });
     }

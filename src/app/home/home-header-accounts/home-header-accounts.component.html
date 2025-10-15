@@ -10,7 +10,7 @@
 
         <div class="zelf-name" (click)="close()" [routerLink]="['/wallet']">
             <h4 class="zelf-name__title" *ngIf="shareables.wallet.publicData">
-                {{ shareables.wallet.publicData.zelfName | zelfName }}
+                {{ shareables.wallet.fullTagName }}
             </h4>
 
             <div class="zelf-name__icon">
@@ -55,7 +55,7 @@
                     'wallet-row__avatar--hold': wallet.publicData?.type === 'hold',
                 }"
             >
-                <h3 class="wallet-row__avatar-letter">{{ wallet.publicData?.zelfName | firstLetter }}</h3>
+                <h3 class="wallet-row__avatar-letter">{{ wallet.fullTagName | firstLetter }}</h3>
 
                 <span *ngIf="wallet.publicData?.isExpiringSoon" class="wallet-row__avatar-icon wallet-row__avatar-icon--warn">
                     <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,15 +82,15 @@
                 </span>
             </div>
 
-            <p class="wallet-row__name">{{ wallet.publicData?.zelfName | zelfName }}</p>
+            <p class="wallet-row__name">{{ wallet.fullTagName }}</p>
 
             <button
                 class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--border-soft wallet-row__expand"
-                (click)="toggleWalletMenu(wallet.publicData?.zelfName || '')"
+                (click)="toggleWalletMenu(wallet.fullTagName || '')"
                 (click)="$event.stopPropagation()"
             >
                 <svg
-                    [ngClass]="{ 'wallet-row__expand-icon--rotated': isWalletMenuOpen(wallet.publicData?.zelfName || '') }"
+                    [ngClass]="{ 'wallet-row__expand-icon--rotated': isWalletMenuOpen(wallet.fullTagName || '') }"
                     fill="none"
                     height="20"
                     viewBox="0 0 20 20"
@@ -104,7 +104,7 @@
 
         <div
             (click)="$event.stopPropagation()"
-            [ngClass]="{ 'wallet-row__buttons--open': isWalletMenuOpen(wallet.publicData?.zelfName || '') }"
+            [ngClass]="{ 'wallet-row__buttons--open': isWalletMenuOpen(wallet.fullTagName || '') }"
             class="wallet-row__buttons"
         >
             <button class="wallet-row__button" (click)="navigateToDownloadQR(wallet)">

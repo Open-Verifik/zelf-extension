@@ -16,6 +16,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { TagModel, TagsService } from "app/tags.service";
 @Component({
     imports: [
         CommonModule,
@@ -44,7 +45,7 @@ export class WelcomeFindComponent implements OnDestroy {
     loading: boolean = false;
     notFound: boolean = false;
     searching: boolean = false;
-    zelfNameObject!: WalletModel;
+    zelfNameObject!: TagModel;
     zelfProof: string = "";
 
     constructor(
@@ -54,7 +55,8 @@ export class WelcomeFindComponent implements OnDestroy {
         private _router: Router,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService
     ) {
         this._initForm();
     }
@@ -108,7 +110,7 @@ export class WelcomeFindComponent implements OnDestroy {
         const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
         const base64String = buffer.toString("base64");
 
-        await this._zelfNameService.setZelfProof(base64String);
+        await this._tagsService.setZelfProof(base64String);
 
         this.zelfProof = base64String;
 
@@ -149,9 +151,9 @@ export class WelcomeFindComponent implements OnDestroy {
     private async _previewQRCode(): Promise<void> {
         if (!this.zelfProof) return;
 
-        const response = await this._zelfNameService.previewZelfProof(this.zelfProof, this.captchaToken);
+        const response = await this._tagsService.previewZelfProof({ zelfProof: this.zelfProof, captchaToken: this.captchaToken, os: "DESKTOP" });
 
-        if (!response.data) {
+        if (!response.data?) {
             this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
             this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
 
@@ -164,15 +166,15 @@ export class WelcomeFindComponent implements OnDestroy {
 
         response.data.publicData.zelfName = `${response.data.publicData.zelfName}`.toLowerCase();
 
-        this._zelfNameService.setZelfName(response.data.publicData.zelfName);
+        this._tagsService.setTagName(response.data.publicData.zelfName);
 
-        this._zelfNameService.setZelfProof(this.zelfProof);
+        this._tagsService.setZelfProof(this.zelfProof);
 
         await this._queryForZelfObject(this.ethAddress);
 
-        const currentZelfNameObject = await this._queryForZelfObjectByZelfName(response.data.publicData.zelfName);
+        const currentZelfNameObject = await this._queryForZelfObjectByZelfName(response.data.tagName);
 
-        if (currentZelfNameObject?.available) this._zelfNameService.setZelfNameObject(new WalletModel({ ...response.data, available: true }));
+        if (currentZelfNameObject?.available) this._tagsService.setTagNameObject(new TagModel({ ...response.data, available: true }));
 
         this._redirectAfterZelfProofSearch(currentZelfNameObject);
     }
@@ -216,7 +218,9 @@ export class WelcomeFindComponent implements OnDestroy {
 
     async _queryZNS(key: string, value: string): Promise<any> {
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, value);
+            console.log({ key, value });
+
+            const response = await this._tagsService.searchTag({ [key]: value, domain: "zelf", os: "DESKTOP" });
 
             if (!response.data) return null;
 

@@ -13,6 +13,7 @@ import { CaptchaService } from "app/captcha.service";
 import { WelcomeAvailableContentComponent } from "app/welcome-available/welcome-available-content.component";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletModel } from "app/wallet";
+import { TagsService } from "app/tags.service";
 
 @Component({
     imports: [
@@ -53,7 +54,8 @@ export class WelcomeOfflineImportComponent {
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService
     ) {}
 
     ngOnInit(): void {
@@ -145,7 +147,7 @@ export class WelcomeOfflineImportComponent {
     }
 
     async goToImport(): Promise<void> {
-        await this._zelfNameService.setFlow("import");
+        await this._tagsService.setFlow("import");
 
         this._router.navigate(["../import"], { relativeTo: this._activatedRoute });
     }
@@ -178,12 +180,12 @@ export class WelcomeOfflineImportComponent {
             }
         }
 
-        this._zelfNameService
-            .searchZelfNameV2("zelfName", zelfName, captchaToken)
+        this._tagsService
+            .searchTag({ tagName: zelfName, captchaToken: captchaToken })
             .then(async (response) => {
                 this.zelfName = zelfName;
 
-                if (response?.data.price) return await this._noZelfNameFound(response?.data);
+                if (response?.data.available) return await this._noZelfNameFound(response?.data);
 
                 const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
 
@@ -235,10 +237,10 @@ export class WelcomeOfflineImportComponent {
             }
         }
 
-        this._zelfNameService
-            .searchZelfNameV2("zelfName", zelfName, captchaToken)
+        this._tagsService
+            .searchTag({ tagName: zelfName, captchaToken: captchaToken })
             .then((response) => {
-                if (response?.data.price) {
+                if (response?.data.available) {
                     this.referralForm.patchValue({ referralName: "" });
 
                     this.referralForm.markAsPristine();

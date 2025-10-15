@@ -15,7 +15,6 @@ import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmatio
 import { CtaSheetComponent } from "app/cta-sheet/cta-sheet.component";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TimerPipe } from "app/pipes/timer.pipe";
-import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
@@ -34,7 +33,6 @@ import { TagModel } from "app/tags.service";
         RouterModule,
         TimerPipe,
         TranslocoModule,
-        ZelfNamePipe,
         ZelfLoaderComponent,
     ],
     selector: "manage-domains",
@@ -101,7 +99,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     private _openConfirmationDialog(isLastWallet: boolean, wallet: Partial<TagModel> = {}): void {
         let message = "";
 
-        if (wallet?.isFullyExpired || wallet?.isExpiringSoon) {
+        if (wallet?.publicData?.isFullyExpired || wallet?.publicData?.isExpiringSoon) {
             message = this._translocoService.translate("manage_domains.expired_wallet_logout_message");
         } else {
             message = this._translocoService.translate("manage_domains.logout_of_wallet_message");
@@ -214,6 +212,11 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     showDetails(wallet: Partial<TagModel>): boolean {
-        return Boolean(wallet.publicData?.isFullyExpired || wallet.publicData?.isExpiringSoon || wallet.publicData?.isInGracePeriod);
+        return Boolean(
+            wallet.publicData?.isFullyExpired ||
+                wallet.publicData?.isExpiringSoon ||
+                wallet.publicData?.isInGracePeriod ||
+                wallet.publicData?.isExpired
+        );
     }
 }

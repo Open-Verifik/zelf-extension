@@ -66,11 +66,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     ) {
         this._chromeService.removeItem("flow");
         this._chromeService.removeItem("mnemonicCount");
-        this._chromeService.removeItem("newZelfName");
-        this._chromeService.removeItem("referralZelfName");
-        this._chromeService.removeItem("zelfName");
-        this._chromeService.removeItem("zelfNameObject");
-        this._chromeService.removeItem("zelfReward");
+        this._chromeService.removeItem("newTagName");
+        this._chromeService.removeItem("referralTagName");
+        this._chromeService.removeItem("tagName");
+        this._chromeService.removeItem("tagNameObject");
+        this._chromeService.removeItem("tagNameReward");
 
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";

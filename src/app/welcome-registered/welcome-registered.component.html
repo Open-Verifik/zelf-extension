@@ -28,7 +28,7 @@
                 <ng-container *ngIf="tagModel?.publicData?.type === 'mainnet'">{{ t("common.registered") }}</ng-container>
             </div>
 
-            <h2 class="zelf-card__title">{{ tagModel?.name | zelfName }}.{{ tagModel?.publicData?.domain }}</h2>
+            <h2 class="zelf-card__title">{{ tagModel?.fullTagName }}</h2>
 
             <ng-container *ngIf="tagModel?.publicData?.origin === 'offline'">
                 <p class="zelf-card__subtitle">{{ t("welcome.offline_subtitle") }}</p>

@@ -12,7 +12,6 @@ import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboar
 import { ChromeService } from "app/chrome.service";
 import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
-import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
@@ -29,7 +28,6 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         RouterModule,
         NgTemplateOutlet,
         MatSnackBarModule,
-        ZelfNamePipe,
         ZelfLoaderComponent,
     ],
     selector: "wallet",
@@ -78,7 +76,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     }
 
     get showArnsButton(): boolean {
-        return !!this.wallet?.tagName && this.wallet?.publicData?.type === "mainnet";
+        return !!this.wallet?.fullTagName && this.wallet?.publicData?.type === "mainnet";
     }
 
     private async _updateWallet(): Promise<void> {
@@ -103,13 +101,13 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     }
 
     getWalletStatus(): string {
-        if (this.wallet?.isExpired) return "expired";
+        if (this.wallet?.publicData?.isExpired) return "expired";
 
         return this.wallet?.isMainnet ? "active" : "hold";
     }
 
     isExpired(): boolean {
-        return !!this.wallet?.isExpired;
+        return !!this.wallet?.publicData?.isExpired;
     }
 
     openInfoSheet(): void {
@@ -131,9 +129,9 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
             return;
         }
 
-        if (!this.wallet?.tagName) return;
+        if (!this.wallet?.fullTagName) return;
 
-        const url = this._zelfNameService.generateArNS(this.wallet.tagName);
+        const url = this._zelfNameService.generateArNS(this.wallet.fullTagName);
 
         this._router.navigate(["/external-link"], { queryParams: { externalUrl: url } });
     }

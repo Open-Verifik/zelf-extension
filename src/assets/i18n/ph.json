@@ -286,7 +286,7 @@
         "domain_warning": "May oras ka pa para bumili",
         "expired_wallet_logout_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong ZelfName. Gayunpaman, nasa panganib ka na mawala ito kung hindi ka agad bibili.",
         "logout_of_wallet_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong ZelfName, o i-load ang iyong ZelfProof QR code.",
-        "purchase_new_domain": "Magdagdag ng bagong ZelfName"
+        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag"
     },
     "liveness": {
         "center_your_face": "I-center ang iyong mukha sa screen",

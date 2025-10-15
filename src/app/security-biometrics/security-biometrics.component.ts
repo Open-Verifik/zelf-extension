@@ -13,7 +13,6 @@ import { HttpWrapperService } from "app/http-wrapper.service";
 import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-sheet.component";
 import { ErrorService } from "app/services/error.service";
 import { VaultService } from "app/vault.service";
-import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
@@ -99,7 +98,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    async _createWallet(payload: any): Promise<void> {
+    async _createTag(payload: any): Promise<void> {
         const mnemonicCount = (await this._tagsService.getMnemonicCount()) || 12;
 
         this._tagsService
@@ -109,17 +108,22 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 wordsCount: mnemonicCount,
             })
             .then(async (response) => {
-                console.log({ leaseTag: response });
+                const tagObject = response.data?.tagObject;
+
+                const pgp = response.data?.pgp;
+
+                const newWallet = new TagModel({ ...tagObject, pgp });
 
                 await this._chromeService.removeItem("flow");
-                await this._chromeService.setItem("wallet", new WalletModel(response.data));
+
+                await this._chromeService.setItem("wallet", newWallet);
 
                 this._redirect();
             })
             .catch(this.onBiometricsFailed);
     }
 
-    private async _decryptWallet(payload: any): Promise<void> {
+    private async _decryptTag(payload: any): Promise<void> {
         const zelfProof = await this._tagsService.getZelfProof();
 
         const userFingerprint = this._walletService.getUserFingerprint();
@@ -132,14 +136,14 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 await this._chromeService.removeItem("flow");
-                await this._chromeService.setItem("wallet", new WalletModel(response.data));
+                await this._chromeService.setItem("wallet", new TagModel(response.data));
 
                 this._redirect();
             })
             .catch(this.onBiometricsFailed);
     }
 
-    private async _importWallet(payload: any): Promise<void> {
+    private async _importTag(payload: any): Promise<void> {
         this._tagsService
             .leaseTag({
                 ...payload,
@@ -149,15 +153,24 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             .then(async (response) => {
                 this._vaultService.mnemonic = "";
 
+                const tagObject = response.data?.tagObject;
+
+                console.log(tagObject, { response: response.data });
+
+                const pgp = response.data?.pgp;
+
+                const newWallet = new TagModel({ ...tagObject, pgp });
+
                 await this._chromeService.removeItem("flow");
-                await this._chromeService.setItem("wallet", new WalletModel(response.data));
+
+                await this._chromeService.setItem("wallet", newWallet);
 
                 this._redirect();
             })
             .catch(this.onBiometricsFailed);
     }
 
-    private async _leaseRecovery(payload: any): Promise<void> {
+    private async _tagLeaseRecovery(payload: any): Promise<void> {
         this._tagsService
             .leaseRecovery({
                 ...payload,
@@ -210,7 +223,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     };
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {
-        const tagName = (await this._tagsService.getTagName()) || (await this._tagsService.getNewTagName());
+        const tagName = (await this._tagsService.getNewTagName()) || (await this._tagsService.getTagName());
 
         const referralTagName = await this._tagsService.getReferral();
 
@@ -226,13 +239,13 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         };
 
         if (this.flow === "create") {
-            this._createWallet(payload);
+            this._createTag(payload);
         } else if (this.flow === "import") {
-            this._importWallet(payload);
+            this._importTag(payload);
         } else if (this.flow === "recover") {
-            this._leaseRecovery(payload);
+            this._tagLeaseRecovery(payload);
         } else {
-            this._decryptWallet(payload);
+            this._decryptTag(payload);
         }
     }
 

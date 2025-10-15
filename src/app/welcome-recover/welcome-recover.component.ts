@@ -11,6 +11,7 @@ import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagsService } from "app/tags.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -54,15 +55,16 @@ export class WelcomeRecoverComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.oldZelfNameObject = new WalletModel(await this._tagsService.getTagNameObject());
+        const tagNameObject = await this._tagsService.getTagNameObject();
 
-        if (!this.oldZelfNameObject?.available) {
-            this.showSearch = true;
+        if (!tagNameObject) {
+            // redirect to /find
+            this._router.navigate(["/welcome/find"]);
 
             return;
         }
 
-        this.newZelfNameObject = this.oldZelfNameObject;
+        this.oldZelfNameObject = new TagModel({ ...tagNameObject, name: tagNameObject.name });
     }
 
     private async _captchaGeneration(): Promise<any> {
@@ -111,14 +113,19 @@ export class WelcomeRecoverComponent implements OnInit {
     }
 
     async _queryZNS(key: string, value: string): Promise<any> {
+        const tagName = value.split(".")[0];
+
+        const domain = value.split(".")[1] || "zelf";
+
         try {
-            const response = await this._zelfNameService.searchZelfNameV2(key, value, this.captchaToken);
+            const response = await this._tagsService.searchTag({ tagName, captchaToken: this.captchaToken, domain });
 
             if (!response.data || response.data.available) {
-                return new WalletModel({ zelfName: value, available: true });
+                return new TagModel({ name: value, publicData: { available: true } });
             }
 
-            const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
+            const tagObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
+            const zelfNameObject = new TagModel({ ...tagObject, name: value });
 
             this.loading = false;
 

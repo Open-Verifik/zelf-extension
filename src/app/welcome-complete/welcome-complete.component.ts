@@ -5,7 +5,6 @@ import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { ChromeService } from "app/chrome.service";
-import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
 import { WalletService } from "app/wallet.service";
 import { VaultService } from "app/vault.service";
@@ -14,7 +13,7 @@ import { TagModel, TagsService } from "app/tags.service";
 import { TagFlow } from "app/tags.service";
 
 @Component({
-    imports: [TranslocoModule, CommonModule, RouterModule, ZelfNamePipe, MatButtonModule, MnemonicComponent, ZelfLoaderComponent],
+    imports: [TranslocoModule, CommonModule, RouterModule, MatButtonModule, MnemonicComponent, ZelfLoaderComponent],
     selector: "welcome-complete",
     styleUrls: ["./welcome-complete.component.scss"],
     templateUrl: "./welcome-complete.component.html",
@@ -43,6 +42,7 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
         await this._walletService.removeDuplicateWalletsInStorage();
 
         this.wallet = await this._walletService.getCurrentWallet();
+
         this.flow = await this._tagsService.getFlow();
 
         this.loading = false;
@@ -65,7 +65,7 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
 
         link.href = this.wallet?.image as string;
 
-        link.download = `zelfproof_${this.wallet?.tagName}.png`;
+        link.download = `zelfproof_${this.wallet?.fullTagName}.png`;
 
         link.click();
     }

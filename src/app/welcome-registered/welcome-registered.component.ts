@@ -3,16 +3,13 @@ import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagsService, TagModel, TagSearchResponse } from "app/tags.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-    imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule, ZelfNamePipe],
+    imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule],
     selector: "welcome-registered",
     styleUrls: ["./welcome-registered.component.scss"],
     templateUrl: "./welcome-registered.component.html",
@@ -27,7 +24,6 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _zelfNameService: ZelfNameService,
         private _tagsService: TagsService,
         public _chromeService: ChromeService,
         public _translocoService: TranslocoService,

@@ -35,14 +35,14 @@
                 class="wallet__status-chip"
                 [ngClass]="{
                     'wallet__status-chip--active': getWalletStatus() === 'active',
-                    'wallet__status-chip--hold': !wallet.isExpired && wallet.publicData?.type === 'hold',
-                    'wallet__status-chip--inactive': wallet.isExpired,
+                    'wallet__status-chip--hold': !wallet.publicData?.isExpired && wallet.publicData?.type === 'hold',
+                    'wallet__status-chip--inactive': wallet.publicData?.isExpired,
                 }"
             >
                 {{ t("wallet_status." + getWalletStatus()) }}
             </div>
 
-            <h4 class="wallet__name">{{ wallet.tagName | zelfName: 18 }}</h4>
+            <h4 class="wallet__name">{{ wallet.fullTagName }}</h4>
 
             <div class="wallet__tasks">
                 <button class="wallet__task-button" (click)="downloadQRCode()">
@@ -107,7 +107,7 @@
                         <div class="crypto-address">
                             <div class="crypto-address__col">
                                 <p class="crypto-address__text">Ethereum</p>
-                                <p class="crypto-address__address-text">{{ wallet.publicData?.ethAddress }}</p>
+                                <p class="crypto-address__address-text">{{ wallet.displayEthAddress }}</p>
                             </div>
 
                             <button
@@ -121,7 +121,7 @@
                         <div class="crypto-address">
                             <div class="crypto-address__col">
                                 <p class="crypto-address__text">Solana</p>
-                                <p class="crypto-address__address-text">{{ wallet.publicData?.solanaAddress }}</p>
+                                <p class="crypto-address__address-text">{{ wallet.displaySolanaAddress }}</p>
                             </div>
 
                             <button
@@ -135,7 +135,7 @@
                         <div class="crypto-address">
                             <div class="crypto-address__col">
                                 <p class="crypto-address__text">Bitcoin</p>
-                                <p class="crypto-address__address-text">{{ wallet.publicData?.btcAddress }}</p>
+                                <p class="crypto-address__address-text">{{ wallet.displayBtcAddress }}</p>
                             </div>
 
                             <button
@@ -149,7 +149,7 @@
                         <div class="crypto-address" *ngIf="wallet.publicData?.suiAddress">
                             <div class="crypto-address__col">
                                 <p class="crypto-address__text">Sui</p>
-                                <p class="crypto-address__address-text">{{ wallet.publicData?.suiAddress }}</p>
+                                <p class="crypto-address__address-text">{{ wallet.displaySuiAddress }}</p>
                             </div>
 
                             <button

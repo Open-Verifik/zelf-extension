@@ -276,13 +276,6 @@ export class TagPublicDataModel {
 }
 
 export class TagModel {
-    private _displayBtcAddress?: string;
-    private _displayEthAddress?: string;
-    private _displaySolanaAddress?: string;
-    private _displaySuiAddress?: string;
-    private _displayAvalancheAddress?: string;
-    private _displayBlockDAGAddress?: string;
-
     _id: string;
     available: boolean = false;
     hasPassword: boolean;
@@ -295,7 +288,6 @@ export class TagModel {
     pgp?: PGP = { encryptedMessage: "", privateKey: "" };
 
     constructor(data: any = {}) {
-        console.log("TagModel constructor", data);
         this._id = data.id || data._id || "";
 
         this.available = data.available || false;
@@ -343,62 +335,30 @@ export class TagModel {
             blockDAGAddress: data.publicData?.blockDAGAddress || "",
             avalancheAddress: data.publicData?.avalancheAddress || "",
         });
-
-        // Set display addresses
-        if (this.publicData.btcAddress) this.displayBtcAddress = this.publicData.btcAddress;
-        if (this.publicData.ethAddress) this.displayEthAddress = this.publicData.ethAddress;
-        if (this.publicData.solanaAddress) this.displaySolanaAddress = this.publicData.solanaAddress;
-        if (this.publicData.suiAddress) this.displaySuiAddress = this.publicData.suiAddress;
-        if (this.publicData.avalancheAddress) this.displayAvalancheAddress = this.publicData.avalancheAddress;
-        if (this.publicData.blockDAGAddress) this.displayBlockDAGAddress = this.publicData.blockDAGAddress;
     }
 
     get displayBtcAddress(): string {
-        return this._displayBtcAddress || "";
+        return this._parseAddress(this.publicData?.btcAddress);
     }
 
     get displayEthAddress(): string {
-        return this._displayEthAddress || "";
+        return this._parseAddress(this.publicData?.ethAddress);
     }
 
     get displaySolanaAddress(): string {
-        return this._displaySolanaAddress || "";
+        return this._parseAddress(this.publicData?.solanaAddress);
     }
 
     get displaySuiAddress(): string {
-        return this._displaySuiAddress || "";
+        return this._parseAddress(this.publicData?.suiAddress);
     }
 
     get displayAvalancheAddress(): string {
-        return this._displayAvalancheAddress || "";
+        return this._parseAddress(this.publicData?.avalancheAddress);
     }
 
     get displayBlockDAGAddress(): string {
-        return this._displayBlockDAGAddress || "";
-    }
-
-    set displayBtcAddress(value: string) {
-        this._displayBtcAddress = this._parseAddress(value);
-    }
-
-    set displayEthAddress(value: string) {
-        this._displayEthAddress = this._parseAddress(value);
-    }
-
-    set displaySolanaAddress(value: string) {
-        this._displaySolanaAddress = this._parseAddress(value);
-    }
-
-    set displaySuiAddress(value: string) {
-        this._displaySuiAddress = this._parseAddress(value);
-    }
-
-    set displayAvalancheAddress(value: string) {
-        this._displayAvalancheAddress = this._parseAddress(value);
-    }
-
-    set displayBlockDAGAddress(value: string) {
-        this._displayBlockDAGAddress = this._parseAddress(value);
+        return this._parseAddress(this.publicData?.blockDAGAddress);
     }
 
     private _parseAddress(value: string): string {
@@ -429,19 +389,27 @@ export class TagModel {
     }
 
     get isHold(): boolean {
-        return this.publicData.type === "hold";
+        return this.publicData?.type === "hold";
     }
 
     get isMainnet(): boolean {
-        return this.publicData.type === "mainnet";
+        return this.publicData?.type === "mainnet";
     }
 
     get domain(): string {
-        return this.publicData.domain;
+        return this.publicData?.domain;
     }
 
     get tagName(): string {
-        return this.publicData.tagName || this.name;
+        return this.publicData?.tagName || this.name;
+    }
+
+    get fullTagName(): string {
+        const fullTagName = this.publicData.tagName || this.name;
+
+        if (fullTagName.includes(this.publicData.domain)) return fullTagName;
+
+        return `${fullTagName}.${this.publicData.domain}`;
     }
 }
 

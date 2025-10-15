@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="domain__info">
-                                <h4 class="domain__name">{{ wallet.tagName | zelfName }}</h4>
+                                <h4 class="domain__name">{{ wallet.fullTagName }}</h4>
 
                                 <div class="domain__status-indicators">
                                     <div class="domain__status-indicator domain__status-indicator--warning" *ngIf="wallet.publicData?.isExpiringSoon">

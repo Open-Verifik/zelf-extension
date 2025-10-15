@@ -21,13 +21,12 @@ import { NetworkName, NetworkService } from "app/services/network.service";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { SwapData, TokenData, WalletModel } from "app/wallet";
+import { SwapData, TokenData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
 import { environment } from "environments/environment";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { TagModel } from "app/tags.service";
+import { TagModel, TagsService } from "app/tags.service";
 
 @Component({
     imports: [
@@ -110,7 +109,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _tagsService: TagsService
     ) {
         this.CAN_SWAP = this._assetService.canSwap;
         this.wallet = {} as TagModel;
@@ -476,9 +475,9 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     async _redirectToBiometrics(): Promise<void> {
-        await this._zelfNameService.setFlow("unlock");
+        await this._tagsService.setFlow("unlock");
 
-        await this._zelfNameService.setZelfName(this.wallet?.tagName as string);
+        await this._tagsService.setTagName(this.wallet?.tagName as string);
 
         const { password: _password, ...rest } = this.form.value;
 

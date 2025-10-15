@@ -286,7 +286,7 @@
         "domain_warning": "아직 구매할 시간이 있습니다",
         "expired_wallet_logout_message": "ZelfName으로 검색하면 이 ZelfProof를 다시 복호화할 수 있습니다. 그러나 곧 구매하지 않으면 잃을 위험이 있습니다.",
         "logout_of_wallet_message": "ZelfName으로 검색하거나 ZelfProof QR 코드를 로드하여 이 ZelfProof를 다시 복호화할 수 있습니다.",
-        "purchase_new_domain": "새 ZelfName 추가"
+        "purchase_new_domain": "새 태그 이름 추가"
     },
     "liveness": {
         "center_your_face": "화면 중앙에 얼굴을 위치시키세요",

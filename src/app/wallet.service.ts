@@ -537,9 +537,9 @@ export class WalletService {
     }
 
     async getCurrentWallet(): Promise<Partial<TagModel> | null> {
-        let wallet = new TagModel(await this._chromeService.getItem<Partial<Wallet> | null>("wallet")) || {};
+        const storedWallet = await this._chromeService.getItem<Partial<TagModel> | null>("wallet");
 
-        if (wallet?.tagName) wallet = new TagModel(wallet);
+        let wallet = new TagModel(storedWallet) || {};
 
         return wallet;
     }

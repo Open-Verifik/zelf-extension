@@ -8,13 +8,12 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
-import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
 import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "home-header-accounts",
-    imports: [NgClass, NgTemplateOutlet, NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink, ZelfNamePipe, FirstLetterPipe],
+    imports: [NgClass, NgTemplateOutlet, NgIf, MatButtonModule, TranslocoModule, NgFor, RouterLink, FirstLetterPipe],
     templateUrl: "./home-header-accounts.component.html",
     styleUrls: ["./home-header-accounts.component.scss"],
 })

@@ -286,7 +286,7 @@
         "domain_warning": "आपके पास अभी भी खरीदने का समय है",
         "expired_wallet_logout_message": "यदि आप अपने ZelfName से खोजते हैं तो आप इस ZelfProof को फिर से डिक्रिप्ट कर सकते हैं। हालांकि, यदि आप जल्दी खरीद नहीं करते हैं तो आप इसे खोने का जोखिम उठाते हैं।",
         "logout_of_wallet_message": "यदि आप अपने ZelfName से खोजते हैं, या अपना ZelfProof QR कोड लोड करते हैं तो आप इस ZelfProof को फिर से डिक्रिप्ट कर सकते हैं।",
-        "purchase_new_domain": "नया ZelfName जोड़ें"
+        "purchase_new_domain": "नया टैग नाम जोड़ें"
     },
     "liveness": {
         "center_your_face": "अपना चेहरा स्क्रीन के केंद्र में रखें",

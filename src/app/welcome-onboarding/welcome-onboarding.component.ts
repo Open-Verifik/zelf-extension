@@ -17,7 +17,6 @@ import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagsService } from "app/tags.service";
 import { DomainService, DomainConfig } from "app/domain.service";
 import { DomainSelectionModalComponent, DomainSelectionData } from "app/domain-selection-modal/domain-selection-modal.component";
@@ -51,6 +50,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     domainHover: boolean = false;
     availableDomains: DomainConfig[] = [];
     loadingDomains: boolean = false;
+    domain: string = "zelf";
 
     constructor(
         private _captchaService: CaptchaService,
@@ -86,7 +86,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         this._chromeService.removeItem("tagNameObject");
         this._chromeService.removeItem("tagNameReward");
         this._chromeService.removeItem("tagResponse");
-        this._chromeService.removeItem("domain");
         this._chromeService.removeItem("network");
         this._chromeService.removeItem("zelfNameObject");
     }
@@ -95,6 +94,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         await this._walletService.setWalletsToColdStorage();
 
         this._initCarousel();
+
         await this._loadDomains();
     }
 
@@ -103,7 +103,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         if (wallets.length) this.showHomeButton = true;
 
-        // Enforce default domain on initial render (prevents browser autofill overriding it)
         if (!this.form.value.domain) {
             this.form.patchValue({ domain: "zelf" }, { emitEvent: false });
         }
@@ -138,7 +137,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     private _initForm(): void {
         this.form = this._formBuilder.group({
             tagName: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(27)]],
-            domain: ["zelf", [Validators.required]],
+            domain: [this.domain || "zelf", [Validators.required]],
         });
     }
 
@@ -290,6 +289,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
                 this.form.get("domain")?.setValue(result);
+
+                this._tagsService.setDomain(result);
             }
         });
     }
@@ -299,6 +300,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
      */
     private async _loadDomains(): Promise<void> {
         this.loadingDomains = true;
+
         try {
             // Try to load from cache first
             const loadedFromCache = await this._loadDomainsFromCache();
@@ -313,6 +315,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             this._loadFallbackDomains();
         } finally {
             this.loadingDomains = false;
+
+            this.domain = await this._tagsService.getDomain();
+
+            // patch the form with the domain
+            this.form.patchValue({ domain: this.domain }, { emitEvent: false });
         }
     }
 
@@ -488,6 +495,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
             // Load from cache
             await this._domainService.loadDomainsFromStorage();
+
             const cachedDomains = this._domainService.getAllDomainConfigs();
 
             if (Object.keys(cachedDomains).length === 0) {
@@ -517,6 +525,9 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         // Convert the domain map to an array for the dropdown
         this.availableDomains = Object.values(response.data);
+
+        // let's do a temporal filter to only keep "zelf", and "bdag"
+        this.availableDomains = this.availableDomains.filter((domain) => domain.name === "zelf" || domain.name === "bdag");
     }
 
     /**
@@ -525,6 +536,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     private async _refreshDomainsInBackground(): Promise<void> {
         try {
             const response = await this._domainService.getDomains();
+
             if (response?.success && response.data) {
                 // Update the dropdown with fresh data
                 this.availableDomains = Object.values(response.data);

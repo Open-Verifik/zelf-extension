@@ -33,15 +33,15 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
             text: "common.documentation",
         },
         {
-            url: "https://docs.zelf.world/zelf-legal/terms-of-use",
+            url: "https://docs.zelf.world/docs/legal/terms-of-use",
             text: "common.terms_and_conditions",
         },
         {
-            url: "https://docs.zelf.world/zelf-legal/privacy-policy",
+            url: "https://docs.zelf.world/docs/legal/privacy-policy",
             text: "common.privacy",
         },
         {
-            url: "https://docs.zelf.world/airdrop/pricing-per-domain",
+            url: "https://docs.zelf.world/docs/airdrop/pricing-per-domain",
             text: "common.pricing",
         },
     ];

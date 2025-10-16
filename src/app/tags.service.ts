@@ -689,7 +689,7 @@ export class TagsService {
     }
 
     async getDomain(): Promise<string> {
-        return this.variables.domain || (await this._chromeService.getItem("domain"));
+        return this.variables.domain || (await this._chromeService.getItem("domain")) || "zelf";
     }
 
     // Wallet Data Refresh Methods

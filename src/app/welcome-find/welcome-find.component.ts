@@ -184,9 +184,16 @@ export class WelcomeFindComponent implements OnDestroy {
             const newTagNameObject = new TagModel(response.data.preview);
 
             this._tagsService.setTagNameObject(newTagNameObject);
-            this._tagsService.setDomain(domain);
-            this._tagsService.setTagName(tagName);
+        } else {
+            // not available
+            console.log("not available");
+            console.log({ currentZelfNameObject });
+
+            this._tagsService.setTagNameObject(currentZelfNameObject);
         }
+
+        this._tagsService.setDomain(domain);
+        this._tagsService.setTagName(tagName);
 
         this._redirectAfterZelfProofSearch(currentZelfNameObject);
     }
@@ -239,14 +246,7 @@ export class WelcomeFindComponent implements OnDestroy {
 
             if (response.data?.available) return response.data;
 
-            const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
-
-            // Do not store this zelfNameObject - it is only used to check for ownership
-            if (key === "zelfName") {
-                await this._zelfNameService.setZelfName(zelfNameObject.name, { price: 0, reward: 0 });
-
-                await this._zelfNameService.setZelfNameObject(zelfNameObject);
-            }
+            const zelfNameObject = new TagModel(response.data.tagObject);
 
             this.loading = false;
 

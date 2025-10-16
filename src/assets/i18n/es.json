@@ -128,7 +128,7 @@
         "about": "Acerca de",
         "activity": "Actividad",
         "address": "Dirección",
-        "agree_to_terms_and_conditions": "Acepto los <a href='https://docs.zelf.world/zelf-legal/terms-of-use' target='_blank'>términos y condiciones</a>",
+        "agree_to_terms_and_conditions": "Acepto los <a href='https://docs.zelf.world/docs-es/legal/terminos-uso' target='_blank'>términos y condiciones</a>",
         "all": "Todos",
         "amount": "Cantidad",
         "are_you_sure": "¿Estás seguro?",
@@ -343,7 +343,7 @@
         "swap_same_asset": "No puedes intercambiar al mismo activo",
         "transaction_not_found": "Transacción no encontrada",
         "try_again": "Intentar de nuevo",
-        "zelfName_is_taken": "Este nombre zelf ya está en uso"
+        "zelfName_is_taken": "Este nombre de etiqueta ya está en uso"
     },
     "swap": {
         "automatic": "Automático",

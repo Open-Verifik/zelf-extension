@@ -59,18 +59,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _router: Router,
         private _walletService: WalletService,
         private _vaultService: VaultService,
-        private _zelfNameService: ZelfNameService,
         private _tagsService: TagsService,
         private _domainService: DomainService,
         private _dialog: MatDialog
     ) {
-        this._chromeService.removeItem("flow");
-        this._chromeService.removeItem("mnemonicCount");
-        this._chromeService.removeItem("newTagName");
-        this._chromeService.removeItem("referralTagName");
-        this._chromeService.removeItem("tagName");
-        this._chromeService.removeItem("tagNameObject");
-        this._chromeService.removeItem("tagNameReward");
+        this._clearChromeItems();
 
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";
@@ -82,6 +75,20 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
             if (wallets.length) this.showHomeButton = true;
         });
+    }
+
+    private _clearChromeItems(): void {
+        this._chromeService.removeItem("flow");
+        this._chromeService.removeItem("mnemonicCount");
+        this._chromeService.removeItem("newTagName");
+        this._chromeService.removeItem("referralTagName");
+        this._chromeService.removeItem("tagName");
+        this._chromeService.removeItem("tagNameObject");
+        this._chromeService.removeItem("tagNameReward");
+        this._chromeService.removeItem("tagResponse");
+        this._chromeService.removeItem("domain");
+        this._chromeService.removeItem("network");
+        this._chromeService.removeItem("zelfNameObject");
     }
 
     async ngOnInit(): Promise<void> {

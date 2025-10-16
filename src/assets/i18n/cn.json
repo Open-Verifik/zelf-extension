@@ -333,6 +333,7 @@
         "not_found": "未找到记录",
         "password_doesnt_match": "密码不匹配",
         "password_incorrect": "密码不正确",
+        "THE PROVIDED PASSWORD IS INVALID.": "您输入的密码不正确。请检查您的密码并重试。",
         "person_already_set": "您的注册已经链接了ZelfProof",
         "private_key_locked": "私钥已被锁定。您必须进行生物识别检查才能继续。",
         "required_field": "此字段为必填项",

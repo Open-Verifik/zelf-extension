@@ -13,12 +13,13 @@ export class ErrorService {
 
     translateErrorMessage(key: string, fallbackErrorKey: string = ""): string {
         const formattedKey = `errors.${key}`;
+
         const translation = this._translocoService.translate(formattedKey);
 
         return translation !== formattedKey
             ? translation
             : fallbackErrorKey
-            ? this._translocoService.translate(fallbackErrorKey)
-            : this._defaultErrorMessage;
+              ? this._translocoService.translate(fallbackErrorKey)
+              : this._defaultErrorMessage;
     }
 }

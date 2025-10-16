@@ -333,6 +333,7 @@
         "not_found": "ریکارڈ نہیں ملا",
         "password_doesnt_match": "پاس ورڈز مماثل نہیں ہیں",
         "password_incorrect": "پاس ورڈ غلط ہے",
+        "THE PROVIDED PASSWORD IS INVALID.": "آپ کا درج کردہ پاس ورڈ غلط ہے۔ براہ کرم اپنا پاس ورڈ چیک کریں اور دوبارہ کوشش کریں۔",
         "person_already_set": "آپ کی رجسٹریشن میں پہلے سے ہی ایک ZelfProof منسلک ہے",
         "private_key_locked": "پرائیویٹ کلید لاک ہو گئی ہے۔ آگے بڑھنے کے لیے آپ کو بائیومیٹرکس چیک کرنا ہوگا۔",
         "required_field": "یہ فیلڈ درکار ہے",

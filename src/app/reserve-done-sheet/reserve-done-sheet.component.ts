@@ -19,6 +19,7 @@ export class ReserveDoneSheetComponent {
 
     goToWelcomeComplete(): void {
         this._router.navigate(["/welcome/complete"]);
+
         this._bottomSheetRef.dismiss();
     }
 

@@ -397,7 +397,15 @@ export class TagModel {
     }
 
     get domain(): string {
-        return this.publicData?.domain;
+        const domain = this.publicData?.domain;
+        if (domain) return domain;
+
+        const parts = this.publicData?.tagName.split(".");
+        if (parts.length >= 2) {
+            return parts[parts.length - 1];
+        }
+
+        return "zelf";
     }
 
     get tagName(): string {
@@ -623,6 +631,7 @@ export class TagsService {
 
     async setDomain(domain: string): Promise<void> {
         this.variables.domain = domain;
+
         await this._chromeService.setItem("domain", domain);
     }
 

@@ -334,6 +334,7 @@
         "not_found": "Enregistrement non trouvé",
         "password_doesnt_match": "Les mots de passe ne correspondent pas",
         "password_incorrect": "Le mot de passe est incorrect",
+        "THE PROVIDED PASSWORD IS INVALID.": "Le mot de passe que vous avez saisi est incorrect. Veuillez vérifier votre mot de passe et réessayer.",
         "person_already_set": "Votre enregistrement a déjà un ZelfProof lié",
         "private_key_locked": "La clé privée a été verrouillée. Vous devez effectuer une vérification biométrique pour continuer.",
         "required_field": "Ce champ est obligatoire",

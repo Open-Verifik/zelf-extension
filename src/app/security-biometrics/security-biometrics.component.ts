@@ -178,9 +178,19 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 newTagName: this.newTagName,
             })
             .then(async (response) => {
+                const tagObject = response.data?.tagObject;
+
+                const pgp = response.data?.pgp;
+
+                const newWallet = new TagModel({ ...tagObject, pgp });
+
+                console.log({ responseData: response.data });
+
+                await this._chromeService.removeItem("flow");
+
                 await this._chromeService.removeItem("newTagName");
 
-                await this._chromeService.setItem("wallet", new TagModel(response.data));
+                await this._chromeService.setItem("wallet", newWallet);
 
                 this._bottomSheet.open(ReserveDoneSheetComponent, {
                     backdropClass: "zelf-backdrop",
@@ -216,9 +226,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     onBiometricsFailed = (exception: any): void => {
-        console.error(exception);
-
         this.errorTitle = this._translocoService.translate("errors.generic_title");
+
         this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message || exception?.error?.error, "errors.generic_identity");
     };
 

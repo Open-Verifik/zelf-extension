@@ -110,6 +110,8 @@ export class WelcomeFindComponent implements OnDestroy {
         const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
         const base64String = buffer.toString("base64");
 
+        console.log({ base64String });
+
         await this._tagsService.setZelfProof(base64String);
 
         this.zelfProof = base64String;
@@ -153,38 +155,43 @@ export class WelcomeFindComponent implements OnDestroy {
 
         const response = await this._tagsService.previewZelfProof({ zelfProof: this.zelfProof, captchaToken: this.captchaToken, os: "DESKTOP" });
 
-        if (!response.data?) {
+        if (!response.data) {
             this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
             this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
 
             return;
         }
 
-        this.ethAddress = response.data.publicData.ethAddress;
+        const preview = response.data.preview;
+
+        const tagName = response.data.tagName;
+
+        const domain = response.data.domain;
+
+        this.ethAddress = preview.publicData.ethAddress;
 
         this.form.patchValue({ publicAddress: this.ethAddress });
 
-        response.data.publicData.zelfName = `${response.data.publicData.zelfName}`.toLowerCase();
+        preview.publicData.zelfName = `${preview.publicData.zelfName}`.toLowerCase();
 
-        this._tagsService.setTagName(response.data.publicData.zelfName);
+        this._tagsService.setTagName(preview.publicData.zelfName);
 
         this._tagsService.setZelfProof(this.zelfProof);
 
-        await this._queryForZelfObject(this.ethAddress);
+        const currentZelfNameObject = await this._queryForZelfObjectByZelfName({ tagKey: "tagName", tagName, domain });
 
-        const currentZelfNameObject = await this._queryForZelfObjectByZelfName(response.data.tagName);
-
-        if (currentZelfNameObject?.available) this._tagsService.setTagNameObject(new TagModel({ ...response.data, available: true }));
+        if (currentZelfNameObject?.available) this._tagsService.setTagNameObject(new TagModel({ ...response.data, available: true, domain }));
 
         this._redirectAfterZelfProofSearch(currentZelfNameObject);
     }
 
-    private async _queryForZelfObjectByZelfName(query: string): Promise<any> {
+    private async _queryForZelfObjectByZelfName(params: { tagKey: string; tagName: string; domain: string }): Promise<any> {
         this.searching = true;
 
         try {
-            await this._captchaGeneration(query, "zelfName");
-            return await this._queryZNS("zelfName", query);
+            await this._captchaGeneration(params.tagName, params.domain);
+
+            return await this._queryZNS(params.tagKey, params.tagName, params.domain);
         } catch (error) {
             this._setNotFound();
         } finally {
@@ -201,11 +208,11 @@ export class WelcomeFindComponent implements OnDestroy {
             let zelfNameObject: WalletModel | null = null;
 
             if (this._walletService.ETHRegex.test(query)) {
-                zelfNameObject = await this._queryZNS("ethAddress", query);
+                zelfNameObject = await this._queryZNS("ethAddress", query, "zelf");
             } else if (this._walletService.SOLRegex.test(query)) {
-                zelfNameObject = await this._queryZNS("solanaAddress", query);
+                zelfNameObject = await this._queryZNS("solanaAddress", query, "zelf");
             } else if (this._walletService.BTCRegex.test(query)) {
-                zelfNameObject = await this._queryZNS("btcAddress", query);
+                zelfNameObject = await this._queryZNS("btcAddress", query, "zelf");
             }
 
             return zelfNameObject;
@@ -216,11 +223,11 @@ export class WelcomeFindComponent implements OnDestroy {
         }
     }
 
-    async _queryZNS(key: string, value: string): Promise<any> {
+    async _queryZNS(key: string, value: string, domain: string): Promise<any> {
         try {
-            console.log({ key, value });
-
-            const response = await this._tagsService.searchTag({ [key]: value, domain: "zelf", os: "DESKTOP" });
+            const response = await this._tagsService.searchTag(
+                key === "tagName" ? { tagName: value, domain, os: "DESKTOP" } : { [key]: value, domain, os: "DESKTOP" }
+            );
 
             if (!response.data) return null;
 
@@ -263,7 +270,7 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     // In this flow, we know who owns a zelfproof to the name, but it may have been taken if they let the grace period expire
-    private _redirectAfterZelfProofSearch(zelfNameObject: WalletModel | any): void {
+    private _redirectAfterZelfProofSearch(zelfNameObject: TagModel | any): void {
         const ownedByThisUser = zelfNameObject.ethAddress === this.ethAddress;
 
         if (ownedByThisUser && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
@@ -290,8 +297,8 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     async clearError(): Promise<void> {
-        await this._chromeService.removeItem("zelfName");
-        await this._chromeService.removeItem("zelfNameObject");
+        await this._chromeService.removeItem("tagName");
+        await this._chromeService.removeItem("tagNameObject");
         await this._chromeService.removeItem("zelfProof");
 
         this.errorMessage = "";

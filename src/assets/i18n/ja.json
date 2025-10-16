@@ -333,6 +333,7 @@
         "not_found": "レコードが見つかりません",
         "password_doesnt_match": "パスワードが一致しません",
         "password_incorrect": "パスワードが正しくありません",
+        "THE PROVIDED PASSWORD IS INVALID.": "入力されたパスワードが正しくありません。パスワードを確認して再試行してください。",
         "person_already_set": "登録には既にZelfProofがリンクされています",
         "private_key_locked": "秘密鍵がロックされました。続行するには生体認証が必要です。",
         "required_field": "この項目は必須です",

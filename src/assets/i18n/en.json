@@ -343,6 +343,7 @@
         "not_found": "Record not found",
         "password_doesnt_match": "Passwords do not match",
         "password_incorrect": "The password is incorrect",
+        "THE PROVIDED PASSWORD IS INVALID.": "The password you entered is incorrect. Please check your password and try again.",
         "person_already_set": "Your registration has a ZelfProof linked already",
         "private_key_locked": "Private key has been locked. You must perform a biometrics check to move forward.",
         "required_field": "This field is required",

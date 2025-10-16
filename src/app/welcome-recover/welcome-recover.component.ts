@@ -7,9 +7,7 @@ import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
-import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagsService } from "app/tags.service";
 import { TagModel } from "app/tags.service";
 
@@ -48,7 +46,6 @@ export class WelcomeRecoverComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
         private _tagsService: TagsService
     ) {
         this._initForm();
@@ -57,14 +54,19 @@ export class WelcomeRecoverComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         const tagNameObject = await this._tagsService.getTagNameObject();
 
+        console.log({ Recover: tagNameObject });
+
         if (!tagNameObject) {
-            // redirect to /find
             this._router.navigate(["/welcome/find"]);
 
             return;
         }
 
-        this.oldZelfNameObject = new TagModel({ ...tagNameObject, name: tagNameObject.name });
+        this.oldZelfNameObject = new TagModel(tagNameObject);
+
+        this._tagsService.setTagNameObject(this.oldZelfNameObject);
+        this._tagsService.setDomain(this.oldZelfNameObject.domain);
+        this._tagsService.setTagName(tagNameObject.name);
     }
 
     private async _captchaGeneration(): Promise<any> {
@@ -102,9 +104,12 @@ export class WelcomeRecoverComponent implements OnInit {
             }
 
             this.showSearch = false;
+
             this.showResult = true;
 
-            return zelfNameObject;
+            const newTagNameObject = new TagModel(zelfNameObject);
+
+            return newTagNameObject;
         } catch (error) {
             this._setError();
         } finally {
@@ -121,15 +126,16 @@ export class WelcomeRecoverComponent implements OnInit {
             const response = await this._tagsService.searchTag({ tagName, captchaToken: this.captchaToken, domain });
 
             if (!response.data || response.data.available) {
-                return new TagModel({ name: value, publicData: { available: true } });
+                return new TagModel({ name: value, available: true });
             }
 
-            const tagObject = response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0];
-            const zelfNameObject = new TagModel({ ...tagObject, name: value });
+            const tagObject = response.data.tagObject;
+
+            const tagNameObject = new TagModel({ ...tagObject, name: value, domain });
 
             this.loading = false;
 
-            return zelfNameObject;
+            return tagNameObject;
         } catch (error) {
             this._setError();
 
@@ -149,6 +155,7 @@ export class WelcomeRecoverComponent implements OnInit {
 
     async pastedZelfName(event: ClipboardEvent): Promise<void> {
         event.preventDefault();
+
         event.stopPropagation();
 
         if (this.searching) return;
@@ -186,6 +193,8 @@ export class WelcomeRecoverComponent implements OnInit {
 
     async startReservation(): Promise<void> {
         await this._tagsService.setNewTagName(this.newZelfNameObject?.name || this.form.value.zelfName);
+
+        await this._tagsService.setDomain(this.newZelfNameObject?.domain);
 
         await this._tagsService.setFlow("recover");
 

@@ -333,6 +333,7 @@
         "not_found": "Registro não encontrado",
         "password_doesnt_match": "As senhas não coincidem",
         "password_incorrect": "A senha está incorreta",
+        "THE PROVIDED PASSWORD IS INVALID.": "A senha que você inseriu está incorreta. Por favor, verifique sua senha e tente novamente.",
         "person_already_set": "Seu registro já tem um ZelfProof vinculado",
         "private_key_locked": "A chave privada foi bloqueada. Você deve realizar uma verificação biométrica para prosseguir.",
         "required_field": "Este campo é obrigatório",

@@ -333,6 +333,7 @@
         "not_found": "Hindi nahanap ang record",
         "password_doesnt_match": "Hindi magkatugma ang mga password",
         "password_incorrect": "Hindi tama ang password",
+        "THE PROVIDED PASSWORD IS INVALID.": "Hindi tama ang password na inyong inilagay. Pakitignan ang inyong password at subukan ulit.",
         "person_already_set": "May nakakabit nang ZelfProof sa iyong registration",
         "private_key_locked": "Naka-lock ang private key. Kailangan mong mag-perform ng biometrics check para makapagpatuloy.",
         "required_field": "Kailangan ang field na ito",

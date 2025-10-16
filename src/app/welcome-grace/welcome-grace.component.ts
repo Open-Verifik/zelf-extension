@@ -20,10 +20,10 @@ import { ZelfNameService } from "app/zelf-name-service.service";
 export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit {
     loading: boolean = false;
     captchaToken: string | undefined;
-    zelfNameObject!: TagModel;
+    tagNameObject!: TagModel;
     zelfProof: string | undefined;
-    zelfName: string | undefined;
-
+    tagName: string | undefined;
+    domain: string | undefined;
     constructor(
         private _captchaService: CaptchaService,
         private _router: Router,
@@ -37,15 +37,16 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
     }
 
     async ngOnInit(): Promise<void> {
-        this.zelfName = await this._tagsService.getTagName();
-        this.zelfNameObject = new TagModel(await this._tagsService.getTagResponse());
+        this.tagName = await this._tagsService.getTagName();
+        this.tagNameObject = new TagModel(await this._tagsService.getTagResponse());
         this.zelfProof = await this._zelfNameService.getZelfProof();
+        this.domain = await this._tagsService.getDomain();
 
-        await this._queryZNS(this.zelfName);
+        await this._queryZNS(this.tagName);
     }
 
     get externalUrl(): string {
-        return `https://payment.zelf.world/purchase?zelfName=${this.zelfNameObject?.fullTagName}`;
+        return `https://payment.zelf.world/purchase?tagName=${this.tagNameObject?.fullTagName}`;
     }
 
     private async _captchaGeneration(zelfName: string): Promise<any> {
@@ -62,7 +63,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
         try {
             await this._captchaGeneration(zelfName);
 
-            const response = await this._zelfNameService.searchZelfNameV2("zelfName", zelfName, this.captchaToken);
+            const response = await this._tagsService.searchTag({ tagName: zelfName, domain: this.domain, captchaToken: this.captchaToken });
 
             if (!response.data) {
                 this._router.navigate(["/welcome/available"]);
@@ -70,11 +71,11 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
                 return;
             }
 
-            const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
+            const tagNameObject = new TagModel(response.data.tagObject);
 
-            const isOwnedByUser = zelfNameObject.zelfProof === this.zelfNameObject.zelfProof;
+            const isOwnedByUser = tagNameObject.zelfProof === this.tagNameObject.zelfProof;
 
-            if (!isOwnedByUser && zelfNameObject.publicData?.isExpired) {
+            if (!isOwnedByUser && tagNameObject.publicData?.expiresAt && new Date(tagNameObject.publicData.expiresAt) < new Date()) {
                 this._router.navigate(["/welcome/recover"]);
 
                 return;
@@ -100,7 +101,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
 
     renewZelfName(): void {
         this._router.navigate(["/external-link"], {
-            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.zelfNameObject.fullTagName}` },
+            queryParams: { externalUrl: `https://payment.zelf.world/purchase?tagName=${this.tagNameObject.fullTagName}` },
         });
     }
 }

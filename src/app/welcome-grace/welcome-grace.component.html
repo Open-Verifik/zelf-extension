@@ -12,22 +12,22 @@
     </div>
 
     <div class="zelf-card__content welcome-grace__content">
-        <ng-container *ngIf="zelfNameObject">
+        <ng-container *ngIf="tagNameObject">
             <div class="welcome-grace__details">
                 <div class="zelf-chip welcome-grace__chip zelf-chip--error">
-                    <ng-container *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("common.registered") }}</ng-container>
-                    <ng-container *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("common.domain_expired") }}</ng-container>
+                    <ng-container *ngIf="tagNameObject.publicData.isInGracePeriod">{{ t("common.registered") }}</ng-container>
+                    <ng-container *ngIf="!tagNameObject.publicData.isInGracePeriod">{{ t("common.domain_expired") }}</ng-container>
                 </div>
 
-                <h2 class="zelf-card__title">{{ zelfNameObject.fullTagName }}</h2>
+                <h2 class="zelf-card__title">{{ tagNameObject.fullTagName }}</h2>
 
                 <p class="zelf-card__subtitle welcome-grace__subtitle">
-                    <span *ngIf="zelfNameObject.publicData.isInGracePeriod">
-                        {{ t("welcome.registered_since", { date: zelfNameObject.publicData.registeredAt | date: "dd MMM, yyyy" }) }}
+                    <span *ngIf="tagNameObject.publicData.isInGracePeriod">
+                        {{ t("welcome.registered_since", { date: tagNameObject.publicData.registeredAt | date: "dd MMM, yyyy" }) }}
                     </span>
 
-                    <span *ngIf="!zelfNameObject.publicData.isInGracePeriod">
-                        {{ t("welcome.domain_expired_since", { date: zelfNameObject.publicData.gracePeriod | date: "dd MMM, yyyy" }) }}
+                    <span *ngIf="!tagNameObject.publicData.isInGracePeriod">
+                        {{ t("welcome.domain_expired_since", { date: tagNameObject.publicData.gracePeriod | date: "dd MMM, yyyy" }) }}
                     </span>
                 </p>
 
@@ -37,10 +37,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    address: zelfNameObject?.publicData?.btcAddress,
+                                    address: tagNameObject?.publicData?.btcAddress,
                                     label: 'Bitcoin',
                                     logo: 'assets/networks/btc.png',
-                                    value: zelfNameObject?.displayBtcAddress,
+                                    value: tagNameObject?.displayBtcAddress,
                                 },
                             }
                         "
@@ -51,10 +51,10 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    address: zelfNameObject?.publicData?.ethAddress,
+                                    address: tagNameObject?.publicData?.ethAddress,
                                     label: 'Ethereum',
                                     logo: 'assets/networks/eth.png',
-                                    value: zelfNameObject?.displayEthAddress,
+                                    value: tagNameObject?.displayEthAddress,
                                 },
                             }
                         "
@@ -65,17 +65,17 @@
                             addressRow;
                             context: {
                                 $implicit: {
-                                    address: zelfNameObject?.publicData?.solanaAddress,
+                                    address: tagNameObject?.publicData?.solanaAddress,
                                     label: 'Solana',
                                     logo: 'assets/networks/sol.svg',
-                                    value: zelfNameObject?.displaySolanaAddress,
+                                    value: tagNameObject?.displaySolanaAddress,
                                 },
                             }
                         "
                     ></ng-container>
                 </div>
 
-                <div class="welcome-grace__date-row" *ngIf="zelfNameObject.publicData.expiresAt">
+                <div class="welcome-grace__date-row" *ngIf="tagNameObject.publicData.expiresAt">
                     <div class="welcome-grace__date-column">
                         <p class="welcome-grace__date-title">
                             {{ t("welcome.name_expires") }}
@@ -83,7 +83,7 @@
 
                         <div class="welcome-grace__date-text__inner-row">
                             <p class="welcome-grace__date-text">
-                                {{ zelfNameObject.publicData.expiresAt | date: "dd MMM, yyyy" }}
+                                {{ tagNameObject.publicData.expiresAt | date: "dd MMM, yyyy" }}
                             </p>
 
                             <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,8 +101,8 @@
                         </p>
 
                         <div class="welcome-grace__date-text__inner-row">
-                            <p class="welcome-grace__date-text" *ngIf="zelfNameObject.publicData.gracePeriod">
-                                {{ zelfNameObject.publicData.gracePeriod | date: "dd MMM, yyyy" }}
+                            <p class="welcome-grace__date-text" *ngIf="tagNameObject.publicData.gracePeriod">
+                                {{ tagNameObject.publicData.gracePeriod | date: "dd MMM, yyyy" }}
                             </p>
 
                             <svg width="14" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +119,7 @@
     </div>
 
     <div class="zelf-card__actions zelf-card__actions--column">
-        <ng-container *ngIf="zelfNameObject">
+        <ng-container *ngIf="tagNameObject">
             <div class="tip-box">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -128,8 +128,8 @@
                     />
                 </svg>
 
-                <p class="tip-box__text" *ngIf="zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.renew_your_domain_today") }}</p>
-                <p class="tip-box__text" *ngIf="!zelfNameObject.publicData.isInGracePeriod">{{ t("welcome.dont_lose_your_zelfname") }}</p>
+                <p class="tip-box__text" *ngIf="tagNameObject.publicData.isInGracePeriod">{{ t("welcome.renew_your_domain_today") }}</p>
+                <p class="tip-box__text" *ngIf="!tagNameObject.publicData.isInGracePeriod">{{ t("welcome.dont_lose_your_zelfname") }}</p>
             </div>
 
             <button (click)="renewZelfName()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
@@ -138,7 +138,7 @@
 
             <button
                 (click)="decryptZelfName()"
-                *ngIf="zelfNameObject.publicData.isInGracePeriod && zelfNameObject.publicData.isExpired"
+                *ngIf="tagNameObject.publicData.isInGracePeriod && tagNameObject.publicData.isExpired"
                 class="zelf-button zelf-button--hyperlink zelf-button--wide"
                 mat-flat-button
             >

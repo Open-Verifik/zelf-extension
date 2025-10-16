@@ -248,16 +248,16 @@ export class WalletService {
         if (!wallets) wallets = [];
 
         const keysToRemove = [
-            "currentZelfName",
+            "currentTagName",
             "duration",
             "durationToken",
             "importWallet",
             "network",
             "password",
-            "referralZelfName",
+            "referralTagName",
             "unlockWallet",
             "zelfFile",
-            "zelfName",
+            "tagName",
             "zelfPrice",
             "zelfProof",
             "zelfReward",
@@ -619,13 +619,20 @@ export class WalletService {
     async switchWallet(selectedWallet: TagModel): Promise<void> {
         const wallet = (await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
 
-        if (selectedWallet.tagName === wallet?.tagName) return;
+        if (selectedWallet.fullTagName === wallet?.fullTagName) return;
 
         const wallets = (await this._chromeService.getItem<TagModel[]>("wallets")) || [];
 
-        const newWallets = wallets.filter((_wallet) => _wallet.tagName !== selectedWallet.publicData.tagName);
+        for (let index = 0; index < wallets.length; index++) {
+            const _wallet = wallets[index];
+
+            wallets[index] = new TagModel(_wallet);
+        }
+
+        const newWallets = wallets.filter((_wallet) => _wallet.fullTagName !== selectedWallet.fullTagName);
 
         await this._chromeService.setItem("wallet", selectedWallet);
+
         await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
     }
 
@@ -638,7 +645,7 @@ export class WalletService {
     async logoutOfWallet(walletToRemove: TagModel): Promise<void> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
-        if (currentWallet?.publicData?.tagName === walletToRemove.publicData.tagName) {
+        if (currentWallet?.fullTagName === walletToRemove.fullTagName) {
             await this._chromeService.removeItem("wallet");
 
             const wallet = wallets.shift();
@@ -646,7 +653,7 @@ export class WalletService {
             this._chromeService.setItem("wallet", wallet);
             this._chromeService.setItem("wallets", wallets);
         } else {
-            const newWallets = wallets.filter((_wallet: TagModel) => _wallet.tagName !== walletToRemove.tagName);
+            const newWallets = wallets.filter((_wallet: TagModel) => _wallet.fullTagName !== walletToRemove.fullTagName);
 
             this._chromeService.setItem("wallets", newWallets);
         }
@@ -660,7 +667,7 @@ export class WalletService {
         const wallets = await this.getWalletsFromStorage();
 
         const walletExistsInWallets = wallets.some((_wallet) => {
-            wallet.tagName === _wallet.tagName;
+            wallet.fullTagName === _wallet.fullTagName;
         });
 
         if (!walletExistsInWallets) wallets.unshift(wallet);
@@ -674,7 +681,7 @@ export class WalletService {
 
         if (!wallets.length || !wallet) return;
 
-        const filteredWallets = wallets.filter((_wallet) => _wallet.publicData.tagName !== wallet.publicData?.tagName);
+        const filteredWallets = wallets.filter((_wallet) => _wallet.fullTagName !== wallet.fullTagName);
 
         await this._chromeService.setItem("wallets", filteredWallets);
     }

@@ -566,17 +566,21 @@ export class TagsService {
 
     // Variable Management Methods
     async setTagName(tagName: string, priceObject: any = {}): Promise<void> {
-        this.variables.tagName = tagName;
+        const sanitizedTagName = tagName.split(".")[0];
 
-        const setPromise = tagName ? this._chromeService.setItem("tagName", tagName) : this._chromeService.removeItem("tagName");
+        this.variables.tagName = sanitizedTagName;
+
+        const setPromise = sanitizedTagName ? this._chromeService.setItem("tagName", sanitizedTagName) : this._chromeService.removeItem("tagName");
 
         setPromise.then(() => {
             if (!priceObject) return;
 
             this.variables.price = priceObject.price;
+
             this.variables.reward = priceObject.reward;
 
             this._chromeService.setItem("tagPrice", priceObject.price);
+
             this._chromeService.setItem("tagReward", priceObject.reward);
         });
     }

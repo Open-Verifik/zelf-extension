@@ -78,6 +78,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
     async navigateToZelfLink(selectedWallet: TagModel): Promise<void> {
         await this._walletService.switchWallet(selectedWallet);
+
         await this._chromeService.setItem("parameters", { openMyArnsBottomSheet: true });
 
         const navigated = await this._router.navigate(["/wallet"]);

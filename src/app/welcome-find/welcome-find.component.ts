@@ -180,7 +180,13 @@ export class WelcomeFindComponent implements OnDestroy {
 
         const currentZelfNameObject = await this._queryForZelfObjectByZelfName({ tagKey: "tagName", tagName, domain });
 
-        if (currentZelfNameObject?.available) this._tagsService.setTagNameObject(new TagModel({ ...response.data, available: true, domain }));
+        if (currentZelfNameObject?.available) {
+            const newTagNameObject = new TagModel(response.data.preview);
+
+            this._tagsService.setTagNameObject(newTagNameObject);
+            this._tagsService.setDomain(domain);
+            this._tagsService.setTagName(tagName);
+        }
 
         this._redirectAfterZelfProofSearch(currentZelfNameObject);
     }

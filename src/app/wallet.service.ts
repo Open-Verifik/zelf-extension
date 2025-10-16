@@ -164,14 +164,38 @@ export class WalletService {
 
         let assetSrc: string = "";
 
-        if (symbol === "AVAX") assetSrc = "./assets/networks/avax.png";
-        else if (symbol === "SOL") assetSrc = "./assets/networks/sol.svg";
-        else if (symbol === "ETH") assetSrc = "./assets/networks/eth.png";
-        else if (symbol === "ZNS") assetSrc = "./assets/tokens/zns.png";
-        else if (symbol === "SUI") assetSrc = "./assets/networks/sui.svg";
-        else if (symbol === "BNB" || symbol === "BSC") assetSrc = "./assets/networks/bnb.png";
-        else if (symbol === "POL" || symbol === "MATIC") assetSrc = "./assets/networks/pol.png";
-        else if (symbol === "BTC") assetSrc = "./assets/networks/btc.png";
+        switch (symbol) {
+            case "AVAX":
+                assetSrc = "./assets/networks/avax.png";
+                break;
+            case "SOL":
+                assetSrc = "./assets/networks/sol.svg";
+                break;
+            case "ETH":
+                assetSrc = "./assets/networks/eth.png";
+                break;
+            case "BDAG":
+            case "BlockDAG":
+                assetSrc = "./assets/networks/bdag.png";
+                break;
+            case "SUI":
+                assetSrc = "./assets/networks/sui.svg";
+                break;
+            case "BNB":
+            case "BSC":
+                assetSrc = "./assets/networks/bnb.png";
+                break;
+            case "POL":
+            case "MATIC":
+                assetSrc = "./assets/networks/pol.png";
+                break;
+            case "BTC":
+                assetSrc = "./assets/networks/btc.png";
+                break;
+            case "ZNS":
+                assetSrc = "./assets/tokens/zns.png";
+                break;
+        }
 
         if (assetSrc) {
             this._assetImageMap.set(symbol, assetSrc);
@@ -800,6 +824,16 @@ export class WalletService {
         if (!wallet) return [];
 
         const networks: Network[] = [];
+
+        if (wallet?.publicData?.blockDAGAddress) {
+            networks.push({
+                // blockDAG address
+                address: wallet?.publicData?.blockDAGAddress,
+                image: this.getAssetImage("BDAG"),
+                name: "BlockDAG",
+                symbol: "BDAG",
+            });
+        }
 
         if (wallet?.publicData?.ethAddress) {
             networks.push(

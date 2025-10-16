@@ -100,6 +100,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             this.network = params["network"];
 
             this._setNetwork();
+
             this._setQRCode();
         });
     }
@@ -108,6 +109,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
 
         this._setNetwork();
+
         this._setQRCode();
 
         this.loading = false;
@@ -133,6 +135,10 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             this.name = "Avalanche";
             this.symbol = "AVAX";
             this.type = "ERC-20";
+        } else if (network === "bdag" || network === "blockdag") {
+            this.address = this.wallet.publicData?.blockDAGAddress || "";
+            this.name = "BlockDAG";
+            this.symbol = "BDAG";
         } else if (network === "sui") {
             this.address = this.wallet.publicData?.suiAddress || "";
             this.name = "Sui";
@@ -147,12 +153,21 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             this.name = "Bitcoin";
             this.symbol = "BTC";
         }
+
+        console.log({
+            network,
+            address: this.address,
+            name: this.name,
+            symbol: this.symbol,
+            type: this.type,
+        });
     }
 
     private _setQRCode(): void {
         if (!this.qrCodeContainer || !this.qrCodeContainer.nativeElement) return;
 
         this.qrCodeOptions.data = this.address;
+
         this.qrCodeOptions.image = this._walletService.getAssetImage(this.symbol);
 
         this.qrCode = new QRCodeStyling(this.qrCodeOptions);

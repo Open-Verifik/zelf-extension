@@ -409,13 +409,17 @@ export class TagModel {
     }
 
     get tagName(): string {
-        return this.publicData?.tagName || this.name;
+        let tagName = this.publicData?.tagName || this.name;
+
+        if (tagName.includes(this.publicData.domain)) tagName = tagName.split(".")[0];
+
+        return tagName;
     }
 
     get fullTagName(): string {
         const fullTagName = this.publicData.tagName || this.name;
 
-        if (fullTagName.includes(this.publicData.domain)) return fullTagName;
+        if (fullTagName.includes(this.publicData.domain)) return fullTagName.replace(".hold", "");
 
         return `${fullTagName}.${this.publicData.domain}`;
     }

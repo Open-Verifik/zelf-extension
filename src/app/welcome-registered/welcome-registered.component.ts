@@ -37,7 +37,9 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
     async ngOnInit(): Promise<void> {
         // Load tag data from the new TagsService
         this.zelfProof = await this._tagsService.getZelfProof();
+
         const tagData = await this._tagsService.getTagNameObject();
+
         this.tagResponse = (await this._tagsService.getTagResponse()) || undefined;
 
         // Create TagModel if we have tag data

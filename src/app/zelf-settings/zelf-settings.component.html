@@ -41,6 +41,29 @@
             </div>
         </div>
 
+        <div class="zelf-card__content">
+            <div
+                class="zelf-settings__item"
+                [routerLink]="['/external-link']"
+                [queryParams]="{ externalUrl: link.url }"
+                *ngFor="let link of footerLinks"
+            >
+                <div class="zelf-settings__item-col1">
+                    <div class="zelf-settings__item-col1-icon">
+                        <ng-container *ngTemplateOutlet="getExternalLinkIcon()"></ng-container>
+                    </div>
+
+                    <p class="zelf-settings__item-col1-title">{{ t(link.text) }}</p>
+                </div>
+
+                <div class="zelf-settings__item-col2">
+                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
         <div class="zelf-card__actions zelf-card__actions--end">
             <button (click)="logout()" mat-flat-button class="zelf-button zelf-button--outlined zelf-button--wide">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,5 +85,17 @@
 <ng-template #securityIcon>
     <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 0L0 3V9.09C0 14.14 3.41 18.85 8 20C12.59 18.85 16 14.14 16 9.09V3L8 0Z" />
+    </svg>
+</ng-template>
+
+<ng-template #externalLinkIcon>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M6 2H3.33333C2.59695 2 2 2.59695 2 3.33333V12.6667C2 13.403 2.59695 14 3.33333 14H12.6667C13.403 14 14 13.403 14 12.6667V10M10 2H14M14 2V6M8.66667 7.33333L13.3333 2"
+            stroke="currentColor"
+            stroke-width="1.33333"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
     </svg>
 </ng-template>

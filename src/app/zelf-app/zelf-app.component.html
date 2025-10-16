@@ -12,32 +12,6 @@
     <section #contentContainer class="zelf-app__content">
         <router-outlet></router-outlet>
     </section>
-
-    <footer class="zelf-app__footer zelf-app__footer--small">
-        <button class="zelf-icon-button zelf-icon-button--40 zelf-app__footer-menu-trigger" mat-flat-button [matMenuTriggerFor]="links">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-                <path
-                    d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z"
-                    fill="#181818"
-                />
-            </svg>
-        </button>
-
-        <mat-menu class="zelf-menu" #links="matMenu" [xPosition]="'before'" [yPosition]="'above'">
-            <button [routerLink]="['/external-link']" [queryParams]="{ externalUrl: link.url }" *ngFor="let link of footerLinks" mat-menu-item>
-                {{ t(link.text) }}
-            </button>
-        </mat-menu>
-
-        <button
-            [queryParams]="{ externalUrl: link.url }"
-            [routerLink]="['/external-link']"
-            *ngFor="let link of footerLinks"
-            class="zelf-button zelf-button--hyperlink zelf-button--small zelf-app__footer-links"
-        >
-            {{ t(link.text) }}
-        </button>
-    </footer>
 </div>
 
 <ng-template #arrow>

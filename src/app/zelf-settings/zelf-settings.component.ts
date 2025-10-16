@@ -17,6 +17,7 @@ import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-set
 })
 export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     @ViewChild("securityIcon", { static: true }) securityIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
+    @ViewChild("externalLinkIcon", { static: true }) externalLinkIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
 
@@ -28,6 +29,25 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
             edit: string;
         };
     }[] = [];
+
+    footerLinks = [
+        {
+            url: "https://docs.zelf.world/",
+            text: "common.documentation",
+        },
+        {
+            url: "https://docs.zelf.world/docs/legal/terms-of-use",
+            text: "common.terms_and_conditions",
+        },
+        {
+            url: "https://docs.zelf.world/docs/legal/privacy-policy",
+            text: "common.privacy",
+        },
+        {
+            url: "https://docs.zelf.world/docs/airdrop/pricing-per-domain",
+            text: "common.pricing",
+        },
+    ];
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -84,6 +104,10 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
 
     getTemplateIcon(settingItem: { icon: string }): TemplateRef<any> | null {
         return (this[settingItem.icon as keyof ZelfSettingsComponent] as TemplateRef<any>) || null;
+    }
+
+    getExternalLinkIcon(): TemplateRef<any> | null {
+        return this.externalLinkIcon || null;
     }
 
     logout() {

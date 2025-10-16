@@ -6,14 +6,13 @@ import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/ro
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { LanguageComponent } from "app/language/language.component";
-import { MatMenuModule } from "@angular/material/menu";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { WalletModel } from "app/wallet";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
-    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule, RouterModule, MatMenuModule],
+    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule],
     selector: "zelf-app",
     styleUrls: ["./zelf-app.component.scss"],
     templateUrl: "./zelf-app.component.html",
@@ -26,25 +25,6 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     canGoHome: boolean = false;
     wallet: Partial<WalletModel> = {};
     wallets: any[] = [];
-
-    footerLinks = [
-        {
-            url: "https://docs.zelf.world/",
-            text: "common.documentation",
-        },
-        {
-            url: "https://docs.zelf.world/docs/legal/terms-of-use",
-            text: "common.terms_and_conditions",
-        },
-        {
-            url: "https://docs.zelf.world/docs/legal/privacy-policy",
-            text: "common.privacy",
-        },
-        {
-            url: "https://docs.zelf.world/docs/airdrop/pricing-per-domain",
-            text: "common.pricing",
-        },
-    ];
 
     constructor(
         private _activatedRoute: ActivatedRoute,

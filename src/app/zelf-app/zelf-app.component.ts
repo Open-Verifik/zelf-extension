@@ -8,7 +8,7 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { LanguageComponent } from "app/language/language.component";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
-import { WalletModel } from "app/wallet";
+import { TagModel } from "app/tags.service";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
@@ -23,7 +23,7 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
     canGoHome: boolean = false;
-    wallet: Partial<WalletModel> = {};
+    wallet: Partial<TagModel> = {};
     wallets: any[] = [];
 
     constructor(
@@ -54,12 +54,12 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     }
 
     private async _setCanGoHome(): Promise<void> {
-        this.wallet = (await this._walletService.getCurrentWallet()) as Partial<WalletModel>;
+        this.wallet = (await this._walletService.getCurrentWallet()) as Partial<TagModel>;
         this.wallets = await this._walletService.getWalletsFromStorage();
 
         const path = this._activatedRoute.snapshot.url[0]?.path;
 
-        this.canGoHome = !!path && path !== "home" && (!!this.wallet?.ethAddress || this.wallets.length > 0);
+        this.canGoHome = !!path && path !== "home" && (!!this.wallet?.publicData?.ethAddress || this.wallets.length > 0);
     }
 
     onLogoClick(): void {

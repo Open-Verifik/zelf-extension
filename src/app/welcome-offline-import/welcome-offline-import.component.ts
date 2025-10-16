@@ -12,8 +12,7 @@ import { ChromeService } from "app/chrome.service";
 import { CaptchaService } from "app/captcha.service";
 import { WelcomeAvailableContentComponent } from "app/welcome-available/welcome-available-content.component";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { WalletModel } from "app/wallet";
-import { TagsService } from "app/tags.service";
+import { TagModel, TagsService } from "app/tags.service";
 
 @Component({
     imports: [
@@ -109,6 +108,7 @@ export class WelcomeOfflineImportComponent {
 
     private async _noZelfNameFound(zelfNameObject: any): Promise<void> {
         await this._zelfNameService.setZelfName(zelfNameObject.zelfName, zelfNameObject);
+
         await this._zelfNameService.setZelfNameObject(zelfNameObject);
 
         this.form.clearValidators();
@@ -187,11 +187,12 @@ export class WelcomeOfflineImportComponent {
 
                 if (response?.data.available) return await this._noZelfNameFound(response?.data);
 
-                const zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
+                const zelfNameObject = new TagModel(response.data.tagObject);
 
                 this.loading = false;
 
                 this.zelfNameObject = zelfNameObject;
+
                 this.qrCodeImage = zelfNameObject?.image || this.qrCodeImage;
 
                 this.showRegistered = true;
@@ -254,7 +255,7 @@ export class WelcomeOfflineImportComponent {
 
                 this.referralForm.markAsPristine();
 
-                this.zelfNameObject = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
+                this.zelfNameObject = new TagModel(response.data.tagObject);
 
                 this._zelfNameService.setReferral(this.zelfNameObject.publicData.zelfName);
 

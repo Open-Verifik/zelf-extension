@@ -207,7 +207,6 @@ export class TagPublicDataModel {
     registeredAt: string;
     expiresAt?: string;
     gracePeriod?: Date | null;
-    blockDAGAddress: string;
     avalancheAddress: string;
 
     constructor(data: any) {
@@ -222,7 +221,6 @@ export class TagPublicDataModel {
         this.origin = data.origin || "";
         this.registeredAt = data.registeredAt || "";
         this.expiresAt = data.expiresAt || "";
-        this.blockDAGAddress = data.blockDAGAddress || "";
         this.avalancheAddress = data.avalancheAddress || "";
 
         this.gracePeriod = this._calculateGracePeriod();
@@ -272,6 +270,10 @@ export class TagPublicDataModel {
         const gracePeriodEnd = this.gracePeriod.getTime();
 
         return Math.max(0, Math.floor((gracePeriodEnd - now) / 1000));
+    }
+
+    get blockDAGAddress(): string {
+        return this.ethAddress;
     }
 }
 
@@ -477,6 +479,8 @@ export class TagsService {
         if (request.value) query.value = request.value;
         if (request.os) query.os = request.os;
         if (request.captchaToken) query.captchaToken = request.captchaToken;
+
+        console.log({ query, request });
 
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/tags/search`, query);
     }

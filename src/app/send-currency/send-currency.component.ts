@@ -62,6 +62,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getCurrentWallet()) || ({} as TagModel);
+
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         await this._loadTokensFromSession();
@@ -190,7 +191,9 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             },
             sender: {
                 address,
-                zelfName: this.wallet?.tagName || "",
+                tagName: this.wallet?.tagName || "",
+                domain: this.wallet?.domain || "",
+                fullTagName: this.wallet?.fullTagName || "",
             },
         });
 

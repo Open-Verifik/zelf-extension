@@ -36,7 +36,8 @@ export class PrivateKeyComponent {
         await this._chromeService.setItem("parameters", { openPrivateKeyBottomSheet: true });
 
         await this._zelfNameService.setFlow("unlock");
-        await this._zelfNameService.setZelfName(this.wallet?.publicData?.zelfName as string);
+
+        await this._zelfNameService.setZelfName(this.wallet?.publicData?.tagName as string);
 
         this.close();
 

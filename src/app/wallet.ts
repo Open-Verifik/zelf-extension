@@ -3,7 +3,8 @@ export type AddressBook = {
     lastUsed?: Date | string;
     network: string;
     tokenType: string;
-    zelfName?: string;
+    tagName?: string;
+    domain?: string;
 };
 
 export type Token = {
@@ -527,14 +528,14 @@ export interface IPFS {
     Timestamp: string;
     url: string;
     web3: boolean;
-    zelfName: string;
+    tagName: string;
     Keyvalues: {
         addresses: string;
         expiresAt: string;
         hasPassword: string;
         payment: string;
         type: string;
-        zelfName: string;
+        tagName: string;
         zelfProof: string;
     };
     publicData: {
@@ -545,10 +546,10 @@ export interface IPFS {
         hasPassword: string;
         name: string;
         referralSolanaAddress: string;
-        referralZelfName: string;
+        referralTagName: string;
         solanaAddress: string;
         type: string;
-        zelfName: string;
+        tagName: string;
     };
 }
 
@@ -628,9 +629,9 @@ export class WalletModel implements Wallet {
         this.zkProof = data.zkProof;
 
         this.name =
-            data.name || data.zelfName || secondaryStorage.zelfName ? `${data.name || data.zelfName || secondaryStorage.zelfName}`.toLowerCase() : "";
+            data.name || data.tagName || secondaryStorage.tagName ? `${data.name || data.tagName || secondaryStorage.tagName}`.toLowerCase() : "";
 
-        if (!this.publicData.zelfName) this.publicData.zelfName = this.name;
+        if (!this.publicData?.tagName) this.publicData.tagName = this.name;
 
         this.btcAddress = data.btcAddress || secondaryStorage.btcAddress;
         if (this.btcAddress) this.displayBtcAddress = this.btcAddress;
@@ -706,7 +707,7 @@ export interface WalletPublicData {
     solanaAddress: string;
     suiAddress: string;
     type: "mainnet" | "hold" | "";
-    zelfName: string;
+    tagName: string;
 
     timeLeftInGracePeriodSeconds(): number;
 }
@@ -722,7 +723,7 @@ export class WalletPublicDataModel {
     solanaAddress: string;
     suiAddress: string;
     type: "mainnet" | "hold" | "";
-    zelfName: string;
+    tagName: string;
 
     constructor(data: any) {
         this._id = data._id || "offline";
@@ -735,10 +736,10 @@ export class WalletPublicDataModel {
         this.solanaAddress = data.solanaAddress || "";
         this.suiAddress = data.suiAddress || "";
         this.type = data.type || "";
-        this.zelfName = data.zelfName || "";
+        this.tagName = data.tagName || "";
 
         if (!this.type) data.zelfName ? (data.zelfName?.includes(".hold") ? (this.type = "hold") : (this.type = "mainnet")) : "";
-        if (this.zelfName) this.zelfName = this.zelfName.replace(".hold", "");
+        if (this.tagName) this.tagName = this.tagName.replace(".hold", "");
 
         this.gracePeriod = this._calculateGracePeriod();
     }
@@ -830,14 +831,18 @@ export interface TokenData {
 
 export type Sender = {
     address: string;
-    zelfName: string;
+    tagName: string;
+    fullTagName?: string;
+    domain?: string;
 };
 
 export type Receiver = {
     address: string;
     tokenType?: string; // Can be left blank if same as sender currency
     symbol?: string; // Can be left blank if same as sender currency
-    zelfName?: string;
+    tagName?: string;
+    fullTagName?: string;
+    domain?: string;
 };
 
 export interface TransactionData {
@@ -955,8 +960,23 @@ export class TransactionData implements TransactionData {
         return this.tokenType === "BTC";
     }
 
+    get isBDAGToken(): boolean {
+        return this.tokenType === "BDAG" || this.tokenType === "BLOCKDAG";
+    }
+
     get isSuiToken(): boolean {
         return this.tokenType === "SUI" || this.tokenType === "SUI_TOKEN";
+    }
+
+    get senderFullTagName(): string {
+        return this.sender?.fullTagName || (this.sender?.domain ? `${this.sender?.tagName}.${this.sender?.domain}` : this.sender?.tagName || "");
+    }
+
+    get receiverFullTagName(): string {
+        return (
+            this.receiver?.fullTagName ||
+            (this.receiver?.domain ? `${this.receiver?.tagName}.${this.receiver?.domain}` : this.receiver?.tagName || "")
+        );
     }
 }
 

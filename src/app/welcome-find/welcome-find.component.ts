@@ -11,7 +11,6 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
-import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
@@ -218,7 +217,7 @@ export class WelcomeFindComponent implements OnDestroy {
         try {
             await this._captchaGeneration(query);
 
-            let zelfNameObject: WalletModel | null = null;
+            let zelfNameObject: TagModel | null = null;
 
             if (this._walletService.ETHRegex.test(query)) {
                 zelfNameObject = await this._queryZNS("ethAddress", query, "zelf");
@@ -261,7 +260,7 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     // In this flow - we don't know who owns the name
-    private _redirectAfterTextSearch(zelfNameObject: WalletModel | any): void {
+    private _redirectAfterTextSearch(zelfNameObject: TagModel | any): void {
         if (!zelfNameObject || zelfNameObject?.available) {
             this._router.navigate(["/welcome/available"]);
 

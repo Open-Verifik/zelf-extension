@@ -8,7 +8,6 @@ import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboar
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { TagModel, TagsService } from "app/tags.service";
-import { WalletModel } from "app/wallet";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({

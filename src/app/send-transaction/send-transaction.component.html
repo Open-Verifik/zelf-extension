@@ -35,7 +35,7 @@
                         readonly
                     />
 
-                    <div class="send-transaction__address-name-zelf-name">{{ transactionData.sender.zelfName | uppercase }}</div>
+                    <div class="send-transaction__address-name-zelf-name">{{ transactionData.sender.tagName | uppercase }}</div>
                 </div>
 
                 <p class="send-transaction__input-label send-transaction__input-label--mt-8">
@@ -247,10 +247,10 @@
                                 </svg>
 
                                 <p class="zelf-action-row__text send-transaction__address-col">
-                                    <span class="send-transaction__address-name" *ngIf="!address.zelfName">{{ address.address | addressMask }}</span>
+                                    <span class="send-transaction__address-name" *ngIf="!address.tagName">{{ address.address | addressMask }}</span>
 
-                                    <span class="send-transaction__address-name send-transaction__address-name--zelf-name" *ngIf="address.zelfName">{{
-                                        address.zelfName
+                                    <span class="send-transaction__address-name send-transaction__address-name--zelf-name" *ngIf="address.tagName">{{
+                                        address.tagName
                                     }}</span>
 
                                     <span class="send-transaction__address-used">{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
@@ -299,16 +299,17 @@
                         </div>
 
                         <h3 class="zelf-object-preview__zelf-name">
-                            {{ foundAddress.publicData.zelfName }}
+                            {{ foundAddress.publicData.tagName }}
                         </h3>
 
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">
-                            {{ foundAddress.ethAddress }}
+                            {{ foundAddress.publicData.ethAddress }}
                         </p>
 
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.solanaAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.btcAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.suiAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.publicData.solanaAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.publicData.btcAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress }}</p>
+                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress }}</p>
 
                         <hr class="zelf-object-preview__horizontal-rule" />
 

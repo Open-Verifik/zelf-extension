@@ -116,6 +116,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     async ngOnInit(): Promise<void> {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
+        console.log({ transactionData: this.transactionData });
+
         if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
             this._initTransactionData().finally(() => (this.loading = false));
 
@@ -129,7 +131,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this._router.navigate(["/send"]);
 
                 return;
-            } else if (!this.transactionData.hasCompletePaymentData) {
+            }
+
+            if (!this.transactionData.hasCompletePaymentData) {
                 this._router.navigate(["/send/transaction"]);
 
                 return;
@@ -385,6 +389,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         this._initInterval();
+
         this._initForm();
 
         await this._initFeeRates();
@@ -397,7 +402,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     async _redirectToBiometrics(): Promise<void> {
         this._vaultService.password = this.form.get("password")?.value;
 
-        await this._zelfNameService.setZelfName(this.transactionData.sender.zelfName);
+        await this._zelfNameService.setZelfName(this.transactionData.sender.tagName);
+
         await this._zelfNameService.setFlow("unlock");
 
         this._router.navigate(["security/biometrics"], { queryParams: { return: "/send/confirmation" } });
@@ -493,7 +499,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             this._transactionService.addToRecentAddresses({
                 address: this.transactionData.receiver.address,
-                zelfName: this.transactionData.receiver.zelfName,
+                tagName: this.transactionData.receiver.tagName,
+                domain: this.transactionData.receiver.domain,
                 network: this.transactionData.network,
                 tokenType:
                     this.transactionData.network === "sui"

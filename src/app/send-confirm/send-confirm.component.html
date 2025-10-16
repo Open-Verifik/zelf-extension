@@ -32,8 +32,8 @@
                     <p class="send-confirm__price-currency">~{{ fiatPrice | currency: "USD" : "symbol" : "1.2-8" }}</p>
                 </div>
 
-                <div class="send-confirm__zelf-name-display">
-                    <div class="zelf-chip" *ngIf="transactionData.sender.zelfName">{{ transactionData.sender.zelfName | uppercase }}</div>
+                <div class="send-confirm__zelf-name-display" *ngIf="transactionData.sender">
+                    <div class="zelf-chip" *ngIf="transactionData.sender.tagName">{{ transactionData.senderFullTagName | uppercase }}</div>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path
@@ -43,8 +43,8 @@
                     </svg>
 
                     <div class="zelf-chip">
-                        <ng-container *ngIf="transactionData.receiver.zelfName">{{ transactionData.receiver.zelfName | uppercase }}</ng-container>
-                        <ng-container *ngIf="!transactionData.receiver.zelfName">{{ t("common.unknown") | uppercase }}</ng-container>
+                        <ng-container *ngIf="transactionData.receiver.tagName">{{ transactionData.receiverFullTagName | uppercase }}</ng-container>
+                        <ng-container *ngIf="!transactionData.receiver.tagName">{{ t("common.unknown") | uppercase }}</ng-container>
                     </div>
                 </div>
 

@@ -4,7 +4,6 @@ import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
-import { WalletModel } from "./wallet";
 import { WalletService } from "./wallet.service";
 import { TagModel } from "./tags.service";
 

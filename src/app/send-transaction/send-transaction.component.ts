@@ -19,10 +19,11 @@ import { SolanaService } from "app/solana.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { AddressBook, TransactionData, WalletModel } from "app/wallet";
+import { AddressBook, TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagModel, TagsService } from "app/tags.service";
 
 @Component({
     imports: [
@@ -44,7 +45,7 @@ export class SendTransactionComponent implements OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
     form!: UntypedFormGroup;
-    foundAddress?: WalletModel;
+    foundAddress?: TagModel;
     isZelfNameNotFound: boolean = false;
     loading: boolean = true;
     price: number = 0;
@@ -66,8 +67,8 @@ export class SendTransactionComponent implements OnDestroy {
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
-        private _vaultService: VaultService
+        private _vaultService: VaultService,
+        private _tagsService: TagsService
     ) {
         this.loading = true;
     }
@@ -127,7 +128,7 @@ export class SendTransactionComponent implements OnDestroy {
         return this.recentAddresses.filter((address) => {
             if (!searchValue || !searchValue.trim()) return true;
 
-            return new RegExp(searchValue, "i").test(address.address) || (address.zelfName && new RegExp(searchValue, "i").test(address.zelfName));
+            return new RegExp(searchValue, "i").test(address.address) || (address.tagName && new RegExp(searchValue, "i").test(address.tagName));
         });
     }
 
@@ -140,6 +141,7 @@ export class SendTransactionComponent implements OnDestroy {
             if (control.value === this.transactionData.sender.address) return { sameAddress: true };
 
             const pattern = this._getAddressPattern();
+
             const isValidZelfName = this._walletService.ZelfRegex.test(value);
 
             if (!pattern.test(value) && !isValidZelfName) return { invalidFormat: true };
@@ -238,23 +240,25 @@ export class SendTransactionComponent implements OnDestroy {
             this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
 
         try {
-            if (this._walletService.ZelfRegex.test(text)) await this._queryZNS("zelfName", text);
+            const domain = text.split(".")[1];
+
+            if (this._walletService.ZelfRegex.test(text)) await this._searchTag("tagName", text, domain);
 
             if (!this.foundAddress) {
                 if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(text)) {
-                    await this._queryZNS("suiAddress", text);
+                    await this._searchTag("suiAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "suiAddress");
                 } else if (isEVM && this._checkEVMAddress(text)) {
-                    await this._queryZNS("ethAddress", text);
+                    await this._searchTag("ethAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "ethAddress");
                 } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
-                    await this._queryZNS("solanaAddress", text);
+                    await this._searchTag("solanaAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "solanaAddress");
                 } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
-                    await this._queryZNS("btcAddress", text);
+                    await this._searchTag("btcAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "btcAddress");
                 }
@@ -337,11 +341,13 @@ export class SendTransactionComponent implements OnDestroy {
         this._initForm();
     }
 
-    async _queryZNS(key: string, value: string): Promise<void> {
+    async _searchTag(key: string, value: string, domain: string = "zelf"): Promise<void> {
         try {
             if (key === "zelfName") value = value.toLowerCase();
 
-            const response = await this._zelfNameService.searchZelfNameV2(key, value);
+            const response = await this._tagsService.searchTag(
+                key === "tagName" ? { tagName: value, domain, os: "DESKTOP" } : { key, value, domain, os: "DESKTOP" }
+            );
 
             if (!response.data) {
                 this.foundAddress = undefined;
@@ -349,14 +355,13 @@ export class SendTransactionComponent implements OnDestroy {
                 return;
             }
 
-            const foundAddress = new WalletModel(response.data.ipfs?.length ? response.data.ipfs[0] : response.data.arweave[0]);
-            const zelfObjectContainsAddress = !!foundAddress[this.addressKey];
+            const foundAddress = new TagModel(response.data.tagObject);
+            const zelfObjectContainsAddress = !!foundAddress.publicData[this.addressKey];
 
             this.foundAddress = zelfObjectContainsAddress ? foundAddress : undefined;
         } catch (error) {
+            console.error("Error querying ZNS:", error);
             this.foundAddress = undefined;
-
-            throw error;
         }
     }
 
@@ -364,9 +369,9 @@ export class SendTransactionComponent implements OnDestroy {
         this.searching = false;
         this.isZelfNameNotFound = false;
 
-        this.foundAddress = new WalletModel({
+        this.foundAddress = new TagModel({
             [addressKey]: text,
-            publicData: { zelfName: this.transactionData?.receiver?.zelfName },
+            publicData: { tagName: this.transactionData?.receiver?.tagName, domain: this.transactionData?.receiver?.domain },
         });
 
         if (this.withdrawStep) return;
@@ -384,8 +389,9 @@ export class SendTransactionComponent implements OnDestroy {
                 this.transactionData.amount = amount;
             }
 
-            this.transactionData.receiver.address = (this.foundAddress && this.foundAddress[this.addressKey]) || "";
-            this.transactionData.receiver.zelfName = this.foundAddress?.publicData?.zelfName || "";
+            this.transactionData.receiver.address = (this.foundAddress && this.foundAddress.publicData[this.addressKey]) || "";
+            this.transactionData.receiver.tagName = this.foundAddress?.tagName || "";
+            this.transactionData.receiver.domain = this.foundAddress?.domain || "";
 
             await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (exception) {
@@ -398,7 +404,11 @@ export class SendTransactionComponent implements OnDestroy {
         const address = this.form.get("toAddress")?.value;
 
         const isEVM =
-            this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
+            this.transactionData.isEthToken ||
+            this.transactionData.isAvaxToken ||
+            this.transactionData.isPolToken ||
+            this.transactionData.isBscToken ||
+            this.transactionData.isBDAGToken;
         const isSuiTokenOrNetwork = this.transactionData.isSuiToken;
 
         if (this.foundAddress) {
@@ -406,7 +416,7 @@ export class SendTransactionComponent implements OnDestroy {
 
             if (toAddressCtrl) {
                 toAddressCtrl.setValue(
-                    this.foundAddress[
+                    this.foundAddress.publicData[
                         isSuiTokenOrNetwork
                             ? "suiAddress"
                             : isEVM
@@ -522,7 +532,7 @@ export class SendTransactionComponent implements OnDestroy {
     goBack(): void {
         this.transactionData.amount = 0;
         this.transactionData.receiver.address = "";
-        this.transactionData.receiver.zelfName = "";
+        this.transactionData.receiver.tagName = "";
 
         if (this.withdrawStep) {
             this.foundAddress = undefined;

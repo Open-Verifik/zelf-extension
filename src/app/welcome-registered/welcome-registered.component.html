@@ -47,6 +47,20 @@
                             addressRow;
                             context: {
                                 $implicit: {
+                                    address: tagModel?.publicData?.blockDAGAddress,
+                                    label: t('common.bdag_address'),
+                                    logo: 'assets/networks/bdag.png',
+                                    value: tagModel?.displayBlockDAGAddress,
+                                },
+                            }
+                        "
+                    ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
                                     address: tagModel?.publicData?.btcAddress,
                                     label: t('common.btc_address'),
                                     logo: 'assets/networks/btc.png',

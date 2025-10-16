@@ -49,12 +49,6 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
 
         this.qrCodeImage = this.tagModel?.image || this.qrCodeImage;
 
-        console.log("Registered page loaded with:", {
-            zelfProof: this.zelfProof,
-            tagModel: this.tagModel,
-            tagResponse: this.tagResponse,
-        });
-
         this._changeDetectorRef.markForCheck();
     }
 

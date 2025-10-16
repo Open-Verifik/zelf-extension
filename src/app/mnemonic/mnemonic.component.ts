@@ -9,7 +9,6 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
-import { WalletModel } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { TagModel } from "app/tags.service";
 

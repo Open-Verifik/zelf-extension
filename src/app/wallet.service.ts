@@ -657,6 +657,8 @@ export class WalletService {
 
         await this._chromeService.setItem("wallet", selectedWallet);
 
+        await this._chromeService.setItem("domain", selectedWallet.publicData?.domain);
+
         await this._chromeService.setItem("wallets", [wallet, ...newWallets]);
     }
 

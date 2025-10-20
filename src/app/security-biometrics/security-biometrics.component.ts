@@ -232,19 +232,19 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     };
 
     async onBiometricsScanned(encryptedImage: string): Promise<void> {
-        const tagName = (await this._tagsService.getNewTagName()) || (await this._tagsService.getTagName());
-
         const referralTagName = await this._tagsService.getReferral();
 
         const domain = await this._tagsService.getDomain();
+
+        const tagName = this.flow === "create" ? await this._tagsService.getNewTagName() : await this._tagsService.getTagName();
 
         const payload: any = {
             faceBase64: encryptedImage,
             os: "DESKTOP",
             password: await this._httpWrapperService.encryptMessage(this._vaultService.password),
             referralTagName,
-            tagName,
             domain,
+            tagName,
         };
 
         if (this.flow === "create") {

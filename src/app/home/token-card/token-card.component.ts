@@ -1,12 +1,19 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { CurrencyPipe, DecimalPipe, NgClass } from "@angular/common";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { CurrencyPipe, DecimalPipe, NgClass, NgIf } from "@angular/common";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { WalletService } from "app/wallet.service";
 
 @Component({
     selector: "token-card",
     template: `
-        <div class="card-container" fxLayout="row" fxLayoutAlign="start center" (click)="onClick()">
+        <div
+            class="card-container"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+            (click)="onClick()"
+            (mouseenter)="isHovered = true"
+            (mouseleave)="isHovered = false"
+        >
             <div class="status-icon-container">
                 <img [src]="currentImage" [alt]="data.symbol" (error)="onImageError()" />
             </div>
@@ -37,17 +44,28 @@ import { WalletService } from "app/wallet.service";
                     {{ data.fiatBalance | currency: "USD" : "symbol" : "1.2-5" }}
                 </div>
             </div>
+
+            <div class="pin-icon-container" *ngIf="isHovered || data.isPinned" (click)="onPinClick($event)" [class.pinned]="data.isPinned">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16 9V4H15V3H9V4H8V9C8 9.55 7.55 10 7 10H6V12H11V20L12 21L13 20V12H18V10H17C16.45 10 16 9.55 16 9Z"
+                        fill="currentColor"
+                    />
+                </svg>
+            </div>
         </div>
     `,
     styleUrls: ["./token-card.component.scss"],
-    imports: [CurrencyPipe, NgClass, DecimalPipe, FlexLayoutModule],
+    imports: [CurrencyPipe, NgClass, NgIf, DecimalPipe, FlexLayoutModule],
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;
     @Input() view: string;
     @Input() shareables: any;
+    @Output() pinToggled = new EventEmitter<any>();
 
     currentImage!: string;
+    isHovered: boolean = false;
 
     constructor(private _walletService: WalletService) {
         this.view = "default";
@@ -62,4 +80,9 @@ export class TokenCardComponent implements OnInit {
     }
 
     onClick(): void {}
+
+    onPinClick(event: Event): void {
+        event.stopPropagation();
+        this.pinToggled.emit(this.data);
+    }
 }

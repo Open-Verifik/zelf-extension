@@ -141,7 +141,7 @@
                 </div>
 
                 <div class="home__assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
-                    <token-card (click)="setSelectedAsset(token)" [data]="token" *ngFor="let token of tokens"></token-card>
+                    <token-card (click)="setSelectedAsset(token)" [data]="token" *ngFor="let token of tokens" (pinToggled)="onTokenPinToggled($event)"></token-card>
                 </div>
 
                 <div class="home__assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="center center">

@@ -107,6 +107,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Ethereum" && this.CAN_SEND.ETH && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) return true;
         if (token.network === "Solana" && this.CAN_SEND.SOL) return true;
         if (token.network === "Avalanche" && this.CAN_SEND.AVAX) return true;
+        if (token.network === "BlockDAG" && this.CAN_SEND.BDAG) return true;
         if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
         if (token.network === "Binance" && this.CAN_SEND.BNB) return true;
         if (token.network === "Polygon" && this.CAN_SEND.POL) return true;
@@ -172,6 +173,8 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             token.tokenType === "POL" ||
             token.tokenType === "MATIC"
         ) {
+            address = this.wallet?.publicData?.ethAddress || "";
+        } else if (token.tokenType === "BDAG" || token.tokenType === "BDAG-20") {
             address = this.wallet?.publicData?.ethAddress || "";
         } else if (token.tokenType === "SOL" || token.tokenType === "SPL" || token.tokenType === "token") {
             address = this.wallet?.publicData?.solanaAddress || "";

@@ -236,4 +236,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this._router.navigate(["/asset"]);
     }
+
+    async onTokenPinToggled(token: any): Promise<void> {
+        const isPinned = await this._assetService.togglePinToken(token);
+
+        // Update the token in the list
+        const tokenIndex = this.tokens.findIndex((t) => t.symbol === token.symbol && t.network === token.network && t.tokenType === token.tokenType);
+
+        if (tokenIndex !== -1) {
+            this.tokens[tokenIndex].isPinned = isPinned;
+
+            // Re-sort the tokens: pinned first, then by fiat balance
+            this.tokens.sort((a, b) => {
+                if (a.isPinned && !b.isPinned) return -1;
+                if (!a.isPinned && b.isPinned) return 1;
+                return b.fiatBalance - a.fiatBalance;
+            });
+
+            // Save updated tokens to session
+            await this._assetService.saveTokensToSession(this.tokens);
+
+            this._changeDetectorRef.detectChanges();
+        }
+    }
 }

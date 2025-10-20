@@ -341,10 +341,76 @@ export class AssetService {
             tokens = this.processTokens("Bitcoin", response.bitcoinTestnet.data.tokenHoldings.tokens, tokens, permissions);
         }
 
-        tokens.sort((a, b) => b.fiatBalance - a.fiatBalance);
+        // Get pinned tokens and add isPinned flag
+        const pinnedTokens = await this.getPinnedTokens();
+        tokens = tokens.map((token) => ({
+            ...token,
+            isPinned: pinnedTokens.includes(this._getTokenKey(token)),
+        }));
+
+        // Sort: pinned tokens first, then by fiat balance
+        tokens.sort((a, b) => {
+            if (a.isPinned && !b.isPinned) return -1;
+            if (!a.isPinned && b.isPinned) return 1;
+            return b.fiatBalance - a.fiatBalance;
+        });
 
         if (!permissions) await this.saveTokensToSession(tokens);
 
         return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
+    }
+
+    private _getTokenKey(token: any): string {
+        return `${token.symbol}-${token.network}-${token.tokenType}`;
+    }
+
+    async getPinnedTokens(): Promise<string[]> {
+        try {
+            const pinned = await this._chromeService.getItem("pinnedTokens");
+            return pinned || [];
+        } catch (error) {
+            console.error("Error getting pinned tokens:", error);
+            return [];
+        }
+    }
+
+    async pinToken(token: any): Promise<void> {
+        try {
+            const pinnedTokens = await this.getPinnedTokens();
+            const tokenKey = this._getTokenKey(token);
+
+            if (!pinnedTokens.includes(tokenKey)) {
+                pinnedTokens.push(tokenKey);
+                await this._chromeService.setItem("pinnedTokens", pinnedTokens);
+            }
+        } catch (error) {
+            console.error("Error pinning token:", error);
+        }
+    }
+
+    async unpinToken(token: any): Promise<void> {
+        try {
+            const pinnedTokens = await this.getPinnedTokens();
+            const tokenKey = this._getTokenKey(token);
+            const filtered = pinnedTokens.filter((key) => key !== tokenKey);
+
+            await this._chromeService.setItem("pinnedTokens", filtered);
+        } catch (error) {
+            console.error("Error unpinning token:", error);
+        }
+    }
+
+    async togglePinToken(token: any): Promise<boolean> {
+        const pinnedTokens = await this.getPinnedTokens();
+        const tokenKey = this._getTokenKey(token);
+        const isPinned = pinnedTokens.includes(tokenKey);
+
+        if (isPinned) {
+            await this.unpinToken(token);
+        } else {
+            await this.pinToken(token);
+        }
+
+        return !isPinned;
     }
 }

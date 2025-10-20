@@ -104,13 +104,14 @@ export class SendTransactionComponent implements OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" {
+    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" {
         if (this.transactionData.isBscToken) return "ethAddress";
         if (this.transactionData.isBtcToken) return "btcAddress";
         if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) return "ethAddress";
         if (this.transactionData.isPolToken) return "ethAddress";
         if (this.transactionData.isSolToken) return "solanaAddress";
         if (this.transactionData.isSuiToken) return "suiAddress";
+        if (this.transactionData.isBDAGToken) return "blockDAGAddress";
 
         throw new Error("Network address key unavailable");
     }

@@ -11,6 +11,7 @@ import { EthereumService } from "../eth.service";
 import { SolanaService } from "../solana.service";
 import { AvaxService } from "./avax.service";
 import { BitcoinService } from "./bitcoin.service";
+import { BlockDAGService } from "./blockdag.service";
 import { BscService } from "./bsc.service";
 import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
@@ -24,6 +25,7 @@ export class BlockchainTransactionsService {
     constructor(
         private _avaxService: AvaxService,
         private _bitcoinService: BitcoinService,
+        private _blockdagService: BlockDAGService,
         private _bscService: BscService,
         private _ethereumService: EthereumService,
         private _polygonService: PolygonService,
@@ -50,6 +52,7 @@ export class BlockchainTransactionsService {
         if (responses.avalanche?.data?.transactions) transactions.push(...responses.avalanche.data.transactions);
         if (responses.binance?.data?.transactions) transactions.push(...responses.binance.data.transactions);
         if (responses.bitcoin?.data?.transactions) transactions.push(...responses.bitcoin.data.transactions);
+        if (responses.blockdag?.data?.transactions) transactions.push(...responses.blockdag.data.transactions);
         if (responses.polygon?.data?.transactions) transactions.push(...responses.polygon.data.transactions);
         if (responses.solana?.data?.transactions) transactions.push(...responses.solana.data.transactions);
         if (responses.sui?.data?.transactions) transactions.push(...responses.sui.data.transactions);
@@ -94,6 +97,14 @@ export class BlockchainTransactionsService {
                         tokenDecimals,
                         params.senderAddress
                     );
+                case "blockdag":
+                    return await this._blockdagService.calculateTransactionFees(
+                        receiverAddress,
+                        amount.toString(),
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
                 case "avalanche":
                     return await this._avaxService.calculateTransactionFees(
                         receiverAddress,
@@ -132,6 +143,7 @@ export class BlockchainTransactionsService {
         if (network === "binance") return `https://bscscan.com/tx/${hash}`;
         if (network === "bitcoin") return `https://mempool.space/tx/${hash}`;
         if (network === "bitcoinTestnet") return `https://mempool.space/testnet/tx/${hash}`;
+        if (network === "blockdag") return `https://primordial.bdagscan.com/tx/${hash}`;
         if (network === "ethereum") return `http://etherscan.io/tx/${hash}`;
         if (network === "polygon") return `https://polygonscan.com/tx/${hash}`;
         if (network === "solana") return `https://solscan.io/tx/${hash}`;
@@ -159,6 +171,9 @@ export class BlockchainTransactionsService {
             bitcoinTestnet: environment.testnetAddress
                 ? from(this._bitcoinService.getWalletDetails(environment.testnetAddress, true)).pipe(catchError(() => of(null)))
                 : of(null),
+            blockdag: wallet.publicData?.ethAddress
+                ? from(this._blockdagService.getWalletDetails(wallet.publicData?.ethAddress)).pipe(catchError(() => of(null)))
+                : of(null),
             polygon: wallet.publicData?.ethAddress
                 ? from(this._polygonService.getWalletDetails(wallet.publicData?.ethAddress)).pipe(catchError(() => of(null)))
                 : of(null),
@@ -176,6 +191,7 @@ export class BlockchainTransactionsService {
                     binance: responses.binance,
                     bitcoin: responses.bitcoin,
                     bitcoinTestnet: responses.bitcoinTestnet,
+                    blockdag: responses.blockdag,
                     polygon: responses.polygon,
                     solana: responses.solana,
                     sui: responses.sui,
@@ -195,6 +211,8 @@ export class BlockchainTransactionsService {
                 observable = forkJoin({ ethereum: from(this._ethereumService.getWalletDetails(wallet.publicData?.ethAddress)) });
             } else if (token === "AVAX") {
                 observable = forkJoin({ avalanche: from(this._avaxService.getWalletDetails(wallet.publicData?.ethAddress)) });
+            } else if (token === "BDAG") {
+                observable = forkJoin({ blockdag: from(this._blockdagService.getWalletDetails(wallet.publicData?.ethAddress)) });
             } else if (token === "BNB") {
                 observable = forkJoin({ binance: from(this._bscService.getWalletDetails(wallet.publicData?.ethAddress)) });
             } else if (token === "POL") {
@@ -223,6 +241,7 @@ export class BlockchainTransactionsService {
                           binance: responses.binance,
                           bitcoin: responses.bitcoin,
                           bitcoinTestnet: responses.bitcoinTestnet,
+                          blockdag: responses.blockdag,
                           polygon: responses.polygon,
                           solana: responses.solana,
                           sui: responses.sui,
@@ -251,6 +270,9 @@ export class BlockchainTransactionsService {
             bitcoinTestnet: environment.testnetAddress
                 ? from(this._bitcoinService.requestTransactionHistory(environment.testnetAddress, pagination, true)).pipe(catchError(() => of(null)))
                 : of(null),
+            blockdag: wallet.publicData?.ethAddress
+                ? from(this._blockdagService.requestTransactionHistory(wallet.publicData?.ethAddress, pagination)).pipe(catchError(() => of(null)))
+                : of(null),
             ethereum: wallet.publicData?.ethAddress
                 ? from(this._ethereumService.requestTransactionHistory(wallet.publicData?.ethAddress, pagination)).pipe(catchError(() => of(null)))
                 : of(null),
@@ -277,6 +299,7 @@ export class BlockchainTransactionsService {
             case "ethereum":
             case "avalanche":
             case "binance":
+            case "blockdag":
             case "polygon":
             case "solana":
                 return new TransactionDetailModel(response.data).toTransaction();
@@ -301,6 +324,9 @@ export class BlockchainTransactionsService {
                     break;
                 case "avalanche":
                     promise = this._avaxService.requestTransactionDetails(hash);
+                    break;
+                case "blockdag":
+                    promise = this._blockdagService.requestTransactionDetails(hash);
                     break;
                 case "sui":
                     promise = this._suiService.requestTransactionDetails(hash);
@@ -338,6 +364,8 @@ export class BlockchainTransactionsService {
             switch (network) {
                 case "bitcoin":
                     return await this._bitcoinService.sendTransaction(params);
+                case "blockdag":
+                    return await this._blockdagService.sendTransaction(params);
                 case "solana":
                     return await this._solanaService.sendTransaction(params);
                 case "sui":

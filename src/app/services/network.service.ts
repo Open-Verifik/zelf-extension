@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "app/chrome.service";
 
-export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin" | "binance" | "polygon" | "Bitcoin" | "bitcoinTestnet";
+export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin" | "binance" | "blockdag" | "polygon" | "Bitcoin" | "bitcoinTestnet";
 export type NetworkSymbol =
     | "eth"
     | "sol"
     | "avax"
     | "sui"
     | "btc"
+    | "bdag"
     | "bnb"
     | "polygon"
     | "ETH"
@@ -15,6 +16,7 @@ export type NetworkSymbol =
     | "AVAX"
     | "SUI"
     | "BTC"
+    | "BDAG"
     | "BNB"
     | "POL"
     | "BTCTEST";
@@ -37,6 +39,8 @@ export class NetworkService {
                 return "AVAX";
             case "bitcoin":
                 return "BTC";
+            case "blockdag":
+                return "BDAG";
             case "binance":
                 return "BNB";
             case "solana":
@@ -62,6 +66,8 @@ export class NetworkService {
                 return "sui";
             case "BTC":
                 return "bitcoin";
+            case "BDAG":
+                return "blockdag";
             case "BNB":
                 return "binance";
             case "POL":
@@ -86,6 +92,8 @@ export class NetworkService {
                 return 1;
             case "avalanche":
                 return 43114;
+            case "blockdag":
+                return 1043;
             case "solana":
                 return 1399811149;
             case "sui":
@@ -112,6 +120,9 @@ export class NetworkService {
             case "avalanche":
             case "AVAX":
                 return "./assets/networks/avax.png";
+            case "blockdag":
+            case "BDAG":
+                return "/assets/networks/bdag.png";
             case "solana":
             case "SOL":
                 return "./assets/networks/sol.svg";

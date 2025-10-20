@@ -11,6 +11,7 @@ import { TokenData } from "./wallet";
 
 export interface NetworkPermissions {
     AVAX?: boolean;
+    BDAG?: boolean;
     BNB?: boolean;
     BTC?: boolean;
     ETH?: boolean;
@@ -61,6 +62,7 @@ export class AssetService {
     get canSwap(): NetworkPermissions {
         return {
             AVAX: true,
+            BDAG: false,
             BNB: false,
             BTC: false,
             ETH: true,
@@ -73,6 +75,7 @@ export class AssetService {
     get canSend(): NetworkPermissions {
         return {
             AVAX: true,
+            BDAG: true,
             BNB: true,
             BTC: true,
             ETH: true,
@@ -265,6 +268,7 @@ export class AssetService {
                     (network === "Solana" && !permissions.SOL) ||
                     (network === "Bitcoin" && !permissions.BTC) ||
                     (network === "Avalanche" && !permissions.AVAX) ||
+                    (network === "BlockDAG" && !permissions.BDAG) ||
                     (network === "Sui" && !permissions.SUI) ||
                     (network === "Binance" && !permissions.BNB) ||
                     (network === "Polygon" && !permissions.POL)
@@ -315,6 +319,10 @@ export class AssetService {
 
         if (response?.binance?.data?.tokenHoldings?.tokens && (!permissions || permissions.BNB)) {
             tokens = this.processTokens("Binance", response.binance.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.blockdag?.data?.tokenHoldings?.tokens && (!permissions || permissions.BDAG)) {
+            tokens = this.processTokens("BlockDAG", response.blockdag.data.tokenHoldings.tokens, tokens, permissions);
         }
 
         if (response?.polygon?.data?.tokenHoldings?.tokens && (!permissions || permissions.POL)) {

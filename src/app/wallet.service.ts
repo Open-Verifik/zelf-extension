@@ -807,6 +807,8 @@ export class WalletService {
             tokenType === "BNB"
         ) {
             address = wallet?.publicData?.ethAddress || "";
+        } else if (tokenType === "BDAG" || tokenType === "BDAG-20") {
+            address = wallet?.publicData?.ethAddress || "";
         } else if (tokenType === "SOL" || tokenType === "SPL") {
             address = wallet?.publicData?.solanaAddress || "";
         } else if (tokenType === "BTC") {

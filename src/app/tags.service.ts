@@ -195,6 +195,8 @@ export interface TagSearchResponse {
 }
 
 export class TagPublicDataModel {
+    avalancheAddress: string;
+    blockDAGAddress: string;
     btcAddress: string;
     domain: string;
     ethAddress: string;
@@ -207,9 +209,10 @@ export class TagPublicDataModel {
     registeredAt: string;
     expiresAt?: string;
     gracePeriod?: Date | null;
-    avalancheAddress: string;
 
     constructor(data: any) {
+        this.avalancheAddress = data.avalancheAddress || "";
+        this.blockDAGAddress = data.blockDAGAddress || data.ethAddress || "";
         this.btcAddress = data.btcAddress || "";
         this.domain = data.domain || "";
         this.ethAddress = data.ethAddress || "";
@@ -221,7 +224,6 @@ export class TagPublicDataModel {
         this.origin = data.origin || "";
         this.registeredAt = data.registeredAt || "";
         this.expiresAt = data.expiresAt || "";
-        this.avalancheAddress = data.avalancheAddress || "";
 
         this.gracePeriod = this._calculateGracePeriod();
     }
@@ -270,10 +272,6 @@ export class TagPublicDataModel {
         const gracePeriodEnd = this.gracePeriod.getTime();
 
         return Math.max(0, Math.floor((gracePeriodEnd - now) / 1000));
-    }
-
-    get blockDAGAddress(): string {
-        return this.ethAddress;
     }
 }
 
@@ -360,7 +358,7 @@ export class TagModel {
     }
 
     get displayBlockDAGAddress(): string {
-        return this._parseAddress(this.publicData?.blockDAGAddress);
+        return this._parseAddress(this.publicData?.blockDAGAddress || this.publicData?.ethAddress);
     }
 
     private _parseAddress(value: string): string {

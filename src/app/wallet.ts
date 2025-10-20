@@ -694,6 +694,7 @@ export class WalletModel implements Wallet {
 
 export interface WalletPublicData {
     _id: string;
+    blockDAGAddress: string;
     btcAddress: string;
     ethAddress: string;
     expiresAt: string;
@@ -714,6 +715,7 @@ export interface WalletPublicData {
 
 export class WalletPublicDataModel {
     _id: string;
+    blockDAGAddress: string;
     btcAddress: string;
     ethAddress: string;
     expiresAt: string;
@@ -728,6 +730,7 @@ export class WalletPublicDataModel {
     constructor(data: any) {
         this._id = data._id || "offline";
 
+        this.blockDAGAddress = data.blockDAGAddress || "";
         this.btcAddress = data.btcAddress || "";
         this.ethAddress = data.ethAddress || "";
         this.expiresAt = data.expiresAt || "";

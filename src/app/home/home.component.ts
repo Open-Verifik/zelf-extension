@@ -81,6 +81,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._initializeWallet);
+
+        this._cleanSessionItems();
+    }
+
+    private _cleanSessionItems(): void {
+        this._chromeService.removeItem("transactionData");
+        this._chromeService.removeItem("newTagName");
+        this._chromeService.removeItem("flow");
     }
 
     ngOnDestroy(): void {

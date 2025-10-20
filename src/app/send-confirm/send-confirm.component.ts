@@ -22,8 +22,8 @@ import { VaultService } from "app/vault.service";
 import { TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagModel } from "app/tags.service";
+import { TagsService } from "app/tags.service";
 
 @Component({
     imports: [
@@ -96,7 +96,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _tagsService: TagsService
     ) {
         this.loading = true;
         this.remainingAttempts = this._vaultService.remainingAttempts;
@@ -402,9 +402,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     async _redirectToBiometrics(): Promise<void> {
         this._vaultService.password = this.form.get("password")?.value;
 
-        await this._zelfNameService.setZelfName(this.transactionData.sender.tagName);
+        await this._tagsService.setTagName(this.transactionData.sender.tagName);
 
-        await this._zelfNameService.setFlow("unlock");
+        await this._tagsService.setFlow("unlock");
 
         this._router.navigate(["security/biometrics"], { queryParams: { return: "/send/confirmation" } });
     }

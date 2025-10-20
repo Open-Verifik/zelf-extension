@@ -55,7 +55,7 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
     complete(): void {
         this._vaultService.password = "";
 
-        this._chromeService.removeItem("zelfName");
+        this._chromeService.removeItem("tagName");
         this._chromeService.removeItem("zelfPrice");
         this._chromeService.removeItem("zelfReward");
     }

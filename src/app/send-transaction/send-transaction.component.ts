@@ -22,7 +22,6 @@ import { VaultService } from "app/vault.service";
 import { AddressBook, TransactionData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagModel, TagsService } from "app/tags.service";
 
 @Component({

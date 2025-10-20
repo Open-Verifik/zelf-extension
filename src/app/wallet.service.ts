@@ -655,6 +655,8 @@ export class WalletService {
 
         const newWallets = wallets.filter((_wallet) => _wallet.fullTagName !== selectedWallet.fullTagName);
 
+        await this._chromeService.setItem("tagName", selectedWallet.tagName);
+
         await this._chromeService.setItem("wallet", selectedWallet);
 
         await this._chromeService.setItem("domain", selectedWallet.publicData?.domain);

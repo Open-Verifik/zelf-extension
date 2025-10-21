@@ -195,9 +195,9 @@
                                 <p class="zelf-action-row__text send-transaction__address-col">
                                     <span class="send-transaction__address-name" *ngIf="!address.tagName">{{ address.address | addressMask }}</span>
 
-                                    <span class="send-transaction__address-name send-transaction__address-name--zelf-name" *ngIf="address.tagName">{{
-                                        address.tagName
-                                    }}</span>
+                                    <span class="send-transaction__address-name send-transaction__address-name--zelf-name" *ngIf="address.tagName">
+                                        {{ address.tagName }}{{ address.domain ? "." + address.domain : "" }}
+                                    </span>
 
                                     <span class="send-transaction__address-used">{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
                                 </p>

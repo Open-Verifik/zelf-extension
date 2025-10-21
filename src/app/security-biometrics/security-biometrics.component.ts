@@ -136,6 +136,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 await this._chromeService.removeItem("flow");
+
                 await this._chromeService.setItem("wallet", new TagModel(response.data));
 
                 this._redirect();
@@ -154,8 +155,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 this._vaultService.mnemonic = "";
 
                 const tagObject = response.data?.tagObject;
-
-                console.log(tagObject, { response: response.data });
 
                 const pgp = response.data?.pgp;
 
@@ -183,8 +182,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 const pgp = response.data?.pgp;
 
                 const newWallet = new TagModel({ ...tagObject, pgp });
-
-                console.log({ responseData: response.data });
 
                 await this._chromeService.removeItem("flow");
 

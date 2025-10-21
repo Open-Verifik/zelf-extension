@@ -297,6 +297,75 @@ export class SuiTransactionModel implements SuiTransaction {
     }
 }
 
+export interface BlockDAGTransaction {
+    blockNumber: number | string;
+    confirmations: string;
+    from: string;
+    to: string;
+    value: string;
+    gas: number;
+    gasPrice: number;
+    gasUsed: number;
+    nonce: number;
+    input: string;
+    hash: string;
+    status: string;
+    transactionIndex: number;
+}
+
+export class BlockDAGTransactionModel implements BlockDAGTransaction {
+    blockNumber: number | string;
+    confirmations: string;
+    from: string;
+    to: string;
+    value: string;
+    gas: number;
+    gasPrice: number;
+    gasUsed: number;
+    nonce: number;
+    input: string;
+    hash: string;
+    status: string;
+    transactionIndex: number;
+
+    constructor(data: any) {
+        this.blockNumber = data.blockNumber || "N/A";
+        this.confirmations = data.confirmations || "0";
+        this.from = data.from || "";
+        this.to = data.to || "";
+        this.value = data.value || "0";
+        this.gas = data.gas || 0;
+        this.gasPrice = data.gasPrice || 0;
+        this.gasUsed = data.gasUsed || 0;
+        this.nonce = data.nonce || 0;
+        this.input = data.input || "0x";
+        this.hash = data.hash || "";
+        this.status = data.status || "pending";
+        this.transactionIndex = data.transactionIndex || 0;
+    }
+
+    toTransaction(): TransactionModel {
+        const transactionData = {
+            age: this.confirmations,
+            amount: Number(this.value),
+            asset: "BDAG",
+            block: String(this.blockNumber),
+            date: new Date().toISOString(),
+            fiatAmount: 0, // Will be calculated by frontend
+            from: this.from,
+            gasFee: String((this.gasUsed * this.gasPrice) / 1e18), // Convert wei to BDAG
+            hash: this.hash,
+            image: "https://cryptologos.cc/logos/blockdag-bdag-logo.png",
+            network: "blockdag",
+            status: this.status.toLowerCase(),
+            to: this.to,
+            tokenType: "BDAG",
+        };
+
+        return new TransactionModel(transactionData);
+    }
+}
+
 export type EthTransaction = {
     block: string;
     from: string;

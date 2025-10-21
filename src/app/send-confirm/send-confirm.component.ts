@@ -111,13 +111,12 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         if (!this._password || !this._password.trim()) return;
 
         this.passwordSet = true;
+
         this.requiresBiometrics = false;
     }
 
     async ngOnInit(): Promise<void> {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
-
-        console.log({ transactionData: this.transactionData });
 
         if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
             this._initTransactionData().finally(() => (this.loading = false));
@@ -321,11 +320,10 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     private async _getNetworkToken(): Promise<void> {
         const network = this.transactionData.network?.toLowerCase() as NetworkName | "bitcoin";
-        console.log(`🚀 ~ SendConfirmComponent ~ _getNetworkToken ~ network:`, network);
 
         this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
+
         this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
-        console.log(`🚀 ~ SendConfirmComponent ~ _getNetworkToken ~ this.networkToken?.name?:`, this.networkToken?.name);
 
         if (network !== "bitcoin") return;
 

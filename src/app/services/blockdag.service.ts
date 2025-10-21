@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import Web3 from "web3";
 import { isAddress } from "web3-validator";
 
 import { Injectable } from "@angular/core";
@@ -13,7 +12,6 @@ import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "..
 })
 export class BlockDAGService {
     private _baseUrl: string = environment.apiUrl;
-    private _web3: Web3;
 
     private readonly _chainConfigs = {
         mainnet: {
@@ -29,9 +27,7 @@ export class BlockDAGService {
         },
     };
 
-    constructor(private _httpWrapper: HttpWrapperService) {
-        this._web3 = new Web3(new Web3.providers.HttpProvider(this._chainConfigs.mainnet.rpcUrls[0]));
-    }
+    constructor(private _httpWrapper: HttpWrapperService) {}
 
     private _defaultResponse(): any {
         return {
@@ -50,84 +46,6 @@ export class BlockDAGService {
         };
     }
 
-    private _fromWei(amount: string, decimals: number = 18): string {
-        return this._web3.utils.fromWei(amount, decimals === 18 ? "ether" : "wei");
-    }
-
-    private async _getTransactionCost(
-        to: string,
-        value: string,
-        data: string = "0x",
-        tokenAddress?: string,
-        senderAddress?: string
-    ): Promise<{
-        estimatedGas: number;
-        fee?: number;
-        fiatFee?: number;
-        gasPrice: string;
-        networkPrice: number;
-        total?: number;
-        totalCost: string;
-    }> {
-        try {
-            let estimatedGas;
-
-            if (tokenAddress) {
-                const minABI = [
-                    {
-                        constant: false,
-                        inputs: [
-                            { name: "_to", type: "address" },
-                            { name: "_value", type: "uint256" },
-                        ],
-                        name: "transfer",
-                        outputs: [{ name: "", type: "bool" }],
-                        type: "function",
-                    },
-                ];
-
-                const contract = new this._web3.eth.Contract(minABI as any, tokenAddress);
-                const transferData = contract.methods.transfer(to, value).encodeABI();
-
-                estimatedGas = await this._web3.eth.estimateGas({
-                    to: tokenAddress,
-                    from: senderAddress,
-                    data: transferData,
-                });
-            } else {
-                estimatedGas = await this._web3.eth.estimateGas({
-                    to,
-                    from: senderAddress,
-                    value,
-                    data,
-                });
-            }
-
-            const gasPrice = await this._web3.eth.getGasPrice();
-            const totalCost = this._web3.utils.toBigInt(estimatedGas) * this._web3.utils.toBigInt(gasPrice);
-
-            return {
-                estimatedGas: Number(estimatedGas),
-                gasPrice: gasPrice.toString(),
-                totalCost: totalCost.toString(),
-                networkPrice: 0,
-            };
-        } catch (error) {
-            console.error("Error calculating transaction cost:", error);
-
-            const gasPrice = await this._web3.eth.getGasPrice();
-            const defaultGas = 21000;
-            const totalCost = this._web3.utils.toBigInt(defaultGas) * this._web3.utils.toBigInt(gasPrice);
-
-            return {
-                estimatedGas: defaultGas,
-                gasPrice: gasPrice.toString(),
-                totalCost: totalCost.toString(),
-                networkPrice: 0,
-            };
-        }
-    }
-
     async calculateTransactionFees(
         receiverAddress: string,
         amount: string,
@@ -140,10 +58,39 @@ export class BlockDAGService {
                 throw new Error("Invalid receiver address");
             }
 
-            const amountInWei = this._web3.utils.toWei(amount, "ether");
-            const costs = await this._getTransactionCost(receiverAddress, amountInWei, "0x", tokenAddress, senderAddress);
+            const provider = new ethers.JsonRpcProvider(this._chainConfigs.mainnet.rpcUrls[0]);
 
-            const feeInBDAG = parseFloat(this._fromWei(costs.totalCost, 18));
+            let estimatedGas: bigint;
+
+            if (tokenAddress) {
+                // ERC20 token transfer
+                const amountInWei = ethers.parseUnits(amount, tokenDecimals);
+
+                estimatedGas = await provider.estimateGas({
+                    to: tokenAddress,
+                    from: senderAddress,
+                    data: ethers.concat([
+                        ethers.id("transfer(address,uint256)").slice(0, 10),
+                        ethers.zeroPadValue(receiverAddress, 32),
+                        ethers.zeroPadValue(ethers.toBeHex(amountInWei), 32),
+                    ]),
+                });
+            } else {
+                // Native BDAG transfer
+                const amountInWei = ethers.parseEther(amount);
+
+                estimatedGas = await provider.estimateGas({
+                    to: receiverAddress,
+                    from: senderAddress,
+                    value: amountInWei,
+                });
+            }
+
+            const feeData = await provider.getFeeData();
+            const gasPrice = feeData.gasPrice || ethers.parseUnits("1", "gwei");
+            const totalCost = estimatedGas * gasPrice;
+
+            const feeInBDAG = parseFloat(ethers.formatEther(totalCost));
             const amountInBDAG = parseFloat(amount);
 
             // Get BDAG price (placeholder for now)
@@ -228,59 +175,36 @@ export class BlockDAGService {
                 throw new Error("Invalid receiver address");
             }
 
-            const account = this._web3.eth.accounts.privateKeyToAccount(params.privateKey);
-            this._web3.eth.accounts.wallet.add(account);
+            const provider = new ethers.JsonRpcProvider(this._chainConfigs.mainnet.rpcUrls[0]);
+            const wallet = new ethers.Wallet(params.privateKey, provider);
 
-            let txHash: string;
+            let txResponse;
 
             if (params.tokenAddress) {
                 // ERC20 token transfer
-                const minABI = [
-                    {
-                        constant: false,
-                        inputs: [
-                            { name: "_to", type: "address" },
-                            { name: "_value", type: "uint256" },
-                        ],
-                        name: "transfer",
-                        outputs: [{ name: "", type: "bool" }],
-                        type: "function",
-                    },
-                ];
-
-                const contract = new this._web3.eth.Contract(minABI as any, params.tokenAddress);
-                const decimals = params.tokenDecimals || 18;
-                const amountInWei = this._web3.utils.toWei(params.value, decimals === 18 ? "ether" : "wei");
-
-                const tx = await contract.methods.transfer(params.to, amountInWei).send({
-                    from: account.address,
-                    gas: "100000",
-                });
-
-                txHash = tx.transactionHash;
-            } else {
-                // Native BDAG transfer
-                const amountInWei = this._web3.utils.toWei(params.value, "ether");
-                const gasPrice = await this._web3.eth.getGasPrice();
-                const nonce = await this._web3.eth.getTransactionCount(account.address);
-
-                const signedTx = await this._web3.eth.accounts.signTransaction(
-                    {
-                        to: params.to,
-                        value: amountInWei,
-                        gas: "21000",
-                        gasPrice: gasPrice.toString(),
-                        nonce: nonce,
-                    },
-                    params.privateKey
+                const tokenContract = new ethers.Contract(
+                    params.tokenAddress,
+                    ["function transfer(address to, uint256 amount) returns (bool)", "function decimals() view returns (uint8)"],
+                    wallet
                 );
 
-                const receipt = await this._web3.eth.sendSignedTransaction(signedTx.rawTransaction!);
-                txHash = receipt.transactionHash.toString();
+                const decimals = params.tokenDecimals || 18;
+                const amount = ethers.parseUnits(params.value, decimals);
+
+                txResponse = await tokenContract.transfer(params.to, amount);
+            } else {
+                // Native BDAG transfer
+                const transaction = {
+                    to: params.to,
+                    value: ethers.parseEther(params.value),
+                    chainId: this._chainConfigs.mainnet.chainId,
+                };
+
+                txResponse = await wallet.sendTransaction(transaction);
             }
 
             return {
-                hash: txHash,
+                hash: txResponse.hash,
                 status: "pending",
             };
         } catch (error: any) {

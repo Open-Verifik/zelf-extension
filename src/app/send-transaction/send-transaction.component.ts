@@ -105,12 +105,12 @@ export class SendTransactionComponent implements OnDestroy {
 
     get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" {
         if (this.transactionData.isBscToken) return "ethAddress";
+        if (this.transactionData.isBDAGToken) return "ethAddress";
         if (this.transactionData.isBtcToken) return "btcAddress";
         if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) return "ethAddress";
         if (this.transactionData.isPolToken) return "ethAddress";
         if (this.transactionData.isSolToken) return "solanaAddress";
         if (this.transactionData.isSuiToken) return "suiAddress";
-        if (this.transactionData.isBDAGToken) return "blockDAGAddress";
 
         throw new Error("Network address key unavailable");
     }
@@ -148,7 +148,10 @@ export class SendTransactionComponent implements OnDestroy {
 
             if (isValidZelfName) return null;
 
-            if ((this.transactionData.isEthToken || this.transactionData.isAvaxToken) && !this._walletService.isValidEVMAddress(value)) {
+            if (
+                (this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isBDAGToken) &&
+                !this._walletService.isValidEVMAddress(value)
+            ) {
                 return { invalidFormat: true };
             }
 
@@ -203,7 +206,8 @@ export class SendTransactionComponent implements OnDestroy {
     private _getAddressPattern(): RegExp {
         let pattern: RegExp = /.*/;
 
-        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken) pattern = this._walletService.ETHRegex;
+        if (this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isBDAGToken)
+            pattern = this._walletService.ETHRegex;
         if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
         if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
@@ -237,7 +241,11 @@ export class SendTransactionComponent implements OnDestroy {
         this.isZelfNameNotFound = false;
 
         const isEVM =
-            this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
+            this.transactionData.isEthToken ||
+            this.transactionData.isAvaxToken ||
+            this.transactionData.isPolToken ||
+            this.transactionData.isBscToken ||
+            this.transactionData.isBDAGToken;
 
         try {
             const domain = text.split(".")[1];
@@ -481,7 +489,11 @@ export class SendTransactionComponent implements OnDestroy {
         }
 
         const isEVM =
-            this.transactionData.isEthToken || this.transactionData.isAvaxToken || this.transactionData.isPolToken || this.transactionData.isBscToken;
+            this.transactionData.isEthToken ||
+            this.transactionData.isAvaxToken ||
+            this.transactionData.isPolToken ||
+            this.transactionData.isBscToken ||
+            this.transactionData.isBDAGToken;
 
         if (!this.foundAddress) {
             if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(address)) {

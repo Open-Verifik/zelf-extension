@@ -60,6 +60,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         { id: "avalanche", name: "Avalanche", symbol: "AVAX" },
         { id: "binance", name: "Binance", symbol: "BNB" },
         { id: "bitcoin", name: "Bitcoin", symbol: "BTC" },
+        { id: "blockdag", name: "BlockDAG", symbol: "BDAG" },
         { id: "ethereum", name: "Ethereum", symbol: "ETH" },
         { id: "polygon", name: "Polygon", symbol: "POL" },
         { id: "solana", name: "Solana", symbol: "SOL" },
@@ -212,11 +213,12 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             let tokenAddress = this.transactionData.token?.address_token;
 
-            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC"].includes(tokenSymbol);
+            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG"].includes(tokenSymbol);
 
             if (!tokenAddress && this.wallet && this.wallet.publicData?.ethAddress && !isNativeToken) {
                 try {
-                    const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+                    // Only fetch data for the specific network/token being sent, not all networks
+                    const addressData = await firstValueFrom(this._blockchainTransactionsService.getAddressDataByToken(this.wallet, tokenSymbol));
 
                     const foundToken = addressData?.[this.transactionData.network]?.data?.tokenHoldings?.tokens.find(
                         (t: any) => t.symbol === tokenSymbol
@@ -468,7 +470,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 tokenDecimals: this.transactionData.token?.decimals,
             };
 
-            if (["ethereum", "avalanche", "binance", "polygon"].includes(this.transactionData.network)) {
+            if (["ethereum", "avalanche", "binance", "blockdag", "polygon"].includes(this.transactionData.network)) {
                 if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
                     this.openErrorSnackBar("errors.invalid_private_key");
 

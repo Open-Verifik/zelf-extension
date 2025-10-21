@@ -502,7 +502,10 @@ export class SwapComponent implements OnInit, OnDestroy {
         if (this._requiresBiometricsInterval) this._clearRequiresBiometricsInterval();
 
         this._requiresBiometricsInterval = setInterval(() => {
-            this._vaultService.biometricsRequired().then((result) => (this.requiresBiometrics = result));
+            this._vaultService.biometricsRequired().then((result) => {
+                if (!this.wallet?.pgp) this.requiresBiometrics = true;
+                else this.requiresBiometrics = result;
+            });
         }, 1000);
     }
 

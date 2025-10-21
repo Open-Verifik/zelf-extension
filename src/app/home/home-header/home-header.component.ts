@@ -18,19 +18,31 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
     styleUrls: ["./home-header.component.scss", "../../main.scss"],
     template: `
         <div class="home-header" *ngIf="shareables.wallet">
-            <div class="home-header__left home-header__container">&nbsp;</div>
+            <div class="home-header__left home-header__container"></div>
 
             <div class="home-header__center home-header__container" (click)="openBottomSheet()">
                 <div class="home-header__title-container">
-                    <h4 class="home-header__title" *ngIf="shareables.wallet.publicData">
-                        {{ shareables.wallet.fullTagName }}
-                    </h4>
+                    <div class="home-header__content">
+                        <div class="home-header__text" *ngIf="shareables.wallet.fullTagName">
+                            {{ shareables.wallet.fullTagName }}
+                        </div>
 
-                    <svg class="home-header__dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M15.08 9.59L12 12.67L8.92 9.59L7.5 11L12 15.5L16.5 11L15.08 9.59ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
-                        />
-                    </svg>
+                        <div class="home-header__icon" data-svg-wrapper>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_131_2130)">
+                                    <path
+                                        d="M8 -3.8147e-06C9.58225 -3.8147e-06 11.129 0.469188 12.4446 1.34824C13.7602 2.22729 14.7855 3.47672 15.391 4.93853C15.9965 6.40034 16.155 8.00887 15.8463 9.56072C15.5376 11.1126 14.7757 12.538 13.6569 13.6569C12.538 14.7757 11.1126 15.5376 9.56072 15.8463C8.00887 16.155 6.40034 15.9965 4.93853 15.391C3.47672 14.7855 2.22729 13.7602 1.34824 12.4446C0.469192 11.129 0 9.58225 0 8C0.00229405 5.87897 0.845886 3.84547 2.34568 2.34567C3.84547 0.845881 5.87897 0.00228977 8 -3.8147e-06ZM8 10.6667C8.48801 10.6672 8.95928 10.4888 9.32467 10.1653C9.54267 9.97133 9.74933 9.78266 9.88467 9.64733L11.8 7.76466C11.8666 7.70438 11.9203 7.63127 11.9579 7.54971C11.9955 7.46816 12.0163 7.37984 12.0189 7.29006C12.0216 7.20029 12.006 7.1109 11.9733 7.02728C11.9405 6.94365 11.8912 6.86751 11.8283 6.80342C11.7653 6.73933 11.6901 6.68861 11.6071 6.65432C11.5241 6.62002 11.435 6.60285 11.3452 6.60384C11.2554 6.60483 11.1667 6.62395 11.0845 6.66007C11.0023 6.69618 10.9282 6.74854 10.8667 6.814L8.94667 8.7C8.82133 8.82466 8.63467 8.994 8.44067 9.16666C8.31888 9.27409 8.16207 9.33337 7.99967 9.33337C7.83727 9.33337 7.68046 9.27409 7.55867 9.16666C7.36533 8.99466 7.17867 8.82533 7.05733 8.70466L5.13333 6.814C5.00572 6.69845 4.83836 6.63675 4.66628 6.64181C4.49421 6.64687 4.33076 6.7183 4.21016 6.84114C4.08955 6.96399 4.02115 7.12872 4.01925 7.30086C4.01736 7.473 4.08213 7.6392 4.2 7.76466L6.11867 9.65066C6.252 9.784 6.45667 9.97066 6.674 10.1633C7.03934 10.488 7.51124 10.6671 8 10.6667Z"
+                                        fill="#181818"
+                                    />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_131_2130">
+                                        <rect width="16" height="16" fill="white" transform="matrix(1 0 0 -1 0 16)" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
 

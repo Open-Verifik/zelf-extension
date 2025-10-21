@@ -10,6 +10,8 @@
 }
 
 .zelf-settings {
+    gap: 16px;
+
     &__header {
         align-content: center;
         column-gap: 12px;
@@ -74,7 +76,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px;
+        padding: 8px 16px;
         gap: 16px;
         cursor: pointer;
         border-radius: 16px;

@@ -39,9 +39,7 @@
                     </svg>
                 </div>
             </div>
-        </div>
 
-        <div class="zelf-card__content">
             <div
                 class="zelf-settings__item"
                 [routerLink]="['/external-link']"
@@ -50,7 +48,7 @@
             >
                 <div class="zelf-settings__item-col1">
                     <div class="zelf-settings__item-col1-icon">
-                        <ng-container *ngTemplateOutlet="getExternalLinkIcon()"></ng-container>
+                        <ng-container *ngTemplateOutlet="externalLinkIcon"></ng-container>
                     </div>
 
                     <p class="zelf-settings__item-col1-title">{{ t(link.text) }}</p>
@@ -89,13 +87,9 @@
 </ng-template>
 
 <ng-template #externalLinkIcon>
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
         <path
-            d="M6 2H3.33333C2.59695 2 2 2.59695 2 3.33333V12.6667C2 13.403 2.59695 14 3.33333 14H12.6667C13.403 14 14 13.403 14 12.6667V10M10 2H14M14 2V6M8.66667 7.33333L13.3333 2"
-            stroke="currentColor"
-            stroke-width="1.33333"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z"
         />
     </svg>
 </ng-template>

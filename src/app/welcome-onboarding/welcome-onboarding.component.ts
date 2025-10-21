@@ -42,26 +42,41 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     private _carouselItemInterval!: ReturnType<typeof setInterval>;
     private unsubscriber$: Subject<void> = new Subject<void>();
 
+    availableDomains: DomainConfig[] = [];
     carouselIndex: number = 0;
     carouselProgress: number = 0;
+    domain: string = "zelf";
+    domainHover: boolean = false;
     form!: UntypedFormGroup;
     loading: boolean = false;
-    showHomeButton: boolean = false;
-    domainHover: boolean = false;
-    availableDomains: DomainConfig[] = [];
     loadingDomains: boolean = false;
-    domain: string = "zelf";
+    showHomeButton: boolean = false;
+
+    gridItems = [
+        { text: "Spark", row: 1, col: 1 },
+        { text: "Shadow", row: 1, col: 2 },
+        { text: "Whisper", row: 1, col: 3 },
+        { text: "Puzzle", row: 2, col: 1 },
+        { text: "Lush", row: 2, col: 2 },
+        { text: "Frost", row: 2, col: 3 },
+        { text: "Glimpse", row: 3, col: 1 },
+        { text: "Tangle", row: 3, col: 2 },
+        { text: "Drift", row: 3, col: 3 },
+        { text: "Hollow", row: 4, col: 1 },
+        { text: "Echo", row: 4, col: 2 },
+        { text: "Breeze", row: 4, col: 3 },
+    ];
 
     constructor(
         private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
+        private _dialog: MatDialog,
+        private _domainService: DomainService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _walletService: WalletService,
-        private _vaultService: VaultService,
         private _tagsService: TagsService,
-        private _domainService: DomainService,
-        private _dialog: MatDialog
+        private _vaultService: VaultService,
+        private _walletService: WalletService
     ) {
         this._clearChromeItems();
 

@@ -142,7 +142,7 @@ export class SendTransactionComponent implements OnDestroy {
 
             const pattern = this._getAddressPattern();
 
-            const isValidZelfName = this._walletService.ZelfRegex.test(value);
+            const isValidZelfName = this._walletService.TagRegex.test(value);
 
             if (!pattern.test(value) && !isValidZelfName) return { invalidFormat: true };
 
@@ -250,7 +250,7 @@ export class SendTransactionComponent implements OnDestroy {
         try {
             const domain = text.split(".")[1];
 
-            if (this._walletService.ZelfRegex.test(text)) await this._searchTag("tagName", text, domain);
+            if (this._walletService.TagRegex.test(text)) await this._searchTag("tagName", text, domain);
 
             if (!this.foundAddress) {
                 if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(text)) {
@@ -379,7 +379,7 @@ export class SendTransactionComponent implements OnDestroy {
 
         this.foundAddress = new TagModel({
             [addressKey]: text,
-            publicData: { tagName: this.transactionData?.receiver?.tagName, domain: this.transactionData?.receiver?.domain },
+            publicData: { tagName: this.transactionData?.receiver?.tagName?.replace(".hold", ""), domain: this.transactionData?.receiver?.domain },
         });
 
         if (this.withdrawStep) return;

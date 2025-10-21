@@ -104,12 +104,12 @@ export class WalletService {
         };
     }
 
-    get ZelfRegex(): RegExp {
-        return /^[a-z][a-z0-9]*\.zelf$/i;
+    get TagRegex(): RegExp {
+        return /^[a-zA-Z][a-zA-Z0-9]*\.(zelf|bdag)$/i;
     }
 
-    get ZelfRegexNoPostfix(): RegExp {
-        return /^[a-z][a-z0-9]*$/i;
+    get TagRegexNoPostfix(): RegExp {
+        return /^[a-zA-Z][a-zA-Z0-9]*$/i;
     }
 
     get BTCRegex(): RegExp {

@@ -94,7 +94,7 @@ export class WelcomeOfflineImportComponent {
         this.form = this._formBuilder.group({
             zelfName: [
                 "",
-                [Validators.required, Validators.minLength(1), Validators.maxLength(26), Validators.pattern(this._walletService.ZelfRegexNoPostfix)],
+                [Validators.required, Validators.minLength(1), Validators.maxLength(26), Validators.pattern(this._walletService.TagRegexNoPostfix)],
             ],
         });
     }

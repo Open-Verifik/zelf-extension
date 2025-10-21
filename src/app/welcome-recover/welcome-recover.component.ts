@@ -81,7 +81,7 @@ export class WelcomeRecoverComponent implements OnInit {
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            zelfName: ["", [Validators.required, Validators.pattern(this._walletService.ZelfRegexNoPostfix)]],
+            zelfName: ["", [Validators.required, Validators.pattern(this._walletService.TagRegexNoPostfix)]],
         });
 
         this.termsForm = this._formBuilder.group({
@@ -164,7 +164,7 @@ export class WelcomeRecoverComponent implements OnInit {
 
         if (!query) return;
 
-        if (!this._walletService.ZelfRegexNoPostfix.test(query)) return;
+        if (!this._walletService.TagRegexNoPostfix.test(query)) return;
 
         this.form.patchValue({ zelfName: query });
 

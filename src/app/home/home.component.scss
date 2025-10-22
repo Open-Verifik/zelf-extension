@@ -70,16 +70,12 @@
     &__tabs {
         margin-top: 16px;
         margin-bottom: 8px;
-        padding: 0 16px;
+        padding: 0 12px;
         width: 100%;
-
-        @media (max-width: variables.$minSmall) {
-            padding: 0;
-        }
     }
 
     &__assets-content {
-        padding: 8px 16px;
+        padding: 8px 0;
         width: 100%;
         display: flex;
         flex-direction: column;

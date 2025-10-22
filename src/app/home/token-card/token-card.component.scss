@@ -8,8 +8,8 @@
     cursor: pointer;
     display: inline-flex;
     gap: 16px;
-    height: 88px;
-    padding: 12px;
+    height: 80px;
+    padding: 8px 12px;
     transition: background 1s cubic-bezier(0.25, 0.8, 0.25, 1);
     width: 100%;
     border-radius: 22px;
@@ -22,7 +22,6 @@
     @media (max-width: variables.$minSmall) {
         gap: 8px;
         height: 72px;
-        padding: 8px 12px;
     }
 }
 

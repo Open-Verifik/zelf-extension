@@ -4,7 +4,6 @@ import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
-import { WalletService } from "./wallet.service";
 
 export type TagFlow = "create" | "import" | "unlock" | "recover" | "";
 export type TagType = "create" | "import";
@@ -282,10 +281,10 @@ export class TagModel {
     image: string;
     metadata: any;
     name: string;
+    pgp?: PGP = { encryptedMessage: "", privateKey: "" };
     publicData: TagPublicDataModel;
     zelfProof: string;
     zelfProofQRCode: string;
-    pgp?: PGP = { encryptedMessage: "", privateKey: "" };
 
     constructor(data: any = {}) {
         this._id = data.id || data._id || "";
@@ -437,8 +436,7 @@ export class TagsService {
     constructor(
         private _httpWrapper: HttpWrapperService,
         private _chromeService: ChromeService,
-        private _vaultService: VaultService,
-        private _walletService: WalletService
+        private _vaultService: VaultService
     ) {
         this.variables = {
             duration: 1,

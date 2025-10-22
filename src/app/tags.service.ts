@@ -478,8 +478,6 @@ export class TagsService {
         if (request.os) query.os = request.os;
         if (request.captchaToken) query.captchaToken = request.captchaToken;
 
-        console.log({ query, request });
-
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/tags/search`, query);
     }
 

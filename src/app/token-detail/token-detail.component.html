@@ -135,11 +135,11 @@
                         }"
                     >
                         <div (click)="selectTab('about')" [ngClass]="{ 'animated-tab--active': selectedTab === 'about' }" class="animated-tab">
-                            <span>{{ t("common.about") }}</span>
+                            <div class="animated-tab__text">{{ t("common.about") }}</div>
                         </div>
 
                         <div (click)="selectTab('history')" [ngClass]="{ 'animated-tab--active': selectedTab === 'history' }" class="animated-tab">
-                            <span>{{ t("common.history") }}</span>
+                            <div class="animated-tab__text">{{ t("common.history") }}</div>
                         </div>
                     </div>
                 </div>

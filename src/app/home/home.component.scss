@@ -156,21 +156,22 @@
     gap: 8px;
 
     &__icon {
-        height: 60px;
-        width: 60px;
-        background: variables.$antiFlashWhite;
-        border-radius: 60px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
+        padding: 16px 24px;
+        background: white;
+        border-radius: 32px;
+        outline: 1px #e3e3e3 solid;
+        outline-offset: -1px;
+        justify-content: flex-start;
+        align-items: flex-start;
         gap: 8px;
+        display: inline-flex;
         cursor: pointer;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: variables.$black;
+            fill: #181818;
             transition: fill 0.3s variables.$smoothBezier;
         }
 

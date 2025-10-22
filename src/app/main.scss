@@ -1280,8 +1280,8 @@ h3 {
 .zelf-card {
     box-sizing: border-box;
     align-items: center;
-    background-color: variables.$white;
-    border-radius: 40px;
+    background-color: variables.$seaSalt;
+    border-radius: 64px;
     border: none;
     display: inline-flex;
     flex-direction: column;
@@ -1293,7 +1293,7 @@ h3 {
     position: relative;
 
     @media screen and (max-width: variables.$medium) {
-        background: variables.$white;
+        background: variables.$seaSalt;
         width: 100%;
         padding: 12px;
         border-radius: 0px;

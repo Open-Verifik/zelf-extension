@@ -93,11 +93,11 @@
                             [ngClass]="{ 'animated-tab--active': selectedTab === 'addresses' }"
                             class="animated-tab"
                         >
-                            <span>{{ t("wallet.addresses") }}</span>
+                            <div class="animated-tab__text">{{ t("wallet.addresses") }}</div>
                         </div>
 
                         <div (click)="selectTab('info')" [ngClass]="{ 'animated-tab--active': selectedTab === 'info' }" class="animated-tab">
-                            <span>{{ t("wallet.info") }}</span>
+                            <div class="animated-tab__text">{{ t("wallet.info") }}</div>
                         </div>
                     </div>
                 </div>

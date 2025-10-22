@@ -2,64 +2,72 @@
 
 .animated-tabs {
     user-select: none;
-    border-radius: 37px;
+    display: flex;
+    gap: 10px;
     width: 100%;
 
     &__switch {
-        position: relative;
-        text-align: center;
-
-        &--left:after {
-            box-sizing: border-box;
-            left: 0;
-        }
-
-        &--right:after {
-            box-sizing: border-box;
-            left: 50%;
-        }
-
-        &:after {
-            background-color: variables.$antiFlashWhite;
-            border-radius: 27.5px;
-            box-sizing: border-box;
-            content: "";
-            height: 100%;
-            position: absolute;
-            top: 0;
-            transition: left cubic-bezier(0.88, -0.35, 0.565, 1.35) 0.3s;
-            width: 50%;
-            z-index: 0;
-        }
+        display: flex;
+        gap: 10px;
+        width: 100%;
 
         .animated-tab {
-            color: #858585;
+            flex: 1;
+            padding: 8px 16px;
+            border-radius: 24px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            display: flex;
             cursor: pointer;
-            border-radius: 27.5px;
-            display: inline-block;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: normal;
-            padding: 8px 0;
-            position: relative;
-            transition: color 200ms;
-            width: 50%;
-            z-index: 1;
             transition:
-                color 0.3s variables.$smoothBezier,
-                background-color 0.3s variables.$smoothBezier;
+                opacity 0.3s variables.$smoothBezier,
+                background-color 0.3s variables.$smoothBezier,
+                box-shadow 0.3s variables.$smoothBezier,
+                outline 0.3s variables.$smoothBezier;
+
+            &__text {
+                text-align: center;
+                justify-content: center;
+                display: flex;
+                flex-direction: column;
+                font-size: 14px;
+                font-family: Poppins;
+                font-weight: 500;
+                line-height: 20px;
+                letter-spacing: 0.1px;
+                word-wrap: break-word;
+                transition: color 0.3s variables.$smoothBezier;
+            }
 
             &:hover:not(.animated-tab--active) {
-                background-color: #f0d3d4;
-                color: black;
+                opacity: 0.7;
             }
 
             &--active {
-                color: black;
+                background: white;
+                box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+                outline: 1px #eeedf1 solid;
+                outline-offset: -1px;
+                opacity: 1;
+
+                .animated-tab__text {
+                    color: #181818;
+                }
+            }
+
+            &:not(.animated-tab--active) {
+                opacity: 0.5;
+
+                .animated-tab__text {
+                    color: #96939e;
+                }
             }
 
             @media (max-width: variables.$minSmall) {
-                font-size: 12px;
+                .animated-tab__text {
+                    font-size: 12px;
+                }
             }
         }
     }

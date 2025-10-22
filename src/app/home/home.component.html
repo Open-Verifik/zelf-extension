@@ -126,7 +126,7 @@
                                 [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'assets' }"
                                 class="animated-tab"
                             >
-                                <span>{{ t("home.assets") }}</span>
+                                <div class="animated-tab__text">{{ t("home.assets") }}</div>
                             </div>
 
                             <div
@@ -134,14 +134,19 @@
                                 [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'nfts' }"
                                 class="animated-tab"
                             >
-                                <span>{{ t("home.NFTs") }}</span>
+                                <div class="animated-tab__text">{{ t("home.NFTs") }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="home__assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
-                    <token-card (click)="setSelectedAsset(token)" [data]="token" *ngFor="let token of tokens" (pinToggled)="onTokenPinToggled($event)"></token-card>
+                    <token-card
+                        (click)="setSelectedAsset(token)"
+                        [data]="token"
+                        *ngFor="let token of tokens"
+                        (pinToggled)="onTokenPinToggled($event)"
+                    ></token-card>
                 </div>
 
                 <div class="home__assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="center center">

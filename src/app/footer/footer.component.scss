@@ -1,6 +1,7 @@
 @use "../../styles/variables";
 
 .footer {
+    box-sizing: border-box;
     align-items: center;
     left: 0;
     right: 0;
@@ -11,6 +12,7 @@
     position: absolute;
     width: 100%;
     z-index: 1000;
+    padding: 0 24px;
 }
 
 .footer-link {
@@ -19,10 +21,10 @@
     flex: 1 1 0;
     gap: 12px;
     justify-content: center;
-    padding: 8px 16px;
+    padding: 8px 24px;
 
     @media (max-width: variables.$medium) {
-        padding: 6px;
+        padding: 6px 12px;
     }
 
     &__button {

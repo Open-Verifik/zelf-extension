@@ -24,15 +24,15 @@
                     class="animated-tabs__switch"
                     [ngClass]="{
                         'animated-tabs__switch--left': tab === 'history',
-                        'animated-tabs__switch--right': tab === 'pending'
+                        'animated-tabs__switch--right': tab === 'pending',
                     }"
                 >
                     <div (click)="setTab('history')" [ngClass]="{ 'animated-tab--active': tab === 'history' }" class="animated-tab">
-                        <span>{{ "activity.history" | transloco }}</span>
+                        <div class="animated-tab__text">{{ "activity.history" | transloco }}</div>
                     </div>
 
                     <div (click)="setTab('pending')" [ngClass]="{ 'animated-tab--active': tab === 'pending' }" class="animated-tab">
-                        <span>{{ "activity.pending" | transloco }}</span>
+                        <div class="animated-tab__text">{{ "activity.pending" | transloco }}</div>
                     </div>
                 </div>
             </div>

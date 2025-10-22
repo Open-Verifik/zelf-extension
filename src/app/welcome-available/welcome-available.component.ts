@@ -9,7 +9,6 @@ import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { DiscountType } from "app/pipes/discount.pipe";
 import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagsService, TagModel, TagSearchResponse } from "app/tags.service";
 import { WelcomeAvailableContentComponent } from "./welcome-available-content.component";
 
@@ -48,7 +47,6 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _zelfNameService: ZelfNameService,
         private _tagsService: TagsService
     ) {
         this._initForm();
@@ -60,13 +58,6 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         this.domain = await this._tagsService.getDomain();
         this.tagModel = await this._tagsService.getTagNameObject();
         this.tagResponse = await this._tagsService.getTagResponse();
-
-        console.log("Available page loaded with:", {
-            tagName: this.tagName,
-            domain: this.domain,
-            tagModel: this.tagModel,
-            tagResponse: this.tagResponse,
-        });
     }
 
     ngOnDestroy(): void {

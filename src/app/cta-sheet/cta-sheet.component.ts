@@ -1,14 +1,15 @@
 import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, NgTemplateOutlet, UpperCasePipe } from "@angular/common";
-import { Component, Inject, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, Component, Inject, OnDestroy } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
+
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
 import { TagModel } from "app/tags.service";
+import { WalletService } from "app/wallet.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 type CtaSheetData = {
     wallet: Partial<TagModel>;

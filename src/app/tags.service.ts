@@ -297,6 +297,7 @@ export class TagModel {
         this.zelfProof = data.zelfProof || "";
         this.zelfProofQRCode = data.zelfProofQRCode || "";
         this.pgp = (data.pgp as PGP) || { encryptedMessage: "", privateKey: "" };
+
         // Get the tag name from various possible sources
         const rawTagName = data.name || data.publicData?.tagName || data.publicData?.zelfName || "";
         this.name = rawTagName ? rawTagName.replace(".hold", "") : "";
@@ -310,9 +311,8 @@ export class TagModel {
 
             // Split by dots and get the last part as domain
             const parts = cleanTagName.split(".");
-            if (parts.length >= 2) {
-                return parts[parts.length - 1]; // Get the last part (domain)
-            }
+
+            if (parts.length >= 2) return parts[parts.length - 1]; // Get the last part (domain)
 
             return "zelf"; // Default domain
         };
@@ -363,8 +363,10 @@ export class TagModel {
 
     private _parseAddress(value: string): string {
         if (!value || value.length <= 16) return value;
+
         const firstPart = value.slice(0, 8);
         const lastPart = value.slice(-8);
+
         return `${firstPart}...${lastPart}`;
     }
 
@@ -398,12 +400,12 @@ export class TagModel {
 
     get domain(): string {
         const domain = this.publicData?.domain;
+
         if (domain) return domain;
 
         const parts = this.publicData?.tagName.split(".");
-        if (parts.length >= 2) {
-            return parts[parts.length - 1];
-        }
+
+        if (parts.length >= 2) return parts[parts.length - 1];
 
         return "zelf";
     }

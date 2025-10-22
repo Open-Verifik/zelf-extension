@@ -1,3 +1,4 @@
+import { provideHttpClient } from "@angular/common/http";
 import { ChangeDetectorRef } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatBottomSheet, MatBottomSheetModule } from "@angular/material/bottom-sheet";
@@ -6,13 +7,13 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { BehaviorSubject, Subject } from "rxjs";
+
+import { TagModel, TagPublicDataModel } from "app/tags.service";
 import { ChromeService } from "../chrome.service";
 import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
 import { CtaSheetComponent } from "../cta-sheet/cta-sheet.component";
-import { WalletModel, WalletPublicDataModel } from "../wallet";
 import { WalletService } from "../wallet.service";
 import { ManageDomainsComponent } from "./manage-domains.component";
-import { provideHttpClient } from "@angular/common/http";
 
 describe("ManageDomainsComponent", () => {
     let component: ManageDomainsComponent;
@@ -25,23 +26,27 @@ describe("ManageDomainsComponent", () => {
     let mockChromeService: jasmine.SpyObj<ChromeService>;
     let mockChangeDetectorRef: jasmine.SpyObj<ChangeDetectorRef>;
 
-    const mockPublicData = new WalletPublicDataModel({
-        _id: "test-id",
-        btcAddress: "btc-address",
-        ethAddress: "eth-address",
-        expiresAt: "2025-04-29T00:00:00.000Z",
-        zelfName: "test.zelf",
-        origin: "online",
-        registeredAt: "2024-04-29T00:00:00.000Z",
-        solanaAddress: "sol-address",
-        type: "mainnet",
-    });
+    const today = new Date();
+    const oneMonthAgo = new Date(today);
+    const oneDayAgo = new Date(today);
 
-    const mockWallet: Partial<WalletModel> = {
-        name: "Test Wallet",
-        publicData: mockPublicData,
+    oneMonthAgo.setMonth(today.getMonth() - 1);
+    oneDayAgo.setDate(today.getDate() - 1);
+
+    const mockWallet = new TagModel({
         image: "test-image.png",
-    };
+        publicData: {
+            _id: "test-id",
+            btcAddress: "btc-address",
+            ethAddress: "eth-address",
+            expiresAt: oneDayAgo.toISOString(),
+            origin: "online",
+            registeredAt: oneMonthAgo.toISOString(),
+            solanaAddress: "sol-address",
+            tagName: "test.zelf",
+            type: "mainnet",
+        },
+    });
 
     beforeEach(async () => {
         mockBottomSheet = jasmine.createSpyObj("MatBottomSheet", ["open"]);
@@ -103,13 +108,14 @@ describe("ManageDomainsComponent", () => {
             download: "",
             click: jasmine.createSpy("click"),
         };
+
         const mockCreateElement = spyOn(document, "createElement").and.returnValue(mockAnchor as unknown as HTMLAnchorElement);
 
-        component.downloadZelfProof({ ...mockWallet, image: "test-image.png" });
+        component.downloadZelfProof(mockWallet);
 
         expect(mockCreateElement).toHaveBeenCalledWith("a");
-        expect(mockAnchor.href).toBe("test-image.png");
-        expect(mockAnchor.download).toBe(`zelfproof_${mockPublicData.zelfName}.png`);
+        expect(mockAnchor.href).toBe(mockWallet.image);
+        expect(mockAnchor.download).toBe(`zelfproof_${mockWallet.tagName}.png`);
         expect(mockAnchor.click).toHaveBeenCalled();
     });
 
@@ -127,7 +133,7 @@ describe("ManageDomainsComponent", () => {
         component.goToPurchase(mockWallet);
 
         expect(routerSpy).toHaveBeenCalledWith(["/external-link"], {
-            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${mockPublicData.zelfName}` },
+            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${mockWallet.tagName}` },
         });
     });
 
@@ -170,12 +176,12 @@ describe("ManageDomainsComponent", () => {
     });
 
     it("should show details when wallet has expiring status", () => {
-        const expiredPublicData = new WalletPublicDataModel({
-            ...mockPublicData,
+        const expiredPublicData = new TagPublicDataModel({
+            ...mockWallet.publicData,
             isFullyExpired: true,
         });
 
-        const expiredWallet: Partial<WalletModel> = {
+        const expiredWallet: Partial<TagModel> = {
             publicData: expiredPublicData,
         };
 
@@ -183,12 +189,12 @@ describe("ManageDomainsComponent", () => {
     });
 
     it("should navigate to domain with CTA sheet for expiring wallet", () => {
-        const expiringPublicData = new WalletPublicDataModel({
-            ...mockPublicData,
+        const expiringPublicData = new TagPublicDataModel({
+            ...mockWallet.publicData,
             isExpiringSoon: true,
         });
 
-        const expiringWallet: Partial<WalletModel> = {
+        const expiringWallet: Partial<TagModel> = {
             publicData: expiringPublicData,
         };
 
@@ -207,16 +213,12 @@ describe("ManageDomainsComponent", () => {
     });
 
     it("should navigate directly to domain for normal wallet", () => {
-        const normalWallet: Partial<WalletModel> = {
-            publicData: mockPublicData,
-        };
-
         spyOn(component, "showDetails").and.returnValue(false);
 
-        component.goToDomain(normalWallet);
+        component.goToDomain(mockWallet);
 
         expect(mockRouter.navigate).toHaveBeenCalledWith(["/domain"], {
-            queryParams: { zelfName: mockPublicData.zelfName },
+            queryParams: { zelfName: mockWallet.tagName },
         });
     });
 

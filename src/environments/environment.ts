@@ -2,7 +2,7 @@ export const environment = {
     production: true,
     appUrl: "https://beta.zelf.world",
     baseUrl: "/index.html",
-    apiUrl: "http://localhost:3003",
+    apiUrl: "http://localhost:3050",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
     // apiUrl: "https://api.zelf.world",
     // testnetAddress: "tb1phkg7rlfp8d6zkk699rlacnwyuc9g2jh02ehscztncuew4c4y5mkstxw2c9",

@@ -1,5 +1,3 @@
-import { firstValueFrom } from "rxjs";
-
 import { provideHttpClient } from "@angular/common/http";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
@@ -8,7 +6,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoService } from "@jsverse/transloco";
+import { firstValueFrom } from "rxjs";
 
+import { TagModel } from "app/tags.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { TranslocoTestingModule } from "../testing/transloco-testing.module";
 import { CtaSheetComponent } from "./cta-sheet.component";
@@ -22,15 +22,15 @@ describe("CtaSheetComponent", () => {
     let translocoService: TranslocoService;
 
     const mockData = {
-        wallet: {
+        wallet: new TagModel({
             publicData: {
-                zelfName: "test.zelf",
+                tagName: "test.zelf",
                 type: "mainnet",
                 expiresAt: new Date(Date.now() + 86400000).toISOString(),
                 isFullyExpired: false,
                 isInGracePeriod: false,
             },
-        },
+        }),
     };
 
     beforeEach(async () => {
@@ -73,12 +73,12 @@ describe("CtaSheetComponent", () => {
 
     it("should check zelfName availability when wallet is fully expired", async () => {
         const expiredData = {
-            wallet: {
+            wallet: new TagModel({
                 publicData: {
-                    zelfName: "test.zelf",
-                    isFullyExpired: true,
+                    tagName: "test.zelf",
+                    expiresAt: new Date(Date.now() - 86400000).toISOString(),
                 },
-            },
+            }),
         };
 
         mockZelfNameService.searchZelfNameV2.and.returnValue(Promise.resolve({ data: { available: true } }));
@@ -107,7 +107,7 @@ describe("CtaSheetComponent", () => {
 
         expiredFixture.detectChanges();
 
-        expect(mockZelfNameService.searchZelfNameV2).toHaveBeenCalledWith("zelfName", "test.zelf");
+        expect(mockZelfNameService.searchZelfNameV2).toHaveBeenCalledWith("zelfName", mockData.wallet.tagName);
         expect(expiredComponent.isAvailable).toBeTrue();
     });
 
@@ -141,7 +141,7 @@ describe("CtaSheetComponent", () => {
 
         expect(mockRouter.navigate).toHaveBeenCalledWith(["/external-link"], {
             queryParams: {
-                externalUrl: "https://payment.zelf.world?zelfName=test.zelf",
+                externalUrl: `https://payment.zelf.world?zelfName=${mockData.wallet.tagName}`,
             },
         });
 

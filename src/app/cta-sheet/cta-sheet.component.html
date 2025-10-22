@@ -142,7 +142,7 @@
                                 <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.you_have_reserved") }}</p>
                             </ng-container>
 
-                            <h4 class="cta-sheet__info-title">{{ data.wallet.tagName | uppercase }}</h4>
+                            <h4 class="cta-sheet__info-title">{{ data.wallet.fullTagName | uppercase }}</h4>
                         </ng-container>
 
                         <ng-container *ngIf="has15To7DaysLeft(this.expiresAt)">
@@ -176,7 +176,7 @@
 
                         <ng-container *ngIf="data.wallet.publicData?.isInGracePeriod || data.wallet.publicData?.isFullyExpired">
                             <ng-container *ngIf="isExpired(expiresAt) && !isAvailable">
-                                <h4 class="cta-sheet__info-title">{{ data.wallet.tagName | uppercase }}</h4>
+                                <h4 class="cta-sheet__info-title">{{ data.wallet.fullTagName | uppercase }}</h4>
 
                                 <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.has_been_taken") }}</p>
                             </ng-container>
@@ -184,7 +184,7 @@
                             <ng-container *ngIf="isExpired(expiresAt) && isAvailable">
                                 <p class="cta-sheet__info-pretitle">{{ t("cta_sheet.good_news") }}</p>
 
-                                <h4 class="cta-sheet__info-title">{{ data.wallet.tagName | uppercase }}</h4>
+                                <h4 class="cta-sheet__info-title">{{ data.wallet.fullTagName | uppercase }}</h4>
 
                                 <h4 class="cta-sheet__info-posttitle">{{ t("cta_sheet.is_still_available") }}</h4>
                             </ng-container>

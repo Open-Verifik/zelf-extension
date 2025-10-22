@@ -39,7 +39,7 @@
                     {{ t("wallet_status." + getWalletStatus()) }}
                 </div>
 
-                <h4 class="qr-code__name">{{ wallet.tagName || "****" | zelfName }}</h4>
+                <h4 class="qr-code__name">{{ wallet.fullTagName | uppercase }}</h4>
             </div>
 
             <div class="manage-domain__details">

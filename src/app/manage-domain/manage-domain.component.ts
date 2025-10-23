@@ -5,8 +5,6 @@ import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/route
 import { TranslocoModule } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
-import { ZelfNamePipe } from "app/pipes/zelf-name.pipe";
-
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -14,7 +12,7 @@ import { TagModel } from "app/tags.service";
 
 @Component({
     selector: "manage-domain",
-    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfNamePipe, ZelfLoaderComponent],
+    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfLoaderComponent],
     templateUrl: "./manage-domain.component.html",
     styleUrls: ["./manage-domain.component.scss"],
 })

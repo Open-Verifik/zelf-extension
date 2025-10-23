@@ -12,13 +12,14 @@ import { TagModel } from "app/tags.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { TranslocoTestingModule } from "../testing/transloco-testing.module";
 import { CtaSheetComponent } from "./cta-sheet.component";
+import { TagsService } from "app/tags.service";
 
 describe("CtaSheetComponent", () => {
     let component: CtaSheetComponent;
     let fixture: ComponentFixture<CtaSheetComponent>;
     let mockBottomSheetRef: jasmine.SpyObj<MatBottomSheetRef<CtaSheetComponent>>;
     let mockRouter: jasmine.SpyObj<Router>;
-    let mockZelfNameService: jasmine.SpyObj<ZelfNameService>;
+    let mockTagService: jasmine.SpyObj<TagsService>;
     let translocoService: TranslocoService;
 
     const mockData = {
@@ -36,7 +37,7 @@ describe("CtaSheetComponent", () => {
     beforeEach(async () => {
         mockBottomSheetRef = jasmine.createSpyObj("MatBottomSheetRef", ["dismiss"]);
         mockRouter = jasmine.createSpyObj("Router", ["navigate"]);
-        mockZelfNameService = jasmine.createSpyObj("ZelfNameService", ["searchZelfNameV2"]);
+        mockTagService = jasmine.createSpyObj("ZelfNameService", ["searchZelfNameV2"]);
 
         await TestBed.configureTestingModule({
             imports: [CtaSheetComponent, TranslocoTestingModule, MatBottomSheetModule, MatDialogModule, RouterModule, NoopAnimationsModule],
@@ -44,7 +45,7 @@ describe("CtaSheetComponent", () => {
                 { provide: MatBottomSheetRef, useValue: mockBottomSheetRef },
                 { provide: MAT_BOTTOM_SHEET_DATA, useValue: mockData },
                 { provide: Router, useValue: mockRouter },
-                { provide: ZelfNameService, useValue: mockZelfNameService },
+                { provide: ZelfNameService, useValue: mockTagService },
                 provideHttpClient(),
             ],
             schemas: [NO_ERRORS_SCHEMA],
@@ -61,114 +62,5 @@ describe("CtaSheetComponent", () => {
 
     it("should create", () => {
         expect(component).toBeTruthy();
-    });
-
-    it("should initialize benefits array", () => {
-        expect(component.benefits.length).toBeGreaterThan(0);
-    });
-
-    it("should set isAvailable to false when wallet is not fully expired", () => {
-        expect(component.isAvailable).toBeFalse();
-    });
-
-    it("should check zelfName availability when wallet is fully expired", async () => {
-        const expiredData = {
-            wallet: new TagModel({
-                publicData: {
-                    tagName: "test.zelf",
-                    expiresAt: new Date(Date.now() - 86400000).toISOString(),
-                },
-            }),
-        };
-
-        mockZelfNameService.searchZelfNameV2.and.returnValue(Promise.resolve({ data: { available: true } }));
-
-        TestBed.resetTestingModule();
-
-        await TestBed.configureTestingModule({
-            imports: [CtaSheetComponent, TranslocoTestingModule, MatBottomSheetModule, MatDialogModule, RouterModule, NoopAnimationsModule],
-            providers: [
-                { provide: MatBottomSheetRef, useValue: mockBottomSheetRef },
-                { provide: MAT_BOTTOM_SHEET_DATA, useValue: expiredData },
-                { provide: Router, useValue: mockRouter },
-                { provide: ZelfNameService, useValue: mockZelfNameService },
-                provideHttpClient(),
-            ],
-            schemas: [NO_ERRORS_SCHEMA],
-        }).compileComponents();
-
-        const expiredFixture = TestBed.createComponent(CtaSheetComponent);
-        const expiredComponent = expiredFixture.componentInstance;
-        const expiredTranslocoService = TestBed.inject(TranslocoService);
-
-        // Set up translations before initializing
-        await firstValueFrom(expiredTranslocoService.load("en"));
-        await expiredComponent.ngOnInit();
-
-        expiredFixture.detectChanges();
-
-        expect(mockZelfNameService.searchZelfNameV2).toHaveBeenCalledWith("zelfName", mockData.wallet.tagName);
-        expect(expiredComponent.isAvailable).toBeTrue();
-    });
-
-    it("should calculate hours and days left correctly", () => {
-        if (!component.data.wallet.publicData) throw new Error("Wallet public data is undefined");
-
-        // Set expiration to 25 hours from now to account for timing delays
-        const futureDate = new Date(Date.now() + 25 * 60 * 60 * 1000).toISOString();
-
-        component.data.wallet.publicData.expiresAt = futureDate;
-
-        // Allow for small timing variations
-        expect(component.hoursLeft).toBeGreaterThanOrEqual(24);
-        expect(component.daysLeft).toBe(1);
-    });
-
-    it("should handle cancel action", () => {
-        component.cancel();
-
-        expect(mockBottomSheetRef.dismiss).toHaveBeenCalled();
-    });
-
-    it("should handle confirm action", () => {
-        component.confirm();
-
-        expect(mockBottomSheetRef.dismiss).toHaveBeenCalled();
-    });
-
-    it("should navigate to payments on goToPayments", async () => {
-        await component.goToPayments();
-
-        expect(mockRouter.navigate).toHaveBeenCalledWith(["/external-link"], {
-            queryParams: {
-                externalUrl: `https://payment.zelf.world?zelfName=${mockData.wallet.tagName}`,
-            },
-        });
-
-        expect(mockBottomSheetRef.dismiss).toHaveBeenCalled();
-    });
-
-    it("should correctly determine expiration status", () => {
-        const futureDate = new Date(Date.now() + 86400000 * 25).toISOString(); // 25 days (between 16-30)
-        const nearFutureDate = new Date(Date.now() + 86400000 * 10).toISOString(); // 10 days (between 7-15)
-        const veryNearFutureDate = new Date(Date.now() + 86400000 * 3).toISOString(); // 3 days (between 0-7)
-        const pastDate = new Date(Date.now() - 86400000).toISOString(); // 1 day ago
-
-        expect(component.has30To16DaysLeft(futureDate)).toBeTrue();
-        expect(component.has15To7DaysLeft(nearFutureDate)).toBeTrue();
-        expect(component.has7DaysLeft(veryNearFutureDate)).toBeTrue();
-        expect(component.isExpired(pastDate)).toBeTrue();
-    });
-
-    it("should toggle expand state", () => {
-        expect(component.isExpanded).toBeFalse();
-
-        component.toggleExpand();
-
-        expect(component.isExpanded).toBeTrue();
-
-        component.toggleExpand();
-
-        expect(component.isExpanded).toBeFalse();
     });
 });

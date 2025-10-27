@@ -363,7 +363,8 @@ export class SendTransactionComponent implements OnDestroy {
                 return;
             }
 
-            const foundAddress = new TagModel(response.data.tagObject);
+            const foundAddress = new TagModel(response.data.tagObject || { publicData: { [this.addressKey]: value } });
+
             const zelfObjectContainsAddress = !!foundAddress.publicData[this.addressKey];
 
             this.foundAddress = zelfObjectContainsAddress ? foundAddress : undefined;
@@ -378,8 +379,11 @@ export class SendTransactionComponent implements OnDestroy {
         this.isZelfNameNotFound = false;
 
         this.foundAddress = new TagModel({
-            [addressKey]: text,
-            publicData: { tagName: this.transactionData?.receiver?.tagName?.replace(".hold", ""), domain: this.transactionData?.receiver?.domain },
+            publicData: {
+                [addressKey]: text,
+                tagName: this.transactionData?.receiver?.tagName?.replace(".hold", ""),
+                domain: this.transactionData?.receiver?.domain,
+            },
         });
 
         if (this.withdrawStep) return;
@@ -457,9 +461,11 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(address, "btcAddress");
 
             try {
-                if (this.foundAddress && "btcAddress" in this.foundAddress) {
-                    const address = (this.foundAddress as any).btcAddress || "";
-                    const btcBalance = await this._bitcoinService.getBitcoinBalance(address);
+                // Type assertion needed due to TypeScript control flow analysis
+                const foundAddressWithBtc = this.foundAddress as TagModel | undefined;
+                const btcAddress = foundAddressWithBtc?.publicData?.btcAddress;
+                if (btcAddress) {
+                    const btcBalance = await this._bitcoinService.getBitcoinBalance(btcAddress);
 
                     if (btcBalance.balance < parseFloat(this.form.get("amount")?.value || "0")) {
                         this._snackBar.open(this._translocoService.translate("INSUFFICIENT_FUNDS"), this._translocoService.translate("CLOSE"), {

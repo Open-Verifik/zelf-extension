@@ -132,17 +132,10 @@ describe("ManageDomainsComponent", () => {
 
     //     component.goToPurchase(mockWallet as Partial<TagModel>);
 
-<<<<<<< HEAD
-        expect(routerSpy).toHaveBeenCalledWith(["/external-link"], {
-            queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${mockWallet.tagName}` },
-        });
-    });
-=======
     //     expect(routerSpy).toHaveBeenCalledWith(["/external-link"], {
     //         queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${mockPublicData.tagName}` },
     //     });
     // });
->>>>>>> 99fa302 (compiled changed)
 
     // it("should handle logout for last wallet", async () => {
     //     mockWalletService.checkIfLastWallet.and.returnValue(Promise.resolve(true));
@@ -182,17 +175,6 @@ describe("ManageDomainsComponent", () => {
     //     expect(mockDialog.open).not.toHaveBeenCalled();
     // });
 
-<<<<<<< HEAD
-    it("should show details when wallet has expiring status", () => {
-        const expiredPublicData = new TagPublicDataModel({
-            ...mockWallet.publicData,
-            isFullyExpired: true,
-        });
-
-        const expiredWallet: Partial<TagModel> = {
-            publicData: expiredPublicData,
-        };
-=======
     // it("should show details when wallet has expiring status", () => {
     //     const expiredPublicData = new WalletPublicDataModel({
     //         ...mockPublicData,
@@ -202,22 +184,10 @@ describe("ManageDomainsComponent", () => {
     //     const expiredWallet: Partial<TagModel> = {
     //         publicData: new TagPublicDataModel(expiredPublicData),
     //     };
->>>>>>> 99fa302 (compiled changed)
 
     //     expect(component.showDetails(expiredWallet as Partial<TagModel>)).toBeTrue();
     // });
 
-<<<<<<< HEAD
-    it("should navigate to domain with CTA sheet for expiring wallet", () => {
-        const expiringPublicData = new TagPublicDataModel({
-            ...mockWallet.publicData,
-            isExpiringSoon: true,
-        });
-
-        const expiringWallet: Partial<TagModel> = {
-            publicData: expiringPublicData,
-        };
-=======
     // it("should navigate to domain with CTA sheet for expiring wallet", () => {
     //     const expiringPublicData = new TagPublicDataModel({
     //         ...mockPublicData,
@@ -227,7 +197,6 @@ describe("ManageDomainsComponent", () => {
     //     const expiringWallet: Partial<TagModel> = {
     //         publicData: new TagPublicDataModel(expiringPublicData),
     //     };
->>>>>>> 99fa302 (compiled changed)
 
     //     const bottomSheetRefSpyObj = jasmine.createSpyObj({ afterDismissed: new Subject(), dismiss: null });
 
@@ -235,17 +204,6 @@ describe("ManageDomainsComponent", () => {
 
     //     component.goToDomain(expiringWallet);
 
-<<<<<<< HEAD
-    it("should navigate directly to domain for normal wallet", () => {
-        spyOn(component, "showDetails").and.returnValue(false);
-
-        component.goToDomain(mockWallet);
-
-        expect(mockRouter.navigate).toHaveBeenCalledWith(["/domain"], {
-            queryParams: { zelfName: mockWallet.tagName },
-        });
-    });
-=======
     //     expect(mockBottomSheet.open).toHaveBeenCalledWith(CtaSheetComponent as any, {
     //         backdropClass: "zelf-backdrop",
     //         panelClass: "zelf-bottom-sheet",
@@ -263,7 +221,6 @@ describe("ManageDomainsComponent", () => {
     //     spyOn(component, "showDetails").and.returnValue(false);
 
     //     component.goToDomain(normalWallet);
->>>>>>> 99fa302 (compiled changed)
 
     //     expect(mockRouter.navigate).toHaveBeenCalledWith(["/domain"], {
     //         queryParams: { zelfName: mockPublicData.tagName },

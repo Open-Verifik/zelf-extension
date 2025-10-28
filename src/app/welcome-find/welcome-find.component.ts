@@ -109,8 +109,6 @@ export class WelcomeFindComponent implements OnDestroy {
         const buffer = Buffer.from(hexString.replace(/\s/g, ""), "hex");
         const base64String = buffer.toString("base64");
 
-        console.log({ base64String });
-
         await this._tagsService.setZelfProof(base64String);
 
         this.zelfProof = base64String;
@@ -184,10 +182,6 @@ export class WelcomeFindComponent implements OnDestroy {
 
             this._tagsService.setTagNameObject(newTagNameObject);
         } else {
-            // not available
-            console.log("not available");
-            console.log({ currentZelfNameObject });
-
             this._tagsService.setTagNameObject(currentZelfNameObject);
         }
 

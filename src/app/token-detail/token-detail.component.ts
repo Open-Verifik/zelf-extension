@@ -72,12 +72,14 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.asset = this._assetService.sourceAsset;
+        this._ensureAssetIcon();
         this.loading = !Object.keys(this.asset).length;
 
         if (!this.loading) setTimeout(() => this._setChart(), 100);
 
         this._assetService.sourceAsset$.pipe(takeUntil(this.unsubscriber$)).subscribe((asset) => {
             this.asset = asset;
+            this._ensureAssetIcon();
 
             if (!this.loading) return;
 
@@ -97,6 +99,23 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         this.windowResizeListener();
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
+    }
+
+    private _ensureAssetIcon(): void {
+        const symbol = (this.asset?.symbol || "").toUpperCase();
+        const walletServiceIcon = this._walletService.getAssetImage(symbol, this.asset?.image);
+
+        this.asset.image = walletServiceIcon || this.asset.image || "";
+    }
+
+    onIconError(): void {
+        const symbol = (this.asset?.symbol || "").toUpperCase();
+        const fallback = this._walletService.getAssetImage(symbol);
+
+        if (fallback && this.asset.image !== fallback) {
+            this.asset.image = fallback;
+            this._changeDetectorRef.detectChanges();
+        }
     }
 
     get circulatingSupplyInFiat(): string {

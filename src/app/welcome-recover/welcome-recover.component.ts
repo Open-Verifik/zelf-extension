@@ -54,8 +54,6 @@ export class WelcomeRecoverComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         const tagNameObject = await this._tagsService.getTagNameObject();
 
-        console.log({ Recover: tagNameObject });
-
         if (!tagNameObject) {
             this._router.navigate(["/welcome/find"]);
 

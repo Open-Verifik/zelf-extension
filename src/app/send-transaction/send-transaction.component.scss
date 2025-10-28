@@ -181,6 +181,14 @@
         letter-spacing: 0.1px;
         color: variables.$black;
         margin: 0 16px 0 0 !important;
+
+        &--desktop {
+            display: inline-flex;
+        }
+        &--xs {
+            display: none;
+            margin: 4px 0 8px 16px !important;
+        }
     }
 
     &__address-used {
@@ -191,6 +199,20 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         color: variables.$gray;
+    }
+}
+
+/* When on extra-small screens (popup width), move the tag name outside the input */
+@media (max-width: variables.$minSmall) {
+    .send-transaction {
+        &__address-name-zelf-name {
+            &--desktop {
+                display: none;
+            }
+            &--xs {
+                display: block;
+            }
+        }
     }
 }
 

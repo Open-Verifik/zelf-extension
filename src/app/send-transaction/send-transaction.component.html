@@ -24,6 +24,11 @@
                     <span class="send-transaction__input-label-text">{{ t("common.from") }}:</span>
                 </p>
 
+                <!-- XS: show tag name outside input to avoid truncation -->
+                <div class="send-transaction__address-name-zelf-name send-transaction__address-name-zelf-name--xs">
+                    {{ transactionData.sender.fullTagName | uppercase }}
+                </div>
+
                 <div class="zelf-input zelf-input--wide zelf-input--gap-narrow">
                     <input
                         [placeholder]="t('send.from_address')"
@@ -35,7 +40,10 @@
                         readonly
                     />
 
-                    <div class="send-transaction__address-name-zelf-name">{{ transactionData.sender.tagName | uppercase }}</div>
+                    <!-- Desktop and larger: keep tag name inline with input -->
+                    <div class="send-transaction__address-name-zelf-name send-transaction__address-name-zelf-name--desktop">
+                        {{ transactionData.sender.fullTagName | uppercase }}
+                    </div>
                 </div>
 
                 <p class="send-transaction__input-label send-transaction__input-label--mt-8">

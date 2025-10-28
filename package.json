@@ -1,6 +1,6 @@
 {
     "name": "zelf-extension",
-    "version": "2.0.2",
+    "version": "2.0.4",
     "description": "Zelf Extension",
     "author": "https://verifik.co",
     "license": ".",
@@ -70,7 +70,7 @@
         "ngx-webcam": "^0.4.1",
         "openpgp": "^5.11.1",
         "perfect-scrollbar": "1.5.5",
-        "qr-code-styling": "^1.9.1",
+        "qr-code-styling": "^1.9.2",
         "qrcode": "^1.5.4",
         "rxjs": "7.8.1",
         "web3": "^4.8.0",

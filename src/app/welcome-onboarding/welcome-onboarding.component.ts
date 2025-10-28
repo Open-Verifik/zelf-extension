@@ -540,9 +540,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         // Convert the domain map to an array for the dropdown
         this.availableDomains = Object.values(response.data);
-
-        // let's do a temporal filter to only keep "zelf", and "bdag"
-        this.availableDomains = this.availableDomains.filter((domain) => domain.name === "zelf" || domain.name === "bdag");
     }
 
     /**

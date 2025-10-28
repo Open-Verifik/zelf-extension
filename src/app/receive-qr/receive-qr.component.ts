@@ -153,14 +153,6 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             this.name = "Bitcoin";
             this.symbol = "BTC";
         }
-
-        console.log({
-            network,
-            address: this.address,
-            name: this.name,
-            symbol: this.symbol,
-            type: this.type,
-        });
     }
 
     private _setQRCode(): void {

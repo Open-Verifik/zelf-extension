@@ -5,6 +5,7 @@ export const environment = {
     apiUrl: "http://localhost:3050",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
     paymentUrl: "http://localhost:3050",
+    includeNonPaidDomains: true,
     // apiUrl: "https://api.zelf.world",
     // testnetAddress: "tb1phkg7rlfp8d6zkk699rlacnwyuc9g2jh02ehscztncuew4c4y5mkstxw2c9",
     testnetAddress: "",

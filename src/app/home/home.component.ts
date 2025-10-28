@@ -107,13 +107,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         const sessionTokens = await this._assetService.loadTokensFromSession();
 
         if (sessionTokens.length > 0) {
+            const deduped = this._dedupeTokens(sessionTokens);
+
             let totalFiatBalance = 0;
 
-            sessionTokens.forEach((token) => {
+            deduped.forEach((token) => {
                 if (token.fiatBalance) totalFiatBalance += parseFloat(token.fiatBalance);
             });
 
-            this.tokens = sessionTokens;
+            this.tokens = deduped;
             this.totalFiatBalance = totalFiatBalance;
 
             this.balancesLoading = false;
@@ -129,8 +131,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             );
 
             const result = await this._assetService.processTokensFromResponse(response);
-
-            this.tokens = result.tokens;
+            this.tokens = this._dedupeTokens(result.tokens);
             this.totalFiatBalance = result.totalFiatBalance;
 
             this._changeDetectorRef.detectChanges();
@@ -217,8 +218,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             );
 
             const result = await this._assetService.processTokensFromResponse(response);
-
-            this.tokens = result.tokens;
+            this.tokens = this._dedupeTokens(result.tokens);
             this.totalFiatBalance = result.totalFiatBalance;
         } catch (error) {
             console.error("Error getting tokens:", error);
@@ -229,6 +229,32 @@ export class HomeComponent implements OnInit, OnDestroy {
 
             this._changeDetectorRef.detectChanges();
         }
+    }
+
+    private _dedupeTokens(tokens: Array<any>): Array<any> {
+        const byKey = new Map<string, any>();
+
+        for (const token of tokens || []) {
+            const symbol = (token?.symbol || "").toString().trim();
+            const name = (token?.name || "").toString().trim();
+            const id = (symbol || name).toUpperCase();
+            const network = (token?.network || "").toString();
+            const tokenType = (token?.tokenType || "").toString();
+            const key = `${network}|${tokenType}|${id}`;
+
+            if (!byKey.has(key)) {
+                byKey.set(key, token);
+                continue;
+            }
+
+            const existing = byKey.get(key);
+            const existingFiat = parseFloat(existing?.fiatBalance || "0") || 0;
+            const candidateFiat = parseFloat(token?.fiatBalance || "0") || 0;
+
+            if (candidateFiat > existingFiat) byKey.set(key, token);
+        }
+
+        return Array.from(byKey.values());
     }
 
     selectTab(tab: string): void {

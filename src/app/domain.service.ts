@@ -108,7 +108,11 @@ export class DomainService {
      * @returns Promise<DomainResponse>
      */
     async getDomains(): Promise<DomainResponse> {
-        const response = await this.httpWrapper.sendRequest<DomainResponse>("get", `${this.apiUrl}/api/tags/domains`);
+        const queryParams = { includeNonPaid: environment.includeNonPaidDomains };
+
+        const response = await this.httpWrapper.sendRequest<DomainResponse>("get", `${this.apiUrl}/api/tags/domains`, queryParams);
+
+        console.log({ response: response.data });
 
         if (response?.success && response.data) {
             // Save domain keys (just the names)
@@ -166,8 +170,6 @@ export class DomainService {
             for (const [domainName, config] of Object.entries(this.domainConfigs)) {
                 await this.chromeService.setItem(`domainConfig_${domainName}`, JSON.stringify(config));
             }
-
-            console.log(`Domains saved to localStorage (cache expires in ${this.CACHE_DURATION_MINUTES} minutes):`, this.domainKeys);
         } catch (error) {
             console.error("Error saving domains to localStorage:", error);
         }
@@ -192,8 +194,6 @@ export class DomainService {
                     this.domainConfigs[domainName] = JSON.parse(configData);
                 }
             }
-
-            console.log("Domains loaded from localStorage:", this.domainKeys);
         } catch (error) {
             console.error("Error loading domains from localStorage:", error);
         }
@@ -246,6 +246,5 @@ export class DomainService {
      */
     setCacheDuration(minutes: number): void {
         (this as any).CACHE_DURATION_MINUTES = minutes;
-        console.log(`Cache duration updated to ${minutes} minutes`);
     }
 }

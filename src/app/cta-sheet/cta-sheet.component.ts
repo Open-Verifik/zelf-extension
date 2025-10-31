@@ -10,6 +10,7 @@ import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmatio
 import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { environment } from "environments/environment";
 
 type CtaSheetData = {
     wallet: Partial<TagModel>;
@@ -227,9 +228,13 @@ export class CtaSheetComponent implements OnDestroy {
     }
 
     async goToPayments(): Promise<void> {
+        const name = this.data.wallet.tagName || this.data.wallet.publicData?.tagName || this.data.wallet.name || "";
+        const domain = this.data.wallet.publicData?.domain || "zelf";
+        const duration = 1;
+
         await this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world?zelfName=${this.data.wallet.tagName}`,
+                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
             },
         });
 

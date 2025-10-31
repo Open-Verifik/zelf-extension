@@ -122,7 +122,14 @@
             [disabled]="!agreement"
             [routerLink]="['/external-link']"
             [queryParams]="{
-                externalUrl: 'https://payment.zelf.world/purchase?zelfName=' + wallet.tagName + '&durationToken=' + durationToken,
+                externalUrl:
+                    paymentDomainUrl +
+                    '/portfolio/payment?tagname=' +
+                    wallet.tagName +
+                    '&domain=' +
+                    (wallet.publicData?.domain || 'zelf') +
+                    '&duration=' +
+                    (yearCount || 1),
             }"
         >
             {{ t("common.pay_now") }}

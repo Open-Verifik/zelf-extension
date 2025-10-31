@@ -239,7 +239,7 @@ const routes: Routes = [
     },
     {
         path: "external-link",
-        data: { externalUrl: "https://payment.zelf.world/purchase" },
+        data: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment` },
         canActivate: [ExternalRedirectGuard],
     },
     // DEPRECATED ROUTES: Ensure all translations are also removed before deleting these components!

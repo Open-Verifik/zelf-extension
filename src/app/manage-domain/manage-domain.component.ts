@@ -9,6 +9,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { TagModel } from "app/tags.service";
+import { environment } from "environments/environment";
 
 @Component({
     selector: "manage-domain",
@@ -73,9 +74,13 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     }
 
     async extendRegistration(): Promise<void> {
+        const name = this.wallet?.tagName || this.wallet?.publicData?.tagName || this.wallet?.name || "";
+        const domain = this.wallet?.publicData?.domain || "zelf";
+        const duration = 1;
+
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.wallet?.tagName}`,
+                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
             },
         });
     }

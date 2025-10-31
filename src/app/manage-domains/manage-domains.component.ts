@@ -19,6 +19,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
+import { environment } from "environments/environment";
 
 @Component({
     imports: [
@@ -184,9 +185,13 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     goToPurchase(wallet: Partial<TagModel>): void {
+        const name = wallet?.tagName || wallet?.publicData?.tagName || wallet?.name || "";
+        const domain = wallet.publicData?.domain || "zelf";
+        const duration = 1;
+
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world/purchase?zelfName=${wallet.tagName}`,
+                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
             },
         });
     }

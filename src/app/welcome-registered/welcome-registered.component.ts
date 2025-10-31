@@ -7,6 +7,7 @@ import { TagsService, TagModel, TagSearchResponse } from "app/tags.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { environment } from "environments/environment";
 
 @Component({
     imports: [CommonModule, RouterModule, TranslocoModule, MatButtonModule],
@@ -63,10 +64,12 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
     }
 
     purchaseNow(): void {
-        const tagName = this.tagModel?.publicData?.tagName || this.tagModel?.name;
+        const name = this.tagModel?.tagName || "";
+        const domain = this.tagModel?.domain || "zelf";
+        const duration = 1;
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `https://payment.zelf.world/purchase?tagName=${tagName}`,
+                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
             },
         });
     }

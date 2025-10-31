@@ -3,6 +3,7 @@ export const environment = {
     appUrl: "https://beta.zelf.world",
     baseUrl: "/",
     captchaKey: "",
+    paymentDomainUrl: "https://payment.zelf.world",
     production: true,
     testnetAddress: "",
     networks: {

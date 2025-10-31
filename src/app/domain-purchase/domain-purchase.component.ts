@@ -10,6 +10,7 @@ import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { Subject, takeUntil } from "rxjs";
+import { environment } from "environments/environment";
 
 @Component({
     selector: "domain-purchase",
@@ -26,6 +27,7 @@ export class DomainPurchaseComponent implements OnInit, OnDestroy {
     yearCount: number = 1;
     loading: boolean = false;
     wallet: Partial<TagModel> = {};
+    paymentDomainUrl = environment.paymentDomainUrl;
 
     constructor(
         private _activatedRoute: ActivatedRoute,

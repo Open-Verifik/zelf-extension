@@ -133,7 +133,7 @@ describe("ManageDomainsComponent", () => {
     //     component.goToPurchase(mockWallet as Partial<TagModel>);
 
     //     expect(routerSpy).toHaveBeenCalledWith(["/external-link"], {
-    //         queryParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${mockPublicData.tagName}` },
+    //         queryParams: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${mockPublicData.tagName}&domain=${mockPublicData.domain || 'zelf'}&duration=1` },
     //     });
     // });
 

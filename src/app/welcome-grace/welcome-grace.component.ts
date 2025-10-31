@@ -9,6 +9,7 @@ import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { environment } from "environments/environment";
 
 @Component({
     imports: [RouterModule, NgIf, NgTemplateOutlet, DatePipe, TranslocoModule, MatButtonModule],
@@ -45,7 +46,10 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
     }
 
     get externalUrl(): string {
-        return `https://payment.zelf.world/purchase?tagName=${this.tagNameObject?.fullTagName}`;
+        const name = this.tagNameObject?.tagName || "";
+        const domain = this.tagNameObject?.domain || "zelf";
+        const duration = 1;
+        return `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`;
     }
 
     private async _captchaGeneration(zelfName: string): Promise<any> {
@@ -99,8 +103,11 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
     }
 
     renewZelfName(): void {
+        const name = this.tagNameObject?.tagName || "";
+        const domain = this.tagNameObject?.domain || "zelf";
+        const duration = 1;
         this._router.navigate(["/external-link"], {
-            queryParams: { externalUrl: `https://payment.zelf.world/purchase?tagName=${this.tagNameObject.fullTagName}` },
+            queryParams: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}` },
         });
     }
 }

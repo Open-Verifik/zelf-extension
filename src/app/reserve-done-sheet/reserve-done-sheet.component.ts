@@ -3,6 +3,7 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bott
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { environment } from "environments/environment";
 
 @Component({
     imports: [TranslocoModule, MatButtonModule],
@@ -24,9 +25,17 @@ export class ReserveDoneSheetComponent {
     }
 
     async purchaseNow(): Promise<void> {
+        const name = this.data?.zelfName || "";
+        const domain = this.data?.domain || "zelf";
+        const duration = 1;
+
         await this._router.navigate([
             "/external-link",
-            { extraParams: { externalUrl: `https://payment.zelf.world/purchase?zelfName=${this.data.zelfName}` } },
+            {
+                extraParams: {
+                    externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
+                },
+            },
         ]);
 
         this.goToWelcomeComplete();

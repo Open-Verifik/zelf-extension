@@ -45,7 +45,7 @@
         "share_transaction": "分享交易"
     },
     "welcome": {
-        "code_name": "代码名称",
+        "code_name": "推荐标签名称",
         "domain_expired_since": "域名自 {{ date }} 起已过期",
         "decrypt_and_reserve": "解密并保留",
         "decrypt_now_pay_later": "现在解密，稍后付款",

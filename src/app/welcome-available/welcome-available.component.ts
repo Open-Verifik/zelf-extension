@@ -40,6 +40,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
     domain: string = "";
     tagModel: TagModel | null = null;
     tagResponse: TagSearchResponse | null = null;
+    referralTagModel: TagModel | null = null;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -73,6 +74,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
     private _setInvalidReferral(): void {
         this.invalidReferral = true;
+        this.referralTagModel = null; // Clear referral model when invalid
 
         this._invalidTimeout = setTimeout(() => {
             this.invalidReferral = false;
@@ -83,6 +85,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         clearTimeout(this._invalidTimeout);
 
         this.invalidReferral = false;
+        this.referralTagModel = null; // Clear referral model when manually cleared
     }
 
     async goToImport(): Promise<void> {
@@ -130,9 +133,23 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
         this.loadingReferral = true;
 
-        // Get current domain from saved tag data, default to "zelf"
-        const currentDomain = this.tagModel?.domain || "zelf";
-        const referralTagName = referralNameCtrl.value.toLowerCase();
+        // Parse domain from referral tag name (if included) or use current domain
+        const referralTagNameInput = referralNameCtrl.value.toLowerCase().trim();
+
+        // If input contains a dot, parse it; otherwise use current domain
+        let referralDomain: string;
+        let referralTagName: string;
+
+        if (referralTagNameInput.includes(".")) {
+            // User provided domain in the tag name (e.g., "alice.zelf")
+            const parsedReferral = this._tagsService.parseTagName(referralTagNameInput);
+            referralDomain = parsedReferral.domain;
+            referralTagName = parsedReferral.name;
+        } else {
+            // No domain provided, use the current domain context
+            referralDomain = this.tagModel?.publicData?.domain || "zelf";
+            referralTagName = referralTagNameInput;
+        }
 
         let captchaToken = "";
 
@@ -149,7 +166,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         this._tagsService
             .searchTag({
                 tagName: referralTagName,
-                domain: currentDomain,
+                domain: referralDomain,
                 captchaToken: captchaToken,
             })
             .then((response) => {
@@ -159,6 +176,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
                     this.form.markAsPristine();
 
                     this.loadingReferral = false;
+                    this.referralTagModel = null;
                     this._setInvalidReferral();
 
                     return;
@@ -170,8 +188,16 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
                 const referralTagModel = this._tagsService.createTagModelFromSearchResponse(response.data);
 
                 if (referralTagModel) {
+                    // Store the referral tag model so it can be displayed in the UI
+                    this.referralTagModel = referralTagModel;
+
+                    // Get the referral tag name from publicData (tagName or zelfName based on domain config)
                     const referralTagName = referralTagModel.publicData.tagName || referralTagModel.name;
                     this._tagsService.setReferral(referralTagName);
+                } else {
+                    // If model creation failed, mark as invalid
+                    this.referralTagModel = null;
+                    this._setInvalidReferral();
                 }
 
                 this.loadingReferral = false;
@@ -183,6 +209,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
                 this.form.markAsPristine();
 
                 this.loadingReferral = false;
+                this.referralTagModel = null;
                 this._setInvalidReferral();
             });
     }

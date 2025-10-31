@@ -45,7 +45,7 @@
         "share_transaction": "लेनदेन साझा करें"
     },
     "welcome": {
-        "code_name": "कोड नाम",
+        "code_name": "रेफरल टैग नाम",
         "domain_expired_since": "डोमेन {{ date }} से समाप्त हो गया",
         "decrypt_and_reserve": "डिक्रिप्ट और आरक्षित करें",
         "decrypt_now_pay_later": "अभी डिक्रिप्ट करें, बाद में भुगतान करें",

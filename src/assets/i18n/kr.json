@@ -45,7 +45,7 @@
         "share_transaction": "거래 공유"
     },
     "welcome": {
-        "code_name": "코드명",
+        "code_name": "추천 태그 이름",
         "domain_expired_since": "{{ date }}부터 도메인 만료됨",
         "decrypt_and_reserve": "복호화 및 예약",
         "decrypt_now_pay_later": "지금 복호화하고 나중에 결제",

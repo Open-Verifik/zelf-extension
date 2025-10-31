@@ -51,7 +51,7 @@
         "share_transaction": "Share transaction"
     },
     "welcome": {
-        "code_name": "Code name",
+        "code_name": "Referral tag name",
         "domain_expired_since": "Domain expired since {{ date }}",
         "decrypt_and_reserve": "Decrypt and reserve",
         "decrypt_now_pay_later": "Decrypt now, pay later",

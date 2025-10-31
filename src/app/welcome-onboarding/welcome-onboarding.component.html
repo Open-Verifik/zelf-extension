@@ -50,8 +50,8 @@
                 class="zelf-input__control"
                 formControlName="tagName"
                 id="tagName"
-                maxlength="27"
-                minlength="1"
+                [maxlength]="getMaxTagNameLength()"
+                [minlength]="getMinTagNameLength()"
                 name="tagName"
                 required
             />

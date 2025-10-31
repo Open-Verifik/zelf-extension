@@ -3,7 +3,9 @@
         <div class="zelf-card__header welcome-complete__header">
             <h3 class="zelf-card__pretitle">{{ t("welcome.your_zelf_name") }}</h3>
 
-            <h2 class="zelf-card__title">{{ wallet?.fullTagName }}</h2>
+            <h2 class="zelf-card__title" [style.font-size]="getTagNameFontSize()" [style.line-height]="getTagNameLineHeight()">
+                {{ wallet?.fullTagName }}
+            </h2>
 
             <img class="qr-code mt-4" [src]="wallet?.image" alt="zelfProof" />
         </div>

@@ -77,4 +77,53 @@ export class WelcomeCompleteComponent implements OnInit, OnDestroy {
 
         this._router.navigate(["/security/biometrics"], { queryParams: { return: "/welcome/complete" } });
     }
+
+    /**
+     * Calculate font size based on tag name length
+     * Gradual reduction to ensure text fits within the container
+     * Max length: 27 chars (tag) + 10 chars (domain) = 37 chars
+     */
+    getTagNameFontSize(): string {
+        const fullTagName = this.wallet?.fullTagName || "";
+        const length = fullTagName.length;
+
+        // Gradual font size reduction based on text length
+        if (length <= 15) {
+            return "32px"; // Base size
+        } else if (length <= 20) {
+            return "22px";
+        } else if (length <= 25) {
+            return "20px";
+        } else if (length <= 30) {
+            return "16px";
+        } else if (length <= 35) {
+            return "14px";
+        } else {
+            return "12px"; // Minimum size for very long names
+        }
+    }
+
+    /**
+     * Calculate line height based on tag name length
+     * Proportional to font size for proper text rendering
+     */
+    getTagNameLineHeight(): string {
+        const fullTagName = this.wallet?.fullTagName || "";
+        const length = fullTagName.length;
+
+        // Line height proportional to font size (ratio ~1.25)
+        if (length <= 15) {
+            return "40px"; // Base line-height (matches CSS)
+        } else if (length <= 20) {
+            return "35px";
+        } else if (length <= 25) {
+            return "30px";
+        } else if (length <= 30) {
+            return "25px";
+        } else if (length <= 35) {
+            return "23px";
+        } else {
+            return "20px"; // Minimum line-height
+        }
+    }
 }

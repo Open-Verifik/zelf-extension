@@ -45,7 +45,7 @@
         "share_transaction": "Compartir transacción"
     },
     "welcome": {
-        "code_name": "Nombre de código",
+        "code_name": "Nombre del tag de referido",
         "domain_expired_since": "Dominio expirado desde {{ date }}",
         "decrypt_and_reserve": "Descifrar y reservar",
         "decrypt_now_pay_later": "Descifrar ahora, pagar después",

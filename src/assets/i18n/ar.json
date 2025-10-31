@@ -45,7 +45,7 @@
         "share_transaction": "مشاركة المعاملة"
     },
     "welcome": {
-        "code_name": "اسم الكود",
+        "code_name": "اسم علامة الإحالة",
         "domain_expired_since": "النطاق منتهي الصلاحية منذ {{ date }}",
         "decrypt_and_reserve": "فك التشفير والحجز",
         "decrypt_now_pay_later": "فك التشفير الآن، الدفع لاحقًا",

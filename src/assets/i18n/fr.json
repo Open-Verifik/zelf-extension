@@ -45,7 +45,7 @@
         "share_transaction": "Partager la transaction"
     },
     "welcome": {
-        "code_name": "Nom de code",
+        "code_name": "Nom du tag de parrainage",
         "domain_expired_since": "Domaine expiré depuis {{ date }}",
         "decrypt_and_reserve": "Décrypter et réserver",
         "decrypt_now_pay_later": "Décrypter maintenant, payer plus tard",

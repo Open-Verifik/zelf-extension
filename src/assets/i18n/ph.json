@@ -45,7 +45,7 @@
         "share_transaction": "Ibahagi ang transaksyon"
     },
     "welcome": {
-        "code_name": "Pangalan ng code",
+        "code_name": "Pangalan ng referral tag",
         "domain_expired_since": "Nag-expire ang domain mula noong {{ date }}",
         "decrypt_and_reserve": "I-decrypt at i-reserve",
         "decrypt_now_pay_later": "I-decrypt ngayon, magbayad mamaya",

@@ -41,6 +41,7 @@ import { DomainSelectionModalComponent, DomainSelectionData } from "app/domain-s
 export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterContentInit {
     private _carouselItemInterval!: ReturnType<typeof setInterval>;
     private unsubscriber$: Subject<void> = new Subject<void>();
+    private domainSubscription: any;
 
     availableDomains: DomainConfig[] = [];
     carouselIndex: number = 0;
@@ -51,6 +52,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     loading: boolean = false;
     loadingDomains: boolean = false;
     showHomeButton: boolean = false;
+    currentDomainConfig: DomainConfig | null = null;
 
     gridItems = [
         { text: "Spark", row: 1, col: 1 },
@@ -121,6 +123,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         if (!this.form.value.domain) {
             this.form.patchValue({ domain: "zelf" }, { emitEvent: false });
         }
+
+        // Initialize validators for the selected domain
+        const initialDomain = this.form.get("domain")?.value || "zelf";
+        this._updateTagNameValidators(initialDomain);
     }
 
     ngOnDestroy(): void {
@@ -154,6 +160,85 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             tagName: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(27)]],
             domain: [this.domain || "zelf", [Validators.required]],
         });
+
+        // Subscribe to domain changes to update validators
+        this.domainSubscription = this.form
+            .get("domain")
+            ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
+            .subscribe((domain: string) => {
+                this._updateTagNameValidators(domain);
+            });
+    }
+
+    /**
+     * Update tag name validators based on selected domain configuration
+     */
+    private _updateTagNameValidators(domain: string): void {
+        if (!domain) return;
+
+        // Find the domain config from available domains
+        const domainConfig = this.availableDomains.find((d) => d.name === domain);
+
+        if (!domainConfig) {
+            // If domain config not found, try to get it from domain service
+            const configFromService = this._domainService.getDomainConfig(domain);
+            if (configFromService && configFromService.tags) {
+                this.currentDomainConfig = configFromService;
+                this._applyValidators(configFromService.tags.minLength, configFromService.tags.maxLength);
+            }
+            return;
+        }
+
+        // Check if domain config has tags property
+        if (!domainConfig.tags || !domainConfig.tags.minLength || !domainConfig.tags.maxLength) {
+            console.warn(`Domain config for "${domain}" is missing tags validation rules. Using defaults.`);
+            return;
+        }
+
+        this.currentDomainConfig = domainConfig;
+
+        const { minLength, maxLength } = domainConfig.tags;
+
+        this._applyValidators(minLength, maxLength);
+    }
+
+    /**
+     * Apply validators to tagName form control
+     */
+    private _applyValidators(minLength: number, maxLength: number): void {
+        const tagNameControl = this.form.get("tagName");
+
+        if (!tagNameControl) return;
+
+        // Remove existing validators
+        tagNameControl.clearValidators();
+
+        // Add new validators with domain-specific limits
+        tagNameControl.setValidators([Validators.required, Validators.minLength(minLength), Validators.maxLength(maxLength)]);
+
+        // Update the control value if it exceeds the new maxLength
+        const currentValue = tagNameControl.value;
+
+        if (currentValue && currentValue.length > maxLength) {
+            tagNameControl.setValue(currentValue.substring(0, maxLength));
+        }
+
+        // Revalidate
+        tagNameControl.updateValueAndValidity();
+    }
+
+    /**
+     * Get current domain's max length for tag name
+     */
+    getMaxTagNameLength(): number {
+        return this.currentDomainConfig?.tags?.maxLength || 27;
+    }
+
+    /**
+     * Get current domain's min length for tag name
+     */
+    getMinTagNameLength(): number {
+        return this.currentDomainConfig?.tags?.minLength || 1;
     }
 
     private async _existingTagName(responseData: any): Promise<void> {
@@ -306,6 +391,9 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
                 this.form.get("domain")?.setValue(result);
 
                 this._tagsService.setDomain(result);
+
+                // Update validators based on new domain
+                this._updateTagNameValidators(result);
             }
         });
     }
@@ -335,6 +423,9 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
             // patch the form with the domain
             this.form.patchValue({ domain: this.domain }, { emitEvent: false });
+
+            // Update validators for the initial domain
+            this._updateTagNameValidators(this.domain);
         }
     }
 
@@ -493,6 +584,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
                 },
             },
         ];
+
+        // Update validators after fallback domains are set
+        const currentDomain = this.form?.get("domain")?.value || this.domain || "zelf";
+        this._updateTagNameValidators(currentDomain);
     }
 
     /**
@@ -521,6 +616,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             this.availableDomains = Object.values(cachedDomains);
             this.loadingDomains = false;
 
+            // Update validators after domains are loaded from cache
+            const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
+            this._updateTagNameValidators(currentDomain);
+
             // Still fetch fresh data in background for next time
             this._refreshDomainsInBackground();
             return true;
@@ -540,6 +639,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         // Convert the domain map to an array for the dropdown
         this.availableDomains = Object.values(response.data);
+
+        // Update validators after domains are loaded
+        const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
+        this._updateTagNameValidators(currentDomain);
     }
 
     /**
@@ -552,6 +655,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             if (response?.success && response.data) {
                 // Update the dropdown with fresh data
                 this.availableDomains = Object.values(response.data);
+
+                // Update validators in case domain config changed
+                const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
+                this._updateTagNameValidators(currentDomain);
             }
         } catch (error) {
             console.error("Error refreshing domains in background:", error);

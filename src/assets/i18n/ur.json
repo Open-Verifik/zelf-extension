@@ -45,7 +45,7 @@
         "share_transaction": "لین دین شیئر کریں"
     },
     "welcome": {
-        "code_name": "کوڈ نام",
+        "code_name": "ریفرل ٹیگ نام",
         "domain_expired_since": "ڈومین {{ date }} سے ختم ہو گئی",
         "decrypt_and_reserve": "ڈکرپٹ اور محفوظ کریں",
         "decrypt_now_pay_later": "ابھی ڈکرپٹ کریں، بعد میں ادائیگی کریں",

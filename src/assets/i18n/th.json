@@ -45,7 +45,7 @@
         "share_transaction": "แชร์ธุรกรรม"
     },
     "welcome": {
-        "code_name": "ชื่อรหัส",
+        "code_name": "ชื่อแท็กอ้างอิง",
         "domain_expired_since": "โดเมนหมดอายุตั้งแต่ {{ date }}",
         "decrypt_and_reserve": "ถอดรหัสและจอง",
         "decrypt_now_pay_later": "ถอดรหัสตอนนี้ จ่ายทีหลัง",

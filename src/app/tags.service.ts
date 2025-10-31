@@ -634,6 +634,7 @@ export class TagsService {
 
     async setReferral(referralTagName: string): Promise<void> {
         this.variables.referralTagName = referralTagName;
+
         await this._chromeService.setItem("referralTagName", referralTagName);
     }
 

@@ -45,7 +45,7 @@
         "share_transaction": "取引を共有"
     },
     "welcome": {
-        "code_name": "コード名",
+        "code_name": "紹介タグ名",
         "domain_expired_since": "{{ date }}から期限切れ",
         "decrypt_and_reserve": "復号化して予約",
         "decrypt_now_pay_later": "今すぐ復号化、後で支払い",

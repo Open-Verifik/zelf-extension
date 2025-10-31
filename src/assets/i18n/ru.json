@@ -45,7 +45,7 @@
         "share_transaction": "Поделиться транзакцией"
     },
     "welcome": {
-        "code_name": "Кодовое имя",
+        "code_name": "Имя реферального тега",
         "domain_expired_since": "Домен истек с {{ date }}",
         "decrypt_and_reserve": "Расшифровать и зарезервировать",
         "decrypt_now_pay_later": "Расшифровать сейчас, оплатить позже",

@@ -22,4 +22,13 @@
         width: 100%;
         flex-direction: column;
     }
+
+    &__header {
+        // Ensure long tag names wrap and fit properly
+        .zelf-card__title {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+    }
 }

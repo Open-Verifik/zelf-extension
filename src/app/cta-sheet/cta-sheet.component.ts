@@ -280,4 +280,61 @@ export class CtaSheetComponent implements OnDestroy {
     toggleExpand(): void {
         this.isExpanded = !this.isExpanded;
     }
+
+    /**
+     * Calculate dynamic font-size for zelf name labels based on length
+     */
+    getInfoTitleFontSize(text: string | undefined | null): string {
+        const value = (text || "").toString();
+        const length = value.length;
+
+        // Base: 18px (matches SCSS). Gradually reduce for longer names.
+        if (length <= 15) return "18px";
+        if (length <= 20) return "16px";
+        if (length <= 25) return "14px";
+        if (length <= 32) return "13px";
+        return "12px"; // Very long names
+    }
+
+    /**
+     * Line-height proportional to chosen font-size for readability
+     */
+    getInfoTitleLineHeight(text: string | undefined | null): string {
+        const sizePx = parseInt(this.getInfoTitleFontSize(text), 10);
+        // Approximate 1.33 ratio
+        return `${Math.round(sizePx * 1.33)}px`;
+    }
+
+    /**
+     * Split full tag into name and ".domain" suffix, keeping suffix together (no wrap)
+     */
+    getTagParts(fullTagName?: string | null): { name: string; suffix: string } {
+        const value = (fullTagName || "").toString();
+        const lastDotIndex = value.lastIndexOf(".");
+        if (lastDotIndex <= 0 || lastDotIndex === value.length - 1) {
+            return { name: value, suffix: "" };
+        }
+        const name = value.substring(0, lastDotIndex);
+        const domain = value.substring(lastDotIndex); // includes the dot
+        return { name, suffix: domain };
+    }
+
+    /**
+     * Dynamic size for the big title just below the chip (tagName only)
+     */
+    getHeaderTitleFontSize(text: string | undefined | null): string {
+        const value = (text || "").toString();
+        const length = value.length;
+        // Base 24px as in SCSS; shrink for longer names
+        if (length <= 10) return "24px";
+        if (length <= 14) return "22px";
+        if (length <= 18) return "20px";
+        if (length <= 22) return "18px";
+        return "16px";
+    }
+
+    getHeaderTitleLineHeight(text: string | undefined | null): string {
+        const sizePx = parseInt(this.getHeaderTitleFontSize(text), 10);
+        return `${Math.round(sizePx * 1.33)}px`;
+    }
 }

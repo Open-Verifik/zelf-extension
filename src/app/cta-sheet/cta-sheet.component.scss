@@ -361,6 +361,15 @@
             vertical-align: middle;
             color: variables.$black;
             margin: 0;
+            // Ensure long names wrap nicely and don't overflow
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+
+            // Keep the dot+domain together on the same line
+            .cta-info-domain {
+                white-space: nowrap;
+            }
         }
 
         &-pretitle {

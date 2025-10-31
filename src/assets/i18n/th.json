@@ -64,14 +64,14 @@
         "name_expires": "ชื่อหมดอายุ",
         "new_domain": "โดเมนใหม่",
         "offline_subtitle": "ZelfProof นี้ถูกสร้างแบบออฟไลน์ จึงใช้ระบบความปลอดภัยที่แตกต่างกัน ในขณะนี้ยังไม่รองรับส่วนขยาย จะมีให้ใช้เร็วๆ นี้",
-        "offline_tip": "แต่ไม่ต้องกังวล! คุณสามารถนำเข้า ZelfProof ของคุณด้วย ZelfName อื่นเพื่อให้สามารถเข้าถึงจากส่วนขยายได้",
+        "offline_tip": "แต่ไม่ต้องกังวล! คุณสามารถนำเข้า ZelfProof ของคุณด้วยชื่อแท็กอื่นเพื่อให้สามารถเข้าถึงจากส่วนขยายได้",
         "i_understand_go_back": "เข้าใจแล้ว กลับหน้าหลัก",
         "old_domain": "โดเมนเก่า",
         "paste_your_recovery_phrase": "คุณสามารถวางวลีกู้คืนลับทั้งหมดของคุณในช่องใดก็ได้",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> ถูกใช้ไปแล้ว แต่ไม่ต้องกังวล! คุณสามารถเข้าถึง ZelfProof ของคุณและจอง ZelfName ใหม่ด้วยวลีเริ่มต้นเดียวกัน",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> ถูกใช้ไปแล้ว แต่ไม่ต้องกังวล! คุณสามารถเข้าถึง ZelfProof ของคุณและจองชื่อแท็กใหม่ด้วยวลีเริ่มต้นเดียวกัน",
         "pick_your_new_zelfname": "เลือก Tag Name ใหม่ของคุณ",
         "public_address_input": "ป้อนที่อยู่สาธารณะ ETH หรือ SOL ของคุณที่นี่",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> ยังว่างอยู่ คุณสามารถเข้าถึง ZelfProof ของคุณและกู้คืน ZelfName ของคุณด้วยวลีเริ่มต้นเดียวกัน",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> ยังว่างอยู่ คุณสามารถเข้าถึง ZelfProof ของคุณและกู้คืนชื่อแท็กของคุณด้วยวลีเริ่มต้นเดียวกัน",
         "recover_your_zelfname": "กู้คืน Tag Name ของคุณ",
         "referral_code": "รหัสอ้างอิง (ไม่บังคับ)",
         "referral_successfully_registered": "ลงทะเบียนรหัสอ้างอิงสำเร็จ",
@@ -85,7 +85,7 @@
         "you_can_transfer_this_domain": "คุณสามารถโอนโดเมนนี้ได้",
         "you_will_register_this_domain": "คุณจะลงทะเบียนโดเมนนี้",
         "safeguard_your_crypto": "ปกป้องคริปโตของคุณ!",
-        "offline_import_subtitle": "ก่อนที่คุณจะสามารถนำเข้ากระเป๋าเงินออฟไลน์ คุณต้องเลือก ZelfName ใหม่",
+        "offline_import_subtitle": "ก่อนที่คุณจะสามารถนำเข้ากระเป๋าเงินออฟไลน์ คุณต้องเลือกชื่อแท็กใหม่",
         "your_zelf_name": "Tag Name ของคุณ"
     },
     "settings": {
@@ -285,8 +285,8 @@
         "are_you_sure_you_want_to_delete": "คุณแน่ใจหรือไม่ว่าต้องการลบ ZelfProof นี้?",
         "domain_error": "ระยะเวลาทดลองใช้ {{ zelfName }} หมดอายุแล้ว คุณต้องซื้อการสมัครสมาชิกเพื่อใช้ ZelfName นี้ต่อไป",
         "domain_warning": "คุณยังมีเวลาในการซื้อ",
-        "expired_wallet_logout_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วย ZelfName ของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
-        "logout_of_wallet_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วย ZelfName ของคุณ หรือโหลดรหัส QR ของ ZelfProof ของคุณ",
+        "expired_wallet_logout_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
+        "logout_of_wallet_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ หรือโหลดรหัส QR ของ ZelfProof ของคุณ",
         "purchase_new_domain": "เพิ่มชื่อแท็กใหม่"
     },
     "liveness": {

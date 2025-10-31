@@ -64,7 +64,7 @@
         "name_expires": "ينتهي الاسم",
         "new_domain": "نطاق جديد",
         "offline_subtitle": "تم إنشاء ZelfProof هذا في وضع عدم الاتصال ، لذلك يستخدم نظام أمان مختلف. في هذا الوقت ، غير متوافق مع الملحق. سيكون متاحًا قريبًا.",
-        "offline_tip": "لكن لا تقلق! يمكنك استيراد ZelfProof باستخدام اسم ZelfName آخر للوصول من الملحق.",
+        "offline_tip": "لكن لا تقلق! يمكنك استيراد ZelfProof باستخدام اسم علامة آخر للوصول من الملحق.",
         "i_understand_go_back": "أفهم ، العودة إلى الصفحة الرئيسية",
         "old_domain": "نطاق قديم",
         "paste_your_recovery_phrase": "يمكنك لصق عبارة الاسترداد السرية بالكامل في أي حقل",
@@ -85,7 +85,7 @@
         "you_can_transfer_this_domain": "يمكنك نقل هذا النطاق",
         "you_will_register_this_domain": "ستقوم بتسجيل هذا النطاق",
         "safeguard_your_crypto": "حماية عملاتك المشفرة!",
-        "offline_import_subtitle": "قبل أن تتمكن من استيراد محفظتك دون اتصال ، تحتاج إلى اختيار اسم ZelfName جديد.",
+        "offline_import_subtitle": "قبل أن تتمكن من استيراد محفظتك دون اتصال ، تحتاج إلى اختيار اسم علامة جديد.",
         "your_zelf_name": "اسم العلامة الخاص بك"
     },
     "settings": {

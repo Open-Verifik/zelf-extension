@@ -106,7 +106,7 @@
         "hide_words": "Masquer les mots",
         "medium": "Moyen",
         "new_password_subtitle": "Le mot de passe suivant est une couche de chiffrement requise pour votre ZelfProof.",
-        "password_decryption": "ZELFNAME REQUIERT UN MOT DE PASSE",
+        "password_decryption": "NOM D'ÉTIQUETTE REQUIERT UN MOT DE PASSE",
         "password_parameters_title": "Directives pour le Mot de Passe",
         "password_parameters": "Nos directives pour votre mot de passe sont : <ul><li>doit contenir entre 8 et 128 caractères</li> <li>doit contenir au moins une lettre majuscule</li> <li>doit contenir une lettre minuscule</li> <li>doit contenir un chiffre</li> <li>doit contenir un caractère spécial</li> <li>évitez les mots de passe courants</li> <li>évitez les caractères répétés</li></ul>",
         "password_strength_label": "Force du Mot de Passe",
@@ -284,10 +284,10 @@
     },
     "manage_domains": {
         "are_you_sure_you_want_to_delete": "Êtes-vous sûr de vouloir supprimer ce ZelfProof ?",
-        "domain_error": "La période d'essai de {{ zelfName }} est terminée, vous devez acheter un abonnement pour continuer à utiliser ce ZelfName",
+        "domain_error": "La période d'essai de {{ zelfName }} est terminée, vous devez acheter un abonnement pour continuer à utiliser ce Nom d'Étiquette",
         "domain_warning": "Vous avez encore du temps pour acheter",
-        "expired_wallet_logout_message": "Vous pouvez décrypter ce ZelfProof à nouveau si vous le recherchez par votre ZelfName. Cependant, vous risquez de le perdre si vous n'achetez pas bientôt.",
-        "logout_of_wallet_message": "Vous pouvez décrypter ce ZelfProof à nouveau si vous le recherchez par votre ZelfName, ou charger votre code QR ZelfProof.",
+        "expired_wallet_logout_message": "Vous pouvez décrypter ce ZelfProof à nouveau si vous le recherchez par votre Nom d'Étiquette. Cependant, vous risquez de le perdre si vous n'achetez pas bientôt.",
+        "logout_of_wallet_message": "Vous pouvez décrypter ce ZelfProof à nouveau si vous le recherchez par votre Nom d'Étiquette, ou charger votre code QR ZelfProof.",
         "purchase_new_domain": "Ajouter un nouveau Nom d'Étiquette"
     },
     "liveness": {

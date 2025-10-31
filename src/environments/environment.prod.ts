@@ -4,6 +4,7 @@ export const environment = {
     baseUrl: "/",
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
     paymentDomainUrl: "https://payment.zelf.world",
+    includeNonPaidDomains: false,
     production: true,
     testnetAddress: "",
     networks: {

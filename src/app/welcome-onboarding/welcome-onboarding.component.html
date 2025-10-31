@@ -1,4 +1,4 @@
-<div class="zelf-card welcome-onboarding" *transloco="let t">
+<div class="zelf-card welcome-onboarding" *transloco="let t" [ngClass]="activeThemeClass">
     <div class="zelf-card__header">
         <div class="welcome-onboarding__header-button">
             <button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['/home']" *ngIf="showHomeButton">

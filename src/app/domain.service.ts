@@ -78,6 +78,28 @@ export interface DomainConfig {
         support?: "standard" | "premium" | "enterprise";
         logo?: string;
     };
+    themeSettings?: {
+        zns?: {
+            enabled: boolean;
+            currentMode: "light" | "dark";
+            lightMode?: {
+                colors?: { [key: string]: string };
+            };
+            darkMode?: {
+                colors?: { [key: string]: string };
+            };
+        };
+        zelfkeys?: {
+            enabled: boolean;
+            currentMode: "light" | "dark";
+            lightMode?: {
+                colors?: { [key: string]: string };
+            };
+            darkMode?: {
+                colors?: { [key: string]: string };
+            };
+        };
+    };
 }
 
 export interface DomainResponse {
@@ -114,7 +136,7 @@ export class DomainService {
 
         console.log({ response: response.data });
 
-        if (response?.success && response.data) {
+        if (response.data) {
             // Save domain keys (just the names)
             this.domainKeys = Object.keys(response.data);
 
@@ -142,6 +164,7 @@ export class DomainService {
      * @returns DomainConfig | undefined
      */
     getDomainConfig(domainName: string): DomainConfig | undefined {
+        console.log({ domainName, domainConfigs: this.domainConfigs });
         return this.domainConfigs[domainName];
     }
 

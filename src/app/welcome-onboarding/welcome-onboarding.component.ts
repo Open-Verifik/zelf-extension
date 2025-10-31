@@ -20,6 +20,7 @@ import { WalletService } from "app/wallet.service";
 import { TagsService } from "app/tags.service";
 import { DomainService, DomainConfig } from "app/domain.service";
 import { DomainSelectionModalComponent, DomainSelectionData } from "app/domain-selection-modal/domain-selection-modal.component";
+import { ThemeService } from "app/theme.service";
 
 @Component({
     animations: [swipeLeft],
@@ -53,6 +54,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     loadingDomains: boolean = false;
     showHomeButton: boolean = false;
     currentDomainConfig: DomainConfig | null = null;
+    activeThemeClass: string = "";
 
     gridItems = [
         { text: "Spark", row: 1, col: 1 },
@@ -78,7 +80,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _router: Router,
         private _tagsService: TagsService,
         private _vaultService: VaultService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _themeService: ThemeService
     ) {
         this._clearChromeItems();
 
@@ -127,6 +130,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         // Initialize validators for the selected domain
         const initialDomain = this.form.get("domain")?.value || "zelf";
         this._updateTagNameValidators(initialDomain);
+
+        // Apply theme for current domain
+        const applied = await this._themeService.applyThemeForDomain(initialDomain);
+        this.activeThemeClass = applied.className;
     }
 
     ngOnDestroy(): void {
@@ -394,6 +401,11 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
                 // Update validators based on new domain
                 this._updateTagNameValidators(result);
+
+                // Apply theme based on new domain
+                this._themeService.applyThemeForDomain(result).then((applied) => {
+                    this.activeThemeClass = applied.className;
+                });
             }
         });
     }
@@ -426,6 +438,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
             // Update validators for the initial domain
             this._updateTagNameValidators(this.domain);
+
+            // Apply theme for the resolved domain
+            const applied = await this._themeService.applyThemeForDomain(this.domain);
+            this.activeThemeClass = applied.className;
         }
     }
 

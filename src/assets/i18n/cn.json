@@ -287,7 +287,8 @@
         "domain_warning": "您还有时间购买",
         "expired_wallet_logout_message": "如果您通过标签名称搜索，可以再次解密此ZelfProof。但是，如果您不尽快购买，可能会失去它。",
         "logout_of_wallet_message": "如果您通过标签名称搜索或加载ZelfProof二维码，可以再次解密此ZelfProof。",
-        "purchase_new_domain": "添加新的标签名称"
+        "purchase_new_domain": "添加新的标签名称",
+        "zelfproof_removed_successfully": "ZelfProof 已成功移除"
     },
     "liveness": {
         "center_your_face": "将您的脸居中在屏幕上",

@@ -105,7 +105,14 @@ export class WalletService {
     }
 
     get TagRegex(): RegExp {
-        return /^[a-zA-Z][a-zA-Z0-9]*\.(zelf|bdag)$/i;
+        // Matches tag names with exactly one dot: tagName.domain
+        // Ensures:
+        // - Starts with a letter (cannot start with a dot)
+        // - Followed by zero or more letters/numbers
+        // - Exactly one dot separator
+        // - Domain part (letters, numbers, or hyphens)
+        // - Does NOT match multiple dots (e.g., "a.b.c" will fail)
+        return /^[a-zA-Z][a-zA-Z0-9]*\.[a-zA-Z0-9-]+$/i;
     }
 
     get TagRegexNoPostfix(): RegExp {
@@ -670,7 +677,7 @@ export class WalletService {
         return (currentWallet?.publicData?.ethAddress && !wallets.length) || (!currentWallet?.publicData?.ethAddress && wallets.length === 1);
     }
 
-    async logoutOfWallet(walletToRemove: TagModel): Promise<void> {
+    async deleteZelfProof(walletToRemove: TagModel): Promise<void> {
         const { wallet: currentWallet, wallets } = await this.getAllWalletsFromStorage();
 
         if (currentWallet?.fullTagName === walletToRemove.fullTagName) {

@@ -288,7 +288,8 @@
         "domain_warning": "Aún tienes tiempo para comprar",
         "expired_wallet_logout_message": "Puedes descifrar este ZelfProof nuevamente si buscas por tu Nombre de Etiqueta. Sin embargo, corres el riesgo de perderlo si no lo compras pronto.",
         "logout_of_wallet_message": "Puedes descifrar este ZelfProof nuevamente si buscas por tu Nombre de Etiqueta, o cargas tu código QR de ZelfProof.",
-        "purchase_new_domain": "Agregar un nuevo Nombre de Etiqueta"
+        "purchase_new_domain": "Agregar un nuevo Nombre de Etiqueta",
+        "zelfproof_removed_successfully": "ZelfProof eliminado exitosamente"
     },
     "liveness": {
         "center_your_face": "Centra tu rostro en la pantalla",

@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
@@ -45,6 +46,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     private _loadWalletsDebounced: DebouncedFunc<() => void>;
 
     loading: boolean = false;
+    deleting: boolean = false;
     wallets: Partial<TagModel>[] = [];
     currentWallet: Partial<TagModel> = {};
 
@@ -54,6 +56,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         private _chromeService: ChromeService,
         private _dialog: MatDialog,
         private _router: Router,
+        private _snackBar: MatSnackBar,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
@@ -97,7 +100,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         });
     };
 
-    private _openConfirmationDialog(isLastWallet: boolean, wallet: Partial<TagModel> = {}): void {
+    private _openDeleteConfirmationDialog(isLastWallet: boolean, wallet: Partial<TagModel> = {}): void {
         let message = "";
 
         if (wallet?.publicData?.isFullyExpired || wallet?.publicData?.isExpiringSoon) {
@@ -121,16 +124,55 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(async (confirmed) => {
             if (!confirmed) return;
 
-            if (!isLastWallet) {
-                await this._walletService.logoutOfWallet(wallet as TagModel);
+            if (isLastWallet) {
+                this._chromeService.clearLocalStorage();
+                this._chromeService.clearSessionStorage();
+
+                this._router.navigate(["/welcome"], { replaceUrl: true });
 
                 return;
             }
 
-            this._chromeService.clearLocalStorage();
-            this._chromeService.clearSessionStorage();
+            // Prevent multiple simultaneous deletions
+            if (this.deleting) return;
 
-            this._router.navigate(["/welcome"], { replaceUrl: true });
+            // Delete the wallet
+            try {
+                this.deleting = true;
+                this._changeDetectorRef.detectChanges();
+
+                await this._walletService.deleteZelfProof(wallet as TagModel);
+
+                // Refresh the wallets list
+                await this._setWallets();
+
+                // Show success message
+                this._snackBar.open(
+                    this._translocoService.translate("manage_domains.zelfproof_removed_successfully"),
+                    this._translocoService.translate("common.close"),
+                    {
+                        duration: 3000,
+                        panelClass: "zelf-snackbar",
+                        verticalPosition: "top",
+                    }
+                );
+            } catch (error) {
+                console.error("Error deleting ZelfProof:", error);
+
+                // Show error message
+                this._snackBar.open(
+                    this._translocoService.translate("errors.something_went_wrong"),
+                    this._translocoService.translate("common.close"),
+                    {
+                        duration: 5000,
+                        panelClass: "zelf-snackbar",
+                        verticalPosition: "top",
+                    }
+                );
+            } finally {
+                this.deleting = false;
+                this._changeDetectorRef.detectChanges();
+            }
         });
     }
 
@@ -206,14 +248,14 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this._router.navigate(["/welcome/grace"]);
     }
 
-    async logoutOfWallet(wallet: Partial<TagModel>): Promise<void> {
+    async deleteZelfProof(wallet: Partial<TagModel>): Promise<void> {
         if (!wallet.name) return;
 
         const isLastWallet = await this._walletService.checkIfLastWallet();
 
-        if (!isLastWallet) return this._openConfirmationDialog(isLastWallet, wallet as TagModel);
+        if (!isLastWallet) return this._openDeleteConfirmationDialog(isLastWallet, wallet as TagModel);
 
-        this._openConfirmationDialog(isLastWallet);
+        this._openDeleteConfirmationDialog(isLastWallet);
     }
 
     showDetails(wallet: Partial<TagModel>): boolean {

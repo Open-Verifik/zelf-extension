@@ -246,7 +246,7 @@
         "withdrawal_network": "Withdrawal network",
         "your_token": "Your {{ symbol }}",
         "zelf_link": "Zelf Link",
-        "zelf_wallet": "Zelf Wallet"
+        "zelf_wallet": "Zelf Proof"
     },
     "token": {
         "24h_performance": "24h Performance",
@@ -297,7 +297,8 @@
         "domain_warning": "You still have time to buy",
         "expired_wallet_logout_message": "You can decrypt this ZelfProof again if you search by your Tag Name. However, you risk losing it if you don't purchase soon.",
         "logout_of_wallet_message": "You can decrypt this ZelfProof again if you search by your Tag Name, or load your ZelfProof QR code.",
-        "purchase_new_domain": "Add a new Tag Name"
+        "purchase_new_domain": "Add a new Tag Name",
+        "zelfproof_removed_successfully": "ZelfProof removed successfully"
     },
     "liveness": {
         "center_your_face": "Center your face on the screen",

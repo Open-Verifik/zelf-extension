@@ -287,7 +287,8 @@
         "domain_warning": "まだ購入する時間があります",
         "expired_wallet_logout_message": "タグ名で検索すれば、このZelfProofを再度復号化できます。ただし、すぐに購入しないと失う可能性があります。",
         "logout_of_wallet_message": "タグ名で検索するか、ZelfProofのQRコードを読み込むことで、このZelfProofを再度復号化できます。",
-        "purchase_new_domain": "新しいタグ名を追加"
+        "purchase_new_domain": "新しいタグ名を追加",
+        "zelfproof_removed_successfully": "ZelfProofが正常に削除されました"
     },
     "liveness": {
         "center_your_face": "画面の中央に顔を合わせてください",

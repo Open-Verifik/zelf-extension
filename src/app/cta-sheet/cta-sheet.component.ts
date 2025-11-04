@@ -210,7 +210,7 @@ export class CtaSheetComponent implements OnDestroy {
         dialogRef.afterClosed().subscribe(async (result: boolean) => {
             if (!result) return;
 
-            await this._walletService.logoutOfWallet(this.data.wallet as TagModel);
+            await this._walletService.deleteZelfProof(this.data.wallet as TagModel);
 
             this._bottomSheetRef.dismiss();
         });

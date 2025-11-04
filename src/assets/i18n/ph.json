@@ -236,7 +236,7 @@
         "withdraw": "Mag-withdraw",
         "withdrawal_network": "Network ng withdrawal",
         "your_token": "Ang iyong {{ symbol }}",
-        "zelf_wallet": "Zelf Wallet"
+        "zelf_wallet": "Zelf Proof"
     },
     "token": {
         "24h_performance": "24h na Performance",
@@ -287,7 +287,8 @@
         "domain_warning": "May oras ka pa para bumili",
         "expired_wallet_logout_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag. Gayunpaman, nasa panganib ka na mawala ito kung hindi ka agad bibili.",
         "logout_of_wallet_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag, o i-load ang iyong ZelfProof QR code.",
-        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag"
+        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag",
+        "zelfproof_removed_successfully": "Matagumpay na natanggal ang ZelfProof"
     },
     "liveness": {
         "center_your_face": "I-center ang iyong mukha sa screen",

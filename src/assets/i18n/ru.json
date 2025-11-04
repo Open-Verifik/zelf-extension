@@ -287,7 +287,8 @@
         "domain_warning": "У вас еще есть время на покупку",
         "expired_wallet_logout_message": "Вы можете снова расшифровать этот ZelfProof, если найдете его по вашему имени тега. Однако вы рискуете потерять его, если не приобретете в ближайшее время.",
         "logout_of_wallet_message": "Вы можете снова расшифровать этот ZelfProof, если найдете его по вашему имени тега или загрузите QR-код вашего ZelfProof.",
-        "purchase_new_domain": "Добавить новое имя тега"
+        "purchase_new_domain": "Добавить новое имя тега",
+        "zelfproof_removed_successfully": "ZelfProof успешно удален"
     },
     "liveness": {
         "center_your_face": "Расположите лицо по центру экрана",

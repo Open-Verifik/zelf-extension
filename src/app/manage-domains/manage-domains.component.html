@@ -26,9 +26,9 @@
     </div>
 
     <div class="zelf-card__content manage-domains__content">
-        <zelf-loader *ngIf="loading"></zelf-loader>
+        <zelf-loader *ngIf="loading || deleting"></zelf-loader>
 
-        <ng-container *ngIf="!loading">
+        <ng-container *ngIf="!loading && !deleting">
             <div class="domains">
                 <div class="domain" *ngFor="let wallet of wallets">
                     <div class="domain__display">
@@ -85,7 +85,7 @@
                                 </mat-icon>
                             </button>
 
-                            <button class="zelf-menu__button zelf-menu__button--icon-end" mat-menu-item (click)="logoutOfWallet(wallet)">
+                            <button class="zelf-menu__button zelf-menu__button--icon-end" mat-menu-item (click)="deleteZelfProof(wallet)">
                                 <span class="zelf-menu__button-text">{{ t("common.logout") }}</span>
 
                                 <mat-icon class="zelf-menu__button-icon">

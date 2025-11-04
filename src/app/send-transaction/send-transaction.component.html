@@ -241,19 +241,8 @@
                             <p class="zelf-object-preview__chip-text" *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</p>
                         </div>
 
-                        <div
-                            class="zelf-chip"
-                            [ngClass]="{
-                                'zelf-chip--error': foundAddress.publicData.type !== 'mainnet',
-                                'zelf-chip--info': foundAddress.publicData.type === 'mainnet',
-                            }"
-                        >
-                            <ng-container *ngIf="foundAddress.publicData?.type !== 'mainnet'">{{ t("send.zelf_name_not_registered") }}</ng-container>
-                            <ng-container *ngIf="foundAddress.publicData?.type === 'mainnet'">{{ t("send.zelf_name_registered") }}</ng-container>
-                        </div>
-
                         <h3 class="zelf-object-preview__zelf-name">
-                            {{ foundAddress.publicData.tagName }}
+                            {{ foundAddress.fullTagName }}
                         </h3>
 
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">
@@ -265,9 +254,9 @@
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress }}</p>
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress }}</p>
 
-                        <hr class="zelf-object-preview__horizontal-rule" />
+                        <!-- <hr class="zelf-object-preview__horizontal-rule" /> -->
 
-                        <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p>
+                        <!-- <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p> -->
                     </div>
 
                     <div class="zelf-object-preview" *ngIf="isZelfNameNotFound">

@@ -287,7 +287,8 @@
         "domain_warning": "คุณยังมีเวลาในการซื้อ",
         "expired_wallet_logout_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
         "logout_of_wallet_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ หรือโหลดรหัส QR ของ ZelfProof ของคุณ",
-        "purchase_new_domain": "เพิ่มชื่อแท็กใหม่"
+        "purchase_new_domain": "เพิ่มชื่อแท็กใหม่",
+        "zelfproof_removed_successfully": "ลบ ZelfProof สำเร็จแล้ว"
     },
     "liveness": {
         "center_your_face": "จัดใบหน้าของคุณให้อยู่ตรงกลางหน้าจอ",

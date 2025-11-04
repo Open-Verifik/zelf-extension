@@ -287,7 +287,8 @@
         "domain_warning": "لا يزال لديك وقت للشراء",
         "expired_wallet_logout_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك. ومع ذلك، فإنك تخاطر بفقدانه إذا لم تشتري قريبًا.",
         "logout_of_wallet_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك، أو قمت بتحميل رمز QR الخاص بزيلف بروف.",
-        "purchase_new_domain": "إضافة اسم العلامة جديد"
+        "purchase_new_domain": "إضافة اسم العلامة جديد",
+        "zelfproof_removed_successfully": "تم إزالة ZelfProof بنجاح"
     },
     "liveness": {
         "center_your_face": "ضع وجهك في منتصف الشاشة",

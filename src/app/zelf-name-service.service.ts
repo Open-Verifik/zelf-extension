@@ -289,4 +289,37 @@ export class ZelfNameService {
 
         return wallet;
     }
+
+    /**
+     * Get ArNS record for a zelfName
+     * @param zelfName - The zelfName to check
+     * @returns Promise with ArNS data (exists: false if not found)
+     */
+    async getArNS(zelfName: string): Promise<any> {
+        // Remove .zelf suffix if present
+        const cleanZelfName = zelfName.endsWith(".zelf") ? zelfName.slice(0, -5) : zelfName;
+
+        try {
+            const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ar-io-arns/${cleanZelfName}`);
+            return response;
+        } catch (error: any) {
+            // If 404 or validation error (not found in arweave), return exists: false
+            if (error?.status === 404 || error?.message?.includes("not_found_in_arweave") || error?.body?.message?.includes("not_found")) {
+                return { success: true, exists: false, zelfName: cleanZelfName };
+            }
+            throw error;
+        }
+    }
+
+    /**
+     * Create ArNS record for a zelfName
+     * @param zelfName - The zelfName to create ArNS for
+     * @returns Promise with created ArNS data
+     */
+    async createArNS(zelfName: string): Promise<any> {
+        // Remove .zelf suffix if present
+        const cleanZelfName = zelfName.endsWith(".zelf") ? zelfName.slice(0, -5) : zelfName;
+
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/ar-io-arns/${cleanZelfName}`, {});
+    }
 }

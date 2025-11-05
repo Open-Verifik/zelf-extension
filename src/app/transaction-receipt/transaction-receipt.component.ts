@@ -26,6 +26,7 @@ import { TagModel } from "app/tags.service";
 })
 export class TransactionReceiptComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     private _timeout!: ReturnType<typeof setTimeout>;
+    private _originalPendingTransaction: any = null; // Store original pending transaction to preserve amount
 
     hash: string = "";
     loading: boolean = false;
@@ -157,7 +158,17 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
     private async _requestTransactionDetails(): Promise<void> {
         if (!this.hash) return;
-        if (!this.transaction) this.transaction = await this._walletService.getPendingTransaction(this.hash);
+
+        // Always try to get the original pending transaction first to preserve the amount
+        // Store it in a class property so it persists across retries
+        if (!this._originalPendingTransaction) {
+            this._originalPendingTransaction = await this._walletService.getPendingTransaction(this.hash);
+        }
+
+        // Use the original pending transaction if we don't have a transaction yet
+        if (!this.transaction && this._originalPendingTransaction) {
+            this.transaction = this._originalPendingTransaction;
+        }
 
         this.network = this._determineNetwork();
         this._setNetworkProperties();
@@ -167,9 +178,13 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
             if (!response || !response.data) return this._retryRequestTransactionDetails();
 
-            this.transaction = this._blockchainTransactionsService.processTransactionResponse(response, this.network);
+            const apiTransaction = this._blockchainTransactionsService.processTransactionResponse(response, this.network);
 
-            if (!this.transaction) return this._retryRequestTransactionDetails();
+            if (!apiTransaction) return this._retryRequestTransactionDetails();
+
+            // Merge API response with original pending transaction, preserving original amount, fee, and total
+            // Always use _originalPendingTransaction to ensure we preserve the original values
+            this.transaction = this._mergeTransactionData(this._originalPendingTransaction || this.transaction, apiTransaction);
 
             if (!this.transaction.network) this.transaction.network = this.network;
 
@@ -184,6 +199,16 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         } catch (error) {
             this._handleTransactionDetailsError(error);
         }
+    }
+
+    /**
+     * Merges API transaction response with pending transaction data.
+     * Uses the shared mergeTransactionData method from WalletService.
+     * This ensures consistent merging logic across the application.
+     */
+    private _mergeTransactionData(originalPending: any, apiResponse: any): any {
+        // Delegate to the shared utility method in WalletService
+        return this._walletService.mergeTransactionData(originalPending, apiResponse);
     }
 
     private async _retryRequestTransactionDetails(): Promise<void> {

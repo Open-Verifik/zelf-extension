@@ -793,12 +793,108 @@ export class WalletService {
         if (!pendingTransactions) {
             await this._chromeService.setItem("pendingTransactions", { [transaction.transactionHash]: transaction });
         } else {
-            if (pendingTransactions[transaction.transactionHash]) return;
+            const existingTransaction = pendingTransactions[transaction.transactionHash];
 
-            pendingTransactions[transaction.transactionHash] = transaction;
+            // If transaction already exists, merge intelligently to preserve original amount, fee, and total
+            if (existingTransaction) {
+                const mergedTransaction = this._mergePendingTransaction(existingTransaction, transaction);
+                pendingTransactions[transaction.transactionHash] = mergedTransaction;
+            } else {
+                pendingTransactions[transaction.transactionHash] = transaction;
+            }
 
             await this._chromeService.setItem("pendingTransactions", pendingTransactions);
         }
+    }
+
+    /**
+     * Merges a new transaction update with an existing pending transaction.
+     * Preserves original amount, fee, and total from the existing transaction if they are valid.
+     * Only updates status and other newer data from the update.
+     *
+     * This is a shared utility method used by:
+     * - addTransactionToPending() - when updating pending transactions in storage
+     * - TransactionReceiptComponent - when merging API response with pending transaction for display
+     */
+    public mergeTransactionData(original: any, update: any): any {
+        if (!original) return update;
+        if (!update) return original;
+
+        // Preserve original amount if it exists and is valid (not 0, NaN, or missing)
+        // Only update if update amount is valid and matches the original (within small tolerance for floating point)
+        const originalAmount = original.amount;
+        const updateAmount = update.amount;
+        const originalAmountNum = Number(originalAmount);
+        const updateAmountNum = Number(updateAmount);
+
+        // Check if update amount is invalid (0, NaN, undefined, null, empty string, or falsy)
+        const isUpdateAmountInvalid = !updateAmount || updateAmountNum === 0 || isNaN(updateAmountNum);
+
+        // Check if amounts match (within small tolerance for floating point precision)
+        const amountMatches =
+            !isNaN(originalAmountNum) &&
+            originalAmountNum > 0 &&
+            !isNaN(updateAmountNum) &&
+            updateAmountNum > 0 &&
+            Math.abs(originalAmountNum - updateAmountNum) < 0.00000001;
+
+        // Preserve original if: original is valid AND (update is invalid OR update doesn't match original)
+        const shouldPreserveAmount = !isNaN(originalAmountNum) && originalAmountNum > 0 && (isUpdateAmountInvalid || !amountMatches);
+
+        // Preserve original fee if it exists and is valid
+        const originalFee = original.fee;
+        const updateFee = update.fee;
+        const originalFeeNum = Number(originalFee);
+        const updateFeeNum = Number(updateFee);
+        const isUpdateFeeInvalid = !updateFee || updateFeeNum === 0 || isNaN(updateFeeNum);
+        const shouldPreserveFee = !isNaN(originalFeeNum) && originalFeeNum > 0 && isUpdateFeeInvalid;
+
+        // Preserve original fiatFee if it exists and is valid
+        const originalFiatFee = original.fiatFee;
+        const updateFiatFee = update.fiatFee;
+        const originalFiatFeeNum = Number(originalFiatFee);
+        const updateFiatFeeNum = Number(updateFiatFee);
+        const isUpdateFiatFeeInvalid = !updateFiatFee || updateFiatFeeNum === 0 || isNaN(updateFiatFeeNum);
+        const shouldPreserveFiatFee = !isNaN(originalFiatFeeNum) && originalFiatFeeNum > 0 && isUpdateFiatFeeInvalid;
+
+        // Preserve original total if it exists and is valid
+        const originalTotal = original.total;
+        const updateTotal = update.total;
+        const originalTotalNum = Number(originalTotal);
+        const updateTotalNum = Number(updateTotal);
+        const isUpdateTotalInvalid = !updateTotal || updateTotalNum === 0 || isNaN(updateTotalNum);
+        const shouldPreserveTotal = !isNaN(originalTotalNum) && originalTotalNum > 0 && isUpdateTotalInvalid;
+
+        // Merge: update takes precedence for most fields, but preserve critical fields from original
+        // IMPORTANT: Put the critical fields AFTER the spread to ensure they override update values
+        return {
+            ...update,
+            // Preserve amount from original if update has invalid amount
+            amount: shouldPreserveAmount ? originalAmount : amountMatches ? updateAmount : originalAmount,
+            // Preserve fee from original if update has invalid fee
+            fee: shouldPreserveFee ? originalFee : isUpdateFeeInvalid ? originalFee : updateFee,
+            // Preserve fiatFee from original if update has invalid fiatFee
+            fiatFee: shouldPreserveFiatFee ? originalFiatFee : isUpdateFiatFeeInvalid ? originalFiatFee : updateFiatFee,
+            // Preserve total from original if update has invalid total
+            total: shouldPreserveTotal ? originalTotal : isUpdateTotalInvalid ? originalTotal : updateTotal,
+            // Preserve other important fields from original if they exist
+            date: original.date || update.date,
+            from: original.from || update.from,
+            to: original.to || update.to,
+            network: original.network || update.network,
+            tokenType: original.tokenType || update.tokenType,
+            symbol: original.symbol || update.symbol,
+            // Update status from update (this is expected to change)
+            status: update.status || original.status,
+        };
+    }
+
+    /**
+     * Private alias for mergeTransactionData - kept for backward compatibility
+     * @deprecated Use mergeTransactionData() instead
+     */
+    private _mergePendingTransaction(existing: any, update: any): any {
+        return this.mergeTransactionData(existing, update);
     }
 
     public async getWalletAddressByTokenType(tokenType: string): Promise<string> {

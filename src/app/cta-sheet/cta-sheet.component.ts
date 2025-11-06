@@ -130,8 +130,6 @@ export class CtaSheetComponent implements OnDestroy {
             domain: this.data.wallet.publicData?.domain || "zelf",
         });
 
-        console.log({ available: response.data?.available, todo: response.data });
-
         this._isAvailable = response?.data?.available ?? false;
     }
 
@@ -235,15 +233,10 @@ export class CtaSheetComponent implements OnDestroy {
     async goToRecovery(): Promise<void> {
         const tagModel = this.data.wallet as TagModel;
 
-        // Get tagName (just the name part, without domain)
-        const tagName = tagModel?.tagName || this.data.wallet?.publicData?.tagName?.split(".")[0] || this.data.wallet?.name?.split(".")[0] || "";
-
-        // Get domain separately
-        const domain = tagModel?.domain || this.data.wallet?.publicData?.domain || "zelf";
-
         // Set data in TagsService (used by welcome-grace)
-        await this._tagsService.setTagName(tagName);
-        await this._tagsService.setDomain(domain);
+        await this._tagsService.setTagName(tagModel?.tagName);
+
+        await this._tagsService.setDomain(tagModel?.domain || "zelf");
 
         // Set zelfProof in ZelfNameService (still used by welcome-grace)
         await this._zelfNameService.setZelfProof(this.data.wallet.zelfProof || "");
@@ -253,16 +246,31 @@ export class CtaSheetComponent implements OnDestroy {
             const tagResponse: TagSearchResponse = {
                 ipfs: [],
                 arweave: [],
-                available: false,
-                tagName: tagModel?.fullTagName || `${tagName}.${domain}`,
-                tagObject: this.data.wallet as any,
+                available: tagModel.available,
+                tagName: tagModel.tagName,
+                domain: tagModel.domain,
+                tagObject: this.data.wallet as TagModel,
             };
+
             await this._tagsService.setTagResponse(tagResponse);
         }
 
         await this._walletService.setWalletsToColdStorage();
 
-        this._router.navigate(["/welcome/grace"]);
+        await this._tagsService.setTagNameObject(tagModel);
+
+        await this._tagsService.setDomain(tagModel.domain || "zelf");
+
+        await this._tagsService.setTagName(tagModel.tagName);
+
+        await this._tagsService.setZelfProof(this.data.wallet.zelfProof || "");
+
+        if (tagModel.available) {
+            this._router.navigate(["/welcome/recover"]);
+        } else {
+            this._router.navigate(["/welcome/grace"]);
+        }
+
         this._bottomSheetRef.dismiss();
     }
 

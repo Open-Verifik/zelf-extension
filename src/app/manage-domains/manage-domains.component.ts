@@ -222,8 +222,6 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     goToDomain(wallet: Partial<TagModel>): void {
-        console.log({ wallet: wallet, showDetails: this.showDetails(wallet) });
-
         if (this.showDetails(wallet)) {
             this._openCTASheet(wallet);
 

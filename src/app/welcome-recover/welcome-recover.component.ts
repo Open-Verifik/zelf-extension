@@ -61,22 +61,6 @@ export class WelcomeRecoverComponent implements OnInit {
         }
 
         this.oldZelfNameObject = new TagModel(tagNameObject);
-
-        this._tagsService.setTagNameObject(this.oldZelfNameObject);
-        this._tagsService.setDomain(this.oldZelfNameObject.domain);
-        this._tagsService.setTagName(tagNameObject.name);
-
-        console.log({ oldZelfNameObject: this.oldZelfNameObject, tagObject: tagNameObject });
-    }
-
-    private async _captchaGeneration(): Promise<any> {
-        if (this._chromeService.isExtension) return;
-
-        try {
-            this.captchaToken = await this._captchaService.executeRecaptcha(this.form.get("zelfName")?.value.replace(".", "_"));
-        } catch (error) {
-            console.error("reCAPTCHA failed:", error);
-        }
     }
 
     private _initForm(): void {
@@ -93,8 +77,6 @@ export class WelcomeRecoverComponent implements OnInit {
         this.searching = true;
 
         try {
-            await this._captchaGeneration();
-
             const zelfNameObject = await this._queryZNS("zelfName", query);
 
             if (!zelfNameObject?.available) {

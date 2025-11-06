@@ -275,18 +275,19 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
             return;
         }
 
-        console.log({ zelfNameObjectIsInGracePeriod: zelfNameObject.publicData?.isInGracePeriod });
-
         // Set tagResponse before redirecting to welcome-grace
         if (zelfNameObject && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
             const tagResponse: TagSearchResponse = {
                 ipfs: [],
                 arweave: [],
                 available: false,
-                tagName: zelfNameObject.fullTagName || zelfNameObject.publicData?.tagName || "",
-                tagObject: zelfNameObject as any,
+                tagName: zelfNameObject.tagName,
+                domain: zelfNameObject.domain,
+                tagObject: zelfNameObject as TagModel,
             };
+
             await this._tagsService.setTagResponse(tagResponse);
+
             this._router.navigate(["/welcome/grace"]);
         } else {
             this._router.navigate(["/welcome/registered"]);
@@ -294,23 +295,41 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     }
 
     // In this flow, we know who owns a zelfproof to the name, but it may have been taken if they let the grace period expire
-    private async _redirectAfterZelfProofSearch(zelfNameObject: TagModel | any): Promise<void> {
-        const ownedByThisUser = zelfNameObject.ethAddress === this.ethAddress;
+    private async _redirectAfterZelfProofSearch(tagObject: TagModel | any): Promise<void> {
+        const ownedByThisUser = tagObject.ethAddress === this.ethAddress;
 
-        if (ownedByThisUser && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
+        if (ownedByThisUser && (tagObject.publicData?.isInGracePeriod || tagObject.publicData?.isExpired)) {
             // Set tagResponse before redirecting to welcome-grace
-            if (zelfNameObject) {
+            if (tagObject) {
                 const tagResponse: TagSearchResponse = {
                     ipfs: [],
                     arweave: [],
                     available: false,
-                    tagName: zelfNameObject.fullTagName || zelfNameObject.publicData?.tagName || "",
-                    tagObject: zelfNameObject as TagModel,
+                    tagName: tagObject.tagName,
+                    domain: tagObject.domain,
+                    tagObject: tagObject as TagModel,
                 };
+
                 await this._tagsService.setTagResponse(tagResponse);
             }
             this._router.navigate(["/welcome/grace"]);
         } else if (!ownedByThisUser) {
+            this._tagsService.setTagNameObject(tagObject);
+
+            this._tagsService.setDomain(tagObject.domain);
+
+            this._tagsService.setTagName(tagObject.tagName);
+
+            this._tagsService.setZelfProof(tagObject.zelfProof);
+
+            this._tagsService.setTagResponse({
+                ipfs: [],
+                arweave: [],
+                available: false,
+                tagName: tagObject.tagName,
+                tagObject: tagObject as TagModel,
+            });
+
             this._router.navigate(["/welcome/recover"]);
         } else {
             this._router.navigate(["/welcome/registered"]);

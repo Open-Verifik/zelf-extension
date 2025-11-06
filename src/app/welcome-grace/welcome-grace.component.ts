@@ -39,8 +39,6 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
     async ngOnInit(): Promise<void> {
         this.tagName = await this._tagsService.getTagName();
 
-        console.log({ tagName: this.tagName });
-
         const tagResponse = await this._tagsService.getTagResponse();
 
         if (tagResponse?.tagObject) {
@@ -63,20 +61,8 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
         return `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`;
     }
 
-    private async _captchaGeneration(zelfName: string): Promise<any> {
-        if (this._chromeService.isExtension) return;
-
-        try {
-            this.captchaToken = await this._captchaService.executeRecaptcha(zelfName.replace(".", "_"));
-        } catch (error) {
-            console.error("reCAPTCHA failed:", error);
-        }
-    }
-
     private async _queryZNS(zelfName: string): Promise<void> {
         try {
-            await this._captchaGeneration(zelfName);
-
             const response = await this._tagsService.searchTag({ tagName: zelfName, domain: this.domain, captchaToken: this.captchaToken });
 
             if (!response.data) {
@@ -94,6 +80,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
                 }
                 // Redirect to find page to recover the tag
                 this._router.navigate(["/welcome/find"]);
+
                 return;
             }
 

@@ -191,6 +191,7 @@ export interface TagSearchResponse {
     arweave: TagStorageData[];
     available: boolean;
     tagName: string;
+    domain?: string;
     tagObject?: TagStorageData | TagModel;
 }
 
@@ -572,6 +573,8 @@ export class TagsService {
 
     // Variable Management Methods
     async setTagName(tagName: string, priceObject: any = {}): Promise<void> {
+        if (!tagName) return;
+
         const sanitizedTagName = tagName.split(".")[0];
 
         this.variables.tagName = sanitizedTagName;
@@ -606,6 +609,7 @@ export class TagsService {
 
     async setTagResponse(tagResponse: TagSearchResponse): Promise<void> {
         this.variables.tagResponse = tagResponse;
+
         await this._chromeService.setItem("tagResponse", tagResponse);
     }
 

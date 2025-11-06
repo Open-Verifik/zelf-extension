@@ -64,8 +64,6 @@ export class MyArNSComponent implements OnInit {
         try {
             this.arnsUrl = await this.ensureArNS(this.wallet.tagName as string);
 
-            console.log("arnsUrl", this.arnsUrl);
-
             if (!this.arnsUrl) {
                 console.error("Failed to ensure ArNS for", this.wallet.tagName);
             }

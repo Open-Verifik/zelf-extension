@@ -396,7 +396,7 @@
         "ru": "러시아어"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "이 지갑을 더 이상 원하지 않습니다",
+        "i_dont_want_this_wallet": "이 태그 이름을 더 이상 원하지 않습니다",
         "choose_new_zelfname": "새로운 태그 이름 선택",
         "recover_it_now": "지금 복구하기",
         "delete_wallet_title": "지갑 삭제",

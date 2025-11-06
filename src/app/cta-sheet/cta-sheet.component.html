@@ -42,7 +42,7 @@
                     </h4>
                     <h4 class="cta-sheet__pretitle" *ngIf="has7DaysLeft(expiresAt)">{{ t("cta_sheet.love_your_zelfname") }}</h4>
                     <h4 class="cta-sheet__pretitle" *ngIf="data.wallet.publicData?.isInGracePeriod">{{ t("cta_sheet.not_much_time_left") }}</h4>
-                    <h4 class="cta-sheet__pretitle" *ngIf="data.wallet.publicData?.isFullyExpired">{{ t("cta_sheet.oh_no") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="data.wallet.publicData?.isFullyExpired && !isAvailable">{{ t("cta_sheet.oh_no") }}</h4>
                 </ng-container>
 
                 <ng-container *ngSwitchDefault>
@@ -51,7 +51,7 @@
                         {{ t("cta_sheet.make_zelfname_yours", { zelfName: data.wallet.tagName | uppercase }) }}
                     </h4>
                     <h4 class="cta-sheet__pretitle" *ngIf="has7DaysLeft(expiresAt)">{{ t("cta_sheet.love_your_zelfname") }}</h4>
-                    <h4 class="cta-sheet__pretitle" *ngIf="isExpired(expiresAt)">{{ t("cta_sheet.oh_no") }}</h4>
+                    <h4 class="cta-sheet__pretitle" *ngIf="isExpired(expiresAt) && !isAvailable">{{ t("cta_sheet.oh_no") }}</h4>
                 </ng-container>
             </ng-container>
 

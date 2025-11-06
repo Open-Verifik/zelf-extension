@@ -65,6 +65,8 @@ export class WelcomeRecoverComponent implements OnInit {
         this._tagsService.setTagNameObject(this.oldZelfNameObject);
         this._tagsService.setDomain(this.oldZelfNameObject.domain);
         this._tagsService.setTagName(tagNameObject.name);
+
+        console.log({ oldZelfNameObject: this.oldZelfNameObject, tagObject: tagNameObject });
     }
 
     private async _captchaGeneration(): Promise<any> {

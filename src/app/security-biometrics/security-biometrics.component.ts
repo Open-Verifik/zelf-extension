@@ -116,7 +116,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 await this._chromeService.removeItem("flow");
 
-                await this._chromeService.setItem("wallet", newWallet);
+                // Use switchWallet to properly preserve the old current wallet in the wallets array
+                await this._walletService.switchWallet(newWallet);
 
                 this._redirect();
             })
@@ -137,7 +138,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             .then(async (response) => {
                 await this._chromeService.removeItem("flow");
 
-                await this._chromeService.setItem("wallet", new TagModel(response.data));
+                // Use switchWallet to properly preserve the old current wallet in the wallets array
+                await this._walletService.switchWallet(new TagModel(response.data));
 
                 this._redirect();
             })

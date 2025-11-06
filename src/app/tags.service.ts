@@ -4,6 +4,7 @@ import { environment } from "../environments/environment";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
+import { WalletService } from "./wallet.service";
 
 export type TagFlow = "create" | "import" | "unlock" | "recover" | "";
 export type TagType = "create" | "import";
@@ -436,7 +437,8 @@ export class TagsService {
     constructor(
         private _httpWrapper: HttpWrapperService,
         private _chromeService: ChromeService,
-        private _vaultService: VaultService
+        private _vaultService: VaultService,
+        private _walletService: WalletService
     ) {
         this.variables = {
             duration: 1,
@@ -720,23 +722,30 @@ export class TagsService {
     async refreshTagPublicData(tag: TagModel): Promise<TagModel | null> {
         if (!tag || !tag.publicData?.tagName) return null;
 
-        const response = await this.searchTag({ tagName: tag.publicData.tagName });
+        const response = await this.searchTag({ tagName: tag.tagName, domain: tag.publicData.domain });
 
-        if (!response.data.ipfs?.length && !response.data.arweave?.length) {
+        const tagObject = response.data.tagObject;
+
+        // this is when the tag is available for purchase, not longer in IPFS or Arweave
+        if (response.data?.available) {
             tag.updatePublicData({
-                ...tag.publicData,
+                ...tagObject?.publicData,
                 expiresAt: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
                 gracePeriod: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
             });
 
+            tag.available = true;
+
+            await this._walletService.updateWallet(tag);
+
             return tag;
         }
 
-        const publicData = response.data.ipfs?.length ? response.data.ipfs[0]?.publicData : response.data.arweave?.[0]?.publicData;
+        if (!tagObject?.publicData || !tag) return null;
 
-        if (!publicData || !tag) return null;
+        tag.updatePublicData(tagObject?.publicData);
 
-        tag.updatePublicData(publicData);
+        await this._walletService.updateWallet(tag);
 
         return tag;
     }

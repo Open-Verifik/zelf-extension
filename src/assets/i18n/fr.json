@@ -397,7 +397,7 @@
         "ru": "Russe"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "Je ne veux plus de ce portefeuille",
+        "i_dont_want_this_wallet": "Je ne veux plus de ce nom d'étiquette",
         "choose_new_zelfname": "Choisir un nouveau Nom d'Étiquette",
         "recover_it_now": "Récupérer maintenant",
         "delete_wallet_title": "Supprimer le portefeuille",

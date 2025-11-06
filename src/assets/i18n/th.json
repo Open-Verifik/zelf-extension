@@ -396,7 +396,7 @@
         "ru": "ภาษารัสเซีย"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "ฉันไม่ต้องการกระเป๋าเงินนี้แล้ว",
+        "i_dont_want_this_wallet": "ฉันไม่ต้องการชื่อแท็กนี้แล้ว",
         "choose_new_zelfname": "เลือกชื่อแท็กใหม่",
         "recover_it_now": "กู้คืนตอนนี้",
         "delete_wallet_title": "ลบกระเป๋าเงิน",

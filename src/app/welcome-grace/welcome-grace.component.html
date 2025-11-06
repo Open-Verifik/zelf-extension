@@ -132,7 +132,12 @@
                 <p class="tip-box__text" *ngIf="!tagNameObject.publicData.isInGracePeriod">{{ t("welcome.dont_lose_your_zelfname") }}</p>
             </div>
 
-            <button (click)="renewZelfName()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button>
+            <button
+                (click)="renewZelfName()"
+                class="zelf-button zelf-button--black zelf-button--wide"
+                mat-flat-button
+                *ngIf="!tagNameObject.available"
+            >
                 {{ t("common.renew_subscription") }}
             </button>
 

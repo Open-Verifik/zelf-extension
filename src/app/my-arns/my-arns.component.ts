@@ -20,6 +20,8 @@ import { TagModel } from "app/tags.service";
 export class MyArNSComponent implements OnInit {
     arnsUrl: string | null = null;
     isLoadingArnsUrl: boolean = true;
+    wallet: TagModel | null = null;
+    isMainnet: boolean = false;
 
     constructor(
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -32,15 +34,24 @@ export class MyArNSComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         // Check if ArNS exists and create it if it doesn't when the modal opens
-        const wallet = (await this._walletService.getCurrentWallet()) as TagModel;
+        this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
 
-        if (!wallet?.tagName) {
+        if (!this.wallet?.tagName) {
+            this.isLoadingArnsUrl = false;
+            return;
+        }
+
+        // Check if domain is mainnet
+        this.isMainnet = this.wallet.isMainnet;
+
+        // If not mainnet, don't fetch ArNS URL
+        if (!this.isMainnet) {
             this.isLoadingArnsUrl = false;
             return;
         }
 
         // Check cache first - if cached, no need to show loading
-        const cachedUrl = await this._getCachedArnsUrl(wallet.tagName as string);
+        const cachedUrl = await this._getCachedArnsUrl(this.wallet.tagName as string);
         if (cachedUrl) {
             this.arnsUrl = cachedUrl;
             this.isLoadingArnsUrl = false;
@@ -51,12 +62,12 @@ export class MyArNSComponent implements OnInit {
         this.isLoadingArnsUrl = true;
 
         try {
-            this.arnsUrl = await this.ensureArNS(wallet.tagName as string);
+            this.arnsUrl = await this.ensureArNS(this.wallet.tagName as string);
 
             console.log("arnsUrl", this.arnsUrl);
 
             if (!this.arnsUrl) {
-                console.error("Failed to ensure ArNS for", wallet.tagName);
+                console.error("Failed to ensure ArNS for", this.wallet.tagName);
             }
         } finally {
             this.isLoadingArnsUrl = false;
@@ -159,6 +170,11 @@ export class MyArNSComponent implements OnInit {
             this._router.navigate(["/external-link"], { queryParams: { externalUrl: this.arnsUrl } });
         }
 
+        this._bottomSheetRef.dismiss();
+    }
+
+    goToPurchase(): void {
+        this._router.navigate(["/manage-domains"]);
         this._bottomSheetRef.dismiss();
     }
 

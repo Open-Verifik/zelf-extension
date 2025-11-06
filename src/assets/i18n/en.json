@@ -406,7 +406,7 @@
         "ru": "Russian"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "I don't want this wallet anymore",
+        "i_dont_want_this_wallet": "I don't want this tag name anymore",
         "choose_new_zelfname": "Choose a new Tag Name",
         "recover_it_now": "Recover it now",
         "delete_wallet_title": "Delete wallet",

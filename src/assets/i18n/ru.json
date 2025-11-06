@@ -396,7 +396,7 @@
         "ru": "Русский"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "Я больше не хочу этот кошелек",
+        "i_dont_want_this_wallet": "Я больше не хочу это имя тега",
         "choose_new_zelfname": "Выберите новое имя тега",
         "recover_it_now": "Восстановить сейчас",
         "delete_wallet_title": "Удалить кошелек",

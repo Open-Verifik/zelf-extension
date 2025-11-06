@@ -19,7 +19,7 @@ import { TimerPipe } from "app/pipes/timer.pipe";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { TagModel } from "app/tags.service";
+import { TagModel, TagsService, TagSearchResponse } from "app/tags.service";
 import { environment } from "environments/environment";
 
 @Component({
@@ -59,7 +59,8 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         private _snackBar: MatSnackBar,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService
     ) {
         this._loadWalletsDebounced = debounce(this._loadWallets, 1000);
     }
@@ -82,6 +83,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         await this._setWallets();
+
         await this._refreshWallets();
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._loadWalletsDebounced);
@@ -193,14 +195,17 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     private _refreshWallets = async (): Promise<void> => {
-        await this._zelfNameService.refreshAllWalletsPublicData(this.wallets as TagModel[], true);
+        await this._tagsService.refreshAllTagsPublicData(this.wallets as TagModel[], true);
     };
 
     private async _setWallets(): Promise<void> {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
-        this.currentWallet = wallet || ({} as TagModel);
-        this.wallets = [wallet || ({} as TagModel), ...wallets];
+        // Filter out empty or invalid wallets (wallets without tagName or name)
+        const validWallets = [wallet, ...wallets].filter((w) => w && (w.tagName || w.name || w.publicData?.tagName)) as TagModel[];
+
+        this.currentWallet = wallet && (wallet.tagName || wallet.name || wallet.publicData?.tagName) ? wallet : validWallets[0] || ({} as TagModel);
+        this.wallets = validWallets;
         this.loading = false;
 
         this._changeDetectorRef.detectChanges();
@@ -217,6 +222,8 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     goToDomain(wallet: Partial<TagModel>): void {
+        console.log({ wallet: wallet, showDetails: this.showDetails(wallet) });
+
         if (this.showDetails(wallet)) {
             this._openCTASheet(wallet);
 
@@ -239,11 +246,43 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     }
 
     async goToRecovery(wallet: Partial<TagModel>): Promise<void> {
-        await this._zelfNameService.setZelfName(wallet.tagName || "");
-        await this._zelfNameService.setZelfProof(wallet.zelfProof || "");
-        await this._zelfNameService.setZelfNameObject(wallet);
+        const tagModel = wallet as TagModel;
+
+        // Get tagName (just the name part, without domain)
+        const tagName = tagModel?.tagName || wallet?.publicData?.tagName?.split(".")[0] || wallet?.name?.split(".")[0] || "";
+
+        // Get domain separately
+        const domain = tagModel?.domain || wallet?.publicData?.domain || "zelf";
+
+        // Check if tag is available (doesn't exist in IPFS/Arweave)
+        // The available property is already set during wallet refresh, no need for additional API call
+        const isAvailable = (tagModel as TagModel)?.available === true;
+
+        await this._tagsService.setTagName(tagName);
+        await this._tagsService.setDomain(domain);
+
+        await this._tagsService.setZelfProof(wallet.zelfProof || "");
 
         await this._walletService.setWalletsToColdStorage();
+
+        if (isAvailable) {
+            this._router.navigate(["/welcome/find"]);
+
+            return;
+        }
+
+        // Create tagResponse from wallet data for welcome-grace
+        if (wallet) {
+            const tagResponse: TagSearchResponse = {
+                ipfs: [],
+                arweave: [],
+                available: false,
+                tagName: tagModel?.tagName,
+                tagObject: wallet as any,
+            };
+
+            await this._tagsService.setTagResponse(tagResponse);
+        }
 
         this._router.navigate(["/welcome/grace"]);
     }

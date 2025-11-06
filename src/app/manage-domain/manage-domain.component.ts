@@ -74,13 +74,17 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     }
 
     async extendRegistration(): Promise<void> {
-        const name = this.wallet?.tagName || this.wallet?.publicData?.tagName || this.wallet?.name || "";
-        const domain = this.wallet?.publicData?.domain || "zelf";
+        // Get tagName (just the name part, without domain)
+        const tagName = (this.wallet as TagModel)?.tagName;
+
+        // Get domain separately
+        const domain = (this.wallet as TagModel)?.publicData?.domain;
+
         const duration = 1;
 
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
+                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${tagName}&domain=${domain}&duration=${duration}`,
             },
         });
     }

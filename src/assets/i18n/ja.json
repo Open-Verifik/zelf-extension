@@ -396,7 +396,7 @@
         "ru": "ロシア語"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "このウォレットはもう必要ありません",
+        "i_dont_want_this_wallet": "このタグ名はもう必要ありません",
         "choose_new_zelfname": "新しいタグ名を選択",
         "recover_it_now": "今すぐ復元",
         "delete_wallet_title": "ウォレットを削除",

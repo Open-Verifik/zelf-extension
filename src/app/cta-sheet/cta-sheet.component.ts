@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
-import { TagModel } from "app/tags.service";
+import { TagModel, TagsService, TagSearchResponse } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { environment } from "environments/environment";
@@ -44,7 +44,8 @@ export class CtaSheetComponent implements OnDestroy {
         private _router: Router,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService
     ) {
         this._setBenefits();
     }
@@ -52,7 +53,14 @@ export class CtaSheetComponent implements OnDestroy {
     async ngOnInit(): Promise<void> {
         if (!this.data.wallet.publicData?.isFullyExpired) {
             this._isAvailable = false;
+
             this._startTimeUpdateInterval();
+
+            return;
+        }
+
+        if (this.data.wallet.available) {
+            this._isAvailable = true;
 
             return;
         }
@@ -117,9 +125,14 @@ export class CtaSheetComponent implements OnDestroy {
     }
 
     private async _checkZelfNameAvailability(): Promise<void> {
-        const response = await this._zelfNameService.searchZelfNameV2("zelfName", this.data.wallet.tagName || "");
+        const response = await this._tagsService.searchTag({
+            tagName: this.data.wallet.tagName || "",
+            domain: this.data.wallet.publicData?.domain || "zelf",
+        });
 
-        this._isAvailable = response?.data?.available || false;
+        console.log({ available: response.data?.available, todo: response.data });
+
+        this._isAvailable = response?.data?.available ?? false;
     }
 
     private _getTimeDiff(dateToCompare: string): number {
@@ -217,9 +230,32 @@ export class CtaSheetComponent implements OnDestroy {
     }
 
     async goToRecovery(): Promise<void> {
-        await this._zelfNameService.setZelfName(this.data.wallet.tagName || "");
+        const tagModel = this.data.wallet as TagModel;
+
+        // Get tagName (just the name part, without domain)
+        const tagName = tagModel?.tagName || this.data.wallet?.publicData?.tagName?.split(".")[0] || this.data.wallet?.name?.split(".")[0] || "";
+
+        // Get domain separately
+        const domain = tagModel?.domain || this.data.wallet?.publicData?.domain || "zelf";
+
+        // Set data in TagsService (used by welcome-grace)
+        await this._tagsService.setTagName(tagName);
+        await this._tagsService.setDomain(domain);
+
+        // Set zelfProof in ZelfNameService (still used by welcome-grace)
         await this._zelfNameService.setZelfProof(this.data.wallet.zelfProof || "");
-        await this._zelfNameService.setZelfNameObject(this.data.wallet);
+
+        // Create tagResponse from wallet data for welcome-grace
+        if (this.data.wallet) {
+            const tagResponse: TagSearchResponse = {
+                ipfs: [],
+                arweave: [],
+                available: false,
+                tagName: tagModel?.fullTagName || `${tagName}.${domain}`,
+                tagObject: this.data.wallet as any,
+            };
+            await this._tagsService.setTagResponse(tagResponse);
+        }
 
         await this._walletService.setWalletsToColdStorage();
 

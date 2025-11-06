@@ -397,7 +397,7 @@
         "ru": "Ruso"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "Ya no quiero esta billetera",
+        "i_dont_want_this_wallet": "Ya no quiero este nombre de etiqueta",
         "choose_new_zelfname": "Elige un nuevo Nombre de Etiqueta",
         "recover_it_now": "Recupéralo ahora",
         "delete_wallet_title": "Eliminar billetera",

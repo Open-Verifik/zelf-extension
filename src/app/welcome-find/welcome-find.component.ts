@@ -2,7 +2,7 @@ import jsQR from "jsqr";
 import { Buffer } from "buffer";
 
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -15,7 +15,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { TagModel, TagsService } from "app/tags.service";
+import { TagModel, TagsService, TagSearchResponse } from "app/tags.service";
 @Component({
     imports: [
         CommonModule,
@@ -32,7 +32,7 @@ import { TagModel, TagsService } from "app/tags.service";
     styleUrls: ["./welcome-find.component.scss"],
     templateUrl: "./welcome-find.component.html",
 })
-export class WelcomeFindComponent implements OnDestroy {
+export class WelcomeFindComponent implements OnInit, OnDestroy {
     private _invalidTimeout!: ReturnType<typeof setTimeout>;
 
     captchaToken: string = "";
@@ -58,6 +58,20 @@ export class WelcomeFindComponent implements OnDestroy {
         private _tagsService: TagsService
     ) {
         this._initForm();
+    }
+
+    async ngOnInit(): Promise<void> {
+        // Check if zelfProof is already set in the service (e.g., from welcome-grace redirect)
+        // Try TagsService first, then ZelfNameService as fallback
+        let storedZelfProof = await this._tagsService.getZelfProof();
+
+        if (!storedZelfProof) return;
+
+        this.zelfProof = storedZelfProof;
+
+        this.loading = true;
+
+        await this._previewQRCode();
     }
 
     ngOnDestroy(): void {
@@ -188,7 +202,7 @@ export class WelcomeFindComponent implements OnDestroy {
         this._tagsService.setDomain(domain);
         this._tagsService.setTagName(tagName);
 
-        this._redirectAfterZelfProofSearch(currentZelfNameObject);
+        await this._redirectAfterZelfProofSearch(currentZelfNameObject);
     }
 
     private async _queryForZelfObjectByZelfName(params: { tagKey: string; tagName: string; domain: string }): Promise<any> {
@@ -254,14 +268,25 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     // In this flow - we don't know who owns the name
-    private _redirectAfterTextSearch(zelfNameObject: TagModel | any): void {
+    private async _redirectAfterTextSearch(zelfNameObject: TagModel | any): Promise<void> {
         if (!zelfNameObject || zelfNameObject?.available) {
             this._router.navigate(["/welcome/available"]);
 
             return;
         }
 
-        if (zelfNameObject.publicData.isInGracePeriod || zelfNameObject.publicData?.isExpired) {
+        console.log({ zelfNameObjectIsInGracePeriod: zelfNameObject.publicData?.isInGracePeriod });
+
+        // Set tagResponse before redirecting to welcome-grace
+        if (zelfNameObject && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
+            const tagResponse: TagSearchResponse = {
+                ipfs: [],
+                arweave: [],
+                available: false,
+                tagName: zelfNameObject.fullTagName || zelfNameObject.publicData?.tagName || "",
+                tagObject: zelfNameObject as any,
+            };
+            await this._tagsService.setTagResponse(tagResponse);
             this._router.navigate(["/welcome/grace"]);
         } else {
             this._router.navigate(["/welcome/registered"]);
@@ -269,10 +294,21 @@ export class WelcomeFindComponent implements OnDestroy {
     }
 
     // In this flow, we know who owns a zelfproof to the name, but it may have been taken if they let the grace period expire
-    private _redirectAfterZelfProofSearch(zelfNameObject: TagModel | any): void {
+    private async _redirectAfterZelfProofSearch(zelfNameObject: TagModel | any): Promise<void> {
         const ownedByThisUser = zelfNameObject.ethAddress === this.ethAddress;
 
         if (ownedByThisUser && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
+            // Set tagResponse before redirecting to welcome-grace
+            if (zelfNameObject) {
+                const tagResponse: TagSearchResponse = {
+                    ipfs: [],
+                    arweave: [],
+                    available: false,
+                    tagName: zelfNameObject.fullTagName || zelfNameObject.publicData?.tagName || "",
+                    tagObject: zelfNameObject as any,
+                };
+                await this._tagsService.setTagResponse(tagResponse);
+            }
             this._router.navigate(["/welcome/grace"]);
         } else if (!ownedByThisUser) {
             this._router.navigate(["/welcome/recover"]);
@@ -357,7 +393,7 @@ export class WelcomeFindComponent implements OnDestroy {
 
         if (!zelfNameObject) return;
 
-        this._redirectAfterTextSearch(zelfNameObject);
+        await this._redirectAfterTextSearch(zelfNameObject);
     }
 
     async searchAddress(): Promise<void> {
@@ -373,6 +409,6 @@ export class WelcomeFindComponent implements OnDestroy {
 
         if (!zelfNameObject) return;
 
-        this._redirectAfterTextSearch(zelfNameObject);
+        await this._redirectAfterTextSearch(zelfNameObject);
     }
 }

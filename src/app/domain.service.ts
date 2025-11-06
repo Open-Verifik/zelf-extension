@@ -134,8 +134,6 @@ export class DomainService {
 
         const response = await this.httpWrapper.sendRequest<DomainResponse>("get", `${this.apiUrl}/api/tags/domains`, queryParams);
 
-        console.log({ response: response.data });
-
         if (response.data) {
             // Save domain keys (just the names)
             this.domainKeys = Object.keys(response.data);
@@ -164,7 +162,6 @@ export class DomainService {
      * @returns DomainConfig | undefined
      */
     getDomainConfig(domainName: string): DomainConfig | undefined {
-        console.log({ domainName, domainConfigs: this.domainConfigs });
         return this.domainConfigs[domainName];
     }
 

@@ -38,8 +38,19 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
 
     async ngOnInit(): Promise<void> {
         this.tagName = await this._tagsService.getTagName();
-        this.tagNameObject = new TagModel(await this._tagsService.getTagResponse());
+
+        console.log({ tagName: this.tagName });
+
+        const tagResponse = await this._tagsService.getTagResponse();
+
+        if (tagResponse?.tagObject) {
+            this.tagNameObject = new TagModel(tagResponse?.tagObject);
+        } else {
+            this.tagNameObject = new TagModel();
+        }
+
         this.zelfProof = await this._zelfNameService.getZelfProof();
+
         this.domain = await this._tagsService.getDomain();
 
         await this._queryZNS(this.tagName);
@@ -74,7 +85,24 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
                 return;
             }
 
+            // If tag is available, it means it doesn't exist in IPFS/Arweave anymore
+            // Redirect to welcome/find so user can recover it using their zelfProof
+            if (response.data?.available) {
+                // Ensure zelfProof is set in the service for recovery
+                if (this.zelfProof) {
+                    await this._tagsService.setZelfProof(this.zelfProof);
+                }
+                // Redirect to find page to recover the tag
+                this._router.navigate(["/welcome/find"]);
+                return;
+            }
+
             const tagNameObject = new TagModel(response.data.tagObject);
+
+            // Update the component's tagNameObject with fresh data
+            if (response.data.tagObject) {
+                this.tagNameObject = tagNameObject;
+            }
 
             const isOwnedByUser = tagNameObject.zelfProof === this.tagNameObject.zelfProof;
 

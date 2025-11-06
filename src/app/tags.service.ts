@@ -191,7 +191,7 @@ export interface TagSearchResponse {
     arweave: TagStorageData[];
     available: boolean;
     tagName: string;
-    tagObject?: TagStorageData;
+    tagObject?: TagStorageData | TagModel;
 }
 
 export class TagPublicDataModel {
@@ -743,7 +743,7 @@ export class TagsService {
 
         if (!tagObject?.publicData || !tag) return null;
 
-        tag.updatePublicData(tagObject?.publicData);
+        tag.updatePublicData(tagObject?.publicData as Partial<TagPublicData>);
 
         await this._walletService.updateWallet(tag);
 

@@ -217,6 +217,9 @@ export class CtaSheetComponent implements OnDestroy {
             data: {
                 title: this._translocoService.translate("cta_sheet.delete_wallet_title"),
                 message: this._translocoService.translate("cta_sheet.delete_wallet_message"),
+                cancel: this._translocoService.translate("common.no"),
+                confirm: this._translocoService.translate("common.yes"),
+                destructiveButton: true,
             },
         });
 

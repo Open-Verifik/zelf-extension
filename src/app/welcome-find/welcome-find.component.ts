@@ -305,7 +305,7 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
                     arweave: [],
                     available: false,
                     tagName: zelfNameObject.fullTagName || zelfNameObject.publicData?.tagName || "",
-                    tagObject: zelfNameObject as any,
+                    tagObject: zelfNameObject as TagModel,
                 };
                 await this._tagsService.setTagResponse(tagResponse);
             }

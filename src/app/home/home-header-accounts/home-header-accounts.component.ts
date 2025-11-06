@@ -51,6 +51,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         // Filter out the current wallet from the wallets array to prevent duplication
         // This ensures the current wallet is only shown once in the "current" section
         const currentWalletTagName = wallet?.fullTagName;
+
         this.wallets = currentWalletTagName ? wallets.filter((w) => w.fullTagName !== currentWalletTagName) : wallets;
 
         this.loaded = true;

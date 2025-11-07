@@ -63,6 +63,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         this._showArnsInstructions = (await this._chromeService.getItem("myArnsDontShowAgain")) !== true;
 
         this.wallet = (await this._walletService.getCurrentWallet()) || {};
+
         this.parameters = (await this._chromeService.getItem("parameters")) || {};
 
         await this._chromeService.removeItem("parameters");
@@ -96,7 +97,9 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         const link = document.createElement("a");
 
         link.href = this.wallet?.image as string;
-        link.download = `zelfproof_${this.wallet?.tagName}.png`;
+
+        link.download = `zelfproof_${this.wallet?.fullTagName}.png`;
+
         link.click();
     }
 
@@ -120,20 +123,11 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     }
 
     openMyArnsBottomSheet(): void {
-        if (this._showArnsInstructions) {
-            this._bottomSheet.open(MyArNSComponent, {
-                backdropClass: "zelf-backdrop",
-                panelClass: "zelf-bottom-sheet",
-            });
-
-            return;
-        }
-
-        if (!this.wallet?.fullTagName) return;
-
-        const url = this._zelfNameService.generateArNS(this.wallet.fullTagName);
-
-        this._router.navigate(["/external-link"], { queryParams: { externalUrl: url } });
+        this._bottomSheet.open(MyArNSComponent, {
+            backdropClass: "zelf-backdrop",
+            panelClass: "zelf-bottom-sheet",
+            data: { wallet: this.wallet },
+        });
     }
 
     openPrivateKeyBottomSheet(): void {

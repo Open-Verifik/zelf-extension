@@ -76,10 +76,6 @@ export class ZelfNameService {
         return false;
     };
 
-    generateArNS(zelfName: string): string {
-        return `https://${zelfName.replace(".", "_")}.arweave.zelf.world`;
-    }
-
     decryptZelfName(payload: any): Promise<any> {
         const promise = this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/decrypt`, payload);
 
@@ -295,17 +291,15 @@ export class ZelfNameService {
      * @param zelfName - The zelfName to check
      * @returns Promise with ArNS data (exists: false if not found)
      */
-    async getArNS(zelfName: string): Promise<any> {
+    async getArNS(tagName: string, domain: string): Promise<any> {
         // Remove .zelf suffix if present
-        const cleanZelfName = zelfName.endsWith(".zelf") ? zelfName.slice(0, -5) : zelfName;
-
         try {
-            const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ar-io-arns/${cleanZelfName}`);
+            const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ar-io-arns/${tagName}.${domain}`);
             return response;
         } catch (error: any) {
             // If 404 or validation error (not found in arweave), return exists: false
             if (error?.status === 404 || error?.message?.includes("not_found_in_arweave") || error?.body?.message?.includes("not_found")) {
-                return { success: true, exists: false, zelfName: cleanZelfName };
+                return { success: true, exists: false, zelfName: `${tagName}.${domain}` };
             }
             throw error;
         }
@@ -316,10 +310,8 @@ export class ZelfNameService {
      * @param zelfName - The zelfName to create ArNS for
      * @returns Promise with created ArNS data
      */
-    async createArNS(zelfName: string): Promise<any> {
+    async createArNS(tagName: string, domain: string): Promise<any> {
         // Remove .zelf suffix if present
-        const cleanZelfName = zelfName.endsWith(".zelf") ? zelfName.slice(0, -5) : zelfName;
-
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/ar-io-arns/${cleanZelfName}`, {});
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/ar-io-arns/${tagName}.${domain}`, {});
     }
 }

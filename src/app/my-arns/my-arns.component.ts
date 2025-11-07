@@ -51,7 +51,8 @@ export class MyArNSComponent implements OnInit {
         }
 
         // Check cache first - if cached, no need to show loading
-        const cachedUrl = await this._getCachedArnsUrl(this.wallet.tagName as string);
+        const cachedUrl = await this._getCachedArnsUrl(this.wallet.tagName as string, this.wallet.domain as string);
+
         if (cachedUrl) {
             this.arnsUrl = cachedUrl;
             this.isLoadingArnsUrl = false;
@@ -62,7 +63,7 @@ export class MyArNSComponent implements OnInit {
         this.isLoadingArnsUrl = true;
 
         try {
-            this.arnsUrl = await this.ensureArNS(this.wallet.tagName as string);
+            this.arnsUrl = await this.ensureArNS(this.wallet.tagName as string, this.wallet.domain as string);
 
             if (!this.arnsUrl) {
                 console.error("Failed to ensure ArNS for", this.wallet.tagName);
@@ -74,24 +75,50 @@ export class MyArNSComponent implements OnInit {
 
     /**
      * Get cache key for storing ArNS URL
-     * @param zelfName - The zelfName to generate cache key for
+     * @param tagName - The tagName to generate cache key for
+     * @param domain - The domain to generate cache key for
      * @returns Cache key string
      */
-    private _getArnsCacheKey(zelfName: string): string {
-        const cleanZelfName = zelfName.endsWith(".zelf") ? zelfName.slice(0, -5) : zelfName;
-        return `arnsUrl_${cleanZelfName.toLowerCase()}`;
+    private _getArnsCacheKey(tagName: string, domain: string): string {
+        return `arnsUrl_${tagName}_${domain}` + (domain === "zelf" ? "" : `_zelf`);
     }
 
     /**
      * Get cached ArNS URL from localStorage
-     * @param zelfName - The zelfName to get cached URL for
-     * @returns Cached URL or null if not found
+     * @param tagName - The tagName to get cached URL for
+     * @param domain - The domain to get cached URL for
+     * @returns Cached URL or null if not found or expired
      */
-    private async _getCachedArnsUrl(zelfName: string): Promise<string | null> {
+    private async _getCachedArnsUrl(tagName: string, domain: string): Promise<string | null> {
         try {
-            const cacheKey = this._getArnsCacheKey(zelfName);
-            const cachedUrl = await this._chromeService.getItem(cacheKey);
-            return cachedUrl ? (cachedUrl as string) : null;
+            const cacheKey = this._getArnsCacheKey(tagName, domain);
+
+            const cachedData = await this._chromeService.getItem(cacheKey);
+
+            if (!cachedData) {
+                return null;
+            }
+
+            // Check if cached data is in old format (string) or new format (object with timestamp)
+            if (typeof cachedData === "string") {
+                // Old format - treat as expired to force refresh
+                return null;
+            }
+
+            const cache = cachedData as { url: string; timestamp: number };
+
+            // Check if cache is expired (1 hour = 3600000 milliseconds)
+            const oneHourInMs = 60 * 60 * 1000;
+            const now = Date.now();
+            const isExpired = now - cache.timestamp > oneHourInMs;
+
+            if (isExpired) {
+                // Cache expired, remove it and return null
+                await this._chromeService.removeItem(cacheKey);
+                return null;
+            }
+
+            return cache.url;
         } catch (error) {
             console.error("Error reading cached ArNS URL:", error);
             return null;
@@ -99,14 +126,19 @@ export class MyArNSComponent implements OnInit {
     }
 
     /**
-     * Cache ArNS URL in localStorage
-     * @param zelfName - The zelfName to cache URL for
+     * Cache ArNS URL in localStorage with 1 hour TTL
+     * @param tagName - The tagName to cache URL for
+     * @param domain - The domain to cache URL for
      * @param url - The URL to cache
      */
-    private async _cacheArnsUrl(zelfName: string, url: string): Promise<void> {
+    private async _cacheArnsUrl(tagName: string, domain: string, url: string): Promise<void> {
         try {
-            const cacheKey = this._getArnsCacheKey(zelfName);
-            await this._chromeService.setItem(cacheKey, url);
+            const cacheKey = this._getArnsCacheKey(tagName, domain);
+            const cacheData = {
+                url: url,
+                timestamp: Date.now(),
+            };
+            await this._chromeService.setItem(cacheKey, cacheData);
         } catch (error) {
             console.error("Error caching ArNS URL:", error);
         }
@@ -114,48 +146,45 @@ export class MyArNSComponent implements OnInit {
 
     /**
      * Check if ArNS exists and create it if it doesn't, then return the URL
-     * @param zelfName - The zelfName to check/create
+     * @param tagName - The tagName to check/create
+     * @param domain - The domain to check/create
      * @returns Promise with the ArNS URL
      */
-    async ensureArNS(zelfName: string): Promise<string | null> {
+    async ensureArNS(tagName: string, domain: string): Promise<string | null> {
         // First, check cache
-        const cachedUrl = await this._getCachedArnsUrl(zelfName);
+        const cachedUrl = await this._getCachedArnsUrl(tagName, domain);
 
         if (cachedUrl) return cachedUrl;
 
         try {
             // First, check if ArNS exists
-            const checkResponse = await this._zelfNameService.getArNS(zelfName);
+            const checkResponse = await this._zelfNameService.getArNS(tagName, domain);
 
-            if (checkResponse?.exists && checkResponse?.primaryUrl) {
+            console.log("checkResponse", checkResponse, { uptoDate: checkResponse.upToDate });
+
+            if (checkResponse?.exists && checkResponse?.primaryUrl && checkResponse.upToDate) {
                 // Cache the URL for future use
-                await this._cacheArnsUrl(zelfName, checkResponse.primaryUrl);
+                await this._cacheArnsUrl(tagName, domain, checkResponse.primaryUrl);
 
                 return checkResponse.primaryUrl;
             }
 
             // If it doesn't exist, create it
-            const createResponse = await this._zelfNameService.createArNS(zelfName);
+            const createResponse = await this._zelfNameService.createArNS(tagName, domain);
 
             if (createResponse?.primaryUrl) {
                 // Cache the URL for future use
-                await this._cacheArnsUrl(zelfName, createResponse.primaryUrl);
+                await this._cacheArnsUrl(tagName, domain, createResponse.primaryUrl);
+
                 return createResponse.primaryUrl;
             }
-
-            // Fallback to generated URL if response doesn't have primaryUrl
-            const fallbackUrl = this._zelfNameService.generateArNS(zelfName);
-
-            // Cache the fallback URL as well
-            await this._cacheArnsUrl(zelfName, fallbackUrl);
-
-            return fallbackUrl;
         } catch (error: any) {
             console.error("Error ensuring ArNS:", error);
             // If there's a validation error, the backend will reject it
             // Return null to indicate failure
-            return null;
         }
+
+        return null;
     }
 
     cancel(): void {

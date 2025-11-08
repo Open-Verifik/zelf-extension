@@ -58,7 +58,11 @@
         flex: 1 1 auto;
         justify-content: flex-start;
         position: relative;
-        gap: 16px;
+        gap: 12px;
+
+        @media (min-width: 480px) {
+            gap: 16px;
+        }
     }
 
     &__loader {
@@ -73,14 +77,23 @@
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        gap: 16px;
+        gap: 12px;
         width: 100%;
         border: 1px solid variables.$platinum;
         border-radius: 32px;
-        padding: 32px;
+        padding: 20px 16px;
         box-sizing: border-box;
         background-color: variables.$white;
         box-shadow: 0px 8px 24px 0px #0000000a;
+
+        @media (min-width: 480px) {
+            padding: 24px 20px;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            padding: 32px;
+        }
 
         &--error {
             border-color: variables.$error;
@@ -92,8 +105,18 @@
     }
 
     &__asset-switch {
-        margin-top: -32px;
-        margin-bottom: -32px;
+        margin-top: -20px;
+        margin-bottom: -20px;
+
+        @media (min-width: 480px) {
+            margin-top: -24px;
+            margin-bottom: -24px;
+        }
+
+        @media (min-width: 768px) {
+            margin-top: -32px;
+            margin-bottom: -32px;
+        }
     }
 
     &__actions {
@@ -113,11 +136,18 @@
         border-color: 1px solid variables.$antiFlashWhite;
         justify-content: space-between;
         background: variables.$white;
-        gap: 12px;
-        padding: 8px;
-        min-width: 168px;
+        gap: 8px;
+        padding: 8px 12px;
+        min-width: 140px;
+        max-width: 180px;
         cursor: pointer;
         transition: background-color 0.2s variables.$smoothBezier;
+
+        @media (min-width: 480px) {
+            gap: 12px;
+            min-width: 168px;
+            max-width: none;
+        }
 
         &:hover {
             background-color: variables.$antiFlashWhite;
@@ -135,13 +165,28 @@
         justify-content: center;
         gap: 8px;
         align-items: flex-start;
-        min-width: 50%;
+        min-width: 0;
+        flex: 1 1 auto;
+
+        @media (min-width: 480px) {
+            min-width: 50%;
+        }
     }
 
     &__asset-card-actions--right {
         justify-content: center;
         align-items: flex-end;
-        gap: 24px;
+        gap: 12px;
+        flex-shrink: 0;
+        margin-left: auto;
+
+        @media (min-width: 480px) {
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            gap: 24px;
+        }
     }
 
     &__asset-logo-container {
@@ -170,8 +215,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: flex-start;
-        gap: 8px;
+        gap: 6px;
         flex: 1 1 auto;
+        min-width: 0;
+
+        @media (min-width: 480px) {
+            gap: 8px;
+        }
     }
 
     &__asset-name {
@@ -224,8 +274,13 @@
     &__quick-amounts {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 12px;
+        justify-content: flex-end;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        @media (min-width: 480px) {
+            gap: 12px;
+        }
     }
 
     &__quick-amount {
@@ -292,10 +347,10 @@
         box-sizing: border-box;
         color: inherit;
         font-family: Menda, sans-serif;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 700;
         letter-spacing: 0%;
-        line-height: 40px;
+        line-height: 32px;
         margin: 0;
         outline: none;
         padding: 0;
@@ -303,6 +358,11 @@
         vertical-align: middle;
         width: 100%;
         position: relative;
+
+        @media (min-width: 480px) {
+            font-size: 24px;
+            line-height: 40px;
+        }
 
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {
@@ -324,7 +384,12 @@
         display: flex;
         align-items: center;
         width: 100%;
-        gap: 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        @media (min-width: 480px) {
+            gap: 12px;
+        }
     }
 
     &__balance-value-label {

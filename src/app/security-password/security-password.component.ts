@@ -32,6 +32,11 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     domain: string = "";
     tagModel: TagModel = new TagModel();
     tagResponse: any;
+    selectedSecurityOption: "securePassword" | "pin" | "withoutPassword" | null = null;
+    pinStep: "create" | "confirm" | null = null;
+    pinDigits: string[] = ["", "", "", "", "", ""];
+    confirmPinDigits: string[] = ["", "", "", "", "", ""];
+    pinInputs: HTMLInputElement[] = [];
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -141,5 +146,152 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
     toggleShowPassword(): void {
         this.showPassword = !this.showPassword;
+    }
+
+    selectSecurityOption(option: "securePassword" | "pin" | "withoutPassword"): void {
+        this.selectedSecurityOption = option;
+    }
+
+    continueWithSelection(): void {
+        if (!this.selectedSecurityOption) return;
+
+        if (this.selectedSecurityOption === "withoutPassword") {
+            // Skip password, mark as no password required and go to biometrics
+            this._vaultService.password = "";
+            // Store flag that no password is required
+            this._chromeService.setItem("noPasswordRequired", "true");
+            this._navigateToBiometrics();
+        } else if (this.selectedSecurityOption === "pin") {
+            // Start PIN creation flow
+            this.pinStep = "create";
+            this.pinDigits = ["", "", "", "", "", ""];
+            this.confirmPinDigits = ["", "", "", "", "", ""];
+            // Focus first input after view updates
+            setTimeout(() => {
+                const inputs = this._getPinInputs();
+                if (inputs[0]) inputs[0].focus();
+            }, 0);
+        } else if (this.selectedSecurityOption === "securePassword") {
+            // Show the secure password form (already handled in template)
+            // Form is already initialized in _initForm() for isNew
+            // Form submission will call storePassword()
+        }
+    }
+
+    private async _navigateToBiometrics(): Promise<void> {
+        await this._generateCaptcha();
+        this._router.navigate(["/security/biometrics"], { queryParams: { return: this.returnState } });
+    }
+
+    onPinInput(event: Event, index: number, isConfirm: boolean = false): void {
+        const input = event.target as HTMLInputElement;
+        const value = input.value.replace(/\D/g, ""); // Only allow numbers
+
+        if (value.length > 1) {
+            // If multiple digits pasted, handle accordingly
+            const digits = value.slice(0, 6).split("");
+            if (isConfirm) {
+                this.confirmPinDigits = [...digits, ...Array(6 - digits.length).fill("")].slice(0, 6);
+            } else {
+                this.pinDigits = [...digits, ...Array(6 - digits.length).fill("")].slice(0, 6);
+            }
+            // Focus the last filled input or the next empty one
+            const lastIndex = Math.min(digits.length - 1, 5);
+            setTimeout(() => {
+                const inputs = isConfirm ? this._getConfirmInputs() : this._getPinInputs();
+                if (inputs[lastIndex]) inputs[lastIndex].focus();
+            }, 0);
+            return;
+        }
+
+        if (isConfirm) {
+            this.confirmPinDigits[index] = value;
+        } else {
+            this.pinDigits[index] = value;
+        }
+
+        // Move to next input if value entered
+        if (value && index < 5) {
+            setTimeout(() => {
+                const inputs = isConfirm ? this._getConfirmInputs() : this._getPinInputs();
+                if (inputs[index + 1]) inputs[index + 1].focus();
+            }, 0);
+        }
+    }
+
+    onPinKeyDown(event: KeyboardEvent, index: number, isConfirm: boolean = false): void {
+        const input = event.target as HTMLInputElement;
+
+        if (event.key === "Backspace" && !input.value && index > 0) {
+            // Move to previous input on backspace if current is empty
+            setTimeout(() => {
+                const inputs = isConfirm ? this._getConfirmInputs() : this._getPinInputs();
+                if (inputs[index - 1]) {
+                    inputs[index - 1].focus();
+                    if (isConfirm) {
+                        this.confirmPinDigits[index - 1] = "";
+                    } else {
+                        this.pinDigits[index - 1] = "";
+                    }
+                }
+            }, 0);
+        }
+    }
+
+    private _getPinInputs(): HTMLInputElement[] {
+        return Array.from(document.querySelectorAll<HTMLInputElement>(".security-password__pin-input"));
+    }
+
+    private _getConfirmInputs(): HTMLInputElement[] {
+        return Array.from(document.querySelectorAll<HTMLInputElement>(".security-password__pin-confirm-input"));
+    }
+
+    canContinuePin(): boolean {
+        if (this.pinStep === "create") {
+            return this.pinDigits.every((digit) => digit !== "") && this.pinDigits.length === 6;
+        } else if (this.pinStep === "confirm") {
+            return (
+                this.confirmPinDigits.every((digit) => digit !== "") &&
+                this.confirmPinDigits.length === 6 &&
+                this.confirmPinDigits.join("") === this.pinDigits.join("")
+            );
+        }
+        return false;
+    }
+
+    continuePin(): void {
+        if (this.pinStep === "create") {
+            if (this.canContinuePin()) {
+                this.pinStep = "confirm";
+                this.confirmPinDigits = ["", "", "", "", "", ""];
+                // Focus first confirm input
+                setTimeout(() => {
+                    const inputs = this._getConfirmInputs();
+                    if (inputs[0]) inputs[0].focus();
+                }, 0);
+            }
+        } else if (this.pinStep === "confirm") {
+            if (this.canContinuePin()) {
+                // PIN confirmed, save and continue
+                const pin = this.pinDigits.join("");
+                this._vaultService.password = pin;
+                this._navigateToBiometrics();
+            }
+        }
+    }
+
+    goBackFromPin(): void {
+        if (this.pinStep === "confirm") {
+            this.pinStep = "create";
+            this.confirmPinDigits = ["", "", "", "", "", ""];
+        } else {
+            this.pinStep = null;
+            this.pinDigits = ["", "", "", "", "", ""];
+            this.selectedSecurityOption = null;
+        }
+    }
+
+    trackByIndex(index: number): number {
+        return index;
     }
 }

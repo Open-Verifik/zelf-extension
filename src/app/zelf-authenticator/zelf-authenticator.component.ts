@@ -18,6 +18,7 @@ import { TOTPService } from "app/services/totp.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { AddZotpComponent } from "./add-zotp/add-zotp.component";
 import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-details.component";
+import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.component";
 
 @Component({
     imports: [
@@ -44,6 +45,7 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
     private _searchDebounced: any;
     private _updateInterval$ = interval(1000); // Update every second
     private _codeCache: Map<string, string> = new Map(); // Cache of generated codes
+    private _decryptedSecrets: Map<string, string> = new Map(); // In-memory cache of decrypted secrets (never persisted)
 
     loading: boolean = false;
     searchQuery: string = "";
@@ -77,6 +79,16 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        // Clear all decrypted secrets from memory when component is destroyed
+        this._decryptedSecrets.clear();
+        this._codeCache.clear();
+
+        // Clear decrypted secrets from all ZOTPs
+        this.zotps.forEach((zotp) => {
+            zotp.isDecrypted = false;
+            zotp.decryptedSecret = undefined;
+        });
+
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
     }
@@ -85,9 +97,20 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         try {
+            // Clear any decrypted secrets from memory when loading (coming back to screen)
+            this._decryptedSecrets.clear();
+            this._codeCache.clear();
+
             this.zotps = await this._zotpService.getAllZOTPs();
+
+            // Ensure all ZOTPs are marked as not decrypted (secrets are not persisted)
+            this.zotps.forEach((zotp) => {
+                zotp.isDecrypted = false;
+                zotp.decryptedSecret = undefined;
+            });
+
             this.filteredZotps = this.zotps;
-            // Initialize code cache for decrypted ZOTPs
+            // Initialize code cache for decrypted ZOTPs (will be empty since we cleared decrypted state)
             await this._updateCodeCache();
         } catch (error) {
             console.error("Error loading ZOTPs:", error);
@@ -150,21 +173,74 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
 
     async toggleDecrypt(zotp: ZOTP): Promise<void> {
         if (zotp.isDecrypted) {
-            // Hide the code
+            // Hide the code - clear from memory
             zotp.isDecrypted = false;
             zotp.decryptedSecret = undefined;
+            this._decryptedSecrets.delete(zotp.id);
             this._codeCache.delete(zotp.id);
-        } else {
-            // TODO: Implement decryption logic with biometrics/password
-            // For now, use the secret directly (it should be encrypted in the future)
-            zotp.isDecrypted = true;
-            zotp.decryptedSecret = zotp.secret;
-            // Generate code immediately when decrypted
-            await this._updateCodeCache();
+            this._changeDetectorRef.detectChanges();
+            return;
         }
 
-        await this._zotpService.saveZOTP(zotp);
-        this._changeDetectorRef.detectChanges();
+        // Check if we already have the decrypted secret in memory
+        if (this._decryptedSecrets.has(zotp.id)) {
+            zotp.isDecrypted = true;
+            zotp.decryptedSecret = this._decryptedSecrets.get(zotp.id);
+            await this._updateCodeCache();
+            this._changeDetectorRef.detectChanges();
+            return;
+        }
+
+        // Need to retrieve from backend - show biometrics modal
+        if (!zotp.zelfProof) {
+            console.error("Cannot decrypt ZOTP: missing zelfProof");
+            // TODO: Show error message to user
+            return;
+        }
+
+        // Open unlock modal dialog
+        const dialogRef = this._dialog.open(UnlockZotpComponent, {
+            panelClass: "zelf-dialog",
+            backdropClass: "zelf-backdrop",
+            width: "90vw",
+            maxWidth: "500px",
+            data: {
+                zotp: zotp,
+            } as UnlockZOTPData,
+        });
+
+        dialogRef.afterClosed().subscribe(async (encryptedImage: string | false) => {
+            if (!encryptedImage) {
+                // User cancelled or biometrics failed
+                return;
+            }
+
+            // User successfully scanned face - retrieve secret
+            this.loading = true;
+
+            try {
+                // Retrieve decrypted secret from backend
+                const secret = await this._zotpService.retrieveZOTPSecret(zotp, encryptedImage);
+
+                if (!secret) {
+                    throw new Error("Failed to retrieve ZOTP secret");
+                }
+
+                // Store decrypted secret in memory only (never persist)
+                this._decryptedSecrets.set(zotp.id, secret);
+                zotp.isDecrypted = true;
+                zotp.decryptedSecret = secret;
+
+                // Generate code immediately
+                await this._updateCodeCache();
+            } catch (error) {
+                console.error("Error decrypting ZOTP:", error);
+                // TODO: Show error message to user
+            } finally {
+                this.loading = false;
+                this._changeDetectorRef.detectChanges();
+            }
+        });
     }
 
     private async _updateCodeCache(): Promise<void> {
@@ -172,11 +248,18 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
             .filter((zotp) => zotp.isDecrypted && zotp.decryptedSecret)
             .map(async (zotp) => {
                 try {
+                    // Get decrypted secret from memory cache
+                    const secret = this._decryptedSecrets.get(zotp.id) || zotp.decryptedSecret;
+
+                    if (!secret) {
+                        return;
+                    }
+
                     const period = zotp.period || 30;
                     const digits = zotp.digits || 6;
                     const algorithm = zotp.algorithm || "SHA1";
 
-                    const code = await this._totpService.generate(zotp.decryptedSecret!, period, digits, algorithm);
+                    const code = await this._totpService.generate(secret, period, digits, algorithm);
 
                     // Format as "XXX XXX" (3 digits, space, 3 digits)
                     const formattedCode = code.length === 6 ? `${code.substring(0, 3)} ${code.substring(3)}` : code;

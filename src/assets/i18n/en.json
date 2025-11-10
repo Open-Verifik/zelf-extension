@@ -472,6 +472,7 @@
         "master_password_placeholder": "Enter your wallet master password",
         "master_password_hint": "Your wallet's master password is required to encrypt and store this ZOTP securely.",
         "see_details": "See Details",
+        "unlock_zotp": "Unlock ZOTP",
         "details": "ZOTP Details",
         "qr_code": "QR Code",
         "public_data": "Public Data",

@@ -1,0 +1,85 @@
+@use "../../../styles/variables";
+
+.unlock-zotp {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-family: "Poppins", Arial, sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        color: variables.$black;
+        margin: 0;
+    }
+
+    &__close {
+        cursor: pointer;
+        border: none;
+        background: none;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s variables.$smoothBezier;
+
+        &:hover:not(:disabled) {
+            opacity: 0.6;
+        }
+
+        &:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        svg {
+            fill: variables.$black;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    &__zotp-info {
+        text-align: center;
+        padding: 16px;
+        background-color: variables.$antiFlashWhite;
+        border-radius: 12px;
+    }
+
+    &__zotp-name {
+        font-family: "Poppins", Arial, sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        color: variables.$black;
+        margin-bottom: 4px;
+    }
+
+    &__zotp-issuer {
+        font-family: "Poppins", Arial, sans-serif;
+        font-size: 14px;
+        color: variables.$taupeGray;
+    }
+
+    &__biometrics {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+    }
+}
+

@@ -116,6 +116,11 @@
     }
 }
 
+// Override global .zelf-card__content for this component only
+:host ::ng-deep .zelf-card__content {
+    justify-content: start !important;
+}
+
 .zotps {
     display: flex;
     flex-direction: column;

@@ -31,7 +31,7 @@ export class ZOTPService {
                     const zotp: ZOTP = {
                         id: item.id || this.generateId(),
                         name: item.username || "",
-                        secret: item.password || "", // This is encrypted in ZelfKeys
+                        // DO NOT store secret - it's encrypted in ZelfKeys and must be retrieved via retrieve endpoint
                         issuer: item.website || undefined,
                         algorithm: "SHA1", // Default, could be stored in notes
                         digits: 6, // Default
@@ -82,6 +82,10 @@ export class ZOTPService {
             throw new Error("zelfProof is required to store ZOTP");
         }
 
+        if (!zotp.secret) {
+            throw new Error("Secret is required to store ZOTP");
+        }
+
         // Map ZOTP to ZelfKeys ZOTP format (using the new /store/zotp endpoint)
         const storeRequest = {
             username: zotp.name,
@@ -100,8 +104,13 @@ export class ZOTPService {
             const responseData = response?.data || {};
 
             // Update ZOTP with full response data
+            // IMPORTANT: Do NOT store the secret - it's only kept in memory during creation
+            // CRITICAL: Update zelfProof with the one returned from backend - this is the ZOTP-specific zelfProof
+            // that must be used for retrieval, not the wallet's zelfProof
             const updatedZotp: ZOTP = {
                 ...zotp,
+                secret: undefined, // Remove secret - it's stored encrypted in ZelfKeys
+                zelfProof: responseData.zelfProof || zotp.zelfProof, // Use the ZOTP-specific zelfProof from backend
                 zelfKeysId: responseData.ipfs?.id || zotp.zelfKeysId,
                 zelfProofQRCode: responseData.zelfProofQRCode || zotp.zelfProofQRCode,
                 ipfs: responseData.ipfs || zotp.ipfs,
@@ -123,6 +132,7 @@ export class ZOTPService {
      * Retrieve decrypted secret from ZelfKeys
      * @param zotp - ZOTP to retrieve
      * @param faceBase64 - Encrypted face image from biometrics
+     * @returns The decrypted setupKey (secret)
      */
     async retrieveZOTPSecret(zotp: ZOTP, faceBase64: string): Promise<string> {
         if (!zotp.zelfProof) {
@@ -133,21 +143,35 @@ export class ZOTPService {
             const response = await this._zelfKeysService.retrieve({
                 zelfProof: zotp.zelfProof,
                 faceBase64: faceBase64,
+                // password is optional for retrieve endpoint
             });
 
-            // Find the specific ZOTP in the response
-            // The response should contain the decrypted password
+            // Response structure: { data: { success, data: { metadata, publicData, ipfs } } }
+            // For ZOTP, the setupKey is stored in metadata.setupKey
             if (response?.data) {
-                // If response is an array, find by zelfKeysId
-                if (Array.isArray(response.data)) {
-                    const item = response.data.find((item: any) => item.id === zotp.zelfKeysId);
-                    return item?.password || "";
+                const data = response.data;
+
+                // Check if response has the expected structure
+                if (data?.data?.metadata?.setupKey) {
+                    return data.data.metadata.setupKey;
                 }
-                // If response is a single item
-                return response.data.password || "";
+
+                // Fallback: check if metadata exists directly
+                if (data?.metadata?.setupKey) {
+                    return data.metadata.setupKey;
+                }
+
+                // Another fallback: check for password field (legacy)
+                if (data?.data?.metadata?.password) {
+                    return data.data.metadata.password;
+                }
+
+                if (data?.metadata?.password) {
+                    return data.metadata.password;
+                }
             }
 
-            throw new Error("No data returned from ZelfKeys");
+            throw new Error("No setupKey found in ZelfKeys response");
         } catch (error) {
             console.error("Error retrieving ZOTP secret:", error);
             throw error;
@@ -156,6 +180,7 @@ export class ZOTPService {
 
     /**
      * Get all ZOTPs from local cache
+     * Also fixes any ZOTPs that might have the wrong zelfProof by checking stored response data
      */
     async getAllZOTPs(): Promise<ZOTP[]> {
         if (this._cache) {
@@ -164,6 +189,21 @@ export class ZOTPService {
 
         const zotps = await this._chromeService.getItem<ZOTP[]>(this.STORAGE_KEY);
         this._cache = zotps || [];
+
+        // Fix any ZOTPs that might have the wrong zelfProof
+        // Check if we have stored response data with the correct zelfProof
+        for (const zotp of this._cache) {
+            if (zotp.id) {
+                const responseKey = `zotp_response_${zotp.id}`;
+                const storedResponse = await this._chromeService.getItem<any>(responseKey);
+
+                if (storedResponse?.response?.zelfProof && storedResponse.response.zelfProof !== zotp.zelfProof) {
+                    // Update with the correct ZOTP-specific zelfProof from stored response
+                    zotp.zelfProof = storedResponse.response.zelfProof;
+                    await this._addToCache(zotp);
+                }
+            }
+        }
 
         return this._cache;
     }

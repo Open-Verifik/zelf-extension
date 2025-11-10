@@ -44,6 +44,45 @@
             </div>
         </div>
 
+        <!-- Walrus Information -->
+        <div class="zotp-details__section" *ngIf="walrusData && walrusData.success">
+            <h3 class="zotp-details__section-title">{{ t("zotp.walrus_info") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zotp-details__info-item" *ngIf="walrusData.blobId">
+                    <span class="zotp-details__info-label">{{ t("zotp.walrus_blob_id") }}:</span>
+                    <span class="zotp-details__info-value zotp-details__info-value--mono">{{ walrusData.blobId }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="walrusData.publicUrl">
+                    <span class="zotp-details__info-label">{{ t("zotp.walrus_public_url") }}:</span>
+                    <a [href]="walrusData.publicUrl" target="_blank" rel="noopener noreferrer" class="zotp-details__info-link">
+                        {{ walrusData.publicUrl }}
+                    </a>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="walrusData.explorerUrl">
+                    <span class="zotp-details__info-label">{{ t("zotp.walrus_explorer_url") }}:</span>
+                    <a [href]="walrusData.explorerUrl" target="_blank" rel="noopener noreferrer" class="zotp-details__info-link">
+                        {{ walrusData.explorerUrl }}
+                    </a>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="walrusData.metadata?.sizeBytes">
+                    <span class="zotp-details__info-label">{{ t("zotp.size") }}:</span>
+                    <span class="zotp-details__info-value">{{ walrusData.metadata.sizeBytes | number }} bytes</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="walrusData.storage?.network">
+                    <span class="zotp-details__info-label">{{ t("zotp.network") }}:</span>
+                    <span class="zotp-details__info-value">{{ walrusData.storage.network }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="walrusData.storage?.epochs">
+                    <span class="zotp-details__info-label">{{ t("zotp.walrus_epochs") }}:</span>
+                    <span class="zotp-details__info-value">{{ walrusData.storage.epochs }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="walrusData.metadata?.uploadTimestamp">
+                    <span class="zotp-details__info-label">{{ t("zotp.created_at") }}:</span>
+                    <span class="zotp-details__info-value">{{ formatDate(walrusData.metadata.uploadTimestamp) }}</span>
+                </div>
+            </div>
+        </div>
+
         <!-- IPFS Information -->
         <div class="zotp-details__section" *ngIf="ipfsData">
             <h3 class="zotp-details__section-title">{{ t("zotp.ipfs_info") }}</h3>
@@ -115,4 +154,3 @@
         </button>
     </div>
 </div>
-

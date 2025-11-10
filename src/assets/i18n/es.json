@@ -462,6 +462,7 @@
         "master_password_hint": "La contraseña maestra de tu billetera es requerida para encriptar y almacenar este ZOTP de forma segura.",
         "see_details": "Ver Detalles",
         "unlock_zotp": "Desbloquear ZOTP",
+        "hide_secret": "Ocultar Secreto",
         "details": "Detalles del ZOTP",
         "qr_code": "Código QR",
         "public_data": "Datos Públicos",
@@ -479,6 +480,11 @@
         "updated_at": "Actualizado En",
         "algorithm": "Algoritmo",
         "digits": "Dígitos",
-        "period": "Período"
+        "period": "Período",
+        "walrus_info": "Información de Almacenamiento Walrus",
+        "walrus_blob_id": "ID de Blob",
+        "walrus_public_url": "URL Pública",
+        "walrus_explorer_url": "URL del Explorador",
+        "walrus_epochs": "Épocas de Almacenamiento"
     }
 }

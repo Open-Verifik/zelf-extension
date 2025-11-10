@@ -459,6 +459,8 @@
         "master_password_placeholder": "ウォレットのマスターパスワードを入力してください",
         "master_password_hint": "このZOTPを安全に暗号化して保存するには、ウォレットのマスターパスワードが必要です。",
         "see_details": "詳細を見る",
+        "unlock_zotp": "ZOTPをロック解除",
+        "hide_secret": "シークレットを非表示",
         "details": "ZOTP詳細",
         "qr_code": "QRコード",
         "public_data": "公開データ",
@@ -476,6 +478,11 @@
         "updated_at": "更新日時",
         "algorithm": "アルゴリズム",
         "digits": "桁数",
-        "period": "期間"
+        "period": "期間",
+        "walrus_info": "Walrus ストレージ情報",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "公開 URL",
+        "walrus_explorer_url": "エクスプローラー URL",
+        "walrus_epochs": "ストレージエポック"
     }
 }

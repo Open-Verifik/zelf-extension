@@ -114,6 +114,7 @@ export class ZOTPService {
                 zelfKeysId: responseData.ipfs?.id || zotp.zelfKeysId,
                 zelfProofQRCode: responseData.zelfProofQRCode || zotp.zelfProofQRCode,
                 ipfs: responseData.ipfs || zotp.ipfs,
+                walrus: responseData.walrus || zotp.walrus, // Save Walrus storage data
                 createdAt: responseData.ipfs?.created_at ? new Date(responseData.ipfs.created_at).getTime() : zotp.createdAt,
                 updatedAt: responseData.ipfs?.updated_at ? new Date(responseData.ipfs.updated_at).getTime() : Date.now(),
             };
@@ -190,18 +191,10 @@ export class ZOTPService {
         const zotps = await this._chromeService.getItem<ZOTP[]>(this.STORAGE_KEY);
         this._cache = zotps || [];
 
-        // Fix any ZOTPs that might have the wrong zelfProof
-        // Check if we have stored response data with the correct zelfProof
+        // Sync ZOTPs with stored response data (zelfProof, ipfs, Walrus)
         for (const zotp of this._cache) {
             if (zotp.id) {
-                const responseKey = `zotp_response_${zotp.id}`;
-                const storedResponse = await this._chromeService.getItem<any>(responseKey);
-
-                if (storedResponse?.response?.zelfProof && storedResponse.response.zelfProof !== zotp.zelfProof) {
-                    // Update with the correct ZOTP-specific zelfProof from stored response
-                    zotp.zelfProof = storedResponse.response.zelfProof;
-                    await this._addToCache(zotp);
-                }
+                await this._syncZotpFromStoredResponse(zotp);
             }
         }
 
@@ -255,6 +248,71 @@ export class ZOTPService {
 
         this._cache = zotps;
         await this._chromeService.setItem(this.STORAGE_KEY, zotps);
+    }
+
+    /**
+     * Sync a ZOTP with its stored response data (zelfProof, IPFS, Walrus)
+     */
+    private async _syncZotpFromStoredResponse(zotp: ZOTP): Promise<void> {
+        const responseKey = `zotp_response_${zotp.id}`;
+
+        const storedResponse = await this._chromeService.getItem<any>(responseKey);
+
+        if (!storedResponse?.response) return;
+
+        const response = storedResponse.response;
+
+        let updated = false;
+
+        // Update zelfProof if different
+        if (response.zelfProof && response.zelfProof !== zotp.zelfProof) {
+            zotp.zelfProof = response.zelfProof;
+            updated = true;
+        }
+
+        // Sync IPFS data if available and not already set
+        if (response.ipfs && !zotp.ipfs) {
+            zotp.ipfs = response.ipfs;
+            updated = true;
+        } else if (response.ipfs && zotp.ipfs) {
+            // Merge IPFS data, preferring stored response
+            zotp.ipfs = { ...zotp.ipfs, ...response.ipfs };
+            updated = true;
+        }
+
+        // Sync Walrus data if available and not already set
+        if (response.walrus && !zotp.walrus) {
+            zotp.walrus = response.walrus;
+            updated = true;
+        } else if (response.walrus && zotp.walrus) {
+            // Merge Walrus data, preferring stored response
+            zotp.walrus = { ...zotp.walrus, ...response.walrus };
+            updated = true;
+        }
+
+        // Sync zelfProofQRCode if available
+        if (response.zelfProofQRCode && !zotp.zelfProofQRCode) {
+            zotp.zelfProofQRCode = response.zelfProofQRCode;
+            updated = true;
+        }
+
+        // If we have IPFS data but no Walrus data, try to get blobId from IPFS publicData
+        if (zotp.ipfs?.publicData?.walrus && !zotp.walrus) {
+            const blobId = zotp.ipfs.publicData.walrus;
+            if (blobId && typeof blobId === "string") {
+                zotp.walrus = {
+                    success: true,
+                    blobId: blobId,
+                    publicUrl: `https://walrus-mainnet.mystenlabs.com/${blobId}`,
+                    explorerUrl: `https://walruscan.com/mainnet/blob/${blobId}`,
+                };
+                updated = true;
+            }
+        }
+
+        if (updated) {
+            await this._addToCache(zotp);
+        }
     }
 
     async deleteZOTP(id: string): Promise<void> {

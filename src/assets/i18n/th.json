@@ -459,6 +459,8 @@
         "master_password_placeholder": "ใส่รหัสผ่านหลักของกระเป๋าเงินของคุณ",
         "master_password_hint": "รหัสผ่านหลักของกระเป๋าเงินของคุณจำเป็นสำหรับการเข้ารหัสและจัดเก็บ ZOTP นี้อย่างปลอดภัย",
         "see_details": "ดูรายละเอียด",
+        "unlock_zotp": "ปลดล็อก ZOTP",
+        "hide_secret": "ซ่อนความลับ",
         "details": "รายละเอียด ZOTP",
         "qr_code": "QR Code",
         "public_data": "ข้อมูลสาธารณะ",
@@ -476,6 +478,11 @@
         "updated_at": "อัปเดตเมื่อ",
         "algorithm": "อัลกอริทึม",
         "digits": "ตัวเลข",
-        "period": "ระยะเวลา"
+        "period": "ระยะเวลา",
+        "walrus_info": "ข้อมูลการจัดเก็บ Walrus",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "URL สาธารณะ",
+        "walrus_explorer_url": "URL Explorer",
+        "walrus_epochs": "ยุคการจัดเก็บ"
     }
 }

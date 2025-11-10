@@ -473,6 +473,7 @@
         "master_password_hint": "Your wallet's master password is required to encrypt and store this ZOTP securely.",
         "see_details": "See Details",
         "unlock_zotp": "Unlock ZOTP",
+        "hide_secret": "Hide Secret",
         "details": "ZOTP Details",
         "qr_code": "QR Code",
         "public_data": "Public Data",
@@ -490,6 +491,11 @@
         "updated_at": "Updated At",
         "algorithm": "Algorithm",
         "digits": "Digits",
-        "period": "Period"
+        "period": "Period",
+        "walrus_info": "Walrus Storage Information",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "Public URL",
+        "walrus_explorer_url": "Explorer URL",
+        "walrus_epochs": "Storage Epochs"
     }
 }

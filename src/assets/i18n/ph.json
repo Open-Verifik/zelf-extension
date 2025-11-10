@@ -459,6 +459,8 @@
         "master_password_placeholder": "Ilagay ang master password ng iyong wallet",
         "master_password_hint": "Ang master password ng iyong wallet ay kinakailangan upang i-encrypt at i-store ang ZOTP na ito nang ligtas.",
         "see_details": "Tingnan ang Detalye",
+        "unlock_zotp": "I-unlock ang ZOTP",
+        "hide_secret": "Itago ang Lihim",
         "details": "Mga Detalye ng ZOTP",
         "qr_code": "QR Code",
         "public_data": "Pampublikong Data",
@@ -476,6 +478,11 @@
         "updated_at": "Na-update Noong",
         "algorithm": "Algorithm",
         "digits": "Mga Digit",
-        "period": "Panahon"
+        "period": "Panahon",
+        "walrus_info": "Impormasyon sa Pag-iimbak ng Walrus",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "Pampublikong URL",
+        "walrus_explorer_url": "URL ng Explorer",
+        "walrus_epochs": "Mga Epoch ng Pag-iimbak"
     }
 }

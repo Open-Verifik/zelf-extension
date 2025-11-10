@@ -459,6 +459,8 @@
         "master_password_placeholder": "अपना वॉलेट मास्टर पासवर्ड दर्ज करें",
         "master_password_hint": "इस ZOTP को सुरक्षित रूप से एन्क्रिप्ट और संग्रहीत करने के लिए आपके वॉलेट का मास्टर पासवर्ड आवश्यक है।",
         "see_details": "विवरण देखें",
+        "unlock_zotp": "ZOTP अनलॉक करें",
+        "hide_secret": "गुप्त छुपाएं",
         "details": "ZOTP विवरण",
         "qr_code": "QR कोड",
         "public_data": "सार्वजनिक डेटा",
@@ -476,6 +478,11 @@
         "updated_at": "अपडेट किया गया",
         "algorithm": "एल्गोरिदम",
         "digits": "अंक",
-        "period": "अवधि"
+        "period": "अवधि",
+        "walrus_info": "Walrus भंडारण जानकारी",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "सार्वजनिक URL",
+        "walrus_explorer_url": "एक्सप्लोरर URL",
+        "walrus_epochs": "भंडारण युग"
     }
 }

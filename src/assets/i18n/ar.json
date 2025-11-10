@@ -458,6 +458,8 @@
         "master_password_placeholder": "أدخل كلمة المرور الرئيسية لمحفظتك",
         "master_password_hint": "كلمة المرور الرئيسية لمحفظتك مطلوبة لتشفير وتخزين هذا ZOTP بأمان.",
         "see_details": "عرض التفاصيل",
+        "unlock_zotp": "فتح ZOTP",
+        "hide_secret": "إخفاء السر",
         "details": "تفاصيل ZOTP",
         "qr_code": "رمز QR",
         "public_data": "البيانات العامة",
@@ -475,6 +477,11 @@
         "updated_at": "تم التحديث في",
         "algorithm": "الخوارزمية",
         "digits": "الأرقام",
-        "period": "الفترة"
+        "period": "الفترة",
+        "walrus_info": "معلومات تخزين Walrus",
+        "walrus_blob_id": "معرف Blob",
+        "walrus_public_url": "رابط عام",
+        "walrus_explorer_url": "رابط المستكشف",
+        "walrus_epochs": "عصور التخزين"
     }
 }

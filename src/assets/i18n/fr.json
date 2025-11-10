@@ -460,6 +460,8 @@
         "master_password_placeholder": "Entrez le mot de passe principal de votre portefeuille",
         "master_password_hint": "Le mot de passe principal de votre portefeuille est requis pour crypter et stocker ce ZOTP en toute sécurité.",
         "see_details": "Voir les détails",
+        "unlock_zotp": "Déverrouiller ZOTP",
+        "hide_secret": "Masquer le secret",
         "details": "Détails du ZOTP",
         "qr_code": "Code QR",
         "public_data": "Données publiques",
@@ -477,6 +479,11 @@
         "updated_at": "Mis à jour le",
         "algorithm": "Algorithme",
         "digits": "Chiffres",
-        "period": "Période"
+        "period": "Période",
+        "walrus_info": "Informations de Stockage Walrus",
+        "walrus_blob_id": "ID de Blob",
+        "walrus_public_url": "URL Publique",
+        "walrus_explorer_url": "URL de l'Explorateur",
+        "walrus_epochs": "Époques de Stockage"
     }
 }

@@ -459,6 +459,8 @@
         "master_password_placeholder": "Digite a senha mestra da sua carteira",
         "master_password_hint": "A senha mestra da sua carteira é necessária para criptografar e armazenar este ZOTP com segurança.",
         "see_details": "Ver Detalhes",
+        "unlock_zotp": "Desbloquear ZOTP",
+        "hide_secret": "Ocultar Segredo",
         "details": "Detalhes do ZOTP",
         "qr_code": "Código QR",
         "public_data": "Dados Públicos",
@@ -476,6 +478,11 @@
         "updated_at": "Atualizado Em",
         "algorithm": "Algoritmo",
         "digits": "Dígitos",
-        "period": "Período"
+        "period": "Período",
+        "walrus_info": "Informações de Armazenamento Walrus",
+        "walrus_blob_id": "ID do Blob",
+        "walrus_public_url": "URL Pública",
+        "walrus_explorer_url": "URL do Explorador",
+        "walrus_epochs": "Épocas de Armazenamento"
     }
 }

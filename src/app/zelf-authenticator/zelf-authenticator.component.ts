@@ -5,13 +5,16 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { FormsModule } from "@angular/forms";
 import { RouterLink } from "@angular/router";
-import { TranslocoModule } from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { Subject, interval, takeUntil } from "rxjs";
 import { debounce } from "lodash";
 import { FooterComponent } from "app/footer/footer.component";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
+import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
+import { ChromeService } from "app/chrome.service";
 import { ZOTP } from "app/models/zotp.model";
 import { ZOTPService } from "app/services/zotp.service";
 import { TOTPService } from "app/services/totp.service";
@@ -29,6 +32,7 @@ import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.c
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
+        MatSnackBarModule,
         NgFor,
         NgIf,
         RouterLink,
@@ -40,7 +44,7 @@ import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.c
     styleUrls: ["./zelf-authenticator.component.scss", "../main.scss"],
     templateUrl: "./zelf-authenticator.component.html",
 })
-export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
+export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();
     private _searchDebounced: any;
     private _updateInterval$ = interval(1000); // Update every second
@@ -61,8 +65,12 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
         private _zotpService: ZOTPService,
-        private _totpService: TOTPService
+        private _totpService: TOTPService,
+        protected _chromeService: ChromeService,
+        protected _snackBar: MatSnackBar,
+        protected _translocoService: TranslocoService
     ) {
+        super(_chromeService, _snackBar, _translocoService);
         this._searchDebounced = debounce(this._performSearch.bind(this), 300);
     }
 
@@ -172,13 +180,14 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
     }
 
     async toggleDecrypt(zotp: ZOTP): Promise<void> {
+        // If already decrypted, copy the code instead of hiding it
         if (zotp.isDecrypted) {
-            // Hide the code - clear from memory
-            zotp.isDecrypted = false;
-            zotp.decryptedSecret = undefined;
-            this._decryptedSecrets.delete(zotp.id);
-            this._codeCache.delete(zotp.id);
-            this._changeDetectorRef.detectChanges();
+            const code = this._codeCache.get(zotp.id);
+            if (code) {
+                // Remove spaces for copying (format: "XXX XXX" -> "XXXXXX")
+                const codeToCopy = code.replace(/\s/g, "");
+                await this._copyToClipboard(codeToCopy);
+            }
             return;
         }
 
@@ -203,7 +212,8 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
             panelClass: "zelf-dialog",
             backdropClass: "zelf-backdrop",
             width: "90vw",
-            maxWidth: "500px",
+            maxWidth: "90vw",
+            minWidth: "320px",
             data: {
                 zotp: zotp,
             } as UnlockZOTPData,
@@ -241,6 +251,15 @@ export class ZelfAuthenticatorComponent implements OnInit, OnDestroy {
                 this._changeDetectorRef.detectChanges();
             }
         });
+    }
+
+    hideSecret(zotp: ZOTP): void {
+        // Hide the code - clear from memory
+        zotp.isDecrypted = false;
+        zotp.decryptedSecret = undefined;
+        this._decryptedSecrets.delete(zotp.id);
+        this._codeCache.delete(zotp.id);
+        this._changeDetectorRef.detectChanges();
     }
 
     private async _updateCodeCache(): Promise<void> {

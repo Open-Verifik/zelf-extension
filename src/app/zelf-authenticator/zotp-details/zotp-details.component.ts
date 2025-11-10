@@ -37,6 +37,26 @@ export class ZotpDetailsComponent {
         return this.zotp.ipfs || {};
     }
 
+    get walrusData(): any {
+        // If we have full Walrus data, use it
+        if (this.zotp.walrus) {
+            return this.zotp.walrus;
+        }
+
+        // Otherwise, try to reconstruct from IPFS publicData
+        const blobId = this.zotp.ipfs?.publicData?.walrus;
+        if (blobId && typeof blobId === "string") {
+            return {
+                success: true,
+                blobId: blobId,
+                publicUrl: `https://walrus-mainnet.mystenlabs.com/${blobId}`,
+                explorerUrl: `https://walruscan.com/mainnet/blob/${blobId}`,
+            };
+        }
+
+        return {};
+    }
+
     formatDate(dateString: string | undefined): string {
         if (!dateString) return "N/A";
         try {

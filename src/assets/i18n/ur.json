@@ -459,6 +459,8 @@
         "master_password_placeholder": "اپنا والیٹ ماسٹر پاس ورڈ درج کریں",
         "master_password_hint": "اس ZOTP کو محفوظ طریقے سے خفیہ کاری اور ذخیرہ کرنے کے لیے آپ کے والیٹ کا ماسٹر پاس ورڈ درکار ہے۔",
         "see_details": "تفصیلات دیکھیں",
+        "unlock_zotp": "ZOTP انلاک کریں",
+        "hide_secret": "راز چھپائیں",
         "details": "ZOTP تفصیلات",
         "qr_code": "QR کوڈ",
         "public_data": "عوامی ڈیٹا",
@@ -476,6 +478,11 @@
         "updated_at": "اپ ڈیٹ کیا گیا",
         "algorithm": "الگورتھم",
         "digits": "ہندسے",
-        "period": "مدت"
+        "period": "مدت",
+        "walrus_info": "Walrus ذخیرہ کاری کی معلومات",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "عوامی URL",
+        "walrus_explorer_url": "ایکسپلورر URL",
+        "walrus_epochs": "ذخیرہ کاری کے ادوار"
     }
 }

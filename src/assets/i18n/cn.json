@@ -459,6 +459,8 @@
         "master_password_placeholder": "输入您的钱包主密码",
         "master_password_hint": "您的钱包主密码是加密和存储此 ZOTP 所必需的。",
         "see_details": "查看详情",
+        "unlock_zotp": "解锁 ZOTP",
+        "hide_secret": "隐藏密钥",
         "details": "ZOTP 详情",
         "qr_code": "二维码",
         "public_data": "公共数据",
@@ -476,6 +478,11 @@
         "updated_at": "更新时间",
         "algorithm": "算法",
         "digits": "位数",
-        "period": "周期"
+        "period": "周期",
+        "walrus_info": "Walrus 存储信息",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "公共 URL",
+        "walrus_explorer_url": "浏览器 URL",
+        "walrus_epochs": "存储周期"
     }
 }

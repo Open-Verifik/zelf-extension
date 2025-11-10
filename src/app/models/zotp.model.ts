@@ -14,4 +14,5 @@ export interface ZOTP {
     zelfKeysId?: string; // ID returned from ZelfKeys API for retrieval
     zelfProofQRCode?: string; // QR code image from backend response (data:image/png;base64,...)
     ipfs?: any; // Full IPFS data from backend response
+    walrus?: any; // Full Walrus storage data from backend response
 }

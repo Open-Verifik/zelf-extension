@@ -459,6 +459,8 @@
         "master_password_placeholder": "지갑 마스터 비밀번호를 입력하세요",
         "master_password_hint": "이 ZOTP를 안전하게 암호화하고 저장하려면 지갑의 마스터 비밀번호가 필요합니다.",
         "see_details": "세부 정보 보기",
+        "unlock_zotp": "ZOTP 잠금 해제",
+        "hide_secret": "비밀번호 숨기기",
         "details": "ZOTP 세부 정보",
         "qr_code": "QR 코드",
         "public_data": "공개 데이터",
@@ -476,6 +478,11 @@
         "updated_at": "업데이트일",
         "algorithm": "알고리즘",
         "digits": "자릿수",
-        "period": "기간"
+        "period": "기간",
+        "walrus_info": "Walrus 저장소 정보",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "공개 URL",
+        "walrus_explorer_url": "탐색기 URL",
+        "walrus_epochs": "저장 에포크"
     }
 }

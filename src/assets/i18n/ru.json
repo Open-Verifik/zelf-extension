@@ -459,6 +459,8 @@
         "master_password_placeholder": "Введите главный пароль вашего кошелька",
         "master_password_hint": "Главный пароль вашего кошелька необходим для шифрования и безопасного хранения этого ZOTP.",
         "see_details": "Просмотреть детали",
+        "unlock_zotp": "Разблокировать ZOTP",
+        "hide_secret": "Скрыть секрет",
         "details": "Детали ZOTP",
         "qr_code": "QR-код",
         "public_data": "Публичные данные",
@@ -476,6 +478,11 @@
         "updated_at": "Обновлено",
         "algorithm": "Алгоритм",
         "digits": "Цифры",
-        "period": "Период"
+        "period": "Период",
+        "walrus_info": "Информация о хранилище Walrus",
+        "walrus_blob_id": "ID Blob",
+        "walrus_public_url": "Публичный URL",
+        "walrus_explorer_url": "URL Explorer",
+        "walrus_epochs": "Эпохи хранения"
     }
 }

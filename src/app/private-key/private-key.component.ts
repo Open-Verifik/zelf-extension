@@ -3,7 +3,7 @@ import { Component, Inject } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { TranslocoModule } from "@jsverse/transloco";
 import { MnemonicComponent } from "../mnemonic/mnemonic.component";
-import { Wallet } from "app/wallet";
+import { Wallet } from "@shared/types/wallet.types";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { Router } from "@angular/router";
 import { ChromeService } from "app/chrome.service";

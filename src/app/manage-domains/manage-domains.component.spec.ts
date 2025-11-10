@@ -6,14 +6,12 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 import { ChromeService } from "../chrome.service";
-import { ConfirmationDialogComponent } from "../confirmation-dialog/confirmation-dialog.component";
-import { CtaSheetComponent } from "../cta-sheet/cta-sheet.component";
+import { TagModel } from "../tags.service";
 import { WalletService } from "../wallet.service";
 import { ManageDomainsComponent } from "./manage-domains.component";
-import { TagModel, TagPublicDataModel } from "../tags.service";
 
 describe("ManageDomainsComponent", () => {
     let component: ManageDomainsComponent;

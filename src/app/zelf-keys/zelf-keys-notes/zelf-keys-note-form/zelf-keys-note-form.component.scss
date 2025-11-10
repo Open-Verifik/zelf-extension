@@ -1,0 +1,260 @@
+.note-form {
+    max-width: 100%;
+    font-family: "Poppins", Arial, sans-serif;
+
+    .form-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+    }
+
+    .form-content {
+        box-sizing: border-box;
+
+        .form-section {
+            margin-bottom: 24px;
+            width: 100%;
+
+            .form-label {
+                display: block;
+                font-size: 14px;
+                font-weight: 600;
+                color: #1a1a1a;
+                margin-bottom: 12px;
+                width: 100%;
+            }
+
+            .form-hint {
+                display: block;
+                padding: 0 18px;
+                font-size: 12px;
+                color: #999;
+                margin: 6px 0 0 0;
+                line-height: 1.4;
+            }
+
+            .folder-toggle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                width: 100%;
+
+                .form-label {
+                    flex: 1;
+                    margin-right: 16px;
+                    margin-bottom: 0;
+                }
+            }
+
+            .folder-input {
+                margin-top: 16px;
+                width: 100%;
+            }
+
+            .password-toggle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                width: 100%;
+
+                .form-label {
+                    flex: 1;
+                    margin-right: 16px;
+                }
+
+                .toggle-switch {
+                    width: 44px;
+                    height: 22px;
+                    background: #e0e0e0;
+                    border-radius: 11px;
+                    cursor: pointer;
+                    position: relative;
+                    transition: all 0.2s ease;
+                    flex-shrink: 0;
+
+                    .toggle-slider {
+                        width: 18px;
+                        height: 18px;
+                        background: white;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: 2px;
+                        left: 2px;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+                        &.active {
+                            left: 24px;
+                        }
+                    }
+
+                    &:hover {
+                        background: #d0d0d0;
+                    }
+                }
+            }
+
+            .password-input-field {
+                margin-top: 16px;
+                width: 100%;
+
+                .form-input {
+                    margin-bottom: 8px; // Add some space below the password input
+                }
+
+                .form-hint {
+                    display: block;
+                    padding: 0 18px;
+                    font-size: 12px;
+                    color: #999;
+                    margin: 6px 0 0 0;
+                    line-height: 1.4;
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f0f0;
+        }
+    }
+}
+
+// Biometrics Modal Styles
+.biometrics-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+
+    .modal-content {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 90vw;
+        max-height: 90vh;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+
+        .modal-header {
+            padding: 24px 32px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: center;
+            position: relative;
+
+            .modal-close {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 50%;
+                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    background: #f5f5f5;
+                }
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            h3 {
+                font-size: 24px;
+                font-weight: 700;
+                color: #1a1a1a;
+                margin: 0 0 8px 0;
+            }
+
+            p {
+                font-size: 16px;
+                color: #666;
+                margin: 0;
+            }
+        }
+
+        .modal-body {
+            padding: 0;
+            overflow: auto;
+            max-height: calc(90vh - 100px);
+
+            // Make the biometrics component fill the modal
+            app-data-biometrics {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .note-form {
+        padding: 0 16px;
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+
+    .biometrics-modal {
+        .modal-content {
+            margin: 20px;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100vh - 40px);
+
+            .modal-header {
+                padding: 20px 24px 12px;
+
+                .modal-close {
+                    top: 12px;
+                    right: 12px;
+                    padding: 6px;
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                h3 {
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

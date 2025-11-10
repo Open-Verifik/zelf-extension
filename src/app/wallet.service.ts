@@ -8,7 +8,7 @@ import { environment } from "environments/environment";
 import { TagModel } from "./tags.service";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
-import { Asset, Wallet } from "./wallet";
+import { Asset, Wallet } from "@shared/types/wallet.types";
 
 type UserFingerPrint = {
     hash: string;
@@ -398,7 +398,6 @@ export class WalletService {
             const char = input.charCodeAt(i);
 
             hash = (hash << 5) - hash + char;
-
             hash = hash & hash; // Convert to 32bit integer
         }
 
@@ -687,36 +686,26 @@ export class WalletService {
             wallets[index] = new TagModel(_wallet);
         }
 
-        // Filter out the selected wallet from wallets array (it's becoming the current wallet)
         const walletsWithoutSelected = wallets.filter((_wallet) => _wallet.fullTagName !== selectedWallet.fullTagName);
-
-        // Get the old current wallet's tagName for comparison
         const oldWalletTagName = wallet?.fullTagName;
 
-        // Build final wallets array: always add old current wallet back (if it exists), ensuring no duplicates
         let finalWallets: TagModel[] = [];
 
-        // Check if old wallet exists and has identifying information
         const hasOldWallet = wallet && (wallet.fullTagName || wallet.tagName || wallet.publicData?.tagName || wallet.name);
 
         if (hasOldWallet) {
-            // Remove the old current wallet from wallets array first (to prevent duplicates)
             const walletsWithoutOldCurrent = oldWalletTagName
                 ? walletsWithoutSelected.filter((_wallet) => _wallet.fullTagName !== oldWalletTagName)
                 : walletsWithoutSelected;
-            // Add the old current wallet back to the wallets array (it's no longer current)
+
             finalWallets = [new TagModel(wallet), ...walletsWithoutOldCurrent];
         } else {
-            // No old current wallet to add back
             finalWallets = walletsWithoutSelected;
         }
 
         await this._chromeService.setItem("tagName", selectedWallet.tagName);
-
         await this._chromeService.setItem("wallet", selectedWallet);
-
         await this._chromeService.setItem("domain", selectedWallet.publicData?.domain);
-
         await this._chromeService.setItem("wallets", finalWallets);
     }
 

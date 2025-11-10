@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -19,7 +19,7 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { TransactionData } from "app/wallet";
+import { TransactionData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
@@ -88,16 +88,17 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _networkService: NetworkService,
         private _router: Router,
         private _snackBar: MatSnackBar,
+        private _tagsService: TagsService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
-        private _walletService: WalletService,
-        private _tagsService: TagsService
+        private _walletService: WalletService
     ) {
         this.loading = true;
         this.remainingAttempts = this._vaultService.remainingAttempts;
@@ -110,9 +111,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         if (!this._password || !this._password.trim()) return;
 
-        this.passwordSet = true;
-
-        this.requiresBiometrics = false;
+        this.passwordSet = !!this._password;
     }
 
     async ngOnInit(): Promise<void> {
@@ -259,7 +258,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     private async _decryptMessage(): Promise<any> {
         const encryptedMessage = this.wallet?.pgp?.encryptedMessage as string;
-
         const privateKeyArmoured = this.wallet?.pgp?.privateKey as string;
 
         const passphrase = this._password || this.form.get("password")?.value;
@@ -267,17 +265,23 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         if (!encryptedMessage || !privateKeyArmoured || !passphrase) return;
 
         try {
-            return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
+            const secret = await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
+
+            this.passwordSet = true;
+
+            return secret;
         } catch (error) {
             this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
-            this.remainingAttempts = this._vaultService.remainingAttempts + 1;
+            this.remainingAttempts = this._vaultService.remainingAttempts;
+            this.passwordSet = false;
 
-            if (!this.wallet?.pgp) {
+            this._changeDetectorRef.detectChanges();
+
+            if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey) {
                 this._mnemonics = "";
                 this._password = "";
 
                 this.passwordError = false;
-                this.passwordSet = false;
                 this.requiresBiometrics = true;
             } else {
                 this.passwordError = true;
@@ -288,20 +292,22 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     private async _decryptMnemonics(): Promise<any> {
-        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || (await this._vaultService.biometricsRequired())) {
+        const biometricsRequired = await this._vaultService.biometricsRequired();
+
+        if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || biometricsRequired) {
             this.passwordSet = false;
             this.requiresBiometrics = true;
 
             return;
         }
 
+        this.requiresBiometrics = false;
+
         if (!this._password && !this.form.get("password")?.value) return;
 
         const secret = JSON.parse(await this._decryptMessage());
 
         this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
-
-        this.requiresBiometrics = !this._mnemonics;
     }
 
     async _fetchTokenPrice(): Promise<void> {
@@ -321,8 +327,26 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     private async _getNetworkToken(): Promise<void> {
         const network = this.transactionData.network?.toLowerCase() as NetworkName | "bitcoin";
 
-        this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
+        const sessionTokens = await this._assetService.loadTokensFromSession();
 
+        if (!sessionTokens || sessionTokens.length === 0) {
+            if (!this.wallet) {
+                this.networkToken = null;
+
+                return;
+            }
+
+            try {
+                const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+                const result = await this._assetService.processTokensFromResponse(response);
+
+                await this._assetService.saveTokensToSession(result.tokens);
+            } catch (error) {
+                console.error("Error fetching tokens for network token balance:", error);
+            }
+        }
+
+        this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
         this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
 
         if (network !== "bitcoin") return;

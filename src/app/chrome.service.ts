@@ -55,6 +55,9 @@ export class ChromeService {
             }
 
             if (changes.wallet) {
+                this.removeItemSession("zelfKeysData");
+                this.removeItemSession("zelfKeysDataTtl");
+                this.removeItemSession("tokens");
                 this.removeItemSession("tokensTtl");
 
                 changes.wallet
@@ -79,7 +82,7 @@ export class ChromeService {
             window.addEventListener("localstorage", (event: CustomEvent<{ key: string; oldValue: string; newValue: string }>) => {
                 if (!event?.detail?.key) return;
 
-                if (event.detail.key === "lastVerified") {
+                if (event.detail.key === "lastVerified" && event.detail.newValue !== undefined) {
                     this._lastVerified$.next(event.detail.newValue ? parseInt(event.detail.newValue) : 0);
                 }
 
@@ -88,6 +91,9 @@ export class ChromeService {
                 }
 
                 if (event.detail.key === "wallet") {
+                    this.removeItemSession("zelfKeysData");
+                    this.removeItemSession("zelfKeysDataTtl");
+                    this.removeItemSession("tokens");
                     this.removeItemSession("tokensTtl");
 
                     event
@@ -229,7 +235,7 @@ export class ChromeService {
         });
     }
 
-    async openFullPage(path: string): Promise<void> {
+    async openFullPage(path?: string): Promise<void> {
         if (!this.isExtension) return;
 
         const currentTab = await browser.tabs.getCurrent();
@@ -238,8 +244,9 @@ export class ChromeService {
 
         try {
             const url = browser.runtime.getURL("index.html");
+            const targetPath = path ?? window.location.hash.replace(/^#/, "");
 
-            browser.tabs.create({ url: `${url}#${path}` }).then(async (tab) => {
+            browser.tabs.create({ url: `${url}#${targetPath}` }).then(async (tab) => {
                 if (!tab?.id) return;
 
                 try {

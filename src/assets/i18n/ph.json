@@ -38,7 +38,13 @@
         "used": "Ginamit {{days}} na ang nakalipas",
         "withdrawal_amount": "Halaga ng pag-withdraw",
         "zelf_name_not_registered": "Hindi pa nare-rehistro ang Tag Name",
-        "zelf_name_registered": "Nare-rehistro na ang Tag Name"
+        "zelf_name_registered": "Nare-rehistro na ang Tag Name",
+        "average": "Karaniwan",
+        "confirmations": "Mga kumpirmasyon",
+        "economical": "Matipid",
+        "fastest": "Pinakamabilis",
+        "transaction_settings": "Mga setting ng transaksyon",
+        "upto_sats": "Hanggang {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minuto"
     },
     "transaction": {
         "go_to_my_history": "Pumunta sa aking kasaysayan",
@@ -115,7 +121,8 @@
         "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
         "title": "Mga Encryption Layer ng ZelfProof",
         "unhide_words": "Ipakita ang mga salita",
-        "weak": "Mahina"
+        "weak": "Mahina",
+        "weak_password": "Mahinang password"
     },
     "receive": {
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
@@ -239,7 +246,13 @@
         "yes": "Oo",
         "your_token": "Ang iyong {{ symbol }}",
         "zelf_wallet": "Zelf Proof",
-        "zelf_authenticator": "Zelf - Authenticator"
+        "avax_address": "Address ng AVAX",
+        "download_qr": "I-download ang QR",
+        "seed_phrase": "Seed Phrase",
+        "zelf_link": "Zelf Link",
+        "zelf_authenticator": "Zelf Tagapatunay",
+        "zelf_keys": "Mga Susi ng Zelf",
+        "subscriptions": "Mga Subscription"
     },
     "token": {
         "24h_performance": "24h na Performance",
@@ -290,8 +303,7 @@
         "domain_warning": "May oras ka pa para bumili",
         "expired_wallet_logout_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag. Gayunpaman, nasa panganib ka na mawala ito kung hindi ka agad bibili.",
         "logout_of_wallet_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag, o i-load ang iyong ZelfProof QR code.",
-        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag",
-        "zelfproof_removed_successfully": "Matagumpay na natanggal ang ZelfProof"
+        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag"
     },
     "liveness": {
         "center_your_face": "I-center ang iyong mukha sa screen",
@@ -339,8 +351,6 @@
         "not_found": "Hindi nahanap ang record",
         "password_doesnt_match": "Hindi magkatugma ang mga password",
         "password_incorrect": "Hindi tama ang password",
-        "LIVENESS CHECK FAILED.": "Nabigo ang liveness check. Pakisubukan ulit.",
-        "THE PROVIDED PASSWORD IS INVALID.": "Hindi tama ang password na inyong inilagay. Pakitignan ang inyong password at subukan ulit.",
         "person_already_set": "May nakakabit nang ZelfProof sa iyong registration",
         "private_key_locked": "Naka-lock ang private key. Kailangan mong mag-perform ng biometrics check para makapagpatuloy.",
         "required_field": "Kailangan ang field na ito",
@@ -380,7 +390,8 @@
         "send_transaction_button": "Magpadala",
         "settings_button": "Mga Setting",
         "support_button": "Suporta",
-        "swap": "Magpalit"
+        "swap": "Magpalit",
+        "keys": "Mga susi"
     },
     "id_scanning": {
         "camera_not_found": "Hindi nahanap ang camera",
@@ -444,6 +455,525 @@
         "considerations_description_2": "Natatanging pagkakakilanlan.",
         "considerations_description_3": "Proteksyon para sa hinaharap."
     },
+    "billing": {
+        "activation": {
+            "title": "Nakumpirma ang Bayad!",
+            "message": "Ina-activate ang subscription... Binabati ka! Nakumpirma na ang iyong bayad at ina-activate na ang iyong subscription."
+        },
+        "subscription": {
+            "active_subscription": "Aktibong Subscription",
+            "cancelled_active": "Kanselado (Aktibo Hanggang Katapusan Ng Panahon)",
+            "plan": "Plano:",
+            "price": "Presyo:",
+            "payment_method": "Paraan ng Pagbabayad:",
+            "status": "Status:",
+            "transaction": "Transaksyon:",
+            "zelf_name": "Pangalan ng Zelf:",
+            "start_date": "Petsa ng Pagsisimula:",
+            "expires_on": "Mag-e-expire:",
+            "next_billing": "Susunod na Pagsingil:",
+            "access_ends": "Matatapos ang Access:",
+            "cancelled_on": "Petsa ng Pagkansela:",
+            "manage_subscription": "Pamahalaan ang Subscription",
+            "crypto_subscription_active": "Aktibong Crypto Subscription",
+            "crypto_subscription_info": "Binayaran ang subscription gamit ang AVAX cryptocurrency. Isang beses na bayad hanggang sa petsa ng pagtatapos na nasa itaas.",
+            "transaction_verified": "Nakumpirma ang transaksyon sa Avalanche blockchain.",
+            "manage_note_active": "Pamahalaan ang subscription mo, i-update ang paraan ng pagbabayad, tingnan ang kasaysayan ng pagsingil, at iba pa sa Stripe customer portal.",
+            "manage_note_cancelled": "Kanselado ang subscription mo ngunit aktibo hanggang matapos ang billing period. Maaari mo itong i-reactivate o tingnan ang kasaysayan sa Stripe customer portal.",
+            "demo": "DEMO",
+            "active": "Aktibo",
+            "cancelled": "Kanselado"
+        },
+        "dashboard": {
+            "start": "Simula",
+            "passwords": "Mga password",
+            "notes": "Mga tala",
+            "payment_cards": "Mga card ng pagbabayad",
+            "subscription": "Subscription"
+        },
+        "payment_cards": {
+            "title": "Mga card ng pagbabayad",
+            "subtitle": "Ligtas na i-imbak ang impormasyon ng iyong card",
+            "loading": {
+                "title": "Naglo-load ng mga card",
+                "message": "Mangyaring maghintay habang kinukuha namin ang iyong ligtas na data..."
+            },
+            "error": {
+                "title": "Nagkaroon ng problema",
+                "message": "Hindi namin na-load ang iyong mga card.",
+                "try_again": "Subukang Muli",
+                "no_wallet": "Walang nahanap na wallet. Mangyaring i-setup muna ang iyong wallet.",
+                "auth_failed": "Nabigo ang authentication. Mangyaring tiyakin na mayroon kang valid na wallet.",
+                "init_failed": "Nabigo ang pag-initialize ng session. Mangyaring suriin ang iyong wallet connection.",
+                "no_token": "Walang available na authentication token. Mangyaring i-refresh ang pahina.",
+                "load_failed": "Nabigo ang pag-load ng payment cards. Mangyaring subukan muli."
+            },
+            "premium": {
+                "title": "I-unlock ang Premium",
+                "description": "Kunin ang mas mataas na seguridad at higit pa sa ZelfKeys Premium"
+            },
+            "add_card": {
+                "title": "Magdagdag ng Bagong Card",
+                "description": "Ligtas na i-imbak ang bagong card ng pagbabayad"
+            },
+            "card": {
+                "card_holder": "May-ari ng Card",
+                "expires": "Mag-e-expire",
+                "card_number": "Numero ng Card",
+                "expiry_date": "Petsa ng Pag-expire",
+                "card_type": "Uri ng Card",
+                "cvv": "CVV",
+                "billing_address": "Address ng Pagsingil",
+                "notes": "Mga Tala",
+                "no_card_holder": "Walang may-ari ng card",
+                "no_expiry": "Walang petsa",
+                "no_card_number": "Walang numero ng card",
+                "no_card_type": "Walang uri ng card",
+                "no_cvv": "Walang CVV",
+                "no_billing_address": "Walang address ng pagsingil",
+                "no_notes": "Walang tala"
+            },
+            "detail": {
+                "title": "Detalye ng Card ng Pagbabayad",
+                "loading": "Naglo-load ng detalye ng card...",
+                "error": {
+                    "title": "Error sa pag-load ng card",
+                    "go_back": "Bumalik",
+                    "retrieve_failed": "Nabigo ang pag-retrieve ng payment card data",
+                    "decrypt_failed": "Nabigo ang pag-decrypt ng payment card. Mangyaring subukan muli."
+                },
+                "decrypt": {
+                    "button": "I-decrypt ang Card",
+                    "decrypting": "Dina-decrypt..."
+                },
+                "info": {
+                    "title": "Impormasyon ng Card",
+                    "card_number": "Numero ng Card",
+                    "card_holder": "May-ari ng Card",
+                    "expiry_date": "Petsa ng Pag-expire",
+                    "card_type": "Uri ng Card",
+                    "cvv": "CVV",
+                    "billing_address": "Address ng Pagsingil",
+                    "notes": "Mga Tala",
+                    "copy_card_number": "Kopyahin ang numero ng card",
+                    "copy_card_holder": "Kopyahin ang may-ari ng card",
+                    "copy_expiry": "Kopyahin ang petsa ng pag-expire",
+                    "copy_card_type": "Kopyahin ang uri ng card",
+                    "copy_cvv": "Kopyahin ang CVV",
+                    "copy_billing_address": "Kopyahin ang address ng pagsingil",
+                    "copy_notes": "Kopyahin ang mga tala"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "I-download ang ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Na-decrypt na Impormasyon ng Card",
+                    "card_number": "Numero ng Card",
+                    "card_holder": "May-ari ng Card",
+                    "expiry_date": "Petsa ng Pag-expire",
+                    "card_type": "Uri ng Card",
+                    "cvv": "CVV",
+                    "billing_address": "Address ng Pagsingil",
+                    "notes": "Mga Tala",
+                    "show_card_number": "Ipakita ang numero",
+                    "hide_card_number": "Itago ang numero",
+                    "show_cvv": "Ipakita ang CVV",
+                    "hide_cvv": "Itago ang CVV",
+                    "copy_card_number": "Kopyahin ang numero ng card",
+                    "copy_card_holder": "Kopyahin ang may-ari ng card",
+                    "copy_expiry": "Kopyahin ang petsa",
+                    "copy_card_type": "Kopyahin ang uri",
+                    "copy_cvv": "Kopyahin ang CVV",
+                    "copy_billing_address": "Kopyahin ang address",
+                    "copy_notes": "Kopyahin ang mga tala"
+                },
+                "expiry_placeholder": "Buwan/Taon"
+            },
+            "form": {
+                "title": {
+                    "add": "Magdagdag ng Bagong Card",
+                    "edit": "I-edit ang Card",
+                    "label": "Pangalan ng Bangko *",
+                    "placeholder": "Ilagay ang pangalan ng bangko"
+                },
+                "card_number": {
+                    "label": "Numero ng Card *",
+                    "placeholder": "1234 5678 9012 3456"
+                },
+                "card_holder": {
+                    "label": "Pangalan ng May-ari ng Card *",
+                    "placeholder": "Ilagay ang pangalan"
+                },
+                "expiry_month": {
+                    "label": "Buwan ng Pag-expire *",
+                    "placeholder": "MM"
+                },
+                "expiry_year": {
+                    "label": "Taon ng Pag-expire *",
+                    "placeholder": "YYYY"
+                },
+                "card_type": {
+                    "label": "Uri ng Card *",
+                    "placeholder": "Piliin ang uri"
+                },
+                "cvv": {
+                    "label": "CVV *",
+                    "placeholder": "123"
+                },
+                "billing_address": {
+                    "label": "Address ng Pagsingil",
+                    "placeholder": "Ilagay ang address (opsyonal)"
+                },
+                "notes": {
+                    "label": "Mga Tala",
+                    "placeholder": "Ilagay ang mga tala (opsyonal)"
+                },
+                "folder": {
+                    "label": "I-imbak sa Folder",
+                    "placeholder": "Pangalan ng folder",
+                    "aria_label": "I-toggle ang pag-imbak sa folder"
+                },
+                "master_password": {
+                    "placeholder": "Ilagay ang iyong master password",
+                    "hint": "Kailangan ang password ng {{ walletName }} upang i-encrypt at i-imbak ang iyong mga kredensyal. Laging kailangan ang biometric na beripikasyon."
+                },
+                "buttons": {
+                    "cancel": "Kanselahin",
+                    "create": "Gumawa ng Card",
+                    "update": "I-update ang Card"
+                }
+            },
+            "unknown_bank": "Hindi Kilalang Bangko",
+            "unknown": "Hindi Kilala"
+        },
+        "notes": {
+            "title": "Mga tala",
+            "subtitle": "Pamahalaan ang iyong mga secure na tala at key-value",
+            "loading": {
+                "title": "Naglo-load ng mga tala",
+                "message": "Mangyaring maghintay habang kinukuha namin ang iyong ligtas na data..."
+            },
+            "error": {
+                "title": "Nagkaroon ng problema",
+                "message": "Hindi namin na-load ang iyong mga tala.",
+                "try_again": "Subukang Muli",
+                "load_failed": "Nabigo ang pag-load ng stored notes. Mangyaring subukan muli."
+            },
+            "premium": {
+                "title": "I-unlock ang Premium",
+                "description": "Mas mataas na seguridad at higit pa sa ZelfKeys Premium"
+            },
+            "add_note": {
+                "title": "Magdagdag ng Bagong Tala",
+                "description": "Ligtas na i-imbak ang bagong tala"
+            },
+            "detail": {
+                "title": "Detalye ng Tala",
+                "loading": "Naglo-load ng detalye ng tala...",
+                "error": {
+                    "title": "Error sa pag-load ng tala",
+                    "go_back": "Bumalik",
+                    "not_found": "Walang available na note data",
+                    "load_failed": "Nabigo ang pag-load ng note data",
+                    "retrieve_failed": "Nabigo ang pag-retrieve ng note data",
+                    "decrypt_failed": "Nabigo ang pag-decrypt ng note. Mangyaring subukan muli."
+                },
+                "untitled": "Walang Pamagat na Tala",
+                "no_folder": "Walang folder",
+                "decrypt": {
+                    "button": "I-decrypt ang Tala",
+                    "decrypting": "Dina-decrypt..."
+                },
+                "info": {
+                    "title": "Impormasyon ng Tala",
+                    "note_id": "Note ID",
+                    "type": "Uri",
+                    "folder": "Folder",
+                    "copy_id": "Kopyahin ang ID ng tala"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "I-download ang ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Na-decrypt na Nilalaman",
+                    "title_field": "Pamagat",
+                    "content": "Nilalaman",
+                    "no_title": "Walang pamagat",
+                    "no_content": "Walang nilalaman",
+                    "copy_title": "Kopyahin ang pamagat",
+                    "copy_content": "Kopyahin ang nilalaman"
+                },
+                "no_title": "Walang pamagat",
+                "no_content": "Walang nilalaman"
+            },
+            "form": {
+                "title": {
+                    "add": "Magdagdag ng Bagong Tala",
+                    "edit": "I-edit ang Tala"
+                },
+                "title_field": {
+                    "label": "Pamagat ng Tala *",
+                    "placeholder": "Ilagay ang pamagat ng tala"
+                },
+                "content": {
+                    "label": "Nilalaman ng Tala *",
+                    "placeholder": "Isulat ang iyong tala dito... Maaari kang maglagay ng maraming talata, listahan, o anumang impormasyong nais mong tandaan nang ligtas.",
+                    "hint": "Ang nilalaman ng iyong tala ay i-e-encrypt at iimbak nang ligtas. Maaari kang magsulat nang marami hangga't kailangan."
+                },
+                "folder": {
+                    "label": "Ayusin sa Folder",
+                    "placeholder": "Ilagay ang pangalan ng folder",
+                    "aria_label": "I-toggle ang organisasyon ng folder"
+                },
+                "master_password": {
+                    "placeholder": "Ilagay ang iyong master password",
+                    "hint": "Kailangan ang password ng {{ walletName }} upang i-encrypt at i-imbak ang iyong mga kredensyal. Laging kailangan ang biometric na beripikasyon."
+                },
+                "buttons": {
+                    "cancel": "Kanselahin",
+                    "create": "Gumawa ng Tala",
+                    "update": "I-update ang Tala"
+                }
+            }
+        },
+        "passwords": {
+            "title": "Mga password",
+            "subtitle": "Pamahalaan ang iyong mga secure na password at kredensyal",
+            "loading": {
+                "title": "Naglo-load ng mga password",
+                "message": "Mangyaring maghintay habang kinukuha namin ang iyong ligtas na data..."
+            },
+            "error": {
+                "title": "Nagkaroon ng problema",
+                "message": "Hindi namin na-load ang iyong mga password.",
+                "try_again": "Subukang Muli",
+                "load_failed": "Nabigo ang pag-load ng stored passwords. Mangyaring subukan muli."
+            },
+            "premium": {
+                "title": "I-unlock ang Premium",
+                "description": "Mas mataas na seguridad at higit pa sa ZelfKeys Premium"
+            },
+            "add_password": {
+                "title": "Magdagdag ng Bagong Password",
+                "description": "Ligtas na i-imbak ang bagong password"
+            },
+            "search": {
+                "placeholder": "Maghanap ng mga password..."
+            },
+            "no_results": {
+                "title": "Walang nahanap na password",
+                "message": "Subukang baguhin ang iyong mga termino sa paghahanap"
+            },
+            "detail": {
+                "title": "Detalye ng Password",
+                "loading": "Naglo-load ng detalye ng password...",
+                "error": {
+                    "title": "Error sa pag-load ng password",
+                    "go_back": "Bumalik",
+                    "not_found": "Hindi nahanap ang password data",
+                    "load_failed": "Nabigo ang pag-load ng password data",
+                    "decrypt_failed": "Nabigo ang pag-decrypt ng password. Mangyaring subukan muli."
+                },
+                "untitled": "Password na Walang Pamagat",
+                "no_username": "Walang username",
+                "no_website": "Walang website",
+                "no_category": "Walang kategorya",
+                "no_zelf_name": "Walang pangalan ng Zelf",
+                "unknown_date": "Hindi alam na petsa",
+                "decrypt": {
+                    "button": "I-decrypt ang password",
+                    "decrypting": "Dina-decrypt...",
+                    "launch_fill": "Buksan at punan"
+                },
+                "info": {
+                    "title": "Impormasyon ng Password",
+                    "website": "Website",
+                    "username": "Username",
+                    "category": "Kategorya",
+                    "created": "Nilikha",
+                    "zelf_name": "Pangalan ng Zelf",
+                    "ipfs_hash": "IPFS Hash",
+                    "copy_url": "Kopyahin ang URL ng website",
+                    "launch_website": "Buksan ang website",
+                    "prefill_autofill": "Paunang punan para sa autofill"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "I-download ang ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Na-decrypt na Nilalaman",
+                    "website": "Website",
+                    "username": "Username",
+                    "password": "Password",
+                    "notes": "Mga Tala",
+                    "difficulty": "Kahirapan",
+                    "show_password": "Ipakita ang password",
+                    "hide_password": "Itago ang password",
+                    "copy_website": "Kopyahin ang website",
+                    "copy_password": "Kopyahin ang password"
+                }
+            },
+            "form": {
+                "title": "Magdagdag ng Password",
+                "website": {
+                    "label": "Website URL *",
+                    "placeholder": "https://example.com"
+                },
+                "title_field": {
+                    "label": "Pamagat *",
+                    "placeholder": "Ilagay ang pamagat"
+                },
+                "email": {
+                    "label": "Email *",
+                    "placeholder": "Ilagay ang email"
+                },
+                "password": {
+                    "label": "Password *",
+                    "placeholder": "Ilagay ang password"
+                },
+                "folder": {
+                    "label": "Ayusin sa Folder",
+                    "placeholder": "Ilagay ang pangalan ng folder",
+                    "aria_label": "I-toggle ang organisasyon ng folder"
+                },
+                "notes": {
+                    "label": "Mga Tala",
+                    "placeholder": "Maglagay ng mga tala (opsyonal)"
+                },
+                "master_password": {
+                    "label": "Master Password *",
+                    "placeholder": "Ilagay ang iyong master password",
+                    "hint": "Kailangan ang password ng {{ walletName }} upang i-encrypt at i-imbak ang iyong mga kredensyal. Laging kailangan ang biometric na beripikasyon."
+                },
+                "buttons": {
+                    "save": "I-save ang Password",
+                    "cancel": "Kanselahin"
+                }
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "Matagumpay na Na-store ang Password!",
+                "error_title": "Error sa Pag-store ng Password",
+                "unknown_title": "Hindi Kilalang Status",
+                "success_message": "Ang iyong password ay ligtas na na-store gamit ang biometric verification.",
+                "error_message": "May naganap na error habang ini-store ang iyong password. Mangyaring subukan muli.",
+                "unknown_message": "Hindi malinaw ang status ng iyong password storage request."
+            },
+            "error": {
+                "no_result": "Walang available na API result"
+            }
+        },
+        "note_result": {
+            "status": {
+                "success_title": "Matagumpay na Na-store ang Note!",
+                "error_title": "Error sa Pag-store ng Note",
+                "unknown_title": "Hindi Kilalang Status",
+                "success_message": "Ang iyong note ay ligtas na na-store at na-encrypt gamit ang blockchain verification.",
+                "error_message": "May naganap na error habang ini-store ang iyong note.",
+                "unknown_message": "Hindi matukoy ng system ang storage status."
+            },
+            "error": {
+                "no_result": "Walang available na API result"
+            }
+        }
+    },
+    "start": {
+        "title": "Maligayang pagdating sa ZelfKeys",
+        "subtitle": "Ang iyong secure na tagapamahala ng password",
+        "features": {
+            "install_extension": {
+                "title": "I-INSTALL ANG AMING<br />EXTENSION",
+                "description": "Kunin ang aming extension sa iyong paboritong browser"
+            },
+            "secure_passwords": {
+                "title": "I-SECURE ANG IYONG<br />MGA PASSWORD",
+                "description": "Idagdag ang iyong mga password, card ng pagbabayad, at mga tala."
+            },
+            "autocomplete": {
+                "title": "AUTO-COMPLETE<br />ANG IYONG INFO",
+                "description": "Awtomatikong awto-punan ang nakaimbak mong mga password matapos ang mabilis na biometric na beripikasyon."
+            }
+        },
+        "cta": {
+            "button": "I-secure ang aking unang password"
+        }
+    },
+    "password_result": {
+        "title": "Resulta ng Pag-imbak ng Password",
+        "loading": "Naglo-load ng resulta...",
+        "sections": {
+            "success": {
+                "title": "Matagumpay ang Pag-imbak!",
+                "message": "Matagumpay na naimbak ang password!"
+            },
+            "details": {
+                "title": "Detalye ng Naimbak na Password",
+                "labels": {
+                    "website": "Website",
+                    "username": "Username",
+                    "type": "Uri",
+                    "category": "Kategorya",
+                    "zelf_name": "Pangalan ng Zelf",
+                    "timestamp": "Timestamp"
+                }
+            },
+            "nft": {
+                "title": "NFT Nilikha",
+                "labels": {
+                    "token_id": "Token ID",
+                    "cost": "Gastos",
+                    "contract": "Kontrata",
+                    "transaction": "Transaksyon"
+                }
+            },
+            "ipfs": {
+                "title": "Imbakan sa IPFS",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "Laki ng File",
+                    "uploaded": "Na-upload"
+                },
+                "gateway_link": "Tingnan sa IPFS Gateway"
+            },
+            "zelfproof": {
+                "title": "Nalikhang ZelfProof",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "I-click upang kopyahin"
+            },
+            "debug": {
+                "title": "Impormasyon sa Debug"
+            },
+            "next_steps": {
+                "title": "Mga Susunod na Hakbang",
+                "success_message": "Ligtas nang nakaimbak ang password. Maaari mong tingnan sa listahan o magdagdag pa.",
+                "error_message": "Suriin ang mga detalye ng error sa itaas at subukang muli. Kung magpatuloy ang problema, makipag-ugnayan sa support.",
+                "unknown_message": "Hindi matukoy ang status. Pakisuri ang API response sa itaas para sa detalye."
+            }
+        },
+        "actions": {
+            "back_to_passwords": "Bumalik sa mga Password",
+            "add_another": "Magdagdag pa ng Password"
+        },
+        "status": {
+            "success_title": "Matagumpay na Na-store ang Password!",
+            "error_title": "Error sa Pag-store ng Password",
+            "unknown_title": "Hindi Kilalang Status",
+            "success_message": "Ang iyong password ay ligtas na na-store gamit ang biometric verification.",
+            "error_message": "May naganap na error habang ini-store ang iyong password. Mangyaring subukan muli.",
+            "unknown_message": "Hindi malinaw ang status ng iyong password storage request."
+        },
+        "error": {
+            "no_result": "Walang available na API result"
+        }
+    },
     "zotp": {
         "add_zotp": "Magdagdag ng ZOTP",
         "account_name": "Pangalan ng Account",
@@ -494,6 +1024,391 @@
         "biometrics_failed": "Nabigo ang biometric verification",
         "export": "I-export",
         "export_zotp": "I-export ang ZOTP",
-        "setup_key_description": "Gamitin ang setup key na ito upang idagdag ang account na ito sa ibang authenticator app tulad ng Google Authenticator."
+        "setup_key_description": "Gamitin ang setup key na ito upang idagdag ang account na ito sa ibang authenticator app tulad ng Google Authenticator.",
+        "qr_code_description": "I-scan ang QR code na ito gamit ang Google Authenticator o anumang compatible na authenticator app upang i-import ang account na ito."
+    },
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "WALLET"
+        },
+        "common": {
+            "qr_code": "QR Code",
+            "no_folder": "Walang folder",
+            "download_zelfproof": "I-download ang ZelfProof",
+            "back_to_payment_cards": "Bumalik sa Payment Cards",
+            "add_another_card": "Magdagdag ng Iba pang Card",
+            "try_again": "Subukan Muli",
+            "image_not_available": "Hindi available ang larawan"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "May-ari ng Card",
+                "expires": "Mag-expire",
+                "bank_name": "Pangalan ng Bangko",
+                "card_number": "Numero ng Card",
+                "expiry_date": "Petsa ng Pag-expire",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "MAY-ARI NG CARD"
+            },
+            "decrypt": {
+                "button": "I-decrypt ang Payment Card",
+                "decrypting": "Nagde-decrypt..."
+            },
+            "info": {
+                "title": "Impormasyon ng Payment Card",
+                "payment_card_id": "ID ng Payment Card",
+                "type": "Uri",
+                "folder": "Folder",
+                "copy_payment_card_id": "Kopyahin ang ID ng payment card"
+            },
+            "zelfproof": {
+                "title": "ZelfProof",
+                "download": "I-download ang ZelfProof"
+            },
+            "decrypted": {
+                "title": "Na-decrypt na Content",
+                "card_holder_name": "Pangalan ng May-ari ng Card",
+                "copy_card_holder_name": "Kopyahin ang pangalan ng may-ari ng card",
+                "copy_card_number": "Kopyahin ang numero ng card",
+                "copy_expiry_date": "Kopyahin ang petsa ng pag-expire",
+                "copy_cvv": "Kopyahin ang CVV",
+                "copy_bank_name": "Kopyahin ang pangalan ng bangko",
+                "show_card_number": "Ipakita ang numero ng card",
+                "hide_card_number": "Itago ang numero ng card",
+                "show_cvv": "Ipakita ang CVV",
+                "hide_cvv": "Itago ang CVV"
+            },
+            "error": {
+                "no_wallet": "Walang nahanap na wallet. Mangyaring i-setup muna ang iyong wallet.",
+                "auth_failed": "Nabigo ang authentication. Mangyaring tiyakin na mayroon kang valid na wallet.",
+                "init_failed": "Nabigo ang pag-initialize ng session. Mangyaring suriin ang iyong wallet connection.",
+                "no_token": "Walang available na authentication token. Mangyaring i-refresh ang pahina.",
+                "load_failed": "Nabigo ang pag-load ng payment cards. Mangyaring subukan muli."
+            },
+            "unknown_bank": "Hindi Kilalang Bangko",
+            "unknown": "Hindi Kilala",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "Nabigo ang pag-retrieve ng payment card data",
+                    "decrypt_failed": "Nabigo ang pag-decrypt ng payment card. Mangyaring subukan muli."
+                },
+                "expiry_placeholder": "Buwan/Taon"
+            },
+            "result": {
+                "error": {
+                    "no_data": "Walang nahanap na result data"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "Matagumpay na Nalikha ang Payment Card!",
+                "description": "Ang iyong payment card ay ligtas na naiimbak at naka-encrypt."
+            },
+            "preview": {
+                "title": "Mga Detalye ng Card",
+                "labels": {
+                    "name": "Pangalan ng Payment Card",
+                    "card_holder": "May-ari ng Card",
+                    "card_number": "Numero ng Card",
+                    "expires": "Mag-expire"
+                }
+            },
+            "image": {
+                "title": "ZelfProof",
+                "download": "I-download ang ZelfProof"
+            },
+            "nft": {
+                "title": "Nalikha ang NFT",
+                "labels": {
+                    "token_id": "ID ng Token",
+                    "cost": "Gastos",
+                    "contract": "Kontrata",
+                    "transaction": "Transaksyon"
+                }
+            },
+            "ipfs": {
+                "title": "IPFS Storage",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "Laki ng File",
+                    "uploaded": "Na-upload"
+                },
+                "gateway_link": "Tingnan sa IPFS Gateway"
+            },
+            "zelfproof": {
+                "title": "Nabuo ang ZelfProof",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "I-click upang kopyahin"
+            },
+            "actions": {
+                "back_to_cards": "Bumalik sa Payment Cards",
+                "add_another": "Magdagdag ng Iba pang Card"
+            },
+            "error": {
+                "title": "Error sa Paglikha ng Payment Card",
+                "default_message": "May hindi inaasahang error na naganap habang nililikha ang iyong payment card.",
+                "try_again": "Subukan Muli",
+                "no_data": "Walang nahanap na result data"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "Pumili ng Iyong Plan",
+            "choose_your_plan_subtitle": "Piliin ang plan na pinakaangkop sa iyong pangangailangan",
+            "loading_plans": "Naglo-load ng subscription plans...",
+            "error": {
+                "try_again": "Subukan Muli",
+                "load_plans": "Nabigo ang pag-load ng subscription plans",
+                "create_crypto_payment": "Nabigo ang pag-create ng crypto payment",
+                "create_checkout": "Nabigo ang pag-create ng checkout session",
+                "open_portal": "Nabigo ang pagbukas ng subscription management portal",
+                "customer_not_found": "Hindi mahanap ang customer information. Mangyaring makipag-ugnayan sa support.",
+                "no_subscription": "Walang nahanap na active subscription. Mangyaring i-refresh ang pahina.",
+                "open_portal_generic": "Nabigo ang pagbukas ng subscription management: {{ error }}",
+                "missing_payment_data": "Nawawala ang data ng pagbabayad. Pakisubukan muli.",
+                "no_avax_address": "Ang napiling wallet ay walang address na AVAX.",
+                "no_avax_token": "Hindi ma-load ang data ng token na AVAX. Pakisubukan muli.",
+                "prepare_transaction": "Nabigo sa paghahanda ng transaksyon. Pakisubukan muli."
+            },
+            "crypto": {
+                "complete_payment": "Kumpletuhin ang Iyong Payment",
+                "demo_banner": "DEMO MODE - Pagsubok gamit ang nabawasang halaga",
+                "send_amount_to_address": "Ipadala ang {{ amount }} AVAX sa address sa ibaba",
+                "price_lock": "Naka-lock ang presyo sa loob ng 30 minuto",
+                "payment_address_label": "Payment Address (Avalanche C-Chain)",
+                "copy": "Kopyahin",
+                "scan_with_wallet": "I-scan gamit ang iyong wallet",
+                "amount_to_send": "Halagang Ipadala",
+                "original_plan_price": "Orihinal na Presyo ng Plan:",
+                "demo_discount": "Demo Discount: {{ discount }}%",
+                "waiting_confirmation": "Naghihintay ng kumpirmasyon ng payment...",
+                "auto_update_note": "Ang pahinang ito ay awtomatikong mag-u-update kapag natanggap ang payment",
+                "cancel_payment": "Kanselahin ang Payment",
+                "payment_methods": "Mga Paraan ng Pagbabayad",
+                "copy_address": "Kopyahin ang address:",
+                "scan_address": "I-scan ang address:",
+                "pay_with_wallet": "Magbayad gamit ang Wallet:",
+                "domain_label": "Domain",
+                "select_wallet": "Pumili ng Wallet",
+                "pay_with_avax": "Magbayad gamit ang AVAX"
+            },
+            "plan": {
+                "popular_badge": "Sikat",
+                "pay_with_stripe": "Magbayad gamit ang Stripe",
+                "pay_with_crypto": "Magbayad gamit ang Crypto",
+                "current_plan": "Ang iyong kasalukuyang plan",
+                "premium_plan": "Premium Plan",
+                "not_available": "Hindi Available",
+                "month": "buwan"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "Tumingin sa camera upang i-verify ang iyong identity at iimbak nang ligtas ang iyong {{ type }}",
+                "decrypt": "Tumingin sa camera upang i-verify ang iyong identity at ma-access ang iyong {{ type }}"
+            },
+            "processing": {
+                "processing": "Nagpo-proseso ng iyong biometric data...",
+                "analyzing": "Sinusuri ang iyong mukha..."
+            },
+            "status": {
+                "position_face_title": "Ilagay ang iyong mukha sa gitna",
+                "position_face_subtitle": "Tumingin nang diretso sa camera at manatiling nakatigil"
+            },
+            "api_error": {
+                "title": "Nabigo ang Authentication",
+                "try_again": "Subukan Muli",
+                "go_back": "Bumalik"
+            },
+            "camera_error": {
+                "title": "Hindi available ang camera",
+                "description": "Mangyaring tiyakin na ang iyong camera ay naka-enable at naa-access para sa biometric verification"
+            },
+            "permission": {
+                "title": "Kinakailangan ang Permission ng Camera",
+                "description": "Mangyaring pahintulutan ang access sa camera upang magpatuloy sa biometric verification",
+                "go_back": "Bumalik"
+            },
+            "close_aria": "Isara ang biometric verification",
+            "errors": {
+                "no_face_detected": "Walang nakitang mukha",
+                "look_at_camera": "Mangyaring tumingin sa camera"
+            }
+        },
+        "password_decryptor": {
+            "title_suffix": "Decryption",
+            "loading_camera": "Ini-initialize ang camera...",
+            "permission_required": "Kinakailangan ang Permission ng Camera",
+            "permission_allow": "Mangyaring pahintulutan ang access sa camera",
+            "retry": "Subukan Muli",
+            "low_quality_title": "Mababang Kalidad na Larawan",
+            "low_quality_message": "Mangyaring subukan muli gamit ang mas mahusay na ilaw",
+            "processing": "Nagde-decrypt...",
+            "cancel": "Kanselahin"
+        },
+        "password_biometrics": {
+            "back_to_details": "Bumalik sa Password Details",
+            "back_to_form": "Bumalik sa Password Form",
+            "verify_to_decrypt": "I-verify ang Identity upang I-decrypt",
+            "biometric_verification": "Biometric Verification",
+            "instruction_title": "Ilagay ang iyong mukha sa gitna",
+            "instruction_subtitle": "Tumingin nang diretso sa camera at manatiling nakatigil",
+            "compact_encrypt": "Mangyaring tumingin sa camera upang i-verify ang iyong identity at iimbak nang ligtas ang iyong password",
+            "compact_decrypt": "Mangyaring tumingin sa camera upang i-verify ang iyong identity at i-decrypt ang iyong password",
+            "loading_processing": "Nagpo-proseso ng iyong biometric data...",
+            "camera_error_title": "Hindi available ang camera",
+            "camera_error_desc": "Mangyaring tiyakin na ang iyong camera ay naka-enable at naa-access para sa biometric verification",
+            "permission_title": "Kinakailangan ang Permission ng Camera",
+            "permission_desc": "Mangyaring pahintulutan ang access sa camera upang magpatuloy sa biometric verification",
+            "go_back": "Bumalik",
+            "master_password_label": "Master Password (Opsiyonal):",
+            "master_password_placeholder": "Ilagay ang iyong master password kung mayroon ka",
+            "master_password_hint": "Kung nagtakda ka ng master password nang nililikha ang entry na ito, ilagay ito dito"
+        },
+        "note_result": {
+            "title": "Resulta ng Pag-iimbak ng Note",
+            "loading": "Naglo-load ng resulta...",
+            "sections": {
+                "success": {
+                    "title": "Matagumpay ang Pag-iimbak!",
+                    "message": "Matagumpay na naiimbak ang note!"
+                },
+                "details": {
+                    "title": "Mga Detalye ng Naiimbak na Note",
+                    "labels": {
+                        "title": "Pamagat",
+                        "folder": "Folder",
+                        "type": "Uri",
+                        "category": "Kategorya",
+                        "zelf_name": "Pangalan ng Zelf",
+                        "timestamp": "Timestamp"
+                    }
+                },
+                "nft": {
+                    "title": "Nalikha ang NFT",
+                    "labels": {
+                        "token_id": "ID ng Token",
+                        "cost": "Gastos",
+                        "contract": "Kontrata",
+                        "transaction": "Transaksyon"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "IPFS Storage",
+                    "labels": {
+                        "hash": "IPFS Hash",
+                        "gateway_url": "Gateway URL",
+                        "file_size": "Laki ng File",
+                        "uploaded": "Na-upload"
+                    },
+                    "gateway_link": "Tingnan sa IPFS Gateway"
+                },
+                "zelfproof": {
+                    "title": "Nabuo ang ZelfProof",
+                    "labels": {
+                        "string": "ZelfProof String",
+                        "qr_code": "QR Code"
+                    },
+                    "copy_hint": "I-click upang kopyahin",
+                    "qr_alt": "ZelfProof QR Code"
+                },
+                "debug": {
+                    "title": "Impormasyon ng Debug"
+                },
+                "next_steps": {
+                    "title": "Susunod na Hakbang",
+                    "success_message": "Ang iyong note ay ligtas na naiimbak na. Maaari mong tingnan ito sa iyong listahan ng notes o magdagdag ng iba pang note.",
+                    "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung patuloy ang problema, makipag-ugnayan sa support.",
+                    "unknown_message": "Hindi matukoy ng system ang status. Mangyaring suriin ang API response sa itaas para sa mga detalye."
+                }
+            },
+            "actions": {
+                "back_to_notes": "Bumalik sa Notes",
+                "add_another": "Magdagdag ng Iba pang Note"
+            },
+            "status": {
+                "success_title": "Matagumpay na Na-store ang Note!",
+                "error_title": "Error sa Pag-store ng Note",
+                "unknown_title": "Hindi Kilalang Status",
+                "success_message": "Ang iyong note ay ligtas na na-store at na-encrypt gamit ang blockchain verification.",
+                "error_message": "May naganap na error habang ini-store ang iyong note.",
+                "unknown_message": "Hindi matukoy ng system ang storage status."
+            },
+            "error": {
+                "no_result": "Walang available na API result"
+            }
+        },
+        "subscription_banner": {
+            "title": "I-unlock ang Premium Features",
+            "description": "Kumuha ng unlimited access, advanced security, at marami pa sa ZelfKeys Premium"
+        },
+        "data_card": {
+            "details": "Mga Detalye",
+            "no_qr": "Walang QR",
+            "untitled": "Walang Pamagat",
+            "username_label": "Username: {{ username }}",
+            "zelf_name_label": "Zelf Name: {{ zelfName }}",
+            "category_label": "Kategorya: {{ category }}",
+            "type_label": "Uri: {{ type }}",
+            "secure_credential": "Secure credential"
+        },
+        "data_types": {
+            "note": "Note",
+            "password": "Password",
+            "payment_card": "Payment Card"
+        },
+        "errors": {
+            "storing": "Error sa pag-store ng {{ type }}",
+            "retrieving": "Error sa pag-retrieve ng {{ type }}"
+        },
+        "messages": {
+            "note_retrieved": "Matagumpay na na-retrieve ang note",
+            "note_stored": "Matagumpay na na-store ang note",
+            "password_retrieved": "Matagumpay na na-retrieve ang password",
+            "password_stored": "Matagumpay na na-store ang password"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "I-verify ang Identity para i-Encrypt ang Payment Card",
+            "decrypt_payment_card": "I-verify ang Identity para i-Decrypt ang Payment Card",
+            "encrypt_note": "I-verify ang Identity para i-Encrypt ang Note",
+            "decrypt_note": "I-verify ang Identity para i-Decrypt ang Note",
+            "encrypt_password": "I-verify ang Identity para i-Encrypt ang Password",
+            "decrypt_password": "I-verify ang Identity para i-Decrypt ang Password",
+            "instructions": {
+                "payment_card": "Mangyaring i-verify ang iyong mukha para i-decrypt ang iyong payment card",
+                "note": "Mangyaring i-verify ang iyong mukha para i-decrypt ang iyong note",
+                "password": "Mangyaring i-verify ang iyong mukha para i-decrypt ang iyong password"
+            },
+            "item": "Item"
+        },
+        "categories": {
+            "password": "Password",
+            "note": "Tala",
+            "notes": "Mga Tala",
+            "payment_card": "Payment Card",
+            "card": "Card",
+            "contact": "Contact",
+            "zotp": "ZOTP"
+        },
+        "password_result": {
+            "status": {
+                "success_title": "Matagumpay na Na-save ang Password!",
+                "error_title": "Error sa Pag-save ng Password",
+                "unknown_title": "Hindi Kilalang Status",
+                "success_message": "Ang iyong password ay ligtas na na-save na may biometric verification.",
+                "error_message": "May error sa pag-save ng iyong password. Pakisubukan muli.",
+                "unknown_message": "Ang status ng iyong password storage request ay hindi malinaw."
+            },
+            "error": {
+                "no_result": "Walang available na API result"
+            }
+        }
     }
 }

@@ -1,0 +1,79 @@
+<div class="password-decryptor" *transloco="let t">
+    <!-- Compact Header -->
+    <div class="password-decryptor__header">
+        <span class="material-symbols-outlined password-decryptor__icon">{{ getDataTypeIcon() }}</span>
+        <h3 class="password-decryptor__title">{{ getDataTypeTitle() }} {{ t("zelf_keys.password_decryptor.title_suffix") }}</h3>
+    </div>
+
+    <!-- Camera Container - Takes up most of the space -->
+    <div class="password-decryptor__camera-container">
+        <!-- Loading State -->
+        <div *ngIf="camera.isLoading" class="password-decryptor__loading">
+            <mat-spinner diameter="30"></mat-spinner>
+            <p>{{ t("zelf_keys.password_decryptor.loading_camera") }}</p>
+        </div>
+
+        <!-- Camera Error States -->
+        <div *ngIf="!camera.hasPermissions" class="password-decryptor__error">
+            <span class="material-symbols-outlined password-decryptor__error-icon">camera_alt</span>
+            <h4>{{ t("zelf_keys.password_decryptor.permission_required") }}</h4>
+            <p>{{ t("zelf_keys.password_decryptor.permission_allow") }}</p>
+            <button mat-raised-button color="primary" (click)="ngOnInit()">{{ t("zelf_keys.password_decryptor.retry") }}</button>
+        </div>
+
+        <div *ngIf="camera.isLowQuality" class="password-decryptor__error">
+            <span class="material-symbols-outlined password-decryptor__error-icon">warning</span>
+            <h4>{{ t("zelf_keys.password_decryptor.low_quality_title") }}</h4>
+            <p>{{ t("zelf_keys.password_decryptor.low_quality_message") }}</p>
+            <button mat-raised-button color="primary" (click)="ngOnInit()">{{ t("zelf_keys.password_decryptor.retry") }}</button>
+        </div>
+
+        <!-- Camera View -->
+        <div *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality" class="password-decryptor__camera">
+            <!-- Webcam Component -->
+            <div class="password-decryptor__webcam-container">
+                <webcam
+                    #webcam
+                    [trigger]="takePicture$"
+                    (imageCapture)="processImage($event)"
+                    (initError)="cameraError($event)"
+                    [width]="camera.dimensions.video.width"
+                    [height]="camera.dimensions.video.height"
+                    [videoOptions]="camera.configuration"
+                    [allowCameraSwitch]="false"
+                ></webcam>
+
+                <!-- Face Detection Overlay -->
+                <canvas
+                    #maskResult
+                    class="password-decryptor__overlay"
+                    [style.width.px]="camera.dimensions.video.width"
+                    [style.height.px]="camera.dimensions.video.height"
+                ></canvas>
+            </div>
+
+            <!-- Face Detection Status - Overlay on camera -->
+            <div *ngIf="errorFace" class="password-decryptor__status">
+                <div class="password-decryptor__status-icon" [class.password-decryptor__status-icon--error]="errorFace">
+                    {{ errorFace?.canvas || "👤" }}
+                </div>
+                <h4 class="password-decryptor__status-title">{{ errorFace?.title }}</h4>
+                <p class="password-decryptor__status-subtitle">{{ errorFace?.subtitle }}</p>
+            </div>
+
+            <!-- Processing State - Overlay on camera -->
+            <div *ngIf="response.isLoading" class="password-decryptor__processing">
+                <mat-spinner diameter="30"></mat-spinner>
+                <p>{{ t("zelf_keys.password_decryptor.processing") }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons - Fixed at bottom -->
+    <div class="password-decryptor__actions">
+        <button mat-button (click)="onBack()" [disabled]="response.isLoading">{{ t("zelf_keys.password_decryptor.cancel") }}</button>
+    </div>
+
+    <!-- Hidden canvas for image processing -->
+    <canvas #toSend style="display: none"></canvas>
+</div>

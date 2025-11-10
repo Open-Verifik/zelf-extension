@@ -17,8 +17,10 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 24px !important;
     justify-content: center;
+    padding-bottom: 94px !important;
+    padding-top: 88px !important;
 
     &__header {
         display: grid;

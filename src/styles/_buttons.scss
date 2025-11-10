@@ -537,3 +537,25 @@
         width: auto;
     }
 }
+
+.zelf-icon-button-group {
+    display: flex;
+    align-items: center;
+    gap: 0;
+
+    .zelf-icon-button {
+        &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+
+        &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+}

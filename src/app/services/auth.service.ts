@@ -19,7 +19,13 @@ export class AuthService {
         private _httpClient: HttpClient,
         private _chromeService: ChromeService,
         private _walletService: WalletService
-    ) {}
+    ) {
+        this._chromeService.onWalletChanged$.subscribe(async (wallet) => {
+            if (!wallet) return;
+
+            await this.reauthenticateSession();
+        });
+    }
 
     private _generateFingerprint(): string {
         const fingerprintParts = [
@@ -45,20 +51,17 @@ export class AuthService {
     private async _requestAuthToken(
         fingerprint: string,
         tagName?: string | null,
-        domain?: string | null
+        domain?: string | null,
+        killSession: boolean = false
     ): Promise<{ data: { token: string; expiresAt: number } }> {
         const payload: any = {
             identifier: _simpleHash(fingerprint),
         };
 
         // Include tagName and domain if available
-        if (tagName) {
-            payload.tagName = tagName;
-        }
-
-        if (domain) {
-            payload.domain = domain;
-        }
+        if (tagName) payload.tagName = tagName;
+        if (domain) payload.domain = domain;
+        if (killSession) payload.killSession = 1;
 
         return await _request(
             this._httpClient.post(`${environment.apiUrl}/api/sessions`, payload, {
@@ -103,6 +106,35 @@ export class AuthService {
 
         const fingerprint = this._generateFingerprint();
         const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain);
+
+        this._accessToken = newAuthToken.data.token;
+        this._accessTokenExpiresAt = newAuthToken.data.expiresAt;
+
+        await this._chromeService.setItem("accessToken", newAuthToken.data.token);
+        await this._chromeService.setItem("accessTokenExpiresAt", newAuthToken.data.expiresAt);
+
+        return this._accessToken;
+    }
+
+    async reauthenticateSession(): Promise<string> {
+        let tagName: string | null = null;
+        let domain: string | null = null;
+
+        try {
+            const currentWallet = await this._walletService.getCurrentWallet();
+
+            if (currentWallet) {
+                tagName = currentWallet.tagName || currentWallet.name || null;
+                domain = currentWallet.publicData?.domain || "zelf";
+            } else {
+                domain = "zelf";
+            }
+        } catch (error) {
+            domain = "zelf";
+        }
+
+        const fingerprint = this._generateFingerprint();
+        const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain, true);
 
         this._accessToken = newAuthToken.data.token;
         this._accessTokenExpiresAt = newAuthToken.data.expiresAt;

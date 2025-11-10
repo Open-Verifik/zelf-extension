@@ -4,23 +4,22 @@ import { CommonModule } from "@angular/common";
 import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
-import { MatDialog } from "@angular/material/dialog";
-import { MatDialogModule } from "@angular/material/dialog";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { swipeLeft } from "app/animations/swipe-left.animation";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { DomainSelectionData, DomainSelectionModalComponent } from "app/domain-selection-modal/domain-selection-modal.component";
+import { DomainConfig, DomainService } from "app/domain.service";
+import { TagsService } from "app/tags.service";
+import { ThemeService } from "app/theme.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
-import { TagsService } from "app/tags.service";
-import { DomainService, DomainConfig } from "app/domain.service";
-import { DomainSelectionModalComponent, DomainSelectionData } from "app/domain-selection-modal/domain-selection-modal.component";
-import { ThemeService } from "app/theme.service";
 
 @Component({
     animations: [swipeLeft],
@@ -79,9 +78,9 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _tagsService: TagsService,
+        private _themeService: ThemeService,
         private _vaultService: VaultService,
-        private _walletService: WalletService,
-        private _themeService: ThemeService
+        private _walletService: WalletService
     ) {
         this._clearChromeItems();
 
@@ -311,12 +310,12 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
                 // Check if tag is available (not found)
                 if (!response?.data.available) {
                     await this._existingTagName(response?.data);
+
                     return;
                 }
 
                 // Tag is available, proceed with registration flow
                 await this._tagsService.setNewTagName(tagName);
-
                 await this._tagsService.setDomain(domain);
 
                 // Save the complete response data for the available page

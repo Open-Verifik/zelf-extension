@@ -1,0 +1,28 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "declaration": false,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["ES2020", "WebWorker", "DOM"],
+        "module": "ES2020",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "rootDirs": ["background-scripts", "content-scripts", "shared", "extension-scripts"],
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "ES2020",
+        "typeRoots": ["./node_modules/@types", "./shared/types"],
+        "types": ["chrome", "webextension-polyfill", "node"],
+        "paths": {
+            "@extension-scripts/*": ["extension-scripts/*"],
+            "@shared/*": ["shared/*"]
+        }
+    },
+    "include": ["shared/**/*", "background-scripts/**/*", "content-scripts/**/*", "extension-scripts/**/*"],
+    "exclude": ["src/**/*", "dist/**/*", "node_modules/**/*"]
+}

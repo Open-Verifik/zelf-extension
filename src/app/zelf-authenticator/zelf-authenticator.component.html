@@ -1,33 +1,22 @@
 <div class="zelf-card zelf-authenticator" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
+    <home-header [shareables]="shareables"></home-header>
+
     <div class="zelf-authenticator__header">
-        <div class="zelf-authenticator__col1">
-            <button mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white" [routerLink]="['/home']">
-                <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                    />
-                </svg>
-            </button>
-        </div>
+        <div class="zelf-authenticator__col1"></div>
 
         <div class="zelf-authenticator__col2">
             <p class="zelf-authenticator__title">{{ t("common.zelf_authenticator") }}</p>
         </div>
 
         <div class="zelf-authenticator__col3">
-            <button mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white" (click)="recoverZOTP()" [title]="t('zotp.recover_zotp')">
+            <button
+                (click)="recoverZOTP()"
+                [title]="t('zotp.recover_zotp')"
+                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white"
+                mat-flat-button
+            >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M9 2L4 7H7V13H11V7H14L9 2ZM2 15V17H16V15H2Z"
-                        fill="currentColor"
-                    />
-                </svg>
-            </button>
-            <button mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white" (click)="addZOTP()">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M16 10.1673H10.1667V16.0007C10.1667 16.6423 9.64168 17.1673 9.00001 17.1673C8.35834 17.1673 7.83334 16.6423 7.83334 16.0007V10.1673H2.00001C1.35834 10.1673 0.833344 9.64232 0.833344 9.00065C0.833344 8.35898 1.35834 7.83398 2.00001 7.83398H7.83334V2.00065C7.83334 1.35898 8.35834 0.833984 9.00001 0.833984C9.64168 0.833984 10.1667 1.35898 10.1667 2.00065V7.83398H16C16.6417 7.83398 17.1667 8.35898 17.1667 9.00065C17.1667 9.64232 16.6417 10.1673 16 10.1673Z"
-                    />
+                    <path d="M9 2L4 7H7V13H11V7H14L9 2ZM2 15V17H16V15H2Z" fill="currentColor" />
                 </svg>
             </button>
         </div>
@@ -104,10 +93,7 @@
 
                                 <mat-icon class="zelf-menu__button-icon">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M8 2L3 7H6V12H10V7H13L8 2ZM2 14V16H14V14H2Z"
-                                            fill="currentColor"
-                                        />
+                                        <path d="M8 2L3 7H6V12H10V7H13L8 2ZM2 14V16H14V14H2Z" fill="currentColor" />
                                     </svg>
                                 </mat-icon>
                             </button>

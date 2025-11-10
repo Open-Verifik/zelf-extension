@@ -1,0 +1,436 @@
+.zelf-keys-payment-cards {
+    padding: 0;
+    font-family: "Poppins", Arial, sans-serif;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 24px;
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+    }
+
+    &__loading-state,
+    &__error-state,
+    &__empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    &__loading-state {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 48px 32px;
+        margin: 24px 0;
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
+
+        h3 {
+            color: #1e40af;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+        }
+
+        p {
+            color: #475569;
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+
+    &__loading-spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e2e8f0;
+        border-top: 4px solid #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 24px;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+
+    &__error-state {
+        background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+        border: 1px solid #fecaca;
+        border-radius: 16px;
+        padding: 48px 32px;
+        margin: 24px 0;
+        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.08);
+
+        h3 {
+            color: #dc2626;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+        }
+
+        p {
+            color: #7f1d1d;
+            font-size: 16px;
+            margin: 0 0 32px 0;
+            line-height: 1.5;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .zelf-button {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            }
+        }
+    }
+
+    &__error-icon {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: pulse 2s ease-in-out infinite;
+
+        svg {
+            filter: drop-shadow(0 4px 8px rgba(239, 68, 68, 0.2));
+        }
+    }
+
+    &__list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        gap: 12px;
+    }
+
+    &__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__header-actions {
+        .zelf-icon-button--active {
+            background-color: #181818 !important;
+            color: white !important;
+
+            .material-symbols-outlined {
+                color: white;
+            }
+        }
+    }
+
+    &__cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    &__card-item {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 16px;
+        padding: 24px;
+        color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        min-height: 172px;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+    &__card-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    &__card-qr-chip {
+        position: relative;
+        width: 40px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: contrast(1.2) brightness(1.1);
+        }
+    }
+
+    &__card-number {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 24px;
+        font-family: "Courier New", monospace;
+    }
+
+    &__card-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__card-holder,
+    &__card-expiry {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__label {
+        font-size: 10px;
+        opacity: 0.8;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__value {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    &__add-card {
+        box-sizing: border-box;
+        background: #f4f4f4;
+        border-radius: 16px;
+        border: 1.5px #cdcdcd solid;
+        aspect-ratio: 1;
+        padding: 24px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        display: flex;
+        height: 150px;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        max-height: 280px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+        &:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        &--compact {
+            box-sizing: border-box;
+            aspect-ratio: auto;
+            height: 100px;
+            width: 100%;
+            grid-column: 1 / -1;
+            flex-direction: row;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 20px 24px;
+            gap: 20px;
+
+            .zelf-keys-payment-cards__add-card-icon {
+                flex-shrink: 0;
+
+                svg {
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+
+            .zelf-keys-payment-cards__add-card-content {
+                align-items: flex-start;
+                text-align: left;
+                flex: 1;
+            }
+
+            .zelf-keys-payment-cards__add-card-title {
+                font-size: 18px;
+                line-height: 22px;
+            }
+
+            .zelf-keys-payment-cards__add-card-description {
+                font-size: 13px;
+                line-height: 18px;
+            }
+        }
+    }
+
+    &__add-card-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__add-card-content {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        display: flex;
+    }
+
+    &__add-card-title {
+        opacity: 0.7;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        color: #181818;
+        font-size: 20px;
+        font-family: "Menda", sans-serif;
+        font-weight: 700;
+        line-height: 24px;
+        word-wrap: break-word;
+    }
+
+    &__add-card-description {
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        color: #73777f;
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        word-wrap: break-word;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .zelf-keys-payment-cards {
+        &__cards-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        &__add-card {
+            aspect-ratio: auto;
+            max-height: 280px;
+
+            &--compact {
+                height: 160px;
+                flex-direction: column;
+                text-align: center;
+                padding: 16px 20px;
+                gap: 12px;
+
+                .zelf-keys-payment-cards__add-card-content {
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .zelf-keys-payment-cards__add-card-title {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+
+                .zelf-keys-payment-cards__add-card-description {
+                    font-size: 12px;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+}
+
+// Folder row styles (shared across components)
+.zelf-action-row {
+    padding: 0 !important;
+    margin-bottom: 8px;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 100%;
+        min-height: 56px;
+        padding: 16px;
+        box-sizing: border-box;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__icon {
+        font-size: 24px;
+        color: #495057;
+    }
+
+    &__name {
+        flex: 1;
+        font-size: 16px;
+        font-weight: 500;
+        color: #1a1a1a;
+    }
+
+    &__expand {
+        font-size: 20px;
+        color: #6c757d;
+        transition: transform 0.2s ease;
+
+        &--open {
+            transform: rotate(90deg);
+        }
+    }
+
+    &__content {
+        padding: 0 16px 16px 16px;
+        margin-top: 8px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

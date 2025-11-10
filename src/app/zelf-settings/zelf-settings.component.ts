@@ -17,6 +17,7 @@ import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-set
 })
 export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     @ViewChild("securityIcon", { static: true }) securityIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
+    @ViewChild("subscriptionIcon", { static: true }) subscriptionIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
 
@@ -24,9 +25,8 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     settingsItems: {
         title: string;
         icon: string;
-        queryParams: {
-            edit: string;
-        };
+        routerLink: string[];
+        queryParams: Record<string, string>;
     }[] = [];
 
     footerLinks = [
@@ -86,8 +86,17 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
             {
                 title: this._translocoService.translate("settings.security_label"),
                 icon: "securityIcon",
+                routerLink: ["./"],
                 queryParams: {
                     edit: "security",
+                },
+            },
+            {
+                title: this._translocoService.translate("settings.subscription_label"),
+                icon: "subscriptionIcon",
+                routerLink: ["/zelf-keys/billing"],
+                queryParams: {
+                    redirect: "/settings",
                 },
             },
         ];

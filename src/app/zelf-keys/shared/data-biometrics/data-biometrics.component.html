@@ -1,0 +1,109 @@
+<div class="data-biometrics-container" #dataBiometricsContainer *transloco="let t">
+    <div class="data-biometrics-container__content" fxLayout="column" fxLayoutAlign="center center">
+        <!-- Instructions Above Video -->
+        <div
+            class="data-biometrics-container__instructions"
+            *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality && !hasApiError && !response.isLoading"
+        >
+            <p class="data-biometrics-container__instructions-text" *ngIf="!isDecryptMode">
+                {{ t("zelf_keys.biometrics.instructions.encrypt", { type: getDataTypeTitle().toLowerCase() }) }}
+            </p>
+            <p class="data-biometrics-container__instructions-text" *ngIf="isDecryptMode">
+                {{ t("zelf_keys.biometrics.instructions.decrypt", { type: getDataTypeTitle().toLowerCase() }) }}
+            </p>
+        </div>
+
+        <div
+            *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality && !hasApiError"
+            class="data-biometrics-container__camera"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+        >
+            <!-- Camera View - Full Width for Bottom Sheet -->
+            <div class="data-biometrics-container__camera-view data-biometrics-container__camera-view--full-width">
+                <webcam
+                    (imageCapture)="processImage($event)"
+                    (initError)="cameraError($event)"
+                    [allowCameraSwitch]="false"
+                    [captureImageData]="true"
+                    [height]="camera.dimensions.video.height"
+                    [imageQuality]="1"
+                    [trigger]="takePicture$"
+                    [videoOptions]="camera.configuration"
+                    [width]="camera.dimensions.video.width"
+                    *ngIf="!response.base64Image"
+                    #webcam
+                    mirrorImage="always"
+                ></webcam>
+
+                <canvas #maskResult class="data-biometrics-container__face-mask data-biometrics-container__face-mask--full-width"></canvas>
+
+                <canvas #toSend hidden="true"></canvas>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div *ngIf="response.isLoading" class="data-biometrics-container__loading-overlay" fxLayout="column" fxLayoutAlign="center center">
+                <zelf-loader [diameter]="120"></zelf-loader>
+
+                <div class="data-biometrics-container__processing-message">
+                    {{ response.isLoading ? t("zelf_keys.biometrics.processing.processing") : t("zelf_keys.biometrics.processing.analyzing") }}
+                </div>
+            </div>
+
+            <!-- Status Messages - Positioned Below Camera -->
+            <div class="data-biometrics-container__status" fxLayout="column" fxLayoutAlign="center center">
+                <div *ngIf="errorFace && !response.isLoading" class="data-biometrics-container__error">
+                    <div class="data-biometrics-container__error-title">{{ errorFace.title }}</div>
+                    <div class="data-biometrics-container__error-subtitle">{{ errorFace.subtitle }}</div>
+                </div>
+
+                <div *ngIf="!errorFace && !response.isLoading" class="data-biometrics-container__instructions-status">
+                    <div class="data-biometrics-container__instructions-title">{{ t("zelf_keys.biometrics.status.position_face_title") }}</div>
+                    <div class="data-biometrics-container__instructions-subtitle">{{ t("zelf_keys.biometrics.status.position_face_subtitle") }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Error Display -->
+        <div class="data-biometrics-container__api-error" fxLayout="column" fxLayoutAlign="center center" *ngIf="hasApiError && !response.isLoading">
+            <div class="data-biometrics-container__api-error-card">
+                <span class="material-symbols-outlined data-biometrics-container__api-error-icon">warning</span>
+                <h3 class="data-biometrics-container__api-error-title">{{ t("zelf_keys.biometrics.api_error.title") }}</h3>
+                <p class="data-biometrics-container__api-error-message">{{ apiError }}</p>
+                <div class="data-biometrics-container__api-error-actions">
+                    <button class="data-biometrics-container__btn data-biometrics-container__btn--retry" (click)="clearApiError()">
+                        {{ t("zelf_keys.biometrics.api_error.try_again") }}
+                    </button>
+                    <button class="data-biometrics-container__btn data-biometrics-container__btn--back" (click)="onBack()">
+                        {{ t("zelf_keys.biometrics.api_error.go_back") }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="data-biometrics-container__error-camera"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            *ngIf="!camera.isLoading && camera.isLowQuality && !hasApiError"
+        >
+            <img src="https://cdn.verifik.co/demo/nocameraenabled.svg" alt="Camera Error" class="data-biometrics-container__camera-error-image" />
+            <h2 class="data-biometrics-container__error-camera-title">{{ t("zelf_keys.biometrics.camera_error.title") }}</h2>
+            <p class="data-biometrics-container__error-camera-description">{{ t("zelf_keys.biometrics.camera_error.description") }}</p>
+        </div>
+
+        <div
+            class="data-biometrics-container__permission"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            *ngIf="!camera.isLoading && !camera.hasPermissions && !hasApiError"
+        >
+            <span class="material-symbols-outlined data-biometrics-container__permission-icon">camera_alt</span>
+            <h2 class="data-biometrics-container__permission-title">{{ t("zelf_keys.biometrics.permission.title") }}</h2>
+            <p class="data-biometrics-container__permission-description">{{ t("zelf_keys.biometrics.permission.description") }}</p>
+            <button class="data-biometrics-container__btn data-biometrics-container__btn--retry" (click)="onBack()">
+                {{ t("zelf_keys.biometrics.permission.go_back") }}
+            </button>
+        </div>
+    </div>
+</div>

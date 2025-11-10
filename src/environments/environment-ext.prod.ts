@@ -1,11 +1,12 @@
 export const environment = {
     apiUrl: "https://v3.zelf.world",
-    appUrl: "https://beta.zelf.world",
+    appUrl: "https://zelf.world",
     baseUrl: "/",
     captchaKey: "",
+    includeNonPaidDomains: false,
+    keysUrl: "https://keys.zelf.world",
     paymentDomainUrl: "https://payment.zelf.world",
     production: true,
-    includeNonPaidDomains: false,
     testnetAddress: "",
     networks: {
         ethereum: "sepolia",

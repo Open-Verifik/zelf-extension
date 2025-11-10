@@ -1,0 +1,618 @@
+<div class="billing" *transloco="let t">
+    <div class="billing__content">
+        <!-- Loading State -->
+        <zelf-loader [diameter]="120" *ngIf="loadingPlans || loadingCurrentPlan"></zelf-loader>
+
+        <!-- Error State -->
+        <div *ngIf="error && !loadingPlans && !loadingCurrentPlan" class="billing__error">
+            <div class="billing__error-content">
+                <svg class="billing__error-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+                <p class="billing__error-text">{{ error }}</p>
+                <button class="billing__retry-button" (click)="retryLoadPlans()">{{ t("zelf_keys.billing_ui.error.try_again") }}</button>
+            </div>
+        </div>
+
+        <!-- Active Subscription Management View -->
+        <div *ngIf="!loadingPlans && !loadingCurrentPlan && !error && hasActiveSubscription" class="billing__subscription">
+            <div class="billing__crypto-card">
+                <div class="billing__payment-details">
+                    <div class="billing__payment-amount">
+                        <div class="billing__payment-method-header">
+                            <h4 class="billing__payment-method-title">{{ getCurrentPlanName() }}</h4>
+                            <div class="billing__subscription-status" [class.billing__subscription-status--cancelled]="isCancelledActive()">
+                                <svg
+                                    *ngIf="!isCancelledActive()"
+                                    class="billing__status-icon"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                                <svg
+                                    *ngIf="isCancelledActive()"
+                                    class="billing__status-icon billing__status-icon--cancelled"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                                <span class="billing__status-text">
+                                    {{
+                                        isCancelledActive()
+                                            ? (t("billing.subscription.cancelled_active") | transloco)
+                                            : (t("billing.subscription.active_subscription") | transloco)
+                                    }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="billing__payment-method-content">
+                            <div class="billing__receipt">
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.plan") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">{{ getCurrentPlanName() }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.price") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">{{ getCurrentPlanPrice() }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.payment_method") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">
+                                            <span
+                                                *ngIf="activeSubscription?.paymentMethod === 'crypto'"
+                                                class="billing__payment-method billing__payment-method--crypto"
+                                            >
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                                    <path
+                                                        d="M8 12l2 2 4-4"
+                                                        stroke="currentColor"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                </svg>
+                                                {{ t("billing.subscription.payment_method_crypto") }}
+                                                <span *ngIf="getCryptoData()?.isDemoMode" class="billing__demo-badge">{{
+                                                    t("billing.subscription.demo")
+                                                }}</span>
+                                            </span>
+                                            <span
+                                                *ngIf="activeSubscription?.paymentMethod === 'stripe'"
+                                                class="billing__payment-method billing__payment-method--stripe"
+                                            >
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke="currentColor" stroke-width="2" />
+                                                    <line x1="1" y1="10" x2="23" y2="10" stroke="currentColor" stroke-width="2" />
+                                                </svg>
+                                                {{ t("billing.subscription.payment_method_stripe") }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.status") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div
+                                            class="billing__receipt-price"
+                                            [class.billing__status-active]="!isCancelledActive()"
+                                            [class.billing__status-cancelled]="isCancelledActive()"
+                                        >
+                                            {{ getSubscriptionStatus() }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    *ngIf="activeSubscription?.paymentMethod === 'crypto' && getCryptoData()?.transactionHash"
+                                    class="billing__receipt-row"
+                                >
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.transaction") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price billing__transaction-hash">
+                                            <a [href]="getTransactionUrl()" target="_blank" rel="noopener noreferrer">
+                                                {{ getCryptoData()?.transactionHash | slice: 0 : 10 }}...{{
+                                                    getCryptoData()?.transactionHash | slice: -8
+                                                }}
+                                            </a>
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M18 13V19A2 2 0 0116 21H5A2 2 0 013 19V8A2 2 0 015 6H11"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <polyline
+                                                    points="15,3 21,3 21,9"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <line
+                                                    x1="10"
+                                                    y1="14"
+                                                    x2="21"
+                                                    y2="3"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.zelf_name") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">
+                                            {{ activeSubscription?.zelfName || t("zelf_keys.billing_ui.plan.not_available") }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.start_date") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">{{ activeSubscription?.startDate | date: "medium" }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ getEndDateLabel() }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price" [class.billing__status-cancelled]="isCancelledActive()">
+                                            {{ activeSubscription?.endDate | date: "medium" }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="isCancelledActive() && activeSubscription?.stripeData?.cancelledAt" class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.cancelled_on") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price billing__status-cancelled">
+                                            {{ activeSubscription.stripeData.cancelledAt | date: "medium" }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="billing__subscription-actions">
+                        <div *ngIf="activeSubscription?.paymentMethod === 'stripe'" class="billing__payment-method">
+                            <div class="billing__payment-method-header">
+                                <h4 class="billing__payment-method-title">{{ t("billing.subscription.manage_subscription") }}</h4>
+                            </div>
+                            <div class="billing__payment-method-content">
+                                <button class="billing__pay-button billing__pay-button--stripe" (click)="openCustomerPortal()">
+                                    <svg
+                                        class="billing__button-icon"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M10.325 4.317C10.751 3.901 11.377 3.901 11.803 4.317L20.69 13.204C21.116 13.63 21.116 14.256 20.69 14.682L11.803 23.569C11.377 23.995 10.751 23.995 10.325 23.569L1.438 14.682C1.012 14.256 1.012 13.63 1.438 13.204L10.325 4.317Z"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                    {{ t("billing.subscription.manage_subscription") }}
+                                </button>
+                                <p class="billing__status-note">{{ getManagementNote() }}</p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="activeSubscription?.paymentMethod === 'crypto'" class="billing__payment-method">
+                            <div class="billing__payment-method-header">
+                                <h4 class="billing__payment-method-title">{{ getCryptoSubscriptionTitle() }}</h4>
+                            </div>
+                            <div class="billing__payment-method-content">
+                                <div class="billing__crypto-info-card">
+                                    <svg
+                                        class="billing__info-icon"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                        <path
+                                            d="M12 16V12M12 8H12.01"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                    <div class="billing__crypto-content">
+                                        <p>{{ getCryptoSubscriptionInfo() }}</p>
+                                        <small *ngIf="getCryptoData()?.transactionHash" class="billing__transaction-note">
+                                            {{ getTransactionVerifiedText() }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activation Success Message -->
+        <div *ngIf="showActivationMessage" class="billing__activation-success">
+            <div class="billing__activation-card">
+                <div class="billing__success-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <h2 class="billing__success-title">{{ t("billing.activation.title") }}</h2>
+                <p class="billing__success-message">{{ activationMessage }}</p>
+                <zelf-loader [diameter]="40"></zelf-loader>
+            </div>
+        </div>
+
+        <!-- Crypto Payment Interface -->
+        <div *ngIf="!loading && !error && showCryptoPayment && !showActivationMessage" class="billing__crypto-payment">
+            <div class="billing__crypto-card">
+                <div class="billing__payment-details">
+                    <div class="billing__payment-amount">
+                        <div class="billing__payment-method-header">
+                            <h4 class="billing__payment-method-title">{{ cryptoPaymentData?.selectedPlan?.name }}</h4>
+                        </div>
+
+                        <div class="billing__price-lock-content">
+                            <div *ngIf="cryptoPaymentData?.isDemoMode" class="billing__demo-banner">
+                                {{ t("zelf_keys.billing_ui.crypto.demo_banner") }}
+                            </div>
+
+                            <div class="billing__price-lock">
+                                {{ t("zelf_keys.billing_ui.crypto.price_lock") }} • 1 AVAX = ${{ cryptoPaymentData?.avaxPrice | number: "1.2-2" }}
+                            </div>
+                        </div>
+
+                        <div class="billing__payment-method-content">
+                            <div class="billing__receipt">
+                                <div class="billing__receipt-row">
+                                    <div class="billing__receipt-label">{{ t("billing.subscription.plan") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">
+                                            <span *ngIf="cryptoPaymentData?.originalAmount">{{ cryptoPaymentData?.originalAmount?.avax }}</span>
+                                            <span *ngIf="!cryptoPaymentData?.originalAmount">{{ cryptoPaymentData?.amount }}</span>
+                                            AVAX
+                                        </div>
+                                        <div
+                                            class="billing__receipt-secondary"
+                                            [class.billing__receipt-secondary--discounted]="
+                                                cryptoPaymentData?.isDemoMode && cryptoPaymentData?.originalAmount
+                                            "
+                                        >
+                                            ${{ cryptoPaymentData?.selectedPlan?.price }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    *ngIf="cryptoPaymentData?.isDemoMode && cryptoPaymentData?.originalAmount"
+                                    class="billing__receipt-row billing__receipt-row--discount"
+                                >
+                                    <div class="billing__receipt-label">
+                                        {{ t("zelf_keys.billing_ui.crypto.demo_discount", { discount: getDemoDiscount() }) }}
+                                    </div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price">{{ cryptoPaymentData?.amount }} AVAX</div>
+                                        <div class="billing__receipt-secondary">~${{ cryptoPaymentData?.usdAmount | number: "1.2-4" }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="billing__receipt-row billing__receipt-row--total">
+                                    <div class="billing__receipt-label">{{ t("common.amount") }}</div>
+                                    <div class="billing__receipt-value">
+                                        <div class="billing__receipt-price billing__receipt-price--total">
+                                            <span *ngIf="cryptoPaymentData?.isDemoMode && cryptoPaymentData?.originalAmount">{{
+                                                cryptoPaymentData?.amount
+                                            }}</span>
+                                            <span *ngIf="!cryptoPaymentData?.isDemoMode || !cryptoPaymentData?.originalAmount">{{
+                                                cryptoPaymentData?.amount
+                                            }}</span>
+                                            AVAX
+                                        </div>
+                                        <div class="billing__receipt-secondary billing__receipt-secondary--total">
+                                            ~${{ cryptoPaymentData?.usdAmount | number: "1.2-4" }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="billing__payment-methods">
+                        <h3 class="billing__payment-methods-title">{{ t("zelf_keys.billing_ui.crypto.payment_methods") }}</h3>
+
+                        <div class="billing__payment-method" *ngIf="wallets && wallets.length > 0">
+                            <div class="billing__payment-method-header">
+                                <h4 class="billing__payment-method-title">{{ t("zelf_keys.billing_ui.crypto.pay_with_wallet") }}</h4>
+                            </div>
+
+                            <div class="billing__payment-method-content">
+                                <div class="billing__domain-payment">
+                                    <label class="billing__domain-label form-label" for="selectedWallet">
+                                        {{ t("zelf_keys.billing_ui.crypto.domain_label") }}
+                                    </label>
+
+                                    <div class="billing__wallet-dropdown">
+                                        <div class="zelf-input zelf-input--wide">
+                                            <button
+                                                type="button"
+                                                class="billing__wallet-trigger zelf-input__control"
+                                                (click)="toggleWalletMenu()"
+                                                [attr.aria-expanded]="showWalletMenu"
+                                                [attr.aria-haspopup]="true"
+                                            >
+                                                <span class="billing__wallet-trigger-text">
+                                                    {{
+                                                        selectedWallet
+                                                            ? getWalletDisplayName(selectedWallet)
+                                                            : t("zelf_keys.billing_ui.crypto.select_wallet")
+                                                    }}
+                                                </span>
+                                            </button>
+
+                                            <div class="billing__wallet-trigger-icon-wrapper">
+                                                <svg
+                                                    class="billing__wallet-trigger-icon"
+                                                    [class.billing__wallet-trigger-icon--open]="showWalletMenu"
+                                                    width="12"
+                                                    height="8"
+                                                    viewBox="0 0 12 8"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M1 1L6 6L11 1"
+                                                        stroke="#181818"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div class="billing__wallet-menu" *ngIf="showWalletMenu">
+                                            <button
+                                                *ngFor="let wallet of wallets"
+                                                type="button"
+                                                class="billing__wallet-menu-item"
+                                                [class.billing__wallet-menu-item--selected]="selectedWallet === wallet"
+                                                (click)="selectWallet(wallet)"
+                                            >
+                                                {{ getWalletDisplayName(wallet) }}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <button class="billing__pay-button billing__pay-button--avax" (click)="payWithAvax()">
+                                        {{ t("zelf_keys.billing_ui.crypto.pay_with_avax") }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="billing__payment-method">
+                            <div class="billing__payment-method-header">
+                                <h4 class="billing__payment-method-title">{{ t("zelf_keys.billing_ui.crypto.copy_address") }}</h4>
+                            </div>
+                            <div class="billing__payment-method-content">
+                                <div class="billing__address-section">
+                                    <div class="crypto-address">
+                                        <div class="crypto-address__col">
+                                            <p class="crypto-address__text">{{ t("zelf_keys.billing_ui.crypto.payment_address_label") }}</p>
+                                            <p class="crypto-address__address-text">{{ cryptoPaymentData?.paymentAddress }}</p>
+                                        </div>
+
+                                        <button
+                                            class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                                            (click)="copyPaymentAddress()"
+                                        >
+                                            <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="billing__payment-method">
+                            <div class="billing__payment-method-header">
+                                <h4 class="billing__payment-method-title">{{ t("zelf_keys.billing_ui.crypto.scan_address") }}</h4>
+                            </div>
+                            <div class="billing__payment-method-content">
+                                <div class="billing__qr-section">
+                                    <div class="billing__qr-container">
+                                        <img [src]="generatePaymentQR()" [alt]="t('zelf_keys.billing_ui.crypto.payment_qr_code_alt')" class="billing__qr-code" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="billing__payment-status">
+                    <div class="billing__payment-method-header">
+                        <h4 class="billing__payment-method-title">{{ t("zelf_keys.billing_ui.crypto.waiting_confirmation") }}</h4>
+                    </div>
+
+                    <div class="billing__payment-method-content">
+                        <div class="billing__status-note">{{ t("zelf_keys.billing_ui.crypto.auto_update_note") }}</div>
+                        <zelf-loader [absolute]="false" [diameter]="40"></zelf-loader>
+                    </div>
+                </div>
+
+                <div class="billing__payment-actions">
+                    <button class="billing__cancel-button" (click)="cancelCryptoPayment()">
+                        {{ t("zelf_keys.billing_ui.crypto.cancel_payment") }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plans Grid -->
+        <div *ngIf="!loading && !error && !hasActiveSubscription && !showCryptoPayment" class="billing__plans">
+            <div class="billing__header">
+                <h1 class="billing__title">{{ t("zelf_keys.billing_ui.choose_your_plan_title") }}</h1>
+                <p class="billing__subtitle">{{ t("zelf_keys.billing_ui.choose_your_plan_subtitle") }}</p>
+            </div>
+
+            <div class="billing__pricing-grid">
+                <div
+                    *ngFor="let plan of plans"
+                    class="billing__pricing-card"
+                    [class.billing__pricing-card--popular]="plan.isPopular"
+                    [class.billing__pricing-card--current]="plan.isCurrent"
+                >
+                    <div class="billing__card-header">
+                        <div class="billing__plan-name">{{ plan.name }}</div>
+                        <div *ngIf="plan.isPopular" class="billing__popular-badge">{{ t("zelf_keys.billing_ui.plan.popular_badge") }}</div>
+                    </div>
+
+                    <div class="billing__plan-pricing">
+                        <div class="billing__price">
+                            <span class="billing__currency">$</span>
+                            <span class="billing__amount">{{ plan.price }}</span>
+                            <span class="billing__period">/{{ plan.interval }}</span>
+                        </div>
+                    </div>
+
+                    <div class="billing__plan-tagline">{{ plan.description }}</div>
+
+                    <div class="billing__plan-features">
+                        <div *ngFor="let feature of plan.features" class="billing__feature-item">
+                            <svg
+                                class="billing__feature-icon"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                            <span class="billing__feature-text">{{ feature }}</span>
+                        </div>
+                    </div>
+
+                    <div class="billing__payment-options" *ngIf="!plan.isCurrent">
+                        <button
+                            class="billing__payment-button billing__payment-button--stripe"
+                            [disabled]="isAnyPaymentLoading()"
+                            (click)="selectPlan(plan.id, 'stripe')"
+                        >
+                            <mat-spinner *ngIf="isPaymentLoading(plan.id, 'stripe')" diameter="20" class="billing__payment-spinner"></mat-spinner>
+                            <svg
+                                *ngIf="!isPaymentLoading(plan.id, 'stripe')"
+                                class="billing__payment-icon"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke="currentColor" stroke-width="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                            <span *ngIf="!isPaymentLoading(plan.id, 'stripe')">{{ t("zelf_keys.billing_ui.plan.pay_with_stripe") }}</span>
+                        </button>
+                        <button
+                            class="billing__payment-button billing__payment-button--crypto"
+                            [disabled]="isAnyPaymentLoading()"
+                            (click)="selectPlan(plan.id, 'crypto')"
+                        >
+                            <mat-spinner *ngIf="isPaymentLoading(plan.id, 'crypto')" diameter="20" class="billing__payment-spinner"></mat-spinner>
+                            <svg
+                                *ngIf="!isPaymentLoading(plan.id, 'crypto')"
+                                class="billing__payment-icon"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span *ngIf="!isPaymentLoading(plan.id, 'crypto')">{{ t("zelf_keys.billing_ui.plan.pay_with_crypto") }}</span>
+                        </button>
+                    </div>
+                    <button *ngIf="plan.isCurrent" class="billing__plan-button billing__plan-button--current" disabled>
+                        {{ getPlanButtonText(plan) }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #clipboardIcon>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M15.5 20H5.5V7C5.5 6.45 5.05 6 4.5 6C3.95 6 3.5 6.45 3.5 7V20C3.5 21.1 4.4 22 5.5 22H15.5C16.05 22 16.5 21.55 16.5 21C16.5 20.45 16.05 20 15.5 20ZM20.5 16V4C20.5 2.9 19.6 2 18.5 2H9.5C8.4 2 7.5 2.9 7.5 4V16C7.5 17.1 8.4 18 9.5 18H18.5C19.6 18 20.5 17.1 20.5 16ZM18.5 16H9.5V4H18.5V16Z"
+            />
+        </svg>
+    </ng-template>
+</div>

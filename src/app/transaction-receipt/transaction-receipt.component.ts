@@ -13,7 +13,7 @@ import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
-import { TokenData } from "app/wallet";
+import { TokenData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";

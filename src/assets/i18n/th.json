@@ -38,7 +38,13 @@
         "used": "ใช้เมื่อ {{days}} ที่แล้ว",
         "withdrawal_amount": "จำนวนเงินที่ถอน",
         "zelf_name_not_registered": "Tag Name ยังไม่ได้ลงทะเบียน",
-        "zelf_name_registered": "Tag Name ลงทะเบียนแล้ว"
+        "zelf_name_registered": "Tag Name ลงทะเบียนแล้ว",
+        "average": "เฉลี่ย",
+        "confirmations": "การยืนยัน",
+        "economical": "ประหยัด",
+        "fastest": "เร็วที่สุด",
+        "transaction_settings": "การตั้งค่าธุรกรรม",
+        "upto_sats": "สูงสุด {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} นาที"
     },
     "transaction": {
         "go_to_my_history": "ไปที่ประวัติของฉัน",
@@ -115,7 +121,8 @@
         "subtitle": "เลือกความยาวของวลีเริ่มต้นของคุณและดำเนินการกับกระบวนการเข้ารหัส",
         "title": "ชั้นการเข้ารหัส ZelfProof",
         "unhide_words": "แสดงคำ",
-        "weak": "อ่อนแอ"
+        "weak": "อ่อนแอ",
+        "weak_password": "รหัสผ่านอ่อนแอ"
     },
     "receive": {
         "information": "ที่อยู่นี้สามารถใช้รับโทเคนที่เข้ากันได้เท่านั้น",
@@ -239,7 +246,13 @@
         "yes": "ใช่",
         "your_token": "{{ symbol }} ของคุณ",
         "zelf_wallet": "กระเป๋าเงิน Zelf",
-        "zelf_authenticator": "Zelf - ตัวยืนยันตัวตน"
+        "avax_address": "ที่อยู่ AVAX",
+        "download_qr": "ดาวน์โหลด QR",
+        "seed_phrase": "วลีเมล็ดพันธุ์",
+        "zelf_authenticator": "ตัวตรวจสอบ Zelf",
+        "zelf_keys": "กุญแจ Zelf",
+        "zelf_link": "ลิงก์ Zelf",
+        "subscriptions": "การสมัครสมาชิก"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",
@@ -290,8 +303,7 @@
         "domain_warning": "คุณยังมีเวลาในการซื้อ",
         "expired_wallet_logout_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
         "logout_of_wallet_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ หรือโหลดรหัส QR ของ ZelfProof ของคุณ",
-        "purchase_new_domain": "เพิ่มชื่อแท็กใหม่",
-        "zelfproof_removed_successfully": "ลบ ZelfProof สำเร็จแล้ว"
+        "purchase_new_domain": "เพิ่มชื่อแท็กใหม่"
     },
     "liveness": {
         "center_your_face": "จัดใบหน้าของคุณให้อยู่ตรงกลางหน้าจอ",
@@ -339,8 +351,6 @@
         "not_found": "ไม่พบบันทึก",
         "password_doesnt_match": "รหัสผ่านไม่ตรงกัน",
         "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
-        "LIVENESS CHECK FAILED.": "การตรวจสอบความมีชีวิตล้มเหลว กรุณาลองใหม่อีกครั้ง",
-        "THE PROVIDED PASSWORD IS INVALID.": "รหัสผ่านที่คุณป้อนไม่ถูกต้อง กรุณาตรวจสอบรหัสผ่านของคุณและลองอีกครั้ง",
         "person_already_set": "การลงทะเบียนของคุณมี ZelfProof ที่เชื่อมโยงอยู่แล้ว",
         "private_key_locked": "คีย์ส่วนตัวถูกล็อค คุณต้องทำการตรวจสอบไบโอเมตริกซ์เพื่อดำเนินการต่อ",
         "required_field": "กรุณากรอกข้อมูลในช่องนี้",
@@ -380,7 +390,8 @@
         "send_transaction_button": "ส่ง",
         "settings_button": "ตั้งค่า",
         "support_button": "ช่วยเหลือ",
-        "swap": "แลกเปลี่ยน"
+        "swap": "แลกเปลี่ยน",
+        "keys": "กุญแจ"
     },
     "id_scanning": {
         "camera_not_found": "ไม่พบกล้อง",
@@ -444,6 +455,523 @@
         "considerations_description_2": "ตัวตนที่ไม่ซ้ำใคร",
         "considerations_description_3": "การป้องกันที่พร้อมสำหรับอนาคต"
     },
+    "billing": {
+        "activation": {
+            "title": "การชำระเงินได้รับการยืนยัน!",
+            "message": "กำลังเปิดใช้งานการสมัครสมาชิก... ยินดีด้วย! การชำระเงินของคุณได้รับการยืนยันและการสมัครสมาชิกของคุณกำลังถูกเปิดใช้งาน"
+        },
+        "subscription": {
+            "active_subscription": "การสมัครสมาชิกที่ใช้งานอยู่",
+            "cancelled_active": "ยกเลิกแล้ว (ใช้งานได้จนถึงสิ้นสุดระยะเวลา)",
+            "plan": "แผน:",
+            "price": "ราคา:",
+            "payment_method": "วิธีการชำระเงิน:",
+            "status": "สถานะ:",
+            "transaction": "ธุรกรรม:",
+            "zelf_name": "ชื่อ Zelf:",
+            "start_date": "วันที่เริ่มต้น:",
+            "expires_on": "หมดอายุเมื่อ:",
+            "next_billing": "การเรียกเก็บเงินครั้งถัดไป:",
+            "access_ends": "การเข้าถึงสิ้นสุด:",
+            "cancelled_on": "ยกเลิกเมื่อ:",
+            "manage_subscription": "จัดการการสมัครสมาชิก",
+            "crypto_subscription_active": "การสมัครสมาชิกคริปโตใช้งานอยู่",
+            "crypto_subscription_info": "การสมัครสมาชิกของคุณชำระด้วยสกุลเงินดิจิทัล AVAX นี่เป็นการชำระเงินครั้งเดียวที่ใช้ได้จนถึงวันที่สิ้นสุดที่แสดงด้านบน",
+            "transaction_verified": "ธุรกรรมได้รับการตรวจสอบบนบล็อกเชน Avalanche",
+            "manage_note_active": "Manage your subscription, update payment methods, view billing history, and more in the Stripe customer portal.",
+            "manage_note_cancelled": "Your subscription is cancelled but remains active until the end of your billing period. You can reactivate or view billing history in the Stripe customer portal.",
+            "demo": "DEMO",
+            "active": "Active",
+            "cancelled": "Cancelled"
+        },
+        "dashboard": {
+            "start": "Start",
+            "passwords": "Passwords",
+            "notes": "Notes",
+            "payment_cards": "Payment Cards",
+            "subscription": "Subscription"
+        },
+        "payment_cards": {
+            "title": "Payment Cards",
+            "subtitle": "Securely store your payment card information",
+            "loading": {
+                "title": "Loading your payment cards",
+                "message": "Please wait while we fetch your secure data..."
+            },
+            "error": {
+                "title": "Oops! Something went wrong",
+                "message": "We couldn't load your payment cards.",
+                "try_again": "Try Again",
+                "no_wallet": "ไม่พบกระเป๋าเงิน กรุณาตั้งค่ากระเป๋าเงินของคุณก่อน",
+                "auth_failed": "การยืนยันตัวตนล้มเหลว กรุณาตรวจสอบว่าคุณมีกระเป๋าเงินที่ถูกต้อง",
+                "init_failed": "ไม่สามารถเริ่มต้นเซสชันได้ กรุณาตรวจสอบการเชื่อมต่อกระเป๋าเงินของคุณ",
+                "no_token": "ไม่มีโทเค็นการยืนยันตัวตน กรุณารีเฟรชหน้า",
+                "load_failed": "ไม่สามารถโหลดบัตรชำระเงินได้ กรุณาลองอีกครั้ง"
+            },
+            "premium": {
+                "title": "Unlock Premium Features",
+                "description": "Get advanced security, and more with ZelfKeys Premium"
+            },
+            "add_card": {
+                "title": "Add New Card",
+                "description": "Securely store a new payment card"
+            },
+            "card": {
+                "card_holder": "Card Holder",
+                "expires": "Expires",
+                "card_number": "Card Number",
+                "expiry_date": "Expiry Date",
+                "card_type": "Card Type",
+                "cvv": "CVV",
+                "billing_address": "Billing Address",
+                "notes": "Notes",
+                "no_card_holder": "No card holder",
+                "no_expiry": "No expiry date",
+                "no_card_number": "No card number",
+                "no_card_type": "No card type",
+                "no_cvv": "No CVV",
+                "no_billing_address": "No billing address",
+                "no_notes": "No notes"
+            },
+            "detail": {
+                "title": "Payment Card Details",
+                "loading": "Loading payment card details...",
+                "error": {
+                    "title": "Error loading payment card",
+                    "go_back": "Go Back",
+                    "retrieve_failed": "ไม่สามารถดึงข้อมูลบัตรชำระเงินได้",
+                    "decrypt_failed": "ไม่สามารถถอดรหัสบัตรชำระเงินได้ กรุณาลองอีกครั้ง"
+                },
+                "decrypt": {
+                    "button": "Decrypt Card",
+                    "decrypting": "Decrypting..."
+                },
+                "info": {
+                    "title": "Card Information",
+                    "card_number": "Card Number",
+                    "card_holder": "Card Holder",
+                    "expiry_date": "Expiry Date",
+                    "card_type": "Card Type",
+                    "cvv": "CVV",
+                    "billing_address": "Billing Address",
+                    "notes": "Notes",
+                    "copy_card_number": "Copy card number",
+                    "copy_card_holder": "Copy card holder",
+                    "copy_expiry": "Copy expiry date",
+                    "copy_card_type": "Copy card type",
+                    "copy_cvv": "Copy CVV",
+                    "copy_billing_address": "Copy billing address",
+                    "copy_notes": "Copy notes"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "Download ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Decrypted Card Information",
+                    "card_number": "Card Number",
+                    "card_holder": "Card Holder",
+                    "expiry_date": "Expiry Date",
+                    "card_type": "Card Type",
+                    "cvv": "CVV",
+                    "billing_address": "Billing Address",
+                    "notes": "Notes",
+                    "show_card_number": "Show card number",
+                    "hide_card_number": "Hide card number",
+                    "show_cvv": "Show CVV",
+                    "hide_cvv": "Hide CVV",
+                    "copy_card_number": "Copy card number",
+                    "copy_card_holder": "Copy card holder",
+                    "copy_expiry": "Copy expiry date",
+                    "copy_card_type": "Copy card type",
+                    "copy_cvv": "Copy CVV",
+                    "copy_billing_address": "Copy billing address",
+                    "copy_notes": "Copy notes"
+                },
+                "expiry_placeholder": "เดือน/ปี"
+            },
+            "form": {
+                "title": {
+                    "add": "Add New Payment Card",
+                    "edit": "Edit Payment Card",
+                    "label": "ชื่อธนาคาร *",
+                    "placeholder": "ใส่ชื่อธนาคาร"
+                },
+                "card_number": {
+                    "label": "Card Number *",
+                    "placeholder": "1234 5678 9012 3456"
+                },
+                "card_holder": {
+                    "label": "Card Holder Name *",
+                    "placeholder": "Enter card holder name"
+                },
+                "expiry_month": {
+                    "label": "Expiry Month *",
+                    "placeholder": "MM"
+                },
+                "expiry_year": {
+                    "label": "Expiry Year *",
+                    "placeholder": "YYYY"
+                },
+                "card_type": {
+                    "label": "Card Type *",
+                    "placeholder": "Select card type"
+                },
+                "cvv": {
+                    "label": "CVV *",
+                    "placeholder": "123"
+                },
+                "billing_address": {
+                    "label": "Billing Address",
+                    "placeholder": "Enter billing address (optional)"
+                },
+                "notes": {
+                    "label": "Notes",
+                    "placeholder": "Enter notes (optional)"
+                },
+                "folder": {
+                    "label": "Store in Folder",
+                    "placeholder": "Folder name",
+                    "aria_label": "Toggle folder storage"
+                },
+                "master_password": {
+                    "placeholder": "Enter your master password",
+                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                },
+                "buttons": {
+                    "cancel": "Cancel",
+                    "create": "Create Card",
+                    "update": "Update Card"
+                }
+            },
+            "unknown_bank": "ธนาคารไม่ทราบ",
+            "unknown": "ไม่ทราบ"
+        },
+        "notes": {
+            "title": "Notes",
+            "subtitle": "Manage your secure notes and key-value pairs",
+            "loading": {
+                "title": "Loading your notes",
+                "message": "Please wait while we fetch your secure data..."
+            },
+            "error": {
+                "title": "Oops! Something went wrong",
+                "message": "We couldn't load your notes.",
+                "try_again": "Try Again",
+                "load_failed": "ไม่สามารถโหลดบันทึกที่จัดเก็บไว้ได้ กรุณาลองอีกครั้ง"
+            },
+            "premium": {
+                "title": "Unlock Premium Features",
+                "description": "Get advanced security, and more with ZelfKeys Premium"
+            },
+            "add_note": {
+                "title": "Add New Note",
+                "description": "Securely store a new note"
+            },
+            "detail": {
+                "loading": "Loading note details...",
+                "error": {
+                    "title": "Error loading note",
+                    "go_back": "Go Back",
+                    "not_found": "ไม่มีข้อมูลบันทึก",
+                    "load_failed": "ไม่สามารถโหลดข้อมูลบันทึกได้",
+                    "retrieve_failed": "ไม่สามารถดึงข้อมูลบันทึกได้",
+                    "decrypt_failed": "ไม่สามารถถอดรหัสบันทึกได้ กรุณาลองอีกครั้ง"
+                },
+                "untitled": "Untitled Note",
+                "no_folder": "No folder",
+                "decrypt": {
+                    "button": "Decrypt Note",
+                    "decrypting": "Decrypting..."
+                },
+                "info": {
+                    "title": "Note Information",
+                    "note_id": "Note ID",
+                    "type": "Type",
+                    "folder": "Folder",
+                    "copy_id": "Copy note ID"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "Download ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Decrypted Content",
+                    "title_field": "Title",
+                    "content": "Content",
+                    "no_title": "No title",
+                    "no_content": "No content",
+                    "copy_title": "Copy title",
+                    "copy_content": "Copy content"
+                },
+                "no_title": "ไม่มีชื่อ",
+                "no_content": "ไม่มีเนื้อหา"
+            },
+            "form": {
+                "title": {
+                    "add": "Add New Note",
+                    "edit": "Edit Note"
+                },
+                "title_field": {
+                    "label": "Note Title *",
+                    "placeholder": "Enter note title"
+                },
+                "content": {
+                    "label": "Note Content *",
+                    "placeholder": "Write your note here... You can include multiple paragraphs, lists, or any other content you need to remember securely.",
+                    "hint": "Your note content will be encrypted and stored securely. You can write as much as you need."
+                },
+                "folder": {
+                    "label": "Organize in Folder",
+                    "placeholder": "Enter folder name",
+                    "aria_label": "Toggle folder organization"
+                },
+                "master_password": {
+                    "placeholder": "Enter your master password",
+                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                },
+                "buttons": {
+                    "cancel": "Cancel",
+                    "create": "Create Note",
+                    "update": "Update Note"
+                }
+            }
+        },
+        "passwords": {
+            "title": "Passwords",
+            "subtitle": "Manage your secure passwords and credentials",
+            "loading": {
+                "title": "Loading your passwords",
+                "message": "Please wait while we fetch your secure data..."
+            },
+            "error": {
+                "title": "Oops! Something went wrong",
+                "message": "We couldn't load your passwords.",
+                "try_again": "Try Again",
+                "load_failed": "ไม่สามารถโหลดรหัสผ่านที่จัดเก็บไว้ได้ กรุณาลองอีกครั้ง"
+            },
+            "premium": {
+                "title": "Unlock Premium Features",
+                "description": "Get advanced security, and more with ZelfKeys Premium"
+            },
+            "add_password": {
+                "title": "Add New Password",
+                "description": "Securely store a new password"
+            },
+            "search": {
+                "placeholder": "Search passwords..."
+            },
+            "no_results": {
+                "title": "No passwords found",
+                "message": "Try adjusting your search terms"
+            },
+            "detail": {
+                "loading": "Loading password details...",
+                "error": {
+                    "title": "Error loading password",
+                    "go_back": "Go Back",
+                    "not_found": "ไม่พบข้อมูลรหัสผ่าน",
+                    "load_failed": "ไม่สามารถโหลดข้อมูลรหัสผ่านได้",
+                    "decrypt_failed": "ไม่สามารถถอดรหัสรหัสผ่านได้ กรุณาลองอีกครั้ง"
+                },
+                "untitled": "Untitled Password",
+                "no_username": "No username",
+                "no_website": "No website",
+                "no_category": "No category",
+                "no_zelf_name": "No zelf name",
+                "unknown_date": "Unknown date",
+                "decrypt": {
+                    "button": "Decrypt password",
+                    "decrypting": "Decrypting...",
+                    "launch_fill": "Launch and fill"
+                },
+                "info": {
+                    "title": "Password Information",
+                    "website": "Website",
+                    "username": "Username",
+                    "category": "Category",
+                    "created": "Created",
+                    "zelf_name": "Zelf Name",
+                    "ipfs_hash": "IPFS Hash",
+                    "copy_url": "Copy website URL",
+                    "launch_website": "Launch website",
+                    "prefill_autofill": "Prefill autofill"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "Download ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Decrypted Content",
+                    "website": "Website",
+                    "username": "Username",
+                    "password": "Password",
+                    "notes": "Notes",
+                    "difficulty": "Difficulty",
+                    "show_password": "Show password",
+                    "hide_password": "Hide password",
+                    "copy_website": "Copy website",
+                    "copy_password": "Copy password"
+                }
+            },
+            "form": {
+                "title": "Add Password",
+                "website": {
+                    "label": "Website URL *",
+                    "placeholder": "https://example.com"
+                },
+                "title_field": {
+                    "label": "Title *",
+                    "placeholder": "Enter title"
+                },
+                "email": {
+                    "label": "Email *",
+                    "placeholder": "Enter email"
+                },
+                "password": {
+                    "label": "Password *",
+                    "placeholder": "Enter password"
+                },
+                "folder": {
+                    "label": "Organize in Folder",
+                    "placeholder": "Enter folder name",
+                    "aria_label": "Toggle folder organization"
+                },
+                "notes": {
+                    "label": "Notes",
+                    "placeholder": "Enter notes (optional)"
+                },
+                "master_password": {
+                    "label": "Master Password *",
+                    "placeholder": "Enter your master password",
+                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                },
+                "buttons": {
+                    "save": "Save Password",
+                    "cancel": "Cancel"
+                }
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "จัดเก็บรหัสผ่านสำเร็จ!",
+                "error_title": "เกิดข้อผิดพลาดในการจัดเก็บรหัสผ่าน",
+                "unknown_title": "สถานะไม่ทราบ",
+                "success_message": "รหัสผ่านของคุณถูกจัดเก็บอย่างปลอดภัยด้วยการยืนยันตัวตนด้วยชีวภาพ",
+                "error_message": "เกิดข้อผิดพลาดขณะจัดเก็บรหัสผ่านของคุณ กรุณาลองอีกครั้ง",
+                "unknown_message": "สถานะคำขอจัดเก็บรหัสผ่านของคุณไม่ชัดเจน"
+            },
+            "error": {
+                "no_result": "ไม่มีผลลัพธ์ API"
+            }
+        },
+        "note_result": {
+            "status": {
+                "success_title": "จัดเก็บบันทึกสำเร็จ!",
+                "error_title": "เกิดข้อผิดพลาดในการจัดเก็บบันทึก",
+                "unknown_title": "สถานะไม่ทราบ",
+                "success_message": "บันทึกของคุณถูกจัดเก็บอย่างปลอดภัยและเข้ารหัสด้วยการตรวจสอบบล็อกเชน",
+                "error_message": "เกิดข้อผิดพลาดขณะจัดเก็บบันทึกของคุณ",
+                "unknown_message": "ระบบไม่สามารถกำหนดสถานะการจัดเก็บได้"
+            },
+            "error": {
+                "no_result": "ไม่มีผลลัพธ์ API"
+            }
+        }
+    },
+    "start": {
+        "title": "Welcome to ZelfKeys",
+        "subtitle": "Your secure password manager",
+        "features": {
+            "install_extension": {
+                "title": "INSTALL OUR<br />EXTENSION",
+                "description": "Get our extension in your prefer browser"
+            },
+            "secure_passwords": {
+                "title": "SECURE YOUR<br />PASSWORDS",
+                "description": "Add your passwords, payment cards, and notes."
+            },
+            "autocomplete": {
+                "title": "AUTO-COMPLETE<br />YOUR INFO",
+                "description": "Autofill your stored passwords automatically after a quick biometric verification."
+            }
+        },
+        "cta": {
+            "button": "Secure my first password"
+        }
+    },
+    "password_result": {
+        "title": "Password Storage Result",
+        "loading": "Loading result...",
+        "sections": {
+            "success": {
+                "title": "Storage Successful!",
+                "message": "Password stored successfully!"
+            },
+            "details": {
+                "title": "Stored Password Details",
+                "labels": {
+                    "website": "Website",
+                    "username": "Username",
+                    "type": "Type",
+                    "category": "Category",
+                    "zelf_name": "Zelf Name",
+                    "timestamp": "Timestamp"
+                }
+            },
+            "nft": {
+                "title": "NFT Created",
+                "labels": {
+                    "token_id": "Token ID",
+                    "cost": "Cost",
+                    "contract": "Contract",
+                    "transaction": "Transaction"
+                }
+            },
+            "ipfs": {
+                "title": "IPFS Storage",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "File Size",
+                    "uploaded": "Uploaded"
+                },
+                "gateway_link": "View on IPFS Gateway"
+            },
+            "zelfproof": {
+                "title": "ZelfProof Generated",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "Click to copy"
+            },
+            "debug": {
+                "title": "Debug Information"
+            },
+            "next_steps": {
+                "title": "Next Steps",
+                "success_message": "Your password is now securely stored. You can view it in your passwords list or add another password.",
+                "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
+                "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
+            }
+        },
+        "actions": {
+            "back_to_passwords": "Back to Passwords",
+            "add_another": "Add Another Password"
+        },
+        "status": {
+            "success_title": "จัดเก็บรหัสผ่านสำเร็จ!",
+            "error_title": "เกิดข้อผิดพลาดในการจัดเก็บรหัสผ่าน",
+            "unknown_title": "สถานะไม่ทราบ",
+            "success_message": "รหัสผ่านของคุณถูกจัดเก็บอย่างปลอดภัยด้วยการยืนยันตัวตนด้วยชีวภาพ",
+            "error_message": "เกิดข้อผิดพลาดขณะจัดเก็บรหัสผ่านของคุณ กรุณาลองอีกครั้ง",
+            "unknown_message": "สถานะคำขอจัดเก็บรหัสผ่านของคุณไม่ชัดเจน"
+        },
+        "error": {
+            "no_result": "ไม่มีผลลัพธ์ API"
+        }
+    },
     "zotp": {
         "add_zotp": "เพิ่ม ZOTP",
         "account_name": "ชื่อบัญชี",
@@ -494,6 +1022,391 @@
         "biometrics_failed": "การยืนยันตัวตนด้วยไบโอเมตริกซ์ล้มเหลว",
         "export": "ส่งออก",
         "export_zotp": "ส่งออก ZOTP",
-        "setup_key_description": "ใช้คีย์การตั้งค่านี้เพื่อเพิ่มบัญชีนี้ไปยังแอปยืนยันตัวตนอื่น เช่น Google Authenticator"
+        "setup_key_description": "ใช้คีย์การตั้งค่านี้เพื่อเพิ่มบัญชีนี้ไปยังแอปยืนยันตัวตนอื่น เช่น Google Authenticator",
+        "qr_code_description": "สแกน QR code นี้ด้วย Google Authenticator หรือแอปยืนยันตัวตนที่เข้ากันได้เพื่อนำเข้าบัญชีนี้"
+    },
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "กระเป๋าเงิน"
+        },
+        "common": {
+            "qr_code": "QR Code",
+            "no_folder": "ไม่มีโฟลเดอร์",
+            "download_zelfproof": "ดาวน์โหลด ZelfProof",
+            "back_to_payment_cards": "กลับไปที่บัตรชำระเงิน",
+            "add_another_card": "เพิ่มบัตรอื่น",
+            "try_again": "ลองอีกครั้ง",
+            "image_not_available": "รูปภาพไม่พร้อมใช้งาน"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "ผู้ถือบัตร",
+                "expires": "หมดอายุ",
+                "bank_name": "ชื่อธนาคาร",
+                "card_number": "หมายเลขบัตร",
+                "expiry_date": "วันหมดอายุ",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "ผู้ถือบัตร"
+            },
+            "decrypt": {
+                "button": "ถอดรหัสบัตรชำระเงิน",
+                "decrypting": "กำลังถอดรหัส..."
+            },
+            "info": {
+                "title": "ข้อมูลบัตรชำระเงิน",
+                "payment_card_id": "ID บัตรชำระเงิน",
+                "type": "ประเภท",
+                "folder": "โฟลเดอร์",
+                "copy_payment_card_id": "คัดลอก ID บัตรชำระเงิน"
+            },
+            "zelfproof": {
+                "title": "ZelfProof",
+                "download": "ดาวน์โหลด ZelfProof"
+            },
+            "decrypted": {
+                "title": "เนื้อหาที่ถอดรหัสแล้ว",
+                "card_holder_name": "ชื่อผู้ถือบัตร",
+                "copy_card_holder_name": "คัดลอกชื่อผู้ถือบัตร",
+                "copy_card_number": "คัดลอกหมายเลขบัตร",
+                "copy_expiry_date": "คัดลอกวันหมดอายุ",
+                "copy_cvv": "คัดลอก CVV",
+                "copy_bank_name": "คัดลอกชื่อธนาคาร",
+                "show_card_number": "แสดงหมายเลขบัตร",
+                "hide_card_number": "ซ่อนหมายเลขบัตร",
+                "show_cvv": "แสดง CVV",
+                "hide_cvv": "ซ่อน CVV"
+            },
+            "error": {
+                "no_wallet": "ไม่พบกระเป๋าเงิน กรุณาตั้งค่ากระเป๋าเงินของคุณก่อน",
+                "auth_failed": "การยืนยันตัวตนล้มเหลว กรุณาตรวจสอบว่าคุณมีกระเป๋าเงินที่ถูกต้อง",
+                "init_failed": "ไม่สามารถเริ่มต้นเซสชันได้ กรุณาตรวจสอบการเชื่อมต่อกระเป๋าเงินของคุณ",
+                "no_token": "ไม่มีโทเค็นการยืนยันตัวตน กรุณารีเฟรชหน้า",
+                "load_failed": "ไม่สามารถโหลดบัตรชำระเงินได้ กรุณาลองอีกครั้ง"
+            },
+            "unknown_bank": "ธนาคารไม่ทราบ",
+            "unknown": "ไม่ทราบ",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "ไม่สามารถดึงข้อมูลบัตรชำระเงินได้",
+                    "decrypt_failed": "ไม่สามารถถอดรหัสบัตรชำระเงินได้ กรุณาลองอีกครั้ง"
+                },
+                "expiry_placeholder": "เดือน/ปี"
+            },
+            "result": {
+                "error": {
+                    "no_data": "ไม่พบข้อมูลผลลัพธ์"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "สร้างบัตรชำระเงินสำเร็จ!",
+                "description": "บัตรชำระเงินของคุณถูกเก็บและเข้ารหัสอย่างปลอดภัยแล้ว"
+            },
+            "preview": {
+                "title": "รายละเอียดบัตร",
+                "labels": {
+                    "name": "ชื่อบัตรชำระเงิน",
+                    "card_holder": "ผู้ถือบัตร",
+                    "card_number": "หมายเลขบัตร",
+                    "expires": "หมดอายุ"
+                }
+            },
+            "image": {
+                "title": "ZelfProof",
+                "download": "ดาวน์โหลด ZelfProof"
+            },
+            "nft": {
+                "title": "สร้าง NFT แล้ว",
+                "labels": {
+                    "token_id": "Token ID",
+                    "cost": "ค่าใช้จ่าย",
+                    "contract": "สัญญา",
+                    "transaction": "ธุรกรรม"
+                }
+            },
+            "ipfs": {
+                "title": "ที่เก็บ IPFS",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "ขนาดไฟล์",
+                    "uploaded": "อัปโหลดแล้ว"
+                },
+                "gateway_link": "ดูบน IPFS Gateway"
+            },
+            "zelfproof": {
+                "title": "สร้าง ZelfProof แล้ว",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "คลิกเพื่อคัดลอก"
+            },
+            "actions": {
+                "back_to_cards": "กลับไปที่บัตรชำระเงิน",
+                "add_another": "เพิ่มบัตรอื่น"
+            },
+            "error": {
+                "title": "ข้อผิดพลาดในการสร้างบัตรชำระเงิน",
+                "default_message": "เกิดข้อผิดพลาดที่ไม่คาดคิดขณะสร้างบัตรชำระเงินของคุณ",
+                "try_again": "ลองอีกครั้ง",
+                "no_data": "ไม่พบข้อมูลผลลัพธ์"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "เลือกแผนของคุณ",
+            "choose_your_plan_subtitle": "เลือกแผนที่เหมาะกับความต้องการของคุณมากที่สุด",
+            "loading_plans": "กำลังโหลดแผนการสมัครสมาชิก...",
+            "error": {
+                "try_again": "ลองอีกครั้ง",
+                "load_plans": "ไม่สามารถโหลดแผนการสมัครสมาชิกได้",
+                "create_crypto_payment": "ไม่สามารถสร้างการชำระเงินด้วยสกุลเงินดิจิทัลได้",
+                "create_checkout": "ไม่สามารถสร้างเซสชันชำระเงินได้",
+                "open_portal": "ไม่สามารถเปิดพอร์ทัลจัดการการสมัครสมาชิกได้",
+                "customer_not_found": "ไม่สามารถค้นหาข้อมูลลูกค้าได้ กรุณาติดต่อฝ่ายสนับสนุน",
+                "no_subscription": "ไม่พบการสมัครสมาชิกที่ใช้งานอยู่ กรุณารีเฟรชหน้า",
+                "open_portal_generic": "ไม่สามารถเปิดการจัดการการสมัครสมาชิกได้: {{ error }}",
+                "missing_payment_data": "ข้อมูลการชำระเงินหายไป กรุณาลองอีกครั้ง",
+                "no_avax_address": "กระเป๋าเงินที่เลือกไม่มีที่อยู่ AVAX",
+                "no_avax_token": "ไม่สามารถโหลดข้อมูลโทเค็น AVAX ได้ กรุณาลองอีกครั้ง",
+                "prepare_transaction": "ไม่สามารถเตรียมธุรกรรมได้ กรุณาลองอีกครั้ง"
+            },
+            "crypto": {
+                "complete_payment": "ทำการชำระเงินให้เสร็จสิ้น",
+                "demo_banner": "โหมด DEMO - ทดสอบด้วยจำนวนที่ลดลง",
+                "send_amount_to_address": "ส่ง {{ amount }} AVAX ไปยังที่อยู่ด้านล่าง",
+                "price_lock": "ล็อคราคาเป็นเวลา 30 นาที",
+                "payment_address_label": "ที่อยู่ชำระเงิน (Avalanche C-Chain)",
+                "copy": "คัดลอก",
+                "scan_with_wallet": "สแกนด้วยกระเป๋าเงินของคุณ",
+                "amount_to_send": "จำนวนที่จะส่ง",
+                "original_plan_price": "ราคาแผนเดิม:",
+                "demo_discount": "ส่วนลด Demo: {{ discount }}%",
+                "waiting_confirmation": "กำลังรอการยืนยันการชำระเงิน...",
+                "auto_update_note": "หน้านี้จะอัปเดตโดยอัตโนมัติเมื่อได้รับเงิน",
+                "cancel_payment": "ยกเลิกการชำระเงิน",
+                "payment_methods": "วิธีการชำระเงิน",
+                "copy_address": "คัดลอกที่อยู่:",
+                "scan_address": "สแกนที่อยู่:",
+                "pay_with_wallet": "ชำระด้วยกระเป๋าเงิน:",
+                "domain_label": "โดเมน",
+                "select_wallet": "เลือกกระเป๋าเงิน",
+                "pay_with_avax": "ชำระด้วย AVAX"
+            },
+            "plan": {
+                "popular_badge": "ยอดนิยม",
+                "pay_with_stripe": "ชำระด้วย Stripe",
+                "pay_with_crypto": "ชำระด้วย Crypto",
+                "current_plan": "แผนปัจจุบันของคุณ",
+                "premium_plan": "แผนพรีเมียม",
+                "not_available": "ไม่พร้อมใช้งาน",
+                "month": "เดือน"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "มองไปที่กล้องเพื่อยืนยันตัวตนและจัดเก็บ {{ type }} ของคุณอย่างปลอดภัย",
+                "decrypt": "มองไปที่กล้องเพื่อยืนยันตัวตนและเข้าถึง {{ type }} ของคุณ"
+            },
+            "processing": {
+                "processing": "กำลังประมวลผลข้อมูลไบโอเมตริกซ์ของคุณ...",
+                "analyzing": "กำลังวิเคราะห์ใบหน้าของคุณ..."
+            },
+            "status": {
+                "position_face_title": "วางใบหน้าของคุณไว้ตรงกลาง",
+                "position_face_subtitle": "มองตรงไปที่กล้องและอย่าขยับ"
+            },
+            "api_error": {
+                "title": "การยืนยันตัวตนล้มเหลว",
+                "try_again": "ลองอีกครั้ง",
+                "go_back": "กลับ"
+            },
+            "camera_error": {
+                "title": "กล้องไม่พร้อมใช้งาน",
+                "description": "โปรดตรวจสอบให้แน่ใจว่ากล้องของคุณเปิดใช้งานและเข้าถึงได้สำหรับการยืนยันตัวตนด้วยไบโอเมตริกซ์"
+            },
+            "permission": {
+                "title": "ต้องการสิทธิ์กล้อง",
+                "description": "โปรดอนุญาตการเข้าถึงกล้องเพื่อดำเนินการยืนยันตัวตนด้วยไบโอเมตริกซ์ต่อ",
+                "go_back": "กลับ"
+            },
+            "close_aria": "ปิดการยืนยันตัวตนด้วยไบโอเมตริกซ์",
+            "errors": {
+                "no_face_detected": "ไม่พบใบหน้า",
+                "look_at_camera": "กรุณามองกล้อง"
+            }
+        },
+        "password_decryptor": {
+            "title_suffix": "การถอดรหัส",
+            "loading_camera": "กำลังเริ่มต้นกล้อง...",
+            "permission_required": "ต้องการสิทธิ์กล้อง",
+            "permission_allow": "โปรดอนุญาตการเข้าถึงกล้อง",
+            "retry": "ลองอีกครั้ง",
+            "low_quality_title": "ภาพคุณภาพต่ำ",
+            "low_quality_message": "โปรดลองอีกครั้งด้วยแสงที่ดีกว่า",
+            "processing": "กำลังถอดรหัส...",
+            "cancel": "ยกเลิก"
+        },
+        "password_biometrics": {
+            "back_to_details": "กลับไปที่รายละเอียดรหัสผ่าน",
+            "back_to_form": "กลับไปที่แบบฟอร์มรหัสผ่าน",
+            "verify_to_decrypt": "ยืนยันตัวตนเพื่อถอดรหัส",
+            "biometric_verification": "การยืนยันตัวตนด้วยไบโอเมตริกซ์",
+            "instruction_title": "วางใบหน้าของคุณไว้ตรงกลาง",
+            "instruction_subtitle": "มองตรงไปที่กล้องและอย่าขยับ",
+            "compact_encrypt": "โปรดมองไปที่กล้องเพื่อยืนยันตัวตนและจัดเก็บรหัสผ่านของคุณอย่างปลอดภัย",
+            "compact_decrypt": "โปรดมองไปที่กล้องเพื่อยืนยันตัวตนและถอดรหัสรหัสผ่านของคุณ",
+            "loading_processing": "กำลังประมวลผลข้อมูลไบโอเมตริกซ์ของคุณ...",
+            "camera_error_title": "กล้องไม่พร้อมใช้งาน",
+            "camera_error_desc": "โปรดตรวจสอบให้แน่ใจว่ากล้องของคุณเปิดใช้งานและเข้าถึงได้สำหรับการยืนยันตัวตนด้วยไบโอเมตริกซ์",
+            "permission_title": "ต้องการสิทธิ์กล้อง",
+            "permission_desc": "โปรดอนุญาตการเข้าถึงกล้องเพื่อดำเนินการยืนยันตัวตนด้วยไบโอเมตริกซ์ต่อ",
+            "go_back": "กลับ",
+            "master_password_label": "รหัสผ่านหลัก (ไม่บังคับ):",
+            "master_password_placeholder": "ใส่รหัสผ่านหลักของคุณหากคุณมี",
+            "master_password_hint": "หากคุณตั้งรหัสผ่านหลักเมื่อสร้างรายการนี้ ให้ใส่ที่นี่"
+        },
+        "note_result": {
+            "title": "ผลการจัดเก็บบันทึก",
+            "loading": "กำลังโหลดผลลัพธ์...",
+            "sections": {
+                "success": {
+                    "title": "การจัดเก็บสำเร็จ!",
+                    "message": "บันทึกถูกจัดเก็บสำเร็จ!"
+                },
+                "details": {
+                    "title": "รายละเอียดบันทึกที่จัดเก็บ",
+                    "labels": {
+                        "title": "หัวข้อ",
+                        "folder": "โฟลเดอร์",
+                        "type": "ประเภท",
+                        "category": "หมวดหมู่",
+                        "zelf_name": "ชื่อ Zelf",
+                        "timestamp": "เวลาประทับ"
+                    }
+                },
+                "nft": {
+                    "title": "สร้าง NFT แล้ว",
+                    "labels": {
+                        "token_id": "Token ID",
+                        "cost": "ค่าใช้จ่าย",
+                        "contract": "สัญญา",
+                        "transaction": "ธุรกรรม"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "ที่เก็บ IPFS",
+                    "labels": {
+                        "hash": "IPFS Hash",
+                        "gateway_url": "Gateway URL",
+                        "file_size": "ขนาดไฟล์",
+                        "uploaded": "อัปโหลดแล้ว"
+                    },
+                    "gateway_link": "ดูบน IPFS Gateway"
+                },
+                "zelfproof": {
+                    "title": "สร้าง ZelfProof แล้ว",
+                    "labels": {
+                        "string": "ZelfProof String",
+                        "qr_code": "QR Code"
+                    },
+                    "copy_hint": "คลิกเพื่อคัดลอก",
+                    "qr_alt": "ZelfProof QR Code"
+                },
+                "debug": {
+                    "title": "ข้อมูลดีบัก"
+                },
+                "next_steps": {
+                    "title": "ขั้นตอนถัดไป",
+                    "success_message": "บันทึกของคุณถูกจัดเก็บอย่างปลอดภัยแล้ว คุณสามารถดูได้ในรายการบันทึกของคุณหรือเพิ่มบันทึกอื่น",
+                    "error_message": "โปรดตรวจสอบรายละเอียดข้อผิดพลาดด้านบนและลองอีกครั้ง หากปัญหายังคงอยู่ ติดต่อฝ่ายสนับสนุน",
+                    "unknown_message": "ระบบไม่สามารถระบุสถานะได้ โปรดตรวจสอบการตอบกลับของ API ด้านบนเพื่อดูรายละเอียด"
+                }
+            },
+            "actions": {
+                "back_to_notes": "กลับไปที่บันทึก",
+                "add_another": "เพิ่มบันทึกอื่น"
+            },
+            "status": {
+                "success_title": "จัดเก็บบันทึกสำเร็จ!",
+                "error_title": "เกิดข้อผิดพลาดในการจัดเก็บบันทึก",
+                "unknown_title": "สถานะไม่ทราบ",
+                "success_message": "บันทึกของคุณถูกจัดเก็บอย่างปลอดภัยและเข้ารหัสด้วยการตรวจสอบบล็อกเชน",
+                "error_message": "เกิดข้อผิดพลาดขณะจัดเก็บบันทึกของคุณ",
+                "unknown_message": "ระบบไม่สามารถกำหนดสถานะการจัดเก็บได้"
+            },
+            "error": {
+                "no_result": "ไม่มีผลลัพธ์ API"
+            }
+        },
+        "subscription_banner": {
+            "title": "ปลดล็อกฟีเจอร์พรีเมียม",
+            "description": "รับการเข้าถึงไม่จำกัด ความปลอดภัยขั้นสูง และอื่นๆ อีกมากมายด้วย ZelfKeys Premium"
+        },
+        "data_card": {
+            "details": "รายละเอียด",
+            "no_qr": "ไม่มี QR",
+            "untitled": "ไม่มีชื่อ",
+            "username_label": "ชื่อผู้ใช้: {{ username }}",
+            "zelf_name_label": "ชื่อ Zelf: {{ zelfName }}",
+            "category_label": "หมวดหมู่: {{ category }}",
+            "type_label": "ประเภท: {{ type }}",
+            "secure_credential": "ข้อมูลประจำตัวที่ปลอดภัย"
+        },
+        "data_types": {
+            "note": "บันทึก",
+            "password": "รหัสผ่าน",
+            "payment_card": "บัตรชำระเงิน"
+        },
+        "errors": {
+            "storing": "เกิดข้อผิดพลาดในการจัดเก็บ {{ type }}",
+            "retrieving": "เกิดข้อผิดพลาดในการดึง {{ type }}"
+        },
+        "messages": {
+            "note_retrieved": "ดึงบันทึกสำเร็จ",
+            "note_stored": "จัดเก็บบันทึกสำเร็จ",
+            "password_retrieved": "ดึงรหัสผ่านสำเร็จ",
+            "password_stored": "จัดเก็บรหัสผ่านสำเร็จ"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "ยืนยันตัวตนเพื่อเข้ารหัสบัตรชำระเงิน",
+            "decrypt_payment_card": "ยืนยันตัวตนเพื่อถอดรหัสบัตรชำระเงิน",
+            "encrypt_note": "ยืนยันตัวตนเพื่อเข้ารหัสบันทึก",
+            "decrypt_note": "ยืนยันตัวตนเพื่อถอดรหัสบันทึก",
+            "encrypt_password": "ยืนยันตัวตนเพื่อเข้ารหัสรหัสผ่าน",
+            "decrypt_password": "ยืนยันตัวตนเพื่อถอดรหัสรหัสผ่าน",
+            "instructions": {
+                "payment_card": "กรุณายืนยันใบหน้าของคุณเพื่อถอดรหัสบัตรชำระเงิน",
+                "note": "กรุณายืนยันใบหน้าของคุณเพื่อถอดรหัสบันทึก",
+                "password": "กรุณายืนยันใบหน้าของคุณเพื่อถอดรหัสรหัสผ่าน"
+            },
+            "item": "รายการ"
+        },
+        "categories": {
+            "password": "รหัสผ่าน",
+            "note": "บันทึก",
+            "notes": "บันทึก",
+            "payment_card": "บัตรชำระเงิน",
+            "card": "บัตร",
+            "contact": "ติดต่อ",
+            "zotp": "ZOTP"
+        },
+        "password_result": {
+            "status": {
+                "success_title": "บันทึกรหัสผ่านสำเร็จ!",
+                "error_title": "เกิดข้อผิดพลาดในการบันทึกรหัสผ่าน",
+                "unknown_title": "สถานะไม่ทราบ",
+                "success_message": "รหัสผ่านของคุณถูกบันทึกอย่างปลอดภัยด้วยการยืนยันตัวตนแบบไบโอเมตริกซ์",
+                "error_message": "เกิดข้อผิดพลาดในการบันทึกรหัสผ่านของคุณ กรุณาลองอีกครั้ง",
+                "unknown_message": "สถานะของคำขอบันทึกรหัสผ่านของคุณไม่ชัดเจน"
+            },
+            "error": {
+                "no_result": "ไม่มีผลลัพธ์ API"
+            }
+        }
     }
 }

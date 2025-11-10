@@ -7,7 +7,7 @@ import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
 
 import { AssetChart, AssetDetails, AssetInterval, AssetIntervalOptions, AssetRange } from "./models/asset.model";
-import { TokenData } from "./wallet";
+import { TokenData } from "@shared/types/wallet.types";
 
 export interface NetworkPermissions {
     AVAX?: boolean;

@@ -67,7 +67,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            referralName: ["", Validators.maxLength(26)],
+            referralName: ["", Validators.maxLength(32)],
             termsAndConditions: [false, Validators.requiredTrue],
         });
     }
@@ -108,7 +108,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         if (!referralNameCtrl) return;
 
         const sanitizedValue = referralNameCtrl.value
-            .replace(/[^a-zA-Z0-9.-]|^[^a-zA-Z]+|[.-]$/g, "")
+            .replace(/[^a-zA-Z0-9.-]|^[^a-zA-Z]+/g, "")
             .toLowerCase()
             .trim();
 

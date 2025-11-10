@@ -1,0 +1,163 @@
+<div class="note-result" *transloco="let t">
+    <div class="note-result__container">
+        <div class="note-result__header">
+            <span class="material-symbols-outlined note-result__icon">{{ getStatusIcon() }}</span>
+            <h1 class="note-result__title">{{ getStatusTitle() }}</h1>
+            <p class="note-result__message">{{ getStatusMessage() }}</p>
+        </div>
+
+        <div class="note-result__content" *ngIf="!loading">
+            <!-- Success Summary -->
+            <div class="note-result__section" *ngIf="getResultStatus() === 'success'">
+                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.success.title") }}</h3>
+                <div class="note-result__success-summary">
+                    <p class="note-result__success-message">{{ apiResult.message || t("zelf_keys.note_result.sections.success.message") }}</p>
+                </div>
+            </div>
+
+            <!-- Note Data Summary -->
+            <div class="note-result__section">
+                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.details.title") }}</h3>
+                <div class="note-result__data-content">
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.details.labels.title") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.publicData?.title || noteData.title || "N/A" }}</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.details.labels.folder") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.publicData?.folder || noteData.folder || "N/A" }}</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.details.labels.type") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.publicData?.type || "notes" }}</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.details.labels.category") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.publicData?.category || "N/A" }}</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.details.labels.zelf_name") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.publicData?.zelfName || "N/A" }}</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.details.labels.timestamp") }}</p>
+                        <p class="zelf-action-row__value">
+                            {{ apiResult.publicData?.timestamp ? (apiResult.publicData.timestamp | date: "medium") : "N/A" }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NFT Information -->
+            <div class="note-result__section" *ngIf="apiResult.NFT?.success">
+                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.nft.title") }}</h3>
+                <div class="note-result__nft-info">
+                    <div class="note-result__nft-image">
+                        <img [src]="apiResult.NFT.metadata.image" [attr.alt]="t('zelf_keys.note_result.sections.nft.image_alt')" />
+                    </div>
+                    <div class="note-result__nft-details">
+                        <div class="zelf-action-row">
+                            <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.token_id") }}</p>
+                            <p class="zelf-action-row__value">#{{ apiResult.NFT.tokenId }}</p>
+                        </div>
+                        <div class="zelf-action-row">
+                            <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.cost") }}</p>
+                            <p class="zelf-action-row__value">{{ apiResult.NFT.cost }} AVAX</p>
+                        </div>
+                        <div class="zelf-action-row">
+                            <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.contract") }}</p>
+                            <p class="zelf-action-row__value">{{ apiResult.NFT.contractAddress }}</p>
+                        </div>
+                        <div class="zelf-action-row">
+                            <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.transaction") }}</p>
+                            <div class="zelf-action-row__value">
+                                <a [href]="apiResult.NFT.explorerUrl" target="_blank" class="note-result__tx-link">
+                                    {{ apiResult.NFT.transactionHash | slice: 0 : 10 }}...{{ apiResult.NFT.transactionHash | slice: -10 }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IPFS Information -->
+            <div class="note-result__section" *ngIf="apiResult.ipfs">
+                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.ipfs.title") }}</h3>
+                <div class="note-result__ipfs-content">
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.ipfs.labels.hash") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.ipfs.hash }}</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.ipfs.labels.gateway_url") }}</p>
+                        <div class="zelf-action-row__value">
+                            <a [href]="apiResult.ipfs.gatewayUrl" target="_blank" class="note-result__gateway-link">{{
+                                t("zelf_keys.note_result.sections.ipfs.gateway_link")
+                            }}</a>
+                        </div>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.ipfs.labels.file_size") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.ipfs.pinSize }} bytes</p>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.ipfs.labels.uploaded") }}</p>
+                        <p class="zelf-action-row__value">{{ apiResult.ipfs.timestamp ? (apiResult.ipfs.timestamp | date: "medium") : "N/A" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZelfProof Information -->
+            <div class="note-result__section" *ngIf="apiResult.zelfProof">
+                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.zelfproof.title") }}</h3>
+                <div class="note-result__zelfproof-content">
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.zelfproof.labels.string") }}</p>
+                        <div class="zelf-action-row__value">
+                            <span
+                                class="note-result__zelfproof-string"
+                                (click)="copyZelfProof()"
+                                [title]="t('zelf_keys.note_result.sections.zelfproof.copy_hint')"
+                                >{{ apiResult.zelfProof }}</span
+                            >
+                        </div>
+                    </div>
+                    <div class="zelf-action-row">
+                        <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.zelfproof.labels.qr_code") }}</p>
+                        <div class="zelf-action-row__value">
+                            <div class="note-result__qr-code">
+                                <img [src]="apiResult.zelfQR" [attr.alt]="t('zelf_keys.note_result.sections.zelfproof.qr_alt')" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="note-result__section">
+                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.next_steps.title") }}</h3>
+                <div class="note-result__next-steps">
+                    <p *ngIf="getResultStatus() === 'success'">{{ t("zelf_keys.note_result.sections.next_steps.success_message") }}</p>
+                    <p *ngIf="getResultStatus() === 'error'">{{ t("zelf_keys.note_result.sections.next_steps.error_message") }}</p>
+                    <p *ngIf="getResultStatus() === 'unknown'">{{ t("zelf_keys.note_result.sections.next_steps.unknown_message") }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="note-result__loading" *ngIf="loading">
+            <div class="note-result__spinner"></div>
+            <p>{{ t("zelf_keys.note_result.loading") }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="note-result__actions">
+            <button class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill" (click)="onBackToNotes()">
+                {{ t("zelf_keys.note_result.actions.back_to_notes") }}
+            </button>
+            <button class="zelf-button zelf-button--black zelf-button--wide" (click)="onAddAnotherNote()">
+                {{ t("zelf_keys.note_result.actions.add_another") }}
+            </button>
+        </div>
+    </div>
+</div>

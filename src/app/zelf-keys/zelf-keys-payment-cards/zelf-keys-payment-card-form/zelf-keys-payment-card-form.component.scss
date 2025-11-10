@@ -1,0 +1,340 @@
+.payment-card-form {
+    max-width: 100%;
+    font-family: "Poppins", Arial, sans-serif;
+
+    .form-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+    }
+
+    .form-content {
+        box-sizing: border-box;
+
+        .form-section {
+            margin-bottom: 24px;
+            width: 100%;
+
+            .form-label {
+                display: block;
+                font-size: 14px;
+                font-weight: 600;
+                color: #1a1a1a;
+                margin-bottom: 12px;
+                width: 100%;
+            }
+
+            .form-hint {
+                display: block;
+                padding: 0 18px;
+                font-size: 12px;
+                color: #999;
+                margin: 6px 0 0 0;
+                line-height: 1.4;
+            }
+
+            .folder-toggle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                width: 100%;
+
+                .form-label {
+                    flex: 1;
+                    margin-right: 16px;
+                    margin-bottom: 0;
+                }
+            }
+
+            .folder-input {
+                margin-top: 16px;
+                width: 100%;
+            }
+
+            .password-toggle {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                width: 100%;
+
+                .form-label {
+                    flex: 1;
+                    margin-right: 16px;
+                }
+            }
+
+            .password-input-field {
+                margin-top: 16px;
+                width: 100%;
+
+                .form-input {
+                    margin-bottom: 8px;
+                }
+
+                .form-hint {
+                    display: block;
+                    padding: 0 18px;
+                    font-size: 12px;
+                    color: #999;
+                    margin: 6px 0 0 0;
+                    line-height: 1.4;
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f0f0;
+        }
+    }
+}
+
+// Card Preview Styles with Randomized Colors
+.card-preview {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 24px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+
+    // Randomized color variations based on card type
+    &.visa {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    }
+
+    &.mastercard {
+        background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    }
+
+    &.amex {
+        background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+    }
+
+    &.discover {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    }
+
+    &.card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        .card-type {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-qr-chip {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            width: 40px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            .qr-placeholder {
+                font-size: 8px;
+                font-weight: 600;
+                color: white;
+                text-align: center;
+                line-height: 1;
+            }
+        }
+    }
+
+    .card-number {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 24px;
+        font-family: "Courier New", monospace;
+        text-align: center;
+    }
+
+    .card-details {
+        display: flex;
+        justify-content: space-between;
+
+        .card-holder,
+        .card-expiry {
+            display: flex;
+            flex-direction: column;
+
+            .label {
+                font-size: 10px;
+                opacity: 0.8;
+                margin-bottom: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .value {
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+// Biometrics Modal Styles
+.biometrics-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+
+    .modal-content {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 90vw;
+        max-height: 90vh;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+
+        .modal-header {
+            padding: 24px 32px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: center;
+            position: relative;
+
+            .modal-close {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 50%;
+                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    background: #f5f5f5;
+                }
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            h3 {
+                font-size: 24px;
+                font-weight: 700;
+                color: #1a1a1a;
+                margin: 0 0 8px 0;
+            }
+
+            p {
+                font-size: 16px;
+                color: #666;
+                margin: 0;
+            }
+        }
+
+        .modal-body {
+            padding: 0;
+            overflow: auto;
+            max-height: calc(90vh - 100px);
+
+            app-data-biometrics {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .payment-card-form {
+        padding: 0 16px;
+
+        .field-row {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+
+    .biometrics-modal {
+        .modal-content {
+            margin: 20px;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100vh - 40px);
+
+            .modal-header {
+                padding: 20px 24px 12px;
+
+                .modal-close {
+                    top: 12px;
+                    right: 12px;
+                    padding: 6px;
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                h3 {
+                    font-size: 20px;
+                }
+
+                p {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

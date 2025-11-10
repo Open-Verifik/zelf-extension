@@ -20,7 +20,7 @@
         "pending": "قيد الانتظار",
         "receive": "استلام",
         "send": "إرسال",
-        "trade": "تداول"
+        "swap": "تبديل"
     },
     "wallet_status": {
         "active": "نشط",
@@ -38,7 +38,13 @@
         "used": "تم الاستخدام منذ {{days}} يوم",
         "withdrawal_amount": "مبلغ السحب",
         "zelf_name_not_registered": "اسم العلامة غير مسجل",
-        "zelf_name_registered": "اسم العلامة مسجل"
+        "zelf_name_registered": "اسم العلامة مسجل",
+        "average": "متوسط",
+        "confirmations": "التأكيدات",
+        "economical": "اقتصادي",
+        "fastest": "الأسرع",
+        "transaction_settings": "إعدادات المعاملة",
+        "upto_sats": "حتى {{ feeAmountUSD }} • {{sats}} ساتوشي/فيبايت • {{ time }} دقائق"
     },
     "transaction": {
         "go_to_my_history": "اذهب إلى سجلي",
@@ -115,7 +121,8 @@
         "subtitle": "حدد طول عبارة البذور الخاصة بك وانتقل إلى عملية التشفير.",
         "title": "طبقات تشفير زيلف بروف",
         "unhide_words": "إظهار الكلمات",
-        "weak": "ضعيف"
+        "weak": "ضعيف",
+        "weak_password": "كلمة مرور ضعيفة"
     },
     "receive": {
         "information": "يمكن استخدام هذا العنوان فقط لاستلام الرموز المتوافقة.",
@@ -239,7 +246,13 @@
         "yes": "نعم",
         "your_token": "{{ symbol }} الخاص بك",
         "zelf_wallet": "محفظة زيلف",
-        "zelf_authenticator": "Zelf - المصادق"
+        "avax_address": "عنوان AVAX",
+        "download_qr": "تنزيل رمز الاستجابة السريعة",
+        "seed_phrase": "عبارة الاسترداد",
+        "zelf_link": "رابط Zelf",
+        "zelf_authenticator": "مصدق زيلف",
+        "zelf_keys": "مفاتيح زيلف",
+        "subscriptions": "الاشتراكات"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",
@@ -290,8 +303,7 @@
         "domain_warning": "لا يزال لديك وقت للشراء",
         "expired_wallet_logout_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك. ومع ذلك، فإنك تخاطر بفقدانه إذا لم تشتري قريبًا.",
         "logout_of_wallet_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك، أو قمت بتحميل رمز QR الخاص بزيلف بروف.",
-        "purchase_new_domain": "إضافة اسم العلامة جديد",
-        "zelfproof_removed_successfully": "تم إزالة ZelfProof بنجاح"
+        "purchase_new_domain": "إضافة اسم العلامة جديد"
     },
     "liveness": {
         "center_your_face": "ضع وجهك في منتصف الشاشة",
@@ -339,7 +351,6 @@
         "not_found": "لم يتم العثور على السجل",
         "password_doesnt_match": "كلمات المرور غير متطابقة",
         "password_incorrect": "كلمة المرور غير صحيحة",
-        "LIVENESS CHECK FAILED.": "فشل فحص الحيوية. يرجى المحاولة مرة أخرى.",
         "person_already_set": "تسجيلك لديه زيلف بروف مرتبط بالفعل",
         "private_key_locked": "تم قفل المفتاح الخاص. يجب عليك إجراء فحص القياسات الحيوية للمتابعة.",
         "required_field": "هذا الحقل مطلوب",
@@ -379,7 +390,8 @@
         "send_transaction_button": "إرسال",
         "settings_button": "الإعدادات",
         "support_button": "الدعم",
-        "swap": "مبادلة"
+        "swap": "مبادلة",
+        "keys": "المفاتيح"
     },
     "id_scanning": {
         "camera_not_found": "لم يتم العثور على الكاميرا",
@@ -443,6 +455,525 @@
         "considerations_description_2": "هوية فريدة.",
         "considerations_description_3": "حماية مستقبلية."
     },
+    "billing": {
+        "activation": {
+            "title": "تم تأكيد الدفع!",
+            "message": "جارٍ تفعيل الاشتراك... تهانينا! تم تأكيد دفعتك وجارٍ تفعيل اشتراكك."
+        },
+        "subscription": {
+            "active_subscription": "اشتراك نشط",
+            "cancelled_active": "ملغى (نشط حتى نهاية الفترة)",
+            "plan": "الخطة:",
+            "price": "السعر:",
+            "payment_method": "طريقة الدفع:",
+            "status": "الحالة:",
+            "transaction": "المعاملة:",
+            "zelf_name": "اسم Zelf:",
+            "start_date": "تاريخ البدء:",
+            "expires_on": "ينتهي في:",
+            "next_billing": "الفاتورة التالية:",
+            "access_ends": "ينتهي الوصول:",
+            "cancelled_on": "تم الإلغاء في:",
+            "manage_subscription": "إدارة الاشتراك",
+            "crypto_subscription_active": "اشتراك العملة المشفرة نشط",
+            "crypto_subscription_info": "تم الدفع لاشتراكك بعملة AVAX المشفرة. هذه دفعة لمرة واحدة صالحة حتى تاريخ الانتهاء الموضح أعلاه.",
+            "transaction_verified": "تم التحقق من المعاملة على بلوكشين Avalanche.",
+            "manage_note_active": "أدر اشتراكك، وحدّث طرق الدفع، واعرض سجل الفواتير، والمزيد في بوابة عملاء Stripe.",
+            "manage_note_cancelled": "تم إلغاء اشتراكك ولكنه يظل نشطًا حتى نهاية فترة الفوترة. يمكنك إعادة التفعيل أو عرض سجل الفواتير في بوابة عملاء Stripe.",
+            "demo": "تجريبي",
+            "active": "نشط",
+            "cancelled": "ملغى"
+        },
+        "dashboard": {
+            "start": "ابدأ",
+            "passwords": "كلمات المرور",
+            "notes": "الملاحظات",
+            "payment_cards": "بطاقات الدفع",
+            "subscription": "الاشتراك"
+        },
+        "payment_cards": {
+            "title": "بطاقات الدفع",
+            "subtitle": "احفظ معلومات بطاقة الدفع الخاصة بك بأمان",
+            "loading": {
+                "title": "جارٍ تحميل بطاقات الدفع الخاصة بك",
+                "message": "يُرجى الانتظار بينما نجلب بياناتك الآمنة..."
+            },
+            "error": {
+                "title": "عذرًا! حدث خطأ ما",
+                "message": "تعذر علينا تحميل بطاقات الدفع الخاصة بك.",
+                "try_again": "حاول مرة أخرى",
+                "no_wallet": "لم يتم العثور على محفظة. يرجى إعداد محفظتك أولاً.",
+                "auth_failed": "فشل المصادقة. يرجى التأكد من أن لديك محفظة صالحة.",
+                "init_failed": "فشل تهيئة الجلسة. يرجى التحقق من اتصال محفظتك.",
+                "no_token": "رمز المصادقة غير متوفر. يرجى تحديث الصفحة.",
+                "load_failed": "فشل تحميل بطاقات الدفع. يرجى المحاولة مرة أخرى."
+            },
+            "premium": {
+                "title": "افتح الميزات المميزة",
+                "description": "احصل على أمان متقدم، والمزيد مع ZelfKeys المميز"
+            },
+            "add_card": {
+                "title": "إضافة بطاقة جديدة",
+                "description": "احفظ بطاقة دفع جديدة بأمان"
+            },
+            "card": {
+                "card_holder": "حامل البطاقة",
+                "expires": "تنتهي في",
+                "card_number": "رقم البطاقة",
+                "expiry_date": "تاريخ الانتهاء",
+                "card_type": "نوع البطاقة",
+                "cvv": "CVV",
+                "billing_address": "عنوان الفواتير",
+                "notes": "ملاحظات",
+                "no_card_holder": "لا يوجد حامل بطاقة",
+                "no_expiry": "لا يوجد تاريخ انتهاء",
+                "no_card_number": "لا يوجد رقم بطاقة",
+                "no_card_type": "لا يوجد نوع بطاقة",
+                "no_cvv": "لا يوجد CVV",
+                "no_billing_address": "لا يوجد عنوان فواتير",
+                "no_notes": "لا توجد ملاحظات"
+            },
+            "detail": {
+                "title": "تفاصيل بطاقة الدفع",
+                "loading": "جارٍ تحميل تفاصيل بطاقة الدفع...",
+                "error": {
+                    "title": "خطأ في تحميل بطاقة الدفع",
+                    "go_back": "العودة",
+                    "retrieve_failed": "فشل استرداد بيانات بطاقة الدفع",
+                    "decrypt_failed": "فشل فك تشفير بطاقة الدفع. يرجى المحاولة مرة أخرى."
+                },
+                "decrypt": {
+                    "button": "فك تشفير البطاقة",
+                    "decrypting": "جارٍ فك التشفير..."
+                },
+                "info": {
+                    "title": "معلومات البطاقة",
+                    "card_number": "رقم البطاقة",
+                    "card_holder": "حامل البطاقة",
+                    "expiry_date": "تاريخ الانتهاء",
+                    "card_type": "نوع البطاقة",
+                    "cvv": "CVV",
+                    "billing_address": "عنوان الفواتير",
+                    "notes": "ملاحظات",
+                    "copy_card_number": "نسخ رقم البطاقة",
+                    "copy_card_holder": "نسخ حامل البطاقة",
+                    "copy_expiry": "نسخ تاريخ الانتهاء",
+                    "copy_card_type": "نسخ نوع البطاقة",
+                    "copy_cvv": "نسخ CVV",
+                    "copy_billing_address": "نسخ عنوان الفواتير",
+                    "copy_notes": "نسخ الملاحظات"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "تنزيل ZelfProof"
+                },
+                "decrypted": {
+                    "title": "معلومات البطاقة بعد فك التشفير",
+                    "card_number": "رقم البطاقة",
+                    "card_holder": "حامل البطاقة",
+                    "expiry_date": "تاريخ الانتهاء",
+                    "card_type": "نوع البطاقة",
+                    "cvv": "CVV",
+                    "billing_address": "عنوان الفواتير",
+                    "notes": "ملاحظات",
+                    "show_card_number": "إظهار رقم البطاقة",
+                    "hide_card_number": "إخفاء رقم البطاقة",
+                    "show_cvv": "إظهار CVV",
+                    "hide_cvv": "إخفاء CVV",
+                    "copy_card_number": "نسخ رقم البطاقة",
+                    "copy_card_holder": "نسخ حامل البطاقة",
+                    "copy_expiry": "نسخ تاريخ الانتهاء",
+                    "copy_card_type": "نسخ نوع البطاقة",
+                    "copy_cvv": "نسخ CVV",
+                    "copy_billing_address": "نسخ عنوان الفواتير",
+                    "copy_notes": "نسخ الملاحظات"
+                },
+                "expiry_placeholder": "ش/س"
+            },
+            "form": {
+                "title": {
+                    "add": "إضافة بطاقة دفع جديدة",
+                    "edit": "تعديل بطاقة دفع",
+                    "label": "اسم البنك *",
+                    "placeholder": "أدخل اسم البنك"
+                },
+                "card_number": {
+                    "label": "رقم البطاقة *",
+                    "placeholder": "1234 5678 9012 3456"
+                },
+                "card_holder": {
+                    "label": "اسم حامل البطاقة *",
+                    "placeholder": "أدخل اسم حامل البطاقة"
+                },
+                "expiry_month": {
+                    "label": "شهر الانتهاء *",
+                    "placeholder": "MM"
+                },
+                "expiry_year": {
+                    "label": "سنة الانتهاء *",
+                    "placeholder": "YYYY"
+                },
+                "card_type": {
+                    "label": "نوع البطاقة *",
+                    "placeholder": "اختر نوع البطاقة"
+                },
+                "cvv": {
+                    "label": "CVV *",
+                    "placeholder": "123"
+                },
+                "billing_address": {
+                    "label": "عنوان الفواتير",
+                    "placeholder": "أدخل عنوان الفواتير (اختياري)"
+                },
+                "notes": {
+                    "label": "ملاحظات",
+                    "placeholder": "أدخل ملاحظات (اختياري)"
+                },
+                "folder": {
+                    "label": "التخزين في مجلد",
+                    "placeholder": "اسم المجلد",
+                    "aria_label": "تبديل تخزين المجلد"
+                },
+                "master_password": {
+                    "placeholder": "أدخل كلمة المرور الرئيسية",
+                    "hint": "نحتاج كلمة مرور {{ walletName }} لتشفير وتخزين بيانات اعتمادك. يُطلَب التحقق الحيوي دائمًا."
+                },
+                "buttons": {
+                    "cancel": "إلغاء",
+                    "create": "إنشاء بطاقة",
+                    "update": "تحديث البطاقة"
+                }
+            },
+            "unknown_bank": "بنك غير معروف",
+            "unknown": "غير معروف"
+        },
+        "notes": {
+            "title": "الملاحظات",
+            "subtitle": "أدر ملاحظاتك وأزواج المفتاح والقيمة الآمنة",
+            "loading": {
+                "title": "جارٍ تحميل ملاحظاتك",
+                "message": "يُرجى الانتظار بينما نجلب بياناتك الآمنة..."
+            },
+            "error": {
+                "title": "عذرًا! حدث خطأ ما",
+                "message": "تعذر علينا تحميل ملاحظاتك.",
+                "try_again": "حاول مرة أخرى",
+                "load_failed": "فشل تحميل الملاحظات المخزنة. يرجى المحاولة مرة أخرى."
+            },
+            "premium": {
+                "title": "افتح الميزات المميزة",
+                "description": "احصل على أمان متقدم والمزيد مع ZelfKeys المميز"
+            },
+            "add_note": {
+                "title": "إضافة ملاحظة جديدة",
+                "description": "احفظ ملاحظة جديدة بأمان"
+            },
+            "detail": {
+                "title": "تفاصيل الملاحظة",
+                "loading": "جارٍ تحميل تفاصيل الملاحظة...",
+                "error": {
+                    "title": "خطأ في تحميل الملاحظة",
+                    "go_back": "العودة",
+                    "not_found": "بيانات الملاحظة غير متوفرة",
+                    "load_failed": "فشل تحميل بيانات الملاحظة",
+                    "retrieve_failed": "فشل استرداد بيانات الملاحظة",
+                    "decrypt_failed": "فشل فك تشفير الملاحظة. يرجى المحاولة مرة أخرى."
+                },
+                "untitled": "ملاحظة بلا عنوان",
+                "no_folder": "لا يوجد مجلد",
+                "decrypt": {
+                    "button": "فك تشفير الملاحظة",
+                    "decrypting": "جارٍ فك التشفير..."
+                },
+                "info": {
+                    "title": "معلومات الملاحظة",
+                    "note_id": "معرّف الملاحظة",
+                    "type": "النوع",
+                    "folder": "المجلد",
+                    "copy_id": "نسخ معرّف الملاحظة"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "تنزيل ZelfProof"
+                },
+                "decrypted": {
+                    "title": "المحتوى بعد فك التشفير",
+                    "title_field": "العنوان",
+                    "content": "المحتوى",
+                    "no_title": "لا يوجد عنوان",
+                    "no_content": "لا يوجد محتوى",
+                    "copy_title": "نسخ العنوان",
+                    "copy_content": "نسخ المحتوى"
+                },
+                "no_title": "لا يوجد عنوان",
+                "no_content": "لا يوجد محتوى"
+            },
+            "form": {
+                "title": {
+                    "add": "إضافة ملاحظة جديدة",
+                    "edit": "تعديل الملاحظة"
+                },
+                "title_field": {
+                    "label": "عنوان الملاحظة *",
+                    "placeholder": "أدخل عنوان الملاحظة"
+                },
+                "content": {
+                    "label": "محتوى الملاحظة *",
+                    "placeholder": "اكتب ملاحظتك هنا... يمكنك تضمين عدة فقرات أو قوائم أو أي محتوى آخر تريد تذكره بأمان.",
+                    "hint": "سيتم تشفير محتوى ملاحظتك وتخزينه بأمان. يمكنك كتابة ما تريد."
+                },
+                "folder": {
+                    "label": "تنظيم في مجلد",
+                    "placeholder": "أدخل اسم المجلد",
+                    "aria_label": "تبديل تنظيم المجلد"
+                },
+                "master_password": {
+                    "placeholder": "أدخل كلمة المرور الرئيسية",
+                    "hint": "نحتاج كلمة مرور {{ walletName }} لتشفير وتخزين بيانات اعتمادك. يُطلَب التحقق الحيوي دائمًا."
+                },
+                "buttons": {
+                    "cancel": "إلغاء",
+                    "create": "إنشاء ملاحظة",
+                    "update": "تحديث الملاحظة"
+                }
+            }
+        },
+        "passwords": {
+            "title": "كلمات المرور",
+            "subtitle": "أدر كلمات المرور وبيانات الاعتماد الآمنة الخاصة بك",
+            "loading": {
+                "title": "جارٍ تحميل كلمات المرور الخاصة بك",
+                "message": "يُرجى الانتظار بينما نجلب بياناتك الآمنة..."
+            },
+            "error": {
+                "title": "عذرًا! حدث خطأ ما",
+                "message": "تعذر علينا تحميل كلمات المرور الخاصة بك.",
+                "try_again": "حاول مرة أخرى",
+                "load_failed": "فشل تحميل كلمات المرور المخزنة. يرجى المحاولة مرة أخرى."
+            },
+            "premium": {
+                "title": "افتح الميزات المميزة",
+                "description": "احصل على أمان متقدم والمزيد مع ZelfKeys المميز"
+            },
+            "add_password": {
+                "title": "إضافة كلمة مرور جديدة",
+                "description": "احفظ كلمة مرور جديدة بأمان"
+            },
+            "search": {
+                "placeholder": "ابحث في كلمات المرور..."
+            },
+            "no_results": {
+                "title": "لم يتم العثور على كلمات مرور",
+                "message": "جرّب تعديل مصطلحات البحث"
+            },
+            "detail": {
+                "title": "تفاصيل كلمة المرور",
+                "loading": "جارٍ تحميل تفاصيل كلمة المرور...",
+                "error": {
+                    "title": "خطأ في تحميل كلمة المرور",
+                    "go_back": "العودة",
+                    "not_found": "بيانات كلمة المرور غير موجودة",
+                    "load_failed": "فشل تحميل بيانات كلمة المرور",
+                    "decrypt_failed": "فشل فك تشفير كلمة المرور. يرجى المحاولة مرة أخرى."
+                },
+                "untitled": "كلمة مرور بلا عنوان",
+                "no_username": "لا يوجد اسم مستخدم",
+                "no_website": "لا يوجد موقع",
+                "no_category": "لا توجد فئة",
+                "no_zelf_name": "لا يوجد اسم Zelf",
+                "unknown_date": "تاريخ غير معروف",
+                "decrypt": {
+                    "button": "فك تشفير كلمة المرور",
+                    "decrypting": "جارٍ فك التشفير...",
+                    "launch_fill": "إطلاق وملء"
+                },
+                "info": {
+                    "title": "معلومات كلمة المرور",
+                    "website": "الموقع",
+                    "username": "اسم المستخدم",
+                    "category": "الفئة",
+                    "created": "تاريخ الإنشاء",
+                    "zelf_name": "اسم Zelf",
+                    "ipfs_hash": "تجزئة IPFS",
+                    "copy_url": "نسخ رابط الموقع",
+                    "launch_website": "فتح الموقع",
+                    "prefill_autofill": "ملء مسبق تلقائي"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "تنزيل ZelfProof"
+                },
+                "decrypted": {
+                    "title": "المحتوى بعد فك التشفير",
+                    "website": "الموقع",
+                    "username": "اسم المستخدم",
+                    "password": "كلمة المرور",
+                    "notes": "ملاحظات",
+                    "difficulty": "الصعوبة",
+                    "show_password": "إظهار كلمة المرور",
+                    "hide_password": "إخفاء كلمة المرور",
+                    "copy_website": "نسخ الموقع",
+                    "copy_password": "نسخ كلمة المرور"
+                }
+            },
+            "form": {
+                "title": "إضافة كلمة مرور",
+                "website": {
+                    "label": "رابط الموقع *",
+                    "placeholder": "https://example.com"
+                },
+                "title_field": {
+                    "label": "العنوان *",
+                    "placeholder": "أدخل العنوان"
+                },
+                "email": {
+                    "label": "البريد الإلكتروني *",
+                    "placeholder": "أدخل البريد الإلكتروني"
+                },
+                "password": {
+                    "label": "كلمة المرور *",
+                    "placeholder": "أدخل كلمة المرور"
+                },
+                "folder": {
+                    "label": "تنظيم في مجلد",
+                    "placeholder": "أدخل اسم المجلد",
+                    "aria_label": "تبديل تنظيم المجلد"
+                },
+                "notes": {
+                    "label": "ملاحظات",
+                    "placeholder": "أدخل ملاحظات (اختياري)"
+                },
+                "master_password": {
+                    "label": "كلمة المرور الرئيسية *",
+                    "placeholder": "أدخل كلمة المرور الرئيسية",
+                    "hint": "نحتاج كلمة مرور {{ walletName }} لتشفير وتخزين بيانات اعتمادك. يُطلَب التحقق الحيوي دائمًا."
+                },
+                "buttons": {
+                    "save": "حفظ كلمة المرور",
+                    "cancel": "إلغاء"
+                }
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "تم تخزين كلمة المرور بنجاح!",
+                "error_title": "خطأ في تخزين كلمة المرور",
+                "unknown_title": "حالة غير معروفة",
+                "success_message": "تم تخزين كلمة المرور بشكل آمن مع التحقق البيومتري.",
+                "error_message": "حدث خطأ أثناء تخزين كلمة المرور. يرجى المحاولة مرة أخرى.",
+                "unknown_message": "حالة طلب تخزين كلمة المرور غير واضحة."
+            },
+            "error": {
+                "no_result": "لا توجد نتيجة API متاحة"
+            }
+        },
+        "note_result": {
+            "status": {
+                "success_title": "تم تخزين الملاحظة بنجاح!",
+                "error_title": "خطأ في تخزين الملاحظة",
+                "unknown_title": "حالة غير معروفة",
+                "success_message": "تم تخزين ملاحظتك بشكل آمن وتشفيرها مع التحقق من البلوك تشين.",
+                "error_message": "حدث خطأ أثناء تخزين ملاحظتك.",
+                "unknown_message": "تعذر على النظام تحديد حالة التخزين."
+            },
+            "error": {
+                "no_result": "لا توجد نتيجة API متاحة"
+            }
+        }
+    },
+    "start": {
+        "title": "مرحبًا بك في ZelfKeys",
+        "subtitle": "مدير كلمات المرور الآمن الخاص بك",
+        "features": {
+            "install_extension": {
+                "title": "ثبّت<br />الإضافة الخاصة بنا",
+                "description": "احصل على الإضافة في متصفحك المفضل"
+            },
+            "secure_passwords": {
+                "title": "أمّن<br />كلمات المرور الخاصة بك",
+                "description": "أضف كلمات المرور وبطاقات الدفع والملاحظات الخاصة بك."
+            },
+            "autocomplete": {
+                "title": "إكمال تلقائي<br />لمعلوماتك",
+                "description": "املأ كلمات المرور المخزنة تلقائيًا بعد تحقق حيوي سريع."
+            }
+        },
+        "cta": {
+            "button": "أمّن أول كلمة مرور لي"
+        }
+    },
+    "password_result": {
+        "title": "نتيجة تخزين كلمة المرور",
+        "loading": "جارٍ تحميل النتيجة...",
+        "sections": {
+            "success": {
+                "title": "تم التخزين بنجاح!",
+                "message": "تم تخزين كلمة المرور بنجاح!"
+            },
+            "details": {
+                "title": "تفاصيل كلمة المرور المخزنة",
+                "labels": {
+                    "website": "الموقع",
+                    "username": "اسم المستخدم",
+                    "type": "النوع",
+                    "category": "الفئة",
+                    "zelf_name": "اسم Zelf",
+                    "timestamp": "الطابع الزمني"
+                }
+            },
+            "nft": {
+                "title": "تم إنشاء NFT",
+                "labels": {
+                    "token_id": "معرّف الرمز",
+                    "cost": "التكلفة",
+                    "contract": "العقد",
+                    "transaction": "المعاملة"
+                }
+            },
+            "ipfs": {
+                "title": "تخزين IPFS",
+                "labels": {
+                    "hash": "تجزئة IPFS",
+                    "gateway_url": "رابط البوابة",
+                    "file_size": "حجم الملف",
+                    "uploaded": "تم التحميل"
+                },
+                "gateway_link": "عرض على بوابة IPFS"
+            },
+            "zelfproof": {
+                "title": "تم إنشاء ZelfProof",
+                "labels": {
+                    "string": "سلسلة ZelfProof",
+                    "qr_code": "رمز QR"
+                },
+                "copy_hint": "انقر للنسخ"
+            },
+            "debug": {
+                "title": "معلومات التصحيح"
+            },
+            "next_steps": {
+                "title": "الخطوات التالية",
+                "success_message": "تم الآن تخزين كلمة المرور الخاصة بك بأمان. يمكنك عرضها في قائمة كلمات المرور أو إضافة كلمة مرور أخرى.",
+                "error_message": "يرجى مراجعة تفاصيل الخطأ أعلاه والمحاولة مرة أخرى. إذا استمرت المشكلة فاتصل بالدعم.",
+                "unknown_message": "لم يتمكن النظام من تحديد الحالة. يُرجى التحقق من استجابة واجهة البرمجة (API) أعلاه للحصول على التفاصيل."
+            }
+        },
+        "actions": {
+            "back_to_passwords": "العودة إلى كلمات المرور",
+            "add_another": "إضافة كلمة مرور أخرى"
+        },
+        "status": {
+            "success_title": "تم تخزين كلمة المرور بنجاح!",
+            "error_title": "خطأ في تخزين كلمة المرور",
+            "unknown_title": "حالة غير معروفة",
+            "success_message": "تم تخزين كلمة المرور بشكل آمن مع التحقق البيومتري.",
+            "error_message": "حدث خطأ أثناء تخزين كلمة المرور. يرجى المحاولة مرة أخرى.",
+            "unknown_message": "حالة طلب تخزين كلمة المرور غير واضحة."
+        },
+        "error": {
+            "no_result": "لا توجد نتيجة API متاحة"
+        }
+    },
     "zotp": {
         "add_zotp": "إضافة ZOTP",
         "account_name": "اسم الحساب",
@@ -493,6 +1024,391 @@
         "biometrics_failed": "فشلت عملية التحقق البيومتري",
         "export": "تصدير",
         "export_zotp": "تصدير ZOTP",
-        "setup_key_description": "استخدم مفتاح الإعداد هذا لإضافة هذا الحساب إلى تطبيق مصادقة آخر مثل Google Authenticator."
+        "setup_key_description": "استخدم مفتاح الإعداد هذا لإضافة هذا الحساب إلى تطبيق مصادقة آخر مثل Google Authenticator.",
+        "qr_code_description": "امسح رمز QR هذا باستخدام Google Authenticator أو أي تطبيق مصادق متوافق لاستيراد هذا الحساب."
+    },
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "المحفظة"
+        },
+        "common": {
+            "qr_code": "رمز الاستجابة السريعة",
+            "no_folder": "لا يوجد مجلد",
+            "download_zelfproof": "تنزيل ZelfProof",
+            "back_to_payment_cards": "العودة إلى بطاقات الدفع",
+            "add_another_card": "إضافة بطاقة أخرى",
+            "try_again": "حاول مرة أخرى",
+            "image_not_available": "الصورة غير متوفرة"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "حامل البطاقة",
+                "expires": "ينتهي",
+                "bank_name": "اسم البنك",
+                "card_number": "رقم البطاقة",
+                "expiry_date": "تاريخ الانتهاء",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "حامل البطاقة"
+            },
+            "decrypt": {
+                "button": "فك تشفير بطاقة الدفع",
+                "decrypting": "جاري فك التشفير..."
+            },
+            "info": {
+                "title": "معلومات بطاقة الدفع",
+                "payment_card_id": "معرف بطاقة الدفع",
+                "type": "النوع",
+                "folder": "المجلد",
+                "copy_payment_card_id": "نسخ معرف بطاقة الدفع"
+            },
+            "zelfproof": {
+                "title": "ZelfProof",
+                "download": "تنزيل ZelfProof"
+            },
+            "decrypted": {
+                "title": "المحتوى المفكوك",
+                "card_holder_name": "اسم حامل البطاقة",
+                "copy_card_holder_name": "نسخ اسم حامل البطاقة",
+                "copy_card_number": "نسخ رقم البطاقة",
+                "copy_expiry_date": "نسخ تاريخ الانتهاء",
+                "copy_cvv": "نسخ CVV",
+                "copy_bank_name": "نسخ اسم البنك",
+                "show_card_number": "إظهار رقم البطاقة",
+                "hide_card_number": "إخفاء رقم البطاقة",
+                "show_cvv": "إظهار CVV",
+                "hide_cvv": "إخفاء CVV"
+            },
+            "error": {
+                "no_wallet": "لم يتم العثور على محفظة. يرجى إعداد محفظتك أولاً.",
+                "auth_failed": "فشل المصادقة. يرجى التأكد من أن لديك محفظة صالحة.",
+                "init_failed": "فشل تهيئة الجلسة. يرجى التحقق من اتصال محفظتك.",
+                "no_token": "رمز المصادقة غير متوفر. يرجى تحديث الصفحة.",
+                "load_failed": "فشل تحميل بطاقات الدفع. يرجى المحاولة مرة أخرى."
+            },
+            "unknown_bank": "بنك غير معروف",
+            "unknown": "غير معروف",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "فشل استرداد بيانات بطاقة الدفع",
+                    "decrypt_failed": "فشل فك تشفير بطاقة الدفع. يرجى المحاولة مرة أخرى."
+                },
+                "expiry_placeholder": "ش/س"
+            },
+            "result": {
+                "error": {
+                    "no_data": "لم يتم العثور على بيانات النتيجة"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "تم إنشاء بطاقة الدفع بنجاح!",
+                "description": "تم تخزين بطاقة الدفع الخاصة بك بشكل آمن ومشفرة."
+            },
+            "preview": {
+                "title": "تفاصيل البطاقة",
+                "labels": {
+                    "name": "اسم بطاقة الدفع",
+                    "card_holder": "حامل البطاقة",
+                    "card_number": "رقم البطاقة",
+                    "expires": "ينتهي"
+                }
+            },
+            "image": {
+                "title": "ZelfProof",
+                "download": "تنزيل ZelfProof"
+            },
+            "nft": {
+                "title": "تم إنشاء NFT",
+                "labels": {
+                    "token_id": "معرف الرمز المميز",
+                    "cost": "التكلفة",
+                    "contract": "العقد",
+                    "transaction": "المعاملة"
+                }
+            },
+            "ipfs": {
+                "title": "تخزين IPFS",
+                "labels": {
+                    "hash": "تجزئة IPFS",
+                    "gateway_url": "عنوان URL للبوابة",
+                    "file_size": "حجم الملف",
+                    "uploaded": "تم الرفع"
+                },
+                "gateway_link": "عرض على بوابة IPFS"
+            },
+            "zelfproof": {
+                "title": "تم إنشاء ZelfProof",
+                "labels": {
+                    "string": "سلسلة ZelfProof",
+                    "qr_code": "رمز الاستجابة السريعة"
+                },
+                "copy_hint": "انقر للنسخ"
+            },
+            "actions": {
+                "back_to_cards": "العودة إلى بطاقات الدفع",
+                "add_another": "إضافة بطاقة أخرى"
+            },
+            "error": {
+                "title": "خطأ في إنشاء بطاقة الدفع",
+                "default_message": "حدث خطأ غير متوقع أثناء إنشاء بطاقة الدفع الخاصة بك.",
+                "try_again": "حاول مرة أخرى",
+                "no_data": "لم يتم العثور على بيانات النتيجة"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "اختر خطتك",
+            "choose_your_plan_subtitle": "اختر الخطة التي تناسب احتياجاتك",
+            "loading_plans": "جاري تحميل خطط الاشتراك...",
+            "error": {
+                "try_again": "حاول مرة أخرى",
+                "load_plans": "فشل تحميل خطط الاشتراك",
+                "create_crypto_payment": "فشل إنشاء دفعة مشفرة",
+                "create_checkout": "فشل إنشاء جلسة الدفع",
+                "open_portal": "فشل فتح بوابة إدارة الاشتراك",
+                "customer_not_found": "تعذر العثور على معلومات العميل. يرجى الاتصال بالدعم.",
+                "no_subscription": "لم يتم العثور على اشتراك نشط. يرجى تحديث الصفحة.",
+                "open_portal_generic": "فشل فتح إدارة الاشتراك: {{ error }}",
+                "missing_payment_data": "بيانات الدفع مفقودة. يرجى المحاولة مرة أخرى.",
+                "no_avax_address": "المحفظة المحددة لا تحتوي على عنوان AVAX.",
+                "no_avax_token": "تعذر تحميل بيانات رمز AVAX. يرجى المحاولة مرة أخرى.",
+                "prepare_transaction": "فشل في إعداد المعاملة. يرجى المحاولة مرة أخرى."
+            },
+            "crypto": {
+                "complete_payment": "أكمل دفعتك",
+                "demo_banner": "وضع التجربة - الاختبار بمبالغ مخفضة",
+                "send_amount_to_address": "أرسل {{ amount }} AVAX إلى العنوان أدناه",
+                "price_lock": "السعر مقفل لمدة 30 دقيقة",
+                "payment_address_label": "عنوان الدفع (Avalanche C-Chain)",
+                "copy": "نسخ",
+                "scan_with_wallet": "امسح ضوئيًا بمحفظتك",
+                "amount_to_send": "المبلغ المرسل",
+                "original_plan_price": "سعر الخطة الأصلي:",
+                "demo_discount": "خصم التجربة: {{ discount }}%",
+                "waiting_confirmation": "في انتظار تأكيد الدفع...",
+                "auto_update_note": "ستتم تحديث هذه الصفحة تلقائيًا عند استلام الدفع",
+                "cancel_payment": "إلغاء الدفع",
+                "payment_methods": "طرق الدفع",
+                "copy_address": "نسخ العنوان:",
+                "scan_address": "مسح العنوان:",
+                "pay_with_wallet": "الدفع بالمحفظة:",
+                "domain_label": "النطاق",
+                "select_wallet": "اختر المحفظة",
+                "pay_with_avax": "الدفع بـ AVAX"
+            },
+            "plan": {
+                "popular_badge": "شائع",
+                "pay_with_stripe": "الدفع باستخدام Stripe",
+                "pay_with_crypto": "الدفع بالعملة المشفرة",
+                "current_plan": "خطتك الحالية",
+                "premium_plan": "الخطة المميزة",
+                "not_available": "غير متوفر",
+                "month": "شهر"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "انظر إلى الكاميرا للتحقق من هويتك وتخزين {{ type }} الخاص بك بشكل آمن",
+                "decrypt": "انظر إلى الكاميرا للتحقق من هويتك والوصول إلى {{ type }} الخاص بك"
+            },
+            "processing": {
+                "processing": "جاري معالجة بياناتك الحيوية...",
+                "analyzing": "جاري تحليل وجهك..."
+            },
+            "status": {
+                "position_face_title": "ضع وجهك في المنتصف",
+                "position_face_subtitle": "انظر مباشرة إلى الكاميرا وابق ثابتًا"
+            },
+            "api_error": {
+                "title": "فشل المصادقة",
+                "try_again": "حاول مرة أخرى",
+                "go_back": "العودة"
+            },
+            "camera_error": {
+                "title": "الكاميرا غير متاحة",
+                "description": "يرجى التأكد من تمكين الكاميرا وإمكانية الوصول إليها للتحقق الحيوي"
+            },
+            "permission": {
+                "title": "إذن الكاميرا مطلوب",
+                "description": "يرجى السماح بالوصول إلى الكاميرا للمتابعة مع التحقق الحيوي",
+                "go_back": "العودة"
+            },
+            "close_aria": "إغلاق التحقق الحيوي",
+            "errors": {
+                "no_face_detected": "لم يتم اكتشاف الوجه",
+                "look_at_camera": "يرجى النظر إلى الكاميرا"
+            }
+        },
+        "password_decryptor": {
+            "title_suffix": "فك التشفير",
+            "loading_camera": "جاري تهيئة الكاميرا...",
+            "permission_required": "إذن الكاميرا مطلوب",
+            "permission_allow": "يرجى السماح بالوصول إلى الكاميرا",
+            "retry": "إعادة المحاولة",
+            "low_quality_title": "صورة منخفضة الجودة",
+            "low_quality_message": "يرجى المحاولة مرة أخرى بإضاءة أفضل",
+            "processing": "جاري فك التشفير...",
+            "cancel": "إلغاء"
+        },
+        "password_biometrics": {
+            "back_to_details": "العودة إلى تفاصيل كلمة المرور",
+            "back_to_form": "العودة إلى نموذج كلمة المرور",
+            "verify_to_decrypt": "التحقق من الهوية لفك التشفير",
+            "biometric_verification": "التحقق الحيوي",
+            "instruction_title": "ضع وجهك في المنتصف",
+            "instruction_subtitle": "انظر مباشرة إلى الكاميرا وابق ثابتًا",
+            "compact_encrypt": "يرجى النظر إلى الكاميرا للتحقق من هويتك وتخزين كلمة المرور الخاصة بك بشكل آمن",
+            "compact_decrypt": "يرجى النظر إلى الكاميرا للتحقق من هويتك وفك تشفير كلمة المرور الخاصة بك",
+            "loading_processing": "جاري معالجة بياناتك الحيوية...",
+            "camera_error_title": "الكاميرا غير متاحة",
+            "camera_error_desc": "يرجى التأكد من تمكين الكاميرا وإمكانية الوصول إليها للتحقق الحيوي",
+            "permission_title": "إذن الكاميرا مطلوب",
+            "permission_desc": "يرجى السماح بالوصول إلى الكاميرا للمتابعة مع التحقق الحيوي",
+            "go_back": "العودة",
+            "master_password_label": "كلمة المرور الرئيسية (اختياري):",
+            "master_password_placeholder": "أدخل كلمة المرور الرئيسية إذا كان لديك واحدة",
+            "master_password_hint": "إذا قمت بتعيين كلمة مرور رئيسية عند إنشاء هذا الإدخال، فأدخلها هنا"
+        },
+        "note_result": {
+            "title": "نتيجة تخزين الملاحظة",
+            "loading": "جاري تحميل النتيجة...",
+            "sections": {
+                "success": {
+                    "title": "تم التخزين بنجاح!",
+                    "message": "تم تخزين الملاحظة بنجاح!"
+                },
+                "details": {
+                    "title": "تفاصيل الملاحظة المخزنة",
+                    "labels": {
+                        "title": "العنوان",
+                        "folder": "المجلد",
+                        "type": "النوع",
+                        "category": "الفئة",
+                        "zelf_name": "اسم Zelf",
+                        "timestamp": "الطابع الزمني"
+                    }
+                },
+                "nft": {
+                    "title": "تم إنشاء NFT",
+                    "labels": {
+                        "token_id": "معرف الرمز المميز",
+                        "cost": "التكلفة",
+                        "contract": "العقد",
+                        "transaction": "المعاملة"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "تخزين IPFS",
+                    "labels": {
+                        "hash": "تجزئة IPFS",
+                        "gateway_url": "عنوان URL للبوابة",
+                        "file_size": "حجم الملف",
+                        "uploaded": "تم الرفع"
+                    },
+                    "gateway_link": "عرض على بوابة IPFS"
+                },
+                "zelfproof": {
+                    "title": "تم إنشاء ZelfProof",
+                    "labels": {
+                        "string": "سلسلة ZelfProof",
+                        "qr_code": "رمز الاستجابة السريعة"
+                    },
+                    "copy_hint": "انقر للنسخ",
+                    "qr_alt": "ZelfProof QR Code"
+                },
+                "debug": {
+                    "title": "معلومات التصحيح"
+                },
+                "next_steps": {
+                    "title": "الخطوات التالية",
+                    "success_message": "تم تخزين ملاحظتك بشكل آمن الآن. يمكنك عرضها في قائمة الملاحظات أو إضافة ملاحظة أخرى.",
+                    "error_message": "يرجى مراجعة تفاصيل الخطأ أعلاه والمحاولة مرة أخرى. إذا استمرت المشكلة، اتصل بالدعم.",
+                    "unknown_message": "لم يتمكن النظام من تحديد الحالة. يرجى التحقق من استجابة API أعلاه للحصول على التفاصيل."
+                }
+            },
+            "actions": {
+                "back_to_notes": "العودة إلى الملاحظات",
+                "add_another": "إضافة ملاحظة أخرى"
+            },
+            "status": {
+                "success_title": "تم تخزين الملاحظة بنجاح!",
+                "error_title": "خطأ في تخزين الملاحظة",
+                "unknown_title": "حالة غير معروفة",
+                "success_message": "تم تخزين ملاحظتك بشكل آمن وتشفيرها مع التحقق من البلوك تشين.",
+                "error_message": "حدث خطأ أثناء تخزين ملاحظتك.",
+                "unknown_message": "تعذر على النظام تحديد حالة التخزين."
+            },
+            "error": {
+                "no_result": "لا توجد نتيجة API متاحة"
+            }
+        },
+        "subscription_banner": {
+            "title": "افتح الميزات المميزة",
+            "description": "احصل على وصول غير محدود وأمان متقدم والمزيد مع ZelfKeys Premium"
+        },
+        "data_card": {
+            "details": "التفاصيل",
+            "no_qr": "لا يوجد رمز QR",
+            "untitled": "بدون عنوان",
+            "username_label": "اسم المستخدم: {{ username }}",
+            "zelf_name_label": "اسم Zelf: {{ zelfName }}",
+            "category_label": "الفئة: {{ category }}",
+            "type_label": "النوع: {{ type }}",
+            "secure_credential": "بيانات اعتماد آمنة"
+        },
+        "data_types": {
+            "note": "ملاحظة",
+            "password": "كلمة المرور",
+            "payment_card": "بطاقة الدفع"
+        },
+        "errors": {
+            "storing": "خطأ في تخزين {{ type }}",
+            "retrieving": "خطأ في استرداد {{ type }}"
+        },
+        "messages": {
+            "note_retrieved": "تم استرداد الملاحظة بنجاح",
+            "note_stored": "تم تخزين الملاحظة بنجاح",
+            "password_retrieved": "تم استرداد كلمة المرور بنجاح",
+            "password_stored": "تم تخزين كلمة المرور بنجاح"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "التحقق من الهوية لتشفير بطاقة الدفع",
+            "decrypt_payment_card": "التحقق من الهوية لفك تشفير بطاقة الدفع",
+            "encrypt_note": "التحقق من الهوية لتشفير الملاحظة",
+            "decrypt_note": "التحقق من الهوية لفك تشفير الملاحظة",
+            "encrypt_password": "التحقق من الهوية لتشفير كلمة المرور",
+            "decrypt_password": "التحقق من الهوية لفك تشفير كلمة المرور",
+            "instructions": {
+                "payment_card": "يرجى التحقق من وجهك لفك تشفير بطاقة الدفع",
+                "note": "يرجى التحقق من وجهك لفك تشفير ملاحظتك",
+                "password": "يرجى التحقق من وجهك لفك تشفير كلمة المرور"
+            },
+            "item": "عنصر"
+        },
+        "categories": {
+            "password": "كلمة المرور",
+            "note": "ملاحظة",
+            "notes": "ملاحظات",
+            "payment_card": "بطاقة الدفع",
+            "card": "بطاقة",
+            "contact": "جهة اتصال",
+            "zotp": "ZOTP"
+        },
+        "password_result": {
+            "status": {
+                "success_title": "تم حفظ كلمة المرور بنجاح!",
+                "error_title": "خطأ في حفظ كلمة المرور",
+                "unknown_title": "حالة غير معروفة",
+                "success_message": "تم حفظ كلمة المرور الخاصة بك بأمان مع التحقق البيومتري.",
+                "error_message": "حدث خطأ في حفظ كلمة المرور الخاصة بك. يرجى المحاولة مرة أخرى.",
+                "unknown_message": "حالة طلب حفظ كلمة المرور غير واضحة."
+            },
+            "error": {
+                "no_result": "لا توجد نتيجة API متاحة"
+            }
+        }
     }
 }

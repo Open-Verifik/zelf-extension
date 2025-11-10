@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { Transaction } from "app/wallet";
+import { Transaction } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 

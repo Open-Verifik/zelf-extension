@@ -238,7 +238,8 @@
         "withdrawal_network": "Rede de saque",
         "yes": "Sim",
         "your_token": "Seu {{ symbol }}",
-        "zelf_wallet": "Carteira Zelf"
+        "zelf_wallet": "Carteira Zelf",
+        "zelf_authenticator": "Zelf - Autenticador"
     },
     "token": {
         "24h_performance": "Desempenho 24h",
@@ -441,5 +442,40 @@
         "considerations_description_1": "Segurança inquebrável.",
         "considerations_description_2": "Identidade única.",
         "considerations_description_3": "Proteção à prova de futuro."
+    },
+    "zotp": {
+        "add_zotp": "Adicionar ZOTP",
+        "account_name": "Nome da conta",
+        "account_name_placeholder": "ex., miguel@verifik.co",
+        "issuer": "Emissor",
+        "issuer_placeholder": "ex., Stripe",
+        "setup_key": "Chave de configuração",
+        "setup_key_placeholder": "Digite sua chave de configuração",
+        "enter_setup_key": "Inserir uma chave de configuração",
+        "upload_qr_code": "Enviar código QR",
+        "upload_qr_code_instructions": "Envie uma imagem de código QR para configurar automaticamente seu ZOTP",
+        "no_zotps_added": "Nenhum ZOTP adicionado ainda. Clique no botão + para adicionar um.",
+        "master_password": "Senha Mestra",
+        "master_password_placeholder": "Digite a senha mestra da sua carteira",
+        "master_password_hint": "A senha mestra da sua carteira é necessária para criptografar e armazenar este ZOTP com segurança.",
+        "see_details": "Ver Detalhes",
+        "details": "Detalhes do ZOTP",
+        "qr_code": "Código QR",
+        "public_data": "Dados Públicos",
+        "ipfs_info": "Informações IPFS",
+        "basic_info": "Informações Básicas",
+        "type": "Tipo",
+        "key_owner": "Proprietário da Chave",
+        "category": "Categoria",
+        "ipfs_id": "ID IPFS",
+        "ipfs_cid": "CID IPFS",
+        "ipfs_url": "URL IPFS",
+        "size": "Tamanho",
+        "network": "Rede",
+        "created_at": "Criado Em",
+        "updated_at": "Atualizado Em",
+        "algorithm": "Algoritmo",
+        "digits": "Dígitos",
+        "period": "Período"
     }
 }

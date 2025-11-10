@@ -238,7 +238,8 @@
         "withdrawal_network": "Сеть вывода",
         "yes": "Да",
         "your_token": "Ваш {{ symbol }}",
-        "zelf_wallet": "Zelf Кошелек"
+        "zelf_wallet": "Zelf Кошелек",
+        "zelf_authenticator": "Zelf - Аутентификатор"
     },
     "token": {
         "24h_performance": "Изменение за 24ч",
@@ -441,5 +442,40 @@
         "considerations_description_1": "Непреодолимая безопасность.",
         "considerations_description_2": "Уникальная идентичность.",
         "considerations_description_3": "Защита на будущее."
+    },
+    "zotp": {
+        "add_zotp": "Добавить ZOTP",
+        "account_name": "Имя учетной записи",
+        "account_name_placeholder": "например, miguel@verifik.co",
+        "issuer": "Эмитент",
+        "issuer_placeholder": "например, Stripe",
+        "setup_key": "Ключ настройки",
+        "setup_key_placeholder": "Введите ваш ключ настройки",
+        "enter_setup_key": "Ввести ключ настройки",
+        "upload_qr_code": "Загрузить QR-код",
+        "upload_qr_code_instructions": "Загрузите изображение QR-кода для автоматической настройки вашего ZOTP",
+        "no_zotps_added": "ZOTP еще не добавлены. Нажмите кнопку +, чтобы добавить.",
+        "master_password": "Главный пароль",
+        "master_password_placeholder": "Введите главный пароль вашего кошелька",
+        "master_password_hint": "Главный пароль вашего кошелька необходим для шифрования и безопасного хранения этого ZOTP.",
+        "see_details": "Просмотреть детали",
+        "details": "Детали ZOTP",
+        "qr_code": "QR-код",
+        "public_data": "Публичные данные",
+        "ipfs_info": "Информация IPFS",
+        "basic_info": "Основная информация",
+        "type": "Тип",
+        "key_owner": "Владелец ключа",
+        "category": "Категория",
+        "ipfs_id": "ID IPFS",
+        "ipfs_cid": "CID IPFS",
+        "ipfs_url": "URL IPFS",
+        "size": "Размер",
+        "network": "Сеть",
+        "created_at": "Создано",
+        "updated_at": "Обновлено",
+        "algorithm": "Алгоритм",
+        "digits": "Цифры",
+        "period": "Период"
     }
 }

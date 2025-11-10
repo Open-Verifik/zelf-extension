@@ -238,7 +238,8 @@
         "withdrawal_network": "提现网络",
         "yes": "是",
         "your_token": "您的{{ symbol }}",
-        "zelf_wallet": "Zelf钱包"
+        "zelf_wallet": "Zelf钱包",
+        "zelf_authenticator": "Zelf - 认证器"
     },
     "token": {
         "24h_performance": "24小时表现",
@@ -441,5 +442,40 @@
         "considerations_description_1": "牢不可破的安全性。",
         "considerations_description_2": "独特的身份。",
         "considerations_description_3": "面向未来的保护。"
+    },
+    "zotp": {
+        "add_zotp": "添加 ZOTP",
+        "account_name": "账户名称",
+        "account_name_placeholder": "例如：miguel@verifik.co",
+        "issuer": "发行者",
+        "issuer_placeholder": "例如：Stripe",
+        "setup_key": "设置密钥",
+        "setup_key_placeholder": "输入您的设置密钥",
+        "enter_setup_key": "输入设置密钥",
+        "upload_qr_code": "上传二维码",
+        "upload_qr_code_instructions": "上传二维码图像以自动配置您的 ZOTP",
+        "no_zotps_added": "尚未添加任何 ZOTP。点击 + 按钮添加一个。",
+        "master_password": "主密码",
+        "master_password_placeholder": "输入您的钱包主密码",
+        "master_password_hint": "您的钱包主密码是加密和存储此 ZOTP 所必需的。",
+        "see_details": "查看详情",
+        "details": "ZOTP 详情",
+        "qr_code": "二维码",
+        "public_data": "公共数据",
+        "ipfs_info": "IPFS 信息",
+        "basic_info": "基本信息",
+        "type": "类型",
+        "key_owner": "密钥所有者",
+        "category": "类别",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "大小",
+        "network": "网络",
+        "created_at": "创建时间",
+        "updated_at": "更新时间",
+        "algorithm": "算法",
+        "digits": "位数",
+        "period": "周期"
     }
 }

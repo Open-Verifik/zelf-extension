@@ -248,7 +248,11 @@
         "yes": "Yes",
         "your_token": "Your {{ symbol }}",
         "zelf_link": "Zelf Link",
-        "zelf_wallet": "Zelf Proof"
+        "zelf_wallet": "Zelf Proof",
+        "wallet": "Wallet",
+        "zelf_authenticator": "Zelf Authenticator",
+        "no_results_found": "No results found",
+        "optional": "Optional"
     },
     "token": {
         "24h_performance": "24h Performance",
@@ -451,5 +455,40 @@
         "considerations_description_1": "Unbreakable security.",
         "considerations_description_2": "Unique identity.",
         "considerations_description_3": "Future-proof protection."
+    },
+    "zotp": {
+        "add_zotp": "Add ZOTP",
+        "account_name": "Account Name",
+        "account_name_placeholder": "e.g., miguel@verifik.co",
+        "issuer": "Issuer",
+        "issuer_placeholder": "e.g., Stripe",
+        "setup_key": "Setup Key",
+        "setup_key_placeholder": "Enter your setup key",
+        "enter_setup_key": "Enter a setup key",
+        "upload_qr_code": "Upload QR Code",
+        "upload_qr_code_instructions": "Upload a QR code image to automatically configure your ZOTP",
+        "no_zotps_added": "No ZOTPs added yet. Click the + button to add one.",
+        "master_password": "Master Password",
+        "master_password_placeholder": "Enter your wallet master password",
+        "master_password_hint": "Your wallet's master password is required to encrypt and store this ZOTP securely.",
+        "see_details": "See Details",
+        "details": "ZOTP Details",
+        "qr_code": "QR Code",
+        "public_data": "Public Data",
+        "ipfs_info": "IPFS Information",
+        "basic_info": "Basic Information",
+        "type": "Type",
+        "key_owner": "Key Owner",
+        "category": "Category",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "Size",
+        "network": "Network",
+        "created_at": "Created At",
+        "updated_at": "Updated At",
+        "algorithm": "Algorithm",
+        "digits": "Digits",
+        "period": "Period"
     }
 }

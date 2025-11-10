@@ -238,7 +238,8 @@
         "withdrawal_network": "Network ng withdrawal",
         "yes": "Oo",
         "your_token": "Ang iyong {{ symbol }}",
-        "zelf_wallet": "Zelf Proof"
+        "zelf_wallet": "Zelf Proof",
+        "zelf_authenticator": "Zelf - Authenticator"
     },
     "token": {
         "24h_performance": "24h na Performance",
@@ -441,5 +442,40 @@
         "considerations_description_1": "Hindi mababasag na seguridad.",
         "considerations_description_2": "Natatanging pagkakakilanlan.",
         "considerations_description_3": "Proteksyon para sa hinaharap."
+    },
+    "zotp": {
+        "add_zotp": "Magdagdag ng ZOTP",
+        "account_name": "Pangalan ng Account",
+        "account_name_placeholder": "hal., miguel@verifik.co",
+        "issuer": "Tagapaglabas",
+        "issuer_placeholder": "hal., Stripe",
+        "setup_key": "Setup Key",
+        "setup_key_placeholder": "Ilagay ang iyong setup key",
+        "enter_setup_key": "Maglagay ng setup key",
+        "upload_qr_code": "I-upload ang QR Code",
+        "upload_qr_code_instructions": "I-upload ang QR code image upang awtomatikong i-configure ang iyong ZOTP",
+        "no_zotps_added": "Walang ZOTP na idinagdag pa. I-click ang + button para magdagdag.",
+        "master_password": "Master Password",
+        "master_password_placeholder": "Ilagay ang master password ng iyong wallet",
+        "master_password_hint": "Ang master password ng iyong wallet ay kinakailangan upang i-encrypt at i-store ang ZOTP na ito nang ligtas.",
+        "see_details": "Tingnan ang Detalye",
+        "details": "Mga Detalye ng ZOTP",
+        "qr_code": "QR Code",
+        "public_data": "Pampublikong Data",
+        "ipfs_info": "Impormasyon ng IPFS",
+        "basic_info": "Pangunahing Impormasyon",
+        "type": "Uri",
+        "key_owner": "May-ari ng Key",
+        "category": "Kategorya",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "Laki",
+        "network": "Network",
+        "created_at": "Ginawa Noong",
+        "updated_at": "Na-update Noong",
+        "algorithm": "Algorithm",
+        "digits": "Mga Digit",
+        "period": "Panahon"
     }
 }

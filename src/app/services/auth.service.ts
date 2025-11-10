@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 
 import { ChromeService } from "app/chrome.service";
 import { DISABLE_GLOBAL_EXCEPTION_HANDLING } from "app/interceptors/interceptor.model";
+import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
 
 @Injectable({
@@ -14,7 +15,11 @@ export class AuthService {
     private _accessToken: string = "";
     private _accessTokenExpiresAt: number = 0;
 
-    constructor(private _httpClient: HttpClient, private _chromeService: ChromeService) {}
+    constructor(
+        private _httpClient: HttpClient,
+        private _chromeService: ChromeService,
+        private _walletService: WalletService
+    ) {}
 
     private _generateFingerprint(): string {
         const fingerprintParts = [
@@ -37,15 +42,29 @@ export class AuthService {
         return moment.unix(this._accessTokenExpiresAt).local().isAfter(moment());
     }
 
-    private async _requestAuthToken(fingerprint: string): Promise<{ data: { token: string; expiresAt: number } }> {
+    private async _requestAuthToken(
+        fingerprint: string,
+        tagName?: string | null,
+        domain?: string | null
+    ): Promise<{ data: { token: string; expiresAt: number } }> {
+        const payload: any = {
+            identifier: _simpleHash(fingerprint),
+        };
+
+        // Include tagName and domain if available
+        if (tagName) {
+            payload.tagName = tagName;
+        }
+
+        if (domain) {
+            payload.domain = domain;
+        }
+
         return await _request(
-            this._httpClient.post(
-                `${environment.apiUrl}/api/sessions`,
-                {
-                    identifier: _simpleHash(fingerprint),
-                },
-                { headers: {}, context: new HttpContext().set(DISABLE_GLOBAL_EXCEPTION_HANDLING, true) }
-            )
+            this._httpClient.post(`${environment.apiUrl}/api/sessions`, payload, {
+                headers: {},
+                context: new HttpContext().set(DISABLE_GLOBAL_EXCEPTION_HANDLING, true),
+            })
         );
     }
 
@@ -59,8 +78,31 @@ export class AuthService {
 
         if (isValidToken) return this._accessToken;
 
+        // Get current wallet to extract tagName and domain for new token
+        let tagName: string | null = null;
+        let domain: string | null = null;
+
+        try {
+            const currentWallet = await this._walletService.getCurrentWallet();
+
+            if (currentWallet) {
+                // Get tagName (without domain suffix, e.g., "miguel")
+                tagName = currentWallet.tagName || currentWallet.name || null;
+
+                // Get domain from publicData, default to "zelf" if not available
+                domain = currentWallet.publicData?.domain || "zelf";
+            } else {
+                // No wallet available, use default domain
+                domain = "zelf";
+            }
+        } catch (error) {
+            // If wallet service fails, use default domain
+            console.warn("Could not get current wallet for token generation:", error);
+            domain = "zelf";
+        }
+
         const fingerprint = this._generateFingerprint();
-        const newAuthToken = await this._requestAuthToken(fingerprint);
+        const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain);
 
         this._accessToken = newAuthToken.data.token;
         this._accessTokenExpiresAt = newAuthToken.data.expiresAt;

@@ -1,0 +1,118 @@
+<div class="zotp-details" *transloco="let t">
+    <div class="zotp-details__header">
+        <h2 class="zotp-details__title">{{ t("zotp.details") }}</h2>
+        <button class="zotp-details__close" (click)="close()" type="button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="zotp-details__content">
+        <!-- QR Code Image -->
+        <div class="zotp-details__qr-section" *ngIf="zotp.zelfProofQRCode">
+            <h3 class="zotp-details__section-title">{{ t("zotp.qr_code") }}</h3>
+            <div class="zotp-details__qr-container">
+                <img [src]="zotp.zelfProofQRCode" [alt]="zotp.name" class="zotp-details__qr-image" />
+            </div>
+        </div>
+
+        <!-- Public Data Information -->
+        <div class="zotp-details__section" *ngIf="publicData">
+            <h3 class="zotp-details__section-title">{{ t("zotp.public_data") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zotp-details__info-item" *ngIf="publicData.type">
+                    <span class="zotp-details__info-label">{{ t("zotp.type") }}:</span>
+                    <span class="zotp-details__info-value">{{ publicData.type }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="publicData.username">
+                    <span class="zotp-details__info-label">{{ t("zotp.account_name") }}:</span>
+                    <span class="zotp-details__info-value">{{ publicData.username }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="publicData.issuer">
+                    <span class="zotp-details__info-label">{{ t("zotp.issuer") }}:</span>
+                    <span class="zotp-details__info-value">{{ publicData.issuer }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="publicData.keyOwner">
+                    <span class="zotp-details__info-label">{{ t("zotp.key_owner") }}:</span>
+                    <span class="zotp-details__info-value">{{ publicData.keyOwner }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="publicData.category">
+                    <span class="zotp-details__info-label">{{ t("zotp.category") }}:</span>
+                    <span class="zotp-details__info-value">{{ publicData.category }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- IPFS Information -->
+        <div class="zotp-details__section" *ngIf="ipfsData">
+            <h3 class="zotp-details__section-title">{{ t("zotp.ipfs_info") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zotp-details__info-item" *ngIf="ipfsData.id">
+                    <span class="zotp-details__info-label">{{ t("zotp.ipfs_id") }}:</span>
+                    <span class="zotp-details__info-value zotp-details__info-value--mono">{{ ipfsData.id }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="ipfsData.cid">
+                    <span class="zotp-details__info-label">{{ t("zotp.ipfs_cid") }}:</span>
+                    <span class="zotp-details__info-value zotp-details__info-value--mono">{{ ipfsData.cid }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="ipfsData.url">
+                    <span class="zotp-details__info-label">{{ t("zotp.ipfs_url") }}:</span>
+                    <a [href]="ipfsData.url" target="_blank" rel="noopener noreferrer" class="zotp-details__info-link">
+                        {{ ipfsData.url }}
+                    </a>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="ipfsData.size">
+                    <span class="zotp-details__info-label">{{ t("zotp.size") }}:</span>
+                    <span class="zotp-details__info-value">{{ ipfsData.size | number }} bytes</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="ipfsData.network">
+                    <span class="zotp-details__info-label">{{ t("zotp.network") }}:</span>
+                    <span class="zotp-details__info-value">{{ ipfsData.network }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="ipfsData.created_at">
+                    <span class="zotp-details__info-label">{{ t("zotp.created_at") }}:</span>
+                    <span class="zotp-details__info-value">{{ formatDate(ipfsData.created_at) }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="ipfsData.updated_at">
+                    <span class="zotp-details__info-label">{{ t("zotp.updated_at") }}:</span>
+                    <span class="zotp-details__info-value">{{ formatDate(ipfsData.updated_at) }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZOTP Basic Information -->
+        <div class="zotp-details__section">
+            <h3 class="zotp-details__section-title">{{ t("zotp.basic_info") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zotp-details__info-item">
+                    <span class="zotp-details__info-label">{{ t("zotp.account_name") }}:</span>
+                    <span class="zotp-details__info-value">{{ zotp.name }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="zotp.issuer">
+                    <span class="zotp-details__info-label">{{ t("zotp.issuer") }}:</span>
+                    <span class="zotp-details__info-value">{{ zotp.issuer }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="zotp.algorithm">
+                    <span class="zotp-details__info-label">{{ t("zotp.algorithm") }}:</span>
+                    <span class="zotp-details__info-value">{{ zotp.algorithm }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="zotp.digits">
+                    <span class="zotp-details__info-label">{{ t("zotp.digits") }}:</span>
+                    <span class="zotp-details__info-value">{{ zotp.digits }}</span>
+                </div>
+                <div class="zotp-details__info-item" *ngIf="zotp.period">
+                    <span class="zotp-details__info-label">{{ t("zotp.period") }}:</span>
+                    <span class="zotp-details__info-value">{{ zotp.period }}s</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zotp-details__actions">
+        <button mat-flat-button class="zotp-details__button zotp-details__button--primary" (click)="close()">
+            {{ t("common.close") }}
+        </button>
+    </div>
+</div>
+

@@ -238,7 +238,8 @@
         "withdrawal_network": "निकासी नेटवर्क",
         "yes": "हाँ",
         "your_token": "आपका {{ symbol }}",
-        "zelf_wallet": "Zelf वॉलेट"
+        "zelf_wallet": "Zelf वॉलेट",
+        "zelf_authenticator": "Zelf - प्रमाणक"
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",
@@ -441,5 +442,40 @@
         "considerations_description_1": "अटूट सुरक्षा।",
         "considerations_description_2": "अद्वितीय पहचान।",
         "considerations_description_3": "भविष्य-प्रूफ सुरक्षा।"
+    },
+    "zotp": {
+        "add_zotp": "ZOTP जोड़ें",
+        "account_name": "खाता नाम",
+        "account_name_placeholder": "उदा., miguel@verifik.co",
+        "issuer": "जारीकर्ता",
+        "issuer_placeholder": "उदा., Stripe",
+        "setup_key": "सेटअप कुंजी",
+        "setup_key_placeholder": "अपनी सेटअप कुंजी दर्ज करें",
+        "enter_setup_key": "सेटअप कुंजी दर्ज करें",
+        "upload_qr_code": "QR कोड अपलोड करें",
+        "upload_qr_code_instructions": "अपने ZOTP को स्वचालित रूप से कॉन्फ़िगर करने के लिए QR कोड छवि अपलोड करें",
+        "no_zotps_added": "अभी तक कोई ZOTP जोड़ा नहीं गया है। एक जोड़ने के लिए + बटन पर क्लिक करें।",
+        "master_password": "मास्टर पासवर्ड",
+        "master_password_placeholder": "अपना वॉलेट मास्टर पासवर्ड दर्ज करें",
+        "master_password_hint": "इस ZOTP को सुरक्षित रूप से एन्क्रिप्ट और संग्रहीत करने के लिए आपके वॉलेट का मास्टर पासवर्ड आवश्यक है।",
+        "see_details": "विवरण देखें",
+        "details": "ZOTP विवरण",
+        "qr_code": "QR कोड",
+        "public_data": "सार्वजनिक डेटा",
+        "ipfs_info": "IPFS जानकारी",
+        "basic_info": "मूल जानकारी",
+        "type": "प्रकार",
+        "key_owner": "कुंजी मालिक",
+        "category": "श्रेणी",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "आकार",
+        "network": "नेटवर्क",
+        "created_at": "बनाया गया",
+        "updated_at": "अपडेट किया गया",
+        "algorithm": "एल्गोरिदम",
+        "digits": "अंक",
+        "period": "अवधि"
     }
 }

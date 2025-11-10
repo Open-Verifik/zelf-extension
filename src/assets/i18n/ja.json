@@ -238,7 +238,8 @@
         "withdrawal_network": "出金ネットワーク",
         "yes": "はい",
         "your_token": "あなたの{{ symbol }}",
-        "zelf_wallet": "Zelfウォレット"
+        "zelf_wallet": "Zelfウォレット",
+        "zelf_authenticator": "Zelf - 認証器"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",
@@ -441,5 +442,40 @@
         "considerations_description_1": "破られないセキュリティ。",
         "considerations_description_2": "ユニークなアイデンティティ。",
         "considerations_description_3": "将来を見据えた保護。"
+    },
+    "zotp": {
+        "add_zotp": "ZOTPを追加",
+        "account_name": "アカウント名",
+        "account_name_placeholder": "例：miguel@verifik.co",
+        "issuer": "発行者",
+        "issuer_placeholder": "例：Stripe",
+        "setup_key": "セットアップキー",
+        "setup_key_placeholder": "セットアップキーを入力してください",
+        "enter_setup_key": "セットアップキーを入力",
+        "upload_qr_code": "QRコードをアップロード",
+        "upload_qr_code_instructions": "QRコード画像をアップロードしてZOTPを自動設定します",
+        "no_zotps_added": "まだZOTPが追加されていません。+ボタンをクリックして追加してください。",
+        "master_password": "マスターパスワード",
+        "master_password_placeholder": "ウォレットのマスターパスワードを入力してください",
+        "master_password_hint": "このZOTPを安全に暗号化して保存するには、ウォレットのマスターパスワードが必要です。",
+        "see_details": "詳細を見る",
+        "details": "ZOTP詳細",
+        "qr_code": "QRコード",
+        "public_data": "公開データ",
+        "ipfs_info": "IPFS情報",
+        "basic_info": "基本情報",
+        "type": "タイプ",
+        "key_owner": "キー所有者",
+        "category": "カテゴリ",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "サイズ",
+        "network": "ネットワーク",
+        "created_at": "作成日時",
+        "updated_at": "更新日時",
+        "algorithm": "アルゴリズム",
+        "digits": "桁数",
+        "period": "期間"
     }
 }

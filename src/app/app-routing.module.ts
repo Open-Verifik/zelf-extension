@@ -238,6 +238,20 @@ const routes: Routes = [
         ],
     },
     {
+        path: "zelf-authenticator",
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        canActivate: [LoginGuard],
+        resolve: {
+            auth: JWTResolver,
+        },
+        children: [
+            {
+                path: "",
+                loadComponent: () => import("./zelf-authenticator/zelf-authenticator.component").then((m) => m.ZelfAuthenticatorComponent),
+            },
+        ],
+    },
+    {
         path: "external-link",
         data: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment` },
         canActivate: [ExternalRedirectGuard],

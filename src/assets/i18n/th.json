@@ -238,7 +238,8 @@
         "withdrawal_network": "เครือข่ายการถอน",
         "yes": "ใช่",
         "your_token": "{{ symbol }} ของคุณ",
-        "zelf_wallet": "กระเป๋าเงิน Zelf"
+        "zelf_wallet": "กระเป๋าเงิน Zelf",
+        "zelf_authenticator": "Zelf - ตัวยืนยันตัวตน"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",
@@ -441,5 +442,40 @@
         "considerations_description_1": "ความปลอดภัยที่ไม่มีวันแตก",
         "considerations_description_2": "ตัวตนที่ไม่ซ้ำใคร",
         "considerations_description_3": "การป้องกันที่พร้อมสำหรับอนาคต"
+    },
+    "zotp": {
+        "add_zotp": "เพิ่ม ZOTP",
+        "account_name": "ชื่อบัญชี",
+        "account_name_placeholder": "เช่น miguel@verifik.co",
+        "issuer": "ผู้ออก",
+        "issuer_placeholder": "เช่น Stripe",
+        "setup_key": "คีย์การตั้งค่า",
+        "setup_key_placeholder": "ป้อนคีย์การตั้งค่าของคุณ",
+        "enter_setup_key": "ป้อนคีย์การตั้งค่า",
+        "upload_qr_code": "อัปโหลด QR Code",
+        "upload_qr_code_instructions": "อัปโหลดภาพ QR Code เพื่อกำหนดค่า ZOTP ของคุณโดยอัตโนมัติ",
+        "no_zotps_added": "ยังไม่ได้เพิ่ม ZOTP คลิกปุ่ม + เพื่อเพิ่ม",
+        "master_password": "รหัสผ่านหลัก",
+        "master_password_placeholder": "ใส่รหัสผ่านหลักของกระเป๋าเงินของคุณ",
+        "master_password_hint": "รหัสผ่านหลักของกระเป๋าเงินของคุณจำเป็นสำหรับการเข้ารหัสและจัดเก็บ ZOTP นี้อย่างปลอดภัย",
+        "see_details": "ดูรายละเอียด",
+        "details": "รายละเอียด ZOTP",
+        "qr_code": "QR Code",
+        "public_data": "ข้อมูลสาธารณะ",
+        "ipfs_info": "ข้อมูล IPFS",
+        "basic_info": "ข้อมูลพื้นฐาน",
+        "type": "ประเภท",
+        "key_owner": "เจ้าของคีย์",
+        "category": "หมวดหมู่",
+        "ipfs_id": "ID IPFS",
+        "ipfs_cid": "CID IPFS",
+        "ipfs_url": "URL IPFS",
+        "size": "ขนาด",
+        "network": "เครือข่าย",
+        "created_at": "สร้างเมื่อ",
+        "updated_at": "อัปเดตเมื่อ",
+        "algorithm": "อัลกอริทึม",
+        "digits": "ตัวเลข",
+        "period": "ระยะเวลา"
     }
 }

@@ -239,7 +239,8 @@
         "withdrawal_network": "Réseau de retrait",
         "yes": "Oui",
         "your_token": "Votre {{ symbol }}",
-        "zelf_wallet": "Portefeuille Zelf"
+        "zelf_wallet": "Portefeuille Zelf",
+        "zelf_authenticator": "Zelf - Authentificateur"
     },
     "token": {
         "24h_performance": "Performance 24h",
@@ -442,5 +443,40 @@
         "considerations_description_1": "Sécurité incassable.",
         "considerations_description_2": "Identité unique.",
         "considerations_description_3": "Protection pérenne."
+    },
+    "zotp": {
+        "add_zotp": "Ajouter ZOTP",
+        "account_name": "Nom du compte",
+        "account_name_placeholder": "ex., miguel@verifik.co",
+        "issuer": "Émetteur",
+        "issuer_placeholder": "ex., Stripe",
+        "setup_key": "Clé de configuration",
+        "setup_key_placeholder": "Entrez votre clé de configuration",
+        "enter_setup_key": "Entrer une clé de configuration",
+        "upload_qr_code": "Télécharger le code QR",
+        "upload_qr_code_instructions": "Téléchargez une image de code QR pour configurer automatiquement votre ZOTP",
+        "no_zotps_added": "Aucun ZOTP ajouté pour le moment. Cliquez sur le bouton + pour en ajouter un.",
+        "master_password": "Mot de passe principal",
+        "master_password_placeholder": "Entrez le mot de passe principal de votre portefeuille",
+        "master_password_hint": "Le mot de passe principal de votre portefeuille est requis pour crypter et stocker ce ZOTP en toute sécurité.",
+        "see_details": "Voir les détails",
+        "details": "Détails du ZOTP",
+        "qr_code": "Code QR",
+        "public_data": "Données publiques",
+        "ipfs_info": "Informations IPFS",
+        "basic_info": "Informations de base",
+        "type": "Type",
+        "key_owner": "Propriétaire de la clé",
+        "category": "Catégorie",
+        "ipfs_id": "ID IPFS",
+        "ipfs_cid": "CID IPFS",
+        "ipfs_url": "URL IPFS",
+        "size": "Taille",
+        "network": "Réseau",
+        "created_at": "Créé le",
+        "updated_at": "Mis à jour le",
+        "algorithm": "Algorithme",
+        "digits": "Chiffres",
+        "period": "Période"
     }
 }

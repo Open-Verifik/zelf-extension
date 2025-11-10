@@ -238,7 +238,8 @@
         "withdrawal_network": "شبكة السحب",
         "yes": "نعم",
         "your_token": "{{ symbol }} الخاص بك",
-        "zelf_wallet": "محفظة زيلف"
+        "zelf_wallet": "محفظة زيلف",
+        "zelf_authenticator": "Zelf - المصادق"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",
@@ -440,5 +441,40 @@
         "considerations_description_1": "أمان لا يمكن اختراقه.",
         "considerations_description_2": "هوية فريدة.",
         "considerations_description_3": "حماية مستقبلية."
+    },
+    "zotp": {
+        "add_zotp": "إضافة ZOTP",
+        "account_name": "اسم الحساب",
+        "account_name_placeholder": "مثال: miguel@verifik.co",
+        "issuer": "المُصدر",
+        "issuer_placeholder": "مثال: Stripe",
+        "setup_key": "مفتاح الإعداد",
+        "setup_key_placeholder": "أدخل مفتاح الإعداد الخاص بك",
+        "enter_setup_key": "إدخال مفتاح إعداد",
+        "upload_qr_code": "رفع رمز QR",
+        "upload_qr_code_instructions": "قم برفع صورة رمز QR لتكوين ZOTP الخاص بك تلقائياً",
+        "no_zotps_added": "لم تتم إضافة أي ZOTP بعد. انقر على الزر + لإضافة واحد.",
+        "master_password": "كلمة المرور الرئيسية",
+        "master_password_placeholder": "أدخل كلمة المرور الرئيسية لمحفظتك",
+        "master_password_hint": "كلمة المرور الرئيسية لمحفظتك مطلوبة لتشفير وتخزين هذا ZOTP بأمان.",
+        "see_details": "عرض التفاصيل",
+        "details": "تفاصيل ZOTP",
+        "qr_code": "رمز QR",
+        "public_data": "البيانات العامة",
+        "ipfs_info": "معلومات IPFS",
+        "basic_info": "المعلومات الأساسية",
+        "type": "النوع",
+        "key_owner": "مالك المفتاح",
+        "category": "الفئة",
+        "ipfs_id": "معرف IPFS",
+        "ipfs_cid": "CID IPFS",
+        "ipfs_url": "رابط IPFS",
+        "size": "الحجم",
+        "network": "الشبكة",
+        "created_at": "تم الإنشاء في",
+        "updated_at": "تم التحديث في",
+        "algorithm": "الخوارزمية",
+        "digits": "الأرقام",
+        "period": "الفترة"
     }
 }

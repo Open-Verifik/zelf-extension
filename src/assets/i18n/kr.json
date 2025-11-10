@@ -238,7 +238,8 @@
         "withdrawal_network": "출금 네트워크",
         "yes": "예",
         "your_token": "귀하의 {{ symbol }}",
-        "zelf_wallet": "Zelf 지갑"
+        "zelf_wallet": "Zelf 지갑",
+        "zelf_authenticator": "Zelf - 인증기"
     },
     "token": {
         "24h_performance": "24시간 성과",
@@ -441,5 +442,40 @@
         "considerations_description_1": "깨지지 않는 보안.",
         "considerations_description_2": "고유한 정체성.",
         "considerations_description_3": "미래 지향적 보호."
+    },
+    "zotp": {
+        "add_zotp": "ZOTP 추가",
+        "account_name": "계정 이름",
+        "account_name_placeholder": "예: miguel@verifik.co",
+        "issuer": "발행자",
+        "issuer_placeholder": "예: Stripe",
+        "setup_key": "설정 키",
+        "setup_key_placeholder": "설정 키를 입력하세요",
+        "enter_setup_key": "설정 키 입력",
+        "upload_qr_code": "QR 코드 업로드",
+        "upload_qr_code_instructions": "QR 코드 이미지를 업로드하여 ZOTP를 자동으로 구성합니다",
+        "no_zotps_added": "아직 ZOTP가 추가되지 않았습니다. + 버튼을 클릭하여 추가하세요.",
+        "master_password": "마스터 비밀번호",
+        "master_password_placeholder": "지갑 마스터 비밀번호를 입력하세요",
+        "master_password_hint": "이 ZOTP를 안전하게 암호화하고 저장하려면 지갑의 마스터 비밀번호가 필요합니다.",
+        "see_details": "세부 정보 보기",
+        "details": "ZOTP 세부 정보",
+        "qr_code": "QR 코드",
+        "public_data": "공개 데이터",
+        "ipfs_info": "IPFS 정보",
+        "basic_info": "기본 정보",
+        "type": "유형",
+        "key_owner": "키 소유자",
+        "category": "카테고리",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "크기",
+        "network": "네트워크",
+        "created_at": "생성일",
+        "updated_at": "업데이트일",
+        "algorithm": "알고리즘",
+        "digits": "자릿수",
+        "period": "기간"
     }
 }

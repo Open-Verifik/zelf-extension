@@ -238,7 +238,8 @@
         "withdrawal_network": "نکالنے کا نیٹ ورک",
         "yes": "ہاں",
         "your_token": "آپ کا {{ symbol }}",
-        "zelf_wallet": "زیلف والیٹ"
+        "zelf_wallet": "زیلف والیٹ",
+        "zelf_authenticator": "Zelf - تصدیق کنندہ"
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",
@@ -441,5 +442,40 @@
         "considerations_description_1": "ناقابل شکست سیکیورٹی۔",
         "considerations_description_2": "منفرد شناخت۔",
         "considerations_description_3": "مستقبل کے لیے تحفظ۔"
+    },
+    "zotp": {
+        "add_zotp": "ZOTP شامل کریں",
+        "account_name": "اکاؤنٹ کا نام",
+        "account_name_placeholder": "مثال: miguel@verifik.co",
+        "issuer": "جاری کنندہ",
+        "issuer_placeholder": "مثال: Stripe",
+        "setup_key": "سیٹ اپ کلید",
+        "setup_key_placeholder": "اپنی سیٹ اپ کلید درج کریں",
+        "enter_setup_key": "سیٹ اپ کلید درج کریں",
+        "upload_qr_code": "QR کوڈ اپ لوڈ کریں",
+        "upload_qr_code_instructions": "اپنے ZOTP کو خودکار طریقے سے ترتیب دینے کے لیے QR کوڈ کی تصویر اپ لوڈ کریں",
+        "no_zotps_added": "ابھی تک کوئی ZOTP شامل نہیں کیا گیا۔ شامل کرنے کے لیے + بٹن پر کلک کریں۔",
+        "master_password": "ماسٹر پاس ورڈ",
+        "master_password_placeholder": "اپنا والیٹ ماسٹر پاس ورڈ درج کریں",
+        "master_password_hint": "اس ZOTP کو محفوظ طریقے سے خفیہ کاری اور ذخیرہ کرنے کے لیے آپ کے والیٹ کا ماسٹر پاس ورڈ درکار ہے۔",
+        "see_details": "تفصیلات دیکھیں",
+        "details": "ZOTP تفصیلات",
+        "qr_code": "QR کوڈ",
+        "public_data": "عوامی ڈیٹا",
+        "ipfs_info": "IPFS معلومات",
+        "basic_info": "بنیادی معلومات",
+        "type": "قسم",
+        "key_owner": "کلید کا مالک",
+        "category": "زمرہ",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "سائز",
+        "network": "نیٹ ورک",
+        "created_at": "بنایا گیا",
+        "updated_at": "اپ ڈیٹ کیا گیا",
+        "algorithm": "الگورتھم",
+        "digits": "ہندسے",
+        "period": "مدت"
     }
 }

@@ -483,6 +483,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "公共 URL",
         "walrus_explorer_url": "浏览器 URL",
-        "walrus_epochs": "存储周期"
+        "walrus_epochs": "存储周期",
+        "refresh_list": "刷新列表",
+        "delete_zotp": "删除 ZOTP",
+        "delete_warning": "此操作无法撤销。请确认要删除该 ZOTP。",
+        "deleted_successfully": "ZOTP 删除成功",
+        "delete_failed": "删除 ZOTP 失败",
+        "incorrect_password": "主密码错误",
+        "biometrics_failed": "生物识别验证失败"
     }
 }

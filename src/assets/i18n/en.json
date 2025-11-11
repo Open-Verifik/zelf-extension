@@ -496,6 +496,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "Public URL",
         "walrus_explorer_url": "Explorer URL",
-        "walrus_epochs": "Storage Epochs"
+        "walrus_epochs": "Storage Epochs",
+        "refresh_list": "Refresh list",
+        "delete_zotp": "Delete ZOTP",
+        "delete_warning": "This action cannot be undone. Please confirm you want to delete this ZOTP.",
+        "deleted_successfully": "ZOTP deleted successfully",
+        "delete_failed": "Failed to delete ZOTP",
+        "incorrect_password": "Incorrect master password",
+        "biometrics_failed": "Biometric verification failed"
     }
 }

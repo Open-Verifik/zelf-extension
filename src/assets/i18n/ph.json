@@ -483,6 +483,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "Pampublikong URL",
         "walrus_explorer_url": "URL ng Explorer",
-        "walrus_epochs": "Mga Epoch ng Pag-iimbak"
+        "walrus_epochs": "Mga Epoch ng Pag-iimbak",
+        "refresh_list": "I-refresh ang listahan",
+        "delete_zotp": "Tanggalin ang ZOTP",
+        "delete_warning": "Hindi na maibabalik ang aksyong ito. Pakitiyak na gusto mong alisin ang ZOTP na ito.",
+        "deleted_successfully": "Matagumpay na natanggal ang ZOTP",
+        "delete_failed": "Nabigong tanggalin ang ZOTP",
+        "incorrect_password": "Maling master password",
+        "biometrics_failed": "Nabigo ang biometric verification"
     }
 }

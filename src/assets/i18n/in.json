@@ -483,6 +483,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "सार्वजनिक URL",
         "walrus_explorer_url": "एक्सप्लोरर URL",
-        "walrus_epochs": "भंडारण युग"
+        "walrus_epochs": "भंडारण युग",
+        "refresh_list": "सूची ताज़ा करें",
+        "delete_zotp": "ZOTP हटाएँ",
+        "delete_warning": "यह कार्रवाई पूर्ववत् नहीं की जा सकती। कृपया पुष्टि करें कि आप इस ZOTP को हटाना चाहते हैं।",
+        "deleted_successfully": "ZOTP सफलतापूर्वक हटाया गया",
+        "delete_failed": "ZOTP हटाने में विफल",
+        "incorrect_password": "गलत मास्टर पासवर्ड",
+        "biometrics_failed": "बायोमेट्रिक सत्यापन विफल रहा"
     }
 }

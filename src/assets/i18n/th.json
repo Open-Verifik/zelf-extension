@@ -483,6 +483,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "URL สาธารณะ",
         "walrus_explorer_url": "URL Explorer",
-        "walrus_epochs": "ยุคการจัดเก็บ"
+        "walrus_epochs": "ยุคการจัดเก็บ",
+        "refresh_list": "รีเฟรชรายการ",
+        "delete_zotp": "ลบ ZOTP",
+        "delete_warning": "ไม่สามารถยกเลิกการทำรายการนี้ได้ โปรดยืนยันว่าคุณต้องการลบ ZOTP นี้",
+        "deleted_successfully": "ลบ ZOTP สำเร็จ",
+        "delete_failed": "ลบ ZOTP ไม่สำเร็จ",
+        "incorrect_password": "รหัสผ่านหลักไม่ถูกต้อง",
+        "biometrics_failed": "การยืนยันตัวตนด้วยไบโอเมตริกซ์ล้มเหลว"
     }
 }

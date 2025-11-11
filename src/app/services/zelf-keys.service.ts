@@ -50,7 +50,7 @@ export interface PreviewRequest {
  * Interface for listing stored items
  */
 export interface ListRequest {
-    category: "password" | "notes" | "credit_card" | "contact";
+    category: "password" | "notes" | "credit_card" | "contact" | "zotp";
 }
 
 /**
@@ -112,10 +112,10 @@ export class ZelfKeysService {
 
     /**
      * List all stored items in a category
-     * @param category - Category to list (password, notes, credit_card, contact)
+     * @param category - Category to list (password, notes, credit_card, contact, zotp)
      * @returns Promise with the list of items
      */
-    async list(category: "password" | "notes" | "credit_card" | "contact"): Promise<any> {
+    async list(category: "password" | "notes" | "credit_card" | "contact" | "zotp"): Promise<any> {
         const url = `${this.baseUrl}${this.apiPath}/list`;
 
         return this._httpWrapper.sendRequest("get", url, { category });
@@ -147,5 +147,21 @@ export class ZelfKeysService {
         const zotps = response.data.filter((item: any) => item.folder === "ZOTP");
 
         return { data: zotps };
+    }
+
+    /**
+     * Delete a ZelfKey by ID
+     * @param id - IPFS ID of the ZelfKey to delete
+     * @param faceBase64 - Encrypted face image from biometrics
+     * @param masterPassword - Encrypted master password
+     * @returns Promise with the deletion response
+     */
+    async delete(id: string, faceBase64: string, masterPassword: string): Promise<any> {
+        const url = `${this.baseUrl}${this.apiPath}/delete/${id}`;
+
+        return this._httpWrapper.sendRequest("put", url, {
+            faceBase64,
+            masterPassword,
+        });
     }
 }

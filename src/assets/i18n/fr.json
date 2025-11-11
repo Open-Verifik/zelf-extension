@@ -484,6 +484,13 @@
         "walrus_blob_id": "ID de Blob",
         "walrus_public_url": "URL Publique",
         "walrus_explorer_url": "URL de l'Explorateur",
-        "walrus_epochs": "Époques de Stockage"
+        "walrus_epochs": "Époques de Stockage",
+        "refresh_list": "Actualiser la liste",
+        "delete_zotp": "Supprimer le ZOTP",
+        "delete_warning": "Cette action est irréversible. Veuillez confirmer que vous souhaitez supprimer ce ZOTP.",
+        "deleted_successfully": "ZOTP supprimé avec succès",
+        "delete_failed": "Échec de la suppression du ZOTP",
+        "incorrect_password": "Mot de passe maître incorrect",
+        "biometrics_failed": "Échec de la vérification biométrique"
     }
 }

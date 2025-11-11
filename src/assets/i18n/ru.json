@@ -483,6 +483,13 @@
         "walrus_blob_id": "ID Blob",
         "walrus_public_url": "Публичный URL",
         "walrus_explorer_url": "URL Explorer",
-        "walrus_epochs": "Эпохи хранения"
+        "walrus_epochs": "Эпохи хранения",
+        "refresh_list": "Обновить список",
+        "delete_zotp": "Удалить ZOTP",
+        "delete_warning": "Это действие нельзя отменить. Подтвердите, что хотите удалить этот ZOTP.",
+        "deleted_successfully": "ZOTP успешно удалён",
+        "delete_failed": "Не удалось удалить ZOTP",
+        "incorrect_password": "Неверный мастер-пароль",
+        "biometrics_failed": "Биометрическая проверка не пройдена"
     }
 }

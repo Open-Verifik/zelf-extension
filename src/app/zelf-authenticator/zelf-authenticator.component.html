@@ -130,6 +130,12 @@
                 <p class="zelf-authenticator__empty-text" *ngIf="searchQuery.trim()">{{ t("common.no_results_found") }}</p>
                 <p class="zelf-authenticator__empty-text" *ngIf="!searchQuery.trim()">{{ t("zotp.no_zotps_added") }}</p>
             </div>
+
+            <div class="zelf-authenticator__refresh" *ngIf="!loading">
+                <button class="zelf-authenticator__refresh-link" (click)="refreshList()" [disabled]="loading">
+                    {{ t("zotp.refresh_list") || "Refresh list" }}
+                </button>
+            </div>
         </ng-container>
     </div>
 

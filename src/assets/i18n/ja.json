@@ -483,6 +483,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "公開 URL",
         "walrus_explorer_url": "エクスプローラー URL",
-        "walrus_epochs": "ストレージエポック"
+        "walrus_epochs": "ストレージエポック",
+        "refresh_list": "リストを更新",
+        "delete_zotp": "ZOTP を削除",
+        "delete_warning": "この操作は取り消せません。この ZOTP を削除してよいか確認してください。",
+        "deleted_successfully": "ZOTP を正常に削除しました",
+        "delete_failed": "ZOTP の削除に失敗しました",
+        "incorrect_password": "マスターパスワードが正しくありません",
+        "biometrics_failed": "生体認証に失敗しました"
     }
 }

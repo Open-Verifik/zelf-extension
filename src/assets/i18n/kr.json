@@ -483,6 +483,13 @@
         "walrus_blob_id": "Blob ID",
         "walrus_public_url": "공개 URL",
         "walrus_explorer_url": "탐색기 URL",
-        "walrus_epochs": "저장 에포크"
+        "walrus_epochs": "저장 에포크",
+        "refresh_list": "목록 새로고침",
+        "delete_zotp": "ZOTP 삭제",
+        "delete_warning": "이 작업은 되돌릴 수 없습니다. 이 ZOTP를 삭제하려는지 확인해 주세요.",
+        "deleted_successfully": "ZOTP가 성공적으로 삭제되었습니다",
+        "delete_failed": "ZOTP 삭제에 실패했습니다",
+        "incorrect_password": "마스터 비밀번호가 올바르지 않습니다",
+        "biometrics_failed": "생체 인증에 실패했습니다"
     }
 }

@@ -8,6 +8,8 @@ import { ZelfKeysService } from "./zelf-keys.service";
 })
 export class ZOTPService {
     private readonly STORAGE_KEY = "zotps"; // Local cache for performance
+    private readonly CACHE_TIMESTAMP_KEY = "zotps_cache_timestamp"; // Cache timestamp
+    private readonly CACHE_TTL = 5 * 60 * 1000; // Cache TTL: 5 minutes
     private _cache: ZOTP[] | null = null; // In-memory cache
 
     constructor(
@@ -16,7 +18,118 @@ export class ZOTPService {
     ) {}
 
     /**
+     * Load ZOTPs from ZelfKeys API using the new /list endpoint with category "zotp"
+     * This method uses caching to optimize performance
+     * @param forceRefresh - If true, bypass cache and fetch from backend
+     * @returns Promise with the list of ZOTPs
+     */
+    async loadZOTPsFromBackend(forceRefresh: boolean = false): Promise<ZOTP[]> {
+        // Check cache first (unless force refresh)
+        if (!forceRefresh) {
+            const cachedZotps = await this._getCachedZOTPs();
+            if (cachedZotps !== null) {
+                this._cache = cachedZotps;
+                return cachedZotps;
+            }
+        }
+
+        try {
+            // Fetch from backend using the new /list endpoint
+            const response = await this._zelfKeysService.list("zotp");
+            const zotps: ZOTP[] = [];
+
+            // Response structure: { data: { success, data: [...], ... } }
+            const responseData = response?.data;
+            const items = responseData?.data || [];
+
+            if (Array.isArray(items)) {
+                // Map backend response to ZOTP format
+                for (const item of items) {
+                    const publicData = item.publicData || {};
+                    const zotp: ZOTP = {
+                        id: item.id || item.cid || this.generateId(),
+                        name: publicData.username || "",
+                        // DO NOT store secret - it's encrypted in ZelfKeys and must be retrieved via retrieve endpoint
+                        issuer: publicData.issuer || undefined,
+                        algorithm: "SHA1", // Default, could be stored in publicData
+                        digits: 6, // Default
+                        period: 30, // Default
+                        createdAt: item.createdAt ? new Date(item.createdAt).getTime() : Date.now(),
+                        updatedAt: item.updatedAt ? new Date(item.updatedAt).getTime() : Date.now(),
+                        isDecrypted: false,
+                        zelfProof: item.zelfProof || undefined,
+                        zelfKeysId: item.id || item.cid,
+                        zelfProofQRCode: item.zelfProofQRCode || undefined,
+                        ipfs: {
+                            id: item.id,
+                            cid: item.cid,
+                            url: item.url,
+                            publicData: publicData,
+                        },
+                    };
+
+                    // Extract walrus data from publicData if available
+                    if (publicData.walrus) {
+                        const walrusId = typeof publicData.walrus === "string" ? publicData.walrus : publicData.walrus.blobId;
+                        if (walrusId) {
+                            zotp.walrus = {
+                                success: true,
+                                blobId: walrusId,
+                                publicUrl: `https://walrus-mainnet.mystenlabs.com/${walrusId}`,
+                                explorerUrl: `https://walruscan.com/mainnet/blob/${walrusId}`,
+                            };
+                        }
+                    }
+
+                    // Parse additional metadata from publicData if available
+                    if (publicData.algorithm) zotp.algorithm = publicData.algorithm;
+                    if (publicData.digits) zotp.digits = publicData.digits;
+                    if (publicData.period) zotp.period = publicData.period;
+
+                    zotps.push(zotp);
+                }
+            }
+
+            // Update cache with timestamp
+            this._cache = zotps;
+            await this._chromeService.setItem(this.STORAGE_KEY, zotps);
+            await this._chromeService.setItem(this.CACHE_TIMESTAMP_KEY, Date.now());
+
+            return zotps;
+        } catch (error) {
+            console.error("Error loading ZOTPs from backend:", error);
+            // Fallback to local cache if API fails
+            const cachedZotps = await this.getAllZOTPs();
+            return cachedZotps;
+        }
+    }
+
+    /**
+     * Get cached ZOTPs if cache is still valid
+     * @returns Cached ZOTPs or null if cache is expired/invalid
+     */
+    private async _getCachedZOTPs(): Promise<ZOTP[] | null> {
+        try {
+            const cacheTimestamp = await this._chromeService.getItem<number>(this.CACHE_TIMESTAMP_KEY);
+            const now = Date.now();
+
+            // Check if cache exists and is still valid
+            if (cacheTimestamp && now - cacheTimestamp < this.CACHE_TTL) {
+                const cachedZotps = await this._chromeService.getItem<ZOTP[]>(this.STORAGE_KEY);
+                if (cachedZotps && Array.isArray(cachedZotps) && cachedZotps.length >= 0) {
+                    return cachedZotps;
+                }
+            }
+        } catch (error) {
+            console.error("Error reading cache:", error);
+        }
+
+        return null;
+    }
+
+    /**
      * Load ZOTPs from ZelfKeys API and update local cache
+     * @deprecated Use loadZOTPsFromBackend() instead
      * @param zelfProof - Wallet zelfProof
      * @param faceBase64 - Encrypted face image from biometrics
      */
@@ -346,6 +459,15 @@ export class ZOTPService {
      */
     clearCache(): void {
         this._cache = null;
+    }
+
+    /**
+     * Clear cache and force refresh from backend
+     */
+    async clearCacheAndRefresh(): Promise<ZOTP[]> {
+        this._cache = null;
+        await this._chromeService.removeItem(this.CACHE_TIMESTAMP_KEY);
+        return this.loadZOTPsFromBackend(true);
     }
 
     /**

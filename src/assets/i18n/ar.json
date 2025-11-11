@@ -482,6 +482,13 @@
         "walrus_blob_id": "معرف Blob",
         "walrus_public_url": "رابط عام",
         "walrus_explorer_url": "رابط المستكشف",
-        "walrus_epochs": "عصور التخزين"
+        "walrus_epochs": "عصور التخزين",
+        "refresh_list": "تحديث القائمة",
+        "delete_zotp": "حذف ZOTP",
+        "delete_warning": "لا يمكن التراجع عن هذا الإجراء. يرجى تأكيد رغبتك في حذف هذا الـ ZOTP.",
+        "deleted_successfully": "تم حذف الـ ZOTP بنجاح",
+        "delete_failed": "فشل حذف الـ ZOTP",
+        "incorrect_password": "كلمة المرور الرئيسية غير صحيحة",
+        "biometrics_failed": "فشلت عملية التحقق البيومتري"
     }
 }

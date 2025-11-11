@@ -22,6 +22,7 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { AddZotpComponent } from "./add-zotp/add-zotp.component";
 import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-details.component";
 import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.component";
+import { DeleteZotpComponent, DeleteZOTPData } from "./delete-zotp/delete-zotp.component";
 
 @Component({
     imports: [
@@ -109,7 +110,8 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
             this._decryptedSecrets.clear();
             this._codeCache.clear();
 
-            this.zotps = await this._zotpService.getAllZOTPs();
+            // Load ZOTPs from backend (uses cache internally)
+            this.zotps = await this._zotpService.loadZOTPsFromBackend();
 
             // Ensure all ZOTPs are marked as not decrypted (secrets are not persisted)
             this.zotps.forEach((zotp) => {
@@ -153,7 +155,16 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
         dialogRef.afterClosed().subscribe(async (result) => {
             if (result) {
-                await this._loadZOTPs();
+                // Clear cache and refresh to get the newly added ZOTP
+                this.zotps = await this._zotpService.clearCacheAndRefresh();
+                // Ensure all ZOTPs are marked as not decrypted
+                this.zotps.forEach((zotp) => {
+                    zotp.isDecrypted = false;
+                    zotp.decryptedSecret = undefined;
+                });
+                this.filteredZotps = this.zotps;
+                await this._updateCodeCache();
+                this._changeDetectorRef.detectChanges();
             }
         });
     }
@@ -175,8 +186,30 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
     }
 
     async deleteZOTP(zotp: ZOTP): Promise<void> {
-        await this._zotpService.deleteZOTP(zotp.id);
-        await this._loadZOTPs();
+        const dialogRef = this._dialog.open(DeleteZotpComponent, {
+            panelClass: "zelf-dialog",
+            backdropClass: "zelf-backdrop",
+            width: "90vw",
+            maxWidth: "500px",
+            data: {
+                zotp: zotp,
+            } as DeleteZOTPData,
+        });
+
+        dialogRef.afterClosed().subscribe(async (result) => {
+            if (result) {
+                // ZOTP was successfully deleted - clear cache and refresh
+                this.zotps = await this._zotpService.clearCacheAndRefresh();
+                // Ensure all ZOTPs are marked as not decrypted
+                this.zotps.forEach((z) => {
+                    z.isDecrypted = false;
+                    z.decryptedSecret = undefined;
+                });
+                this.filteredZotps = this.zotps;
+                await this._updateCodeCache();
+                this._changeDetectorRef.detectChanges();
+            }
+        });
     }
 
     async toggleDecrypt(zotp: ZOTP): Promise<void> {
@@ -317,5 +350,33 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         const remaining = period - (this.currentTime % period);
 
         return remaining;
+    }
+
+    async refreshList(): Promise<void> {
+        this.loading = true;
+        try {
+            // Clear cache and fetch fresh data from backend
+            this.zotps = await this._zotpService.clearCacheAndRefresh();
+
+            // Ensure all ZOTPs are marked as not decrypted
+            this.zotps.forEach((zotp) => {
+                zotp.isDecrypted = false;
+                zotp.decryptedSecret = undefined;
+            });
+
+            // Update filtered list based on current search query
+            if (this.searchQuery.trim()) {
+                this.filteredZotps = await this._zotpService.searchZOTPs(this.searchQuery);
+            } else {
+                this.filteredZotps = this.zotps;
+            }
+
+            await this._updateCodeCache();
+        } catch (error) {
+            console.error("Error refreshing ZOTP list:", error);
+        } finally {
+            this.loading = false;
+            this._changeDetectorRef.detectChanges();
+        }
     }
 }

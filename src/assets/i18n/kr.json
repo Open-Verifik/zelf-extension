@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "생체 점수가 허용되지 않습니다",
         "min_liveness_score_is": "최소 생체 점수는: ",
         "missing_contract_address": "스왑 계약 주소가 없습니다. 나중에 다시 시도하세요.",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP를 복호화할 수 없습니다: ZelfProof가 없습니다. 유효한 ZelfProof 없이는 이 ZOTP를 복호화할 수 없습니다.",
         "must_be_greater_than": "{{ value }}보다 커야 합니다",
         "must_be_less_than": "{{ value }}보다 작아야 합니다",
         "not_found": "기록을 찾을 수 없습니다",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ZOTP가 성공적으로 삭제되었습니다",
         "delete_failed": "ZOTP 삭제에 실패했습니다",
         "incorrect_password": "마스터 비밀번호가 올바르지 않습니다",
-        "biometrics_failed": "생체 인증에 실패했습니다"
+        "biometrics_failed": "생체 인증에 실패했습니다",
+        "export": "내보내기",
+        "export_zotp": "ZOTP 내보내기",
+        "setup_key_description": "이 설정 키를 사용하여 이 계정을 Google Authenticator와 같은 다른 인증 앱에 추가하세요."
     }
 }

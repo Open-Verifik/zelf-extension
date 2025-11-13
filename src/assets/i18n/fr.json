@@ -334,6 +334,7 @@
         "Liveness_score_not_acceptable": "Le score de vivacité n'est pas acceptable",
         "min_liveness_score_is": "Le score minimum de vivacité est : ",
         "missing_contract_address": "L'adresse du contrat d'échange est manquante. Réessayez plus tard.",
+        "cannot_decrypt_zotp_missing_zelfProof": "Impossible de décrypter le ZOTP : ZelfProof manquant. Ce ZOTP ne peut pas être décrypté sans un ZelfProof valide.",
         "must_be_greater_than": "Doit être supérieur à {{ value }}",
         "must_be_less_than": "Doit être inférieur à {{ value }}",
         "not_found": "Enregistrement non trouvé",
@@ -491,6 +492,9 @@
         "deleted_successfully": "ZOTP supprimé avec succès",
         "delete_failed": "Échec de la suppression du ZOTP",
         "incorrect_password": "Mot de passe maître incorrect",
-        "biometrics_failed": "Échec de la vérification biométrique"
+        "biometrics_failed": "Échec de la vérification biométrique",
+        "export": "Exporter",
+        "export_zotp": "Exporter ZOTP",
+        "setup_key_description": "Utilisez cette clé de configuration pour ajouter ce compte à une autre application d'authentification comme Google Authenticator."
     }
 }

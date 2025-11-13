@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "لائیو نیس کا سکور قابل قبول نہیں ہے",
         "min_liveness_score_is": "کم از کم لائیو نیس کا سکور ہے: ",
         "missing_contract_address": "تبادلہ کانٹریکٹ کا پتہ غائب ہے۔ بعد میں دوبارہ کوشش کریں۔",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP کو ڈکرپٹ نہیں کیا جا سکتا: ZelfProof غائب ہے۔ درست ZelfProof کے بغیر یہ ZOTP ڈکرپٹ نہیں ہو سکتا۔",
         "must_be_greater_than": "{{ value }} سے زیادہ ہونا چاہیے",
         "must_be_less_than": "{{ value }} سے کم ہونا چاہیے",
         "not_found": "ریکارڈ نہیں ملا",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ZOTP کامیابی سے حذف کر دیا گیا",
         "delete_failed": "ZOTP کو حذف کرنے میں ناکامی",
         "incorrect_password": "غلط ماسٹر پاس ورڈ",
-        "biometrics_failed": "بایومیٹرک تصدیق ناکام ہوگئی"
+        "biometrics_failed": "بایومیٹرک تصدیق ناکام ہوگئی",
+        "export": "برآمد کریں",
+        "export_zotp": "ZOTP برآمد کریں",
+        "setup_key_description": "اس سیٹ اپ کلید کا استعمال کریں تاکہ اس اکاؤنٹ کو Google Authenticator جیسے کسی دوسرے تصدیق کار ایپ میں شامل کیا جا سکے۔"
     }
 }

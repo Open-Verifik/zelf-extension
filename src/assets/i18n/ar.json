@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "درجة الحيوية غير مقبولة",
         "min_liveness_score_is": "الحد الأدنى لدرجة الحيوية هو: ",
         "missing_contract_address": "عنوان عقد التبادل مفقود. حاول مرة أخرى لاحقاً.",
+        "cannot_decrypt_zotp_missing_zelfProof": "لا يمكن فك تشفير ZOTP: ZelfProof مفقود. لا يمكن فك تشفير هذا ZOTP بدون ZelfProof صالح.",
         "must_be_greater_than": "يجب أن تكون أكبر من {{ value }}",
         "must_be_less_than": "يجب أن تكون أقل من {{ value }}",
         "not_found": "لم يتم العثور على السجل",
@@ -489,6 +490,9 @@
         "deleted_successfully": "تم حذف الـ ZOTP بنجاح",
         "delete_failed": "فشل حذف الـ ZOTP",
         "incorrect_password": "كلمة المرور الرئيسية غير صحيحة",
-        "biometrics_failed": "فشلت عملية التحقق البيومتري"
+        "biometrics_failed": "فشلت عملية التحقق البيومتري",
+        "export": "تصدير",
+        "export_zotp": "تصدير ZOTP",
+        "setup_key_description": "استخدم مفتاح الإعداد هذا لإضافة هذا الحساب إلى تطبيق مصادقة آخر مثل Google Authenticator."
     }
 }

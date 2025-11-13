@@ -293,6 +293,45 @@ export class ZOTPService {
     }
 
     /**
+     * Retrieve full ZOTP metadata from ZelfKeys (for export)
+     * @param zotp - ZOTP to retrieve
+     * @param faceBase64 - Encrypted face image from biometrics
+     * @returns The full metadata object containing setupKey and other fields
+     */
+    async retrieveZOTPMetadata(zotp: ZOTP, faceBase64: string): Promise<any> {
+        if (!zotp.zelfProof) {
+            throw new Error("zelfProof is required to retrieve ZOTP");
+        }
+
+        try {
+            const response = await this._zelfKeysService.retrieve({
+                zelfProof: zotp.zelfProof,
+                faceBase64: faceBase64,
+            });
+
+            // Response structure: { data: { success, data: { metadata, publicData, ipfs } } }
+            if (response?.data) {
+                const data = response.data;
+
+                // Check if response has the expected structure
+                if (data?.data?.metadata) {
+                    return data.data.metadata;
+                }
+
+                // Fallback: check if metadata exists directly
+                if (data?.metadata) {
+                    return data.metadata;
+                }
+            }
+
+            throw new Error("No metadata found in ZelfKeys response");
+        } catch (error) {
+            console.error("Error retrieving ZOTP metadata:", error);
+            throw error;
+        }
+    }
+
+    /**
      * Get all ZOTPs from local cache
      * Also fixes any ZOTPs that might have the wrong zelfProof by checking stored response data
      */

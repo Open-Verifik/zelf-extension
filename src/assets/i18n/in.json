@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "लाइवनेस स्कोर स्वीकार्य नहीं है",
         "min_liveness_score_is": "न्यूनतम लाइवनेस स्कोर है: ",
         "missing_contract_address": "स्वैप कॉन्ट्रैक्ट पता गायब है। बाद में पुनः प्रयास करें।",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP को डिक्रिप्ट नहीं किया जा सकता: ZelfProof गायब है। मान्य ZelfProof के बिना इस ZOTP को डिक्रिप्ट नहीं किया जा सकता।",
         "must_be_greater_than": "{{ value }} से अधिक होना चाहिए",
         "must_be_less_than": "{{ value }} से कम होना चाहिए",
         "not_found": "रिकॉर्ड नहीं मिला",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ZOTP सफलतापूर्वक हटाया गया",
         "delete_failed": "ZOTP हटाने में विफल",
         "incorrect_password": "गलत मास्टर पासवर्ड",
-        "biometrics_failed": "बायोमेट्रिक सत्यापन विफल रहा"
+        "biometrics_failed": "बायोमेट्रिक सत्यापन विफल रहा",
+        "export": "निर्यात करें",
+        "export_zotp": "ZOTP निर्यात करें",
+        "setup_key_description": "इस सेटअप कुंजी का उपयोग करके इस खाते को Google Authenticator जैसे किसी अन्य प्रमाणक ऐप में जोड़ें।"
     }
 }

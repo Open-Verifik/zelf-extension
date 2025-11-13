@@ -23,6 +23,7 @@ import { AddZotpComponent } from "./add-zotp/add-zotp.component";
 import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-details.component";
 import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.component";
 import { DeleteZotpComponent, DeleteZOTPData } from "./delete-zotp/delete-zotp.component";
+import { ExportZotpComponent, ExportZOTPData } from "./export-zotp/export-zotp.component";
 
 @Component({
     imports: [
@@ -130,14 +131,21 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         }
     }
 
-    private async _performSearch(): Promise<void> {
+    private _performSearch(): void {
         if (!this.searchQuery.trim()) {
             this.filteredZotps = this.zotps;
-
             return;
         }
 
-        this.filteredZotps = await this._zotpService.searchZOTPs(this.searchQuery);
+        const lowerQuery = this.searchQuery.toLowerCase().trim();
+
+        // Local search - filter by name and issuer
+        this.filteredZotps = this.zotps.filter((zotp) => {
+            const nameMatch = zotp.name.toLowerCase().includes(lowerQuery);
+            const issuerMatch = zotp.issuer?.toLowerCase().includes(lowerQuery);
+            return nameMatch || issuerMatch;
+        });
+
         this._changeDetectorRef.detectChanges();
     }
 
@@ -212,6 +220,32 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         });
     }
 
+    async exportZOTP(zotp: ZOTP): Promise<void> {
+        if (!zotp.zelfProof) {
+            this._snackBar.open(
+                this._translocoService.translate("errors.cannot_decrypt_zotp_missing_zelfProof"),
+                this._translocoService.translate("common.close"),
+                { duration: 3000 }
+            );
+            return;
+        }
+
+        const dialogRef = this._dialog.open(ExportZotpComponent, {
+            panelClass: "zelf-dialog",
+            backdropClass: "zelf-backdrop",
+            width: "90vw",
+            maxWidth: "90vw",
+            minWidth: "320px",
+            data: {
+                zotp: zotp,
+            } as ExportZOTPData,
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            // Modal closed, no action needed
+        });
+    }
+
     async toggleDecrypt(zotp: ZOTP): Promise<void> {
         // If already decrypted, copy the code instead of hiding it
         if (zotp.isDecrypted) {
@@ -235,8 +269,11 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
         // Need to retrieve from backend - show biometrics modal
         if (!zotp.zelfProof) {
-            console.error("Cannot decrypt ZOTP: missing zelfProof");
-            // TODO: Show error message to user
+            this._snackBar.open(
+                this._translocoService.translate("errors.cannot_decrypt_zotp_missing_zelfProof"),
+                this._translocoService.translate("common.close"),
+                { duration: 3000 }
+            );
             return;
         }
 
@@ -364,9 +401,14 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
                 zotp.decryptedSecret = undefined;
             });
 
-            // Update filtered list based on current search query
+            // Update filtered list based on current search query (local search)
             if (this.searchQuery.trim()) {
-                this.filteredZotps = await this._zotpService.searchZOTPs(this.searchQuery);
+                const lowerQuery = this.searchQuery.toLowerCase().trim();
+                this.filteredZotps = this.zotps.filter((zotp) => {
+                    const nameMatch = zotp.name.toLowerCase().includes(lowerQuery);
+                    const issuerMatch = zotp.issuer?.toLowerCase().includes(lowerQuery);
+                    return nameMatch || issuerMatch;
+                });
             } else {
                 this.filteredZotps = this.zotps;
             }

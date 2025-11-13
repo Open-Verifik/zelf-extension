@@ -91,6 +91,19 @@
                                 </mat-icon>
                             </button>
 
+                            <button class="zelf-menu__button zelf-menu__button--icon-end" mat-menu-item (click)="exportZOTP(zotp)">
+                                <span class="zelf-menu__button-text">{{ t("zotp.export") }}</span>
+
+                                <mat-icon class="zelf-menu__button-icon">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8 2L3 7H6V12H10V7H13L8 2ZM2 14V16H14V14H2Z"
+                                            fill="currentColor"
+                                        />
+                                    </svg>
+                                </mat-icon>
+                            </button>
+
                             <button
                                 *ngIf="zotp.isDecrypted"
                                 class="zelf-menu__button zelf-menu__button--icon-end"

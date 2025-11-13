@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "คะแนนความมีชีวิตไม่เป็นที่ยอมรับ",
         "min_liveness_score_is": "คะแนนความมีชีวิตขั้นต่ำคือ: ",
         "missing_contract_address": "ไม่พบที่อยู่สัญญาแลกเปลี่ยน กรุณาลองใหม่อีกครั้งในภายหลัง",
+        "cannot_decrypt_zotp_missing_zelfProof": "ไม่สามารถถอดรหัส ZOTP ได้: ไม่พบ ZelfProof ZOTP นี้ไม่สามารถถอดรหัสได้หากไม่มี ZelfProof ที่ถูกต้อง",
         "must_be_greater_than": "ต้องมากกว่า {{ value }}",
         "must_be_less_than": "ต้องน้อยกว่า {{ value }}",
         "not_found": "ไม่พบบันทึก",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ลบ ZOTP สำเร็จ",
         "delete_failed": "ลบ ZOTP ไม่สำเร็จ",
         "incorrect_password": "รหัสผ่านหลักไม่ถูกต้อง",
-        "biometrics_failed": "การยืนยันตัวตนด้วยไบโอเมตริกซ์ล้มเหลว"
+        "biometrics_failed": "การยืนยันตัวตนด้วยไบโอเมตริกซ์ล้มเหลว",
+        "export": "ส่งออก",
+        "export_zotp": "ส่งออก ZOTP",
+        "setup_key_description": "ใช้คีย์การตั้งค่านี้เพื่อเพิ่มบัญชีนี้ไปยังแอปยืนยันตัวตนอื่น เช่น Google Authenticator"
     }
 }

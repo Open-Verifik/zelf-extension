@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "活体检测分数不可接受",
         "min_liveness_score_is": "最低活体检测分数为：",
         "missing_contract_address": "缺少交换合约地址。请稍后再试。",
+        "cannot_decrypt_zotp_missing_zelfProof": "无法解密 ZOTP：缺少 ZelfProof。没有有效的 ZelfProof，此 ZOTP 无法解密。",
         "must_be_greater_than": "必须大于{{ value }}",
         "must_be_less_than": "必须小于{{ value }}",
         "not_found": "未找到记录",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ZOTP 删除成功",
         "delete_failed": "删除 ZOTP 失败",
         "incorrect_password": "主密码错误",
-        "biometrics_failed": "生物识别验证失败"
+        "biometrics_failed": "生物识别验证失败",
+        "export": "导出",
+        "export_zotp": "导出 ZOTP",
+        "setup_key_description": "使用此设置密钥将此帐户添加到其他身份验证器应用（如 Google Authenticator）。"
     }
 }

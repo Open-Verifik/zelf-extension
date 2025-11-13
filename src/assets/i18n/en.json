@@ -346,6 +346,7 @@
         "Liveness_score_not_acceptable": "Liveness score is not acceptable",
         "min_liveness_score_is": "The minimum liveness score is: ",
         "missing_contract_address": "Swap contract address is missing. Try again later.",
+        "cannot_decrypt_zotp_missing_zelfProof": "Cannot decrypt ZOTP: missing ZelfProof. This ZOTP cannot be decrypted without a valid ZelfProof.",
         "must_be_greater_than": "Must be greater than {{ value }}",
         "must_be_less_than": "Must be less than {{ value }}",
         "not_found": "Record not found",
@@ -503,6 +504,10 @@
         "deleted_successfully": "ZOTP deleted successfully",
         "delete_failed": "Failed to delete ZOTP",
         "incorrect_password": "Incorrect master password",
-        "biometrics_failed": "Biometric verification failed"
+        "biometrics_failed": "Biometric verification failed",
+        "export": "Export",
+        "export_zotp": "Export ZOTP",
+        "setup_key_description": "Use this setup key to add this account to another authenticator app like Google Authenticator.",
+        "qr_code_description": "Scan this QR code with Google Authenticator or any compatible authenticator app to import this account."
     }
 }

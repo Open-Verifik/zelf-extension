@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "ライブネススコアが基準を満たしていません",
         "min_liveness_score_is": "最小ライブネススコアは：",
         "missing_contract_address": "スワップ契約アドレスが見つかりません。後でもう一度お試しください。",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTPを復号化できません：ZelfProofがありません。有効なZelfProofがない場合、このZOTPは復号化できません。",
         "must_be_greater_than": "{{ value }}より大きい必要があります",
         "must_be_less_than": "{{ value }}より小さい必要があります",
         "not_found": "レコードが見つかりません",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ZOTP を正常に削除しました",
         "delete_failed": "ZOTP の削除に失敗しました",
         "incorrect_password": "マスターパスワードが正しくありません",
-        "biometrics_failed": "生体認証に失敗しました"
+        "biometrics_failed": "生体認証に失敗しました",
+        "export": "エクスポート",
+        "export_zotp": "ZOTPをエクスポート",
+        "setup_key_description": "このセットアップキーを使用して、このアカウントをGoogle Authenticatorなどの他の認証アプリに追加します。"
     }
 }

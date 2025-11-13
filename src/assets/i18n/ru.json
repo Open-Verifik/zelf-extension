@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "Оценка подлинности неприемлема",
         "min_liveness_score_is": "Минимальная оценка подлинности: ",
         "missing_contract_address": "Отсутствует адрес контракта обмена. Попробуйте позже.",
+        "cannot_decrypt_zotp_missing_zelfProof": "Невозможно расшифровать ZOTP: отсутствует ZelfProof. Этот ZOTP не может быть расшифрован без действительного ZelfProof.",
         "must_be_greater_than": "Должно быть больше {{ value }}",
         "must_be_less_than": "Должно быть меньше {{ value }}",
         "not_found": "Запись не найдена",
@@ -490,6 +491,9 @@
         "deleted_successfully": "ZOTP успешно удалён",
         "delete_failed": "Не удалось удалить ZOTP",
         "incorrect_password": "Неверный мастер-пароль",
-        "biometrics_failed": "Биометрическая проверка не пройдена"
+        "biometrics_failed": "Биометрическая проверка не пройдена",
+        "export": "Экспорт",
+        "export_zotp": "Экспорт ZOTP",
+        "setup_key_description": "Используйте этот ключ настройки, чтобы добавить эту учетную запись в другое приложение-аутентификатор, такое как Google Authenticator."
     }
 }

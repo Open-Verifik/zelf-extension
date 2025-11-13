@@ -333,6 +333,7 @@
         "Liveness_score_not_acceptable": "Hindi katanggap-tanggap ang liveness score",
         "min_liveness_score_is": "Ang minimum na liveness score ay: ",
         "missing_contract_address": "Nawawala ang swap contract address. Subukan muli mamaya.",
+        "cannot_decrypt_zotp_missing_zelfProof": "Hindi ma-decrypt ang ZOTP: nawawala ang ZelfProof. Hindi ma-decrypt ang ZOTP na ito nang walang wastong ZelfProof.",
         "must_be_greater_than": "Dapat mas malaki sa {{ value }}",
         "must_be_less_than": "Dapat mas maliit sa {{ value }}",
         "not_found": "Hindi nahanap ang record",
@@ -490,6 +491,9 @@
         "deleted_successfully": "Matagumpay na natanggal ang ZOTP",
         "delete_failed": "Nabigong tanggalin ang ZOTP",
         "incorrect_password": "Maling master password",
-        "biometrics_failed": "Nabigo ang biometric verification"
+        "biometrics_failed": "Nabigo ang biometric verification",
+        "export": "I-export",
+        "export_zotp": "I-export ang ZOTP",
+        "setup_key_description": "Gamitin ang setup key na ito upang idagdag ang account na ito sa ibang authenticator app tulad ng Google Authenticator."
     }
 }

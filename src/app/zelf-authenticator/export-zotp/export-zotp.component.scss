@@ -361,6 +361,43 @@
         }
     }
 
+    &__share-button {
+        width: 100%;
+        margin-top: 12px;
+        padding: 12px 24px;
+        font-family: "Poppins", Arial, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        background-color: variables.$black;
+        color: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        @media (max-width: 400px) {
+            padding: 10px 20px;
+            font-size: 12px;
+        }
+
+        &:hover {
+            background-color: #333;
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+
+            @media (max-width: 400px) {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+
     &__loading {
         display: flex;
         align-items: center;

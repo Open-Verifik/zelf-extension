@@ -24,6 +24,7 @@ import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-detai
 import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.component";
 import { DeleteZotpComponent, DeleteZOTPData } from "./delete-zotp/delete-zotp.component";
 import { ExportZotpComponent, ExportZOTPData } from "./export-zotp/export-zotp.component";
+import { RecoverZotpComponent, RecoverZOTPData } from "./recover-zotp/recover-zotp.component";
 
 @Component({
     imports: [
@@ -243,6 +244,27 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
         dialogRef.afterClosed().subscribe(() => {
             // Modal closed, no action needed
+        });
+    }
+
+    async recoverZOTP(): Promise<void> {
+        const dialogRef = this._dialog.open(RecoverZotpComponent, {
+            panelClass: "zelf-dialog",
+            backdropClass: "zelf-backdrop",
+            width: "90vw",
+            maxWidth: "600px",
+            minWidth: "320px",
+            data: {} as RecoverZOTPData,
+        });
+
+        dialogRef.afterClosed().subscribe(async (recoveredZOTP: Partial<ZOTP> | null) => {
+            if (recoveredZOTP) {
+                // ZOTP was recovered - refresh the list
+                // Note: The recovered ZOTP needs to be added to the list
+                // For now, we'll refresh to show any changes
+                await this.refreshList();
+                this._changeDetectorRef.detectChanges();
+            }
         });
     }
 

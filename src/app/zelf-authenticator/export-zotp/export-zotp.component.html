@@ -60,6 +60,14 @@
                     </button>
                 </div>
                 <div class="export-zotp__setup-key-description">{{ t("zotp.setup_key_description") }}</div>
+
+                <!-- Share Button -->
+                <button mat-flat-button class="export-zotp__share-button" (click)="shareZOTP()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 2L3 7H6V12H10V7H13L8 2ZM2 14V16H14V14H2Z" fill="currentColor" />
+                    </svg>
+                    {{ t("zotp.share_with_seal") }}
+                </button>
             </div>
         </div>
 

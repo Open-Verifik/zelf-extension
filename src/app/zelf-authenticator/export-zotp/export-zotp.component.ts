@@ -1,7 +1,7 @@
 import { CommonModule, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { BiometricsGeneralComponent } from "app/biometrics-general/biometrics.component";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
@@ -10,13 +10,14 @@ import { ZOTP } from "app/models/zotp.model";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ZOTPService } from "app/services/zotp.service";
 import QRCodeStyling, { Options as QRCodeStylingOptions } from "qr-code-styling";
+import { ShareZotpComponent, ShareZOTPData } from "../share-zotp/share-zotp.component";
 
 export interface ExportZOTPData {
     zotp: ZOTP;
 }
 
 @Component({
-    imports: [CommonModule, MatButtonModule, MatSnackBarModule, NgIf, TranslocoModule, BiometricsGeneralComponent],
+    imports: [CommonModule, MatButtonModule, MatDialogModule, MatSnackBarModule, NgIf, TranslocoModule, BiometricsGeneralComponent],
     selector: "export-zotp",
     styleUrls: ["./export-zotp.component.scss"],
     templateUrl: "./export-zotp.component.html",
@@ -36,6 +37,7 @@ export class ExportZotpComponent extends CopyToClipboardBase {
         public dialogRef: MatDialogRef<ExportZotpComponent>,
         private _zotpService: ZOTPService,
         private _changeDetectorRef: ChangeDetectorRef,
+        private _dialog: MatDialog,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
@@ -150,5 +152,27 @@ export class ExportZotpComponent extends CopyToClipboardBase {
         if (this.setupKey) {
             await this._copyToClipboard(this.setupKey);
         }
+    }
+
+    shareZOTP(): void {
+        if (!this.setupKey) {
+            return;
+        }
+
+        const dialogRef = this._dialog.open(ShareZotpComponent, {
+            panelClass: "zelf-dialog",
+            backdropClass: "zelf-backdrop",
+            width: "90vw",
+            maxWidth: "600px",
+            minWidth: "320px",
+            data: {
+                zotp: this.zotp,
+                setupKey: this.setupKey,
+            } as ShareZOTPData,
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            // Modal closed
+        });
     }
 }

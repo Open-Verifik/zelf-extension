@@ -30,7 +30,7 @@
 **Solution:** Zelf Authenticator provides:
 - ✅ **Zero-knowledge encryption** - Secrets never leave encrypted
 - ✅ **Verifiable storage** - All data stored on-chain via Walrus/IPFS
-- ✅ **Biometric protection** - Face recognition required for decryption
+- ✅ **Biometric protection** - Face recognition & liveness detection required for decryption
 - ✅ **Decentralized backup** - No single point of failure
 - ✅ **Audit trail** - Immutable blockchain records
 

@@ -49,6 +49,7 @@
         "@bitcoinerlab/secp256k1": "^1.2.0",
         "@ethereumjs/wallet": "^2.0.3",
         "@jsverse/transloco": "^7.6.1",
+        "@mysten/seal": "^0.9.3",
         "@mysten/sui.js": "^0.54.1",
         "@openpgp/web-stream-tools": "^0.1.1",
         "@quicknode/sdk": "^2.4.2",

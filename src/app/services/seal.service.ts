@@ -1,15 +1,25 @@
 import { Injectable } from "@angular/core";
+import { SealClient, SealClientOptions, EncryptOptions, DecryptOptions, SessionKey, DemType } from "@mysten/seal";
+import { SuiClient } from "@mysten/sui.js/client";
+import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { SuiService } from "./sui.service";
+
+// KemType enum value - not exported from main package, so we use the numeric value
+// KemType.BonehFranklinBLS12381DemCCA = 0
+const KEM_TYPE_BONEH_FRANKLIN_BLS12381_DEM_CCA = 0;
 
 /**
  * Seal Service - Zero-Knowledge Proofs and Secret Sharing
  *
  * Seal is Sui's zero-knowledge proof system for:
- * - Secret sharing (threshold schemes)
+ * - Threshold encryption (TSS - Threshold Signature Scheme)
  * - Zero-knowledge proofs of ownership
  * - Privacy-preserving operations
+ * - On-chain access control policies
  *
- * This is a foundational implementation that can be extended with
- * full Seal SDK integration when available.
+ * This service provides:
+ * 1. Simple Shamir's Secret Sharing (for backward compatibility)
+ * 2. Seal SDK integration (production-grade threshold encryption)
  */
 
 export interface SecretShare {
@@ -32,15 +42,129 @@ export interface ShareConfig {
     providedIn: "root",
 })
 export class SealService {
+    private _sealClient: SealClient | null = null;
+    private _initialized: boolean = false;
+
+    constructor(private _suiService?: SuiService) {}
+
+    /**
+     * Get testnet key server configurations
+     * These are freely available for experimentation and testing (Open mode)
+     */
+    getTestnetKeyServerConfigs(): Array<{ objectId: string; weight: number }> {
+        return [
+            {
+                objectId: "0x73d05d62c18d9374e3ea529e8e0ed6161da1a141a94d3f76ae3fe4e99356db75", // mysten-testnet-1
+                weight: 1,
+            },
+            {
+                objectId: "0xf5d14a81a982144ae441cd7d64b09027f116a468bd36e7eca494f750591623c8", // mysten-testnet-2
+                weight: 1,
+            },
+        ];
+    }
+
+    /**
+     * Initialize Seal SDK client with testnet configuration
+     * This is the easiest way to get started with Seal SDK
+     * Uses Mysten Labs testnet key servers (Open mode, free for testing)
+     */
+    async initializeSealSDKWithTestnet(): Promise<void> {
+        return this.initializeSealSDK({
+            network: "testnet",
+            keyServerConfigs: this.getTestnetKeyServerConfigs(),
+            verifyKeyServers: true,
+            timeout: 30000,
+        });
+    }
+
+    /**
+     * Initialize Seal SDK client
+     * This requires Sui client and key server configuration
+     */
+    async initializeSealSDK(options?: {
+        network?: "mainnet" | "testnet" | "devnet";
+        keyServerConfigs?: Array<{ objectId: string; weight: number; apiKeyName?: string; apiKey?: string }>;
+        verifyKeyServers?: boolean;
+        timeout?: number;
+    }): Promise<void> {
+        if (this._initialized && this._sealClient) {
+            return;
+        }
+
+        try {
+            const network = options?.network || "testnet";
+
+            // Get Sui RPC URL based on network
+            const suiRpcUrls = {
+                mainnet: "https://fullnode.mainnet.sui.io:443",
+                testnet: "https://fullnode.testnet.sui.io:443",
+                devnet: "https://fullnode.devnet.sui.io:443",
+            };
+
+            const suiClient = new SuiClient({ url: suiRpcUrls[network] });
+
+            // Use testnet key servers by default if none provided and network is testnet
+            const keyServerConfigs = options?.keyServerConfigs || (network === "testnet" ? this.getTestnetKeyServerConfigs() : []);
+
+            if (keyServerConfigs.length === 0) {
+                console.warn("No key server configs provided. Seal SDK features will be limited.");
+                console.warn("Use initializeSealSDKWithTestnet() for testnet or provide keyServerConfigs.");
+                return;
+            }
+
+            const sealOptions: SealClientOptions = {
+                suiClient: suiClient as any, // Cast to SealCompatibleClient
+                serverConfigs: keyServerConfigs,
+                verifyKeyServers: options?.verifyKeyServers ?? true,
+                timeout: options?.timeout ?? 30000,
+            };
+
+            this._sealClient = new SealClient(sealOptions);
+            this._initialized = true;
+            console.log(`Seal SDK initialized successfully on ${network} with ${keyServerConfigs.length} key servers`);
+        } catch (error) {
+            console.error("Failed to initialize Seal SDK:", error);
+            // Continue with fallback implementation
+        }
+    }
+
+    /**
+     * Check if Seal SDK is available and initialized
+     */
+    isSealSDKAvailable(): boolean {
+        return this._initialized && this._sealClient !== null;
+    }
+    /**
+     * Split a secret into multiple shares
+     * Uses Seal SDK if available, otherwise falls back to Shamir's Secret Sharing
+     *
+     * @param secret - The secret to share (setup key)
+     * @param config - Configuration for sharing
+     * @param useSealSDK - Whether to use Seal SDK (requires initialization)
+     * @returns Array of secret shares
+     */
+    shareSecret(secret: string, config: ShareConfig, useSealSDK: boolean = false): SecretShare[] {
+        // Use Seal SDK if available and requested
+        if (useSealSDK && this.isSealSDKAvailable()) {
+            // TODO: Implement Seal SDK encryption
+            // This requires Move contract deployment and key server setup
+            console.warn("Seal SDK encryption not yet implemented. Falling back to Shamir's Secret Sharing.");
+        }
+
+        // Fallback to Shamir's Secret Sharing (current implementation)
+        return this._shareSecretShamir(secret, config);
+    }
+
     /**
      * Split a secret into multiple shares using Shamir's Secret Sharing
-     * This is a simplified implementation - in production, use Seal SDK
+     * This is the fallback implementation for backward compatibility
      *
      * @param secret - The secret to share (setup key)
      * @param config - Configuration for sharing
      * @returns Array of secret shares
      */
-    shareSecret(secret: string, config: ShareConfig): SecretShare[] {
+    private _shareSecretShamir(secret: string, config: ShareConfig): SecretShare[] {
         const { threshold, totalShares, participants } = config;
 
         if (threshold > totalShares) {
@@ -97,12 +221,33 @@ export class SealService {
     }
 
     /**
+     * Reconstruct secret from shares
+     * Uses Seal SDK if available, otherwise falls back to Shamir's Secret Sharing
+     *
+     * @param shares - Array of secret shares (need at least threshold shares)
+     * @param useSealSDK - Whether to use Seal SDK (requires initialization)
+     * @returns Promise with the reconstructed secret
+     */
+    async reconstructSecret(shares: SecretShare[], useSealSDK: boolean = false): Promise<string> {
+        // Use Seal SDK if available and requested
+        if (useSealSDK && this.isSealSDKAvailable()) {
+            // TODO: Implement Seal SDK decryption
+            // This requires encrypted object, session key, and transaction bytes
+            console.warn("Seal SDK decryption not yet implemented. Falling back to Shamir's Secret Sharing.");
+        }
+
+        // Fallback to Shamir's Secret Sharing (current implementation)
+        return this._reconstructSecretShamir(shares);
+    }
+
+    /**
      * Reconstruct secret from shares using Lagrange interpolation
+     * This is the fallback implementation for backward compatibility
      *
      * @param shares - Array of secret shares (need at least threshold shares)
      * @returns The reconstructed secret
      */
-    reconstructSecret(shares: SecretShare[]): string {
+    private _reconstructSecretShamir(shares: SecretShare[]): string {
         if (shares.length === 0) {
             throw new Error("No shares provided");
         }
@@ -180,6 +325,114 @@ export class SealService {
         } catch (error: any) {
             throw new Error(`Failed to convert secret to bytes: ${error.message}`);
         }
+    }
+
+    /**
+     * Encrypt data using Seal SDK
+     * This uses production-grade threshold encryption with access control
+     *
+     * @param secret - The secret to encrypt
+     * @param options - Seal encryption options
+     * @returns Encrypted object and session key
+     */
+    async encryptWithSealSDK(
+        secret: string,
+        options: {
+            threshold: number;
+            packageId: string; // Move package ID with seal_approve* functions
+            id: string; // Identity for encryption
+            kemType?: number; // KemType enum value (0 = BonehFranklinBLS12381DemCCA)
+            demType?: DemType;
+            aad?: Uint8Array;
+        }
+    ): Promise<{ encryptedObject: Uint8Array; sessionKey: Uint8Array }> {
+        if (!this.isSealSDKAvailable()) {
+            throw new Error("Seal SDK is not initialized. Call initializeSealSDK() first.");
+        }
+
+        const secretBytes = new TextEncoder().encode(secret);
+
+        const encryptOptions: EncryptOptions = {
+            threshold: options.threshold,
+            packageId: options.packageId,
+            id: options.id,
+            data: secretBytes,
+            kemType: (options.kemType ?? KEM_TYPE_BONEH_FRANKLIN_BLS12381_DEM_CCA) as any,
+            demType: options.demType ?? DemType.AesGcm256,
+            aad: options.aad,
+        };
+
+        const result = await this._sealClient!.encrypt(encryptOptions);
+        return {
+            encryptedObject: result.encryptedObject,
+            sessionKey: result.key,
+        };
+    }
+
+    /**
+     * Build transaction bytes for Seal access control
+     * Creates a transaction that calls seal_approve_zotp_recovery function
+     *
+     * @param packageId - The Move package ID where seal_approve* functions are deployed
+     * @param zotpId - The ZOTP identifier (used as the identity/id in Seal)
+     * @returns Transaction bytes ready to be used with Seal SDK decrypt
+     */
+    async buildSealApproveTransaction(packageId: string, zotpId: string): Promise<Uint8Array> {
+        if (!this.isSealSDKAvailable()) {
+            throw new Error("Seal SDK is not initialized. Call initializeSealSDK() first.");
+        }
+
+        const tx = new TransactionBlock();
+
+        // Convert zotpId to bytes (identity for Seal)
+        const idBytes = new TextEncoder().encode(zotpId);
+
+        // Call seal_approve_zotp_recovery function
+        // This function must exist in the deployed Move package
+        tx.moveCall({
+            target: `${packageId}::access_control::seal_approve_zotp_recovery`,
+            arguments: [tx.pure(idBytes)],
+        });
+
+        // Get Sui client from Seal client
+        const suiClient = (this._sealClient as any).suiClient;
+
+        // Build transaction to get bytes
+        // Note: We don't need to sign it here - Seal SDK will handle it
+        const txBytes = await tx.build({
+            client: suiClient,
+        });
+
+        return txBytes;
+    }
+
+    /**
+     * Decrypt data using Seal SDK
+     * This requires access control policies to be satisfied on-chain
+     *
+     * @param encryptedObject - The encrypted data
+     * @param sessionKey - The session key (backup key)
+     * @param packageId - The Move package ID where seal_approve* functions are deployed
+     * @param zotpId - The ZOTP identifier
+     * @returns Decrypted secret
+     */
+    async decryptWithSealSDK(encryptedObject: Uint8Array, sessionKey: SessionKey, packageId: string, zotpId: string): Promise<string> {
+        if (!this.isSealSDKAvailable()) {
+            throw new Error("Seal SDK is not initialized. Call initializeSealSDK() first.");
+        }
+
+        // Build transaction bytes for access control
+        const txBytes = await this.buildSealApproveTransaction(packageId, zotpId);
+
+        const decryptOptions: DecryptOptions = {
+            data: encryptedObject,
+            sessionKey: sessionKey,
+            txBytes: txBytes,
+            checkShareConsistency: true,
+        };
+
+        const decryptedBytes = await this._sealClient!.decrypt(decryptOptions);
+        return new TextDecoder().decode(decryptedBytes);
     }
 
     /**

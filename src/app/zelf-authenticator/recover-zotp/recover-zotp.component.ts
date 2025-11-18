@@ -214,7 +214,7 @@ export class RecoverZotpComponent {
 
             // Reconstruct secret using Seal service
             try {
-                this.reconstructedSecret = this._sealService.reconstructSecret(this.importedShares);
+                this.reconstructedSecret = await this._sealService.reconstructSecret(this.importedShares);
             } catch (reconstructError: any) {
                 console.error("Reconstruction error details:", reconstructError);
                 throw new Error(`Failed to reconstruct secret: ${reconstructError.message || reconstructError}`);

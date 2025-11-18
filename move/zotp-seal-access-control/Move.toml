@@ -1,0 +1,15 @@
+[package]
+name = "zotp-seal-access-control"
+version = "1.0.0"
+
+[addresses]
+zotp = "0x0"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/mainnet" }
+Seal = { git = "https://github.com/MystenLabs/seal.git", subdir = "move/seal", rev = "main" }
+
+[dev-dependencies]
+
+[dev-addresses]
+

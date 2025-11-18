@@ -692,7 +692,17 @@ export class TagsService {
     }
 
     async getZelfProof(): Promise<string> {
-        return this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
+        const zelfProof = this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
+
+        if (!zelfProof) {
+            const wallet = await this._walletService.getFirstWalletFromStorage();
+
+            if (!wallet) throw new Error("No wallet found. Please create or unlock a wallet first.");
+
+            return wallet.zelfProof || "";
+        }
+
+        return zelfProof;
     }
 
     async getDomain(): Promise<string> {

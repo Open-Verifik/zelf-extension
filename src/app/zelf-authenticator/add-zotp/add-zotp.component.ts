@@ -472,18 +472,13 @@ export class AddZotpComponent implements OnInit, OnDestroy {
         const formValue = this.form.value;
         const secret = formValue.setupKey.trim().replace(/\s/g, "").toUpperCase();
 
-        if (!secret) {
-            // TODO: Show validation error
-            return;
-        }
+        if (!secret) return;
 
         try {
             // Get zelfProof from current wallet
             const zelfProof = await this._tagsService.getZelfProof();
 
-            if (!zelfProof) {
-                throw new Error("No wallet found. Please create or unlock a wallet first.");
-            }
+            if (!zelfProof) throw new Error("No wallet found. Please create or unlock a wallet first.");
 
             // Create ZOTP object (secret will be encrypted by ZelfKeys API during storage)
             const zotp: ZOTP = {

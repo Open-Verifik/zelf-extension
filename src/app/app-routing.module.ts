@@ -368,6 +368,10 @@ const routes: Routes = [
         canActivate: [PopoutOnlyGuard],
     },
     {
+        path: "session-error",
+        loadComponent: () => import("./session-error/session-error.component").then((m) => m.SessionErrorComponent),
+    },
+    {
         path: "external-link",
         data: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment` },
         canActivate: [ExternalRedirectGuard],

@@ -59,11 +59,11 @@
             </div>
 
             <!-- NFT Information -->
-            <div *ngIf="result?.NFT?.success" class="payment-card-result__section">
+            <div *ngIf="result && result.NFT" class="payment-card-result__section">
                 <h3 class="payment-card-result__section-title">{{ t("zelf_keys.payment_card_result.nft.title") }}</h3>
                 <div class="payment-card-result__nft-info">
-                    <div class="payment-card-result__nft-image">
-                        <img [src]="result.NFT.metadata.image" alt="ZelfKey NFT" />
+                    <div class="payment-card-result__nft-image" *ngIf="result.NFT.imageUrl">
+                        <img [src]="result.NFT.imageUrl" alt="ZelfKey NFT" />
                     </div>
                     <div class="payment-card-result__nft-details">
                         <div class="zelf-action-row">
@@ -76,7 +76,15 @@
                         </div>
                         <div class="zelf-action-row">
                             <p class="zelf-action-row__label">{{ t("zelf_keys.payment_card_result.nft.labels.contract") }}</p>
-                            <p class="zelf-action-row__value">{{ result.NFT.contractAddress }}</p>
+                            <div class="zelf-action-row__value">
+                                <span
+                                    class="payment-card-result__contract-address"
+                                    (click)="copyContractAddress()"
+                                    [title]="t('zelf_keys.payment_card_result.nft.copy_hint')"
+                                >
+                                    {{ result.NFT.contractAddress }}
+                                </span>
+                            </div>
                         </div>
                         <div class="zelf-action-row">
                             <p class="zelf-action-row__label">{{ t("zelf_keys.payment_card_result.nft.labels.transaction") }}</p>
@@ -84,6 +92,14 @@
                                 <a [href]="result.NFT.explorerUrl" target="_blank" class="payment-card-result__tx-link">
                                     {{ result.NFT.transactionHash | slice: 0 : 10 }}...{{ result.NFT.transactionHash | slice: -10 }}
                                 </a>
+                            </div>
+                        </div>
+                        <div class="zelf-action-row" *ngIf="result.NFT.metadataUrl">
+                            <p class="zelf-action-row__label">{{ t("zelf_keys.payment_card_result.nft.labels.metadata_url") }}</p>
+                            <div class="zelf-action-row__value">
+                                <a [href]="result.NFT.metadataUrl" target="_blank" class="payment-card-result__gateway-link">{{
+                                    t("zelf_keys.payment_card_result.nft.metadata_link")
+                                }}</a>
                             </div>
                         </div>
                     </div>

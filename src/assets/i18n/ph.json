@@ -102,7 +102,8 @@
             "password_attempts_title": "Password attempts",
             "minutes_before_reverification": "Minuto bago ang reverification",
             "password_attempts_description": "I-set ang maximum na failed password attempts bago kailanganin ang biometric verification. Maaari mong i-set ito mula 1 hanggang 8 attempts."
-        }
+        },
+        "subscription_label": "Subscription"
     },
     "security": {
         "biometric_decryption_subtitle": "Para matapos ang proseso ng decryption, kailangan naming i-verify ang iyong pagkakakilanlan gamit ang iyong biometrics.",
@@ -252,7 +253,8 @@
         "zelf_link": "Zelf Link",
         "zelf_authenticator": "Zelf Tagapatunay",
         "zelf_keys": "Mga Susi ng Zelf",
-        "subscriptions": "Mga Subscription"
+        "subscriptions": "Mga Subscription",
+        "download_apps": "I-download ang mga App"
     },
     "token": {
         "24h_performance": "24h na Performance",
@@ -359,7 +361,10 @@
         "swap_same_asset": "Hindi ka makakapag-swap sa parehong asset",
         "transaction_not_found": "Hindi nahanap ang transaksyon",
         "try_again": "Subukan muli",
-        "zelfName_is_taken": "Ginagamit na ang tag name na ito"
+        "zelfName_is_taken": "Ginagamit na ang tag name na ito",
+        "session_init_title": "Nabigo ang pag-initialize ng session",
+        "session_init_message": "Paumanhin, may problema sa pag-initialize ng iyong session. Maaaring ito ay dahil sa problema sa network o hindi available ang server. Pakisubukan ulit.",
+        "session_init_info": "Upang gamitin ang Zelf Name Service Extension, kakailanganin mo ng network access. Para sa offline na solusyon, tingnan ang aming iOS at Android apps."
     },
     "swap": {
         "automatic": "Awtomatiko",
@@ -482,14 +487,20 @@
             "manage_note_cancelled": "Kanselado ang subscription mo ngunit aktibo hanggang matapos ang billing period. Maaari mo itong i-reactivate o tingnan ang kasaysayan sa Stripe customer portal.",
             "demo": "DEMO",
             "active": "Aktibo",
-            "cancelled": "Kanselado"
+            "cancelled": "Kanselado",
+            "crypto_subscription_title": "Subscription sa pamamagitan ng Crypto Payments",
+            "payment_method_crypto": "Crypto (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "Simula",
             "passwords": "Mga password",
             "notes": "Mga tala",
             "payment_cards": "Mga card ng pagbabayad",
-            "subscription": "Subscription"
+            "subscription": "Subscription",
+            "add_password": "Magdagdag ng Password",
+            "add_note": "Magdagdag ng Note",
+            "add_payment_card": "Magdagdag ng Payment Card"
         },
         "payment_cards": {
             "title": "Mga card ng pagbabayad",
@@ -669,7 +680,6 @@
                 "description": "Ligtas na i-imbak ang bagong tala"
             },
             "detail": {
-                "title": "Detalye ng Tala",
                 "loading": "Naglo-load ng detalye ng tala...",
                 "error": {
                     "title": "Error sa pag-load ng tala",
@@ -767,7 +777,6 @@
                 "message": "Subukang baguhin ang iyong mga termino sa paghahanap"
             },
             "detail": {
-                "title": "Detalye ng Password",
                 "loading": "Naglo-load ng detalye ng password...",
                 "error": {
                     "title": "Error sa pag-load ng password",
@@ -927,8 +936,12 @@
                     "token_id": "Token ID",
                     "cost": "Gastos",
                     "contract": "Kontrata",
-                    "transaction": "Transaksyon"
-                }
+                    "transaction": "Transaksyon",
+                    "metadata_url": "URL ng Metadata"
+                },
+                "metadata_link": "Tingnan ang Metadata",
+                "copy_hint": "I-click upang kopyahin",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "Imbakan sa IPFS",
@@ -936,7 +949,9 @@
                     "hash": "IPFS Hash",
                     "gateway_url": "Gateway URL",
                     "file_size": "Laki ng File",
-                    "uploaded": "Na-upload"
+                    "uploaded": "Na-upload",
+                    "status": "Status",
+                    "copy_hint": "I-click para kopyahin"
                 },
                 "gateway_link": "Tingnan sa IPFS Gateway"
             },
@@ -948,14 +963,19 @@
                 },
                 "copy_hint": "I-click upang kopyahin"
             },
-            "debug": {
-                "title": "Impormasyon sa Debug"
-            },
             "next_steps": {
                 "title": "Mga Susunod na Hakbang",
                 "success_message": "Ligtas nang nakaimbak ang password. Maaari mong tingnan sa listahan o magdagdag pa.",
                 "error_message": "Suriin ang mga detalye ng error sa itaas at subukang muli. Kung magpatuloy ang problema, makipag-ugnayan sa support.",
                 "unknown_message": "Hindi matukoy ang status. Pakisuri ang API response sa itaas para sa detalye."
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "status": "Status",
+                    "reason": "Dahilan",
+                    "error": "Error"
+                }
             }
         },
         "actions": {
@@ -1025,7 +1045,41 @@
         "export": "I-export",
         "export_zotp": "I-export ang ZOTP",
         "setup_key_description": "Gamitin ang setup key na ito upang idagdag ang account na ito sa ibang authenticator app tulad ng Google Authenticator.",
-        "qr_code_description": "I-scan ang QR code na ito gamit ang Google Authenticator o anumang compatible na authenticator app upang i-import ang account na ito."
+        "qr_code_description": "I-scan ang QR code na ito gamit ang Google Authenticator o anumang compatible na authenticator app upang i-import ang account na ito.",
+        "share_zotp": "Ibahagi ang ZOTP sa Seal",
+        "share_with_seal": "Ibahagi sa Seal",
+        "share_description": "Ipamahagi ang ZOTP secret na ito sa maraming partido gamit ang Seal secret sharing. Walang iisang partido ang makaka-access sa secret nang mag-isa - kailangan mo ng threshold ng shares para ma-reconstruct ito.",
+        "threshold": "Threshold",
+        "threshold_hint": "Minimum na shares na kailangan",
+        "total_shares": "Kabuuang Shares",
+        "total_shares_hint": "Kabuuang bilang ng shares",
+        "participants": "Mga Participant",
+        "participant": "Participant",
+        "participant_placeholder": "Wallet address o pangalan (opsyonal)",
+        "generate_shares": "Gumawa ng Shares",
+        "generated_shares": "Nagawa na ang Shares",
+        "share": "Share",
+        "download_all_shares": "I-download ang Lahat ng Shares",
+        "shares_info": "Kailangan mo ng {{threshold}} sa {{total}} shares para ma-recover ang ZOTP na ito. Ipamahagi ang shares nang ligtas sa mga pinagkakatiwalaang partido.",
+        "shares_warning": "Panatilihing ligtas ang shares! Sinumang may sapat na shares ay maaaring ma-recover ang iyong ZOTP. Itago ang shares sa magkakahiwalay na ligtas na lugar.",
+        "recover_zotp": "I-recover ang ZOTP",
+        "recover_description": "I-import ang shares para ma-recover ang iyong ZOTP secret. Kailangan mo ng threshold na bilang ng shares para ma-reconstruct ang secret.",
+        "upload_shares_file": "I-upload ang Shares File",
+        "or_enter_share_manually": "O Ipasok ang Share Manually",
+        "share_data": "Share Data",
+        "share_placeholder": "I-paste ang share data dito (base64 encoded)",
+        "add_share": "Magdagdag ng Share",
+        "imported_shares": "Na-import na ang Shares",
+        "need_shares": "Kailangan ng {{required}} shares (mayroon ka ng {{current}})",
+        "enough_shares": "Mayroon kang sapat na shares para ma-recover ang secret",
+        "need_more_shares": "Kailangan mo ng {{needed}} share(s) pa",
+        "reconstruct_secret": "I-reconstruct ang Secret",
+        "secret_reconstructed": "Matagumpay na Na-reconstruct ang Secret!",
+        "secret_reconstructed_description": "Matagumpay na na-reconstruct ang secret mula sa iyong shares. Maaari mo na ngayong gumawa ng ZOTP mula sa na-recover na secret na ito.",
+        "recovered_setup_key": "Na-recover na Setup Key",
+        "create_zotp_from_recovery": "Gumawa ng ZOTP mula sa Recovery",
+        "recovery_successful": "Matagumpay ang Recovery!",
+        "recovery_success_description": "Na-recover na ang iyong ZOTP at naidagdag sa iyong authenticator. Maaari mo na itong gamitin para gumawa ng codes."
     },
     "zelf_keys": {
         "dashboard": {
@@ -1126,8 +1180,12 @@
                     "token_id": "ID ng Token",
                     "cost": "Gastos",
                     "contract": "Kontrata",
-                    "transaction": "Transaksyon"
-                }
+                    "transaction": "Transaksyon",
+                    "metadata_url": "URL ng Metadata"
+                },
+                "metadata_link": "Tingnan ang Metadata",
+                "copy_hint": "I-click upang kopyahin",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS Storage",
@@ -1196,7 +1254,8 @@
                 "pay_with_wallet": "Magbayad gamit ang Wallet:",
                 "domain_label": "Domain",
                 "select_wallet": "Pumili ng Wallet",
-                "pay_with_avax": "Magbayad gamit ang AVAX"
+                "pay_with_avax": "Magbayad gamit ang AVAX",
+                "payment_qr_code_alt": "QR Code ng Pagbabayad"
             },
             "plan": {
                 "popular_badge": "Sikat",
@@ -1386,7 +1445,12 @@
                 "note": "Mangyaring i-verify ang iyong mukha para i-decrypt ang iyong note",
                 "password": "Mangyaring i-verify ang iyong mukha para i-decrypt ang iyong password"
             },
-            "item": "Item"
+            "item": "Item",
+            "error": {
+                "storage_failed": "May error sa pag-iimbak ng {{ category }}, pakisubukan ulit mamaya.",
+                "try_again_later": "Pakisubukan ulit mamaya.",
+                "close": "Isara"
+            }
         },
         "categories": {
             "password": "Password",

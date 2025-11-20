@@ -102,7 +102,8 @@
             "password_attempts_title": "จำนวนครั้งในการใส่รหัสผ่าน",
             "minutes_before_reverification": "นาทีก่อนการยืนยันตัวตนใหม่",
             "password_attempts_description": "ตั้งค่าจำนวนครั้งสูงสุดในการใส่รหัสผ่านผิดก่อนที่จะต้องยืนยันตัวตนด้วยชีวภาพ คุณสามารถตั้งค่าได้ตั้งแต่ 1 ถึง 8 ครั้ง"
-        }
+        },
+        "subscription_label": "การสมัครสมาชิก"
     },
     "security": {
         "biometric_decryption_subtitle": "เพื่อให้กระบวนการถอดรหัสเสร็จสมบูรณ์ เราจำเป็นต้องยืนยันตัวตนของคุณโดยใช้ข้อมูลชีวภาพ",
@@ -252,7 +253,8 @@
         "zelf_authenticator": "ตัวตรวจสอบ Zelf",
         "zelf_keys": "กุญแจ Zelf",
         "zelf_link": "ลิงก์ Zelf",
-        "subscriptions": "การสมัครสมาชิก"
+        "subscriptions": "การสมัครสมาชิก",
+        "download_apps": "ดาวน์โหลดแอป"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",
@@ -359,7 +361,10 @@
         "swap_same_asset": "คุณไม่สามารถแลกเปลี่ยนเป็นสินทรัพย์เดียวกันได้",
         "transaction_not_found": "ไม่พบธุรกรรม",
         "try_again": "ลองอีกครั้ง",
-        "zelfName_is_taken": "Tag Name นี้ถูกใช้งานแล้ว"
+        "zelfName_is_taken": "Tag Name นี้ถูกใช้งานแล้ว",
+        "session_init_title": "การเริ่มต้นเซสชันล้มเหลว",
+        "session_init_message": "ขออภัย มีปัญหาในการเริ่มต้นเซสชันของคุณ อาจเกิดจากปัญหาของเครือข่ายหรือเซิร์ฟเวอร์ไม่พร้อมใช้งาน กรุณาลองอีกครั้ง",
+        "session_init_info": "เพื่อใช้ส่วนขยาย Zelf Name Service คุณจะต้องเข้าถึงเครือข่าย สำหรับโซลูชันออฟไลน์ ตรวจสอบแอป iOS และ Android ของเรา"
     },
     "swap": {
         "automatic": "อัตโนมัติ",
@@ -482,14 +487,20 @@
             "manage_note_cancelled": "Your subscription is cancelled but remains active until the end of your billing period. You can reactivate or view billing history in the Stripe customer portal.",
             "demo": "DEMO",
             "active": "Active",
-            "cancelled": "Cancelled"
+            "cancelled": "Cancelled",
+            "crypto_subscription_title": "การสมัครสมาชิกผ่านการชำระเงินด้วยคริปโต",
+            "payment_method_crypto": "คริปโต (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "Start",
             "passwords": "Passwords",
             "notes": "Notes",
             "payment_cards": "Payment Cards",
-            "subscription": "Subscription"
+            "subscription": "Subscription",
+            "add_password": "เพิ่มรหัสผ่าน",
+            "add_note": "เพิ่มโน้ต",
+            "add_payment_card": "เพิ่มบัตรชำระเงิน"
         },
         "payment_cards": {
             "title": "Payment Cards",
@@ -925,8 +936,12 @@
                     "token_id": "Token ID",
                     "cost": "Cost",
                     "contract": "Contract",
-                    "transaction": "Transaction"
-                }
+                    "transaction": "Transaction",
+                    "metadata_url": "URL ข้อมูลเมตา"
+                },
+                "metadata_link": "ดูข้อมูลเมตา",
+                "copy_hint": "คลิกเพื่อคัดลอก",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS Storage",
@@ -934,7 +949,9 @@
                     "hash": "IPFS Hash",
                     "gateway_url": "Gateway URL",
                     "file_size": "File Size",
-                    "uploaded": "Uploaded"
+                    "uploaded": "Uploaded",
+                    "status": "สถานะ",
+                    "copy_hint": "คลิกเพื่อคัดลอก"
                 },
                 "gateway_link": "View on IPFS Gateway"
             },
@@ -946,14 +963,19 @@
                 },
                 "copy_hint": "Click to copy"
             },
-            "debug": {
-                "title": "Debug Information"
-            },
             "next_steps": {
                 "title": "Next Steps",
                 "success_message": "Your password is now securely stored. You can view it in your passwords list or add another password.",
                 "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
                 "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
+            },
+            "walrus": {
+                "title": "ที่เก็บข้อมูล Walrus",
+                "labels": {
+                    "status": "สถานะ",
+                    "reason": "เหตุผล",
+                    "error": "ข้อผิดพลาด"
+                }
             }
         },
         "actions": {
@@ -1023,7 +1045,41 @@
         "export": "ส่งออก",
         "export_zotp": "ส่งออก ZOTP",
         "setup_key_description": "ใช้คีย์การตั้งค่านี้เพื่อเพิ่มบัญชีนี้ไปยังแอปยืนยันตัวตนอื่น เช่น Google Authenticator",
-        "qr_code_description": "สแกน QR code นี้ด้วย Google Authenticator หรือแอปยืนยันตัวตนที่เข้ากันได้เพื่อนำเข้าบัญชีนี้"
+        "qr_code_description": "สแกน QR code นี้ด้วย Google Authenticator หรือแอปยืนยันตัวตนที่เข้ากันได้เพื่อนำเข้าบัญชีนี้",
+        "share_zotp": "แชร์ ZOTP กับ Seal",
+        "share_with_seal": "แชร์กับ Seal",
+        "share_description": "กระจายความลับ ZOTP นี้ไปยังหลายฝ่ายโดยใช้การแชร์ความลับ Seal ไม่มีฝ่ายใดสามารถเข้าถึงความลับได้เพียงลำพัง - คุณต้องมีจำนวนหุ้นขั้นต่ำเพื่อสร้างใหม่",
+        "threshold": "เกณฑ์",
+        "threshold_hint": "จำนวนหุ้นขั้นต่ำที่ต้องการ",
+        "total_shares": "หุ้นทั้งหมด",
+        "total_shares_hint": "จำนวนหุ้นทั้งหมด",
+        "participants": "ผู้เข้าร่วม",
+        "participant": "ผู้เข้าร่วม",
+        "participant_placeholder": "ที่อยู่กระเป๋าเงินหรือชื่อ (ไม่บังคับ)",
+        "generate_shares": "สร้างหุ้น",
+        "generated_shares": "หุ้นที่สร้างแล้ว",
+        "share": "หุ้น",
+        "download_all_shares": "ดาวน์โหลดหุ้นทั้งหมด",
+        "shares_info": "คุณต้องมี {{threshold}} จาก {{total}} หุ้นเพื่อกู้คืน ZOTP นี้ กระจายหุ้นอย่างปลอดภัยไปยังฝ่ายที่เชื่อถือได้",
+        "shares_warning": "เก็บหุ้นให้ปลอดภัย! ใครก็ตามที่มีหุ้นเพียงพอสามารถกู้คืน ZOTP ของคุณได้ เก็บหุ้นในตำแหน่งที่ปลอดภัยแยกกัน",
+        "recover_zotp": "กู้คืน ZOTP",
+        "recover_description": "นำเข้าหุ้นเพื่อกู้คืนความลับ ZOTP ของคุณ คุณต้องมีจำนวนหุ้นตามเกณฑ์เพื่อสร้างความลับใหม่",
+        "upload_shares_file": "อัปโหลดไฟล์หุ้น",
+        "or_enter_share_manually": "หรือป้อนหุ้นด้วยตนเอง",
+        "share_data": "ข้อมูลหุ้น",
+        "share_placeholder": "วางข้อมูลหุ้นที่นี่ (เข้ารหัส base64)",
+        "add_share": "เพิ่มหุ้น",
+        "imported_shares": "หุ้นที่นำเข้า",
+        "need_shares": "ต้องการ {{required}} หุ้น (มี {{current}})",
+        "enough_shares": "คุณมีหุ้นเพียงพอที่จะกู้คืนความลับ",
+        "need_more_shares": "คุณต้องการหุ้นเพิ่มอีก {{needed}} หุ้น",
+        "reconstruct_secret": "สร้างความลับใหม่",
+        "secret_reconstructed": "สร้างความลับใหม่สำเร็จ!",
+        "secret_reconstructed_description": "ความลับถูกสร้างใหม่สำเร็จจากหุ้นของคุณ ตอนนี้คุณสามารถสร้าง ZOTP จากความลับที่กู้คืนได้แล้ว",
+        "recovered_setup_key": "คีย์การตั้งค่าที่กู้คืนได้",
+        "create_zotp_from_recovery": "สร้าง ZOTP จากกู้คืน",
+        "recovery_successful": "กู้คืนสำเร็จ!",
+        "recovery_success_description": "ZOTP ของคุณถูกกู้คืนและเพิ่มเข้าเครื่องยืนยันตัวตนแล้ว ตอนนี้คุณสามารถใช้มันเพื่อสร้างรหัสได้"
     },
     "zelf_keys": {
         "dashboard": {
@@ -1124,8 +1180,12 @@
                     "token_id": "Token ID",
                     "cost": "ค่าใช้จ่าย",
                     "contract": "สัญญา",
-                    "transaction": "ธุรกรรม"
-                }
+                    "transaction": "ธุรกรรม",
+                    "metadata_url": "URL ข้อมูลเมตา"
+                },
+                "metadata_link": "ดูข้อมูลเมตา",
+                "copy_hint": "คลิกเพื่อคัดลอก",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "ที่เก็บ IPFS",
@@ -1194,7 +1254,8 @@
                 "pay_with_wallet": "ชำระด้วยกระเป๋าเงิน:",
                 "domain_label": "โดเมน",
                 "select_wallet": "เลือกกระเป๋าเงิน",
-                "pay_with_avax": "ชำระด้วย AVAX"
+                "pay_with_avax": "ชำระด้วย AVAX",
+                "payment_qr_code_alt": "QR Code การชำระเงิน"
             },
             "plan": {
                 "popular_badge": "ยอดนิยม",
@@ -1384,7 +1445,12 @@
                 "note": "กรุณายืนยันใบหน้าของคุณเพื่อถอดรหัสบันทึก",
                 "password": "กรุณายืนยันใบหน้าของคุณเพื่อถอดรหัสรหัสผ่าน"
             },
-            "item": "รายการ"
+            "item": "รายการ",
+            "error": {
+                "storage_failed": "เกิดข้อผิดพลาดระหว่างการจัดเก็บ {{ category }} กรุณาลองใหม่อีกครั้งในภายหลัง",
+                "try_again_later": "กรุณาลองใหม่อีกครั้งในภายหลัง",
+                "close": "ปิด"
+            }
         },
         "categories": {
             "password": "รหัสผ่าน",

@@ -1,35 +1,18 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "../chrome.service";
+import { ZelfKeyIpfsResponse, ZelfKeyNFTResponse, ZelfKeyWalrusResponse } from "app/models/zelf-key-item.model";
 
 export interface FormData {
     [key: string]: any;
 }
 
 export interface ApiResult {
-    success: boolean;
-    zelfProof: string;
-    zelfQR: string;
-    NFT?: {
-        success: boolean;
-        tokenId: string;
-        transactionHash: string;
-        recipient: string;
-        cost: string;
-        metadata: any;
-        metadataUrl: string;
-        explorerUrl: string;
-        owner: string;
-        contractAddress: string;
-    };
-    ipfs?: {
-        hash: string;
-        gatewayUrl: string;
-        pinSize: number;
-        timestamp: string;
-        name: string;
-        metadata: any;
-    };
-    publicData?: any;
+    zelfProof: string | null;
+    zelfProofQRCode: string;
+    walrus: ZelfKeyWalrusResponse;
+    ipfs: ZelfKeyIpfsResponse;
+    NFT?: ZelfKeyNFTResponse | null;
+    type: string;
     message: string;
 }
 
@@ -77,6 +60,7 @@ export class DataPassingService {
      */
     getResult(formType: string): ApiResult | null {
         const result = this.resultStore[formType];
+
         return result || null;
     }
 

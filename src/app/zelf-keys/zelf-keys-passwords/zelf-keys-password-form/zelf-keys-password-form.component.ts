@@ -77,7 +77,6 @@ export class PasswordFormComponent implements OnInit {
             notes: [""],
             insideFolder: [false],
             password: ["password_field", [Validators.required]],
-            title: ["test", [Validators.required]],
             url: ["https://www.google.com", [Validators.required]],
         });
 
@@ -117,16 +116,11 @@ export class PasswordFormComponent implements OnInit {
     private _populateFormFromAutofill(urlInfo: AutofillUrlInfo): void {
         this.passwordForm.patchValue({
             url: urlInfo.href,
-            title: urlInfo.title || this._generateTitleFromUrl(urlInfo),
         });
 
         if (this.wallet) this._changeDetectorRef.detectChanges();
 
         this.checkFormValidity();
-    }
-
-    private _generateTitleFromUrl(urlInfo: AutofillUrlInfo): string {
-        return this._autofillDataService.generateTitleFromUrl(urlInfo);
     }
 
     private _onBiometricsSuccess(): void {
@@ -170,7 +164,6 @@ export class PasswordFormComponent implements OnInit {
     checkFormValidity(): void {
         const formValue = this.passwordForm.value;
         const hasUrl = !!formValue.url;
-        const hasTitle = !!formValue.title;
         const hasEmail = !!formValue.email;
         const hasPassword = !!formValue.password;
         const hasMasterPassword = !!formValue.masterPassword;
@@ -178,7 +171,7 @@ export class PasswordFormComponent implements OnInit {
         // Master password is only required if the wallet has a password
         const masterPasswordValid = this.hasMasterPassword ? hasMasterPassword : true;
 
-        this.formValid = !!(hasUrl && hasTitle && hasEmail && hasPassword && masterPasswordValid);
+        this.formValid = !!(hasUrl && hasEmail && hasPassword && masterPasswordValid);
     }
 
     onCancel(): void {
@@ -197,7 +190,6 @@ export class PasswordFormComponent implements OnInit {
             masterPassword: await this._httpWrapperService.encryptMessage(formValue.masterPassword),
             notes: formValue.notes,
             password: await this._httpWrapperService.encryptMessage(formValue.password),
-            title: formValue.title,
             type: "passwords",
             url: formValue.url,
         };

@@ -20,6 +20,19 @@
 
     <!-- Content -->
     <div class="biometrics-bottom-sheet__content">
+        <!-- Error State (Storage Failure) -->
+        <div *ngIf="hasStorageError" class="biometrics-bottom-sheet__error-state">
+            <h3 class="biometrics-bottom-sheet__error-title">{{ errorMessage }}</h3>
+            <p class="biometrics-bottom-sheet__error-subtitle">
+                {{ t("zelf_keys.biometrics_bottom_sheet.error.try_again_later") }}
+            </p>
+            <button class="biometrics-bottom-sheet__error-close" (click)="onClose()">
+                {{ t("zelf_keys.biometrics_bottom_sheet.error.close") }}
+            </button>
+        </div>
+
+        <!-- Normal State -->
+        <ng-container *ngIf="!hasStorageError">
         <div *ngIf="errorMessage" class="biometrics-bottom-sheet__error">
             <p>{{ errorMessage }}</p>
         </div>
@@ -32,5 +45,6 @@
         <div *ngIf="isLoading" class="biometrics-bottom-sheet__loading">
             <p>{{ t("zelf_keys.biometrics.storing") }}</p>
         </div>
+        </ng-container>
     </div>
 </div>

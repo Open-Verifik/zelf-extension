@@ -102,7 +102,8 @@
             "password_attempts_title": "パスワード試行回数",
             "minutes_before_reverification": "再認証までの分数",
             "password_attempts_description": "生体認証が必要になるまでの最大パスワード失敗試行回数を設定します。1回から8回の間で設定できます。"
-        }
+        },
+        "subscription_label": "サブスクリプション"
     },
     "security": {
         "biometric_decryption_subtitle": "復号化プロセスを完了するために、生体認証を使用して本人確認を行う必要があります。",
@@ -252,7 +253,8 @@
         "zelf_link": "Zelf リンク",
         "zelf_authenticator": "Zelf認証システム",
         "zelf_keys": "Zelfキー",
-        "subscriptions": "サブスクリプション"
+        "subscriptions": "サブスクリプション",
+        "download_apps": "アプリをダウンロード"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",
@@ -359,7 +361,10 @@
         "swap_same_asset": "同じ資産にスワップすることはできません",
         "transaction_not_found": "取引が見つかりません",
         "try_again": "もう一度試す",
-        "zelfName_is_taken": "このタグ名は既に使用されています"
+        "zelfName_is_taken": "このタグ名は既に使用されています",
+        "session_init_title": "セッションの初期化に失敗しました",
+        "session_init_message": "申し訳ございませんが、セッションの初期化中に問題が発生しました。ネットワークの問題やサーバーの利用不可が原因である可能性があります。もう一度お試しください。",
+        "session_init_info": "Zelf名前サービス拡張機能を使用するには、ネットワークアクセスが必要です。オフラインソリューションについては、iOSおよびAndroidアプリをご確認ください。"
     },
     "swap": {
         "automatic": "自動",
@@ -482,14 +487,20 @@
             "manage_note_cancelled": "サブスクリプションはキャンセルされていますが、請求期間の終了までは有効です。Stripe カスタマーポータルで再有効化や請求履歴の確認ができます。",
             "demo": "デモ",
             "active": "有効",
-            "cancelled": "キャンセル済み"
+            "cancelled": "キャンセル済み",
+            "crypto_subscription_title": "暗号通貨決済によるサブスクリプション",
+            "payment_method_crypto": "暗号通貨 (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "開始",
             "passwords": "パスワード",
             "notes": "ノート",
             "payment_cards": "支払いカード",
-            "subscription": "サブスクリプション"
+            "subscription": "サブスクリプション",
+            "add_password": "パスワードを追加",
+            "add_note": "メモを追加",
+            "add_payment_card": "支払いカードを追加"
         },
         "payment_cards": {
             "title": "支払いカード",
@@ -669,7 +680,6 @@
                 "description": "新しいノートを安全に保存"
             },
             "detail": {
-                "title": "ノートの詳細",
                 "loading": "ノートの詳細を読み込み中…",
                 "error": {
                     "title": "ノートの読み込みエラー",
@@ -767,7 +777,6 @@
                 "message": "検索条件を変更してみてください"
             },
             "detail": {
-                "title": "パスワードの詳細",
                 "loading": "パスワードの詳細を読み込み中…",
                 "error": {
                     "title": "パスワードの読み込みエラー",
@@ -927,8 +936,12 @@
                     "token_id": "トークン ID",
                     "cost": "費用",
                     "contract": "コントラクト",
-                    "transaction": "トランザクション"
-                }
+                    "transaction": "トランザクション",
+                    "metadata_url": "メタデータ URL"
+                },
+                "metadata_link": "メタデータを表示",
+                "copy_hint": "クリックしてコピー",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS ストレージ",
@@ -936,7 +949,9 @@
                     "hash": "IPFS ハッシュ",
                     "gateway_url": "ゲートウェイ URL",
                     "file_size": "ファイルサイズ",
-                    "uploaded": "アップロード日時"
+                    "uploaded": "アップロード日時",
+                    "status": "ステータス",
+                    "copy_hint": "クリックしてコピー"
                 },
                 "gateway_link": "IPFS ゲートウェイで表示"
             },
@@ -948,14 +963,19 @@
                 },
                 "copy_hint": "クリックしてコピー"
             },
-            "debug": {
-                "title": "デバッグ情報"
-            },
             "next_steps": {
                 "title": "次のステップ",
                 "success_message": "パスワードは安全に保存されました。パスワード一覧で確認するか、別のパスワードを追加できます。",
                 "error_message": "上記のエラー内容を確認して再度お試しください。問題が解決しない場合はサポートにご連絡ください。",
                 "unknown_message": "ステータスを判定できませんでした。詳細は上記の API 応答をご確認ください。"
+            },
+            "walrus": {
+                "title": "Walrusストレージ",
+                "labels": {
+                    "status": "ステータス",
+                    "reason": "理由",
+                    "error": "エラー"
+                }
             }
         },
         "actions": {
@@ -1025,7 +1045,41 @@
         "export": "エクスポート",
         "export_zotp": "ZOTPをエクスポート",
         "setup_key_description": "このセットアップキーを使用して、このアカウントをGoogle Authenticatorなどの他の認証アプリに追加します。",
-        "qr_code_description": "このQRコードをGoogle Authenticatorまたは互換性のある認証アプリでスキャンして、このアカウントをインポートしてください。"
+        "qr_code_description": "このQRコードをGoogle Authenticatorまたは互換性のある認証アプリでスキャンして、このアカウントをインポートしてください。",
+        "share_zotp": "SealでZOTPを共有",
+        "share_with_seal": "Sealで共有",
+        "share_description": "Sealシークレット共有を使用して、このZOTPシークレットを複数の当事者間で分散します。単一の当事者だけではシークレットにアクセスできません - 再構築するには閾値のシェアが必要です。",
+        "threshold": "閾値",
+        "threshold_hint": "必要な最小シェア数",
+        "total_shares": "総シェア数",
+        "total_shares_hint": "シェアの総数",
+        "participants": "参加者",
+        "participant": "参加者",
+        "participant_placeholder": "ウォレットアドレスまたは名前（オプション）",
+        "generate_shares": "シェアを生成",
+        "generated_shares": "生成されたシェア",
+        "share": "シェア",
+        "download_all_shares": "すべてのシェアをダウンロード",
+        "shares_info": "このZOTPを回復するには、{{total}}シェアのうち{{threshold}}が必要です。シェアを信頼できる当事者に安全に配布してください。",
+        "shares_warning": "シェアを安全に保管してください！十分なシェアを持つ人は誰でもZOTPを回復できます。シェアは別々の安全な場所に保管してください。",
+        "recover_zotp": "ZOTPを回復",
+        "recover_description": "シェアをインポートしてZOTPシークレットを回復します。シークレットを再構築するには、閾値のシェア数が必要です。",
+        "upload_shares_file": "シェアファイルをアップロード",
+        "or_enter_share_manually": "またはシェアを手動で入力",
+        "share_data": "シェアデータ",
+        "share_placeholder": "シェアデータをここに貼り付け（base64エンコード）",
+        "add_share": "シェアを追加",
+        "imported_shares": "インポートされたシェア",
+        "need_shares": "{{required}}シェアが必要です（{{current}}所持）",
+        "enough_shares": "シークレットを回復するのに十分なシェアがあります",
+        "need_more_shares": "さらに{{needed}}シェアが必要です",
+        "reconstruct_secret": "シークレットを再構築",
+        "secret_reconstructed": "シークレットの再構築に成功しました！",
+        "secret_reconstructed_description": "シークレットはシェアから正常に再構築されました。この回復したシークレットからZOTPを作成できます。",
+        "recovered_setup_key": "回復したセットアップキー",
+        "create_zotp_from_recovery": "回復からZOTPを作成",
+        "recovery_successful": "回復に成功しました！",
+        "recovery_success_description": "ZOTPが回復され、認証アプリに追加されました。これを使用してコードを生成できます。"
     },
     "zelf_keys": {
         "dashboard": {
@@ -1126,8 +1180,12 @@
                     "token_id": "トークンID",
                     "cost": "コスト",
                     "contract": "コントラクト",
-                    "transaction": "トランザクション"
-                }
+                    "transaction": "トランザクション",
+                    "metadata_url": "メタデータ URL"
+                },
+                "metadata_link": "メタデータを表示",
+                "copy_hint": "クリックしてコピー",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFSストレージ",
@@ -1196,7 +1254,8 @@
                 "pay_with_wallet": "ウォレットで支払う:",
                 "domain_label": "ドメイン",
                 "select_wallet": "ウォレットを選択",
-                "pay_with_avax": "AVAXで支払う"
+                "pay_with_avax": "AVAXで支払う",
+                "payment_qr_code_alt": "支払いQRコード"
             },
             "plan": {
                 "popular_badge": "人気",
@@ -1386,7 +1445,12 @@
                 "note": "ノートを復号化するために顔認証を行ってください",
                 "password": "パスワードを復号化するために顔認証を行ってください"
             },
-            "item": "アイテム"
+            "item": "アイテム",
+            "error": {
+                "storage_failed": "{{ category }} の保存中にエラーが発生しました。後でもう一度お試しください。",
+                "try_again_later": "後でもう一度お試しください。",
+                "close": "閉じる"
+            }
         },
         "categories": {
             "password": "パスワード",

@@ -102,7 +102,8 @@
             "password_attempts_title": "محاولات كلمة المرور",
             "minutes_before_reverification": "دقائق قبل إعادة التحقق",
             "password_attempts_description": "حدد الحد الأقصى لمحاولات كلمة المرور الفاشلة قبل الحاجة إلى التحقق البيومتري. يمكنك تعيين هذا من 1 إلى 8 محاولات."
-        }
+        },
+        "subscription_label": "الاشتراك"
     },
     "security": {
         "biometric_decryption_subtitle": "لإكمال عملية فك التشفير، نحتاج إلى التحقق من هويتك باستخدام بياناتك البيومترية.",
@@ -252,7 +253,8 @@
         "zelf_link": "رابط Zelf",
         "zelf_authenticator": "مصدق زيلف",
         "zelf_keys": "مفاتيح زيلف",
-        "subscriptions": "الاشتراكات"
+        "subscriptions": "الاشتراكات",
+        "download_apps": "تنزيل التطبيقات"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",
@@ -359,7 +361,10 @@
         "swap_same_asset": "لا يمكنك التبادل إلى نفس الأصل",
         "transaction_not_found": "لم يتم العثور على المعاملة",
         "try_again": "حاول مرة أخرى",
-        "zelfName_is_taken": "اسم العلامة هذا مستخدم بالفعل"
+        "zelfName_is_taken": "اسم العلامة هذا مستخدم بالفعل",
+        "session_init_title": "فشل تهيئة الجلسة",
+        "session_init_message": "عذراً، حدثت مشكلة في تهيئة جلستك. قد يكون هذا بسبب مشكلة في الشبكة أو عدم توفر الخادم. يرجى المحاولة مرة أخرى.",
+        "session_init_info": "لاستخدام امتداد خدمة اسم Zelf، ستحتاج إلى الوصول إلى الشبكة. للحل دون اتصال، تحقق من تطبيقات iOS و Android الخاصة بنا."
     },
     "swap": {
         "automatic": "تلقائي",
@@ -482,14 +487,20 @@
             "manage_note_cancelled": "تم إلغاء اشتراكك ولكنه يظل نشطًا حتى نهاية فترة الفوترة. يمكنك إعادة التفعيل أو عرض سجل الفواتير في بوابة عملاء Stripe.",
             "demo": "تجريبي",
             "active": "نشط",
-            "cancelled": "ملغى"
+            "cancelled": "ملغى",
+            "crypto_subscription_title": "الاشتراك عن طريق المدفوعات المشفرة",
+            "payment_method_crypto": "مشفرة (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "ابدأ",
             "passwords": "كلمات المرور",
             "notes": "الملاحظات",
             "payment_cards": "بطاقات الدفع",
-            "subscription": "الاشتراك"
+            "subscription": "الاشتراك",
+            "add_password": "إضافة كلمة مرور",
+            "add_note": "إضافة ملاحظة",
+            "add_payment_card": "إضافة بطاقة دفع"
         },
         "payment_cards": {
             "title": "بطاقات الدفع",
@@ -669,7 +680,6 @@
                 "description": "احفظ ملاحظة جديدة بأمان"
             },
             "detail": {
-                "title": "تفاصيل الملاحظة",
                 "loading": "جارٍ تحميل تفاصيل الملاحظة...",
                 "error": {
                     "title": "خطأ في تحميل الملاحظة",
@@ -767,7 +777,6 @@
                 "message": "جرّب تعديل مصطلحات البحث"
             },
             "detail": {
-                "title": "تفاصيل كلمة المرور",
                 "loading": "جارٍ تحميل تفاصيل كلمة المرور...",
                 "error": {
                     "title": "خطأ في تحميل كلمة المرور",
@@ -927,8 +936,12 @@
                     "token_id": "معرّف الرمز",
                     "cost": "التكلفة",
                     "contract": "العقد",
-                    "transaction": "المعاملة"
-                }
+                    "transaction": "المعاملة",
+                    "metadata_url": "رابط البيانات الوصفية"
+                },
+                "metadata_link": "عرض البيانات الوصفية",
+                "copy_hint": "انقر للنسخ",
+                "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
                 "title": "تخزين IPFS",
@@ -936,7 +949,9 @@
                     "hash": "تجزئة IPFS",
                     "gateway_url": "رابط البوابة",
                     "file_size": "حجم الملف",
-                    "uploaded": "تم التحميل"
+                    "uploaded": "تم التحميل",
+                    "status": "الحالة",
+                    "copy_hint": "انقر للنسخ"
                 },
                 "gateway_link": "عرض على بوابة IPFS"
             },
@@ -948,14 +963,19 @@
                 },
                 "copy_hint": "انقر للنسخ"
             },
-            "debug": {
-                "title": "معلومات التصحيح"
-            },
             "next_steps": {
                 "title": "الخطوات التالية",
                 "success_message": "تم الآن تخزين كلمة المرور الخاصة بك بأمان. يمكنك عرضها في قائمة كلمات المرور أو إضافة كلمة مرور أخرى.",
                 "error_message": "يرجى مراجعة تفاصيل الخطأ أعلاه والمحاولة مرة أخرى. إذا استمرت المشكلة فاتصل بالدعم.",
                 "unknown_message": "لم يتمكن النظام من تحديد الحالة. يُرجى التحقق من استجابة واجهة البرمجة (API) أعلاه للحصول على التفاصيل."
+            },
+            "walrus": {
+                "title": "تخزين Walrus",
+                "labels": {
+                    "status": "الحالة",
+                    "reason": "السبب",
+                    "error": "خطأ"
+                }
             }
         },
         "actions": {
@@ -1025,7 +1045,41 @@
         "export": "تصدير",
         "export_zotp": "تصدير ZOTP",
         "setup_key_description": "استخدم مفتاح الإعداد هذا لإضافة هذا الحساب إلى تطبيق مصادقة آخر مثل Google Authenticator.",
-        "qr_code_description": "امسح رمز QR هذا باستخدام Google Authenticator أو أي تطبيق مصادق متوافق لاستيراد هذا الحساب."
+        "qr_code_description": "امسح رمز QR هذا باستخدام Google Authenticator أو أي تطبيق مصادق متوافق لاستيراد هذا الحساب.",
+        "share_zotp": "مشاركة ZOTP مع Seal",
+        "share_with_seal": "مشاركة مع Seal",
+        "share_description": "قم بتوزيع سر ZOTP هذا عبر أطراف متعددة باستخدام مشاركة السر Seal. لا يمكن لأي طرف واحد الوصول إلى السر بمفرده - تحتاج إلى عتبة من الأسهم لإعادة بنائه.",
+        "threshold": "العتبة",
+        "threshold_hint": "الحد الأدنى من الأسهم المطلوبة",
+        "total_shares": "إجمالي الأسهم",
+        "total_shares_hint": "العدد الإجمالي للأسهم",
+        "participants": "المشاركون",
+        "participant": "مشارك",
+        "participant_placeholder": "عنوان المحفظة أو الاسم (اختياري)",
+        "generate_shares": "إنشاء أسهم",
+        "generated_shares": "الأسهم المُنشأة",
+        "share": "سهم",
+        "download_all_shares": "تنزيل جميع الأسهم",
+        "shares_info": "تحتاج إلى {{threshold}} من أصل {{total}} سهم لاستعادة هذا ZOTP. قم بتوزيع الأسهم بأمان على الأطراف الموثوقة.",
+        "shares_warning": "احتفظ بالأسهم بأمان! أي شخص لديه ما يكفي من الأسهم يمكنه استعادة ZOTP الخاص بك. قم بتخزين الأسهم في مواقع آمنة منفصلة.",
+        "recover_zotp": "استعادة ZOTP",
+        "recover_description": "استيراد الأسهم لاستعادة سر ZOTP الخاص بك. تحتاج إلى عدد عتبة من الأسهم لإعادة بناء السر.",
+        "upload_shares_file": "رفع ملف الأسهم",
+        "or_enter_share_manually": "أو أدخل السهم يدوياً",
+        "share_data": "بيانات السهم",
+        "share_placeholder": "الصق بيانات السهم هنا (مشفرة base64)",
+        "add_share": "إضافة سهم",
+        "imported_shares": "الأسهم المستوردة",
+        "need_shares": "تحتاج إلى {{required}} سهم (لديك {{current}})",
+        "enough_shares": "لديك ما يكفي من الأسهم لاستعادة السر",
+        "need_more_shares": "تحتاج إلى {{needed}} سهم إضافي",
+        "reconstruct_secret": "إعادة بناء السر",
+        "secret_reconstructed": "تم إعادة بناء السر بنجاح!",
+        "secret_reconstructed_description": "تم إعادة بناء السر بنجاح من أسهمك. يمكنك الآن إنشاء ZOTP من هذا السر المستعاد.",
+        "recovered_setup_key": "مفتاح الإعداد المستعاد",
+        "create_zotp_from_recovery": "إنشاء ZOTP من الاستعادة",
+        "recovery_successful": "نجحت الاستعادة!",
+        "recovery_success_description": "تم استعادة ZOTP الخاص بك وإضافته إلى المصادق الخاص بك. يمكنك الآن استخدامه لإنشاء الرموز."
     },
     "zelf_keys": {
         "dashboard": {
@@ -1126,8 +1180,12 @@
                     "token_id": "معرف الرمز المميز",
                     "cost": "التكلفة",
                     "contract": "العقد",
-                    "transaction": "المعاملة"
-                }
+                    "transaction": "المعاملة",
+                    "metadata_url": "رابط البيانات الوصفية"
+                },
+                "metadata_link": "عرض البيانات الوصفية",
+                "copy_hint": "انقر للنسخ",
+                "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
                 "title": "تخزين IPFS",
@@ -1196,7 +1254,8 @@
                 "pay_with_wallet": "الدفع بالمحفظة:",
                 "domain_label": "النطاق",
                 "select_wallet": "اختر المحفظة",
-                "pay_with_avax": "الدفع بـ AVAX"
+                "pay_with_avax": "الدفع بـ AVAX",
+                "payment_qr_code_alt": "رمز QR للدفع"
             },
             "plan": {
                 "popular_badge": "شائع",
@@ -1386,7 +1445,12 @@
                 "note": "يرجى التحقق من وجهك لفك تشفير ملاحظتك",
                 "password": "يرجى التحقق من وجهك لفك تشفير كلمة المرور"
             },
-            "item": "عنصر"
+            "item": "عنصر",
+            "error": {
+                "storage_failed": "حدث خطأ أثناء تخزين {{ category }}، يرجى المحاولة مرة أخرى لاحقًا.",
+                "try_again_later": "يرجى المحاولة مرة أخرى لاحقًا.",
+                "close": "إغلاق"
+            }
         },
         "categories": {
             "password": "كلمة المرور",

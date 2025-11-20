@@ -105,4 +105,10 @@ export class ZelfKeysNoteResultComponent extends CopyToClipboardBase implements 
 
         await this._copyToClipboard(this.apiResult.zelfProof);
     }
+
+    async copyContractAddress(): Promise<void> {
+        if (!this.apiResult?.NFT?.contractAddress) return;
+
+        await this._copyToClipboard(this.apiResult.NFT.contractAddress);
+    }
 }

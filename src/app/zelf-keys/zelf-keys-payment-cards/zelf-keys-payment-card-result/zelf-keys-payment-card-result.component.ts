@@ -95,6 +95,12 @@ export class ZelfKeysPaymentCardResultComponent extends CopyToClipboardBase impl
         await this._copyToClipboard(this.result.zelfProof);
     }
 
+    async copyContractAddress(): Promise<void> {
+        if (!this.result?.NFT?.contractAddress) return;
+
+        await this._copyToClipboard(this.result.NFT.contractAddress);
+    }
+
     onImageError(event: Event): void {
         const img = event.target as HTMLImageElement;
 

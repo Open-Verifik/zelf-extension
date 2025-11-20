@@ -86,9 +86,61 @@ export type ZelfKeyPublicDataType = NotePublicData | PasswordPublicData | Paymen
 export type DecryptedDataType = DecryptedNoteData | DecryptedPasswordData | DecryptedPaymentCardData;
 
 // ZelfKeys API Response Types
+export interface ZelfKeyWalrusMetadata {
+    zelfProof: string;
+    contentType: string;
+    fileName: string;
+    type: string;
+    category: string;
+    keyOwner: string;
+    timestamp: string;
+    username?: string;
+    website?: string;
+    uploadTimestamp: string;
+    sizeBytes: number;
+    network: string;
+}
+
+export interface ZelfKeyWalrusStorage {
+    epochs: number;
+    network: string;
+    deletable: boolean;
+}
+
+export interface ZelfKeyWalrusBlobObject {
+    id: {
+        id: string;
+    };
+    registered_epoch: number;
+    blob_id: string;
+    size: string;
+    encoding_type: number;
+    certified_epoch: number;
+    storage: {
+        id: {
+            id: string;
+        };
+        start_epoch: number;
+        end_epoch: number;
+        storage_size: string;
+    };
+    deletable: boolean;
+}
+
+export interface ZelfKeyWalrusUploadResult {
+    blobId: string;
+    blobObject: ZelfKeyWalrusBlobObject;
+}
+
 export interface ZelfKeyWalrusResponse {
     success: boolean;
-    skipped: boolean;
+    blobId?: string;
+    publicUrl?: string;
+    explorerUrl?: string;
+    metadata?: ZelfKeyWalrusMetadata;
+    storage?: ZelfKeyWalrusStorage;
+    uploadResult?: ZelfKeyWalrusUploadResult;
+    skipped?: boolean;
     reason?: string;
     error?: string;
 }
@@ -117,14 +169,59 @@ export interface ZelfKeyIpfsMetadata {
 export interface ZelfKeyIpfsResponse {
     id: string;
     url: string;
+    ipfs_pin_hash?: string;
+    ipfsHash?: string;
+    cid?: string;
     size: number;
+    user_id?: string;
     date_pinned: string;
     publicData: ZelfKeyIpfsPublicData;
+    network?: string;
     pinned: boolean;
     saved: boolean;
     web3: boolean;
     name: string;
-    metadata: ZelfKeyIpfsMetadata;
+    created_at?: string;
+    updated_at?: string;
+    metadata?: ZelfKeyIpfsMetadata;
+}
+
+export interface ZelfKeyNFTAttribute {
+    trait_type: string;
+    value?: string;
+}
+
+export interface ZelfKeyNFTFile {
+    type: string;
+    uri: string;
+}
+
+export interface ZelfKeyNFTProperties {
+    files: ZelfKeyNFTFile[];
+    category: string;
+}
+
+export interface ZelfKeyNFTMetadata {
+    name: string;
+    description: string;
+    external_url: string;
+    image: string;
+    attributes: ZelfKeyNFTAttribute[];
+    properties: ZelfKeyNFTProperties;
+}
+
+export interface ZelfKeyNFTResponse {
+    contractAddress: string;
+    cost: string;
+    explorerUrl: string;
+    imageUrl: string;
+    metadata: ZelfKeyNFTMetadata;
+    metadataUrl: string;
+    owner: string;
+    recipient: string;
+    success: boolean;
+    tokenId: string;
+    transactionHash: string;
 }
 
 export interface ZelfKeyPasswordResult {
@@ -132,6 +229,7 @@ export interface ZelfKeyPasswordResult {
     zelfProofQRCode: string;
     walrus: ZelfKeyWalrusResponse;
     ipfs: ZelfKeyIpfsResponse;
+    NFT?: ZelfKeyNFTResponse | null;
     type: string;
     message: string;
 }

@@ -98,8 +98,12 @@
                     "token_id": "Token ID",
                     "cost": "Cost",
                     "contract": "Contract",
-                    "transaction": "Transaction"
-                }
+                    "transaction": "Transaction",
+                    "metadata_url": "Metadata URL"
+                },
+                "metadata_link": "View Metadata",
+                "copy_hint": "Click to copy",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS Storage",
@@ -264,7 +268,12 @@
                 "note": "Please verify your face to decrypt your note",
                 "password": "Please verify your face to decrypt your password"
             },
-            "item": "Item"
+            "item": "Item",
+            "error": {
+                "storage_failed": "Error during storage of {{ category }}, please try again later.",
+                "try_again_later": "Please try again later.",
+                "close": "Close"
+            }
         },
         "password_decryptor": {
             "title_suffix": "Decryption",
@@ -535,6 +544,7 @@
         "close": "Close",
         "coin": "Coin",
         "come_back_later": "Please come back later!",
+        "download_apps": "Download Apps",
         "confirm_password": "Confirm password",
         "confirm": "Confirm",
         "continue": "Continue",
@@ -717,6 +727,9 @@
         "generic_identity": "Sorry, there seems to have been a problem with your identity verification. Please try it again.",
         "generic_title": "An error has occured",
         "generic": "Sorry, there was a problem processing this request. Please try again.",
+        "session_init_title": "Session initialization failed",
+        "session_init_message": "Sorry, there was an issue initializing your session. This may be due to a network problem or server unavailability. Please try again.",
+        "session_init_info": "To use the Zelf Name Service Extension, you will require network access. For an offline solution, check our iOS and Android apps.",
         "incorrect_zelf_proof_message": "The provided file does not appear to be a valid ZelfProof. Please try again.",
         "incorrect_zelf_proof_title": "Incorrect ZelfProof",
         "insufficient_funds": "Insufficient funds. Ensure you have enough funds in your wallet to cover the transaction fees.",
@@ -1317,8 +1330,12 @@
                     "token_id": "Token ID",
                     "cost": "Cost",
                     "contract": "Contract",
-                    "transaction": "Transaction"
-                }
+                    "transaction": "Transaction",
+                    "metadata_url": "Metadata URL"
+                },
+                "metadata_link": "View Metadata",
+                "copy_hint": "Click to copy",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS Storage",

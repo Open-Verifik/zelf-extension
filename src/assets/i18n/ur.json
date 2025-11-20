@@ -102,7 +102,8 @@
             "password_attempts_title": "پاس ورڈ کی کوششیں",
             "minutes_before_reverification": "دوبارہ توثیق سے پہلے منٹ",
             "password_attempts_description": "بایومیٹرک توثیق کی ضرورت سے پہلے زیادہ سے زیادہ ناکام پاس ورڈ کی کوششیں طے کریں۔ آپ اسے 1 سے 8 کوششوں تک سیٹ کر سکتے ہیں۔"
-        }
+        },
+        "subscription_label": "سبسکرپشن"
     },
     "security": {
         "biometric_decryption_subtitle": "ڈکرپشن کے عمل کو مکمل کرنے کے لیے، ہمیں آپ کی شناخت کی تصدیق کے لیے آپ کے بایومیٹرکس کا استعمال کرنے کی ضرورت ہے۔",
@@ -252,7 +253,8 @@
         "zelf_authenticator": "Zelf تصدیق کنندہ",
         "zelf_keys": "Zelf کلیدیں",
         "zelf_link": "Zelf لنک",
-        "subscriptions": "سبسکرپشنز"
+        "subscriptions": "سبسکرپشنز",
+        "download_apps": "ایپس ڈاؤن لوڈ کریں"
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",
@@ -359,7 +361,10 @@
         "swap_same_asset": "آپ اسی اثاثہ میں تبادلہ نہیں کر سکتے",
         "transaction_not_found": "ٹرانزیکشن نہیں ملی",
         "try_again": "دوبارہ کوشش کریں",
-        "zelfName_is_taken": "یہ ٹیگ نام پہلے سے لیا گیا ہے"
+        "zelfName_is_taken": "یہ ٹیگ نام پہلے سے لیا گیا ہے",
+        "session_init_title": "سیشن کی ابتداء ناکام ہو گئی",
+        "session_init_message": "معذرت، آپ کے سیشن کو شروع کرنے میں ایک مسئلہ پیش آیا۔ یہ نیٹ ورک کی خرابی یا سرور کی عدم دستیابی کی وجہ سے ہو سکتا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
+        "session_init_info": "Zelf نام سروس ایکسٹینشن استعمال کرنے کے لیے، آپ کو نیٹ ورک تک رسائی کی ضرورت ہوگی۔ آف لائن حل کے لیے، ہماری iOS اور Android ایپس چیک کریں۔"
     },
     "swap": {
         "automatic": "خودکار",
@@ -506,7 +511,41 @@
         "export": "برآمد کریں",
         "export_zotp": "ZOTP برآمد کریں",
         "setup_key_description": "اس سیٹ اپ کلید کا استعمال کریں تاکہ اس اکاؤنٹ کو Google Authenticator جیسے کسی دوسرے تصدیق کار ایپ میں شامل کیا جا سکے۔",
-        "qr_code_description": "اس اکاؤنٹ کو درآمد کرنے کے لیے Google Authenticator یا کوئی بھی متوافق تصدیق کرنے والا ایپ کے ساتھ اس QR کوڈ کو اسکین کریں۔"
+        "qr_code_description": "اس اکاؤنٹ کو درآمد کرنے کے لیے Google Authenticator یا کوئی بھی متوافق تصدیق کرنے والا ایپ کے ساتھ اس QR کوڈ کو اسکین کریں۔",
+        "share_zotp": "Seal کے ساتھ ZOTP شیئر کریں",
+        "share_with_seal": "Seal کے ساتھ شیئر کریں",
+        "share_description": "Seal خفیہ شیئرنگ کا استعمال کرتے ہوئے اس ZOTP خفیہ کو متعدد فریقوں میں تقسیم کریں۔ کوئی بھی ایک فریق اکیلے خفیہ تک رسائی حاصل نہیں کر سکتا - اسے دوبارہ بنانے کے لیے آپ کو شیئرز کی ایک حد کی ضرورت ہے۔",
+        "threshold": "حد",
+        "threshold_hint": "ضروری کم از کم شیئرز",
+        "total_shares": "کل شیئرز",
+        "total_shares_hint": "شیئرز کی کل تعداد",
+        "participants": "شرکاء",
+        "participant": "شریک",
+        "participant_placeholder": "والٹ ایڈریس یا نام (اختیاری)",
+        "generate_shares": "شیئرز بنائیں",
+        "generated_shares": "بنائے گئے شیئرز",
+        "share": "شیئر",
+        "download_all_shares": "تمام شیئرز ڈاؤن لوڈ کریں",
+        "shares_info": "اس ZOTP کو بحال کرنے کے لیے آپ کو {{total}} شیئرز میں سے {{threshold}} کی ضرورت ہے۔ شیئرز کو محفوظ طریقے سے قابل اعتماد فریقوں میں تقسیم کریں۔",
+        "shares_warning": "شیئرز کو محفوظ رکھیں! کسی بھی شخص کے پاس کافی شیئرز ہوں تو وہ آپ کا ZOTP بحال کر سکتا ہے۔ شیئرز کو الگ محفوظ مقامات پر محفوظ کریں۔",
+        "recover_zotp": "ZOTP بحال کریں",
+        "recover_description": "اپنے ZOTP خفیہ کو بحال کرنے کے لیے شیئرز درآمد کریں۔ خفیہ کو دوبارہ بنانے کے لیے آپ کو شیئرز کی ایک حد کی تعداد کی ضرورت ہے۔",
+        "upload_shares_file": "شیئرز فائل اپ لوڈ کریں",
+        "or_enter_share_manually": "یا شیئر دستی طور پر درج کریں",
+        "share_data": "شیئر ڈیٹا",
+        "share_placeholder": "شیئر ڈیٹا یہاں پیسٹ کریں (base64 انکوڈ شدہ)",
+        "add_share": "شیئر شامل کریں",
+        "imported_shares": "درآمد شدہ شیئرز",
+        "need_shares": "{{required}} شیئرز چاہیے ({{current}} ہیں)",
+        "enough_shares": "آپ کے پاس خفیہ کو بحال کرنے کے لیے کافی شیئرز ہیں",
+        "need_more_shares": "آپ کو {{needed}} مزید شیئر(ز) کی ضرورت ہے",
+        "reconstruct_secret": "خفیہ دوبارہ بنائیں",
+        "secret_reconstructed": "خفیہ کامیابی سے دوبارہ بنایا گیا!",
+        "secret_reconstructed_description": "خفیہ آپ کے شیئرز سے کامیابی سے دوبارہ بنایا گیا ہے۔ اب آپ اس بحال شدہ خفیہ سے ZOTP بنا سکتے ہیں۔",
+        "recovered_setup_key": "بحال شدہ سیٹ اپ کلید",
+        "create_zotp_from_recovery": "بحالی سے ZOTP بنائیں",
+        "recovery_successful": "بحالی کامیاب!",
+        "recovery_success_description": "آپ کا ZOTP بحال کر دیا گیا ہے اور آپ کے تصدیق کنندہ میں شامل کر دیا گیا ہے۔ اب آپ اسے کوڈز بنانے کے لیے استعمال کر سکتے ہیں۔"
     },
     "billing": {
         "activation": {
@@ -535,14 +574,20 @@
             "manage_note_cancelled": "آپ کا سبسکرپشن منسوخ ہے لیکن آپ کی بلنگ مدت کے آخر تک فعال رہے گا۔ آپ Stripe کسٹمر پورٹل میں دوبارہ فعال کر سکتے ہیں یا بلنگ تاریخ دیکھ سکتے ہیں۔",
             "demo": "ڈیمو",
             "active": "فعال",
-            "cancelled": "منسوخ شدہ"
+            "cancelled": "منسوخ شدہ",
+            "crypto_subscription_title": "کرپٹو ادائیگیوں کے ذریعے سبسکرپشن",
+            "payment_method_crypto": "کرپٹو (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "شروع",
             "passwords": "پاس ورڈز",
             "notes": "نوٹس",
             "payment_cards": "پیمنٹ کارڈز",
-            "subscription": "سبسکرپشن"
+            "subscription": "سبسکرپشن",
+            "add_password": "پاس ورڈ شامل کریں",
+            "add_note": "نوٹ شامل کریں",
+            "add_payment_card": "ادائیگی کارڈ شامل کریں"
         },
         "payment_cards": {
             "title": "پیمنٹ کارڈز",
@@ -722,7 +767,6 @@
                 "description": "نیا نوٹ محفوظ طریقے سے محفوظ کریں"
             },
             "detail": {
-                "title": "نوٹ کی تفصیلات",
                 "loading": "نوٹ کی تفصیلات لوڈ ہو رہی ہیں...",
                 "error": {
                     "title": "نوٹ لوڈ کرنے میں خرابی",
@@ -820,7 +864,6 @@
                 "message": "اپنی تلاش کی شرائط میں تبدیلی کی کوشش کریں"
             },
             "detail": {
-                "title": "پاس ورڈ کی تفصیلات",
                 "loading": "پاس ورڈ کی تفصیلات لوڈ ہو رہی ہیں...",
                 "error": {
                     "title": "پاس ورڈ لوڈ کرنے میں خرابی",
@@ -980,8 +1023,12 @@
                     "token_id": "ٹوکن آئی ڈی",
                     "cost": "لاگت",
                     "contract": "کانٹریکٹ",
-                    "transaction": "لین دین"
-                }
+                    "transaction": "لین دین",
+                    "metadata_url": "میٹا ڈیٹا URL"
+                },
+                "metadata_link": "میٹا ڈیٹا دیکھیں",
+                "copy_hint": "کاپی کرنے کے لیے کلک کریں",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS اسٹوریج",
@@ -989,7 +1036,9 @@
                     "hash": "IPFS ہیش",
                     "gateway_url": "گیٹ وے URL",
                     "file_size": "فائل سائز",
-                    "uploaded": "اپ لوڈ کیا گیا"
+                    "uploaded": "اپ لوڈ کیا گیا",
+                    "status": "حالت",
+                    "copy_hint": "کاپی کرنے کے لیے کلک کریں"
                 },
                 "gateway_link": "IPFS گیٹ وے پر دیکھیں"
             },
@@ -1001,14 +1050,19 @@
                 },
                 "copy_hint": "کاپی کرنے کے لیے کلک کریں"
             },
-            "debug": {
-                "title": "ڈیبگ معلومات"
-            },
             "next_steps": {
                 "title": "اگلے اقدامات",
                 "success_message": "آپ کا پاس ورڈ اب محفوظ طریقے سے محفوظ ہے۔ آپ اسے اپنے پاس ورڈز کی فہرست میں دیکھ سکتے ہیں یا ایک اور پاس ورڈ شامل کر سکتے ہیں۔",
                 "error_message": "براہ کرم اوپر دی گئی خرابی کی تفصیلات کا جائزہ لیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہے تو سپورٹ سے رابطہ کریں۔",
                 "unknown_message": "سسٹم حالت کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیے گئے API ردِعمل کی جانچ کریں۔"
+            },
+            "walrus": {
+                "title": "Walrus اسٹوریج",
+                "labels": {
+                    "status": "حالت",
+                    "reason": "وجہ",
+                    "error": "خرابی"
+                }
             }
         },
         "actions": {
@@ -1126,8 +1180,12 @@
                     "token_id": "ٹوکن ID",
                     "cost": "لاگت",
                     "contract": "معاہدہ",
-                    "transaction": "لین دین"
-                }
+                    "transaction": "لین دین",
+                    "metadata_url": "میٹا ڈیٹا URL"
+                },
+                "metadata_link": "میٹا ڈیٹا دیکھیں",
+                "copy_hint": "کاپی کرنے کے لیے کلک کریں",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS اسٹوریج",
@@ -1196,7 +1254,8 @@
                 "pay_with_wallet": "والیٹ سے ادائیگی کریں:",
                 "domain_label": "ڈومین",
                 "select_wallet": "والیٹ منتخب کریں",
-                "pay_with_avax": "AVAX سے ادائیگی کریں"
+                "pay_with_avax": "AVAX سے ادائیگی کریں",
+                "payment_qr_code_alt": "ادائیگی QR کوڈ"
             },
             "plan": {
                 "popular_badge": "مقبول",
@@ -1386,7 +1445,12 @@
                 "note": "براہ کرم اپنے نوٹ کو ڈکرپٹ کرنے کے لیے اپنے چہرے کی تصدیق کریں",
                 "password": "براہ کرم اپنے پاس ورڈ کو ڈکرپٹ کرنے کے لیے اپنے چہرے کی تصدیق کریں"
             },
-            "item": "آئٹم"
+            "item": "آئٹم",
+            "error": {
+                "storage_failed": "{{ category }} کو محفوظ کرنے میں خرابی، براہ کرم بعد میں دوبارہ کوشش کریں۔",
+                "try_again_later": "براہ کرم بعد میں دوبارہ کوشش کریں۔",
+                "close": "بند کریں"
+            }
         },
         "categories": {
             "password": "پاس ورڈ",

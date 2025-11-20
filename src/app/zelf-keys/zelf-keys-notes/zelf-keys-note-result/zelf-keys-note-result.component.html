@@ -49,11 +49,11 @@
             </div>
 
             <!-- NFT Information -->
-            <div class="note-result__section" *ngIf="apiResult.NFT?.success">
+            <div class="note-result__section" *ngIf="apiResult && apiResult.NFT">
                 <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.nft.title") }}</h3>
                 <div class="note-result__nft-info">
-                    <div class="note-result__nft-image">
-                        <img [src]="apiResult.NFT.metadata.image" [attr.alt]="t('zelf_keys.note_result.sections.nft.image_alt')" />
+                    <div class="note-result__nft-image" *ngIf="apiResult.NFT.imageUrl">
+                        <img [src]="apiResult.NFT.imageUrl" [attr.alt]="t('zelf_keys.note_result.sections.nft.image_alt')" />
                     </div>
                     <div class="note-result__nft-details">
                         <div class="zelf-action-row">
@@ -66,7 +66,15 @@
                         </div>
                         <div class="zelf-action-row">
                             <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.contract") }}</p>
-                            <p class="zelf-action-row__value">{{ apiResult.NFT.contractAddress }}</p>
+                            <div class="zelf-action-row__value">
+                                <span
+                                    class="note-result__contract-address"
+                                    (click)="copyContractAddress()"
+                                    [title]="t('zelf_keys.note_result.sections.nft.copy_hint')"
+                                >
+                                    {{ apiResult.NFT.contractAddress }}
+                                </span>
+                            </div>
                         </div>
                         <div class="zelf-action-row">
                             <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.transaction") }}</p>
@@ -74,6 +82,14 @@
                                 <a [href]="apiResult.NFT.explorerUrl" target="_blank" class="note-result__tx-link">
                                     {{ apiResult.NFT.transactionHash | slice: 0 : 10 }}...{{ apiResult.NFT.transactionHash | slice: -10 }}
                                 </a>
+                            </div>
+                        </div>
+                        <div class="zelf-action-row" *ngIf="apiResult.NFT.metadataUrl">
+                            <p class="zelf-action-row__label">{{ t("zelf_keys.note_result.sections.nft.labels.metadata_url") }}</p>
+                            <div class="zelf-action-row__value">
+                                <a [href]="apiResult.NFT.metadataUrl" target="_blank" class="note-result__gateway-link">{{
+                                    t("zelf_keys.note_result.sections.nft.metadata_link")
+                                }}</a>
                             </div>
                         </div>
                     </div>

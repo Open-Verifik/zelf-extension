@@ -3,11 +3,10 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
-import { WalletService } from "app/wallet.service";
-import { ZelfKeysService } from "app/services/zelf-keys.service";
-import { DataPassingService } from "app/services/data-passing.service";
 import { HttpWrapperService } from "app/http-wrapper.service";
-import { AuthService } from "app/services/auth.service";
+import { DataPassingService } from "app/services/data-passing.service";
+import { ZelfKeysService } from "app/services/zelf-keys.service";
+import { WalletService } from "app/wallet.service";
 import { DecryptedItemData } from "../../../models/zelf-key-item.model";
 import { DataBiometricsComponent } from "../data-biometrics/data-biometrics.component";
 
@@ -31,6 +30,7 @@ export interface BiometricsBottomSheetData {
 })
 export class BiometricsBottomSheetComponent implements OnInit {
     errorMessage: string = "";
+    hasStorageError: boolean = false;
     isLoading: boolean = false;
     itemData: any;
     itemType: string;
@@ -45,8 +45,7 @@ export class BiometricsBottomSheetComponent implements OnInit {
         private _walletService: WalletService,
         private _zelfKeysService: ZelfKeysService,
         private _dataPassingService: DataPassingService,
-        private _httpWrapperService: HttpWrapperService,
-        private _authService: AuthService
+        private _httpWrapperService: HttpWrapperService
     ) {
         this.itemData = data.itemData;
         this.itemType = data.itemType;
@@ -67,6 +66,102 @@ export class BiometricsBottomSheetComponent implements OnInit {
 
         this.wallet = wallet;
         this._changeDetectorRef.detectChanges();
+    }
+
+    private _getCategoryTranslationKey(): string {
+        switch (this.itemType) {
+            case "password":
+                return "zelf_keys.categories.password";
+            case "note":
+                return "zelf_keys.categories.note";
+            case "payment-card":
+                return "zelf_keys.categories.payment_card";
+            default:
+                return "zelf_keys.biometrics_bottom_sheet.item";
+        }
+    }
+
+    private async _storeDataByCategory(faceBase64: string): Promise<any> {
+        if (!this.itemData || Object.keys(this.itemData).length === 0) {
+            throw new Error(`No data available for ${this.itemType}. Cannot proceed with storage.`);
+        }
+
+        if (!this.wallet?.zelfProof) {
+            throw new Error("Wallet zelfProof is required for storage.");
+        }
+
+        const walletKeys = {
+            masterPassword: this.wallet.hasPassword ? this.itemData.masterPassword : undefined,
+            zelfProof: this.wallet.zelfProof,
+        };
+
+        let response: any;
+
+        switch (this.itemType) {
+            case "note":
+                const notePayload = {
+                    faceBase64: faceBase64,
+                    folder: this.itemData.folder,
+                    insideFolder: this.itemData.insideFolder,
+                    keyValuePairs: this.itemData.keyValuePairs,
+                    title: this.itemData.title,
+                    ...walletKeys,
+                };
+
+                response = await this._zelfKeysService.storeNotes(notePayload);
+
+                break;
+            case "password":
+                const passwordPayload = {
+                    faceBase64: faceBase64,
+                    folder: this.itemData.folder,
+                    insideFolder: this.itemData.insideFolder,
+                    name: this.itemData.title,
+                    notes: this.itemData.notes,
+                    password: this.itemData.password,
+                    username: this.itemData.email,
+                    website: this.itemData.url,
+                    ...walletKeys,
+                };
+
+                response = await this._zelfKeysService.storePasswordWithAuth(passwordPayload);
+
+                break;
+            case "payment-card":
+                const cardPayload = {
+                    bankName: this.itemData.bankName,
+                    cardName: this.itemData.cardName,
+                    cardNumber: this.itemData.cardNumber,
+                    cvv: this.itemData.cvv,
+                    expiryMonth: this.itemData.expiryMonth,
+                    expiryYear: this.itemData.expiryYear,
+                    faceBase64: faceBase64,
+                    folder: this.itemData.folder,
+                    insideFolder: this.itemData.insideFolder,
+                    ...walletKeys,
+                };
+
+                response = await this._zelfKeysService.storeCreditCard(cardPayload);
+
+                break;
+            default:
+                throw new Error(`Unsupported item type: ${this.itemType}`);
+        }
+
+        return response;
+    }
+
+    private async _retrieveDataByCategory(faceBase64: string, encryptedPassword?: string): Promise<any> {
+        if (!this.itemData?.zelfProof) throw new Error(`No zelfProof available for ${this.itemType}. Cannot proceed with retrieval.`);
+
+        const payload = {
+            zelfProof: this.itemData.zelfProof,
+            faceBase64: faceBase64, // Already encrypted from data-biometrics
+            ...(encryptedPassword && { password: encryptedPassword }),
+        };
+
+        // Use the generic retrieve method which works for all types
+        return await this._zelfKeysService.retrieve(payload);
     }
 
     getTitle(): string {
@@ -175,19 +270,18 @@ export class BiometricsBottomSheetComponent implements OnInit {
             return;
         }
 
-        // For encrypt mode, store the data first
         try {
             this.isLoading = true;
             this.errorMessage = "";
+            this.hasStorageError = false;
             this._changeDetectorRef.detectChanges();
 
             const response = await this._storeDataByCategory(biometricData.faceBase64);
-
-            // Store the result in the data passing service for the result page
             const resultData = response?.data || response;
+
             if (resultData) {
-                // Map itemType to the form type expected by the guard
                 let formType: string;
+
                 switch (this.itemType) {
                     case "password":
                         formType = "passwords";
@@ -201,112 +295,47 @@ export class BiometricsBottomSheetComponent implements OnInit {
                     default:
                         formType = this.itemType;
                 }
+
                 await this._dataPassingService.storeResult(formType, resultData);
             }
 
-            // Only dismiss after successful storage
             this._bottomSheetRef.dismiss(biometricData);
         } catch (error: any) {
             console.error(`Error storing ${this.itemType} data:`, error);
 
             this.isLoading = false;
+            this.hasStorageError = true;
+            // Try to get a translatable error message
+            let translatedError: string | null = null;
 
-            let errorMessage = this._translocoService.translate("zelf_keys.errors.storing", { type: this.itemType });
+            const errorKeys = [error?.error?.error, error?.error?.message, error?.message].filter(Boolean);
 
-            if (error?.error?.error) {
-                errorMessage = error.error.error;
-            } else if (error?.error?.message) {
-                errorMessage = error.error.message;
-            } else if (error?.message) {
-                errorMessage = error.message;
+            for (const errorKey of errorKeys) {
+                if (!errorKey) continue;
+
+                const formattedKey = `errors.${errorKey}`;
+                const translation = this._translocoService.translate(formattedKey);
+
+                if (translation !== formattedKey) {
+                    translatedError = translation;
+                    break;
+                }
             }
 
-            this.errorMessage = errorMessage;
+            // If we have a translatable error, use it; otherwise use generic message
+            if (translatedError) {
+                this.errorMessage = translatedError;
+            } else {
+                const categoryKey = this._getCategoryTranslationKey();
+                const category = this._translocoService.translate(categoryKey);
+
+                this.errorMessage = this._translocoService.translate("zelf_keys.biometrics_bottom_sheet.error.storage_failed", {
+                    category,
+                });
+            }
+
             this._changeDetectorRef.detectChanges();
         }
-    }
-
-    private async _storeDataByCategory(faceBase64: string): Promise<any> {
-        if (!this.itemData || Object.keys(this.itemData).length === 0) {
-            throw new Error(`No data available for ${this.itemType}. Cannot proceed with storage.`);
-        }
-
-        if (!this.wallet?.zelfProof) {
-            throw new Error("Wallet zelfProof is required for storage.");
-        }
-
-        const walletKeys = {
-            zelfProof: this.wallet.zelfProof,
-            masterPassword: this.wallet.hasPassword ? this.itemData.masterPassword : undefined,
-        };
-
-        let response: any;
-
-        switch (this.itemType) {
-            case "note":
-                const notePayload = {
-                    title: this.itemData.title,
-                    keyValuePairs: this.itemData.keyValuePairs,
-                    folder: this.itemData.folder,
-                    insideFolder: this.itemData.insideFolder,
-                    faceBase64: faceBase64,
-                    ...walletKeys,
-                };
-
-                response = await this._zelfKeysService.storeNotes(notePayload);
-                break;
-
-            case "password":
-                const passwordPayload = {
-                    website: this.itemData.url,
-                    username: this.itemData.email,
-                    password: this.itemData.password,
-                    notes: this.itemData.notes,
-                    folder: this.itemData.folder,
-                    insideFolder: this.itemData.insideFolder,
-                    name: this.itemData.title,
-                    faceBase64: faceBase64,
-                    ...walletKeys,
-                };
-
-                response = await this._zelfKeysService.storePasswordWithAuth(passwordPayload);
-                break;
-
-            case "payment-card":
-                const cardPayload = {
-                    cardName: this.itemData.cardName,
-                    cardNumber: this.itemData.cardNumber,
-                    expiryMonth: this.itemData.expiryMonth,
-                    expiryYear: this.itemData.expiryYear,
-                    folder: this.itemData.folder,
-                    insideFolder: this.itemData.insideFolder,
-                    cvv: this.itemData.cvv,
-                    bankName: this.itemData.bankName,
-                    faceBase64: faceBase64,
-                    ...walletKeys,
-                };
-
-                response = await this._zelfKeysService.storeCreditCard(cardPayload);
-                break;
-
-            default:
-                throw new Error(`Unsupported item type: ${this.itemType}`);
-        }
-
-        return response;
-    }
-
-    private async _retrieveDataByCategory(faceBase64: string, encryptedPassword?: string): Promise<any> {
-        if (!this.itemData?.zelfProof) throw new Error(`No zelfProof available for ${this.itemType}. Cannot proceed with retrieval.`);
-
-        const payload = {
-            zelfProof: this.itemData.zelfProof,
-            faceBase64: faceBase64, // Already encrypted from data-biometrics
-            ...(encryptedPassword && { password: encryptedPassword }),
-        };
-
-        // Use the generic retrieve method which works for all types
-        return await this._zelfKeysService.retrieve(payload);
     }
 
     onBiometricsCancel(): void {

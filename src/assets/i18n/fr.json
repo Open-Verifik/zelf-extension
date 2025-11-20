@@ -102,7 +102,8 @@
             "password_attempts_title": "Tentatives de mot de passe",
             "minutes_before_reverification": "Minutes avant reverification",
             "password_attempts_description": "Définissez le nombre maximum de tentatives de mot de passe échouées avant qu'une vérification biométrique ne soit requise. Vous pouvez définir cela de 1 à 8 tentatives."
-        }
+        },
+        "subscription_label": "Abonnement"
     },
     "security": {
         "biometric_decryption_subtitle": "Pour finaliser le processus de décryptage, nous devons vérifier votre identité en utilisant vos données biométriques.",
@@ -252,7 +253,8 @@
         "zelf_link": "Lien Zelf",
         "zelf_authenticator": "Authentificateur Zelf",
         "zelf_keys": "Clés Zelf",
-        "subscriptions": "Abonnements"
+        "subscriptions": "Abonnements",
+        "download_apps": "Télécharger les Applications"
     },
     "token": {
         "24h_performance": "Performance 24h",
@@ -359,7 +361,10 @@
         "swap_same_asset": "Vous ne pouvez pas échanger vers le même actif",
         "transaction_not_found": "Transaction non trouvée",
         "try_again": "Réessayer",
-        "zelfName_is_taken": "Ce nom d'étiquette est déjà pris"
+        "zelfName_is_taken": "Ce nom d'étiquette est déjà pris",
+        "session_init_title": "Échec de l'initialisation de la session",
+        "session_init_message": "Désolé, un problème est survenu lors de l'initialisation de votre session. Cela peut être dû à un problème réseau ou à l'indisponibilité du serveur. Veuillez réessayer.",
+        "session_init_info": "Pour utiliser l'Extension du Service de Noms Zelf, vous aurez besoin d'un accès réseau. Pour une solution hors ligne, consultez nos applications iOS et Android."
     },
     "swap": {
         "automatic": "Automatique",
@@ -482,14 +487,20 @@
             "manage_note_cancelled": "Votre abonnement est annulé mais reste actif jusqu'à la fin de votre période de facturation. Vous pouvez le réactiver ou consulter l'historique de facturation dans le portail Stripe.",
             "demo": "DEMO",
             "active": "Actif",
-            "cancelled": "Annulé"
+            "cancelled": "Annulé",
+            "crypto_subscription_title": "Abonnement par Paiements Cryptographiques",
+            "payment_method_crypto": "Crypto (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "Début",
             "passwords": "Mots de passe",
             "notes": "Notes",
             "payment_cards": "Cartes de paiement",
-            "subscription": "Abonnement"
+            "subscription": "Abonnement",
+            "add_password": "Ajouter un Mot de Passe",
+            "add_note": "Ajouter une Note",
+            "add_payment_card": "Ajouter une Carte de Paiement"
         },
         "payment_cards": {
             "title": "Cartes de paiement",
@@ -669,7 +680,6 @@
                 "description": "Stockez en toute sécurité une nouvelle note"
             },
             "detail": {
-                "title": "Détails de la note",
                 "loading": "Chargement des détails de la note...",
                 "error": {
                     "title": "Erreur de chargement de la note",
@@ -767,7 +777,6 @@
                 "message": "Essayez d'ajuster vos termes de recherche"
             },
             "detail": {
-                "title": "Détails du mot de passe",
                 "loading": "Chargement des détails du mot de passe...",
                 "error": {
                     "title": "Erreur de chargement du mot de passe",
@@ -927,8 +936,12 @@
                     "token_id": "ID du jeton",
                     "cost": "Coût",
                     "contract": "Contrat",
-                    "transaction": "Transaction"
-                }
+                    "transaction": "Transaction",
+                    "metadata_url": "URL des Métadonnées"
+                },
+                "metadata_link": "Voir les Métadonnées",
+                "copy_hint": "Cliquer pour copier",
+                "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
                 "title": "Stockage IPFS",
@@ -936,7 +949,9 @@
                     "hash": "Hash IPFS",
                     "gateway_url": "URL de passerelle",
                     "file_size": "Taille du fichier",
-                    "uploaded": "Téléversé"
+                    "uploaded": "Téléversé",
+                    "status": "Statut",
+                    "copy_hint": "Cliquer pour copier"
                 },
                 "gateway_link": "Voir sur la passerelle IPFS"
             },
@@ -948,14 +963,19 @@
                 },
                 "copy_hint": "Cliquer pour copier"
             },
-            "debug": {
-                "title": "Informations de débogage"
-            },
             "next_steps": {
                 "title": "Prochaines étapes",
                 "success_message": "Votre mot de passe est maintenant stocké en sécurité. Vous pouvez le voir dans votre liste ou ajouter un autre mot de passe.",
                 "error_message": "Veuillez consulter les détails de l'erreur ci-dessus et réessayer. Si le problème persiste, contactez le support.",
                 "unknown_message": "Le système n'a pas pu déterminer l'état. Veuillez vérifier la réponse API ci-dessus pour les détails."
+            },
+            "walrus": {
+                "title": "Stockage Walrus",
+                "labels": {
+                    "status": "Statut",
+                    "reason": "Raison",
+                    "error": "Erreur"
+                }
             }
         },
         "actions": {
@@ -1025,7 +1045,41 @@
         "export": "Exporter",
         "export_zotp": "Exporter ZOTP",
         "setup_key_description": "Utilisez cette clé de configuration pour ajouter ce compte à une autre application d'authentification comme Google Authenticator.",
-        "qr_code_description": "Scannez ce code QR avec Google Authenticator ou toute application d'authentification compatible pour importer ce compte."
+        "qr_code_description": "Scannez ce code QR avec Google Authenticator ou toute application d'authentification compatible pour importer ce compte.",
+        "share_zotp": "Partager ZOTP avec Seal",
+        "share_with_seal": "Partager avec Seal",
+        "share_description": "Distribuez ce secret ZOTP entre plusieurs parties en utilisant le partage secret Seal. Aucune partie ne peut accéder au secret seule - vous avez besoin d'un seuil de parts pour le reconstruire.",
+        "threshold": "Seuil",
+        "threshold_hint": "Nombre minimum de parts nécessaires",
+        "total_shares": "Total des Parts",
+        "total_shares_hint": "Nombre total de parts",
+        "participants": "Participants",
+        "participant": "Participant",
+        "participant_placeholder": "Adresse du portefeuille ou nom (optionnel)",
+        "generate_shares": "Générer des Parts",
+        "generated_shares": "Parts Générées",
+        "share": "Part",
+        "download_all_shares": "Télécharger Toutes les Parts",
+        "shares_info": "Vous avez besoin de {{threshold}} parts sur {{total}} pour récupérer ce ZOTP. Distribuez les parts en toute sécurité aux parties de confiance.",
+        "shares_warning": "Gardez les parts en sécurité ! Toute personne avec suffisamment de parts peut récupérer votre ZOTP. Stockez les parts dans des emplacements sécurisés séparés.",
+        "recover_zotp": "Récupérer ZOTP",
+        "recover_description": "Importez des parts pour récupérer votre secret ZOTP. Vous avez besoin d'un nombre seuil de parts pour reconstruire le secret.",
+        "upload_shares_file": "Télécharger le Fichier de Parts",
+        "or_enter_share_manually": "Ou Entrer la Part Manuellement",
+        "share_data": "Données de la Part",
+        "share_placeholder": "Collez les données de la part ici (codé en base64)",
+        "add_share": "Ajouter une Part",
+        "imported_shares": "Parts Importées",
+        "need_shares": "Besoin de {{required}} parts (en avez {{current}})",
+        "enough_shares": "Vous avez assez de parts pour récupérer le secret",
+        "need_more_shares": "Vous avez besoin de {{needed}} part(s) supplémentaire(s)",
+        "reconstruct_secret": "Reconstruire le Secret",
+        "secret_reconstructed": "Secret Reconstruit avec Succès !",
+        "secret_reconstructed_description": "Le secret a été reconstruit avec succès à partir de vos parts. Vous pouvez maintenant créer un ZOTP à partir de ce secret récupéré.",
+        "recovered_setup_key": "Clé de Configuration Récupérée",
+        "create_zotp_from_recovery": "Créer ZOTP à partir de la Récupération",
+        "recovery_successful": "Récupération Réussie !",
+        "recovery_success_description": "Votre ZOTP a été récupéré et ajouté à votre authentificateur. Vous pouvez maintenant l'utiliser pour générer des codes."
     },
     "zelf_keys": {
         "dashboard": {
@@ -1126,8 +1180,12 @@
                     "token_id": "ID du Token",
                     "cost": "Coût",
                     "contract": "Contrat",
-                    "transaction": "Transaction"
-                }
+                    "transaction": "Transaction",
+                    "metadata_url": "URL des Métadonnées"
+                },
+                "metadata_link": "Voir les Métadonnées",
+                "copy_hint": "Cliquer pour copier",
+                "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
                 "title": "Stockage IPFS",
@@ -1196,7 +1254,8 @@
                 "pay_with_wallet": "Payer avec le Portefeuille :",
                 "domain_label": "Domaine",
                 "select_wallet": "Sélectionner le Portefeuille",
-                "pay_with_avax": "Payer avec AVAX"
+                "pay_with_avax": "Payer avec AVAX",
+                "payment_qr_code_alt": "Code QR de Paiement"
             },
             "plan": {
                 "popular_badge": "POPULAIRE",
@@ -1386,7 +1445,12 @@
                 "note": "Veuillez vérifier votre visage pour déchiffrer votre note",
                 "password": "Veuillez vérifier votre visage pour déchiffrer votre mot de passe"
             },
-            "item": "Élément"
+            "item": "Élément",
+            "error": {
+                "storage_failed": "Erreur lors du stockage de {{ category }}, veuillez réessayer plus tard.",
+                "try_again_later": "Veuillez réessayer plus tard.",
+                "close": "Fermer"
+            }
         },
         "categories": {
             "password": "Mot de passe",

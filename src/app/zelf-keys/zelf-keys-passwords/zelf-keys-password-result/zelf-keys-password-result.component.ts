@@ -195,4 +195,10 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
 
         return "";
     }
+
+    async copyContractAddress(): Promise<void> {
+        if (!this.apiResult?.NFT?.contractAddress) return;
+
+        await this._copyToClipboard(this.apiResult.NFT.contractAddress);
+    }
 }

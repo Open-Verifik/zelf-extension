@@ -102,7 +102,8 @@
             "password_attempts_title": "密码尝试次数",
             "minutes_before_reverification": "重新验证前的分钟数",
             "password_attempts_description": "设置在进行生物识别验证之前允许的最大密码尝试失败次数。您可以将其设置为1到8次尝试。"
-        }
+        },
+        "subscription_label": "订阅"
     },
     "security": {
         "biometric_decryption_subtitle": "为了完成解密过程，我们需要使用您的生物识别信息来验证您的身份。",
@@ -252,7 +253,8 @@
         "zelf_link": "Zelf 链接",
         "zelf_authenticator": "Zelf 认证器",
         "zelf_keys": "Zelf 密钥",
-        "subscriptions": "订阅"
+        "subscriptions": "订阅",
+        "download_apps": "下载应用"
     },
     "token": {
         "24h_performance": "24小时表现",
@@ -359,7 +361,10 @@
         "swap_same_asset": "您不能交换到相同的资产",
         "transaction_not_found": "未找到交易",
         "try_again": "重试",
-        "zelfName_is_taken": "此标签名称已被使用"
+        "zelfName_is_taken": "此标签名称已被使用",
+        "session_init_title": "会话初始化失败",
+        "session_init_message": "抱歉，初始化会话时出现问题。这可能是由于网络问题或服务器不可用。请重试。",
+        "session_init_info": "要使用 Zelf 名称服务扩展，您需要网络访问。对于离线解决方案，请查看我们的 iOS 和 Android 应用。"
     },
     "swap": {
         "automatic": "自动",
@@ -482,14 +487,20 @@
             "manage_note_cancelled": "您的订阅已取消，但在当前计费周期结束前仍然有效。您可在 Stripe 客户门户中重新激活或查看账单历史。",
             "demo": "演示",
             "active": "活跃",
-            "cancelled": "已取消"
+            "cancelled": "已取消",
+            "crypto_subscription_title": "加密货币支付订阅",
+            "payment_method_crypto": "加密货币 (AVAX)",
+            "payment_method_stripe": "Stripe"
         },
         "dashboard": {
             "start": "开始",
             "passwords": "密码",
             "notes": "笔记",
             "payment_cards": "支付卡",
-            "subscription": "订阅"
+            "subscription": "订阅",
+            "add_password": "添加密码",
+            "add_note": "添加备注",
+            "add_payment_card": "添加支付卡"
         },
         "payment_cards": {
             "title": "支付卡",
@@ -669,7 +680,6 @@
                 "description": "安全存储一条新笔记"
             },
             "detail": {
-                "title": "笔记详情",
                 "loading": "正在加载笔记详情…",
                 "error": {
                     "title": "加载笔记出错",
@@ -767,7 +777,6 @@
                 "message": "尝试调整搜索关键词"
             },
             "detail": {
-                "title": "密码详情",
                 "loading": "正在加载密码详情…",
                 "error": {
                     "title": "加载密码出错",
@@ -927,8 +936,12 @@
                     "token_id": "代币 ID",
                     "cost": "成本",
                     "contract": "合约",
-                    "transaction": "交易"
-                }
+                    "transaction": "交易",
+                    "metadata_url": "元数据 URL"
+                },
+                "metadata_link": "查看元数据",
+                "copy_hint": "点击复制",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS 存储",
@@ -936,7 +949,9 @@
                     "hash": "IPFS 哈希",
                     "gateway_url": "网关 URL",
                     "file_size": "文件大小",
-                    "uploaded": "已上传"
+                    "uploaded": "已上传",
+                    "status": "状态",
+                    "copy_hint": "点击复制"
                 },
                 "gateway_link": "在 IPFS 网关查看"
             },
@@ -948,14 +963,19 @@
                 },
                 "copy_hint": "点击复制"
             },
-            "debug": {
-                "title": "调试信息"
-            },
             "next_steps": {
                 "title": "下一步",
                 "success_message": "您的密码已安全存储。您可以在密码列表中查看或添加另一个密码。",
                 "error_message": "请查看上方错误详情并重试。如果问题持续，请联系支持。",
                 "unknown_message": "系统无法确定状态。请查看上方 API 响应获取详情。"
+            },
+            "walrus": {
+                "title": "Walrus 存储",
+                "labels": {
+                    "status": "状态",
+                    "reason": "原因",
+                    "error": "错误"
+                }
             }
         },
         "actions": {
@@ -1025,7 +1045,41 @@
         "export": "导出",
         "export_zotp": "导出 ZOTP",
         "setup_key_description": "使用此设置密钥将此帐户添加到其他身份验证器应用（如 Google Authenticator）。",
-        "qr_code_description": "使用 Google Authenticator 或任何兼容的身份验证器应用扫描此二维码以导入此账户。"
+        "qr_code_description": "使用 Google Authenticator 或任何兼容的身份验证器应用扫描此二维码以导入此账户。",
+        "share_zotp": "使用 Seal 共享 ZOTP",
+        "share_with_seal": "使用 Seal 共享",
+        "share_description": "使用 Seal 密钥共享在多个参与方之间分发此 ZOTP 密钥。任何一方都无法单独访问密钥 - 您需要达到阈值的份额才能重建它。",
+        "threshold": "阈值",
+        "threshold_hint": "所需的最小份额",
+        "total_shares": "总份额",
+        "total_shares_hint": "份额总数",
+        "participants": "参与方",
+        "participant": "参与方",
+        "participant_placeholder": "钱包地址或名称（可选）",
+        "generate_shares": "生成份额",
+        "generated_shares": "已生成的份额",
+        "share": "份额",
+        "download_all_shares": "下载所有份额",
+        "shares_info": "您需要 {{total}} 个份额中的 {{threshold}} 个才能恢复此 ZOTP。将份额安全地分发给受信任的参与方。",
+        "shares_warning": "保持份额安全！任何拥有足够份额的人都可以恢复您的 ZOTP。将份额存储在单独的安全位置。",
+        "recover_zotp": "恢复 ZOTP",
+        "recover_description": "导入份额以恢复您的 ZOTP 密钥。您需要达到阈值的份额数量才能重建密钥。",
+        "upload_shares_file": "上传份额文件",
+        "or_enter_share_manually": "或手动输入份额",
+        "share_data": "份额数据",
+        "share_placeholder": "在此处粘贴份额数据（base64 编码）",
+        "add_share": "添加份额",
+        "imported_shares": "已导入的份额",
+        "need_shares": "需要 {{required}} 个份额（已有 {{current}} 个）",
+        "enough_shares": "您有足够的份额来恢复密钥",
+        "need_more_shares": "您还需要 {{needed}} 个份额",
+        "reconstruct_secret": "重建密钥",
+        "secret_reconstructed": "密钥重建成功！",
+        "secret_reconstructed_description": "密钥已成功从您的份额中重建。您现在可以从此恢复的密钥创建 ZOTP。",
+        "recovered_setup_key": "已恢复的设置密钥",
+        "create_zotp_from_recovery": "从恢复创建 ZOTP",
+        "recovery_successful": "恢复成功！",
+        "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器。您现在可以使用它来生成代码。"
     },
     "zelf_keys": {
         "dashboard": {
@@ -1126,8 +1180,12 @@
                     "token_id": "代币 ID",
                     "cost": "成本",
                     "contract": "合约",
-                    "transaction": "交易"
-                }
+                    "transaction": "交易",
+                    "metadata_url": "元数据 URL"
+                },
+                "metadata_link": "查看元数据",
+                "copy_hint": "点击复制",
+                "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
                 "title": "IPFS 存储",
@@ -1196,7 +1254,8 @@
                 "pay_with_wallet": "使用钱包支付：",
                 "domain_label": "域名",
                 "select_wallet": "选择钱包",
-                "pay_with_avax": "使用 AVAX 支付"
+                "pay_with_avax": "使用 AVAX 支付",
+                "payment_qr_code_alt": "支付二维码"
             },
             "plan": {
                 "popular_badge": "热门",
@@ -1386,7 +1445,12 @@
                 "note": "请验证您的面部以解密您的笔记",
                 "password": "请验证您的面部以解密您的密码"
             },
-            "item": "项目"
+            "item": "项目",
+            "error": {
+                "storage_failed": "存储 {{ category }} 时出错，请稍后再试。",
+                "try_again_later": "请稍后再试。",
+                "close": "关闭"
+            }
         },
         "categories": {
             "password": "密码",

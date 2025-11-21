@@ -14,8 +14,9 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { swipeLeft } from "app/animations/swipe-left.animation";
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { DomainLicense } from "app/core/models/domain.type";
 import { DomainSelectionData, DomainSelectionModalComponent } from "app/domain-selection-modal/domain-selection-modal.component";
-import { DomainConfig, DomainService } from "app/domain.service";
+import { DomainService } from "app/domain.service";
 import { TagsService } from "app/tags.service";
 import { ThemeService } from "app/theme.service";
 import { VaultService } from "app/vault.service";
@@ -25,14 +26,14 @@ import { WalletService } from "app/wallet.service";
     animations: [swipeLeft],
     imports: [
         CommonModule,
-        TranslocoModule,
         MatButtonModule,
-        ReactiveFormsModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        MatSelectModule,
         MatDialogModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        ReactiveFormsModule,
         RouterLink,
+        TranslocoModule,
     ],
     selector: "welcome-onboarding",
     styleUrls: ["./welcome-onboarding.component.scss"],
@@ -41,19 +42,18 @@ import { WalletService } from "app/wallet.service";
 export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterContentInit {
     private _carouselItemInterval!: ReturnType<typeof setInterval>;
     private unsubscriber$: Subject<void> = new Subject<void>();
-    private domainSubscription: any;
 
-    availableDomains: DomainConfig[] = [];
+    activeThemeClass: string = "";
+    availableDomains: DomainLicense[] = [];
     carouselIndex: number = 0;
     carouselProgress: number = 0;
+    currentDomainConfig: DomainLicense | null = null;
     domain: string = "zelf";
     domainHover: boolean = false;
     form!: UntypedFormGroup;
     loading: boolean = false;
     loadingDomains: boolean = false;
     showHomeButton: boolean = false;
-    currentDomainConfig: DomainConfig | null = null;
-    activeThemeClass: string = "";
 
     gridItems = [
         { text: "Spark", row: 1, col: 1 },
@@ -126,11 +126,9 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             this.form.patchValue({ domain: "zelf" }, { emitEvent: false });
         }
 
-        // Initialize validators for the selected domain
         const initialDomain = this.form.get("domain")?.value || "zelf";
         this._updateTagNameValidators(initialDomain);
 
-        // Apply theme for current domain
         const applied = await this._themeService.applyThemeForDomain(initialDomain);
         this.activeThemeClass = applied.className;
     }
@@ -167,8 +165,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             domain: [this.domain || "zelf", [Validators.required]],
         });
 
-        // Subscribe to domain changes to update validators
-        this.domainSubscription = this.form
+        this.form
             .get("domain")
             ?.valueChanges.pipe(takeUntil(this.unsubscriber$))
             .subscribe((domain: string) => {
@@ -176,26 +173,23 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             });
     }
 
-    /**
-     * Update tag name validators based on selected domain configuration
-     */
     private _updateTagNameValidators(domain: string): void {
         if (!domain) return;
 
-        // Find the domain config from available domains
         const domainConfig = this.availableDomains.find((d) => d.name === domain);
 
         if (!domainConfig) {
-            // If domain config not found, try to get it from domain service
-            const configFromService = this._domainService.getDomainConfig(domain);
+            const configFromService = this._domainService.getDomainLicense(domain);
+
             if (configFromService && configFromService.tags) {
                 this.currentDomainConfig = configFromService;
+
                 this._applyValidators(configFromService.tags.minLength, configFromService.tags.maxLength);
             }
+
             return;
         }
 
-        // Check if domain config has tags property
         if (!domainConfig.tags || !domainConfig.tags.minLength || !domainConfig.tags.maxLength) {
             console.warn(`Domain config for "${domain}" is missing tags validation rules. Using defaults.`);
             return;
@@ -208,47 +202,32 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         this._applyValidators(minLength, maxLength);
     }
 
-    /**
-     * Apply validators to tagName form control
-     */
     private _applyValidators(minLength: number, maxLength: number): void {
         const tagNameControl = this.form.get("tagName");
 
         if (!tagNameControl) return;
 
-        // Remove existing validators
         tagNameControl.clearValidators();
-
-        // Add new validators with domain-specific limits
         tagNameControl.setValidators([Validators.required, Validators.minLength(minLength), Validators.maxLength(maxLength)]);
 
-        // Update the control value if it exceeds the new maxLength
         const currentValue = tagNameControl.value;
 
         if (currentValue && currentValue.length > maxLength) {
             tagNameControl.setValue(currentValue.substring(0, maxLength));
         }
 
-        // Revalidate
         tagNameControl.updateValueAndValidity();
     }
 
-    /**
-     * Get current domain's max length for tag name
-     */
     getMaxTagNameLength(): number {
         return this.currentDomainConfig?.tags?.maxLength || 27;
     }
 
-    /**
-     * Get current domain's min length for tag name
-     */
     getMinTagNameLength(): number {
         return this.currentDomainConfig?.tags?.minLength || 1;
     }
 
     private async _existingTagName(responseData: any): Promise<void> {
-        // Create TagModel from the tagObject (selected record)
         const tagModel = this._tagsService.createTagModelFromSearchResponse(responseData);
 
         if (!tagModel) {
@@ -256,7 +235,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             return;
         }
 
-        // Get the tag name from publicData (could be tagName or zelfName based on domain config)
         const tagName = tagModel.publicData.tagName || tagModel.name;
 
         if (tagName) {
@@ -307,38 +285,33 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         this._tagsService
             .searchTag({ tagName, domain: domain, captchaToken: captchaToken })
             .then(async (response) => {
-                // Check if tag is available (not found)
                 if (!response?.data.available) {
                     await this._existingTagName(response?.data);
 
                     return;
                 }
 
-                // Tag is available, proceed with registration flow
                 await this._tagsService.setNewTagName(tagName);
                 await this._tagsService.setDomain(domain);
-
-                // Save the complete response data for the available page
                 await this._tagsService.setTagResponse(response.data);
 
-                // Create a basic tag object for available tags (no tagObject exists yet)
                 const availableTagData = {
                     name: tagName,
                     available: true,
                     publicData: {
-                        tagName: tagName,
-                        domain: domain,
+                        avalancheAddress: "",
+                        blockDAGAddress: "",
                         btcAddress: "",
+                        domain: domain,
                         ethAddress: "",
-                        solanaAddress: "",
-                        suiAddress: "",
+                        expiresAt: "",
                         hasPassword: "false",
-                        type: "",
                         origin: "",
                         registeredAt: "",
-                        expiresAt: "",
-                        blockDAGAddress: "",
-                        avalancheAddress: "",
+                        solanaAddress: "",
+                        suiAddress: "",
+                        tagName: tagName,
+                        type: "",
                     },
                 };
 
@@ -360,7 +333,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         if (!control) return;
 
-        // Remove invalid characters, ensure it doesn't start with a number or special character and doesn't end with '.' or '-'
         let sanitizedValue = control.value.replace(/[^a-zA-Z0-9.-]|^[^a-zA-Z]+|[.-]$/g, "");
 
         sanitizedValue = sanitizedValue.toUpperCase().trim();
@@ -375,9 +347,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         return value?.length === 0;
     }
 
-    /**
-     * Open domain selection modal
-     */
     openDomainSelectionModal(): void {
         const dialogData: DomainSelectionData = {
             domains: this.availableDomains,
@@ -398,10 +367,8 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
                 this._tagsService.setDomain(result);
 
-                // Update validators based on new domain
                 this._updateTagNameValidators(result);
 
-                // Apply theme based on new domain
                 this._themeService.applyThemeForDomain(result).then((applied) => {
                     this.activeThemeClass = applied.className;
                 });
@@ -409,234 +376,49 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         });
     }
 
-    /**
-     * Load available domains from storage first, then API
-     */
     private async _loadDomains(): Promise<void> {
         this.loadingDomains = true;
 
         try {
-            // Try to load from cache first
             const loadedFromCache = await this._loadDomainsFromCache();
 
-            if (loadedFromCache) return; // Successfully loaded from cache
+            if (loadedFromCache) return;
 
-            // Cache is invalid or empty, fetch from API
             await this._loadDomainsFromAPI();
         } catch (error) {
-            console.error("Error loading domains:", error);
-            // Fallback to default domains if API fails
-            this._loadFallbackDomains();
+            this.availableDomains = this._domainService.defaultFallbackDomainConfigs;
+
+            const currentDomain = this.form?.get("domain")?.value || this.domain || "zelf";
+
+            this._updateTagNameValidators(currentDomain);
         } finally {
             this.loadingDomains = false;
 
             this.domain = await this._tagsService.getDomain();
 
-            // patch the form with the domain
             this.form.patchValue({ domain: this.domain }, { emitEvent: false });
 
-            // Update validators for the initial domain
             this._updateTagNameValidators(this.domain);
 
-            // Apply theme for the resolved domain
             const applied = await this._themeService.applyThemeForDomain(this.domain);
+
             this.activeThemeClass = applied.className;
         }
     }
 
-    /**
-     * Load fallback domains when API fails
-     */
-    private _loadFallbackDomains(): void {
-        this.availableDomains = [
-            {
-                name: "zelf",
-                type: "license",
-                holdSuffix: ".hold",
-                status: "active",
-                owner: "miguel@zelf.world",
-                description: "Official Zelf domain",
-                features: [],
-                tags: {
-                    minLength: 1,
-                    maxLength: 27,
-                    allowedChars: {},
-                    reserved: ["www", "api", "admin", "support", "help", "google"],
-                    customRules: [],
-                    payment: {
-                        methods: ["coinbase", "crypto", "stripe"],
-                        currencies: ["BTC", "ETH", "USDC", "BDAG", "ZNS", "AVAX"],
-                        discounts: { yearly: 0.1, lifetime: 0.2 },
-                        rewardPrice: 10,
-                        whitelist: {},
-                        pricingTable: {},
-                    },
-                    storage: {
-                        keyPrefix: "zelfName",
-                        ipfsEnabled: true,
-                        arweaveEnabled: true,
-                        walrusEnabled: true,
-                        backupEnabled: false,
-                    },
-                },
-                zelfkeys: {
-                    plans: [],
-                    payment: { whitelist: {}, pricingTable: {} },
-                    storage: {
-                        keyPrefix: "zelfKey",
-                        ipfsEnabled: true,
-                        arweaveEnabled: true,
-                        walrusEnabled: true,
-                        backupEnabled: false,
-                    },
-                },
-                storage: {
-                    keyPrefix: "zelfName",
-                    ipfsEnabled: true,
-                    arweaveEnabled: true,
-                    walrusEnabled: true,
-                    backupEnabled: false,
-                },
-                metadata: {
-                    launchDate: "2023-01-01",
-                    version: "1.0.0",
-                    documentation: "https://docs.zelf.world",
-                    support: "standard",
-                },
-            },
-            {
-                name: "bdag",
-                type: "license",
-                holdSuffix: ".hold",
-                status: "active",
-                owner: "miguel@zelf.world",
-                description: "BDAG domain",
-                features: [],
-                tags: {
-                    minLength: 1,
-                    maxLength: 27,
-                    allowedChars: {},
-                    reserved: ["www", "api", "admin"],
-                    customRules: [],
-                    payment: {
-                        methods: ["crypto"],
-                        currencies: ["BDAG"],
-                        whitelist: {},
-                        pricingTable: {},
-                    },
-                    storage: {
-                        keyPrefix: "bdagName",
-                        ipfsEnabled: true,
-                        arweaveEnabled: false,
-                        walrusEnabled: false,
-                        backupEnabled: false,
-                    },
-                },
-                zelfkeys: {
-                    plans: [],
-                    payment: { whitelist: {}, pricingTable: {} },
-                    storage: {
-                        keyPrefix: "bdagKey",
-                        ipfsEnabled: true,
-                        arweaveEnabled: false,
-                        walrusEnabled: false,
-                        backupEnabled: false,
-                    },
-                },
-                storage: {
-                    keyPrefix: "bdagName",
-                    ipfsEnabled: true,
-                    arweaveEnabled: false,
-                    walrusEnabled: false,
-                    backupEnabled: false,
-                },
-            },
-            {
-                name: "avax",
-                type: "license",
-                holdSuffix: ".hold",
-                status: "active",
-                owner: "miguel@zelf.world",
-                description: "AVAX domain",
-                features: [],
-                tags: {
-                    minLength: 1,
-                    maxLength: 27,
-                    allowedChars: {},
-                    reserved: ["www", "api", "admin"],
-                    customRules: [],
-                    payment: {
-                        methods: ["crypto"],
-                        currencies: ["AVAX"],
-                        whitelist: {},
-                        pricingTable: {},
-                    },
-                    storage: {
-                        keyPrefix: "avaxName",
-                        ipfsEnabled: true,
-                        arweaveEnabled: false,
-                        walrusEnabled: false,
-                        backupEnabled: false,
-                    },
-                },
-                zelfkeys: {
-                    plans: [],
-                    payment: { whitelist: {}, pricingTable: {} },
-                    storage: {
-                        keyPrefix: "avaxKey",
-                        ipfsEnabled: true,
-                        arweaveEnabled: false,
-                        walrusEnabled: false,
-                        backupEnabled: false,
-                    },
-                },
-                storage: {
-                    keyPrefix: "avaxName",
-                    ipfsEnabled: true,
-                    arweaveEnabled: false,
-                    walrusEnabled: false,
-                    backupEnabled: false,
-                },
-            },
-        ];
-
-        // Update validators after fallback domains are set
-        const currentDomain = this.form?.get("domain")?.value || this.domain || "zelf";
-        this._updateTagNameValidators(currentDomain);
-    }
-
-    /**
-     * Load domains from cache if valid
-     * @returns boolean - true if successfully loaded from cache, false otherwise
-     */
     private async _loadDomainsFromCache(): Promise<boolean> {
         try {
-            // Check if we have valid cached data
             const isCacheValid = await this._domainService.isCacheValid();
 
-            if (!isCacheValid) {
-                return false;
-            }
+            if (!isCacheValid) return false;
 
-            // Load from cache
             await this._domainService.loadDomainsFromStorage();
 
-            const cachedDomains = this._domainService.getAllDomainConfigs();
+            const cachedDomains = this._domainService.domainConfigs;
 
-            if (Object.keys(cachedDomains).length === 0) {
-                return false;
-            }
-
-            // Use cached domains
             this.availableDomains = Object.values(cachedDomains);
             this.loadingDomains = false;
 
-            // Update validators after domains are loaded from cache
-            const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
-            this._updateTagNameValidators(currentDomain);
-
-            // Still fetch fresh data in background for next time
-            this._refreshDomainsInBackground();
             return true;
         } catch (error) {
             console.error("Error loading domains from cache:", error);
@@ -644,39 +426,14 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         }
     }
 
-    /**
-     * Load domains from API
-     */
     private async _loadDomainsFromAPI(): Promise<void> {
         const response = await this._domainService.getDomains();
 
-        if (!response) throw new Error("No domains found");
+        if (!response) this.availableDomains = this._domainService.defaultFallbackDomainConfigs;
+        else this.availableDomains = Object.values(response.data);
 
-        // Convert the domain map to an array for the dropdown
-        this.availableDomains = Object.values(response.data);
-
-        // Update validators after domains are loaded
         const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
+
         this._updateTagNameValidators(currentDomain);
-    }
-
-    /**
-     * Refresh domains in background without affecting UI
-     */
-    private async _refreshDomainsInBackground(): Promise<void> {
-        try {
-            const response = await this._domainService.getDomains();
-
-            if (response?.success && response.data) {
-                // Update the dropdown with fresh data
-                this.availableDomains = Object.values(response.data);
-
-                // Update validators in case domain config changed
-                const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
-                this._updateTagNameValidators(currentDomain);
-            }
-        } catch (error) {
-            console.error("Error refreshing domains in background:", error);
-        }
     }
 }

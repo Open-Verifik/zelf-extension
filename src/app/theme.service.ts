@@ -1,20 +1,16 @@
 import { Injectable } from "@angular/core";
-import { DomainService, DomainConfig } from "./domain.service";
+
+import { DomainService } from "./domain.service";
 import { TagsService } from "./tags.service";
+import { DomainLicense, ThemeSettings } from "./core/models/domain.type";
 
 type Mode = "light" | "dark";
-
-interface ZnsThemeSettings {
-    enabled: boolean;
-    currentMode: Mode;
-    lightMode?: { colors?: Record<string, string> };
-    darkMode?: { colors?: Record<string, string> };
-}
 
 @Injectable({ providedIn: "root" })
 export class ThemeService {
     private readonly cssVarPrefix = "--zns-";
     private readonly styleElementId = "zns-theme-style";
+
     private activeClassName: string = "";
     private lastPalette: Record<string, string> = {};
 
@@ -25,6 +21,7 @@ export class ThemeService {
 
     async applyThemeForCurrentDomain(): Promise<{ className: string; palette: Record<string, string> }> {
         const domain = await this.tagsService.getDomain();
+
         return this.applyThemeForDomain(domain);
     }
 
@@ -36,14 +33,17 @@ export class ThemeService {
 
             this.activeClassName = "";
             this.lastPalette = {};
+
             return { className: this.activeClassName, palette: this.lastPalette };
         }
 
-        const znsTheme = config.themeSettings.zns as ZnsThemeSettings;
+        const znsTheme = config.themeSettings.zns as ThemeSettings;
+
         if (!znsTheme.enabled) {
             this.resetTheme();
             this.activeClassName = "";
             this.lastPalette = {};
+
             return { className: this.activeClassName, palette: this.lastPalette };
         }
 
@@ -52,38 +52,36 @@ export class ThemeService {
         return { className: this.activeClassName, palette: this.lastPalette };
     }
 
-    private findConfigForDomain(domain: string): DomainConfig | undefined {
+    private findConfigForDomain(domain: string): DomainLicense | undefined {
         if (!domain) return undefined;
-        const exact = this.domainService.getDomainConfig(domain);
+
+        const exact = this.domainService.getDomainLicense(domain);
 
         if (exact) return exact;
 
-        const all = this.domainService.getAllDomainConfigs() || {};
+        const all = this.domainService.domainConfigs || {};
         const keys = Object.keys(all);
         const lower = domain.toLowerCase().trim();
         const matchKey = keys.find((k) => k.toLowerCase().trim() === lower);
+
         return matchKey ? all[matchKey] : undefined;
     }
 
-    private applyZnsTheme(zns: ZnsThemeSettings | any, domainForClass: string): void {
+    private applyZnsTheme(zns: ThemeSettings, domainForClass: string): void {
         const mode = ((zns.currentMode as string) || "light").toLowerCase() as Mode;
 
-        // Be resilient to casing differences coming from API: LightMode/DarkMode vs lightMode/darkMode
-        const light = zns.lightMode?.colors || zns.LightMode?.colors || {};
-        const dark = zns.darkMode?.colors || zns.DarkMode?.colors || {};
+        const light = zns.lightMode?.colors || {};
+        const dark = zns.darkMode?.colors || {};
         const palette = (mode === "dark" ? dark : light) || {};
 
-        // Tag the body with a data attribute for easy CSS targeting if needed
         document.body.setAttribute("data-zns-theme", mode);
 
-        // Set CSS variables (keep camelCase keys as-is)
         Object.entries(palette).forEach(([key, value]) => {
             const safeKey = key ? `${key.charAt(0).toLowerCase()}${key.slice(1)}` : "";
             const varName = this.toCssVarName(safeKey || key);
             document.documentElement.style.setProperty(varName, String(value));
         });
 
-        // Build and inject a concrete CSS class with the palette so templates can use ngClass
         const header = String((palette as any).header || (palette as any).text || "").trim();
         const textSecondary = String((palette as any).textSecondary || "").trim();
         const primary = String((palette as any).primary || "").trim();
@@ -97,6 +95,7 @@ export class ThemeService {
         };
 
         const base = `zns-theme-${domainForClass}-${mode}`.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
+
         this.activeClassName = base;
 
         const css = `
@@ -111,10 +110,8 @@ export class ThemeService {
     }
 
     private resetTheme(): void {
-        // Remove data attribute
         document.body.removeAttribute("data-zns-theme");
 
-        // Optionally clear known vars if you want a clean slate; otherwise leave as-is
         const knownKeys = [
             "primary",
             "secondary",
@@ -147,23 +144,24 @@ export class ThemeService {
             document.documentElement.style.removeProperty(this.toCssVarName(key));
         }
 
-        // Clear dynamic style
         const el = document.getElementById(this.styleElementId);
+
         if (el) el.textContent = "";
     }
 
     private toCssVarName(key: string): string {
-        // Keep theme keys as-is (camelCase) to match SCSS references like --zns-textSecondary
         return `${this.cssVarPrefix}${key}`;
     }
 
     private injectStyle(css: string): void {
         let el = document.getElementById(this.styleElementId) as HTMLStyleElement | null;
+
         if (!el) {
             el = document.createElement("style");
             el.id = this.styleElementId;
             document.head.appendChild(el);
         }
+
         el.textContent = css;
     }
 

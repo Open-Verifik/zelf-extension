@@ -195,7 +195,7 @@
     }
 
     &__progress {
-        background-color: var(--zns-border, #{variables.$platinum});
+        background-color: variables.$platinum;
         border-radius: 6px;
         height: 6px;
         overflow: hidden;
@@ -204,7 +204,7 @@
         margin: 16px 0 8px;
 
         &-bar {
-            background-color: var(--zns-primary, #{variables.$secondaryColor});
+            background-color: variables.$secondaryColor;
             border-radius: 6px;
             height: 100%;
             left: 0;
@@ -216,16 +216,14 @@
     }
 }
 
-/* Apply theme colors to titles/subtitles using CSS variables set by ThemeService */
 .zelf-card__title {
-    color: var(--zns-header, inherit);
+    color: inherit;
 }
 
 .zelf-card__subtitle {
-    color: var(--zns-textSecondary, inherit);
+    color: inherit;
 }
 
-/* Tag Name Advertisement Components */
 .tag-ad {
     width: 324px;
     height: 240px;

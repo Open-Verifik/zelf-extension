@@ -1,9 +1,8 @@
 <div class="payment-card-detail" *transloco="let t">
-
     <div class="payment-card-detail__content" *ngIf="!showBiometrics">
         <!-- Card Preview Section -->
         <div class="payment-card-detail__card-wrapper">
-            <button (click)="onBackToList()" mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40">
+            <button (click)="onBackToList()" mat-flat-button class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40">
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
@@ -15,33 +14,33 @@
                     <div class="card-type">{{ getCardBankName() }}</div>
                 </div>
 
-            <div class="card-qr-chip">
-                <img
-                    [src]="paymentCard?.url"
-                    [attr.alt]="t('zelf_keys.payment_cards.zelfproof.title') + ' - ' + getCardBankName()"
-                    class="qr-image"
-                    (error)="onImageError($event)"
-                />
-            </div>
-
-            <div class="card-number">{{ getMaskedCardNumber() }}</div>
-
-            <div class="card-details">
-                <div class="card-holder">
-                    <span class="label">{{ t("zelf_keys.payment_cards.labels.card_holder") }}</span>
-                    <span class="value">{{ decryptedData?.name || t("zelf_keys.payment_cards.placeholders.card_holder_upper") }}</span>
+                <div class="card-qr-chip">
+                    <img
+                        [src]="paymentCard?.url"
+                        [attr.alt]="t('zelf_keys.payment_cards.zelfproof.title') + ' - ' + getCardBankName()"
+                        class="qr-image"
+                        (error)="onImageError($event)"
+                    />
                 </div>
-                <div class="card-expiry">
-                    <span class="label">{{ t("zelf_keys.payment_cards.labels.expires") }}</span>
-                    <span class="value">{{ getExpiryDate() }}</span>
+
+                <div class="card-number">{{ getMaskedCardNumber() }}</div>
+
+                <div class="card-details">
+                    <div class="card-holder">
+                        <span class="label">{{ t("zelf_keys.payment_cards.labels.card_holder") }}</span>
+                        <span class="value">{{ decryptedData?.name || t("zelf_keys.payment_cards.placeholders.card_holder_upper") }}</span>
+                    </div>
+                    <div class="card-expiry">
+                        <span class="label">{{ t("zelf_keys.payment_cards.labels.expires") }}</span>
+                        <span class="value">{{ getExpiryDate() }}</span>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
 
         <!-- Decrypt Button -->
         <div class="payment-card-detail__decrypt-section" *ngIf="!isDecrypted && !showBiometrics">
-            <button class="zelf-button zelf-button--black zelf-button--wide" (click)="onDecryptClick()" [disabled]="isLoading">
+            <button class="zelf-button zelf-button--primary zelf-button--wide" (click)="onDecryptClick()" [disabled]="isLoading">
                 <span *ngIf="!isLoading">{{ t("zelf_keys.payment_cards.decrypt.button") }}</span>
                 <span *ngIf="isLoading">{{ t("zelf_keys.payment_cards.decrypt.decrypting") }}</span>
             </button>
@@ -60,7 +59,7 @@
                 <div class="zelf-action-row__value payment-card-detail__id-field">
                     <span class="payment-card-detail__hash">{{ paymentCard.id }}</span>
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onCopyPaymentCardId()"
                         [title]="t('zelf_keys.payment_cards.info.copy_payment_card_id')"
                     >
@@ -113,7 +112,7 @@
                 <div class="zelf-action-row__value payment-card-detail__proof-field">
                     <span>{{ decryptedData.name }}</span>
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onCopyCardName()"
                         [title]="t('zelf_keys.payment_cards.decrypted.copy_card_holder_name')"
                     >
@@ -130,7 +129,7 @@
                     </span>
 
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onToggleCardNumberVisibility()"
                         [title]="
                             showCardNumber
@@ -153,7 +152,7 @@
                     </button>
 
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onCopyCardNumber()"
                         [title]="t('zelf_keys.payment_cards.decrypted.copy_card_number')"
                     >
@@ -167,7 +166,7 @@
                 <div class="zelf-action-row__value payment-card-detail__proof-field">
                     <span class="payment-card-detail__monospace">{{ decryptedData.expires }}</span>
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onCopyExpiryDate()"
                         [title]="t('zelf_keys.payment_cards.decrypted.copy_expiry_date')"
                     >
@@ -184,7 +183,7 @@
                     </span>
 
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onToggleCvvVisibility()"
                         [title]="showCvv ? t('zelf_keys.payment_cards.decrypted.hide_cvv') : t('zelf_keys.payment_cards.decrypted.show_cvv')"
                     >
@@ -203,7 +202,7 @@
                     </button>
 
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onCopyCvv()"
                         [title]="t('zelf_keys.payment_cards.decrypted.copy_cvv')"
                     >
@@ -217,7 +216,7 @@
                 <div class="zelf-action-row__value payment-card-detail__proof-field">
                     <span>{{ decryptedData.bankName }}</span>
                     <button
-                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                         (click)="onCopyBankName()"
                         [title]="t('zelf_keys.payment_cards.decrypted.copy_bank_name')"
                     >

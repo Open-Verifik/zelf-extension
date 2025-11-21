@@ -53,7 +53,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -86,14 +86,14 @@
         gap: 4px;
         justify-content: space-between;
         align-items: center;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         padding: 24px 16px;
         border-radius: 16px;
 
         &-title {
             margin: 0;
             font-size: 14px;
-            color: variables.$gray;
+            color: variables.$themeTextSecondary;
         }
 
         &-value {
@@ -117,7 +117,7 @@
 .qr-code {
     align-items: center;
     border-radius: 16px;
-    border: 1px solid variables.$platinum;
+    border: 1px solid variables.$themeBorder;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -158,13 +158,13 @@
     &__name {
         font-size: 20px;
         font-weight: 400;
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         color: variables.$black;
         margin: 16px 0 0;
     }
 
     &__status {
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 8px 0 0;
     }
 }

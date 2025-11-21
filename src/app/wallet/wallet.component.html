@@ -1,7 +1,7 @@
 <div class="zelf-card wallet" *transloco="let t">
     <div class="wallet__header">
         <div class="wallet__col1">
-            <button mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white" [routerLink]="['/home']">
+            <button mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary" [routerLink]="['/home']">
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
@@ -15,7 +15,7 @@
         </div>
 
         <div class="wallet__col3">
-            <button (click)="openInfoSheet()" mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white">
+            <button (click)="openInfoSheet()" mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M10.8334 6.16732H13.1667V8.50065H10.8334V6.16732ZM10.8334 10.834H13.1667V17.834H10.8334V10.834ZM12 0.333984C5.56004 0.333984 0.333374 5.56065 0.333374 12.0007C0.333374 18.4407 5.56004 23.6673 12 23.6673C18.44 23.6673 23.6667 18.4407 23.6667 12.0007C23.6667 5.56065 18.44 0.333984 12 0.333984ZM12 21.334C6.85504 21.334 2.66671 17.1457 2.66671 12.0007C2.66671 6.85565 6.85504 2.66732 12 2.66732C17.145 2.66732 21.3334 6.85565 21.3334 12.0007C21.3334 17.1457 17.145 21.334 12 21.334Z"
@@ -111,7 +111,7 @@
                             </div>
 
                             <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                                 (click)="copyToClipboard(wallet.publicData?.ethAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
@@ -125,7 +125,7 @@
                             </div>
 
                             <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                                 (click)="copyToClipboard(wallet.publicData?.solanaAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
@@ -139,7 +139,7 @@
                             </div>
 
                             <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                                 (click)="copyToClipboard(wallet.publicData?.btcAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
@@ -153,7 +153,7 @@
                             </div>
 
                             <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                                 (click)="copyToClipboard(wallet.publicData?.suiAddress || '')"
                             >
                                 <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
@@ -187,7 +187,7 @@
     </div>
 
     <div class="zelf-card__actions wallet__actions">
-        <button mat-flat-button class="zelf-button zelf-button--black zelf-button--wide" [routerLink]="['/manage-domains']">
+        <button mat-flat-button class="zelf-button zelf-button--primary zelf-button--wide" [routerLink]="['/manage-domains']">
             {{ t("common.manage_domains") }}
         </button>
     </div>

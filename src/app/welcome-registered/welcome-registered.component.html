@@ -157,7 +157,7 @@
                 <p class="tip-box__text">{{ t("welcome.offline_tip") }}</p>
             </div>
 
-            <button [routerLink]="['../offline-import']" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+            <button [routerLink]="['../offline-import']" mat-flat-button class="zelf-button zelf-button--primary zelf-button--wide">
                 {{ t("common.import_wallet") }}
             </button>
 
@@ -168,7 +168,7 @@
 
         <ng-container *ngIf="tagModel?.publicData?.origin !== 'offline'">
             <ng-container *ngIf="tagModel?.publicData?.type === 'hold'">
-                <button (click)="purchaseNow()" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+                <button (click)="purchaseNow()" mat-flat-button class="zelf-button zelf-button--primary zelf-button--wide">
                     {{ t("common.purchase_now") }}
                 </button>
 
@@ -189,7 +189,7 @@
                     <p class="tip-box__text">{{ t("welcome.dont_lose_your_zelfname") }}</p>
                 </div>
 
-                <button (click)="login()" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+                <button (click)="login()" mat-flat-button class="zelf-button zelf-button--primary zelf-button--wide">
                     {{ t("common.decrypt_zelfname") }}
                 </button>
             </ng-container>

@@ -50,8 +50,8 @@
 
         &-text {
             font-size: 1.5rem;
-            color: variables.$gray;
-            font-family: "Poppins", Arial, sans-serif;
+            color: variables.$themeTextSecondary;
+            font-family: variables.$themeBodyFamily;
             font-weight: 500;
             font-size: 14px;
             line-height: 20px;
@@ -63,13 +63,13 @@
     }
 
     &__date {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin-bottom: 4px;
         width: 100%;
         text-align: left;
@@ -90,7 +90,7 @@
         min-height: 64px;
 
         &:hover {
-            background-color: variables.$antiFlashWhite;
+            background-color: variables.$themeCardBorder;
         }
     }
 
@@ -169,7 +169,7 @@
         height: 14px;
         min-width: 14px;
         min-height: 14px;
-        background-color: variables.$platinum;
+        background-color: variables.$themeBorder;
         border-radius: 14px;
         display: flex;
         justify-content: center;
@@ -178,7 +178,7 @@
         &--swap,
         &--approve {
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
 
@@ -191,25 +191,25 @@
     }
 
     &__type {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
     &__type-subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
     }
 
@@ -217,7 +217,7 @@
     &__send,
     &__swap,
     &__approve-text {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -239,19 +239,19 @@
     &__send,
     &__swap,
     &__approve-text {
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__send-fiat,
     &__received-fiat {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
     }
 }

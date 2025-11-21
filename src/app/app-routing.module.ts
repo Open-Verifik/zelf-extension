@@ -376,12 +376,6 @@ const routes: Routes = [
         data: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment` },
         canActivate: [ExternalRedirectGuard],
     },
-    // DEPRECATED ROUTES: Ensure all translations are also removed before deleting these components!
-    // {
-    //     path: "extension-instructions",
-    //     loadComponent: () => import("./extension-instructions/extension-instructions.component").then((m) => m.ExtensionInstructionsComponent),
-    //     canActivate: [ExtensionGuard],
-    // },
 ];
 
 if (environment.production) {

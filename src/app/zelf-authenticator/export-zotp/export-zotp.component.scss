@@ -28,7 +28,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 18px;
         line-height: 24px;
@@ -94,7 +94,7 @@
     &__zotp-info {
         text-align: center;
         padding: 14px 16px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
 
         @media (max-width: 400px) {
@@ -103,7 +103,7 @@
     }
 
     &__zotp-name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
         line-height: 22px;
@@ -119,10 +119,10 @@
     }
 
     &__zotp-issuer {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         line-height: 18px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
 
         @media (max-width: 400px) {
             font-size: 12px;
@@ -185,7 +185,7 @@
         flex-direction: column;
         gap: 12px;
         padding: 20px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
         flex: 1;
         align-items: center;
@@ -197,7 +197,7 @@
     }
 
     &__qr-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -234,10 +234,10 @@
     }
 
     &__qr-description {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 12px;
         line-height: 16px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         text-align: center;
         margin-top: 4px;
 
@@ -252,7 +252,7 @@
         flex-direction: column;
         gap: 12px;
         padding: 20px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
         flex: 1;
 
@@ -263,7 +263,7 @@
     }
 
     &__setup-key-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -296,7 +296,7 @@
         background-color: white;
         padding: 12px 16px;
         border-radius: 8px;
-        border: 1px solid variables.$taupeGray;
+        border: 1px solid variables.$themeTextMuted;
         word-break: break-all;
         user-select: all;
 
@@ -313,12 +313,12 @@
         align-items: center;
         gap: 6px;
         padding: 10px 16px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         color: variables.$black;
         background-color: white;
-        border: 1px solid variables.$taupeGray;
+        border: 1px solid variables.$themeTextMuted;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.2s variables.$smoothBezier;
@@ -331,7 +331,7 @@
         }
 
         &:hover {
-            background-color: variables.$seaSalt;
+            background-color: variables.$themeBackgroundSecondary;
             border-color: variables.$black;
         }
 
@@ -349,10 +349,10 @@
     }
 
     &__setup-key-description {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 12px;
         line-height: 16px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         margin-top: 4px;
 
         @media (max-width: 400px) {
@@ -365,7 +365,7 @@
         width: 100%;
         margin-top: 12px;
         padding: 12px 24px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         background-color: variables.$black;
@@ -403,9 +403,9 @@
         align-items: center;
         justify-content: center;
         padding: 40px 20px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
 
         @media (max-width: 400px) {
             padding: 30px 16px;

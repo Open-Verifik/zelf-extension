@@ -28,7 +28,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 18px;
         line-height: 24px;
@@ -94,7 +94,7 @@
     &__zotp-info {
         text-align: center;
         padding: 14px 16px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
 
         @media (max-width: 400px) {
@@ -103,7 +103,7 @@
     }
 
     &__zotp-name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
         line-height: 22px;
@@ -119,10 +119,10 @@
     }
 
     &__zotp-issuer {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         line-height: 18px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
 
         @media (max-width: 400px) {
             font-size: 12px;

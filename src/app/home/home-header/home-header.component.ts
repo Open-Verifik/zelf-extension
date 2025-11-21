@@ -22,7 +22,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
         <div class="home-header" *ngIf="shareables.wallet">
             <div class="home-header__left home-header__container">
                 <ng-container *ngIf="redirectState; else emptyTemplate">
-                    <button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white" (click)="backButton()" mat-flat-button>
+                    <button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary" (click)="backButton()" mat-flat-button>
                         <span class="material-symbols-outlined zelf-icon">chevron_backward</span>
                     </button>
                 </ng-container>
@@ -40,7 +40,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
                 <button
                     [matMenuTriggerFor]="menu"
                     *ngIf="isExtension && (!isSidePanel || isPopout)"
-                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white"
+                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary"
                     id="open-sidebar"
                     mat-flat-button
                 >

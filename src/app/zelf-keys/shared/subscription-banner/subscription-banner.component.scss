@@ -67,7 +67,7 @@
         font-weight: 700;
         margin: 0 0 4px 0;
         line-height: 1.2;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
     }
 
     &__description {
@@ -76,7 +76,7 @@
         margin: 0;
         opacity: 0.9;
         line-height: 1.4;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
     }
 
     &__arrow {

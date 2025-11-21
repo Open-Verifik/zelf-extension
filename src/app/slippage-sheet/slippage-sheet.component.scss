@@ -31,7 +31,9 @@
         border: none;
         border-radius: 9999px;
         background-color: transparent;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
@@ -69,7 +71,7 @@
         padding: 16px;
         margin-bottom: 12px;
         border-radius: 16px;
-        border: 1px solid variables.$frenchGray;
+        border: 1px solid variables.$themeBorderHover;
     }
 
     &__switch-container {
@@ -86,7 +88,7 @@
     }
 
     &__switch-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -116,8 +118,8 @@
         position: relative;
         width: 46px;
         height: 26px;
-        background-color: variables.$seaSalt;
-        border: 2px solid variables.$gray;
+        background-color: variables.$themeBackgroundSecondary;
+        border: 2px solid variables.$themeTextSecondary;
         border-radius: 14px;
         transition: all 0.3s ease;
         display: flex;
@@ -129,7 +131,7 @@
         left: 5px;
         height: 16px;
         width: 16px;
-        background-color: variables.$gray;
+        background-color: variables.$themeTextSecondary;
         border-radius: 50%;
         transition: all 0.3s ease;
     }
@@ -150,7 +152,7 @@
         font-size: 14px;
         font-weight: 600;
         margin: 0;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
 
         &--active {
             color: variables.$black;
@@ -163,7 +165,7 @@
     }
 
     &__title {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 24px;
         line-height: 24px;
@@ -177,7 +179,7 @@
     &__text {
         font-size: 14px;
         margin: 0;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &__actions {
@@ -211,7 +213,7 @@
     }
 
     &__slider-subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 12px;
         line-height: 16px;
@@ -230,7 +232,7 @@
         gap: 12px;
         height: 32px;
         border-radius: 32px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         padding: 0 8px;
     }
 
@@ -238,7 +240,7 @@
         text-align: right;
         font-weight: 500;
         font-size: 14px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
         padding: 0 8px;
         height: 32px;
@@ -282,14 +284,14 @@
         width: 100%;
         height: 16px;
         border-radius: 20px;
-        background: variables.$antiFlashWhite;
+        background: variables.$themeCardBorder;
         outline: none;
         position: relative;
         margin: 0;
         z-index: 2;
 
         &::-webkit-slider-runnable-track {
-            background: linear-gradient(to right, variables.$gray var(--progress, 0%), transparent var(--progress, 0%));
+            background: linear-gradient(to right, variables.$themeTextSecondary var(--progress, 0%), transparent var(--progress, 0%));
             border-radius: 20px;
             height: 16px;
             width: 100%;
@@ -301,7 +303,7 @@
             appearance: none;
             background: variables.$white;
             border-radius: 20px;
-            border: 6px solid variables.$gray;
+            border: 6px solid variables.$themeTextSecondary;
             box-shadow: none;
             cursor: pointer;
             height: 8px;
@@ -312,14 +314,14 @@
         }
 
         &::-moz-range-track {
-            background: linear-gradient(to right, variables.$gray var(--progress, 0%), transparent var(--progress, 0%));
+            background: linear-gradient(to right, variables.$themeTextSecondary var(--progress, 0%), transparent var(--progress, 0%));
             border-radius: 20px;
             height: 16px;
             width: 100%;
         }
 
         &::-moz-range-progress {
-            background-color: variables.$gray;
+            background-color: variables.$themeTextSecondary;
             border-radius: 20px;
             height: 16px;
         }
@@ -329,7 +331,7 @@
             margin-top: -3px;
             background: variables.$white;
             border-radius: 50%;
-            border: 6px solid variables.$gray;
+            border: 6px solid variables.$themeTextSecondary;
             box-shadow: none;
             cursor: pointer;
             height: 8px;

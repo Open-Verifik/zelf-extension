@@ -32,7 +32,9 @@
         position: absolute;
         right: 0;
         top: 0;
-        transition: color 0.3s variables.$smoothBezier, background-color 0.3s variables.$smoothBezier;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
         width: 48px;
 
         svg {
@@ -67,7 +69,7 @@
     }
 
     &__pretitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -79,7 +81,7 @@
     }
 
     &__title {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 18px;
         line-height: 24px;

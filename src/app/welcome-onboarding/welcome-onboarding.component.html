@@ -65,7 +65,7 @@
                     </svg>
                 </span>
 
-                <ng-container *ngIf="loading || loadingDomains; else searchBtn">
+                <ng-container *ngIf="loading; else searchBtn">
                     <span class="dropdown-icon-container">
                         <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
                     </span>

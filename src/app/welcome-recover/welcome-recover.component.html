@@ -98,7 +98,7 @@
                         <button
                             (click)="searchZelfName()"
                             [disabled]="searching || form.controls.zelfName.invalid || !form.controls.zelfName.value"
-                            class="zelf-icon-button zelf-icon-button--black"
+                            class="zelf-icon-button zelf-icon-button--primary"
                             mat-icon-button
                             type="button"
                         >
@@ -193,7 +193,7 @@
 
     <div class="zelf-card__actions zelf-card__actions--column welcome-recover__actions" *ngIf="!showSearch">
         <ng-container *ngIf="showError">
-            <button (click)="returnToForm()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button type="button">
+            <button (click)="returnToForm()" class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button type="button">
                 {{ t("welcome.search_another_zelfname") }}
             </button>
         </ng-container>
@@ -217,7 +217,7 @@
                 <button
                     (click)="startReservation()"
                     [disabled]="termsForm.get('termsAndConditions')?.invalid"
-                    class="zelf-button zelf-button--black zelf-button--wide"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
                     mat-flat-button
                     type="button"
                 >

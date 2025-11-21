@@ -2,7 +2,7 @@
 
 .drag-and-drop {
     position: relative;
-    border: 1px dashed variables.$taupeGray;
+    border: 1px dashed variables.$themeTextMuted;
     transition: background-color cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
     border-radius: 16px;
     box-sizing: border-box;

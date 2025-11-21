@@ -4,7 +4,7 @@
             <button
                 [queryParams]="{ edit: '' }"
                 [routerLink]="!selectedSettings ? ['/home'] : ['./']"
-                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
+                class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40"
                 mat-flat-button
             >
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,13 +86,13 @@
 </div>
 
 <ng-template #securityIcon>
-    <span class="material-symbols-outlined zelf-icon zelf-icon--dark">security</span>
+    <span class="material-symbols-outlined zelf-icon">security</span>
 </ng-template>
 
 <ng-template #subscriptionIcon>
-    <span class="material-symbols-outlined zelf-icon zelf-icon--dark">license</span>
+    <span class="material-symbols-outlined zelf-icon">license</span>
 </ng-template>
 
 <ng-template #externalLinkIcon>
-    <span class="material-symbols-outlined zelf-icon zelf-icon--dark">link</span>
+    <span class="material-symbols-outlined zelf-icon">link</span>
 </ng-template>

@@ -46,7 +46,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -96,7 +96,7 @@
     }
 
     &__token-type {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
@@ -107,7 +107,7 @@
     }
 
     &__address {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;

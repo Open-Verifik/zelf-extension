@@ -35,14 +35,14 @@
     }
 
     &__message {
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         font-size: 16px;
         margin: 0;
         text-align: center;
     }
 
     &__banner {
-        background-color: variables.$white;
+        background-color: variables.$themeCard;
         border-radius: 12px;
         display: flex;
         flex-direction: column;
@@ -71,7 +71,7 @@
     }
 
     &__banner-text {
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         font-size: 14px;
         line-height: 1.5;
         margin: 0;

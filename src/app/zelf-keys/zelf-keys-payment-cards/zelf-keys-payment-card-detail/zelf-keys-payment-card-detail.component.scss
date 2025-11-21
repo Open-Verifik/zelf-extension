@@ -1,6 +1,6 @@
 .payment-card-detail {
     padding: 0;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: variables.$themeBodyFamily;
 
     &__header {
         display: flex;
@@ -242,7 +242,7 @@
         background: none;
         border: none;
         cursor: pointer;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         color: #181818;

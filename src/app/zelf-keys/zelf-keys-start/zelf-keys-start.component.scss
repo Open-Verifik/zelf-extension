@@ -63,9 +63,9 @@
         justify-content: center;
         display: flex;
         flex-direction: column;
-        color: #73777f;
+        color: variables.$themeTextSecondary;
         font-size: 14px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         line-height: 20px;
         letter-spacing: 0.1px;

@@ -1,7 +1,9 @@
+@use "../../styles/variables";
+
 .domain-modal {
     width: 400px;
     padding: 24px;
-    background: #f9f9fc;
+    background: variables.$themeBackgroundSecondary;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
     display: flex;
@@ -29,7 +31,7 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
-    color: #181818;
+    color: variables.$themeText;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
@@ -62,7 +64,7 @@
 .domain-option {
     align-self: stretch;
     padding: 10px 15px;
-    background: white;
+    background: variables.$themeCard;
     border-radius: 15px;
     justify-content: space-between;
     align-items: center;
@@ -71,7 +73,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-        background: #f5f5f5;
+        background: variables.$themeBackgroundSecondary;
     }
 }
 
@@ -147,7 +149,7 @@
     left: 2px;
     top: 2px;
     position: absolute;
-    background: #e3e3e3;
+    background: variables.$themeBorder;
     border-radius: 50%;
     transition: all 0.2s ease;
 

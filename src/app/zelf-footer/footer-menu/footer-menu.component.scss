@@ -31,47 +31,51 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &:hover {
-            background-color: #b589f0;
-            color: white;
+            background-color: variables.$secondaryColor;
+            color: variables.$themeCard;
 
             .footer-menu__icon-container {
-                background-color: variables.$black;
+                background-color: variables.$themeText;
+            }
+
+            .footer-menu__text {
+                color: variables.$themeCard;
             }
 
             svg {
-                fill: white;
+                fill: variables.$themeCard;
             }
 
             .footer-menu__arrow-container {
                 svg {
-                    fill: variables.$black;
+                    fill: variables.$themeText;
                 }
             }
         }
 
         &--active {
             background-color: variables.$secondaryColor;
-            color: white;
+            color: variables.$themeCard;
 
             .footer-menu__icon-container {
-                background-color: variables.$black;
-            }
-
-            svg {
-                fill: white;
+                background-color: variables.$themeText;
             }
 
             .footer-menu__text {
-                color: white;
+                color: variables.$themeCard;
+            }
+
+            svg {
+                fill: variables.$themeCard;
             }
 
             .footer-menu__arrow-container {
                 svg {
-                    fill: variables.$black;
+                    fill: variables.$themeText;
                 }
             }
 
@@ -82,7 +86,7 @@
     }
 
     &__icon-container {
-        background: white;
+        background: variables.$themeCard;
         border-radius: 12px;
         padding: 8px;
         width: 24px;
@@ -98,7 +102,7 @@
     &__text {
         font-size: 14px;
         font-weight: 500;
-        color: variables.$black;
+        color: variables.$themeText;
         margin-left: 8px;
         width: 100%;
         transition: color 0.3s variables.$smoothBezier;
@@ -107,7 +111,7 @@
     &__arrow-container {
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$taupeGray;
+            fill: variables.$themeTextMuted;
         }
     }
 
@@ -131,7 +135,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: white;
+        background-color: variables.$themeCard;
 
         &:focus {
             outline: none;
@@ -140,15 +144,15 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &:hover {
-            background-color: #b589f0;
-            color: white;
+            background-color: variables.$secondaryColor;
+            color: variables.$themeCard;
 
             svg {
-                fill: white;
+                fill: variables.$themeCard;
             }
         }
     }

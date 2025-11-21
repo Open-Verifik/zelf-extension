@@ -22,7 +22,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 18px;
         line-height: 24px;
@@ -70,12 +70,12 @@
     &__zotp-info {
         text-align: center;
         padding: 14px 16px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
     }
 
     &__zotp-name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
         line-height: 22px;
@@ -84,19 +84,19 @@
     }
 
     &__zotp-issuer {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         line-height: 18px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
     }
 
     &__description {
         padding: 12px 16px;
-        background-color: variables.$seaSalt;
+        background-color: variables.$themeBackgroundSecondary;
         border-radius: 8px;
 
         p {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
             line-height: 20px;
             color: variables.$black;
@@ -131,7 +131,7 @@
     }
 
     &__participants-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         color: variables.$black;
@@ -154,14 +154,14 @@
         border: 1px solid #fcc;
         border-radius: 8px;
         color: #c00;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
     }
 
     &__generate-button {
         width: 100%;
         padding: 12px 24px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
         background-color: variables.$black;
@@ -196,7 +196,7 @@
     }
 
     &__shares-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
         color: variables.$black;
@@ -205,20 +205,20 @@
 
     &__download-button {
         padding: 8px 16px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         color: variables.$black;
         border-radius: 8px;
     }
 
     &__shares-info {
         padding: 12px 16px;
-        background-color: variables.$seaSalt;
+        background-color: variables.$themeBackgroundSecondary;
         border-radius: 8px;
 
         p {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
             line-height: 20px;
             color: variables.$black;
@@ -236,9 +236,9 @@
 
     &__share-item {
         padding: 16px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 8px;
-        border: 1px solid variables.$taupeGray;
+        border: 1px solid variables.$themeTextMuted;
     }
 
     &__share-header {
@@ -249,7 +249,7 @@
     }
 
     &__share-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         color: variables.$black;
@@ -279,9 +279,9 @@
     }
 
     &__share-participant {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 12px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
     }
 
     &__warning {
@@ -291,7 +291,7 @@
         border-radius: 8px;
 
         p {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 13px;
             line-height: 18px;
             color: #856404;
@@ -303,4 +303,3 @@
         }
     }
 }
-

@@ -51,14 +51,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__form {
@@ -103,13 +103,13 @@
 
     &__message {
         font-size: 1.5rem;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin-bottom: 4px;
         padding: 16px;
     }
@@ -126,13 +126,13 @@
 
     &__label {
         display: flex;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
         min-width: 156px;
     }
@@ -159,13 +159,13 @@
     &__value {
         display: flex;
         justify-content: flex-end;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 15px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         width: 100%;
         text-align: right;
@@ -184,7 +184,7 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: variables.$frenchGray;
+        color: variables.$themeBorderHover;
         margin-left: 8px;
     }
 
@@ -213,7 +213,7 @@
             width: 16px;
             object-fit: contain;
             border-radius: 16px;
-            border: 2px solid variables.$white;
+            border: 2px solid variables.$themeCard;
         }
     }
 
@@ -228,8 +228,8 @@
     &__price {
         font-size: 32px;
         font-weight: 600;
-        color: variables.$black;
-        font-family: "Menda", "Arial Black", sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeTitleFamily;
         margin: 0;
     }
 
@@ -237,8 +237,8 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: variables.$black;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeBodyFamily;
         margin: 0 0 8px;
     }
 

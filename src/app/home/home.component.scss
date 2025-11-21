@@ -86,8 +86,8 @@
 
     &__no-results-text {
         font-size: 1.5rem;
-        color: variables.$gray;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeCard;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -122,7 +122,7 @@
     &__amount {
         width: 100%;
         text-align: center;
-        color: black;
+        color: variables.$themeText;
         font-size: 40px;
         font-weight: 500;
         line-height: 40px;
@@ -153,9 +153,9 @@
 
     &__icon {
         padding: 16px 24px;
-        background: white;
+        background: variables.$themeCard;
         border-radius: 32px;
-        outline: 1px #e3e3e3 solid;
+        outline: 1px variables.$themeBorder solid;
         outline-offset: -1px;
         justify-content: flex-start;
         align-items: flex-start;
@@ -167,16 +167,16 @@
             background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: #181818;
+            fill: variables.$themeText;
             transition: fill 0.3s variables.$smoothBezier;
         }
 
         &:hover {
-            background-color: #b589f0;
-            color: white;
+            background-color: variables.$primaryColor;
+            color: variables.$themeCard;
 
             svg {
-                fill: white;
+                fill: variables.$themeCard;
             }
         }
     }
@@ -193,9 +193,9 @@
     &__text {
         width: 73px;
         text-align: center;
-        color: #46464f;
+        color: variables.$themeTextSecondary;
         font-size: 11px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         line-height: 16px;
         letter-spacing: 0.5px;

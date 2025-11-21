@@ -107,9 +107,9 @@
     }
 
     &__empty-text {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         margin: 0;
     }
 }
@@ -189,7 +189,7 @@
     }
 
     &__character {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 14px;
         line-height: 16px;
@@ -224,7 +224,7 @@
     }
 
     &__name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 18px;
         line-height: 1.2;
@@ -236,7 +236,7 @@
     }
 
     &__issuer {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 400;
         font-size: 14px;
         line-height: 1.4;
@@ -256,7 +256,7 @@
     }
 
     &__code {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 20px;
         line-height: 24px;
@@ -273,9 +273,9 @@
         display: flex;
         align-items: center;
         gap: 4px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 11px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         font-weight: 500;
 
         svg {
@@ -298,7 +298,7 @@
         cursor: pointer;
         user-select: none;
         border-radius: 14px;
-        background-color: variables.$seaSalt;
+        background-color: variables.$themeBackgroundSecondary;
         transition: background-color 0.3s variables.$smoothBezier;
         position: relative; // Ensure menu positioning context
 

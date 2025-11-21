@@ -70,49 +70,42 @@
 }
 
 * {
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: variables.$themeBodyFamily;
     scrollbar-width: 6px;
-    scrollbar-color: variables.$taupeGray rgba(0, 0, 0, 0.05);
+    scrollbar-color: variables.$themeTextMuted rgba(0, 0, 0, 0.05);
 
     &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
-        background-color: variables.$white;
+        background-color: variables.$themeCard;
     }
 
     &::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.05);
+        background: variables.$themeCardBorder;
         border: none;
     }
 
     &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: variables.$taupeGray;
+        background: variables.$themeTextMuted;
         transition: background-color 0.3s variables.$smoothBezier;
     }
 }
 
 html {
-    color-scheme: only light;
     position: relative !important;
     min-width: 347px;
+    color: variables.$themeText;
 }
 
 body {
     margin: 0px !important;
     height: 100vh;
-}
-
-app-onboarding {
-    height: 100%;
+    color: variables.$themeText;
 }
 
 .hidden {
     display: none !important;
-}
-
-.main-bg {
-    background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
 }
 
 .loader {
@@ -126,7 +119,6 @@ app-onboarding {
 }
 
 .main-div {
-    background: #d3d3d35c;
     width: 100%;
     margin: 0 auto;
 
@@ -1029,38 +1021,6 @@ h3 {
     width: 250px;
 }
 
-.send-transaction-header {
-    background: black;
-    color: white;
-    height: 60px;
-    width: 100%;
-    text-align: center;
-}
-
-/* For extremely small screen devices (595px and below) */
-@media only screen and (max-width: variables.$maxExtraSmall) {
-    h2 {
-        font-size: 18px;
-    }
-
-    .zelf-content {
-        width: 100% !important;
-        height: 100%;
-    }
-
-    .zelf-header {
-        width: 95% !important;
-    }
-
-    .w-fix {
-        width: 100%;
-    }
-
-    .zelf-card-old {
-        width: 95%;
-    }
-}
-
 .stats {
     display: inline-flex;
     justify-content: center;
@@ -1078,7 +1038,7 @@ h3 {
     }
 
     &__text {
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
 
         &--colored {
             color: inherit;
@@ -1088,7 +1048,7 @@ h3 {
 
     &__arrow {
         align-items: center;
-        background-color: variables.$platinum;
+        background-color: variables.$themeBorder;
         border-radius: 16px;
         display: inline-flex;
         height: 16px;
@@ -1133,7 +1093,7 @@ h3 {
 .zelf-card-old {
     width: 600px;
     min-height: 500px;
-    background: white;
+    background: variables.$themeCard;
     box-shadow: 0px 2px 4px rgba(97, 97, 97, 0.08);
     border: 1px rgba(0, 0, 0, 0.35) solid;
     flex-direction: column;
@@ -1153,7 +1113,13 @@ h3 {
 
 .zelf-content {
     align-items: center;
-    background: linear-gradient(170deg, #ffffff 20%, #f7b7b9 40%, #c196f9 70%, #85c6ff 100%);
+    background: linear-gradient(
+        170deg,
+        variables.$themeCard 20%,
+        variables.$themeCardBorder 40%,
+        variables.$themeCard 70%,
+        variables.$themeCardBorder 100%
+    );
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -1165,7 +1131,7 @@ h3 {
     width: 600px;
     min-height: 50px;
     height: 85px;
-    background: white;
+    background: variables.$themeCard;
     border-left: 1px rgba(0, 0, 0, 0.35) solid;
     border-right: 1px rgba(0, 0, 0, 0.35) solid;
     border-top: 0.5px rgba(0, 0, 0, 0.35) solid;
@@ -1191,16 +1157,16 @@ h3 {
 .zelf-bottom-sheet-seasalt,
 .zelf-bottom-sheet {
     .mat-bottom-sheet-container {
-        background-color: variables.$white !important;
+        background-color: variables.$themeCard !important;
         border-radius: 26px 26px 0 0 !important;
-        color: variables.$black;
+        color: variables.$themeText;
         max-height: 100vh !important;
     }
 }
 
 .zelf-bottom-sheet-seasalt {
     .mat-bottom-sheet-container {
-        background-color: variables.$seaSalt !important;
+        background-color: variables.$themeBackgroundSecondary !important;
     }
 }
 
@@ -1222,11 +1188,15 @@ h3 {
         max-width: inherit;
         margin: 0 auto;
     }
+
+    .mat-mdc-dialog-surface {
+        background-color: variables.$themeCard !important;
+    }
 }
 
 .zelf-bottom-sheet-biometrics {
     .mat-bottom-sheet-container {
-        background-color: variables.$seaSalt !important;
+        background-color: variables.$themeBackgroundSecondary !important;
         max-height: 90vh !important;
         max-width: 90vw !important;
         min-height: 90vh !important;
@@ -1238,31 +1208,31 @@ h3 {
 .zelf-dialog,
 .zelf-dialog-seasalt {
     .mdc-dialog__surface {
-        color: variables.$black;
-        background-color: variables.$white !important;
+        color: variables.$themeText;
+        background-color: variables.$themeCard !important;
         border-radius: 26px !important;
     }
 }
 
 .zelf-dialog-seasalt {
     .mdc-dialog__surface {
-        background-color: variables.$seaSalt !important;
+        background-color: variables.$themeBackgroundSecondary !important;
     }
 }
 
 .zelf-snackbar {
     .mdc-snackbar__surface {
-        background-color: variables.$white !important;
+        background-color: variables.$themeCard !important;
         border-radius: 14px !important;
         overflow: hidden;
 
         .mat-mdc-snack-bar-label {
-            font-family: "Poppins", Arial, sans-serif;
-            color: variables.$black !important;
+            font-family: variables.$themeBodyFamily;
+            color: variables.$themeText !important;
         }
 
         .mdc-snackbar__action {
-            background-color: variables.$antiFlashWhite !important;
+            background-color: variables.$themeCardBorder !important;
             border-radius: 14px !important;
             font-family: Poppins !important;
         }
@@ -1271,7 +1241,7 @@ h3 {
 
 .zelf-menu {
     border-radius: 14px !important;
-    color: variables.$black;
+    color: variables.$themeText;
 
     &__button {
         &--icon-end {
@@ -1284,15 +1254,19 @@ h3 {
             }
         }
 
+        &:hover {
+            background-color: variables.$themeBackgroundSecondary;
+        }
+
         &-text {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px !important;
             font-weight: 500;
         }
 
         &-icon {
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
     }
@@ -1301,7 +1275,7 @@ h3 {
 .zelf-card {
     box-sizing: border-box;
     align-items: center;
-    background-color: variables.$seaSalt;
+    background-color: variables.$themeBackgroundSecondary;
     border-radius: 64px;
     border: none;
     display: inline-flex;
@@ -1314,7 +1288,7 @@ h3 {
     position: relative;
 
     @media screen and (max-width: variables.$medium) {
-        background: variables.$seaSalt;
+        background: variables.$themeBackgroundSecondary;
         width: 100%;
         padding: 12px;
         border-radius: 0px;
@@ -1337,8 +1311,8 @@ h3 {
     }
 
     &__pretitle {
-        color: variables.$gray;
-        font-family: "Menda", "Arial Black", sans-serif;
+        color: variables.$themeTextSecondary;
+        font-family: variables.$themeTitleFamily;
         font-size: 14px;
         letter-spacing: 2%;
         line-height: 16px;
@@ -1347,8 +1321,8 @@ h3 {
     }
 
     &__title {
-        color: variables.$black;
-        font-family: "Menda", "Arial Black", sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeTitleFamily;
         font-size: 32px;
         font-weight: bold;
         letter-spacing: 2%;
@@ -1365,14 +1339,14 @@ h3 {
     }
 
     &__subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         margin: 0;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &__content {
@@ -1436,10 +1410,10 @@ h3 {
 .zelf-action-row {
     box-sizing: border-box;
     align-items: center;
-    background-color: variables.$white;
+    background-color: variables.$themeCard;
     border-radius: 16px;
-    border: 1px solid variables.$antiFlashWhite;
-    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
+    border: 1px solid variables.$themeCardBorder;
+    box-shadow: 0 8px 24px 0 variables.$themeShadow;
     display: flex;
     min-height: 62px;
     justify-content: space-between;
@@ -1458,9 +1432,9 @@ h3 {
 
 .zelf-input {
     align-items: center;
-    background-color: variables.$white;
+    background-color: variables.$themeCard;
     border-radius: 9999px;
-    border: 1px variables.$gray solid;
+    border: 1px variables.$themeTextSecondary solid;
     display: flex;
     gap: 12px;
     height: 56px;
@@ -1473,7 +1447,7 @@ h3 {
 
     input[readonly] {
         cursor: default;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     input[type="password"] {
@@ -1497,11 +1471,11 @@ h3 {
     }
 
     &__prefix-text {
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         font-size: 15px;
         border-radius: 9999px;
         letter-spacing: 0.1px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         font-weight: 600;
         height: 32px;
         width: 32px;
@@ -1512,18 +1486,18 @@ h3 {
     }
 
     &__postfix {
-        font-family: Menda, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-size: 14px;
         letter-spacing: 0.1px;
-        color: variables.$black;
+        color: variables.$themeText;
         text-transform: uppercase;
         font-weight: 500;
     }
 
     &__floating-label {
         bottom: 0;
-        color: variables.$taupeGray;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeTextMuted;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         left: 17px;
         position: absolute;
@@ -1539,8 +1513,8 @@ h3 {
         background: none;
         border: none;
         box-shadow: none;
-        color: variables.$black;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         height: auto;
@@ -1556,7 +1530,7 @@ h3 {
         }
 
         &::placeholder {
-            color: variables.$taupeGray;
+            color: variables.$themeTextMuted;
         }
 
         &:not(:placeholder-shown) + .zelf-input__floating-label {
@@ -1576,12 +1550,12 @@ h3 {
     }
 
     &__tip {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &--gap-narrow {
@@ -1757,12 +1731,12 @@ h3 {
 
 .zelf-radio {
     align-items: center;
-    background-color: variables.$antiFlashWhite;
+    background-color: variables.$themeCardBorder;
     border-radius: 16px;
-    color: variables.$black;
+    color: variables.$themeText;
     cursor: pointer;
     display: flex;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: variables.$themeBodyFamily;
     font-size: 14px;
     font-weight: 500;
     justify-content: space-between;
@@ -1774,7 +1748,7 @@ h3 {
     position: relative;
 
     &:hover {
-        background-color: variables.$platinum;
+        background-color: variables.$themeBorder;
     }
 
     input[type="radio"],
@@ -1788,7 +1762,7 @@ h3 {
         -moz-appearance: none;
         -webkit-appearance: none;
         appearance: none;
-        background-color: variables.$frenchGray;
+        background-color: variables.$themeBorderHover;
         border-radius: 50%;
         border: none;
         cursor: pointer;
@@ -1811,7 +1785,7 @@ h3 {
                 display: block;
                 width: 100%;
                 height: 100%;
-                background-color: variables.$black;
+                background-color: variables.$themeText;
                 border-radius: 50%;
                 position: absolute;
             }
@@ -1824,7 +1798,7 @@ h3 {
         stroke-width: 3px;
         stroke-linecap: round;
         stroke-linejoin: round;
-        stroke: variables.$white;
+        stroke: variables.$themeCard;
         position: absolute;
         left: 84.6%;
         top: 50%;
@@ -1856,7 +1830,7 @@ h3 {
 
 .zelf-menu-item {
     & > span {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -1874,7 +1848,7 @@ h3 {
 
     &label {
         cursor: pointer;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 600;
         margin: 0;
@@ -1891,15 +1865,15 @@ h3 {
         -moz-appearance: none;
         -webkit-appearance: none;
         appearance: none;
-        background-color: variables.$white;
+        background-color: variables.$themeCard;
         border-radius: 50%;
-        border: 1px solid variables.$black;
+        border: 1px solid variables.$themeText;
         cursor: pointer;
         margin: 0 12px;
         transition: background-color 0.3s variables.$smoothBezier;
 
         &:checked {
-            background-color: variables.$black;
+            background-color: variables.$themeText;
 
             & + svg {
                 animation: checkbox-bounce 0.4s linear forwards;
@@ -1914,7 +1888,7 @@ h3 {
         stroke-width: 3px;
         stroke-linecap: round;
         stroke-linejoin: round;
-        stroke: variables.$white;
+        stroke: variables.$themeCard;
         position: absolute;
         left: 28px;
         top: 50%;
@@ -1922,13 +1896,13 @@ h3 {
     }
 
     a {
-        color: variables.$black;
+        color: variables.$themeText;
         text-decoration: underline;
 
         &:hover,
         &:visited,
         &:active {
-            color: variables.$black;
+            color: variables.$themeText;
             text-decoration: none;
         }
 
@@ -1943,9 +1917,9 @@ h3 {
 
 .zelf-message {
     align-items: center;
-    color: variables.$gray;
+    color: variables.$themeTextSecondary;
     display: flex;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: variables.$themeBodyFamily;
     font-size: 14px;
     font-weight: 500;
     gap: 8px;
@@ -1965,11 +1939,11 @@ h3 {
     }
 
     &--error {
-        color: variables.$errorDark;
+        color: variables.$error;
     }
 
     &--success {
-        color: variables.$correctDark;
+        color: variables.$correct;
     }
 
     &--column {
@@ -1990,10 +1964,10 @@ h3 {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: variables.$platinum;
+    background-color: variables.$themeBorder;
     border-radius: 9999px;
-    color: variables.$black;
-    font-family: "Poppins", Arial, sans-serif;
+    color: variables.$themeText;
+    font-family: variables.$themeBodyFamily;
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0.1px;
@@ -2014,8 +1988,8 @@ h3 {
         font-size: 12px;
         line-height: 16px;
         border-radius: 9999px;
-        color: variables.$gray;
-        background-color: variables.$antiFlashWhite;
+        color: variables.$themeTextSecondary;
+        background-color: variables.$themeCardBorder;
     }
 
     &--info {
@@ -2035,7 +2009,7 @@ h3 {
 }
 
 .qr-code {
-    border: 1px solid variables.$platinum;
+    border: 1px solid variables.$themeBorder;
     border-radius: 16px;
     display: flex;
     justify-content: center;
@@ -2048,7 +2022,7 @@ h3 {
     max-width: 236px;
     width: 100%;
     padding: 4px;
-    background-color: variables.$white;
+    background-color: variables.$themeCard;
 
     &__image {
         object-fit: contain;
@@ -2064,39 +2038,60 @@ h3 {
     }
 }
 
-.zelf-logo {
+svg.zelf-logo {
     display: inline;
+    fill: variables.$themeText;
 
     &--screen-md {
         display: none;
     }
 }
 
-.tv-lightweight-charts a {
-    display: none !important;
-}
-
 .zelf-icon {
     font-size: 20px;
-    color: variables.$black;
-    fill: variables.$black;
+    color: variables.$themeText;
+    fill: variables.$themeText;
     transition:
         color 0.3s variables.$smoothBezier,
         fill 0.3s variables.$smoothBezier;
 
     &:hover {
-        color: variables.$white;
-        fill: variables.$white;
+        color: variables.$themeText;
+        fill: variables.$themeText;
     }
 
     &--dark {
-        color: variables.$white;
-        fill: variables.$white;
+        color: variables.$themeText;
+        fill: variables.$themeText;
 
         &:hover {
-            color: variables.$black;
-            fill: variables.$black;
+            color: variables.$themeText;
+            fill: variables.$themeText;
         }
+    }
+}
+
+/* For extremely small screen devices (595px and below) */
+@media only screen and (max-width: variables.$maxExtraSmall) {
+    h2 {
+        font-size: 18px;
+    }
+
+    .zelf-content {
+        width: 100% !important;
+        height: 100%;
+    }
+
+    .zelf-header {
+        width: 95% !important;
+    }
+
+    .w-fix {
+        width: 100%;
+    }
+
+    .zelf-card-old {
+        width: 95%;
     }
 }
 
@@ -2106,7 +2101,7 @@ h3 {
 
 /* Medium screen devices (768px and above) */
 @media only screen and (min-width: variables.$medium) {
-    .zelf-logo {
+    svg.zelf-logo {
         display: none;
 
         &--screen-md {

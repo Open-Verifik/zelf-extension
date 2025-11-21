@@ -51,14 +51,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__form {
@@ -114,13 +114,13 @@
     }
 
     &__label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
     }
 
@@ -131,18 +131,18 @@
 
         svg {
             transition: fill 0.2s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
     }
 
     &__value {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 15px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         transition: color 0.2s variables.$smoothBezier;
         margin: 0;
 
@@ -169,14 +169,18 @@
         }
     }
 
+    &__arrow-icon {
+        fill: variables.$themeText;
+    }
+
     &__fee {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 12px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &__price-amount-container {
@@ -190,8 +194,8 @@
     &__price {
         font-size: 32px;
         font-weight: 600;
-        color: variables.$black;
-        font-family: "Menda", "Arial Black", sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeTitleFamily;
         margin: 0;
     }
 
@@ -199,8 +203,8 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: variables.$black;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeBodyFamily;
         margin: 0 0 8px;
     }
 
@@ -244,35 +248,35 @@
     }
 
     &:hover {
-        background-color: variables.$black;
+        background-color: variables.$themeText;
 
         .send-confirm__value {
-            color: variables.$white;
+            color: variables.$themeCard;
         }
 
         .send-confirm__label {
-            color: variables.$taupeGray;
+            color: variables.$themeTextMuted;
         }
 
         .send-confirm__value-row svg {
-            fill: variables.$white;
+            fill: variables.$themeCard;
         }
     }
 }
 
 .zelf-action-row--selected {
     transition: background-color 0.2s variables.$smoothBezier;
-    background-color: variables.$black;
+    background-color: variables.$themeText;
 
     .send-confirm__value {
         transition: color 0.2s variables.$smoothBezier;
-        color: variables.$white;
+        color: variables.$themeCard;
         font-weight: 400;
     }
 
     .send-confirm__label {
         transition: color 0.2s variables.$smoothBezier;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         font-weight: 600;
     }
 }

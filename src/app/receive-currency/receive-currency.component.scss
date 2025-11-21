@@ -45,7 +45,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -113,7 +113,7 @@
     }
 
     &__network {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -129,26 +129,26 @@
         gap: 10px;
         padding: 2px 8px;
         margin: 0;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        background-color: variables.$platinum;
-        color: variables.$taupeGray;
+        background-color: variables.$themeBorder;
+        color: variables.$themeTextMuted;
     }
 
     &__name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
     }
 
     &__balance {
@@ -160,7 +160,7 @@
     }
 
     &__balance-amount {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -169,14 +169,14 @@
     }
 
     &__fiat-amount {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
     }
 
     &__buttons {
@@ -188,6 +188,6 @@
     }
 
     &:hover {
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
     }
 }

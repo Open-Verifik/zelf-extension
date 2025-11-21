@@ -44,14 +44,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__loader {
@@ -84,7 +84,7 @@
         width: 100%;
 
         &:hover {
-            background-color: variables.$antiFlashWhite;
+            background-color: variables.$themeCardBorder;
         }
     }
 
@@ -102,12 +102,12 @@
         height: 38px;
         width: 38px;
         border-radius: 38px;
-        background-color: variables.$black;
+        background-color: variables.$themeButtonText;
 
         svg {
             height: 16px;
             width: 16px;
-            fill: variables.$white;
+            fill: variables.$themeText;
         }
     }
 
@@ -119,7 +119,7 @@
         svg {
             height: 16px;
             width: 16px;
-            fill: variables.$gray;
+            fill: variables.$themeText;
         }
     }
 }

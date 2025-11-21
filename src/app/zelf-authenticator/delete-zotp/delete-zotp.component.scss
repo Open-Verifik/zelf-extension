@@ -83,7 +83,7 @@
         }
 
         p {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
             color: variables.$black;
             margin: 0;
@@ -155,7 +155,7 @@
     }
 
     &__label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         color: variables.$black;
@@ -190,7 +190,7 @@
         border-radius: 8px;
         background-color: variables.$errorLight;
         color: variables.$error;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 12px;
     }
 
@@ -206,4 +206,3 @@
         padding: 24px 0;
     }
 }
-

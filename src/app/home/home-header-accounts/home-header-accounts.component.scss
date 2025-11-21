@@ -43,17 +43,17 @@
 
         svg {
             transition: fill 0.2s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
             height: 16px;
             width: 16px;
         }
 
         &:hover {
             background-color: variables.$secondaryColor;
-            color: white;
+            color: variables.$themeText;
 
             svg {
-                fill: white;
+                fill: variables.$themeText;
             }
         }
     }
@@ -72,7 +72,7 @@
     user-select: none;
     cursor: pointer;
     align-items: center;
-    color: variables.$black;
+    color: variables.$themeText;
     display: inline-flex;
     gap: 8px;
     justify-content: center;
@@ -85,16 +85,16 @@
         background-color 0.2s variables.$smoothBezier;
 
     svg {
-        fill: variables.$black;
+        fill: variables.$themeText;
         transition: fill 0.2s variables.$smoothBezier;
     }
 
     &:hover {
         background-color: variables.$secondaryColor;
-        color: white;
+        color: variables.$themeText;
 
         svg {
-            fill: white;
+            fill: variables.$themeText;
         }
 
         .zelf-name__icon {
@@ -103,7 +103,7 @@
     }
 
     svg {
-        fill: variables.$black;
+        fill: variables.$themeText;
         transition: fill 0.2s variables.$smoothBezier;
     }
 
@@ -124,13 +124,13 @@
         height: 24px;
         width: 24px;
         border-radius: 24px;
-        background-color: variables.$gray;
+        background-color: variables.$themeTextSecondary;
         align-items: center;
         display: inline-flex;
         justify-content: center;
 
         svg {
-            fill: variables.$white;
+            fill: variables.$themeText;
         }
     }
 }
@@ -146,7 +146,7 @@
 
 .wallet-row {
     position: relative;
-    background-color: variables.$antiFlashWhite;
+    background-color: variables.$themeCardBorder;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -155,7 +155,7 @@
         background-color 0.2s variables.$smoothBezier;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: variables.$white;
+    background-color: variables.$themeCard;
 
     &--current {
         .wallet-row__avatar {
@@ -178,7 +178,7 @@
         height: 48px;
         width: 48px;
         border-radius: 48px;
-        color: white;
+        color: variables.$themeText;
         box-sizing: border-box;
         transition:
             color 0.2s variables.$smoothBezier,
@@ -186,15 +186,15 @@
         flex-shrink: 0;
 
         &--mainnet {
-            background-color: variables.$black;
+            background-color: variables.$themeText;
         }
 
         &--hold {
-            background-color: variables.$gray;
+            background-color: variables.$themeTextSecondary;
         }
 
         &-letter {
-            font-family: "Menda", sans-serif;
+            font-family: variables.$themeTitleFamily;
             font-weight: 700;
             font-size: 20px;
             line-height: 24px;
@@ -211,7 +211,7 @@
             right: -6px;
             height: 24px;
             width: 24px;
-            border: 1px solid variables.$white;
+            border: 1px solid variables.$themeText;
             border-radius: 24px;
             z-index: 1;
             display: flex;
@@ -227,7 +227,7 @@
                 background-color: variables.$warning;
 
                 svg {
-                    fill: variables.$white;
+                    fill: variables.$themeText;
                 }
             }
 
@@ -235,7 +235,7 @@
                 background-color: variables.$error;
 
                 svg {
-                    fill: variables.$white;
+                    fill: variables.$themeText;
                 }
             }
         }
@@ -244,7 +244,7 @@
     &__name {
         align-items: center;
         align-self: stretch;
-        color: variables.$black;
+        color: variables.$themeText;
         cursor: pointer;
         display: flex;
         flex-grow: 1;
@@ -301,16 +301,26 @@
         background: none;
         border: none;
         cursor: pointer;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
-        color: variables.$black;
+        color: variables.$themeText;
         transition: background-color 0.2s variables.$smoothBezier;
         border-radius: 12px;
         padding: 12px;
 
+        .wallet-row__button-content {
+            svg {
+                fill: variables.$themeText;
+            }
+
+            span {
+                color: variables.$themeText;
+            }
+        }
+
         &:hover {
-            background-color: variables.$antiFlashWhite;
+            background-color: variables.$themeCardBorder;
         }
 
         &--active {
@@ -318,11 +328,11 @@
 
             .wallet-row__button-content {
                 svg {
-                    fill: variables.$white;
+                    fill: variables.$themeText;
                 }
 
                 span {
-                    color: variables.$white;
+                    color: variables.$themeText;
                 }
             }
 

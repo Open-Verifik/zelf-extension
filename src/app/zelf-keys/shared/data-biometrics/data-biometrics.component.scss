@@ -2,8 +2,8 @@
 
 .data-biometrics-container {
     min-height: auto;
-    background: variables.$seaSalt;
-    font-family: "Poppins", Arial, sans-serif;
+    background: variables.$themeBackgroundSecondary;
+    font-family: variables.$themeBodyFamily;
     border-radius: 12px 12px 0 0;
     height: 100%;
     display: flex;

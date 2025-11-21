@@ -43,7 +43,7 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &--action {
@@ -60,7 +60,7 @@
             background-color: variables.$secondaryColor !important;
 
             svg {
-                fill: variables.$white;
+                fill: variables.$themeCard;
             }
         }
     }

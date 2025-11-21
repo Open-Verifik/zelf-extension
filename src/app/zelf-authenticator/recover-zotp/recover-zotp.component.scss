@@ -30,7 +30,7 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 18px;
         line-height: 24px;
@@ -77,11 +77,11 @@
 
     &__description {
         padding: 12px 16px;
-        background-color: variables.$seaSalt;
+        background-color: variables.$themeBackgroundSecondary;
         border-radius: 8px;
 
         p {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
             line-height: 20px;
             color: variables.$black;
@@ -106,7 +106,7 @@
     }
 
     &__manual-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         color: variables.$black;
@@ -122,7 +122,7 @@
 
     &__add-button {
         padding: 10px 20px;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         background-color: variables.$black;
         color: white;
@@ -142,7 +142,7 @@
         flex-direction: column;
         gap: 16px;
         padding: 16px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 12px;
     }
 
@@ -153,7 +153,7 @@
     }
 
     &__shares-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
         color: variables.$black;
@@ -163,7 +163,7 @@
     &__shares-threshold {
         font-weight: 400;
         font-size: 14px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
         margin-left: 8px;
     }
 
@@ -181,7 +181,7 @@
         align-items: center;
         padding: 12px 16px;
         background-color: white;
-        border: 1px solid variables.$taupeGray;
+        border: 1px solid variables.$themeTextMuted;
         border-radius: 8px;
     }
 
@@ -193,16 +193,16 @@
     }
 
     &__share-number {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         color: variables.$black;
     }
 
     &__share-participant {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 12px;
-        color: variables.$taupeGray;
+        color: variables.$themeTextMuted;
     }
 
     &__share-remove {
@@ -222,7 +222,7 @@
     }
 
     &__threshold-success {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         color: #0a0;
         margin: 0;
@@ -230,7 +230,7 @@
     }
 
     &__threshold-warning {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         color: #fa0;
         margin: 0;
@@ -243,7 +243,7 @@
         border: 1px solid #fcc;
         border-radius: 8px;
         color: #c00;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
     }
 
@@ -255,7 +255,7 @@
         text-align: center;
 
         h4 {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-weight: 600;
             font-size: 18px;
             color: #0a0;
@@ -263,7 +263,7 @@
         }
 
         p {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
             color: variables.$black;
             margin: 0;
@@ -272,12 +272,12 @@
 
     &__secret-preview {
         padding: 16px;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         border-radius: 8px;
     }
 
     &__secret-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         color: variables.$black;

@@ -42,7 +42,7 @@
     }
 
     &__title {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 20px;
         line-height: 24px;
@@ -53,7 +53,7 @@
     }
 
     &__subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
@@ -83,13 +83,13 @@
 
     &__expiration {
         margin: 16px 0;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -97,7 +97,7 @@
     }
 
     &__expiration-date {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -108,7 +108,7 @@
     }
 
     &__zelf-name {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 16px;
         line-height: 24px;
@@ -150,18 +150,18 @@
     }
 
     &__label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
     }
 
     &__value {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 700;
         font-size: 14px;
         line-height: 20px;
@@ -179,7 +179,7 @@
         height: 20px;
         width: 20px;
         border-radius: 20px;
-        background-color: variables.$platinum;
+        background-color: variables.$themeBorder;
         display: flex;
         justify-content: center;
         align-items: center;

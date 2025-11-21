@@ -52,7 +52,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     domainHover: boolean = false;
     form!: UntypedFormGroup;
     loading: boolean = false;
-    loadingDomains: boolean = false;
     showHomeButton: boolean = false;
 
     gridItems = [
@@ -114,7 +113,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         this._initCarousel();
 
-        await this._loadDomains();
+        await this._loadAvailableDomains();
     }
 
     async ngAfterContentInit(): Promise<void> {
@@ -376,64 +375,23 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         });
     }
 
-    private async _loadDomains(): Promise<void> {
-        this.loadingDomains = true;
+    private async _loadAvailableDomains(): Promise<void> {
+        const domainConfigs = this._domainService.domainConfigs;
 
-        try {
-            const loadedFromCache = await this._loadDomainsFromCache();
-
-            if (loadedFromCache) return;
-
-            await this._loadDomainsFromAPI();
-        } catch (error) {
+        if (Object.keys(domainConfigs).length > 0) {
+            this.availableDomains = Object.values(domainConfigs);
+        } else {
             this.availableDomains = this._domainService.defaultFallbackDomainConfigs;
-
-            const currentDomain = this.form?.get("domain")?.value || this.domain || "zelf";
-
-            this._updateTagNameValidators(currentDomain);
-        } finally {
-            this.loadingDomains = false;
-
-            this.domain = await this._tagsService.getDomain();
-
-            this.form.patchValue({ domain: this.domain }, { emitEvent: false });
-
-            this._updateTagNameValidators(this.domain);
-
-            const applied = await this._themeService.applyThemeForDomain(this.domain);
-
-            this.activeThemeClass = applied.className;
         }
-    }
 
-    private async _loadDomainsFromCache(): Promise<boolean> {
-        try {
-            const isCacheValid = await this._domainService.isCacheValid();
+        this.domain = (await this._tagsService.getDomain()) || "zelf";
 
-            if (!isCacheValid) return false;
+        this.form.patchValue({ domain: this.domain }, { emitEvent: false });
 
-            await this._domainService.loadDomainsFromStorage();
+        this._updateTagNameValidators(this.domain);
 
-            const cachedDomains = this._domainService.domainConfigs;
+        const applied = await this._themeService.applyThemeForDomain(this.domain);
 
-            this.availableDomains = Object.values(cachedDomains);
-            this.loadingDomains = false;
-
-            return true;
-        } catch (error) {
-            console.error("Error loading domains from cache:", error);
-            return false;
-        }
-    }
-
-    private async _loadDomainsFromAPI(): Promise<void> {
-        const response = await this._domainService.getDomains();
-
-        if (!response) this.availableDomains = this._domainService.defaultFallbackDomainConfigs;
-        else this.availableDomains = Object.values(response.data);
-
-        const currentDomain = this.form.get("domain")?.value || this.domain || "zelf";
-
-        this._updateTagNameValidators(currentDomain);
+        this.activeThemeClass = applied.className;
     }
 }

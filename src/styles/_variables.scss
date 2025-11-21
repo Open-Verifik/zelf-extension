@@ -1,32 +1,53 @@
-$primaryColor: #0e26ff;
+$primaryColor: var(--zns-theme-primary, #0e26ff);
 $primaryLight: #daddfa;
-$secondaryColor: #ff5721;
+$secondaryColor: var(--zns-theme-secondary, #ff5721);
 $secondaryColorLight: #f6e5e0;
 
-$correct: #1ea446;
+$correct: var(--zns-theme-success, #1ea446);
 $correctDark: #0f5223;
-$correctLight: #e7f8ed;
+$correctLight: var(--zns-theme-success-text, #e7f8ed);
 
-$error: #dc362e;
+$error: var(--zns-theme-error, #dc362e);
 $errorDark: #601410;
-$errorLight: #fceeee;
+$errorLight: var(--zns-theme-error-text, #fceeee);
 
-$warning: #de6800;
+$warning: var(--zns-theme-warning, #de6800);
 $warningDark: #4a210a;
-$warningLight: #ffeee9;
+$warningLight: var(--zns-theme-warning-text, #ffeee9);
 
 $info: #3998d3;
 $infoDark: #004a77;
 $infoLight: #ecf3fe;
 
 $black: #181818;
-$gray: #73777f;
-$taupeGray: #96939e;
-$frenchGray: #c3c6cf;
-$platinum: #e3e3e3;
-$antiFlashWhite: #eeedf1;
-$seaSalt: #f9f9fc;
 $white: #ffffff;
+
+$themeBodyFamily: var(--zns-theme-body-family, "Poppins", Arial, sans-serif);
+$themeTitleFamily: var(--zns-theme-title-family, "Menda", "Arial Black", sans-serif);
+
+$themeBackground: var(--zns-theme-background, #ffffff);
+$themeBackgroundSecondary: var(--zns-theme-background-secondary, #f9f9fc);
+
+$themeText: var(--zns-theme-text, #181818);
+$themeTextMuted: var(--zns-theme-text-muted, #96939e);
+$themeTextSecondary: var(--zns-theme-text-secondary, #73777f);
+
+$themeHeader: var(--zns-theme-header, #181818);
+$themeHeaderText: var(--zns-theme-header-text, #ffffff);
+
+$themeButton: var(--zns-theme-button, #0e26ff);
+$themeButtonText: var(--zns-theme-button-text, #ffffff);
+$themeButtonHover: var(--zns-theme-button-hover, #0c1fd9);
+$themeButtonSecondary: var(--zns-theme-button-secondary, #ffffff);
+$themeButtonSecondaryText: var(--zns-theme-button-secondary-text, #181818);
+
+$themeBorder: var(--zns-theme-border, #e3e3e3);
+$themeBorderHover: var(--zns-theme-border-hover, #c3c6cf);
+
+$themeCard: var(--zns-theme-card, #ffffff);
+$themeCardBorder: var(--zns-theme-card-border, #eeedf1);
+
+$themeShadow: var(--zns-theme-shadow, rgba(0, 0, 0, 0.1));
 
 $smoothBezier: cubic-bezier(0.25, 0.4, 0.7, 1);
 

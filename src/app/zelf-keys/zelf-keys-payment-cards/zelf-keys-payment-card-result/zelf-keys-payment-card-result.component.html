@@ -157,10 +157,10 @@
             </div>
 
             <div class="payment-card-result__actions">
-                <button class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill" (click)="onBackToCards()">
+                <button class="zelf-button zelf-button--outlined zelf-button--wide" (click)="onBackToCards()">
                     {{ t("zelf_keys.payment_card_result.actions.back_to_cards") }}
                 </button>
-                <button class="zelf-button zelf-button--black zelf-button--wide" (click)="onAddAnother()">
+                <button class="zelf-button zelf-button--primary zelf-button--wide" (click)="onAddAnother()">
                     {{ t("zelf_keys.payment_card_result.actions.add_another") }}
                 </button>
             </div>
@@ -172,10 +172,10 @@
             <p class="payment-card-result__description">{{ error || t("zelf_keys.payment_card_result.error.default_message") }}</p>
 
             <div class="payment-card-result__actions">
-                <button class="zelf-button zelf-button--outlined zelf-button--wide zelf-button--no-fill" (click)="onBackToCards()">
+                <button class="zelf-button zelf-button--outlined zelf-button--wide" (click)="onBackToCards()">
                     {{ t("zelf_keys.payment_card_result.actions.back_to_cards") }}
                 </button>
-                <button class="zelf-button zelf-button--black zelf-button--wide" (click)="onAddAnother()">
+                <button class="zelf-button zelf-button--primary zelf-button--wide" (click)="onAddAnother()">
                     {{ t("zelf_keys.payment_card_result.error.try_again") }}
                 </button>
             </div>

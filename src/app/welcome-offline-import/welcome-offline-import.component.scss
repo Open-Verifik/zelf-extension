@@ -52,7 +52,7 @@
     &__available-wrapper {
         margin-top: 8px;
         box-sizing: border-box;
-        border: 1px solid variables.$antiFlashWhite;
+        border: 1px solid variables.$themeCardBorder;
         border-radius: 16px;
         display: flex;
         justify-content: center;
@@ -64,14 +64,14 @@
     }
 
     &__available-subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin-top: 8px;
     }
 
@@ -89,7 +89,7 @@
         padding: 8px 0;
         box-sizing: border-box;
         border-radius: 16px;
-        background: variables.$antiFlashWhite;
+        background: variables.$themeCardBorder;
     }
 
     &__buttons {
@@ -124,7 +124,7 @@
 }
 
 .address-row {
-    background-color: variables.$antiFlashWhite;
+    background-color: variables.$themeCardBorder;
     border-radius: 16px;
     height: 48px;
     width: 100%;
@@ -154,7 +154,7 @@
     }
 
     &__label {
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         font-size: 14px;
         font-weight: 500;
         display: flex;

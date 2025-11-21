@@ -9,7 +9,7 @@
     align-items: center;
     width: 100%;
     background-color: variables.$white;
-    border: 1px solid variables.$antiFlashWhite;
+    border: 1px solid variables.$themeCardBorder;
     border-radius: 16px;
     padding: 16px 8px;
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
@@ -26,7 +26,7 @@
     &__text {
         font-size: 14px;
         font-weight: 600;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         color: variables.$black;
         margin: 0;
     }
@@ -607,7 +607,7 @@
         border: none;
         background: none;
         text-align: left;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         color: #1a1a1a;

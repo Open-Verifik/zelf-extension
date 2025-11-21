@@ -3,61 +3,77 @@
 .zotp-details {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: 24px;
+    gap: 20px;
+    padding: 32px;
     max-height: 90vh;
     overflow-y: auto;
+
+    @media (max-width: 400px) {
+        padding: 24px;
+        gap: 16px;
+    }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 12px;
+        padding-bottom: 4px;
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: "Menda", Arial, sans-serif;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 24px;
         color: variables.$black;
         margin: 0;
+        flex: 1;
     }
 
     &__close {
         cursor: pointer;
         border: none;
         background: none;
-        padding: 0;
-        width: 40px;
-        height: 40px;
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: variables.$black;
-        transition: color 0.2s variables.$smoothBezier;
+        transition: opacity 0.2s variables.$smoothBezier;
 
-        &:hover {
-            color: variables.$taupeGray;
+        &:hover:not(:disabled) {
+            opacity: 0.6;
+        }
+
+        &:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
         svg {
-            display: block;
+            fill: variables.$black;
+            width: 100%;
+            height: 100%;
         }
     }
 
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 24px;
     }
 
     &__section {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
     }
 
     &__section-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: "Menda", Arial, sans-serif;
         font-weight: 600;
         font-size: 16px;
         color: variables.$black;
@@ -67,7 +83,7 @@
     &__qr-section {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
         align-items: center;
     }
 
@@ -96,47 +112,17 @@
         gap: 12px;
     }
 
-    &__info-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        padding: 12px;
-        background-color: variables.$antiFlashWhite;
-        border-radius: 8px;
-    }
-
-    &__info-label {
-        font-family: "Poppins", Arial, sans-serif;
+    &__value--mono {
+        font-family: "Courier New", monospace;
         font-size: 12px;
-        font-weight: 500;
-        color: variables.$taupeGray;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
     }
 
-    &__info-value {
-        font-family: "Poppins", Arial, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        color: variables.$black;
-        word-break: break-word;
-
-        &--mono {
-            font-family: "Courier New", monospace;
-            font-size: 12px;
-        }
-    }
-
-    &__info-link {
-        font-family: "Poppins", Arial, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        color: variables.$black;
+    &__link {
         text-decoration: underline;
         word-break: break-all;
 
         &:hover {
-            color: variables.$taupeGray;
+            opacity: 0.7;
         }
     }
 
@@ -144,28 +130,8 @@
         display: flex;
         justify-content: flex-end;
         gap: 12px;
-        padding-top: 16px;
+        padding-top: 12px;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    &__button {
-        font-family: "Poppins", Arial, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 12px 24px;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s variables.$smoothBezier;
-
-        &--primary {
-            background-color: variables.$black;
-            color: variables.$white;
-
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-        }
     }
 }
 

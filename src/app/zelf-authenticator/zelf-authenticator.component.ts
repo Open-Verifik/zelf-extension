@@ -1,4 +1,4 @@
-import { CommonModule, NgFor, NgIf } from "@angular/common";
+import { CommonModule, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from "@angular/forms";
@@ -39,6 +39,7 @@ import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-detai
         MatIconModule,
         MatMenuModule,
         MatSnackBarModule,
+        NgClass,
         NgFor,
         NgIf,
         TranslocoModule,
@@ -252,7 +253,7 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
         dialogRef.afterClosed().subscribe(async (recoveredZOTP: Partial<ZOTP> | null) => {
             if (recoveredZOTP) {
-                // ZOTP was recovered - refresh the list
+                // ZOTP was recovered - refresh the listx
                 // Note: The recovered ZOTP needs to be added to the list
                 // For now, we'll refresh to show any changes
                 await this.refreshList();
@@ -406,11 +407,10 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
     async refreshList(): Promise<void> {
         this.loading = true;
+
         try {
-            // Clear cache and fetch fresh data from backend
             this.zotps = await this._zotpService.clearCacheAndRefresh();
 
-            // Ensure all ZOTPs are marked as not decrypted
             this.zotps.forEach((zotp) => {
                 zotp.isDecrypted = false;
                 zotp.decryptedSecret = undefined;

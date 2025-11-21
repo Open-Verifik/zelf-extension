@@ -6,10 +6,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
+import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
 import { ZOTP } from "app/models/zotp.model";
 import { SealService, SecretShare } from "app/services/seal.service";
 import { ZOTPService } from "app/services/zotp.service";
 import { TOTPService } from "app/services/totp.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 export interface RecoverZOTPData {
     // Optional - if recovering existing ZOTP
@@ -19,6 +21,7 @@ export interface RecoverZOTPData {
 @Component({
     imports: [
         CommonModule,
+        DragAndDropDirective,
         FormsModule,
         MatButtonModule,
         MatFormFieldModule,
@@ -26,6 +29,7 @@ export interface RecoverZOTPData {
         NgFor,
         NgIf,
         TranslocoModule,
+        ZelfLoaderComponent,
     ],
     selector: "recover-zotp",
     styleUrls: ["./recover-zotp.component.scss"],
@@ -59,6 +63,12 @@ export class RecoverZotpComponent {
         this.dialogRef.close(this.recoveredZOTP);
     }
 
+    async onDrop(files: FileList): Promise<void> {
+        if (files.length === 0) return;
+
+        await this._processFile(files[0]);
+    }
+
     onFileSelected(event: Event): void {
         const input = event.target as HTMLInputElement;
         const file = input.files?.[0];
@@ -67,67 +77,82 @@ export class RecoverZotpComponent {
             return;
         }
 
+        this._processFile(file);
+    }
+
+    private async _processFile(file: File): Promise<void> {
         if (!file.name.endsWith(".json")) {
             this.error = "Please select a JSON file";
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const content = e.target?.result as string;
-                const data = JSON.parse(content);
+        this.loading = true;
+        this.error = "";
 
-                // Validate share file structure
-                if (data.shares && Array.isArray(data.shares)) {
-                    this.importedShares = data.shares;
-                    
-                    // Extract ZOTP metadata if available
-                    if (data.metadata) {
-                        this.zotp = {
-                            id: data.metadata.zotpId || data.zotpId,
-                            name: data.metadata.name || data.zotpName,
-                            issuer: data.metadata.issuer,
-                            algorithm: data.metadata.algorithm || "SHA1",
-                            digits: data.metadata.digits || 6,
-                            period: data.metadata.period || 30,
-                        } as ZOTP;
-                    } else if (data.zotpName) {
-                        // Fallback to old format
-                        this.zotp = {
-                            id: data.zotpId,
-                            name: data.zotpName,
-                            issuer: data.issuer,
-                        } as ZOTP;
-                    }
-                    
-                    this.error = "";
-                    this._changeDetectorRef.detectChanges();
-                } else if (data.shareData) {
-                    // Single share
-                    this.importedShares = [
-                        {
-                            shareId: data.shareId || `share_${Date.now()}`,
-                            shareData: data.shareData,
-                            partyIndex: data.partyIndex || 1,
-                            threshold: data.threshold || 0,
-                            totalShares: data.totalShares || 0,
-                            participant: data.participant,
-                            createdAt: data.createdAt || Date.now(),
-                        },
-                    ];
-                    this.error = "";
-                    this._changeDetectorRef.detectChanges();
-                } else {
-                    this.error = "Invalid share file format";
+        try {
+            const content = await this._fileToText(file);
+            const data = JSON.parse(content);
+
+            // Validate share file structure
+            if (data.shares && Array.isArray(data.shares)) {
+                this.importedShares = data.shares;
+
+                // Extract ZOTP metadata if available
+                if (data.metadata) {
+                    this.zotp = {
+                        id: data.metadata.zotpId || data.zotpId,
+                        name: data.metadata.name || data.zotpName,
+                        issuer: data.metadata.issuer,
+                        algorithm: data.metadata.algorithm || "SHA1",
+                        digits: data.metadata.digits || 6,
+                        period: data.metadata.period || 30,
+                    } as ZOTP;
+                } else if (data.zotpName) {
+                    // Fallback to old format
+                    this.zotp = {
+                        id: data.zotpId,
+                        name: data.zotpName,
+                        issuer: data.issuer,
+                    } as ZOTP;
                 }
-            } catch (error: any) {
-                console.error("Error reading file:", error);
-                this.error = error.message || "Failed to read file";
-            }
-        };
 
-        reader.readAsText(file);
+                this.error = "";
+            } else if (data.shareData) {
+                // Single share
+                this.importedShares = [
+                    {
+                        shareId: data.shareId || `share_${Date.now()}`,
+                        shareData: data.shareData,
+                        partyIndex: data.partyIndex || 1,
+                        threshold: data.threshold || 0,
+                        totalShares: data.totalShares || 0,
+                        participant: data.participant,
+                        createdAt: data.createdAt || Date.now(),
+                    },
+                ];
+                this.error = "";
+            } else {
+                this.error = "Invalid share file format";
+            }
+        } catch (error: any) {
+            console.error("Error processing file:", error);
+            this.error = error.message || "Failed to process file";
+        } finally {
+            this.loading = false;
+            this._changeDetectorRef.detectChanges();
+        }
+    }
+
+    private _fileToText(file: File): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const content = e.target?.result as string;
+                resolve(content);
+            };
+            reader.onerror = reject;
+            reader.readAsText(file);
+        });
     }
 
     addShareManually(): void {
@@ -269,7 +294,7 @@ export class RecoverZotpComponent {
             // Try to extract ZOTP info from share metadata if available
             // Otherwise, create a basic ZOTP object
             const shareMetadata = this.importedShares[0];
-            
+
             // Create ZOTP object from recovered secret
             // Use metadata from imported shares if available
             const zotp: Partial<ZOTP> = {
@@ -289,7 +314,7 @@ export class RecoverZotpComponent {
             // Store locally in cache (user will need to encrypt with biometrics to store in Walrus/ZelfKeys)
             // For now, we'll save it to local cache so it appears in the list
             await this._zotpService.saveZOTP(zotp as ZOTP);
-            
+
             // Refresh the ZOTP list to show the recovered ZOTP
             await this._zotpService.loadZOTPsFromBackend(true);
 
@@ -322,4 +347,3 @@ export class RecoverZotpComponent {
         return this.importedShares.length >= threshold;
     }
 }
-

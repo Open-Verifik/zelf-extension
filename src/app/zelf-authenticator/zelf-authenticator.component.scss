@@ -55,15 +55,15 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
-        font-weight: 500;
-        font-size: 14px;
+        font-family: "Menda", Arial, sans-serif;
+        font-weight: 600;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$black;
-        margin: 0;
+        margin: 12px 0 0 0;
     }
 
     &__content {
@@ -71,7 +71,7 @@
         max-width: 600px;
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 12px;
         justify-content: center;
         align-items: center;
         flex-grow: 1;
@@ -80,25 +80,21 @@
     &__search {
         width: 100%;
         padding: 0 16px;
+        margin-bottom: 12px;
     }
 
-    &__search-input {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        font-family: "Poppins", Arial, sans-serif;
-        font-size: 14px;
-        outline: none;
-        transition: border-color 0.3s variables.$smoothBezier;
+    // Ensure refresh button is above the floating label
+    &__search .zelf-icon-button {
+        z-index: 20;
+        position: relative;
+    }
 
-        &:focus {
-            border-color: variables.$black;
-        }
+    &__refresh-icon {
+        transition: transform 0.3s variables.$smoothBezier;
+    }
 
-        &::placeholder {
-            color: variables.$taupeGray;
-        }
+    &__search .zelf-authenticator__refresh-button--loading .zelf-authenticator__refresh-icon {
+        animation: rotate 1s linear infinite;
     }
 
     &__empty {
@@ -116,38 +112,7 @@
         color: variables.$taupeGray;
         margin: 0;
     }
-
-    &__refresh {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 16px;
-        width: 100%;
-    }
-
-    &__refresh-link {
-        background: none;
-        border: none;
-        padding: 0;
-        font-family: "Poppins", Arial, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        color: variables.$black;
-        text-decoration: underline;
-        cursor: pointer;
-        transition: opacity 0.3s variables.$smoothBezier;
-
-        &:hover:not(:disabled) {
-            opacity: 0.7;
-        }
-
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    }
 }
-
 // Override global .zelf-card__content for this component only
 :host ::ng-deep .zelf-card__content {
     justify-content: start !important;
@@ -157,7 +122,7 @@
 .zotps {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -172,19 +137,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     padding: 20px;
     border-radius: 16px;
-    background-color: variables.$antiFlashWhite;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
     width: 100%;
-    transition: background-color 0.3s variables.$smoothBezier;
+    transition: all 0.3s ease;
     // Ensure menu can overflow
     position: relative;
     overflow: visible;
-
-    &:hover {
-        background-color: #e2e2e2;
-    }
+    cursor: pointer;
 
     &__display {
         display: flex;
@@ -217,10 +181,11 @@
         width: 40px;
         min-height: 40px;
         min-width: 40px;
-        border-radius: 40px;
+        border-radius: 8px;
         background-color: variables.$black;
         color: white;
         box-sizing: border-box;
+        flex-shrink: 0;
     }
 
     &__character {
@@ -248,30 +213,38 @@
         justify-content: center;
         align-items: flex-start;
         flex: 1;
+        min-width: 0;
     }
 
     &__name-container {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 4px;
+        width: 100%;
     }
 
     &__name {
         font-family: "Poppins", Arial, sans-serif;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
-        color: variables.$black;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.2;
+        color: #1a1a1a;
         margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__issuer {
         font-family: "Poppins", Arial, sans-serif;
         font-weight: 400;
-        font-size: 12px;
-        line-height: 16px;
-        color: variables.$taupeGray;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #666;
         margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__code-container {
@@ -350,5 +323,14 @@
     .mat-mdc-menu-panel {
         position: absolute !important;
         z-index: 1000 !important;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

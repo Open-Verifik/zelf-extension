@@ -524,6 +524,8 @@
         "your_token_address": "Your {{ name }} address"
     },
     "common": {
+        "optional": "Optional",
+        "no_results_found": "No results found",
         "12_word_phrase": "12 word phrase",
         "24_word_phrase": "24 word phrase",
         "about": "About",
@@ -1460,6 +1462,7 @@
         "recover_description": "Import shares to recover your ZOTP secret. You need a threshold number of shares to reconstruct the secret.",
         "upload_shares_file": "Upload Shares File",
         "or_enter_share_manually": "Or Enter Share Manually",
+        "or_enter_share_below": "Or enter your share below",
         "share_data": "Share Data",
         "share_placeholder": "Paste share data here (base64 encoded)",
         "add_share": "Add Share",

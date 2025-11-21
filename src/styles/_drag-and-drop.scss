@@ -1,0 +1,56 @@
+@use "./variables";
+
+.drag-and-drop {
+    position: relative;
+    border: 1px dashed variables.$taupeGray;
+    transition: background-color cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
+    border-radius: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &--active {
+        border: 1px dashed variables.$secondaryColor;
+        background-color: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    &__loader {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 3;
+    }
+
+    &__loader-overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        z-index: 2;
+        background-color: rgba(255, 2555, 255, 0.9);
+    }
+
+    &__preview {
+        max-height: 476px;
+        max-width: 340px;
+    }
+
+    &__data {
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 0 16px;
+        font-size: smaller;
+        color: #ffffff;
+        width: 100%;
+        z-index: 2;
+        position: absolute;
+        bottom: 0;
+    }
+
+    input {
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+}

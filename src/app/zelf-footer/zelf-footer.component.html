@@ -36,11 +36,11 @@
                 </svg>
             </button>
 
-            <div *ngIf="isZelfAuthenticatorRoute()" class="footer-link__button footer-link__button--action" (click)="addZOTP()">
+            <button *ngIf="isZelfAuthenticatorRoute()" class="footer-link__button footer-link__button--action" [matMenuTriggerFor]="zelfAuthenticatorMenu">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#181818">
                     <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z" />
                 </svg>
-            </div>
+            </button>
 
             <div [routerLink]="['/activity']" *ngIf="!isZelfKeysRoute() && !isZelfAuthenticatorRoute()" class="footer-link__button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -60,6 +60,15 @@
             </button>
             <button class="zelf-menu__button" mat-menu-item (click)="navigateToZelfKeysTab('payment-cards/new')">
                 <span class="zelf-menu__button-text">{{ t("billing.dashboard.add_payment_card") }}</span>
+            </button>
+        </mat-menu>
+
+        <mat-menu #zelfAuthenticatorMenu="matMenu" class="zelf-menu" yPosition="above" xPosition="before">
+            <button class="zelf-menu__button" mat-menu-item (click)="addZOTP()">
+                <span class="zelf-menu__button-text">{{ t("zotp.add_zotp") }}</span>
+            </button>
+            <button class="zelf-menu__button" mat-menu-item (click)="recoverZOTP()">
+                <span class="zelf-menu__button-text">{{ t("zotp.recover_zotp") }}</span>
             </button>
         </mat-menu>
     </ng-container>

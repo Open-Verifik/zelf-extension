@@ -8,6 +8,7 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { filter, Subject, takeUntil } from "rxjs";
 
 import { AddZotpComponent } from "../zelf-authenticator/add-zotp/add-zotp.component";
+import { RecoverZotpComponent, RecoverZOTPData } from "../zelf-authenticator/recover-zotp/recover-zotp.component";
 import { FooterMenuComponent } from "./footer-menu/footer-menu.component";
 
 @Component({
@@ -77,6 +78,21 @@ export class ZelfFooterComponent implements OnInit, OnDestroy {
             maxWidth: "500px",
             panelClass: "zelf-dialog",
             width: "90vw",
+        });
+
+        dialogRef.afterClosed().subscribe(async () => {
+            // Dialog closed, could refresh if needed
+        });
+    }
+
+    async recoverZOTP(): Promise<void> {
+        const dialogRef = this._dialog.open(RecoverZotpComponent, {
+            backdropClass: "zelf-backdrop",
+            maxWidth: "600px",
+            minWidth: "320px",
+            panelClass: "zelf-dialog",
+            width: "90vw",
+            data: {} as RecoverZOTPData,
         });
 
         dialogRef.afterClosed().subscribe(async () => {

@@ -31,48 +31,68 @@
                 </div>
             </div>
 
-            <div class="add-zotp__mode-selector">
-                <button
-                    type="button"
-                    class="add-zotp__mode-button"
-                    [ngClass]="{ 'add-zotp__mode-button--active': mode === 'setup-key' }"
-                    (click)="switchMode('setup-key')"
+            <div class="animated-tabs">
+                <div
+                    class="animated-tabs__switch"
+                    [ngClass]="{
+                        'animated-tabs__switch--left': mode === 'setup-key',
+                        'animated-tabs__switch--right': mode === 'qr-upload',
+                    }"
                 >
-                    {{ t("zotp.enter_setup_key") }}
-                </button>
-                <button
-                    type="button"
-                    class="add-zotp__mode-button"
-                    [ngClass]="{ 'add-zotp__mode-button--active': mode === 'qr-upload' }"
-                    (click)="switchMode('qr-upload')"
-                >
-                    {{ t("zotp.upload_qr_code") }}
-                </button>
+                    <div (click)="switchMode('setup-key')" [ngClass]="{ 'animated-tab--active': mode === 'setup-key' }" class="animated-tab">
+                        <div class="animated-tab__text">{{ t("zotp.enter_setup_key") }}</div>
+                    </div>
+
+                    <div (click)="switchMode('qr-upload')" [ngClass]="{ 'animated-tab--active': mode === 'qr-upload' }" class="animated-tab">
+                        <div class="animated-tab__text">{{ t("zotp.upload_qr_code") }}</div>
+                    </div>
+                </div>
             </div>
 
             <form [formGroup]="form" class="add-zotp__form">
                 <ng-container *ngIf="mode === 'setup-key'">
                     <div class="add-zotp__field">
-                        <label class="add-zotp__label">{{ t("zotp.account_name") }}</label>
-                        <input class="add-zotp__input" formControlName="name" type="text" [placeholder]="t('zotp.account_name_placeholder')" />
+                        <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': submitted && form.controls.name.invalid && (form.controls.name.touched || form.controls.name.dirty) }">
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="name"
+                                type="text"
+                                maxlength="128"
+                                placeholder=" "
+                                id="accountName"
+                            />
+                            <label for="accountName" class="zelf-input__floating-label">{{ t("zotp.account_name") }}</label>
+                        </div>
                     </div>
 
                     <div class="add-zotp__field">
-                        <label class="add-zotp__label"
-                            >{{ t("zotp.issuer") }} <span class="add-zotp__optional">({{ t("common.optional") }})</span></label
-                        >
-                        <input class="add-zotp__input" formControlName="issuer" type="text" [placeholder]="t('zotp.issuer_placeholder')" />
+                        <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': submitted && form.controls.issuer.invalid && (form.controls.issuer.touched || form.controls.issuer.dirty) }">
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="issuer"
+                                type="text"
+                                maxlength="128"
+                                placeholder=" "
+                                id="issuer"
+                            />
+                            <label for="issuer" class="zelf-input__floating-label"
+                                >{{ t("zotp.issuer") }} <span class="add-zotp__optional">({{ t("common.optional") }})</span></label
+                            >
+                        </div>
                     </div>
 
                     <div class="add-zotp__field">
-                        <label class="add-zotp__label">{{ t("zotp.setup_key") }}</label>
-                        <input
-                            class="add-zotp__input"
-                            formControlName="setupKey"
-                            type="text"
-                            [placeholder]="t('zotp.setup_key_placeholder')"
-                            autocomplete="off"
-                        />
+                        <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': submitted && form.controls.setupKey.invalid && (form.controls.setupKey.touched || form.controls.setupKey.dirty) }">
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="setupKey"
+                                type="text"
+                                placeholder=" "
+                                autocomplete="off"
+                                id="setupKey"
+                            />
+                            <label for="setupKey" class="zelf-input__floating-label">{{ t("zotp.setup_key") }}</label>
+                        </div>
                     </div>
 
                     <!-- Master Password field (required for ZOTP creation) - Styled with security emphasis -->
@@ -88,18 +108,19 @@
                             <span class="add-zotp__required">*</span>
                         </label>
                         <div class="add-zotp__password-wrapper">
-                            <div class="add-zotp__password-input-container">
+                            <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': submitted && form.controls.masterPassword.invalid && (form.controls.masterPassword.touched || form.controls.masterPassword.dirty) }">
                                 <input
-                                    class="add-zotp__input add-zotp__input--password"
+                                    class="zelf-input__control zelf-input__control--floating-label"
                                     formControlName="masterPassword"
                                     [type]="showMasterPassword ? 'text' : 'password'"
-                                    [placeholder]="t('zotp.master_password_placeholder')"
+                                    placeholder=" "
                                     autocomplete="off"
                                     id="masterPassword"
                                 />
+                                <label for="masterPassword" class="zelf-input__floating-label">{{ t("zotp.master_password_placeholder") }}</label>
                                 <button
                                     type="button"
-                                    class="add-zotp__password-toggle"
+                                    class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--no-fill"
                                     (click)="toggleShowMasterPassword()"
                                     [attr.aria-label]="showMasterPassword ? t('common.hide_password') : t('common.show_password')"
                                     tabindex="-1"
@@ -152,7 +173,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="mode === 'qr-upload'">
-                    <div class="add-zotp__qr-upload" dragAndDrop (fileDropped)="onDrop($event)">
+                    <div dragAndDrop class="add-zotp__qr-upload drag-and-drop" (fileDropped)="onDrop($event)">
                         <input
                             (change)="fileBrowseHandler($event)"
                             #fileInput
@@ -163,18 +184,28 @@
                             type="file"
                         />
 
-                        <div class="add-zotp__qr-upload-content">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div class="drag-and-drop__loader" *ngIf="loading">
+                            <zelf-loader [diameter]="60"></zelf-loader>
+                        </div>
+
+                        <button
+                            (click)="fileInput.click()"
+                            [disabled]="loading"
+                            class="zelf-button zelf-button--outlined zelf-button--wide"
+                            mat-flat-button
+                            type="button"
+                        >
+                            {{ t("common.upload_qr_image") }}
+
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
-                                    d="M3 3H11V5H5V11H3V3ZM13 3H21V11H19V5H13V3ZM3 13H5V19H11V21H3V13ZM19 13V19H13V21H21V13H19Z"
-                                    fill="currentColor"
+                                    d="M4.5 10.2217H7.5C7.9125 10.2217 8.25 9.88422 8.25 9.47172V5.72172H9.4425C10.11 5.72172 10.4475 4.91172 9.975 4.43922L6.5325 0.996719C6.24 0.704219 5.7675 0.704219 5.475 0.996719L2.0325 4.43922C1.56 4.91172 1.89 5.72172 2.5575 5.72172H3.75V9.47172C3.75 9.88422 4.0875 10.2217 4.5 10.2217ZM1.5 11.7217H10.5C10.9125 11.7217 11.25 12.0592 11.25 12.4717C11.25 12.8842 10.9125 13.2217 10.5 13.2217H1.5C1.0875 13.2217 0.75 12.8842 0.75 12.4717C0.75 12.0592 1.0875 11.7217 1.5 11.7217Z"
+                                    fill="#181818"
                                 />
                             </svg>
-                            <p class="add-zotp__qr-upload-text">{{ t("zotp.upload_qr_code_instructions") }}</p>
-                            <button type="button" class="add-zotp__qr-upload-button" (click)="fileInput.click()">
-                                {{ t("common.upload_qr_image") }}
-                            </button>
-                        </div>
+                        </button>
+
+                        <p class="zelf-card__help-text">{{ t("common.or_drag_and_drop") }}</p>
                     </div>
 
                     <div class="add-zotp__error" *ngIf="qrError">{{ qrError }}</div>

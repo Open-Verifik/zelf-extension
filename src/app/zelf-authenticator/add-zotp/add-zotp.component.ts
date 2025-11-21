@@ -4,29 +4,32 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { MatButtonModule } from "@angular/material/button";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslocoModule } from "@jsverse/transloco";
-import { Subject } from "rxjs";
 import jsQR from "jsqr";
-import { ZOTP } from "app/models/zotp.model";
-import { ZOTPService } from "app/services/zotp.service";
-import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
+import { Subject } from "rxjs";
+
 import { BiometricsGeneralComponent } from "app/biometrics-general/biometrics.component";
-import { TagsService, TagModel } from "app/tags.service";
-import { VaultService } from "app/vault.service";
+import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
 import { HttpWrapperService } from "app/http-wrapper.service";
-import { WalletService } from "app/wallet.service";
+import { ZOTP } from "app/models/zotp.model";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
+import { ZOTPService } from "app/services/zotp.service";
+import { TagModel, TagsService } from "app/tags.service";
+import { VaultService } from "app/vault.service";
+import { WalletService } from "app/wallet.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     imports: [
+        BiometricsGeneralComponent,
         CommonModule,
         DragAndDropDirective,
+        FirstLetterPipe,
         MatButtonModule,
         NgClass,
         NgIf,
         ReactiveFormsModule,
         TranslocoModule,
-        BiometricsGeneralComponent,
-        FirstLetterPipe,
+        ZelfLoaderComponent,
     ],
     selector: "add-zotp",
     styleUrls: ["./add-zotp.component.scss"],
@@ -35,14 +38,15 @@ import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 export class AddZotpComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();
 
+    currentWallet: TagModel | null = null; // Current wallet for displaying
     form!: FormGroup;
     loading: boolean = false;
     mode: "setup-key" | "qr-upload" = "setup-key";
+    pendingZOTP: ZOTP | null = null; // ZOTP waiting to be created/stored after biometrics verification
     qrError: string = "";
     showBiometrics: boolean = false;
-    pendingZOTP: ZOTP | null = null; // ZOTP waiting to be created/stored after biometrics verification
-    currentWallet: TagModel | null = null; // Current wallet for displaying
     showMasterPassword: boolean = false; // Toggle to show/hide master password
+    submitted: boolean = false; // Track if form has been submitted
 
     constructor(
         private _dialogRef: MatDialogRef<AddZotpComponent>,
@@ -78,8 +82,8 @@ export class AddZotpComponent implements OnInit, OnDestroy {
 
     private _initForm(): void {
         this.form = this._formBuilder.group({
-            name: ["", [Validators.required]],
-            issuer: [""],
+            name: ["", [Validators.required, Validators.maxLength(128)]],
+            issuer: ["", [Validators.maxLength(128)]],
             setupKey: ["", [Validators.required]],
             masterPassword: ["", [Validators.required]], // Master password required for ZOTP creation
         });
@@ -88,6 +92,7 @@ export class AddZotpComponent implements OnInit, OnDestroy {
     switchMode(mode: "setup-key" | "qr-upload"): void {
         this.mode = mode;
         this.qrError = "";
+        this.submitted = false; // Reset submitted state when switching modes
         this.form.get("setupKey")?.setValue("");
     }
 
@@ -466,6 +471,8 @@ export class AddZotpComponent implements OnInit, OnDestroy {
      * This is the main entry point for creating a new ZOTP
      */
     async save(): Promise<void> {
+        this.submitted = true;
+
         if (this.form.invalid) return;
 
         // Validate form and prepare ZOTP data

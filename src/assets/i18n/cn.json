@@ -254,7 +254,9 @@
         "zelf_authenticator": "Zelf 认证器",
         "zelf_keys": "Zelf 密钥",
         "subscriptions": "订阅",
-        "download_apps": "下载应用"
+        "download_apps": "下载应用",
+        "optional": "可选",
+        "no_results_found": "未找到结果"
     },
     "token": {
         "24h_performance": "24小时表现",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "已恢复的设置密钥",
         "create_zotp_from_recovery": "从恢复创建 ZOTP",
         "recovery_successful": "恢复成功！",
-        "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器。您现在可以使用它来生成代码。"
+        "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器。您现在可以使用它来生成代码。",
+        "or_enter_share_below": "或在下方输入您的份额"
     },
     "zelf_keys": {
         "dashboard": {

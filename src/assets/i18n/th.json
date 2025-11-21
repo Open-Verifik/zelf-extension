@@ -254,7 +254,9 @@
         "zelf_keys": "กุญแจ Zelf",
         "zelf_link": "ลิงก์ Zelf",
         "subscriptions": "การสมัครสมาชิก",
-        "download_apps": "ดาวน์โหลดแอป"
+        "download_apps": "ดาวน์โหลดแอป",
+        "optional": "ทางเลือก",
+        "no_results_found": "ไม่พบผลลัพธ์"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "คีย์การตั้งค่าที่กู้คืนได้",
         "create_zotp_from_recovery": "สร้าง ZOTP จากกู้คืน",
         "recovery_successful": "กู้คืนสำเร็จ!",
-        "recovery_success_description": "ZOTP ของคุณถูกกู้คืนและเพิ่มเข้าเครื่องยืนยันตัวตนแล้ว ตอนนี้คุณสามารถใช้มันเพื่อสร้างรหัสได้"
+        "recovery_success_description": "ZOTP ของคุณถูกกู้คืนและเพิ่มเข้าเครื่องยืนยันตัวตนแล้ว ตอนนี้คุณสามารถใช้มันเพื่อสร้างรหัสได้",
+        "or_enter_share_below": "หรือป้อนส่วนแบ่งของคุณด้านล่าง"
     },
     "zelf_keys": {
         "dashboard": {

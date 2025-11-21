@@ -254,7 +254,9 @@
         "zelf_authenticator": "مصدق زيلف",
         "zelf_keys": "مفاتيح زيلف",
         "subscriptions": "الاشتراكات",
-        "download_apps": "تنزيل التطبيقات"
+        "download_apps": "تنزيل التطبيقات",
+        "optional": "اختياري",
+        "no_results_found": "لم يتم العثور على نتائج"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "مفتاح الإعداد المستعاد",
         "create_zotp_from_recovery": "إنشاء ZOTP من الاستعادة",
         "recovery_successful": "نجحت الاستعادة!",
-        "recovery_success_description": "تم استعادة ZOTP الخاص بك وإضافته إلى المصادق الخاص بك. يمكنك الآن استخدامه لإنشاء الرموز."
+        "recovery_success_description": "تم استعادة ZOTP الخاص بك وإضافته إلى المصادق الخاص بك. يمكنك الآن استخدامه لإنشاء الرموز.",
+        "or_enter_share_below": "أو أدخل حصتك أدناه"
     },
     "zelf_keys": {
         "dashboard": {

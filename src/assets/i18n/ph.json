@@ -254,7 +254,9 @@
         "zelf_authenticator": "Zelf Tagapatunay",
         "zelf_keys": "Mga Susi ng Zelf",
         "subscriptions": "Mga Subscription",
-        "download_apps": "I-download ang mga App"
+        "download_apps": "I-download ang mga App",
+        "optional": "Opsyonal",
+        "no_results_found": "Walang nahanap na resulta"
     },
     "token": {
         "24h_performance": "24h na Performance",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "Na-recover na Setup Key",
         "create_zotp_from_recovery": "Gumawa ng ZOTP mula sa Recovery",
         "recovery_successful": "Matagumpay ang Recovery!",
-        "recovery_success_description": "Na-recover na ang iyong ZOTP at naidagdag sa iyong authenticator. Maaari mo na itong gamitin para gumawa ng codes."
+        "recovery_success_description": "Na-recover na ang iyong ZOTP at naidagdag sa iyong authenticator. Maaari mo na itong gamitin para gumawa ng codes.",
+        "or_enter_share_below": "O ipasok ang iyong share sa ibaba"
     },
     "zelf_keys": {
         "dashboard": {

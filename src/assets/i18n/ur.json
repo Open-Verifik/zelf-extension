@@ -254,7 +254,9 @@
         "zelf_keys": "Zelf کلیدیں",
         "zelf_link": "Zelf لنک",
         "subscriptions": "سبسکرپشنز",
-        "download_apps": "ایپس ڈاؤن لوڈ کریں"
+        "download_apps": "ایپس ڈاؤن لوڈ کریں",
+        "optional": "اختیاری",
+        "no_results_found": "کوئی نتیجہ نہیں ملا"
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",
@@ -545,7 +547,8 @@
         "recovered_setup_key": "بحال شدہ سیٹ اپ کلید",
         "create_zotp_from_recovery": "بحالی سے ZOTP بنائیں",
         "recovery_successful": "بحالی کامیاب!",
-        "recovery_success_description": "آپ کا ZOTP بحال کر دیا گیا ہے اور آپ کے تصدیق کنندہ میں شامل کر دیا گیا ہے۔ اب آپ اسے کوڈز بنانے کے لیے استعمال کر سکتے ہیں۔"
+        "recovery_success_description": "آپ کا ZOTP بحال کر دیا گیا ہے اور آپ کے تصدیق کنندہ میں شامل کر دیا گیا ہے۔ اب آپ اسے کوڈز بنانے کے لیے استعمال کر سکتے ہیں۔",
+        "or_enter_share_below": "یا نیچے اپنا شیئر درج کریں"
     },
     "billing": {
         "activation": {

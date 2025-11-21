@@ -254,7 +254,9 @@
         "zelf_authenticator": "Zelf認証システム",
         "zelf_keys": "Zelfキー",
         "subscriptions": "サブスクリプション",
-        "download_apps": "アプリをダウンロード"
+        "download_apps": "アプリをダウンロード",
+        "optional": "オプション",
+        "no_results_found": "結果が見つかりませんでした"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "回復したセットアップキー",
         "create_zotp_from_recovery": "回復からZOTPを作成",
         "recovery_successful": "回復に成功しました！",
-        "recovery_success_description": "ZOTPが回復され、認証アプリに追加されました。これを使用してコードを生成できます。"
+        "recovery_success_description": "ZOTPが回復され、認証アプリに追加されました。これを使用してコードを生成できます。",
+        "or_enter_share_below": "または以下にシェアを入力してください"
     },
     "zelf_keys": {
         "dashboard": {

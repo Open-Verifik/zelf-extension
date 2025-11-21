@@ -254,7 +254,9 @@
         "zelf_authenticator": "ज़ेल्फ़ प्रमाणीकरणकर्ता",
         "zelf_keys": "ज़ेल्फ़ कुंजियाँ",
         "subscriptions": "सदस्यताएं",
-        "download_apps": "ऐप डाउनलोड करें"
+        "download_apps": "ऐप डाउनलोड करें",
+        "optional": "वैकल्पिक",
+        "no_results_found": "कोई परिणाम नहीं मिला"
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "पुनर्प्राप्त सेटअप कुंजी",
         "create_zotp_from_recovery": "पुनर्प्राप्ति से ZOTP बनाएं",
         "recovery_successful": "पुनर्प्राप्ति सफल!",
-        "recovery_success_description": "आपका ZOTP पुनर्प्राप्त किया गया है और आपके प्रमाणक में जोड़ा गया है। अब आप इसका उपयोग कोड उत्पन्न करने के लिए कर सकते हैं।"
+        "recovery_success_description": "आपका ZOTP पुनर्प्राप्त किया गया है और आपके प्रमाणक में जोड़ा गया है। अब आप इसका उपयोग कोड उत्पन्न करने के लिए कर सकते हैं।",
+        "or_enter_share_below": "या नीचे अपना शेयर दर्ज करें"
     },
     "zelf_keys": {
         "dashboard": {

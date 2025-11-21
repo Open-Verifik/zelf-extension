@@ -254,7 +254,9 @@
         "zelf_authenticator": "Autenticador Zelf",
         "zelf_keys": "Chaves Zelf",
         "subscriptions": "Assinaturas",
-        "download_apps": "Baixar Aplicativos"
+        "download_apps": "Baixar Aplicativos",
+        "optional": "Opcional",
+        "no_results_found": "Nenhum resultado encontrado"
     },
     "token": {
         "24h_performance": "Desempenho 24h",
@@ -1079,7 +1081,8 @@
         "recovered_setup_key": "Chave de Configuração Recuperada",
         "create_zotp_from_recovery": "Criar ZOTP a partir da Recuperação",
         "recovery_successful": "Recuperação Bem-sucedida!",
-        "recovery_success_description": "Seu ZOTP foi recuperado e adicionado ao seu autenticador. Agora você pode usá-lo para gerar códigos."
+        "recovery_success_description": "Seu ZOTP foi recuperado e adicionado ao seu autenticador. Agora você pode usá-lo para gerar códigos.",
+        "or_enter_share_below": "Ou insira sua parte abaixo"
     },
     "zelf_keys": {
         "dashboard": {

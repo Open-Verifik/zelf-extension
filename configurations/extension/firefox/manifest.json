@@ -14,7 +14,7 @@
         "storage",
         "tabs"
     ],
-    "version": "2.0.11",
+    "version": "2.0.12",
     "action": {
         "default_popup": "popup.html",
         "default_path": "index.html",

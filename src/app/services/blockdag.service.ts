@@ -15,10 +15,10 @@ export class BlockDAGService {
 
     private readonly _chainConfigs = {
         mainnet: {
-            blockExplorerUrls: ["https://primordial.bdagscan.com"],
+            blockExplorerUrls: ["https://awakening.bdagscan.com"],
             chainId: 1043,
-            chainName: "BlockDAG Testnet",
-            rpcUrls: ["http://13.234.176.105:18545"],
+            chainName: "BlockDAG Awakening Network",
+            rpcUrls: ["https://rpc.awakening.bdagscan.com"],
             nativeCurrency: {
                 decimals: 18,
                 name: "BDAG",
@@ -194,21 +194,69 @@ export class BlockDAGService {
                 txResponse = await tokenContract.transfer(params.to, amount);
             } else {
                 // Native BDAG transfer
+                // Get current gas price to ensure transaction isn't dropped
+                const feeData = await provider.getFeeData();
+                const gasPrice = feeData.gasPrice || ethers.parseUnits("1", "gwei");
+
+                // Estimate gas for the transaction
+                const estimatedGas = await provider.estimateGas({
+                    to: params.to,
+                    from: wallet.address,
+                    value: ethers.parseEther(params.value),
+                });
+
                 const transaction = {
                     to: params.to,
                     value: ethers.parseEther(params.value),
                     chainId: this._chainConfigs.mainnet.chainId,
+                    gasPrice: gasPrice,
+                    gasLimit: estimatedGas,
                 };
 
                 txResponse = await wallet.sendTransaction(transaction);
             }
 
-            return {
-                hash: txResponse.hash,
-                status: "pending",
-            };
+            // Wait for transaction to be mined (with timeout)
+            // This ensures we catch dropped transactions early
+            try {
+                const receipt = await Promise.race([
+                    txResponse.wait(),
+                    new Promise((_, reject) => setTimeout(() => reject(new Error("Transaction timeout")), 30000)), // 30 second timeout
+                ]);
+
+                // Check if transaction was successful
+                if (receipt && receipt.status === 1) {
+                    return {
+                        hash: txResponse.hash,
+                        status: "success",
+                    };
+                } else {
+                    return {
+                        hash: txResponse.hash,
+                        status: "failed",
+                    };
+                }
+            } catch (waitError: any) {
+                // If waiting times out or fails, return pending status
+                // The transaction receipt component will check status later
+                console.log("Transaction wait timeout or error, returning pending:", waitError.message);
+                return {
+                    hash: txResponse.hash,
+                    status: "pending",
+                };
+            }
         } catch (error: any) {
             console.error("Error sending BlockDAG transaction:", error);
+
+            // Check if it's a transaction replacement or dropped error
+            if (error.code === "TRANSACTION_REPLACED" || error.code === "REPLACED") {
+                throw new Error("Transaction was replaced by another transaction");
+            }
+
+            if (error.reason === "replaced" || error.message?.includes("replaced")) {
+                throw new Error("Transaction was replaced");
+            }
+
             throw error;
         }
     }

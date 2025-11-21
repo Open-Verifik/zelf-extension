@@ -13,7 +13,7 @@
         "storage",
         "sidePanel"
     ],
-    "version": "2.0.15",
+    "version": "2.0.16",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"

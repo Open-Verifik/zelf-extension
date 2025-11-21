@@ -1,6 +1,6 @@
 {
     "name": "zelf-extension",
-    "version": "2.0.15",
+    "version": "2.0.16",
     "description": "Zelf Extension",
     "author": "https://verifik.co",
     "license": ".",
@@ -8,7 +8,7 @@
     "scripts": {
         "build:dev": "ng run zelf-extension:builder:dev_chrome",
         "build:prod": "ng run zelf-extension:builder:prod_chrome && npm run test && npm run transloco:optimize",
-        "build": "npm run build:prod && npm run bump:patch",
+        "build": "npm run bump:patch && npm run build:prod",
         "bump:major": "npm version major --no-git-tag-version && node scripts/sync-versions.js",
         "bump:minor": "npm version minor --no-git-tag-version && node scripts/sync-versions.js",
         "bump:patch": "npm version patch --no-git-tag-version && node scripts/sync-versions.js",

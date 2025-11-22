@@ -146,7 +146,7 @@
 
 .wallet-row {
     position: relative;
-    background-color: variables.$themeCardBorder;
+    background-color: variables.$themeBackground;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -155,11 +155,14 @@
         background-color 0.2s variables.$smoothBezier;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: variables.$themeCard;
 
     &--current {
         .wallet-row__avatar {
-            border: 2px solid variables.$secondaryColor;
+            border: 2px solid variables.$themeBackground;
+
+            &--hold {
+                border-color: variables.$error;
+            }
         }
     }
 
@@ -178,7 +181,7 @@
         height: 48px;
         width: 48px;
         border-radius: 48px;
-        color: variables.$themeText;
+        color: variables.$themeCard;
         box-sizing: border-box;
         transition:
             color 0.2s variables.$smoothBezier,
@@ -190,7 +193,7 @@
         }
 
         &--hold {
-            background-color: variables.$themeTextSecondary;
+            background-color: variables.$themeText;
         }
 
         &-letter {
@@ -211,7 +214,7 @@
             right: -6px;
             height: 24px;
             width: 24px;
-            border: 1px solid variables.$themeText;
+            border: 1px solid variables.$themeCard;
             border-radius: 24px;
             z-index: 1;
             display: flex;
@@ -227,7 +230,7 @@
                 background-color: variables.$warning;
 
                 svg {
-                    fill: variables.$themeText;
+                    fill: variables.$themeCard;
                 }
             }
 
@@ -235,7 +238,7 @@
                 background-color: variables.$error;
 
                 svg {
-                    fill: variables.$themeText;
+                    fill: variables.$themeCard;
                 }
             }
         }
@@ -324,7 +327,7 @@
         }
 
         &--active {
-            background-color: variables.$secondaryColor;
+            background-color: variables.$themeBackgroundSecondary;
 
             .wallet-row__button-content {
                 svg {

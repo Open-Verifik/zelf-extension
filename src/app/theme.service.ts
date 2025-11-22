@@ -36,7 +36,6 @@ export class ThemeService implements OnDestroy {
             if (!wallet) return;
 
             const domain = wallet.domain || wallet.publicData?.domain;
-            console.log(`🚀 ~ ThemeService ~ constructor ~ domain:`, domain);
 
             if (!domain) return;
 

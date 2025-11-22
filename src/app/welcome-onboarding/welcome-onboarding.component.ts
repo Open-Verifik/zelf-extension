@@ -4,7 +4,7 @@ import { CommonModule } from "@angular/common";
 import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
@@ -21,6 +21,7 @@ import { TagsService } from "app/tags.service";
 import { ThemeService } from "app/theme.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 
 @Component({
     animations: [swipeLeft],
@@ -72,7 +73,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     constructor(
         private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
-        private _dialog: MatDialog,
+        private _bottomSheet: MatBottomSheet,
         private _domainService: DomainService,
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -98,14 +99,15 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     private _clearChromeItems(): void {
         this._chromeService.removeItem("flow");
         this._chromeService.removeItem("mnemonicCount");
+        this._chromeService.removeItem("network");
         this._chromeService.removeItem("newTagName");
         this._chromeService.removeItem("referralTagName");
         this._chromeService.removeItem("tagName");
         this._chromeService.removeItem("tagNameObject");
         this._chromeService.removeItem("tagNameReward");
         this._chromeService.removeItem("tagResponse");
-        this._chromeService.removeItem("network");
         this._chromeService.removeItem("zelfNameObject");
+        this._chromeService.removeItem("zelfProof");
     }
 
     async ngOnInit(): Promise<void> {
@@ -352,15 +354,14 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             selectedDomain: this.form.get("domain")?.value || "zelf",
         };
 
-        const dialogRef = this._dialog.open(DomainSelectionModalComponent, {
+        const bottomSheetRef = this._bottomSheet.open(DomainSelectionModalComponent, {
             data: dialogData,
-            width: "450px",
-            maxWidth: "90vw",
-            position: { bottom: "0" },
-            panelClass: "domain-selection-dialog",
+            disableClose: true,
+            backdropClass: "zelf-backdrop",
+            panelClass: "zelf-bottom-sheet-seasalt",
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
+        bottomSheetRef.afterDismissed().subscribe((result: string) => {
             if (result) {
                 this.form.get("domain")?.setValue(result);
 

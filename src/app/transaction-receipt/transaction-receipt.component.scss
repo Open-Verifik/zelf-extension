@@ -31,7 +31,7 @@
 
     &__col1,
     &__col3 {
-        grid-column: span 3;
+        grid-column: span 2;
         display: flex;
         align-items: center;
     }
@@ -41,7 +41,7 @@
     }
 
     &__col2 {
-        grid-column: span 4;
+        grid-column: span 6;
         text-align: center;
         align-items: center;
     }
@@ -51,9 +51,9 @@
     }
 
     &__title {
-        font-family: variables.$themeBodyFamily;
+        font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
@@ -83,6 +83,18 @@
         align-items: center;
         gap: 8px;
         flex-direction: column;
+        padding: 0 24px;
+        max-width: 100%;
+        padding: 0 24px;
+    }
+
+    &__price-amount-container {
+        gap: 8px;
+        max-width: 100%;
+        overflow-x: auto;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-end;
     }
 
     &__from-value {
@@ -134,7 +146,8 @@
         vertical-align: middle;
         color: variables.$themeTextSecondary;
         margin: 0;
-        min-width: 156px;
+        align-items: center;
+        flex: 1 0 auto;
     }
 
     &__value-container {
@@ -215,14 +228,6 @@
             border-radius: 16px;
             border: 2px solid variables.$themeCard;
         }
-    }
-
-    &__price-amount-container {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        align-items: flex-end;
-        width: 100%;
     }
 
     &__price {

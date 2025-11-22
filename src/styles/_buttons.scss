@@ -105,7 +105,7 @@
         }
 
         &:hover {
-            background-color: variables.$secondaryColor !important;
+            background-color: variables.$themeButtonHover !important;
         }
 
         svg {
@@ -142,7 +142,7 @@
 
         &:focus,
         &:hover {
-            background-color: variables.$secondaryColor !important;
+            background-color: variables.$themeButtonSecondaryHover !important;
             color: variables.$themeCard;
 
             svg {
@@ -538,5 +538,64 @@
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
         }
+    }
+}
+
+.zelf-action-button {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+
+    &__icon {
+        padding: 16px 24px;
+        background: variables.$themeCard;
+        border-radius: 32px;
+        outline: 1px variables.$themeBorder solid;
+        outline-offset: -1px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        display: inline-flex;
+        cursor: pointer;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+
+        svg {
+            fill: variables.$themeText;
+            transition: fill 0.3s variables.$smoothBezier;
+        }
+
+        &:hover {
+            background-color: variables.$primaryColor;
+            color: variables.$themeCard;
+
+            svg {
+                fill: variables.$themeCard;
+            }
+        }
+    }
+
+    &__icon-box {
+        width: 28px;
+        height: 28px;
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__text {
+        width: 73px;
+        text-align: center;
+        color: variables.$themeTextSecondary;
+        font-size: 11px;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        word-wrap: break-word;
     }
 }

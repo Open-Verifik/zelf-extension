@@ -130,9 +130,9 @@ export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _router: Router,
+        private _bottomSheet: MatBottomSheet,
         private _chromeService: ChromeService,
-        private _bottomSheet: MatBottomSheet
+        private _router: Router
     ) {
         this.view = "home";
         this.selectedTab = "assets";

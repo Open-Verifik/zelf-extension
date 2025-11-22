@@ -98,7 +98,7 @@
         }
 
         &-text {
-            color: variables.$black;
+            color: variables.$themeText;
             font-family: variables.$themeBodyFamily;
             font-size: 14px;
             font-weight: 600;
@@ -149,7 +149,7 @@
     }
 
     &__value {
-        color: variables.$black;
+        color: variables.$themeText;
         font-family: monospace;
         font-size: 14px;
         font-weight: 500;

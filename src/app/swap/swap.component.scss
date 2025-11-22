@@ -51,7 +51,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__content {
@@ -83,8 +83,8 @@
         border-radius: 32px;
         padding: 20px 16px;
         box-sizing: border-box;
-        background-color: variables.$white;
-        box-shadow: 0px 8px 24px 0px #0000000a;
+        background-color: variables.$themeCard;
+        box-shadow: 0px 8px 24px 0px variables.$themeShadow;
 
         @media (min-width: 480px) {
             padding: 24px 20px;
@@ -131,11 +131,11 @@
     &__dropdown-selector {
         display: flex;
         align-items: center;
-        box-shadow: 0px 6px 24px 0px #00000014;
+        box-shadow: 0px 6px 24px 0px variables.$themeShadow;
         border-radius: 16px;
         border-color: 1px solid variables.$themeCardBorder;
         justify-content: space-between;
-        background: variables.$white;
+        background: variables.$themeCard;
         gap: 8px;
         padding: 8px 12px;
         min-width: 140px;
@@ -208,7 +208,7 @@
         position: absolute;
         bottom: -2px;
         right: -2px;
-        border: 1px solid variables.$white;
+        border: 1px solid variables.$themeCard;
     }
 
     &__asset-info {
@@ -232,7 +232,7 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__asset-symbol {
@@ -267,7 +267,7 @@
         svg {
             width: 12px;
             height: 12px;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
     }
 
@@ -291,7 +291,7 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
 
         &--error {
             color: variables.$error;
@@ -400,7 +400,7 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__balance-value-button {
@@ -443,7 +443,7 @@
 
         &--primary {
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
     }
@@ -470,7 +470,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__settings {
@@ -505,8 +505,8 @@
     border: 1px solid variables.$themeCardBorder;
     border-radius: 16px;
     transform: translateX(-50%);
-    background-color: variables.$white;
-    box-shadow: 0px 8px 24px 0px #0000000a;
+    background-color: variables.$themeCard;
+    box-shadow: 0px 8px 24px 0px variables.$themeShadow;
 
     &__content {
         width: 254px;
@@ -518,7 +518,7 @@
 
         svg {
             min-width: 24px;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
     }
 
@@ -530,6 +530,6 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 }

@@ -1,11 +1,13 @@
+@use "../../../../styles/variables";
+
 .data-card {
-    background: white;
+    background: variables.$themeCard;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px variables.$themeShadow;
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
-    border: 1px solid #f0f0f0;
+    border: 1px solid variables.$themeBorder;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -13,8 +15,8 @@
 
     &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-        border-color: #e0e0e0;
+        box-shadow: 0 8px 32px variables.$themeShadow;
+        border-color: variables.$themeBorderHover;
     }
 
     &__title-row {
@@ -31,13 +33,13 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        color: #1a1a1a;
+        color: variables.$themeText;
     }
 
     &__title {
         font-size: 18px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0;
         line-height: 1.2;
         flex: 1;
@@ -63,7 +65,7 @@
 
     &__subtitle-text {
         font-size: 14px;
-        color: #666;
+        color: variables.$themeTextMuted;
         margin: 0;
         line-height: 1.4;
         overflow: hidden;
@@ -73,7 +75,7 @@
 
     &__additional-text {
         font-size: 12px;
-        color: #999;
+        color: variables.$themeTextMuted;
         margin: 0;
         line-height: 1.4;
         overflow: hidden;
@@ -84,10 +86,10 @@
     &__qr-code {
         width: 80px;
         height: 80px;
-        background: #f8f9fa;
+        background: variables.$themeBackgroundSecondary;
         border-radius: 8px;
         padding: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px variables.$themeShadow;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -106,7 +108,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        color: #999;
+        color: variables.$themeTextMuted;
         font-size: 12px;
         gap: 4px;
 

@@ -6,6 +6,7 @@
     display: block;
     padding: 16px;
     max-width: 400px;
+    margin: 0 auto;
 }
 
 .slippage-sheet {
@@ -37,15 +38,15 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &:hover {
-            background-color: #b589f0;
-            color: white;
+            background-color: variables.$themeButton;
+            color: variables.$themeCard;
 
             svg {
-                fill: white;
+                fill: variables.$themeCard;
             }
         }
     }
@@ -95,7 +96,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
@@ -137,13 +138,13 @@
     }
 
     &__switch-input:checked + &__switch-track {
-        background-color: variables.$black;
-        border-color: variables.$black;
+        background-color: variables.$themeText;
+        border-color: variables.$themeText;
     }
 
     &__switch-input:checked + &__switch-track &__switch-thumb {
         left: calc(100% - 23px);
-        background-color: variables.$white;
+        background-color: variables.$themeCard;
         width: 20px;
         height: 20px;
     }
@@ -155,13 +156,13 @@
         color: variables.$themeTextMuted;
 
         &--active {
-            color: variables.$black;
+            color: variables.$themeText;
         }
     }
 
     &__icon {
         margin-top: 28px;
-        fill: variables.$black;
+        fill: variables.$themeText;
     }
 
     &__title {
@@ -220,7 +221,7 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__slider-input-container {
@@ -272,7 +273,7 @@
     &__slider-dot {
         width: 4px;
         height: 4px;
-        background-color: variables.$white;
+        background-color: variables.$themeCard;
         opacity: 0.2;
         border-radius: 50%;
         z-index: 1;
@@ -301,7 +302,7 @@
             box-sizing: content-box;
             -webkit-appearance: none;
             appearance: none;
-            background: variables.$white;
+            background: variables.$themeCard;
             border-radius: 20px;
             border: 6px solid variables.$themeTextSecondary;
             box-shadow: none;
@@ -329,7 +330,7 @@
         &::-moz-range-thumb {
             box-sizing: content-box;
             margin-top: -3px;
-            background: variables.$white;
+            background: variables.$themeCard;
             border-radius: 50%;
             border: 6px solid variables.$themeTextSecondary;
             box-shadow: none;
@@ -355,7 +356,7 @@
     }
 
     &__input-postfix {
-        color: variables.$black;
+        color: variables.$themeText;
         margin-right: 16px;
     }
 }

@@ -3,6 +3,7 @@
 .domain-modal {
     width: 400px;
     padding: 24px;
+    box-sizing: border-box;
     background: variables.$themeBackgroundSecondary;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
@@ -11,19 +12,64 @@
     justify-content: flex-start;
     align-items: center;
     gap: 24px;
-    font-family: "Poppins", sans-serif;
-}
+    font-family: variables.$themeBodyFamily;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
 
-.modal-header {
-    align-self: stretch;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-}
+    &__exit {
+        align-items: center;
+        background-color: transparent;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        height: 48px;
+        justify-content: center;
+        margin: 8px;
+        min-height: 48px;
+        min-width: 48px;
+        outline: none;
+        padding: 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 48px;
+        transition:
+            color 0.2s variables.$smoothBezier,
+            background-color 0.2s variables.$smoothBezier;
 
-.spacer {
-    width: 24px;
-    height: 24px;
+        svg {
+            transition: fill 0.2s variables.$smoothBezier;
+            fill: variables.$themeText;
+            height: 16px;
+            width: 16px;
+        }
+
+        &:hover {
+            background-color: variables.$secondaryColor;
+            color: variables.$themeText;
+
+            svg {
+                fill: variables.$themeText;
+            }
+        }
+    }
+
+    &__radio-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+
+        .zelf-radio {
+            svg {
+                right: 16.3px;
+                left: initial;
+            }
+        }
+    }
 }
 
 .modal-title {
@@ -36,45 +82,12 @@
     font-weight: 500;
     line-height: 20px;
     letter-spacing: 0.1px;
-    margin: 0;
-}
-
-.close-button {
-    width: 24px;
-    height: 24px;
-    position: relative;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-}
-
-.domain-options {
-    align-self: stretch;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 11px;
-    display: flex;
+    margin: 42px auto 0;
 }
 
 .domain-option {
-    align-self: stretch;
-    padding: 10px 15px;
-    background: variables.$themeCard;
-    border-radius: 15px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-        background: variables.$themeBackgroundSecondary;
-    }
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .domain-info {
@@ -129,69 +142,11 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
-    color: #181818;
+    color: variables.$themeText;
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
     letter-spacing: 0.1px;
-}
-
-.radio-button {
-    width: 24px;
-    height: 24px;
-    position: relative;
-    overflow: hidden;
-}
-
-.radio-circle {
-    width: 20px;
-    height: 20px;
-    left: 2px;
-    top: 2px;
-    position: absolute;
-    background: variables.$themeBorder;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-
-    &.selected {
-        background: #181818;
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-        }
-    }
-}
-
-.confirm-button {
-    align-self: stretch;
-    height: 56px;
-    padding: 0 24px;
-    background: #181818;
-    border: none;
-    border-radius: 16px;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0.1px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-        background: #333333;
-    }
-
-    &:active {
-        background: #000000;
-    }
 }
 
 // Override Material Dialog styles

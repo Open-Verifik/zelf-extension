@@ -46,14 +46,14 @@
     }
 
     &__title {
-        font-family: variables.$themeBodyFamily;
-        font-weight: 500;
-        font-size: 14px;
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__content {
@@ -103,7 +103,7 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__address {
@@ -114,7 +114,7 @@
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
         word-wrap: break-word;
     }
 }

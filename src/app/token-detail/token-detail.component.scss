@@ -43,14 +43,14 @@
     }
 
     &__title {
-        font-family: variables.$themeBodyFamily;
-        font-weight: 500;
-        font-size: 14px;
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__content {
@@ -125,8 +125,8 @@
         }
 
         &--active {
-            color: variables.$black;
-            border: 1px solid variables.$black;
+            color: variables.$themeText;
+            border: 1px solid variables.$themeText;
         }
     }
 
@@ -148,7 +148,7 @@
         text-align: center;
         vertical-align: middle;
         text-transform: uppercase;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         padding: 0;
 
@@ -273,65 +273,7 @@
         text-align: center;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
-    }
-}
-
-.token-actions {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 8px;
-
-    &__icon {
-        height: 60px;
-        width: 60px;
-        background: variables.$themeCardBorder;
-        border-radius: 60px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        transition:
-            color 0.3s variables.$smoothBezier,
-            background-color 0.3s variables.$smoothBezier;
-
-        svg {
-            fill: variables.$black;
-            transition: fill 0.3s variables.$smoothBezier;
-        }
-
-        &:hover {
-            background-color: #b589f0;
-            color: white;
-
-            svg {
-                fill: white;
-            }
-        }
-    }
-
-    &__icon-box {
-        width: 28px;
-        height: 28px;
-        position: relative;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &__text {
-        width: 73px;
-        text-align: center;
-        color: #46464f;
-        font-size: 11px;
-        font-family: variables.$themeBodyFamily;
-        font-weight: 500;
-        line-height: 16px;
-        letter-spacing: 0.5px;
-        word-wrap: break-word;
+        color: variables.$themeText;
     }
 }
 
@@ -353,7 +295,7 @@
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
@@ -426,15 +368,15 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &:hover {
-            color: variables.$black;
+            color: variables.$themeText;
             background-color: variables.$themeBorder;
 
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
 
@@ -456,7 +398,7 @@
         letter-spacing: 2%;
         vertical-align: middle;
         text-transform: uppercase;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         text-align: center;
     }
@@ -477,7 +419,7 @@
         text-decoration: underline;
 
         &:hover {
-            color: variables.$black;
+            color: variables.$themeText;
             text-decoration: none;
         }
     }
@@ -530,14 +472,19 @@
 
     &--positive {
         background-color: variables.$correct;
-        color: white;
+        color: variables.$themeCard;
     }
     &--negative {
         background-color: variables.$error;
-        color: white;
+        color: variables.$themeCard;
     }
     &--neutral {
         background-color: variables.$themeBorder;
         color: variables.$themeTextSecondary;
     }
+}
+
+// Hide TradingView logo
+:host ::ng-deep a#tv-attr-logo {
+    display: none !important;
 }

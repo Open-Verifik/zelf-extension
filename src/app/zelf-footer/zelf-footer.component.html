@@ -31,13 +31,17 @@
     <ng-container *transloco="let t">
         <div class="footer-link">
             <button *ngIf="isZelfKeysRoute()" class="footer-link__button footer-link__button--action" [matMenuTriggerFor]="zelfKeysMenu">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#181818">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                     <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z" />
                 </svg>
             </button>
 
-            <button *ngIf="isZelfAuthenticatorRoute()" class="footer-link__button footer-link__button--action" [matMenuTriggerFor]="zelfAuthenticatorMenu">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#181818">
+            <button
+                *ngIf="isZelfAuthenticatorRoute()"
+                class="footer-link__button footer-link__button--action"
+                [matMenuTriggerFor]="zelfAuthenticatorMenu"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                     <path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z" />
                 </svg>
             </button>

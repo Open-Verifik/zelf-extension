@@ -11,7 +11,6 @@ import { ChromeService } from "app/chrome.service";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
-import { ZelfKeysDataService } from "app/services/zelf-keys-data.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
@@ -40,8 +39,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _router: Router,
-        private _walletService: WalletService,
-        private _zelfKeysDataService: ZelfKeysDataService
+        private _walletService: WalletService
     ) {
         this.shareables = data;
         this.loaded = false;

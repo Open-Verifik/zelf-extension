@@ -1390,6 +1390,9 @@
             "no_result": "No API result available"
         }
     },
+    "domain_selection": {
+        "title": "Choose domain for your tag name"
+    },
     "zotp": {
         "add_zotp": "Add ZOTP",
         "account_name": "Account Name",

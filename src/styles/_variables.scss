@@ -24,6 +24,7 @@ $white: #ffffff;
 
 $themeBodyFamily: var(--zns-theme-body-family, "Poppins", Arial, sans-serif);
 $themeTitleFamily: var(--zns-theme-title-family, "Menda", "Arial Black", sans-serif);
+$themeMonospaceFamily: var(--zns-theme-monospace-family, "Courier New", Courier, monospace);
 
 $themeBackground: var(--zns-theme-background, #ffffff);
 $themeBackgroundSecondary: var(--zns-theme-background-secondary, #f9f9fc);
@@ -38,8 +39,10 @@ $themeHeaderText: var(--zns-theme-header-text, #ffffff);
 $themeButton: var(--zns-theme-button, #0e26ff);
 $themeButtonText: var(--zns-theme-button-text, #ffffff);
 $themeButtonHover: var(--zns-theme-button-hover, #0c1fd9);
+
 $themeButtonSecondary: var(--zns-theme-button-secondary, #ffffff);
 $themeButtonSecondaryText: var(--zns-theme-button-secondary-text, #181818);
+$themeButtonSecondaryHover: var(--zns-theme-button-secondary-hover, #f9f9fc);
 
 $themeBorder: var(--zns-theme-border, #e3e3e3);
 $themeBorderHover: var(--zns-theme-border-hover, #c3c6cf);

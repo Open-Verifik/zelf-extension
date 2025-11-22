@@ -47,10 +47,10 @@
         }
 
         &--action {
-            background-color: variables.$secondaryColorLight !important;
+            background-color: variables.$secondaryColor !important;
 
             svg {
-                fill: variables.$secondaryColor;
+                fill: variables.$themeButtonText;
             }
         }
 

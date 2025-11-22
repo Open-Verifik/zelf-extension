@@ -24,6 +24,10 @@
         width: 100%;
     }
 
+    &__instructions-logo {
+        fill: variables.$themeText;
+    }
+
     &__content {
         align-items: center;
         gap: 16px;
@@ -48,7 +52,7 @@
         line-height: 24px;
         letter-spacing: 0px;
         text-align: center;
-        color: variables.$black;
+        color: variables.$themeText;
         margin-top: 12px;
     }
 
@@ -59,7 +63,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__form {
@@ -103,7 +107,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
-        color: variables.$black;
+        color: variables.$themeText;
         text-transform: uppercase;
     }
 
@@ -114,7 +118,7 @@
         line-height: 24px;
         letter-spacing: 0px;
         text-align: center;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 16px 0 0;
         text-transform: uppercase;
     }
@@ -167,7 +171,7 @@
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         text-transform: uppercase;
         overflow-wrap: anywhere;
@@ -183,5 +187,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        svg {
+            fill: variables.$themeText;
+        }
     }
 }

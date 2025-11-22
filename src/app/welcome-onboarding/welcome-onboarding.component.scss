@@ -50,26 +50,26 @@
 :host ::ng-deep .zelf-domain-select .mat-mdc-select-trigger,
 :host ::ng-deep .zelf-domain-select .mat-mdc-select-value,
 :host ::ng-deep .zelf-domain-select .mat-mdc-select-value-text {
-    color: #ffffff !important;
+    color: variables.$themeText !important;
 }
 
 /* Material panel theming to match dark chip */
 ::ng-deep .zelf-domain-panel {
-    background: #000000 !important;
-    color: #ffffff !important;
+    background: variables.$themeBackground !important;
+    color: variables.$themeText !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 ::ng-deep .zelf-domain-panel .mdc-list-item__primary-text {
-    color: #ffffff !important;
+    color: variables.$themeText !important;
 }
 
 /* Style selected option */
 ::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
     font-weight: 700;
-    color: #ffffff !important;
+    color: variables.$themeText !important;
 }
 
 /* Style option backgrounds */
@@ -79,17 +79,17 @@
 }
 
 ::ng-deep .zelf-domain-panel .mat-mdc-option:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: variables.$themeBackgroundSecondary !important;
 }
 
 ::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected {
-    background: rgba(255, 255, 255, 0.15) !important;
+    background: variables.$themeBackgroundSecondary !important;
 }
 
 /* Domain display styling */
 .domain-display {
     background: transparent;
-    color: #fff;
+    color: variables.$themeText;
     border: none;
     outline: none;
     font-family: inherit;
@@ -122,7 +122,7 @@
 
 /* Dropdown icon container styles */
 .dropdown-icon-container {
-    background: rgba(255, 255, 255, 0.2);
+    background: variables.$themeBackgroundSecondary;
     border-radius: 24px;
     display: flex;
     align-items: center;
@@ -133,13 +133,13 @@
     transition: background-color 300ms ease-in-out;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: variables.$themeBackgroundSecondary;
     }
 }
 
 /* Search button container styles */
 .search-button-container {
-    background: rgba(255, 255, 255, 0.2);
+    background: variables.$themeBackgroundSecondary;
     border: none;
     outline: none;
     border-radius: 24px;
@@ -153,15 +153,15 @@
     transition: background-color 300ms ease-in-out;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: variables.$themeBackgroundSecondary;
     }
 
     &[disabled] {
         cursor: not-allowed;
-        background: rgba(255, 255, 255, 0.1);
+        background: variables.$themeBackgroundSecondary;
 
         svg * {
-            fill: rgba(255, 255, 255, 0.2) !important;
+            fill: variables.$themeTextMuted !important;
         }
     }
 }
@@ -204,7 +204,7 @@
         margin: 16px 0 8px;
 
         &-bar {
-            background-color: variables.$secondaryColor;
+            background-color: variables.$primaryColor;
             border-radius: 6px;
             height: 100%;
             left: 0;

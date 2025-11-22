@@ -42,6 +42,7 @@
     }
 
     &__actions-drag-drop {
+        position: relative;
         align-items: center;
         border: 1px dashed variables.$themeTextMuted;
         display: flex;

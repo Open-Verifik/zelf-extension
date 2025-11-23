@@ -8,11 +8,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: variables.$white;
+    background-color: variables.$themeCard;
     border: 1px solid variables.$themeCardBorder;
     border-radius: 16px;
     padding: 16px 8px;
-    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 8px 24px variables.$themeShadow;
 
     &__col {
         display: flex;
@@ -27,7 +27,7 @@
         font-size: 14px;
         font-weight: 600;
         font-family: variables.$themeBodyFamily;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
@@ -35,7 +35,7 @@
         font-size: 11px;
         font-weight: 500;
         font-family: monospace;
-        color: variables.$black;
+        color: variables.$themeText;
         word-break: break-all;
         margin: 0;
     }
@@ -56,14 +56,14 @@
     &__title {
         font-size: 32px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0 0 12px 0;
         letter-spacing: -0.5px;
     }
 
     &__subtitle {
         font-size: 18px;
-        color: #666;
+        color: variables.$themeTextSecondary;
         margin: 0;
         font-weight: 400;
     }
@@ -83,18 +83,18 @@
     }
 
     &__error-icon {
-        color: #dc3545;
+        color: variables.$error;
         margin-bottom: 16px;
     }
 
     &__error-text {
         font-size: 16px;
-        color: #dc3545;
+        color: variables.$error;
         margin: 0 0 20px 0;
     }
 
     &__retry-button {
-        background: #667eea;
+        background: variables.$themeButton;
         color: white;
         border: none;
         padding: 12px 24px;
@@ -105,7 +105,7 @@
         transition: background-color 0.2s ease;
 
         &:hover {
-            background: #5a67d8;
+            background: variables.$themeButtonHover;
         }
     }
 
@@ -125,7 +125,7 @@
 
         &--cancelled {
             .billing__status-text {
-                color: #fd7e14;
+                color: variables.$warning;
             }
         }
     }
@@ -137,23 +137,23 @@
         flex-shrink: 0;
 
         &--cancelled {
-            color: #fd7e14;
+            color: variables.$warning;
         }
     }
 
     &__status-text {
         font-size: 12px;
         font-weight: 500;
-        color: #28a745;
+        color: variables.$correct;
     }
 
     &__status-active {
-        color: #28a745;
+        color: variables.$correct;
         font-weight: 600;
     }
 
     &__status-cancelled {
-        color: #fd7e14;
+        color: variables.$warning;
         font-weight: 600;
     }
 
@@ -163,7 +163,7 @@
         gap: 4px;
 
         a {
-            color: #f7931e;
+            color: variables.$warning;
             text-decoration: none;
             font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
             font-size: 13px;
@@ -207,14 +207,14 @@
             margin: 0 0 8px 0;
             font-size: 16px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: variables.$themeText;
         }
 
         p {
             margin: 0 0 8px 0;
             font-size: 14px;
             font-weight: 400;
-            color: variables.$black;
+            color: variables.$themeText;
             line-height: 1.5;
 
             &:last-child {
@@ -224,7 +224,7 @@
     }
 
     &__transaction-note {
-        color: #667eea;
+        color: variables.$themeButton;
         font-weight: 400;
         font-size: 12px;
         display: block;
@@ -238,11 +238,11 @@
         font-weight: 500;
 
         &--crypto {
-            color: #f7931e;
+            color: variables.$warning;
         }
 
         &--stripe {
-            color: #635bff;
+            color: variables.$themeButton;
         }
 
         svg {
@@ -253,8 +253,8 @@
     }
 
     &__demo-badge {
-        background: #667eea;
-        color: white;
+        background: variables.$themeButton;
+        color: variables.$themeButtonText;
         font-size: 10px;
         font-weight: 600;
         padding: 2px 6px;
@@ -285,11 +285,11 @@
     &__payment-amount {
         display: flex;
         flex-direction: column;
-        background: white;
-        border: 1px solid #e9ecef;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
         border-radius: 16px;
         padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 2px 8px variables.$themeShadow;
     }
 
     &__price-lock-content {
@@ -321,14 +321,14 @@
 
         &--discount {
             .billing__receipt-price {
-                color: #28a745;
+                color: variables.$correct;
             }
         }
 
         &--total {
             padding-top: 8px;
             margin-top: 4px;
-            border-top: 2px solid #1a1a1a;
+            border-top: 2px solid variables.$themeText;
             border-bottom: none;
         }
     }
@@ -336,7 +336,7 @@
     &__receipt-label {
         font-size: 14px;
         font-weight: 500;
-        color: #666;
+        color: variables.$themeTextMuted;
         flex-shrink: 0;
     }
 
@@ -353,7 +353,7 @@
     &__receipt-price {
         font-size: 16px;
         font-weight: 500;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0;
         white-space: nowrap;
         display: inline-flex;
@@ -369,30 +369,30 @@
     &__receipt-secondary {
         font-size: 12px;
         font-weight: 500;
-        color: #999;
+        color: variables.$themeTextMuted;
         margin: 0;
 
         &--discounted {
             text-decoration: line-through;
-            color: #dc3545;
+            color: variables.$error;
             opacity: 0.7;
         }
 
         &--total {
             font-size: 14px;
-            color: #666;
+            color: variables.$themeTextMuted;
         }
     }
 
     &__payment-status {
         display: flex;
         flex-direction: column;
-        background: white;
-        border: 1px solid #e9ecef;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
         border-radius: 16px;
         padding: 24px;
         margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 2px 8px variables.$themeShadow;
 
         .billing__payment-method-content {
             display: flex;
@@ -406,18 +406,18 @@
         font-size: 12px;
         font-weight: 500;
         margin-top: 12px;
-        color: #999;
+        color: variables.$themeTextMuted;
         text-align: center;
     }
 
     &__demo-banner {
         font-size: 12px;
         font-weight: 500;
-        color: #667eea;
+        color: variables.$themeButtonText;
         padding: 8px 16px;
-        background: #f0f2ff;
+        background: variables.$themeButton;
         border-radius: 20px;
-        border: 1px solid #e0e4ff;
+        border: 1px solid variables.$themeCardBorder;
         display: inline-block;
         margin: 0 auto;
     }
@@ -425,7 +425,7 @@
     &__price-lock {
         font-size: 12px;
         font-weight: 500;
-        color: #999;
+        color: variables.$themeTextMuted;
         margin: 0;
     }
 
@@ -440,7 +440,7 @@
     &__qr-label {
         font-size: 13px;
         font-weight: 600;
-        color: #666;
+        color: variables.$themeTextMuted;
         margin-bottom: 12px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -449,10 +449,10 @@
     &__qr-container {
         display: inline-block;
         padding: 12px;
-        background: white;
-        border: 1px solid #e9ecef;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 2px 8px variables.$themeShadow;
     }
 
     &__qr-code {
@@ -468,7 +468,7 @@
     &__payment-methods-title {
         font-size: 20px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0 0 24px 0;
         text-align: center;
     }
@@ -476,12 +476,12 @@
     &__payment-method {
         display: flex;
         flex-direction: column;
-        background: white;
-        border: 1px solid #e9ecef;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
         border-radius: 16px;
         padding: 24px;
         margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 2px 8px variables.$themeShadow;
 
         &:last-child {
             margin-bottom: 0;
@@ -493,13 +493,13 @@
         flex-direction: column;
         margin-bottom: 16px;
         padding-bottom: 16px;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid variables.$themeCardBorder;
     }
 
     &__payment-method-title {
         font-size: 14px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -521,7 +521,7 @@
         display: block;
         font-size: 14px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin-bottom: 12px;
         width: 100%;
     }
@@ -551,7 +551,7 @@
         }
 
         &:focus-visible {
-            outline: 2px solid #667eea;
+            outline: 2px solid variables.$themeButton;
             outline-offset: 2px;
             border-radius: 9999px;
         }
@@ -576,7 +576,7 @@
 
     &__wallet-trigger-icon {
         transition: transform 0.2s ease;
-        stroke: #181818;
+        stroke: variables.$themeText;
         width: 12px;
         height: 8px;
 
@@ -591,13 +591,13 @@
         left: 0;
         right: 0;
         z-index: 1000;
-        background: white;
+        background: variables.$themeCard;
         border-radius: 14px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         padding: 8px 0;
         max-height: 300px;
         overflow-y: auto;
-        border: 1px solid #e9ecef;
+        border: 1px solid variables.$themeCardBorder;
     }
 
     &__wallet-menu-item {
@@ -610,24 +610,24 @@
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
-        color: #1a1a1a;
+        color: variables.$themeText;
         cursor: pointer;
         transition: background-color 0.2s ease;
         min-height: 48px;
         line-height: 24px;
 
         &:hover {
-            background-color: #f8f9fa;
+            background-color: variables.$themeCardBorder;
         }
 
         &--selected {
-            background-color: #f0f2ff;
-            color: #667eea;
+            background-color: variables.$themeButton;
+            color: variables.$themeButtonText;
             font-weight: 600;
         }
 
         &:active {
-            background-color: #e9ecef;
+            background-color: variables.$themeCardBorder;
         }
     }
 
@@ -648,18 +648,18 @@
 
         &--avax {
             background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
-            color: white;
+            color: variables.$themeButtonText;
             box-shadow: 0 4px 16px rgba(247, 147, 30, 0.3);
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(247, 147, 30, 0.4);
+                box-shadow: 0 6px 20px variables.$themeShadow;
             }
         }
 
         &--stripe {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            color: variables.$themeButtonText;
             box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 
             &:hover:not(:disabled) {
@@ -683,9 +683,9 @@
     }
 
     &__cancel-button {
-        background: #f8f9fa;
-        color: #666;
-        border: 1px solid #e9ecef;
+        background: variables.$themeCardBorder;
+        color: variables.$themeTextMuted;
+        border: 1px solid variables.$themeCardBorder;
         padding: 10px 20px;
         border-radius: 8px;
         font-size: 14px;
@@ -694,9 +694,9 @@
         transition: all 0.2s ease;
 
         &:hover {
-            background: #e9ecef;
-            border-color: #d0d0d0;
-            color: #333;
+            background: variables.$themeCardBorder;
+            border-color: variables.$themeCardBorder;
+            color: variables.$themeTextMuted;
         }
     }
 
@@ -708,8 +708,8 @@
     }
 
     &__pricing-card {
-        background: white;
-        border: 2px solid #e0e0e0;
+        background: variables.$themeCard;
+        border: 2px solid variables.$themeCardBorder;
         border-radius: 16px;
         padding: 32px 24px;
         position: relative;
@@ -719,12 +719,12 @@
 
         &:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
+            box-shadow: 0 12px 40px variables.$themeShadow;
+            border-color: variables.$themeButton;
         }
 
         &--popular {
-            border-color: #667eea;
+            border-color: variables.$themeButton;
             box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
             transform: scale(1.02);
 
@@ -734,7 +734,7 @@
         }
 
         &--current {
-            border-color: #28a745;
+            border-color: variables.$correct;
             background: linear-gradient(135deg, #f8fff9 0%, #f0f8f0 100%);
         }
     }
@@ -749,13 +749,13 @@
     &__plan-name {
         font-size: 24px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: variables.$themeText;
         letter-spacing: -0.5px;
     }
 
     &__popular-badge {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
+        color: variables.$themeButtonText;
         font-size: 12px;
         font-weight: 600;
         padding: 4px 12px;
@@ -777,25 +777,25 @@
     &__currency {
         font-size: 24px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
     }
 
     &__amount {
         font-size: 48px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: variables.$themeText;
         line-height: 1;
     }
 
     &__period {
         font-size: 18px;
-        color: #666;
+        color: variables.$themeTextMuted;
         font-weight: 500;
     }
 
     &__plan-tagline {
         font-size: 16px;
-        color: #666;
+        color: variables.$themeTextMuted;
         margin-bottom: 24px;
         font-weight: 400;
     }
@@ -815,14 +815,14 @@
     &__feature-icon {
         flex-shrink: 0;
         margin-top: 2px;
-        color: #28a745;
+        color: variables.$correct;
         width: 16px;
         height: 16px;
     }
 
     &__feature-text {
         font-size: 14px;
-        color: #333;
+        color: variables.$themeText;
         line-height: 1.4;
     }
 
@@ -855,24 +855,24 @@
         }
 
         &--stripe {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
+            color: variables.$themeButtonText;
             box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+                box-shadow: 0 6px 20px variables.$themeShadow;
             }
         }
 
         &--crypto {
             background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
-            color: white;
+            color: variables.$themeButtonText;
             box-shadow: 0 4px 16px rgba(247, 147, 30, 0.3);
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(247, 147, 30, 0.4);
+                box-shadow: 0 6px 20px variables.$themeShadow;
             }
         }
 
@@ -909,9 +909,9 @@
         margin-top: auto;
 
         &--current {
-            background: #e8f5e8;
-            color: #28a745;
-            border: 2px solid #28a745;
+            background: variables.$correctLight;
+            color: variables.$correct;
+            border: 2px solid variables.$correct;
             cursor: default;
 
             &:hover {
@@ -1012,19 +1012,19 @@
         }
 
         &__activation-card {
-            background: #ffffff;
+            background: variables.$themeCard;
             border-radius: 16px;
             padding: 48px 32px;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 32px variables.$themeShadow;
+            border: 1px solid variables.$themeCardBorder;
             max-width: 500px;
             width: 100%;
         }
 
         &__success-icon {
             margin-bottom: 24px;
-            color: #10b981;
+            color: variables.$correct;
             display: flex;
             justify-content: center;
 
@@ -1036,14 +1036,14 @@
         &__success-title {
             font-size: 28px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: variables.$themeText;
             margin: 0 0 16px 0;
             letter-spacing: -0.5px;
         }
 
         &__success-message {
             font-size: 16px;
-            color: #666;
+            color: variables.$themeTextMuted;
             margin: 0 0 32px 0;
             line-height: 1.5;
         }

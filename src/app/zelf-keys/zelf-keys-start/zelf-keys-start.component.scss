@@ -13,7 +13,7 @@
     &__feature-card {
         min-width: 250px;
         padding: 24px;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        box-shadow: 0px 8px 24px variables.$themeShadow;
         border-radius: 32px;
         outline-offset: -1.5px;
         flex-direction: column;
@@ -21,11 +21,11 @@
         align-items: center;
         gap: 8px;
         display: inline-flex;
-        background-color: variables.$white;
+        background-color: variables.$themeCard;
         transition: box-shadow 0.3s variables.$smoothBezier;
 
         &:hover {
-            box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.08);
+            box-shadow: 0px 12px 36px variables.$themeShadow;
         }
     }
 
@@ -46,9 +46,9 @@
         justify-content: center;
         display: flex;
         flex-direction: column;
-        color: black;
+        color: variables.$themeText;
         font-size: 18px;
-        font-family: "Menda", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         line-height: 24px;
         word-wrap: break-word;
@@ -84,7 +84,7 @@
         height: 56px;
         padding-left: 24px;
         padding-right: 24px;
-        background: #181818;
+        background: variables.$themeButton;
         overflow: hidden;
         border-radius: 16px;
         flex-direction: column;

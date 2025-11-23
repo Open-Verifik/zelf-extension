@@ -50,14 +50,14 @@
             background-color: variables.$secondaryColor !important;
 
             svg {
-                fill: variables.$themeButtonText;
+                fill: variables.$themeButtonSecondaryText;
             }
         }
 
         &:hover:not(.footer-link__button--active),
         &--action:hover,
         &--active {
-            background-color: variables.$secondaryColor !important;
+            background-color: variables.$themeButtonHover !important;
 
             svg {
                 fill: variables.$themeCard;

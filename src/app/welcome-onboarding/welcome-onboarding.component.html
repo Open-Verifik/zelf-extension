@@ -59,9 +59,9 @@
             <div class="zelf-input__postfix zelf-input__postfix--dropdown mr-2" (mouseenter)="domainHover = true" (mouseleave)="domainHover = false">
                 <div class="domain-display" (click)="openDomainSelectionModal()">.{{ form.get("domain")?.value || "zelf" }}</div>
 
-                <span class="dropdown-icon-container" (click)="$event.stopPropagation(); openDomainSelectionModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none">
-                        <path d="M7 10l5 5 5-5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <span class="dropdown-icon-container" (click)="$event.stopPropagation(); openDomainSelectionModal()"
+                    ><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px">
+                        <path d="M480-384 288-576h384L480-384Z" />
                     </svg>
                 </span>
 
@@ -73,12 +73,9 @@
 
                 <ng-template #searchBtn>
                     <button type="submit" class="search-button-container" [disabled]="form.invalid || loading" aria-label="Search">
-                        <svg width="12" height="12" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px">
                             <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
-                                fill="#FFFFFF"
+                                d="M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z"
                             />
                         </svg>
                     </button>

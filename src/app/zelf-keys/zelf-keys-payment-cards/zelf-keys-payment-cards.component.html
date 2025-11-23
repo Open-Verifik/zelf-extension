@@ -32,15 +32,18 @@
             </button>
         </div>
 
+        <ng-container *ngIf="!isLoading && currentPlan === 'free'">
+            <subscription-banner
+                [route]="['/zelf-keys/billing']"
+                [description]="'billing.payment_cards.premium.description' | transloco"
+                [title]="'billing.payment_cards.premium.title' | transloco"
+            ></subscription-banner>
+        </ng-container>
+
         <!-- Payment Cards Grid -->
-        <div *ngIf="!isLoading && !error" class="zelf-keys-payment-cards__payment-cards-grid">
+        <div *ngIf="!isLoading && !error && currentPlan !== 'free'" class="zelf-keys-payment-cards__payment-cards-grid">
             <div class="zelf-keys-payment-cards__list-header" *ngIf="!isLoading && !error">
-                <button
-                    class="zelf-button zelf-button--primary zelf-button--wide"
-                    (click)="onAddNewCard()"
-                    mat-flat-button
-                    *ngIf="currentPlan !== 'free'"
-                >
+                <button class="zelf-button zelf-button--primary zelf-button--wide" (click)="onAddNewCard()" mat-flat-button>
                     <span class="material-symbols-outlined">add</span>
                     <span>{{ "billing.payment_cards.add_card.title" | transloco }}</span>
                 </button>
@@ -100,14 +103,6 @@
 
             <!-- Cards Grid -->
             <div class="zelf-keys-payment-cards__cards-grid">
-                <ng-container *ngIf="currentPlan === 'free'">
-                    <subscription-banner
-                        [route]="['/zelf-keys/billing']"
-                        [description]="'billing.payment_cards.premium.description' | transloco"
-                        [title]="'billing.payment_cards.premium.title' | transloco"
-                    ></subscription-banner>
-                </ng-container>
-
                 <!-- List View -->
                 <ng-container *ngIf="viewMode === 'list' && filteredPaymentCards.length > 0">
                     <div

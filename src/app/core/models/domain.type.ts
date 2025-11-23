@@ -112,7 +112,6 @@ export interface ThemeSettings {
 }
 
 export interface DomainThemeSettings {
-    zelfkeys: ThemeSettings;
     zns: ThemeSettings;
 }
 

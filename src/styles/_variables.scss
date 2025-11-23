@@ -1,4 +1,4 @@
-$primaryColor: var(--zns-theme-primary, #0e26ff);
+$primaryColor: var(--zns-theme-primary, #181818);
 $primaryLight: #daddfa;
 $secondaryColor: var(--zns-theme-secondary, #ff5721);
 $secondaryColorLight: #f6e5e0;
@@ -36,13 +36,13 @@ $themeTextSecondary: var(--zns-theme-text-secondary, #73777f);
 $themeHeader: var(--zns-theme-header, #181818);
 $themeHeaderText: var(--zns-theme-header-text, #ffffff);
 
-$themeButton: var(--zns-theme-button, #0e26ff);
+$themeButton: var(--zns-theme-button, #181818);
 $themeButtonText: var(--zns-theme-button-text, #ffffff);
-$themeButtonHover: var(--zns-theme-button-hover, #0c1fd9);
+$themeButtonHover: var(--zns-theme-button-hover, #ff5721);
 
-$themeButtonSecondary: var(--zns-theme-button-secondary, #ffffff);
-$themeButtonSecondaryText: var(--zns-theme-button-secondary-text, #181818);
-$themeButtonSecondaryHover: var(--zns-theme-button-secondary-hover, #f9f9fc);
+$themeButtonSecondary: var(--zns-theme-button-secondary, #e9ecef);
+$themeButtonSecondaryText: var(--zns-theme-button-secondary-text, #495057);
+$themeButtonSecondaryHover: var(--zns-theme-button-secondary-hover, #e9ecef);
 
 $themeBorder: var(--zns-theme-border, #e3e3e3);
 $themeBorderHover: var(--zns-theme-border-hover, #c3c6cf);

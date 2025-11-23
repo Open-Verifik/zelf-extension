@@ -39,7 +39,7 @@
 :host ::ng-deep .zelf-input__postfix--dropdown {
     min-width: 100px;
     padding: 8px 8px 8px 10px;
-    background: #181818;
+    background: variables.$themeButton;
     border-radius: 32px;
     display: inline-flex;
     align-items: center;
@@ -89,7 +89,7 @@
 /* Domain display styling */
 .domain-display {
     background: transparent;
-    color: variables.$themeText;
+    color: variables.$themeButtonText;
     border: none;
     outline: none;
     font-family: inherit;
@@ -135,6 +135,19 @@
     &:hover {
         background: variables.$themeBackgroundSecondary;
     }
+
+    svg * {
+        fill: variables.$themeText !important;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        background: variables.$themeTextSecondary;
+
+        svg * {
+            fill: variables.$themeTextMuted !important;
+        }
+    }
 }
 
 /* Search button container styles */
@@ -156,9 +169,13 @@
         background: variables.$themeBackgroundSecondary;
     }
 
+    svg * {
+        fill: variables.$themeText !important;
+    }
+
     &[disabled] {
         cursor: not-allowed;
-        background: variables.$themeBackgroundSecondary;
+        background: variables.$themeTextSecondary;
 
         svg * {
             fill: variables.$themeTextMuted !important;

@@ -316,10 +316,10 @@
 
     &:hover {
         background-color: variables.$secondaryColor !important;
-        color: variables.$themeCard;
+        color: variables.$themeCardBorder;
 
         svg {
-            fill: variables.$themeCard;
+            fill: variables.$themeCardBorder;
         }
     }
 

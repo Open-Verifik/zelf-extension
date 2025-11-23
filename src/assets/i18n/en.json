@@ -646,7 +646,7 @@
         "withdrawal_network": "Withdrawal network",
         "yes": "Yes",
         "your_token": "Your {{ symbol }}",
-        "zelf_authenticator": "Zelf 2FA",
+        "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
         "zelf_wallet": "Zelf Wallet",

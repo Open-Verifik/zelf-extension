@@ -88,15 +88,8 @@
                 (click)="$event.stopPropagation(); toggleWalletMenu(wallet.fullTagName || '')"
                 class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--border-soft wallet-row__expand"
             >
-                <svg
-                    [ngClass]="{ 'wallet-row__expand-icon--rotated': isWalletMenuOpen(wallet.fullTagName || '') }"
-                    fill="none"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    width="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <path d="M480-360 280-560h400L480-360Z" />
                 </svg>
             </button>
         </div>

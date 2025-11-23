@@ -32,16 +32,6 @@ export class ThemeService implements OnDestroy {
             });
         });
 
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.destroy$)).subscribe(async (wallet: TagModel) => {
-            if (!wallet) return;
-
-            const domain = wallet.domain || wallet.publicData?.domain;
-
-            if (!domain) return;
-
-            await this.applyThemeForDomain(domain);
-        });
-
         this.setupSystemPreferenceListener();
         this.setupWalletChangeListener();
     }
@@ -194,7 +184,6 @@ export class ThemeService implements OnDestroy {
         } else if (preference === "dark") {
             document.documentElement.classList.add("zns-theme-dark");
         }
-        // "system" mode - no class applied
     }
 
     private removeThemeClass(): void {
@@ -224,6 +213,7 @@ export class ThemeService implements OnDestroy {
 
     async setUserModePreference(mode: UserModePreference): Promise<void> {
         await this._chromeService.setItemSession(this.userModePreferenceKey, mode);
+
         this.setupSystemPreferenceListener();
         this.applyThemeClass(mode);
 
@@ -309,29 +299,29 @@ export class ThemeService implements OnDestroy {
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.destroy$)).subscribe(async (wallet: TagModel) => {
             if (!wallet) return;
 
-            const domain = wallet.domain || wallet.publicData?.domain;
+            let domain = wallet.publicData?.domain;
+
+            if (!domain) {
+                const tagName = wallet.publicData?.tagName || wallet.name;
+
+                if (tagName) {
+                    const cleanTagName = tagName.replace(".hold", "");
+                    const parts = cleanTagName.split(".");
+
+                    if (parts.length >= 2) {
+                        domain = parts[parts.length - 1];
+                    } else {
+                        domain = "zelf";
+                    }
+                } else {
+                    domain = "zelf";
+                }
+            }
 
             if (!domain) return;
 
-            // Check if domain license is cached
-            const config = this._domainService.getDomainLicense(domain);
-
-            if (config?.themeSettings?.zns) {
-                await this.applyThemeForDomain(domain);
-            }
+            await this.applyThemeForDomain(domain);
         });
-    }
-
-    private injectStyle(css: string): void {
-        let el = document.getElementById(this.styleElementId) as HTMLStyleElement | null;
-
-        if (!el) {
-            el = document.createElement("style");
-            el.id = this.styleElementId;
-            document.head.appendChild(el);
-        }
-
-        el.textContent = css;
     }
 
     getActiveClass(): string {

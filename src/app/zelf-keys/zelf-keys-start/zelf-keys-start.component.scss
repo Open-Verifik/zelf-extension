@@ -1,0 +1,97 @@
+@use "../../../styles/variables";
+
+.start-content {
+    height: 100%;
+
+    &__feature-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+
+    &__feature-card {
+        min-width: 250px;
+        padding: 24px;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 32px;
+        outline-offset: -1.5px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        display: inline-flex;
+        background-color: variables.$white;
+        transition: box-shadow 0.3s variables.$smoothBezier;
+
+        &:hover {
+            box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    &__card-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 72px;
+            height: 72px;
+            transition: fill 0.3s variables.$smoothBezier;
+        }
+    }
+
+    &__card-title {
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        color: black;
+        font-size: 18px;
+        font-family: "Menda", sans-serif;
+        font-weight: 700;
+        line-height: 24px;
+        word-wrap: break-word;
+        text-align: center;
+        margin: 0;
+        transition: color 0.3s variables.$smoothBezier;
+    }
+
+    &__card-description {
+        align-self: stretch;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        color: #73777f;
+        font-size: 14px;
+        font-family: "Poppins", Arial, sans-serif;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        word-wrap: break-word;
+        margin: 0;
+        transition: color 0.3s variables.$smoothBezier;
+    }
+
+    &__cta-section {
+        text-align: center;
+        align-self: stretch;
+    }
+
+    &__cta-button {
+        align-self: stretch;
+        height: 56px;
+        padding-left: 24px;
+        padding-right: 24px;
+        background: #181818;
+        overflow: hidden;
+        border-radius: 16px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        display: inline-flex;
+        width: 100%;
+    }
+}

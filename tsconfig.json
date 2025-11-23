@@ -1,37 +1,40 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "es2020",
-    "skipLibCheck": true,
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "types": ["node", "jasmine"],
-    "typeRoots": ["./node_modules/@types"],
-    "paths": {
-      "@openpgp/web-stream-tools": ["node_modules/@openpgp/web-stream-tools"]
-    }
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+    "compileOnSave": false,
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "module": "ES2022",
+        "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "outDir": "./dist/out-tsc",
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "target": "ES2022",
+        "lib": ["es2018", "dom", "webworker"],
+        "types": ["node", "jasmine", "chrome", "webextension-polyfill"],
+        "typeRoots": ["./node_modules/@types", "./shared/types"],
+        "paths": {
+            "@openpgp/web-stream-tools": ["node_modules/@openpgp/web-stream-tools"],
+            "@shared/*": ["shared/*"],
+            "app/*": ["src/app/*"],
+            "assets/*": ["src/assets/*"],
+            "environments/*": ["src/environments/*"]
+        }
+    },
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
+    },
+    "include": ["shared/**/*", "src/**/*"],
+    "exclude": ["dist/**/*", "node_modules/**/*"]
 }

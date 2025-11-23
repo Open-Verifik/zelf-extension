@@ -1,0 +1,265 @@
+<div class="payment-card-form">
+    <div class="form-header">
+        <button (click)="onCancel()" mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40">
+            <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                />
+            </svg>
+        </button>
+        <h2>{{ isNewCard ? ("billing.payment_cards.form.title.add" | transloco) : ("billing.payment_cards.form.title.edit" | transloco) }}</h2>
+    </div>
+
+    <div class="form-content">
+        <form (ngSubmit)="onSave()" #cardForm="ngForm">
+            <div class="form-section">
+                <div class="field-row">
+                    <div class="field-group">
+                        <div class="zelf-input zelf-input--wide">
+                            <input
+                                (ngModelChange)="checkFormValidity()"
+                                [(ngModel)]="cardData.bankName"
+                                [placeholder]="'billing.payment_cards.form.title.placeholder' | transloco"
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                id="bankName"
+                                name="bankName"
+                                required
+                                type="text"
+                            />
+
+                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.title.label" | transloco }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Preview Section -->
+            <div class="form-section">
+                <div class="card-preview" [class]="getCardType().toLowerCase()">
+                    <div class="card-header">
+                        <div class="card-type">{{ getCardType() }}</div>
+                    </div>
+                    <!-- QR Code replacing NFC chip on the left -->
+                    <div class="card-qr-chip">
+                        <div class="qr-placeholder">QR</div>
+                    </div>
+                    <div class="card-number">{{ getMaskedCardNumber() || "•••• •••• •••• ••••" }}</div>
+                    <div class="card-details">
+                        <div class="card-holder">
+                            <span class="label">{{ "billing.payment_cards.card.card_holder" | transloco }}</span>
+                            <span class="value">{{ cardData.cardName || ("billing.payment_cards.card.no_card_holder" | transloco) }}</span>
+                        </div>
+                        <div class="card-expiry">
+                            <span class="label">{{ "billing.payment_cards.card.expires" | transloco }}</span>
+                            <span class="value">{{ cardData.expiryMonth || "MM" }}/{{ cardData.expiryYear || "YY" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Information Section -->
+            <div class="form-section">
+                <div class="field-row">
+                    <div class="zelf-input zelf-input--wide">
+                        <input
+                            (ngModelChange)="onCardNumberChange()"
+                            [(ngModel)]="cardData.cardNumber"
+                            [placeholder]="'billing.payment_cards.form.card_number.placeholder' | transloco"
+                            class="zelf-input__control zelf-input__control--floating-label"
+                            id="cardNumber"
+                            maxlength="19"
+                            name="cardNumber"
+                            required
+                            type="text"
+                        />
+
+                        <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.card_number.label" | transloco }}</label>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="zelf-input zelf-input--wide">
+                        <input
+                            (ngModelChange)="checkFormValidity()"
+                            [(ngModel)]="cardData.cardName"
+                            [placeholder]="'billing.payment_cards.form.card_holder.placeholder' | transloco"
+                            class="zelf-input__control zelf-input__control--floating-label"
+                            id="cardName"
+                            maxlength="255"
+                            name="cardName"
+                            required
+                            type="text"
+                        />
+
+                        <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.card_holder.label" | transloco }}</label>
+                    </div>
+                </div>
+
+                <div class="field-row field-row--three-columns">
+                    <div class="field-group field-group--small">
+                        <div class="zelf-input zelf-input--wide">
+                            <select
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                [(ngModel)]="cardData.expiryMonth"
+                                (ngModelChange)="checkFormValidity()"
+                                name="expiryMonth"
+                                id="expiryMonth"
+                                required
+                            >
+                                <option value="">MM</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.expiry_month.label" | transloco }}</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group field-group--small">
+                        <div class="zelf-input zelf-input--wide">
+                            <input
+                                (ngModelChange)="checkFormValidity()"
+                                [(ngModel)]="cardData.expiryYear"
+                                [placeholder]="'billing.payment_cards.form.expiry_year.placeholder' | transloco"
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                id="expiryYear"
+                                max="2030"
+                                min="2024"
+                                name="expiryYear"
+                                required
+                                type="number"
+                            />
+                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.expiry_year.label" | transloco }}</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group field-group--small">
+                        <div class="zelf-input zelf-input--wide">
+                            <input
+                                (ngModelChange)="onCvvChange()"
+                                [(ngModel)]="cardData.cvv"
+                                [placeholder]="'billing.payment_cards.form.cvv.placeholder' | transloco"
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                id="cvv"
+                                maxlength="4"
+                                name="cvv"
+                                required
+                                type="password"
+                            />
+                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.cvv.label" | transloco }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Folder Section -->
+            <div class="form-section">
+                <div class="folder-toggle">
+                    <label class="form-label">{{ "billing.payment_cards.form.folder.label" | transloco }}</label>
+                    <div
+                        class="zelf-toggle"
+                        [class.zelf-toggle--active]="cardData.insideFolder"
+                        (click)="toggleFolder()"
+                        tabindex="0"
+                        role="switch"
+                        [attr.aria-checked]="cardData.insideFolder"
+                        [attr.aria-label]="'billing.payment_cards.form.folder.aria_label' | transloco"
+                    >
+                        <div class="zelf-toggle__track"></div>
+                        <div class="zelf-toggle__thumb"></div>
+                    </div>
+                </div>
+
+                <div *ngIf="cardData.insideFolder" class="folder-input">
+                    <div class="zelf-input zelf-input--wide">
+                        <input
+                            type="text"
+                            class="zelf-input__control"
+                            [(ngModel)]="cardData.folder"
+                            name="folder"
+                            [placeholder]="'billing.payment_cards.form.folder.placeholder' | transloco"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Master Password Section -->
+            <div class="form-section" *ngIf="hasMasterPassword">
+                <div class="password-input-field">
+                    <div class="zelf-input zelf-input--wide">
+                        <input
+                            [type]="showMasterPassword ? 'text' : 'password'"
+                            id="masterPassword"
+                            name="masterPassword"
+                            [(ngModel)]="cardData.masterPassword"
+                            (ngModelChange)="checkFormValidity()"
+                            class="zelf-input__control"
+                            [placeholder]="'billing.payment_cards.form.master_password.placeholder' | transloco"
+                        />
+                        <button
+                            type="button"
+                            class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--no-fill"
+                            (click)="toggleMasterPasswordVisibility()"
+                            tabindex="-1"
+                        >
+                            <svg
+                                *ngIf="!showMasterPassword"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#181818"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg
+                                *ngIf="showMasterPassword"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#181818"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                                ></path>
+                                <line x1="1" y1="1" x2="23" y2="23"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <small class="form-hint">{{ "billing.payment_cards.form.master_password.hint" | transloco: { walletName: wallet.name } }}</small>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+                <button type="button" class="zelf-button zelf-button--white" (click)="onCancel()">
+                    {{ "billing.payment_cards.form.buttons.cancel" | transloco }}
+                </button>
+                <button type="submit" class="zelf-button zelf-button--black" [disabled]="!formValid">
+                    {{
+                        isNewCard
+                            ? ("billing.payment_cards.form.buttons.create" | transloco)
+                            : ("billing.payment_cards.form.buttons.update" | transloco)
+                    }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

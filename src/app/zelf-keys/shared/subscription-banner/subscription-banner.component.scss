@@ -1,0 +1,129 @@
+@use "../../../../styles/variables";
+
+.subscription-banner {
+    background: linear-gradient(135deg, #667eea 0%, #6b73d8 40%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(118, 75, 162, 0.2);
+    text-decoration: none;
+    display: block;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transform: translateX(-100%);
+        transform-origin: left;
+        transition: transform 0.6s ease;
+        z-index: 1;
+    }
+
+    &:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6369d0 40%, #6a4190 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(118, 75, 162, 0.3);
+
+        &::before {
+            transform: translateX(100%);
+        }
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: relative;
+        z-index: 2;
+    }
+
+    &__icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+    }
+
+    &__text {
+        flex: 1;
+        color: white;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 4px 0;
+        line-height: 1.2;
+        font-family: "Poppins", Arial, sans-serif;
+    }
+
+    &__description {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+        opacity: 0.9;
+        line-height: 1.4;
+        font-family: "Poppins", Arial, sans-serif;
+    }
+
+    &__arrow {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+
+        .subscription-banner:hover & {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(4px);
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .subscription-banner {
+        padding: 16px;
+        margin-bottom: 16px;
+
+        &__content {
+            gap: 12px;
+        }
+
+        &__icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        &__title {
+            font-size: 16px;
+        }
+
+        &__description {
+            font-size: 13px;
+        }
+
+        &__arrow {
+            width: 28px;
+            height: 28px;
+        }
+    }
+}

@@ -2,28 +2,27 @@ import { CurrencyPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
-import { firstValueFrom, Subject, take, takeUntil } from "rxjs";
+import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
 import { AssetService } from "app/asset.service";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
-import { FooterComponent } from "app/footer/footer.component";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-
+import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
-import { HomeHeaderComponent } from "./home-header/home-header.component";
-import { TokenCardComponent } from "./token-card/token-card.component";
+import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
-import { TagModel } from "app/tags.service";
+import { HomeHeaderComponent } from "./home-header/home-header.component";
+import { TokenCardComponent } from "./token-card/token-card.component";
 
 @Component({
     imports: [
         CurrencyPipe,
         FlexLayoutModule,
-        FooterComponent,
+        ZelfFooterComponent,
         HomeHeaderComponent,
         MatButtonModule,
         NgClass,
@@ -49,7 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     shareables: any;
     tokens!: Array<any>;
     totalFiatBalance: number = 0;
-    view?: string;
     wallet!: TagModel;
 
     constructor(
@@ -60,16 +58,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         private _chromeService: ChromeService,
         private _router: Router,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
-        private route: ActivatedRoute
+        private _zelfNameService: ZelfNameService
     ) {
         this.balances = {};
         this.balancesLoading = false;
-        this.view = this.route.snapshot.queryParamMap.get("view") || "home";
 
         this.shareables = {
             selectedTab: "assets",
-            view: this.view,
             wallet: {},
         };
 

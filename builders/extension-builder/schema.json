@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "type": "object",
+    "title": "Extension Builder Options",
+    "description": "Extension builder that runs webpack + Angular builds together",
+    "properties": {
+        "webpackConfig": {
+            "type": "string",
+            "description": "Path to webpack configuration file",
+            "default": "webpack.extension.config.js"
+        },
+        "angularTarget": {
+            "type": "string",
+            "description": "Angular build target to run after webpack (format: 'project:target:configuration')"
+        },
+        "watch": {
+            "type": "boolean",
+            "description": "Enable watch mode",
+            "default": false
+        },
+        "mode": {
+            "type": "string",
+            "description": "Build mode (development/production)",
+            "enum": ["development", "production"],
+            "default": "development"
+        }
+    },
+    "required": ["angularTarget"],
+    "additionalProperties": false
+}

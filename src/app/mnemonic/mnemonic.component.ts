@@ -109,8 +109,8 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
             this._changeDetectorRef.detectChanges();
         } catch (error) {
             this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
-            this.remainingAttempts = this._vaultService.remainingAttempts + 1;
-            this.passwordError = !!this.wallet?.pgp;
+            this.remainingAttempts = this._vaultService.remainingAttempts;
+            this.passwordError = !!this.wallet?.pgp?.encryptedMessage && !!this.wallet?.pgp?.privateKey;
 
             this.hideMnemonics();
         }

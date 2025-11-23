@@ -9,7 +9,7 @@ import { environment } from "environments/environment";
 
 import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "./core/models/transaction-fee.model";
 import { HttpWrapperService } from "./http-wrapper.service";
-import { EthTransaction } from "./wallet";
+import { EthTransaction } from "@shared/types/wallet.types";
 
 export interface ChainConfig {
     blockExplorerUrls: string[];

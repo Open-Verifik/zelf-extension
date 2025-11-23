@@ -1,30 +1,32 @@
-import { CommonModule, NgFor, NgIf } from "@angular/common";
+import { CommonModule, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { FormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { Subject, interval, takeUntil } from "rxjs";
 import { debounce } from "lodash";
-import { FooterComponent } from "app/footer/footer.component";
-import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
+import { interval, Subject, takeUntil } from "rxjs";
+
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
+import { HomeHeaderComponent } from "app/home/home-header/home-header.component";
 import { ZOTP } from "app/models/zotp.model";
-import { ZOTPService } from "app/services/zotp.service";
+import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TOTPService } from "app/services/totp.service";
+import { ZOTPService } from "app/services/zotp.service";
+import { TagModel } from "app/tags.service";
+import { WalletService } from "app/wallet.service";
+import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { AddZotpComponent } from "./add-zotp/add-zotp.component";
-import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-details.component";
-import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.component";
 import { DeleteZotpComponent, DeleteZOTPData } from "./delete-zotp/delete-zotp.component";
 import { ExportZotpComponent, ExportZOTPData } from "./export-zotp/export-zotp.component";
 import { RecoverZotpComponent, RecoverZOTPData } from "./recover-zotp/recover-zotp.component";
+import { UnlockZotpComponent, UnlockZOTPData } from "./unlock-zotp/unlock-zotp.component";
+import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-details.component";
 
 @Component({
     imports: [
@@ -32,15 +34,16 @@ import { RecoverZotpComponent, RecoverZOTPData } from "./recover-zotp/recover-zo
         FirstLetterPipe,
         FlexLayoutModule,
         FormsModule,
+        HomeHeaderComponent,
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
         MatSnackBarModule,
+        NgClass,
         NgFor,
         NgIf,
-        RouterLink,
         TranslocoModule,
-        FooterComponent,
+        ZelfFooterComponent,
         ZelfLoaderComponent,
     ],
     selector: "zelf-authenticator",
@@ -54,27 +57,42 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
     private _codeCache: Map<string, string> = new Map(); // Cache of generated codes
     private _decryptedSecrets: Map<string, string> = new Map(); // In-memory cache of decrypted secrets (never persisted)
 
+    currentTime: number = Math.floor(Date.now() / 1000);
+    filteredZotps: ZOTP[] = [];
     loading: boolean = false;
     searchQuery: string = "";
     zotps: ZOTP[] = [];
-    filteredZotps: ZOTP[] = [];
-    currentTime: number = Math.floor(Date.now() / 1000);
 
     shareables: any = {
         view: "home",
+        wallet: {} as Partial<TagModel>,
     };
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
-        private _zotpService: ZOTPService,
         private _totpService: TOTPService,
+        private _walletService: WalletService,
+        private _zotpService: ZOTPService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
     ) {
         super(_chromeService, _snackBar, _translocoService);
+
         this._searchDebounced = debounce(this._performSearch.bind(this), 300);
+
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet) => {
+            if (!wallet) return;
+
+            this.shareables.wallet = wallet;
+        });
+
+        this._walletService.getCurrentWallet().then((wallet: Partial<TagModel> | null) => {
+            if (!wallet) return;
+
+            this.shareables.wallet = wallet;
+        });
     }
 
     async ngOnInit(): Promise<void> {
@@ -152,30 +170,6 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
     onSearchChange(): void {
         this._searchDebounced();
-    }
-
-    async addZOTP(): Promise<void> {
-        const dialogRef = this._dialog.open(AddZotpComponent, {
-            panelClass: "zelf-dialog",
-            backdropClass: "zelf-backdrop",
-            width: "90vw",
-            maxWidth: "500px",
-        });
-
-        dialogRef.afterClosed().subscribe(async (result) => {
-            if (result) {
-                // Clear cache and refresh to get the newly added ZOTP
-                this.zotps = await this._zotpService.clearCacheAndRefresh();
-                // Ensure all ZOTPs are marked as not decrypted
-                this.zotps.forEach((zotp) => {
-                    zotp.isDecrypted = false;
-                    zotp.decryptedSecret = undefined;
-                });
-                this.filteredZotps = this.zotps;
-                await this._updateCodeCache();
-                this._changeDetectorRef.detectChanges();
-            }
-        });
     }
 
     async showDetails(zotp: ZOTP): Promise<void> {
@@ -259,7 +253,7 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
         dialogRef.afterClosed().subscribe(async (recoveredZOTP: Partial<ZOTP> | null) => {
             if (recoveredZOTP) {
-                // ZOTP was recovered - refresh the list
+                // ZOTP was recovered - refresh the listx
                 // Note: The recovered ZOTP needs to be added to the list
                 // For now, we'll refresh to show any changes
                 await this.refreshList();
@@ -413,11 +407,10 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
 
     async refreshList(): Promise<void> {
         this.loading = true;
+
         try {
-            // Clear cache and fetch fresh data from backend
             this.zotps = await this._zotpService.clearCacheAndRefresh();
 
-            // Ensure all ZOTPs are marked as not decrypted
             this.zotps.forEach((zotp) => {
                 zotp.isDecrypted = false;
                 zotp.decryptedSecret = undefined;

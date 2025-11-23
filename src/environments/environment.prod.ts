@@ -1,16 +1,21 @@
 export const environment = {
     apiUrl: "https://v3.zelf.world",
-    appUrl: "https://beta.zelf.world",
+    appUrl: "https://zelf.world",
     baseUrl: "/",
-    captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
-    paymentDomainUrl: "https://payment.zelf.world",
+    captchaKey: "",
     includeNonPaidDomains: false,
+    keysUrl: "https://keys.zelf.world",
+    paymentDomainUrl: "https://payment.zelf.world",
     production: true,
     testnetAddress: "",
     networks: {
         ethereum: "sepolia",
         avalanche: "avalanche",
         solana: "solana",
+    },
+    bitcoin: {
+        mainnet: "https://broken-few-valley.btc.quiknode.pro/b357e9fc23471664e4554a4b973b48df9f0d1b33/",
+        testnet: "https://little-old-model.btc-testnet.quiknode.pro/bc869f0ab39ee934fa4369cb0c83254639c08ae7/",
     },
     ethereumRpc: {
         mainnet: "https://compatible-skilled-dew.quiknode.pro/817e4f1a5f57dfe63d5fab4ed729c8afcbd87363/",

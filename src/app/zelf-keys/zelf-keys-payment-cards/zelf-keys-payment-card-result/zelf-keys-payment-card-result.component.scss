@@ -1,0 +1,346 @@
+.payment-card-result {
+    padding: 0 24px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    &__container {
+        width: 100%;
+        text-align: center;
+    }
+
+    &__state {
+        &--success,
+        &--error {
+            .payment-card-result__icon {
+                font-size: 64px;
+                width: 64px;
+                height: 64px;
+            }
+
+            .payment-card-result__title {
+                font-size: 24px;
+                font-weight: 600;
+                color: #1a1a1a;
+                margin: 0 0 12px 0;
+            }
+
+            .payment-card-result__description {
+                font-size: 16px;
+                color: #666;
+                margin: 0 0 32px 0;
+            }
+        }
+
+        &--success {
+            .payment-card-result__icon--success {
+                color: #10b981;
+            }
+        }
+
+        &--error {
+            .payment-card-result__icon--error {
+                color: #ef4444;
+            }
+        }
+    }
+
+    &__icon {
+        &--success,
+        &--error {
+            font-size: 64px;
+            width: 64px;
+            height: 64px;
+        }
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 12px 0;
+    }
+
+    &__description {
+        font-size: 16px;
+        color: #666;
+        margin: 0 0 32px 0;
+    }
+
+    &__preview {
+        margin: 24px 0;
+    }
+
+    &__image-section {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 24px;
+        margin: 24px 0;
+    }
+
+    &__security {
+        margin: 24px 0;
+    }
+
+    &__preview-content {
+        .zelf-action-row {
+            margin-bottom: 0;
+
+            &:nth-child(3), // Card Number row
+            &:nth-child(4) {
+                // Expiry row
+                .zelf-action-row__value {
+                    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+                    font-size: 14px;
+                    letter-spacing: 0.5px;
+                }
+            }
+        }
+    }
+
+    &__preview-header,
+    &__image-header,
+    &__security-header {
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    &__preview-title,
+    &__image-title,
+    &__security-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0;
+        text-align: left;
+    }
+
+    &__preview-content,
+    &__security-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__image-section {
+        .payment-card-result__image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e9ecef;
+            min-height: 120px;
+        }
+
+        .payment-card-result__card-image {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .image-error {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .payment-card-result__download-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .payment-card-result__download-button {
+            display: flex;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: "Poppins", Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #181818;
+            transition: background-color 0.2s ease;
+            border-radius: 12px;
+            padding: 12px;
+
+            &:hover {
+                background-color: #f8f9fa;
+            }
+        }
+
+        .payment-card-result__download-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+
+            svg {
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+
+            span {
+                font-size: 12px;
+                font-weight: 500;
+                text-align: center;
+                line-height: 14px;
+            }
+        }
+    }
+
+    &__security {
+        .payment-card-result__security-title {
+            color: #1a1a1a;
+        }
+
+        .zelf-action-row {
+            margin-bottom: 0;
+        }
+
+        .payment-card-result__proof-string {
+            font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+            font-size: 14px;
+            color: #2c3e50;
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            display: block;
+            word-break: break-all;
+            line-height: 1.4;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            cursor: pointer;
+            user-select: all;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #f8f9fa;
+                border-color: #007bff;
+            }
+        }
+
+        .payment-card-result__qr-display {
+            text-align: center;
+            max-width: 200px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 24px;
+
+            .payment-card-result__qr-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 4px;
+                display: block;
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 12px;
+        justify-content: stretch;
+        margin-top: 32px;
+        width: 100%;
+
+        .zelf-button {
+            flex: 1;
+        }
+    }
+
+    &__section {
+        margin: 24px 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 16px 0;
+        text-align: left;
+    }
+
+    &__nft-content,
+    &__nft-info {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__nft-image {
+        flex-shrink: 0;
+        width: 200px;
+        height: 200px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__nft-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    &__ipfs-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__tx-link,
+    &__gateway-link {
+        color: #0ea5e9;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .payment-card-result {
+        padding: 16px;
+
+        &__actions {
+            flex-direction: column;
+            gap: 12px;
+
+            .zelf-button {
+                width: 100%;
+            }
+        }
+    }
+}

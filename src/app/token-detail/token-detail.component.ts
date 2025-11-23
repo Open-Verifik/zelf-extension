@@ -9,7 +9,7 @@ import { SafeHtmlPipe } from "app/pipes/safe-html.pipe";
 import { TruncateNumberPipe } from "app/pipes/truncate-number.pipe";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { TransactionService } from "app/transaction.service";
-import { TokenData, TransactionData } from "app/wallet";
+import { TokenData, TransactionData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfHistoryComponent } from "app/zelf-history/zelf-history.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";

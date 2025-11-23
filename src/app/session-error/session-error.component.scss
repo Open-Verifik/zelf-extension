@@ -1,0 +1,84 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+.session-error {
+    &__language {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1000;
+
+        @media screen and (max-width: variables.$medium) {
+            top: 0.75rem;
+            right: 0.75rem;
+        }
+    }
+
+    &__content {
+        gap: 24px;
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 12px 0 0;
+    }
+
+    &__message {
+        color: variables.$gray;
+        font-size: 16px;
+        margin: 0;
+        text-align: center;
+    }
+
+    &__banner {
+        background-color: variables.$white;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin: 32px 0 0;
+        padding: 16px;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+    }
+
+    &__banner-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    &__banner-icon {
+        color: variables.$secondaryColor;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    &__banner-text {
+        color: variables.$gray;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0;
+        text-align: left;
+    }
+
+    &__banner-button {
+        margin-top: 0;
+    }
+}

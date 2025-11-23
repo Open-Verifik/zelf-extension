@@ -1,7 +1,8 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AuthService } from "app/services/auth.service";
 import { from, lastValueFrom } from "rxjs";
+
+import { AuthService } from "app/services/auth.service";
 import { DISABLE_GLOBAL_EXCEPTION_HANDLING } from "./interceptor.model";
 
 @Injectable()
@@ -19,15 +20,35 @@ export class JWTInterceptor implements HttpInterceptor {
     }
 
     async handle(req: HttpRequest<any>, next: HttpHandler) {
-        const authToken = await this._authService.checkAccessToken();
+        if (req.url.includes("/api/sessions")) {
+            const newReq = req.clone({
+                setHeaders: {
+                    timeout: "20",
+                },
+            });
 
-        const newReq = req.clone({
-            setHeaders: {
-                timeout: "20",
-                Authorization: `Bearer ${authToken}`,
-            },
-        });
+            return lastValueFrom(next.handle(newReq));
+        }
 
-        return lastValueFrom(next.handle(newReq));
+        try {
+            const authToken = await this._authService.checkAccessToken();
+
+            const newReq = req.clone({
+                setHeaders: {
+                    timeout: "20",
+                    Authorization: `Bearer ${authToken}`,
+                },
+            });
+
+            return lastValueFrom(next.handle(newReq));
+        } catch (error) {
+            const newReq = req.clone({
+                setHeaders: {
+                    timeout: "20",
+                },
+            });
+
+            return lastValueFrom(next.handle(newReq));
+        }
     }
 }

@@ -12,13 +12,12 @@ import { ChromeService } from "app/chrome.service";
 import { HttpWrapperService } from "app/http-wrapper.service";
 import { ReserveDoneSheetComponent } from "app/reserve-done-sheet/reserve-done-sheet.component";
 import { ErrorService } from "app/services/error.service";
+import { TagFlow, TagModel, TagsService } from "app/tags.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { WelcomeErrorComponent } from "app/welcome-error/welcome-error.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { BiometricsGeneralComponent } from "../biometrics-general/biometrics.component";
-import { TagFlow, TagsService } from "app/tags.service";
-import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -59,10 +58,10 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _httpWrapperService: HttpWrapperService,
         private _router: Router,
+        private _tagsService: TagsService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
-        private _walletService: WalletService,
-        private _tagsService: TagsService
+        private _walletService: WalletService
     ) {
         this.form = this._formBuilder.group({
             hideBiometricsCheckbox: [false],
@@ -109,14 +108,13 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 const tagObject = response.data?.tagObject;
-
                 const pgp = response.data?.pgp;
 
-                const newWallet = new TagModel({ ...tagObject, pgp });
-
                 await this._chromeService.removeItem("flow");
+                await this._chromeService.removeItem("tagName");
+                await this._chromeService.removeItem("newTagName");
 
-                // Use switchWallet to properly preserve the old current wallet in the wallets array
+                const newWallet = new TagModel({ ...tagObject, pgp });
                 await this._walletService.switchWallet(newWallet);
 
                 this._redirect();
@@ -126,7 +124,6 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     private async _decryptTag(payload: any): Promise<void> {
         const zelfProof = await this._tagsService.getZelfProof();
-
         const userFingerprint = this._walletService.getUserFingerprint();
 
         this._tagsService
@@ -137,9 +134,11 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 await this._chromeService.removeItem("flow");
+                await this._chromeService.removeItem("tagName");
+                await this._chromeService.removeItem("newTagName");
 
-                // Use switchWallet to properly preserve the old current wallet in the wallets array
-                await this._walletService.switchWallet(new TagModel(response.data));
+                const newWallet = new TagModel(response.data);
+                await this._walletService.switchWallet(newWallet);
 
                 this._redirect();
             })
@@ -157,14 +156,14 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                 this._vaultService.mnemonic = "";
 
                 const tagObject = response.data?.tagObject;
-
                 const pgp = response.data?.pgp;
 
-                const newWallet = new TagModel({ ...tagObject, pgp });
-
                 await this._chromeService.removeItem("flow");
+                await this._chromeService.removeItem("tagName");
+                await this._chromeService.removeItem("newTagName");
 
-                await this._chromeService.setItem("wallet", newWallet);
+                const newWallet = new TagModel({ ...tagObject, pgp });
+                await this._walletService.switchWallet(newWallet);
 
                 this._redirect();
             })
@@ -180,16 +179,14 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
             })
             .then(async (response) => {
                 const tagObject = response.data?.tagObject;
-
                 const pgp = response.data?.pgp;
 
-                const newWallet = new TagModel({ ...tagObject, pgp });
-
                 await this._chromeService.removeItem("flow");
-
+                await this._chromeService.removeItem("tagName");
                 await this._chromeService.removeItem("newTagName");
 
-                await this._chromeService.setItem("wallet", newWallet);
+                const newWallet = new TagModel({ ...tagObject, pgp });
+                await this._walletService.switchWallet(newWallet);
 
                 this._bottomSheet.open(ReserveDoneSheetComponent, {
                     backdropClass: "zelf-backdrop",
@@ -230,12 +227,13 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message || exception?.error?.error, "errors.generic_identity");
     };
 
-    async onBiometricsScanned(encryptedImage: string): Promise<void> {
+    onBiometricsScanned = async (encryptedImage: string): Promise<void> => {
         const referralTagName = await this._tagsService.getReferral();
 
         const domain = await this._tagsService.getDomain();
 
-        const tagName = this.flow === "create" ? await this._tagsService.getNewTagName() : await this._tagsService.getTagName();
+        const tagName =
+            this.flow === "create" || this.flow === "import" ? await this._tagsService.getNewTagName() : await this._tagsService.getTagName();
 
         const payload: any = {
             faceBase64: encryptedImage,
@@ -255,7 +253,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         } else {
             this._decryptTag(payload);
         }
-    }
+    };
 
     async startBiometrics(): Promise<void> {
         this._chromeService.setItem("hideBiometricsMessage", this.form.controls.hideBiometricsCheckbox.value);

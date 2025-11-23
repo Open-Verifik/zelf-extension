@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 
 import { environment } from "environments/environment";
 
-import { Transaction, TransactionDetailModel, BitcoinTransactionModel, SuiTransactionModel, BlockDAGTransactionModel } from "app/wallet";
+import { Transaction, TransactionDetailModel, BitcoinTransactionModel, SuiTransactionModel, BlockDAGTransactionModel } from "@shared/types/wallet.types";
 import { FeeCalculationParams, TransactionFeeEstimate, TransactionParams, TransactionResult } from "../core/models/transaction-fee.model";
 import { EthereumService } from "../eth.service";
 import { SolanaService } from "../solana.service";

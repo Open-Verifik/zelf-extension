@@ -1,0 +1,311 @@
+@use "../../../../styles/variables";
+
+.data-biometrics-container {
+    min-height: auto;
+    background: variables.$seaSalt;
+    font-family: "Poppins", Arial, sans-serif;
+    border-radius: 12px 12px 0 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: auto;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    &__instructions {
+        text-align: center;
+        padding: 0 16px;
+
+        &-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    }
+
+    &__camera {
+        text-align: center;
+        width: 100%;
+        padding: 0 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-view {
+            position: relative;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            overflow: hidden;
+
+            &--full-width {
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: auto; // Let width be determined by webcam component
+                height: auto; // Let height be determined by webcam component
+            }
+
+            webcam {
+                position: relative;
+                border-radius: 12px;
+                display: block;
+                width: auto;
+                height: auto;
+            }
+        }
+
+        &-status {
+            margin-bottom: 16px;
+        }
+    }
+
+    &__face-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: 12px;
+        z-index: 2;
+
+        &--full-width {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            // Ensure canvas matches video dimensions exactly
+            canvas {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &__loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        z-index: 10;
+        pointer-events: none; // Allow clicks to pass through
+    }
+
+    &__error {
+        background: #fee;
+        border: 1px solid #fcc;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 0 16px 16px 16px;
+
+        &-title {
+            font-weight: 600;
+            color: #c53030;
+            margin-bottom: 4px;
+        }
+
+        &-subtitle {
+            color: #742a2a;
+            font-size: 14px;
+        }
+    }
+
+    &__instructions-status {
+        background: #f0f9ff;
+        border: 1px solid #bae6fd;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 0 16px 16px 16px;
+
+        &-title {
+            font-weight: 600;
+            color: #0369a1;
+            margin-bottom: 4px;
+        }
+
+        &-subtitle {
+            color: #0c4a6e;
+            font-size: 14px;
+        }
+    }
+
+    &__api-error {
+        text-align: center;
+        padding: 40px 16px;
+
+        &-card {
+            background: #fff5f5;
+            border: 2px solid #fed7d7;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        &-icon {
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #c53030;
+            margin: 0 0 12px 0;
+        }
+
+        &-message {
+            font-size: 16px;
+            color: #744210;
+            margin: 0 0 24px 0;
+            line-height: 1.5;
+        }
+
+        &-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+    }
+
+    &__processing-message {
+        font-size: 16px;
+        color: #666;
+        text-align: center;
+        display: block;
+        margin-top: 160px;
+    }
+
+    &__error-camera {
+        text-align: center;
+        padding: 60px 16px;
+        max-width: 400px;
+        margin: 0 auto;
+
+        &-image {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+        }
+
+        &-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #171717;
+            margin: 0 0 12px 0;
+        }
+
+        &-description {
+            color: #666;
+            font-size: 14px;
+            margin: 0 0 24px 0;
+        }
+    }
+
+    &__permission {
+        text-align: center;
+        padding: 60px 16px;
+        max-width: 400px;
+        margin: 0 auto;
+
+        &-icon {
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #171717;
+            margin: 0 0 12px 0;
+        }
+
+        &-description {
+            color: #666;
+            font-size: 14px;
+            margin: 0 0 24px 0;
+        }
+    }
+
+    &__btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &--retry {
+            background: #667eea;
+            color: white;
+
+            &:hover {
+                background: #5a67d8;
+                transform: translateY(-1px);
+            }
+        }
+
+        &--back {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+
+            &:hover {
+                background: #edf2f7;
+            }
+        }
+    }
+}
+
+// Override webcam component styles for bottom sheet
+::ng-deep {
+    .data-biometrics-container {
+        webcam {
+            display: block !important;
+
+            // Remove any default padding/margin that might cause the 6px difference
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+
+            // Let the video element use the dimensions from the webcam component
+            video {
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                object-fit: contain !important; // Use contain to maintain aspect ratio
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@
         <div class="send-currency__col3"></div>
     </div>
 
-    <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
+    <zelf-loader *ngIf="loading"></zelf-loader>
 
     <div class="zelf-card__content send-currency__content">
         <form class="send-currency__form" [formGroup]="form" [class.hidden]="tokens.length < 5">

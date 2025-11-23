@@ -34,19 +34,23 @@
             <!-- IPFS ID Display -->
             <div class="delete-zotp__info-section" *ngIf="ipfsId">
                 <h4 class="delete-zotp__section-title">{{ t("zotp.ipfs_id") }}</h4>
-                <div class="delete-zotp__info-value">{{ ipfsId }}</div>
+                <div class="zelf-action-row">
+                    <p class="zelf-action-row__value delete-zotp__info-value">{{ ipfsId }}</p>
+                </div>
             </div>
 
             <!-- Walrus ID Display -->
             <div class="delete-zotp__info-section" *ngIf="walrusId">
                 <h4 class="delete-zotp__section-title">{{ t("zotp.walrus_blob_id") }}</h4>
-                <div class="delete-zotp__info-value">{{ walrusId }}</div>
+                <div class="zelf-action-row">
+                    <p class="zelf-action-row__value delete-zotp__info-value">{{ walrusId }}</p>
+                </div>
             </div>
 
             <!-- Master Password Input -->
             <form [formGroup]="form" class="delete-zotp__form">
-                <div class="delete-zotp__field">
-                    <label class="delete-zotp__label">
+                <div class="delete-zotp__field delete-zotp__field--master-password">
+                    <label class="delete-zotp__label delete-zotp__label--master-password">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.4 7 14.8 8.6 14.8 10V11.5C15.4 11.9 15.8 12.5 15.8 13.2V16.7C15.8 17.5 15.1 18.2 14.3 18.2H9.7C8.9 18.2 8.2 17.5 8.2 16.7V13.2C8.2 12.5 8.6 11.9 9.2 11.5V10C9.2 8.6 10.6 7 12 7ZM12 8.2C11.2 8.2 10.5 8.7 10.5 10V11.5H13.5V10C13.5 8.7 12.8 8.2 12 8.2Z"
@@ -57,18 +61,20 @@
                         <span class="delete-zotp__required">*</span>
                     </label>
                     <div class="delete-zotp__password-wrapper">
-                        <div class="delete-zotp__password-input-container">
+                        <div class="zelf-input zelf-input--wide">
                             <input
-                                class="delete-zotp__input delete-zotp__input--password"
+                                class="zelf-input__control zelf-input__control--floating-label"
                                 formControlName="masterPassword"
                                 [type]="showMasterPassword ? 'text' : 'password'"
-                                [placeholder]="t('zotp.master_password_placeholder')"
+                                placeholder=" "
                                 autocomplete="off"
+                                id="masterPassword"
                                 (keydown.enter)="proceedToBiometrics()"
                             />
+                            <label for="masterPassword" class="zelf-input__floating-label">{{ t("zotp.master_password_placeholder") }}</label>
                             <button
                                 type="button"
-                                class="delete-zotp__password-toggle"
+                                class="zelf-icon-button zelf-icon-button--transparent zelf-icon-button--no-fill"
                                 (click)="toggleShowMasterPassword()"
                                 [attr.aria-label]="showMasterPassword ? t('common.hide_password') : t('common.show_password')"
                                 tabindex="-1"

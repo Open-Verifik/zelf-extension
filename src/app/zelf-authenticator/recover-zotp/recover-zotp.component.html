@@ -18,30 +18,53 @@
             </div>
 
             <!-- File Upload -->
-            <div class="recover-zotp__file-upload">
-                <label class="recover-zotp__file-label">
-                    <input type="file" accept=".json" (change)="onFileSelected($event)" class="recover-zotp__file-input" />
-                    <div class="recover-zotp__file-button">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2L5 7H8V13H12V7H15L10 2ZM2 15V17H18V15H2Z"
-                                fill="currentColor"
-                            />
-                        </svg>
-                        {{ t("zotp.upload_shares_file") }}
-                    </div>
-                </label>
+            <div dragAndDrop class="recover-zotp__file-upload drag-and-drop" (fileDropped)="onDrop($event)">
+                <input (change)="onFileSelected($event)" #fileInput accept=".json" hidden id="shareFile" name="shareFile" type="file" />
+
+                <div class="drag-and-drop__loader" *ngIf="loading">
+                    <zelf-loader [diameter]="60"></zelf-loader>
+                </div>
+
+                <button
+                    (click)="fileInput.click()"
+                    [disabled]="loading"
+                    class="zelf-button zelf-button--outlined zelf-button--wide"
+                    mat-flat-button
+                    type="button"
+                >
+                    {{ t("zotp.upload_shares_file") }}
+
+                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M4.5 10.2217H7.5C7.9125 10.2217 8.25 9.88422 8.25 9.47172V5.72172H9.4425C10.11 5.72172 10.4475 4.91172 9.975 4.43922L6.5325 0.996719C6.24 0.704219 5.7675 0.704219 5.475 0.996719L2.0325 4.43922C1.56 4.91172 1.89 5.72172 2.5575 5.72172H3.75V9.47172C3.75 9.88422 4.0875 10.2217 4.5 10.2217ZM1.5 11.7217H10.5C10.9125 11.7217 11.25 12.0592 11.25 12.4717C11.25 12.8842 10.9125 13.2217 10.5 13.2217H1.5C1.0875 13.2217 0.75 12.8842 0.75 12.4717C0.75 12.0592 1.0875 11.7217 1.5 11.7217Z"
+                            fill="#181818"
+                        />
+                    </svg>
+                </button>
+
+                <p class="zelf-card__help-text">{{ t("common.or_drag_and_drop") }}</p>
             </div>
 
             <!-- Manual Entry -->
             <div class="recover-zotp__manual-entry">
-                <h4 class="recover-zotp__manual-title">{{ t("zotp.or_enter_share_manually") }}</h4>
+                <p class="recover-zotp__manual-title">{{ t("zotp.or_enter_share_below") }}</p>
                 <div class="recover-zotp__manual-input">
-                    <mat-form-field appearance="outline" class="recover-zotp__share-field">
-                        <mat-label>{{ t("zotp.share_data") }}</mat-label>
-                        <textarea matInput [(ngModel)]="shareInput" rows="3" [placeholder]="t('zotp.share_placeholder')" (keydown.enter)="$event.preventDefault(); addShareManually()"></textarea>
-                    </mat-form-field>
-                    <button mat-flat-button class="recover-zotp__add-button" (click)="addShareManually()" [disabled]="!shareInput.trim()">
+                    <div class="zelf-input zelf-input--wide zelf-input--textarea">
+                        <textarea
+                            [(ngModel)]="shareInput"
+                            class="zelf-input__control"
+                            [placeholder]="t('zotp.share_placeholder')"
+                            rows="3"
+                            id="shareInput"
+                            (keydown.enter)="$event.preventDefault(); addShareManually()"
+                        ></textarea>
+                    </div>
+                    <button
+                        type="button"
+                        class="zelf-button zelf-button--black zelf-button--wide"
+                        (click)="addShareManually()"
+                        [disabled]="!shareInput.trim()"
+                    >
                         {{ t("zotp.add_share") }}
                     </button>
                 </div>
@@ -74,9 +97,7 @@
 
                 <!-- Threshold Info -->
                 <div class="recover-zotp__threshold-info" *ngIf="getThreshold() > 0">
-                    <p *ngIf="hasEnoughShares()" class="recover-zotp__threshold-success">
-                        ✅ {{ t("zotp.enough_shares") }}
-                    </p>
+                    <p *ngIf="hasEnoughShares()" class="recover-zotp__threshold-success">✅ {{ t("zotp.enough_shares") }}</p>
                     <p *ngIf="!hasEnoughShares()" class="recover-zotp__threshold-warning">
                         ⚠️ {{ t("zotp.need_more_shares", { needed: getThreshold() - importedShares.length }) }}
                     </p>
@@ -84,12 +105,12 @@
 
                 <!-- Reconstruct Button -->
                 <button
-                    mat-flat-button
-                    class="recover-zotp__reconstruct-button"
+                    type="button"
+                    class="zelf-button zelf-button--black zelf-button--wide"
                     (click)="reconstructSecret()"
                     [disabled]="loading || !hasEnoughShares()"
                 >
-                    {{ loading ? (t("common.loading") || "Loading...") : t("zotp.reconstruct_secret") }}
+                    {{ loading ? t("common.loading") || "Loading..." : t("zotp.reconstruct_secret") }}
                 </button>
             </div>
 
@@ -110,10 +131,15 @@
             </div>
 
             <div class="recover-zotp__actions">
-                <button mat-flat-button class="recover-zotp__create-button" (click)="createZOTPFromRecoveredSecret()" [disabled]="loading">
-                    {{ loading ? (t("common.loading") || "Loading...") : t("zotp.create_zotp_from_recovery") }}
+                <button
+                    type="button"
+                    class="zelf-button zelf-button--black zelf-button--wide"
+                    (click)="createZOTPFromRecoveredSecret()"
+                    [disabled]="loading"
+                >
+                    {{ loading ? t("common.loading") || "Loading..." : t("zotp.create_zotp_from_recovery") }}
                 </button>
-                <button mat-flat-button class="recover-zotp__back-button" (click)="step = 'import'" [disabled]="loading">
+                <button type="button" class="zelf-button zelf-button--outlined zelf-button--wide" (click)="step = 'import'" [disabled]="loading">
                     {{ t("common.go_back") }}
                 </button>
             </div>
@@ -127,11 +153,10 @@
             </div>
 
             <div class="recover-zotp__actions">
-                <button mat-flat-button class="recover-zotp__done-button" (click)="close()">
+                <button type="button" class="zelf-button zelf-button--black zelf-button--wide" (click)="close()">
                     {{ t("common.done") || "Done" }}
                 </button>
             </div>
         </div>
     </div>
 </div>
-

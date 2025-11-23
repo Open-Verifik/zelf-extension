@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { HttpWrapperService } from "../http-wrapper.service";
+import { AuthService } from "./auth.service";
 
 /**
  * Interface for storing a password via ZelfKeys API
@@ -64,7 +65,68 @@ export class ZelfKeysService {
     private readonly baseUrl: string = environment.apiUrl;
     private readonly apiPath: string = "/api/zelf-keys";
 
-    constructor(private _httpWrapper: HttpWrapperService) {}
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _authService: AuthService
+    ) {}
+
+    /**
+     * Retrieve a password (wrapper around generic retrieve for clarity)
+     */
+    async retrievePassword(zelfProof: string, faceBase64: string, password?: string): Promise<any> {
+        const token = await this._authService.checkAccessToken();
+        const payload: any = { zelfProof, faceBase64 };
+
+        if (password) payload.password = password;
+
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}${this.apiPath}/retrieve`, payload, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+
+    /**
+     * List passwords stored via ZelfKeys
+     */
+    async listPasswords(): Promise<any> {
+        const token = await this._authService.checkAccessToken();
+        return this._httpWrapper.sendRequest(
+            "get",
+            `${this.baseUrl}${this.apiPath}/list?category=password`,
+            {},
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+    }
+
+    /**
+     * List notes stored via ZelfKeys
+     */
+    async listNotes(): Promise<any> {
+        const token = await this._authService.checkAccessToken();
+        return this._httpWrapper.sendRequest(
+            "get",
+            `${this.baseUrl}${this.apiPath}/list?category=notes`,
+            {},
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+    }
+
+    /**
+     * Store encrypted notes
+     */
+    async storeNotes(request: {
+        title: string;
+        keyValuePairs: any;
+        folder?: string;
+        insideFolder?: boolean;
+        faceBase64: string;
+        masterPassword?: string;
+        zelfProof?: string;
+    }): Promise<any> {
+        const token = await this._authService.checkAccessToken();
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}${this.apiPath}/store/notes`, request, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
 
     /**
      * Store a password in ZelfKeys
@@ -94,9 +156,11 @@ export class ZelfKeysService {
      * @returns Promise with the decrypted data
      */
     async retrieve(request: RetrieveRequest): Promise<any> {
+        const token = await this._authService.checkAccessToken();
         const url = `${this.baseUrl}${this.apiPath}/retrieve`;
-
-        return this._httpWrapper.sendRequest("post", url, request);
+        return this._httpWrapper.sendRequest("post", url, request, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
     }
 
     /**
@@ -106,19 +170,18 @@ export class ZelfKeysService {
      */
     async preview(request: PreviewRequest): Promise<any> {
         const url = `${this.baseUrl}${this.apiPath}/preview`;
-
         return this._httpWrapper.sendRequest("post", url, request);
     }
 
     /**
-     * List all stored items in a category
-     * @param category - Category to list (password, notes, credit_card, contact, zotp)
+     * List all stored items, optionally filtered by category
+     * @param category - Optional category to filter (password, notes, credit_card, contact, zotp). If omitted, returns all items.
      * @returns Promise with the list of items
      */
-    async list(category: "password" | "notes" | "credit_card" | "contact" | "zotp"): Promise<any> {
+    async list(category?: "password" | "notes" | "credit_card" | "contact" | "zotp"): Promise<any> {
         const url = `${this.baseUrl}${this.apiPath}/list`;
 
-        return this._httpWrapper.sendRequest("get", url, { category });
+        return this._httpWrapper.sendRequest("get", url, category ? { category } : {});
     }
 
     /**
@@ -150,6 +213,40 @@ export class ZelfKeysService {
     }
 
     /**
+     * Store a password in ZelfKeys with auth header
+     */
+    async storePasswordWithAuth(request: StorePasswordRequest & { name?: string }): Promise<any> {
+        const token = await this._authService.checkAccessToken();
+        const url = `${this.baseUrl}${this.apiPath}/store/password`;
+
+        return this._httpWrapper.sendRequest("post", url, request, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+
+    /**
+     * Store a credit card in ZelfKeys with auth header
+     */
+    async storeCreditCard(request: {
+        cardName: string;
+        cardNumber: string;
+        expiryMonth: string;
+        expiryYear: string;
+        folder?: string;
+        insideFolder?: boolean;
+        cvv?: string;
+        bankName?: string;
+        faceBase64: string;
+        masterPassword?: string;
+        zelfProof?: string;
+    }): Promise<any> {
+        const token = await this._authService.checkAccessToken();
+        const url = `${this.baseUrl}${this.apiPath}/store/credit-card`;
+        return this._httpWrapper.sendRequest("post", url, request, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+    /**
      * Delete a ZelfKey by ID
      * @param id - IPFS ID of the ZelfKey to delete
      * @param faceBase64 - Encrypted face image from biometrics
@@ -163,5 +260,26 @@ export class ZelfKeysService {
             faceBase64,
             masterPassword,
         });
+    }
+
+    /**
+     * Parse category string to extract the category name
+     * Example: "user.zelf_password" -> "password"
+     * @param category - Full category string (e.g., "user.zelf_password")
+     * @returns Parsed category name (everything after the last underscore)
+     */
+    static parseCategory(category: string | null | undefined): string | null {
+        if (!category) return null;
+
+        // Find the last underscore in the category string
+        const lastUnderscoreIndex = category.lastIndexOf("_");
+
+        if (lastUnderscoreIndex === -1) {
+            // No underscore found, return the original category
+            return category;
+        }
+
+        // Return everything after the last underscore
+        return category.substring(lastUnderscoreIndex + 1);
     }
 }

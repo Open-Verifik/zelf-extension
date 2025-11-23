@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as openpgp from "openpgp";
 import { BehaviorSubject, Observable } from "rxjs";
+
 import { ChromeService } from "./chrome.service";
 import { WalletService } from "./wallet.service";
 
@@ -13,25 +14,12 @@ export class VaultService {
     private _mnemonic: string = "";
     private _password: string = "";
     private _password$: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
-    private _passwordAttempts: number = 4;
+    private _passwordAttempts: number = 5;
 
     constructor(
-        private _walletService: WalletService,
-        private _chromeService: ChromeService
+        private _chromeService: ChromeService,
+        private _walletService: WalletService
     ) {
-        this._chromeService.onLastVerifiedChanged$.subscribe((lastVerified) => {
-            if (this._lastVerified === lastVerified) return;
-
-            if (!lastVerified) {
-                this._lastVerified = 0;
-
-                return;
-            }
-
-            // Tamper resistance
-            this._chromeService.setItem("lastVerified", 0);
-        });
-
         this._chromeService.getItem("lastVerified").then((lastVerified) => {
             this._lastVerified = lastVerified ? lastVerified : 0;
         });
@@ -71,16 +59,8 @@ export class VaultService {
     }
 
     async biometricsRequired(): Promise<boolean> {
-        const lastVerified = await this._chromeService.getItem("lastVerified");
-
-        if (!lastVerified) return true;
-
-        // Force biometrics if someone has tampered with the lastVerified timestamp
-        if (this._lastVerified !== lastVerified) return true;
-
         const settings = await this._chromeService.getItem("settings");
-
-        const minutesSinceLastVerified = Math.floor((new Date().getTime() - new Date(lastVerified).getTime()) / (1000 * 60));
+        const minutesSinceLastVerified = Math.floor((new Date().getTime() - new Date(this._lastVerified).getTime()) / (1000 * 60));
 
         if (minutesSinceLastVerified > (settings?.security?.biometricVerificationInterval || 10)) return true;
 
@@ -113,12 +93,14 @@ export class VaultService {
 
             return decrypted as string;
         } catch (error: any) {
-            if (error?.message !== "expired" && this.remainingAttempts > 0) {
-                this._incorrectCount++;
-            } else {
+            this._incorrectCount++;
+
+            if (error?.message === "expired" || this.remainingAttempts <= 0) {
                 await this._walletService.clearPGPKeys();
 
                 this._incorrectCount = 0;
+
+                throw error.message;
             }
 
             throw error;
@@ -126,27 +108,24 @@ export class VaultService {
     }
 
     async getWallet(): Promise<any> {
-        if (!this.password) {
-            throw new Error("Password not set");
-        }
+        if (!this.password) throw new Error("Password not set");
 
         const wallet = await this._walletService.getCurrentWallet();
 
-        if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) {
-            throw new Error("No wallet available");
-        }
+        if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey) throw new Error("No wallet available");
 
         const decryptedData = await this.decryptMessage(wallet.pgp.encryptedMessage, wallet.pgp.privateKey, this.password);
 
         return JSON.parse(decryptedData);
     }
 
-    setLastVerified(): void {
+    async setLastVerified(): Promise<void> {
         this._incorrectCount = 0;
 
         const newLastVerified = new Date().getTime();
 
         this._lastVerified = newLastVerified;
-        this._chromeService.setItem("lastVerified", newLastVerified);
+
+        await this._chromeService.setItem("lastVerified", newLastVerified);
     }
 }

@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { Router, RouterLink, RouterModule } from "@angular/router";
+import { RouterLink, RouterModule } from "@angular/router";
 
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
@@ -45,7 +45,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     constructor(
         private _bottomSheet: MatBottomSheet,
         private _destroyRef: DestroyRef,
-        private _router: Router,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService,
         protected _chromeService: ChromeService,

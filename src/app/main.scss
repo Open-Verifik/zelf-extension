@@ -2,6 +2,8 @@
 @use "../styles/variables";
 @use "../styles/buttons";
 @use "../styles/animations";
+@use "../styles/drag-and-drop";
+@use "material-symbols";
 
 @font-face {
     font-family: "Poppins";
@@ -1214,6 +1216,25 @@ h3 {
     }
 }
 
+.zelf-dialog-footer {
+    .mat-mdc-dialog-container {
+        width: 500px;
+        max-width: inherit;
+        margin: 0 auto;
+    }
+}
+
+.zelf-bottom-sheet-biometrics {
+    .mat-bottom-sheet-container {
+        background-color: variables.$seaSalt !important;
+        max-height: 90vh !important;
+        max-width: 90vw !important;
+        min-height: 90vh !important;
+        padding: 0 !important; // Remove all padding for biometrics
+        width: 90vw !important;
+    }
+}
+
 .zelf-dialog,
 .zelf-dialog-seasalt {
     .mdc-dialog__surface {
@@ -1391,6 +1412,27 @@ h3 {
     }
 }
 
+.field-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    .field-group {
+        flex: 1;
+    }
+
+    &--three-columns {
+        .field-group--small {
+            flex: 0 0 calc(33.333% - 11px);
+            max-width: calc(33.333% - 11px);
+
+            .zelf-input__control {
+                min-width: 0;
+            }
+        }
+    }
+}
+
 .zelf-action-row {
     box-sizing: border-box;
     align-items: center;
@@ -1402,6 +1444,7 @@ h3 {
     min-height: 62px;
     justify-content: space-between;
     padding: 16px;
+    gap: 8px;
     width: 100%;
 
     &__text {
@@ -1487,7 +1530,7 @@ h3 {
         top: 18px;
         transition: all 0.2s;
         user-select: none;
-        width: 100%;
+        width: 95%;
         transition: all 0.2s variables.$smoothBezier;
     }
 
@@ -1506,6 +1549,7 @@ h3 {
         min-width: 256px;
         padding: 12px 16px;
         width: auto;
+        z-index: 10;
 
         &--floating-label {
             padding: 22px 18px 6px;
@@ -1566,6 +1610,141 @@ h3 {
         .zelf-input__control + .zelf-input__floating-label {
             color: variables.$error;
         }
+    }
+
+    &--textarea {
+        height: auto;
+        min-height: 56px;
+        max-height: 200px;
+        align-items: flex-start;
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+
+        .zelf-input__control {
+            resize: none;
+            overflow-y: auto;
+            min-height: 24px;
+            max-height: 168px;
+            line-height: 1.5;
+            width: 100%;
+            padding: 16px;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            background: transparent;
+            margin: 0;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+                border-radius: 4px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #d0d0d0;
+                border-radius: 4px;
+                border: 1px solid transparent;
+                background-clip: content-box;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #b0b0b0;
+            }
+
+            &::-webkit-scrollbar-corner {
+                background: transparent;
+            }
+        }
+    }
+}
+
+// Slide Toggle Component
+.zelf-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    cursor: pointer;
+    transition: all 0.2s variables.$smoothBezier;
+
+    &__track {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #e0e0e0;
+        border-radius: 11px;
+        transition: all 0.2s variables.$smoothBezier;
+    }
+
+    &__thumb {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 18px;
+        height: 18px;
+        background: white;
+        border-radius: 50%;
+        transition: all 0.2s variables.$smoothBezier;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    // Active state
+    &--active {
+        .zelf-toggle__track {
+            background: variables.$primaryColor;
+        }
+
+        .zelf-toggle__thumb {
+            transform: translateX(22px);
+        }
+    }
+
+    // Hover state
+    &:hover:not(:disabled) {
+        .zelf-toggle__track {
+            background: #d0d0d0;
+        }
+
+        .zelf-toggle__thumb {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        &.zelf-toggle--active .zelf-toggle__track {
+            background: #0c1fd9; // Darker primary color
+        }
+    }
+
+    // Disabled state
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+
+        .zelf-toggle__track {
+            background: #f0f0f0;
+        }
+
+        .zelf-toggle__thumb {
+            background: #f5f5f5;
+            box-shadow: none;
+        }
+
+        &.zelf-toggle--active {
+            .zelf-toggle__track {
+                background: #e0e0e0;
+            }
+        }
+    }
+
+    // Readonly state
+    &--readonly {
+        cursor: default;
+        pointer-events: none;
     }
 }
 
@@ -1885,60 +2064,6 @@ h3 {
     }
 }
 
-.drag-and-drop {
-    position: relative;
-    border: 1px dashed variables.$taupeGray;
-    transition: background-color cubic-bezier(0.075, 0.82, 0.165, 1) 1s;
-    border-radius: 16px;
-    overflow: hidden;
-
-    &--active {
-        border: 1px dashed variables.$secondaryColor;
-        background-color: rgba(0, 0, 0, 0.08) !important;
-    }
-
-    &__loader {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 3;
-    }
-
-    &__loader-overlay {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        z-index: 2;
-        background-color: rgba(255, 2555, 255, 0.9);
-    }
-
-    &__preview {
-        max-height: 476px;
-        max-width: 340px;
-    }
-
-    &__data {
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 0 16px;
-        font-size: smaller;
-        color: #ffffff;
-        width: 100%;
-        z-index: 2;
-        position: absolute;
-        bottom: 0;
-    }
-
-    input {
-        height: 100%;
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 1;
-    }
-}
-
 .zelf-logo {
     display: inline;
 
@@ -1949,6 +2074,30 @@ h3 {
 
 .tv-lightweight-charts a {
     display: none !important;
+}
+
+.zelf-icon {
+    font-size: 20px;
+    color: variables.$black;
+    fill: variables.$black;
+    transition:
+        color 0.3s variables.$smoothBezier,
+        fill 0.3s variables.$smoothBezier;
+
+    &:hover {
+        color: variables.$white;
+        fill: variables.$white;
+    }
+
+    &--dark {
+        color: variables.$white;
+        fill: variables.$white;
+
+        &:hover {
+            color: variables.$black;
+            fill: variables.$black;
+        }
+    }
 }
 
 /* Small screen devices (600px and above) */

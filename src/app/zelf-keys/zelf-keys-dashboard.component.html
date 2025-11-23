@@ -1,0 +1,25 @@
+<div class="zelf-card dashboard" *transloco="let t">
+    <home-header [shareables]="{ wallet: wallet }"></home-header>
+
+    <div class="animated-tabs">
+        <div class="animated-tabs__switch">
+            <div (click)="navigateToTab('passwords')" [ngClass]="{ 'animated-tab--active': activeTab === 'passwords' }" class="animated-tab">
+                <div class="animated-tab__text">{{ t("billing.dashboard.passwords") }}</div>
+            </div>
+
+            <div (click)="navigateToTab('notes')" [ngClass]="{ 'animated-tab--active': activeTab === 'notes' }" class="animated-tab">
+                <div class="animated-tab__text">{{ t("billing.dashboard.notes") }}</div>
+            </div>
+
+            <div (click)="navigateToTab('payment-cards')" [ngClass]="{ 'animated-tab--active': activeTab === 'payment-cards' }" class="animated-tab">
+                <div class="animated-tab__text">{{ t("billing.dashboard.payment_cards") }}</div>
+            </div>
+        </div>
+    </div>
+
+    <main class="dashboard__content">
+        <router-outlet></router-outlet>
+    </main>
+
+    <zelf-footer [shareables]="{ wallet: wallet }"></zelf-footer>
+</div>

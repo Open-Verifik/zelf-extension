@@ -5,7 +5,7 @@ import { firstValueFrom, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
 import { SolanaService } from "app/solana.service";
-import { TokenData } from "app/wallet";
+import { TokenData } from "@shared/types/wallet.types";
 import { environment } from "environments/environment";
 import { LifiQuote, LifiToken, LifiTokensResponse } from "app/models/lifi.model";
 

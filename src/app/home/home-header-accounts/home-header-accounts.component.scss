@@ -2,9 +2,13 @@
 @use "../../../styles/buttons";
 
 :host {
-    position: relative;
+    box-sizing: border-box;
     display: block;
+    margin: 0 auto;
+    max-width: 100%;
     padding: 16px;
+    position: relative;
+    width: 560px;
 }
 
 .home-header-accounts {
@@ -146,7 +150,6 @@
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
     transition:
         color 0.2s variables.$smoothBezier,
         background-color 0.2s variables.$smoothBezier;
@@ -239,12 +242,21 @@
     }
 
     &__name {
+        align-items: center;
+        align-self: stretch;
+        color: variables.$black;
+        cursor: pointer;
+        display: flex;
+        flex-grow: 1;
         font-size: 16px;
         font-weight: 600;
-        color: variables.$black;
         margin: 0;
-        flex-grow: 1;
         text-align: left;
+        transition: color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            color: variables.$secondaryColor;
+        }
     }
 
     &__expand {
@@ -260,18 +272,27 @@
     }
 
     &__buttons {
+        box-sizing: border-box;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        gap: 8px;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.2s variables.$smoothBezier;
-        gap: 8px;
         padding: 0 16px;
+        transition: max-height 0.2s variables.$smoothBezier;
+        width: 100%;
 
         &--open {
-            max-height: 200px;
+            max-height: 400px;
             padding: 16px;
         }
+    }
+
+    &__button-row {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        width: 100%;
     }
 
     &__button {
@@ -291,6 +312,24 @@
         &:hover {
             background-color: variables.$antiFlashWhite;
         }
+
+        &--active {
+            background-color: variables.$secondaryColor;
+
+            .wallet-row__button-content {
+                svg {
+                    fill: variables.$white;
+                }
+
+                span {
+                    color: variables.$white;
+                }
+            }
+
+            &:hover {
+                background-color: variables.$secondaryColor;
+            }
+        }
     }
 
     &__button-content {
@@ -304,6 +343,7 @@
             width: 24px;
             height: 24px;
             flex-shrink: 0;
+            transition: fill 0.2s variables.$smoothBezier;
         }
 
         span {
@@ -311,6 +351,16 @@
             font-weight: 500;
             text-align: center;
             line-height: 14px;
+            transition: color 0.2s variables.$smoothBezier;
+        }
+    }
+
+    &__button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+
+        &:hover {
+            background-color: transparent;
         }
     }
 }

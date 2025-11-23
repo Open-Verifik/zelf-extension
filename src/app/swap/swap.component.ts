@@ -13,20 +13,20 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
+import { SwapData, TokenData } from "@shared/types/wallet.types";
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { LifiService } from "app/services/lifi.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
+import { TagModel, TagsService } from "app/tags.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { SwapData, TokenData } from "app/wallet";
 import { WalletService } from "app/wallet.service";
-import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
-import { environment } from "environments/environment";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { TagModel, TagsService } from "app/tags.service";
+import { environment } from "environments/environment";
+import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
 
 @Component({
     imports: [

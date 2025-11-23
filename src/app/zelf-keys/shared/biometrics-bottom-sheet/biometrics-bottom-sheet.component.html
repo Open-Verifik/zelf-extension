@@ -1,0 +1,50 @@
+<!-- Bottom Sheet Container -->
+<div class="biometrics-bottom-sheet__container" #zelfBottomSheet *transloco="let t">
+    <!-- Header -->
+    <div class="biometrics-bottom-sheet__header">
+        <div class="biometrics-bottom-sheet__title-section">
+            <h3 class="biometrics-bottom-sheet__title">{{ getTitle() }}</h3>
+
+            <div class="biometrics-bottom-sheet__item-info" *ngIf="itemData">
+                <span class="biometrics-bottom-sheet__item-type">{{ getItemType() }}</span>
+                <span class="biometrics-bottom-sheet__item-preview">{{ getItemInfo() }}</span>
+            </div>
+        </div>
+
+        <button class="biometrics-bottom-sheet__close" (click)="onClose()" [attr.aria-label]="t('zelf_keys.biometrics.close_aria')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Content -->
+    <div class="biometrics-bottom-sheet__content">
+        <!-- Error State (Storage Failure) -->
+        <div *ngIf="hasStorageError" class="biometrics-bottom-sheet__error-state">
+            <h3 class="biometrics-bottom-sheet__error-title">{{ errorMessage }}</h3>
+            <p class="biometrics-bottom-sheet__error-subtitle">
+                {{ t("zelf_keys.biometrics_bottom_sheet.error.try_again_later") }}
+            </p>
+            <button class="biometrics-bottom-sheet__error-close" (click)="onClose()">
+                {{ t("zelf_keys.biometrics_bottom_sheet.error.close") }}
+            </button>
+        </div>
+
+        <!-- Normal State -->
+        <ng-container *ngIf="!hasStorageError">
+        <div *ngIf="errorMessage" class="biometrics-bottom-sheet__error">
+            <p>{{ errorMessage }}</p>
+        </div>
+        <data-biometrics
+            [itemData]="itemData"
+            [isDecryptMode]="mode === 'decrypt'"
+            (biometricsSuccess)="onBiometricsSuccess($event)"
+            (biometricsCancel)="onBiometricsCancel()"
+        ></data-biometrics>
+        <div *ngIf="isLoading" class="biometrics-bottom-sheet__loading">
+            <p>{{ t("zelf_keys.biometrics.storing") }}</p>
+        </div>
+        </ng-container>
+    </div>
+</div>

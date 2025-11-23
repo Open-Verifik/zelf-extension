@@ -253,10 +253,6 @@
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.publicData.btcAddress }}</p>
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress }}</p>
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress }}</p>
-
-                        <!-- <hr class="zelf-object-preview__horizontal-rule" /> -->
-
-                        <!-- <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p> -->
                     </div>
 
                     <div class="zelf-object-preview" *ngIf="isZelfNameNotFound">

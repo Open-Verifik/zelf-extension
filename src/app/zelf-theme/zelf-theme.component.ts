@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { Subject, takeUntil } from "rxjs";
+import { Subject } from "rxjs";
 
 import { ThemeService } from "app/theme.service";
 
@@ -37,7 +37,3 @@ export class ZelfThemeComponent implements OnInit, OnDestroy {
         this.currentMode = await this._themeService.getUserModePreference();
     }
 }
-
-
-
-

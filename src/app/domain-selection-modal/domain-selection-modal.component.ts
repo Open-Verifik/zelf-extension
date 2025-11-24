@@ -57,6 +57,8 @@ export class DomainSelectionModalComponent implements OnInit {
             bdag: "assets/icons/bdag_logo.png",
             eth: "assets/icons/eth-icon.svg",
             sol: "assets/icons/sol-icon.svg",
+            sui: "assets/icons/sui_logo.svg",
+            wal: "assets/icons/walrus_logo.jpg",
         };
 
         return iconMap[domainName] || "assets/icons/default-icon.svg";

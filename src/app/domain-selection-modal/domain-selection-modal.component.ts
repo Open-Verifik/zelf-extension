@@ -59,7 +59,7 @@ export class DomainSelectionModalComponent implements OnInit {
             eth: "assets/icons/eth-icon.svg",
             sol: "assets/icons/sol-icon.svg",
             sui: "assets/icons/sui_logo.svg",
-            wal: "assets/icons/walrus_logo.jpg",
+            wal: "assets/icons/walrus_logo.png",
         };
 
         return iconMap[domainName] || "assets/icons/default-icon.svg";

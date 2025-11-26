@@ -6,18 +6,21 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { filter, Subject, takeUntil } from "rxjs";
 
 import { fadeScale } from "app/animations/fade-scale.animation";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
     animations: [fadeScale],
-    imports: [NgClass, NgIf, NgTemplateOutlet, TranslocoModule, RouterLink],
+    imports: [NgClass, NgIf, NgTemplateOutlet, TranslocoModule, RouterLink, ZelfLoaderComponent],
     selector: "footer-menu",
     styleUrls: ["./footer-menu.component.scss"],
     templateUrl: "./footer-menu.component.html",
 })
 export class FooterMenuComponent implements OnInit, OnDestroy {
-    showCloseButton: boolean = false;
-    currentRoute: string = "";
     private _destroy$ = new Subject<void>();
+
+    currentRoute: string = "";
+    loading = false;
+    showCloseButton: boolean = false;
 
     constructor(
         private _dialogRef: MatDialogRef<FooterMenuComponent>,
@@ -58,6 +61,7 @@ export class FooterMenuComponent implements OnInit, OnDestroy {
         if (route === "/home") {
             return this.currentRoute === "/home" || this.currentRoute === "/wallet";
         }
+
         return this.currentRoute === route || this.currentRoute.startsWith(route + "/");
     }
 
@@ -70,10 +74,24 @@ export class FooterMenuComponent implements OnInit, OnDestroy {
     }
 
     close(): void {
+        if (this.loading) return;
+
         this._dialogRef.close();
     }
 
     onCloseButton(): void {
+        if (this.loading) return;
+
         this._animateThenClose();
+    }
+
+    async navigateToZelfKeys(): Promise<void> {
+        this.loading = true;
+
+        await this._router.navigate(["/zelf-keys"]);
+
+        this.loading = false;
+
+        this._dialogRef.close();
     }
 }

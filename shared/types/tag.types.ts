@@ -114,6 +114,21 @@ export class TagModel {
     zelfProofQRCode: string;
 
     constructor(data: any = {}) {
+        if (data instanceof TagModel) {
+            this._id = data._id;
+            this.available = data.available;
+            this.hasPassword = data.hasPassword;
+            this.image = data.image;
+            this.metadata = data.metadata;
+            this.name = data.name;
+            this.pgp = data.pgp;
+            this.publicData = data.publicData;
+            this.zelfProof = data.zelfProof;
+            this.zelfProofQRCode = data.zelfProofQRCode;
+
+            return;
+        }
+
         this._id = data.id || data._id || "";
 
         this.available = data.available || false;
@@ -252,4 +267,3 @@ export class TagModel {
         return `${fullTagName}.${this.publicData.domain}`;
     }
 }
-

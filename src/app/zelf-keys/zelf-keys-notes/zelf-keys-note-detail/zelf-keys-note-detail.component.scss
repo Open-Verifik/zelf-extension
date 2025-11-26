@@ -248,6 +248,7 @@
         width: 100%;
 
         svg {
+            fill: variables.$themeText;
             width: 24px;
             height: 24px;
             flex-shrink: 0;
@@ -296,7 +297,6 @@
     }
 }
 
-// Responsive Design
 @media (max-width: 768px) {
     .note-detail {
         &__header {

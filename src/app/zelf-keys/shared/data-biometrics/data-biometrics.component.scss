@@ -24,7 +24,7 @@
         padding: 0 16px;
 
         &-text {
-            color: #666;
+            color: variables.$themeTextMuted;
             font-size: 14px;
             line-height: 1.4;
         }
@@ -101,7 +101,8 @@
         bottom: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
+        background: variables.$themeBackground;
+        opacity: 0.9;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -112,39 +113,39 @@
     }
 
     &__error {
-        background: #fee;
-        border: 1px solid #fcc;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 8px;
         padding: 16px;
         margin: 0 16px 16px 16px;
 
         &-title {
             font-weight: 600;
-            color: #c53030;
+            color: variables.$error;
             margin-bottom: 4px;
         }
 
         &-subtitle {
-            color: #742a2a;
+            color: variables.$errorDark;
             font-size: 14px;
         }
     }
 
     &__instructions-status {
-        background: #f0f9ff;
-        border: 1px solid #bae6fd;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 8px;
         padding: 16px;
         margin: 0 16px 16px 16px;
 
         &-title {
             font-weight: 600;
-            color: #0369a1;
+            color: variables.$info;
             margin-bottom: 4px;
         }
 
         &-subtitle {
-            color: #0c4a6e;
+            color: variables.$infoDark;
             font-size: 14px;
         }
     }
@@ -154,8 +155,8 @@
         padding: 40px 16px;
 
         &-card {
-            background: #fff5f5;
-            border: 2px solid #fed7d7;
+            background: variables.$themeBackgroundSecondary;
+            border: 2px solid variables.$themeBorder;
             border-radius: 16px;
             padding: 32px;
             max-width: 400px;
@@ -175,13 +176,13 @@
         &-title {
             font-size: 20px;
             font-weight: 600;
-            color: #c53030;
+            color: variables.$error;
             margin: 0 0 12px 0;
         }
 
         &-message {
             font-size: 16px;
-            color: #744210;
+            color: variables.$errorDark;
             margin: 0 0 24px 0;
             line-height: 1.5;
         }
@@ -195,7 +196,7 @@
 
     &__processing-message {
         font-size: 16px;
-        color: #666;
+        color: variables.$themeTextMuted;
         text-align: center;
         display: block;
         margin-top: 160px;
@@ -216,12 +217,12 @@
         &-title {
             font-size: 20px;
             font-weight: 600;
-            color: #171717;
+            color: variables.$themeText;
             margin: 0 0 12px 0;
         }
 
         &-description {
-            color: #666;
+            color: variables.$themeTextMuted;
             font-size: 14px;
             margin: 0 0 24px 0;
         }
@@ -246,12 +247,12 @@
         &-title {
             font-size: 20px;
             font-weight: 600;
-            color: #171717;
+            color: variables.$themeText;
             margin: 0 0 12px 0;
         }
 
         &-description {
-            color: #666;
+            color: variables.$themeTextMuted;
             font-size: 14px;
             margin: 0 0 24px 0;
         }
@@ -267,22 +268,22 @@
         transition: all 0.2s ease;
 
         &--retry {
-            background: #667eea;
-            color: white;
+            background: variables.$themeButton;
+            color: variables.$themeButtonText;
 
             &:hover {
-                background: #5a67d8;
+                background: variables.$themeButtonHover;
                 transform: translateY(-1px);
             }
         }
 
         &--back {
-            background: #f7fafc;
-            color: #4a5568;
-            border: 1px solid #e2e8f0;
+            background: variables.$themeBackgroundSecondary;
+            color: variables.$themeText;
+            border: 1px solid variables.$themeBorder;
 
             &:hover {
-                background: #edf2f7;
+                background: variables.$themeBackgroundSecondary;
             }
         }
     }

@@ -118,6 +118,14 @@ export class ZelfKeysDataService {
      * @param forceRefresh - If true, bypass cache and fetch fresh data
      */
     async load(forceRefresh: boolean = false): Promise<ZelfKeysData> {
+        const emptyData: ZelfKeysData = {
+            passwords: [],
+            notes: [],
+            paymentCards: [],
+        };
+
+        if (this.loading) return emptyData;
+
         this._loading$.next(true);
         this._error$.next(null);
 
@@ -148,12 +156,6 @@ export class ZelfKeysDataService {
 
             this._error$.next(errorMessage);
             this._loading$.next(false);
-
-            const emptyData: ZelfKeysData = {
-                passwords: [],
-                notes: [],
-                paymentCards: [],
-            };
 
             this._data$.next(emptyData);
 

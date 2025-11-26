@@ -1,4 +1,4 @@
-<div class="zelf-card welcome-onboarding" *transloco="let t" [ngClass]="activeThemeClass">
+<div class="zelf-card welcome-onboarding" *transloco="let t">
     <div class="zelf-card__header">
         <div class="welcome-onboarding__header-button">
             <button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['/home']" *ngIf="showHomeButton">
@@ -41,13 +41,13 @@
     </div>
 
     <form [formGroup]="form" class="zelf-card__content" (ngSubmit)="searchZelfName($event)">
-        <div class="zelf-input">
+        <div class="zelf-input welcome-onboarding__input">
             <input
                 (input)="sanitizeZelfName()"
                 (keydown.enter)="searchZelfName($event)"
                 [placeholder]="t('common.search_your_zelf_name')"
                 autocomplete="off"
-                class="zelf-input__control"
+                class="zelf-input__control welcome-onboarding__input-control"
                 formControlName="tagName"
                 id="tagName"
                 [maxlength]="getMaxTagNameLength()"
@@ -59,8 +59,8 @@
             <div class="zelf-input__postfix zelf-input__postfix--dropdown mr-2" (mouseenter)="domainHover = true" (mouseleave)="domainHover = false">
                 <div class="domain-display" (click)="openDomainSelectionModal()">.{{ form.get("domain")?.value || "zelf" }}</div>
 
-                <span class="dropdown-icon-container" (click)="$event.stopPropagation(); openDomainSelectionModal()"
-                    ><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px">
+                <span class="dropdown-icon-container" (click)="$event.stopPropagation(); openDomainSelectionModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px">
                         <path d="M480-384 288-576h384L480-384Z" />
                     </svg>
                 </span>

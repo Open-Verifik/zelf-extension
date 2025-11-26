@@ -1,3 +1,5 @@
+@use "../../../../styles/variables";
+
 .note-result {
     padding: 0 24px 24px;
     display: flex;
@@ -18,19 +20,19 @@
         width: 64px;
         height: 64px;
         margin-bottom: 24px;
-        color: #10b981;
+        color: variables.$correct;
     }
 
     &__title {
         font-size: 32px;
         font-weight: 700;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0 0 16px 0;
     }
 
     &__message {
         font-size: 18px;
-        color: #666;
+        color: variables.$themeTextMuted;
         margin: 0;
     }
 
@@ -49,21 +51,21 @@
     &__section-title {
         font-size: 20px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0 0 16px 0;
         text-align: left;
     }
 
     &__success-summary {
-        background: #f0f9ff;
-        border: 1px solid #0ea5e9;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 12px;
         padding: 16px;
         margin-bottom: 24px;
     }
 
     &__success-message {
-        color: #0369a1;
+        color: variables.$infoDark;
         font-weight: 500;
         margin: 0;
     }
@@ -92,7 +94,7 @@
         height: 200px;
         border-radius: 12px;
         overflow: hidden;
-        border: 1px solid #e0e0e0;
+        border: 1px solid variables.$themeBorder;
 
         img {
             width: 100%;
@@ -111,7 +113,7 @@
 
     &__tx-link,
     &__gateway-link {
-        color: #0ea5e9;
+        color: variables.$info;
         text-decoration: none;
         font-weight: 500;
 
@@ -123,11 +125,11 @@
     &__zelfproof-string {
         font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
         font-size: 12px;
-        color: #2c3e50;
-        background: #f8f9fa;
+        color: variables.$themeText;
+        background: variables.$themeBackgroundSecondary;
         padding: 12px;
         border-radius: 8px;
-        border: 1px solid #e0e0e0;
+        border: 1px solid variables.$themeBorder;
         display: block;
         word-break: break-all;
         line-height: 1.4;
@@ -136,8 +138,8 @@
         transition: all 0.2s ease;
 
         &:hover {
-            background: #e9ecef;
-            border-color: #007bff;
+            background: variables.$themeBackgroundSecondary;
+            border-color: variables.$themeBorder;
         }
     }
 
@@ -147,7 +149,7 @@
         padding: 12px;
         background: white;
         border-radius: 8px;
-        border: 1px solid #e0e0e0;
+        border: 1px solid variables.$themeBorder;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         margin: 0 auto 24px;
 
@@ -165,7 +167,7 @@
         transition: color 0.2s ease;
 
         &:hover {
-            color: #0ea5e9;
+            color: variables.$info;
         }
     }
 
@@ -175,8 +177,8 @@
     }
 
     &__api-response {
-        background: #f8f9fa;
-        border: 1px solid #e0e0e0;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 8px;
         padding: 16px;
         margin-top: 16px;
@@ -186,21 +188,21 @@
     &__json-display {
         font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
         font-size: 12px;
-        color: #2c3e50;
+        color: variables.$themeText;
         margin: 0;
         white-space: pre-wrap;
         word-break: break-all;
     }
 
     &__next-steps {
-        background: #f8f9fa;
-        border: 1px solid #e0e0e0;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 8px;
         padding: 16px;
 
         p {
             margin: 0 0 8px 0;
-            color: #666;
+            color: variables.$themeTextMuted;
             line-height: 1.5;
 
             &:last-child {
@@ -217,8 +219,8 @@
     &__spinner {
         width: 40px;
         height: 40px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #0ea5e9;
+        border: 4px solid variables.$themeBorder;
+        border-top: 4px solid variables.$info;
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin: 0 auto 16px;

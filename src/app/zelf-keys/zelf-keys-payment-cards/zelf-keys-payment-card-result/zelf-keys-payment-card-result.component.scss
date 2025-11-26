@@ -23,26 +23,26 @@
             .payment-card-result__title {
                 font-size: 24px;
                 font-weight: 600;
-                color: #1a1a1a;
+                color: variables.$themeText;
                 margin: 0 0 12px 0;
             }
 
             .payment-card-result__description {
                 font-size: 16px;
-                color: #666;
+                color: variables.$themeTextMuted;
                 margin: 0 0 32px 0;
             }
         }
 
         &--success {
             .payment-card-result__icon--success {
-                color: #10b981;
+                color: variables.$correct;
             }
         }
 
         &--error {
             .payment-card-result__icon--error {
-                color: #ef4444;
+                color: variables.$error;
             }
         }
     }
@@ -59,13 +59,13 @@
     &__title {
         font-size: 24px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0 0 12px 0;
     }
 
     &__description {
         font-size: 16px;
-        color: #666;
+        color: variables.$themeTextMuted;
         margin: 0 0 32px 0;
     }
 
@@ -74,8 +74,8 @@
     }
 
     &__image-section {
-        background: #f8f9fa;
-        border: 1px solid #e0e0e0;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 12px;
         padding: 24px;
         margin: 24px 0;
@@ -93,7 +93,7 @@
             &:nth-child(4) {
                 // Expiry row
                 .zelf-action-row__value {
-                    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+                    font-family: variables.$themeMonospaceFamily;
                     font-size: 14px;
                     letter-spacing: 0.5px;
                 }
@@ -113,7 +113,7 @@
     &__security-title {
         font-size: 18px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0;
         text-align: left;
     }
@@ -130,10 +130,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: white;
+            background: variables.$themeBackgroundSecondary;
             border-radius: 8px;
             padding: 16px;
-            border: 1px solid #e9ecef;
+            border: 1px solid variables.$themeBorder;
             min-height: 120px;
         }
 
@@ -145,7 +145,7 @@
         }
 
         .image-error {
-            color: #666;
+            color: variables.$themeTextMuted;
             font-size: 14px;
             font-style: italic;
             text-align: center;
@@ -166,13 +166,13 @@
             font-family: variables.$themeBodyFamily;
             font-size: 14px;
             font-weight: 500;
-            color: #181818;
+            color: variables.$themeText;
             transition: background-color 0.2s ease;
             border-radius: 12px;
             padding: 12px;
 
             &:hover {
-                background-color: #f8f9fa;
+                background-color: variables.$themeBackgroundSecondary;
             }
         }
 
@@ -200,7 +200,7 @@
 
     &__security {
         .payment-card-result__security-title {
-            color: #1a1a1a;
+            color: variables.$themeText;
         }
 
         .zelf-action-row {
@@ -208,13 +208,13 @@
         }
 
         .payment-card-result__proof-string {
-            font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+            font-family: variables.$themeMonospaceFamily;
             font-size: 14px;
-            color: #2c3e50;
-            background: white;
+            color: variables.$themeText;
+            background: variables.$themeBackgroundSecondary;
             padding: 16px;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid variables.$themeBorder;
             display: block;
             word-break: break-all;
             line-height: 1.4;
@@ -228,8 +228,8 @@
             transition: all 0.2s ease;
 
             &:hover {
-                background: #f8f9fa;
-                border-color: #007bff;
+                background: variables.$themeBackgroundSecondary;
+                border-color: variables.$themeBorder;
             }
         }
 
@@ -237,9 +237,9 @@
             text-align: center;
             max-width: 200px;
             padding: 12px;
-            background: white;
+            background: variables.$themeBackgroundSecondary;
             border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid variables.$themeBorder;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin: 0 auto 24px;
 
@@ -275,7 +275,7 @@
     &__section-title {
         font-size: 20px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0 0 16px 0;
         text-align: left;
     }
@@ -296,7 +296,7 @@
         height: 200px;
         border-radius: 12px;
         overflow: hidden;
-        border: 1px solid #e0e0e0;
+        border: 1px solid variables.$themeBorder;
 
         img {
             width: 100%;
@@ -321,7 +321,7 @@
 
     &__tx-link,
     &__gateway-link {
-        color: #0ea5e9;
+        color: variables.$info;
         text-decoration: none;
         font-weight: 500;
 

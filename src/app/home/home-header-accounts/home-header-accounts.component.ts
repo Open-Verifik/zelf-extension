@@ -140,6 +140,8 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     async navigateToDownloadQR(selectedWallet: TagModel): Promise<void> {
+        if (this.isZelfKeysLoading) return;
+
         await this._walletService.switchWallet(selectedWallet);
 
         await this._router.navigate(["/wallet"]);
@@ -148,6 +150,8 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     async navigateToSeedPhrase(selectedWallet: TagModel): Promise<void> {
+        if (this.isZelfKeysLoading) return;
+
         await this._walletService.switchWallet(selectedWallet);
         await this._chromeService.setItem("parameters", { openPrivateKeyBottomSheet: true });
 
@@ -157,6 +161,8 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     async navigateToWallet(selectedWallet: TagModel): Promise<void> {
+        if (this.isZelfKeysLoading) return;
+
         await this._walletService.switchWallet(selectedWallet);
 
         await this._router.navigate(["/home"]);
@@ -165,6 +171,8 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     async navigateToZelfLink(selectedWallet: TagModel): Promise<void> {
+        if (this.isZelfKeysLoading) return;
+
         await this._walletService.switchWallet(selectedWallet);
         await this._chromeService.setItem("parameters", { openMyArnsBottomSheet: true });
 
@@ -192,6 +200,8 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     async navigateToZelfAuthenticator(selectedWallet: TagModel): Promise<void> {
+        if (this.isZelfKeysLoading) return;
+
         await this._walletService.switchWallet(selectedWallet);
 
         await this._router.navigate(["/zelf-authenticator"]);

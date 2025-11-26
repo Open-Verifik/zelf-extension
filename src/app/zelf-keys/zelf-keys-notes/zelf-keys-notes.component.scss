@@ -23,15 +23,15 @@
     }
 
     &__loading-state {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        border: 1px solid #e2e8f0;
+        background: linear-gradient(135deg, variables.$themeBackgroundSecondary 0%, variables.$themeBackground 100%);
+        border: 1px solid variables.$themeBorder;
         border-radius: 16px;
         padding: 48px 32px;
         margin: 24px 0;
-        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
+        box-shadow: 0 4px 20px variables.$themeShadow;
 
         h3 {
-            color: #1e40af;
+            color: variables.$themeText;
             font-size: 24px;
             font-weight: 700;
             margin: 0 0 16px 0;
@@ -39,7 +39,7 @@
         }
 
         p {
-            color: #475569;
+            color: variables.$themeTextMuted;
             font-size: 16px;
             margin: 0;
             line-height: 1.5;
@@ -54,19 +54,19 @@
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin: 0 auto 24px;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 4px 12px variables.$themeShadow;
     }
 
     &__error-state {
-        background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
-        border: 1px solid #fecaca;
+        background: linear-gradient(135deg, variables.$themeBackgroundSecondary 0%, variables.$themeBackground 100%);
+        border: 1px solid variables.$error;
         border-radius: 16px;
         padding: 48px 32px;
         margin: 24px 0;
-        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.08);
+        box-shadow: 0 4px 20px variables.$themeShadow;
 
         h3 {
-            color: #dc2626;
+            color: variables.$error;
             font-size: 24px;
             font-weight: 700;
             margin: 0 0 16px 0;
@@ -74,7 +74,7 @@
         }
 
         p {
-            color: #7f1d1d;
+            color: variables.$error;
             font-size: 16px;
             margin: 0 0 32px 0;
             line-height: 1.5;
@@ -84,12 +84,12 @@
         }
 
         .zelf-button {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 16px variables.$themeShadow;
             transition: all 0.3s ease;
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 8px 24px variables.$themeShadow;
             }
         }
     }
@@ -102,7 +102,7 @@
         animation: pulse 2s ease-in-out infinite;
 
         svg {
-            filter: drop-shadow(0 4px 8px rgba(239, 68, 68, 0.2));
+            filter: drop-shadow(0 4px 8px variables.$themeShadow);
         }
     }
 
@@ -139,9 +139,9 @@
     }
 
     &__add-note {
-        background: #f4f4f4;
+        background: variables.$themeBackgroundSecondary;
         border-radius: 16px;
-        border: 1.5px #cdcdcd solid;
+        border: 1.5px variables.$themeBorder solid;
         aspect-ratio: 1;
         padding: 24px;
         flex-direction: column;
@@ -151,7 +151,7 @@
         display: flex;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 20px variables.$themeShadow;
         max-height: 150px;
         min-height: 150px;
         min-width: 100%;
@@ -159,10 +159,10 @@
         box-sizing: border-box;
 
         &:hover {
-            background: #e9ecef;
-            border-color: #adb5bd;
+            background: variables.$themeBackgroundSecondary;
+            border-color: variables.$themeBorder;
             transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 32px variables.$themeShadow;
         }
     }
 
@@ -187,7 +187,7 @@
         justify-content: center;
         display: flex;
         flex-direction: column;
-        color: #181818;
+        color: variables.$themeText;
         font-size: 20px;
         font-family: "Menda", sans-serif;
         font-weight: 700;
@@ -202,7 +202,7 @@
         flex-direction: column;
         color: variables.$themeTextSecondary;
         font-size: 14px;
-        font-family: "Poppins", sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         line-height: 20px;
         letter-spacing: 0.1px;
@@ -233,19 +233,19 @@
 
     &__icon {
         font-size: 24px;
-        color: #495057;
+        color: variables.$themeTextMuted;
     }
 
     &__name {
         flex: 1;
         font-size: 16px;
         font-weight: 500;
-        color: #1a1a1a;
+        color: variables.$themeText;
     }
 
     &__expand {
         font-size: 20px;
-        color: #6c757d;
+        color: variables.$themeTextMuted;
         transition: transform 0.2s ease;
 
         &--open {
@@ -282,7 +282,6 @@
     }
 }
 
-// Responsive design
 @media (max-width: 768px) {
     .zelf-keys-notes {
         &__notes-cards {

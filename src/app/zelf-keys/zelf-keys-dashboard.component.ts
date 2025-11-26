@@ -14,6 +14,7 @@ import { BillingService } from "../services/billing.service";
 import { ScrollToSectionService } from "../services/scroll-to-section.service";
 import { WalletService } from "../wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
+import { ZelfKeysDataService } from "../services/zelf-keys-data.service";
 
 @Component({
     imports: [CommonModule, TranslocoModule, RouterModule, HomeHeaderComponent, ZelfFooterComponent, MatProgressSpinnerModule],
@@ -35,7 +36,8 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
         private _changeDetectionRef: ChangeDetectorRef,
         private _router: Router,
         private _scrollToSectionService: ScrollToSectionService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _zelfKeysDataService: ZelfKeysDataService
     ) {
         this.unsubscriber$ = new Subject();
 
@@ -79,7 +81,13 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
             if (!wallet) return;
 
             await this._initWallet();
+        });
+
+        this._chromeService.onAccessTokenChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (accessToken) => {
+            if (!accessToken) return;
+
             await this._loadCurrentPlan();
+            await this._reloadZelfKeysData();
         });
     }
 
@@ -112,6 +120,11 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
 
         this.wallet = wallet || ({} as Partial<TagModel>);
         this.loaded = true;
+    }
+
+    private async _reloadZelfKeysData(): Promise<void> {
+        await this._zelfKeysDataService.clearCache();
+        await this._zelfKeysDataService.refresh();
     }
 
     private _initNavigation(): void {

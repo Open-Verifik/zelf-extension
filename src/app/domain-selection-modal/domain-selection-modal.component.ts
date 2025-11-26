@@ -43,6 +43,7 @@ export class DomainSelectionModalComponent implements OnInit {
 
     onConfirm(): void {
         const selectedDomain = this.domainForm.get("selectedDomain")?.value;
+
         this._bottomSheetRef.dismiss(selectedDomain);
     }
 

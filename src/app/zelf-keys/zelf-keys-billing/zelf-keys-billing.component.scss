@@ -95,7 +95,7 @@
 
     &__retry-button {
         background: variables.$themeButton;
-        color: white;
+        color: variables.$themeButtonText;
         border: none;
         padding: 12px 24px;
         border-radius: 8px;
@@ -131,7 +131,7 @@
     }
 
     &__status-icon {
-        color: #28a745;
+        color: variables.$correct;
         width: 16px;
         height: 16px;
         flex-shrink: 0;
@@ -195,7 +195,7 @@
     }
 
     &__info-icon {
-        color: #667eea;
+        color: variables.$themeButton;
         flex-shrink: 0;
         margin-top: 2px;
     }
@@ -647,9 +647,9 @@
         min-height: 48px;
 
         &--avax {
-            background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
+            background: linear-gradient(135deg, variables.$warning 0%, variables.$warning 100%);
             color: variables.$themeButtonText;
-            box-shadow: 0 4px 16px rgba(247, 147, 30, 0.3);
+            box-shadow: 0 4px 16px variables.$themeShadow;
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
@@ -658,13 +658,13 @@
         }
 
         &--stripe {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
             color: variables.$themeButtonText;
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 16px variables.$themeShadow;
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+                box-shadow: 0 6px 20px variables.$themeShadow;
             }
         }
 
@@ -725,7 +725,7 @@
 
         &--popular {
             border-color: variables.$themeButton;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 8px 32px variables.$themeShadow;
             transform: scale(1.02);
 
             &:hover {
@@ -735,7 +735,8 @@
 
         &--current {
             border-color: variables.$correct;
-            background: linear-gradient(135deg, #f8fff9 0%, #f0f8f0 100%);
+            background: linear-gradient(135deg, variables.$correctLight 0%, variables.$correctLight 100%);
+            box-shadow: 0 8px 32px variables.$themeShadow;
         }
     }
 
@@ -857,7 +858,7 @@
         &--stripe {
             background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
             color: variables.$themeButtonText;
-            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 16px variables.$themeShadow;
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
@@ -866,9 +867,9 @@
         }
 
         &--crypto {
-            background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
+            background: linear-gradient(135deg, variables.$warning 0%, variables.$warning 100%);
             color: variables.$themeButtonText;
-            box-shadow: 0 4px 16px rgba(247, 147, 30, 0.3);
+            box-shadow: 0 4px 16px variables.$themeShadow;
 
             &:hover:not(:disabled) {
                 transform: translateY(-2px);
@@ -927,7 +928,6 @@
     }
 }
 
-// Animations
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -937,7 +937,6 @@
     }
 }
 
-// Responsive design
 @media (max-width: 768px) {
     .billing {
         &__content {

@@ -17,23 +17,24 @@ export class ThemeService implements OnDestroy {
     private readonly userModePreferenceKey = "user-theme-mode";
 
     private activeClassName: string = "";
+    private destroy$ = new Subject<void>();
     private lastPalette: Record<string, string> = {};
     private systemPreferenceListener?: MediaQueryList;
-    private destroy$ = new Subject<void>();
 
     constructor(
         private _chromeService: ChromeService,
         private _domainService: DomainService,
         private _tagsService: TagsService
     ) {
-        this.initializeModePreference().then(() => {
+        this._initializeModePreference().then(() => {
             this.getUserModePreference().then((preference) => {
-                this.applyThemeClass(preference);
+                this._applyThemeClass(preference);
             });
         });
 
-        this.setupSystemPreferenceListener();
-        this.setupWalletChangeListener();
+        this._setupSystemPreferenceListener();
+        this._setupWalletChangeListener();
+        this._setupDomainChangeListener();
     }
 
     ngOnDestroy(): void {
@@ -41,21 +42,15 @@ export class ThemeService implements OnDestroy {
         this.destroy$.complete();
 
         if (this.systemPreferenceListener) {
-            this.systemPreferenceListener.removeEventListener("change", this.handleSystemPreferenceChange);
+            this.systemPreferenceListener.removeEventListener("change", this._handleSystemPreferenceChange);
         }
     }
 
-    async applyThemeForCurrentDomain(): Promise<{ className: string; palette: Record<string, string> }> {
-        const domain = await this._tagsService.getDomain();
-
-        return this.applyThemeForDomain(domain);
-    }
-
     async applyThemeForDomain(domain: string): Promise<{ className: string; palette: Record<string, string> }> {
-        const config = this.findConfigForDomain(domain);
+        const config = this._findConfigForDomain(domain);
 
         if (!config?.themeSettings?.zns) {
-            this.resetTheme();
+            this._resetTheme();
 
             this.activeClassName = "";
             this.lastPalette = {};
@@ -66,19 +61,20 @@ export class ThemeService implements OnDestroy {
         const znsTheme = config.themeSettings.zns as ThemeSettings;
 
         if (!znsTheme.enabled) {
-            this.resetTheme();
+            this._resetTheme();
+
             this.activeClassName = "";
             this.lastPalette = {};
 
             return { className: this.activeClassName, palette: this.lastPalette };
         }
 
-        await this.applyZnsTheme(znsTheme, domain);
+        await this._applyZnsTheme(znsTheme, domain);
 
         return { className: this.activeClassName, palette: this.lastPalette };
     }
 
-    private findConfigForDomain(domain: string): DomainLicense | undefined {
+    private _findConfigForDomain(domain: string): DomainLicense | undefined {
         if (!domain) return undefined;
 
         const exact = this._domainService.getDomainLicense(domain);
@@ -93,23 +89,20 @@ export class ThemeService implements OnDestroy {
         return matchKey ? all[matchKey] : undefined;
     }
 
-    private async applyZnsTheme(zns: ThemeSettings, domainForClass: string): Promise<void> {
+    private async _applyZnsTheme(zns: ThemeSettings, domainForClass: string): Promise<void> {
         const userPreference = await this.getUserModePreference();
-        const effectiveMode = await this.getEffectiveModeAsync(zns.currentMode);
+        const effectiveMode = await this._getEffectiveModeAsync(zns.currentMode);
         const light = zns.lightMode?.colors || {};
         const dark = zns.darkMode?.colors || {};
         const palette = (effectiveMode === "dark" ? dark : light) || {};
 
-        // Apply class to html element based on user preference
-        this.applyThemeClass(userPreference);
+        this._applyThemeClass(userPreference);
 
         document.body.setAttribute("data-zns-theme", effectiveMode);
 
-        // Map all theme colors to CSS custom properties (without mode prefix)
-        // The class on html will scope these appropriately
         Object.entries(palette).forEach(([key, value]) => {
-            const safeKey = this.toKebabCase(key);
-            const varName = this.toCssVarName(safeKey);
+            const safeKey = this._toKebabCase(key);
+            const varName = this._toCssVarName(safeKey);
 
             document.documentElement.style.setProperty(varName, String(value));
         });
@@ -131,9 +124,9 @@ export class ThemeService implements OnDestroy {
         this.activeClassName = base;
     }
 
-    private resetTheme(): void {
+    private _resetTheme(): void {
         document.body.removeAttribute("data-zns-theme");
-        this.removeThemeClass();
+        this._removeThemeClass();
 
         const knownKeys = [
             "primary",
@@ -164,7 +157,7 @@ export class ThemeService implements OnDestroy {
         ];
 
         for (const key of knownKeys) {
-            document.documentElement.style.removeProperty(this.toCssVarName(key));
+            document.documentElement.style.removeProperty(this._toCssVarName(key));
         }
 
         const el = document.getElementById(this.styleElementId);
@@ -172,12 +165,12 @@ export class ThemeService implements OnDestroy {
         if (el) el.textContent = "";
     }
 
-    private toCssVarName(key: string): string {
+    private _toCssVarName(key: string): string {
         return `${this.cssVarPrefix}${key}`;
     }
 
-    private applyThemeClass(preference: UserModePreference): void {
-        this.removeThemeClass();
+    private _applyThemeClass(preference: UserModePreference): void {
+        this._removeThemeClass();
 
         if (preference === "light") {
             document.documentElement.classList.add("zns-theme-light");
@@ -186,23 +179,23 @@ export class ThemeService implements OnDestroy {
         }
     }
 
-    private removeThemeClass(): void {
+    private _removeThemeClass(): void {
         document.documentElement.classList.remove("zns-theme-light", "zns-theme-dark");
     }
 
-    private toKebabCase(str: string): string {
+    private _toKebabCase(str: string): string {
         return str
             .replace(/([a-z])([A-Z])/g, "$1-$2")
             .toLowerCase()
             .replace(/^[A-Z]/, (match) => match.toLowerCase());
     }
 
-    private async initializeModePreference(): Promise<void> {
+    private async _initializeModePreference(): Promise<void> {
         const saved = await this._chromeService.getItemSession<string>(this.userModePreferenceKey);
 
-        if (!saved) {
-            await this._chromeService.setItemSession(this.userModePreferenceKey, "system");
-        }
+        if (saved) return;
+
+        await this._chromeService.setItemSession(this.userModePreferenceKey, "system");
     }
 
     async getUserModePreference(): Promise<UserModePreference> {
@@ -214,17 +207,16 @@ export class ThemeService implements OnDestroy {
     async setUserModePreference(mode: UserModePreference): Promise<void> {
         await this._chromeService.setItemSession(this.userModePreferenceKey, mode);
 
-        this.setupSystemPreferenceListener();
-        this.applyThemeClass(mode);
+        this._setupSystemPreferenceListener();
+        this._applyThemeClass(mode);
 
         // Re-apply theme if one is active
-        if (this.activeClassName) {
-            const domain = this.activeClassName.split("-")[2] || "";
+        if (!this.activeClassName) return;
+        const domain = this.activeClassName.split("-")[2] || "";
 
-            if (domain) {
-                await this.applyThemeForDomain(domain);
-            }
-        }
+        if (!domain) return;
+
+        await this.applyThemeForDomain(domain);
     }
 
     async cycleMode(): Promise<UserModePreference> {
@@ -256,53 +248,58 @@ export class ThemeService implements OnDestroy {
         return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
 
-    private async getEffectiveModeAsync(domainMode?: Mode): Promise<Mode> {
+    private async _getEffectiveModeAsync(domainMode?: Mode): Promise<Mode> {
         try {
             const preference = await this.getUserModePreference();
 
-            if (preference === "system") {
-                return this.getSystemMode();
-            }
+            if (preference === "system") return this.getSystemMode();
 
             return preference;
         } catch {
-            // Fallback to domain mode or light
             return domainMode || "light";
         }
     }
 
-    private setupSystemPreferenceListener(): void {
+    private _setupSystemPreferenceListener(): void {
         if (this.systemPreferenceListener) {
-            this.systemPreferenceListener.removeEventListener("change", this.handleSystemPreferenceChange);
+            this.systemPreferenceListener.removeEventListener("change", this._handleSystemPreferenceChange);
         }
 
         if (typeof window === "undefined" || !window.matchMedia) return;
 
         this.systemPreferenceListener = window.matchMedia("(prefers-color-scheme: dark)");
 
-        this.systemPreferenceListener.addEventListener("change", this.handleSystemPreferenceChange);
+        this.systemPreferenceListener.addEventListener("change", this._handleSystemPreferenceChange);
     }
 
-    private handleSystemPreferenceChange = async (): Promise<void> => {
+    private _handleSystemPreferenceChange = async (): Promise<void> => {
         const preference = await this.getUserModePreference();
 
-        if (preference === "system" && this.activeClassName) {
-            const domain = this.activeClassName.split("-")[2] || "";
+        if (preference !== "system" || !this.activeClassName) return;
 
-            if (domain) {
-                await this.applyThemeForDomain(domain);
-            }
-        }
+        const domain = this.activeClassName.split("-")[2] || "";
+
+        if (!domain) return;
+
+        await this.applyThemeForDomain(domain);
     };
 
-    private setupWalletChangeListener(): void {
+    private _setupDomainChangeListener(): void {
+        this._chromeService.onDomainChanged$.pipe(takeUntil(this.destroy$)).subscribe(async (domain: string) => {
+            if (!domain) domain = "zelf";
+
+            await this.applyThemeForDomain(domain);
+        });
+    }
+
+    private _setupWalletChangeListener(): void {
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.destroy$)).subscribe(async (wallet: TagModel) => {
             if (!wallet) return;
 
             let domain = wallet.publicData?.domain;
 
             if (!domain) {
-                const tagName = wallet.publicData?.tagName || wallet.name;
+                const tagName = wallet.fullTagName || wallet.name;
 
                 if (tagName) {
                     const cleanTagName = tagName.replace(".hold", "");
@@ -311,16 +308,16 @@ export class ThemeService implements OnDestroy {
                     if (parts.length >= 2) {
                         domain = parts[parts.length - 1];
                     } else {
-                        domain = "zelf";
+                        domain = (await this._tagsService.getDomain()) || "zelf";
                     }
                 } else {
-                    domain = "zelf";
+                    domain = (await this._tagsService.getDomain()) || "zelf";
                 }
             }
 
-            if (!domain) return;
+            if (!domain) domain = "zelf";
 
-            await this.applyThemeForDomain(domain);
+            this._tagsService.setDomain(domain);
         });
     }
 

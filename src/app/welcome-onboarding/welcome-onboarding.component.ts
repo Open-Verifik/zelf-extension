@@ -18,7 +18,6 @@ import { DomainLicense } from "app/core/models/domain.type";
 import { DomainSelectionData, DomainSelectionModalComponent } from "app/domain-selection-modal/domain-selection-modal.component";
 import { DomainService } from "app/domain.service";
 import { TagsService } from "app/tags.service";
-import { ThemeService } from "app/theme.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
@@ -78,7 +77,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _tagsService: TagsService,
-        private _themeService: ThemeService,
         private _vaultService: VaultService,
         private _walletService: WalletService
     ) {
@@ -96,26 +94,12 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         });
     }
 
-    private _clearChromeItems(): void {
-        this._chromeService.removeItem("flow");
-        this._chromeService.removeItem("mnemonicCount");
-        this._chromeService.removeItem("network");
-        this._chromeService.removeItem("newTagName");
-        this._chromeService.removeItem("referralTagName");
-        this._chromeService.removeItem("tagName");
-        this._chromeService.removeItem("tagNameObject");
-        this._chromeService.removeItem("tagNameReward");
-        this._chromeService.removeItem("tagResponse");
-        this._chromeService.removeItem("zelfNameObject");
-        this._chromeService.removeItem("zelfProof");
-    }
-
     async ngOnInit(): Promise<void> {
         await this._walletService.setWalletsToColdStorage();
 
         this._initCarousel();
 
-        await this._loadAvailableDomains();
+        await this._loadDomains();
     }
 
     async ngAfterContentInit(): Promise<void> {
@@ -129,9 +113,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
         const initialDomain = this.form.get("domain")?.value || "zelf";
         this._updateTagNameValidators(initialDomain);
-
-        const applied = await this._themeService.applyThemeForDomain(initialDomain);
-        this.activeThemeClass = applied.className;
     }
 
     ngOnDestroy(): void {
@@ -139,6 +120,32 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         this.unsubscriber$.complete();
 
         clearInterval(this._carouselItemInterval);
+    }
+
+    get isZelfNameEmpty(): boolean {
+        const value = (this.form?.value?.tagName || "").trim();
+        return value?.length === 0;
+    }
+
+    private async _loadDomains(): Promise<void> {
+        this.domain = await this._chromeService.getItem<string>("domain");
+        this.availableDomains = await this._domainService.loadDomainsFromStorage();
+
+        this.form.patchValue({ domain: this.domain }, { emitEvent: false });
+    }
+
+    private _clearChromeItems(): void {
+        this._chromeService.removeItem("flow");
+        this._chromeService.removeItem("mnemonicCount");
+        this._chromeService.removeItem("network");
+        this._chromeService.removeItem("newTagName");
+        this._chromeService.removeItem("referralTagName");
+        this._chromeService.removeItem("tagName");
+        this._chromeService.removeItem("tagNameObject");
+        this._chromeService.removeItem("tagNameReward");
+        this._chromeService.removeItem("tagResponse");
+        this._chromeService.removeItem("zelfNameObject");
+        this._chromeService.removeItem("zelfProof");
     }
 
     private _initCarousel(): void {
@@ -247,7 +254,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         }
 
         this.form.clearValidators();
-
         this.form.reset({ tagName: "" });
 
         this._router.navigate(["/welcome", "registered"]);
@@ -343,11 +349,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         if (!sanitizedValue) control.markAsPristine();
     }
 
-    get isZelfNameEmpty(): boolean {
-        const value = (this.form?.value?.tagName || "").trim();
-        return value?.length === 0;
-    }
-
     openDomainSelectionModal(): void {
         const dialogData: DomainSelectionData = {
             domains: this.availableDomains,
@@ -362,37 +363,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         });
 
         bottomSheetRef.afterDismissed().subscribe((result: string) => {
-            if (result) {
-                this.form.get("domain")?.setValue(result);
+            if (!result) return;
 
-                this._tagsService.setDomain(result);
-
-                this._updateTagNameValidators(result);
-
-                this._themeService.applyThemeForDomain(result).then((applied) => {
-                    this.activeThemeClass = applied.className;
-                });
-            }
+            this.form.get("domain")?.setValue(result);
+            this._tagsService.setDomain(result);
         });
-    }
-
-    private async _loadAvailableDomains(): Promise<void> {
-        const domainConfigs = this._domainService.domainConfigs;
-
-        if (Object.keys(domainConfigs).length > 0) {
-            this.availableDomains = Object.values(domainConfigs);
-        } else {
-            this.availableDomains = this._domainService.defaultFallbackDomainConfigs;
-        }
-
-        this.domain = (await this._tagsService.getDomain()) || "zelf";
-
-        this.form.patchValue({ domain: this.domain }, { emitEvent: false });
-
-        this._updateTagNameValidators(this.domain);
-
-        const applied = await this._themeService.applyThemeForDomain(this.domain);
-
-        this.activeThemeClass = applied.className;
     }
 }

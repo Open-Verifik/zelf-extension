@@ -11,16 +11,26 @@ import { AppComponent } from "./app.component";
 import { TranslocoRootModule } from "./core/transloco-root.module";
 import { GlobalErrorHandler } from "./error-handler.service";
 import { HttpInterceptorProviders } from "./interceptors";
+import { provideDomainInitializer } from "./core/providers/domain-initializer.provider";
+import { providePublicKeyInitializer } from "./core/providers/public-key-initializer.provider";
+import { provideSessionInitializer } from "./core/providers/session-initializer.provider";
+import { provideAppInitializing, provideAppInitializerComplete } from "./core/providers/app-loading.provider";
+import { ZelfLoaderComponent } from "./zelf-loader/zelf-loader.component";
 
 @NgModule({
     declarations: [AppComponent],
     bootstrap: [AppComponent],
-    imports: [AppRoutingModule, TranslocoRootModule, BrowserModule, CommonModule],
+    imports: [AppRoutingModule, TranslocoRootModule, BrowserModule, CommonModule, ZelfLoaderComponent],
     providers: [
         HttpInterceptorProviders,
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
+        provideAppInitializing(),
+        provideSessionInitializer(),
+        providePublicKeyInitializer(),
+        provideDomainInitializer(),
+        provideAppInitializerComplete(),
     ],
 })
 export class AppModule {

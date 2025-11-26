@@ -97,6 +97,11 @@
         justify-content: center;
         align-items: center;
         transition: background-color 0.3s variables.$smoothBezier;
+        position: relative;
+
+        &--loading {
+            opacity: 0.5;
+        }
     }
 
     &__text {

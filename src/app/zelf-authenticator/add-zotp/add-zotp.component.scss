@@ -21,10 +21,10 @@
     }
 
     &__title {
-        font-family: "Menda", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 600;
         font-size: 18px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
@@ -40,7 +40,7 @@
         justify-content: center;
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
     }
 
@@ -66,7 +66,7 @@
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__optional {
@@ -84,7 +84,7 @@
         transition: border-color 0.3s variables.$smoothBezier;
 
         &:focus {
-            border-color: variables.$black;
+            border-color: variables.$themeText;
         }
 
         &::placeholder {
@@ -123,14 +123,14 @@
         align-items: center;
         gap: 12px;
         padding: 16px;
-        background: linear-gradient(135deg, variables.$themeCardBorder 0%, rgba(255, 255, 255, 0.8) 100%);
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: linear-gradient(135deg, variables.$themeCardBorder 0%, variables.$themeBackground 100%);
+        border: 1px solid variables.$themeBorder;
         border-radius: 16px;
         transition: all 0.3s variables.$smoothBezier;
 
         &:hover {
-            border-color: rgba(0, 0, 0, 0.15);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-color: variables.$themeBorderHover;
+            box-shadow: 0 2px 8px variables.$themeShadow;
         }
     }
 
@@ -140,7 +140,7 @@
         min-width: 48px;
         min-height: 48px;
         border-radius: 12px;
-        background: linear-gradient(135deg, variables.$black 0%, rgba(0, 0, 0, 0.8) 100%);
+        background: variables.$themeText;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -151,7 +151,7 @@
         font-family: variables.$themeBodyFamily;
         font-size: 20px;
         font-weight: 600;
-        color: white;
+        color: variables.$themeBackground;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -177,7 +177,7 @@
         font-family: variables.$themeBodyFamily;
         font-size: 16px;
         font-weight: 600;
-        color: variables.$black;
+        color: variables.$themeText;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -202,10 +202,10 @@
         align-items: center;
         gap: 8px;
         font-weight: 600;
-        color: variables.$black;
+        color: variables.$themeText;
 
         svg {
-            color: variables.$black;
+            color: variables.$themeText;
             flex-shrink: 0;
         }
     }
@@ -235,7 +235,7 @@
         padding: 10px 12px;
         background-color: rgba(0, 0, 0, 0.02);
         border-radius: 8px;
-        border-left: 3px solid variables.$black;
+        border-left: 3px solid variables.$themeText;
 
         svg {
             flex-shrink: 0;

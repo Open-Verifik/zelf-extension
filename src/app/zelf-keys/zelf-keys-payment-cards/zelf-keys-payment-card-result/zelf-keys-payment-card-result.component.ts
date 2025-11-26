@@ -34,11 +34,19 @@ export class ZelfKeysPaymentCardResultComponent extends CopyToClipboardBase impl
     async ngOnInit(): Promise<void> {
         this.result = this.dataPassingService.getResult("payment-cards");
 
+        if (!this.result) {
+            this.error = this._translocoService.translate("zelf_keys.payment_cards.result.error.no_data");
+
+            return;
+        }
+
         let parsedCardData: any = {};
 
-        if (this.result?.publicData?.card) {
+        if (this.result?.ipfs?.publicData?.card || this.result?.publicData?.card) {
+            const cardData = this.result?.ipfs?.publicData?.card || this.result?.publicData?.card;
+
             try {
-                parsedCardData = JSON.parse(this.result?.publicData?.card);
+                parsedCardData = JSON.parse(cardData);
             } catch (error) {
                 console.error("Error parsing card data:", error);
             }
@@ -51,30 +59,28 @@ export class ZelfKeysPaymentCardResultComponent extends CopyToClipboardBase impl
             const [month, year] = parsedCardData.expires.split("/");
 
             expiryMonth = month;
-            expiryYear = year ? `20${year}` : ""; // Convert "26" to "2026"
+            expiryYear = year ? `20${year}` : "";
         }
 
-        this.result.publicData.cardName = parsedCardData.name;
-        this.result.publicData.cardNumber = parsedCardData.number;
+        if (!this.result.publicData) {
+            this.result.publicData = {};
+        }
+
+        this.result.publicData.cardName = parsedCardData.name || "";
+        this.result.publicData.cardNumber = parsedCardData.number || "";
         this.result.publicData.expiryMonth = expiryMonth;
         this.result.publicData.expiryYear = expiryYear;
-        this.result.publicData.bankName = parsedCardData.bankName;
+        this.result.publicData.bankName = parsedCardData.bankName || "";
 
-        if (this.result) {
-            this.isSuccess = this.result?.success === true;
+        this.isSuccess = this.result?.success === true || this.result?.ipfs?.saved === true || this.result?.walrus?.success === true;
 
-            if (this.isSuccess) {
-                await this.zelfKeysDataService.clearCache();
-
-                return;
-            }
-
-            this.error = this.result?.message || this._translocoService.translate("errors.unknown");
+        if (this.isSuccess) {
+            await this.zelfKeysDataService.clearCache();
 
             return;
         }
 
-        this.error = this._translocoService.translate("zelf_keys.payment_cards.result.error.no_data");
+        this.error = this.result?.message || this._translocoService.translate("errors.unknown");
     }
 
     async onBackToCards(): Promise<void> {
@@ -114,17 +120,90 @@ export class ZelfKeysPaymentCardResultComponent extends CopyToClipboardBase impl
     }
 
     onDownloadZelfProof(): void {
-        if (!this.result?.url) return;
+        const url = this.getZelfProofQRCodeUrl();
+
+        if (!url) return;
 
         const link = document.createElement("a");
 
-        link.href = this.result.url;
-        link.download = `zelfproof-${this.result.publicData?.cardName || "payment-card"}.png`;
+        link.href = url;
+        link.download = `zelfproof-${this.getCardName() || "payment-card"}.png`;
 
         document.body.appendChild(link);
 
         link.click();
 
         document.body.removeChild(link);
+    }
+
+    getCardName(): string {
+        return this.result?.publicData?.cardName || this.result?.ipfs?.publicData?.cardName || "N/A";
+    }
+
+    getBankName(): string {
+        return this.result?.publicData?.bankName || this.result?.ipfs?.publicData?.bankName || "N/A";
+    }
+
+    getCardNumber(): string {
+        return this.result?.publicData?.cardNumber || this.result?.ipfs?.publicData?.cardNumber || "N/A";
+    }
+
+    getExpiryMonth(): string {
+        return this.result?.publicData?.expiryMonth || "";
+    }
+
+    getExpiryYear(): string {
+        return this.result?.publicData?.expiryYear || "";
+    }
+
+    getExpiry(): string {
+        const month = this.getExpiryMonth();
+        const year = this.getExpiryYear();
+
+        if (!month && !year) return "N/A";
+
+        return `${month}/${year}`;
+    }
+
+    getZelfProofQRCodeUrl(): string | null {
+        return this.result?.url || this.result?.zelfProofQRCode || this.result?.zelfQR || null;
+    }
+
+    getIpfsHash(): string {
+        return (
+            this.result?.ipfs?.ipfsHash ||
+            this.result?.ipfs?.ipfs_pin_hash ||
+            this.result?.ipfs?.cid ||
+            this.result?.ipfs?.hash ||
+            "N/A"
+        );
+    }
+
+    getIpfsGatewayUrl(): string {
+        return this.result?.ipfs?.url || this.result?.ipfs?.gatewayUrl || "N/A";
+    }
+
+    getIpfsFileSize(): number | null {
+        return this.result?.ipfs?.size || this.result?.ipfs?.pinSize || null;
+    }
+
+    getIpfsUploadTimestamp(): string | null {
+        return this.result?.ipfs?.date_pinned || this.result?.ipfs?.created_at || this.result?.ipfs?.timestamp || null;
+    }
+
+    getWalrusBlobId(): string | null {
+        return this.result?.walrus?.blobId || null;
+    }
+
+    getWalrusPublicUrl(): string | null {
+        return this.result?.walrus?.publicUrl || null;
+    }
+
+    getWalrusExplorerUrl(): string | null {
+        return this.result?.walrus?.explorerUrl || null;
+    }
+
+    getWalrusSuccess(): boolean {
+        return this.result?.walrus?.success === true;
     }
 }

@@ -556,27 +556,34 @@ export class WalletService {
         const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
         const wallets = await this.getWalletsFromStorage();
 
-        if (!wallet?.publicData?.tagName) {
-            if (!wallets.length) return { wallet, wallets: [] };
+        return { wallet, wallets };
+    }
 
-            this._chromeService.setItem("wallet", wallet);
-            this._chromeService.setItem("wallets", wallets);
-        } else {
-            // Ensure the current wallet is not in the wallets array, and preserve all wallets
-            const currentWalletTagName = wallet?.fullTagName;
-            if (currentWalletTagName) {
-                // Remove current wallet from wallets array if it exists there
-                const walletsWithoutCurrent = wallets.filter((w) => w.fullTagName !== currentWalletTagName);
+    async ensureWalletStateIsValid(): Promise<void> {
+        const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const wallets = await this.getWalletsFromStorage();
 
-                // Only update if there was a change (current wallet was in wallets array)
-                if (walletsWithoutCurrent.length !== wallets.length) {
-                    await this._chromeService.setItem("wallets", walletsWithoutCurrent);
-                    return { wallet, wallets: walletsWithoutCurrent };
-                }
-            }
+        if (!wallet?.publicData?.tagName && wallets.length > 0) {
+            const firstWallet = wallets[0];
+            const remainingWallets = wallets.slice(1);
+
+            await this._chromeService.setItems({
+                wallet: firstWallet,
+                wallets: remainingWallets,
+            });
+
+            return;
         }
 
-        return { wallet, wallets };
+        const currentWalletTagName = wallet?.fullTagName;
+
+        if (!currentWalletTagName) return;
+
+        const walletsWithoutCurrent = wallets.filter((w) => w.fullTagName !== currentWalletTagName);
+
+        if (walletsWithoutCurrent.length !== wallets.length) {
+            await this._chromeService.setItem("wallets", walletsWithoutCurrent);
+        }
     }
 
     async getCurrentWallet(): Promise<Partial<TagModel> | null> {
@@ -588,23 +595,17 @@ export class WalletService {
     }
 
     async getFirstWalletFromStorage(): Promise<Partial<TagModel> | null> {
-        let wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
 
-        if (wallet?.publicData?.ethAddress) wallet = new TagModel(wallet);
-        else {
-            const wallets = await this.getWalletsFromStorage();
+        const hasValidWallet = wallet?.name || wallet?.publicData?.tagName || wallet?.fullTagName || wallet?._id;
 
-            if (!wallets.length) return {};
+        if (hasValidWallet) return new TagModel(wallet);
 
-            const shiftedWallet = wallets.shift();
+        const wallets = await this.getWalletsFromStorage();
 
-            wallet = new TagModel(shiftedWallet || {});
+        if (!wallets.length) return {};
 
-            this._chromeService.setItem("wallet", wallet);
-            this._chromeService.setItem("wallets", wallets);
-        }
-
-        return wallet;
+        return new TagModel(wallets[0] || {});
     }
 
     async updateWallet(walletToUpdate: Partial<TagModel>): Promise<void> {
@@ -674,39 +675,45 @@ export class WalletService {
     }
 
     async switchWallet(selectedWallet: TagModel): Promise<void> {
-        const wallet = (await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const oldCurrentWallet = (await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
 
-        if (selectedWallet.fullTagName === wallet?.fullTagName) return;
+        if (selectedWallet.fullTagName === oldCurrentWallet?.fullTagName) return;
 
-        const wallets = (await this._chromeService.getItem<TagModel[]>("wallets")) || [];
+        const otherWallets = (await this._chromeService.getItem<TagModel[]>("wallets")) || [];
 
-        for (let index = 0; index < wallets.length; index++) {
-            const _wallet = wallets[index];
+        for (let index = 0; index < otherWallets.length; index++) {
+            const _wallet = otherWallets[index];
 
-            wallets[index] = new TagModel(_wallet);
+            otherWallets[index] = new TagModel(_wallet);
         }
 
-        const walletsWithoutSelected = wallets.filter((_wallet) => _wallet.fullTagName !== selectedWallet.fullTagName);
-        const oldWalletTagName = wallet?.fullTagName;
+        const oldCurrentWalletModel = new TagModel(oldCurrentWallet);
+        const oldCurrentWalletIsSet = Boolean(
+            oldCurrentWalletModel._id || oldCurrentWalletModel.fullTagName || oldCurrentWalletModel.name || oldCurrentWalletModel.publicData?.tagName
+        );
 
-        let finalWallets: TagModel[] = [];
+        const selectedFilteredFromOtherWallets = otherWallets.filter((_wallet) => _wallet.fullTagName !== selectedWallet.fullTagName);
 
-        const hasOldWallet = wallet && (wallet.fullTagName || wallet.tagName || wallet.publicData?.tagName || wallet.name);
+        let updatedWalletsArray: TagModel[] = [];
 
-        if (hasOldWallet) {
-            const walletsWithoutOldCurrent = oldWalletTagName
-                ? walletsWithoutSelected.filter((_wallet) => _wallet.fullTagName !== oldWalletTagName)
-                : walletsWithoutSelected;
+        if (oldCurrentWalletIsSet) {
+            const walletsWithoutOldCurrent = selectedFilteredFromOtherWallets.filter((_wallet) => {
+                if (oldCurrentWalletModel.fullTagName && _wallet.fullTagName === oldCurrentWalletModel.fullTagName) return false;
+                if (oldCurrentWalletModel._id && _wallet._id === oldCurrentWalletModel._id) return false;
+                return true;
+            });
 
-            finalWallets = [new TagModel(wallet), ...walletsWithoutOldCurrent];
+            updatedWalletsArray = [oldCurrentWalletModel, ...walletsWithoutOldCurrent];
         } else {
-            finalWallets = walletsWithoutSelected;
+            updatedWalletsArray = selectedFilteredFromOtherWallets;
         }
 
-        await this._chromeService.setItem("tagName", selectedWallet.tagName);
-        await this._chromeService.setItem("wallet", selectedWallet);
-        await this._chromeService.setItem("domain", selectedWallet.publicData?.domain);
-        await this._chromeService.setItem("wallets", finalWallets);
+        await this._chromeService.setItems({
+            domain: selectedWallet.publicData?.domain,
+            tagName: selectedWallet.tagName,
+            wallet: selectedWallet,
+            wallets: updatedWalletsArray,
+        });
     }
 
     async checkIfLastWallet(): Promise<boolean> {

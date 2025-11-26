@@ -16,13 +16,13 @@
             h2 {
                 font-size: 28px;
                 font-weight: 700;
-                color: #1a1a1a;
+                color: variables.$themeText;
                 margin: 0;
             }
 
             p {
                 font-size: 16px;
-                color: #666;
+                color: variables.$themeTextMuted;
                 margin: 0;
             }
         }
@@ -43,11 +43,11 @@
 
     // Card preview uses the same styling as the form
     .card-preview {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
         border-radius: 16px;
         padding: 24px;
-        color: white;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        color: variables.$themeButtonText;
+        box-shadow: 0 4px 20px variables.$themeShadow;
         transition: all 0.2s ease;
         position: relative;
         overflow: hidden;
@@ -74,7 +74,7 @@
             right: 24px;
             width: 40px;
             height: 30px;
-            background: rgba(255, 255, 255, 0.2);
+            background: variables.$themeBackgroundSecondary;
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -92,7 +92,7 @@
         .qr-placeholder {
             font-size: 10px;
             font-weight: 600;
-            color: white;
+            color: variables.$themeButtonText;
         }
 
         .card-number {
@@ -100,7 +100,7 @@
             font-weight: 600;
             letter-spacing: 2px;
             margin: 20px 0;
-            font-family: "Courier New", monospace;
+            font-family: variables.$themeMonospaceFamily;
         }
 
         .card-details {
@@ -129,6 +129,31 @@
             font-size: 14px;
             font-weight: 600;
         }
+
+        &.visa {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: variables.$white;
+        }
+
+        &.mastercard {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: variables.$white;
+        }
+
+        &.amex {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: variables.$white;
+        }
+
+        &.discover {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: variables.$white;
+        }
+
+        &.card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: variables.$white;
+        }
     }
 
     &__decrypt-section {
@@ -140,18 +165,18 @@
     }
 
     &__error {
-        background: #fef2f2;
-        border: 1px solid #fecaca;
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
         border-radius: 8px;
         padding: 16px;
-        color: #dc2626;
+        color: variables.$error;
         text-align: center;
     }
 
     &__section-title {
         font-size: 18px;
         font-weight: 600;
-        color: #181818;
+        color: variables.$themeText;
         margin: 0 0 16px 0;
     }
 
@@ -169,12 +194,12 @@
     &__section-title {
         font-size: 18px;
         font-weight: 600;
-        color: #181818;
+        color: variables.$themeText;
         margin: 0 0 16px 0;
     }
 
     &__monospace {
-        font-family: "Courier New", Courier, monospace;
+        font-family: variables.$themeMonospaceFamily;
         font-size: 14px;
         letter-spacing: 0.5px;
     }
@@ -196,9 +221,9 @@
     }
 
     &__hash {
-        font-family: "Courier New", monospace;
+        font-family: variables.$themeMonospaceFamily;
         font-size: 12px;
-        color: #6b7280;
+        color: variables.$themeTextMuted;
         word-break: break-all;
         flex: 1;
     }
@@ -211,10 +236,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #f8f9fa;
+        background: variables.$themeBackgroundSecondary;
         border-radius: 8px;
         padding: 16px;
-        border: 1px solid #e9ecef;
+        border: 1px solid variables.$themeBorder;
         min-height: 120px;
         margin-bottom: 16px;
     }
@@ -229,8 +254,8 @@
     &__image-error {
         text-align: center;
         padding: 40px 20px;
-        color: #6b7280;
-        background: #f3f4f6;
+        color: variables.$themeTextMuted;
+        background: variables.$themeBackgroundSecondary;
         border-radius: 8px;
     }
 
@@ -247,13 +272,13 @@
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
-        color: #181818;
+        color: variables.$themeText;
         transition: background-color 0.2s ease;
         border-radius: 12px;
         padding: 12px;
 
         &:hover {
-            background-color: #f8f9fa;
+            background-color: variables.$themeBackgroundSecondary;
         }
     }
 
@@ -265,6 +290,7 @@
         width: 100%;
 
         svg {
+            fill: variables.$themeText;
             width: 18px;
             height: 20px;
         }

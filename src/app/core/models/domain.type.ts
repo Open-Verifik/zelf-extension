@@ -81,6 +81,7 @@ export interface ThemeColors {
     buttonHover: string;
     buttonSecondary: string;
     buttonSecondaryText: string;
+    buttonSecondaryHover: string;
     buttonText: string;
     card: string;
     cardBorder: string;

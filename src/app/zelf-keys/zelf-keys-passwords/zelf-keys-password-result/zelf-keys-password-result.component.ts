@@ -201,4 +201,24 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
 
         await this._copyToClipboard(this.apiResult.NFT.contractAddress);
     }
+
+    getIpfsId(): string {
+        return this.apiResult?.ipfs?.id || "N/A";
+    }
+
+    getIpfsUrl(): string {
+        return this.apiResult?.ipfs?.url || "N/A";
+    }
+
+    getIpfsHash(): string {
+        return this.apiResult?.ipfs?.ipfsHash || this.apiResult?.ipfs?.ipfs_pin_hash || this.apiResult?.ipfs?.cid || "N/A";
+    }
+
+    getIpfsFileSize(): number | null {
+        return this.apiResult?.ipfs?.size || null;
+    }
+
+    getIpfsUploadTimestamp(): string | null {
+        return this.apiResult?.ipfs?.date_pinned || this.apiResult?.ipfs?.created_at || null;
+    }
 }

@@ -30,11 +30,11 @@
     }
 
     &__title {
-        font-family: variables.$themeBodyFamily;
+        font-family: variables.$themeTitleFamily;
         font-weight: 600;
         font-size: 18px;
         line-height: 24px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         flex: 1;
     }
@@ -63,7 +63,7 @@
         }
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeText;
             width: 100%;
             height: 100%;
         }
@@ -84,7 +84,7 @@
             font-family: variables.$themeBodyFamily;
             font-size: 14px;
             line-height: 20px;
-            color: variables.$black;
+            color: variables.$themeText;
             margin: 0;
         }
     }
@@ -109,7 +109,7 @@
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 12px 0;
         text-align: center;
     }
@@ -124,12 +124,12 @@
         padding: 10px 20px;
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
-        background-color: variables.$black;
-        color: white;
+        background-color: variables.$themeText;
+        color: variables.$themeBackground;
         border-radius: 8px;
 
         &:hover:not(:disabled) {
-            background-color: #333;
+            background-color: variables.$themeTextMuted;
         }
 
         &:disabled {
@@ -156,7 +156,7 @@
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 16px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
@@ -180,7 +180,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 12px 16px;
-        background-color: white;
+        background-color: variables.$themeBackground;
         border: 1px solid variables.$themeTextMuted;
         border-radius: 8px;
     }
@@ -196,7 +196,7 @@
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__share-participant {
@@ -209,10 +209,10 @@
         padding: 4px;
         width: 32px;
         height: 32px;
-        color: #c00;
+        color: variables.$error;
 
         &:hover {
-            background-color: #fee;
+            background-color: variables.$errorLight;
         }
     }
 
@@ -224,7 +224,7 @@
     &__threshold-success {
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
-        color: #0a0;
+        color: variables.$correct;
         margin: 0;
         font-weight: 500;
     }
@@ -232,25 +232,25 @@
     &__threshold-warning {
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
-        color: #fa0;
+        color: variables.$warning;
         margin: 0;
         font-weight: 500;
     }
 
     &__error {
         padding: 12px 16px;
-        background-color: #fee;
-        border: 1px solid #fcc;
+        background-color: variables.$errorLight;
+        border: 1px solid variables.$error;
         border-radius: 8px;
-        color: #c00;
+        color: variables.$error;
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
     }
 
     &__success-message {
         padding: 16px;
-        background-color: #efe;
-        border: 1px solid #afa;
+        background-color: variables.$correctLight;
+        border: 1px solid variables.$correct;
         border-radius: 8px;
         text-align: center;
 
@@ -258,14 +258,14 @@
             font-family: variables.$themeBodyFamily;
             font-weight: 600;
             font-size: 18px;
-            color: #0a0;
+            color: variables.$correct;
             margin: 0 0 8px 0;
         }
 
         p {
             font-family: variables.$themeBodyFamily;
             font-size: 14px;
-            color: variables.$black;
+            color: variables.$themeText;
             margin: 0;
         }
     }
@@ -280,17 +280,17 @@
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin-bottom: 8px;
     }
 
     &__secret-code {
         display: block;
-        font-family: "Courier New", monospace;
+        font-family: variables.$themeMonospaceFamily;
         font-size: 12px;
         line-height: 18px;
-        color: variables.$black;
-        background-color: white;
+        color: variables.$themeText;
+        background-color: variables.$themeBackground;
         padding: 12px;
         border-radius: 4px;
         word-break: break-all;

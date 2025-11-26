@@ -20,12 +20,21 @@
         height: 6px;
         overflow: hidden;
     }
+
     &__header-button {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         flex-direction: row;
         width: 100%;
+    }
+
+    &__input {
+        width: 100%;
+    }
+
+    &__input-control {
+        flex-grow: 1;
     }
 }
 

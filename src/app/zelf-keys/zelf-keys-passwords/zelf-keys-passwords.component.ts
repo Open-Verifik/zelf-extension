@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
@@ -43,6 +43,7 @@ export class ZelfKeysPasswordsComponent implements OnInit, OnDestroy {
 
     constructor(
         private _billingService: BillingService,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _dataPassingService: DataPassingService,
         private _passwordDataService: PasswordDataService,
@@ -140,6 +141,7 @@ export class ZelfKeysPasswordsComponent implements OnInit, OnDestroy {
     private _subscribeToLoadingState(): void {
         this._zelfKeysDataService.loading$.pipe(takeUntil(this.destroy$)).subscribe((loading) => {
             this.loading = loading;
+            this._changeDetectorRef.detectChanges();
         });
     }
 

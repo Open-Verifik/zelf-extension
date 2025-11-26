@@ -23,46 +23,21 @@
     padding-top: 88px !important;
 
     &__header {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
-        align-content: center;
-        justify-content: flex-start;
-        gap: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
     }
 
-    &__col1,
-    &__col3 {
-        grid-column: span 2;
-        display: flex;
-        align-items: center;
-    }
-
-    &__col1 {
-        justify-content: flex-start;
-    }
-
-    &__col3 {
-        justify-content: flex-end;
-    }
-
-    &__col2 {
-        grid-column: span 6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     &__title {
-        font-family: "Menda", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 600;
         font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 12px 0 0 0;
     }
 
@@ -140,12 +115,11 @@
     gap: 12px;
     padding: 20px;
     border-radius: 16px;
-    background: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #f0f0f0;
+    background: variables.$themeBackground;
+    box-shadow: 0 4px 20px variables.$themeShadow;
+    border: 1px solid variables.$themeBorder;
     width: 100%;
     transition: all 0.3s ease;
-    // Ensure menu can overflow
     position: relative;
     overflow: visible;
     cursor: pointer;
@@ -182,8 +156,8 @@
         min-height: 40px;
         min-width: 40px;
         border-radius: 8px;
-        background-color: variables.$black;
-        color: white;
+        background-color: variables.$themeText;
+        color: variables.$themeBackground;
         box-sizing: border-box;
         flex-shrink: 0;
     }
@@ -228,7 +202,7 @@
         font-weight: 600;
         font-size: 18px;
         line-height: 1.2;
-        color: #1a1a1a;
+        color: variables.$themeText;
         margin: 0;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -240,7 +214,7 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 1.4;
-        color: #666;
+        color: variables.$themeTextMuted;
         margin: 0;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -261,7 +235,7 @@
         font-size: 20px;
         line-height: 24px;
         letter-spacing: 2px;
-        color: variables.$black;
+        color: variables.$themeText;
         font-variant-numeric: tabular-nums;
 
         &--masked {
@@ -304,15 +278,15 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &:hover {
-            background-color: #b589f0 !important;
-            color: white;
+            background-color: variables.$secondaryColor !important;
+            color: variables.$themeBackground;
 
             svg {
-                fill: white;
+                fill: variables.$themeBackground;
             }
         }
     }

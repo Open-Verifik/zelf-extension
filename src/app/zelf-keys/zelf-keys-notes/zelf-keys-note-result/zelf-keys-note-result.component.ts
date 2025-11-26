@@ -111,4 +111,68 @@ export class ZelfKeysNoteResultComponent extends CopyToClipboardBase implements 
 
         await this._copyToClipboard(this.apiResult.NFT.contractAddress);
     }
+
+    getTitle(): string {
+        return this.apiResult?.ipfs?.publicData?.title || this.noteData?.title || "N/A";
+    }
+
+    getFolder(): string {
+        return this.apiResult?.ipfs?.publicData?.folder || this.noteData?.folder || "N/A";
+    }
+
+    getType(): string {
+        return this.apiResult?.ipfs?.publicData?.type || this.apiResult?.type || "notes";
+    }
+
+    getCategory(): string {
+        return this.apiResult?.ipfs?.publicData?.category || "N/A";
+    }
+
+    getZelfName(): string {
+        return this.apiResult?.ipfs?.publicData?.keyOwner || this.apiResult?.ipfs?.name || "N/A";
+    }
+
+    getTimestamp(): string {
+        if (this.apiResult?.ipfs?.publicData?.timestamp) {
+            return this.apiResult.ipfs.publicData.timestamp;
+        }
+
+        if (this.apiResult?.ipfs?.date_pinned) {
+            return this.apiResult.ipfs.date_pinned;
+        }
+
+        return "";
+    }
+
+    getIpfsHash(): string {
+        return this.apiResult?.ipfs?.ipfsHash || this.apiResult?.ipfs?.ipfs_pin_hash || this.apiResult?.ipfs?.cid || "N/A";
+    }
+
+    getIpfsGatewayUrl(): string {
+        return this.apiResult?.ipfs?.url || "N/A";
+    }
+
+    getIpfsFileSize(): number | null {
+        return this.apiResult?.ipfs?.size || null;
+    }
+
+    getIpfsUploadTimestamp(): string | null {
+        return this.apiResult?.ipfs?.date_pinned || this.apiResult?.ipfs?.created_at || null;
+    }
+
+    getWalrusBlobId(): string | null {
+        return this.apiResult?.walrus?.blobId || null;
+    }
+
+    getWalrusPublicUrl(): string | null {
+        return this.apiResult?.walrus?.publicUrl || null;
+    }
+
+    getWalrusExplorerUrl(): string | null {
+        return this.apiResult?.walrus?.explorerUrl || null;
+    }
+
+    getWalrusSuccess(): boolean {
+        return this.apiResult?.walrus?.success === true;
+    }
 }

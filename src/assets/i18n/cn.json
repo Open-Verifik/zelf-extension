@@ -1477,5 +1477,8 @@
                 "no_result": "没有可用的 API 结果"
             }
         }
+    },
+    "domain_selection": {
+        "title": "为您的标签名称选择域名"
     }
 }

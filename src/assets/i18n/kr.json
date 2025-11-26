@@ -1477,5 +1477,8 @@
                 "no_result": "API 결과를 사용할 수 없습니다"
             }
         }
+    },
+    "domain_selection": {
+        "title": "태그 이름의 도메인 선택"
     }
 }

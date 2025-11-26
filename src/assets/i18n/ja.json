@@ -1477,5 +1477,8 @@
                 "no_result": "API結果が利用できません"
             }
         }
+    },
+    "domain_selection": {
+        "title": "タグ名のドメインを選択"
     }
 }

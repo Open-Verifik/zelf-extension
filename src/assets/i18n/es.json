@@ -1477,5 +1477,8 @@
                 "no_result": "No hay resultado de API disponible"
             }
         }
+    },
+    "domain_selection": {
+        "title": "Elige el dominio para el nombre de tu etiqueta"
     }
 }

@@ -5,7 +5,7 @@ export const environment = {
     captchaKey: "6LcAhbIqAAAAANEZltlDqWutQ_kcujZ7IUKIQiK1",
     includeNonPaidDomains: true,
     keysUrl: "https://keys.zelf.world",
-    paymentDomainUrl: "https://payment.zelf.world",
+    paymentDomainUrl: "http://localhost:3051",
     production: true,
     testnetAddress: "",
     networks: {

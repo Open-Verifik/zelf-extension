@@ -366,7 +366,18 @@
         "zelfName_is_taken": "Это имя тега уже занято",
         "session_init_title": "Ошибка инициализации сессии",
         "session_init_message": "Извините, возникла проблема при инициализации вашей сессии. Это может быть связано с проблемой сети или недоступностью сервера. Пожалуйста, попробуйте снова.",
-        "session_init_info": "Для использования расширения Zelf Name Service вам потребуется доступ к сети. Для офлайн-решения проверьте наши приложения для iOS и Android."
+        "session_init_info": "Для использования расширения Zelf Name Service вам потребуется доступ к сети. Для офлайн-решения проверьте наши приложения для iOS и Android.",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "Автоматический",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "Добавить новую платёжную карту",
                     "edit": "Редактировать платёжную карту",
-                    "label": "Название Банка *",
-                    "placeholder": "Введите название банка"
+                    "label": "Название Банка *"
                 },
                 "card_number": {
-                    "label": "Номер карты *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "Номер карты *"
                 },
                 "card_holder": {
-                    "label": "Имя держателя карты *",
-                    "placeholder": "Введите имя держателя карты"
+                    "label": "Имя держателя карты *"
                 },
                 "expiry_month": {
                     "label": "Месяц окончания *",
                     "placeholder": "ММ"
                 },
                 "expiry_year": {
-                    "label": "Год окончания *",
-                    "placeholder": "ГГГГ"
+                    "label": "Год окончания *"
                 },
                 "card_type": {
                     "label": "Тип карты *",
                     "placeholder": "Выберите тип карты"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "Платёжный адрес",
@@ -648,7 +654,6 @@
                     "aria_label": "Переключить сохранение в папку"
                 },
                 "master_password": {
-                    "placeholder": "Введите ваш мастер-пароль",
                     "hint": "Нам нужен пароль {{ walletName }} чтобы зашифровать и сохранить ваши учётные данные. Биометрическая проверка требуется всегда."
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "Редактировать заметку"
                 },
                 "title_field": {
-                    "label": "Заголовок заметки *",
-                    "placeholder": "Введите заголовок"
+                    "label": "Заголовок заметки *"
                 },
                 "content": {
                     "label": "Содержимое заметки *",
-                    "placeholder": "Напишите заметку здесь... Можно несколько абзацев, списки и любой другой контент, который нужно безопасно запомнить.",
                     "hint": "Содержимое будет зашифровано и сохранено. Можно писать сколько нужно."
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "Переключить организацию по папкам"
                 },
                 "master_password": {
-                    "placeholder": "Введите ваш мастер-пароль",
                     "hint": "Нам нужен пароль {{ walletName }} чтобы зашифровать и сохранить ваши учётные данные. Биометрическая проверка требуется всегда."
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "Добавить пароль",
                 "website": {
-                    "label": "URL веб-сайта *",
-                    "placeholder": "https://example.com"
+                    "label": "URL веб-сайта *"
                 },
                 "title_field": {
                     "label": "Заголовок *",
                     "placeholder": "Введите заголовок"
                 },
                 "email": {
-                    "label": "Электронная почта *",
-                    "placeholder": "Введите email"
+                    "label": "Электронная почта *"
                 },
                 "password": {
-                    "label": "Пароль *",
-                    "placeholder": "Введите пароль"
+                    "label": "Пароль *"
                 },
                 "folder": {
                     "label": "Организовать в папке",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "Мастер-пароль *",
-                    "placeholder": "Введите ваш мастер-пароль",
                     "hint": "Нам нужен пароль {{ walletName }} чтобы зашифровать и сохранить ваши учётные данные. Биометрическая проверка требуется всегда."
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "Произошла неожиданная ошибка при создании вашей платежной карты.",
                 "try_again": "Попробовать Снова",
                 "no_data": "Данные результата не найдены"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "Пожалуйста, посмотрите в камеру"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "Расшифровка",
-            "loading_camera": "Инициализация камеры...",
-            "permission_required": "Требуется Разрешение Камеры",
-            "permission_allow": "Пожалуйста, разрешите доступ к камере",
-            "retry": "Повторить",
-            "low_quality_title": "Изображение Низкого Качества",
-            "low_quality_message": "Пожалуйста, попробуйте снова при лучшем освещении",
-            "processing": "Расшифровка...",
-            "cancel": "Отменить"
-        },
         "password_biometrics": {
             "back_to_details": "Вернуться к Деталям Пароля",
             "back_to_form": "Вернуться к Форме Пароля",
@@ -1389,6 +1387,17 @@
                     "success_message": "Ваша заметка теперь безопасно сохранена. Вы можете просмотреть ее в списке заметок или добавить другую заметку.",
                     "error_message": "Пожалуйста, просмотрите детали ошибки выше и попробуйте снова. Если проблема сохраняется, обратитесь в службу поддержки.",
                     "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для получения подробностей."
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "Результат API недоступен"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

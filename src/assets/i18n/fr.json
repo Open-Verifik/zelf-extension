@@ -366,7 +366,18 @@
         "zelfName_is_taken": "Ce nom d'étiquette est déjà pris",
         "session_init_title": "Échec de l'initialisation de la session",
         "session_init_message": "Désolé, un problème est survenu lors de l'initialisation de votre session. Cela peut être dû à un problème réseau ou à l'indisponibilité du serveur. Veuillez réessayer.",
-        "session_init_info": "Pour utiliser l'Extension du Service de Noms Zelf, vous aurez besoin d'un accès réseau. Pour une solution hors ligne, consultez nos applications iOS et Android."
+        "session_init_info": "Pour utiliser l'Extension du Service de Noms Zelf, vous aurez besoin d'un accès réseau. Pour une solution hors ligne, consultez nos applications iOS et Android.",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "Automatique",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "Ajouter une carte",
                     "edit": "Modifier la carte",
-                    "label": "Nom de la Banque *",
-                    "placeholder": "Entrez le nom de la banque"
+                    "label": "Nom de la Banque *"
                 },
                 "card_number": {
-                    "label": "Numéro de carte *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "Numéro de carte *"
                 },
                 "card_holder": {
-                    "label": "Nom du titulaire *",
-                    "placeholder": "Entrez le nom du titulaire"
+                    "label": "Nom du titulaire *"
                 },
                 "expiry_month": {
                     "label": "Mois d'expiration *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "Année d'expiration *",
-                    "placeholder": "AAAA"
+                    "label": "Année d'expiration *"
                 },
                 "card_type": {
                     "label": "Type de carte *",
                     "placeholder": "Sélectionner le type"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "Adresse de facturation",
@@ -648,7 +654,6 @@
                     "aria_label": "Basculer l'enregistrement en dossier"
                 },
                 "master_password": {
-                    "placeholder": "Entrez votre mot de passe maître",
                     "hint": "Nous exigeons le mot de passe {{ walletName }} pour chiffrer et stocker vos identifiants. Une vérification biométrique est toujours requise."
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "Modifier la note"
                 },
                 "title_field": {
-                    "label": "Titre de la note *",
-                    "placeholder": "Entrez le titre de la note"
+                    "label": "Titre de la note *"
                 },
                 "content": {
                     "label": "Contenu de la note *",
-                    "placeholder": "Écrivez votre note ici... Vous pouvez inclure plusieurs paragraphes, listes, ou tout autre contenu à mémoriser en sécurité.",
                     "hint": "Le contenu de votre note sera chiffré et stocké en sécurité. Vous pouvez écrire autant que nécessaire."
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "Basculer l'organisation en dossier"
                 },
                 "master_password": {
-                    "placeholder": "Entrez votre mot de passe maître",
                     "hint": "Nous exigeons le mot de passe {{ walletName }} pour chiffrer et stocker vos identifiants. Une vérification biométrique est toujours requise."
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "Ajouter un mot de passe",
                 "website": {
-                    "label": "URL du site *",
-                    "placeholder": "https://exemple.com"
+                    "label": "URL du site *"
                 },
                 "title_field": {
                     "label": "Titre *",
                     "placeholder": "Entrez le titre"
                 },
                 "email": {
-                    "label": "Email *",
-                    "placeholder": "Entrez l'email"
+                    "label": "Email *"
                 },
                 "password": {
-                    "label": "Mot de passe *",
-                    "placeholder": "Entrez le mot de passe"
+                    "label": "Mot de passe *"
                 },
                 "folder": {
                     "label": "Organiser dans un dossier",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "Mot de passe maître *",
-                    "placeholder": "Entrez votre mot de passe maître",
                     "hint": "Nous exigeons le mot de passe {{ walletName }} pour chiffrer et stocker vos identifiants. Une vérification biométrique est toujours requise."
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "Une erreur inattendue s'est produite lors de la création de votre carte de paiement.",
                 "try_again": "Réessayer",
                 "no_data": "Aucune donnée de résultat trouvée"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "Veuillez regarder la caméra"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "Décryptage",
-            "loading_camera": "Initialisation de la caméra...",
-            "permission_required": "Autorisation de la Caméra Requise",
-            "permission_allow": "Veuillez autoriser l'accès à la caméra",
-            "retry": "Réessayer",
-            "low_quality_title": "Image de Mauvaise Qualité",
-            "low_quality_message": "Veuillez réessayer avec un meilleur éclairage",
-            "processing": "Décryptage...",
-            "cancel": "Annuler"
-        },
         "password_biometrics": {
             "back_to_details": "Retour aux Détails du Mot de Passe",
             "back_to_form": "Retour au Formulaire de Mot de Passe",
@@ -1389,6 +1387,17 @@
                     "success_message": "Votre note est maintenant stockée en toute sécurité. Vous pouvez la consulter dans votre liste de notes ou ajouter une autre note.",
                     "error_message": "Veuillez examiner les détails de l'erreur ci-dessus et réessayer. Si le problème persiste, contactez le support.",
                     "unknown_message": "Le système n'a pas pu déterminer le statut. Veuillez vérifier la réponse de l'API ci-dessus pour plus de détails."
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "Aucun résultat API disponible"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

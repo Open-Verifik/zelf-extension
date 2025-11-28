@@ -1,9 +1,18 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+}
+
 .password-decryptor {
     position: relative;
     width: 375px;
     height: 600px;
     overflow: hidden;
-    background: #f8f9fa;
+    background: variables.$themeBackground;
 
     &__header {
         position: absolute;
@@ -11,13 +20,7 @@
         left: 0;
         right: 0;
         z-index: 10;
-        background: linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.95) 0%,
-            rgba(255, 255, 255, 0.8) 50%,
-            rgba(255, 255, 255, 0.3) 80%,
-            transparent 100%
-        );
+        background: linear-gradient(to bottom, variables.$themeBackground 0%, variables.$themeBackgroundSecondary 50%, transparent 100%);
         backdrop-filter: blur(10px);
         padding: 12px 16px 20px 16px;
         text-align: center;
@@ -37,7 +40,7 @@
         margin: 0;
         font-size: 16px;
         font-weight: 600;
-        color: #333;
+        color: variables.$themeText;
     }
 
     &__camera-container {
@@ -56,7 +59,7 @@
         padding: 20px;
         text-align: center;
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.9);
+        background: variables.$themeBackground;
         margin: 20px;
     }
 
@@ -82,7 +85,7 @@
         overflow: hidden;
         width: 375px;
         height: 600px;
-        background: #000;
+        background: variables.$themeBackground;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -108,8 +111,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
+        background: variables.$themeBackground;
+        color: variables.$themeText;
         padding: 12px 16px;
         border-radius: 8px;
         text-align: center;
@@ -122,7 +125,7 @@
         margin-bottom: 4px;
 
         &--error {
-            color: #ff6b6b;
+            color: variables.$error;
         }
     }
 
@@ -143,8 +146,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
+        background: variables.$themeBackground;
+        color: variables.$themeText;
         padding: 16px 20px;
         border-radius: 8px;
         text-align: center;
@@ -161,13 +164,32 @@
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        padding: 8px 16px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
         text-align: center;
         z-index: 15;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.master-password-form {
+    position: absolute;
+    inset: 0;
+    background: variables.$themeBackground;
+    z-index: 100;
+    padding: 40px 16px;
+
+    &__overlay {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        width: 100%;
     }
 }
 

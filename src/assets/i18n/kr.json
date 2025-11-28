@@ -366,7 +366,18 @@
         "zelfName_is_taken": "이 태그 이름은 이미 사용 중입니다",
         "session_init_title": "세션 초기화 실패",
         "session_init_message": "죄송합니다. 세션을 초기화하는 중 문제가 발생했습니다. 네트워크 문제나 서버 사용 불가로 인한 것일 수 있습니다. 다시 시도해 주세요.",
-        "session_init_info": "Zelf 이름 서비스 확장을 사용하려면 네트워크 액세스가 필요합니다. 오프라인 솔루션의 경우 iOS 및 Android 앱을 확인하세요."
+        "session_init_info": "Zelf 이름 서비스 확장을 사용하려면 네트워크 액세스가 필요합니다. 오프라인 솔루션의 경우 iOS 및 Android 앱을 확인하세요.",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "자동",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "새 결제 카드 추가",
                     "edit": "결제 카드 편집",
-                    "label": "은행명 *",
-                    "placeholder": "은행명 입력"
+                    "label": "은행명 *"
                 },
                 "card_number": {
-                    "label": "카드 번호 *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "카드 번호 *"
                 },
                 "card_holder": {
-                    "label": "카드 소유자 이름 *",
-                    "placeholder": "카드 소유자 이름 입력"
+                    "label": "카드 소유자 이름 *"
                 },
                 "expiry_month": {
                     "label": "만료 월 *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "만료 연도 *",
-                    "placeholder": "YYYY"
+                    "label": "만료 연도 *"
                 },
                 "card_type": {
                     "label": "카드 유형 *",
                     "placeholder": "카드 유형 선택"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "청구지 주소",
@@ -648,7 +654,6 @@
                     "aria_label": "폴더 저장 전환"
                 },
                 "master_password": {
-                    "placeholder": "마스터 비밀번호를 입력하세요",
                     "hint": "자격 증명을 암호화하고 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "노트 편집"
                 },
                 "title_field": {
-                    "label": "노트 제목 *",
-                    "placeholder": "노트 제목 입력"
+                    "label": "노트 제목 *"
                 },
                 "content": {
                     "label": "노트 내용 *",
-                    "placeholder": "여기에 노트를 작성하세요... 여러 단락, 목록 등 기억해야 할 내용을 자유롭게 작성할 수 있습니다.",
                     "hint": "노트 내용은 암호화되어 안전하게 저장됩니다. 필요할 만큼 작성하실 수 있습니다."
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "폴더 정리 전환"
                 },
                 "master_password": {
-                    "placeholder": "마스터 비밀번호를 입력하세요",
                     "hint": "자격 증명을 암호화하고 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "비밀번호 추가",
                 "website": {
-                    "label": "웹사이트 URL *",
-                    "placeholder": "https://example.com"
+                    "label": "웹사이트 URL *"
                 },
                 "title_field": {
                     "label": "제목 *",
                     "placeholder": "제목 입력"
                 },
                 "email": {
-                    "label": "이메일 *",
-                    "placeholder": "이메일 입력"
+                    "label": "이메일 *"
                 },
                 "password": {
-                    "label": "비밀번호 *",
-                    "placeholder": "비밀번호 입력"
+                    "label": "비밀번호 *"
                 },
                 "folder": {
                     "label": "폴더로 정리",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "마스터 비밀번호 *",
-                    "placeholder": "마스터 비밀번호를 입력하세요",
                     "hint": "자격 증명을 암호화하고 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "결제 카드를 생성하는 중 예기치 않은 오류가 발생했습니다.",
                 "try_again": "다시 시도",
                 "no_data": "결과 데이터를 찾을 수 없습니다"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "카메라를 봐주세요"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "복호화",
-            "loading_camera": "카메라 초기화 중...",
-            "permission_required": "카메라 권한 필요",
-            "permission_allow": "카메라 액세스를 허용하세요",
-            "retry": "다시 시도",
-            "low_quality_title": "저품질 이미지",
-            "low_quality_message": "더 나은 조명으로 다시 시도하세요",
-            "processing": "복호화 중...",
-            "cancel": "취소"
-        },
         "password_biometrics": {
             "back_to_details": "비밀번호 세부정보로 돌아가기",
             "back_to_form": "비밀번호 양식으로 돌아가기",
@@ -1389,6 +1387,17 @@
                     "success_message": "노트가 안전하게 저장되었습니다. 노트 목록에서 볼 수 있거나 다른 노트를 추가할 수 있습니다.",
                     "error_message": "위의 오류 세부정보를 검토하고 다시 시도하세요. 문제가 계속되면 지원팀에 문의하세요.",
                     "unknown_message": "시스템이 상태를 확인할 수 없습니다. 자세한 내용은 위의 API 응답을 확인하세요."
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "API 결과를 사용할 수 없습니다"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

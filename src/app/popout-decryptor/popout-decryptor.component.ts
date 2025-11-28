@@ -1,7 +1,8 @@
+import { animate, style, transition, trigger } from "@angular/animations";
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { FormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -11,11 +12,14 @@ import * as faceapi from "@vladmandic/face-api";
 import { WebcamComponent, WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { Observable, Subject, takeUntil } from "rxjs";
 
-import { Wallet } from "@shared/types/wallet.types";
+import { HttpWrapperService } from "app/http-wrapper.service";
+import { ErrorService } from "app/services/error.service";
 import { ZelfKeysService } from "app/services/zelf-keys.service";
+import { TagModel } from "app/tags.service";
+import { ThemeService } from "app/theme.service";
+import { VaultService } from "app/vault.service";
 import { PopoutCommunicationService } from "../services/popout-communication.service";
 import { WalletService } from "../wallet.service";
-import { HttpWrapperService } from "app/http-wrapper.service";
 
 export interface BiometricData {
     faceBase64: string;
@@ -33,24 +37,38 @@ export interface BiometricData {
         MatProgressSpinnerModule,
         RouterModule,
         TranslocoModule,
+        ReactiveFormsModule,
         WebcamModule,
     ],
     selector: "popout-decryptor",
     styleUrls: ["./popout-decryptor.component.scss"],
     templateUrl: "./popout-decryptor.component.html",
+    animations: [
+        trigger("slideOutUp", [
+            transition(":enter", [
+                style({ transform: "translateY(-100%)", opacity: 0 }),
+                animate("300ms ease-out", style({ transform: "translateY(0)", opacity: 1 })),
+            ]),
+            transition(":leave", [animate("300ms ease-in", style({ transform: "translateY(-100%)", opacity: 0 }))]),
+        ]),
+    ],
 })
 export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     @ViewChild("maskResult", { static: false }) public maskResultCanvasRef: ElementRef | undefined;
     @ViewChild("toSend", { static: false }) public ToSendCanvasRef: ElementRef | undefined;
     @ViewChild("webcam", { static: false }) public webcamRef?: WebcamComponent;
 
-    @Input() passwordData: any = {};
+    @Input() mode: "popup" | "embedded" = "popup";
 
+    @Output() close = new EventEmitter<void>();
+    @Output() decryptedData = new EventEmitter<any>();
+
+    private _destroy$ = new Subject<void>();
     private _intervals: any = {};
-    private _takePicture: Subject<void> = new Subject<void>();
-    private unsubscriber$: Subject<void> = new Subject<void>();
+    private _takePicture$ = new Subject<void>();
 
-    // Camera and face detection properties
+    aspectRatio = 0.75;
+
     camera = {
         isLoading: true,
         hasPermissions: true,
@@ -67,58 +85,90 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         },
     };
 
+    error: string | null = null;
+    errorFace: any = null;
+
     face = {
         video: { center: { x: 0, y: 0 }, radius: { x: 0, y: 0 }, margin: { x: 0, y: 0 } },
         real: { center: { x: 0, y: 0 }, radius: { x: 0, y: 0 }, margin: { x: 0, y: 0 } },
-        minHeight: 80, // Further reduced from 100
-        minPixels: 80, // Further reduced from 100
+        minHeight: 80,
+        minPixels: 80,
         successPosition: 0,
-        threshold: 0.1, // Further reduced from 0.15 (even more forgiving)
+        threshold: 0.1,
     };
+
+    lastFace: any;
+    masterPassword = "";
+
+    masterPasswordForm = new FormGroup({
+        masterPassword: new FormControl("", [Validators.required]),
+    });
+
+    masterPasswordFormSubmitted = false;
+    record: any = {};
 
     response = {
         base64Image: "",
         isLoading: false,
     };
-    errorFace: any = null;
-    lastFace: any;
-    aspectRatio = 0.75;
-    masterPassword: string = "";
 
-    // Password decryption specific properties
-    dataType: string = "passwords";
-    dataTitle: string = "Password";
-    wallet!: Wallet;
-    shareables!: any;
-    passwordId: string = "";
+    wallet!: Partial<TagModel>;
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
+        private _errorService: ErrorService,
         private _httpWrapperService: HttpWrapperService,
         private _popoutCommunicationService: PopoutCommunicationService,
         private _router: Router,
+        private _themeService: ThemeService,
+        private _vaultService: VaultService,
         private _walletService: WalletService,
         private _zelfKeysService: ZelfKeysService
     ) {
-        this.shareables = {
-            wallet: {},
-        };
+        this._getRecordForDecryptingFromService();
+        this._initializeDecryptionData();
+        this._initializeBiometrics();
     }
 
     async ngOnInit(): Promise<void> {
-        // Get password data from popout communication service
-        this._getPasswordDataFromPopoutService();
+        this._getRecordForDecryptingFromService();
 
         await this._setWallet();
 
-        // Initialize ZelfKey session (handled by service)
-        // Token is automatically refreshed by AuthService when needed
+        this._setupCloseMessageListener();
+    }
 
-        // Wait for decryption data from background script before starting camera
-        this._waitForDecryptionData();
+    ngOnDestroy(): void {
+        if (this._intervals.detectFace) clearInterval(this._intervals.detectFace);
+        if (this._intervals.checkNgxVideo) clearInterval(this._intervals.checkNgxVideo);
 
-        // Setup close message listener
-        this.setupCloseMessageListener();
+        this._popoutCommunicationService.clearDecryptionData();
+
+        this._stopCamera();
+
+        this._destroy$.next();
+        this._destroy$.complete();
+    }
+
+    get dataTypeIcon(): string {
+        switch (this.record.type) {
+            case "note":
+            case "notes":
+                return "note";
+            case "credit_card":
+            case "payment-card":
+                return "credit_card";
+            case "zotp":
+                return "key";
+            case "wallet":
+                return "wallet";
+            default:
+                return "lock";
+        }
+    }
+
+    get takePicture$(): Observable<void> {
+        return this._takePicture$.asObservable();
     }
 
     private async _setWallet(): Promise<any> {
@@ -126,176 +176,16 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         if (!wallet?.name) {
             this._router.navigate(["/welcome"]);
+
             return;
         }
 
-        this.shareables.wallet = wallet;
-        this.wallet = this.shareables.wallet;
+        this.wallet = wallet;
 
         this._changeDetectorRef.detectChanges();
     }
 
-    /**
-     * Get password data from the popout communication service
-     */
-    private _getPasswordDataFromPopoutService(): void {
-        const popoutData = this._popoutCommunicationService.getDecryptionData();
-
-        if (popoutData) {
-            this.passwordId = popoutData.passwordId;
-            this.passwordData = {
-                publicData: popoutData.publicData,
-                masterPassword: popoutData.masterPassword,
-            };
-        } else {
-            this.passwordData = {};
-        }
-
-        // Set master password if available
-        if (this.passwordData.masterPassword) {
-            this.masterPassword = this.passwordData.masterPassword;
-        }
-    }
-
-    /**
-     * Wait for decryption data from background script before starting camera
-     */
-    private _waitForDecryptionData(): void {
-        // Check if we already have data
-        if (this.passwordId && this.passwordData.publicData?.zelfProof) {
-            this._initializeBiometrics();
-
-            return;
-        }
-
-        // Subscribe to decryption data changes
-        this._popoutCommunicationService.decryptionData$.pipe(takeUntil(this.unsubscriber$)).subscribe((data) => {
-            if (!data) return;
-
-            this.passwordId = data.passwordId;
-
-            this.passwordData = {
-                publicData: data.publicData,
-                masterPassword: data.masterPassword,
-            };
-
-            // Set master password if available
-            if (this.passwordData.masterPassword) {
-                this.masterPassword = this.passwordData.masterPassword;
-            }
-
-            // Now start the camera
-            this._initializeBiometrics();
-        });
-    }
-
-    ngOnDestroy(): void {
-        if (this._intervals.detectFace) clearInterval(this._intervals.detectFace);
-        if (this._intervals.checkNgxVideo) clearInterval(this._intervals.checkNgxVideo);
-
-        this._stopCamera();
-
-        this.unsubscriber$.next();
-        this.unsubscriber$.complete();
-    }
-
-    get takePicture$(): Observable<void> {
-        return this._takePicture.asObservable();
-    }
-
-    onBiometricsCancel(): void {
-        this._handleError({ message: "User cancelled decryption" });
-    }
-
-    /**
-     * Stop camera stream and cleanup
-     */
-    private _stopCamera(): void {
-        try {
-            // Stop the webcam component
-            if (this.webcamRef) {
-                // Access the native video element and stop its stream
-                const videoElement = this.webcamRef.nativeVideoElement;
-                if (videoElement && videoElement.srcObject) {
-                    const stream = videoElement.srcObject as MediaStream;
-                    if (stream) {
-                        stream.getTracks().forEach((track) => {
-                            track.stop();
-                        });
-                    }
-                    videoElement.srcObject = null;
-                }
-            }
-        } catch (error) {
-            console.warn("Error stopping camera:", error);
-        }
-    }
-
-    private async _initializeBiometrics(): Promise<void> {
-        try {
-            // Always wait for the wallet service to load the models
-            this._walletService.faceapi$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (isLoaded) => {
-                if (!isLoaded) return;
-
-                this.camera.isLoading = false;
-
-                await this._setMaxVideoDimensions();
-
-                this._startNgxVideoInterval();
-            });
-        } catch (error) {
-            console.error("❌ Error initializing biometrics:", error);
-
-            this._handleError(error);
-        }
-    }
-
-    private _handleError(error: any): void {
-        console.error("❌ Error:", error);
-
-        const result = {
-            success: false,
-            error: error.message,
-        };
-
-        this._popoutCommunicationService.setDecryptionResult(result);
-
-        this.sendDecryptionResultToBackground(result);
-    }
-
-    private async _setMaxVideoDimensions(): Promise<void> {
-        // For popup mode, use the exact popup dimensions (375x600)
-        const popupWidth = 375;
-        const popupHeight = 600;
-
-        // Use full popup dimensions since camera container fills entire height
-        const viewportWidth = popupWidth; // Full width
-        const viewportHeight = popupHeight; // Full height
-
-        // Set viewport dimensions (what we display)
-        this.camera.dimensions.video.width = viewportWidth;
-        this.camera.dimensions.video.height = viewportHeight;
-
-        // Set result dimensions (for processing)
-        this.camera.dimensions.result.width = viewportWidth;
-        this.camera.dimensions.result.height = viewportHeight;
-
-        // Initialize face dimensions based on viewport
-        this.face.video = this._getCenterAndRadius(viewportHeight, viewportWidth);
-
-        this._changeDetectorRef.markForCheck();
-    }
-
-    private _startNgxVideoInterval(): void {
-        if (this._intervals.checkNgxVideo) {
-            clearInterval(this._intervals.checkNgxVideo);
-            this._intervals.checkNgxVideo = null;
-        }
-
-        this._intervals.checkNgxVideo = setInterval(this._checkVideoStreamReady, 100);
-    }
-
-    private _checkVideoStreamReady = () => {
+    private _checkVideoStreamReady(): void {
         const videoNgx = this.webcamRef?.nativeVideoElement;
 
         if (!videoNgx) return;
@@ -316,77 +206,83 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         this._setVideoDimensions(videoNgx);
         this._drawOvalCenterAndMask();
-    };
-
-    private _setVideoDimensions(videoElement: HTMLVideoElement) {
-        // Force the video to fill the entire container
-        const containerWidth = 375; // Popup width
-        const containerHeight = 600; // Full popup height
-
-        // Set the video element dimensions directly
-        videoElement.style.width = `${containerWidth}px`;
-        videoElement.style.height = `${containerHeight}px`;
-        videoElement.style.objectFit = "cover";
-        videoElement.style.objectPosition = "center";
-
-        this.camera.dimensions.video.height = containerHeight;
-        this.camera.dimensions.video.width = containerWidth;
-        this.camera.dimensions.result = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
-
-        this._setResultDimensions("result", containerHeight, containerWidth);
-
-        this.face.video = this._getCenterAndRadius(containerHeight, containerWidth);
-
-        const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
-
-        if (maskResultCanvas) {
-            maskResultCanvas.style.marginLeft = `0px`;
-            maskResultCanvas.style.marginTop = `0px`;
-        }
-
-        this._changeDetectorRef.markForCheck();
     }
 
-    private _getCenterAndRadius(
-        height: number,
-        width: number
-    ): { center: { x: number; y: number }; radius: { x: number; y: number }; margin: { x: number; y: number } } {
-        const center = {
-            x: width / 2,
-            y: height / 2,
-        };
+    private _closeDecryptor(): void {
+        try {
+            this._stopCamera();
+            this.close.emit();
 
-        const margin = {
-            y: height * 0.05,
-            x: 0,
-        };
+            if (this.mode === "embedded") return;
 
-        margin.x = margin.y * 0.8;
-
-        const radius = {
-            y: height * 0.35, // Reduced from 0.42 (smaller oval)
-            x: 0,
-        };
-
-        radius.x = radius.y * this.aspectRatio;
-
-        if (radius.x * 2 >= width) {
-            radius.x = width * 0.48;
-            radius.y = radius.x / this.aspectRatio;
+            window.close();
+        } catch (error) {
+            console.warn("Error closing popup:", error);
         }
-
-        return { center, radius, margin };
     }
 
-    private _setResultDimensions(type: string, height: number, width: number): void {
-        const dimensions = this.camera.dimensions[type as keyof typeof this.camera.dimensions] as any;
+    private async _detectFace(): Promise<void> {
+        const videoNgx = this.webcamRef?.nativeVideoElement;
 
-        if (!dimensions) return;
+        if (!videoNgx || this.response.base64Image) return;
 
-        dimensions.height = height;
-        dimensions.offsetY = 0;
-        dimensions.width = Math.min(2.8 * (this.face.real?.radius?.x || 0), width);
-        dimensions.offsetX = (this.face.real?.center?.x || 0) - dimensions.width / 2;
+        try {
+            const detection = await faceapi.detectAllFaces(videoNgx, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.2 })).withFaceLandmarks();
+            const context = this.maskResultCanvasRef?.nativeElement.getContext("2d", { willReadFrequently: true });
+
+            if (!context) return;
+
+            this._drawOvalCenterAndMask();
+
+            if (detection.length > 0) {
+                this.lastFace = detection[0];
+                this.errorFace = null;
+
+                this.camera.dimensions.real = {
+                    height: videoNgx.videoHeight,
+                    width: videoNgx.videoWidth,
+                    offsetX: 0,
+                    offsetY: 0,
+                };
+
+                this.face.real = this._getCenterAndRadius(videoNgx.videoHeight, videoNgx.videoWidth);
+
+                this._isFaceCentered(this.lastFace.landmarks.getNose()[3]);
+                this._isFaceClose(this.lastFace.landmarks);
+
+                this._drawStatusOval(context, !this.errorFace);
+
+                if (!this.errorFace) {
+                    ++this.face.successPosition;
+                } else {
+                    this.face.successPosition = 0;
+                }
+
+                if (this.face.successPosition > 0) {
+                    this.face.successPosition = 0;
+                    this._takePicture$.next();
+
+                    clearInterval(this._intervals.detectFace);
+                }
+            } else {
+                this.face.successPosition = 0;
+
+                this.errorFace = {
+                    title: "No face detected",
+                    subtitle: "Please look at the camera",
+                };
+
+                this._drawStatusOval(context, false);
+            }
+
+            this._changeDetectorRef.markForCheck();
+        } catch (error: any) {
+            console.error("Face detection error:", error);
+
+            const context = this.maskResultCanvasRef?.nativeElement.getContext("2d");
+
+            if (context) this._drawStatusOval(context, false);
+        }
     }
 
     private _drawOvalCenterAndMask(): void {
@@ -409,7 +305,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         ctx.clearRect(0, 0, maskResultCanvas.width, maskResultCanvas.height);
 
-        ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+        ctx.fillStyle = this._themeService.getCurrentThemeMaskColor();
         ctx.fillRect(0, 0, maskResultCanvas.width, maskResultCanvas.height);
 
         ctx.globalCompositeOperation = "destination-out";
@@ -434,6 +330,121 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         ctx.closePath();
     }
 
+    private async _emitBiometricCapture(): Promise<void> {
+        try {
+            const base64Data = this.response.base64Image.split(",")[1];
+            const result = await this._retrieveEncryptedRecord(base64Data);
+
+            this._handleDecryptionSuccess(result);
+        } catch (error) {
+            console.error("Error in biometric capture:", error);
+
+            this._handleError(error);
+        }
+    }
+
+    private _getCenterAndRadius(
+        height: number,
+        width: number
+    ): { center: { x: number; y: number }; radius: { x: number; y: number }; margin: { x: number; y: number } } {
+        const center = {
+            x: width / 2,
+            y: height / 2,
+        };
+
+        const margin = {
+            y: height * 0.05,
+            x: 0,
+        };
+
+        margin.x = margin.y * 0.8;
+
+        const radius = {
+            y: height * 0.35,
+            x: 0,
+        };
+
+        radius.x = radius.y * this.aspectRatio;
+
+        if (radius.x * 2 >= width) {
+            radius.x = width * 0.48;
+            radius.y = radius.x / this.aspectRatio;
+        }
+
+        return { center, radius, margin };
+    }
+
+    private _getRecordForDecryptingFromService(): void {
+        const popoutData = this._popoutCommunicationService.getDecryptionData();
+
+        if (popoutData) {
+            this.record = { ...popoutData };
+        } else {
+            this.record = {};
+        }
+    }
+
+    private _handleDecryptionSuccess(result: any): void {
+        this._popoutCommunicationService.setDecryptionResult(result);
+
+        if (this.mode === "embedded") {
+            this.decryptedData.emit(result);
+        } else {
+            this._sendDecryptionResultToBackground(result);
+        }
+
+        this._closeDecryptor();
+    }
+
+    private _handleError(error: any): void {
+        const message = error.message || "unknown_error";
+
+        if (message === "User cancelled decryption") {
+            this._closeDecryptor();
+            return;
+        }
+
+        const snakeCaseMessage = message.toLowerCase().replace(/\s+/g, "_");
+
+        this.error = this._errorService.translateErrorMessage(snakeCaseMessage);
+
+        this.masterPassword = "";
+        this.masterPasswordForm.reset();
+        this.masterPasswordFormSubmitted = false;
+
+        this.camera.isLoading = false;
+        this.response.isLoading = false;
+        this.response.base64Image = "";
+
+        this._changeDetectorRef.detectChanges();
+    }
+
+    private async _initializeBiometrics(): Promise<void> {
+        try {
+            this._walletService.faceapi$.pipe(takeUntil(this._destroy$)).subscribe(async (isLoaded) => {
+                if (!isLoaded) return;
+
+                this.camera.isLoading = false;
+
+                await this._setMaxVideoDimensions();
+
+                this._startNgxVideoInterval();
+            });
+        } catch (error) {
+            console.error("Error initializing biometrics:", error);
+
+            this._handleError(error);
+        }
+    }
+
+    private _initializeDecryptionData(): void {
+        this._popoutCommunicationService.decryptionData$.pipe(takeUntil(this._destroy$)).subscribe((data) => {
+            if (!data) return;
+
+            this.record = { ...data };
+        });
+    }
+
     private _inRange(value: number, min: number, max: number): boolean {
         return value >= min && value <= max;
     }
@@ -441,7 +452,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     private _isFaceCentered(nose: any): void {
         const faceCenterX = nose.x;
         const faceCenterY = nose.y;
-
         const { center, margin } = this.face.real || { center: { x: 0, y: 0 }, margin: { x: 0, y: 0 } };
 
         const inRangeX = this._inRange(faceCenterX, center.x - margin.x, center.x + margin.x);
@@ -477,86 +487,84 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         }
     }
 
-    private _startFaceDetectionInterval(): void {
-        if (this._intervals.detectFace) {
-            clearInterval(this._intervals.detectFace);
-
-            this._intervals.detectFace = null;
-        }
-
-        this._intervals.detectFace = setInterval(() => {
-            this._detectFace();
-        }, 100);
-    }
-
-    private async _detectFace(): Promise<void> {
-        const videoNgx = this.webcamRef?.nativeVideoElement;
-
-        if (!videoNgx || this.response.base64Image) return;
-
+    private async _retrieveEncryptedRecord(faceBase64: string): Promise<any> {
         try {
-            const detection = await faceapi.detectAllFaces(videoNgx, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.2 })).withFaceLandmarks();
+            if (!this.record.zelfProof) throw new Error("missing_zelf_proof");
 
-            const context = this.maskResultCanvasRef?.nativeElement.getContext("2d", { willReadFrequently: true });
+            const base64Data = faceBase64.includes(",") ? faceBase64.split(",")[1] : faceBase64;
 
-            if (!context) return;
+            const payload = {
+                faceBase64: await this._httpWrapperService.encryptMessage(base64Data),
+                type: this.record.type,
+                zelfProof: this.record.zelfProof,
+            };
 
-            // Always redraw the base oval mask first
-            this._drawOvalCenterAndMask();
+            const response = await this._zelfKeysService.retrieve(payload);
 
-            if (detection.length > 0) {
-                this.lastFace = detection[0];
-                this.errorFace = null;
+            await this._vaultService.setLastVerified();
 
-                // Set real dimensions for face positioning calculations
-                this.camera.dimensions.real = {
-                    height: videoNgx.videoHeight,
-                    width: videoNgx.videoWidth,
-                    offsetX: 0,
-                    offsetY: 0,
-                };
+            const encryptedMessage = response?.data?.pgp?.encryptedMessage;
+            const privateKeyArmoured = response?.data?.pgp?.privateKey;
+            const { publicData } = response.data;
 
-                this.face.real = this._getCenterAndRadius(videoNgx.videoHeight, videoNgx.videoWidth);
+            let jsonData = "";
 
-                // Check face positioning
-                this._isFaceCentered(this.lastFace.landmarks.getNose()[3]);
-                this._isFaceClose(this.lastFace.landmarks);
+            if (response?.data?.pgp) {
+                jsonData = await this._vaultService.oneTimeDecryptMessage(encryptedMessage, privateKeyArmoured, this.masterPassword);
 
-                // Draw status oval (green if no errors, red if errors)
-                this._drawStatusOval(context, !this.errorFace);
+                this.masterPassword = "";
+                this.masterPasswordForm.reset();
 
-                if (!this.errorFace) {
-                    ++this.face.successPosition;
-                } else {
-                    this.face.successPosition = 0;
-                }
-
-                if (this.face.successPosition > 0) {
-                    // Capture after 1 successful frame (very responsive)
-                    this.face.successPosition = 0;
-                    this._takePicture.next(); // Trigger image capture
-
-                    clearInterval(this._intervals.detectFace); // Stop detection after capture
-                }
-            } else {
-                this.face.successPosition = 0;
-
-                this.errorFace = {
-                    title: "No face detected",
-                    subtitle: "Please look at the camera",
-                };
-
-                // Draw red oval if no face detected
-                this._drawStatusOval(context, false);
+                delete response?.data?.pgp;
             }
 
-            this._changeDetectorRef.markForCheck();
-        } catch (error: any) {
-            console.error("Face detection error:", error);
+            const decryptedData = JSON.parse(jsonData);
 
-            const context = this.maskResultCanvasRef?.nativeElement.getContext("2d");
+            if (!decryptedData) throw new Error("missing_decrypted_data");
 
-            if (context) this._drawStatusOval(context, false);
+            const resultData: any = {
+                ...response?.data,
+                ...decryptedData,
+            };
+
+            if (this.record.type === "password") {
+                resultData.password = decryptedData.password || "";
+                resultData.username = publicData.username || "";
+                resultData.website = publicData?.website || "";
+            } else if (this.record.type === "credit_card" || this.record.type === "payment-card") {
+                resultData.number = decryptedData.cardNumber || "";
+                resultData.cvv = decryptedData.cvv || "";
+                resultData.expiryMonth = decryptedData.expiryMonth || "";
+                resultData.expiryYear = decryptedData.expiryYear || "";
+            } else if (this.record.type === "notes" || this.record.type === "note") {
+                resultData.title = publicData.title || "";
+                resultData.content = decryptedData.content || "";
+            }
+
+            return {
+                success: true,
+                data: resultData,
+            };
+        } catch (error) {
+            this._handleError(error);
+
+            throw error;
+        }
+    }
+
+    private _sendDecryptionResultToBackground(result: any): void {
+        try {
+            if (typeof chrome !== "undefined" && chrome.runtime) {
+                chrome.runtime.sendMessage({
+                    type: "DECRYPTION_RESULT_FROM_POPOUT",
+                    payload: {
+                        requestId: this.record.requestId,
+                        result: result,
+                    },
+                });
+            }
+        } catch (error) {
+            console.error("Error sending decryption result to background:", error);
         }
     }
 
@@ -581,7 +589,122 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         );
     }
 
+    private async _setMaxVideoDimensions(): Promise<void> {
+        const popupWidth = 375;
+        const popupHeight = 600;
+
+        const viewportWidth = popupWidth;
+        const viewportHeight = popupHeight;
+
+        this.camera.dimensions.video.width = viewportWidth;
+        this.camera.dimensions.video.height = viewportHeight;
+
+        this.camera.dimensions.result.width = viewportWidth;
+        this.camera.dimensions.result.height = viewportHeight;
+
+        this.face.video = this._getCenterAndRadius(viewportHeight, viewportWidth);
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    private _setResultDimensions(type: string, height: number, width: number): void {
+        const dimensions = this.camera.dimensions[type as keyof typeof this.camera.dimensions] as any;
+
+        if (!dimensions) return;
+
+        dimensions.height = height;
+        dimensions.offsetY = 0;
+        dimensions.width = Math.min(2.8 * (this.face.real?.radius?.x || 0), width);
+        dimensions.offsetX = (this.face.real?.center?.x || 0) - dimensions.width / 2;
+    }
+
+    private _setupCloseMessageListener(): void {
+        if (typeof chrome !== "undefined" && chrome.runtime) {
+            chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+                if (message.type === "CLOSE_POPUP") {
+                    this._closeDecryptor();
+
+                    sendResponse({ success: true });
+                }
+
+                return true;
+            });
+        }
+    }
+
+    private _setVideoDimensions(videoElement: HTMLVideoElement) {
+        const containerWidth = 375;
+        const containerHeight = 600;
+
+        videoElement.style.width = `${containerWidth}px`;
+        videoElement.style.height = `${containerHeight}px`;
+        videoElement.style.objectFit = "cover";
+        videoElement.style.objectPosition = "center";
+
+        this.camera.dimensions.video.height = containerHeight;
+        this.camera.dimensions.video.width = containerWidth;
+        this.camera.dimensions.result = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
+
+        this._setResultDimensions("result", containerHeight, containerWidth);
+
+        this.face.video = this._getCenterAndRadius(containerHeight, containerWidth);
+
+        const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
+
+        if (maskResultCanvas) {
+            maskResultCanvas.style.marginLeft = `0px`;
+            maskResultCanvas.style.marginTop = `0px`;
+        }
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    private _startFaceDetectionInterval(): void {
+        if (this._intervals.detectFace) {
+            clearInterval(this._intervals.detectFace);
+
+            this._intervals.detectFace = null;
+        }
+
+        this._intervals.detectFace = setInterval(() => {
+            this._detectFace();
+        }, 100);
+    }
+
+    private _startNgxVideoInterval(): void {
+        if (this._intervals.checkNgxVideo) {
+            clearInterval(this._intervals.checkNgxVideo);
+            this._intervals.checkNgxVideo = null;
+        }
+
+        this._intervals.checkNgxVideo = setInterval(() => this._checkVideoStreamReady(), 100);
+    }
+
+    private _stopCamera(): void {
+        try {
+            if (!this.webcamRef) return;
+
+            const videoElement = this.webcamRef.nativeVideoElement;
+
+            if (!videoElement || !videoElement.srcObject) return;
+
+            const stream = videoElement.srcObject as MediaStream;
+
+            if (!stream) return;
+
+            stream.getTracks().forEach((track) => {
+                track.stop();
+            });
+
+            videoElement.srcObject = null;
+        } catch (error) {
+            console.warn("Error stopping camera:", error);
+        }
+    }
+
     private _takePictureLiveness(img: HTMLImageElement): void {
+        if (!this.masterPasswordFormSubmitted) return;
+
         const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
         const toSendCanvas = this.ToSendCanvasRef?.nativeElement;
 
@@ -589,6 +712,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         if (!this.camera.dimensions.real || !this.camera.dimensions.result) {
             console.error("Camera dimensions not properly initialized");
+
             return;
         }
 
@@ -598,72 +722,29 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this.response.base64Image = toSendCanvas.toDataURL("image/jpeg");
         this.response.isLoading = true;
 
+        this._changeDetectorRef.detectChanges();
+
         this._emitBiometricCapture();
-    }
-
-    private async _emitBiometricCapture(): Promise<void> {
-        try {
-            const base64Data = this.response.base64Image.split(",")[1];
-
-            // Retrieve the password data
-            await this._retrievePasswordData(base64Data);
-        } catch (error) {
-            console.error("Error in biometric capture:", error);
-            this._handleError(error);
-        }
-    }
-
-    private async _retrievePasswordData(faceBase64: string): Promise<any> {
-        try {
-            // For retrieve mode, we need zelfProof and optional password
-            if (!this.passwordData.publicData?.zelfProof) {
-                throw new Error(`No zelfProof available for password decryption.`);
-            }
-
-            // Extract base64 data without the data URL prefix (like data-biometrics does)
-            const base64Data = faceBase64.includes(",") ? faceBase64.split(",")[1] : faceBase64;
-
-            const payload = {
-                zelfProof: this.passwordData.publicData.zelfProof,
-                faceBase64: await this._httpWrapperService.encryptMessage(base64Data),
-                ...(this.masterPassword && { password: this.masterPassword }), // Optional password
-            };
-
-            // Call the retrieve endpoint
-            const response = await this._zelfKeysService.retrievePassword(payload.zelfProof, payload.faceBase64, payload.password);
-
-            // Extract the decrypted password data from the API response
-            const decryptedData = response?.data;
-
-            if (decryptedData?.metadata) {
-                // Create the result with actual decrypted data
-                const result = {
-                    success: true,
-                    data: {
-                        username: decryptedData.metadata.username || decryptedData.publicData?.username || "",
-                        password: decryptedData.metadata.password || "",
-                        website: decryptedData.publicData?.website || this.passwordData.publicData?.website || "",
-                        name: decryptedData.identifier || decryptedData.publicData?.website || "",
-                    },
-                };
-
-                this._popoutCommunicationService.setDecryptionResult(result);
-
-                this.sendDecryptionResultToBackground(result);
-                this.closePopup();
-            } else {
-                throw new Error("No decrypted data received from API");
-            }
-
-            return response;
-        } catch (error) {
-            console.error(`Error retrieving password data:`, error);
-            throw error;
-        }
     }
 
     cameraError(error: WebcamInitError): void {
         this._handleError(error);
+    }
+
+    onBack(): void {
+        this.masterPassword = "";
+        this.masterPasswordForm.reset();
+        this.masterPasswordFormSubmitted = false;
+
+        this.error = null;
+    }
+
+    onBiometricsCancel(): void {
+        this._handleError({ message: "User cancelled decryption" });
+    }
+
+    onCancel(): void {
+        this.onBiometricsCancel();
     }
 
     processImage(webcamImage: WebcamImage): void {
@@ -684,57 +765,11 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         };
     }
 
-    onBack(): void {
-        this.onBiometricsCancel();
-    }
+    submitMasterPassword(): void {
+        if (this.masterPasswordForm.invalid) return;
 
-    private setupCloseMessageListener(): void {
-        if (typeof chrome !== "undefined" && chrome.runtime) {
-            chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-                if (message.type === "CLOSE_POPUP") {
-                    console.log("PasswordDecryptor: Received close popup message");
-
-                    this.closePopup();
-
-                    sendResponse({ success: true });
-                }
-
-                return true; // Keep message channel open
-            });
-        }
-    }
-
-    private closePopup(): void {
-        try {
-            this._stopCamera();
-
-            window.close();
-        } catch (error) {
-            console.warn("Error closing popup:", error);
-        }
-    }
-
-    private sendDecryptionResultToBackground(result: any): void {
-        try {
-            if (typeof chrome !== "undefined" && chrome.runtime) {
-                chrome.runtime.sendMessage({
-                    type: "DECRYPTION_RESULT_FROM_POPOUT",
-                    payload: {
-                        passwordId: this.passwordId,
-                        result: result,
-                    },
-                });
-            }
-        } catch (error) {
-            console.error("Error sending decryption result to background:", error);
-        }
-    }
-
-    getDataTypeIcon(): string {
-        return "lock";
-    }
-
-    getDataTypeTitle(): string {
-        return this.dataTitle;
+        this.masterPassword = this.masterPasswordForm.value.masterPassword as string;
+        this.masterPasswordFormSubmitted = true;
+        this.error = null;
     }
 }

@@ -244,8 +244,8 @@ export class MessageHandler {
             if (tabId) {
                 this.pendingDecryptionRequests = this.pendingDecryptionRequests || new Map();
 
-                if (payload.passwordId && sender.tab?.id) {
-                    this.pendingDecryptionRequests.set(payload.passwordId, sender.tab.id);
+                if (payload.requestId && sender.tab?.id) {
+                    this.pendingDecryptionRequests.set(payload.requestId, sender.tab.id);
                 }
 
                 this._notifyContentScriptsServiceWorkerReady();
@@ -259,13 +259,9 @@ export class MessageHandler {
 
     private async _handleSendDecryptionDataToPopout(payload: MessagePayload): Promise<void> {
         try {
-            if (payload.passwordId && payload.publicData) {
-                this.pendingDecryptionData = {
-                    passwordId: payload.passwordId,
-                    publicData: payload.publicData,
-                    fieldId: payload.fieldId,
-                };
-            }
+            if (!payload.requestId || !payload.publicData) throw new Error("Invalid payload for decryption data");
+
+            this.pendingDecryptionData = payload as DecryptionRequest;
         } catch (error) {
             Logger.error("MessageHandler: Error sending decryption data to popout:", error);
         }
@@ -273,14 +269,14 @@ export class MessageHandler {
 
     private async _handleDecryptionResultFromPopout(payload: MessagePayload): Promise<void> {
         try {
-            const originalTabId = payload.passwordId ? this.pendingDecryptionRequests?.get(payload.passwordId) : undefined;
+            const originalTabId = payload.requestId ? this.pendingDecryptionRequests?.get(payload.requestId) : undefined;
 
             if (originalTabId) {
                 await this._sendDecryptionResultToTab(originalTabId, payload.result);
 
-                this._cleanupDecryptionRequest(payload.passwordId);
+                this._cleanupDecryptionRequest(payload.requestId);
             } else {
-                Logger.error("MessageHandler: No original tab ID found for password:", payload.passwordId);
+                Logger.error("MessageHandler: No original tab ID found for request:", payload.requestId);
             }
         } catch (error) {
             Logger.error("Error handling decryption result from popout:", error);
@@ -289,7 +285,6 @@ export class MessageHandler {
 
     private async _openExtensionUI(page: string): Promise<Tabs.Tab | number | null> {
         try {
-            // Get the extension URL
             const runtime = this.browserApi.runtime;
 
             if (!runtime) {
@@ -349,10 +344,10 @@ export class MessageHandler {
         });
     }
 
-    private _cleanupDecryptionRequest(passwordId?: string): void {
-        if (!passwordId) return;
+    private _cleanupDecryptionRequest(requestId?: string): void {
+        if (!requestId) return;
 
-        this.pendingDecryptionRequests?.delete(passwordId);
+        this.pendingDecryptionRequests?.delete(requestId);
     }
 
     private async _openPopup(): Promise<number | null> {

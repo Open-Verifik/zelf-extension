@@ -38,11 +38,11 @@ export class CommunicationService {
         }
     }
 
-    public async decryptPassword(passwordId: string): Promise<DecryptedPasswordData | null> {
+    public async decryptPassword(requestId: string): Promise<DecryptedPasswordData | null> {
         try {
             const response: AutofillResponse = await this.sendMessage({
                 type: "DECRYPT_PASSWORD",
-                payload: { passwordId },
+                payload: { requestId },
             });
 
             if (response.success && response.data) {

@@ -366,7 +366,18 @@
         "zelfName_is_taken": "यह टैग नाम पहले से लिया गया है",
         "session_init_title": "सत्र प्रारंभ करने में विफल",
         "session_init_message": "क्षमा करें, आपके सत्र को प्रारंभ करने में एक समस्या हुई। यह नेटवर्क समस्या या सर्वर की अनुपलब्धता के कारण हो सकता है। कृपया पुनः प्रयास करें।",
-        "session_init_info": "Zelf नाम सेवा एक्सटेंशन का उपयोग करने के लिए, आपको नेटवर्क पहुंच की आवश्यकता होगी। ऑफ़लाइन समाधान के लिए, हमारे iOS और Android ऐप देखें।"
+        "session_init_info": "Zelf नाम सेवा एक्सटेंशन का उपयोग करने के लिए, आपको नेटवर्क पहुंच की आवश्यकता होगी। ऑफ़लाइन समाधान के लिए, हमारे iOS और Android ऐप देखें।",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "स्वचालित",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "नया भुगतान कार्ड जोड़ें",
                     "edit": "भुगतान कार्ड संपादित करें",
-                    "label": "बैंक का नाम *",
-                    "placeholder": "बैंक का नाम दर्ज करें"
+                    "label": "बैंक का नाम *"
                 },
                 "card_number": {
-                    "label": "कार्ड नंबर *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "कार्ड नंबर *"
                 },
                 "card_holder": {
-                    "label": "कार्ड धारक नाम *",
-                    "placeholder": "कार्ड धारक का नाम दर्ज करें"
+                    "label": "कार्ड धारक नाम *"
                 },
                 "expiry_month": {
                     "label": "समाप्ति महीना *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "समाप्ति वर्ष *",
-                    "placeholder": "YYYY"
+                    "label": "समाप्ति वर्ष *"
                 },
                 "card_type": {
                     "label": "कार्ड प्रकार *",
                     "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "बिलिंग पता",
@@ -648,7 +654,6 @@
                     "aria_label": "फ़ोल्डर संग्रहण टॉगल करें"
                 },
                 "master_password": {
-                    "placeholder": "अपना मास्टर पासवर्ड दर्ज करें",
                     "hint": "हम आपके प्रमाण-पत्र एन्क्रिप्ट और स्टोर करने हेतु {{ walletName }} पासवर्ड की आवश्यकता करते हैं। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "नोट संपादित करें"
                 },
                 "title_field": {
-                    "label": "नोट शीर्षक *",
-                    "placeholder": "नोट शीर्षक दर्ज करें"
+                    "label": "नोट शीर्षक *"
                 },
                 "content": {
                     "label": "नोट सामग्री *",
-                    "placeholder": "अपना नोट यहाँ लिखें... आप कई पैराग्राफ, सूचियाँ या कोई भी सामग्री जोड़ सकते हैं जिसे आपको सुरक्षित रूप से याद रखना है।",
                     "hint": "आपकी नोट सामग्री एन्क्रिप्ट की जाएगी और सुरक्षित रूप से संग्रहीत होगी। आप जितना चाहें लिख सकते हैं।"
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "फ़ोल्डर संगठन टॉगल करें"
                 },
                 "master_password": {
-                    "placeholder": "अपना मास्टर पासवर्ड दर्ज करें",
                     "hint": "हम आपके प्रमाण-पत्र एन्क्रिप्ट और स्टोर करने हेतु {{ walletName }} पासवर्ड की आवश्यकता करते हैं। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "पासवर्ड जोड़ें",
                 "website": {
-                    "label": "वेबसाइट URL *",
-                    "placeholder": "https://example.com"
+                    "label": "वेबसाइट URL *"
                 },
                 "title_field": {
                     "label": "शीर्षक *",
                     "placeholder": "शीर्षक दर्ज करें"
                 },
                 "email": {
-                    "label": "ईमेल *",
-                    "placeholder": "ईमेल दर्ज करें"
+                    "label": "ईमेल *"
                 },
                 "password": {
-                    "label": "पासवर्ड *",
-                    "placeholder": "पासवर्ड दर्ज करें"
+                    "label": "पासवर्ड *"
                 },
                 "folder": {
                     "label": "फ़ोल्डर में व्यवस्थित करें",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "मास्टर पासवर्ड *",
-                    "placeholder": "अपना मास्टर पासवर्ड दर्ज करें",
                     "hint": "हम आपके प्रमाण-पत्र एन्क्रिप्ट और स्टोर करने हेतु {{ walletName }} पासवर्ड की आवश्यकता करते हैं। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "आपका भुगतान कार्ड बनाते समय एक अप्रत्याशित त्रुटि हुई।",
                 "try_again": "पुनः प्रयास करें",
                 "no_data": "कोई परिणाम डेटा नहीं मिला"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "कृपया कैमरे की ओर देखें"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "डिक्रिप्शन",
-            "loading_camera": "कैमरा प्रारंभ कर रहे हैं...",
-            "permission_required": "कैमरा अनुमति आवश्यक",
-            "permission_allow": "कृपया कैमरा एक्सेस की अनुमति दें",
-            "retry": "पुनः प्रयास करें",
-            "low_quality_title": "कम गुणवत्ता वाली छवि",
-            "low_quality_message": "कृपया बेहतर प्रकाश के साथ पुनः प्रयास करें",
-            "processing": "डिक्रिप्ट कर रहे हैं...",
-            "cancel": "रद्द करें"
-        },
         "password_biometrics": {
             "back_to_details": "पासवर्ड विवरण पर वापस जाएं",
             "back_to_form": "पासवर्ड फॉर्म पर वापस जाएं",
@@ -1389,6 +1387,17 @@
                     "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपनी नोट्स सूची में देख सकते हैं या एक और नोट जोड़ सकते हैं।",
                     "error_message": "कृपया ऊपर दी गई त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
                     "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। कृपया विवरण के लिए ऊपर API प्रतिक्रिया देखें।"
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "कोई API परिणाम उपलब्ध नहीं"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

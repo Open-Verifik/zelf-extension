@@ -3,16 +3,16 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
-import { HttpWrapperService } from "app/http-wrapper.service";
 import { DataPassingService } from "app/services/data-passing.service";
 import { ZelfKeysService } from "app/services/zelf-keys.service";
 import { WalletService } from "app/wallet.service";
 import { DecryptedItemData } from "../../../models/zelf-key-item.model";
 import { DataBiometricsComponent } from "../data-biometrics/data-biometrics.component";
+import { VaultService } from "app/vault.service";
 
 export interface BiometricResult {
     faceBase64: string;
-    password?: string;
+    password: string;
     retrievedData?: DecryptedItemData;
 }
 
@@ -41,11 +41,11 @@ export class BiometricsBottomSheetComponent implements OnInit {
         @Inject(MAT_BOTTOM_SHEET_DATA) public data: BiometricsBottomSheetData,
         private _bottomSheetRef: MatBottomSheetRef<BiometricsBottomSheetComponent>,
         private _changeDetectorRef: ChangeDetectorRef,
-        private _translocoService: TranslocoService,
-        private _walletService: WalletService,
-        private _zelfKeysService: ZelfKeysService,
         private _dataPassingService: DataPassingService,
-        private _httpWrapperService: HttpWrapperService
+        private _translocoService: TranslocoService,
+        private _vaultService: VaultService,
+        private _walletService: WalletService,
+        private _zelfKeysService: ZelfKeysService
     ) {
         this.itemData = data.itemData;
         this.itemType = data.itemType;
@@ -54,15 +54,12 @@ export class BiometricsBottomSheetComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         await this._setWallet();
-        // Token is automatically refreshed by AuthService when needed
     }
 
     private async _setWallet(): Promise<void> {
         const wallet = await this._walletService.getFirstWalletFromStorage();
 
-        if (!wallet?.name) {
-            return;
-        }
+        if (!wallet?.name) return;
 
         this.wallet = wallet;
         this._changeDetectorRef.detectChanges();
@@ -151,17 +148,27 @@ export class BiometricsBottomSheetComponent implements OnInit {
         return response;
     }
 
-    private async _retrieveDataByCategory(faceBase64: string, encryptedPassword?: string): Promise<any> {
+    private async _retrieveDataByCategory(faceBase64: string, password: string): Promise<any> {
         if (!this.itemData?.zelfProof) throw new Error(`No zelfProof available for ${this.itemType}. Cannot proceed with retrieval.`);
 
         const payload = {
             zelfProof: this.itemData.zelfProof,
-            faceBase64: faceBase64, // Already encrypted from data-biometrics
-            ...(encryptedPassword && { password: encryptedPassword }),
+            faceBase64: faceBase64,
+            type: this.itemType,
         };
 
-        // Use the generic retrieve method which works for all types
-        return await this._zelfKeysService.retrieve(payload);
+        const response = await this._zelfKeysService.retrieve(payload);
+
+        if (response?.data?.pgp) {
+            const encryptedMessage = response?.data?.pgp?.encryptedMessage;
+            const privateKeyArmoured = response?.data?.pgp?.privateKey;
+
+            const jsonData = await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, password);
+
+            response.data.metadata = JSON.parse(jsonData);
+        }
+
+        return response;
     }
 
     getTitle(): string {
@@ -172,7 +179,6 @@ export class BiometricsBottomSheetComponent implements OnInit {
                 return this._translocoService.translate(`zelf_keys.biometrics_bottom_sheet.${actionKey}_payment_card`);
             case "note":
                 return this._translocoService.translate(`zelf_keys.biometrics_bottom_sheet.${actionKey}_note`);
-            case "password":
             default:
                 return this._translocoService.translate(`zelf_keys.biometrics_bottom_sheet.${actionKey}_password`);
         }
@@ -184,7 +190,6 @@ export class BiometricsBottomSheetComponent implements OnInit {
                 return this._translocoService.translate("zelf_keys.biometrics_bottom_sheet.instructions.payment_card");
             case "note":
                 return this._translocoService.translate("zelf_keys.biometrics_bottom_sheet.instructions.note");
-            case "password":
             default:
                 return this._translocoService.translate("zelf_keys.biometrics_bottom_sheet.instructions.password");
         }
@@ -234,15 +239,14 @@ export class BiometricsBottomSheetComponent implements OnInit {
         }
     }
 
-    async onBiometricsSuccess(biometricData: BiometricResult): Promise<void> {
+    async onBiometricsSuccess(biometricData: any): Promise<void> {
         if (this.mode === "decrypt") {
             try {
                 this.isLoading = true;
                 this.errorMessage = "";
                 this._changeDetectorRef.detectChanges();
 
-                const encryptedPassword = biometricData.password ? await this._httpWrapperService.encryptMessage(biometricData.password) : undefined;
-                const retrievedData = await this._retrieveDataByCategory(biometricData.faceBase64, encryptedPassword);
+                const retrievedData = await this._retrieveDataByCategory(biometricData.faceBase64, biometricData.password);
 
                 this._bottomSheetRef.dismiss({
                     ...biometricData,
@@ -305,7 +309,7 @@ export class BiometricsBottomSheetComponent implements OnInit {
 
             this.isLoading = false;
             this.hasStorageError = true;
-            // Try to get a translatable error message
+
             let translatedError: string | null = null;
 
             const errorKeys = [error?.error?.error, error?.error?.message, error?.message].filter(Boolean);

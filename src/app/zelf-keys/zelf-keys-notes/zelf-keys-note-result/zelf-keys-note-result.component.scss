@@ -237,6 +237,13 @@
             flex: 1;
         }
     }
+
+    &__walrus-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
 }
 
 @keyframes spin {

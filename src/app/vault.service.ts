@@ -103,6 +103,36 @@ export class VaultService {
                 throw error.message;
             }
 
+            if (/incorrect key passphrase/i.test(error?.message)) throw new Error("incorrect_passphrase");
+
+            throw error;
+        }
+    }
+
+    async oneTimeDecryptMessage(encryptedMessage: string, privateKeyArmoured: string, passphrase: string): Promise<string> {
+        try {
+            const privateKey = await openpgp.readPrivateKey({
+                armoredKey: privateKeyArmoured,
+            });
+
+            const decryptedPrivateKey = await openpgp.decryptKey({
+                privateKey,
+                passphrase,
+            });
+
+            const message = await openpgp.readMessage({
+                armoredMessage: encryptedMessage,
+            });
+
+            const { data: decrypted } = await openpgp.decrypt({
+                message,
+                decryptionKeys: decryptedPrivateKey,
+            });
+
+            return decrypted as string;
+        } catch (error: any) {
+            if (/incorrect key passphrase/i.test(error?.message)) throw new Error("incorrect_passphrase");
+
             throw error;
         }
     }

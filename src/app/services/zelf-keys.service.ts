@@ -70,25 +70,9 @@ export class ZelfKeysService {
         private _authService: AuthService
     ) {}
 
-    /**
-     * Retrieve a password (wrapper around generic retrieve for clarity)
-     */
-    async retrievePassword(zelfProof: string, faceBase64: string, password?: string): Promise<any> {
-        const token = await this._authService.checkAccessToken();
-        const payload: any = { zelfProof, faceBase64 };
-
-        if (password) payload.password = password;
-
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}${this.apiPath}/retrieve`, payload, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-    }
-
-    /**
-     * List passwords stored via ZelfKeys
-     */
     async listPasswords(): Promise<any> {
         const token = await this._authService.checkAccessToken();
+
         return this._httpWrapper.sendRequest(
             "get",
             `${this.baseUrl}${this.apiPath}/list?category=password`,
@@ -97,11 +81,9 @@ export class ZelfKeysService {
         );
     }
 
-    /**
-     * List notes stored via ZelfKeys
-     */
     async listNotes(): Promise<any> {
         const token = await this._authService.checkAccessToken();
+
         return this._httpWrapper.sendRequest(
             "get",
             `${this.baseUrl}${this.apiPath}/list?category=notes`,
@@ -110,9 +92,6 @@ export class ZelfKeysService {
         );
     }
 
-    /**
-     * Store encrypted notes
-     */
     async storeNotes(request: {
         title: string;
         keyValuePairs: any;
@@ -123,6 +102,7 @@ export class ZelfKeysService {
         zelfProof?: string;
     }): Promise<any> {
         const token = await this._authService.checkAccessToken();
+
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}${this.apiPath}/store/notes`, request, {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -158,6 +138,7 @@ export class ZelfKeysService {
     async retrieve(request: RetrieveRequest): Promise<any> {
         const token = await this._authService.checkAccessToken();
         const url = `${this.baseUrl}${this.apiPath}/retrieve`;
+
         return this._httpWrapper.sendRequest("post", url, request, {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -170,6 +151,7 @@ export class ZelfKeysService {
      */
     async preview(request: PreviewRequest): Promise<any> {
         const url = `${this.baseUrl}${this.apiPath}/preview`;
+
         return this._httpWrapper.sendRequest("post", url, request);
     }
 

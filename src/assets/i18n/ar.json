@@ -366,7 +366,18 @@
         "zelfName_is_taken": "اسم العلامة هذا مستخدم بالفعل",
         "session_init_title": "فشل تهيئة الجلسة",
         "session_init_message": "عذراً، حدثت مشكلة في تهيئة جلستك. قد يكون هذا بسبب مشكلة في الشبكة أو عدم توفر الخادم. يرجى المحاولة مرة أخرى.",
-        "session_init_info": "لاستخدام امتداد خدمة اسم Zelf، ستحتاج إلى الوصول إلى الشبكة. للحل دون اتصال، تحقق من تطبيقات iOS و Android الخاصة بنا."
+        "session_init_info": "لاستخدام امتداد خدمة اسم Zelf، ستحتاج إلى الوصول إلى الشبكة. للحل دون اتصال، تحقق من تطبيقات iOS و Android الخاصة بنا.",
+        "camera_dimensions_not_properly_initialized": "لم يتم تهيئة الكاميرا بشكل صحيح",
+        "error_closing_popup": "خطأ في إغلاق النافذة",
+        "error_initializing_biometrics": "خطأ في تهيئة القياسات الحيوية",
+        "error_sending_decryption_result_to_background": "خطأ في التواصل مع الامتداد",
+        "error_stopping_camera": "خطأ في إيقاف الكاميرا",
+        "face_detection_error": "فشل اكتشاف الوجه",
+        "incorrect_passphrase": "تم إدخال كلمة المرور الرئيسية بشكل غير صحيح. يرجى المحاولة مرة أخرى.",
+        "no_decrypted_data_received_from_api": "لم يتم استلام بيانات مفكوكة التشفير من الخادم",
+        "no_zelfproof_available_for_password_decryption": "لا يوجد ZelfProof متاح لفك تشفير كلمة المرور",
+        "unknown_error": "حدث خطأ غير معروف",
+        "user_cancelled_decryption": "تم إلغاء فك التشفير"
     },
     "swap": {
         "automatic": "تلقائي",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "إضافة بطاقة دفع جديدة",
                     "edit": "تعديل بطاقة دفع",
-                    "label": "اسم البنك *",
-                    "placeholder": "أدخل اسم البنك"
+                    "label": "اسم البنك *"
                 },
                 "card_number": {
-                    "label": "رقم البطاقة *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "رقم البطاقة *"
                 },
                 "card_holder": {
-                    "label": "اسم حامل البطاقة *",
-                    "placeholder": "أدخل اسم حامل البطاقة"
+                    "label": "اسم حامل البطاقة *"
                 },
                 "expiry_month": {
                     "label": "شهر الانتهاء *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "سنة الانتهاء *",
-                    "placeholder": "YYYY"
+                    "label": "سنة الانتهاء *"
                 },
                 "card_type": {
                     "label": "نوع البطاقة *",
                     "placeholder": "اختر نوع البطاقة"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "عنوان الفواتير",
@@ -648,7 +654,6 @@
                     "aria_label": "تبديل تخزين المجلد"
                 },
                 "master_password": {
-                    "placeholder": "أدخل كلمة المرور الرئيسية",
                     "hint": "نحتاج كلمة مرور {{ walletName }} لتشفير وتخزين بيانات اعتمادك. يُطلَب التحقق الحيوي دائمًا."
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "تعديل الملاحظة"
                 },
                 "title_field": {
-                    "label": "عنوان الملاحظة *",
-                    "placeholder": "أدخل عنوان الملاحظة"
+                    "label": "عنوان الملاحظة *"
                 },
                 "content": {
                     "label": "محتوى الملاحظة *",
-                    "placeholder": "اكتب ملاحظتك هنا... يمكنك تضمين عدة فقرات أو قوائم أو أي محتوى آخر تريد تذكره بأمان.",
                     "hint": "سيتم تشفير محتوى ملاحظتك وتخزينه بأمان. يمكنك كتابة ما تريد."
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "تبديل تنظيم المجلد"
                 },
                 "master_password": {
-                    "placeholder": "أدخل كلمة المرور الرئيسية",
                     "hint": "نحتاج كلمة مرور {{ walletName }} لتشفير وتخزين بيانات اعتمادك. يُطلَب التحقق الحيوي دائمًا."
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "إضافة كلمة مرور",
                 "website": {
-                    "label": "رابط الموقع *",
-                    "placeholder": "https://example.com"
+                    "label": "رابط الموقع *"
                 },
                 "title_field": {
                     "label": "العنوان *",
                     "placeholder": "أدخل العنوان"
                 },
                 "email": {
-                    "label": "البريد الإلكتروني *",
-                    "placeholder": "أدخل البريد الإلكتروني"
+                    "label": "البريد الإلكتروني *"
                 },
                 "password": {
-                    "label": "كلمة المرور *",
-                    "placeholder": "أدخل كلمة المرور"
+                    "label": "كلمة المرور *"
                 },
                 "folder": {
                     "label": "تنظيم في مجلد",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "كلمة المرور الرئيسية *",
-                    "placeholder": "أدخل كلمة المرور الرئيسية",
                     "hint": "نحتاج كلمة مرور {{ walletName }} لتشفير وتخزين بيانات اعتمادك. يُطلَب التحقق الحيوي دائمًا."
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "حدث خطأ غير متوقع أثناء إنشاء بطاقة الدفع الخاصة بك.",
                 "try_again": "حاول مرة أخرى",
                 "no_data": "لم يتم العثور على بيانات النتيجة"
+            },
+            "walrus": {
+                "title": "تخزين Walrus",
+                "labels": {
+                    "blob_id": "معرف الكتلة",
+                    "public_url": "رابط عام",
+                    "explorer_url": "رابط المستكشف",
+                    "status": "الحالة"
+                },
+                "view_link": "عرض على Walrus",
+                "explorer_link": "عرض على المستكشف"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "يرجى النظر إلى الكاميرا"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "فك التشفير",
-            "loading_camera": "جاري تهيئة الكاميرا...",
-            "permission_required": "إذن الكاميرا مطلوب",
-            "permission_allow": "يرجى السماح بالوصول إلى الكاميرا",
-            "retry": "إعادة المحاولة",
-            "low_quality_title": "صورة منخفضة الجودة",
-            "low_quality_message": "يرجى المحاولة مرة أخرى بإضاءة أفضل",
-            "processing": "جاري فك التشفير...",
-            "cancel": "إلغاء"
-        },
         "password_biometrics": {
             "back_to_details": "العودة إلى تفاصيل كلمة المرور",
             "back_to_form": "العودة إلى نموذج كلمة المرور",
@@ -1389,6 +1387,17 @@
                     "success_message": "تم تخزين ملاحظتك بشكل آمن الآن. يمكنك عرضها في قائمة الملاحظات أو إضافة ملاحظة أخرى.",
                     "error_message": "يرجى مراجعة تفاصيل الخطأ أعلاه والمحاولة مرة أخرى. إذا استمرت المشكلة، اتصل بالدعم.",
                     "unknown_message": "لم يتمكن النظام من تحديد الحالة. يرجى التحقق من استجابة API أعلاه للحصول على التفاصيل."
+                },
+                "walrus": {
+                    "title": "تخزين Walrus",
+                    "labels": {
+                        "blob_id": "معرف الكتلة",
+                        "public_url": "رابط عام",
+                        "explorer_url": "رابط المستكشف",
+                        "status": "الحالة"
+                    },
+                    "view_link": "عرض على Walrus",
+                    "explorer_link": "عرض على المستكشف"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "لا توجد نتيجة API متاحة"
+            }
+        },
+        "popout_decryptor": {
+            "back": "رجوع",
+            "cancel": "إلغاء",
+            "loading_camera": "تهيئة الكاميرا...",
+            "low_quality_message": "يرجى المحاولة مرة أخرى بإضاءة أفضل",
+            "low_quality_title": "صورة منخفضة الجودة",
+            "master_password_placeholder": "أدخل كلمة المرور الرئيسية",
+            "permission_allow": "يرجى السماح بالوصول إلى الكاميرا",
+            "permission_required": "إذن الكاميرا مطلوب",
+            "processing": "فك التشفير...",
+            "retry": "إعادة المحاولة",
+            "title": "فك تشفير {{ type }}",
+            "unlock": "المتابعة إلى التحقق البيومتري",
+            "types": {
+                "credit_card": "بطاقة الدفع",
+                "note": "ملاحظة",
+                "notes": "ملاحظة",
+                "password": "كلمة المرور",
+                "payment-card": "بطاقة الدفع",
+                "wallet": "المحفظة",
+                "zotp": "ZOTP"
             }
         }
     },

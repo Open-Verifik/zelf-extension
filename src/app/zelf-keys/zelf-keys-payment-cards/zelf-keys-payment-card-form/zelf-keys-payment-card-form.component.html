@@ -1,4 +1,4 @@
-<div class="payment-card-form">
+<div class="payment-card-form" *transloco="let t">
     <div class="form-header">
         <button (click)="onCancel()" mat-flat-button class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40">
             <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7,7 +7,7 @@
                 />
             </svg>
         </button>
-        <h2>{{ isNewCard ? ("billing.payment_cards.form.title.add" | transloco) : ("billing.payment_cards.form.title.edit" | transloco) }}</h2>
+        <h2>{{ isNewCard ? t("billing.payment_cards.form.title.add") : t("billing.payment_cards.form.title.edit") }}</h2>
     </div>
 
     <div class="form-content">
@@ -19,15 +19,23 @@
                             <input
                                 (ngModelChange)="checkFormValidity()"
                                 [(ngModel)]="cardData.bankName"
-                                [placeholder]="'billing.payment_cards.form.title.placeholder' | transloco"
                                 class="zelf-input__control zelf-input__control--floating-label"
+                                maxlength="64"
                                 id="bankName"
                                 name="bankName"
                                 required
                                 type="text"
                             />
 
-                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.title.label" | transloco }}</label>
+                            <label class="zelf-input__floating-label">{{ t("billing.payment_cards.form.title.label") }}</label>
+
+                            <div
+                                [class.zelf-input__character-count--warning]="(cardData.bankName.length || 0) > 56"
+                                [class.zelf-input__character-count--error]="(cardData.bankName.length || 0) === 64"
+                                class="zelf-input__character-count"
+                            >
+                                {{ cardData.bankName.length || 0 }}/64
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,11 +54,11 @@
                     <div class="card-number">{{ getMaskedCardNumber() || "•••• •••• •••• ••••" }}</div>
                     <div class="card-details">
                         <div class="card-holder">
-                            <span class="label">{{ "billing.payment_cards.card.card_holder" | transloco }}</span>
-                            <span class="value">{{ cardData.cardName || ("billing.payment_cards.card.no_card_holder" | transloco) }}</span>
+                            <span class="label">{{ t("billing.payment_cards.card.card_holder") }}</span>
+                            <span class="value">{{ cardData.cardName || t("billing.payment_cards.card.no_card_holder") }}</span>
                         </div>
                         <div class="card-expiry">
-                            <span class="label">{{ "billing.payment_cards.card.expires" | transloco }}</span>
+                            <span class="label">{{ t("billing.payment_cards.card.expires") }}</span>
                             <span class="value">{{ cardData.expiryMonth || "MM" }}/{{ cardData.expiryYear || "YY" }}</span>
                         </div>
                     </div>
@@ -64,7 +72,6 @@
                         <input
                             (ngModelChange)="onCardNumberChange()"
                             [(ngModel)]="cardData.cardNumber"
-                            [placeholder]="'billing.payment_cards.form.card_number.placeholder' | transloco"
                             class="zelf-input__control zelf-input__control--floating-label"
                             id="cardNumber"
                             maxlength="19"
@@ -73,7 +80,15 @@
                             type="text"
                         />
 
-                        <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.card_number.label" | transloco }}</label>
+                        <label class="zelf-input__floating-label">{{ t("billing.payment_cards.form.card_number.label") }}</label>
+
+                        <div
+                            [class.zelf-input__character-count--warning]="(cardData.cardNumber.length || 0) > 15"
+                            [class.zelf-input__character-count--error]="(cardData.cardNumber.length || 0) === 19"
+                            class="zelf-input__character-count"
+                        >
+                            {{ cardData.cardNumber.length || 0 }}/19
+                        </div>
                     </div>
                 </div>
 
@@ -82,16 +97,22 @@
                         <input
                             (ngModelChange)="checkFormValidity()"
                             [(ngModel)]="cardData.cardName"
-                            [placeholder]="'billing.payment_cards.form.card_holder.placeholder' | transloco"
                             class="zelf-input__control zelf-input__control--floating-label"
                             id="cardName"
-                            maxlength="255"
                             name="cardName"
                             required
                             type="text"
                         />
 
-                        <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.card_holder.label" | transloco }}</label>
+                        <label class="zelf-input__floating-label">{{ t("billing.payment_cards.form.card_holder.label") }}</label>
+
+                        <div
+                            [class.zelf-input__character-count--warning]="(cardData.cardName.length || 0) > 45"
+                            [class.zelf-input__character-count--error]="(cardData.cardName.length || 0) === 50"
+                            class="zelf-input__character-count"
+                        >
+                            {{ cardData.cardName.length || 0 }}/50
+                        </div>
                     </div>
                 </div>
 
@@ -120,7 +141,7 @@
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
-                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.expiry_month.label" | transloco }}</label>
+                            <label class="zelf-input__floating-label">{{ t("billing.payment_cards.form.expiry_month.label") }}</label>
                         </div>
                     </div>
 
@@ -129,7 +150,6 @@
                             <input
                                 (ngModelChange)="checkFormValidity()"
                                 [(ngModel)]="cardData.expiryYear"
-                                [placeholder]="'billing.payment_cards.form.expiry_year.placeholder' | transloco"
                                 class="zelf-input__control zelf-input__control--floating-label"
                                 id="expiryYear"
                                 max="2030"
@@ -138,7 +158,8 @@
                                 required
                                 type="number"
                             />
-                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.expiry_year.label" | transloco }}</label>
+
+                            <label class="zelf-input__floating-label">{{ t("billing.payment_cards.form.expiry_year.label") }}</label>
                         </div>
                     </div>
 
@@ -147,7 +168,6 @@
                             <input
                                 (ngModelChange)="onCvvChange()"
                                 [(ngModel)]="cardData.cvv"
-                                [placeholder]="'billing.payment_cards.form.cvv.placeholder' | transloco"
                                 class="zelf-input__control zelf-input__control--floating-label"
                                 id="cvv"
                                 maxlength="4"
@@ -155,7 +175,16 @@
                                 required
                                 type="password"
                             />
-                            <label class="zelf-input__floating-label">{{ "billing.payment_cards.form.cvv.label" | transloco }}</label>
+
+                            <label class="zelf-input__floating-label">{{ t("billing.payment_cards.form.cvv.label") }}</label>
+
+                            <div
+                                [class.zelf-input__character-count--warning]="(cardData.cvv.length || 0) > 3"
+                                [class.zelf-input__character-count--error]="(cardData.cvv.length || 0) === 4"
+                                class="zelf-input__character-count"
+                            >
+                                {{ cardData.cvv.length || 0 }}/4
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -164,7 +193,7 @@
             <!-- Folder Section -->
             <div class="form-section">
                 <div class="folder-toggle">
-                    <label class="form-label">{{ "billing.payment_cards.form.folder.label" | transloco }}</label>
+                    <label class="form-label">{{ t("billing.payment_cards.form.folder.label") }}</label>
                     <div
                         class="zelf-toggle"
                         [class.zelf-toggle--active]="cardData.insideFolder"
@@ -172,7 +201,7 @@
                         tabindex="0"
                         role="switch"
                         [attr.aria-checked]="cardData.insideFolder"
-                        [attr.aria-label]="'billing.payment_cards.form.folder.aria_label' | transloco"
+                        [attr.aria-label]="t('billing.payment_cards.form.folder.aria_label')"
                     >
                         <div class="zelf-toggle__track"></div>
                         <div class="zelf-toggle__thumb"></div>
@@ -186,7 +215,7 @@
                             class="zelf-input__control"
                             [(ngModel)]="cardData.folder"
                             name="folder"
-                            [placeholder]="'billing.payment_cards.form.folder.placeholder' | transloco"
+                            [placeholder]="t('billing.payment_cards.form.folder.placeholder')"
                         />
                     </div>
                 </div>
@@ -203,7 +232,7 @@
                             [(ngModel)]="cardData.masterPassword"
                             (ngModelChange)="checkFormValidity()"
                             class="zelf-input__control"
-                            [placeholder]="'billing.payment_cards.form.master_password.placeholder' | transloco"
+                            [placeholder]="t('billing.payment_cards.form.master_password.placeholder')"
                         />
 
                         <button
@@ -215,21 +244,17 @@
                             <ng-container *ngTemplateOutlet="showMasterPassword ? openEye : closedEye"></ng-container>
                         </button>
                     </div>
-                    <small class="form-hint">{{ "billing.payment_cards.form.master_password.hint" | transloco: { walletName: wallet.name } }}</small>
+                    <small class="form-hint">{{ t("billing.payment_cards.form.master_password.hint", { walletName: wallet.name }) }}</small>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="form-actions">
                 <button type="button" class="zelf-button zelf-button--tertiary" (click)="onCancel()">
-                    {{ "billing.payment_cards.form.buttons.cancel" | transloco }}
+                    {{ t("billing.payment_cards.form.buttons.cancel") }}
                 </button>
                 <button type="submit" class="zelf-button zelf-button--primary" [disabled]="!formValid">
-                    {{
-                        isNewCard
-                            ? ("billing.payment_cards.form.buttons.create" | transloco)
-                            : ("billing.payment_cards.form.buttons.update" | transloco)
-                    }}
+                    {{ isNewCard ? t("billing.payment_cards.form.buttons.create") : t("billing.payment_cards.form.buttons.update") }}
                 </button>
             </div>
         </form>

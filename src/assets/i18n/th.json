@@ -366,7 +366,18 @@
         "zelfName_is_taken": "Tag Name นี้ถูกใช้งานแล้ว",
         "session_init_title": "การเริ่มต้นเซสชันล้มเหลว",
         "session_init_message": "ขออภัย มีปัญหาในการเริ่มต้นเซสชันของคุณ อาจเกิดจากปัญหาของเครือข่ายหรือเซิร์ฟเวอร์ไม่พร้อมใช้งาน กรุณาลองอีกครั้ง",
-        "session_init_info": "เพื่อใช้ส่วนขยาย Zelf Name Service คุณจะต้องเข้าถึงเครือข่าย สำหรับโซลูชันออฟไลน์ ตรวจสอบแอป iOS และ Android ของเรา"
+        "session_init_info": "เพื่อใช้ส่วนขยาย Zelf Name Service คุณจะต้องเข้าถึงเครือข่าย สำหรับโซลูชันออฟไลน์ ตรวจสอบแอป iOS และ Android ของเรา",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "อัตโนมัติ",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "Add New Payment Card",
                     "edit": "Edit Payment Card",
-                    "label": "ชื่อธนาคาร *",
-                    "placeholder": "ใส่ชื่อธนาคาร"
+                    "label": "ชื่อธนาคาร *"
                 },
                 "card_number": {
-                    "label": "Card Number *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "Card Number *"
                 },
                 "card_holder": {
-                    "label": "Card Holder Name *",
-                    "placeholder": "Enter card holder name"
+                    "label": "Card Holder Name *"
                 },
                 "expiry_month": {
                     "label": "Expiry Month *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "Expiry Year *",
-                    "placeholder": "YYYY"
+                    "label": "Expiry Year *"
                 },
                 "card_type": {
                     "label": "Card Type *",
                     "placeholder": "Select card type"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "Billing Address",
@@ -648,7 +654,6 @@
                     "aria_label": "Toggle folder storage"
                 },
                 "master_password": {
-                    "placeholder": "Enter your master password",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "Edit Note"
                 },
                 "title_field": {
-                    "label": "Note Title *",
-                    "placeholder": "Enter note title"
+                    "label": "Note Title *"
                 },
                 "content": {
                     "label": "Note Content *",
-                    "placeholder": "Write your note here... You can include multiple paragraphs, lists, or any other content you need to remember securely.",
                     "hint": "Your note content will be encrypted and stored securely. You can write as much as you need."
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "Toggle folder organization"
                 },
                 "master_password": {
-                    "placeholder": "Enter your master password",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "Add Password",
                 "website": {
-                    "label": "Website URL *",
-                    "placeholder": "https://example.com"
+                    "label": "Website URL *"
                 },
                 "title_field": {
                     "label": "Title *",
                     "placeholder": "Enter title"
                 },
                 "email": {
-                    "label": "Email *",
-                    "placeholder": "Enter email"
+                    "label": "Email *"
                 },
                 "password": {
-                    "label": "Password *",
-                    "placeholder": "Enter password"
+                    "label": "Password *"
                 },
                 "folder": {
                     "label": "Organize in Folder",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "Master Password *",
-                    "placeholder": "Enter your master password",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "เกิดข้อผิดพลาดที่ไม่คาดคิดขณะสร้างบัตรชำระเงินของคุณ",
                 "try_again": "ลองอีกครั้ง",
                 "no_data": "ไม่พบข้อมูลผลลัพธ์"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "กรุณามองกล้อง"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "การถอดรหัส",
-            "loading_camera": "กำลังเริ่มต้นกล้อง...",
-            "permission_required": "ต้องการสิทธิ์กล้อง",
-            "permission_allow": "โปรดอนุญาตการเข้าถึงกล้อง",
-            "retry": "ลองอีกครั้ง",
-            "low_quality_title": "ภาพคุณภาพต่ำ",
-            "low_quality_message": "โปรดลองอีกครั้งด้วยแสงที่ดีกว่า",
-            "processing": "กำลังถอดรหัส...",
-            "cancel": "ยกเลิก"
-        },
         "password_biometrics": {
             "back_to_details": "กลับไปที่รายละเอียดรหัสผ่าน",
             "back_to_form": "กลับไปที่แบบฟอร์มรหัสผ่าน",
@@ -1389,6 +1387,17 @@
                     "success_message": "บันทึกของคุณถูกจัดเก็บอย่างปลอดภัยแล้ว คุณสามารถดูได้ในรายการบันทึกของคุณหรือเพิ่มบันทึกอื่น",
                     "error_message": "โปรดตรวจสอบรายละเอียดข้อผิดพลาดด้านบนและลองอีกครั้ง หากปัญหายังคงอยู่ ติดต่อฝ่ายสนับสนุน",
                     "unknown_message": "ระบบไม่สามารถระบุสถานะได้ โปรดตรวจสอบการตอบกลับของ API ด้านบนเพื่อดูรายละเอียด"
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "ไม่มีผลลัพธ์ API"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

@@ -1151,6 +1151,10 @@ h3 {
             background: transparent;
             margin: 0;
 
+            &--floating-label {
+                padding: 32px 16px 6px;
+            }
+
             &::-webkit-scrollbar {
                 width: 8px;
             }
@@ -1174,6 +1178,32 @@ h3 {
             &::-webkit-scrollbar-corner {
                 background: transparent;
             }
+        }
+    }
+
+    &__character-count {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+        font-size: 11px;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        pointer-events: none;
+        background-color: variables.$themeCard;
+        padding: 2px 6px;
+        border-radius: 4px;
+
+        &--warning {
+            color: variables.$warning;
+        }
+
+        &--error {
+            color: variables.$error;
+        }
+
+        &--button-offset {
+            right: 56px;
         }
     }
 }

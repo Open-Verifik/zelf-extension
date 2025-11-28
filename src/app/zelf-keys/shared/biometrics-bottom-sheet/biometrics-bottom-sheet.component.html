@@ -33,18 +33,20 @@
 
         <!-- Normal State -->
         <ng-container *ngIf="!hasStorageError">
-        <div *ngIf="errorMessage" class="biometrics-bottom-sheet__error">
-            <p>{{ errorMessage }}</p>
-        </div>
-        <data-biometrics
-            [itemData]="itemData"
-            [isDecryptMode]="mode === 'decrypt'"
-            (biometricsSuccess)="onBiometricsSuccess($event)"
-            (biometricsCancel)="onBiometricsCancel()"
-        ></data-biometrics>
-        <div *ngIf="isLoading" class="biometrics-bottom-sheet__loading">
-            <p>{{ t("zelf_keys.biometrics.storing") }}</p>
-        </div>
+            <div *ngIf="errorMessage" class="biometrics-bottom-sheet__error">
+                <p>{{ errorMessage }}</p>
+            </div>
+
+            <data-biometrics
+                (biometricsCancel)="onBiometricsCancel()"
+                (biometricsSuccess)="onBiometricsSuccess($event)"
+                [isDecryptMode]="mode === 'decrypt'"
+                [itemData]="itemData"
+            ></data-biometrics>
+
+            <div *ngIf="isLoading" class="biometrics-bottom-sheet__loading">
+                <p>{{ t("zelf_keys.biometrics.storing") }}</p>
+            </div>
         </ng-container>
     </div>
 </div>

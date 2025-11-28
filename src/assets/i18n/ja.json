@@ -366,7 +366,18 @@
         "zelfName_is_taken": "このタグ名は既に使用されています",
         "session_init_title": "セッションの初期化に失敗しました",
         "session_init_message": "申し訳ございませんが、セッションの初期化中に問題が発生しました。ネットワークの問題やサーバーの利用不可が原因である可能性があります。もう一度お試しください。",
-        "session_init_info": "Zelf名前サービス拡張機能を使用するには、ネットワークアクセスが必要です。オフラインソリューションについては、iOSおよびAndroidアプリをご確認ください。"
+        "session_init_info": "Zelf名前サービス拡張機能を使用するには、ネットワークアクセスが必要です。オフラインソリューションについては、iOSおよびAndroidアプリをご確認ください。",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "自動",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "新しい支払いカードを追加",
                     "edit": "支払いカードを編集",
-                    "label": "銀行名 *",
-                    "placeholder": "銀行名を入力"
+                    "label": "銀行名 *"
                 },
                 "card_number": {
-                    "label": "カード番号 *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "カード番号 *"
                 },
                 "card_holder": {
-                    "label": "カード名義 *",
-                    "placeholder": "カード名義を入力"
+                    "label": "カード名義 *"
                 },
                 "expiry_month": {
                     "label": "有効期限（月） *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "有効期限（年） *",
-                    "placeholder": "YYYY"
+                    "label": "有効期限（年） *"
                 },
                 "card_type": {
                     "label": "カード種類 *",
                     "placeholder": "カード種類を選択"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "請求先住所",
@@ -648,7 +654,6 @@
                     "aria_label": "フォルダー保存を切り替え"
                 },
                 "master_password": {
-                    "placeholder": "マスターパスワードを入力",
                     "hint": "資格情報を暗号化して保存するために {{ walletName }} のパスワードが必要です。生体認証は常に必要です。"
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "ノートを編集"
                 },
                 "title_field": {
-                    "label": "ノートタイトル *",
-                    "placeholder": "ノートタイトルを入力"
+                    "label": "ノートタイトル *"
                 },
                 "content": {
                     "label": "ノート内容 *",
-                    "placeholder": "ここにノートを書いてください。複数の段落、リスト、または安全に記憶しておきたい内容を自由に記載できます。",
                     "hint": "ノートの内容は暗号化され、安全に保存されます。必要なだけ記入できます。"
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "フォルダー整理を切り替え"
                 },
                 "master_password": {
-                    "placeholder": "マスターパスワードを入力",
                     "hint": "資格情報を暗号化して保存するために {{ walletName }} のパスワードが必要です。生体認証は常に必要です。"
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "パスワードを追加",
                 "website": {
-                    "label": "Webサイト URL *",
-                    "placeholder": "https://example.com"
+                    "label": "Webサイト URL *"
                 },
                 "title_field": {
                     "label": "タイトル *",
                     "placeholder": "タイトルを入力"
                 },
                 "email": {
-                    "label": "メール *",
-                    "placeholder": "メールを入力"
+                    "label": "メール *"
                 },
                 "password": {
-                    "label": "パスワード *",
-                    "placeholder": "パスワードを入力"
+                    "label": "パスワード *"
                 },
                 "folder": {
                     "label": "フォルダーで整理",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "マスターパスワード *",
-                    "placeholder": "マスターパスワードを入力",
                     "hint": "資格情報を暗号化して保存するために {{ walletName }} のパスワードが必要です。生体認証は常に必要です。"
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "支払いカードの作成中に予期しないエラーが発生しました。",
                 "try_again": "再試行",
                 "no_data": "結果データが見つかりませんでした"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "カメラを見てください"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "復号化",
-            "loading_camera": "カメラを初期化中...",
-            "permission_required": "カメラの許可が必要",
-            "permission_allow": "カメラへのアクセスを許可してください",
-            "retry": "再試行",
-            "low_quality_title": "低品質画像",
-            "low_quality_message": "より良い照明で再試行してください",
-            "processing": "復号化中...",
-            "cancel": "キャンセル"
-        },
         "password_biometrics": {
             "back_to_details": "パスワード詳細に戻る",
             "back_to_form": "パスワードフォームに戻る",
@@ -1389,6 +1387,17 @@
                     "success_message": "ノートは安全に保存されました。ノートリストで表示するか、別のノートを追加できます。",
                     "error_message": "上記のエラー詳細を確認して再試行してください。問題が続く場合は、サポートにお問い合わせください。",
                     "unknown_message": "システムはステータスを特定できませんでした。詳細については、上記のAPIレスポンスを確認してください。"
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "API結果が利用できません"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

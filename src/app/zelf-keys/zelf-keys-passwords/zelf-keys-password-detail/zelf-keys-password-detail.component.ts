@@ -1,77 +1,146 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { Subject } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ZelfKeysService } from "app/services/zelf-keys.service";
 import { ChromeService } from "../../../chrome.service";
+import { PopoutDecryptorComponent } from "../../../popout-decryptor/popout-decryptor.component";
 import { AutofillIntegrationService } from "../../../services/autofill-integration.service";
 import { PasswordDataService } from "../../../services/password-data.service";
+import { PopoutCommunicationService, PopoutDecryptionResult } from "../../../services/popout-communication.service";
 import { ScrollToSectionService } from "../../../services/scroll-to-section.service";
-import {
-    BiometricResult,
-    BiometricsBottomSheetComponent,
-    BiometricsBottomSheetData,
-} from "../../shared/biometrics-bottom-sheet/biometrics-bottom-sheet.component";
+
+interface ZelfKeyPasswordRecord {
+    id: string;
+    url: string;
+    zelfProof: string;
+    publicData: {
+        category: string;
+        timestamp: number;
+        username: string;
+        website: string;
+        zelfName: string;
+    };
+}
+
+interface DecryptedPasswordData {
+    category?: string;
+    difficulty: string;
+    notes?: string;
+    password: string;
+    timestamp?: number;
+    type: "password";
+    username: string;
+    website: string;
+    zelfName?: string;
+}
 
 @Component({
-    imports: [CommonModule, TranslocoModule, RouterModule],
+    imports: [CommonModule, TranslocoModule, RouterModule, PopoutDecryptorComponent],
     selector: "zelf-keys-password-detail",
     styleUrls: ["./zelf-keys-password-detail.component.scss"],
     templateUrl: "./zelf-keys-password-detail.component.html",
 })
 export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
-    private destroy$ = new Subject<void>();
+    private _destroy$ = new Subject<void>();
 
-    decryptedData: any = null;
+    decryptedData: DecryptedPasswordData | null = null;
     decrypting = false;
     error: string | null = null;
+    isPopout = false;
     loading = false;
-    password: any = null;
     showBiometrics = false;
     showPassword = false;
+    showPopoutDecryptor = false;
+    zelfKeyPasswordRecord: ZelfKeyPasswordRecord | null = null;
 
     constructor(
         private _autofillIntegrationService: AutofillIntegrationService,
-        private _bottomSheet: MatBottomSheet,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _passwordDataService: PasswordDataService,
+        private _popoutCommunicationService: PopoutCommunicationService,
         private _router: Router,
         private _scrollToSectionService: ScrollToSectionService,
-        private _zelfKeysService: ZelfKeysService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
         public _translocoService: TranslocoService
     ) {
         super(_chromeService, _snackBar, _translocoService);
+
+        this.isPopout = this._chromeService.isPopout;
+
+        this._initSubscriptions();
     }
 
     async ngOnInit(): Promise<void> {
-        this.loadPasswordData();
+        this._loadPasswordData();
     }
 
     ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
+        this._destroy$.next();
+        this._destroy$.complete();
+
+        this._popoutCommunicationService.clearDecryptionData();
+        this._popoutCommunicationService.clearDecryptionResult();
+
+        chrome.runtime.onMessage.removeListener(this._handleDecryptionResultListener);
     }
 
-    async loadPasswordData(): Promise<void> {
+    get decryptionPayload(): any {
+        if (!this.zelfKeyPasswordRecord) return null;
+
+        return {
+            requestId: this.zelfKeyPasswordRecord.id,
+            type: "password",
+            zelfProof: this.zelfKeyPasswordRecord.zelfProof || "",
+            publicData: {
+                title: this.zelfKeyPasswordRecord.publicData?.website || "Password",
+                website: this.zelfKeyPasswordRecord.publicData?.website || "",
+            },
+        };
+    }
+
+    private _handleDecryptionResultListener = (message: any) => {
+        if (message.type === "DECRYPTION_RESULT_FROM_POPOUT" && this.zelfKeyPasswordRecord?.id === message.payload?.requestId) {
+            this.handleDecryptionResult(message.payload?.result?.data);
+
+            chrome.runtime.onMessage.removeListener(this._handleDecryptionResultListener);
+        }
+
+        return true;
+    };
+
+    private _initSubscriptions(): void {
+        this._chromeService.isPopout$.pipe(takeUntil(this._destroy$)).subscribe((isPopout: boolean) => {
+            this.isPopout = isPopout;
+        });
+
+        this._popoutCommunicationService.decryptionResult$.pipe(takeUntil(this._destroy$)).subscribe((result: PopoutDecryptionResult | null) => {
+            if (!result?.success || !this.showPopoutDecryptor) return;
+
+            this.handleDecryptionResult(result.data);
+            this.showPopoutDecryptor = false;
+        });
+    }
+
+    private async _loadPasswordData(): Promise<void> {
         this.loading = true;
         this.error = null;
 
         try {
-            // Get password data from the service
             const passwordData = this._passwordDataService.getCurrentPassword();
 
             if (!passwordData) {
                 this.error = this._translocoService.translate("zelf_keys.passwords.detail.error.not_found");
+
                 return;
             }
 
-            this.password = passwordData;
+            this.zelfKeyPasswordRecord = passwordData;
         } catch (error) {
             this.error = this._translocoService.translate("zelf_keys.passwords.detail.error.load_failed");
         } finally {
@@ -79,7 +148,13 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
         }
     }
 
-    onDecryptClick(prefill: boolean = false): void {
+    private _setDecryptionDataForService(): void {
+        if (!this.isPopout) return;
+
+        this._popoutCommunicationService.setDecryptionData(this.decryptionPayload);
+    }
+
+    async onDecryptClick(prefill: boolean = false): Promise<void> {
         if (this.decryptedData) {
             if (prefill) {
                 this.prefillWebsite();
@@ -90,85 +165,45 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
             return;
         }
 
-        const bottomSheetRef = this._bottomSheet.open(BiometricsBottomSheetComponent, {
-            backdropClass: "zelf-backdrop",
-            panelClass: "zelf-bottom-sheet-biometrics",
-            data: {
-                itemData: this.password,
-                itemType: "password",
-                mode: "decrypt",
-            } as BiometricsBottomSheetData,
-        });
+        if (this.isPopout) {
+            this.showPopoutDecryptor = true;
 
-        bottomSheetRef.afterDismissed().subscribe((result: BiometricResult | undefined) => {
-            if (!result) return;
+            this._setDecryptionDataForService();
 
-            const decryptedItem = result.retrievedData;
+            return;
+        }
 
-            if (!decryptedItem) return;
+        const isPopoutOpen = await this._popoutCommunicationService.isPopoutOpen();
+        const payload = this.decryptionPayload;
 
-            // Handle the actual response structure:
-            // - username and password are in metadata (decrypted)
-            // - website, timestamp, category, type are in publicData
-            // - publicData.username may also exist as a fallback
-            this.decryptedData = {
-                category: decryptedItem.publicData?.category,
-                difficulty: decryptedItem.difficulty,
-                password: decryptedItem.metadata?.password || "",
-                timestamp: decryptedItem.publicData?.timestamp,
-                type: (decryptedItem.publicData as any)?.type,
-                username: decryptedItem.metadata?.username || (decryptedItem.publicData as any)?.username || "",
-                website: (decryptedItem.publicData as any)?.website || "",
-                zelfName: decryptedItem.publicData?.zelfName,
-            };
+        if (isPopoutOpen) {
+            await this._popoutCommunicationService.redirectPopout("popout-decryptor", payload);
+        } else {
+            await this._popoutCommunicationService.openPopout("popout-decryptor", payload);
+        }
 
-            if (prefill) {
-                this.prefillWebsite();
-            } else {
-                this._scrollToSectionService.scrollToSection("password-decrypted-content", "password");
-            }
-        });
+        chrome.runtime.onMessage.addListener(this._handleDecryptionResultListener);
     }
 
-    async decryptPassword(biometricData: any): Promise<void> {
-        this.decrypting = true;
-        this.error = null;
+    handleDecryptionResult(data: any): void {
+        if (!data || !this.zelfKeyPasswordRecord) return;
 
-        try {
-            const payload = {
-                faceBase64: biometricData.faceBase64,
-                password: biometricData.password || undefined, // Optional
-                zelfProof: this.password.publicData.zelfProof,
-            };
+        this.decryptedData = {
+            category: this.zelfKeyPasswordRecord.publicData?.category,
+            difficulty: data.difficulty || "",
+            password: data.password || "",
+            timestamp: this.zelfKeyPasswordRecord.publicData?.timestamp,
+            type: "password",
+            username: data.username || "",
+            website: data.website || "",
+            zelfName: this.zelfKeyPasswordRecord.publicData?.zelfName,
+        };
 
-            const response = await this._zelfKeysService.retrievePassword(payload.faceBase64, payload.password, payload.zelfProof);
+        this._changeDetectorRef.detectChanges();
 
-            if (response?.data?.metadata) {
-                // Handle the actual response structure:
-                // - username and password are in metadata (decrypted)
-                // - website, timestamp, category, type are in publicData
-                this.decryptedData = {
-                    password: response.data.metadata?.password || "",
-                    username: response.data.metadata?.username || response.data.publicData?.username || "",
-                    category: response.data.publicData?.category,
-                    difficulty: response.data.difficulty,
-                    timestamp: response.data.publicData?.timestamp,
-                    type: response.data.publicData?.type,
-                    website: response.data.publicData?.website || "",
-                    zelfName: response.data.publicData?.zelfName,
-                };
-
-                this.showBiometrics = false;
-            } else {
-                throw new Error("Failed to decrypt password data");
-            }
-        } catch (error) {
-            console.error("Error decrypting password:", error);
-
-            this.error = this._translocoService.translate("zelf_keys.passwords.detail.error.decrypt_failed");
-        } finally {
-            this.decrypting = false;
-        }
+        setTimeout(() => {
+            this._scrollToSectionService.scrollToSection("password-decrypted-content", "password");
+        }, 500);
     }
 
     onBackToList(): void {
@@ -185,6 +220,8 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
 
     onTogglePasswordVisibility(): void {
         this.showPassword = !this.showPassword;
+
+        this._changeDetectorRef.detectChanges();
     }
 
     onCopyWebsite(): void {
@@ -200,17 +237,18 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
 
         const container = img.parentElement;
 
-        if (container)
-            container.innerHTML = `<div class="password-detail__image-error">${this._translocoService.translate("zelf_keys.common.image_not_available")}</div>`;
+        if (!container) return;
+
+        container.innerHTML = `<div class="password-detail__image-error">${this._translocoService.translate("zelf_keys.common.image_not_available")}</div>`;
     }
 
     onDownloadZelfProof(): void {
-        if (!this.password?.url) return;
+        if (!this.zelfKeyPasswordRecord?.url) return;
 
         const link = document.createElement("a");
 
-        link.href = this.password.url;
-        link.download = `zelfproof-${this.password.publicData?.website || "password"}.png`;
+        link.href = this.zelfKeyPasswordRecord.url;
+        link.download = `zelfproof-${this.zelfKeyPasswordRecord.publicData?.website || "password"}.png`;
 
         document.body.appendChild(link);
 
@@ -219,7 +257,7 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
         document.body.removeChild(link);
     }
 
-    getWebsiteHostname(website: string): string {
+    getWebsiteHostname(website: string | undefined): string {
         if (!website) return "";
 
         try {
@@ -231,7 +269,7 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
     }
 
     getCategory(): string | null {
-        const category = this.password?.publicData?.category;
+        const category = this.zelfKeyPasswordRecord?.publicData?.category;
         return ZelfKeysService.parseCategory(category);
     }
 
@@ -241,27 +279,27 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
     }
 
     copyWebsiteToClipboard(): void {
-        if (!this.password?.publicData?.website) return;
+        if (!this.zelfKeyPasswordRecord?.publicData?.website) return;
 
-        this._copyToClipboard(this.password.publicData.website);
+        this._copyToClipboard(this.zelfKeyPasswordRecord.publicData.website);
     }
 
     async prefillWebsite(): Promise<void> {
-        if (!this.password?.publicData?.website || !this.decryptedData) {
+        if (!this.zelfKeyPasswordRecord?.publicData?.website || !this.decryptedData) {
             console.warn("Cannot prefill: missing website or decrypted data");
             return;
         }
 
         try {
-            const newTab = await browser.tabs.create({ url: this.password.publicData.website });
+            const newTab = await browser.tabs.create({ url: this.zelfKeyPasswordRecord.publicData.website });
 
             if (!newTab?.id) return;
 
             await this._autofillIntegrationService.waitForFormAndFill(newTab.id, {
                 username: this.decryptedData.username,
                 password: this.decryptedData.password,
-                website: this.password.publicData.website,
                 tabId: newTab.id,
+                website: this.zelfKeyPasswordRecord.publicData.website,
             });
         } catch (error) {
             console.error("Error prefilling website:", error);

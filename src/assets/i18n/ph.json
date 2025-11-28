@@ -366,7 +366,18 @@
         "zelfName_is_taken": "Ginagamit na ang tag name na ito",
         "session_init_title": "Nabigo ang pag-initialize ng session",
         "session_init_message": "Paumanhin, may problema sa pag-initialize ng iyong session. Maaaring ito ay dahil sa problema sa network o hindi available ang server. Pakisubukan ulit.",
-        "session_init_info": "Upang gamitin ang Zelf Name Service Extension, kakailanganin mo ng network access. Para sa offline na solusyon, tingnan ang aming iOS at Android apps."
+        "session_init_info": "Upang gamitin ang Zelf Name Service Extension, kakailanganin mo ng network access. Para sa offline na solusyon, tingnan ang aming iOS at Android apps.",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "Awtomatiko",
@@ -607,32 +618,27 @@
                 "title": {
                     "add": "Magdagdag ng Bagong Card",
                     "edit": "I-edit ang Card",
-                    "label": "Pangalan ng Bangko *",
-                    "placeholder": "Ilagay ang pangalan ng bangko"
+                    "label": "Pangalan ng Bangko *"
                 },
                 "card_number": {
-                    "label": "Numero ng Card *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "Numero ng Card *"
                 },
                 "card_holder": {
-                    "label": "Pangalan ng May-ari ng Card *",
-                    "placeholder": "Ilagay ang pangalan"
+                    "label": "Pangalan ng May-ari ng Card *"
                 },
                 "expiry_month": {
                     "label": "Buwan ng Pag-expire *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "Taon ng Pag-expire *",
-                    "placeholder": "YYYY"
+                    "label": "Taon ng Pag-expire *"
                 },
                 "card_type": {
                     "label": "Uri ng Card *",
                     "placeholder": "Piliin ang uri"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "Address ng Pagsingil",
@@ -648,7 +654,6 @@
                     "aria_label": "I-toggle ang pag-imbak sa folder"
                 },
                 "master_password": {
-                    "placeholder": "Ilagay ang iyong master password",
                     "hint": "Kailangan ang password ng {{ walletName }} upang i-encrypt at i-imbak ang iyong mga kredensyal. Laging kailangan ang biometric na beripikasyon."
                 },
                 "buttons": {
@@ -726,12 +731,10 @@
                     "edit": "I-edit ang Tala"
                 },
                 "title_field": {
-                    "label": "Pamagat ng Tala *",
-                    "placeholder": "Ilagay ang pamagat ng tala"
+                    "label": "Pamagat ng Tala *"
                 },
                 "content": {
                     "label": "Nilalaman ng Tala *",
-                    "placeholder": "Isulat ang iyong tala dito... Maaari kang maglagay ng maraming talata, listahan, o anumang impormasyong nais mong tandaan nang ligtas.",
                     "hint": "Ang nilalaman ng iyong tala ay i-e-encrypt at iimbak nang ligtas. Maaari kang magsulat nang marami hangga't kailangan."
                 },
                 "folder": {
@@ -740,7 +743,6 @@
                     "aria_label": "I-toggle ang organisasyon ng folder"
                 },
                 "master_password": {
-                    "placeholder": "Ilagay ang iyong master password",
                     "hint": "Kailangan ang password ng {{ walletName }} upang i-encrypt at i-imbak ang iyong mga kredensyal. Laging kailangan ang biometric na beripikasyon."
                 },
                 "buttons": {
@@ -830,20 +832,17 @@
             "form": {
                 "title": "Magdagdag ng Password",
                 "website": {
-                    "label": "Website URL *",
-                    "placeholder": "https://example.com"
+                    "label": "Website URL *"
                 },
                 "title_field": {
                     "label": "Pamagat *",
                     "placeholder": "Ilagay ang pamagat"
                 },
                 "email": {
-                    "label": "Email *",
-                    "placeholder": "Ilagay ang email"
+                    "label": "Email *"
                 },
                 "password": {
-                    "label": "Password *",
-                    "placeholder": "Ilagay ang password"
+                    "label": "Password *"
                 },
                 "folder": {
                     "label": "Ayusin sa Folder",
@@ -856,7 +855,6 @@
                 },
                 "master_password": {
                     "label": "Master Password *",
-                    "placeholder": "Ilagay ang iyong master password",
                     "hint": "Kailangan ang password ng {{ walletName }} upang i-encrypt at i-imbak ang iyong mga kredensyal. Laging kailangan ang biometric na beripikasyon."
                 },
                 "buttons": {
@@ -1217,6 +1215,17 @@
                 "default_message": "May hindi inaasahang error na naganap habang nililikha ang iyong payment card.",
                 "try_again": "Subukan Muli",
                 "no_data": "Walang nahanap na result data"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             }
         },
         "billing_ui": {
@@ -1303,17 +1312,6 @@
                 "look_at_camera": "Mangyaring tumingin sa camera"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "Decryption",
-            "loading_camera": "Ini-initialize ang camera...",
-            "permission_required": "Kinakailangan ang Permission ng Camera",
-            "permission_allow": "Mangyaring pahintulutan ang access sa camera",
-            "retry": "Subukan Muli",
-            "low_quality_title": "Mababang Kalidad na Larawan",
-            "low_quality_message": "Mangyaring subukan muli gamit ang mas mahusay na ilaw",
-            "processing": "Nagde-decrypt...",
-            "cancel": "Kanselahin"
-        },
         "password_biometrics": {
             "back_to_details": "Bumalik sa Password Details",
             "back_to_form": "Bumalik sa Password Form",
@@ -1389,6 +1387,17 @@
                     "success_message": "Ang iyong note ay ligtas na naiimbak na. Maaari mong tingnan ito sa iyong listahan ng notes o magdagdag ng iba pang note.",
                     "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung patuloy ang problema, makipag-ugnayan sa support.",
                     "unknown_message": "Hindi matukoy ng system ang status. Mangyaring suriin ang API response sa itaas para sa mga detalye."
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 }
             },
             "actions": {
@@ -1475,6 +1484,29 @@
             },
             "error": {
                 "no_result": "Walang available na API result"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
             }
         }
     },

@@ -34,12 +34,7 @@ Notes:
 - Discussed project timeline and goals
 - Reviewed budget allocation
 - Set quarterly objectives
-- Assigned team responsibilities
-
-Next Steps:
-- Finalize project roadmap
-- Schedule follow-up meeting
-- Prepare detailed budget proposal`,
+- Assigned team responsibilities`,
         folder: "Work",
         insideFolder: true,
         useMasterPassword: false,
@@ -64,9 +59,6 @@ Next Steps:
     ) {}
 
     async ngOnInit(): Promise<void> {
-        // Check if this is a new note or editing existing
-        // For now, this route is always for creating new notes
-        // TODO: Add edit route like "notes/edit/:id" for editing existing notes
         this.isNewNote = true;
 
         await this._setWallet();
@@ -110,12 +102,6 @@ Next Steps:
         const hasTitle = !!this.noteData.title.trim();
         const hasContent = !!this.noteData.content.trim();
 
-        // Backend validation requirements:
-        // - title: required, minLength: 1, maxLength: 100
-        // - content: required, minLength: 1
-        // - masterPassword: optional (only if user enables it)
-        // Master password is only required if the wallet has a password
-        // Master password is optional - only validate if user chose to use it
         const hasMasterPassword = !!this.noteData.masterPassword;
         const masterPasswordValid = this.hasMasterPassword ? hasMasterPassword : true;
 
@@ -130,15 +116,9 @@ Next Steps:
         this._router.navigate(["/zelf-keys/notes/result"]);
     }
 
-    onBiometricsCancel(): void {
-        // Bottom sheet handles its own dismissal
-    }
-
     async onSave(): Promise<void> {
         if (!this.formValid) return;
 
-        // Transform note data to match backend API expectations
-        // Convert content to keyValuePairs format and encrypt sensitive data
         this.transformedNoteData = {
             title: this.noteData.title,
             keyValuePairs: {
@@ -153,7 +133,6 @@ Next Steps:
 
         await this._dataPassingService.storeData("notes", this.transformedNoteData);
 
-        // Show biometrics bottom sheet instead of navigating
         this._openBiometricsBottomSheet();
     }
 
@@ -175,7 +154,9 @@ Next Steps:
         });
 
         bottomSheetRef.afterDismissed().subscribe((result: BiometricResult | undefined) => {
-            result ? this.onBiometricsSuccess() : this.onBiometricsCancel();
+            if (!result) return;
+
+            this.onBiometricsSuccess();
         });
     }
 }

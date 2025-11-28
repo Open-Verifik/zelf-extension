@@ -198,6 +198,12 @@ export class ThemeService implements OnDestroy {
         await this._chromeService.setItemSession(this.userModePreferenceKey, "system");
     }
 
+    private _toRgba(color: string, alpha: number): string {
+        const [r, g, b] = color.match(/\w\w/g)?.map((c) => parseInt(c, 16)) || [0, 0, 0];
+
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
     async getUserModePreference(): Promise<UserModePreference> {
         const saved = await this._chromeService.getItemSession<string>(this.userModePreferenceKey);
 
@@ -327,5 +333,13 @@ export class ThemeService implements OnDestroy {
 
     getCurrentPalette(): Record<string, string> {
         return this.lastPalette;
+    }
+
+    getCurrentThemeMaskColor(): string {
+        const borderColor = this.lastPalette.border;
+
+        if (!borderColor) return "rgba(255, 255, 255, 0.75)";
+
+        return this._toRgba(borderColor, 0.75);
     }
 }

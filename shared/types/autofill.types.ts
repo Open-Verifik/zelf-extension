@@ -136,7 +136,8 @@ export interface ZelfKeyIcon {
 }
 
 export interface DecryptionRequest {
-    passwordId: string;
+    requestId: string;
+    type?: "password" | "notes" | "credit_card" | "zotp";
     publicData: {
         zelfProof: string;
         title: string;
@@ -161,7 +162,8 @@ export interface TabInfo {
 export interface MessagePayload {
     website?: string;
     urlInfo?: UrlInfo;
-    passwordId?: string;
+    requestId?: string;
+    type?: "password" | "notes" | "credit_card" | "zotp";
     publicData?: any;
     fieldId?: string;
     fieldType?: string;

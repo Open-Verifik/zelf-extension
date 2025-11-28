@@ -1,50 +1,51 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { Subject } from "rxjs";
+import { Subject, takeUntil } from "rxjs";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
-import { ZelfKeysService } from "app/services/zelf-keys.service";
 import { ChromeService } from "../../../chrome.service";
 import { DecryptedNoteData, NoteItem } from "../../../models/zelf-key-item.model";
+import { PopoutDecryptorComponent } from "../../../popout-decryptor/popout-decryptor.component";
 import { NoteDataService } from "../../../services/note-data.service";
+import { PopoutCommunicationService, PopoutDecryptionResult } from "../../../services/popout-communication.service";
 import { ScrollToSectionService } from "../../../services/scroll-to-section.service";
-import {
-    BiometricResult,
-    BiometricsBottomSheetComponent,
-    BiometricsBottomSheetData,
-} from "../../shared/biometrics-bottom-sheet/biometrics-bottom-sheet.component";
 
 @Component({
-    imports: [CommonModule, TranslocoModule, RouterModule],
+    imports: [CommonModule, TranslocoModule, RouterModule, PopoutDecryptorComponent],
     selector: "zelf-keys-note-detail",
     styleUrls: ["./zelf-keys-note-detail.component.scss"],
     templateUrl: "./zelf-keys-note-detail.component.html",
 })
 export class ZelfKeysNoteDetailComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
-    private destroy$ = new Subject<void>();
+    private _destroy$ = new Subject<void>();
 
     decryptedData: DecryptedNoteData | null = null;
     decrypting = false;
     error: string | null = null;
+    isPopout = false;
     loading = false;
     note: NoteItem | null = null;
     showBiometrics = false;
+    showPopoutDecryptor = false;
 
     constructor(
-        private _bottomSheet: MatBottomSheet,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _noteDataService: NoteDataService,
+        private _popoutCommunicationService: PopoutCommunicationService,
         private _router: Router,
         private _scrollToSectionService: ScrollToSectionService,
-        private _zelfKeysService: ZelfKeysService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
     ) {
         super(_chromeService, _snackBar, _translocoService);
+
+        this.isPopout = this._chromeService.isPopout;
+
+        this._initSubscriptions();
     }
 
     async ngOnInit(): Promise<void> {
@@ -52,8 +53,13 @@ export class ZelfKeysNoteDetailComponent extends CopyToClipboardBase implements 
     }
 
     ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
+        this._destroy$.next();
+        this._destroy$.complete();
+
+        this._popoutCommunicationService.clearDecryptionData();
+        this._popoutCommunicationService.clearDecryptionResult();
+
+        chrome.runtime.onMessage.removeListener(this._handleDecryptionResultListener);
     }
 
     private async loadNoteData(): Promise<void> {
@@ -61,7 +67,6 @@ export class ZelfKeysNoteDetailComponent extends CopyToClipboardBase implements 
         this.error = null;
 
         try {
-            // Get note data from the service
             const noteData = this._noteDataService.getCurrentNote();
 
             if (!noteData) {
@@ -78,85 +83,97 @@ export class ZelfKeysNoteDetailComponent extends CopyToClipboardBase implements 
         }
     }
 
-    onDecryptClick(): void {
-        const bottomSheetRef = this._bottomSheet.open(BiometricsBottomSheetComponent, {
-            backdropClass: "zelf-backdrop",
-            panelClass: "zelf-bottom-sheet-biometrics",
-            data: {
-                itemData: this.note,
-                itemType: "note",
-                mode: "decrypt",
-            } as BiometricsBottomSheetData,
-        });
-
-        bottomSheetRef.afterDismissed().subscribe((result: BiometricResult | undefined) => {
-            if (!result) return;
-
-            this.onBiometricsSuccess(result);
-        });
-    }
-
-    onBiometricsSuccess(biometricData: BiometricResult): void {
-        if (biometricData.retrievedData) {
-            const decryptedItem = biometricData.retrievedData;
-
-            const publicData = decryptedItem.publicData as any;
-            const title = publicData?.title || decryptedItem.metadata?.title || this._translocoService.translate("zelf_keys.notes.detail.no_title");
-
-            let content = decryptedItem.metadata?.content || this._translocoService.translate("zelf_keys.notes.detail.no_content");
-
-            if (typeof content === "string" && content.trim().startsWith("-----BEGIN PGP MESSAGE-----")) {
-                console.warn("Received encrypted content - API should have decrypted it");
-
-                this.error = this._translocoService.translate("zelf_keys.notes.detail.error.decrypt_failed");
-
-                return;
-            }
-
-            this.decryptedData = {
-                title,
-                content,
-                folder: decryptedItem.publicData?.folder || this._translocoService.translate("zelf_keys.common.no_folder"),
-            };
-
-            // Trigger scroll to decrypted content section
+    async onDecryptClick(): Promise<void> {
+        if (this.decryptedData) {
             this._scrollToSectionService.scrollToSection("note-decrypted-content", "note");
-        } else {
-            console.error("No retrieved data found in biometrics response");
-            this.error = this._translocoService.translate("zelf_keys.notes.detail.error.retrieve_failed");
+            return;
         }
+
+        if (this.isPopout) {
+            this.showPopoutDecryptor = true;
+            this._setDecryptionDataForService();
+            return;
+        }
+
+        const isPopoutOpen = await this._popoutCommunicationService.isPopoutOpen();
+        const payload = this.decryptionPayload;
+
+        if (isPopoutOpen) {
+            await this._popoutCommunicationService.redirectPopout("popout-decryptor", payload);
+        } else {
+            await this._popoutCommunicationService.openPopout("popout-decryptor", payload);
+        }
+
+        chrome.runtime.onMessage.addListener(this._handleDecryptionResultListener);
     }
 
-    async decryptNote(biometricData: any): Promise<void> {
-        this.decrypting = true;
-        this.error = null;
+    handleDecryptionResult(data: any): void {
+        if (!data) return;
 
-        try {
-            const payload = {
-                zelfProof: this.note!.publicData.zelfProof || "",
-                faceBase64: biometricData.faceBase64,
-                password: biometricData.password || undefined,
-            };
+        const title = data.title || this.note?.publicData?.title || this._translocoService.translate("zelf_keys.notes.detail.no_title");
 
-            const response = await this._zelfKeysService.retrievePassword(payload.zelfProof, payload.faceBase64, payload.password);
+        let content = data.content || this._translocoService.translate("zelf_keys.notes.detail.no_content");
 
-            if (response?.data?.metadata) {
-                this.decryptedData = {
-                    title: response.data.metadata.title || this._translocoService.translate("zelf_keys.notes.detail.no_title"),
-                    content: response.data.metadata.content || this._translocoService.translate("zelf_keys.notes.detail.no_content"),
-                    folder: response.data.metadata.folder || this._translocoService.translate("zelf_keys.common.no_folder"),
-                };
-
-                this.showBiometrics = false;
-            } else {
-                throw new Error("Failed to decrypt note data");
-            }
-        } catch (error) {
-            console.error("Error decrypting note:", error);
+        if (typeof content === "string" && content.trim().startsWith("-----BEGIN PGP MESSAGE-----")) {
             this.error = this._translocoService.translate("zelf_keys.notes.detail.error.decrypt_failed");
-        } finally {
-            this.decrypting = false;
+
+            return;
         }
+
+        this.decryptedData = {
+            title,
+            content,
+            folder: this.note?.publicData?.folder || this._translocoService.translate("zelf_keys.common.no_folder"),
+        };
+
+        this._changeDetectorRef.detectChanges();
+
+        setTimeout(() => {
+            this._scrollToSectionService.scrollToSection("note-decrypted-content", "note");
+        }, 500);
+    }
+
+    get decryptionPayload(): any {
+        if (!this.note) return null;
+
+        return {
+            requestId: this.note.id,
+            type: "notes",
+            zelfProof: (this.note as any).zelfProof || this.note.publicData?.zelfProof || "",
+            publicData: {
+                title: this.note.publicData?.title || "Note",
+                website: "Note",
+            },
+        };
+    }
+
+    private _handleDecryptionResultListener = (message: any) => {
+        if (message.type === "DECRYPTION_RESULT_FROM_POPOUT" && this.note?.id === message.payload?.requestId) {
+            this.handleDecryptionResult(message.payload?.result?.data);
+
+            chrome.runtime.onMessage.removeListener(this._handleDecryptionResultListener);
+        }
+
+        return true;
+    };
+
+    private _initSubscriptions(): void {
+        this._chromeService.isPopout$.pipe(takeUntil(this._destroy$)).subscribe((isPopout: boolean) => {
+            this.isPopout = isPopout;
+        });
+
+        this._popoutCommunicationService.decryptionResult$.pipe(takeUntil(this._destroy$)).subscribe((result: PopoutDecryptionResult | null) => {
+            if (!result?.success || !this.showPopoutDecryptor) return;
+
+            this.handleDecryptionResult(result.data);
+            this.showPopoutDecryptor = false;
+        });
+    }
+
+    private _setDecryptionDataForService(): void {
+        if (!this.isPopout) return;
+
+        this._popoutCommunicationService.setDecryptionData(this.decryptionPayload);
     }
 
     onBackToList(): void {
@@ -184,22 +201,28 @@ export class ZelfKeysNoteDetailComponent extends CopyToClipboardBase implements 
 
     onImageError(event: Event): void {
         const img = event.target as HTMLImageElement;
+
         img.style.display = "none";
-        // Optionally show a placeholder or error message
+
         const container = img.parentElement;
-        if (container) {
-            container.innerHTML = `<div class="note-detail__image-error">${this._translocoService.translate("zelf_keys.common.image_not_available")}</div>`;
-        }
+
+        if (!container) return;
+
+        container.innerHTML = `<div class="note-detail__image-error">${this._translocoService.translate("zelf_keys.common.image_not_available")}</div>`;
     }
 
     onDownloadZelfProof(): void {
         if (!this.note?.url) return;
 
         const link = document.createElement("a");
+
         link.href = this.note.url;
         link.download = `zelfproof-${this.note.publicData.title || "note"}.png`;
+
         document.body.appendChild(link);
+
         link.click();
+
         document.body.removeChild(link);
     }
 }

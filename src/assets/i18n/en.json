@@ -115,6 +115,17 @@
                 },
                 "gateway_link": "View on IPFS Gateway"
             },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
+            },
             "zelfproof": {
                 "title": "ZelfProof Generated",
                 "labels": {
@@ -275,16 +286,28 @@
                 "close": "Close"
             }
         },
-        "password_decryptor": {
-            "title_suffix": "Decryption",
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
             "loading_camera": "Initializing camera...",
-            "permission_required": "Camera Permission Required",
-            "permission_allow": "Please allow camera access",
-            "retry": "Retry",
-            "low_quality_title": "Low Quality Image",
             "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
             "processing": "Decrypting...",
-            "cancel": "Cancel"
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
+            }
         },
         "password_biometrics": {
             "back_to_details": "Back to Password Details",
@@ -343,6 +366,17 @@
                         "uploaded": "Uploaded"
                     },
                     "gateway_link": "View on IPFS Gateway"
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
                 },
                 "zelfproof": {
                     "title": "ZelfProof Generated",
@@ -714,6 +748,8 @@
     "errors": {
         "address_too_long": "Address is too long",
         "all_fields_required": "All fields are required",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "cannot_decrypt_zotp_missing_zelfProof": "Cannot decrypt ZOTP: missing ZelfProof. This ZOTP cannot be decrypted without a valid ZelfProof.",
         "cannot_swap_across_these_networks": "You cannot swap across these networks just yet. Please try again later.",
         "chart_not_found": "Chart data not available",
         "Duplicated_person": "ZelfProof is being used for another record",
@@ -725,13 +761,16 @@
         "ERR_LIVENESS_FAILED": "Liveness detection failed",
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof could not be decrypted",
         "ERR_VERIFICATION_FAILED": "Liveness detection failed",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
         "failed_to_get_quote": "Failed to get a quote for this swap.",
         "generic_identity": "Sorry, there seems to have been a problem with your identity verification. Please try it again.",
         "generic_title": "An error has occured",
         "generic": "Sorry, there was a problem processing this request. Please try again.",
-        "session_init_title": "Session initialization failed",
-        "session_init_message": "Sorry, there was an issue initializing your session. This may be due to a network problem or server unavailability. Please try again.",
-        "session_init_info": "To use the Tag Name Service Extension, you will require network access. For an offline solution, check our iOS and Android apps.",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
         "incorrect_zelf_proof_message": "The provided file does not appear to be a valid ZelfProof. Please try again.",
         "incorrect_zelf_proof_title": "Incorrect ZelfProof",
         "insufficient_funds": "Insufficient funds. Ensure you have enough funds in your wallet to cover the transaction fees.",
@@ -746,9 +785,10 @@
         "Liveness_score_not_acceptable": "Liveness score is not acceptable",
         "min_liveness_score_is": "The minimum liveness score is: ",
         "missing_contract_address": "Swap contract address is missing. Try again later.",
-        "cannot_decrypt_zotp_missing_zelfProof": "Cannot decrypt ZOTP: missing ZelfProof. This ZOTP cannot be decrypted without a valid ZelfProof.",
         "must_be_greater_than": "Must be greater than {{ value }}",
         "must_be_less_than": "Must be less than {{ value }}",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
         "not_found": "Record not found",
         "password_doesnt_match": "Passwords do not match",
         "password_incorrect": "The password is incorrect",
@@ -756,10 +796,15 @@
         "private_key_locked": "Private key has been locked. You must perform a biometrics check to move forward.",
         "required_field": "This field is required",
         "same_address": "You cannot send funds to the same address",
+        "session_init_info": "To use the Tag Name Service Extension, you will require network access. For an offline solution, check our iOS and Android apps.",
+        "session_init_message": "Sorry, there was an issue initializing your session. This may be due to a network problem or server unavailability. Please try again.",
+        "session_init_title": "Session initialization failed",
         "something_went_wrong": "Something went wrong, please try again",
         "swap_same_asset": "You cannot swap to the same asset",
         "transaction_not_found": "Transaction not found",
         "try_again": "Try again",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled",
         "zelfName_is_taken": "This zelf name is already taken"
     },
     "swap": {
@@ -1003,32 +1048,27 @@
                 "title": {
                     "add": "Add New Payment Card",
                     "edit": "Edit Payment Card",
-                    "label": "Bank Name *",
-                    "placeholder": "Enter bank name"
+                    "label": "Bank Name *"
                 },
                 "card_number": {
-                    "label": "Card Number *",
-                    "placeholder": "1234 5678 9012 3456"
+                    "label": "Card Number *"
                 },
                 "card_holder": {
-                    "label": "Card Holder Name *",
-                    "placeholder": "Enter card holder name"
+                    "label": "Card Holder Name *"
                 },
                 "expiry_month": {
                     "label": "Expiry Month *",
                     "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "Expiry Year *",
-                    "placeholder": "YYYY"
+                    "label": "Expiry Year *"
                 },
                 "card_type": {
                     "label": "Card Type *",
                     "placeholder": "Select card type"
                 },
                 "cvv": {
-                    "label": "CVV *",
-                    "placeholder": "123"
+                    "label": "CVV *"
                 },
                 "billing_address": {
                     "label": "Billing Address",
@@ -1044,7 +1084,6 @@
                     "aria_label": "Toggle folder storage"
                 },
                 "master_password": {
-                    "placeholder": "Enter your master password",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
@@ -1120,12 +1159,10 @@
                     "edit": "Edit Note"
                 },
                 "title_field": {
-                    "label": "Note Title *",
-                    "placeholder": "Enter note title"
+                    "label": "Note Title *"
                 },
                 "content": {
                     "label": "Note Content *",
-                    "placeholder": "Write your note here... You can include multiple paragraphs, lists, or any other content you need to remember securely.",
                     "hint": "Your note content will be encrypted and stored securely. You can write as much as you need."
                 },
                 "folder": {
@@ -1134,7 +1171,6 @@
                     "aria_label": "Toggle folder organization"
                 },
                 "master_password": {
-                    "placeholder": "Enter your master password",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
@@ -1224,20 +1260,17 @@
             "form": {
                 "title": "Add Password",
                 "website": {
-                    "label": "Website URL *",
-                    "placeholder": "https://example.com"
+                    "label": "Website URL *"
                 },
                 "title_field": {
                     "label": "Title *",
                     "placeholder": "Enter title"
                 },
                 "email": {
-                    "label": "Email/Username *",
-                    "placeholder": "Enter email or username"
+                    "label": "Email/Username *"
                 },
                 "password": {
-                    "label": "Password *",
-                    "placeholder": "Enter password"
+                    "label": "Password *"
                 },
                 "folder": {
                     "label": "Organize in Folder",
@@ -1250,7 +1283,6 @@
                 },
                 "master_password": {
                     "label": "Master Password *",
-                    "placeholder": "Enter your master password",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {

@@ -676,14 +676,15 @@ export class UIOverlay {
                 const response = await chrome.runtime.sendMessage({
                     type: "OPEN_PASSWORD_DECRYPTOR",
                     payload: {
-                        passwordId: password.id,
-                        publicData: {
-                            zelfProof: password.zelfProof,
-                            title: password.website || password.publicData.website,
-                            website: password.publicData.website,
-                        },
                         fieldId: this.currentField?.element.id,
                         fieldType: this.currentFieldType,
+                        requestId: password.id,
+                        publicData: {
+                            title: password.website || password.publicData.website,
+                            type: "password",
+                            website: password.publicData.website,
+                            zelfProof: password.zelfProof,
+                        },
                     },
                 });
 
@@ -713,7 +714,7 @@ export class UIOverlay {
                     const response = await chrome.runtime.sendMessage({
                         type: "SEND_DECRYPTION_DATA_TO_POPOUT",
                         payload: {
-                            passwordId: password.id,
+                            requestId: password.id,
                             publicData: {
                                 zelfProof: password.zelfProof,
                                 title: password.website || password.publicData.website,

@@ -1,41 +1,45 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
+import { Subject, takeUntil } from "rxjs";
 
 import { ZelfKeysService } from "app/services/zelf-keys.service";
 import { CopyToClipboardBase } from "../../../base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "../../../chrome.service";
 import { DecryptedPaymentCardData, PaymentCardItem } from "../../../models/zelf-key-item.model";
+import { PopoutDecryptorComponent } from "../../../popout-decryptor/popout-decryptor.component";
 import { PaymentCardDataService } from "../../../services/payment-card-data.service";
+import { PopoutCommunicationService, PopoutDecryptionResult } from "../../../services/popout-communication.service";
 import { ScrollToSectionService } from "../../../services/scroll-to-section.service";
-import {
-    BiometricResult,
-    BiometricsBottomSheetComponent,
-    BiometricsBottomSheetData,
-} from "../../shared/biometrics-bottom-sheet/biometrics-bottom-sheet.component";
 
 @Component({
-    imports: [CommonModule, TranslocoModule],
+    imports: [CommonModule, TranslocoModule, PopoutDecryptorComponent],
     selector: "zelf-keys-payment-card-detail",
     styleUrls: ["./zelf-keys-payment-card-detail.component.scss"],
     templateUrl: "./zelf-keys-payment-card-detail.component.html",
 })
-export class ZelfKeysPaymentCardDetailComponent extends CopyToClipboardBase implements OnInit {
+export class ZelfKeysPaymentCardDetailComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
+    private _destroy$ = new Subject<void>();
+
     decryptedData: DecryptedPaymentCardData | null = null;
     error: string | null = null;
     isDecrypted = false;
     isLoading = false;
+    isPopout = false;
     paymentCard: PaymentCardItem | null = null;
     showBiometrics = false;
     showCardNumber = false;
     showCvv = false;
+    showPopoutDecryptor = false;
 
     constructor(
         private _bottomSheet: MatBottomSheet,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _paymentCardDataService: PaymentCardDataService,
+        private _popoutCommunicationService: PopoutCommunicationService,
         private _router: Router,
         private _scrollToSectionService: ScrollToSectionService,
         private _zelfKeysService: ZelfKeysService,
@@ -44,10 +48,24 @@ export class ZelfKeysPaymentCardDetailComponent extends CopyToClipboardBase impl
         protected _translocoService: TranslocoService
     ) {
         super(_chromeService, _snackBar, _translocoService);
+
+        this.isPopout = this._chromeService.isPopout;
+
+        this._initSubscriptions();
     }
 
     ngOnInit(): void {
         this.loadPaymentCardData();
+    }
+
+    ngOnDestroy(): void {
+        this._destroy$.next();
+        this._destroy$.complete();
+
+        this._popoutCommunicationService.clearDecryptionData();
+        this._popoutCommunicationService.clearDecryptionResult();
+
+        chrome.runtime.onMessage.removeListener(this._handleDecryptionResultListener);
     }
 
     getCardBankName(): string {
@@ -78,93 +96,101 @@ export class ZelfKeysPaymentCardDetailComponent extends CopyToClipboardBase impl
         }
     }
 
-    onDecryptClick(): void {
-        const itemData = {
-            ...this.paymentCard,
-            zelfProof: (this.paymentCard as any).zelfProof || this.paymentCard?.publicData?.zelfProof,
-        };
-
-        const bottomSheetRef = this._bottomSheet.open(BiometricsBottomSheetComponent, {
-            backdropClass: "zelf-backdrop",
-            panelClass: "zelf-bottom-sheet-biometrics",
-            data: {
-                itemData: itemData,
-                itemType: "payment-card",
-                mode: "decrypt",
-            } as BiometricsBottomSheetData,
-        });
-
-        bottomSheetRef.afterDismissed().subscribe((result: BiometricResult | undefined) => {
-            if (result) {
-                this.onBiometricsSuccess(result);
-            }
-        });
-    }
-
-    onBiometricsSuccess(biometricData: BiometricResult): void {
-        if (biometricData.retrievedData) {
-            // The retrievedData is now a DecryptedItemData structure
-            const decryptedItem = biometricData.retrievedData;
-
-            // Parse the card data from publicData.card JSON string
-            let cardData: any = {};
-            try {
-                if ((decryptedItem.publicData as any)?.card) {
-                    cardData = this._parseJsonSafely((decryptedItem.publicData as any).card);
-                }
-            } catch (error) {
-                console.warn("Failed to parse card data from publicData.card");
-            }
-
-            this.decryptedData = {
-                name: cardData.name || "",
-                number: decryptedItem.metadata.cardNumber || "",
-                expires: `${decryptedItem.metadata.expiryMonth}/${decryptedItem.metadata.expiryYear}` || "",
-                bankName: cardData.bankName || "",
-                cvv: decryptedItem.metadata.cvv || "",
-            };
-            this.isDecrypted = true;
-
-            // Trigger scroll to decrypted content section
+    async onDecryptClick(): Promise<void> {
+        if (this.isDecrypted) {
             this._scrollToSectionService.scrollToSection("payment-card-decrypted-content", "payment-card");
-        } else {
-            console.error("No retrieved data found in biometrics response");
-            this.error = this._translocoService.translate("zelf_keys.payment_cards.detail.error.retrieve_failed");
+            return;
         }
+
+        if (this.isPopout) {
+            this.showPopoutDecryptor = true;
+            this._setDecryptionDataForService();
+            return;
+        }
+
+        const isPopoutOpen = await this._popoutCommunicationService.isPopoutOpen();
+        const payload = this.decryptionPayload;
+
+        if (isPopoutOpen) {
+            await this._popoutCommunicationService.redirectPopout("popout-decryptor", payload);
+        } else {
+            await this._popoutCommunicationService.openPopout("popout-decryptor", payload);
+        }
+
+        chrome.runtime.onMessage.addListener(this._handleDecryptionResultListener);
     }
 
-    async decryptPaymentCard(biometricData: any): Promise<void> {
-        this.isLoading = true;
-        this.error = null;
+    handleDecryptionResult(data: any): void {
+        if (!data || !this.paymentCard) return;
 
+        // Parse the card data from publicData.card JSON string if needed for fallback
+        let cardData: any = {};
         try {
-            const payload = {
-                zelfProof: this.paymentCard!.publicData.zelfProof || "",
-                faceBase64: biometricData.faceBase64,
-                password: biometricData.password || undefined,
-            };
-
-            const response = await this._zelfKeysService.retrievePassword(payload.zelfProof, payload.faceBase64, payload.password);
-
-            if (response?.data?.metadata) {
-                this.decryptedData = {
-                    name: response.data.metadata.name || "",
-                    number: response.data.metadata.number || "",
-                    expires: response.data.metadata.expires || "",
-                    bankName: response.data.metadata.bankName || "",
-                    cvv: response.data.metadata.cvv || "",
-                };
-
-                this.showBiometrics = false;
-            } else {
-                throw new Error("Failed to decrypt payment card data");
+            if ((data as any)?.card) {
+                cardData = this._parseJsonSafely((data as any).card);
             }
         } catch (error) {
-            console.error("Error decrypting payment card:", error);
-            this.error = this._translocoService.translate("zelf_keys.payment_cards.detail.error.decrypt_failed");
-        } finally {
-            this.isLoading = false;
+            console.warn("Failed to parse card data from publicData.card");
         }
+
+        this.decryptedData = {
+            name: cardData.name || "",
+            number: data.number || data.cardNumber || "",
+            expires: data.expiryMonth && data.expiryYear ? `${data.expiryMonth}/${data.expiryYear}` : cardData.expires || "",
+            bankName: cardData.bankName || "",
+            cvv: data.cvv || "",
+        };
+        this.isDecrypted = true;
+
+        this._changeDetectorRef.detectChanges();
+
+        // Trigger scroll to decrypted content section
+        setTimeout(() => {
+            this._scrollToSectionService.scrollToSection("payment-card-decrypted-content", "payment-card");
+        }, 500);
+    }
+
+    get decryptionPayload(): any {
+        if (!this.paymentCard) return null;
+
+        return {
+            requestId: this.paymentCard.id,
+            type: "payment-card",
+            zelfProof: (this.paymentCard as any).zelfProof || this.paymentCard?.publicData?.zelfProof || "",
+            publicData: {
+                title: this.getCardBankName(),
+                website: "Payment Card",
+            },
+        };
+    }
+
+    private _handleDecryptionResultListener = (message: any) => {
+        if (message.type === "DECRYPTION_RESULT_FROM_POPOUT" && this.paymentCard?.id === message.payload?.requestId) {
+            this.handleDecryptionResult(message.payload?.result?.data);
+
+            chrome.runtime.onMessage.removeListener(this._handleDecryptionResultListener);
+        }
+
+        return true;
+    };
+
+    private _initSubscriptions(): void {
+        this._chromeService.isPopout$.pipe(takeUntil(this._destroy$)).subscribe((isPopout: boolean) => {
+            this.isPopout = isPopout;
+        });
+
+        this._popoutCommunicationService.decryptionResult$.pipe(takeUntil(this._destroy$)).subscribe((result: PopoutDecryptionResult | null) => {
+            if (!result?.success || !this.showPopoutDecryptor) return;
+
+            this.handleDecryptionResult(result.data);
+            this.showPopoutDecryptor = false;
+        });
+    }
+
+    private _setDecryptionDataForService(): void {
+        if (!this.isPopout) return;
+
+        this._popoutCommunicationService.setDecryptionData(this.decryptionPayload);
     }
 
     onBackToList(): void {

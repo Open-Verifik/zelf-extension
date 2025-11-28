@@ -1,5 +1,5 @@
 import { PasswordEntry } from "@shared/types/autofill.types";
-import { DecryptedPasswordData } from "../types/autofill.types";
+import { DecryptedPasswordData } from "@shared/types/autofill.types";
 import { TagModel } from "@shared/types/tag.types";
 import { Logger } from "@extension-scripts/logger/logger.class";
 import { environment } from "@extension-scripts/environments/environment";
@@ -208,7 +208,7 @@ export class CredentialManagerService {
     /**
      * Decrypt a password
      */
-    public async decryptPassword(passwordId: string): Promise<DecryptedPasswordData | null> {
+    public async decryptPassword(requestId: string): Promise<DecryptedPasswordData | null> {
         try {
             // Ensure we have a valid session
             if (!(await this.initializeSession())) {
@@ -217,7 +217,7 @@ export class CredentialManagerService {
             }
 
             const response = await this.makeApiCall("POST", `${this.ZELF_KEYS_ROUTE}/retrieve`, {
-                id: passwordId,
+                id: requestId,
             });
 
             if (response?.data) {

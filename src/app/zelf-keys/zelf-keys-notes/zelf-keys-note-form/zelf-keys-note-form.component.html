@@ -1,4 +1,4 @@
-<div class="note-form">
+<div class="note-form" *transloco="let t">
     <div class="form-header">
         <button (click)="onCancel()" mat-flat-button class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40">
             <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7,58 +7,78 @@
                 />
             </svg>
         </button>
-        <h2>{{ isNewNote ? ("billing.notes.form.title.add" | transloco) : ("billing.notes.form.title.edit" | transloco) }}</h2>
+        <h2>{{ isNewNote ? t("billing.notes.form.title.add") : t("billing.notes.form.title.edit") }}</h2>
     </div>
 
     <div class="form-content">
         <form (ngSubmit)="onSave()" #noteForm="ngForm">
             <!-- Title Section -->
             <div class="form-section">
-                <label for="title" class="form-label">{{ "billing.notes.form.title_field.label" | transloco }}</label>
                 <div class="zelf-input zelf-input--wide">
                     <input
-                        type="text"
+                        (ngModelChange)="checkFormValidity()"
+                        [(ngModel)]="noteData.title"
+                        maxlength="35"
+                        class="zelf-input__control zelf-input__control--floating-label"
                         id="title"
                         name="title"
-                        [(ngModel)]="noteData.title"
-                        (ngModelChange)="checkFormValidity()"
-                        class="zelf-input__control"
-                        [placeholder]="'billing.notes.form.title_field.placeholder' | transloco"
                         required
+                        type="text"
                     />
+
+                    <label for="title" class="zelf-input__floating-label">{{ t("billing.notes.form.title_field.label") }}</label>
+
+                    <div
+                        [class.zelf-input__character-count--warning]="(noteData.title.length || 0) > 25"
+                        [class.zelf-input__character-count--error]="(noteData.title.length || 0) === 35"
+                        class="zelf-input__character-count"
+                    >
+                        {{ noteData.title.length || 0 }}/35
+                    </div>
                 </div>
             </div>
 
             <!-- Note Content Section -->
             <div class="form-section">
-                <label for="content" class="form-label">{{ "billing.notes.form.content.label" | transloco }}</label>
                 <div class="zelf-input zelf-input--wide zelf-input--textarea">
                     <textarea
-                        id="content"
-                        name="content"
-                        [(ngModel)]="noteData.content"
                         (ngModelChange)="checkFormValidity()"
-                        class="zelf-input__control"
-                        [placeholder]="'billing.notes.form.content.placeholder' | transloco"
-                        rows="8"
+                        [(ngModel)]="noteData.content"
+                        class="zelf-input__control zelf-input__control--floating-label"
+                        id="content"
+                        maxlength="250"
+                        name="content"
                         required
+                        rows="8"
                     ></textarea>
+
+                    <label for="content" class="zelf-input__floating-label">{{ t("billing.notes.form.content.label") }}</label>
+
+                    <div
+                        [class.zelf-input__character-count--warning]="(noteData.content.length || 0) > 225"
+                        [class.zelf-input__character-count--error]="(noteData.content.length || 0) === 250"
+                        class="zelf-input__character-count"
+                    >
+                        {{ noteData.content.length || 0 }}/250
+                    </div>
                 </div>
-                <small class="form-hint">{{ "billing.notes.form.content.hint" | transloco }}</small>
+
+                <small class="form-hint">{{ t("billing.notes.form.content.hint") }}</small>
             </div>
 
             <!-- Folder Section -->
             <div class="form-section">
                 <div class="folder-toggle">
-                    <label class="form-label">{{ "billing.notes.form.folder.label" | transloco }}</label>
+                    <label class="form-label">{{ t("billing.notes.form.folder.label") }}</label>
+
                     <div
-                        class="zelf-toggle"
-                        [class.zelf-toggle--active]="noteData.insideFolder"
                         (click)="toggleFolder()"
-                        tabindex="0"
-                        role="switch"
                         [attr.aria-checked]="noteData.insideFolder"
-                        [attr.aria-label]="'billing.notes.form.folder.aria_label' | transloco"
+                        [attr.aria-label]="t('billing.notes.form.folder.aria_label')"
+                        [class.zelf-toggle--active]="noteData.insideFolder"
+                        class="zelf-toggle"
+                        role="switch"
+                        tabindex="0"
                     >
                         <div class="zelf-toggle__track"></div>
                         <div class="zelf-toggle__thumb"></div>
@@ -68,12 +88,21 @@
                 <div *ngIf="noteData.insideFolder" class="folder-input">
                     <div class="zelf-input zelf-input--wide">
                         <input
-                            type="text"
                             [(ngModel)]="noteData.folder"
-                            id="folder"
+                            [placeholder]="t('billing.notes.form.folder.placeholder')"
                             class="zelf-input__control"
-                            [placeholder]="'billing.notes.form.folder.placeholder' | transloco"
+                            id="folder"
+                            maxlength="20"
+                            type="text"
                         />
+
+                        <div
+                            [class.zelf-input__character-count--warning]="(noteData.folder.length || 0) > 15"
+                            [class.zelf-input__character-count--error]="(noteData.folder.length || 0) === 20"
+                            class="zelf-input__character-count"
+                        >
+                            {{ noteData.folder.length || 0 }}/20
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,35 +112,36 @@
                 <div class="password-input-field">
                     <div class="zelf-input zelf-input--wide">
                         <input
+                            (ngModelChange)="checkFormValidity()"
+                            [(ngModel)]="noteData.masterPassword"
                             [type]="showMasterPassword ? 'text' : 'password'"
+                            class="zelf-input__control zelf-input__control--floating-label"
                             id="masterPassword"
                             name="masterPassword"
-                            [(ngModel)]="noteData.masterPassword"
-                            (ngModelChange)="checkFormValidity()"
-                            class="zelf-input__control"
-                            [placeholder]="'billing.notes.form.master_password.placeholder' | transloco"
                         />
 
+                        <label for="masterPassword" class="zelf-input__floating-label">{{ t("billing.notes.form.master_password.label") }}</label>
+
                         <button
-                            type="button"
-                            class="zelf-icon-button zelf-icon-button--transparent"
                             (click)="toggleMasterPasswordVisibility()"
+                            class="zelf-icon-button zelf-icon-button--transparent"
                             tabindex="-1"
+                            type="button"
                         >
                             <ng-container *ngTemplateOutlet="showMasterPassword ? openEye : closedEye"></ng-container>
                         </button>
                     </div>
-                    <small class="form-hint">{{ "billing.notes.form.master_password.hint" | transloco: { walletName: wallet.name } }}</small>
+                    <small class="form-hint">{{ t("billing.notes.form.master_password.hint", { walletName: wallet.name }) }}</small>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="form-actions">
                 <button type="button" class="zelf-button zelf-button--tertiary" (click)="onCancel()">
-                    {{ "billing.notes.form.buttons.cancel" | transloco }}
+                    {{ t("billing.notes.form.buttons.cancel") }}
                 </button>
                 <button type="submit" class="zelf-button zelf-button--primary" [disabled]="!formValid">
-                    {{ isNewNote ? ("billing.notes.form.buttons.create" | transloco) : ("billing.notes.form.buttons.update" | transloco) }}
+                    {{ isNewNote ? t("billing.notes.form.buttons.create") : t("billing.notes.form.buttons.update") }}
                 </button>
             </div>
         </form>

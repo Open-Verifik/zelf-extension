@@ -23,9 +23,9 @@ export class PasswordManager {
         }
     }
 
-    public async decryptPassword(passwordId: string): Promise<{ username: string; password: string } | null> {
+    public async decryptPassword(requestId: string): Promise<{ username: string; password: string } | null> {
         try {
-            const result = await this.communicationService.decryptPassword(passwordId);
+            const result = await this.communicationService.decryptPassword(requestId);
 
             if (!result || !result.metadata) return null;
 

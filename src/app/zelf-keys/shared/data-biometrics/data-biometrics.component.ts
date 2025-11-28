@@ -618,6 +618,7 @@ export class DataBiometricsComponent implements OnInit, OnDestroy {
             // For both encrypt and decrypt modes, emit encrypted faceBase64 and password
             // The parent component (biometrics-bottom-sheet) will handle retrieval for decrypt mode
             this._stopCamera();
+
             this.biometricsSuccess.emit({
                 faceBase64: encryptedFaceBase64,
                 password: this.masterPassword,

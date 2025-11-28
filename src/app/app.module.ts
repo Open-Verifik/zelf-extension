@@ -9,7 +9,7 @@ import { environment } from "environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { TranslocoRootModule } from "./core/transloco-root.module";
-import { GlobalErrorHandler } from "./error-handler.service";
+import { GlobalErrorHandler } from "./global-error-handler.service";
 import { HttpInterceptorProviders } from "./interceptors";
 import { provideDomainInitializer } from "./core/providers/domain-initializer.provider";
 import { providePublicKeyInitializer } from "./core/providers/public-key-initializer.provider";

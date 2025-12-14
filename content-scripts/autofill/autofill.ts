@@ -565,6 +565,13 @@ class AutofillContentScript {
 
         // Add throttled scroll handling for icon repositioning
         this.setupScrollThrottling();
+
+        // Listen for extension open requests from the page
+        window.addEventListener("message", (event) => {
+            if (event.data && event.data.type === "OPEN_ZELF_EXTENSION") {
+                this.communicationService.sendMessage({ type: "OPEN_EXTENSION" as any });
+            }
+        });
     }
 
     private setupCommunication(): void {

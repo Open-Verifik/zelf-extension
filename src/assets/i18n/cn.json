@@ -474,6 +474,9 @@
         "considerations_description_3": "面向未来的保护。"
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "输入您的主密码"
+        },
         "activation": {
             "title": "付款已确认！",
             "message": "正在激活订阅……恭喜！您的付款已确认，订阅正在激活中。"

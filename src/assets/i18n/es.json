@@ -474,6 +474,9 @@
         "considerations_description_3": "Protección a prueba de futuro."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "Introduce tu contraseña maestra"
+        },
         "activation": {
             "title": "¡Pago confirmado!",
             "message": "Activando la suscripción... ¡Felicidades! Tu pago ha sido confirmado y tu suscripción se está activando."

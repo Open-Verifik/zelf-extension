@@ -474,6 +474,9 @@
         "considerations_description_3": "미래 지향적 보호."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "마스터 비밀번호를 입력하세요"
+        },
         "activation": {
             "title": "결제 확인 완료!",
             "message": "구독 활성화 중... 축하합니다! 결제가 확인되었고 구독이 활성화되는 중입니다."

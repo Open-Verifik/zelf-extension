@@ -474,6 +474,9 @@
         "considerations_description_3": "Proteksyon para sa hinaharap."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "Ilagay ang iyong master password"
+        },
         "activation": {
             "title": "Nakumpirma ang Bayad!",
             "message": "Ina-activate ang subscription... Binabati ka! Nakumpirma na ang iyong bayad at ina-activate na ang iyong subscription."

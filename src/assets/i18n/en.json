@@ -906,6 +906,9 @@
         "considerations_description_3": "Future-proof protection."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "Enter your master password"
+        },
         "activation": {
             "title": "Payment Confirmed!",
             "message": "Activating subscription... Congratulations! Your payment has been confirmed and your subscription is being activated."

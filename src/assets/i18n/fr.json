@@ -474,6 +474,9 @@
         "considerations_description_3": "Protection pérenne."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "Entrez votre mot de passe principal"
+        },
         "activation": {
             "title": "Paiement confirmé !",
             "message": "Activation de l'abonnement... Félicitations ! Votre paiement a été confirmé et votre abonnement est en cours d'activation."

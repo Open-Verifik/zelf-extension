@@ -10,7 +10,8 @@ import { AssetService } from "app/asset.service";
 import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
-import { TagModel } from "app/tags.service";
+import { AuthService } from "app/services/auth.service";
+import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
@@ -52,11 +53,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     constructor(
         private _assetService: AssetService,
+        private _authService: AuthService,
         private _blockchainNetworkService: BlockchainNetworksService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _router: Router,
+        private _tagsService: TagsService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
     ) {
@@ -182,7 +185,7 @@ export class HomeComponent implements OnInit, OnDestroy {
      * This updates the wallet in local storage and could trigger an endless update cycle with out subscription to onWalletChanged$.
      */
     private _refreshWallets = async (forceRefresh = false): Promise<void> => {
-        await this._zelfNameService.refreshAllWalletsPublicData([this.wallet] as TagModel[], forceRefresh);
+        await this._tagsService.refreshAllTagsPublicData([this.wallet] as TagModel[], forceRefresh);
     };
 
     private async _setWallet(): Promise<any> {
@@ -206,6 +209,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.balancesLoading = true;
         this.tokens = [];
         this.NFTs = [];
+
+        await this._authService.reauthenticateSession();
 
         try {
             const response = await firstValueFrom(

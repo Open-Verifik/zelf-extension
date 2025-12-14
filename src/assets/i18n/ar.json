@@ -474,6 +474,9 @@
         "considerations_description_3": "حماية مستقبلية."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "أدخل كلمة المرور الرئيسية"
+        },
         "activation": {
             "title": "تم تأكيد الدفع!",
             "message": "جارٍ تفعيل الاشتراك... تهانينا! تم تأكيد دفعتك وجارٍ تفعيل اشتراكك."

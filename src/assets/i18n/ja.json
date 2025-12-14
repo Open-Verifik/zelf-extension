@@ -474,6 +474,9 @@
         "considerations_description_3": "将来を見据えた保護。"
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "マスターパスワードを入力してください"
+        },
         "activation": {
             "title": "支払いが確認されました！",
             "message": "サブスクリプションを有効化しています… おめでとうございます！お支払いが確認され、サブスクリプションを有効化しています。"

@@ -474,6 +474,9 @@
         "considerations_description_3": "Proteção à prova de futuro."
     },
     "billing": {
+        "common": {
+            "master_password_placeholder": "Digite sua senha mestra"
+        },
         "activation": {
             "title": "Pagamento confirmado!",
             "message": "Ativando assinatura... Parabéns! Seu pagamento foi confirmado e sua assinatura está sendo ativada."

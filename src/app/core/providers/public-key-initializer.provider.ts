@@ -12,6 +12,7 @@ async function initializePublicKey(): Promise<void> {
     const apiUrl = environment.apiUrl;
 
     const { hash } = walletService.getUserFingerprint();
+
     const url = `${apiUrl}/api/sessions/yek-cilbup`;
 
     try {
@@ -22,6 +23,7 @@ async function initializePublicKey(): Promise<void> {
         const publicKey = response.data;
 
         await chromeService.setItem("publicKey", publicKey);
+
         httpWrapperService.setPublicKey(publicKey);
     } catch (error) {
         console.error("Error loading public key:", error);
@@ -31,5 +33,3 @@ async function initializePublicKey(): Promise<void> {
 export function providePublicKeyInitializer() {
     return provideAppInitializer(initializePublicKey);
 }
-
-

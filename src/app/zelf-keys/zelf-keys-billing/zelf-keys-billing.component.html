@@ -94,7 +94,7 @@
                                         <div class="billing__receipt-price">
                                             <span
                                                 *ngIf="activeSubscription?.paymentMethod === 'crypto'"
-                                                class="billing__payment-method billing__payment-method--crypto"
+                                                class="billing__payment-method-text billing__payment-method-text--crypto"
                                             >
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
@@ -113,7 +113,7 @@
                                             </span>
                                             <span
                                                 *ngIf="activeSubscription?.paymentMethod === 'stripe'"
-                                                class="billing__payment-method billing__payment-method--stripe"
+                                                class="billing__payment-method-text billing__payment-method-text--stripe"
                                             >
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke="currentColor" stroke-width="2" />
@@ -480,7 +480,11 @@
                             <div class="billing__payment-method-content">
                                 <div class="billing__qr-section">
                                     <div class="billing__qr-container">
-                                        <img [src]="generatePaymentQR()" [alt]="t('zelf_keys.billing_ui.crypto.payment_qr_code_alt')" class="billing__qr-code" />
+                                        <img
+                                            [src]="generatePaymentQR()"
+                                            [alt]="t('zelf_keys.billing_ui.crypto.payment_qr_code_alt')"
+                                            class="billing__qr-code"
+                                        />
                                     </div>
                                 </div>
                             </div>

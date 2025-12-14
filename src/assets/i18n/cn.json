@@ -1222,7 +1222,9 @@
                     "blob_id": "Blob ID",
                     "public_url": "公共 URL",
                     "explorer_url": "浏览器 URL",
-                    "status": "状态"
+                    "status": "状态",
+                    "reason": "原因",
+                    "error": "错误"
                 },
                 "view_link": "在 Walrus 上查看",
                 "explorer_link": "在浏览器上查看"
@@ -1394,7 +1396,9 @@
                         "blob_id": "Blob ID",
                         "public_url": "公共 URL",
                         "explorer_url": "浏览器 URL",
-                        "status": "状态"
+                        "status": "状态",
+                        "reason": "原因",
+                        "error": "错误"
                     },
                     "view_link": "在 Walrus 上查看",
                     "explorer_link": "在浏览器上查看"

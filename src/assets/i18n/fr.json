@@ -1219,10 +1219,12 @@
             "walrus": {
                 "title": "Walrus Storage",
                 "labels": {
-                    "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "blob_id": "ID du Blob",
+                    "public_url": "URL Publique",
+                    "explorer_url": "URL de l'Explorateur",
+                    "status": "Statut",
+                    "reason": "Raison",
+                    "error": "Erreur"
                 },
                 "view_link": "View on Walrus",
                 "explorer_link": "View on Explorer"
@@ -1391,10 +1393,12 @@
                 "walrus": {
                     "title": "Walrus Storage",
                     "labels": {
-                        "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "blob_id": "ID du Blob",
+                        "public_url": "URL Publique",
+                        "explorer_url": "URL de l'Explorateur",
+                        "status": "Statut",
+                        "reason": "Raison",
+                        "error": "Erreur"
                     },
                     "view_link": "View on Walrus",
                     "explorer_link": "View on Explorer"

@@ -1222,7 +1222,9 @@
                     "blob_id": "ID do Blob",
                     "public_url": "URL Pública",
                     "explorer_url": "URL do Explorador",
-                    "status": "Status"
+                    "status": "Status",
+                    "reason": "Razão",
+                    "error": "Erro"
                 },
                 "view_link": "Ver no Walrus",
                 "explorer_link": "Ver no Explorador"
@@ -1394,7 +1396,9 @@
                         "blob_id": "ID do Blob",
                         "public_url": "URL Pública",
                         "explorer_url": "URL do Explorador",
-                        "status": "Status"
+                        "status": "Status",
+                        "reason": "Razão",
+                        "error": "Erro"
                     },
                     "view_link": "Ver no Walrus",
                     "explorer_link": "Ver no Explorador"

@@ -1217,15 +1217,17 @@
                 "no_data": "ไม่พบข้อมูลผลลัพธ์"
             },
             "walrus": {
-                "title": "Walrus Storage",
+                "title": "ที่เก็บ Walrus",
                 "labels": {
-                    "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "blob_id": "ID บล็อก",
+                    "public_url": "URL สาธารณะ",
+                    "explorer_url": "URL ตัวสำรวจ",
+                    "status": "สถานะ",
+                    "reason": "เหตุผล",
+                    "error": "ข้อผิดพลาด"
                 },
-                "view_link": "View on Walrus",
-                "explorer_link": "View on Explorer"
+                "view_link": "ดูบน Walrus",
+                "explorer_link": "ดูบนตัวสำรวจ"
             }
         },
         "billing_ui": {
@@ -1389,15 +1391,17 @@
                     "unknown_message": "ระบบไม่สามารถระบุสถานะได้ โปรดตรวจสอบการตอบกลับของ API ด้านบนเพื่อดูรายละเอียด"
                 },
                 "walrus": {
-                    "title": "Walrus Storage",
+                    "title": "ที่เก็บ Walrus",
                     "labels": {
-                        "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "blob_id": "ID บล็อก",
+                        "public_url": "URL สาธารณะ",
+                        "explorer_url": "URL ตัวสำรวจ",
+                        "status": "สถานะ",
+                        "reason": "เหตุผล",
+                        "error": "ข้อผิดพลาด"
                     },
-                    "view_link": "View on Walrus",
-                    "explorer_link": "View on Explorer"
+                    "view_link": "ดูบน Walrus",
+                    "explorer_link": "ดูบนตัวสำรวจ"
                 }
             },
             "actions": {

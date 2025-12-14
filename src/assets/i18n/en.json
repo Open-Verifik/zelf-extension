@@ -121,7 +121,9 @@
                     "blob_id": "Blob ID",
                     "public_url": "Public URL",
                     "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "status": "Status",
+                    "reason": "Reason",
+                    "error": "Error"
                 },
                 "view_link": "View on Walrus",
                 "explorer_link": "View on Explorer"
@@ -373,7 +375,9 @@
                         "blob_id": "Blob ID",
                         "public_url": "Public URL",
                         "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "status": "Status",
+                        "reason": "Reason",
+                        "error": "Error"
                     },
                     "view_link": "View on Walrus",
                     "explorer_link": "View on Explorer"
@@ -1386,10 +1390,15 @@
             "walrus": {
                 "title": "Walrus Storage",
                 "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
                     "status": "Status",
                     "reason": "Reason",
                     "error": "Error"
-                }
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
             },
             "zelfproof": {
                 "title": "ZelfProof Generated",

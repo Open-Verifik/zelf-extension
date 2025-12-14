@@ -972,10 +972,15 @@
             "walrus": {
                 "title": "Almacenamiento Walrus",
                 "labels": {
+                    "blob_id": "ID de Blob",
+                    "public_url": "URL Pública",
+                    "explorer_url": "URL del Explorador",
                     "status": "Estado",
                     "reason": "Razón",
                     "error": "Error"
-                }
+                },
+                "view_link": "Ver en Walrus",
+                "explorer_link": "Ver en Explorador"
             }
         },
         "actions": {
@@ -1219,10 +1224,12 @@
             "walrus": {
                 "title": "Walrus Storage",
                 "labels": {
-                    "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "blob_id": "ID de Blob",
+                    "public_url": "URL Pública",
+                    "explorer_url": "URL del Explorador",
+                    "status": "Estado",
+                    "reason": "Razón",
+                    "error": "Error"
                 },
                 "view_link": "View on Walrus",
                 "explorer_link": "View on Explorer"
@@ -1389,15 +1396,17 @@
                     "unknown_message": "El sistema no pudo determinar el estado. Por favor, verifique la respuesta de la API arriba para obtener detalles."
                 },
                 "walrus": {
-                    "title": "Walrus Storage",
+                    "title": "Almacenamiento Walrus",
                     "labels": {
-                        "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "blob_id": "ID de Blob",
+                        "public_url": "URL Pública",
+                        "explorer_url": "URL del Explorador",
+                        "status": "Estado",
+                        "reason": "Razón",
+                        "error": "Error"
                     },
-                    "view_link": "View on Walrus",
-                    "explorer_link": "View on Explorer"
+                    "view_link": "Ver en Walrus",
+                    "explorer_link": "Ver en Explorador"
                 }
             },
             "actions": {

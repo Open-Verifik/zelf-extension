@@ -8,12 +8,6 @@
 
         <div class="note-result__content" *ngIf="!loading">
             <!-- Success Summary -->
-            <div class="note-result__section" *ngIf="getResultStatus() === 'success'">
-                <h3 class="note-result__section-title">{{ t("zelf_keys.note_result.sections.success.title") }}</h3>
-                <div class="note-result__success-summary">
-                    <p class="note-result__success-message">{{ apiResult.message || t("zelf_keys.note_result.sections.success.message") }}</p>
-                </div>
-            </div>
 
             <!-- Note Data Summary -->
             <div class="note-result__section">

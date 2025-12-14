@@ -1217,15 +1217,17 @@
                 "no_data": "कोई परिणाम डेटा नहीं मिला"
             },
             "walrus": {
-                "title": "Walrus Storage",
+                "title": "Walrus संग्रहण",
                 "labels": {
                     "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "public_url": "सार्वजनिक URL",
+                    "explorer_url": "एक्सप्लोरर URL",
+                    "status": "स्थिति",
+                    "reason": "कारण",
+                    "error": "त्रुटि"
                 },
-                "view_link": "View on Walrus",
-                "explorer_link": "View on Explorer"
+                "view_link": "Walrus पर देखें",
+                "explorer_link": "एक्सप्लोरर पर देखें"
             }
         },
         "billing_ui": {
@@ -1389,15 +1391,17 @@
                     "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। कृपया विवरण के लिए ऊपर API प्रतिक्रिया देखें।"
                 },
                 "walrus": {
-                    "title": "Walrus Storage",
+                    "title": "Walrus संग्रहण",
                     "labels": {
                         "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "public_url": "सार्वजनिक URL",
+                        "explorer_url": "एक्सप्लोरर URL",
+                        "status": "स्थिति",
+                        "reason": "कारण",
+                        "error": "त्रुटि"
                     },
-                    "view_link": "View on Walrus",
-                    "explorer_link": "View on Explorer"
+                    "view_link": "Walrus पर देखें",
+                    "explorer_link": "एक्सप्लोरर पर देखें"
                 }
             },
             "actions": {

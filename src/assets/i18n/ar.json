@@ -1222,7 +1222,9 @@
                     "blob_id": "معرف الكتلة",
                     "public_url": "رابط عام",
                     "explorer_url": "رابط المستكشف",
-                    "status": "الحالة"
+                    "status": "الحالة",
+                    "reason": "السبب",
+                    "error": "خطأ"
                 },
                 "view_link": "عرض على Walrus",
                 "explorer_link": "عرض على المستكشف"
@@ -1394,7 +1396,9 @@
                         "blob_id": "معرف الكتلة",
                         "public_url": "رابط عام",
                         "explorer_url": "رابط المستكشف",
-                        "status": "الحالة"
+                        "status": "الحالة",
+                        "reason": "السبب",
+                        "error": "خطأ"
                     },
                     "view_link": "عرض على Walrus",
                     "explorer_link": "عرض على المستكشف"

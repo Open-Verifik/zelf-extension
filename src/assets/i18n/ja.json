@@ -1217,15 +1217,17 @@
                 "no_data": "結果データが見つかりませんでした"
             },
             "walrus": {
-                "title": "Walrus Storage",
+                "title": "Walrusストレージ",
                 "labels": {
                     "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "public_url": "公開URL",
+                    "explorer_url": "エクスプローラーURL",
+                    "status": "ステータス",
+                    "reason": "理由",
+                    "error": "エラー"
                 },
-                "view_link": "View on Walrus",
-                "explorer_link": "View on Explorer"
+                "view_link": "Walrusで表示",
+                "explorer_link": "エクスプローラーで表示"
             }
         },
         "billing_ui": {
@@ -1389,15 +1391,17 @@
                     "unknown_message": "システムはステータスを特定できませんでした。詳細については、上記のAPIレスポンスを確認してください。"
                 },
                 "walrus": {
-                    "title": "Walrus Storage",
+                    "title": "Walrusストレージ",
                     "labels": {
                         "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "public_url": "公開URL",
+                        "explorer_url": "エクスプローラーURL",
+                        "status": "ステータス",
+                        "reason": "理由",
+                        "error": "エラー"
                     },
-                    "view_link": "View on Walrus",
-                    "explorer_link": "View on Explorer"
+                    "view_link": "Walrusで表示",
+                    "explorer_link": "エクスプローラーで表示"
                 }
             },
             "actions": {

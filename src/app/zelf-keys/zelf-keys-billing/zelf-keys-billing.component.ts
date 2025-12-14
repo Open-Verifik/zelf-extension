@@ -526,6 +526,7 @@ export class ZelfKeysBillingComponent implements OnInit {
 
                 if (response.success && response.checkoutUrl) {
                     window.open(response.checkoutUrl, "_blank");
+                    this.startSubscriptionPolling();
                 } else {
                     this.error = this._translocoService.translate("zelf_keys.billing_ui.error.create_checkout");
                 }
@@ -535,6 +536,56 @@ export class ZelfKeysBillingComponent implements OnInit {
                 this.loadingPayment = null;
                 this.error = this._translocoService.translate("zelf_keys.billing_ui.error.create_checkout");
             });
+    }
+
+    /**
+     * Start polling for subscription status
+     */
+    private startSubscriptionPolling(): void {
+        this.loading = true; // Show loading indicator while polling
+
+        // Clear any existing polling
+        if (this.paymentPollingInterval) {
+            clearInterval(this.paymentPollingInterval);
+        }
+
+        let attempts = 0;
+        const maxAttempts = 60; // Poll for 2 minutes (every 2 seconds)
+
+        this.paymentPollingInterval = setInterval(() => {
+            attempts++;
+
+            this._billingService
+                .getActiveSubscription()
+                .then((response) => {
+                    if (response.success && response.data) {
+                        // Subscription found!
+                        this.stopPaymentMonitoring();
+
+                        console.log("🎉 Subscription confirmed via polling!");
+
+                        // Show activation message
+                        this.showActivationMessage = true;
+                        this.activationMessage = this._translocoService.translate("billing.activation.message");
+                        this.loadingPayment = null;
+
+                        setTimeout(() => {
+                            this.showActivationMessage = false;
+                            this.ngOnInit(); // Reload full state
+                        }, 3000);
+                    }
+                })
+                .catch(() => {
+                    // Ignore errors during polling, simply retry
+                });
+
+            if (attempts >= maxAttempts) {
+                this.stopPaymentMonitoring();
+                this.loading = false;
+                this.loadingPayment = null;
+                // Don't show error, just stop polling. User can refresh manually.
+            }
+        }, 2000); // Check every 2 seconds
     }
 
     getPlanButtonText(plan: PricingPlan): string {

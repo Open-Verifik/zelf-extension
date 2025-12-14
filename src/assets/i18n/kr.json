@@ -1217,15 +1217,17 @@
                 "no_data": "결과 데이터를 찾을 수 없습니다"
             },
             "walrus": {
-                "title": "Walrus Storage",
+                "title": "Walrus 스토리지",
                 "labels": {
                     "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status"
+                    "public_url": "공개 URL",
+                    "explorer_url": "탐색기 URL",
+                    "status": "상태",
+                    "reason": "이유",
+                    "error": "오류"
                 },
-                "view_link": "View on Walrus",
-                "explorer_link": "View on Explorer"
+                "view_link": "Walrus에서 보기",
+                "explorer_link": "탐색기에서 보기"
             }
         },
         "billing_ui": {
@@ -1389,15 +1391,17 @@
                     "unknown_message": "시스템이 상태를 확인할 수 없습니다. 자세한 내용은 위의 API 응답을 확인하세요."
                 },
                 "walrus": {
-                    "title": "Walrus Storage",
+                    "title": "Walrus 스토리지",
                     "labels": {
                         "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status"
+                        "public_url": "공개 URL",
+                        "explorer_url": "탐색기 URL",
+                        "status": "상태",
+                        "reason": "이유",
+                        "error": "오류"
                     },
-                    "view_link": "View on Walrus",
-                    "explorer_link": "View on Explorer"
+                    "view_link": "Walrus에서 보기",
+                    "explorer_link": "탐색기에서 보기"
                 }
             },
             "actions": {

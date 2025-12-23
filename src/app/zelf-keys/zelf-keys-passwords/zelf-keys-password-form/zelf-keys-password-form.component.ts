@@ -16,6 +16,7 @@ import {
     BiometricsBottomSheetData,
 } from "../../shared/biometrics-bottom-sheet/biometrics-bottom-sheet.component";
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { PasswordGeneratorService, PasswordAlgorithm } from "../../../services/password-generator.service";
 
 @Component({
     imports: [CommonModule, TranslocoModule, RouterModule, ReactiveFormsModule],
@@ -24,6 +25,7 @@ import { HttpWrapperService } from "app/http-wrapper.service";
     templateUrl: "./zelf-keys-password-form.component.html",
 })
 export class PasswordFormComponent implements OnInit {
+    currentAlgorithm: PasswordAlgorithm = "strong";
     formValid = false;
     hasMasterPassword = false;
     isNewPassword = true;
@@ -31,6 +33,7 @@ export class PasswordFormComponent implements OnInit {
     shareables: any;
     showMasterPassword = false;
     showPassword = false;
+    showPasswordGenerator = false;
     transformedPasswordData: any = null;
     view?: string;
     wallet!: TagModel;
@@ -44,6 +47,7 @@ export class PasswordFormComponent implements OnInit {
         private _destroyRef: DestroyRef,
         private _formBuilder: FormBuilder,
         private _httpWrapperService: HttpWrapperService,
+        private _passwordGeneratorService: PasswordGeneratorService,
         private _router: Router,
         private _walletService: WalletService
     ) {
@@ -74,7 +78,6 @@ export class PasswordFormComponent implements OnInit {
             email: ["a@a.com", [Validators.required]],
             folder: [""],
             masterPassword: [""],
-            notes: [""],
             insideFolder: [false],
             password: ["password_field", [Validators.required]],
             url: ["https://www.google.com", [Validators.required]],
@@ -161,6 +164,40 @@ export class PasswordFormComponent implements OnInit {
         this.passwordForm.patchValue({ insideFolder: !currentValue });
     }
 
+    generatePassword(): void {
+        const password = this._passwordGeneratorService.generatePassword({
+            algorithm: this.currentAlgorithm,
+        });
+
+        this.passwordForm.patchValue({ password });
+        this.checkFormValidity();
+    }
+
+    regeneratePassword(): void {
+        this.generatePassword();
+    }
+
+    switchAlgorithm(algorithm: PasswordAlgorithm): void {
+        this.currentAlgorithm = algorithm;
+        this.generatePassword();
+    }
+
+    getAvailableAlgorithms(): PasswordAlgorithm[] {
+        return this._passwordGeneratorService.getAvailableAlgorithms();
+    }
+
+    getAlgorithmName(algorithm: PasswordAlgorithm): string {
+        return this._passwordGeneratorService.getAlgorithmName(algorithm);
+    }
+
+    getAlgorithmDescription(algorithm: PasswordAlgorithm): string {
+        return this._passwordGeneratorService.getAlgorithmDescription(algorithm);
+    }
+
+    togglePasswordGenerator(): void {
+        this.showPasswordGenerator = !this.showPasswordGenerator;
+    }
+
     checkFormValidity(): void {
         const formValue = this.passwordForm.value;
         const hasUrl = !!formValue.url;
@@ -188,7 +225,6 @@ export class PasswordFormComponent implements OnInit {
             folder: formValue.folder,
             insideFolder: formValue.insideFolder,
             masterPassword: await this._httpWrapperService.encryptMessage(formValue.masterPassword),
-            notes: formValue.notes,
             password: await this._httpWrapperService.encryptMessage(formValue.password),
             type: "passwords",
             url: formValue.url,

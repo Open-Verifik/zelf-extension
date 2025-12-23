@@ -34,15 +34,17 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
     }
 
     async ngOnInit(): Promise<void> {
-        const apiResult = this.dataPassingService.getResult("passwords");
+        let apiResult: any = this.dataPassingService.getResult("passwords");
+
+        // Handle case where result might be wrapped in 'data' property
+        if (apiResult && "data" in apiResult && typeof apiResult.data === "object") {
+            apiResult = apiResult.data;
+        }
 
         if (apiResult && this._isValidZelfKeyPasswordResult(apiResult)) {
             await this.zelfKeysDataService.clearCache();
 
-            this.apiResult = apiResult;
-        } else {
-            // Handle error case - create a minimal error result
-            this.apiResult = null;
+            this.apiResult = apiResult as ZelfKeyPasswordResult;
         }
 
         const passwordData = this.dataPassingService.getData("passwords");
@@ -53,16 +55,23 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
     }
 
     private _isValidZelfKeyPasswordResult(data: any): data is ZelfKeyPasswordResult {
-        return (
-            data &&
-            typeof data === "object" &&
-            "ipfs" in data &&
-            "walrus" in data &&
-            "type" in data &&
-            "message" in data &&
-            typeof data.ipfs === "object" &&
-            typeof data.walrus === "object"
-        );
+        if (!data || typeof data !== "object") {
+            return false;
+        }
+
+        // Must have type and message
+        if (!("type" in data) || !("message" in data)) {
+            return false;
+        }
+
+        // At least one storage method should be present (or zelfProof which indicates success)
+        const hasStorageMethod =
+            ("ipfs" in data && typeof data.ipfs === "object") ||
+            ("walrus" in data && typeof data.walrus === "object") ||
+            ("arweave" in data && typeof data.arweave === "object") ||
+            "zelfProof" in data; // zelfProof indicates successful storage
+
+        return hasStorageMethod;
     }
 
     async onBackToPasswords(): Promise<void> {
@@ -104,16 +113,46 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
     getResultStatus(): "success" | "error" | "unknown" {
         if (!this.apiResult) return "error";
 
-        // Check if IPFS storage was successful
-        if (this.apiResult.ipfs?.saved === true && this.apiResult.ipfs?.pinned === true) {
+        // Check if message indicates success (highest priority check)
+        const message = this.apiResult.message?.toLowerCase() || "";
+        if (message.includes("success") || message.includes("stored successfully")) {
             return "success";
         }
 
-        // Check for error messages
-        if (this.apiResult.walrus?.error || this.apiResult.message?.toLowerCase().includes("error")) {
-            return "error";
+        // Check if at least one storage method succeeded
+        // Success if: IPFS saved & pinned, OR Walrus success, OR Arweave success, OR general success flag
+        const ipfsSuccess = this.apiResult.ipfs?.saved === true && this.apiResult.ipfs?.pinned === true;
+        const walrusSuccess = (this.apiResult.walrus as any)?.success === true;
+        const arweaveSuccess = (this.apiResult as any).arweave?.success === true;
+        const generalSuccess = (this.apiResult as any).success === true;
+
+        // If we have zelfProof, that's a strong indicator of success
+        const hasZelfProof = !!this.apiResult.zelfProof;
+
+        if (ipfsSuccess || walrusSuccess || arweaveSuccess || generalSuccess || hasZelfProof) {
+            return "success";
         }
 
+        // Only return error if:
+        // 1. Message explicitly contains "error" AND
+        // 2. ALL present storage methods failed (missing storage methods don't count as failures)
+        const hasExplicitError = message.includes("error") && !message.includes("success");
+
+        if (hasExplicitError) {
+            // Check if all present storage methods failed
+            const ipfsPresent = !!this.apiResult.ipfs;
+            const walrusPresent = !!(this.apiResult.walrus as any) && !(this.apiResult.walrus as any)?.skipped;
+            const arweavePresent = !!(this.apiResult as any).arweave;
+
+            const allPresentMethodsFailed =
+                (!ipfsPresent || !ipfsSuccess) && (!walrusPresent || !walrusSuccess) && (!arweavePresent || !arweaveSuccess);
+
+            if (allPresentMethodsFailed) {
+                return "error";
+            }
+        }
+
+        // Default to unknown if we can't determine
         return "unknown";
     }
 

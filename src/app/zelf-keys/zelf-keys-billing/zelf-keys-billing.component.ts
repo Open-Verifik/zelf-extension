@@ -200,6 +200,9 @@ export class ZelfKeysBillingComponent implements OnInit {
 
                         planId = currentPlan?.id || "basic";
                     }
+                } else if (subscription.paymentMethod === "revenuecat" && subscription.revenueCatData) {
+                    // RevenueCat subscriptions - get plan from revenueCatData
+                    planId = subscription.revenueCatData.plan || "pro";
                 }
 
                 if (planId) {
@@ -450,6 +453,11 @@ export class ZelfKeysBillingComponent implements OnInit {
         if (this.activeSubscription?.paymentMethod === "crypto") {
             const cryptoData = this.getCryptoData();
             return cryptoData?.status || this._translocoService.translate("billing.subscription.active");
+        } else if (this.activeSubscription?.paymentMethod === "revenuecat") {
+            // RevenueCat subscription status
+            return this.isCancelledActive()
+                ? this._translocoService.translate("billing.subscription.cancelled_active")
+                : this.activeSubscription?.status || this._translocoService.translate("billing.subscription.active");
         } else {
             // Stripe subscription status
             return this.isCancelledActive()
@@ -613,12 +621,19 @@ export class ZelfKeysBillingComponent implements OnInit {
     isCancelledActive(): boolean {
         if (!this.activeSubscription) return false;
 
-        // Check both the main status and stripeData for cancelled status
-        const mainStatus = this.activeSubscription.stripeData?.status === "cancelled_active";
-        const stripeStatus = this.activeSubscription.stripeData?.status === "cancelled_active";
-        const cancelAtPeriodEnd = this.activeSubscription.stripeData?.cancelAtPeriodEnd === true;
+        // Check RevenueCat subscription status
+        if (this.activeSubscription.paymentMethod === "revenuecat") {
+            return this.activeSubscription.status === "cancelled_active";
+        }
 
-        return mainStatus || stripeStatus || cancelAtPeriodEnd;
+        // Check Stripe subscription status
+        if (this.activeSubscription.paymentMethod === "stripe") {
+            const stripeStatus = this.activeSubscription.stripeData?.status === "cancelled_active";
+            const cancelAtPeriodEnd = this.activeSubscription.stripeData?.cancelAtPeriodEnd === true;
+            return stripeStatus || cancelAtPeriodEnd;
+        }
+
+        return false;
     }
 
     /**

@@ -107,6 +107,9 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
                 this._billingService.currentPlan = subscription.cryptoData.plan || "basic";
             } else if (subscription.paymentMethod === "stripe" && subscription.stripeData) {
                 this._billingService.currentPlan = subscription.stripeData.plan || "free";
+            } else if (subscription.paymentMethod === "revenuecat" && subscription.revenueCatData) {
+                // RevenueCat subscriptions - get plan from revenueCatData
+                this._billingService.currentPlan = subscription.revenueCatData.plan || "pro";
             } else {
                 this._billingService.currentPlan = "free";
             }

@@ -219,6 +219,22 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+
+        .zelf-input {
+            input[type="password"],
+            input[type="text"][formcontrolname="masterPassword"],
+            input[formcontrolname="masterPassword"] {
+                padding-right: 56px !important;
+            }
+
+            .zelf-icon-button {
+                position: relative;
+                z-index: 20;
+                flex-shrink: 0;
+                pointer-events: auto;
+                cursor: pointer;
+            }
+        }
     }
 
     &__field-hint {

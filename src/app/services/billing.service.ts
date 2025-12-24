@@ -75,6 +75,7 @@ export interface SubscriptionData {
     endDate: string;
     zelfName: string;
     startDate: string;
+    status?: string;
     stripeData?: {
         id: string;
         latestInvoice: string;
@@ -92,6 +93,18 @@ export interface SubscriptionData {
         paymentMethod: string;
         transactionHash: string;
         isDemoMode: boolean;
+    } | null;
+    revenueCatData?: {
+        id: string;
+        transactionId: string;
+        price: string;
+        type: string;
+        purchasedAt: string;
+        expirationAt: string;
+        status?: string;
+        cancelledAt?: string;
+        cancellationEventId?: string;
+        plan?: string;
     } | null;
     paymentMethod: string;
 }
@@ -165,6 +178,7 @@ export class BillingService {
                     paymentMethod: subscription.paymentMethod,
                     cryptoData: subscription.cryptoData,
                     stripeData: subscription.stripeData,
+                    revenueCatData: subscription.revenueCatData,
                 });
 
                 // Check for crypto payment first
@@ -184,6 +198,13 @@ export class BillingService {
                         this.currentPlan = "free";
                         console.log("💳 Stripe payment but no plan found, setting to free");
                     }
+                }
+                // Check for RevenueCat payment
+                else if (subscription.paymentMethod === "revenuecat" && subscription.revenueCatData) {
+                    // RevenueCat subscriptions - get plan from entitlement_ids
+                    const plan = subscription.revenueCatData.plan || "pro"; // Default to "pro" if not found
+                    this.currentPlan = plan;
+                    console.log("📱 RevenueCat payment detected, plan:", this.currentPlan);
                 }
                 // Fallback for other payment methods or missing data
                 else {

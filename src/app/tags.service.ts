@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { TagModel, TagPublicData } from "@shared/types/tag.types";
+import { TagModel, TagPublicData, TagPublicDataModel, PGP } from "@shared/types/tag.types";
 import { environment } from "../environments/environment";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
@@ -151,8 +151,8 @@ export interface DomainConfiguration {
 
 // TagPublicData, TagPublicDataModel, TagModel, and PGP are now imported from @shared/types/tag.types
 // Re-export for backward compatibility
-export { TagModel, TagPublicDataModel } from "@shared/types/tag.types";
-export type { PGP, TagPublicData } from "@shared/types/tag.types";
+export { TagModel, TagPublicDataModel };
+export type { PGP, TagPublicData };
 
 export interface TagStorageData {
     id: string;

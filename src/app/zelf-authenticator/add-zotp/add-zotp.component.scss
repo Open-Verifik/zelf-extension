@@ -1,0 +1,266 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+@use "../../../styles/drag-and-drop";
+
+.add-zotp {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    @media (max-width: 400px) {
+        padding: 24px;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 600;
+        font-size: 18px;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__close {
+        cursor: pointer;
+        border: none;
+        background: none;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            fill: variables.$themeText;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$themeText;
+    }
+
+    &__optional {
+        font-weight: 400;
+        color: variables.$themeTextMuted;
+    }
+
+    &__input {
+        padding: 12px 16px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s variables.$smoothBezier;
+
+        &:focus {
+            border-color: variables.$themeText;
+        }
+
+        &::placeholder {
+            color: variables.$themeTextMuted;
+        }
+    }
+
+    &__qr-upload {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__error {
+        padding: 12px;
+        border-radius: 8px;
+        background-color: variables.$errorLight;
+        color: variables.$error;
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+    }
+
+    // Wallet Card Styling
+    &__wallet-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        background: linear-gradient(135deg, variables.$themeCardBorder 0%, variables.$themeBackground 100%);
+        border: 1px solid variables.$themeBorder;
+        border-radius: 16px;
+        transition: all 0.3s variables.$smoothBezier;
+
+        &:hover {
+            border-color: variables.$themeBorderHover;
+            box-shadow: 0 2px 8px variables.$themeShadow;
+        }
+    }
+
+    &__wallet-avatar {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        min-height: 48px;
+        border-radius: 12px;
+        background: variables.$themeText;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    &__wallet-avatar-letter {
+        font-family: variables.$themeBodyFamily;
+        font-size: 20px;
+        font-weight: 600;
+        color: variables.$themeBackground;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__wallet-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    &__wallet-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__wallet-name {
+        font-family: variables.$themeBodyFamily;
+        font-size: 16px;
+        font-weight: 600;
+        color: variables.$themeText;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__wallet-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: variables.$themeTextMuted;
+        flex-shrink: 0;
+        opacity: 0.6;
+    }
+
+    // Master Password Field Styling
+    &__field--master-password {
+        margin-top: 8px;
+    }
+
+    &__label--master-password {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        color: variables.$themeText;
+
+        svg {
+            color: variables.$themeText;
+            flex-shrink: 0;
+        }
+    }
+
+    &__required {
+        color: variables.$error;
+        margin-left: 2px;
+    }
+
+    &__password-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .zelf-input {
+            input[type="password"],
+            input[type="text"][formcontrolname="masterPassword"],
+            input[formcontrolname="masterPassword"] {
+                padding-right: 56px !important;
+            }
+
+            .zelf-icon-button {
+                position: relative;
+                z-index: 20;
+                flex-shrink: 0;
+                pointer-events: auto;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__field-hint {
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        color: variables.$themeTextMuted;
+        line-height: 1.4;
+    }
+
+    &__field-hint--master-password {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 10px 12px;
+        background-color: rgba(0, 0, 0, 0.02);
+        border-radius: 8px;
+        border-left: 3px solid variables.$themeText;
+
+        svg {
+            flex-shrink: 0;
+            margin-top: 1px;
+            color: variables.$themeTextMuted;
+        }
+    }
+
+    &__biometrics {
+        padding: 24px 0;
+    }
+}

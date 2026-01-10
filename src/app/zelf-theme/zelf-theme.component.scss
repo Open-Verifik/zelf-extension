@@ -1,0 +1,10 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+.zelf-theme {
+    &__button-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

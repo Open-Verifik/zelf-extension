@@ -44,14 +44,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__content {
@@ -79,12 +79,12 @@
         justify-content: flex-start;
         gap: 12px;
         width: 100%;
-        border: 1px solid variables.$platinum;
+        border: 1px solid variables.$themeBorder;
         border-radius: 32px;
         padding: 20px 16px;
         box-sizing: border-box;
-        background-color: variables.$white;
-        box-shadow: 0px 8px 24px 0px #0000000a;
+        background-color: variables.$themeCard;
+        box-shadow: 0px 8px 24px 0px variables.$themeShadow;
 
         @media (min-width: 480px) {
             padding: 24px 20px;
@@ -131,11 +131,11 @@
     &__dropdown-selector {
         display: flex;
         align-items: center;
-        box-shadow: 0px 6px 24px 0px #00000014;
+        box-shadow: 0px 6px 24px 0px variables.$themeShadow;
         border-radius: 16px;
-        border-color: 1px solid variables.$antiFlashWhite;
+        border-color: 1px solid variables.$themeCardBorder;
         justify-content: space-between;
-        background: variables.$white;
+        background: variables.$themeCard;
         gap: 8px;
         padding: 8px 12px;
         min-width: 140px;
@@ -150,7 +150,7 @@
         }
 
         &:hover {
-            background-color: variables.$antiFlashWhite;
+            background-color: variables.$themeCardBorder;
         }
     }
 
@@ -208,7 +208,7 @@
         position: absolute;
         bottom: -2px;
         right: -2px;
-        border: 1px solid variables.$white;
+        border: 1px solid variables.$themeCard;
     }
 
     &__asset-info {
@@ -225,36 +225,36 @@
     }
 
     &__asset-name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__asset-symbol {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 10px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$frenchGray;
+        color: variables.$themeBorderHover;
     }
 
     &__asset-placeholder {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 10px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &__asset-dropdown-button {
@@ -267,7 +267,7 @@
         svg {
             width: 12px;
             height: 12px;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
     }
 
@@ -284,14 +284,14 @@
     }
 
     &__quick-amount {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
 
         &--error {
             color: variables.$error;
@@ -299,14 +299,14 @@
     }
 
     &__asset-input-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$frenchGray;
+        color: variables.$themeBorderHover;
     }
 
     &__amount-input-container {
@@ -315,7 +315,7 @@
 
         &--fiat {
             &:before {
-                color: variables.$gray;
+                color: variables.$themeTextSecondary;
                 align-items: center;
                 bottom: 0;
                 content: "$";
@@ -377,7 +377,7 @@
     }
 
     &__amount-input::placeholder {
-        color: variables.$frenchGray;
+        color: variables.$themeBorderHover;
     }
 
     &__balance-value {
@@ -393,14 +393,14 @@
     }
 
     &__balance-value-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__balance-value-button {
@@ -437,40 +437,40 @@
 
         &--gray {
             svg {
-                fill: variables.$gray;
+                fill: variables.$themeTextSecondary;
             }
         }
 
-        &--black {
+        &--primary {
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
     }
 
     &__details-label {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
 
         svg {
-            fill: variables.$gray;
+            fill: variables.$themeTextSecondary;
         }
     }
 
     &__details-value {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__settings {
@@ -502,11 +502,11 @@
     z-index: 1;
     top: 125%;
     left: 50%;
-    border: 1px solid variables.$antiFlashWhite;
+    border: 1px solid variables.$themeCardBorder;
     border-radius: 16px;
     transform: translateX(-50%);
-    background-color: variables.$white;
-    box-shadow: 0px 8px 24px 0px #0000000a;
+    background-color: variables.$themeCard;
+    box-shadow: 0px 8px 24px 0px variables.$themeShadow;
 
     &__content {
         width: 254px;
@@ -518,18 +518,18 @@
 
         svg {
             min-width: 24px;
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
     }
 
     &__content-text {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 }

@@ -5,12 +5,20 @@ import { environment } from "../environments/environment";
 import { LoginGuard } from "./guards/login.guard";
 
 import { ExternalRedirectGuard } from "./guards/external-redirect.guard";
-import { PasswordGuard } from "./guards/password.guard";
-import { ZelfNameGuard } from "./guards/zelf-name.guard";
-import { WalletGuard } from "./guards/wallet.guard";
 import { MnemonicGuard } from "./guards/mnemonic.guard";
 import { OnboardingGuard } from "./guards/onboarding.guard";
+import { PasswordGuard } from "./guards/password.guard";
+import { PopoutOnlyGuard } from "./guards/popout-only.guard";
+import { WelcomeCompleteWalletGuard } from "./guards/welcome-complete-wallet.guard";
+import { ZelfKeysNoteGuard } from "./guards/zelf-keys-note.guard";
+import { ZelfKeysPasswordGuard } from "./guards/zelf-keys-password.guard";
+import { ZelfKeysPaymentCardGuard } from "./guards/zelf-keys-payment-card.guard";
+import { ZelfKeysResultGuard } from "./guards/zelf-keys-result.guard";
+import { ZelfKeysStartGuard } from "./guards/zelf-keys-start.guard";
+import { ZelfNameGuard } from "./guards/zelf-name.guard";
+import { ZelfWalletGuard } from "./guards/zelf-wallet.guard";
 import { JWTResolver } from "./resolvers/jwt.resolver";
+import { ZelfKeysDataResolver } from "./resolvers/zelf-keys-data.resolver";
 import { SecurityBiometricsComponent } from "./security-biometrics/security-biometrics.component";
 
 const routes: Routes = [
@@ -25,7 +33,7 @@ const routes: Routes = [
     },
     {
         path: "",
-        canActivate: [LoginGuard],
+        canActivate: [LoginGuard, ZelfWalletGuard],
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
         resolve: {
             auth: JWTResolver,
@@ -57,17 +65,158 @@ const routes: Routes = [
                 path: "asset",
                 loadComponent: () => import("./token-detail/token-detail.component").then((m) => m.TokenDetailComponent),
             },
+            {
+                path: "activity",
+                loadComponent: () => import("./zelf-activity/zelf-activity.component").then((m) => m.ZelfActivityComponent),
+            },
+            {
+                path: "settings",
+                loadComponent: () => import("./zelf-settings/zelf-settings.component").then((m) => m.ZelfSettingsComponent),
+            },
+            { path: "swap", loadComponent: () => import("./swap/swap.component").then((m) => m.SwapComponent) },
+            {
+                path: "transaction/:hash",
+                loadComponent: () => import("./transaction-receipt/transaction-receipt.component").then((m) => m.TransactionReceiptComponent),
+            },
+            {
+                path: "receive",
+                children: [
+                    {
+                        path: "",
+                        loadComponent: () => import("./receive-currency/receive-currency.component").then((m) => m.ReceiveCurrencyComponent),
+                    },
+                    {
+                        path: "qr/:network",
+                        loadComponent: () => import("./receive-qr/receive-qr.component").then((m) => m.ReceiveQrComponent),
+                    },
+                ],
+            },
+            {
+                path: "send",
+                children: [
+                    {
+                        path: "",
+                        loadComponent: () => import("./send-currency/send-currency.component").then((m) => m.SendCurrencyComponent),
+                    },
+                    {
+                        path: "transaction",
+                        loadComponent: () => import("./send-transaction/send-transaction.component").then((m) => m.SendTransactionComponent),
+                    },
+                    {
+                        path: "confirmation",
+                        loadComponent: () => import("./send-confirm/send-confirm.component").then((m) => m.SendConfirmComponent),
+                    },
+                ],
+            },
+            {
+                path: "zelf-authenticator",
+                loadComponent: () => import("./zelf-authenticator/zelf-authenticator.component").then((m) => m.ZelfAuthenticatorComponent),
+            },
+            {
+                path: "zelf-keys",
+                loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
+                resolve: {
+                    zelfKeysData: ZelfKeysDataResolver,
+                },
+                children: [
+                    { path: "", redirectTo: "start", pathMatch: "full" },
+                    {
+                        path: "start",
+                        loadComponent: () => import("./zelf-keys/zelf-keys-start/zelf-keys-start.component").then((m) => m.ZelfKeysStartComponent),
+                        canActivate: [ZelfKeysStartGuard],
+                    },
+                    {
+                        path: "passwords",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-passwords/zelf-keys-passwords.component").then((m) => m.ZelfKeysPasswordsComponent),
+                    },
+                    {
+                        path: "passwords/new",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-passwords/zelf-keys-password-form/zelf-keys-password-form.component").then(
+                                (m) => m.PasswordFormComponent
+                            ),
+                    },
+                    {
+                        path: "passwords/result",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-passwords/zelf-keys-password-result/zelf-keys-password-result.component").then(
+                                (m) => m.ZelfKeysPasswordResultComponent
+                            ),
+                        canActivate: [ZelfKeysResultGuard],
+                    },
+                    {
+                        path: "passwords/detail",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-passwords/zelf-keys-password-detail/zelf-keys-password-detail.component").then(
+                                (m) => m.ZelfKeysPasswordDetailComponent
+                            ),
+                        canActivate: [ZelfKeysPasswordGuard],
+                    },
+                    {
+                        path: "notes",
+                        loadComponent: () => import("./zelf-keys/zelf-keys-notes/zelf-keys-notes.component").then((m) => m.ZelfKeysNotesComponent),
+                    },
+                    {
+                        path: "notes/new",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-notes/zelf-keys-note-form/zelf-keys-note-form.component").then((m) => m.NoteFormComponent),
+                    },
+                    {
+                        path: "notes/result",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-notes/zelf-keys-note-result/zelf-keys-note-result.component").then(
+                                (m) => m.ZelfKeysNoteResultComponent
+                            ),
+                        canActivate: [ZelfKeysResultGuard],
+                    },
+                    {
+                        path: "notes/detail",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-notes/zelf-keys-note-detail/zelf-keys-note-detail.component").then(
+                                (m) => m.ZelfKeysNoteDetailComponent
+                            ),
+                        canActivate: [ZelfKeysNoteGuard],
+                    },
+                    {
+                        path: "payment-cards",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-payment-cards/zelf-keys-payment-cards.component").then(
+                                (m) => m.ZelfKeysPaymentCardsComponent
+                            ),
+                    },
+                    {
+                        path: "payment-cards/new",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-payment-cards/zelf-keys-payment-card-form/zelf-keys-payment-card-form.component").then(
+                                (m) => m.ZelfKeysPaymentCardFormComponent
+                            ),
+                    },
+                    {
+                        path: "payment-cards/result",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-payment-cards/zelf-keys-payment-card-result/zelf-keys-payment-card-result.component").then(
+                                (m) => m.ZelfKeysPaymentCardResultComponent
+                            ),
+                        canActivate: [ZelfKeysResultGuard],
+                    },
+                    {
+                        path: "payment-cards/detail",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-payment-cards/zelf-keys-payment-card-detail/zelf-keys-payment-card-detail.component").then(
+                                (m) => m.ZelfKeysPaymentCardDetailComponent
+                            ),
+                        canActivate: [ZelfKeysPaymentCardGuard],
+                    },
+                    {
+                        path: "billing",
+                        loadComponent: () =>
+                            import("./zelf-keys/zelf-keys-billing/zelf-keys-billing.component").then((m) => m.ZelfKeysBillingComponent),
+                    },
+                ],
+            },
         ],
     },
-    // {
-    //     path: "swap",
-    //     loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-    //     canActivate: [LoginGuard],
-    //     resolve: {
-    //         auth: JWTResolver,
-    //     },
-    //     children: [{ path: "", loadComponent: () => import("./swap/swap.component").then((m) => m.SwapComponent) }],
-    // },
     {
         path: "welcome",
         loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
@@ -118,7 +267,7 @@ const routes: Routes = [
             {
                 path: "complete",
                 loadComponent: () => import("./welcome-complete/welcome-complete.component").then((m) => m.WelcomeCompleteComponent),
-                canActivate: [ZelfNameGuard, WalletGuard],
+                canActivate: [ZelfNameGuard, WelcomeCompleteWalletGuard],
             },
         ],
     },
@@ -148,106 +297,19 @@ const routes: Routes = [
         ],
     },
     {
-        path: "activity",
-        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-        canActivate: [LoginGuard],
-        resolve: {
-            auth: JWTResolver,
-        },
-        children: [
-            {
-                path: "",
-                loadComponent: () => import("./zelf-activity/zelf-activity.component").then((m) => m.ZelfActivityComponent),
-            },
-        ],
+        path: "popout-decryptor",
+        loadComponent: () => import("./popout-decryptor/popout-decryptor.component").then((m) => m.PopoutDecryptorComponent),
+        canActivate: [PopoutOnlyGuard],
     },
     {
-        path: "swap",
-        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-        canActivate: [LoginGuard],
-        resolve: {
-            auth: JWTResolver,
-        },
-        children: [{ path: "", loadComponent: () => import("./swap/swap.component").then((m) => m.SwapComponent) }],
-    },
-    {
-        path: "send",
-        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-        canActivate: [LoginGuard],
-        resolve: {
-            auth: JWTResolver,
-        },
-        children: [
-            {
-                path: "",
-                loadComponent: () => import("./send-currency/send-currency.component").then((m) => m.SendCurrencyComponent),
-            },
-            {
-                path: "transaction",
-                loadComponent: () => import("./send-transaction/send-transaction.component").then((m) => m.SendTransactionComponent),
-            },
-            {
-                path: "confirmation",
-                loadComponent: () => import("./send-confirm/send-confirm.component").then((m) => m.SendConfirmComponent),
-            },
-        ],
-    },
-    {
-        path: "receive",
-        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-        canActivate: [LoginGuard],
-        resolve: {
-            auth: JWTResolver,
-        },
-        children: [
-            {
-                path: "",
-                loadComponent: () => import("./receive-currency/receive-currency.component").then((m) => m.ReceiveCurrencyComponent),
-            },
-            {
-                path: "qr/:network",
-                loadComponent: () => import("./receive-qr/receive-qr.component").then((m) => m.ReceiveQrComponent),
-            },
-        ],
-    },
-    {
-        path: "transaction",
-        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-        resolve: {
-            auth: JWTResolver,
-        },
-        children: [
-            {
-                path: ":hash",
-                loadComponent: () => import("./transaction-receipt/transaction-receipt.component").then((m) => m.TransactionReceiptComponent),
-            },
-        ],
-    },
-    {
-        path: "settings",
-        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
-        canActivate: [LoginGuard],
-        resolve: {
-            auth: JWTResolver,
-        },
-        children: [
-            {
-                path: "",
-                loadComponent: () => import("./zelf-settings/zelf-settings.component").then((m) => m.ZelfSettingsComponent),
-            },
-        ],
+        path: "session-error",
+        loadComponent: () => import("./session-error/session-error.component").then((m) => m.SessionErrorComponent),
     },
     {
         path: "external-link",
         data: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment` },
         canActivate: [ExternalRedirectGuard],
     },
-    // DEPRECATED ROUTES: Ensure all translations are also removed before deleting these components!
-    // {
-    //     path: "extension-instructions",
-    //     loadComponent: () => import("./extension-instructions/extension-instructions.component").then((m) => m.ExtensionInstructionsComponent),
-    //     canActivate: [ExtensionGuard],
-    // },
 ];
 
 if (environment.production) {

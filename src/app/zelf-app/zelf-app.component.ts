@@ -6,13 +6,14 @@ import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/ro
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { LanguageComponent } from "app/language/language.component";
+import { ZelfThemeComponent } from "app/zelf-theme/zelf-theme.component";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { TagModel } from "app/tags.service";
 import { ChromeService } from "app/chrome.service";
 
 @Component({
-    imports: [CommonModule, RouterModule, LanguageComponent, TranslocoModule],
+    imports: [CommonModule, RouterModule, LanguageComponent, ZelfThemeComponent, TranslocoModule],
     selector: "zelf-app",
     styleUrls: ["./zelf-app.component.scss"],
     templateUrl: "./zelf-app.component.html",

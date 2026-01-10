@@ -47,17 +47,17 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
             height: 16px;
             width: 16px;
         }
 
         &:hover {
-            background-color: #b589f0;
-            color: white;
+            background-color: variables.$themeButton;
+            color: variables.$themeCard;
 
             svg {
-                fill: white;
+                fill: variables.$themeCard;
             }
         }
     }
@@ -83,7 +83,7 @@
         margin: 32px 0 16px;
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeText;
             height: 40px;
             width: 40px;
         }
@@ -116,7 +116,7 @@
     }
 
     &__pretitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -126,11 +126,11 @@
         margin: 0;
         width: 100%;
         text-align: center;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &__title {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 24px;
         line-height: 32px;
@@ -139,25 +139,25 @@
         vertical-align: middle;
         text-transform: uppercase;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
     &__benefits {
         width: 100%;
         gap: 16px;
-        border: 1px solid variables.$platinum;
+        border: 1px solid variables.$themeBorder;
         border-radius: 16px;
         padding: 16px;
         max-width: 448px;
@@ -202,13 +202,13 @@
     }
 
     &__benefit-bar-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
@@ -237,7 +237,7 @@
         justify-content: center;
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeText;
             height: 17px;
             width: 17px;
         }
@@ -246,29 +246,29 @@
     &__benefit-item-text {
         display: flex;
         flex-direction: column;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         width: 100%;
     }
 
     &__benefit-item-title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
     &__benefit-item-subtitle {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
     }
 
@@ -293,7 +293,7 @@
     }
 
     &__info {
-        border: 1px solid variables.$platinum;
+        border: 1px solid variables.$themeBorder;
         border-radius: 16px;
         padding: 16px;
         width: 100%;
@@ -321,14 +321,14 @@
         }
 
         &-posttitle {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-weight: 600;
             font-size: 11px;
             line-height: 16px;
             letter-spacing: 0.5px;
             text-align: center;
             vertical-align: middle;
-            color: variables.$black;
+            color: variables.$themeText;
             margin: 0;
         }
 
@@ -341,25 +341,25 @@
             align-items: center;
             justify-content: center;
             border-radius: 9999px;
-            background-color: variables.$white;
+            background-color: variables.$themeBackgroundSecondary;
             box-shadow: 0px 6px 24px 0px #00000014;
 
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
                 height: 18px;
                 width: 18px;
             }
         }
 
         &-title {
-            font-family: "Menda", "Arial Black", sans-serif;
+            font-family: variables.$themeTitleFamily;
             font-weight: 700;
             font-size: 18px;
             line-height: 24px;
             letter-spacing: 0px;
             text-align: left;
             vertical-align: middle;
-            color: variables.$black;
+            color: variables.$themeText;
             margin: 0;
             // Ensure long names wrap nicely and don't overflow
             word-break: break-word;
@@ -373,27 +373,27 @@
         }
 
         &-pretitle {
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-weight: 600;
             font-size: 11px;
             line-height: 16px;
             letter-spacing: 0.5px;
             text-align: center;
             vertical-align: middle;
-            color: variables.$black;
+            color: variables.$themeText;
             margin: 0;
         }
     }
 
     &__description {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         text-align: left;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
         width: 100%;
     }
@@ -414,7 +414,7 @@
         min-height: 40px;
         box-sizing: border-box;
         cursor: pointer;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         border-radius: 16px;
         font-weight: 500;
         font-size: 14px;
@@ -422,7 +422,7 @@
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -450,7 +450,7 @@
     }
 
     &__text {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -498,24 +498,24 @@
         justify-content: center;
         border-radius: 9999px;
         background-color: variables.$correctLight;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         font-size: 12px;
     }
 
     &-text {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
     }
 
     &__title {
         margin: 8px 0 0;
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 14px;
         line-height: 16px;
@@ -523,7 +523,7 @@
         text-align: center;
         vertical-align: middle;
         text-transform: uppercase;
-        color: variables.$black;
+        color: variables.$themeText;
         width: 100%;
     }
 }

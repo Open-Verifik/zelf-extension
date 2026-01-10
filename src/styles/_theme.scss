@@ -2,37 +2,81 @@
 @use "./variables";
 
 html {
+    color-scheme: light dark;
+
+    &.zns-theme-dark {
+        color-scheme: dark;
+    }
+
+    &.zns-theme-light {
+        color-scheme: light;
+    }
+}
+
+:root {
     @include mat.theme(
         (
-            typography: Poppins,
+            typography: (
+                plain-family: variables.$themeBodyFamily,
+                brand-family: variables.$themeTitleFamily,
+                bold-weight: 600,
+                medium-weight: 300,
+                regular-weight: 300,
+            ),
+        )
+    );
+
+    @include mat.dialog-overrides(
+        (
+            container-max-width: variables.$minSmall,
+            container-color: variables.$themeCard,
+            subhead-font: variables.$themeBodyFamily,
+        )
+    );
+
+    @include mat.menu-overrides(
+        (
+            container-color: variables.$themeCard,
+            item-hover-state-layer-color: variables.$themeBackgroundSecondary,
+            item-label-text-color: variables.$themeText,
+            item-with-icon-leading-spacing: 24px,
+            item-with-icon-trailing-spacing: 24px,
+        )
+    );
+
+    @include mat.icon-button-overrides(
+        (
+            icon-size: 16px,
+            icon-color: variables.$themeText,
+            disabled-icon-color: variables.$themeTextMuted,
         )
     );
 }
 
-@include mat.dialog-overrides(
-    (
-        container-max-width: variables.$minSmall,
-    )
-);
+// Material 19 components use CSS custom properties for dynamic theming
+// These tokens reference our SCSS variables which contain CSS custom properties with fallbacks
+// ThemeService will update the --zns-theme-* properties at runtime
+// Using interpolation to output the CSS custom property values from SCSS variables
+:root {
+    // Button theme tokens
+    --mdc-filled-button-container-color: #{variables.$primaryColor};
+    --mdc-filled-button-label-text-color: #{variables.$themeButtonText};
+    --mdc-outlined-button-label-text-color: #{variables.$primaryColor};
+    --mdc-outlined-button-outline-color: #{variables.$themeBorder};
 
-@include mat.menu-overrides(
-    (
-        container-color: variables.$white,
-        item-hover-state-layer-color: variables.$antiFlashWhite,
-    )
-);
+    // Form field theme tokens
+    --mdc-filled-text-field-active-indicator-color: #{variables.$primaryColor};
+    --mdc-filled-text-field-focus-active-indicator-color: #{variables.$primaryColor};
+    --mdc-outlined-text-field-outline-color: #{variables.$themeBorder};
+    --mdc-outlined-text-field-focus-outline-color: #{variables.$primaryColor};
+    --mdc-filled-text-field-label-text-color: #{variables.$themeTextMuted};
+    --mdc-outlined-text-field-label-text-color: #{variables.$themeTextMuted};
 
-@include mat.icon-button-overrides(
-    (
-        icon-size: 16px,
-        icon-color: variables.$black,
-        disabled-icon-color: variables.$gray,
-    )
-);
+    // Snackbar theme tokens
+    --mdc-snackbar-container-color: #{variables.$themeCard};
+    --mdc-snackbar-supporting-text-color: #{variables.$themeText};
 
-@include mat.menu-overrides(
-    (
-        item-with-icon-leading-spacing: 24px,
-        item-with-icon-trailing-spacing: 24px,
-    )
-);
+    // List theme tokens
+    --mdc-list-list-item-label-text-color: #{variables.$themeText};
+    --mdc-list-list-item-hover-state-layer-color: #{variables.$themeBackgroundSecondary};
+}

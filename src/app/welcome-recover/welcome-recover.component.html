@@ -14,22 +14,16 @@
     <div class="zelf-card__content welcome-recover__content">
         <ng-container *ngIf="oldZelfNameObject && !showResult">
             <div class="welcome-recover__instructions-container">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M12.0108 0C13.363 1.83518 15.0993 3.92724 17.2883 6.08926H7.46094C9.5873 3.83728 11.0426 1.67625 12.0128 0H12.0108Z"
-                        fill="#181818"
-                    />
+                <svg class="welcome-recover__instructions-logo" width="80" height="80" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.0108 0C13.363 1.83518 15.0993 3.92724 17.2883 6.08926H7.46094C9.5873 3.83728 11.0426 1.67625 12.0128 0H12.0108Z" />
                     <path
                         d="M0 12.0282C1.7302 11.1886 4.0031 9.87119 6.28409 7.85609C6.48521 7.67817 6.68228 7.49826 6.87127 7.31934H15.6597C15.6597 7.31934 9.29476 16.3143 5.81213 16.3413C2.93891 16.3643 1.73525 13.0987 0 12.0272V12.0282Z"
-                        fill="#181818"
                     />
                     <path
                         d="M12.5714 23.9996C11.5113 22.5603 10.1459 20.917 8.41675 19.2168H16.4977C14.7857 20.942 13.5073 22.6073 12.5725 23.9996H12.5714Z"
-                        fill="#181818"
                     />
                     <path
                         d="M17.7785 17.7316C17.6835 17.8155 17.5906 17.9005 17.4986 17.9845H8.06335C8.06335 17.9845 14.5334 8.87256 18.0625 8.85357C21.0075 8.83857 22.2273 12.1821 24 13.2766C22.197 14.2891 20.0029 15.7295 17.7785 17.7316Z"
-                        fill="#181818"
                     />
                 </svg>
 
@@ -98,7 +92,7 @@
                         <button
                             (click)="searchZelfName()"
                             [disabled]="searching || form.controls.zelfName.invalid || !form.controls.zelfName.value"
-                            class="zelf-icon-button zelf-icon-button--black"
+                            class="zelf-icon-button zelf-icon-button--primary"
                             mat-icon-button
                             type="button"
                         >
@@ -177,7 +171,6 @@
                         <svg width="13" height="13" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M20 10C20 4.48 15.52 0 10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10ZM10 12.79V11H7C6.45 11 6 10.55 6 10C6 9.45 6.45 9 7 9H10V7.21C10 6.76 10.54 6.54 10.85 6.86L13.64 9.65C13.84 9.85 13.84 10.16 13.64 10.36L10.85 13.15C10.54 13.46 10 13.24 10 12.79Z"
-                                fill="#181818"
                             />
                         </svg>
                     </div>
@@ -193,7 +186,7 @@
 
     <div class="zelf-card__actions zelf-card__actions--column welcome-recover__actions" *ngIf="!showSearch">
         <ng-container *ngIf="showError">
-            <button (click)="returnToForm()" class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button type="button">
+            <button (click)="returnToForm()" class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button type="button">
                 {{ t("welcome.search_another_zelfname") }}
             </button>
         </ng-container>
@@ -217,7 +210,7 @@
                 <button
                     (click)="startReservation()"
                     [disabled]="termsForm.get('termsAndConditions')?.invalid"
-                    class="zelf-button zelf-button--black zelf-button--wide"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
                     mat-flat-button
                     type="button"
                 >

@@ -40,14 +40,14 @@
                     <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
                 </ng-container>
                 <ng-template #button>
-                    <button class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button [disabled]="!arnsUrl" (click)="close()">
+                    <button class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button [disabled]="!arnsUrl" (click)="close()">
                         {{ t("my_arns.arns_website") }}
                     </button>
                 </ng-template>
             </ng-container>
 
             <ng-container *ngIf="!isMainnet">
-                <button class="zelf-button zelf-button--black zelf-button--wide" mat-flat-button (click)="goToPurchase()">
+                <button class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button (click)="goToPurchase()">
                     {{ t("common.buy_now") }}
                 </button>
             </ng-container>

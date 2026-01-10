@@ -7,11 +7,13 @@ import { TagModel } from "./tags.service";
     providedIn: "root",
 })
 export class ChromeService {
+    private _domain$ = new BehaviorSubject<string>("zelf");
     private _isExtension = Boolean(typeof browser !== "undefined" && browser.storage && browser.runtime);
     private _isPopout = false;
     private _isPopout$ = new BehaviorSubject<boolean>(false);
     private _isSidePanel = false;
     private _isSidePanel$ = new BehaviorSubject<boolean>(false);
+    private _accessToken$ = new BehaviorSubject<string>("");
     private _lastVerified$ = new BehaviorSubject<number>(0);
     private _myArnsDontShowAgain$ = new BehaviorSubject<boolean>(false);
     private _settings$ = new BehaviorSubject<Settings>({} as Settings);
@@ -54,7 +56,18 @@ export class ChromeService {
                 this._settings$.next(changes.settings.newValue as Settings);
             }
 
+            if (changes.domain) {
+                this._domain$.next(changes.domain.newValue as string);
+            }
+
+            if (changes.accessToken) {
+                this._accessToken$.next(changes.accessToken.newValue as string);
+            }
+
             if (changes.wallet) {
+                this.removeItemSession("zelfKeysData");
+                this.removeItemSession("zelfKeysDataTtl");
+                this.removeItemSession("tokens");
                 this.removeItemSession("tokensTtl");
 
                 changes.wallet
@@ -79,7 +92,7 @@ export class ChromeService {
             window.addEventListener("localstorage", (event: CustomEvent<{ key: string; oldValue: string; newValue: string }>) => {
                 if (!event?.detail?.key) return;
 
-                if (event.detail.key === "lastVerified") {
+                if (event.detail.key === "lastVerified" && event.detail.newValue !== undefined) {
                     this._lastVerified$.next(event.detail.newValue ? parseInt(event.detail.newValue) : 0);
                 }
 
@@ -87,7 +100,18 @@ export class ChromeService {
                     this._settings$.next(event.detail.newValue ? (JSON.parse(event.detail.newValue) as Settings) : ({} as Settings));
                 }
 
+                if (event.detail.key === "domain") {
+                    this._domain$.next(event.detail.newValue as string);
+                }
+
+                if (event.detail.key === "accessToken") {
+                    this._accessToken$.next(event.detail.newValue as string);
+                }
+
                 if (event.detail.key === "wallet") {
+                    this.removeItemSession("zelfKeysData");
+                    this.removeItemSession("zelfKeysDataTtl");
+                    this.removeItemSession("tokens");
                     this.removeItemSession("tokensTtl");
 
                     event
@@ -130,6 +154,14 @@ export class ChromeService {
 
     get isSidePanel$(): Observable<boolean> {
         return this._isSidePanel$.asObservable();
+    }
+
+    get onAccessTokenChanged$(): Observable<string> {
+        return this._accessToken$.asObservable();
+    }
+
+    get onDomainChanged$(): Observable<string> {
+        return this._domain$.asObservable();
     }
 
     get onLastVerifiedChanged$(): Observable<number> {
@@ -229,7 +261,7 @@ export class ChromeService {
         });
     }
 
-    async openFullPage(path: string): Promise<void> {
+    async openFullPage(path?: string): Promise<void> {
         if (!this.isExtension) return;
 
         const currentTab = await browser.tabs.getCurrent();
@@ -238,8 +270,9 @@ export class ChromeService {
 
         try {
             const url = browser.runtime.getURL("index.html");
+            const targetPath = path ?? window.location.hash.replace(/^#/, "");
 
-            browser.tabs.create({ url: `${url}#${path}` }).then(async (tab) => {
+            browser.tabs.create({ url: `${url}#${targetPath}` }).then(async (tab) => {
                 if (!tab?.id) return;
 
                 try {
@@ -308,6 +341,27 @@ export class ChromeService {
             try {
                 const isObjectOrArray = typeof value === "object" && value !== null;
                 localStorage.setItem(key, isObjectOrArray ? JSON.stringify(value) : value);
+
+                resolve();
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    async setItems(items: Record<string, any>): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (this.isExtension) {
+                browser.storage.local.set(items).then(resolve).catch(reject);
+
+                return;
+            }
+
+            try {
+                for (const [key, value] of Object.entries(items)) {
+                    const isObjectOrArray = typeof value === "object" && value !== null;
+                    localStorage.setItem(key, isObjectOrArray ? JSON.stringify(value) : value);
+                }
 
                 resolve();
             } catch (error) {

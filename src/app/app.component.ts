@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, Injector, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 
-import { environment } from "environments/environment";
-
 import { ChromeService } from "./chrome.service";
-import { HttpWrapperService } from "./http-wrapper.service";
-import { WalletService } from "./wallet.service";
+import { AutofillDataService } from "./services/autofill-data.service";
+import { AutofillIntegrationService } from "./services/autofill-integration.service";
+import { PopoutCommunicationService } from "./services/popout-communication.service";
+import { AppLoadingService } from "./services/app-loading.service";
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -13,6 +13,9 @@ import { WalletService } from "./wallet.service";
     standalone: false,
     styleUrls: ["./app.component.scss", "./main.scss"],
     template: `<div class="flex flex-col flex-auto main-div" [ngClass]="isPopout ? 'main-div--popout' : ''">
+        <div class="app-loading-overlay" *ngIf="isLoading$ | async">
+            <zelf-loader [diameter]="120" [absolute]="false"></zelf-loader>
+        </div>
         <div class="flex flex-col flex-auto">
             <router-outlet></router-outlet>
         </div>
@@ -20,16 +23,19 @@ import { WalletService } from "./wallet.service";
 })
 export class AppComponent implements OnInit, OnDestroy {
     private unsubscriber$ = new Subject<void>();
-    private publicKey!: string;
 
-    apiUrl: string = environment.apiUrl;
     isPopout: boolean = false;
+    isLoading$!: any;
 
     constructor(
-        private _httpWrapperService: HttpWrapperService,
-        private _walletService: WalletService,
-        private _chromeService: ChromeService
+        private _appLoadingService: AppLoadingService,
+        private _chromeService: ChromeService,
+        private _injector: Injector,
+        private _popoutCommunicationService: PopoutCommunicationService
     ) {
+        this.isLoading$ = this._appLoadingService.isLoading$;
+        this._initializeRequiredServices();
+
         this.isPopout = this._chromeService.isPopout;
 
         this._chromeService.isPopout$.pipe(takeUntil(this.unsubscriber$)).subscribe((isPopout) => {
@@ -38,7 +44,9 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this._getPublicKey();
+        this.checkForPendingDecryption();
+        this.notifyPopupReady();
+        this.setupNavigationListener();
     }
 
     ngOnDestroy(): void {
@@ -46,20 +54,31 @@ export class AppComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    _getPublicKey(): void {
-        let { hash } = this._walletService.getUserFingerprint();
+    private checkForPendingDecryption(): void {
+        if (!this.isPopout) return;
 
-        const url = `${this.apiUrl}/api/sessions/yek-cilbup`;
+        const decryptionData = this._popoutCommunicationService.getDecryptionData();
 
-        this._httpWrapperService
-            .sendRequest("get", url, {
-                identifier: hash,
-            })
-            .then((response) => {
-                this.publicKey = response.data;
+        if (!decryptionData) return;
+    }
 
-                this._chromeService.setItem("publicKey", this.publicKey);
-                this._httpWrapperService.setPublicKey(this.publicKey);
+    private notifyPopupReady(): void {
+        if (this.isPopout && typeof chrome !== "undefined" && chrome.runtime) {
+            chrome.runtime.sendMessage({
+                type: "POPUP_READY",
             });
+        }
+    }
+
+    private setupNavigationListener(): void {
+        if (typeof chrome === "undefined" || !chrome.runtime) return;
+    }
+
+    /**
+     * These services are required and must be initialized along with the application.
+     */
+    private _initializeRequiredServices(): void {
+        this._injector.get(AutofillIntegrationService);
+        this._injector.get(AutofillDataService);
     }
 }

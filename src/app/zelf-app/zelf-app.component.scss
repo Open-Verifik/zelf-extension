@@ -6,7 +6,7 @@
 }
 
 :host {
-    background-color: variables.$antiFlashWhite;
+    background-color: variables.$themeCardBorder;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
 
 @media screen and (max-width: variables.$medium) {
     :host {
-        background-color: variables.$white;
+        background-color: variables.$themeBackgroundSecondary;
     }
 }
 
@@ -36,13 +36,19 @@
         top: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to bottom, variables.$antiFlashWhite 70%, transparent);
+        background: linear-gradient(to bottom, variables.$themeCardBorder 70%, transparent);
         z-index: 999;
 
         @media screen and (max-width: variables.$medium) {
             height: 72px;
-            background: linear-gradient(to bottom, variables.$white 70%, transparent);
+            background: linear-gradient(to bottom, variables.$themeCard 70%, transparent);
         }
+    }
+
+    &__header-language {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     &__logo-container {
@@ -73,12 +79,12 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to top, variables.$antiFlashWhite 70%, transparent);
+        background: linear-gradient(to top, variables.$themeCardBorder 70%, transparent);
         z-index: 999;
         padding: 0 1rem;
 
         @media screen and (max-width: variables.$medium) {
-            background: linear-gradient(to top, variables.$white 70%, transparent);
+            background: linear-gradient(to top, variables.$themeCardBorder 70%, transparent);
             justify-content: flex-end;
             padding: 6px;
         }
@@ -96,9 +102,5 @@
                 display: none;
             }
         }
-    }
-
-    &__logo svg {
-        fill: variables.$black;
     }
 }

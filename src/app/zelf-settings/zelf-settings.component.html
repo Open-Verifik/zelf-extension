@@ -4,7 +4,7 @@
             <button
                 [queryParams]="{ edit: '' }"
                 [routerLink]="!selectedSettings ? ['/home'] : ['./']"
-                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
+                class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40"
                 mat-flat-button
             >
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +24,12 @@
 
     <ng-container *ngIf="!selectedSettings">
         <div class="zelf-card__content">
-            <div class="zelf-settings__item" [routerLink]="['./']" [queryParams]="settingItem.queryParams" *ngFor="let settingItem of settingsItems">
+            <div
+                [queryParams]="settingItem.queryParams"
+                [routerLink]="settingItem.routerLink"
+                *ngFor="let settingItem of settingsItems"
+                class="zelf-settings__item"
+            >
                 <div class="zelf-settings__item-col1">
                     <div class="zelf-settings__item-col1-icon">
                         <ng-container *ngTemplateOutlet="getTemplateIcon(settingItem)"></ng-container>
@@ -81,15 +86,13 @@
 </div>
 
 <ng-template #securityIcon>
-    <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 0L0 3V9.09C0 14.14 3.41 18.85 8 20C12.59 18.85 16 14.14 16 9.09V3L8 0Z" />
-    </svg>
+    <span class="material-symbols-outlined zelf-icon">security</span>
+</ng-template>
+
+<ng-template #subscriptionIcon>
+    <span class="material-symbols-outlined zelf-icon">license</span>
 </ng-template>
 
 <ng-template #externalLinkIcon>
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-        <path
-            d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z"
-        />
-    </svg>
+    <span class="material-symbols-outlined zelf-icon">link</span>
 </ng-template>

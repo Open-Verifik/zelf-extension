@@ -1,0 +1,135 @@
+<div class="delete-zotp" *transloco="let t">
+    <div class="delete-zotp__header">
+        <h3 class="delete-zotp__title">{{ t("zotp.delete_zotp") || "Delete ZOTP" }}</h3>
+        <button mat-icon-button class="delete-zotp__close" (click)="close()" [disabled]="loading">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17.4 0.613295C16.88 0.0932946 16.04 0.0932946 15.52 0.613295L8.99996 7.11996L2.47996 0.599961C1.95996 0.0799609 1.11996 0.0799609 0.599961 0.599961C0.0799609 1.11996 0.0799609 1.95996 0.599961 2.47996L7.11996 8.99996L0.599961 15.52C0.0799609 16.04 0.0799609 16.88 0.599961 17.4C1.11996 17.92 1.95996 17.92 2.47996 17.4L8.99996 10.88L15.52 17.4C16.04 17.92 16.88 17.92 17.4 17.4C17.92 16.88 17.92 16.04 17.4 15.52L10.88 8.99996L17.4 2.47996C17.9066 1.97329 17.9066 1.11996 17.4 0.613295Z"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <ng-container *ngIf="!showBiometrics">
+        <div class="delete-zotp__content">
+            <!-- Warning Message -->
+            <div class="delete-zotp__warning">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor" />
+                </svg>
+                <p>{{ t("zotp.delete_warning") || "This action cannot be undone. Please confirm you want to delete this ZOTP." }}</p>
+            </div>
+
+            <!-- QR Code Display -->
+            <div class="delete-zotp__qr-section" *ngIf="zotp.zelfProofQRCode">
+                <h4 class="delete-zotp__section-title">{{ t("zotp.qr_code") }}</h4>
+                <div class="delete-zotp__qr-container">
+                    <img [src]="zotp.zelfProofQRCode" [alt]="zotp.name" class="delete-zotp__qr-image" />
+                </div>
+            </div>
+
+            <!-- IPFS ID Display -->
+            <div class="delete-zotp__info-section" *ngIf="ipfsId">
+                <h4 class="delete-zotp__section-title">{{ t("zotp.ipfs_id") }}</h4>
+                <div class="zelf-action-row">
+                    <p class="zelf-action-row__value delete-zotp__info-value">{{ ipfsId }}</p>
+                </div>
+            </div>
+
+            <!-- Walrus ID Display -->
+            <div class="delete-zotp__info-section" *ngIf="walrusId">
+                <h4 class="delete-zotp__section-title">{{ t("zotp.walrus_blob_id") }}</h4>
+                <div class="zelf-action-row">
+                    <p class="zelf-action-row__value delete-zotp__info-value">{{ walrusId }}</p>
+                </div>
+            </div>
+
+            <!-- Master Password Input -->
+            <form [formGroup]="form" class="delete-zotp__form">
+                <div class="delete-zotp__field delete-zotp__field--master-password">
+                    <label class="delete-zotp__label delete-zotp__label--master-password">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.4 7 14.8 8.6 14.8 10V11.5C15.4 11.9 15.8 12.5 15.8 13.2V16.7C15.8 17.5 15.1 18.2 14.3 18.2H9.7C8.9 18.2 8.2 17.5 8.2 16.7V13.2C8.2 12.5 8.6 11.9 9.2 11.5V10C9.2 8.6 10.6 7 12 7ZM12 8.2C11.2 8.2 10.5 8.7 10.5 10V11.5H13.5V10C13.5 8.7 12.8 8.2 12 8.2Z"
+                                fill="currentColor"
+                            />
+                        </svg>
+
+                        {{ t("zotp.master_password") }}
+
+                        <span class="delete-zotp__required">*</span>
+                    </label>
+
+                    <div class="delete-zotp__password-wrapper">
+                        <div class="zelf-input zelf-input--wide">
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="masterPassword"
+                                [type]="showMasterPassword ? 'text' : 'password'"
+                                placeholder=" "
+                                autocomplete="off"
+                                id="masterPassword"
+                                (keydown.enter)="proceedToBiometrics()"
+                            />
+
+                            <label for="masterPassword" class="zelf-input__floating-label">{{ t("zotp.master_password_placeholder") }}</label>
+
+                            <button
+                                type="button"
+                                class="zelf-icon-button zelf-icon-button--transparent"
+                                (click)="toggleShowMasterPassword()"
+                                [attr.aria-label]="showMasterPassword ? t('common.hide_password') : t('common.show_password')"
+                                tabindex="-1"
+                            >
+                                <ng-container *ngTemplateOutlet="showMasterPassword ? openEye : closedEye"></ng-container>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div class="delete-zotp__error" *ngIf="errorMessage">{{ errorMessage }}</div>
+            </form>
+        </div>
+
+        <div class="delete-zotp__actions">
+            <button type="button" class="zelf-button zelf-button--outlined zelf-button--wide" (click)="close()" [disabled]="loading">
+                {{ t("common.cancel") }}
+            </button>
+            <button
+                type="button"
+                class="zelf-button zelf-button--primary zelf-button--wide"
+                (click)="proceedToBiometrics()"
+                [disabled]="form.invalid || loading"
+            >
+                {{ t("common.confirm") }}
+            </button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="showBiometrics">
+        <div class="delete-zotp__biometrics">
+            <biometrics-general
+                (canNavigate)="canNavigateAwayHandler($event)"
+                (error)="onBiometricsFailed($event)"
+                (imageCaptured)="onBiometricsScanned($event)"
+            ></biometrics-general>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #openEye>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path
+            d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #closedEye>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path
+            d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z"
+        />
+    </svg>
+</ng-template>

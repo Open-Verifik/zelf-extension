@@ -46,14 +46,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
-        font-weight: 500;
-        font-size: 14px;
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__content {
@@ -96,25 +96,25 @@
     }
 
     &__token-type {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__address {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
         word-wrap: break-word;
     }
 }

@@ -1,64 +1,71 @@
-import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { CommonModule } from "@angular/common";
-import { MatDialogModule } from "@angular/material/dialog";
+import { Component, Inject, OnInit } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
-import { MatRadioModule } from "@angular/material/radio";
-import { FormsModule } from "@angular/forms";
-import { DomainConfig } from "../domain.service";
+import { TranslocoModule } from "@jsverse/transloco";
+
+import { DomainLicense } from "app/core/models/domain.type";
 
 export interface DomainSelectionData {
-    domains: DomainConfig[];
+    domains: DomainLicense[];
     selectedDomain: string;
 }
 
 @Component({
+    imports: [CommonModule, MatButtonModule, ReactiveFormsModule, TranslocoModule],
     selector: "domain-selection-modal",
-    standalone: true,
-    imports: [CommonModule, MatDialogModule, MatButtonModule, MatRadioModule, FormsModule],
-    templateUrl: "./domain-selection-modal.component.html",
     styleUrls: ["./domain-selection-modal.component.scss"],
+    templateUrl: "./domain-selection-modal.component.html",
 })
-export class DomainSelectionModalComponent {
-    selectedDomain: string;
+export class DomainSelectionModalComponent implements OnInit {
+    domainForm!: UntypedFormGroup;
 
     constructor(
-        public dialogRef: MatDialogRef<DomainSelectionModalComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DomainSelectionData
-    ) {
-        this.selectedDomain = data.selectedDomain;
+        public _bottomSheetRef: MatBottomSheetRef<DomainSelectionModalComponent>,
+        @Inject(MAT_BOTTOM_SHEET_DATA) public data: DomainSelectionData,
+        private _formBuilder: FormBuilder
+    ) {}
+
+    ngOnInit(): void {
+        this._initForm();
+    }
+
+    private _initForm(): void {
+        this.domainForm = this._formBuilder.group({
+            selectedDomain: [this.data.selectedDomain],
+        });
+    }
+
+    get selectedDomain(): string {
+        return this.domainForm.get("selectedDomain")?.value || this.data.selectedDomain;
     }
 
     onConfirm(): void {
-        this.dialogRef.close(this.selectedDomain);
+        const selectedDomain = this.domainForm.get("selectedDomain")?.value;
+
+        this._bottomSheetRef.dismiss(selectedDomain);
     }
 
     onCancel(): void {
-        this.dialogRef.close();
+        this._bottomSheetRef.dismiss();
     }
 
     getDomainIcon(domainName: string): string {
-        // First check if domain config has an icon/metadata with logo
-        const domain = this.data.domains.find((d) => d.name === domainName);
-
-        // If domain config has a logo URL, use it
-        if (domain?.metadata?.logo) {
-            return domain.metadata.logo;
-        }
-
-        // Otherwise, use local assets
         const iconMap: { [key: string]: string } = {
             zelf: "assets/icons/zelf_logo.svg",
             avax: "assets/icons/avax_logo.svg",
             bdag: "assets/icons/bdag_logo.png",
             eth: "assets/icons/eth-icon.svg",
             sol: "assets/icons/sol-icon.svg",
+            sui: "assets/icons/sui_logo.svg",
+            wal: "assets/icons/walrus_logo.png",
         };
+
         return iconMap[domainName] || "assets/icons/default-icon.svg";
     }
 
     getDomainIconBackground(domainName: string): string {
-        // Return appropriate background color based on domain
         const bgMap: { [key: string]: string } = {
             zelf: "#181818",
             avax: "#E84142",
@@ -66,6 +73,7 @@ export class DomainSelectionModalComponent {
             eth: "#627EEA",
             sol: "#F5F2FF",
         };
+
         return bgMap[domainName] || "#181818";
     }
 }

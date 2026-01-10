@@ -21,7 +21,7 @@
         <div class="swap-currency__network-filters">
             <button
                 (click)="toggleNetworkFilter(network)"
-                [ngClass]="{ 'zelf-button--black': form.get('networkFilter')?.value === network }"
+                [ngClass]="{ 'zelf-button--primary': form.get('networkFilter')?.value === network }"
                 *ngFor="let network of networkOptions"
                 class="zelf-button zelf-button--pill swap-currency__network-filter"
                 mat-flat-button

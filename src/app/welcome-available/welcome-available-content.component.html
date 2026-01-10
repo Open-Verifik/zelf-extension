@@ -23,7 +23,7 @@
                     class="zelf-input__control zelf-input__control--floating-label"
                     formControlName="referralName"
                     id="referralName"
-                    maxlength="26"
+                    maxlength="32"
                     name="referralName"
                     placeholder=" "
                 />
@@ -34,7 +34,7 @@
                     (click)="onSearchZelfName($event)"
                     [disabled]="loading || form.get('referralName')?.invalid"
                     [ngClass]="{ 'zelf-icon-button--success': zelfNameObject, 'zelf-icon-button--error': invalidReferral }"
-                    class="zelf-icon-button zelf-icon-button--black"
+                    class="zelf-icon-button zelf-icon-button--primary"
                     mat-icon-button
                 >
                     <ng-container *ngIf="!loadingReferral && !zelfNameObject && !invalidReferral">

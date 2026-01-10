@@ -4,7 +4,7 @@
             <button
                 [routerLink]="['/receive']"
                 queryParamsHandling
-                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
+                class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40"
                 mat-flat-button
             >
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
 
                 <button
                     (click)="copyToClipboard()"
-                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
                     mat-flat-button
                 >
                     <ng-container *ngTemplateOutlet="copyIcon"></ng-container>
@@ -68,7 +68,7 @@
             </span>
         </div>
 
-        <button [routerLink]="['/receive']" mat-flat-button class="zelf-button zelf-button--black zelf-button--wide">
+        <button [routerLink]="['/receive']" mat-flat-button class="zelf-button zelf-button--primary zelf-button--wide">
             <p>{{ t("common.close") }}</p>
         </button>
     </div>

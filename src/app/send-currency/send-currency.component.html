@@ -4,7 +4,7 @@
             <button
                 (click)="removeTransactionData()"
                 [routerLink]="['/home']"
-                class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40"
+                class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40"
                 mat-flat-button
             >
                 <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
         <div class="send-currency__col3"></div>
     </div>
 
-    <zelf-loader [diameter]="60" *ngIf="loading"></zelf-loader>
+    <zelf-loader *ngIf="loading"></zelf-loader>
 
     <div class="zelf-card__content send-currency__content">
         <form class="send-currency__form" [formGroup]="form" [class.hidden]="tokens.length < 5">

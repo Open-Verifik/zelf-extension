@@ -1,0 +1,259 @@
+<div class="add-zotp" *transloco="let t">
+    <div class="add-zotp__header">
+        <h3 class="add-zotp__title">{{ t("zotp.add_zotp") }}</h3>
+        <button mat-icon-button class="add-zotp__close" (click)="close()" [disabled]="loading">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17.4 0.613295C16.88 0.0932946 16.04 0.0932946 15.52 0.613295L8.99996 7.11996L2.47996 0.599961C1.95996 0.0799609 1.11996 0.0799609 0.599961 0.599961C0.0799609 1.11996 0.0799609 1.95996 0.599961 2.47996L7.11996 8.99996L0.599961 15.52C0.0799609 16.04 0.0799609 16.88 0.599961 17.4C1.11996 17.92 1.95996 17.92 2.47996 17.4L8.99996 10.88L15.52 17.4C16.04 17.92 16.88 17.92 17.4 17.4C17.92 16.88 17.92 16.04 17.4 15.52L10.88 8.99996L17.4 2.47996C17.9066 1.97329 17.9066 1.11996 17.4 0.613295Z"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <ng-container *ngIf="!showBiometrics">
+        <div class="add-zotp__content">
+            <!-- Display current wallet with styled card -->
+            <div class="add-zotp__wallet-card" *ngIf="currentWallet">
+                <div class="add-zotp__wallet-avatar">
+                    <span class="add-zotp__wallet-avatar-letter">{{ currentWallet.fullTagName | firstLetter }}</span>
+                </div>
+                <div class="add-zotp__wallet-details">
+                    <div class="add-zotp__wallet-label">{{ t("common.zelf_wallet") }}</div>
+                    <div class="add-zotp__wallet-name">{{ currentWallet.fullTagName }}</div>
+                </div>
+                <div class="add-zotp__wallet-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.4 7 14.8 8.6 14.8 10V11.5C15.4 11.9 15.8 12.5 15.8 13.2V16.7C15.8 17.5 15.1 18.2 14.3 18.2H9.7C8.9 18.2 8.2 17.5 8.2 16.7V13.2C8.2 12.5 8.6 11.9 9.2 11.5V10C9.2 8.6 10.6 7 12 7ZM12 8.2C11.2 8.2 10.5 8.7 10.5 10V11.5H13.5V10C13.5 8.7 12.8 8.2 12 8.2Z"
+                            fill="currentColor"
+                        />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="animated-tabs">
+                <div
+                    class="animated-tabs__switch"
+                    [ngClass]="{
+                        'animated-tabs__switch--left': mode === 'setup-key',
+                        'animated-tabs__switch--right': mode === 'qr-upload',
+                    }"
+                >
+                    <div (click)="switchMode('setup-key')" [ngClass]="{ 'animated-tab--active': mode === 'setup-key' }" class="animated-tab">
+                        <div class="animated-tab__text">{{ t("zotp.enter_setup_key") }}</div>
+                    </div>
+
+                    <div (click)="switchMode('qr-upload')" [ngClass]="{ 'animated-tab--active': mode === 'qr-upload' }" class="animated-tab">
+                        <div class="animated-tab__text">{{ t("zotp.upload_qr_code") }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <form [formGroup]="form" class="add-zotp__form">
+                <ng-container *ngIf="mode === 'setup-key'">
+                    <div class="add-zotp__field">
+                        <div
+                            class="zelf-input zelf-input--wide"
+                            [ngClass]="{
+                                'zelf-input--error':
+                                    submitted && form.controls.name.invalid && (form.controls.name.touched || form.controls.name.dirty),
+                            }"
+                        >
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="name"
+                                type="text"
+                                maxlength="128"
+                                placeholder=" "
+                                id="accountName"
+                            />
+                            <label for="accountName" class="zelf-input__floating-label">{{ t("zotp.account_name") }}</label>
+                        </div>
+                    </div>
+
+                    <div class="add-zotp__field">
+                        <div
+                            class="zelf-input zelf-input--wide"
+                            [ngClass]="{
+                                'zelf-input--error':
+                                    submitted && form.controls.issuer.invalid && (form.controls.issuer.touched || form.controls.issuer.dirty),
+                            }"
+                        >
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="issuer"
+                                type="text"
+                                maxlength="128"
+                                placeholder=" "
+                                id="issuer"
+                            />
+                            <label for="issuer" class="zelf-input__floating-label"
+                                >{{ t("zotp.issuer") }} <span class="add-zotp__optional">({{ t("common.optional") }})</span></label
+                            >
+                        </div>
+                    </div>
+
+                    <div class="add-zotp__field">
+                        <div
+                            class="zelf-input zelf-input--wide"
+                            [ngClass]="{
+                                'zelf-input--error':
+                                    submitted && form.controls.setupKey.invalid && (form.controls.setupKey.touched || form.controls.setupKey.dirty),
+                            }"
+                        >
+                            <input
+                                class="zelf-input__control zelf-input__control--floating-label"
+                                formControlName="setupKey"
+                                type="text"
+                                placeholder=" "
+                                autocomplete="off"
+                                id="setupKey"
+                            />
+                            <label for="setupKey" class="zelf-input__floating-label">{{ t("zotp.setup_key") }}</label>
+                        </div>
+                    </div>
+
+                    <!-- Master Password field (required for ZOTP creation) - Styled with security emphasis -->
+                    <div class="add-zotp__field add-zotp__field--master-password">
+                        <label class="add-zotp__label add-zotp__label--master-password">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 7C13.4 7 14.8 8.6 14.8 10V11.5C15.4 11.9 15.8 12.5 15.8 13.2V16.7C15.8 17.5 15.1 18.2 14.3 18.2H9.7C8.9 18.2 8.2 17.5 8.2 16.7V13.2C8.2 12.5 8.6 11.9 9.2 11.5V10C9.2 8.6 10.6 7 12 7ZM12 8.2C11.2 8.2 10.5 8.7 10.5 10V11.5H13.5V10C13.5 8.7 12.8 8.2 12 8.2Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                            {{ t("zotp.master_password") }}
+                            <span class="add-zotp__required">*</span>
+                        </label>
+
+                        <div class="add-zotp__password-wrapper">
+                            <div
+                                class="zelf-input zelf-input--wide"
+                                [ngClass]="{
+                                    'zelf-input--error':
+                                        submitted &&
+                                        form.controls.masterPassword.invalid &&
+                                        (form.controls.masterPassword.touched || form.controls.masterPassword.dirty),
+                                }"
+                            >
+                                <input
+                                    class="zelf-input__control zelf-input__control--floating-label"
+                                    formControlName="masterPassword"
+                                    [type]="showMasterPassword ? 'text' : 'password'"
+                                    placeholder=" "
+                                    autocomplete="off"
+                                    id="masterPassword"
+                                />
+
+                                <label for="masterPassword" class="zelf-input__floating-label">{{ t("zotp.master_password_placeholder") }}</label>
+
+                                <button
+                                    (click)="toggleShowMasterPassword()"
+                                    [attr.aria-label]="showMasterPassword ? t('common.hide_password') : t('common.show_password')"
+                                    class="zelf-icon-button zelf-icon-button--transparent"
+                                    tabindex="-1"
+                                    type="button"
+                                >
+                                    <ng-container *ngTemplateOutlet="showMasterPassword ? openEye : closedEye"></ng-container>
+                                </button>
+                            </div>
+                            <div class="add-zotp__field-hint add-zotp__field-hint--master-password">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                                {{ t("zotp.master_password_hint") }}
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="mode === 'qr-upload'">
+                    <div dragAndDrop class="add-zotp__qr-upload drag-and-drop" (fileDropped)="onDrop($event)">
+                        <input
+                            (change)="fileBrowseHandler($event)"
+                            #fileInput
+                            accept=".png,.jpg,.jpeg"
+                            hidden
+                            id="qrCode"
+                            name="qrCode"
+                            type="file"
+                        />
+
+                        <div class="drag-and-drop__loader" *ngIf="loading">
+                            <zelf-loader [diameter]="60"></zelf-loader>
+                        </div>
+
+                        <button
+                            (click)="fileInput.click()"
+                            [disabled]="loading"
+                            class="zelf-button zelf-button--outlined zelf-button--wide"
+                            mat-flat-button
+                            type="button"
+                        >
+                            {{ t("common.upload_qr_image") }}
+
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.5 10.2217H7.5C7.9125 10.2217 8.25 9.88422 8.25 9.47172V5.72172H9.4425C10.11 5.72172 10.4475 4.91172 9.975 4.43922L6.5325 0.996719C6.24 0.704219 5.7675 0.704219 5.475 0.996719L2.0325 4.43922C1.56 4.91172 1.89 5.72172 2.5575 5.72172H3.75V9.47172C3.75 9.88422 4.0875 10.2217 4.5 10.2217ZM1.5 11.7217H10.5C10.9125 11.7217 11.25 12.0592 11.25 12.4717C11.25 12.8842 10.9125 13.2217 10.5 13.2217H1.5C1.0875 13.2217 0.75 12.8842 0.75 12.4717C0.75 12.0592 1.0875 11.7217 1.5 11.7217Z"
+                                    fill="#181818"
+                                />
+                            </svg>
+                        </button>
+
+                        <p class="zelf-card__help-text">{{ t("common.or_drag_and_drop") }}</p>
+                    </div>
+
+                    <div class="add-zotp__error" *ngIf="qrError">{{ qrError }}</div>
+                </ng-container>
+            </form>
+        </div>
+
+        <div class="add-zotp__actions">
+            <button
+                type="button"
+                class="zelf-button zelf-button--outlined zelf-button--wide"
+                (click)="close()"
+                [disabled]="loading || showBiometrics"
+            >
+                {{ t("common.cancel") }}
+            </button>
+            <button
+                type="button"
+                class="zelf-button zelf-button--primary zelf-button--wide"
+                (click)="save()"
+                [disabled]="form.invalid || loading || showBiometrics"
+            >
+                {{ showBiometrics ? t("common.creating") : t("common.confirm") }}
+            </button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="showBiometrics">
+        <div class="add-zotp__biometrics">
+            <biometrics-general
+                (canNavigate)="canNavigateAwayHandler($event)"
+                (error)="onBiometricsFailed($event)"
+                (imageCaptured)="onBiometricsScanned($event)"
+            ></biometrics-general>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #openEye>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path
+            d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #closedEye>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path
+            d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z"
+        />
+    </svg>
+</ng-template>

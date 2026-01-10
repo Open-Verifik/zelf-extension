@@ -1,0 +1,9 @@
+{
+    "builders": {
+        "extension": {
+            "implementation": "./extension-builder/index.js",
+            "schema": "./extension-builder/schema.json",
+            "description": "Extension builder that runs webpack + Angular builds together"
+        }
+    }
+}

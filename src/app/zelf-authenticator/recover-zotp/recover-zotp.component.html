@@ -1,0 +1,162 @@
+<div class="recover-zotp" *transloco="let t">
+    <div class="recover-zotp__header">
+        <h3 class="recover-zotp__title">{{ t("zotp.recover_zotp") }}</h3>
+        <button mat-icon-button class="recover-zotp__close" (click)="close()" [disabled]="loading">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17.4 0.613295C16.88 0.0932946 16.04 0.0932946 15.52 0.613295L8.99996 7.11996L2.47996 0.599961C1.95996 0.0799609 1.11996 0.0799609 0.599961 0.599961C0.0799609 1.11996 0.0799609 1.95996 0.599961 2.47996L7.11996 8.99996L0.599961 15.52C0.0799609 16.04 0.0799609 16.88 0.599961 17.4C1.11996 17.92 1.95996 17.92 2.47996 17.4L8.99996 10.88L15.52 17.4C16.04 17.92 16.88 17.92 17.4 17.4C17.92 16.88 17.92 16.04 17.4 15.52L10.88 8.99996L17.4 2.47996C17.9066 1.97329 17.9066 1.11996 17.4 0.613295Z"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <div class="recover-zotp__content">
+        <!-- Step 1: Import Shares -->
+        <div class="recover-zotp__step" *ngIf="step === 'import'">
+            <div class="recover-zotp__description">
+                <p>{{ t("zotp.recover_description") }}</p>
+            </div>
+
+            <!-- File Upload -->
+            <div dragAndDrop class="recover-zotp__file-upload drag-and-drop" (fileDropped)="onDrop($event)">
+                <input (change)="onFileSelected($event)" #fileInput accept=".json" hidden id="shareFile" name="shareFile" type="file" />
+
+                <div class="drag-and-drop__loader" *ngIf="loading">
+                    <zelf-loader [diameter]="60"></zelf-loader>
+                </div>
+
+                <button
+                    (click)="fileInput.click()"
+                    [disabled]="loading"
+                    class="zelf-button zelf-button--outlined zelf-button--wide"
+                    mat-flat-button
+                    type="button"
+                >
+                    {{ t("zotp.upload_shares_file") }}
+
+                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M4.5 10.2217H7.5C7.9125 10.2217 8.25 9.88422 8.25 9.47172V5.72172H9.4425C10.11 5.72172 10.4475 4.91172 9.975 4.43922L6.5325 0.996719C6.24 0.704219 5.7675 0.704219 5.475 0.996719L2.0325 4.43922C1.56 4.91172 1.89 5.72172 2.5575 5.72172H3.75V9.47172C3.75 9.88422 4.0875 10.2217 4.5 10.2217ZM1.5 11.7217H10.5C10.9125 11.7217 11.25 12.0592 11.25 12.4717C11.25 12.8842 10.9125 13.2217 10.5 13.2217H1.5C1.0875 13.2217 0.75 12.8842 0.75 12.4717C0.75 12.0592 1.0875 11.7217 1.5 11.7217Z"
+                            fill="#181818"
+                        />
+                    </svg>
+                </button>
+
+                <p class="zelf-card__help-text">{{ t("common.or_drag_and_drop") }}</p>
+            </div>
+
+            <!-- Manual Entry -->
+            <div class="recover-zotp__manual-entry">
+                <p class="recover-zotp__manual-title">{{ t("zotp.or_enter_share_below") }}</p>
+                <div class="recover-zotp__manual-input">
+                    <div class="zelf-input zelf-input--wide zelf-input--textarea">
+                        <textarea
+                            [(ngModel)]="shareInput"
+                            class="zelf-input__control"
+                            [placeholder]="t('zotp.share_placeholder')"
+                            rows="3"
+                            id="shareInput"
+                            (keydown.enter)="$event.preventDefault(); addShareManually()"
+                        ></textarea>
+                    </div>
+                    <button
+                        type="button"
+                        class="zelf-button zelf-button--primary zelf-button--wide"
+                        (click)="addShareManually()"
+                        [disabled]="!shareInput.trim()"
+                    >
+                        {{ t("zotp.add_share") }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Imported Shares List -->
+            <div class="recover-zotp__shares-list" *ngIf="importedShares.length > 0">
+                <div class="recover-zotp__shares-header">
+                    <h4 class="recover-zotp__shares-title">
+                        {{ t("zotp.imported_shares") }} ({{ importedShares.length }})
+                        <span *ngIf="getThreshold() > 0" class="recover-zotp__shares-threshold">
+                            {{ t("zotp.need_shares", { current: importedShares.length, required: getThreshold() }) }}
+                        </span>
+                    </h4>
+                </div>
+
+                <div class="recover-zotp__shares-items">
+                    <div class="recover-zotp__share-item" *ngFor="let share of importedShares; let i = index">
+                        <div class="recover-zotp__share-info">
+                            <span class="recover-zotp__share-number">{{ t("zotp.share") }} {{ share.partyIndex }}</span>
+                            <span class="recover-zotp__share-participant" *ngIf="share.participant">{{ share.participant }}</span>
+                        </div>
+                        <button mat-icon-button class="recover-zotp__share-remove" (click)="removeShare(i)" [title]="t('common.remove')">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Threshold Info -->
+                <div class="recover-zotp__threshold-info" *ngIf="getThreshold() > 0">
+                    <p *ngIf="hasEnoughShares()" class="recover-zotp__threshold-success">✅ {{ t("zotp.enough_shares") }}</p>
+                    <p *ngIf="!hasEnoughShares()" class="recover-zotp__threshold-warning">
+                        ⚠️ {{ t("zotp.need_more_shares", { needed: getThreshold() - importedShares.length }) }}
+                    </p>
+                </div>
+
+                <!-- Reconstruct Button -->
+                <button
+                    type="button"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
+                    (click)="reconstructSecret()"
+                    [disabled]="loading || !hasEnoughShares()"
+                >
+                    {{ loading ? t("common.loading") || "Loading..." : t("zotp.reconstruct_secret") }}
+                </button>
+            </div>
+
+            <!-- Error Message -->
+            <div class="recover-zotp__error" *ngIf="error">{{ error }}</div>
+        </div>
+
+        <!-- Step 2: Verify Reconstructed Secret -->
+        <div class="recover-zotp__step" *ngIf="step === 'verify' && reconstructedSecret">
+            <div class="recover-zotp__success-message">
+                <h4>✅ {{ t("zotp.secret_reconstructed") }}</h4>
+                <p>{{ t("zotp.secret_reconstructed_description") }}</p>
+            </div>
+
+            <div class="recover-zotp__secret-preview">
+                <div class="recover-zotp__secret-label">{{ t("zotp.recovered_setup_key") }}</div>
+                <code class="recover-zotp__secret-code">{{ reconstructedSecret }}</code>
+            </div>
+
+            <div class="recover-zotp__actions">
+                <button
+                    type="button"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
+                    (click)="createZOTPFromRecoveredSecret()"
+                    [disabled]="loading"
+                >
+                    {{ loading ? t("common.loading") || "Loading..." : t("zotp.create_zotp_from_recovery") }}
+                </button>
+                <button type="button" class="zelf-button zelf-button--outlined zelf-button--wide" (click)="step = 'import'" [disabled]="loading">
+                    {{ t("common.go_back") }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div class="recover-zotp__step" *ngIf="step === 'success'">
+            <div class="recover-zotp__success-message">
+                <h4>🎉 {{ t("zotp.recovery_successful") }}</h4>
+                <p>{{ t("zotp.recovery_success_description") }}</p>
+            </div>
+
+            <div class="recover-zotp__actions">
+                <button type="button" class="zelf-button zelf-button--primary zelf-button--wide" (click)="close()">
+                    {{ t("common.done") || "Done" }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

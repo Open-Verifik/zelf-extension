@@ -14,14 +14,14 @@
         min-height: 40px;
         box-sizing: border-box;
         cursor: pointer;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -32,7 +32,7 @@
         svg {
             transform: rotate(180deg);
             transition: transform 0.3s variables.$smoothBezier;
-            fill: variables.$gray;
+            fill: variables.$themeTextSecondary;
         }
 
         &--active {

@@ -44,14 +44,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__loader {
@@ -76,15 +76,25 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 8px 16px;
+        padding: 14px 18px;
         gap: 16px;
         cursor: pointer;
         border-radius: 16px;
-        transition: background-color 0.2s variables.$smoothBezier;
+        transition: all 0.2s variables.$smoothBezier;
         width: 100%;
+        margin-bottom: 8px;
+        background-color: transparent;
+        border: 1px solid transparent;
 
         &:hover {
-            background-color: variables.$antiFlashWhite;
+            background-color: variables.$themeCardBorder;
+            border-color: variables.$themeBorder;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        &:active {
+            transform: translateY(0);
         }
     }
 
@@ -93,33 +103,63 @@
         align-items: center;
         justify-content: flex-start;
         gap: 16px;
+        flex: 1;
+        min-width: 0;
     }
 
     &__item-col1-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 38px;
-        width: 38px;
-        border-radius: 38px;
-        background-color: variables.$black;
+        height: 42px;
+        width: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, variables.$primaryColor 0%, variables.$primaryColor 100%);
+        color: variables.$white;
+        flex-shrink: 0;
+        transition: transform 0.2s variables.$smoothBezier;
+
+        .zelf-icon {
+            font-size: 20px;
+            color: variables.$white;
+        }
 
         svg {
-            height: 16px;
-            width: 16px;
+            height: 18px;
+            width: 18px;
             fill: variables.$white;
         }
+
+        .zelf-settings__item:hover & {
+            transform: scale(1.05);
+        }
+    }
+
+    &__item-col1-title {
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.4;
+        color: variables.$themeText;
+        margin: 0;
     }
 
     &__item-col2 {
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        flex-shrink: 0;
+        opacity: 0.5;
+        transition: all 0.2s variables.$smoothBezier;
 
         svg {
             height: 16px;
             width: 16px;
-            fill: variables.$gray;
+            fill: variables.$themeText;
+        }
+
+        .zelf-settings__item:hover & {
+            opacity: 1;
+            transform: translateX(2px);
         }
     }
 }

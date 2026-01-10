@@ -14,7 +14,7 @@
         <button
             (click)="onQRCodeClick.emit(token)"
             *ngIf="showQRCode"
-            class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+            class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
             mat-flat-button
         >
             <ng-container *ngTemplateOutlet="qrCodeIcon"></ng-container>
@@ -23,7 +23,7 @@
         <button
             (click)="copyToClipboard()"
             *ngIf="showCopyAddress && token.address"
-            class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white zelf-icon-button--border-soft"
+            class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
             mat-flat-button
         >
             <ng-container *ngTemplateOutlet="copyIcon"></ng-container>
@@ -31,9 +31,9 @@
     </div>
 
     <div class="token-item__balance" *ngIf="showPrice">
-        <span class="token-item__balance-amount">{{ token.amount | number : "1.2-8" }}</span>
-        <div class="token-item__fiat-amount" *ngIf="!showFiatBalance">{{ token.price | currency : "USD" : "symbol" : "1.2-5" }}</div>
-        <div class="token-item__fiat-amount" *ngIf="showFiatBalance">{{ token.fiatBalance | currency : "USD" : "symbol" : "1.2-5" }}</div>
+        <span class="token-item__balance-amount">{{ token.amount | number: "1.2-8" }}</span>
+        <div class="token-item__fiat-amount" *ngIf="!showFiatBalance">{{ token.price | currency: "USD" : "symbol" : "1.2-5" }}</div>
+        <div class="token-item__fiat-amount" *ngIf="showFiatBalance">{{ token.fiatBalance | currency: "USD" : "symbol" : "1.2-5" }}</div>
     </div>
 </div>
 

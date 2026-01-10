@@ -1,0 +1,22 @@
+{
+    "metadata": {
+        "generatedAt": "2025-11-29T00:04:22.482Z",
+        "totalLanguages": 0,
+        "totalMissingKeys": 0,
+        "languageNames": {
+            "ar": "Arabic",
+            "br": "Portuguese (Brazil)",
+            "cn": "Chinese (Simplified)",
+            "es": "Spanish",
+            "fr": "French",
+            "in": "Hindi (India)",
+            "ja": "Japanese",
+            "kr": "Korean",
+            "ph": "Filipino (Tagalog)",
+            "ru": "Russian",
+            "th": "Thai",
+            "ur": "Urdu"
+        }
+    },
+    "missingTranslations": {}
+}

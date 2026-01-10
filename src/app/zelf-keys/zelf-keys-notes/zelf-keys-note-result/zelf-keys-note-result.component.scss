@@ -1,0 +1,272 @@
+@use "../../../../styles/variables";
+
+.note-result {
+    padding: 0 24px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    &__container {
+        width: 100%;
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    &__icon {
+        font-size: 64px;
+        width: 64px;
+        height: 64px;
+        margin-bottom: 24px;
+        color: variables.$correct;
+    }
+
+    &__title {
+        font-size: 32px;
+        font-weight: 700;
+        color: variables.$themeText;
+        margin: 0 0 16px 0;
+    }
+
+    &__message {
+        font-size: 18px;
+        color: variables.$themeTextMuted;
+        margin: 0;
+    }
+
+    &__content {
+        margin-bottom: 32px;
+    }
+
+    &__section {
+        margin: 24px 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: variables.$themeText;
+        margin: 0 0 16px 0;
+        text-align: left;
+    }
+
+    &__success-summary {
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 24px;
+    }
+
+    &__success-message {
+        color: variables.$infoDark;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    &__data-content,
+    &__ipfs-content,
+    &__zelfproof-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__nft-content,
+    &__nft-info {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__nft-image {
+        flex-shrink: 0;
+        width: 200px;
+        height: 200px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid variables.$themeBorder;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__nft-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    &__tx-link,
+    &__gateway-link {
+        color: variables.$info;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__zelfproof-string {
+        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+        font-size: 12px;
+        color: variables.$themeText;
+        background: variables.$themeBackgroundSecondary;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid variables.$themeBorder;
+        display: block;
+        word-break: break-all;
+        line-height: 1.4;
+        cursor: pointer;
+        user-select: all;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: variables.$themeBackgroundSecondary;
+            border-color: variables.$themeBorder;
+        }
+    }
+
+    &__qr-code {
+        text-align: center;
+        max-width: 200px;
+        padding: 12px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid variables.$themeBorder;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin: 0 auto 24px;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+    }
+
+    &__debug-toggle {
+        cursor: pointer;
+        user-select: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: variables.$info;
+        }
+    }
+
+    &__toggle-icon {
+        font-size: 14px;
+        margin-left: 8px;
+    }
+
+    &__api-response {
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        overflow-x: auto;
+    }
+
+    &__json-display {
+        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+        font-size: 12px;
+        color: variables.$themeText;
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    &__next-steps {
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 8px;
+        padding: 16px;
+
+        p {
+            margin: 0 0 8px 0;
+            color: variables.$themeTextMuted;
+            line-height: 1.5;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__loading {
+        text-align: center;
+        padding: 48px 0;
+    }
+
+    &__spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid variables.$themeBorder;
+        border-top: 4px solid variables.$info;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 12px;
+        justify-content: stretch;
+        margin-top: 32px;
+        width: 100%;
+
+        .zelf-button {
+            flex: 1;
+        }
+    }
+
+    &__walrus-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .note-result {
+        padding: 0 16px 16px;
+
+        &__actions {
+            flex-direction: column;
+            gap: 12px;
+
+            .zelf-button {
+                width: 100%;
+            }
+        }
+    }
+}

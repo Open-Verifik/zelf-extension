@@ -49,17 +49,17 @@
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$black;
+            fill: variables.$themeText;
             height: 16px;
             width: 16px;
         }
 
         &:hover {
-            background-color: #b589f0;
-            color: white;
+            background-color: variables.$themeButton;
+            color: variables.$themeCard;
 
             svg {
-                fill: white;
+                fill: variables.$themeCard;
             }
         }
     }
@@ -79,7 +79,7 @@
     }
 
     &__title {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 24px;
         line-height: 32px;
@@ -88,18 +88,18 @@
         vertical-align: middle;
         text-transform: uppercase;
         margin: 0;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__description {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 15px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
     }
 

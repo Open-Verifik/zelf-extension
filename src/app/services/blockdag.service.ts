@@ -18,7 +18,7 @@ export class BlockDAGService {
             blockExplorerUrls: ["https://primordial.bdagscan.com"],
             chainId: 1043,
             chainName: "BlockDAG Testnet",
-            rpcUrls: ["http://13.234.176.105:18545"],
+            rpcUrls: ["https://rpc.awakening.bdagscan.com", "http://13.234.176.105:18545"],
             nativeCurrency: {
                 decimals: 18,
                 name: "BDAG",

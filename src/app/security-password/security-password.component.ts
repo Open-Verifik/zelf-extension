@@ -9,10 +9,10 @@ import { TranslocoModule } from "@jsverse/transloco";
 
 import { CaptchaService } from "app/captcha.service";
 import { ChromeService } from "app/chrome.service";
+import { PasswordStrengthComponent } from "app/password-strength/password-strength.component";
+import { TagModel, TagsService } from "app/tags.service";
 import { VaultService } from "app/vault.service";
 import { ZelfFlow } from "app/zelf-name-service.service";
-import { PasswordStrengthComponent } from "password-strength/password-strength.component";
-import { TagModel, TagsService } from "app/tags.service";
 
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, PasswordStrengthComponent],
@@ -44,8 +44,8 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _vaultService: VaultService,
-        private _tagsService: TagsService
+        private _tagsService: TagsService,
+        private _vaultService: VaultService
     ) {
         this._vaultService.password = "";
 
@@ -59,10 +59,9 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        // this.flow = await this._zelfNameService.getFlow();
         this.flow = await this._tagsService.getFlow();
 
-        this.tagName = await this._tagsService.getTagName();
+        this.tagName = (await this._tagsService.getTagName()) || (await this._tagsService.getNewTagName());
         this.domain = await this._tagsService.getDomain();
         this.tagModel = await this._tagsService.getTagNameObject();
         this.tagResponse = await this._tagsService.getTagResponse();

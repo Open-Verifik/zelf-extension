@@ -1,0 +1,63 @@
+@use "../../styles/variables";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    height: 100%;
+    min-height: 0;
+}
+
+.dashboard {
+    position: relative;
+    padding-top: 88px !important;
+    gap: 24px !important;
+    padding-bottom: 94px !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 100vh;
+    min-height: 0;
+
+    &__content {
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+        padding: 16px 12px 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &--loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+
+    &__loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1000;
+    }
+
+    &__loading-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__loading-text {
+        margin: 0;
+        color: variables.$black;
+        font-size: 14px;
+    }
+}

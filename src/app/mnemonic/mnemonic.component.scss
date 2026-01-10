@@ -25,7 +25,7 @@
         justify-content: center;
         gap: 16px;
         padding: 16px;
-        border: 1px solid variables.$platinum;
+        border: 1px solid variables.$themeBorder;
         border-radius: 16px;
         margin: 16px 0;
     }
@@ -55,7 +55,7 @@
         display: inline-flex;
         justify-content: flex-start;
         align-items: center;
-        background-color: variables.$antiFlashWhite;
+        background-color: variables.$themeCardBorder;
         padding: 8px;
         border-radius: 24px;
         height: 32px;
@@ -64,7 +64,7 @@
         &-number {
             display: inline-block;
             user-select: none;
-            color: variables.$taupeGray;
+            color: variables.$themeTextMuted;
             font-size: 12px;
             font-weight: 500;
             margin: 0 6px;
@@ -73,7 +73,7 @@
         &-word {
             display: inline-block;
             user-select: none;
-            color: variables.$black;
+            color: variables.$themeText;
             font-size: 12px;
             font-weight: 500;
         }

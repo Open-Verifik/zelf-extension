@@ -9,13 +9,13 @@
 
     &__message {
         font-size: 1.5rem;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin-bottom: 4px;
         padding: 16px;
     }

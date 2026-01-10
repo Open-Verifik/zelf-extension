@@ -1,0 +1,67 @@
+@use "../../styles/variables";
+
+.footer {
+    box-sizing: border-box;
+    align-items: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: inline-flex;
+    height: 82px;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+    padding: 0 24px;
+}
+
+.footer-link {
+    align-items: center;
+    display: flex;
+    flex: 1 1 0;
+    gap: 12px;
+    justify-content: center;
+    padding: 8px 24px;
+
+    @media (max-width: variables.$medium) {
+        padding: 6px 12px;
+    }
+
+    &__button {
+        background-color: transparent !important;
+        align-items: center;
+        border-radius: 56px;
+        cursor: pointer;
+        display: flex;
+        height: 56px;
+        justify-content: center;
+        width: 56px;
+        border: none !important;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+
+        svg {
+            transition: fill 0.3s variables.$smoothBezier;
+            fill: variables.$themeText;
+        }
+
+        &--action {
+            background-color: variables.$secondaryColor !important;
+
+            svg {
+                fill: variables.$themeButtonSecondaryText;
+            }
+        }
+
+        &:hover:not(.footer-link__button--active),
+        &--action:hover,
+        &--active {
+            background-color: variables.$themeButtonHover !important;
+
+            svg {
+                fill: variables.$themeCard;
+            }
+        }
+    }
+}

@@ -2,7 +2,7 @@
     <ng-container *ngIf="!loading">
         <div class="send-transaction__header">
             <div class="send-transaction__col1">
-                <button (click)="goBack()" mat-flat-button class="zelf-icon-button zelf-icon-button--anti-flash-white zelf-icon-button--40">
+                <button (click)="goBack()" mat-flat-button class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40">
                     <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
@@ -48,13 +48,6 @@
 
                 <p class="send-transaction__input-label send-transaction__input-label--mt-8">
                     <span class="send-transaction__input-label-text">{{ t("common.to") }}:</span>
-
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"
-                            fill="#181818"
-                        />
-                    </svg>
                 </p>
 
                 <div
@@ -253,10 +246,6 @@
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.publicData.btcAddress }}</p>
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress }}</p>
                         <p class="zelf-object-preview__address" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress }}</p>
-
-                        <!-- <hr class="zelf-object-preview__horizontal-rule" /> -->
-
-                        <!-- <p class="zelf-object-preview__instructions">{{ t("send.continue_process") }}</p> -->
                     </div>
 
                     <div class="zelf-object-preview" *ngIf="isZelfNameNotFound">
@@ -285,7 +274,7 @@
                     (click)="continueToWithdraw()"
                     [disabled]="isWithdrawDisabled()"
                     *ngIf="!withdrawStep"
-                    class="zelf-button zelf-button--black zelf-button--wide"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
                     mat-flat-button
                     type="button"
                 >
@@ -296,7 +285,7 @@
                     (click)="continueToConfirmation()"
                     [disabled]="isConfirmationDisabled()"
                     *ngIf="withdrawStep"
-                    class="zelf-button zelf-button--black zelf-button--wide"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
                     mat-flat-button
                     type="button"
                 >

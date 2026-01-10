@@ -6,7 +6,7 @@
     <div class="dialog__actions">
         <button mat-flat-button class="zelf-button zelf-button--outlined" (click)="onCancel()">{{ this.cancel }}</button>
 
-        <button mat-flat-button class="zelf-button zelf-button--black" (click)="onConfirm()" *ngIf="!this.destructiveButton">
+        <button mat-flat-button class="zelf-button zelf-button--primary" (click)="onConfirm()" *ngIf="!this.destructiveButton">
             {{ this.confirm }}
         </button>
 

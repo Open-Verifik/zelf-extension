@@ -31,7 +31,7 @@
 
     &__col1,
     &__col3 {
-        grid-column: span 3;
+        grid-column: span 2;
         display: flex;
         align-items: center;
     }
@@ -41,7 +41,7 @@
     }
 
     &__col2 {
-        grid-column: span 4;
+        grid-column: span 6;
         text-align: center;
         align-items: center;
     }
@@ -51,14 +51,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__form {
@@ -83,6 +83,18 @@
         align-items: center;
         gap: 8px;
         flex-direction: column;
+        padding: 0 24px;
+        max-width: 100%;
+        padding: 0 24px;
+    }
+
+    &__price-amount-container {
+        gap: 8px;
+        max-width: 100%;
+        overflow-x: auto;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-end;
     }
 
     &__from-value {
@@ -103,13 +115,13 @@
 
     &__message {
         font-size: 1.5rem;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin-bottom: 4px;
         padding: 16px;
     }
@@ -126,15 +138,16 @@
 
     &__label {
         display: flex;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 400;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         margin: 0;
-        min-width: 156px;
+        align-items: center;
+        flex: 1 0 auto;
     }
 
     &__value-container {
@@ -159,13 +172,13 @@
     &__value {
         display: flex;
         justify-content: flex-end;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 15px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         width: 100%;
         text-align: right;
@@ -184,7 +197,7 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: variables.$frenchGray;
+        color: variables.$themeBorderHover;
         margin-left: 8px;
     }
 
@@ -213,23 +226,15 @@
             width: 16px;
             object-fit: contain;
             border-radius: 16px;
-            border: 2px solid variables.$white;
+            border: 2px solid variables.$themeCard;
         }
-    }
-
-    &__price-amount-container {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        align-items: flex-end;
-        width: 100%;
     }
 
     &__price {
         font-size: 32px;
         font-weight: 600;
-        color: variables.$black;
-        font-family: "Menda", "Arial Black", sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeTitleFamily;
         margin: 0;
     }
 
@@ -237,8 +242,8 @@
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: variables.$black;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeText;
+        font-family: variables.$themeBodyFamily;
         margin: 0 0 8px;
     }
 

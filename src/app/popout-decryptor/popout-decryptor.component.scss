@@ -1,0 +1,228 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+}
+
+.password-decryptor {
+    position: relative;
+    width: 375px;
+    height: 600px;
+    overflow: hidden;
+    background: variables.$themeBackground;
+
+    &__header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background: linear-gradient(to bottom, variables.$themeBackground 0%, variables.$themeBackgroundSecondary 50%, transparent 100%);
+        backdrop-filter: blur(10px);
+        padding: 12px 16px 20px 16px;
+        text-align: center;
+    }
+
+    &__icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        margin-bottom: 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: variables.$themeText;
+    }
+
+    &__camera-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 375px;
+        height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__loading,
+    &__error {
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        background: variables.$themeBackground;
+        margin: 20px;
+    }
+
+    &__error-icon {
+        font-size: 32px;
+        width: 32px;
+        height: 32px;
+        margin-bottom: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__camera {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__webcam-container {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 375px;
+        height: 600px;
+        background: variables.$themeBackground;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        // Ensure sharp rendering
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+        transform: translateZ(0); // Hardware acceleration
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 5;
+        width: 375px;
+        height: 600px;
+    }
+
+    &__status {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: variables.$themeBackground;
+        color: variables.$themeText;
+        padding: 12px 16px;
+        border-radius: 8px;
+        text-align: center;
+        z-index: 5;
+        min-width: 200px;
+    }
+
+    &__status-icon {
+        font-size: 24px;
+        margin-bottom: 4px;
+
+        &--error {
+            color: variables.$error;
+        }
+    }
+
+    &__status-title {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    &__status-subtitle {
+        margin: 0;
+        font-size: 12px;
+        opacity: 0.9;
+    }
+
+    &__processing {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: variables.$themeBackground;
+        color: variables.$themeText;
+        padding: 16px 20px;
+        border-radius: 8px;
+        text-align: center;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    &__actions {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 15;
+    }
+}
+
+.master-password-form {
+    position: absolute;
+    inset: 0;
+    background: variables.$themeBackground;
+    z-index: 100;
+    padding: 40px 16px;
+
+    &__overlay {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+// Override webcam component styles for popout
+::ng-deep {
+    .password-decryptor {
+        webcam {
+            width: 375px !important;
+            height: 600px !important;
+            display: block !important;
+            position: relative !important;
+            transform: scaleX(-1); // Flip horizontally for mirror effect
+
+            video {
+                border-radius: 8px;
+                width: 375px !important;
+                height: 600px !important;
+                object-fit: cover !important;
+                object-position: center !important;
+                display: block !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+
+                // High quality rendering
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+                transform: translateZ(0); // Hardware acceleration
+
+                // Smooth scaling
+                image-rendering: auto;
+                image-rendering: smooth;
+            }
+        }
+    }
+}

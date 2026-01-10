@@ -76,9 +76,9 @@
         }
 
         &-title {
-            color: variables.$gray;
+            color: variables.$themeTextSecondary;
             font-size: 11px;
-            font-family: "Poppins", Arial, sans-serif;
+            font-family: variables.$themeBodyFamily;
             font-weight: 500;
             letter-spacing: 0.5px;
             line-height: 16px;
@@ -98,8 +98,8 @@
         }
 
         &-text {
-            color: variables.$black;
-            font-family: "Poppins", Arial, sans-serif;
+            color: variables.$themeText;
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.1px;
@@ -110,7 +110,7 @@
 }
 
 .address-row {
-    background-color: variables.$antiFlashWhite;
+    background-color: variables.$themeCardBorder;
     border-radius: 16px;
     height: 48px;
     width: 100%;
@@ -140,7 +140,7 @@
     }
 
     &__label {
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         font-size: 14px;
         font-weight: 500;
         display: flex;
@@ -149,7 +149,7 @@
     }
 
     &__value {
-        color: variables.$black;
+        color: variables.$themeText;
         font-family: monospace;
         font-size: 14px;
         font-weight: 500;

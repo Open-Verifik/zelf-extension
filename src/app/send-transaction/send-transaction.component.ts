@@ -19,7 +19,7 @@ import { SolanaService } from "app/solana.service";
 import { EthereumService } from "app/eth.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
-import { AddressBook, TransactionData } from "app/wallet";
+import { AddressBook, TransactionData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel, TagsService } from "app/tags.service";
@@ -63,11 +63,11 @@ export class SendTransactionComponent implements OnDestroy {
         private _snackBar: MatSnackBar,
         private _solanaService: SolanaService,
         private _suiService: SuiService,
+        private _tagsService: TagsService,
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
-        private _walletService: WalletService,
         private _vaultService: VaultService,
-        private _tagsService: TagsService
+        private _walletService: WalletService
     ) {
         this.loading = true;
     }

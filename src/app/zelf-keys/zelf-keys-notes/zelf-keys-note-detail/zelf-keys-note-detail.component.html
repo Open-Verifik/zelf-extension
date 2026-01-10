@@ -1,0 +1,150 @@
+<div class="note-detail">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>{{ "billing.notes.detail.loading" | transloco }}</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+        <span class="material-symbols-outlined icon">warning</span>
+        <h3>{{ "billing.notes.detail.error.title" | transloco }}</h3>
+        <p>{{ error }}</p>
+        <button class="btn-secondary" (click)="onBackToList()">{{ "billing.notes.detail.error.go_back" | transloco }}</button>
+    </div>
+
+    <!-- Note Details -->
+    <div *ngIf="!loading && !error && note && !showBiometrics" class="note-detail__content">
+        <!-- Note Header -->
+        <div class="note-detail__header-card">
+            <button (click)="onBackToList()" mat-flat-button class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40">
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+            <div class="note-detail__header-info">
+                <span class="material-symbols-outlined note-detail__icon">note</span>
+                <div class="note-detail__title-info">
+                    <h3 class="note-detail__note-title">{{ note.publicData.title || ("billing.notes.detail.untitled" | transloco) }}</h3>
+                    <p class="note-detail__subtitle">{{ note.publicData.folder || ("billing.notes.detail.no_folder" | transloco) }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decrypt Button -->
+        <button
+            class="zelf-button zelf-button--primary note-detail__decrypt-button"
+            (click)="onDecryptClick()"
+            [disabled]="decrypting"
+            *ngIf="!showBiometrics"
+        >
+            {{ decrypting ? ("billing.notes.detail.decrypt.decrypting" | transloco) : ("billing.notes.detail.decrypt.button" | transloco) }}
+        </button>
+
+        <!-- Note Information -->
+        <div class="note-detail__info-section">
+            <h4 class="note-detail__section-title">{{ "billing.notes.detail.info.title" | transloco }}</h4>
+
+            <div class="zelf-action-row">
+                <p class="zelf-action-row__label">{{ "billing.notes.detail.info.note_id" | transloco }}</p>
+                <div class="zelf-action-row__value note-detail__id-field">
+                    <span class="note-detail__hash">{{ note.id || "N/A" }}</span>
+                    <button
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
+                        (click)="onCopyNoteId()"
+                        [title]="'billing.notes.detail.info.copy_id' | transloco"
+                    >
+                        <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                    </button>
+                </div>
+            </div>
+
+            <div class="zelf-action-row">
+                <p class="zelf-action-row__label">{{ "billing.notes.detail.info.type" | transloco }}</p>
+                <div class="zelf-action-row__value">
+                    <span>{{ note.publicData.type || "N/A" }}</span>
+                </div>
+            </div>
+
+            <div class="zelf-action-row">
+                <p class="zelf-action-row__label">{{ "billing.notes.detail.info.folder" | transloco }}</p>
+                <div class="zelf-action-row__value">
+                    <span>{{ note.publicData.folder || ("billing.notes.detail.no_folder" | transloco) }}</span>
+                </div>
+            </div>
+
+            <div class="note-detail__image-row">
+                <h4 class="note-detail__section-title">{{ "billing.notes.detail.zelfproof.title" | transloco }}</h4>
+                <div class="note-detail__image-container">
+                    <img [src]="note.url" [alt]="note.publicData.title || 'Note image'" class="note-detail__image" (error)="onImageError($event)" />
+                </div>
+                <div class="note-detail__download-container">
+                    <button class="note-detail__download-button" (click)="onDownloadZelfProof()">
+                        <div class="note-detail__download-content">
+                            <svg width="18" height="20" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.3549 7.08398H12.4999V1.25065C12.4999 0.608984 11.9749 0.0839844 11.3333 0.0839844H6.66658C6.02492 0.0839844 5.49992 0.608984 5.49992 1.25065V7.08398H3.64492C2.60659 7.08398 2.08159 8.34398 2.81658 9.07898L8.17159 14.434C8.62659 14.889 9.36158 14.889 9.81658 14.434L15.1716 9.07898C15.9066 8.34398 15.3933 7.08398 14.3549 7.08398ZM0.833252 18.7507C0.833252 19.3923 1.35825 19.9173 1.99992 19.9173H15.9999C16.6416 19.9173 17.1666 19.3923 17.1666 18.7507C17.1666 18.109 16.6416 17.584 15.9999 17.584H1.99992C1.35825 17.584 0.833252 18.109 0.833252 18.7507Z"
+                                />
+                            </svg>
+                            <span>{{ "billing.notes.detail.zelfproof.download" | transloco }}</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decrypted Content -->
+        <div *ngIf="decryptedData" class="note-detail__decrypted-section" id="note-decrypted-content">
+            <h4 class="note-detail__section-title">{{ "billing.notes.detail.decrypted.title" | transloco }}</h4>
+
+            <div class="zelf-action-row">
+                <p class="zelf-action-row__label">{{ "billing.notes.detail.decrypted.title_field" | transloco }}</p>
+                <div class="zelf-action-row__value note-detail__title-field">
+                    <span class="note-detail__content-text">{{
+                        decryptedData.title || ("billing.notes.detail.decrypted.no_title" | transloco)
+                    }}</span>
+                    <button
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
+                        (click)="onCopyNoteTitle()"
+                        [title]="'billing.notes.detail.decrypted.copy_title' | transloco"
+                    >
+                        <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                    </button>
+                </div>
+            </div>
+
+            <div class="zelf-action-row">
+                <p class="zelf-action-row__label">{{ "billing.notes.detail.decrypted.content" | transloco }}</p>
+                <div class="zelf-action-row__value note-detail__content-field">
+                    <div class="note-detail__content-text note-detail__content-text--multiline">
+                        {{ decryptedData.content || ("billing.notes.detail.decrypted.no_content" | transloco) }}
+                    </div>
+                    <button
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
+                        (click)="onCopyNoteContent()"
+                        [title]="'billing.notes.detail.decrypted.copy_content' | transloco"
+                    >
+                        <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<popout-decryptor
+    (close)="showPopoutDecryptor = false"
+    (decryptedData)="handleDecryptionResult($event)"
+    *ngIf="showPopoutDecryptor"
+    mode="embedded"
+></popout-decryptor>
+
+<ng-template #clipboardIcon>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M15.5 20H5.5V7C5.5 6.45 5.05 6 4.5 6C3.95 6 3.5 6.45 3.5 7V20C3.5 21.1 4.4 22 5.5 22H15.5C16.05 22 16.5 21.55 16.5 21C16.5 20.45 16.05 20 15.5 20ZM20.5 16V4C20.5 2.9 19.6 2 18.5 2H9.5C8.4 2 7.5 2.9 7.5 4V16C7.5 17.1 8.4 18 9.5 18H18.5C19.6 18 20.5 17.1 20.5 16ZM18.5 16H9.5V4H18.5V16Z"
+        />
+    </svg>
+</ng-template>

@@ -1,5 +1,9 @@
 @use "./variables";
 
+:root {
+    background-color: variables.$themeBackgroundSecondary;
+}
+
 .zelf-button-external-link {
     display: block;
 
@@ -14,7 +18,7 @@
     border: none;
     cursor: pointer;
     display: flex;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: variables.$themeBodyFamily;
     font-size: 14px;
     font-weight: 500;
     gap: 8px;
@@ -40,7 +44,7 @@
 
     &--hyperlink {
         background-color: transparent;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         font-size: 14px;
         font-weight: 500;
         border-radius: 9999px;
@@ -54,24 +58,24 @@
         }
 
         svg {
-            fill: variables.$gray;
+            fill: variables.$themeTextSecondary;
         }
 
         &:hover {
-            color: variables.$black;
-            background-color: variables.$platinum;
+            color: variables.$themeText;
+            background-color: variables.$themeBorder;
 
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: variables.$taupeGray !important;
+            color: variables.$themeTextMuted !important;
 
             svg {
-                fill: variables.$taupeGray;
+                fill: variables.$themeTextMuted;
             }
         }
     }
@@ -89,131 +93,136 @@
         }
     }
 
-    &--black {
-        background-color: variables.$black !important;
-        color: variables.$white !important;
+    &--primary {
+        background-color: variables.$themeButton !important;
+        color: variables.$themeCard !important;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
         &:active {
-            background-color: variables.$taupeGray !important;
+            background-color: variables.$themeTextMuted !important;
         }
 
         &:hover {
-            background-color: variables.$secondaryColor !important;
+            background-color: variables.$themeButtonHover !important;
         }
 
         svg {
-            fill: variables.$white;
+            fill: variables.$themeCard;
         }
 
         mat-spinner svg {
-            fill: variables.$white !important;
-            stroke: variables.$white !important;
+            fill: variables.$themeCard !important;
+            stroke: variables.$themeCard !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: variables.$gray !important;
-            color: variables.$white !important;
+            background-color: variables.$themeTextSecondary !important;
+            color: variables.$themeCard !important;
 
             mat-spinner svg {
-                fill: variables.$black !important;
-                stroke: variables.$black !important;
+                fill: variables.$themeText !important;
+                stroke: variables.$themeText !important;
             }
         }
     }
 
-    &--anti-flash-white {
-        background-color: variables.$antiFlashWhite !important;
-        color: variables.$black !important;
+    &--secondary {
+        background-color: variables.$themeButtonSecondary !important;
+        color: variables.$themeButtonSecondaryText !important;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeButtonSecondaryText;
         }
 
         &:focus,
         &:hover {
-            background-color: variables.$secondaryColor !important;
-            color: white;
+            background-color: variables.$themeButtonSecondaryHover !important;
+            color: variables.$themeCard;
 
             svg {
-                fill: variables.$white;
+                fill: variables.$themeText;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: variables.$platinum !important;
+            background-color: variables.$themeBorder !important;
 
             svg {
-                fill: variables.$frenchGray;
+                fill: variables.$themeBorderHover;
             }
 
             mat-spinner svg {
-                fill: variables.$gray !important;
-                stroke: variables.$gray !important;
+                fill: variables.$themeTextSecondary !important;
+                stroke: variables.$themeTextSecondary !important;
             }
         }
     }
 
-    &--white {
-        background-color: variables.$white !important;
-        color: variables.$black !important;
+    &--tertiary {
+        background-color: variables.$themeCard !important;
+        color: variables.$themeText !important;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
         &:focus,
         &:hover {
-            background-color: variables.$antiFlashWhite !important;
+            background-color: variables.$secondaryColor !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: variables.$antiFlashWhite !important;
-            color: variables.$black !important;
+            background-color: variables.$themeBorder !important;
+            color: variables.$themeText !important;
 
             mat-spinner svg {
-                fill: variables.$gray !important;
-                stroke: variables.$gray !important;
+                fill: variables.$themeText !important;
+                stroke: variables.$themeText !important;
             }
         }
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         mat-spinner svg {
-            fill: variables.$black !important;
-            stroke: variables.$black !important;
+            fill: variables.$themeText !important;
+            stroke: variables.$themeText !important;
         }
     }
 
     &--outlined {
-        border: 1px solid variables.$black !important;
-        background-color: variables.$white !important;
-        color: variables.$black !important;
+        border: 1px solid variables.$themeButton !important;
+        background-color: variables.$themeCard !important;
+        color: variables.$themeButton !important;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
+        svg {
+            fill: variables.$themeButton;
+        }
+
         &:focus,
         &:hover {
-            background-color: variables.$platinum !important;
+            background-color: variables.$themeButtonHover !important;
+            color: variables.$themeCard !important;
+
+            svg {
+                fill: variables.$themeCard;
+            }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: variables.$gray !important;
-        }
-
-        svg {
-            fill: variables.$black;
+            color: variables.$themeButtonText !important;
         }
     }
 
@@ -232,7 +241,7 @@
 
         &[disabled] {
             cursor: not-allowed;
-            color: variables.$gray !important;
+            color: variables.$themeTextSecondary !important;
         }
 
         svg {
@@ -258,20 +267,6 @@
         }
     }
 
-    &--no-fill {
-        svg {
-            fill: none !important;
-        }
-
-        &:focus,
-        &:hover,
-        &[disabled] {
-            svg {
-                fill: none !important;
-            }
-        }
-    }
-
     &--pill {
         border-radius: 9999px;
         min-height: 0;
@@ -281,9 +276,9 @@
 }
 
 .zelf-icon-button {
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: variables.$themeBodyFamily;
     align-items: center;
-    background-color: variables.$antiFlashWhite !important;
+    background-color: variables.$themeCardBorder !important;
     border-radius: 56px;
     border: none;
     cursor: pointer;
@@ -314,17 +309,17 @@
 
     svg {
         transition: fill 0.3s variables.$smoothBezier;
-        fill: variables.$black;
+        fill: variables.$themeText;
         height: 24px;
         width: 24px;
     }
 
     &:hover {
         background-color: variables.$secondaryColor !important;
-        color: white;
+        color: variables.$themeCardBorder;
 
         svg {
-            fill: white;
+            fill: variables.$themeCardBorder;
         }
     }
 
@@ -352,7 +347,7 @@
 
     &--hyperlink {
         background-color: transparent;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
         font-size: 14px;
         font-weight: 500;
         border-radius: 9999px;
@@ -366,141 +361,127 @@
         }
 
         svg {
-            fill: variables.$gray;
+            fill: variables.$themeTextSecondary;
         }
 
         &:hover {
-            color: variables.$black;
-            background-color: variables.$platinum;
+            color: variables.$themeText;
+            background-color: variables.$themeBorder;
 
             svg {
-                fill: variables.$black;
+                fill: variables.$themeText;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: variables.$taupeGray !important;
+            color: variables.$themeTextMuted !important;
 
             svg {
-                fill: variables.$taupeGray;
+                fill: variables.$themeTextMuted;
             }
 
             mat-spinner svg {
-                fill: variables.$taupeGray !important;
-                stroke: variables.$taupeGray !important;
+                fill: variables.$themeTextMuted !important;
+                stroke: variables.$themeTextMuted !important;
             }
         }
     }
 
-    &--black {
-        background-color: variables.$black !important;
-        color: variables.$white !important;
+    &--primary {
+        background-color: variables.$themeButton !important;
+        color: variables.$themeButtonText !important;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
         &:active {
-            background-color: variables.$taupeGray !important;
+            background-color: variables.$themeButtonHover !important;
         }
 
         &:hover {
-            background-color: variables.$gray !important;
+            background-color: variables.$themeButtonHover !important;
         }
 
         svg {
-            fill: variables.$white;
+            fill: variables.$themeButtonText;
         }
 
         mat-spinner svg {
-            fill: variables.$white !important;
-            stroke: variables.$white !important;
+            fill: variables.$themeButtonText !important;
+            stroke: variables.$themeButtonText !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: variables.$platinum !important;
+            background-color: variables.$themeButtonHover !important;
 
             svg {
-                fill: variables.$frenchGray;
+                fill: variables.$themeButtonText;
             }
 
             mat-spinner svg {
-                fill: variables.$black !important;
-                stroke: variables.$black !important;
+                fill: variables.$themeButtonText !important;
+                stroke: variables.$themeButtonText !important;
             }
         }
     }
 
-    &--anti-flash-white {
-        background-color: variables.$antiFlashWhite !important;
-        color: variables.$black !important;
+    &--secondary {
+        background-color: variables.$themeCardBorder !important;
+        color: variables.$themeText !important;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeText;
         }
 
         &:focus,
         &:hover {
             background-color: variables.$secondaryColor !important;
-            color: white;
+            color: variables.$themeCard;
 
             svg {
-                fill: variables.$white;
+                fill: variables.$themeCard;
             }
         }
 
         &[disabled] {
             cursor: not-allowed;
-            background-color: variables.$platinum !important;
+            background-color: variables.$themeBorder !important;
 
             svg {
-                fill: variables.$frenchGray;
+                fill: variables.$themeBorderHover;
             }
 
             mat-spinner svg {
-                fill: variables.$gray !important;
-                stroke: variables.$gray !important;
+                fill: variables.$themeTextSecondary !important;
+                stroke: variables.$themeTextSecondary !important;
             }
         }
     }
 
     &--transparent {
         background-color: transparent !important;
-        color: variables.$black !important;
+        color: variables.$themeText !important;
 
         svg {
-            fill: variables.$black;
+            fill: variables.$themeTextSecondary;
         }
 
         &:focus,
         &:hover {
-            background-color: variables.$platinum !important;
+            background-color: variables.$themeBackgroundSecondary !important;
         }
 
         &[disabled] {
             cursor: not-allowed;
-            color: variables.$gray !important;
+            color: variables.$themeTextSecondary !important;
 
             svg {
-                fill: variables.$frenchGray;
-            }
-        }
-    }
-
-    &--no-fill {
-        svg {
-            fill: none !important;
-        }
-
-        &:focus,
-        &:hover,
-        &[disabled] {
-            svg {
-                fill: none !important;
+                fill: variables.$themeBorderHover;
             }
         }
     }
@@ -535,5 +516,86 @@
         min-width: 0;
         padding: 4px 12px;
         width: auto;
+    }
+}
+
+.zelf-icon-button-group {
+    display: flex;
+    align-items: center;
+    gap: 0;
+
+    .zelf-icon-button {
+        &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+
+        &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+}
+
+.zelf-action-button {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+
+    &__icon {
+        padding: 16px 24px;
+        background: variables.$themeCard;
+        border-radius: 32px;
+        outline: 1px variables.$themeBorder solid;
+        outline-offset: -1px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        display: inline-flex;
+        cursor: pointer;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+
+        svg {
+            fill: variables.$themeText;
+            transition: fill 0.3s variables.$smoothBezier;
+        }
+
+        &:hover {
+            background-color: variables.$primaryColor;
+            color: variables.$themeCard;
+
+            svg {
+                fill: variables.$themeCard;
+            }
+        }
+    }
+
+    &__icon-box {
+        width: 28px;
+        height: 28px;
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__text {
+        width: 73px;
+        text-align: center;
+        color: variables.$themeTextSecondary;
+        font-size: 11px;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        word-wrap: break-word;
     }
 }

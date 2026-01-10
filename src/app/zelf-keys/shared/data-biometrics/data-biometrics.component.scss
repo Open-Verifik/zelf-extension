@@ -1,0 +1,312 @@
+@use "../../../../styles/variables";
+
+.data-biometrics-container {
+    min-height: auto;
+    background: variables.$themeBackgroundSecondary;
+    font-family: variables.$themeBodyFamily;
+    border-radius: 12px 12px 0 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: auto;
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    &__instructions {
+        text-align: center;
+        padding: 0 16px;
+
+        &-text {
+            color: variables.$themeTextMuted;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    }
+
+    &__camera {
+        text-align: center;
+        width: 100%;
+        padding: 0 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-view {
+            position: relative;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            overflow: hidden;
+
+            &--full-width {
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: auto; // Let width be determined by webcam component
+                height: auto; // Let height be determined by webcam component
+            }
+
+            webcam {
+                position: relative;
+                border-radius: 12px;
+                display: block;
+                width: auto;
+                height: auto;
+            }
+        }
+
+        &-status {
+            margin-bottom: 16px;
+        }
+    }
+
+    &__face-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-radius: 12px;
+        z-index: 2;
+
+        &--full-width {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            // Ensure canvas matches video dimensions exactly
+            canvas {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &__loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: variables.$themeBackground;
+        opacity: 0.9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        z-index: 10;
+        pointer-events: none; // Allow clicks to pass through
+    }
+
+    &__error {
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 0 16px 16px 16px;
+
+        &-title {
+            font-weight: 600;
+            color: variables.$error;
+            margin-bottom: 4px;
+        }
+
+        &-subtitle {
+            color: variables.$errorDark;
+            font-size: 14px;
+        }
+    }
+
+    &__instructions-status {
+        background: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 0 16px 16px 16px;
+
+        &-title {
+            font-weight: 600;
+            color: variables.$info;
+            margin-bottom: 4px;
+        }
+
+        &-subtitle {
+            color: variables.$infoDark;
+            font-size: 14px;
+        }
+    }
+
+    &__api-error {
+        text-align: center;
+        padding: 40px 16px;
+
+        &-card {
+            background: variables.$themeBackgroundSecondary;
+            border: 2px solid variables.$themeBorder;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        &-icon {
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: variables.$error;
+            margin: 0 0 12px 0;
+        }
+
+        &-message {
+            font-size: 16px;
+            color: variables.$errorDark;
+            margin: 0 0 24px 0;
+            line-height: 1.5;
+        }
+
+        &-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+    }
+
+    &__processing-message {
+        font-size: 16px;
+        color: variables.$themeTextMuted;
+        text-align: center;
+        display: block;
+        margin-top: 160px;
+    }
+
+    &__error-camera {
+        text-align: center;
+        padding: 60px 16px;
+        max-width: 400px;
+        margin: 0 auto;
+
+        &-image {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+        }
+
+        &-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: variables.$themeText;
+            margin: 0 0 12px 0;
+        }
+
+        &-description {
+            color: variables.$themeTextMuted;
+            font-size: 14px;
+            margin: 0 0 24px 0;
+        }
+    }
+
+    &__permission {
+        text-align: center;
+        padding: 60px 16px;
+        max-width: 400px;
+        margin: 0 auto;
+
+        &-icon {
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: variables.$themeText;
+            margin: 0 0 12px 0;
+        }
+
+        &-description {
+            color: variables.$themeTextMuted;
+            font-size: 14px;
+            margin: 0 0 24px 0;
+        }
+    }
+
+    &__btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &--retry {
+            background: variables.$themeButton;
+            color: variables.$themeButtonText;
+
+            &:hover {
+                background: variables.$themeButtonHover;
+                transform: translateY(-1px);
+            }
+        }
+
+        &--back {
+            background: variables.$themeBackgroundSecondary;
+            color: variables.$themeText;
+            border: 1px solid variables.$themeBorder;
+
+            &:hover {
+                background: variables.$themeBackgroundSecondary;
+            }
+        }
+    }
+}
+
+// Override webcam component styles for bottom sheet
+::ng-deep {
+    .data-biometrics-container {
+        webcam {
+            display: block !important;
+
+            // Remove any default padding/margin that might cause the 6px difference
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+
+            // Let the video element use the dimensions from the webcam component
+            video {
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                object-fit: contain !important; // Use contain to maintain aspect ratio
+            }
+        }
+    }
+}

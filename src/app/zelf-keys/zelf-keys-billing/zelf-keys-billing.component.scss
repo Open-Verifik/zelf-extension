@@ -1,0 +1,1062 @@
+@use "../../../styles/variables";
+
+.crypto-address {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: variables.$themeCard;
+    border: 1px solid variables.$themeCardBorder;
+    border-radius: 16px;
+    padding: 16px 8px;
+    box-shadow: 0px 8px 24px variables.$themeShadow;
+
+    &__col {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    &__text {
+        font-size: 14px;
+        font-weight: 600;
+        font-family: variables.$themeBodyFamily;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__address-text {
+        font-size: 11px;
+        font-weight: 500;
+        font-family: monospace;
+        color: variables.$themeText;
+        word-break: break-all;
+        margin: 0;
+    }
+}
+
+.billing {
+    &__content {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    &__title {
+        font-size: 32px;
+        font-weight: 700;
+        color: variables.$themeText;
+        margin: 0 0 12px 0;
+        letter-spacing: -0.5px;
+    }
+
+    &__subtitle {
+        font-size: 18px;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    &__error {
+        display: flex;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+
+    &__error-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 400px;
+    }
+
+    &__error-icon {
+        color: variables.$error;
+        margin-bottom: 16px;
+    }
+
+    &__error-text {
+        font-size: 16px;
+        color: variables.$error;
+        margin: 0 0 20px 0;
+    }
+
+    &__retry-button {
+        background: variables.$themeButton;
+        color: variables.$themeButtonText;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background: variables.$themeButtonHover;
+        }
+    }
+
+    &__subscription {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__subscription-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 8px;
+        font-size: 12px;
+        font-weight: 500;
+
+        &--cancelled {
+            .billing__status-text {
+                color: variables.$warning;
+            }
+        }
+    }
+
+    &__status-icon {
+        color: variables.$correct;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+
+        &--cancelled {
+            color: variables.$warning;
+        }
+    }
+
+    &__status-text {
+        font-size: 12px;
+        font-weight: 500;
+        color: variables.$correct;
+    }
+
+    &__status-active {
+        color: variables.$correct;
+        font-weight: 600;
+    }
+
+    &__status-cancelled {
+        color: variables.$warning;
+        font-weight: 600;
+    }
+
+    &__transaction-hash {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
+        a {
+            color: variables.$warning;
+            text-decoration: none;
+            font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        svg {
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+    }
+
+    &__subscription-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__crypto-info-card {
+        display: flex;
+        text-align: left;
+        gap: 12px;
+    }
+
+    &__info-icon {
+        color: variables.$themeButton;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    &__crypto-content {
+        flex: 1;
+
+        h4 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: variables.$themeText;
+        }
+
+        p {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            font-weight: 400;
+            color: variables.$themeText;
+            line-height: 1.5;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__transaction-note {
+        color: variables.$themeButton;
+        font-weight: 400;
+        font-size: 12px;
+        display: block;
+        margin-top: 8px;
+    }
+
+    &__payment-method-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+
+        &--crypto {
+            color: variables.$warning;
+        }
+
+        &--stripe {
+            color: variables.$themeButton;
+        }
+
+        svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+    }
+
+    &__demo-badge {
+        background: variables.$themeButton;
+        color: variables.$themeButtonText;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__crypto-payment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 48px;
+    }
+
+    &__crypto-card {
+        width: 100%;
+    }
+
+    &__payment-details {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+    }
+
+    &__payment-amount {
+        display: flex;
+        flex-direction: column;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px variables.$themeShadow;
+    }
+
+    &__price-lock-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    &__receipt {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__receipt-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        padding-bottom: 12px;
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        &--discount {
+            .billing__receipt-price {
+                color: variables.$correct;
+            }
+        }
+
+        &--total {
+            padding-top: 8px;
+            margin-top: 4px;
+            border-top: 2px solid variables.$themeText;
+            border-bottom: none;
+        }
+    }
+
+    &__receipt-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        flex-shrink: 0;
+    }
+
+    &__receipt-value {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+        text-align: right;
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__receipt-price {
+        font-size: 16px;
+        font-weight: 500;
+        color: variables.$themeText;
+        margin: 0;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        &--total {
+            font-size: 20px;
+            font-weight: 700;
+        }
+    }
+
+    &__receipt-secondary {
+        font-size: 12px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        margin: 0;
+
+        &--discounted {
+            text-decoration: line-through;
+            color: variables.$error;
+            opacity: 0.7;
+        }
+
+        &--total {
+            font-size: 14px;
+            color: variables.$themeTextMuted;
+        }
+    }
+
+    &__payment-status {
+        display: flex;
+        flex-direction: column;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px variables.$themeShadow;
+
+        .billing__payment-method-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+    }
+
+    &__status-note {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 12px;
+        color: variables.$themeTextMuted;
+        text-align: center;
+    }
+
+    &__demo-banner {
+        font-size: 12px;
+        font-weight: 500;
+        color: variables.$themeButtonText;
+        padding: 8px 16px;
+        background: variables.$themeButton;
+        border-radius: 20px;
+        border: 1px solid variables.$themeCardBorder;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    &__price-lock {
+        font-size: 12px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        margin: 0;
+    }
+
+    &__address-section {
+        margin-bottom: 24px;
+    }
+
+    &__qr-section {
+        text-align: center;
+    }
+
+    &__qr-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: variables.$themeTextMuted;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__qr-container {
+        display: inline-block;
+        padding: 12px;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px variables.$themeShadow;
+    }
+
+    &__qr-code {
+        width: 180px;
+        height: 180px;
+        display: block;
+    }
+
+    &__payment-methods {
+        margin-bottom: 24px;
+    }
+
+    &__payment-methods-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: variables.$themeText;
+        margin: 0 0 24px 0;
+        text-align: center;
+    }
+
+    &__payment-method {
+        display: flex;
+        flex-direction: column;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px variables.$themeShadow;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__payment-method-header {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid variables.$themeCardBorder;
+    }
+
+    &__payment-method-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: variables.$themeText;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__payment-method-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &__domain-payment {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__domain-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: variables.$themeText;
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    &__wallet-dropdown {
+        position: relative;
+        width: 100%;
+    }
+
+    &__wallet-trigger {
+        cursor: pointer;
+        width: 100%;
+        flex: 1;
+        min-width: 0;
+        padding: 16px;
+        margin: 0;
+        border: none;
+        background: none;
+        outline: none;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid variables.$themeButton;
+            outline-offset: 2px;
+            border-radius: 9999px;
+        }
+    }
+
+    &__wallet-trigger-text {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+    &__wallet-trigger-icon-wrapper {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+    }
+
+    &__wallet-trigger-icon {
+        transition: transform 0.2s ease;
+        stroke: variables.$themeText;
+        width: 12px;
+        height: 8px;
+
+        &--open {
+            transform: rotate(180deg);
+        }
+    }
+
+    &__wallet-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: variables.$themeCard;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        padding: 8px 0;
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid variables.$themeCardBorder;
+    }
+
+    &__wallet-menu-item {
+        display: block;
+        width: 100%;
+        padding: 12px 24px;
+        border: none;
+        background: none;
+        text-align: left;
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$themeText;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        min-height: 48px;
+        line-height: 24px;
+
+        &:hover {
+            background-color: variables.$themeCardBorder;
+        }
+
+        &--selected {
+            background-color: variables.$themeButton;
+            color: variables.$themeButtonText;
+            font-weight: 600;
+        }
+
+        &:active {
+            background-color: variables.$themeCardBorder;
+        }
+    }
+
+    &__pay-button {
+        width: 100%;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 48px;
+
+        &--avax {
+            background: linear-gradient(135deg, variables.$warning 0%, variables.$warning 100%);
+            color: variables.$themeButtonText;
+            box-shadow: 0 4px 16px variables.$themeShadow;
+
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px variables.$themeShadow;
+            }
+        }
+
+        &--stripe {
+            background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
+            color: variables.$themeButtonText;
+            box-shadow: 0 4px 16px variables.$themeShadow;
+
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px variables.$themeShadow;
+            }
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    }
+
+    &__payment-actions {
+        text-align: center;
+    }
+
+    &__cancel-button {
+        background: variables.$themeCardBorder;
+        color: variables.$themeTextMuted;
+        border: 1px solid variables.$themeCardBorder;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: variables.$themeCardBorder;
+            border-color: variables.$themeCardBorder;
+            color: variables.$themeTextMuted;
+        }
+    }
+
+    &__pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        margin-bottom: 48px;
+    }
+
+    &__pricing-card {
+        background: variables.$themeCard;
+        border: 2px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        padding: 32px 24px;
+        position: relative;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px variables.$themeShadow;
+            border-color: variables.$themeButton;
+        }
+
+        &--popular {
+            border-color: variables.$themeButton;
+            box-shadow: 0 8px 32px variables.$themeShadow;
+            transform: scale(1.02);
+
+            &:hover {
+                transform: scale(1.02) translateY(-4px);
+            }
+        }
+
+        &--current {
+            border-color: variables.$correct;
+            background: linear-gradient(135deg, variables.$correctLight 0%, variables.$correctLight 100%);
+            box-shadow: 0 8px 32px variables.$themeShadow;
+        }
+    }
+
+    &__card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    &__plan-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: variables.$themeText;
+        letter-spacing: -0.5px;
+    }
+
+    &__popular-badge {
+        background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
+        color: variables.$themeButtonText;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__plan-pricing {
+        margin-bottom: 16px;
+    }
+
+    &__price {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+    }
+
+    &__currency {
+        font-size: 24px;
+        font-weight: 600;
+        color: variables.$themeText;
+    }
+
+    &__amount {
+        font-size: 48px;
+        font-weight: 700;
+        color: variables.$themeText;
+        line-height: 1;
+    }
+
+    &__period {
+        font-size: 18px;
+        color: variables.$themeTextMuted;
+        font-weight: 500;
+    }
+
+    &__plan-tagline {
+        font-size: 16px;
+        color: variables.$themeTextMuted;
+        margin-bottom: 24px;
+        font-weight: 400;
+    }
+
+    &__plan-features {
+        flex: 1;
+        margin-bottom: 32px;
+    }
+
+    &__feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    &__feature-icon {
+        flex-shrink: 0;
+        margin-top: 2px;
+        color: variables.$correct;
+        width: 16px;
+        height: 16px;
+    }
+
+    &__feature-text {
+        font-size: 14px;
+        color: variables.$themeText;
+        line-height: 1.4;
+    }
+
+    &__payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: auto;
+    }
+
+    &__payment-button {
+        width: 100%;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        position: relative;
+        min-height: 48px;
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        &--stripe {
+            background: linear-gradient(135deg, variables.$themeButton 0%, variables.$themeButtonHover 100%);
+            color: variables.$themeButtonText;
+            box-shadow: 0 4px 16px variables.$themeShadow;
+
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px variables.$themeShadow;
+            }
+        }
+
+        &--crypto {
+            background: linear-gradient(135deg, variables.$warning 0%, variables.$warning 100%);
+            color: variables.$themeButtonText;
+            box-shadow: 0 4px 16px variables.$themeShadow;
+
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px variables.$themeShadow;
+            }
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(0);
+        }
+    }
+
+    &__payment-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+
+        ::ng-deep svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    &__payment-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    &__plan-button {
+        width: 100%;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: auto;
+
+        &--current {
+            background: variables.$correctLight;
+            color: variables.$correct;
+            border: 2px solid variables.$correct;
+            cursor: default;
+
+            &:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .billing {
+        &__content {
+            padding: 0;
+        }
+
+        &__header {
+            margin-bottom: 32px;
+        }
+
+        &__title {
+            font-size: 28px;
+        }
+
+        &__subtitle {
+            font-size: 16px;
+        }
+
+        &__subscription {
+            margin-bottom: 32px;
+        }
+
+        &__subscription-status {
+            margin-top: 6px;
+        }
+
+        &__status-text {
+            font-size: 11px;
+        }
+
+        &__pricing-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        &__pricing-card {
+            padding: 24px 20px;
+
+            &--popular {
+                transform: none;
+
+                &:hover {
+                    transform: translateY(-2px);
+                }
+            }
+        }
+
+        &__plan-name {
+            font-size: 20px;
+        }
+
+        &__amount {
+            font-size: 40px;
+        }
+
+        &__feature-text {
+            font-size: 13px;
+        }
+
+        &__plan-button {
+            padding: 12px 20px;
+            font-size: 15px;
+        }
+
+        &__activation-success {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            padding: 20px;
+        }
+
+        &__activation-card {
+            background: variables.$themeCard;
+            border-radius: 16px;
+            padding: 48px 32px;
+            text-align: center;
+            box-shadow: 0 8px 32px variables.$themeShadow;
+            border: 1px solid variables.$themeCardBorder;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        &__success-icon {
+            margin-bottom: 24px;
+            color: variables.$correct;
+            display: flex;
+            justify-content: center;
+
+            svg {
+                animation: pulse 2s infinite;
+            }
+        }
+
+        &__success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: variables.$themeText;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.5px;
+        }
+
+        &__success-message {
+            font-size: 16px;
+            color: variables.$themeTextMuted;
+            margin: 0 0 32px 0;
+            line-height: 1.5;
+        }
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}

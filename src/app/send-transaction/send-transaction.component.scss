@@ -51,14 +51,14 @@
     }
 
     &__title {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 24px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
     }
 
     &__form {
@@ -91,7 +91,7 @@
         box-sizing: border-box;
         padding-left: 16px;
         width: 100%;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
@@ -121,8 +121,8 @@
 
     &__fiat-price {
         box-sizing: border-box;
-        color: variables.$gray;
-        font-family: "Poppins", Arial, sans-serif;
+        color: variables.$themeTextSecondary;
+        font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0.1px;
@@ -145,16 +145,16 @@
     }
 
     &__address-name {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
 
         &--zelf-name {
-            font-family: "Menda", "Arial Black", sans-serif;
+            font-family: variables.$themeTitleFamily;
             font-weight: 700;
             font-size: 14px;
             line-height: 20px;
@@ -174,12 +174,12 @@
     }
 
     &__address-name-zelf-name {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: 0.1px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0 16px 0 0 !important;
 
         &--desktop {
@@ -192,13 +192,13 @@
     }
 
     &__address-used {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 11px;
         line-height: 16px;
         letter-spacing: 0.5px;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 }
 
@@ -223,12 +223,12 @@
     border-radius: 16px;
     padding: 24px 16px;
     gap: 12px;
-    border: 1px solid variables.$platinum;
+    border: 1px solid variables.$themeBorder;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: variables.$white;
+    background-color: variables.$themeCard;
     box-sizing: border-box;
 
     @media (max-width: variables.$minSmall) {
@@ -240,8 +240,8 @@
         border-radius: 48px;
         gap: 8px;
         padding: 0px 16px;
-        border: 1px solid variables.$platinum;
-        background-color: variables.$white;
+        border: 1px solid variables.$themeBorder;
+        background-color: variables.$themeCard;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -250,7 +250,7 @@
     }
 
     &__icon-bubble {
-        background-color: variables.$correctLight;
+        background-color: variables.$themeBackgroundSecondary;
         max-height: 32px;
         max-width: 32px;
         border-radius: 48px;
@@ -266,18 +266,18 @@
     }
 
     &__chip-text {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         text-transform: uppercase;
     }
 
     &__zelf-name {
-        font-family: "Menda", "Arial Black", sans-serif;
+        font-family: variables.$themeTitleFamily;
         font-weight: 700;
         font-size: 24px;
         line-height: 32px;
@@ -285,7 +285,7 @@
         width: 100%;
         text-align: center;
         text-transform: uppercase;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         word-wrap: break-word;
         overflow-wrap: anywhere;
@@ -297,14 +297,14 @@
     }
 
     &__address {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 600;
         font-size: 12px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$black;
+        color: variables.$themeText;
         margin: 0;
         word-wrap: break-word;
         overflow-wrap: anywhere;
@@ -312,29 +312,29 @@
 
     &__horizontal-rule {
         width: 100%;
-        border: 1px solid variables.$platinum;
+        border: 1px solid variables.$themeBorder;
     }
 
     &__instructions {
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
-        color: variables.$gray;
+        color: variables.$themeTextSecondary;
     }
 
     &__icon-bubble {
         &--error {
-            background-color: #dc362e;
+            background-color: variables.$error;
             color: white;
         }
     }
 
     &__error-message {
-        color: #ff5247;
+        color: variables.$error;
         text-align: center;
         font-size: 16px;
         margin: 16px 0;

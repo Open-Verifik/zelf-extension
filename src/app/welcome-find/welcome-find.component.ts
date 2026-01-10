@@ -1,6 +1,3 @@
-import jsQR from "jsqr";
-import { Buffer } from "buffer";
-
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
@@ -8,14 +5,16 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
-import { CaptchaService } from "app/captcha.service";
+import { Buffer } from "buffer";
+import jsQR from "jsqr";
+
 import { ChromeService } from "app/chrome.service";
 import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
+import { TagModel, TagSearchResponse, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
-import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { TagModel, TagsService, TagSearchResponse } from "app/tags.service";
+import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
+
 @Component({
     imports: [
         CommonModule,
@@ -48,13 +47,11 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     zelfProof: string = "";
 
     constructor(
-        private _captchaService: CaptchaService,
         private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _translocoService: TranslocoService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
         private _tagsService: TagsService
     ) {
         this._initForm();
@@ -63,33 +60,15 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     async ngOnInit(): Promise<void> {
         // Check if zelfProof is already set in the service (e.g., from welcome-grace redirect)
         // Try TagsService first, then ZelfNameService as fallback
-        let storedZelfProof = await this._tagsService.getZelfProof();
-
-        if (!storedZelfProof) return;
-
-        this.zelfProof = storedZelfProof;
-
-        this.loading = true;
-
-        await this._previewQRCode();
+        // let storedZelfProof = await this._tagsService.getZelfProof();
+        // if (!storedZelfProof) return;
+        // this.zelfProof = storedZelfProof;
+        // this.loading = true;
+        // await this._previewQRCode();
     }
 
     ngOnDestroy(): void {
         clearTimeout(this._invalidTimeout);
-    }
-
-    private async _captchaGeneration(query: string, type = "preview"): Promise<any> {
-        return null;
-
-        // if (this._chromeService.isExtension) return;
-
-        const action = query.replace(".", "_");
-
-        try {
-            this.captchaToken = await this._captchaService.executeRecaptcha(action);
-        } catch (error) {
-            console.error("reCAPTCHA failed:", error);
-        }
     }
 
     private _decodeQRCode(base64: string): void {
@@ -209,8 +188,6 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         this.searching = true;
 
         try {
-            await this._captchaGeneration(params.tagName, params.domain);
-
             return await this._queryZNS(params.tagKey, params.tagName, params.domain);
         } catch (error) {
             this._setNotFound();
@@ -223,8 +200,6 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         this.searching = true;
 
         try {
-            await this._captchaGeneration(query);
-
             let zelfNameObject: TagModel | null = null;
 
             if (this._walletService.ETHRegex.test(query)) {

@@ -5,11 +5,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
-import { CaptchaService } from "app/captcha.service";
-import { ChromeService } from "app/chrome.service";
+
+import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
-import { TagsService } from "app/tags.service";
-import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [
@@ -41,8 +39,6 @@ export class WelcomeRecoverComponent implements OnInit {
     newZelfNameObject: any;
 
     constructor(
-        private _captchaService: CaptchaService,
-        private _chromeService: ChromeService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _walletService: WalletService,

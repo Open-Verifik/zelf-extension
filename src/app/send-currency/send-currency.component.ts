@@ -11,7 +11,7 @@ import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
 import { TransactionService } from "app/transaction.service";
-import { TokenData, TransactionData } from "app/wallet";
+import { TokenData, TransactionData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";

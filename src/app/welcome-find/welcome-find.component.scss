@@ -1,5 +1,6 @@
 @use "../../styles/variables";
 @use "../../styles/buttons";
+@use "../../styles/drag-and-drop";
 
 :host {
     align-items: center;
@@ -41,8 +42,9 @@
     }
 
     &__actions-drag-drop {
+        position: relative;
         align-items: center;
-        border: 1px dashed variables.$taupeGray;
+        border: 1px dashed variables.$themeTextMuted;
         display: flex;
         flex-direction: column;
         justify-content: center;

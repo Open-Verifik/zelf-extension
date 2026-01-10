@@ -1,0 +1,158 @@
+<div class="zotp-details" *transloco="let t">
+    <div class="zotp-details__header">
+        <h2 class="zotp-details__title">{{ t("zotp.details") }}</h2>
+        <button mat-icon-button class="zotp-details__close" (click)="close()" type="button">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17.4 0.613295C16.88 0.0932946 16.04 0.0932946 15.52 0.613295L8.99996 7.11996L2.47996 0.599961C1.95996 0.0799609 1.11996 0.0799609 0.599961 0.599961C0.0799609 1.11996 0.0799609 1.95996 0.599961 2.47996L7.11996 8.99996L0.599961 15.52C0.0799609 16.04 0.0799609 16.88 0.599961 17.4C1.11996 17.92 1.95996 17.92 2.47996 17.4L8.99996 10.88L15.52 17.4C16.04 17.92 16.88 17.92 17.4 17.4C17.92 16.88 17.92 16.04 17.4 15.52L10.88 8.99996L17.4 2.47996C17.9066 1.97329 17.9066 1.11996 17.4 0.613295Z"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <div class="zotp-details__content">
+        <!-- QR Code Image -->
+        <div class="zotp-details__qr-section" *ngIf="zotp.zelfProofQRCode">
+            <h3 class="zotp-details__section-title">{{ t("zotp.qr_code") }}</h3>
+            <div class="zotp-details__qr-container">
+                <img [src]="zotp.zelfProofQRCode" [alt]="zotp.name" class="zotp-details__qr-image" />
+            </div>
+        </div>
+
+        <!-- Public Data Information -->
+        <div class="zotp-details__section" *ngIf="publicData">
+            <h3 class="zotp-details__section-title">{{ t("zotp.public_data") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zelf-action-row" *ngIf="publicData.type">
+                    <p class="zelf-action-row__label">{{ t("zotp.type") }}</p>
+                    <p class="zelf-action-row__value">{{ publicData.type }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="publicData.username">
+                    <p class="zelf-action-row__label">{{ t("zotp.account_name") }}</p>
+                    <p class="zelf-action-row__value">{{ publicData.username }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="publicData.issuer">
+                    <p class="zelf-action-row__label">{{ t("zotp.issuer") }}</p>
+                    <p class="zelf-action-row__value">{{ publicData.issuer }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="publicData.keyOwner">
+                    <p class="zelf-action-row__label">{{ t("zotp.key_owner") }}</p>
+                    <p class="zelf-action-row__value">{{ publicData.keyOwner }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="publicData.category">
+                    <p class="zelf-action-row__label">{{ t("zotp.category") }}</p>
+                    <p class="zelf-action-row__value">{{ publicData.category }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Walrus Information -->
+        <div class="zotp-details__section" *ngIf="walrusData && walrusData.success">
+            <h3 class="zotp-details__section-title">{{ t("zotp.walrus_info") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zelf-action-row" *ngIf="walrusData.blobId">
+                    <p class="zelf-action-row__label">{{ t("zotp.walrus_blob_id") }}</p>
+                    <p class="zelf-action-row__value zotp-details__value--mono">{{ walrusData.blobId }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="walrusData.publicUrl">
+                    <p class="zelf-action-row__label">{{ t("zotp.walrus_public_url") }}</p>
+                    <a [href]="walrusData.publicUrl" target="_blank" rel="noopener noreferrer" class="zelf-action-row__value zotp-details__link">
+                        {{ walrusData.publicUrl }}
+                    </a>
+                </div>
+                <div class="zelf-action-row" *ngIf="walrusData.explorerUrl">
+                    <p class="zelf-action-row__label">{{ t("zotp.walrus_explorer_url") }}</p>
+                    <a [href]="walrusData.explorerUrl" target="_blank" rel="noopener noreferrer" class="zelf-action-row__value zotp-details__link">
+                        {{ walrusData.explorerUrl }}
+                    </a>
+                </div>
+                <div class="zelf-action-row" *ngIf="walrusData.metadata?.sizeBytes">
+                    <p class="zelf-action-row__label">{{ t("zotp.size") }}</p>
+                    <p class="zelf-action-row__value">{{ walrusData.metadata.sizeBytes | number }} bytes</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="walrusData.storage?.network">
+                    <p class="zelf-action-row__label">{{ t("zotp.network") }}</p>
+                    <p class="zelf-action-row__value">{{ walrusData.storage.network }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="walrusData.storage?.epochs">
+                    <p class="zelf-action-row__label">{{ t("zotp.walrus_epochs") }}</p>
+                    <p class="zelf-action-row__value">{{ walrusData.storage.epochs }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="walrusData.metadata?.uploadTimestamp">
+                    <p class="zelf-action-row__label">{{ t("zotp.created_at") }}</p>
+                    <p class="zelf-action-row__value">{{ formatDate(walrusData.metadata.uploadTimestamp) }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- IPFS Information -->
+        <div class="zotp-details__section" *ngIf="ipfsData">
+            <h3 class="zotp-details__section-title">{{ t("zotp.ipfs_info") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zelf-action-row" *ngIf="ipfsData.id">
+                    <p class="zelf-action-row__label">{{ t("zotp.ipfs_id") }}</p>
+                    <p class="zelf-action-row__value zotp-details__value--mono">{{ ipfsData.id }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="ipfsData.cid">
+                    <p class="zelf-action-row__label">{{ t("zotp.ipfs_cid") }}</p>
+                    <p class="zelf-action-row__value zotp-details__value--mono">{{ ipfsData.cid }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="ipfsData.url">
+                    <p class="zelf-action-row__label">{{ t("zotp.ipfs_url") }}</p>
+                    <a [href]="ipfsData.url" target="_blank" rel="noopener noreferrer" class="zelf-action-row__value zotp-details__link">
+                        {{ ipfsData.url }}
+                    </a>
+                </div>
+                <div class="zelf-action-row" *ngIf="ipfsData.size">
+                    <p class="zelf-action-row__label">{{ t("zotp.size") }}</p>
+                    <p class="zelf-action-row__value">{{ ipfsData.size | number }} bytes</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="ipfsData.network">
+                    <p class="zelf-action-row__label">{{ t("zotp.network") }}</p>
+                    <p class="zelf-action-row__value">{{ ipfsData.network }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="ipfsData.created_at">
+                    <p class="zelf-action-row__label">{{ t("zotp.created_at") }}</p>
+                    <p class="zelf-action-row__value">{{ formatDate(ipfsData.created_at) }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="ipfsData.updated_at">
+                    <p class="zelf-action-row__label">{{ t("zotp.updated_at") }}</p>
+                    <p class="zelf-action-row__value">{{ formatDate(ipfsData.updated_at) }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZOTP Basic Information -->
+        <div class="zotp-details__section">
+            <h3 class="zotp-details__section-title">{{ t("zotp.basic_info") }}</h3>
+            <div class="zotp-details__info-grid">
+                <div class="zelf-action-row">
+                    <p class="zelf-action-row__label">{{ t("zotp.account_name") }}</p>
+                    <p class="zelf-action-row__value">{{ zotp.name }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="zotp.issuer">
+                    <p class="zelf-action-row__label">{{ t("zotp.issuer") }}</p>
+                    <p class="zelf-action-row__value">{{ zotp.issuer }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="zotp.algorithm">
+                    <p class="zelf-action-row__label">{{ t("zotp.algorithm") }}</p>
+                    <p class="zelf-action-row__value">{{ zotp.algorithm }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="zotp.digits">
+                    <p class="zelf-action-row__label">{{ t("zotp.digits") }}</p>
+                    <p class="zelf-action-row__value">{{ zotp.digits }}</p>
+                </div>
+                <div class="zelf-action-row" *ngIf="zotp.period">
+                    <p class="zelf-action-row__label">{{ t("zotp.period") }}</p>
+                    <p class="zelf-action-row__value">{{ zotp.period }}s</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="zotp-details__actions">
+        <button type="button" class="zelf-button zelf-button--primary zelf-button--wide" (click)="close()">
+            {{ t("common.close") }}
+        </button>
+    </div>
+</div>

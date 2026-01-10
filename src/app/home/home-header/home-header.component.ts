@@ -1,49 +1,37 @@
 import { NgIf } from "@angular/common";
-import { Component, Input, OnDestroy } from "@angular/core";
+import { AfterViewInit, Component, Input, OnDestroy } from "@angular/core";
 import { MatBottomSheet, MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatDividerModule } from "@angular/material/divider";
-import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslocoPipe } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
+import { Wallet } from "@shared/types/wallet.types";
 import { ChromeService } from "app/chrome.service";
-import { Wallet } from "app/wallet";
+import { TagModel } from "app/tags.service";
+import { ZelfTagButtonComponent } from "../../zelf-keys/shared/zelf-tag-button/zelf-tag-button.component";
 import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header-accounts.component";
 
 @Component({
-    imports: [NgIf, MatBottomSheetModule, MatIconModule, MatMenuModule, MatDividerModule, TranslocoPipe],
+    imports: [NgIf, MatBottomSheetModule, MatIconModule, MatMenuModule, MatDividerModule, TranslocoPipe, ZelfTagButtonComponent],
     selector: "home-header",
     styleUrls: ["./home-header.component.scss", "../../main.scss"],
     template: `
         <div class="home-header" *ngIf="shareables.wallet">
-            <div class="home-header__left home-header__container"></div>
+            <div class="home-header__left home-header__container">
+                <ng-container *ngIf="redirectState; else emptyTemplate">
+                    <button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary" (click)="backButton()" mat-flat-button>
+                        <span class="material-symbols-outlined zelf-icon">chevron_backward</span>
+                    </button>
+                </ng-container>
 
-            <div class="home-header__center home-header__container" (click)="openBottomSheet()">
-                <div class="home-header__title-container">
-                    <div class="home-header__content">
-                        <div class="home-header__text" *ngIf="shareables.wallet.fullTagName">
-                            {{ shareables.wallet.fullTagName }}
-                        </div>
+                <ng-template #emptyTemplate>&nbsp;</ng-template>
+            </div>
 
-                        <div class="home-header__icon" data-svg-wrapper>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_131_2130)">
-                                    <path
-                                        d="M8 -3.8147e-06C9.58225 -3.8147e-06 11.129 0.469188 12.4446 1.34824C13.7602 2.22729 14.7855 3.47672 15.391 4.93853C15.9965 6.40034 16.155 8.00887 15.8463 9.56072C15.5376 11.1126 14.7757 12.538 13.6569 13.6569C12.538 14.7757 11.1126 15.5376 9.56072 15.8463C8.00887 16.155 6.40034 15.9965 4.93853 15.391C3.47672 14.7855 2.22729 13.7602 1.34824 12.4446C0.469192 11.129 0 9.58225 0 8C0.00229405 5.87897 0.845886 3.84547 2.34568 2.34567C3.84547 0.845881 5.87897 0.00228977 8 -3.8147e-06ZM8 10.6667C8.48801 10.6672 8.95928 10.4888 9.32467 10.1653C9.54267 9.97133 9.74933 9.78266 9.88467 9.64733L11.8 7.76466C11.8666 7.70438 11.9203 7.63127 11.9579 7.54971C11.9955 7.46816 12.0163 7.37984 12.0189 7.29006C12.0216 7.20029 12.006 7.1109 11.9733 7.02728C11.9405 6.94365 11.8912 6.86751 11.8283 6.80342C11.7653 6.73933 11.6901 6.68861 11.6071 6.65432C11.5241 6.62002 11.435 6.60285 11.3452 6.60384C11.2554 6.60483 11.1667 6.62395 11.0845 6.66007C11.0023 6.69618 10.9282 6.74854 10.8667 6.814L8.94667 8.7C8.82133 8.82466 8.63467 8.994 8.44067 9.16666C8.31888 9.27409 8.16207 9.33337 7.99967 9.33337C7.83727 9.33337 7.68046 9.27409 7.55867 9.16666C7.36533 8.99466 7.17867 8.82533 7.05733 8.70466L5.13333 6.814C5.00572 6.69845 4.83836 6.63675 4.66628 6.64181C4.49421 6.64687 4.33076 6.7183 4.21016 6.84114C4.08955 6.96399 4.02115 7.12872 4.01925 7.30086C4.01736 7.473 4.08213 7.6392 4.2 7.76466L6.11867 9.65066C6.252 9.784 6.45667 9.97066 6.674 10.1633C7.03934 10.488 7.51124 10.6671 8 10.6667Z"
-                                        fill="#181818"
-                                    />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_131_2130">
-                                        <rect width="16" height="16" fill="white" transform="matrix(1 0 0 -1 0 16)" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+            <div class="home-header__center home-header__container" *ngIf="shareables.wallet?.fullTagName">
+                <zelf-tag-button [tagName]="shareables.wallet.fullTagName" (clicked)="openBottomSheet()"></zelf-tag-button>
             </div>
 
             <div class="home-header__right home-header__container">
@@ -52,7 +40,7 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
                 <button
                     [matMenuTriggerFor]="menu"
                     *ngIf="isExtension && (!isSidePanel || isPopout)"
-                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--anti-flash-white"
+                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary"
                     id="open-sidebar"
                     mat-flat-button
                 >
@@ -125,8 +113,8 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
         </mat-menu>
     `,
 })
-export class HomeHeaderComponent implements OnDestroy {
-    @Input() shareables: any;
+export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
+    @Input() shareables: { wallet: Partial<TagModel>; view?: string } = { wallet: {} };
 
     private unsubscriber$: Subject<void> = new Subject();
 
@@ -134,16 +122,17 @@ export class HomeHeaderComponent implements OnDestroy {
     isExtension: boolean = false;
     isPopout: boolean = false;
     isSidePanel: boolean = false;
+    redirectState: string = "";
     selectedTab: string;
     title: string = "something";
     view: string;
     wallet!: Wallet;
 
     constructor(
-        private _router: Router,
-        private route: ActivatedRoute,
+        private _activatedRoute: ActivatedRoute,
+        private _bottomSheet: MatBottomSheet,
         private _chromeService: ChromeService,
-        private _bottomSheet: MatBottomSheet
+        private _router: Router
     ) {
         this.view = "home";
         this.selectedTab = "assets";
@@ -151,6 +140,12 @@ export class HomeHeaderComponent implements OnDestroy {
         this.isExtension = this._chromeService.isExtension;
         this.isPopout = this._chromeService.isPopout;
         this.isSidePanel = this._chromeService.isSidePanel;
+
+        this.redirectState = this._activatedRoute.snapshot.queryParams.redirect || "";
+
+        this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((queryParams) => {
+            this.redirectState = queryParams.redirect || "";
+        });
 
         this._chromeService.isPopout$.pipe(takeUntil(this.unsubscriber$)).subscribe((isPopout) => {
             this.isPopout = isPopout;
@@ -161,9 +156,21 @@ export class HomeHeaderComponent implements OnDestroy {
         });
     }
 
+    ngAfterViewInit(): void {
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet: Partial<TagModel>) => {
+            if (!wallet) return;
+
+            this.shareables.wallet = wallet;
+        });
+    }
+
     ngOnDestroy(): void {
         this.unsubscriber$.next();
         this.unsubscriber$.complete();
+    }
+
+    backButton(): void {
+        this._router.navigate([this.redirectState], { replaceUrl: true });
     }
 
     async openSidePanel(): Promise<void> {
@@ -193,7 +200,7 @@ export class HomeHeaderComponent implements OnDestroy {
     }
 
     openFullScreen(): void {
-        this._chromeService.openFullPage("home");
+        this._chromeService.openFullPage();
     }
 
     // Method to update the URL when the variable changes
@@ -201,7 +208,7 @@ export class HomeHeaderComponent implements OnDestroy {
         this.view = newView;
 
         this._router.navigate([], {
-            relativeTo: this.route, // Keep the current route
+            relativeTo: this._activatedRoute, // Keep the current route
             queryParams: { view: this.view }, // Set new query params
             queryParamsHandling: "merge", // Merge with existing query params
         });

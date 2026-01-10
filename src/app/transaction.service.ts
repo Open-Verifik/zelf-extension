@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AddressBook, SwapData, TransactionData } from "./wallet";
+import { AddressBook, SwapData, TransactionData } from "@shared/types/wallet.types";
 import { ChromeService } from "./chrome.service";
 import { Observable, Subject } from "rxjs";
 

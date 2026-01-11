@@ -41,6 +41,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     pinInputs: HTMLInputElement[] = [];
     showPin: boolean = false;
     showConfirmPin: boolean = false;
+    isPinUnlock: boolean = false;
 
     onInputFocus(event: Event): void {
         (event.target as HTMLInputElement).select();
@@ -75,6 +76,26 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         this.tagResponse = await this._tagsService.getTagResponse();
 
         this.isNew = this.flow === "create" || this.flow === "import" || (this.flow === "recover" && !this.tagModel?.available);
+
+        // Security Type Detection for Unlock Flow
+        if (!this.isNew && this.tagModel?.publicData) {
+            const publicData = this.tagModel.publicData as any;
+
+            // Handle No Password
+            if (String(publicData.hasPassword) === "false") {
+                this._vaultService.password = "NO_PASSWORD_PLACEHOLDER";
+                this._vaultService.securityType = "withoutPassword";
+                this._chromeService.setItem("noPasswordRequired", "true");
+                this._navigateToBiometrics();
+                return;
+            }
+
+            // Handle PIN
+            if (publicData.st === "pin") {
+                this.isPinUnlock = true;
+                this.pinDigits = ["", "", "", "", "", ""];
+            }
+        }
 
         this._initForm();
     }
@@ -111,9 +132,14 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
     private _initForm(): void {
         if (!this.isNew) {
-            this.form = this._formBuilder.group({
-                password: ["", [Validators.required]],
-            });
+            if (this.isPinUnlock) {
+                // For PIN unlock, we don't need the password form validator
+                this.form = this._formBuilder.group({});
+            } else {
+                this.form = this._formBuilder.group({
+                    password: ["", [Validators.required]],
+                });
+            }
 
             return;
         }
@@ -142,9 +168,17 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     async storePassword(): Promise<void> {
-        if (this.form.invalid) return;
+        if (this.isPinUnlock) {
+            const pin = this.pinDigits.join("");
+            if (pin.length !== 6) return;
+            this._vaultService.password = pin;
+            this._vaultService.securityType = "pin";
+        } else {
+            if (this.form.invalid) return;
 
-        this._vaultService.password = this.form.get("password")?.value.trim();
+            this._vaultService.password = this.form.get("password")?.value.trim();
+            this._vaultService.securityType = "securePassword";
+        }
 
         await this._generateCaptcha();
 

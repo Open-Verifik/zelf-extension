@@ -14,6 +14,8 @@ import { TagModel, TagsService } from "app/tags.service";
 import { VaultService } from "app/vault.service";
 import { ZelfFlow } from "app/zelf-name-service.service";
 
+export type SecurityOption = "securePassword" | "pin" | "withoutPassword" | null;
+
 @Component({
     imports: [CommonModule, ReactiveFormsModule, RouterModule, TranslocoModule, MatButtonModule, PasswordStrengthComponent],
     selector: "security-password",
@@ -32,11 +34,17 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     domain: string = "";
     tagModel: TagModel = new TagModel();
     tagResponse: any;
-    selectedSecurityOption: "securePassword" | "pin" | "withoutPassword" | null = null;
+    selectedSecurityOption: SecurityOption = null;
     pinStep: "create" | "confirm" | null = null;
     pinDigits: string[] = ["", "", "", "", "", ""];
     confirmPinDigits: string[] = ["", "", "", "", "", ""];
     pinInputs: HTMLInputElement[] = [];
+    showPin: boolean = false;
+    showConfirmPin: boolean = false;
+
+    onInputFocus(event: Event): void {
+        (event.target as HTMLInputElement).select();
+    }
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -147,33 +155,73 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         this.showPassword = !this.showPassword;
     }
 
-    selectSecurityOption(option: "securePassword" | "pin" | "withoutPassword"): void {
-        this.selectedSecurityOption = option;
+    toggleShowPin(): void {
+        this.showPin = !this.showPin;
+    }
+
+    toggleShowConfirmPin(): void {
+        this.showConfirmPin = !this.showConfirmPin;
+    }
+
+    selectSecurityOption(option: SecurityOption): void {
+        console.log("selectSecurityOption called with:", option);
+        // Toggle: if clicking the same option, unselect it
+        if (this.selectedSecurityOption === option) {
+            this.selectedSecurityOption = null;
+            this.pinStep = null;
+        } else {
+            this.selectedSecurityOption = option;
+            if (option === "pin") {
+                this.pinStep = "create";
+                this.pinDigits = ["", "", "", "", "", ""];
+                this.confirmPinDigits = ["", "", "", "", "", ""];
+            } else {
+                this.pinStep = null;
+            }
+        }
+        console.log("selectedSecurityOption is now:", this.selectedSecurityOption);
     }
 
     continueWithSelection(): void {
         if (!this.selectedSecurityOption) return;
 
-        if (this.selectedSecurityOption === "withoutPassword") {
-            // Skip password, mark as no password required and go to biometrics
-            this._vaultService.password = "";
-            // Store flag that no password is required
-            this._chromeService.setItem("noPasswordRequired", "true");
+        if (this.selectedSecurityOption === "securePassword") {
+            // Validate form before continuing
+            if (this.form.invalid) return;
+
+            // Store password and security type, then navigate to biometrics
+            this._vaultService.password = this.form.get("password")?.value.trim();
+            this._vaultService.securityType = "securePassword";
             this._navigateToBiometrics();
         } else if (this.selectedSecurityOption === "pin") {
-            // Start PIN creation flow
-            this.pinStep = "create";
-            this.pinDigits = ["", "", "", "", "", ""];
-            this.confirmPinDigits = ["", "", "", "", "", ""];
-            // Focus first input after view updates
-            setTimeout(() => {
-                const inputs = this._getPinInputs();
-                if (inputs[0]) inputs[0].focus();
-            }, 0);
-        } else if (this.selectedSecurityOption === "securePassword") {
-            // Show the secure password form (already handled in template)
-            // Form is already initialized in _initForm() for isNew
-            // Form submission will call storePassword()
+            // Handle PIN multi-step flow
+            if (this.pinStep === "create") {
+                if (this.canContinuePin()) {
+                    this.pinStep = "confirm";
+                    this.confirmPinDigits = ["", "", "", "", "", ""];
+                    // Focus first confirm input
+                    setTimeout(() => {
+                        const inputs = this._getConfirmInputs();
+                        if (inputs[0]) inputs[0].focus();
+                    }, 0);
+                }
+            } else if (this.pinStep === "confirm") {
+                if (this.canContinuePin()) {
+                    // PIN confirmed, save and continue
+                    const pin = this.pinDigits.join("").trim();
+                    this._vaultService.password = pin;
+                    this._vaultService.securityType = "pin";
+                    this._navigateToBiometrics();
+                }
+            }
+        } else if (this.selectedSecurityOption === "withoutPassword") {
+            // Skip password, mark as no password required and go to biometrics
+            // Set a placeholder password to satisfy any validation that expects a password field
+            // The backend will ignore this based on securityType = "withoutPassword"
+            this._vaultService.password = "NO_PASSWORD_PLACEHOLDER";
+            this._vaultService.securityType = "withoutPassword";
+            this._chromeService.setItem("noPasswordRequired", "true");
+            this._navigateToBiometrics();
         }
     }
 
@@ -184,7 +232,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
     onPinInput(event: Event, index: number, isConfirm: boolean = false): void {
         const input = event.target as HTMLInputElement;
-        const value = input.value.replace(/\D/g, ""); // Only allow numbers
+        const value = input.value; // Allow any character as requested (letters or numbers)
 
         if (value.length > 1) {
             // If multiple digits pasted, handle accordingly

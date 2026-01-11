@@ -7,6 +7,7 @@ import { ChromeService } from "app/chrome.service";
 import { DISABLE_GLOBAL_EXCEPTION_HANDLING } from "app/interceptors/interceptor.model";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
+import { generateUniqueFingerprint, simpleHash } from "app/core/utils/fingerprint.util";
 
 @Injectable({
     providedIn: "root",
@@ -27,27 +28,6 @@ export class AuthService {
         });
     }
 
-    private _generateFingerprint(): string {
-        const fingerprintParts = [
-            navigator.userAgent,
-            navigator.language,
-            screen.colorDepth.toString(),
-            screen.width.toString(),
-            screen.height.toString(),
-            navigator.platform,
-            navigator.hardwareConcurrency.toString(),
-            Intl.DateTimeFormat().resolvedOptions().timeZone,
-        ];
-
-        return fingerprintParts.join("|");
-    }
-
-    private _isValidToken(): boolean {
-        if (!this._accessToken || !this._accessTokenExpiresAt) return false;
-
-        return moment.unix(this._accessTokenExpiresAt).local().isAfter(moment());
-    }
-
     private async _requestAuthToken(
         fingerprint: string,
         tagName?: string | null,
@@ -56,7 +36,7 @@ export class AuthService {
         killSession: boolean = false
     ): Promise<{ data: { token: string; expiresAt: number } }> {
         const payload: any = {
-            identifier: _simpleHash(fingerprint),
+            identifier: simpleHash(fingerprint),
         };
 
         // Include tagName and domain if available
@@ -71,6 +51,12 @@ export class AuthService {
                 context: new HttpContext().set(DISABLE_GLOBAL_EXCEPTION_HANDLING, true),
             })
         );
+    }
+
+    private _isValidToken(): boolean {
+        if (!this._accessToken || !this._accessTokenExpiresAt) return false;
+
+        return moment.unix(this._accessTokenExpiresAt).local().isAfter(moment());
     }
 
     async checkAccessToken(): Promise<string> {
@@ -110,7 +96,7 @@ export class AuthService {
         }
 
         try {
-            const fingerprint = this._generateFingerprint();
+            const fingerprint = generateUniqueFingerprint(ethAddress, tagName, domain);
             const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain, ethAddress);
 
             this._accessToken = newAuthToken.data.token;
@@ -150,7 +136,7 @@ export class AuthService {
             domain = "zelf";
         }
 
-        const fingerprint = this._generateFingerprint();
+        const fingerprint = generateUniqueFingerprint(ethAddress, tagName, domain);
         const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain, ethAddress, true);
 
         this._accessToken = newAuthToken.data.token;
@@ -169,19 +155,4 @@ const _request = async (httpCall: any): Promise<any> => {
     } catch (error: any) {
         throw error;
     }
-};
-
-const _simpleHash = (input: string): string => {
-    let hash = 0;
-
-    if (input.length === 0) return hash.toString();
-
-    for (let i = 0; i < input.length; i++) {
-        const char = input.charCodeAt(i);
-
-        hash = (hash << 5) - hash + char;
-        hash = hash & hash;
-    }
-
-    return hash.toString();
 };

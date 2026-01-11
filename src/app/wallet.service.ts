@@ -9,13 +9,7 @@ import { TagModel } from "./tags.service";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { Asset, Wallet } from "@shared/types/wallet.types";
-
-type UserFingerPrint = {
-    hash: string;
-    userAgent: string;
-    height: number;
-    width: number;
-};
+import { generateDeviceFingerprint, simpleHash, UserFingerPrint } from "./core/utils/fingerprint.util";
 
 export type Network = {
     symbol: string;
@@ -82,22 +76,10 @@ export class WalletService {
         const navigatorInfo = window.navigator;
         const screenInfo = window.screen;
 
-        const fingerprintParts = [
-            navigator.userAgent, // Browser and OS info
-            navigator.language, // Primary language
-            screen.colorDepth.toString(), // Screen color depth
-            screen.width.toString(), // Screen width
-            screen.height.toString(), // Screen height
-            navigator.platform, // Platform/OS
-            navigator.hardwareConcurrency.toString(), // Number of CPU cores
-            Intl.DateTimeFormat().resolvedOptions().timeZone, // Timezone
-        ];
-
-        // Join all parts and create a simple hash
-        const uniqueString = fingerprintParts.join("|");
+        const fingerprintString = generateDeviceFingerprint();
 
         return {
-            hash: this.simpleHash(uniqueString),
+            hash: simpleHash(fingerprintString),
             userAgent: navigatorInfo.userAgent,
             height: screenInfo.height,
             width: screenInfo.width,
@@ -385,23 +367,6 @@ export class WalletService {
         this._userFingerPrint = this._generateUserFingerPrint();
 
         return this._userFingerPrint;
-    }
-
-    private simpleHash(input: string): string {
-        let hash = 0;
-
-        if (input.length === 0) {
-            return hash.toString();
-        }
-
-        for (let i = 0; i < input.length; i++) {
-            const char = input.charCodeAt(i);
-
-            hash = (hash << 5) - hash + char;
-            hash = hash & hash; // Convert to 32bit integer
-        }
-
-        return hash.toString();
     }
 
     findWallet(address: string): Promise<any> {

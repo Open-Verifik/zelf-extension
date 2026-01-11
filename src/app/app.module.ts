@@ -12,7 +12,6 @@ import { TranslocoRootModule } from "./core/transloco-root.module";
 import { GlobalErrorHandler } from "./global-error-handler.service";
 import { HttpInterceptorProviders } from "./interceptors";
 import { provideDomainInitializer } from "./core/providers/domain-initializer.provider";
-import { providePublicKeyInitializer } from "./core/providers/public-key-initializer.provider";
 import { provideSessionInitializer } from "./core/providers/session-initializer.provider";
 import { provideAppInitializing, provideAppInitializerComplete } from "./core/providers/app-loading.provider";
 import { ZelfLoaderComponent } from "./zelf-loader/zelf-loader.component";
@@ -27,8 +26,7 @@ import { ZelfLoaderComponent } from "./zelf-loader/zelf-loader.component";
         provideAnimations(),
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         provideAppInitializing(),
-        provideSessionInitializer(),
-        providePublicKeyInitializer(),
+        provideSessionInitializer(), // Now handles both session AND public key
         provideDomainInitializer(),
         provideAppInitializerComplete(),
     ],

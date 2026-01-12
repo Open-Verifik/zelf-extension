@@ -13,6 +13,7 @@ export interface TagPublicData {
     gracePeriod?: string;
     blockDAGAddress: string;
     avalancheAddress: string;
+    st?: string;
 }
 
 export interface PGP {
@@ -35,6 +36,7 @@ export class TagPublicDataModel {
     registeredAt: string;
     expiresAt?: string;
     gracePeriod?: Date | null;
+    st?: string;
 
     constructor(data: any) {
         this.avalancheAddress = data.avalancheAddress || "";
@@ -50,6 +52,7 @@ export class TagPublicDataModel {
         this.origin = data.origin || "";
         this.registeredAt = data.registeredAt || "";
         this.expiresAt = data.expiresAt || "";
+        this.st = data.st || "";
 
         this.gracePeriod = this._calculateGracePeriod();
     }
@@ -175,6 +178,7 @@ export class TagModel {
             suiAddress: data.publicData?.suiAddress || "",
             tagName: rawTagName,
             type: data.publicData?.type || "",
+            st: data.publicData?.st || "",
         });
     }
 

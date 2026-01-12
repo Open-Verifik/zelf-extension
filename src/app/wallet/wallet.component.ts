@@ -13,7 +13,7 @@ import { ChromeService } from "app/chrome.service";
 import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
-import { TagModel } from "app/tags.service";
+import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -46,7 +46,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         private _bottomSheet: MatBottomSheet,
         private _destroyRef: DestroyRef,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
@@ -80,7 +80,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     }
 
     private async _updateWallet(): Promise<void> {
-        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
+        const updatedWallet = await this._tagsService.refreshTagPublicData(this.wallet as TagModel);
 
         if (!updatedWallet) return;
 

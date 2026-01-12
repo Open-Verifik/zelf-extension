@@ -45,9 +45,9 @@ export function generateUniqueFingerprint(walletAddress?: string | null, tagName
     // Combine device fingerprint with wallet-specific data for true uniqueness
     const uniqueParts = [deviceFingerprint];
 
-    if (walletAddress) uniqueParts.push(`wallet:${walletAddress}`);
-    if (tagName) uniqueParts.push(`tag:${tagName}`);
-    if (domain) uniqueParts.push(`domain:${domain}`);
+    // if (walletAddress) uniqueParts.push(`wallet:${walletAddress}`);
+    // if (tagName) uniqueParts.push(`tag:${tagName}`);
+    // if (domain) uniqueParts.push(`domain:${domain}`);
 
     return uniqueParts.join("||");
 }

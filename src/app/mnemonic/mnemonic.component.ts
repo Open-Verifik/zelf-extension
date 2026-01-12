@@ -80,7 +80,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
         const privateKeyArmoured = this.wallet?.pgp?.privateKey as string;
         const passphrase = this._password;
 
-        if (!encryptedMessage || !privateKeyArmoured || !passphrase) return;
+        if (!encryptedMessage || !privateKeyArmoured || passphrase === null || passphrase === undefined) return;
 
         return await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, passphrase);
     }
@@ -92,10 +92,19 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     }
 
     async _prepareWords(): Promise<void> {
-        if (!this._password || !this.wallet) return this.hideMnemonics();
+        if (this._password === undefined || this._password === null || !this.wallet) return this.hideMnemonics();
 
         try {
-            const decrypted = await this._decryptMessage();
+            let decrypted;
+
+            try {
+                decrypted = await this._decryptMessage();
+            } catch (error) {
+                // For password-less wallets, NO_PASSWORD_PLACEHOLDER is the actual password
+                // that was sent to the backend during wallet creation, so we don't retry
+                // with a different password - we just propagate the error
+                throw error;
+            }
 
             if (!decrypted) return this.hideMnemonics();
 
@@ -135,6 +144,21 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     }
 
     handleUnhide(): void {
+        const publicData = this.wallet?.publicData as any;
+
+        if (String(publicData?.hasPassword) === "false") {
+            if (this.canUnlockWithPasswordOnly) {
+                this._password = "NO_PASSWORD_PLACEHOLDER";
+                this._prepareWords();
+            } else {
+                this._vaultService.password = "NO_PASSWORD_PLACEHOLDER";
+                this._vaultService.securityType = "withoutPassword";
+                this.redirect.emit();
+            }
+
+            return;
+        }
+
         this.showPasswordForm = true;
 
         this._initForm();

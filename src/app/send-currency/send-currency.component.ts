@@ -175,7 +175,8 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         ) {
             address = this.wallet?.publicData?.ethAddress || "";
         } else if (token.tokenType === "BDAG" || token.tokenType === "BDAG-20") {
-            address = this.wallet?.publicData?.ethAddress || "";
+            const publicData = this.wallet?.publicData as any;
+            address = publicData?.blockDAGAddress || publicData?.ethAddress || "";
         } else if (token.tokenType === "SOL" || token.tokenType === "SPL" || token.tokenType === "token") {
             address = this.wallet?.publicData?.solanaAddress || "";
             tokenType = token.symbol === "SOL" ? "SOL" : "SPL";
@@ -185,7 +186,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             address = this.wallet?.publicData?.suiAddress || "";
         }
 
-        if (!address) return console.error("No address found for token type:", token.tokenType);
+        if (!address) return console.error("No address found for token type:", token.tokenType, { wallet: this.wallet });
 
         const transactionData = new TransactionData({
             token: {

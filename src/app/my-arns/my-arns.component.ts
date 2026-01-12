@@ -160,8 +160,6 @@ export class MyArNSComponent implements OnInit {
             // First, check if ArNS exists
             const checkResponse = await this._zelfNameService.getArNS(tagName, domain);
 
-            console.log("checkResponse", checkResponse, { uptoDate: checkResponse.upToDate });
-
             if (checkResponse?.exists && checkResponse?.primaryUrl && checkResponse.upToDate) {
                 // Cache the URL for future use
                 await this._cacheArnsUrl(tagName, domain, checkResponse.primaryUrl);

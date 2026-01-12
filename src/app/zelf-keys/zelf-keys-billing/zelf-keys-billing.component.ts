@@ -337,8 +337,6 @@ export class ZelfKeysBillingComponent implements OnInit {
 
                     // Show success message
                     if (response.subscriptionCreated) {
-                        console.log("🎉 Subscription activated!");
-
                         // Show activation message and loading
                         this.showActivationMessage = true;
                         this.activationMessage = this._translocoService.translate("billing.activation.message");
@@ -353,8 +351,6 @@ export class ZelfKeysBillingComponent implements OnInit {
                             this.ngOnInit();
                         }, 5000);
                     }
-                } else {
-                    console.log("⏳ Payment not confirmed yet:", response.message);
                 }
             })
             .catch((error) => {
@@ -569,8 +565,6 @@ export class ZelfKeysBillingComponent implements OnInit {
                     if (response.success && response.data) {
                         // Subscription found!
                         this.stopPaymentMonitoring();
-
-                        console.log("🎉 Subscription confirmed via polling!");
 
                         // Show activation message
                         this.showActivationMessage = true;

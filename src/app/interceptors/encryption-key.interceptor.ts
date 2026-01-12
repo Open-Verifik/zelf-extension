@@ -76,7 +76,6 @@ export class EncryptionKeyInterceptor implements HttpInterceptor {
 
         try {
             await this._refreshPromise;
-            console.log("Public key refreshed successfully, retrying request");
 
             // Retry the original request with the new public key
             return await lastValueFrom(next.handle(req));
@@ -127,8 +126,6 @@ export class EncryptionKeyInterceptor implements HttpInterceptor {
             // Update the stored public key
             await this._chromeService.setItem("publicKey", publicKey);
             this._httpWrapperService.setPublicKey(publicKey);
-
-            console.log("Public key refreshed and stored successfully");
         } catch (error) {
             console.error("Error refreshing public key:", error);
             throw error;

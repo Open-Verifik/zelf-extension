@@ -138,8 +138,6 @@ export class AutofillIntegrationService {
 
     public async waitForFormAndFill(tabId: number, fillData: any): Promise<void> {
         try {
-            console.log("Waiting for form and storing fill data for tab:", tabId, fillData);
-
             this.pendingFillData.set(tabId, fillData);
 
             if (typeof chrome === "undefined" || !chrome.tabs) {
@@ -152,7 +150,7 @@ export class AutofillIntegrationService {
                     files: ["autofill.js"],
                 });
             } catch (error) {
-                console.log("Content script might already be loaded:", error);
+                console.error("Content script might already be loaded:", error);
             }
 
             await new Promise((resolve) => setTimeout(resolve, 500));

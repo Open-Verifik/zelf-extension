@@ -111,7 +111,6 @@ export class ZelfKeysPasswordBiometricsComponent implements OnInit, OnDestroy {
         this._initializeBiometrics();
     }
 
-
     /**
      * Handle successful biometrics verification in decrypt mode
      */
@@ -491,7 +490,6 @@ export class ZelfKeysPasswordBiometricsComponent implements OnInit, OnDestroy {
         if (!error.mediaStreamError || error.mediaStreamError.name !== "NotAllowedError") return;
 
         this.camera.hasPermissions = false;
-        console.log("Camera permissions denied");
     }
 
     processImage(webcamImage: WebcamImage): void {

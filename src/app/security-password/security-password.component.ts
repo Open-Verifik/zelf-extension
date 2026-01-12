@@ -198,7 +198,6 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     }
 
     selectSecurityOption(option: SecurityOption): void {
-        console.log("selectSecurityOption called with:", option);
         // Toggle: if clicking the same option, unselect it
         if (this.selectedSecurityOption === option) {
             this.selectedSecurityOption = null;
@@ -213,7 +212,6 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
                 this.pinStep = null;
             }
         }
-        console.log("selectedSecurityOption is now:", this.selectedSecurityOption);
     }
 
     continueWithSelection(): void {

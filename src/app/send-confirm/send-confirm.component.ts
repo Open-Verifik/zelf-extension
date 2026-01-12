@@ -73,7 +73,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     networkPrice: number = 0;
     networkToken?: any;
     passwordError: boolean = false;
-    passwordSet: boolean = false;
+    passwordSet: boolean = true;
     price: number = 0;
     remainingAttempts: number = 0;
     requiresBiometrics: boolean = false;
@@ -118,12 +118,23 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
-            this._initTransactionData().finally(() => (this.loading = false));
+            await this._initTransactionData();
+
+            // Check if wallet is password-less
+            await this._checkPasswordlessWallet();
+
+            // Auto-send flow
+            const decrypted = await this._decryptMnemonics();
+            if (decrypted && this._password === "NO_PASSWORD_PLACEHOLDER") {
+                await this.confirmTransaction();
+            }
+
+            this.loading = false;
 
             return;
         }
 
-        this._transactionService.transactionData$.pipe(takeUntil(this.unsubcriber$)).subscribe((transactionData) => {
+        this._transactionService.transactionData$.pipe(takeUntil(this.unsubcriber$)).subscribe(async (transactionData) => {
             this.transactionData = transactionData;
 
             if (!this.transactionData || !this.transactionData.hasTransactionData) {
@@ -138,7 +149,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            this._initTransactionData().finally(() => (this.loading = false));
+            await this._initTransactionData();
+
+            // Check if wallet is password-less
+            await this._checkPasswordlessWallet();
+
+            // Auto-send flow
+            const decrypted = await this._decryptMnemonics();
+            if (decrypted && this._password === "NO_PASSWORD_PLACEHOLDER") {
+                await this.confirmTransaction();
+            }
+
+            this.loading = false;
         });
     }
 
@@ -182,16 +204,19 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     get hasBalance(): boolean {
-        const canCoverTokenBalance =
-            Number(this.transactionData.token.balance) > 0 && Number(this.transactionData.amount) <= Number(this.transactionData.token.balance);
+        const tokenBalance = Number(this.transactionData.token.balance) || 0;
+        const tokenAmount = Number(this.transactionData.token.amount) || 0;
+        const sendAmount = Number(this.transactionData.amount) || 0;
+        const feeAmount = Number(this.transactionData.fee) || 0;
+
+        const canCoverTokenBalance = tokenBalance > 0 && sendAmount <= tokenBalance;
 
         if (this.isNativeAsset) {
-            const canCoverTotal = Number(this.transactionData.amount) + Number(this.transactionData.fee) <= Number(this.transactionData.token.amount);
-
+            const canCoverTotal = sendAmount + feeAmount <= tokenAmount;
             return canCoverTokenBalance && canCoverTotal;
         }
 
-        const canCoverNetworkFee = this.networkToken?.balance > 0 && Number(this.transactionData.fee) <= Number(this.networkToken?.balance);
+        const canCoverNetworkFee = this.networkToken?.balance > 0 && feeAmount <= Number(this.networkToken?.balance);
 
         return canCoverTokenBalance && canCoverNetworkFee;
     }
@@ -202,6 +227,12 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     get total(): number {
         return this.fiatPrice + this.fiatFeePrice || 0;
+    }
+
+    get hasCredentials(): boolean {
+        // For password-less wallets, credentials are ready if passwordSet is true
+        // For password wallets, credentials are ready if password has been entered
+        return this.passwordSet || !!this.form.get("password")?.value;
     }
 
     private async _calculateTransactionFee(): Promise<void> {
@@ -291,23 +322,32 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         }
     }
 
-    private async _decryptMnemonics(): Promise<any> {
+    private async _decryptMnemonics(): Promise<boolean> {
         const biometricsRequired = await this._vaultService.biometricsRequired();
 
         if (!this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey || biometricsRequired) {
-            this.passwordSet = false;
+            const isPasswordless = String((this.wallet?.publicData as any)?.hasPassword) === "false";
+            this.passwordSet = isPasswordless;
             this.requiresBiometrics = true;
 
-            return;
+            return false;
         }
 
         this.requiresBiometrics = false;
 
-        if (!this._password && !this.form.get("password")?.value) return;
+        if (!this._password && !this.form.get("password")?.value && this.passwordSet) return false;
 
-        const secret = JSON.parse(await this._decryptMessage());
+        try {
+            const raw = await this._decryptMessage();
 
-        this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
+            if (!raw) return false;
+            const secret = JSON.parse(raw);
+            this._mnemonics = secret.mnemonic?.trim()?.toLowerCase();
+            return true;
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 
     async _fetchTokenPrice(): Promise<void> {
@@ -320,7 +360,10 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             this.price = response.data[0].open;
         } catch (error: any) {
-            if (error?.status === 400) this._skipPriceFetch = true;
+            // Don't block the flow if price fetching fails
+            console.warn("Price fetch failed (non-blocking):", error?.message || error);
+            if (error?.status === 400 || error?.status === 404) this._skipPriceFetch = true;
+            // Silently continue - price is optional
         }
     }
 
@@ -329,6 +372,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         const sessionTokens = await this._assetService.loadTokensFromSession();
 
+        // Check if we're sending a native token (doesn't need token contract address)
+        const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "BTC", "SOL", "SUI"].includes(this.transactionData.token?.symbol || "");
+
         if (!sessionTokens || sessionTokens.length === 0) {
             if (!this.wallet) {
                 this.networkToken = null;
@@ -336,18 +382,21 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            try {
-                const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
-                const result = await this._assetService.processTokensFromResponse(response);
+            // Skip fetching all network data for native tokens - we don't need it!
+            if (!isNativeToken) {
+                try {
+                    const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+                    const result = await this._assetService.processTokensFromResponse(response);
 
-                await this._assetService.saveTokensToSession(result.tokens);
-            } catch (error) {
-                console.error("Error fetching tokens for network token balance:", error);
+                    await this._assetService.saveTokensToSession(result.tokens);
+                } catch (error) {
+                    console.error("Error fetching tokens for network token balance:", error);
+                }
             }
         }
 
         this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
-        this.isNativeAsset = network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
+        this.isNativeAsset = isNativeToken || network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
 
         if (network !== "bitcoin") return;
 
@@ -423,8 +472,38 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         await this._decryptMnemonics();
     }
 
+    private async _checkPasswordlessWallet(): Promise<void> {
+        if (!this.wallet?.publicData) return;
+
+        const publicData = this.wallet.publicData as any;
+
+        // Check if wallet is password-less
+        if (String(publicData.hasPassword) === "false") {
+            // For password-less wallets, we need biometric verification
+            // Set the placeholder password that will be used after biometrics
+            this._password = "NO_PASSWORD_PLACEHOLDER";
+            this._vaultService.password = "NO_PASSWORD_PLACEHOLDER";
+            this._vaultService.securityType = "withoutPassword";
+
+            // Mark as requiring biometrics (will redirect user to biometric verification)
+            this.requiresBiometrics = true;
+            this.passwordSet = true; // Keep password field hidden
+
+            // Trigger change detection to update UI
+            this._changeDetectorRef.detectChanges();
+        } else {
+            // Wallet has a password - show the password field
+            this.passwordSet = false;
+
+            this._changeDetectorRef.detectChanges();
+        }
+    }
+
     async _redirectToBiometrics(): Promise<void> {
-        this._vaultService.password = this.form.get("password")?.value;
+        // Only set password from form if it's not already set (e.g., for password-less wallets)
+        if (!this._vaultService.password || this._vaultService.password.trim() === "") {
+            this._vaultService.password = this.form.get("password")?.value || this._password;
+        }
 
         await this._tagsService.setTagName(this.transactionData.sender.tagName);
 
@@ -584,8 +663,6 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this._router.navigate(["/send"]);
             }
         } catch (error: any) {
-            console.error("Transaction error:", error);
-
             this.openErrorSnackBar(error.message || "errors.something_went_wrong");
 
             this.sending = false;
@@ -615,9 +692,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     }
 
     async goToBiometrics(): Promise<void> {
-        const password = this.form.get("password")?.value;
-
-        if (!password || !password.trim() || !this.wallet) return;
+        if (!this.hasCredentials || !this.wallet) return;
 
         await this._redirectToBiometrics();
     }

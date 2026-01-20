@@ -58,7 +58,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
         const name = this.tagNameObject?.tagName || "";
         const domain = this.tagNameObject?.domain || "zelf";
         const duration = 1;
-        return `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`;
+        return `${environment.paymentDomainUrl}?tagname=${name}&domain=${domain}&duration=${duration}`;
     }
 
     private async _queryZNS(zelfName: string): Promise<void> {
@@ -122,7 +122,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
         const domain = this.tagNameObject?.domain || "zelf";
         const duration = 1;
         this._router.navigate(["/external-link"], {
-            queryParams: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}` },
+            queryParams: { externalUrl: `${environment.paymentDomainUrl}?tagname=${name}&domain=${domain}&duration=${duration}` },
         });
     }
 }

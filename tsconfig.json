@@ -23,6 +23,9 @@
         "typeRoots": ["./node_modules/@types", "./shared/types"],
         "paths": {
             "@openpgp/web-stream-tools": ["node_modules/@openpgp/web-stream-tools"],
+            "stream": ["node_modules/stream-browserify"],
+            "crypto": ["node_modules/crypto-browserify"],
+            "vm": ["node_modules/vm-browserify"],
             "@shared/*": ["shared/*"],
             "app/*": ["src/app/*"],
             "assets/*": ["src/assets/*"],

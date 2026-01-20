@@ -38,7 +38,14 @@
         "used": "تم الاستخدام منذ {{days}} يوم",
         "withdrawal_amount": "مبلغ السحب",
         "zelf_name_not_registered": "اسم العلامة غير مسجل",
-        "zelf_name_registered": "اسم العلامة مسجل"
+        "zelf_name_registered": "اسم العلامة مسجل",
+        "from_address": "من العنوان",
+        "average": "متوسط",
+        "confirmations": "تأكيدات",
+        "economical": "اقتصادي",
+        "fastest": "الأسرع",
+        "transaction_settings": "إعدادات المعاملة",
+        "upto_sats": "تصل إلى {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} دقيقة"
     },
     "transaction": {
         "go_to_my_history": "اذهب إلى سجلي",

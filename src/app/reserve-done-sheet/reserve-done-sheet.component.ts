@@ -33,7 +33,7 @@ export class ReserveDoneSheetComponent {
             "/external-link",
             {
                 extraParams: {
-                    externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
+                    externalUrl: `${environment.paymentDomainUrl}?tagname=${name}&domain=${domain}&duration=${duration}`,
                 },
             },
         ]);

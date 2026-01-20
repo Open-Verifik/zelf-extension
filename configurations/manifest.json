@@ -13,7 +13,7 @@
         "storage",
         "sidePanel"
     ],
-    "version": "2.0.40",
+    "version": "2.0.41",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"
@@ -59,6 +59,6 @@
         }
     ],
     "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self';"
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
     }
 }

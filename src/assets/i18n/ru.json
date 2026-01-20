@@ -38,7 +38,14 @@
         "used": "Использовано {{days}} назад",
         "withdrawal_amount": "Сумма вывода",
         "zelf_name_not_registered": "Tag Name не зарегистрирован",
-        "zelf_name_registered": "Tag Name зарегистрирован"
+        "zelf_name_registered": "Tag Name зарегистрирован",
+        "from_address": "С адреса",
+        "average": "Средний",
+        "confirmations": "Подтверждения",
+        "economical": "Экономный",
+        "fastest": "Самый быстрый",
+        "transaction_settings": "Настройки транзакции",
+        "upto_sats": "До {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} минут"
     },
     "transaction": {
         "go_to_my_history": "Перейти к моей истории",

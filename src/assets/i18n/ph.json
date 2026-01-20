@@ -38,7 +38,14 @@
         "used": "Ginamit {{days}} na ang nakalipas",
         "withdrawal_amount": "Halaga ng pag-withdraw",
         "zelf_name_not_registered": "Hindi pa nare-rehistro ang Tag Name",
-        "zelf_name_registered": "Nare-rehistro na ang Tag Name"
+        "zelf_name_registered": "Nare-rehistro na ang Tag Name",
+        "from_address": "Mula sa address",
+        "average": "Karaniwan",
+        "confirmations": "Mga Kumpirmasyon",
+        "economical": "Matipid",
+        "fastest": "Pinakamabilis",
+        "transaction_settings": "Mga Setting ng Transaksyon",
+        "upto_sats": "Hanggang {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minuto"
     },
     "transaction": {
         "go_to_my_history": "Pumunta sa aking kasaysayan",

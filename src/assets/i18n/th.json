@@ -38,7 +38,14 @@
         "used": "ใช้เมื่อ {{days}} ที่แล้ว",
         "withdrawal_amount": "จำนวนเงินที่ถอน",
         "zelf_name_not_registered": "Tag Name ยังไม่ได้ลงทะเบียน",
-        "zelf_name_registered": "Tag Name ลงทะเบียนแล้ว"
+        "zelf_name_registered": "Tag Name ลงทะเบียนแล้ว",
+        "from_address": "จากที่อยู่",
+        "average": "ปานกลาง",
+        "confirmations": "การยืนยัน",
+        "economical": "ประหยัด",
+        "fastest": "เร็วที่สุด",
+        "transaction_settings": "การตั้งค่าธุรกรรม",
+        "upto_sats": "สูงสุด {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} นาที"
     },
     "transaction": {
         "go_to_my_history": "ไปที่ประวัติของฉัน",

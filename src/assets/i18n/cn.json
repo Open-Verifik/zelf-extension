@@ -38,7 +38,14 @@
         "used": "{{days}} 天前使用",
         "withdrawal_amount": "提现金额",
         "zelf_name_not_registered": "标签名称未注册",
-        "zelf_name_registered": "标签名称已注册"
+        "zelf_name_registered": "标签名称已注册",
+        "from_address": "发件人地址",
+        "average": "平均",
+        "confirmations": "确认数",
+        "economical": "经济",
+        "fastest": "最快",
+        "transaction_settings": "交易设置",
+        "upto_sats": "高达 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 分钟"
     },
     "transaction": {
         "go_to_my_history": "查看我的历史记录",

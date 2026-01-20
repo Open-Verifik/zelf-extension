@@ -39,6 +39,7 @@
         "withdrawal_amount": "Monto de retiro",
         "zelf_name_not_registered": "Nombre de Etiqueta no registrado",
         "zelf_name_registered": "Nombre de Etiqueta registrado",
+        "from_address": "Dirección de origen",
         "average": "Promedio",
         "confirmations": "Confirmaciones",
         "economical": "Económico",

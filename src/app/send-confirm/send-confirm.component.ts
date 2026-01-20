@@ -24,6 +24,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
 import { TagsService } from "app/tags.service";
+import { SolanaService } from "app/solana.service";
 
 @Component({
     imports: [
@@ -83,6 +84,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     showPassword: boolean = false;
     transactionData!: TransactionData;
     wallet?: TagModel;
+    isStealthMode: boolean = false;
 
     constructor(
         private _assetService: AssetService,
@@ -98,7 +100,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
-        private _walletService: WalletService
+        private _walletService: WalletService,
+        private _solanaService: SolanaService
     ) {
         this.loading = true;
         this.remainingAttempts = this._vaultService.remainingAttempts;
@@ -118,6 +121,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
+            this.isStealthMode = localStorage.getItem("isStealthMode") === "true";
             await this._initTransactionData();
 
             // Check if wallet is password-less
@@ -149,6 +153,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 return;
             }
 
+            this.isStealthMode = localStorage.getItem("isStealthMode") === "true";
             await this._initTransactionData();
 
             // Check if wallet is password-less
@@ -571,97 +576,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 tokenDecimals: this.transactionData.token?.decimals,
             };
 
-            if (["ethereum", "avalanche", "binance", "blockdag", "polygon"].includes(this.transactionData.network)) {
-                if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
-                    this.openErrorSnackBar("errors.invalid_private_key");
-
-                    return;
-                }
-
-                const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
-
-                transactionParams.privateKey = wallet.privateKey;
-                transactionParams.from = wallet.address;
-
-                delete transactionParams.mnemonic;
-            }
-
-            const result: TransactionResult = await this._blockchainTransactionsService.sendTransaction(transactionParams);
-
-            const receipt = {
-                transactionHash: result.hash,
-                hash: result.hash,
-                digest: result.hash,
-                network: this.transactionData.network,
-                tokenType: this.transactionData.tokenType,
-                fee: this.transactionData.fee,
-                fiatFee: this.transactionData.fiatFee,
-                total: this.transactionData.total,
-                status: result.status,
-            };
-
-            this._transactionService.addToRecentAddresses({
-                address: this.transactionData.receiver.address,
-                tagName: this.transactionData.receiver.tagName,
-                domain: this.transactionData.receiver.domain,
-                network: this.transactionData.network,
-                tokenType:
-                    this.transactionData.network === "sui"
-                        ? "SUI"
-                        : this.transactionData.network === "avalanche"
-                          ? "AVAX"
-                          : this.transactionData.network === "bitcoin"
-                            ? "BTC"
-                            : this.transactionData.tokenType,
-            });
-
-            this.sending = false;
-
-            const sendDateTime = new Date().toISOString();
-
-            const pendingTransactionData = {
-                ...this.transactionData,
-                ...receipt,
-                amount: this.transactionData.amount,
-                total: this.transactionData.total,
-                fee: this.transactionData.fee,
-                date: sendDateTime,
-                from: this.transactionData.sender.address,
-                network: this.transactionData.network,
-                status: "pending",
-                to: this.transactionData.receiver.address,
-                tokenType: this.transactionData.tokenType,
-            };
-
-            await this._walletService.addTransactionToPending(pendingTransactionData);
-            await this._transactionService.removeTransactionData();
-            await this._chromeService.removeItemSession("tokensTtl");
-
-            if (this.transactionData.network === "solana" && receipt.transactionHash) {
-                await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: {
-                        network: "solana",
-                        symbol: this.transactionData.tokenType,
-                    },
-                });
-            } else if (this.transactionData.network === "sui" && receipt.digest) {
-                await this._router.navigate(["/transaction", receipt.digest], {
-                    queryParams: { network: "sui", symbol: "SUI" },
-                });
-            } else if (this.transactionData.network === "bitcoin" && receipt.transactionHash) {
-                await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: {
-                        network: "bitcoin",
-                        tokenType: "BTC",
-                    },
-                });
-            } else if (receipt.transactionHash) {
-                await this._router.navigate(["/transaction", receipt.transactionHash], {
-                    queryParams: { network: this.transactionData.network, symbol: this.transactionData.symbol },
-                });
-            } else {
-                this._router.navigate(["/send"]);
-            }
+            // Standard transaction flow (Solana, EVM, Bitcoin, SUI)
+            await this._handleStandardTransaction(cleanMnemonic, normalizedAmount);
         } catch (error: any) {
             this.openErrorSnackBar(error.message || "errors.something_went_wrong");
 
@@ -688,6 +604,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         await this._transactionService.setCurrentTransactionData(this.transactionData);
 
+        // Don't clear stealth mode flag here - let user keep their selection
         this._router.navigate(["/send/transaction"]);
     }
 
@@ -718,5 +635,100 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
     toggleShowPassword(): void {
         this.showPassword = !this.showPassword;
+    }
+
+    /**
+     * Handle standard (non-stealth) transaction for all networks
+     * @private
+     */
+    private async _handleStandardTransaction(cleanMnemonic: string, normalizedAmount: number): Promise<void> {
+        const transactionParams: TransactionParams = {
+            from: "",
+            to: this.transactionData.receiver.address,
+            value: String(normalizedAmount),
+            network: this.transactionData.network,
+            mnemonic: cleanMnemonic,
+            tokenAddress: this.transactionData.token?.address_token || this.transactionData.token?.tokenAddress,
+            tokenDecimals: this.transactionData.token?.decimals,
+        };
+
+        // EVM networks need private key instead of mnemonic
+        if (["ethereum", "avalanche", "binance", "blockdag", "polygon"].includes(this.transactionData.network)) {
+            if (!ethers.Mnemonic.isValidMnemonic(cleanMnemonic)) {
+                this.openErrorSnackBar("errors.invalid_private_key");
+                return;
+            }
+
+            const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+            transactionParams.privateKey = wallet.privateKey;
+            transactionParams.from = wallet.address;
+            delete transactionParams.mnemonic;
+        }
+
+        // Send transaction via blockchain service
+        const result: TransactionResult = await this._blockchainTransactionsService.sendTransaction(transactionParams);
+
+        await this._finalizeStandardTransaction(result);
+    }
+
+    /**
+     * Finalize standard transaction and navigate to confirmation
+     * @private
+     */
+    private async _finalizeStandardTransaction(result: TransactionResult): Promise<void> {
+        const receipt = {
+            transactionHash: result.hash,
+            hash: result.hash,
+            digest: result.hash,
+            network: this.transactionData.network,
+            tokenType: this.transactionData.tokenType,
+            fee: this.transactionData.fee,
+            fiatFee: this.transactionData.fiatFee,
+            total: this.transactionData.total,
+            status: result.status,
+        };
+
+        this._transactionService.addToRecentAddresses({
+            address: this.transactionData.receiver.address,
+            tagName: this.transactionData.receiver.tagName,
+            domain: this.transactionData.receiver.domain,
+            network: this.transactionData.network,
+            tokenType:
+                this.transactionData.network === "sui"
+                    ? "SUI"
+                    : this.transactionData.network === "avalanche"
+                      ? "AVAX"
+                      : this.transactionData.network === "bitcoin"
+                        ? "BTC"
+                        : this.transactionData.tokenType,
+        });
+
+        this.sending = false;
+
+        const sendDateTime = new Date().toISOString();
+        const pendingTransactionData = {
+            ...this.transactionData,
+            ...receipt,
+            amount: this.transactionData.amount,
+            total: this.transactionData.total,
+            fee: this.transactionData.fee,
+            date: sendDateTime,
+            from: this.transactionData.sender.address,
+            network: this.transactionData.network,
+            status: "pending",
+            to: this.transactionData.receiver.address,
+            tokenType: this.transactionData.tokenType,
+        };
+
+        await this._walletService.addTransactionToPending(pendingTransactionData);
+        await this._transactionService.removeTransactionData();
+        await this._chromeService.removeItemSession("tokensTtl");
+
+        await this._router.navigate(["/transaction", receipt.transactionHash], {
+            queryParams: {
+                network: this.transactionData.network,
+                symbol: this.transactionData.tokenType,
+            },
+        });
     }
 }

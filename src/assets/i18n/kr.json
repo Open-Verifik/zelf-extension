@@ -38,7 +38,14 @@
         "used": "{{days}}일 전에 사용됨",
         "withdrawal_amount": "출금 금액",
         "zelf_name_not_registered": "태그 이름이 등록되지 않음",
-        "zelf_name_registered": "태그 이름이 등록됨"
+        "zelf_name_registered": "태그 이름이 등록됨",
+        "from_address": "보내는 주소",
+        "average": "평균",
+        "confirmations": "확인",
+        "economical": "경제적",
+        "fastest": "가장 빠름",
+        "transaction_settings": "거래 설정",
+        "upto_sats": "최대 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 분"
     },
     "transaction": {
         "go_to_my_history": "내 내역으로 이동",

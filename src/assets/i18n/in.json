@@ -38,7 +38,14 @@
         "used": "{{days}} पहले उपयोग किया गया",
         "withdrawal_amount": "निकासी राशि",
         "zelf_name_not_registered": "टैग नाम पंजीकृत नहीं है",
-        "zelf_name_registered": "टैग नाम पंजीकृत है"
+        "zelf_name_registered": "टैग नाम पंजीकृत है",
+        "from_address": "प्रेषक पता",
+        "average": "औसत",
+        "confirmations": "पुष्टिकरण",
+        "economical": "किफायती",
+        "fastest": "सबसे तेज",
+        "transaction_settings": "लेनदेन सेटिंग्स",
+        "upto_sats": "{{ feeAmountUSD }} तक • {{sats}} sats/vB • {{ time }} मिनट"
     },
     "transaction": {
         "go_to_my_history": "मेरे इतिहास पर जाएं",

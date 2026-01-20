@@ -238,7 +238,7 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
 
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
+                externalUrl: `${environment.paymentDomainUrl}?tagname=${name}&domain=${domain}&duration=${duration}`,
             },
         });
     }
@@ -298,9 +298,9 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
     showDetails(wallet: Partial<TagModel>): boolean {
         return Boolean(
             wallet.publicData?.isFullyExpired ||
-                wallet.publicData?.isExpiringSoon ||
-                wallet.publicData?.isInGracePeriod ||
-                wallet.publicData?.isExpired
+            wallet.publicData?.isExpiringSoon ||
+            wallet.publicData?.isInGracePeriod ||
+            wallet.publicData?.isExpired
         );
     }
 }

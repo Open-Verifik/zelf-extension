@@ -65,7 +65,12 @@ import "zone.js"; // Included with Angular CLI.
  */
 
 // Buffer polyfill for browser environments
+// Buffer polyfill for browser environments
 import { Buffer } from "buffer";
+import * as process from "process";
+
 if (typeof window !== "undefined") {
     (window as any).Buffer = Buffer;
+    (window as any).process = process;
+    (window as any).global = window;
 }

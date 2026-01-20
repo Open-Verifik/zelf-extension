@@ -536,7 +536,7 @@ export class TransactionDetailModel implements TransactionDetail {
             network: this.network,
             status: this.status.toLowerCase(),
             to: this.to,
-            tokenType: "ERC-20",
+            tokenType: this.network.toLowerCase() === "solana" ? "SPL" : this.network.toLowerCase() === "bitcoin" ? "BTC" : "ERC-20",
             type: this.transactionType,
         };
 
@@ -1025,7 +1025,7 @@ export class TransactionData implements TransactionData {
     }
 
     get isSolToken(): boolean {
-        return this.tokenType === "SOL" || this.tokenType === "SPL";
+        return this.tokenType === "SOL" || this.tokenType === "SPL" || this.network === "solana";
     }
 
     get isBtcToken(): boolean {
@@ -1242,4 +1242,3 @@ export class SwapData {
         return Object.keys(this.sourceAsset).length > 0 && Object.keys(this.targetAsset).length > 0;
     }
 }
-

@@ -12,7 +12,24 @@
             </div>
 
             <div class="send-confirm__col2">
-                <p class="send-confirm__title">{{ showFeeInfo ? t("send.transaction_settings") : t("common.transfer") }}</p>
+                <div style="display: flex; align-items: center; gap: 8px">
+                    <p class="send-confirm__title">{{ showFeeInfo ? t("send.transaction_settings") : t("common.transfer") }}</p>
+                    <div
+                        *ngIf="isStealthMode"
+                        style="
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            padding: 4px 12px;
+                            border-radius: 12px;
+                            font-size: 11px;
+                            font-weight: 600;
+                            letter-spacing: 0.5px;
+                            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+                        "
+                    >
+                        🔒 {{ t("send.private_transaction") }}
+                    </div>
+                </div>
             </div>
 
             <div class="send-confirm__col3"></div>

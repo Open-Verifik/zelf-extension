@@ -69,7 +69,7 @@ export class WelcomeRegisteredComponent extends CopyToClipboardBase implements O
         const duration = 1;
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${name}&domain=${domain}&duration=${duration}`,
+                externalUrl: `${environment.paymentDomainUrl}?tagname=${name}&domain=${domain}&duration=${duration}`,
             },
         });
     }

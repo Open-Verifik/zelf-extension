@@ -307,7 +307,7 @@ const routes: Routes = [
     },
     {
         path: "external-link",
-        data: { externalUrl: `${environment.paymentDomainUrl}/portfolio/payment` },
+        data: { externalUrl: `${environment.paymentDomainUrl}` },
         canActivate: [ExternalRedirectGuard],
     },
 ];

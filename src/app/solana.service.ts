@@ -64,8 +64,12 @@ export class SolanaService {
         private _httpWrapper: HttpWrapperService
     ) {}
 
-    private _createConnection(): Connection {
+    public get connection(): Connection {
         return new Connection(this._chainConfigs.mainnet.rpcUrls[0], { commitment: "confirmed" });
+    }
+
+    private _createConnection(): Connection {
+        return this.connection;
     }
 
     private _defaultResponse(): any {
@@ -83,6 +87,10 @@ export class SolanaService {
                 },
             },
         };
+    }
+
+    public async getSolanaAccount(mnemonic: string): Promise<Keypair> {
+        return this._getKeypairFromMnemonic(mnemonic);
     }
 
     private async _getKeypairFromMnemonic(mnemonic: string): Promise<Keypair> {

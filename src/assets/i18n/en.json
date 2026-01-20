@@ -476,7 +476,9 @@
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "zelf_name_not_registered": "Tag Name not registered",
-        "zelf_name_registered": "Tag Name registered"
+        "zelf_name_registered": "Tag Name registered",
+        "from_address": "From address",
+        "private_transaction": "Private Transaction"
     },
     "transaction": {
         "go_to_my_history": "Go to my history",

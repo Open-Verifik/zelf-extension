@@ -39,6 +39,7 @@
         "withdrawal_amount": "Montant du retrait",
         "zelf_name_not_registered": "Nom d'Étiquette non enregistré",
         "zelf_name_registered": "Nom d'Étiquette enregistré",
+        "from_address": "De l'adresse",
         "average": "Moyenne",
         "confirmations": "Confirmations",
         "economical": "Économique",

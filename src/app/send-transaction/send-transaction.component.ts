@@ -6,8 +6,10 @@ import { AbstractControl, FormBuilder, ReactiveFormsModule, UntypedFormGroup, Va
 import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router, RouterModule } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
@@ -29,9 +31,11 @@ import { TagModel, TagsService } from "app/tags.service";
         AddressMaskPipe,
         CommonModule,
         MatButtonModule,
+        MatSlideToggleModule,
         MatProgressSpinnerModule,
         MatRippleModule,
         ReactiveFormsModule,
+        FormsModule,
         RouterModule,
         TranslocoModule,
         ZelfLoaderComponent,
@@ -623,38 +627,13 @@ export class SendTransactionComponent implements OnDestroy {
             const walletData = await this._walletService.getCurrentWallet();
             const mnemonic = this._vaultService.mnemonic;
 
-            if (!walletData || !mnemonic) {
-                throw new Error("No wallet data or mnemonic available");
-            }
+            if (!walletData || !mnemonic) throw new Error("No wallet data or mnemonic available");
 
             const amount = parseFloat(this.form.get("amount")?.value || "0");
             const toAddress = this.form.get("toAddress")?.value;
 
             if (this.transactionData.isBtcToken) {
-                const transactionParams: TransactionParams = {
-                    from: "", // Will be derived from mnemonic in Bitcoin service
-                    to: toAddress,
-                    value: String(amount),
-                    network: "bitcoin",
-                    mnemonic: mnemonic,
-                };
-
-                const result = await this._bitcoinService.sendTransaction(transactionParams);
-
-                this._snackBar.open(this._translocoService.translate("TRANSACTION_SENT"), this._translocoService.translate("CLOSE"), {
-                    duration: 5000,
-                });
-
-                this._router.navigate(["/transaction-confirmation"], {
-                    state: {
-                        hash: result.hash,
-                        network: "bitcoin",
-                        amount: amount,
-                        to: toAddress,
-                        symbol: "BTC",
-                    },
-                });
-            } else {
+                await this._handleBitcoinTransaction(amount, toAddress, mnemonic);
             }
         } catch (error) {
             console.error("Error sending transaction:", error);
@@ -664,6 +643,32 @@ export class SendTransactionComponent implements OnDestroy {
         } finally {
             this.loading = false;
         }
+    }
+
+    private async _handleBitcoinTransaction(amount: number, toAddress: string, mnemonic: string): Promise<void> {
+        const transactionParams: TransactionParams = {
+            from: "", // Will be derived from mnemonic in Bitcoin service
+            to: toAddress,
+            value: String(amount),
+            network: "bitcoin",
+            mnemonic: mnemonic,
+        };
+
+        const result = await this._bitcoinService.sendTransaction(transactionParams);
+
+        this._snackBar.open(this._translocoService.translate("TRANSACTION_SENT"), this._translocoService.translate("CLOSE"), {
+            duration: 5000,
+        });
+
+        this._router.navigate(["/transaction-confirmation"], {
+            state: {
+                hash: result.hash,
+                network: "bitcoin",
+                amount: amount,
+                to: toAddress,
+                symbol: "BTC",
+            },
+        });
     }
 
     setToInput(address: AddressBook): void {

@@ -38,7 +38,14 @@
         "used": "{{days}} پہلے استعمال کیا گیا",
         "withdrawal_amount": "نکالنے کی رقم",
         "zelf_name_not_registered": "زیلف نام رجسٹرڈ نہیں ہے",
-        "zelf_name_registered": "زیلف نام رجسٹرڈ ہے"
+        "zelf_name_registered": "زیلف نام رجسٹرڈ ہے",
+        "from_address": "ایڈریس سے",
+        "average": "اوسط",
+        "confirmations": "تصدیقات",
+        "economical": "کفایتی",
+        "fastest": "سب سے تیز",
+        "transaction_settings": "لین دین کی ترتیبات",
+        "upto_sats": "تک {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} منٹ"
     },
     "transaction": {
         "go_to_my_history": "میری تاریخ پر جائیں",

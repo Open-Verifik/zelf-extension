@@ -38,7 +38,14 @@
         "used": "Usado há {{days}} dias",
         "withdrawal_amount": "Valor do saque",
         "zelf_name_not_registered": "Nome da Tag não registrado",
-        "zelf_name_registered": "Nome da Tag registrado"
+        "zelf_name_registered": "Nome da Tag registrado",
+        "from_address": "Do endereço",
+        "average": "Médio",
+        "confirmations": "Confirmações",
+        "economical": "Econômico",
+        "fastest": "Mais rápido",
+        "transaction_settings": "Configurações de Transação",
+        "upto_sats": "Até {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos"
     },
     "transaction": {
         "go_to_my_history": "Ir para meu histórico",

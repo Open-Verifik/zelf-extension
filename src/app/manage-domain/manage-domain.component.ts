@@ -84,7 +84,7 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
 
         this._router.navigate(["/external-link"], {
             queryParams: {
-                externalUrl: `${environment.paymentDomainUrl}/portfolio/payment?tagname=${tagName}&domain=${domain}&duration=${duration}`,
+                externalUrl: `${environment.paymentDomainUrl}?tagname=${tagName}&domain=${domain}&duration=${duration}`,
             },
         });
     }

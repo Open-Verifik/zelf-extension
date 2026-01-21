@@ -85,6 +85,23 @@
         flex-grow: 1;
     }
 
+    &__manage-networks {
+        padding: 16px;
+        width: 100%;
+        text-align: center;
+        font-family: variables.$themeBodyFamily;
+        font-size: 13px;
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        cursor: pointer;
+        transition: color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            color: variables.$primaryColor;
+            text-decoration: underline;
+        }
+    }
+
     &__no-results-text {
         font-size: 1.5rem;
         color: variables.$themeCard;
@@ -144,4 +161,3 @@
         }
     }
 }
-

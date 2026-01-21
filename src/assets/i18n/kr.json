@@ -96,7 +96,13 @@
         "your_zelf_name": "귀하의 태그 이름"
     },
     "settings": {
+        "networks_label": "네트워크",
         "security_label": "보안",
+        "subscription_label": "구독",
+        "networks": {
+            "title": "블록체인 네트워크",
+            "description": "지갑에서 사용할 네트워크를 활성화하거나 비활성화합니다. 비활성화된 네트워크는 토큰 목록에 표시되지 않습니다."
+        },
         "security": {
             "biometric_verification_title": "생체 인증 간격",
             "biometric_verification_description": "생체 인증이 필요하기 전에 비밀번호만으로 접근할 수 있는 시간을 설정하세요. 5분에서 60분 사이로 설정할 수 있습니다.",
@@ -392,6 +398,7 @@
         "you_receive": "수취 금액"
     },
     "home": {
+        "manage_networks": "네트워크 관리",
         "assets": "토큰",
         "NFTs": "수집품",
         "receive_transaction_button": "받기",

@@ -17,6 +17,11 @@ export interface DomainPayment {
     pricingTable: DomainPricingTable;
     rewardPrice: number;
     whitelist: Record<string, unknown>;
+    networks?: Record<string, any>;
+}
+
+export interface DomainWallet {
+    networks: Record<string, { enabled: boolean }>;
 }
 
 export interface DomainStorage {
@@ -35,6 +40,7 @@ export interface DomainTags {
     payment: DomainPayment;
     reserved: string[];
     storage: DomainStorage;
+    wallet?: DomainWallet;
 }
 
 export interface ZelfkeysPayment {

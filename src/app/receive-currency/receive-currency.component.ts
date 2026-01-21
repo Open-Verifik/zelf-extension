@@ -9,6 +9,7 @@ import { ChromeService } from "app/chrome.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { SettingsService } from "app/services/settings.service";
 
 @Component({
     imports: [NgIf, NgFor, NgTemplateOutlet, RouterLink, TranslocoModule, MatButtonModule, AddressMaskPipe, ZelfLoaderComponent],
@@ -22,6 +23,7 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
 
     constructor(
         private _walletService: WalletService,
+        private _settingsService: SettingsService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
         public _translocoService: TranslocoService
@@ -36,7 +38,49 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
     }
 
     private async _initNetworks(): Promise<void> {
-        this.networks = await this._walletService.getAvailableWalletNetworks();
+        const allNetworks = await this._walletService.getAvailableWalletNetworks();
+        const enabledNetworkIds = this._getEnabledNetworkIds();
+
+        if (!enabledNetworkIds) {
+            this.networks = allNetworks;
+            return;
+        }
+
+        this.networks = allNetworks.filter((network) => {
+            const networkId = this._mapSymbolToNetworkId(network.symbol);
+            return enabledNetworkIds.includes(networkId);
+        });
+    }
+
+    private _getEnabledNetworkIds(): string[] | undefined {
+        const settings = this._settingsService.settings;
+        if (!settings || !settings.networks) return undefined;
+        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+    }
+
+    private _mapSymbolToNetworkId(symbol: string): string {
+        switch (symbol.toUpperCase()) {
+            case "ETH":
+                return "ethereum";
+            case "AVAX":
+                return "avalanche";
+            case "BNB":
+            case "BSC":
+                return "binance";
+            case "BTC":
+                return "bitcoin";
+            case "BDAG":
+                return "blockdag";
+            case "MATIC":
+            case "POL":
+                return "polygon";
+            case "SOL":
+                return "solana";
+            case "SUI":
+                return "sui";
+            default:
+                return symbol.toLowerCase();
+        }
     }
 
     public copyToClipboard(event: Event, network: Network): void {

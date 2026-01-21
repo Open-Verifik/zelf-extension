@@ -11,6 +11,7 @@ import { BlockchainNetworksService } from "app/blockchain-networks.service";
 import { ChromeService } from "app/chrome.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { AuthService } from "app/services/auth.service";
+import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
         private _router: Router,
+        private _settingsService: SettingsService,
         private _tagsService: TagsService,
         private _walletService: WalletService,
         private _zelfNameService: ZelfNameService
@@ -97,25 +99,31 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.unsubscriberForBalances$.complete();
     }
 
-    private async _getBalances(): Promise<any> {
+    private _getEnabledNetworkIds(): string[] | undefined {
+        const settings = this._settingsService.settings;
+        if (!settings || !settings.networks) return undefined;
+        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+    }
+
+    private _filterEnabledTokens(tokens: any[]): any[] {
+        const enabledNetworks = this._getEnabledNetworkIds();
+        if (!enabledNetworks) return tokens;
+
+        return tokens.filter((token) => {
+            const network = (token.network || "").toLowerCase();
+            return enabledNetworks.includes(network);
+        });
+    }
+
+    private async _getBalances(): Promise<void> {
         this.balancesLoading = true;
         this.tokens = [];
         this.NFTs = [];
 
-        const sessionTokens = await this._assetService.loadTokensFromSession();
+        const enabledNetworks = this._getEnabledNetworkIds();
+        const loadedFromSession = await this._loadBalancesFromSession(enabledNetworks);
 
-        if (sessionTokens.length > 0) {
-            const deduped = this._dedupeTokens(sessionTokens);
-
-            let totalFiatBalance = 0;
-
-            deduped.forEach((token) => {
-                if (token.fiatBalance) totalFiatBalance += parseFloat(token.fiatBalance);
-            });
-
-            this.tokens = deduped;
-            this.totalFiatBalance = totalFiatBalance;
-
+        if (loadedFromSession) {
             this.balancesLoading = false;
 
             this._changeDetectorRef.detectChanges();
@@ -123,23 +131,52 @@ export class HomeComponent implements OnInit, OnDestroy {
             return;
         }
 
+        await this._fetchBalancesFromNetwork(enabledNetworks);
+    }
+
+    /**
+     * Load balances from session storage if available
+     */
+    private async _loadBalancesFromSession(enabledNetworks?: string[]): Promise<boolean> {
+        const sessionTokens = await this._assetService.loadTokensFromSession();
+
+        if (!sessionTokens || sessionTokens.length === 0) return false;
+
+        const deduped = this._dedupeTokens(sessionTokens);
+        const filtered = this._filterEnabledTokens(deduped);
+
+        this._updateTokenState(filtered);
+
+        return true;
+    }
+
+    /**
+     * Fetch balances from network
+     */
+    private async _fetchBalancesFromNetwork(enabledNetworks?: string[]): Promise<void> {
         try {
             const response = await firstValueFrom(
-                this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
+                this._blockchainTransactionsService.getAddressData(this.wallet, enabledNetworks).pipe(takeUntil(this.unsubscriberForBalances$))
             );
 
             const result = await this._assetService.processTokensFromResponse(response);
-            this.tokens = this._dedupeTokens(result.tokens);
-            this.totalFiatBalance = result.totalFiatBalance;
+            const deduped = this._dedupeTokens(result.tokens);
+            const filtered = this._filterEnabledTokens(deduped);
 
-            this._changeDetectorRef.detectChanges();
+            this._updateTokenState(filtered);
         } catch (error) {
             console.error("Error getting tokens:", error);
         } finally {
             this.balancesLoading = false;
-
             this._changeDetectorRef.detectChanges();
         }
+    }
+
+    private _updateTokenState(tokens: any[]): void {
+        this.tokens = tokens;
+        this.totalFiatBalance = this.tokens.reduce((total, token) => {
+            return total + (parseFloat(token.fiatBalance) || 0);
+        }, 0);
     }
 
     /**
@@ -212,23 +249,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         await this._authService.reauthenticateSession();
 
-        try {
-            const response = await firstValueFrom(
-                this._blockchainTransactionsService.getAddressData(this.wallet).pipe(takeUntil(this.unsubscriberForBalances$))
-            );
+        const enabledNetworks = this._getEnabledNetworkIds();
+        await this._fetchBalancesFromNetwork(enabledNetworks);
 
-            const result = await this._assetService.processTokensFromResponse(response);
-            this.tokens = this._dedupeTokens(result.tokens);
-            this.totalFiatBalance = result.totalFiatBalance;
-        } catch (error) {
-            console.error("Error getting tokens:", error);
-        } finally {
-            this.balancesLoading = false;
-
-            await this._refreshWallets(true);
-
-            this._changeDetectorRef.detectChanges();
-        }
+        await this._refreshWallets(true);
+        this._changeDetectorRef.detectChanges();
     }
 
     private _dedupeTokens(tokens: Array<any>): Array<any> {

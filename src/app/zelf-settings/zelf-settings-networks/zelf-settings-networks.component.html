@@ -1,0 +1,30 @@
+<div class="zelf-settings-networks" *transloco="let t">
+    <div class="zelf-settings-networks__header">
+        <p class="zelf-settings-networks__description">{{ t("settings.networks.description") }}</p>
+    </div>
+
+    <div class="zelf-settings-networks__list">
+        <div
+            *ngFor="let network of networks"
+            class="zelf-settings-networks__item"
+            [ngClass]="{ 'zelf-settings-networks__item--disabled': !network.enabled }"
+        >
+            <div class="zelf-settings-networks__item-left">
+                <div class="zelf-settings-networks__icon-wrapper">
+                    <img [src]="getNetworkIcon(network.symbol)" [alt]="network.name" class="zelf-settings-networks__icon" />
+                </div>
+                <div class="zelf-settings-networks__info">
+                    <span class="zelf-settings-networks__name">{{ network.name }}</span>
+                    <span class="zelf-settings-networks__symbol">{{ network.symbol }}</span>
+                </div>
+            </div>
+
+            <mat-slide-toggle
+                [checked]="network.enabled"
+                (change)="onNetworkToggle(network)"
+                color="primary"
+                class="zelf-settings-networks__toggle"
+            ></mat-slide-toggle>
+        </div>
+    </div>
+</div>

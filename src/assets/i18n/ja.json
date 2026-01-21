@@ -96,7 +96,13 @@
         "your_zelf_name": "あなたのタグ名"
     },
     "settings": {
+        "networks_label": "ネットワーク",
         "security_label": "セキュリティ",
+        "subscription_label": "サブスクリプション",
+        "networks": {
+            "title": "ブロックチェーンネットワーク",
+            "description": "ウォレットで使用するネットワークを有効または無効にします。無効なネットワークはトークンリストに表示されません。"
+        },
         "security": {
             "biometric_verification_title": "生体認証間隔",
             "biometric_verification_description": "生体認証が必要になるまでのパスワードのみの入力を許可する時間を設定します。5分から60分の間で設定できます。",
@@ -392,6 +398,7 @@
         "you_receive": "受取"
     },
     "home": {
+        "manage_networks": "ネットワークの管理",
         "assets": "トークン",
         "NFTs": "コレクション",
         "receive_transaction_button": "受取",

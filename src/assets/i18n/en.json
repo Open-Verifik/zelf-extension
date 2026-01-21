@@ -529,8 +529,13 @@
         "your_zelf_name": "Your Tag Name"
     },
     "settings": {
+        "networks_label": "Networks",
         "security_label": "Security",
         "subscription_label": "Subscription",
+        "networks": {
+            "title": "Blockchain Networks",
+            "description": "Enable or disable the networks you want to use in your wallet. Disabled networks won't appear in your token list."
+        },
         "security": {
             "biometric_verification_title": "Biometric verification interval",
             "biometric_verification_description": "Set how long password-only entry is allowed before biometric verification is needed. You can set this from 5 to 60 minutes.",
@@ -849,6 +854,7 @@
         "you_receive": "You receive"
     },
     "home": {
+        "manage_networks": "Manage networks",
         "assets": "Tokens",
         "keys": "Keys",
         "NFTs": "Collectibles",

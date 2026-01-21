@@ -96,7 +96,13 @@
         "your_zelf_name": "Tag Name ของคุณ"
     },
     "settings": {
+        "networks_label": "เครือข่าย",
         "security_label": "ความปลอดภัย",
+        "subscription_label": "การสมัครสมาชิก",
+        "networks": {
+            "title": "เครือข่ายบล็อกเชน",
+            "description": "เปิดหรือปิดเครือข่ายที่คุณต้องการใช้ในกระเป๋าเงินของคุณ เครือข่ายที่ปิดใช้งานจะไม่ปรากฏในรายการโทเค็นของคุณ"
+        },
         "security": {
             "biometric_verification_title": "ช่วงเวลาการยืนยันตัวตนด้วยชีวภาพ",
             "biometric_verification_description": "ตั้งค่าช่วงเวลาที่อนุญาตให้ใช้รหัสผ่านเพียงอย่างเดียวก่อนที่จะต้องยืนยันตัวตนด้วยชีวภาพ คุณสามารถตั้งค่าได้ตั้งแต่ 5 ถึง 60 นาที",
@@ -392,6 +398,7 @@
         "you_receive": "คุณได้รับ"
     },
     "home": {
+        "manage_networks": "จัดการเครือข่าย",
         "assets": "โทเค็น",
         "NFTs": "คอลเลกชัน",
         "receive_transaction_button": "รับ",

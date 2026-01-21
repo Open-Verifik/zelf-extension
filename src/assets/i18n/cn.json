@@ -96,7 +96,13 @@
         "your_zelf_name": "您的标签名称"
     },
     "settings": {
+        "networks_label": "网络",
         "security_label": "安全",
+        "subscription_label": "订阅",
+        "networks": {
+            "title": "区块链网络",
+            "description": "启用或禁用您想在钱包中使用的网络。禁用的网络不会出现在您的代币列表中。"
+        },
         "security": {
             "biometric_verification_title": "生物识别验证间隔",
             "biometric_verification_description": "设置在进行生物识别验证之前允许仅使用密码的时间。您可以将其设置为5到60分钟。",
@@ -392,6 +398,7 @@
         "you_receive": "您获得"
     },
     "home": {
+        "manage_networks": "管理网络",
         "assets": "代币",
         "NFTs": "收藏品",
         "receive_transaction_button": "接收",

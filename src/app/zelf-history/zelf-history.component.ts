@@ -9,6 +9,7 @@ import { BlockchainTransactionsService } from "app/services/blockchain-transacti
 import { Transaction } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { SettingsService } from "app/services/settings.service";
 
 type TransactionType = "send" | "receive" | "swap" | "approve" | "";
 
@@ -61,6 +62,7 @@ export class ZelfHistoryComponent implements OnInit {
     constructor(
         private _blockchainTransactions: BlockchainTransactionsService,
         private _router: Router,
+        private _settingsService: SettingsService,
         private _walletService: WalletService
     ) {}
 
@@ -79,14 +81,22 @@ export class ZelfHistoryComponent implements OnInit {
             .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
 
+    private _getEnabledNetworkIds(): string[] | undefined {
+        const settings = this._settingsService.settings;
+        if (!settings || !settings.networks) return undefined;
+        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+    }
+
     private async _loadFirstTransactions(): Promise<void> {
         this.loading = true;
 
         const wallet = await this._walletService.getCurrentWallet();
 
+        const enabledNetworks = this._getEnabledNetworkIds();
+
         (this.token
             ? this._blockchainTransactions.getAddressDataByToken(wallet, this.token)
-            : this._blockchainTransactions.getAddressData(wallet)
+            : this._blockchainTransactions.getAddressData(wallet, enabledNetworks)
         ).subscribe({
             next: async (response) => {
                 if (!response) {
@@ -166,8 +176,9 @@ export class ZelfHistoryComponent implements OnInit {
         this.currentPage += 1;
 
         const wallet = await this._walletService.getCurrentWallet();
+        const enabledNetworks = this._getEnabledNetworkIds();
 
-        this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }).subscribe({
+        this._blockchainTransactions.getTransactionHistory(wallet, { page: this.currentPage }, enabledNetworks).subscribe({
             next: async (response) => {
                 if (!response) {
                     this.noMoreTransactions = true;

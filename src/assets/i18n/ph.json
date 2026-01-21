@@ -96,7 +96,13 @@
         "your_zelf_name": "Ang Iyong Tag Name"
     },
     "settings": {
+        "networks_label": "Mga Network",
         "security_label": "Seguridad",
+        "subscription_label": "Subskripsyon",
+        "networks": {
+            "title": "Mga Blockchain Network",
+            "description": "I-enable o i-disable ang mga network na gusto mong gamitin sa iyong wallet. Ang mga naka-disable na network ay hindi lalabas sa iyong listahan ng token."
+        },
         "security": {
             "biometric_verification_title": "Biometric verification interval",
             "biometric_verification_description": "I-set kung gaano katagal pinapayagan ang password-only entry bago kailanganin ang biometric verification. Maaari mong i-set ito mula 5 hanggang 60 minuto.",
@@ -392,6 +398,7 @@
         "you_receive": "Matatanggap mo"
     },
     "home": {
+        "manage_networks": "Pamahalaan ang mga network",
         "assets": "Mga Token",
         "NFTs": "Mga Collectible",
         "receive_transaction_button": "Tumanggap",

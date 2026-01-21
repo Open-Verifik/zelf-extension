@@ -96,7 +96,13 @@
         "your_zelf_name": "اسم العلامة الخاص بك"
     },
     "settings": {
+        "networks_label": "الشبكات",
         "security_label": "الأمان",
+        "subscription_label": "الاشتراك",
+        "networks": {
+            "title": "شبكات البلوكتشين",
+            "description": "قم بتفعيل أو تعطيل الشبكات التي تريد استخدامها في محفظتك. لن تظهر الشبكات المعطلة في قائمة الرموز الخاصة بك."
+        },
         "security": {
             "biometric_verification_title": "فاصل التحقق البيومتري",
             "biometric_verification_description": "حدد المدة المسموح بها لإدخال كلمة المرور فقط قبل الحاجة إلى التحقق البيومتري. يمكنك تعيين هذا من 5 إلى 60 دقيقة.",
@@ -391,6 +397,7 @@
         "you_receive": "أنت تستلم"
     },
     "home": {
+        "manage_networks": "إدارة الشبكات",
         "assets": "الرموز",
         "NFTs": "المقتنيات",
         "receive_transaction_button": "استلام",

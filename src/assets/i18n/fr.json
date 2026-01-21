@@ -96,15 +96,20 @@
         "your_zelf_name": "Votre Nom d'Étiquette"
     },
     "settings": {
+        "networks_label": "Réseaux",
         "security_label": "Sécurité",
+        "subscription_label": "Abonnement",
+        "networks": {
+            "title": "Réseaux Blockchain",
+            "description": "Activez ou désactivez les réseaux que vous souhaitez utiliser dans votre portefeuille. Les réseaux désactivés n'apparaîtront pas dans votre liste de jetons."
+        },
         "security": {
             "biometric_verification_title": "Intervalle de vérification biométrique",
             "biometric_verification_description": "Définissez combien de temps l'entrée par mot de passe uniquement est autorisée avant qu'une vérification biométrique ne soit nécessaire. Vous pouvez définir cela de 5 à 60 minutes.",
             "password_attempts_title": "Tentatives de mot de passe",
             "minutes_before_reverification": "Minutes avant reverification",
             "password_attempts_description": "Définissez le nombre maximum de tentatives de mot de passe échouées avant qu'une vérification biométrique ne soit requise. Vous pouvez définir cela de 1 à 8 tentatives."
-        },
-        "subscription_label": "Abonnement"
+        }
     },
     "security": {
         "biometric_decryption_subtitle": "Pour finaliser le processus de décryptage, nous devons vérifier votre identité en utilisant vos données biométriques.",
@@ -415,6 +420,7 @@
         "you_receive": "Vous recevez"
     },
     "home": {
+        "manage_networks": "Gérer les réseaux",
         "assets": "Jetons",
         "NFTs": "Collections",
         "receive_transaction_button": "Recevoir",

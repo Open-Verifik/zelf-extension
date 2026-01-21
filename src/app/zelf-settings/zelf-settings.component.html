@@ -16,7 +16,7 @@
         </div>
 
         <div class="zelf-settings__col2">
-            <p class="zelf-settings__title">{{ t("common.settings") }}</p>
+            <p class="zelf-settings__title">{{ t(pageTitle) }}</p>
         </div>
 
         <div class="zelf-settings__col3"></div>
@@ -80,10 +80,18 @@
         </div>
     </ng-container>
 
-    <ng-container *ngIf="selectedSettings">
+    <ng-container *ngIf="selectedSettings === 'networks'">
+        <zelf-settings-networks></zelf-settings-networks>
+    </ng-container>
+
+    <ng-container *ngIf="selectedSettings === 'security'">
         <zelf-settings-security></zelf-settings-security>
     </ng-container>
 </div>
+
+<ng-template #networksIcon>
+    <span class="material-symbols-outlined zelf-icon">lan</span>
+</ng-template>
 
 <ng-template #securityIcon>
     <span class="material-symbols-outlined zelf-icon">security</span>

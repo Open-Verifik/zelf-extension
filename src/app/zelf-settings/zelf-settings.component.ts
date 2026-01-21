@@ -7,21 +7,32 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
 import { Subject, takeUntil } from "rxjs";
+import { ZelfSettingsNetworksComponent } from "./zelf-settings-networks/zelf-settings-networks.component";
 import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-settings-security.component";
 
 @Component({
-    imports: [NgFor, NgIf, TranslocoModule, MatButtonModule, RouterLink, NgTemplateOutlet, ZelfSettingsSecurityComponent],
+    imports: [
+        NgFor,
+        NgIf,
+        TranslocoModule,
+        MatButtonModule,
+        RouterLink,
+        NgTemplateOutlet,
+        ZelfSettingsNetworksComponent,
+        ZelfSettingsSecurityComponent,
+    ],
     selector: "zelf-settings",
     styleUrls: ["./zelf-settings.component.scss"],
     templateUrl: "./zelf-settings.component.html",
 })
 export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
+    @ViewChild("networksIcon", { static: true }) networksIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("securityIcon", { static: true }) securityIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("subscriptionIcon", { static: true }) subscriptionIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    selectedSettings: "security" | "" = "";
+    selectedSettings: "networks" | "security" | "" = "";
     settingsItems: {
         title: string;
         icon: string;
@@ -84,6 +95,14 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     private _setSettingItems() {
         this.settingsItems = [
             {
+                title: this._translocoService.translate("settings.networks_label"),
+                icon: "networksIcon",
+                routerLink: ["./"],
+                queryParams: {
+                    edit: "networks",
+                },
+            },
+            {
                 title: this._translocoService.translate("settings.security_label"),
                 icon: "securityIcon",
                 routerLink: ["./"],
@@ -112,6 +131,17 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
 
     getTemplateIcon(settingItem: { icon: string }): TemplateRef<any> | null {
         return (this[settingItem.icon as keyof ZelfSettingsComponent] as TemplateRef<any>) || null;
+    }
+
+    get pageTitle(): string {
+        switch (this.selectedSettings) {
+            case "networks":
+                return "settings.networks.title";
+            case "security":
+                return "settings.security_label";
+            default:
+                return "common.settings";
+        }
     }
 
     logout() {

@@ -15,6 +15,7 @@ import { TokenData, TransactionData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
+import { SettingsService } from "app/services/settings.service";
 
 @Component({
     imports: [
@@ -49,6 +50,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _transactionService: TransactionService,
         private _walletService: WalletService,
+        private _settingsService: SettingsService,
         private _bitcoinService: BitcoinService
     ) {
         this.CAN_SEND = this._assetService.canSend;
@@ -85,12 +87,28 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         });
     }
 
+    private _getEnabledNetworkIds(): string[] | undefined {
+        const settings = this._settingsService.settings;
+        if (!settings || !settings.networks) return undefined;
+        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+    }
+
     private async _loadTokensFromSession(): Promise<void> {
         try {
             const sessionTokens = await this._assetService.loadTokensFromSession();
+            const enabledNetworkIds = this._getEnabledNetworkIds();
 
             if (sessionTokens.length) {
-                this.tokens = sessionTokens.filter((token: TokenData) => this.isTokenSendable(token));
+                this.tokens = sessionTokens.filter((token: TokenData) => {
+                    if (!this.isTokenSendable(token)) return false;
+
+                    if (enabledNetworkIds) {
+                        const networkId = (token.network || "").toLowerCase();
+                        return enabledNetworkIds.includes(networkId);
+                    }
+
+                    return true;
+                });
             } else {
                 await this._fetchTokens();
             }
@@ -120,10 +138,11 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         try {
             if (!this.wallet || !this.wallet.publicData?.ethAddress) return;
 
-            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet));
+            const enabledNetworkIds = this._getEnabledNetworkIds();
+            const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet, enabledNetworkIds));
             const result = await this._assetService.processTokensFromResponse(response, this.CAN_SEND);
 
-            if (this.wallet.publicData?.btcAddress) {
+            if (this.wallet.publicData?.btcAddress && (!enabledNetworkIds || enabledNetworkIds.includes("bitcoin"))) {
                 try {
                     const btcBalance = await this._bitcoinService.getBitcoinBalance(this.wallet.publicData?.btcAddress);
 
@@ -147,7 +166,16 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
                 }
             }
 
-            this.tokens = result.tokens.filter((token: TokenData) => this.isTokenSendable(token));
+            this.tokens = result.tokens.filter((token: TokenData) => {
+                if (!this.isTokenSendable(token)) return false;
+
+                if (enabledNetworkIds) {
+                    const networkId = (token.network || "").toLowerCase();
+                    return enabledNetworkIds.includes(networkId);
+                }
+
+                return true;
+            });
         } catch (error) {
             console.error("Error fetching tokens:", error);
         } finally {

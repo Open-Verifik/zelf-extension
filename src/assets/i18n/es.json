@@ -96,15 +96,20 @@
         "your_zelf_name": "Tu Nombre de Etiqueta"
     },
     "settings": {
+        "networks_label": "Redes",
         "security_label": "Seguridad",
+        "subscription_label": "Suscripción",
+        "networks": {
+            "title": "Redes Blockchain",
+            "description": "Activa o desactiva las redes que deseas usar en tu billetera. Las redes desactivadas no aparecerán en tu lista de tokens."
+        },
         "security": {
             "biometric_verification_title": "Intervalo de verificación biométrica",
             "biometric_verification_description": "Establece cuánto tiempo se permite el ingreso solo con contraseña antes de que se necesite la verificación biométrica. Puedes configurarlo de 5 a 60 minutos.",
             "password_attempts_title": "Intentos de contraseña",
             "minutes_before_reverification": "Minutos antes de la reverificación",
             "password_attempts_description": "Establece el número máximo de intentos fallidos de contraseña antes de que se requiera la verificación biométrica. Puedes configurarlo de 1 a 8 intentos."
-        },
-        "subscription_label": "Suscripción"
+        }
     },
     "security": {
         "biometric_decryption_subtitle": "Para finalizar el proceso de descifrado, necesitamos verificar tu identidad usando tus datos biométricos.",
@@ -416,6 +421,7 @@
         "you_receive": "Tú recibes"
     },
     "home": {
+        "manage_networks": "Gestionar redes",
         "assets": "Tokens",
         "NFTs": "Coleccionables",
         "receive_transaction_button": "Recibir",

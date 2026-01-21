@@ -11,6 +11,7 @@ import { NetworkName, NetworkService, NetworkSymbol } from "app/services/network
 import { TokenData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { SettingsService } from "app/services/settings.service";
 
 export interface AssetChangeData {
     asset: TokenData;
@@ -62,6 +63,7 @@ export class SwapCurrencyComponent implements OnInit {
         private _lifiService: LifiService,
         private _networkService: NetworkService,
         private _walletService: WalletService,
+        private _settingsService: SettingsService,
         private _cdr: ChangeDetectorRef
     ) {
         this.loading = true;
@@ -71,6 +73,8 @@ export class SwapCurrencyComponent implements OnInit {
     }
 
     private _initNetworkOptions(): void {
+        const enabledNetworkIds = this._getEnabledNetworkIds();
+
         this.networkOptions = [
             "all",
             ...Object.keys(this._assetService.canSwap)
@@ -80,6 +84,11 @@ export class SwapCurrencyComponent implements OnInit {
                     if (!canSwap) return "";
 
                     const networkName = this._networkService.getNetworkName(networkSymbol as NetworkSymbol);
+
+                    // Check if network is enabled in settings
+                    if (enabledNetworkIds && !enabledNetworkIds.includes(networkName.toLowerCase())) {
+                        return "";
+                    }
 
                     return networkName;
                 })
@@ -101,12 +110,27 @@ export class SwapCurrencyComponent implements OnInit {
         return this.filteredAssets.slice(this.minPage - 1, this.maxPage * this._pageSize);
     }
 
+    private _getEnabledNetworkIds(): string[] | undefined {
+        const settings = this._settingsService.settings;
+        if (!settings || !settings.networks) return undefined;
+        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+    }
+
+    private _isNetworkEnabled(networkName: string): boolean {
+        const enabledNetworkIds = this._getEnabledNetworkIds();
+        if (!enabledNetworkIds) return true;
+        return enabledNetworkIds.includes(networkName.toLowerCase());
+    }
+
     get filteredAssets(): TokenData[] {
         return this.assets.filter((asset) => {
             if (!asset) return false;
 
+            const networkName = asset.network || "";
+            if (!this._isNetworkEnabled(networkName)) return false;
+
             const selectedNetwork = this.form.get("networkFilter")?.value?.toLowerCase();
-            const matchesNetwork = selectedNetwork === "all" || asset.network?.toLowerCase() === selectedNetwork;
+            const matchesNetwork = selectedNetwork === "all" || networkName.toLowerCase() === selectedNetwork;
 
             const searchText = this.form.get("textFilter")?.value?.toLowerCase() || "";
             const matchesText =

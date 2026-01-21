@@ -140,6 +140,10 @@
                     *ngFor="let token of tokens"
                     (pinToggled)="onTokenPinToggled($event)"
                 ></token-card>
+
+                <div class="home__manage-networks" [routerLink]="['/settings']" [queryParams]="{ edit: 'networks' }">
+                    {{ t("home.manage_networks") }}
+                </div>
             </div>
 
             <div class="home__assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="center center">

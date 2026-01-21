@@ -24,7 +24,7 @@
 
     &__col1,
     &__col3 {
-        grid-column: span 3;
+        grid-column: span 2;
         display: flex;
         align-items: center;
     }
@@ -34,7 +34,7 @@
     }
 
     &__col2 {
-        grid-column: span 4;
+        grid-column: span 6;
         text-align: center;
         align-items: center;
     }
@@ -46,7 +46,7 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 24px;
+        font-size: 20px;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;

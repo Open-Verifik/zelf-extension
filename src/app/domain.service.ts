@@ -58,6 +58,18 @@ export class DomainService {
                         walrusEnabled: true,
                         backupEnabled: false,
                     },
+                    wallet: {
+                        networks: {
+                            ethereum: { enabled: true },
+                            solana: { enabled: true },
+                            bitcoin: { enabled: true },
+                            blockdag: { enabled: true },
+                            avalanche: { enabled: true },
+                            binance: { enabled: true },
+                            polygon: { enabled: true },
+                            sui: { enabled: true },
+                        },
+                    },
                 },
                 zelfkeys: {
                     plans: [],

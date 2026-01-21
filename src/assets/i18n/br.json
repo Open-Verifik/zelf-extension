@@ -96,7 +96,13 @@
         "your_zelf_name": "Seu Tag Name"
     },
     "settings": {
+        "networks_label": "Redes",
         "security_label": "Segurança",
+        "subscription_label": "Assinatura",
+        "networks": {
+            "title": "Redes Blockchain",
+            "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
+        },
         "security": {
             "biometric_verification_title": "Intervalo de verificação biométrica",
             "biometric_verification_description": "Defina por quanto tempo a entrada apenas com senha é permitida antes que a verificação biométrica seja necessária. Você pode definir isso de 5 a 60 minutos.",
@@ -392,6 +398,7 @@
         "you_receive": "Você recebe"
     },
     "home": {
+        "manage_networks": "Gerenciar redes",
         "assets": "Tokens",
         "NFTs": "Colecionáveis",
         "receive_transaction_button": "Receber",

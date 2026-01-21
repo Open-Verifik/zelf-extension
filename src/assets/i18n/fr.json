@@ -45,7 +45,8 @@
         "economical": "Économique",
         "fastest": "La plus rapide",
         "transaction_settings": "Paramètres de transaction",
-        "upto_sats": "Jusqu'à {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutes"
+        "upto_sats": "Jusqu'à {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutes",
+        "private_transaction": "Transaction Privée"
     },
     "transaction": {
         "go_to_my_history": "Aller à mon historique",
@@ -101,7 +102,8 @@
         "subscription_label": "Abonnement",
         "networks": {
             "title": "Réseaux Blockchain",
-            "description": "Activez ou désactivez les réseaux que vous souhaitez utiliser dans votre portefeuille. Les réseaux désactivés n'apparaîtront pas dans votre liste de jetons."
+            "description": "Activez ou désactivez les réseaux que vous souhaitez utiliser dans votre portefeuille. Les réseaux désactivés n'apparaîtront pas dans votre liste de jetons.",
+            "no_networks_available": "Aucun réseau disponible pour votre licence. Veuillez mettre à niveau votre plan pour accéder à plus de réseaux."
         },
         "security": {
             "biometric_verification_title": "Intervalle de vérification biométrique",
@@ -141,7 +143,8 @@
         "create_pin_title": "CRÉER UN PIN",
         "create_pin_subtitle": "Veuillez entrer un mot de passe à 6 chiffres pour votre ZelfProof.",
         "confirm_pin_title": "CONFIRMER LE PIN",
-        "confirm_pin_subtitle": "Veuillez ré-entrer le mot de passe à 6 chiffres pour votre ZelfProof."
+        "confirm_pin_subtitle": "Veuillez ré-entrer le mot de passe à 6 chiffres pour votre ZelfProof.",
+        "pin_confirm_description": "Entrez à nouveau votre code PIN de 6 caractères pour confirmer"
     },
     "receive": {
         "information": "Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",
@@ -996,8 +999,13 @@
                 "labels": {
                     "status": "Statut",
                     "reason": "Raison",
-                    "error": "Erreur"
-                }
+                    "error": "Erreur",
+                    "blob_id": "ID du Blob",
+                    "public_url": "URL Publique",
+                    "explorer_url": "URL de l'Explorateur"
+                },
+                "view_link": "Voir sur Walrus",
+                "explorer_link": "Voir sur l'Explorateur"
             }
         },
         "actions": {

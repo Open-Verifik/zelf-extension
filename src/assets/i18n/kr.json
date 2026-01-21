@@ -45,7 +45,8 @@
         "economical": "경제적",
         "fastest": "가장 빠름",
         "transaction_settings": "거래 설정",
-        "upto_sats": "최대 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 분"
+        "upto_sats": "최대 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 분",
+        "private_transaction": "프라이빗 트랜잭션"
     },
     "transaction": {
         "go_to_my_history": "내 내역으로 이동",
@@ -101,7 +102,8 @@
         "subscription_label": "구독",
         "networks": {
             "title": "블록체인 네트워크",
-            "description": "지갑에서 사용할 네트워크를 활성화하거나 비활성화합니다. 비활성화된 네트워크는 토큰 목록에 표시되지 않습니다."
+            "description": "지갑에서 사용할 네트워크를 활성화하거나 비활성화합니다. 비활성화된 네트워크는 토큰 목록에 표시되지 않습니다.",
+            "no_networks_available": "현재 라이선스에서 사용할 수 있는 네트워크가 없습니다. 더 많은 네트워크를 사용하려면 플랜을 업그레이드해 주세요."
         },
         "security": {
             "biometric_verification_title": "생체 인증 간격",
@@ -141,7 +143,8 @@
         "create_pin_title": "PIN 만들기",
         "create_pin_subtitle": "ZelfProof를 위한 6자리 비밀번호를 입력하세요.",
         "confirm_pin_title": "PIN 확인",
-        "confirm_pin_subtitle": "ZelfProof를 위한 6자리 비밀번호를 다시 입력하세요."
+        "confirm_pin_subtitle": "ZelfProof를 위한 6자리 비밀번호를 다시 입력하세요.",
+        "pin_confirm_description": "6자리 PIN을 다시 입력하여 확인해 주세요"
     },
     "receive": {
         "information": "이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
@@ -264,7 +267,17 @@
         "withdrawal_network": "출금 네트워크",
         "yes": "예",
         "your_token": "귀하의 {{ symbol }}",
-        "zelf_wallet": "Zelf 지갑"
+        "zelf_wallet": "Zelf 지갑",
+        "optional": "선택 사항",
+        "no_results_found": "검색 결과가 없습니다",
+        "avax_address": "AVAX 주소",
+        "download_apps": "앱 다운로드",
+        "download_qr": "QR 다운로드",
+        "seed_phrase": "시드 구문",
+        "zelf_authenticator": "Zelf OTP인증기",
+        "zelf_keys": "Zelf 키",
+        "zelf_link": "Zelf 링크",
+        "subscriptions": "구독"
     },
     "token": {
         "24h_performance": "24시간 성과",
@@ -315,8 +328,7 @@
         "domain_warning": "아직 구매할 시간이 있습니다",
         "expired_wallet_logout_message": "태그 이름으로 검색하면 이 ZelfProof를 다시 복호화할 수 있습니다. 그러나 곧 구매하지 않으면 잃을 위험이 있습니다.",
         "logout_of_wallet_message": "태그 이름으로 검색하거나 ZelfProof QR 코드를 로드하여 이 ZelfProof를 다시 복호화할 수 있습니다.",
-        "purchase_new_domain": "새 태그 이름 추가",
-        "zelfproof_removed_successfully": "ZelfProof가 성공적으로 제거되었습니다"
+        "purchase_new_domain": "새 태그 이름 추가"
     },
     "liveness": {
         "center_your_face": "화면 중앙에 얼굴을 위치시키세요",
@@ -373,7 +385,22 @@
         "swap_same_asset": "동일한 자산으로 스왑할 수 없습니다",
         "transaction_not_found": "거래를 찾을 수 없습니다",
         "try_again": "다시 시도",
-        "zelfName_is_taken": "이 태그 이름은 이미 사용 중입니다"
+        "zelfName_is_taken": "이 태그 이름은 이미 사용 중입니다",
+        "camera_dimensions_not_properly_initialized": "카메라가 제대로 초기화되지 않았습니다",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP를 복호화할 수 없음: ZelfProof가 누락되었습니다. 유효한 ZelfProof 없이는 이 ZOTP를 복호화할 수 없습니다.",
+        "error_closing_popup": "창을 닫는 중 오류 발생",
+        "error_initializing_biometrics": "생체 인증 초기화 오류",
+        "error_sending_decryption_result_to_background": "확장 프로그램과 통신 중 오류 발생",
+        "error_stopping_camera": "카메라를 중지하는 중 오류 발생",
+        "face_detection_error": "얼굴 감지 실패",
+        "incorrect_passphrase": "마스터 비밀번호가 올바르지 않습니다. 다시 시도해 주세요.",
+        "no_decrypted_data_received_from_api": "서버로부터 복호화된 데이터를 받지 못했습니다",
+        "no_zelfproof_available_for_password_decryption": "비밀번호 복호화를 위한 ZelfProof를 사용할 수 없습니다",
+        "session_init_info": "태그 이름 서비스 확장 프로그램을 사용하려면 네트워크 연결이 필요합니다. 오프라인 솔루션은 iOS 및 Android 앱을 확인해 주세요.",
+        "session_init_message": "죄송합니다, 세션을 초기화하는 중에 문제가 발생했습니다. 네트워크 문제이거나 서버를 사용할 수 없는 상태일 수 있습니다. 다시 시도해 주세요.",
+        "session_init_title": "세션 초기화 실패",
+        "unknown_error": "알 수 없는 오류가 발생했습니다",
+        "user_cancelled_decryption": "복호화가 취소되었습니다"
     },
     "swap": {
         "automatic": "자동",
@@ -405,7 +432,8 @@
         "send_transaction_button": "보내기",
         "settings_button": "설정",
         "support_button": "지원",
-        "swap": "스왑"
+        "swap": "스왑",
+        "keys": "키"
     },
     "id_scanning": {
         "camera_not_found": "카메라를 찾을 수 없습니다",
@@ -468,5 +496,1057 @@
         "considerations_description_1": "깨지지 않는 보안.",
         "considerations_description_2": "고유한 정체성.",
         "considerations_description_3": "미래 지향적 보호."
+    },
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "지갑"
+        },
+        "common": {
+            "qr_code": "QR 코드",
+            "no_folder": "폴더 없음",
+            "download_zelfproof": "ZelfProof 다운로드",
+            "back_to_payment_cards": "결제 카드 목록으로 돌아가기",
+            "add_another_card": "다른 카드 추가",
+            "try_again": "다시 시도",
+            "image_not_available": "이미지를 사용할 수 없음"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "카드 소유자",
+                "expires": "만료일",
+                "bank_name": "은행명",
+                "card_number": "카드 번호",
+                "expiry_date": "만료일",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "카드 소유자"
+            },
+            "decrypt": {
+                "button": "결제 카드 복호화",
+                "decrypting": "복호화 중..."
+            },
+            "info": {
+                "title": "결제 카드 정보",
+                "payment_card_id": "결제 카드 ID",
+                "type": "유형",
+                "folder": "폴더",
+                "copy_payment_card_id": "결제 카드 ID 복사"
+            },
+            "zelfproof": {
+                "title": "ZelfProof",
+                "download": "ZelfProof 다운로드"
+            },
+            "decrypted": {
+                "title": "복호화된 내용",
+                "card_holder_name": "카드 소유자 이름",
+                "copy_card_holder_name": "카드 소유자 이름 복사",
+                "copy_card_number": "카드 번호 복사",
+                "copy_expiry_date": "만료일 복사",
+                "copy_cvv": "CVV 복사",
+                "copy_bank_name": "은행명 복사",
+                "show_card_number": "카드 번호 표시",
+                "hide_card_number": "카드 번호 숨기기",
+                "show_cvv": "CVV 표시",
+                "hide_cvv": "CVV 숨기기"
+            },
+            "error": {
+                "no_wallet": "지갑을 찾을 수 없습니다. 먼저 지갑을 설정해 주세요.",
+                "auth_failed": "인증에 실패했습니다. 유효한 지갑이 있는지 확인해 주세요.",
+                "init_failed": "세션 초기화에 실패했습니다. 지갑 연결을 확인해 주세요.",
+                "no_token": "인증 토큰을 사용할 수 없습니다. 페이지를 새로고침해 주세요.",
+                "load_failed": "결제 카드를 불러오지 못했습니다. 다시 시도해 주세요."
+            },
+            "unknown_bank": "알 수 없는 은행",
+            "unknown": "알 수 없음",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "결제 카드 데이터를 가져오지 못했습니다.",
+                    "decrypt_failed": "결제 카드 복호화에 실패했습니다. 다시 시도해 주세요."
+                },
+                "expiry_placeholder": "MM/YY"
+            },
+            "result": {
+                "error": {
+                    "no_data": "결과 데이터를 찾을 수 없습니다."
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "결제 카드가 성공적으로 생성되었습니다!",
+                "description": "결제 카드가 안전하게 암호화되어 저장되었습니다."
+            },
+            "preview": {
+                "title": "카드 상세 정보",
+                "labels": {
+                    "name": "결제 카드 이름",
+                    "card_holder": "카드 소유자",
+                    "card_number": "카드 번호",
+                    "expires": "만료일"
+                }
+            },
+            "image": {
+                "title": "ZelfProof",
+                "download": "ZelfProof 다운로드"
+            },
+            "nft": {
+                "title": "NFT 생성됨",
+                "labels": {
+                    "token_id": "토큰 ID",
+                    "cost": "비용",
+                    "contract": "컨트랙트",
+                    "transaction": "트랜잭션",
+                    "metadata_url": "메타데이터 URL"
+                },
+                "metadata_link": "메타데이터 보기",
+                "copy_hint": "클릭하여 복사",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "IPFS 스토리지",
+                "labels": {
+                    "hash": "IPFS 해시",
+                    "gateway_url": "게이트웨이 URL",
+                    "file_size": "파일 크기",
+                    "uploaded": "업로드됨"
+                },
+                "gateway_link": "IPFS 게이트웨이에서 보기"
+            },
+            "walrus": {
+                "title": "Walrus 스토리지",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "공개 URL",
+                    "explorer_url": "익스플로러 URL",
+                    "status": "상태",
+                    "reason": "사유",
+                    "error": "오류"
+                },
+                "view_link": "Walrus에서 보기",
+                "explorer_link": "익스플로러에서 보기"
+            },
+            "zelfproof": {
+                "title": "ZelfProof 생성됨",
+                "labels": {
+                    "string": "ZelfProof 문자열",
+                    "qr_code": "QR 코드"
+                },
+                "copy_hint": "클릭하여 복사"
+            },
+            "error": {
+                "title": "결제 카드 생성 오류",
+                "default_message": "결제 카드를 생성하는 동안 예기치 않은 오류가 발생했습니다.",
+                "try_again": "다시 시도",
+                "no_data": "결과 데이터를 찾을 수 없습니다."
+            },
+            "actions": {
+                "back_to_cards": "결제 카드 목록으로 돌아가기",
+                "add_another": "다른 카드 추가"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "플랜 선택",
+            "choose_your_plan_subtitle": "사용자에게 가장 적합한 플랜을 선택해 주세요",
+            "loading_plans": "구독 플랜을 불러오는 중...",
+            "error": {
+                "try_again": "다시 시도",
+                "load_plans": "구독 플랜을 불러오지 못했습니다",
+                "create_crypto_payment": "암호화폐 결제 생성에 실패했습니다",
+                "create_checkout": "체크아웃 세션 생성에 실패했습니다",
+                "open_portal": "구독 관리 포탈을 여는 데 실패했습니다",
+                "customer_not_found": "고객 정보를 찾을 수 없습니다. 고객 센터에 문의해 주세요.",
+                "no_subscription": "활성화된 구독을 찾을 수 없습니다. 페이지를 새로고침해 주세요.",
+                "open_portal_generic": "구독 관리 열기 실패: {{ error }}",
+                "missing_payment_data": "결제 데이터가 누락되었습니다. 다시 시도해 주세요.",
+                "no_avax_address": "선택한 지갑에 AVAX 주소가 없습니다.",
+                "no_avax_token": "AVAX 토큰 데이터를 불러올 수 없습니다. 다시 시도해 주세요.",
+                "prepare_transaction": "트랜잭션 준비에 실패했습니다. 다시 시도해 주세요."
+            },
+            "crypto": {
+                "complete_payment": "결제 완료하기",
+                "demo_banner": "데모 모드 - 테스트용 소액 결제",
+                "send_amount_to_address": "아래 주소로 {{ amount }} AVAX를 전송해 주세요",
+                "price_lock": "30분 동안 가격이 고정됩니다",
+                "payment_address_label": "결제 주소 (Avalanche C-Chain)",
+                "copy": "복사",
+                "scan_with_wallet": "지갑으로 스캔",
+                "amount_to_send": "전송할 금액",
+                "original_plan_price": "기본 플랜 가격:",
+                "demo_discount": "데모 할인: {{ discount }}%",
+                "waiting_confirmation": "결제 확인 대기 중...",
+                "auto_update_note": "결제가 완료되면 이 페이지가 자동으로 업데이트됩니다",
+                "cancel_payment": "결제 취소",
+                "payment_methods": "결제 수단",
+                "copy_address": "주소 복사:",
+                "scan_address": "주소 스캔:",
+                "pay_with_wallet": "지갑으로 결제:",
+                "domain_label": "도메인",
+                "select_wallet": "지갑 선택",
+                "pay_with_avax": "AVAX로 결제",
+                "payment_qr_code_alt": "결제 QR 코드"
+            },
+            "plan": {
+                "popular_badge": "인기",
+                "pay_with_stripe": "Stripe로 결제",
+                "pay_with_crypto": "암호화폐로 결제",
+                "current_plan": "현재 플랜",
+                "premium_plan": "프리미엄 플랜",
+                "not_available": "해당 없음",
+                "month": "월"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "카메라를 응시하여 본인 확인을 완료하고 {{ type }}를 안전하게 저장해 주세요",
+                "decrypt": "카메라를 응시하여 본인 확인을 완료하고 {{ type }}에 액세스해 주세요"
+            },
+            "processing": {
+                "processing": "생체 데이터를 처리 중입니다...",
+                "analyzing": "얼굴을 분석 중입니다..."
+            },
+            "status": {
+                "position_face_title": "얼굴을 중앙에 맞춰주세요",
+                "position_face_subtitle": "카메라를 정면으로 응시하고 정지해 주세요"
+            },
+            "api_error": {
+                "title": "인증 실패",
+                "try_again": "다시 시도",
+                "go_back": "돌아가기"
+            },
+            "camera_error": {
+                "title": "카메라를 사용할 수 없음",
+                "description": "생체 인증을 위해 카메라가 활성화되어 있고 접근 가능한지 확인해 주세요"
+            },
+            "permission": {
+                "title": "카메라 권한 필요",
+                "description": "생체 인증을 계속하려면 카메라 접근을 허용해 주세요",
+                "go_back": "돌아가기"
+            },
+            "close_aria": "생체 인증 닫기",
+            "errors": {
+                "no_face_detected": "얼굴이 감지되지 않음",
+                "look_at_camera": "카메라를 응시해 주세요"
+            }
+        },
+        "subscription_banner": {
+            "title": "프리미엄 기능 잠금 해제",
+            "description": "ZelfKeys 프리미엄으로 무제한 액세스, 고급 보안 등을 누려보세요"
+        },
+        "data_card": {
+            "details": "상세 정보",
+            "no_qr": "QR 없음",
+            "untitled": "제목 없음",
+            "username_label": "사용자 이름: {{ username }}",
+            "zelf_name_label": "태그 이름: {{ zelfName }}",
+            "category_label": "카테고리: {{ category }}",
+            "type_label": "유형: {{ type }}",
+            "secure_credential": "보안 자격 증명"
+        },
+        "data_types": {
+            "note": "노트",
+            "password": "비밀번호",
+            "payment_card": "결제 카드"
+        },
+        "categories": {
+            "password": "비밀번호",
+            "note": "노트",
+            "notes": "노트",
+            "payment_card": "결제 카드",
+            "card": "카드",
+            "contact": "연락처",
+            "zotp": "ZOTP"
+        },
+        "errors": {
+            "storing": "{{ type }} 저장 오류",
+            "retrieving": "{{ type }} 검색 오류"
+        },
+        "messages": {
+            "note_retrieved": "노트를 성공적으로 가져왔습니다",
+            "note_stored": "노트를 성공적으로 저장했습니다",
+            "password_retrieved": "비밀번호를 성공적으로 가져왔습니다",
+            "password_stored": "비밀번호를 성공적으로 저장했습니다"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "결제 카드 암호화를 위한 본인 확인",
+            "decrypt_payment_card": "결제 카드 복호화를 위한 본인 확인",
+            "encrypt_note": "노트 암호화를 위한 본인 확인",
+            "decrypt_note": "노트 복호화를 위한 본인 확인",
+            "encrypt_password": "비밀번호 암호화를 위한 본인 확인",
+            "decrypt_password": "비밀번호 복호화를 위한 본인 확인",
+            "instructions": {
+                "payment_card": "얼굴을 인증하여 결제 카드를 복호화해 주세요",
+                "note": "얼굴을 인증하여 노트를 복호화해 주세요",
+                "password": "얼굴을 인증하여 비밀번호를 복호화해 주세요"
+            },
+            "item": "항목",
+            "error": {
+                "storage_failed": "{{ category }} 저장 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+                "try_again_later": "나중에 다시 시도해 주세요.",
+                "close": "닫기"
+            }
+        },
+        "popout_decryptor": {
+            "back": "뒤로",
+            "cancel": "취소",
+            "loading_camera": "카메라 초기화 중...",
+            "low_quality_message": "더 밝은 곳에서 다시 시도해 주세요",
+            "low_quality_title": "저화질 이미지",
+            "master_password_placeholder": "마스터 비밀번호 입력",
+            "permission_allow": "카메라 접근을 허용해 주세요",
+            "permission_required": "카메라 권한 필요",
+            "processing": "복호화 중...",
+            "retry": "재시도",
+            "title": "{{ type }} 복호화",
+            "unlock": "본인 인증 계속하기",
+            "types": {
+                "credit_card": "결제 카드",
+                "note": "노트",
+                "notes": "노트",
+                "password": "비밀번호",
+                "payment-card": "결제 카드",
+                "wallet": "지갑",
+                "zotp": "ZOTP"
+            }
+        },
+        "password_biometrics": {
+            "back_to_details": "비밀번호 상세로 돌아가기",
+            "back_to_form": "비밀번호 양식으로 돌아가기",
+            "verify_to_decrypt": "복호화를 위한 본인 확인",
+            "biometric_verification": "생체 인증",
+            "instruction_title": "얼굴을 중앙에 맞춰주세요",
+            "instruction_subtitle": "카메라를 정면으로 응시하고 정지해 주세요",
+            "compact_encrypt": "카메라를 응시하여 본인 확인을 완료하고 비밀번호를 안전하게 저장해 주세요",
+            "compact_decrypt": "카메라를 응시하여 본인 확인을 완료하고 비밀번호를 복호화해 주세요",
+            "loading_processing": "생체 데이터를 처리 중입니다...",
+            "camera_error_title": "카메라를 사용할 수 없음",
+            "camera_error_desc": "생체 인증을 위해 카메라가 활성화되어 있고 접근 가능한지 확인해 주세요",
+            "permission_title": "카메라 권한 필요",
+            "permission_desc": "생체 인증을 계속하려면 카메라 접근을 허용해 주세요",
+            "go_back": "돌아가기",
+            "master_password_label": "마스터 비밀번호 (선택 사항):",
+            "master_password_placeholder": "마스터 비밀번호가 있다면 입력해 주세요",
+            "master_password_hint": "이 항목을 생성할 때 마스터 비밀번호를 설정했다면 여기에 입력해 주세요"
+        },
+        "note_result": {
+            "title": "노트 저장 결과",
+            "loading": "결과를 불러오는 중...",
+            "sections": {
+                "success": {
+                    "title": "저장 성공!",
+                    "message": "노트를 성공적으로 저장했습니다!"
+                },
+                "details": {
+                    "title": "저장된 노트 상세 정보",
+                    "labels": {
+                        "title": "제목",
+                        "folder": "폴더",
+                        "type": "유형",
+                        "category": "카테고리",
+                        "zelf_name": "태그 이름",
+                        "timestamp": "타임스탬프"
+                    }
+                },
+                "nft": {
+                    "title": "NFT 생성됨",
+                    "labels": {
+                        "token_id": "토큰 ID",
+                        "cost": "비용",
+                        "contract": "컨트랙트",
+                        "transaction": "트랜잭션"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "IPFS 스토리지",
+                    "labels": {
+                        "hash": "IPFS 해시",
+                        "gateway_url": "게이트웨이 URL",
+                        "file_size": "파일 크기",
+                        "uploaded": "업로드됨"
+                    },
+                    "gateway_link": "IPFS 게이트웨이에서 보기"
+                },
+                "walrus": {
+                    "title": "Walrus 스토리지",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "공개 URL",
+                        "explorer_url": "익스플로러 URL",
+                        "status": "상태",
+                        "reason": "사유",
+                        "error": "오류"
+                    },
+                    "view_link": "Walrus에서 보기",
+                    "explorer_link": "익스플로러에서 보기"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof 생성됨",
+                    "labels": {
+                        "string": "ZelfProof 문자열",
+                        "qr_code": "QR 코드"
+                    },
+                    "copy_hint": "클릭하여 복사",
+                    "qr_alt": "ZelfProof QR 코드"
+                },
+                "debug": {
+                    "title": "디버그 정보"
+                },
+                "next_steps": {
+                    "title": "다음 단계",
+                    "success_message": "노트가 안전하게 저장되었습니다. 노트 목록에서 확인하거나 다른 노트를 추가할 수 있습니다.",
+                    "error_message": "위의 오류 상세 내용을 확인하고 다시 시도해 주세요. 문제가 지속되면 지원팀에 문의해 주세요.",
+                    "unknown_message": "상태를 특정할 수 없습니다. 위의 API 응답 상세 내용을 확인해 주세요."
+                }
+            },
+            "actions": {
+                "back_to_notes": "노트 목록으로 돌아가기",
+                "add_another": "다른 노트 추가"
+            },
+            "status": {
+                "success_title": "노트가 성공적으로 저장되었습니다!",
+                "error_title": "노트 저장 오류",
+                "unknown_title": "알 수 없는 상태",
+                "success_message": "노트가 블록체인 검증과 함께 안전하게 암호화되어 저장되었습니다.",
+                "error_message": "노트를 저장하는 동안 오류가 발생했습니다.",
+                "unknown_message": "시스템이 저장 상태를 확인할 수 없습니다."
+            },
+            "error": {
+                "no_result": "사용 가능한 API 결과가 없습니다"
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "비밀번호가 성공적으로 저장되었습니다!",
+                "error_title": "비밀번호 저장 오류",
+                "unknown_title": "알 수 없는 상태",
+                "success_message": "비밀번호가 생체 인증과 함께 안전하게 저장되었습니다.",
+                "error_message": "비밀번호를 저장하는 동안 오류가 발생했습니다. 다시 시도해 주세요.",
+                "unknown_message": "비밀번호 저장 요청 상태가 불분명합니다."
+            },
+            "error": {
+                "no_result": "사용 가능한 API 결과가 없습니다"
+            }
+        }
+    },
+    "billing": {
+        "common": {
+            "master_password_placeholder": "마스터 비밀번호 입력"
+        },
+        "activation": {
+            "title": "결제 확인됨!",
+            "message": "구독 활성화 중... 축하합니다! 결제가 확인되었으며 구독이 활성화되고 있습니다."
+        },
+        "subscription": {
+            "active_subscription": "활성 구독",
+            "cancelled_active": "취소됨 (기간 만료 전까지 활성)",
+            "plan": "플랜:",
+            "price": "가격:",
+            "payment_method": "결제 수단:",
+            "status": "상태:",
+            "transaction": "트랜잭션:",
+            "zelf_name": "태그 이름:",
+            "start_date": "시작일:",
+            "expires_on": "만료일:",
+            "next_billing": "다음 결제일:",
+            "access_ends": "액세스 종료일:",
+            "cancelled_on": "취소일:",
+            "manage_subscription": "구독 관리",
+            "crypto_subscription_active": "암호화폐 구독 활성화됨",
+            "crypto_subscription_info": "구독료가 AVAX 암호화폐로 결제되었습니다. 혜택을 유지하려면 주기가 끝날 때 수동으로 갱신해야 합니다.",
+            "crypto_subscription_title": "암호화폐 결제 구독",
+            "payment_method_crypto": "암호화폐 (AVAX)",
+            "payment_method_stripe": "Stripe",
+            "transaction_verified": "Avalanche 블록체인에서 트랜잭션이 확인되었습니다.",
+            "manage_note_active": "Stripe 고객 포탈에서 구독 관리, 결제 수단 업데이트, 청구 내역 확인 등을 할 수 있습니다.",
+            "manage_note_cancelled": "구독이 취소되었으나 결제 기간이 끝날 때까지는 활성 상태로 유지됩니다. Stripe 고객 포탈에서 재활성화하거나 청구 내역을 확인할 수 있습니다.",
+            "demo": "데모",
+            "active": "활성",
+            "cancelled": "취소됨"
+        },
+        "dashboard": {
+            "start": "시작",
+            "passwords": "비밀번호",
+            "notes": "노트",
+            "payment_cards": "결제 카드",
+            "subscription": "구독",
+            "add_password": "비밀번호 추가",
+            "add_note": "노트 추가",
+            "add_payment_card": "결제 카드 추가"
+        },
+        "payment_cards": {
+            "title": "결제 카드",
+            "subtitle": "결제 카드 정보를 안전하게 저장하세요",
+            "loading": {
+                "title": "결제 카드를 불러오는 중",
+                "message": "보안 데이터를 가져오는 동안 잠시 기다려 주세요..."
+            },
+            "error": {
+                "title": "오류가 발생했습니다",
+                "message": "결제 카드를 불러올 수 없습니다.",
+                "try_again": "다시 시도",
+                "no_wallet": "지갑을 찾을 수 없습니다. 먼저 지갑을 설정해 주세요.",
+                "auth_failed": "인증에 실패했습니다. 유효한 지갑이 있는지 확인해 주세요.",
+                "init_failed": "세션 초기화에 실패했습니다. 지갑 연결을 확인해 주세요.",
+                "no_token": "인증 토큰을 사용할 수 없습니다. 페이지를 새로고침해 주세요.",
+                "load_failed": "결제 카드를 불러오지 못했습니다. 다시 시도해 주세요."
+            },
+            "unknown_bank": "알 수 없는 은행",
+            "unknown": "알 수 없음",
+            "premium": {
+                "title": "프리미엄 기능 잠금 해제",
+                "description": "ZelfKeys 프리미엄으로 고급 보안 등 더 많은 기능을 누려보세요"
+            },
+            "add_card": {
+                "title": "새 카드 추가",
+                "description": "결제 카드를 안전하게 저장하세요"
+            },
+            "card": {
+                "card_holder": "카드 소유자",
+                "expires": "만료",
+                "card_number": "카드 번호",
+                "expiry_date": "만료일",
+                "card_type": "카드 유형",
+                "cvv": "CVV",
+                "billing_address": "청구 주소",
+                "notes": "노트",
+                "no_card_holder": "카드 소유자 없음",
+                "no_expiry": "만료일 없음",
+                "no_card_number": "카드 번호 없음",
+                "no_card_type": "카드 유형 없음",
+                "no_cvv": "CVV 없음",
+                "no_billing_address": "청구 주소 없음",
+                "no_notes": "노트 없음"
+            },
+            "detail": {
+                "title": "결제 카드 상세 정보",
+                "loading": "결제 카드 정보를 불러오는 중...",
+                "error": {
+                    "title": "결제 카드를 불러오는 중 오류 발생",
+                    "go_back": "뒤로",
+                    "retrieve_failed": "결제 카드 데이터를 가져오지 못했습니다",
+                    "decrypt_failed": "결제 카드 복호화에 실패했습니다. 다시 시도해 주세요."
+                },
+                "expiry_placeholder": "MM/YY",
+                "decrypt": {
+                    "button": "카드 복호화",
+                    "decrypting": "복호화 중..."
+                },
+                "info": {
+                    "title": "카드 정보",
+                    "card_number": "카드 번호",
+                    "card_holder": "카드 소유자",
+                    "expiry_date": "만료일",
+                    "card_type": "카드 유형",
+                    "cvv": "CVV",
+                    "billing_address": "청구 주소",
+                    "notes": "노트",
+                    "copy_card_number": "카드 번호 복사",
+                    "copy_card_holder": "카드 소유자 이름 복사",
+                    "copy_expiry": "만료일 복사",
+                    "copy_card_type": "카드 유형 복사",
+                    "copy_cvv": "CVV 복사",
+                    "copy_billing_address": "청구 주소 복사",
+                    "copy_notes": "노트 복사"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "ZelfProof 다운로드"
+                },
+                "decrypted": {
+                    "title": "복호화된 카드 정보",
+                    "card_number": "카드 번호",
+                    "card_holder": "카드 소유자",
+                    "expiry_date": "만료일",
+                    "card_type": "카드 유형",
+                    "cvv": "CVV",
+                    "billing_address": "청구 주소",
+                    "notes": "노트",
+                    "show_card_number": "카드 번호 표시",
+                    "hide_card_number": "카드 번호 숨기기",
+                    "show_cvv": "CVV 표시",
+                    "hide_cvv": "CVV 숨기기",
+                    "copy_card_number": "카드 번호 복사",
+                    "copy_card_holder": "카드 소유자 이름 복사",
+                    "copy_expiry": "만료일 복사",
+                    "copy_card_type": "카드 유형 복사",
+                    "copy_cvv": "CVV 복사",
+                    "copy_billing_address": "청구 주소 복사",
+                    "copy_notes": "노트 복사"
+                }
+            },
+            "form": {
+                "title": {
+                    "add": "새 결제 카드 추가",
+                    "edit": "결제 카드 수정",
+                    "label": "은행명 *"
+                },
+                "card_number": {
+                    "label": "카드 번호 *"
+                },
+                "card_holder": {
+                    "label": "카드 소유자 성함 *"
+                },
+                "expiry_month": {
+                    "label": "만료월 *",
+                    "placeholder": "MM"
+                },
+                "expiry_year": {
+                    "label": "만료연도 *"
+                },
+                "card_type": {
+                    "label": "카드 유형 *",
+                    "placeholder": "카드 유형 선택"
+                },
+                "cvv": {
+                    "label": "CVV *"
+                },
+                "billing_address": {
+                    "label": "청구 주소",
+                    "placeholder": "청구 주소 입력 (선택 사항)"
+                },
+                "notes": {
+                    "label": "노트",
+                    "placeholder": "노트 입력 (선택 사항)"
+                },
+                "folder": {
+                    "label": "폴더에 저장",
+                    "placeholder": "폴더 이름",
+                    "aria_label": "폴더 저장 토글"
+                },
+                "master_password": {
+                    "hint": "자격 증명을 암호화하여 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
+                },
+                "buttons": {
+                    "cancel": "취소",
+                    "create": "카드 생성",
+                    "update": "카드 업데이트"
+                }
+            }
+        },
+        "notes": {
+            "title": "노트",
+            "subtitle": "보안 노트와 키-값 쌍을 관리하세요",
+            "loading": {
+                "title": "노트를 불러오는 중",
+                "message": "보안 데이터를 가져오는 동안 잠시 기다려 주세요..."
+            },
+            "error": {
+                "title": "오류가 발생했습니다",
+                "message": "노트를 불러올 수 없습니다.",
+                "try_again": "다시 시도",
+                "load_failed": "저장된 노트를 불러오지 못했습니다. 다시 시도해 주세요."
+            },
+            "premium": {
+                "title": "프리미엄 기능 잠금 해제",
+                "description": "ZelfKeys 프리미엄으로 고급 보안 등 더 많은 기능을 누려보세요"
+            },
+            "add_note": {
+                "title": "새 노트 추가",
+                "description": "새 노트를 안전하게 저장하세요"
+            },
+            "detail": {
+                "loading": "노트 정보를 불러오는 중...",
+                "error": {
+                    "title": "노트를 불러오는 중 오류 발생",
+                    "go_back": "뒤로",
+                    "not_found": "노트 데이터가 없습니다",
+                    "load_failed": "노트 데이터를 불러오지 못했습니다",
+                    "retrieve_failed": "노트 데이터를 가져오지 못했습니다",
+                    "decrypt_failed": "노트 복호화에 실패했습니다. 다시 시도해 주세요."
+                },
+                "no_title": "제목 없음",
+                "no_content": "내용 없음",
+                "untitled": "제목 없는 노트",
+                "no_folder": "폴더 없음",
+                "decrypt": {
+                    "button": "노트 복호화",
+                    "decrypting": "복호화 중..."
+                },
+                "info": {
+                    "title": "노트 정보",
+                    "note_id": "노트 ID",
+                    "type": "유형",
+                    "folder": "폴더",
+                    "copy_id": "노트 ID 복사"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "ZelfProof 다운로드"
+                },
+                "decrypted": {
+                    "title": "복호화된 내용",
+                    "title_field": "제목",
+                    "content": "내용",
+                    "no_title": "제목 없음",
+                    "no_content": "내용 없음",
+                    "copy_title": "제목 복사",
+                    "copy_content": "내용 복사"
+                }
+            },
+            "form": {
+                "title": {
+                    "add": "새 노트 추가",
+                    "edit": "노트 수정"
+                },
+                "title_field": {
+                    "label": "노트 제목 *"
+                },
+                "content": {
+                    "label": "노트 내용 *",
+                    "hint": "노트 내용은 암호화되어 안전하게 저장됩니다. 원하는 만큼 길게 작성하실 수 있습니다."
+                },
+                "folder": {
+                    "label": "폴더로 정리",
+                    "placeholder": "폴더 이름 입력",
+                    "aria_label": "폴더 정리 토글"
+                },
+                "master_password": {
+                    "hint": "자격 증명을 암호화하여 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
+                },
+                "buttons": {
+                    "cancel": "취소",
+                    "create": "노트 생성",
+                    "update": "노트 업데이트"
+                }
+            }
+        },
+        "passwords": {
+            "title": "비밀번호",
+            "subtitle": "보안 비밀번호와 자격 증명을 관리하세요",
+            "loading": {
+                "title": "비밀번호를 불러오는 중",
+                "message": "보안 데이터를 가져오는 동안 잠시 기다려 주세요..."
+            },
+            "error": {
+                "title": "오류가 발생했습니다",
+                "message": "비밀번호를 불러올 수 없습니다.",
+                "try_again": "다시 시도",
+                "load_failed": "저장된 비밀번호를 불러오지 못했습니다. 다시 시도해 주세요."
+            },
+            "premium": {
+                "title": "프리미엄 기능 잠금 해제",
+                "description": "ZelfKeys 프리미엄으로 고급 보안 등 더 많은 기능을 누려보세요"
+            },
+            "add_password": {
+                "title": "새 비밀번호 추가",
+                "description": "새 비밀번호를 안전하게 저장하세요"
+            },
+            "search": {
+                "placeholder": "비밀번호 검색..."
+            },
+            "no_results": {
+                "title": "비밀번호를 찾을 수 없음",
+                "message": "다른 검색어로 시도해 보세요"
+            },
+            "detail": {
+                "loading": "비밀번호 정보를 불러오는 중...",
+                "error": {
+                    "title": "비밀번호를 불러오는 중 오류 발생",
+                    "go_back": "뒤로",
+                    "not_found": "비밀번호 데이터를 찾을 수 없습니다",
+                    "load_failed": "비밀번호 데이터를 불러오지 못했습니다",
+                    "decrypt_failed": "비밀번호 복호화에 실패했습니다. 다시 시도해 주세요."
+                },
+                "untitled": "제목 없는 비밀번호",
+                "no_username": "사용자 이름 없음",
+                "no_website": "웹사이트 없음",
+                "no_category": "카테고리 없음",
+                "no_zelf_name": "태그 이름 없음",
+                "unknown_date": "날짜 파악 불가",
+                "decrypt": {
+                    "button": "비밀번호 복호화",
+                    "decrypting": "복호화 중...",
+                    "launch_fill": "실행 및 자동 채우기"
+                },
+                "info": {
+                    "title": "비밀번호 정보",
+                    "website": "웹사이트",
+                    "username": "사용자 이름",
+                    "category": "카테고리",
+                    "created": "생성일",
+                    "zelf_name": "태그 이름",
+                    "ipfs_hash": "IPFS 해시",
+                    "copy_url": "웹사이트 URL 복사",
+                    "launch_website": "웹사이트 실행",
+                    "prefill_autofill": "자동 채우기 설정"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "ZelfProof 다운로드"
+                },
+                "decrypted": {
+                    "title": "복호화된 내용",
+                    "website": "웹사이트",
+                    "username": "사용자 이름",
+                    "password": "비밀번호",
+                    "notes": "노트",
+                    "difficulty": "보안 강도",
+                    "show_password": "비밀번호 표시",
+                    "hide_password": "비밀번호 숨기기",
+                    "copy_website": "웹사이트 복사",
+                    "copy_password": "비밀번호 복사"
+                }
+            },
+            "form": {
+                "title": "비밀번호 추가",
+                "website": {
+                    "label": "웹사이트 URL *"
+                },
+                "title_field": {
+                    "label": "제목 *",
+                    "placeholder": "제목 입력"
+                },
+                "email": {
+                    "label": "이메일/사용자 이름 *"
+                },
+                "password": {
+                    "label": "비밀번호 *"
+                },
+                "folder": {
+                    "label": "폴더로 정리",
+                    "placeholder": "폴더 이름 입력",
+                    "aria_label": "폴더 정리 토글"
+                },
+                "notes": {
+                    "label": "노트",
+                    "placeholder": "노트 입력 (선택 사항)"
+                },
+                "master_password": {
+                    "label": "마스터 비밀번호 *",
+                    "hint": "자격 증명을 암호화하여 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
+                },
+                "buttons": {
+                    "save": "비밀번호 저장",
+                    "cancel": "취소"
+                }
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "비밀번호가 성공적으로 저장되었습니다!",
+                "error_title": "비밀번호 저장 오류",
+                "unknown_title": "알 수 없는 상태",
+                "success_message": "비밀번호가 생체 인증과 함께 안전하게 저장되었습니다.",
+                "error_message": "비밀번호를 저장하는 동안 오류가 발생했습니다. 다시 시도해 주세요.",
+                "unknown_message": "비밀번호 저장 요청 상태가 불분명합니다."
+            },
+            "error": {
+                "no_result": "사용 가능한 API 결과가 없습니다"
+            }
+        },
+        "note_result": {
+            "status": {
+                "success_title": "노트가 성공적으로 저장되었습니다!",
+                "error_title": "노트 저장 오류",
+                "unknown_title": "알 수 없는 상태",
+                "success_message": "노트가 블록체인 검증과 함께 안전하게 암호화되어 저장되었습니다.",
+                "error_message": "노트를 저장하는 동안 오류가 발생했습니다.",
+                "unknown_message": "시스템이 저장 상태를 확인할 수 없습니다."
+            },
+            "error": {
+                "no_result": "사용 가능한 API 결과가 없습니다"
+            }
+        }
+    },
+    "start": {
+        "title": "ZelfKeys에 오신 것을 환영합니다",
+        "subtitle": "당신의 안전한 비밀번호 관리자",
+        "features": {
+            "install_extension": {
+                "title": "확장 프로그램<br />설치하기",
+                "description": "자주 사용하는 브라우저에 확장 프로그램을 추가하세요"
+            },
+            "secure_passwords": {
+                "title": "비밀번호<br />보안 유지",
+                "description": "비밀번호, 결제 카드, 노트를 추가하세요."
+            },
+            "autocomplete": {
+                "title": "정보<br />자동 완성",
+                "description": "간편한 생체 인증 후 저장된 비밀번호를 자동으로 채워보세요."
+            }
+        },
+        "cta": {
+            "button": "나의 첫 비밀번호 보안 시작하기"
+        }
+    },
+    "password_result": {
+        "title": "비밀번호 저장 결과",
+        "loading": "결과를 불러오는 중...",
+        "sections": {
+            "success": {
+                "title": "저장 성공!",
+                "message": "비밀번호를 성공적으로 저장했습니다!"
+            },
+            "details": {
+                "title": "저장된 비밀번호 상세 정보",
+                "labels": {
+                    "website": "웹사이트",
+                    "username": "사용자 이름",
+                    "type": "유형",
+                    "category": "카테고리",
+                    "zelf_name": "태그 이름",
+                    "timestamp": "타임스탬프"
+                }
+            },
+            "nft": {
+                "title": "NFT 생성됨",
+                "labels": {
+                    "token_id": "토큰 ID",
+                    "cost": "비용",
+                    "contract": "컨트랙트",
+                    "transaction": "트랜잭션",
+                    "metadata_url": "메타데이터 URL"
+                },
+                "metadata_link": "메타데이터 보기",
+                "copy_hint": "클릭하여 복사",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "IPFS 스토리지",
+                "labels": {
+                    "hash": "IPFS 해시",
+                    "gateway_url": "게이트웨이 URL",
+                    "file_size": "파일 크기",
+                    "uploaded": "업로드됨",
+                    "status": "상태",
+                    "copy_hint": "클릭하여 복사"
+                },
+                "gateway_link": "IPFS 게이트웨이에서 보기"
+            },
+            "walrus": {
+                "title": "Walrus 스토리지",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "공개 URL",
+                    "explorer_url": "익스플로러 URL",
+                    "status": "상태",
+                    "reason": "사유",
+                    "error": "오류"
+                },
+                "view_link": "Walrus에서 보기",
+                "explorer_link": "익스플로러에서 보기"
+            },
+            "zelfproof": {
+                "title": "ZelfProof 생성됨",
+                "labels": {
+                    "string": "ZelfProof 문자열",
+                    "qr_code": "QR 코드"
+                },
+                "copy_hint": "클릭하여 복사"
+            },
+            "next_steps": {
+                "title": "다음 단계",
+                "success_message": "비밀번호가 안전하게 저장되었습니다. 비밀번호 목록에서 확인하거나 다른 비밀번호를 추가할 수 있습니다.",
+                "error_message": "위의 오류 상세 내용을 확인하고 다시 시도해 주세요. 문제가 지속되면 지원팀에 문의해 주세요.",
+                "unknown_message": "상태를 특정할 수 없습니다. 위의 API 응답 상세 내용을 확인해 주세요."
+            }
+        },
+        "actions": {
+            "back_to_passwords": "비밀번호 목록으로 돌아가기",
+            "add_another": "다른 비밀번호 추가"
+        },
+        "status": {
+            "success_title": "비밀번호가 성공적으로 저장되었습니다!",
+            "error_title": "비밀번호 저장 오류",
+            "unknown_title": "알 수 없는 상태",
+            "success_message": "비밀번호가 생체 인증과 함께 안전하게 저장되었습니다.",
+            "error_message": "비밀번호를 저장하는 동안 오류가 발생했습니다. 다시 시도해 주세요.",
+            "unknown_message": "비밀번호 저장 요청 상태가 불분명합니다."
+        },
+        "error": {
+            "no_result": "사용 가능한 API 결과가 없습니다"
+        }
+    },
+    "domain_selection": {
+        "title": "태그 이름으로 사용할 도메인을 선택해 주세요"
+    },
+    "zotp": {
+        "add_zotp": "ZOTP 추가",
+        "account_name": "계정 이름",
+        "account_name_placeholder": "예: miguel@verifik.co",
+        "issuer": "발급자",
+        "issuer_placeholder": "예: Stripe",
+        "setup_key": "설정 키",
+        "setup_key_placeholder": "설정 키 입력",
+        "enter_setup_key": "설정 키를 입력해 주세요",
+        "upload_qr_code": "QR 코드 업로드",
+        "upload_qr_code_instructions": "QR 코드 이미지를 업로드하여 ZOTP를 자동으로 설정하세요",
+        "no_zotps_added": "추가된 ZOTP가 없습니다. + 버튼을 눌러 추가해 주세요.",
+        "master_password": "마스터 비밀번호",
+        "master_password_placeholder": "지갑 마스터 비밀번호 입력",
+        "master_password_hint": "이 ZOTP를 암호화하여 안전하게 저장하려면 지갑 마스터 비밀번호가 필요합니다.",
+        "see_details": "상세 보기",
+        "unlock_zotp": "ZOTP 잠금 해제",
+        "hide_secret": "보안키 숨기기",
+        "details": "ZOTP 상세 정보",
+        "qr_code": "QR 코드",
+        "public_data": "공개 데이터",
+        "ipfs_info": "IPFS 정보",
+        "basic_info": "기본 정보",
+        "type": "유형",
+        "key_owner": "키 소유자",
+        "category": "카테고리",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "크기",
+        "network": "네트워크",
+        "created_at": "생성일",
+        "updated_at": "수정일",
+        "algorithm": "알고리즘",
+        "digits": "자릿수",
+        "period": "주기",
+        "walrus_info": "Walrus 스토리지 정보",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "공개 URL",
+        "walrus_explorer_url": "익스플로러 URL",
+        "walrus_epochs": "저장 주기(Epochs)",
+        "refresh_list": "목록 새로고침",
+        "delete_zotp": "ZOTP 삭제",
+        "delete_warning": "이 작업은 되돌릴 수 없습니다. 이 ZOTP를 삭제하시겠습니까?",
+        "deleted_successfully": "ZOTP가 성공적으로 삭제되었습니다",
+        "delete_failed": "ZOTP 삭제 실패",
+        "incorrect_password": "마스터 비밀번호가 올바르지 않습니다",
+        "biometrics_failed": "생체 인증 실패",
+        "export": "내보내기",
+        "export_zotp": "ZOTP 내보내기",
+        "setup_key_description": "이 설정 키를 사용하여 Google Authenticator와 같은 다른 인증기 앱에 이 계정을 추가할 수 있습니다.",
+        "qr_code_description": "Google Authenticator 또는 호환되는 인증기 앱으로 이 QR 코드를 스캔하여 계정을 가져오세요.",
+        "share_zotp": "Seal로 ZOTP 공유",
+        "share_with_seal": "Seal로 공유",
+        "share_description": "Seal 비밀 공유 기능을 사용하여 이 ZOTP 보안키를 여러 당사자에게 분산시키세요. 어느 누구도 단독으로는 보안키에 접근할 수 없으며, 보안키를 복원하려면 최소 기준치 이상의 공유 지분이 필요합니다.",
+        "threshold": "기준치",
+        "threshold_hint": "최소 필요 지분 수",
+        "total_shares": "총 지분",
+        "total_shares_hint": "총 발행 지분 수",
+        "participants": "참여자",
+        "participant": "참여자",
+        "participant_placeholder": "지갑 주소 또는 이름 (선택 사항)",
+        "generate_shares": "지분 생성",
+        "generated_shares": "생성된 지분",
+        "share": "공유",
+        "download_all_shares": "모든 지분 다운로드",
+        "shares_info": "이 ZOTP를 복구하려면 {{total}}개 중 {{threshold}}개의 지분이 필요합니다. 신뢰할 수 있는 당사자들에게 지분을 안전하게 분산하세요.",
+        "shares_warning": "지분을 안전하게 보관하세요! 충분한 지분을 가진 사람은 누구나 ZOTP를 복구할 수 있습니다. 지분들을 서로 다른 안전한 장소에 나누어 저장하세요.",
+        "recover_zotp": "ZOTP 복구",
+        "recover_description": "지분을 가져와 ZOTP 보안키를 복구합니다. 보안키를 재구축하려면 기준치 이상의 지분이 필요합니다.",
+        "upload_shares_file": "지분 파일 업로드",
+        "or_enter_share_manually": "또는 직접 지분 입력",
+        "or_enter_share_below": "또는 아래에 지분 입력",
+        "share_data": "지분 데이터",
+        "share_placeholder": "지분 데이터를 여기에 붙여넣으세요 (base64 인코딩됨)",
+        "add_share": "지분 추가",
+        "imported_shares": "가져온 지분",
+        "need_shares": "{{required}}개 지분 필요 (현재 {{current}}개 보유)",
+        "enough_shares": "보안키를 복구하기에 충분한 지분을 보유하고 있습니다",
+        "need_more_shares": "{{needed}}개의 지분이 더 필요합니다",
+        "reconstruct_secret": "보안키 재구축",
+        "secret_reconstructed": "보안키 재구축 성공!",
+        "secret_reconstructed_description": "지분으로부터 보안키가 성공적으로 재구축되었습니다. 이제 이 복구된 보안키로 ZOTP를 생성할 수 있습니다.",
+        "recovered_setup_key": "복구된 설정 키",
+        "create_zotp_from_recovery": "복구된 키로 ZOTP 생성",
+        "recovery_successful": "복구 성공!",
+        "recovery_success_description": "ZOTP가 성공적으로 복구되어 인증기에 추가되었습니다. 이제 인증 코드를 생성하는 데 사용할 수 있습니다."
     }
 }

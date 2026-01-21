@@ -45,7 +45,8 @@
         "economical": "Económico",
         "fastest": "Más rápido",
         "transaction_settings": "Configuración de la transacción",
-        "upto_sats": "Hasta {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos"
+        "upto_sats": "Hasta {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos",
+        "private_transaction": "Transacción Privada"
     },
     "transaction": {
         "go_to_my_history": "Ir a mi historial",
@@ -101,7 +102,8 @@
         "subscription_label": "Suscripción",
         "networks": {
             "title": "Redes Blockchain",
-            "description": "Activa o desactiva las redes que deseas usar en tu billetera. Las redes desactivadas no aparecerán en tu lista de tokens."
+            "description": "Activa o desactiva las redes que deseas usar en tu billetera. Las redes desactivadas no aparecerán en tu lista de tokens.",
+            "no_networks_available": "No hay redes disponibles para tu licencia. Por favor, actualiza tu plan para acceder a más redes."
         },
         "security": {
             "biometric_verification_title": "Intervalo de verificación biométrica",

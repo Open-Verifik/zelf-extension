@@ -45,7 +45,8 @@
         "economical": "節約",
         "fastest": "最速",
         "transaction_settings": "取引設定",
-        "upto_sats": "最大 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 分"
+        "upto_sats": "最大 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 分",
+        "private_transaction": "プライベート・トランザクション"
     },
     "transaction": {
         "go_to_my_history": "履歴に移動",
@@ -101,7 +102,8 @@
         "subscription_label": "サブスクリプション",
         "networks": {
             "title": "ブロックチェーンネットワーク",
-            "description": "ウォレットで使用するネットワークを有効または無効にします。無効なネットワークはトークンリストに表示されません。"
+            "description": "ウォレットで使用するネットワークを有効または無効にします。無効なネットワークはトークンリストに表示されません。",
+            "no_networks_available": "ライセンスで利用可能なネットワークがありません。より多くのネットワークにアクセスするにはプランをアップグレードしてください。"
         },
         "security": {
             "biometric_verification_title": "生体認証間隔",
@@ -141,7 +143,8 @@
         "create_pin_title": "PINを作成",
         "create_pin_subtitle": "ZelfProofの6桁のパスワードを入力してください。",
         "confirm_pin_title": "PINを確認",
-        "confirm_pin_subtitle": "ZelfProofの6桁のパスワードを再入力してください。"
+        "confirm_pin_subtitle": "ZelfProofの6桁のパスワードを再入力してください。",
+        "pin_confirm_description": "確認のために6桁のPINを再入力してください"
     },
     "receive": {
         "information": "このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
@@ -264,7 +267,17 @@
         "withdrawal_network": "出金ネットワーク",
         "yes": "はい",
         "your_token": "あなたの{{ symbol }}",
-        "zelf_wallet": "Zelfウォレット"
+        "zelf_wallet": "Zelfウォレット",
+        "optional": "任意",
+        "no_results_found": "結果が見つかりません",
+        "avax_address": "AVAXアドレス",
+        "download_apps": "アプリをダウンロード",
+        "download_qr": "QRをダウンロード",
+        "seed_phrase": "シードフレーズ",
+        "zelf_authenticator": "Zelf認証",
+        "zelf_keys": "Zelfキー",
+        "zelf_link": "Zelfリンク",
+        "subscriptions": "サブスクリプション"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",
@@ -315,8 +328,7 @@
         "domain_warning": "まだ購入する時間があります",
         "expired_wallet_logout_message": "タグ名で検索すれば、このZelfProofを再度復号化できます。ただし、すぐに購入しないと失う可能性があります。",
         "logout_of_wallet_message": "タグ名で検索するか、ZelfProofのQRコードを読み込むことで、このZelfProofを再度復号化できます。",
-        "purchase_new_domain": "新しいタグ名を追加",
-        "zelfproof_removed_successfully": "ZelfProofが正常に削除されました"
+        "purchase_new_domain": "新しいタグ名を追加"
     },
     "liveness": {
         "center_your_face": "画面の中央に顔を合わせてください",
@@ -373,7 +385,22 @@
         "swap_same_asset": "同じ資産にスワップすることはできません",
         "transaction_not_found": "取引が見つかりません",
         "try_again": "もう一度試す",
-        "zelfName_is_taken": "このタグ名は既に使用されています"
+        "zelfName_is_taken": "このタグ名は既に使用されています",
+        "camera_dimensions_not_properly_initialized": "カメラが適切に初期化されていません",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTPを復号できません: ZelfProofがありません。有効なZelfProofなしではこのZOTPを復号できません。",
+        "error_closing_popup": "ウィンドウを閉じる際にエラーが発生しました",
+        "error_initializing_biometrics": "生体認証の初期化中にエラーが発生しました",
+        "error_sending_decryption_result_to_background": "拡張機能との通信エラーが発生しました",
+        "error_stopping_camera": "カメラの停止中にエラーが発生しました",
+        "face_detection_error": "顔の検出に失敗しました",
+        "incorrect_passphrase": "マスターパスワードが正しくありません。もう一度お試しください。",
+        "no_decrypted_data_received_from_api": "サーバーから復号されたデータを受信しませんでした",
+        "no_zelfproof_available_for_password_decryption": "パスワード復号に使用できるZelfProofがありません",
+        "session_init_info": "拡張機能を使用するにはネットワークアクセスが必要です。オフラインでの解決策については、iOSおよびAndroidアプリを確認してください。",
+        "session_init_message": "申し訳ありません。セッションの初期化中に問題が発生しました。ネットワークの問題かサーバーが利用不可である可能性があります。もう一度お試しください。",
+        "session_init_title": "セッションの初期化に失敗しました",
+        "unknown_error": "不明なエラーが発生しました",
+        "user_cancelled_decryption": "復号がキャンセルされました"
     },
     "swap": {
         "automatic": "自動",
@@ -405,7 +432,8 @@
         "send_transaction_button": "送信",
         "settings_button": "設定",
         "support_button": "サポート",
-        "swap": "スワップ"
+        "swap": "スワップ",
+        "keys": "キー"
     },
     "id_scanning": {
         "camera_not_found": "カメラが見つかりません",
@@ -468,5 +496,1057 @@
         "considerations_description_1": "破られないセキュリティ。",
         "considerations_description_2": "ユニークなアイデンティティ。",
         "considerations_description_3": "将来を見据えた保護。"
+    },
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "ウォレット"
+        },
+        "common": {
+            "qr_code": "QRコード",
+            "no_folder": "フォルダなし",
+            "download_zelfproof": "ZelfProofをダウンロード",
+            "back_to_payment_cards": "支払いカードに戻る",
+            "add_another_card": "別のカードを追加",
+            "try_again": "再試行",
+            "image_not_available": "画像は利用できません"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "カード名義人",
+                "expires": "有効期限",
+                "bank_name": "銀行名",
+                "card_number": "カード番号",
+                "expiry_date": "有効期限",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "カード名義人"
+            },
+            "decrypt": {
+                "button": "支払いカードを復号",
+                "decrypting": "復号しています..."
+            },
+            "info": {
+                "title": "支払いカード情報",
+                "payment_card_id": "支払いカードID",
+                "type": "タイプ",
+                "folder": "フォルダ",
+                "copy_payment_card_id": "支払いカードIDをコピー"
+            },
+            "zelfproof": {
+                "title": "ZelfProof",
+                "download": "ZelfProofをダウンロード"
+            },
+            "decrypted": {
+                "title": "復号された内容",
+                "card_holder_name": "カード名義人名",
+                "copy_card_holder_name": "カード名義人名をコピー",
+                "copy_card_number": "カード番号をコピー",
+                "copy_expiry_date": "有効期限をコピー",
+                "copy_cvv": "CVVをコピー",
+                "copy_bank_name": "銀行名をコピー",
+                "show_card_number": "カード番号を表示",
+                "hide_card_number": "カード番号を非表示",
+                "show_cvv": "CVVを表示",
+                "hide_cvv": "CVVを非表示"
+            },
+            "error": {
+                "no_wallet": "ウォレットが見つかりません。まずウォレットを設定してください。",
+                "auth_failed": "認証に失敗しました。有効なウォレットがあることを確認してください。",
+                "init_failed": "セッションの初期化に失敗しました。ウォレットの接続を確認してください。",
+                "no_token": "認証トークンが利用できません。ページを更新してください。",
+                "load_failed": "支払いカードの読み込みに失敗しました。もう一度お試しください。"
+            },
+            "unknown_bank": "不明な銀行",
+            "unknown": "不明",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "支払いカードデータの取得に失敗しました",
+                    "decrypt_failed": "支払いカードの復号に失敗しました。もう一度お試しください。"
+                },
+                "expiry_placeholder": "MM/YY"
+            },
+            "result": {
+                "error": {
+                    "no_data": "結果データが見つかりません"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "支払いカードが正常に作成されました！",
+                "description": "支払いカードは安全に保存され、暗号化されました。"
+            },
+            "preview": {
+                "title": "カード詳細",
+                "labels": {
+                    "name": "支払いカード名",
+                    "card_holder": "カード名義人",
+                    "card_number": "カード番号",
+                    "expires": "有効期限"
+                }
+            },
+            "image": {
+                "title": "ZelfProof",
+                "download": "ZelfProofをダウンロード"
+            },
+            "nft": {
+                "title": "NFTが作成されました",
+                "labels": {
+                    "token_id": "トークンID",
+                    "cost": "コスト",
+                    "contract": "コントラクト",
+                    "transaction": "トランザクション",
+                    "metadata_url": "メタデータURL"
+                },
+                "metadata_link": "メタデータを表示",
+                "copy_hint": "クリックしてコピー",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "IPFSストレージ",
+                "labels": {
+                    "hash": "IPFSハッシュ",
+                    "gateway_url": "ゲートウェイURL",
+                    "file_size": "ファイルサイズ",
+                    "uploaded": "アップロード済み"
+                },
+                "gateway_link": "IPFSゲートウェイで表示"
+            },
+            "walrus": {
+                "title": "Walrusストレージ",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "公開URL",
+                    "explorer_url": "エクスプローラーURL",
+                    "status": "ステータス",
+                    "reason": "理由",
+                    "error": "エラー"
+                },
+                "view_link": "Walrusで表示",
+                "explorer_link": "エクスプローラーで表示"
+            },
+            "zelfproof": {
+                "title": "ZelfProofが生成されました",
+                "labels": {
+                    "string": "ZelfProof文字列",
+                    "qr_code": "QRコード"
+                },
+                "copy_hint": "クリックしてコピー"
+            },
+            "error": {
+                "title": "支払いカードの作成中にエラーが発生しました",
+                "default_message": "支払いカードの作成中に予期しないエラーが発生しました。",
+                "try_again": "再試行",
+                "no_data": "結果データが見つかりません"
+            },
+            "actions": {
+                "back_to_cards": "支払いカードに戻る",
+                "add_another": "別のカードを追加"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "プランを選択",
+            "choose_your_plan_subtitle": "ニーズに最適なプランを選択してください",
+            "loading_plans": "サブスクリプションプランを読み込んでいています...",
+            "error": {
+                "try_again": "再試行",
+                "load_plans": "サブスクリプションプランの読み込みに失敗しました",
+                "create_crypto_payment": "暗号資産支払いの作成に失敗しました",
+                "create_checkout": "チェックアウトセッションの作成に失敗しました",
+                "open_portal": "サブスクリプション管理ポータルのオープンに失敗しました",
+                "customer_not_found": "顧客情報が見つかりません。サポートにお問い合わせください。",
+                "no_subscription": "有効なサブスクリプションが見つかりません。ページを更新してください。",
+                "open_portal_generic": "サブスクリプション管理のオープンに失敗しました: {{ error }}",
+                "missing_payment_data": "支払いデータが不足しています。もう一度お試しください。",
+                "no_avax_address": "選択したウォレットにAVAXアドレスがありません。",
+                "no_avax_token": "AVAXトークンデータを読み込めません。もう一度お試しください。",
+                "prepare_transaction": "トランザクションの準備に失敗しました。もう一度お試しください。"
+            },
+            "crypto": {
+                "complete_payment": "支払いを完了する",
+                "demo_banner": "デモモード - 低額でのテスト中",
+                "send_amount_to_address": "下記のアドレスに {{ amount }} AVAX を送信してください",
+                "price_lock": "価格は30分間固定されます",
+                "payment_address_label": "支払いアドレス (Avalanche C-Chain)",
+                "copy": "コピー",
+                "scan_with_wallet": "ウォレットでスキャン",
+                "amount_to_send": "送信額",
+                "original_plan_price": "元のプラン価格:",
+                "demo_discount": "デモ割引: {{ discount }}%",
+                "waiting_confirmation": "支払い確認を待っています...",
+                "auto_update_note": "支払いを受け取ると、このページは自動的に更新されます",
+                "cancel_payment": "支払いをキャンセル",
+                "payment_methods": "支払い方法",
+                "copy_address": "アドレスをコピー:",
+                "scan_address": "アドレスをスキャン:",
+                "pay_with_wallet": "ウォレットで支払う:",
+                "domain_label": "ドメイン",
+                "select_wallet": "ウォレットを選択",
+                "pay_with_avax": "AVAXで支払う",
+                "payment_qr_code_alt": "支払い用QRコード"
+            },
+            "plan": {
+                "popular_badge": "人気",
+                "pay_with_stripe": "Stripeで支払う",
+                "pay_with_crypto": "暗号資産で支払う",
+                "current_plan": "現在のプラン",
+                "premium_plan": "プレミアムプラン",
+                "not_available": "なし",
+                "month": "月"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "カメラを見て本人確認を行い、{{ type }} を安全に保存してください",
+                "decrypt": "カメラを見て本人確認を行い、{{ type }} にアクセスしてください"
+            },
+            "processing": {
+                "processing": "生体認証データを処理しています...",
+                "analyzing": "顔を解析しています..."
+            },
+            "status": {
+                "position_face_title": "顔を中央に合わせてください",
+                "position_face_subtitle": "カメラを直視し、静止してください"
+            },
+            "api_error": {
+                "title": "認証に失敗しました",
+                "try_again": "再試行",
+                "go_back": "戻る"
+            },
+            "camera_error": {
+                "title": "カメラが利用できません",
+                "description": "生体認証のためにカメラが有効でアクセス可能であることを確認してください"
+            },
+            "permission": {
+                "title": "カメラの許可が必要です",
+                "description": "生体認証を続行するには、カメラへのアクセスを許可してください",
+                "go_back": "戻る"
+            },
+            "close_aria": "生体認証の確認を閉じる",
+            "errors": {
+                "no_face_detected": "顔が検出されません",
+                "look_at_camera": "カメラを見てください"
+            }
+        },
+        "subscription_banner": {
+            "title": "プレミアム機能をアンロック",
+            "description": "ZelfKeys Premiumで無制限のアクセス、高度なセキュリティなどを手に入れましょう"
+        },
+        "data_card": {
+            "details": "詳細",
+            "no_qr": "QRなし",
+            "untitled": "無題",
+            "username_label": "ユーザー名: {{ username }}",
+            "zelf_name_label": "タグ名: {{ zelfName }}",
+            "category_label": "カテゴリ: {{ category }}",
+            "type_label": "タイプ: {{ type }}",
+            "secure_credential": "安全な認証情報"
+        },
+        "data_types": {
+            "note": "ノート",
+            "password": "パスワード",
+            "payment_card": "支払いカード"
+        },
+        "categories": {
+            "password": "パスワード",
+            "note": "ノート",
+            "notes": "ノート",
+            "payment_card": "支払いカード",
+            "card": "カード",
+            "contact": "連絡先",
+            "zotp": "ZOTP"
+        },
+        "errors": {
+            "storing": "{{ type }} の保存中にエラーが発生しました",
+            "retrieving": "{{ type }} の取得中にエラーが発生しました"
+        },
+        "messages": {
+            "note_retrieved": "ノートが正常に取得されました",
+            "note_stored": "ノートが正常に保存されました",
+            "password_retrieved": "パスワードが正常に取得されました",
+            "password_stored": "パスワードが正常に保存されました"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "支払いカードを暗号化するために本人確認を行ってください",
+            "decrypt_payment_card": "支払いカードを復号するために本人確認を行ってください",
+            "encrypt_note": "ノートを暗号化するために本人確認を行ってください",
+            "decrypt_note": "ノートを復号するために本人確認を行ってください",
+            "encrypt_password": "パスワードを暗号化するために本人確認を行ってください",
+            "decrypt_password": "パスワードを復号するために本人確認を行ってください",
+            "instructions": {
+                "payment_card": "顔認証を行って支払いカードを復号してください",
+                "note": "顔認証を行ってノートを復号してください",
+                "password": "顔認証を行ってパスワードを復号してください"
+            },
+            "item": "アイテム",
+            "error": {
+                "storage_failed": "{{ category }} の保存中にエラーが発生しました。後でもう一度お試しください。",
+                "try_again_later": "後でもう一度お試しください。",
+                "close": "閉じる"
+            }
+        },
+        "popout_decryptor": {
+            "back": "戻る",
+            "cancel": "キャンセル",
+            "loading_camera": "カメラを初期化しています...",
+            "low_quality_message": "より良い照明環境でもう一度お試しください",
+            "low_quality_title": "低画質の画像",
+            "master_password_placeholder": "マスターパスワードを入力してください",
+            "permission_allow": "カメラへのアクセスを許可してください",
+            "permission_required": "カメラの許可が必要です",
+            "processing": "復号しています...",
+            "retry": "再試行",
+            "title": "{{ type }} 復号化",
+            "unlock": "生体認証へ進む",
+            "types": {
+                "credit_card": "支払いカード",
+                "note": "ノート",
+                "notes": "ノート",
+                "password": "パスワード",
+                "payment-card": "支払いカード",
+                "wallet": "ウォレット",
+                "zotp": "ZOTP"
+            }
+        },
+        "password_biometrics": {
+            "back_to_details": "パスワード詳細に戻る",
+            "back_to_form": "パスワードフォームに戻る",
+            "verify_to_decrypt": "復号化のために本人確認を行う",
+            "biometric_verification": "生体認証の確認",
+            "instruction_title": "顔を中央に合わせてください",
+            "instruction_subtitle": "カメラを直視し、静止してください",
+            "compact_encrypt": "カメラを見て本人確認を行い、パスワードを安全に保存してください",
+            "compact_decrypt": "カメラを見て本人確認を行い、パスワードを復号してください",
+            "loading_processing": "生体データを処理しています...",
+            "camera_error_title": "カメラが利用できません",
+            "camera_error_desc": "生体認証のためにカメラが有効でアクセス可能であることを確認してください",
+            "permission_title": "カメラの許可が必要です",
+            "permission_desc": "生体認証を続行するには、カメラへのアクセスを許可してください",
+            "go_back": "戻る",
+            "master_password_label": "マスターパスワード (任意):",
+            "master_password_placeholder": "マスターパスワードがある場合は入力してください",
+            "master_password_hint": "このエントリーの作成時にマスターパスワードを設定した場合は、ここに入力してください"
+        },
+        "note_result": {
+            "title": "ノート保存結果",
+            "loading": "結果を読み込んでいます...",
+            "sections": {
+                "success": {
+                    "title": "保存完了！",
+                    "message": "ノートが正常に保存されました！"
+                },
+                "details": {
+                    "title": "保存されたノートの詳細",
+                    "labels": {
+                        "title": "タイトル",
+                        "folder": "フォルダ",
+                        "type": "タイプ",
+                        "category": "カテゴリ",
+                        "zelf_name": "タグ名",
+                        "timestamp": "タイムスタンプ"
+                    }
+                },
+                "nft": {
+                    "title": "NFTが作成されました",
+                    "labels": {
+                        "token_id": "トークンID",
+                        "cost": "コスト",
+                        "contract": "コントラクト",
+                        "transaction": "トランザクション"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "IPFSストレージ",
+                    "labels": {
+                        "hash": "IPFSハッシュ",
+                        "gateway_url": "ゲートウェイURL",
+                        "file_size": "ファイルサイズ",
+                        "uploaded": "アップロード済み"
+                    },
+                    "gateway_link": "IPFSゲートウェイで表示"
+                },
+                "walrus": {
+                    "title": "Walrusストレージ",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "公開URL",
+                        "explorer_url": "エクスプローラーURL",
+                        "status": "ステータス",
+                        "reason": "理由",
+                        "error": "エラー"
+                    },
+                    "view_link": "Walrusで表示",
+                    "explorer_link": "エクスプローラーで表示"
+                },
+                "zelfproof": {
+                    "title": "ZelfProofが生成されました",
+                    "labels": {
+                        "string": "ZelfProof文字列",
+                        "qr_code": "QRコード"
+                    },
+                    "copy_hint": "クリックしてコピー",
+                    "qr_alt": "ZelfProof QRコード"
+                },
+                "debug": {
+                    "title": "デバッグ情報"
+                },
+                "next_steps": {
+                    "title": "次のステップ",
+                    "success_message": "ノートは安全に保存されました。ノートリストで確認するか、別のノートを追加できます。",
+                    "error_message": "上記の詳細を確認して、もう一度お試しください。問題が解決しない場合は、サポートにお問い合わせください。",
+                    "unknown_message": "ステータスを判別できませんでした。詳細は上記のAPIレスポンスを確認してください。"
+                }
+            },
+            "actions": {
+                "back_to_notes": "ノート一覧に戻る",
+                "add_another": "別のノートを追加"
+            },
+            "status": {
+                "success_title": "ノートが正常に保存されました！",
+                "error_title": "ノートの保存中にエラーが発生しました",
+                "unknown_title": "不明なステータス",
+                "success_message": "ノートはブロックチェーンによる検証とともに、安全に暗号化および保存されました。",
+                "error_message": "ノートの保存中にエラーが発生しました。",
+                "unknown_message": "保存ステータスを特定できませんでした。"
+            },
+            "error": {
+                "no_result": "利用可能なAPI結果がありません"
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "パスワードが正常に保存されました！",
+                "error_title": "パスワードの保存中にエラーが発生しました",
+                "unknown_title": "不明なステータス",
+                "success_message": "パスワードは生体認証とともに安全に保存されました。",
+                "error_message": "パスワードの保存中にエラーが発生しました。もう一度お試しください。",
+                "unknown_message": "パスワード保存リクエストのステータスが不明確です。"
+            },
+            "error": {
+                "no_result": "利用可能なAPI結果がありません"
+            }
+        }
+    },
+    "billing": {
+        "common": {
+            "master_password_placeholder": "マスターパスワードを入力してください"
+        },
+        "activation": {
+            "title": "支払いを確認しました！",
+            "message": "サブスクリプションを有効化しています... おめでとうございます！支払いが確認され、サブスクリプションが有効化されています。"
+        },
+        "subscription": {
+            "active_subscription": "有効なサブスクリプション",
+            "cancelled_active": "キャンセル済み（期間終了まで有効）",
+            "plan": "プラン:",
+            "price": "価格:",
+            "payment_method": "支払い方法:",
+            "status": "ステータス:",
+            "transaction": "トランザクション:",
+            "zelf_name": "タグ名:",
+            "start_date": "開始日:",
+            "expires_on": "有効期限:",
+            "next_billing": "次回の請求:",
+            "access_ends": "アクセスの終了:",
+            "cancelled_on": "キャンセル日:",
+            "manage_subscription": "サブスクリプションの管理",
+            "crypto_subscription_active": "暗号資産サブスクリプションが有効です",
+            "crypto_subscription_info": "サブスクリプションはAVAX暗号資産で支払われました。特典を維持するためには、このサイクルの終了時に手動で更新する必要があります。",
+            "crypto_subscription_title": "暗号資産支払いによるサブスクリプション",
+            "payment_method_crypto": "暗号資産 (AVAX)",
+            "payment_method_stripe": "Stripe",
+            "transaction_verified": "Avalancheブロックチェーンでトランザクションが確認されました。",
+            "manage_note_active": "Stripeカスタマーポータルでサブスクリプションの管理、支払い方法の更新、請求履歴の表示などが行えます。",
+            "manage_note_cancelled": "サブスクリプションはキャンセルされましたが、請求期間の終了まで有効です。Stripeカスタマーポータルで再開や請求履歴の表示が可能です。",
+            "demo": "デモ",
+            "active": "有効",
+            "cancelled": "キャンセル済み"
+        },
+        "dashboard": {
+            "start": "スタート",
+            "passwords": "パスワード",
+            "notes": "ノート",
+            "payment_cards": "支払いカード",
+            "subscription": "サブスクリプション",
+            "add_password": "パスワードを追加",
+            "add_note": "ノートを追加",
+            "add_payment_card": "支払いカードを追加"
+        },
+        "payment_cards": {
+            "title": "支払いカード",
+            "subtitle": "支払いカード情報を安全に保存します",
+            "loading": {
+                "title": "支払いカードを読み込んでいます",
+                "message": "安全なデータを取得しています。少々お待ちください..."
+            },
+            "error": {
+                "title": "おっと！何かがうまくいきませんでした",
+                "message": "支払いカードを読み込めませんでした。",
+                "try_again": "再試行",
+                "no_wallet": "ウォレットが見つかりません。まずウォレットを設定してください。",
+                "auth_failed": "認証に失敗しました。有効なウォレットがあることを確認してください。",
+                "init_failed": "セッションの初期化に失敗しました。ウォレットの接続を確認してください。",
+                "no_token": "認証トークンが利用できません。ページを更新してください。",
+                "load_failed": "支払いカードの読み込みに失敗しました。もう一度お試しください。"
+            },
+            "unknown_bank": "不明な銀行",
+            "unknown": "不明",
+            "premium": {
+                "title": "プレミアム機能をアンロック",
+                "description": "ZelfKeys Premiumで高度なセキュリティなどを手に入れましょう"
+            },
+            "add_card": {
+                "title": "新しいカードを追加",
+                "description": "新しい支払いカードを安全に保存します"
+            },
+            "card": {
+                "card_holder": "カード名義人",
+                "expires": "有効期限",
+                "card_number": "カード番号",
+                "expiry_date": "有効期限",
+                "card_type": "カードタイプ",
+                "cvv": "CVV",
+                "billing_address": "請求先住所",
+                "notes": "備考",
+                "no_card_holder": "カード名義人なし",
+                "no_expiry": "有効期限なし",
+                "no_card_number": "カード番号なし",
+                "no_card_type": "カードタイプなし",
+                "no_cvv": "CVVなし",
+                "no_billing_address": "請求先住所なし",
+                "no_notes": "備考なし"
+            },
+            "detail": {
+                "title": "支払いカードの詳細",
+                "loading": "支払いカードの詳細を読み込んでいます...",
+                "error": {
+                    "title": "支払いカードの読み込みエラー",
+                    "go_back": "戻る",
+                    "retrieve_failed": "支払いカードデータの取得に失敗しました",
+                    "decrypt_failed": "支払いカードの復号に失敗しました。もう一度お試しください。"
+                },
+                "expiry_placeholder": "MM/YY",
+                "decrypt": {
+                    "button": "カードを復号",
+                    "decrypting": "復号しています..."
+                },
+                "info": {
+                    "title": "カード情報",
+                    "card_number": "カード番号",
+                    "card_holder": "カード名義人",
+                    "expiry_date": "有効期限",
+                    "card_type": "カードタイプ",
+                    "cvv": "CVV",
+                    "billing_address": "請求先住所",
+                    "notes": "備考",
+                    "copy_card_number": "カード番号をコピー",
+                    "copy_card_holder": "カード名義人をコピー",
+                    "copy_expiry": "有効期限をコピー",
+                    "copy_card_type": "カードタイプをコピー",
+                    "copy_cvv": "CVVをコピー",
+                    "copy_billing_address": "請求先住所をコピー",
+                    "copy_notes": "備考をコピー"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "ZelfProofをダウンロード"
+                },
+                "decrypted": {
+                    "title": "復号されたカード情報",
+                    "card_number": "カード番号",
+                    "card_holder": "カード名義人",
+                    "expiry_date": "有効期限",
+                    "card_type": "カードタイプ",
+                    "cvv": "CVV",
+                    "billing_address": "請求先住所",
+                    "notes": "備考",
+                    "show_card_number": "カード番号を表示",
+                    "hide_card_number": "カード番号を非表示",
+                    "show_cvv": "CVVを表示",
+                    "hide_cvv": "CVVを非表示",
+                    "copy_card_number": "カード番号をコピー",
+                    "copy_card_holder": "カード名義人をコピー",
+                    "copy_expiry": "有効期限をコピー",
+                    "copy_card_type": "カードタイプをコピー",
+                    "copy_cvv": "CVVをコピー",
+                    "copy_billing_address": "請求先住所をコピー",
+                    "copy_notes": "備考をコピー"
+                }
+            },
+            "form": {
+                "title": {
+                    "add": "新しい支払いカードを追加",
+                    "edit": "支払いカードを編集",
+                    "label": "銀行名 *"
+                },
+                "card_number": {
+                    "label": "カード番号 *"
+                },
+                "card_holder": {
+                    "label": "カード名義人名 *"
+                },
+                "expiry_month": {
+                    "label": "有効期限（月） *",
+                    "placeholder": "MM"
+                },
+                "expiry_year": {
+                    "label": "有効期限（年） *"
+                },
+                "card_type": {
+                    "label": "カードタイプ *",
+                    "placeholder": "カードタイプを選択"
+                },
+                "cvv": {
+                    "label": "CVV *"
+                },
+                "billing_address": {
+                    "label": "請求先住所",
+                    "placeholder": "請求先住所を入力（任意）"
+                },
+                "notes": {
+                    "label": "備考",
+                    "placeholder": "備考を入力（任意）"
+                },
+                "folder": {
+                    "label": "フォルダに保存",
+                    "placeholder": "フォルダ名",
+                    "aria_label": "フォルダ保存を切り替え"
+                },
+                "master_password": {
+                    "hint": "資格情報を暗号化して保存するには {{ walletName }} のパスワードが必要です。生体認証の確認は常に必要です。"
+                },
+                "buttons": {
+                    "cancel": "キャンセル",
+                    "create": "カードを作成",
+                    "update": "カードを更新"
+                }
+            }
+        },
+        "notes": {
+            "title": "ノート",
+            "subtitle": "安全なノートとキーバリューペアを管理します",
+            "loading": {
+                "title": "ノートを読み込んでいます",
+                "message": "安全なデータを取得しています。少々お待ちください..."
+            },
+            "error": {
+                "title": "おっと！何かがうまくいきませんでした",
+                "message": "ノートを読み込めませんでした。",
+                "try_again": "再試行",
+                "load_failed": "保存されたノートの読み込みに失敗しました。もう一度お試しください。"
+            },
+            "premium": {
+                "title": "プレミアム機能をアンロック",
+                "description": "ZelfKeys Premiumで高度なセキュリティなどを手に入れましょう"
+            },
+            "add_note": {
+                "title": "新しいノートを追加",
+                "description": "新しいノートを安全に保存します"
+            },
+            "detail": {
+                "loading": "ノートの詳細を読み込んでいます...",
+                "error": {
+                    "title": "ノートの読み込みエラー",
+                    "go_back": "戻る",
+                    "not_found": "ノートデータがありません",
+                    "load_failed": "ノートデータの読み込みに失敗しました",
+                    "retrieve_failed": "ノートデータの取得に失敗しました",
+                    "decrypt_failed": "ノートの復号に失敗しました。もう一度お試しください。"
+                },
+                "no_title": "タイトルなし",
+                "no_content": "内容なし",
+                "untitled": "無題のノート",
+                "no_folder": "フォルダなし",
+                "decrypt": {
+                    "button": "ノートを復号",
+                    "decrypting": "復号しています..."
+                },
+                "info": {
+                    "title": "ノート情報",
+                    "note_id": "ノートID",
+                    "type": "タイプ",
+                    "folder": "フォルダ",
+                    "copy_id": "ノートIDをコピー"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "ZelfProofをダウンロード"
+                },
+                "decrypted": {
+                    "title": "復号された内容",
+                    "title_field": "タイトル",
+                    "content": "内容",
+                    "no_title": "タイトルなし",
+                    "no_content": "内容なし",
+                    "copy_title": "タイトルをコピー",
+                    "copy_content": "内容をコピー"
+                }
+            },
+            "form": {
+                "title": {
+                    "add": "新しいノートを追加",
+                    "edit": "ノートを編集"
+                },
+                "title_field": {
+                    "label": "ノートのタイトル *"
+                },
+                "content": {
+                    "label": "ノートの内容 *",
+                    "hint": "ノートの内容は暗号化され、安全に保存されます。必要なだけ記述できます。"
+                },
+                "folder": {
+                    "label": "フォルダで整理",
+                    "placeholder": "フォルダ名を入力",
+                    "aria_label": "フォルダ整理を切り替え"
+                },
+                "master_password": {
+                    "hint": "資格情報を暗号化して保存するには {{ walletName }} のパスワードが必要です。生体認証の確認は常に必要です。"
+                },
+                "buttons": {
+                    "cancel": "キャンセル",
+                    "create": "ノートを作成",
+                    "update": "ノートを更新"
+                }
+            }
+        },
+        "passwords": {
+            "title": "パスワード",
+            "subtitle": "安全なパスワードと資格情報を管理します",
+            "loading": {
+                "title": "パスワードを読み込んでいます",
+                "message": "安全なデータを取得しています。少々お待ちください..."
+            },
+            "error": {
+                "title": "おっと！何かがうまくいきませんでした",
+                "message": "パスワードを読み込めませんでした。",
+                "try_again": "再試行",
+                "load_failed": "保存されたパスワードの読み込みに失敗しました。もう一度お試しください。"
+            },
+            "premium": {
+                "title": "プレミアム機能をアンロック",
+                "description": "ZelfKeys Premiumで高度なセキュリティなどを手に入れましょう"
+            },
+            "add_password": {
+                "title": "新しいパスワードを追加",
+                "description": "新しいパスワードを安全に保存します"
+            },
+            "search": {
+                "placeholder": "パスワードを検索..."
+            },
+            "no_results": {
+                "title": "パスワードが見つかりません",
+                "message": "検索ワードを変えてお試しください"
+            },
+            "detail": {
+                "loading": "パスワードの詳細を読み込んでいます...",
+                "error": {
+                    "title": "パスワードの読み込みエラー",
+                    "go_back": "戻る",
+                    "not_found": "パスワードデータが見つかりません",
+                    "load_failed": "パスワードデータの読み込みに失敗しました",
+                    "decrypt_failed": "パスワードの復号に失敗しました。もう一度お試しください。"
+                },
+                "untitled": "無題のパスワード",
+                "no_username": "ユーザー名なし",
+                "no_website": "ウェブサイトなし",
+                "no_category": "カテゴリなし",
+                "no_zelf_name": "タグ名なし",
+                "unknown_date": "不明な日付",
+                "decrypt": {
+                    "button": "パスワードを復号",
+                    "decrypting": "復号しています...",
+                    "launch_fill": "サイトを開いて自動入力"
+                },
+                "info": {
+                    "title": "パスワード情報",
+                    "website": "ウェブサイト",
+                    "username": "ユーザー名",
+                    "category": "カテゴリ",
+                    "created": "作成日",
+                    "zelf_name": "タグ名",
+                    "ipfs_hash": "IPFSハッシュ",
+                    "copy_url": "ウェブサイトURLをコピー",
+                    "launch_website": "ウェブサイトを開く",
+                    "prefill_autofill": "自動入力を準備"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "ZelfProofをダウンロード"
+                },
+                "decrypted": {
+                    "title": "復号された内容",
+                    "website": "ウェブサイト",
+                    "username": "ユーザー名",
+                    "password": "パスワード",
+                    "notes": "備考",
+                    "difficulty": "難易度",
+                    "show_password": "パスワードを表示",
+                    "hide_password": "パスワードを非表示",
+                    "copy_website": "ウェブサイトをコピー",
+                    "copy_password": "パスワードをコピー"
+                }
+            },
+            "form": {
+                "title": "パスワードを追加",
+                "website": {
+                    "label": "ウェブサイトURL *"
+                },
+                "title_field": {
+                    "label": "タイトル *",
+                    "placeholder": "タイトルを入力"
+                },
+                "email": {
+                    "label": "メール/ユーザー名 *"
+                },
+                "password": {
+                    "label": "パスワード *"
+                },
+                "folder": {
+                    "label": "フォルダで整理",
+                    "placeholder": "フォルダ名を入力",
+                    "aria_label": "フォルダ整理を切り替え"
+                },
+                "notes": {
+                    "label": "備考",
+                    "placeholder": "備考を入力（任意）"
+                },
+                "master_password": {
+                    "label": "マスターパスワード *",
+                    "hint": "資格情報を暗号化して保存するには {{ walletName }} のパスワードが必要です。生体認証の確認は常に必要です。"
+                },
+                "buttons": {
+                    "save": "パスワードを保存",
+                    "cancel": "キャンセル"
+                }
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "パスワードが正常に保存されました！",
+                "error_title": "パスワードの保存中にエラーが発生しました",
+                "unknown_title": "不明なステータス",
+                "success_message": "パスワードは生体認証とともに安全に保存されました。",
+                "error_message": "パスワードの保存中にエラーが発生しました。もう一度お試しください。",
+                "unknown_message": "パスワード保存リクエストのステータスが不明確です。"
+            },
+            "error": {
+                "no_result": "利用可能なAPI結果がありません"
+            }
+        },
+        "note_result": {
+            "status": {
+                "success_title": "ノートが正常に保存されました！",
+                "error_title": "ノートの保存中にエラーが発生しました",
+                "unknown_title": "不明なステータス",
+                "success_message": "ノートはブロックチェーンによる検証とともに、安全に暗号化および保存されました。",
+                "error_message": "ノートの保存中にエラーが発生しました。",
+                "unknown_message": "保存ステータスを特定できませんでした。"
+            },
+            "error": {
+                "no_result": "利用可能なAPI結果がありません"
+            }
+        }
+    },
+    "start": {
+        "title": "ZelfKeysへようこそ",
+        "subtitle": "あなたの安全なパスワードマネージャー",
+        "features": {
+            "install_extension": {
+                "title": "拡張機能を<br />インストール",
+                "description": "お好みのブラウザで拡張機能を手に入れましょう"
+            },
+            "secure_passwords": {
+                "title": "パスワードを<br />安全に保護",
+                "description": "パスワード、支払いカード、ノートを追加してください。"
+            },
+            "autocomplete": {
+                "title": "情報を<br />自動入力",
+                "description": "簡単な生体認証の後に、保存されたパスワードを自動的に入力します。"
+            }
+        },
+        "cta": {
+            "button": "最初のパスワードを保護する"
+        }
+    },
+    "password_result": {
+        "title": "パスワード保存結果",
+        "loading": "結果を読み込んでいます...",
+        "sections": {
+            "success": {
+                "title": "保存完了！",
+                "message": "パスワードが正常に保存されました！"
+            },
+            "details": {
+                "title": "保存されたパスワードの詳細",
+                "labels": {
+                    "website": "ウェブサイト",
+                    "username": "ユーザー名",
+                    "type": "タイプ",
+                    "category": "カテゴリ",
+                    "zelf_name": "タグ名",
+                    "timestamp": "タイムスタンプ"
+                }
+            },
+            "nft": {
+                "title": "NFTが作成されました",
+                "labels": {
+                    "token_id": "トークンID",
+                    "cost": "コスト",
+                    "contract": "コントラクト",
+                    "transaction": "トランザクション",
+                    "metadata_url": "メタデータURL"
+                },
+                "metadata_link": "メタデータを表示",
+                "copy_hint": "クリックしてコピー",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "IPFSストレージ",
+                "labels": {
+                    "hash": "IPFSハッシュ",
+                    "gateway_url": "ゲートウェイURL",
+                    "file_size": "ファイルサイズ",
+                    "uploaded": "アップロード済み",
+                    "status": "ステータス",
+                    "copy_hint": "クリックしてコピー"
+                },
+                "gateway_link": "IPFSゲートウェイで表示"
+            },
+            "walrus": {
+                "title": "Walrusストレージ",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "公開URL",
+                    "explorer_url": "エクスプローラーURL",
+                    "status": "ステータス",
+                    "reason": "理由",
+                    "error": "エラー"
+                },
+                "view_link": "Walrusで表示",
+                "explorer_link": "エクスプローラーで表示"
+            },
+            "zelfproof": {
+                "title": "ZelfProofが生成されました",
+                "labels": {
+                    "string": "ZelfProof文字列",
+                    "qr_code": "QRコード"
+                },
+                "copy_hint": "クリックしてコピー"
+            },
+            "next_steps": {
+                "title": "次のステップ",
+                "success_message": "パスワードは安全に保存されました。パスワードリストで確認するか、別のパスワードを追加できます。",
+                "error_message": "上記の詳細を確認して、もう一度お試しください。問題が解決しない場合は、サポートにお問い合わせください。",
+                "unknown_message": "ステータスを判別できませんでした。詳細は上記のAPIレスポンスを確認してください。"
+            }
+        },
+        "actions": {
+            "back_to_passwords": "パスワード一覧に戻る",
+            "add_another": "別のパスワードを追加"
+        },
+        "status": {
+            "success_title": "パスワードが正常に保存されました！",
+            "error_title": "パスワードの保存中にエラーが発生しました",
+            "unknown_title": "不明なステータス",
+            "success_message": "パスワードは生体認証とともに安全に保存されました。",
+            "error_message": "パスワードの保存中にエラーが発生しました。もう一度お試しください。",
+            "unknown_message": "パスワード保存リクエストのステータスが不明確です。"
+        },
+        "error": {
+            "no_result": "利用可能なAPI結果がありません"
+        }
+    },
+    "domain_selection": {
+        "title": "タグ名のドメインを選択してください"
+    },
+    "zotp": {
+        "add_zotp": "ZOTPを追加",
+        "account_name": "アカウント名",
+        "account_name_placeholder": "例: miguel@verifik.co",
+        "issuer": "発行者",
+        "issuer_placeholder": "例: Stripe",
+        "setup_key": "セットアップキー",
+        "setup_key_placeholder": "セットアップキーを入力してください",
+        "enter_setup_key": "セットアップキーを入力してください",
+        "upload_qr_code": "QRコードをアップロード",
+        "upload_qr_code_instructions": "QRコード画像をアップロードしてZOTPを自動構成します",
+        "no_zotps_added": "ZOTPがまだ追加されていません。+ボタンをクリックして追加してください。",
+        "master_password": "マスターパスワード",
+        "master_password_placeholder": "ウォレットのマスターパスワードを入力してください",
+        "master_password_hint": "このZOTPを安全に暗号化および保存するには、ウォレットのマスターパスワードが必要です。",
+        "see_details": "詳細を見る",
+        "unlock_zotp": "ZOTPをアンロック",
+        "hide_secret": "シークレットを隠す",
+        "details": "ZOTP詳細",
+        "qr_code": "QRコード",
+        "public_data": "公開データ",
+        "ipfs_info": "IPFS情報",
+        "basic_info": "基本情報",
+        "type": "タイプ",
+        "key_owner": "キー所有者",
+        "category": "カテゴリ",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "サイズ",
+        "network": "ネットワーク",
+        "created_at": "作成日",
+        "updated_at": "更新日",
+        "algorithm": "アルゴリズム",
+        "digits": "桁数",
+        "period": "期間",
+        "walrus_info": "Walrusストレージ情報",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "公開URL",
+        "walrus_explorer_url": "エクスプローラーURL",
+        "walrus_epochs": "ストレージ期間（エポック）",
+        "refresh_list": "リストを更新",
+        "delete_zotp": "ZOTPを削除",
+        "delete_warning": "この操作は取り消せません。このZOTPを削除してもよろしいですか？",
+        "deleted_successfully": "ZOTPが正常に削除されました",
+        "delete_failed": "ZOTPの削除に失敗しました",
+        "incorrect_password": "マスターパスワードが正しくありません",
+        "biometrics_failed": "生体認証に失敗しました",
+        "export": "エクスポート",
+        "export_zotp": "ZOTPをエクスポート",
+        "setup_key_description": "このセットアップキーを使用して、Google Authenticatorなどの他の認証アプリにこのアカウントを追加してください。",
+        "qr_code_description": "Google Authenticatorなどの互換性のある認証アプリでこのQRコードをスキャンして、アカウントをインポートしてください。",
+        "share_zotp": "SealでZOTPを共有",
+        "share_with_seal": "Sealで共有",
+        "share_description": "Sealシークレット共有を使用して、このZOTPシークレットを複数の関係者に分配します。単独ではシークレットにアクセスできず、再構築するには設定したしきい値のシェアが必要です。",
+        "threshold": "しきい値",
+        "threshold_hint": "必要な最小シェア数",
+        "total_shares": "総シェア数",
+        "total_shares_hint": "生成するシェアの総数",
+        "participants": "参加者",
+        "participant": "参加者",
+        "participant_placeholder": "ウォレットアドレスまたは名前（任意）",
+        "generate_shares": "シェアを生成",
+        "generated_shares": "生成されたシェア",
+        "share": "共有",
+        "download_all_shares": "すべてのシェアをダウンロード",
+        "shares_info": "このZOTPを復元するには、{{total}}個のシェアのうち{{threshold}}個が必要です。シェアは信頼できる相手に安全に分配してください。",
+        "shares_warning": "シェアは安全に保管してください！十分な数のシェアがあれば、誰でもZOTPを復元できてしまいます。シェアはそれぞれ別の安全な場所に保管してください。",
+        "recover_zotp": "ZOTPを復元",
+        "recover_description": "ZOTPシークレットを復元するためにシェアをインポートします。シークレットを再構築するには、しきい値の数のシェアが必要です。",
+        "upload_shares_file": "シェアファイルをアップロード",
+        "or_enter_share_manually": "またはシェアを手動で入力",
+        "or_enter_share_below": "または以下にシェアを入力",
+        "share_data": "シェアデータ",
+        "share_placeholder": "ここにシェアデータを貼り付けてください (base64エンコード)",
+        "add_share": "シェアを追加",
+        "imported_shares": "インポートされたシェア",
+        "need_shares": "{{required}}個のシェアが必要です (現在{{current}}個)",
+        "enough_shares": "シークレットを復元するのに十分なシェアがあります",
+        "need_more_shares": "あと{{needed}}個のシェアが必要です",
+        "reconstruct_secret": "シークレットを再構築",
+        "secret_reconstructed": "シークレットの再構築に成功しました！",
+        "secret_reconstructed_description": "シェアからシークレットの再構築に成功しました。この復元されたシークレットからZOTPを作成できます。",
+        "recovered_setup_key": "復元されたセットアップキー",
+        "create_zotp_from_recovery": "復元からZOTPを作成",
+        "recovery_successful": "復元に成功しました！",
+        "recovery_success_description": "ZOTPが復元され、オーセンティケーターに追加されました。これでコードの生成に使用できます。"
     }
 }

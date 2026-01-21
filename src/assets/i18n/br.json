@@ -45,7 +45,8 @@
         "economical": "Econômico",
         "fastest": "Mais rápido",
         "transaction_settings": "Configurações de Transação",
-        "upto_sats": "Até {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos"
+        "upto_sats": "Até {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos",
+        "private_transaction": "Private Transaction"
     },
     "transaction": {
         "go_to_my_history": "Ir para meu histórico",
@@ -101,7 +102,8 @@
         "subscription_label": "Assinatura",
         "networks": {
             "title": "Redes Blockchain",
-            "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
+            "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens.",
+            "no_networks_available": "No networks available for your license. Please upgrade your plan to access more networks."
         },
         "security": {
             "biometric_verification_title": "Intervalo de verificação biométrica",
@@ -141,7 +143,8 @@
         "create_pin_title": "CRIAR UM PIN",
         "create_pin_subtitle": "Por favor, insira uma senha de 6 dígitos para o seu ZelfProof.",
         "confirm_pin_title": "CONFIRMAR PIN",
-        "confirm_pin_subtitle": "Por favor, insira novamente a senha de 6 dígitos para o seu ZelfProof."
+        "confirm_pin_subtitle": "Por favor, insira novamente a senha de 6 dígitos para o seu ZelfProof.",
+        "pin_confirm_description": "Re-enter your 6 character PIN to confirm"
     },
     "receive": {
         "information": "Este endereço só pode ser usado para receber tokens compatíveis.",
@@ -264,7 +267,17 @@
         "withdrawal_network": "Rede de saque",
         "yes": "Sim",
         "your_token": "Seu {{ symbol }}",
-        "zelf_wallet": "Carteira Zelf"
+        "zelf_wallet": "Carteira Zelf",
+        "optional": "Optional",
+        "no_results_found": "No results found",
+        "avax_address": "AVAX Address",
+        "download_apps": "Download Apps",
+        "download_qr": "Download QR",
+        "seed_phrase": "Seed Phrase",
+        "zelf_authenticator": "Zelf Authenticator",
+        "zelf_keys": "Zelf Keys",
+        "zelf_link": "Zelf Link",
+        "subscriptions": "Subscriptions"
     },
     "token": {
         "24h_performance": "Desempenho 24h",
@@ -315,8 +328,7 @@
         "domain_warning": "Você ainda tem tempo para comprar",
         "expired_wallet_logout_message": "Você pode descriptografar este ZelfProof novamente se pesquisar pelo seu Nome da Tag. No entanto, você corre o risco de perdê-lo se não comprar em breve.",
         "logout_of_wallet_message": "Você pode descriptografar este ZelfProof novamente se pesquisar pelo seu Nome da Tag ou carregar seu código QR do ZelfProof.",
-        "purchase_new_domain": "Adicionar um novo Nome de Etiqueta",
-        "zelfproof_removed_successfully": "ZelfProof removido com sucesso"
+        "purchase_new_domain": "Adicionar um novo Nome de Etiqueta"
     },
     "liveness": {
         "center_your_face": "Centralize seu rosto na tela",
@@ -373,7 +385,22 @@
         "swap_same_asset": "Você não pode trocar para o mesmo ativo",
         "transaction_not_found": "Transação não encontrada",
         "try_again": "Tentar novamente",
-        "zelfName_is_taken": "Este nome da tag já está em uso"
+        "zelfName_is_taken": "Este nome da tag já está em uso",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "cannot_decrypt_zotp_missing_zelfProof": "Cannot decrypt ZOTP: missing ZelfProof. This ZOTP cannot be decrypted without a valid ZelfProof.",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
+        "session_init_info": "To use the Tag Name Service Extension, you will require network access. For an offline solution, check our iOS and Android apps.",
+        "session_init_message": "Sorry, there was an issue initializing your session. This may be due to a network problem or server unavailability. Please try again.",
+        "session_init_title": "Session initialization failed",
+        "unknown_error": "An unknown error occurred",
+        "user_cancelled_decryption": "Decryption was cancelled"
     },
     "swap": {
         "automatic": "Automático",
@@ -405,7 +432,8 @@
         "send_transaction_button": "Enviar",
         "settings_button": "Configurações",
         "support_button": "Suporte",
-        "swap": "Trocar"
+        "swap": "Trocar",
+        "keys": "Keys"
     },
     "id_scanning": {
         "camera_not_found": "Câmera não encontrada",
@@ -468,5 +496,1057 @@
         "considerations_description_1": "Segurança inquebrável.",
         "considerations_description_2": "Identidade única.",
         "considerations_description_3": "Proteção à prova de futuro."
+    },
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "WALLET"
+        },
+        "common": {
+            "qr_code": "QR Code",
+            "no_folder": "No folder",
+            "download_zelfproof": "Download ZelfProof",
+            "back_to_payment_cards": "Back to Payment Cards",
+            "add_another_card": "Add Another Card",
+            "try_again": "Try Again",
+            "image_not_available": "Image not available"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "Card Holder",
+                "expires": "Expires",
+                "bank_name": "Bank Name",
+                "card_number": "Card Number",
+                "expiry_date": "Expiry Date",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "CARD HOLDER"
+            },
+            "decrypt": {
+                "button": "Decrypt Payment Card",
+                "decrypting": "Decrypting..."
+            },
+            "info": {
+                "title": "Payment Card Information",
+                "payment_card_id": "Payment Card ID",
+                "type": "Type",
+                "folder": "Folder",
+                "copy_payment_card_id": "Copy payment card ID"
+            },
+            "zelfproof": {
+                "title": "ZelfProof",
+                "download": "Download ZelfProof"
+            },
+            "decrypted": {
+                "title": "Decrypted Content",
+                "card_holder_name": "Card Holder Name",
+                "copy_card_holder_name": "Copy card holder name",
+                "copy_card_number": "Copy card number",
+                "copy_expiry_date": "Copy expiry date",
+                "copy_cvv": "Copy CVV",
+                "copy_bank_name": "Copy bank name",
+                "show_card_number": "Show card number",
+                "hide_card_number": "Hide card number",
+                "show_cvv": "Show CVV",
+                "hide_cvv": "Hide CVV"
+            },
+            "error": {
+                "no_wallet": "No wallet found. Please set up your wallet first.",
+                "auth_failed": "Authentication failed. Please ensure you have a valid wallet.",
+                "init_failed": "Failed to initialize session. Please check your wallet connection.",
+                "no_token": "No authentication token available. Please refresh the page.",
+                "load_failed": "Failed to load payment cards. Please try again."
+            },
+            "unknown_bank": "Unknown Bank",
+            "unknown": "Unknown",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "Failed to retrieve payment card data",
+                    "decrypt_failed": "Failed to decrypt payment card. Please try again."
+                },
+                "expiry_placeholder": "MM/YY"
+            },
+            "result": {
+                "error": {
+                    "no_data": "No result data found"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "Payment Card Created Successfully!",
+                "description": "Your payment card has been securely stored and encrypted."
+            },
+            "preview": {
+                "title": "Card Details",
+                "labels": {
+                    "name": "Payment Card Name",
+                    "card_holder": "Card Holder",
+                    "card_number": "Card Number",
+                    "expires": "Expires"
+                }
+            },
+            "image": {
+                "title": "ZelfProof",
+                "download": "Download ZelfProof"
+            },
+            "nft": {
+                "title": "NFT Created",
+                "labels": {
+                    "token_id": "Token ID",
+                    "cost": "Cost",
+                    "contract": "Contract",
+                    "transaction": "Transaction",
+                    "metadata_url": "Metadata URL"
+                },
+                "metadata_link": "View Metadata",
+                "copy_hint": "Click to copy",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "IPFS Storage",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "File Size",
+                    "uploaded": "Uploaded"
+                },
+                "gateway_link": "View on IPFS Gateway"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status",
+                    "reason": "Reason",
+                    "error": "Error"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
+            },
+            "zelfproof": {
+                "title": "ZelfProof Generated",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "Click to copy"
+            },
+            "error": {
+                "title": "Error Creating Payment Card",
+                "default_message": "An unexpected error occurred while creating your payment card.",
+                "try_again": "Try Again",
+                "no_data": "No result data found"
+            },
+            "actions": {
+                "back_to_cards": "Back to Payment Cards",
+                "add_another": "Add Another Card"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "Choose Your Plan",
+            "choose_your_plan_subtitle": "Select the plan that best fits your needs",
+            "loading_plans": "Loading subscription plans...",
+            "error": {
+                "try_again": "Try Again",
+                "load_plans": "Failed to load subscription plans",
+                "create_crypto_payment": "Failed to create crypto payment",
+                "create_checkout": "Failed to create checkout session",
+                "open_portal": "Failed to open subscription management portal",
+                "customer_not_found": "Unable to find customer information. Please contact support.",
+                "no_subscription": "No active subscription found. Please refresh the page.",
+                "open_portal_generic": "Failed to open subscription management: {{ error }}",
+                "missing_payment_data": "Missing payment data. Please try again.",
+                "no_avax_address": "Selected wallet does not have an AVAX address.",
+                "no_avax_token": "Unable to load AVAX token data. Please try again.",
+                "prepare_transaction": "Failed to prepare transaction. Please try again."
+            },
+            "crypto": {
+                "complete_payment": "Complete Your Payment",
+                "demo_banner": "DEMO MODE - Testing with reduced amounts",
+                "send_amount_to_address": "Send {{ amount }} AVAX to the address below",
+                "price_lock": "Price locked for 30 minutes",
+                "payment_address_label": "Payment Address (Avalanche C-Chain)",
+                "copy": "Copy",
+                "scan_with_wallet": "Scan with your wallet",
+                "amount_to_send": "Amount to Send",
+                "original_plan_price": "Original Plan Price:",
+                "demo_discount": "Demo Discount: {{ discount }}%",
+                "waiting_confirmation": "Waiting for payment confirmation...",
+                "auto_update_note": "This page will automatically update when payment is received",
+                "cancel_payment": "Cancel Payment",
+                "payment_methods": "Payment Methods",
+                "copy_address": "Copy address:",
+                "scan_address": "Scan address:",
+                "pay_with_wallet": "Pay with Wallet:",
+                "domain_label": "Domain",
+                "select_wallet": "Select Wallet",
+                "pay_with_avax": "Pay with AVAX",
+                "payment_qr_code_alt": "Payment QR Code"
+            },
+            "plan": {
+                "popular_badge": "POPULAR",
+                "pay_with_stripe": "Pay with Stripe",
+                "pay_with_crypto": "Pay with Crypto",
+                "current_plan": "Your current plan",
+                "premium_plan": "Premium Plan",
+                "not_available": "N/A",
+                "month": "month"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "Look at the camera to verify your identity and store your {{ type }} securely",
+                "decrypt": "Look at the camera to verify your identity and access your {{ type }}"
+            },
+            "processing": {
+                "processing": "Processing your biometric data...",
+                "analyzing": "Analyzing your face..."
+            },
+            "status": {
+                "position_face_title": "Position your face in the center",
+                "position_face_subtitle": "Look directly at the camera and stay still"
+            },
+            "api_error": {
+                "title": "Authentication Failed",
+                "try_again": "Try Again",
+                "go_back": "Go Back"
+            },
+            "camera_error": {
+                "title": "Camera not available",
+                "description": "Please ensure your camera is enabled and accessible for biometric verification"
+            },
+            "permission": {
+                "title": "Camera Permission Required",
+                "description": "Please allow camera access to continue with biometric verification",
+                "go_back": "Go Back"
+            },
+            "close_aria": "Close biometrics verification",
+            "errors": {
+                "no_face_detected": "No face detected",
+                "look_at_camera": "Please look at the camera"
+            }
+        },
+        "subscription_banner": {
+            "title": "Unlock Premium Features",
+            "description": "Get unlimited access, advanced security, and more with ZelfKeys Premium"
+        },
+        "data_card": {
+            "details": "Details",
+            "no_qr": "No QR",
+            "untitled": "Untitled",
+            "username_label": "Username: {{ username }}",
+            "zelf_name_label": "Tag Name: {{ zelfName }}",
+            "category_label": "Category: {{ category }}",
+            "type_label": "Type: {{ type }}",
+            "secure_credential": "Secure credential"
+        },
+        "data_types": {
+            "note": "Note",
+            "password": "Password",
+            "payment_card": "Payment Card"
+        },
+        "categories": {
+            "password": "Password",
+            "note": "Note",
+            "notes": "Notes",
+            "payment_card": "Payment Card",
+            "card": "Card",
+            "contact": "Contact",
+            "zotp": "ZOTP"
+        },
+        "errors": {
+            "storing": "Error storing {{ type }}",
+            "retrieving": "Error retrieving {{ type }}"
+        },
+        "messages": {
+            "note_retrieved": "Note retrieved successfully",
+            "note_stored": "Note stored successfully",
+            "password_retrieved": "Password retrieved successfully",
+            "password_stored": "Password stored successfully"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "Verify Identity to Encrypt Payment Card",
+            "decrypt_payment_card": "Verify Identity to Decrypt Payment Card",
+            "encrypt_note": "Verify Identity to Encrypt Note",
+            "decrypt_note": "Verify Identity to Decrypt Note",
+            "encrypt_password": "Verify Identity to Encrypt Password",
+            "decrypt_password": "Verify Identity to Decrypt Password",
+            "instructions": {
+                "payment_card": "Please verify your face to decrypt your payment card",
+                "note": "Please verify your face to decrypt your note",
+                "password": "Please verify your face to decrypt your password"
+            },
+            "item": "Item",
+            "error": {
+                "storage_failed": "Error during storage of {{ category }}, please try again later.",
+                "try_again_later": "Please try again later.",
+                "close": "Close"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Back",
+            "cancel": "Cancel",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Retry",
+            "title": "{{ type }} Decryption",
+            "unlock": "Continue to Biometrics",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Password",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
+            }
+        },
+        "password_biometrics": {
+            "back_to_details": "Back to Password Details",
+            "back_to_form": "Back to Password Form",
+            "verify_to_decrypt": "Verify Identity to Decrypt",
+            "biometric_verification": "Biometric Verification",
+            "instruction_title": "Position your face in the center",
+            "instruction_subtitle": "Look directly at the camera and stay still",
+            "compact_encrypt": "Please look at the camera to verify your identity and store your password securely",
+            "compact_decrypt": "Please look at the camera to verify your identity and decrypt your password",
+            "loading_processing": "Processing your biometric data...",
+            "camera_error_title": "Camera not available",
+            "camera_error_desc": "Please ensure your camera is enabled and accessible for biometric verification",
+            "permission_title": "Camera Permission Required",
+            "permission_desc": "Please allow camera access to continue with biometric verification",
+            "go_back": "Go Back",
+            "master_password_label": "Master Password (Optional):",
+            "master_password_placeholder": "Enter your master password if you have one",
+            "master_password_hint": "If you set a master password when creating this entry, enter it here"
+        },
+        "note_result": {
+            "title": "Note Storage Result",
+            "loading": "Loading result...",
+            "sections": {
+                "success": {
+                    "title": "Storage Successful!",
+                    "message": "Note stored successfully!"
+                },
+                "details": {
+                    "title": "Stored Note Details",
+                    "labels": {
+                        "title": "Title",
+                        "folder": "Folder",
+                        "type": "Type",
+                        "category": "Category",
+                        "zelf_name": "Tag Name",
+                        "timestamp": "Timestamp"
+                    }
+                },
+                "nft": {
+                    "title": "NFT Created",
+                    "labels": {
+                        "token_id": "Token ID",
+                        "cost": "Cost",
+                        "contract": "Contract",
+                        "transaction": "Transaction"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "IPFS Storage",
+                    "labels": {
+                        "hash": "IPFS Hash",
+                        "gateway_url": "Gateway URL",
+                        "file_size": "File Size",
+                        "uploaded": "Uploaded"
+                    },
+                    "gateway_link": "View on IPFS Gateway"
+                },
+                "walrus": {
+                    "title": "Walrus Storage",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status",
+                        "reason": "Reason",
+                        "error": "Error"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof Generated",
+                    "labels": {
+                        "string": "ZelfProof String",
+                        "qr_code": "QR Code"
+                    },
+                    "copy_hint": "Click to copy",
+                    "qr_alt": "ZelfProof QR Code"
+                },
+                "debug": {
+                    "title": "Debug Information"
+                },
+                "next_steps": {
+                    "title": "Next Steps",
+                    "success_message": "Your note is now securely stored. You can view it in your notes list or add another note.",
+                    "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
+                    "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
+                }
+            },
+            "actions": {
+                "back_to_notes": "Back to Notes",
+                "add_another": "Add Another Note"
+            },
+            "status": {
+                "success_title": "Note Stored Successfully!",
+                "error_title": "Error Storing Note",
+                "unknown_title": "Unknown Status",
+                "success_message": "Your note has been securely stored and encrypted with blockchain verification.",
+                "error_message": "An error occurred while storing your note.",
+                "unknown_message": "The system couldn't determine the storage status."
+            },
+            "error": {
+                "no_result": "No API result available"
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "Password Stored Successfully!",
+                "error_title": "Error Storing Password",
+                "unknown_title": "Unknown Status",
+                "success_message": "Your password has been securely stored with biometric verification.",
+                "error_message": "There was an error storing your password. Please try again.",
+                "unknown_message": "The status of your password storage request is unclear."
+            },
+            "error": {
+                "no_result": "No API result available"
+            }
+        }
+    },
+    "billing": {
+        "common": {
+            "master_password_placeholder": "Enter your master password"
+        },
+        "activation": {
+            "title": "Payment Confirmed!",
+            "message": "Activating subscription... Congratulations! Your payment has been confirmed and your subscription is being activated."
+        },
+        "subscription": {
+            "active_subscription": "Active Subscription",
+            "cancelled_active": "Cancelled (Active Until Period End)",
+            "plan": "Plan:",
+            "price": "Price:",
+            "payment_method": "Payment Method:",
+            "status": "Status:",
+            "transaction": "Transaction:",
+            "zelf_name": "Tag Name:",
+            "start_date": "Start Date:",
+            "expires_on": "Expires On:",
+            "next_billing": "Next Billing:",
+            "access_ends": "Access Ends:",
+            "cancelled_on": "Cancelled On:",
+            "manage_subscription": "Manage Subscription",
+            "crypto_subscription_active": "Crypto Subscription Active",
+            "crypto_subscription_info": "Your subscription was paid with AVAX cryptocurrency. You will be required to renew manually at the end of this cycle to keep your perks.",
+            "crypto_subscription_title": "Subscription by Crypto Payments",
+            "payment_method_crypto": "Crypto (AVAX)",
+            "payment_method_stripe": "Stripe",
+            "transaction_verified": "Transaction verified on Avalanche blockchain.",
+            "manage_note_active": "Manage your subscription, update payment methods, view billing history, and more in the Stripe customer portal.",
+            "manage_note_cancelled": "Your subscription is cancelled but remains active until the end of your billing period. You can reactivate or view billing history in the Stripe customer portal.",
+            "demo": "DEMO",
+            "active": "Active",
+            "cancelled": "Cancelled"
+        },
+        "dashboard": {
+            "start": "Start",
+            "passwords": "Passwords",
+            "notes": "Notes",
+            "payment_cards": "Payment Cards",
+            "subscription": "Subscription",
+            "add_password": "Add Password",
+            "add_note": "Add Note",
+            "add_payment_card": "Add Payment Card"
+        },
+        "payment_cards": {
+            "title": "Payment Cards",
+            "subtitle": "Securely store your payment card information",
+            "loading": {
+                "title": "Loading your payment cards",
+                "message": "Please wait while we fetch your secure data..."
+            },
+            "error": {
+                "title": "Oops! Something went wrong",
+                "message": "We couldn't load your payment cards.",
+                "try_again": "Try Again",
+                "no_wallet": "No wallet found. Please set up your wallet first.",
+                "auth_failed": "Authentication failed. Please ensure you have a valid wallet.",
+                "init_failed": "Failed to initialize session. Please check your wallet connection.",
+                "no_token": "No authentication token available. Please refresh the page.",
+                "load_failed": "Failed to load payment cards. Please try again."
+            },
+            "unknown_bank": "Unknown Bank",
+            "unknown": "Unknown",
+            "premium": {
+                "title": "Unlock Premium Features",
+                "description": "Get advanced security, and more with ZelfKeys Premium"
+            },
+            "add_card": {
+                "title": "Add New Card",
+                "description": "Securely store a new payment card"
+            },
+            "card": {
+                "card_holder": "Card Holder",
+                "expires": "Expires",
+                "card_number": "Card Number",
+                "expiry_date": "Expiry Date",
+                "card_type": "Card Type",
+                "cvv": "CVV",
+                "billing_address": "Billing Address",
+                "notes": "Notes",
+                "no_card_holder": "No card holder",
+                "no_expiry": "No expiry date",
+                "no_card_number": "No card number",
+                "no_card_type": "No card type",
+                "no_cvv": "No CVV",
+                "no_billing_address": "No billing address",
+                "no_notes": "No notes"
+            },
+            "detail": {
+                "title": "Payment Card Details",
+                "loading": "Loading payment card details...",
+                "error": {
+                    "title": "Error loading payment card",
+                    "go_back": "Go Back",
+                    "retrieve_failed": "Failed to retrieve payment card data",
+                    "decrypt_failed": "Failed to decrypt payment card. Please try again."
+                },
+                "expiry_placeholder": "MM/YY",
+                "decrypt": {
+                    "button": "Decrypt Card",
+                    "decrypting": "Decrypting..."
+                },
+                "info": {
+                    "title": "Card Information",
+                    "card_number": "Card Number",
+                    "card_holder": "Card Holder",
+                    "expiry_date": "Expiry Date",
+                    "card_type": "Card Type",
+                    "cvv": "CVV",
+                    "billing_address": "Billing Address",
+                    "notes": "Notes",
+                    "copy_card_number": "Copy card number",
+                    "copy_card_holder": "Copy card holder",
+                    "copy_expiry": "Copy expiry date",
+                    "copy_card_type": "Copy card type",
+                    "copy_cvv": "Copy CVV",
+                    "copy_billing_address": "Copy billing address",
+                    "copy_notes": "Copy notes"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "Download ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Decrypted Card Information",
+                    "card_number": "Card Number",
+                    "card_holder": "Card Holder",
+                    "expiry_date": "Expiry Date",
+                    "card_type": "Card Type",
+                    "cvv": "CVV",
+                    "billing_address": "Billing Address",
+                    "notes": "Notes",
+                    "show_card_number": "Show card number",
+                    "hide_card_number": "Hide card number",
+                    "show_cvv": "Show CVV",
+                    "hide_cvv": "Hide CVV",
+                    "copy_card_number": "Copy card number",
+                    "copy_card_holder": "Copy card holder",
+                    "copy_expiry": "Copy expiry date",
+                    "copy_card_type": "Copy card type",
+                    "copy_cvv": "Copy CVV",
+                    "copy_billing_address": "Copy billing address",
+                    "copy_notes": "Copy notes"
+                }
+            },
+            "form": {
+                "title": {
+                    "add": "Add New Payment Card",
+                    "edit": "Edit Payment Card",
+                    "label": "Bank Name *"
+                },
+                "card_number": {
+                    "label": "Card Number *"
+                },
+                "card_holder": {
+                    "label": "Card Holder Name *"
+                },
+                "expiry_month": {
+                    "label": "Expiry Month *",
+                    "placeholder": "MM"
+                },
+                "expiry_year": {
+                    "label": "Expiry Year *"
+                },
+                "card_type": {
+                    "label": "Card Type *",
+                    "placeholder": "Select card type"
+                },
+                "cvv": {
+                    "label": "CVV *"
+                },
+                "billing_address": {
+                    "label": "Billing Address",
+                    "placeholder": "Enter billing address (optional)"
+                },
+                "notes": {
+                    "label": "Notes",
+                    "placeholder": "Enter notes (optional)"
+                },
+                "folder": {
+                    "label": "Store in Folder",
+                    "placeholder": "Folder name",
+                    "aria_label": "Toggle folder storage"
+                },
+                "master_password": {
+                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                },
+                "buttons": {
+                    "cancel": "Cancel",
+                    "create": "Create Card",
+                    "update": "Update Card"
+                }
+            }
+        },
+        "notes": {
+            "title": "Notes",
+            "subtitle": "Manage your secure notes and key-value pairs",
+            "loading": {
+                "title": "Loading your notes",
+                "message": "Please wait while we fetch your secure data..."
+            },
+            "error": {
+                "title": "Oops! Something went wrong",
+                "message": "We couldn't load your notes.",
+                "try_again": "Try Again",
+                "load_failed": "Failed to load stored notes. Please try again."
+            },
+            "premium": {
+                "title": "Unlock Premium Features",
+                "description": "Get advanced security, and more with ZelfKeys Premium"
+            },
+            "add_note": {
+                "title": "Add New Note",
+                "description": "Securely store a new note"
+            },
+            "detail": {
+                "loading": "Loading note details...",
+                "error": {
+                    "title": "Error loading note",
+                    "go_back": "Go Back",
+                    "not_found": "No note data available",
+                    "load_failed": "Failed to load note data",
+                    "retrieve_failed": "Failed to retrieve note data",
+                    "decrypt_failed": "Failed to decrypt note. Please try again."
+                },
+                "no_title": "No title",
+                "no_content": "No content",
+                "untitled": "Untitled Note",
+                "no_folder": "No folder",
+                "decrypt": {
+                    "button": "Decrypt Note",
+                    "decrypting": "Decrypting..."
+                },
+                "info": {
+                    "title": "Note Information",
+                    "note_id": "Note ID",
+                    "type": "Type",
+                    "folder": "Folder",
+                    "copy_id": "Copy note ID"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "Download ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Decrypted Content",
+                    "title_field": "Title",
+                    "content": "Content",
+                    "no_title": "No title",
+                    "no_content": "No content",
+                    "copy_title": "Copy title",
+                    "copy_content": "Copy content"
+                }
+            },
+            "form": {
+                "title": {
+                    "add": "Add New Note",
+                    "edit": "Edit Note"
+                },
+                "title_field": {
+                    "label": "Note Title *"
+                },
+                "content": {
+                    "label": "Note Content *",
+                    "hint": "Your note content will be encrypted and stored securely. You can write as much as you need."
+                },
+                "folder": {
+                    "label": "Organize in Folder",
+                    "placeholder": "Enter folder name",
+                    "aria_label": "Toggle folder organization"
+                },
+                "master_password": {
+                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                },
+                "buttons": {
+                    "cancel": "Cancel",
+                    "create": "Create Note",
+                    "update": "Update Note"
+                }
+            }
+        },
+        "passwords": {
+            "title": "Passwords",
+            "subtitle": "Manage your secure passwords and credentials",
+            "loading": {
+                "title": "Loading your passwords",
+                "message": "Please wait while we fetch your secure data..."
+            },
+            "error": {
+                "title": "Oops! Something went wrong",
+                "message": "We couldn't load your passwords.",
+                "try_again": "Try Again",
+                "load_failed": "Failed to load stored passwords. Please try again."
+            },
+            "premium": {
+                "title": "Unlock Premium Features",
+                "description": "Get advanced security, and more with ZelfKeys Premium"
+            },
+            "add_password": {
+                "title": "Add New Password",
+                "description": "Securely store a new password"
+            },
+            "search": {
+                "placeholder": "Search passwords..."
+            },
+            "no_results": {
+                "title": "No passwords found",
+                "message": "Try adjusting your search terms"
+            },
+            "detail": {
+                "loading": "Loading password details...",
+                "error": {
+                    "title": "Error loading password",
+                    "go_back": "Go Back",
+                    "not_found": "Password data not found",
+                    "load_failed": "Failed to load password data",
+                    "decrypt_failed": "Failed to decrypt password. Please try again."
+                },
+                "untitled": "Untitled Password",
+                "no_username": "No username",
+                "no_website": "No website",
+                "no_category": "No category",
+                "no_zelf_name": "No zelf name",
+                "unknown_date": "Unknown date",
+                "decrypt": {
+                    "button": "Decrypt password",
+                    "decrypting": "Decrypting...",
+                    "launch_fill": "Launch and fill"
+                },
+                "info": {
+                    "title": "Password Information",
+                    "website": "Website",
+                    "username": "Username",
+                    "category": "Category",
+                    "created": "Created",
+                    "zelf_name": "Tag Name",
+                    "ipfs_hash": "IPFS Hash",
+                    "copy_url": "Copy website URL",
+                    "launch_website": "Launch website",
+                    "prefill_autofill": "Prefill autofill"
+                },
+                "zelfproof": {
+                    "title": "ZelfProof",
+                    "download": "Download ZelfProof"
+                },
+                "decrypted": {
+                    "title": "Decrypted Content",
+                    "website": "Website",
+                    "username": "Username",
+                    "password": "Password",
+                    "notes": "Notes",
+                    "difficulty": "Difficulty",
+                    "show_password": "Show password",
+                    "hide_password": "Hide password",
+                    "copy_website": "Copy website",
+                    "copy_password": "Copy password"
+                }
+            },
+            "form": {
+                "title": "Add Password",
+                "website": {
+                    "label": "Website URL *"
+                },
+                "title_field": {
+                    "label": "Title *",
+                    "placeholder": "Enter title"
+                },
+                "email": {
+                    "label": "Email/Username *"
+                },
+                "password": {
+                    "label": "Password *"
+                },
+                "folder": {
+                    "label": "Organize in Folder",
+                    "placeholder": "Enter folder name",
+                    "aria_label": "Toggle folder organization"
+                },
+                "notes": {
+                    "label": "Notes",
+                    "placeholder": "Enter notes (optional)"
+                },
+                "master_password": {
+                    "label": "Master Password *",
+                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                },
+                "buttons": {
+                    "save": "Save Password",
+                    "cancel": "Cancel"
+                }
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "Password Stored Successfully!",
+                "error_title": "Error Storing Password",
+                "unknown_title": "Unknown Status",
+                "success_message": "Your password has been securely stored with biometric verification.",
+                "error_message": "There was an error storing your password. Please try again.",
+                "unknown_message": "The status of your password storage request is unclear."
+            },
+            "error": {
+                "no_result": "No API result available"
+            }
+        },
+        "note_result": {
+            "status": {
+                "success_title": "Note Stored Successfully!",
+                "error_title": "Error Storing Note",
+                "unknown_title": "Unknown Status",
+                "success_message": "Your note has been securely stored and encrypted with blockchain verification.",
+                "error_message": "An error occurred while storing your note.",
+                "unknown_message": "The system couldn't determine the storage status."
+            },
+            "error": {
+                "no_result": "No API result available"
+            }
+        }
+    },
+    "start": {
+        "title": "Welcome to ZelfKeys",
+        "subtitle": "Your secure password manager",
+        "features": {
+            "install_extension": {
+                "title": "INSTALL OUR<br />EXTENSION",
+                "description": "Get our extension in your prefer browser"
+            },
+            "secure_passwords": {
+                "title": "SECURE YOUR<br />PASSWORDS",
+                "description": "Add your passwords, payment cards, and notes."
+            },
+            "autocomplete": {
+                "title": "AUTO-COMPLETE<br />YOUR INFO",
+                "description": "Autofill your stored passwords automatically after a quick biometric verification."
+            }
+        },
+        "cta": {
+            "button": "Secure my first password"
+        }
+    },
+    "password_result": {
+        "title": "Password Storage Result",
+        "loading": "Loading result...",
+        "sections": {
+            "success": {
+                "title": "Storage Successful!",
+                "message": "Password stored successfully!"
+            },
+            "details": {
+                "title": "Stored Password Details",
+                "labels": {
+                    "website": "Website",
+                    "username": "Username",
+                    "type": "Type",
+                    "category": "Category",
+                    "zelf_name": "Tag Name",
+                    "timestamp": "Timestamp"
+                }
+            },
+            "nft": {
+                "title": "NFT Created",
+                "labels": {
+                    "token_id": "Token ID",
+                    "cost": "Cost",
+                    "contract": "Contract",
+                    "transaction": "Transaction",
+                    "metadata_url": "Metadata URL"
+                },
+                "metadata_link": "View Metadata",
+                "copy_hint": "Click to copy",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "IPFS Storage",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "File Size",
+                    "uploaded": "Uploaded",
+                    "status": "Status",
+                    "copy_hint": "Click to copy"
+                },
+                "gateway_link": "View on IPFS Gateway"
+            },
+            "walrus": {
+                "title": "Walrus Storage",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status",
+                    "reason": "Reason",
+                    "error": "Error"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
+            },
+            "zelfproof": {
+                "title": "ZelfProof Generated",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "Click to copy"
+            },
+            "next_steps": {
+                "title": "Next Steps",
+                "success_message": "Your password is now securely stored. You can view it in your passwords list or add another password.",
+                "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
+                "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
+            }
+        },
+        "actions": {
+            "back_to_passwords": "Back to Passwords",
+            "add_another": "Add Another Password"
+        },
+        "status": {
+            "success_title": "Password Stored Successfully!",
+            "error_title": "Error Storing Password",
+            "unknown_title": "Unknown Status",
+            "success_message": "Your password has been securely stored with biometric verification.",
+            "error_message": "There was an error storing your password. Please try again.",
+            "unknown_message": "The status of your password storage request is unclear."
+        },
+        "error": {
+            "no_result": "No API result available"
+        }
+    },
+    "domain_selection": {
+        "title": "Choose domain for your tag name"
+    },
+    "zotp": {
+        "add_zotp": "Add ZOTP",
+        "account_name": "Account Name",
+        "account_name_placeholder": "e.g., miguel@verifik.co",
+        "issuer": "Issuer",
+        "issuer_placeholder": "e.g., Stripe",
+        "setup_key": "Setup Key",
+        "setup_key_placeholder": "Enter your setup key",
+        "enter_setup_key": "Enter a setup key",
+        "upload_qr_code": "Upload QR Code",
+        "upload_qr_code_instructions": "Upload a QR code image to automatically configure your ZOTP",
+        "no_zotps_added": "No ZOTPs added yet. Click the + button to add one.",
+        "master_password": "Master Password",
+        "master_password_placeholder": "Enter your wallet master password",
+        "master_password_hint": "Your wallet's master password is required to encrypt and store this ZOTP securely.",
+        "see_details": "See Details",
+        "unlock_zotp": "Unlock ZOTP",
+        "hide_secret": "Hide Secret",
+        "details": "ZOTP Details",
+        "qr_code": "QR Code",
+        "public_data": "Public Data",
+        "ipfs_info": "IPFS Information",
+        "basic_info": "Basic Information",
+        "type": "Type",
+        "key_owner": "Key Owner",
+        "category": "Category",
+        "ipfs_id": "IPFS ID",
+        "ipfs_cid": "IPFS CID",
+        "ipfs_url": "IPFS URL",
+        "size": "Size",
+        "network": "Network",
+        "created_at": "Created At",
+        "updated_at": "Updated At",
+        "algorithm": "Algorithm",
+        "digits": "Digits",
+        "period": "Period",
+        "walrus_info": "Walrus Storage Information",
+        "walrus_blob_id": "Blob ID",
+        "walrus_public_url": "Public URL",
+        "walrus_explorer_url": "Explorer URL",
+        "walrus_epochs": "Storage Epochs",
+        "refresh_list": "Refresh list",
+        "delete_zotp": "Delete ZOTP",
+        "delete_warning": "This action cannot be undone. Please confirm you want to delete this ZOTP.",
+        "deleted_successfully": "ZOTP deleted successfully",
+        "delete_failed": "Failed to delete ZOTP",
+        "incorrect_password": "Incorrect master password",
+        "biometrics_failed": "Biometric verification failed",
+        "export": "Export",
+        "export_zotp": "Export ZOTP",
+        "setup_key_description": "Use this setup key to add this account to another authenticator app like Google Authenticator.",
+        "qr_code_description": "Scan this QR code with Google Authenticator or any compatible authenticator app to import this account.",
+        "share_zotp": "Share ZOTP with Seal",
+        "share_with_seal": "Share with Seal",
+        "share_description": "Distribute this ZOTP secret across multiple parties using Seal secret sharing. No single party can access the secret alone - you need a threshold of shares to reconstruct it.",
+        "threshold": "Threshold",
+        "threshold_hint": "Minimum shares needed",
+        "total_shares": "Total Shares",
+        "total_shares_hint": "Total number of shares",
+        "participants": "Participants",
+        "participant": "Participant",
+        "participant_placeholder": "Wallet address or name (optional)",
+        "generate_shares": "Generate Shares",
+        "generated_shares": "Generated Shares",
+        "share": "Share",
+        "download_all_shares": "Download All Shares",
+        "shares_info": "You need {{threshold}} out of {{total}} shares to recover this ZOTP. Distribute shares securely to trusted parties.",
+        "shares_warning": "Keep shares secure! Anyone with enough shares can recover your ZOTP. Store shares in separate secure locations.",
+        "recover_zotp": "Recover ZOTP",
+        "recover_description": "Import shares to recover your ZOTP secret. You need a threshold number of shares to reconstruct the secret.",
+        "upload_shares_file": "Upload Shares File",
+        "or_enter_share_manually": "Or Enter Share Manually",
+        "or_enter_share_below": "Or enter your share below",
+        "share_data": "Share Data",
+        "share_placeholder": "Paste share data here (base64 encoded)",
+        "add_share": "Add Share",
+        "imported_shares": "Imported Shares",
+        "need_shares": "Need {{required}} shares (have {{current}})",
+        "enough_shares": "You have enough shares to recover the secret",
+        "need_more_shares": "You need {{needed}} more share(s)",
+        "reconstruct_secret": "Reconstruct Secret",
+        "secret_reconstructed": "Secret Reconstructed Successfully!",
+        "secret_reconstructed_description": "The secret has been successfully reconstructed from your shares. You can now create a ZOTP from this recovered secret.",
+        "recovered_setup_key": "Recovered Setup Key",
+        "create_zotp_from_recovery": "Create ZOTP from Recovery",
+        "recovery_successful": "Recovery Successful!",
+        "recovery_success_description": "Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes."
     }
 }

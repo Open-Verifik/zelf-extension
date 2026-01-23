@@ -1202,6 +1202,7 @@
                     "aria_label": "Toggle folder organization"
                 },
                 "master_password": {
+                    "label": "Master Password *",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {

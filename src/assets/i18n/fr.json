@@ -768,6 +768,7 @@
                     "aria_label": "Basculer l'organisation en dossier"
                 },
                 "master_password": {
+                    "label": "Mot de passe maître *",
                     "hint": "Nous exigeons le mot de passe {{ walletName }} pour chiffrer et stocker vos identifiants. Une vérification biométrique est toujours requise."
                 },
                 "buttons": {

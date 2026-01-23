@@ -65,7 +65,10 @@ export class ZelfKeysPaymentCardsComponent implements OnInit, OnDestroy {
     }
 
     public get currentPlan(): string {
-        return this._currentPlan;
+        // TODO: TEMPORARY - Bypass subscription check for testing
+        // Remove this override when ready to enable billing
+        return "premium";
+        // return this._currentPlan;
     }
 
     public set currentPlan(value: string) {

@@ -1202,6 +1202,7 @@
                     "aria_label": "폴더 정리 토글"
                 },
                 "master_password": {
+                    "label": "마스터 비밀번호 *",
                     "hint": "자격 증명을 암호화하여 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
                 },
                 "buttons": {

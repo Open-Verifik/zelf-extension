@@ -1202,6 +1202,7 @@
                     "aria_label": "I-toggle ang pag-organisa sa folder"
                 },
                 "master_password": {
+                    "label": "Master Password *",
                     "hint": "Kailangan namin ang {{ walletName }} password upang i-encrypt at i-store ang iyong mga credential. Palaging kinakailangan ang biometric verification."
                 },
                 "buttons": {

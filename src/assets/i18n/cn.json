@@ -1202,6 +1202,7 @@
                     "aria_label": "切换文件夹整理"
                 },
                 "master_password": {
+                    "label": "主密码 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "buttons": {

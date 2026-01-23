@@ -768,6 +768,7 @@
                     "aria_label": "Alternar organización por carpeta"
                 },
                 "master_password": {
+                    "label": "Contraseña maestra *",
                     "hint": "Requerimos la contraseña de {{ walletName }} para cifrar y almacenar tus credenciales. Siempre se requiere verificación biométrica."
                 },
                 "buttons": {

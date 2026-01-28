@@ -17,6 +17,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
+import { HomeBannersComponent } from "./home-banners/home-banners.component";
 import { HomeHeaderComponent } from "./home-header/home-header.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
 
@@ -24,7 +25,7 @@ import { TokenCardComponent } from "./token-card/token-card.component";
     imports: [
         CurrencyPipe,
         FlexLayoutModule,
-        ZelfFooterComponent,
+        HomeBannersComponent,
         HomeHeaderComponent,
         MatButtonModule,
         NgClass,
@@ -33,6 +34,7 @@ import { TokenCardComponent } from "./token-card/token-card.component";
         RouterLink,
         TokenCardComponent,
         TranslocoModule,
+        ZelfFooterComponent,
         ZelfLoaderComponent,
     ],
     selector: "home",

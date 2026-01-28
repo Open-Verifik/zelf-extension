@@ -1,0 +1,109 @@
+<div
+    class="home-banners"
+    *ngIf="hasBanners"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd()"
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (mouseup)="onMouseUp()"
+    (mouseleave)="onMouseLeave()"
+>
+    <div class="home-banners__carousel" #carouselContainer>
+        <div [ngClass]="getSlideClasses()" [style.transform]="getSlideTransform()">
+            <!-- Expiration Banner -->
+            <div
+                class="home-banners__slide home-banners__slide--expiration"
+                *ngIf="currentBanner?.type === 'expiration'"
+                [routerLink]="currentBanner?.route"
+                (click)="onBannerClick(currentBanner!)"
+            >
+                <div class="home-banners__icon-container">
+                    <div class="home-banners__bell-icon">
+                        <svg width="68" height="53" viewBox="0 0 68 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="34" cy="44" rx="14" ry="6" fill="#FFB74D" opacity="0.5" />
+                            <path d="M34 4C34 2.89543 34.8954 2 36 2H36C37.1046 2 38 2.89543 38 4V8H34V4Z" fill="#FFD54F" />
+                            <path d="M16 38C16 28.0589 24.0589 20 34 20C43.9411 20 52 28.0589 52 38V42H16V38Z" fill="#FFB74D" />
+                            <path
+                                d="M12 42C12 40.8954 12.8954 40 14 40H54C55.1046 40 56 40.8954 56 42V44C56 45.1046 55.1046 46 54 46H14C12.8954 46 12 45.1046 12 44V42Z"
+                                fill="#FFA726"
+                            />
+                            <circle cx="34" cy="20" r="6" fill="#FFD54F" />
+                            <path d="M28 46C28 46 30 52 34 52C38 52 40 46 40 46" stroke="#FFA726" stroke-width="2" stroke-linecap="round" />
+                            <circle cx="52" cy="12" r="8" fill="#FF5721" />
+                            <path d="M52 8V12L55 14" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="home-banners__content">
+                    <div class="home-banners__text">
+                        <h4 class="home-banners__title home-banners__title--expiration">{{ currentBanner?.title }}</h4>
+                        <p class="home-banners__subtitle home-banners__subtitle--expiration">{{ currentBanner?.subtitle }}</p>
+                    </div>
+                    <div class="home-banners__arrow home-banners__arrow--expiration">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rewards Banner -->
+            <div
+                class="home-banners__slide home-banners__slide--rewards"
+                *ngIf="currentBanner?.type === 'rewards'"
+                [routerLink]="currentBanner?.route"
+                (click)="onBannerClick(currentBanner!)"
+            >
+                <div class="home-banners__icon-container">
+                    <div class="home-banners__treasure-icon">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Coins behind -->
+                            <circle cx="18" cy="42" r="8" fill="#FFD700" />
+                            <circle cx="18" cy="42" r="5" fill="#FFA500" />
+                            <!-- Treasure chest base -->
+                            <rect x="12" y="28" width="40" height="24" rx="4" fill="#8B5A2B" />
+                            <rect x="14" y="30" width="36" height="20" rx="2" fill="#A0522D" />
+                            <!-- Chest lid -->
+                            <rect x="10" y="24" width="44" height="8" rx="2" fill="#CD853F" />
+                            <!-- Gold strap -->
+                            <rect x="28" y="24" width="8" height="28" fill="#DEB887" />
+                            <!-- Lock -->
+                            <circle cx="32" cy="38" r="5" fill="#FFD700" />
+                            <circle cx="32" cy="38" r="3" fill="#FFA500" />
+                            <!-- Coins on top -->
+                            <ellipse cx="22" cy="20" rx="7" ry="5" fill="#FFD700" />
+                            <ellipse cx="42" cy="20" rx="7" ry="5" fill="#FFD700" />
+                            <ellipse cx="32" cy="16" rx="9" ry="7" fill="#FFD700" />
+                            <circle cx="20" cy="18" r="3" fill="#FFA500" />
+                            <circle cx="32" cy="14" r="4" fill="#FFA500" />
+                            <circle cx="44" cy="18" r="3" fill="#FFA500" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="home-banners__content">
+                    <div class="home-banners__text">
+                        <h4 class="home-banners__title home-banners__title--rewards">{{ currentBanner?.title }}</h4>
+                        <p class="home-banners__subtitle home-banners__subtitle--rewards">{{ currentBanner?.subtitle }}</p>
+                    </div>
+                    <div class="home-banners__arrow home-banners__arrow--rewards">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination Dots -->
+    <div class="home-banners__pagination" *ngIf="showPagination">
+        <button
+            *ngFor="let banner of visibleBanners; let i = index"
+            class="home-banners__dot"
+            [class.home-banners__dot--active]="i === currentIndex"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Go to slide ' + (i + 1)"
+        ></button>
+    </div>
+</div>

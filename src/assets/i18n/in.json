@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "रिकवरी से ZOTP बनाएँ",
         "recovery_successful": "रिकवरी सफल!",
         "recovery_success_description": "आपका ZOTP वापस पा लिया गया है और आपके ऑथेंटिकेटर में जोड़ दिया गया है। अब आप कोड उत्पन्न करने के लिए इसका उपयोग कर सकते हैं।"
+    },
+    "rewards": {
+        "alreadyClaimedToday": "आपने आज का दैनिक इनाम पहले ही प्राप्त कर लिया है!",
+        "todaysReward": "आज का इनाम",
+        "comeBackTomorrow": "कल फिर से स्पिन करने आएं!",
+        "nextSpinIn": "अगला स्पिन उपलब्ध होगा",
+        "hours": "घंटे",
+        "minutes": "मिनट",
+        "seconds": "सेकंड"
     }
 }

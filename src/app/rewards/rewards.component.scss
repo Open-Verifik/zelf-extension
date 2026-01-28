@@ -1,0 +1,381 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.rewards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    // Background gradients
+    &__bg-gradient {
+        position: absolute;
+        border-radius: 9999px;
+        pointer-events: none;
+        z-index: 0;
+
+        &--inner {
+            width: 232px;
+            height: 232px;
+            left: 50%;
+            top: 85px;
+            transform: translateX(-50%);
+            opacity: 0.1;
+            background: linear-gradient(180deg, #ff5721 0%, rgba(255, 87, 33, 0) 100%);
+        }
+
+        &--outer {
+            width: 312px;
+            height: 312px;
+            left: 50%;
+            top: 45px;
+            transform: translateX(-50%);
+            opacity: 0.1;
+            background: linear-gradient(180deg, rgba(255, 87, 33, 0) 0%, #ff5721 100%);
+        }
+    }
+
+    &__header {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: 12px;
+        align-items: center;
+        align-content: center;
+        justify-content: start;
+        gap: 24px;
+        width: 100%;
+        padding: 24px;
+        z-index: 10;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__app-content {
+        width: 100%;
+        overflow: auto;
+        padding: 16px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    &__container {
+        display: flex;
+        width: 100%;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+    }
+
+    &__hero-image {
+        width: 188px;
+        height: 188px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // Balance Card
+    &__balance-card {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 16px 8px 8px;
+        background: white;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 32px;
+        border: 1px solid #eeedf1;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    &__balance-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__balance-icon {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__balance-icon-bg {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: #ff5721;
+        opacity: 0.1;
+        border-radius: 9999px;
+    }
+
+    &__balance-icon-inner {
+        position: relative;
+        z-index: 1;
+    }
+
+    &__balance-amount {
+        font-family: variables.$themeTitleFamily;
+        font-size: 20px;
+        font-weight: 700;
+        color: #181818;
+        line-height: 24px;
+    }
+
+    &__balance-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__balance-redeem {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 500;
+        color: #e3e3e3;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    // Action Cards
+    &__actions {
+        width: 100%;
+        display: flex;
+        gap: 14px;
+    }
+
+    &__action-card {
+        flex: 1;
+        height: 180px;
+        padding: 24px 16px;
+        background: white;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 32px;
+        border: 1px solid #eeedf1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+
+    &__action-icon {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__action-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__action-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+    }
+
+    &__action-subtitle {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        color: #73777f;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+    }
+
+    &__action-badge {
+        padding: 4px 8px;
+        background: #ff5721;
+        border-radius: 24px;
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        color: white;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;
+    }
+
+    // Tasks Section
+    &__tasks {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    &__tasks-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        color: #73777f;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        padding: 8px 0;
+        margin: 0;
+    }
+
+    &__task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        background: white;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 16px;
+        border: 1px solid #eeedf1;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+
+        &:hover {
+            transform: translateX(4px);
+            border-color: #ff5721;
+        }
+
+        &--completed {
+            opacity: 0.5;
+
+            .rewards__task-title {
+                text-decoration: line-through;
+            }
+        }
+    }
+
+    &__task-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__task-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        color: #181818;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+    }
+
+    &__task-reward {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        color: #96939e;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    &__task-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+// Responsive adjustments
+@media (max-width: variables.$minSmall) {
+    .rewards {
+        &__action-card {
+            height: 160px;
+            padding: 16px 12px;
+        }
+
+        &__action-icon svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        &__action-title {
+            font-size: 13px;
+        }
+
+        &__balance-amount {
+            font-size: 18px;
+        }
+    }
+}

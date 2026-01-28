@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "復元からZOTPを作成",
         "recovery_successful": "復元に成功しました！",
         "recovery_success_description": "ZOTPが復元され、オーセンティケーターに追加されました。これでコードの生成に使用できます。"
+    },
+    "rewards": {
+        "alreadyClaimedToday": "本日のデイリー報酬はすでに受け取り済みです！",
+        "todaysReward": "本日の報酬",
+        "comeBackTomorrow": "明日また回しに来てください！",
+        "nextSpinIn": "次のスピンまで",
+        "hours": "時間",
+        "minutes": "分",
+        "seconds": "秒"
     }
 }

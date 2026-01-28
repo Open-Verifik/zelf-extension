@@ -1,0 +1,367 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.daily-rewards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    &__header {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: 12px;
+        align-items: center;
+        align-content: center;
+        justify-content: start;
+        gap: 24px;
+        width: 100%;
+        padding: 24px;
+        z-index: 10;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 24px 24px;
+        gap: 16px;
+        flex: 1;
+    }
+
+    &__intro {
+        text-align: center;
+    }
+
+    &__headline {
+        font-family: variables.$themeTitleFamily;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 32px;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+    }
+
+    &__wheel-container {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 16px 0;
+    }
+
+    &__loading-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        backdrop-filter: blur(2px);
+    }
+
+    &__spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    &__pointer {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%) rotate(180deg);
+        z-index: 10;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        transition: opacity 0.3s ease;
+
+        &--dimmed {
+            opacity: 0.5;
+        }
+    }
+
+    &__wheel {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        box-shadow:
+            0 0 0 8px #dd2f00,
+            0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: opacity 0.3s ease;
+
+        &--loading {
+            opacity: 0.7;
+        }
+    }
+
+    &__wheel-svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__error {
+        padding: 12px 20px;
+        background: rgba(255, 87, 34, 0.1);
+        border: 1px solid rgba(255, 87, 34, 0.3);
+        border-radius: 12px;
+        text-align: center;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    &__error-text {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__already-claimed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 24px;
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
+        border: 1px solid rgba(76, 175, 80, 0.3);
+        border-radius: 16px;
+        text-align: center;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    &__claimed-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__claimed-text {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__claimed-amount {
+        font-family: variables.$themeBodyFamily;
+        font-size: 16px;
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+
+        strong {
+            font-weight: 700;
+            color: #4caf50;
+        }
+    }
+
+    &__countdown {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    &__countdown-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        margin: 0;
+    }
+
+    &__countdown-timer {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__countdown-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 40px;
+    }
+
+    &__countdown-value {
+        font-family: variables.$themeTitleFamily;
+        font-size: 24px;
+        font-weight: 700;
+        color: #ff5721;
+        line-height: 1;
+    }
+
+    &__countdown-unit-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 10px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__countdown-separator {
+        font-family: variables.$themeTitleFamily;
+        font-size: 24px;
+        font-weight: 700;
+        color: #ff5721;
+        line-height: 1;
+        margin-bottom: 14px;
+    }
+
+    &__result {
+        padding: 16px 24px;
+        background: linear-gradient(135deg, #ff8a65 0%, #ff5721 100%);
+        border-radius: 16px;
+        text-align: center;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    &__result-text {
+        font-family: variables.$themeBodyFamily;
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        margin: 0;
+
+        strong {
+            font-weight: 700;
+        }
+    }
+
+    &__spin-button {
+        width: 100%;
+        max-width: 304px;
+        height: 56px;
+        padding: 0 24px;
+        background: #181818;
+        border: none;
+        border-radius: 16px;
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+        margin-top: auto;
+
+        &:hover:not(&--disabled) {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        &:active:not(&--disabled) {
+            transform: scale(0.98);
+        }
+
+        &--disabled {
+            background: #96939e;
+            cursor: not-allowed;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive
+@media (max-width: variables.$minSmall) {
+    .daily-rewards {
+        &__wheel-container {
+            max-width: 280px;
+        }
+
+        &__headline {
+            font-size: 20px;
+        }
+
+        &__spin-button {
+            height: 48px;
+        }
+    }
+}

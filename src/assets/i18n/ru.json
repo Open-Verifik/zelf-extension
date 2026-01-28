@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "Создать ZOTP из восстановления",
         "recovery_successful": "Восстановление успешно!",
         "recovery_success_description": "Ваш ZOTP был восстановлен и добавлен в ваш аутентификатор. Теперь вы можете использовать его для генерации кодов."
+    },
+    "rewards": {
+        "alreadyClaimedToday": "Вы уже получили ежедневную награду!",
+        "todaysReward": "Награда сегодня",
+        "comeBackTomorrow": "Возвращайтесь завтра за новым вращением!",
+        "nextSpinIn": "Следующее вращение через",
+        "hours": "часов",
+        "minutes": "мин",
+        "seconds": "сек"
     }
 }

@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "Lumikha ng ZOTP mula sa Recovery",
         "recovery_successful": "Matagumpay na Recovery!",
         "recovery_success_description": "Ang iyong ZOTP ay na-recover na at naidagdag sa iyong authenticator. Maaari mo na itong gamitin upang gumawa ng mga code."
+    },
+    "rewards": {
+        "alreadyClaimedToday": "Na-claim mo na ang iyong daily reward!",
+        "todaysReward": "Reward ngayon",
+        "comeBackTomorrow": "Bumalik bukas para sa isa pang spin!",
+        "nextSpinIn": "Susunod na spin sa loob ng",
+        "hours": "oras",
+        "minutes": "min",
+        "seconds": "seg"
     }
 }

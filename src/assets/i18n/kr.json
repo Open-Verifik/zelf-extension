@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "복구된 키로 ZOTP 생성",
         "recovery_successful": "복구 성공!",
         "recovery_success_description": "ZOTP가 성공적으로 복구되어 인증기에 추가되었습니다. 이제 인증 코드를 생성하는 데 사용할 수 있습니다."
+    },
+    "rewards": {
+        "alreadyClaimedToday": "오늘의 일일 보상을 이미 받으셨습니다!",
+        "todaysReward": "오늘의 보상",
+        "comeBackTomorrow": "내일 다시 돌리러 오세요!",
+        "nextSpinIn": "다음 스핀까지",
+        "hours": "시간",
+        "minutes": "분",
+        "seconds": "초"
     }
 }

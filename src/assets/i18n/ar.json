@@ -1548,5 +1548,14 @@
         "create_zotp_from_recovery": "إنشاء ZOTP من الاستعادة",
         "recovery_successful": "تمت الاستعادة بنجاح!",
         "recovery_success_description": " Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes. "
+    },
+    "rewards": {
+        "alreadyClaimedToday": "لقد طالبت بمكافأتك اليومية بالفعل!",
+        "todaysReward": "مكافأة اليوم",
+        "comeBackTomorrow": "عد غداً للحصول على لفة أخرى!",
+        "nextSpinIn": "اللفة التالية متاحة خلال",
+        "hours": "ساعات",
+        "minutes": "دقيقة",
+        "seconds": "ثانية"
     }
 }

@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "สร้าง ZOTP จากการกู้คืน",
         "recovery_successful": "กู้คืนสำเร็จ!",
         "recovery_success_description": "ZOTP ของคุณได้รับการกู้คืนและเพิ่มลงในตัวยืนยันตัวตนของคุณแล้ว ตอนนี้คุณสามารถใช้เพื่อสร้างรหัสได้"
+    },
+    "rewards": {
+        "alreadyClaimedToday": "คุณได้รับรางวัลประจำวันแล้ว!",
+        "todaysReward": "รางวัลวันนี้",
+        "comeBackTomorrow": "กลับมาหมุนใหม่พรุ่งนี้!",
+        "nextSpinIn": "หมุนครั้งต่อไปได้ใน",
+        "hours": "ชั่วโมง",
+        "minutes": "นาที",
+        "seconds": "วินาที"
     }
 }

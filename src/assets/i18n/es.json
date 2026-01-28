@@ -1547,5 +1547,14 @@
     },
     "domain_selection": {
         "title": "Elige el dominio para el nombre de tu etiqueta"
+    },
+    "rewards": {
+        "alreadyClaimedToday": "¡Ya reclamaste tu recompensa diaria!",
+        "todaysReward": "Recompensa de hoy",
+        "comeBackTomorrow": "¡Vuelve mañana para otro giro!",
+        "nextSpinIn": "Próximo giro disponible en",
+        "hours": "horas",
+        "minutes": "min",
+        "seconds": "seg"
     }
 }

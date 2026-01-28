@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "بازیافت سے ZOTP بنائیں",
         "recovery_successful": "بازیافت کامیاب ہو گئی!",
         "recovery_success_description": "آپ کا ZOTP بازیافت ہو گیا ہے اور آپ کے توثیق کار میں شامل کر دیا گیا ہے۔ اب آپ اسے کوڈز تیار کرنے کے لیے استعمال کر سکتے ہیں۔"
+    },
+    "rewards": {
+        "alreadyClaimedToday": "آپ نے آج کا روزانہ انعام پہلے ہی حاصل کر لیا ہے!",
+        "todaysReward": "آج کا انعام",
+        "comeBackTomorrow": "کل ایک اور سپن کے لیے واپس آئیں!",
+        "nextSpinIn": "اگلا سپن دستیاب ہوگا",
+        "hours": "گھنٹے",
+        "minutes": "منٹ",
+        "seconds": "سیکنڈ"
     }
 }

@@ -1,0 +1,172 @@
+<div class="zelf-card rewards" *transloco="let t">
+    <!-- Background gradients -->
+    <div class="rewards__bg-gradient rewards__bg-gradient--inner"></div>
+    <div class="rewards__bg-gradient rewards__bg-gradient--outer"></div>
+
+    <!-- Header -->
+    <div class="rewards__header">
+        <div class="rewards__col1">
+            <button [routerLink]="['/home']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="rewards__col2">
+            <p class="rewards__title">Rewards</p>
+        </div>
+
+        <div class="rewards__col3"></div>
+    </div>
+
+    <!-- Scrollable Content Area -->
+    <div class="rewards__app-content">
+        <div class="rewards__container">
+            <!-- Hero Image -->
+            <div class="rewards__hero">
+                <div class="rewards__hero-image">
+                    <svg width="188" height="188" viewBox="0 0 188 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Coin left -->
+                        <ellipse cx="50" cy="110" rx="35" ry="35" fill="#FFD700" />
+                        <ellipse cx="50" cy="110" rx="28" ry="28" fill="#FFA500" />
+                        <text x="50" y="118" text-anchor="middle" fill="#FFD700" font-size="24" font-weight="bold">Z</text>
+
+                        <!-- Treasure chest -->
+                        <rect x="55" y="85" width="100" height="60" rx="8" fill="#8B5A2B" />
+                        <rect x="60" y="90" width="90" height="50" rx="4" fill="#A0522D" />
+                        <rect x="50" y="75" width="110" height="18" rx="4" fill="#CD853F" />
+                        <rect x="95" y="75" width="20" height="70" fill="#DEB887" />
+
+                        <!-- Lock -->
+                        <circle cx="105" cy="115" r="10" fill="#FFD700" />
+                        <circle cx="105" cy="115" r="6" fill="#FFA500" />
+
+                        <!-- Coins on top -->
+                        <ellipse cx="75" cy="65" rx="18" ry="14" fill="#FFD700" />
+                        <ellipse cx="75" cy="65" rx="12" ry="9" fill="#FFA500" />
+                        <ellipse cx="135" cy="65" rx="18" ry="14" fill="#FFD700" />
+                        <ellipse cx="135" cy="65" rx="12" ry="9" fill="#FFA500" />
+                        <ellipse cx="105" cy="55" rx="22" ry="18" fill="#FFD700" />
+                        <ellipse cx="105" cy="55" rx="15" ry="12" fill="#FFA500" />
+
+                        <!-- Sparkles -->
+                        <circle cx="160" cy="45" r="4" fill="#FFD700" />
+                        <circle cx="40" cy="75" r="3" fill="#FFD700" />
+                        <circle cx="170" cy="90" r="3" fill="#FFD700" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- ZNS Balance Card -->
+            <div class="rewards__balance-card" (click)="onRedeemZNS()">
+                <div class="rewards__balance-left">
+                    <div class="rewards__balance-icon">
+                        <div class="rewards__balance-icon-bg"></div>
+                        <div class="rewards__balance-icon-inner">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="10" cy="10" r="10" fill="#FF5721" />
+                                <text x="10" y="14" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Z</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="rewards__balance-amount">{{ znsBalance }} $ZNS</span>
+                </div>
+                <div class="rewards__balance-right">
+                    <span class="rewards__balance-redeem">Redeem ZNS</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6 12L10 8L6 4"
+                            stroke="#E3E3E3"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Action Cards -->
+            <div class="rewards__actions">
+                <div class="rewards__action-card" (click)="onInviteFriends()">
+                    <div class="rewards__action-icon rewards__action-icon--invite">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="64" height="64" rx="16" fill="url(#invite-gradient)" />
+                            <circle cx="26" cy="22" r="8" fill="white" />
+                            <path d="M12 44C12 36.268 18.268 30 26 30C33.732 30 40 36.268 40 44" stroke="white" stroke-width="3" stroke-linecap="round" />
+                            <circle cx="42" cy="26" r="5" fill="white" opacity="0.7" />
+                            <path d="M36 42C36 37.582 39.582 34 44 34" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+                            <defs>
+                                <linearGradient id="invite-gradient" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FF8A65" />
+                                    <stop offset="1" stop-color="#FF5721" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="rewards__action-info">
+                        <span class="rewards__action-title">Invite friends</span>
+                        <span class="rewards__action-subtitle">{{ invitedFriends }}/{{ maxInvites }}</span>
+                    </div>
+                </div>
+
+                <div class="rewards__action-card" [routerLink]="['/rewards/daily']">
+                    <div class="rewards__action-icon rewards__action-icon--daily">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="64" height="64" rx="16" fill="url(#daily-gradient)" />
+                            <rect x="12" y="18" width="40" height="34" rx="5" fill="white" />
+                            <rect x="12" y="18" width="40" height="10" rx="4" fill="#FFE0B2" />
+                            <circle cx="22" cy="36" r="3" fill="#FF5721" />
+                            <circle cx="32" cy="36" r="3" fill="#FF5721" />
+                            <circle cx="42" cy="36" r="3" fill="#FF5721" />
+                            <circle cx="22" cy="46" r="3" fill="#FF5721" opacity="0.5" />
+                            <circle cx="32" cy="46" r="3" fill="#FF5721" opacity="0.5" />
+                            <rect x="22" y="12" width="3" height="10" rx="1.5" fill="white" />
+                            <rect x="39" y="12" width="3" height="10" rx="1.5" fill="white" />
+                            <defs>
+                                <linearGradient id="daily-gradient" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FF8A65" />
+                                    <stop offset="1" stop-color="#FF5721" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="rewards__action-info">
+                        <span class="rewards__action-title">Daily rewards</span>
+                        <div class="rewards__action-badge">Claim it now</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="rewards__tasks">
+                <h3 class="rewards__tasks-title">Your tasks</h3>
+
+                <div
+                    *ngFor="let task of tasks"
+                    class="rewards__task"
+                    [class.rewards__task--completed]="task.completed"
+                    (click)="onTaskClick(task)"
+                >
+                    <div class="rewards__task-info">
+                        <span class="rewards__task-title">{{ task.title }}</span>
+                        <span class="rewards__task-reward">{{ task.reward }}</span>
+                    </div>
+                    <div class="rewards__task-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9 18L15 12L9 6"
+                                stroke="#E3E3E3"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -113,6 +113,15 @@ const routes: Routes = [
                 loadComponent: () => import("./zelf-authenticator/zelf-authenticator.component").then((m) => m.ZelfAuthenticatorComponent),
             },
             {
+                path: "rewards",
+                loadComponent: () => import("./rewards/rewards.component").then((m) => m.RewardsComponent),
+            },
+            {
+                path: "rewards/daily",
+                loadComponent: () =>
+                    import("./rewards/daily-rewards/daily-rewards.component").then((m) => m.DailyRewardsComponent),
+            },
+            {
                 path: "zelf-keys",
                 loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
                 resolve: {

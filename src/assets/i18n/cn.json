@@ -1549,5 +1549,14 @@
         "create_zotp_from_recovery": "从恢复中创建 ZOTP",
         "recovery_successful": "恢复成功！",
         "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器中。您现在可以使用它来生成验证码。"
+    },
+    "rewards": {
+        "alreadyClaimedToday": "您今天已经领取了每日奖励！",
+        "todaysReward": "今日奖励",
+        "comeBackTomorrow": "明天再来转一次吧！",
+        "nextSpinIn": "下次转盘可用时间",
+        "hours": "小时",
+        "minutes": "分",
+        "seconds": "秒"
     }
 }

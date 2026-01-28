@@ -1,4 +1,9 @@
-import { createAssociatedTokenAccountInstruction, createTransferInstruction, getAssociatedTokenAddress } from "@solana/spl-token";
+import {
+    createAssociatedTokenAccountInstruction,
+    createTransferInstruction,
+    getAssociatedTokenAddress,
+    TOKEN_2022_PROGRAM_ID,
+} from "@solana/spl-token";
 import {
     ComputeBudgetProgram,
     Connection,
@@ -64,8 +69,54 @@ export class SolanaService {
         private _httpWrapper: HttpWrapperService
     ) {}
 
+    /** ZNS SPL token mint on Solana mainnet */
+    static readonly ZNS_MINT_ADDRESS = "GfF6PSkH8bKLkws5RMFdzgASwcVbgCfhhKfp8zeoFBkx";
+
     public get connection(): Connection {
         return new Connection(this._chainConfigs.mainnet.rpcUrls[0], { commitment: "confirmed" });
+    }
+
+    /**
+     * Get ZNS token balance for a wallet via Solana RPC (QuickNode).
+     * ownerAddress = the holder's Solana wallet (the one that holds the tokens), not the minter.
+     * Uses getTokenAccountsByOwner to find any token account holding ZNS for this wallet.
+     * Tries legacy SPL Token (mint filter) then Token-2022 (list all, filter by mint).
+     */
+    async getZnsBalanceViaRpc(ownerAddress: string): Promise<number> {
+        try {
+            const mint = new PublicKey(SolanaService.ZNS_MINT_ADDRESS);
+            const owner = new PublicKey(ownerAddress);
+            const mintStr = SolanaService.ZNS_MINT_ADDRESS;
+
+            const tryBalance = async (accountPubkey: PublicKey): Promise<number> => {
+                const balance = await this.connection.getTokenAccountBalance(accountPubkey);
+                const amount = balance?.value?.uiAmount ?? 0;
+                return typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
+            };
+
+            const responseLegacy = await this.connection.getTokenAccountsByOwner(owner, { mint });
+            if (responseLegacy.value.length > 0) {
+                return tryBalance(responseLegacy.value[0].pubkey);
+            }
+
+            const parsed2022 = await this.connection.getParsedTokenAccountsByOwner(owner, {
+                programId: TOKEN_2022_PROGRAM_ID,
+            });
+            for (const item of parsed2022.value) {
+                const info = item.account?.data?.parsed?.info;
+                if (info?.mint === mintStr) {
+                    return tryBalance(item.pubkey);
+                }
+            }
+            return 0;
+        } catch (error: any) {
+            const msg = error?.message ?? String(error);
+            if (msg.includes("could not find account") || msg.includes("Invalid param")) {
+                return 0;
+            }
+            console.warn("Solana RPC ZNS balance error:", error);
+            return 0;
+        }
     }
 
     private _createConnection(): Connection {
@@ -299,12 +350,17 @@ export class SolanaService {
         }
     }
 
-    async getWalletDetails(address: string): Promise<any> {
+    /**
+     * Get Solana address details (balance, tokenHoldings, etc.) from the backend.
+     * @param address - Solana wallet address
+     * @param params - Optional query params, e.g. { source: 'oklink' } to force OKLink
+     */
+    async getWalletDetails(address: string, params?: { source?: string }): Promise<any> {
         const url = `${this._baseUrl}/api/solana/address/${address}`;
 
         try {
             return this._httpWrapper
-                .sendRequest("get", url)
+                .sendRequest("get", url, params ?? {})
                 .then((response) => response)
                 .catch(() => this._defaultResponse());
         } catch (error) {

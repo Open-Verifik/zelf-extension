@@ -72,7 +72,7 @@
                             </svg>
                         </div>
                     </div>
-                    <span class="rewards__balance-amount">{{ znsBalance }} $ZNS</span>
+                    <span class="rewards__balance-amount">{{ znsBalanceLoading ? '...' : (znsBalance | number:'1.2-4') }} $ZNS</span>
                 </div>
                 <div class="rewards__balance-right">
                     <span class="rewards__balance-redeem">Redeem ZNS</span>

@@ -1,0 +1,214 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+// Override .zelf-card centering so content starts at top (same pattern as zelf-authenticator)
+.redeem-zns.zelf-card {
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.redeem-zns {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 0;
+
+    &__header {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: 12px;
+        align-items: center;
+        align-content: center;
+        justify-content: start;
+        gap: 24px;
+        width: 100%;
+        padding: 0 24px;
+        z-index: 10;
+        flex-shrink: 0;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__app-content {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 16px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 32px;
+    }
+
+    &__container {
+        display: flex;
+        width: 100%;
+        max-width: 360px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 32px;
+    }
+
+    // Balance section (Figma: "You have" + "366 $ZNS")
+    &__balance-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    &__balance-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #181818;
+    }
+
+    &__balance-amount {
+        font-family: variables.$themeTitleFamily;
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 40px;
+        color: #181818;
+    }
+
+    // Options list (centered block, full width within container)
+    &__options {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__option {
+        width: 100%;
+        padding: 14px 16px;
+        background: white;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 16px;
+        outline: 1px #eeedf1 solid;
+        outline-offset: -1px;
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+        text-align: left;
+
+        &:not(.redeem-zns__option--disabled):hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        &--disabled {
+            cursor: not-allowed;
+            opacity: 1;
+
+            .redeem-zns__option-title,
+            .redeem-zns__option-cost {
+                color: #c3c6cf;
+            }
+
+            .redeem-zns__option-arrow {
+                color: #e3e3e3;
+            }
+        }
+    }
+
+    &__option-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    &__option-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #181818;
+    }
+
+    &__option-cost {
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #96939e;
+    }
+
+    &__option-arrow {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e3e3e3;
+        flex-shrink: 0;
+    }
+}

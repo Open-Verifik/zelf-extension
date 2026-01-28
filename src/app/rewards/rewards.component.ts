@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { WalletService } from "../wallet.service";
@@ -71,7 +71,8 @@ export class RewardsComponent implements OnInit {
 
     constructor(
         private _walletService: WalletService,
-        private _solanaService: SolanaService
+        private _solanaService: SolanaService,
+        private _router: Router
     ) {}
 
     ngOnInit(): void {
@@ -127,8 +128,7 @@ export class RewardsComponent implements OnInit {
     }
 
     onRedeemZNS(): void {
-        // TODO: Implement redeem functionality
-        console.log("Redeem ZNS clicked");
+        this._router.navigate(["/rewards/redeem"]);
     }
 
     onTaskClick(task: Task): void {

@@ -122,6 +122,11 @@ const routes: Routes = [
                     import("./rewards/daily-rewards/daily-rewards.component").then((m) => m.DailyRewardsComponent),
             },
             {
+                path: "rewards/redeem",
+                loadComponent: () =>
+                    import("./rewards/redeem-zns/redeem-zns.component").then((m) => m.RedeemZnsComponent),
+            },
+            {
                 path: "zelf-keys",
                 loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
                 resolve: {

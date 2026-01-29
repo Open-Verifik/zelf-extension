@@ -1556,5 +1556,48 @@
         "hours": "horas",
         "minutes": "min",
         "seconds": "seg"
+    },
+    "referrals": {
+        "invite_title": "Invitar amigos",
+        "hero_title": "Gana Recompensas $ZNS",
+        "hero_subtitle": "Obtén recompensas por cada amigo que se una a ZELF",
+        "your_referral_code": "Tu código de referido",
+        "copy": "Copiar",
+        "copied": "¡Copiado!",
+        "friends_invited": "Amigos Invitados",
+        "zns_earned": "$ZNS Ganados",
+        "your_referrals": "Tus Referidos",
+        "no_referrals_yet": "Aún no hay referidos",
+        "start_earning_desc": "¡Comparte tu código y comienza a ganar recompensas!",
+        "status": {
+            "purchased": "Comprado",
+            "registered": "Registrado",
+            "pending": "pendiente"
+        },
+        "claim": "Reclamar {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Reclamando Recompensa",
+            "text": "Enviando {{ amount }} $ZNS a tu billetera...",
+            "subtext": "Esto puede tardar unos segundos"
+        },
+        "success": {
+            "title": "HAS GANADO",
+            "subtitle": "¡Tarea completada!",
+            "desc": "Recompensa de referido de <strong>{{ name }}</strong>",
+            "earned_label": "Has ganado",
+            "accept": "Aceptar"
+        },
+        "error": {
+            "title": "Reclamo Fallido",
+            "subtext": "No te preocupes, puedes intentarlo de nuevo. Tu recompensa aún te espera.",
+            "retry": "Intentar de Nuevo",
+            "go_back": "Volver",
+            "messages": {
+                "reward_already_claimed": "Esta recompensa ya ha sido reclamada",
+                "generic": "No se pudo reclamar la recompensa. Por favor, inténtelo de nuevo más tarde."
+            }
+        }
     }
 }

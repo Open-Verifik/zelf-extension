@@ -13,30 +13,72 @@
     box-sizing: border-box;
 }
 
+// Override zelf-card to be larger for this component
 .invite-friends.zelf-card {
-    justify-content: flex-start;
-    align-items: stretch;
+    width: 580px;
+    max-width: 95vw;
+    min-height: 820px;
+    max-height: 95vh;
 }
 
 .invite-friends {
     position: relative;
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    gap: 0;
+    overflow: hidden;
+
+    // Ambient background glow
+    &::before {
+        content: "";
+        position: absolute;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(255, 87, 33, 0.08) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    // Background gradients
+    &__bg-gradient {
+        position: absolute;
+        border-radius: 9999px;
+        pointer-events: none;
+        z-index: 0;
+
+        &--inner {
+            width: 280px;
+            height: 280px;
+            left: 50%;
+            top: 100px;
+            transform: translateX(-50%);
+            opacity: 0.12;
+            background: linear-gradient(180deg, #ff5721 0%, rgba(255, 87, 33, 0) 100%);
+            filter: blur(40px);
+        }
+
+        &--outer {
+            width: 400px;
+            height: 400px;
+            left: 50%;
+            top: 50px;
+            transform: translateX(-50%);
+            opacity: 0.08;
+            background: linear-gradient(180deg, rgba(255, 87, 33, 0) 0%, #ff5721 100%);
+            filter: blur(60px);
+        }
+    }
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         column-gap: 12px;
         align-items: center;
+        align-content: center;
+        justify-content: start;
+        gap: 24px;
         width: 100%;
-        padding: 0 24px;
+        padding: 28px 32px;
         z-index: 10;
         flex-shrink: 0;
     }
@@ -66,131 +108,243 @@
 
     &__title {
         font-family: variables.$themeTitleFamily;
-        font-weight: 300;
-        font-size: 24px;
-        line-height: 20px;
-        letter-spacing: 0.1px;
+        font-weight: 600;
+        font-size: 26px;
+        line-height: 1.2;
+        letter-spacing: -0.3px;
         text-align: center;
         color: variables.$themeText;
         margin: 0;
+        white-space: nowrap;
     }
 
     &__app-content {
         width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0 32px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         flex: 1;
         min-height: 0;
-        overflow: auto;
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 32px;
-    }
+        z-index: 5;
 
-    &__container {
-        width: 100%;
-        max-width: 400px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 32px;
-    }
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
 
-    // Hero: icon + "Win ZNS for every friend invited"
-    &__hero {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 0;
-    }
-
-    &__hero-icon {
-        width: 88px;
-        height: 88px;
-        border-radius: 124px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-
-        svg {
-            width: 89px;
-            height: 80px;
+            &:hover {
+                background: rgba(0, 0, 0, 0.15);
+            }
         }
     }
 
-    &__hero-text {
-        font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 20px;
-        letter-spacing: 0.1px;
-        color: #181818;
-        text-align: center;
-        margin: 0;
-    }
-
-    // Referral code card
-    &__code-card {
-        width: 100%;
-        max-width: 326px;
-        padding: 16px;
-        background: white;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
-        border-radius: 24px;
-        outline: 1px #eeedf1 solid;
-        outline-offset: -1px;
+    &__container {
         display: flex;
+        width: 100%;
+        max-width: 480px;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        gap: 8px;
+        gap: 28px;
+    }
+
+    // Hero Section - Premium Design
+    &__hero {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 28px 28px 52px;
+        width: 100%;
+        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 35%, #ffb347 100%);
+        border-radius: 28px;
+        overflow: hidden;
+        flex-shrink: 0;
+        box-shadow:
+            0 20px 40px rgba(255, 87, 33, 0.25),
+            0 8px 16px rgba(255, 87, 33, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+        // Animated shimmer effect
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+
+    &__hero-glow {
+        position: absolute;
+        top: -60%;
+        right: -40%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    &__hero-icon {
+        width: 96px;
+        height: 96px;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(20px);
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        animation: float 4s ease-in-out infinite;
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+        svg {
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(-8px) scale(1.02);
+        }
+    }
+
+    &__hero-title {
+        font-family: variables.$themeTitleFamily;
+        font-size: 28px;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 10px;
+        text-align: center;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    &__hero-subtitle {
+        font-family: variables.$themeBodyFamily;
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        margin: 0;
+        text-align: center;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    // Referral Code Card - Floating Design
+    &__code-card {
+        margin-top: -60px;
+        width: 100%;
+        max-width: 380px;
+        position: relative;
+        z-index: 10;
+        flex-shrink: 0;
+    }
+
+    &__code-card-inner {
+        background: white;
+        border-radius: 24px;
+        padding: 24px 28px;
+        box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.08),
+            0 4px 12px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 16px 48px rgba(0, 0, 0, 0.1),
+                0 6px 16px rgba(0, 0, 0, 0.06);
+        }
     }
 
     &__code-label {
         font-family: variables.$themeBodyFamily;
         font-size: 11px;
-        font-weight: 500;
-        line-height: 16px;
-        letter-spacing: 0.5px;
-        color: #73777f;
+        font-weight: 600;
+        color: #8e8e93;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     &__code-row {
-        display: inline-flex;
-        justify-content: center;
+        display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 16px;
+        width: 100%;
+        justify-content: center;
     }
 
     &__code-value {
         font-family: variables.$themeTitleFamily;
         font-size: 24px;
         font-weight: 700;
+        color: #1c1c1e;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        line-height: 32px;
-        color: #181818;
     }
 
     &__copy-btn {
-        padding: 4px;
-        background: #eeedf1;
-        border-radius: 12px;
-        border: none;
-        cursor: pointer;
         display: flex;
         align-items: center;
-        justify-content: center;
-        color: #181818;
-        transition:
-            background 0.2s ease,
-            color 0.2s ease;
+        gap: 8px;
+        padding: 12px 20px;
+        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
+        border: none;
+        border-radius: 16px;
+        color: white;
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow:
+            0 6px 20px rgba(255, 107, 53, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
         &:hover:not(:disabled) {
-            background: #e3e3e3;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow:
+                0 10px 28px rgba(255, 107, 53, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
         }
 
         &:disabled {
@@ -199,184 +353,390 @@
         }
 
         &--copied {
-            background: #e8f5e9;
-            color: #2e7d32;
+            background: linear-gradient(145deg, #34c759 0%, #30d158 100%);
+            box-shadow:
+                0 6px 20px rgba(52, 199, 89, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
     }
 
-    // Progress + list section
-    &__section {
-        align-self: stretch;
+    // Stats Cards - Glass Morphism
+    &__stats {
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        gap: 16px;
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    &__stat-card {
+        flex: 1;
+        background: white;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.06),
+            0 2px 8px rgba(0, 0, 0, 0.03);
+        border-radius: 22px;
+        padding: 20px;
+        display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 0;
+        gap: 16px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 16px 48px rgba(0, 0, 0, 0.1),
+                0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        &--highlight {
+            background: linear-gradient(145deg, #fffaf7 0%, #fff5f0 100%);
+            border: 1px solid rgba(255, 107, 53, 0.12);
+        }
     }
 
-    &__progress {
-        align-self: stretch;
+    &__stat-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
         display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    &__progress-left {
-        display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        align-items: flex-start;
+        flex-shrink: 0;
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        &--friends {
+            background: linear-gradient(145deg, #f2f2f7 0%, #e5e5ea 100%);
+            color: #636366;
+        }
+
+        &--earnings {
+            background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+        }
     }
 
-    &__progress-label-row {
-        display: inline-flex;
-        align-items: center;
+    &__stat-content {
+        display: flex;
+        flex-direction: column;
         gap: 4px;
     }
 
-    &__progress-label {
+    &__stat-value {
+        font-family: variables.$themeTitleFamily;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1c1c1e;
+        line-height: 1;
+    }
+
+    &__stat-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 20px;
-        letter-spacing: 0.1px;
-        color: #181818;
+        font-size: 13px;
+        font-weight: 500;
+        color: #8e8e93;
     }
 
-    &__info-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #181818;
-        cursor: help;
-    }
-
-    &__progress-count {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__progress-count span:first-child {
-        font-family: variables.$themeBodyFamily;
-        font-size: 11px;
-        font-weight: 600;
-        line-height: 16px;
-        letter-spacing: 0.5px;
-        color: #181818;
-    }
-
-    &__completed-badge {
-        font-family: variables.$themeBodyFamily;
-        font-size: 11px;
-        font-weight: 600;
-        line-height: 16px;
-        letter-spacing: 0.5px;
-        color: #ff5721;
-    }
-
-    &__progress-right {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-
-    &__reward-complete {
-        font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 20px;
-        letter-spacing: 0.1px;
-        color: #ff5721;
-    }
-
-    &__flag-icon {
-        padding: 8px;
-        background: #ffeee9;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ff5721;
-    }
-
-    // Friends list
-    &__list {
-        align-self: stretch;
+    // Section Header
+    &__section {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 12px;
+    }
+
+    &__section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 0;
+    }
+
+    &__section-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 15px;
+        font-weight: 600;
+        color: #636366;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__section-count {
+        background: linear-gradient(145deg, #f2f2f7 0%, #e5e5ea 100%);
+        color: #636366;
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 12px;
+    }
+
+    // Empty State
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 48px 24px;
+        min-height: 200px;
+    }
+
+    &__empty-icon {
+        width: 88px;
+        height: 88px;
+        background: linear-gradient(145deg, #f2f2f7 0%, #e5e5ea 100%);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8e8e93;
+        margin-bottom: 20px;
+
+        svg {
+            width: 44px;
+            height: 44px;
+        }
+    }
+
+    &__empty-title {
+        font-family: variables.$themeTitleFamily;
+        font-size: 18px;
+        font-weight: 600;
+        color: #1c1c1e;
+        margin: 0 0 8px;
+    }
+
+    &__empty-text {
+        font-family: variables.$themeBodyFamily;
+        font-size: 15px;
+        color: #8e8e93;
+        margin: 0;
+    }
+
+    // Friends List
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
     }
 
     &__friend {
-        align-self: stretch;
-        padding: 12px;
         background: white;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
-        border-radius: 16px;
-        outline: 1px #eeedf1 solid;
-        outline-offset: -1px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.04),
+            0 2px 6px rgba(0, 0, 0, 0.02);
+        border-radius: 20px;
+        padding: 16px 20px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateX(6px);
+            border-color: rgba(255, 87, 33, 0.3);
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.06),
+                0 4px 12px rgba(255, 87, 33, 0.1);
+        }
     }
 
     &__friend-left {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 16px;
+        min-width: 0;
+        flex: 1;
     }
 
     &__friend-avatar {
-        padding: 8px;
-        background: #eeedf1;
+        width: 52px;
+        height: 52px;
         border-radius: 16px;
+        background: linear-gradient(145deg, #f2f2f7 0%, #e5e5ea 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #181818;
+        flex-shrink: 0;
+
+        span {
+            font-family: variables.$themeTitleFamily;
+            font-size: 20px;
+            font-weight: 600;
+            color: #636366;
+        }
+
+        &--claimed {
+            background: linear-gradient(145deg, #34c759 0%, #30d158 100%);
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3);
+
+            span {
+                color: white;
+            }
+        }
     }
 
     &__friend-info {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        gap: 4px;
+        min-width: 0;
     }
 
     &__friend-name {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
-        line-height: 20px;
-        letter-spacing: 0.1px;
-        color: #181818;
+        color: #1c1c1e;
     }
 
     &__friend-status {
         font-family: variables.$themeBodyFamily;
-        font-size: 11px;
-        font-weight: 600;
-        line-height: 16px;
-        letter-spacing: 0.5px;
-        color: #181818;
+        font-size: 13px;
+        font-weight: 500;
+        color: #8e8e93;
 
-        &--pending {
-            color: #96939e;
+        &--purchased {
+            color: #ff5721;
+            font-weight: 600;
         }
     }
 
-    &__friend-reward {
+    &__friend-action {
+        flex-shrink: 0;
+        margin-left: 16px;
+    }
+
+    &__claimed-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(145deg, #e8faf0 0%, #d5f5e3 100%);
+        padding: 10px 16px;
+        border-radius: 14px;
+        color: #27ae60;
+
+        svg {
+            flex-shrink: 0;
+        }
+
+        span {
+            font-family: variables.$themeBodyFamily;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+
+    &__claim-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
+        border: none;
+        border-radius: 14px;
+        color: white;
+        cursor: pointer;
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        box-shadow:
+            0 6px 20px rgba(255, 107, 53, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+        &:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow:
+                0 10px 28px rgba(255, 107, 53, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        &:active {
+            transform: translateY(0) scale(0.98);
+        }
+    }
+
+    &__claim-btn-text {
+        white-space: nowrap;
+    }
+
+    &__pending-badge {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+
+        span:first-child {
+            font-family: variables.$themeBodyFamily;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1c1c1e;
+        }
+    }
+
+    &__pending-label {
         font-family: variables.$themeBodyFamily;
         font-size: 11px;
         font-weight: 600;
-        line-height: 16px;
+        color: #ff9500;
+        text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: #ff5721;
+    }
+}
 
-        &--pending {
-            color: #c3c6cf;
+// Mobile Responsive
+@media (max-width: 600px) {
+    .invite-friends.zelf-card {
+        width: 100%;
+        min-height: 100%;
+        border-radius: 0;
+    }
+
+    .invite-friends {
+        &__header {
+            padding: 20px 20px;
+        }
+
+        &__app-content {
+            padding: 0 20px 24px;
+        }
+
+        &__container {
+            max-width: 100%;
+            gap: 24px;
+        }
+
+        &__hero {
+            padding: 32px 20px 44px;
+            border-radius: 24px;
+        }
+
+        &__hero-icon {
+            width: 80px;
+            height: 80px;
+        }
+
+        &__hero-title {
+            font-size: 24px;
+        }
+
+        &__stats {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        &__stat-card {
+            padding: 18px;
         }
     }
 }

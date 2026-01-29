@@ -1558,5 +1558,48 @@
         "hours": "時間",
         "minutes": "分",
         "seconds": "秒"
+    },
+    "referrals": {
+        "invite_title": "友達を招待",
+        "hero_title": "$ZNS報酬を獲得",
+        "hero_subtitle": "ZELFに参加する友達一人につき報酬をゲット",
+        "your_referral_code": "あなたの招待コード",
+        "copy": "コピー",
+        "copied": "コピーしました！",
+        "friends_invited": "招待した友達",
+        "zns_earned": "獲得した$ZNS",
+        "your_referrals": "あなたの招待実績",
+        "no_referrals_yet": "招待実績はまだありません",
+        "start_earning_desc": "コードを共有して報酬を獲得しましょう！",
+        "status": {
+            "purchased": "購入済み",
+            "registered": "登録済み",
+            "pending": "保留中"
+        },
+        "claim": "{{ amount }} $ZNSを受け取る"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "報酬を受け取り中",
+            "text": "ウォレットに {{ amount }} $ZNS を送信しています...",
+            "subtext": "数秒かかる場合があります"
+        },
+        "success": {
+            "title": "おめでとうございます！",
+            "subtitle": "タスク完了！",
+            "desc": "<strong>{{ name }}</strong> さんからの招待報酬",
+            "earned_label": "獲得額",
+            "accept": "承認"
+        },
+        "error": {
+            "title": "受け取り失敗",
+            "subtext": "しばらくしてからもう一度お試しください。あなたの報酬はまだ残っています。",
+            "retry": "再試行",
+            "go_back": "戻る",
+            "messages": {
+                "reward_already_claimed": "この報酬はすでに受け取り済みです",
+                "generic": "報酬の受け取りに失敗しました。後でもう一度お試しください。"
+            }
+        }
     }
 }

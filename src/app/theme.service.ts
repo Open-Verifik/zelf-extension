@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { Subject, takeUntil } from "rxjs";
+import { BehaviorSubject, Observable, Subject, takeUntil } from "rxjs";
 
 import { ChromeService } from "./chrome.service";
 import { DomainService } from "./domain.service";
@@ -21,6 +21,9 @@ export class ThemeService implements OnDestroy {
     private lastPalette: Record<string, string> = {};
     private systemPreferenceListener?: MediaQueryList;
 
+    private modeSubject = new BehaviorSubject<UserModePreference>("system");
+    currentMode$: Observable<UserModePreference> = this.modeSubject.asObservable();
+
     constructor(
         private _chromeService: ChromeService,
         private _domainService: DomainService,
@@ -28,6 +31,7 @@ export class ThemeService implements OnDestroy {
     ) {
         this._initializeModePreference().then(() => {
             this.getUserModePreference().then((preference) => {
+                this.modeSubject.next(preference);
                 this._applyThemeClass(preference);
             });
         });
@@ -172,9 +176,11 @@ export class ThemeService implements OnDestroy {
     private _applyThemeClass(preference: UserModePreference): void {
         this._removeThemeClass();
 
-        if (preference === "light") {
+        const effective = preference === "system" ? this.getSystemMode() : (preference as Mode);
+
+        if (effective === "light") {
             document.documentElement.classList.add("zns-theme-light");
-        } else if (preference === "dark") {
+        } else if (effective === "dark") {
             document.documentElement.classList.add("zns-theme-dark");
         }
     }
@@ -213,6 +219,7 @@ export class ThemeService implements OnDestroy {
     async setUserModePreference(mode: UserModePreference): Promise<void> {
         await this._chromeService.setItemSession(this.userModePreferenceKey, mode);
 
+        this.modeSubject.next(mode);
         this._setupSystemPreferenceListener();
         this._applyThemeClass(mode);
 
@@ -281,7 +288,11 @@ export class ThemeService implements OnDestroy {
     private _handleSystemPreferenceChange = async (): Promise<void> => {
         const preference = await this.getUserModePreference();
 
-        if (preference !== "system" || !this.activeClassName) return;
+        if (preference !== "system") return;
+
+        this._applyThemeClass(preference);
+
+        if (!this.activeClassName) return;
 
         const domain = this.activeClassName.split("-")[2] || "";
 

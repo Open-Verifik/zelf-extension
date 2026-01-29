@@ -1556,5 +1556,48 @@
         "hours": "heures",
         "minutes": "min",
         "seconds": "sec"
+    },
+    "referrals": {
+        "invite_title": "Inviter des amis",
+        "hero_title": "Gagnez des Récompenses $ZNS",
+        "hero_subtitle": "Obtenez des récompenses pour chaque ami qui rejoint ZELF",
+        "your_referral_code": "Votre code de parrainage",
+        "copy": "Copier",
+        "copied": "Copié !",
+        "friends_invited": "Amis Invités",
+        "zns_earned": "$ZNS Gagnés",
+        "your_referrals": "Vos Parrainages",
+        "no_referrals_yet": "Aucun parrainage pour le moment",
+        "start_earning_desc": "Partagez votre code et commencez à gagner des récompenses !",
+        "status": {
+            "purchased": "Acheté",
+            "registered": "Inscrit",
+            "pending": "en attente"
+        },
+        "claim": "Réclamer {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Réclamation de la Récompense",
+            "text": "Envoi de {{ amount }} $ZNS vers votre portefeuille...",
+            "subtext": "Cela peut prendre quelques secondes"
+        },
+        "success": {
+            "title": "VOUS AVEZ GAGNÉ",
+            "subtitle": "Tâche terminée !",
+            "desc": "Récompense de parrainage de <strong>{{ name }}</strong>",
+            "earned_label": "Vous avez gagné",
+            "accept": "Accepter"
+        },
+        "error": {
+            "title": "Échec de la Réclamation",
+            "subtext": "Ne vous inquiétez pas, vous pouvez réessayer. Votre récompense vous attend toujours.",
+            "retry": "Réessayer",
+            "go_back": "Retour",
+            "messages": {
+                "reward_already_claimed": "Cette récompense a déjà été réclamée",
+                "generic": "Échec de la réclamation de la récompense. Veuillez réessayer plus tard."
+            }
+        }
     }
 }

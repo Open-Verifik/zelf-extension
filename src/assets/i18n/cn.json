@@ -1558,5 +1558,48 @@
         "hours": "小时",
         "minutes": "分",
         "seconds": "秒"
+    },
+    "referrals": {
+        "invite_title": "邀请好友",
+        "hero_title": "赚取 $ZNS 奖励",
+        "hero_subtitle": "每邀请一位好友加入 ZELF 即可获得奖励",
+        "your_referral_code": "您的邀请码",
+        "copy": "复制",
+        "copied": "已复制！",
+        "friends_invited": "已邀请好友",
+        "zns_earned": "已赚取 $ZNS",
+        "your_referrals": "您的推荐记录",
+        "no_referrals_yet": "暂无推荐记录",
+        "start_earning_desc": "分享您的邀请码，开始赚取奖励！",
+        "status": {
+            "purchased": "已购买",
+            "registered": "已注册",
+            "pending": "处理中"
+        },
+        "claim": "领取 {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "正在领取奖励",
+            "text": "正在向您的钱包发送 {{ amount }} $ZNS...",
+            "subtext": "这可能需要几秒钟"
+        },
+        "success": {
+            "title": "您赢了",
+            "subtitle": "任务完成！",
+            "desc": "来自 <strong>{{ name }}</strong> 的推荐奖励",
+            "earned_label": "您已获得",
+            "accept": "接受"
+        },
+        "error": {
+            "title": "领取失败",
+            "subtext": "别担心，您可以稍后重试。您的奖励还在等着您。",
+            "retry": "重试",
+            "go_back": "返回",
+            "messages": {
+                "reward_already_claimed": "此奖励已被领取",
+                "generic": "领取奖励失败。请稍后再试。"
+            }
+        }
     }
 }

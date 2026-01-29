@@ -1557,5 +1557,48 @@
         "hours": "ساعات",
         "minutes": "دقيقة",
         "seconds": "ثانية"
+    },
+    "referrals": {
+        "invite_title": "دعوة الأصدقاء",
+        "hero_title": "اربح مكافآت $ZNS",
+        "hero_subtitle": "احصل على مكافأة مقابل كل صديق ينضم إلى ZELF",
+        "your_referral_code": "رمز الإحالة الخاص بك",
+        "copy": "نسخ",
+        "copied": "تم النسخ!",
+        "friends_invited": "الأصدقاء المدعوون",
+        "zns_earned": "أرباح $ZNS",
+        "your_referrals": "إحالاتك",
+        "no_referrals_yet": "لا توجد إحالات بعد",
+        "start_earning_desc": "شارك رمزك وابدأ في ربح المكافآت!",
+        "status": {
+            "purchased": "تم الشراء",
+            "registered": "مسجل",
+            "pending": "قيد الانتظار"
+        },
+        "claim": "المطالبة بـ {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "جاري المطالبة بالمكافأة",
+            "text": "إرسال {{ amount }} $ZNS إلى محفظتك...",
+            "subtext": "قد يستغرق هذا بضع ثوانٍ"
+        },
+        "success": {
+            "title": "لقد فزت",
+            "subtitle": "اكتملت المهمة!",
+            "desc": "مكافأة إحالة من <strong>{{ name }}</strong>",
+            "earned_label": "لقد ربحت",
+            "accept": "قبول"
+        },
+        "error": {
+            "title": "فشلت المطالبة",
+            "subtext": "لا تقلق، يمكنك المحاولة مرة أخرى. مكافأتك لا تزال في انتظارك.",
+            "retry": "إعادة المحاولة",
+            "go_back": "العودة",
+            "messages": {
+                "reward_already_claimed": "لقد تمت المطالبة بهذه المكافأة بالفعل",
+                "generic": "فشلت المطالبة بالمكافأة. يرجى المحاولة مرة أخرى لاحقاً."
+            }
+        }
     }
 }

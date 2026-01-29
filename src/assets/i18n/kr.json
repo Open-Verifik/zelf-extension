@@ -1558,5 +1558,48 @@
         "hours": "시간",
         "minutes": "분",
         "seconds": "초"
+    },
+    "referrals": {
+        "invite_title": "친구 초대",
+        "hero_title": "$ZNS 보상 획득",
+        "hero_subtitle": "ZELF에 가입하는 친구 한 명당 보상을 받으세요",
+        "your_referral_code": "나의 추천 코드",
+        "copy": "복사",
+        "copied": "복사 완료!",
+        "friends_invited": "초대한 친구",
+        "zns_earned": "획득한 $ZNS",
+        "your_referrals": "나의 추천 현황",
+        "no_referrals_yet": "아직 추천 현황이 없습니다",
+        "start_earning_desc": "코드를 공유하고 보상을 받기 시작하세요!",
+        "status": {
+            "purchased": "구매 완료",
+            "registered": "등록 완료",
+            "pending": "대기 중"
+        },
+        "claim": "{{ amount }} $ZNS 받기"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "보상 받는 중",
+            "text": "지갑으로 {{ amount }} $ZNS를 보내고 있습니다...",
+            "subtext": "몇 초 정도 걸릴 수 있습니다"
+        },
+        "success": {
+            "title": "우승하셨습니다!",
+            "subtitle": "미션 완료!",
+            "desc": "<strong>{{ name }}</strong> 님으로부터의 추천 보상",
+            "earned_label": "획득 금액",
+            "accept": "확인"
+        },
+        "error": {
+            "title": "수령 실패",
+            "subtext": "잠시 후 다시 시도해 주세요. 보상은 그대로 보존됩니다.",
+            "retry": "재시도",
+            "go_back": "뒤로 가기",
+            "messages": {
+                "reward_already_claimed": "이미 수령한 보상입니다",
+                "generic": "보상 수령에 실패했습니다. 나중에 다시 시도해 주세요."
+            }
+        }
     }
 }

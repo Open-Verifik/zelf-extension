@@ -1,0 +1,88 @@
+<div class="zelf-card claim-reward" *transloco="let t">
+    <!-- LOADING STATE -->
+    <div class="claim-reward__screen claim-reward__screen--loading" *ngIf="state === 'loading'">
+        <div class="claim-reward__loader-container">
+            <div class="claim-reward__loader">
+                <div class="claim-reward__loader-ring"></div>
+                <div class="claim-reward__loader-ring"></div>
+                <div class="claim-reward__loader-ring"></div>
+            </div>
+            <h2 class="claim-reward__loader-title">{{ t("claim_reward.loading.title") }}</h2>
+            <p class="claim-reward__loader-text">
+                {{ t("claim_reward.loading.text", { amount: expectedReward }) }}
+            </p>
+            <p class="claim-reward__loader-subtext">{{ t("claim_reward.loading.subtext") }}</p>
+        </div>
+    </div>
+
+    <!-- SUCCESS STATE with Confetti -->
+    <div class="claim-reward__screen claim-reward__screen--success" *ngIf="state === 'success'">
+        <!-- Confetti -->
+        <div class="claim-reward__confetti-container">
+            <div
+                *ngFor="let particle of confettiParticles; let i = index"
+                class="claim-reward__confetti"
+                [style.left.%]="particle.x"
+                [style.animation-delay]="particle.delay + 's'"
+                [style.animation-duration]="particle.duration + 's'"
+                [style.background-color]="particle.color"
+            ></div>
+        </div>
+
+        <div class="claim-reward__success-content">
+            <!-- Party Popper Emoji -->
+            <div class="claim-reward__success-icon">🎉</div>
+
+            <h2 class="claim-reward__success-subtitle">{{ t("claim_reward.success.subtitle") }}</h2>
+            <h1 class="claim-reward__success-title">{{ t("claim_reward.success.title") }}</h1>
+            <p class="claim-reward__success-desc">
+                <span [innerHTML]="t('claim_reward.success.desc', { name: friendFullName })"></span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="claim-reward__success-check">
+                    <circle cx="12" cy="12" r="10" fill="#34c759" />
+                    <path d="M7 12l3 3 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </p>
+
+            <p class="claim-reward__success-earned-label">{{ t("claim_reward.success.earned_label") }}</p>
+            <div class="claim-reward__success-amount-box">
+                <span class="claim-reward__success-amount">{{ claimedRewardAmount }} $ZNS</span>
+            </div>
+        </div>
+
+        <button class="claim-reward__action-btn claim-reward__action-btn--primary" (click)="goBack()">
+            {{ t("claim_reward.success.accept") }}
+        </button>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div class="claim-reward__screen claim-reward__screen--error" *ngIf="state === 'error'">
+        <div class="claim-reward__error-content">
+            <!-- Error Icon -->
+            <div class="claim-reward__error-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#ff3b30" stroke-width="2" />
+                    <path d="M15 9l-6 6M9 9l6 6" stroke="#ff3b30" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </div>
+
+            <h2 class="claim-reward__error-title">{{ t("claim_reward.error.title") }}</h2>
+            <p class="claim-reward__error-text">
+                {{ errorKey ? t(errorKey) : fallbackErrorMessage }}
+            </p>
+            <p class="claim-reward__error-subtext" *ngIf="!isAlreadyClaimed">{{ t("claim_reward.error.subtext") }}</p>
+        </div>
+
+        <div class="claim-reward__error-actions">
+            <button *ngIf="!isAlreadyClaimed" class="claim-reward__action-btn claim-reward__action-btn--primary" (click)="retry()">
+                {{ t("claim_reward.error.retry") }}
+            </button>
+            <button
+                class="claim-reward__action-btn"
+                [ngClass]="isAlreadyClaimed ? 'claim-reward__action-btn--primary' : 'claim-reward__action-btn--secondary'"
+                (click)="goBack()"
+            >
+                {{ t("claim_reward.error.go_back") }}
+            </button>
+        </div>
+    </div>
+</div>

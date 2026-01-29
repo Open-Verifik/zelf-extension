@@ -1558,5 +1558,48 @@
         "hours": "ชั่วโมง",
         "minutes": "นาที",
         "seconds": "วินาที"
+    },
+    "referrals": {
+        "invite_title": "เชิญเพื่อน",
+        "hero_title": "รับรางวัล $ZNS",
+        "hero_subtitle": "รับรางวัลสำหรับเพื่อนทุกคนที่เข้าร่วม ZELF",
+        "your_referral_code": "รหัสแนะนำของคุณ",
+        "copy": "คัดลอก",
+        "copied": "คัดลอกแล้ว!",
+        "friends_invited": "เพื่อนที่เชิญแล้ว",
+        "zns_earned": "$ZNS ที่ได้รับ",
+        "your_referrals": "การแนะนำของคุณ",
+        "no_referrals_yet": "ยังไม่มีการแนะนำ",
+        "start_earning_desc": "แชร์รหัสของคุณและเริ่มรับรางวัล!",
+        "status": {
+            "purchased": "ซื้อแล้ว",
+            "registered": "ลงทะเบียนแล้ว",
+            "pending": "รอดำเนินการ"
+        },
+        "claim": "รับ {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "กำลังรับรางวัล",
+            "text": "กำลังส่ง {{ amount }} $ZNS ไปยังกระเป๋าเงินของคุณ...",
+            "subtext": "อาจใช้เวลาสักครู่"
+        },
+        "success": {
+            "title": "คุณชนะแล้ว",
+            "subtitle": "ภารกิจสำเร็จ!",
+            "desc": "รางวัลแนะนำจาก <strong>{{ name }}</strong>",
+            "earned_label": "คุณได้รับ",
+            "accept": "ตกลง"
+        },
+        "error": {
+            "title": "การรับรางวัลล้มเหลว",
+            "subtext": "ไม่ต้องกังวล คุณสามารถลองใหม่ได้ รางวัลของคุณยังรอคุณอยู่",
+            "retry": "ลองใหม่",
+            "go_back": "ย้อนกลับ",
+            "messages": {
+                "reward_already_claimed": "รางวัลนี้ถูกรับไปแล้ว",
+                "generic": "ไม่สามารถรับรางวัลได้ โปรดลองใหม่อีกครั้งในภายหลัง"
+            }
+        }
     }
 }

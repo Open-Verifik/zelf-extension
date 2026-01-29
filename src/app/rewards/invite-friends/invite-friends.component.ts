@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Router } from "@angular/router";
+import { TranslocoModule } from "@jsverse/transloco";
 
 import { WalletService } from "../../wallet.service";
 import { TagsService } from "../../tags.service";
@@ -13,15 +14,17 @@ export interface InvitedFriend {
     id: string;
     name: string;
     status: InviteFriendStatus;
-    rewardZns: number;
+    rewardZNS: number;
+    claimed: boolean;
+    claimStatus: string;
+    rewardAmount: number;
 }
 
 const MAX_INVITES = 10;
-const REWARD_ZNS_PER_FRIEND = 5;
 const COPY_FEEDBACK_MS = 2000;
 
 @Component({
-    imports: [CommonModule, MatButtonModule, RouterModule],
+    imports: [CommonModule, MatButtonModule, RouterModule, TranslocoModule],
     selector: "app-invite-friends",
     styleUrls: ["./invite-friends.component.scss", "../../main.scss"],
     templateUrl: "./invite-friends.component.html",
@@ -40,14 +43,15 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
 
     invitedCount: number = 0;
     maxInvites: number = MAX_INVITES;
-    rewardZnsPerFriend: number = REWARD_ZNS_PER_FRIEND;
+    totalEarned: number = 0;
 
     /** List of friends invited via this user's tag name. Backend can replace this later. */
     friends: InvitedFriend[] = [];
 
     constructor(
         private _walletService: WalletService,
-        private _tagsService: TagsService
+        private _tagsService: TagsService,
+        private _router: Router
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -90,8 +94,10 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
 
         try {
             const response = await this._tagsService.getMyReferrals(this.referralTagName, this.referralDomain);
-            this.friends = response.data || [];
+            const data = response.data || {};
+            this.friends = data.referrals || [];
             this.invitedCount = this.friends.length;
+            this.totalEarned = data.totalEarnedInZNS || 0;
         } catch (error) {
             console.error("Error loading invites:", error);
             this.friends = [];
@@ -106,8 +112,28 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
         return status === "tag_name_purchased" ? "Tag name purchased" : "Tag name created";
     }
 
-    isRewardRedeemable(status: InviteFriendStatus): boolean {
-        return status === "tag_name_purchased";
+    isRewardRedeemable(friend: InvitedFriend): boolean {
+        return friend.status === "tag_name_purchased" && !friend.claimed;
+    }
+
+    /** Navigate to claim-reward component to handle the claim flow */
+    claimReward(friend: InvitedFriend): void {
+        if (friend.claimed) return;
+
+        const friendLastDot = friend.name.lastIndexOf(".");
+        const friendTagName = friendLastDot >= 0 ? friend.name.slice(0, friendLastDot) : friend.name;
+        const friendDomain = friendLastDot >= 0 ? friend.name.slice(friendLastDot + 1) : "";
+
+        // Navigate to claim-reward component with all necessary params
+        this._router.navigate(["/rewards/claim"], {
+            queryParams: {
+                tagName: this.referralTagName,
+                domain: this.referralDomain,
+                friendTagName,
+                friendDomain,
+                reward: friend.rewardZNS,
+            },
+        });
     }
 
     copyReferralCode(): void {

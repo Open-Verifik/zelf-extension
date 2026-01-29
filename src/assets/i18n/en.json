@@ -1556,5 +1556,48 @@
         "hours": "hours",
         "minutes": "min",
         "seconds": "sec"
+    },
+    "referrals": {
+        "invite_title": "Invite friends",
+        "hero_title": "Earn $ZNS Rewards",
+        "hero_subtitle": "Get rewarded for every friend who joins ZELF",
+        "your_referral_code": "Your referral code",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "friends_invited": "Friends Invited",
+        "zns_earned": "$ZNS Earned",
+        "your_referrals": "Your Referrals",
+        "no_referrals_yet": "No referrals yet",
+        "start_earning_desc": "Share your code and start earning rewards!",
+        "status": {
+            "purchased": "Purchased",
+            "registered": "Registered",
+            "pending": "pending"
+        },
+        "claim": "Claim {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Claiming Reward",
+            "text": "Sending {{ amount }} $ZNS to your wallet...",
+            "subtext": "This may take a few seconds"
+        },
+        "success": {
+            "title": "YOU HAVE WON",
+            "subtitle": "Task complete!",
+            "desc": "Referral reward from <strong>{{ name }}</strong>",
+            "earned_label": "You have earned",
+            "accept": "Accept"
+        },
+        "error": {
+            "title": "Claim Failed",
+            "subtext": "Don't worry, you can try again. Your reward is still waiting for you.",
+            "retry": "Try Again",
+            "go_back": "Go Back",
+            "messages": {
+                "reward_already_claimed": "This reward has already been claimed",
+                "generic": "Failed to claim reward. Please try again later."
+            }
+        }
     }
 }

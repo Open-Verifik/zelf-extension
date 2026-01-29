@@ -1558,5 +1558,48 @@
         "hours": "oras",
         "minutes": "min",
         "seconds": "seg"
+    },
+    "referrals": {
+        "invite_title": "Mag-imbita ng mga kaibigan",
+        "hero_title": "Kumita ng mga Reward na $ZNS",
+        "hero_subtitle": "Makatanggap ng reward para sa bawat kaibigang sasali sa ZELF",
+        "your_referral_code": "Iyong referral code",
+        "copy": "Kopyahin",
+        "copied": "Nakopya na!",
+        "friends_invited": "Mga Kaibigang Na-imbita",
+        "zns_earned": "$ZNS na Kinita",
+        "your_referrals": "Iyong mga Referral",
+        "no_referrals_yet": "Wala pang mga referral",
+        "start_earning_desc": "Ibahagi ang iyong code at simulan ang pagkuha ng mga reward!",
+        "status": {
+            "purchased": "Nabili na",
+            "registered": "Rehistrado na",
+            "pending": "nakabinbin"
+        },
+        "claim": "I-claim ang {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Ina-claim ang Reward",
+            "text": "Ipinapadala ang {{ amount }} $ZNS sa iyong wallet...",
+            "subtext": "Maaaring tumagal ito ng ilang segundo"
+        },
+        "success": {
+            "title": "IKAW AY NANALO",
+            "subtitle": "Tapos na ang task!",
+            "desc": "Referral reward mula kay <strong>{{ name }}</strong>",
+            "earned_label": "Ikaw ay kumita ng",
+            "accept": "Tanggapin"
+        },
+        "error": {
+            "title": "Nabigo ang Pag-claim",
+            "subtext": "Huwag mag-alala, maaari mong subukan muli. Ang iyong reward ay naghihintay pa rin para sa iyo.",
+            "retry": "Subukan Muli",
+            "go_back": "Bumalik",
+            "messages": {
+                "reward_already_claimed": "Ang reward na ito ay na-claim na",
+                "generic": "Nabigong i-claim ang reward. Pakisubukang muli mamaya."
+            }
+        }
     }
 }

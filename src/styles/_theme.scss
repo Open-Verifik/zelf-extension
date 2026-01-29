@@ -6,6 +6,19 @@ html {
 
     &.zns-theme-dark {
         color-scheme: dark;
+
+        --zns-theme-background: #121212;
+        --zns-theme-background-secondary: #1c1c1e;
+        --zns-theme-text: #ffffff;
+        --zns-theme-text-muted: #8e8e93;
+        --zns-theme-text-secondary: #aeaeb2;
+        --zns-theme-card: #1c1c1e;
+        --zns-theme-card-border: #2c2c2e;
+        --zns-theme-border: #3a3a3c;
+        --zns-theme-border-hover: #48484a;
+        --zns-theme-button: #ffffff;
+        --zns-theme-button-text: #1c1c1e;
+        --zns-theme-shadow: rgba(0, 0, 0, 0.4);
     }
 
     &.zns-theme-light {

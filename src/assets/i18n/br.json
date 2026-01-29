@@ -1558,5 +1558,48 @@
         "hours": "horas",
         "minutes": "min",
         "seconds": "seg"
+    },
+    "referrals": {
+        "invite_title": "Convidar amigos",
+        "hero_title": "Ganhe Recompensas $ZNS",
+        "hero_subtitle": "Receba recompensas por cada amigo que se juntar ao ZELF",
+        "your_referral_code": "Seu código de indicação",
+        "copy": "Copiar",
+        "copied": "Copiado!",
+        "friends_invited": "Amigos Convidados",
+        "zns_earned": "$ZNS Ganhos",
+        "your_referrals": "Suas Indicações",
+        "no_referrals_yet": "Nenhuma indicação ainda",
+        "start_earning_desc": "Compartilhe seu código e comece a ganhar recompensas!",
+        "status": {
+            "purchased": "Comprado",
+            "registered": "Registrado",
+            "pending": "pendente"
+        },
+        "claim": "Resgatar {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Resgatando Recompensa",
+            "text": "Enviando {{ amount }} $ZNS para sua carteira...",
+            "subtext": "Isso pode levar alguns segundos"
+        },
+        "success": {
+            "title": "VOCÊ GANHOU",
+            "subtitle": "Tarefa concluída!",
+            "desc": "Recompensa de indicação de <strong>{{ name }}</strong>",
+            "earned_label": "Você ganhou",
+            "accept": "Aceitar"
+        },
+        "error": {
+            "title": "Falha no Resgate",
+            "subtext": "Não se preocupe, você pode tentar novamente. Sua recompensa ainda está esperando por você.",
+            "retry": "Tentar Novamente",
+            "go_back": "Voltar",
+            "messages": {
+                "reward_already_claimed": "Esta recompensa já foi resgatada",
+                "generic": "Falha ao resgatar recompensa. Por favor, tente novamente mais tarde."
+            }
+        }
     }
 }

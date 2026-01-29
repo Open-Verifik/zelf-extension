@@ -118,18 +118,19 @@ const routes: Routes = [
             },
             {
                 path: "rewards/daily",
-                loadComponent: () =>
-                    import("./rewards/daily-rewards/daily-rewards.component").then((m) => m.DailyRewardsComponent),
+                loadComponent: () => import("./rewards/daily-rewards/daily-rewards.component").then((m) => m.DailyRewardsComponent),
             },
             {
                 path: "rewards/redeem",
-                loadComponent: () =>
-                    import("./rewards/redeem-zns/redeem-zns.component").then((m) => m.RedeemZnsComponent),
+                loadComponent: () => import("./rewards/redeem-zns/redeem-zns.component").then((m) => m.RedeemZnsComponent),
             },
             {
                 path: "rewards/invite",
-                loadComponent: () =>
-                    import("./rewards/invite-friends/invite-friends.component").then((m) => m.InviteFriendsComponent),
+                loadComponent: () => import("./rewards/invite-friends/invite-friends.component").then((m) => m.InviteFriendsComponent),
+            },
+            {
+                path: "rewards/claim",
+                loadComponent: () => import("./rewards/claim-reward/claim-reward.component").then((m) => m.ClaimRewardComponent),
             },
             {
                 path: "zelf-keys",

@@ -127,6 +127,11 @@ const routes: Routes = [
                     import("./rewards/redeem-zns/redeem-zns.component").then((m) => m.RedeemZnsComponent),
             },
             {
+                path: "rewards/invite",
+                loadComponent: () =>
+                    import("./rewards/invite-friends/invite-friends.component").then((m) => m.InviteFriendsComponent),
+            },
+            {
                 path: "zelf-keys",
                 loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
                 resolve: {

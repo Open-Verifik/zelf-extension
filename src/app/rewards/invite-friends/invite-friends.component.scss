@@ -1,0 +1,382 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.invite-friends.zelf-card {
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.invite-friends {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 0;
+
+    &__header {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: 12px;
+        align-items: center;
+        width: 100%;
+        padding: 0 24px;
+        z-index: 10;
+        flex-shrink: 0;
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-align: center;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__app-content {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 32px;
+    }
+
+    &__container {
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 32px;
+    }
+
+    // Hero: icon + "Win ZNS for every friend invited"
+    &__hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+    }
+
+    &__hero-icon {
+        width: 88px;
+        height: 88px;
+        border-radius: 124px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        svg {
+            width: 89px;
+            height: 80px;
+        }
+    }
+
+    &__hero-text {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #181818;
+        text-align: center;
+        margin: 0;
+    }
+
+    // Referral code card
+    &__code-card {
+        width: 100%;
+        max-width: 326px;
+        padding: 16px;
+        background: white;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 24px;
+        outline: 1px #eeedf1 solid;
+        outline-offset: -1px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__code-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #73777f;
+    }
+
+    &__code-row {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__code-value {
+        font-family: variables.$themeTitleFamily;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 32px;
+        color: #181818;
+    }
+
+    &__copy-btn {
+        padding: 4px;
+        background: #eeedf1;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #181818;
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+
+        &:hover:not(:disabled) {
+            background: #e3e3e3;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &--copied {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+    }
+
+    // Progress + list section
+    &__section {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+    }
+
+    &__progress {
+        align-self: stretch;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    &__progress-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    &__progress-label-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__progress-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #181818;
+    }
+
+    &__info-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #181818;
+        cursor: help;
+    }
+
+    &__progress-count {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__progress-count span:first-child {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #181818;
+    }
+
+    &__completed-badge {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #ff5721;
+    }
+
+    &__progress-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+    &__reward-complete {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #ff5721;
+    }
+
+    &__flag-icon {
+        padding: 8px;
+        background: #ffeee9;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff5721;
+    }
+
+    // Friends list
+    &__list {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    &__friend {
+        align-self: stretch;
+        padding: 12px;
+        background: white;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        border-radius: 16px;
+        outline: 1px #eeedf1 solid;
+        outline-offset: -1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__friend-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__friend-avatar {
+        padding: 8px;
+        background: #eeedf1;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #181818;
+    }
+
+    &__friend-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &__friend-name {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #181818;
+    }
+
+    &__friend-status {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #181818;
+
+        &--pending {
+            color: #96939e;
+        }
+    }
+
+    &__friend-reward {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        color: #ff5721;
+
+        &--pending {
+            color: #c3c6cf;
+        }
+    }
+}

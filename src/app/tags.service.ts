@@ -306,6 +306,14 @@ export class TagsService {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-tags/payment-confirmation`, request);
     }
 
+    getMyReferrals(tagName: string, domain: string): Promise<any> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-tags/referrals`, { tagName, domain });
+    }
+
+    claimReferralReward(data: { tagName: string; domain: string; friendTagName: string; friendDomain: string }): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-tags/referrals/claim`, data);
+    }
+
     // Rewards and Webhooks
     revenueCatWebhook(event: any): Promise<any> {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/revenue-cat`, { event });

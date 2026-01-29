@@ -118,8 +118,7 @@ export class RewardsComponent implements OnInit {
     }
 
     onInviteFriends(): void {
-        // TODO: Implement invite friends functionality
-        console.log("Invite friends clicked");
+        this._router.navigate(["/rewards/invite"]);
     }
 
     onDailyRewards(): void {

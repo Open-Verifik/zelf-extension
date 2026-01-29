@@ -1,0 +1,156 @@
+<div class="zelf-card invite-friends">
+    <!-- Header -->
+    <div class="invite-friends__header">
+        <div class="invite-friends__col1">
+            <button
+                [routerLink]="['/rewards']"
+                class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40"
+                mat-flat-button
+            >
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="invite-friends__col2">
+            <p class="invite-friends__title">Invite friends</p>
+        </div>
+
+        <div class="invite-friends__col3"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="invite-friends__app-content">
+        <div class="invite-friends__container">
+            <!-- Hero: icon + incentive text -->
+            <div class="invite-friends__hero">
+                <div class="invite-friends__hero-icon">
+                    <svg width="89" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="64" height="64" rx="16" fill="url(#invite-hero-gradient)" />
+                        <circle cx="26" cy="22" r="8" fill="white" />
+                        <path d="M12 44C12 36.268 18.268 30 26 30C33.732 30 40 36.268 40 44" stroke="white" stroke-width="3" stroke-linecap="round" />
+                        <circle cx="42" cy="26" r="5" fill="white" opacity="0.7" />
+                        <path d="M36 42C36 37.582 39.582 34 44 34" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+                        <defs>
+                            <linearGradient id="invite-hero-gradient" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF8A65" />
+                                <stop offset="1" stop-color="#FF5721" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <p class="invite-friends__hero-text">Win ZNS for every friend invited</p>
+            </div>
+
+            <!-- Referral code card -->
+            <div class="invite-friends__code-card">
+                <div class="invite-friends__code-label">Your referral code</div>
+                <div class="invite-friends__code-row">
+                    <span class="invite-friends__code-value">{{
+                        referralCodeLoading ? "..." : (referralCode || "—")
+                    }}</span>
+                    <button
+                        type="button"
+                        class="invite-friends__copy-btn"
+                        [class.invite-friends__copy-btn--copied]="copied"
+                        [disabled]="!referralCode || referralCodeLoading"
+                        (click)="copyReferralCode()"
+                        [title]="copied ? 'Copied!' : 'Copy code'"
+                    >
+                        <svg
+                            *ngIf="!copied"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" />
+                            <path d="M6 16V6a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <svg
+                            *ngIf="copied"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M5 12l5 5L20 7"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress + list -->
+            <div class="invite-friends__section">
+                <div class="invite-friends__progress">
+                    <div class="invite-friends__progress-left">
+                        <div class="invite-friends__progress-label-row">
+                            <span class="invite-friends__progress-label">Friends invited</span>
+                            <span class="invite-friends__info-icon" title="Friends who created a ZelfName with your code">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                    <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="invite-friends__progress-count">
+                            <span>{{ invitedCount }}/{{ maxInvites }}</span>
+                            <span class="invite-friends__completed-badge" *ngIf="isCompleted">COMPLETED!</span>
+                        </div>
+                    </div>
+                    <div class="invite-friends__progress-right" *ngIf="isCompleted">
+                        <span class="invite-friends__reward-complete">Reward Complete</span>
+                        <span class="invite-friends__flag-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" stroke="currentColor" stroke-width="2" />
+                                <line x1="4" y1="22" x2="4" y2="15" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="invite-friends__list">
+                    <div
+                        *ngFor="let friend of friends"
+                        class="invite-friends__friend"
+                    >
+                        <div class="invite-friends__friend-left">
+                            <div class="invite-friends__friend-avatar">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" />
+                                    <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <div class="invite-friends__friend-info">
+                                <span class="invite-friends__friend-name">{{ friend.name }}</span>
+                                <span
+                                    class="invite-friends__friend-status"
+                                    [class.invite-friends__friend-status--pending]="!isRewardRedeemable(friend.status)"
+                                >
+                                    {{ getStatusLabel(friend.status) }}
+                                </span>
+                            </div>
+                        </div>
+                        <span
+                            class="invite-friends__friend-reward"
+                            [class.invite-friends__friend-reward--pending]="!isRewardRedeemable(friend.status)"
+                        >
+                            {{ friend.rewardZns }} {{ isRewardRedeemable(friend.status) ? "$ZNS" : "ZNS" }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

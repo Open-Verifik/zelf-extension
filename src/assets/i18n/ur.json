@@ -1551,6 +1551,35 @@
         "recovery_success_description": "آپ کا ZOTP بازیافت ہو گیا ہے اور آپ کے توثیق کار میں شامل کر دیا گیا ہے۔ اب آپ اسے کوڈز تیار کرنے کے لیے استعمال کر سکتے ہیں۔"
     },
     "rewards": {
+        "title": "انعامات",
+        "redeem_zns": "ZNS ریڈیم کریں",
+        "invite_friends": "دوستوں کو مدعو کریں",
+        "daily_rewards": "روزانہ انعامات",
+        "claim_it_now": "ابھی حاصل کریں",
+        "your_tasks": "آپ کے کام",
+        "coming_soon": "جلد آرہا ہے",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "اپنے پہلے دوست کو مدعو کریں",
+                "reward": "10 سے 100 $ZNS جیتیں"
+            },
+            "first_transaction": {
+                "title": "اپنی پہلی ZNS ٹرانزیکشن بھیجیں",
+                "reward": "100 $ZNS تک جیتیں"
+            },
+            "join_discord": {
+                "title": "ہمارے ڈسکارڈ میں شامل ہوں",
+                "reward": "25 $ZNS جیتیں"
+            },
+            "join_telegram": {
+                "title": "ہمارے ٹیلی گرام کمیونٹی میں شامل ہوں",
+                "reward": "25 $ZNS جیتیں"
+            },
+            "join_x": {
+                "title": "X پر ہمارے ساتھ شامل ہوں",
+                "reward": "5 $ZNS جیتیں"
+            }
+        },
         "alreadyClaimedToday": "آپ نے آج کا روزانہ انعام پہلے ہی حاصل کر لیا ہے!",
         "todaysReward": "آج کا انعام",
         "comeBackTomorrow": "کل ایک اور سپن کے لیے واپس آئیں!",
@@ -1600,6 +1629,18 @@
                 "reward_already_claimed": "اس انعام کا کلیم پہلے ہی کیا جا چکا ہے",
                 "generic": "انعام کا کلیم کرنے میں ناکامی۔ براہ کرم بعد میں دوبارہ کوشش کریں۔"
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "اپنا ZelfName نہ کھوئیں",
+            "expired": "آپ کے ڈومین کی میعاد ختم ہو گئی ہے",
+            "one_day": "آپ کے ZNS کی خریداری کے لیے 1 دن باقی ہے",
+            "days_left": "آپ کے ZNS کی خریداری کے لیے {{ days }} دن باقی ہیں"
+        },
+        "rewards": {
+            "title": "انعامات کا دعویٰ کریں",
+            "subtitle": "ہمارے کوئسٹس کے ذریعے روزانہ $ZNS حاصل کریں"
         }
     }
 }

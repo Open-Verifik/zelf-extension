@@ -5,7 +5,7 @@ import { RouterModule, Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { WalletService } from "../../wallet.service";
-import { TagsService } from "../../tags.service";
+import { TagModel, TagsService } from "../../tags.service";
 
 /** Status of a referred friend: created a ZelfName with your code, or purchased their tag (reward redeemable). */
 export type InviteFriendStatus = "tag_name_created" | "tag_name_purchased";
@@ -18,6 +18,8 @@ export interface InvitedFriend {
     claimed: boolean;
     claimStatus: string;
     rewardAmount: number;
+    tagObject: TagModel;
+    rewardType?: string;
 }
 
 const MAX_INVITES = 10;
@@ -36,6 +38,7 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
     referralTagName: string = "";
     referralDomain: string = "";
     referralCodeLoading: boolean = true;
+    referralsLoading: boolean = false;
 
     /** Show check icon after copy; reset after COPY_FEEDBACK_MS. */
     copied: boolean = false;
@@ -72,6 +75,7 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
         this.referralDomain = "";
         try {
             const wallet = await this._walletService.getCurrentWallet();
+
             if (wallet?.fullTagName) {
                 this.referralCode = wallet.fullTagName;
                 const lastDot = wallet.fullTagName.lastIndexOf(".");
@@ -92,15 +96,37 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
     private async _loadInvites(): Promise<void> {
         if (!this.referralTagName || !this.referralDomain) return;
 
+        this.referralsLoading = true;
         try {
             const response = await this._tagsService.getMyReferrals(this.referralTagName, this.referralDomain);
             const data = response.data || {};
-            this.friends = data.referrals || [];
-            this.invitedCount = this.friends.length;
+            this.friends = [];
+
+            for (let index = 0; index < data.referrals.length; index++) {
+                const friend = data.referrals[index];
+
+                this.friends.push({
+                    id: friend.id,
+                    name: friend.name,
+                    status: friend.status,
+                    rewardZNS: friend.rewardZNS,
+                    claimed: friend.claimed,
+                    claimStatus: friend.claimStatus,
+                    rewardAmount: friend.rewardAmount,
+                    tagObject: new TagModel(friend),
+                    rewardType: friend.rewardType,
+                });
+            }
+
+            const uniqueFriends = new Set(this.friends.map((f) => f.tagObject.fullTagName.replace(/\.hold$/, "")));
+            this.invitedCount = uniqueFriends.size;
+
             this.totalEarned = data.totalEarnedInZNS || 0;
         } catch (error) {
             console.error("Error loading invites:", error);
             this.friends = [];
+        } finally {
+            this.referralsLoading = false;
         }
     }
 
@@ -113,25 +139,25 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
     }
 
     isRewardRedeemable(friend: InvitedFriend): boolean {
-        return friend.status === "tag_name_purchased" && !friend.claimed;
+        return !friend.claimed;
     }
 
     /** Navigate to claim-reward component to handle the claim flow */
     claimReward(friend: InvitedFriend): void {
         if (friend.claimed) return;
 
-        const friendLastDot = friend.name.lastIndexOf(".");
-        const friendTagName = friendLastDot >= 0 ? friend.name.slice(0, friendLastDot) : friend.name;
-        const friendDomain = friendLastDot >= 0 ? friend.name.slice(friendLastDot + 1) : "";
+        // Navigate to claim-reward component with all necessary params.
+        // Use rewardZNS when rewardAmount is 0 (backend only sets rewardAmount after claim).
+        const amountToShow = friend.rewardAmount > 0 ? friend.rewardAmount : friend.rewardZNS;
 
-        // Navigate to claim-reward component with all necessary params
         this._router.navigate(["/rewards/claim"], {
             queryParams: {
                 tagName: this.referralTagName,
                 domain: this.referralDomain,
-                friendTagName,
-                friendDomain,
-                reward: friend.rewardZNS,
+                friendTagName: friend.tagObject.tagName,
+                friendDomain: friend.tagObject.domain,
+                rewardType: friend.rewardType,
+                rewardAmount: amountToShow,
             },
         });
     }

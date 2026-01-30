@@ -68,6 +68,10 @@
 
     &__col1 {
         justify-content: start;
+
+        .zelf-icon-button {
+            color: variables.$themeText;
+        }
     }
 
     &__col2 {
@@ -136,10 +140,10 @@
         align-items: center;
         justify-content: space-between;
         padding: 8px 16px 8px 8px;
-        background: white;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        background: variables.$themeCard;
+        box-shadow: 0px 8px 24px variables.$themeShadow;
         border-radius: 32px;
-        border: 1px solid #eeedf1;
+        border: 1px solid variables.$themeBorder;
         cursor: pointer;
         transition: all 0.2s variables.$smoothBezier;
 
@@ -182,7 +186,7 @@
         font-family: variables.$themeTitleFamily;
         font-size: 20px;
         font-weight: 700;
-        color: #181818;
+        color: variables.$themeText;
         line-height: 24px;
     }
 
@@ -190,13 +194,14 @@
         display: flex;
         align-items: center;
         gap: 4px;
+        color: variables.$themeTextMuted;
     }
 
     &__balance-redeem {
         font-family: variables.$themeBodyFamily;
         font-size: 11px;
         font-weight: 500;
-        color: #e3e3e3;
+        color: variables.$themeTextMuted;
         line-height: 16px;
         letter-spacing: 0.5px;
     }
@@ -212,10 +217,10 @@
         flex: 1;
         height: 180px;
         padding: 24px 16px;
-        background: white;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        background: variables.$themeCard;
+        box-shadow: 0px 8px 24px variables.$themeShadow;
         border-radius: 32px;
-        border: 1px solid #eeedf1;
+        border: 1px solid variables.$themeBorder;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -252,7 +257,7 @@
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 600;
-        color: #000;
+        color: variables.$themeText;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
@@ -262,7 +267,7 @@
         font-family: variables.$themeBodyFamily;
         font-size: 11px;
         font-weight: 600;
-        color: #73777f;
+        color: variables.$themeTextSecondary;
         line-height: 16px;
         letter-spacing: 0.5px;
         text-align: center;
@@ -281,6 +286,52 @@
         text-align: center;
     }
 
+    &__loader-tiny {
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255, 87, 33, 0.2);
+        border-top: 2px solid #ff5721;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-top: 2px;
+    }
+
+    &__stat-skeleton {
+        width: 40px;
+        height: 16px;
+        background: variables.$themeBorder;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes shimmer {
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
     // Tasks Section
     &__tasks {
         width: 100%;
@@ -293,7 +344,7 @@
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 600;
-        color: #73777f;
+        color: variables.$themeTextSecondary;
         line-height: 20px;
         letter-spacing: 0.1px;
         text-align: center;
@@ -306,10 +357,10 @@
         align-items: center;
         justify-content: space-between;
         padding: 12px;
-        background: white;
-        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+        background: variables.$themeCard;
+        box-shadow: 0px 8px 24px variables.$themeShadow;
         border-radius: 16px;
-        border: 1px solid #eeedf1;
+        border: 1px solid variables.$themeBorder;
         cursor: pointer;
         transition: all 0.2s variables.$smoothBezier;
 
@@ -325,18 +376,35 @@
                 text-decoration: line-through;
             }
         }
+
+        &--coming-soon {
+            cursor: not-allowed;
+            opacity: 0.7;
+
+            &:hover {
+                transform: none;
+                border-color: variables.$themeBorder;
+            }
+        }
     }
 
     &__task-info {
         display: flex;
         flex-direction: column;
+        gap: 2px;
+    }
+
+    &__task-reward-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     &__task-title {
         font-family: variables.$themeBodyFamily;
         font-size: 14px;
         font-weight: 600;
-        color: #181818;
+        color: variables.$themeText;
         line-height: 20px;
         letter-spacing: 0.1px;
     }
@@ -345,8 +413,20 @@
         font-family: variables.$themeBodyFamily;
         font-size: 11px;
         font-weight: 600;
-        color: #96939e;
+        color: variables.$themeTextMuted;
         line-height: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    &__task-coming-soon-badge {
+        padding: 2px 6px;
+        background: variables.$themeTextMuted;
+        border-radius: 4px;
+        font-family: variables.$themeBodyFamily;
+        font-size: 9px;
+        font-weight: 700;
+        color: variables.$themeCard;
+        text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
@@ -354,6 +434,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: variables.$themeTextMuted;
     }
 }
 

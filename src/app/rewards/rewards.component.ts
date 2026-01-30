@@ -6,14 +6,17 @@ import { TranslocoModule } from "@jsverse/transloco";
 
 import { WalletService } from "../wallet.service";
 import { SolanaService } from "../solana.service";
+import { TagsService } from "../tags.service";
 
 /** ZNS token mint on Solana (for reference; balance is fetched via backend /api/solana/address) */
 const ZNS_TOKEN_SYMBOL = "ZNS";
 
 interface Task {
     id: string;
-    title: string;
-    reward: string;
+    titleKey: string;
+    rewardKey: string;
+    rewardParams?: Record<string, unknown>;
+    comingSoon?: boolean;
     completed: boolean;
     action?: () => void;
 }
@@ -28,6 +31,7 @@ export class RewardsComponent implements OnInit {
     znsBalance: number = 0;
     znsBalanceLoading: boolean = false;
     invitedFriends: number = 0;
+    referralsLoading: boolean = false;
     maxInvites: number = 10;
 
     /**
@@ -39,32 +43,35 @@ export class RewardsComponent implements OnInit {
     tasks: Task[] = [
         {
             id: "invite-friend",
-            title: "Invite your first friend",
-            reward: "Win 100 $ZNS",
+            titleKey: "rewards.tasks.invite_first_friend.title",
+            rewardKey: "rewards.tasks.invite_first_friend.reward",
             completed: false,
         },
         {
             id: "first-transaction",
-            title: "Send your first ZNS transaction",
-            reward: "Win up-to 100 $ZNS",
+            titleKey: "rewards.tasks.first_transaction.title",
+            rewardKey: "rewards.tasks.first_transaction.reward",
             completed: false,
         },
         {
             id: "join-discord",
-            title: "Join our Discord",
-            reward: "Win 25 $ZNS",
+            titleKey: "rewards.tasks.join_discord.title",
+            rewardKey: "rewards.tasks.join_discord.reward",
+            comingSoon: true,
             completed: false,
         },
         {
             id: "join-telegram",
-            title: "Join our telegram community",
-            reward: "Win 25 $ZNS",
+            titleKey: "rewards.tasks.join_telegram.title",
+            rewardKey: "rewards.tasks.join_telegram.reward",
+            comingSoon: true,
             completed: false,
         },
         {
             id: "join-x",
-            title: "Join us on X",
-            reward: "Win 5 $ZNS",
+            titleKey: "rewards.tasks.join_x.title",
+            rewardKey: "rewards.tasks.join_x.reward",
+            comingSoon: true,
             completed: false,
         },
     ];
@@ -72,11 +79,13 @@ export class RewardsComponent implements OnInit {
     constructor(
         private _walletService: WalletService,
         private _solanaService: SolanaService,
+        private _tagsService: TagsService,
         private _router: Router
     ) {}
 
     ngOnInit(): void {
         this._loadZnsBalance();
+        this._loadInvites();
     }
 
     /**
@@ -117,6 +126,33 @@ export class RewardsComponent implements OnInit {
         }
     }
 
+    /**
+     * Load referral data to count unique friends invited.
+     */
+    private async _loadInvites(): Promise<void> {
+        this.referralsLoading = true;
+        try {
+            const wallet = await this._walletService.getCurrentWallet();
+            // Fallback to searching if tagName/domain not in publicData (sometimes in metadata)
+            const tagName = wallet?.tagName || wallet?.publicData?.tagName;
+            const domain = wallet?.domain || wallet?.publicData?.domain;
+
+            if (!tagName || !domain) return;
+
+            const response = await this._tagsService.getMyReferrals(tagName, domain);
+            const referrals = response?.data?.referrals || [];
+
+            // Group by unique friend (stripping .hold)
+            const uniqueFriends = new Set(referrals.map((r: any) => (r.name || r.tagName).replace(/\.hold$/, "")));
+            this.invitedFriends = uniqueFriends.size;
+        } catch (error) {
+            console.error("Error loading referral count:", error);
+            this.invitedFriends = 0;
+        } finally {
+            this.referralsLoading = false;
+        }
+    }
+
     onInviteFriends(): void {
         this._router.navigate(["/rewards/invite"]);
     }
@@ -131,7 +167,7 @@ export class RewardsComponent implements OnInit {
     }
 
     onTaskClick(task: Task): void {
-        if (task.completed) return;
+        if (task.completed || task.comingSoon) return;
 
         switch (task.id) {
             case "invite-friend":

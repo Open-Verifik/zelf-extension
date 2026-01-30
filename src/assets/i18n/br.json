@@ -1551,6 +1551,35 @@
         "recovery_success_description": "Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes."
     },
     "rewards": {
+        "title": "Recompensas",
+        "redeem_zns": "Resgatar ZNS",
+        "invite_friends": "Convidar amigos",
+        "daily_rewards": "Recompensas diárias",
+        "claim_it_now": "Resgate agora",
+        "your_tasks": "Suas tarefas",
+        "coming_soon": "Em breve",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Convide seu primeiro amigo",
+                "reward": "Ganhe de 10 a 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Envie sua primeira transação ZNS",
+                "reward": "Ganhe até 100 $ZNS"
+            },
+            "join_discord": {
+                "title": "Junte-se ao nosso Discord",
+                "reward": "Ganhe 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Junte-se à nossa comunidade no Telegram",
+                "reward": "Ganhe 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Siga-nos no X",
+                "reward": "Ganhe 5 $ZNS"
+            }
+        },
         "alreadyClaimedToday": "Você já resgatou sua recompensa diária!",
         "todaysReward": "Recompensa de hoje",
         "comeBackTomorrow": "Volte amanhã para mais uma rodada!",
@@ -1600,6 +1629,18 @@
                 "reward_already_claimed": "Esta recompensa já foi resgatada",
                 "generic": "Falha ao resgatar recompensa. Por favor, tente novamente mais tarde."
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "Não perca seu ZelfName",
+            "expired": "Seu domínio expirou",
+            "one_day": "Resta 1 dia para comprar seu ZNS",
+            "days_left": "Restam {{ days }} dias para comprar seu ZNS"
+        },
+        "rewards": {
+            "title": "Resgatar recompensas",
+            "subtitle": "Ganhe $ZNS diariamente com nossas missões"
         }
     }
 }

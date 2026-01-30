@@ -1551,6 +1551,35 @@
         "recovery_success_description": "आपका ZOTP वापस पा लिया गया है और आपके ऑथेंटिकेटर में जोड़ दिया गया है। अब आप कोड उत्पन्न करने के लिए इसका उपयोग कर सकते हैं।"
     },
     "rewards": {
+        "title": "पुरस्कार",
+        "redeem_zns": "ZNS भुनाएं",
+        "invite_friends": "दोस्तों को आमंत्रित करें",
+        "daily_rewards": "दैनिक पुरस्कार",
+        "claim_it_now": "इसे अभी प्राप्त करें",
+        "your_tasks": "आपके कार्य",
+        "coming_soon": "जल्द ही आ रहा है",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "अपने पहले मित्र को आमंत्रित करें",
+                "reward": "10 से 100 $ZNS जीतें"
+            },
+            "first_transaction": {
+                "title": "अपना पहला ZNS लेनदेन भेजें",
+                "reward": "100 $ZNS तक जीतें"
+            },
+            "join_discord": {
+                "title": "हमारे डिस्कॉर्ड से जुड़ें",
+                "reward": "25 $ZNS जीतें"
+            },
+            "join_telegram": {
+                "title": "हमारे टेलीग्राम समुदाय से जुड़ें",
+                "reward": "25 $ZNS जीतें"
+            },
+            "join_x": {
+                "title": "X पर हमसे जुड़ें",
+                "reward": "5 $ZNS जीतें"
+            }
+        },
         "alreadyClaimedToday": "आपने आज का दैनिक इनाम पहले ही प्राप्त कर लिया है!",
         "todaysReward": "आज का इनाम",
         "comeBackTomorrow": "कल फिर से स्पिन करने आएं!",
@@ -1600,6 +1629,18 @@
                 "reward_already_claimed": "इस पुरस्कार का दावा पहले ही किया जा चुका है",
                 "generic": "पुरस्कार का दावा करने में विफल। कृपया बाद में पुन: प्रयास करें।"
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "अपना ZelfName न खोएं",
+            "expired": "आपका डोमेन समाप्त हो गया है",
+            "one_day": "आपका ZNS खरीदने के लिए 1 दिन शेष है",
+            "days_left": "आपका ZNS खरीदने के लिए {{ days }} दिन शेष हैं"
+        },
+        "rewards": {
+            "title": "पुरस्कारों का दावा करें",
+            "subtitle": "हमारी खोजों के साथ प्रतिदिन $ZNS प्राप्त करें"
         }
     }
 }

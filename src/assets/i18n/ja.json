@@ -1551,6 +1551,35 @@
         "recovery_success_description": "ZOTPが復元され、オーセンティケーターに追加されました。これでコードの生成に使用できます。"
     },
     "rewards": {
+        "title": "報酬",
+        "redeem_zns": "ZNSを換金",
+        "invite_friends": "友達を招待",
+        "daily_rewards": "デイリー報酬",
+        "claim_it_now": "今すぐ受け取る",
+        "your_tasks": "あなたのタスク",
+        "coming_soon": "近日公開",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "最初の友達を招待する",
+                "reward": "10〜100 $ZNSを獲得"
+            },
+            "first_transaction": {
+                "title": "最初のZNSトランザクションを送信する",
+                "reward": "最大100 $ZNSを獲得"
+            },
+            "join_discord": {
+                "title": "Discordに参加する",
+                "reward": "25 $ZNSを獲得"
+            },
+            "join_telegram": {
+                "title": "Telegramコミュニティに参加する",
+                "reward": "25 $ZNSを獲得"
+            },
+            "join_x": {
+                "title": "Xでフォローする",
+                "reward": "5 $ZNSを獲得"
+            }
+        },
         "alreadyClaimedToday": "本日のデイリー報酬はすでに受け取り済みです！",
         "todaysReward": "本日の報酬",
         "comeBackTomorrow": "明日また回しに来てください！",
@@ -1600,6 +1629,18 @@
                 "reward_already_claimed": "この報酬はすでに受け取り済みです",
                 "generic": "報酬の受け取りに失敗しました。後でもう一度お試しください。"
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "ZelfNameを失わないでください",
+            "expired": "ドメインの期限が切れました",
+            "one_day": "ZNSの購入まであと1日です",
+            "days_left": "ZNSの購入まであと {{ days }} 日です"
+        },
+        "rewards": {
+            "title": "報酬を受け取る",
+            "subtitle": "クエストで毎日 $ZNS を獲得しましょう"
         }
     }
 }

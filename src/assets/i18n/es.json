@@ -1549,6 +1549,35 @@
         "title": "Elige el dominio para el nombre de tu etiqueta"
     },
     "rewards": {
+        "title": "Recompensas",
+        "redeem_zns": "Canjear ZNS",
+        "invite_friends": "Invitar amigos",
+        "daily_rewards": "Recompensas diarias",
+        "claim_it_now": "Reclámalo ahora",
+        "your_tasks": "Tus tareas",
+        "coming_soon": "Próximamente",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Invita a tu primer amigo",
+                "reward": "Gana de 10 a 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Envía tu primera transacción ZNS",
+                "reward": "Gana hasta 100 $ZNS"
+            },
+            "join_discord": {
+                "title": "Únete a nuestro Discord",
+                "reward": "Gana 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Únete a nuestra comunidad de Telegram",
+                "reward": "Gana 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Síguenos en X",
+                "reward": "Gana 5 $ZNS"
+            }
+        },
         "alreadyClaimedToday": "¡Ya reclamaste tu recompensa diaria!",
         "todaysReward": "Recompensa de hoy",
         "comeBackTomorrow": "¡Vuelve mañana para otro giro!",
@@ -1598,6 +1627,18 @@
                 "reward_already_claimed": "Esta recompensa ya ha sido reclamada",
                 "generic": "No se pudo reclamar la recompensa. Por favor, inténtelo de nuevo más tarde."
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "No pierdas tu ZelfName",
+            "expired": "Tu dominio ha expirado",
+            "one_day": "Falta 1 día para comprar tu ZNS",
+            "days_left": "Faltan {{ days }} días para comprar tu ZNS"
+        },
+        "rewards": {
+            "title": "Reclamar recompensas",
+            "subtitle": "Obtén $ZNS diariamente con nuestras misiones"
         }
     }
 }

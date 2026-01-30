@@ -7,7 +7,7 @@
     <div class="rewards__header">
         <div class="rewards__col1">
             <button [routerLink]="['/home']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
-                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
                     />
@@ -16,7 +16,7 @@
         </div>
 
         <div class="rewards__col2">
-            <p class="rewards__title">Rewards</p>
+            <p class="rewards__title">{{ t("rewards.title") }}</p>
         </div>
 
         <div class="rewards__col3"></div>
@@ -72,18 +72,12 @@
                             </svg>
                         </div>
                     </div>
-                    <span class="rewards__balance-amount">{{ znsBalanceLoading ? '...' : (znsBalance | number:'1.2-4') }} $ZNS</span>
+                    <span class="rewards__balance-amount">{{ znsBalanceLoading ? "..." : (znsBalance | number: "1.2-4") }} $ZNS</span>
                 </div>
                 <div class="rewards__balance-right">
-                    <span class="rewards__balance-redeem">Redeem ZNS</span>
+                    <span class="rewards__balance-redeem">{{ t("rewards.redeem_zns") }}</span>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M6 12L10 8L6 4"
-                            stroke="#E3E3E3"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
+                        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
             </div>
@@ -95,7 +89,12 @@
                         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="64" height="64" rx="16" fill="url(#invite-gradient)" />
                             <circle cx="26" cy="22" r="8" fill="white" />
-                            <path d="M12 44C12 36.268 18.268 30 26 30C33.732 30 40 36.268 40 44" stroke="white" stroke-width="3" stroke-linecap="round" />
+                            <path
+                                d="M12 44C12 36.268 18.268 30 26 30C33.732 30 40 36.268 40 44"
+                                stroke="white"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                            />
                             <circle cx="42" cy="26" r="5" fill="white" opacity="0.7" />
                             <path d="M36 42C36 37.582 39.582 34 44 34" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7" />
                             <defs>
@@ -107,8 +106,9 @@
                         </svg>
                     </div>
                     <div class="rewards__action-info">
-                        <span class="rewards__action-title">Invite friends</span>
-                        <span class="rewards__action-subtitle">{{ invitedFriends }}/{{ maxInvites }}</span>
+                        <span class="rewards__action-title">{{ t("rewards.invite_friends") }}</span>
+                        <div class="rewards__action-subtitle" *ngIf="!referralsLoading">{{ invitedFriends }}/{{ maxInvites }}</div>
+                        <div class="rewards__stat-skeleton" *ngIf="referralsLoading"></div>
                     </div>
                 </div>
 
@@ -134,35 +134,33 @@
                         </svg>
                     </div>
                     <div class="rewards__action-info">
-                        <span class="rewards__action-title">Daily rewards</span>
-                        <div class="rewards__action-badge">Claim it now</div>
+                        <span class="rewards__action-title">{{ t("rewards.daily_rewards") }}</span>
+                        <div class="rewards__action-badge">{{ t("rewards.claim_it_now") }}</div>
                     </div>
                 </div>
             </div>
 
             <!-- Tasks Section -->
             <div class="rewards__tasks">
-                <h3 class="rewards__tasks-title">Your tasks</h3>
+                <h3 class="rewards__tasks-title">{{ t("rewards.your_tasks") }}</h3>
 
                 <div
                     *ngFor="let task of tasks"
                     class="rewards__task"
                     [class.rewards__task--completed]="task.completed"
+                    [class.rewards__task--coming-soon]="task.comingSoon"
                     (click)="onTaskClick(task)"
                 >
                     <div class="rewards__task-info">
-                        <span class="rewards__task-title">{{ task.title }}</span>
-                        <span class="rewards__task-reward">{{ task.reward }}</span>
+                        <span class="rewards__task-title">{{ t(task.titleKey) }}</span>
+                        <div class="rewards__task-reward-row">
+                            <span class="rewards__task-reward">{{ t(task.rewardKey, task.rewardParams || {}) }}</span>
+                            <div *ngIf="task.comingSoon" class="rewards__task-coming-soon-badge">{{ t("rewards.coming_soon") }}</div>
+                        </div>
                     </div>
-                    <div class="rewards__task-arrow">
+                    <div class="rewards__task-arrow" *ngIf="!task.comingSoon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M9 18L15 12L9 6"
-                                stroke="#E3E3E3"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </div>
                 </div>

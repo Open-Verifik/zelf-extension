@@ -19,6 +19,12 @@ html {
         --zns-theme-button: #ffffff;
         --zns-theme-button-text: #1c1c1e;
         --zns-theme-shadow: rgba(0, 0, 0, 0.4);
+        --zns-theme-success: #32d74b;
+        --zns-theme-success-text: rgba(50, 215, 75, 0.15);
+        --zns-theme-warning: #ffd60a;
+        --zns-theme-warning-text: rgba(255, 214, 10, 0.15);
+        --zns-theme-error: #ff453a;
+        --zns-theme-error-text: rgba(255, 69, 58, 0.15);
     }
 
     &.zns-theme-light {

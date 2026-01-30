@@ -37,8 +37,8 @@
                 </div>
                 <div class="home-banners__content">
                     <div class="home-banners__text">
-                        <h4 class="home-banners__title home-banners__title--expiration">{{ currentBanner?.title }}</h4>
-                        <p class="home-banners__subtitle home-banners__subtitle--expiration">{{ currentBanner?.subtitle }}</p>
+                        <h4 class="home-banners__title home-banners__title--expiration">{{ currentBanner?.titleKey | transloco }}</h4>
+                        <p class="home-banners__subtitle home-banners__subtitle--expiration">{{ currentBanner?.subtitleKey | transloco:(currentBanner?.subtitleParams ?? {}) }}</p>
                     </div>
                     <div class="home-banners__arrow home-banners__arrow--expiration">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,8 +83,8 @@
                 </div>
                 <div class="home-banners__content">
                     <div class="home-banners__text">
-                        <h4 class="home-banners__title home-banners__title--rewards">{{ currentBanner?.title }}</h4>
-                        <p class="home-banners__subtitle home-banners__subtitle--rewards">{{ currentBanner?.subtitle }}</p>
+                        <h4 class="home-banners__title home-banners__title--rewards">{{ currentBanner?.titleKey | transloco }}</h4>
+                        <p class="home-banners__subtitle home-banners__subtitle--rewards">{{ currentBanner?.subtitleKey | transloco:(currentBanner?.subtitleParams ?? {}) }}</p>
                     </div>
                     <div class="home-banners__arrow home-banners__arrow--rewards">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -24,6 +24,7 @@ export class ClaimRewardComponent implements OnInit, OnDestroy {
     friendDomain: string = "";
     friendFullName: string = "";
     expectedReward: number = 0;
+    rewardType: string = "";
 
     // Result data
     claimedRewardAmount: number = 0;
@@ -56,7 +57,8 @@ export class ClaimRewardComponent implements OnInit, OnDestroy {
             this.domain = params["domain"] || "";
             this.friendTagName = params["friendTagName"] || "";
             this.friendDomain = params["friendDomain"] || "";
-            this.expectedReward = Number(params["reward"]) || 0;
+            this.expectedReward = Number(params["rewardAmount"]) || 0;
+            this.rewardType = params["rewardType"] || "";
             this.friendFullName = `${this.friendTagName}.${this.friendDomain}`;
 
             if (!this.tagName || !this.domain || !this.friendTagName || !this.friendDomain) {
@@ -83,6 +85,7 @@ export class ClaimRewardComponent implements OnInit, OnDestroy {
                 domain: this.domain,
                 friendTagName: this.friendTagName,
                 friendDomain: this.friendDomain,
+                rewardType: this.rewardType,
             });
 
             // Success!

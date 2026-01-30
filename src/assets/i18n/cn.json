@@ -1551,6 +1551,35 @@
         "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器中。您现在可以使用它来生成验证码。"
     },
     "rewards": {
+        "title": "奖励",
+        "redeem_zns": "兑换 ZNS",
+        "invite_friends": "邀请好友",
+        "daily_rewards": "每日奖励",
+        "claim_it_now": "立即领取",
+        "your_tasks": "您的任务",
+        "coming_soon": "敬请期待",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "邀请您的第一位好友",
+                "reward": "赢取 10 到 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "发送您的第一笔 ZNS 交易",
+                "reward": "赢取高达 100 $ZNS"
+            },
+            "join_discord": {
+                "title": "加入我们的 Discord",
+                "reward": "赢取 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "加入我们的 Telegram 社区",
+                "reward": "赢取 25 $ZNS"
+            },
+            "join_x": {
+                "title": "在 X 上关注我们",
+                "reward": "赢取 5 $ZNS"
+            }
+        },
         "alreadyClaimedToday": "您今天已经领取了每日奖励！",
         "todaysReward": "今日奖励",
         "comeBackTomorrow": "明天再来转一次吧！",
@@ -1600,6 +1629,18 @@
                 "reward_already_claimed": "此奖励已被领取",
                 "generic": "领取奖励失败。请稍后再试。"
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "不要失去你的 ZelfName",
+            "expired": "您的域名已过期",
+            "one_day": "距离购买您的 ZNS 还剩 1 天",
+            "days_left": "距离购买您的 ZNS 还剩 {{ days }} 天"
+        },
+        "rewards": {
+            "title": "领取奖励",
+            "subtitle": "通过我们的任务每日获得 $ZNS"
         }
     }
 }

@@ -8,8 +8,12 @@ import { TagModel } from "@shared/types/tag.types";
 export interface BannerItem {
     id: string;
     type: "expiration" | "rewards";
-    title: string;
-    subtitle: string;
+    /** Translation key for the banner title (use transloco pipe in template). */
+    titleKey: string;
+    /** Translation key for the banner subtitle (use transloco pipe in template). */
+    subtitleKey: string;
+    /** Params for the subtitle translation (e.g. `{ days: 5 }`). */
+    subtitleParams?: Record<string, unknown>;
     route: string[];
     visible: boolean;
 }
@@ -80,11 +84,13 @@ export class HomeBannersComponent implements OnChanges, OnDestroy {
 
         // Expiration banner for hold type tags
         if (this._shouldShowExpirationBanner()) {
+            const { key, params } = this._getExpirationSubtitleKeyAndParams();
             this.banners.push({
                 id: "expiration",
                 type: "expiration",
-                title: "Don't lose your ZelfName",
-                subtitle: this._getExpirationSubtitle(),
+                titleKey: "home_banners.expiration.title",
+                subtitleKey: key,
+                subtitleParams: params,
                 route: ["/manage-domains"],
                 visible: true,
             });
@@ -94,8 +100,8 @@ export class HomeBannersComponent implements OnChanges, OnDestroy {
         this.banners.push({
             id: "rewards",
             type: "rewards",
-            title: "Claim rewards",
-            subtitle: "Get $ZNS daily with our quests",
+            titleKey: "home_banners.rewards.title",
+            subtitleKey: "home_banners.rewards.subtitle",
             route: ["/rewards"],
             visible: true,
         });
@@ -113,18 +119,18 @@ export class HomeBannersComponent implements OnChanges, OnDestroy {
         return this.wallet.isHold || this.wallet.isExpiringSoon;
     }
 
-    private _getExpirationSubtitle(): string {
+    private _getExpirationSubtitleKeyAndParams(): { key: string; params?: Record<string, unknown> } {
         const daysRemaining = this._getDaysRemaining();
 
         if (daysRemaining <= 0) {
-            return "Your domain has expired";
+            return { key: "home_banners.expiration.expired" };
         }
 
         if (daysRemaining === 1) {
-            return "1 day left to purchase your ZNS";
+            return { key: "home_banners.expiration.one_day" };
         }
 
-        return `${daysRemaining} days left to purchase your ZNS`;
+        return { key: "home_banners.expiration.days_left", params: { days: daysRemaining } };
     }
 
     private _getDaysRemaining(): number {

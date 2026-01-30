@@ -310,7 +310,7 @@ export class TagsService {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-tags/referrals`, { tagName, domain });
     }
 
-    claimReferralReward(data: { tagName: string; domain: string; friendTagName: string; friendDomain: string }): Promise<any> {
+    claimReferralReward(data: { tagName: string; domain: string; friendTagName: string; friendDomain: string; rewardType?: string }): Promise<any> {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-tags/referrals/claim`, data);
     }
 

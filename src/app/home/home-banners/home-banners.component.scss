@@ -29,7 +29,9 @@
         }
 
         &--animating {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition:
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         &--slide-left {
@@ -63,20 +65,20 @@
         }
 
         &--expiration {
-            background-color: #ffeee9;
-            border: 1px solid #ffc1ae;
+            background-color: variables.$warningLight;
+            border: 1px solid variables.$warning;
 
             &:hover {
-                background-color: #ffe5dc;
+                background-color: variables.$warningLight;
             }
         }
 
         &--rewards {
-            background-color: #eeedf1;
-            border: 1px solid #eeedf1;
+            background-color: variables.$themeCard;
+            border: 1px solid variables.$themeCardBorder;
 
             &:hover {
-                background-color: #e5e4e8;
+                background-color: variables.$themeBackgroundSecondary;
             }
         }
     }
@@ -126,11 +128,11 @@
         text-align: left;
 
         &--expiration {
-            color: #ff5721;
+            color: variables.$warning;
         }
 
         &--rewards {
-            color: #181818;
+            color: variables.$themeText;
         }
     }
 
@@ -144,11 +146,11 @@
         text-align: left;
 
         &--expiration {
-            color: #181818;
+            color: variables.$themeText;
         }
 
         &--rewards {
-            color: #73777f;
+            color: variables.$themeTextSecondary;
         }
     }
 
@@ -164,13 +166,13 @@
         transition: transform 0.2s variables.$smoothBezier;
 
         &--expiration {
-            background-color: #ffe0d5;
-            color: #ff5721;
+            background-color: variables.$warningLight;
+            color: variables.$warning;
         }
 
         &--rewards {
-            background-color: #e3e3e3;
-            color: #181818;
+            background-color: variables.$themeBorder;
+            color: variables.$themeText;
         }
     }
 

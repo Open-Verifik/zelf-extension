@@ -1549,6 +1549,35 @@
         "title": "Choisissez le domaine pour le nom de votre étiquette"
     },
     "rewards": {
+        "title": "Récompenses",
+        "redeem_zns": "Échanger des ZNS",
+        "invite_friends": "Inviter des amis",
+        "daily_rewards": "Récompenses quotidiennes",
+        "claim_it_now": "Réclamer maintenant",
+        "your_tasks": "Vos tâches",
+        "coming_soon": "Bientôt disponible",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Invitez votre premier ami",
+                "reward": "Gagnez de 10 à 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Envoyez votre première transaction ZNS",
+                "reward": "Gagnez jusqu'à 100 $ZNS"
+            },
+            "join_discord": {
+                "title": "Rejoignez notre Discord",
+                "reward": "Gagnez 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Rejoignez notre communauté Telegram",
+                "reward": "Gagnez 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Rejoignez-nous sur X",
+                "reward": "Gagnez 5 $ZNS"
+            }
+        },
         "alreadyClaimedToday": "Vous avez déjà réclamé votre récompense quotidienne !",
         "todaysReward": "Récompense du jour",
         "comeBackTomorrow": "Revenez demain pour un autre tour !",
@@ -1598,6 +1627,18 @@
                 "reward_already_claimed": "Cette récompense a déjà été réclamée",
                 "generic": "Échec de la réclamation de la récompense. Veuillez réessayer plus tard."
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "Ne perdez pas votre ZelfName",
+            "expired": "Votre domaine a expiré",
+            "one_day": "1 jour restant pour acheter votre ZNS",
+            "days_left": "{{ days }} jours restants pour acheter votre ZNS"
+        },
+        "rewards": {
+            "title": "Réclamer des récompenses",
+            "subtitle": "Obtenez des $ZNS quotidiennement avec nos quêtes"
         }
     }
 }

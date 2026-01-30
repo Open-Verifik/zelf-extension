@@ -1550,6 +1550,35 @@
         "recovery_success_description": " Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes. "
     },
     "rewards": {
+        "title": "المكافآت",
+        "redeem_zns": "استبدال ZNS",
+        "invite_friends": "دعوة الأصدقاء",
+        "daily_rewards": "المكافآت اليومية",
+        "claim_it_now": "طالب بها الآن",
+        "your_tasks": "مهامك",
+        "coming_soon": "قريباً",
+        "tasks": {
+            "invite_first_friend": {
+                "title": "ادعُ صديقك الأول",
+                "reward": "اربح من 10 إلى 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "أرسل أول عملية تحويل ZNS",
+                "reward": "اربح ما يصل إلى 100 $ZNS"
+            },
+            "join_discord": {
+                "title": "انضم إلى ديسكورد الخاص بنا",
+                "reward": "اربح 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "انضم إلى مجتمع تيليجرام الخاص بنا",
+                "reward": "اربح 25 $ZNS"
+            },
+            "join_x": {
+                "title": "انضم إلينا على X",
+                "reward": "اربح 5 $ZNS"
+            }
+        },
         "alreadyClaimedToday": "لقد طالبت بمكافأتك اليومية بالفعل!",
         "todaysReward": "مكافأة اليوم",
         "comeBackTomorrow": "عد غداً للحصول على لفة أخرى!",
@@ -1599,6 +1628,18 @@
                 "reward_already_claimed": "لقد تمت المطالبة بهذه المكافأة بالفعل",
                 "generic": "فشلت المطالبة بالمكافأة. يرجى المحاولة مرة أخرى لاحقاً."
             }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "لا تفقد ZelfName الخاص بك",
+            "expired": "انتهت صلاحية نطاقك",
+            "one_day": "بقي يوم واحد لشراء ZNS الخاص بك",
+            "days_left": "بقي {{ days }} أيام لشراء ZNS الخاص بك"
+        },
+        "rewards": {
+            "title": "المطالبة بالمكافآت",
+            "subtitle": "احصل على $ZNS يوميًا مع مهامنا"
         }
     }
 }

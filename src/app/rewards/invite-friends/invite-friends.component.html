@@ -7,7 +7,7 @@
     <div class="invite-friends__header">
         <div class="invite-friends__col1">
             <button [routerLink]="['/rewards']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
-                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
                     />
@@ -82,7 +82,8 @@
                         </svg>
                     </div>
                     <div class="invite-friends__stat-content">
-                        <span class="invite-friends__stat-value">{{ invitedCount }}</span>
+                        <span class="invite-friends__stat-value" *ngIf="!referralsLoading">{{ invitedCount }}</span>
+                        <div class="invite-friends__stat-skeleton" *ngIf="referralsLoading"></div>
                         <span class="invite-friends__stat-label">{{ t("referrals.friends_invited") }}</span>
                     </div>
                 </div>
@@ -99,7 +100,8 @@
                         </svg>
                     </div>
                     <div class="invite-friends__stat-content">
-                        <span class="invite-friends__stat-value">{{ totalEarned }}</span>
+                        <span class="invite-friends__stat-value" *ngIf="!referralsLoading">{{ totalEarned }}</span>
+                        <div class="invite-friends__stat-skeleton" *ngIf="referralsLoading"></div>
                         <span class="invite-friends__stat-label">{{ t("referrals.zns_earned") }}</span>
                     </div>
                 </div>
@@ -113,7 +115,7 @@
                 </div>
 
                 <!-- Empty State -->
-                <div class="invite-friends__empty" *ngIf="friends.length === 0">
+                <div class="invite-friends__empty" *ngIf="friends.length === 0 && !referralsLoading">
                     <div class="invite-friends__empty-icon">
                         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" />
@@ -131,15 +133,27 @@
                     <p class="invite-friends__empty-text">{{ t("referrals.start_earning_desc") }}</p>
                 </div>
 
+                <!-- Skeleton Loading List -->
+                <div class="invite-friends__list" *ngIf="referralsLoading">
+                    <div *ngFor="let item of [1, 2, 3]" class="invite-friends__friend-skeleton">
+                        <div class="invite-friends__skeleton-avatar"></div>
+                        <div class="invite-friends__skeleton-info">
+                            <div class="invite-friends__skeleton-line invite-friends__skeleton-line--name"></div>
+                            <div class="invite-friends__skeleton-line invite-friends__skeleton-line--status"></div>
+                        </div>
+                        <div class="invite-friends__skeleton-badge"></div>
+                    </div>
+                </div>
+
                 <!-- Friends List -->
-                <div class="invite-friends__list" *ngIf="friends.length > 0">
+                <div class="invite-friends__list" *ngIf="friends.length > 0 && !referralsLoading">
                     <div *ngFor="let friend of friends; let i = index" class="invite-friends__friend" [style.animation-delay]="i * 0.05 + 's'">
                         <div class="invite-friends__friend-left">
                             <div class="invite-friends__friend-avatar" [class.invite-friends__friend-avatar--claimed]="friend.claimed">
                                 <span>{{ friend.name.charAt(0).toUpperCase() }}</span>
                             </div>
                             <div class="invite-friends__friend-info">
-                                <span class="invite-friends__friend-name">{{ friend.name }}</span>
+                                <span class="invite-friends__friend-name">{{ friend.tagObject.fullTagName }}</span>
                                 <span
                                     class="invite-friends__friend-status"
                                     [class.invite-friends__friend-status--purchased]="friend.status === 'tag_name_purchased'"
@@ -165,7 +179,11 @@
                             </div>
 
                             <!-- Claim Button -->
-                            <button *ngIf="isRewardRedeemable(friend)" class="invite-friends__claim-btn" (click)="claimReward(friend)">
+                            <button
+                                *ngIf="!friend.claimed && isRewardRedeemable(friend)"
+                                class="invite-friends__claim-btn"
+                                (click)="claimReward(friend)"
+                            >
                                 <span class="invite-friends__claim-btn-text">
                                     {{ t("referrals.claim", { amount: friend.rewardZNS }) }}
                                 </span>
@@ -180,8 +198,8 @@
                                 </svg>
                             </button>
 
-                            <!-- Pending (Hold) -->
-                            <div *ngIf="!friend.claimed && friend.status === 'tag_name_created'" class="invite-friends__pending-badge">
+                            <!-- Pending State (Optional fallback if not yet redeemable) -->
+                            <div *ngIf="!friend.claimed && !isRewardRedeemable(friend)" class="invite-friends__pending-badge">
                                 <span>{{ friend.rewardZNS }} ZNS</span>
                                 <span class="invite-friends__pending-label">{{ t("referrals.status.pending") }}</span>
                             </div>

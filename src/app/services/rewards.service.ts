@@ -129,4 +129,14 @@ export class RewardsService {
             color: index === 0 ? "#FF8622" : "#FF5721",
         }));
     }
+
+    /**
+     * Claim first transaction reward
+     * User gets a random 1-100 ZNS reward for their first ZNS transaction
+     */
+    async claimFirstTransaction(params: { tagName: string; domain: string }): Promise<any> {
+        const body = { tagName: params.tagName, domain: params.domain };
+        const response = await this._httpWrapper.sendRequest<any>("post", `${this.baseUrl}/api/rewards/first-transaction`, body);
+        return response;
+    }
 }

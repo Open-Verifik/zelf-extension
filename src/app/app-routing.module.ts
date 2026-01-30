@@ -133,6 +133,10 @@ const routes: Routes = [
                 loadComponent: () => import("./rewards/claim-reward/claim-reward.component").then((m) => m.ClaimRewardComponent),
             },
             {
+                path: "rewards/first-transaction",
+                loadComponent: () => import("./rewards/first-transaction/first-transaction.component").then((m) => m.FirstTransactionComponent),
+            },
+            {
                 path: "zelf-keys",
                 loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
                 resolve: {

@@ -1556,6 +1556,23 @@
         "claim_it_now": "Reclámalo ahora",
         "your_tasks": "Tus tareas",
         "coming_soon": "Próximamente",
+        "first_transaction": {
+            "title": "Recompensa por primera transacción",
+            "loading": "Comprobando elegibilidad...",
+            "success_title": "HAS GANADO",
+            "success_subtitle": "¡Primera transacción completada!",
+            "earned_label": "Has ganado",
+            "accept": "Aceptar",
+            "not_eligible_title": "Completa la tarea",
+            "not_eligible_desc": "¡Envía tokens ZNS a cualquier persona para desbloquear esta recompensa! Puedes enviar cualquier cantidad, incluso 0.001 ZNS.",
+            "send_now": "Enviar ZNS ahora",
+            "already_claimed_title": "Ya reclamado",
+            "already_claimed_desc": "¡Ya has reclamado esta recompensa!",
+            "instruction_action": "Enviar tokens ZNS",
+            "instruction_desc": "Realiza tu primera transacción de tokens ZNS para desbloquear esta recompensa",
+            "error_no_wallet": "No se encontró ninguna billetera",
+            "error_invalid_config": "Configuración de billetera no válida"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "Invita a tu primer amigo",

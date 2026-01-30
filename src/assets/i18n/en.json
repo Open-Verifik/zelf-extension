@@ -1556,6 +1556,23 @@
         "claim_it_now": "Claim it now",
         "your_tasks": "Your tasks",
         "coming_soon": "Coming Soon",
+        "first_transaction": {
+            "title": "First Transaction Reward",
+            "loading": "Checking eligibility...",
+            "success_title": "YOU HAVE WON",
+            "success_subtitle": "First transaction complete!",
+            "earned_label": "You have earned",
+            "accept": "Accept",
+            "not_eligible_title": "Complete the Task",
+            "not_eligible_desc": "Send ZNS tokens to anyone to unlock this reward! You can send any amount - even 0.001 ZNS.",
+            "send_now": "Send ZNS Now",
+            "already_claimed_title": "Already Claimed",
+            "already_claimed_desc": "You've already claimed this reward!",
+            "instruction_action": "Send ZNS tokens",
+            "instruction_desc": "Make your first ZNS token transaction to unlock this reward",
+            "error_no_wallet": "No wallet found",
+            "error_invalid_config": "Invalid wallet configuration"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "Invite your first friend",

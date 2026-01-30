@@ -1558,6 +1558,21 @@
         "claim_it_now": "รับเลยตอนนี้",
         "your_tasks": "งานของคุณ",
         "coming_soon": "เร็วๆ นี้",
+        "first_transaction": {
+            "title": "รางวัลการทำธุรกรรมครั้งแรก",
+            "loading": "กำลังตรวจสอบสิทธิ์...",
+            "success_title": "คุณชนะแล้ว",
+            "success_subtitle": "การทำธุรกรรมครั้งแรกเสร็จสมบูรณ์!",
+            "earned_label": "คุณได้รับแล้ว",
+            "accept": "ตกลง",
+            "not_eligible_title": "ทำภารกิจให้สำเร็จ",
+            "not_eligible_desc": "ส่งโทเค็น ZNS ให้ใครก็ได้เพื่อปลดล็อกรางวัลนี้! คุณสามารถส่งจำนวนเท่าใดก็ได้ - แม้แต่ 0.001 ZNS",
+            "send_now": "ส่ง ZNS ทันที",
+            "already_claimed_title": "รับไปแล้ว",
+            "already_claimed_desc": "คุณได้รับรางวัลนี้ไปแล้ว!",
+            "instruction_action": "ส่งโทเค็น ZNS",
+            "instruction_desc": "ทำรายการส่งโทเค็น ZNS ครั้งแรกเพื่อปลดล็อกรางวัลนี้"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "เชิญเพื่อนคนแรกของคุณ",

@@ -1558,6 +1558,21 @@
         "claim_it_now": "ابھی حاصل کریں",
         "your_tasks": "آپ کے کام",
         "coming_soon": "جلد آرہا ہے",
+        "first_transaction": {
+            "title": "پہلی ٹرانزیکشن کا انعام",
+            "loading": "اہلیت کی جانچ ہو رہی ہے...",
+            "success_title": "آپ جیت گئے ہیں",
+            "success_subtitle": "پہلی ٹرانزیکشن مکمل ہو گئی!",
+            "earned_label": "آپ نے حاصل کیا ہے",
+            "accept": "قبول کریں",
+            "not_eligible_title": "ٹاسک مکمل کریں",
+            "not_eligible_desc": "اس انعام کو انلاک کرنے کے لیے کسی کو بھی ZNS ٹوکن بھیجیں! آپ کوئی بھی رقم بھیج سکتے ہیں - یہاں تک کہ 0.001 ZNS بھی۔",
+            "send_now": "ابھی ZNS بھیجیں",
+            "already_claimed_title": "پہلے ہی کلیم کیا جا چکا ہے",
+            "already_claimed_desc": "آپ پہلے ہی اس انعام کو کلیم کر چکے ہیں!",
+            "instruction_action": "ZNS ٹوکن بھیجیں",
+            "instruction_desc": "اس انعام کو غیر مقفل کرنے کے لیے اپنی پہلی ZNS ٹوکن ٹرانزیکشن کریں"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "اپنے پہلے دوست کو مدعو کریں",

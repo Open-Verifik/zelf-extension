@@ -1558,6 +1558,21 @@
         "claim_it_now": "I-claim na",
         "your_tasks": "Iyong mga task",
         "coming_soon": "Malapit na",
+        "first_transaction": {
+            "title": "Reward sa Unang Transaction",
+            "loading": "Sinusuri ang pagiging karapat-dapat...",
+            "success_title": "NANALO KA",
+            "success_subtitle": "Tapos na ang unang transaction!",
+            "earned_label": "Nakuha mo",
+            "accept": "Tanggapin",
+            "not_eligible_title": "Tapusin ang Task",
+            "not_eligible_desc": "Magpadala ng mga ZNS token sa kahit kanino para ma-unlock ang reward na ito! Maaari kang magpadala ng anumang halaga - kahit 0.001 ZNS.",
+            "send_now": "Magpadala ng ZNS Ngayon",
+            "already_claimed_title": "Nakuha Na",
+            "already_claimed_desc": "Nakuha mo na ang reward na ito!",
+            "instruction_action": "Magpadala ng ZNS token",
+            "instruction_desc": "Gawin ang iyong unang ZNS token transaction para ma-unlock ang reward na ito"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "Mag-imbita ng iyong unang kaibigan",

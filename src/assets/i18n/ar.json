@@ -1557,6 +1557,21 @@
         "claim_it_now": "طالب بها الآن",
         "your_tasks": "مهامك",
         "coming_soon": "قريباً",
+        "first_transaction": {
+            "title": "مكافأة أول معاملة",
+            "loading": "جاري التحقق من الأهلية...",
+            "success_title": "لقد فزت",
+            "success_subtitle": "اكتملت المعاملة الأولى!",
+            "earned_label": "لقد ربحت",
+            "accept": "قبول",
+            "not_eligible_title": "أكمل المهمة",
+            "not_eligible_desc": "أرسل رموز ZNS إلى أي شخص لفتح هذه المكافأة! يمكنك إرسال أي مبلغ - حتى 0.001 ZNS.",
+            "send_now": "أرسل ZNS الآن",
+            "already_claimed_title": "تم المطالبة بها بالفعل",
+            "already_claimed_desc": "لقد طالبت بهذه المكافأة بالفعل!",
+            "instruction_action": "أرسل رموز ZNS",
+            "instruction_desc": "أكمل أول عملية تحويل لرموز ZNS لفتح هذه المكافأة"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "ادعُ صديقك الأول",

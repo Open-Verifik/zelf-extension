@@ -174,7 +174,7 @@ export class RewardsComponent implements OnInit {
                 this.onInviteFriends();
                 break;
             case "first-transaction":
-                // Navigate to send
+                this._router.navigate(["/rewards/first-transaction"]);
                 break;
             case "join-discord":
                 window.open("https://discord.gg/zelf", "_blank");

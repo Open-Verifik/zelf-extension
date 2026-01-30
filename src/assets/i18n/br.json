@@ -1558,6 +1558,23 @@
         "claim_it_now": "Resgate agora",
         "your_tasks": "Suas tarefas",
         "coming_soon": "Em breve",
+        "first_transaction": {
+            "title": "Recompensa da Primeira Transação",
+            "loading": "Verificando elegibilidade...",
+            "success_title": "VOCÊ GANHOU",
+            "success_subtitle": "Primeira transação concluída!",
+            "earned_label": "Você ganhou",
+            "accept": "Aceitar",
+            "not_eligible_title": "Conclua a Tarefa",
+            "not_eligible_desc": "Envie tokens ZNS para qualquer pessoa para desbloquear esta recompensa! Você pode enviar qualquer quantia - até mesmo 0.001 ZNS.",
+            "send_now": "Enviar ZNS Agora",
+            "already_claimed_title": "Já Reivindicado",
+            "already_claimed_desc": "Você já reivindicou esta recompensa!",
+            "instruction_action": "Enviar tokens ZNS",
+            "instruction_desc": "Faça sua primeira transação de tokens ZNS para desbloquear esta recompensa",
+            "error_no_wallet": "Nenhuma carteira encontrada",
+            "error_invalid_config": "Configuração de carteira inválida"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "Convide seu primeiro amigo",

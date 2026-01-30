@@ -1558,6 +1558,21 @@
         "claim_it_now": "इसे अभी प्राप्त करें",
         "your_tasks": "आपके कार्य",
         "coming_soon": "जल्द ही आ रहा है",
+        "first_transaction": {
+            "title": "पहला लेन-देन पुरस्कार",
+            "loading": "पात्रता की जाँच की जा रही है...",
+            "success_title": "आप जीत गए हैं",
+            "success_subtitle": "पहला लेन-देन पूरा हुआ!",
+            "earned_label": "आपने कमाया है",
+            "accept": "स्वीकार करें",
+            "not_eligible_title": "कार्य पूरा करें",
+            "not_eligible_desc": "इस पुरस्कार को अनलॉक करने के लिए किसी को भी ZNS टोकन भेजें! आप कोई भी राशि भेज सकते हैं - यहाँ तक कि 0.001 ZNS भी।",
+            "send_now": "अभी ZNS भेजें",
+            "already_claimed_title": "पहले ही दावा किया जा चुका है",
+            "already_claimed_desc": "आप पहले ही इस पुरस्कार का दावा कर चुके हैं!",
+            "instruction_action": "ZNS टोकन भेजें",
+            "instruction_desc": "इस इनाम को अनलॉक करने के लिए अपना पहला ZNS टोकन लेनदेन करें"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "अपने पहले मित्र को आमंत्रित करें",

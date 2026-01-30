@@ -1558,6 +1558,21 @@
         "claim_it_now": "Получить сейчас",
         "your_tasks": "Ваши задачи",
         "coming_soon": "Скоро будет",
+        "first_transaction": {
+            "title": "Награда за первую транзакцию",
+            "loading": "Проверка прав...",
+            "success_title": "ВЫ ВЫИГРАЛИ",
+            "success_subtitle": "Первая транзакция завершена!",
+            "earned_label": "Вы заработали",
+            "accept": "Принять",
+            "not_eligible_title": "Выполните задание",
+            "not_eligible_desc": "Отправьте токены ZNS любому пользователю, чтобы разблокировать эту награду! Вы можете отправить любую сумму — даже 0,001 ZNS.",
+            "send_now": "Отправить ZNS сейчас",
+            "already_claimed_title": "Уже получено",
+            "already_claimed_desc": "Вы уже получили эту награду!",
+            "instruction_action": "Отправить токены ZNS",
+            "instruction_desc": "Совершите свою первую транзакцию ZNS, чтобы разблокировать эту награду"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "Пригласите своего первого друга",

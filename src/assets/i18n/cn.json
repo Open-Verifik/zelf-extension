@@ -1558,6 +1558,21 @@
         "claim_it_now": "立即领取",
         "your_tasks": "您的任务",
         "coming_soon": "敬请期待",
+        "first_transaction": {
+            "title": "首次交易奖励",
+            "loading": "正在检查资格...",
+            "success_title": "你赢了",
+            "success_subtitle": "首次交易已完成！",
+            "earned_label": "你已获得",
+            "accept": "接受",
+            "not_eligible_title": "完成任务",
+            "not_eligible_desc": "向任何人发送 ZNS 代币即可解锁此奖励！你可以发送任何金额 - 甚至是 0.001 ZNS。",
+            "send_now": "立即发送 ZNS",
+            "already_claimed_title": "已领取",
+            "already_claimed_desc": "你已经领取过此奖励了！",
+            "instruction_action": "发送 ZNS 代币",
+            "instruction_desc": "完成您的首次 ZNS 代币交易以解锁此奖励"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "邀请您的第一位好友",

@@ -1558,6 +1558,21 @@
         "claim_it_now": "今すぐ受け取る",
         "your_tasks": "あなたのタスク",
         "coming_soon": "近日公開",
+        "first_transaction": {
+            "title": "初回取引報酬",
+            "loading": "資格を確認中...",
+            "success_title": "当選おめでとうございます",
+            "success_subtitle": "初回取引が完了しました！",
+            "earned_label": "獲得額",
+            "accept": "承認",
+            "not_eligible_title": "タスクを完了する",
+            "not_eligible_desc": "誰かにZNSトークンを送信して、この報酬を解除しましょう！ 0.001 ZNSなどの少額でも可能です。",
+            "send_now": "今すぐZNSを送信",
+            "already_claimed_title": "獲得済み",
+            "already_claimed_desc": "この報酬は既に獲得済みです！",
+            "instruction_action": "ZNSトークンを送信",
+            "instruction_desc": "初回ZNSトークン取引を完了して、この報酬を解除しましょう"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "最初の友達を招待する",

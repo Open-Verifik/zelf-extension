@@ -1556,6 +1556,21 @@
         "claim_it_now": "Réclamer maintenant",
         "your_tasks": "Vos tâches",
         "coming_soon": "Bientôt disponible",
+        "first_transaction": {
+            "title": "Récompense de première transaction",
+            "loading": "Vérification de l'éligibilité...",
+            "success_title": "VOUS AVEZ GAGNÉ",
+            "success_subtitle": "Première transaction terminée !",
+            "earned_label": "Vous avez gagné",
+            "accept": "Accepter",
+            "not_eligible_title": "Terminer la tâche",
+            "not_eligible_desc": "Envoyez des jetons ZNS à n'importe qui pour débloquer cette récompense ! Vous pouvez envoyer n'importe quel montant, même 0,001 ZNS.",
+            "send_now": "Envoyer des ZNS maintenant",
+            "already_claimed_title": "Déjà réclamé",
+            "already_claimed_desc": "Vous avez déjà réclamé cette récompense !",
+            "instruction_action": "Envoyer des jetons ZNS",
+            "instruction_desc": "Effectuez votre première transaction de jetons ZNS pour débloquer cette récompense"
+        },
         "tasks": {
             "invite_first_friend": {
                 "title": "Invitez votre premier ami",

@@ -1549,5 +1549,114 @@
         "create_zotp_from_recovery": "Lumikha ng ZOTP mula sa Recovery",
         "recovery_successful": "Matagumpay na Recovery!",
         "recovery_success_description": "Ang iyong ZOTP ay na-recover na at naidagdag sa iyong authenticator. Maaari mo na itong gamitin upang gumawa ng mga code."
+    },
+    "rewards": {
+        "title": "Mga Reward",
+        "redeem_zns": "I-redeem ang ZNS",
+        "invite_friends": "Mag-imbita ng mga kaibigan",
+        "daily_rewards": "Daily rewards",
+        "claim_it_now": "I-claim na",
+        "your_tasks": "Iyong mga task",
+        "coming_soon": "Malapit na",
+        "first_transaction": {
+            "title": "Reward sa Unang Transaction",
+            "loading": "Sinusuri ang pagiging karapat-dapat...",
+            "success_title": "NANALO KA",
+            "success_subtitle": "Tapos na ang unang transaction!",
+            "earned_label": "Nakuha mo",
+            "accept": "Tanggapin",
+            "not_eligible_title": "Tapusin ang Task",
+            "not_eligible_desc": "Magpadala ng mga ZNS token sa kahit kanino para ma-unlock ang reward na ito! Maaari kang magpadala ng anumang halaga - kahit 0.001 ZNS.",
+            "send_now": "Magpadala ng ZNS Ngayon",
+            "already_claimed_title": "Nakuha Na",
+            "already_claimed_desc": "Nakuha mo na ang reward na ito!",
+            "instruction_action": "Magpadala ng ZNS token",
+            "instruction_desc": "Gawin ang iyong unang ZNS token transaction para ma-unlock ang reward na ito"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Mag-imbita ng iyong unang kaibigan",
+                "reward": "Manalo ng 10 hanggang 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Ipadala ang iyong unang transaksyon sa ZNS",
+                "reward": "Kumita ng hanggang 100 $ZNS",
+                "reward_completed": "Nanalo ka ng {{amount}} $ZNS"
+            },
+            "join_discord": {
+                "title": "Sumali sa aming Discord",
+                "reward": "Manalo ng 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Sumali sa aming Telegram community",
+                "reward": "Manalo ng 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Sumali sa amin sa X",
+                "reward": "Manalo ng 5 $ZNS"
+            }
+        },
+        "alreadyClaimedToday": "Na-claim mo na ang iyong daily reward!",
+        "todaysReward": "Reward ngayon",
+        "comeBackTomorrow": "Bumalik bukas para sa isa pang spin!",
+        "nextSpinIn": "Susunod na spin sa loob ng",
+        "hours": "oras",
+        "minutes": "min",
+        "seconds": "seg"
+    },
+    "referrals": {
+        "invite_title": "Mag-imbita ng mga kaibigan",
+        "hero_title": "Kumita ng mga Reward na $ZNS",
+        "hero_subtitle": "Makatanggap ng reward para sa bawat kaibigang sasali sa ZELF",
+        "your_referral_code": "Iyong referral code",
+        "copy": "Kopyahin",
+        "copied": "Nakopya na!",
+        "friends_invited": "Mga Kaibigang Na-imbita",
+        "zns_earned": "$ZNS na Kinita",
+        "your_referrals": "Iyong mga Referral",
+        "no_referrals_yet": "Wala pang mga referral",
+        "start_earning_desc": "Ibahagi ang iyong code at simulan ang pagkuha ng mga reward!",
+        "status": {
+            "purchased": "Nabili na",
+            "registered": "Rehistrado na",
+            "pending": "nakabinbin"
+        },
+        "claim": "I-claim ang {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Ina-claim ang Reward",
+            "text": "Ipinapadala ang {{ amount }} $ZNS sa iyong wallet...",
+            "subtext": "Maaaring tumagal ito ng ilang segundo"
+        },
+        "success": {
+            "title": "IKAW AY NANALO",
+            "subtitle": "Tapos na ang task!",
+            "desc": "Referral reward mula kay <strong>{{ name }}</strong>",
+            "earned_label": "Ikaw ay kumita ng",
+            "accept": "Tanggapin"
+        },
+        "error": {
+            "title": "Nabigo ang Pag-claim",
+            "subtext": "Huwag mag-alala, maaari mong subukan muli. Ang iyong reward ay naghihintay pa rin para sa iyo.",
+            "retry": "Subukan Muli",
+            "go_back": "Bumalik",
+            "messages": {
+                "reward_already_claimed": "Ang reward na ito ay na-claim na",
+                "generic": "Nabigong i-claim ang reward. Pakisubukang muli mamaya."
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "Huwag mawala ang iyong ZelfName",
+            "expired": "Nag-expire na ang iyong domain",
+            "one_day": "1 araw na lang para mabili ang iyong ZNS",
+            "days_left": "{{ days }} araw na lang para mabili ang iyong ZNS"
+        },
+        "rewards": {
+            "title": "I-claim ang mga reward",
+            "subtitle": "Kumuha ng $ZNS araw-araw gamit ang aming mga quest"
+        }
     }
 }

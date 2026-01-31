@@ -113,6 +113,30 @@ const routes: Routes = [
                 loadComponent: () => import("./zelf-authenticator/zelf-authenticator.component").then((m) => m.ZelfAuthenticatorComponent),
             },
             {
+                path: "rewards",
+                loadComponent: () => import("./rewards/rewards.component").then((m) => m.RewardsComponent),
+            },
+            {
+                path: "rewards/daily",
+                loadComponent: () => import("./rewards/daily-rewards/daily-rewards.component").then((m) => m.DailyRewardsComponent),
+            },
+            {
+                path: "rewards/redeem",
+                loadComponent: () => import("./rewards/redeem-zns/redeem-zns.component").then((m) => m.RedeemZnsComponent),
+            },
+            {
+                path: "rewards/invite",
+                loadComponent: () => import("./rewards/invite-friends/invite-friends.component").then((m) => m.InviteFriendsComponent),
+            },
+            {
+                path: "rewards/claim",
+                loadComponent: () => import("./rewards/claim-reward/claim-reward.component").then((m) => m.ClaimRewardComponent),
+            },
+            {
+                path: "rewards/first-transaction",
+                loadComponent: () => import("./rewards/first-transaction/first-transaction.component").then((m) => m.FirstTransactionComponent),
+            },
+            {
                 path: "zelf-keys",
                 loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
                 resolve: {

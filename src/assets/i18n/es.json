@@ -376,6 +376,8 @@
         "not_found": "Registro no encontrado",
         "password_doesnt_match": "Las contraseñas no coinciden",
         "password_incorrect": "La contraseña es incorrecta",
+        "LIVENESS CHECK FAILED.": "La comprobación de autenticidad falló. Por favor, inténtelo de nuevo.",
+        "THE PROVIDED PASSWORD IS INVALID.": "La contraseña que ha introducido es incorrecta. Por favor, verifique su contraseña e inténtelo de nuevo.",
         "person_already_set": "Tu registro ya tiene un ZelfProof vinculado",
         "private_key_locked": "La clave privada ha sido bloqueada. Debes realizar una verificación biométrica para continuar.",
         "required_field": "Este campo es obligatorio",
@@ -398,7 +400,9 @@
         "no_decrypted_data_received_from_api": "No decrypted data received from the server",
         "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
         "unknown_error": "An unknown error occurred",
-        "user_cancelled_decryption": "Decryption was cancelled"
+        "user_cancelled_decryption": "Decryption was cancelled",
+        "solana_insufficient_sol_for_fees": "SOL insuficiente. No tienes suficiente SOL para cubrir las comisiones o la creación de la cuenta.",
+        "solana_insufficient_sol_for_rent": "SOL insuficiente. No tienes suficiente SOL para pagar la creación de la cuenta de destino."
     },
     "swap": {
         "automatic": "Automático",
@@ -1547,5 +1551,116 @@
     },
     "domain_selection": {
         "title": "Elige el dominio para el nombre de tu etiqueta"
+    },
+    "rewards": {
+        "title": "Recompensas",
+        "redeem_zns": "Canjear ZNS",
+        "invite_friends": "Invitar amigos",
+        "daily_rewards": "Recompensas diarias",
+        "claim_it_now": "Reclámalo ahora",
+        "your_tasks": "Tus tareas",
+        "coming_soon": "Próximamente",
+        "first_transaction": {
+            "title": "Recompensa 1ª Transacción",
+            "loading": "Comprobando elegibilidad...",
+            "success_title": "HAS GANADO",
+            "success_subtitle": "¡Primera transacción completada!",
+            "earned_label": "Has ganado",
+            "accept": "Aceptar",
+            "not_eligible_title": "Completa la tarea",
+            "not_eligible_desc": "¡Envía tokens ZNS a cualquier persona para desbloquear esta recompensa! Puedes enviar cualquier cantidad, incluso 0.001 ZNS.",
+            "send_now": "Enviar ZNS ahora",
+            "already_claimed_title": "Ya reclamado",
+            "already_claimed_desc": "¡Ya has reclamado esta recompensa!",
+            "instruction_action": "Enviar tokens ZNS",
+            "instruction_desc": "Realiza tu primera transacción de tokens ZNS para desbloquear esta recompensa",
+            "error_no_wallet": "No se encontró ninguna billetera",
+            "error_invalid_config": "Configuración de billetera no válida"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Invita a tu primer amigo",
+                "reward": "Gana de 10 a 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Envía tu primera transacción ZNS",
+                "reward": "Gana hasta 100 $ZNS",
+                "reward_completed": "Ganaste {{amount}} $ZNS"
+            },
+            "join_discord": {
+                "title": "Únete a nuestro Discord",
+                "reward": "Gana 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Únete a nuestra comunidad de Telegram",
+                "reward": "Gana 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Síguenos en X",
+                "reward": "Gana 5 $ZNS"
+            }
+        },
+        "alreadyClaimedToday": "¡Ya reclamaste tu recompensa diaria!",
+        "todaysReward": "Recompensa de hoy",
+        "comeBackTomorrow": "¡Vuelve mañana para otro giro!",
+        "nextSpinIn": "Próximo giro disponible en",
+        "hours": "horas",
+        "minutes": "min",
+        "seconds": "seg"
+    },
+    "referrals": {
+        "invite_title": "Invitar amigos",
+        "hero_title": "Gana Recompensas $ZNS",
+        "hero_subtitle": "Obtén recompensas por cada amigo que se una a ZELF",
+        "your_referral_code": "Tu código de referido",
+        "copy": "Copiar",
+        "copied": "¡Copiado!",
+        "friends_invited": "Amigos Invitados",
+        "zns_earned": "$ZNS Ganados",
+        "your_referrals": "Tus Referidos",
+        "no_referrals_yet": "Aún no hay referidos",
+        "start_earning_desc": "¡Comparte tu código y comienza a ganar recompensas!",
+        "status": {
+            "purchased": "Comprado",
+            "registered": "Registrado",
+            "pending": "pendiente"
+        },
+        "claim": "Reclamar {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Reclamando Recompensa",
+            "text": "Enviando {{ amount }} $ZNS a tu billetera...",
+            "subtext": "Esto puede tardar unos segundos"
+        },
+        "success": {
+            "title": "HAS GANADO",
+            "subtitle": "¡Tarea completada!",
+            "desc": "Recompensa de referido de <strong>{{ name }}</strong>",
+            "earned_label": "Has ganado",
+            "accept": "Aceptar"
+        },
+        "error": {
+            "title": "Reclamo Fallido",
+            "subtext": "No te preocupes, puedes intentarlo de nuevo. Tu recompensa aún te espera.",
+            "retry": "Intentar de Nuevo",
+            "go_back": "Volver",
+            "messages": {
+                "reward_already_claimed": "Esta recompensa ya ha sido reclamada",
+                "generic": "No se pudo reclamar la recompensa. Por favor, inténtelo de nuevo más tarde."
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "No pierdas tu ZelfName",
+            "expired": "Tu dominio ha expirado",
+            "one_day": "Falta 1 día para comprar tu ZNS",
+            "days_left": "Faltan {{ days }} días para comprar tu ZNS"
+        },
+        "rewards": {
+            "title": "Reclamar recompensas",
+            "subtitle": "Obtén $ZNS diariamente con nuestras misiones"
+        }
     }
 }

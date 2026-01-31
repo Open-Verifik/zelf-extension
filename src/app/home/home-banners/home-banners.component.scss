@@ -1,0 +1,280 @@
+@use "../../../styles/variables";
+
+.home-banners {
+    width: 100%;
+    padding: 0;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    touch-action: pan-y;
+
+    &__carousel {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+    }
+
+    &__slide-wrapper {
+        width: 100%;
+        will-change: transform, opacity;
+        transition: none;
+
+        &--dragging {
+            cursor: grabbing;
+        }
+
+        &--animating {
+            transition:
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &--slide-left {
+            animation: slideOutLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        &--slide-right {
+            animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+    }
+
+    &__slide {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 77px;
+        padding: 16px 16px 16px 8px;
+        border-radius: 24px;
+        cursor: pointer;
+        gap: 4px;
+        animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: translateY(-1px);
+            transition: transform 0.2s variables.$smoothBezier;
+        }
+
+        &:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+        }
+
+        &--expiration {
+            background-color: variables.$warningLight;
+            border: 1px solid variables.$warning;
+
+            &:hover {
+                background-color: variables.$warningLight;
+            }
+        }
+
+        &--rewards {
+            background-color: variables.$themeCard;
+            border: 1px solid variables.$themeCardBorder;
+
+            &:hover {
+                background-color: variables.$themeBackgroundSecondary;
+            }
+        }
+    }
+
+    &__icon-container {
+        width: 80px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    &__bell-icon,
+    &__treasure-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    &__text {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    &__title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        margin: 0;
+        text-align: left;
+
+        &--expiration {
+            color: variables.$warning;
+        }
+
+        &--rewards {
+            color: variables.$themeText;
+        }
+    }
+
+    &__subtitle {
+        font-family: variables.$themeBodyFamily;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        margin: 0;
+        text-align: left;
+
+        &--expiration {
+            color: variables.$themeText;
+        }
+
+        &--rewards {
+            color: variables.$themeTextSecondary;
+        }
+    }
+
+    &__arrow {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 24px;
+        flex-shrink: 0;
+        padding: 6px;
+        transition: transform 0.2s variables.$smoothBezier;
+
+        &--expiration {
+            background-color: variables.$warningLight;
+            color: variables.$warning;
+        }
+
+        &--rewards {
+            background-color: variables.$themeBorder;
+            color: variables.$themeText;
+        }
+    }
+
+    &__slide:hover &__arrow {
+        transform: translateX(2px);
+    }
+
+    &__pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__dot {
+        width: 16px;
+        height: 4px;
+        border-radius: 8px;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        background-color: #e3e3e3;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            background-color: #c3c6cf;
+        }
+
+        &--active {
+            background-color: #96939e;
+
+            &:hover {
+                background-color: #96939e;
+            }
+        }
+    }
+}
+
+// Slide animations
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+}
+
+// Responsive adjustments
+@media (max-width: variables.$minSmall) {
+    .home-banners {
+        &__slide {
+            height: auto;
+            min-height: 70px;
+            padding: 12px 12px 12px 4px;
+        }
+
+        &__icon-container {
+            width: 64px;
+            height: 52px;
+
+            svg {
+                transform: scale(0.85);
+            }
+        }
+
+        &__title {
+            font-size: 13px;
+        }
+
+        &__subtitle {
+            font-size: 9px;
+        }
+
+        &__arrow {
+            width: 24px;
+            height: 24px;
+            padding: 4px;
+        }
+    }
+}

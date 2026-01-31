@@ -1549,5 +1549,114 @@
         "create_zotp_from_recovery": "復元からZOTPを作成",
         "recovery_successful": "復元に成功しました！",
         "recovery_success_description": "ZOTPが復元され、オーセンティケーターに追加されました。これでコードの生成に使用できます。"
+    },
+    "rewards": {
+        "title": "報酬",
+        "redeem_zns": "ZNSを換金",
+        "invite_friends": "友達を招待",
+        "daily_rewards": "デイリー報酬",
+        "claim_it_now": "今すぐ受け取る",
+        "your_tasks": "あなたのタスク",
+        "coming_soon": "近日公開",
+        "first_transaction": {
+            "title": "初回取引報酬",
+            "loading": "資格を確認中...",
+            "success_title": "当選おめでとうございます",
+            "success_subtitle": "初回取引が完了しました！",
+            "earned_label": "獲得額",
+            "accept": "承認",
+            "not_eligible_title": "タスクを完了する",
+            "not_eligible_desc": "誰かにZNSトークンを送信して、この報酬を解除しましょう！ 0.001 ZNSなどの少額でも可能です。",
+            "send_now": "今すぐZNSを送信",
+            "already_claimed_title": "獲得済み",
+            "already_claimed_desc": "この報酬は既に獲得済みです！",
+            "instruction_action": "ZNSトークンを送信",
+            "instruction_desc": "初回ZNSトークン取引を完了して、この報酬を解除しましょう"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "最初の友達を招待する",
+                "reward": "10〜100 $ZNSを獲得"
+            },
+            "first_transaction": {
+                "title": "最初のZNSトランザクションを送信する",
+                "reward": "最大100 $ZNSを獲得",
+                "reward_completed": "{{amount}} $ZNSを獲得しました"
+            },
+            "join_discord": {
+                "title": "Discordに参加する",
+                "reward": "25 $ZNSを獲得"
+            },
+            "join_telegram": {
+                "title": "Telegramコミュニティに参加する",
+                "reward": "25 $ZNSを獲得"
+            },
+            "join_x": {
+                "title": "Xでフォローする",
+                "reward": "5 $ZNSを獲得"
+            }
+        },
+        "alreadyClaimedToday": "本日のデイリー報酬はすでに受け取り済みです！",
+        "todaysReward": "本日の報酬",
+        "comeBackTomorrow": "明日また回しに来てください！",
+        "nextSpinIn": "次のスピンまで",
+        "hours": "時間",
+        "minutes": "分",
+        "seconds": "秒"
+    },
+    "referrals": {
+        "invite_title": "友達を招待",
+        "hero_title": "$ZNS報酬を獲得",
+        "hero_subtitle": "ZELFに参加する友達一人につき報酬をゲット",
+        "your_referral_code": "あなたの招待コード",
+        "copy": "コピー",
+        "copied": "コピーしました！",
+        "friends_invited": "招待した友達",
+        "zns_earned": "獲得した$ZNS",
+        "your_referrals": "あなたの招待実績",
+        "no_referrals_yet": "招待実績はまだありません",
+        "start_earning_desc": "コードを共有して報酬を獲得しましょう！",
+        "status": {
+            "purchased": "購入済み",
+            "registered": "登録済み",
+            "pending": "保留中"
+        },
+        "claim": "{{ amount }} $ZNSを受け取る"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "報酬を受け取り中",
+            "text": "ウォレットに {{ amount }} $ZNS を送信しています...",
+            "subtext": "数秒かかる場合があります"
+        },
+        "success": {
+            "title": "おめでとうございます！",
+            "subtitle": "タスク完了！",
+            "desc": "<strong>{{ name }}</strong> さんからの招待報酬",
+            "earned_label": "獲得額",
+            "accept": "承認"
+        },
+        "error": {
+            "title": "受け取り失敗",
+            "subtext": "しばらくしてからもう一度お試しください。あなたの報酬はまだ残っています。",
+            "retry": "再試行",
+            "go_back": "戻る",
+            "messages": {
+                "reward_already_claimed": "この報酬はすでに受け取り済みです",
+                "generic": "報酬の受け取りに失敗しました。後でもう一度お試しください。"
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "ZelfNameを失わないでください",
+            "expired": "ドメインの期限が切れました",
+            "one_day": "ZNSの購入まであと1日です",
+            "days_left": "ZNSの購入まであと {{ days }} 日です"
+        },
+        "rewards": {
+            "title": "報酬を受け取る",
+            "subtitle": "クエストで毎日 $ZNS を獲得しましょう"
+        }
     }
 }

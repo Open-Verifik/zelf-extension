@@ -1549,5 +1549,114 @@
         "create_zotp_from_recovery": "रिकवरी से ZOTP बनाएँ",
         "recovery_successful": "रिकवरी सफल!",
         "recovery_success_description": "आपका ZOTP वापस पा लिया गया है और आपके ऑथेंटिकेटर में जोड़ दिया गया है। अब आप कोड उत्पन्न करने के लिए इसका उपयोग कर सकते हैं।"
+    },
+    "rewards": {
+        "title": "पुरस्कार",
+        "redeem_zns": "ZNS भुनाएं",
+        "invite_friends": "दोस्तों को आमंत्रित करें",
+        "daily_rewards": "दैनिक पुरस्कार",
+        "claim_it_now": "इसे अभी प्राप्त करें",
+        "your_tasks": "आपके कार्य",
+        "coming_soon": "जल्द ही आ रहा है",
+        "first_transaction": {
+            "title": "पहला लेन-देन पुरस्कार",
+            "loading": "पात्रता की जाँच की जा रही है...",
+            "success_title": "आप जीत गए हैं",
+            "success_subtitle": "पहला लेन-देन पूरा हुआ!",
+            "earned_label": "आपने कमाया है",
+            "accept": "स्वीकार करें",
+            "not_eligible_title": "कार्य पूरा करें",
+            "not_eligible_desc": "इस पुरस्कार को अनलॉक करने के लिए किसी को भी ZNS टोकन भेजें! आप कोई भी राशि भेज सकते हैं - यहाँ तक कि 0.001 ZNS भी।",
+            "send_now": "अभी ZNS भेजें",
+            "already_claimed_title": "पहले ही दावा किया जा चुका है",
+            "already_claimed_desc": "आप पहले ही इस पुरस्कार का दावा कर चुके हैं!",
+            "instruction_action": "ZNS टोकन भेजें",
+            "instruction_desc": "इस इनाम को अनलॉक करने के लिए अपना पहला ZNS टोकन लेनदेन करें"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "अपने पहले मित्र को आमंत्रित करें",
+                "reward": "10 से 100 $ZNS जीतें"
+            },
+            "first_transaction": {
+                "title": "पहला ZNS लेनदेन भेजें",
+                "reward": "100 $ZNS तक कमाएं",
+                "reward_completed": "आपने {{amount}} $ZNS जीता"
+            },
+            "join_discord": {
+                "title": "हमारे डिस्कॉर्ड से जुड़ें",
+                "reward": "25 $ZNS जीतें"
+            },
+            "join_telegram": {
+                "title": "हमारे टेलीग्राम समुदाय से जुड़ें",
+                "reward": "25 $ZNS जीतें"
+            },
+            "join_x": {
+                "title": "X पर हमसे जुड़ें",
+                "reward": "5 $ZNS जीतें"
+            }
+        },
+        "alreadyClaimedToday": "आपने आज का दैनिक इनाम पहले ही प्राप्त कर लिया है!",
+        "todaysReward": "आज का इनाम",
+        "comeBackTomorrow": "कल फिर से स्पिन करने आएं!",
+        "nextSpinIn": "अगला स्पिन उपलब्ध होगा",
+        "hours": "घंटे",
+        "minutes": "मिनट",
+        "seconds": "सेकंड"
+    },
+    "referrals": {
+        "invite_title": "दोस्तों को आमंत्रित करें",
+        "hero_title": "$ZNS पुरस्कार अर्जित करें",
+        "hero_subtitle": "ZELF में शामिल होने वाले हर मित्र के लिए पुरस्कार प्राप्त करें",
+        "your_referral_code": "आपका रेफरल कोड",
+        "copy": "कॉपी करें",
+        "copied": "कॉपी किया गया!",
+        "friends_invited": "आमंत्रित मित्र",
+        "zns_earned": "अर्जित $ZNS",
+        "your_referrals": "आपके रेफरल",
+        "no_referrals_yet": "अभी तक कोई रेफरल नहीं",
+        "start_earning_desc": "अपना कोड साझा करें और पुरस्कार अर्जित करना शुरू करें!",
+        "status": {
+            "purchased": "खरीदा गया",
+            "registered": "पंजीकृत",
+            "pending": "लंबित"
+        },
+        "claim": "{{ amount }} $ZNS का दावा करें"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "पुरस्कार का दावा किया जा रहा है",
+            "text": "आपके वॉलेट में {{ amount }} $ZNS भेजे जा रहे हैं...",
+            "subtext": "इसमें कुछ सेकंड लग सकते हैं"
+        },
+        "success": {
+            "title": "आप जीत गए हैं",
+            "subtitle": "कार्य पूर्ण!",
+            "desc": "<strong>{{ name }}</strong> से रेफरल पुरस्कार",
+            "earned_label": "आपने अर्जित किया है",
+            "accept": "स्वीकार करें"
+        },
+        "error": {
+            "title": "दावा विफल",
+            "subtext": "चिंता न करें, आप पुन: प्रयास कर सकते हैं। आपका पुरस्कार अभी भी आपका इंतज़ार कर रहा है।",
+            "retry": "पुन: प्रयास करें",
+            "go_back": "वापस जाएं",
+            "messages": {
+                "reward_already_claimed": "इस पुरस्कार का दावा पहले ही किया जा चुका है",
+                "generic": "पुरस्कार का दावा करने में विफल। कृपया बाद में पुन: प्रयास करें।"
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "अपना ZelfName न खोएं",
+            "expired": "आपका डोमेन समाप्त हो गया है",
+            "one_day": "आपका ZNS खरीदने के लिए 1 दिन शेष है",
+            "days_left": "आपका ZNS खरीदने के लिए {{ days }} दिन शेष हैं"
+        },
+        "rewards": {
+            "title": "पुरस्कारों का दावा करें",
+            "subtitle": "हमारी खोजों के साथ प्रतिदिन $ZNS प्राप्त करें"
+        }
     }
 }

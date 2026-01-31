@@ -1,0 +1,212 @@
+<div class="zelf-card invite-friends" *transloco="let t">
+    <!-- Background gradients (matching rewards component) -->
+    <div class="invite-friends__bg-gradient invite-friends__bg-gradient--inner"></div>
+    <div class="invite-friends__bg-gradient invite-friends__bg-gradient--outer"></div>
+
+    <!-- Header (exact same grid pattern as rewards) -->
+    <div class="invite-friends__header">
+        <div class="invite-friends__col1">
+            <button [routerLink]="['/rewards']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="invite-friends__col2">
+            <p class="invite-friends__title">{{ t("referrals.invite_title") }}</p>
+        </div>
+
+        <div class="invite-friends__col3"></div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="invite-friends__app-content">
+        <div class="invite-friends__container">
+            <!-- Hero Section with Gradient -->
+            <div class="invite-friends__hero">
+                <div class="invite-friends__hero-glow"></div>
+                <div class="invite-friends__hero-icon">
+                    <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="16" r="7" fill="white" />
+                        <path d="M8 38c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                        <circle cx="34" cy="20" r="5" fill="white" opacity="0.8" />
+                        <path d="M28 36c0-4 3-6 6-6s6 2 6 6" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+                    </svg>
+                </div>
+                <h2 class="invite-friends__hero-title">{{ t("referrals.hero_title") }}</h2>
+                <p class="invite-friends__hero-subtitle">{{ t("referrals.hero_subtitle") }}</p>
+            </div>
+
+            <!-- Referral Code Card (overlaps hero) -->
+            <div class="invite-friends__code-card">
+                <div class="invite-friends__code-card-inner">
+                    <span class="invite-friends__code-label">{{ t("referrals.your_referral_code") }}</span>
+                    <div class="invite-friends__code-row">
+                        <span class="invite-friends__code-value">{{ referralCodeLoading ? "..." : referralCode || "—" }}</span>
+                        <button
+                            type="button"
+                            class="invite-friends__copy-btn"
+                            [class.invite-friends__copy-btn--copied]="copied"
+                            [disabled]="!referralCode || referralCodeLoading"
+                            (click)="copyReferralCode()"
+                        >
+                            <svg *ngIf="!copied" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" />
+                                <path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <svg *ngIf="copied" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span>{{ copied ? t("referrals.copied") : t("referrals.copy") }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="invite-friends__stats">
+                <div class="invite-friends__stat-card">
+                    <div class="invite-friends__stat-icon invite-friends__stat-icon--friends">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+                            <path
+                                d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </div>
+                    <div class="invite-friends__stat-content">
+                        <span class="invite-friends__stat-value" *ngIf="!referralsLoading">{{ invitedCount }}</span>
+                        <div class="invite-friends__stat-skeleton" *ngIf="referralsLoading"></div>
+                        <span class="invite-friends__stat-label">{{ t("referrals.friends_invited") }}</span>
+                    </div>
+                </div>
+                <div class="invite-friends__stat-card invite-friends__stat-card--highlight">
+                    <div class="invite-friends__stat-icon invite-friends__stat-icon--earnings">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                            <path
+                                d="M12 6v12M8 9.5c0 1.5 1.5 2.5 4 2.5s4 1 4 2.5-1.5 2.5-4 2.5"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </div>
+                    <div class="invite-friends__stat-content">
+                        <span class="invite-friends__stat-value" *ngIf="!referralsLoading">{{ totalEarned }}</span>
+                        <div class="invite-friends__stat-skeleton" *ngIf="referralsLoading"></div>
+                        <span class="invite-friends__stat-label">{{ t("referrals.zns_earned") }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Friends List Section -->
+            <div class="invite-friends__section">
+                <div class="invite-friends__section-header">
+                    <h3 class="invite-friends__section-title">{{ t("referrals.your_referrals") }}</h3>
+                    <span class="invite-friends__section-count" *ngIf="friends.length > 0">{{ friends.length }}</span>
+                </div>
+
+                <!-- Empty State -->
+                <div class="invite-friends__empty" *ngIf="friends.length === 0 && !referralsLoading">
+                    <div class="invite-friends__empty-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" />
+                            <path d="M5 20c0-4 3-6 7-6s7 2 7 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path
+                                d="M19 8l2 2m0 0l2-2m-2 2V6"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                    <p class="invite-friends__empty-title">{{ t("referrals.no_referrals_yet") }}</p>
+                    <p class="invite-friends__empty-text">{{ t("referrals.start_earning_desc") }}</p>
+                </div>
+
+                <!-- Skeleton Loading List -->
+                <div class="invite-friends__list" *ngIf="referralsLoading">
+                    <div *ngFor="let item of [1, 2, 3]" class="invite-friends__friend-skeleton">
+                        <div class="invite-friends__skeleton-avatar"></div>
+                        <div class="invite-friends__skeleton-info">
+                            <div class="invite-friends__skeleton-line invite-friends__skeleton-line--name"></div>
+                            <div class="invite-friends__skeleton-line invite-friends__skeleton-line--status"></div>
+                        </div>
+                        <div class="invite-friends__skeleton-badge"></div>
+                    </div>
+                </div>
+
+                <!-- Friends List -->
+                <div class="invite-friends__list" *ngIf="friends.length > 0 && !referralsLoading">
+                    <div *ngFor="let friend of friends; let i = index" class="invite-friends__friend" [style.animation-delay]="i * 0.05 + 's'">
+                        <div class="invite-friends__friend-left">
+                            <div class="invite-friends__friend-avatar" [class.invite-friends__friend-avatar--claimed]="friend.claimed">
+                                <span>{{ friend.name.charAt(0).toUpperCase() }}</span>
+                            </div>
+                            <div class="invite-friends__friend-info">
+                                <span class="invite-friends__friend-name">{{ friend.tagObject.fullTagName }}</span>
+                                <span
+                                    class="invite-friends__friend-status"
+                                    [class.invite-friends__friend-status--purchased]="friend.status === 'tag_name_purchased'"
+                                >
+                                    {{ friend.status === "tag_name_purchased" ? t("referrals.status.purchased") : t("referrals.status.registered") }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="invite-friends__friend-action">
+                            <!-- Claimed -->
+                            <div *ngIf="friend.claimed" class="invite-friends__claimed-badge">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5 12l5 5L20 7"
+                                        stroke="currentColor"
+                                        stroke-width="2.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                                <span>+{{ friend.rewardAmount }} $ZNS</span>
+                            </div>
+
+                            <!-- Claim Button -->
+                            <button
+                                *ngIf="!friend.claimed && isRewardRedeemable(friend)"
+                                class="invite-friends__claim-btn"
+                                (click)="claimReward(friend)"
+                            >
+                                <span class="invite-friends__claim-btn-text">
+                                    {{ t("referrals.claim", { amount: friend.rewardZNS }) }}
+                                </span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5 12h14M12 5l7 7-7 7"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </button>
+
+                            <!-- Pending State (Optional fallback if not yet redeemable) -->
+                            <div *ngIf="!friend.claimed && !isRewardRedeemable(friend)" class="invite-friends__pending-badge">
+                                <span>{{ friend.rewardZNS }} ZNS</span>
+                                <span class="invite-friends__pending-label">{{ t("referrals.status.pending") }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="zelf-card first-transaction" *transloco="let t">
+    <!-- Background gradients -->
+    <div class="first-transaction__bg-gradient first-transaction__bg-gradient--inner"></div>
+    <div class="first-transaction__bg-gradient first-transaction__bg-gradient--outer"></div>
+
+    <!-- Header -->
+    <div class="first-transaction__header">
+        <div class="first-transaction__col1">
+            <button [routerLink]="['/rewards']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="first-transaction__col2">
+            <p class="first-transaction__title">{{ t("rewards.first_transaction.title") }}</p>
+        </div>
+
+        <div class="first-transaction__col3"></div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="first-transaction__app-content">
+        <div class="first-transaction__container">
+            <!-- Hero Section -->
+            <div class="first-transaction__hero">
+                <div class="first-transaction__hero-glow"></div>
+                <!-- Hero Icon matches status -->
+                <div
+                    class="first-transaction__hero-icon"
+                    [ngClass]="{
+                        'first-transaction__hero-icon--success': state === 'success',
+                        'first-transaction__hero-icon--claimed': state === 'already_claimed',
+                        'first-transaction__hero-icon--eligible': state === 'not_eligible',
+                    }"
+                >
+                    <!-- Coins/Success Icon -->
+                    <svg *ngIf="state === 'success'" width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 32L28 40L44 24" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <!-- Claimed Icon -->
+                    <svg
+                        *ngIf="state === 'already_claimed'"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 64 64"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M5 12l5 5L20 7"
+                            stroke="white"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            transform="scale(3) translate(1,1)"
+                        />
+                    </svg>
+
+                    <!-- Transaction Icon -->
+                    <svg
+                        *ngIf="state === 'not_eligible' || state === 'loading' || state === 'error'"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                            stroke="white"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+
+                <!-- Titles based on state -->
+                <ng-container *ngIf="state === 'success'">
+                    <h2 class="first-transaction__hero-title">{{ t("rewards.first_transaction.success_title") }}</h2>
+                    <p class="first-transaction__hero-subtitle">{{ t("rewards.first_transaction.success_subtitle") }}</p>
+                </ng-container>
+
+                <ng-container *ngIf="state === 'already_claimed'">
+                    <h2 class="first-transaction__hero-title">{{ t("rewards.first_transaction.already_claimed_title") }}</h2>
+                    <p class="first-transaction__hero-subtitle">{{ t("rewards.first_transaction.already_claimed_desc") }}</p>
+                </ng-container>
+
+                <ng-container *ngIf="state === 'not_eligible' || state === 'loading' || state === 'error'">
+                    <h2 class="first-transaction__hero-title">{{ t("rewards.first_transaction.title") }}</h2>
+                    <p class="first-transaction__hero-subtitle" *ngIf="state === 'not_eligible'">
+                        {{ t("rewards.first_transaction.not_eligible_desc") }}
+                    </p>
+                    <p class="first-transaction__hero-subtitle" *ngIf="state === 'loading'">{{ t("rewards.first_transaction.loading") }}</p>
+                    <p class="first-transaction__hero-subtitle" *ngIf="state === 'error'">{{ errorMessage }}</p>
+                </ng-container>
+            </div>
+
+            <!-- Floating Status Card (overlaps hero) -->
+            <div class="first-transaction__status-card">
+                <div class="first-transaction__status-card-inner">
+                    <!-- Loading State -->
+                    <div *ngIf="state === 'loading'" class="first-transaction__loading-container">
+                        <div class="first-transaction__loader-spinner"></div>
+                    </div>
+
+                    <!-- Result State (Success or Claimed) -->
+                    <ng-container *ngIf="state === 'success' || state === 'already_claimed'">
+                        <span class="first-transaction__status-label">{{ t("rewards.first_transaction.earned_label") }}</span>
+                        <div class="first-transaction__status-row">
+                            <span class="first-transaction__status-value">{{ rewardAmount }} $ZNS</span>
+                        </div>
+                        <button class="first-transaction__action-btn first-transaction__action-btn--primary" mat-flat-button (click)="goBack()">
+                            {{ t("rewards.first_transaction.accept") }}
+                        </button>
+                    </ng-container>
+
+                    <!-- Action State (Not Eligible) -->
+                    <ng-container *ngIf="state === 'not_eligible'">
+                        <div class="first-transaction__steps">
+                            <div class="first-transaction__step">
+                                <div class="first-transaction__step-number">1</div>
+                                <div class="first-transaction__step-content">
+                                    <strong>{{ t("rewards.first_transaction.instruction_action") }}</strong>
+                                    <span>{{ t("rewards.first_transaction.instruction_desc") }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="first-transaction__action-btn first-transaction__action-btn--primary" mat-flat-button (click)="goToSend()">
+                            {{ t("rewards.first_transaction.send_now") }}
+                        </button>
+                    </ng-container>
+
+                    <!-- Error State -->
+                    <ng-container *ngIf="state === 'error'">
+                        <button class="first-transaction__action-btn" mat-flat-button (click)="retry()">
+                            {{ t("claim_reward.error.retry") }}
+                        </button>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- Confetti Container -->
+            <div *ngIf="state === 'success'" class="first-transaction__confetti-container">
+                <div
+                    *ngFor="let particle of confettiParticles"
+                    class="first-transaction__confetti"
+                    [style.left.%]="particle.x"
+                    [style.animationDelay.s]="particle.delay"
+                    [style.animationDuration.s]="particle.duration"
+                    [style.backgroundColor]="particle.color"
+                ></div>
+            </div>
+        </div>
+    </div>
+</div>

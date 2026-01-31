@@ -1549,5 +1549,116 @@
         "create_zotp_from_recovery": "Create ZOTP from Recovery",
         "recovery_successful": "Recovery Successful!",
         "recovery_success_description": "Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes."
+    },
+    "rewards": {
+        "title": "Recompensas",
+        "redeem_zns": "Resgatar ZNS",
+        "invite_friends": "Convidar amigos",
+        "daily_rewards": "Recompensas diárias",
+        "claim_it_now": "Resgate agora",
+        "your_tasks": "Suas tarefas",
+        "coming_soon": "Em breve",
+        "first_transaction": {
+            "title": "Recompensa 1ª Transação",
+            "loading": "Verificando elegibilidade...",
+            "success_title": "VOCÊ GANHOU",
+            "success_subtitle": "Primeira transação concluída!",
+            "earned_label": "Você ganhou",
+            "accept": "Aceitar",
+            "not_eligible_title": "Conclua a Tarefa",
+            "not_eligible_desc": "Envie tokens ZNS para qualquer pessoa para desbloquear esta recompensa! Você pode enviar qualquer quantia - até mesmo 0.001 ZNS.",
+            "send_now": "Enviar ZNS Agora",
+            "already_claimed_title": "Já Reivindicado",
+            "already_claimed_desc": "Você já reivindicou esta recompensa!",
+            "instruction_action": "Enviar tokens ZNS",
+            "instruction_desc": "Faça sua primeira transação de tokens ZNS para desbloquear esta recompensa",
+            "error_no_wallet": "Nenhuma carteira encontrada",
+            "error_invalid_config": "Configuração de carteira inválida"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Convide seu primeiro amigo",
+                "reward": "Ganhe de 10 a 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Envie sua primeira transação ZNS",
+                "reward": "Ganhe até 100 $ZNS",
+                "reward_completed": "Você ganhou {{amount}} $ZNS"
+            },
+            "join_discord": {
+                "title": "Junte-se ao nosso Discord",
+                "reward": "Ganhe 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Junte-se à nossa comunidade no Telegram",
+                "reward": "Ganhe 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Siga-nos no X",
+                "reward": "Ganhe 5 $ZNS"
+            }
+        },
+        "alreadyClaimedToday": "Você já resgatou sua recompensa diária!",
+        "todaysReward": "Recompensa de hoje",
+        "comeBackTomorrow": "Volte amanhã para mais uma rodada!",
+        "nextSpinIn": "Próxima rodada disponível em",
+        "hours": "horas",
+        "minutes": "min",
+        "seconds": "seg"
+    },
+    "referrals": {
+        "invite_title": "Convidar amigos",
+        "hero_title": "Ganhe Recompensas $ZNS",
+        "hero_subtitle": "Receba recompensas por cada amigo que se juntar ao ZELF",
+        "your_referral_code": "Seu código de indicação",
+        "copy": "Copiar",
+        "copied": "Copiado!",
+        "friends_invited": "Amigos Convidados",
+        "zns_earned": "$ZNS Ganhos",
+        "your_referrals": "Suas Indicações",
+        "no_referrals_yet": "Nenhuma indicação ainda",
+        "start_earning_desc": "Compartilhe seu código e comece a ganhar recompensas!",
+        "status": {
+            "purchased": "Comprado",
+            "registered": "Registrado",
+            "pending": "pendente"
+        },
+        "claim": "Resgatar {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Resgatando Recompensa",
+            "text": "Enviando {{ amount }} $ZNS para sua carteira...",
+            "subtext": "Isso pode levar alguns segundos"
+        },
+        "success": {
+            "title": "VOCÊ GANHOU",
+            "subtitle": "Tarefa concluída!",
+            "desc": "Recompensa de indicação de <strong>{{ name }}</strong>",
+            "earned_label": "Você ganhou",
+            "accept": "Aceitar"
+        },
+        "error": {
+            "title": "Falha no Resgate",
+            "subtext": "Não se preocupe, você pode tentar novamente. Sua recompensa ainda está esperando por você.",
+            "retry": "Tentar Novamente",
+            "go_back": "Voltar",
+            "messages": {
+                "reward_already_claimed": "Esta recompensa já foi resgatada",
+                "generic": "Falha ao resgatar recompensa. Por favor, tente novamente mais tarde."
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "Não perca seu ZelfName",
+            "expired": "Seu domínio expirou",
+            "one_day": "Resta 1 dia para comprar seu ZNS",
+            "days_left": "Restam {{ days }} dias para comprar seu ZNS"
+        },
+        "rewards": {
+            "title": "Resgatar recompensas",
+            "subtitle": "Ganhe $ZNS diariamente com nossas missões"
+        }
     }
 }

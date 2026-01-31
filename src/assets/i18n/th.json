@@ -1549,5 +1549,114 @@
         "create_zotp_from_recovery": "สร้าง ZOTP จากการกู้คืน",
         "recovery_successful": "กู้คืนสำเร็จ!",
         "recovery_success_description": "ZOTP ของคุณได้รับการกู้คืนและเพิ่มลงในตัวยืนยันตัวตนของคุณแล้ว ตอนนี้คุณสามารถใช้เพื่อสร้างรหัสได้"
+    },
+    "rewards": {
+        "title": "รางวัล",
+        "redeem_zns": "แลก ZNS",
+        "invite_friends": "เชิญเพื่อน",
+        "daily_rewards": "รางวัลประจำวัน",
+        "claim_it_now": "รับเลยตอนนี้",
+        "your_tasks": "งานของคุณ",
+        "coming_soon": "เร็วๆ นี้",
+        "first_transaction": {
+            "title": "รางวัลการทำธุรกรรมครั้งแรก",
+            "loading": "กำลังตรวจสอบสิทธิ์...",
+            "success_title": "คุณชนะแล้ว",
+            "success_subtitle": "การทำธุรกรรมครั้งแรกเสร็จสมบูรณ์!",
+            "earned_label": "คุณได้รับแล้ว",
+            "accept": "ตกลง",
+            "not_eligible_title": "ทำภารกิจให้สำเร็จ",
+            "not_eligible_desc": "ส่งโทเค็น ZNS ให้ใครก็ได้เพื่อปลดล็อกรางวัลนี้! คุณสามารถส่งจำนวนเท่าใดก็ได้ - แม้แต่ 0.001 ZNS",
+            "send_now": "ส่ง ZNS ทันที",
+            "already_claimed_title": "รับไปแล้ว",
+            "already_claimed_desc": "คุณได้รับรางวัลนี้ไปแล้ว!",
+            "instruction_action": "ส่งโทเค็น ZNS",
+            "instruction_desc": "ทำรายการส่งโทเค็น ZNS ครั้งแรกเพื่อปลดล็อกรางวัลนี้"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "เชิญเพื่อนคนแรกของคุณ",
+                "reward": "ลุ้นรับ 10 ถึง 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "ส่งธุรกรรม ZNS ครั้งแรกของคุณ",
+                "reward": "ลุ้นรับสูงสุด 100 $ZNS",
+                "reward_completed": "คุณได้รับ {{amount}} $ZNS"
+            },
+            "join_discord": {
+                "title": "เข้าร่วม Discord ของเรา",
+                "reward": "ลุ้นรับ 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "เข้าร่วมชุมชน Telegram ของเรา",
+                "reward": "ลุ้นรับ 25 $ZNS"
+            },
+            "join_x": {
+                "title": "เข้าร่วมกับเราทาง X",
+                "reward": "ลุ้นรับ 5 $ZNS"
+            }
+        },
+        "alreadyClaimedToday": "คุณได้รับรางวัลประจำวันแล้ว!",
+        "todaysReward": "รางวัลวันนี้",
+        "comeBackTomorrow": "กลับมาหมุนใหม่พรุ่งนี้!",
+        "nextSpinIn": "หมุนครั้งต่อไปได้ใน",
+        "hours": "ชั่วโมง",
+        "minutes": "นาที",
+        "seconds": "วินาที"
+    },
+    "referrals": {
+        "invite_title": "เชิญเพื่อน",
+        "hero_title": "รับรางวัล $ZNS",
+        "hero_subtitle": "รับรางวัลสำหรับเพื่อนทุกคนที่เข้าร่วม ZELF",
+        "your_referral_code": "รหัสแนะนำของคุณ",
+        "copy": "คัดลอก",
+        "copied": "คัดลอกแล้ว!",
+        "friends_invited": "เพื่อนที่เชิญแล้ว",
+        "zns_earned": "$ZNS ที่ได้รับ",
+        "your_referrals": "การแนะนำของคุณ",
+        "no_referrals_yet": "ยังไม่มีการแนะนำ",
+        "start_earning_desc": "แชร์รหัสของคุณและเริ่มรับรางวัล!",
+        "status": {
+            "purchased": "ซื้อแล้ว",
+            "registered": "ลงทะเบียนแล้ว",
+            "pending": "รอดำเนินการ"
+        },
+        "claim": "รับ {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "กำลังรับรางวัล",
+            "text": "กำลังส่ง {{ amount }} $ZNS ไปยังกระเป๋าเงินของคุณ...",
+            "subtext": "อาจใช้เวลาสักครู่"
+        },
+        "success": {
+            "title": "คุณชนะแล้ว",
+            "subtitle": "ภารกิจสำเร็จ!",
+            "desc": "รางวัลแนะนำจาก <strong>{{ name }}</strong>",
+            "earned_label": "คุณได้รับ",
+            "accept": "ตกลง"
+        },
+        "error": {
+            "title": "การรับรางวัลล้มเหลว",
+            "subtext": "ไม่ต้องกังวล คุณสามารถลองใหม่ได้ รางวัลของคุณยังรอคุณอยู่",
+            "retry": "ลองใหม่",
+            "go_back": "ย้อนกลับ",
+            "messages": {
+                "reward_already_claimed": "รางวัลนี้ถูกรับไปแล้ว",
+                "generic": "ไม่สามารถรับรางวัลได้ โปรดลองใหม่อีกครั้งในภายหลัง"
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "อย่าทำ ZelfName ของคุณหาย",
+            "expired": "โดเมนของคุณหมดอายุแล้ว",
+            "one_day": "เหลือเวลาอีก 1 วันในการซื้อ ZNS ของคุณ",
+            "days_left": "เหลือเวลาอีก {{ days }} วันในการซื้อ ZNS ของคุณ"
+        },
+        "rewards": {
+            "title": "รับรางวัล",
+            "subtitle": "รับ $ZNS ทุกวันจากเควสของเรา"
+        }
     }
 }

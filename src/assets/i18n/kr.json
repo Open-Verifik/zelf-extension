@@ -1549,5 +1549,114 @@
         "create_zotp_from_recovery": "복구된 키로 ZOTP 생성",
         "recovery_successful": "복구 성공!",
         "recovery_success_description": "ZOTP가 성공적으로 복구되어 인증기에 추가되었습니다. 이제 인증 코드를 생성하는 데 사용할 수 있습니다."
+    },
+    "rewards": {
+        "title": "보상",
+        "redeem_zns": "ZNS 교환",
+        "invite_friends": "친구 초대",
+        "daily_rewards": "일일 보상",
+        "claim_it_now": "지금 받기",
+        "your_tasks": "나의 작업",
+        "coming_soon": "곧 출시 예정",
+        "first_transaction": {
+            "title": "첫 거래 보상",
+            "loading": "자격 확인 중...",
+            "success_title": "당첨되었습니다",
+            "success_subtitle": "첫 거래가 완료되었습니다!",
+            "earned_label": "획득한 보상",
+            "accept": "확인",
+            "not_eligible_title": "미션 완료",
+            "not_eligible_desc": "ZNS 토큰을 전송하여 보상을 잠금 해제하세요! 0.001 ZNS와 같은 소액 전송도 가능합니다.",
+            "send_now": "지금 ZNS 전송하기",
+            "already_claimed_title": "이미 수령함",
+            "already_claimed_desc": "이미 이 보상을 수령하셨습니다!",
+            "instruction_action": "ZNS 토큰 전송",
+            "instruction_desc": "첫 ZNS 토큰 거래를 완료하고 보상을 받으세요"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "첫 번째 친구 초대하기",
+                "reward": "10 ~ 100 $ZNS 획득"
+            },
+            "first_transaction": {
+                "title": "첫 번째 ZNS 거래 보내기",
+                "reward": "최대 100 $ZNS 획득",
+                "reward_completed": "{{amount}} $ZNS를 획득했습니다"
+            },
+            "join_discord": {
+                "title": "디스코드 참여하기",
+                "reward": "25 $ZNS 획득"
+            },
+            "join_telegram": {
+                "title": "텔레그램 커뮤니티 참여하기",
+                "reward": "25 $ZNS 획득"
+            },
+            "join_x": {
+                "title": "X 팔로우하기",
+                "reward": "5 $ZNS 획득"
+            }
+        },
+        "alreadyClaimedToday": "오늘의 일일 보상을 이미 받으셨습니다!",
+        "todaysReward": "오늘의 보상",
+        "comeBackTomorrow": "내일 다시 돌리러 오세요!",
+        "nextSpinIn": "다음 스핀까지",
+        "hours": "시간",
+        "minutes": "분",
+        "seconds": "초"
+    },
+    "referrals": {
+        "invite_title": "친구 초대",
+        "hero_title": "$ZNS 보상 획득",
+        "hero_subtitle": "ZELF에 가입하는 친구 한 명당 보상을 받으세요",
+        "your_referral_code": "나의 추천 코드",
+        "copy": "복사",
+        "copied": "복사 완료!",
+        "friends_invited": "초대한 친구",
+        "zns_earned": "획득한 $ZNS",
+        "your_referrals": "나의 추천 현황",
+        "no_referrals_yet": "아직 추천 현황이 없습니다",
+        "start_earning_desc": "코드를 공유하고 보상을 받기 시작하세요!",
+        "status": {
+            "purchased": "구매 완료",
+            "registered": "등록 완료",
+            "pending": "대기 중"
+        },
+        "claim": "{{ amount }} $ZNS 받기"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "보상 받는 중",
+            "text": "지갑으로 {{ amount }} $ZNS를 보내고 있습니다...",
+            "subtext": "몇 초 정도 걸릴 수 있습니다"
+        },
+        "success": {
+            "title": "우승하셨습니다!",
+            "subtitle": "미션 완료!",
+            "desc": "<strong>{{ name }}</strong> 님으로부터의 추천 보상",
+            "earned_label": "획득 금액",
+            "accept": "확인"
+        },
+        "error": {
+            "title": "수령 실패",
+            "subtext": "잠시 후 다시 시도해 주세요. 보상은 그대로 보존됩니다.",
+            "retry": "재시도",
+            "go_back": "뒤로 가기",
+            "messages": {
+                "reward_already_claimed": "이미 수령한 보상입니다",
+                "generic": "보상 수령에 실패했습니다. 나중에 다시 시도해 주세요."
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "ZelfName을 잃지 마세요",
+            "expired": "도메인이 만료되었습니다",
+            "one_day": "ZNS 구매까지 1일 남았습니다",
+            "days_left": "ZNS 구매까지 {{ days }}일 남았습니다"
+        },
+        "rewards": {
+            "title": "보상 받기",
+            "subtitle": "퀘스트를 통해 매일 $ZNS를 획득하세요"
+        }
     }
 }

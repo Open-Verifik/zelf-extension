@@ -1,0 +1,240 @@
+<div class="zelf-card rewards" *transloco="let t">
+    <!-- Background gradients -->
+    <div class="rewards__bg-gradient rewards__bg-gradient--inner"></div>
+    <div class="rewards__bg-gradient rewards__bg-gradient--outer"></div>
+
+    <!-- Header -->
+    <div class="rewards__header">
+        <div class="rewards__col1">
+            <button [routerLink]="['/home']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="rewards__col2">
+            <p class="rewards__title">{{ t("rewards.title") }}</p>
+        </div>
+
+        <div class="rewards__col3"></div>
+    </div>
+
+    <!-- Scrollable Content Area -->
+    <div class="rewards__app-content">
+        <div class="rewards__container">
+            <!-- Hero Section with Gradient -->
+            <div class="rewards__hero">
+                <div class="rewards__hero-glow"></div>
+                <div class="rewards__hero-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Coins stack -->
+                        <circle cx="24" cy="28" r="14" fill="white" opacity="0.3" />
+                        <circle cx="24" cy="24" r="14" fill="white" opacity="0.5" />
+                        <circle cx="24" cy="20" r="14" fill="white" />
+                        <text x="24" y="26" text-anchor="middle" fill="#ff5721" font-size="14" font-weight="bold">$</text>
+                    </svg>
+                </div>
+                <h2 class="rewards__hero-title">{{ t("referrals.hero_title") }}</h2>
+                <p class="rewards__hero-subtitle">{{ t("referrals.hero_subtitle") }}</p>
+            </div>
+
+            <!-- Floating ZNS Balance Card -->
+            <div class="rewards__balance-card" (click)="onRedeemZNS()">
+                <div class="rewards__balance-card-inner">
+                    <div class="rewards__balance-left">
+                        <div class="rewards__balance-icon">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="14" cy="14" r="14" fill="url(#zns-gradient)" />
+                                <text x="14" y="19" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Z</text>
+                                <defs>
+                                    <linearGradient id="zns-gradient" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#FF6B35" />
+                                        <stop offset="1" stop-color="#FF5721" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="rewards__balance-info">
+                            <span class="rewards__balance-amount">{{ znsBalanceLoading ? "..." : (znsBalance | number: "1.2-4") }} $ZNS</span>
+                        </div>
+                    </div>
+                    <div class="rewards__balance-right">
+                        <span class="rewards__redeem-btn">
+                            {{ t("rewards.redeem_zns") }}
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Cards -->
+            <div class="rewards__actions">
+                <!-- Invite Friends Card -->
+                <div class="rewards__action-card" (click)="onInviteFriends()">
+                    <div class="rewards__action-icon">
+                        <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="16" r="7" fill="white" />
+                            <path d="M8 38c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                            <circle cx="34" cy="20" r="5" fill="white" opacity="0.8" />
+                            <path d="M28 36c0-4 3-6 6-6s6 2 6 6" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+                        </svg>
+                    </div>
+                    <div class="rewards__action-info">
+                        <span class="rewards__action-title">{{ t("rewards.invite_friends") }}</span>
+                        <div class="rewards__action-progress" *ngIf="!referralsLoading">
+                            <div class="rewards__action-progress-bar">
+                                <div class="rewards__action-progress-fill" [style.width.%]="(invitedFriends / maxInvites) * 100"></div>
+                            </div>
+                            <span class="rewards__action-progress-text">{{ invitedFriends }}/{{ maxInvites }}</span>
+                        </div>
+                        <div class="rewards__stat-skeleton" *ngIf="referralsLoading"></div>
+                    </div>
+                </div>
+
+                <!-- Daily Rewards Card -->
+                <div class="rewards__action-card rewards__action-card--highlight" [routerLink]="['/rewards/daily']">
+                    <div class="rewards__action-icon">
+                        <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="8" y="14" width="32" height="26" rx="4" fill="white" />
+                            <rect x="8" y="14" width="32" height="8" rx="3" fill="rgba(255,255,255,0.7)" />
+                            <circle cx="18" cy="28" r="2.5" fill="#ff5721" />
+                            <circle cx="24" cy="28" r="2.5" fill="#ff5721" />
+                            <circle cx="30" cy="28" r="2.5" fill="#ff5721" />
+                            <circle cx="18" cy="35" r="2.5" fill="#ff5721" opacity="0.5" />
+                            <circle cx="24" cy="35" r="2.5" fill="#ff5721" opacity="0.5" />
+                            <rect x="16" y="10" width="3" height="8" rx="1.5" fill="white" />
+                            <rect x="29" y="10" width="3" height="8" rx="1.5" fill="white" />
+                        </svg>
+                    </div>
+                    <div class="rewards__action-info">
+                        <span class="rewards__action-title">{{ t("rewards.daily_rewards") }}</span>
+                        <div class="rewards__action-badge rewards__action-badge--pulse">{{ t("rewards.claim_it_now") }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="rewards__tasks">
+                <div class="rewards__tasks-header">
+                    <h3 class="rewards__tasks-title">{{ t("rewards.your_tasks") }}</h3>
+                    <span class="rewards__tasks-count">{{ tasks.length }}</span>
+                </div>
+
+                <div class="rewards__tasks-list">
+                    <div
+                        *ngFor="let task of tasks; let i = index"
+                        class="rewards__task"
+                        [class.rewards__task--completed]="task.completed"
+                        [class.rewards__task--coming-soon]="task.comingSoon"
+                        [style.animation-delay]="i * 0.05 + 's'"
+                        (click)="onTaskClick(task)"
+                    >
+                        <div class="rewards__task-left">
+                            <div class="rewards__task-icon" [ngSwitch]="task.id">
+                                <!-- Invite Friend Icon -->
+                                <svg
+                                    *ngSwitchCase="'invite-friend'"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                    <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+                                    <path
+                                        d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                </svg>
+                                <!-- Transaction Icon -->
+                                <svg
+                                    *ngSwitchCase="'first-transaction'"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                                <!-- Discord Icon -->
+                                <svg
+                                    *ngSwitchCase="'join-discord'"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M18.93 5.34a16.9 16.9 0 0 0-4.07-1.23.06.06 0 0 0-.07.03c-.18.31-.38.72-.52 1.04a15.72 15.72 0 0 0-4.54 0c-.14-.33-.35-.73-.53-1.04a.06.06 0 0 0-.06-.03 16.84 16.84 0 0 0-4.08 1.23.05.05 0 0 0-.02.02C2.4 9.36 1.63 13.26 2 17.11a.07.07 0 0 0 .03.05 16.97 16.97 0 0 0 5.02 2.49.06.06 0 0 0 .07-.02c.39-.52.73-1.07 1.03-1.64a.06.06 0 0 0-.03-.09 11.16 11.16 0 0 1-1.57-.73.06.06 0 0 1-.01-.1c.1-.08.21-.16.31-.24a.06.06 0 0 1 .06-.01c3.3 1.48 6.87 1.48 10.13 0a.06.06 0 0 1 .06.01c.1.08.21.16.31.24a.06.06 0 0 1 0 .1c-.5.29-1.02.53-1.56.73a.06.06 0 0 0-.04.09c.3.57.65 1.12 1.03 1.64a.06.06 0 0 0 .07.02 16.93 16.93 0 0 0 5.02-2.49.07.07 0 0 0 .03-.05c.44-4.54-.75-8.48-3.07-11.75a.05.05 0 0 0-.02-.02zM8.68 14.56c-1.02 0-1.87-.92-1.87-2.05s.82-2.05 1.87-2.05c1.06 0 1.89.93 1.87 2.05 0 1.13-.83 2.05-1.87 2.05zm6.64 0c-1.02 0-1.87-.92-1.87-2.05s.82-2.05 1.87-2.05c1.06 0 1.89.93 1.87 2.05 0 1.13-.82 2.05-1.87 2.05z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                                <!-- Telegram Icon -->
+                                <svg
+                                    *ngSwitchCase="'join-telegram'"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M21.2 4.4L2.4 11.4c-.6.2-.6.9 0 1.1l4.8 1.5 1.8 5.6c.1.4.6.5.9.3l2.7-2.2 5.2 3.8c.4.3 1 .1 1.1-.4l3.1-14.9c.1-.6-.5-1-.8-.8zM8.4 13.3l7.4-4.6c.2-.1.4.2.2.3l-6 5.4-.2 2.2-1.4-3.3z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                                <!-- X (Twitter) Icon -->
+                                <svg
+                                    *ngSwitchCase="'join-x'"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="rewards__task-info">
+                                <span class="rewards__task-title">{{ t(task.titleKey) }}</span>
+                                <div class="rewards__task-reward-row">
+                                    <span class="rewards__task-reward">{{ t(task.rewardKey, task.rewardParams || {}) }}</span>
+                                    <div *ngIf="task.comingSoon" class="rewards__task-coming-soon-badge">{{ t("rewards.coming_soon") }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rewards__task-arrow" *ngIf="!task.comingSoon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="zelf-card daily-rewards" *transloco="let t">
+    <!-- Header -->
+    <div class="daily-rewards__header">
+        <div class="daily-rewards__col1">
+            <button [routerLink]="['/rewards']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40" mat-flat-button>
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="daily-rewards__col2">
+            <p class="daily-rewards__title">Daily rewards</p>
+        </div>
+
+        <div class="daily-rewards__col3"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="daily-rewards__content">
+        <!-- Title Section -->
+        <div class="daily-rewards__intro">
+            <h1 class="daily-rewards__headline">SPIN THE WHEEL</h1>
+            <p class="daily-rewards__subtitle">and win daily rewards in $ZNS</p>
+        </div>
+
+        <!-- Wheel Container -->
+        <div class="daily-rewards__wheel-container">
+            <!-- Loading Overlay -->
+            <div class="daily-rewards__loading-overlay" *ngIf="isLoading">
+                <div class="daily-rewards__spinner"></div>
+            </div>
+
+            <!-- Pointer -->
+            <div class="daily-rewards__pointer" [class.daily-rewards__pointer--dimmed]="isLoading">
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 50L10 20L25 0L40 20L25 50Z" fill="white" stroke="rgba(0,0,0,0.1)" stroke-width="1" />
+                </svg>
+            </div>
+
+            <!-- Wheel -->
+            <div class="daily-rewards__wheel" [class.daily-rewards__wheel--loading]="isLoading" [ngStyle]="wheelStyle">
+                <svg viewBox="0 0 400 400" class="daily-rewards__wheel-svg">
+                    <defs>
+                        <!-- Radial gradients using original Zelf oranges: DD2F00, FF5721, FF8622 -->
+                        <!-- Tier 0: lowest values – deeper orange -->
+                        <radialGradient id="segment-grad-0" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                            <stop offset="0%" style="stop-color:#FF5721;stop-opacity:1" />
+                            <stop offset="70%" style="stop-color:#E64A19;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#DD2F00;stop-opacity:1" />
+                        </radialGradient>
+                        <!-- Tier 1: low-mid – main orange -->
+                        <radialGradient id="segment-grad-1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                            <stop offset="0%" style="stop-color:#FF7043;stop-opacity:1" />
+                            <stop offset="70%" style="stop-color:#FF5721;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#E64A19;stop-opacity:1" />
+                        </radialGradient>
+                        <!-- Tier 2: mid-high – bright orange -->
+                        <radialGradient id="segment-grad-2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                            <stop offset="0%" style="stop-color:#FF8622;stop-opacity:1" />
+                            <stop offset="70%" style="stop-color:#FF7043;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FF5721;stop-opacity:1" />
+                        </radialGradient>
+                        <!-- Tier 3: highest values – light orange / most appealing -->
+                        <radialGradient id="segment-grad-3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                            <stop offset="0%" style="stop-color:#FFAB40;stop-opacity:1" />
+                            <stop offset="60%" style="stop-color:#FF8622;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FF7043;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    <!-- Outer ring – original Zelf orange -->
+                    <circle cx="200" cy="200" r="195" fill="#DD2F00" />
+
+                    <!-- Segments -->
+                    <g *ngFor="let segment of segments; let i = index">
+                        <path
+                            [attr.d]="getSegmentPath(i)"
+                            [attr.fill]="getSegmentFill(i)"
+                            stroke="#DD2F00"
+                            stroke-width="1"
+                        />
+                        <text
+                            [attr.transform]="getTextTransform(i)"
+                            fill="white"
+                            font-size="20"
+                            font-weight="700"
+                            font-family="Menda, sans-serif"
+                            text-anchor="middle"
+                        >
+                            {{ segment.label }}
+                        </text>
+                        <text
+                            [attr.transform]="getZnsTransform(i)"
+                            fill="white"
+                            font-size="10"
+                            font-weight="600"
+                            font-family="Poppins, sans-serif"
+                            text-anchor="middle"
+                            opacity="0.8"
+                        >
+                            ZNS
+                        </text>
+                    </g>
+
+                    <!-- Center circle glow – original orange -->
+                    <circle cx="200" cy="200" r="80" fill="#FF5721" opacity="0.2" />
+                    <circle cx="200" cy="200" r="60" fill="#FF5721" opacity="0.3" />
+
+                    <!-- Center button -->
+                    <circle cx="200" cy="200" r="25" fill="white" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="daily-rewards__error" *ngIf="errorMessage && !wonAmount && !hasSpunToday">
+            <p class="daily-rewards__error-text">{{ errorMessage }}</p>
+        </div>
+
+        <!-- Already Claimed Message (loaded from backend) -->
+        <div class="daily-rewards__already-claimed" *ngIf="hasSpunToday && !isSpinning">
+            <div class="daily-rewards__claimed-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="16" fill="#4CAF50" />
+                    <path d="M13.5 21.5L8 16L9.5 14.5L13.5 18.5L22.5 9.5L24 11L13.5 21.5Z" fill="white" />
+                </svg>
+            </div>
+            <p class="daily-rewards__claimed-text">
+                {{ t("rewards.alreadyClaimedToday") }}
+            </p>
+            <p class="daily-rewards__claimed-amount" *ngIf="wonAmount !== null">
+                {{ t("rewards.todaysReward") }}: <strong>{{ wonAmount }} $ZNS</strong>
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="daily-rewards__countdown">
+                <p class="daily-rewards__countdown-label">{{ t("rewards.nextSpinIn") }}</p>
+                <div class="daily-rewards__countdown-timer">
+                    <div class="daily-rewards__countdown-unit">
+                        <span class="daily-rewards__countdown-value">{{ countdownHours.toString().padStart(2, '0') }}</span>
+                        <span class="daily-rewards__countdown-unit-label">{{ t("rewards.hours") }}</span>
+                    </div>
+                    <span class="daily-rewards__countdown-separator">:</span>
+                    <div class="daily-rewards__countdown-unit">
+                        <span class="daily-rewards__countdown-value">{{ countdownMinutes.toString().padStart(2, '0') }}</span>
+                        <span class="daily-rewards__countdown-unit-label">{{ t("rewards.minutes") }}</span>
+                    </div>
+                    <span class="daily-rewards__countdown-separator">:</span>
+                    <div class="daily-rewards__countdown-unit">
+                        <span class="daily-rewards__countdown-value">{{ countdownSeconds.toString().padStart(2, '0') }}</span>
+                        <span class="daily-rewards__countdown-unit-label">{{ t("rewards.seconds") }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spin Button -->
+        <button
+            class="daily-rewards__spin-button"
+            [class.daily-rewards__spin-button--disabled]="isSpinDisabled"
+            (click)="spinWheel()"
+            [disabled]="isSpinDisabled"
+        >
+            {{ spinButtonText }}
+        </button>
+    </div>
+</div>

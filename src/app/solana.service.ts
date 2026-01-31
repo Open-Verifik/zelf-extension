@@ -1,4 +1,9 @@
-import { createAssociatedTokenAccountInstruction, createTransferInstruction, getAssociatedTokenAddress } from "@solana/spl-token";
+import {
+    createAssociatedTokenAccountInstruction,
+    createTransferInstruction,
+    getAssociatedTokenAddress,
+    TOKEN_2022_PROGRAM_ID,
+} from "@solana/spl-token";
 import {
     ComputeBudgetProgram,
     Connection,
@@ -64,8 +69,54 @@ export class SolanaService {
         private _httpWrapper: HttpWrapperService
     ) {}
 
+    /** ZNS SPL token mint on Solana mainnet */
+    static readonly ZNS_MINT_ADDRESS = "GfF6PSkH8bKLkws5RMFdzgASwcVbgCfhhKfp8zeoFBkx";
+
     public get connection(): Connection {
         return new Connection(this._chainConfigs.mainnet.rpcUrls[0], { commitment: "confirmed" });
+    }
+
+    /**
+     * Get ZNS token balance for a wallet via Solana RPC (QuickNode).
+     * ownerAddress = the holder's Solana wallet (the one that holds the tokens), not the minter.
+     * Uses getTokenAccountsByOwner to find any token account holding ZNS for this wallet.
+     * Tries legacy SPL Token (mint filter) then Token-2022 (list all, filter by mint).
+     */
+    async getZnsBalanceViaRpc(ownerAddress: string): Promise<number> {
+        try {
+            const mint = new PublicKey(SolanaService.ZNS_MINT_ADDRESS);
+            const owner = new PublicKey(ownerAddress);
+            const mintStr = SolanaService.ZNS_MINT_ADDRESS;
+
+            const tryBalance = async (accountPubkey: PublicKey): Promise<number> => {
+                const balance = await this.connection.getTokenAccountBalance(accountPubkey);
+                const amount = balance?.value?.uiAmount ?? 0;
+                return typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
+            };
+
+            const responseLegacy = await this.connection.getTokenAccountsByOwner(owner, { mint });
+            if (responseLegacy.value.length > 0) {
+                return tryBalance(responseLegacy.value[0].pubkey);
+            }
+
+            const parsed2022 = await this.connection.getParsedTokenAccountsByOwner(owner, {
+                programId: TOKEN_2022_PROGRAM_ID,
+            });
+            for (const item of parsed2022.value) {
+                const info = item.account?.data?.parsed?.info;
+                if (info?.mint === mintStr) {
+                    return tryBalance(item.pubkey);
+                }
+            }
+            return 0;
+        } catch (error: any) {
+            const msg = error?.message ?? String(error);
+            if (msg.includes("could not find account") || msg.includes("Invalid param")) {
+                return 0;
+            }
+            console.warn("Solana RPC ZNS balance error:", error);
+            return 0;
+        }
     }
 
     private _createConnection(): Connection {
@@ -191,11 +242,37 @@ export class SolanaService {
 
             transaction.add(createTransferInstruction(senderTokenAccount, recipientTokenAccount, fromKeypair.publicKey, amountInTokenUnits));
 
+            const walletBalance = await connection.getBalance(fromKeypair.publicKey);
+
+            const gasEstimate = 510000; // Prioritization fee (500k) + Base fee (10k)
+            const senderRent = await connection.getMinimumBalanceForRentExemption(0);
+            let totalNeededSOL = gasEstimate + senderRent;
+
+            if (!recipientTokenAccountInfo) {
+                const ataRent = await connection.getMinimumBalanceForRentExemption(165);
+                totalNeededSOL += ataRent;
+            }
+
+            if (walletBalance < totalNeededSOL) {
+                throw new Error("errors.solana_insufficient_sol_for_fees");
+            }
+
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
 
             return signature;
         } catch (error: any) {
             console.error("SPL token transfer failed:", error);
+
+            if (error.logs) {
+                console.error("Solana transaction logs:", error.logs);
+            } else if (typeof error.getLogs === "function") {
+                console.error("Solana transaction logs (from getLogs):", error.getLogs());
+            }
+
+            const errorMsg = error.message || "";
+            if (errorMsg.includes("insufficient funds for rent") || errorMsg.includes("insufficient lamports")) {
+                throw new Error("errors.solana_insufficient_sol_for_rent");
+            }
 
             throw error;
         }
@@ -299,12 +376,17 @@ export class SolanaService {
         }
     }
 
-    async getWalletDetails(address: string): Promise<any> {
+    /**
+     * Get Solana address details (balance, tokenHoldings, etc.) from the backend.
+     * @param address - Solana wallet address
+     * @param params - Optional query params, e.g. { source: 'oklink' } to force OKLink
+     */
+    async getWalletDetails(address: string, params?: { source?: string }): Promise<any> {
         const url = `${this._baseUrl}/api/solana/address/${address}`;
 
         try {
             return this._httpWrapper
-                .sendRequest("get", url)
+                .sendRequest("get", url, params ?? {})
                 .then((response) => response)
                 .catch(() => this._defaultResponse());
         } catch (error) {
@@ -416,8 +498,17 @@ export class SolanaService {
 
             return signature;
         } catch (error: any) {
-            if (error.message && (error.message.includes("insufficient lamports") || error.message.includes("Fondos insuficientes"))) {
-                throw new Error("Fondos insuficientes para completar la transacción. Necesitas al menos 0.002 SOL para esta operación.");
+            console.error("Serialized transaction failed:", error);
+
+            if (error.logs) {
+                console.error("Solana transaction logs:", error.logs);
+            } else if (typeof error.getLogs === "function") {
+                console.error("Solana transaction logs (from getLogs):", error.getLogs());
+            }
+
+            const msg = error.message || "";
+            if (msg.includes("insufficient lamports") || msg.includes("Fondos insuficientes") || msg.includes("insufficient funds for rent")) {
+                throw new Error("errors.solana_insufficient_sol_for_fees");
             }
 
             throw error;

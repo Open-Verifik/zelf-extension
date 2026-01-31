@@ -1548,5 +1548,114 @@
         "create_zotp_from_recovery": "إنشاء ZOTP من الاستعادة",
         "recovery_successful": "تمت الاستعادة بنجاح!",
         "recovery_success_description": " Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes. "
+    },
+    "rewards": {
+        "title": "المكافآت",
+        "redeem_zns": "استبدال ZNS",
+        "invite_friends": "دعوة الأصدقاء",
+        "daily_rewards": "المكافآت اليومية",
+        "claim_it_now": "طالب بها الآن",
+        "your_tasks": "مهامك",
+        "coming_soon": "قريباً",
+        "first_transaction": {
+            "title": "مكافأة أول معاملة",
+            "loading": "جاري التحقق من الأهلية...",
+            "success_title": "لقد فزت",
+            "success_subtitle": "اكتملت المعاملة الأولى!",
+            "earned_label": "لقد ربحت",
+            "accept": "قبول",
+            "not_eligible_title": "أكمل المهمة",
+            "not_eligible_desc": "أرسل رموز ZNS إلى أي شخص لفتح هذه المكافأة! يمكنك إرسال أي مبلغ - حتى 0.001 ZNS.",
+            "send_now": "أرسل ZNS الآن",
+            "already_claimed_title": "تم المطالبة بها بالفعل",
+            "already_claimed_desc": "لقد طالبت بهذه المكافأة بالفعل!",
+            "instruction_action": "أرسل رموز ZNS",
+            "instruction_desc": "أكمل أول عملية تحويل لرموز ZNS لفتح هذه المكافأة"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "ادعُ صديقك الأول",
+                "reward": "اربح من 10 إلى 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "أرسل معاملة ZNS الأولى الخاصة بك",
+                "reward": "اربح ما يصل إلى 100 $ZNS",
+                "reward_completed": "لقد ربحت {{amount}} $ZNS"
+            },
+            "join_discord": {
+                "title": "انضم إلى ديسكورد الخاص بنا",
+                "reward": "اربح 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "انضم إلى مجتمع تيليجرام الخاص بنا",
+                "reward": "اربح 25 $ZNS"
+            },
+            "join_x": {
+                "title": "انضم إلينا على X",
+                "reward": "اربح 5 $ZNS"
+            }
+        },
+        "alreadyClaimedToday": "لقد طالبت بمكافأتك اليومية بالفعل!",
+        "todaysReward": "مكافأة اليوم",
+        "comeBackTomorrow": "عد غداً للحصول على لفة أخرى!",
+        "nextSpinIn": "اللفة التالية متاحة خلال",
+        "hours": "ساعات",
+        "minutes": "دقيقة",
+        "seconds": "ثانية"
+    },
+    "referrals": {
+        "invite_title": "دعوة الأصدقاء",
+        "hero_title": "اربح مكافآت $ZNS",
+        "hero_subtitle": "احصل على مكافأة مقابل كل صديق ينضم إلى ZELF",
+        "your_referral_code": "رمز الإحالة الخاص بك",
+        "copy": "نسخ",
+        "copied": "تم النسخ!",
+        "friends_invited": "الأصدقاء المدعوون",
+        "zns_earned": "أرباح $ZNS",
+        "your_referrals": "إحالاتك",
+        "no_referrals_yet": "لا توجد إحالات بعد",
+        "start_earning_desc": "شارك رمزك وابدأ في ربح المكافآت!",
+        "status": {
+            "purchased": "تم الشراء",
+            "registered": "مسجل",
+            "pending": "قيد الانتظار"
+        },
+        "claim": "المطالبة بـ {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "جاري المطالبة بالمكافأة",
+            "text": "إرسال {{ amount }} $ZNS إلى محفظتك...",
+            "subtext": "قد يستغرق هذا بضع ثوانٍ"
+        },
+        "success": {
+            "title": "لقد فزت",
+            "subtitle": "اكتملت المهمة!",
+            "desc": "مكافأة إحالة من <strong>{{ name }}</strong>",
+            "earned_label": "لقد ربحت",
+            "accept": "قبول"
+        },
+        "error": {
+            "title": "فشلت المطالبة",
+            "subtext": "لا تقلق، يمكنك المحاولة مرة أخرى. مكافأتك لا تزال في انتظارك.",
+            "retry": "إعادة المحاولة",
+            "go_back": "العودة",
+            "messages": {
+                "reward_already_claimed": "لقد تمت المطالبة بهذه المكافأة بالفعل",
+                "generic": "فشلت المطالبة بالمكافأة. يرجى المحاولة مرة أخرى لاحقاً."
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "لا تفقد ZelfName الخاص بك",
+            "expired": "انتهت صلاحية نطاقك",
+            "one_day": "بقي يوم واحد لشراء ZNS الخاص بك",
+            "days_left": "بقي {{ days }} أيام لشراء ZNS الخاص بك"
+        },
+        "rewards": {
+            "title": "المطالبة بالمكافآت",
+            "subtitle": "احصل على $ZNS يوميًا مع مهامنا"
+        }
     }
 }

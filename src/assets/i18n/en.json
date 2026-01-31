@@ -817,6 +817,8 @@
         "not_found": "Record not found",
         "password_doesnt_match": "Passwords do not match",
         "password_incorrect": "The password is incorrect",
+        "LIVENESS CHECK FAILED.": "Liveness check failed. Please try again.",
+        "THE PROVIDED PASSWORD IS INVALID.": "The password you entered is incorrect. Please check your password and try again.",
         "person_already_set": "Your registration has a ZelfProof linked already",
         "private_key_locked": "Private key has been locked. You must perform a biometrics check to move forward.",
         "required_field": "This field is required",
@@ -830,7 +832,9 @@
         "try_again": "Try again",
         "unknown_error": "An unknown error occurred",
         "user_cancelled_decryption": "Decryption was cancelled",
-        "zelfName_is_taken": "This zelf name is already taken"
+        "zelfName_is_taken": "This zelf name is already taken",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
     },
     "swap": {
         "automatic": "Automatic",
@@ -1547,5 +1551,116 @@
         "create_zotp_from_recovery": "Create ZOTP from Recovery",
         "recovery_successful": "Recovery Successful!",
         "recovery_success_description": "Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes."
+    },
+    "rewards": {
+        "title": "Rewards",
+        "redeem_zns": "Redeem ZNS",
+        "invite_friends": "Invite friends",
+        "daily_rewards": "Daily rewards",
+        "claim_it_now": "Claim it now",
+        "your_tasks": "Your tasks",
+        "coming_soon": "Coming Soon",
+        "first_transaction": {
+            "title": "First Transaction Reward",
+            "loading": "Checking eligibility...",
+            "success_title": "YOU HAVE WON",
+            "success_subtitle": "First transaction complete!",
+            "earned_label": "You have earned",
+            "accept": "Accept",
+            "not_eligible_title": "Complete the Task",
+            "not_eligible_desc": "Send ZNS tokens to anyone to unlock this reward! You can send any amount - even 0.001 ZNS.",
+            "send_now": "Send ZNS Now",
+            "already_claimed_title": "Already Claimed",
+            "already_claimed_desc": "You've already claimed this reward!",
+            "instruction_action": "Send ZNS tokens",
+            "instruction_desc": "Make your first ZNS token transaction to unlock this reward",
+            "error_no_wallet": "No wallet found",
+            "error_invalid_config": "Invalid wallet configuration"
+        },
+        "tasks": {
+            "invite_first_friend": {
+                "title": "Invite your first friend",
+                "reward": "Win 10 to 100 $ZNS"
+            },
+            "first_transaction": {
+                "title": "Send your first ZNS transaction",
+                "reward": "Earn up to 100 $ZNS",
+                "reward_completed": "You won {{amount}} $ZNS"
+            },
+            "join_discord": {
+                "title": "Join our Discord",
+                "reward": "Win 25 $ZNS"
+            },
+            "join_telegram": {
+                "title": "Join our telegram community",
+                "reward": "Win 25 $ZNS"
+            },
+            "join_x": {
+                "title": "Join us on X",
+                "reward": "Win 5 $ZNS"
+            }
+        },
+        "alreadyClaimedToday": "You've already claimed your daily reward!",
+        "todaysReward": "Today's reward",
+        "comeBackTomorrow": "Come back tomorrow for another spin!",
+        "nextSpinIn": "Next spin available in",
+        "hours": "hours",
+        "minutes": "min",
+        "seconds": "sec"
+    },
+    "referrals": {
+        "invite_title": "Invite friends",
+        "hero_title": "Earn $ZNS Rewards",
+        "hero_subtitle": "Get rewarded for every friend who joins ZELF",
+        "your_referral_code": "Your referral code",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "friends_invited": "Friends Invited",
+        "zns_earned": "$ZNS Earned",
+        "your_referrals": "Your Referrals",
+        "no_referrals_yet": "No referrals yet",
+        "start_earning_desc": "Share your code and start earning rewards!",
+        "status": {
+            "purchased": "Purchased",
+            "registered": "Registered",
+            "pending": "pending"
+        },
+        "claim": "Claim {{ amount }} $ZNS"
+    },
+    "claim_reward": {
+        "loading": {
+            "title": "Claiming Reward",
+            "text": "Sending {{ amount }} $ZNS to your wallet...",
+            "subtext": "This may take a few seconds"
+        },
+        "success": {
+            "title": "YOU HAVE WON",
+            "subtitle": "Task complete!",
+            "desc": "Referral reward from <strong>{{ name }}</strong>",
+            "earned_label": "You have earned",
+            "accept": "Accept"
+        },
+        "error": {
+            "title": "Claim Failed",
+            "subtext": "Don't worry, you can try again. Your reward is still waiting for you.",
+            "retry": "Try Again",
+            "go_back": "Go Back",
+            "messages": {
+                "reward_already_claimed": "This reward has already been claimed",
+                "generic": "Failed to claim reward. Please try again later."
+            }
+        }
+    },
+    "home_banners": {
+        "expiration": {
+            "title": "Don't lose your ZelfName",
+            "expired": "Your domain has expired",
+            "one_day": "1 day left to purchase your ZNS",
+            "days_left": "{{ days }} days left to purchase your ZNS"
+        },
+        "rewards": {
+            "title": "Claim rewards",
+            "subtitle": "Get $ZNS daily with our quests"
+        }
     }
 }

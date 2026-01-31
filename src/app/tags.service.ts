@@ -306,6 +306,14 @@ export class TagsService {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-tags/payment-confirmation`, request);
     }
 
+    getMyReferrals(tagName: string, domain: string): Promise<any> {
+        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/my-tags/referrals`, { tagName, domain });
+    }
+
+    claimReferralReward(data: { tagName: string; domain: string; friendTagName: string; friendDomain: string; rewardType?: string }): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/my-tags/referrals/claim`, data);
+    }
+
     // Rewards and Webhooks
     revenueCatWebhook(event: any): Promise<any> {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/revenue-cat`, { event });
@@ -522,11 +530,15 @@ export class TagsService {
     // Helper Methods for Domain Parsing
     parseTagName(tagName: string): { name: string; domain: string } {
         const parts = tagName.split(".");
+
         if (parts.length < 2) {
-            return { name: tagName, domain: "zelf" }; // Default to zelf domain
+            return { name: tagName, domain: "" }; // Default to zelf domain
         }
-        const domain = parts.pop() || "zelf";
+
+        const domain = parts.pop() || "";
+
         const name = parts.join(".");
+
         return { name, domain };
     }
 

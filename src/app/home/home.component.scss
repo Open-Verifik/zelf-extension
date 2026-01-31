@@ -43,7 +43,7 @@
     }
 
     &__actions-container {
-        min-height: 336px;
+        min-height: 240px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -53,7 +53,7 @@
 
     &__actions {
         width: 100%;
-        margin-top: 24px;
+        margin-top: 16px;
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -68,8 +68,12 @@
         }
     }
 
+    &__banners {
+        width: 90%;
+    }
+
     &__tabs {
-        margin-top: 16px;
+        margin-top: 8px;
         margin-bottom: 8px;
         padding: 0 12px;
         width: 100%;

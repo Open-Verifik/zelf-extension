@@ -1578,8 +1578,9 @@
                 "reward": "اربح من 10 إلى 100 $ZNS"
             },
             "first_transaction": {
-                "title": "أرسل أول عملية تحويل ZNS",
-                "reward": "اربح ما يصل إلى 100 $ZNS"
+                "title": "أرسل معاملة ZNS الأولى الخاصة بك",
+                "reward": "اربح ما يصل إلى 100 $ZNS",
+                "reward_completed": "لقد ربحت {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "انضم إلى ديسكورد الخاص بنا",

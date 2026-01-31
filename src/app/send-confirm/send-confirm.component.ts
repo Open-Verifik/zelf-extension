@@ -585,6 +585,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         } finally {
             this._mnemonics = "";
             this._password = "";
+
+            if (!this.sending) {
+            }
+        }
+    }
+
+    _resetPasswordSet(): void {
+        const isPasswordless = String((this.wallet?.publicData as any)?.hasPassword) === "false";
+        if (isPasswordless) {
+            this._password = "NO_PASSWORD_PLACEHOLDER";
+        } else {
+            this.passwordSet = false;
         }
     }
 
@@ -726,8 +738,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
         await this._router.navigate(["/transaction", receipt.transactionHash], {
             queryParams: {
-                network: this.transactionData.network,
-                symbol: this.transactionData.tokenType,
+                network: this.transactionData?.network,
+                symbol: this.transactionData?.tokenType,
             },
         });
     }

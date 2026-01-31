@@ -1579,8 +1579,9 @@
                 "reward": "10 से 100 $ZNS जीतें"
             },
             "first_transaction": {
-                "title": "अपना पहला ZNS लेनदेन भेजें",
-                "reward": "100 $ZNS तक जीतें"
+                "title": "पहला ZNS लेनदेन भेजें",
+                "reward": "100 $ZNS तक कमाएं",
+                "reward_completed": "आपने {{amount}} $ZNS जीता"
             },
             "join_discord": {
                 "title": "हमारे डिस्कॉर्ड से जुड़ें",

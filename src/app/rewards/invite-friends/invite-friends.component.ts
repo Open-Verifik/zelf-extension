@@ -6,6 +6,7 @@ import { TranslocoModule } from "@jsverse/transloco";
 
 import { WalletService } from "../../wallet.service";
 import { TagModel, TagsService } from "../../tags.service";
+import { ChromeService } from "../../chrome.service";
 
 /** Status of a referred friend: created a ZelfName with your code, or purchased their tag (reward redeemable). */
 export type InviteFriendStatus = "tag_name_created" | "tag_name_purchased";
@@ -43,18 +44,16 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
     /** Show check icon after copy; reset after COPY_FEEDBACK_MS. */
     copied: boolean = false;
     private _copyFeedbackTimeout: ReturnType<typeof setTimeout> | null = null;
-
     invitedCount: number = 0;
     maxInvites: number = MAX_INVITES;
     totalEarned: number = 0;
-
-    /** List of friends invited via this user's tag name. Backend can replace this later. */
     friends: InvitedFriend[] = [];
 
     constructor(
         private _walletService: WalletService,
         private _tagsService: TagsService,
-        private _router: Router
+        private _router: Router,
+        private _chromeService: ChromeService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -122,6 +121,12 @@ export class InviteFriendsComponent implements OnInit, OnDestroy {
             this.invitedCount = uniqueFriends.size;
 
             this.totalEarned = data.totalEarnedInZNS || 0;
+
+            // Cache the result for RewardsComponent to use
+            await this._chromeService.setItem("zns_invites_cache", {
+                timestamp: Date.now(),
+                count: this.invitedCount,
+            });
         } catch (error) {
             console.error("Error loading invites:", error);
             this.friends = [];

@@ -146,7 +146,7 @@ export class SendTransactionComponent implements OnDestroy {
 
             const pattern = this._getAddressPattern();
 
-            const isValidZelfName = this._walletService.TagRegex.test(value);
+            const isValidZelfName = this._walletService.TagRegex.test(value) || this._walletService.TagRegexNoPostfix.test(value);
 
             if (!pattern.test(value) && !isValidZelfName) return { invalidFormat: true };
 
@@ -252,9 +252,12 @@ export class SendTransactionComponent implements OnDestroy {
             this.transactionData.isBDAGToken;
 
         try {
-            const domain = text.split(".")[1];
+            const { name: tagName, domain } = this._tagsService.parseTagName(text);
 
-            if (this._walletService.TagRegex.test(text)) await this._searchTag("tagName", text, domain);
+            const finalDomain = domain || this.transactionData?.sender?.domain || "zelf";
+
+            if (this._walletService.TagRegex.test(text) || this._walletService.TagRegexNoPostfix.test(text))
+                await this._searchTag("tagName", tagName, finalDomain);
 
             if (!this.foundAddress) {
                 if (this.transactionData.isSuiToken && this._suiService.isValidSuiAddress(text)) {
@@ -355,8 +358,6 @@ export class SendTransactionComponent implements OnDestroy {
 
     async _searchTag(key: string, value: string, domain: string = "zelf"): Promise<void> {
         try {
-            if (key === "zelfName") value = value.toLowerCase();
-
             const response = await this._tagsService.searchTag(
                 key === "tagName" ? { tagName: value, domain, os: "DESKTOP" } : { key, value, domain, os: "DESKTOP" }
             );
@@ -367,7 +368,7 @@ export class SendTransactionComponent implements OnDestroy {
                 return;
             }
 
-            const foundAddress = new TagModel(response.data.tagObject || { publicData: { [this.addressKey]: value } });
+            const foundAddress = new TagModel(response.data.tagObject || (key !== "tagName" ? { publicData: { [this.addressKey]: value } } : {}));
 
             const zelfObjectContainsAddress = !!foundAddress.publicData[this.addressKey];
 

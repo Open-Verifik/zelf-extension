@@ -1559,7 +1559,7 @@
         "your_tasks": "Suas tarefas",
         "coming_soon": "Em breve",
         "first_transaction": {
-            "title": "Recompensa da Primeira Transação",
+            "title": "Recompensa 1ª Transação",
             "loading": "Verificando elegibilidade...",
             "success_title": "VOCÊ GANHOU",
             "success_subtitle": "Primeira transação concluída!",
@@ -1582,7 +1582,8 @@
             },
             "first_transaction": {
                 "title": "Envie sua primeira transação ZNS",
-                "reward": "Ganhe até 100 $ZNS"
+                "reward": "Ganhe até 100 $ZNS",
+                "reward_completed": "Você ganhou {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "Junte-se ao nosso Discord",

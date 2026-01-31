@@ -406,14 +406,15 @@
         letter-spacing: 0.3px;
 
         &--primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8a50 100%) !important;
-            color: white !important;
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.25) !important;
+            background: variables.$themeButton !important;
+            color: variables.$themeButtonText !important;
+            box-shadow: 0 8px 20px variables.$themeShadow !important;
             border: none;
 
             &:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 12px 28px rgba(255, 107, 53, 0.35) !important;
+                background: variables.$themeButtonHover !important;
+                box-shadow: 0 12px 28px variables.$themeShadow !important;
             }
         }
     }

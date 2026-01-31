@@ -1579,8 +1579,9 @@
                 "reward": "10 ~ 100 $ZNS 획득"
             },
             "first_transaction": {
-                "title": "첫 번째 ZNS 트랜잭션 보내기",
-                "reward": "최대 100 $ZNS 획득"
+                "title": "첫 번째 ZNS 거래 보내기",
+                "reward": "최대 100 $ZNS 획득",
+                "reward_completed": "{{amount}} $ZNS를 획득했습니다"
             },
             "join_discord": {
                 "title": "디스코드 참여하기",

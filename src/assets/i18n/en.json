@@ -817,6 +817,8 @@
         "not_found": "Record not found",
         "password_doesnt_match": "Passwords do not match",
         "password_incorrect": "The password is incorrect",
+        "LIVENESS CHECK FAILED.": "Liveness check failed. Please try again.",
+        "THE PROVIDED PASSWORD IS INVALID.": "The password you entered is incorrect. Please check your password and try again.",
         "person_already_set": "Your registration has a ZelfProof linked already",
         "private_key_locked": "Private key has been locked. You must perform a biometrics check to move forward.",
         "required_field": "This field is required",
@@ -830,7 +832,9 @@
         "try_again": "Try again",
         "unknown_error": "An unknown error occurred",
         "user_cancelled_decryption": "Decryption was cancelled",
-        "zelfName_is_taken": "This zelf name is already taken"
+        "zelfName_is_taken": "This zelf name is already taken",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
     },
     "swap": {
         "automatic": "Automatic",
@@ -1580,7 +1584,8 @@
             },
             "first_transaction": {
                 "title": "Send your first ZNS transaction",
-                "reward": "Win up to 100 $ZNS"
+                "reward": "Earn up to 100 $ZNS",
+                "reward_completed": "You won {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "Join our Discord",

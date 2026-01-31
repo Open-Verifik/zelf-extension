@@ -9,6 +9,8 @@ import { RewardsService } from "../../services/rewards.service";
 
 type ComponentState = "loading" | "success" | "not_eligible" | "already_claimed" | "error";
 
+import { ChromeService } from "../../chrome.service";
+
 @Component({
     imports: [CommonModule, MatButtonModule, RouterModule, TranslocoModule],
     selector: "app-first-transaction",
@@ -16,22 +18,13 @@ type ComponentState = "loading" | "success" | "not_eligible" | "already_claimed"
     templateUrl: "./first-transaction.component.html",
 })
 export class FirstTransactionComponent implements OnInit {
+    // ... existing properties ...
     state: ComponentState = "loading";
-
-    // Wallet info
     tagName: string = "";
     domain: string = "";
-
-    // Result data
     rewardAmount: number = 0;
-
-    // Error handling
     errorMessage: string = "";
-
-    // Confetti particles for celebration
     confettiParticles: { x: number; delay: number; duration: number; color: string }[] = [];
-
-    // Instructions for not eligible state
     instructions = {
         action: "Send ZNS tokens",
         description: "Make your first ZNS token transaction to unlock this reward",
@@ -40,7 +33,8 @@ export class FirstTransactionComponent implements OnInit {
     constructor(
         private _router: Router,
         private _walletService: WalletService,
-        private _rewardsService: RewardsService
+        private _rewardsService: RewardsService,
+        private _chromeService: ChromeService
     ) {}
 
     ngOnInit(): void {
@@ -51,6 +45,17 @@ export class FirstTransactionComponent implements OnInit {
         this.state = "loading";
 
         try {
+            // Check cache first
+            const cachedStatus = await this._chromeService.getItem("zns_first_transaction_status");
+            if (cachedStatus && (cachedStatus.status === "success" || cachedStatus.status === "already_claimed")) {
+                this.state = cachedStatus.status;
+                this.rewardAmount = cachedStatus.amount || 0;
+                if (this.state === "success") {
+                    this._triggerConfetti();
+                }
+                return;
+            }
+
             const wallet = await this._walletService.getCurrentWallet();
 
             if (!wallet) {
@@ -58,6 +63,7 @@ export class FirstTransactionComponent implements OnInit {
                 this.state = "error";
                 return;
             }
+            // ... rest of the function ...
 
             // Extract tagName and domain
             if (wallet.fullTagName) {
@@ -95,10 +101,22 @@ export class FirstTransactionComponent implements OnInit {
                 this.rewardAmount = result.reward?.amount || 0;
                 this._triggerConfetti();
                 this.state = "success";
+
+                // Cache success
+                await this._chromeService.setItem("zns_first_transaction_status", {
+                    status: "success",
+                    amount: this.rewardAmount,
+                });
             } else if (result.alreadyClaimed) {
                 // Already claimed - show the amount they won
                 this.rewardAmount = result.reward?.amount || 0;
                 this.state = "already_claimed";
+
+                // Cache already claimed
+                await this._chromeService.setItem("zns_first_transaction_status", {
+                    status: "already_claimed",
+                    amount: this.rewardAmount,
+                });
             } else if (result.eligible === false) {
                 // Not eligible - show instructions
                 this.instructions = result.requirements || this.instructions;

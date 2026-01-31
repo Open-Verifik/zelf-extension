@@ -1580,7 +1580,8 @@
             },
             "first_transaction": {
                 "title": "اپنی پہلی ZNS ٹرانزیکشن بھیجیں",
-                "reward": "100 $ZNS تک جیتیں"
+                "reward": "100 $ZNS تک کمائیں",
+                "reward_completed": "آپ نے {{amount}} $ZNS جیتا"
             },
             "join_discord": {
                 "title": "ہمارے ڈسکارڈ میں شامل ہوں",

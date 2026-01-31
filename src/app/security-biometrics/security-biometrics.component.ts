@@ -222,9 +222,11 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     onBiometricsFailed = (exception: any): void => {
-        this.errorTitle = this._translocoService.translate("errors.generic_title");
+        const errorBody = exception?.error || {};
+        const message = errorBody.message || errorBody.error;
 
-        this.errorMessage = this._errorService.translateErrorMessage(exception?.error?.message || exception?.error?.error, "errors.generic_identity");
+        this.errorTitle = this._translocoService.translate("errors.generic_title");
+        this.errorMessage = this._errorService.translateErrorMessage(message, "errors.generic_identity");
     };
 
     onBiometricsScanned = async (encryptedImage: string): Promise<void> => {

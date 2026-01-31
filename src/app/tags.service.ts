@@ -530,11 +530,15 @@ export class TagsService {
     // Helper Methods for Domain Parsing
     parseTagName(tagName: string): { name: string; domain: string } {
         const parts = tagName.split(".");
+
         if (parts.length < 2) {
-            return { name: tagName, domain: "zelf" }; // Default to zelf domain
+            return { name: tagName, domain: "" }; // Default to zelf domain
         }
-        const domain = parts.pop() || "zelf";
+
+        const domain = parts.pop() || "";
+
         const name = parts.join(".");
+
         return { name, domain };
     }
 

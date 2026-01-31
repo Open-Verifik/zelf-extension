@@ -1580,7 +1580,8 @@
             },
             "first_transaction": {
                 "title": "最初のZNSトランザクションを送信する",
-                "reward": "最大100 $ZNSを獲得"
+                "reward": "最大100 $ZNSを獲得",
+                "reward_completed": "{{amount}} $ZNSを獲得しました"
             },
             "join_discord": {
                 "title": "Discordに参加する",

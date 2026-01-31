@@ -1580,7 +1580,8 @@
             },
             "first_transaction": {
                 "title": "Отправьте свою первую транзакцию ZNS",
-                "reward": "Выиграйте до 100 $ZNS"
+                "reward": "Заработайте до 100 $ZNS",
+                "reward_completed": "Вы выиграли {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "Присоединяйтесь к нашему Discord",

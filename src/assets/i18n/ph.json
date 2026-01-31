@@ -1579,8 +1579,9 @@
                 "reward": "Manalo ng 10 hanggang 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Ipadala ang iyong unang ZNS transaction",
-                "reward": "Manalo ng hanggang 100 $ZNS"
+                "title": "Ipadala ang iyong unang transaksyon sa ZNS",
+                "reward": "Kumita ng hanggang 100 $ZNS",
+                "reward_completed": "Nanalo ka ng {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "Sumali sa aming Discord",

@@ -376,6 +376,8 @@
         "not_found": "Enregistrement non trouvé",
         "password_doesnt_match": "Les mots de passe ne correspondent pas",
         "password_incorrect": "Le mot de passe est incorrect",
+        "LIVENESS CHECK FAILED.": "La vérification de vivacité a échoué. Veuillez réessayer.",
+        "THE PROVIDED PASSWORD IS INVALID.": "Le mot de passe saisi est incorrect. Veuillez vérifier votre mot de passe et réessayer.",
         "person_already_set": "Votre enregistrement a déjà un ZelfProof lié",
         "private_key_locked": "La clé privée a été verrouillée. Vous devez effectuer une vérification biométrique pour continuer.",
         "required_field": "Ce champ est obligatoire",
@@ -398,7 +400,9 @@
         "no_decrypted_data_received_from_api": "No decrypted data received from the server",
         "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
         "unknown_error": "An unknown error occurred",
-        "user_cancelled_decryption": "Decryption was cancelled"
+        "user_cancelled_decryption": "Decryption was cancelled",
+        "solana_insufficient_sol_for_fees": "SOL insuffisant. Vous n'avez pas assez de SOL pour couvrir les frais ou la création du compte.",
+        "solana_insufficient_sol_for_rent": "SOL insuffisant. Vous n'avez pas assez de SOL pour payer la création du compte de destination."
     },
     "swap": {
         "automatic": "Automatique",
@@ -1557,7 +1561,7 @@
         "your_tasks": "Vos tâches",
         "coming_soon": "Bientôt disponible",
         "first_transaction": {
-            "title": "Récompense de première transaction",
+            "title": "Récompense 1ère Transaction",
             "loading": "Vérification de l'éligibilité...",
             "success_title": "VOUS AVEZ GAGNÉ",
             "success_subtitle": "Première transaction terminée !",
@@ -1578,7 +1582,8 @@
             },
             "first_transaction": {
                 "title": "Envoyez votre première transaction ZNS",
-                "reward": "Gagnez jusqu'à 100 $ZNS"
+                "reward": "Gagnez jusqu'à 100 $ZNS",
+                "reward_completed": "Vous avez gagné {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "Rejoignez notre Discord",

@@ -7,6 +7,7 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { WalletService } from "../wallet.service";
 import { SolanaService } from "../solana.service";
 import { TagsService } from "../tags.service";
+import { ChromeService } from "../chrome.service";
 
 /** ZNS token mint on Solana (for reference; balance is fetched via backend /api/solana/address) */
 const ZNS_TOKEN_SYMBOL = "ZNS";
@@ -80,12 +81,14 @@ export class RewardsComponent implements OnInit {
         private _walletService: WalletService,
         private _solanaService: SolanaService,
         private _tagsService: TagsService,
+        private _chromeService: ChromeService,
         private _router: Router
     ) {}
 
     ngOnInit(): void {
         this._loadZnsBalance();
         this._loadInvites();
+        this._checkFirstTransactionCache();
     }
 
     /**
@@ -106,7 +109,6 @@ export class RewardsComponent implements OnInit {
 
             if (this.useRpcForZnsBalance) {
                 this.znsBalance = await this._solanaService.getZnsBalanceViaRpc(solanaAddress);
-                console.log("ZNS balance via RPC:", this.znsBalance, { solanaAddress });
                 return;
             }
 
@@ -132,6 +134,15 @@ export class RewardsComponent implements OnInit {
     private async _loadInvites(): Promise<void> {
         this.referralsLoading = true;
         try {
+            // Check cache first
+            const cachedInvites = await this._chromeService.getItem("zns_invites_cache");
+            // Cache valid for 30 minutes
+            if (cachedInvites && cachedInvites.timestamp > Date.now() - 30 * 60 * 1000) {
+                this.invitedFriends = cachedInvites.count;
+                this.referralsLoading = false;
+                return;
+            }
+
             const wallet = await this._walletService.getCurrentWallet();
             // Fallback to searching if tagName/domain not in publicData (sometimes in metadata)
             const tagName = wallet?.tagName || wallet?.publicData?.tagName;
@@ -145,6 +156,12 @@ export class RewardsComponent implements OnInit {
             // Group by unique friend (stripping .hold)
             const uniqueFriends = new Set(referrals.map((r: any) => (r.name || r.tagName).replace(/\.hold$/, "")));
             this.invitedFriends = uniqueFriends.size;
+
+            // Cache the result
+            await this._chromeService.setItem("zns_invites_cache", {
+                timestamp: Date.now(),
+                count: this.invitedFriends,
+            });
         } catch (error) {
             console.error("Error loading referral count:", error);
             this.invitedFriends = 0;
@@ -153,13 +170,24 @@ export class RewardsComponent implements OnInit {
         }
     }
 
-    onInviteFriends(): void {
-        this._router.navigate(["/rewards/invite"]);
+    private async _checkFirstTransactionCache(): Promise<void> {
+        try {
+            const cachedStatus = await this._chromeService.getItem("zns_first_transaction_status");
+            if (cachedStatus && (cachedStatus.status === "success" || cachedStatus.status === "already_claimed")) {
+                const task = this.tasks.find((t) => t.id === "first-transaction");
+                if (task) {
+                    task.completed = true;
+                    task.rewardKey = "rewards.tasks.first_transaction.reward_completed";
+                    task.rewardParams = { amount: cachedStatus.amount || 0 };
+                }
+            }
+        } catch (error) {
+            console.error("Error checking first transaction cache:", error);
+        }
     }
 
-    onDailyRewards(): void {
-        // TODO: Navigate to daily rewards/roulette
-        console.log("Daily rewards clicked");
+    onInviteFriends(): void {
+        this._router.navigate(["/rewards/invite"]);
     }
 
     onRedeemZNS(): void {
@@ -167,7 +195,7 @@ export class RewardsComponent implements OnInit {
     }
 
     onTaskClick(task: Task): void {
-        if (task.completed || task.comingSoon) return;
+        if (task.comingSoon) return;
 
         switch (task.id) {
             case "invite-friend":

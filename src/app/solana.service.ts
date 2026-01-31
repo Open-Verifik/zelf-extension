@@ -242,11 +242,37 @@ export class SolanaService {
 
             transaction.add(createTransferInstruction(senderTokenAccount, recipientTokenAccount, fromKeypair.publicKey, amountInTokenUnits));
 
+            const walletBalance = await connection.getBalance(fromKeypair.publicKey);
+
+            const gasEstimate = 510000; // Prioritization fee (500k) + Base fee (10k)
+            const senderRent = await connection.getMinimumBalanceForRentExemption(0);
+            let totalNeededSOL = gasEstimate + senderRent;
+
+            if (!recipientTokenAccountInfo) {
+                const ataRent = await connection.getMinimumBalanceForRentExemption(165);
+                totalNeededSOL += ataRent;
+            }
+
+            if (walletBalance < totalNeededSOL) {
+                throw new Error("errors.solana_insufficient_sol_for_fees");
+            }
+
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
 
             return signature;
         } catch (error: any) {
             console.error("SPL token transfer failed:", error);
+
+            if (error.logs) {
+                console.error("Solana transaction logs:", error.logs);
+            } else if (typeof error.getLogs === "function") {
+                console.error("Solana transaction logs (from getLogs):", error.getLogs());
+            }
+
+            const errorMsg = error.message || "";
+            if (errorMsg.includes("insufficient funds for rent") || errorMsg.includes("insufficient lamports")) {
+                throw new Error("errors.solana_insufficient_sol_for_rent");
+            }
 
             throw error;
         }
@@ -472,8 +498,17 @@ export class SolanaService {
 
             return signature;
         } catch (error: any) {
-            if (error.message && (error.message.includes("insufficient lamports") || error.message.includes("Fondos insuficientes"))) {
-                throw new Error("Fondos insuficientes para completar la transacción. Necesitas al menos 0.002 SOL para esta operación.");
+            console.error("Serialized transaction failed:", error);
+
+            if (error.logs) {
+                console.error("Solana transaction logs:", error.logs);
+            } else if (typeof error.getLogs === "function") {
+                console.error("Solana transaction logs (from getLogs):", error.getLogs());
+            }
+
+            const msg = error.message || "";
+            if (msg.includes("insufficient lamports") || msg.includes("Fondos insuficientes") || msg.includes("insufficient funds for rent")) {
+                throw new Error("errors.solana_insufficient_sol_for_fees");
             }
 
             throw error;

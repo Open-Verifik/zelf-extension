@@ -1580,7 +1580,8 @@
             },
             "first_transaction": {
                 "title": "ส่งธุรกรรม ZNS ครั้งแรกของคุณ",
-                "reward": "ลุ้นรับสูงสุด 100 $ZNS"
+                "reward": "ลุ้นรับสูงสุด 100 $ZNS",
+                "reward_completed": "คุณได้รับ {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "เข้าร่วม Discord ของเรา",

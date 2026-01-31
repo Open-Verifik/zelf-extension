@@ -169,22 +169,14 @@ export class BillingService {
      */
     async initializeCurrentPlan(): Promise<void> {
         try {
-            console.log("🔄 Initializing current plan...");
             const response = await this.getActiveSubscription();
 
             if (response.success && response.data) {
                 const subscription = response.data;
-                console.log("📋 Subscription data:", {
-                    paymentMethod: subscription.paymentMethod,
-                    cryptoData: subscription.cryptoData,
-                    stripeData: subscription.stripeData,
-                    revenueCatData: subscription.revenueCatData,
-                });
 
                 // Check for crypto payment first
                 if (subscription.paymentMethod === "crypto" && subscription.cryptoData) {
                     this.currentPlan = subscription.cryptoData.plan || "basic";
-                    console.log("💰 Crypto payment detected, plan:", this.currentPlan);
                 }
                 // Check for Stripe payment
                 else if (subscription.paymentMethod === "stripe" && subscription.stripeData) {
@@ -193,10 +185,8 @@ export class BillingService {
                         // For now, we'll set it to a default premium plan
                         // In a real implementation, you'd want to map the Stripe price ID to the actual plan ID
                         this.currentPlan = "pro"; // or "basic" or "enterprise" based on the price ID
-                        console.log("💳 Stripe payment detected, plan:", this.currentPlan);
                     } else {
                         this.currentPlan = "free";
-                        console.log("💳 Stripe payment but no plan found, setting to free");
                     }
                 }
                 // Check for RevenueCat payment
@@ -204,21 +194,15 @@ export class BillingService {
                     // RevenueCat subscriptions - get plan from entitlement_ids
                     const plan = subscription.revenueCatData.plan || "pro"; // Default to "pro" if not found
                     this.currentPlan = plan;
-                    console.log("📱 RevenueCat payment detected, plan:", this.currentPlan);
                 }
                 // Fallback for other payment methods or missing data
                 else {
                     this.currentPlan = "free";
-                    console.log("❌ No valid payment method found, setting to free");
                 }
             } else {
                 this.currentPlan = "free";
-                console.log("❌ No active subscription found, setting to free");
             }
-
-            console.log("✅ Current plan initialized:", this.currentPlan);
         } catch (error) {
-            console.error("❌ Error initializing current plan:", error);
             this.currentPlan = "free";
         }
     }

@@ -62,9 +62,7 @@ export class RedeemZnsComponent implements OnInit {
             } else {
                 const response = await this._solanaService.getWalletDetails(solanaAddress, { source: "oklink" });
                 const tokens = response?.data?.tokenHoldings?.tokens ?? response?.tokenHoldings?.tokens ?? [];
-                const znsToken = Array.isArray(tokens)
-                    ? tokens.find((t: any) => (t.symbol || "").toUpperCase() === ZNS_TOKEN_SYMBOL)
-                    : null;
+                const znsToken = Array.isArray(tokens) ? tokens.find((t: any) => (t.symbol || "").toUpperCase() === ZNS_TOKEN_SYMBOL) : null;
                 const amount = znsToken?.amount ?? znsToken?.balance ?? 0;
                 this.znsBalance = typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
             }

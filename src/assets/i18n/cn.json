@@ -1579,8 +1579,9 @@
                 "reward": "赢取 10 到 100 $ZNS"
             },
             "first_transaction": {
-                "title": "发送您的第一笔 ZNS 交易",
-                "reward": "赢取高达 100 $ZNS"
+                "title": "发送你的第一笔ZNS交易",
+                "reward": "赚取高达100 $ZNS",
+                "reward_completed": "你赢了 {{amount}} $ZNS"
             },
             "join_discord": {
                 "title": "加入我们的 Discord",

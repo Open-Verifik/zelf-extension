@@ -57,14 +57,14 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        gap: 26px;
+        gap: 20px;
 
         @media (max-width: variables.$medium) {
-            gap: 20px;
+            gap: 15px;
         }
 
         @media (max-width: variables.$minSmall) {
-            gap: 12px;
+            gap: 8px;
         }
     }
 

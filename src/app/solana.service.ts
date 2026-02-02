@@ -253,9 +253,7 @@ export class SolanaService {
                 totalNeededSOL += ataRent;
             }
 
-            if (walletBalance < totalNeededSOL) {
-                throw new Error("errors.solana_insufficient_sol_for_fees");
-            }
+            if (walletBalance < totalNeededSOL) throw new Error("errors.solana_insufficient_sol_for_fees");
 
             const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
 

@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "Réseaux",
         "security_label": "Sécurité",
+        "language_label": "Langue",
         "subscription_label": "Abonnement",
         "networks": {
             "title": "Réseaux Blockchain",
             "description": "Activez ou désactivez les réseaux que vous souhaitez utiliser dans votre portefeuille. Les réseaux désactivés n'apparaîtront pas dans votre liste de jetons.",
             "no_networks_available": "Aucun réseau disponible pour votre licence. Veuillez mettre à niveau votre plan pour accéder à plus de réseaux."
+        },
+        "language": {
+            "description": "Choisissez votre langue préférée pour l'application."
         },
         "security": {
             "biometric_verification_title": "Intervalle de vérification biométrique",

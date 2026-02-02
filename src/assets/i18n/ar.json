@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "الشبكات",
         "security_label": "الأمان",
+        "language_label": "اللغة",
         "subscription_label": "الاشتراك",
         "networks": {
             "title": "شبكات البلوكتشين",
             "description": "قم بتفعيل أو تعطيل الشبكات التي تريد استخدامها في محفظتك. لن تظهر الشبكات المعطلة في قائمة الرموز الخاصة بك.",
             "no_networks_available": "لا توجد شبكات متاحة لترخيصك. يرجى ترقية خطتك للوصول إلى المزيد من الشبكات."
+        },
+        "language": {
+            "description": "اختر لغتك المفضلة للتطبيق."
         },
         "security": {
             "biometric_verification_title": "فاصل التحقق البيومتري",

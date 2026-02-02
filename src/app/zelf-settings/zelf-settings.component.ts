@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmatio
 import { Subject, takeUntil } from "rxjs";
 import { ZelfSettingsNetworksComponent } from "./zelf-settings-networks/zelf-settings-networks.component";
 import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-settings-security.component";
+import { ZelfSettingsLanguageComponent } from "./zelf-settings-language/zelf-settings-language.component";
 
 @Component({
     imports: [
@@ -20,6 +21,7 @@ import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-set
         NgTemplateOutlet,
         ZelfSettingsNetworksComponent,
         ZelfSettingsSecurityComponent,
+        ZelfSettingsLanguageComponent,
     ],
     selector: "zelf-settings",
     styleUrls: ["./zelf-settings.component.scss"],
@@ -28,11 +30,12 @@ import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-set
 export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     @ViewChild("networksIcon", { static: true }) networksIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("securityIcon", { static: true }) securityIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
+    @ViewChild("languageIcon", { static: true }) languageIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("subscriptionIcon", { static: true }) subscriptionIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    selectedSettings: "networks" | "security" | "" = "";
+    selectedSettings: "networks" | "security" | "language" | "" = "";
     settingsItems: {
         title: string;
         icon: string;
@@ -111,6 +114,14 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 },
             },
             {
+                title: this._translocoService.translate("settings.language_label"),
+                icon: "languageIcon",
+                routerLink: ["./"],
+                queryParams: {
+                    edit: "language",
+                },
+            },
+            {
                 title: this._translocoService.translate("settings.subscription_label"),
                 icon: "subscriptionIcon",
                 routerLink: ["/zelf-keys/billing"],
@@ -139,6 +150,8 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 return "settings.networks.title";
             case "security":
                 return "settings.security_label";
+            case "language":
+                return "settings.language_label";
             default:
                 return "common.settings";
         }

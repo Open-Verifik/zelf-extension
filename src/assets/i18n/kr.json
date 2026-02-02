@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "네트워크",
         "security_label": "보안",
+        "language_label": "언어",
         "subscription_label": "구독",
         "networks": {
             "title": "블록체인 네트워크",
             "description": "지갑에서 사용할 네트워크를 활성화하거나 비활성화합니다. 비활성화된 네트워크는 토큰 목록에 표시되지 않습니다.",
             "no_networks_available": "현재 라이선스에서 사용할 수 있는 네트워크가 없습니다. 더 많은 네트워크를 사용하려면 플랜을 업그레이드해 주세요."
+        },
+        "language": {
+            "description": "응용 프로그램의 기본 언어를 선택하십시오."
         },
         "security": {
             "biometric_verification_title": "생체 인증 간격",

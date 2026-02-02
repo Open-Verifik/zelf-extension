@@ -588,7 +588,9 @@
     }
 
     &__text {
-        width: 73px;
+        min-width: 73px;
+        width: auto;
+        white-space: nowrap;
         text-align: center;
         color: variables.$themeTextSecondary;
         font-size: 11px;
@@ -596,6 +598,6 @@
         font-weight: 500;
         line-height: 16px;
         letter-spacing: 0.5px;
-        word-wrap: break-word;
+        word-wrap: normal;
     }
 }

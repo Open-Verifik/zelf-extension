@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "ネットワーク",
         "security_label": "セキュリティ",
+        "language_label": "言語",
         "subscription_label": "サブスクリプション",
         "networks": {
             "title": "ブロックチェーンネットワーク",
             "description": "ウォレットで使用するネットワークを有効または無効にします。無効なネットワークはトークンリストに表示されません。",
             "no_networks_available": "ライセンスで利用可能なネットワークがありません。より多くのネットワークにアクセスするにはプランをアップグレードしてください。"
+        },
+        "language": {
+            "description": "アプリケーションの優先言語を選択してください。"
         },
         "security": {
             "biometric_verification_title": "生体認証間隔",

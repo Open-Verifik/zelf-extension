@@ -1,0 +1,40 @@
+<div class="zelf-settings-language" *transloco="let t">
+    <div class="zelf-settings-language__header">
+        <p class="zelf-settings-language__description">{{ t("settings.language.description") }}</p>
+    </div>
+
+    <div class="zelf-settings-language__list">
+        <div
+            *ngFor="let lang of availableLangs"
+            class="zelf-settings-language__item"
+            [class.zelf-settings-language__item--active]="lang.id === activeLang"
+            (click)="setActiveLang(lang.id)"
+        >
+            <div class="zelf-settings-language__item-left">
+                <div class="zelf-settings-language__icon-wrapper">
+                    <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: lang.id }"></ng-container>
+                </div>
+                <div class="zelf-settings-language__info">
+                    <span class="zelf-settings-language__name">{{ lang.label }}</span>
+                    <span class="zelf-settings-language__native-name" *ngIf="languageTranslations[lang.id] !== lang.label">
+                        {{ languageTranslations[lang.id] }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="zelf-settings-language__check" *ngIf="lang.id === activeLang">
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 5L4.5 8.5L13 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template let-lang #flagImage>
+    <img
+        class="zelf-settings-language__flag"
+        [src]="'assets/images/flags/' + flagCodes[lang]?.toUpperCase() + '.svg'"
+        [alt]="'Flag image for ' + lang"
+    />
+</ng-template>

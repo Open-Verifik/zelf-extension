@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "网络",
         "security_label": "安全",
+        "language_label": "语言",
         "subscription_label": "订阅",
         "networks": {
             "title": "区块链网络",
             "description": "启用或禁用您想在钱包中使用的网络。禁用的网络不会出现在您的代币列表中。",
             "no_networks_available": "您的许可证下没有可用网络。请升级您的计划以访问更多网络。"
+        },
+        "language": {
+            "description": "选择您喜欢的应用程序语言。"
         },
         "security": {
             "biometric_verification_title": "生物识别验证间隔",

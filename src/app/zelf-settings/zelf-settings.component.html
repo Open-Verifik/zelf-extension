@@ -87,6 +87,10 @@
     <ng-container *ngIf="selectedSettings === 'security'">
         <zelf-settings-security></zelf-settings-security>
     </ng-container>
+
+    <ng-container *ngIf="selectedSettings === 'language'">
+        <zelf-settings-language></zelf-settings-language>
+    </ng-container>
 </div>
 
 <ng-template #networksIcon>
@@ -95,6 +99,10 @@
 
 <ng-template #securityIcon>
     <span class="material-symbols-outlined zelf-icon">security</span>
+</ng-template>
+
+<ng-template #languageIcon>
+    <span class="material-symbols-outlined zelf-icon">translate</span>
 </ng-template>
 
 <ng-template #subscriptionIcon>

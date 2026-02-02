@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "Mga Network",
         "security_label": "Seguridad",
+        "language_label": "Wika",
         "subscription_label": "Subskripsyon",
         "networks": {
             "title": "Mga Blockchain Network",
             "description": "I-enable o i-disable ang mga network na gusto mong gamitin sa iyong wallet. Ang mga naka-disable na network ay hindi lalabas sa iyong listahan ng token.",
             "no_networks_available": "Walang available na mga network para sa iyong lisensya. Mangyaring i-upgrade ang iyong plan upang ma-access ang higit pang mga network."
+        },
+        "language": {
+            "description": "Piliin ang iyong gustong wika para sa application."
         },
         "security": {
             "biometric_verification_title": "Biometric verification interval",

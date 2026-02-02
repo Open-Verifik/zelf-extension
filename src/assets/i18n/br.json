@@ -99,11 +99,15 @@
     "settings": {
         "networks_label": "Redes",
         "security_label": "Segurança",
+        "language_label": "Idioma",
         "subscription_label": "Assinatura",
         "networks": {
             "title": "Redes Blockchain",
             "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens.",
             "no_networks_available": "No networks available for your license. Please upgrade your plan to access more networks."
+        },
+        "language": {
+            "description": "Escolha seu idioma preferido para o aplicativo."
         },
         "security": {
             "biometric_verification_title": "Intervalo de verificação biométrica",

@@ -4,6 +4,10 @@
     width: 100%;
     padding: 0;
     margin-top: 16px;
+
+    @media (max-width: variables.$minSmall) {
+        margin-top: 8px;
+    }
     margin-bottom: 8px;
     display: flex;
     flex-direction: column;

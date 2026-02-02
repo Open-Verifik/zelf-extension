@@ -1,6 +1,12 @@
 @use "../../styles/variables";
 @use "../../styles/buttons";
 
+:host-context(.main-div--popout) {
+    .home__actions-container {
+        min-height: 200px !important;
+    }
+}
+
 :host {
     align-items: center;
     display: flex;
@@ -30,6 +36,11 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
+
+        @media (max-width: variables.$minSmall) {
+            top: 64px;
+            padding: 8px 16px;
+        }
     }
 
     &__container {
@@ -45,6 +56,10 @@
     &__actions-container {
         min-height: 240px;
         display: flex;
+
+        @media (max-width: variables.$minSmall) {
+            min-height: 150px;
+        }
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -55,6 +70,10 @@
         width: 100%;
         margin-top: 16px;
         display: inline-flex;
+
+        @media (max-width: variables.$minSmall) {
+            margin-top: 8px;
+        }
         justify-content: center;
         align-items: center;
         gap: 20px;
@@ -132,6 +151,10 @@
     justify-content: center;
     min-height: 94px;
     width: 100%;
+
+    @media (max-width: variables.$minSmall) {
+        min-height: 64px;
+    }
 
     &__info {
         display: inline-flex;

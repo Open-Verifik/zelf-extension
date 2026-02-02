@@ -9,6 +9,22 @@
         <p class="zelf-history__no-results-text">{{ t("activity.no_history_found") }}</p>
     </div>
 
+    <div class="zelf-history__skeleton-list" *ngIf="loading && !history">
+        <div *ngFor="let item of [1, 2, 3, 4, 5]" class="zelf-history__skeleton-item">
+            <div class="zelf-history__skeleton-left">
+                <div class="zelf-history__skeleton-image"></div>
+                <div class="zelf-history__skeleton-col">
+                    <div class="zelf-history__skeleton-line zelf-history__skeleton-line--type"></div>
+                    <div class="zelf-history__skeleton-line zelf-history__skeleton-line--subtitle"></div>
+                </div>
+            </div>
+            <div class="zelf-history__skeleton-right">
+                <div class="zelf-history__skeleton-line zelf-history__skeleton-line--amount"></div>
+                <div class="zelf-history__skeleton-line zelf-history__skeleton-line--fiat"></div>
+            </div>
+        </div>
+    </div>
+
     <ng-container *ngIf="history">
         <ng-container *ngFor="let data of orderedHistory">
             <p class="zelf-history__date">{{ data.date | date: "dd MMM, yyyy" }}</p>

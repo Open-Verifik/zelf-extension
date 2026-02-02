@@ -136,6 +136,23 @@
             </div>
 
             <div class="home__assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
+                <!-- Skeleton Loader -->
+                <div class="home__skeleton-list" *ngIf="balancesLoading">
+                    <div *ngFor="let item of [1, 2, 3, 4]" class="home__token-skeleton">
+                        <div class="home__skeleton-left">
+                            <div class="home__skeleton-icon"></div>
+                            <div class="home__skeleton-info">
+                                <div class="home__skeleton-line home__skeleton-line--title"></div>
+                                <div class="home__skeleton-line home__skeleton-line--subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="home__skeleton-right">
+                            <div class="home__skeleton-line home__skeleton-line--balance"></div>
+                            <div class="home__skeleton-line home__skeleton-line--fiat"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <token-card
                     (click)="setSelectedAsset(token)"
                     [data]="token"

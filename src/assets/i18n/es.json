@@ -20,7 +20,7 @@
         "pending": "Pendiente",
         "receive": "Recibir",
         "send": "Enviar",
-        "swap": "Intercambiar"
+        "swap": "Cambiar"
     },
     "wallet_status": {
         "active": "Activo",
@@ -438,7 +438,7 @@
         "send_transaction_button": "Enviar",
         "settings_button": "Configuración",
         "support_button": "Soporte",
-        "swap": "Intercambiar",
+        "swap": "Cambiar",
         "keys": "Llaves"
     },
     "id_scanning": {

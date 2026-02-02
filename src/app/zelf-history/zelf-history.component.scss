@@ -255,3 +255,109 @@
         margin: 0;
     }
 }
+
+.zelf-history__skeleton-list {
+    width: 100%;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.zelf-history__skeleton-item {
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    border-radius: 16px;
+    background-color: transparent;
+    min-height: 64px;
+}
+
+.zelf-history__skeleton-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 16px;
+}
+
+.zelf-history__skeleton-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: variables.$themeBorder;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmer 1.5s infinite;
+    }
+}
+
+.zelf-history__skeleton-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.zelf-history__skeleton-line {
+    height: 10px;
+    background: variables.$themeBorder;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmer 1.5s infinite;
+    }
+
+    &--type {
+        width: 80px;
+        height: 14px;
+    }
+
+    &--subtitle {
+        width: 60px;
+    }
+
+    &--amount {
+        width: 70px;
+        height: 14px;
+    }
+
+    &--fiat {
+        width: 45px;
+    }
+}
+
+.zelf-history__skeleton-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}

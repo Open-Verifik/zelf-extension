@@ -156,7 +156,19 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
             this.isLoading = false;
         } catch (error: any) {
             console.error("Error loading wheel configuration:", error);
-            this.errorMessage = error.message || this._translocoService.translate("rewards.error.load_failed");
+
+            // Handle 400 Bad Request which often means "Already Claimed" or business logic restriction
+            // In this case, we show the claimed state instead of an error
+            if (error.status === 400 || (error.error && error.error.statusCode === 400)) {
+                this.hasSpunToday = true;
+                this.errorMessage = null; // Clear error to show the claimed state
+
+                // If we have a message from backend that looks like "already claimed",
+                // we could be more specific, but generally 400 here means we can't spin
+            } else {
+                this.errorMessage = error.message || this._translocoService.translate("rewards.error.load_failed");
+            }
+
             this.isLoading = false;
         }
     }

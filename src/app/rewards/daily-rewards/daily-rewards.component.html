@@ -130,7 +130,7 @@
             </p>
 
             <!-- Countdown Timer -->
-            <div class="daily-rewards__countdown">
+            <div class="daily-rewards__countdown" *ngIf="nextClaimAvailable">
                 <p class="daily-rewards__countdown-label">{{ t("rewards.nextSpinIn") }}</p>
                 <div class="daily-rewards__countdown-timer">
                     <div class="daily-rewards__countdown-unit">

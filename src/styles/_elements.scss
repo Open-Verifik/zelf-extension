@@ -25,10 +25,10 @@
 }
 
 .tooltip {
-    font: Poppins;
+    font-family: variables.$themeBodyFamily;
     position: absolute;
     background-color: variables.$themeText;
-    color: variables.$white;
+    color: variables.$themeBackground;
     font-size: 12px;
     padding: 8px 12px;
     border-radius: 9999px;

@@ -112,7 +112,7 @@
 // Material slide toggle overrides
 ::ng-deep .mat-mdc-slide-toggle {
     --mdc-switch-selected-track-color: #{variables.$primaryColor};
-    --mdc-switch-selected-handle-color: #{variables.$white};
+    --mdc-switch-selected-handle-color: #{variables.$themeButtonText};
     --mdc-switch-selected-hover-track-color: #{variables.$primaryColor};
     --mdc-switch-selected-focus-track-color: #{variables.$primaryColor};
     --mdc-switch-selected-pressed-track-color: #{variables.$primaryColor};

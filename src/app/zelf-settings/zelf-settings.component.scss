@@ -115,19 +115,19 @@
         width: 42px;
         border-radius: 12px;
         background: linear-gradient(135deg, variables.$primaryColor 0%, variables.$primaryColor 100%);
-        color: variables.$white;
+        color: variables.$themeButtonText;
         flex-shrink: 0;
         transition: transform 0.2s variables.$smoothBezier;
 
         .zelf-icon {
             font-size: 20px;
-            color: variables.$white;
+            color: variables.$themeButtonText;
         }
 
         svg {
             height: 18px;
             width: 18px;
-            fill: variables.$white;
+            fill: variables.$themeButtonText;
         }
 
         .zelf-settings__item:hover & {

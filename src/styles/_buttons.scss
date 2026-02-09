@@ -316,10 +316,10 @@
 
     &:hover {
         background-color: variables.$secondaryColor !important;
-        color: variables.$themeCardBorder;
+        color: variables.$white;
 
         svg {
-            fill: variables.$themeCardBorder;
+            fill: variables.$white;
         }
     }
 
@@ -441,10 +441,10 @@
         &:focus,
         &:hover {
             background-color: variables.$secondaryColor !important;
-            color: variables.$themeCard;
+            color: variables.$white;
 
             svg {
-                fill: variables.$themeCard;
+                fill: variables.$white;
             }
         }
 

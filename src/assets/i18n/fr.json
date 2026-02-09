@@ -1608,7 +1608,21 @@
         "nextSpinIn": "Prochain tour disponible dans",
         "hours": "heures",
         "minutes": "min",
-        "seconds": "sec"
+        "seconds": "sec",
+        "spin_the_wheel": "TOURNEZ LA ROUE",
+        "spin_subtitle": "et gagnez des récompenses quotidiennes en $ZNS",
+        "loading": "Chargement...",
+        "spinning": "Tourne...",
+        "come_back_tomorrow": "Revenez demain !",
+        "spin_now": "Tournez la roue !",
+        "error": {
+            "no_wallet": "Aucun portefeuille trouvé. Veuillez d'abord connecter un portefeuille.",
+            "load_failed": "Échec du chargement de la configuration de la roue.",
+            "claim_failed": "Impossible de réclamer la récompense.",
+            "already_claimed": "Vous avez déjà réclamé votre récompense quotidienne aujourd'hui. Revenez demain !",
+            "spin_failed": "Échec du tour de roue. Veuillez réessayer.",
+            "timeout": "La demande a expiré. Veuillez réessayer."
+        }
     },
     "referrals": {
         "invite_title": "Inviter des amis",

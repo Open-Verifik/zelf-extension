@@ -1606,7 +1606,21 @@
         "nextSpinIn": "Susunod na spin sa loob ng",
         "hours": "oras",
         "minutes": "min",
-        "seconds": "seg"
+        "seconds": "seg",
+        "spin_the_wheel": "ikutin ang gulong",
+        "spin_subtitle": "at manalo ng araw-araw na rewards sa $ZNS",
+        "loading": "Naglo-load...",
+        "spinning": "Umiikot...",
+        "come_back_tomorrow": "Bumalik bukas!",
+        "spin_now": "Ikutin ang gulong!",
+        "error": {
+            "no_wallet": "Walang nahanap na wallet. Pakikonekta muna ang iyong wallet.",
+            "load_failed": "Nabigong i-load ang configuration ng wheel.",
+            "claim_failed": "Hindi ma-claim ang reward.",
+            "already_claimed": "Na-claim mo na ang iyong araw-araw na reward ngayong araw. Balik na lang bukas!",
+            "spin_failed": "Nabigong i-spin ang wheel. Pakisubukan muli.",
+            "timeout": "Nag-timeout ang request. Pakisubukan muli."
+        }
     },
     "referrals": {
         "invite_title": "Mag-imbita ng mga kaibigan",

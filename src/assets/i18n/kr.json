@@ -1606,7 +1606,21 @@
         "nextSpinIn": "다음 스핀까지",
         "hours": "시간",
         "minutes": "분",
-        "seconds": "초"
+        "seconds": "초",
+        "spin_the_wheel": "룰렛 돌리기",
+        "spin_subtitle": "매일 $ZNS 보상을 받으세요",
+        "loading": "로딩 중...",
+        "spinning": "회전 중...",
+        "come_back_tomorrow": "내일 다시 오세요!",
+        "spin_now": "룰렛 돌리기!",
+        "error": {
+            "no_wallet": "지갑을 찾을 수 없습니다. 먼저 지갑을 연결해 주세요.",
+            "load_failed": "룰렛 설정을 불러오지 못했습니다.",
+            "claim_failed": "보상을 청구할 수 없습니다.",
+            "already_claimed": "오늘의 일일 보상을 이미 청구하셨습니다. 내일 다시 오세요!",
+            "spin_failed": "룰렛 회전에 실패했습니다. 다시 시도해 주세요.",
+            "timeout": "요청 시간이 초과되었습니다. 다시 시도해 주세요."
+        }
     },
     "referrals": {
         "invite_title": "친구 초대",

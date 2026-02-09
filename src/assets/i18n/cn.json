@@ -1606,7 +1606,21 @@
         "nextSpinIn": "下次转盘可用时间",
         "hours": "小时",
         "minutes": "分",
-        "seconds": "秒"
+        "seconds": "sec",
+        "spin_the_wheel": "旋转转盘",
+        "spin_subtitle": "并在 $ZNS 中赢取每日奖励",
+        "loading": "加载中...",
+        "spinning": "旋转中...",
+        "come_back_tomorrow": "明天再来！",
+        "spin_now": "旋转转盘！",
+        "error": {
+            "no_wallet": "未找到钱包。请先连接钱包。",
+            "load_failed": "加载转盘配置失败。",
+            "claim_failed": "无法领取奖励。",
+            "already_claimed": "您今天已经领取过每日奖励了。明天再来吧！",
+            "spin_failed": "旋转转盘失败。请重试。",
+            "timeout": "请求超时。请重试。"
+        }
     },
     "referrals": {
         "invite_title": "邀请好友",

@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
-import { TranslocoModule } from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { RewardsService, WheelSegment, RouletteWheelResponse, DailyRewardResponse } from "../../services/rewards.service";
 import { WalletService } from "../../wallet.service";
@@ -40,7 +40,8 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
     constructor(
         private _rewardsService: RewardsService,
         private _walletService: WalletService,
-        private _tagsService: TagsService
+        private _tagsService: TagsService,
+        private _translocoService: TranslocoService
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -112,7 +113,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
             const currentWallet = await this._walletService.getCurrentWallet();
 
             if (!currentWallet) {
-                this.errorMessage = "No wallet found. Please connect a wallet first.";
+                this.errorMessage = this._translocoService.translate("rewards.error.no_wallet");
                 this.isLoading = false;
                 return;
             }
@@ -130,7 +131,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
             const wheelConfig: RouletteWheelResponse = await this._rewardsService.getRouletteWheel(this.tagName, this.domain);
 
             if (!wheelConfig.success) {
-                this.errorMessage = "Failed to load wheel configuration.";
+                this.errorMessage = this._translocoService.translate("rewards.error.load_failed");
                 this.isLoading = false;
                 return;
             }
@@ -155,7 +156,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
             this.isLoading = false;
         } catch (error: any) {
             console.error("Error loading wheel configuration:", error);
-            this.errorMessage = error.message || "Failed to load wheel configuration.";
+            this.errorMessage = error.message || this._translocoService.translate("rewards.error.load_failed");
             this.isLoading = false;
         }
     }
@@ -179,7 +180,6 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
             color: i === 0 ? "#FF8622" : "#FF5721",
         }));
     }
-
 
     // Pending reward data from backend
     private pendingWinningIndex: number | null = null;
@@ -245,7 +245,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
                 // Handle already claimed today
                 this.backendResponseReceived = true;
                 this.pendingWinningIndex = -1; // Signal error
-                this.errorMessage = response.message || "Could not claim reward.";
+                this.errorMessage = response.message || this._translocoService.translate("rewards.error.claim_failed");
                 return;
             }
 
@@ -261,9 +261,9 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
 
             if (error?.error?.includes("already claimed") || error?.message?.includes("already claimed")) {
                 this.hasSpunToday = true;
-                this.errorMessage = "You have already claimed your daily reward today. Come back tomorrow!";
+                this.errorMessage = this._translocoService.translate("rewards.error.already_claimed");
             } else {
-                this.errorMessage = error?.error || error?.message || "Failed to spin the wheel. Please try again.";
+                this.errorMessage = error?.error || error?.message || this._translocoService.translate("rewards.error.spin_failed");
             }
         }
     }
@@ -297,7 +297,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
                 this.stopContinuousSpin();
                 this.animationPhase = "idle";
                 this.isSpinning = false;
-                this.errorMessage = "Request timed out. Please try again.";
+                this.errorMessage = this._translocoService.translate("rewards.error.timeout");
             }
         }, 100);
     }
@@ -454,10 +454,10 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
      * Get the spin button text based on current state
      */
     get spinButtonText(): string {
-        if (this.isLoading) return "Loading...";
-        if (this.isSpinning) return "Spinning...";
-        if (this.hasSpunToday) return "Come back tomorrow!";
-        return "Spin the wheel!";
+        if (this.isLoading) return this._translocoService.translate("rewards.loading");
+        if (this.isSpinning) return this._translocoService.translate("rewards.spinning");
+        if (this.hasSpunToday) return this._translocoService.translate("rewards.come_back_tomorrow");
+        return this._translocoService.translate("rewards.spin_now");
     }
 
     /**

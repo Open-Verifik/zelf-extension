@@ -1610,7 +1610,21 @@
         "nextSpinIn": "Próximo giro disponible en",
         "hours": "horas",
         "minutes": "min",
-        "seconds": "seg"
+        "seconds": "seg",
+        "spin_the_wheel": "GIRA LA RUEDA",
+        "spin_subtitle": "y gana recompensas diarias en $ZNS",
+        "loading": "Cargando...",
+        "spinning": "Girando...",
+        "come_back_tomorrow": "¡Vuelve mañana!",
+        "spin_now": "¡Gira la rueda!",
+        "error": {
+            "no_wallet": "No se encontró billetera. Conecta una billetera primero.",
+            "load_failed": "Error al cargar la configuración de la rueda.",
+            "claim_failed": "No se pudo reclamar la recompensa.",
+            "already_claimed": "Ya has reclamado tu recompensa diaria hoy. ¡Vuelve mañana!",
+            "spin_failed": "Error al girar la rueda. Inténtalo de nuevo.",
+            "timeout": "La solicitud expiró. Inténtalo de nuevo."
+        }
     },
     "referrals": {
         "invite_title": "Invitar amigos",

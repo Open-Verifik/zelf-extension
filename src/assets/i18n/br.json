@@ -1608,7 +1608,21 @@
         "nextSpinIn": "Próxima rodada disponível em",
         "hours": "horas",
         "minutes": "min",
-        "seconds": "seg"
+        "seconds": "seg",
+        "spin_the_wheel": "GIRA A RODA",
+        "spin_subtitle": "e ganhe recompensas diárias em $ZNS",
+        "loading": "Carregando...",
+        "spinning": "Girando...",
+        "come_back_tomorrow": "Volte amanhã!",
+        "spin_now": "Gire a roda!",
+        "error": {
+            "no_wallet": "Nenhuma carteira encontrada. Conecte uma carteira primeiro.",
+            "load_failed": "Falha ao carregar a configuração da roda.",
+            "claim_failed": "Não foi possível resgatar a recompensa.",
+            "already_claimed": "Você já resgatou sua recompensa diária hoje. Volte amanhã!",
+            "spin_failed": "Falha ao girar a roda. Tente novamente.",
+            "timeout": "A solicitação expirou. Tente novamente."
+        }
     },
     "referrals": {
         "invite_title": "Convidar amigos",

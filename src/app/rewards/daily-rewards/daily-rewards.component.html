@@ -12,7 +12,7 @@
         </div>
 
         <div class="daily-rewards__col2">
-            <p class="daily-rewards__title">Daily rewards</p>
+            <p class="daily-rewards__title">{{ t("rewards.daily_rewards") }}</p>
         </div>
 
         <div class="daily-rewards__col3"></div>
@@ -22,8 +22,8 @@
     <div class="daily-rewards__content">
         <!-- Title Section -->
         <div class="daily-rewards__intro">
-            <h1 class="daily-rewards__headline">SPIN THE WHEEL</h1>
-            <p class="daily-rewards__subtitle">and win daily rewards in $ZNS</p>
+            <h1 class="daily-rewards__headline">{{ t("rewards.spin_the_wheel") }}</h1>
+            <p class="daily-rewards__subtitle">{{ t("rewards.spin_subtitle") }}</p>
         </div>
 
         <!-- Wheel Container -->
@@ -47,27 +47,27 @@
                         <!-- Radial gradients using original Zelf oranges: DD2F00, FF5721, FF8622 -->
                         <!-- Tier 0: lowest values – deeper orange -->
                         <radialGradient id="segment-grad-0" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                            <stop offset="0%" style="stop-color:#FF5721;stop-opacity:1" />
-                            <stop offset="70%" style="stop-color:#E64A19;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#DD2F00;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color: #ff5721; stop-opacity: 1" />
+                            <stop offset="70%" style="stop-color: #e64a19; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #dd2f00; stop-opacity: 1" />
                         </radialGradient>
                         <!-- Tier 1: low-mid – main orange -->
                         <radialGradient id="segment-grad-1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                            <stop offset="0%" style="stop-color:#FF7043;stop-opacity:1" />
-                            <stop offset="70%" style="stop-color:#FF5721;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#E64A19;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color: #ff7043; stop-opacity: 1" />
+                            <stop offset="70%" style="stop-color: #ff5721; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #e64a19; stop-opacity: 1" />
                         </radialGradient>
                         <!-- Tier 2: mid-high – bright orange -->
                         <radialGradient id="segment-grad-2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                            <stop offset="0%" style="stop-color:#FF8622;stop-opacity:1" />
-                            <stop offset="70%" style="stop-color:#FF7043;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#FF5721;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color: #ff8622; stop-opacity: 1" />
+                            <stop offset="70%" style="stop-color: #ff7043; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #ff5721; stop-opacity: 1" />
                         </radialGradient>
                         <!-- Tier 3: highest values – light orange / most appealing -->
                         <radialGradient id="segment-grad-3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                            <stop offset="0%" style="stop-color:#FFAB40;stop-opacity:1" />
-                            <stop offset="60%" style="stop-color:#FF8622;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#FF7043;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color: #ffab40; stop-opacity: 1" />
+                            <stop offset="60%" style="stop-color: #ff8622; stop-opacity: 1" />
+                            <stop offset="100%" style="stop-color: #ff7043; stop-opacity: 1" />
                         </radialGradient>
                     </defs>
                     <!-- Outer ring – original Zelf orange -->
@@ -75,12 +75,7 @@
 
                     <!-- Segments -->
                     <g *ngFor="let segment of segments; let i = index">
-                        <path
-                            [attr.d]="getSegmentPath(i)"
-                            [attr.fill]="getSegmentFill(i)"
-                            stroke="#DD2F00"
-                            stroke-width="1"
-                        />
+                        <path [attr.d]="getSegmentPath(i)" [attr.fill]="getSegmentFill(i)" stroke="#DD2F00" stroke-width="1" />
                         <text
                             [attr.transform]="getTextTransform(i)"
                             fill="white"
@@ -139,17 +134,17 @@
                 <p class="daily-rewards__countdown-label">{{ t("rewards.nextSpinIn") }}</p>
                 <div class="daily-rewards__countdown-timer">
                     <div class="daily-rewards__countdown-unit">
-                        <span class="daily-rewards__countdown-value">{{ countdownHours.toString().padStart(2, '0') }}</span>
+                        <span class="daily-rewards__countdown-value">{{ countdownHours.toString().padStart(2, "0") }}</span>
                         <span class="daily-rewards__countdown-unit-label">{{ t("rewards.hours") }}</span>
                     </div>
                     <span class="daily-rewards__countdown-separator">:</span>
                     <div class="daily-rewards__countdown-unit">
-                        <span class="daily-rewards__countdown-value">{{ countdownMinutes.toString().padStart(2, '0') }}</span>
+                        <span class="daily-rewards__countdown-value">{{ countdownMinutes.toString().padStart(2, "0") }}</span>
                         <span class="daily-rewards__countdown-unit-label">{{ t("rewards.minutes") }}</span>
                     </div>
                     <span class="daily-rewards__countdown-separator">:</span>
                     <div class="daily-rewards__countdown-unit">
-                        <span class="daily-rewards__countdown-value">{{ countdownSeconds.toString().padStart(2, '0') }}</span>
+                        <span class="daily-rewards__countdown-value">{{ countdownSeconds.toString().padStart(2, "0") }}</span>
                         <span class="daily-rewards__countdown-unit-label">{{ t("rewards.seconds") }}</span>
                     </div>
                 </div>

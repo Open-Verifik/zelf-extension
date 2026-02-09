@@ -1610,7 +1610,21 @@
         "nextSpinIn": "Next spin available in",
         "hours": "hours",
         "minutes": "min",
-        "seconds": "sec"
+        "seconds": "sec",
+        "spin_the_wheel": "SPIN THE WHEEL",
+        "spin_subtitle": "and win daily rewards in $ZNS",
+        "loading": "Loading...",
+        "spinning": "Spinning...",
+        "come_back_tomorrow": "Come back tomorrow!",
+        "spin_now": "Spin the wheel!",
+        "error": {
+            "no_wallet": "No wallet found. Please connect a wallet first.",
+            "load_failed": "Failed to load wheel configuration.",
+            "claim_failed": "Could not claim reward.",
+            "already_claimed": "You have already claimed your daily reward today. Come back tomorrow!",
+            "spin_failed": "Failed to spin the wheel. Please try again.",
+            "timeout": "Request timed out. Please try again."
+        }
     },
     "referrals": {
         "invite_title": "Invite friends",

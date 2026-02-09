@@ -1606,7 +1606,21 @@
         "nextSpinIn": "次のスピンまで",
         "hours": "時間",
         "minutes": "分",
-        "seconds": "秒"
+        "seconds": "秒",
+        "spin_the_wheel": "ホイールを回す",
+        "spin_subtitle": "そして $ZNS で毎日報酬を獲得しましょう",
+        "loading": "読み込み中...",
+        "spinning": "回転中...",
+        "come_back_tomorrow": "明日また来てください！",
+        "spin_now": "ホイールを回す！",
+        "error": {
+            "no_wallet": "ウォレットが見つかりませんでした。まずウォレットを接続してください。",
+            "load_failed": "ホイール設定の読み込みに失敗しました。",
+            "claim_failed": "報酬の請求に失敗しました。",
+            "already_claimed": "本日のデイリー報酬はすでに請求済みです。また明日お越しください！",
+            "spin_failed": "ホイールの回転に失敗しました。もう一度お試しください。",
+            "timeout": "リクエストがタイムアウトしました。もう一度お試しください。"
+        }
     },
     "referrals": {
         "invite_title": "友達を招待",

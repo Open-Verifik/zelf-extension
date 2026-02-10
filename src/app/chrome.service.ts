@@ -22,10 +22,28 @@ export class ChromeService {
     private _wallet$ = new BehaviorSubject<TagModel>({} as TagModel);
     private _wallets$ = new BehaviorSubject<TagModel[]>([] as TagModel[]);
 
+    // In-memory cache for local storage
+    private _localCache: Record<string, any> = {};
+    private _cacheInitialized = false;
+    private _initCachePromise: Promise<void> | null = null;
+
     constructor() {
         if (!this.isExtension) return;
 
+        this._initCache();
         this._initBrowserListeners();
+    }
+
+    private async _initCache(): Promise<void> {
+        if (this._cacheInitialized) return;
+        if (this._initCachePromise) return this._initCachePromise;
+
+        this._initCachePromise = browser.storage.local.get(null).then((data) => {
+            this._localCache = data || {};
+            this._cacheInitialized = true;
+        });
+
+        return this._initCachePromise;
     }
 
     private _initBrowserListeners(): void {
@@ -48,6 +66,11 @@ export class ChromeService {
         });
 
         browser.storage.local.onChanged.addListener((changes) => {
+            // Update local cache
+            for (const [key, change] of Object.entries(changes)) {
+                this._localCache[key] = change.newValue;
+            }
+
             if (changes.lastVerified) {
                 this._lastVerified$.next(changes.lastVerified.newValue as number);
             }
@@ -216,33 +239,30 @@ export class ChromeService {
             source = ["extension", "web"].includes(overrideSource) ? overrideSource : source;
         }
 
+        if (source === "extension") {
+            await this._initCache();
+            const val = this._localCache[key];
+            return val as T;
+        }
+
         return new Promise((resolve, reject) => {
-            switch (source) {
-                case "extension":
-                    browser.storage.local
-                        .get(key)
-                        .then((result) => {
-                            resolve(result[key] as T);
-                        })
-                        .catch(reject);
+            try {
+                const item = localStorage.getItem(key);
 
-                    break;
-                default:
-                    try {
-                        const item = localStorage.getItem(key);
+                if (!item) {
+                    resolve("" as T);
+                    return;
+                }
 
-                        try {
-                            if (!item) resolve("" as T);
-
-                            const result = JSON.parse(item as string);
-
-                            resolve(result as T);
-                        } catch (error) {
-                            resolve(item as T);
-                        }
-                    } catch (error) {
-                        reject(error);
-                    }
+                try {
+                    const result = JSON.parse(item as string);
+                    resolve(result as T);
+                } catch (error) {
+                    resolve(item as T);
+                }
+            } catch (error) {
+                console.error(`[ChromeService] getItem (web) error for key ${key}:`, error);
+                reject(error);
             }
         });
     }
@@ -330,6 +350,9 @@ export class ChromeService {
     async setItem(key: string, value: any): Promise<void> {
         return new Promise((resolve, reject) => {
             if (this.isExtension) {
+                // Update cache immediately
+                this._localCache[key] = value;
+
                 browser.storage.local
                     .set({ [key]: value })
                     .then(resolve)
@@ -352,6 +375,9 @@ export class ChromeService {
     async setItems(items: Record<string, any>): Promise<void> {
         return new Promise((resolve, reject) => {
             if (this.isExtension) {
+                // Update cache immediately
+                Object.assign(this._localCache, items);
+
                 browser.storage.local.set(items).then(resolve).catch(reject);
 
                 return;

@@ -15,8 +15,9 @@ export class ThemeService implements OnDestroy {
     private readonly cssVarPrefix = "--zns-theme-";
     private readonly styleElementId = "zns-theme-style";
     private readonly userModePreferenceKey = "user-theme-mode";
+    private readonly activeDomainPreferenceKey = "active-theme-domain";
 
-    private activeClassName: string = "";
+    private activeDomain: string = "";
     private destroy$ = new Subject<void>();
     private lastPalette: Record<string, string> = {};
     private systemPreferenceListener?: MediaQueryList;
@@ -50,32 +51,30 @@ export class ThemeService implements OnDestroy {
         }
     }
 
-    async applyThemeForDomain(domain: string): Promise<{ className: string; palette: Record<string, string> }> {
+    async applyThemeForDomain(domain: string): Promise<{ palette: Record<string, string> }> {
         const config = this._findConfigForDomain(domain);
 
         if (!config?.themeSettings?.zns) {
             this._resetTheme();
-
-            this.activeClassName = "";
+            this.activeDomain = "";
             this.lastPalette = {};
 
-            return { className: this.activeClassName, palette: this.lastPalette };
+            return { palette: this.lastPalette };
         }
 
         const znsTheme = config.themeSettings.zns as ThemeSettings;
 
         if (!znsTheme.enabled) {
             this._resetTheme();
-
-            this.activeClassName = "";
+            this.activeDomain = "";
             this.lastPalette = {};
 
-            return { className: this.activeClassName, palette: this.lastPalette };
+            return { palette: this.lastPalette };
         }
 
         await this._applyZnsTheme(znsTheme, domain);
 
-        return { className: this.activeClassName, palette: this.lastPalette };
+        return { palette: this.lastPalette };
     }
 
     private _findConfigForDomain(domain: string): DomainLicense | undefined {
@@ -93,7 +92,7 @@ export class ThemeService implements OnDestroy {
         return matchKey ? all[matchKey] : undefined;
     }
 
-    private async _applyZnsTheme(zns: ThemeSettings, domainForClass: string): Promise<void> {
+    private async _applyZnsTheme(zns: ThemeSettings, domain: string): Promise<void> {
         const userPreference = await this.getUserModePreference();
         const effectiveMode = await this._getEffectiveModeAsync(zns.currentMode);
         const light = zns.lightMode?.colors || {};
@@ -101,8 +100,6 @@ export class ThemeService implements OnDestroy {
         const palette = (effectiveMode === "dark" ? dark : light) || {};
 
         this._applyThemeClass(userPreference);
-
-        document.body.setAttribute("data-zns-theme", effectiveMode);
 
         Object.entries(palette).forEach(([key, value]) => {
             const safeKey = this._toKebabCase(key);
@@ -123,14 +120,22 @@ export class ThemeService implements OnDestroy {
             border,
         };
 
-        const base = `zns-theme-${domainForClass}-${effectiveMode}`.replace(/[^a-z0-9-]/gi, "-").toLowerCase();
-
-        this.activeClassName = base;
+        this.activeDomain = domain;
+        await this._chromeService.setItem(this.activeDomainPreferenceKey, domain);
     }
 
     private _resetTheme(): void {
-        document.body.removeAttribute("data-zns-theme");
         this._removeThemeClass();
+
+        const items = document.documentElement.style;
+
+        for (let i = 0; i < items.length; i++) {
+            const name = items[i];
+
+            if (name.startsWith(this.cssVarPrefix)) {
+                items.removeProperty(name);
+            }
+        }
 
         const knownKeys = [
             "primary",
@@ -165,7 +170,6 @@ export class ThemeService implements OnDestroy {
         }
 
         const el = document.getElementById(this.styleElementId);
-
         if (el) el.textContent = "";
     }
 
@@ -197,39 +201,52 @@ export class ThemeService implements OnDestroy {
     }
 
     private async _initializeModePreference(): Promise<void> {
-        const saved = await this._chromeService.getItemSession<string>(this.userModePreferenceKey);
+        const saved = await this._chromeService.getItem<string>(this.userModePreferenceKey);
 
         if (saved) return;
 
-        await this._chromeService.setItemSession(this.userModePreferenceKey, "system");
+        // Migrate from session storage (previous storage location) if available
+        const sessionValue = await this._chromeService.getItemSession<string>(this.userModePreferenceKey);
+
+        if (sessionValue) {
+            await this._chromeService.setItem(this.userModePreferenceKey, sessionValue);
+            await this._chromeService.removeItemSession(this.userModePreferenceKey);
+
+            return;
+        }
+
+        await this._chromeService.setItem(this.userModePreferenceKey, "system");
     }
 
     private _toRgba(color: string, alpha: number): string {
-        const [r, g, b] = color.match(/\w\w/g)?.map((c) => parseInt(c, 16)) || [0, 0, 0];
+        const [r, g, b] = (color.match(/\w\w/g) || []).map((c) => parseInt(c, 16));
 
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        return `rgba(${r || 0}, ${g || 0}, ${b || 0}, ${alpha})`;
     }
 
     async getUserModePreference(): Promise<UserModePreference> {
-        const saved = await this._chromeService.getItemSession<string>(this.userModePreferenceKey);
+        const saved = await this._chromeService.getItem<string>(this.userModePreferenceKey);
 
-        return (saved as UserModePreference) || "system";
+        if (saved) return saved as UserModePreference;
+
+        // Fallback: check session storage (pre-migration location)
+        const sessionSaved = await this._chromeService.getItemSession<string>(this.userModePreferenceKey);
+
+        if (sessionSaved) return sessionSaved as UserModePreference;
+
+        return "system";
     }
 
     async setUserModePreference(mode: UserModePreference): Promise<void> {
-        await this._chromeService.setItemSession(this.userModePreferenceKey, mode);
+        await this._chromeService.setItem(this.userModePreferenceKey, mode);
 
         this.modeSubject.next(mode);
         this._setupSystemPreferenceListener();
         this._applyThemeClass(mode);
 
-        // Re-apply theme if one is active
-        if (!this.activeClassName) return;
-        const domain = this.activeClassName.split("-")[2] || "";
-
-        if (!domain) return;
-
-        await this.applyThemeForDomain(domain);
+        if (this.activeDomain) {
+            await this.applyThemeForDomain(this.activeDomain);
+        }
     }
 
     async cycleMode(): Promise<UserModePreference> {
@@ -292,13 +309,9 @@ export class ThemeService implements OnDestroy {
 
         this._applyThemeClass(preference);
 
-        if (!this.activeClassName) return;
-
-        const domain = this.activeClassName.split("-")[2] || "";
-
-        if (!domain) return;
-
-        await this.applyThemeForDomain(domain);
+        if (this.activeDomain) {
+            await this.applyThemeForDomain(this.activeDomain);
+        }
     };
 
     private _setupDomainChangeListener(): void {
@@ -338,8 +351,8 @@ export class ThemeService implements OnDestroy {
         });
     }
 
-    getActiveClass(): string {
-        return this.activeClassName;
+    getActiveDomain(): string {
+        return this.activeDomain;
     }
 
     getCurrentPalette(): Record<string, string> {

@@ -199,11 +199,11 @@ export class DomainService {
         try {
             const timestamp = Date.now();
 
-            await this.chromeService.setItemSession(this.CACHE_TIMESTAMP_KEY, timestamp.toString());
-            await this.chromeService.setItemSession(this.DOMAIN_KEYS_KEY, JSON.stringify(this._domainKeys));
+            await this.chromeService.setItem(this.CACHE_TIMESTAMP_KEY, timestamp.toString());
+            await this.chromeService.setItem(this.DOMAIN_KEYS_KEY, this._domainKeys);
 
             for (const [domainName, config] of Object.entries(this._domainConfigs)) {
-                await this.chromeService.setItemSession(`domainConfig_${domainName}`, JSON.stringify(config));
+                await this.chromeService.setItem(`domainConfig_${domainName}`, config);
             }
         } catch (error) {
             console.error("Error saving domains to localStorage:", error);
@@ -212,16 +212,16 @@ export class DomainService {
 
     async loadDomainsFromStorage(): Promise<DomainLicense[]> {
         try {
-            const keysData = await this.chromeService.getItemSession(this.DOMAIN_KEYS_KEY);
+            const keysData = await this.chromeService.getItem<string[]>(this.DOMAIN_KEYS_KEY);
 
-            if (keysData) this._domainKeys = JSON.parse(keysData);
+            if (keysData) this._domainKeys = Array.isArray(keysData) ? keysData : JSON.parse(keysData);
 
             this._domainConfigs = {};
 
             for (const domainName of this._domainKeys) {
-                const configData = await this.chromeService.getItemSession(`domainConfig_${domainName}`);
+                const config = await this.chromeService.getItem<DomainLicense>(`domainConfig_${domainName}`);
 
-                if (configData) this._domainConfigs[domainName] = JSON.parse(configData);
+                if (config) this._domainConfigs[domainName] = config;
             }
 
             return Object.values(this._domainConfigs);
@@ -234,7 +234,7 @@ export class DomainService {
 
     async isCacheValid(): Promise<boolean> {
         try {
-            const timestampData = await this.chromeService.getItemSession(this.CACHE_TIMESTAMP_KEY);
+            const timestampData = await this.chromeService.getItem(this.CACHE_TIMESTAMP_KEY);
 
             if (!timestampData) return false;
 
@@ -251,7 +251,7 @@ export class DomainService {
 
     async getCacheAgeMinutes(): Promise<number> {
         try {
-            const timestampData = await this.chromeService.getItemSession(this.CACHE_TIMESTAMP_KEY);
+            const timestampData = await this.chromeService.getItem(this.CACHE_TIMESTAMP_KEY);
 
             if (!timestampData) return -1;
 

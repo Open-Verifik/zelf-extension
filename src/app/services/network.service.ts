@@ -93,7 +93,7 @@ export class NetworkService {
             case "avalanche":
                 return 43114;
             case "blockdag":
-                return 1043;
+                return 1404;
             case "solana":
                 return 1399811149;
             case "sui":

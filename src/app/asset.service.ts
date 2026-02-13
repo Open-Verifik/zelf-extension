@@ -199,6 +199,13 @@ export class AssetService {
     }
 
     fetchAssetChart(symbol: string, range: AssetRange) {
+        if (symbol === "BDAG") {
+            return new Observable((observer) => {
+                observer.next({ data: [] });
+                observer.complete();
+            });
+        }
+
         const interval = this.rangeIntervalMap[range];
         const { startDate, endDate } = this._setStartEndDates(range);
 
@@ -210,6 +217,13 @@ export class AssetService {
     }
 
     fetchAssetPrice(symbol: string) {
+        if (symbol === "BDAG") {
+            return new Observable((observer) => {
+                observer.next({ data: [] });
+                observer.complete();
+            });
+        }
+
         return this._httpWrapperService.sendRequest<{ data: AssetChart[] }>("get", `${this._baseUrl}/chart/${symbol.toUpperCase()}`, {
             interval: "1m",
             limit: 1,

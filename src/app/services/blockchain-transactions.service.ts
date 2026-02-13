@@ -149,7 +149,7 @@ export class BlockchainTransactionsService {
         if (network === "binance") return `https://bscscan.com/tx/${hash}`;
         if (network === "bitcoin") return `https://mempool.space/tx/${hash}`;
         if (network === "bitcoinTestnet") return `https://mempool.space/testnet/tx/${hash}`;
-        if (network === "blockdag") return `https://primordial.bdagscan.com/tx/${hash}`;
+        if (network === "blockdag") return `https://bdagscan.com/tx/${hash}`;
         if (network === "ethereum") return `http://etherscan.io/tx/${hash}`;
         if (network === "polygon") return `https://polygonscan.com/tx/${hash}`;
         if (network === "solana") return `https://solscan.io/tx/${hash}`;

@@ -98,7 +98,7 @@
                         </ng-container>
 
                         <ng-container *ngIf="transaction.type === 'send'">
-                            <p class="zelf-history__send">+ {{ transaction.to.amount | number: "1.1-18" }} {{ transaction.to.symbol }}</p>
+                            <p class="zelf-history__send">- {{ transaction.to.amount | number: "1.1-18" }} {{ transaction.to.symbol }}</p>
                             <p class="zelf-history__send-fiat">
                                 {{ transaction.fiatAmount | currency: "USD" : "symbol" : "1.2-2" }}
                             </p>

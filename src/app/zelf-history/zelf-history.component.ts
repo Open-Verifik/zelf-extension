@@ -117,6 +117,30 @@ export class ZelfHistoryComponent implements OnInit {
         });
     }
 
+    private _determineTransactionTraffic(tx: Transaction, wallet: any): void {
+        if (tx.traffic) return;
+
+        const fromAddr = (Array.isArray(tx.from) ? tx.from[0] : tx.from || "").toLowerCase();
+        const publicData = wallet?.publicData;
+        const walletEth = (publicData?.ethAddress || "").toLowerCase();
+        const walletSol = (publicData?.solanaAddress || "").toLowerCase();
+        const walletBtc = (publicData?.btcAddress || "").toLowerCase();
+        const walletSui = (publicData?.suiAddress || "").toLowerCase();
+        const walletBDAG = (publicData?.blockDAGAddress || "").toLowerCase();
+
+        if (
+            (walletEth && fromAddr === walletEth) ||
+            (walletSol && fromAddr === walletSol) ||
+            (walletBtc && fromAddr === walletBtc) ||
+            (walletSui && fromAddr === walletSui) ||
+            (walletBDAG && fromAddr === walletBDAG)
+        ) {
+            tx.traffic = "OUT";
+        } else {
+            tx.traffic = "IN";
+        }
+    }
+
     private async _processTransactions(transactions: Transaction[], isPagination = false): Promise<void> {
         if (!transactions || !transactions.length) return;
 
@@ -138,6 +162,8 @@ export class ZelfHistoryComponent implements OnInit {
             const dateStr = new Date(tx.date).toLocaleDateString("en-US");
 
             if (!groupedByDate[dateStr]) groupedByDate[dateStr] = [];
+
+            this._determineTransactionTraffic(tx, wallet);
 
             const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
             const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);

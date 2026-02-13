@@ -15,6 +15,7 @@ import { ChromeService } from "app/chrome.service";
 import { FeeCalculationParams, TransactionFeeEstimate, TransactionParams, TransactionResult } from "app/core/models/transaction-fee.model";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService, MempoolFeeRates } from "app/services/bitcoin.service";
+import { BlockDAGService } from "app/services/blockdag.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { NetworkName, NetworkService } from "app/services/network.service";
 import { TransactionService } from "app/transaction.service";
@@ -89,6 +90,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     constructor(
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
+        private _blockDAGService: BlockDAGService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
@@ -359,6 +361,11 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         if (this._skipPriceFetch) return;
 
         try {
+            if (this.transactionData.isBDAGToken) {
+                this.price = await this._blockDAGService.getCurrentPrice();
+                return;
+            }
+
             const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
 
             if (!response?.data || !response?.data?.length) return;
@@ -403,14 +410,19 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.networkToken = await this._networkService.getNetworkToken(network as NetworkName);
         this.isNativeAsset = isNativeToken || network === this.networkToken?.name?.toLowerCase() || network === "bitcoin";
 
-        if (network !== "bitcoin") return;
+        if (network !== "bitcoin" && network !== "blockdag") return;
 
         try {
+            if (network === "blockdag") {
+                this.networkPrice = await this._blockDAGService.getCurrentPrice();
+                return;
+            }
+
             const response = await this._assetService.fetchAssetPrice("BTC");
 
             if (response?.data?.length) this.networkPrice = response.data[0].open;
         } catch (error) {
-            console.error("Error fetching Bitcoin price:", error);
+            console.error("Error fetching network price:", error);
         }
     }
 

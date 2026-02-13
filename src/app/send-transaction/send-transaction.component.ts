@@ -15,6 +15,7 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { AssetService } from "app/asset.service";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService } from "app/services/bitcoin.service";
+import { BlockDAGService } from "app/services/blockdag.service";
 import { TransactionParams } from "app/core/models/transaction-fee.model";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
@@ -60,6 +61,7 @@ export class SendTransactionComponent implements OnDestroy {
     constructor(
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
+        private _blockDAGService: BlockDAGService,
         private _changeDetectionRef: ChangeDetectorRef,
         private _ethService: EthereumService,
         private _formBuilder: FormBuilder,
@@ -199,6 +201,11 @@ export class SendTransactionComponent implements OnDestroy {
 
     async _fetchTokenPrice(): Promise<void> {
         try {
+            if (this.transactionData.isBDAGToken) {
+                this.price = await this._blockDAGService.getCurrentPrice();
+                return;
+            }
+
             const response = await this._assetService.fetchAssetPrice(this.transactionData.symbol);
 
             if (!response?.data || !response?.data?.length) return;

@@ -15,10 +15,10 @@ export class BlockDAGService {
 
     private readonly _chainConfigs = {
         mainnet: {
-            blockExplorerUrls: ["https://primordial.bdagscan.com"],
-            chainId: 1043,
-            chainName: "BlockDAG Testnet",
-            rpcUrls: ["https://rpc.awakening.bdagscan.com", "http://13.234.176.105:18545"],
+            blockExplorerUrls: ["https://bdagscan.com"],
+            chainId: 1404,
+            chainName: "BlockDAG Mainnet",
+            rpcUrls: ["https://rpc.bdagscan.com"],
             nativeCurrency: {
                 decimals: 18,
                 name: "BDAG",
@@ -28,6 +28,16 @@ export class BlockDAGService {
     };
 
     constructor(private _httpWrapper: HttpWrapperService) {}
+
+    async getCurrentPrice(): Promise<number> {
+        try {
+            const response = await this._httpWrapper.sendRequest("get", `${this._baseUrl}/api/blockdag/price`);
+            return response.data?.price || 0.05;
+        } catch (error) {
+            console.error("Error fetching BlockDAG price:", error);
+            return 0.05;
+        }
+    }
 
     private _defaultResponse(): any {
         return {
@@ -93,8 +103,8 @@ export class BlockDAGService {
             const feeInBDAG = parseFloat(ethers.formatEther(totalCost));
             const amountInBDAG = parseFloat(amount);
 
-            // Get BDAG price (placeholder for now)
-            const bdagPrice = 0.001; // Default price
+            // Get BDAG price
+            const bdagPrice = await this.getCurrentPrice();
 
             return {
                 fee: feeInBDAG,

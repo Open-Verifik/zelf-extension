@@ -182,8 +182,8 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
         const bottomSheetRef = this._bottomSheet.open(CtaSheetComponent, {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
-            height: "100vh",
-            maxHeight: "100vh",
+            height: "125vh",
+            maxHeight: "125vh",
             data: { wallet },
         });
 

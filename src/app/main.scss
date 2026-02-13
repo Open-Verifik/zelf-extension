@@ -96,11 +96,12 @@ html {
     position: relative !important;
     min-width: 347px;
     color: variables.$themeText;
+    zoom: 0.8;
 }
 
 body {
     margin: 0px !important;
-    height: 100vh;
+    height: 125vh;
     color: variables.$themeText;
 }
 
@@ -123,11 +124,11 @@ body {
     margin: 0 auto;
 
     &--popout {
-        height: 100vh;
-        max-height: 600px;
-        max-width: 375px;
-        min-height: 600px;
-        width: 375px;
+        height: 125vh;
+        max-height: 750px;
+        max-width: 469px;
+        min-height: 750px;
+        width: 469px;
 
         .zelf-app__content {
             padding: 0 !important;
@@ -161,7 +162,7 @@ body {
 }
 
 .h-full {
-    height: 100vh;
+    height: 125vh;
 }
 
 /* Default (sm) */
@@ -664,15 +665,15 @@ h3 {
     );
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 125vh;
     overflow: auto;
     width: 100%;
 }
 
 .zelf-header {
-    width: 600px;
-    min-height: 50px;
-    height: 85px;
+    width: 750px;
+    min-height: 63px;
+    height: 106px;
     background: variables.$themeCard;
     border-left: 1px rgba(0, 0, 0, 0.35) solid;
     border-right: 1px rgba(0, 0, 0, 0.35) solid;
@@ -702,7 +703,7 @@ h3 {
         background-color: variables.$themeCard !important;
         border-radius: 26px 26px 0 0 !important;
         color: variables.$themeText;
-        max-height: 100vh !important;
+        max-height: 125vh !important;
     }
 }
 
@@ -726,7 +727,7 @@ h3 {
 
 .zelf-dialog-footer {
     .mat-mdc-dialog-container {
-        width: 500px;
+        width: 625px;
         max-width: inherit;
         margin: 0 auto;
     }

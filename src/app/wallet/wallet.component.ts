@@ -116,8 +116,8 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         this._bottomSheet.open(InfoSheetComponent, {
             backdropClass: "zelf-backdrop-full",
             panelClass: "zelf-botton-sheet-full",
-            height: "100vh",
-            maxHeight: "100vh",
+            height: "125vh",
+            maxHeight: "125vh",
         });
     }
 

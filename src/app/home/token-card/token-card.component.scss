@@ -7,12 +7,12 @@
 .card-container {
     cursor: pointer;
     display: inline-flex;
-    gap: 16px;
-    height: 80px;
-    padding: 8px 12px;
+    gap: calc(16px * var(--zns-space-scale, 1));
+    height: calc(80px * var(--zns-action-scale, 1));
+    padding: calc(8px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
     transition: background 1s cubic-bezier(0.25, 0.8, 0.25, 1);
     width: 100%;
-    border-radius: 22px;
+    border-radius: calc(22px * var(--zns-space-scale, 1));
     position: relative;
 
     &:hover {
@@ -20,8 +20,8 @@
     }
 
     @media (max-width: variables.$minSmall) {
-        gap: 8px;
-        height: 72px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        height: calc(72px * var(--zns-action-scale, 1));
     }
 }
 
@@ -29,13 +29,13 @@
     align-items: center;
     border-radius: 50%;
     display: flex;
-    gap: 8px;
-    height: 40px;
+    gap: calc(8px * var(--zns-space-scale, 1));
+    height: calc(40px * var(--zns-action-scale, 1));
     justify-content: center;
-    width: 40px;
+    width: calc(40px * var(--zns-action-scale, 1));
 
     :is(img) {
-        width: 40px;
+        width: calc(40px * var(--zns-action-scale, 1));
         object-fit: contain;
     }
 }
@@ -69,35 +69,35 @@
 
 .status-text {
     color: variables.$themeText;
-    font-size: 14px;
+    font-size: calc(14px * var(--zns-font-scale, 1));
     font-family: variables.$themeBodyFamily;
     font-weight: 600;
-    line-height: 24px;
+    line-height: calc(24px * var(--zns-font-scale, 1));
     letter-spacing: 0.15px;
     word-wrap: break-word;
 }
 
 .date-text {
     text-align: right;
-    gap: 6px;
+    gap: calc(6px * var(--zns-space-scale, 1));
 }
 
 .date-green {
     color: #38a62b;
-    font-size: 10px;
+    font-size: calc(10px * var(--zns-font-scale, 1));
     font-family: variables.$themeBodyFamily;
     font-weight: 500;
-    line-height: 14px;
+    line-height: calc(14px * var(--zns-font-scale, 1));
     letter-spacing: 0.1px;
     word-wrap: break-word;
 }
 
 .date-gray {
     color: variables.$themeTextSecondary;
-    font-size: 14px;
+    font-size: calc(14px * var(--zns-font-scale, 1));
     font-family: variables.$themeBodyFamily;
     font-weight: 500;
-    line-height: 20px;
+    line-height: calc(20px * var(--zns-font-scale, 1));
     letter-spacing: 0.1px;
     word-wrap: break-word;
 }
@@ -153,15 +153,15 @@
     &__symbol {
         color: variables.$themeText;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
     }
 
     &__network-info {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-start;
     }
@@ -169,8 +169,8 @@
     &__network {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -178,15 +178,15 @@
     }
 
     &__network-chip {
-        height: 20;
-        border-radius: 24px;
-        gap: 10px;
-        padding: 2px 8px;
+        height: calc(20px * var(--zns-action-scale, 1));
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        gap: calc(10px * var(--zns-space-scale, 1));
+        padding: calc(2px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
         margin: 0;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
@@ -201,8 +201,8 @@
     &__balance {
         color: variables.$themeTextSecondary;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
     }
 }

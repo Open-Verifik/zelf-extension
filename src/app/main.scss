@@ -96,13 +96,56 @@ html {
     position: relative !important;
     min-width: 347px;
     color: variables.$themeText;
-    zoom: 0.8;
 }
 
 body {
     margin: 0px !important;
-    height: 125vh;
+    height: 100vh;
     color: variables.$themeText;
+}
+
+/* Compact phone design tokens – defaults (no scaling) */
+.main-div {
+    --zns-card-width: 536px;
+    --zns-card-min-height: 768px;
+    --zns-font-scale: 1;
+    --zns-space-scale: 1;
+    --zns-action-scale: 1;
+}
+
+/* Full-screen: compact sizing (~80–90% feel) */
+.main-div--fullscreen {
+    --zns-card-width: 430px;
+    --zns-card-min-height: 614px;
+    --zns-font-scale: 0.9;
+    --zns-space-scale: 0.85;
+    --zns-action-scale: 0.9;
+}
+
+/* Popup: tiny reduction (<=5%) */
+.main-div--popout {
+    --zns-card-width: 358px;
+    --zns-card-min-height: 570px;
+    --zns-font-scale: 0.97;
+    --zns-space-scale: 0.95;
+    --zns-action-scale: 0.97;
+}
+
+/* Full-screen: tighten on short viewports to avoid clipping */
+@media (max-height: 760px) {
+    .main-div--fullscreen {
+        --zns-space-scale: 0.8;
+        --zns-font-scale: 0.88;
+        --zns-card-min-height: 560px;
+    }
+}
+
+@media (max-height: 680px) {
+    .main-div--fullscreen {
+        --zns-space-scale: 0.75;
+        --zns-font-scale: 0.85;
+        --zns-card-min-height: 520px;
+    }
 }
 
 .hidden {
@@ -124,11 +167,11 @@ body {
     margin: 0 auto;
 
     &--popout {
-        height: 125vh;
-        max-height: 750px;
-        max-width: 469px;
-        min-height: 750px;
-        width: 469px;
+        height: 100vh;
+        max-height: 600px;
+        max-width: 375px;
+        min-height: 600px;
+        width: 375px;
 
         .zelf-app__content {
             padding: 0 !important;
@@ -144,7 +187,7 @@ body {
         }
 
         .home__actions-container {
-            min-height: 234px !important;
+            min-height: calc(234px * var(--zns-space-scale, 1)) !important;
         }
 
         .zelf-card {
@@ -162,7 +205,7 @@ body {
 }
 
 .h-full {
-    height: 125vh;
+    height: 100vh;
 }
 
 /* Default (sm) */
@@ -476,7 +519,7 @@ h4 {
 }
 
 h1 {
-    font-size: 32px;
+    font-size: calc(32px * var(--zns-font-scale, 1));
     font-weight: 600;
     margin: 0px;
 }
@@ -490,15 +533,15 @@ h3 {
 }
 
 .zelf-p {
-    font-size: 16px;
+    font-size: calc(16px * var(--zns-font-scale, 1));
 }
 
 .secondary-button {
     background-color: white !important;
     color: black !important;
     border: 1px solid #0b57d08a !important;
-    height: 45px !important;
-    font-size: 18px;
+    height: calc(45px * var(--zns-action-scale, 1)) !important;
+    font-size: calc(18px * var(--zns-font-scale, 1));
 }
 
 .secondary-button:disabled {
@@ -589,8 +632,8 @@ h3 {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4px;
-    font-size: 14px;
+    margin-top: calc(4px * var(--zns-space-scale, 1));
+    font-size: calc(14px * var(--zns-font-scale, 1));
     margin-bottom: 0;
 
     &--no-margin {
@@ -625,8 +668,8 @@ h3 {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        font-size: 14px;
-        margin-right: 6px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        margin-right: calc(6px * var(--zns-space-scale, 1));
 
         &--positive {
             color: variables.$correct !important;
@@ -665,15 +708,15 @@ h3 {
     );
     display: flex;
     justify-content: center;
-    min-height: 125vh;
+    min-height: 100vh;
     overflow: auto;
     width: 100%;
 }
 
 .zelf-header {
-    width: 750px;
-    min-height: 63px;
-    height: 106px;
+    width: 600px;
+    min-height: 50px;
+    height: 85px;
     background: variables.$themeCard;
     border-left: 1px rgba(0, 0, 0, 0.35) solid;
     border-right: 1px rgba(0, 0, 0, 0.35) solid;
@@ -703,7 +746,7 @@ h3 {
         background-color: variables.$themeCard !important;
         border-radius: 26px 26px 0 0 !important;
         color: variables.$themeText;
-        max-height: 125vh !important;
+        max-height: 100vh !important;
     }
 }
 
@@ -727,7 +770,7 @@ h3 {
 
 .zelf-dialog-footer {
     .mat-mdc-dialog-container {
-        width: 625px;
+        width: 500px;
         max-width: inherit;
         margin: 0 auto;
     }
@@ -819,15 +862,15 @@ h3 {
     box-sizing: border-box;
     align-items: center;
     background-color: variables.$themeBackgroundSecondary;
-    border-radius: 64px;
+    border-radius: calc(64px * var(--zns-space-scale, 1));
     border: none;
     display: inline-flex;
     flex-direction: column;
-    gap: 8px;
+    gap: calc(8px * var(--zns-space-scale, 1));
     justify-content: center;
-    padding: 40px;
-    width: 536px;
-    min-height: 768px;
+    padding: calc(40px * var(--zns-space-scale, 1));
+    width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
     position: relative;
 
     @media screen and (max-width: variables.$medium) {
@@ -841,7 +884,7 @@ h3 {
         align-items: center;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: center;
         overflow: hidden;
         width: 100%;
@@ -850,15 +893,15 @@ h3 {
     &__image {
         object-fit: cover;
         user-select: none;
-        max-width: 310px;
+        max-width: calc(310px * var(--zns-font-scale, 1));
     }
 
     &__pretitle {
         color: variables.$themeTextSecondary;
         font-family: variables.$themeTitleFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         letter-spacing: 2%;
-        line-height: 16px;
+        line-height: calc(16px * var(--zns-font-scale, 1));
         margin: 0;
         text-transform: uppercase;
     }
@@ -866,26 +909,26 @@ h3 {
     &__title {
         color: variables.$themeText;
         font-family: variables.$themeTitleFamily;
-        font-size: 32px;
+        font-size: calc(32px * var(--zns-font-scale, 1));
         font-weight: bold;
         letter-spacing: 2%;
-        line-height: 40px;
+        line-height: calc(40px * var(--zns-font-scale, 1));
         margin: 0;
         text-align: center;
         text-transform: uppercase;
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
 
         &--small {
-            font-size: 26px;
-            line-height: 32px;
+            font-size: calc(26px * var(--zns-font-scale, 1));
+            line-height: calc(32px * var(--zns-font-scale, 1));
         }
     }
 
     &__subtitle {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         margin: 0;
@@ -897,8 +940,8 @@ h3 {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        min-height: 56px;
-        gap: 8px;
+        min-height: calc(56px * var(--zns-space-scale, 1));
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
 
         &--grow {
@@ -909,9 +952,9 @@ h3 {
     &__actions {
         align-items: center;
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: space-between;
-        min-height: 56px;
+        min-height: calc(56px * var(--zns-action-scale, 1));
         width: 100%;
 
         &--column {
@@ -1621,7 +1664,7 @@ svg.zelf-logo {
 }
 
 .zelf-icon {
-    font-size: 20px;
+    font-size: calc(20px * var(--zns-action-scale, 1));
     color: variables.$themeText;
     fill: variables.$themeText;
     transition:

@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    min-height: 125vh;
+    min-height: 100vh;
     min-width: 100%;
 }
 
@@ -29,8 +29,8 @@
         align-items: center;
         display: flex;
         justify-content: space-between;
-        height: 96px;
-        padding: 1rem;
+        height: calc(96px * var(--zns-space-scale, 1));
+        padding: calc(1rem * var(--zns-space-scale, 1));
         width: 100%;
         position: fixed;
         top: 0;
@@ -40,7 +40,7 @@
         z-index: 999;
 
         @media screen and (max-width: variables.$medium) {
-            height: 72px;
+            height: calc(72px * var(--zns-space-scale, 1));
             background: linear-gradient(to bottom, variables.$themeCard 70%, transparent);
         }
     }
@@ -60,19 +60,19 @@
         overflow: auto;
         display: flex;
         flex-direction: column;
-        height: 125vh;
-        padding: 100px 0 64px;
+        height: 100vh;
+        padding: calc(100px * var(--zns-space-scale, 1)) 0 calc(64px * var(--zns-space-scale, 1));
 
         @media screen and (max-width: variables.$medium) {
-            padding: 56px 0 0;
+            padding: calc(56px * var(--zns-space-scale, 1)) 0 0;
         }
     }
 
     &__footer {
-        height: 48px;
+        height: calc(48px * var(--zns-action-scale, 1));
         align-items: center;
         display: flex;
-        gap: 0.5rem;
+        gap: calc(0.5rem * var(--zns-space-scale, 1));
         justify-content: center;
         width: 100%;
         position: fixed;
@@ -81,12 +81,12 @@
         right: 0;
         background: linear-gradient(to top, variables.$themeCardBorder 70%, transparent);
         z-index: 999;
-        padding: 0 1rem;
+        padding: 0 calc(1rem * var(--zns-space-scale, 1));
 
         @media screen and (max-width: variables.$medium) {
             background: linear-gradient(to top, variables.$themeCardBorder 70%, transparent);
             justify-content: flex-end;
-            padding: 6px;
+            padding: calc(6px * var(--zns-space-scale, 1));
         }
 
         &-menu-trigger {

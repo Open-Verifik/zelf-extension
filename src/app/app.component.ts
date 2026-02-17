@@ -12,7 +12,7 @@ import { AppLoadingService } from "./services/app-loading.service";
     selector: "app-root",
     standalone: false,
     styleUrls: ["./app.component.scss", "./main.scss"],
-    template: `<div class="flex flex-col flex-auto main-div" [ngClass]="isPopout ? 'main-div--popout' : ''">
+    template: `<div class="flex flex-col flex-auto main-div" [ngClass]="{ 'main-div--popout': isPopout, 'main-div--fullscreen': !isPopout }">
         <div class="app-loading-overlay" *ngIf="isLoading$ | async">
             <zelf-loader [diameter]="120" [absolute]="false"></zelf-loader>
         </div>

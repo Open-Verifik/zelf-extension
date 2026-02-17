@@ -3,7 +3,7 @@
 
 :host-context(.main-div--popout) {
     .home__actions-container {
-        min-height: 200px !important;
+        min-height: calc(200px * var(--zns-space-scale, 1)) !important;
     }
 }
 
@@ -28,18 +28,18 @@
         left: 0;
         right: 0;
         position: absolute;
-        top: 76px;
-        bottom: 82px;
+        top: calc(76px * var(--zns-space-scale, 1));
+        bottom: calc(82px * var(--zns-space-scale, 1));
         width: 100%;
         overflow: auto;
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
 
         @media (max-width: variables.$minSmall) {
-            top: 64px;
-            padding: 8px 16px;
+            top: calc(64px * var(--zns-space-scale, 1));
+            padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         }
     }
 
@@ -54,11 +54,11 @@
     }
 
     &__actions-container {
-        min-height: 240px;
+        min-height: calc(240px * var(--zns-space-scale, 1));
         display: flex;
 
         @media (max-width: variables.$minSmall) {
-            min-height: 150px;
+            min-height: calc(150px * var(--zns-space-scale, 1));
         }
         flex-direction: column;
         justify-content: center;
@@ -68,22 +68,22 @@
 
     &__actions {
         width: 100%;
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         display: inline-flex;
 
         @media (max-width: variables.$minSmall) {
-            margin-top: 8px;
+            margin-top: calc(8px * var(--zns-space-scale, 1));
         }
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
 
         @media (max-width: variables.$medium) {
-            gap: 15px;
+            gap: calc(15px * var(--zns-space-scale, 1));
         }
 
         @media (max-width: variables.$minSmall) {
-            gap: 8px;
+            gap: calc(8px * var(--zns-space-scale, 1));
         }
     }
 
@@ -92,14 +92,14 @@
     }
 
     &__tabs {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        padding: 0 12px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
+        padding: 0 calc(12px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     &__assets-content {
-        padding: 8px 0;
+        padding: calc(8px * var(--zns-space-scale, 1)) 0;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -109,11 +109,11 @@
     }
 
     &__manage-networks {
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         text-align: center;
         font-family: variables.$themeBodyFamily;
-        font-size: 13px;
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeTextSecondary;
         cursor: pointer;
@@ -126,16 +126,15 @@
     }
 
     &__no-results-text {
-        font-size: 1.5rem;
         color: variables.$themeCard;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
-        margin-bottom: 4px;
-        padding: 16px;
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
 
         @media (max-width: variables.$minSmall) {
             padding: 0;
@@ -147,13 +146,13 @@
     position: relative;
     align-items: center;
     display: inline-flex;
-    gap: 12px;
+    gap: calc(12px * var(--zns-space-scale, 1));
     justify-content: center;
-    min-height: 94px;
+    min-height: calc(94px * var(--zns-space-scale, 1));
     width: 100%;
 
     @media (max-width: variables.$minSmall) {
-        min-height: 64px;
+        min-height: calc(64px * var(--zns-space-scale, 1));
     }
 
     &__info {
@@ -161,16 +160,16 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: calc(10px * var(--zns-space-scale, 1));
     }
 
     &__amount {
         width: 100%;
         text-align: center;
         color: variables.$themeText;
-        font-size: 40px;
+        font-size: calc(40px * var(--zns-font-scale, 1));
         font-weight: 500;
-        line-height: 40px;
+        line-height: calc(40px * var(--zns-font-scale, 1));
         margin: 0;
         word-wrap: break-word;
 
@@ -178,13 +177,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 44px;
+            min-height: calc(44px * var(--zns-action-scale, 1));
             animation: ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
         }
 
         @media (max-width: variables.$minSmall) {
-            font-size: 32px;
-            line-height: 32px;
+            font-size: calc(32px * var(--zns-font-scale, 1));
+            line-height: calc(32px * var(--zns-font-scale, 1));
         }
     }
 }

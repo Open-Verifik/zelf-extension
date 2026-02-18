@@ -152,9 +152,23 @@
     },
     "receive": {
         "information": "此地址只能用于接收兼容的代币。",
-        "your_token_address": "您的{{ name }}地址"
+        "your_token_address": "您的{{ name }}地址",
+        "risks_modal": {
+            "title": "接收 {{ symbol }} 前须知",
+            "risk_1_title": "仅限 {{ name }} 网络",
+            "risk_1": "只能向此地址发送 {{ name }} 网络上的 {{ symbol }}。来自其他链的代币无法找回。",
+            "risk_2_title": "核实地址",
+            "risk_2": "{{ name }} 交易不可逆转。确认前请务必仔细核对完整地址。",
+            "risk_3_title": "仅限 {{ type }} 代币",
+            "risk_3": "此地址只接受 {{ type }} 代币。发送其他标准将导致永久损失。",
+            "risk_3_native_title": "仅限 {{ symbol }}",
+            "risk_3_native": "只能发送原生 {{ symbol }}。其他网络的代币与此地址不兼容。",
+            "risk_4_title": "先用小额测试",
+            "risk_4": "首次向此地址转账时，请先发送少量 {{ symbol }} 进行测试。"
+        }
     },
     "common": {
+        "back": "返回",
         "12_word_phrase": "12个单词短语",
         "24_word_phrase": "24个单词短语",
         "about": "关于",

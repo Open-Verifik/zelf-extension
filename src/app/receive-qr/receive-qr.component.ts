@@ -3,6 +3,7 @@ import QRCodeStyling, { Options as QRCodeStylingOptions, Gradient as QRCodeStyli
 
 import { NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
@@ -11,6 +12,7 @@ import { ChromeService } from "app/chrome.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
+import { ReceiveRisksModalComponent } from "app/receive-qr/receive-risks-modal/receive-risks-modal.component";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink, ZelfLoaderComponent],
@@ -87,6 +89,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
 
     constructor(
         private _activatedRoute: ActivatedRoute,
+        private _dialog: MatDialog,
         private _walletService: WalletService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
@@ -169,5 +172,14 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
 
     public async copyToClipboard(): Promise<void> {
         this._copyToClipboard(this.address);
+    }
+
+    openRisksModal(): void {
+        this._dialog.open(ReceiveRisksModalComponent, {
+            panelClass: ["zelf-dialog", "zelf-dialog--receive-risks"],
+            backdropClass: "zelf-backdrop",
+            maxWidth: "min(340px, 92vw)",
+            data: { name: this.name, symbol: this.symbol, type: this.type },
+        });
     }
 }

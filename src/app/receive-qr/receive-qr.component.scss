@@ -12,15 +12,16 @@
 
 .receive-qr {
     width: 100%;
-    max-width: 524px;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -48,8 +49,8 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 300;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -60,11 +61,11 @@
         flex: 1 1 auto;
         justify-content: flex-start;
         position: relative;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
     }
 
     &__chip {
-        margin-top: 12px;
+        margin-top: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__qr-code {
@@ -74,14 +75,14 @@
         justify-content: center;
         align-items: center;
         max-width: 100%;
-        height: 312px;
-        max-height: 312px;
+        height: calc(312px * var(--zns-action-scale, 1));
+        max-height: calc(312px * var(--zns-action-scale, 1));
         width: 100%;
     }
 
     &__action-row {
-        gap: 12px;
-        min-height: 62px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        min-height: calc(62px * var(--zns-action-scale, 1));
         height: auto;
     }
 
@@ -98,8 +99,8 @@
     &__token-type {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
@@ -109,12 +110,28 @@
     &__address {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
         color: variables.$themeText;
         word-wrap: break-word;
+    }
+}
+
+.tip-box__link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: variables.$primaryColor;
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover {
+        color: variables.$primaryColor;
+        text-decoration: underline;
+        opacity: 0.85;
     }
 }

@@ -152,9 +152,23 @@
     },
     "receive": {
         "information": "Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",
-        "your_token_address": "Votre adresse {{ name }}"
+        "your_token_address": "Votre adresse {{ name }}",
+        "risks_modal": {
+            "title": "Avant de recevoir {{ symbol }}",
+            "risk_1_title": "Réseau {{ name }} uniquement",
+            "risk_1": "N'envoyez que du {{ symbol }} sur le réseau {{ name }} à cette adresse. Les tokens d'une autre chaîne ne peuvent pas être récupérés.",
+            "risk_2_title": "Vérifiez l'adresse",
+            "risk_2": "Les transactions {{ name }} sont irréversibles. Vérifiez toujours l'adresse complète avant de confirmer.",
+            "risk_3_title": "Tokens {{ type }} uniquement",
+            "risk_3": "Cette adresse n'accepte que les tokens {{ type }}. L'envoi d'un autre standard entraînera une perte permanente.",
+            "risk_3_native_title": "{{ symbol }} uniquement",
+            "risk_3_native": "N'envoyez que du {{ symbol }} natif. Les tokens d'autres réseaux ne sont pas compatibles avec cette adresse.",
+            "risk_4_title": "Testez avec un petit montant",
+            "risk_4": "Nouvelle adresse ? Commencez par une petite transaction {{ symbol }} avant d'envoyer un montant plus important."
+        }
     },
     "common": {
+        "back": "Retour",
         "12_word_phrase": "Phrase de 12 mots",
         "24_word_phrase": "Phrase de 24 mots",
         "about": "À propos",

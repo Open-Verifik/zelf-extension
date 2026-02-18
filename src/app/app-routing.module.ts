@@ -42,6 +42,7 @@ const routes: Routes = [
             {
                 path: "home",
                 loadComponent: () => import("./home/home.component").then((m) => m.HomeComponent),
+                data: { animation: "HomePage" },
             },
             {
                 path: "manage-domains",
@@ -84,10 +85,12 @@ const routes: Routes = [
                     {
                         path: "",
                         loadComponent: () => import("./receive-currency/receive-currency.component").then((m) => m.ReceiveCurrencyComponent),
+                        data: { animation: "ReceivePage" },
                     },
                     {
                         path: "qr/:network",
                         loadComponent: () => import("./receive-qr/receive-qr.component").then((m) => m.ReceiveQrComponent),
+                        data: { animation: "ReceiveQrPage" },
                     },
                 ],
             },

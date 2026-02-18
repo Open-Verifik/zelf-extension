@@ -1,0 +1,107 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+
+.risks-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    width: 300px;
+    gap: 16px;
+    box-sizing: border-box;
+    background: variables.$themeCard;
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-size: 16px;
+        font-weight: 700;
+        color: variables.$themeText;
+        margin: 0;
+        text-align: center;
+    }
+
+    // Slide card
+    &__card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background-color: variables.$themeBackgroundSecondary;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        min-height: 104px;
+    }
+
+    &__step {
+        font-family: variables.$themeBodyFamily;
+        font-size: 11px;
+        font-weight: 500;
+        color: variables.$themeTextMuted;
+        letter-spacing: 0.5px;
+    }
+
+    &__card-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: 13px;
+        font-weight: 700;
+        color: variables.$themeText;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    &__card-body {
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        font-weight: 400;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    // Dots
+    &__dots {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        border: none;
+        background-color: variables.$themeBorder;
+        padding: 0;
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease,
+            width 0.2s ease;
+
+        &--active {
+            width: 20px;
+            background-color: variables.$primaryColor;
+        }
+    }
+
+    // Actions row
+    &__actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    &__btn-prev,
+    &__btn-next {
+        height: 40px;
+        font-size: 13px;
+        padding: 0 20px;
+        border-radius: 12px;
+    }
+
+    &__btn-next {
+        flex: 1;
+    }
+}

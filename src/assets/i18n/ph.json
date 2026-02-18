@@ -152,9 +152,23 @@
     },
     "receive": {
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
-        "your_token_address": "Ang iyong {{ name }} address"
+        "your_token_address": "Ang iyong {{ name }} address",
+        "risks_modal": {
+            "title": "Bago tumanggap ng {{ symbol }}",
+            "risk_1_title": "{{ name }} network lamang",
+            "risk_1": "Magpadala lamang ng {{ symbol }} sa {{ name }} network sa address na ito. Ang mga token mula sa ibang chain ay hindi mababawi.",
+            "risk_2_title": "I-verify ang address",
+            "risk_2": "Ang mga transaksyon sa {{ name }} ay hindi maaaring baligtarin. Palaging i-double-check ang buong address bago kumpirmahin.",
+            "risk_3_title": "{{ type }} tokens lamang",
+            "risk_3": "Ang address na ito ay tumatanggap lamang ng {{ type }} tokens. Ang pagpapadala ng ibang standard ay magreresulta sa permanenteng pagkawala.",
+            "risk_3_native_title": "{{ symbol }} lamang",
+            "risk_3_native": "Magpadala lamang ng native {{ symbol }}. Ang mga token mula sa ibang network ay hindi compatible sa address na ito.",
+            "risk_4_title": "Subukan sa maliit na halaga",
+            "risk_4": "Bago ka ba sa address na ito? Magsimula sa maliit na {{ symbol }} na transaksyon bago magpadala ng mas malaking halaga."
+        }
     },
     "common": {
+        "back": "Bumalik",
         "12_word_phrase": "12 salitang parirala",
         "24_word_phrase": "24 salitang parirala",
         "about": "Tungkol",

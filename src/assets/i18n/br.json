@@ -152,9 +152,23 @@
     },
     "receive": {
         "information": "Este endereço só pode ser usado para receber tokens compatíveis.",
-        "your_token_address": "Seu endereço {{ name }}"
+        "your_token_address": "Seu endereço {{ name }}",
+        "risks_modal": {
+            "title": "Antes de receber {{ symbol }}",
+            "risk_1_title": "Somente rede {{ name }}",
+            "risk_1": "Envie apenas {{ symbol }} na rede {{ name }} para este endereço. Tokens de outra cadeia não podem ser recuperados.",
+            "risk_2_title": "Verifique o endereço",
+            "risk_2": "Transações na {{ name }} são irreversíveis. Sempre confira o endereço completo antes de confirmar.",
+            "risk_3_title": "Somente tokens {{ type }}",
+            "risk_3": "Este endereço só aceita tokens {{ type }}. Enviar outro padrão resultará em perda permanente.",
+            "risk_3_native_title": "Somente {{ symbol }}",
+            "risk_3_native": "Envie apenas {{ symbol }} nativo. Tokens de outras redes não são compatíveis com este endereço.",
+            "risk_4_title": "Teste com um valor pequeno",
+            "risk_4": "Novo neste endereço? Comece com uma pequena transação de {{ symbol }} antes de enviar um valor maior."
+        }
     },
     "common": {
+        "back": "Voltar",
         "12_word_phrase": "Frase de 12 palavras",
         "24_word_phrase": "Frase de 24 palavras",
         "about": "Sobre",

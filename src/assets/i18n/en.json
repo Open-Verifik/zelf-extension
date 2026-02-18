@@ -584,9 +584,23 @@
     },
     "receive": {
         "information": "This address can only be used to receive compatible tokens.",
-        "your_token_address": "Your {{ name }} address"
+        "your_token_address": "Your {{ name }} address",
+        "risks_modal": {
+            "title": "Before receiving {{ symbol }}",
+            "risk_1_title": "{{ name }} network only",
+            "risk_1": "Only send {{ symbol }} on the {{ name }} network to this address. Tokens sent from a different chain cannot be recovered.",
+            "risk_2_title": "Verify the address",
+            "risk_2": "{{ name }} transactions are irreversible. Always double-check the full address before confirming.",
+            "risk_3_title": "{{ type }} tokens only",
+            "risk_3": "This address only accepts {{ type }} tokens. Sending a different standard will result in permanent loss.",
+            "risk_3_native_title": "{{ symbol }} only",
+            "risk_3_native": "Send only native {{ symbol }}. Tokens from other networks are not compatible with this address.",
+            "risk_4_title": "Test with a small amount",
+            "risk_4": "New to this address? Start with a small {{ symbol }} transaction before sending a larger amount."
+        }
     },
     "common": {
+        "back": "Back",
         "optional": "Optional",
         "no_results_found": "No results found",
         "12_word_phrase": "12 word phrase",

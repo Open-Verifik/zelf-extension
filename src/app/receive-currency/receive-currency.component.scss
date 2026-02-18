@@ -11,15 +11,16 @@
 
 .receive-currency {
     width: 100%;
-    max-width: 524px;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -47,8 +48,8 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 300;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -72,8 +73,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    padding: 16px;
+    gap: calc(24px * var(--zns-space-scale, 1));
+    padding: calc(16px * var(--zns-space-scale, 1));
     border-radius: 16px;
     background-color: transparent;
     transition: background-color 0.3s variables.$smoothBezier;
@@ -82,10 +83,10 @@
     cursor: pointer;
 
     &__icon {
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
+        height: calc(40px * var(--zns-action-scale, 1));
+        width: calc(40px * var(--zns-action-scale, 1));
+        min-height: calc(40px * var(--zns-action-scale, 1));
+        min-width: calc(40px * var(--zns-action-scale, 1));
         object-fit: contain;
     }
 
@@ -182,7 +183,7 @@
     &__buttons {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
     }

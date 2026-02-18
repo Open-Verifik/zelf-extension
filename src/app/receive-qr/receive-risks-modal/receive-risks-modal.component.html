@@ -1,0 +1,44 @@
+<div class="risks-modal" *transloco="let t">
+
+    <!-- Modal title -->
+    <h2 class="risks-modal__title">{{ t("receive.risks_modal.title", { symbol: data.symbol }) }}</h2>
+
+    <!-- Slide card -->
+    <div class="risks-modal__card">
+        <span class="risks-modal__step">{{ current + 1 }}/{{ slides.length }}</span>
+        <p class="risks-modal__card-title">{{ t(slides[current].titleKey, slides[current].params) }}</p>
+        <p class="risks-modal__card-body">{{ t(slides[current].bodyKey, slides[current].params) }}</p>
+    </div>
+
+    <!-- Dot indicators -->
+    <div class="risks-modal__dots">
+        <button
+            *ngFor="let slide of slides; let i = index"
+            type="button"
+            class="risks-modal__dot"
+            [ngClass]="{ 'risks-modal__dot--active': i === current }"
+            (click)="goTo(i)"
+        ></button>
+    </div>
+
+    <!-- Navigation -->
+    <div class="risks-modal__actions">
+        <button
+            *ngIf="current > 0"
+            type="button"
+            class="zelf-button zelf-button--secondary risks-modal__btn-prev"
+            (click)="prev()"
+        >{{ t("common.back") }}</button>
+
+        <button
+            type="button"
+            class="zelf-button risks-modal__btn-next"
+            [class.zelf-button--secondary]="!isLast"
+            [class.zelf-button--primary]="isLast"
+            (click)="next()"
+        >
+            {{ isLast ? t("common.close") : t("common.next") }}
+        </button>
+    </div>
+
+</div>

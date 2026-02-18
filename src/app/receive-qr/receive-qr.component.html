@@ -64,7 +64,8 @@
             </svg>
 
             <span class="tip-box__text">
-                {{ t("receive.information") }} <a class="tip-box__link" target="_blank">{{ t("common.learn_more") }}</a>
+                {{ t("receive.information") }}
+                <button type="button" class="tip-box__link" (click)="openRisksModal()">{{ t("common.learn_more") }}</button>
             </span>
         </div>
 

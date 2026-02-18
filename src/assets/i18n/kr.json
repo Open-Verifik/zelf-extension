@@ -152,9 +152,23 @@
     },
     "receive": {
         "information": "이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
-        "your_token_address": "{{ name }} 주소"
+        "your_token_address": "{{ name }} 주소",
+        "risks_modal": {
+            "title": "{{ symbol }} 받기 전에",
+            "risk_1_title": "{{ name }} 네트워크 전용",
+            "risk_1": "이 주소로는 {{ name }} 네트워크의 {{ symbol }}만 전송하세요. 다른 체인의 토큰은 복구할 수 없습니다.",
+            "risk_2_title": "주소 확인",
+            "risk_2": "{{ name }} 거래는 취소할 수 없습니다. 확인 전에 항상 전체 주소를 다시 확인하세요.",
+            "risk_3_title": "{{ type }} 토큰 전용",
+            "risk_3": "이 주소는 {{ type }} 토큰만 허용합니다. 다른 표준을 보내면 영구적으로 손실됩니다.",
+            "risk_3_native_title": "{{ symbol }} 전용",
+            "risk_3_native": "네이티브 {{ symbol }}만 보내세요. 다른 네트워크의 토큰은 이 주소와 호환되지 않습니다.",
+            "risk_4_title": "소액으로 테스트",
+            "risk_4": "이 주소로 처음 보내시나요? 큰 금액 전에 소액 {{ symbol }} 거래부터 시작하세요."
+        }
     },
     "common": {
+        "back": "뒤로",
         "12_word_phrase": "12단어 구문",
         "24_word_phrase": "24단어 구문",
         "about": "정보",

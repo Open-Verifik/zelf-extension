@@ -196,6 +196,44 @@ body {
     }
 }
 
+/* Action button scaling – fullscreen and popup */
+.main-div {
+    .zelf-action-button {
+        gap: calc(8px * var(--zns-action-scale, 1));
+
+        &__icon {
+            padding: calc(16px * var(--zns-action-scale, 1)) calc(24px * var(--zns-action-scale, 1));
+
+            @media (max-width: variables.$minSmall) {
+                padding: calc(12px * var(--zns-action-scale, 1)) calc(16px * var(--zns-action-scale, 1));
+            }
+        }
+
+        &__icon-box {
+            width: calc(28px * var(--zns-action-scale, 1));
+            height: calc(28px * var(--zns-action-scale, 1));
+        }
+
+        &__text {
+            font-size: calc(11px * var(--zns-action-scale, 1));
+            line-height: calc(16px * var(--zns-action-scale, 1));
+        }
+    }
+
+    .zelf-icon-button--40 {
+        height: calc(40px * var(--zns-action-scale, 1));
+        min-height: calc(40px * var(--zns-action-scale, 1));
+        min-width: calc(40px * var(--zns-action-scale, 1));
+        width: calc(40px * var(--zns-action-scale, 1));
+        border-radius: calc(40px * var(--zns-action-scale, 1));
+
+        svg {
+            height: calc(20px * var(--zns-action-scale, 1));
+            width: calc(20px * var(--zns-action-scale, 1));
+        }
+    }
+}
+
 .w-full {
     width: 100%;
 }
@@ -803,6 +841,18 @@ h3 {
 .zelf-dialog-seasalt {
     .mdc-dialog__surface {
         background-color: variables.$themeBackgroundSecondary !important;
+    }
+}
+
+.zelf-dialog--receive-risks {
+    .mat-mdc-dialog-container {
+        border-radius: 20px !important;
+        overflow: hidden;
+        padding: 0 !important;
+    }
+    .mdc-dialog__surface {
+        border-radius: 20px !important;
+        padding: 0 !important;
     }
 }
 

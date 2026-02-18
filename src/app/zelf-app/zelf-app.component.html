@@ -10,8 +10,8 @@
         </div>
     </nav>
 
-    <section #contentContainer class="zelf-app__content">
-        <router-outlet></router-outlet>
+    <section #contentContainer class="zelf-app__content" [@routeAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
     </section>
 </div>
 

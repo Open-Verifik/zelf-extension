@@ -2,25 +2,25 @@
 
 .zelf-settings-networks {
     width: 100%;
-    margin-top: 16px;
+    margin-top: calc(16px * var(--zns-space-scale, 1));
 
     &__header {
-        margin-bottom: 24px;
+        margin-bottom: calc(24px * var(--zns-space-scale, 1));
         text-align: left;
     }
 
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         line-height: normal;
         color: variables.$themeText;
-        margin: 0 0 8px 0;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1)) 0;
     }
 
     &__description {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         line-height: 1.5;
         color: variables.$themeTextSecondary;
         margin: 0;
@@ -29,14 +29,14 @@
     &__list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCard;
         border: 1px solid variables.$themeCardBorder;
         border-radius: 12px;
@@ -60,12 +60,12 @@
     &__item-left {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__icon-wrapper {
-        width: 40px;
-        height: 40px;
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
         border-radius: 50%;
         overflow: hidden;
         border: 1px solid variables.$themeBorder;
@@ -91,13 +91,13 @@
     &__name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         color: variables.$themeText;
     }
 
     &__symbol {
         font-family: variables.$themeBodyFamily;
-        font-size: 13px;
+        font-size: calc(13px * var(--zns-font-scale, 1));
         color: variables.$themeTextSecondary;
         text-transform: uppercase;
         font-weight: 500;

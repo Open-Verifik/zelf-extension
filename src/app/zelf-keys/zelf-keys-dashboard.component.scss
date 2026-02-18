@@ -12,9 +12,9 @@
 
 .dashboard {
     position: relative;
-    padding-top: 88px !important;
-    gap: 24px !important;
-    padding-bottom: 94px !important;
+    padding-top: calc(88px * var(--zns-space-scale, 1)) !important;
+    gap: calc(24px * var(--zns-space-scale, 1)) !important;
+    padding-bottom: calc(94px * var(--zns-space-scale, 1)) !important;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -25,7 +25,7 @@
         flex: 1;
         width: 100%;
         min-height: 0;
-        padding: 16px 12px 0;
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) 0;
         overflow-y: auto;
         overflow-x: hidden;
 
@@ -52,12 +52,12 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__loading-text {
         margin: 0;
         color: variables.$black;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
     }
 }

@@ -11,11 +11,15 @@
 }
 
 .zelf-activity {
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
+
     &__header {
         align-content: center;
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         display: grid;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         grid-template-columns: repeat(10, 1fr);
         justify-content: start;
         width: 100%;
@@ -45,8 +49,8 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -61,17 +65,13 @@
     }
 
     &__tabs {
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     &__content {
         position: relative;
-        min-height: 600px;
+        flex: 1 1 auto;
         width: 100%;
-
-        @media screen and (max-width: variables.$medium) {
-            min-height: initial;
-        }
     }
 }

@@ -11,6 +11,9 @@
 
 .send-confirm {
     position: relative;
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__loader {
         position: absolute;
@@ -22,10 +25,10 @@
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -53,12 +56,13 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
     }
 
     &__form {
@@ -67,14 +71,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         flex-grow: 1;
     }
 
     &__zelf-name-display {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__content {
@@ -87,7 +91,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
     }
 
@@ -95,7 +99,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
 
         @media (max-width: variables.$minSmall) {
             flex-direction: column;
@@ -108,16 +112,16 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__label {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
@@ -127,7 +131,7 @@
     &__value-row {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
 
         svg {
             transition: fill 0.2s variables.$smoothBezier;
@@ -138,8 +142,8 @@
     &__value {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 15px;
-        line-height: 20px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeText;
@@ -161,7 +165,7 @@
             max-width: 60%;
             overflow-wrap: anywhere;
             text-align: right;
-            font-size: 13px;
+            font-size: calc(13px * var(--zns-font-scale, 1));
         }
 
         &--error {
@@ -176,23 +180,24 @@
     &__fee {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 12px;
-        line-height: 20px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
+        margin: 0;
     }
 
     &__price-amount-container {
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-end;
         width: 100%;
     }
 
     &__price {
-        font-size: 32px;
+        font-size: calc(32px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
         font-family: variables.$themeTitleFamily;
@@ -200,12 +205,12 @@
     }
 
     &__price-currency {
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$themeText;
         font-family: variables.$themeBodyFamily;
-        margin: 0 0 8px;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__fee-row {
@@ -220,17 +225,17 @@
 
     @media (max-width: variables.$minSmall) {
         &__price {
-            font-size: 28px;
+            font-size: calc(28px * var(--zns-font-scale, 1));
         }
 
         &__label {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
 
         &__value {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
     }
 }

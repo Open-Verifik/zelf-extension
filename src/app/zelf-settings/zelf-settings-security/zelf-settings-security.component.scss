@@ -2,14 +2,14 @@
 @use "../../../styles/buttons.scss";
 
 :host {
-    min-height: 624px;
+    min-height: var(--zns-card-min-height, 624px);
     width: 100%;
 }
 
 .zelf-settings-security {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
     width: 100%;
 
     * {
@@ -19,25 +19,24 @@
     &__box {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     &__title {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: 24px;
+        line-height: calc(24px * var(--zns-font-scale, 1));
         color: variables.$themeText;
-        margin-top: 32px;
+        margin-top: calc(32px * var(--zns-space-scale, 1));
         margin-bottom: 0;
     }
 
     &__description {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 16px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         color: variables.$themeTextSecondary;
         margin: 0;
     }

@@ -10,13 +10,16 @@
 }
 
 .zelf-settings {
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         align-content: center;
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         display: grid;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         grid-template-columns: repeat(10, 1fr);
         justify-content: start;
         width: 100%;
@@ -46,8 +49,8 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 20px;
-        line-height: 20px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -62,13 +65,13 @@
     }
 
     &__tabs {
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     &__content {
         position: relative;
-        min-height: 600px;
+        flex: 1 1 auto;
         width: 100%;
     }
 
@@ -76,8 +79,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 18px;
-        gap: 16px;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(18px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
         cursor: pointer;
         border-radius: 16px;
         transition: all 0.2s variables.$smoothBezier;
@@ -102,7 +105,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         flex: 1;
         min-width: 0;
     }
@@ -111,8 +114,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 42px;
-        width: 42px;
+        height: calc(42px * var(--zns-space-scale, 1));
+        width: calc(42px * var(--zns-space-scale, 1));
         border-radius: 12px;
         background: linear-gradient(135deg, variables.$primaryColor 0%, variables.$primaryColor 100%);
         color: variables.$themeButtonText;
@@ -137,7 +140,7 @@
 
     &__item-col1-title {
         font-weight: 500;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         line-height: 1.4;
         color: variables.$themeText;
         margin: 0;

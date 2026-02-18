@@ -11,21 +11,17 @@
 
 .send-currency {
     position: relative;
-
-    &__loader {
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        z-index: 100;
-    }
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -53,28 +49,29 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
     }
 
     &__form {
         width: 100%;
         box-sizing: border-box;
-        padding: 0 8px;
+        padding: 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__search-icon {
-        width: 18px;
-        height: 18px;
-        margin-right: 16px;
+        width: calc(18px * var(--zns-space-scale, 1));
+        height: calc(18px * var(--zns-space-scale, 1));
+        margin-right: calc(16px * var(--zns-space-scale, 1));
 
         svg {
-            width: 18px;
-            height: 18px;
+            width: calc(18px * var(--zns-space-scale, 1));
+            height: calc(18px * var(--zns-space-scale, 1));
             fill: variables.$themeTextSecondary;
         }
     }
@@ -83,7 +80,6 @@
         flex: 1 1 auto;
         justify-content: flex-start;
         position: relative;
-        max-height: 632px;
         height: 100%;
         overflow-y: auto;
     }
@@ -92,5 +88,6 @@
         position: absolute;
         inset: 0;
         margin: auto;
+        z-index: 100;
     }
 }

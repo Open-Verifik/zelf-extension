@@ -11,6 +11,9 @@
 
 .send-transaction {
     position: relative;
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__loader {
         position: absolute;
@@ -21,9 +24,9 @@
 
     &__header {
         align-content: center;
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         display: grid;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         grid-template-columns: repeat(10, 1fr);
         justify-content: start;
         width: 100%;
@@ -53,12 +56,13 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
     }
 
     &__form {
@@ -67,20 +71,13 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         flex-grow: 1;
         position: relative;
     }
 
-    &__loader {
-        position: absolute;
-        inset: 0;
-        margin: auto;
-        z-index: 1;
-    }
-
     &__content {
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         flex: 1 1 auto;
         justify-content: flex-start;
     }
@@ -89,23 +86,23 @@
         display: flex;
         align-items: center;
         box-sizing: border-box;
-        padding-left: 16px;
+        padding-left: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         margin: 0;
         text-align: left;
 
         &--mt-8 {
-            margin-top: 8px;
+            margin-top: calc(8px * var(--zns-space-scale, 1));
         }
     }
 
     &__input-label-text {
-        margin-right: 4px;
+        margin-right: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__address-row {
@@ -113,7 +110,7 @@
         cursor: pointer;
         display: flex;
         flex-direction: row;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         user-select: none;
         width: 100%;
@@ -123,12 +120,12 @@
         box-sizing: border-box;
         color: variables.$themeTextSecondary;
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         letter-spacing: 0.1px;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         margin: 0;
-        padding: 0px 12px;
+        padding: 0 calc(12px * var(--zns-space-scale, 1));
         text-align: left;
         vertical-align: middle;
         width: 100%;
@@ -139,7 +136,7 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         width: 100%;
         margin: 0;
     }
@@ -147,17 +144,18 @@
     &__address-name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
 
         &--zelf-name {
             font-family: variables.$themeTitleFamily;
             font-weight: 700;
-            font-size: 14px;
-            line-height: 20px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
             letter-spacing: 0.1px;
             text-transform: uppercase;
         }
@@ -166,8 +164,8 @@
     &__address-book {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        margin-top: 16px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         justify-content: flex-start;
         align-items: flex-start;
@@ -176,39 +174,41 @@
     &__address-name-zelf-name {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 12px;
-        line-height: 16px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: variables.$themeText;
-        margin: 0 16px 0 0 !important;
+        margin: 0 calc(16px * var(--zns-space-scale, 1)) 0 0 !important;
 
         &--desktop {
             display: inline-flex;
         }
+
         &--xs {
             display: none;
-            margin: 4px 0 8px 16px !important;
+            margin: calc(4px * var(--zns-space-scale, 1)) 0 calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) !important;
         }
     }
 
     &__address-used {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
+        margin: 0;
     }
 }
 
-/* When on extra-small screens (popup width), move the tag name outside the input */
 @media (max-width: variables.$minSmall) {
     .send-transaction {
         &__address-name-zelf-name {
             &--desktop {
                 display: none;
             }
+
             &--xs {
                 display: block;
             }
@@ -218,11 +218,11 @@
 
 .zelf-object-preview {
     margin: auto 0;
-    max-width: 484px;
+    max-width: var(--zns-card-width, 484px);
     width: 100%;
     border-radius: 16px;
-    padding: 24px 16px;
-    gap: 12px;
+    padding: calc(24px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+    gap: calc(12px * var(--zns-space-scale, 1));
     border: 1px solid variables.$themeBorder;
     display: flex;
     flex-direction: column;
@@ -232,44 +232,49 @@
     box-sizing: border-box;
 
     @media (max-width: variables.$minSmall) {
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__chip {
-        height: 48px;
+        height: calc(48px * var(--zns-space-scale, 1));
         border-radius: 48px;
-        gap: 8px;
-        padding: 0px 16px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: 0 calc(16px * var(--zns-space-scale, 1));
         border: 1px solid variables.$themeBorder;
         background-color: variables.$themeCard;
         display: flex;
         align-items: center;
         justify-content: center;
         box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
-        margin-bottom: 12px;
+        margin-bottom: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__icon-bubble {
         background-color: variables.$themeBackgroundSecondary;
-        max-height: 32px;
-        max-width: 32px;
+        height: calc(32px * var(--zns-space-scale, 1));
+        width: calc(32px * var(--zns-space-scale, 1));
+        max-height: calc(32px * var(--zns-space-scale, 1));
+        max-width: calc(32px * var(--zns-space-scale, 1));
         border-radius: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 32px;
-        width: 32px;
 
         svg {
             fill: variables.$correct;
+        }
+
+        &--error {
+            background-color: variables.$error;
+            color: white;
         }
     }
 
     &__chip-text {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: variables.$themeText;
         margin: 0;
@@ -279,8 +284,8 @@
     &__zelf-name {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 24px;
-        line-height: 32px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(32px * var(--zns-font-scale, 1));
         letter-spacing: 0%;
         width: 100%;
         text-align: center;
@@ -291,16 +296,16 @@
         overflow-wrap: anywhere;
 
         @media (max-width: variables.$minSmall) {
-            font-size: 18px;
-            line-height: 20px;
+            font-size: calc(18px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
         }
     }
 
     &__address {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 12px;
-        line-height: 20px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -318,25 +323,19 @@
     &__instructions {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
-    }
-
-    &__icon-bubble {
-        &--error {
-            background-color: variables.$error;
-            color: white;
-        }
+        margin: 0;
     }
 
     &__error-message {
         color: variables.$error;
         text-align: center;
-        font-size: 16px;
-        margin: 16px 0;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        margin: calc(16px * var(--zns-space-scale, 1)) 0;
     }
 }

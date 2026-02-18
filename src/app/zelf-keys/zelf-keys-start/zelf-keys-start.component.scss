@@ -6,13 +6,13 @@
     &__feature-cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 24px;
-        margin-bottom: 40px;
+        gap: calc(24px * var(--zns-space-scale, 1));
+        margin-bottom: calc(40px * var(--zns-space-scale, 1));
     }
 
     &__feature-card {
         min-width: 250px;
-        padding: 24px;
+        padding: calc(24px * var(--zns-space-scale, 1));
         box-shadow: 0px 8px 24px variables.$themeShadow;
         border-radius: 32px;
         outline-offset: -1.5px;
@@ -36,8 +36,8 @@
         justify-content: center;
 
         svg {
-            width: 72px;
-            height: 72px;
+            width: calc(72px * var(--zns-space-scale, 1));
+            height: calc(72px * var(--zns-space-scale, 1));
             transition: fill 0.3s variables.$smoothBezier;
         }
     }
@@ -47,10 +47,10 @@
         display: flex;
         flex-direction: column;
         color: variables.$themeText;
-        font-size: 18px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        line-height: 24px;
+        line-height: calc(24px * var(--zns-font-scale, 1));
         word-wrap: break-word;
         text-align: center;
         margin: 0;
@@ -64,10 +64,10 @@
         display: flex;
         flex-direction: column;
         color: variables.$themeTextSecondary;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         word-wrap: break-word;
         margin: 0;
@@ -81,9 +81,9 @@
 
     &__cta-button {
         align-self: stretch;
-        height: 56px;
-        padding-left: 24px;
-        padding-right: 24px;
+        height: calc(56px * var(--zns-space-scale, 1));
+        padding-left: calc(24px * var(--zns-space-scale, 1));
+        padding-right: calc(24px * var(--zns-space-scale, 1));
         background: variables.$themeButton;
         overflow: hidden;
         border-radius: 16px;

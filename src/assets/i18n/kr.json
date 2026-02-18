@@ -35,6 +35,7 @@
         "domain_or_address": "도메인 또는 주소",
         "enter_amount_to_send": "송금할 금액 입력",
         "external_address_found": "외부 주소를 찾았습니다",
+        "recent_addresses": "최근",
         "used": "{{days}}일 전에 사용됨",
         "withdrawal_amount": "출금 금액",
         "zelf_name_not_registered": "태그 이름이 등록되지 않음",
@@ -131,6 +132,7 @@
         "password_strength_label": "비밀번호 강도",
         "password_subtitle": "복호화 프로세스를 완료하기 위해 이 태그 이름에 할당된 비밀번호를 입력하세요.",
         "pin_description": "6자리 PIN 만들기",
+        "pin_unlock_description": "PIN을 사용하여 ZelfProof 잠금 해제",
         "pin_title": "PIN",
         "secure_password_description": "추가 보안 레이어",
         "secure_password_title": "보안 비밀번호",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf OTP인증기",
         "zelf_keys": "Zelf 키",
         "zelf_link": "Zelf 링크",
-        "subscriptions": "구독"
+        "subscriptions": "구독",
+        "download_short": "다운로드",
+        "mnemonics": "니모닉",
+        "wallet_short": "지갑",
+        "auth_short": "인증"
     },
     "token": {
         "24h_performance": "24시간 성과",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "확장 프로그램과 통신 중 오류 발생",
         "error_stopping_camera": "카메라를 중지하는 중 오류 발생",
         "face_detection_error": "얼굴 감지 실패",
+        "face_not_central": "얼굴이 중앙에 맞지 않습니다. 프레임 안에서 얼굴 위치를 조정한 후 다시 시도해 주세요.",
         "incorrect_passphrase": "마스터 비밀번호가 올바르지 않습니다. 다시 시도해 주세요.",
         "no_decrypted_data_received_from_api": "서버로부터 복호화된 데이터를 받지 못했습니다",
         "no_zelfproof_available_for_password_decryption": "비밀번호 복호화를 위한 ZelfProof를 사용할 수 없습니다",

@@ -1,8 +1,9 @@
 @use "../../styles/variables";
 
 .domain-modal {
-    width: 400px;
-    padding: 24px;
+    width: 100%;
+    max-width: min(400px, var(--zns-card-width, 400px));
+    padding: calc(24px * var(--zns-space-scale, 1));
     box-sizing: border-box;
     background: variables.$themeBackgroundSecondary;
     border-top-left-radius: 32px;
@@ -11,11 +12,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 24px;
+    gap: calc(24px * var(--zns-space-scale, 1));
     font-family: variables.$themeBodyFamily;
     position: relative;
     margin: 0 auto;
-    width: 100%;
 
     &__exit {
         align-items: center;
@@ -24,17 +24,17 @@
         border: none;
         cursor: pointer;
         display: flex;
-        height: 48px;
+        height: calc(48px * var(--zns-space-scale, 1));
         justify-content: center;
-        margin: 8px;
-        min-height: 48px;
-        min-width: 48px;
+        margin: calc(8px * var(--zns-space-scale, 1));
+        min-height: calc(48px * var(--zns-space-scale, 1));
+        min-width: calc(48px * var(--zns-space-scale, 1));
         outline: none;
-        padding: 8px;
+        padding: calc(8px * var(--zns-space-scale, 1));
         position: absolute;
         right: 0;
         top: 0;
-        width: 48px;
+        width: calc(48px * var(--zns-space-scale, 1));
         transition:
             color 0.2s variables.$smoothBezier,
             background-color 0.2s variables.$smoothBezier;
@@ -42,8 +42,8 @@
         svg {
             transition: fill 0.2s variables.$smoothBezier;
             fill: variables.$themeText;
-            height: 16px;
-            width: 16px;
+            height: calc(16px * var(--zns-space-scale, 1));
+            width: calc(16px * var(--zns-space-scale, 1));
         }
 
         &:hover {
@@ -60,12 +60,11 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        width: 100%;
+        gap: calc(12px * var(--zns-space-scale, 1));
 
         .zelf-radio {
             svg {
-                right: 16.3px;
+                right: calc(16.3px * var(--zns-space-scale, 1));
                 left: initial;
             }
         }
@@ -78,11 +77,11 @@
     display: flex;
     flex-direction: column;
     color: variables.$themeText;
-    font-size: 14px;
+    font-size: calc(14px * var(--zns-font-scale, 1));
     font-weight: 500;
-    line-height: 20px;
+    line-height: calc(20px * var(--zns-font-scale, 1));
     letter-spacing: 0.1px;
-    margin: 42px auto 0;
+    margin: calc(42px * var(--zns-space-scale, 1)) auto 0;
 }
 
 .domain-option {
@@ -93,13 +92,13 @@
 .domain-info {
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
+    gap: calc(12px * var(--zns-space-scale, 1));
     display: flex;
 }
 
 .domain-icon {
-    width: 40px;
-    height: 40px;
+    width: calc(40px * var(--zns-space-scale, 1));
+    height: calc(40px * var(--zns-space-scale, 1));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -128,13 +127,13 @@
 }
 
 .icon-image {
-    width: 24px;
-    height: 24px;
+    width: calc(24px * var(--zns-space-scale, 1));
+    height: calc(24px * var(--zns-space-scale, 1));
 }
 
 .zelf-icon {
-    width: 24px;
-    height: 24px;
+    width: calc(24px * var(--zns-space-scale, 1));
+    height: calc(24px * var(--zns-space-scale, 1));
 }
 
 .domain-name {
@@ -143,9 +142,9 @@
     display: flex;
     flex-direction: column;
     color: variables.$themeText;
-    font-size: 14px;
+    font-size: calc(14px * var(--zns-font-scale, 1));
     font-weight: 600;
-    line-height: 20px;
+    line-height: calc(20px * var(--zns-font-scale, 1));
     letter-spacing: 0.1px;
 }
 

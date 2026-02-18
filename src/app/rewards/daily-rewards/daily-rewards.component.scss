@@ -22,13 +22,13 @@
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-items: center;
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
-        padding: 24px;
+        padding: calc(24px * var(--zns-space-scale, 1));
         z-index: 10;
     }
 
@@ -58,8 +58,8 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 300;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -71,8 +71,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 24px 24px;
-        gap: 16px;
+        padding: 0 calc(24px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
         flex: 1;
     }
 
@@ -82,19 +82,19 @@
 
     &__headline {
         font-family: variables.$themeTitleFamily;
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         font-weight: 700;
         text-transform: uppercase;
-        line-height: 32px;
+        line-height: calc(32px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
     }
 
     &__subtitle {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: variables.$themeTextSecondary;
         margin: 0;
@@ -103,12 +103,12 @@
     &__wheel-container {
         position: relative;
         width: 100%;
-        max-width: 320px;
+        max-width: min(320px, var(--zns-card-width, 320px));
         aspect-ratio: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 16px 0;
+        margin: calc(16px * var(--zns-space-scale, 1)) 0;
     }
 
     &__loading-overlay {
@@ -120,13 +120,13 @@
         z-index: 20;
         background: rgba(0, 0, 0, 0.3);
         border-radius: 50%;
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(calc(2px * var(--zns-space-scale, 1)));
     }
 
     &__spinner {
-        width: 48px;
-        height: 48px;
-        border: 4px solid rgba(255, 255, 255, 0.3);
+        width: calc(48px * var(--zns-space-scale, 1));
+        height: calc(48px * var(--zns-space-scale, 1));
+        border: calc(4px * var(--zns-space-scale, 1)) solid rgba(255, 255, 255, 0.3);
         border-top-color: #fff;
         border-radius: 50%;
         animation: spin 1s linear infinite;
@@ -140,7 +140,7 @@
 
     &__pointer {
         position: absolute;
-        top: -10px;
+        top: calc(-10px * var(--zns-space-scale, 1));
         left: 50%;
         transform: translateX(-50%) rotate(180deg);
         z-index: 10;
@@ -157,7 +157,7 @@
         height: 100%;
         border-radius: 50%;
         box-shadow:
-            0 0 0 8px #dd2f00,
+            0 0 0 calc(8px * var(--zns-space-scale, 1)) #dd2f00,
             0 8px 32px rgba(0, 0, 0, 0.3);
         transition: opacity 0.3s ease;
 
@@ -172,17 +172,17 @@
     }
 
     &__error {
-        padding: 12px 20px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
         background: rgba(255, 87, 34, 0.1);
         border: 1px solid rgba(255, 87, 34, 0.3);
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
         text-align: center;
         animation: fadeIn 0.3s ease-out;
     }
 
     &__error-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeText;
         margin: 0;
@@ -192,11 +192,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 12px;
-        padding: 20px 24px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(20px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
         background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
         border: 1px solid rgba(76, 175, 80, 0.3);
-        border-radius: 16px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         text-align: center;
         animation: fadeIn 0.5s ease-out;
     }
@@ -209,16 +209,16 @@
 
     &__claimed-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
     }
 
     &__claimed-amount {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeTextSecondary;
         margin: 0;
@@ -233,13 +233,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
-        margin-top: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        margin-top: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__countdown-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeTextMuted;
         margin: 0;
@@ -248,19 +248,19 @@
     &__countdown-timer {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__countdown-unit {
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-width: 40px;
+        min-width: calc(40px * var(--zns-space-scale, 1));
     }
 
     &__countdown-value {
         font-family: variables.$themeTitleFamily;
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: #ff5721;
         line-height: 1;
@@ -268,7 +268,7 @@
 
     &__countdown-unit-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 10px;
+        font-size: calc(10px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeTextMuted;
         text-transform: uppercase;
@@ -277,24 +277,24 @@
 
     &__countdown-separator {
         font-family: variables.$themeTitleFamily;
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: #ff5721;
         line-height: 1;
-        margin-bottom: 14px;
+        margin-bottom: calc(14px * var(--zns-space-scale, 1));
     }
 
     &__result {
-        padding: 16px 24px;
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
         background: linear-gradient(135deg, #ff8a65 0%, #ff5721 100%);
-        border-radius: 16px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         text-align: center;
         animation: fadeIn 0.5s ease-out;
     }
 
     &__result-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: white;
         margin: 0;
@@ -306,16 +306,16 @@
 
     &__spin-button {
         width: 100%;
-        max-width: 304px;
-        height: 56px;
-        padding: 0 24px;
+        max-width: min(304px, var(--zns-card-width, 304px));
+        height: calc(56px * var(--zns-space-scale, 1));
+        padding: 0 calc(24px * var(--zns-space-scale, 1));
         background: #181818;
         border: none;
-        border-radius: 16px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: white;
         cursor: pointer;
@@ -324,7 +324,7 @@
 
         &:hover:not(&--disabled) {
             background: #333;
-            transform: translateY(-2px);
+            transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
         }
 
         &:active:not(&--disabled) {
@@ -341,7 +341,7 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(calc(10px * var(--zns-space-scale, 1)));
     }
     to {
         opacity: 1;
@@ -353,15 +353,15 @@
 @media (max-width: variables.$minSmall) {
     .daily-rewards {
         &__wheel-container {
-            max-width: 280px;
+            max-width: min(280px, var(--zns-card-width, 280px));
         }
 
         &__headline {
-            font-size: 20px;
+            font-size: calc(20px * var(--zns-font-scale, 1));
         }
 
         &__spin-button {
-            height: 48px;
+            height: calc(48px * var(--zns-space-scale, 1));
         }
     }
 }

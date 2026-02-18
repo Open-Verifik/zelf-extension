@@ -35,6 +35,7 @@
         "domain_or_address": "النطاق أو العنوان",
         "enter_amount_to_send": "أدخل المبلغ المراد إرساله",
         "external_address_found": "تم العثور على عنوان خارجي",
+        "recent_addresses": "الأخيرة",
         "used": "تم الاستخدام منذ {{days}} يوم",
         "withdrawal_amount": "مبلغ السحب",
         "zelf_name_not_registered": "اسم العلامة غير مسجل",
@@ -131,6 +132,7 @@
         "password_strength_label": "قوة كلمة المرور",
         "password_subtitle": "أدخل كلمة المرور المخصصة لاسم العلامة هذا لإكمال عملية فك التشفير.",
         "pin_description": "إنشاء رمز PIN مكون من 6 أرقام",
+        "pin_unlock_description": "استخدم رمز PIN الخاص بك لفتح ZelfProof",
         "pin_title": "PIN",
         "secure_password_description": "طبقة أمان إضافية",
         "secure_password_title": "كلمة مرور آمنة",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "الاشتراكات"
+        "subscriptions": "الاشتراكات",
+        "download_short": "تحميل",
+        "mnemonics": "المفاتيح",
+        "wallet_short": "محفظة",
+        "auth_short": "توثيق"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",
@@ -410,6 +416,7 @@
         "error_sending_decryption_result_to_background": "خطأ في الاتصال بالامتداد",
         "error_stopping_camera": "خطأ في إيقاف الكاميرا",
         "face_detection_error": "فشل اكتشاف الوجه",
+        "face_not_central": "وجهك غير مركّز. يرجى ضبط موضع وجهك في الإطار والمحاولة مرة أخرى.",
         "incorrect_passphrase": "تم إدخال كلمة المرور الرئيسية بشكل غير صحيح. يرجى المحاولة مرة أخرى.",
         "no_decrypted_data_received_from_api": "لم يتم استلام بيانات مفككة التشفير من الخادم",
         "no_zelfproof_available_for_password_decryption": "لا يتوفر ZelfProof لفك تشفير كلمة المرور",

@@ -3,16 +3,16 @@
 .home-banners {
     width: 100%;
     padding: 0;
-    margin-top: 16px;
+    margin-top: calc(16px * var(--zns-space-scale, 1));
 
     @media (max-width: variables.$minSmall) {
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
     }
-    margin-bottom: 8px;
+    margin-bottom: calc(8px * var(--zns-space-scale, 1));
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: calc(8px * var(--zns-space-scale, 1));
     user-select: none;
     touch-action: pan-y;
 
@@ -20,7 +20,7 @@
         width: 100%;
         position: relative;
         overflow: hidden;
-        border-radius: 24px;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
     }
 
     &__slide-wrapper {
@@ -51,11 +51,11 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        height: 77px;
-        padding: 16px 16px 16px 8px;
-        border-radius: 24px;
+        height: calc(77px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+        border-radius: calc(24px * var(--zns-space-scale, 1));
         cursor: pointer;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
         &:hover {
@@ -88,8 +88,8 @@
     }
 
     &__icon-container {
-        width: 80px;
-        height: 64px;
+        width: calc(80px * var(--zns-space-scale, 1));
+        height: calc(64px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -109,7 +109,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         min-width: 0;
     }
 
@@ -124,9 +124,9 @@
 
     &__title {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         margin: 0;
         text-align: left;
@@ -142,9 +142,9 @@
 
     &__subtitle {
         font-family: variables.$themeBodyFamily;
-        font-size: 10px;
+        font-size: calc(10px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: 16px;
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         margin: 0;
         text-align: left;
@@ -159,14 +159,14 @@
     }
 
     &__arrow {
-        width: 28px;
-        height: 28px;
+        width: calc(28px * var(--zns-space-scale, 1));
+        height: calc(28px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 24px;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
         flex-shrink: 0;
-        padding: 6px;
+        padding: calc(6px * var(--zns-space-scale, 1));
         transition: transform 0.2s variables.$smoothBezier;
 
         &--expiration {
@@ -188,13 +188,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__dot {
-        width: 16px;
-        height: 4px;
-        border-radius: 8px;
+        width: calc(16px * var(--zns-space-scale, 1));
+        height: calc(4px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         border: none;
         padding: 0;
         cursor: pointer;
@@ -215,7 +215,6 @@
     }
 }
 
-// Slide animations
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -249,18 +248,17 @@
     }
 }
 
-// Responsive adjustments
 @media (max-width: variables.$minSmall) {
     .home-banners {
         &__slide {
             height: auto;
-            min-height: 70px;
-            padding: 12px 12px 12px 4px;
+            min-height: calc(70px * var(--zns-space-scale, 1));
+            padding: calc(12px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1));
         }
 
         &__icon-container {
-            width: 64px;
-            height: 52px;
+            width: calc(64px * var(--zns-space-scale, 1));
+            height: calc(52px * var(--zns-space-scale, 1));
 
             svg {
                 transform: scale(0.85);
@@ -268,17 +266,17 @@
         }
 
         &__title {
-            font-size: 13px;
+            font-size: calc(13px * var(--zns-font-scale, 1));
         }
 
         &__subtitle {
-            font-size: 9px;
+            font-size: calc(9px * var(--zns-font-scale, 1));
         }
 
         &__arrow {
-            width: 24px;
-            height: 24px;
-            padding: 4px;
+            width: calc(24px * var(--zns-space-scale, 1));
+            height: calc(24px * var(--zns-space-scale, 1));
+            padding: calc(4px * var(--zns-space-scale, 1));
         }
     }
 }

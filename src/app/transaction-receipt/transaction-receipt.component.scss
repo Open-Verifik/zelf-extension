@@ -11,14 +11,17 @@
 
 .transaction-receipt {
     position: relative;
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -53,12 +56,13 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 500;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
     }
 
     &__form {
@@ -67,7 +71,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         flex-grow: 1;
     }
 
@@ -81,15 +85,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
-        padding: 0 24px;
+        padding: 0 calc(24px * var(--zns-space-scale, 1));
         max-width: 100%;
-        padding: 0 24px;
     }
 
     &__price-amount-container {
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         max-width: 100%;
         overflow-x: auto;
         box-sizing: border-box;
@@ -101,29 +104,28 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__empty {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
         width: 100%;
     }
 
     &__message {
-        font-size: 1.5rem;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
-        margin-bottom: 4px;
-        padding: 16px;
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__summary {
@@ -131,17 +133,17 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__label {
         display: flex;
         font-family: variables.$themeBodyFamily;
         font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
@@ -154,12 +156,12 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex: 1 1 auto;
 
         svg {
-            min-width: 12px;
-            min-height: 12px;
+            min-width: calc(12px * var(--zns-space-scale, 1));
+            min-height: calc(12px * var(--zns-space-scale, 1));
         }
 
         &--column {
@@ -174,8 +176,8 @@
         justify-content: flex-end;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 15px;
-        line-height: 20px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeText;
@@ -189,41 +191,41 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         text-align: right;
     }
 
     &__value-light {
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$themeBorderHover;
-        margin-left: 8px;
+        margin-left: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__logo-container {
         position: relative;
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-end;
-        width: 36px;
-        height: 36px;
-        margin-right: 12px;
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        margin-right: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__logo {
-        width: 36px;
-        height: 36px;
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
         border-radius: 36px;
         object-fit: contain;
 
         &--network {
             position: absolute;
-            bottom: -4px;
-            right: -4px;
-            height: 16px;
-            width: 16px;
+            bottom: calc(-4px * var(--zns-space-scale, 1));
+            right: calc(-4px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
+            width: calc(16px * var(--zns-space-scale, 1));
             object-fit: contain;
             border-radius: 16px;
             border: 2px solid variables.$themeCard;
@@ -231,7 +233,7 @@
     }
 
     &__price {
-        font-size: 32px;
+        font-size: calc(32px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
         font-family: variables.$themeTitleFamily;
@@ -239,32 +241,32 @@
     }
 
     &__price-currency {
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$themeText;
         font-family: variables.$themeBodyFamily;
-        margin: 0 0 8px;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__action-row--auto-height {
         height: auto;
-        min-height: 67px;
+        min-height: calc(67px * var(--zns-space-scale, 1));
     }
 
     @media (max-width: variables.$minSmall) {
         &__price {
-            font-size: 28px;
+            font-size: calc(28px * var(--zns-font-scale, 1));
         }
 
         &__label {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
 
         &__value {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
     }
 }

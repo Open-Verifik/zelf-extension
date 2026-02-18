@@ -10,8 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    padding: 16px;
+    gap: calc(24px * var(--zns-space-scale, 1));
+    padding: calc(16px * var(--zns-space-scale, 1));
     border-radius: 16px;
     background-color: transparent;
     transition: background-color 0.3s variables.$smoothBezier;
@@ -20,14 +20,14 @@
     cursor: pointer;
 
     @media (max-width: variables.$minSmall) {
-        gap: 18px;
+        gap: calc(18px * var(--zns-space-scale, 1));
     }
 
     &__icon {
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
+        height: calc(40px * var(--zns-space-scale, 1));
+        width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
         object-fit: contain;
     }
 
@@ -40,7 +40,7 @@
     &__info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: flex-start;
         flex: 1 1 auto;
@@ -49,7 +49,7 @@
     &__network-info {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-start;
     }
@@ -57,8 +57,8 @@
     &__network {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -66,15 +66,15 @@
     }
 
     &__network-chip {
-        height: 20;
-        border-radius: 24px;
-        gap: 10px;
-        padding: 2px 8px;
+        height: calc(20px * var(--zns-space-scale, 1));
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        gap: calc(10px * var(--zns-space-scale, 1));
+        padding: calc(2px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
         margin: 0;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
@@ -85,8 +85,8 @@
     &__name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
@@ -96,7 +96,7 @@
     &__balance {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-end;
     }
@@ -104,8 +104,8 @@
     &__balance-amount {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
     }
@@ -113,8 +113,8 @@
     &__fiat-amount {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
@@ -124,7 +124,7 @@
     &__buttons {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
     }

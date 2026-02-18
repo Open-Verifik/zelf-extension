@@ -7,24 +7,24 @@
     right: 0;
     bottom: 0;
     display: inline-flex;
-    height: 82px;
+    height: calc(82px * var(--zns-space-scale, 1));
     justify-content: center;
     position: absolute;
     width: 100%;
     z-index: 1000;
-    padding: 0 24px;
+    padding: 0 calc(24px * var(--zns-space-scale, 1));
 }
 
 .footer-link {
     align-items: center;
     display: flex;
     flex: 1 1 0;
-    gap: 12px;
+    gap: calc(12px * var(--zns-space-scale, 1));
     justify-content: center;
-    padding: 8px 24px;
+    padding: calc(8px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
 
     @media (max-width: variables.$medium) {
-        padding: 6px 12px;
+        padding: calc(6px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
     }
 
     &__button {
@@ -33,9 +33,9 @@
         border-radius: 56px;
         cursor: pointer;
         display: flex;
-        height: 56px;
+        height: calc(56px * var(--zns-action-scale, 1));
         justify-content: center;
-        width: 56px;
+        width: calc(56px * var(--zns-action-scale, 1));
         border: none !important;
         transition:
             color 0.3s variables.$smoothBezier,

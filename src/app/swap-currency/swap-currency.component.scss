@@ -4,7 +4,7 @@
 :host {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
     width: 100%;
     flex: 1 1 auto;
 }
@@ -13,7 +13,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
     width: 100%;
     flex: 1 1 auto;
     height: 100%;
@@ -27,7 +27,7 @@
 
     &__filters {
         display: flex;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         flex-direction: column;
         width: 100%;
     }
@@ -39,14 +39,14 @@
 
     &__search-icon {
         color: variables.$themeTextSecondary;
-        margin-right: 24px;
+        margin-right: calc(24px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
 
         svg {
-            width: 24px;
-            height: 24px;
+            width: calc(24px * var(--zns-space-scale, 1));
+            height: calc(24px * var(--zns-space-scale, 1));
             fill: variables.$themeTextSecondary;
         }
     }
@@ -55,21 +55,21 @@
         display: flex;
         width: 100%;
         max-width: 100%;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         overflow-x: auto;
         scroll-behavior: smooth;
     }
 
     &__network-filter {
         display: flex;
-        min-width: 51px;
-        gap: 8px;
-        height: 36px;
-        min-height: 36px;
+        min-width: calc(51px * var(--zns-space-scale, 1));
+        gap: calc(8px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-height: calc(36px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
     }
@@ -77,23 +77,23 @@
     &__assets {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         width: 100%;
         flex: 1 1 auto;
         height: 100%;
-        max-height: 490px;
+        max-height: calc(490px * var(--zns-space-scale, 1));
         overflow-y: auto;
     }
 
     &__asset {
         display: flex;
         width: 100%;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         align-items: center;
         flex: 1 1 auto;
         cursor: pointer;
-        padding: 16px;
-        max-height: 72px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        max-height: calc(72px * var(--zns-space-scale, 1));
         border-radius: 16px;
         box-sizing: border-box;
         transition: background-color 0.2s variables.$smoothBezier;
@@ -109,7 +109,7 @@
 
     &__asset-info {
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         align-items: center;
 
         &--left {
@@ -127,7 +127,7 @@
     &__asset-col {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
 
         &--right {
             justify-content: flex-end;
@@ -135,10 +135,10 @@
     }
 
     &__asset-image {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        min-height: 32px;
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
+        min-width: calc(32px * var(--zns-space-scale, 1));
+        min-height: calc(32px * var(--zns-space-scale, 1));
         border-radius: 32px;
         object-fit: contain;
         overflow: hidden;
@@ -147,8 +147,8 @@
     &__asset-name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: left;
         vertical-align: middle;
@@ -156,21 +156,21 @@
         margin: 0;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__asset-name-text {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        max-width: 240px;
+        max-width: calc(240px * var(--zns-space-scale, 1));
     }
 
     &__asset-symbol {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 12px;
-        line-height: 16px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
@@ -180,8 +180,8 @@
     &__asset-balance {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: variables.$themeText;
         margin: 0;
@@ -191,8 +191,8 @@
     &__asset-balance-fiat {
         font-family: variables.$themeBodyFamily;
         font-weight: 400;
-        font-size: 12px;
-        line-height: 18px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: variables.$themeTextSecondary;
         margin: 0;

@@ -116,6 +116,11 @@
         width: 100%;
     }
 
+    &__address-icon {
+        flex-shrink: 0;
+        fill: variables.$themeText;
+    }
+
     &__fiat-price {
         box-sizing: border-box;
         color: variables.$themeTextSecondary;
@@ -171,6 +176,110 @@
         align-items: flex-start;
     }
 
+    &__address-book-label {
+        display: flex;
+        align-items: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: variables.$themeTextSecondary;
+        margin: calc(4px * var(--zns-space-scale, 1)) 0 0 calc(4px * var(--zns-space-scale, 1));
+
+        svg {
+            fill: variables.$themeTextSecondary;
+            flex-shrink: 0;
+        }
+    }
+
+    &__recent-card {
+        display: flex;
+        align-items: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+        border-radius: 16px;
+        border: 1.5px solid variables.$themeBorder;
+        background: variables.$themeCard;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease, background 0.2s ease;
+
+        &--selected {
+            border-color: variables.$primaryColor;
+            background: variables.$themeCard;
+        }
+
+        &:hover:not(&--selected) {
+            border-color: variables.$themeBorderHover;
+        }
+    }
+
+    &__recent-avatar {
+        flex-shrink: 0;
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        background: variables.$themeCardBorder;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: variables.$themeTitleFamily;
+        font-weight: 700;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+
+        svg {
+            fill: variables.$themeTextSecondary;
+        }
+    }
+
+    &__recent-info {
+        display: flex;
+        flex-direction: column;
+        gap: calc(2px * var(--zns-space-scale, 1));
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    &__recent-name {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 700;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: variables.$themeText;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__recent-address {
+        font-family: variables.$themeMonospaceFamily;
+        font-size: calc(10px * var(--zns-font-scale, 1));
+        line-height: calc(14px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__recent-time {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(10px * var(--zns-font-scale, 1));
+        line-height: calc(14px * var(--zns-font-scale, 1));
+        color: variables.$themeTextMuted;
+        letter-spacing: 0.2px;
+    }
+
+    &__recent-check {
+        flex-shrink: 0;
+        fill: variables.$correct;
+    }
+
     &__address-name-zelf-name {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
@@ -217,44 +326,97 @@
 }
 
 .zelf-object-preview {
-    margin: auto 0;
     max-width: var(--zns-card-width, 484px);
     width: 100%;
-    border-radius: 16px;
-    padding: calc(24px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-    gap: calc(12px * var(--zns-space-scale, 1));
-    border: 1px solid variables.$themeBorder;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border-radius: 14px;
+    padding: calc(10px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+    border: 1px solid variables.$correct;
     background-color: variables.$themeCard;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: calc(8px * var(--zns-space-scale, 1));
 
-    @media (max-width: variables.$minSmall) {
-        padding: calc(16px * var(--zns-space-scale, 1));
+    &__status {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: variables.$correct;
+        margin: 0;
+
+        svg {
+            fill: variables.$correct;
+            flex-shrink: 0;
+        }
     }
 
-    &__chip {
-        height: calc(48px * var(--zns-space-scale, 1));
-        border-radius: 48px;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        padding: 0 calc(16px * var(--zns-space-scale, 1));
-        border: 1px solid variables.$themeBorder;
-        background-color: variables.$themeCard;
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        width: 100%;
+    }
+
+    &__avatar {
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-width: calc(36px * var(--zns-space-scale, 1));
+        border-radius: 36px;
+        background-color: variables.$themeBackgroundSecondary;
+        color: variables.$themeText;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.04);
-        margin-bottom: calc(12px * var(--zns-space-scale, 1));
+        font-family: variables.$themeTitleFamily;
+        font-weight: 700;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        text-transform: uppercase;
+        flex-shrink: 0;
+    }
+
+    &__details {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    &__name {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 700;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
+        text-transform: uppercase;
+        color: variables.$themeText;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__address-short {
+        font-family: monospace;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__check {
+        flex-shrink: 0;
+        fill: variables.$correct;
     }
 
     &__icon-bubble {
         background-color: variables.$themeBackgroundSecondary;
         height: calc(32px * var(--zns-space-scale, 1));
         width: calc(32px * var(--zns-space-scale, 1));
-        max-height: calc(32px * var(--zns-space-scale, 1));
-        max-width: calc(32px * var(--zns-space-scale, 1));
         border-radius: 48px;
         display: flex;
         align-items: center;
@@ -268,51 +430,6 @@
             background-color: variables.$error;
             color: white;
         }
-    }
-
-    &__chip-text {
-        font-family: variables.$themeBodyFamily;
-        font-weight: 600;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        color: variables.$themeText;
-        margin: 0;
-        text-transform: uppercase;
-    }
-
-    &__zelf-name {
-        font-family: variables.$themeTitleFamily;
-        font-weight: 700;
-        font-size: calc(24px * var(--zns-font-scale, 1));
-        line-height: calc(32px * var(--zns-font-scale, 1));
-        letter-spacing: 0%;
-        width: 100%;
-        text-align: center;
-        text-transform: uppercase;
-        color: variables.$themeText;
-        margin: 0;
-        word-wrap: break-word;
-        overflow-wrap: anywhere;
-
-        @media (max-width: variables.$minSmall) {
-            font-size: calc(18px * var(--zns-font-scale, 1));
-            line-height: calc(20px * var(--zns-font-scale, 1));
-        }
-    }
-
-    &__address {
-        font-family: variables.$themeBodyFamily;
-        font-weight: 600;
-        font-size: calc(12px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        text-align: center;
-        vertical-align: middle;
-        color: variables.$themeText;
-        margin: 0;
-        word-wrap: break-word;
-        overflow-wrap: anywhere;
     }
 
     &__horizontal-rule {

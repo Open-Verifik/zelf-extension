@@ -16,17 +16,20 @@
 .manage-domain {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: calc(24px * var(--zns-space-scale, 1));
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
-        column-gap: 12px;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -65,52 +68,52 @@
 
     &__content {
         width: 100%;
-        max-width: 800px;
+        max-width: min(800px, var(--zns-card-width, 800px));
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
     }
 
     &__details {
         width: 100%;
-        gap: 6px;
-        max-width: 400px;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        max-width: min(400px, var(--zns-card-width, 400px));
     }
 
     &__detail {
         display: flex;
         flex-direction: row;
         width: 100%;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: space-between;
         align-items: center;
         background-color: variables.$themeCardBorder;
-        padding: 24px 16px;
+        padding: calc(24px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         border-radius: 16px;
 
         &-title {
             margin: 0;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeTextSecondary;
         }
 
         &-value {
             margin: 0;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeText;
         }
     }
 
     &__actions {
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 100%;
-        max-width: 400px;
+        max-width: min(400px, var(--zns-card-width, 400px));
     }
 }
 
@@ -122,14 +125,14 @@
     flex-direction: column;
     justify-content: center;
     max-height: initial;
-    max-width: 516px;
-    padding: 16px;
+    max-width: min(516px, var(--zns-card-width, 516px));
+    padding: calc(16px * var(--zns-space-scale, 1));
     width: 100%;
 
     &__image {
         object-fit: contain;
-        min-height: 196px;
-        min-width: 196px;
+        min-height: calc(196px * var(--zns-space-scale, 1));
+        min-width: calc(196px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -137,13 +140,13 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        padding: 4px 8px;
+        padding: calc(4px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
         border-radius: 12px;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeText;
         background-color: variables.$themeText;
-        margin: 4px 0 0;
+        margin: calc(4px * var(--zns-space-scale, 1)) 0 0;
 
         &--active {
             background-color: variables.$correctLight;
@@ -162,15 +165,15 @@
     }
 
     &__name {
-        font-size: 20px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
         font-weight: 400;
         font-family: variables.$themeTitleFamily;
         color: variables.$themeText;
-        margin: 16px 0 0;
+        margin: calc(16px * var(--zns-space-scale, 1)) 0 0;
     }
 
     &__status {
         color: variables.$themeTextSecondary;
-        margin: 8px 0 0;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
     }
 }

@@ -18,7 +18,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 4px;
+        padding: calc(4px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -27,29 +27,29 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding: 40px 24px;
-        gap: 20px;
+        padding: calc(40px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+        gap: calc(20px * var(--zns-space-scale, 1));
     }
 
     &__icon-container {
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         border-radius: 50%;
         background-color: variables.$errorLight;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 8px;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
 
         svg {
-            width: 32px;
-            height: 32px;
+            width: calc(32px * var(--zns-space-scale, 1));
+            height: calc(32px * var(--zns-space-scale, 1));
         }
     }
 
     &__title {
         color: variables.$themeText;
         font-family: variables.$themeBodyFamily;
-        font-size: 20px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
         font-weight: 600;
         margin: 0;
         letter-spacing: -0.01em;

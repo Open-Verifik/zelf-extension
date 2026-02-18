@@ -4,36 +4,36 @@
 .recover-zotp {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: calc(20px * var(--zns-space-scale, 1));
+    padding: calc(20px * var(--zns-space-scale, 1));
     max-height: 90vh;
     overflow-y: auto;
 
     &__step {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     @media (max-width: 400px) {
-        padding: 16px;
-        gap: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        padding-bottom: 4px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding-bottom: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
+        line-height: calc(24px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
         flex: 1;
@@ -43,11 +43,11 @@
         cursor: pointer;
         border: none;
         background: none;
-        padding: 8px;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-width: calc(36px * var(--zns-space-scale, 1));
+        min-height: calc(36px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,18 +72,18 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
     }
 
     &__description {
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackgroundSecondary;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
 
         p {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
-            line-height: 20px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
             color: variables.$themeText;
             margin: 0;
         }
@@ -94,7 +94,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 20px;
+        padding: calc(20px * var(--zns-space-scale, 1));
         text-align: center;
         width: 100%;
     }
@@ -102,31 +102,31 @@
     &__manual-entry {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__manual-title {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeText;
-        margin: 12px 0;
+        margin: calc(12px * var(--zns-space-scale, 1)) 0;
         text-align: center;
     }
 
     &__manual-input {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
     }
 
     &__add-button {
-        padding: 10px 20px;
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         background-color: variables.$themeText;
         color: variables.$themeBackground;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
 
         &:hover:not(:disabled) {
             background-color: variables.$themeTextMuted;
@@ -140,10 +140,10 @@
     &__shares-list {
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        padding: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__shares-header {
@@ -155,23 +155,23 @@
     &__shares-title {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
     }
 
     &__shares-threshold {
         font-weight: 400;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
-        margin-left: 8px;
+        margin-left: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__shares-items {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        max-height: 300px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        max-height: calc(300px * var(--zns-space-scale, 1));
         overflow-y: auto;
     }
 
@@ -179,36 +179,36 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackground;
         border: 1px solid variables.$themeTextMuted;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__share-info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         flex: 1;
     }
 
     &__share-number {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeText;
     }
 
     &__share-participant {
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
     }
 
     &__share-remove {
-        padding: 4px;
-        width: 32px;
-        height: 32px;
+        padding: calc(4px * var(--zns-space-scale, 1));
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
         color: variables.$error;
 
         &:hover {
@@ -217,13 +217,13 @@
     }
 
     &__threshold-info {
-        padding: 12px 16px;
-        border-radius: 8px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__threshold-success {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$correct;
         margin: 0;
         font-weight: 500;
@@ -231,75 +231,75 @@
 
     &__threshold-warning {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$warning;
         margin: 0;
         font-weight: 500;
     }
 
     &__error {
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$errorLight;
         border: 1px solid variables.$error;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         color: variables.$error;
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
     }
 
     &__success-message {
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$correctLight;
         border: 1px solid variables.$correct;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         text-align: center;
 
         h4 {
             font-family: variables.$themeBodyFamily;
             font-weight: 600;
-            font-size: 18px;
+            font-size: calc(18px * var(--zns-font-scale, 1));
             color: variables.$correct;
-            margin: 0 0 8px 0;
+            margin: 0 0 calc(8px * var(--zns-space-scale, 1)) 0;
         }
 
         p {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeText;
             margin: 0;
         }
     }
 
     &__secret-preview {
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__secret-label {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeText;
-        margin-bottom: 8px;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__secret-code {
         display: block;
         font-family: variables.$themeMonospaceFamily;
-        font-size: 12px;
-        line-height: 18px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         background-color: variables.$themeBackground;
-        padding: 12px;
-        border-radius: 4px;
+        padding: calc(12px * var(--zns-space-scale, 1));
+        border-radius: calc(4px * var(--zns-space-scale, 1));
         word-break: break-all;
         user-select: all;
     }
 
     &__actions {
         display: flex;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
 
         @media (max-width: 600px) {
             flex-direction: column;

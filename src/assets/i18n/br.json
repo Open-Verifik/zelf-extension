@@ -35,6 +35,7 @@
         "domain_or_address": "Domínio ou endereço",
         "enter_amount_to_send": "Digite o valor a enviar",
         "external_address_found": "Endereço externo encontrado",
+        "recent_addresses": "Recentes",
         "used": "Usado há {{days}} dias",
         "withdrawal_amount": "Valor do saque",
         "zelf_name_not_registered": "Nome da Tag não registrado",
@@ -131,6 +132,7 @@
         "password_strength_label": "Força da Senha",
         "password_subtitle": "Digite a senha atribuída a este Tag Name para completar o processo de descriptografia.",
         "pin_description": "Criar um PIN de 6 dígitos",
+        "pin_unlock_description": "Use seu PIN para desbloquear seu ZelfProof",
         "pin_title": "PIN",
         "secure_password_description": "Uma camada de segurança adicional",
         "secure_password_title": "Senha Segura",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "Subscriptions"
+        "subscriptions": "Subscriptions",
+        "download_short": "Baixar",
+        "mnemonics": "Mnemônicos",
+        "wallet_short": "Carteira",
+        "auth_short": "Auth"
     },
     "token": {
         "24h_performance": "Desempenho 24h",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "Error communicating with extension",
         "error_stopping_camera": "Error stopping camera",
         "face_detection_error": "Face detection failed",
+        "face_not_central": "Seu rosto não está centralizado. Por favor, ajuste sua posição e tente novamente.",
         "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
         "no_decrypted_data_received_from_api": "No decrypted data received from the server",
         "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",

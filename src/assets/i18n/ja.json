@@ -35,6 +35,7 @@
         "domain_or_address": "ドメインまたはアドレス",
         "enter_amount_to_send": "送信する金額を入力",
         "external_address_found": "外部アドレスが見つかりました",
+        "recent_addresses": "最近",
         "used": "{{days}}日前に使用",
         "withdrawal_amount": "出金額",
         "zelf_name_not_registered": "タグ名が登録されていません",
@@ -131,6 +132,7 @@
         "password_strength_label": "パスワードの強度",
         "password_subtitle": "復号化プロセスを完了するために、このタグ名に割り当てられたパスワードを入力してください。",
         "pin_description": "6桁のPINを作成",
+        "pin_unlock_description": "PINを使用してZelfProofのロックを解除",
         "pin_title": "PIN",
         "secure_password_description": "追加のセキュリティレイヤー",
         "secure_password_title": "セキュアパスワード",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf認証",
         "zelf_keys": "Zelfキー",
         "zelf_link": "Zelfリンク",
-        "subscriptions": "サブスクリプション"
+        "subscriptions": "サブスクリプション",
+        "download_short": "ダウンロード",
+        "mnemonics": "ニーモニック",
+        "wallet_short": "ウォレット",
+        "auth_short": "認証"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "拡張機能との通信エラーが発生しました",
         "error_stopping_camera": "カメラの停止中にエラーが発生しました",
         "face_detection_error": "顔の検出に失敗しました",
+        "face_not_central": "顔が中央にありません。フレーム内で顔の位置を調整して、もう一度お試しください。",
         "incorrect_passphrase": "マスターパスワードが正しくありません。もう一度お試しください。",
         "no_decrypted_data_received_from_api": "サーバーから復号されたデータを受信しませんでした",
         "no_zelfproof_available_for_password_decryption": "パスワード復号に使用できるZelfProofがありません",

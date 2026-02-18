@@ -15,7 +15,7 @@
 
 // Override zelf-card to be larger for this component
 .first-transaction.zelf-card {
-    width: 600px;
+    width: min(600px, var(--zns-card-width, 600px));
     max-width: 100%;
     min-height: 100%;
     margin: 0;
@@ -29,11 +29,11 @@
     &::before {
         content: "";
         position: absolute;
-        top: -100px;
+        top: calc(-100px * var(--zns-space-scale, 1));
         left: 50%;
         transform: translateX(-50%);
-        width: 600px;
-        height: 600px;
+        width: calc(600px * var(--zns-space-scale, 1));
+        height: calc(600px * var(--zns-space-scale, 1));
         background: radial-gradient(circle, rgba(255, 87, 33, 0.08) 0%, transparent 70%);
         pointer-events: none;
         z-index: 0;
@@ -47,25 +47,25 @@
         z-index: 0;
 
         &--inner {
-            width: 280px;
-            height: 280px;
+            width: calc(280px * var(--zns-space-scale, 1));
+            height: calc(280px * var(--zns-space-scale, 1));
             left: 50%;
-            top: 100px;
+            top: calc(100px * var(--zns-space-scale, 1));
             transform: translateX(-50%);
             opacity: 0.12;
             background: linear-gradient(180deg, #ff5721 0%, rgba(255, 87, 33, 0) 100%);
-            filter: blur(40px);
+            filter: blur(calc(40px * var(--zns-space-scale, 1)));
         }
 
         &--outer {
-            width: 400px;
-            height: 400px;
+            width: calc(400px * var(--zns-space-scale, 1));
+            height: calc(400px * var(--zns-space-scale, 1));
             left: 50%;
-            top: 50px;
+            top: calc(50px * var(--zns-space-scale, 1));
             transform: translateX(-50%);
             opacity: 0.08;
             background: linear-gradient(180deg, rgba(255, 87, 33, 0) 0%, #ff5721 100%);
-            filter: blur(60px);
+            filter: blur(calc(60px * var(--zns-space-scale, 1)));
         }
     }
 
@@ -73,13 +73,13 @@
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-items: center;
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
-        padding: 28px 32px;
+        padding: calc(28px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         z-index: 10;
         flex-shrink: 0;
     }
@@ -113,7 +113,7 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 20px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
         white-space: nowrap;
@@ -125,7 +125,7 @@
         width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
-        padding: 0 32px 32px;
+        padding: 0 calc(32px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -135,14 +135,14 @@
         z-index: 5;
 
         &::-webkit-scrollbar {
-            width: 6px;
+            width: calc(6px * var(--zns-space-scale, 1));
         }
         &::-webkit-scrollbar-track {
             background: transparent;
         }
         &::-webkit-scrollbar-thumb {
             background: variables.$themeBorder;
-            border-radius: 10px;
+            border-radius: calc(10px * var(--zns-space-scale, 1));
             &:hover {
                 background: variables.$themeTextMuted;
             }
@@ -152,11 +152,11 @@
     &__container {
         display: flex;
         width: 100%;
-        max-width: 480px;
+        max-width: min(480px, var(--zns-card-width, 480px));
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        gap: 28px;
+        gap: calc(28px * var(--zns-space-scale, 1));
         position: relative;
     }
 
@@ -166,10 +166,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 28px 28px 60px; // Extra bottom padding for overlap
+        padding: calc(28px * var(--zns-space-scale, 1)) calc(28px * var(--zns-space-scale, 1)) calc(60px * var(--zns-space-scale, 1));
         width: 100%;
         background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 35%, #ffb347 100%);
-        border-radius: 28px;
+        border-radius: calc(28px * var(--zns-space-scale, 1));
         overflow: hidden;
         flex-shrink: 0;
         box-shadow:
@@ -203,22 +203,22 @@
         position: absolute;
         top: -60%;
         right: -40%;
-        width: 300px;
-        height: 300px;
+        width: calc(300px * var(--zns-space-scale, 1));
+        height: calc(300px * var(--zns-space-scale, 1));
         background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
         pointer-events: none;
     }
 
     &__hero-icon {
-        width: 96px;
-        height: 96px;
+        width: calc(96px * var(--zns-space-scale, 1));
+        height: calc(96px * var(--zns-space-scale, 1));
         background: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(20px);
-        border-radius: 28px;
+        backdrop-filter: blur(calc(20px * var(--zns-space-scale, 1)));
+        border-radius: calc(28px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: calc(20px * var(--zns-space-scale, 1));
         animation: float 4s ease-in-out infinite;
         box-shadow:
             0 8px 32px rgba(0, 0, 0, 0.1),
@@ -246,7 +246,7 @@
             transform: translateY(0);
         }
         50% {
-            transform: translateY(-8px);
+            transform: translateY(calc(-8px * var(--zns-space-scale, 1)));
         }
     }
 
@@ -266,10 +266,10 @@
 
     &__hero-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 26px;
+        font-size: calc(26px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: white;
-        margin: 0 0 8px;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1));
         text-align: center;
         letter-spacing: -0.5px;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -277,7 +277,7 @@
 
     &__hero-subtitle {
         font-family: variables.$themeBodyFamily;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: rgba(255, 255, 255, 0.95);
         margin: 0;
@@ -289,9 +289,9 @@
 
     // Status Card Overlap
     &__status-card {
-        margin-top: -48px;
+        margin-top: calc(-48px * var(--zns-space-scale, 1));
         width: 100%;
-        max-width: 400px;
+        max-width: min(400px, var(--zns-card-width, 400px));
         position: relative;
         z-index: 10;
         flex-shrink: 0;
@@ -299,20 +299,20 @@
 
     &__status-card-inner {
         background: variables.$themeCard;
-        border-radius: 24px;
-        padding: 24px 28px;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        padding: calc(24px * var(--zns-space-scale, 1)) calc(28px * var(--zns-space-scale, 1));
         box-shadow: 0 12px 40px variables.$themeShadow;
         border: 1px solid variables.$themeBorder;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
         transition:
             transform 0.3s ease,
             box-shadow 0.3s ease;
 
         &:hover {
-            transform: translateY(-2px);
+            transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
             box-shadow:
                 0 16px 48px rgba(0, 0, 0, 0.1),
                 0 6px 16px rgba(0, 0, 0, 0.06);
@@ -321,7 +321,7 @@
 
     &__status-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 11px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeTextMuted;
         text-transform: uppercase;
@@ -336,9 +336,9 @@
 
     &__status-value {
         font-family: variables.$themeTitleFamily;
-        font-size: 36px;
+        font-size: calc(36px * var(--zns-font-scale, 1));
         font-weight: 800;
-        color: variables.$themeText; // Or use gradient text if supported
+        color: variables.$themeText;
         letter-spacing: -0.5px;
         background: linear-gradient(135deg, #ff6b35, #ffb347);
         -webkit-background-clip: text;
@@ -350,25 +350,25 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__step {
         display: flex;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         align-items: flex-start;
-        padding: 4px 0;
+        padding: calc(4px * var(--zns-space-scale, 1)) 0;
     }
 
     &__step-number {
-        width: 28px;
-        height: 28px;
+        width: calc(28px * var(--zns-space-scale, 1));
+        height: calc(28px * var(--zns-space-scale, 1));
         border-radius: 50%;
         background: linear-gradient(135deg, #ff6b35, #ff8a50);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: white;
         flex-shrink: 0;
@@ -378,18 +378,18 @@
     &__step-content {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
 
         strong {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             font-weight: 600;
             color: variables.$themeText;
         }
 
         span {
             font-family: variables.$themeBodyFamily;
-            font-size: 13px;
+            font-size: calc(13px * var(--zns-font-scale, 1));
             color: variables.$themeTextMuted;
             line-height: 1.4;
         }
@@ -398,10 +398,10 @@
     // Buttons
     &__action-btn {
         width: 100%;
-        height: 48px;
-        border-radius: 14px !important;
+        height: calc(48px * var(--zns-space-scale, 1));
+        border-radius: calc(14px * var(--zns-space-scale, 1)) !important;
         font-family: variables.$themeBodyFamily;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         font-weight: 600;
         letter-spacing: 0.3px;
 
@@ -412,7 +412,7 @@
             border: none;
 
             &:hover {
-                transform: translateY(-2px);
+                transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
                 background: variables.$themeButtonHover !important;
                 box-shadow: 0 12px 28px variables.$themeShadow !important;
             }
@@ -420,9 +420,9 @@
     }
 
     &__loader-spinner {
-        width: 32px;
-        height: 32px;
-        border: 3px solid rgba(255, 87, 33, 0.1);
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
+        border: calc(3px * var(--zns-space-scale, 1)) solid rgba(255, 87, 33, 0.1);
         border-top-color: #ff5721;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
@@ -448,10 +448,10 @@
 
     &__confetti {
         position: absolute;
-        top: -10px;
-        width: 10px;
-        height: 10px;
-        border-radius: 3px;
+        top: calc(-10px * var(--zns-space-scale, 1));
+        width: calc(10px * var(--zns-space-scale, 1));
+        height: calc(10px * var(--zns-space-scale, 1));
+        border-radius: calc(3px * var(--zns-space-scale, 1));
         animation: confettiFall linear forwards;
     }
 

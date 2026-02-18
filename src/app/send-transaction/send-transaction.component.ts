@@ -50,6 +50,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     form!: UntypedFormGroup;
     foundAddress?: TagModel;
+    isFromRecentAddress: boolean = false;
     isZelfNameNotFound: boolean = false;
     loading: boolean = true;
     price: number = 0;
@@ -240,6 +241,8 @@ export class SendTransactionComponent implements OnDestroy {
 
     private async _handleToAddressChange(text?: string): Promise<any> {
         if (this.searching || this.form.get("toAddress")?.invalid) return;
+
+        this.isFromRecentAddress = false;
 
         if (!text || !text.trim()) {
             this.isZelfNameNotFound = false;
@@ -621,9 +624,28 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     selectRecentAddress(address: AddressBook): void {
-        if (this.searching || this.form.get("toAddress")?.value === address) return;
+        if (this.searching) return;
 
-        this.form.get("toAddress")?.patchValue(address.address);
+        const currentValue = this.form.get("toAddress")?.value;
+
+        if (currentValue === address.address) {
+            // Deselect: clear without triggering the debounced search
+            this.form.get("toAddress")?.patchValue("", { emitEvent: false });
+            this.foundAddress = undefined;
+            this.isFromRecentAddress = false;
+            this.isZelfNameNotFound = false;
+            this._setToCurrentTransactionData();
+            return;
+        }
+
+        // Patch without emitting so valueChanges / debounced search never fires
+        this.form.get("toAddress")?.patchValue(address.address, { emitEvent: false });
+
+        // Build foundAddress directly from the address book entry
+        this._setRawAddressToFoundAddress(address.address, this.addressKey);
+
+        this.isFromRecentAddress = true;
+        this._setToCurrentTransactionData();
     }
 
     async sendTransaction(): Promise<void> {

@@ -35,6 +35,7 @@
         "domain_or_address": "ڈومین یا پتہ",
         "enter_amount_to_send": "بھیجنے کی رقم درج کریں",
         "external_address_found": "بیرونی پتہ مل گیا",
+        "recent_addresses": "حالیہ",
         "used": "{{days}} پہلے استعمال کیا گیا",
         "withdrawal_amount": "نکالنے کی رقم",
         "zelf_name_not_registered": "زیلف نام رجسٹرڈ نہیں ہے",
@@ -131,6 +132,7 @@
         "password_strength_label": "پاس ورڈ کی طاقت",
         "password_subtitle": "ڈکرپشن کے عمل کو مکمل کرنے کے لیے اس زیلف نام کے لیے تفویض کردہ پاس ورڈ درج کریں۔",
         "pin_description": "6 ہندسوں کا PIN بنائیں",
+        "pin_unlock_description": "اپنے ZelfProof کو ان لاک کرنے کے لیے اپنا PIN استعمال کریں",
         "pin_title": "PIN",
         "secure_password_description": "ایک اضافی سیکیورٹی لیئر",
         "secure_password_title": "محفوظ پاس ورڈ",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "زیلف توثیق کار",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "سبسکرپشنز"
+        "subscriptions": "سبسکرپشنز",
+        "download_short": "ڈاؤن لوڈ",
+        "mnemonics": "والیٹ کلیدیں",
+        "wallet_short": "والیٹ",
+        "auth_short": "Auth"
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "ایکسٹینشن کے ساتھ مواصلت میں غلطی",
         "error_stopping_camera": "کیمرہ روکنے میں غلطی",
         "face_detection_error": "چہرے کی شناخت ناکام ہو گئی",
+        "face_not_central": "آپ کا چہرہ مرکز میں نہیں ہے۔ براہ کرم فریم میں اپنے چہرے کی پوزیشن ایڈجسٹ کریں اور دوبارہ کوشش کریں۔",
         "incorrect_passphrase": "ماسٹر پاس ورڈ غلط درج کیا گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
         "no_decrypted_data_received_from_api": "سرور سے کوئی ڈکرپٹ شدہ ڈیٹا موصول نہیں ہوا",
         "no_zelfproof_available_for_password_decryption": "پاس ورڈ ڈکرپشن کے لیے کوئی ZelfProof دستیاب نہیں ہے",

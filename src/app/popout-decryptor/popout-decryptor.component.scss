@@ -9,8 +9,8 @@
 
 .password-decryptor {
     position: relative;
-    width: 375px;
-    height: 600px;
+    width: var(--zns-card-width, 375px);
+    height: var(--zns-card-min-height, 600px);
     overflow: hidden;
     background: variables.$themeBackground;
 
@@ -21,16 +21,16 @@
         right: 0;
         z-index: 10;
         background: linear-gradient(to bottom, variables.$themeBackground 0%, variables.$themeBackgroundSecondary 50%, transparent 100%);
-        backdrop-filter: blur(10px);
-        padding: 12px 16px 20px 16px;
+        backdrop-filter: blur(calc(10px * var(--zns-space-scale, 1)));
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         text-align: center;
     }
 
     &__icon {
-        font-size: 24px;
-        width: 24px;
-        height: 24px;
-        margin-bottom: 4px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        width: calc(24px * var(--zns-space-scale, 1));
+        height: calc(24px * var(--zns-space-scale, 1));
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -38,7 +38,7 @@
 
     &__title {
         margin: 0;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
     }
@@ -47,8 +47,8 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 375px;
-        height: 600px;
+        width: var(--zns-card-width, 375px);
+        height: var(--zns-card-min-height, 600px);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -56,18 +56,18 @@
 
     &__loading,
     &__error {
-        padding: 20px;
+        padding: calc(20px * var(--zns-space-scale, 1));
         text-align: center;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         background: variables.$themeBackground;
-        margin: 20px;
+        margin: calc(20px * var(--zns-space-scale, 1));
     }
 
     &__error-icon {
-        font-size: 32px;
-        width: 32px;
-        height: 32px;
-        margin-bottom: 12px;
+        font-size: calc(32px * var(--zns-font-scale, 1));
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
+        margin-bottom: calc(12px * var(--zns-space-scale, 1));
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -81,19 +81,18 @@
 
     &__webcam-container {
         position: relative;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         overflow: hidden;
-        width: 375px;
-        height: 600px;
+        width: var(--zns-card-width, 375px);
+        height: var(--zns-card-min-height, 600px);
         background: variables.$themeBackground;
         display: flex;
         align-items: center;
         justify-content: center;
 
-        // Ensure sharp rendering
         image-rendering: -webkit-optimize-contrast;
         image-rendering: crisp-edges;
-        transform: translateZ(0); // Hardware acceleration
+        transform: translateZ(0);
     }
 
     &__overlay {
@@ -102,8 +101,8 @@
         left: 0;
         pointer-events: none;
         z-index: 5;
-        width: 375px;
-        height: 600px;
+        width: var(--zns-card-width, 375px);
+        height: var(--zns-card-min-height, 600px);
     }
 
     &__status {
@@ -113,16 +112,16 @@
         transform: translate(-50%, -50%);
         background: variables.$themeBackground;
         color: variables.$themeText;
-        padding: 12px 16px;
-        border-radius: 8px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         text-align: center;
         z-index: 5;
-        min-width: 200px;
+        min-width: calc(200px * var(--zns-space-scale, 1));
     }
 
     &__status-icon {
-        font-size: 24px;
-        margin-bottom: 4px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
 
         &--error {
             color: variables.$error;
@@ -130,14 +129,14 @@
     }
 
     &__status-title {
-        margin: 0 0 4px 0;
-        font-size: 14px;
+        margin: 0 0 calc(4px * var(--zns-space-scale, 1)) 0;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
     }
 
     &__status-subtitle {
         margin: 0;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         opacity: 0.9;
     }
 
@@ -148,20 +147,20 @@
         transform: translate(-50%, -50%);
         background: variables.$themeBackground;
         color: variables.$themeText;
-        padding: 16px 20px;
-        border-radius: 8px;
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         text-align: center;
         z-index: 10;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__actions {
         position: absolute;
-        bottom: 20px;
+        bottom: calc(20px * var(--zns-space-scale, 1));
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
@@ -174,7 +173,7 @@
     inset: 0;
     background: variables.$themeBackground;
     z-index: 100;
-    padding: 40px 16px;
+    padding: calc(40px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
 
     &__overlay {
         height: 100%;
@@ -182,31 +181,30 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__buttons {
         display: flex;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         align-items: center;
         width: 100%;
     }
 }
 
-// Override webcam component styles for popout
 ::ng-deep {
     .password-decryptor {
         webcam {
-            width: 375px !important;
-            height: 600px !important;
+            width: var(--zns-card-width, 375px) !important;
+            height: var(--zns-card-min-height, 600px) !important;
             display: block !important;
             position: relative !important;
-            transform: scaleX(-1); // Flip horizontally for mirror effect
+            transform: scaleX(-1);
 
             video {
-                border-radius: 8px;
-                width: 375px !important;
-                height: 600px !important;
+                border-radius: calc(8px * var(--zns-space-scale, 1));
+                width: var(--zns-card-width, 375px) !important;
+                height: var(--zns-card-min-height, 600px) !important;
                 object-fit: cover !important;
                 object-position: center !important;
                 display: block !important;
@@ -214,12 +212,10 @@
                 top: 0 !important;
                 left: 0 !important;
 
-                // High quality rendering
                 image-rendering: -webkit-optimize-contrast;
                 image-rendering: crisp-edges;
-                transform: translateZ(0); // Hardware acceleration
+                transform: translateZ(0);
 
-                // Smooth scaling
                 image-rendering: auto;
                 image-rendering: smooth;
             }

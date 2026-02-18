@@ -34,6 +34,8 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     words: string[] = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
     wallet: Partial<TagModel> = {};
     requiresBiometrics: boolean = false;
+    pinDigits: string[] = ["", "", "", "", "", ""];
+    showPin: boolean = false;
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
@@ -67,6 +69,11 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
 
     get canUnlockWithPasswordOnly(): boolean {
         return !!this.wallet?.pgp?.encryptedMessage && !!this.wallet?.pgp?.privateKey && !this.requiresBiometrics;
+    }
+
+    get isPinMode(): boolean {
+        const publicData = this.wallet?.publicData as { st?: string } | undefined;
+        return publicData?.st === "pin";
     }
 
     private _clearRequiresBiometricsInterval(): void {
@@ -144,7 +151,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     }
 
     handleUnhide(): void {
-        const publicData = this.wallet?.publicData as any;
+        const publicData = this.wallet?.publicData as { hasPassword?: string; st?: string } | undefined;
 
         if (String(publicData?.hasPassword) === "false") {
             if (this.canUnlockWithPasswordOnly) {
@@ -160,8 +167,11 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
         }
 
         this.showPasswordForm = true;
-
-        this._initForm();
+        if (this.isPinMode) {
+            this.pinDigits = ["", "", "", "", "", ""];
+        } else {
+            this._initForm();
+        }
     }
 
     hideMnemonics(): void {
@@ -175,6 +185,80 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
         this.form.reset();
         this.showPasswordForm = false;
         this.passwordError = false;
+        this.pinDigits = ["", "", "", "", "", ""];
+    }
+
+    canSubmitPin(): boolean {
+        return this.pinDigits.every((d) => d !== "") && this.pinDigits.length === 6;
+    }
+
+    onPinInput(event: Event, index: number): void {
+        const input = event.target as HTMLInputElement;
+        const value = input.value;
+
+        if (value.length > 1) {
+            const digits = value.slice(0, 6).split("");
+            this.pinDigits = [...digits, ...Array(6 - digits.length).fill("")].slice(0, 6);
+            const lastIndex = Math.min(digits.length - 1, 5);
+            setTimeout(() => {
+                const inputs = document.querySelectorAll<HTMLInputElement>(".mnemonic__pin-input");
+                if (inputs[lastIndex]) inputs[lastIndex].focus();
+            }, 0);
+            return;
+        }
+
+        this.pinDigits[index] = value;
+
+        if (value && index < 5) {
+            setTimeout(() => {
+                const inputs = document.querySelectorAll<HTMLInputElement>(".mnemonic__pin-input");
+                if (inputs[index + 1]) inputs[index + 1].focus();
+            }, 0);
+        }
+    }
+
+    onPinKeyDown(event: KeyboardEvent, index: number): void {
+        const input = event.target as HTMLInputElement;
+
+        if (event.key === "Enter") {
+            if (!this.canSubmitPin()) return;
+
+            event.preventDefault();
+
+            this.submitPin();
+
+            return;
+        }
+
+        if (event.key === "Backspace" && !input.value && index > 0) {
+            setTimeout(() => {
+                const inputs = document.querySelectorAll<HTMLInputElement>(".mnemonic__pin-input");
+                if (inputs[index - 1]) {
+                    inputs[index - 1].focus();
+                    this.pinDigits[index - 1] = "";
+                }
+            }, 0);
+        }
+    }
+
+    submitPin(): void {
+        if (!this.canSubmitPin()) return;
+
+        const pin = this.pinDigits.join("");
+
+        if (this.canUnlockWithPasswordOnly) {
+            this._password = pin;
+            this._prepareWords();
+            return;
+        }
+
+        this._vaultService.password = pin;
+        this._vaultService.securityType = "pin";
+        this.redirect.emit();
+    }
+
+    trackByIndex(index: number): number {
+        return index;
     }
 
     submitPassword(): void {

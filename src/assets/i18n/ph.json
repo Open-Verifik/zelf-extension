@@ -35,6 +35,7 @@
         "domain_or_address": "Domain o address",
         "enter_amount_to_send": "Ilagay ang halagang ipapadala",
         "external_address_found": "Nahanap ang panlabas na address",
+        "recent_addresses": "Mga Nakaraang",
         "used": "Ginamit {{days}} na ang nakalipas",
         "withdrawal_amount": "Halaga ng pag-withdraw",
         "zelf_name_not_registered": "Hindi pa nare-rehistro ang Tag Name",
@@ -131,6 +132,7 @@
         "password_strength_label": "Lakas ng Password",
         "password_subtitle": "Ilagay ang password na itinalaga sa Tag Name na ito para matapos ang proseso ng decryption.",
         "pin_description": "Gumawa ng PIN na may 6 na digit",
+        "pin_unlock_description": "Gamitin ang iyong PIN para i-unlock ang iyong ZelfProof",
         "pin_title": "PIN",
         "secure_password_description": "Karagdagang security layer",
         "secure_password_title": "Secure Password",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "Mga Subscription"
+        "subscriptions": "Mga Subscription",
+        "download_short": "I-download",
+        "mnemonics": "Mnemonics",
+        "wallet_short": "Pitaka",
+        "auth_short": "Auth"
     },
     "token": {
         "24h_performance": "24h na Performance",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "Error sa pakikipag-ugnayan sa extension",
         "error_stopping_camera": "Error sa pagpapahinto ng camera",
         "face_detection_error": "Nabigo ang face detection",
+        "face_not_central": "Ang iyong mukha ay hindi naka-center. Pakiadjust ang posisyon ng iyong mukha sa frame at subukang muli.",
         "incorrect_passphrase": "Mali ang ipinasok na master password. Mangyaring subukan muli.",
         "no_decrypted_data_received_from_api": "Walang natanggap na decrypted data mula sa server",
         "no_zelfproof_available_for_password_decryption": "Walang available na ZelfProof para sa pag-decrypt ng password",

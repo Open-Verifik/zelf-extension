@@ -35,6 +35,7 @@
         "domain_or_address": "โดเมนหรือที่อยู่",
         "enter_amount_to_send": "ป้อนจำนวนที่จะส่ง",
         "external_address_found": "พบที่อยู่ภายนอกแล้ว",
+        "recent_addresses": "ล่าสุด",
         "used": "ใช้เมื่อ {{days}} ที่แล้ว",
         "withdrawal_amount": "จำนวนเงินที่ถอน",
         "zelf_name_not_registered": "Tag Name ยังไม่ได้ลงทะเบียน",
@@ -131,6 +132,7 @@
         "password_strength_label": "ความแข็งแรงของรหัสผ่าน",
         "password_subtitle": "ป้อนรหัสผ่านที่กำหนดให้กับ Tag Name นี้เพื่อให้กระบวนการถอดรหัสเสร็จสมบูรณ์",
         "pin_description": "สร้าง PIN 6 หลัก",
+        "pin_unlock_description": "ใช้ PIN ของคุณเพื่อปลดล็อก ZelfProof",
         "pin_title": "PIN",
         "secure_password_description": "ชั้นความปลอดภัยเพิ่มเติม",
         "secure_password_title": "รหัสผ่านที่ปลอดภัย",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "การสมัครสมาชิก"
+        "subscriptions": "การสมัครสมาชิก",
+        "download_short": "ดาวน์โหลด",
+        "mnemonics": "คำช่วยจำ",
+        "wallet_short": "กระเป๋า",
+        "auth_short": "Auth"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "เกิดข้อผิดพลาดในการสื่อสารกับส่วนขยาย",
         "error_stopping_camera": "เกิดข้อผิดพลาดในการหยุดกล้อง",
         "face_detection_error": "การตรวจจับใบหน้าล้มเหลว",
+        "face_not_central": "ใบหน้าของคุณไม่อยู่ตรงกลาง กรุณาปรับตำแหน่งใบหน้าในกรอบแล้วลองอีกครั้ง",
         "incorrect_passphrase": "รหัสผ่านหลักไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง",
         "no_decrypted_data_received_from_api": "ไม่ได้รับข้อมูลที่ถอดรหัสจากเซิร์ฟเวอร์",
         "no_zelfproof_available_for_password_decryption": "ไม่มี ZelfProof สำหรับการถอดรหัสรหัสผ่าน",

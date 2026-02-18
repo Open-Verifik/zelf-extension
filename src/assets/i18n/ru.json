@@ -35,6 +35,7 @@
         "domain_or_address": "Домен или адрес",
         "enter_amount_to_send": "Введите сумму для отправки",
         "external_address_found": "Внешний адрес найден",
+        "recent_addresses": "Недавние",
         "used": "Использовано {{days}} назад",
         "withdrawal_amount": "Сумма вывода",
         "zelf_name_not_registered": "Tag Name не зарегистрирован",
@@ -131,6 +132,7 @@
         "password_strength_label": "Надежность пароля",
         "password_subtitle": "Введите пароль, назначенный этому Tag Name, чтобы завершить процесс расшифровки.",
         "pin_description": "Создать PIN из 6 цифр",
+        "pin_unlock_description": "Используйте свой PIN для разблокировки ZelfProof",
         "pin_title": "PIN",
         "secure_password_description": "Дополнительный слой безопасности",
         "secure_password_title": "Безопасный Пароль",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "Подписки"
+        "subscriptions": "Подписки",
+        "download_short": "Скачать",
+        "mnemonics": "Мнемоника",
+        "wallet_short": "Кошелек",
+        "auth_short": "Auth"
     },
     "token": {
         "24h_performance": "Изменение за 24ч",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "Ошибка взаимодействия с расширением",
         "error_stopping_camera": "Ошибка остановки камеры",
         "face_detection_error": "Распознавание лица не удалось",
+        "face_not_central": "Ваше лицо не по центру. Пожалуйста, отрегулируйте положение лица в кадре и попробуйте снова.",
         "incorrect_passphrase": "Мастер-пароль введен неверно. Пожалуйста, попробуйте снова.",
         "no_decrypted_data_received_from_api": "Расшифрованные данные не получены от сервера",
         "no_zelfproof_available_for_password_decryption": "ZelfProof недоступен для расшифровки пароля",

@@ -4,8 +4,8 @@
 :host {
     position: relative;
     display: block;
-    padding: 16px;
-    max-width: 400px;
+    padding: calc(16px * var(--zns-space-scale, 1));
+    max-width: min(400px, var(--zns-card-width, 400px));
     margin: 0 auto;
 }
 
@@ -15,18 +15,18 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
 
     &__exit {
         position: absolute;
         top: 0;
         right: 0;
-        margin: 8px;
-        min-height: 32px;
-        min-width: 32px;
-        width: 32px;
-        height: 32px;
-        padding: 8px;
+        margin: calc(8px * var(--zns-space-scale, 1));
+        min-height: calc(32px * var(--zns-space-scale, 1));
+        min-width: calc(32px * var(--zns-space-scale, 1));
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1));
         cursor: pointer;
         outline: none;
         border: none;
@@ -60,7 +60,7 @@
     &__body {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
         justify-content: center;
         align-items: center;
@@ -69,8 +69,8 @@
     &__container {
         box-sizing: border-box;
         width: 100%;
-        padding: 16px;
-        margin-bottom: 12px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        margin-bottom: calc(12px * var(--zns-space-scale, 1));
         border-radius: 16px;
         border: 1px solid variables.$themeBorderHover;
     }
@@ -79,20 +79,20 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px;
+        margin-bottom: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__switch-group {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__switch-title {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -105,7 +105,7 @@
         align-items: center;
         position: relative;
         cursor: pointer;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__switch-input {
@@ -117,11 +117,11 @@
 
     &__switch-track {
         position: relative;
-        width: 46px;
-        height: 26px;
+        width: calc(46px * var(--zns-space-scale, 1));
+        height: calc(26px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackgroundSecondary;
         border: 2px solid variables.$themeTextSecondary;
-        border-radius: 14px;
+        border-radius: calc(14px * var(--zns-space-scale, 1));
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
@@ -129,9 +129,9 @@
 
     &__switch-thumb {
         position: absolute;
-        left: 5px;
-        height: 16px;
-        width: 16px;
+        left: calc(5px * var(--zns-space-scale, 1));
+        height: calc(16px * var(--zns-space-scale, 1));
+        width: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeTextSecondary;
         border-radius: 50%;
         transition: all 0.3s ease;
@@ -145,12 +145,12 @@
     &__switch-input:checked + &__switch-track &__switch-thumb {
         left: calc(100% - 23px);
         background-color: variables.$themeCard;
-        width: 20px;
-        height: 20px;
+        width: calc(20px * var(--zns-space-scale, 1));
+        height: calc(20px * var(--zns-space-scale, 1));
     }
 
     &__switch-label {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
         margin: 0;
         color: variables.$themeTextMuted;
@@ -161,32 +161,32 @@
     }
 
     &__icon {
-        margin-top: 28px;
+        margin-top: calc(28px * var(--zns-space-scale, 1));
         fill: variables.$themeText;
     }
 
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 24px;
-        line-height: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(24px * var(--zns-font-scale, 1));
         letter-spacing: 0px;
         text-align: center;
         vertical-align: middle;
         text-transform: uppercase;
-        margin: 16px 0 8px;
+        margin: calc(16px * var(--zns-space-scale, 1)) 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__text {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         margin: 0;
         color: variables.$themeTextSecondary;
     }
 
     &__actions {
         width: 100%;
-        margin-top: 16px;
-        gap: 8px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(8px * var(--zns-space-scale, 1));
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -199,14 +199,13 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        margin-top: 12px;
-        width: 100%;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        margin-top: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__slider-input-row {
         width: 100%;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -216,8 +215,8 @@
     &__slider-subtitle {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 12px;
-        line-height: 16px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
@@ -230,31 +229,31 @@
         flex-direction: row;
         align-items: center;
         box-sizing: border-box;
-        gap: 12px;
-        height: 32px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
         border-radius: 32px;
         background-color: variables.$themeCardBorder;
-        padding: 0 8px;
+        padding: 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__slider-value {
         text-align: right;
         font-weight: 500;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         background-color: variables.$themeCardBorder;
         border-radius: 12px;
-        padding: 0 8px;
-        height: 32px;
+        padding: 0 calc(8px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 42px;
+        min-width: calc(42px * var(--zns-space-scale, 1));
     }
 
     &__slider-label {
         position: relative;
         width: 100%;
-        height: 16px;
+        height: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__slider-dots {
@@ -266,13 +265,13 @@
         right: 0;
         transform: translateY(-50%);
         z-index: 3;
-        padding: 0 8px;
+        padding: 0 calc(8px * var(--zns-space-scale, 1));
         pointer-events: none;
     }
 
     &__slider-dot {
-        width: 4px;
-        height: 4px;
+        width: calc(4px * var(--zns-space-scale, 1));
+        height: calc(4px * var(--zns-space-scale, 1));
         background-color: variables.$themeCard;
         opacity: 0.2;
         border-radius: 50%;
@@ -283,8 +282,8 @@
         -webkit-appearance: none;
         appearance: none;
         width: 100%;
-        height: 16px;
-        border-radius: 20px;
+        height: calc(16px * var(--zns-space-scale, 1));
+        border-radius: calc(20px * var(--zns-space-scale, 1));
         background: variables.$themeCardBorder;
         outline: none;
         position: relative;
@@ -293,8 +292,8 @@
 
         &::-webkit-slider-runnable-track {
             background: linear-gradient(to right, variables.$themeTextSecondary var(--progress, 0%), transparent var(--progress, 0%));
-            border-radius: 20px;
-            height: 16px;
+            border-radius: calc(20px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
             width: 100%;
         }
 
@@ -303,60 +302,60 @@
             -webkit-appearance: none;
             appearance: none;
             background: variables.$themeCard;
-            border-radius: 20px;
-            border: 6px solid variables.$themeTextSecondary;
+            border-radius: calc(20px * var(--zns-space-scale, 1));
+            border: calc(6px * var(--zns-space-scale, 1)) solid variables.$themeTextSecondary;
             box-shadow: none;
             cursor: pointer;
-            height: 8px;
+            height: calc(8px * var(--zns-space-scale, 1));
             position: relative;
-            width: 8px;
+            width: calc(8px * var(--zns-space-scale, 1));
             z-index: 2;
-            margin-top: -2px;
+            margin-top: calc(-2px * var(--zns-space-scale, 1));
         }
 
         &::-moz-range-track {
             background: linear-gradient(to right, variables.$themeTextSecondary var(--progress, 0%), transparent var(--progress, 0%));
-            border-radius: 20px;
-            height: 16px;
+            border-radius: calc(20px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
             width: 100%;
         }
 
         &::-moz-range-progress {
             background-color: variables.$themeTextSecondary;
-            border-radius: 20px;
-            height: 16px;
+            border-radius: calc(20px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
         }
 
         &::-moz-range-thumb {
             box-sizing: content-box;
-            margin-top: -3px;
+            margin-top: calc(-3px * var(--zns-space-scale, 1));
             background: variables.$themeCard;
             border-radius: 50%;
-            border: 6px solid variables.$themeTextSecondary;
+            border: calc(6px * var(--zns-space-scale, 1)) solid variables.$themeTextSecondary;
             box-shadow: none;
             cursor: pointer;
-            height: 8px;
-            width: 8px;
-            margin-top: -2px;
+            height: calc(8px * var(--zns-space-scale, 1));
+            width: calc(8px * var(--zns-space-scale, 1));
+            margin-top: calc(-2px * var(--zns-space-scale, 1));
         }
     }
 
     &__input-container {
         width: 100%;
-        margin-top: 12px;
+        margin-top: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__input {
         width: 100%;
-        padding: 10px;
-        border-radius: 8px;
+        padding: calc(10px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         border: 1px solid #e0e0e0;
         outline: none;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
     }
 
     &__input-postfix {
         color: variables.$themeText;
-        margin-right: 16px;
+        margin-right: calc(16px * var(--zns-space-scale, 1));
     }
 }

@@ -4,7 +4,7 @@
 :host {
     display: block;
     width: 100%;
-    margin: 16px 0 0;
+    margin: calc(16px * var(--zns-space-scale, 1)) 0 0;
 }
 
 .mnemonic {
@@ -14,8 +14,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    gap: 24px;
+    gap: calc(24px * var(--zns-space-scale, 1));
 
     &__password-form {
         width: 100%;
@@ -23,31 +22,118 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 16px;
-        padding: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
         border: 1px solid variables.$themeBorder;
         border-radius: 16px;
-        margin: 16px 0;
+        margin: calc(16px * var(--zns-space-scale, 1)) 0;
     }
 
     &__actions {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
+    }
+
+    &__pin-form {
+        width: 100%;
+    }
+
+    &__pin-subtitle {
+        margin: 0 0 calc(12px * var(--zns-space-scale, 1));
+        color: variables.$themeText;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        letter-spacing: 0.1px;
+        text-align: center;
+    }
+
+    &__pin-inputs-container {
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        align-items: center;
+    }
+
+    &__pin-inputs-row {
+        display: flex;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__pin-inputs {
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        display: inline-flex;
+    }
+
+    &__pin-input {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(48px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1));
+        background: variables.$themeCard;
+        overflow: hidden;
+        border-radius: 12px;
+        outline: 1px variables.$themeTextSecondary solid;
+        outline-offset: -0.5px;
+        display: flex;
+        border: none;
+        text-align: center;
+        color: variables.$themeText;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        letter-spacing: 0.1px;
+
+        &:focus {
+            outline: 2px solid variables.$primaryColor;
+            outline-offset: -1px;
+        }
+
+        &::placeholder {
+            color: transparent;
+        }
+    }
+
+    &__pin-toggle {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        svg {
+            width: calc(20px * var(--zns-space-scale, 1));
+            height: calc(20px * var(--zns-space-scale, 1));
+            fill: variables.$themeTextSecondary;
+        }
     }
 }
 
 .mnemonic-grid {
     display: grid;
-    gap: 8px;
+    gap: calc(8px * var(--zns-space-scale, 1));
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 12px;
+    margin-top: calc(12px * var(--zns-space-scale, 1));
     transition: filter 0.3s variables.$smoothBezier;
     width: 100%;
 
     &--blur {
-        filter: blur(8px);
+        filter: blur(calc(8px * var(--zns-space-scale, 1)));
         pointer-events: none;
     }
 
@@ -56,25 +142,25 @@
         justify-content: flex-start;
         align-items: center;
         background-color: variables.$themeCardBorder;
-        padding: 8px;
-        border-radius: 24px;
-        height: 32px;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
         grid-column: span 1;
 
         &-number {
             display: inline-block;
             user-select: none;
             color: variables.$themeTextMuted;
-            font-size: 12px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
             font-weight: 500;
-            margin: 0 6px;
+            margin: 0 calc(6px * var(--zns-space-scale, 1));
         }
 
         &-word {
             display: inline-block;
             user-select: none;
             color: variables.$themeText;
-            font-size: 12px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
             font-weight: 500;
         }
     }

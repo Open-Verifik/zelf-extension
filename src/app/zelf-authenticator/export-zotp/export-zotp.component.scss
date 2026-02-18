@@ -3,42 +3,41 @@
 .export-zotp {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: calc(20px * var(--zns-space-scale, 1));
+    padding: calc(20px * var(--zns-space-scale, 1));
     max-height: 90vh;
     overflow-y: auto;
 
-    // Responsive padding for small screens (extension popup)
     @media (max-width: 400px) {
-        padding: 16px;
-        gap: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        padding-bottom: 4px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding-bottom: calc(4px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            gap: 8px;
-            padding-bottom: 2px;
+            gap: calc(8px * var(--zns-space-scale, 1));
+            padding-bottom: calc(2px * var(--zns-space-scale, 1));
         }
     }
 
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
+        line-height: calc(24px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
         flex: 1;
 
         @media (max-width: 400px) {
-            font-size: 16px;
-            line-height: 22px;
+            font-size: calc(16px * var(--zns-font-scale, 1));
+            line-height: calc(22px * var(--zns-font-scale, 1));
         }
     }
 
@@ -46,11 +45,11 @@
         cursor: pointer;
         border: none;
         background: none;
-        padding: 8px;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-width: calc(36px * var(--zns-space-scale, 1));
+        min-height: calc(36px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -58,11 +57,11 @@
         flex-shrink: 0;
 
         @media (max-width: 400px) {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            min-height: 32px;
-            padding: 6px;
+            width: calc(32px * var(--zns-space-scale, 1));
+            height: calc(32px * var(--zns-space-scale, 1));
+            min-width: calc(32px * var(--zns-space-scale, 1));
+            min-height: calc(32px * var(--zns-space-scale, 1));
+            padding: calc(6px * var(--zns-space-scale, 1));
         }
 
         &:hover:not(:disabled) {
@@ -84,49 +83,49 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            gap: 16px;
+            gap: calc(16px * var(--zns-space-scale, 1));
         }
     }
 
     &__zotp-info {
         text-align: center;
-        padding: 14px 16px;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            padding: 12px 14px;
+            padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
         }
     }
 
     &__zotp-name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
-        line-height: 22px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        line-height: calc(22px * var(--zns-font-scale, 1));
         color: variables.$themeText;
-        margin-bottom: 4px;
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
         word-break: break-word;
 
         @media (max-width: 400px) {
-            font-size: 14px;
-            line-height: 20px;
-            margin-bottom: 3px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
+            margin-bottom: calc(3px * var(--zns-space-scale, 1));
         }
     }
 
     &__zotp-issuer {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        line-height: 18px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
 
         @media (max-width: 400px) {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
     }
 
@@ -134,13 +133,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 320px;
-        padding: 8px 0;
+        min-height: calc(320px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1)) 0;
         width: 100%;
 
         @media (max-width: 400px) {
-            min-height: 280px;
-            padding: 4px 0;
+            min-height: calc(280px * var(--zns-space-scale, 1));
+            padding: calc(4px * var(--zns-space-scale, 1)) 0;
         }
 
         // Ensure biometrics component can scale properly
@@ -167,46 +166,46 @@
     &__export-content {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
 
         @media (min-width: 600px) {
             flex-direction: row;
             align-items: flex-start;
-            gap: 24px;
+            gap: calc(24px * var(--zns-space-scale, 1));
         }
 
         @media (max-width: 400px) {
-            gap: 16px;
+            gap: calc(16px * var(--zns-space-scale, 1));
         }
     }
 
     &__qr-section {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        padding: 20px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(20px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
         flex: 1;
         align-items: center;
 
         @media (max-width: 400px) {
-            padding: 16px;
-            gap: 10px;
+            padding: calc(16px * var(--zns-space-scale, 1));
+            gap: calc(10px * var(--zns-space-scale, 1));
         }
     }
 
     &__qr-label {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         text-align: center;
 
         @media (max-width: 400px) {
-            font-size: 12px;
-            line-height: 18px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(18px * var(--zns-font-scale, 1));
         }
     }
 
@@ -215,16 +214,16 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        max-width: 300px;
-        min-height: 300px;
+        max-width: calc(300px * var(--zns-space-scale, 1));
+        min-height: calc(300px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackground;
-        border-radius: 8px;
-        padding: 16px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            max-width: 250px;
-            min-height: 250px;
-            padding: 12px;
+            max-width: calc(250px * var(--zns-space-scale, 1));
+            min-height: calc(250px * var(--zns-space-scale, 1));
+            padding: calc(12px * var(--zns-space-scale, 1));
         }
 
         svg {
@@ -235,99 +234,99 @@
 
     &__qr-description {
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
-        line-height: 16px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
         text-align: center;
-        margin-top: 4px;
+        margin-top: calc(4px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            font-size: 11px;
-            line-height: 14px;
+            font-size: calc(11px * var(--zns-font-scale, 1));
+            line-height: calc(14px * var(--zns-font-scale, 1));
         }
     }
 
     &__setup-key {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        padding: 20px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(20px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
         flex: 1;
 
         @media (max-width: 400px) {
-            padding: 16px;
-            gap: 10px;
+            padding: calc(16px * var(--zns-space-scale, 1));
+            gap: calc(10px * var(--zns-space-scale, 1));
         }
     }
 
     &__setup-key-label {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         color: variables.$themeText;
 
         @media (max-width: 400px) {
-            font-size: 12px;
-            line-height: 18px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(18px * var(--zns-font-scale, 1));
         }
     }
 
     &__setup-key-value {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         flex-wrap: wrap;
 
         @media (max-width: 400px) {
-            gap: 8px;
+            gap: calc(8px * var(--zns-space-scale, 1));
         }
     }
 
     &__setup-key-code {
         flex: 1;
-        min-width: 200px;
+        min-width: calc(200px * var(--zns-space-scale, 1));
         font-family: variables.$themeMonospaceFamily;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         background-color: variables.$themeBackground;
-        padding: 12px 16px;
-        border-radius: 8px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         border: 1px solid variables.$themeTextMuted;
         word-break: break-all;
         user-select: all;
 
         @media (max-width: 400px) {
-            font-size: 12px;
-            line-height: 18px;
-            padding: 10px 12px;
-            min-width: 150px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(18px * var(--zns-font-scale, 1));
+            padding: calc(10px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+            min-width: calc(150px * var(--zns-space-scale, 1));
         }
     }
 
     &__copy-button {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 10px 16px;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeText;
         background-color: variables.$themeBackground;
         border: 1px solid variables.$themeTextMuted;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         cursor: pointer;
         transition: all 0.2s variables.$smoothBezier;
         white-space: nowrap;
 
         @media (max-width: 400px) {
-            padding: 8px 12px;
-            font-size: 12px;
-            gap: 4px;
+            padding: calc(8px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            gap: calc(4px * var(--zns-space-scale, 1));
         }
 
         &:hover {
@@ -336,50 +335,50 @@
         }
 
         svg {
-            width: 16px;
-            height: 16px;
+            width: calc(16px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
             stroke: currentColor;
             fill: none;
 
             @media (max-width: 400px) {
-                width: 14px;
-                height: 14px;
+                width: calc(14px * var(--zns-space-scale, 1));
+                height: calc(14px * var(--zns-space-scale, 1));
             }
         }
     }
 
     &__setup-key-description {
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
-        line-height: 16px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
-        margin-top: 4px;
+        margin-top: calc(4px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            font-size: 11px;
-            line-height: 14px;
+            font-size: calc(11px * var(--zns-font-scale, 1));
+            line-height: calc(14px * var(--zns-font-scale, 1));
         }
     }
 
     &__share-button {
         width: 100%;
-        margin-top: 12px;
-        padding: 12px 24px;
+        margin-top: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         background-color: variables.$themeText;
         color: variables.$themeBackground;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         transition: background-color 0.2s variables.$smoothBezier;
 
         @media (max-width: 400px) {
-            padding: 10px 20px;
-            font-size: 12px;
+            padding: calc(10px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
+            font-size: calc(12px * var(--zns-font-scale, 1));
         }
 
         &:hover {
@@ -387,13 +386,13 @@
         }
 
         svg {
-            width: 16px;
-            height: 16px;
+            width: calc(16px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
             fill: currentColor;
 
             @media (max-width: 400px) {
-                width: 14px;
-                height: 14px;
+                width: calc(14px * var(--zns-space-scale, 1));
+                height: calc(14px * var(--zns-space-scale, 1));
             }
         }
     }
@@ -402,14 +401,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px 20px;
+        padding: calc(40px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
 
         @media (max-width: 400px) {
-            padding: 30px 16px;
-            font-size: 12px;
+            padding: calc(30px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+            font-size: calc(12px * var(--zns-font-scale, 1));
         }
     }
 }

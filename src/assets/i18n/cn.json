@@ -35,6 +35,7 @@
         "domain_or_address": "域名或地址",
         "enter_amount_to_send": "输入发送金额",
         "external_address_found": "找到外部地址",
+        "recent_addresses": "最近",
         "used": "{{days}} 天前使用",
         "withdrawal_amount": "提现金额",
         "zelf_name_not_registered": "标签名称未注册",
@@ -131,6 +132,7 @@
         "password_strength_label": "密码强度",
         "password_subtitle": "输入分配给此标签名称的密码以完成解密过程。",
         "pin_description": "创建6位数字的PIN码",
+        "pin_unlock_description": "使用您的PIN码解锁您的ZelfProof",
         "pin_title": "PIN码",
         "secure_password_description": "额外的安全层",
         "secure_password_title": "安全密码",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf 身份验证器",
         "zelf_keys": "Zelf 密钥",
         "zelf_link": "Zelf 链接",
-        "subscriptions": "订阅"
+        "subscriptions": "订阅",
+        "download_short": "下载",
+        "mnemonics": "助记词",
+        "wallet_short": "钱包",
+        "auth_short": "认证"
     },
     "token": {
         "24h_performance": "24小时表现",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "与扩展程序通讯时出错",
         "error_stopping_camera": "停止摄像头时出错",
         "face_detection_error": "面部检测失败",
+        "face_not_central": "您的面部未居中。请调整面部位置后重试。",
         "incorrect_passphrase": "主密码输入错误。请重试。",
         "no_decrypted_data_received_from_api": "服务器未返回解密数据",
         "no_zelfproof_available_for_password_decryption": "没有可用于密码解密的 ZelfProof",

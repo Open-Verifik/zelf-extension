@@ -6,15 +6,8 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: flex-start;
-    max-height: 600px;
-    min-height: 600px;
     overflow-y: auto;
     width: 100%;
-
-    @media screen and (max-width: variables.$medium) {
-        min-height: 600px;
-        max-height: initial;
-    }
 }
 
 * {
@@ -38,56 +31,55 @@
     flex-grow: 1;
 
     &__load-more {
-        margin: 32px 0 0;
+        margin: calc(32px * var(--zns-space-scale, 1)) 0 0;
     }
 
     &__no-results {
         display: flex;
-        min-height: 600px;
+        min-height: var(--zns-card-min-height, 600px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
         &-text {
-            font-size: 1.5rem;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeTextSecondary;
             font-family: variables.$themeBodyFamily;
             font-weight: 500;
-            font-size: 14px;
-            line-height: 20px;
+            line-height: calc(20px * var(--zns-font-scale, 1));
             letter-spacing: 0.1px;
             vertical-align: middle;
-            margin-bottom: 4px;
-            padding: 16px;
+            margin-bottom: calc(4px * var(--zns-space-scale, 1));
+            padding: calc(16px * var(--zns-space-scale, 1));
         }
     }
 
     &__date {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
-        margin-bottom: 4px;
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
         width: 100%;
         text-align: left;
-        padding: 0 16px;
+        padding: 0 calc(16px * var(--zns-space-scale, 1));
     }
 
     &__transaction {
         display: flex;
         width: 100%;
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         justify-content: space-between;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         border-radius: 16px;
         background-color: transparent;
         transition: background-color 0.2s variables.$smoothBezier;
         cursor: pointer;
-        min-height: 64px;
+        min-height: calc(64px * var(--zns-space-scale, 1));
 
         &:hover {
             background-color: variables.$themeCardBorder;
@@ -95,29 +87,29 @@
     }
 
     &__image {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-        min-height: 40px;
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
         border-radius: 40px;
         object-fit: contain;
     }
 
     &__swap-images {
         position: relative;
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-        min-height: 40px;
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
     }
 
     &__swap-image-a,
     &__swap-image-b {
         position: absolute;
-        width: 25px;
-        height: 25px;
-        min-width: 25px;
-        min-height: 25px;
+        width: calc(25px * var(--zns-space-scale, 1));
+        height: calc(25px * var(--zns-space-scale, 1));
+        min-width: calc(25px * var(--zns-space-scale, 1));
+        min-height: calc(25px * var(--zns-space-scale, 1));
         border-radius: 25px;
         object-fit: contain;
     }
@@ -136,7 +128,7 @@
     &__right {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__col {
@@ -148,7 +140,7 @@
         flex-direction: row;
         align-items: flex-start;
         flex: 1 1 auto;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__right {
@@ -159,16 +151,16 @@
         display: flex;
         flex-direction: row;
         flex: 1 1 auto;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: center;
     }
 
     &__icon {
-        width: 14px;
-        height: 14px;
-        min-width: 14px;
-        min-height: 14px;
+        width: calc(14px * var(--zns-space-scale, 1));
+        height: calc(14px * var(--zns-space-scale, 1));
+        min-width: calc(14px * var(--zns-space-scale, 1));
+        min-height: calc(14px * var(--zns-space-scale, 1));
         background-color: variables.$themeBorder;
         border-radius: 14px;
         display: flex;
@@ -193,8 +185,8 @@
     &__type {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -205,8 +197,8 @@
     &__type-subtitle {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
@@ -219,8 +211,8 @@
     &__approve-text {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         vertical-align: middle;
         margin: 0;
@@ -246,8 +238,8 @@
     &__received-fiat {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 11px;
-        line-height: 16px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         text-align: center;
         vertical-align: middle;
@@ -258,35 +250,35 @@
 
 .zelf-history__skeleton-list {
     width: 100%;
-    padding: 0 16px;
+    padding: 0 calc(16px * var(--zns-space-scale, 1));
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 16px;
+    gap: calc(8px * var(--zns-space-scale, 1));
+    margin-top: calc(16px * var(--zns-space-scale, 1));
 }
 
 .zelf-history__skeleton-item {
     display: flex;
     width: 100%;
-    padding: 16px;
+    padding: calc(16px * var(--zns-space-scale, 1));
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
     border-radius: 16px;
     background-color: transparent;
-    min-height: 64px;
+    min-height: calc(64px * var(--zns-space-scale, 1));
 }
 
 .zelf-history__skeleton-left {
     display: flex;
     align-items: center;
     flex: 1;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
 }
 
 .zelf-history__skeleton-image {
-    width: 40px;
-    height: 40px;
+    width: calc(40px * var(--zns-space-scale, 1));
+    height: calc(40px * var(--zns-space-scale, 1));
     border-radius: 50%;
     background: variables.$themeBorder;
     position: relative;
@@ -308,13 +300,13 @@
 .zelf-history__skeleton-col {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: calc(6px * var(--zns-space-scale, 1));
 }
 
 .zelf-history__skeleton-line {
-    height: 10px;
+    height: calc(10px * var(--zns-space-scale, 1));
     background: variables.$themeBorder;
-    border-radius: 4px;
+    border-radius: calc(4px * var(--zns-space-scale, 1));
     position: relative;
     overflow: hidden;
 
@@ -331,21 +323,21 @@
     }
 
     &--type {
-        width: 80px;
-        height: 14px;
+        width: calc(80px * var(--zns-space-scale, 1));
+        height: calc(14px * var(--zns-font-scale, 1));
     }
 
     &--subtitle {
-        width: 60px;
+        width: calc(60px * var(--zns-space-scale, 1));
     }
 
     &--amount {
-        width: 70px;
-        height: 14px;
+        width: calc(70px * var(--zns-space-scale, 1));
+        height: calc(14px * var(--zns-font-scale, 1));
     }
 
     &--fiat {
-        width: 45px;
+        width: calc(45px * var(--zns-space-scale, 1));
     }
 }
 
@@ -353,7 +345,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+    gap: calc(6px * var(--zns-space-scale, 1));
 }
 
 @keyframes shimmer {

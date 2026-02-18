@@ -15,9 +15,9 @@
 
 // Card sizing
 .claim-reward.zelf-card {
-    width: 580px;
+    width: min(580px, var(--zns-card-width, 580px));
     max-width: 95vw;
-    min-height: 700px;
+    min-height: var(--zns-card-min-height, 700px);
     max-height: 95vh;
 }
 
@@ -35,7 +35,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 48px 32px;
+        padding: calc(48px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         border-radius: inherit;
         overflow: hidden;
     }
@@ -52,21 +52,21 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__loader {
         position: relative;
-        width: 100px;
-        height: 100px;
-        margin-bottom: 24px;
+        width: calc(100px * var(--zns-space-scale, 1));
+        height: calc(100px * var(--zns-space-scale, 1));
+        margin-bottom: calc(24px * var(--zns-space-scale, 1));
     }
 
     &__loader-ring {
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        border: 3px solid transparent;
+        border: calc(3px * var(--zns-space-scale, 1)) solid transparent;
         animation: loader-spin 1.5s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 
         &:nth-child(1) {
@@ -75,13 +75,13 @@
         }
 
         &:nth-child(2) {
-            inset: 8px;
+            inset: calc(8px * var(--zns-space-scale, 1));
             border-right-color: #ffb347;
             animation-delay: -0.3s;
         }
 
         &:nth-child(3) {
-            inset: 16px;
+            inset: calc(16px * var(--zns-space-scale, 1));
             border-bottom-color: #ff8a50;
             animation-delay: -0.15s;
         }
@@ -98,7 +98,7 @@
 
     &__loader-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 26px;
+        font-size: calc(26px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: #1c1c1e;
         margin: 0;
@@ -106,7 +106,7 @@
 
     &__loader-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: #636366;
         margin: 0;
@@ -114,9 +114,9 @@
 
     &__loader-subtext {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: #8e8e93;
-        margin: 8px 0 0;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
     }
 
     // ============================================
@@ -136,27 +136,27 @@
 
     &__confetti {
         position: absolute;
-        top: -20px;
-        width: 10px;
-        height: 10px;
-        border-radius: 2px;
+        top: calc(-20px * var(--zns-space-scale, 1));
+        width: calc(10px * var(--zns-space-scale, 1));
+        height: calc(10px * var(--zns-space-scale, 1));
+        border-radius: calc(2px * var(--zns-space-scale, 1));
         animation: confetti-fall linear forwards;
         opacity: 0.9;
 
         &:nth-child(odd) {
             border-radius: 50%;
-            width: 8px;
-            height: 8px;
+            width: calc(8px * var(--zns-space-scale, 1));
+            height: calc(8px * var(--zns-space-scale, 1));
         }
 
         &:nth-child(3n) {
-            width: 6px;
-            height: 14px;
+            width: calc(6px * var(--zns-space-scale, 1));
+            height: calc(14px * var(--zns-space-scale, 1));
         }
 
         &:nth-child(5n) {
-            width: 12px;
-            height: 6px;
+            width: calc(12px * var(--zns-space-scale, 1));
+            height: calc(6px * var(--zns-space-scale, 1));
         }
     }
 
@@ -180,12 +180,12 @@
         text-align: center;
         flex: 1;
         justify-content: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__success-icon {
-        font-size: 88px;
-        margin-bottom: 20px;
+        font-size: calc(88px * var(--zns-font-scale, 1));
+        margin-bottom: calc(20px * var(--zns-space-scale, 1));
         animation: bounce 0.6s ease-out;
     }
 
@@ -203,7 +203,7 @@
 
     &__success-subtitle {
         font-family: variables.$themeBodyFamily;
-        font-size: 18px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: #8e8e93;
         margin: 0;
@@ -211,7 +211,7 @@
 
     &__success-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 34px;
+        font-size: calc(34px * var(--zns-font-scale, 1));
         font-weight: 800;
         color: #1c1c1e;
         margin: 0;
@@ -220,12 +220,12 @@
 
     &__success-desc {
         font-family: variables.$themeBodyFamily;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         color: #8e8e93;
-        margin: 4px 0 28px;
+        margin: calc(4px * var(--zns-space-scale, 1)) 0 calc(28px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: calc(6px * var(--zns-space-scale, 1));
 
         strong {
             color: #1c1c1e;
@@ -238,17 +238,17 @@
 
     &__success-earned-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: #8e8e93;
-        margin: 0 0 16px;
+        margin: 0 0 calc(16px * var(--zns-space-scale, 1));
     }
 
     &__success-amount-box {
         background: white;
         border: 2px solid #ff6b35;
-        border-radius: 24px;
-        padding: 24px 56px;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        padding: calc(24px * var(--zns-space-scale, 1)) calc(56px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -269,7 +269,7 @@
 
     &__success-amount {
         font-family: variables.$themeTitleFamily;
-        font-size: 44px;
+        font-size: calc(44px * var(--zns-font-scale, 1));
         font-weight: 800;
         color: #636366;
         letter-spacing: -1px;
@@ -289,18 +289,18 @@
         text-align: center;
         flex: 1;
         justify-content: center;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__error-icon {
-        width: 100px;
-        height: 100px;
+        width: calc(100px * var(--zns-space-scale, 1));
+        height: calc(100px * var(--zns-space-scale, 1));
         background: #fff5f5;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 16px;
+        margin-bottom: calc(16px * var(--zns-space-scale, 1));
         animation: shake 0.5s ease-out;
     }
 
@@ -321,7 +321,7 @@
 
     &__error-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 26px;
+        font-size: calc(26px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: #1c1c1e;
         margin: 0;
@@ -329,27 +329,27 @@
 
     &__error-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: #ff3b30;
         margin: 0;
-        max-width: 300px;
+        max-width: calc(300px * var(--zns-space-scale, 1));
     }
 
     &__error-subtext {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: #8e8e93;
-        margin: 8px 0 0;
-        max-width: 320px;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
+        max-width: calc(320px * var(--zns-space-scale, 1));
     }
 
     &__error-actions {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         width: 100%;
-        max-width: 320px;
+        max-width: calc(320px * var(--zns-space-scale, 1));
     }
 
     // ============================================
@@ -357,12 +357,12 @@
     // ============================================
     &__action-btn {
         width: 100%;
-        max-width: 320px;
-        padding: 18px 32px;
+        max-width: calc(320px * var(--zns-space-scale, 1));
+        padding: calc(18px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         border: none;
-        border-radius: 16px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 17px;
+        font-size: calc(17px * var(--zns-font-scale, 1));
         font-weight: 600;
         cursor: pointer;
         transition: all 0.25s ease;
@@ -404,27 +404,27 @@
 
     .claim-reward {
         &__screen {
-            padding: 32px 24px;
+            padding: calc(32px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
         }
 
         &__success-title {
-            font-size: 28px;
+            font-size: calc(28px * var(--zns-font-scale, 1));
         }
 
         &__success-amount {
-            font-size: 36px;
+            font-size: calc(36px * var(--zns-font-scale, 1));
         }
 
         &__success-amount-box {
-            padding: 20px 40px;
+            padding: calc(20px * var(--zns-space-scale, 1)) calc(40px * var(--zns-space-scale, 1));
         }
 
         &__loader-title {
-            font-size: 22px;
+            font-size: calc(22px * var(--zns-font-scale, 1));
         }
 
         &__error-title {
-            font-size: 22px;
+            font-size: calc(22px * var(--zns-font-scale, 1));
         }
     }
 }

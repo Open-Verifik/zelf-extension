@@ -11,8 +11,14 @@ export class ErrorService {
         this._defaultErrorMessage = this._translocoService.translate("errors.generic");
     }
 
+    private readonly API_MESSAGE_TO_KEY: Record<string, string> = {
+        "FACE IS NOT CENTRAL, PLEASE USE AN IMAGE WITH A CENTRAL FACE.": "face_not_central",
+    };
+
     translateErrorMessage(key: string, fallbackErrorKey: string = ""): string {
-        const formattedKey = `errors.${key}`;
+        const trimmed = key?.trim() || "";
+        const mappedKey = this.API_MESSAGE_TO_KEY[trimmed] ?? key;
+        const formattedKey = `errors.${mappedKey}`;
 
         const translation = this._translocoService.translate(formattedKey);
 

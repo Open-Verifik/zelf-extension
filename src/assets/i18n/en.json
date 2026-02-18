@@ -473,6 +473,7 @@
         "fastest": "Fastest",
         "transaction_settings": "Transaction Settings",
         "upto_sats": "Up to {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutes",
+        "recent_addresses": "Recent",
         "used": "Used {{days}} ago",
         "withdrawal_amount": "Withdrawal amount",
         "zelf_name_not_registered": "Tag Name not registered",
@@ -563,6 +564,7 @@
         "password_strength_label": "Password Strength",
         "password_subtitle": "Enter the password assigned to this Tag Name to complete the decryption process.",
         "pin_description": "Create a PIN of 6 characters (letters or numbers)",
+        "pin_unlock_description": "Use your PIN to unlock your ZelfProof",
         "pin_confirm_description": "Re-enter your 6 character PIN to confirm",
         "pin_title": "PIN",
         "secure_password_description": "An additional security layer",
@@ -727,7 +729,11 @@
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
         "zelf_wallet": "Zelf Wallet",
-        "subscriptions": "Subscriptions"
+        "subscriptions": "Subscriptions",
+        "download_short": "Download",
+        "mnemonics": "Mnemonics",
+        "wallet_short": "Wallet",
+        "auth_short": "Auth"
     },
     "token": {
         "24h_performance": "24h Performance",
@@ -809,6 +815,7 @@
         "error_sending_decryption_result_to_background": "Error communicating with extension",
         "error_stopping_camera": "Error stopping camera",
         "face_detection_error": "Face detection failed",
+        "face_not_central": "Your face is not centered. Please adjust your face in the frame and try again.",
         "failed_to_get_quote": "Failed to get a quote for this swap.",
         "generic_identity": "Sorry, there seems to have been a problem with your identity verification. Please try it again.",
         "generic_title": "An error has occured",

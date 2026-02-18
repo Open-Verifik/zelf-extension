@@ -3,29 +3,29 @@
 .share-zotp {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: calc(20px * var(--zns-space-scale, 1));
+    padding: calc(20px * var(--zns-space-scale, 1));
     max-height: 90vh;
     overflow-y: auto;
 
     @media (max-width: 400px) {
-        padding: 16px;
-        gap: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        padding-bottom: 4px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding-bottom: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__title {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
+        line-height: calc(24px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
         flex: 1;
@@ -35,11 +35,11 @@
         cursor: pointer;
         border: none;
         background: none;
-        padding: 8px;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-width: calc(36px * var(--zns-space-scale, 1));
+        min-height: calc(36px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -64,41 +64,41 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
     }
 
     &__zotp-info {
         text-align: center;
-        padding: 14px 16px;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__zotp-name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
-        line-height: 22px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        line-height: calc(22px * var(--zns-font-scale, 1));
         color: variables.$themeText;
-        margin-bottom: 4px;
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__zotp-issuer {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        line-height: 18px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
     }
 
     &__description {
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackgroundSecondary;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
 
         p {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
-            line-height: 20px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
             color: variables.$black;
             margin: 0;
         }
@@ -107,12 +107,12 @@
     &__config {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__config-row {
         display: flex;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
 
         @media (max-width: 600px) {
             flex-direction: column;
@@ -127,13 +127,13 @@
     &__participants {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__participants-title {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$black;
         margin: 0;
     }
@@ -141,7 +141,7 @@
     &__participants-list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__participant-field {
@@ -149,24 +149,24 @@
     }
 
     &__error {
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$errorLight;
         border: 1px solid variables.$error;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         color: variables.$error;
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
     }
 
     &__generate-button {
         width: 100%;
-        padding: 12px 24px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         background-color: variables.$black;
         color: variables.$themeBackground;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
 
         &:hover:not(:disabled) {
             background-color: variables.$themeText;
@@ -180,14 +180,14 @@
     &__shares {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__shares-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
 
         @media (max-width: 600px) {
             flex-direction: column;
@@ -198,29 +198,29 @@
     &__shares-title {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
     }
 
     &__download-button {
-        padding: 8px 16px;
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         background-color: variables.$themeCardBorder;
         color: variables.$themeText;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__shares-info {
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackgroundSecondary;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
 
         p {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
-            line-height: 20px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
             color: variables.$themeText;
             margin: 0;
         }
@@ -229,15 +229,15 @@
     &__shares-list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        max-height: 400px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        max-height: calc(400px * var(--zns-space-scale, 1));
         overflow-y: auto;
     }
 
     &__share-item {
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         border: 1px solid variables.$themeTextMuted;
     }
 
@@ -245,34 +245,34 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 8px;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__share-label {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeText;
     }
 
     &__share-copy {
-        padding: 4px;
-        width: 32px;
-        height: 32px;
+        padding: calc(4px * var(--zns-space-scale, 1));
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
     }
 
     &__share-value {
-        margin-bottom: 8px;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
 
         code {
             display: block;
             font-family: variables.$themeMonospaceFamily;
-            font-size: 12px;
-            line-height: 18px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(18px * var(--zns-font-scale, 1));
             color: variables.$themeText;
             background-color: variables.$themeBackground;
-            padding: 8px 12px;
-            border-radius: 4px;
+            padding: calc(8px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+            border-radius: calc(4px * var(--zns-space-scale, 1));
             word-break: break-all;
             user-select: all;
         }
@@ -280,20 +280,20 @@
 
     &__share-participant {
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
     }
 
     &__warning {
-        padding: 12px 16px;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$warningLight;
         border: 1px solid variables.$warning;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
 
         p {
             font-family: variables.$themeBodyFamily;
-            font-size: 13px;
-            line-height: 18px;
+            font-size: calc(13px * var(--zns-font-scale, 1));
+            line-height: calc(18px * var(--zns-font-scale, 1));
             color: variables.$warning;
             margin: 0;
 

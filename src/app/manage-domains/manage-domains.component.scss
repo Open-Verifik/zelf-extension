@@ -17,16 +17,19 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: calc(24px * var(--zns-space-scale, 1));
     justify-content: center;
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
-        column-gap: 12px;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: flex-start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -53,7 +56,7 @@
     }
 
     &__name {
-        font-size: 20px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
         font-weight: 400;
         font-family: variables.$themeTitleFamily;
         color: variables.$themeText;
@@ -63,7 +66,7 @@
     &__tasks {
         display: flex;
         flex-direction: row;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
         width: 100%;
@@ -72,20 +75,21 @@
     &__title {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
     }
 
     &__content {
         width: 100%;
-        max-width: 600px;
+        max-width: min(600px, var(--zns-card-width, 600px));
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
         flex-grow: 1;
@@ -95,7 +99,7 @@
         display: flex;
         flex-grow: 1;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: flex-end;
         align-items: center;
         width: 100%;
@@ -105,7 +109,7 @@
 .domains {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: calc(4px * var(--zns-space-scale, 1));
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -116,8 +120,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    padding: 16px;
+    gap: calc(8px * var(--zns-space-scale, 1));
+    padding: calc(16px * var(--zns-space-scale, 1));
     border-radius: 16px;
     background-color: variables.$themeCardBorder;
     width: 100%;
@@ -125,7 +129,7 @@
     &__display {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: center;
         width: 100%;
@@ -135,21 +139,21 @@
         cursor: pointer;
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: center;
         width: 100%;
     }
 
     &__avatar {
-        font-size: 40px;
+        font-size: calc(40px * var(--zns-font-scale, 1));
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
+        height: calc(40px * var(--zns-space-scale, 1));
+        width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
         border-radius: 40px;
         color: variables.$themeCard;
         box-sizing: border-box;
@@ -170,8 +174,8 @@
     &__character {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 14px;
-        line-height: 16px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 2%;
         vertical-align: middle;
         text-transform: uppercase;
@@ -181,7 +185,7 @@
     &__info {
         display: inline-flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: space-between;
         align-items: center;
         width: 100%;
@@ -199,17 +203,17 @@
         flex-direction: row;
         justify-content: flex-end;
         align-items: center;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__status-indicator {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
+        height: calc(40px * var(--zns-space-scale, 1));
+        width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
         user-select: none;
         border-radius: 14px;
         background-color: variables.$themeBackgroundSecondary;
@@ -239,10 +243,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
+        height: calc(40px * var(--zns-space-scale, 1));
+        width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
         border: none;
         outline: none;
         cursor: pointer;
@@ -269,14 +273,14 @@
     &-detail {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
 
         &__row {
             display: flex;
             flex: 1 1 auto;
             flex-direction: row;
-            gap: 8px;
+            gap: calc(8px * var(--zns-space-scale, 1));
             justify-content: flex-start;
             align-items: flex-start;
         }
@@ -284,7 +288,7 @@
         &__col {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: calc(4px * var(--zns-space-scale, 1));
             justify-content: center;
             align-items: center;
             width: 100%;
@@ -311,8 +315,8 @@
         &__text {
             font-family: variables.$themeBodyFamily;
             font-weight: 600;
-            font-size: 11px;
-            line-height: 16px;
+            font-size: calc(11px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
             letter-spacing: 0.5px;
             color: variables.$themeText;
             display: flex;
@@ -322,11 +326,11 @@
 
         &__countdown {
             display: inline-flex;
-            gap: 4px;
+            gap: calc(4px * var(--zns-space-scale, 1));
             align-items: center;
             justify-content: flex-end;
             font-family: variables.$themeBodyFamily;
-            font-size: 11px;
+            font-size: calc(11px * var(--zns-font-scale, 1));
             color: variables.$themeText;
             font-weight: 600;
             margin: 0;

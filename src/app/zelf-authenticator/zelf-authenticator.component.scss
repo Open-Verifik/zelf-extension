@@ -17,10 +17,10 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 24px !important;
+    gap: calc(24px * var(--zns-space-scale, 1)) !important;
     justify-content: center;
-    padding-bottom: 94px !important;
-    padding-top: 88px !important;
+    padding-bottom: calc(94px * var(--zns-space-scale, 1)) !important;
+    padding-top: calc(88px * var(--zns-space-scale, 1)) !important;
 
     &__header {
         display: flex;
@@ -32,21 +32,21 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
-        margin: 12px 0 0 0;
+        margin: calc(12px * var(--zns-space-scale, 1)) 0 0 0;
     }
 
     &__content {
         width: 100%;
-        max-width: 600px;
+        max-width: min(600px, var(--zns-card-width, 600px));
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
         flex-grow: 1;
@@ -54,11 +54,10 @@
 
     &__search {
         width: 100%;
-        padding: 0 16px;
-        margin-bottom: 12px;
+        padding: 0 calc(16px * var(--zns-space-scale, 1));
+        margin-bottom: calc(12px * var(--zns-space-scale, 1));
     }
 
-    // Ensure refresh button is above the floating label
     &__search .zelf-icon-button {
         z-index: 20;
         position: relative;
@@ -77,32 +76,30 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 48px 16px;
+        padding: calc(48px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         text-align: center;
     }
 
     &__empty-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
         margin: 0;
     }
 }
-// Override global .zelf-card__content for this component only
 :host ::ng-deep .zelf-card__content {
     justify-content: start !important;
-    overflow: visible !important; // Allow menu to overflow
+    overflow: visible !important;
 }
 
 .zotps {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: calc(12px * var(--zns-space-scale, 1));
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding: 0 16px;
-    // Allow menu to overflow if needed
+    padding: 0 calc(16px * var(--zns-space-scale, 1));
     overflow: visible;
     position: relative;
 }
@@ -112,9 +109,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12px;
-    padding: 20px;
-    border-radius: 16px;
+    gap: calc(12px * var(--zns-space-scale, 1));
+    padding: calc(20px * var(--zns-space-scale, 1));
+    border-radius: calc(16px * var(--zns-space-scale, 1));
     background: variables.$themeBackground;
     box-shadow: 0 4px 20px variables.$themeShadow;
     border: 1px solid variables.$themeBorder;
@@ -127,7 +124,7 @@
     &__display {
         display: flex;
         flex-direction: row;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: center;
         width: 100%;
@@ -139,23 +136,23 @@
         cursor: pointer;
         display: flex;
         flex-direction: row;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: center;
         flex: 1;
-        min-width: 0; // Allow flex item to shrink
+        min-width: 0;
     }
 
     &__avatar {
-        font-size: 40px;
+        font-size: calc(40px * var(--zns-font-scale, 1));
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
-        border-radius: 8px;
+        height: calc(40px * var(--zns-space-scale, 1));
+        width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         background-color: variables.$themeText;
         color: variables.$themeBackground;
         box-sizing: border-box;
@@ -165,8 +162,8 @@
     &__character {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 14px;
-        line-height: 16px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 2%;
         vertical-align: middle;
         text-transform: uppercase;
@@ -183,7 +180,7 @@
     &__info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-start;
         flex: 1;
@@ -193,14 +190,14 @@
     &__name-container {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     &__name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 18px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
         line-height: 1.2;
         color: variables.$themeText;
         margin: 0;
@@ -212,7 +209,7 @@
     &__issuer {
         font-family: variables.$themeBodyFamily;
         font-weight: 400;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         line-height: 1.4;
         color: variables.$themeTextMuted;
         margin: 0;
@@ -224,7 +221,7 @@
     &__code-container {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         align-items: center;
         justify-content: flex-start;
     }
@@ -232,29 +229,29 @@
     &__code {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: 20px;
-        line-height: 24px;
-        letter-spacing: 2px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        line-height: calc(24px * var(--zns-font-scale, 1));
+        letter-spacing: calc(2px * var(--zns-space-scale, 1));
         color: variables.$themeText;
         font-variant-numeric: tabular-nums;
 
         &--masked {
-            letter-spacing: 4px;
+            letter-spacing: calc(4px * var(--zns-space-scale, 1));
         }
     }
 
     &__timer {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: 11px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
         font-weight: 500;
 
         svg {
-            width: 12px;
-            height: 12px;
+            width: calc(12px * var(--zns-space-scale, 1));
+            height: calc(12px * var(--zns-space-scale, 1));
         }
     }
 
@@ -262,19 +259,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 40px;
-        width: 40px;
-        min-height: 40px;
-        min-width: 40px;
-        flex-shrink: 0; // Prevent button from shrinking
+        height: calc(40px * var(--zns-space-scale, 1));
+        width: calc(40px * var(--zns-space-scale, 1));
+        min-height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
+        flex-shrink: 0;
         border: none;
         outline: none;
         cursor: pointer;
         user-select: none;
-        border-radius: 14px;
+        border-radius: calc(14px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackgroundSecondary;
         transition: background-color 0.3s variables.$smoothBezier;
-        position: relative; // Ensure menu positioning context
+        position: relative;
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
@@ -292,7 +289,6 @@
     }
 }
 
-// Ensure Material menu can overflow properly and position correctly
 :host ::ng-deep .zotp__action {
     .mat-mdc-menu-panel {
         position: absolute !important;

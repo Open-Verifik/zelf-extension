@@ -35,6 +35,7 @@
         "domain_or_address": "डोमेन या पता",
         "enter_amount_to_send": "भेजने के लिए राशि दर्ज करें",
         "external_address_found": "बाहरी पता मिल गया",
+        "recent_addresses": "हाल के",
         "used": "{{days}} पहले उपयोग किया गया",
         "withdrawal_amount": "निकासी राशि",
         "zelf_name_not_registered": "टैग नाम पंजीकृत नहीं है",
@@ -131,6 +132,7 @@
         "password_strength_label": "पासवर्ड स्ट्रेंथ",
         "password_subtitle": "डिक्रिप्शन प्रक्रिया को पूरा करने के लिए इस टैग नाम को सौंपे गए पासवर्ड को दर्ज करें।",
         "pin_description": "6 अंकों का PIN बनाएं",
+        "pin_unlock_description": "अपने ZelfProof को अनलॉक करने के लिए अपना PIN उपयोग करें",
         "pin_title": "PIN",
         "secure_password_description": "एक अतिरिक्त सुरक्षा परत",
         "secure_password_title": "सुरक्षित पासवर्ड",
@@ -295,7 +297,11 @@
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "subscriptions": "सदस्यता"
+        "subscriptions": "सदस्यता",
+        "download_short": "डाउनलोड",
+        "mnemonics": "मनेमोनिक",
+        "wallet_short": "वॉलेट",
+        "auth_short": "ऑथ"
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",
@@ -411,6 +417,7 @@
         "error_sending_decryption_result_to_background": "एक्सटेंशन के साथ संचार करने में त्रुटि",
         "error_stopping_camera": "कैमरा रोकने में त्रुटि",
         "face_detection_error": "चेहरा पहचान विफल रहा",
+        "face_not_central": "आपका चेहरा केंद्र में नहीं है। कृपया फ्रेम में अपना चेहरा समायोजित करें और पुनः प्रयास करें।",
         "incorrect_passphrase": "मास्टर पासवर्ड गलत तरीके से दर्ज किया गया। कृपया पुनः प्रयास करें।",
         "no_decrypted_data_received_from_api": "सर्वर से कोई डिक्रिप्ट किया गया डेटा प्राप्त नहीं हुआ",
         "no_zelfproof_available_for_password_decryption": "पासवर्ड डिक्रिप्शन के लिए कोई ZelfProof उपलब्ध नहीं है",

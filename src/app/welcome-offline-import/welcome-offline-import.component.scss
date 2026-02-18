@@ -14,18 +14,18 @@
     min-height: 75vh;
     display: flex;
     justify-content: flex-start;
-    gap: 24px;
+    gap: calc(24px * var(--zns-space-scale, 1));
 
     &__header {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__header-button {
@@ -37,20 +37,20 @@
     }
 
     &__wrapper {
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
         box-sizing: border-box;
         border-radius: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         flex-grow: 1;
     }
 
     &__available-wrapper {
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
         box-sizing: border-box;
         border: 1px solid variables.$themeCardBorder;
         border-radius: 16px;
@@ -58,7 +58,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         flex-grow: 1;
     }
@@ -66,17 +66,17 @@
     &__available-subtitle {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__content {
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__top {

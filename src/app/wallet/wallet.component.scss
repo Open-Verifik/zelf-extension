@@ -18,16 +18,19 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: calc(24px * var(--zns-space-scale, 1));
     justify-content: center;
+    width: 100%;
+    max-width: var(--zns-card-width, 536px);
+    min-height: var(--zns-card-min-height, 768px);
 
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
-        column-gap: 12px;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: flex-start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -57,9 +60,9 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        padding: 4px 8px;
+        padding: calc(4px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
         border-radius: 12px;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeCard;
         background-color: variables.$themeText;
@@ -77,31 +80,31 @@
     }
 
     &__name {
-        font-size: 20px;
+        font-size: calc(20px * var(--zns-font-scale, 1));
         font-weight: 400;
         font-family: variables.$themeTitleFamily;
         color: variables.$themeText;
         margin: 0;
 
         @media (max-width: variables.$minSmall) {
-            font-size: 18px;
+            font-size: calc(18px * var(--zns-font-scale, 1));
         }
     }
 
     &__tasks {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
     &__task {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
 
@@ -113,15 +116,15 @@
             display: flex;
             flex: 1;
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             font-weight: 500;
-            height: 104px;
-            padding: 12px;
+            height: calc(104px * var(--zns-space-scale, 1));
+            padding: calc(12px * var(--zns-space-scale, 1));
             border: none;
             transition:
                 background-color 0.2s variables.$smoothBezier,
                 color 0.2s variables.$smoothBezier;
-            width: 96px;
+            width: calc(96px * var(--zns-space-scale, 1));
 
             svg {
                 transition: fill 0.3s variables.$smoothBezier;
@@ -140,11 +143,10 @@
 
         &-text {
             margin: 0;
-            font-size: 11px;
+            font-size: calc(11px * var(--zns-font-scale, 1));
             font-weight: 500;
             font-family: variables.$themeBodyFamily;
             color: variables.$themeText;
-            margin: 0;
         }
     }
 
@@ -153,70 +155,71 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
 
         svg {
-            width: 24px;
-            height: 24px;
+            width: calc(24px * var(--zns-space-scale, 1));
+            height: calc(24px * var(--zns-space-scale, 1));
             flex-shrink: 0;
         }
 
         span {
-            font-size: 12px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
             font-weight: 500;
             text-align: center;
-            line-height: 14px;
+            line-height: calc(14px * var(--zns-font-scale, 1));
         }
     }
 
     &__title {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
+        margin: 0;
     }
 
     &__content {
         width: 100%;
-        max-width: 400px;
+        max-width: min(400px, var(--zns-card-width, 400px));
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
     }
 
     &__details {
         width: 100%;
-        gap: 6px;
-        max-width: 400px;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        max-width: min(400px, var(--zns-card-width, 400px));
     }
 
     &__detail {
         display: flex;
         flex-direction: row;
         width: 100%;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: space-between;
         align-items: center;
         background-color: variables.$themeBackgroundSecondary;
-        padding: 24px 16px;
+        padding: calc(24px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         border-radius: 16px;
 
         &-title {
             margin: 0;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeTextSecondary;
         }
 
         &-value {
             margin: 0;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeText;
         }
     }
@@ -224,14 +227,14 @@
     &__addresses {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         width: 100%;
-        margin-top: 24px;
+        margin-top: calc(24px * var(--zns-space-scale, 1));
     }
 
     &__tabs {
-        margin-top: 16px;
-        margin-bottom: 8px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -242,45 +245,45 @@
         justify-content: center;
         align-items: center;
         flex-grow: 1;
-        min-height: 200px;
+        min-height: calc(200px * var(--zns-space-scale, 1));
     }
 
     &__actions {
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 100%;
-        max-width: 400px;
-        margin-top: 12px;
+        max-width: min(400px, var(--zns-card-width, 400px));
+        margin-top: calc(12px * var(--zns-space-scale, 1));
     }
 }
 
 .crypto-address {
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: calc(16px * var(--zns-space-scale, 1));
     justify-content: center;
     align-items: center;
     width: 100%;
     background-color: variables.$themeCard;
     border: 1px solid variables.$themeCardBorder;
     border-radius: 16px;
-    padding: 16px 8px;
+    padding: calc(16px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
     box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
 
     &__col {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: calc(2px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-start;
         width: 100%;
     }
 
     &__text {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
         font-family: variables.$themeBodyFamily;
         color: variables.$themeText;
@@ -288,7 +291,7 @@
     }
 
     &__address-text {
-        font-size: 11px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
         font-weight: 500;
         font-family: monospace;
         color: variables.$themeText;

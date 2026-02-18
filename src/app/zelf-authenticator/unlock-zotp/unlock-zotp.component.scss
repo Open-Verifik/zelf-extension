@@ -3,42 +3,41 @@
 .unlock-zotp {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: calc(20px * var(--zns-space-scale, 1));
+    padding: calc(20px * var(--zns-space-scale, 1));
     max-height: 90vh;
     overflow-y: auto;
 
-    // Responsive padding for small screens (extension popup)
     @media (max-width: 400px) {
-        padding: 16px;
-        gap: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        padding-bottom: 4px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding-bottom: calc(4px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            gap: 8px;
-            padding-bottom: 2px;
+            gap: calc(8px * var(--zns-space-scale, 1));
+            padding-bottom: calc(2px * var(--zns-space-scale, 1));
         }
     }
 
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 18px;
-        line-height: 24px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
+        line-height: calc(24px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
         flex: 1;
 
         @media (max-width: 400px) {
-            font-size: 16px;
-            line-height: 22px;
+            font-size: calc(16px * var(--zns-font-scale, 1));
+            line-height: calc(22px * var(--zns-font-scale, 1));
         }
     }
 
@@ -46,11 +45,11 @@
         cursor: pointer;
         border: none;
         background: none;
-        padding: 8px;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-width: calc(36px * var(--zns-space-scale, 1));
+        min-height: calc(36px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -58,11 +57,11 @@
         flex-shrink: 0;
 
         @media (max-width: 400px) {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            min-height: 32px;
-            padding: 6px;
+            width: calc(32px * var(--zns-space-scale, 1));
+            height: calc(32px * var(--zns-space-scale, 1));
+            min-width: calc(32px * var(--zns-space-scale, 1));
+            min-height: calc(32px * var(--zns-space-scale, 1));
+            padding: calc(6px * var(--zns-space-scale, 1));
         }
 
         &:hover:not(:disabled) {
@@ -84,49 +83,49 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            gap: 16px;
+            gap: calc(16px * var(--zns-space-scale, 1));
         }
     }
 
     &__zotp-info {
         text-align: center;
-        padding: 14px 16px;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
 
         @media (max-width: 400px) {
-            padding: 12px 14px;
+            padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
         }
     }
 
     &__zotp-name {
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: 16px;
-        line-height: 22px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        line-height: calc(22px * var(--zns-font-scale, 1));
         color: variables.$themeText;
-        margin-bottom: 4px;
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
         word-break: break-word;
 
         @media (max-width: 400px) {
-            font-size: 14px;
-            line-height: 20px;
-            margin-bottom: 3px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
+            margin-bottom: calc(3px * var(--zns-space-scale, 1));
         }
     }
 
     &__zotp-issuer {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
-        line-height: 18px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
 
         @media (max-width: 400px) {
-            font-size: 12px;
-            line-height: 16px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
     }
 
@@ -134,13 +133,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 320px;
-        padding: 8px 0;
+        min-height: calc(320px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1)) 0;
         width: 100%;
 
         @media (max-width: 400px) {
-            min-height: 280px;
-            padding: 4px 0;
+            min-height: calc(280px * var(--zns-space-scale, 1));
+            padding: calc(4px * var(--zns-space-scale, 1)) 0;
         }
 
         // Ensure biometrics component can scale properly

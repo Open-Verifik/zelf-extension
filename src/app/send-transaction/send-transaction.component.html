@@ -178,42 +178,48 @@
 
                 <ng-container *ngIf="!withdrawStep && filteredAddresses.length">
                     <div class="send-transaction__address-book">
+                        <p class="send-transaction__address-book-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/>
+                            </svg>
+                            {{ t("send.recent_addresses") }}
+                        </p>
+
                         <div
                             (click)="selectRecentAddress(address)"
                             [matRippleColor]="'rgba(0, 0, 0, 0.1)'"
                             *ngFor="let address of filteredAddresses"
-                            class="zelf-action-row"
+                            class="send-transaction__recent-card"
+                            [class.send-transaction__recent-card--selected]="address.address === form.get('toAddress')?.value"
                             matRipple
                         >
-                            <div class="send-transaction__address-row">
-                                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M16 0H4C1.79 0 0 1.79 0 4V12C0 14.21 1.79 16 4 16H16C18.21 16 20 14.21 20 12V4C20 1.79 18.21 0 16 0ZM14.14 9.77C13.9 9.97 13.57 10.05 13.26 9.97L2.15 7.25C2.45 6.52 3.16 6 4 6H16C16.67 6 17.26 6.34 17.63 6.84L14.14 9.77ZM4 2H16C17.1 2 18 2.9 18 4V4.55C17.41 4.21 16.73 4 16 4H4C3.27 4 2.59 4.21 2 4.55V4C2 2.9 2.9 2 4 2Z"
-                                        fill="#181818"
-                                    />
+                            <div class="send-transaction__recent-avatar">
+                                <span *ngIf="address.tagName">{{ address.tagName.slice(0, 2).toUpperCase() }}</span>
+                                <svg *ngIf="!address.tagName" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 18v1c0 1.1-.9 2-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1h-9a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9zm-9-2h10V8H12v8zm4-2.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
                                 </svg>
-
-                                <p class="zelf-action-row__text send-transaction__address-col">
-                                    <span class="send-transaction__address-name" *ngIf="!address.tagName">{{ address.address | addressMask }}</span>
-
-                                    <span class="send-transaction__address-name send-transaction__address-name--zelf-name" *ngIf="address.tagName">
-                                        {{ address.tagName }}{{ address.domain ? "." + address.domain : "" }}
-                                    </span>
-
-                                    <span class="send-transaction__address-used">{{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}</span>
-                                </p>
                             </div>
 
-                            <div>
-                                <ng-container *ngIf="address.address === form.get('toAddress')?.value">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM9.29 16.29L5.7 12.7C5.31 12.31 5.31 11.68 5.7 11.29C6.09 10.9 6.72 10.9 7.11 11.29L10 14.17L16.88 7.29C17.27 6.9 17.9 6.9 18.29 7.29C18.68 7.68 18.68 8.31 18.29 8.7L10.7 16.29C10.32 16.68 9.68 16.68 9.29 16.29Z"
-                                            fill="#1ea446"
-                                        />
-                                    </svg>
-                                </ng-container>
+                            <div class="send-transaction__recent-info">
+                                <span class="send-transaction__recent-name" *ngIf="address.tagName">
+                                    {{ address.tagName }}{{ address.domain ? "." + address.domain : "" }}
+                                </span>
+                                <span class="send-transaction__recent-name" *ngIf="!address.tagName">
+                                    {{ address.address | addressMask }}
+                                </span>
+                                <span class="send-transaction__recent-address" *ngIf="address.tagName">
+                                    {{ address.address | addressMask }}
+                                </span>
+                                <span class="send-transaction__recent-time">
+                                    {{ t("send.used", { days: getTimeDiff(address.lastUsed) }) }}
+                                </span>
                             </div>
+
+                            <svg *ngIf="address.address === form.get('toAddress')?.value"
+                                class="send-transaction__recent-check"
+                                width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 14.58L6.7 12.7a.996.996 0 1 1 1.41-1.41l2.89 2.88 6.88-6.88a.996.996 0 1 1 1.41 1.41l-7.59 7.58c-.39.39-1.02.39-1.41 0z"/>
+                            </svg>
                         </div>
                     </div>
                 </ng-container>
@@ -221,31 +227,31 @@
                 <zelf-loader *ngIf="searching"></zelf-loader>
 
                 <ng-container *ngIf="!withdrawStep">
-                    <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound">
-                        <div class="zelf-object-preview__chip">
-                            <div class="zelf-object-preview__icon-bubble">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"
-                                    />
-                                </svg>
-                            </div>
-                            <p class="zelf-object-preview__chip-text" *ngIf="foundAddress.name">{{ t("send.address_found") }}</p>
-                            <p class="zelf-object-preview__chip-text" *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</p>
-                        </div>
-
-                        <h3 class="zelf-object-preview__zelf-name">
-                            {{ foundAddress.fullTagName }}
-                        </h3>
-
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">
-                            {{ foundAddress.publicData.ethAddress }}
+                    <div class="zelf-object-preview" *ngIf="foundAddress && !isZelfNameNotFound && !isFromRecentAddress">
+                        <p class="zelf-object-preview__status">
+                            <svg width="12" height="12" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"/>
+                            </svg>
+                            <span *ngIf="foundAddress.name">{{ t("send.address_found") }}</span>
+                            <span *ngIf="!foundAddress.name">{{ t("send.external_address_found") }}</span>
                         </p>
 
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSolToken">{{ foundAddress.publicData.solanaAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBtcToken">{{ foundAddress.publicData.btcAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress }}</p>
-                        <p class="zelf-object-preview__address" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress }}</p>
+                        <div class="zelf-object-preview__row">
+                            <div class="zelf-object-preview__avatar">
+                                {{ (foundAddress.fullTagName || foundAddress.name || '').slice(0, 2).toUpperCase() }}
+                            </div>
+                            <div class="zelf-object-preview__details">
+                                <span class="zelf-object-preview__name">{{ foundAddress.fullTagName }}</span>
+                                <span class="zelf-object-preview__address-short" *ngIf="transactionData.isEthToken || transactionData.isAvaxToken">{{ foundAddress.publicData.ethAddress | addressMask }}</span>
+                                <span class="zelf-object-preview__address-short" *ngIf="transactionData.isSolToken">{{ foundAddress.publicData.solanaAddress | addressMask }}</span>
+                                <span class="zelf-object-preview__address-short" *ngIf="transactionData.isBtcToken">{{ foundAddress.publicData.btcAddress | addressMask }}</span>
+                                <span class="zelf-object-preview__address-short" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress | addressMask }}</span>
+                                <span class="zelf-object-preview__address-short" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress | addressMask }}</span>
+                            </div>
+                            <svg class="zelf-object-preview__check" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"/>
+                            </svg>
+                        </div>
                     </div>
 
                     <div class="zelf-object-preview" *ngIf="isZelfNameNotFound">

@@ -27,20 +27,20 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: calc(24px * var(--zns-space-scale, 1));
+    padding-bottom: calc(24px * var(--zns-space-scale, 1));
     gap: 0;
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-items: center;
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
-        padding: 0 24px;
+        padding: 0 calc(24px * var(--zns-space-scale, 1));
         z-index: 10;
         flex-shrink: 0;
     }
@@ -71,8 +71,8 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 300;
-        font-size: 24px;
-        line-height: 20px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -85,22 +85,22 @@
         flex: 1;
         min-height: 0;
         overflow: auto;
-        padding: 16px 24px 24px;
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        gap: 32px;
+        gap: calc(32px * var(--zns-space-scale, 1));
     }
 
     &__container {
         display: flex;
         width: 100%;
-        max-width: 360px;
+        max-width: min(360px, var(--zns-card-width, 360px));
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        gap: 32px;
+        gap: calc(32px * var(--zns-space-scale, 1));
     }
 
     // Balance section (Figma: "You have" + "366 $ZNS")
@@ -109,26 +109,26 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         text-align: center;
         flex-shrink: 0;
     }
 
     &__balance-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: #181818;
     }
 
     &__balance-amount {
         font-family: variables.$themeTitleFamily;
-        font-size: 32px;
+        font-size: calc(32px * var(--zns-font-scale, 1));
         font-weight: 700;
         text-transform: uppercase;
-        line-height: 40px;
+        line-height: calc(40px * var(--zns-font-scale, 1));
         color: #181818;
     }
 
@@ -137,15 +137,15 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__option {
         width: 100%;
-        padding: 14px 16px;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background: white;
         box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
-        border-radius: 16px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         outline: 1px #eeedf1 solid;
         outline-offset: -1px;
         display: inline-flex;
@@ -157,7 +157,7 @@
         text-align: left;
 
         &:not(.redeem-zns__option--disabled):hover {
-            transform: translateY(-1px);
+            transform: translateY(calc(-1px * var(--zns-space-scale, 1)));
             box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.08);
         }
 
@@ -181,30 +181,30 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        gap: 2px;
+        gap: calc(2px * var(--zns-space-scale, 1));
     }
 
     &__option-title {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: 20px;
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         color: #181818;
     }
 
     &__option-cost {
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: 16px;
+        line-height: calc(16px * var(--zns-font-scale, 1));
         letter-spacing: 0.5px;
         color: #96939e;
     }
 
     &__option-arrow {
-        width: 24px;
-        height: 24px;
+        width: calc(24px * var(--zns-space-scale, 1));
+        height: calc(24px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;

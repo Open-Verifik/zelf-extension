@@ -15,8 +15,8 @@
 .domain-purchase {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: 16px;
+    gap: calc(24px * var(--zns-space-scale, 1));
+    padding: calc(16px * var(--zns-space-scale, 1));
     width: 100%;
     justify-content: flex-start;
     align-items: center;
@@ -24,12 +24,12 @@
 
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr); // Adjusted to 3 columns
-        column-gap: 12px;
+        grid-template-columns: repeat(10, 1fr);
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-content: center;
         justify-content: start;
-        height: 76px;
-        gap: 24px;
+        height: calc(76px * var(--zns-space-scale, 1));
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -59,14 +59,14 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         cursor: pointer;
         user-select: none;
         border-radius: 52px;
-        height: 52px;
-        width: 52px;
-        min-height: 52px;
-        min-width: 52px;
+        height: calc(52px * var(--zns-space-scale, 1));
+        width: calc(52px * var(--zns-space-scale, 1));
+        min-height: calc(52px * var(--zns-space-scale, 1));
+        min-width: calc(52px * var(--zns-space-scale, 1));
         background-color: variables.$themeCardBorder !important;
         transition: background-color 0.3s variables.$smoothBezier;
 
@@ -86,7 +86,7 @@
     }
 
     &__title {
-        font-size: 18px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
         font-weight: 600;
         font-family: variables.$themeBodyFamily;
         color: variables.$black;
@@ -96,10 +96,10 @@
 
     &__content {
         width: 100%;
-        max-width: 800px;
+        max-width: min(800px, var(--zns-card-width, 800px));
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
         flex-grow: 1;
@@ -107,36 +107,36 @@
 
     &__details {
         width: 100%;
-        gap: 6px;
+        gap: calc(6px * var(--zns-space-scale, 1));
     }
 
     &__detail {
         display: flex;
         flex-direction: row;
         width: 100%;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: space-between;
         align-items: center;
         background-color: variables.$themeCardBorder;
-        padding: 24px 16px;
+        padding: calc(24px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         border-radius: 16px;
 
         &-title {
             margin: 0;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$themeTextSecondary;
         }
 
         &-value {
             margin: 0;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$black;
         }
     }
 
     &__actions {
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -148,13 +148,13 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 8px;
+    gap: calc(8px * var(--zns-space-scale, 1));
     justify-content: flex-start;
     align-items: center;
     flex-grow: 1;
 
     &__title {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$black;
         font-family: variables.$themeBodyFamily;
@@ -162,19 +162,19 @@
     }
 
     &__zelf-name {
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$black;
         font-family: variables.$themeTitleFamily;
-        margin: 2px 0 0;
+        margin: calc(2px * var(--zns-space-scale, 1)) 0 0;
     }
 
     &__description {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 400;
         color: variables.$themeTextSecondary;
         font-family: variables.$themeBodyFamily;
-        margin: 2px 0 0;
+        margin: calc(2px * var(--zns-space-scale, 1)) 0 0;
     }
 
     &__spacer {
@@ -190,14 +190,14 @@
         border-radius: 16px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        padding: 16px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
-        max-width: 400px;
+        max-width: min(400px, var(--zns-card-width, 400px));
     }
 
     &__price-description {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 400;
         color: variables.$black;
         font-family: variables.$themeBodyFamily;
@@ -207,14 +207,14 @@
 
     &__price-amount-container {
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-end;
         width: 100%;
     }
 
     &__price {
-        font-size: 32px;
+        font-size: calc(32px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$black;
         font-family: variables.$themeTitleFamily;
@@ -222,20 +222,20 @@
     }
 
     &__price-currency {
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 600;
         letter-spacing: 1px;
         color: variables.$black;
         font-family: variables.$themeBodyFamily;
-        margin: 0 0 8px;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__agreements {
         display: flex;
         flex-direction: column;
         width: 100%;
-        max-width: 400px;
-        gap: 8px;
+        max-width: min(400px, var(--zns-card-width, 400px));
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
     }
@@ -243,7 +243,7 @@
     &__agreement {
         display: flex;
         flex-direction: row;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;
         width: 100%;
@@ -256,20 +256,20 @@
     background-color: variables.$themeCardBorder;
     border-radius: 16px;
     display: flex;
-    gap: 12px;
+    gap: calc(12px * var(--zns-space-scale, 1));
     justify-content: space-between;
-    padding: 16px;
+    padding: calc(16px * var(--zns-space-scale, 1));
     width: 100%;
-    max-width: 400px;
-    margin: 24px 0 8px;
+    max-width: min(400px, var(--zns-card-width, 400px));
+    margin: calc(24px * var(--zns-space-scale, 1)) 0 calc(8px * var(--zns-space-scale, 1));
 
     &__text {
         color: variables.$black;
         cursor: default;
         font-family: variables.$themeTitleFamily;
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         font-weight: 600;
-        margin: 8px 0 0;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
         user-select: none;
     }
 }
@@ -277,20 +277,20 @@
 .domain-length {
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: calc(8px * var(--zns-space-scale, 1));
     justify-content: space-between;
     align-items: center;
     width: 100%;
     border-radius: 16px;
-    padding: 16px;
+    padding: calc(16px * var(--zns-space-scale, 1));
     border: 1px solid variables.$themeTextMuted;
 
     &__title {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
-        font-size: 14px;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$black;
         font-family: variables.$themeBodyFamily;
@@ -301,8 +301,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 12px;
-        font-size: 14px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$black;
         font-family: variables.$themeBodyFamily;

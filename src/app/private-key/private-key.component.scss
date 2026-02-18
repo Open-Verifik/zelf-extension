@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px;
+    padding: calc(16px * var(--zns-space-scale, 1));
 }
 
 .private-key {
@@ -15,8 +15,8 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 16px;
-    max-width: 400px;
+    gap: calc(16px * var(--zns-space-scale, 1));
+    max-width: min(400px, var(--zns-card-width, 400px));
 
     &__exit {
         align-items: center;
@@ -25,26 +25,26 @@
         border: none;
         cursor: pointer;
         display: flex;
-        height: 48px;
+        height: calc(48px * var(--zns-space-scale, 1));
         justify-content: center;
-        margin: 8px;
-        min-height: 48px;
-        min-width: 48px;
+        margin: calc(8px * var(--zns-space-scale, 1));
+        min-height: calc(48px * var(--zns-space-scale, 1));
+        min-width: calc(48px * var(--zns-space-scale, 1));
         outline: none;
-        padding: 8px;
+        padding: calc(8px * var(--zns-space-scale, 1));
         position: absolute;
         right: 0;
         top: 0;
         transition:
             color 0.3s variables.$smoothBezier,
             background-color 0.3s variables.$smoothBezier;
-        width: 48px;
+        width: calc(48px * var(--zns-space-scale, 1));
 
         svg {
             transition: fill 0.3s variables.$smoothBezier;
             fill: variables.$themeText;
-            height: 16px;
-            width: 16px;
+            height: calc(16px * var(--zns-space-scale, 1));
+            width: calc(16px * var(--zns-space-scale, 1));
         }
 
         &:hover {
@@ -60,37 +60,37 @@
     &__body {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         justify-content: center;
         align-items: center;
     }
 
     &__icon {
-        margin-top: 28px;
+        margin-top: calc(28px * var(--zns-space-scale, 1));
         fill: variables.$themeText;
     }
 
     &__title {
-        font-size: 18px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
         font-weight: 600;
         font-family: variables.$themeTitleFamily;
         color: variables.$themeText;
         text-transform: uppercase;
-        margin: 12px 0 0;
+        margin: calc(12px * var(--zns-space-scale, 1)) 0 0;
     }
 
     &__text {
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         margin: 0;
         text-align: center;
     }
 
     &__actions {
         width: 100%;
-        margin-top: 16px;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         display: flex;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;
         justify-content: center;
         align-items: center;

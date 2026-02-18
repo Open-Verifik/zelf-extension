@@ -4,28 +4,28 @@
 .delete-zotp {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 32px;
+    gap: calc(20px * var(--zns-space-scale, 1));
+    padding: calc(32px * var(--zns-space-scale, 1));
     max-height: 90vh;
     overflow-y: auto;
 
     @media (max-width: 400px) {
-        padding: 24px;
-        gap: 16px;
+        padding: calc(24px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        padding-bottom: 4px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding-bottom: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 24px;
+        font-size: calc(24px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
         flex: 1;
@@ -35,11 +35,11 @@
         cursor: pointer;
         border: none;
         background: none;
-        padding: 8px;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        min-height: 36px;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        min-width: calc(36px * var(--zns-space-scale, 1));
+        min-height: calc(36px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -64,27 +64,27 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__warning {
         display: flex;
         align-items: flex-start;
-        gap: 12px;
-        padding: 16px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
         background-color: variables.$errorLight;
         border: 1px solid variables.$error;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
 
         svg {
             flex-shrink: 0;
             color: variables.$error;
-            margin-top: 2px;
+            margin-top: calc(2px * var(--zns-space-scale, 1));
         }
 
         p {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             color: variables.$error;
             margin: 0;
             line-height: 1.5;
@@ -94,13 +94,13 @@
     &__qr-section {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         align-items: center;
     }
 
     &__section-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
         margin: 0;
@@ -110,30 +110,30 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 24px;
+        padding: calc(24px * var(--zns-space-scale, 1));
         background-color: variables.$themeBackground;
         border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 16px;
-        max-width: 400px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
+        max-width: min(400px, var(--zns-card-width, 400px));
         width: 100%;
     }
 
     &__qr-image {
         width: 100%;
         height: auto;
-        max-width: 350px;
+        max-width: calc(350px * var(--zns-space-scale, 1));
         display: block;
     }
 
     &__info-section {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__info-value {
         font-family: variables.$themeMonospaceFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         word-break: break-all;
     }
@@ -141,22 +141,22 @@
     &__form {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__field {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__field--master-password {
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__label {
         font-family: variables.$themeBodyFamily;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeText;
     }
@@ -164,7 +164,7 @@
     &__label--master-password {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
 
@@ -176,13 +176,13 @@
 
     &__required {
         color: variables.$error;
-        margin-left: 2px;
+        margin-left: calc(2px * var(--zns-space-scale, 1));
     }
 
     &__password-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
 
         .zelf-input {
             input[type="password"],
@@ -202,23 +202,23 @@
     }
 
     &__error {
-        padding: 12px;
-        border-radius: 8px;
+        padding: calc(12px * var(--zns-space-scale, 1));
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         background-color: variables.$errorLight;
         color: variables.$error;
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
     }
 
     &__actions {
         display: flex;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         justify-content: flex-end;
-        padding-top: 12px;
+        padding-top: calc(12px * var(--zns-space-scale, 1));
         border-top: 1px solid variables.$themeBorder;
     }
 
     &__biometrics {
-        padding: 24px 0;
+        padding: calc(24px * var(--zns-space-scale, 1)) 0;
     }
 }

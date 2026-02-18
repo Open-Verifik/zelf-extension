@@ -4,26 +4,26 @@
 .language {
     &__button-content {
         font-weight: 600;
-        font-size: 14px;
-        gap: 0.2rem;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        gap: calc(0.2rem * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: flex-start;
 
         .language__flag {
             object-fit: cover;
-            width: 24px;
-            height: 24px;
+            width: calc(24px * var(--zns-space-scale, 1));
+            height: calc(24px * var(--zns-space-scale, 1));
             border-radius: 24px;
         }
     }
 
     &__flag {
         object-fit: cover;
-        width: 32px;
-        height: 32px;
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
         border-radius: 32px;
-        margin-right: 0.2rem;
+        margin-right: calc(0.2rem * var(--zns-space-scale, 1));
     }
 }
 

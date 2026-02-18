@@ -15,7 +15,7 @@
 
 // Override zelf-card to be larger for this component
 .invite-friends.zelf-card {
-    width: 600px;
+    width: min(600px, var(--zns-card-width, 600px));
     max-width: 100%;
     min-height: 100%;
     margin: 0;
@@ -29,11 +29,11 @@
     &::before {
         content: "";
         position: absolute;
-        top: -100px;
+        top: calc(-100px * var(--zns-space-scale, 1));
         left: 50%;
         transform: translateX(-50%);
-        width: 600px;
-        height: 600px;
+        width: calc(600px * var(--zns-space-scale, 1));
+        height: calc(600px * var(--zns-space-scale, 1));
         background: radial-gradient(circle, rgba(255, 87, 33, 0.08) 0%, transparent 70%);
         pointer-events: none;
         z-index: 0;
@@ -47,38 +47,38 @@
         z-index: 0;
 
         &--inner {
-            width: 280px;
-            height: 280px;
+            width: calc(280px * var(--zns-space-scale, 1));
+            height: calc(280px * var(--zns-space-scale, 1));
             left: 50%;
-            top: 100px;
+            top: calc(100px * var(--zns-space-scale, 1));
             transform: translateX(-50%);
             opacity: 0.12;
             background: linear-gradient(180deg, #ff5721 0%, rgba(255, 87, 33, 0) 100%);
-            filter: blur(40px);
+            filter: blur(calc(40px * var(--zns-space-scale, 1)));
         }
 
         &--outer {
-            width: 400px;
-            height: 400px;
+            width: calc(400px * var(--zns-space-scale, 1));
+            height: calc(400px * var(--zns-space-scale, 1));
             left: 50%;
-            top: 50px;
+            top: calc(50px * var(--zns-space-scale, 1));
             transform: translateX(-50%);
             opacity: 0.08;
             background: linear-gradient(180deg, rgba(255, 87, 33, 0) 0%, #ff5721 100%);
-            filter: blur(60px);
+            filter: blur(calc(60px * var(--zns-space-scale, 1)));
         }
     }
 
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        column-gap: 12px;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
         align-items: center;
         align-content: center;
         justify-content: start;
-        gap: 24px;
+        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
-        padding: 28px 32px;
+        padding: calc(28px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         z-index: 10;
         flex-shrink: 0;
     }
@@ -109,7 +109,7 @@
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 600;
-        font-size: 26px;
+        font-size: calc(26px * var(--zns-font-scale, 1));
         line-height: 1.2;
         letter-spacing: -0.3px;
         text-align: center;
@@ -122,7 +122,7 @@
         width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
-        padding: 0 32px 32px;
+        padding: 0 calc(32px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -132,14 +132,14 @@
         z-index: 5;
 
         &::-webkit-scrollbar {
-            width: 6px;
+            width: calc(6px * var(--zns-space-scale, 1));
         }
         &::-webkit-scrollbar-track {
             background: transparent;
         }
         &::-webkit-scrollbar-thumb {
             background: variables.$themeBorder;
-            border-radius: 10px;
+            border-radius: calc(10px * var(--zns-space-scale, 1));
 
             &:hover {
                 background: variables.$themeTextMuted;
@@ -150,11 +150,11 @@
     &__container {
         display: flex;
         width: 100%;
-        max-width: 480px;
+        max-width: min(480px, var(--zns-card-width, 480px));
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        gap: 28px;
+        gap: calc(28px * var(--zns-space-scale, 1));
     }
 
     // Hero Section - Premium Design
@@ -163,10 +163,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 28px 28px 52px;
+        padding: calc(28px * var(--zns-space-scale, 1)) calc(28px * var(--zns-space-scale, 1)) calc(52px * var(--zns-space-scale, 1));
         width: 100%;
         background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 35%, #ffb347 100%);
-        border-radius: 28px;
+        border-radius: calc(28px * var(--zns-space-scale, 1));
         overflow: hidden;
         flex-shrink: 0;
         box-shadow:
@@ -200,30 +200,30 @@
         position: absolute;
         top: -60%;
         right: -40%;
-        width: 300px;
-        height: 300px;
+        width: calc(300px * var(--zns-space-scale, 1));
+        height: calc(300px * var(--zns-space-scale, 1));
         background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
         pointer-events: none;
     }
 
     &__hero-icon {
-        width: 96px;
-        height: 96px;
+        width: calc(96px * var(--zns-space-scale, 1));
+        height: calc(96px * var(--zns-space-scale, 1));
         background: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(20px);
-        border-radius: 28px;
+        backdrop-filter: blur(calc(20px * var(--zns-space-scale, 1)));
+        border-radius: calc(28px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: calc(20px * var(--zns-space-scale, 1));
         animation: float 4s ease-in-out infinite;
         box-shadow:
             0 8px 32px rgba(0, 0, 0, 0.1),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
         svg {
-            width: 48px;
-            height: 48px;
+            width: calc(48px * var(--zns-space-scale, 1));
+            height: calc(48px * var(--zns-space-scale, 1));
         }
     }
 
@@ -233,16 +233,16 @@
             transform: translateY(0) scale(1);
         }
         50% {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(calc(-8px * var(--zns-space-scale, 1))) scale(1.02);
         }
     }
 
     &__hero-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 28px;
+        font-size: calc(28px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: white;
-        margin: 0 0 10px;
+        margin: 0 0 calc(10px * var(--zns-space-scale, 1));
         text-align: center;
         letter-spacing: -0.5px;
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -250,7 +250,7 @@
 
     &__hero-subtitle {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: rgba(255, 255, 255, 0.95);
         margin: 0;
@@ -260,9 +260,9 @@
 
     // Referral Code Card - Floating Design
     &__code-card {
-        margin-top: -60px;
+        margin-top: calc(-60px * var(--zns-space-scale, 1));
         width: 100%;
-        max-width: 380px;
+        max-width: min(380px, var(--zns-card-width, 380px));
         position: relative;
         z-index: 10;
         flex-shrink: 0;
@@ -270,20 +270,20 @@
 
     &__code-card-inner {
         background: variables.$themeCard;
-        border-radius: 24px;
-        padding: 24px 28px;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        padding: calc(24px * var(--zns-space-scale, 1)) calc(28px * var(--zns-space-scale, 1));
         box-shadow: 0 12px 40px variables.$themeShadow;
         border: 1px solid variables.$themeBorder;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         transition:
             transform 0.3s ease,
             box-shadow 0.3s ease;
 
         &:hover {
-            transform: translateY(-2px);
+            transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
             box-shadow:
                 0 16px 48px rgba(0, 0, 0, 0.1),
                 0 6px 16px rgba(0, 0, 0, 0.06);
@@ -292,7 +292,7 @@
 
     &__code-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 11px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeTextMuted;
         text-transform: uppercase;
@@ -303,14 +303,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: calc(20px * var(--zns-space-scale, 1));
         width: 100%;
-        margin-top: 8px;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__code-value {
         font-family: variables.$themeTitleFamily;
-        font-size: 28px;
+        font-size: calc(28px * var(--zns-font-scale, 1));
         font-weight: 800;
         color: variables.$themeText;
         letter-spacing: 0.8px;
@@ -325,15 +325,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        padding: 12px 32px;
-        min-width: 140px;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
+        min-width: calc(140px * var(--zns-space-scale, 1));
         background: linear-gradient(135deg, #ff6b35 0%, #ff8a50 100%);
         border: none;
-        border-radius: 18px;
+        border-radius: calc(18px * var(--zns-space-scale, 1));
         color: white;
         font-family: variables.$themeBodyFamily;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         font-weight: 700;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -342,7 +342,7 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
         &:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(calc(-2px * var(--zns-space-scale, 1))) scale(1.02);
             box-shadow:
                 0 10px 28px rgba(255, 107, 53, 0.45),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -368,7 +368,7 @@
     // Stats Cards - Glass Morphism
     &__stats {
         display: flex;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         width: 100%;
         flex-shrink: 0;
     }
@@ -378,15 +378,15 @@
         background: variables.$themeCard;
         border: 1px solid variables.$themeBorder;
         box-shadow: 0 8px 32px variables.$themeShadow;
-        border-radius: 22px;
-        padding: 20px;
+        border-radius: calc(22px * var(--zns-space-scale, 1));
+        padding: calc(20px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         transition: all 0.3s ease;
 
         &:hover {
-            transform: translateY(-4px);
+            transform: translateY(calc(-4px * var(--zns-space-scale, 1)));
             box-shadow:
                 0 16px 48px rgba(0, 0, 0, 0.1),
                 0 4px 16px rgba(0, 0, 0, 0.06);
@@ -399,17 +399,17 @@
     }
 
     &__stat-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 16px;
+        width: calc(52px * var(--zns-space-scale, 1));
+        height: calc(52px * var(--zns-space-scale, 1));
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
 
         svg {
-            width: 24px;
-            height: 24px;
+            width: calc(24px * var(--zns-space-scale, 1));
+            height: calc(24px * var(--zns-space-scale, 1));
         }
 
         &--friends {
@@ -427,12 +427,12 @@
     &__stat-content {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__stat-value {
         font-family: variables.$themeTitleFamily;
-        font-size: 28px;
+        font-size: calc(28px * var(--zns-font-scale, 1));
         font-weight: 700;
         color: variables.$themeText;
         line-height: 1;
@@ -440,7 +440,7 @@
 
     &__stat-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 13px;
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeTextMuted;
     }
@@ -450,19 +450,19 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__section-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 4px 0;
+        padding: calc(4px * var(--zns-space-scale, 1)) 0;
     }
 
     &__section-title {
         font-family: variables.$themeBodyFamily;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeTextSecondary;
         margin: 0;
@@ -474,10 +474,10 @@
         background: variables.$themeBorder;
         color: variables.$themeTextSecondary;
         font-family: variables.$themeBodyFamily;
-        font-size: 12px;
+        font-size: calc(12px * var(--zns-font-scale, 1));
         font-weight: 600;
-        padding: 6px 12px;
-        border-radius: 12px;
+        padding: calc(6px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+        border-radius: calc(12px * var(--zns-space-scale, 1));
     }
 
     // Empty State
@@ -487,38 +487,38 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 48px 24px;
-        min-height: 200px;
+        padding: calc(48px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+        min-height: calc(200px * var(--zns-space-scale, 1));
     }
 
     &__empty-icon {
-        width: 88px;
-        height: 88px;
+        width: calc(88px * var(--zns-space-scale, 1));
+        height: calc(88px * var(--zns-space-scale, 1));
         background: variables.$themeBorder;
-        border-radius: 24px;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: center;
         color: variables.$themeTextMuted;
-        margin-bottom: 20px;
+        margin-bottom: calc(20px * var(--zns-space-scale, 1));
 
         svg {
-            width: 44px;
-            height: 44px;
+            width: calc(44px * var(--zns-space-scale, 1));
+            height: calc(44px * var(--zns-space-scale, 1));
         }
     }
 
     &__empty-title {
         font-family: variables.$themeTitleFamily;
-        font-size: 18px;
+        font-size: calc(18px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
-        margin: 0 0 8px;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1));
     }
 
     &__empty-text {
         font-family: variables.$themeBodyFamily;
-        font-size: 15px;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
         margin: 0;
     }
@@ -527,7 +527,7 @@
     &__list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: calc(12px * var(--zns-space-scale, 1));
         width: 100%;
     }
 
@@ -535,15 +535,15 @@
         background: variables.$themeCard;
         border: 1px solid variables.$themeBorder;
         box-shadow: 0 4px 16px variables.$themeShadow;
-        border-radius: 20px;
-        padding: 16px 20px;
+        border-radius: calc(20px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
         justify-content: space-between;
         transition: all 0.3s ease;
 
         &:hover {
-            transform: translateX(6px);
+            transform: translateX(calc(6px * var(--zns-space-scale, 1)));
             border-color: rgba(255, 87, 33, 0.3);
             box-shadow:
                 0 8px 24px rgba(0, 0, 0, 0.06),
@@ -554,15 +554,15 @@
     &__friend-left {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
         min-width: 0;
         flex: 1;
     }
 
     &__friend-avatar {
-        width: 52px;
-        height: 52px;
-        border-radius: 16px;
+        width: calc(52px * var(--zns-space-scale, 1));
+        height: calc(52px * var(--zns-space-scale, 1));
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         background: variables.$themeBorder;
         display: flex;
         align-items: center;
@@ -571,7 +571,7 @@
 
         span {
             font-family: variables.$themeTitleFamily;
-            font-size: 20px;
+            font-size: calc(20px * var(--zns-font-scale, 1));
             font-weight: 600;
             color: variables.$themeTextSecondary;
         }
@@ -589,20 +589,20 @@
     &__friend-info {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: calc(4px * var(--zns-space-scale, 1));
         min-width: 0;
     }
 
     &__friend-name {
         font-family: variables.$themeBodyFamily;
-        font-size: 16px;
+        font-size: calc(16px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$themeText;
     }
 
     &__friend-status {
         font-family: variables.$themeBodyFamily;
-        font-size: 13px;
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 500;
         color: variables.$themeTextMuted;
 
@@ -614,16 +614,16 @@
 
     &__friend-action {
         flex-shrink: 0;
-        margin-left: 16px;
+        margin-left: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__claimed-badge {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         background: variables.$correctLight;
-        padding: 10px 16px;
-        border-radius: 14px;
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-radius: calc(14px * var(--zns-space-scale, 1));
         color: variables.$correct;
 
         svg {
@@ -632,7 +632,7 @@
 
         span {
             font-family: variables.$themeBodyFamily;
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
             font-weight: 600;
         }
     }
@@ -640,15 +640,15 @@
     &__claim-btn {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 8px 16px;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
         border: none;
-        border-radius: 12px;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
         color: white;
         cursor: pointer;
         font-family: variables.$themeBodyFamily;
-        font-size: 13px;
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 600;
         transition: all 0.25s ease;
         box-shadow:
@@ -656,7 +656,7 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
         &:hover {
-            transform: translateY(-1px) scale(1.02);
+            transform: translateY(calc(-1px * var(--zns-space-scale, 1))) scale(1.02);
             box-shadow:
                 0 6px 20px rgba(255, 107, 53, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -675,11 +675,11 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        gap: 2px;
+        gap: calc(2px * var(--zns-space-scale, 1));
 
         span:first-child {
             font-family: variables.$themeBodyFamily;
-            font-size: 16px;
+            font-size: calc(16px * var(--zns-font-scale, 1));
             font-weight: 600;
             color: variables.$themeText;
         }
@@ -687,7 +687,7 @@
 
     &__pending-label {
         font-family: variables.$themeBodyFamily;
-        font-size: 11px;
+        font-size: calc(11px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$warning;
         text-transform: uppercase;
@@ -695,21 +695,21 @@
     }
 
     &__loader-tiny {
-        width: 14px;
-        height: 14px;
-        border: 2px solid rgba(255, 87, 33, 0.2);
-        border-top: 2px solid #ff5721;
+        width: calc(14px * var(--zns-space-scale, 1));
+        height: calc(14px * var(--zns-space-scale, 1));
+        border: calc(2px * var(--zns-space-scale, 1)) solid rgba(255, 87, 33, 0.2);
+        border-top: calc(2px * var(--zns-space-scale, 1)) solid #ff5721;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
-        margin-top: 2px;
+        margin-top: calc(2px * var(--zns-space-scale, 1));
     }
 
     // Skeleton Styles
     &__stat-skeleton {
-        width: 40px;
-        height: 34px;
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(34px * var(--zns-space-scale, 1));
         background: variables.$themeBorder;
-        border-radius: 8px;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
         position: relative;
         overflow: hidden;
 
@@ -729,17 +729,17 @@
     &__friend-skeleton {
         background: variables.$themeCard;
         border: 1px solid variables.$themeBorder;
-        border-radius: 20px;
-        padding: 16px 20px;
+        border-radius: calc(20px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__skeleton-avatar {
-        width: 52px;
-        height: 52px;
-        border-radius: 16px;
+        width: calc(52px * var(--zns-space-scale, 1));
+        height: calc(52px * var(--zns-space-scale, 1));
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         background: variables.$themeBorder;
         flex-shrink: 0;
         position: relative;
@@ -762,13 +762,13 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__skeleton-line {
-        height: 12px;
+        height: calc(12px * var(--zns-space-scale, 1));
         background: variables.$themeBorder;
-        border-radius: 4px;
+        border-radius: calc(4px * var(--zns-space-scale, 1));
         position: relative;
         overflow: hidden;
 
@@ -786,7 +786,7 @@
 
         &--name {
             width: 60%;
-            height: 16px;
+            height: calc(16px * var(--zns-space-scale, 1));
         }
 
         &--status {
@@ -795,9 +795,9 @@
     }
 
     &__skeleton-badge {
-        width: 80px;
-        height: 36px;
-        border-radius: 12px;
+        width: calc(80px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        border-radius: calc(12px * var(--zns-space-scale, 1));
         background: variables.$themeBorder;
         position: relative;
         overflow: hidden;
@@ -843,119 +843,119 @@
 
     .invite-friends {
         &__header {
-            padding: 20px 16px;
-            gap: 12px;
+            padding: calc(20px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+            gap: calc(12px * var(--zns-space-scale, 1));
         }
 
         &__title {
-            font-size: 20px;
+            font-size: calc(20px * var(--zns-font-scale, 1));
         }
 
         &__app-content {
-            padding: 0 16px 32px;
+            padding: 0 calc(16px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         }
 
         &__container {
             max-width: 100%;
-            gap: 20px;
+            gap: calc(20px * var(--zns-space-scale, 1));
         }
 
         &__hero {
-            padding: 24px 16px 40px;
-            border-radius: 20px;
+            padding: calc(24px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(40px * var(--zns-space-scale, 1));
+            border-radius: calc(20px * var(--zns-space-scale, 1));
         }
 
         &__hero-icon {
-            width: 72px;
-            height: 72px;
-            margin-bottom: 16px;
+            width: calc(72px * var(--zns-space-scale, 1));
+            height: calc(72px * var(--zns-space-scale, 1));
+            margin-bottom: calc(16px * var(--zns-space-scale, 1));
 
             svg {
-                width: 36px;
-                height: 36px;
+                width: calc(36px * var(--zns-space-scale, 1));
+                height: calc(36px * var(--zns-space-scale, 1));
             }
         }
 
         &__hero-title {
-            font-size: 22px;
+            font-size: calc(22px * var(--zns-font-scale, 1));
         }
 
         &__hero-subtitle {
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
         }
 
         &__code-card {
-            margin-top: -45px;
-            padding: 0 8px;
+            margin-top: calc(-45px * var(--zns-space-scale, 1));
+            padding: 0 calc(8px * var(--zns-space-scale, 1));
         }
 
         &__code-card-inner {
-            padding: 16px 20px;
-            gap: 12px;
+            padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
+            gap: calc(12px * var(--zns-space-scale, 1));
         }
 
         &__code-row {
-            gap: 16px;
+            gap: calc(16px * var(--zns-space-scale, 1));
         }
 
         &__code-value {
-            font-size: 24px;
+            font-size: calc(24px * var(--zns-font-scale, 1));
         }
 
         &__stats {
-            flex-direction: row; // Keep them side-by-side but adjust padding
-            gap: 8px;
+            flex-direction: row;
+            gap: calc(8px * var(--zns-space-scale, 1));
         }
 
         &__stat-card {
-            padding: 12px;
-            gap: 10px;
+            padding: calc(12px * var(--zns-space-scale, 1));
+            gap: calc(10px * var(--zns-space-scale, 1));
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
 
         &__stat-icon {
-            width: 44px;
-            height: 44px;
+            width: calc(44px * var(--zns-space-scale, 1));
+            height: calc(44px * var(--zns-space-scale, 1));
 
             svg {
-                width: 20px;
-                height: 20px;
+                width: calc(20px * var(--zns-space-scale, 1));
+                height: calc(20px * var(--zns-space-scale, 1));
             }
         }
 
         &__stat-value {
-            font-size: 22px;
+            font-size: calc(22px * var(--zns-font-scale, 1));
         }
 
         &__stat-label {
-            font-size: 11px;
+            font-size: calc(11px * var(--zns-font-scale, 1));
         }
 
         &__section-title {
-            font-size: 13px;
+            font-size: calc(13px * var(--zns-font-scale, 1));
         }
 
         &__friend {
-            padding: 12px 16px;
+            padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         }
 
         &__friend-avatar {
-            width: 44px;
-            height: 44px;
+            width: calc(44px * var(--zns-space-scale, 1));
+            height: calc(44px * var(--zns-space-scale, 1));
 
             span {
-                font-size: 16px;
+                font-size: calc(16px * var(--zns-font-scale, 1));
             }
         }
 
         &__friend-name {
-            font-size: 14px;
+            font-size: calc(14px * var(--zns-font-scale, 1));
         }
 
         &__friend-status {
-            font-size: 12px;
+            font-size: calc(12px * var(--zns-font-scale, 1));
         }
     }
 }
@@ -964,11 +964,11 @@
 @media (max-width: 400px) {
     .invite-friends {
         &__code-value {
-            font-size: 18px;
+            font-size: calc(18px * var(--zns-font-scale, 1));
         }
 
         &__stat-value {
-            font-size: 20px;
+            font-size: calc(20px * var(--zns-font-scale, 1));
         }
     }
 }

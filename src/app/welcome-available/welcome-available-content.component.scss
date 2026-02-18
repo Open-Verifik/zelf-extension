@@ -11,13 +11,13 @@
     box-sizing: border-box;
 
     &__label {
-        min-height: 40px;
+        min-height: calc(40px * var(--zns-space-scale, 1));
         box-sizing: border-box;
         cursor: pointer;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
         vertical-align: middle;
@@ -26,7 +26,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px 24px 8px;
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
         transition: color 0.3s variables.$smoothBezier;
 
         svg {
@@ -56,19 +56,19 @@
         transition: max-height 0.3s ease-in-out;
 
         &--active {
-            max-height: 128px;
+            max-height: calc(128px * var(--zns-space-scale, 1));
         }
     }
 
     &__inner-content {
         box-sizing: border-box;
-        padding: 16px;
+        padding: calc(16px * var(--zns-space-scale, 1));
     }
 }
 
 .zelf-input {
     position: relative;
-    margin-bottom: 16px;
+    margin-bottom: calc(16px * var(--zns-space-scale, 1));
 
     &--wide {
         width: 100%;

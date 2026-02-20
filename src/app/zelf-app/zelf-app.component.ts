@@ -2,9 +2,8 @@ import { Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterOutlet } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
-import { animate, query, style, transition, trigger } from "@angular/animations";
 
 import { LanguageComponent } from "app/language/language.component";
 import { ZelfThemeComponent } from "app/zelf-theme/zelf-theme.component";
@@ -18,29 +17,6 @@ import { ChromeService } from "app/chrome.service";
     selector: "zelf-app",
     styleUrls: ["./zelf-app.component.scss"],
     templateUrl: "./zelf-app.component.html",
-    animations: [
-        trigger("routeAnimations", [
-            transition("* <=> *", [
-                query(
-                    ":enter",
-                    [
-                        style({
-                            opacity: 0,
-                            transform: "translateX(16px) scale(0.98)",
-                        }),
-                        animate(
-                            "0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                            style({
-                                opacity: 1,
-                                transform: "translateX(0) scale(1)",
-                            })
-                        ),
-                    ],
-                    { optional: true }
-                ),
-            ]),
-        ]),
-    ],
 })
 export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     @ViewChild("contentContainer", { static: false }) contentContainer!: ElementRef<HTMLDivElement>;
@@ -59,10 +35,6 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
         private _walletService: WalletService
     ) {}
 
-    prepareRoute(outlet: RouterOutlet): string {
-        return outlet?.activatedRouteData?.["animation"] ?? "void";
-    }
-
     async ngAfterViewInit(): Promise<void> {
         await this._setCanGoHome();
 
@@ -72,8 +44,7 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
 
         this._router.events.pipe(takeUntil(this.unsubscriber$)).subscribe((event) => {
             if (!(event instanceof NavigationEnd)) return;
-
-            this.contentContainer.nativeElement.scrollTo(0, 0);
+            this.contentContainer?.nativeElement.scrollTo(0, 0);
         });
     }
 

@@ -71,6 +71,9 @@
                         ],
                         "allowedCommonJsDependencies": [
                             "@bitcoinerlab/secp256k1",
+                            "poseidon-lite",
+                            "bip32",
+                            "ecpair",
                             "@ethereumjs/rlp",
                             "@tensorflow/tfjs-core",
                             "@vladmandic/face-api",

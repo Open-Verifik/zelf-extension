@@ -69,7 +69,7 @@ export const translocoConfig: TranslocoConfig = {
         },
     ],
     flatten: {
-        aot: !environment.production,
+        aot: false,
     },
     missingHandler: {
         allowEmpty: true,

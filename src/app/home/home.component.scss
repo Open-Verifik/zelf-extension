@@ -56,34 +56,31 @@
     &__actions-container {
         min-height: calc(240px * var(--zns-space-scale, 1));
         display: flex;
-
-        @media (max-width: variables.$minSmall) {
-            min-height: calc(150px * var(--zns-space-scale, 1));
-        }
         flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 100%;
+
+        @media (max-width: variables.$minSmall) {
+            min-height: calc(150px * var(--zns-space-scale, 1));
+        }
     }
 
     &__actions {
         width: 100%;
         margin-top: calc(16px * var(--zns-space-scale, 1));
         display: inline-flex;
-
-        @media (max-width: variables.$minSmall) {
-            margin-top: calc(8px * var(--zns-space-scale, 1));
-        }
         justify-content: center;
         align-items: center;
         gap: calc(20px * var(--zns-space-scale, 1));
 
-        @media (max-width: variables.$medium) {
-            gap: calc(15px * var(--zns-space-scale, 1));
+        @media (max-width: variables.$minSmall) {
+            margin-top: calc(8px * var(--zns-space-scale, 1));
+            gap: calc(8px * var(--zns-space-scale, 1));
         }
 
-        @media (max-width: variables.$minSmall) {
-            gap: calc(8px * var(--zns-space-scale, 1));
+        @media (max-width: variables.$medium) {
+            gap: calc(15px * var(--zns-space-scale, 1));
         }
     }
 

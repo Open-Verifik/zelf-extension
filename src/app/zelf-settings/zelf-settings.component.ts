@@ -78,7 +78,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        this._setSettingItems();
+        setTimeout(() => this._setSettingItems());
     }
 
     private _createDialogRef(): MatDialogRef<ConfirmationDialogComponent> {

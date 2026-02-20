@@ -791,6 +791,9 @@ h3 {
 .zelf-bottom-sheet-seasalt {
     .mat-bottom-sheet-container {
         background-color: variables.$themeBackgroundSecondary !important;
+        min-height: 50vh !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
     }
 }
 

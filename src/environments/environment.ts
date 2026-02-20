@@ -6,7 +6,7 @@ export const environment = {
     includeNonPaidDomains: true,
     keysUrl: "https://keys.zelf.world",
     paymentDomainUrl: "http://localhost:3009/tags/payment",
-    production: true,
+    production: false,
     testnetAddress: "",
     networks: {
         ethereum: "sepolia",

@@ -26,10 +26,6 @@ const routes: Routes = [
         path: "",
         redirectTo: "home",
         pathMatch: "full",
-        canActivate: [LoginGuard],
-        resolve: {
-            auth: JWTResolver,
-        },
     },
     {
         path: "",
@@ -324,6 +320,23 @@ const routes: Routes = [
         ],
     },
     {
+        path: "dapp",
+        loadComponent: () => import("./zelf-app/zelf-app.component").then((m) => m.ZelfAppComponent),
+        resolve: {
+            auth: JWTResolver,
+        },
+        children: [
+            {
+                path: "connect",
+                loadComponent: () => import("./dapp-connect/dapp-connect.component").then((m) => m.DappConnectComponent),
+            },
+            {
+                path: "sign",
+                loadComponent: () => import("./dapp-sign/dapp-sign.component").then((m) => m.DappSignComponent),
+            },
+        ],
+    },
+    {
         path: "popout-decryptor",
         loadComponent: () => import("./popout-decryptor/popout-decryptor.component").then((m) => m.PopoutDecryptorComponent),
         canActivate: [PopoutOnlyGuard],
@@ -334,6 +347,7 @@ const routes: Routes = [
     },
     {
         path: "external-link",
+        loadComponent: () => import("./session-error/session-error.component").then((m) => m.SessionErrorComponent),
         data: { externalUrl: `${environment.paymentDomainUrl}` },
         canActivate: [ExternalRedirectGuard],
     },

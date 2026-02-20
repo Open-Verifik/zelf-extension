@@ -3,18 +3,17 @@ import "webextension-polyfill";
 import { Logger } from "@extension-scripts/logger/logger.class";
 import { BrowserApiUtil } from "./services/browser-api-util";
 import { MessageHandler } from "./services/message-handler";
+import { DappHandler } from "./services/dapp-handler";
 import { ExtensionLifecycle } from "./services/extension-lifecycle";
 
-// Create the browser API utility instance
 const browserApi = new BrowserApiUtil();
 
-// Initialize the extension lifecycle
 const extensionLifecycle = new ExtensionLifecycle(browserApi);
 
 extensionLifecycle.initialize();
 
-// Initialize the message handler
 const messageHandler = MessageHandler.getInstance(browserApi);
+const dappHandler = DappHandler.getInstance(browserApi);
 
 if (!browserApi.has("runtime")) {
     Logger.error("Runtime API not available - extension cannot function");
@@ -23,6 +22,16 @@ if (!browserApi.has("runtime")) {
 }
 
 browserApi.addMessageListener((message, sender, sendResponse) => {
+    if (message.type && message.type.startsWith("DAPP_")) {
+        dappHandler.handleDappMessage(message, sender, sendResponse);
+        return true;
+    }
+
+    if (message.type && message.type.startsWith("WC_")) {
+        dappHandler.handleDappMessage(message, sender, sendResponse);
+        return true;
+    }
+
     messageHandler.handleAutofillMessage(message, sender, sendResponse);
     return true;
 });

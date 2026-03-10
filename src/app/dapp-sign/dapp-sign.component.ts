@@ -47,6 +47,9 @@ export class DappSignComponent implements OnInit {
     passwordError = false;
     remainingAttempts = 0;
 
+    isPinUnlock = false;
+    pinDigits: string[] = ["", "", "", "", "", ""];
+
     form!: UntypedFormGroup;
     wallet?: TagModel;
     decoded: DecodedTransaction | null = null;
@@ -143,6 +146,9 @@ export class DappSignComponent implements OnInit {
 
             await this._checkPasswordlessWallet();
             await this._checkBiometrics();
+
+            console.log("[DappSign] Wallet loaded:", this.wallet);
+            console.log("[DappSign] Security Type:", this._vaultService.securityType, "isPinUnlock:", this.isPinUnlock);
         } catch (error) {
             console.error("Error loading signing data:", error);
         }
@@ -151,6 +157,9 @@ export class DappSignComponent implements OnInit {
     }
 
     get hasCredentials(): boolean {
+        if (this.isPinUnlock) {
+            return this.passwordSet || (this.pinDigits.join("").length === 6);
+        }
         return this.passwordSet || !!this.form.get("password")?.value;
     }
 
@@ -175,7 +184,7 @@ export class DappSignComponent implements OnInit {
         if (!this.hasCredentials || !this.wallet) return;
 
         if (!this._vaultService.password || this._vaultService.password.trim() === "") {
-            this._vaultService.password = this.form.get("password")?.value || this._password;
+            this._vaultService.password = this.isPinUnlock ? this.pinDigits.join("") : (this.form.get("password")?.value || this._password);
         }
 
         const tagName = this.wallet?.publicData?.tagName || this.wallet?.fullTagName || "";
@@ -194,15 +203,20 @@ export class DappSignComponent implements OnInit {
             return;
         }
 
-        if (!this._password && !this.form.get("password")?.value) {
+        if (!this.isPinUnlock && !this._password && !this.form.get("password")?.value) {
             this._openErrorSnackBar("Enter your password");
+            return;
+        }
+        
+        if (this.isPinUnlock && !this._password && this.pinDigits.join("").length !== 6) {
+            this._openErrorSnackBar("Enter your PIN");
             return;
         }
 
         this.signing = true;
 
         try {
-            const passphrase = this._password || this.form.get("password")?.value;
+            const passphrase = this._password || (this.isPinUnlock ? this.pinDigits.join("") : this.form.get("password")?.value);
 
             // Use oneTimeDecryptMessage (no biometrics timer check) since:
             // 1. We already verified biometrics within this popup flow, and
@@ -270,6 +284,11 @@ export class DappSignComponent implements OnInit {
             if (/incorrect/i.test(error?.message)) {
                 this.passwordError = true;
                 this.remainingAttempts = this._vaultService.remainingAttempts;
+                if (this.isPinUnlock) {
+                    this.pinDigits = ["", "", "", "", "", ""];
+                } else {
+                    this.form.get("password")?.setValue("");
+                }
             } else {
                 this._openErrorSnackBar(error?.message || "Signing failed");
             }
@@ -366,6 +385,11 @@ export class DappSignComponent implements OnInit {
             this._vaultService.password = "NO_PASSWORD_PLACEHOLDER";
             this._vaultService.securityType = "withoutPassword";
             this.passwordSet = true;
+        } else if (publicData.st === "pin") {
+            this.isPinUnlock = true;
+            this._vaultService.securityType = "pin";
+        } else {
+            this._vaultService.securityType = "securePassword";
         }
     }
 
@@ -449,5 +473,60 @@ export class DappSignComponent implements OnInit {
             panelClass: "zelf-snackbar",
             verticalPosition: "top",
         });
+    }
+
+    onInputFocus(event: Event): void {
+        (event.target as HTMLInputElement).select();
+    }
+
+    onPinInput(event: Event, index: number): void {
+        const input = event.target as HTMLInputElement;
+        const value = input.value;
+
+        if (value.length > 1) {
+            const digits = value.slice(0, 6).split("");
+            this.pinDigits = [...digits, ...Array(6 - digits.length).fill("")].slice(0, 6);
+            const lastIndex = Math.min(digits.length - 1, 5);
+            setTimeout(() => {
+                const inputs = this._getPinInputs();
+                if (inputs[lastIndex]) inputs[lastIndex].focus();
+            }, 0);
+            return;
+        }
+
+        this.pinDigits[index] = value;
+
+        if (value && index < 5) {
+            setTimeout(() => {
+                const inputs = this._getPinInputs();
+                if (inputs[index + 1]) inputs[index + 1].focus();
+            }, 0);
+        }
+    }
+
+    onPinKeyDown(event: KeyboardEvent, index: number): void {
+        const input = event.target as HTMLInputElement;
+
+        if (event.key === "Backspace" && !input.value && index > 0) {
+            setTimeout(() => {
+                const inputs = this._getPinInputs();
+                if (inputs[index - 1]) {
+                    inputs[index - 1].focus();
+                    this.pinDigits[index - 1] = "";
+                }
+            }, 0);
+        } else if (event.key === "Enter") {
+             if (this.hasCredentials && !this.signing) {
+                  this.requiresBiometrics ? this.goToBiometrics() : this.confirmSigning();
+             }
+        }
+    }
+
+    private _getPinInputs(): HTMLInputElement[] {
+        return Array.from(document.querySelectorAll<HTMLInputElement>(".dapp-sign__pin-input"));
+    }
+
+    trackByIndex(index: number): number {
+        return index;
     }
 }

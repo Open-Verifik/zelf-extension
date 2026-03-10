@@ -109,24 +109,42 @@
 
         <!-- Password / Biometrics -->
         <div class="dapp-sign__auth">
-            <form [formGroup]="form" *ngIf="!passwordSet">
-                <div class="dapp-sign__password-field">
-                    <input
-                        [type]="showPassword ? 'text' : 'password'"
-                        class="dapp-sign__password-input"
-                        formControlName="password"
-                        id="dapp-sign-password"
-                        [placeholder]="t('common.password')"
-                    />
-                    <button (click)="toggleShowPassword()" class="dapp-sign__password-toggle" type="button">
-                        <span class="material-symbols-outlined">{{ showPassword ? 'visibility' : 'visibility_off' }}</span>
-                    </button>
+            <ng-container *ngIf="!passwordSet">
+                <form [formGroup]="form" *ngIf="!isPinUnlock">
+                    <div class="dapp-sign__password-field">
+                        <input
+                            [type]="showPassword ? 'text' : 'password'"
+                            class="dapp-sign__password-input"
+                            formControlName="password"
+                            id="dapp-sign-password"
+                            [placeholder]="t('common.password')"
+                        />
+                        <button (click)="toggleShowPassword()" class="dapp-sign__password-toggle" type="button">
+                            <span class="material-symbols-outlined">{{ showPassword ? 'visibility' : 'visibility_off' }}</span>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="dapp-sign__pin-container" *ngIf="isPinUnlock">
+                    <div class="dapp-sign__pin-inputs">
+                        <input
+                            *ngFor="let digit of pinDigits; let i = index; trackBy: trackByIndex"
+                            class="dapp-sign__pin-input"
+                            [type]="showPassword ? 'text' : 'password'"
+                            maxlength="1"
+                            [value]="digit"
+                            (input)="onPinInput($event, i)"
+                            (keydown)="onPinKeyDown($event, i)"
+                            (focus)="onInputFocus($event)"
+                            autocomplete="off"
+                        />
+                    </div>
                 </div>
-            </form>
+            </ng-container>
 
             <div class="dapp-sign__error" *ngIf="passwordError">
                 <span class="material-symbols-outlined">error</span>
-                <p>{{ t("errors.invalid_password", { remaining: remainingAttempts }) }}</p>
+                <p>{{ isPinUnlock ? t("errors.invalid_pin", { remaining: remainingAttempts }) : t("errors.invalid_password", { remaining: remainingAttempts }) }}</p>
             </div>
 
             <div class="dapp-sign__biometric-notice" *ngIf="requiresBiometrics">

@@ -311,6 +311,45 @@
         }
     }
 
+    &__pin-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    &__pin-inputs {
+        display: flex;
+        gap: 8px;
+    }
+
+    &__pin-input {
+        width: 40px;
+        height: 48px;
+        padding: 8px 4px;
+        background: variables.$themeCard;
+        border-radius: 12px;
+        border: 1.5px solid variables.$themeCardBorder;
+        text-align: center;
+        color: variables.$themeText;
+        font-family: variables.$themeBodyFamily;
+        font-size: 18px;
+        font-weight: 600;
+        outline: none;
+        transition: border-color 0.2s variables.$smoothBezier;
+
+        &:focus {
+            border-color: variables.$secondaryColor;
+        }
+
+        &::placeholder {
+            color: transparent;
+        }
+    }
+
+
+
     &__error {
         display: flex;
         align-items: center;

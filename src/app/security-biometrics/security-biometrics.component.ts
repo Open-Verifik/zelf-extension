@@ -216,6 +216,13 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     goBack(): void {
+        this.errorTitle = "";
+        this.errorMessage = "";
+
+        if (this._vaultService.securityType !== "withoutPassword") {
+            this._vaultService.password = "";
+        }
+
         if (this.returnState) {
             this._router.navigate([this.returnState], { queryParams: { return: this.returnState } });
         } else this._router.navigate(["/security/password"]);

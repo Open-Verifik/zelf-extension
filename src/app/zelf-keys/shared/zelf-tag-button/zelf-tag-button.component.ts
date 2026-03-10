@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class ZelfTagButtonComponent {
     @Input() tagName?: string = "";
     @Input() showIcon: boolean = true;
+    @Input() isConnected: boolean = false;
 
     @Output() clicked = new EventEmitter<void>();
 

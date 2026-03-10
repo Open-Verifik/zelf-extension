@@ -31,7 +31,11 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
             </div>
 
             <div class="home-header__center home-header__container" *ngIf="shareables.wallet?.fullTagName">
-                <zelf-tag-button [tagName]="shareables.wallet.fullTagName" (clicked)="openBottomSheet()"></zelf-tag-button>
+                <zelf-tag-button
+                    [tagName]="shareables.wallet.fullTagName"
+                    [isConnected]="isDappConnected"
+                    (clicked)="openBottomSheet()"
+                ></zelf-tag-button>
             </div>
 
             <div class="home-header__right home-header__container">
@@ -122,6 +126,7 @@ export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
     isExtension: boolean = false;
     isPopout: boolean = false;
     isSidePanel: boolean = false;
+    isDappConnected: boolean = false;
     redirectState: string = "";
     selectedTab: string;
     title: string = "something";
@@ -145,6 +150,10 @@ export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
 
         this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((queryParams) => {
             this.redirectState = queryParams.redirect || "";
+        });
+
+        this._chromeService.activeTabConnected$.pipe(takeUntil(this.unsubscriber$)).subscribe((isConnected) => {
+            this.isDappConnected = isConnected;
         });
 
         this._chromeService.isPopout$.pipe(takeUntil(this.unsubscriber$)).subscribe((isPopout) => {

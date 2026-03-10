@@ -542,6 +542,23 @@
         "language": {
             "description": "Choose your preferred language for the application."
         },
+        "dapps_label": "Dapps connections",
+        "dapps": {
+            "title": "Dapps connections",
+            "description": "Manage the decentralized applications connected to your wallet.",
+            "sites": "Sites",
+            "disconnect_all": "Disconnect All",
+            "disconnect": "Disconnect",
+            "permissions_accounts": "See your accounts and suggest transactions",
+            "permissions_networks": "Use your enabled networks",
+            "accounts": "account",
+            "accounts_plural": "accounts",
+            "networks": "networks",
+            "connected_with": "Connected with",
+            "networks_connected": "networks connected",
+            "edit": "Edit",
+            "no_connections": "No active connections found."
+        },
         "security": {
             "biometric_verification_title": "Biometric verification interval",
             "biometric_verification_description": "Set how long password-only entry is allowed before biometric verification is needed. You can set this from 5 to 60 minutes.",
@@ -1701,5 +1718,28 @@
             "title": "Claim rewards",
             "subtitle": "Get $ZNS daily with our quests"
         }
+    },
+    "dapp": {
+        "connection_request": "Connection Request",
+        "select_accounts": "Select accounts to connect",
+        "network": "Network",
+        "threat_warning_title": "Malicious Site Detected",
+        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
+        "connect": "Connect",
+        "sign_message": "Sign Message",
+        "sign_transaction": "Sign Transaction",
+        "message_to_sign": "Message to sign",
+        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "wants_to_connect": "wants to connect to your wallet",
+        "accounts": "Accounts",
+        "permissions": "Permissions",
+        "permission_see_address": "See address, account balance, and activity",
+        "permission_suggest_tx": "Suggest transactions to approve",
+        "permission_disclaimer": "This will not allow the site to move funds without your approval",
+        "confirm_transaction": "Confirm Transaction",
+        "to_address": "To",
+        "value": "Value",
+        "data": "Data",
+        "biometric_required": "Biometric verification required to sign"
     }
 }

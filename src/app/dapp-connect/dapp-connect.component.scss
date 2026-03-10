@@ -1,182 +1,534 @@
+@use "../../styles/variables";
+
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 24px;
+}
+
 .dapp-connect {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    width: 100%;
+    max-width: 420px;
+    min-height: 560px;
+    background: variables.$themeBackgroundSecondary;
+    border-radius: 24px;
+    border: 1px solid variables.$themeCardBorder;
+    box-shadow:
+        0 8px 40px variables.$themeShadow,
+        0 0 0 1px variables.$themeCardBorder;
+    overflow: hidden;
+    animation: slideUp 0.3s variables.$smoothBezier;
+
+    // ---------- Header ----------
 
     &__header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 24px 16px 16px;
         gap: 8px;
+        padding: 32px 24px 20px;
     }
 
-    &__icon {
+    &__site-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
         margin-bottom: 4px;
+        box-shadow: 0 2px 8px variables.$themeShadow;
+
+        img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
     }
 
-    &__title {
+    &__site-initial {
+        font-family: variables.$themeTitleFamily;
+        font-size: 22px;
+        font-weight: 700;
+        color: variables.$secondaryColor;
+    }
+
+    &__hostname {
+        font-family: variables.$themeBodyFamily;
         font-size: 18px;
         font-weight: 600;
-        color: var(--text-primary);
-    }
-
-    &__origin {
-        font-size: 13px;
-        color: var(--text-secondary);
-        word-break: break-all;
+        color: variables.$themeText;
+        margin: 0;
         text-align: center;
+        word-break: break-all;
     }
 
     &__verify {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 4px 12px;
-        border-radius: 12px;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-family: variables.$themeBodyFamily;
         font-size: 12px;
         font-weight: 500;
+        line-height: 1;
 
         &-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
+            flex-shrink: 0;
         }
     }
 
     .verify--valid {
-        background: rgba(34, 197, 94, 0.1);
-        color: #22c55e;
-
+        background: rgba(30, 164, 70, 0.1);
+        color: variables.$correct;
         .dapp-connect__verify-dot {
-            background: #22c55e;
+            background: variables.$correct;
         }
     }
 
     .verify--unknown {
-        background: rgba(234, 179, 8, 0.1);
-        color: #eab308;
-
+        background: rgba(222, 104, 0, 0.1);
+        color: variables.$warning;
         .dapp-connect__verify-dot {
-            background: #eab308;
+            background: variables.$warning;
         }
     }
 
     .verify--invalid {
-        background: rgba(249, 115, 22, 0.1);
-        color: #f97316;
-
+        background: rgba(222, 104, 0, 0.1);
+        color: variables.$warning;
         .dapp-connect__verify-dot {
-            background: #f97316;
+            background: variables.$warning;
         }
     }
 
     .verify--threat {
-        background: rgba(239, 68, 68, 0.1);
-        color: #ef4444;
-
+        background: rgba(220, 54, 46, 0.1);
+        color: variables.$error;
         .dapp-connect__verify-dot {
-            background: #ef4444;
+            background: variables.$error;
         }
     }
 
-    &__content {
-        flex: 1;
-        padding: 0 16px;
+    &__subtitle {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        color: variables.$themeTextSecondary;
+        margin: 4px 0 0;
+        text-align: center;
     }
 
-    &__section-title {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--text-secondary);
-        margin-bottom: 12px;
+    // ---------- Tabs ----------
+
+    &__tabs {
+        display: flex;
+        border-bottom: 1px solid variables.$themeCardBorder;
+        padding: 0 24px;
+        gap: 0;
     }
+
+    &__tab {
+        flex: 1;
+        padding: 12px 0;
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+        text-align: center;
+
+        &:hover {
+            color: variables.$themeText;
+        }
+
+        &--active {
+            color: variables.$themeText;
+            border-bottom-color: variables.$secondaryColor;
+        }
+    }
+
+    // ---------- Body ----------
+
+    &__body {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 24px;
+        gap: 16px;
+        overflow-y: auto;
+    }
+
+    // ---------- Accounts ----------
 
     &__accounts {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
 
     &__account {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1.5px solid variables.$themeCardBorder;
+        background: variables.$themeCard;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.2s variables.$smoothBezier;
+        user-select: none;
 
         &:hover {
-            border-color: var(--border-hover, rgba(255, 255, 255, 0.15));
+            border-color: variables.$themeBorderHover;
+            box-shadow: 0 2px 8px variables.$themeShadow;
         }
 
         &--selected {
-            border-color: #ff5721;
-            background: rgba(255, 87, 33, 0.05);
+            border-color: variables.$secondaryColor;
+            background: rgba(255, 87, 33, 0.04);
+
+            .dapp-connect__account-check {
+                background: variables.$secondaryColor;
+                border-color: variables.$secondaryColor;
+                color: #fff;
+            }
+
+            .dapp-connect__account-avatar {
+                background: rgba(255, 87, 33, 0.12);
+                color: variables.$secondaryColor;
+            }
         }
     }
 
-    &__account-checkbox {
-        width: 20px;
-        height: 20px;
-        border-radius: 4px;
-        border: 2px solid var(--border-color, rgba(255, 255, 255, 0.2));
+    &__account-avatar {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ff5721;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: variables.$themeCardBorder;
+        color: variables.$themeTextSecondary;
+        flex-shrink: 0;
+        transition: all 0.2s variables.$smoothBezier;
 
-        .dapp-connect__account--selected & {
-            border-color: #ff5721;
-            background: rgba(255, 87, 33, 0.1);
+        .material-symbols-outlined {
+            font-size: 22px;
         }
     }
 
     &__account-info {
         flex: 1;
+        min-width: 0;
     }
 
     &__account-name {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--text-primary);
+        font-family: variables.$themeBodyFamily;
+        font-size: 15px;
+        font-weight: 600;
+        color: variables.$themeText;
+        margin: 0 0 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__account-address {
+        font-family: variables.$themeMonospaceFamily;
         font-size: 12px;
-        color: var(--text-secondary);
-        font-family: monospace;
+        color: variables.$themeTextSecondary;
+        margin: 0;
     }
 
-    &__chain-info {
-        margin-top: 16px;
-        font-size: 12px;
-        color: var(--text-secondary);
-        text-align: center;
-    }
-
-    &__threat-warning {
-        flex: 1;
+    &__account-check {
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 32px 16px;
-        gap: 16px;
-        text-align: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        border: 2px solid variables.$themeCardBorder;
+        flex-shrink: 0;
+        transition: all 0.15s variables.$smoothBezier;
+        color: transparent;
+    }
+
+    &__network-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: auto;
+        position: relative;
+        z-index: 5;
+
+        &--open {
+            .dapp-connect__network-arrow {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__network {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        font-family: variables.$themeBodyFamily;
+        font-size: 13px;
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+
+        &:hover {
+            border-color: variables.$themeBorderHover;
+            color: variables.$themeText;
+        }
+
+        .material-symbols-outlined {
+            font-size: 16px;
+        }
+    }
+
+    &__network-arrow {
+        margin-left: auto;
+        font-size: 18px !important;
+        color: variables.$themeTextSecondary;
+        transition: transform 0.2s variables.$smoothBezier;
+    }
+
+    &__picker {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px variables.$themeShadow;
+        overflow: hidden;
+        z-index: 10;
+        animation: slideUpShort 0.2s variables.$smoothBezier;
+    }
+
+    &__picker-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: variables.$themeText;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.03);
+            color: variables.$secondaryColor;
+        }
+
+        &--active {
+            color: variables.$secondaryColor;
+            background: rgba(255, 87, 33, 0.04);
+        }
+
+        svg {
+            color: variables.$secondaryColor;
+        }
+    }
+
+    // ---------- Permissions ----------
+
+    &__permissions {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        background: variables.$themeCard;
+        border-radius: 14px;
+        border: 1px solid variables.$themeCardBorder;
+        overflow: hidden;
+    }
+
+    &__permission {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px;
+
+        & + & {
+            border-top: 1px solid variables.$themeCardBorder;
+        }
 
         p {
+            font-family: variables.$themeBodyFamily;
             font-size: 14px;
-            color: #ef4444;
+            color: variables.$themeText;
+            margin: 0;
             line-height: 1.5;
         }
     }
 
+    &__permission-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: rgba(255, 87, 33, 0.08);
+        color: variables.$secondaryColor;
+        flex-shrink: 0;
+
+        .material-symbols-outlined {
+            font-size: 20px;
+        }
+    }
+
+    &__permission-disclaimer {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: rgba(30, 164, 70, 0.06);
+        border: 1px solid rgba(30, 164, 70, 0.15);
+        margin-top: auto;
+
+        .material-symbols-outlined {
+            font-size: 18px;
+            color: variables.$correct;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        p {
+            font-family: variables.$themeBodyFamily;
+            font-size: 13px;
+            color: variables.$themeTextSecondary;
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+
+    // ---------- Threat ----------
+
+    &__threat {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 24px;
+    }
+
+    &__threat-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+        background: rgba(220, 54, 46, 0.1);
+        color: variables.$error;
+        margin-bottom: 8px;
+    }
+
+    &__threat-title {
+        font-family: variables.$themeTitleFamily;
+        font-size: 16px;
+        font-weight: 600;
+        color: variables.$error;
+        margin: 0;
+    }
+
+    &__threat-body {
+        font-family: variables.$themeBodyFamily;
+        font-size: 14px;
+        color: variables.$themeTextSecondary;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    // ---------- Actions ----------
+
     &__actions {
         display: flex;
         gap: 12px;
-        padding: 16px;
+        padding: 16px 24px 24px;
+        border-top: 1px solid variables.$themeCardBorder;
+    }
+
+    &__btn {
+        flex: 1;
+        height: 48px;
+        border-radius: 14px;
+        font-family: variables.$themeBodyFamily;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s variables.$smoothBezier;
+        border: none;
+        letter-spacing: 0.2px;
+
+        &--cancel {
+            background: variables.$themeCard;
+            color: variables.$themeText;
+            border: 1px solid variables.$themeCardBorder;
+
+            &:hover {
+                background: variables.$themeCardBorder;
+            }
+        }
+
+        &--connect {
+            background: variables.$themeButton;
+            color: variables.$themeButtonText;
+
+            &:hover:not(:disabled) {
+                background: variables.$themeButtonHover;
+            }
+
+            &:disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
+
+@keyframes slideUpShort {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

@@ -1,527 +1,4 @@
 {
-    "cancel": "取消",
-    "confirm": "确认",
-    "logout_message": "确认此操作后，您将从扩展程序中删除所有ZelfProofs。您需要重新解密每个ZelfProof才能重新获得访问权限。您确定要继续吗？",
-    "logout_title": "删除所有ZELFPROOFS",
-    "onboarding": {
-        "lifetime": "终身",
-        "step_1_description": "永远不用担心忘记、丢失或泄露您的种子短语。",
-        "step_1": "加密种子短语的3个步骤",
-        "step_2_description": "通过解密您的ZelfProof在几秒钟内备份您的种子短语",
-        "step_2": "查找并解密您的ZelfProof",
-        "step_3_description": "将您的种子短语的zk-FaceProof存储在区块链中，而不是本地设备上",
-        "step_3": "保护您的种子短语免受黑客攻击",
-        "year": "年"
-    },
-    "activity": {
-        "approve": "批准",
-        "history": "历史",
-        "no_history_found": "未找到交易历史",
-        "pending": "待处理",
-        "receive": "接收",
-        "send": "发送",
-        "swap": "交换"
-    },
-    "wallet_status": {
-        "active": "活跃",
-        "expired": "已过期",
-        "hold": "持有"
-    },
-    "send": {
-        "address_found": "找到地址",
-        "available_balance": "可用 {{balance}} {{symbol}}",
-        "cannot_continue_process": "您无法继续此过程",
-        "continue_process": "您可以继续此过程",
-        "domain_or_address": "域名或地址",
-        "enter_amount_to_send": "输入发送金额",
-        "external_address_found": "找到外部地址",
-        "recent_addresses": "最近",
-        "used": "{{days}} 天前使用",
-        "withdrawal_amount": "提现金额",
-        "zelf_name_not_registered": "标签名称未注册",
-        "zelf_name_registered": "标签名称已注册",
-        "from_address": "发件人地址",
-        "average": "平均",
-        "confirmations": "确认数",
-        "economical": "经济",
-        "fastest": "最快",
-        "transaction_settings": "交易设置",
-        "upto_sats": "高达 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 分钟",
-        "private_transaction": "私人交易"
-    },
-    "transaction": {
-        "go_to_my_history": "查看我的历史记录",
-        "share_transaction": "分享交易"
-    },
-    "welcome": {
-        "code_name": "推荐标签名称",
-        "domain_expired_since": "域名自 {{ date }} 起已过期",
-        "decrypt_and_reserve": "解密并保留",
-        "decrypt_now_pay_later": "现在解密，稍后付款",
-        "decrypt_now_renew_later": "现在解密，稍后续期",
-        "dont_lose_your_zelfname": "嘿！不要丢失您的标签名称，在别人购买之前今天就续期或保留。",
-        "dont_remember_zelfname": "不记得您的标签名称了？",
-        "enjoy_your_domain": "享受您的域名。记得在别人购买之前购买它！",
-        "expiration_date": "到期日期 {{ date }}",
-        "find_zelf_name_subtitle": "通过在下面输入其公共地址来查找现有的标签名称：",
-        "find_zelf_name_title": "查找标签名称",
-        "got_it": "明白了，我稍后再做",
-        "grace_period_until": "宽限期至",
-        "import_subtitle": "我们将使用您的秘密恢复词来验证和导入现有钱包。请在下面输入它们。",
-        "import_title": "输入恢复秘密短语",
-        "invalid_referral_code": "无效的推荐码",
-        "name_expires": "名称到期",
-        "new_domain": "新域名",
-        "offline_subtitle": "此ZelfProof是离线创建的，因此使用不同的安全系统。目前，它与扩展不兼容。很快就会可用。",
-        "offline_tip": "但是，别担心！您可以使用另一个标签名称导入您的ZelfProof，以便从扩展访问。",
-        "i_understand_go_back": "我明白了，返回主页",
-        "old_domain": "旧域名",
-        "paste_your_recovery_phrase": "您可以将整个秘密恢复短语粘贴到任何字段中",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>已被占用，但别担心！您可以访问您的ZelfProof并使用相同的种子短语保留新的标签名称。",
-        "pick_your_new_zelfname": "选择您的新标签名称",
-        "public_address_input": "在此输入您的ETH或SOL公共地址",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>仍然可用。您可以访问您的ZelfProof并使用相同的种子短语恢复您的标签名称。",
-        "recover_your_zelfname": "恢复您的标签名称",
-        "referral_code": "推荐码（可选）",
-        "referral_successfully_registered": "推荐成功注册",
-        "registered_since": "自 {{ date }} 起注册",
-        "registered": "标签名称自 {{ date }} 起注册",
-        "renew_your_domain_today": "在别人购买之前今天就续期您的域名。",
-        "search_another_zelfname": "搜索另一个标签名称",
-        "search_your_new_zelfname": "搜索您的新标签名称",
-        "transfer_done": "转移完成",
-        "upload_zelf_proof": "或上传您的ZelfProof二维码继续：",
-        "you_can_transfer_this_domain": "您可以转移此域名",
-        "you_will_register_this_domain": "您将注册此域名",
-        "safeguard_your_crypto": "保护您的加密货币！",
-        "offline_import_subtitle": "在导入您的离线钱包之前，您需要选择一个新的标签名称。",
-        "your_zelf_name": "您的标签名称"
-    },
-    "settings": {
-        "networks_label": "网络",
-        "security_label": "安全",
-        "language_label": "语言",
-        "subscription_label": "订阅",
-        "networks": {
-            "title": "区块链网络",
-            "description": "启用或禁用您想在钱包中使用的网络。禁用的网络不会出现在您的代币列表中。",
-            "no_networks_available": "您的许可证下没有可用网络。请升级您的计划以访问更多网络。"
-        },
-        "language": {
-            "description": "选择您喜欢的应用程序语言。"
-        },
-        "security": {
-            "biometric_verification_title": "生物识别验证间隔",
-            "biometric_verification_description": "设置在进行生物识别验证之前允许仅使用密码的时间。您可以将其设置为5到60分钟。",
-            "password_attempts_title": "密码尝试次数",
-            "minutes_before_reverification": "重新验证前的分钟数",
-            "password_attempts_description": "设置在进行生物识别验证之前允许的最大密码尝试失败次数。您可以将其设置为1到8次尝试。"
-        }
-    },
-    "security": {
-        "biometric_decryption_subtitle": "为了完成解密过程，我们需要使用您的生物识别信息来验证您的身份。",
-        "biometric_decryption_title": "生物识别解密",
-        "biometric_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于加密您的ZelfProof的私钥。<strong>我们不会出于任何其他目的收集或使用您的生物识别信息。</strong>",
-        "biometric_title": "生物识别加密层",
-        "hide_words": "隐藏单词",
-        "medium": "中等",
-        "new_password_subtitle": "以下密码是您的ZelfProof所需的加密层。",
-        "password_decryption": "标签名称需要密码",
-        "password_parameters_title": "密码指南",
-        "password_parameters": "我们的密码指南如下：<ul><li>长度必须在8到128个字符之间</li><li>必须包含至少一个大写字母</li><li>必须包含一个小写字母</li><li>必须包含一个数字</li><li>必须包含一个特殊字符</li><li>避免使用常见密码</li><li>避免重复字符</li></ul>",
-        "password_strength_label": "密码强度",
-        "password_subtitle": "输入分配给此标签名称的密码以完成解密过程。",
-        "pin_description": "创建6位数字的PIN码",
-        "pin_unlock_description": "使用您的PIN码解锁您的ZelfProof",
-        "pin_title": "PIN码",
-        "secure_password_description": "额外的安全层",
-        "secure_password_title": "安全密码",
-        "security_layer_subtitle": "请选择分配给您新标签的密码层",
-        "security_layer_title": "安全层",
-        "strong": "强",
-        "subtitle": "选择您的种子短语长度并继续加密过程。",
-        "title": "ZelfProof加密层",
-        "unhide_words": "显示单词",
-        "weak": "弱",
-        "weak_password": "弱密码",
-        "without_password_description": "更快，但安全性较低",
-        "without_password_title": "无密码",
-        "create_pin_title": "创建PIN码",
-        "create_pin_subtitle": "请输入您的ZelfProof的6位数字密码。",
-        "confirm_pin_title": "确认PIN码",
-        "confirm_pin_subtitle": "请重新输入您的ZelfProof的6位数字密码。",
-        "pin_confirm_description": "重新输入您的 6 位 PIN 码以确认"
-    },
-    "receive": {
-        "information": "此地址只能用于接收兼容的代币。",
-        "your_token_address": "您的{{ name }}地址",
-        "risks_modal": {
-            "title": "接收 {{ symbol }} 前须知",
-            "risk_1_title": "仅限 {{ name }} 网络",
-            "risk_1": "只能向此地址发送 {{ name }} 网络上的 {{ symbol }}。来自其他链的代币无法找回。",
-            "risk_2_title": "核实地址",
-            "risk_2": "{{ name }} 交易不可逆转。确认前请务必仔细核对完整地址。",
-            "risk_3_title": "仅限 {{ type }} 代币",
-            "risk_3": "此地址只接受 {{ type }} 代币。发送其他标准将导致永久损失。",
-            "risk_3_native_title": "仅限 {{ symbol }}",
-            "risk_3_native": "只能发送原生 {{ symbol }}。其他网络的代币与此地址不兼容。",
-            "risk_4_title": "先用小额测试",
-            "risk_4": "首次向此地址转账时，请先发送少量 {{ symbol }} 进行测试。"
-        }
-    },
-    "common": {
-        "back": "返回",
-        "12_word_phrase": "12个单词短语",
-        "24_word_phrase": "24个单词短语",
-        "about": "关于",
-        "activity": "活动",
-        "address": "地址",
-        "agree_to_terms_and_conditions": "我同意<a href='https://docs.zelf.world/docs/legal/terms-of-use' target='_blank'>条款和条件</a>",
-        "all": "全部",
-        "amount": "金额",
-        "are_you_sure": "您确定吗？",
-        "asset": "资产",
-        "available": "可用",
-        "balance": "余额",
-        "btc_address": "比特币地址",
-        "bdag_address": "BDAG地址",
-        "buy_now": "立即购买",
-        "cancel": "取消",
-        "close": "关闭",
-        "coin": "代币",
-        "come_back_later": "请稍后再来！",
-        "confirm_password": "确认密码",
-        "confirm": "确认",
-        "continue": "继续",
-        "copied_to_clipboard": "已复制到剪贴板",
-        "copy_recovery_phrase": "复制恢复短语",
-        "copy_to_clipboard": "复制成功",
-        "copy": "复制到剪贴板",
-        "create_a_new_wallet": "创建新钱包",
-        "date": "日期",
-        "days": "天",
-        "decrypt_zelfname": "解密标签名称",
-        "do_it_later": "稍后再说",
-        "documentation": "文档",
-        "domain_expired": "域名已过期",
-        "domain": "域名",
-        "dont_show_me_again": "不再显示",
-        "dont_show_this_message_again": "不再显示这些说明",
-        "download_zelfproof": "下载ZelfProof",
-        "edit": "编辑",
-        "eth_address": "以太坊地址",
-        "extend_registration": "延长订阅",
-        "failed_to_copy_to_clipboard": "复制失败",
-        "failed": "失败",
-        "fee": "费用",
-        "from": "从",
-        "go_back": "返回",
-        "hide_words": "隐藏单词",
-        "history": "历史",
-        "import_a_wallet": "导入钱包",
-        "import_wallet": "导入钱包",
-        "import": "导入",
-        "information": "信息",
-        "is_required": "是必填项",
-        "learn_more": "了解更多",
-        "load_more": "加载更多",
-        "login": "解密ZelfProof",
-        "logout": "移除ZelfProof",
-        "manage_domains": "管理ZelfNames",
-        "max": "最大",
-        "my_arns": "我的ArNS",
-        "navigating_away_will_cancel": "离开将取消您已完成的进度。您确定要返回吗？",
-        "network_fee": "网络费用",
-        "network": "网络",
-        "next": "下一步",
-        "no": "否",
-        "not_available": "不可用",
-        "open_fullscreen": "打开全屏",
-        "open_in_sidebar": "在侧边栏中打开",
-        "or_drag_and_drop": "或将.JPG或PNG扩展名的文件拖放到此处",
-        "password_layer": "密码层",
-        "password": "密码",
-        "paste": "粘贴",
-        "pay_now": "立即支付",
-        "pending": "待处理",
-        "pricing": "价格",
-        "privacy": "隐私",
-        "purchase_now": "立即购买",
-        "purchase": "购买",
-        "receive": "接收",
-        "recommended": "推荐",
-        "refresh": "刷新",
-        "registered": "已注册",
-        "remove_all_zelfproofs": "移除所有ZelfProofs",
-        "remove": "移除",
-        "renew_domain": "续期域名",
-        "renew_subscription": "续订订阅",
-        "reservation_found": "找到预订",
-        "search_your_zelf_name": "搜索您的标签名称",
-        "search": "搜索...",
-        "send_symbol": "发送{{symbol}}",
-        "send": "发送",
-        "settings": "设置",
-        "show_less": "显示更少",
-        "show_more": "显示更多",
-        "show_words": "显示单词",
-        "sol_address": "SOL地址",
-        "start": "开始",
-        "success": "成功",
-        "symbol": "符号",
-        "terms_and_conditions": "条款和条件",
-        "to": "至",
-        "total": "总计",
-        "transaction_id": "交易ID",
-        "transaction": "交易",
-        "transfer": "转账",
-        "try_again": "重试",
-        "try_another_one": "尝试另一个",
-        "type": "类型",
-        "unknown": "未知",
-        "unlock": "解锁",
-        "upload_qr_image": "上传二维码图片",
-        "verify": "验证",
-        "website": "网站",
-        "withdraw": "提现",
-        "withdrawal_network": "提现网络",
-        "yes": "是",
-        "your_token": "您的{{ symbol }}",
-        "zelf_wallet": "Zelf钱包",
-        "optional": "可选",
-        "no_results_found": "未找到结果",
-        "avax_address": "AVAX 地址",
-        "download_apps": "下载 App",
-        "download_qr": "下载二维码",
-        "seed_phrase": "助记词",
-        "zelf_authenticator": "Zelf 身份验证器",
-        "zelf_keys": "Zelf 密钥",
-        "zelf_link": "Zelf 链接",
-        "subscriptions": "订阅",
-        "download_short": "下载",
-        "mnemonics": "助记词",
-        "wallet_short": "钱包",
-        "auth_short": "认证"
-    },
-    "token": {
-        "24h_performance": "24小时表现",
-        "about": "关于{{ network }}",
-        "circulating_supply": "流通供应量",
-        "holders": "持有者",
-        "market_cap": "市值",
-        "price_detail": "价格详情",
-        "total_supply": "总供应量",
-        "traders": "交易者",
-        "volume_24h": "24小时交易量",
-        "volume": "交易量"
-    },
-    "domain_purchase": {
-        "character_length_and_year": "{{characterLength}}个字符长度。总成本{{ costPerYear }}美元",
-        "domain_price_length": "域名价格长度",
-        "know_more": "了解更多",
-        "lifetime": "终身",
-        "price_per_year": "每年价格",
-        "title": "待购买域名",
-        "years": "{{ yearCount }}年"
-    },
-    "wallet": {
-        "download_qr": "QR",
-        "info_title": "保护您的二维码安全",
-        "info_description": "请记住保护您的二维码安全以保护您的账户。下载并保存在安全的地方。",
-        "private_key": "私钥",
-        "addresses": "地址",
-        "info": "信息"
-    },
-    "private_key": {
-        "description": "要查看您的私钥，请完成安全验证步骤。",
-        "got_it": "明白了",
-        "title": "私钥"
-    },
-    "my_arns": {
-        "arns_website": "ArNS网站",
-        "description": "您的个人网站，用于接收加密货币，易于分享所有必要的直接转账信息。"
-    },
-    "manage_domain": {
-        "hold_until": "持有至",
-        "registered_since": "注册时间",
-        "registered_until": "到期时间"
-    },
-    "manage_domains": {
-        "are_you_sure_you_want_to_delete": "您确定要删除此ZelfProof吗？",
-        "domain_error": "{{ zelfName }}的试用期已结束，您需要购买订阅才能继续使用此标签名称",
-        "domain_warning": "您还有时间购买",
-        "expired_wallet_logout_message": "如果您通过标签名称搜索，可以再次解密此ZelfProof。但是，如果您不尽快购买，可能会失去它。",
-        "logout_of_wallet_message": "如果您通过标签名称搜索或加载ZelfProof二维码，可以再次解密此ZelfProof。",
-        "purchase_new_domain": "添加新的标签名称"
-    },
-    "liveness": {
-        "center_your_face": "将您的脸居中在屏幕上",
-        "center_your_face_subtitle": "请确保您的脸居中",
-        "get_closer_subtitle": "请靠近一点以获得更好的面部识别。",
-        "get_closer": "靠近",
-        "liveness_error_message": "活体检测失败，出现以下错误：<br><strong>{{error}}</strong><br>您要重试吗？",
-        "liveness_failed": "活体检测失败"
-    },
-    "errors": {
-        "address_too_long": "地址太长",
-        "all_fields_required": "所有字段都是必填的",
-        "cannot_swap_across_these_networks": "您目前还不能在这些网络之间进行交换。请稍后再试。",
-        "chart_not_found": "图表数据不可用",
-        "Duplicated_person": "ZelfProof已被用于其他记录",
-        "empty_password": "密码不能为空",
-        "ERR_DESCRIPTION": "请确保正确按照说明解锁您的ZelfProof",
-        "ERR_INVALID_PASSWORD": "此ZelfProof的密码无效",
-        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "面部角度太大",
-        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "面部太靠近边框",
-        "ERR_LIVENESS_FAILED": "活体检测失败",
-        "ERR_UNPROCESSABLE_CONTENT": "无法解密ZelfProof",
-        "ERR_VERIFICATION_FAILED": "活体检测失败",
-        "failed_to_get_quote": "获取此交换的报价失败。",
-        "generic_identity": "抱歉，您的身份验证似乎出现了问题。请重试。",
-        "generic_title": "发生错误",
-        "generic": "抱歉，处理此请求时出现问题。请重试。",
-        "incorrect_zelf_proof_message": "提供的文件似乎不是有效的ZelfProof。请重试。",
-        "incorrect_zelf_proof_title": "不正确的ZelfProof",
-        "insufficient_funds": "资金不足。请确保您的钱包中有足够的资金支付交易费用。",
-        "invalid_credentials": "无效的凭据",
-        "invalid_format": "无效的格式",
-        "invalid_mnemonic": "助记词无效。请确保您的助记词长度为12或24个单词。",
-        "invalid_number_value": "无效的数值",
-        "invalid_password": "密码无效。在需要使用生物识别登录之前，您还有{{remaining}}次尝试机会。",
-        "invalid_private_key": "私钥无效。",
-        "liveness_failed_description": "抱歉，您的活体检测似乎出现了问题。",
-        "liveness_failed": "活体检测失败",
-        "Liveness_score_not_acceptable": "活体检测分数不可接受",
-        "min_liveness_score_is": "最低活体检测分数为：",
-        "missing_contract_address": "缺少交换合约地址。请稍后再试。",
-        "must_be_greater_than": "必须大于{{ value }}",
-        "must_be_less_than": "必须小于{{ value }}",
-        "not_found": "未找到记录",
-        "password_doesnt_match": "密码不匹配",
-        "password_incorrect": "密码不正确",
-        "LIVENESS CHECK FAILED.": "活体检测失败。请重试。",
-        "THE PROVIDED PASSWORD IS INVALID.": "您输入的密码不正确。请检查您的密码并重试。",
-        "person_already_set": "您的注册已经链接了ZelfProof",
-        "private_key_locked": "私钥已被锁定。您必须进行生物识别检查才能继续。",
-        "required_field": "此字段为必填项",
-        "same_address": "您不能向同一地址发送资金",
-        "something_went_wrong": "出现错误，请重试",
-        "swap_same_asset": "您不能交换到相同的资产",
-        "transaction_not_found": "未找到交易",
-        "try_again": "重试",
-        "zelfName_is_taken": "此标签名称已被使用",
-        "camera_dimensions_not_properly_initialized": "摄像头未正确初始化",
-        "cannot_decrypt_zotp_missing_zelfProof": "无法解密 ZOTP：缺失 ZelfProof。若无有效 ZelfProof，无法解密该 ZOTP。",
-        "error_closing_popup": "关闭窗口时出错",
-        "error_initializing_biometrics": "初始化生物识别时出错",
-        "error_sending_decryption_result_to_background": "与扩展程序通讯时出错",
-        "error_stopping_camera": "停止摄像头时出错",
-        "face_detection_error": "面部检测失败",
-        "face_not_central": "您的面部未居中。请调整面部位置后重试。",
-        "incorrect_passphrase": "主密码输入错误。请重试。",
-        "no_decrypted_data_received_from_api": "服务器未返回解密数据",
-        "no_zelfproof_available_for_password_decryption": "没有可用于密码解密的 ZelfProof",
-        "session_init_info": "要使用标签名称服务扩展程序，您需要网络访问权限。如需离线解决方案，请查看我们的 iOS 和 Android 应用。",
-        "session_init_message": "抱歉，初始化您的会话时出现问题。这可能是由于网络问题或服务器不可用造成的。请重试。",
-        "session_init_title": "会话初始化失败",
-        "unknown_error": "发生未知错误",
-        "user_cancelled_decryption": "解密已取消"
-    },
-    "swap": {
-        "automatic": "自动",
-        "confirm_swap": "确认交换",
-        "fees_text": "报价包含佣金费用。",
-        "fees": "费用",
-        "manual": "手动",
-        "powered_by": "由 <strong>{{ bridge }}</strong> 提供支持",
-        "pricing_text": "在多个去中心化市场中找到的最佳汇率。",
-        "pricing": "定价",
-        "priority_commission_subtitle": "更高的优先佣金可以在网络拥堵时加快交易处理速度。",
-        "priority_commission": "优先佣金",
-        "select_asset": "选择资产",
-        "slippage_text": "如果价格不利变动超过 {{ slippage }}%，您的交易将不会完成。",
-        "slippage": "滑点",
-        "slipping_adjustments": "滑点调整",
-        "slipping_more_info": "如果价格变动超过偏差，您的交易将不会完成。过高的值将导致不利的交易。",
-        "slipping_subtitle": "Zelf将为您找到最低的滑点以成功交换。",
-        "slipping": "滑点",
-        "verify": "验证",
-        "you_pay": "您支付",
-        "you_receive": "您获得"
-    },
-    "home": {
-        "manage_networks": "管理网络",
-        "assets": "代币",
-        "NFTs": "收藏品",
-        "receive_transaction_button": "接收",
-        "send_transaction_button": "发送",
-        "settings_button": "设置",
-        "support_button": "支持",
-        "swap": "交换",
-        "keys": "密钥"
-    },
-    "id_scanning": {
-        "camera_not_found": "未找到相机",
-        "camera_not_found_description": "无法访问相机。请检查您的设备设置并刷新重试。"
-    },
-    "language": {
-        "ar": "阿拉伯语",
-        "br": "葡萄牙语",
-        "cn": "中文",
-        "en": "英语",
-        "es": "西班牙语",
-        "fr": "法语",
-        "in": "印地语",
-        "ja": "日语",
-        "kr": "韩语",
-        "ph": "他加禄语",
-        "ru": "俄语"
-    },
-    "cta_sheet": {
-        "i_dont_want_this_wallet": "我不再需要这个标签名称了",
-        "choose_new_zelfname": "选择新的标签名称",
-        "recover_it_now": "立即恢复",
-        "delete_wallet_title": "移除标签",
-        "delete_wallet_message": "在移除标签之前，请确保已备份您的ZelfProof二维码。",
-        "yes_because": "是的，因为：",
-        "thanks_for_subscribing": "感谢订阅",
-        "make_zelfname_yours": "让 {{ zelfName }} 成为您的",
-        "keep_zelfname_yours": "保持 {{ zelfName }} 属于您",
-        "love_your_zelfname": "喜欢您的标签名称吗？",
-        "time_is_running_out": "时间不多了",
-        "not_much_time_left": "您的标签名称保留时间延长了一点，但不要等太久！",
-        "oh_no": "糟糕！",
-        "thanks_for_reserving": "感谢预订",
-        "is_no_longer_available": "不再可用",
-        "has_been_taken": "已被使用",
-        "benefit_title": "使用您的标签名称，您将获得：",
-        "benefit_1_title": "离线加密",
-        "benefit_1_subtitle": "您的密钥，您的控制",
-        "benefit_2_title": "超私密解密",
-        "benefit_2_subtitle": "只有您的脸才能解锁",
-        "benefit_3_title": "无中间人，无泄露",
-        "benefit_3_subtitle": "完全控制您的数据",
-        "you_have_subscribed_to": "您已订阅",
-        "you_have_reserved": "您已预订",
-        "secure_it_now": "立即保护！",
-        "secure_it_now_title": "仅剩 {{ days }} 天",
-        "with_just_x_days_left": "仅剩 {{ days }} 天",
-        "with_just_x_hours_left": "仅剩 {{ hours }} 小时",
-        "with_just_x_minutes_left": "仅剩 {{ minutes }} 分钟和 {{ seconds }} 秒",
-        "with_just_x_seconds_left": "仅剩 {{ seconds }} 秒",
-        "what_do_you_think": "您觉得如何？现在要保护它吗？",
-        "is_no_longer_yours": "不再属于您，让我们来修复这个问题！",
-        "good_news": "好消息！",
-        "is_still_available": "仍然可用",
-        "resubscribe_within": "在 {{ days }} 天内重新订阅",
-        "complete_purchase_within": "在 {{ days }} 天内完成购买以保护一年",
-        "have_you_explored_the_benefits": "您是否探索过标签名称和ZkProofs的好处？",
-        "but_someone_else_could_grab_it": "但其他人仍可能抢走它！不要冒险失去它，也不要把助记词写在纸上！",
-        "but_dont_worry_you_can_access_your_zelfproof": "但别担心，您可以使用相同的助记词访问您的标签名称并预订新的标签名称。",
-        "considerations_description_1": "牢不可破的安全性。",
-        "considerations_description_2": "独特的身份。",
-        "considerations_description_3": "面向未来的保护。"
-    },
     "zelf_keys": {
         "dashboard": {
             "wallet": "钱包"
@@ -559,11 +36,11 @@
                 "copy_payment_card_id": "复制支付卡 ID"
             },
             "zelfproof": {
-                "title": "ZelfProof",
+                "title": "支付卡信息",
                 "download": "下载 ZelfProof"
             },
             "decrypted": {
-                "title": "解密内容",
+                "title": "支付卡信息",
                 "card_holder_name": "持卡人姓名",
                 "copy_card_holder_name": "复制持卡人姓名",
                 "copy_card_number": "复制卡号",
@@ -599,11 +76,11 @@
         },
         "payment_card_result": {
             "success": {
-                "title": "支付卡创建成功！",
+                "title": "支付卡信息",
                 "description": "您的支付卡已安全存储并加密。"
             },
             "preview": {
-                "title": "卡片详情",
+                "title": "支付卡信息",
                 "labels": {
                     "name": "支付卡名称",
                     "card_holder": "持卡人",
@@ -612,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "ZelfProof",
+                "title": "支付卡信息",
                 "download": "下载 ZelfProof"
             },
             "nft": {
-                "title": "NFT 已创建",
+                "title": "支付卡信息",
                 "labels": {
                     "token_id": "代币 ID",
                     "cost": "费用",
@@ -629,7 +106,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "IPFS 存储",
+                "title": "支付卡信息",
                 "labels": {
                     "hash": "IPFS 哈希",
                     "gateway_url": "网关 URL",
@@ -639,7 +116,7 @@
                 "gateway_link": "在 IPFS 网关上查看"
             },
             "walrus": {
-                "title": "Walrus 存储",
+                "title": "支付卡信息",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "公共 URL",
@@ -652,7 +129,7 @@
                 "explorer_link": "在浏览器上查看"
             },
             "zelfproof": {
-                "title": "ZelfProof 已生成",
+                "title": "支付卡信息",
                 "labels": {
                     "string": "ZelfProof 字符串",
                     "qr_code": "二维码"
@@ -660,7 +137,7 @@
                 "copy_hint": "点击复制"
             },
             "error": {
-                "title": "创建支付卡时出错",
+                "title": "支付卡信息",
                 "default_message": "创建您的支付卡时发生了意外错误。",
                 "try_again": "重试",
                 "no_data": "未找到结果数据"
@@ -735,17 +212,17 @@
                 "position_face_subtitle": "直视摄像头并保持不动"
             },
             "api_error": {
-                "title": "身份验证失败",
+                "title": "支付卡信息",
                 "try_again": "重试",
                 "go_back": "返回"
             },
             "camera_error": {
-                "title": "摄像头不可用",
-                "description": "请确保您的摄像头已启用并可用于生物识别验证"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "permission": {
-                "title": "需要摄像头权限",
-                "description": "请允许摄像头访问以继续进行生物识别验证",
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。",
                 "go_back": "返回"
             },
             "close_aria": "关闭生物识别验证",
@@ -755,8 +232,8 @@
             }
         },
         "subscription_banner": {
-            "title": "解锁高级功能",
-            "description": "订阅 ZelfKeys Premium 即可获得无限访问权限、高级安全性等"
+            "title": "支付卡信息",
+            "description": "您的支付卡已安全存储并加密。"
         },
         "data_card": {
             "details": "详情",
@@ -800,9 +277,9 @@
             "encrypt_password": "验证身份以加密密码",
             "decrypt_password": "验证身份以解密密码",
             "instructions": {
-                "payment_card": "请验证您的面部以解密您的支付卡",
-                "note": "请验证您的面部以解密您的笔记",
-                "password": "请验证您的面部以解密您的密码"
+                "payment_card": "支付卡",
+                "note": "笔记",
+                "password": "密码"
             },
             "item": "项目",
             "error": {
@@ -820,9 +297,9 @@
             "master_password_placeholder": "输入您的主密码",
             "permission_allow": "请允许摄像头访问",
             "permission_required": "需要摄像头权限",
-            "processing": "正在解密...",
+            "processing": "正在处理您的生物识别数据...",
             "retry": "重试",
-            "title": "{{ type }} 解密",
+            "title": "支付卡信息",
             "unlock": "继续进行生物识别",
             "types": {
                 "credit_card": "支付卡",
@@ -850,21 +327,21 @@
             "permission_desc": "请允许摄像头访问以继续进行生物识别验证",
             "go_back": "返回",
             "master_password_label": "主密码 (可选):",
-            "master_password_placeholder": "如果您有主密码，请在此输入",
+            "master_password_placeholder": "输入您的主密码",
             "master_password_hint": "如果您在创建该条目时设置了主密码，请在此输入"
         },
         "note_result": {
-            "title": "笔记存储结果",
+            "title": "支付卡信息",
             "loading": "正在加载结果...",
             "sections": {
                 "success": {
-                    "title": "存储成功！",
+                    "title": "支付卡信息",
                     "message": "笔记存储成功！"
                 },
                 "details": {
-                    "title": "存储的笔记详情",
+                    "title": "支付卡信息",
                     "labels": {
-                        "title": "标题",
+                        "title": "支付卡信息",
                         "folder": "文件夹",
                         "type": "类型",
                         "category": "类别",
@@ -873,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "NFT 已创建",
+                    "title": "支付卡信息",
                     "labels": {
                         "token_id": "代币 ID",
                         "cost": "费用",
@@ -883,7 +360,7 @@
                     "image_alt": "ZelfKey NFT"
                 },
                 "ipfs": {
-                    "title": "IPFS 存储",
+                    "title": "支付卡信息",
                     "labels": {
                         "hash": "IPFS 哈希",
                         "gateway_url": "网关 URL",
@@ -893,7 +370,7 @@
                     "gateway_link": "在 IPFS 网关上查看"
                 },
                 "walrus": {
-                    "title": "Walrus 存储",
+                    "title": "支付卡信息",
                     "labels": {
                         "blob_id": "Blob ID",
                         "public_url": "公共 URL",
@@ -906,7 +383,7 @@
                     "explorer_link": "在浏览器上查看"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof 已生成",
+                    "title": "支付卡信息",
                     "labels": {
                         "string": "ZelfProof 字符串",
                         "qr_code": "二维码"
@@ -915,10 +392,10 @@
                     "qr_alt": "ZelfProof 二维码"
                 },
                 "debug": {
-                    "title": "调试信息"
+                    "title": "支付卡信息"
                 },
                 "next_steps": {
-                    "title": "下一步",
+                    "title": "支付卡信息",
                     "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
                     "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
                     "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
@@ -926,15 +403,15 @@
             },
             "actions": {
                 "back_to_notes": "返回笔记",
-                "add_another": "添加另一条笔记"
+                "add_another": "添加另一张卡"
             },
             "status": {
                 "success_title": "笔记存储成功！",
                 "error_title": "笔记存储失败",
                 "unknown_title": "未知状态",
-                "success_message": "您的笔记已安全存储并加密，且经过区块链验证。",
-                "error_message": "存储您的笔记时发生错误。",
-                "unknown_message": "系统无法确定存储状态。"
+                "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+                "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
+                "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
             },
             "error": {
                 "no_result": "无可用 API 结果"
@@ -942,25 +419,565 @@
         },
         "password_result": {
             "status": {
-                "success_title": "密码存储成功！",
-                "error_title": "密码存储失败",
+                "success_title": "笔记存储成功！",
+                "error_title": "笔记存储失败",
                 "unknown_title": "未知状态",
-                "success_message": "您的密码已安全存储，并通过生物识别验证。",
-                "error_message": "存储您的密码时发生错误。请重试。",
-                "unknown_message": "您的密码存储请求状态尚不明确。"
+                "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+                "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
+                "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
             },
             "error": {
                 "no_result": "无可用 API 结果"
             }
         }
     },
+    "cancel": "取消",
+    "confirm": "确认",
+    "logout_message": "确认此操作后，您将从扩展程序中删除所有ZelfProofs。您需要重新解密每个ZelfProof才能重新获得访问权限。您确定要继续吗？",
+    "logout_title": "删除所有ZELFPROOFS",
+    "onboarding": {
+        "lifetime": "终身",
+        "step_1_description": "永远不用担心忘记、丢失或泄露您的种子短语。",
+        "step_1": "加密种子短语的3个步骤",
+        "step_2_description": "通过解密您的ZelfProof在几秒钟内备份您的种子短语",
+        "step_2": "查找并解密您的ZelfProof",
+        "step_3_description": "将您的种子短语的zk-FaceProof存储在区块链中，而不是本地设备上",
+        "step_3": "保护您的种子短语免受黑客攻击",
+        "year": "年"
+    },
+    "activity": {
+        "approve": "批准",
+        "history": "历史",
+        "no_history_found": "未找到交易历史",
+        "pending": "待处理",
+        "receive": "接收",
+        "send": "发送",
+        "swap": "交换"
+    },
+    "wallet_status": {
+        "active": "活跃",
+        "expired": "已过期",
+        "hold": "持有"
+    },
+    "send": {
+        "address_found": "找到地址",
+        "available_balance": "可用 {{balance}} {{symbol}}",
+        "average": "平均",
+        "cannot_continue_process": "您无法继续此过程",
+        "confirmations": "确认数",
+        "continue_process": "您可以继续此过程",
+        "domain_or_address": "域名或地址",
+        "economical": "经济",
+        "enter_amount_to_send": "输入发送金额",
+        "external_address_found": "找到外部地址",
+        "fastest": "最快",
+        "transaction_settings": "交易设置",
+        "upto_sats": "高达 {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} 分钟",
+        "recent_addresses": "最近",
+        "used": "{{days}} 天前使用",
+        "withdrawal_amount": "提现金额",
+        "zelf_name_not_registered": "标签名称未注册",
+        "zelf_name_registered": "标签名称已注册",
+        "from_address": "发件人地址",
+        "private_transaction": "私人交易"
+    },
+    "transaction": {
+        "go_to_my_history": "查看我的历史记录",
+        "share_transaction": "分享交易"
+    },
+    "welcome": {
+        "code_name": "推荐标签名称",
+        "domain_expired_since": "域名自 {{ date }} 起已过期",
+        "decrypt_and_reserve": "解密并保留",
+        "decrypt_now_pay_later": "现在解密，稍后付款",
+        "decrypt_now_renew_later": "现在解密，稍后续期",
+        "dont_lose_your_zelfname": "嘿！不要丢失您的标签名称，在别人购买之前今天就续期或保留。",
+        "dont_remember_zelfname": "不记得您的标签名称了？",
+        "enjoy_your_domain": "享受您的域名。记得在别人购买之前购买它！",
+        "expiration_date": "到期日期 {{ date }}",
+        "find_zelf_name_subtitle": "通过在下面输入其公共地址来查找现有的标签名称：",
+        "find_zelf_name_title": "查找标签名称",
+        "got_it": "明白了，我稍后再做",
+        "grace_period_until": "宽限期至",
+        "import_subtitle": "我们将使用您的秘密恢复词来验证和导入现有钱包。请在下面输入它们。",
+        "import_title": "输入恢复秘密短语",
+        "invalid_referral_code": "无效的推荐码",
+        "name_expires": "名称到期",
+        "new_domain": "新域名",
+        "offline_subtitle": "此ZelfProof是离线创建的，因此使用不同的安全系统。目前，它与扩展不兼容。很快就会可用。",
+        "offline_tip": "但是，别担心！您可以使用另一个标签名称导入您的ZelfProof，以便从扩展访问。",
+        "i_understand_go_back": "我明白了，返回主页",
+        "old_domain": "旧域名",
+        "paste_your_recovery_phrase": "您可以将整个秘密恢复短语粘贴到任何字段中",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>已被占用，但别担心！您可以访问您的ZelfProof并使用相同的种子短语保留新的标签名称。",
+        "pick_your_new_zelfname": "选择您的新标签名称",
+        "public_address_input": "在此输入您的ETH或SOL公共地址",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>仍然可用。您可以访问您的ZelfProof并使用相同的种子短语恢复您的标签名称。",
+        "recover_your_zelfname": "恢复您的标签名称",
+        "referral_code": "推荐码（可选）",
+        "referral_successfully_registered": "推荐成功注册",
+        "registered_since": "自 {{ date }} 起注册",
+        "registered": "标签名称自 {{ date }} 起注册",
+        "renew_your_domain_today": "在别人购买之前今天就续期您的域名。",
+        "search_another_zelfname": "搜索另一个标签名称",
+        "search_your_new_zelfname": "搜索您的新标签名称",
+        "transfer_done": "转移完成",
+        "upload_zelf_proof": "或上传您的ZelfProof二维码继续：",
+        "you_can_transfer_this_domain": "您可以转移此域名",
+        "you_will_register_this_domain": "您将注册此域名",
+        "safeguard_your_crypto": "保护您的加密货币！",
+        "offline_import_subtitle": "在导入您的离线钱包之前，您需要选择一个新的标签名称。",
+        "your_zelf_name": "您的标签名称"
+    },
+    "settings": {
+        "networks_label": "网络",
+        "security_label": "安全",
+        "language_label": "语言",
+        "subscription_label": "订阅",
+        "networks": {
+            "title": "支付卡信息",
+            "description": "您的支付卡已安全存储并加密。",
+            "no_networks_available": "您的许可证下没有可用网络。请升级您的计划以访问更多网络。"
+        },
+        "language": {
+            "description": "您的支付卡已安全存储并加密。"
+        },
+        "walletconnect_label": "Connect via link",
+        "walletconnect": {
+            "title": "支付卡信息",
+            "description": "您的支付卡已安全存储并加密。",
+            "placeholder": "选择卡片类型",
+            "connect_button": "Connect",
+            "connecting": "Connecting...",
+            "success": "成功",
+            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
+            "error_failed": "Failed to connect. Please try again."
+        },
+        "security": {
+            "biometric_verification_title": "生物识别验证间隔",
+            "biometric_verification_description": "设置在进行生物识别验证之前允许仅使用密码的时间。您可以将其设置为5到60分钟。",
+            "password_attempts_title": "密码尝试次数",
+            "minutes_before_reverification": "重新验证前的分钟数",
+            "password_attempts_description": "设置在进行生物识别验证之前允许的最大密码尝试失败次数。您可以将其设置为1到8次尝试。"
+        }
+    },
+    "security": {
+        "biometric_decryption_subtitle": "为了完成解密过程，我们需要使用您的生物识别信息来验证您的身份。",
+        "biometric_decryption_title": "生物识别解密",
+        "biometric_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于加密您的ZelfProof的私钥。<strong>我们不会出于任何其他目的收集或使用您的生物识别信息。</strong>",
+        "biometric_title": "生物识别加密层",
+        "hide_words": "隐藏单词",
+        "medium": "中等",
+        "new_password_subtitle": "以下密码是您的ZelfProof所需的加密层。",
+        "password_decryption": "标签名称需要密码",
+        "password_parameters_title": "密码指南",
+        "password_parameters": "我们的密码指南如下：<ul><li>长度必须在8到128个字符之间</li><li>必须包含至少一个大写字母</li><li>必须包含一个小写字母</li><li>必须包含一个数字</li><li>必须包含一个特殊字符</li><li>避免使用常见密码</li><li>避免重复字符</li></ul>",
+        "password_strength_label": "密码强度",
+        "password_subtitle": "输入分配给此标签名称的密码以完成解密过程。",
+        "pin_description": "创建6位数字的PIN码",
+        "pin_unlock_description": "使用您的PIN码解锁您的ZelfProof",
+        "pin_confirm_description": "重新输入您的 6 位 PIN 码以确认",
+        "pin_title": "PIN码",
+        "secure_password_description": "额外的安全层",
+        "secure_password_title": "安全密码",
+        "security_layer_subtitle": "请选择分配给您新标签的密码层",
+        "security_layer_title": "安全层",
+        "strong": "强",
+        "subtitle": "选择您的种子短语长度并继续加密过程。",
+        "title": "支付卡信息",
+        "unhide_words": "显示单词",
+        "weak": "弱",
+        "weak_password": "弱密码",
+        "without_password_description": "更快，但安全性较低",
+        "without_password_title": "无密码",
+        "create_pin_title": "创建PIN码",
+        "create_pin_subtitle": "请输入您的ZelfProof的6位数字密码。",
+        "confirm_pin_title": "确认PIN码",
+        "confirm_pin_subtitle": "请重新输入您的ZelfProof的6位数字密码。"
+    },
+    "receive": {
+        "information": "此地址只能用于接收兼容的代币。",
+        "your_token_address": "您的{{ name }}地址",
+        "risks_modal": {
+            "title": "支付卡信息",
+            "risk_1_title": "仅限 {{ name }} 网络",
+            "risk_1": "只能向此地址发送 {{ name }} 网络上的 {{ symbol }}。来自其他链的代币无法找回。",
+            "risk_2_title": "核实地址",
+            "risk_2": "{{ name }} 交易不可逆转。确认前请务必仔细核对完整地址。",
+            "risk_3_title": "仅限 {{ type }} 代币",
+            "risk_3": "此地址只接受 {{ type }} 代币。发送其他标准将导致永久损失。",
+            "risk_3_native_title": "仅限 {{ symbol }}",
+            "risk_3_native": "只能发送原生 {{ symbol }}。其他网络的代币与此地址不兼容。",
+            "risk_4_title": "先用小额测试",
+            "risk_4": "首次向此地址转账时，请先发送少量 {{ symbol }} 进行测试。"
+        }
+    },
+    "common": {
+        "back": "返回",
+        "optional": "可选",
+        "no_results_found": "未找到结果",
+        "12_word_phrase": "12个单词短语",
+        "24_word_phrase": "24个单词短语",
+        "about": "关于",
+        "activity": "活动",
+        "address": "地址",
+        "agree_to_terms_and_conditions": "我同意<a href='https://docs.zelf.world/docs/legal/terms-of-use' target='_blank'>条款和条件</a>",
+        "all": "全部",
+        "amount": "金额",
+        "are_you_sure": "您确定吗？",
+        "asset": "资产",
+        "available": "可用",
+        "avax_address": "AVAX 地址",
+        "balance": "余额",
+        "bdag_address": "BDAG地址",
+        "btc_address": "比特币地址",
+        "buy_now": "立即购买",
+        "cancel": "取消",
+        "close": "关闭",
+        "coin": "代币",
+        "come_back_later": "请稍后再来！",
+        "download_apps": "下载 App",
+        "confirm_password": "确认密码",
+        "confirm": "确认",
+        "continue": "继续",
+        "copied_to_clipboard": "已复制到剪贴板",
+        "copy_recovery_phrase": "复制恢复短语",
+        "copy_to_clipboard": "复制成功",
+        "copy": "复制",
+        "create_a_new_wallet": "创建新钱包",
+        "date": "日期",
+        "days": "天",
+        "decrypt_zelfname": "解密标签名称",
+        "do_it_later": "稍后再说",
+        "documentation": "文档",
+        "domain_expired": "域名已过期",
+        "domain": "域名",
+        "dont_show_me_again": "不再显示",
+        "dont_show_this_message_again": "不再显示这些说明",
+        "download_qr": "下载二维码",
+        "download_zelfproof": "下载 ZelfProof",
+        "edit": "编辑",
+        "eth_address": "以太坊地址",
+        "extend_registration": "延长订阅",
+        "failed_to_copy_to_clipboard": "复制失败",
+        "failed": "失败",
+        "fee": "费用",
+        "from": "从",
+        "go_back": "返回",
+        "hide_words": "隐藏单词",
+        "history": "历史",
+        "import_a_wallet": "导入钱包",
+        "import_wallet": "导入钱包",
+        "import": "导入",
+        "information": "此地址只能用于接收兼容的代币。",
+        "is_required": "是必填项",
+        "learn_more": "了解更多",
+        "load_more": "加载更多",
+        "login": "解密ZelfProof",
+        "logout": "移除ZelfProof",
+        "manage_domains": "管理ZelfNames",
+        "max": "最大",
+        "my_arns": "我的ArNS",
+        "navigating_away_will_cancel": "离开将取消您已完成的进度。您确定要返回吗？",
+        "network_fee": "网络费用",
+        "network": "网络",
+        "next": "下一步",
+        "no": "否",
+        "not_available": "不适用",
+        "open_fullscreen": "打开全屏",
+        "open_in_sidebar": "在侧边栏中打开",
+        "or_drag_and_drop": "或将.JPG或PNG扩展名的文件拖放到此处",
+        "password_layer": "密码层",
+        "password": "密码",
+        "paste": "粘贴",
+        "pay_now": "立即支付",
+        "pending": "待处理",
+        "pricing": "价格",
+        "privacy": "隐私",
+        "purchase_now": "立即购买",
+        "purchase": "购买",
+        "receive": "接收",
+        "recommended": "推荐",
+        "refresh": "刷新",
+        "registered": "标签名称自 {{ date }} 起注册",
+        "remove_all_zelfproofs": "移除所有ZelfProofs",
+        "remove": "移除",
+        "renew_domain": "续期域名",
+        "renew_subscription": "续订订阅",
+        "reservation_found": "找到预订",
+        "search_your_zelf_name": "搜索您的标签名称",
+        "search": "搜索...",
+        "seed_phrase": "助记词",
+        "send_symbol": "发送{{symbol}}",
+        "send": "发送",
+        "settings": "设置",
+        "show_less": "显示更少",
+        "show_more": "显示更多",
+        "show_words": "显示单词",
+        "sol_address": "SOL地址",
+        "start": "开始",
+        "success": "成功",
+        "symbol": "符号",
+        "terms_and_conditions": "条款和条件",
+        "to": "至",
+        "total": "总计",
+        "transaction_id": "交易ID",
+        "transaction": "交易",
+        "transfer": "转账",
+        "try_again": "重试",
+        "try_another_one": "尝试另一个",
+        "type": "类型",
+        "unknown": "未知",
+        "unlock": "继续进行生物识别",
+        "upload_qr_image": "上传二维码图片",
+        "verify": "验证",
+        "website": "网站",
+        "withdraw": "提现",
+        "withdrawal_network": "提现网络",
+        "yes": "是",
+        "your_token": "您的{{ symbol }}",
+        "zelf_authenticator": "Zelf 身份验证器",
+        "zelf_keys": "Zelf 密钥",
+        "zelf_link": "Zelf 链接",
+        "zelf_wallet": "Zelf钱包",
+        "subscriptions": "订阅",
+        "download_short": "下载",
+        "mnemonics": "助记词",
+        "wallet_short": "钱包",
+        "auth_short": "认证"
+    },
+    "token": {
+        "24h_performance": "24小时表现",
+        "about": "关于",
+        "circulating_supply": "流通供应量",
+        "holders": "持有者",
+        "market_cap": "市值",
+        "price_detail": "价格详情",
+        "total_supply": "总供应量",
+        "traders": "交易者",
+        "volume_24h": "24小时交易量",
+        "volume": "交易量"
+    },
+    "domain_purchase": {
+        "character_length_and_year": "{{characterLength}}个字符长度。总成本{{ costPerYear }}美元",
+        "domain_price_length": "域名价格长度",
+        "know_more": "了解更多",
+        "lifetime": "终身",
+        "price_per_year": "每年价格",
+        "title": "支付卡信息",
+        "years": "{{ yearCount }}年"
+    },
+    "wallet": {
+        "download_qr": "下载二维码",
+        "info_title": "保护您的二维码安全",
+        "info_description": "请记住保护您的二维码安全以保护您的账户。下载并保存在安全的地方。",
+        "private_key": "私钥",
+        "addresses": "地址",
+        "info": "信息"
+    },
+    "private_key": {
+        "description": "您的支付卡已安全存储并加密。",
+        "got_it": "明白了，我稍后再做",
+        "title": "支付卡信息"
+    },
+    "my_arns": {
+        "arns_website": "ArNS网站",
+        "description": "您的支付卡已安全存储并加密。"
+    },
+    "manage_domain": {
+        "hold_until": "持有至",
+        "registered_since": "自 {{ date }} 起注册",
+        "registered_until": "到期时间"
+    },
+    "manage_domains": {
+        "are_you_sure_you_want_to_delete": "您确定要删除此ZelfProof吗？",
+        "domain_error": "{{ zelfName }}的试用期已结束，您需要购买订阅才能继续使用此标签名称",
+        "domain_warning": "您还有时间购买",
+        "expired_wallet_logout_message": "如果您通过标签名称搜索，可以再次解密此ZelfProof。但是，如果您不尽快购买，可能会失去它。",
+        "logout_of_wallet_message": "如果您通过标签名称搜索或加载ZelfProof二维码，可以再次解密此ZelfProof。",
+        "purchase_new_domain": "添加新的标签名称"
+    },
+    "liveness": {
+        "center_your_face": "将您的脸居中在屏幕上",
+        "center_your_face_subtitle": "请确保您的脸居中",
+        "get_closer_subtitle": "请靠近一点以获得更好的面部识别。",
+        "get_closer": "靠近",
+        "liveness_error_message": "活体检测失败，出现以下错误：<br><strong>{{error}}</strong><br>您要重试吗？",
+        "liveness_failed": "活体检测失败"
+    },
+    "errors": {
+        "address_too_long": "地址太长",
+        "all_fields_required": "所有字段都是必填的",
+        "camera_dimensions_not_properly_initialized": "摄像头未正确初始化",
+        "cannot_decrypt_zotp_missing_zelfProof": "无法解密 ZOTP：缺失 ZelfProof。若无有效 ZelfProof，无法解密该 ZOTP。",
+        "cannot_swap_across_these_networks": "您目前还不能在这些网络之间进行交换。请稍后再试。",
+        "chart_not_found": "图表数据不可用",
+        "Duplicated_person": "ZelfProof已被用于其他记录",
+        "empty_password": "密码不能为空",
+        "ERR_DESCRIPTION": "请确保正确按照说明解锁您的ZelfProof",
+        "ERR_INVALID_PASSWORD": "此ZelfProof的密码无效",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "面部角度太大",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "面部太靠近边框",
+        "ERR_LIVENESS_FAILED": "活体检测失败",
+        "ERR_UNPROCESSABLE_CONTENT": "无法解密ZelfProof",
+        "ERR_VERIFICATION_FAILED": "活体检测失败",
+        "error_closing_popup": "关闭窗口时出错",
+        "error_initializing_biometrics": "初始化生物识别时出错",
+        "error_sending_decryption_result_to_background": "与扩展程序通讯时出错",
+        "error_stopping_camera": "停止摄像头时出错",
+        "face_detection_error": "面部检测失败",
+        "face_not_central": "您的面部未居中。请调整面部位置后重试。",
+        "failed_to_get_quote": "获取此交换的报价失败。",
+        "generic_identity": "抱歉，您的身份验证似乎出现了问题。请重试。",
+        "generic_title": "发生错误",
+        "generic": "抱歉，处理此请求时出现问题。请重试。",
+        "incorrect_passphrase": "主密码输入错误。请重试。",
+        "incorrect_zelf_proof_message": "提供的文件似乎不是有效的ZelfProof。请重试。",
+        "incorrect_zelf_proof_title": "不正确的ZelfProof",
+        "insufficient_funds": "资金不足。请确保您的钱包中有足够的资金支付交易费用。",
+        "invalid_credentials": "无效的凭据",
+        "invalid_format": "无效的格式",
+        "invalid_mnemonic": "助记词无效。请确保您的助记词长度为12或24个单词。",
+        "invalid_number_value": "无效的数值",
+        "invalid_password": "密码无效。在需要使用生物识别登录之前，您还有{{remaining}}次尝试机会。",
+        "invalid_private_key": "私钥无效。",
+        "liveness_failed_description": "抱歉，您的活体检测似乎出现了问题。",
+        "liveness_failed": "活体检测失败",
+        "Liveness_score_not_acceptable": "活体检测分数不可接受",
+        "min_liveness_score_is": "最低活体检测分数为：",
+        "missing_contract_address": "缺少交换合约地址。请稍后再试。",
+        "must_be_greater_than": "必须大于{{ value }}",
+        "must_be_less_than": "必须小于{{ value }}",
+        "no_decrypted_data_received_from_api": "服务器未返回解密数据",
+        "no_zelfproof_available_for_password_decryption": "没有可用于密码解密的 ZelfProof",
+        "not_found": "未找到记录",
+        "password_doesnt_match": "密码不匹配",
+        "password_incorrect": "密码不正确",
+        "LIVENESS CHECK FAILED": {
+            "": "活体检测失败。请重试。"
+        },
+        "THE PROVIDED PASSWORD IS INVALID": {
+            "": "活体检测失败。请重试。"
+        },
+        "person_already_set": "您的注册已经链接了ZelfProof",
+        "private_key_locked": "私钥已被锁定。您必须进行生物识别检查才能继续。",
+        "required_field": "此字段为必填项",
+        "same_address": "您不能向同一地址发送资金",
+        "session_init_info": "要使用标签名称服务扩展程序，您需要网络访问权限。如需离线解决方案，请查看我们的 iOS 和 Android 应用。",
+        "session_init_message": "抱歉，初始化您的会话时出现问题。这可能是由于网络问题或服务器不可用造成的。请重试。",
+        "session_init_title": "会话初始化失败",
+        "something_went_wrong": "出现错误，请重试",
+        "swap_same_asset": "您不能交换到相同的资产",
+        "transaction_not_found": "未找到交易",
+        "try_again": "重试",
+        "unknown_error": "发生未知错误",
+        "user_cancelled_decryption": "解密已取消",
+        "zelfName_is_taken": "此标签名称已被使用",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
+    },
+    "swap": {
+        "automatic": "自动",
+        "confirm_swap": "确认交换",
+        "fees_text": "报价包含佣金费用。",
+        "fees": "费用",
+        "manual": "手动",
+        "powered_by": "由 <strong>{{ bridge }}</strong> 提供支持",
+        "pricing_text": "在多个去中心化市场中找到的最佳汇率。",
+        "pricing": "价格",
+        "priority_commission_subtitle": "更高的优先佣金可以在网络拥堵时加快交易处理速度。",
+        "priority_commission": "优先佣金",
+        "select_asset": "选择资产",
+        "slippage_text": "如果价格不利变动超过 {{ slippage }}%，您的交易将不会完成。",
+        "slippage": "滑点",
+        "slipping_adjustments": "滑点调整",
+        "slipping_more_info": "如果价格变动超过偏差，您的交易将不会完成。过高的值将导致不利的交易。",
+        "slipping_subtitle": "Zelf将为您找到最低的滑点以成功交换。",
+        "slipping": "滑点",
+        "verify": "验证",
+        "you_pay": "您支付",
+        "you_receive": "您获得"
+    },
+    "home": {
+        "manage_networks": "管理网络",
+        "assets": "代币",
+        "keys": "密钥",
+        "NFTs": "收藏品",
+        "receive_transaction_button": "接收",
+        "send_transaction_button": "发送",
+        "settings_button": "设置",
+        "support_button": "支持",
+        "swap": "交换"
+    },
+    "id_scanning": {
+        "camera_not_found": "未找到相机",
+        "camera_not_found_description": "无法访问相机。请检查您的设备设置并刷新重试。"
+    },
+    "language": {
+        "ar": "阿拉伯语",
+        "br": "葡萄牙语",
+        "cn": "中文",
+        "en": "英语",
+        "es": "西班牙语",
+        "fr": "法语",
+        "in": "印地语",
+        "ja": "日语",
+        "kr": "韩语",
+        "ph": "他加禄语",
+        "ru": "俄语"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "我不再需要这个标签名称了",
+        "choose_new_zelfname": "选择新的标签名称",
+        "recover_it_now": "立即恢复",
+        "delete_wallet_title": "移除标签",
+        "delete_wallet_message": "在移除标签之前，请确保已备份您的ZelfProof二维码。",
+        "yes_because": "是的，因为：",
+        "thanks_for_subscribing": "感谢订阅",
+        "make_zelfname_yours": "让 {{ zelfName }} 成为您的",
+        "keep_zelfname_yours": "保持 {{ zelfName }} 属于您",
+        "love_your_zelfname": "喜欢您的标签名称吗？",
+        "time_is_running_out": "时间不多了",
+        "not_much_time_left": "您的标签名称保留时间延长了一点，但不要等太久！",
+        "oh_no": "糟糕！",
+        "thanks_for_reserving": "感谢预订",
+        "is_no_longer_available": "不再可用",
+        "has_been_taken": "已被使用",
+        "benefit_title": "使用您的标签名称，您将获得：",
+        "benefit_1_title": "离线加密",
+        "benefit_1_subtitle": "您的密钥，您的控制",
+        "benefit_2_title": "超私密解密",
+        "benefit_2_subtitle": "只有您的脸才能解锁",
+        "benefit_3_title": "无中间人，无泄露",
+        "benefit_3_subtitle": "完全控制您的数据",
+        "you_have_subscribed_to": "您已订阅",
+        "you_have_reserved": "您已预订",
+        "secure_it_now": "立即保护！",
+        "secure_it_now_title": "仅剩 {{ days }} 天",
+        "with_just_x_days_left": "仅剩 {{ days }} 天",
+        "with_just_x_hours_left": "仅剩 {{ hours }} 小时",
+        "with_just_x_minutes_left": "仅剩 {{ minutes }} 分钟和 {{ seconds }} 秒",
+        "with_just_x_seconds_left": "仅剩 {{ seconds }} 秒",
+        "what_do_you_think": "您觉得如何？现在要保护它吗？",
+        "is_no_longer_yours": "不再属于您，让我们来修复这个问题！",
+        "good_news": "好消息！",
+        "is_still_available": "仍然可用",
+        "resubscribe_within": "在 {{ days }} 天内重新订阅",
+        "complete_purchase_within": "在 {{ days }} 天内完成购买以保护一年",
+        "have_you_explored_the_benefits": "您是否探索过标签名称和ZkProofs的好处？",
+        "but_someone_else_could_grab_it": "但其他人仍可能抢走它！不要冒险失去它，也不要把助记词写在纸上！",
+        "but_dont_worry_you_can_access_your_zelfproof": "但别担心，您可以使用相同的助记词访问您的标签名称并预订新的标签名称。",
+        "considerations_description_1": "牢不可破的安全性。",
+        "considerations_description_2": "独特的身份。",
+        "considerations_description_3": "面向未来的保护。"
+    },
     "billing": {
         "common": {
             "master_password_placeholder": "输入您的主密码"
         },
         "activation": {
-            "title": "支付已确认！",
-            "message": "正在激活订阅... 恭喜！您的支付已确认，订阅正在激活中。"
+            "title": "支付卡信息",
+            "message": "笔记存储成功！"
         },
         "subscription": {
             "active_subscription": "活跃订阅",
@@ -968,9 +985,9 @@
             "plan": "计划：",
             "price": "价格：",
             "payment_method": "支付方式：",
-            "status": "状态：",
-            "transaction": "交易：",
-            "zelf_name": "标签名称：",
+            "status": "状态",
+            "transaction": "交易",
+            "zelf_name": "标签名称",
             "start_date": "开始日期：",
             "expires_on": "有效期至：",
             "next_billing": "下次结账日期：",
@@ -1000,31 +1017,31 @@
             "add_payment_card": "添加支付卡"
         },
         "payment_cards": {
-            "title": "支付卡",
-            "subtitle": "安全存储您的支付卡信息",
+            "title": "支付卡信息",
+            "subtitle": "选择您的种子短语长度并继续加密过程。",
             "loading": {
-                "title": "正在加载支付卡",
-                "message": "正在获取您的加密数据，请稍候..."
+                "title": "支付卡信息",
+                "message": "笔记存储成功！"
             },
             "error": {
-                "title": "哎呀！出了点问题",
-                "message": "我们无法加载您的支付卡。",
+                "title": "支付卡信息",
+                "message": "笔记存储成功！",
                 "try_again": "重试",
                 "no_wallet": "未找到钱包。请先设置您的钱包。",
                 "auth_failed": "身份验证失败。请确保您拥有有效的钱包。",
-                "init_failed": "会话初始化失败。请检查您的钱包连接。",
+                "init_failed": "初始化会话失败。请检查您的钱包连接。",
                 "no_token": "没有可用的身份验证令牌。请刷新页面。",
                 "load_failed": "加载支付卡失败。请重试。"
             },
             "unknown_bank": "未知银行",
             "unknown": "未知",
             "premium": {
-                "title": "解锁高级功能",
-                "description": "订阅 ZelfKeys Premium 获得高级安全性等"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "add_card": {
-                "title": "添加新卡",
-                "description": "安全地存储新支付卡"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "card": {
                 "card_holder": "持卡人",
@@ -1034,7 +1051,7 @@
                 "card_type": "卡片类型",
                 "cvv": "CVV",
                 "billing_address": "账单地址",
-                "notes": "备注",
+                "notes": "笔记",
                 "no_card_holder": "无持卡人",
                 "no_expiry": "无到期日期",
                 "no_card_number": "无卡号",
@@ -1044,28 +1061,28 @@
                 "no_notes": "无备注"
             },
             "detail": {
-                "title": "支付卡详情",
-                "loading": "正在加载支付卡详情...",
+                "title": "支付卡信息",
+                "loading": "正在加载结果...",
                 "error": {
-                    "title": "加载支付卡时出错",
+                    "title": "支付卡信息",
                     "go_back": "返回",
                     "retrieve_failed": "检索支付卡数据失败",
                     "decrypt_failed": "解密支付卡失败。请重试。"
                 },
                 "expiry_placeholder": "MM/YY",
                 "decrypt": {
-                    "button": "解密卡片",
+                    "button": "解密支付卡",
                     "decrypting": "正在解密..."
                 },
                 "info": {
-                    "title": "卡片信息",
+                    "title": "支付卡信息",
                     "card_number": "卡号",
                     "card_holder": "持卡人",
-                    "expiry_date": "有效期至",
+                    "expiry_date": "有效日期",
                     "card_type": "卡片类型",
                     "cvv": "CVV",
                     "billing_address": "账单地址",
-                    "notes": "备注",
+                    "notes": "笔记",
                     "copy_card_number": "复制卡号",
                     "copy_card_holder": "复制持卡人",
                     "copy_expiry": "复制有效期至",
@@ -1075,25 +1092,25 @@
                     "copy_notes": "复制备注"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "支付卡信息",
                     "download": "下载 ZelfProof"
                 },
                 "decrypted": {
-                    "title": "解密的卡片信息",
+                    "title": "支付卡信息",
                     "card_number": "卡号",
                     "card_holder": "持卡人",
                     "expiry_date": "有效日期",
                     "card_type": "卡片类型",
                     "cvv": "CVV",
                     "billing_address": "账单地址",
-                    "notes": "备注",
+                    "notes": "笔记",
                     "show_card_number": "显示卡号",
                     "hide_card_number": "隐藏卡号",
                     "show_cvv": "显示 CVV",
                     "hide_cvv": "隐藏 CVV",
                     "copy_card_number": "复制卡号",
                     "copy_card_holder": "复制持卡人",
-                    "copy_expiry": "复制有效日期",
+                    "copy_expiry": "复制有效期至",
                     "copy_card_type": "复制卡片类型",
                     "copy_cvv": "复制 CVV",
                     "copy_billing_address": "复制账单地址",
@@ -1103,40 +1120,40 @@
             "form": {
                 "title": {
                     "add": "添加新支付卡",
-                    "edit": "编辑支付卡",
+                    "edit": "编辑",
                     "label": "银行名称 *"
                 },
                 "card_number": {
-                    "label": "卡号 *"
+                    "label": "银行名称 *"
                 },
                 "card_holder": {
-                    "label": "持卡人姓名 *"
+                    "label": "银行名称 *"
                 },
                 "expiry_month": {
-                    "label": "到期月份 *",
-                    "placeholder": "MM"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型"
                 },
                 "expiry_year": {
-                    "label": "到期年份 *"
+                    "label": "银行名称 *"
                 },
                 "card_type": {
-                    "label": "卡片类型 *",
+                    "label": "银行名称 *",
                     "placeholder": "选择卡片类型"
                 },
                 "cvv": {
-                    "label": "CVV *"
+                    "label": "银行名称 *"
                 },
                 "billing_address": {
-                    "label": "账单地址",
-                    "placeholder": "输入账单地址 (可选)"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型"
                 },
                 "notes": {
-                    "label": "备注",
-                    "placeholder": "输入备注 (可选)"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型"
                 },
                 "folder": {
-                    "label": "存入文件夹",
-                    "placeholder": "文件夹名称",
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型",
                     "aria_label": "切换文件夹存储"
                 },
                 "master_password": {
@@ -1150,57 +1167,57 @@
             }
         },
         "notes": {
-            "title": "笔记",
-            "subtitle": "管理您的安全笔记和键值对",
+            "title": "支付卡信息",
+            "subtitle": "选择您的种子短语长度并继续加密过程。",
             "loading": {
-                "title": "正在加载您的笔记",
-                "message": "正在获取您的加密数据，请稍候..."
+                "title": "支付卡信息",
+                "message": "笔记存储成功！"
             },
             "error": {
-                "title": "哎呀！出了点问题",
-                "message": "我们无法加载您的笔记。",
+                "title": "支付卡信息",
+                "message": "笔记存储成功！",
                 "try_again": "重试",
-                "load_failed": "加载存储的笔记失败。请重试。"
+                "load_failed": "加载支付卡失败。请重试。"
             },
             "premium": {
-                "title": "解锁高级功能",
-                "description": "订阅 ZelfKeys Premium 获得高级安全性等"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "add_note": {
-                "title": "添加新笔记",
-                "description": "安全存储新笔记"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "detail": {
-                "loading": "正在加载笔记详情...",
+                "loading": "正在加载结果...",
                 "error": {
-                    "title": "加载笔记时出错",
+                    "title": "支付卡信息",
                     "go_back": "返回",
-                    "not_found": "无可用笔记数据",
-                    "load_failed": "加载笔记数据失败",
-                    "retrieve_failed": "检索笔记数据失败",
-                    "decrypt_failed": "解密笔记失败。请重试。"
+                    "not_found": "未找到记录",
+                    "load_failed": "加载支付卡失败。请重试。",
+                    "retrieve_failed": "检索支付卡数据失败",
+                    "decrypt_failed": "解密支付卡失败。请重试。"
                 },
                 "no_title": "无标题",
                 "no_content": "无内容",
-                "untitled": "无标题笔记",
+                "untitled": "无标题",
                 "no_folder": "无文件夹",
                 "decrypt": {
-                    "button": "解密笔记",
+                    "button": "解密支付卡",
                     "decrypting": "正在解密..."
                 },
                 "info": {
-                    "title": "笔记信息",
+                    "title": "支付卡信息",
                     "note_id": "笔记 ID",
                     "type": "类型",
                     "folder": "文件夹",
                     "copy_id": "复制笔记 ID"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "支付卡信息",
                     "download": "下载 ZelfProof"
                 },
                 "decrypted": {
-                    "title": "解密内容",
+                    "title": "支付卡信息",
                     "title_field": "标题",
                     "content": "内容",
                     "no_title": "无标题",
@@ -1211,82 +1228,82 @@
             },
             "form": {
                 "title": {
-                    "add": "添加新笔记",
-                    "edit": "编辑笔记"
+                    "add": "添加新支付卡",
+                    "edit": "编辑"
                 },
                 "title_field": {
-                    "label": "笔记标题 *"
+                    "label": "银行名称 *"
                 },
                 "content": {
-                    "label": "笔记内容 *",
-                    "hint": "您的笔记内容将被加密并安全存储。您可以根据需要编写任意长度的内容。"
+                    "label": "银行名称 *",
+                    "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "folder": {
-                    "label": "在文件夹中整理",
-                    "placeholder": "输入文件夹名称",
-                    "aria_label": "切换文件夹整理"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型",
+                    "aria_label": "切换文件夹存储"
                 },
                 "master_password": {
-                    "label": "主密码 *",
+                    "label": "银行名称 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "buttons": {
                     "cancel": "取消",
-                    "create": "创建笔记",
-                    "update": "更新笔记"
+                    "create": "创建卡片",
+                    "update": "更新卡片"
                 }
             }
         },
         "passwords": {
-            "title": "密码",
-            "subtitle": "管理您的安全密码和凭据",
+            "title": "支付卡信息",
+            "subtitle": "选择您的种子短语长度并继续加密过程。",
             "loading": {
-                "title": "正在加载您的密码",
-                "message": "正在获取您的加密数据，请稍候..."
+                "title": "支付卡信息",
+                "message": "笔记存储成功！"
             },
             "error": {
-                "title": "哎呀！出了点问题",
-                "message": "我们无法加载您的密码。",
+                "title": "支付卡信息",
+                "message": "笔记存储成功！",
                 "try_again": "重试",
-                "load_failed": "加载存储的密码失败。请重试。"
+                "load_failed": "加载支付卡失败。请重试。"
             },
             "premium": {
-                "title": "解锁高级功能",
-                "description": "订阅 ZelfKeys Premium 获得高级安全性等"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "add_password": {
-                "title": "添加新密码",
-                "description": "安全地存储新密码"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "search": {
-                "placeholder": "搜索密码..."
+                "placeholder": "选择卡片类型"
             },
             "no_results": {
-                "title": "未找到密码",
-                "message": "尝试调整您的搜索词"
+                "title": "支付卡信息",
+                "message": "笔记存储成功！"
             },
             "detail": {
-                "loading": "正在加载密码详情...",
+                "loading": "正在加载结果...",
                 "error": {
-                    "title": "加载密码时出错",
+                    "title": "支付卡信息",
                     "go_back": "返回",
-                    "not_found": "未找到密码数据",
-                    "load_failed": "加载密码数据失败",
-                    "decrypt_failed": "解密密码失败。请重试。"
+                    "not_found": "未找到记录",
+                    "load_failed": "加载支付卡失败。请重试。",
+                    "decrypt_failed": "解密支付卡失败。请重试。"
                 },
-                "untitled": "无标题密码",
+                "untitled": "无标题",
                 "no_username": "无用户名",
                 "no_website": "无网站",
                 "no_category": "无类别",
                 "no_zelf_name": "无标签名称",
                 "unknown_date": "未知日期",
                 "decrypt": {
-                    "button": "解密密码",
+                    "button": "解密支付卡",
                     "decrypting": "正在解密...",
                     "launch_fill": "启动并填充"
                 },
                 "info": {
-                    "title": "密码信息",
+                    "title": "支付卡信息",
                     "website": "网站",
                     "username": "用户名",
                     "category": "类别",
@@ -1298,15 +1315,15 @@
                     "prefill_autofill": "自动填充预填充"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "支付卡信息",
                     "download": "下载 ZelfProof"
                 },
                 "decrypted": {
-                    "title": "解密内容",
+                    "title": "支付卡信息",
                     "website": "网站",
                     "username": "用户名",
                     "password": "密码",
-                    "notes": "备注",
+                    "notes": "笔记",
                     "difficulty": "强度/难度",
                     "show_password": "显示密码",
                     "hide_password": "隐藏密码",
@@ -1315,31 +1332,31 @@
                 }
             },
             "form": {
-                "title": "添加密码",
+                "title": "支付卡信息",
                 "website": {
-                    "label": "网站 URL *"
+                    "label": "银行名称 *"
                 },
                 "title_field": {
-                    "label": "标题 *",
-                    "placeholder": "输入标题"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型"
                 },
                 "email": {
-                    "label": "电子邮件/用户名 *"
+                    "label": "银行名称 *"
                 },
                 "password": {
-                    "label": "密码 *"
+                    "label": "银行名称 *"
                 },
                 "folder": {
-                    "label": "在文件夹中整理",
-                    "placeholder": "输入文件夹名称",
-                    "aria_label": "切换文件夹整理"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型",
+                    "aria_label": "切换文件夹存储"
                 },
                 "notes": {
-                    "label": "备注",
-                    "placeholder": "输入备注 (可选)"
+                    "label": "银行名称 *",
+                    "placeholder": "选择卡片类型"
                 },
                 "master_password": {
-                    "label": "主密码 *",
+                    "label": "银行名称 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "buttons": {
@@ -1350,12 +1367,12 @@
         },
         "password_result": {
             "status": {
-                "success_title": "密码存储成功！",
-                "error_title": "密码存储失败",
+                "success_title": "笔记存储成功！",
+                "error_title": "笔记存储失败",
                 "unknown_title": "未知状态",
-                "success_message": "您的密码已安全存储，并通过生物识别验证。",
-                "error_message": "存储您的密码时发生错误。请重试。",
-                "unknown_message": "您的密码存储请求状态尚不明确。"
+                "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+                "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
+                "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
             },
             "error": {
                 "no_result": "无可用 API 结果"
@@ -1366,9 +1383,9 @@
                 "success_title": "笔记存储成功！",
                 "error_title": "笔记存储失败",
                 "unknown_title": "未知状态",
-                "success_message": "您的笔记已安全存储并加密，且经过区块链验证。",
-                "error_message": "存储您的笔记时发生错误。",
-                "unknown_message": "系统无法确定存储状态。"
+                "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+                "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
+                "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
             },
             "error": {
                 "no_result": "无可用 API 结果"
@@ -1376,36 +1393,36 @@
         }
     },
     "start": {
-        "title": "欢迎使用 ZelfKeys",
-        "subtitle": "您的安全密码管理器",
+        "title": "支付卡信息",
+        "subtitle": "选择您的种子短语长度并继续加密过程。",
         "features": {
             "install_extension": {
-                "title": "安装我们的<br />扩展程序",
-                "description": "在您喜欢的浏览器中安装我们的扩展程序"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "secure_passwords": {
-                "title": "保护您的<br />密码",
-                "description": "添加您的密码、支付卡和笔记。"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             },
             "autocomplete": {
-                "title": "自动填充<br />您的信息",
-                "description": "经过快速的生物识别验证后，自动填充您存储的密码。"
+                "title": "支付卡信息",
+                "description": "您的支付卡已安全存储并加密。"
             }
         },
         "cta": {
-            "button": "保护我的第一个密码"
+            "button": "解密支付卡"
         }
     },
     "password_result": {
-        "title": "密码存储结果",
+        "title": "支付卡信息",
         "loading": "正在加载结果...",
         "sections": {
             "success": {
-                "title": "存储成功！",
-                "message": "密码存储成功！"
+                "title": "支付卡信息",
+                "message": "笔记存储成功！"
             },
             "details": {
-                "title": "存储的密码详情",
+                "title": "支付卡信息",
                 "labels": {
                     "website": "网站",
                     "username": "用户名",
@@ -1416,7 +1433,7 @@
                 }
             },
             "nft": {
-                "title": "NFT 已创建",
+                "title": "支付卡信息",
                 "labels": {
                     "token_id": "代币 ID",
                     "cost": "费用",
@@ -1429,7 +1446,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "IPFS 存储",
+                "title": "支付卡信息",
                 "labels": {
                     "hash": "IPFS 哈希",
                     "gateway_url": "网关 URL",
@@ -1441,10 +1458,10 @@
                 "gateway_link": "在 IPFS 网关上查看"
             },
             "walrus": {
-                "title": "Walrus 存储",
+                "title": "支付卡信息",
                 "labels": {
                     "blob_id": "Blob ID",
-                    "public_url": "公开 URL",
+                    "public_url": "公共 URL",
                     "explorer_url": "浏览器 URL",
                     "status": "状态",
                     "reason": "原因",
@@ -1454,7 +1471,7 @@
                 "explorer_link": "在浏览器上查看"
             },
             "zelfproof": {
-                "title": "ZelfProof 已生成",
+                "title": "支付卡信息",
                 "labels": {
                     "string": "ZelfProof 字符串",
                     "qr_code": "二维码"
@@ -1462,30 +1479,30 @@
                 "copy_hint": "点击复制"
             },
             "next_steps": {
-                "title": "下一步",
-                "success_message": "您的密码现已安全存储。您可以在密码列表中查看它，也可以添加另一个密码。",
-                "error_message": "请查看上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
-                "unknown_message": "系统无法确定状态。请查看上面的 API 响应以了解详情。"
+                "title": "支付卡信息",
+                "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+                "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
+                "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
             }
         },
         "actions": {
             "back_to_passwords": "返回密码",
-            "add_another": "添加另一个密码"
+            "add_another": "添加另一张卡"
         },
         "status": {
-            "success_title": "密码存储成功！",
-            "error_title": "密码存储失败",
+            "success_title": "笔记存储成功！",
+            "error_title": "笔记存储失败",
             "unknown_title": "未知状态",
-            "success_message": "您的密码已安全存储，并通过生物识别验证。",
-            "error_message": "存储您的密码时出错。请重试。",
-            "unknown_message": "您的密码存储请求状态尚不明确。"
+            "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+            "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
+            "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
         },
         "error": {
             "no_result": "无可用 API 结果"
         }
     },
     "domain_selection": {
-        "title": "为您的标签名称选择域名"
+        "title": "支付卡信息"
     },
     "zotp": {
         "add_zotp": "添加 ZOTP",
@@ -1500,12 +1517,12 @@
         "upload_qr_code_instructions": "上传二维码图片以自动配置 ZOTP",
         "no_zotps_added": "尚未添加 ZOTP。点击 + 按钮添加一个。",
         "master_password": "主密码",
-        "master_password_placeholder": "输入钱包主密码",
-        "master_password_hint": "需要钱包的主密码来加密并安全地存储此 ZOTP。",
+        "master_password_placeholder": "输入您的主密码",
+        "master_password_hint": "如果您在创建该条目时设置了主密码，请在此输入",
         "see_details": "查看详情",
         "unlock_zotp": "解锁 ZOTP",
         "hide_secret": "隐藏密钥",
-        "details": "ZOTP 详情",
+        "details": "详情",
         "qr_code": "二维码",
         "public_data": "公开数据",
         "ipfs_info": "IPFS 信息",
@@ -1576,7 +1593,7 @@
         "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器中。您现在可以使用它来生成验证码。"
     },
     "rewards": {
-        "title": "奖励",
+        "title": "支付卡信息",
         "redeem_zns": "兑换 ZNS",
         "invite_friends": "邀请好友",
         "daily_rewards": "每日奖励",
@@ -1584,9 +1601,9 @@
         "your_tasks": "您的任务",
         "coming_soon": "敬请期待",
         "first_transaction": {
-            "title": "首次交易奖励",
-            "loading": "正在检查资格...",
-            "success_title": "你赢了",
+            "title": "支付卡信息",
+            "loading": "正在加载结果...",
+            "success_title": "笔记存储成功！",
             "success_subtitle": "首次交易已完成！",
             "earned_label": "你已获得",
             "accept": "接受",
@@ -1596,29 +1613,31 @@
             "already_claimed_title": "已领取",
             "already_claimed_desc": "你已经领取过此奖励了！",
             "instruction_action": "发送 ZNS 代币",
-            "instruction_desc": "完成您的首次 ZNS 代币交易以解锁此奖励"
+            "instruction_desc": "完成您的首次 ZNS 代币交易以解锁此奖励",
+            "error_no_wallet": "No wallet found",
+            "error_invalid_config": "Invalid wallet configuration"
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "邀请您的第一位好友",
+                "title": "支付卡信息",
                 "reward": "赢取 10 到 100 $ZNS"
             },
             "first_transaction": {
-                "title": "发送你的第一笔ZNS交易",
-                "reward": "赚取高达100 $ZNS",
+                "title": "支付卡信息",
+                "reward": "赢取 10 到 100 $ZNS",
                 "reward_completed": "你赢了 {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "加入我们的 Discord",
-                "reward": "赢取 25 $ZNS"
+                "title": "支付卡信息",
+                "reward": "赢取 10 到 100 $ZNS"
             },
             "join_telegram": {
-                "title": "加入我们的 Telegram 社区",
-                "reward": "赢取 25 $ZNS"
+                "title": "支付卡信息",
+                "reward": "赢取 10 到 100 $ZNS"
             },
             "join_x": {
-                "title": "在 X 上关注我们",
-                "reward": "赢取 5 $ZNS"
+                "title": "支付卡信息",
+                "reward": "赢取 10 到 100 $ZNS"
             }
         },
         "alreadyClaimedToday": "您今天已经领取了每日奖励！",
@@ -1630,13 +1649,13 @@
         "seconds": "sec",
         "spin_the_wheel": "旋转转盘",
         "spin_subtitle": "并在 $ZNS 中赢取每日奖励",
-        "loading": "加载中...",
+        "loading": "正在加载结果...",
         "spinning": "旋转中...",
         "come_back_tomorrow": "明天再来！",
         "spin_now": "旋转转盘！",
         "error": {
-            "no_wallet": "未找到钱包。请先连接钱包。",
-            "load_failed": "加载转盘配置失败。",
+            "no_wallet": "未找到钱包。请先设置您的钱包。",
+            "load_failed": "加载支付卡失败。请重试。",
             "claim_failed": "无法领取奖励。",
             "already_claimed": "您今天已经领取过每日奖励了。明天再来吧！",
             "spin_failed": "旋转转盘失败。请重试。",
@@ -1657,45 +1676,68 @@
         "start_earning_desc": "分享您的邀请码，开始赚取奖励！",
         "status": {
             "purchased": "已购买",
-            "registered": "已注册",
-            "pending": "处理中"
+            "registered": "标签名称自 {{ date }} 起注册",
+            "pending": "待处理"
         },
         "claim": "领取 {{ amount }} $ZNS"
     },
     "claim_reward": {
         "loading": {
-            "title": "正在领取奖励",
+            "title": "支付卡信息",
             "text": "正在向您的钱包发送 {{ amount }} $ZNS...",
             "subtext": "这可能需要几秒钟"
         },
         "success": {
-            "title": "您赢了",
-            "subtitle": "任务完成！",
+            "title": "支付卡信息",
+            "subtitle": "选择您的种子短语长度并继续加密过程。",
             "desc": "来自 <strong>{{ name }}</strong> 的推荐奖励",
-            "earned_label": "您已获得",
+            "earned_label": "你已获得",
             "accept": "接受"
         },
         "error": {
-            "title": "领取失败",
-            "subtext": "别担心，您可以稍后重试。您的奖励还在等着您。",
+            "title": "支付卡信息",
+            "subtext": "这可能需要几秒钟",
             "retry": "重试",
             "go_back": "返回",
             "messages": {
                 "reward_already_claimed": "此奖励已被领取",
-                "generic": "领取奖励失败。请稍后再试。"
+                "generic": "抱歉，处理此请求时出现问题。请重试。"
             }
         }
     },
     "home_banners": {
         "expiration": {
-            "title": "不要失去你的 ZelfName",
-            "expired": "您的域名已过期",
+            "title": "支付卡信息",
+            "expired": "已过期",
             "one_day": "距离购买您的 ZNS 还剩 1 天",
             "days_left": "距离购买您的 ZNS 还剩 {{ days }} 天"
         },
         "rewards": {
-            "title": "领取奖励",
-            "subtitle": "通过我们的任务每日获得 $ZNS"
+            "title": "支付卡信息",
+            "subtitle": "选择您的种子短语长度并继续加密过程。"
         }
+    },
+    "dapp": {
+        "connection_request": "Connection Request",
+        "select_accounts": "Select accounts to connect",
+        "network": "网络",
+        "threat_warning_title": "Malicious Site Detected",
+        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
+        "connect": "Connect",
+        "sign_message": "Sign Message",
+        "sign_transaction": "Sign Transaction",
+        "message_to_sign": "Message to sign",
+        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "wants_to_connect": "想要连接到您的钱包",
+        "accounts": "账户",
+        "permissions": "权限",
+        "permission_see_address": "查看地址、账户余额和活动",
+        "permission_suggest_tx": "建议交易以供批准",
+        "permission_disclaimer": "这不会允许该网站在未经您批准的情况下转移资金",
+        "confirm_transaction": "确认交易",
+        "to_address": "收款地址",
+        "value": "金额",
+        "data": "数据",
+        "biometric_required": "需要生物识别验证才能签名"
     }
 }

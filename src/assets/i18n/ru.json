@@ -1,527 +1,4 @@
 {
-    "cancel": "Отмена",
-    "confirm": "Подтвердить",
-    "logout_message": "Подтверждая это действие, вы удалите все ваши ZelfProofs из расширения. Вам нужно будет снова расшифровать каждый ZelfProof, чтобы восстановить к ним доступ. Вы уверены, что хотите продолжить?",
-    "logout_title": "УДАЛИТЬ ВСЕ ZELFPROOFS",
-    "onboarding": {
-        "lifetime": "Пожизненно",
-        "step_1_description": "Никогда не беспокойтесь о том, что забудете, потеряете или скомпрометируете свою сид-фразу.",
-        "step_1": "3 шага для шифрования вашей сид-фразы",
-        "step_2_description": "Сделайте резервную копию вашей сид-фразы за секунды, расшифровав ваш ZelfProof",
-        "step_2": "Найдите и расшифруйте ваш ZelfProof",
-        "step_3_description": "Храните zk-FaceProof вашей сид-фразы в блокчейне вместо локального устройства",
-        "step_3": "Защитите вашу сид-фразу от взлома",
-        "year": "Год"
-    },
-    "activity": {
-        "approve": "Одобрить",
-        "history": "История",
-        "no_history_found": "История транзакций не найдена",
-        "pending": "В ожидании",
-        "receive": "Получить",
-        "send": "Отправить",
-        "swap": "Обмен"
-    },
-    "wallet_status": {
-        "active": "Активен",
-        "expired": "Истек",
-        "hold": "Удержание"
-    },
-    "send": {
-        "address_found": "Адрес найден",
-        "available_balance": "Доступно {{balance}} {{symbol}}",
-        "cannot_continue_process": "Вы не можете продолжить процесс",
-        "continue_process": "Вы можете продолжить процесс",
-        "domain_or_address": "Домен или адрес",
-        "enter_amount_to_send": "Введите сумму для отправки",
-        "external_address_found": "Внешний адрес найден",
-        "recent_addresses": "Недавние",
-        "used": "Использовано {{days}} назад",
-        "withdrawal_amount": "Сумма вывода",
-        "zelf_name_not_registered": "Tag Name не зарегистрирован",
-        "zelf_name_registered": "Tag Name зарегистрирован",
-        "from_address": "С адреса",
-        "average": "Средний",
-        "confirmations": "Подтверждения",
-        "economical": "Экономный",
-        "fastest": "Самый быстрый",
-        "transaction_settings": "Настройки транзакции",
-        "upto_sats": "До {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} минут",
-        "private_transaction": "Приватная транзакция"
-    },
-    "transaction": {
-        "go_to_my_history": "Перейти к моей истории",
-        "share_transaction": "Поделиться транзакцией"
-    },
-    "welcome": {
-        "code_name": "Имя реферального тега",
-        "domain_expired_since": "Домен истек с {{ date }}",
-        "decrypt_and_reserve": "Расшифровать и зарезервировать",
-        "decrypt_now_pay_later": "Расшифровать сейчас, оплатить позже",
-        "decrypt_now_renew_later": "Расшифровать сейчас, продлить позже",
-        "dont_lose_your_zelfname": "Эй! Не теряйте свой Tag Name, продлите или зарезервируйте сегодня, пока его не купил кто-то другой.",
-        "dont_remember_zelfname": "Не помните свой Tag Name?",
-        "enjoy_your_domain": "Наслаждайтесь своим доменом. Не забудьте приобрести его, пока это не сделал кто-то другой!",
-        "expiration_date": "Дата истечения {{ date }}",
-        "find_zelf_name_subtitle": "Найдите существующий Tag Name, введя его публичный адрес ниже:",
-        "find_zelf_name_title": "Найти Tag Name",
-        "got_it": "Понял, сделаю позже",
-        "grace_period_until": "Льготный период до",
-        "import_subtitle": "Мы будем использовать ваши секретные слова восстановления для проверки и импорта существующего кошелька. Пожалуйста, введите их ниже.",
-        "import_title": "Введите секретную фразу восстановления",
-        "invalid_referral_code": "Недействительный реферальный код",
-        "name_expires": "Имя истекает",
-        "new_domain": "Новый домен",
-        "offline_subtitle": "Этот ZelfProof был создан в автономном режиме, поэтому использует другую систему безопасности. В настоящее время он несовместим с расширением. Скоро будет доступен.",
-        "offline_tip": "Но не волнуйтесь! Вы можете импортировать свой ZelfProof с другим именем тега, чтобы получить доступ из расширения.",
-        "i_understand_go_back": "Я понимаю, вернуться домой",
-        "old_domain": "Старый домен",
-        "paste_your_recovery_phrase": "Вы можете вставить всю секретную фразу восстановления в любое поле",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> уже занят, но не волнуйтесь! Вы можете получить доступ к своему ZelfProof и зарезервировать новое имя тега с той же сид-фразой.",
-        "pick_your_new_zelfname": "Выберите новое имя тега",
-        "public_address_input": "Введите ваш публичный адрес ETH или SOL здесь",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> все еще доступен. Вы можете получить доступ к своему ZelfProof и восстановить свое имя тега с той же сид-фразой.",
-        "recover_your_zelfname": "Восстановить ваше имя тега",
-        "referral_code": "Реферальный код (необязательно)",
-        "referral_successfully_registered": "Реферальный код успешно зарегистрирован",
-        "registered_since": "Зарегистрирован с {{ date }}",
-        "registered": "Tag Name зарегистрирован с {{ date }}",
-        "renew_your_domain_today": "Продлите свой домен сегодня, пока его не купил кто-то другой.",
-        "search_another_zelfname": "Поиск другого имени тега",
-        "search_your_new_zelfname": "Поиск вашего нового имени тега",
-        "transfer_done": "Перевод выполнен",
-        "upload_zelf_proof": "или загрузите QR-код вашего ZelfProof для продолжения:",
-        "you_can_transfer_this_domain": "Вы можете передать этот домен",
-        "you_will_register_this_domain": "Вы зарегистрируете этот домен",
-        "safeguard_your_crypto": "Защитите свой крипто!",
-        "offline_import_subtitle": "Прежде чем вы сможете импортировать свой автономный кошелек, вам нужно выбрать новое имя тега.",
-        "your_zelf_name": "Ваш Tag Name"
-    },
-    "settings": {
-        "networks_label": "Сети",
-        "security_label": "Безопасность",
-        "language_label": "Язык",
-        "subscription_label": "Подписка",
-        "networks": {
-            "title": "Блокчейн сети",
-            "description": "Включите или отключите сети, которые вы хотите использовать в своем кошельке. Отключенные сети не будут отображаться в вашем списке токенов.",
-            "no_networks_available": "Нет доступных сетей для вашей лицензии. Пожалуйста, обновите тарифный план для получения доступа к большему количеству сетей."
-        },
-        "language": {
-            "description": "Выберите предпочтительный язык для приложения."
-        },
-        "security": {
-            "biometric_verification_title": "Интервал биометрической проверки",
-            "biometric_verification_description": "Установите, как долго разрешен вход только по паролю перед тем, как потребуется биометрическая проверка. Вы можете установить это от 5 до 60 минут.",
-            "password_attempts_title": "Попытки ввода пароля",
-            "minutes_before_reverification": "Минут до повторной проверки",
-            "password_attempts_description": "Установите максимальное количество неудачных попыток ввода пароля перед тем, как потребуется биометрическая проверка. Вы можете установить это от 1 до 8 попыток."
-        }
-    },
-    "security": {
-        "biometric_decryption_subtitle": "Для завершения процесса расшифровки нам необходимо подтвердить вашу личность с помощью биометрии.",
-        "biometric_decryption_title": "Биометрическая расшифровка",
-        "biometric_subtitle": "Затем мы делаем селфи, в сочетании с вашим паролем, для создания закрытого ключа, используемого для шифрования вашего ZelfProof. <strong>Мы не собираем и не используем ваши биометрические данные для каких-либо других целей.</strong>",
-        "biometric_title": "Слой биометрического шифрования",
-        "hide_words": "Скрыть слова",
-        "medium": "Средний",
-        "new_password_subtitle": "Следующий пароль является обязательным слоем шифрования для вашего ZelfProof.",
-        "password_decryption": "ИМЯ ТЕГА ТРЕБУЕТ ПАРОЛЬ",
-        "password_parameters_title": "Рекомендации по паролю",
-        "password_parameters": "Наши рекомендации для вашего пароля: <ul><li>должен содержать от 8 до 128 символов</li> <li>должен содержать хотя бы одну заглавную букву</li> <li>должен содержать одну строчную букву</li> <li>должен содержать одну цифру</li> <li>должен содержать один специальный символ</li> <li>избегайте распространенных паролей</li> <li>избегайте повторяющихся символов</li></ul>",
-        "password_strength_label": "Надежность пароля",
-        "password_subtitle": "Введите пароль, назначенный этому Tag Name, чтобы завершить процесс расшифровки.",
-        "pin_description": "Создать PIN из 6 цифр",
-        "pin_unlock_description": "Используйте свой PIN для разблокировки ZelfProof",
-        "pin_title": "PIN",
-        "secure_password_description": "Дополнительный слой безопасности",
-        "secure_password_title": "Безопасный Пароль",
-        "security_layer_subtitle": "Пожалуйста, выберите слой пароля, назначенный вашей новой метке",
-        "security_layer_title": "СЛОЙ БЕЗОПАСНОСТИ",
-        "strong": "Надежный",
-        "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
-        "title": "Слои шифрования ZelfProof",
-        "unhide_words": "Показать слова",
-        "weak": "Слабый",
-        "weak_password": "Слабый пароль",
-        "without_password_description": "Быстрее, но менее безопасно",
-        "without_password_title": "Без Пароля",
-        "create_pin_title": "СОЗДАТЬ PIN",
-        "create_pin_subtitle": "Пожалуйста, введите 6-значный пароль для вашего ZelfProof.",
-        "confirm_pin_title": "ПОДТВЕРДИТЬ PIN",
-        "confirm_pin_subtitle": "Пожалуйста, введите повторно 6-значный пароль для вашего ZelfProof.",
-        "pin_confirm_description": "Введите ваш 6-значный PIN-код еще раз для подтверждения"
-    },
-    "receive": {
-        "information": "Этот адрес можно использовать только для получения совместимых токенов.",
-        "your_token_address": "Ваш адрес {{ name }}",
-        "risks_modal": {
-            "title": "Перед получением {{ symbol }}",
-            "risk_1_title": "Только сеть {{ name }}",
-            "risk_1": "Отправляйте только {{ symbol }} через сеть {{ name }} на этот адрес. Токены из другой цепочки не подлежат восстановлению.",
-            "risk_2_title": "Проверьте адрес",
-            "risk_2": "Транзакции в {{ name }} необратимы. Всегда проверяйте полный адрес перед подтверждением.",
-            "risk_3_title": "Только токены {{ type }}",
-            "risk_3": "Этот адрес принимает только токены {{ type }}. Отправка другого стандарта приведёт к безвозвратной потере.",
-            "risk_3_native_title": "Только {{ symbol }}",
-            "risk_3_native": "Отправляйте только нативный {{ symbol }}. Токены из других сетей несовместимы с этим адресом.",
-            "risk_4_title": "Протестируйте небольшой суммой",
-            "risk_4": "Первый раз на этот адрес? Начните с небольшой транзакции {{ symbol }} перед отправкой большей суммы."
-        }
-    },
-    "common": {
-        "back": "Назад",
-        "12_word_phrase": "Фраза из 12 слов",
-        "24_word_phrase": "Фраза из 24 слов",
-        "about": "О нас",
-        "activity": "Активность",
-        "address": "Адрес",
-        "agree_to_terms_and_conditions": "Я согласен с <a href='https://docs.zelf.world/docs/legal/terms-of-use' target='_blank'>условиями использования</a>",
-        "all": "Все",
-        "amount": "Сумма",
-        "are_you_sure": "Вы уверены?",
-        "asset": "Актив",
-        "available": "Доступно",
-        "balance": "Баланс",
-        "btc_address": "BTC Адрес",
-        "bdag_address": "BDAG Адрес",
-        "buy_now": "Купить сейчас",
-        "cancel": "Отмена",
-        "close": "Закрыть",
-        "coin": "Монета",
-        "come_back_later": "Пожалуйста, вернитесь позже!",
-        "confirm_password": "Подтвердите пароль",
-        "confirm": "Подтвердить",
-        "continue": "Продолжить",
-        "copied_to_clipboard": "Скопировано в буфер обмена",
-        "copy_recovery_phrase": "Копировать фразу восстановления",
-        "copy_to_clipboard": "Успешно скопировано",
-        "copy": "Копировать в буфер обмена",
-        "create_a_new_wallet": "Создать новый кошелек",
-        "date": "Дата",
-        "days": "дней",
-        "decrypt_zelfname": "Расшифровать Tag Name",
-        "do_it_later": "Сделать позже",
-        "documentation": "Документация",
-        "domain_expired": "Срок действия домена истек",
-        "domain": "Домен",
-        "dont_show_me_again": "Больше не показывать",
-        "dont_show_this_message_again": "Больше не показывать эти инструкции",
-        "download_zelfproof": "Скачать ZelfProof",
-        "edit": "Редактировать",
-        "eth_address": "ETH Адрес",
-        "extend_registration": "Продлить подписку",
-        "failed_to_copy_to_clipboard": "Не удалось скопировать",
-        "failed": "Ошибка",
-        "fee": "Комиссия",
-        "from": "От",
-        "go_back": "Назад",
-        "hide_words": "Скрыть слова",
-        "history": "История",
-        "import_a_wallet": "Импортировать кошелек",
-        "import_wallet": "Импортировать кошелек",
-        "import": "Импорт",
-        "information": "Информация",
-        "is_required": "обязательно",
-        "learn_more": "Узнать больше",
-        "load_more": "Загрузить еще",
-        "login": "Расшифровать ZelfProof",
-        "logout": "Удалить ZelfProof",
-        "manage_domains": "Управление ZelfNames",
-        "max": "Макс",
-        "my_arns": "Мой ArNS",
-        "navigating_away_will_cancel": "При выходе весь прогресс будет отменен. Вы уверены, что хотите вернуться назад?",
-        "network_fee": "Сетевая комиссия",
-        "network": "Сеть",
-        "next": "Далее",
-        "no": "Нет",
-        "not_available": "Недоступно",
-        "open_fullscreen": "Открыть на весь экран",
-        "open_in_sidebar": "Открыть в боковой панели",
-        "or_drag_and_drop": "или перетащите файл с расширением .JPG или PNG сюда",
-        "password_layer": "Слой пароля",
-        "password": "Пароль",
-        "paste": "Вставить",
-        "pay_now": "Оплатить сейчас",
-        "pending": "В обработке",
-        "pricing": "Цены",
-        "privacy": "Конфиденциальность",
-        "purchase_now": "Купить сейчас",
-        "purchase": "Покупка",
-        "receive": "Получить",
-        "recommended": "Рекомендуется",
-        "refresh": "Обновить",
-        "registered": "Зарегистрировано",
-        "remove_all_zelfproofs": "Удалить все ZelfProofs",
-        "remove": "Удалить",
-        "renew_domain": "Продлить домен",
-        "renew_subscription": "Продлить подписку",
-        "reservation_found": "Найдена резервация",
-        "search_your_zelf_name": "Поиск вашего Tag Name",
-        "search": "Поиск...",
-        "send_symbol": "Отправить {{symbol}}",
-        "send": "Отправить",
-        "settings": "Настройки",
-        "show_less": "Показать меньше",
-        "show_more": "Показать больше",
-        "show_words": "Показать слова",
-        "sol_address": "SOL Адрес",
-        "start": "Начать",
-        "success": "Успешно",
-        "symbol": "Символ",
-        "terms_and_conditions": "Условия использования",
-        "to": "Кому",
-        "total": "Итого",
-        "transaction_id": "ID транзакции",
-        "transaction": "Транзакция",
-        "transfer": "Перевод",
-        "try_again": "Попробовать снова",
-        "try_another_one": "Попробовать другой",
-        "type": "Тип",
-        "unknown": "Неизвестно",
-        "unlock": "Разблокировать",
-        "upload_qr_image": "Загрузить QR-изображение",
-        "verify": "Проверить",
-        "website": "Веб-сайт",
-        "withdraw": "Вывести",
-        "withdrawal_network": "Сеть вывода",
-        "yes": "Да",
-        "your_token": "Ваш {{ symbol }}",
-        "zelf_wallet": "Zelf Кошелек",
-        "optional": "Необязательно",
-        "no_results_found": "Результатов не найдено",
-        "avax_address": "Адрес AVAX",
-        "download_apps": "Скачать приложения",
-        "download_qr": "Скачать QR",
-        "seed_phrase": "Seed-фраза",
-        "zelf_authenticator": "Zelf Authenticator",
-        "zelf_keys": "Zelf Keys",
-        "zelf_link": "Zelf Link",
-        "subscriptions": "Подписки",
-        "download_short": "Скачать",
-        "mnemonics": "Мнемоника",
-        "wallet_short": "Кошелек",
-        "auth_short": "Auth"
-    },
-    "token": {
-        "24h_performance": "Изменение за 24ч",
-        "about": "О {{ network }}",
-        "circulating_supply": "Циркулирующее предложение",
-        "holders": "Держатели",
-        "market_cap": "Рыночная капитализация",
-        "price_detail": "Детали цены",
-        "total_supply": "Общее предложение",
-        "traders": "Трейдеры",
-        "volume_24h": "Объем за 24ч",
-        "volume": "Объем"
-    },
-    "domain_purchase": {
-        "character_length_and_year": "Длина {{characterLength}} символов. Общая стоимость {{ costPerYear }} USD",
-        "domain_price_length": "Цена домена по длине",
-        "know_more": "Узнать больше",
-        "lifetime": "Пожизненно",
-        "price_per_year": "Цена за год",
-        "title": "Домен для покупки",
-        "years": "{{ yearCount }} лет"
-    },
-    "wallet": {
-        "download_qr": "QR",
-        "info_title": "Сохраните ваш QR-код в безопасности",
-        "info_description": "Не забудьте сохранить ваш QR-код в надежном месте для защиты вашего аккаунта. Скачайте его и сохраните в безопасном месте.",
-        "private_key": "Приватный ключ",
-        "addresses": "Адреса",
-        "info": "Инфо"
-    },
-    "private_key": {
-        "description": "Для просмотра вашего приватного ключа, пожалуйста, пройдите шаги проверки безопасности.",
-        "got_it": "Понятно",
-        "title": "Приватный ключ"
-    },
-    "my_arns": {
-        "arns_website": "Сайт ArNS",
-        "description": "Ваш персональный сайт для получения криптовалюты, легко делитесь всей необходимой информацией для прямых переводов."
-    },
-    "manage_domain": {
-        "hold_until": "Удержание до",
-        "registered_since": "Зарегистрирован с",
-        "registered_until": "Истекает"
-    },
-    "manage_domains": {
-        "are_you_sure_you_want_to_delete": "Вы уверены, что хотите удалить этот ZelfProof?",
-        "domain_error": "Пробный период {{ zelfName }} закончился, вам необходимо приобрести подписку, чтобы продолжить использовать это имя тега",
-        "domain_warning": "У вас еще есть время на покупку",
-        "expired_wallet_logout_message": "Вы можете снова расшифровать этот ZelfProof, если найдете его по вашему имени тега. Однако вы рискуете потерять его, если не приобретете в ближайшее время.",
-        "logout_of_wallet_message": "Вы можете снова расшифровать этот ZelfProof, если найдете его по вашему имени тега или загрузите QR-код вашего ZelfProof.",
-        "purchase_new_domain": "Добавить новое имя тега"
-    },
-    "liveness": {
-        "center_your_face": "Расположите лицо по центру экрана",
-        "center_your_face_subtitle": "Пожалуйста, убедитесь, что ваше лицо находится по центру",
-        "get_closer_subtitle": "Пожалуйста, подойдите немного ближе для лучшего распознавания лица.",
-        "get_closer": "Подойдите ближе",
-        "liveness_error_message": "Проверка подлинности не удалась со следующей ошибкой:<br><strong>{{error}}</strong><br>Хотите попробовать снова?",
-        "liveness_failed": "Не удалось определить подлинность"
-    },
-    "errors": {
-        "address_too_long": "Адрес слишком длинный",
-        "all_fields_required": "Все поля обязательны для заполнения",
-        "cannot_swap_across_these_networks": "Вы пока не можете обменивать между этими сетями. Пожалуйста, попробуйте позже.",
-        "chart_not_found": "Данные графика недоступны",
-        "Duplicated_person": "ZelfProof уже используется для другой записи",
-        "empty_password": "Пароль не может быть пустым",
-        "ERR_DESCRIPTION": "Убедитесь, что вы правильно следуете инструкциям для разблокировки вашего ZelfProof",
-        "ERR_INVALID_PASSWORD": "Пароль для этого ZelfProof недействителен",
-        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "Угол лица слишком большой",
-        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Лицо слишком близко к границе",
-        "ERR_LIVENESS_FAILED": "Не удалось определить подлинность",
-        "ERR_UNPROCESSABLE_CONTENT": "Не удалось расшифровать ZelfProof",
-        "ERR_VERIFICATION_FAILED": "Не удалось определить подлинность",
-        "failed_to_get_quote": "Не удалось получить котировку для этого обмена.",
-        "generic_identity": "Извините, возникла проблема с проверкой вашей личности. Пожалуйста, попробуйте снова.",
-        "generic_title": "Произошла ошибка",
-        "generic": "Извините, возникла проблема при обработке этого запроса. Пожалуйста, попробуйте снова.",
-        "incorrect_zelf_proof_message": "Предоставленный файл не является действительным ZelfProof. Пожалуйста, попробуйте снова.",
-        "incorrect_zelf_proof_title": "Неверный ZelfProof",
-        "insufficient_funds": "Недостаточно средств. Убедитесь, что у вас достаточно средств в кошельке для покрытия комиссии за транзакцию.",
-        "invalid_credentials": "Недействительные учетные данные",
-        "invalid_format": "Неверный формат",
-        "invalid_mnemonic": "Мнемоника недействительна. Убедитесь, что ваша мнемоника состоит из 12 или 24 слов.",
-        "invalid_number_value": "Неверное числовое значение",
-        "invalid_password": "Неверный пароль. У вас осталось {{remaining}} попыток, прежде чем потребуется вход с использованием биометрии.",
-        "invalid_private_key": "Недействительный приватный ключ.",
-        "liveness_failed_description": "Извините, возникла проблема с определением подлинности.",
-        "liveness_failed": "Не удалось определить подлинность",
-        "Liveness_score_not_acceptable": "Оценка подлинности неприемлема",
-        "min_liveness_score_is": "Минимальная оценка подлинности: ",
-        "missing_contract_address": "Отсутствует адрес контракта обмена. Попробуйте позже.",
-        "must_be_greater_than": "Должно быть больше {{ value }}",
-        "must_be_less_than": "Должно быть меньше {{ value }}",
-        "not_found": "Запись не найдена",
-        "password_doesnt_match": "Пароли не совпадают",
-        "password_incorrect": "Неверный пароль",
-        "LIVENESS CHECK FAILED.": "Проверка живости не удалась. Пожалуйста, попробуйте снова.",
-        "THE PROVIDED PASSWORD IS INVALID.": "Введенный вами пароль неверен. Пожалуйста, проверьте пароль и попробуйте снова.",
-        "person_already_set": "К вашей регистрации уже привязан ZelfProof",
-        "private_key_locked": "Приватный ключ заблокирован. Вы должны пройти биометрическую проверку для продолжения.",
-        "required_field": "Это поле обязательно для заполнения",
-        "same_address": "Вы не можете отправить средства на тот же адрес",
-        "something_went_wrong": "Что-то пошло не так, пожалуйста, попробуйте снова",
-        "swap_same_asset": "Вы не можете обменять на тот же актив",
-        "transaction_not_found": "Транзакция не найдена",
-        "try_again": "Попробуйте снова",
-        "zelfName_is_taken": "Это имя тега уже занято",
-        "camera_dimensions_not_properly_initialized": "Камера не инициализирована должным образом",
-        "cannot_decrypt_zotp_missing_zelfProof": "Невозможно расшифровать ZOTP: отсутствует ZelfProof. Этот ZOTP не может быть расшифрован без действующего ZelfProof.",
-        "error_closing_popup": "Ошибка при закрытии окна",
-        "error_initializing_biometrics": "Ошибка при инициализации биометрии",
-        "error_sending_decryption_result_to_background": "Ошибка взаимодействия с расширением",
-        "error_stopping_camera": "Ошибка остановки камеры",
-        "face_detection_error": "Распознавание лица не удалось",
-        "face_not_central": "Ваше лицо не по центру. Пожалуйста, отрегулируйте положение лица в кадре и попробуйте снова.",
-        "incorrect_passphrase": "Мастер-пароль введен неверно. Пожалуйста, попробуйте снова.",
-        "no_decrypted_data_received_from_api": "Расшифрованные данные не получены от сервера",
-        "no_zelfproof_available_for_password_decryption": "ZelfProof недоступен для расшифровки пароля",
-        "session_init_info": "Для использования расширения службы Tag Name вам потребуется доступ к сети. Для офлайн-решения ознакомьтесь с нашими приложениями для iOS и Android.",
-        "session_init_message": "Извините, при инициализации сессии произошла ошибка. Это может быть связано с проблемами сети или недоступностью сервера. Пожалуйста, попробуйте снова.",
-        "session_init_title": "Ошибка инициализации сессии",
-        "unknown_error": "Произошла неизвестная ошибка",
-        "user_cancelled_decryption": "Расшифровка была отменена"
-    },
-    "swap": {
-        "automatic": "Автоматический",
-        "confirm_swap": "Подтвердить обмен",
-        "fees_text": "Котировка включает комиссионные сборы.",
-        "fees": "Комиссии",
-        "manual": "Ручной",
-        "powered_by": "Работает на <strong>{{ bridge }}</strong>",
-        "pricing_text": "Лучший курс, найденный на нескольких децентрализованных рынках.",
-        "pricing": "Ценообразование",
-        "priority_commission_subtitle": "Более высокие приоритетные комиссии могут привести к более быстрой обработке транзакций при перегрузке сети.",
-        "priority_commission": "Приоритетная комиссия",
-        "select_asset": "Выберите актив",
-        "slippage_text": "Ваша транзакция не будет выполнена, если цена изменится неблагоприятно более чем на {{ slippage }}%.",
-        "slippage": "Проскальзывание",
-        "slipping_adjustments": "Настройки проскальзывания",
-        "slipping_more_info": "Ваша транзакция не будет выполнена, если цена изменится больше, чем отклонение. Слишком высокое значение приведет к неблагоприятной транзакции.",
-        "slipping_subtitle": "Zelf найдет вам наименьшее проскальзывание для успешного обмена.",
-        "slipping": "Проскальзывание",
-        "verify": "Проверить",
-        "you_pay": "Вы платите",
-        "you_receive": "Вы получаете"
-    },
-    "home": {
-        "manage_networks": "Управление сетями",
-        "assets": "Токены",
-        "NFTs": "Коллекционные предметы",
-        "receive_transaction_button": "Получить",
-        "send_transaction_button": "Отправить",
-        "settings_button": "Настройки",
-        "support_button": "Поддержка",
-        "swap": "Обмен",
-        "keys": "Ключи"
-    },
-    "id_scanning": {
-        "camera_not_found": "Камера не найдена",
-        "camera_not_found_description": "Не удалось получить доступ к камере. Пожалуйста, проверьте настройки устройства и обновите страницу, чтобы попробовать снова."
-    },
-    "language": {
-        "ar": "Арабский",
-        "br": "Португальский",
-        "cn": "Китайский",
-        "en": "Английский",
-        "es": "Испанский",
-        "fr": "Французский",
-        "in": "Хинди",
-        "ja": "Японский",
-        "kr": "Корейский",
-        "ph": "Тагальский",
-        "ru": "Русский"
-    },
-    "cta_sheet": {
-        "i_dont_want_this_wallet": "Я больше не хочу это имя тега",
-        "choose_new_zelfname": "Выберите новое имя тега",
-        "recover_it_now": "Восстановить сейчас",
-        "delete_wallet_title": "Удалить тег",
-        "delete_wallet_message": "Перед удалением тега убедитесь, что вы сохранили резервную копию QR-кода ZelfProof.",
-        "yes_because": "Да, потому что:",
-        "thanks_for_subscribing": "Спасибо за подписку",
-        "make_zelfname_yours": "Сделайте {{ zelfName }} своим",
-        "keep_zelfname_yours": "Сохраните {{ zelfName }} за собой",
-        "love_your_zelfname": "Нравится ваше имя тега?",
-        "time_is_running_out": "Время истекает",
-        "not_much_time_left": "Ваше имя тега зарезервировано ненадолго, но не ждите слишком долго!",
-        "oh_no": "О нет!",
-        "thanks_for_reserving": "Спасибо за резервирование",
-        "is_no_longer_available": "больше не доступен",
-        "has_been_taken": "был занят",
-        "benefit_title": "С вашим именем тега вы получаете:",
-        "benefit_1_title": "Офлайн-шифрование",
-        "benefit_1_subtitle": "Ваши ключи, ваш контроль",
-        "benefit_2_title": "Ультра-приватное расшифрование",
-        "benefit_2_subtitle": "Только ваше лицо может разблокировать его",
-        "benefit_3_title": "Никаких посредников, никаких утечек",
-        "benefit_3_subtitle": "Полный контроль над вашими данными",
-        "you_have_subscribed_to": "Вы подписались на",
-        "you_have_reserved": "Вы зарезервировали",
-        "secure_it_now": "Защитите сейчас!",
-        "secure_it_now_title": "Осталось всего {{ days }} дней",
-        "with_just_x_days_left": "Осталось всего {{ days }} дней",
-        "with_just_x_hours_left": "Осталось всего {{ hours }} часов",
-        "with_just_x_minutes_left": "Осталось всего {{ minutes }} минут и {{ seconds }} секунд",
-        "with_just_x_seconds_left": "Осталось всего {{ seconds }} секунд",
-        "what_do_you_think": "Что думаете? Хотите защитить сейчас?",
-        "is_no_longer_yours": "больше не ваш, давайте это исправим!",
-        "good_news": "Хорошие новости!",
-        "is_still_available": "все еще доступен",
-        "resubscribe_within": "Продлите подписку в течение {{ days }} дней",
-        "complete_purchase_within": "Завершите покупку в течение {{ days }} дней для защиты на 1 год",
-        "have_you_explored_the_benefits": "Вы изучили преимущества вашего имени тега и ZkProofs?",
-        "but_someone_else_could_grab_it": "Но кто-то другой все еще может его забрать! Не рискуйте потерять его или записывать seed-фразы на бумаге!",
-        "but_dont_worry_you_can_access_your_zelfproof": "Но не волнуйтесь, вы можете получить доступ к вашему имени тега и зарезервировать новое имя тега с той же seed-фразой.",
-        "considerations_description_1": "Непреодолимая безопасность.",
-        "considerations_description_2": "Уникальная идентичность.",
-        "considerations_description_3": "Защита на будущее."
-    },
     "zelf_keys": {
         "dashboard": {
             "wallet": "КОШЕЛЕК"
@@ -559,11 +36,11 @@
                 "copy_payment_card_id": "Копировать ID платежной карты"
             },
             "zelfproof": {
-                "title": "ZelfProof",
+                "title": "Информация о платежной карте",
                 "download": "Скачать ZelfProof"
             },
             "decrypted": {
-                "title": "Расшифрованные данные",
+                "title": "Информация о платежной карте",
                 "card_holder_name": "Имя владельца карты",
                 "copy_card_holder_name": "Копировать имя владельца",
                 "copy_card_number": "Копировать номер карты",
@@ -599,11 +76,11 @@
         },
         "payment_card_result": {
             "success": {
-                "title": "Платежная карта успешно создана!",
+                "title": "Информация о платежной карте",
                 "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "preview": {
-                "title": "Детали карты",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "name": "Название платежной карты",
                     "card_holder": "Владелец карты",
@@ -612,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "ZelfProof",
+                "title": "Информация о платежной карте",
                 "download": "Скачать ZelfProof"
             },
             "nft": {
-                "title": "NFT создан",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "token_id": "ID токена",
                     "cost": "Стоимость",
@@ -629,7 +106,7 @@
                 "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
-                "title": "Хранилище IPFS",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "hash": "Хеш IPFS",
                     "gateway_url": "URL шлюза",
@@ -639,7 +116,7 @@
                 "gateway_link": "Посмотреть в шлюзе IPFS"
             },
             "walrus": {
-                "title": "Хранилище Walrus",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "Публичный URL",
@@ -652,7 +129,7 @@
                 "explorer_link": "Посмотреть в обозревателе"
             },
             "zelfproof": {
-                "title": "ZelfProof сгенерирован",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "string": "Строка ZelfProof",
                     "qr_code": "QR-код"
@@ -660,7 +137,7 @@
                 "copy_hint": "Нажмите, чтобы скопировать"
             },
             "error": {
-                "title": "Ошибка при создании платежной карты",
+                "title": "Информация о платежной карте",
                 "default_message": "Произошла непредвиденная ошибка при создании вашей платежной карты.",
                 "try_again": "Попробовать снова",
                 "no_data": "Данные результата не найдены"
@@ -735,17 +212,17 @@
                 "position_face_subtitle": "Смотрите прямо в камеру и не двигайтесь"
             },
             "api_error": {
-                "title": "Ошибка аутентификации",
+                "title": "Информация о платежной карте",
                 "try_again": "Попробовать снова",
                 "go_back": "Назад"
             },
             "camera_error": {
-                "title": "Камера недоступна",
-                "description": "Пожалуйста, убедитесь, что ваша камера включена и доступна для биометрической верификации"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "permission": {
-                "title": "Требуется разрешение на использование камеры",
-                "description": "Пожалуйста, разрешите доступ к камере для продолжения биометрической верификации",
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована.",
                 "go_back": "Назад"
             },
             "close_aria": "Закрыть биометрическую верификацию",
@@ -755,8 +232,8 @@
             }
         },
         "subscription_banner": {
-            "title": "Разблокируйте премиум-функции",
-            "description": "Получите неограниченный доступ, повышенную безопасность и многое другое с ZelfKeys Premium"
+            "title": "Информация о платежной карте",
+            "description": "Ваша платежная карта была надежно сохранена и зашифрована."
         },
         "data_card": {
             "details": "Детали",
@@ -800,9 +277,9 @@
             "encrypt_password": "Подтвердите личность для шифрования пароля",
             "decrypt_password": "Подтвердите личность для расшифровки пароля",
             "instructions": {
-                "payment_card": "Пожалуйста, подтвердите свое лицо для расшифровки вашей платежной карты",
-                "note": "Пожалуйста, подтвердите свое лицо для расшифровки вашей заметки",
-                "password": "Пожалуйста, подтвердите свое лицо для расшифровки вашего пароля"
+                "payment_card": "Платежная карта",
+                "note": "Заметка",
+                "password": "Пароль"
             },
             "item": "Элемент",
             "error": {
@@ -820,17 +297,17 @@
             "master_password_placeholder": "Введите ваш мастер-пароль",
             "permission_allow": "Пожалуйста, разрешите доступ к камере",
             "permission_required": "Требуется разрешение на использование камеры",
-            "processing": "Расшифровка...",
+            "processing": "Обработка ваших биометрических данных...",
             "retry": "Повторить",
-            "title": "Расшифровка {{ type }}",
+            "title": "Информация о платежной карте",
             "unlock": "Продолжить к биометрии",
             "types": {
                 "credit_card": "Платежная карта",
                 "note": "Заметка",
-                "notes": "Заметка",
+                "notes": "Заметки",
                 "password": "Пароль",
                 "payment-card": "Платежная карта",
-                "wallet": "Кошелек",
+                "wallet": "КОШЕЛЕК",
                 "zotp": "ZOTP"
             }
         },
@@ -850,21 +327,21 @@
             "permission_desc": "Пожалуйста, разрешите доступ к камере для продолжения биометрической верификации",
             "go_back": "Назад",
             "master_password_label": "Мастер-пароль (необязательно):",
-            "master_password_placeholder": "Введите ваш мастер-пароль, если он у вас есть",
+            "master_password_placeholder": "Введите ваш мастер-пароль",
             "master_password_hint": "Если вы установили мастер-пароль при создании этой записи, введите его здесь"
         },
         "note_result": {
-            "title": "Результат сохранения заметки",
+            "title": "Информация о платежной карте",
             "loading": "Загрузка результата...",
             "sections": {
                 "success": {
-                    "title": "Сохранение успешно!",
+                    "title": "Информация о платежной карте",
                     "message": "Заметка успешно сохранена!"
                 },
                 "details": {
-                    "title": "Детали сохраненной заметки",
+                    "title": "Информация о платежной карте",
                     "labels": {
-                        "title": "Заголовок",
+                        "title": "Информация о платежной карте",
                         "folder": "Папка",
                         "type": "Тип",
                         "category": "Категория",
@@ -873,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "NFT создан",
+                    "title": "Информация о платежной карте",
                     "labels": {
                         "token_id": "ID токена",
                         "cost": "Стоимость",
@@ -883,7 +360,7 @@
                     "image_alt": "NFT ZelfKey"
                 },
                 "ipfs": {
-                    "title": "Хранилище IPFS",
+                    "title": "Информация о платежной карте",
                     "labels": {
                         "hash": "Хеш IPFS",
                         "gateway_url": "URL шлюза",
@@ -893,7 +370,7 @@
                     "gateway_link": "Посмотреть в шлюзе IPFS"
                 },
                 "walrus": {
-                    "title": "Хранилище Walrus",
+                    "title": "Информация о платежной карте",
                     "labels": {
                         "blob_id": "Blob ID",
                         "public_url": "Публичный URL",
@@ -906,7 +383,7 @@
                     "explorer_link": "Посмотреть в обозревателе"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof сгенерирован",
+                    "title": "Информация о платежной карте",
                     "labels": {
                         "string": "Строка ZelfProof",
                         "qr_code": "QR-код"
@@ -915,10 +392,10 @@
                     "qr_alt": "QR-код ZelfProof"
                 },
                 "debug": {
-                    "title": "Отладочная информация"
+                    "title": "Информация о платежной карте"
                 },
                 "next_steps": {
-                    "title": "Следующие шаги",
+                    "title": "Информация о платежной карте",
                     "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
                     "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
                     "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
@@ -926,15 +403,15 @@
             },
             "actions": {
                 "back_to_notes": "Вернуться к заметкам",
-                "add_another": "Добавить еще одну заметку"
+                "add_another": "Добавить еще одну карту"
             },
             "status": {
                 "success_title": "Заметка успешно сохранена!",
                 "error_title": "Ошибка при сохранении заметки",
                 "unknown_title": "Неизвестный статус",
-                "success_message": "Ваша заметка была надежно сохранена и зашифрована с проверкой в блокчейне.",
-                "error_message": "При сохранении вашей заметки произошла ошибка.",
-                "unknown_message": "Системе не удалось определить статус сохранения."
+                "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
+                "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
+                "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
             },
             "error": {
                 "no_result": "Результат API недоступен"
@@ -942,25 +419,565 @@
         },
         "password_result": {
             "status": {
-                "success_title": "Пароль успешно сохранен!",
-                "error_title": "Ошибка при сохранении пароля",
+                "success_title": "Заметка успешно сохранена!",
+                "error_title": "Ошибка при сохранении заметки",
                 "unknown_title": "Неизвестный статус",
-                "success_message": "Ваш пароль был надежно сохранен с использованием биометрической верификации.",
-                "error_message": "При сохранении вашего пароля произошла ошибка. Пожалуйста, попробуйте снова.",
-                "unknown_message": "Статус вашего запроса на сохранение пароля не ясен."
+                "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
+                "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
+                "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
             },
             "error": {
                 "no_result": "Результат API недоступен"
             }
         }
     },
+    "cancel": "Отмена",
+    "confirm": "Подтвердить",
+    "logout_message": "Подтверждая это действие, вы удалите все ваши ZelfProofs из расширения. Вам нужно будет снова расшифровать каждый ZelfProof, чтобы восстановить к ним доступ. Вы уверены, что хотите продолжить?",
+    "logout_title": "УДАЛИТЬ ВСЕ ZELFPROOFS",
+    "onboarding": {
+        "lifetime": "Пожизненно",
+        "step_1_description": "Никогда не беспокойтесь о том, что забудете, потеряете или скомпрометируете свою сид-фразу.",
+        "step_1": "3 шага для шифрования вашей сид-фразы",
+        "step_2_description": "Сделайте резервную копию вашей сид-фразы за секунды, расшифровав ваш ZelfProof",
+        "step_2": "Найдите и расшифруйте ваш ZelfProof",
+        "step_3_description": "Храните zk-FaceProof вашей сид-фразы в блокчейне вместо локального устройства",
+        "step_3": "Защитите вашу сид-фразу от взлома",
+        "year": "Год"
+    },
+    "activity": {
+        "approve": "Одобрить",
+        "history": "История",
+        "no_history_found": "История транзакций не найдена",
+        "pending": "В ожидании",
+        "receive": "Получить",
+        "send": "Отправить",
+        "swap": "Обмен"
+    },
+    "wallet_status": {
+        "active": "Активен",
+        "expired": "Истек",
+        "hold": "Удержание"
+    },
+    "send": {
+        "address_found": "Адрес найден",
+        "available_balance": "Доступно {{balance}} {{symbol}}",
+        "average": "Средний",
+        "cannot_continue_process": "Вы не можете продолжить процесс",
+        "confirmations": "Подтверждения",
+        "continue_process": "Вы можете продолжить процесс",
+        "domain_or_address": "Домен или адрес",
+        "economical": "Экономный",
+        "enter_amount_to_send": "Введите сумму для отправки",
+        "external_address_found": "Внешний адрес найден",
+        "fastest": "Самый быстрый",
+        "transaction_settings": "Настройки транзакции",
+        "upto_sats": "До {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} минут",
+        "recent_addresses": "Недавние",
+        "used": "Использовано {{days}} назад",
+        "withdrawal_amount": "Сумма вывода",
+        "zelf_name_not_registered": "Tag Name не зарегистрирован",
+        "zelf_name_registered": "Tag Name зарегистрирован",
+        "from_address": "С адреса",
+        "private_transaction": "Приватная транзакция"
+    },
+    "transaction": {
+        "go_to_my_history": "Перейти к моей истории",
+        "share_transaction": "Поделиться транзакцией"
+    },
+    "welcome": {
+        "code_name": "Имя реферального тега",
+        "domain_expired_since": "Домен истек с {{ date }}",
+        "decrypt_and_reserve": "Расшифровать и зарезервировать",
+        "decrypt_now_pay_later": "Расшифровать сейчас, оплатить позже",
+        "decrypt_now_renew_later": "Расшифровать сейчас, продлить позже",
+        "dont_lose_your_zelfname": "Эй! Не теряйте свой Tag Name, продлите или зарезервируйте сегодня, пока его не купил кто-то другой.",
+        "dont_remember_zelfname": "Не помните свой Tag Name?",
+        "enjoy_your_domain": "Наслаждайтесь своим доменом. Не забудьте приобрести его, пока это не сделал кто-то другой!",
+        "expiration_date": "Дата истечения {{ date }}",
+        "find_zelf_name_subtitle": "Найдите существующий Tag Name, введя его публичный адрес ниже:",
+        "find_zelf_name_title": "Найти Tag Name",
+        "got_it": "Понял, сделаю позже",
+        "grace_period_until": "Льготный период до",
+        "import_subtitle": "Мы будем использовать ваши секретные слова восстановления для проверки и импорта существующего кошелька. Пожалуйста, введите их ниже.",
+        "import_title": "Введите секретную фразу восстановления",
+        "invalid_referral_code": "Недействительный реферальный код",
+        "name_expires": "Имя истекает",
+        "new_domain": "Новый домен",
+        "offline_subtitle": "Этот ZelfProof был создан в автономном режиме, поэтому использует другую систему безопасности. В настоящее время он несовместим с расширением. Скоро будет доступен.",
+        "offline_tip": "Но не волнуйтесь! Вы можете импортировать свой ZelfProof с другим именем тега, чтобы получить доступ из расширения.",
+        "i_understand_go_back": "Я понимаю, вернуться домой",
+        "old_domain": "Старый домен",
+        "paste_your_recovery_phrase": "Вы можете вставить всю секретную фразу восстановления в любое поле",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> уже занят, но не волнуйтесь! Вы можете получить доступ к своему ZelfProof и зарезервировать новое имя тега с той же сид-фразой.",
+        "pick_your_new_zelfname": "Выберите новое имя тега",
+        "public_address_input": "Введите ваш публичный адрес ETH или SOL здесь",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> все еще доступен. Вы можете получить доступ к своему ZelfProof и восстановить свое имя тега с той же сид-фразой.",
+        "recover_your_zelfname": "Восстановить ваше имя тега",
+        "referral_code": "Реферальный код (необязательно)",
+        "referral_successfully_registered": "Реферальный код успешно зарегистрирован",
+        "registered_since": "Зарегистрирован с {{ date }}",
+        "registered": "Tag Name зарегистрирован с {{ date }}",
+        "renew_your_domain_today": "Продлите свой домен сегодня, пока его не купил кто-то другой.",
+        "search_another_zelfname": "Поиск другого имени тега",
+        "search_your_new_zelfname": "Поиск вашего нового имени тега",
+        "transfer_done": "Перевод выполнен",
+        "upload_zelf_proof": "или загрузите QR-код вашего ZelfProof для продолжения:",
+        "you_can_transfer_this_domain": "Вы можете передать этот домен",
+        "you_will_register_this_domain": "Вы зарегистрируете этот домен",
+        "safeguard_your_crypto": "Защитите свой крипто!",
+        "offline_import_subtitle": "Прежде чем вы сможете импортировать свой автономный кошелек, вам нужно выбрать новое имя тега.",
+        "your_zelf_name": "Ваш Tag Name"
+    },
+    "settings": {
+        "networks_label": "Сети",
+        "security_label": "Безопасность",
+        "language_label": "Язык",
+        "subscription_label": "Подписка",
+        "networks": {
+            "title": "Информация о платежной карте",
+            "description": "Ваша платежная карта была надежно сохранена и зашифрована.",
+            "no_networks_available": "Нет доступных сетей для вашей лицензии. Пожалуйста, обновите тарифный план для получения доступа к большему количеству сетей."
+        },
+        "language": {
+            "description": "Ваша платежная карта была надежно сохранена и зашифрована."
+        },
+        "walletconnect_label": "Connect via link",
+        "walletconnect": {
+            "title": "Информация о платежной карте",
+            "description": "Ваша платежная карта была надежно сохранена и зашифрована.",
+            "placeholder": "ММ",
+            "connect_button": "Connect",
+            "connecting": "Connecting...",
+            "success": "Успешно",
+            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
+            "error_failed": "Failed to connect. Please try again."
+        },
+        "security": {
+            "biometric_verification_title": "Интервал биометрической проверки",
+            "biometric_verification_description": "Установите, как долго разрешен вход только по паролю перед тем, как потребуется биометрическая проверка. Вы можете установить это от 5 до 60 минут.",
+            "password_attempts_title": "Попытки ввода пароля",
+            "minutes_before_reverification": "Минут до повторной проверки",
+            "password_attempts_description": "Установите максимальное количество неудачных попыток ввода пароля перед тем, как потребуется биометрическая проверка. Вы можете установить это от 1 до 8 попыток."
+        }
+    },
+    "security": {
+        "biometric_decryption_subtitle": "Для завершения процесса расшифровки нам необходимо подтвердить вашу личность с помощью биометрии.",
+        "biometric_decryption_title": "Биометрическая расшифровка",
+        "biometric_subtitle": "Затем мы делаем селфи, в сочетании с вашим паролем, для создания закрытого ключа, используемого для шифрования вашего ZelfProof. <strong>Мы не собираем и не используем ваши биометрические данные для каких-либо других целей.</strong>",
+        "biometric_title": "Слой биометрического шифрования",
+        "hide_words": "Скрыть слова",
+        "medium": "Средний",
+        "new_password_subtitle": "Следующий пароль является обязательным слоем шифрования для вашего ZelfProof.",
+        "password_decryption": "ИМЯ ТЕГА ТРЕБУЕТ ПАРОЛЬ",
+        "password_parameters_title": "Рекомендации по паролю",
+        "password_parameters": "Наши рекомендации для вашего пароля: <ul><li>должен содержать от 8 до 128 символов</li> <li>должен содержать хотя бы одну заглавную букву</li> <li>должен содержать одну строчную букву</li> <li>должен содержать одну цифру</li> <li>должен содержать один специальный символ</li> <li>избегайте распространенных паролей</li> <li>избегайте повторяющихся символов</li></ul>",
+        "password_strength_label": "Надежность пароля",
+        "password_subtitle": "Введите пароль, назначенный этому Tag Name, чтобы завершить процесс расшифровки.",
+        "pin_description": "Создать PIN из 6 цифр",
+        "pin_unlock_description": "Используйте свой PIN для разблокировки ZelfProof",
+        "pin_confirm_description": "Введите ваш 6-значный PIN-код еще раз для подтверждения",
+        "pin_title": "PIN",
+        "secure_password_description": "Дополнительный слой безопасности",
+        "secure_password_title": "Безопасный Пароль",
+        "security_layer_subtitle": "Пожалуйста, выберите слой пароля, назначенный вашей новой метке",
+        "security_layer_title": "СЛОЙ БЕЗОПАСНОСТИ",
+        "strong": "Надежный",
+        "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
+        "title": "Информация о платежной карте",
+        "unhide_words": "Показать слова",
+        "weak": "Слабый",
+        "weak_password": "Слабый пароль",
+        "without_password_description": "Быстрее, но менее безопасно",
+        "without_password_title": "Без Пароля",
+        "create_pin_title": "СОЗДАТЬ PIN",
+        "create_pin_subtitle": "Пожалуйста, введите 6-значный пароль для вашего ZelfProof.",
+        "confirm_pin_title": "ПОДТВЕРДИТЬ PIN",
+        "confirm_pin_subtitle": "Пожалуйста, введите повторно 6-значный пароль для вашего ZelfProof."
+    },
+    "receive": {
+        "information": "Этот адрес можно использовать только для получения совместимых токенов.",
+        "your_token_address": "Ваш адрес {{ name }}",
+        "risks_modal": {
+            "title": "Информация о платежной карте",
+            "risk_1_title": "Только сеть {{ name }}",
+            "risk_1": "Отправляйте только {{ symbol }} через сеть {{ name }} на этот адрес. Токены из другой цепочки не подлежат восстановлению.",
+            "risk_2_title": "Проверьте адрес",
+            "risk_2": "Транзакции в {{ name }} необратимы. Всегда проверяйте полный адрес перед подтверждением.",
+            "risk_3_title": "Только токены {{ type }}",
+            "risk_3": "Этот адрес принимает только токены {{ type }}. Отправка другого стандарта приведёт к безвозвратной потере.",
+            "risk_3_native_title": "Только {{ symbol }}",
+            "risk_3_native": "Отправляйте только нативный {{ symbol }}. Токены из других сетей несовместимы с этим адресом.",
+            "risk_4_title": "Протестируйте небольшой суммой",
+            "risk_4": "Первый раз на этот адрес? Начните с небольшой транзакции {{ symbol }} перед отправкой большей суммы."
+        }
+    },
+    "common": {
+        "back": "Назад",
+        "optional": "Необязательно",
+        "no_results_found": "Результатов не найдено",
+        "12_word_phrase": "Фраза из 12 слов",
+        "24_word_phrase": "Фраза из 24 слов",
+        "about": "О нас",
+        "activity": "Активность",
+        "address": "Адрес",
+        "agree_to_terms_and_conditions": "Я согласен с <a href='https://docs.zelf.world/docs/legal/terms-of-use' target='_blank'>условиями использования</a>",
+        "all": "Все",
+        "amount": "Сумма",
+        "are_you_sure": "Вы уверены?",
+        "asset": "Актив",
+        "available": "Доступно",
+        "avax_address": "Адрес AVAX",
+        "balance": "Баланс",
+        "bdag_address": "BDAG Адрес",
+        "btc_address": "BTC Адрес",
+        "buy_now": "Купить сейчас",
+        "cancel": "Отмена",
+        "close": "Закрыть",
+        "coin": "Монета",
+        "come_back_later": "Пожалуйста, вернитесь позже!",
+        "download_apps": "Скачать приложения",
+        "confirm_password": "Подтвердите пароль",
+        "confirm": "Подтвердить",
+        "continue": "Продолжить",
+        "copied_to_clipboard": "Скопировано в буфер обмена",
+        "copy_recovery_phrase": "Копировать фразу восстановления",
+        "copy_to_clipboard": "Успешно скопировано",
+        "copy": "Копировать",
+        "create_a_new_wallet": "Создать новый кошелек",
+        "date": "Дата",
+        "days": "дней",
+        "decrypt_zelfname": "Расшифровать Tag Name",
+        "do_it_later": "Сделать позже",
+        "documentation": "Документация",
+        "domain_expired": "Срок действия домена истек",
+        "domain": "Домен",
+        "dont_show_me_again": "Больше не показывать",
+        "dont_show_this_message_again": "Больше не показывать эти инструкции",
+        "download_qr": "Скачать QR",
+        "download_zelfproof": "Скачать ZelfProof",
+        "edit": "Редактировать",
+        "eth_address": "ETH Адрес",
+        "extend_registration": "Продлить подписку",
+        "failed_to_copy_to_clipboard": "Не удалось скопировать",
+        "failed": "Ошибка",
+        "fee": "Комиссия",
+        "from": "От",
+        "go_back": "Назад",
+        "hide_words": "Скрыть слова",
+        "history": "История",
+        "import_a_wallet": "Импортировать кошелек",
+        "import_wallet": "Импортировать кошелек",
+        "import": "Импорт",
+        "information": "Этот адрес можно использовать только для получения совместимых токенов.",
+        "is_required": "обязательно",
+        "learn_more": "Узнать больше",
+        "load_more": "Загрузить еще",
+        "login": "Расшифровать ZelfProof",
+        "logout": "Удалить ZelfProof",
+        "manage_domains": "Управление ZelfNames",
+        "max": "Макс",
+        "my_arns": "Мой ArNS",
+        "navigating_away_will_cancel": "При выходе весь прогресс будет отменен. Вы уверены, что хотите вернуться назад?",
+        "network_fee": "Сетевая комиссия",
+        "network": "Сеть",
+        "next": "Далее",
+        "no": "Нет",
+        "not_available": "Н/Д",
+        "open_fullscreen": "Открыть на весь экран",
+        "open_in_sidebar": "Открыть в боковой панели",
+        "or_drag_and_drop": "или перетащите файл с расширением .JPG или PNG сюда",
+        "password_layer": "Слой пароля",
+        "password": "Пароль",
+        "paste": "Вставить",
+        "pay_now": "Оплатить сейчас",
+        "pending": "В ожидании",
+        "pricing": "Цены",
+        "privacy": "Конфиденциальность",
+        "purchase_now": "Купить сейчас",
+        "purchase": "Покупка",
+        "receive": "Получить",
+        "recommended": "Рекомендуется",
+        "refresh": "Обновить",
+        "registered": "Tag Name зарегистрирован с {{ date }}",
+        "remove_all_zelfproofs": "Удалить все ZelfProofs",
+        "remove": "Удалить",
+        "renew_domain": "Продлить домен",
+        "renew_subscription": "Продлить подписку",
+        "reservation_found": "Найдена резервация",
+        "search_your_zelf_name": "Поиск вашего Tag Name",
+        "search": "Поиск...",
+        "seed_phrase": "Seed-фраза",
+        "send_symbol": "Отправить {{symbol}}",
+        "send": "Отправить",
+        "settings": "Настройки",
+        "show_less": "Показать меньше",
+        "show_more": "Показать больше",
+        "show_words": "Показать слова",
+        "sol_address": "SOL Адрес",
+        "start": "Начать",
+        "success": "Успешно",
+        "symbol": "Символ",
+        "terms_and_conditions": "Условия использования",
+        "to": "Кому",
+        "total": "Итого",
+        "transaction_id": "ID транзакции",
+        "transaction": "Транзакция",
+        "transfer": "Перевод",
+        "try_again": "Попробовать снова",
+        "try_another_one": "Попробовать другой",
+        "type": "Тип",
+        "unknown": "Неизвестно",
+        "unlock": "Продолжить к биометрии",
+        "upload_qr_image": "Загрузить QR-изображение",
+        "verify": "Проверить",
+        "website": "Веб-сайт",
+        "withdraw": "Вывести",
+        "withdrawal_network": "Сеть вывода",
+        "yes": "Да",
+        "your_token": "Ваш {{ symbol }}",
+        "zelf_authenticator": "Zelf Authenticator",
+        "zelf_keys": "Zelf Keys",
+        "zelf_link": "Zelf Link",
+        "zelf_wallet": "Zelf Кошелек",
+        "subscriptions": "Подписки",
+        "download_short": "Скачать",
+        "mnemonics": "Мнемоника",
+        "wallet_short": "Кошелек",
+        "auth_short": "Auth"
+    },
+    "token": {
+        "24h_performance": "Изменение за 24ч",
+        "about": "О нас",
+        "circulating_supply": "Циркулирующее предложение",
+        "holders": "Держатели",
+        "market_cap": "Рыночная капитализация",
+        "price_detail": "Детали цены",
+        "total_supply": "Общее предложение",
+        "traders": "Трейдеры",
+        "volume_24h": "Объем за 24ч",
+        "volume": "Объем"
+    },
+    "domain_purchase": {
+        "character_length_and_year": "Длина {{characterLength}} символов. Общая стоимость {{ costPerYear }} USD",
+        "domain_price_length": "Цена домена по длине",
+        "know_more": "Узнать больше",
+        "lifetime": "Пожизненно",
+        "price_per_year": "Цена за год",
+        "title": "Информация о платежной карте",
+        "years": "{{ yearCount }} лет"
+    },
+    "wallet": {
+        "download_qr": "Скачать QR",
+        "info_title": "Сохраните ваш QR-код в безопасности",
+        "info_description": "Не забудьте сохранить ваш QR-код в надежном месте для защиты вашего аккаунта. Скачайте его и сохраните в безопасном месте.",
+        "private_key": "Приватный ключ",
+        "addresses": "Адреса",
+        "info": "Инфо"
+    },
+    "private_key": {
+        "description": "Ваша платежная карта была надежно сохранена и зашифрована.",
+        "got_it": "Понял, сделаю позже",
+        "title": "Информация о платежной карте"
+    },
+    "my_arns": {
+        "arns_website": "Сайт ArNS",
+        "description": "Ваша платежная карта была надежно сохранена и зашифрована."
+    },
+    "manage_domain": {
+        "hold_until": "Удержание до",
+        "registered_since": "Зарегистрирован с {{ date }}",
+        "registered_until": "Истекает"
+    },
+    "manage_domains": {
+        "are_you_sure_you_want_to_delete": "Вы уверены, что хотите удалить этот ZelfProof?",
+        "domain_error": "Пробный период {{ zelfName }} закончился, вам необходимо приобрести подписку, чтобы продолжить использовать это имя тега",
+        "domain_warning": "У вас еще есть время на покупку",
+        "expired_wallet_logout_message": "Вы можете снова расшифровать этот ZelfProof, если найдете его по вашему имени тега. Однако вы рискуете потерять его, если не приобретете в ближайшее время.",
+        "logout_of_wallet_message": "Вы можете снова расшифровать этот ZelfProof, если найдете его по вашему имени тега или загрузите QR-код вашего ZelfProof.",
+        "purchase_new_domain": "Добавить новое имя тега"
+    },
+    "liveness": {
+        "center_your_face": "Расположите лицо по центру экрана",
+        "center_your_face_subtitle": "Пожалуйста, убедитесь, что ваше лицо находится по центру",
+        "get_closer_subtitle": "Пожалуйста, подойдите немного ближе для лучшего распознавания лица.",
+        "get_closer": "Подойдите ближе",
+        "liveness_error_message": "Проверка подлинности не удалась со следующей ошибкой:<br><strong>{{error}}</strong><br>Хотите попробовать снова?",
+        "liveness_failed": "Не удалось определить подлинность"
+    },
+    "errors": {
+        "address_too_long": "Адрес слишком длинный",
+        "all_fields_required": "Все поля обязательны для заполнения",
+        "camera_dimensions_not_properly_initialized": "Камера не инициализирована должным образом",
+        "cannot_decrypt_zotp_missing_zelfProof": "Невозможно расшифровать ZOTP: отсутствует ZelfProof. Этот ZOTP не может быть расшифрован без действующего ZelfProof.",
+        "cannot_swap_across_these_networks": "Вы пока не можете обменивать между этими сетями. Пожалуйста, попробуйте позже.",
+        "chart_not_found": "Данные графика недоступны",
+        "Duplicated_person": "ZelfProof уже используется для другой записи",
+        "empty_password": "Пароль не может быть пустым",
+        "ERR_DESCRIPTION": "Убедитесь, что вы правильно следуете инструкциям для разблокировки вашего ZelfProof",
+        "ERR_INVALID_PASSWORD": "Пароль для этого ZelfProof недействителен",
+        "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "Угол лица слишком большой",
+        "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Лицо слишком близко к границе",
+        "ERR_LIVENESS_FAILED": "Не удалось определить подлинность",
+        "ERR_UNPROCESSABLE_CONTENT": "Не удалось расшифровать ZelfProof",
+        "ERR_VERIFICATION_FAILED": "Не удалось определить подлинность",
+        "error_closing_popup": "Ошибка при закрытии окна",
+        "error_initializing_biometrics": "Ошибка при инициализации биометрии",
+        "error_sending_decryption_result_to_background": "Ошибка взаимодействия с расширением",
+        "error_stopping_camera": "Ошибка остановки камеры",
+        "face_detection_error": "Распознавание лица не удалось",
+        "face_not_central": "Ваше лицо не по центру. Пожалуйста, отрегулируйте положение лица в кадре и попробуйте снова.",
+        "failed_to_get_quote": "Не удалось получить котировку для этого обмена.",
+        "generic_identity": "Извините, возникла проблема с проверкой вашей личности. Пожалуйста, попробуйте снова.",
+        "generic_title": "Произошла ошибка",
+        "generic": "Извините, возникла проблема при обработке этого запроса. Пожалуйста, попробуйте снова.",
+        "incorrect_passphrase": "Мастер-пароль введен неверно. Пожалуйста, попробуйте снова.",
+        "incorrect_zelf_proof_message": "Предоставленный файл не является действительным ZelfProof. Пожалуйста, попробуйте снова.",
+        "incorrect_zelf_proof_title": "Неверный ZelfProof",
+        "insufficient_funds": "Недостаточно средств. Убедитесь, что у вас достаточно средств в кошельке для покрытия комиссии за транзакцию.",
+        "invalid_credentials": "Недействительные учетные данные",
+        "invalid_format": "Неверный формат",
+        "invalid_mnemonic": "Мнемоника недействительна. Убедитесь, что ваша мнемоника состоит из 12 или 24 слов.",
+        "invalid_number_value": "Неверное числовое значение",
+        "invalid_password": "Неверный пароль. У вас осталось {{remaining}} попыток, прежде чем потребуется вход с использованием биометрии.",
+        "invalid_private_key": "Недействительный приватный ключ.",
+        "liveness_failed_description": "Извините, возникла проблема с определением подлинности.",
+        "liveness_failed": "Не удалось определить подлинность",
+        "Liveness_score_not_acceptable": "Оценка подлинности неприемлема",
+        "min_liveness_score_is": "Минимальная оценка подлинности: ",
+        "missing_contract_address": "Отсутствует адрес контракта обмена. Попробуйте позже.",
+        "must_be_greater_than": "Должно быть больше {{ value }}",
+        "must_be_less_than": "Должно быть меньше {{ value }}",
+        "no_decrypted_data_received_from_api": "Расшифрованные данные не получены от сервера",
+        "no_zelfproof_available_for_password_decryption": "ZelfProof недоступен для расшифровки пароля",
+        "not_found": "Запись не найдена",
+        "password_doesnt_match": "Пароли не совпадают",
+        "password_incorrect": "Неверный пароль",
+        "LIVENESS CHECK FAILED": {
+            "": "Проверка живости не удалась. Пожалуйста, попробуйте снова."
+        },
+        "THE PROVIDED PASSWORD IS INVALID": {
+            "": "Проверка живости не удалась. Пожалуйста, попробуйте снова."
+        },
+        "person_already_set": "К вашей регистрации уже привязан ZelfProof",
+        "private_key_locked": "Приватный ключ заблокирован. Вы должны пройти биометрическую проверку для продолжения.",
+        "required_field": "Это поле обязательно для заполнения",
+        "same_address": "Вы не можете отправить средства на тот же адрес",
+        "session_init_info": "Для использования расширения службы Tag Name вам потребуется доступ к сети. Для офлайн-решения ознакомьтесь с нашими приложениями для iOS и Android.",
+        "session_init_message": "Извините, при инициализации сессии произошла ошибка. Это может быть связано с проблемами сети или недоступностью сервера. Пожалуйста, попробуйте снова.",
+        "session_init_title": "Ошибка инициализации сессии",
+        "something_went_wrong": "Что-то пошло не так, пожалуйста, попробуйте снова",
+        "swap_same_asset": "Вы не можете обменять на тот же актив",
+        "transaction_not_found": "Транзакция не найдена",
+        "try_again": "Попробовать снова",
+        "unknown_error": "Произошла неизвестная ошибка",
+        "user_cancelled_decryption": "Расшифровка была отменена",
+        "zelfName_is_taken": "Это имя тега уже занято",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
+    },
+    "swap": {
+        "automatic": "Автоматический",
+        "confirm_swap": "Подтвердить обмен",
+        "fees_text": "Котировка включает комиссионные сборы.",
+        "fees": "Комиссии",
+        "manual": "Ручной",
+        "powered_by": "Работает на <strong>{{ bridge }}</strong>",
+        "pricing_text": "Лучший курс, найденный на нескольких децентрализованных рынках.",
+        "pricing": "Цены",
+        "priority_commission_subtitle": "Более высокие приоритетные комиссии могут привести к более быстрой обработке транзакций при перегрузке сети.",
+        "priority_commission": "Приоритетная комиссия",
+        "select_asset": "Выберите актив",
+        "slippage_text": "Ваша транзакция не будет выполнена, если цена изменится неблагоприятно более чем на {{ slippage }}%.",
+        "slippage": "Проскальзывание",
+        "slipping_adjustments": "Настройки проскальзывания",
+        "slipping_more_info": "Ваша транзакция не будет выполнена, если цена изменится больше, чем отклонение. Слишком высокое значение приведет к неблагоприятной транзакции.",
+        "slipping_subtitle": "Zelf найдет вам наименьшее проскальзывание для успешного обмена.",
+        "slipping": "Проскальзывание",
+        "verify": "Проверить",
+        "you_pay": "Вы платите",
+        "you_receive": "Вы получаете"
+    },
+    "home": {
+        "manage_networks": "Управление сетями",
+        "assets": "Токены",
+        "keys": "Ключи",
+        "NFTs": "Коллекционные предметы",
+        "receive_transaction_button": "Получить",
+        "send_transaction_button": "Отправить",
+        "settings_button": "Настройки",
+        "support_button": "Поддержка",
+        "swap": "Обмен"
+    },
+    "id_scanning": {
+        "camera_not_found": "Камера не найдена",
+        "camera_not_found_description": "Не удалось получить доступ к камере. Пожалуйста, проверьте настройки устройства и обновите страницу, чтобы попробовать снова."
+    },
+    "language": {
+        "ar": "Арабский",
+        "br": "Португальский",
+        "cn": "Китайский",
+        "en": "Английский",
+        "es": "Испанский",
+        "fr": "Французский",
+        "in": "Хинди",
+        "ja": "Японский",
+        "kr": "Корейский",
+        "ph": "Тагальский",
+        "ru": "Русский"
+    },
+    "cta_sheet": {
+        "i_dont_want_this_wallet": "Я больше не хочу это имя тега",
+        "choose_new_zelfname": "Выберите новое имя тега",
+        "recover_it_now": "Восстановить сейчас",
+        "delete_wallet_title": "Удалить тег",
+        "delete_wallet_message": "Перед удалением тега убедитесь, что вы сохранили резервную копию QR-кода ZelfProof.",
+        "yes_because": "Да, потому что:",
+        "thanks_for_subscribing": "Спасибо за подписку",
+        "make_zelfname_yours": "Сделайте {{ zelfName }} своим",
+        "keep_zelfname_yours": "Сохраните {{ zelfName }} за собой",
+        "love_your_zelfname": "Нравится ваше имя тега?",
+        "time_is_running_out": "Время истекает",
+        "not_much_time_left": "Ваше имя тега зарезервировано ненадолго, но не ждите слишком долго!",
+        "oh_no": "О нет!",
+        "thanks_for_reserving": "Спасибо за резервирование",
+        "is_no_longer_available": "больше не доступен",
+        "has_been_taken": "был занят",
+        "benefit_title": "С вашим именем тега вы получаете:",
+        "benefit_1_title": "Офлайн-шифрование",
+        "benefit_1_subtitle": "Ваши ключи, ваш контроль",
+        "benefit_2_title": "Ультра-приватное расшифрование",
+        "benefit_2_subtitle": "Только ваше лицо может разблокировать его",
+        "benefit_3_title": "Никаких посредников, никаких утечек",
+        "benefit_3_subtitle": "Полный контроль над вашими данными",
+        "you_have_subscribed_to": "Вы подписались на",
+        "you_have_reserved": "Вы зарезервировали",
+        "secure_it_now": "Защитите сейчас!",
+        "secure_it_now_title": "Осталось всего {{ days }} дней",
+        "with_just_x_days_left": "Осталось всего {{ days }} дней",
+        "with_just_x_hours_left": "Осталось всего {{ hours }} часов",
+        "with_just_x_minutes_left": "Осталось всего {{ minutes }} минут и {{ seconds }} секунд",
+        "with_just_x_seconds_left": "Осталось всего {{ seconds }} секунд",
+        "what_do_you_think": "Что думаете? Хотите защитить сейчас?",
+        "is_no_longer_yours": "больше не ваш, давайте это исправим!",
+        "good_news": "Хорошие новости!",
+        "is_still_available": "все еще доступен",
+        "resubscribe_within": "Продлите подписку в течение {{ days }} дней",
+        "complete_purchase_within": "Завершите покупку в течение {{ days }} дней для защиты на 1 год",
+        "have_you_explored_the_benefits": "Вы изучили преимущества вашего имени тега и ZkProofs?",
+        "but_someone_else_could_grab_it": "Но кто-то другой все еще может его забрать! Не рискуйте потерять его или записывать seed-фразы на бумаге!",
+        "but_dont_worry_you_can_access_your_zelfproof": "Но не волнуйтесь, вы можете получить доступ к вашему имени тега и зарезервировать новое имя тега с той же seed-фразой.",
+        "considerations_description_1": "Непреодолимая безопасность.",
+        "considerations_description_2": "Уникальная идентичность.",
+        "considerations_description_3": "Защита на будущее."
+    },
     "billing": {
         "common": {
             "master_password_placeholder": "Введите ваш мастер-пароль"
         },
         "activation": {
-            "title": "Платеж подтвержден!",
-            "message": "Активация подписки... Поздравляем! Ваш платеж подтвержден и ваша подписка активируется."
+            "title": "Информация о платежной карте",
+            "message": "Заметка успешно сохранена!"
         },
         "subscription": {
             "active_subscription": "Активная подписка",
@@ -968,9 +985,9 @@
             "plan": "План:",
             "price": "Цена:",
             "payment_method": "Способ оплаты:",
-            "status": "Статус:",
-            "transaction": "Транзакция:",
-            "zelf_name": "Имя тега:",
+            "status": "Статус",
+            "transaction": "Транзакция",
+            "zelf_name": "Имя тега",
             "start_date": "Дата начала:",
             "expires_on": "Истекает:",
             "next_billing": "Следующий платеж:",
@@ -986,7 +1003,7 @@
             "manage_note_active": "Управляйте подпиской, обновляйте способы оплаты, просматривайте историю платежей и многое другое в портале клиентов Stripe.",
             "manage_note_cancelled": "Ваша подписка отменена, но остается активной до конца расчетного периода. Вы можете повторно активировать или просмотреть историю платежей в портале клиентов Stripe.",
             "demo": "ДЕМО",
-            "active": "Активная",
+            "active": "Активен",
             "cancelled": "Отменена"
         },
         "dashboard": {
@@ -1000,15 +1017,15 @@
             "add_payment_card": "Добавить платежную карту"
         },
         "payment_cards": {
-            "title": "Платежные карты",
-            "subtitle": "Безопасно храните информацию о платежных картах",
+            "title": "Информация о платежной карте",
+            "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
             "loading": {
-                "title": "Загрузка ваших платежных карт",
-                "message": "Пожалуйста, подождите, пока мы получаем ваши защищенные данные..."
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!"
             },
             "error": {
-                "title": "Упс! Что-то пошло не так",
-                "message": "Нам не удалось загрузить ваши платежные карты.",
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!",
                 "try_again": "Попробовать снова",
                 "no_wallet": "Кошелек не найден. Пожалуйста, сначала настройте кошелек.",
                 "auth_failed": "Ошибка аутентификации. Убедитесь, что у вас есть действующий кошелек.",
@@ -1019,12 +1036,12 @@
             "unknown_bank": "Неизвестный банк",
             "unknown": "Неизвестно",
             "premium": {
-                "title": "Разблокируйте премиум-функции",
-                "description": "Получите повышенную безопасность и многое другое с ZelfKeys Premium"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "add_card": {
-                "title": "Добавить новую карту",
-                "description": "Безопасно сохраните новую платежную карту"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "card": {
                 "card_holder": "Владелец карты",
@@ -1044,21 +1061,21 @@
                 "no_notes": "Нет заметок"
             },
             "detail": {
-                "title": "Детали платежной карты",
-                "loading": "Загрузка деталей платежной карты...",
+                "title": "Информация о платежной карте",
+                "loading": "Загрузка результата...",
                 "error": {
-                    "title": "Ошибка загрузки платежной карты",
+                    "title": "Информация о платежной карте",
                     "go_back": "Назад",
                     "retrieve_failed": "Не удалось получить данные платежной карты",
                     "decrypt_failed": "Не удалось расшифровать платежную карту. Пожалуйста, попробуйте снова."
                 },
                 "expiry_placeholder": "ММ/ГГ",
                 "decrypt": {
-                    "button": "Расшифровать карту",
+                    "button": "Расшифровать платежную карту",
                     "decrypting": "Расшифровка..."
                 },
                 "info": {
-                    "title": "Информация о карте",
+                    "title": "Информация о платежной карте",
                     "card_number": "Номер карты",
                     "card_holder": "Владелец карты",
                     "expiry_date": "Срок действия",
@@ -1075,11 +1092,11 @@
                     "copy_notes": "Копировать заметки"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "Информация о платежной карте",
                     "download": "Скачать ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Расшифрованная информация о карте",
+                    "title": "Информация о платежной карте",
                     "card_number": "Номер карты",
                     "card_holder": "Владелец карты",
                     "expiry_date": "Срок действия",
@@ -1103,40 +1120,40 @@
             "form": {
                 "title": {
                     "add": "Добавить новую платежную карту",
-                    "edit": "Редактировать платежную карту",
+                    "edit": "Редактировать",
                     "label": "Название банка *"
                 },
                 "card_number": {
-                    "label": "Номер карты *"
+                    "label": "Название банка *"
                 },
                 "card_holder": {
-                    "label": "Имя держателя карты *"
+                    "label": "Название банка *"
                 },
                 "expiry_month": {
-                    "label": "Месяц окончания *",
+                    "label": "Название банка *",
                     "placeholder": "ММ"
                 },
                 "expiry_year": {
-                    "label": "Год окончания *"
+                    "label": "Название банка *"
                 },
                 "card_type": {
-                    "label": "Тип карты *",
-                    "placeholder": "Выберите тип карты"
+                    "label": "Название банка *",
+                    "placeholder": "ММ"
                 },
                 "cvv": {
-                    "label": "CVV *"
+                    "label": "Название банка *"
                 },
                 "billing_address": {
-                    "label": "Платежный адрес",
-                    "placeholder": "Введите платежный адрес (необязательно)"
+                    "label": "Название банка *",
+                    "placeholder": "ММ"
                 },
                 "notes": {
-                    "label": "Заметки",
-                    "placeholder": "Введите заметки (необязательно)"
+                    "label": "Название банка *",
+                    "placeholder": "ММ"
                 },
                 "folder": {
-                    "label": "Сохранить в папку",
-                    "placeholder": "Имя папки",
+                    "label": "Название банка *",
+                    "placeholder": "ММ",
                     "aria_label": "Переключить хранение в папке"
                 },
                 "master_password": {
@@ -1150,57 +1167,57 @@
             }
         },
         "notes": {
-            "title": "Заметки",
-            "subtitle": "Управляйте своими защищенными заметками и парами ключ-значение",
+            "title": "Информация о платежной карте",
+            "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
             "loading": {
-                "title": "Загрузка ваших заметок",
-                "message": "Пожалуйста, подождите, пока мы получаем ваши защищенные данные..."
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!"
             },
             "error": {
-                "title": "Упс! Что-то пошло не так",
-                "message": "Нам не удалось загрузить ваши заметки.",
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!",
                 "try_again": "Попробовать снова",
-                "load_failed": "Не удалось загрузить сохраненные заметки. Пожалуйста, попробуйте снова."
+                "load_failed": "Не удалось загрузить платежные карты. Пожалуйста, попробуйте снова."
             },
             "premium": {
-                "title": "Разблокируйте премиум-функции",
-                "description": "Получите повышенную безопасность и многое другое с ZelfKeys Premium"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "add_note": {
-                "title": "Добавить новую заметку",
-                "description": "Безопасно сохраните новую заметку"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "detail": {
-                "loading": "Загрузка деталей заметки...",
+                "loading": "Загрузка результата...",
                 "error": {
-                    "title": "Ошибка загрузки заметки",
+                    "title": "Информация о платежной карте",
                     "go_back": "Назад",
-                    "not_found": "Данные заметки недоступны",
-                    "load_failed": "Не удалось загрузить данные заметки",
-                    "retrieve_failed": "Не удалось получить данные заметки",
-                    "decrypt_failed": "Не удалось расшифровать заметку. Пожалуйста, попробуйте снова."
+                    "not_found": "Запись не найдена",
+                    "load_failed": "Не удалось загрузить платежные карты. Пожалуйста, попробуйте снова.",
+                    "retrieve_failed": "Не удалось получить данные платежной карты",
+                    "decrypt_failed": "Не удалось расшифровать платежную карту. Пожалуйста, попробуйте снова."
                 },
                 "no_title": "Нет заголовка",
                 "no_content": "Нет содержимого",
-                "untitled": "Заметка без названия",
+                "untitled": "Без названия",
                 "no_folder": "Нет папки",
                 "decrypt": {
-                    "button": "Расшифровать заметку",
+                    "button": "Расшифровать платежную карту",
                     "decrypting": "Расшифровка..."
                 },
                 "info": {
-                    "title": "Информация о заметке",
+                    "title": "Информация о платежной карте",
                     "note_id": "ID заметки",
                     "type": "Тип",
                     "folder": "Папка",
                     "copy_id": "Копировать ID заметки"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "Информация о платежной карте",
                     "download": "Скачать ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Расшифрованное содержимое",
+                    "title": "Информация о платежной карте",
                     "title_field": "Заголовок",
                     "content": "Содержимое",
                     "no_title": "Нет заголовка",
@@ -1211,82 +1228,82 @@
             },
             "form": {
                 "title": {
-                    "add": "Добавить новую заметку",
-                    "edit": "Редактировать заметку"
+                    "add": "Добавить новую платежную карту",
+                    "edit": "Редактировать"
                 },
                 "title_field": {
-                    "label": "Заголовок заметки *"
+                    "label": "Название банка *"
                 },
                 "content": {
-                    "label": "Содержимое заметки *",
-                    "hint": "Содержимое вашей заметки будет зашифровано и надежно сохранено. Вы можете писать сколько угодно."
+                    "label": "Название банка *",
+                    "hint": "Нам нужен пароль {{ walletName }} для шифрования и хранения ваших учетных данных. Биометрическая проверка всегда требуется."
                 },
                 "folder": {
-                    "label": "Организовать в папку",
-                    "placeholder": "Введите имя папки",
-                    "aria_label": "Переключить организацию в папке"
+                    "label": "Название банка *",
+                    "placeholder": "ММ",
+                    "aria_label": "Переключить хранение в папке"
                 },
                 "master_password": {
-                    "label": "Мастер-пароль *",
+                    "label": "Название банка *",
                     "hint": "Нам нужен пароль {{ walletName }} для шифрования и хранения ваших учетных данных. Биометрическая проверка всегда требуется."
                 },
                 "buttons": {
                     "cancel": "Отмена",
-                    "create": "Создать заметку",
-                    "update": "Обновить заметку"
+                    "create": "Создать карту",
+                    "update": "Обновить карту"
                 }
             }
         },
         "passwords": {
-            "title": "Пароли",
-            "subtitle": "Управляйте своими защищенными паролями и учетными данными",
+            "title": "Информация о платежной карте",
+            "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
             "loading": {
-                "title": "Загрузка ваших паролей",
-                "message": "Пожалуйста, подождите, пока мы получаем ваши защищенные данные..."
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!"
             },
             "error": {
-                "title": "Упс! Что-то пошло не так",
-                "message": "Нам не удалось загрузить ваши пароли.",
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!",
                 "try_again": "Попробовать снова",
-                "load_failed": "Не удалось загрузить сохраненные пароли. Пожалуйста, попробуйте снова."
+                "load_failed": "Не удалось загрузить платежные карты. Пожалуйста, попробуйте снова."
             },
             "premium": {
-                "title": "Разблокируйте премиум-функции",
-                "description": "Получите повышенную безопасность и многое другое с ZelfKeys Premium"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "add_password": {
-                "title": "Добавить новый пароль",
-                "description": "Безопасно сохраните новый пароль"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "search": {
-                "placeholder": "Поиск паролей..."
+                "placeholder": "ММ"
             },
             "no_results": {
-                "title": "Пароли не найдены",
-                "message": "Попробуйте изменить поисковые запросы"
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!"
             },
             "detail": {
-                "loading": "Загрузка деталей пароля...",
+                "loading": "Загрузка результата...",
                 "error": {
-                    "title": "Ошибка загрузки пароля",
+                    "title": "Информация о платежной карте",
                     "go_back": "Назад",
-                    "not_found": "Данные пароля не найдены",
-                    "load_failed": "Не удалось загрузить данные пароля",
-                    "decrypt_failed": "Не удалось расшифровать пароль. Пожалуйста, попробуйте снова."
+                    "not_found": "Запись не найдена",
+                    "load_failed": "Не удалось загрузить платежные карты. Пожалуйста, попробуйте снова.",
+                    "decrypt_failed": "Не удалось расшифровать платежную карту. Пожалуйста, попробуйте снова."
                 },
-                "untitled": "Пароль без названия",
+                "untitled": "Без названия",
                 "no_username": "Нет имени пользователя",
                 "no_website": "Нет веб-сайта",
                 "no_category": "Нет категории",
                 "no_zelf_name": "Нет имени zelf",
                 "unknown_date": "Неизвестная дата",
                 "decrypt": {
-                    "button": "Расшифровать пароль",
+                    "button": "Расшифровать платежную карту",
                     "decrypting": "Расшифровка...",
                     "launch_fill": "Запустить и заполнить"
                 },
                 "info": {
-                    "title": "Информация о пароле",
+                    "title": "Информация о платежной карте",
                     "website": "Веб-сайт",
                     "username": "Имя пользователя",
                     "category": "Категория",
@@ -1298,11 +1315,11 @@
                     "prefill_autofill": "Предзаполнить автозаполнение"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "Информация о платежной карте",
                     "download": "Скачать ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Расшифрованное содержимое",
+                    "title": "Информация о платежной карте",
                     "website": "Веб-сайт",
                     "username": "Имя пользователя",
                     "password": "Пароль",
@@ -1315,31 +1332,31 @@
                 }
             },
             "form": {
-                "title": "Добавить пароль",
+                "title": "Информация о платежной карте",
                 "website": {
-                    "label": "URL веб-сайта *"
+                    "label": "Название банка *"
                 },
                 "title_field": {
-                    "label": "Заголовок *",
-                    "placeholder": "Введите заголовок"
+                    "label": "Название банка *",
+                    "placeholder": "ММ"
                 },
                 "email": {
-                    "label": "Email/Имя пользователя *"
+                    "label": "Название банка *"
                 },
                 "password": {
-                    "label": "Пароль *"
+                    "label": "Название банка *"
                 },
                 "folder": {
-                    "label": "Организовать в папку",
-                    "placeholder": "Введите имя папки",
-                    "aria_label": "Переключить организацию в папке"
+                    "label": "Название банка *",
+                    "placeholder": "ММ",
+                    "aria_label": "Переключить хранение в папке"
                 },
                 "notes": {
-                    "label": "Заметки",
-                    "placeholder": "Введите заметки (необязательно)"
+                    "label": "Название банка *",
+                    "placeholder": "ММ"
                 },
                 "master_password": {
-                    "label": "Мастер-пароль *",
+                    "label": "Название банка *",
                     "hint": "Нам нужен пароль {{ walletName }} для шифрования и хранения ваших учетных данных. Биометрическая проверка всегда требуется."
                 },
                 "buttons": {
@@ -1350,12 +1367,12 @@
         },
         "password_result": {
             "status": {
-                "success_title": "Пароль успешно сохранен!",
-                "error_title": "Ошибка при сохранении пароля",
+                "success_title": "Заметка успешно сохранена!",
+                "error_title": "Ошибка при сохранении заметки",
                 "unknown_title": "Неизвестный статус",
-                "success_message": "Ваш пароль был надежно сохранен с использованием биометрической верификации.",
-                "error_message": "При сохранении вашего пароля произошла ошибка. Пожалуйста, попробуйте снова.",
-                "unknown_message": "Статус вашего запроса на сохранение пароля не ясен."
+                "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
+                "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
+                "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
             },
             "error": {
                 "no_result": "Результат API недоступен"
@@ -1366,9 +1383,9 @@
                 "success_title": "Заметка успешно сохранена!",
                 "error_title": "Ошибка при сохранении заметки",
                 "unknown_title": "Неизвестный статус",
-                "success_message": "Ваша заметка была надежно сохранена и зашифрована с проверкой в блокчейне.",
-                "error_message": "При сохранении вашей заметки произошла ошибка.",
-                "unknown_message": "Системе не удалось определить статус сохранения."
+                "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
+                "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
+                "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
             },
             "error": {
                 "no_result": "Результат API недоступен"
@@ -1376,36 +1393,36 @@
         }
     },
     "start": {
-        "title": "Добро пожаловать в ZelfKeys",
-        "subtitle": "Ваш безопасный менеджер паролей",
+        "title": "Информация о платежной карте",
+        "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
         "features": {
             "install_extension": {
-                "title": "УСТАНОВИТЕ НАШЕ<br />РАСШИРЕНИЕ",
-                "description": "Получите наше расширение в вашем любимом браузере"
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "secure_passwords": {
-                "title": "ЗАЩИТИТЕ ВАШИ<br />ПАРОЛИ",
-                "description": "Добавьте свои пароли, платежные карты и заметки."
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             },
             "autocomplete": {
-                "title": "АВТОЗАПОЛНЕНИЕ<br />ВАШИХ ДАННЫХ",
-                "description": "Автозаполняйте сохраненные пароли автоматически после быстрой биометрической проверки."
+                "title": "Информация о платежной карте",
+                "description": "Ваша платежная карта была надежно сохранена и зашифрована."
             }
         },
         "cta": {
-            "button": "Защитить мой первый пароль"
+            "button": "Расшифровать платежную карту"
         }
     },
     "password_result": {
-        "title": "Результат сохранения пароля",
+        "title": "Информация о платежной карте",
         "loading": "Загрузка результата...",
         "sections": {
             "success": {
-                "title": "Сохранение успешно!",
-                "message": "Пароль успешно сохранен!"
+                "title": "Информация о платежной карте",
+                "message": "Заметка успешно сохранена!"
             },
             "details": {
-                "title": "Детали сохраненного пароля",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "website": "Веб-сайт",
                     "username": "Имя пользователя",
@@ -1416,7 +1433,7 @@
                 }
             },
             "nft": {
-                "title": "NFT создан",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "token_id": "ID токена",
                     "cost": "Стоимость",
@@ -1429,7 +1446,7 @@
                 "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
-                "title": "Хранилище IPFS",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "hash": "Хеш IPFS",
                     "gateway_url": "URL шлюза",
@@ -1441,7 +1458,7 @@
                 "gateway_link": "Посмотреть в шлюзе IPFS"
             },
             "walrus": {
-                "title": "Хранилище Walrus",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "Публичный URL",
@@ -1454,7 +1471,7 @@
                 "explorer_link": "Посмотреть в обозревателе"
             },
             "zelfproof": {
-                "title": "ZelfProof сгенерирован",
+                "title": "Информация о платежной карте",
                 "labels": {
                     "string": "Строка ZelfProof",
                     "qr_code": "QR-код"
@@ -1462,30 +1479,30 @@
                 "copy_hint": "Нажмите, чтобы скопировать"
             },
             "next_steps": {
-                "title": "Следующие шаги",
-                "success_message": "Ваш пароль теперь надежно сохранен. Вы можете просмотреть его в списке паролей или добавить еще один.",
+                "title": "Информация о платежной карте",
+                "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
                 "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
                 "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
             }
         },
         "actions": {
             "back_to_passwords": "Вернуться к паролям",
-            "add_another": "Добавить еще один пароль"
+            "add_another": "Добавить еще одну карту"
         },
         "status": {
-            "success_title": "Пароль успешно сохранен!",
-            "error_title": "Ошибка при сохранении пароля",
+            "success_title": "Заметка успешно сохранена!",
+            "error_title": "Ошибка при сохранении заметки",
             "unknown_title": "Неизвестный статус",
-            "success_message": "Ваш пароль был надежно сохранен с использованием биометрической верификации.",
-            "error_message": "При сохранении вашего пароля произошла ошибка. Пожалуйста, попробуйте снова.",
-            "unknown_message": "Статус вашего запроса на сохранение пароля не ясен."
+            "success_message": "Ваша заметка теперь надежно сохранена. Вы можете просмотреть ее в списке заметок или добавить еще одну.",
+            "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
+            "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
         },
         "error": {
             "no_result": "Результат API недоступен"
         }
     },
     "domain_selection": {
-        "title": "Выберите домен для вашего имени тега"
+        "title": "Информация о платежной карте"
     },
     "zotp": {
         "add_zotp": "Добавить ZOTP",
@@ -1500,12 +1517,12 @@
         "upload_qr_code_instructions": "Загрузите изображение QR-кода для автоматической настройки ZOTP",
         "no_zotps_added": "Пока нет добавленных ZOTP. Нажмите кнопку +, чтобы добавить.",
         "master_password": "Мастер-пароль",
-        "master_password_placeholder": "Введите мастер-пароль вашего кошелька",
-        "master_password_hint": "Мастер-пароль вашего кошелька необходим для шифрования и безопасного хранения этого ZOTP.",
+        "master_password_placeholder": "Введите ваш мастер-пароль",
+        "master_password_hint": "Если вы установили мастер-пароль при создании этой записи, введите его здесь",
         "see_details": "Подробнее",
         "unlock_zotp": "Разблокировать ZOTP",
         "hide_secret": "Скрыть секрет",
-        "details": "Детали ZOTP",
+        "details": "Детали",
         "qr_code": "QR-код",
         "public_data": "Публичные данные",
         "ipfs_info": "Информация IPFS",
@@ -1576,7 +1593,7 @@
         "recovery_success_description": "Ваш ZOTP был восстановлен и добавлен в ваш аутентификатор. Теперь вы можете использовать его для генерации кодов."
     },
     "rewards": {
-        "title": "Награды",
+        "title": "Информация о платежной карте",
         "redeem_zns": "Обменять ZNS",
         "invite_friends": "Пригласить друзей",
         "daily_rewards": "Ежедневные награды",
@@ -1584,9 +1601,9 @@
         "your_tasks": "Ваши задачи",
         "coming_soon": "Скоро будет",
         "first_transaction": {
-            "title": "Награда за первую транзакцию",
-            "loading": "Проверка прав...",
-            "success_title": "ВЫ ВЫИГРАЛИ",
+            "title": "Информация о платежной карте",
+            "loading": "Загрузка результата...",
+            "success_title": "Заметка успешно сохранена!",
             "success_subtitle": "Первая транзакция завершена!",
             "earned_label": "Вы заработали",
             "accept": "Принять",
@@ -1596,29 +1613,31 @@
             "already_claimed_title": "Уже получено",
             "already_claimed_desc": "Вы уже получили эту награду!",
             "instruction_action": "Отправить токены ZNS",
-            "instruction_desc": "Совершите свою первую транзакцию ZNS, чтобы разблокировать эту награду"
+            "instruction_desc": "Совершите свою первую транзакцию ZNS, чтобы разблокировать эту награду",
+            "error_no_wallet": "No wallet found",
+            "error_invalid_config": "Invalid wallet configuration"
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "Пригласите своего первого друга",
+                "title": "Информация о платежной карте",
                 "reward": "Выиграйте от 10 до 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Отправьте свою первую транзакцию ZNS",
-                "reward": "Заработайте до 100 $ZNS",
+                "title": "Информация о платежной карте",
+                "reward": "Выиграйте от 10 до 100 $ZNS",
                 "reward_completed": "Вы выиграли {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "Присоединяйтесь к нашему Discord",
-                "reward": "Выиграйте 25 $ZNS"
+                "title": "Информация о платежной карте",
+                "reward": "Выиграйте от 10 до 100 $ZNS"
             },
             "join_telegram": {
-                "title": "Присоединяйтесь к нашему сообществу в Telegram",
-                "reward": "Выиграйте 25 $ZNS"
+                "title": "Информация о платежной карте",
+                "reward": "Выиграйте от 10 до 100 $ZNS"
             },
             "join_x": {
-                "title": "Присоединяйтесь к нам в X",
-                "reward": "Выиграйте 5 $ZNS"
+                "title": "Информация о платежной карте",
+                "reward": "Выиграйте от 10 до 100 $ZNS"
             }
         },
         "alreadyClaimedToday": "Вы уже получили ежедневную награду!",
@@ -1630,13 +1649,13 @@
         "seconds": "сек",
         "spin_the_wheel": "ВРАЩАЙТЕ КОЛЕСО",
         "spin_subtitle": "и выигрывайте ежедневные награды в $ZNS",
-        "loading": "Загрузка...",
+        "loading": "Загрузка результата...",
         "spinning": "Вращение...",
         "come_back_tomorrow": "Приходите завтра!",
         "spin_now": "Вращать колесо!",
         "error": {
-            "no_wallet": "Кошелек не найден. Сначала подключите кошелек.",
-            "load_failed": "Не удалось загрузить конфигурацию колеса.",
+            "no_wallet": "Кошелек не найден. Пожалуйста, сначала настройте кошелек.",
+            "load_failed": "Не удалось загрузить платежные карты. Пожалуйста, попробуйте снова.",
             "claim_failed": "Не удалось получить награду.",
             "already_claimed": "Вы уже получили свою ежедневную награду сегодня. Приходите завтра!",
             "spin_failed": "Не удалось раскрутить колесо. Пожалуйста, попробуйте еще раз.",
@@ -1657,45 +1676,68 @@
         "start_earning_desc": "Поделитесь кодом и начните получать награды!",
         "status": {
             "purchased": "Куплено",
-            "registered": "Зарегистрирован",
+            "registered": "Tag Name зарегистрирован с {{ date }}",
             "pending": "В ожидании"
         },
         "claim": "Получить {{ amount }} $ZNS"
     },
     "claim_reward": {
         "loading": {
-            "title": "Получение награды",
+            "title": "Информация о платежной карте",
             "text": "Отправка {{ amount }} $ZNS на ваш кошелек...",
             "subtext": "Это может занять несколько секунд"
         },
         "success": {
-            "title": "ВЫ ВЫИГРАЛИ",
-            "subtitle": "Задание выполнено!",
+            "title": "Информация о платежной карте",
+            "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования.",
             "desc": "Реферальная награда от <strong>{{ name }}</strong>",
             "earned_label": "Вы заработали",
             "accept": "Принять"
         },
         "error": {
-            "title": "Ошибка получения",
-            "subtext": "Не волнуйтесь, вы можете попробовать еще раз. Ваша награда все еще ждет вас.",
-            "retry": "Попробовать снова",
+            "title": "Информация о платежной карте",
+            "subtext": "Это может занять несколько секунд",
+            "retry": "Повторить",
             "go_back": "Назад",
             "messages": {
                 "reward_already_claimed": "Эта награда уже была получена",
-                "generic": "Не удалось получить награду. Пожалуйста, попробуйте позже."
+                "generic": "Извините, возникла проблема при обработке этого запроса. Пожалуйста, попробуйте снова."
             }
         }
     },
     "home_banners": {
         "expiration": {
-            "title": "Не потеряйте свой ZelfName",
-            "expired": "Срок действия вашего домена истек",
+            "title": "Информация о платежной карте",
+            "expired": "Истек",
             "one_day": "Остался 1 день для покупки ZNS",
             "days_left": "Осталось {{ days }} дн. для покупки ZNS"
         },
         "rewards": {
-            "title": "Забрать награды",
-            "subtitle": "Получайте $ZNS ежедневно за наши квесты"
+            "title": "Информация о платежной карте",
+            "subtitle": "Выберите длину вашей сид-фразы и продолжите процесс шифрования."
         }
+    },
+    "dapp": {
+        "connection_request": "Connection Request",
+        "select_accounts": "Select accounts to connect",
+        "network": "Сеть",
+        "threat_warning_title": "Malicious Site Detected",
+        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
+        "connect": "Connect",
+        "sign_message": "Sign Message",
+        "sign_transaction": "Sign Transaction",
+        "message_to_sign": "Message to sign",
+        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "wants_to_connect": "хочет подключиться к вашему кошельку",
+        "accounts": "Аккаунты",
+        "permissions": "Разрешения",
+        "permission_see_address": "Просмотр адреса, баланса счёта и активности",
+        "permission_suggest_tx": "Предлагать транзакции для одобрения",
+        "permission_disclaimer": "Это не позволит сайту перемещать средства без вашего одобрения",
+        "confirm_transaction": "Подтвердить транзакцию",
+        "to_address": "Кому",
+        "value": "Сумма",
+        "data": "Данные",
+        "biometric_required": "Для подписи требуется биометрическая проверка"
     }
 }

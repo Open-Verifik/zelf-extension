@@ -62,6 +62,14 @@
         }
     }
 
+    &__indicator {
+        width: 8px;
+        height: 8px;
+        min-width: 8px;
+        background-color: #00d084;
+        border-radius: 50%;
+    }
+
     &__icon {
         position: relative;
         display: flex;

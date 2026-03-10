@@ -1,20 +1,24 @@
 import { NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ChromeService } from "app/chrome.service";
 import { ConfirmationDialogComponent } from "app/confirmation-dialog/confirmation-dialog.component";
+import { WalletConnectService } from "app/services/walletconnect.service";
 import { Subject, takeUntil } from "rxjs";
 import { ZelfSettingsNetworksComponent } from "./zelf-settings-networks/zelf-settings-networks.component";
 import { ZelfSettingsSecurityComponent } from "./zelf-settings-security/zelf-settings-security.component";
 import { ZelfSettingsLanguageComponent } from "./zelf-settings-language/zelf-settings-language.component";
+import { ZelfSettingsDappsComponent } from "./zelf-settings-dapps/zelf-settings-dapps.component";
 
 @Component({
     imports: [
         NgFor,
         NgIf,
+        FormsModule,
         TranslocoModule,
         MatButtonModule,
         RouterLink,
@@ -22,6 +26,7 @@ import { ZelfSettingsLanguageComponent } from "./zelf-settings-language/zelf-set
         ZelfSettingsNetworksComponent,
         ZelfSettingsSecurityComponent,
         ZelfSettingsLanguageComponent,
+        ZelfSettingsDappsComponent,
     ],
     selector: "zelf-settings",
     styleUrls: ["./zelf-settings.component.scss"],
@@ -32,10 +37,11 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     @ViewChild("securityIcon", { static: true }) securityIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("languageIcon", { static: true }) languageIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("subscriptionIcon", { static: true }) subscriptionIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
+    @ViewChild("dappsConnectionsIcon", { static: true }) dappsConnectionsIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
 
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    selectedSettings: "networks" | "security" | "language" | "" = "";
+    selectedSettings: "networks" | "security" | "language" | "dapps" | "" = "";
     settingsItems: {
         title: string;
         icon: string;
@@ -122,6 +128,14 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 },
             },
             {
+                title: this._translocoService.translate("settings.dapps_label"),
+                icon: "dappsConnectionsIcon",
+                routerLink: ["./"],
+                queryParams: {
+                    edit: "dapps",
+                },
+            },
+            {
                 title: this._translocoService.translate("settings.subscription_label"),
                 icon: "subscriptionIcon",
                 routerLink: ["/zelf-keys/billing"],
@@ -152,6 +166,8 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 return "settings.security_label";
             case "language":
                 return "settings.language_label";
+            case "dapps":
+                return "settings.dapps.title";
             default:
                 return "common.settings";
         }

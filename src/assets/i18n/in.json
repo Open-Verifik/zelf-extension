@@ -1,4 +1,436 @@
 {
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "वॉलेट"
+        },
+        "common": {
+            "qr_code": "QR कोड",
+            "no_folder": "कोई फ़ोल्डर नहीं",
+            "download_zelfproof": "ZelfProof डाउनलोड करें",
+            "back_to_payment_cards": "भुगतान कार्ड पर वापस जाएँ",
+            "add_another_card": "एक और कार्ड जोड़ें",
+            "try_again": "पुनः प्रयास करें",
+            "image_not_available": "छवि उपलब्ध नहीं है"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "कार्ड धारक",
+                "expires": "समाप्ति",
+                "bank_name": "बैंक का नाम",
+                "card_number": "कार्ड नंबर",
+                "expiry_date": "समाप्ति तिथि",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "कार्ड धारक"
+            },
+            "decrypt": {
+                "button": "भुगतान कार्ड डिक्रिप्ट करें",
+                "decrypting": "डिक्रिप्ट हो रहा है..."
+            },
+            "info": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "payment_card_id": "भुगतान कार्ड ID",
+                "type": "प्रकार",
+                "folder": "फ़ोल्डर",
+                "copy_payment_card_id": "भुगतान कार्ड ID कॉपी करें"
+            },
+            "zelfproof": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "download": "ZelfProof डाउनलोड करें"
+            },
+            "decrypted": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "card_holder_name": "कार्ड धारक का नाम",
+                "copy_card_holder_name": "कार्ड धारक का नाम कॉपी करें",
+                "copy_card_number": "कार्ड नंबर कॉपी करें",
+                "copy_expiry_date": "समाप्ति तिथि कॉपी करें",
+                "copy_cvv": "CVV कॉपी करें",
+                "copy_bank_name": "बैंक का नाम कॉपी करें",
+                "show_card_number": "कार्ड नंबर दिखाएं",
+                "hide_card_number": "कार्ड नंबर छिपाएं",
+                "show_cvv": "CVV दिखाएं",
+                "hide_cvv": "CVV छिपाएं"
+            },
+            "error": {
+                "no_wallet": "कोई वॉलेट नहीं मिला। कृपया पहले अपना वॉलेट सेटअप करें।",
+                "auth_failed": "प्रमाणीकरण विफल रहा। कृपया सुनिश्चित करें कि आपके पास एक वैध वॉलेट है।",
+                "init_failed": "सत्र प्रारंभ करने में विफल। कृपया अपना वॉलेट कनेक्शन जांचें।",
+                "no_token": "कोई प्रमाणीकरण टोकन उपलब्ध नहीं है। कृपया पेज रिफ्रेश करें।",
+                "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।"
+            },
+            "unknown_bank": "अज्ञात बैंक",
+            "unknown": "अज्ञात",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "भुगतान कार्ड डेटा प्राप्त करने में विफल",
+                    "decrypt_failed": "भुगतान कार्ड डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
+                },
+                "expiry_placeholder": "MM/YY"
+            },
+            "result": {
+                "error": {
+                    "no_data": "कोई परिणाम डेटा नहीं मिला"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
+            },
+            "preview": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "labels": {
+                    "name": "भुगतान कार्ड का नाम",
+                    "card_holder": "कार्ड धारक",
+                    "card_number": "कार्ड नंबर",
+                    "expires": "समाप्ति"
+                }
+            },
+            "image": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "download": "ZelfProof डाउनलोड करें"
+            },
+            "nft": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "labels": {
+                    "token_id": "टोकन ID",
+                    "cost": "लागत",
+                    "contract": "अनुबंध",
+                    "transaction": "लेन-देन",
+                    "metadata_url": "मेटाडेटा URL"
+                },
+                "metadata_link": "मेटाडेटा देखें",
+                "copy_hint": "कॉपी करने के लिए क्लिक करें",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "labels": {
+                    "hash": "IPFS हैश",
+                    "gateway_url": "गेटवे URL",
+                    "file_size": "फ़ाइल का आकार",
+                    "uploaded": "अपलोड किया गया"
+                },
+                "gateway_link": "IPFS गेटवे पर देखें"
+            },
+            "walrus": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "सार्वजनिक URL",
+                    "explorer_url": "एक्सप्लोरर URL",
+                    "status": "स्थिति",
+                    "reason": "कारण",
+                    "error": "त्रुटि"
+                },
+                "view_link": "Walrus पर देखें",
+                "explorer_link": "एक्सप्लोरर पर देखें"
+            },
+            "zelfproof": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "labels": {
+                    "string": "ZelfProof स्ट्रिंग",
+                    "qr_code": "QR कोड"
+                },
+                "copy_hint": "कॉपी करने के लिए क्लिक करें"
+            },
+            "error": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "default_message": "आपका भुगतान कार्ड बनाते समय एक अप्रत्याशित त्रुटि हुई।",
+                "try_again": "पुनः प्रयास करें",
+                "no_data": "कोई परिणाम डेटा नहीं मिला"
+            },
+            "actions": {
+                "back_to_cards": "भुगतान कार्ड पर वापस जाएँ",
+                "add_another": "एक और कार्ड जोड़ें"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "अपनी योजना चुनें",
+            "choose_your_plan_subtitle": "वह योजना चुनें जो आपकी आवश्यकताओं के लिए सबसे उपयुक्त हो",
+            "loading_plans": "सदस्यता योजनाएं लोड हो रही हैं...",
+            "error": {
+                "try_again": "पुनः प्रयास करें",
+                "load_plans": "सदस्यता योजनाएं लोड करने में विफल",
+                "create_crypto_payment": "क्रिप्टो भुगतान बनाने में विफल",
+                "create_checkout": "चेकआउट सत्र बनाने में विफल",
+                "open_portal": "सदस्यता प्रबंधन पोर्टल खोलने में विफल",
+                "customer_not_found": "ग्राहक की जानकारी नहीं मिली। कृपया सहायता से संपर्क करें।",
+                "no_subscription": "कोई सक्रिय सदस्यता नहीं मिली। कृपया पेज रिफ्रेश करें।",
+                "open_portal_generic": "सदस्यता प्रबंधन खोलने में विफल: {{ error }}",
+                "missing_payment_data": "भुगतान डेटा अनुपलब्ध है। कृपया पुनः प्रयास करें।",
+                "no_avax_address": "चयनित वॉलेट में AVAX पता नहीं है।",
+                "no_avax_token": "AVAX टोकन डेटा लोड करने में असमर्थ। कृपया पुनः प्रयास करें।",
+                "prepare_transaction": "लेन-देन तैयार करने में विफल। कृपया पुनः प्रयास करें।"
+            },
+            "crypto": {
+                "complete_payment": "अपना भुगतान पूरा करें",
+                "demo_banner": "डेमो मोड - कम राशि के साथ परीक्षण",
+                "send_amount_to_address": "नीचे दिए गए पते पर {{ amount }} AVAX भेजें",
+                "price_lock": "कीमत 30 मिनट के लिए लॉक है",
+                "payment_address_label": "भुगतान पता (Avalanche C-Chain)",
+                "copy": "कॉपी करें",
+                "scan_with_wallet": "अपने वॉलेट से स्कैन करें",
+                "amount_to_send": "भेजने योग्य राशि",
+                "original_plan_price": "मूल योजना की कीमत:",
+                "demo_discount": "डेमो छूट: {{ discount }}%",
+                "waiting_confirmation": "भुगतान पुष्टि की प्रतीक्षा कर रहा है...",
+                "auto_update_note": "भुगतान प्राप्त होने पर यह पेज स्वचालित रूप से अपडेट हो जाएगा",
+                "cancel_payment": "भुगतान रद्द करें",
+                "payment_methods": "भुगतान के तरीके",
+                "copy_address": "पता कॉपी करें:",
+                "scan_address": "पता स्कैन करें:",
+                "pay_with_wallet": "वॉलेट से भुगतान करें:",
+                "domain_label": "डोमेन",
+                "select_wallet": "वॉलेट चुनें",
+                "pay_with_avax": "AVAX के साथ भुगतान करें",
+                "payment_qr_code_alt": "भुगतान QR कोड"
+            },
+            "plan": {
+                "popular_badge": "लोकप्रिय",
+                "pay_with_stripe": "Stripe से भुगतान करें",
+                "pay_with_crypto": "क्रिप्टो से भुगतान करें",
+                "current_plan": "आपकी वर्तमान योजना",
+                "premium_plan": "प्रीमियम योजना",
+                "not_available": "उपलब्ध नहीं",
+                "month": "माह"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "अपनी पहचान सत्यापित करने और अपने {{ type }} को सुरक्षित रूप से संग्रहीत करने के लिए कैमरे की ओर देखें",
+                "decrypt": "अपनी पहचान सत्यापित करने और अपने {{ type }} तक पहुँचने के लिए कैमरे की ओर देखें"
+            },
+            "processing": {
+                "processing": "आपके बायोमेट्रिक डेटा को प्रोसेस किया जा रहा है...",
+                "analyzing": "आपके चेहरे का विश्लेषण किया जा रहा है..."
+            },
+            "status": {
+                "position_face_title": "अपना चेहरा केंद्र में रखें",
+                "position_face_subtitle": "सीधे कैमरे की ओर देखें और स्थिर रहें"
+            },
+            "api_error": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "try_again": "पुनः प्रयास करें",
+                "go_back": "वापस जाएँ"
+            },
+            "camera_error": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
+            },
+            "permission": {
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।",
+                "go_back": "वापस जाएँ"
+            },
+            "close_aria": "बायोमेट्रिक्स सत्यापन बंद करें",
+            "errors": {
+                "no_face_detected": "कोई चेहरा नहीं मिला",
+                "look_at_camera": "कृपया कैमरे की ओर देखें"
+            }
+        },
+        "subscription_banner": {
+            "title": "भुगतान कार्ड की जानकारी",
+            "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
+        },
+        "data_card": {
+            "details": "विवरण",
+            "no_qr": "कोई QR नहीं",
+            "untitled": "बिना शीर्षक वाला",
+            "username_label": "उपयोगकर्ता नाम: {{ username }}",
+            "zelf_name_label": "टैग नाम: {{ zelfName }}",
+            "category_label": "श्रेणी: {{ category }}",
+            "type_label": "प्रकार: {{ type }}",
+            "secure_credential": "सुरक्षित क्रेडेंशियल"
+        },
+        "data_types": {
+            "note": "नोट",
+            "password": "पासवर्ड",
+            "payment_card": "भुगतान कार्ड"
+        },
+        "categories": {
+            "password": "पासवर्ड",
+            "note": "नोट",
+            "notes": "नोट्स",
+            "payment_card": "भुगतान कार्ड",
+            "card": "कार्ड",
+            "contact": "संपर्क",
+            "zotp": "ZOTP"
+        },
+        "errors": {
+            "storing": "{{ type }} संग्रहीत करने में त्रुटि",
+            "retrieving": "{{ type }} प्राप्त करने में त्रुटि"
+        },
+        "messages": {
+            "note_retrieved": "नोट सफलतापूर्वक प्राप्त हुआ",
+            "note_stored": "नोट सफलतापूर्वक संग्रहीत किया गया",
+            "password_retrieved": "पासवर्ड सफलतापूर्वक प्राप्त हुआ",
+            "password_stored": "पासवर्ड सफलतापूर्वक संग्रहीत किया गया"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "भुगतान कार्ड एन्क्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "decrypt_payment_card": "भुगतान कार्ड डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "encrypt_note": "नोट एन्क्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "decrypt_note": "नोट डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "encrypt_password": "पासवर्ड एन्क्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "decrypt_password": "पासवर्ड डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "instructions": {
+                "payment_card": "भुगतान कार्ड",
+                "note": "नोट",
+                "password": "पासवर्ड"
+            },
+            "item": "आइटम",
+            "error": {
+                "storage_failed": "{{ category }} के भंडारण के दौरान त्रुटि, कृपया बाद में पुनः प्रयास करें।",
+                "try_again_later": "कृपया बाद में पुनः प्रयास करें।",
+                "close": "बंद करें"
+            }
+        },
+        "popout_decryptor": {
+            "back": "पीछे",
+            "cancel": "रद्द करें",
+            "loading_camera": "कैमरा प्रारंभ हो रहा है...",
+            "low_quality_message": "कृपया बेहतर रोशनी के साथ पुनः प्रयास करें",
+            "low_quality_title": "कम गुणवत्ता वाली छवि",
+            "master_password_placeholder": "अपना मास्टर पासवर्ड डालें",
+            "permission_allow": "कृपया कैमरा एक्सेस की अनुमति दें",
+            "permission_required": "कैमरा अनुमति आवश्यक है",
+            "processing": "आपके बायोमेट्रिक डेटा को प्रोसेस किया जा रहा है...",
+            "retry": "पुनः प्रयास करें",
+            "title": "भुगतान कार्ड की जानकारी",
+            "unlock": "बायोमेट्रिक्स पर जारी रखें",
+            "types": {
+                "credit_card": "भुगतान कार्ड",
+                "note": "नोट",
+                "notes": "नोट्स",
+                "password": "पासवर्ड",
+                "payment-card": "भुगतान कार्ड",
+                "wallet": "वॉलेट",
+                "zotp": "ZOTP"
+            }
+        },
+        "password_biometrics": {
+            "back_to_details": "पासवर्ड विवरण पर वापस जाएं",
+            "back_to_form": "पासवर्ड फ़ॉर्म पर वापस जाएं",
+            "verify_to_decrypt": "डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
+            "biometric_verification": "बायोमेट्रिक सत्यापन",
+            "instruction_title": "अपना चेहरा केंद्र में रखें",
+            "instruction_subtitle": "सीधे कैमरे की ओर देखें और स्थिर रहें",
+            "compact_encrypt": "कृपया अपनी पहचान सत्यापित करने और अपने पासवर्ड को सुरक्षित रूप से संग्रहीत करने के लिए कैमरे की ओर देखें",
+            "compact_decrypt": "कृपया अपनी पहचान सत्यापित करने और अपने पासवर्ड को डिक्रिप्ट करने के लिए कैमरे की ओर देखें",
+            "loading_processing": "आपके बायोमेट्रिक डेटा को प्रोसेस किया जा रहा है...",
+            "camera_error_title": "कैमरा उपलब्ध नहीं है",
+            "camera_error_desc": "कृपया सुनिश्चित करें कि बायोमेट्रिक सत्यापन के लिए आपका कैमरा सक्षम और सुलभ है",
+            "permission_title": "कैमरा अनुमति आवश्यक है",
+            "permission_desc": "बायोमेट्रिक सत्यापन जारी रखने के लिए कृपया कैमरा एक्सेस की अनुमति दें",
+            "go_back": "वापस जाएँ",
+            "master_password_label": "मास्टर पासवर्ड (वैकल्पिक):",
+            "master_password_placeholder": "अपना मास्टर पासवर्ड डालें",
+            "master_password_hint": "यदि आपने इस प्रविष्टि को बनाते समय मास्टर पासवर्ड सेट किया है, तो उसे यहाँ डालें"
+        },
+        "note_result": {
+            "title": "भुगतान कार्ड की जानकारी",
+            "loading": "परिणाम लोड हो रहा है...",
+            "sections": {
+                "success": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
+                },
+                "details": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "labels": {
+                        "title": "भुगतान कार्ड की जानकारी",
+                        "folder": "फ़ोल्डर",
+                        "type": "प्रकार",
+                        "category": "श्रेणी",
+                        "zelf_name": "टैग नाम",
+                        "timestamp": "समय-चिह्न"
+                    }
+                },
+                "nft": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "labels": {
+                        "token_id": "टोकन ID",
+                        "cost": "लागत",
+                        "contract": "अनुबंध",
+                        "transaction": "लेन-देन"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "labels": {
+                        "hash": "IPFS हैश",
+                        "gateway_url": "गेटवे URL",
+                        "file_size": "फ़ाइल का आकार",
+                        "uploaded": "अपलोड किया गया"
+                    },
+                    "gateway_link": "IPFS गेटवे पर देखें"
+                },
+                "walrus": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "सार्वजनिक URL",
+                        "explorer_url": "एक्सप्लोरर URL",
+                        "status": "स्थिति",
+                        "reason": "कारण",
+                        "error": "त्रुटि"
+                    },
+                    "view_link": "Walrus पर देखें",
+                    "explorer_link": "एक्सप्लोरर पर देखें"
+                },
+                "zelfproof": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "labels": {
+                        "string": "ZelfProof स्ट्रिंग",
+                        "qr_code": "QR कोड"
+                    },
+                    "copy_hint": "कॉपी करने के लिए क्लिक करें",
+                    "qr_alt": "ZelfProof QR कोड"
+                },
+                "debug": {
+                    "title": "भुगतान कार्ड की जानकारी"
+                },
+                "next_steps": {
+                    "title": "भुगतान कार्ड की जानकारी",
+                    "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+                    "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
+                    "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
+                }
+            },
+            "actions": {
+                "back_to_notes": "नोट्स पर वापस जाएँ",
+                "add_another": "एक और कार्ड जोड़ें"
+            },
+            "status": {
+                "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
+                "error_title": "नोट संग्रहीत करने में त्रुटि",
+                "unknown_title": "अज्ञात स्थिति",
+                "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+                "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
+                "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
+            },
+            "error": {
+                "no_result": "कोई API परिणाम उपलब्ध नहीं है"
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
+                "error_title": "नोट संग्रहीत करने में त्रुटि",
+                "unknown_title": "अज्ञात स्थिति",
+                "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+                "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
+                "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
+            },
+            "error": {
+                "no_result": "कोई API परिणाम उपलब्ध नहीं है"
+            }
+        }
+    },
     "cancel": "रद्द करें",
     "confirm": "पुष्टि करें",
     "logout_message": "इस क्रिया की पुष्टि करके, आप अपने सभी ZelfProofs को एक्सटेंशन से हटा देंगे। आपको उन तक पहुंच पाने के लिए प्रत्येक ZelfProof को फिर से डिक्रिप्ट करना होगा। क्या आप वाकई आगे बढ़ना चाहते हैं?",
@@ -30,23 +462,23 @@
     "send": {
         "address_found": "पता मिल गया",
         "available_balance": "उपलब्ध {{balance}} {{symbol}}",
+        "average": "औसत",
         "cannot_continue_process": "आप प्रक्रिया जारी नहीं रख सकते",
+        "confirmations": "पुष्टिकरण",
         "continue_process": "आप प्रक्रिया जारी रख सकते हैं",
         "domain_or_address": "डोमेन या पता",
+        "economical": "किफायती",
         "enter_amount_to_send": "भेजने के लिए राशि दर्ज करें",
         "external_address_found": "बाहरी पता मिल गया",
+        "fastest": "सबसे तेज",
+        "transaction_settings": "लेनदेन सेटिंग्स",
+        "upto_sats": "{{ feeAmountUSD }} तक • {{sats}} sats/vB • {{ time }} मिनट",
         "recent_addresses": "हाल के",
         "used": "{{days}} पहले उपयोग किया गया",
         "withdrawal_amount": "निकासी राशि",
         "zelf_name_not_registered": "टैग नाम पंजीकृत नहीं है",
         "zelf_name_registered": "टैग नाम पंजीकृत है",
         "from_address": "प्रेषक पता",
-        "average": "औसत",
-        "confirmations": "पुष्टिकरण",
-        "economical": "किफायती",
-        "fastest": "सबसे तेज",
-        "transaction_settings": "लेनदेन सेटिंग्स",
-        "upto_sats": "{{ feeAmountUSD }} तक • {{sats}} sats/vB • {{ time }} मिनट",
         "private_transaction": "निजी लेन-देन"
     },
     "transaction": {
@@ -103,12 +535,23 @@
         "language_label": "भाषा",
         "subscription_label": "सदस्यता",
         "networks": {
-            "title": "ब्लॉकचेन नेटवर्क",
-            "description": "अपने वॉलेट में उपयोग करने के लिए नेटवर्क सक्षम या अक्षम करें। अक्षम नेटवर्क आपकी टोकन सूची में दिखाई नहीं देंगे।",
+            "title": "भुगतान कार्ड की जानकारी",
+            "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।",
             "no_networks_available": "आपके लाइसेंस के लिए कोई नेटवर्क उपलब्ध नहीं है। अधिक नेटवर्क एक्सेस करने के लिए कृपया आपकी योजना अपग्रेड करें।"
         },
         "language": {
-            "description": "एप्लिकेशन के लिए अपनी पसंदीदा भाषा चुनें।"
+            "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
+        },
+        "walletconnect_label": "Connect via link",
+        "walletconnect": {
+            "title": "भुगतान कार्ड की जानकारी",
+            "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।",
+            "placeholder": "कार्ड प्रकार चुनें",
+            "connect_button": "Connect",
+            "connecting": "Connecting...",
+            "success": "सफल",
+            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
+            "error_failed": "Failed to connect. Please try again."
         },
         "security": {
             "biometric_verification_title": "बायोमेट्रिक सत्यापन अंतराल",
@@ -133,6 +576,7 @@
         "password_subtitle": "डिक्रिप्शन प्रक्रिया को पूरा करने के लिए इस टैग नाम को सौंपे गए पासवर्ड को दर्ज करें।",
         "pin_description": "6 अंकों का PIN बनाएं",
         "pin_unlock_description": "अपने ZelfProof को अनलॉक करने के लिए अपना PIN उपयोग करें",
+        "pin_confirm_description": "पुष्टि करने के लिए अपना 6 अक्षरों का पिन पुनः दर्ज करें",
         "pin_title": "PIN",
         "secure_password_description": "एक अतिरिक्त सुरक्षा परत",
         "secure_password_title": "सुरक्षित पासवर्ड",
@@ -140,7 +584,7 @@
         "security_layer_title": "सुरक्षा परत",
         "strong": "मजबूत",
         "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
-        "title": "ZelfProof एन्क्रिप्शन लेयर्स",
+        "title": "भुगतान कार्ड की जानकारी",
         "unhide_words": "शब्द दिखाएं",
         "weak": "कमजोर",
         "weak_password": "कमजोर पासवर्ड",
@@ -149,14 +593,13 @@
         "create_pin_title": "PIN बनाएं",
         "create_pin_subtitle": "कृपया अपने ZelfProof के लिए 6 अंकों का पासवर्ड दर्ज करें।",
         "confirm_pin_title": "PIN की पुष्टि करें",
-        "confirm_pin_subtitle": "कृपया अपने ZelfProof के लिए 6 अंकों का पासवर्ड फिर से दर्ज करें।",
-        "pin_confirm_description": "पुष्टि करने के लिए अपना 6 अक्षरों का पिन पुनः दर्ज करें"
+        "confirm_pin_subtitle": "कृपया अपने ZelfProof के लिए 6 अंकों का पासवर्ड फिर से दर्ज करें।"
     },
     "receive": {
         "information": "यह पता केवल संगत टोकन प्राप्त करने के लिए उपयोग किया जा सकता है।",
         "your_token_address": "आपका {{ name }} पता",
         "risks_modal": {
-            "title": "{{ symbol }} प्राप्त करने से पहले",
+            "title": "भुगतान कार्ड की जानकारी",
             "risk_1_title": "केवल {{ name }} नेटवर्क",
             "risk_1": "इस पते पर केवल {{ name }} नेटवर्क पर {{ symbol }} भेजें। अन्य चेन के टोकन वापस नहीं मिल सकते।",
             "risk_2_title": "पता सत्यापित करें",
@@ -170,7 +613,9 @@
         }
     },
     "common": {
-        "back": "वापस",
+        "back": "पीछे",
+        "optional": "वैकल्पिक",
+        "no_results_found": "कोई परिणाम नहीं मिला",
         "12_word_phrase": "12 शब्द वाला वाक्यांश",
         "24_word_phrase": "24 शब्द वाला वाक्यांश",
         "about": "जानकारी",
@@ -182,21 +627,23 @@
         "are_you_sure": "क्या आप सुनिश्चित हैं?",
         "asset": "संपत्ति",
         "available": "उपलब्ध",
+        "avax_address": "AVAX पता",
         "balance": "शेष राशि",
-        "btc_address": "BTC पता",
         "bdag_address": "BDAG पता",
+        "btc_address": "BTC पता",
         "buy_now": "अभी खरीदें",
         "cancel": "रद्द करें",
         "close": "बंद करें",
         "coin": "सिक्का",
         "come_back_later": "कृपया बाद में वापस आएं!",
+        "download_apps": "ऐप्स डाउनलोड करें",
         "confirm_password": "पासवर्ड की पुष्टि करें",
         "confirm": "पुष्टि करें",
         "continue": "जारी रखें",
         "copied_to_clipboard": "क्लिपबोर्ड पर कॉपी किया गया",
         "copy_recovery_phrase": "पुनर्प्राप्ति वाक्यांश कॉपी करें",
         "copy_to_clipboard": "सफलतापूर्वक कॉपी किया गया",
-        "copy": "क्लिपबोर्ड पर कॉपी करें",
+        "copy": "कॉपी करें",
         "create_a_new_wallet": "नया वॉलेट बनाएं",
         "date": "तिथि",
         "days": "दिन",
@@ -207,6 +654,7 @@
         "domain": "डोमेन",
         "dont_show_me_again": "मुझे फिर से न दिखाएं",
         "dont_show_this_message_again": "इन निर्देशों को फिर से न दिखाएं",
+        "download_qr": "QR डाउनलोड करें",
         "download_zelfproof": "ZelfProof डाउनलोड करें",
         "edit": "संपादित करें",
         "eth_address": "ETH पता",
@@ -215,13 +663,13 @@
         "failed": "विफल",
         "fee": "शुल्क",
         "from": "से",
-        "go_back": "वापस जाएं",
+        "go_back": "वापस जाएँ",
         "hide_words": "शब्द छिपाएं",
         "history": "इतिहास",
         "import_a_wallet": "वॉलेट आयात करें",
         "import_wallet": "वॉलेट आयात करें",
         "import": "आयात करें",
-        "information": "जानकारी",
+        "information": "यह पता केवल संगत टोकन प्राप्त करने के लिए उपयोग किया जा सकता है।",
         "is_required": "आवश्यक है",
         "learn_more": "और जानें",
         "load_more": "और लोड करें",
@@ -251,7 +699,7 @@
         "receive": "प्राप्त करें",
         "recommended": "अनुशंसित",
         "refresh": "ताज़ा करें",
-        "registered": "पंजीकृत",
+        "registered": "टैग नाम {{ date }} से पंजीकृत",
         "remove_all_zelfproofs": "सभी ZelfProofs हटाएं",
         "remove": "हटाएं",
         "renew_domain": "डोमेन नवीनीकृत करें",
@@ -259,6 +707,7 @@
         "reservation_found": "आरक्षण मिला",
         "search_your_zelf_name": "अपना टैग नाम खोजें",
         "search": "खोजें...",
+        "seed_phrase": "सीड वाक्यांश",
         "send_symbol": "{{symbol}} भेजें",
         "send": "भेजें",
         "settings": "सेटिंग्स",
@@ -279,7 +728,7 @@
         "try_another_one": "दूसरा प्रयास करें",
         "type": "प्रकार",
         "unknown": "अज्ञात",
-        "unlock": "अनलॉक करें",
+        "unlock": "बायोमेट्रिक्स पर जारी रखें",
         "upload_qr_image": "QR छवि अपलोड करें",
         "verify": "सत्यापित करें",
         "website": "वेबसाइट",
@@ -287,16 +736,10 @@
         "withdrawal_network": "निकासी नेटवर्क",
         "yes": "हाँ",
         "your_token": "आपका {{ symbol }}",
-        "zelf_wallet": "Zelf वॉलेट",
-        "optional": "वैकल्पिक",
-        "no_results_found": "कोई परिणाम नहीं मिला",
-        "avax_address": "AVAX पता",
-        "download_apps": "ऐप्स डाउनलोड करें",
-        "download_qr": "QR डाउनलोड करें",
-        "seed_phrase": "सीड वाक्यांश",
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
+        "zelf_wallet": "Zelf वॉलेट",
         "subscriptions": "सदस्यता",
         "download_short": "डाउनलोड",
         "mnemonics": "मनेमोनिक",
@@ -305,7 +748,7 @@
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",
-        "about": "{{ network }} के बारे में",
+        "about": "जानकारी",
         "circulating_supply": "प्रचलित आपूर्ति",
         "holders": "धारक",
         "market_cap": "बाजार पूंजी",
@@ -321,11 +764,11 @@
         "know_more": "और जानें",
         "lifetime": "जीवन भर",
         "price_per_year": "प्रति वर्ष मूल्य",
-        "title": "खरीदने के लिए डोमेन",
+        "title": "भुगतान कार्ड की जानकारी",
         "years": "{{ yearCount }} वर्ष"
     },
     "wallet": {
-        "download_qr": "QR",
+        "download_qr": "QR डाउनलोड करें",
         "info_title": "अपने QR कोड को सुरक्षित रखें",
         "info_description": "अपने खाते की सुरक्षा के लिए अपने QR कोड को सुरक्षित रखना याद रखें। इसे डाउनलोड करें और सुरक्षित स्थान पर सहेजें।",
         "private_key": "निजी कुंजी",
@@ -333,17 +776,17 @@
         "info": "जानकारी"
     },
     "private_key": {
-        "description": "अपनी निजी कुंजी देखने के लिए, कृपया सुरक्षा सत्यापन चरणों को पूरा करें।",
-        "got_it": "समझ गया",
-        "title": "निजी कुंजी"
+        "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।",
+        "got_it": "समझ गया, मैं इसे बाद में करूंगा",
+        "title": "भुगतान कार्ड की जानकारी"
     },
     "my_arns": {
         "arns_website": "ArNS वेबसाइट",
-        "description": "क्रिप्टो प्राप्त करने के लिए आपकी व्यक्तिगत वेबसाइट, सीधे स्थानांतरण के लिए सभी आवश्यक जानकारी के साथ साझा करना आसान।"
+        "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
     },
     "manage_domain": {
         "hold_until": "तक रखें",
-        "registered_since": "पंजीकरण तिथि",
+        "registered_since": "{{ date }} से पंजीकृत",
         "registered_until": "समाप्ति तिथि"
     },
     "manage_domains": {
@@ -365,6 +808,8 @@
     "errors": {
         "address_too_long": "पता बहुत लंबा है",
         "all_fields_required": "सभी फ़ील्ड आवश्यक हैं",
+        "camera_dimensions_not_properly_initialized": "कैमरा ठीक से प्रारंभ नहीं हुआ",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP डिक्रिप्ट नहीं किया जा सकता: ZelfProof अनुपलब्ध है। वैध ZelfProof के बिना इस ZOTP को डिक्रिप्ट नहीं किया जा सकता है।",
         "cannot_swap_across_these_networks": "आप अभी तक इन नेटवर्कों के बीच स्वैप नहीं कर सकते। कृपया बाद में पुनः प्रयास करें।",
         "chart_not_found": "चार्ट डेटा उपलब्ध नहीं है",
         "Duplicated_person": "ZelfProof का उपयोग किसी अन्य रिकॉर्ड के लिए किया जा रहा है",
@@ -376,10 +821,17 @@
         "ERR_LIVENESS_FAILED": "लाइवनेस पहचान विफल",
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof को डिक्रिप्ट नहीं किया जा सका",
         "ERR_VERIFICATION_FAILED": "लाइवनेस पहचान विफल",
+        "error_closing_popup": "विंडो बंद करने में त्रुटि",
+        "error_initializing_biometrics": "बायोमेट्रिक्स प्रारंभ करने में त्रुटि",
+        "error_sending_decryption_result_to_background": "एक्सटेंशन के साथ संचार करने में त्रुटि",
+        "error_stopping_camera": "कैमरा रोकने में त्रुटि",
+        "face_detection_error": "चेहरा पहचान विफल रहा",
+        "face_not_central": "आपका चेहरा केंद्र में नहीं है। कृपया फ्रेम में अपना चेहरा समायोजित करें और पुनः प्रयास करें।",
         "failed_to_get_quote": "इस स्वैप के लिए कोट प्राप्त करने में विफल।",
         "generic_identity": "क्षमा करें, आपकी पहचान सत्यापन में एक समस्या आ गई है। कृपया पुनः प्रयास करें।",
         "generic_title": "एक त्रुटि हुई है",
         "generic": "क्षमा करें, इस अनुरोध को संसाधित करने में एक समस्या आ गई है। कृपया पुनः प्रयास करें।",
+        "incorrect_passphrase": "मास्टर पासवर्ड गलत तरीके से दर्ज किया गया। कृपया पुनः प्रयास करें।",
         "incorrect_zelf_proof_message": "प्रदान किया गया फ़ाइल एक वैध ZelfProof नहीं लगता है। कृपया पुनः प्रयास करें।",
         "incorrect_zelf_proof_title": "गलत ZelfProof",
         "insufficient_funds": "अपर्याप्त धन। सुनिश्चित करें कि आपके पास लेनदेन शुल्क के लिए पर्याप्त धन है।",
@@ -396,36 +848,33 @@
         "missing_contract_address": "स्वैप कॉन्ट्रैक्ट पता गायब है। बाद में पुनः प्रयास करें।",
         "must_be_greater_than": "{{ value }} से अधिक होना चाहिए",
         "must_be_less_than": "{{ value }} से कम होना चाहिए",
+        "no_decrypted_data_received_from_api": "सर्वर से कोई डिक्रिप्ट किया गया डेटा प्राप्त नहीं हुआ",
+        "no_zelfproof_available_for_password_decryption": "पासवर्ड डिक्रिप्शन के लिए कोई ZelfProof उपलब्ध नहीं है",
         "not_found": "रिकॉर्ड नहीं मिला",
         "password_doesnt_match": "पासवर्ड मेल नहीं खाते",
         "password_incorrect": "पासवर्ड गलत है",
-        "LIVENESS CHECK FAILED.": "लाइवनेस जांच विफल। कृपया पुनः प्रयास करें।",
-        "THE PROVIDED PASSWORD IS INVALID.": "आपने जो पासवर्ड दर्ज किया है वह गलत है। कृपया अपना पासवर्ड जांचें और पुनः प्रयास करें।",
+        "LIVENESS CHECK FAILED": {
+            "": "लाइवनेस जांच विफल। कृपया पुनः प्रयास करें।"
+        },
+        "THE PROVIDED PASSWORD IS INVALID": {
+            "": "लाइवनेस जांच विफल। कृपया पुनः प्रयास करें।"
+        },
         "person_already_set": "आपके पंजीकरण में पहले से ही एक ZelfProof जुड़ा हुआ है",
         "private_key_locked": "निजी कुंजी लॉक हो गई है। आगे बढ़ने के लिए आपको बायोमेट्रिक्स जांच करनी होगी।",
         "required_field": "यह फ़ील्ड आवश्यक है",
         "same_address": "आप उसी पते पर धन नहीं भेज सकते",
+        "session_init_info": "टैग नाम सेवा एक्सटेंशन का उपयोग करने के लिए, आपको नेटवर्क एक्सेस की आवश्यकता होगी। ऑफ़लाइन समाधान के लिए, हमारे iOS और Android ऐप्स देखें।",
+        "session_init_message": "क्षमा करें, आपका सत्र प्रारंभ करने में कोई समस्या थी। यह नेटवर्क समस्या या सर्वर अनुपलब्धता के कारण हो सकता है। कृपया पुनः प्रयास करें।",
+        "session_init_title": "सत्र प्रारंभ विफल रहा",
         "something_went_wrong": "कुछ गलत हो गया, कृपया पुनः प्रयास करें",
         "swap_same_asset": "आप उसी संपत्ति से स्वैप नहीं कर सकते",
         "transaction_not_found": "लेनदेन नहीं मिला",
         "try_again": "पुनः प्रयास करें",
-        "zelfName_is_taken": "यह टैग नाम पहले से लिया गया है",
-        "camera_dimensions_not_properly_initialized": "कैमरा ठीक से प्रारंभ नहीं हुआ",
-        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP डिक्रिप्ट नहीं किया जा सकता: ZelfProof अनुपलब्ध है। वैध ZelfProof के बिना इस ZOTP को डिक्रिप्ट नहीं किया जा सकता है।",
-        "error_closing_popup": "विंडो बंद करने में त्रुटि",
-        "error_initializing_biometrics": "बायोमेट्रिक्स प्रारंभ करने में त्रुटि",
-        "error_sending_decryption_result_to_background": "एक्सटेंशन के साथ संचार करने में त्रुटि",
-        "error_stopping_camera": "कैमरा रोकने में त्रुटि",
-        "face_detection_error": "चेहरा पहचान विफल रहा",
-        "face_not_central": "आपका चेहरा केंद्र में नहीं है। कृपया फ्रेम में अपना चेहरा समायोजित करें और पुनः प्रयास करें।",
-        "incorrect_passphrase": "मास्टर पासवर्ड गलत तरीके से दर्ज किया गया। कृपया पुनः प्रयास करें।",
-        "no_decrypted_data_received_from_api": "सर्वर से कोई डिक्रिप्ट किया गया डेटा प्राप्त नहीं हुआ",
-        "no_zelfproof_available_for_password_decryption": "पासवर्ड डिक्रिप्शन के लिए कोई ZelfProof उपलब्ध नहीं है",
-        "session_init_info": "टैग नाम सेवा एक्सटेंशन का उपयोग करने के लिए, आपको नेटवर्क एक्सेस की आवश्यकता होगी। ऑफ़लाइन समाधान के लिए, हमारे iOS और Android ऐप्स देखें।",
-        "session_init_message": "क्षमा करें, आपका सत्र प्रारंभ करने में कोई समस्या थी। यह नेटवर्क समस्या या सर्वर अनुपलब्धता के कारण हो सकता है। कृपया पुनः प्रयास करें।",
-        "session_init_title": "सत्र प्रारंभ विफल रहा",
         "unknown_error": "एक अज्ञात त्रुटि हुई",
-        "user_cancelled_decryption": "डिक्रिप्शन रद्द कर दिया गया था"
+        "user_cancelled_decryption": "डिक्रिप्शन रद्द कर दिया गया था",
+        "zelfName_is_taken": "यह टैग नाम पहले से लिया गया है",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
     },
     "swap": {
         "automatic": "स्वचालित",
@@ -452,13 +901,13 @@
     "home": {
         "manage_networks": "नेटवर्क प्रबंधित करें",
         "assets": "टोकन",
+        "keys": "Keys",
         "NFTs": "कलेक्टिबल्स",
         "receive_transaction_button": "प्राप्त करें",
         "send_transaction_button": "भेजें",
         "settings_button": "सेटिंग्स",
         "support_button": "सहायता",
-        "swap": "स्वैप",
-        "keys": "Keys"
+        "swap": "स्वैप करें"
     },
     "id_scanning": {
         "camera_not_found": "कैमरा नहीं मिला",
@@ -522,445 +971,13 @@
         "considerations_description_2": "अद्वितीय पहचान।",
         "considerations_description_3": "भविष्य-प्रूफ सुरक्षा।"
     },
-    "zelf_keys": {
-        "dashboard": {
-            "wallet": "वॉलेट"
-        },
-        "common": {
-            "qr_code": "QR कोड",
-            "no_folder": "कोई फ़ोल्डर नहीं",
-            "download_zelfproof": "ZelfProof डाउनलोड करें",
-            "back_to_payment_cards": "भुगतान कार्ड पर वापस जाएँ",
-            "add_another_card": "एक और कार्ड जोड़ें",
-            "try_again": "पुनः प्रयास करें",
-            "image_not_available": "छवि उपलब्ध नहीं है"
-        },
-        "payment_cards": {
-            "labels": {
-                "card_holder": "कार्ड धारक",
-                "expires": "समाप्ति",
-                "bank_name": "बैंक का नाम",
-                "card_number": "कार्ड नंबर",
-                "expiry_date": "समाप्ति तिथि",
-                "cvv": "CVV"
-            },
-            "placeholders": {
-                "card_holder_upper": "कार्ड धारक"
-            },
-            "decrypt": {
-                "button": "भुगतान कार्ड डिक्रिप्ट करें",
-                "decrypting": "डिक्रिप्ट हो रहा है..."
-            },
-            "info": {
-                "title": "भुगतान कार्ड की जानकारी",
-                "payment_card_id": "भुगतान कार्ड ID",
-                "type": "प्रकार",
-                "folder": "फ़ोल्डर",
-                "copy_payment_card_id": "भुगतान कार्ड ID कॉपी करें"
-            },
-            "zelfproof": {
-                "title": "ZelfProof",
-                "download": "ZelfProof डाउनलोड करें"
-            },
-            "decrypted": {
-                "title": "डिक्रिप्ट की गई सामग्री",
-                "card_holder_name": "कार्ड धारक का नाम",
-                "copy_card_holder_name": "कार्ड धारक का नाम कॉपी करें",
-                "copy_card_number": "कार्ड नंबर कॉपी करें",
-                "copy_expiry_date": "समाप्ति तिथि कॉपी करें",
-                "copy_cvv": "CVV कॉपी करें",
-                "copy_bank_name": "बैंक का नाम कॉपी करें",
-                "show_card_number": "कार्ड नंबर दिखाएं",
-                "hide_card_number": "कार्ड नंबर छिपाएं",
-                "show_cvv": "CVV दिखाएं",
-                "hide_cvv": "CVV छिपाएं"
-            },
-            "error": {
-                "no_wallet": "कोई वॉलेट नहीं मिला। कृपया पहले अपना वॉलेट सेटअप करें।",
-                "auth_failed": "प्रमाणीकरण विफल रहा। कृपया सुनिश्चित करें कि आपके पास एक वैध वॉलेट है।",
-                "init_failed": "सत्र प्रारंभ करने में विफल। कृपया अपना वॉलेट कनेक्शन जांचें।",
-                "no_token": "कोई प्रमाणीकरण टोकन उपलब्ध नहीं है। कृपया पेज रिफ्रेश करें।",
-                "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।"
-            },
-            "unknown_bank": "अज्ञात बैंक",
-            "unknown": "अज्ञात",
-            "detail": {
-                "error": {
-                    "retrieve_failed": "भुगतान कार्ड डेटा प्राप्त करने में विफल",
-                    "decrypt_failed": "भुगतान कार्ड डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
-                },
-                "expiry_placeholder": "MM/YY"
-            },
-            "result": {
-                "error": {
-                    "no_data": "कोई परिणाम डेटा नहीं मिला"
-                }
-            }
-        },
-        "payment_card_result": {
-            "success": {
-                "title": "भुगतान कार्ड सफलतापूर्वक बनाया गया!",
-                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
-            },
-            "preview": {
-                "title": "कार्ड विवरण",
-                "labels": {
-                    "name": "भुगतान कार्ड का नाम",
-                    "card_holder": "कार्ड धारक",
-                    "card_number": "कार्ड नंबर",
-                    "expires": "समाप्ति"
-                }
-            },
-            "image": {
-                "title": "ZelfProof",
-                "download": "ZelfProof डाउनलोड करें"
-            },
-            "nft": {
-                "title": "NFT बनाया गया",
-                "labels": {
-                    "token_id": "टोकन ID",
-                    "cost": "लागत",
-                    "contract": "अनुबंध",
-                    "transaction": "लेन-देन",
-                    "metadata_url": "मेटाडेटा URL"
-                },
-                "metadata_link": "मेटाडेटा देखें",
-                "copy_hint": "कॉपी करने के लिए क्लिक करें",
-                "image_alt": "ZelfKey NFT"
-            },
-            "ipfs": {
-                "title": "IPFS स्टोरेज",
-                "labels": {
-                    "hash": "IPFS हैश",
-                    "gateway_url": "गेटवे URL",
-                    "file_size": "फ़ाइल का आकार",
-                    "uploaded": "अपलोड किया गया"
-                },
-                "gateway_link": "IPFS गेटवे पर देखें"
-            },
-            "walrus": {
-                "title": "Walrus स्टोरेज",
-                "labels": {
-                    "blob_id": "Blob ID",
-                    "public_url": "सार्वजनिक URL",
-                    "explorer_url": "एक्सप्लोरर URL",
-                    "status": "स्थिति",
-                    "reason": "कारण",
-                    "error": "त्रुटि"
-                },
-                "view_link": "Walrus पर देखें",
-                "explorer_link": "एक्सप्लोरर पर देखें"
-            },
-            "zelfproof": {
-                "title": "ZelfProof बनाया गया",
-                "labels": {
-                    "string": "ZelfProof स्ट्रिंग",
-                    "qr_code": "QR कोड"
-                },
-                "copy_hint": "कॉपी करने के लिए क्लिक करें"
-            },
-            "error": {
-                "title": "भुगतान कार्ड बनाने में त्रुटि",
-                "default_message": "आपका भुगतान कार्ड बनाते समय एक अप्रत्याशित त्रुटि हुई।",
-                "try_again": "पुनः प्रयास करें",
-                "no_data": "कोई परिणाम डेटा नहीं मिला"
-            },
-            "actions": {
-                "back_to_cards": "भुगतान कार्ड पर वापस जाएँ",
-                "add_another": "एक और कार्ड जोड़ें"
-            }
-        },
-        "billing_ui": {
-            "choose_your_plan_title": "अपनी योजना चुनें",
-            "choose_your_plan_subtitle": "वह योजना चुनें जो आपकी आवश्यकताओं के लिए सबसे उपयुक्त हो",
-            "loading_plans": "सदस्यता योजनाएं लोड हो रही हैं...",
-            "error": {
-                "try_again": "पुनः प्रयास करें",
-                "load_plans": "सदस्यता योजनाएं लोड करने में विफल",
-                "create_crypto_payment": "क्रिप्टो भुगतान बनाने में विफल",
-                "create_checkout": "चेकआउट सत्र बनाने में विफल",
-                "open_portal": "सदस्यता प्रबंधन पोर्टल खोलने में विफल",
-                "customer_not_found": "ग्राहक की जानकारी नहीं मिली। कृपया सहायता से संपर्क करें।",
-                "no_subscription": "कोई सक्रिय सदस्यता नहीं मिली। कृपया पेज रिफ्रेश करें।",
-                "open_portal_generic": "सदस्यता प्रबंधन खोलने में विफल: {{ error }}",
-                "missing_payment_data": "भुगतान डेटा अनुपलब्ध है। कृपया पुनः प्रयास करें।",
-                "no_avax_address": "चयनित वॉलेट में AVAX पता नहीं है।",
-                "no_avax_token": "AVAX टोकन डेटा लोड करने में असमर्थ। कृपया पुनः प्रयास करें।",
-                "prepare_transaction": "लेन-देन तैयार करने में विफल। कृपया पुनः प्रयास करें।"
-            },
-            "crypto": {
-                "complete_payment": "अपना भुगतान पूरा करें",
-                "demo_banner": "डेमो मोड - कम राशि के साथ परीक्षण",
-                "send_amount_to_address": "नीचे दिए गए पते पर {{ amount }} AVAX भेजें",
-                "price_lock": "कीमत 30 मिनट के लिए लॉक है",
-                "payment_address_label": "भुगतान पता (Avalanche C-Chain)",
-                "copy": "कॉपी करें",
-                "scan_with_wallet": "अपने वॉलेट से स्कैन करें",
-                "amount_to_send": "भेजने योग्य राशि",
-                "original_plan_price": "मूल योजना की कीमत:",
-                "demo_discount": "डेमो छूट: {{ discount }}%",
-                "waiting_confirmation": "भुगतान पुष्टि की प्रतीक्षा कर रहा है...",
-                "auto_update_note": "भुगतान प्राप्त होने पर यह पेज स्वचालित रूप से अपडेट हो जाएगा",
-                "cancel_payment": "भुगतान रद्द करें",
-                "payment_methods": "भुगतान के तरीके",
-                "copy_address": "पता कॉपी करें:",
-                "scan_address": "पता स्कैन करें:",
-                "pay_with_wallet": "वॉलेट से भुगतान करें:",
-                "domain_label": "डोमेन",
-                "select_wallet": "वॉलेट चुनें",
-                "pay_with_avax": "AVAX के साथ भुगतान करें",
-                "payment_qr_code_alt": "भुगतान QR कोड"
-            },
-            "plan": {
-                "popular_badge": "लोकप्रिय",
-                "pay_with_stripe": "Stripe से भुगतान करें",
-                "pay_with_crypto": "क्रिप्टो से भुगतान करें",
-                "current_plan": "आपकी वर्तमान योजना",
-                "premium_plan": "प्रीमियम योजना",
-                "not_available": "N/A",
-                "month": "माह"
-            }
-        },
-        "biometrics": {
-            "instructions": {
-                "encrypt": "अपनी पहचान सत्यापित करने और अपने {{ type }} को सुरक्षित रूप से संग्रहीत करने के लिए कैमरे की ओर देखें",
-                "decrypt": "अपनी पहचान सत्यापित करने और अपने {{ type }} तक पहुँचने के लिए कैमरे की ओर देखें"
-            },
-            "processing": {
-                "processing": "आपके बायोमेट्रिक डेटा को प्रोसेस किया जा रहा है...",
-                "analyzing": "आपके चेहरे का विश्लेषण किया जा रहा है..."
-            },
-            "status": {
-                "position_face_title": "अपना चेहरा केंद्र में रखें",
-                "position_face_subtitle": "सीधे कैमरे की ओर देखें और स्थिर रहें"
-            },
-            "api_error": {
-                "title": "प्रमाणीकरण विफल रहा",
-                "try_again": "पुनः प्रयास करें",
-                "go_back": "वापस जाएँ"
-            },
-            "camera_error": {
-                "title": "कैमरा उपलब्ध नहीं है",
-                "description": "कृपया सुनिश्चित करें कि बायोमेट्रिक सत्यापन के लिए आपका कैमरा सक्षम और सुलभ है"
-            },
-            "permission": {
-                "title": "कैमरा अनुमति आवश्यक है",
-                "description": "बायोमेट्रिक सत्यापन जारी रखने के लिए कृपया कैमरा एक्सेस की अनुमति दें",
-                "go_back": "वापस जाएँ"
-            },
-            "close_aria": "बायोमेट्रिक्स सत्यापन बंद करें",
-            "errors": {
-                "no_face_detected": "कोई चेहरा नहीं मिला",
-                "look_at_camera": "कृपया कैमरे की ओर देखें"
-            }
-        },
-        "subscription_banner": {
-            "title": "प्रीमियम सुविधाएँ अनलॉक करें",
-            "description": "ZelfKeys प्रीमियम के साथ असीमित पहुंच, उन्नत सुरक्षा और बहुत कुछ प्राप्त करें"
-        },
-        "data_card": {
-            "details": "विवरण",
-            "no_qr": "कोई QR नहीं",
-            "untitled": "बिना शीर्षक वाला",
-            "username_label": "उपयोगकर्ता नाम: {{ username }}",
-            "zelf_name_label": "टैग नाम: {{ zelfName }}",
-            "category_label": "श्रेणी: {{ category }}",
-            "type_label": "प्रकार: {{ type }}",
-            "secure_credential": "सुरक्षित क्रेडेंशियल"
-        },
-        "data_types": {
-            "note": "नोट",
-            "password": "पासवर्ड",
-            "payment_card": "भुगतान कार्ड"
-        },
-        "categories": {
-            "password": "पासवर्ड",
-            "note": "नोट",
-            "notes": "नोट्स",
-            "payment_card": "भुगतान कार्ड",
-            "card": "कार्ड",
-            "contact": "संपर्क",
-            "zotp": "ZOTP"
-        },
-        "errors": {
-            "storing": "{{ type }} संग्रहीत करने में त्रुटि",
-            "retrieving": "{{ type }} प्राप्त करने में त्रुटि"
-        },
-        "messages": {
-            "note_retrieved": "नोट सफलतापूर्वक प्राप्त हुआ",
-            "note_stored": "नोट सफलतापूर्वक संग्रहीत किया गया",
-            "password_retrieved": "पासवर्ड सफलतापूर्वक प्राप्त हुआ",
-            "password_stored": "पासवर्ड सफलतापूर्वक संग्रहीत किया गया"
-        },
-        "biometrics_bottom_sheet": {
-            "encrypt_payment_card": "भुगतान कार्ड एन्क्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "decrypt_payment_card": "भुगतान कार्ड डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "encrypt_note": "नोट एन्क्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "decrypt_note": "नोट डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "encrypt_password": "पासवर्ड एन्क्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "decrypt_password": "पासवर्ड डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "instructions": {
-                "payment_card": "कृपया अपने भुगतान कार्ड को डिक्रिप्ट करने के लिए अपना चेहरा सत्यापित करें",
-                "note": "कृपया अपने नोट को डिक्रिप्ट करने के लिए अपना चेहरा सत्यापित करें",
-                "password": "कृपया अपने पासवर्ड को डिक्रिप्ट करने के लिए अपना चेहरा सत्यापित करें"
-            },
-            "item": "आइटम",
-            "error": {
-                "storage_failed": "{{ category }} के भंडारण के दौरान त्रुटि, कृपया बाद में पुनः प्रयास करें।",
-                "try_again_later": "कृपया बाद में पुनः प्रयास करें।",
-                "close": "बंद करें"
-            }
-        },
-        "popout_decryptor": {
-            "back": "पीछे",
-            "cancel": "रद्द करें",
-            "loading_camera": "कैमरा प्रारंभ हो रहा है...",
-            "low_quality_message": "कृपया बेहतर रोशनी के साथ पुनः प्रयास करें",
-            "low_quality_title": "कम गुणवत्ता वाली छवि",
-            "master_password_placeholder": "अपना मास्टर पासवर्ड डालें",
-            "permission_allow": "कृपया कैमरा एक्सेस की अनुमति दें",
-            "permission_required": "कैमरा अनुमति आवश्यक है",
-            "processing": "डिक्रिप्ट हो रहा है...",
-            "retry": "पुनः प्रयास करें",
-            "title": "{{ type }} डिक्रिप्शन",
-            "unlock": "बायोमेट्रिक्स पर जारी रखें",
-            "types": {
-                "credit_card": "भुगतान कार्ड",
-                "note": "नोट",
-                "notes": "नोट",
-                "password": "पासवर्ड",
-                "payment-card": "भुगतान कार्ड",
-                "wallet": "वॉलेट",
-                "zotp": "ZOTP"
-            }
-        },
-        "password_biometrics": {
-            "back_to_details": "पासवर्ड विवरण पर वापस जाएं",
-            "back_to_form": "पासवर्ड फ़ॉर्म पर वापस जाएं",
-            "verify_to_decrypt": "डिक्रिप्ट करने के लिए पहचान सत्यापित करें",
-            "biometric_verification": "बायोमेट्रिक सत्यापन",
-            "instruction_title": "अपना चेहरा केंद्र में रखें",
-            "instruction_subtitle": "सीधे कैमरे की ओर देखें और स्थिर रहें",
-            "compact_encrypt": "कृपया अपनी पहचान सत्यापित करने और अपने पासवर्ड को सुरक्षित रूप से संग्रहीत करने के लिए कैमरे की ओर देखें",
-            "compact_decrypt": "कृपया अपनी पहचान सत्यापित करने और अपने पासवर्ड को डिक्रिप्ट करने के लिए कैमरे की ओर देखें",
-            "loading_processing": "आपके बायोमेट्रिक डेटा को प्रोसेस किया जा रहा है...",
-            "camera_error_title": "कैमरा उपलब्ध नहीं है",
-            "camera_error_desc": "कृपया सुनिश्चित करें कि बायोमेट्रिक सत्यापन के लिए आपका कैमरा सक्षम और सुलभ है",
-            "permission_title": "कैमरा अनुमति आवश्यक है",
-            "permission_desc": "बायोमेट्रिक सत्यापन जारी रखने के लिए कृपया कैमरा एक्सेस की अनुमति दें",
-            "go_back": "वापस जाएँ",
-            "master_password_label": "मास्टर पासवर्ड (वैकल्पिक):",
-            "master_password_placeholder": "यदि आपके पास मास्टर पासवर्ड है, तो उसे यहाँ डालें",
-            "master_password_hint": "यदि आपने इस प्रविष्टि को बनाते समय मास्टर पासवर्ड सेट किया है, तो उसे यहाँ डालें"
-        },
-        "note_result": {
-            "title": "नोट संग्रहण परिणाम",
-            "loading": "परिणाम लोड हो रहा है...",
-            "sections": {
-                "success": {
-                    "title": "संग्रहण सफल!",
-                    "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
-                },
-                "details": {
-                    "title": "संग्रहीत नोट विवरण",
-                    "labels": {
-                        "title": "शीर्षक",
-                        "folder": "फ़ोल्डर",
-                        "type": "प्रकार",
-                        "category": "श्रेणी",
-                        "zelf_name": "टैग नाम",
-                        "timestamp": "समय-चिह्न"
-                    }
-                },
-                "nft": {
-                    "title": "NFT बनाया गया",
-                    "labels": {
-                        "token_id": "टोकन ID",
-                        "cost": "लागत",
-                        "contract": "अनुबंध",
-                        "transaction": "लेन-देन"
-                    },
-                    "image_alt": "ZelfKey NFT"
-                },
-                "ipfs": {
-                    "title": "IPFS स्टोरेज",
-                    "labels": {
-                        "hash": "IPFS हैश",
-                        "gateway_url": "गेटवे URL",
-                        "file_size": "फ़ाइल का आकार",
-                        "uploaded": "अपलोड किया गया"
-                    },
-                    "gateway_link": "IPFS गेटवे पर देखें"
-                },
-                "walrus": {
-                    "title": "Walrus स्टोरेज",
-                    "labels": {
-                        "blob_id": "Blob ID",
-                        "public_url": "सार्वजनिक URL",
-                        "explorer_url": "एक्सप्लोरर URL",
-                        "status": "स्थिति",
-                        "reason": "कारण",
-                        "error": "त्रुटि"
-                    },
-                    "view_link": "Walrus पर देखें",
-                    "explorer_link": "एक्सप्लोरर पर देखें"
-                },
-                "zelfproof": {
-                    "title": "ZelfProof बनाया गया",
-                    "labels": {
-                        "string": "ZelfProof स्ट्रिंग",
-                        "qr_code": "QR कोड"
-                    },
-                    "copy_hint": "कॉपी करने के लिए क्लिक करें",
-                    "qr_alt": "ZelfProof QR कोड"
-                },
-                "debug": {
-                    "title": "डीबग जानकारी"
-                },
-                "next_steps": {
-                    "title": "अगले कदम",
-                    "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
-                    "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
-                    "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
-                }
-            },
-            "actions": {
-                "back_to_notes": "नोट्स पर वापस जाएँ",
-                "add_another": "एक और नोट जोड़ें"
-            },
-            "status": {
-                "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
-                "error_title": "नोट संग्रहीत करने में त्रुटि",
-                "unknown_title": "अज्ञात स्थिति",
-                "success_message": "आपका नोट सुरक्षित रूप से संग्रहीत किया गया है और ब्लॉकचेन सत्यापन के साथ एन्क्रिप्ट किया गया है।",
-                "error_message": "आपका नोट संग्रहीत करते समय एक त्रुटि हुई।",
-                "unknown_message": "सिस्टम स्टोरेज स्थिति निर्धारित नहीं कर सका।"
-            },
-            "error": {
-                "no_result": "कोई API परिणाम उपलब्ध नहीं है"
-            }
-        },
-        "password_result": {
-            "status": {
-                "success_title": "पासवर्ड सफलतापूर्वक संग्रहीत किया गया!",
-                "error_title": "पासवर्ड संग्रहीत करने में त्रुटि",
-                "unknown_title": "अज्ञात स्थिति",
-                "success_message": "आपका पासवर्ड बायोमेट्रिक सत्यापन के साथ सुरक्षित रूप से संग्रहीत किया गया है।",
-                "error_message": "आपका पासवर्ड संग्रहीत करने में त्रुटि हुई। कृपया पुनः प्रयास करें।",
-                "unknown_message": "आपके पासवर्ड स्टोरेज अनुरोध की स्थिति स्पष्ट नहीं है।"
-            },
-            "error": {
-                "no_result": "कोई API परिणाम उपलब्ध नहीं है"
-            }
-        }
-    },
     "billing": {
         "common": {
             "master_password_placeholder": "अपना मास्टर पासवर्ड डालें"
         },
         "activation": {
-            "title": "भुगतान की पुष्टि हो गई!",
-            "message": "सदस्यता सक्रिय हो रही है... बधाई हो! आपके भुगतान की पुष्टि हो गई है और आपकी सदस्यता सक्रिय की जा रही है।"
+            "title": "भुगतान कार्ड की जानकारी",
+            "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
         },
         "subscription": {
             "active_subscription": "सक्रिय सदस्यता",
@@ -968,9 +985,9 @@
             "plan": "योजना:",
             "price": "कीमत:",
             "payment_method": "भुगतान विधि:",
-            "status": "स्थिति:",
-            "transaction": "लेन-देन:",
-            "zelf_name": "टैग नाम:",
+            "status": "स्थिति",
+            "transaction": "लेन-देन",
+            "zelf_name": "टैग नाम",
             "start_date": "प्रारंभ तिथि:",
             "expires_on": "समाप्ति तिथि:",
             "next_billing": "अगला बिलिंग:",
@@ -990,7 +1007,7 @@
             "cancelled": "रद्द"
         },
         "dashboard": {
-            "start": "प्रारंभ",
+            "start": "शुरू करें",
             "passwords": "पासवर्ड",
             "notes": "नोट्स",
             "payment_cards": "भुगतान कार्ड",
@@ -1000,15 +1017,15 @@
             "add_payment_card": "भुगतान कार्ड जोड़ें"
         },
         "payment_cards": {
-            "title": "भुगतान कार्ड",
-            "subtitle": "अपने भुगतान कार्ड की जानकारी सुरक्षित रूप से संग्रहीत करें",
+            "title": "भुगतान कार्ड की जानकारी",
+            "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
             "loading": {
-                "title": "आपके भुगतान कार्ड लोड हो रहे हैं",
-                "message": "कृपया प्रतीक्षा करें जब तक हम आपका सुरक्षित डेटा प्राप्त कर रहे हैं..."
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
             },
             "error": {
-                "title": "ओह! कुछ गलत हो गया",
-                "message": "हम आपके भुगतान कार्ड लोड नहीं कर सके।",
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!",
                 "try_again": "पुनः प्रयास करें",
                 "no_wallet": "कोई वॉलेट नहीं मिला। कृपया पहले अपना वॉलेट सेटअप करें।",
                 "auth_failed": "प्रमाणीकरण विफल रहा। कृपया सुनिश्चित करें कि आपके पास एक वैध वॉलेट है।",
@@ -1019,12 +1036,12 @@
             "unknown_bank": "अज्ञात बैंक",
             "unknown": "अज्ञात",
             "premium": {
-                "title": "प्रीमियम सुविधाएँ अनलॉक करें",
-                "description": "ZelfKeys प्रीमियम के साथ उन्नत सुरक्षा और बहुत कुछ प्राप्त करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "add_card": {
-                "title": "नया कार्ड जोड़ें",
-                "description": "नया भुगतान कार्ड सुरक्षित रूप से संग्रहीत करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "card": {
                 "card_holder": "कार्ड धारक",
@@ -1044,21 +1061,21 @@
                 "no_notes": "कोई नोट्स नहीं"
             },
             "detail": {
-                "title": "भुगतान कार्ड विवरण",
-                "loading": "भुगतान कार्ड विवरण लोड हो रहा है...",
+                "title": "भुगतान कार्ड की जानकारी",
+                "loading": "परिणाम लोड हो रहा है...",
                 "error": {
-                    "title": "भुगतान कार्ड लोड करने में त्रुटि",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "go_back": "वापस जाएँ",
                     "retrieve_failed": "भुगतान कार्ड डेटा प्राप्त करने में विफल",
                     "decrypt_failed": "भुगतान कार्ड डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
                 },
                 "expiry_placeholder": "MM/YY",
                 "decrypt": {
-                    "button": "कार्ड डिक्रिप्ट करें",
+                    "button": "भुगतान कार्ड डिक्रिप्ट करें",
                     "decrypting": "डिक्रिप्ट हो रहा है..."
                 },
                 "info": {
-                    "title": "कार्ड की जानकारी",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "card_number": "कार्ड नंबर",
                     "card_holder": "कार्ड धारक",
                     "expiry_date": "समाप्ति तिथि",
@@ -1075,11 +1092,11 @@
                     "copy_notes": "नोट्स कॉपी करें"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "download": "ZelfProof डाउनलोड करें"
                 },
                 "decrypted": {
-                    "title": "डिक्रिप्ट की गई कार्ड जानकारी",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "card_number": "कार्ड नंबर",
                     "card_holder": "कार्ड धारक",
                     "expiry_date": "समाप्ति तिथि",
@@ -1103,40 +1120,40 @@
             "form": {
                 "title": {
                     "add": "नया भुगतान कार्ड जोड़ें",
-                    "edit": "भुगतान कार्ड संपादित करें",
+                    "edit": "संपादित करें",
                     "label": "बैंक का नाम *"
                 },
                 "card_number": {
-                    "label": "कार्ड नंबर *"
+                    "label": "बैंक का नाम *"
                 },
                 "card_holder": {
-                    "label": "कार्ड धारक का नाम *"
+                    "label": "बैंक का नाम *"
                 },
                 "expiry_month": {
-                    "label": "समाप्ति माह *",
-                    "placeholder": "MM"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "expiry_year": {
-                    "label": "समाप्ति वर्ष *"
+                    "label": "बैंक का नाम *"
                 },
                 "card_type": {
-                    "label": "कार्ड प्रकार *",
+                    "label": "बैंक का नाम *",
                     "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "cvv": {
-                    "label": "CVV *"
+                    "label": "बैंक का नाम *"
                 },
                 "billing_address": {
-                    "label": "बिलिंग पता",
-                    "placeholder": "बिलिंग पता दर्ज करें (वैकल्पिक)"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "notes": {
-                    "label": "नोट्स",
-                    "placeholder": "नोट्स दर्ज करें (वैकल्पिक)"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "folder": {
-                    "label": "फ़ोल्डर में स्टोर करें",
-                    "placeholder": "फ़ोल्डर का नाम",
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें",
                     "aria_label": "फ़ोल्डर स्टोरेज स्विच करें"
                 },
                 "master_password": {
@@ -1150,57 +1167,57 @@
             }
         },
         "notes": {
-            "title": "नोट्स",
-            "subtitle": "अपने सुरक्षित नोट्स और की-वैल्यू पेयर्स प्रबंधित करें",
+            "title": "भुगतान कार्ड की जानकारी",
+            "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
             "loading": {
-                "title": "आपके नोट्स लोड हो रहे हैं",
-                "message": "कृपया प्रतीक्षा करें जब तक हम आपका सुरक्षित डेटा प्राप्त कर रहे हैं..."
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
             },
             "error": {
-                "title": "ओह! कुछ गलत हो गया",
-                "message": "हम आपके नोट्स लोड नहीं कर सके।",
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!",
                 "try_again": "पुनः प्रयास करें",
-                "load_failed": "संग्रहीत नोट्स लोड करने में विफल। कृपया पुनः प्रयास करें।"
+                "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।"
             },
             "premium": {
-                "title": "प्रीमियम सुविधाएँ अनलॉक करें",
-                "description": "ZelfKeys प्रीमियम के साथ उन्नत सुरक्षा और बहुत कुछ प्राप्त करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "add_note": {
-                "title": "नया नोट जोड़ें",
-                "description": "नया नोट सुरक्षित रूप से संग्रहीत करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "detail": {
-                "loading": "नोट विवरण लोड हो रहा है...",
+                "loading": "परिणाम लोड हो रहा है...",
                 "error": {
-                    "title": "नोट लोड करने में त्रुटि",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "go_back": "वापस जाएँ",
-                    "not_found": "कोई नोट डेटा उपलब्ध नहीं है",
-                    "load_failed": "नोट डेटा लोड करने में विफल",
-                    "retrieve_failed": "नोट डेटा प्राप्त करने में विफल",
-                    "decrypt_failed": "नोट डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
+                    "not_found": "रिकॉर्ड नहीं मिला",
+                    "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।",
+                    "retrieve_failed": "भुगतान कार्ड डेटा प्राप्त करने में विफल",
+                    "decrypt_failed": "भुगतान कार्ड डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
                 },
                 "no_title": "कोई शीर्षक नहीं",
                 "no_content": "कोई सामग्री नहीं",
-                "untitled": "बिना शीर्षक वाला नोट",
+                "untitled": "बिना शीर्षक वाला",
                 "no_folder": "कोई फ़ोल्डर नहीं",
                 "decrypt": {
-                    "button": "नोट डिक्रिप्ट करें",
+                    "button": "भुगतान कार्ड डिक्रिप्ट करें",
                     "decrypting": "डिक्रिप्ट हो रहा है..."
                 },
                 "info": {
-                    "title": "नोट जानकारी",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "note_id": "नोट ID",
                     "type": "प्रकार",
                     "folder": "फ़ोल्डर",
                     "copy_id": "नोट ID कॉपी करें"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "download": "ZelfProof डाउनलोड करें"
                 },
                 "decrypted": {
-                    "title": "डिक्रिप्ट की गई सामग्री",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "title_field": "शीर्षक",
                     "content": "सामग्री",
                     "no_title": "कोई शीर्षक नहीं",
@@ -1211,82 +1228,82 @@
             },
             "form": {
                 "title": {
-                    "add": "नया नोट जोड़ें",
-                    "edit": "नोट संपादित करें"
+                    "add": "नया भुगतान कार्ड जोड़ें",
+                    "edit": "संपादित करें"
                 },
                 "title_field": {
-                    "label": "नोट का शीर्षक *"
+                    "label": "बैंक का नाम *"
                 },
                 "content": {
-                    "label": "नोट की सामग्री *",
-                    "hint": "आपकी नोट सामग्री को एन्क्रिप्ट और सुरक्षित रूप से संग्रहीत किया जाएगा। आप जितना चाहें उतना लिख सकते हैं।"
+                    "label": "बैंक का नाम *",
+                    "hint": "आपके क्रेडेंशियल्स को एन्क्रिप्ट और संग्रहीत करने के लिए हमें {{ walletName }} पासवर्ड की आवश्यकता है। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "folder": {
-                    "label": "फ़ोल्डर में व्यवस्थित करें",
-                    "placeholder": "फ़ोल्डर का नाम दर्ज करें",
-                    "aria_label": "फ़ोल्डर संगठन स्विच करें"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें",
+                    "aria_label": "फ़ोल्डर स्टोरेज स्विच करें"
                 },
                 "master_password": {
-                    "label": "मास्टर पासवर्ड *",
+                    "label": "बैंक का नाम *",
                     "hint": "आपके क्रेडेंशियल्स को एन्क्रिप्ट और संग्रहीत करने के लिए हमें {{ walletName }} पासवर्ड की आवश्यकता है। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "buttons": {
                     "cancel": "रद्द करें",
-                    "create": "नोट बनाएँ",
-                    "update": "नोट अपडेट करें"
+                    "create": "कार्ड बनाएँ",
+                    "update": "कार्ड अपडेट करें"
                 }
             }
         },
         "passwords": {
-            "title": "पासवर्ड",
-            "subtitle": "अपने सुरक्षित पासवर्ड और क्रेडेंशियल प्रबंधित करें",
+            "title": "भुगतान कार्ड की जानकारी",
+            "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
             "loading": {
-                "title": "आपके पासवर्ड लोड हो रहे हैं",
-                "message": "कृपया प्रतीक्षा करें जब तक हम आपका सुरक्षित डेटा प्राप्त कर रहे हैं..."
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
             },
             "error": {
-                "title": "ओह! कुछ गलत हो गया",
-                "message": "हम आपके पासवर्ड लोड नहीं कर सके।",
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!",
                 "try_again": "पुनः प्रयास करें",
-                "load_failed": "संग्रहीत पासवर्ड लोड करने में विफल। कृपया पुनः प्रयास करें।"
+                "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।"
             },
             "premium": {
-                "title": "प्रीमियम सुविधाएँ अनलॉक करें",
-                "description": "ZelfKeys प्रीमियम के साथ उन्नत सुरक्षा और बहुत कुछ प्राप्त करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "add_password": {
-                "title": "नया पासवर्ड जोड़ें",
-                "description": "नया पासवर्ड सुरक्षित रूप से संग्रहीत करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "search": {
-                "placeholder": "पासवर्ड खोजें..."
+                "placeholder": "कार्ड प्रकार चुनें"
             },
             "no_results": {
-                "title": "कोई पासवर्ड नहीं मिला",
-                "message": "अपने खोज शब्दों को समायोजित करने का प्रयास करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
             },
             "detail": {
-                "loading": "पासवर्ड विवरण लोड हो रहा है...",
+                "loading": "परिणाम लोड हो रहा है...",
                 "error": {
-                    "title": "पासवर्ड लोड करने में त्रुटि",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "go_back": "वापस जाएँ",
-                    "not_found": "पासवर्ड डेटा नहीं मिला",
-                    "load_failed": "पासवर्ड डेटा लोड करने में विफल",
-                    "decrypt_failed": "पासवर्ड डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
+                    "not_found": "रिकॉर्ड नहीं मिला",
+                    "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।",
+                    "decrypt_failed": "भुगतान कार्ड डिक्रिप्ट करने में विफल। कृपया पुनः प्रयास करें।"
                 },
-                "untitled": "बिना शीर्षक वाला पासवर्ड",
+                "untitled": "बिना शीर्षक वाला",
                 "no_username": "कोई उपयोगकर्ता नाम नहीं",
                 "no_website": "कोई वेबसाइट नहीं",
                 "no_category": "कोई श्रेणी नहीं",
                 "no_zelf_name": "कोई zelf नाम नहीं",
                 "unknown_date": "अज्ञात तिथि",
                 "decrypt": {
-                    "button": "पासवर्ड डिक्रिप्ट करें",
+                    "button": "भुगतान कार्ड डिक्रिप्ट करें",
                     "decrypting": "डिक्रिप्ट हो रहा है...",
                     "launch_fill": "लॉन्च करें और भरें"
                 },
                 "info": {
-                    "title": "पासवर्ड जानकारी",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "website": "वेबसाइट",
                     "username": "उपयोगकर्ता नाम",
                     "category": "श्रेणी",
@@ -1298,11 +1315,11 @@
                     "prefill_autofill": "ऑटोफिल प्रीफिल"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "download": "ZelfProof डाउनलोड करें"
                 },
                 "decrypted": {
-                    "title": "डिक्रिप्ट की गई सामग्री",
+                    "title": "भुगतान कार्ड की जानकारी",
                     "website": "वेबसाइट",
                     "username": "उपयोगकर्ता नाम",
                     "password": "पासवर्ड",
@@ -1315,31 +1332,31 @@
                 }
             },
             "form": {
-                "title": "पासवर्ड जोड़ें",
+                "title": "भुगतान कार्ड की जानकारी",
                 "website": {
-                    "label": "वेबसाइट URL *"
+                    "label": "बैंक का नाम *"
                 },
                 "title_field": {
-                    "label": "शीर्षक *",
-                    "placeholder": "शीर्षक दर्ज करें"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "email": {
-                    "label": "ईमेल/उपयोगकर्ता नाम *"
+                    "label": "बैंक का नाम *"
                 },
                 "password": {
-                    "label": "पासवर्ड *"
+                    "label": "बैंक का नाम *"
                 },
                 "folder": {
-                    "label": "फ़ोल्डर में व्यवस्थित करें",
-                    "placeholder": "फ़ोल्डर का नाम दर्ज करें",
-                    "aria_label": "फ़ोल्डर संगठन स्विच करें"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें",
+                    "aria_label": "फ़ोल्डर स्टोरेज स्विच करें"
                 },
                 "notes": {
-                    "label": "नोट्स",
-                    "placeholder": "नोट्स दर्ज करें (वैकल्पिक)"
+                    "label": "बैंक का नाम *",
+                    "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "master_password": {
-                    "label": "मास्टर पासवर्ड *",
+                    "label": "बैंक का नाम *",
                     "hint": "आपके क्रेडेंशियल्स को एन्क्रिप्ट और संग्रहीत करने के लिए हमें {{ walletName }} पासवर्ड की आवश्यकता है। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "buttons": {
@@ -1350,12 +1367,12 @@
         },
         "password_result": {
             "status": {
-                "success_title": "पासवर्ड सफलतापूर्वक संग्रहीत किया गया!",
-                "error_title": "पासवर्ड संग्रहीत करने में त्रुटि",
+                "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
+                "error_title": "नोट संग्रहीत करने में त्रुटि",
                 "unknown_title": "अज्ञात स्थिति",
-                "success_message": "आपका पासवर्ड बायोमेट्रिक सत्यापन के साथ सुरक्षित रूप से संग्रहीत किया गया है।",
-                "error_message": "आपका पासवर्ड संग्रहीत करने में त्रुटि हुई। कृपया पुनः प्रयास करें।",
-                "unknown_message": "आपके पासवर्ड स्टोरेज अनुरोध की स्थिति स्पष्ट नहीं है।"
+                "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+                "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
+                "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
             },
             "error": {
                 "no_result": "कोई API परिणाम उपलब्ध नहीं है"
@@ -1366,9 +1383,9 @@
                 "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
                 "error_title": "नोट संग्रहीत करने में त्रुटि",
                 "unknown_title": "अज्ञात स्थिति",
-                "success_message": "आपका नोट सुरक्षित रूप से संग्रहीत किया गया है और ब्लॉकचेन सत्यापन के साथ एन्क्रिप्ट किया गया है।",
-                "error_message": "आपका नोट संग्रहीत करते समय एक त्रुटि हुई।",
-                "unknown_message": "सिस्टम स्टोरेज स्थिति निर्धारित नहीं कर सका।"
+                "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+                "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
+                "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
             },
             "error": {
                 "no_result": "कोई API परिणाम उपलब्ध नहीं है"
@@ -1376,36 +1393,36 @@
         }
     },
     "start": {
-        "title": "ZelfKeys में आपका स्वागत है",
-        "subtitle": "आपका सुरक्षित पासवर्ड मैनेजर",
+        "title": "भुगतान कार्ड की जानकारी",
+        "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
         "features": {
             "install_extension": {
-                "title": "हमारा एक्सटेंशन<br />इंस्टॉल करें",
-                "description": "अपने पसंदीदा ब्राउज़र में हमारा एक्सटेंशन प्राप्त करें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "secure_passwords": {
-                "title": "अपने पासवर्ड<br />सुरक्षित करें",
-                "description": "अपने पासवर्ड, भुगतान कार्ड और नोट्स जोड़ें।"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             },
             "autocomplete": {
-                "title": "अपनी जानकारी<br />ऑटो-फिल करें",
-                "description": "त्वरित बायोमेट्रिक सत्यापन के बाद अपने संग्रहीत पासवर्ड स्वचालित रूप से भरें।"
+                "title": "भुगतान कार्ड की जानकारी",
+                "description": "आपका भुगतान कार्ड सुरक्षित रूप से संग्रहीत और एन्क्रिप्ट किया गया है।"
             }
         },
         "cta": {
-            "button": "अपना पहला पासवर्ड सुरक्षित करें"
+            "button": "भुगतान कार्ड डिक्रिप्ट करें"
         }
     },
     "password_result": {
-        "title": "पासवर्ड संग्रहण परिणाम",
+        "title": "भुगतान कार्ड की जानकारी",
         "loading": "परिणाम लोड हो रहा है...",
         "sections": {
             "success": {
-                "title": "संग्रहण सफल!",
-                "message": "पासवर्ड सफलतापूर्वक संग्रहीत किया गया!"
+                "title": "भुगतान कार्ड की जानकारी",
+                "message": "नोट सफलतापूर्वक संग्रहीत किया गया!"
             },
             "details": {
-                "title": "संग्रहीत पासवर्ड विवरण",
+                "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
                     "website": "वेबसाइट",
                     "username": "उपयोगकर्ता नाम",
@@ -1416,7 +1433,7 @@
                 }
             },
             "nft": {
-                "title": "NFT बनाया गया",
+                "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
                     "token_id": "टोकन ID",
                     "cost": "लागत",
@@ -1429,7 +1446,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "IPFS स्टोरेज",
+                "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
                     "hash": "IPFS हैश",
                     "gateway_url": "गेटवे URL",
@@ -1441,7 +1458,7 @@
                 "gateway_link": "IPFS गेटवे पर देखें"
             },
             "walrus": {
-                "title": "Walrus स्टोरेज",
+                "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "सार्वजनिक URL",
@@ -1454,7 +1471,7 @@
                 "explorer_link": "एक्सप्लोरर पर देखें"
             },
             "zelfproof": {
-                "title": "ZelfProof बनाया गया",
+                "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
                     "string": "ZelfProof स्ट्रिंग",
                     "qr_code": "QR कोड"
@@ -1462,30 +1479,30 @@
                 "copy_hint": "कॉपी करने के लिए क्लिक करें"
             },
             "next_steps": {
-                "title": "अगले कदम",
-                "success_message": "आपका पासवर्ड अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने पासवर्ड सूची में देख सकते हैं या दूसरा पासवर्ड जोड़ सकते हैं।",
+                "title": "भुगतान कार्ड की जानकारी",
+                "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
                 "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
                 "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
             }
         },
         "actions": {
             "back_to_passwords": "पासवर्ड पर वापस जाएँ",
-            "add_another": "एक और पासवर्ड जोड़ें"
+            "add_another": "एक और कार्ड जोड़ें"
         },
         "status": {
-            "success_title": "पासवर्ड सफलतापूर्वक संग्रहीत किया गया!",
-            "error_title": "पासवर्ड संग्रहीत करने में त्रुटि",
+            "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
+            "error_title": "नोट संग्रहीत करने में त्रुटि",
             "unknown_title": "अज्ञात स्थिति",
-            "success_message": "आपका पासवर्ड बायोमेट्रिक सत्यापन के साथ सुरक्षित रूप से संग्रहीत किया गया है।",
-            "error_message": "आपका पासवर्ड संग्रहीत करने में त्रुटि हुई। कृपया पुनः प्रयास करें।",
-            "unknown_message": "आपके पासवर्ड स्टोरेज अनुरोध की स्थिति स्पष्ट नहीं है।"
+            "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+            "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
+            "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
         },
         "error": {
             "no_result": "कोई API परिणाम उपलब्ध नहीं है"
         }
     },
     "domain_selection": {
-        "title": "अपने टैग नाम के लिए डोमेन चुनें"
+        "title": "भुगतान कार्ड की जानकारी"
     },
     "zotp": {
         "add_zotp": "ZOTP जोड़ें",
@@ -1500,12 +1517,12 @@
         "upload_qr_code_instructions": "अपने ZOTP को स्वचालित रूप से कॉन्फ़िगर करने के लिए एक QR कोड छवि अपलोड करें",
         "no_zotps_added": "अभी तक कोई ZOTP नहीं जोड़ा गया है। जोड़ने के लिए + बटन पर क्लिक करें।",
         "master_password": "मास्टर पासवर्ड",
-        "master_password_placeholder": "अपने वॉलेट का मास्टर पासवर्ड दर्ज करें",
-        "master_password_hint": "इस ZOTP को सुरक्षित रूप से एन्क्रिप्ट और संग्रहीत करने के लिए आपके वॉलेट के मास्टर पासवर्ड की आवश्यकता है।",
+        "master_password_placeholder": "अपना मास्टर पासवर्ड डालें",
+        "master_password_hint": "यदि आपने इस प्रविष्टि को बनाते समय मास्टर पासवर्ड सेट किया है, तो उसे यहाँ डालें",
         "see_details": "विवरण देखें",
         "unlock_zotp": "ZOTP अनलॉक करें",
         "hide_secret": "कोड छिपाएं",
-        "details": "ZOTP विवरण",
+        "details": "विवरण",
         "qr_code": "QR कोड",
         "public_data": "सार्वजनिक डेटा",
         "ipfs_info": "IPFS जानकारी",
@@ -1576,7 +1593,7 @@
         "recovery_success_description": "आपका ZOTP वापस पा लिया गया है और आपके ऑथेंटिकेटर में जोड़ दिया गया है। अब आप कोड उत्पन्न करने के लिए इसका उपयोग कर सकते हैं।"
     },
     "rewards": {
-        "title": "पुरस्कार",
+        "title": "भुगतान कार्ड की जानकारी",
         "redeem_zns": "ZNS भुनाएं",
         "invite_friends": "दोस्तों को आमंत्रित करें",
         "daily_rewards": "दैनिक पुरस्कार",
@@ -1584,9 +1601,9 @@
         "your_tasks": "आपके कार्य",
         "coming_soon": "जल्द ही आ रहा है",
         "first_transaction": {
-            "title": "पहला लेन-देन पुरस्कार",
-            "loading": "पात्रता की जाँच की जा रही है...",
-            "success_title": "आप जीत गए हैं",
+            "title": "भुगतान कार्ड की जानकारी",
+            "loading": "परिणाम लोड हो रहा है...",
+            "success_title": "नोट सफलतापूर्वक संग्रहीत किया गया!",
             "success_subtitle": "पहला लेन-देन पूरा हुआ!",
             "earned_label": "आपने कमाया है",
             "accept": "स्वीकार करें",
@@ -1596,29 +1613,31 @@
             "already_claimed_title": "पहले ही दावा किया जा चुका है",
             "already_claimed_desc": "आप पहले ही इस पुरस्कार का दावा कर चुके हैं!",
             "instruction_action": "ZNS टोकन भेजें",
-            "instruction_desc": "इस इनाम को अनलॉक करने के लिए अपना पहला ZNS टोकन लेनदेन करें"
+            "instruction_desc": "इस इनाम को अनलॉक करने के लिए अपना पहला ZNS टोकन लेनदेन करें",
+            "error_no_wallet": "No wallet found",
+            "error_invalid_config": "Invalid wallet configuration"
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "अपने पहले मित्र को आमंत्रित करें",
+                "title": "भुगतान कार्ड की जानकारी",
                 "reward": "10 से 100 $ZNS जीतें"
             },
             "first_transaction": {
-                "title": "पहला ZNS लेनदेन भेजें",
-                "reward": "100 $ZNS तक कमाएं",
+                "title": "भुगतान कार्ड की जानकारी",
+                "reward": "10 से 100 $ZNS जीतें",
                 "reward_completed": "आपने {{amount}} $ZNS जीता"
             },
             "join_discord": {
-                "title": "हमारे डिस्कॉर्ड से जुड़ें",
-                "reward": "25 $ZNS जीतें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "reward": "10 से 100 $ZNS जीतें"
             },
             "join_telegram": {
-                "title": "हमारे टेलीग्राम समुदाय से जुड़ें",
-                "reward": "25 $ZNS जीतें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "reward": "10 से 100 $ZNS जीतें"
             },
             "join_x": {
-                "title": "X पर हमसे जुड़ें",
-                "reward": "5 $ZNS जीतें"
+                "title": "भुगतान कार्ड की जानकारी",
+                "reward": "10 से 100 $ZNS जीतें"
             }
         },
         "alreadyClaimedToday": "आपने आज का दैनिक इनाम पहले ही प्राप्त कर लिया है!",
@@ -1630,13 +1649,13 @@
         "seconds": "सेकंड",
         "spin_the_wheel": "पहिया घुमाएं",
         "spin_subtitle": "और $ZNS में दैनिक पुरस्कार जीतें",
-        "loading": "लोड हो रहा है...",
+        "loading": "परिणाम लोड हो रहा है...",
         "spinning": "घूम रहा है...",
         "come_back_tomorrow": "कल वापस आएं!",
         "spin_now": "पहिया घुमाएं!",
         "error": {
-            "no_wallet": "कोई वॉलेट नहीं मिला। कृपया पहले एक वॉलेट कनेक्ट करें।",
-            "load_failed": "व्हील कॉन्फ़िगरेशन लोड करने में विफल।",
+            "no_wallet": "कोई वॉलेट नहीं मिला। कृपया पहले अपना वॉलेट सेटअप करें।",
+            "load_failed": "भुगतान कार्ड लोड करने में विफल। कृपया पुनः प्रयास करें।",
             "claim_failed": "पुरस्कार का दावा नहीं किया जा सका।",
             "already_claimed": "आपने आज पहले ही अपना दैनिक पुरस्कार प्राप्त कर लिया है। कल वापस आएं!",
             "spin_failed": "पहिया घुमाने में विफल। कृपया पुन: प्रयास करें।",
@@ -1657,45 +1676,68 @@
         "start_earning_desc": "अपना कोड साझा करें और पुरस्कार अर्जित करना शुरू करें!",
         "status": {
             "purchased": "खरीदा गया",
-            "registered": "पंजीकृत",
+            "registered": "टैग नाम {{ date }} से पंजीकृत",
             "pending": "लंबित"
         },
         "claim": "{{ amount }} $ZNS का दावा करें"
     },
     "claim_reward": {
         "loading": {
-            "title": "पुरस्कार का दावा किया जा रहा है",
+            "title": "भुगतान कार्ड की जानकारी",
             "text": "आपके वॉलेट में {{ amount }} $ZNS भेजे जा रहे हैं...",
             "subtext": "इसमें कुछ सेकंड लग सकते हैं"
         },
         "success": {
-            "title": "आप जीत गए हैं",
-            "subtitle": "कार्य पूर्ण!",
+            "title": "भुगतान कार्ड की जानकारी",
+            "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
             "desc": "<strong>{{ name }}</strong> से रेफरल पुरस्कार",
-            "earned_label": "आपने अर्जित किया है",
+            "earned_label": "आपने कमाया है",
             "accept": "स्वीकार करें"
         },
         "error": {
-            "title": "दावा विफल",
-            "subtext": "चिंता न करें, आप पुन: प्रयास कर सकते हैं। आपका पुरस्कार अभी भी आपका इंतज़ार कर रहा है।",
-            "retry": "पुन: प्रयास करें",
-            "go_back": "वापस जाएं",
+            "title": "भुगतान कार्ड की जानकारी",
+            "subtext": "इसमें कुछ सेकंड लग सकते हैं",
+            "retry": "पुनः प्रयास करें",
+            "go_back": "वापस जाएँ",
             "messages": {
                 "reward_already_claimed": "इस पुरस्कार का दावा पहले ही किया जा चुका है",
-                "generic": "पुरस्कार का दावा करने में विफल। कृपया बाद में पुन: प्रयास करें।"
+                "generic": "क्षमा करें, इस अनुरोध को संसाधित करने में एक समस्या आ गई है। कृपया पुनः प्रयास करें।"
             }
         }
     },
     "home_banners": {
         "expiration": {
-            "title": "अपना ZelfName न खोएं",
-            "expired": "आपका डोमेन समाप्त हो गया है",
+            "title": "भुगतान कार्ड की जानकारी",
+            "expired": "समाप्त",
             "one_day": "आपका ZNS खरीदने के लिए 1 दिन शेष है",
             "days_left": "आपका ZNS खरीदने के लिए {{ days }} दिन शेष हैं"
         },
         "rewards": {
-            "title": "पुरस्कारों का दावा करें",
-            "subtitle": "हमारी खोजों के साथ प्रतिदिन $ZNS प्राप्त करें"
+            "title": "भुगतान कार्ड की जानकारी",
+            "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।"
         }
+    },
+    "dapp": {
+        "connection_request": "Connection Request",
+        "select_accounts": "Select accounts to connect",
+        "network": "नेटवर्क",
+        "threat_warning_title": "Malicious Site Detected",
+        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
+        "connect": "Connect",
+        "sign_message": "Sign Message",
+        "sign_transaction": "Sign Transaction",
+        "message_to_sign": "Message to sign",
+        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "wants_to_connect": "आपके वॉलेट से कनेक्ट होना चाहता है",
+        "accounts": "खाते",
+        "permissions": "अनुमतियाँ",
+        "permission_see_address": "पता, खाता शेष और गतिविधि देखें",
+        "permission_suggest_tx": "अनुमोदन के लिए लेनदेन सुझाएं",
+        "permission_disclaimer": "यह साइट को आपकी स्वीकृति के बिना फंड स्थानांतरित करने की अनुमति नहीं देगा",
+        "confirm_transaction": "लेनदेन की पुष्टि करें",
+        "to_address": "प्राप्तकर्ता",
+        "value": "राशि",
+        "data": "डेटा",
+        "biometric_required": "हस्ताक्षर के लिए बायोमेट्रिक सत्यापन आवश्यक है"
     }
 }

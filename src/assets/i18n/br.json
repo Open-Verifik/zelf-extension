@@ -1,4 +1,436 @@
 {
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "WALLET"
+        },
+        "common": {
+            "qr_code": "QR Code",
+            "no_folder": "No folder",
+            "download_zelfproof": "Baixar ZelfProof",
+            "back_to_payment_cards": "Back to Payment Cards",
+            "add_another_card": "Add Another Card",
+            "try_again": "Tentar novamente",
+            "image_not_available": "Image not available"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "Card Holder",
+                "expires": "Expires",
+                "bank_name": "Bank Name",
+                "card_number": "Card Number",
+                "expiry_date": "Expiry Date",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "CARD HOLDER"
+            },
+            "decrypt": {
+                "button": "Decrypt Payment Card",
+                "decrypting": "Decrypting..."
+            },
+            "info": {
+                "title": "Redes Blockchain",
+                "payment_card_id": "Payment Card ID",
+                "type": "Tipo",
+                "folder": "Folder",
+                "copy_payment_card_id": "Copy payment card ID"
+            },
+            "zelfproof": {
+                "title": "Redes Blockchain",
+                "download": "Download ZelfProof"
+            },
+            "decrypted": {
+                "title": "Redes Blockchain",
+                "card_holder_name": "Card Holder Name",
+                "copy_card_holder_name": "Copy card holder name",
+                "copy_card_number": "Copy card number",
+                "copy_expiry_date": "Copy expiry date",
+                "copy_cvv": "Copy CVV",
+                "copy_bank_name": "Copy bank name",
+                "show_card_number": "Show card number",
+                "hide_card_number": "Hide card number",
+                "show_cvv": "Show CVV",
+                "hide_cvv": "Hide CVV"
+            },
+            "error": {
+                "no_wallet": "Nenhuma carteira encontrada. Conecte uma carteira primeiro.",
+                "auth_failed": "Authentication failed. Please ensure you have a valid wallet.",
+                "init_failed": "Failed to initialize session. Please check your wallet connection.",
+                "no_token": "No authentication token available. Please refresh the page.",
+                "load_failed": "Falha ao carregar a configuração da roda."
+            },
+            "unknown_bank": "Unknown Bank",
+            "unknown": "Desconhecido",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "Failed to retrieve payment card data",
+                    "decrypt_failed": "Failed to decrypt payment card. Please try again."
+                },
+                "expiry_placeholder": "MM/YY"
+            },
+            "result": {
+                "error": {
+                    "no_data": "No result data found"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
+            },
+            "preview": {
+                "title": "Redes Blockchain",
+                "labels": {
+                    "name": "Payment Card Name",
+                    "card_holder": "Card Holder",
+                    "card_number": "Card Number",
+                    "expires": "Expires"
+                }
+            },
+            "image": {
+                "title": "Redes Blockchain",
+                "download": "Download ZelfProof"
+            },
+            "nft": {
+                "title": "Redes Blockchain",
+                "labels": {
+                    "token_id": "Token ID",
+                    "cost": "Cost",
+                    "contract": "Contract",
+                    "transaction": "Transação",
+                    "metadata_url": "Metadata URL"
+                },
+                "metadata_link": "View Metadata",
+                "copy_hint": "Click to copy",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "Redes Blockchain",
+                "labels": {
+                    "hash": "IPFS Hash",
+                    "gateway_url": "Gateway URL",
+                    "file_size": "File Size",
+                    "uploaded": "Uploaded"
+                },
+                "gateway_link": "View on IPFS Gateway"
+            },
+            "walrus": {
+                "title": "Redes Blockchain",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "Public URL",
+                    "explorer_url": "Explorer URL",
+                    "status": "Status",
+                    "reason": "Reason",
+                    "error": "Error"
+                },
+                "view_link": "View on Walrus",
+                "explorer_link": "View on Explorer"
+            },
+            "zelfproof": {
+                "title": "Redes Blockchain",
+                "labels": {
+                    "string": "ZelfProof String",
+                    "qr_code": "QR Code"
+                },
+                "copy_hint": "Click to copy"
+            },
+            "error": {
+                "title": "Redes Blockchain",
+                "default_message": "An unexpected error occurred while creating your payment card.",
+                "try_again": "Tentar novamente",
+                "no_data": "No result data found"
+            },
+            "actions": {
+                "back_to_cards": "Back to Payment Cards",
+                "add_another": "Add Another Card"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "Choose Your Plan",
+            "choose_your_plan_subtitle": "Select the plan that best fits your needs",
+            "loading_plans": "Loading subscription plans...",
+            "error": {
+                "try_again": "Tentar novamente",
+                "load_plans": "Failed to load subscription plans",
+                "create_crypto_payment": "Failed to create crypto payment",
+                "create_checkout": "Failed to create checkout session",
+                "open_portal": "Failed to open subscription management portal",
+                "customer_not_found": "Unable to find customer information. Please contact support.",
+                "no_subscription": "No active subscription found. Please refresh the page.",
+                "open_portal_generic": "Failed to open subscription management: {{ error }}",
+                "missing_payment_data": "Missing payment data. Please try again.",
+                "no_avax_address": "Selected wallet does not have an AVAX address.",
+                "no_avax_token": "Unable to load AVAX token data. Please try again.",
+                "prepare_transaction": "Failed to prepare transaction. Please try again."
+            },
+            "crypto": {
+                "complete_payment": "Complete Your Payment",
+                "demo_banner": "DEMO MODE - Testing with reduced amounts",
+                "send_amount_to_address": "Send {{ amount }} AVAX to the address below",
+                "price_lock": "Price locked for 30 minutes",
+                "payment_address_label": "Payment Address (Avalanche C-Chain)",
+                "copy": "Copiar para a área de transferência",
+                "scan_with_wallet": "Scan with your wallet",
+                "amount_to_send": "Amount to Send",
+                "original_plan_price": "Original Plan Price:",
+                "demo_discount": "Demo Discount: {{ discount }}%",
+                "waiting_confirmation": "Waiting for payment confirmation...",
+                "auto_update_note": "This page will automatically update when payment is received",
+                "cancel_payment": "Cancel Payment",
+                "payment_methods": "Payment Methods",
+                "copy_address": "Copy address:",
+                "scan_address": "Scan address:",
+                "pay_with_wallet": "Pay with Wallet:",
+                "domain_label": "Domain",
+                "select_wallet": "Select Wallet",
+                "pay_with_avax": "Pay with AVAX",
+                "payment_qr_code_alt": "Payment QR Code"
+            },
+            "plan": {
+                "popular_badge": "POPULAR",
+                "pay_with_stripe": "Pay with Stripe",
+                "pay_with_crypto": "Pay with Crypto",
+                "current_plan": "Your current plan",
+                "premium_plan": "Premium Plan",
+                "not_available": "Não disponível",
+                "month": "month"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "Look at the camera to verify your identity and store your {{ type }} securely",
+                "decrypt": "Look at the camera to verify your identity and access your {{ type }}"
+            },
+            "processing": {
+                "processing": "Processing your biometric data...",
+                "analyzing": "Analyzing your face..."
+            },
+            "status": {
+                "position_face_title": "Position your face in the center",
+                "position_face_subtitle": "Look directly at the camera and stay still"
+            },
+            "api_error": {
+                "title": "Redes Blockchain",
+                "try_again": "Tentar novamente",
+                "go_back": "Voltar"
+            },
+            "camera_error": {
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
+            },
+            "permission": {
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens.",
+                "go_back": "Voltar"
+            },
+            "close_aria": "Close biometrics verification",
+            "errors": {
+                "no_face_detected": "No face detected",
+                "look_at_camera": "Please look at the camera"
+            }
+        },
+        "subscription_banner": {
+            "title": "Redes Blockchain",
+            "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
+        },
+        "data_card": {
+            "details": "Details",
+            "no_qr": "No QR",
+            "untitled": "Untitled",
+            "username_label": "Username: {{ username }}",
+            "zelf_name_label": "Tag Name: {{ zelfName }}",
+            "category_label": "Category: {{ category }}",
+            "type_label": "Type: {{ type }}",
+            "secure_credential": "Secure credential"
+        },
+        "data_types": {
+            "note": "Note",
+            "password": "Senha",
+            "payment_card": "Payment Card"
+        },
+        "categories": {
+            "password": "Senha",
+            "note": "Note",
+            "notes": "Notes",
+            "payment_card": "Payment Card",
+            "card": "Card",
+            "contact": "Contact",
+            "zotp": "ZOTP"
+        },
+        "errors": {
+            "storing": "Error storing {{ type }}",
+            "retrieving": "Error retrieving {{ type }}"
+        },
+        "messages": {
+            "note_retrieved": "Note retrieved successfully",
+            "note_stored": "Note stored successfully",
+            "password_retrieved": "Password retrieved successfully",
+            "password_stored": "Password stored successfully"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "Verify Identity to Encrypt Payment Card",
+            "decrypt_payment_card": "Verify Identity to Decrypt Payment Card",
+            "encrypt_note": "Verify Identity to Encrypt Note",
+            "decrypt_note": "Verify Identity to Decrypt Note",
+            "encrypt_password": "Verify Identity to Encrypt Password",
+            "decrypt_password": "Verify Identity to Decrypt Password",
+            "instructions": {
+                "payment_card": "Please verify your face to decrypt your payment card",
+                "note": "Please verify your face to decrypt your note",
+                "password": "Senha"
+            },
+            "item": "Item",
+            "error": {
+                "storage_failed": "Error during storage of {{ category }}, please try again later.",
+                "try_again_later": "Please try again later.",
+                "close": "Fechar"
+            }
+        },
+        "popout_decryptor": {
+            "back": "Voltar",
+            "cancel": "Cancelar",
+            "loading_camera": "Initializing camera...",
+            "low_quality_message": "Please try again with better lighting",
+            "low_quality_title": "Low Quality Image",
+            "master_password_placeholder": "Enter your master password",
+            "permission_allow": "Please allow camera access",
+            "permission_required": "Camera Permission Required",
+            "processing": "Decrypting...",
+            "retry": "Tentar Novamente",
+            "title": "Redes Blockchain",
+            "unlock": "Desbloquear",
+            "types": {
+                "credit_card": "Payment Card",
+                "note": "Note",
+                "notes": "Note",
+                "password": "Senha",
+                "payment-card": "Payment Card",
+                "wallet": "Wallet",
+                "zotp": "ZOTP"
+            }
+        },
+        "password_biometrics": {
+            "back_to_details": "Back to Password Details",
+            "back_to_form": "Back to Password Form",
+            "verify_to_decrypt": "Verify Identity to Decrypt",
+            "biometric_verification": "Biometric Verification",
+            "instruction_title": "Position your face in the center",
+            "instruction_subtitle": "Look directly at the camera and stay still",
+            "compact_encrypt": "Please look at the camera to verify your identity and store your password securely",
+            "compact_decrypt": "Please look at the camera to verify your identity and decrypt your password",
+            "loading_processing": "Processing your biometric data...",
+            "camera_error_title": "Camera not available",
+            "camera_error_desc": "Please ensure your camera is enabled and accessible for biometric verification",
+            "permission_title": "Camera Permission Required",
+            "permission_desc": "Please allow camera access to continue with biometric verification",
+            "go_back": "Voltar",
+            "master_password_label": "Master Password (Optional):",
+            "master_password_placeholder": "Enter your master password if you have one",
+            "master_password_hint": "If you set a master password when creating this entry, enter it here"
+        },
+        "note_result": {
+            "title": "Redes Blockchain",
+            "loading": "Verificando elegibilidade...",
+            "sections": {
+                "success": {
+                    "title": "Redes Blockchain",
+                    "message": "Note stored successfully!"
+                },
+                "details": {
+                    "title": "Redes Blockchain",
+                    "labels": {
+                        "title": "Redes Blockchain",
+                        "folder": "Folder",
+                        "type": "Tipo",
+                        "category": "Category",
+                        "zelf_name": "Tag Name",
+                        "timestamp": "Timestamp"
+                    }
+                },
+                "nft": {
+                    "title": "Redes Blockchain",
+                    "labels": {
+                        "token_id": "Token ID",
+                        "cost": "Cost",
+                        "contract": "Contract",
+                        "transaction": "Transação"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "Redes Blockchain",
+                    "labels": {
+                        "hash": "IPFS Hash",
+                        "gateway_url": "Gateway URL",
+                        "file_size": "File Size",
+                        "uploaded": "Uploaded"
+                    },
+                    "gateway_link": "View on IPFS Gateway"
+                },
+                "walrus": {
+                    "title": "Redes Blockchain",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "Public URL",
+                        "explorer_url": "Explorer URL",
+                        "status": "Status",
+                        "reason": "Reason",
+                        "error": "Error"
+                    },
+                    "view_link": "View on Walrus",
+                    "explorer_link": "View on Explorer"
+                },
+                "zelfproof": {
+                    "title": "Redes Blockchain",
+                    "labels": {
+                        "string": "ZelfProof String",
+                        "qr_code": "QR Code"
+                    },
+                    "copy_hint": "Click to copy",
+                    "qr_alt": "ZelfProof QR Code"
+                },
+                "debug": {
+                    "title": "Redes Blockchain"
+                },
+                "next_steps": {
+                    "title": "Redes Blockchain",
+                    "success_message": "Your note is now securely stored. You can view it in your notes list or add another note.",
+                    "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
+                    "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
+                }
+            },
+            "actions": {
+                "back_to_notes": "Back to Notes",
+                "add_another": "Add Another Note"
+            },
+            "status": {
+                "success_title": "VOCÊ GANHOU",
+                "error_title": "Error Storing Note",
+                "unknown_title": "Unknown Status",
+                "success_message": "Your note has been securely stored and encrypted with blockchain verification.",
+                "error_message": "An error occurred while storing your note.",
+                "unknown_message": "The system couldn't determine the storage status."
+            },
+            "error": {
+                "no_result": "No API result available"
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "VOCÊ GANHOU",
+                "error_title": "Error Storing Password",
+                "unknown_title": "Unknown Status",
+                "success_message": "Your password has been securely stored with biometric verification.",
+                "error_message": "There was an error storing your password. Please try again.",
+                "unknown_message": "The status of your password storage request is unclear."
+            },
+            "error": {
+                "no_result": "No API result available"
+            }
+        }
+    },
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "logout_message": "Ao confirmar esta ação, você removerá todos os seus ZelfProofs da extensão. Você precisará descriptografar cada ZelfProof novamente para recuperar o acesso a eles. Tem certeza que deseja continuar?",
@@ -30,23 +462,23 @@
     "send": {
         "address_found": "Endereço encontrado",
         "available_balance": "Disponível {{balance}} {{symbol}}",
+        "average": "Médio",
         "cannot_continue_process": "Você não pode continuar com o processo",
+        "confirmations": "Confirmações",
         "continue_process": "Você pode continuar com o processo",
         "domain_or_address": "Domínio ou endereço",
+        "economical": "Econômico",
         "enter_amount_to_send": "Digite o valor a enviar",
         "external_address_found": "Endereço externo encontrado",
+        "fastest": "Mais rápido",
+        "transaction_settings": "Configurações de Transação",
+        "upto_sats": "Até {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos",
         "recent_addresses": "Recentes",
         "used": "Usado há {{days}} dias",
         "withdrawal_amount": "Valor do saque",
         "zelf_name_not_registered": "Nome da Tag não registrado",
         "zelf_name_registered": "Nome da Tag registrado",
         "from_address": "Do endereço",
-        "average": "Médio",
-        "confirmations": "Confirmações",
-        "economical": "Econômico",
-        "fastest": "Mais rápido",
-        "transaction_settings": "Configurações de Transação",
-        "upto_sats": "Até {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} minutos",
         "private_transaction": "Private Transaction"
     },
     "transaction": {
@@ -108,7 +540,18 @@
             "no_networks_available": "No networks available for your license. Please upgrade your plan to access more networks."
         },
         "language": {
-            "description": "Escolha seu idioma preferido para o aplicativo."
+            "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
+        },
+        "walletconnect_label": "Connect via link",
+        "walletconnect": {
+            "title": "Redes Blockchain",
+            "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens.",
+            "placeholder": "wc:...",
+            "connect_button": "Connect",
+            "connecting": "Connecting...",
+            "success": "Sucesso",
+            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
+            "error_failed": "Failed to connect. Please try again."
         },
         "security": {
             "biometric_verification_title": "Intervalo de verificação biométrica",
@@ -133,6 +576,7 @@
         "password_subtitle": "Digite a senha atribuída a este Tag Name para completar o processo de descriptografia.",
         "pin_description": "Criar um PIN de 6 dígitos",
         "pin_unlock_description": "Use seu PIN para desbloquear seu ZelfProof",
+        "pin_confirm_description": "Re-enter your 6 character PIN to confirm",
         "pin_title": "PIN",
         "secure_password_description": "Uma camada de segurança adicional",
         "secure_password_title": "Senha Segura",
@@ -140,7 +584,7 @@
         "security_layer_title": "CAMADA DE SEGURANÇA",
         "strong": "Forte",
         "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
-        "title": "Camadas de Criptografia do ZelfProof",
+        "title": "Redes Blockchain",
         "unhide_words": "Mostrar palavras",
         "weak": "Fraca",
         "weak_password": "Senha fraca",
@@ -149,14 +593,13 @@
         "create_pin_title": "CRIAR UM PIN",
         "create_pin_subtitle": "Por favor, insira uma senha de 6 dígitos para o seu ZelfProof.",
         "confirm_pin_title": "CONFIRMAR PIN",
-        "confirm_pin_subtitle": "Por favor, insira novamente a senha de 6 dígitos para o seu ZelfProof.",
-        "pin_confirm_description": "Re-enter your 6 character PIN to confirm"
+        "confirm_pin_subtitle": "Por favor, insira novamente a senha de 6 dígitos para o seu ZelfProof."
     },
     "receive": {
         "information": "Este endereço só pode ser usado para receber tokens compatíveis.",
         "your_token_address": "Seu endereço {{ name }}",
         "risks_modal": {
-            "title": "Antes de receber {{ symbol }}",
+            "title": "Redes Blockchain",
             "risk_1_title": "Somente rede {{ name }}",
             "risk_1": "Envie apenas {{ symbol }} na rede {{ name }} para este endereço. Tokens de outra cadeia não podem ser recuperados.",
             "risk_2_title": "Verifique o endereço",
@@ -171,6 +614,8 @@
     },
     "common": {
         "back": "Voltar",
+        "optional": "Optional",
+        "no_results_found": "No results found",
         "12_word_phrase": "Frase de 12 palavras",
         "24_word_phrase": "Frase de 24 palavras",
         "about": "Sobre",
@@ -182,14 +627,16 @@
         "are_you_sure": "Tem certeza?",
         "asset": "Ativo",
         "available": "Disponível",
+        "avax_address": "AVAX Address",
         "balance": "Saldo",
-        "btc_address": "Endereço BTC",
         "bdag_address": "Endereço BDAG",
+        "btc_address": "Endereço BTC",
         "buy_now": "Comprar agora",
         "cancel": "Cancelar",
         "close": "Fechar",
         "coin": "Moeda",
         "come_back_later": "Por favor, volte mais tarde!",
+        "download_apps": "Download Apps",
         "confirm_password": "Confirmar senha",
         "confirm": "Confirmar",
         "continue": "Continuar",
@@ -207,6 +654,7 @@
         "domain": "Domínio",
         "dont_show_me_again": "Não mostrar novamente",
         "dont_show_this_message_again": "Não mostrar estas instruções novamente",
+        "download_qr": "Download QR",
         "download_zelfproof": "Baixar ZelfProof",
         "edit": "Editar",
         "eth_address": "Endereço ETH",
@@ -221,7 +669,7 @@
         "import_a_wallet": "Importar uma carteira",
         "import_wallet": "Importar carteira",
         "import": "Importar",
-        "information": "Informação",
+        "information": "Este endereço só pode ser usado para receber tokens compatíveis.",
         "is_required": "é obrigatório",
         "learn_more": "Saiba mais",
         "load_more": "Carregar mais",
@@ -251,7 +699,7 @@
         "receive": "Receber",
         "recommended": "Recomendado",
         "refresh": "Atualizar",
-        "registered": "Registrado",
+        "registered": "Tag Name registrado desde {{ date }}",
         "remove_all_zelfproofs": "Remover todos os ZelfProofs",
         "remove": "Remover",
         "renew_domain": "Renovar domínio",
@@ -259,6 +707,7 @@
         "reservation_found": "Reserva encontrada",
         "search_your_zelf_name": "Pesquisar seu Tag Name",
         "search": "Pesquisar...",
+        "seed_phrase": "Seed Phrase",
         "send_symbol": "Enviar {{symbol}}",
         "send": "Enviar",
         "settings": "Configurações",
@@ -287,16 +736,10 @@
         "withdrawal_network": "Rede de saque",
         "yes": "Sim",
         "your_token": "Seu {{ symbol }}",
-        "zelf_wallet": "Carteira Zelf",
-        "optional": "Optional",
-        "no_results_found": "No results found",
-        "avax_address": "AVAX Address",
-        "download_apps": "Download Apps",
-        "download_qr": "Download QR",
-        "seed_phrase": "Seed Phrase",
         "zelf_authenticator": "Zelf Authenticator",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
+        "zelf_wallet": "Carteira Zelf",
         "subscriptions": "Subscriptions",
         "download_short": "Baixar",
         "mnemonics": "Mnemônicos",
@@ -305,7 +748,7 @@
     },
     "token": {
         "24h_performance": "Desempenho 24h",
-        "about": "Sobre {{ network }}",
+        "about": "Sobre",
         "circulating_supply": "Oferta Circulante",
         "holders": "Detentores",
         "market_cap": "Capitalização de mercado",
@@ -321,7 +764,7 @@
         "know_more": "Saiba mais",
         "lifetime": "Vitalício",
         "price_per_year": "Preço por ano",
-        "title": "Domínio para compra",
+        "title": "Redes Blockchain",
         "years": "{{ yearCount }} anos"
     },
     "wallet": {
@@ -333,17 +776,17 @@
         "info": "Info"
     },
     "private_key": {
-        "description": "Para visualizar sua chave privada, complete as etapas de verificação de segurança.",
-        "got_it": "Entendi",
-        "title": "Chave Privada"
+        "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens.",
+        "got_it": "Entendi, farei isso mais tarde",
+        "title": "Redes Blockchain"
     },
     "my_arns": {
         "arns_website": "Site ArNS",
-        "description": "Seu site pessoal para receber criptomoedas, fácil de compartilhar com todas as informações necessárias para transferências diretas."
+        "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
     },
     "manage_domain": {
         "hold_until": "Manter até",
-        "registered_since": "Registrado em",
+        "registered_since": "Registrado desde {{ date }}",
         "registered_until": "Expira em"
     },
     "manage_domains": {
@@ -365,6 +808,8 @@
     "errors": {
         "address_too_long": "Endereço muito longo",
         "all_fields_required": "Todos os campos são obrigatórios",
+        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
+        "cannot_decrypt_zotp_missing_zelfProof": "Cannot decrypt ZOTP: missing ZelfProof. This ZOTP cannot be decrypted without a valid ZelfProof.",
         "cannot_swap_across_these_networks": "Você ainda não pode trocar entre essas redes. Por favor, tente novamente mais tarde.",
         "chart_not_found": "Dados do gráfico não disponíveis",
         "Duplicated_person": "ZelfProof está sendo usado para outro registro",
@@ -376,10 +821,17 @@
         "ERR_LIVENESS_FAILED": "Falha na detecção de vivacidade",
         "ERR_UNPROCESSABLE_CONTENT": "Não foi possível descriptografar o ZelfProof",
         "ERR_VERIFICATION_FAILED": "Falha na detecção de vivacidade",
+        "error_closing_popup": "Error closing window",
+        "error_initializing_biometrics": "Error initializing biometrics",
+        "error_sending_decryption_result_to_background": "Error communicating with extension",
+        "error_stopping_camera": "Error stopping camera",
+        "face_detection_error": "Face detection failed",
+        "face_not_central": "Seu rosto não está centralizado. Por favor, ajuste sua posição e tente novamente.",
         "failed_to_get_quote": "Falha ao obter uma cotação para esta troca.",
         "generic_identity": "Desculpe, parece que houve um problema com sua verificação de identidade. Por favor, tente novamente.",
         "generic_title": "Ocorreu um erro",
         "generic": "Desculpe, houve um problema ao processar esta solicitação. Por favor, tente novamente.",
+        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
         "incorrect_zelf_proof_message": "O arquivo fornecido não parece ser um ZelfProof válido. Por favor, tente novamente.",
         "incorrect_zelf_proof_title": "ZelfProof incorreto",
         "insufficient_funds": "Fundos insuficientes. Certifique-se de ter fundos suficientes em sua carteira para cobrir as taxas de transação.",
@@ -396,36 +848,33 @@
         "missing_contract_address": "Endereço do contrato de troca está faltando. Tente novamente mais tarde.",
         "must_be_greater_than": "Deve ser maior que {{ value }}",
         "must_be_less_than": "Deve ser menor que {{ value }}",
+        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
+        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
         "not_found": "Registro não encontrado",
         "password_doesnt_match": "As senhas não coincidem",
         "password_incorrect": "A senha está incorreta",
-        "LIVENESS CHECK FAILED.": "A verificação de vivacidade falhou. Por favor, tente novamente.",
-        "THE PROVIDED PASSWORD IS INVALID.": "A senha que você inseriu está incorreta. Por favor, verifique sua senha e tente novamente.",
+        "LIVENESS CHECK FAILED": {
+            "": "A verificação de vivacidade falhou. Por favor, tente novamente."
+        },
+        "THE PROVIDED PASSWORD IS INVALID": {
+            "": "A verificação de vivacidade falhou. Por favor, tente novamente."
+        },
         "person_already_set": "Seu registro já tem um ZelfProof vinculado",
         "private_key_locked": "A chave privada foi bloqueada. Você deve realizar uma verificação biométrica para prosseguir.",
         "required_field": "Este campo é obrigatório",
         "same_address": "Você não pode enviar fundos para o mesmo endereço",
+        "session_init_info": "To use the Tag Name Service Extension, you will require network access. For an offline solution, check our iOS and Android apps.",
+        "session_init_message": "Sorry, there was an issue initializing your session. This may be due to a network problem or server unavailability. Please try again.",
+        "session_init_title": "Session initialization failed",
         "something_went_wrong": "Algo deu errado, por favor tente novamente",
         "swap_same_asset": "Você não pode trocar para o mesmo ativo",
         "transaction_not_found": "Transação não encontrada",
         "try_again": "Tentar novamente",
-        "zelfName_is_taken": "Este nome da tag já está em uso",
-        "camera_dimensions_not_properly_initialized": "Camera not properly initialized",
-        "cannot_decrypt_zotp_missing_zelfProof": "Cannot decrypt ZOTP: missing ZelfProof. This ZOTP cannot be decrypted without a valid ZelfProof.",
-        "error_closing_popup": "Error closing window",
-        "error_initializing_biometrics": "Error initializing biometrics",
-        "error_sending_decryption_result_to_background": "Error communicating with extension",
-        "error_stopping_camera": "Error stopping camera",
-        "face_detection_error": "Face detection failed",
-        "face_not_central": "Seu rosto não está centralizado. Por favor, ajuste sua posição e tente novamente.",
-        "incorrect_passphrase": "Master password entered incorrectly. Please try again.",
-        "no_decrypted_data_received_from_api": "No decrypted data received from the server",
-        "no_zelfproof_available_for_password_decryption": "No ZelfProof available for password decryption",
-        "session_init_info": "To use the Tag Name Service Extension, you will require network access. For an offline solution, check our iOS and Android apps.",
-        "session_init_message": "Sorry, there was an issue initializing your session. This may be due to a network problem or server unavailability. Please try again.",
-        "session_init_title": "Session initialization failed",
         "unknown_error": "An unknown error occurred",
-        "user_cancelled_decryption": "Decryption was cancelled"
+        "user_cancelled_decryption": "Decryption was cancelled",
+        "zelfName_is_taken": "Este nome da tag já está em uso",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
     },
     "swap": {
         "automatic": "Automático",
@@ -435,7 +884,7 @@
         "manual": "Manual",
         "powered_by": "Desenvolvido por <strong>{{ bridge }}</strong>",
         "pricing_text": "A melhor taxa encontrada em vários mercados descentralizados.",
-        "pricing": "Precificação",
+        "pricing": "Preços",
         "priority_commission_subtitle": "Comissões de maior prioridade podem resultar em processamento mais rápido de transações durante congestionamento da rede.",
         "priority_commission": "Comissão de Prioridade",
         "select_asset": "Selecionar ativo",
@@ -452,13 +901,13 @@
     "home": {
         "manage_networks": "Gerenciar redes",
         "assets": "Tokens",
+        "keys": "Keys",
         "NFTs": "Colecionáveis",
         "receive_transaction_button": "Receber",
         "send_transaction_button": "Enviar",
         "settings_button": "Configurações",
         "support_button": "Suporte",
-        "swap": "Trocar",
-        "keys": "Keys"
+        "swap": "Trocar"
     },
     "id_scanning": {
         "camera_not_found": "Câmera não encontrada",
@@ -522,444 +971,12 @@
         "considerations_description_2": "Identidade única.",
         "considerations_description_3": "Proteção à prova de futuro."
     },
-    "zelf_keys": {
-        "dashboard": {
-            "wallet": "WALLET"
-        },
-        "common": {
-            "qr_code": "QR Code",
-            "no_folder": "No folder",
-            "download_zelfproof": "Download ZelfProof",
-            "back_to_payment_cards": "Back to Payment Cards",
-            "add_another_card": "Add Another Card",
-            "try_again": "Try Again",
-            "image_not_available": "Image not available"
-        },
-        "payment_cards": {
-            "labels": {
-                "card_holder": "Card Holder",
-                "expires": "Expires",
-                "bank_name": "Bank Name",
-                "card_number": "Card Number",
-                "expiry_date": "Expiry Date",
-                "cvv": "CVV"
-            },
-            "placeholders": {
-                "card_holder_upper": "CARD HOLDER"
-            },
-            "decrypt": {
-                "button": "Decrypt Payment Card",
-                "decrypting": "Decrypting..."
-            },
-            "info": {
-                "title": "Payment Card Information",
-                "payment_card_id": "Payment Card ID",
-                "type": "Type",
-                "folder": "Folder",
-                "copy_payment_card_id": "Copy payment card ID"
-            },
-            "zelfproof": {
-                "title": "ZelfProof",
-                "download": "Download ZelfProof"
-            },
-            "decrypted": {
-                "title": "Decrypted Content",
-                "card_holder_name": "Card Holder Name",
-                "copy_card_holder_name": "Copy card holder name",
-                "copy_card_number": "Copy card number",
-                "copy_expiry_date": "Copy expiry date",
-                "copy_cvv": "Copy CVV",
-                "copy_bank_name": "Copy bank name",
-                "show_card_number": "Show card number",
-                "hide_card_number": "Hide card number",
-                "show_cvv": "Show CVV",
-                "hide_cvv": "Hide CVV"
-            },
-            "error": {
-                "no_wallet": "No wallet found. Please set up your wallet first.",
-                "auth_failed": "Authentication failed. Please ensure you have a valid wallet.",
-                "init_failed": "Failed to initialize session. Please check your wallet connection.",
-                "no_token": "No authentication token available. Please refresh the page.",
-                "load_failed": "Failed to load payment cards. Please try again."
-            },
-            "unknown_bank": "Unknown Bank",
-            "unknown": "Unknown",
-            "detail": {
-                "error": {
-                    "retrieve_failed": "Failed to retrieve payment card data",
-                    "decrypt_failed": "Failed to decrypt payment card. Please try again."
-                },
-                "expiry_placeholder": "MM/YY"
-            },
-            "result": {
-                "error": {
-                    "no_data": "No result data found"
-                }
-            }
-        },
-        "payment_card_result": {
-            "success": {
-                "title": "Payment Card Created Successfully!",
-                "description": "Your payment card has been securely stored and encrypted."
-            },
-            "preview": {
-                "title": "Card Details",
-                "labels": {
-                    "name": "Payment Card Name",
-                    "card_holder": "Card Holder",
-                    "card_number": "Card Number",
-                    "expires": "Expires"
-                }
-            },
-            "image": {
-                "title": "ZelfProof",
-                "download": "Download ZelfProof"
-            },
-            "nft": {
-                "title": "NFT Created",
-                "labels": {
-                    "token_id": "Token ID",
-                    "cost": "Cost",
-                    "contract": "Contract",
-                    "transaction": "Transaction",
-                    "metadata_url": "Metadata URL"
-                },
-                "metadata_link": "View Metadata",
-                "copy_hint": "Click to copy",
-                "image_alt": "ZelfKey NFT"
-            },
-            "ipfs": {
-                "title": "IPFS Storage",
-                "labels": {
-                    "hash": "IPFS Hash",
-                    "gateway_url": "Gateway URL",
-                    "file_size": "File Size",
-                    "uploaded": "Uploaded"
-                },
-                "gateway_link": "View on IPFS Gateway"
-            },
-            "walrus": {
-                "title": "Walrus Storage",
-                "labels": {
-                    "blob_id": "Blob ID",
-                    "public_url": "Public URL",
-                    "explorer_url": "Explorer URL",
-                    "status": "Status",
-                    "reason": "Reason",
-                    "error": "Error"
-                },
-                "view_link": "View on Walrus",
-                "explorer_link": "View on Explorer"
-            },
-            "zelfproof": {
-                "title": "ZelfProof Generated",
-                "labels": {
-                    "string": "ZelfProof String",
-                    "qr_code": "QR Code"
-                },
-                "copy_hint": "Click to copy"
-            },
-            "error": {
-                "title": "Error Creating Payment Card",
-                "default_message": "An unexpected error occurred while creating your payment card.",
-                "try_again": "Try Again",
-                "no_data": "No result data found"
-            },
-            "actions": {
-                "back_to_cards": "Back to Payment Cards",
-                "add_another": "Add Another Card"
-            }
-        },
-        "billing_ui": {
-            "choose_your_plan_title": "Choose Your Plan",
-            "choose_your_plan_subtitle": "Select the plan that best fits your needs",
-            "loading_plans": "Loading subscription plans...",
-            "error": {
-                "try_again": "Try Again",
-                "load_plans": "Failed to load subscription plans",
-                "create_crypto_payment": "Failed to create crypto payment",
-                "create_checkout": "Failed to create checkout session",
-                "open_portal": "Failed to open subscription management portal",
-                "customer_not_found": "Unable to find customer information. Please contact support.",
-                "no_subscription": "No active subscription found. Please refresh the page.",
-                "open_portal_generic": "Failed to open subscription management: {{ error }}",
-                "missing_payment_data": "Missing payment data. Please try again.",
-                "no_avax_address": "Selected wallet does not have an AVAX address.",
-                "no_avax_token": "Unable to load AVAX token data. Please try again.",
-                "prepare_transaction": "Failed to prepare transaction. Please try again."
-            },
-            "crypto": {
-                "complete_payment": "Complete Your Payment",
-                "demo_banner": "DEMO MODE - Testing with reduced amounts",
-                "send_amount_to_address": "Send {{ amount }} AVAX to the address below",
-                "price_lock": "Price locked for 30 minutes",
-                "payment_address_label": "Payment Address (Avalanche C-Chain)",
-                "copy": "Copy",
-                "scan_with_wallet": "Scan with your wallet",
-                "amount_to_send": "Amount to Send",
-                "original_plan_price": "Original Plan Price:",
-                "demo_discount": "Demo Discount: {{ discount }}%",
-                "waiting_confirmation": "Waiting for payment confirmation...",
-                "auto_update_note": "This page will automatically update when payment is received",
-                "cancel_payment": "Cancel Payment",
-                "payment_methods": "Payment Methods",
-                "copy_address": "Copy address:",
-                "scan_address": "Scan address:",
-                "pay_with_wallet": "Pay with Wallet:",
-                "domain_label": "Domain",
-                "select_wallet": "Select Wallet",
-                "pay_with_avax": "Pay with AVAX",
-                "payment_qr_code_alt": "Payment QR Code"
-            },
-            "plan": {
-                "popular_badge": "POPULAR",
-                "pay_with_stripe": "Pay with Stripe",
-                "pay_with_crypto": "Pay with Crypto",
-                "current_plan": "Your current plan",
-                "premium_plan": "Premium Plan",
-                "not_available": "N/A",
-                "month": "month"
-            }
-        },
-        "biometrics": {
-            "instructions": {
-                "encrypt": "Look at the camera to verify your identity and store your {{ type }} securely",
-                "decrypt": "Look at the camera to verify your identity and access your {{ type }}"
-            },
-            "processing": {
-                "processing": "Processing your biometric data...",
-                "analyzing": "Analyzing your face..."
-            },
-            "status": {
-                "position_face_title": "Position your face in the center",
-                "position_face_subtitle": "Look directly at the camera and stay still"
-            },
-            "api_error": {
-                "title": "Authentication Failed",
-                "try_again": "Try Again",
-                "go_back": "Go Back"
-            },
-            "camera_error": {
-                "title": "Camera not available",
-                "description": "Please ensure your camera is enabled and accessible for biometric verification"
-            },
-            "permission": {
-                "title": "Camera Permission Required",
-                "description": "Please allow camera access to continue with biometric verification",
-                "go_back": "Go Back"
-            },
-            "close_aria": "Close biometrics verification",
-            "errors": {
-                "no_face_detected": "No face detected",
-                "look_at_camera": "Please look at the camera"
-            }
-        },
-        "subscription_banner": {
-            "title": "Unlock Premium Features",
-            "description": "Get unlimited access, advanced security, and more with ZelfKeys Premium"
-        },
-        "data_card": {
-            "details": "Details",
-            "no_qr": "No QR",
-            "untitled": "Untitled",
-            "username_label": "Username: {{ username }}",
-            "zelf_name_label": "Tag Name: {{ zelfName }}",
-            "category_label": "Category: {{ category }}",
-            "type_label": "Type: {{ type }}",
-            "secure_credential": "Secure credential"
-        },
-        "data_types": {
-            "note": "Note",
-            "password": "Password",
-            "payment_card": "Payment Card"
-        },
-        "categories": {
-            "password": "Password",
-            "note": "Note",
-            "notes": "Notes",
-            "payment_card": "Payment Card",
-            "card": "Card",
-            "contact": "Contact",
-            "zotp": "ZOTP"
-        },
-        "errors": {
-            "storing": "Error storing {{ type }}",
-            "retrieving": "Error retrieving {{ type }}"
-        },
-        "messages": {
-            "note_retrieved": "Note retrieved successfully",
-            "note_stored": "Note stored successfully",
-            "password_retrieved": "Password retrieved successfully",
-            "password_stored": "Password stored successfully"
-        },
-        "biometrics_bottom_sheet": {
-            "encrypt_payment_card": "Verify Identity to Encrypt Payment Card",
-            "decrypt_payment_card": "Verify Identity to Decrypt Payment Card",
-            "encrypt_note": "Verify Identity to Encrypt Note",
-            "decrypt_note": "Verify Identity to Decrypt Note",
-            "encrypt_password": "Verify Identity to Encrypt Password",
-            "decrypt_password": "Verify Identity to Decrypt Password",
-            "instructions": {
-                "payment_card": "Please verify your face to decrypt your payment card",
-                "note": "Please verify your face to decrypt your note",
-                "password": "Please verify your face to decrypt your password"
-            },
-            "item": "Item",
-            "error": {
-                "storage_failed": "Error during storage of {{ category }}, please try again later.",
-                "try_again_later": "Please try again later.",
-                "close": "Close"
-            }
-        },
-        "popout_decryptor": {
-            "back": "Back",
-            "cancel": "Cancel",
-            "loading_camera": "Initializing camera...",
-            "low_quality_message": "Please try again with better lighting",
-            "low_quality_title": "Low Quality Image",
-            "master_password_placeholder": "Enter your master password",
-            "permission_allow": "Please allow camera access",
-            "permission_required": "Camera Permission Required",
-            "processing": "Decrypting...",
-            "retry": "Retry",
-            "title": "{{ type }} Decryption",
-            "unlock": "Continue to Biometrics",
-            "types": {
-                "credit_card": "Payment Card",
-                "note": "Note",
-                "notes": "Note",
-                "password": "Password",
-                "payment-card": "Payment Card",
-                "wallet": "Wallet",
-                "zotp": "ZOTP"
-            }
-        },
-        "password_biometrics": {
-            "back_to_details": "Back to Password Details",
-            "back_to_form": "Back to Password Form",
-            "verify_to_decrypt": "Verify Identity to Decrypt",
-            "biometric_verification": "Biometric Verification",
-            "instruction_title": "Position your face in the center",
-            "instruction_subtitle": "Look directly at the camera and stay still",
-            "compact_encrypt": "Please look at the camera to verify your identity and store your password securely",
-            "compact_decrypt": "Please look at the camera to verify your identity and decrypt your password",
-            "loading_processing": "Processing your biometric data...",
-            "camera_error_title": "Camera not available",
-            "camera_error_desc": "Please ensure your camera is enabled and accessible for biometric verification",
-            "permission_title": "Camera Permission Required",
-            "permission_desc": "Please allow camera access to continue with biometric verification",
-            "go_back": "Go Back",
-            "master_password_label": "Master Password (Optional):",
-            "master_password_placeholder": "Enter your master password if you have one",
-            "master_password_hint": "If you set a master password when creating this entry, enter it here"
-        },
-        "note_result": {
-            "title": "Note Storage Result",
-            "loading": "Loading result...",
-            "sections": {
-                "success": {
-                    "title": "Storage Successful!",
-                    "message": "Note stored successfully!"
-                },
-                "details": {
-                    "title": "Stored Note Details",
-                    "labels": {
-                        "title": "Title",
-                        "folder": "Folder",
-                        "type": "Type",
-                        "category": "Category",
-                        "zelf_name": "Tag Name",
-                        "timestamp": "Timestamp"
-                    }
-                },
-                "nft": {
-                    "title": "NFT Created",
-                    "labels": {
-                        "token_id": "Token ID",
-                        "cost": "Cost",
-                        "contract": "Contract",
-                        "transaction": "Transaction"
-                    },
-                    "image_alt": "ZelfKey NFT"
-                },
-                "ipfs": {
-                    "title": "IPFS Storage",
-                    "labels": {
-                        "hash": "IPFS Hash",
-                        "gateway_url": "Gateway URL",
-                        "file_size": "File Size",
-                        "uploaded": "Uploaded"
-                    },
-                    "gateway_link": "View on IPFS Gateway"
-                },
-                "walrus": {
-                    "title": "Walrus Storage",
-                    "labels": {
-                        "blob_id": "Blob ID",
-                        "public_url": "Public URL",
-                        "explorer_url": "Explorer URL",
-                        "status": "Status",
-                        "reason": "Reason",
-                        "error": "Error"
-                    },
-                    "view_link": "View on Walrus",
-                    "explorer_link": "View on Explorer"
-                },
-                "zelfproof": {
-                    "title": "ZelfProof Generated",
-                    "labels": {
-                        "string": "ZelfProof String",
-                        "qr_code": "QR Code"
-                    },
-                    "copy_hint": "Click to copy",
-                    "qr_alt": "ZelfProof QR Code"
-                },
-                "debug": {
-                    "title": "Debug Information"
-                },
-                "next_steps": {
-                    "title": "Next Steps",
-                    "success_message": "Your note is now securely stored. You can view it in your notes list or add another note.",
-                    "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
-                    "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
-                }
-            },
-            "actions": {
-                "back_to_notes": "Back to Notes",
-                "add_another": "Add Another Note"
-            },
-            "status": {
-                "success_title": "Note Stored Successfully!",
-                "error_title": "Error Storing Note",
-                "unknown_title": "Unknown Status",
-                "success_message": "Your note has been securely stored and encrypted with blockchain verification.",
-                "error_message": "An error occurred while storing your note.",
-                "unknown_message": "The system couldn't determine the storage status."
-            },
-            "error": {
-                "no_result": "No API result available"
-            }
-        },
-        "password_result": {
-            "status": {
-                "success_title": "Password Stored Successfully!",
-                "error_title": "Error Storing Password",
-                "unknown_title": "Unknown Status",
-                "success_message": "Your password has been securely stored with biometric verification.",
-                "error_message": "There was an error storing your password. Please try again.",
-                "unknown_message": "The status of your password storage request is unclear."
-            },
-            "error": {
-                "no_result": "No API result available"
-            }
-        }
-    },
     "billing": {
         "common": {
             "master_password_placeholder": "Enter your master password"
         },
         "activation": {
-            "title": "Payment Confirmed!",
+            "title": "Redes Blockchain",
             "message": "Activating subscription... Congratulations! Your payment has been confirmed and your subscription is being activated."
         },
         "subscription": {
@@ -969,7 +986,7 @@
             "price": "Price:",
             "payment_method": "Payment Method:",
             "status": "Status:",
-            "transaction": "Transaction:",
+            "transaction": "Transação",
             "zelf_name": "Tag Name:",
             "start_date": "Start Date:",
             "expires_on": "Expires On:",
@@ -986,11 +1003,11 @@
             "manage_note_active": "Manage your subscription, update payment methods, view billing history, and more in the Stripe customer portal.",
             "manage_note_cancelled": "Your subscription is cancelled but remains active until the end of your billing period. You can reactivate or view billing history in the Stripe customer portal.",
             "demo": "DEMO",
-            "active": "Active",
+            "active": "Ativo",
             "cancelled": "Cancelled"
         },
         "dashboard": {
-            "start": "Start",
+            "start": "Iniciar",
             "passwords": "Passwords",
             "notes": "Notes",
             "payment_cards": "Payment Cards",
@@ -1000,31 +1017,31 @@
             "add_payment_card": "Add Payment Card"
         },
         "payment_cards": {
-            "title": "Payment Cards",
-            "subtitle": "Securely store your payment card information",
+            "title": "Redes Blockchain",
+            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
             "loading": {
-                "title": "Loading your payment cards",
+                "title": "Redes Blockchain",
                 "message": "Please wait while we fetch your secure data..."
             },
             "error": {
-                "title": "Oops! Something went wrong",
+                "title": "Redes Blockchain",
                 "message": "We couldn't load your payment cards.",
-                "try_again": "Try Again",
-                "no_wallet": "No wallet found. Please set up your wallet first.",
+                "try_again": "Tentar novamente",
+                "no_wallet": "Nenhuma carteira encontrada. Conecte uma carteira primeiro.",
                 "auth_failed": "Authentication failed. Please ensure you have a valid wallet.",
                 "init_failed": "Failed to initialize session. Please check your wallet connection.",
                 "no_token": "No authentication token available. Please refresh the page.",
-                "load_failed": "Failed to load payment cards. Please try again."
+                "load_failed": "Falha ao carregar a configuração da roda."
             },
             "unknown_bank": "Unknown Bank",
-            "unknown": "Unknown",
+            "unknown": "Desconhecido",
             "premium": {
-                "title": "Unlock Premium Features",
-                "description": "Get advanced security, and more with ZelfKeys Premium"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "add_card": {
-                "title": "Add New Card",
-                "description": "Securely store a new payment card"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "card": {
                 "card_holder": "Card Holder",
@@ -1044,11 +1061,11 @@
                 "no_notes": "No notes"
             },
             "detail": {
-                "title": "Payment Card Details",
-                "loading": "Loading payment card details...",
+                "title": "Redes Blockchain",
+                "loading": "Verificando elegibilidade...",
                 "error": {
-                    "title": "Error loading payment card",
-                    "go_back": "Go Back",
+                    "title": "Redes Blockchain",
+                    "go_back": "Voltar",
                     "retrieve_failed": "Failed to retrieve payment card data",
                     "decrypt_failed": "Failed to decrypt payment card. Please try again."
                 },
@@ -1058,7 +1075,7 @@
                     "decrypting": "Decrypting..."
                 },
                 "info": {
-                    "title": "Card Information",
+                    "title": "Redes Blockchain",
                     "card_number": "Card Number",
                     "card_holder": "Card Holder",
                     "expiry_date": "Expiry Date",
@@ -1075,11 +1092,11 @@
                     "copy_notes": "Copy notes"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "Redes Blockchain",
                     "download": "Download ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Decrypted Card Information",
+                    "title": "Redes Blockchain",
                     "card_number": "Card Number",
                     "card_holder": "Card Holder",
                     "expiry_date": "Expiry Date",
@@ -1103,7 +1120,7 @@
             "form": {
                 "title": {
                     "add": "Add New Payment Card",
-                    "edit": "Edit Payment Card",
+                    "edit": "Editar",
                     "label": "Bank Name *"
                 },
                 "card_number": {
@@ -1143,40 +1160,40 @@
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
-                    "cancel": "Cancel",
+                    "cancel": "Cancelar",
                     "create": "Create Card",
                     "update": "Update Card"
                 }
             }
         },
         "notes": {
-            "title": "Notes",
-            "subtitle": "Manage your secure notes and key-value pairs",
+            "title": "Redes Blockchain",
+            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
             "loading": {
-                "title": "Loading your notes",
+                "title": "Redes Blockchain",
                 "message": "Please wait while we fetch your secure data..."
             },
             "error": {
-                "title": "Oops! Something went wrong",
+                "title": "Redes Blockchain",
                 "message": "We couldn't load your notes.",
-                "try_again": "Try Again",
-                "load_failed": "Failed to load stored notes. Please try again."
+                "try_again": "Tentar novamente",
+                "load_failed": "Falha ao carregar a configuração da roda."
             },
             "premium": {
-                "title": "Unlock Premium Features",
-                "description": "Get advanced security, and more with ZelfKeys Premium"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "add_note": {
-                "title": "Add New Note",
-                "description": "Securely store a new note"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "detail": {
-                "loading": "Loading note details...",
+                "loading": "Verificando elegibilidade...",
                 "error": {
-                    "title": "Error loading note",
-                    "go_back": "Go Back",
-                    "not_found": "No note data available",
-                    "load_failed": "Failed to load note data",
+                    "title": "Redes Blockchain",
+                    "go_back": "Voltar",
+                    "not_found": "Registro não encontrado",
+                    "load_failed": "Falha ao carregar a configuração da roda.",
                     "retrieve_failed": "Failed to retrieve note data",
                     "decrypt_failed": "Failed to decrypt note. Please try again."
                 },
@@ -1189,18 +1206,18 @@
                     "decrypting": "Decrypting..."
                 },
                 "info": {
-                    "title": "Note Information",
+                    "title": "Redes Blockchain",
                     "note_id": "Note ID",
-                    "type": "Type",
+                    "type": "Tipo",
                     "folder": "Folder",
                     "copy_id": "Copy note ID"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "Redes Blockchain",
                     "download": "Download ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Decrypted Content",
+                    "title": "Redes Blockchain",
                     "title_field": "Title",
                     "content": "Content",
                     "no_title": "No title",
@@ -1212,7 +1229,7 @@
             "form": {
                 "title": {
                     "add": "Add New Note",
-                    "edit": "Edit Note"
+                    "edit": "Editar"
                 },
                 "title_field": {
                     "label": "Note Title *"
@@ -1231,47 +1248,47 @@
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
-                    "cancel": "Cancel",
+                    "cancel": "Cancelar",
                     "create": "Create Note",
                     "update": "Update Note"
                 }
             }
         },
         "passwords": {
-            "title": "Passwords",
-            "subtitle": "Manage your secure passwords and credentials",
+            "title": "Redes Blockchain",
+            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
             "loading": {
-                "title": "Loading your passwords",
+                "title": "Redes Blockchain",
                 "message": "Please wait while we fetch your secure data..."
             },
             "error": {
-                "title": "Oops! Something went wrong",
+                "title": "Redes Blockchain",
                 "message": "We couldn't load your passwords.",
-                "try_again": "Try Again",
-                "load_failed": "Failed to load stored passwords. Please try again."
+                "try_again": "Tentar novamente",
+                "load_failed": "Falha ao carregar a configuração da roda."
             },
             "premium": {
-                "title": "Unlock Premium Features",
-                "description": "Get advanced security, and more with ZelfKeys Premium"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "add_password": {
-                "title": "Add New Password",
-                "description": "Securely store a new password"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "search": {
                 "placeholder": "Search passwords..."
             },
             "no_results": {
-                "title": "No passwords found",
+                "title": "Redes Blockchain",
                 "message": "Try adjusting your search terms"
             },
             "detail": {
-                "loading": "Loading password details...",
+                "loading": "Verificando elegibilidade...",
                 "error": {
-                    "title": "Error loading password",
-                    "go_back": "Go Back",
-                    "not_found": "Password data not found",
-                    "load_failed": "Failed to load password data",
+                    "title": "Redes Blockchain",
+                    "go_back": "Voltar",
+                    "not_found": "Registro não encontrado",
+                    "load_failed": "Falha ao carregar a configuração da roda.",
                     "decrypt_failed": "Failed to decrypt password. Please try again."
                 },
                 "untitled": "Untitled Password",
@@ -1286,8 +1303,8 @@
                     "launch_fill": "Launch and fill"
                 },
                 "info": {
-                    "title": "Password Information",
-                    "website": "Website",
+                    "title": "Redes Blockchain",
+                    "website": "Site",
                     "username": "Username",
                     "category": "Category",
                     "created": "Created",
@@ -1298,14 +1315,14 @@
                     "prefill_autofill": "Prefill autofill"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "Redes Blockchain",
                     "download": "Download ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Decrypted Content",
-                    "website": "Website",
+                    "title": "Redes Blockchain",
+                    "website": "Site",
                     "username": "Username",
-                    "password": "Password",
+                    "password": "Senha",
                     "notes": "Notes",
                     "difficulty": "Difficulty",
                     "show_password": "Show password",
@@ -1315,7 +1332,7 @@
                 }
             },
             "form": {
-                "title": "Add Password",
+                "title": "Redes Blockchain",
                 "website": {
                     "label": "Website URL *"
                 },
@@ -1344,13 +1361,13 @@
                 },
                 "buttons": {
                     "save": "Save Password",
-                    "cancel": "Cancel"
+                    "cancel": "Cancelar"
                 }
             }
         },
         "password_result": {
             "status": {
-                "success_title": "Password Stored Successfully!",
+                "success_title": "VOCÊ GANHOU",
                 "error_title": "Error Storing Password",
                 "unknown_title": "Unknown Status",
                 "success_message": "Your password has been securely stored with biometric verification.",
@@ -1363,7 +1380,7 @@
         },
         "note_result": {
             "status": {
-                "success_title": "Note Stored Successfully!",
+                "success_title": "VOCÊ GANHOU",
                 "error_title": "Error Storing Note",
                 "unknown_title": "Unknown Status",
                 "success_message": "Your note has been securely stored and encrypted with blockchain verification.",
@@ -1376,20 +1393,20 @@
         }
     },
     "start": {
-        "title": "Welcome to ZelfKeys",
-        "subtitle": "Your secure password manager",
+        "title": "Redes Blockchain",
+        "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
         "features": {
             "install_extension": {
-                "title": "INSTALL OUR<br />EXTENSION",
-                "description": "Get our extension in your prefer browser"
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "secure_passwords": {
-                "title": "SECURE YOUR<br />PASSWORDS",
-                "description": "Add your passwords, payment cards, and notes."
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             },
             "autocomplete": {
-                "title": "AUTO-COMPLETE<br />YOUR INFO",
-                "description": "Autofill your stored passwords automatically after a quick biometric verification."
+                "title": "Redes Blockchain",
+                "description": "Ative ou desative as redes que deseja usar na sua carteira. Redes desativadas não aparecerão na sua lista de tokens."
             }
         },
         "cta": {
@@ -1397,31 +1414,31 @@
         }
     },
     "password_result": {
-        "title": "Password Storage Result",
-        "loading": "Loading result...",
+        "title": "Redes Blockchain",
+        "loading": "Verificando elegibilidade...",
         "sections": {
             "success": {
-                "title": "Storage Successful!",
+                "title": "Redes Blockchain",
                 "message": "Password stored successfully!"
             },
             "details": {
-                "title": "Stored Password Details",
+                "title": "Redes Blockchain",
                 "labels": {
-                    "website": "Website",
+                    "website": "Site",
                     "username": "Username",
-                    "type": "Type",
+                    "type": "Tipo",
                     "category": "Category",
                     "zelf_name": "Tag Name",
                     "timestamp": "Timestamp"
                 }
             },
             "nft": {
-                "title": "NFT Created",
+                "title": "Redes Blockchain",
                 "labels": {
                     "token_id": "Token ID",
                     "cost": "Cost",
                     "contract": "Contract",
-                    "transaction": "Transaction",
+                    "transaction": "Transação",
                     "metadata_url": "Metadata URL"
                 },
                 "metadata_link": "View Metadata",
@@ -1429,7 +1446,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "IPFS Storage",
+                "title": "Redes Blockchain",
                 "labels": {
                     "hash": "IPFS Hash",
                     "gateway_url": "Gateway URL",
@@ -1441,7 +1458,7 @@
                 "gateway_link": "View on IPFS Gateway"
             },
             "walrus": {
-                "title": "Walrus Storage",
+                "title": "Redes Blockchain",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "Public URL",
@@ -1454,7 +1471,7 @@
                 "explorer_link": "View on Explorer"
             },
             "zelfproof": {
-                "title": "ZelfProof Generated",
+                "title": "Redes Blockchain",
                 "labels": {
                     "string": "ZelfProof String",
                     "qr_code": "QR Code"
@@ -1462,7 +1479,7 @@
                 "copy_hint": "Click to copy"
             },
             "next_steps": {
-                "title": "Next Steps",
+                "title": "Redes Blockchain",
                 "success_message": "Your password is now securely stored. You can view it in your passwords list or add another password.",
                 "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
                 "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
@@ -1473,7 +1490,7 @@
             "add_another": "Add Another Password"
         },
         "status": {
-            "success_title": "Password Stored Successfully!",
+            "success_title": "VOCÊ GANHOU",
             "error_title": "Error Storing Password",
             "unknown_title": "Unknown Status",
             "success_message": "Your password has been securely stored with biometric verification.",
@@ -1485,7 +1502,7 @@
         }
     },
     "domain_selection": {
-        "title": "Choose domain for your tag name"
+        "title": "Redes Blockchain"
     },
     "zotp": {
         "add_zotp": "Add ZOTP",
@@ -1510,14 +1527,14 @@
         "public_data": "Public Data",
         "ipfs_info": "IPFS Information",
         "basic_info": "Basic Information",
-        "type": "Type",
+        "type": "Tipo",
         "key_owner": "Key Owner",
         "category": "Category",
         "ipfs_id": "IPFS ID",
         "ipfs_cid": "IPFS CID",
         "ipfs_url": "IPFS URL",
         "size": "Size",
-        "network": "Network",
+        "network": "Rede",
         "created_at": "Created At",
         "updated_at": "Updated At",
         "algorithm": "Algorithm",
@@ -1576,7 +1593,7 @@
         "recovery_success_description": "Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes."
     },
     "rewards": {
-        "title": "Recompensas",
+        "title": "Redes Blockchain",
         "redeem_zns": "Resgatar ZNS",
         "invite_friends": "Convidar amigos",
         "daily_rewards": "Recompensas diárias",
@@ -1584,7 +1601,7 @@
         "your_tasks": "Suas tarefas",
         "coming_soon": "Em breve",
         "first_transaction": {
-            "title": "Recompensa 1ª Transação",
+            "title": "Redes Blockchain",
             "loading": "Verificando elegibilidade...",
             "success_title": "VOCÊ GANHOU",
             "success_subtitle": "Primeira transação concluída!",
@@ -1602,25 +1619,25 @@
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "Convide seu primeiro amigo",
+                "title": "Redes Blockchain",
                 "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Envie sua primeira transação ZNS",
-                "reward": "Ganhe até 100 $ZNS",
+                "title": "Redes Blockchain",
+                "reward": "Ganhe de 10 a 100 $ZNS",
                 "reward_completed": "Você ganhou {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "Junte-se ao nosso Discord",
-                "reward": "Ganhe 25 $ZNS"
+                "title": "Redes Blockchain",
+                "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "join_telegram": {
-                "title": "Junte-se à nossa comunidade no Telegram",
-                "reward": "Ganhe 25 $ZNS"
+                "title": "Redes Blockchain",
+                "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "join_x": {
-                "title": "Siga-nos no X",
-                "reward": "Ganhe 5 $ZNS"
+                "title": "Redes Blockchain",
+                "reward": "Ganhe de 10 a 100 $ZNS"
             }
         },
         "alreadyClaimedToday": "Você já resgatou sua recompensa diária!",
@@ -1632,7 +1649,7 @@
         "seconds": "seg",
         "spin_the_wheel": "GIRA A RODA",
         "spin_subtitle": "e ganhe recompensas diárias em $ZNS",
-        "loading": "Carregando...",
+        "loading": "Verificando elegibilidade...",
         "spinning": "Girando...",
         "come_back_tomorrow": "Volte amanhã!",
         "spin_now": "Gire a roda!",
@@ -1650,7 +1667,7 @@
         "hero_title": "Ganhe Recompensas $ZNS",
         "hero_subtitle": "Receba recompensas por cada amigo que se juntar ao ZELF",
         "your_referral_code": "Seu código de indicação",
-        "copy": "Copiar",
+        "copy": "Copiar para a área de transferência",
         "copied": "Copiado!",
         "friends_invited": "Amigos Convidados",
         "zns_earned": "$ZNS Ganhos",
@@ -1659,45 +1676,68 @@
         "start_earning_desc": "Compartilhe seu código e comece a ganhar recompensas!",
         "status": {
             "purchased": "Comprado",
-            "registered": "Registrado",
-            "pending": "pendente"
+            "registered": "Tag Name registrado desde {{ date }}",
+            "pending": "Pendente"
         },
         "claim": "Resgatar {{ amount }} $ZNS"
     },
     "claim_reward": {
         "loading": {
-            "title": "Resgatando Recompensa",
+            "title": "Redes Blockchain",
             "text": "Enviando {{ amount }} $ZNS para sua carteira...",
             "subtext": "Isso pode levar alguns segundos"
         },
         "success": {
-            "title": "VOCÊ GANHOU",
-            "subtitle": "Tarefa concluída!",
+            "title": "Redes Blockchain",
+            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
             "desc": "Recompensa de indicação de <strong>{{ name }}</strong>",
             "earned_label": "Você ganhou",
             "accept": "Aceitar"
         },
         "error": {
-            "title": "Falha no Resgate",
-            "subtext": "Não se preocupe, você pode tentar novamente. Sua recompensa ainda está esperando por você.",
+            "title": "Redes Blockchain",
+            "subtext": "Isso pode levar alguns segundos",
             "retry": "Tentar Novamente",
             "go_back": "Voltar",
             "messages": {
                 "reward_already_claimed": "Esta recompensa já foi resgatada",
-                "generic": "Falha ao resgatar recompensa. Por favor, tente novamente mais tarde."
+                "generic": "Desculpe, houve um problema ao processar esta solicitação. Por favor, tente novamente."
             }
         }
     },
     "home_banners": {
         "expiration": {
-            "title": "Não perca seu ZelfName",
-            "expired": "Seu domínio expirou",
+            "title": "Redes Blockchain",
+            "expired": "Expirado",
             "one_day": "Resta 1 dia para comprar seu ZNS",
             "days_left": "Restam {{ days }} dias para comprar seu ZNS"
         },
         "rewards": {
-            "title": "Resgatar recompensas",
-            "subtitle": "Ganhe $ZNS diariamente com nossas missões"
+            "title": "Redes Blockchain",
+            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia."
         }
+    },
+    "dapp": {
+        "connection_request": "Connection Request",
+        "select_accounts": "Select accounts to connect",
+        "network": "Rede",
+        "threat_warning_title": "Malicious Site Detected",
+        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
+        "connect": "Connect",
+        "sign_message": "Sign Message",
+        "sign_transaction": "Sign Transaction",
+        "message_to_sign": "Message to sign",
+        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "wants_to_connect": "quer se conectar à sua carteira",
+        "accounts": "Contas",
+        "permissions": "Permissões",
+        "permission_see_address": "Ver endereço, saldo da conta e atividade",
+        "permission_suggest_tx": "Sugerir transações para aprovar",
+        "permission_disclaimer": "Isso não permitirá que o site mova fundos sem sua aprovação",
+        "confirm_transaction": "Confirmar Transação",
+        "to_address": "Para",
+        "value": "Valor",
+        "data": "Dados",
+        "biometric_required": "Verificação biométrica necessária para assinar"
     }
 }

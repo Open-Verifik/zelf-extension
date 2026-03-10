@@ -1,0 +1,245 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+
+.zelf-settings-dapps {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    &__header {
+        align-content: center;
+        column-gap: calc(12px * var(--zns-space-scale, 1));
+        display: grid;
+        gap: calc(24px * var(--zns-space-scale, 1));
+        grid-template-columns: repeat(10, 1fr);
+        justify-content: start;
+        width: 100%;
+        margin-bottom: 24px;
+        padding: 0 24px;
+        box-sizing: border-box;
+
+        h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: variables.$themeText;
+            text-align: center;
+        }
+
+        &-site {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+    }
+
+    &__col1,
+    &__col3 {
+        grid-column: span 2;
+        display: flex;
+        align-items: center;
+    }
+
+    &__col1 {
+        justify-content: start;
+    }
+
+    &__col2 {
+        grid-column: span 6;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__col3 {
+        justify-content: end;
+    }
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-weight: 500;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        letter-spacing: 0.1px;
+        text-align: center;
+        vertical-align: middle;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+
+        &.detail {
+            padding: 0 24px;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+    }
+
+    &__site {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        cursor: pointer;
+        border-radius: 16px;
+        transition: all 0.2s variables.$smoothBezier;
+        width: 100%;
+        margin-bottom: 8px;
+        background-color: transparent;
+        border: 1px solid transparent;
+
+        &:hover {
+            background-color: variables.$themeCardBorder;
+            border-color: variables.$themeBorder;
+            transform: translateY(-1px);
+        }
+
+        &-col1 {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            gap: 16px;
+        }
+
+        &-col2 {
+            display: flex;
+            align-items: center;
+            opacity: 0.5;
+            transition: all 0.2s variables.$smoothBezier;
+            flex-shrink: 0;
+
+            .zelf-settings-dapps__site:hover & {
+                opacity: 1;
+                transform: translateX(2px);
+            }
+        }
+
+        &-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: variables.$primaryColor;
+            color: variables.$themeCard;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+
+            &.self-small {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+        }
+
+        &-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 500;
+            color: variables.$themeText;
+        }
+
+        &-meta {
+            margin: 0;
+            font-size: 13px;
+            color: variables.$themeTextSecondary;
+            margin-top: 4px;
+        }
+    }
+    &__permission-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 16px;
+        background-color: variables.$themeBackgroundSecondary;
+        border-radius: 12px;
+        gap: 16px;
+    }
+
+    &__permission-icon {
+        color: variables.$themeTextSecondary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__permission-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: variables.$themeText;
+        }
+
+        .meta {
+            margin: 0;
+            font-size: 13px;
+            color: variables.$themeTextSecondary;
+        }
+    }
+
+    &__edit-btn {
+        background: none;
+        border: none;
+        color: variables.$primaryColor;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 4px 8px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__empty {
+        padding: 32px 24px;
+        text-align: center;
+        color: variables.$themeTextSecondary;
+        font-size: 14px;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        padding: 24px;
+        margin-top: auto;
+    }
+
+    &__btn-danger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: none;
+        border: none;
+        color: variables.$error;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 24px;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background-color: rgba(variables.$error, 0.1);
+        }
+    }
+}

@@ -15,6 +15,11 @@
     max-width: var(--zns-card-width, 536px);
     min-height: var(--zns-card-min-height, 768px);
 
+    &--start {
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+
     &__header {
         align-content: center;
         column-gap: calc(12px * var(--zns-space-scale, 1));
@@ -163,6 +168,31 @@
         .zelf-settings__item:hover & {
             opacity: 1;
             transform: translateX(2px);
+        }
+    }
+
+    &__description {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: 1.5;
+        color: variables.$themeTextSecondary;
+        margin: 0 0 calc(24px * var(--zns-space-scale, 1)) 0;
+    }
+
+    &__wc-connect {
+        display: flex;
+        flex-direction: column;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        margin-top: calc(16px * var(--zns-space-scale, 1));
+    }
+
+    &__wc-message {
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        margin: calc(16px * var(--zns-space-scale, 1)) 0 0;
+        color: variables.$themeTextSecondary;
+
+        &--error {
+            color: variables.$error;
         }
     }
 }

@@ -43,8 +43,9 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
         });
 
         this._router.events.pipe(takeUntil(this.unsubscriber$)).subscribe((event) => {
-            if (!(event instanceof NavigationEnd)) return;
-            this.contentContainer?.nativeElement.scrollTo(0, 0);
+            if (event instanceof NavigationEnd) {
+                this.contentContainer?.nativeElement.scrollTo(0, 0);
+            }
         });
     }
 

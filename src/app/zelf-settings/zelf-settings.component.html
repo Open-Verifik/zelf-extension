@@ -1,5 +1,5 @@
-<div class="zelf-card zelf-settings" *transloco="let t">
-    <div class="zelf-settings__header">
+<div class="zelf-card zelf-settings" [class.zelf-settings--start]="selectedSettings === 'dapps'" *transloco="let t">
+    <div class="zelf-settings__header" *ngIf="selectedSettings !== 'dapps'">
         <div class="zelf-settings__col1">
             <button
                 [queryParams]="{ edit: '' }"
@@ -91,6 +91,10 @@
     <ng-container *ngIf="selectedSettings === 'language'">
         <zelf-settings-language></zelf-settings-language>
     </ng-container>
+
+    <ng-container *ngIf="selectedSettings === 'dapps'">
+        <zelf-settings-dapps></zelf-settings-dapps>
+    </ng-container>
 </div>
 
 <ng-template #networksIcon>
@@ -107,6 +111,15 @@
 
 <ng-template #subscriptionIcon>
     <span class="material-symbols-outlined zelf-icon">license</span>
+</ng-template>
+
+<ng-template #dappsConnectionsIcon>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="zelf-icon" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M4 10V14H8V10H4ZM10 10V14H14V10H10ZM16 10V14H20V10H16ZM4 16V20H8V16H4ZM10 16V20H14V16H10ZM16 16V20H20V16H16ZM4 4V8H8V4H4ZM10 4V8H14V4H10ZM16 4V8H20V4H16Z"
+            fill="currentColor"
+        />
+    </svg>
 </ng-template>
 
 <ng-template #externalLinkIcon>

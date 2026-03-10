@@ -1,4 +1,436 @@
 {
+    "zelf_keys": {
+        "dashboard": {
+            "wallet": "والٹ"
+        },
+        "common": {
+            "qr_code": "کیو آر کوڈ",
+            "no_folder": "کوئی فولڈر نہیں ہے",
+            "download_zelfproof": "ZelfProof ڈاؤن لوڈ کریں",
+            "back_to_payment_cards": "ادائیگی کارڈز پر واپس جائیں",
+            "add_another_card": "دوسرا کارڈ شامل کریں",
+            "try_again": "دوبارہ کوشش کریں",
+            "image_not_available": "تصویر دستیاب نہیں ہے"
+        },
+        "payment_cards": {
+            "labels": {
+                "card_holder": "کارڈ ہولڈر",
+                "expires": "ختم ہونے کی تاریخ",
+                "bank_name": "بینک کا نام",
+                "card_number": "کارڈ نمبر",
+                "expiry_date": "ختم ہونے کی تاریخ",
+                "cvv": "CVV"
+            },
+            "placeholders": {
+                "card_holder_upper": "کارڈ ہولڈر"
+            },
+            "decrypt": {
+                "button": "ادائیگی کارڈ کو ڈکرپٹ کریں",
+                "decrypting": "ڈکرپٹ ہو رہا ہے..."
+            },
+            "info": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "payment_card_id": "ادائیگی کارڈ ID",
+                "type": "قسم",
+                "folder": "فولڈر",
+                "copy_payment_card_id": "ادائیگی کارڈ ID کاپی کریں"
+            },
+            "zelfproof": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "download": "ZelfProof ڈاؤن لوڈ کریں"
+            },
+            "decrypted": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "card_holder_name": "کارڈ ہولڈر کا نام",
+                "copy_card_holder_name": "کارڈ ہولڈر کا نام کاپی کریں",
+                "copy_card_number": "کارڈ نمبر کاپی کریں",
+                "copy_expiry_date": "ختم ہونے کی تاریخ کاپی کریں",
+                "copy_cvv": "CVV کاپی کریں",
+                "copy_bank_name": "بینک کا نام کاپی کریں",
+                "show_card_number": "کارڈ نمبر دکھائیں",
+                "hide_card_number": "کارڈ نمبر چھپائیں",
+                "show_cvv": "CVV دکھائیں",
+                "hide_cvv": "CVV چھپائیں"
+            },
+            "error": {
+                "no_wallet": "کوئی والٹ نہیں ملا۔ براہ کرم پہلے اپنا والٹ سیٹ اپ کریں۔",
+                "auth_failed": "توثیق ناکام ہو گئی۔ براہ کرم یقینی بنائیں کہ آپ کے پاس ایک درست والٹ ہے۔",
+                "init_failed": "سیشن شروع کرنے میں ناکام۔ براہ کرم اپنے والٹ کنکشن کو چیک کریں۔",
+                "no_token": "کوئی توثیق ٹوکن دستیاب نہیں ہے۔ براہ کرم صفحہ کو ریفریش کریں۔",
+                "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+            },
+            "unknown_bank": "نامعلوم بینک",
+            "unknown": "نامعلوم",
+            "detail": {
+                "error": {
+                    "retrieve_failed": "ادائیگی کارڈ کا ڈیٹا حاصل کرنے میں ناکام",
+                    "decrypt_failed": "ادائیگی کارڈ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+                },
+                "expiry_placeholder": "MM/YY"
+            },
+            "result": {
+                "error": {
+                    "no_data": "کوئی نتیجہ ڈیٹا نہیں ملا"
+                }
+            }
+        },
+        "payment_card_result": {
+            "success": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
+            },
+            "preview": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "labels": {
+                    "name": "ادائیگی کارڈ کا نام",
+                    "card_holder": "کارڈ ہولڈر",
+                    "card_number": "کارڈ نمبر",
+                    "expires": "ختم ہونے کی تاریخ"
+                }
+            },
+            "image": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "download": "ZelfProof ڈاؤن لوڈ کریں"
+            },
+            "nft": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "labels": {
+                    "token_id": "ٹوکن ID",
+                    "cost": "لاگت",
+                    "contract": "کنٹریکٹ",
+                    "transaction": "لین دین",
+                    "metadata_url": "میٹا ڈیٹا URL"
+                },
+                "metadata_link": "میٹا ڈیٹا دیکھیں",
+                "copy_hint": "کاپی کرنے کے لیے کلک کریں",
+                "image_alt": "ZelfKey NFT"
+            },
+            "ipfs": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "labels": {
+                    "hash": "IPFS ہیش",
+                    "gateway_url": "گیٹ وے URL",
+                    "file_size": "فائل کا سائز",
+                    "uploaded": "اپ لوڈ کر دیا گیا"
+                },
+                "gateway_link": "IPFS گیٹ وے پر دیکھیں"
+            },
+            "walrus": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "labels": {
+                    "blob_id": "Blob ID",
+                    "public_url": "عوامی URL",
+                    "explorer_url": "ایکسپلورر URL",
+                    "status": "اسٹیٹس",
+                    "reason": "وجہ",
+                    "error": "غلطی"
+                },
+                "view_link": "Walrus پر دیکھیں",
+                "explorer_link": "ایکسپلورر پر دیکھیں"
+            },
+            "zelfproof": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "labels": {
+                    "string": "ZelfProof سٹرنگ",
+                    "qr_code": "کیو آر کوڈ"
+                },
+                "copy_hint": "کاپی کرنے کے لیے کلک کریں"
+            },
+            "error": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "default_message": "آپ کا ادائیگی کارڈ بناتے وقت ایک غیر متوقع غلطی پیش آئی۔",
+                "try_again": "دوبارہ کوشش کریں",
+                "no_data": "کوئی نتیجہ ڈیٹا نہیں ملا"
+            },
+            "actions": {
+                "back_to_cards": "ادائیگی کارڈز پر واپس جائیں",
+                "add_another": "دوسرا کارڈ شامل کریں"
+            }
+        },
+        "billing_ui": {
+            "choose_your_plan_title": "اپنا پلان منتخب کریں",
+            "choose_your_plan_subtitle": "وہ پلان منتخب کریں جو آپ کی ضروریات کے مطابق ہو",
+            "loading_plans": "سبسکرپشن پلانز لوڈ ہو رہے ہیں...",
+            "error": {
+                "try_again": "دوبارہ کوشش کریں",
+                "load_plans": "سبسکرپشن پلانز لوڈ کرنے میں ناکام",
+                "create_crypto_payment": "کرپٹو ادائیگی بنانے میں ناکام",
+                "create_checkout": "چیک آؤٹ سیشن بنانے میں ناکام",
+                "open_portal": "سبسکرپشن مینجمنٹ پورٹل کھولنے میں ناکام",
+                "customer_not_found": "گاہک کی معلومات تلاش کرنے میں ناکام۔ براہ کرم سپورٹ سے رابطہ کریں۔",
+                "no_subscription": "کوئی فعال سبسکرپشن نہیں ملی۔ براہ کرم صفحہ کو ریفریش کریں۔",
+                "open_portal_generic": "سبسکرپشن مینجمنٹ کھولنے میں ناکام: {{ error }}",
+                "missing_payment_data": "ادائیگی کا ڈیٹا غائب ہے۔ براہ کرم دوبارہ کوشش کریں۔",
+                "no_avax_address": "منتخب کردہ والٹ کا AVAX پتہ نہیں ہے۔",
+                "no_avax_token": "AVAX ٹوکن ڈیٹا لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+                "prepare_transaction": "ٹرانزیکشن تیار کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+            },
+            "crypto": {
+                "complete_payment": "اپنی ادائیگی مکمل کریں",
+                "demo_banner": "ڈیمو موڈ - کم رقم کے ساتھ ٹیسٹنگ",
+                "send_amount_to_address": "نیچے دیے گئے پتے پر {{ amount }} AVAX بھیجیں",
+                "price_lock": "قیمت 30 منٹ کے لیے لاک ہے",
+                "payment_address_label": "ادائیگی کا پتہ (Avalanche C-Chain)",
+                "copy": "کاپی کریں",
+                "scan_with_wallet": "اپنے والٹ سے اسکین کریں",
+                "amount_to_send": "بھیجنے کی رقم",
+                "original_plan_price": "پلان کی اصل قیمت:",
+                "demo_discount": "ڈیمو رعایت: {{ discount }}%",
+                "waiting_confirmation": "ادائیگی کی تصدیق کا انتظار ہے...",
+                "auto_update_note": "ادائیگی موصول ہونے پر یہ صفحہ خود بخود اپ ڈیٹ ہو جائے گا",
+                "cancel_payment": "ادائیگی منسوخ کریں",
+                "payment_methods": "ادائیگی کے طریقے",
+                "copy_address": "پتہ کاپی کریں:",
+                "scan_address": "پتہ اسکین کریں:",
+                "pay_with_wallet": "والٹ کے ساتھ ادائیگی کریں:",
+                "domain_label": "ڈومین",
+                "select_wallet": "والٹ منتخب کریں",
+                "pay_with_avax": "AVAX کے ساتھ ادائیگی کریں",
+                "payment_qr_code_alt": "ادائیگی کیو آر کوڈ"
+            },
+            "plan": {
+                "popular_badge": "مشہور",
+                "pay_with_stripe": "Stripe کے ساتھ ادائیگی کریں",
+                "pay_with_crypto": "کرپٹو کے ساتھ ادائیگی کریں",
+                "current_plan": "آپ کا موجودہ پلان",
+                "premium_plan": "پریمیم پلان",
+                "not_available": "دستیاب نہیں",
+                "month": "مہینہ"
+            }
+        },
+        "biometrics": {
+            "instructions": {
+                "encrypt": "اپنی شناخت کی تصدیق کرنے اور اپنے {{ type }} کو محفوظ طریقے سے اسٹور کرنے کے لیے کیمرے کی طرف دیکھیں",
+                "decrypt": "اپنی شناخت کی تصدیق کرنے اور اپنے {{ type }} تک رسائی حاصل کرنے کے لیے کیمرے کی طرف دیکھیں"
+            },
+            "processing": {
+                "processing": "آپ کا بائیو میٹرک ڈیٹا پروسیس ہو رہا ہے...",
+                "analyzing": "آپ کے چہرے کا تجزیہ ہو رہا ہے..."
+            },
+            "status": {
+                "position_face_title": "اپنا چہرہ درمیان میں رکھیں",
+                "position_face_subtitle": "براہ راست کیمرے کی طرف دیکھیں اور ساکن رہیں"
+            },
+            "api_error": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "try_again": "دوبارہ کوشش کریں",
+                "go_back": "واپس جائیں"
+            },
+            "camera_error": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
+            },
+            "permission": {
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔",
+                "go_back": "واپس جائیں"
+            },
+            "close_aria": "بائیو میٹرک توثیق بند کریں",
+            "errors": {
+                "no_face_detected": "کوئی چہرہ نہیں پہچانا گیا",
+                "look_at_camera": "براہ کرم کیمرے کی طرف دیکھیں"
+            }
+        },
+        "subscription_banner": {
+            "title": "ادائیگی کارڈ کی معلومات",
+            "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
+        },
+        "data_card": {
+            "details": "تفصیلات",
+            "no_qr": "کوئی QR نہیں",
+            "untitled": "بغیر عنوان",
+            "username_label": "صارف کا نام: {{ username }}",
+            "zelf_name_label": "ٹیگ نام: {{ zelfName }}",
+            "category_label": "زمرہ: {{ category }}",
+            "type_label": "قسم: {{ type }}",
+            "secure_credential": "محفوظ کریڈنشل"
+        },
+        "data_types": {
+            "note": "نوٹ",
+            "password": "پاس ورڈ",
+            "payment_card": "ادائیگی کارڈ"
+        },
+        "categories": {
+            "password": "پاس ورڈ",
+            "note": "نوٹ",
+            "notes": "نوٹ",
+            "payment_card": "ادائیگی کارڈ",
+            "card": "کارڈ",
+            "contact": "رابطہ",
+            "zotp": "ZOTP"
+        },
+        "errors": {
+            "storing": "{{ type }} اسٹور کرنے میں غلطی",
+            "retrieving": "{{ type }} حاصل کرنے میں غلطی"
+        },
+        "messages": {
+            "note_retrieved": "نوٹ کامیابی سے حاصل کر لیا گیا",
+            "note_stored": "نوٹ کامیابی سے اسٹور کر دیا گیا",
+            "password_retrieved": "پاس ورڈ کامیابی سے حاصل کر لیا گیا",
+            "password_stored": "پاس ورڈ کامیابی سے اسٹور کر دیا گیا"
+        },
+        "biometrics_bottom_sheet": {
+            "encrypt_payment_card": "ادائیگی کارڈ کو انکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "decrypt_payment_card": "ادائیگی کارڈ کو ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "encrypt_note": "نوٹ کو انکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "decrypt_note": "نوٹ کو ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "encrypt_password": "پاس ورڈ کو انکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "decrypt_password": "پاس ورڈ کو ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "instructions": {
+                "payment_card": "ادائیگی کارڈ",
+                "note": "نوٹ",
+                "password": "پاس ورڈ"
+            },
+            "item": "آئٹم",
+            "error": {
+                "storage_failed": "{{ category }} کے اسٹوریج کے دوران غلطی ہوئی، براہ کرم بعد میں دوبارہ کوشش کریں۔",
+                "try_again_later": "براہ کرم کچھ دیر بعد دوبارہ کوشش کریں۔",
+                "close": "بند کریں"
+            }
+        },
+        "popout_decryptor": {
+            "back": "واپس",
+            "cancel": "منسوخ کریں",
+            "loading_camera": "کیمرہ شروع ہو رہا ہے...",
+            "low_quality_message": "براہ کرم بہتر روشنی میں دوبارہ کوشش کریں",
+            "low_quality_title": "کم معیار کی تصویر",
+            "master_password_placeholder": "اپنا ماسٹر پاس ورڈ درج کریں",
+            "permission_allow": "براہ کرم کیمرہ تک رسائی کی اجازت دیں",
+            "permission_required": "کیمرہ کی اجازت درکار ہے",
+            "processing": "آپ کا بائیو میٹرک ڈیٹا پروسیس ہو رہا ہے...",
+            "retry": "دوبارہ کوشش کریں",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "unlock": "بائیو میٹرکس پر جائیں",
+            "types": {
+                "credit_card": "ادائیگی کارڈ",
+                "note": "نوٹ",
+                "notes": "نوٹ",
+                "password": "پاس ورڈ",
+                "payment-card": "ادائیگی کارڈ",
+                "wallet": "والٹ",
+                "zotp": "ZOTP"
+            }
+        },
+        "password_biometrics": {
+            "back_to_details": "پاس ورڈ کی تفصیلات پر واپس جائیں",
+            "back_to_form": "پاس ورڈ فارم پر واپس جائیں",
+            "verify_to_decrypt": "ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
+            "biometric_verification": "بائیو میٹرک توثیق",
+            "instruction_title": "اپنا چہرہ درمیان میں رکھیں",
+            "instruction_subtitle": "براہ راست کیمرے کی طرف دیکھیں اور ساکن رہیں",
+            "compact_encrypt": "اپنی شناخت کی تصدیق کرنے اور اپنا پاس ورڈ محفوظ طریقے سے اسٹور کرنے کے لیے براہ کرم کیمرے کی طرف دیکھیں",
+            "compact_decrypt": "اپنی شناخت کی تصدیق کرنے اور اپنا پاس ورڈ ڈکرپٹ کرنے کے لیے براہ کرم کیمرے کی طرف دیکھیں",
+            "loading_processing": "آپ کا بائیو میٹرک ڈیٹا پروسیس ہو رہا ہے...",
+            "camera_error_title": "کیمرہ دستیاب نہیں ہے",
+            "camera_error_desc": "براہ کرم یقینی بنائیں کہ آپ کا کیمرہ فعال ہے اور بائیو میٹرک توثیق کے لیے قابل رسائی ہے",
+            "permission_title": "کیمرہ کی اجازت درکار ہے",
+            "permission_desc": "براہ کرم بائیو میٹرک توثیق جاری رکھنے کے لیے کیمرہ تک رسائی کی اجازت دیں",
+            "go_back": "واپس جائیں",
+            "master_password_label": "ماسٹر پاس ورڈ (اختیاری):",
+            "master_password_placeholder": "اپنا ماسٹر پاس ورڈ درج کریں",
+            "master_password_hint": "اگر آپ نے یہ اندراج بناتے وقت ماسٹر پاس ورڈ سیٹ کیا تھا، تو اسے یہاں درج کریں"
+        },
+        "note_result": {
+            "title": "ادائیگی کارڈ کی معلومات",
+            "loading": "نتائج لوڈ ہو رہے ہیں...",
+            "sections": {
+                "success": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
+                },
+                "details": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "labels": {
+                        "title": "ادائیگی کارڈ کی معلومات",
+                        "folder": "فولڈر",
+                        "type": "قسم",
+                        "category": "زمرہ",
+                        "zelf_name": "ٹیگ نام",
+                        "timestamp": "ٹائم اسٹیمپ"
+                    }
+                },
+                "nft": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "labels": {
+                        "token_id": "ٹوکن ID",
+                        "cost": "لاگت",
+                        "contract": "کنٹریکٹ",
+                        "transaction": "لین دین"
+                    },
+                    "image_alt": "ZelfKey NFT"
+                },
+                "ipfs": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "labels": {
+                        "hash": "IPFS ہیش",
+                        "gateway_url": "گیٹ وے URL",
+                        "file_size": "فائل کا سائز",
+                        "uploaded": "اپ لوڈ کر دیا گیا"
+                    },
+                    "gateway_link": "IPFS گیٹ وے پر دیکھیں"
+                },
+                "walrus": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "labels": {
+                        "blob_id": "Blob ID",
+                        "public_url": "عوامی URL",
+                        "explorer_url": "ایکسپلورر URL",
+                        "status": "اسٹیٹس",
+                        "reason": "وجہ",
+                        "error": "غلطی"
+                    },
+                    "view_link": "Walrus پر دیکھیں",
+                    "explorer_link": "ایکسپلورر پر دیکھیں"
+                },
+                "zelfproof": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "labels": {
+                        "string": "ZelfProof سٹرنگ",
+                        "qr_code": "کیو آر کوڈ"
+                    },
+                    "copy_hint": "کاپی کرنے کے لیے کلک کریں",
+                    "qr_alt": "ZelfProof QR کوڈ"
+                },
+                "debug": {
+                    "title": "ادائیگی کارڈ کی معلومات"
+                },
+                "next_steps": {
+                    "title": "ادائیگی کارڈ کی معلومات",
+                    "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+                    "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
+                    "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
+                }
+            },
+            "actions": {
+                "back_to_notes": "نوٹوں پر واپس جائیں",
+                "add_another": "دوسرا کارڈ شامل کریں"
+            },
+            "status": {
+                "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
+                "error_title": "نوٹ اسٹور کرنے میں غلطی",
+                "unknown_title": "نامعلوم اسٹیٹس",
+                "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+                "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
+                "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
+            },
+            "error": {
+                "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
+            }
+        },
+        "password_result": {
+            "status": {
+                "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
+                "error_title": "نوٹ اسٹور کرنے میں غلطی",
+                "unknown_title": "نامعلوم اسٹیٹس",
+                "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+                "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
+                "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
+            },
+            "error": {
+                "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
+            }
+        }
+    },
     "cancel": "منسوخ کریں",
     "confirm": "تصدیق کریں",
     "logout_message": "اس عمل کی تصدیق کرنے سے، آپ کے تمام ZelfProofs ایکسٹینشن سے ہٹا دیے جائیں گے۔ آپ کو ان تک دوبارہ رسائی حاصل کرنے کے لیے ہر ZelfProof کو دوبارہ ڈکرپٹ کرنا ہوگا۔ کیا آپ واقعی جاری رکھنا چاہتے ہیں؟",
@@ -30,23 +462,23 @@
     "send": {
         "address_found": "پتہ مل گیا",
         "available_balance": "دستیاب {{balance}} {{symbol}}",
+        "average": "اوسط",
         "cannot_continue_process": "آپ اس عمل کو جاری نہیں رکھ سکتے",
+        "confirmations": "تصدیقات",
         "continue_process": "آپ اس عمل کو جاری رکھ سکتے ہیں",
         "domain_or_address": "ڈومین یا پتہ",
+        "economical": "کفایتی",
         "enter_amount_to_send": "بھیجنے کی رقم درج کریں",
         "external_address_found": "بیرونی پتہ مل گیا",
+        "fastest": "سب سے تیز",
+        "transaction_settings": "لین دین کی ترتیبات",
+        "upto_sats": "تک {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} منٹ",
         "recent_addresses": "حالیہ",
         "used": "{{days}} پہلے استعمال کیا گیا",
         "withdrawal_amount": "نکالنے کی رقم",
         "zelf_name_not_registered": "زیلف نام رجسٹرڈ نہیں ہے",
         "zelf_name_registered": "زیلف نام رجسٹرڈ ہے",
         "from_address": "ایڈریس سے",
-        "average": "اوسط",
-        "confirmations": "تصدیقات",
-        "economical": "کفایتی",
-        "fastest": "سب سے تیز",
-        "transaction_settings": "لین دین کی ترتیبات",
-        "upto_sats": "تک {{ feeAmountUSD }} • {{sats}} sats/vB • {{ time }} منٹ",
         "private_transaction": "نجی لین دین"
     },
     "transaction": {
@@ -103,12 +535,23 @@
         "language_label": "زبان",
         "subscription_label": "سبسکرپشن",
         "networks": {
-            "title": "بلاکچین نیٹ ورکس",
-            "description": "اپنے والیٹ میں استعمال کرنے کے لیے نیٹ ورکس کو فعال یا غیر فعال کریں۔ غیر فعال نیٹ ورکس آپ کی ٹوکن لسٹ میں نظر نہیں آئیں گے۔",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔",
             "no_networks_available": "آپ کے لائسنس کے لیے کوئی نیٹ ورک دستیاب نہیں ہے۔ مزید نیٹ ورکس تک رسائی کے لیے براہ کرم اپنا پلان اپ گریڈ کریں۔"
         },
         "language": {
-            "description": "ایپلی کیشن کے لیے اپنی ترجیحی زبان کا انتخاب کریں"
+            "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
+        },
+        "walletconnect_label": "Connect via link",
+        "walletconnect": {
+            "title": "ادائیگی کارڈ کی معلومات",
+            "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔",
+            "placeholder": "کارڈ کی قسم منتخب کریں",
+            "connect_button": "Connect",
+            "connecting": "Connecting...",
+            "success": "کامیاب",
+            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
+            "error_failed": "Failed to connect. Please try again."
         },
         "security": {
             "biometric_verification_title": "بایومیٹرک توثیق کا وقفہ",
@@ -133,6 +576,7 @@
         "password_subtitle": "ڈکرپشن کے عمل کو مکمل کرنے کے لیے اس زیلف نام کے لیے تفویض کردہ پاس ورڈ درج کریں۔",
         "pin_description": "6 ہندسوں کا PIN بنائیں",
         "pin_unlock_description": "اپنے ZelfProof کو ان لاک کرنے کے لیے اپنا PIN استعمال کریں",
+        "pin_confirm_description": "تصدیق کے لیے اپنا 6 حرفی PIN دوبارہ درج کریں",
         "pin_title": "PIN",
         "secure_password_description": "ایک اضافی سیکیورٹی لیئر",
         "secure_password_title": "محفوظ پاس ورڈ",
@@ -140,7 +584,7 @@
         "security_layer_title": "سیکیورٹی لیئر",
         "strong": "مضبوط",
         "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
-        "title": "زیلف پروف انکرپشن لیئرز",
+        "title": "ادائیگی کارڈ کی معلومات",
         "unhide_words": "الفاظ دکھائیں",
         "weak": "کمزور",
         "weak_password": "کمزور پاس ورڈ",
@@ -149,14 +593,13 @@
         "create_pin_title": "PIN بنائیں",
         "create_pin_subtitle": "براہ کرم اپنے ZelfProof کے لیے 6 ہندسوں کا پاس ورڈ درج کریں۔",
         "confirm_pin_title": "PIN کی تصدیق کریں",
-        "confirm_pin_subtitle": "براہ کرم اپنے ZelfProof کے لیے 6 ہندسوں کا پاس ورڈ دوبارہ درج کریں۔",
-        "pin_confirm_description": "تصدیق کے لیے اپنا 6 حرفی PIN دوبارہ درج کریں"
+        "confirm_pin_subtitle": "براہ کرم اپنے ZelfProof کے لیے 6 ہندسوں کا پاس ورڈ دوبارہ درج کریں۔"
     },
     "receive": {
         "information": "یہ پتہ صرف مطابقت پذیر ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔",
         "your_token_address": "آپ کا {{ name }} پتہ",
         "risks_modal": {
-            "title": "{{ symbol }} وصول کرنے سے پہلے",
+            "title": "ادائیگی کارڈ کی معلومات",
             "risk_1_title": "صرف {{ name }} نیٹ ورک",
             "risk_1": "اس پتے پر صرف {{ name }} نیٹ ورک پر {{ symbol }} بھیجیں۔ دوسری چین کے ٹوکن واپس نہیں ملتے۔",
             "risk_2_title": "پتہ تصدیق کریں",
@@ -171,6 +614,8 @@
     },
     "common": {
         "back": "واپس",
+        "optional": "اختیاری",
+        "no_results_found": "کوئی نتائج نہیں ملے",
         "12_word_phrase": "12 لفظی جملہ",
         "24_word_phrase": "24 لفظی جملہ",
         "about": "تعارف",
@@ -182,21 +627,23 @@
         "are_you_sure": "کیا آپ یقینی ہیں؟",
         "asset": "اثاثہ",
         "available": "دستیاب",
+        "avax_address": "AVAX پتہ",
         "balance": "بیلنس",
-        "btc_address": "بی ٹی سی پتہ",
         "bdag_address": "BDAG پتہ",
+        "btc_address": "بی ٹی سی پتہ",
         "buy_now": "ابھی خریدیں",
         "cancel": "منسوخ کریں",
         "close": "بند کریں",
         "coin": "سکہ",
         "come_back_later": "براہ کرم بعد میں آئیں!",
+        "download_apps": "ایپس ڈاؤن لوڈ کریں",
         "confirm_password": "پاس ورڈ کی تصدیق کریں",
         "confirm": "تصدیق کریں",
         "continue": "جاری رکھیں",
         "copied_to_clipboard": "کلپ بورڈ پر کاپی ہو گیا",
         "copy_recovery_phrase": "ریکوری جملہ کاپی کریں",
         "copy_to_clipboard": "کامیابی سے کاپی ہو گیا",
-        "copy": "کلپ بورڈ پر کاپی کریں",
+        "copy": "کاپی کریں",
         "create_a_new_wallet": "نیا والیٹ بنائیں",
         "date": "تاریخ",
         "days": "دن",
@@ -207,7 +654,8 @@
         "domain": "ڈومین",
         "dont_show_me_again": "مجھے دوبارہ نہ دکھائیں",
         "dont_show_this_message_again": "یہ ہدایات دوبارہ نہ دکھائیں",
-        "download_zelfproof": "زیلف پروف ڈاؤن لوڈ کریں",
+        "download_qr": "QR ڈاؤن لوڈ کریں",
+        "download_zelfproof": "ZelfProof ڈاؤن لوڈ کریں",
         "edit": "ترمیم کریں",
         "eth_address": "ای ٹی ایچ پتہ",
         "extend_registration": "سبسکرپشن بڑھائیں",
@@ -221,7 +669,7 @@
         "import_a_wallet": "والیٹ درآمد کریں",
         "import_wallet": "والیٹ درآمد کریں",
         "import": "درآمد کریں",
-        "information": "معلومات",
+        "information": "یہ پتہ صرف مطابقت پذیر ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔",
         "is_required": "درکار ہے",
         "learn_more": "مزید جانیں",
         "load_more": "مزید لوڈ کریں",
@@ -251,7 +699,7 @@
         "receive": "وصول کریں",
         "recommended": "تجویز کردہ",
         "refresh": "ریفریش کریں",
-        "registered": "رجسٹرڈ",
+        "registered": "زیلف نام {{ date }} سے رجسٹرڈ ہے",
         "remove_all_zelfproofs": "تمام زیلف پروفز ہٹائیں",
         "remove": "ہٹائیں",
         "renew_domain": "ڈومین کی تجدید کریں",
@@ -259,6 +707,7 @@
         "reservation_found": "رزرویشن مل گیا",
         "search_your_zelf_name": "اپنے زیلف نام کی تلاش کریں",
         "search": "تلاش کریں...",
+        "seed_phrase": "سیڈ فریز",
         "send_symbol": "{{symbol}} بھیجیں",
         "send": "بھیجیں",
         "settings": "ترتیبات",
@@ -279,7 +728,7 @@
         "try_another_one": "کسی دوسرے کی کوشش کریں",
         "type": "قسم",
         "unknown": "نامعلوم",
-        "unlock": "کھولیں",
+        "unlock": "بائیو میٹرکس پر جائیں",
         "upload_qr_image": "کیو آر تصویر اپ لوڈ کریں",
         "verify": "تصدیق کریں",
         "website": "ویب سائٹ",
@@ -287,16 +736,10 @@
         "withdrawal_network": "نکالنے کا نیٹ ورک",
         "yes": "ہاں",
         "your_token": "آپ کا {{ symbol }}",
-        "zelf_wallet": "زیلف والیٹ",
-        "optional": "اختیاری",
-        "no_results_found": "کوئی نتائج نہیں ملے",
-        "avax_address": "AVAX پتہ",
-        "download_apps": "ایپس ڈاؤن لوڈ کریں",
-        "download_qr": "QR ڈاؤن لوڈ کریں",
-        "seed_phrase": "سیڈ فریز",
         "zelf_authenticator": "زیلف توثیق کار",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
+        "zelf_wallet": "زیلف والیٹ",
         "subscriptions": "سبسکرپشنز",
         "download_short": "ڈاؤن لوڈ",
         "mnemonics": "والیٹ کلیدیں",
@@ -305,7 +748,7 @@
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",
-        "about": "{{ network }} کے بارے میں",
+        "about": "تعارف",
         "circulating_supply": "گردش میں موجودہ مقدار",
         "holders": "ہولڈرز",
         "market_cap": "مارکیٹ کیپ",
@@ -321,11 +764,11 @@
         "know_more": "مزید جانئے",
         "lifetime": "عمر بھر",
         "price_per_year": "سالانہ قیمت",
-        "title": "خریداری کے لیے ڈومین",
+        "title": "ادائیگی کارڈ کی معلومات",
         "years": "{{ yearCount }} سال"
     },
     "wallet": {
-        "download_qr": "QR",
+        "download_qr": "QR ڈاؤن لوڈ کریں",
         "info_title": "اپنے کیو آر کوڈ کو محفوظ رکھیں",
         "info_description": "اپنے اکاؤنٹ کی حفاظت کے لیے اپنے کیو آر کوڈ کو محفوظ رکھنا یاد رکھیں۔ اسے ڈاؤن لوڈ کریں اور محفوظ جگہ پر محفوظ کریں۔",
         "private_key": "پرائیویٹ کلید",
@@ -333,17 +776,17 @@
         "info": "معلومات"
     },
     "private_key": {
-        "description": "اپنی پرائیویٹ کلید دیکھنے کے لیے، براہ کرم سیکیورٹی تصدیق کے مراحل مکمل کریں۔",
-        "got_it": "سمجھ گیا",
-        "title": "پرائیویٹ کلید"
+        "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔",
+        "got_it": "سمجھ گیا، میں بعد میں کروں گا",
+        "title": "ادائیگی کارڈ کی معلومات"
     },
     "my_arns": {
         "arns_website": "ArNS ویب سائٹ",
-        "description": "کرپٹو وصول کرنے کے لیے آپ کی ذاتی ویب سائٹ، براہ راست ٹرانسفرز کے لیے تمام ضروری معلومات کے ساتھ شیئر کرنا آسان ہے۔"
+        "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
     },
     "manage_domain": {
         "hold_until": "تک رکھیں",
-        "registered_since": "رجسٹرڈ از",
+        "registered_since": "{{ date }} سے رجسٹرڈ",
         "registered_until": "ختم ہونے کی تاریخ"
     },
     "manage_domains": {
@@ -365,6 +808,8 @@
     "errors": {
         "address_too_long": "پتہ بہت لمبا ہے",
         "all_fields_required": "تمام فیلڈز درکار ہیں",
+        "camera_dimensions_not_properly_initialized": "کیمرہ صحیح طریقے سے شروع نہیں ہوا",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP کو ڈکرپٹ نہیں کیا جا سکتا: ZelfProof غائب ہے۔ یہ ZOTP ایک درست ZelfProof کے بغیر ڈکرپٹ نہیں کیا جا سکتا۔",
         "cannot_swap_across_these_networks": "آپ ابھی ان نیٹ ورکس کے درمیان تبادلہ نہیں کر سکتے۔ براہ کرم بعد میں دوبارہ کوشش کریں۔",
         "chart_not_found": "چارٹ کا ڈیٹا دستیاب نہیں ہے",
         "Duplicated_person": "ZelfProof کسی دوسری ریکارڈ کے لیے استعمال ہو رہا ہے",
@@ -376,10 +821,17 @@
         "ERR_LIVENESS_FAILED": "لائیو نیس کی شناخت ناکام ہو گئی",
         "ERR_UNPROCESSABLE_CONTENT": "ZelfProof کو ڈیکریپٹ نہیں کیا جا سکا",
         "ERR_VERIFICATION_FAILED": "لائیو نیس کی شناخت ناکام ہو گئی",
+        "error_closing_popup": "ونڈو بند کرنے میں غلطی",
+        "error_initializing_biometrics": "بایومیٹرکس شروع کرنے میں غلطی",
+        "error_sending_decryption_result_to_background": "ایکسٹینشن کے ساتھ مواصلت میں غلطی",
+        "error_stopping_camera": "کیمرہ روکنے میں غلطی",
+        "face_detection_error": "چہرے کی شناخت ناکام ہو گئی",
+        "face_not_central": "آپ کا چہرہ مرکز میں نہیں ہے۔ براہ کرم فریم میں اپنے چہرے کی پوزیشن ایڈجسٹ کریں اور دوبارہ کوشش کریں۔",
         "failed_to_get_quote": "اس تبادلہ کے لیے کوٹ حاصل کرنے میں ناکام۔",
         "generic_identity": "معذرت، آپ کی شناخت کی تصدیق میں ایک مسئلہ لگتا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
         "generic_title": "ایک خرابی پیش آ گئی ہے",
         "generic": "معذرت، اس درخواست کو پروسیس کرنے میں ایک مسئلہ تھا۔ براہ کرم دوبارہ کوشش کریں۔",
+        "incorrect_passphrase": "ماسٹر پاس ورڈ غلط درج کیا گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
         "incorrect_zelf_proof_message": "فراہم کردہ فائل درست ZelfProof نہیں لگتی۔ براہ کرم دوبارہ کوشش کریں۔",
         "incorrect_zelf_proof_title": "غلط ZelfProof",
         "insufficient_funds": "ناکافی فنڈز۔ یقینی بنائیں کہ آپ کے والیٹ میں ٹرانزیکشن فیس کے لیے کافی فنڈز موجود ہیں۔",
@@ -396,36 +848,33 @@
         "missing_contract_address": "تبادلہ کانٹریکٹ کا پتہ غائب ہے۔ بعد میں دوبارہ کوشش کریں۔",
         "must_be_greater_than": "{{ value }} سے زیادہ ہونا چاہیے",
         "must_be_less_than": "{{ value }} سے کم ہونا چاہیے",
+        "no_decrypted_data_received_from_api": "سرور سے کوئی ڈکرپٹ شدہ ڈیٹا موصول نہیں ہوا",
+        "no_zelfproof_available_for_password_decryption": "پاس ورڈ ڈکرپشن کے لیے کوئی ZelfProof دستیاب نہیں ہے",
         "not_found": "ریکارڈ نہیں ملا",
         "password_doesnt_match": "پاس ورڈز مماثل نہیں ہیں",
         "password_incorrect": "پاس ورڈ غلط ہے",
-        "LIVENESS CHECK FAILED.": "لائیو نیس چیک ناکام ہوا۔ براہ کرم دوبارہ کوشش کریں۔",
-        "THE PROVIDED PASSWORD IS INVALID.": "آپ کا درج کردہ پاس ورڈ غلط ہے۔ براہ کرم اپنا پاس ورڈ چیک کریں اور دوبارہ کوشش کریں۔",
+        "LIVENESS CHECK FAILED": {
+            "": "لائیو نیس چیک ناکام ہوا۔ براہ کرم دوبارہ کوشش کریں۔"
+        },
+        "THE PROVIDED PASSWORD IS INVALID": {
+            "": "لائیو نیس چیک ناکام ہوا۔ براہ کرم دوبارہ کوشش کریں۔"
+        },
         "person_already_set": "آپ کی رجسٹریشن میں پہلے سے ہی ایک ZelfProof منسلک ہے",
         "private_key_locked": "پرائیویٹ کلید لاک ہو گئی ہے۔ آگے بڑھنے کے لیے آپ کو بائیومیٹرکس چیک کرنا ہوگا۔",
         "required_field": "یہ فیلڈ درکار ہے",
         "same_address": "آپ اسی پتے پر فنڈز نہیں بھیج سکتے",
+        "session_init_info": "ٹیگ نیم سروس ایکسٹینشن استعمال کرنے کے لیے، آپ کو نیٹ ورک تک رسائی کی ضرورت ہوگی۔ آف لائن حل کے لیے، ہماری iOS اور Android ایپس چیک کریں۔",
+        "session_init_message": "معذرت، آپ کا سیشن شروع کرنے میں ایک مسئلہ تھا۔ یہ نیٹ ورک کے مسئلے یا سرور کی عدم دستیابی کی وجہ سے ہو سکتا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
+        "session_init_title": "سیشن کا آغاز ناکام ہو گیا",
         "something_went_wrong": "کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں",
         "swap_same_asset": "آپ اسی اثاثہ میں تبادلہ نہیں کر سکتے",
         "transaction_not_found": "ٹرانزیکشن نہیں ملی",
         "try_again": "دوبارہ کوشش کریں",
-        "zelfName_is_taken": "یہ ٹیگ نام پہلے سے لیا گیا ہے",
-        "camera_dimensions_not_properly_initialized": "کیمرہ صحیح طریقے سے شروع نہیں ہوا",
-        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP کو ڈکرپٹ نہیں کیا جا سکتا: ZelfProof غائب ہے۔ یہ ZOTP ایک درست ZelfProof کے بغیر ڈکرپٹ نہیں کیا جا سکتا۔",
-        "error_closing_popup": "ونڈو بند کرنے میں غلطی",
-        "error_initializing_biometrics": "بایومیٹرکس شروع کرنے میں غلطی",
-        "error_sending_decryption_result_to_background": "ایکسٹینشن کے ساتھ مواصلت میں غلطی",
-        "error_stopping_camera": "کیمرہ روکنے میں غلطی",
-        "face_detection_error": "چہرے کی شناخت ناکام ہو گئی",
-        "face_not_central": "آپ کا چہرہ مرکز میں نہیں ہے۔ براہ کرم فریم میں اپنے چہرے کی پوزیشن ایڈجسٹ کریں اور دوبارہ کوشش کریں۔",
-        "incorrect_passphrase": "ماسٹر پاس ورڈ غلط درج کیا گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
-        "no_decrypted_data_received_from_api": "سرور سے کوئی ڈکرپٹ شدہ ڈیٹا موصول نہیں ہوا",
-        "no_zelfproof_available_for_password_decryption": "پاس ورڈ ڈکرپشن کے لیے کوئی ZelfProof دستیاب نہیں ہے",
-        "session_init_info": "ٹیگ نیم سروس ایکسٹینشن استعمال کرنے کے لیے، آپ کو نیٹ ورک تک رسائی کی ضرورت ہوگی۔ آف لائن حل کے لیے، ہماری iOS اور Android ایپس چیک کریں۔",
-        "session_init_message": "معذرت، آپ کا سیشن شروع کرنے میں ایک مسئلہ تھا۔ یہ نیٹ ورک کے مسئلے یا سرور کی عدم دستیابی کی وجہ سے ہو سکتا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
-        "session_init_title": "سیشن کا آغاز ناکام ہو گیا",
         "unknown_error": "ایک نامعلوم غلطی پیش آ گئی",
-        "user_cancelled_decryption": "ڈکرپشن منسوخ کر دی گئی"
+        "user_cancelled_decryption": "ڈکرپشن منسوخ کر دی گئی",
+        "zelfName_is_taken": "یہ ٹیگ نام پہلے سے لیا گیا ہے",
+        "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
+        "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation."
     },
     "swap": {
         "automatic": "خودکار",
@@ -435,7 +884,7 @@
         "manual": "دستی",
         "powered_by": "<strong>{{ bridge }}</strong> کی طرف سے طاقت ور",
         "pricing_text": "متعدد غیر مرکزی مارکیٹوں میں بہترین شرح ملی۔",
-        "pricing": "قیمت",
+        "pricing": "قیمتوں کا تعین",
         "priority_commission_subtitle": "اعلیٰ ترجیحی کمیشنز نیٹ ورک کی رکاوٹ کے دوران تیز ٹرانزیکشن پروسیسنگ کا نتیجہ دے سکتے ہیں۔",
         "priority_commission": "ترجیحی کمیشن",
         "select_asset": "اثاثہ منتخب کریں",
@@ -452,13 +901,13 @@
     "home": {
         "manage_networks": "نیٹ ورکس کا نظم کریں",
         "assets": "ٹوکنز",
+        "keys": "چابیاں",
         "NFTs": "کلکٹیبلز",
-        "swap": "تبادلہ",
         "receive_transaction_button": "وصول کریں",
         "send_transaction_button": "بھیجیں",
         "settings_button": "ترتیبات",
         "support_button": "مدد",
-        "keys": "چابیاں"
+        "swap": "تبادلہ"
     },
     "id_scanning": {
         "camera_not_found": "کیمرا نہیں ملا",
@@ -522,445 +971,13 @@
         "considerations_description_2": "منفرد شناخت۔",
         "considerations_description_3": "مستقبل کے لیے تحفظ۔"
     },
-    "zelf_keys": {
-        "dashboard": {
-            "wallet": "والٹ"
-        },
-        "common": {
-            "qr_code": "کیو آر کوڈ",
-            "no_folder": "کوئی فولڈر نہیں ہے",
-            "download_zelfproof": "ZelfProof ڈاؤن لوڈ کریں",
-            "back_to_payment_cards": "ادائیگی کارڈز پر واپس جائیں",
-            "add_another_card": "دوسرا کارڈ شامل کریں",
-            "try_again": "دوبارہ کوشش کریں",
-            "image_not_available": "تصویر دستیاب نہیں ہے"
-        },
-        "payment_cards": {
-            "labels": {
-                "card_holder": "کارڈ ہولڈر",
-                "expires": "ختم ہونے کی تاریخ",
-                "bank_name": "بینک کا نام",
-                "card_number": "کارڈ نمبر",
-                "expiry_date": "ختم ہونے کی تاریخ",
-                "cvv": "CVV"
-            },
-            "placeholders": {
-                "card_holder_upper": "کارڈ ہولڈر"
-            },
-            "decrypt": {
-                "button": "ادائیگی کارڈ کو ڈکرپٹ کریں",
-                "decrypting": "ڈکرپٹ ہو رہا ہے..."
-            },
-            "info": {
-                "title": "ادائیگی کارڈ کی معلومات",
-                "payment_card_id": "ادائیگی کارڈ ID",
-                "type": "قسم",
-                "folder": "فولڈر",
-                "copy_payment_card_id": "ادائیگی کارڈ ID کاپی کریں"
-            },
-            "zelfproof": {
-                "title": "ZelfProof",
-                "download": "ZelfProof ڈاؤن لوڈ کریں"
-            },
-            "decrypted": {
-                "title": "ڈکرپٹ شدہ مواد",
-                "card_holder_name": "کارڈ ہولڈر کا نام",
-                "copy_card_holder_name": "کارڈ ہولڈر کا نام کاپی کریں",
-                "copy_card_number": "کارڈ نمبر کاپی کریں",
-                "copy_expiry_date": "ختم ہونے کی تاریخ کاپی کریں",
-                "copy_cvv": "CVV کاپی کریں",
-                "copy_bank_name": "بینک کا نام کاپی کریں",
-                "show_card_number": "کارڈ نمبر دکھائیں",
-                "hide_card_number": "کارڈ نمبر چھپائیں",
-                "show_cvv": "CVV دکھائیں",
-                "hide_cvv": "CVV چھپائیں"
-            },
-            "error": {
-                "no_wallet": "کوئی والٹ نہیں ملا۔ براہ کرم پہلے اپنا والٹ سیٹ اپ کریں۔",
-                "auth_failed": "توثیق ناکام ہو گئی۔ براہ کرم یقینی بنائیں کہ آپ کے پاس ایک درست والٹ ہے۔",
-                "init_failed": "سیشن شروع کرنے میں ناکام۔ براہ کرم اپنے والٹ کنکشن کو چیک کریں۔",
-                "no_token": "کوئی توثیق ٹوکن دستیاب نہیں ہے۔ براہ کرم صفحہ کو ریفریش کریں۔",
-                "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
-            },
-            "unknown_bank": "نامعلوم بینک",
-            "unknown": "نامعلوم",
-            "detail": {
-                "error": {
-                    "retrieve_failed": "ادائیگی کارڈ کا ڈیٹا حاصل کرنے میں ناکام",
-                    "decrypt_failed": "ادائیگی کارڈ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
-                },
-                "expiry_placeholder": "MM/YY"
-            },
-            "result": {
-                "error": {
-                    "no_data": "کوئی نتیجہ ڈیٹا نہیں ملا"
-                }
-            }
-        },
-        "payment_card_result": {
-            "success": {
-                "title": "ادائیگی کارڈ کامیابی سے بن گیا!",
-                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
-            },
-            "preview": {
-                "title": "کارڈ کی تفصیلات",
-                "labels": {
-                    "name": "ادائیگی کارڈ کا نام",
-                    "card_holder": "کارڈ ہولڈر",
-                    "card_number": "کارڈ نمبر",
-                    "expires": "ختم ہونے کی تاریخ"
-                }
-            },
-            "image": {
-                "title": "ZelfProof",
-                "download": "ZelfProof ڈاؤن لوڈ کریں"
-            },
-            "nft": {
-                "title": "NFT بن گیا",
-                "labels": {
-                    "token_id": "ٹوکن ID",
-                    "cost": "لاگت",
-                    "contract": "کنٹریکٹ",
-                    "transaction": "لین دین",
-                    "metadata_url": "میٹا ڈیٹا URL"
-                },
-                "metadata_link": "میٹا ڈیٹا دیکھیں",
-                "copy_hint": "کاپی کرنے کے لیے کلک کریں",
-                "image_alt": "ZelfKey NFT"
-            },
-            "ipfs": {
-                "title": "IPFS اسٹوریج",
-                "labels": {
-                    "hash": "IPFS ہیش",
-                    "gateway_url": "گیٹ وے URL",
-                    "file_size": "فائل کا سائز",
-                    "uploaded": "اپ لوڈ کر دیا گیا"
-                },
-                "gateway_link": "IPFS گیٹ وے پر دیکھیں"
-            },
-            "walrus": {
-                "title": "Walrus اسٹوریج",
-                "labels": {
-                    "blob_id": "Blob ID",
-                    "public_url": "عوامی URL",
-                    "explorer_url": "ایکسپلورر URL",
-                    "status": "اسٹیٹس",
-                    "reason": "وجہ",
-                    "error": "غلطی"
-                },
-                "view_link": "Walrus پر دیکھیں",
-                "explorer_link": "ایکسپلورر پر دیکھیں"
-            },
-            "zelfproof": {
-                "title": "ZelfProof تیار ہو گیا",
-                "labels": {
-                    "string": "ZelfProof سٹرنگ",
-                    "qr_code": "کیو آر کوڈ"
-                },
-                "copy_hint": "کاپی کرنے کے لیے کلک کریں"
-            },
-            "error": {
-                "title": "ادائیگی کارڈ بنانے میں غلطی",
-                "default_message": "آپ کا ادائیگی کارڈ بناتے وقت ایک غیر متوقع غلطی پیش آئی۔",
-                "try_again": "دوبارہ کوشش کریں",
-                "no_data": "کوئی نتیجہ ڈیٹا نہیں ملا"
-            },
-            "actions": {
-                "back_to_cards": "ادائیگی کارڈز پر واپس جائیں",
-                "add_another": "دوسرا کارڈ شامل کریں"
-            }
-        },
-        "billing_ui": {
-            "choose_your_plan_title": "اپنا پلان منتخب کریں",
-            "choose_your_plan_subtitle": "وہ پلان منتخب کریں جو آپ کی ضروریات کے مطابق ہو",
-            "loading_plans": "سبسکرپشن پلانز لوڈ ہو رہے ہیں...",
-            "error": {
-                "try_again": "دوبارہ کوشش کریں",
-                "load_plans": "سبسکرپشن پلانز لوڈ کرنے میں ناکام",
-                "create_crypto_payment": "کرپٹو ادائیگی بنانے میں ناکام",
-                "create_checkout": "چیک آؤٹ سیشن بنانے میں ناکام",
-                "open_portal": "سبسکرپشن مینجمنٹ پورٹل کھولنے میں ناکام",
-                "customer_not_found": "گاہک کی معلومات تلاش کرنے میں ناکام۔ براہ کرم سپورٹ سے رابطہ کریں۔",
-                "no_subscription": "کوئی فعال سبسکرپشن نہیں ملی۔ براہ کرم صفحہ کو ریفریش کریں۔",
-                "open_portal_generic": "سبسکرپشن مینجمنٹ کھولنے میں ناکام: {{ error }}",
-                "missing_payment_data": "ادائیگی کا ڈیٹا غائب ہے۔ براہ کرم دوبارہ کوشش کریں۔",
-                "no_avax_address": "منتخب کردہ والٹ کا AVAX پتہ نہیں ہے۔",
-                "no_avax_token": "AVAX ٹوکن ڈیٹا لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
-                "prepare_transaction": "ٹرانزیکشن تیار کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
-            },
-            "crypto": {
-                "complete_payment": "اپنی ادائیگی مکمل کریں",
-                "demo_banner": "ڈیمو موڈ - کم رقم کے ساتھ ٹیسٹنگ",
-                "send_amount_to_address": "نیچے دیے گئے پتے پر {{ amount }} AVAX بھیجیں",
-                "price_lock": "قیمت 30 منٹ کے لیے لاک ہے",
-                "payment_address_label": "ادائیگی کا پتہ (Avalanche C-Chain)",
-                "copy": "کاپی کریں",
-                "scan_with_wallet": "اپنے والٹ سے اسکین کریں",
-                "amount_to_send": "بھیجنے کی رقم",
-                "original_plan_price": "پلان کی اصل قیمت:",
-                "demo_discount": "ڈیمو رعایت: {{ discount }}%",
-                "waiting_confirmation": "ادائیگی کی تصدیق کا انتظار ہے...",
-                "auto_update_note": "ادائیگی موصول ہونے پر یہ صفحہ خود بخود اپ ڈیٹ ہو جائے گا",
-                "cancel_payment": "ادائیگی منسوخ کریں",
-                "payment_methods": "ادائیگی کے طریقے",
-                "copy_address": "پتہ کاپی کریں:",
-                "scan_address": "پتہ اسکین کریں:",
-                "pay_with_wallet": "والٹ کے ساتھ ادائیگی کریں:",
-                "domain_label": "ڈومین",
-                "select_wallet": "والٹ منتخب کریں",
-                "pay_with_avax": "AVAX کے ساتھ ادائیگی کریں",
-                "payment_qr_code_alt": "ادائیگی کیو آر کوڈ"
-            },
-            "plan": {
-                "popular_badge": "مشہور",
-                "pay_with_stripe": "Stripe کے ساتھ ادائیگی کریں",
-                "pay_with_crypto": "کرپٹو کے ساتھ ادائیگی کریں",
-                "current_plan": "آپ کا موجودہ پلان",
-                "premium_plan": "پریمیم پلان",
-                "not_available": "N/A",
-                "month": "مہینہ"
-            }
-        },
-        "biometrics": {
-            "instructions": {
-                "encrypt": "اپنی شناخت کی تصدیق کرنے اور اپنے {{ type }} کو محفوظ طریقے سے اسٹور کرنے کے لیے کیمرے کی طرف دیکھیں",
-                "decrypt": "اپنی شناخت کی تصدیق کرنے اور اپنے {{ type }} تک رسائی حاصل کرنے کے لیے کیمرے کی طرف دیکھیں"
-            },
-            "processing": {
-                "processing": "آپ کا بائیو میٹرک ڈیٹا پروسیس ہو رہا ہے...",
-                "analyzing": "آپ کے چہرے کا تجزیہ ہو رہا ہے..."
-            },
-            "status": {
-                "position_face_title": "اپنا چہرہ درمیان میں رکھیں",
-                "position_face_subtitle": "براہ راست کیمرے کی طرف دیکھیں اور ساکن رہیں"
-            },
-            "api_error": {
-                "title": "توثیق ناکام ہو گئی",
-                "try_again": "دوبارہ کوشش کریں",
-                "go_back": "واپس جائیں"
-            },
-            "camera_error": {
-                "title": "کیمرہ دستیاب نہیں ہے",
-                "description": "براہ کرم یقینی بنائیں کہ آپ کا کیمرہ فعال ہے اور بائیو میٹرک توثیق کے لیے قابل رسائی ہے"
-            },
-            "permission": {
-                "title": "کیمرہ کی اجازت درکار ہے",
-                "description": "براہ کرم بائیو میٹرک توثیق جاری رکھنے کے لیے کیمرہ تک رسائی کی اجازت دیں",
-                "go_back": "واپس جائیں"
-            },
-            "close_aria": "بائیو میٹرک توثیق بند کریں",
-            "errors": {
-                "no_face_detected": "کوئی چہرہ نہیں پہچانا گیا",
-                "look_at_camera": "براہ کرم کیمرے کی طرف دیکھیں"
-            }
-        },
-        "subscription_banner": {
-            "title": "پریمیم فیچرز انلاک کریں",
-            "description": "ZelfKeys Premium کے ساتھ لامحدود رسائی، جدید سیکیورٹی اور بہت کچھ حاصل کریں"
-        },
-        "data_card": {
-            "details": "تفصیلات",
-            "no_qr": "کوئی QR نہیں",
-            "untitled": "بغیر عنوان",
-            "username_label": "صارف کا نام: {{ username }}",
-            "zelf_name_label": "ٹیگ نام: {{ zelfName }}",
-            "category_label": "زمرہ: {{ category }}",
-            "type_label": "قسم: {{ type }}",
-            "secure_credential": "محفوظ کریڈنشل"
-        },
-        "data_types": {
-            "note": "نوٹ",
-            "password": "پاس ورڈ",
-            "payment_card": "ادائیگی کارڈ"
-        },
-        "categories": {
-            "password": "پاس ورڈ",
-            "note": "نوٹ",
-            "notes": "نوٹ",
-            "payment_card": "ادائیگی کارڈ",
-            "card": "کارڈ",
-            "contact": "رابطہ",
-            "zotp": "ZOTP"
-        },
-        "errors": {
-            "storing": "{{ type }} اسٹور کرنے میں غلطی",
-            "retrieving": "{{ type }} حاصل کرنے میں غلطی"
-        },
-        "messages": {
-            "note_retrieved": "نوٹ کامیابی سے حاصل کر لیا گیا",
-            "note_stored": "نوٹ کامیابی سے اسٹور کر دیا گیا",
-            "password_retrieved": "پاس ورڈ کامیابی سے حاصل کر لیا گیا",
-            "password_stored": "پاس ورڈ کامیابی سے اسٹور کر دیا گیا"
-        },
-        "biometrics_bottom_sheet": {
-            "encrypt_payment_card": "ادائیگی کارڈ کو انکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "decrypt_payment_card": "ادائیگی کارڈ کو ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "encrypt_note": "نوٹ کو انکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "decrypt_note": "نوٹ کو ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "encrypt_password": "پاس ورڈ کو انکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "decrypt_password": "پاس ورڈ کو ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "instructions": {
-                "payment_card": "براہ کرم اپنا ادائیگی کارڈ ڈکرپٹ کرنے کے لیے اپنے چہرے کی تصدیق کریں",
-                "note": "براہ کرم اپنا نوٹ ڈکرپٹ کرنے کے لیے اپنے چہرے کی تصدیق کریں",
-                "password": "براہ کرم اپنا پاس ورڈ ڈکرپٹ کرنے کے لیے اپنے چہرے کی تصدیق کریں"
-            },
-            "item": "آئٹم",
-            "error": {
-                "storage_failed": "{{ category }} کے اسٹوریج کے دوران غلطی ہوئی، براہ کرم بعد میں دوبارہ کوشش کریں۔",
-                "try_again_later": "براہ کرم کچھ دیر بعد دوبارہ کوشش کریں۔",
-                "close": "بند کریں"
-            }
-        },
-        "popout_decryptor": {
-            "back": "واپس",
-            "cancel": "منسوخ کریں",
-            "loading_camera": "کیمرہ شروع ہو رہا ہے...",
-            "low_quality_message": "براہ کرم بہتر روشنی میں دوبارہ کوشش کریں",
-            "low_quality_title": "کم معیار کی تصویر",
-            "master_password_placeholder": "اپنا ماسٹر پاس ورڈ درج کریں",
-            "permission_allow": "براہ کرم کیمرہ تک رسائی کی اجازت دیں",
-            "permission_required": "کیمرہ کی اجازت درکار ہے",
-            "processing": "ڈکرپٹ ہو رہا ہے...",
-            "retry": "دوبارہ کوشش کریں",
-            "title": "{{ type }} ڈکرپشن",
-            "unlock": "بائیو میٹرکس پر جائیں",
-            "types": {
-                "credit_card": "ادائیگی کارڈ",
-                "note": "نوٹ",
-                "notes": "نوٹ",
-                "password": "پاس ورڈ",
-                "payment-card": "ادائیگی کارڈ",
-                "wallet": "والٹ",
-                "zotp": "ZOTP"
-            }
-        },
-        "password_biometrics": {
-            "back_to_details": "پاس ورڈ کی تفصیلات پر واپس جائیں",
-            "back_to_form": "پاس ورڈ فارم پر واپس جائیں",
-            "verify_to_decrypt": "ڈکرپٹ کرنے کے لیے شناخت کی تصدیق کریں",
-            "biometric_verification": "بائیو میٹرک توثیق",
-            "instruction_title": "اپنا چہرہ درمیان میں رکھیں",
-            "instruction_subtitle": "براہ راست کیمرے کی طرف دیکھیں اور ساکن رہیں",
-            "compact_encrypt": "اپنی شناخت کی تصدیق کرنے اور اپنا پاس ورڈ محفوظ طریقے سے اسٹور کرنے کے لیے براہ کرم کیمرے کی طرف دیکھیں",
-            "compact_decrypt": "اپنی شناخت کی تصدیق کرنے اور اپنا پاس ورڈ ڈکرپٹ کرنے کے لیے براہ کرم کیمرے کی طرف دیکھیں",
-            "loading_processing": "آپ کا بائیو میٹرک ڈیٹا پروسیس ہو رہا ہے...",
-            "camera_error_title": "کیمرہ دستیاب نہیں ہے",
-            "camera_error_desc": "براہ کرم یقینی بنائیں کہ آپ کا کیمرہ فعال ہے اور بائیو میٹرک توثیق کے لیے قابل رسائی ہے",
-            "permission_title": "کیمرہ کی اجازت درکار ہے",
-            "permission_desc": "براہ کرم بائیو میٹرک توثیق جاری رکھنے کے لیے کیمرہ تک رسائی کی اجازت دیں",
-            "go_back": "واپس جائیں",
-            "master_password_label": "ماسٹر پاس ورڈ (اختیاری):",
-            "master_password_placeholder": "اگر آپ کے پاس ماسٹر پاس ورڈ ہے تو اسے درج کریں",
-            "master_password_hint": "اگر آپ نے یہ اندراج بناتے وقت ماسٹر پاس ورڈ سیٹ کیا تھا، تو اسے یہاں درج کریں"
-        },
-        "note_result": {
-            "title": "نوٹ اسٹوریج کا نتیجہ",
-            "loading": "نتائج لوڈ ہو رہے ہیں...",
-            "sections": {
-                "success": {
-                    "title": "اسٹوریج کامیاب!",
-                    "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
-                },
-                "details": {
-                    "title": "اسٹور شدہ نوٹ کی تفصیلات",
-                    "labels": {
-                        "title": "عنوان",
-                        "folder": "فولڈر",
-                        "type": "قسم",
-                        "category": "زمرہ",
-                        "zelf_name": "ٹیگ نام",
-                        "timestamp": "ٹائم اسٹیمپ"
-                    }
-                },
-                "nft": {
-                    "title": "NFT بن گیا",
-                    "labels": {
-                        "token_id": "ٹوکن ID",
-                        "cost": "لاگت",
-                        "contract": "کنٹریکٹ",
-                        "transaction": "لین دین"
-                    },
-                    "image_alt": "ZelfKey NFT"
-                },
-                "ipfs": {
-                    "title": "IPFS اسٹوریج",
-                    "labels": {
-                        "hash": "IPFS ہیش",
-                        "gateway_url": "گیٹ وے URL",
-                        "file_size": "فائل کا سائز",
-                        "uploaded": "اپ لوڈ کر دیا گیا"
-                    },
-                    "gateway_link": "IPFS گیٹ وے پر دیکھیں"
-                },
-                "walrus": {
-                    "title": "Walrus اسٹوریج",
-                    "labels": {
-                        "blob_id": "Blob ID",
-                        "public_url": "عوامی URL",
-                        "explorer_url": "ایکسپلورر URL",
-                        "status": "اسٹیٹس",
-                        "reason": "وجہ",
-                        "error": "غلطی"
-                    },
-                    "view_link": "Walrus پر دیکھیں",
-                    "explorer_link": "ایکسپلورر پر دیکھیں"
-                },
-                "zelfproof": {
-                    "title": "ZelfProof تیار ہو گیا",
-                    "labels": {
-                        "string": "ZelfProof سٹرنگ",
-                        "qr_code": "کیو آر کوڈ"
-                    },
-                    "copy_hint": "کاپی کرنے کے لیے کلک کریں",
-                    "qr_alt": "ZelfProof QR کوڈ"
-                },
-                "debug": {
-                    "title": "ڈیبگ معلومات"
-                },
-                "next_steps": {
-                    "title": "اگلے مراحل",
-                    "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
-                    "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
-                    "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
-                }
-            },
-            "actions": {
-                "back_to_notes": "نوٹوں پر واپس جائیں",
-                "add_another": "دوسرا نوٹ شامل کریں"
-            },
-            "status": {
-                "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
-                "error_title": "نوٹ اسٹور کرنے میں غلطی",
-                "unknown_title": "نامعلوم اسٹیٹس",
-                "success_message": "آپ کا نوٹ محفوظ طریقے سے اسٹور کر دیا گیا ہے اور بلاکچین ویریفیکیشن کے ساتھ انکرپٹ کر دیا گیا ہے۔",
-                "error_message": "آپ کا نوٹ اسٹور کرتے وقت ایک غلطی پیش آئی۔",
-                "unknown_message": "سسٹم اسٹوریج اسٹیٹس کا تعین نہیں کر سکا۔"
-            },
-            "error": {
-                "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
-            }
-        },
-        "password_result": {
-            "status": {
-                "success_title": "پاس ورڈ کامیابی سے اسٹور ہو گیا!",
-                "error_title": "پاس ورڈ اسٹور کرنے میں غلطی",
-                "unknown_title": "نامعلوم اسٹیٹس",
-                "success_message": "آپ کا پاس ورڈ بائیو میٹرک توثیق کے ساتھ محفوظ طریقے سے اسٹور کر دیا گیا ہے۔",
-                "error_message": "آپ کا پاس ورڈ اسٹور کرتے وقت ایک غلطی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔",
-                "unknown_message": "آپ کے پاس ورڈ اسٹوریج کی درخواست کا اسٹیٹس واضح نہیں ہے۔"
-            },
-            "error": {
-                "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
-            }
-        }
-    },
     "billing": {
         "common": {
             "master_password_placeholder": "اپنا ماسٹر پاس ورڈ درج کریں"
         },
         "activation": {
-            "title": "ادائیگی کی تصدیق ہو گئی!",
-            "message": "سبسکرپشن فعال ہو رہی ہے... مبارک ہو! آپ کی ادائیگی کی تصدیق ہو گئی ہے اور آپ کی سبسکرپشن فعال کی جا رہی ہے۔"
+            "title": "ادائیگی کارڈ کی معلومات",
+            "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
         },
         "subscription": {
             "active_subscription": "فعال سبسکرپشن",
@@ -968,9 +985,9 @@
             "plan": "پلان:",
             "price": "قیمت:",
             "payment_method": "ادائیگی کا طریقہ:",
-            "status": "اسٹیٹس:",
-            "transaction": "لین دین:",
-            "zelf_name": "ٹیگ نام:",
+            "status": "اسٹیٹس",
+            "transaction": "لین دین",
+            "zelf_name": "ٹیگ نام",
             "start_date": "شروع ہونے کی تاریخ:",
             "expires_on": "ختم ہونے کی تاریخ:",
             "next_billing": "اگلی بلنگ:",
@@ -990,9 +1007,9 @@
             "cancelled": "منسوخ"
         },
         "dashboard": {
-            "start": "شروع",
+            "start": "شروع کریں",
             "passwords": "پاس ورڈز",
-            "notes": "نوٹس",
+            "notes": "نوٹ",
             "payment_cards": "ادائیگی کارڈز",
             "subscription": "سبسکرپشن",
             "add_password": "پاس ورڈ شامل کریں",
@@ -1000,15 +1017,15 @@
             "add_payment_card": "ادائیگی کارڈ شامل کریں"
         },
         "payment_cards": {
-            "title": "ادائیگی کارڈز",
-            "subtitle": "اپنی ادائیگی کارڈ کی معلومات کو محفوظ طریقے سے اسٹور کریں",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
             "loading": {
-                "title": "آپ کے ادائیگی کارڈز لوڈ ہو رہے ہیں",
-                "message": "براہ کرم انتظار کریں جب کہ ہم آپ کا محفوظ ڈیٹا حاصل کر رہے ہیں..."
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
             },
             "error": {
-                "title": "اوہ! کچھ غلط ہو گیا",
-                "message": "ہم آپ کے ادائیگی کارڈز لوڈ نہیں کر سکے۔",
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!",
                 "try_again": "دوبارہ کوشش کریں",
                 "no_wallet": "کوئی والٹ نہیں ملا۔ براہ کرم پہلے اپنا والٹ سیٹ اپ کریں۔",
                 "auth_failed": "توثیق ناکام ہو گئی۔ براہ کرم یقینی بنائیں کہ آپ کے پاس ایک درست والٹ ہے۔",
@@ -1019,12 +1036,12 @@
             "unknown_bank": "نامعلوم بینک",
             "unknown": "نامعلوم",
             "premium": {
-                "title": "پریمیم فیچرز انلاک کریں",
-                "description": "ZelfKeys Premium کے ساتھ جدید سیکیورٹی اور بہت کچھ حاصل کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "add_card": {
-                "title": "نیا کارڈ شامل کریں",
-                "description": "محفوظ طریقے سے ایک نیا ادائیگی کارڈ اسٹور کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "card": {
                 "card_holder": "کارڈ ہولڈر",
@@ -1034,7 +1051,7 @@
                 "card_type": "کارڈ کی قسم",
                 "cvv": "CVV",
                 "billing_address": "بلنگ ایڈریس",
-                "notes": "نوٹس",
+                "notes": "نوٹ",
                 "no_card_holder": "کوئی کارڈ ہولڈر نہیں",
                 "no_expiry": "کوئی ایکسپائری تاریخ نہیں",
                 "no_card_number": "کوئی کارڈ نمبر نہیں",
@@ -1044,28 +1061,28 @@
                 "no_notes": "کوئی نوٹس نہیں"
             },
             "detail": {
-                "title": "ادائیگی کارڈ کی تفصیلات",
-                "loading": "ادائیگی کارڈ کی تفصیلات لوڈ ہو رہی ہیں...",
+                "title": "ادائیگی کارڈ کی معلومات",
+                "loading": "نتائج لوڈ ہو رہے ہیں...",
                 "error": {
-                    "title": "ادائیگی کارڈ لوڈ کرنے میں غلطی",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "go_back": "واپس جائیں",
                     "retrieve_failed": "ادائیگی کارڈ کا ڈیٹا حاصل کرنے میں ناکام",
                     "decrypt_failed": "ادائیگی کارڈ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
                 },
                 "expiry_placeholder": "MM/YY",
                 "decrypt": {
-                    "button": "کارڈ ڈکرپٹ کریں",
+                    "button": "ادائیگی کارڈ کو ڈکرپٹ کریں",
                     "decrypting": "ڈکرپٹ ہو رہا ہے..."
                 },
                 "info": {
-                    "title": "کارڈ کی معلومات",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "card_number": "کارڈ نمبر",
                     "card_holder": "کارڈ ہولڈر",
                     "expiry_date": "ختم ہونے کی تاریخ",
                     "card_type": "کارڈ کی قسم",
                     "cvv": "CVV",
                     "billing_address": "بلنگ ایڈریس",
-                    "notes": "نوٹس",
+                    "notes": "نوٹ",
                     "copy_card_number": "کارڈ نمبر کاپی کریں",
                     "copy_card_holder": "کارڈ ہولڈر کا نام کاپی کریں",
                     "copy_expiry": "ختم ہونے کی تاریخ کاپی کریں",
@@ -1075,18 +1092,18 @@
                     "copy_notes": "نوٹس کاپی کریں"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "download": "ZelfProof ڈاؤن لوڈ کریں"
                 },
                 "decrypted": {
-                    "title": "ڈکرپٹ شدہ کارڈ کی معلومات",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "card_number": "کارڈ نمبر",
                     "card_holder": "کارڈ ہولڈر",
                     "expiry_date": "ختم ہونے کی تاریخ",
                     "card_type": "کارڈ کی قسم",
                     "cvv": "CVV",
                     "billing_address": "بلنگ ایڈریس",
-                    "notes": "نوٹس",
+                    "notes": "نوٹ",
                     "show_card_number": "کارڈ نمبر دکھائیں",
                     "hide_card_number": "کارڈ نمبر چھپائیں",
                     "show_cvv": "CVV دکھائیں",
@@ -1103,40 +1120,40 @@
             "form": {
                 "title": {
                     "add": "نیا ادائیگی کارڈ شامل کریں",
-                    "edit": "ادائیگی کارڈ میں ترمیم کریں",
+                    "edit": "ترمیم کریں",
                     "label": "بینک کا نام *"
                 },
                 "card_number": {
-                    "label": "کارڈ نمبر *"
+                    "label": "بینک کا نام *"
                 },
                 "card_holder": {
-                    "label": "کارڈ ہولڈر کا نام *"
+                    "label": "بینک کا نام *"
                 },
                 "expiry_month": {
-                    "label": "ختم ہونے کا مہینہ *",
-                    "placeholder": "MM"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "expiry_year": {
-                    "label": "ختم ہونے کا سال *"
+                    "label": "بینک کا نام *"
                 },
                 "card_type": {
-                    "label": "کارڈ کی قسم *",
+                    "label": "بینک کا نام *",
                     "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "cvv": {
-                    "label": "CVV *"
+                    "label": "بینک کا نام *"
                 },
                 "billing_address": {
-                    "label": "بلنگ ایڈریس",
-                    "placeholder": "بلنگ ایڈریس درج کریں (اختیاری)"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "notes": {
-                    "label": "نوٹس",
-                    "placeholder": "نوٹس درج کریں (اختیاری)"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "folder": {
-                    "label": "فولڈر میں اسٹور کریں",
-                    "placeholder": "فولڈر کا نام",
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں",
                     "aria_label": "فولڈر اسٹوریج کو ٹوگل کریں"
                 },
                 "master_password": {
@@ -1150,57 +1167,57 @@
             }
         },
         "notes": {
-            "title": "نوٹس",
-            "subtitle": "اپنے محفوظ نوٹس اور کی-ویلیو پیئرز کا انتظام کریں",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
             "loading": {
-                "title": "آپ کے نوٹس لوڈ ہو رہے ہیں",
-                "message": "براہ کرم انتظار کریں جب کہ ہم آپ کا محفوظ ڈیٹا حاصل کر رہے ہیں..."
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
             },
             "error": {
-                "title": "اوہ! کچھ غلط ہو گیا",
-                "message": "ہم آپ کے نوٹس لوڈ نہیں کر سکے۔",
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!",
                 "try_again": "دوبارہ کوشش کریں",
-                "load_failed": "اسٹور شدہ نوٹس لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+                "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
             },
             "premium": {
-                "title": "پریمیم فیچرز انلاک کریں",
-                "description": "ZelfKeys Premium کے ساتھ جدید سیکیورٹی اور بہت کچھ حاصل کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "add_note": {
-                "title": "نیا نوٹ شامل کریں",
-                "description": "محفوظ طریقے سے ایک نیا نوٹ اسٹور کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "detail": {
-                "loading": "نوٹ کی تفصیلات لوڈ ہو رہی ہیں...",
+                "loading": "نتائج لوڈ ہو رہے ہیں...",
                 "error": {
-                    "title": "نوٹ لوڈ کرنے میں غلطی",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "go_back": "واپس جائیں",
-                    "not_found": "نوٹ کا کوئی ڈیٹا دستیاب نہیں ہے",
-                    "load_failed": "نوٹ کا ڈیٹا لوڈ کرنے میں ناکام",
-                    "retrieve_failed": "نوٹ کا ڈیٹا حاصل کرنے میں ناکام",
-                    "decrypt_failed": "نوٹ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+                    "not_found": "ریکارڈ نہیں ملا",
+                    "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+                    "retrieve_failed": "ادائیگی کارڈ کا ڈیٹا حاصل کرنے میں ناکام",
+                    "decrypt_failed": "ادائیگی کارڈ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
                 },
                 "no_title": "کوئی عنوان نہیں",
                 "no_content": "کوئی مواد نہیں",
-                "untitled": "بغیر عنوان نوٹ",
-                "no_folder": "کوئی فولڈر نہیں",
+                "untitled": "بغیر عنوان",
+                "no_folder": "کوئی فولڈر نہیں ہے",
                 "decrypt": {
-                    "button": "نوٹ ڈکرپٹ کریں",
+                    "button": "ادائیگی کارڈ کو ڈکرپٹ کریں",
                     "decrypting": "ڈکرپٹ ہو رہا ہے..."
                 },
                 "info": {
-                    "title": "نوٹ کی معلومات",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "note_id": "نوٹ ID",
                     "type": "قسم",
                     "folder": "فولڈر",
                     "copy_id": "نوٹ ID کاپی کریں"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "download": "ZelfProof ڈاؤن لوڈ کریں"
                 },
                 "decrypted": {
-                    "title": "ڈکرپٹ شدہ مواد",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "title_field": "عنوان",
                     "content": "مواد",
                     "no_title": "کوئی عنوان نہیں",
@@ -1211,82 +1228,82 @@
             },
             "form": {
                 "title": {
-                    "add": "نیا نوٹ شامل کریں",
-                    "edit": "نوٹ میں ترمیم کریں"
+                    "add": "نیا ادائیگی کارڈ شامل کریں",
+                    "edit": "ترمیم کریں"
                 },
                 "title_field": {
-                    "label": "نوٹ کا عنوان *"
+                    "label": "بینک کا نام *"
                 },
                 "content": {
-                    "label": "نوٹ کا مواد *",
-                    "hint": "آپ کا نوٹ کا مواد انکرپٹ کر کے محفوظ طریقے سے اسٹور کر دیا جائے گا۔ آپ جتنا چاہیں لکھ سکتے ہیں۔"
+                    "label": "بینک کا نام *",
+                    "hint": "ہمیں آپ کے کریڈنشلز کو انکرپٹ اور اسٹور کرنے کے لیے {{ walletName }} پاس ورڈ درکار ہے۔ بائیو میٹرک توثیق ہمیشہ درکار ہوتی ہے۔"
                 },
                 "folder": {
-                    "label": "فولڈر میں ترتیب دیں",
-                    "placeholder": "فولڈر کا نام درج کریں",
-                    "aria_label": "فولڈر آرگنائزیشن کو ٹوگل کریں"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں",
+                    "aria_label": "فولڈر اسٹوریج کو ٹوگل کریں"
                 },
                 "master_password": {
-                    "label": "ماسٹر پاس ورڈ *",
+                    "label": "بینک کا نام *",
                     "hint": "ہمیں آپ کے کریڈنشلز کو انکرپٹ اور اسٹور کرنے کے لیے {{ walletName }} پاس ورڈ درکار ہے۔ بائیو میٹرک توثیق ہمیشہ درکار ہوتی ہے۔"
                 },
                 "buttons": {
                     "cancel": "منسوخ کریں",
-                    "create": "نوٹ بنائیں",
-                    "update": "نوٹ اپ ڈیٹ کریں"
+                    "create": "کارڈ بنائیں",
+                    "update": "کارڈ اپ ڈیٹ کریں"
                 }
             }
         },
         "passwords": {
-            "title": "پاس ورڈز",
-            "subtitle": "اپنے محفوظ پاس ورڈز اور کریڈنشلز کا انتظام کریں",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
             "loading": {
-                "title": "آپ کے پاس ورڈز لوڈ ہو رہے ہیں",
-                "message": "براہ کرم انتظار کریں جب کہ ہم آپ کا محفوظ ڈیٹا حاصل کر رہے ہیں..."
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
             },
             "error": {
-                "title": "اوہ! کچھ غلط ہو گیا",
-                "message": "ہم آپ کے پاس ورڈز لوڈ نہیں کر سکے۔",
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!",
                 "try_again": "دوبارہ کوشش کریں",
-                "load_failed": "اسٹور شدہ پاس ورڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+                "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
             },
             "premium": {
-                "title": "پریمیم فیچرز انلاک کریں",
-                "description": "ZelfKeys Premium کے ساتھ جدید سیکیورٹی اور بہت کچھ حاصل کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "add_password": {
-                "title": "نیا پاس ورڈ شامل کریں",
-                "description": "محفوظ طریقے سے ایک نیا پاس ورڈ اسٹور کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "search": {
-                "placeholder": "پاس ورڈز تلاش کریں..."
+                "placeholder": "کارڈ کی قسم منتخب کریں"
             },
             "no_results": {
-                "title": "کوئی پاس ورڈ نہیں ملا",
-                "message": "اپنی تلاش کے الفاظ کو تبدیل کرنے کی کوشش کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
             },
             "detail": {
-                "loading": "پاس ورڈ کی تفصیلات لوڈ ہو رہی ہیں...",
+                "loading": "نتائج لوڈ ہو رہے ہیں...",
                 "error": {
-                    "title": "پاس ورڈ لوڈ کرنے میں غلطی",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "go_back": "واپس جائیں",
-                    "not_found": "پاس ورڈ کا ڈیٹا نہیں ملا",
-                    "load_failed": "پاس ورڈ کا ڈیٹا لوڈ کرنے میں ناکام",
-                    "decrypt_failed": "پاس ورڈ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+                    "not_found": "ریکارڈ نہیں ملا",
+                    "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+                    "decrypt_failed": "ادائیگی کارڈ کو ڈکرپٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
                 },
-                "untitled": "بغیر عنوان پاس ورڈ",
+                "untitled": "بغیر عنوان",
                 "no_username": "کوئی صارف نام نہیں",
                 "no_website": "کوئی ویب سائٹ نہیں",
                 "no_category": "کوئی زمرہ نہیں",
                 "no_zelf_name": "کوئی ٹیگ نام نہیں",
                 "unknown_date": "نامعلوم تاریخ",
                 "decrypt": {
-                    "button": "پاس ورڈ ڈکرپٹ کریں",
+                    "button": "ادائیگی کارڈ کو ڈکرپٹ کریں",
                     "decrypting": "ڈکرپٹ ہو رہا ہے...",
                     "launch_fill": "کھولیں اور پُر کریں"
                 },
                 "info": {
-                    "title": "پاس ورڈ کی معلومات",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "website": "ویب سائٹ",
                     "username": "صارف نام",
                     "category": "زمرہ",
@@ -1298,15 +1315,15 @@
                     "prefill_autofill": "آٹو فل پُر کریں"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "download": "ZelfProof ڈاؤن لوڈ کریں"
                 },
                 "decrypted": {
-                    "title": "ڈکرپٹ شدہ مواد",
+                    "title": "ادائیگی کارڈ کی معلومات",
                     "website": "ویب سائٹ",
                     "username": "صارف نام",
                     "password": "پاس ورڈ",
-                    "notes": "نوٹس",
+                    "notes": "نوٹ",
                     "difficulty": "مشکل",
                     "show_password": "پاس ورڈ دکھائیں",
                     "hide_password": "پاس ورڈ چھپائیں",
@@ -1315,31 +1332,31 @@
                 }
             },
             "form": {
-                "title": "پاس ورڈ شامل کریں",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "website": {
-                    "label": "ویب سائٹ URL *"
+                    "label": "بینک کا نام *"
                 },
                 "title_field": {
-                    "label": "عنوان *",
-                    "placeholder": "عنوان درج کریں"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "email": {
-                    "label": "ای میل/صارف نام *"
+                    "label": "بینک کا نام *"
                 },
                 "password": {
-                    "label": "پاس ورڈ *"
+                    "label": "بینک کا نام *"
                 },
                 "folder": {
-                    "label": "فولڈر میں ترتیب دیں",
-                    "placeholder": "فولڈر کا نام درج کریں",
-                    "aria_label": "فولڈر آرگنائزیشن کو ٹوگل کریں"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں",
+                    "aria_label": "فولڈر اسٹوریج کو ٹوگل کریں"
                 },
                 "notes": {
-                    "label": "نوٹس",
-                    "placeholder": "نوٹس درج کریں (اختیاری)"
+                    "label": "بینک کا نام *",
+                    "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "master_password": {
-                    "label": "ماسٹر پاس ورڈ *",
+                    "label": "بینک کا نام *",
                     "hint": "ہمیں آپ کے کریڈنشلز کو انکرپٹ اور اسٹور کرنے کے لیے {{ walletName }} پاس ورڈ درکار ہے۔ بائیو میٹرک توثیق ہمیشہ درکار ہوتی ہے۔"
                 },
                 "buttons": {
@@ -1350,12 +1367,12 @@
         },
         "password_result": {
             "status": {
-                "success_title": "پاس ورڈ کامیابی سے اسٹور ہو گیا!",
-                "error_title": "پاس ورڈ اسٹور کرنے میں غلطی",
+                "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
+                "error_title": "نوٹ اسٹور کرنے میں غلطی",
                 "unknown_title": "نامعلوم اسٹیٹس",
-                "success_message": "آپ کا پاس ورڈ بائیو میٹرک توثیق کے ساتھ محفوظ طریقے سے اسٹور کر دیا گیا ہے۔",
-                "error_message": "آپ کا پاس ورڈ اسٹور کرتے وقت ایک غلطی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔",
-                "unknown_message": "آپ کے پاس ورڈ اسٹوریج کی درخواست کا اسٹیٹس واضح نہیں ہے۔"
+                "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+                "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
+                "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
             },
             "error": {
                 "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
@@ -1366,9 +1383,9 @@
                 "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
                 "error_title": "نوٹ اسٹور کرنے میں غلطی",
                 "unknown_title": "نامعلوم اسٹیٹس",
-                "success_message": "آپ کا نوٹ محفوظ طریقے سے اسٹور کر دیا گیا ہے اور بلاکچین ویریفیکیشن کے ساتھ انکرپٹ کر دیا گیا ہے۔",
-                "error_message": "آپ کا نوٹ اسٹور کرتے وقت ایک غلطی پیش آئی۔",
-                "unknown_message": "سسٹم اسٹوریج اسٹیٹس کا تعین نہیں کر سکا۔"
+                "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+                "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
+                "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
             },
             "error": {
                 "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
@@ -1376,36 +1393,36 @@
         }
     },
     "start": {
-        "title": "ZelfKeys میں خوش آمدید",
-        "subtitle": "آپ کا محفوظ پاس ورڈ مینیجر",
+        "title": "ادائیگی کارڈ کی معلومات",
+        "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
         "features": {
             "install_extension": {
-                "title": "ہماری ایکسٹینشن <br />انسٹال کریں",
-                "description": "اپنی پسندیدہ براؤزر میں ہماری ایکسٹینشن حاصل کریں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "secure_passwords": {
-                "title": "اپنے پاس ورڈز <br />محفوظ کریں",
-                "description": "اپنے پاس ورڈز، ادائیگی کارڈز اور نوٹس شامل کریں۔"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             },
             "autocomplete": {
-                "title": "اپنی معلومات <br />خود بخود پُر کریں",
-                "description": "ایک فوری بائیو میٹرک توثیق کے بعد اپنے اسٹور شدہ پاس ورڈز خود بخود پُر کریں۔"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "description": "آپ کا ادائیگی کارڈ محفوظ طریقے سے اسٹور اور انکرپٹ کر دیا گیا ہے۔"
             }
         },
         "cta": {
-            "button": "اپنا پہلا پاس ورڈ محفوظ کریں"
+            "button": "ادائیگی کارڈ کو ڈکرپٹ کریں"
         }
     },
     "password_result": {
-        "title": "پاس ورڈ اسٹوریج کا نتیجہ",
+        "title": "ادائیگی کارڈ کی معلومات",
         "loading": "نتائج لوڈ ہو رہے ہیں...",
         "sections": {
             "success": {
-                "title": "اسٹوریج کامیاب!",
-                "message": "پاس ورڈ کامیابی سے اسٹور کر دیا گیا!"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "message": "نوٹ کامیابی سے اسٹور کر دیا گیا!"
             },
             "details": {
-                "title": "اسٹور شدہ پاس ورڈ کی تفصیلات",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
                     "website": "ویب سائٹ",
                     "username": "صارف نام",
@@ -1416,7 +1433,7 @@
                 }
             },
             "nft": {
-                "title": "NFT بن گیا",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
                     "token_id": "ٹوکن ID",
                     "cost": "لاگت",
@@ -1429,7 +1446,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "IPFS اسٹوریج",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
                     "hash": "IPFS ہیش",
                     "gateway_url": "گیٹ وے URL",
@@ -1441,7 +1458,7 @@
                 "gateway_link": "IPFS گیٹ وے پر دیکھیں"
             },
             "walrus": {
-                "title": "Walrus اسٹوریج",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "عوامی URL",
@@ -1454,7 +1471,7 @@
                 "explorer_link": "ایکسپلورر پر دیکھیں"
             },
             "zelfproof": {
-                "title": "ZelfProof تیار ہو گیا",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
                     "string": "ZelfProof سٹرنگ",
                     "qr_code": "کیو آر کوڈ"
@@ -1462,30 +1479,30 @@
                 "copy_hint": "کاپی کرنے کے لیے کلک کریں"
             },
             "next_steps": {
-                "title": "اگلے مراحل",
-                "success_message": "آپ کا پاس ورڈ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی پاس ورڈز کی فہرست میں دیکھ سکتے ہیں یا دوسرا پاس ورڈ شامل کر سکتے ہیں۔",
+                "title": "ادائیگی کارڈ کی معلومات",
+                "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
                 "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
                 "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
             }
         },
         "actions": {
             "back_to_passwords": "پاس ورڈز پر واپس جائیں",
-            "add_another": "دوسرا پاس ورڈ شامل کریں"
+            "add_another": "دوسرا کارڈ شامل کریں"
         },
         "status": {
-            "success_title": "پاس ورڈ کامیابی سے اسٹور ہو گیا!",
-            "error_title": "پاس ورڈ اسٹور کرنے میں غلطی",
+            "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
+            "error_title": "نوٹ اسٹور کرنے میں غلطی",
             "unknown_title": "نامعلوم اسٹیٹس",
-            "success_message": "آپ کا پاس ورڈ بائیو میٹرک توثیق کے ساتھ محفوظ طریقے سے اسٹور کر دیا گیا ہے۔",
-            "error_message": "آپ کا پاس ورڈ اسٹور کرتے وقت ایک غلطی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔",
-            "unknown_message": "آپ کے پاس ورڈ اسٹوریج کی درخواست کا اسٹیٹس واضح نہیں ہے۔"
+            "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+            "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
+            "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
         },
         "error": {
             "no_result": "کوئی API نتیجہ دستیاب نہیں ہے"
         }
     },
     "domain_selection": {
-        "title": "اپنے ٹیگ نام کے لیے ڈومین منتخب کریں"
+        "title": "ادائیگی کارڈ کی معلومات"
     },
     "zotp": {
         "add_zotp": "ZOTP شامل کریں",
@@ -1500,12 +1517,12 @@
         "upload_qr_code_instructions": "اپنا ZOTP خود بخود کنفیگر کرنے کے لیے کیو آر کوڈ تصویر اپ لوڈ کریں",
         "no_zotps_added": "ابھی تک کوئی ZOTP شامل نہیں کیا گیا۔ شامل کرنے کے لیے + بٹن پر کلک کریں۔",
         "master_password": "ماسٹر پاس ورڈ",
-        "master_password_placeholder": "اپنا والٹ ماسٹر پاس ورڈ درج کریں",
-        "master_password_hint": "اس ZOTP کو محفوظ طریقے سے انکرپٹ اور اسٹور کرنے کے لیے آپ کے والٹ کا ماسٹر پاس ورڈ درکار ہے۔",
+        "master_password_placeholder": "اپنا ماسٹر پاس ورڈ درج کریں",
+        "master_password_hint": "اگر آپ نے یہ اندراج بناتے وقت ماسٹر پاس ورڈ سیٹ کیا تھا، تو اسے یہاں درج کریں",
         "see_details": "تفصیلات دیکھیں",
         "unlock_zotp": "ZOTP ان لاک کریں",
         "hide_secret": "خفیہ چھپائیں",
-        "details": "ZOTP تفصیلات",
+        "details": "تفصیلات",
         "qr_code": "کیو آر کوڈ",
         "public_data": "عوامی ڈیٹا",
         "ipfs_info": "IPFS معلومات",
@@ -1576,7 +1593,7 @@
         "recovery_success_description": "آپ کا ZOTP بازیافت ہو گیا ہے اور آپ کے توثیق کار میں شامل کر دیا گیا ہے۔ اب آپ اسے کوڈز تیار کرنے کے لیے استعمال کر سکتے ہیں۔"
     },
     "rewards": {
-        "title": "انعامات",
+        "title": "ادائیگی کارڈ کی معلومات",
         "redeem_zns": "ZNS ریڈیم کریں",
         "invite_friends": "دوستوں کو مدعو کریں",
         "daily_rewards": "روزانہ انعامات",
@@ -1584,9 +1601,9 @@
         "your_tasks": "آپ کے کام",
         "coming_soon": "جلد آرہا ہے",
         "first_transaction": {
-            "title": "پہلی ٹرانزیکشن کا انعام",
-            "loading": "اہلیت کی جانچ ہو رہی ہے...",
-            "success_title": "آپ جیت گئے ہیں",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "loading": "نتائج لوڈ ہو رہے ہیں...",
+            "success_title": "نوٹ کامیابی سے اسٹور ہو گیا!",
             "success_subtitle": "پہلی ٹرانزیکشن مکمل ہو گئی!",
             "earned_label": "آپ نے حاصل کیا ہے",
             "accept": "قبول کریں",
@@ -1596,29 +1613,31 @@
             "already_claimed_title": "پہلے ہی کلیم کیا جا چکا ہے",
             "already_claimed_desc": "آپ پہلے ہی اس انعام کو کلیم کر چکے ہیں!",
             "instruction_action": "ZNS ٹوکن بھیجیں",
-            "instruction_desc": "اس انعام کو غیر مقفل کرنے کے لیے اپنی پہلی ZNS ٹوکن ٹرانزیکشن کریں"
+            "instruction_desc": "اس انعام کو غیر مقفل کرنے کے لیے اپنی پہلی ZNS ٹوکن ٹرانزیکشن کریں",
+            "error_no_wallet": "No wallet found",
+            "error_invalid_config": "Invalid wallet configuration"
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "اپنے پہلے دوست کو مدعو کریں",
+                "title": "ادائیگی کارڈ کی معلومات",
                 "reward": "10 سے 100 $ZNS جیتیں"
             },
             "first_transaction": {
-                "title": "اپنی پہلی ZNS ٹرانزیکشن بھیجیں",
-                "reward": "100 $ZNS تک کمائیں",
+                "title": "ادائیگی کارڈ کی معلومات",
+                "reward": "10 سے 100 $ZNS جیتیں",
                 "reward_completed": "آپ نے {{amount}} $ZNS جیتا"
             },
             "join_discord": {
-                "title": "ہمارے ڈسکارڈ میں شامل ہوں",
-                "reward": "25 $ZNS جیتیں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "reward": "10 سے 100 $ZNS جیتیں"
             },
             "join_telegram": {
-                "title": "ہمارے ٹیلی گرام کمیونٹی میں شامل ہوں",
-                "reward": "25 $ZNS جیتیں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "reward": "10 سے 100 $ZNS جیتیں"
             },
             "join_x": {
-                "title": "X پر ہمارے ساتھ شامل ہوں",
-                "reward": "5 $ZNS جیتیں"
+                "title": "ادائیگی کارڈ کی معلومات",
+                "reward": "10 سے 100 $ZNS جیتیں"
             }
         },
         "alreadyClaimedToday": "آپ نے آج کا روزانہ انعام پہلے ہی حاصل کر لیا ہے!",
@@ -1630,13 +1649,13 @@
         "seconds": "سیکنڈز",
         "spin_the_wheel": "پہیہ گھمائیں",
         "spin_subtitle": "اور $ZNS میں روزانہ انعامات جیتیں",
-        "loading": "لوڈ ہو رہا ہے...",
+        "loading": "نتائج لوڈ ہو رہے ہیں...",
         "spinning": "گھوم رہا ہے...",
         "come_back_tomorrow": "کل واپس آئیں!",
         "spin_now": "پہیہ گھمائیں!",
         "error": {
-            "no_wallet": "کوئی والٹ نہیں ملا۔ براہ کرم پہلے والٹ منسلک کریں۔",
-            "load_failed": "پہیہ کی کنفیگریشن لوڈ کرنے میں ناکامی۔",
+            "no_wallet": "کوئی والٹ نہیں ملا۔ براہ کرم پہلے اپنا والٹ سیٹ اپ کریں۔",
+            "load_failed": "ادائیگی کارڈز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
             "claim_failed": "انعام کا کلیم نہیں کیا جا سکا۔",
             "already_claimed": "آپ آج پہلے ہی اپنا روزانہ انعام کلیم کر چکے ہیں۔ کل واپس آئیں!",
             "spin_failed": "پہیہ گھمانے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔",
@@ -1657,45 +1676,68 @@
         "start_earning_desc": "اپنا کوڈ شیئر کریں اور انعامات حاصل کرنا شروع کریں!",
         "status": {
             "purchased": "خریدا گیا",
-            "registered": "رجسٹرڈ",
+            "registered": "زیلف نام {{ date }} سے رجسٹرڈ ہے",
             "pending": "زیر التوا"
         },
         "claim": "{{ amount }} $ZNS کا کلیم کریں"
     },
     "claim_reward": {
         "loading": {
-            "title": "انعام کا کلیم کیا جا رہا ہے",
+            "title": "ادائیگی کارڈ کی معلومات",
             "text": "آپ کے والٹ میں {{ amount }} $ZNS بھیجے جا رہے ہیں...",
             "subtext": "اس میں کچھ سیکنڈ لگ سکتے ہیں"
         },
         "success": {
-            "title": "آپ جیت گئے ہیں",
-            "subtitle": "کام مکمل ہو گیا!",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
             "desc": "<strong>{{ name }}</strong> سے ریفرل انعام",
             "earned_label": "آپ نے حاصل کیا ہے",
             "accept": "قبول کریں"
         },
         "error": {
-            "title": "کلیم ناکام ہو گیا",
-            "subtext": "فکر نہ کریں، آپ دوبارہ کوشش کر سکتے ہیں۔ آپ کا انعام اب بھی آپ کا انتظار کر رہا ہے۔",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "subtext": "اس میں کچھ سیکنڈ لگ سکتے ہیں",
             "retry": "دوبارہ کوشش کریں",
             "go_back": "واپس جائیں",
             "messages": {
                 "reward_already_claimed": "اس انعام کا کلیم پہلے ہی کیا جا چکا ہے",
-                "generic": "انعام کا کلیم کرنے میں ناکامی۔ براہ کرم بعد میں دوبارہ کوشش کریں۔"
+                "generic": "معذرت، اس درخواست کو پروسیس کرنے میں ایک مسئلہ تھا۔ براہ کرم دوبارہ کوشش کریں۔"
             }
         }
     },
     "home_banners": {
         "expiration": {
-            "title": "اپنا ZelfName نہ کھوئیں",
-            "expired": "آپ کے ڈومین کی میعاد ختم ہو گئی ہے",
+            "title": "ادائیگی کارڈ کی معلومات",
+            "expired": "ختم ہو گیا",
             "one_day": "آپ کے ZNS کی خریداری کے لیے 1 دن باقی ہے",
             "days_left": "آپ کے ZNS کی خریداری کے لیے {{ days }} دن باقی ہیں"
         },
         "rewards": {
-            "title": "انعامات کا دعویٰ کریں",
-            "subtitle": "ہمارے کوئسٹس کے ذریعے روزانہ $ZNS حاصل کریں"
+            "title": "ادائیگی کارڈ کی معلومات",
+            "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔"
         }
+    },
+    "dapp": {
+        "connection_request": "Connection Request",
+        "select_accounts": "Select accounts to connect",
+        "network": "نیٹ ورک",
+        "threat_warning_title": "Malicious Site Detected",
+        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
+        "connect": "Connect",
+        "sign_message": "Sign Message",
+        "sign_transaction": "Sign Transaction",
+        "message_to_sign": "Message to sign",
+        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "wants_to_connect": "آپ کے والیٹ سے جڑنا چاہتا ہے",
+        "accounts": "اکاؤنٹس",
+        "permissions": "اجازتیں",
+        "permission_see_address": "ایڈریس، اکاؤنٹ بیلنس اور سرگرمی دیکھیں",
+        "permission_suggest_tx": "منظوری کے لیے لین دین تجویز کریں",
+        "permission_disclaimer": "یہ سائٹ کو آپ کی منظوری کے بغیر فنڈز منتقل کرنے کی اجازت نہیں دے گا",
+        "confirm_transaction": "لین دین کی تصدیق کریں",
+        "to_address": "وصول کنندہ",
+        "value": "رقم",
+        "data": "ڈیٹا",
+        "biometric_required": "دستخط کے لیے بائیو میٹرک تصدیق ضروری ہے"
     }
 }

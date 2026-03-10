@@ -7,7 +7,8 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { SigningService } from "app/services/signing.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { DappApprovalRequest, PendingDappRequest, VerifyStatus, getChainConfig, chainIdToHex } from "@shared/types/dapp.types";
+import { VerifyStatus, getChainConfig, SUPPORTED_CHAINS } from "@shared/types/dapp.types";
+import { getPreferredChainIdForOrigin } from "@shared/services/dapp-mapping.service";
 
 @Component({
     imports: [CommonModule, MatButtonModule, TranslocoModule, ZelfLoaderComponent],
@@ -19,10 +20,17 @@ export class DappConnectComponent implements OnInit {
     loading = true;
     requestId = "";
     origin = "";
+    hostname = "";
+    favicon = "";
+    faviconError = false;
+    activeTab: "accounts" | "permissions" = "accounts";
     accounts: { tagName: string; address: string; selected: boolean }[] = [];
     verifyStatus: VerifyStatus = "UNKNOWN";
+    chainId = 1404;
     chainName = "BlockDAG";
-    pendingRequest: PendingDappRequest | null = null;
+    chainSymbol = "BDAG";
+    showPicker = false;
+    supportedChains = SUPPORTED_CHAINS;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -32,7 +40,8 @@ export class DappConnectComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
-        this.requestId = this._activatedRoute.snapshot.queryParams?.requestId || "";
+        const urlParams = new URLSearchParams(window.location.search);
+        this.requestId = urlParams.get("requestId") || this._activatedRoute.snapshot.queryParams?.requestId || "";
 
         if (!this.requestId) {
             this._router.navigate(["/home"]);
@@ -48,10 +57,26 @@ export class DappConnectComponent implements OnInit {
                 selected: index === 0,
             }));
 
-            const pendingData = await this._chromeService.getItem<any>("pending_dapp_request_" + this.requestId);
+            const pendingData = await this._loadPendingData();
+
             if (pendingData) {
                 this.origin = pendingData.origin || "";
+                this.hostname = pendingData.hostname || this._extractHostname(this.origin);
+                this.favicon = pendingData.favicon || "";
                 this.verifyStatus = pendingData.verifyStatus || "UNKNOWN";
+
+                const preferredChainId = getPreferredChainIdForOrigin(this.origin);
+                const resolvedChainId = pendingData.chainId || preferredChainId || 1404;
+                this.chainId = resolvedChainId;
+                const chainConfig = getChainConfig(resolvedChainId);
+                if (chainConfig) {
+                    this.chainName = chainConfig.name;
+                    this.chainSymbol = chainConfig.symbol;
+                }
+            }
+
+            if (!this.favicon && this.hostname) {
+                this.favicon = `https://www.google.com/s2/favicons?domain=${this.hostname}&sz=64`;
             }
         } catch (error) {
             console.error("Error loading dApp connect data:", error);
@@ -67,11 +92,11 @@ export class DappConnectComponent implements OnInit {
     get verifyLabel(): string {
         switch (this.verifyStatus) {
             case "VALID":
-                return "Verified dApp";
+                return "Verified";
             case "INVALID":
                 return "Domain mismatch";
             case "THREAT":
-                return "Flagged as malicious";
+                return "Malicious";
             default:
                 return "Unverified";
         }
@@ -94,8 +119,34 @@ export class DappConnectComponent implements OnInit {
         return this.verifyStatus === "THREAT";
     }
 
+    get hostnameInitial(): string {
+        return this.hostname ? this.hostname.charAt(0).toUpperCase() : "?";
+    }
+
+    setTab(tab: "accounts" | "permissions"): void {
+        this.activeTab = tab;
+    }
+
     toggleAccount(index: number): void {
         this.accounts[index].selected = !this.accounts[index].selected;
+    }
+
+    toggleNetworkPicker(): void {
+        this.showPicker = !this.showPicker;
+    }
+
+    selectNetwork(chainId: number): void {
+        this.chainId = chainId;
+        const config = getChainConfig(chainId);
+        if (config) {
+            this.chainName = config.name;
+            this.chainSymbol = config.symbol;
+        }
+        this.showPicker = false;
+    }
+
+    onFaviconError(): void {
+        this.faviconError = true;
     }
 
     shortAddress(address: string): string {
@@ -113,7 +164,7 @@ export class DappConnectComponent implements OnInit {
                     requestId: this.requestId,
                     approved: true,
                     accounts: this.selectedAccounts,
-                    chainId: 1404,
+                    chainId: this.chainId,
                 },
                 requestId: this.requestId,
             });
@@ -139,5 +190,37 @@ export class DappConnectComponent implements OnInit {
         }
 
         window.close();
+    }
+
+    private async _loadPendingData(): Promise<any> {
+        // Primary: query background directly (avoids cache race condition)
+        try {
+            const response = await chrome.runtime.sendMessage({
+                type: "DAPP_GET_PENDING",
+                requestId: this.requestId,
+            });
+            if (response?.success && response.data) {
+                return response.data;
+            }
+        } catch {
+            // Background might not support this message yet
+        }
+
+        // Fallback: read from chrome.storage.local
+        const stored = await this._chromeService.getItem<any>("pending_dapp_request_" + this.requestId);
+        if (stored && typeof stored === "object" && stored.origin) {
+            return stored;
+        }
+
+        return null;
+    }
+
+    private _extractHostname(origin: string): string {
+        if (!origin) return "";
+        try {
+            return new URL(origin).hostname;
+        } catch {
+            return origin;
+        }
     }
 }

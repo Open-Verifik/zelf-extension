@@ -1,5 +1,6 @@
 <div class="zelf-tag-button" (click)="onClick()">
     <div class="zelf-tag-button__content">
+        <div class="zelf-tag-button__indicator" *ngIf="isConnected"></div>
         <div class="zelf-tag-button__text" *ngIf="tagName">
             {{ tagName }}
         </div>

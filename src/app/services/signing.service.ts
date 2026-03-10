@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { TransactionParams, TransactionResult } from "../core/models/transaction-fee.model";
 import { BlockchainTransactionsService } from "./blockchain-transactions.service";
 import { VaultService } from "../vault.service";
+import { environment } from "environments/environment";
 import { WalletService } from "../wallet.service";
 import { TagModel } from "../tags.service";
 
@@ -37,6 +38,9 @@ export interface DeriveKeyResult {
 
 const CHAIN_ID_TO_NETWORK: Record<number, string> = {
     1: "ethereum",
+    10: "ethereum",
+    42161: "ethereum",
+    8453: "ethereum",
     43114: "avalanche",
     137: "polygon",
     56: "binance",
@@ -78,7 +82,7 @@ export class SigningService {
     }
 
     static isEvmNetwork(network: string): boolean {
-        return ["ethereum", "avalanche", "polygon", "binance", "blockdag"].includes(network.toLowerCase());
+        return ["ethereum", "avalanche", "polygon", "binance", "blockdag", "optimism", "arbitrum", "base"].includes(network.toLowerCase());
     }
 
     deriveEvmKey(mnemonic: string): DeriveKeyResult {
@@ -160,7 +164,7 @@ export class SigningService {
 
         const tx: ethers.TransactionRequest = {
             to: txParams.to,
-            value: txParams.value ? ethers.parseEther(txParams.value) : 0n,
+            value: txParams.value ? BigInt(txParams.value) : 0n,
             data: txParams.data || "0x",
             chainId: txParams.chainId,
         };
@@ -178,7 +182,7 @@ export class SigningService {
         const network = txParams.network.toLowerCase();
 
         if (SigningService.isEvmNetwork(network)) {
-            return this.signEvmTransaction(mnemonic, txParams);
+            return this.sendEvmTransactionNative(mnemonic, txParams);
         }
 
         const params: TransactionParams = {
@@ -198,6 +202,17 @@ export class SigningService {
         }
 
         const raw = await this._vaultService.decryptMessage(wallet.pgp.encryptedMessage, wallet.pgp.privateKey, password);
+        const secret = JSON.parse(raw);
+
+        return secret.mnemonic?.trim()?.toLowerCase() || null;
+    }
+
+    async decryptMnemonicOnce(wallet: TagModel, password: string): Promise<string | null> {
+        if (!wallet?.pgp?.encryptedMessage || !wallet?.pgp?.privateKey || !password) {
+            return null;
+        }
+
+        const raw = await this._vaultService.oneTimeDecryptMessage(wallet.pgp.encryptedMessage, wallet.pgp.privateKey, password);
         const secret = JSON.parse(raw);
 
         return secret.mnemonic?.trim()?.toLowerCase() || null;
@@ -235,5 +250,48 @@ export class SigningService {
                 address: w.publicData?.ethAddress || "",
                 wallet: w,
             }));
+    }
+
+    async sendEvmTransactionNative(mnemonic: string, txParams: DappTransactionParams): Promise<TransactionResult> {
+        const cleanMnemonic = mnemonic.trim().toLowerCase();
+        const network = txParams.network.toLowerCase();
+        let rpcUrl = "";
+        
+        switch (network) {
+            case "ethereum": rpcUrl = environment.ethereumRpc.mainnet; break;
+            case "bsc":
+            case "binance": rpcUrl = environment.binanceRpc.mainnet; break;
+            case "polygon": rpcUrl = environment.polygonRpc.mainnet; break;
+            case "avalanche": rpcUrl = environment.avalancheRpc.mainnet; break;
+            case "blockdag": rpcUrl = "https://rpc.bdagscan.com"; break;
+            default: rpcUrl = environment.ethereumRpc.mainnet;
+        }
+
+        const provider = new ethers.JsonRpcProvider(rpcUrl);
+        const wallet = ethers.Wallet.fromPhrase(cleanMnemonic).connect(provider);
+
+        const tx: ethers.TransactionRequest = {
+            to: txParams.to,
+            value: txParams.value ? BigInt(txParams.value) : 0n,
+            data: txParams.data || "0x",
+            chainId: txParams.chainId,
+        };
+
+        if (txParams.gasLimit) tx.gasLimit = BigInt(txParams.gasLimit);
+        if (txParams.gasPrice) tx.gasPrice = BigInt(txParams.gasPrice);
+        if (txParams.maxFeePerGas) tx.maxFeePerGas = BigInt(txParams.maxFeePerGas);
+        if (txParams.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(txParams.maxPriorityFeePerGas);
+        if (txParams.nonce !== undefined) tx.nonce = txParams.nonce;
+
+        try {
+            const txResponse = await wallet.sendTransaction(tx);
+            return {
+                hash: txResponse.hash,
+                status: "pending",
+            };
+        } catch (error: any) {
+            console.error("Direct EVM Transaction Failed:", error);
+            throw error;
+        }
     }
 }

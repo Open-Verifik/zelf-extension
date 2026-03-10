@@ -1,110 +1,154 @@
-<div class="zelf-card dapp-sign" *transloco="let t">
+<div class="dapp-sign" *transloco="let t">
     <ng-container *ngIf="!loading">
+        <!-- Site Identity Header -->
         <div class="dapp-sign__header">
-            <p class="dapp-sign__title">{{ isMessageSign ? (t("dapp.sign_message") || "Sign Message") : (t("dapp.sign_transaction") || "Sign Transaction") }}</p>
-            <p class="dapp-sign__origin">{{ origin }}</p>
-        </div>
-
-        <div class="zelf-card__content zelf-card__content--grow">
-            <!-- Transaction Details -->
-            <ng-container *ngIf="!isMessageSign">
-                <div class="dapp-sign__decoded" *ngIf="decoded">
-                    <div class="dapp-sign__decoded-icon" [ngClass]="'dapp-sign__decoded-icon--' + decoded.type">
-                        <svg *ngIf="decoded.type === 'native_transfer' || decoded.type === 'erc20_transfer'" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" />
-                        </svg>
-                        <svg *ngIf="decoded.type === 'erc20_approve' || decoded.type === 'erc721_approve_all'" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
-                        </svg>
-                        <svg *ngIf="decoded.type === 'contract_interaction' || decoded.type === 'unknown'" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
-                        </svg>
-                    </div>
-                    <p class="dapp-sign__decoded-description">{{ decoded.description }}</p>
-                </div>
-
-                <div class="dapp-sign__details">
-                    <div class="zelf-action-row">
-                        <p class="dapp-sign__label">{{ t("common.network") || "Network" }}</p>
-                        <p class="dapp-sign__value">{{ txNetworkName }}</p>
-                    </div>
-
-                    <div class="zelf-action-row" *ngIf="txTo">
-                        <p class="dapp-sign__label">{{ t("common.to") || "To" }}</p>
-                        <p class="dapp-sign__value dapp-sign__value--mono">{{ shortAddress(txTo) }}</p>
-                    </div>
-
-                    <div class="zelf-action-row" *ngIf="txValue && txValue !== '0' && txValue !== '0x0'">
-                        <p class="dapp-sign__label">{{ t("common.value") || "Value" }}</p>
-                        <p class="dapp-sign__value">{{ txValue }}</p>
-                    </div>
-
-                    <div class="zelf-action-row" *ngIf="txData && txData !== '0x'">
-                        <p class="dapp-sign__label">{{ t("common.data") || "Data" }}</p>
-                        <p class="dapp-sign__value dapp-sign__value--mono dapp-sign__value--truncate">{{ txData }}</p>
-                    </div>
-                </div>
-            </ng-container>
-
-            <!-- Message Signing -->
-            <ng-container *ngIf="isMessageSign">
-                <div class="dapp-sign__message-container">
-                    <p class="dapp-sign__section-title">{{ t("dapp.message_to_sign") || "Message to sign" }}</p>
-                    <div class="dapp-sign__message-box">
-                        <pre class="dapp-sign__message-text">{{ messageToSign }}</pre>
-                    </div>
-                </div>
-            </ng-container>
-
-            <!-- Warning for unknown contract interaction -->
-            <div class="dapp-sign__warning" *ngIf="decoded?.type === 'unknown'">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#eab308">
-                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-                </svg>
-                <p>{{ t("dapp.unknown_interaction_warning") || "Unknown contract interaction. Review carefully before signing." }}</p>
-            </div>
-        </div>
-
-        <!-- Password Input -->
-        <form [formGroup]="form">
-            <div class="zelf-input zelf-input--wide dapp-sign__password" *ngIf="!passwordSet">
-                <input
-                    [type]="showPassword ? 'text' : 'password'"
-                    class="zelf-input__control zelf-input__control--floating-label"
-                    formControlName="password"
-                    id="dapp-password"
-                    placeholder=" "
-                    required
+            <div class="dapp-sign__site-icon">
+                <img
+                    *ngIf="favicon && !faviconError"
+                    [src]="favicon"
+                    [alt]="hostname"
+                    (error)="onFaviconError()"
+                    width="40"
+                    height="40"
                 />
-                <label for="dapp-password" class="zelf-input__floating-label">{{ t("common.password") }}</label>
-                <button (click)="toggleShowPassword()" class="zelf-icon-button zelf-icon-button--transparent" type="button" mat-icon-button tabindex="-1">
-                    <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                        <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
-                    </svg>
-                    <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                        <path d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56Z" />
-                    </svg>
-                </button>
+                <span *ngIf="!favicon || faviconError" class="dapp-sign__site-initial">{{ hostnameInitial }}</span>
             </div>
 
-            <div class="zelf-message zelf-message--error" *ngIf="passwordError" style="margin: 0 16px">
+            <p class="dapp-sign__title">
+                {{ isMessageSign ? t("dapp.sign_message") : t("dapp.confirm_transaction") }}
+            </p>
+            <p class="dapp-sign__hostname">{{ hostname }}</p>
+        </div>
+
+        <!-- Transaction Details -->
+        <div class="dapp-sign__body" *ngIf="!isMessageSign">
+            <div class="dapp-sign__decoded" *ngIf="decoded">
+                <div class="dapp-sign__decoded-icon" [ngClass]="'dapp-sign__decoded-icon--' + decoded.type">
+                    <svg *ngIf="decoded.type === 'native_transfer' || decoded.type === 'erc20_transfer'" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" />
+                    </svg>
+                    <svg *ngIf="decoded.type === 'erc20_approve' || decoded.type === 'erc721_approve_all'" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                    </svg>
+                    <svg *ngIf="decoded.type === 'swap'" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
+                    </svg>
+                    <svg *ngIf="decoded.type === 'contract_interaction' || decoded.type === 'unknown' || decoded.type === 'erc721_transfer'" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+                    </svg>
+                </div>
+                <div class="dapp-sign__decoded-text">
+                    <p class="dapp-sign__decoded-description">{{ decoded.description }}</p>
+                    <p class="dapp-sign__decoded-subtext" *ngIf="decoded.type === 'erc20_approve' || decoded.type === 'erc721_approve_all'" style="font-size: 13px; opacity: 0.8; margin-top: 4px; line-height: 1.4;">
+                        Step 1: Permit the contract to spend your tokens to execute a swap or transfer.
+                    </p>
+                </div>
+            </div>
+
+            <div class="dapp-sign__details">
+                <div class="dapp-sign__detail-row">
+                    <span class="dapp-sign__detail-label">{{ t("dapp.network") }}</span>
+                    <span class="dapp-sign__detail-value">{{ txNetworkName }}</span>
+                </div>
+
+                <div class="dapp-sign__detail-row" *ngIf="txTo">
+                    <span class="dapp-sign__detail-label">{{ t("dapp.to_address") }}</span>
+                    <span class="dapp-sign__detail-value dapp-sign__detail-value--mono">{{ shortAddress(txTo) }}</span>
+                </div>
+
+                <div class="dapp-sign__detail-row" *ngIf="txValueFormatted && txValueFormatted !== '0' && txValueFormatted !== '0.0'">
+                    <span class="dapp-sign__detail-label">{{ t("dapp.value") }}</span>
+                    <span class="dapp-sign__detail-value">{{ txValueFormatted }} {{ txChainSymbol }}</span>
+                </div>
+
+                <ng-container *ngIf="decoded?.type === 'swap'">
+                    <div class="dapp-sign__detail-row" *ngIf="decoded?.srcToken">
+                        <span class="dapp-sign__detail-label">From Token</span>
+                        <div class="dapp-sign__detail-value">
+                            <span *ngIf="decoded?.amountIn && decoded?.amountIn !== '0'">{{ decoded?.amountIn }} WEI </span>
+                            <span class="dapp-sign__detail-value--mono" [title]="decoded?.srcTokenSymbol ? shortAddress(decoded?.srcToken || '') : ''">
+                                <ng-container *ngIf="decoded?.srcTokenSymbol">{{ decoded?.srcTokenSymbol }}</ng-container>
+                                <ng-container *ngIf="!decoded?.srcTokenSymbol">{{ shortAddress(decoded?.srcToken || '') }}</ng-container>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="dapp-sign__detail-row" *ngIf="decoded?.dstToken">
+                        <span class="dapp-sign__detail-label">To Token</span>
+                        <div class="dapp-sign__detail-value">
+                            <span *ngIf="decoded?.amountOutMin && decoded?.amountOutMin !== '0'">Min: {{ decoded?.amountOutMin }} WEI </span>
+                            <span class="dapp-sign__detail-value--mono" [title]="decoded?.dstTokenSymbol ? shortAddress(decoded?.dstToken || '') : ''">
+                                <ng-container *ngIf="decoded?.dstTokenSymbol">{{ decoded?.dstTokenSymbol }}</ng-container>
+                                <ng-container *ngIf="!decoded?.dstTokenSymbol">{{ shortAddress(decoded?.dstToken || '') }}</ng-container>
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="dapp-sign__detail-row" *ngIf="txData && txData !== '0x' && (!decoded || decoded.type === 'unknown')">
+                    <span class="dapp-sign__detail-label">{{ t("dapp.data") }}</span>
+                    <span class="dapp-sign__detail-value dapp-sign__detail-value--mono dapp-sign__detail-value--truncate">
+                        {{ txData }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="dapp-sign__warning" *ngIf="decoded?.type === 'unknown'">
+                <span class="material-symbols-outlined">warning</span>
+                <p>{{ t("dapp.unknown_interaction_warning") }}</p>
+            </div>
+        </div>
+
+        <!-- Message Signing -->
+        <div class="dapp-sign__body" *ngIf="isMessageSign">
+            <p class="dapp-sign__section-label">{{ t("dapp.message_to_sign") }}</p>
+            <div class="dapp-sign__message-box">
+                <pre class="dapp-sign__message-text">{{ messageToSign }}</pre>
+            </div>
+        </div>
+
+        <!-- Password / Biometrics -->
+        <div class="dapp-sign__auth">
+            <form [formGroup]="form" *ngIf="!passwordSet">
+                <div class="dapp-sign__password-field">
+                    <input
+                        [type]="showPassword ? 'text' : 'password'"
+                        class="dapp-sign__password-input"
+                        formControlName="password"
+                        id="dapp-sign-password"
+                        [placeholder]="t('common.password')"
+                    />
+                    <button (click)="toggleShowPassword()" class="dapp-sign__password-toggle" type="button">
+                        <span class="material-symbols-outlined">{{ showPassword ? 'visibility' : 'visibility_off' }}</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="dapp-sign__error" *ngIf="passwordError">
+                <span class="material-symbols-outlined">error</span>
                 <p>{{ t("errors.invalid_password", { remaining: remainingAttempts }) }}</p>
             </div>
-        </form>
 
-        <div class="zelf-card__actions dapp-sign__actions">
-            <button (click)="reject()" class="zelf-button zelf-button--secondary zelf-button--wide" mat-flat-button [disabled]="signing">
-                {{ t("common.cancel") || "Cancel" }}
+            <div class="dapp-sign__biometric-notice" *ngIf="requiresBiometrics">
+                <span class="material-symbols-outlined">fingerprint</span>
+                <p>{{ t("dapp.biometric_required") }}</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="dapp-sign__actions">
+            <button (click)="reject()" class="dapp-sign__btn dapp-sign__btn--cancel" mat-flat-button [disabled]="signing">
+                {{ t("common.cancel") }}
             </button>
 
             <button
                 (click)="requiresBiometrics ? goToBiometrics() : confirmSigning()"
                 [disabled]="signing || !hasCredentials"
-                class="zelf-button zelf-button--primary zelf-button--wide"
+                class="dapp-sign__btn dapp-sign__btn--confirm"
                 mat-flat-button
             >
-                <ng-container *ngIf="requiresBiometrics">{{ t("common.verify") || "Verify" }}</ng-container>
-                <ng-container *ngIf="!requiresBiometrics">{{ t("common.confirm") || "Confirm" }}</ng-container>
+                <ng-container *ngIf="requiresBiometrics">{{ t("common.verify") }}</ng-container>
+                <ng-container *ngIf="!requiresBiometrics && !signing">{{ t("common.confirm") }}</ng-container>
                 <mat-spinner *ngIf="signing" mode="indeterminate" diameter="18"></mat-spinner>
             </button>
         </div>

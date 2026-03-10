@@ -21,6 +21,7 @@ export class ChromeService {
     private _tabStorageKey = "isTabOpen";
     private _wallet$ = new BehaviorSubject<TagModel>({} as TagModel);
     private _wallets$ = new BehaviorSubject<TagModel[]>([] as TagModel[]);
+    private _activeTabConnected$ = new BehaviorSubject<boolean>(false);
 
     // In-memory cache for local storage
     private _localCache: Record<string, any> = {};
@@ -65,6 +66,10 @@ export class ChromeService {
             await this.setItem(this._tabStorageKey, false);
         });
 
+        browser.tabs.onActivated.addListener(this._checkActiveTabConnection.bind(this));
+        browser.tabs.onUpdated.addListener(this._checkActiveTabConnection.bind(this));
+        this._checkActiveTabConnection();
+
         browser.storage.local.onChanged.addListener((changes) => {
             // Update local cache
             for (const [key, change] of Object.entries(changes)) {
@@ -108,6 +113,10 @@ export class ChromeService {
 
             if (changes.myArnsDontShowAgain) {
                 this._myArnsDontShowAgain$.next(changes.myArnsDontShowAgain.newValue as boolean);
+            }
+
+            if (changes.dapp_permissions) {
+                this._checkActiveTabConnection();
             }
         });
 
@@ -159,6 +168,23 @@ export class ChromeService {
         }
     }
 
+    private async _checkActiveTabConnection(): Promise<void> {
+        if (!this.isExtension) return;
+        try {
+            const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+            if (!tabs || tabs.length === 0 || !tabs[0].url) {
+                this._activeTabConnected$.next(false);
+                return;
+            }
+            const origin = new URL(tabs[0].url).origin;
+            const permissions = await this.getItem("dapp_permissions");
+            const isConnected = !!(permissions && permissions[origin] && permissions[origin].accounts && permissions[origin].accounts.length > 0);
+            this._activeTabConnected$.next(isConnected);
+        } catch (e) {
+            this._activeTabConnected$.next(false);
+        }
+    }
+
     get isExtension(): boolean {
         return this._isExtension;
     }
@@ -205,6 +231,10 @@ export class ChromeService {
 
     get onWalletsChanged$(): Observable<TagModel[]> {
         return this._wallets$.asObservable();
+    }
+
+    get activeTabConnected$(): Observable<boolean> {
+        return this._activeTabConnected$.asObservable();
     }
 
     async closeTab(): Promise<void> {

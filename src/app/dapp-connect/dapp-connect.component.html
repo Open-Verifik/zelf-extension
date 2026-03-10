@@ -1,71 +1,129 @@
-<div class="zelf-card dapp-connect" *transloco="let t">
+<div class="dapp-connect" *transloco="let t">
     <ng-container *ngIf="!loading">
+        <!-- Site Identity Header -->
         <div class="dapp-connect__header">
-            <div class="dapp-connect__icon">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="40" height="40" rx="12" fill="#FF5721" fill-opacity="0.15" />
-                    <path
-                        d="M20 12C15.58 12 12 15.58 12 20C12 24.42 15.58 28 20 28C24.42 28 28 24.42 28 20C28 15.58 24.42 12 20 12ZM19 24.93C16.18 24.55 14 22.11 14 19.18C14 18.5 14.12 17.85 14.34 17.24L18 20.89V21.68C18 22.44 18.6 23.05 19.37 23.05V24.93ZM24.56 23.75C24.38 23.16 23.84 22.73 23.21 22.73H22.42V20.89C22.42 20.51 22.11 20.21 21.74 20.21H17.68V19.42H18.47C18.85 19.42 19.16 19.11 19.16 18.74V17.95H19.95C20.71 17.95 21.32 17.34 21.32 16.58V16.31C23.87 17.24 25.68 19.71 25.68 22.63C25.68 23.06 25.64 23.42 25.56 23.75H24.56Z"
-                        fill="#FF5721"
-                    />
-                </svg>
+            <div class="dapp-connect__site-icon">
+                <img *ngIf="favicon && !faviconError" [src]="favicon" [alt]="hostname" (error)="onFaviconError()" width="48" height="48" />
+                <span *ngIf="!favicon || faviconError" class="dapp-connect__site-initial">{{ hostnameInitial }}</span>
             </div>
 
-            <p class="dapp-connect__title">{{ t("dapp.connection_request") || "Connection Request" }}</p>
-
-            <p class="dapp-connect__origin">{{ origin }}</p>
+            <p class="dapp-connect__hostname">{{ hostname }}</p>
 
             <div class="dapp-connect__verify" [ngClass]="verifyClass">
                 <span class="dapp-connect__verify-dot"></span>
                 <span>{{ verifyLabel }}</span>
             </div>
+
+            <p class="dapp-connect__subtitle">{{ t("dapp.wants_to_connect") }}</p>
         </div>
 
-        <div class="dapp-connect__content" *ngIf="!isThreat">
-            <p class="dapp-connect__section-title">{{ t("dapp.select_accounts") || "Select accounts to connect" }}</p>
+        <!-- Tabs -->
+        <div class="dapp-connect__tabs" *ngIf="!isThreat">
+            <button class="dapp-connect__tab" [class.dapp-connect__tab--active]="activeTab === 'accounts'" (click)="setTab('accounts')">
+                {{ t("dapp.accounts") }}
+            </button>
+            <button class="dapp-connect__tab" [class.dapp-connect__tab--active]="activeTab === 'permissions'" (click)="setTab('permissions')">
+                {{ t("dapp.permissions") }}
+            </button>
+        </div>
 
+        <!-- Accounts Tab -->
+        <div class="dapp-connect__body" *ngIf="activeTab === 'accounts' && !isThreat">
             <div class="dapp-connect__accounts">
                 <div
                     class="dapp-connect__account"
                     *ngFor="let account of accounts; let i = index"
-                    [ngClass]="{ 'dapp-connect__account--selected': account.selected }"
+                    [class.dapp-connect__account--selected]="account.selected"
                     (click)="toggleAccount(i)"
                 >
-                    <div class="dapp-connect__account-checkbox">
-                        <svg *ngIf="account.selected" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M6.5 11.5L3 8L4 7L6.5 9.5L12 4L13 5L6.5 11.5Z" fill="currentColor" />
-                        </svg>
+                    <div class="dapp-connect__account-avatar">
+                        <span class="material-symbols-outlined">person</span>
                     </div>
 
                     <div class="dapp-connect__account-info">
                         <p class="dapp-connect__account-name" *ngIf="account.tagName">{{ account.tagName }}</p>
                         <p class="dapp-connect__account-address">{{ shortAddress(account.address) }}</p>
                     </div>
+
+                    <div class="dapp-connect__account-check">
+                        <svg *ngIf="account.selected" width="12" height="12" viewBox="0 0 14 14" fill="none">
+                            <path d="M5.5 10.5L2 7L3 6L5.5 8.5L11 3L12 4L5.5 10.5Z" fill="currentColor" />
+                        </svg>
+                    </div>
                 </div>
             </div>
 
-            <p class="dapp-connect__chain-info">{{ t("dapp.network") || "Network" }}: {{ chainName }}</p>
+            <div class="dapp-connect__network-container" [class.dapp-connect__network-container--open]="showPicker">
+                <div class="dapp-connect__network" (click)="toggleNetworkPicker()">
+                    <span class="material-symbols-outlined">lan</span>
+                    <span>{{ t("dapp.network") }}: {{ chainName }}</span>
+                    <span class="material-symbols-outlined dapp-connect__network-arrow">expand_more</span>
+                </div>
+
+                <div class="dapp-connect__picker" *ngIf="showPicker">
+                    <div
+                        class="dapp-connect__picker-item"
+                        *ngFor="let chain of supportedChains"
+                        (click)="selectNetwork(chain.chainId)"
+                        [class.dapp-connect__picker-item--active]="chain.chainId === chainId"
+                    >
+                        <span>{{ chain.name }}</span>
+                        <svg *ngIf="chain.chainId === chainId" width="12" height="12" viewBox="0 0 14 14" fill="none">
+                            <path d="M5.5 10.5L2 7L3 6L5.5 8.5L11 3L12 4L5.5 10.5Z" fill="currentColor" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="dapp-connect__threat-warning" *ngIf="isThreat">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="#ef4444">
-                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-            </svg>
-            <p>{{ t("dapp.threat_warning") || "This site has been flagged as malicious. Connection blocked for your safety." }}</p>
+        <!-- Permissions Tab -->
+        <div class="dapp-connect__body" *ngIf="activeTab === 'permissions' && !isThreat">
+            <div class="dapp-connect__permissions">
+                <div class="dapp-connect__permission">
+                    <div class="dapp-connect__permission-icon">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </div>
+                    <p>{{ t("dapp.permission_see_address") }}</p>
+                </div>
+
+                <div class="dapp-connect__permission">
+                    <div class="dapp-connect__permission-icon">
+                        <span class="material-symbols-outlined">swap_horiz</span>
+                    </div>
+                    <p>{{ t("dapp.permission_suggest_tx") }}</p>
+                </div>
+            </div>
+
+            <div class="dapp-connect__permission-disclaimer">
+                <span class="material-symbols-outlined">info</span>
+                <p>{{ t("dapp.permission_disclaimer") }}</p>
+            </div>
         </div>
 
-        <div class="zelf-card__actions dapp-connect__actions">
-            <button (click)="reject()" class="zelf-button zelf-button--secondary zelf-button--wide" mat-flat-button>
-                {{ t("common.cancel") || "Cancel" }}
+        <!-- Threat Warning -->
+        <div class="dapp-connect__body dapp-connect__threat" *ngIf="isThreat">
+            <div class="dapp-connect__threat-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                </svg>
+            </div>
+            <p class="dapp-connect__threat-title">{{ t("dapp.threat_warning_title") }}</p>
+            <p class="dapp-connect__threat-body">{{ t("dapp.threat_warning") }}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="dapp-connect__actions">
+            <button (click)="reject()" class="dapp-connect__btn dapp-connect__btn--cancel" mat-flat-button>
+                {{ t("common.cancel") }}
             </button>
 
             <button
                 (click)="approve()"
                 [disabled]="isThreat || selectedAccounts.length === 0"
-                class="zelf-button zelf-button--primary zelf-button--wide"
+                class="dapp-connect__btn dapp-connect__btn--connect"
                 mat-flat-button
             >
-                {{ t("dapp.connect") || "Connect" }}
+                {{ t("dapp.connect") }}
             </button>
         </div>
     </ng-container>

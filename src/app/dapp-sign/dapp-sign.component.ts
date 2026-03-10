@@ -15,7 +15,8 @@ import { WalletService } from "app/wallet.service";
 import { TagsService } from "app/tags.service";
 import { TagModel } from "app/tags.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { DecodedTransaction, PendingDappRequest, getChainConfig } from "@shared/types/dapp.types";
+import { DecodedTransaction, getChainConfig } from "@shared/types/dapp.types";
+import { ethers } from "ethers";
 
 @Component({
     imports: [
@@ -36,6 +37,9 @@ export class DappSignComponent implements OnInit {
     signing = false;
     requestId = "";
     origin = "";
+    hostname = "";
+    favicon = "";
+    faviconError = false;
     method = "";
     requiresBiometrics = false;
     passwordSet = false;
@@ -49,16 +53,17 @@ export class DappSignComponent implements OnInit {
 
     txTo = "";
     txValue = "";
+    txValueFormatted = "";
     txData = "";
-    txChainId = 1404;
-    txNetwork = "blockdag";
-    txNetworkName = "BlockDAG";
+    txChainId = 1;
+    txNetwork = "ethereum";
+    txNetworkName = "Ethereum";
+    txChainSymbol = "ETH";
 
     messageToSign = "";
     isMessageSign = false;
 
     private _password = "";
-    private _mnemonics = "";
     private _pendingParams: any = null;
 
     constructor(
@@ -86,12 +91,19 @@ export class DappSignComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.requestId = this._activatedRoute.snapshot.queryParams?.requestId || "";
+        const urlParams = new URLSearchParams(window.location.search);
+        this.requestId =
+            urlParams.get("requestId") ||
+            this._activatedRoute.snapshot.queryParams?.requestId ||
+            sessionStorage.getItem("pending_sign_request_id") ||
+            "";
 
         if (!this.requestId) {
             this._router.navigate(["/home"]);
             return;
         }
+
+        sessionStorage.removeItem("pending_sign_request_id");
 
         this.form = this._formBuilder.group({
             password: ["", [Validators.required]],
@@ -100,13 +112,28 @@ export class DappSignComponent implements OnInit {
         try {
             this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
 
-            const pendingData = await this._chromeService.getItem<any>("pending_dapp_request_" + this.requestId);
+            const pendingData = await this._loadPendingData();
             if (pendingData) {
                 this.origin = pendingData.origin || "";
+                this.hostname = pendingData.hostname || this._extractHostname(this.origin);
+                this.favicon = pendingData.favicon || "";
                 this.method = pendingData.method || "";
                 this._pendingParams = pendingData.params;
 
-                if (this.method === "personal_sign" || this.method === "eth_sign" || this.method.startsWith("eth_signTypedData")) {
+                if (!this.favicon && this.hostname) {
+                    this.favicon = `https://www.google.com/s2/favicons?domain=${this.hostname}&sz=64`;
+                }
+
+                const resolvedChainId = pendingData.chainId || 1;
+                this.txChainId = resolvedChainId;
+                const chainConfig = getChainConfig(resolvedChainId);
+                if (chainConfig) {
+                    this.txNetwork = chainConfig.network;
+                    this.txNetworkName = chainConfig.name;
+                    this.txChainSymbol = chainConfig.symbol;
+                }
+
+                if (this._isMessageMethod(this.method)) {
                     this.isMessageSign = true;
                     this._parseMessage();
                 } else {
@@ -127,6 +154,151 @@ export class DappSignComponent implements OnInit {
         return this.passwordSet || !!this.form.get("password")?.value;
     }
 
+    get hostnameInitial(): string {
+        return this.hostname ? this.hostname.charAt(0).toUpperCase() : "?";
+    }
+
+    onFaviconError(): void {
+        this.faviconError = true;
+    }
+
+    shortAddress(address: string): string {
+        if (!address || address.length < 12) return address;
+        return `${address.slice(0, 8)}...${address.slice(-6)}`;
+    }
+
+    toggleShowPassword(): void {
+        this.showPassword = !this.showPassword;
+    }
+
+    async goToBiometrics(): Promise<void> {
+        if (!this.hasCredentials || !this.wallet) return;
+
+        if (!this._vaultService.password || this._vaultService.password.trim() === "") {
+            this._vaultService.password = this.form.get("password")?.value || this._password;
+        }
+
+        const tagName = this.wallet?.publicData?.tagName || this.wallet?.fullTagName || "";
+        await this._tagsService.setTagName(tagName);
+        await this._tagsService.setFlow("unlock");
+
+        sessionStorage.setItem("pending_sign_request_id", this.requestId);
+        this._router.navigate(["security/biometrics"], { queryParams: { return: "/dapp/sign" } });
+    }
+
+    async confirmSigning(): Promise<void> {
+        if (this.signing) return;
+
+        if (this.requiresBiometrics) {
+            await this.goToBiometrics();
+            return;
+        }
+
+        if (!this._password && !this.form.get("password")?.value) {
+            this._openErrorSnackBar("Enter your password");
+            return;
+        }
+
+        this.signing = true;
+
+        try {
+            const passphrase = this._password || this.form.get("password")?.value;
+
+            // Use oneTimeDecryptMessage (no biometrics timer check) since:
+            // 1. We already verified biometrics within this popup flow, and
+            // 2. The signing popup is a separate Chrome window whose VaultService
+            //    instance may have a stale _lastVerified causing false "expired" errors.
+            let mnemonic = await this._signingService.decryptMnemonicOnce(this.wallet as TagModel, passphrase);
+
+            if (!mnemonic) {
+                this._openErrorSnackBar("Failed to decrypt wallet");
+                this.signing = false;
+                return;
+            }
+
+            let result: any;
+
+            if (this.isMessageSign) {
+                const signResult = await this._signingService.signMessage(mnemonic, {
+                    method: this.method as any,
+                    message: Array.isArray(this._pendingParams) ? this._pendingParams[0] : this._pendingParams,
+                });
+                result = signResult.signature;
+            } else {
+                const params = Array.isArray(this._pendingParams) ? this._pendingParams[0] : this._pendingParams;
+
+                if (this.method === "eth_signTransaction") {
+                    result = await this._signingService.signRawTransaction(mnemonic, {
+                        to: params.to,
+                        value: params.value,
+                        data: params.data,
+                        gasLimit: params.gas || params.gasLimit,
+                        gasPrice: params.gasPrice,
+                        maxFeePerGas: params.maxFeePerGas,
+                        maxPriorityFeePerGas: params.maxPriorityFeePerGas,
+                        nonce: params.nonce ? parseInt(params.nonce, 16) : undefined,
+                        chainId: this.txChainId,
+                        network: this.txNetwork,
+                    });
+                } else {
+                    const txResult = await this._signingService.sendEvmTransactionNative(mnemonic, {
+                        to: params.to,
+                        value: params.value,
+                        data: params.data,
+                        gasLimit: params.gas || params.gasLimit,
+                        gasPrice: params.gasPrice,
+                        maxFeePerGas: params.maxFeePerGas,
+                        maxPriorityFeePerGas: params.maxPriorityFeePerGas,
+                        nonce: params.nonce ? parseInt(params.nonce, 16) : undefined,
+                        chainId: this.txChainId,
+                        network: this.txNetwork,
+                    });
+                    result = txResult.hash;
+                }
+            }
+
+            await chrome.runtime.sendMessage({
+                type: "DAPP_SIGNING_RESULT",
+                payload: { requestId: this.requestId, result },
+                requestId: this.requestId,
+            });
+
+            window.close();
+        } catch (error: any) {
+            console.error("Signing error:", error);
+
+            if (/incorrect/i.test(error?.message)) {
+                this.passwordError = true;
+                this.remainingAttempts = this._vaultService.remainingAttempts;
+            } else {
+                this._openErrorSnackBar(error?.message || "Signing failed");
+            }
+
+            this.signing = false;
+        }
+    }
+
+    async reject(): Promise<void> {
+        try {
+            await chrome.runtime.sendMessage({
+                type: "DAPP_SIGNING_RESULT",
+                payload: {
+                    requestId: this.requestId,
+                    error: { code: 4001, message: "User rejected the request" },
+                },
+                requestId: this.requestId,
+            });
+        } catch (error) {
+            console.error("Error sending rejection:", error);
+        }
+
+        window.close();
+    }
+
+    private _isMessageMethod(method: string): boolean {
+        return method === "personal_sign" || method === "eth_sign" || method.startsWith("eth_signTypedData");
+    }
+
     private _parseTransaction(): void {
         if (!this._pendingParams) return;
 
@@ -135,11 +307,27 @@ export class DappSignComponent implements OnInit {
         this.txTo = params.to || "";
         this.txValue = params.value || "0";
         this.txData = params.data || "0x";
-        this.txChainId = params.chainId ? parseInt(params.chainId, 16) : 1404;
 
-        const chainConfig = getChainConfig(this.txChainId);
-        this.txNetwork = chainConfig?.network || "blockdag";
-        this.txNetworkName = chainConfig?.name || "BlockDAG";
+        if (params.chainId) {
+            const parsed = typeof params.chainId === "string" ? parseInt(params.chainId, 16) : params.chainId;
+            if (parsed) {
+                this.txChainId = parsed;
+                const chainConfig = getChainConfig(parsed);
+                if (chainConfig) {
+                    this.txNetwork = chainConfig.network;
+                    this.txNetworkName = chainConfig.name;
+                    this.txChainSymbol = chainConfig.symbol;
+                }
+            }
+        }
+
+        try {
+            if (this.txValue && this.txValue !== "0" && this.txValue !== "0x0") {
+                this.txValueFormatted = ethers.formatEther(this.txValue);
+            }
+        } catch {
+            this.txValueFormatted = this.txValue;
+        }
 
         this.decoded = this._txDecoder.decode(this.txTo, this.txData, this.txValue);
     }
@@ -192,137 +380,72 @@ export class DappSignComponent implements OnInit {
         this.requiresBiometrics = false;
     }
 
-    async goToBiometrics(): Promise<void> {
-        if (!this.hasCredentials || !this.wallet) return;
-
-        if (!this._vaultService.password || this._vaultService.password.trim() === "") {
-            this._vaultService.password = this.form.get("password")?.value || this._password;
-        }
-
-        const tagName = this.wallet?.publicData?.tagName || this.wallet?.fullTagName || "";
-        await this._tagsService.setTagName(tagName);
-        await this._tagsService.setFlow("unlock");
-
-        this._router.navigate(["security/biometrics"], { queryParams: { return: `/dapp/sign?requestId=${this.requestId}` } });
-    }
-
-    async confirmSigning(): Promise<void> {
-        if (this.signing) return;
-
-        if (this.requiresBiometrics) {
-            await this.goToBiometrics();
-            return;
-        }
-
-        if (!this._password && !this.form.get("password")?.value) {
-            this._openErrorSnackBar("Enter your password");
-            return;
-        }
-
-        this.signing = true;
-
+    private async _loadPendingData(): Promise<any> {
         try {
-            const passphrase = this._password || this.form.get("password")?.value;
-            const mnemonic = await this._signingService.decryptMnemonic(this.wallet as TagModel, passphrase);
-
-            if (!mnemonic) {
-                this._openErrorSnackBar("Failed to decrypt wallet");
-                this.signing = false;
-                return;
-            }
-
-            let result: any;
-
-            if (this.isMessageSign) {
-                const signResult = await this._signingService.signMessage(mnemonic, {
-                    method: this.method as any,
-                    message: Array.isArray(this._pendingParams) ? this._pendingParams[0] : this._pendingParams,
-                });
-                result = signResult.signature;
-            } else {
-                const params = Array.isArray(this._pendingParams) ? this._pendingParams[0] : this._pendingParams;
-
-                if (this.method === "eth_signTransaction") {
-                    result = await this._signingService.signRawTransaction(mnemonic, {
-                        to: params.to,
-                        value: params.value,
-                        data: params.data,
-                        gasLimit: params.gas || params.gasLimit,
-                        gasPrice: params.gasPrice,
-                        maxFeePerGas: params.maxFeePerGas,
-                        maxPriorityFeePerGas: params.maxPriorityFeePerGas,
-                        nonce: params.nonce ? parseInt(params.nonce, 16) : undefined,
-                        chainId: this.txChainId,
-                        network: this.txNetwork,
-                    });
-                } else {
-                    const txResult = await this._signingService.signEvmTransaction(mnemonic, {
-                        to: params.to,
-                        value: params.value,
-                        data: params.data,
-                        chainId: this.txChainId,
-                        network: this.txNetwork,
-                    });
-                    result = txResult.hash;
-                }
-            }
-
-            await chrome.runtime.sendMessage({
-                type: "DAPP_SIGNING_RESULT",
-                payload: {
-                    requestId: this.requestId,
-                    result,
-                },
+            const response = await chrome.runtime.sendMessage({
+                type: "DAPP_GET_PENDING",
                 requestId: this.requestId,
             });
-
-            window.close();
-        } catch (error: any) {
-            console.error("Signing error:", error);
-
-            if (error?.message === "expired") {
-                this.requiresBiometrics = true;
-                this._changeDetectorRef.detectChanges();
-            } else if (/incorrect/i.test(error?.message)) {
-                this.passwordError = true;
-                this.remainingAttempts = this._vaultService.remainingAttempts;
-            } else {
-                this._openErrorSnackBar(error?.message || "Signing failed");
+            if (response?.success && response.data) {
+                return response.data;
             }
-
-            this.signing = false;
+        } catch {
+            // Background might not support this message yet
         }
+
+        const stored = await this._chromeService.getItem<any>("pending_dapp_request_" + this.requestId);
+        if (stored && typeof stored === "object" && stored.origin) {
+            return stored;
+        }
+
+        return null;
     }
 
-    async reject(): Promise<void> {
+    private _extractHostname(origin: string): string {
+        if (!origin) return "";
         try {
-            await chrome.runtime.sendMessage({
-                type: "DAPP_SIGNING_RESULT",
-                payload: {
-                    requestId: this.requestId,
-                    error: { code: 4001, message: "User rejected the request" },
-                },
-                requestId: this.requestId,
-            });
-        } catch (error) {
-            console.error("Error sending rejection:", error);
+            return new URL(origin).hostname;
+        } catch {
+            return origin;
+        }
+    }
+
+    private _parseRpcError(raw: string): string {
+        if (!raw) return "Transaction failed. Please try again.";
+        const msg = raw.toLowerCase();
+
+        if (msg.includes("insufficient funds")) {
+            return `Not enough ${this.txChainSymbol} to cover gas fees. Add funds to your wallet and try again.`;
+        }
+        if (msg.includes("execution reverted") || msg.includes("reverted")) {
+            if (msg.includes("slippage") || msg.includes("price impact")) {
+                return "Swap failed: price moved too much. Try increasing slippage tolerance.";
+            }
+            return "Transaction reverted on-chain. The swap may have expired — please try again.";
+        }
+        if (msg.includes("nonce too low") || msg.includes("replacement transaction underpriced")) {
+            return "Transaction conflict. Please wait a moment and try again.";
+        }
+        if (msg.includes("gas required exceeds allowance") || msg.includes("gas limit")) {
+            return "Gas limit too low. Try increasing slippage or gas settings.";
+        }
+        if (msg.includes("user rejected") || msg.includes("rejected by user")) {
+            return "Transaction cancelled.";
+        }
+        if (msg.includes("incorrect_passphrase") || msg.includes("incorrect passphrase")) {
+            return "Incorrect password. Please try again.";
+        }
+        if (msg.includes("network") || msg.includes("connection")) {
+            return "Network error. Check your connection and try again.";
         }
 
-        window.close();
+        return "Transaction failed. Please try again.";
     }
 
-    toggleShowPassword(): void {
-        this.showPassword = !this.showPassword;
-    }
-
-    shortAddress(address: string): string {
-        if (!address || address.length < 12) return address;
-        return `${address.slice(0, 8)}...${address.slice(-6)}`;
-    }
-
-    private _openErrorSnackBar(message: string): void {
-        this._snackBar.open(message, this._translocoService.translate("common.close"), {
-            duration: 5000,
+    private _openErrorSnackBar(rawMessage: string): void {
+        const friendlyMessage = this._parseRpcError(rawMessage);
+        this._snackBar.open(friendlyMessage, this._translocoService.translate("common.close"), {
+            duration: 7000,
             panelClass: "zelf-snackbar",
             verticalPosition: "top",
         });

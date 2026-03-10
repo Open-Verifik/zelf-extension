@@ -15,7 +15,7 @@
         "offscreen",
         "notifications"
     ],
-    "version": "2.0.57",
+    "version": "2.0.58",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"
@@ -39,9 +39,18 @@
             ],
             "js": [
                 "browser-polyfill.min.js",
-                "main.js",
-                "autofill.js",
                 "zelf-provider-bridge.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "browser-polyfill.min.js",
+                "main.js",
+                "autofill.js"
             ],
             "run_at": "document_end"
         }
@@ -68,7 +77,10 @@
         "matches": [
             "https://*.zelf.world/*",
             "http://localhost:3000/*",
-            "http://localhost:3001/*"
+            "http://localhost:3001/*",
+            "http://localhost:3009/*",
+            "http://127.0.0.1:3000/*",
+            "http://127.0.0.1:3009/*"
         ]
     },
     "content_security_policy": {

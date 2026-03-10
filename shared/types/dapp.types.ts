@@ -15,6 +15,7 @@ export type DappMessageType =
     | "DAPP_CHAIN_CHANGED"
     | "DAPP_PROVIDER_REQUEST"
     | "DAPP_PROVIDER_RESPONSE"
+    | "DAPP_GET_PENDING"
     | "WC_SESSION_PROPOSAL"
     | "WC_SESSION_REQUEST"
     | "WC_SESSION_DELETE"
@@ -114,7 +115,7 @@ export interface DappMessageDetail {
 }
 
 export interface DecodedTransaction {
-    type: "native_transfer" | "erc20_transfer" | "erc20_approve" | "erc721_transfer" | "erc721_approve_all" | "contract_interaction" | "unknown";
+    type: "native_transfer" | "erc20_transfer" | "erc20_approve" | "erc721_transfer" | "erc721_approve_all" | "contract_interaction" | "swap" | "unknown";
     description: string;
     to?: string;
     amount?: string;
@@ -123,6 +124,12 @@ export interface DecodedTransaction {
     spender?: string;
     tokenId?: string;
     functionName?: string;
+    srcToken?: string;
+    dstToken?: string;
+    srcTokenSymbol?: string;
+    dstTokenSymbol?: string;
+    amountIn?: string;
+    amountOutMin?: string;
 }
 
 export interface ChainConfig {
@@ -136,6 +143,9 @@ export interface ChainConfig {
 
 export const SUPPORTED_CHAINS: ChainConfig[] = [
     { chainId: 1, name: "Ethereum", symbol: "ETH", network: "ethereum", blockExplorer: "https://etherscan.io" },
+    { chainId: 42161, name: "Arbitrum One", symbol: "ETH", network: "arbitrum", blockExplorer: "https://arbiscan.io" },
+    { chainId: 10, name: "Optimism", symbol: "ETH", network: "optimism", blockExplorer: "https://optimistic.etherscan.io" },
+    { chainId: 8453, name: "Base", symbol: "ETH", network: "base", blockExplorer: "https://basescan.org" },
     { chainId: 43114, name: "Avalanche", symbol: "AVAX", network: "avalanche", blockExplorer: "https://avascan.info" },
     { chainId: 137, name: "Polygon", symbol: "POL", network: "polygon", blockExplorer: "https://polygonscan.com" },
     { chainId: 56, name: "BNB Chain", symbol: "BNB", network: "binance", blockExplorer: "https://bscscan.com" },

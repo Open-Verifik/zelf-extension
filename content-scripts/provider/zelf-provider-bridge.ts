@@ -34,12 +34,31 @@ function injectPageScript(): void {
 
 function setupMessageBridge(): void {
     window.addEventListener("message", async (event) => {
-        if (event.source !== window) return;
+        if (event.source !== (window as any)) return;
         if (!event.data || event.data.source !== "zelf-inpage") return;
 
         const { type, payload, requestId } = event.data;
 
         if (!DAPP_MESSAGE_TYPES.includes(type)) return;
+
+        if (typeof chrome === "undefined" || !chrome.runtime) {
+            console.error("Zelf: Extension context invalidated. Please refresh the page. (Missing chrome.runtime)");
+            window.postMessage(
+                {
+                    source: "zelf-content-script",
+                    type: "DAPP_PROVIDER_RESPONSE",
+                    requestId,
+                    payload: {
+                        error: {
+                            code: -32603,
+                            message: "Extension context invalidated. Please refresh the page.",
+                        },
+                    },
+                },
+                "*"
+            );
+            return;
+        }
 
         try {
             const response = await chrome.runtime.sendMessage({
@@ -60,7 +79,10 @@ function setupMessageBridge(): void {
                     "*"
                 );
             }
-        } catch (error) {
+        } catch (error: any) {
+            const errorMessage = error?.message || "Internal error";
+            const isContextInvalidated = errorMessage.includes("Extension context invalidated");
+            
             window.postMessage(
                 {
                     source: "zelf-content-script",
@@ -69,7 +91,9 @@ function setupMessageBridge(): void {
                     payload: {
                         error: {
                             code: -32603,
-                            message: (error as Error).message || "Internal error",
+                            message: isContextInvalidated
+                                ? "Zelf Wallet Extension was updated or reloaded in the background. Please refresh the page to continue."
+                                : errorMessage,
                         },
                     },
                 },
@@ -99,12 +123,5 @@ function setupMessageBridge(): void {
     });
 }
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-        injectPageScript();
-        setupMessageBridge();
-    });
-} else {
-    injectPageScript();
-    setupMessageBridge();
-}
+injectPageScript();
+setupMessageBridge();

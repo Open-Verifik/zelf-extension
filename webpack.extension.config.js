@@ -12,6 +12,8 @@ module.exports = (env, argv) => {
         entry: {
             autofill: "./content-scripts/autofill/autofill.ts",
             background: "./background-scripts/background.ts",
+            "zelf-inpage": "./content-scripts/provider/zelf-inpage.ts",
+            "zelf-provider-bridge": "./content-scripts/provider/zelf-provider-bridge.ts",
         },
         output: {
             path: outputPath,

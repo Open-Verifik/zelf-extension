@@ -11,7 +11,7 @@ export class TranslocoHttpLoader {
     constructor(private http: HttpClient) {}
 
     getTranslation(lang: string) {
-        return this.http.get(`/assets/i18n/${lang}.json`);
+        return this.http.get(`./assets/i18n/${lang}.json`);
     }
 }
 

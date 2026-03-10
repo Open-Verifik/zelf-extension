@@ -25,18 +25,23 @@ interface PendingRequest {
 const ZELF_ICON =
     "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSIjRkY1NzIxIi8+PHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+WjwvdGV4dD48L3N2Zz4=";
 
+const DEFAULT_CHAIN_ID = "0x1"; // Ethereum mainnet
+
 class ZelfProvider implements EIP1193Provider {
     isZelf = true;
-    chainId = "0x57c"; // BlockDAG 1404
+    chainId = DEFAULT_CHAIN_ID;
     selectedAddress: string | null = null;
 
     private _connected = false;
     private _listeners: Map<string, Set<(...args: any[]) => void>> = new Map();
     private _pendingRequests: Map<string, PendingRequest> = new Map();
     private _requestId = 0;
+    private _chainInitialized = false;
 
     constructor() {
         window.addEventListener("message", this._handleMessage.bind(this));
+        this._initChainId();
+        this._initAccounts();
     }
 
     isConnected(): boolean {
@@ -54,7 +59,8 @@ class ZelfProvider implements EIP1193Provider {
                 return String(parseInt(this.chainId, 16));
 
             case "eth_accounts":
-                return this.selectedAddress ? [this.selectedAddress] : [];
+                if (this.selectedAddress) return [this.selectedAddress];
+                return this._sendToContentScript("DAPP_GET_ACCOUNTS", { method });
 
             case "eth_requestAccounts":
                 return this._sendToContentScript("DAPP_REQUEST_ACCOUNTS", { method, params });
@@ -85,7 +91,10 @@ class ZelfProvider implements EIP1193Provider {
                 });
 
             case "wallet_requestPermissions":
-                return [{ parentCapability: "eth_accounts" }];
+                return this._sendToContentScript("DAPP_REQUEST_ACCOUNTS", { method }).then(() => [{ parentCapability: "eth_accounts" }]);
+
+            case "wallet_revokePermissions":
+                return this._sendToContentScript("DAPP_DISCONNECT", { method });
 
             case "wallet_getPermissions":
                 return this.selectedAddress ? [{ parentCapability: "eth_accounts" }] : [];
@@ -122,6 +131,38 @@ class ZelfProvider implements EIP1193Provider {
         });
     }
 
+    private _initChainId(): void {
+        this._sendToContentScript("DAPP_CHAIN_ID", {})
+            .then((chainIdHex: string) => {
+                if (chainIdHex && typeof chainIdHex === "string" && chainIdHex.startsWith("0x")) {
+                    this.chainId = chainIdHex;
+                }
+                this._chainInitialized = true;
+            })
+            .catch(() => {
+                this._chainInitialized = true;
+            });
+    }
+
+    private _initAccounts(): void {
+        this._sendToContentScript("DAPP_GET_ACCOUNTS", { method: "eth_accounts" })
+            .then((accounts: string[]) => {
+                if (
+                    Array.isArray(accounts) &&
+                    accounts.length > 0 &&
+                    typeof accounts[0] === "string" &&
+                    accounts[0].startsWith("0x") &&
+                    accounts[0].length === 42
+                ) {
+                    this.selectedAddress = accounts[0];
+                    this._connected = true;
+                    this._emit("connect", { chainId: this.chainId });
+                    this._emit("accountsChanged", accounts);
+                }
+            })
+            .catch(() => {});
+    }
+
     private _sendToContentScript(type: string, payload: any): Promise<any> {
         return new Promise((resolve, reject) => {
             const requestId = `zelf_${++this._requestId}_${Date.now()}`;
@@ -138,17 +179,20 @@ class ZelfProvider implements EIP1193Provider {
                 "*"
             );
 
-            setTimeout(() => {
-                if (this._pendingRequests.has(requestId)) {
-                    this._pendingRequests.delete(requestId);
-                    reject(new Error("Request timed out"));
-                }
-            }, 5 * 60 * 1000);
+            setTimeout(
+                () => {
+                    if (this._pendingRequests.has(requestId)) {
+                        this._pendingRequests.delete(requestId);
+                        reject(new Error("Request timed out"));
+                    }
+                },
+                5 * 60 * 1000
+            );
         });
     }
 
     private _handleMessage(event: MessageEvent): void {
-        if (event.source !== window) return;
+        if (event.source !== (window as any)) return;
         if (!event.data || event.data.source !== "zelf-content-script") return;
 
         const { type, payload, requestId } = event.data;
@@ -210,6 +254,7 @@ class ZelfProvider implements EIP1193Provider {
 
 // Only inject once
 if (!(window as any).zelf) {
+    console.log("ZelfProvider injecting...");
     const provider = new ZelfProvider();
     (window as any).zelf = provider;
 
@@ -222,7 +267,7 @@ if (!(window as any).zelf) {
     // EIP-6963: Multi Injected Provider Discovery
     const providerInfo = {
         uuid: crypto.randomUUID(),
-        name: "Zelf Wallet",
+        name: "Zelf Name Service",
         icon: ZELF_ICON,
         rdns: "world.zelf.wallet",
     };

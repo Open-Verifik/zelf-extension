@@ -9,6 +9,7 @@ import {
     isSupportedChain,
     chainIdToHex,
 } from "@shared/types/dapp.types";
+import { getPreferredChainIdForOrigin } from "@shared/services/dapp-mapping.service";
 
 const DAPP_REQUEST_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
 const PERMISSIONS_STORAGE_KEY = "dapp_permissions";
@@ -75,13 +76,17 @@ export class DappHandler {
                     await this._handleDisconnect(senderOrigin, sendResponse);
                     break;
 
+                case "DAPP_GET_PENDING":
+                    this._handleGetPending(requestId, sendResponse);
+                    break;
+
                 case "DAPP_APPROVAL_RESULT":
-                    this._handleApprovalResult(payload);
+                    await this._handleApprovalResult(payload);
                     sendResponse({ success: true });
                     break;
 
                 case "DAPP_SIGNING_RESULT":
-                    this._handleSigningResult(payload);
+                    await this._handleSigningResult(payload);
                     sendResponse({ success: true });
                     break;
 
@@ -102,16 +107,47 @@ export class DappHandler {
         return Array.from(this.pendingRequests.values());
     }
 
+    private async _getActiveChainId(origin: string): Promise<number> {
+        const permission = await this._getPermission(origin);
+        if (permission?.chainId) return permission.chainId;
+
+        const globalChainId = await this.browserApi.getStorageItem("active_chain_id");
+        if (globalChainId && typeof globalChainId === "number") return globalChainId;
+
+        return SUPPORTED_CHAINS[0].chainId;
+    }
+
     private async _handleConnectionRequest(requestId: string, origin: string, payload: any, tabId?: number): Promise<void> {
         const existingPermission = await this._getPermission(origin);
+        
+        // If method is explicitly wallet_requestPermissions, bypass the cache and force the UI
+        const isRequestPermissions = payload?.method === "wallet_requestPermissions";
 
-        if (existingPermission && existingPermission.accounts.length > 0) {
+        if (existingPermission && existingPermission.accounts.length > 0 && !isRequestPermissions) {
             this._resolveRequest(requestId, existingPermission.accounts);
             await this._notifyTab(tabId, "DAPP_PROVIDER_RESPONSE", {
                 requestId,
                 result: existingPermission.accounts,
             });
             return;
+        }
+
+        let hostname = "";
+        try {
+            hostname = new URL(origin).hostname;
+        } catch {
+            hostname = origin;
+        }
+
+        const activeChainId = await this._getActiveChainId(origin);
+        let chainId = payload?.chainId ? (typeof payload.chainId === "string" ? parseInt(payload.chainId, 16) : payload.chainId) : activeChainId;
+
+        // Smart default for known dApps (e.g., core.app -> Avalanche, Zelf/nft -> BlockDAG)
+        if (!payload?.chainId) {
+            const preferredChainId = getPreferredChainIdForOrigin(origin);
+            if (preferredChainId) {
+                chainId = preferredChainId;
+            }
         }
 
         const pendingRequest: PendingDappRequest = {
@@ -121,11 +157,22 @@ export class DappHandler {
             tabId,
             method: "eth_requestAccounts",
             params: payload,
+            chainId,
             timestamp: Date.now(),
             timeoutMs: DAPP_REQUEST_TIMEOUT_MS,
         };
 
         this._addPendingRequest(pendingRequest);
+
+        await this.browserApi.setStorageItem(`pending_dapp_request_${requestId}`, {
+            origin,
+            hostname,
+            favicon: `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`,
+            chainId,
+            verifyStatus: "UNKNOWN",
+            method: "eth_requestAccounts",
+        });
+
         await this._openApprovalUI("connect", requestId);
     }
 
@@ -152,19 +199,24 @@ export class DappHandler {
             return;
         }
 
+        const txParams = payload?.params || payload;
+        const txChainId = payload?.chainId || (Array.isArray(txParams) && txParams[0]?.chainId ? parseInt(txParams[0].chainId, 16) : undefined);
+        const resolvedChainId = txChainId || (await this._getActiveChainId(origin));
+
         const pendingRequest: PendingDappRequest = {
             id: requestId,
             type: "DAPP_SIGN_TRANSACTION",
             origin,
             tabId,
             method: payload?.method || "eth_sendTransaction",
-            params: payload?.params || payload,
-            chainId: payload?.chainId,
+            params: txParams,
+            chainId: resolvedChainId,
             timestamp: Date.now(),
             timeoutMs: DAPP_REQUEST_TIMEOUT_MS,
         };
 
         this._addPendingRequest(pendingRequest);
+        await this._persistPendingToStorage(requestId, pendingRequest);
         await this._openApprovalUI("sign", requestId);
     }
 
@@ -179,6 +231,8 @@ export class DappHandler {
             return;
         }
 
+        const resolvedChainId = await this._getActiveChainId(origin);
+
         const pendingRequest: PendingDappRequest = {
             id: requestId,
             type: "DAPP_SIGN_MESSAGE",
@@ -186,11 +240,13 @@ export class DappHandler {
             tabId,
             method: payload?.method || "personal_sign",
             params: payload?.params || payload,
+            chainId: resolvedChainId,
             timestamp: Date.now(),
             timeoutMs: DAPP_REQUEST_TIMEOUT_MS,
         };
 
         this._addPendingRequest(pendingRequest);
+        await this._persistPendingToStorage(requestId, pendingRequest);
         await this._openApprovalUI("sign", requestId);
     }
 
@@ -231,9 +287,7 @@ export class DappHandler {
     }
 
     private async _handleGetChainId(origin: string, sendResponse: (response: any) => void): Promise<void> {
-        const permission = await this._getPermission(origin);
-        const chainId = permission?.chainId || 1404; // Default to BlockDAG
-
+        const chainId = await this._getActiveChainId(origin);
         sendResponse({ success: true, data: chainIdToHex(chainId) });
     }
 
@@ -242,14 +296,44 @@ export class DappHandler {
         sendResponse({ success: true });
     }
 
-    private _handleApprovalResult(payload: any): void {
+    private async _handleGetPending(requestId: string, sendResponse: (response: any) => void): Promise<void> {
+        const pending = this.pendingRequests.get(requestId);
+        if (!pending) {
+            sendResponse({ success: false, error: "No pending request found" });
+            return;
+        }
+
+        let hostname = "";
+        try {
+            hostname = new URL(pending.origin).hostname;
+        } catch {
+            hostname = pending.origin;
+        }
+
+        const chainId = pending.chainId || (await this._getActiveChainId(pending.origin));
+
+        sendResponse({
+            success: true,
+            data: {
+                origin: pending.origin,
+                hostname,
+                favicon: `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`,
+                chainId,
+                method: pending.method,
+                params: pending.params,
+                verifyStatus: "UNKNOWN",
+            },
+        });
+    }
+
+    private async _handleApprovalResult(payload: any): Promise<void> {
         const { requestId, approved, accounts, chainId } = payload;
         const pending = this.pendingRequests.get(requestId);
 
         if (!pending) return;
 
         if (approved && accounts) {
-            this._savePermission({
+            await this._savePermission({
                 origin: pending.origin,
                 accounts,
                 chainId: chainId || 1404,
@@ -257,12 +341,12 @@ export class DappHandler {
                 lastUsed: Date.now(),
             });
 
-            this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
+            await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
                 requestId,
                 result: accounts,
             });
         } else {
-            this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
+            await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
                 requestId,
                 error: { code: 4001, message: "User rejected the request" },
             });
@@ -271,16 +355,16 @@ export class DappHandler {
         this._removePendingRequest(requestId);
     }
 
-    private _handleSigningResult(payload: any): void {
+    private async _handleSigningResult(payload: any): Promise<void> {
         const { requestId, result, error } = payload;
         const pending = this.pendingRequests.get(requestId);
 
         if (!pending) return;
 
         if (result) {
-            this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, result });
+            await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, result });
         } else {
-            this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
+            await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
                 requestId,
                 error: error || { code: 4001, message: "User rejected the request" },
             });
@@ -313,6 +397,26 @@ export class DappHandler {
             clearTimeout(timeout);
             this.timeoutHandles.delete(requestId);
         }
+        this.browserApi.setStorageItem(`pending_dapp_request_${requestId}`, null).catch(() => {});
+    }
+
+    private async _persistPendingToStorage(requestId: string, request: PendingDappRequest): Promise<void> {
+        let hostname = "";
+        try {
+            hostname = new URL(request.origin).hostname;
+        } catch {
+            hostname = request.origin;
+        }
+
+        await this.browserApi.setStorageItem(`pending_dapp_request_${requestId}`, {
+            origin: request.origin,
+            hostname,
+            favicon: `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`,
+            chainId: request.chainId || 1404,
+            verifyStatus: "UNKNOWN",
+            method: request.method,
+            params: request.params,
+        });
     }
 
     private _resolveRequest(requestId: string, result: any): void {
@@ -421,13 +525,30 @@ export class DappHandler {
             if (!runtime) return;
 
             const extensionUrl = (runtime as any).getURL(`index.html#/dapp/${page}?requestId=${requestId}`);
-            const tabs = this.browserApi.tabs;
 
-            if (!tabs) return;
+            // Calculate position to open at the top-right of the current screen/window
+            let left = 400;
+            let top = 80;
 
-            await (tabs as any).create({
+            try {
+                const currentWindow = await chrome.windows.getLastFocused();
+                if (currentWindow && currentWindow.width && currentWindow.left !== undefined) {
+                    // Position at the right edge of the current window, with some padding
+                    left = currentWindow.left + currentWindow.width - 450;
+                    top = currentWindow.top || 80;
+                }
+            } catch (error) {
+                Logger.warn("Failed to get last focused window, using default position:", error);
+            }
+
+            await chrome.windows.create({
                 url: extensionUrl,
-                active: true,
+                type: "popup",
+                width: 440,
+                height: 680,
+                left: Math.max(0, left),
+                top: Math.max(0, top),
+                focused: true,
             });
         } catch (error) {
             Logger.error("Error opening approval UI:", error);

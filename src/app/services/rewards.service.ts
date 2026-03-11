@@ -17,6 +17,7 @@ export interface RouletteWheelResponse {
     segmentCount: number;
     canSpin: boolean;
     alreadyClaimedToday: boolean;
+    isAccountActive?: boolean;
     nextClaimAvailable: string;
     todayReward: {
         amount: number;

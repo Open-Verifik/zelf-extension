@@ -1659,8 +1659,10 @@
             "claim_failed": "无法领取奖励。",
             "already_claimed": "您今天已经领取过每日奖励了。明天再来吧！",
             "spin_failed": "旋转转盘失败。请重试。",
-            "timeout": "请求超时。请重试。"
-        }
+            "timeout": "请求超时。请重试。",
+            "account_not_active": "您的 Solana 账户尚未激活。请先存入一些 SOL 来激活您的钱包，然后再转动转盘。"
+        },
+        "activate_account": "激活账户"
     },
     "referrals": {
         "invite_title": "邀请好友",

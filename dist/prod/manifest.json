@@ -11,9 +11,11 @@
         "clipboardWrite",
         "clipboardRead",
         "storage",
-        "sidePanel"
+        "sidePanel",
+        "offscreen",
+        "notifications"
     ],
-    "version": "2.0.57",
+    "version": "2.0.59",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"
@@ -37,6 +39,16 @@
             ],
             "js": [
                 "browser-polyfill.min.js",
+                "zelf-provider-bridge.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "browser-polyfill.min.js",
                 "main.js",
                 "autofill.js"
             ],
@@ -51,13 +63,26 @@
                 "main.js",
                 "runtime.js",
                 "polyfills.js",
-                "autofill.js"
+                "autofill.js",
+                "zelf-inpage.js",
+                "zelf-provider-bridge.js",
+                "offscreen/walletconnect-offscreen.html"
             ],
             "matches": [
                 "<all_urls>"
             ]
         }
     ],
+    "externally_connectable": {
+        "matches": [
+            "https://*.zelf.world/*",
+            "http://localhost:3000/*",
+            "http://localhost:3001/*",
+            "http://localhost:3009/*",
+            "http://127.0.0.1:3000/*",
+            "http://127.0.0.1:3009/*"
+        ]
+    },
     "content_security_policy": {
         "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
     }

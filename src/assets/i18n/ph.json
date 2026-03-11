@@ -1659,8 +1659,10 @@
             "claim_failed": "Hindi ma-claim ang reward.",
             "already_claimed": "Na-claim mo na ang iyong araw-araw na reward ngayong araw. Balik na lang bukas!",
             "spin_failed": "Nabigong i-spin ang wheel. Pakisubukan muli.",
-            "timeout": "Nag-timeout ang request. Pakisubukan muli."
-        }
+            "timeout": "Nag-timeout ang request. Pakisubukan muli.",
+            "account_not_active": "Ang iyong Solana account ay hindi pa na-activate. Mangyaring mag-deposit ng ilang SOL para ma-activate ang iyong wallet bago umikot ng gulong."
+        },
+        "activate_account": "I-activate ang Account"
     },
     "referrals": {
         "invite_title": "Mag-imbita ng mga kaibigan",

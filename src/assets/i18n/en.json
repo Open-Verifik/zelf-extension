@@ -1661,8 +1661,10 @@
             "claim_failed": "Could not claim reward.",
             "already_claimed": "You have already claimed your daily reward today. Come back tomorrow!",
             "spin_failed": "Failed to spin the wheel. Please try again.",
-            "timeout": "Request timed out. Please try again."
-        }
+            "timeout": "Request timed out. Please try again.",
+            "account_not_active": "Your Solana account is not activated yet. Please deposit some SOL to activate your wallet before spinning the wheel."
+        },
+        "activate_account": "Activate Account"
     },
     "referrals": {
         "invite_title": "Invite friends",

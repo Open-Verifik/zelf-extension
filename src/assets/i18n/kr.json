@@ -1659,8 +1659,10 @@
             "claim_failed": "보상을 청구할 수 없습니다.",
             "already_claimed": "오늘의 일일 보상을 이미 청구하셨습니다. 내일 다시 오세요!",
             "spin_failed": "룰렛 회전에 실패했습니다. 다시 시도해 주세요.",
-            "timeout": "요청 시간이 초과되었습니다. 다시 시도해 주세요."
-        }
+            "timeout": "요청 시간이 초과되었습니다. 다시 시도해 주세요.",
+            "account_not_active": "Solana 계정이 아직 활성화되지 않았습니다. 휠을 돌리기 전에 지갑을 활성화하려면 SOL을 입금하세요."
+        },
+        "activate_account": "계정 활성화"
     },
     "referrals": {
         "invite_title": "친구 초대",

@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { RewardsService, WheelSegment, RouletteWheelResponse, DailyRewardResponse } from "../../services/rewards.service";
@@ -18,6 +18,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
     isLoading: boolean = true;
     isSpinning: boolean = false;
     hasSpunToday: boolean = false;
+    isAccountActive: boolean = true;
     currentRotation: number = 0;
     wonAmount: number | null = null;
     errorMessage: string | null = null;
@@ -41,7 +42,8 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
         private _rewardsService: RewardsService,
         private _walletService: WalletService,
         private _tagsService: TagsService,
-        private _translocoService: TranslocoService
+        private _translocoService: TranslocoService,
+        private _router: Router
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -140,9 +142,13 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
             this.tagType = wheelConfig.type;
             this.segments = this._rewardsService.convertToWheelSegments(wheelConfig.segments, wheelConfig.type);
             this.nextClaimAvailable = wheelConfig.nextClaimAvailable;
+            this.isAccountActive = wheelConfig.isAccountActive !== false;
 
-            // Check if already claimed today
-            if (wheelConfig.alreadyClaimedToday) {
+            if (!this.isAccountActive) {
+                this.errorMessage = this._translocoService.translate("rewards.error.account_not_active", {
+                    default: "Your Solana account is not activated yet. Please deposit some SOL to activate your wallet before spinning the wheel."
+                });
+            } else if (wheelConfig.alreadyClaimedToday) {
                 this.hasSpunToday = true;
 
                 if (wheelConfig.todayReward) {
@@ -202,8 +208,14 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
 
     /**
      * Spin the wheel - starts spinning immediately and calls backend in background
+     * If account is not active, redirect to SOL deposit page instead
      */
     async spinWheel(): Promise<void> {
+        if (!this.isAccountActive) {
+            this._router.navigate(["/receive/qr/Solana"]);
+            return;
+        }
+
         if (this.isSpinning || this.hasSpunToday) return;
 
         this.isSpinning = true;
@@ -467,6 +479,7 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
      */
     get spinButtonText(): string {
         if (this.isLoading) return this._translocoService.translate("rewards.loading");
+        if (!this.isAccountActive) return this._translocoService.translate("rewards.activate_account", { default: "Activate Account" });
         if (this.isSpinning) return this._translocoService.translate("rewards.spinning");
         if (this.hasSpunToday) return this._translocoService.translate("rewards.come_back_tomorrow");
         return this._translocoService.translate("rewards.spin_now");

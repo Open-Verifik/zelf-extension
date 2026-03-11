@@ -1659,8 +1659,10 @@
             "claim_failed": "Impossible de réclamer la récompense.",
             "already_claimed": "Vous avez déjà réclamé votre récompense quotidienne aujourd'hui. Revenez demain !",
             "spin_failed": "Échec du tour de roue. Veuillez réessayer.",
-            "timeout": "La demande a expiré. Veuillez réessayer."
-        }
+            "timeout": "La demande a expiré. Veuillez réessayer.",
+            "account_not_active": "Votre compte Solana n'est pas encore activé. Veuillez déposer des SOL pour activer votre portefeuille avant de faire tourner la roue."
+        },
+        "activate_account": "Activer le compte"
     },
     "referrals": {
         "invite_title": "Inviter des amis",

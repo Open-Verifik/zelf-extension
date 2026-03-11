@@ -1659,8 +1659,10 @@
             "claim_failed": "Não foi possível resgatar a recompensa.",
             "already_claimed": "Você já resgatou sua recompensa diária hoje. Volte amanhã!",
             "spin_failed": "Falha ao girar a roda. Tente novamente.",
-            "timeout": "A solicitação expirou. Tente novamente."
-        }
+            "timeout": "A solicitação expirou. Tente novamente.",
+            "account_not_active": "Sua conta Solana ainda não está ativada. Por favor, deposite algum SOL para ativar sua carteira antes de girar a roleta."
+        },
+        "activate_account": "Ativar Conta"
     },
     "referrals": {
         "invite_title": "Convidar amigos",

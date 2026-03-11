@@ -19,15 +19,7 @@ import { DecodedTransaction, getChainConfig } from "@shared/types/dapp.types";
 import { ethers } from "ethers";
 
 @Component({
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        ReactiveFormsModule,
-        RouterModule,
-        TranslocoModule,
-        ZelfLoaderComponent,
-    ],
+    imports: [CommonModule, MatButtonModule, MatProgressSpinnerModule, ReactiveFormsModule, RouterModule, TranslocoModule, ZelfLoaderComponent],
     selector: "dapp-sign",
     templateUrl: "./dapp-sign.component.html",
     styleUrls: ["./dapp-sign.component.scss"],
@@ -146,9 +138,6 @@ export class DappSignComponent implements OnInit {
 
             await this._checkPasswordlessWallet();
             await this._checkBiometrics();
-
-            console.log("[DappSign] Wallet loaded:", this.wallet);
-            console.log("[DappSign] Security Type:", this._vaultService.securityType, "isPinUnlock:", this.isPinUnlock);
         } catch (error) {
             console.error("Error loading signing data:", error);
         }
@@ -158,7 +147,7 @@ export class DappSignComponent implements OnInit {
 
     get hasCredentials(): boolean {
         if (this.isPinUnlock) {
-            return this.passwordSet || (this.pinDigits.join("").length === 6);
+            return this.passwordSet || this.pinDigits.join("").length === 6;
         }
         return this.passwordSet || !!this.form.get("password")?.value;
     }
@@ -184,7 +173,7 @@ export class DappSignComponent implements OnInit {
         if (!this.hasCredentials || !this.wallet) return;
 
         if (!this._vaultService.password || this._vaultService.password.trim() === "") {
-            this._vaultService.password = this.isPinUnlock ? this.pinDigits.join("") : (this.form.get("password")?.value || this._password);
+            this._vaultService.password = this.isPinUnlock ? this.pinDigits.join("") : this.form.get("password")?.value || this._password;
         }
 
         const tagName = this.wallet?.publicData?.tagName || this.wallet?.fullTagName || "";
@@ -207,7 +196,7 @@ export class DappSignComponent implements OnInit {
             this._openErrorSnackBar("Enter your password");
             return;
         }
-        
+
         if (this.isPinUnlock && !this._password && this.pinDigits.join("").length !== 6) {
             this._openErrorSnackBar("Enter your PIN");
             return;
@@ -516,9 +505,9 @@ export class DappSignComponent implements OnInit {
                 }
             }, 0);
         } else if (event.key === "Enter") {
-             if (this.hasCredentials && !this.signing) {
-                  this.requiresBiometrics ? this.goToBiometrics() : this.confirmSigning();
-             }
+            if (this.hasCredentials && !this.signing) {
+                this.requiresBiometrics ? this.goToBiometrics() : this.confirmSigning();
+            }
         }
     }
 

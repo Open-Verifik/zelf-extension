@@ -1659,8 +1659,10 @@
             "claim_failed": "No se pudo reclamar la recompensa.",
             "already_claimed": "Ya has reclamado tu recompensa diaria hoy. ¡Vuelve mañana!",
             "spin_failed": "Error al girar la rueda. Inténtalo de nuevo.",
-            "timeout": "La solicitud expiró. Inténtalo de nuevo."
-        }
+            "timeout": "La solicitud expiró. Inténtalo de nuevo.",
+            "account_not_active": "Tu cuenta de Solana aún no está activada. Por favor, deposita algo de SOL para activar tu billetera antes de girar la ruleta."
+        },
+        "activate_account": "Activar Cuenta"
     },
     "referrals": {
         "invite_title": "Invitar amigos",

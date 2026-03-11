@@ -171,21 +171,42 @@
         height: 100%;
     }
 
-    &__error {
-        padding: calc(12px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
-        background: rgba(255, 87, 34, 0.1);
-        border: 1px solid rgba(255, 87, 34, 0.3);
+    &__error-banner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
+        background: linear-gradient(135deg, rgba(239, 83, 80, 0.1) 0%, rgba(239, 83, 80, 0.05) 100%);
+        border: 1px solid rgba(239, 83, 80, 0.3);
         border-radius: calc(12px * var(--zns-space-scale, 1));
-        text-align: center;
-        animation: fadeIn 0.3s ease-out;
+        animation: fadeIn 0.4s ease-out;
+        width: 100%;
+        max-width: min(304px, var(--zns-card-width, 304px));
+        margin-top: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__error-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e53935;
+    }
+
+    &__error-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
     }
 
     &__error-text {
         font-family: variables.$themeBodyFamily;
-        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 500;
+        line-height: calc(18px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
+        text-align: left;
     }
 
     &__already-claimed {
@@ -334,6 +355,16 @@
         &--disabled {
             background: #96939e;
             cursor: not-allowed;
+        }
+
+        &--activate {
+            background: linear-gradient(135deg, #ff8622 0%, #ff5721 100%);
+            cursor: pointer;
+
+            &:hover {
+                background: linear-gradient(135deg, #ffab40 0%, #ff6d3a 100%);
+                transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
+            }
         }
     }
 }

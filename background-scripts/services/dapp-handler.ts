@@ -90,6 +90,18 @@ export class DappHandler {
                     sendResponse({ success: true });
                     break;
 
+                case "DAPP_CLEANUP_REQUESTS":
+                    await this._handleCleanupRequests(sendResponse);
+                    break;
+
+                case "DAPP_FORCE_DISCONNECT_SITE":
+                    await this._handleForceDisconnectSite(payload?.origin, sendResponse);
+                    break;
+
+                case "DAPP_FORCE_DISCONNECT_ALL":
+                    await this._handleForceDisconnectAll(sendResponse);
+                    break;
+
                 default:
                     sendResponse({ success: false, error: `Unknown dApp message type: ${type}` });
             }
@@ -119,7 +131,7 @@ export class DappHandler {
 
     private async _handleConnectionRequest(requestId: string, origin: string, payload: any, tabId?: number): Promise<void> {
         const existingPermission = await this._getPermission(origin);
-        
+
         // If method is explicitly wallet_requestPermissions, bypass the cache and force the UI
         const isRequestPermissions = payload?.method === "wallet_requestPermissions";
 
@@ -516,6 +528,96 @@ export class DappHandler {
             }
         } catch (error) {
             Logger.error("Error broadcasting accounts change:", error);
+        }
+    }
+
+    async broadcastAccountsChangedByOrigin(targetOrigin: string, accounts: string[]): Promise<void> {
+        try {
+            const tabs = this.browserApi.tabs as any;
+            if (!tabs?.query) return;
+
+            const allTabs = await tabs.query({});
+
+            for (const tab of allTabs) {
+                if (!tab.id || !tab.url || tab.url.startsWith("chrome-extension://")) continue;
+
+                try {
+                    const tabOrigin = new URL(tab.url).origin;
+                    if (tabOrigin === targetOrigin) {
+                        await tabs.sendMessage(tab.id, {
+                            type: "DAPP_ACCOUNTS_CHANGED",
+                            payload: { accounts },
+                        });
+                    }
+                } catch {
+                    // Ignore URL parsing errors or content script missing
+                }
+            }
+        } catch (error) {
+            Logger.error(`Error broadcasting accounts change for origin ${targetOrigin}:`, error);
+        }
+    }
+
+    private async _handleCleanupRequests(sendResponse: (response: any) => void): Promise<void> {
+        try {
+            const allItems = await this.browserApi.getAllStorageItems();
+            const keysToRemove: string[] = [];
+
+            for (const key of Object.keys(allItems)) {
+                if (key.startsWith("pending_dapp_request_")) {
+                    const requestId = key.replace("pending_dapp_request_", "");
+                    if (!this.pendingRequests.has(requestId)) {
+                        keysToRemove.push(key);
+                    }
+                }
+            }
+
+            if (keysToRemove.length > 0) {
+                Logger.info(`[Dapp Cleanup] Found ${keysToRemove.length} orphaned dapp requests in chrome.storage.local. Removing:`, keysToRemove);
+                await this.browserApi.removeStorageItems(keysToRemove);
+                Logger.info(`[Dapp Cleanup] Successfully cleaned up ${keysToRemove.length} orphaned internal requests.`);
+            } else {
+                Logger.info(`[Dapp Cleanup] No orphaned dapp requests found in chrome.storage.local.`);
+            }
+
+            sendResponse({ success: true, removedCount: keysToRemove.length });
+        } catch (error) {
+            Logger.error("[Dapp Cleanup] Failed to cleanup dapp requests:", error);
+            sendResponse({ success: false, error: (error as Error).message });
+        }
+    }
+
+    private async _handleForceDisconnectSite(origin: string, sendResponse: (response: any) => void): Promise<void> {
+        if (!origin) {
+            sendResponse({ success: false, error: "Origin is required" });
+
+            return;
+        }
+
+        try {
+            await this._removePermission(origin);
+
+            // Broadcast the disconnect event back to the specific dApp
+            await this.broadcastAccountsChangedByOrigin(origin, []);
+
+            sendResponse({ success: true });
+        } catch (error) {
+            Logger.error("Failed to force disconnect site:", error);
+            sendResponse({ success: false, error: (error as Error).message });
+        }
+    }
+
+    private async _handleForceDisconnectAll(sendResponse: (response: any) => void): Promise<void> {
+        try {
+            await this.browserApi.setStorageItem(PERMISSIONS_STORAGE_KEY, {});
+
+            // Broadcast the empty accounts to all connected dApps
+            await this.broadcastAccountsChanged([]);
+
+            sendResponse({ success: true });
+        } catch (error) {
+            Logger.error("Failed to force disconnect all sites:", error);
+            sendResponse({ success: false, error: (error as Error).message });
         }
     }
 

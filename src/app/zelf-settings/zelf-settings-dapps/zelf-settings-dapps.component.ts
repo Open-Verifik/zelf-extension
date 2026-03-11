@@ -32,6 +32,36 @@ export class ZelfSettingsDappsComponent implements OnInit {
 
     ngOnInit() {
         this.loadPermissions();
+        this.cleanupRequests();
+    }
+
+    cleanupRequests() {
+        // Clean up from browser storage (background)
+        if (this.chromeService.isExtension && typeof chrome !== "undefined" && chrome.runtime) {
+            chrome.runtime.sendMessage({ type: "DAPP_CLEANUP_REQUESTS" })
+                .then(res => console.log("[Dapp Cleanup] Background cleanup response:", res))
+                .catch((e) => console.error("[Dapp Cleanup] Background cleanup failed", e));
+        }
+
+        // Clean up from local storage (UI tab) - to wipe dead keys from developer tools
+        try {
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith("pending_dapp_request_")) {
+                    keysToRemove.push(key);
+                }
+            }
+            if (keysToRemove.length > 0) {
+                console.log(`[Dapp Cleanup] Found ${keysToRemove.length} orphaned dapp requests in window.localStorage. Removing:`, keysToRemove);
+                keysToRemove.forEach(k => localStorage.removeItem(k));
+                console.log(`[Dapp Cleanup] Successfully cleaned up window.localStorage.`);
+            } else {
+                console.log(`[Dapp Cleanup] No orphaned dapp requests found in window.localStorage.`);
+            }
+        } catch (error) {
+            console.error("[Dapp Cleanup] Failed to clean up window.localStorage:", error);
+        }
     }
 
     async loadPermissions() {
@@ -80,9 +110,13 @@ export class ZelfSettingsDappsComponent implements OnInit {
 
     async disconnectSite(origin: string) {
         try {
-            const permissions = (await this.chromeService.getItem("dapp_permissions")) || {};
-            delete permissions[origin];
-            await this.chromeService.setItem("dapp_permissions", permissions);
+            if (this.chromeService.isExtension && typeof chrome !== "undefined" && chrome.runtime) {
+                await chrome.runtime.sendMessage({ type: "DAPP_FORCE_DISCONNECT_SITE", payload: { origin } });
+            } else {
+                const permissions = (await this.chromeService.getItem("dapp_permissions")) || {};
+                delete permissions[origin];
+                await this.chromeService.setItem("dapp_permissions", permissions);
+            }
 
             this.sites = this.sites.filter((s) => s.origin !== origin);
             if (this.selectedSite?.origin === origin) {
@@ -95,7 +129,12 @@ export class ZelfSettingsDappsComponent implements OnInit {
 
     async disconnectAll() {
         try {
-            await this.chromeService.setItem("dapp_permissions", {});
+            if (this.chromeService.isExtension && typeof chrome !== "undefined" && chrome.runtime) {
+                await chrome.runtime.sendMessage({ type: "DAPP_FORCE_DISCONNECT_ALL" });
+            } else {
+                await this.chromeService.setItem("dapp_permissions", {});
+            }
+
             this.sites = [];
             this.selectedSite = null;
         } catch (error) {

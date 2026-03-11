@@ -28,7 +28,10 @@ export type DappMessageType =
     | "WC_GET_SESSIONS"
     | "WC_INIT"
     | "WC_READY"
-    | "WC_EVENT";
+    | "WC_EVENT"
+    | "DAPP_CLEANUP_REQUESTS"
+    | "DAPP_FORCE_DISCONNECT_SITE"
+    | "DAPP_FORCE_DISCONNECT_ALL";
 
 export interface DappMessage {
     type: DappMessageType;
@@ -115,7 +118,15 @@ export interface DappMessageDetail {
 }
 
 export interface DecodedTransaction {
-    type: "native_transfer" | "erc20_transfer" | "erc20_approve" | "erc721_transfer" | "erc721_approve_all" | "contract_interaction" | "swap" | "unknown";
+    type:
+        | "native_transfer"
+        | "erc20_transfer"
+        | "erc20_approve"
+        | "erc721_transfer"
+        | "erc721_approve_all"
+        | "contract_interaction"
+        | "swap"
+        | "unknown";
     description: string;
     to?: string;
     amount?: string;

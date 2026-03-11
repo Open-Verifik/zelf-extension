@@ -143,6 +143,18 @@ export class BrowserApiUtil {
         await storage.local.set({ [key]: value });
     }
 
+    async getAllStorageItems(): Promise<Record<string, any>> {
+        const storage = this.storage as any;
+        if (!storage?.local) return {};
+        return await storage.local.get(null);
+    }
+
+    async removeStorageItems(keys: string | string[]) {
+        const storage = this.storage as any;
+        if (!storage?.local) return;
+        await storage.local.remove(keys);
+    }
+
     private initializeChromeApi(): void {
         if (typeof chrome !== "undefined") {
             this._chrome = chrome;

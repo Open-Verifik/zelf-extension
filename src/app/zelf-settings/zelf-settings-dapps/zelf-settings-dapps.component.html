@@ -42,7 +42,7 @@
 
     <ng-container *ngIf="!selectedSite">
         <!-- 'Sites' Subtitle and List -->
-        <h4 style="padding: 0 24px; font-weight: 600; margin: 0 0 16px 0; color: #181818">{{ t("settings.dapps.sites") }}</h4>
+        <h4 style="font-weight: 600; margin: 0 0 16px 0; color: #181818">{{ t("settings.dapps.sites") }}</h4>
 
         <div class="zelf-settings-dapps__list" *ngIf="sites.length > 0; else noConnections">
             <div class="zelf-settings-dapps__site" *ngFor="let site of sites" (click)="selectSite(site)">

@@ -25,22 +25,22 @@
                 "card_holder_upper": "TITULAIRE DE LA CARTE"
             },
             "decrypt": {
-                "button": "Décrypter la Carte de Paiement",
+                "button": "Décrypter la Carte",
                 "decrypting": "Décryptage..."
             },
             "info": {
-                "title": "Informations de la Carte de Paiement",
-                "payment_card_id": "ID de la Carte de Paiement",
+                "title": "Informations de la Carte",
+                "payment_card_id": "ID de la Carte",
                 "type": "Type",
                 "folder": "Dossier",
-                "copy_payment_card_id": "Copier l'ID de la carte de paiement"
+                "copy_payment_card_id": "Copier l'ID de la carte"
             },
             "zelfproof": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "download": "Télécharger ZelfProof"
             },
             "decrypted": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "card_holder_name": "Nom du Titulaire",
                 "copy_card_holder_name": "Copier le nom du titulaire",
                 "copy_card_number": "Copier le numéro de carte",
@@ -63,8 +63,8 @@
             "unknown": "Inconnu",
             "detail": {
                 "error": {
-                    "retrieve_failed": "Échec de la récupération des données de la carte de paiement",
-                    "decrypt_failed": "Échec du déchiffrement de la carte de paiement. Veuillez réessayer."
+                    "retrieve_failed": "Échec de la récupération des données de la carte",
+                    "decrypt_failed": "Échec du déchiffrement de la carte. Veuillez réessayer."
                 },
                 "expiry_placeholder": "MM/AA"
             },
@@ -76,24 +76,24 @@
         },
         "payment_card_result": {
             "success": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Carte de Paiement Créée avec Succès !",
+                "description": "Votre carte a été stockée et cryptée en toute sécurité."
             },
             "preview": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
-                    "name": "Nom de la Carte de Paiement",
+                    "name": "Nom de la Carte",
                     "card_holder": "Titulaire de la Carte",
                     "card_number": "Numéro de Carte",
                     "expires": "Expire"
                 }
             },
             "image": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "download": "Télécharger ZelfProof"
             },
             "nft": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "token_id": "ID du Token",
                     "cost": "Coût",
@@ -106,7 +106,7 @@
                 "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "hash": "Hash IPFS",
                     "gateway_url": "URL de la Passerelle",
@@ -116,7 +116,7 @@
                 "gateway_link": "Voir sur la Passerelle IPFS"
             },
             "walrus": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "blob_id": "ID du Blob",
                     "public_url": "URL Publique",
@@ -129,7 +129,7 @@
                 "explorer_link": "Voir sur l'Explorateur"
             },
             "zelfproof": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "string": "Chaîne ZelfProof",
                     "qr_code": "Code QR"
@@ -137,8 +137,8 @@
                 "copy_hint": "Cliquer pour copier"
             },
             "error": {
-                "title": "Informations de la Carte de Paiement",
-                "default_message": "Une erreur inattendue s'est produite lors de la création de votre carte de paiement.",
+                "title": "Informations de la Carte",
+                "default_message": "Une erreur inattendue s'est produite lors de la création de votre carte.",
                 "try_again": "Réessayer",
                 "no_data": "Aucune donnée de résultat trouvée"
             },
@@ -212,17 +212,17 @@
                 "position_face_subtitle": "Regardez directement la caméra et restez immobile"
             },
             "api_error": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Échec d'authentification",
                 "try_again": "Réessayer",
                 "go_back": "Retour"
             },
             "camera_error": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Caméra non disponible",
+                "description": "Veuillez vous assurer que votre caméra est activée et accessible pour la vérification biométrique"
             },
             "permission": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité.",
+                "title": "Autorisation de la caméra requise",
+                "description": "Veuillez autoriser l'accès à la caméra pour continuer la vérification biométrique",
                 "go_back": "Retour"
             },
             "close_aria": "Fermer la vérification biométrique",
@@ -232,8 +232,8 @@
             }
         },
         "subscription_banner": {
-            "title": "Informations de la Carte de Paiement",
-            "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+            "title": "Débloquer les fonctionnalités Premium",
+            "description": "Accédez à des fonctionnalités illimitées, une sécurité avancée et plus encore avec ZelfKeys Premium"
         },
         "data_card": {
             "details": "Détails",
@@ -248,13 +248,13 @@
         "data_types": {
             "note": "Veuillez vérifier votre visage pour déchiffrer votre note",
             "password": "Mot de passe",
-            "payment_card": "Carte de Paiement"
+            "payment_card": "Carte"
         },
         "categories": {
             "password": "Mot de passe",
             "note": "Veuillez vérifier votre visage pour déchiffrer votre note",
             "notes": "Notes",
-            "payment_card": "Carte de Paiement",
+            "payment_card": "Carte",
             "card": "Carte",
             "contact": "Contact",
             "zotp": "ZOTP"
@@ -270,14 +270,14 @@
             "password_stored": "Mot de passe stocké avec succès"
         },
         "biometrics_bottom_sheet": {
-            "encrypt_payment_card": "Vérifier l'Identité pour Chiffrer la Carte de Paiement",
-            "decrypt_payment_card": "Vérifier l'Identité pour Déchiffrer la Carte de Paiement",
+            "encrypt_payment_card": "Vérifier l'Identité pour Chiffrer la Carte",
+            "decrypt_payment_card": "Vérifier l'Identité pour Déchiffrer la Carte",
             "encrypt_note": "Vérifier l'Identité pour Chiffrer la Note",
             "decrypt_note": "Vérifier l'Identité pour Déchiffrer la Note",
             "encrypt_password": "Vérifier l'Identité pour Chiffrer le Mot de passe",
             "decrypt_password": "Vérifier l'Identité pour Déchiffrer le Mot de passe",
             "instructions": {
-                "payment_card": "Carte de Paiement",
+                "payment_card": "Carte",
                 "note": "Veuillez vérifier votre visage pour déchiffrer votre note",
                 "password": "Mot de passe"
             },
@@ -291,22 +291,22 @@
         "popout_decryptor": {
             "back": "Retour",
             "cancel": "Annuler",
-            "loading_camera": "Initializing camera...",
-            "low_quality_message": "Please try again with better lighting",
-            "low_quality_title": "Low Quality Image",
+            "loading_camera": "Initialisation de la caméra...",
+            "low_quality_message": "Veuillez réessayer avec un meilleur éclairage",
+            "low_quality_title": "Image de faible qualité",
             "master_password_placeholder": "Entrez votre mot de passe principal si vous en avez un",
-            "permission_allow": "Please allow camera access",
-            "permission_required": "Camera Permission Required",
+            "permission_allow": "Veuillez autoriser l'accès à la caméra",
+            "permission_required": "Autorisation de la caméra requise",
             "processing": "Traitement de vos données biométriques...",
             "retry": "Réessayer",
-            "title": "Informations de la Carte de Paiement",
+            "title": "Informations de la Carte",
             "unlock": "Déverrouiller",
             "types": {
-                "credit_card": "Payment Card",
-                "note": "Veuillez vérifier votre visage pour déchiffrer votre note",
-                "notes": "Note",
+                "credit_card": "Carte de paiement",
+                "note": "Note",
+                "notes": "Notes",
                 "password": "Mot de passe",
-                "payment-card": "Payment Card",
+                "payment-card": "Carte de paiement",
                 "wallet": "PORTEFEUILLE",
                 "zotp": "ZOTP"
             }
@@ -331,17 +331,17 @@
             "master_password_hint": "Si vous avez défini un mot de passe principal lors de la création de cette entrée, entrez-le ici"
         },
         "note_result": {
-            "title": "Informations de la Carte de Paiement",
+            "title": "Informations de la Carte",
             "loading": "Chargement du résultat...",
             "sections": {
                 "success": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "message": "Note stockée avec succès !"
                 },
                 "details": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "labels": {
-                        "title": "Informations de la Carte de Paiement",
+                        "title": "Informations de la Carte",
                         "folder": "Dossier",
                         "type": "Type",
                         "category": "Catégorie",
@@ -350,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "labels": {
                         "token_id": "ID du Token",
                         "cost": "Coût",
@@ -360,7 +360,7 @@
                     "image_alt": "NFT ZelfKey"
                 },
                 "ipfs": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "labels": {
                         "hash": "Hash IPFS",
                         "gateway_url": "URL de la Passerelle",
@@ -370,7 +370,7 @@
                     "gateway_link": "Voir sur la Passerelle IPFS"
                 },
                 "walrus": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "labels": {
                         "blob_id": "ID du Blob",
                         "public_url": "URL Publique",
@@ -383,7 +383,7 @@
                     "explorer_link": "Voir sur l'Explorateur"
                 },
                 "zelfproof": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "labels": {
                         "string": "Chaîne ZelfProof",
                         "qr_code": "Code QR"
@@ -392,10 +392,10 @@
                     "qr_alt": "ZelfProof QR Code"
                 },
                 "debug": {
-                    "title": "Informations de la Carte de Paiement"
+                    "title": "Informations de la Carte"
                 },
                 "next_steps": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "success_message": "Votre note est maintenant stockée en toute sécurité. Vous pouvez la consulter dans votre liste de notes ou ajouter une autre note.",
                     "error_message": "Veuillez examiner les détails de l'erreur ci-dessus et réessayer. Si le problème persiste, contactez le support.",
                     "unknown_message": "Le système n'a pas pu déterminer le statut. Veuillez vérifier la réponse de l'API ci-dessus pour plus de détails."
@@ -535,23 +535,23 @@
         "language_label": "Langue",
         "subscription_label": "Abonnement",
         "networks": {
-            "title": "Informations de la Carte de Paiement",
-            "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité.",
+            "title": "Réseaux Blockchain",
+            "description": "Activez ou désactivez les réseaux que vous souhaitez utiliser dans votre portefeuille. Les réseaux désactivés n'apparaîtront pas dans votre liste de tokens.",
             "no_networks_available": "Aucun réseau disponible pour votre licence. Veuillez mettre à niveau votre plan pour accéder à plus de réseaux."
         },
         "language": {
-            "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+            "description": "Choisissez votre langue préférée pour l'application."
         },
-        "walletconnect_label": "Connect via link",
+        "walletconnect_label": "Connexion par lien",
         "walletconnect": {
-            "title": "Informations de la Carte de Paiement",
-            "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité.",
-            "placeholder": "Sélectionner le type",
-            "connect_button": "Connect",
-            "connecting": "Connecting...",
+            "title": "Connexions Dapps",
+            "description": "Gérez les applications décentralisées connectées à votre portefeuille.",
+            "placeholder": "wc:...",
+            "connect_button": "Connecter",
+            "connecting": "Connexion...",
             "success": "Succès",
-            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
-            "error_failed": "Failed to connect. Please try again."
+            "error_invalid": "Entrez un URI WalletConnect valide (commence par wc:)",
+            "error_failed": "Échec de la connexion. Veuillez réessayer."
         },
         "security": {
             "biometric_verification_title": "Intervalle de vérification biométrique",
@@ -584,7 +584,7 @@
         "security_layer_title": "COUCHE DE SÉCURITÉ",
         "strong": "Fort",
         "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
-        "title": "Informations de la Carte de Paiement",
+        "title": "Couches de Chiffrement ZelfProof",
         "unhide_words": "Afficher les mots",
         "weak": "Faible",
         "weak_password": "Mot de passe faible",
@@ -599,7 +599,7 @@
         "information": "Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",
         "your_token_address": "Votre adresse {{ name }}",
         "risks_modal": {
-            "title": "Informations de la Carte de Paiement",
+            "title": "Avant de recevoir {{ symbol }}",
             "risk_1_title": "Réseau {{ name }} uniquement",
             "risk_1": "N'envoyez que du {{ symbol }} sur le réseau {{ name }} à cette adresse. Les tokens d'une autre chaîne ne peuvent pas être récupérés.",
             "risk_2_title": "Vérifiez l'adresse",
@@ -764,7 +764,7 @@
         "know_more": "En savoir plus",
         "lifetime": "À vie",
         "price_per_year": "Prix par an",
-        "title": "Informations de la Carte de Paiement",
+        "title": "Informations de la Carte",
         "years": "{{ yearCount }} ans"
     },
     "wallet": {
@@ -776,13 +776,13 @@
         "info": "Info"
     },
     "private_key": {
-        "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité.",
+        "description": "Pour voir votre phrase de récupération, veuillez compléter les étapes de vérification de sécurité.",
         "got_it": "D'accord, je le ferai plus tard",
-        "title": "Informations de la Carte de Paiement"
+        "title": "Phrase de Récupération"
     },
     "my_arns": {
         "arns_website": "Site Web ArNS",
-        "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+        "description": "Votre site web personnel pour recevoir des crypto, facile à partager avec toutes les informations nécessaires pour les transferts directs."
     },
     "manage_domain": {
         "hold_until": "Conserver jusqu'au",
@@ -976,7 +976,7 @@
             "master_password_placeholder": "Entrez votre mot de passe principal si vous en avez un"
         },
         "activation": {
-            "title": "Informations de la Carte de Paiement",
+            "title": "Informations de la Carte",
             "message": "Note stockée avec succès !"
         },
         "subscription": {
@@ -1014,17 +1014,17 @@
             "subscription": "Abonnement",
             "add_password": "Ajouter un Mot de Passe",
             "add_note": "Ajouter une Note",
-            "add_payment_card": "Ajouter une Carte de Paiement"
+            "add_payment_card": "Ajouter une Carte"
         },
         "payment_cards": {
-            "title": "Informations de la Carte de Paiement",
-            "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
+            "title": "Cartes de Paiement",
+            "subtitle": "Stockez en toute sécurité les informations de vos cartes de paiement",
             "loading": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !"
             },
             "error": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !",
                 "try_again": "Réessayer",
                 "no_wallet": "Portefeuille introuvable. Veuillez configurer votre portefeuille d'abord.",
@@ -1036,12 +1036,12 @@
             "unknown_bank": "Banque Inconnue",
             "unknown": "Inconnu",
             "premium": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Débloquer les Fonctionnalités Premium",
+                "description": "Obtenez une sécurité avancée et plus encore avec ZelfKeys Premium"
             },
             "add_card": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Ajouter une Nouvelle Carte",
+                "description": "Stockez en toute sécurité une nouvelle carte de paiement"
             },
             "card": {
                 "card_holder": "Titulaire de la Carte",
@@ -1061,21 +1061,21 @@
                 "no_notes": "Aucune note"
             },
             "detail": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "loading": "Chargement du résultat...",
                 "error": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "go_back": "Retour",
-                    "retrieve_failed": "Échec de la récupération des données de la carte de paiement",
-                    "decrypt_failed": "Échec du déchiffrement de la carte de paiement. Veuillez réessayer."
+                    "retrieve_failed": "Échec de la récupération des données de la carte",
+                    "decrypt_failed": "Échec du déchiffrement de la carte. Veuillez réessayer."
                 },
                 "expiry_placeholder": "MM/AA",
                 "decrypt": {
-                    "button": "Décrypter la Carte de Paiement",
+                    "button": "Décrypter la Carte",
                     "decrypting": "Décryptage..."
                 },
                 "info": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "card_number": "Numéro de Carte",
                     "card_holder": "Titulaire de la Carte",
                     "expiry_date": "Date d'Expiration",
@@ -1092,11 +1092,11 @@
                     "copy_notes": "Copier les notes"
                 },
                 "zelfproof": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "download": "Télécharger ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "card_number": "Numéro de Carte",
                     "card_holder": "Titulaire de la Carte",
                     "expiry_date": "Date d'Expiration",
@@ -1167,57 +1167,57 @@
             }
         },
         "notes": {
-            "title": "Informations de la Carte de Paiement",
+            "title": "Informations de la Carte",
             "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
             "loading": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !"
             },
             "error": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !",
                 "try_again": "Réessayer",
                 "load_failed": "Échec du chargement des cartes de paiement. Veuillez réessayer."
             },
             "premium": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Débloquer les Fonctionnalités Premium",
+                "description": "Obtenez une sécurité avancée et plus encore avec ZelfKeys Premium"
             },
             "add_note": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Ajouter une Nouvelle Note",
+                "description": "Stockez en toute sécurité une nouvelle note"
             },
             "detail": {
                 "loading": "Chargement du résultat...",
                 "error": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "go_back": "Retour",
                     "not_found": "Enregistrement non trouvé",
                     "load_failed": "Échec du chargement des cartes de paiement. Veuillez réessayer.",
-                    "retrieve_failed": "Échec de la récupération des données de la carte de paiement",
-                    "decrypt_failed": "Échec du déchiffrement de la carte de paiement. Veuillez réessayer."
+                    "retrieve_failed": "Échec de la récupération des données de la carte",
+                    "decrypt_failed": "Échec du déchiffrement de la carte. Veuillez réessayer."
                 },
                 "no_title": "Sans titre",
                 "no_content": "Sans contenu",
                 "untitled": "Sans titre",
                 "no_folder": "Aucun dossier",
                 "decrypt": {
-                    "button": "Décrypter la Carte de Paiement",
+                    "button": "Décrypter la Carte",
                     "decrypting": "Décryptage..."
                 },
                 "info": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "note_id": "ID de la note",
                     "type": "Type",
                     "folder": "Dossier",
                     "copy_id": "Copier l'ID de la note"
                 },
                 "zelfproof": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "download": "Télécharger ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "title_field": "Titre",
                     "content": "Contenu",
                     "no_title": "Sans titre",
@@ -1255,41 +1255,41 @@
             }
         },
         "passwords": {
-            "title": "Informations de la Carte de Paiement",
+            "title": "Informations de la Carte",
             "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
             "loading": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !"
             },
             "error": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !",
                 "try_again": "Réessayer",
                 "load_failed": "Échec du chargement des cartes de paiement. Veuillez réessayer."
             },
             "premium": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Débloquer les Fonctionnalités Premium",
+                "description": "Obtenez une sécurité avancée et plus encore avec ZelfKeys Premium"
             },
             "add_password": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "Ajouter un Nouveau Mot de Passe",
+                "description": "Stockez en toute sécurité un nouveau mot de passe"
             },
             "search": {
                 "placeholder": "Sélectionner le type"
             },
             "no_results": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !"
             },
             "detail": {
                 "loading": "Chargement du résultat...",
                 "error": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "go_back": "Retour",
                     "not_found": "Enregistrement non trouvé",
                     "load_failed": "Échec du chargement des cartes de paiement. Veuillez réessayer.",
-                    "decrypt_failed": "Échec du déchiffrement de la carte de paiement. Veuillez réessayer."
+                    "decrypt_failed": "Échec du déchiffrement de la carte. Veuillez réessayer."
                 },
                 "untitled": "Sans titre",
                 "no_username": "Aucun nom d'utilisateur",
@@ -1298,12 +1298,12 @@
                 "no_zelf_name": "Aucun nom Zelf",
                 "unknown_date": "Date inconnue",
                 "decrypt": {
-                    "button": "Décrypter la Carte de Paiement",
+                    "button": "Décrypter la Carte",
                     "decrypting": "Décryptage...",
                     "launch_fill": "Lancer et remplir"
                 },
                 "info": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "website": "Site web",
                     "username": "Nom d'utilisateur",
                     "category": "Catégorie",
@@ -1315,11 +1315,11 @@
                     "prefill_autofill": "Préremplir l'autofill"
                 },
                 "zelfproof": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "download": "Télécharger ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Informations de la Carte de Paiement",
+                    "title": "Informations de la Carte",
                     "website": "Site web",
                     "username": "Nom d'utilisateur",
                     "password": "Mot de passe",
@@ -1332,7 +1332,7 @@
                 }
             },
             "form": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "website": {
                     "label": "Nom de la Banque *"
                 },
@@ -1393,36 +1393,36 @@
         }
     },
     "start": {
-        "title": "Informations de la Carte de Paiement",
-        "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
+        "title": "Bienvenue sur ZelfKeys",
+        "subtitle": "Votre gestionnaire de mots de passe sécurisé",
         "features": {
             "install_extension": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "INSTALLEZ NOTRE<br />EXTENSION",
+                "description": "Obtenez notre extension dans votre navigateur préféré"
             },
             "secure_passwords": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "SÉCURISEZ VOS<br />MOTS DE PASSE",
+                "description": "Ajoutez vos mots de passe, cartes de paiement et notes."
             },
             "autocomplete": {
-                "title": "Informations de la Carte de Paiement",
-                "description": "Votre carte de paiement a été stockée et cryptée en toute sécurité."
+                "title": "AUTO-COMPLÉTEZ<br />VOS INFORMATIONS",
+                "description": "Remplissez automatiquement vos mots de passe stockés après une vérification biométrique rapide."
             }
         },
         "cta": {
-            "button": "Décrypter la Carte de Paiement"
+            "button": "Sécuriser mon premier mot de passe"
         }
     },
     "password_result": {
-        "title": "Informations de la Carte de Paiement",
+        "title": "Informations de la Carte",
         "loading": "Chargement du résultat...",
         "sections": {
             "success": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "message": "Note stockée avec succès !"
             },
             "details": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "website": "Site web",
                     "username": "Nom d'utilisateur",
@@ -1433,7 +1433,7 @@
                 }
             },
             "nft": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "token_id": "ID du Token",
                     "cost": "Coût",
@@ -1446,7 +1446,7 @@
                 "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "hash": "Hash IPFS",
                     "gateway_url": "URL de la Passerelle",
@@ -1458,7 +1458,7 @@
                 "gateway_link": "Voir sur la Passerelle IPFS"
             },
             "walrus": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "blob_id": "ID du Blob",
                     "public_url": "URL Publique",
@@ -1471,7 +1471,7 @@
                 "explorer_link": "Voir sur l'Explorateur"
             },
             "zelfproof": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "labels": {
                     "string": "Chaîne ZelfProof",
                     "qr_code": "Code QR"
@@ -1479,7 +1479,7 @@
                 "copy_hint": "Cliquer pour copier"
             },
             "next_steps": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Informations de la Carte",
                 "success_message": "Votre note est maintenant stockée en toute sécurité. Vous pouvez la consulter dans votre liste de notes ou ajouter une autre note.",
                 "error_message": "Veuillez examiner les détails de l'erreur ci-dessus et réessayer. Si le problème persiste, contactez le support.",
                 "unknown_message": "Le système n'a pas pu déterminer le statut. Veuillez vérifier la réponse de l'API ci-dessus pour plus de détails."
@@ -1502,7 +1502,7 @@
         }
     },
     "domain_selection": {
-        "title": "Informations de la Carte de Paiement"
+        "title": "Informations de la Carte"
     },
     "zotp": {
         "add_zotp": "Ajouter ZOTP",
@@ -1593,7 +1593,7 @@
         "recovery_success_description": "Votre ZOTP a été récupéré et ajouté à votre authentificateur. Vous pouvez maintenant l'utiliser pour générer des codes."
     },
     "rewards": {
-        "title": "Informations de la Carte de Paiement",
+        "title": "Récompenses",
         "redeem_zns": "Échanger des ZNS",
         "invite_friends": "Inviter des amis",
         "daily_rewards": "Récompenses quotidiennes",
@@ -1601,9 +1601,9 @@
         "your_tasks": "Vos tâches",
         "coming_soon": "Bientôt disponible",
         "first_transaction": {
-            "title": "Informations de la Carte de Paiement",
-            "loading": "Chargement du résultat...",
-            "success_title": "Note Stockée avec Succès !",
+            "title": "Récompense Première Transaction",
+            "loading": "Vérification de l'éligibilité...",
+            "success_title": "VOUS AVEZ GAGNÉ",
             "success_subtitle": "Première transaction terminée !",
             "earned_label": "Vous avez gagné",
             "accept": "Accepter",
@@ -1614,29 +1614,29 @@
             "already_claimed_desc": "Vous avez déjà réclamé cette récompense !",
             "instruction_action": "Envoyer des jetons ZNS",
             "instruction_desc": "Effectuez votre première transaction de jetons ZNS pour débloquer cette récompense",
-            "error_no_wallet": "No wallet found",
-            "error_invalid_config": "Invalid wallet configuration"
+            "error_no_wallet": "Aucun portefeuille trouvé",
+            "error_invalid_config": "Configuration du portefeuille invalide"
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Invitez votre premier ami",
                 "reward": "Gagnez de 10 à 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Envoyez votre première transaction ZNS",
                 "reward": "Gagnez de 10 à 100 $ZNS",
                 "reward_completed": "Vous avez gagné {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Rejoignez notre Discord",
                 "reward": "Gagnez de 10 à 100 $ZNS"
             },
             "join_telegram": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Rejoignez notre communauté Telegram",
                 "reward": "Gagnez de 10 à 100 $ZNS"
             },
             "join_x": {
-                "title": "Informations de la Carte de Paiement",
+                "title": "Suivez-nous sur X",
                 "reward": "Gagnez de 10 à 100 $ZNS"
             }
         },
@@ -1649,13 +1649,13 @@
         "seconds": "sec",
         "spin_the_wheel": "TOURNEZ LA ROUE",
         "spin_subtitle": "et gagnez des récompenses quotidiennes en $ZNS",
-        "loading": "Chargement du résultat...",
+        "loading": "Chargement...",
         "spinning": "Tourne...",
         "come_back_tomorrow": "Revenez demain !",
         "spin_now": "Tournez la roue !",
         "error": {
-            "no_wallet": "Portefeuille introuvable. Veuillez configurer votre portefeuille d'abord.",
-            "load_failed": "Échec du chargement des cartes de paiement. Veuillez réessayer.",
+            "no_wallet": "Portefeuille introuvable. Veuillez connecter un portefeuille d'abord.",
+            "load_failed": "Échec du chargement de la configuration de la roue. Veuillez réessayer.",
             "claim_failed": "Impossible de réclamer la récompense.",
             "already_claimed": "Vous avez déjà réclamé votre récompense quotidienne aujourd'hui. Revenez demain !",
             "spin_failed": "Échec du tour de roue. Veuillez réessayer.",
@@ -1685,20 +1685,20 @@
     },
     "claim_reward": {
         "loading": {
-            "title": "Informations de la Carte de Paiement",
+            "title": "Réclamation de la récompense",
             "text": "Envoi de {{ amount }} $ZNS vers votre portefeuille...",
             "subtext": "Cela peut prendre quelques secondes"
         },
         "success": {
-            "title": "Informations de la Carte de Paiement",
-            "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement.",
+            "title": "VOUS AVEZ GAGNÉ",
+            "subtitle": "Tâche terminée !",
             "desc": "Récompense de parrainage de <strong>{{ name }}</strong>",
             "earned_label": "Vous avez gagné",
             "accept": "Accepter"
         },
         "error": {
-            "title": "Informations de la Carte de Paiement",
-            "subtext": "Cela peut prendre quelques secondes",
+            "title": "Échec de la réclamation",
+            "subtext": "Ne vous inquiétez pas, vous pouvez réessayer. Votre récompense vous attend toujours.",
             "retry": "Réessayer",
             "go_back": "Retour",
             "messages": {
@@ -1709,27 +1709,27 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "Informations de la Carte de Paiement",
-            "expired": "Expiré",
+            "title": "Ne perdez pas votre Nom Zelf",
+            "expired": "Votre domaine a expiré",
             "one_day": "1 jour restant pour acheter votre ZNS",
             "days_left": "{{ days }} jours restants pour acheter votre ZNS"
         },
         "rewards": {
-            "title": "Informations de la Carte de Paiement",
-            "subtitle": "Sélectionnez la longueur de votre phrase de départ et poursuivez le processus de chiffrement."
+            "title": "Réclamer des récompenses",
+            "subtitle": "Obtenez des $ZNS quotidiens avec nos quêtes"
         }
     },
     "dapp": {
-        "connection_request": "Connection Request",
-        "select_accounts": "Select accounts to connect",
+        "connection_request": "Demande de Connexion",
+        "select_accounts": "Sélectionnez les comptes à connecter",
         "network": "Réseau",
-        "threat_warning_title": "Malicious Site Detected",
-        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
-        "connect": "Connect",
-        "sign_message": "Sign Message",
-        "sign_transaction": "Sign Transaction",
-        "message_to_sign": "Message to sign",
-        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "threat_warning_title": "Site Malveillant Détecté",
+        "threat_warning": "Ce site a été signalé comme malveillant. Connexion bloquée pour votre sécurité.",
+        "connect": "Connecter",
+        "sign_message": "Signer le Message",
+        "sign_transaction": "Signer la Transaction",
+        "message_to_sign": "Message à signer",
+        "unknown_interaction_warning": "Interaction avec contrat inconnu. Vérifiez attentivement avant de signer.",
         "wants_to_connect": "souhaite se connecter à votre portefeuille",
         "accounts": "Comptes",
         "permissions": "Permissions",

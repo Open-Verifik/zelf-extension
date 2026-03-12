@@ -76,7 +76,7 @@
         },
         "payment_card_result": {
             "success": {
-                "title": "支払いカード情報",
+                "title": "支払いカードが正常に作成されました！",
                 "description": "支払いカードは安全に保存され、暗号化されました。"
             },
             "preview": {
@@ -212,17 +212,17 @@
                 "position_face_subtitle": "カメラを直視し、静止してください"
             },
             "api_error": {
-                "title": "支払いカード情報",
+                "title": "認証に失敗しました",
                 "try_again": "再試行",
                 "go_back": "戻る"
             },
             "camera_error": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "カメラが利用できません",
+                "description": "生体認証のためにカメラが有効でアクセス可能であることを確認してください"
             },
             "permission": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。",
+                "title": "カメラの許可が必要です",
+                "description": "生体認証を続行するには、カメラへのアクセスを許可してください",
                 "go_back": "戻る"
             },
             "close_aria": "生体認証の確認を閉じる",
@@ -232,8 +232,8 @@
             }
         },
         "subscription_banner": {
-            "title": "支払いカード情報",
-            "description": "支払いカードは安全に保存され、暗号化されました。"
+            "title": "プレミアム機能のロックを解除",
+            "description": "ZelfKeys Premiumで無制限アクセス、高度なセキュリティなどをお楽しみください"
         },
         "data_card": {
             "details": "詳細",
@@ -535,23 +535,23 @@
         "language_label": "言語",
         "subscription_label": "サブスクリプション",
         "networks": {
-            "title": "支払いカード情報",
-            "description": "支払いカードは安全に保存され、暗号化されました。",
+            "title": "ブロックチェーンネットワーク",
+            "description": "ウォレットで使用するネットワークを有効または無効にします。無効なネットワークはトークンリストに表示されません。",
             "no_networks_available": "ライセンスで利用可能なネットワークがありません。より多くのネットワークにアクセスするにはプランをアップグレードしてください。"
         },
         "language": {
-            "description": "支払いカードは安全に保存され、暗号化されました。"
+            "description": "アプリケーションの言語を選択してください。"
         },
-        "walletconnect_label": "Connect via link",
+        "walletconnect_label": "リンクで接続",
         "walletconnect": {
-            "title": "支払いカード情報",
-            "description": "支払いカードは安全に保存され、暗号化されました。",
+            "title": "Dapps接続",
+            "description": "ウォレットに接続された分散型アプリケーションを管理します。",
             "placeholder": "カードタイプを選択",
-            "connect_button": "Connect",
-            "connecting": "Connecting...",
+            "connect_button": "接続",
+            "connecting": "接続中...",
             "success": "成功",
-            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
-            "error_failed": "Failed to connect. Please try again."
+            "error_invalid": "有効な WalletConnect URI を入力してください（wc: で始まります）",
+            "error_failed": "接続に失敗しました。もう一度お試しください。"
         },
         "security": {
             "biometric_verification_title": "生体認証間隔",
@@ -584,7 +584,7 @@
         "security_layer_title": "セキュリティレイヤー",
         "strong": "強い",
         "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。",
-        "title": "支払いカード情報",
+        "title": "ZelfProof暗号化レイヤー",
         "unhide_words": "単語を表示",
         "weak": "弱い",
         "weak_password": "弱いパスワード",
@@ -599,7 +599,7 @@
         "information": "このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
         "your_token_address": "{{ name }}アドレス",
         "risks_modal": {
-            "title": "支払いカード情報",
+            "title": "{{ symbol }}を受け取る前に",
             "risk_1_title": "{{ name }}ネットワーク限定",
             "risk_1": "このアドレスへは{{ name }}ネットワーク上の{{ symbol }}のみ送信してください。別のチェーンからのトークンは復元できません。",
             "risk_2_title": "アドレスを確認する",
@@ -771,18 +771,18 @@
         "download_qr": "QRをダウンロード",
         "info_title": "QRコードを安全に保管してください",
         "info_description": "アカウントを保護するためにQRコードを安全に保管してください。ダウンロードして安全な場所に保存してください。",
-        "private_key": "秘密鍵",
+        "private_key": "シードフレーズ",
         "addresses": "アドレス",
         "info": "情報"
     },
     "private_key": {
-        "description": "支払いカードは安全に保存され、暗号化されました。",
+        "description": "シードフレーズを表示するには、セキュリティ認証の手順を完了してください。",
         "got_it": "了解しました、後で行います",
-        "title": "支払いカード情報"
+        "title": "シードフレーズ"
     },
     "my_arns": {
         "arns_website": "ArNSウェブサイト",
-        "description": "支払いカードは安全に保存され、暗号化されました。"
+        "description": "暗号を受け取るための個人ウェブサイト、共有しやすく、直接送金に必要なすべての情報が含まれています。"
     },
     "manage_domain": {
         "hold_until": "保持期限",
@@ -976,8 +976,8 @@
             "master_password_placeholder": "マスターパスワードを入力してください"
         },
         "activation": {
-            "title": "支払いカード情報",
-            "message": "ノートが正常に保存されました！"
+            "title": "支払いが確認されました！",
+            "message": "サブスクリプションを有効にしています... おめでとうございます！支払いが確認され、サブスクリプションが有効になっています。"
         },
         "subscription": {
             "active_subscription": "有効なサブスクリプション",
@@ -1017,15 +1017,15 @@
             "add_payment_card": "支払いカードを追加"
         },
         "payment_cards": {
-            "title": "支払いカード情報",
-            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。",
+            "title": "支払いカード",
+            "subtitle": "支払いカード情報を安全に保存",
             "loading": {
-                "title": "支払いカード情報",
-                "message": "ノートが正常に保存されました！"
+                "title": "支払いカードを読み込んでいます",
+                "message": "安全なデータを取得しています。少々お待ちください..."
             },
             "error": {
-                "title": "支払いカード情報",
-                "message": "ノートが正常に保存されました！",
+                "title": "おっと！問題が発生しました",
+                "message": "支払いカードを読み込めませんでした。",
                 "try_again": "再試行",
                 "no_wallet": "ウォレットが見つかりません。まずウォレットを設定してください。",
                 "auth_failed": "認証に失敗しました。有効なウォレットがあることを確認してください。",
@@ -1036,12 +1036,12 @@
             "unknown_bank": "不明な銀行",
             "unknown": "不明",
             "premium": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "プレミアム機能をアンロック",
+                "description": "ZelfKeys Premiumで高度なセキュリティなど"
             },
             "add_card": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "新しいカードを追加",
+                "description": "新しい支払いカードを安全に保存"
             },
             "card": {
                 "card_holder": "カード名義人",
@@ -1180,12 +1180,12 @@
                 "load_failed": "支払いカードの読み込みに失敗しました。もう一度お試しください。"
             },
             "premium": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "プレミアム機能をアンロック",
+                "description": "ZelfKeys Premiumで高度なセキュリティなど"
             },
             "add_note": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "新しいノートを追加",
+                "description": "新しいノートを安全に保存"
             },
             "detail": {
                 "loading": "結果を読み込んでいます...",
@@ -1268,12 +1268,12 @@
                 "load_failed": "支払いカードの読み込みに失敗しました。もう一度お試しください。"
             },
             "premium": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "プレミアム機能をアンロック",
+                "description": "ZelfKeys Premiumで高度なセキュリティなど"
             },
             "add_password": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "新しいパスワードを追加",
+                "description": "新しいパスワードを安全に保存"
             },
             "search": {
                 "placeholder": "カードタイプを選択"
@@ -1393,24 +1393,24 @@
         }
     },
     "start": {
-        "title": "支払いカード情報",
-        "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。",
+        "title": "ZelfKeysへようこそ",
+        "subtitle": "あなたの安全なパスワードマネージャー",
         "features": {
             "install_extension": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "拡張機能を<br />インストール",
+                "description": "お気に入りのブラウザで拡張機能を入手"
             },
             "secure_passwords": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "パスワードを<br />保護",
+                "description": "パスワード、支払いカード、ノートを追加できます。"
             },
             "autocomplete": {
-                "title": "支払いカード情報",
-                "description": "支払いカードは安全に保存され、暗号化されました。"
+                "title": "情報を<br />自動入力",
+                "description": "素早い生体認証で保存したパスワードを自動入力します。"
             }
         },
         "cta": {
-            "button": "支払いカードを復号"
+            "button": "最初のパスワードを保護する"
         }
     },
     "password_result": {
@@ -1614,8 +1614,8 @@
             "already_claimed_desc": "この報酬は既に獲得済みです！",
             "instruction_action": "ZNSトークンを送信",
             "instruction_desc": "初回ZNSトークン取引を完了して、この報酬を解除しましょう",
-            "error_no_wallet": "No wallet found",
-            "error_invalid_config": "Invalid wallet configuration"
+            "error_no_wallet": "ウォレットが見つかりません",
+            "error_invalid_config": "ウォレットの設定が無効です"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1720,16 +1720,16 @@
         }
     },
     "dapp": {
-        "connection_request": "Connection Request",
-        "select_accounts": "Select accounts to connect",
+        "connection_request": "接続リクエスト",
+        "select_accounts": "接続するアカウントを選択",
         "network": "ネットワーク",
-        "threat_warning_title": "Malicious Site Detected",
-        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
-        "connect": "Connect",
-        "sign_message": "Sign Message",
-        "sign_transaction": "Sign Transaction",
-        "message_to_sign": "Message to sign",
-        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "threat_warning_title": "悪意のあるサイトを検出しました",
+        "threat_warning": "このサイトは悪意のあるサイトとしてフラグが付けられています。お客様の安全のため、接続をブロックしました。",
+        "connect": "接続",
+        "sign_message": "メッセージに署名",
+        "sign_transaction": "トランザクションに署名",
+        "message_to_sign": "署名するメッセージ",
+        "unknown_interaction_warning": "不明なコントラクトとのやり取り。署名前に慎重に確認してください。",
         "wants_to_connect": "ウォレットに接続したいです",
         "accounts": "アカウント",
         "permissions": "権限",

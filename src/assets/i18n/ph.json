@@ -76,7 +76,7 @@
         },
         "payment_card_result": {
             "success": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Matagumpay na Na-create ang Payment Card!",
                 "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
             },
             "preview": {
@@ -212,17 +212,17 @@
                 "position_face_subtitle": "Tumingin nang direkta sa camera at huwag gumalaw"
             },
             "api_error": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Nabigo ang Pagpapatotoo",
                 "try_again": "Subukan Muli",
                 "go_back": "Bumalik"
             },
             "camera_error": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "Hindi available ang Camera",
+                "description": "Mangyaring tiyakin na ang iyong camera ay naka-enable at accessible para sa biometric verification"
             },
             "permission": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt.",
+                "title": "Kailangan ng Pahintulot sa Camera",
+                "description": "Mangyaring payagan ang access sa camera upang magpatuloy sa biometric verification",
                 "go_back": "Bumalik"
             },
             "close_aria": "Ipasara ang biometrics verification",
@@ -232,8 +232,8 @@
             }
         },
         "subscription_banner": {
-            "title": "Impormasyon ng Payment Card",
-            "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+            "title": "I-unlock ang Premium Features",
+            "description": "Kumuha ng walang limitasyong access, advanced security at higit pa sa ZelfKeys Premium"
         },
         "data_card": {
             "details": "Mga Detalye",
@@ -535,23 +535,23 @@
         "language_label": "Wika",
         "subscription_label": "Subskripsyon",
         "networks": {
-            "title": "Impormasyon ng Payment Card",
-            "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt.",
+            "title": "Blockchain Networks",
+            "description": "I-enable o i-disable ang mga network na gusto mong gamitin sa iyong wallet. Ang mga naka-disable na network ay hindi lalabas sa iyong token list.",
             "no_networks_available": "Walang available na mga network para sa iyong lisensya. Mangyaring i-upgrade ang iyong plan upang ma-access ang higit pang mga network."
         },
         "language": {
-            "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+            "description": "Pumili ng iyong gustong wika para sa application."
         },
-        "walletconnect_label": "Connect via link",
+        "walletconnect_label": "Kumonekta sa pamamagitan ng link",
         "walletconnect": {
-            "title": "Impormasyon ng Payment Card",
-            "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt.",
+            "title": "Dapps Connections",
+            "description": "Pamahalaan ang mga decentralized app na nakakonekta sa iyong wallet.",
             "placeholder": "Pumili ng uri ng card",
-            "connect_button": "Connect",
-            "connecting": "Connecting...",
+            "connect_button": "Ikonekta",
+            "connecting": "Kumokonekta...",
             "success": "Tagumpay",
-            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
-            "error_failed": "Failed to connect. Please try again."
+            "error_invalid": "Maglagay ng wastong WalletConnect URI (nagsisimula sa wc:)",
+            "error_failed": "Nabigo ang koneksyon. Pakisubukang muli."
         },
         "security": {
             "biometric_verification_title": "Biometric verification interval",
@@ -584,7 +584,7 @@
         "security_layer_title": "SECURITY LAYER",
         "strong": "Malakas",
         "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
-        "title": "Impormasyon ng Payment Card",
+        "title": "ZelfProof Encryption Layers",
         "unhide_words": "Ipakita ang mga salita",
         "weak": "Mahina",
         "weak_password": "Mahinang password",
@@ -599,7 +599,7 @@
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
         "your_token_address": "Ang iyong {{ name }} address",
         "risks_modal": {
-            "title": "Impormasyon ng Payment Card",
+            "title": "Bago tumanggap ng {{ symbol }}",
             "risk_1_title": "{{ name }} network lamang",
             "risk_1": "Magpadala lamang ng {{ symbol }} sa {{ name }} network sa address na ito. Ang mga token mula sa ibang chain ay hindi mababawi.",
             "risk_2_title": "I-verify ang address",
@@ -771,18 +771,18 @@
         "download_qr": "I-download ang QR",
         "info_title": "Panatilihing ligtas ang iyong QR code",
         "info_description": "Tandaan na panatilihing ligtas ang iyong QR code para maprotektahan ang iyong account. I-download ito at i-save sa ligtas na lugar.",
-        "private_key": "Pribadong Key",
+        "private_key": "Seed Phrase",
         "addresses": "Mga Address",
         "info": "Impormasyon"
     },
     "private_key": {
-        "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt.",
+        "description": "Para makita ang iyong seed phrase, kumpletuhin ang mga hakbang sa security verification.",
         "got_it": "Sige, gagawin ko na lang mamaya",
-        "title": "Impormasyon ng Payment Card"
+        "title": "Seed Phrase"
     },
     "my_arns": {
         "arns_website": "ArNS Website",
-        "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+        "description": "Ang iyong personal na website para tumanggap ng crypto, madaling i-share, kasama ang lahat ng kailangang impormasyon para sa direct transfers."
     },
     "manage_domain": {
         "hold_until": "Hawakan hanggang",
@@ -976,8 +976,8 @@
             "master_password_placeholder": "Ipasok ang iyong master password"
         },
         "activation": {
-            "title": "Impormasyon ng Payment Card",
-            "message": "Matagumpay na nai-store ang note!"
+            "title": "Na-confirm ang Payment!",
+            "message": "Ina-activate ang subscription... Congratulations! Na-confirm ang iyong payment at ina-activate ang iyong subscription."
         },
         "subscription": {
             "active_subscription": "Aktibong Subscription",
@@ -1017,15 +1017,15 @@
             "add_payment_card": "Magdagdag ng Payment Card"
         },
         "payment_cards": {
-            "title": "Impormasyon ng Payment Card",
-            "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
+            "title": "Payment Cards",
+            "subtitle": "Ligtas na i-store ang iyong payment card information",
             "loading": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!"
+                "title": "Inilo-load ang iyong mga payment card",
+                "message": "Mangyaring maghintay habang kinukuha namin ang iyong secure na data..."
             },
             "error": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!",
+                "title": "Oops! May nangyaring mali",
+                "message": "Hindi namin ma-load ang iyong mga payment card.",
                 "try_again": "Subukan Muli",
                 "no_wallet": "Walang nahanap na wallet. Mangyaring i-set up muna ang iyong wallet.",
                 "auth_failed": "Nabigo ang pag-authenticate. Mangyaring tiyakin na mayroon kang valid na wallet.",
@@ -1036,12 +1036,12 @@
             "unknown_bank": "Hindi Kilalang Bangko",
             "unknown": "Hindi Kilala",
             "premium": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "I-unlock ang Premium Features",
+                "description": "Kumuha ng advanced security at higit pa sa ZelfKeys Premium"
             },
             "add_card": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "Magdagdag ng Bagong Card",
+                "description": "Ligtas na i-store ang bagong payment card"
             },
             "card": {
                 "card_holder": "Tagahawak ng Card",
@@ -1061,10 +1061,10 @@
                 "no_notes": "Walang mga note"
             },
             "detail": {
-                "title": "Impormasyon ng Payment Card",
-                "loading": "Inilo-load ang resulta...",
+                "title": "Mga Detalye ng Payment Card",
+                "loading": "Inilo-load ang mga detalye ng payment card...",
                 "error": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Error sa pag-load ng payment card",
                     "go_back": "Bumalik",
                     "retrieve_failed": "Nabigong kunin ang data ng payment card",
                     "decrypt_failed": "Nabigong i-decrypt ang payment card. Mangyaring subukan muli."
@@ -1075,7 +1075,7 @@
                     "decrypting": "Dine-decrypt..."
                 },
                 "info": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Impormasyon ng Card",
                     "card_number": "Numero ng Card",
                     "card_holder": "Tagahawak ng Card",
                     "expiry_date": "Petsa ng Pag-expire",
@@ -1092,11 +1092,11 @@
                     "copy_notes": "Kopyahin ang mga note"
                 },
                 "zelfproof": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "ZelfProof",
                     "download": "I-download ang ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Impormasyon ng Decrypted Card",
                     "card_number": "Numero ng Card",
                     "card_holder": "Tagahawak ng Card",
                     "expiry_date": "Petsa ng Pag-expire",
@@ -1167,25 +1167,25 @@
             }
         },
         "notes": {
-            "title": "Impormasyon ng Payment Card",
-            "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
+            "title": "Mga Note",
+            "subtitle": "Ligtas na i-store ang iyong mga note",
             "loading": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!"
+                "title": "Inilo-load ang iyong mga note",
+                "message": "Mangyaring maghintay habang kinukuha namin ang iyong secure na data..."
             },
             "error": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!",
+                "title": "Oops! May nangyaring mali",
+                "message": "Hindi namin ma-load ang iyong mga note.",
                 "try_again": "Subukan Muli",
-                "load_failed": "Nabigong i-load ang mga payment card. Mangyaring subukan muli."
+                "load_failed": "Nabigong i-load ang mga note. Mangyaring subukan muli."
             },
             "premium": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "I-unlock ang Premium Features",
+                "description": "Kumuha ng advanced security at higit pa sa ZelfKeys Premium"
             },
             "add_note": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "Magdagdag ng Bagong Note",
+                "description": "Ligtas na i-store ang bagong note"
             },
             "detail": {
                 "loading": "Inilo-load ang resulta...",
@@ -1255,25 +1255,25 @@
             }
         },
         "passwords": {
-            "title": "Impormasyon ng Payment Card",
-            "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
+            "title": "Mga Password",
+            "subtitle": "Ligtas na i-store ang iyong mga password",
             "loading": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!"
+                "title": "Inilo-load ang iyong mga password",
+                "message": "Mangyaring maghintay habang kinukuha namin ang iyong secure na data..."
             },
             "error": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!",
+                "title": "Oops! May nangyaring mali",
+                "message": "Hindi namin ma-load ang iyong mga password.",
                 "try_again": "Subukan Muli",
-                "load_failed": "Nabigong i-load ang mga payment card. Mangyaring subukan muli."
+                "load_failed": "Nabigong i-load ang mga password. Mangyaring subukan muli."
             },
             "premium": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "I-unlock ang Premium Features",
+                "description": "Kumuha ng advanced security at higit pa sa ZelfKeys Premium"
             },
             "add_password": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "Magdagdag ng Bagong Password",
+                "description": "Ligtas na i-store ang bagong password"
             },
             "search": {
                 "placeholder": "Pumili ng uri ng card"
@@ -1393,24 +1393,24 @@
         }
     },
     "start": {
-        "title": "Impormasyon ng Payment Card",
-        "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
+        "title": "Maligayang pagdating sa ZelfKeys",
+        "subtitle": "Ang iyong secure na password manager",
         "features": {
             "install_extension": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "I-INSTALL ANG AMING<br />EXTENSION",
+                "description": "Kunin ang aming extension sa iyong gustong browser"
             },
             "secure_passwords": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "I-SECURE ANG IYONG<br />MGA PASSWORD",
+                "description": "Idagdag ang iyong mga password, payment cards, at notes."
             },
             "autocomplete": {
-                "title": "Impormasyon ng Payment Card",
-                "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
+                "title": "AUTO-COMPLETE<br />ANG IYONG INFO",
+                "description": "Autofill ang iyong naka-store na mga password awtomatiko pagkatapos ng mabilis na biometric verification."
             }
         },
         "cta": {
-            "button": "I-decrypt ang Payment Card"
+            "button": "I-secure ang aking unang password"
         }
     },
     "password_result": {
@@ -1614,8 +1614,8 @@
             "already_claimed_desc": "Nakuha mo na ang reward na ito!",
             "instruction_action": "Magpadala ng ZNS token",
             "instruction_desc": "Gawin ang iyong unang ZNS token transaction para ma-unlock ang reward na ito",
-            "error_no_wallet": "No wallet found",
-            "error_invalid_config": "Invalid wallet configuration"
+            "error_no_wallet": "Walang nahanap na wallet",
+            "error_invalid_config": "Hindi wastong pagsasaayos ng wallet"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1720,16 +1720,16 @@
         }
     },
     "dapp": {
-        "connection_request": "Connection Request",
-        "select_accounts": "Select accounts to connect",
+        "connection_request": "Kahilingan sa Koneksyon",
+        "select_accounts": "Pumili ng mga account na ikokonekta",
         "network": "Network",
-        "threat_warning_title": "Malicious Site Detected",
-        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
-        "connect": "Connect",
-        "sign_message": "Sign Message",
-        "sign_transaction": "Sign Transaction",
-        "message_to_sign": "Message to sign",
-        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "threat_warning_title": "Nadetect ang Malisyosong Site",
+        "threat_warning": "Ang site na ito ay minarkahan bilang malisyoso. Ang koneksyon ay hinadlangan para sa iyong kaligtasan.",
+        "connect": "Ikonekta",
+        "sign_message": "Pirmahan ang Mensahe",
+        "sign_transaction": "Pirmahan ang Transaksyon",
+        "message_to_sign": "Mensahe na pipirmahan",
+        "unknown_interaction_warning": "Hindi kilalang pakikipag-ugnayan sa kontrata. Suriing mabuti bago pumirma.",
         "wants_to_connect": "gustong kumonekta sa iyong wallet",
         "accounts": "Mga Account",
         "permissions": "Mga Pahintulot",

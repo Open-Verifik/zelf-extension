@@ -76,7 +76,7 @@
         },
         "payment_card_result": {
             "success": {
-                "title": "支付卡信息",
+                "title": "支付卡创建成功！",
                 "description": "您的支付卡已安全存储并加密。"
             },
             "preview": {
@@ -212,17 +212,17 @@
                 "position_face_subtitle": "直视摄像头并保持不动"
             },
             "api_error": {
-                "title": "支付卡信息",
+                "title": "认证失败",
                 "try_again": "重试",
                 "go_back": "返回"
             },
             "camera_error": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "摄像头不可用",
+                "description": "请确保您的摄像头已启用并可用于生物识别验证"
             },
             "permission": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。",
+                "title": "需要摄像头权限",
+                "description": "请允许摄像头访问以继续进行生物识别验证",
                 "go_back": "返回"
             },
             "close_aria": "关闭生物识别验证",
@@ -232,8 +232,8 @@
             }
         },
         "subscription_banner": {
-            "title": "支付卡信息",
-            "description": "您的支付卡已安全存储并加密。"
+            "title": "解锁高级功能",
+            "description": "通过 ZelfKeys Premium 获得无限访问、高级安全等"
         },
         "data_card": {
             "details": "详情",
@@ -331,17 +331,17 @@
             "master_password_hint": "如果您在创建该条目时设置了主密码，请在此输入"
         },
         "note_result": {
-            "title": "支付卡信息",
+            "title": "笔记信息",
             "loading": "正在加载结果...",
             "sections": {
                 "success": {
-                    "title": "支付卡信息",
+                    "title": "笔记信息",
                     "message": "笔记存储成功！"
                 },
                 "details": {
-                    "title": "支付卡信息",
+                    "title": "已存储笔记详情",
                     "labels": {
-                        "title": "支付卡信息",
+                        "title": "笔记信息",
                         "folder": "文件夹",
                         "type": "类型",
                         "category": "类别",
@@ -350,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "支付卡信息",
+                    "title": "NFT 已创建",
                     "labels": {
                         "token_id": "代币 ID",
                         "cost": "费用",
@@ -360,7 +360,7 @@
                     "image_alt": "ZelfKey NFT"
                 },
                 "ipfs": {
-                    "title": "支付卡信息",
+                    "title": "IPFS 存储",
                     "labels": {
                         "hash": "IPFS 哈希",
                         "gateway_url": "网关 URL",
@@ -370,7 +370,7 @@
                     "gateway_link": "在 IPFS 网关上查看"
                 },
                 "walrus": {
-                    "title": "支付卡信息",
+                    "title": "Walrus 存储",
                     "labels": {
                         "blob_id": "Blob ID",
                         "public_url": "公共 URL",
@@ -383,7 +383,7 @@
                     "explorer_link": "在浏览器上查看"
                 },
                 "zelfproof": {
-                    "title": "支付卡信息",
+                    "title": "ZelfProof 已生成",
                     "labels": {
                         "string": "ZelfProof 字符串",
                         "qr_code": "二维码"
@@ -392,10 +392,10 @@
                     "qr_alt": "ZelfProof 二维码"
                 },
                 "debug": {
-                    "title": "支付卡信息"
+                    "title": "调试信息"
                 },
                 "next_steps": {
-                    "title": "支付卡信息",
+                    "title": "下一步",
                     "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
                     "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
                     "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
@@ -535,23 +535,23 @@
         "language_label": "语言",
         "subscription_label": "订阅",
         "networks": {
-            "title": "支付卡信息",
-            "description": "您的支付卡已安全存储并加密。",
+            "title": "区块链网络",
+            "description": "启用或禁用您想在钱包中使用的网络。已禁用的网络不会出现在您的代币列表中。",
             "no_networks_available": "您的许可证下没有可用网络。请升级您的计划以访问更多网络。"
         },
         "language": {
-            "description": "您的支付卡已安全存储并加密。"
+            "description": "选择您偏好的应用程序语言。"
         },
-        "walletconnect_label": "Connect via link",
+        "walletconnect_label": "通过链接连接",
         "walletconnect": {
-            "title": "支付卡信息",
-            "description": "您的支付卡已安全存储并加密。",
-            "placeholder": "选择卡片类型",
-            "connect_button": "Connect",
-            "connecting": "Connecting...",
+            "title": "Dapps 连接",
+            "description": "管理连接到您钱包的去中心化应用程序。",
+            "placeholder": "wc:...",
+            "connect_button": "连接",
+            "connecting": "连接中...",
             "success": "成功",
-            "error_invalid": "Please enter a valid WalletConnect URI (starts with wc:)",
-            "error_failed": "Failed to connect. Please try again."
+            "error_invalid": "请输入有效的 WalletConnect URI（以 wc: 开头）",
+            "error_failed": "连接失败。请重试。"
         },
         "security": {
             "biometric_verification_title": "生物识别验证间隔",
@@ -584,7 +584,7 @@
         "security_layer_title": "安全层",
         "strong": "强",
         "subtitle": "选择您的种子短语长度并继续加密过程。",
-        "title": "支付卡信息",
+        "title": "ZelfProof 加密层",
         "unhide_words": "显示单词",
         "weak": "弱",
         "weak_password": "弱密码",
@@ -599,7 +599,7 @@
         "information": "此地址只能用于接收兼容的代币。",
         "your_token_address": "您的{{ name }}地址",
         "risks_modal": {
-            "title": "支付卡信息",
+            "title": "接收 {{ symbol }} 之前",
             "risk_1_title": "仅限 {{ name }} 网络",
             "risk_1": "只能向此地址发送 {{ name }} 网络上的 {{ symbol }}。来自其他链的代币无法找回。",
             "risk_2_title": "核实地址",
@@ -771,18 +771,18 @@
         "download_qr": "下载二维码",
         "info_title": "保护您的二维码安全",
         "info_description": "请记住保护您的二维码安全以保护您的账户。下载并保存在安全的地方。",
-        "private_key": "私钥",
+        "private_key": "种子短语",
         "addresses": "地址",
         "info": "信息"
     },
     "private_key": {
-        "description": "您的支付卡已安全存储并加密。",
+        "description": "要查看您的种子短语，请完成安全验证步骤。",
         "got_it": "明白了，我稍后再做",
-        "title": "支付卡信息"
+        "title": "种子短语"
     },
     "my_arns": {
         "arns_website": "ArNS网站",
-        "description": "您的支付卡已安全存储并加密。"
+        "description": "您的个人网站，用于接收加密货币，易于分享，包含直接转账所需的所有信息。"
     },
     "manage_domain": {
         "hold_until": "持有至",
@@ -976,8 +976,8 @@
             "master_password_placeholder": "输入您的主密码"
         },
         "activation": {
-            "title": "支付卡信息",
-            "message": "笔记存储成功！"
+            "title": "支付确认！",
+            "message": "正在激活订阅...恭喜！您的支付已确认，订阅正在激活。"
         },
         "subscription": {
             "active_subscription": "活跃订阅",
@@ -1017,15 +1017,15 @@
             "add_payment_card": "添加支付卡"
         },
         "payment_cards": {
-            "title": "支付卡信息",
-            "subtitle": "选择您的种子短语长度并继续加密过程。",
+            "title": "支付卡",
+            "subtitle": "安全存储您的支付卡信息",
             "loading": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！"
+                "title": "正在加载您的支付卡",
+                "message": "请稍候，我们正在获取您的安全数据..."
             },
             "error": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！",
+                "title": "哎呀！出错了",
+                "message": "我们无法加载您的支付卡。",
                 "try_again": "重试",
                 "no_wallet": "未找到钱包。请先设置您的钱包。",
                 "auth_failed": "身份验证失败。请确保您拥有有效的钱包。",
@@ -1036,12 +1036,12 @@
             "unknown_bank": "未知银行",
             "unknown": "未知",
             "premium": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "解锁高级功能",
+                "description": "获取高级安全功能及更多，使用 ZelfKeys Premium"
             },
             "add_card": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "添加新卡",
+                "description": "安全存储新的支付卡"
             },
             "card": {
                 "card_holder": "持卡人",
@@ -1167,57 +1167,57 @@
             }
         },
         "notes": {
-            "title": "支付卡信息",
+            "title": "笔记信息",
             "subtitle": "选择您的种子短语长度并继续加密过程。",
             "loading": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！"
+                "title": "正在加载",
+                "message": "正在加载笔记..."
             },
             "error": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！",
+                "title": "加载笔记失败",
+                "message": "加载笔记失败。请重试。",
                 "try_again": "重试",
-                "load_failed": "加载支付卡失败。请重试。"
+                "load_failed": "加载笔记失败。请重试。"
             },
             "premium": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "解锁高级功能",
+                "description": "获取高级安全功能及更多，使用 ZelfKeys Premium"
             },
             "add_note": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "添加新笔记",
+                "description": "安全存储新笔记"
             },
             "detail": {
                 "loading": "正在加载结果...",
                 "error": {
-                    "title": "支付卡信息",
+                    "title": "加载笔记失败",
                     "go_back": "返回",
                     "not_found": "未找到记录",
-                    "load_failed": "加载支付卡失败。请重试。",
-                    "retrieve_failed": "检索支付卡数据失败",
-                    "decrypt_failed": "解密支付卡失败。请重试。"
+                    "load_failed": "加载笔记失败。请重试。",
+                    "retrieve_failed": "检索笔记数据失败",
+                    "decrypt_failed": "解密笔记失败。请重试。"
                 },
                 "no_title": "无标题",
                 "no_content": "无内容",
                 "untitled": "无标题",
                 "no_folder": "无文件夹",
                 "decrypt": {
-                    "button": "解密支付卡",
+                    "button": "解密笔记",
                     "decrypting": "正在解密..."
                 },
                 "info": {
-                    "title": "支付卡信息",
+                    "title": "笔记信息",
                     "note_id": "笔记 ID",
                     "type": "类型",
                     "folder": "文件夹",
                     "copy_id": "复制笔记 ID"
                 },
                 "zelfproof": {
-                    "title": "支付卡信息",
+                    "title": "ZelfProof",
                     "download": "下载 ZelfProof"
                 },
                 "decrypted": {
-                    "title": "支付卡信息",
+                    "title": "解密内容",
                     "title_field": "标题",
                     "content": "内容",
                     "no_title": "无标题",
@@ -1255,41 +1255,41 @@
             }
         },
         "passwords": {
-            "title": "支付卡信息",
+            "title": "密码信息",
             "subtitle": "选择您的种子短语长度并继续加密过程。",
             "loading": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！"
+                "title": "正在加载",
+                "message": "正在加载密码..."
             },
             "error": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！",
+                "title": "加载密码失败",
+                "message": "加载密码失败。请重试。",
                 "try_again": "重试",
-                "load_failed": "加载支付卡失败。请重试。"
+                "load_failed": "加载密码失败。请重试。"
             },
             "premium": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "解锁高级功能",
+                "description": "获取高级安全功能及更多，使用 ZelfKeys Premium"
             },
             "add_password": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "添加新密码",
+                "description": "安全存储新密码"
             },
             "search": {
                 "placeholder": "选择卡片类型"
             },
             "no_results": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！"
+                "title": "无结果",
+                "message": "未找到密码。"
             },
             "detail": {
                 "loading": "正在加载结果...",
                 "error": {
-                    "title": "支付卡信息",
+                    "title": "加载密码失败",
                     "go_back": "返回",
                     "not_found": "未找到记录",
-                    "load_failed": "加载支付卡失败。请重试。",
-                    "decrypt_failed": "解密支付卡失败。请重试。"
+                    "load_failed": "加载密码失败。请重试。",
+                    "decrypt_failed": "解密密码失败。请重试。"
                 },
                 "untitled": "无标题",
                 "no_username": "无用户名",
@@ -1298,12 +1298,12 @@
                 "no_zelf_name": "无标签名称",
                 "unknown_date": "未知日期",
                 "decrypt": {
-                    "button": "解密支付卡",
+                    "button": "解密密码",
                     "decrypting": "正在解密...",
                     "launch_fill": "启动并填充"
                 },
                 "info": {
-                    "title": "支付卡信息",
+                    "title": "密码信息",
                     "website": "网站",
                     "username": "用户名",
                     "category": "类别",
@@ -1315,11 +1315,11 @@
                     "prefill_autofill": "自动填充预填充"
                 },
                 "zelfproof": {
-                    "title": "支付卡信息",
+                    "title": "ZelfProof",
                     "download": "下载 ZelfProof"
                 },
                 "decrypted": {
-                    "title": "支付卡信息",
+                    "title": "解密内容",
                     "website": "网站",
                     "username": "用户名",
                     "password": "密码",
@@ -1332,7 +1332,7 @@
                 }
             },
             "form": {
-                "title": "支付卡信息",
+                "title": "密码表单",
                 "website": {
                     "label": "银行名称 *"
                 },
@@ -1393,24 +1393,24 @@
         }
     },
     "start": {
-        "title": "支付卡信息",
-        "subtitle": "选择您的种子短语长度并继续加密过程。",
+        "title": "欢迎使用 ZelfKeys",
+        "subtitle": "您的安全密码管理器",
         "features": {
             "install_extension": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "安装我们的<br />扩展程序",
+                "description": "在您喜欢的浏览器中获取我们的扩展程序"
             },
             "secure_passwords": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "保护您的<br />密码",
+                "description": "添加您的密码、支付卡和笔记。"
             },
             "autocomplete": {
-                "title": "支付卡信息",
-                "description": "您的支付卡已安全存储并加密。"
+                "title": "自动填写<br />您的信息",
+                "description": "快速生物识别验证后自动填写您存储的密码。"
             }
         },
         "cta": {
-            "button": "解密支付卡"
+            "button": "保护我的第一个密码"
         }
     },
     "password_result": {
@@ -1614,8 +1614,8 @@
             "already_claimed_desc": "你已经领取过此奖励了！",
             "instruction_action": "发送 ZNS 代币",
             "instruction_desc": "完成您的首次 ZNS 代币交易以解锁此奖励",
-            "error_no_wallet": "No wallet found",
-            "error_invalid_config": "Invalid wallet configuration"
+            "error_no_wallet": "未找到钱包",
+            "error_invalid_config": "钱包配置无效"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1720,16 +1720,16 @@
         }
     },
     "dapp": {
-        "connection_request": "Connection Request",
-        "select_accounts": "Select accounts to connect",
+        "connection_request": "连接请求",
+        "select_accounts": "选择要连接的账户",
         "network": "网络",
-        "threat_warning_title": "Malicious Site Detected",
-        "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
-        "connect": "Connect",
-        "sign_message": "Sign Message",
-        "sign_transaction": "Sign Transaction",
-        "message_to_sign": "Message to sign",
-        "unknown_interaction_warning": "Unknown contract interaction. Review carefully before signing.",
+        "threat_warning_title": "检测到恶意网站",
+        "threat_warning": "此网站已被标记为恶意网站。为保护您的安全，已阻止连接。",
+        "connect": "连接",
+        "sign_message": "签名消息",
+        "sign_transaction": "签名交易",
+        "message_to_sign": "待签名消息",
+        "unknown_interaction_warning": "未知合约交互。请在签名前仔细审查。",
         "wants_to_connect": "想要连接到您的钱包",
         "accounts": "账户",
         "permissions": "权限",

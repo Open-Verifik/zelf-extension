@@ -286,15 +286,33 @@ export class ZelfNameService {
         return wallet;
     }
 
+    /** Timeout in ms for ArNS API calls to prevent indefinite loading */
+    private readonly _arnsRequestTimeoutMs = 15000;
+
+    /**
+     * Wrap a promise with a timeout to prevent indefinite hanging
+     */
+    private _withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+        const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("ArNS request timeout")), ms));
+        return Promise.race([promise, timeout]);
+    }
+
     /**
      * Get ArNS record for a zelfName
      * @param zelfName - The zelfName to check
      * @returns Promise with ArNS data (exists: false if not found)
      */
     async getArNS(tagName: string, domain: string): Promise<any> {
-        // Remove .zelf suffix if present
         try {
-            const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ar-io-arns/${tagName}.${domain}`);
+            if (!environment.production) console.debug("[ZelfNameService] getArNS request", { tagName, domain });
+
+            const request = this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/ar-io-arns/${tagName}.${domain}`);
+
+            const response = await this._withTimeout(request, this._arnsRequestTimeoutMs);
+
+            if (!environment.production)
+                console.debug("[ZelfNameService] getArNS response", { exists: response?.exists, hasPrimaryUrl: !!response?.primaryUrl });
+
             return response;
         } catch (error: any) {
             // If 404 or validation error (not found in arweave), return exists: false
@@ -311,7 +329,13 @@ export class ZelfNameService {
      * @returns Promise with created ArNS data
      */
     async createArNS(tagName: string, domain: string): Promise<any> {
-        // Remove .zelf suffix if present
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/ar-io-arns/${tagName}.${domain}`, {});
+        if (!environment.production) console.debug("[ZelfNameService] createArNS request", { tagName, domain });
+
+        const request = this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/ar-io-arns/${tagName}.${domain}`, {});
+        const response = await this._withTimeout(request, this._arnsRequestTimeoutMs);
+
+        if (!environment.production) console.debug("[ZelfNameService] createArNS response", { hasPrimaryUrl: !!response?.primaryUrl });
+
+        return response;
     }
 }

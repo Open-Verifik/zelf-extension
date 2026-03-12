@@ -6,6 +6,7 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from "@angular/material/bott
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router } from "@angular/router";
 
+import { environment } from "environments/environment";
 import { ChromeService } from "app/chrome.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -20,6 +21,7 @@ import { TagModel } from "app/tags.service";
 export class MyArNSComponent implements OnInit {
     arnsUrl: string | null = null;
     isLoadingArnsUrl: boolean = true;
+    hasLoadError: boolean = false;
     wallet: TagModel | null = null;
     isMainnet: boolean = false;
 
@@ -33,43 +35,72 @@ export class MyArNSComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
-        // Check if ArNS exists and create it if it doesn't when the modal opens
-        this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
+        try {
+            this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
+            if (!environment.production)
+                console.debug("[MyArNS] getCurrentWallet resolved", { hasWallet: !!this.wallet, tagName: this.wallet?.tagName });
 
-        if (!this.wallet?.tagName) {
+            if (!this.wallet?.tagName) {
+                this.isLoadingArnsUrl = false;
+                return;
+            }
+
+            this.isMainnet = this.wallet.isMainnet;
+
+            if (!this.isMainnet) {
+                this.isLoadingArnsUrl = false;
+                return;
+            }
+
+            const cachedUrl = await this._getCachedArnsUrl(this.wallet.tagName as string, this.wallet.domain as string);
+
+            if (!environment.production) console.debug("[MyArNS] cache check", { cached: !!cachedUrl });
+
+            if (cachedUrl) {
+                this.arnsUrl = cachedUrl;
+                this.isLoadingArnsUrl = false;
+                return;
+            }
+
+            await this._fetchArnsUrl();
+        } finally {
             this.isLoadingArnsUrl = false;
-            return;
         }
+    }
 
-        // Check if domain is mainnet
-        this.isMainnet = this.wallet.isMainnet;
+    async retry(): Promise<void> {
+        if (!this.wallet?.tagName || !this.isMainnet) return;
 
-        // If not mainnet, don't fetch ArNS URL
-        if (!this.isMainnet) {
-            this.isLoadingArnsUrl = false;
-            return;
-        }
-
-        // Check cache first - if cached, no need to show loading
-        const cachedUrl = await this._getCachedArnsUrl(this.wallet.tagName as string, this.wallet.domain as string);
-
-        if (cachedUrl) {
-            this.arnsUrl = cachedUrl;
-            this.isLoadingArnsUrl = false;
-            return;
-        }
-
-        // If not cached, show loading and fetch from backend
+        this.hasLoadError = false;
         this.isLoadingArnsUrl = true;
 
         try {
-            this.arnsUrl = await this.ensureArNS(this.wallet.tagName as string, this.wallet.domain as string);
-
-            if (!this.arnsUrl) {
-                console.error("Failed to ensure ArNS for", this.wallet.tagName);
-            }
+            await this._fetchArnsUrl();
         } finally {
             this.isLoadingArnsUrl = false;
+        }
+    }
+
+    private async _fetchArnsUrl(): Promise<void> {
+        if (!this.wallet?.tagName || !this.wallet?.domain) return;
+
+        this.isLoadingArnsUrl = true;
+        this.hasLoadError = false;
+
+        try {
+            if (!environment.production) console.debug("[MyArNS] fetching ArNS for", this.wallet.tagName, this.wallet.domain);
+
+            this.arnsUrl = await this.ensureArNS(this.wallet.tagName as string, this.wallet.domain as string);
+
+            if (!environment.production) console.debug("[MyArNS] ensureArNS result", { arnsUrl: !!this.arnsUrl });
+
+            if (!this.arnsUrl) {
+                this.hasLoadError = true;
+                console.error("Failed to ensure ArNS for", this.wallet.tagName);
+            }
+        } catch (error) {
+            this.hasLoadError = true;
+            console.error("Error ensuring ArNS:", error);
         }
     }
 

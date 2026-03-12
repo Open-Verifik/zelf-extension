@@ -788,7 +788,9 @@
     },
     "my_arns": {
         "arns_website": "ArNS Website",
-        "description": "Your personal website to receive crypto, easy to share with all necessary info for direct transfers."
+        "description": "Your personal website to receive crypto, easy to share with all necessary info for direct transfers.",
+        "load_error": "Unable to load your ArNS website. Please try again.",
+        "retry": "Retry"
     },
     "manage_domain": {
         "hold_until": "Hold until",

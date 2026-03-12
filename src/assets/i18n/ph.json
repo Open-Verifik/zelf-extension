@@ -782,7 +782,9 @@
     },
     "my_arns": {
         "arns_website": "ArNS Website",
-        "description": "Ang iyong personal na website para tumanggap ng crypto, madaling i-share, kasama ang lahat ng kailangang impormasyon para sa direct transfers."
+        "description": "Ang iyong personal na website para tumanggap ng crypto, madaling i-share, kasama ang lahat ng kailangang impormasyon para sa direct transfers.",
+        "load_error": "Hindi ma-load ang iyong ArNS website. Pakisubukang muli.",
+        "retry": "Subukang muli"
     },
     "manage_domain": {
         "hold_until": "Hawakan hanggang",

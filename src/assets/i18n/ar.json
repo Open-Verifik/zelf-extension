@@ -36,11 +36,11 @@
                 "copy_payment_card_id": "نسخ معرف بطاقة الدفع"
             },
             "zelfproof": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "ZelfProof",
                 "download": "تحميل ZelfProof"
             },
             "decrypted": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "المحتوى المفكوك تشفيره",
                 "card_holder_name": "اسم حامل البطاقة",
                 "copy_card_holder_name": "نسخ اسم حامل البطاقة",
                 "copy_card_number": "نسخ رقم البطاقة",
@@ -80,7 +80,7 @@
                 "description": "تم تخزين بطاقة الدفع الخاصة بك وتشفيرها بشكل آمن."
             },
             "preview": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تفاصيل البطاقة",
                 "labels": {
                     "name": "اسم بطاقة الدفع",
                     "card_holder": "حامل البطاقة",
@@ -89,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "ZelfProof",
                 "download": "تحميل ZelfProof"
             },
             "nft": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تم إنشاء NFT",
                 "labels": {
                     "token_id": "معرف الرمز (Token ID)",
                     "cost": "التكلفة",
@@ -106,7 +106,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تخزين IPFS",
                 "labels": {
                     "hash": "هاش IPFS",
                     "gateway_url": "رابط البوابة",
@@ -116,7 +116,7 @@
                 "gateway_link": "العرض على بوابة IPFS"
             },
             "walrus": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تخزين Walrus",
                 "labels": {
                     "blob_id": "معرف Blob ID",
                     "public_url": "الرابط العام",
@@ -129,7 +129,7 @@
                 "explorer_link": "العرض على المستكشف"
             },
             "zelfproof": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "ZelfProof المُنشأ",
                 "labels": {
                     "string": "سلسلة ZelfProof",
                     "qr_code": "رمز QR"
@@ -137,7 +137,7 @@
                 "copy_hint": "انقر للنسخ"
             },
             "error": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "خطأ في إنشاء البطاقة",
                 "default_message": "حدث خطأ غير متوقع أثناء إنشاء بطاقة الدفع الخاصة بك.",
                 "try_again": "حاول مرة أخرى",
                 "no_data": "لم يتم العثور على بيانات النتائج"
@@ -299,7 +299,7 @@
             "permission_required": "إذن الكاميرا مطلوب",
             "processing": "جاري معالجة بياناتك الحيوية...",
             "retry": "إعادة المحاولة",
-            "title": "معلومات بطاقة الدفع",
+            "title": "فك تشفير {{ type }}",
             "unlock": "المتابعة إلى البيانات الحيوية",
             "types": {
                 "credit_card": "بطاقة دفع",
@@ -341,7 +341,7 @@
                 "details": {
                     "title": "تفاصيل الملاحظة المخزنة",
                     "labels": {
-                        "title": "معلومات الملاحظة",
+                        "title": "العنوان",
                         "folder": "المجلد",
                         "type": "النوع",
                         "category": "الفئة",
@@ -782,7 +782,9 @@
     },
     "my_arns": {
         "arns_website": "موقع ArNS",
-        "description": "موقعك الشخصي لاستلام العملات المشفرة، سهل المشاركة مع جميع المعلومات اللازمة للتحويلات المباشرة."
+        "description": "موقعك الشخصي لاستلام العملات المشفرة، سهل المشاركة مع جميع المعلومات اللازمة للتحويلات المباشرة.",
+        "load_error": "تعذر تحميل موقع ArNS الخاص بك. يرجى المحاولة مرة أخرى.",
+        "retry": "إعادة المحاولة"
     },
     "manage_domain": {
         "hold_until": "معلق حتى",
@@ -976,7 +978,7 @@
             "master_password_placeholder": "أدخل كلمة المرور الرئيسية"
         },
         "activation": {
-            "title": "معلومات بطاقة الدفع",
+            "title": "تم تأكيد الدفع!",
             "message": "تم تخزين الملاحظة بنجاح!"
         },
         "subscription": {
@@ -1024,7 +1026,7 @@
                 "message": "تم تخزين الملاحظة بنجاح!"
             },
             "error": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "عذراً! حدث خطأ",
                 "message": "تم تخزين الملاحظة بنجاح!",
                 "try_again": "حاول مرة أخرى",
                 "no_wallet": "لم يتم العثور على محفظة. يرجى إعداد محفظتك أولاً.",
@@ -1061,10 +1063,10 @@
                 "no_notes": "لا توجد ملاحظات"
             },
             "detail": {
-                "title": "معلومات بطاقة الدفع",
-                "loading": "جاري تحميل النتيجة...",
+                "title": "تفاصيل بطاقة الدفع",
+                "loading": "جاري تحميل تفاصيل البطاقة...",
                 "error": {
-                    "title": "معلومات بطاقة الدفع",
+                    "title": "خطأ في تحميل البطاقة",
                     "go_back": "العودة",
                     "retrieve_failed": "فشل استرداد بيانات بطاقة الدفع",
                     "decrypt_failed": "فشل فك تشفير بطاقة الدفع. يرجى المحاولة مرة أخرى."
@@ -1092,11 +1094,11 @@
                     "copy_notes": "نسخ الملاحظات"
                 },
                 "zelfproof": {
-                    "title": "معلومات بطاقة الدفع",
+                    "title": "ZelfProof",
                     "download": "تحميل ZelfProof"
                 },
                 "decrypted": {
-                    "title": "معلومات بطاقة الدفع",
+                    "title": "المحتوى المفكوك تشفيره",
                     "card_number": "رقم البطاقة",
                     "card_holder": "حامل البطاقة",
                     "expiry_date": "تاريخ الانتهاء",
@@ -1414,15 +1416,15 @@
         }
     },
     "password_result": {
-        "title": "معلومات بطاقة الدفع",
+        "title": "نتيجة تخزين كلمة المرور",
         "loading": "جاري تحميل النتيجة...",
         "sections": {
             "success": {
-                "title": "معلومات بطاقة الدفع",
-                "message": "تم تخزين الملاحظة بنجاح!"
+                "title": "تم التخزين بنجاح!",
+                "message": "تم تخزين كلمة المرور بنجاح!"
             },
             "details": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تفاصيل كلمة المرور المخزنة",
                 "labels": {
                     "website": "الموقع الإلكتروني",
                     "username": "اسم المستخدم",
@@ -1433,7 +1435,7 @@
                 }
             },
             "nft": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تم إنشاء NFT",
                 "labels": {
                     "token_id": "معرف الرمز (Token ID)",
                     "cost": "التكلفة",
@@ -1446,7 +1448,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تخزين IPFS",
                 "labels": {
                     "hash": "هاش IPFS",
                     "gateway_url": "رابط البوابة",
@@ -1458,7 +1460,7 @@
                 "gateway_link": "العرض على بوابة IPFS"
             },
             "walrus": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "تخزين Walrus",
                 "labels": {
                     "blob_id": "معرف Blob ID",
                     "public_url": "الرابط العام",
@@ -1471,7 +1473,7 @@
                 "explorer_link": "العرض على المستكشف"
             },
             "zelfproof": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "ZelfProof",
                 "labels": {
                     "string": "سلسلة ZelfProof",
                     "qr_code": "رمز QR"
@@ -1479,7 +1481,7 @@
                 "copy_hint": "انقر للنسخ"
             },
             "next_steps": {
-                "title": "معلومات بطاقة الدفع",
+                "title": "الخطوات التالية",
                 "success_message": "ملاحظتك مخزنة الآن بشكل آمن. يمكنك عرضها في قائمة ملاحظاتك أو إضافة ملاحظة أخرى.",
                 "error_message": "يرجى مراجعة تفاصيل الخطأ أعلاه والمحاولة مرة أخرى. إذا استمرت المشكلة، اتصل بالدعم.",
                 "unknown_message": "تعذر على النظام تحديد الحالة. يرجى التحقق من استجابة API أعلاه للحصول على التفاصيل."
@@ -1487,10 +1489,10 @@
         },
         "actions": {
             "back_to_passwords": "العودة إلى كلمات المرور",
-            "add_another": "إضافة بطاقة أخرى"
+            "add_another": "إضافة كلمة مرور أخرى"
         },
         "status": {
-            "success_title": "تم تخزين الملاحظة بنجاح!",
+            "success_title": "تم تخزين كلمة المرور بنجاح!",
             "error_title": "خطأ في تخزين الملاحظة",
             "unknown_title": "حالة غير معروفة",
             "success_message": "ملاحظتك مخزنة الآن بشكل آمن. يمكنك عرضها في قائمة ملاحظاتك أو إضافة ملاحظة أخرى.",
@@ -1502,7 +1504,7 @@
         }
     },
     "domain_selection": {
-        "title": "معلومات بطاقة الدفع"
+        "title": "اختر النطاق لاسم التاج الخاص بك"
     },
     "zotp": {
         "add_zotp": "إضافة ZOTP",
@@ -1593,7 +1595,7 @@
         "recovery_success_description": " Your ZOTP has been recovered and added to your authenticator. You can now use it to generate codes. "
     },
     "rewards": {
-        "title": "معلومات بطاقة الدفع",
+        "title": "المكافآت",
         "redeem_zns": "استبدال ZNS",
         "invite_friends": "دعوة الأصدقاء",
         "daily_rewards": "المكافآت اليومية",

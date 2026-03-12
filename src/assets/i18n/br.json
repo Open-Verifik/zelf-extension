@@ -782,7 +782,9 @@
     },
     "my_arns": {
         "arns_website": "Site ArNS",
-        "description": "Seu site pessoal para receber criptomoedas, fácil de compartilhar com todas as informações necessárias para transferências diretas."
+        "description": "Seu site pessoal para receber criptomoedas, fácil de compartilhar com todas as informações necessárias para transferências diretas.",
+        "load_error": "Não foi possível carregar seu site ArNS. Por favor, tente novamente.",
+        "retry": "Tentar novamente"
     },
     "manage_domain": {
         "hold_until": "Manter até",
@@ -1601,7 +1603,7 @@
         "your_tasks": "Suas tarefas",
         "coming_soon": "Em breve",
         "first_transaction": {
-            "title": "Blockchain",
+            "title": "Recompensa da Primeira Transação",
             "loading": "Verificando elegibilidade...",
             "success_title": "VOCÊ GANHOU",
             "success_subtitle": "Primeira transação concluída!",

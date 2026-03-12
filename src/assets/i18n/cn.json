@@ -36,11 +36,11 @@
                 "copy_payment_card_id": "复制支付卡 ID"
             },
             "zelfproof": {
-                "title": "支付卡信息",
+                "title": "ZelfProof",
                 "download": "下载 ZelfProof"
             },
             "decrypted": {
-                "title": "支付卡信息",
+                "title": "解密内容",
                 "card_holder_name": "持卡人姓名",
                 "copy_card_holder_name": "复制持卡人姓名",
                 "copy_card_number": "复制卡号",
@@ -80,7 +80,7 @@
                 "description": "您的支付卡已安全存储并加密。"
             },
             "preview": {
-                "title": "支付卡信息",
+                "title": "卡片详情",
                 "labels": {
                     "name": "支付卡名称",
                     "card_holder": "持卡人",
@@ -89,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "支付卡信息",
+                "title": "ZelfProof",
                 "download": "下载 ZelfProof"
             },
             "nft": {
-                "title": "支付卡信息",
+                "title": "NFT 已创建",
                 "labels": {
                     "token_id": "代币 ID",
                     "cost": "费用",
@@ -106,7 +106,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "支付卡信息",
+                "title": "IPFS 存储",
                 "labels": {
                     "hash": "IPFS 哈希",
                     "gateway_url": "网关 URL",
@@ -116,7 +116,7 @@
                 "gateway_link": "在 IPFS 网关上查看"
             },
             "walrus": {
-                "title": "支付卡信息",
+                "title": "Walrus 存储",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "公共 URL",
@@ -129,7 +129,7 @@
                 "explorer_link": "在浏览器上查看"
             },
             "zelfproof": {
-                "title": "支付卡信息",
+                "title": "ZelfProof 已生成",
                 "labels": {
                     "string": "ZelfProof 字符串",
                     "qr_code": "二维码"
@@ -137,7 +137,7 @@
                 "copy_hint": "点击复制"
             },
             "error": {
-                "title": "支付卡信息",
+                "title": "创建卡片时出错",
                 "default_message": "创建您的支付卡时发生了意外错误。",
                 "try_again": "重试",
                 "no_data": "未找到结果数据"
@@ -299,7 +299,7 @@
             "permission_required": "需要摄像头权限",
             "processing": "正在处理您的生物识别数据...",
             "retry": "重试",
-            "title": "支付卡信息",
+            "title": "解密 {{ type }}",
             "unlock": "继续进行生物识别",
             "types": {
                 "credit_card": "支付卡",
@@ -782,7 +782,9 @@
     },
     "my_arns": {
         "arns_website": "ArNS网站",
-        "description": "您的个人网站，用于接收加密货币，易于分享，包含直接转账所需的所有信息。"
+        "description": "您的个人网站，用于接收加密货币，易于分享，包含直接转账所需的所有信息。",
+        "load_error": "无法加载您的 ArNS 网站。请重试。",
+        "retry": "重试"
     },
     "manage_domain": {
         "hold_until": "持有至",
@@ -1061,10 +1063,10 @@
                 "no_notes": "无备注"
             },
             "detail": {
-                "title": "支付卡信息",
-                "loading": "正在加载结果...",
+                "title": "支付卡详情",
+                "loading": "正在加载卡片详情...",
                 "error": {
-                    "title": "支付卡信息",
+                    "title": "加载卡片出错",
                     "go_back": "返回",
                     "retrieve_failed": "检索支付卡数据失败",
                     "decrypt_failed": "解密支付卡失败。请重试。"
@@ -1092,11 +1094,11 @@
                     "copy_notes": "复制备注"
                 },
                 "zelfproof": {
-                    "title": "支付卡信息",
+                    "title": "ZelfProof",
                     "download": "下载 ZelfProof"
                 },
                 "decrypted": {
-                    "title": "支付卡信息",
+                    "title": "解密内容",
                     "card_number": "卡号",
                     "card_holder": "持卡人",
                     "expiry_date": "有效日期",
@@ -1124,36 +1126,36 @@
                     "label": "银行名称 *"
                 },
                 "card_number": {
-                    "label": "银行名称 *"
+                    "label": "卡号 *"
                 },
                 "card_holder": {
-                    "label": "银行名称 *"
+                    "label": "持卡人 *"
                 },
                 "expiry_month": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型"
+                    "label": "到期月份 *",
+                    "placeholder": "MM"
                 },
                 "expiry_year": {
-                    "label": "银行名称 *"
+                    "label": "到期年份 *"
                 },
                 "card_type": {
-                    "label": "银行名称 *",
+                    "label": "卡片类型 *",
                     "placeholder": "选择卡片类型"
                 },
                 "cvv": {
-                    "label": "银行名称 *"
+                    "label": "CVV *"
                 },
                 "billing_address": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型"
+                    "label": "账单地址 *",
+                    "placeholder": "输入账单地址"
                 },
                 "notes": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型"
+                    "label": "笔记",
+                    "placeholder": "添加笔记（可选）"
                 },
                 "folder": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型",
+                    "label": "存入文件夹",
+                    "placeholder": "输入文件夹名称",
                     "aria_label": "切换文件夹存储"
                 },
                 "master_password": {
@@ -1166,9 +1168,9 @@
                 }
             }
         },
-        "notes": {
-            "title": "笔记信息",
-            "subtitle": "选择您的种子短语长度并继续加密过程。",
+            "notes": {
+            "title": "笔记",
+            "subtitle": "管理您的安全笔记和键值对",
             "loading": {
                 "title": "正在加载",
                 "message": "正在加载笔记..."
@@ -1232,19 +1234,19 @@
                     "edit": "编辑"
                 },
                 "title_field": {
-                    "label": "银行名称 *"
+                    "label": "笔记标题 *"
                 },
                 "content": {
-                    "label": "银行名称 *",
+                    "label": "笔记内容 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "folder": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型",
+                    "label": "存入文件夹",
+                    "placeholder": "输入文件夹名称",
                     "aria_label": "切换文件夹存储"
                 },
                 "master_password": {
-                    "label": "银行名称 *",
+                    "label": "主密码 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "buttons": {
@@ -1276,7 +1278,7 @@
                 "description": "安全存储新密码"
             },
             "search": {
-                "placeholder": "选择卡片类型"
+                "placeholder": "搜索密码..."
             },
             "no_results": {
                 "title": "无结果",
@@ -1334,29 +1336,29 @@
             "form": {
                 "title": "密码表单",
                 "website": {
-                    "label": "银行名称 *"
+                    "label": "网站 *"
                 },
                 "title_field": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型"
+                    "label": "标题 *",
+                    "placeholder": "输入标题"
                 },
                 "email": {
-                    "label": "银行名称 *"
+                    "label": "邮箱 *"
                 },
                 "password": {
-                    "label": "银行名称 *"
+                    "label": "密码 *"
                 },
                 "folder": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型",
+                    "label": "存入文件夹",
+                    "placeholder": "输入文件夹名称",
                     "aria_label": "切换文件夹存储"
                 },
                 "notes": {
-                    "label": "银行名称 *",
-                    "placeholder": "选择卡片类型"
+                    "label": "笔记",
+                    "placeholder": "添加笔记（可选）"
                 },
                 "master_password": {
-                    "label": "银行名称 *",
+                    "label": "主密码 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "buttons": {
@@ -1414,15 +1416,15 @@
         }
     },
     "password_result": {
-        "title": "支付卡信息",
+        "title": "密码存储结果",
         "loading": "正在加载结果...",
         "sections": {
             "success": {
-                "title": "支付卡信息",
-                "message": "笔记存储成功！"
+                "title": "存储成功！",
+                "message": "密码存储成功！"
             },
             "details": {
-                "title": "支付卡信息",
+                "title": "已存储密码详情",
                 "labels": {
                     "website": "网站",
                     "username": "用户名",
@@ -1433,7 +1435,7 @@
                 }
             },
             "nft": {
-                "title": "支付卡信息",
+                "title": "NFT 已创建",
                 "labels": {
                     "token_id": "代币 ID",
                     "cost": "费用",
@@ -1446,7 +1448,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "支付卡信息",
+                "title": "IPFS 存储",
                 "labels": {
                     "hash": "IPFS 哈希",
                     "gateway_url": "网关 URL",
@@ -1458,7 +1460,7 @@
                 "gateway_link": "在 IPFS 网关上查看"
             },
             "walrus": {
-                "title": "支付卡信息",
+                "title": "Walrus 存储",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "公共 URL",
@@ -1471,7 +1473,7 @@
                 "explorer_link": "在浏览器上查看"
             },
             "zelfproof": {
-                "title": "支付卡信息",
+                "title": "ZelfProof",
                 "labels": {
                     "string": "ZelfProof 字符串",
                     "qr_code": "二维码"
@@ -1479,7 +1481,7 @@
                 "copy_hint": "点击复制"
             },
             "next_steps": {
-                "title": "支付卡信息",
+                "title": "下一步",
                 "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
                 "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
                 "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
@@ -1502,7 +1504,7 @@
         }
     },
     "domain_selection": {
-        "title": "支付卡信息"
+        "title": "为您的标签名称选择域名"
     },
     "zotp": {
         "add_zotp": "添加 ZOTP",
@@ -1593,7 +1595,7 @@
         "recovery_success_description": "您的 ZOTP 已恢复并添加到您的身份验证器中。您现在可以使用它来生成验证码。"
     },
     "rewards": {
-        "title": "支付卡信息",
+        "title": "奖励",
         "redeem_zns": "兑换 ZNS",
         "invite_friends": "邀请好友",
         "daily_rewards": "每日奖励",

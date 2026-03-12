@@ -36,13 +36,21 @@
 
         <div class="my-zns__actions">
             <ng-container *ngIf="isMainnet">
-                <ng-container *ngIf="isLoadingArnsUrl; else button">
+                <ng-container *ngIf="isLoadingArnsUrl; else loadedOrError">
                     <mat-spinner mode="indeterminate" diameter="24"></mat-spinner>
                 </ng-container>
-                <ng-template #button>
-                    <button class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button [disabled]="!arnsUrl" (click)="close()">
-                        {{ t("my_arns.arns_website") }}
-                    </button>
+                <ng-template #loadedOrError>
+                    <ng-container *ngIf="hasLoadError; else successButton">
+                        <p class="my-zns__error">{{ t("my_arns.load_error") }}</p>
+                        <button class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button (click)="retry()">
+                            {{ t("my_arns.retry") }}
+                        </button>
+                    </ng-container>
+                    <ng-template #successButton>
+                        <button class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button [disabled]="!arnsUrl" (click)="close()">
+                            {{ t("my_arns.arns_website") }}
+                        </button>
+                    </ng-template>
                 </ng-template>
             </ng-container>
 

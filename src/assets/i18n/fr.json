@@ -782,7 +782,9 @@
     },
     "my_arns": {
         "arns_website": "Site Web ArNS",
-        "description": "Votre site web personnel pour recevoir des crypto, facile à partager avec toutes les informations nécessaires pour les transferts directs."
+        "description": "Votre site web personnel pour recevoir des crypto, facile à partager avec toutes les informations nécessaires pour les transferts directs.",
+        "load_error": "Impossible de charger votre site web ArNS. Veuillez réessayer.",
+        "retry": "Réessayer"
     },
     "manage_domain": {
         "hold_until": "Conserver jusqu'au",

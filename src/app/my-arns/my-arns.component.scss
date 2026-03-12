@@ -87,6 +87,14 @@
         text-align: center;
     }
 
+    &__error {
+        padding: 0 calc(24px * var(--zns-space-scale, 1));
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1));
+        text-align: center;
+        color: variables.$error;
+    }
+
     &__actions {
         width: 100%;
         margin-top: calc(16px * var(--zns-space-scale, 1));

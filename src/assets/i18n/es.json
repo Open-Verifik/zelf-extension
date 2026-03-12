@@ -36,11 +36,11 @@
                 "copy_payment_card_id": "Copiar ID de tarjeta"
             },
             "zelfproof": {
-                "title": "Información de la Tarjeta",
+                "title": "ZelfProof",
                 "download": "Descargar ZelfProof"
             },
             "decrypted": {
-                "title": "Información de la Tarjeta",
+                "title": "Contenido Desencriptado",
                 "card_holder_name": "Nombre del Titular",
                 "copy_card_holder_name": "Copiar nombre del titular",
                 "copy_card_number": "Copiar número de tarjeta",
@@ -80,7 +80,7 @@
                 "description": "Su tarjeta ha sido almacenada y cifrada de forma segura."
             },
             "preview": {
-                "title": "Información de la Tarjeta",
+                "title": "Detalles de la Tarjeta",
                 "labels": {
                     "name": "Nombre de la Tarjeta",
                     "card_holder": "Titular de la Tarjeta",
@@ -89,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "Información de la Tarjeta",
+                "title": "ZelfProof",
                 "download": "Descargar ZelfProof"
             },
             "nft": {
-                "title": "Información de la Tarjeta",
+                "title": "NFT Creado",
                 "labels": {
                     "token_id": "ID del Token",
                     "cost": "Costo",
@@ -106,7 +106,7 @@
                 "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
-                "title": "Información de la Tarjeta",
+                "title": "Almacenamiento IPFS",
                 "labels": {
                     "hash": "Hash IPFS",
                     "gateway_url": "URL del Gateway",
@@ -116,7 +116,7 @@
                 "gateway_link": "Ver en Gateway IPFS"
             },
             "walrus": {
-                "title": "Información de la Tarjeta",
+                "title": "Almacenamiento Walrus",
                 "labels": {
                     "blob_id": "ID de Blob",
                     "public_url": "URL Pública",
@@ -129,7 +129,7 @@
                 "explorer_link": "Ver en Explorador"
             },
             "zelfproof": {
-                "title": "Información de la Tarjeta",
+                "title": "ZelfProof Generado",
                 "labels": {
                     "string": "Cadena ZelfProof",
                     "qr_code": "Código QR"
@@ -137,7 +137,7 @@
                 "copy_hint": "Haz clic para copiar"
             },
             "error": {
-                "title": "Información de la Tarjeta",
+                "title": "Error al crear la tarjeta",
                 "default_message": "Ocurrió un error inesperado al crear su tarjeta.",
                 "try_again": "Intentar de Nuevo",
                 "no_data": "No se encontraron datos de resultado"
@@ -299,7 +299,7 @@
             "permission_required": "Permiso de Cámara Requerido",
             "processing": "Procesando sus datos biométricos...",
             "retry": "Intentar de Nuevo",
-            "title": "Información de la Tarjeta",
+            "title": "Desencriptar {{ type }}",
             "unlock": "Desbloquear",
             "types": {
                 "credit_card": "Tarjeta de Pago",
@@ -331,17 +331,17 @@
             "master_password_hint": "Si estableció una contraseña maestra al crear esta entrada, ingrésela aquí"
         },
         "note_result": {
-            "title": "Información de la Tarjeta",
+            "title": "Resultado del almacenamiento de la nota",
             "loading": "Cargando resultado...",
             "sections": {
                 "success": {
-                    "title": "Información de la Tarjeta",
+                    "title": "¡Almacenamiento exitoso!",
                     "message": "¡Nota almacenada exitosamente!"
                 },
                 "details": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Detalles de la nota almacenada",
                     "labels": {
-                        "title": "Información de la Tarjeta",
+                        "title": "Título",
                         "folder": "Carpeta",
                         "type": "Tipo",
                         "category": "Categoría",
@@ -350,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "Información de la Tarjeta",
+                    "title": "NFT Creado",
                     "labels": {
                         "token_id": "ID del Token",
                         "cost": "Costo",
@@ -360,7 +360,7 @@
                     "image_alt": "NFT ZelfKey"
                 },
                 "ipfs": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Almacenamiento IPFS",
                     "labels": {
                         "hash": "Hash IPFS",
                         "gateway_url": "URL del Gateway",
@@ -370,7 +370,7 @@
                     "gateway_link": "Ver en Gateway IPFS"
                 },
                 "walrus": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Almacenamiento Walrus",
                     "labels": {
                         "blob_id": "ID de Blob",
                         "public_url": "URL Pública",
@@ -383,7 +383,7 @@
                     "explorer_link": "Ver en Explorador"
                 },
                 "zelfproof": {
-                    "title": "Información de la Tarjeta",
+                    "title": "ZelfProof",
                     "labels": {
                         "string": "Cadena ZelfProof",
                         "qr_code": "Código QR"
@@ -392,10 +392,10 @@
                     "qr_alt": "ZelfProof QR Code"
                 },
                 "debug": {
-                    "title": "Información de la Tarjeta"
+                    "title": "Información de depuración"
                 },
                 "next_steps": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Próximos pasos",
                     "success_message": "Su nota ahora está almacenada de forma segura. Puede verla en su lista de notas o agregar otra nota.",
                     "error_message": "Por favor, revise los detalles del error arriba e intente de nuevo. Si el problema persiste, contacte al soporte.",
                     "unknown_message": "El sistema no pudo determinar el estado. Por favor, verifique la respuesta de la API arriba para obtener detalles."
@@ -782,7 +782,9 @@
     },
     "my_arns": {
         "arns_website": "Sitio web ArNS",
-        "description": "Tu sitio web personal para recibir cripto, fácil de compartir con toda la información necesaria para transferencias directas."
+        "description": "Tu sitio web personal para recibir cripto, fácil de compartir con toda la información necesaria para transferencias directas.",
+        "load_error": "No se pudo cargar tu sitio web ArNS. Por favor, inténtalo de nuevo.",
+        "retry": "Reintentar"
     },
     "manage_domain": {
         "hold_until": "Mantener hasta",
@@ -976,7 +978,7 @@
             "master_password_placeholder": "Ingrese su contraseña maestra si tiene una"
         },
         "activation": {
-            "title": "Información de la Tarjeta",
+            "title": "¡Pago confirmado!",
             "message": "¡Nota almacenada exitosamente!"
         },
         "subscription": {
@@ -1020,12 +1022,12 @@
             "title": "Tarjetas de Pago",
             "subtitle": "Almacena de forma segura la información de tus tarjetas de pago",
             "loading": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!"
+                "title": "Cargando tus tarjetas de pago",
+                "message": "Por favor espera mientras recuperamos tus datos seguros..."
             },
             "error": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!",
+                "title": "¡Ups! Ocurrió un error",
+                "message": "No pudimos cargar tus tarjetas de pago.",
                 "try_again": "Intentar de Nuevo",
                 "no_wallet": "No se encontró billetera. Por favor, configure su billetera primero.",
                 "auth_failed": "Error de autenticación. Por favor, asegúrese de tener una billetera válida.",
@@ -1061,10 +1063,10 @@
                 "no_notes": "Sin notas"
             },
             "detail": {
-                "title": "Información de la Tarjeta",
-                "loading": "Cargando resultado...",
+                "title": "Detalles de la tarjeta de pago",
+                "loading": "Cargando detalles de la tarjeta...",
                 "error": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Error al cargar la tarjeta",
                     "go_back": "Volver",
                     "retrieve_failed": "Error al recuperar datos de la tarjeta",
                     "decrypt_failed": "Error al descifrar la tarjeta. Por favor, intente nuevamente."
@@ -1075,7 +1077,7 @@
                     "decrypting": "Descifrando..."
                 },
                 "info": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Información de la tarjeta",
                     "card_number": "Número de Tarjeta",
                     "card_holder": "Titular de la Tarjeta",
                     "expiry_date": "Fecha de Vencimiento",
@@ -1092,11 +1094,11 @@
                     "copy_notes": "Copiar notas"
                 },
                 "zelfproof": {
-                    "title": "Información de la Tarjeta",
+                    "title": "ZelfProof",
                     "download": "Descargar ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Contenido desencriptado",
                     "card_number": "Número de Tarjeta",
                     "card_holder": "Titular de la Tarjeta",
                     "expiry_date": "Fecha de Vencimiento",
@@ -1167,15 +1169,15 @@
             }
         },
         "notes": {
-            "title": "Información de la Tarjeta",
-            "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de encriptación.",
+            "title": "Notas",
+            "subtitle": "Gestiona tus notas seguras y pares clave-valor",
             "loading": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!"
+                "title": "Cargando tus notas",
+                "message": "Por favor espera mientras recuperamos tus datos seguros..."
             },
             "error": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!",
+                "title": "¡Ups! Ocurrió un error",
+                "message": "No pudimos cargar tus notas.",
                 "try_again": "Intentar de Nuevo",
                 "load_failed": "Error al cargar tarjetas de pago. Por favor, intente nuevamente."
             },
@@ -1188,36 +1190,36 @@
                 "description": "Almacena de forma segura una nueva nota"
             },
             "detail": {
-                "loading": "Cargando resultado...",
+                "loading": "Cargando detalles de la nota...",
                 "error": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Error al cargar la nota",
                     "go_back": "Volver",
                     "not_found": "Registro no encontrado",
-                    "load_failed": "Error al cargar tarjetas de pago. Por favor, intente nuevamente.",
-                    "retrieve_failed": "Error al recuperar datos de la tarjeta",
-                    "decrypt_failed": "Error al descifrar la tarjeta. Por favor, intente nuevamente."
+                    "load_failed": "Error al cargar notas almacenadas. Por favor, intente nuevamente.",
+                    "retrieve_failed": "Error al recuperar datos de la nota",
+                    "decrypt_failed": "Error al descifrar la nota. Por favor, intente nuevamente."
                 },
                 "no_title": "Sin título",
                 "no_content": "Sin contenido",
                 "untitled": "Sin título",
                 "no_folder": "Sin carpeta",
                 "decrypt": {
-                    "button": "Descifrar Tarjeta",
+                    "button": "Descifrar nota",
                     "decrypting": "Descifrando..."
                 },
                 "info": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Información de la nota",
                     "note_id": "ID de nota",
                     "type": "Tipo",
                     "folder": "Carpeta",
                     "copy_id": "Copiar ID de nota"
                 },
                 "zelfproof": {
-                    "title": "Información de la Tarjeta",
+                    "title": "ZelfProof",
                     "download": "Descargar ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Contenido desencriptado",
                     "title_field": "Título",
                     "content": "Contenido",
                     "no_title": "Sin título",
@@ -1232,40 +1234,40 @@
                     "edit": "Editar"
                 },
                 "title_field": {
-                    "label": "Nombre del Banco *"
+                    "label": "Título de la nota *"
                 },
                 "content": {
-                    "label": "Nombre del Banco *",
-                    "hint": "Requerimos la contraseña de {{ walletName }} para cifrar y almacenar tus credenciales. Siempre se requiere verificación biométrica."
+                    "label": "Contenido de la nota *",
+                    "hint": "El contenido de tu nota se cifrará y almacenará de forma segura. Puedes escribir todo lo que necesites."
                 },
                 "folder": {
-                    "label": "Nombre del Banco *",
-                    "placeholder": "Selecciona tipo de tarjeta",
+                    "label": "Organizar en carpeta",
+                    "placeholder": "Introduce el nombre de la carpeta",
                     "aria_label": "Alternar almacenamiento en carpeta"
                 },
                 "master_password": {
-                    "label": "Nombre del Banco *",
+                    "label": "Contraseña principal *",
                     "hint": "Requerimos la contraseña de {{ walletName }} para cifrar y almacenar tus credenciales. Siempre se requiere verificación biométrica."
                 },
                 "buttons": {
                     "cancel": "Cancelar",
-                    "create": "Crear tarjeta",
-                    "update": "Actualizar tarjeta"
+                    "create": "Crear nota",
+                    "update": "Actualizar nota"
                 }
             }
         },
         "passwords": {
-            "title": "Información de la Tarjeta",
-            "subtitle": "Selecciona la longitud de tu frase semilla y procede con el proceso de encriptación.",
+            "title": "Contraseñas",
+            "subtitle": "Gestiona tus contraseñas seguras e identificadores",
             "loading": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!"
+                "title": "Cargando tus contraseñas",
+                "message": "Por favor espera mientras recuperamos tus datos seguros..."
             },
             "error": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!",
+                "title": "¡Ups! Ocurrió un error",
+                "message": "No pudimos cargar tus contraseñas.",
                 "try_again": "Intentar de Nuevo",
-                "load_failed": "Error al cargar tarjetas de pago. Por favor, intente nuevamente."
+                "load_failed": "Error al cargar contraseñas almacenadas. Por favor, intente nuevamente."
             },
             "premium": {
                 "title": "Desbloquear Funciones Premium",
@@ -1276,34 +1278,34 @@
                 "description": "Almacena de forma segura una nueva contraseña"
             },
             "search": {
-                "placeholder": "Selecciona tipo de tarjeta"
+                "placeholder": "Buscar contraseñas..."
             },
             "no_results": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!"
+                "title": "No se encontraron contraseñas",
+                "message": "Prueba a ajustar los términos de búsqueda"
             },
             "detail": {
-                "loading": "Cargando resultado...",
+                "loading": "Cargando detalles de la contraseña...",
                 "error": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Error al cargar la contraseña",
                     "go_back": "Volver",
                     "not_found": "Registro no encontrado",
-                    "load_failed": "Error al cargar tarjetas de pago. Por favor, intente nuevamente.",
-                    "decrypt_failed": "Error al descifrar la tarjeta. Por favor, intente nuevamente."
+                    "load_failed": "Error al cargar datos de contraseña. Por favor, intente nuevamente.",
+                    "decrypt_failed": "Error al descifrar la contraseña. Por favor, intente nuevamente."
                 },
-                "untitled": "Sin título",
+                "untitled": "Contraseña sin título",
                 "no_username": "Sin usuario",
                 "no_website": "Sin sitio web",
                 "no_category": "Sin categoría",
                 "no_zelf_name": "Sin nombre Zelf",
                 "unknown_date": "Fecha desconocida",
                 "decrypt": {
-                    "button": "Descifrar Tarjeta",
+                    "button": "Descifrar contraseña",
                     "decrypting": "Descifrando...",
                     "launch_fill": "Abrir y rellenar"
                 },
                 "info": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Información de la contraseña",
                     "website": "Sitio web",
                     "username": "Usuario",
                     "category": "Categoría",
@@ -1315,11 +1317,11 @@
                     "prefill_autofill": "Pre-rellenar autofill"
                 },
                 "zelfproof": {
-                    "title": "Información de la Tarjeta",
+                    "title": "ZelfProof",
                     "download": "Descargar ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Información de la Tarjeta",
+                    "title": "Contenido desencriptado",
                     "website": "Sitio web",
                     "username": "Usuario",
                     "password": "Contraseña",
@@ -1332,28 +1334,28 @@
                 }
             },
             "form": {
-                "title": "Información de la Tarjeta",
+                "title": "Información del formulario",
                 "website": {
-                    "label": "Nombre del Banco *"
+                    "label": "Sitio web *"
                 },
                 "title_field": {
-                    "label": "Nombre del Banco *",
-                    "placeholder": "Selecciona tipo de tarjeta"
+                    "label": "Título *",
+                    "placeholder": "Introduce el título"
                 },
                 "email": {
-                    "label": "Nombre del Banco *"
+                    "label": "Correo electrónico *"
                 },
                 "password": {
-                    "label": "Nombre del Banco *"
+                    "label": "Contraseña *"
                 },
                 "folder": {
-                    "label": "Nombre del Banco *",
-                    "placeholder": "Selecciona tipo de tarjeta",
+                    "label": "Organizar en carpeta",
+                    "placeholder": "Introduce el nombre de la carpeta",
                     "aria_label": "Alternar almacenamiento en carpeta"
                 },
                 "notes": {
-                    "label": "Nombre del Banco *",
-                    "placeholder": "Selecciona tipo de tarjeta"
+                    "label": "Notas",
+                    "placeholder": "Añadir notas (opcional)"
                 },
                 "master_password": {
                     "label": "Nombre del Banco *",
@@ -1414,15 +1416,15 @@
         }
     },
     "password_result": {
-        "title": "Información de la Tarjeta",
+        "title": "Resultado del almacenamiento de la contraseña",
         "loading": "Cargando resultado...",
         "sections": {
             "success": {
-                "title": "Información de la Tarjeta",
-                "message": "¡Nota almacenada exitosamente!"
+                "title": "¡Almacenamiento exitoso!",
+                "message": "¡Contraseña almacenada exitosamente!"
             },
             "details": {
-                "title": "Información de la Tarjeta",
+                "title": "Detalles de la contraseña almacenada",
                 "labels": {
                     "website": "Sitio web",
                     "username": "Usuario",
@@ -1433,7 +1435,7 @@
                 }
             },
             "nft": {
-                "title": "Información de la Tarjeta",
+                "title": "NFT Creado",
                 "labels": {
                     "token_id": "ID del Token",
                     "cost": "Costo",
@@ -1446,7 +1448,7 @@
                 "image_alt": "NFT ZelfKey"
             },
             "ipfs": {
-                "title": "Información de la Tarjeta",
+                "title": "Almacenamiento IPFS",
                 "labels": {
                     "hash": "Hash IPFS",
                     "gateway_url": "URL del Gateway",
@@ -1458,7 +1460,7 @@
                 "gateway_link": "Ver en Gateway IPFS"
             },
             "walrus": {
-                "title": "Información de la Tarjeta",
+                "title": "Almacenamiento Walrus",
                 "labels": {
                     "blob_id": "ID de Blob",
                     "public_url": "URL Pública",
@@ -1471,7 +1473,7 @@
                 "explorer_link": "Ver en Explorador"
             },
             "zelfproof": {
-                "title": "Información de la Tarjeta",
+                "title": "ZelfProof",
                 "labels": {
                     "string": "Cadena ZelfProof",
                     "qr_code": "Código QR"
@@ -1479,7 +1481,7 @@
                 "copy_hint": "Haz clic para copiar"
             },
             "next_steps": {
-                "title": "Información de la Tarjeta",
+                "title": "Próximos pasos",
                 "success_message": "Su nota ahora está almacenada de forma segura. Puede verla en su lista de notas o agregar otra nota.",
                 "error_message": "Por favor, revise los detalles del error arriba e intente de nuevo. Si el problema persiste, contacte al soporte.",
                 "unknown_message": "El sistema no pudo determinar el estado. Por favor, verifique la respuesta de la API arriba para obtener detalles."
@@ -1487,7 +1489,7 @@
         },
         "actions": {
             "back_to_passwords": "Volver a contraseñas",
-            "add_another": "Agregar Otra Tarjeta"
+            "add_another": "Agregar Otra Contraseña"
         },
         "status": {
             "success_title": "¡Nota Almacenada Exitosamente!",
@@ -1502,7 +1504,7 @@
         }
     },
     "domain_selection": {
-        "title": "Información de la Tarjeta"
+        "title": "Elige el dominio para tu nombre de etiqueta"
     },
     "zotp": {
         "add_zotp": "Agregar ZOTP",

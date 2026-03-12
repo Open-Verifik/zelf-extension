@@ -1685,20 +1685,20 @@
     },
     "claim_reward": {
         "loading": {
-            "title": "支払いカード情報",
+            "title": "報酬を受け取り中",
             "text": "ウォレットに {{ amount }} $ZNS を送信しています...",
             "subtext": "数秒かかる場合があります"
         },
         "success": {
-            "title": "支払いカード情報",
-            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。",
+            "title": "おめでとうございます！",
+            "subtitle": "タスク完了！",
             "desc": "<strong>{{ name }}</strong> さんからの招待報酬",
             "earned_label": "獲得額",
             "accept": "承認"
         },
         "error": {
-            "title": "支払いカード情報",
-            "subtext": "数秒かかる場合があります",
+            "title": "受け取りに失敗しました",
+            "subtext": "心配しないでください。もう一度お試しいただけます。報酬はまだお待ちしています。",
             "retry": "再試行",
             "go_back": "戻る",
             "messages": {
@@ -1709,14 +1709,14 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "支払いカード情報",
+            "title": "ZelfNameを失わないでください",
             "expired": "期限切れ",
             "one_day": "ZNSの購入まであと1日です",
             "days_left": "ZNSの購入まであと {{ days }} 日です"
         },
         "rewards": {
-            "title": "支払いカード情報",
-            "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。"
+            "title": "報酬を受け取る",
+            "subtitle": "クエストで毎日$ZNSを獲得"
         }
     },
     "dapp": {

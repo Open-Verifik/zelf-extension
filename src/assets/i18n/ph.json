@@ -1685,20 +1685,20 @@
     },
     "claim_reward": {
         "loading": {
-            "title": "Impormasyon ng Payment Card",
+            "title": "Kinukuha ang Reward",
             "text": "Ipinapadala ang {{ amount }} $ZNS sa iyong wallet...",
             "subtext": "Maaaring tumagal ito ng ilang segundo"
         },
         "success": {
-            "title": "Impormasyon ng Payment Card",
-            "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
+            "title": "Nanalo ka!",
+            "subtitle": "Tapos na ang gawain!",
             "desc": "Referral reward mula kay <strong>{{ name }}</strong>",
             "earned_label": "Nakuha mo",
             "accept": "Tanggapin"
         },
         "error": {
-            "title": "Impormasyon ng Payment Card",
-            "subtext": "Maaaring tumagal ito ng ilang segundo",
+            "title": "Nabigo ang Pag-claim",
+            "subtext": "Huwag mag-alala, maaari mong subukang muli. Ang iyong reward ay naghihintay pa rin sa iyo.",
             "retry": "Subukan Muli",
             "go_back": "Bumalik",
             "messages": {
@@ -1709,14 +1709,14 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "Impormasyon ng Payment Card",
+            "title": "Huwag mawala ang iyong ZelfName",
             "expired": "Nag-expire na ang iyong domain",
             "one_day": "1 araw na lang para mabili ang iyong ZNS",
             "days_left": "{{ days }} araw na lang para mabili ang iyong ZNS"
         },
         "rewards": {
-            "title": "Impormasyon ng Payment Card",
-            "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption."
+            "title": "Kunin ang mga reward",
+            "subtitle": "Makakuha ng $ZNS araw-araw sa aming mga quest"
         }
     },
     "dapp": {

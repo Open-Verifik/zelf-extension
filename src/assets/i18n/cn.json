@@ -764,7 +764,7 @@
         "know_more": "了解更多",
         "lifetime": "终身",
         "price_per_year": "每年价格",
-        "title": "支付卡信息",
+        "title": "要购买的域名",
         "years": "{{ yearCount }}年"
     },
     "wallet": {
@@ -1601,8 +1601,8 @@
         "your_tasks": "您的任务",
         "coming_soon": "敬请期待",
         "first_transaction": {
-            "title": "支付卡信息",
-            "loading": "正在加载结果...",
+            "title": "首次交易奖励",
+            "loading": "正在检查资格...",
             "success_title": "笔记存储成功！",
             "success_subtitle": "首次交易已完成！",
             "earned_label": "你已获得",
@@ -1619,24 +1619,24 @@
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "支付卡信息",
+                "title": "邀请您的第一位朋友",
                 "reward": "赢取 10 到 100 $ZNS"
             },
             "first_transaction": {
-                "title": "支付卡信息",
+                "title": "发送您的第一笔 ZNS 交易",
                 "reward": "赢取 10 到 100 $ZNS",
                 "reward_completed": "你赢了 {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "支付卡信息",
+                "title": "加入我们的 Discord",
                 "reward": "赢取 10 到 100 $ZNS"
             },
             "join_telegram": {
-                "title": "支付卡信息",
+                "title": "加入我们的 Telegram 社区",
                 "reward": "赢取 10 到 100 $ZNS"
             },
             "join_x": {
-                "title": "支付卡信息",
+                "title": "在 X 上加入我们",
                 "reward": "赢取 10 到 100 $ZNS"
             }
         },
@@ -1685,20 +1685,20 @@
     },
     "claim_reward": {
         "loading": {
-            "title": "支付卡信息",
+            "title": "领取奖励中",
             "text": "正在向您的钱包发送 {{ amount }} $ZNS...",
             "subtext": "这可能需要几秒钟"
         },
         "success": {
-            "title": "支付卡信息",
-            "subtitle": "选择您的种子短语长度并继续加密过程。",
+            "title": "恭喜获奖",
+            "subtitle": "任务完成！",
             "desc": "来自 <strong>{{ name }}</strong> 的推荐奖励",
             "earned_label": "你已获得",
             "accept": "接受"
         },
         "error": {
-            "title": "支付卡信息",
-            "subtext": "这可能需要几秒钟",
+            "title": "领取失败",
+            "subtext": "别担心，您可以重试。您的奖励仍在等待您。",
             "retry": "重试",
             "go_back": "返回",
             "messages": {
@@ -1709,14 +1709,14 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "支付卡信息",
+            "title": "不要丢失您的 ZelfName",
             "expired": "已过期",
             "one_day": "距离购买您的 ZNS 还剩 1 天",
             "days_left": "距离购买您的 ZNS 还剩 {{ days }} 天"
         },
         "rewards": {
-            "title": "支付卡信息",
-            "subtitle": "选择您的种子短语长度并继续加密过程。"
+            "title": "领取奖励",
+            "subtitle": "通过我们的任务每日获得 $ZNS"
         }
     },
     "dapp": {

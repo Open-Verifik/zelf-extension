@@ -1685,20 +1685,20 @@
     },
     "claim_reward": {
         "loading": {
-            "title": "결제 카드 정보",
+            "title": "보상 수령 중",
             "text": "지갑으로 {{ amount }} $ZNS를 보내고 있습니다...",
             "subtext": "몇 초 정도 걸릴 수 있습니다"
         },
         "success": {
-            "title": "결제 카드 정보",
-            "subtitle": "시드 구문의 길이를 선택하고 암호화 프로세스를 진행하세요.",
+            "title": "축하합니다!",
+            "subtitle": "작업 완료!",
             "desc": "<strong>{{ name }}</strong> 님으로부터의 추천 보상",
             "earned_label": "획득한 보상",
             "accept": "확인"
         },
         "error": {
-            "title": "결제 카드 정보",
-            "subtext": "몇 초 정도 걸릴 수 있습니다",
+            "title": "수령 실패",
+            "subtext": "걱정하지 마세요. 다시 시도할 수 있습니다. 보상은 여전히 기다리고 있습니다.",
             "retry": "재시도",
             "go_back": "돌아가기",
             "messages": {
@@ -1709,14 +1709,14 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "결제 카드 정보",
+            "title": "ZelfName을 잃지 마세요",
             "expired": "만료됨",
             "one_day": "ZNS 구매까지 1일 남았습니다",
             "days_left": "ZNS 구매까지 {{ days }}일 남았습니다"
         },
         "rewards": {
-            "title": "결제 카드 정보",
-            "subtitle": "시드 구문의 길이를 선택하고 암호화 프로세스를 진행하세요."
+            "title": "보상 받기",
+            "subtitle": "퀘스트로 매일 $ZNS 받기"
         }
     },
     "dapp": {

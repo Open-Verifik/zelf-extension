@@ -764,7 +764,7 @@
         "know_more": "Saiba mais",
         "lifetime": "Vitalício",
         "price_per_year": "Preço por ano",
-        "title": "Redes Blockchain",
+        "title": "Domínio para comprar",
         "years": "{{ yearCount }} anos"
     },
     "wallet": {
@@ -976,7 +976,7 @@
             "master_password_placeholder": "Digite sua senha mestra"
         },
         "activation": {
-            "title": "Redes Blockchain",
+            "title": "Pagamento Confirmado!",
             "message": "Ativando assinatura... Parabéns! Seu pagamento foi confirmado e sua assinatura está sendo ativada."
         },
         "subscription": {
@@ -1020,18 +1020,18 @@
             "title": "Cartões de Pagamento",
             "subtitle": "Armazene com segurança as informações dos seus cartões de pagamento",
             "loading": {
-                "title": "Redes Blockchain",
+                "title": "Carregando seus cartões de pagamento",
                 "message": "Aguarde enquanto buscamos seus dados seguros..."
             },
             "error": {
-                "title": "Redes Blockchain",
+                "title": "Ops! Algo deu errado",
                 "message": "Não foi possível carregar seus cartões de pagamento.",
                 "try_again": "Tentar novamente",
                 "no_wallet": "Nenhuma carteira encontrada. Conecte uma carteira primeiro.",
                 "auth_failed": "Falha na autenticação. Certifique-se de ter uma carteira válida.",
                 "init_failed": "Falha ao inicializar a sessão. Verifique sua conexão com a carteira.",
                 "no_token": "Token de autenticação não disponível. Atualize a página.",
-                "load_failed": "Falha ao carregar a configuração da roda."
+                "load_failed": "Falha ao carregar cartões de pagamento. Por favor, tente novamente."
             },
             "unknown_bank": "Banco Desconhecido",
             "unknown": "Desconhecido",
@@ -1061,10 +1061,10 @@
                 "no_notes": "Sem notas"
             },
             "detail": {
-                "title": "Redes Blockchain",
-                "loading": "Verificando elegibilidade...",
+                "title": "Detalhes do Cartão de Pagamento",
+                "loading": "Carregando detalhes do cartão...",
                 "error": {
-                    "title": "Redes Blockchain",
+                    "title": "Erro ao carregar cartão",
                     "go_back": "Voltar",
                     "retrieve_failed": "Falha ao recuperar dados do cartão de pagamento",
                     "decrypt_failed": "Falha ao descriptografar o cartão de pagamento. Por favor, tente novamente."
@@ -1092,42 +1092,42 @@
                     "copy_notes": "Copiar notas"
                 },
                 "zelfproof": {
-                    "title": "Redes Blockchain",
+                    "title": "ZelfProof",
                     "download": "Baixar ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Redes Blockchain",
-                    "card_number": "Card Number",
-                    "card_holder": "Card Holder",
-                    "expiry_date": "Expiry Date",
-                    "card_type": "Card Type",
+                    "title": "Informações Decriptografadas do Cartão",
+                    "card_number": "Número do Cartão",
+                    "card_holder": "Titular do Cartão",
+                    "expiry_date": "Data de Validade",
+                    "card_type": "Tipo do Cartão",
                     "cvv": "CVV",
-                    "billing_address": "Billing Address",
-                    "notes": "Notes",
-                    "show_card_number": "Show card number",
-                    "hide_card_number": "Hide card number",
-                    "show_cvv": "Show CVV",
-                    "hide_cvv": "Hide CVV",
-                    "copy_card_number": "Copy card number",
-                    "copy_card_holder": "Copy card holder",
-                    "copy_expiry": "Copy expiry date",
-                    "copy_card_type": "Copy card type",
-                    "copy_cvv": "Copy CVV",
-                    "copy_billing_address": "Copy billing address",
-                    "copy_notes": "Copy notes"
+                    "billing_address": "Endereço de Cobrança",
+                    "notes": "Notas",
+                    "show_card_number": "Mostrar número do cartão",
+                    "hide_card_number": "Ocultar número do cartão",
+                    "show_cvv": "Mostrar CVV",
+                    "hide_cvv": "Ocultar CVV",
+                    "copy_card_number": "Copiar número do cartão",
+                    "copy_card_holder": "Copiar titular",
+                    "copy_expiry": "Copiar data de validade",
+                    "copy_card_type": "Copiar tipo do cartão",
+                    "copy_cvv": "Copiar CVV",
+                    "copy_billing_address": "Copiar endereço de cobrança",
+                    "copy_notes": "Copiar notas"
                 }
             },
             "form": {
                 "title": {
-                    "add": "Add New Payment Card",
+                    "add": "Adicionar Novo Cartão de Pagamento",
                     "edit": "Editar",
-                    "label": "Bank Name *"
+                    "label": "Nome do Banco *"
                 },
                 "card_number": {
-                    "label": "Card Number *"
+                    "label": "Número do Cartão *"
                 },
                 "card_holder": {
-                    "label": "Card Holder Name *"
+                    "label": "Nome do Titular *"
                 },
                 "expiry_month": {
                     "label": "Expiry Month *",
@@ -1137,45 +1137,45 @@
                     "label": "Expiry Year *"
                 },
                 "card_type": {
-                    "label": "Card Type *",
-                    "placeholder": "Select card type"
+                    "label": "Tipo do Cartão *",
+                    "placeholder": "Selecione o tipo do cartão"
                 },
                 "cvv": {
                     "label": "CVV *"
                 },
                 "billing_address": {
-                    "label": "Billing Address",
-                    "placeholder": "Enter billing address (optional)"
+                    "label": "Endereço de Cobrança",
+                    "placeholder": "Digite o endereço de cobrança (opcional)"
                 },
                 "notes": {
-                    "label": "Notes",
-                    "placeholder": "Enter notes (optional)"
+                    "label": "Notas",
+                    "placeholder": "Digite notas (opcional)"
                 },
                 "folder": {
-                    "label": "Store in Folder",
-                    "placeholder": "Folder name",
+                    "label": "Armazenar em Pasta",
+                    "placeholder": "Nome da pasta",
                     "aria_label": "Toggle folder storage"
                 },
                 "master_password": {
-                    "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
+                    "hint": "Requeremos a senha do {{ walletName }} para criptografar e armazenar suas credenciais. A verificação biométrica é sempre necessária."
                 },
                 "buttons": {
                     "cancel": "Cancelar",
-                    "create": "Create Card",
-                    "update": "Update Card"
+                    "create": "Criar Cartão",
+                    "update": "Atualizar Cartão"
                 }
             }
         },
         "notes": {
-            "title": "Redes Blockchain",
-            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
+            "title": "Notas",
+            "subtitle": "Gerencie suas notas seguras e pares chave-valor",
             "loading": {
-                "title": "Redes Blockchain",
+                "title": "Carregando suas notas",
                 "message": "Aguarde enquanto buscamos seus dados seguros..."
             },
             "error": {
-                "title": "Redes Blockchain",
-                "message": "We couldn't load your notes.",
+                "title": "Ops! Algo deu errado",
+                "message": "Não foi possível carregar suas notas.",
                 "try_again": "Tentar novamente",
                 "load_failed": "Falha ao carregar a configuração da roda."
             },
@@ -1188,36 +1188,36 @@
                 "description": "Armazene com segurança uma nova nota"
             },
             "detail": {
-                "loading": "Verificando elegibilidade...",
+                "loading": "Carregando detalhes da nota...",
                 "error": {
-                    "title": "Redes Blockchain",
+                    "title": "Erro ao carregar nota",
                     "go_back": "Voltar",
                     "not_found": "Registro não encontrado",
-                    "load_failed": "Falha ao carregar a configuração da roda.",
-                    "retrieve_failed": "Failed to retrieve note data",
-                    "decrypt_failed": "Failed to decrypt note. Please try again."
+                    "load_failed": "Falha ao carregar notas armazenadas. Por favor, tente novamente.",
+                    "retrieve_failed": "Falha ao recuperar dados da nota",
+                    "decrypt_failed": "Falha ao descriptografar nota. Por favor, tente novamente."
                 },
-                "no_title": "No title",
-                "no_content": "No content",
-                "untitled": "Untitled Note",
+                "no_title": "Sem título",
+                "no_content": "Sem conteúdo",
+                "untitled": "Nota sem título",
                 "no_folder": "Sem pasta",
                 "decrypt": {
-                    "button": "Decrypt Note",
-                    "decrypting": "Decrypting..."
+                    "button": "Descriptografar Nota",
+                    "decrypting": "Descriptografando..."
                 },
                 "info": {
-                    "title": "Redes Blockchain",
-                    "note_id": "Note ID",
+                    "title": "Informações da Nota",
+                    "note_id": "ID da Nota",
                     "type": "Tipo",
-                    "folder": "Folder",
-                    "copy_id": "Copy note ID"
+                    "folder": "Pasta",
+                    "copy_id": "Copiar ID da nota"
                 },
                 "zelfproof": {
-                    "title": "Redes Blockchain",
+                    "title": "ZelfProof",
                     "download": "Baixar ZelfProof"
                 },
                 "decrypted": {
-                    "title": "Redes Blockchain",
+                    "title": "Conteúdo Decriptografado",
                     "title_field": "Título",
                     "content": "Conteúdo",
                     "no_title": "Sem título",
@@ -1236,7 +1236,7 @@
                 },
                 "content": {
                     "label": "Conteúdo da Nota *",
-                    "hint": "Your note content will be encrypted and stored securely. You can write as much as you need."
+                    "hint": "O conteúdo da sua nota será criptografado e armazenado com segurança. Você pode escrever o quanto precisar."
                 },
                 "folder": {
                     "label": "Organizar em Pasta",
@@ -1255,17 +1255,17 @@
             }
         },
         "passwords": {
-            "title": "Redes Blockchain",
-            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
+            "title": "Senhas",
+            "subtitle": "Gerencie suas senhas seguras e credenciais",
             "loading": {
-                "title": "Redes Blockchain",
+                "title": "Carregando suas senhas",
                 "message": "Aguarde enquanto buscamos seus dados seguros..."
             },
             "error": {
-                "title": "Redes Blockchain",
+                "title": "Ops! Algo deu errado",
                 "message": "Não conseguimos carregar suas senhas.",
                 "try_again": "Tentar novamente",
-                "load_failed": "Falha ao carregar a configuração da roda."
+                "load_failed": "Falha ao carregar senhas armazenadas. Por favor, tente novamente."
             },
             "premium": {
                 "title": "Desbloquear Recursos Premium",
@@ -1414,15 +1414,15 @@
         }
     },
     "password_result": {
-        "title": "Redes Blockchain",
-        "loading": "Verificando elegibilidade...",
+        "title": "Resultado do Armazenamento de Senha",
+        "loading": "Carregando resultado...",
         "sections": {
             "success": {
-                "title": "Redes Blockchain",
-                "message": "Password stored successfully!"
+                "title": "Armazenamento Bem-sucedido!",
+                "message": "Senha armazenada com sucesso!"
             },
             "details": {
-                "title": "Redes Blockchain",
+                "title": "Detalhes da Senha Armazenada",
                 "labels": {
                     "website": "Site",
                     "username": "Nome de usuário",
@@ -1433,7 +1433,7 @@
                 }
             },
             "nft": {
-                "title": "Redes Blockchain",
+                "title": "NFT Criado",
                 "labels": {
                     "token_id": "Token ID",
                     "cost": "Custo",
@@ -1446,7 +1446,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "Redes Blockchain",
+                "title": "Armazenamento IPFS",
                 "labels": {
                     "hash": "IPFS Hash",
                     "gateway_url": "Gateway URL",
@@ -1458,7 +1458,7 @@
                 "gateway_link": "Ver no Gateway IPFS"
             },
             "walrus": {
-                "title": "Redes Blockchain",
+                "title": "Armazenamento Walrus",
                 "labels": {
                     "blob_id": "ID do Blob",
                     "public_url": "URL Pública",
@@ -1471,7 +1471,7 @@
                 "explorer_link": "Ver no Explorer"
             },
             "zelfproof": {
-                "title": "Redes Blockchain",
+                "title": "ZelfProof Gerado",
                 "labels": {
                     "string": "String ZelfProof",
                     "qr_code": "Código QR"
@@ -1479,8 +1479,8 @@
                 "copy_hint": "Clique para copiar"
             },
             "next_steps": {
-                "title": "Redes Blockchain",
-                "success_message": "Your password is now securely stored. You can view it in your passwords list or add another password.",
+                "title": "Próximos Passos",
+                "success_message": "Sua senha foi armazenada com segurança. Você pode visualizá-la na lista de senhas ou adicionar outra senha.",
                 "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
                 "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
             }
@@ -1593,7 +1593,7 @@
         "recovery_success_description": "Seu ZOTP foi recuperado e adicionado ao seu autenticador. Você pode agora usá-lo para gerar códigos."
     },
     "rewards": {
-        "title": "Blockchain",
+        "title": "Recompensas",
         "redeem_zns": "Resgatar ZNS",
         "invite_friends": "Convidar amigos",
         "daily_rewards": "Recompensas diárias",
@@ -1636,7 +1636,7 @@
                 "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "join_x": {
-                "title": "Redes Blockchain",
+                "title": "Junte-se a nós no X",
                 "reward": "Ganhe de 10 a 100 $ZNS"
             }
         },
@@ -1655,7 +1655,7 @@
         "spin_now": "Gire a roda!",
         "error": {
             "no_wallet": "Nenhuma carteira encontrada. Conecte uma carteira primeiro.",
-            "load_failed": "Falha ao carregar a configuração da roda.",
+                    "load_failed": "Falha ao carregar dados da nota",
             "claim_failed": "Não foi possível resgatar a recompensa.",
             "already_claimed": "Você já resgatou sua recompensa diária hoje. Volte amanhã!",
             "spin_failed": "Falha ao girar a roda. Tente novamente.",
@@ -1685,20 +1685,20 @@
     },
     "claim_reward": {
         "loading": {
-            "title": "Redes Blockchain",
+            "title": "Resgatando Recompensa",
             "text": "Enviando {{ amount }} $ZNS para sua carteira...",
             "subtext": "Isso pode levar alguns segundos"
         },
         "success": {
-            "title": "Redes Blockchain",
-            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia.",
+            "title": "VOCÊ GANHOU",
+            "subtitle": "Tarefa concluída!",
             "desc": "Recompensa de indicação de <strong>{{ name }}</strong>",
             "earned_label": "Você ganhou",
             "accept": "Aceitar"
         },
         "error": {
-            "title": "Redes Blockchain",
-            "subtext": "Isso pode levar alguns segundos",
+            "title": "Falha ao Resgatar",
+            "subtext": "Não se preocupe, você pode tentar novamente. Sua recompensa ainda está esperando por você.",
             "retry": "Tentar Novamente",
             "go_back": "Voltar",
             "messages": {
@@ -1709,14 +1709,14 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "Redes Blockchain",
+            "title": "Não perca seu ZelfName",
             "expired": "Expirado",
             "one_day": "Resta 1 dia para comprar seu ZNS",
             "days_left": "Restam {{ days }} dias para comprar seu ZNS"
         },
         "rewards": {
-            "title": "Redes Blockchain",
-            "subtitle": "Selecione o comprimento da sua frase seed e prossiga com o processo de criptografia."
+            "title": "Reclamar recompensas",
+            "subtitle": "Obtenha $ZNS diariamente com nossas missões"
         }
     },
     "dapp": {

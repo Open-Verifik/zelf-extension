@@ -181,6 +181,9 @@ export class WalletService {
             case "BTC":
                 assetSrc = "./assets/networks/btc.png";
                 break;
+            case "XLM":
+                assetSrc = "./assets/icons/xlm_logo.svg";
+                break;
             case "ZNS":
                 assetSrc = "./assets/tokens/zns.png";
                 break;
@@ -1007,6 +1010,15 @@ export class WalletService {
                 image: this.getAssetImage("SUI"),
                 name: "Sui",
                 symbol: "SUI",
+            });
+        }
+
+        if (wallet?.publicData?.stellarAddress) {
+            networks.push({
+                address: wallet?.publicData?.stellarAddress || "",
+                image: this.getAssetImage("XLM"),
+                name: "Stellar",
+                symbol: "XLM",
             });
         }
 

@@ -3,6 +3,7 @@ export interface TagPublicData {
     domain: string;
     ethAddress: string;
     solanaAddress: string;
+    stellarAddress: string;
     suiAddress: string;
     tagName: string;
     hasPassword: string;
@@ -13,6 +14,7 @@ export interface TagPublicData {
     gracePeriod?: string;
     blockDAGAddress: string;
     avalancheAddress: string;
+    binanceAddress: string;
     st?: string;
 }
 
@@ -23,11 +25,13 @@ export interface PGP {
 
 export class TagPublicDataModel {
     avalancheAddress: string;
+    binanceAddress: string;
     blockDAGAddress: string;
     btcAddress: string;
     domain: string;
     ethAddress: string;
     solanaAddress: string;
+    stellarAddress: string;
     suiAddress: string;
     tagName: string;
     hasPassword: string;
@@ -39,12 +43,14 @@ export class TagPublicDataModel {
     st?: string;
 
     constructor(data: any) {
-        this.avalancheAddress = data.avalancheAddress || "";
+        this.avalancheAddress = data.avalancheAddress || data.ethAddress || "";
+        this.binanceAddress = data.binanceAddress || data.ethAddress || "";
         this.blockDAGAddress = data.blockDAGAddress || data.ethAddress || "";
         this.btcAddress = data.btcAddress || "";
         this.domain = data.domain || "";
         this.ethAddress = data.ethAddress || "";
         this.solanaAddress = data.solanaAddress || "";
+        this.stellarAddress = data.stellarAddress || data.xlmAddress || "";
         this.suiAddress = data.suiAddress || "";
         this.tagName = data.tagName || "";
         this.hasPassword = data.hasPassword || "false";
@@ -165,7 +171,8 @@ export class TagModel {
         const extractedDomain = explicitDomain || extractDomain(rawTagName);
 
         this.publicData = new TagPublicDataModel({
-            avalancheAddress: data.publicData?.ethAddress || "",
+            avalancheAddress: data.publicData?.avalancheAddress || data.publicData?.ethAddress || "",
+            binanceAddress: data.publicData?.binanceAddress || data.publicData?.ethAddress || "",
             blockDAGAddress: data.publicData?.blockDAGAddress || "",
             btcAddress: data.publicData?.btcAddress || "",
             domain: extractedDomain,
@@ -175,6 +182,7 @@ export class TagModel {
             origin: data.publicData?.origin || "",
             registeredAt: data.publicData?.registeredAt || "",
             solanaAddress: data.publicData?.solanaAddress || "",
+            stellarAddress: data.publicData?.stellarAddress || data.publicData?.xlmAddress || "",
             suiAddress: data.publicData?.suiAddress || "",
             tagName: rawTagName,
             type: data.publicData?.type || "",
@@ -202,8 +210,16 @@ export class TagModel {
         return this._parseAddress(this.publicData?.avalancheAddress);
     }
 
+    get displayBinanceAddress(): string {
+        return this._parseAddress(this.publicData?.binanceAddress);
+    }
+
     get displayBlockDAGAddress(): string {
         return this._parseAddress(this.publicData?.blockDAGAddress || this.publicData?.ethAddress);
+    }
+
+    get displayStellarAddress(): string {
+        return this._parseAddress(this.publicData?.stellarAddress);
     }
 
     private _parseAddress(value: string): string {

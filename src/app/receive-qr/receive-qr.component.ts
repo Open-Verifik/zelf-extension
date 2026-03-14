@@ -13,6 +13,7 @@ import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
 import { ReceiveRisksModalComponent } from "app/receive-qr/receive-risks-modal/receive-risks-modal.component";
+import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink, ZelfLoaderComponent],
@@ -91,6 +92,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
         private _activatedRoute: ActivatedRoute,
         private _dialog: MatDialog,
         private _walletService: WalletService,
+        private _zelfNameService: ZelfNameService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
         public _translocoService: TranslocoService
@@ -110,6 +112,11 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
 
     async ngOnInit(): Promise<void> {
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
+
+        if (this.wallet?.tagName) {
+            await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
+            this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
+        }
 
         this._setNetwork();
 
@@ -155,6 +162,10 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             this.address = this.wallet.publicData?.btcAddress || "";
             this.name = "Bitcoin";
             this.symbol = "BTC";
+        } else if (network === "stellar" || network === "xlm") {
+            this.address = this.wallet.publicData?.stellarAddress || "";
+            this.name = "Stellar";
+            this.symbol = "XLM";
         }
     }
 

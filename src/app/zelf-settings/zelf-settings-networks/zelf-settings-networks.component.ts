@@ -21,6 +21,7 @@ const DEFAULT_NETWORKS: NetworkConfig[] = [
     { id: "blockdag", name: "BlockDAG", symbol: "BDAG", enabled: true },
     { id: "polygon", name: "Polygon", symbol: "POL", enabled: true },
     { id: "solana", name: "Solana", symbol: "SOL", enabled: true },
+    { id: "stellar", name: "Stellar", symbol: "XLM", enabled: true },
     { id: "sui", name: "Sui", symbol: "SUI", enabled: true },
 ];
 
@@ -107,7 +108,12 @@ export class ZelfSettingsNetworksComponent implements OnInit, OnDestroy {
     }
 
     private _initNetworks(): void {
-        const allowedNetworkIds = this._getAllowedNetworkIds();
+        let allowedNetworkIds = this._getAllowedNetworkIds();
+
+        // Ensure stellar is always allowed (backend may not include it in domain config yet)
+        if (allowedNetworkIds && !allowedNetworkIds.includes("stellar")) {
+            allowedNetworkIds = [...allowedNetworkIds, "stellar"];
+        }
 
         // Filter default networks based on license if available
         let availableNetworks = DEFAULT_NETWORKS;

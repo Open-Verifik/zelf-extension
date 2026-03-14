@@ -97,6 +97,48 @@
                             }
                         "
                     ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
+                                    address: tagModel?.publicData?.stellarAddress,
+                                    label: t('common.stellar_address'),
+                                    logo: 'assets/icons/xlm_logo.svg',
+                                    value: tagModel?.displayStellarAddress,
+                                },
+                            }
+                        "
+                    ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
+                                    address: tagModel?.publicData?.ethAddress,
+                                    label: t('common.avax_address'),
+                                    logo: 'assets/networks/avax.png',
+                                    value: tagModel?.displayAvalancheAddress,
+                                },
+                            }
+                        "
+                    ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
+                                    address: tagModel?.publicData?.ethAddress,
+                                    label: t('common.bnb_address'),
+                                    logo: 'assets/icons/bnb_logo.svg',
+                                    value: tagModel?.displayBinanceAddress,
+                                },
+                            }
+                        "
+                    ></ng-container>
                 </div>
 
                 <ng-container *ngIf="tagModel?.publicData?.type === 'mainnet' && tagModel?.isExpired">

@@ -10,6 +10,8 @@ import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { SettingsService } from "app/services/settings.service";
+import { ZelfNameService } from "app/zelf-name-service.service";
+import { TagModel } from "app/tags.service";
 
 @Component({
     imports: [NgIf, NgFor, NgTemplateOutlet, RouterLink, TranslocoModule, MatButtonModule, AddressMaskPipe, ZelfLoaderComponent],
@@ -24,6 +26,7 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
     constructor(
         private _walletService: WalletService,
         private _settingsService: SettingsService,
+        private _zelfNameService: ZelfNameService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
         public _translocoService: TranslocoService
@@ -38,7 +41,14 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
     }
 
     private async _initNetworks(): Promise<void> {
+        const wallet = (await this._walletService.getCurrentWallet()) as TagModel | null;
+
+        if (wallet?.tagName) {
+            await this._zelfNameService.refreshWalletPublicData(wallet);
+        }
+
         const allNetworks = await this._walletService.getAvailableWalletNetworks();
+
         const enabledNetworkIds = this._getEnabledNetworkIds();
 
         if (!enabledNetworkIds) {
@@ -78,6 +88,8 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
                 return "solana";
             case "SUI":
                 return "sui";
+            case "XLM":
+                return "stellar";
             default:
                 return symbol.toLowerCase();
         }

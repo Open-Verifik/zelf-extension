@@ -597,6 +597,7 @@
     },
     "receive": {
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
+        "information_stellar": "Kailangan ng minimum na 1 XLM para ma-activate ang iyong Stellar account. Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
         "your_token_address": "Ang iyong {{ name }} address",
         "risks_modal": {
             "title": "Bago tumanggap ng {{ symbol }}",

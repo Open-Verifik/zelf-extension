@@ -597,6 +597,7 @@
     },
     "receive": {
         "information": "此地址只能用于接收兼容的代币。",
+        "information_stellar": "激活您的 Stellar 账户至少需要 1 XLM。此地址只能用于接收兼容的代币。",
         "your_token_address": "您的{{ name }}地址",
         "risks_modal": {
             "title": "接收 {{ symbol }} 之前",

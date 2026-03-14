@@ -597,6 +597,7 @@
     },
     "receive": {
         "information": "이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
+        "information_stellar": "Stellar 계정을 활성화하려면 최소 1 XLM이 필요합니다. 이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
         "your_token_address": "{{ name }} 주소",
         "risks_modal": {
             "title": "{{ symbol }} 수신 전",

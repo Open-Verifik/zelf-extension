@@ -21,11 +21,6 @@ export class AuthService {
         private _httpClient: HttpClient,
         private _walletService: WalletService
     ) {
-        this._chromeService.onWalletChanged$.subscribe(async (wallet) => {
-            if (!wallet) return;
-
-            await this.reauthenticateSession();
-        });
     }
 
     private async _requestAuthToken(

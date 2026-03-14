@@ -18,6 +18,7 @@ export interface NetworkPermissions {
     POL?: boolean;
     SOL?: boolean;
     SUI?: boolean;
+    XLM?: boolean;
 }
 
 @Injectable({
@@ -82,6 +83,7 @@ export class AssetService {
             POL: true,
             SOL: true,
             SUI: true,
+            XLM: true,
         };
     }
 
@@ -124,6 +126,8 @@ export class AssetService {
                     return "BNB";
                 case "Polygon":
                     return "MATIC";
+                case "Stellar":
+                    return "XLM";
                 default:
                     return "NATIVE";
             }
@@ -156,6 +160,7 @@ export class AssetService {
             Ethereum: ["ETH", "ETHEREUM"],
             Polygon: ["MATIC", "POLYGON", "POL"],
             Solana: ["SOL", "SOLANA"],
+            Stellar: ["XLM", "STELLAR"],
             Sui: ["SUI", "SUI-TOKEN"],
         };
 
@@ -285,7 +290,8 @@ export class AssetService {
                     (network === "BlockDAG" && !permissions.BDAG) ||
                     (network === "Sui" && !permissions.SUI) ||
                     (network === "Binance" && !permissions.BNB) ||
-                    (network === "Polygon" && !permissions.POL)
+                    (network === "Polygon" && !permissions.POL) ||
+                    (network === "Stellar" && !permissions.XLM)
                 ) {
                     continue;
                 }
@@ -293,9 +299,11 @@ export class AssetService {
 
             const determinedTokenType = this._determineTokenType(token, network);
 
+            const balance = parseFloat(token.balance || token.amount || "0");
             const formattedToken = {
                 ...token,
-                balance: parseFloat(token.balance || token.amount || "0"),
+                balance,
+                amount: balance,
                 fiatBalance: token.fiatBalance !== null ? parseFloat(token.fiatBalance || "0") : null,
                 image: token.image || (determinedTokenType === "AVAX" ? "assets/networks/avax.png" : token.image),
                 network,
@@ -347,6 +355,10 @@ export class AssetService {
             tokens = this.processTokens("Sui", response.sui.data.tokenHoldings.tokens, tokens, permissions);
         }
 
+        if (response?.stellar?.data && (!permissions || permissions.XLM)) {
+            tokens = this._processStellarTokens(response.stellar.data, tokens, permissions);
+        }
+
         if (response?.bitcoin?.data?.tokenHoldings?.tokens && (!permissions || permissions.BTC)) {
             tokens = this.processTokens("Bitcoin", response.bitcoin.data.tokenHoldings.tokens, tokens, permissions);
         }
@@ -372,6 +384,31 @@ export class AssetService {
         if (!permissions) await this.saveTokensToSession(tokens);
 
         return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
+    }
+
+    private _processStellarTokens(
+        stellarData: any,
+        tokens: any[],
+        permissions?: NetworkPermissions
+    ): any[] {
+        const xlmBalance = parseFloat(stellarData.balance || "0") || 0;
+        const xlmFiat = parseFloat(stellarData.fiatBalance || stellarData.account?.fiatValue || "0") || 0;
+        const xlmPrice = parseFloat(stellarData.account?.price || "0") || 0;
+
+        const xlmToken = {
+            symbol: "XLM",
+            name: "Stellar",
+            balance: xlmBalance,
+            fiatBalance: xlmFiat,
+            price: xlmPrice,
+            asset: "XLM",
+        };
+
+        let result = this.processTokens("Stellar", [xlmToken], tokens, permissions);
+        if (stellarData.tokenHoldings?.tokens?.length) {
+            result = this.processTokens("Stellar", stellarData.tokenHoldings.tokens, result, permissions);
+        }
+        return result;
     }
 
     private _getTokenKey(token: any): string {

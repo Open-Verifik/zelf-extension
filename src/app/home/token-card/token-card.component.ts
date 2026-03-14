@@ -36,7 +36,7 @@ import { WalletService } from "app/wallet.service";
                             'stats__percentage--negative': false,
                         }"
                     >
-                        <span class="stats__text stats__text--colored">{{ data.amount | number: "1.0-6" }}</span>
+                        <span class="stats__text stats__text--colored">{{ (data.amount ?? data.balance) | number: "1.0-6" }}</span>
                     </div>
                 </h4>
 

@@ -603,6 +603,7 @@
     },
     "receive": {
         "information": "This address can only be used to receive compatible tokens.",
+        "information_stellar": "A minimum of 1 XLM is required to activate your Stellar account. This address can only be used to receive compatible tokens.",
         "your_token_address": "Your {{ name }} address",
         "risks_modal": {
             "title": "Before receiving {{ symbol }}",

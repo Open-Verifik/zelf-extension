@@ -597,6 +597,7 @@
     },
     "receive": {
         "information": "Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",
+        "information_stellar": "Un minimum de 1 XLM est requis pour activer votre compte Stellar. Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",
         "your_token_address": "Votre adresse {{ name }}",
         "risks_modal": {
             "title": "Avant de recevoir {{ symbol }}",

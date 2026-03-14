@@ -597,6 +597,7 @@
     },
     "receive": {
         "information": "このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
+        "information_stellar": "Stellarアカウントを有効にするには最低1 XLMが必要です。このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
         "your_token_address": "{{ name }}アドレス",
         "risks_modal": {
             "title": "{{ symbol }}を受け取る前に",

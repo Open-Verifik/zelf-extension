@@ -169,7 +169,9 @@ export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet: Partial<TagModel>) => {
             if (!wallet) return;
 
-            this.shareables.wallet = wallet;
+            setTimeout(() => {
+                this.shareables.wallet = wallet;
+            }, 0);
         });
     }
 

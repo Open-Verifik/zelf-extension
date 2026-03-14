@@ -75,7 +75,10 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         this._ensureAssetIcon();
         this.loading = !Object.keys(this.asset).length;
 
-        if (!this.loading) setTimeout(() => this._setChart(), 100);
+        if (!this.loading) {
+            this._changeDetectorRef.detectChanges();
+            setTimeout(() => this._setChart(), 100);
+        }
 
         this._assetService.sourceAsset$.pipe(takeUntil(this.unsubscriber$)).subscribe((asset) => {
             this.asset = asset;
@@ -83,9 +86,11 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
 
             if (!this.loading) return;
 
-            this.loading = false;
-
-            setTimeout(() => this._setChart(), 100);
+            setTimeout(() => {
+                this.loading = false;
+                this._changeDetectorRef.detectChanges();
+                this._setChart();
+            }, 0);
         });
 
         this.windowResizeListener = this._renderer.listen("window", "resize", () => {

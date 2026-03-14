@@ -71,24 +71,29 @@
 
 * {
     font-family: variables.$themeBodyFamily;
-    scrollbar-width: 6px;
-    scrollbar-color: variables.$themeTextMuted rgba(0, 0, 0, 0.05);
+    scrollbar-width: thin;
+    scrollbar-color: variables.$themeTextMuted transparent;
 
     &::-webkit-scrollbar {
         width: 6px;
         height: 6px;
-        background-color: variables.$themeCard;
     }
 
     &::-webkit-scrollbar-track {
-        background: variables.$themeCardBorder;
-        border: none;
+        background: transparent;
+        border-radius: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
         background: variables.$themeTextMuted;
-        transition: background-color 0.3s variables.$smoothBezier;
+        border-radius: 9999px;
+        background-clip: content-box;
+        border: 2px solid transparent;
+        transition: background-color 0.2s variables.$smoothBezier;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: variables.$themeTextSecondary;
     }
 }
 

@@ -224,6 +224,14 @@
         }
     }
 
+    &__addresses-scroll {
+        width: 100%;
+        height: calc(280px * var(--zns-space-scale, 1));
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
     &__addresses {
         display: flex;
         flex-direction: column;
@@ -244,8 +252,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-grow: 1;
-        min-height: calc(200px * var(--zns-space-scale, 1));
     }
 
     &__actions {

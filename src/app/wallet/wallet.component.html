@@ -103,61 +103,20 @@
                 </div>
 
                 <div class="wallet__tab-content" *ngIf="selectedTab === 'addresses'">
-                    <div class="wallet__addresses">
-                        <div class="crypto-address">
-                            <div class="crypto-address__col">
-                                <p class="crypto-address__text">Ethereum</p>
-                                <p class="crypto-address__address-text">{{ wallet.displayEthAddress }}</p>
+                    <div class="wallet__addresses-scroll">
+                        <div class="wallet__addresses">
+                            <div class="crypto-address" *ngFor="let network of networks">
+                                <div class="crypto-address__col">
+                                    <p class="crypto-address__text">{{ network.name }}</p>
+                                    <p class="crypto-address__address-text">{{ network.address | addressMask }}</p>
+                                </div>
+                                <button
+                                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
+                                    (click)="copyToClipboardForNetwork($event, network)"
+                                >
+                                    <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
+                                </button>
                             </div>
-
-                            <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.publicData?.ethAddress || '')"
-                            >
-                                <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
-                            </button>
-                        </div>
-
-                        <div class="crypto-address">
-                            <div class="crypto-address__col">
-                                <p class="crypto-address__text">Solana</p>
-                                <p class="crypto-address__address-text">{{ wallet.displaySolanaAddress }}</p>
-                            </div>
-
-                            <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.publicData?.solanaAddress || '')"
-                            >
-                                <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
-                            </button>
-                        </div>
-
-                        <div class="crypto-address">
-                            <div class="crypto-address__col">
-                                <p class="crypto-address__text">Bitcoin</p>
-                                <p class="crypto-address__address-text">{{ wallet.displayBtcAddress }}</p>
-                            </div>
-
-                            <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.publicData?.btcAddress || '')"
-                            >
-                                <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
-                            </button>
-                        </div>
-
-                        <div class="crypto-address" *ngIf="wallet.publicData?.suiAddress">
-                            <div class="crypto-address__col">
-                                <p class="crypto-address__text">Sui</p>
-                                <p class="crypto-address__address-text">{{ wallet.displaySuiAddress }}</p>
-                            </div>
-
-                            <button
-                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
-                                (click)="copyToClipboard(wallet.publicData?.suiAddress || '')"
-                            >
-                                <ng-container *ngTemplateOutlet="clipboardIcon"></ng-container>
-                            </button>
                         </div>
                     </div>
                 </div>

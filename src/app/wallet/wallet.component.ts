@@ -1,4 +1,4 @@
-import { CommonModule, NgIf, NgTemplateOutlet } from "@angular/common";
+import { CommonModule, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, DestroyRef, OnInit } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
@@ -13,14 +13,17 @@ import { ChromeService } from "app/chrome.service";
 import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
+import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
+import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
-import { WalletService } from "app/wallet.service";
+import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [
         CommonModule,
+        NgFor,
         NgIf,
         MatButtonModule,
         TranslocoModule,
@@ -28,6 +31,7 @@ import { ZelfNameService } from "app/zelf-name-service.service";
         RouterModule,
         NgTemplateOutlet,
         MatSnackBarModule,
+        AddressMaskPipe,
         ZelfLoaderComponent,
     ],
     selector: "wallet",
@@ -38,6 +42,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     private _showArnsInstructions: boolean = true;
 
     loading: boolean = true;
+    networks: Network[] = [];
     parameters: any = {};
     selectedTab: string = "addresses";
     wallet: Partial<TagModel> = {};
@@ -46,7 +51,9 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         private _bottomSheet: MatBottomSheet,
         private _destroyRef: DestroyRef,
         private _walletService: WalletService,
+        private _settingsService: SettingsService,
         private _tagsService: TagsService,
+        private _zelfNameService: ZelfNameService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
@@ -70,7 +77,14 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         if (this.parameters.openPrivateKeyBottomSheet) this.openPrivateKeyBottomSheet();
         else if (this.parameters.openMyArnsBottomSheet) this.openMyArnsBottomSheet();
 
-        this._updateWallet();
+        await this._updateWallet();
+
+        if (this.wallet?.tagName) {
+            await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
+            this.wallet = (await this._walletService.getCurrentWallet()) || {};
+        }
+
+        await this._initNetworks();
 
         this.loading = false;
     }
@@ -88,8 +102,51 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         this._walletService.updateWallet(this.wallet);
     }
 
+    private async _initNetworks(): Promise<void> {
+        this.networks = await this._walletService.getAvailableWalletNetworks();
+    }
+
+    private _getEnabledNetworkIds(): string[] | undefined {
+        const settings = this._settingsService.settings;
+        if (!settings || !settings.networks) return undefined;
+        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+    }
+
+    private _mapSymbolToNetworkId(symbol: string): string {
+        switch (symbol.toUpperCase()) {
+            case "ETH":
+                return "ethereum";
+            case "AVAX":
+                return "avalanche";
+            case "BNB":
+            case "BSC":
+                return "binance";
+            case "BTC":
+                return "bitcoin";
+            case "BDAG":
+                return "blockdag";
+            case "MATIC":
+            case "POL":
+                return "polygon";
+            case "SOL":
+                return "solana";
+            case "SUI":
+                return "sui";
+            case "XLM":
+                return "stellar";
+            default:
+                return symbol.toLowerCase();
+        }
+    }
+
     async copyToClipboard(value: string): Promise<void> {
         await this._copyToClipboard(value);
+    }
+
+    copyToClipboardForNetwork(event: Event, network: Network): void {
+        event.preventDefault();
+        event.stopPropagation();
+        this._copyToClipboard(network.address);
     }
 
     downloadQRCode(): void {

@@ -57,6 +57,7 @@ export interface Zelfkeys {
 export interface DomainMetadata {
     documentation: string;
     launchDate: string;
+    logo?: string;
     support: string;
     version: string;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, OnDestroy, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnChanges, OnDestroy, Output, EventEmitter, SimpleChanges } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -11,7 +11,7 @@ import { TranslocoModule } from "@jsverse/transloco";
     styleUrls: ["./welcome-available-content.component.scss"],
     templateUrl: "./welcome-available-content.component.html",
 })
-export class WelcomeAvailableContentComponent implements OnDestroy {
+export class WelcomeAvailableContentComponent implements OnDestroy, OnChanges {
     private _invalidTimeout!: ReturnType<typeof setTimeout>;
 
     @Input() form!: FormGroup;
@@ -26,6 +26,12 @@ export class WelcomeAvailableContentComponent implements OnDestroy {
     @Output() sanitizeZelfNameEvent = new EventEmitter<void>();
 
     referralExpanded: boolean = false;
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes["invalidReferral"]?.currentValue === true) {
+            this.referralExpanded = true;
+        }
+    }
 
     constructor() {}
 

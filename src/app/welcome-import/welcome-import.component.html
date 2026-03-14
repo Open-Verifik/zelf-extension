@@ -5,63 +5,32 @@
 <ng-container *ngIf="!errorTitle">
     <div (paste)="onPaste($event)" class="zelf-card welcome-import__card" *transloco="let t">
         <div class="zelf-card__header welcome-import__header">
-            <div class="welcome-import__header-button">
-                <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../available']">
-                    <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                        />
-                    </svg>
-                </button>
-            </div>
+            <button mat-icon-button class="zelf-icon-button zelf-icon-button--40 welcome-import__back" [routerLink]="['../available']">
+                <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
 
             <h2 class="zelf-card__title">{{ t("welcome.import_title") }}</h2>
             <p class="zelf-card__subtitle">{{ t("welcome.import_subtitle") }}</p>
 
-            <div class="tip-box">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM10 11C9.45 11 9 10.55 9 10V6C9 5.45 9.45 5 10 5C10.55 5 11 5.45 11 6V10C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"
-                        fill="#0e26ff"
-                    />
-                </svg>
-
-                <p class="tip-box__text">{{ t("welcome.paste_your_recovery_phrase") }}</p>
-            </div>
-
-            <form [formGroup]="mnemonicCountForm" class="zelf-radio-group">
-                <label for="mnemonicCount12" class="zelf-radio">
-                    {{ t("common.12_word_phrase") }}
-
+            <form [formGroup]="mnemonicCountForm" class="welcome-import__segmented">
+                <label
+                    *ngFor="let count of validMnemonicLengths"
+                    [for]="'mnemonicCount' + count"
+                    class="welcome-import__segment"
+                    [class.welcome-import__segment--active]="mnemonicCountForm.get('mnemonicCount')?.value === count"
+                >
+                    {{ count }}
                     <input
-                        [checked]="mnemonicCountForm.get('mnemonicCount')?.value === 12"
-                        [value]="12"
+                        [value]="count"
                         formControlName="mnemonicCount"
-                        id="mnemonicCount12"
+                        [id]="'mnemonicCount' + count"
                         name="mnemonicCount"
                         type="radio"
                     />
-
-                    <svg viewBox="0 0 21 21">
-                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                    </svg>
-                </label>
-
-                <label for="mnemonicCount24" class="zelf-radio">
-                    {{ t("common.24_word_phrase") }}
-
-                    <input
-                        [checked]="mnemonicCountForm.get('mnemonicCount')?.value === 24"
-                        [value]="24"
-                        formControlName="mnemonicCount"
-                        id="mnemonicCount24"
-                        name="mnemonicCount"
-                        type="radio"
-                    />
-
-                    <svg viewBox="0 0 21 21">
-                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                    </svg>
                 </label>
             </form>
         </div>

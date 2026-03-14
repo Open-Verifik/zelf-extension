@@ -58,16 +58,9 @@
 
     &__radio-group {
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
         gap: calc(12px * var(--zns-space-scale, 1));
-
-        .zelf-radio {
-            svg {
-                right: calc(16.3px * var(--zns-space-scale, 1));
-                left: initial;
-            }
-        }
     }
 }
 
@@ -84,68 +77,69 @@
     margin: calc(42px * var(--zns-space-scale, 1)) auto 0;
 }
 
-.domain-option {
-    width: 100%;
-    box-sizing: border-box;
+.domain-option--grid {
+    flex-direction: column;
+    justify-content: center;
+    min-height: auto;
+    padding: calc(12px * var(--zns-space-scale, 1));
+
+    input[type="radio"],
+    svg {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    &:has(input:checked) {
+        background-color: variables.$themeBorder;
+        outline: 2px solid variables.$themeText;
+        outline-offset: 2px;
+    }
 }
 
-.domain-info {
-    justify-content: flex-start;
-    align-items: center;
-    gap: calc(12px * var(--zns-space-scale, 1));
+.domain-card {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(8px * var(--zns-space-scale, 1));
+    flex: 1;
 }
 
 .domain-icon {
-    width: calc(40px * var(--zns-space-scale, 1));
-    height: calc(40px * var(--zns-space-scale, 1));
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 
-    &.zelf {
-        background: #181818;
-    }
-
-    &.avax {
-        background: #e84142;
-    }
-
-    &.bdag {
-        background: #030c43;
-    }
-
-    &.eth {
-        background: #627eea;
-    }
-
-    &.sol {
-        background: #f5f2ff;
+    &--square {
+        width: calc(48px * var(--zns-space-scale, 1));
+        height: calc(48px * var(--zns-space-scale, 1));
+        border-radius: 8px;
+        background: transparent;
     }
 }
 
 .icon-image {
-    width: calc(24px * var(--zns-space-scale, 1));
-    height: calc(24px * var(--zns-space-scale, 1));
-}
-
-.zelf-icon {
-    width: calc(24px * var(--zns-space-scale, 1));
-    height: calc(24px * var(--zns-space-scale, 1));
+    width: calc(32px * var(--zns-space-scale, 1));
+    height: calc(32px * var(--zns-space-scale, 1));
+    object-fit: contain;
 }
 
 .domain-name {
     text-align: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
     color: variables.$themeText;
-    font-size: calc(14px * var(--zns-font-scale, 1));
+    font-size: calc(12px * var(--zns-font-scale, 1));
     font-weight: 600;
-    line-height: calc(20px * var(--zns-font-scale, 1));
+    line-height: calc(16px * var(--zns-font-scale, 1));
     letter-spacing: 0.1px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 // Override Material Dialog styles

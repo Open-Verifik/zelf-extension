@@ -146,6 +146,13 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
 
     private async _loadDomains(): Promise<void> {
         this.domain = await this._chromeService.getItem<string>("domain");
+
+        // Fetch fresh domains from API so we have latest metadata (e.g. logos)
+        try {
+            await this._domainService.getDomains();
+        } catch {
+            // Fall back to cached storage if API fails
+        }
         this.availableDomains = await this._domainService.loadDomainsFromStorage();
 
         this.form.patchValue({ domain: this.domain }, { emitEvent: false });

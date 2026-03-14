@@ -1,6 +1,6 @@
 <div class="domain-modal" *transloco="let t">
     <!-- Header -->
-    <button mat-flat-button mat-icon-button class="domain-modal__exit" (click)="onCancel()">
+    <button mat-icon-button class="domain-modal__exit" (click)="onCancel()">
         <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z"
@@ -12,10 +12,15 @@
 
     <!-- Domain Options -->
     <form [formGroup]="domainForm" class="zelf-radio-group domain-modal__radio-group">
-        <label *ngFor="let domain of data.domains" [for]="'domain-' + domain.name" class="zelf-radio domain-option">
-            <div class="domain-info">
-                <div class="domain-icon" [style.background-color]="getDomainIconBackground(domain.name)">
-                    <img [src]="getDomainIcon(domain.name)" [alt]="domain.name" class="icon-image" />
+        <label *ngFor="let domain of data.domains" [for]="'domain-' + domain.name" class="zelf-radio domain-option domain-option--grid">
+            <div class="domain-card">
+                <div class="domain-icon domain-icon--square">
+                    <img
+                        [src]="getDomainIcon(domain)"
+                        [alt]="domain.name"
+                        class="icon-image"
+                        (error)="$any($event.target).src = 'assets/icons/zelf_logo.svg'"
+                    />
                 </div>
                 <span class="domain-name">.{{ domain.name }}</span>
             </div>

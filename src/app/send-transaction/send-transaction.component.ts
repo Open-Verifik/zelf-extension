@@ -705,7 +705,38 @@ export class SendTransactionComponent implements OnDestroy {
         this.form.get("toAddress")?.patchValue(address.address);
     }
 
+    onAmountInput(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        const sanitized = this._sanitizeAmountValue(input.value);
+
+        if (sanitized !== input.value) {
+            input.value = sanitized;
+            this.form.get("amount")?.setValue(sanitized, { emitEvent: true });
+        }
+    }
+
+    onAmountPaste(event: ClipboardEvent): void {
+        event.preventDefault();
+
+        const pasted = event.clipboardData?.getData("text") || "";
+        const sanitized = this._sanitizeAmountValue(pasted);
+
+        this.form.get("amount")?.setValue(sanitized, { emitEvent: true });
+        this.form.get("amount")?.markAsDirty();
+    }
+
     withdrawAll(): void {
         this.form.get("amount")?.patchValue(this.transactionData.balance);
+    }
+
+    private _sanitizeAmountValue(value: string): string {
+        if (!value) return "";
+
+        const filtered = value.replace(/[^0-9.]/g, "");
+        const parts = filtered.split(".");
+
+        if (parts.length <= 1) return filtered;
+
+        return parts[0] + "." + parts.slice(1).join("");
     }
 }

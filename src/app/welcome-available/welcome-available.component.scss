@@ -15,30 +15,34 @@
     justify-content: flex-start;
 
     &__header {
-        gap: calc(8px * var(--zns-space-scale, 1));
         flex-grow: 1;
-    }
-
-    &__header-button {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: row;
-        width: 100%;
-    }
-
-    &__wrapper {
-        margin-top: calc(8px * var(--zns-space-scale, 1));
-        box-sizing: border-box;
-        border: 1px solid variables.$themeCardBorder;
-        border-radius: 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
-        padding: calc(16px * var(--zns-space-scale, 1));
+        align-items: center;
+        justify-content: center;
         width: 100%;
-        flex-grow: 1;
+        position: relative;
+    }
+
+    &__back {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__identity {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(24px * var(--zns-space-scale, 1)) 0;
+    }
+
+    &__divider {
+        width: 100%;
+        height: 1px;
+        background-color: variables.$themeCardBorder;
+        flex-shrink: 0;
     }
 
     &__subtitle {
@@ -48,94 +52,45 @@
         line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
         text-align: center;
-        vertical-align: middle;
         color: variables.$themeTextSecondary;
-        margin-top: calc(8px * var(--zns-space-scale, 1));
     }
 
-    &__content {
-        margin-top: calc(16px * var(--zns-space-scale, 1));
+    &__form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__top {
         width: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
-        gap: 16px;
-        padding: 8px 0;
+        align-items: center;
         box-sizing: border-box;
-        border-radius: 16px;
-        background: variables.$themeCardBorder;
     }
 
     &__buttons {
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
         flex-direction: column;
-        gap: 8px;
-        width: 100%;
-    }
-}
-
-.expandable {
-    width: 100%;
-    box-sizing: border-box;
-
-    &__label {
-        min-height: 40px;
-        box-sizing: border-box;
-        cursor: pointer;
-        font-family: variables.$themeBodyFamily;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0.1px;
-        text-align: center;
-        vertical-align: middle;
-        color: variables.$themeTextSecondary;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 8px 24px 8px;
-        transition: color 0.3s variables.$smoothBezier;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding-bottom: calc(8px * var(--zns-space-scale, 1));
 
-        svg {
-            transform: rotate(180deg);
-            transition: transform 0.3s variables.$smoothBezier;
-            fill: variables.$themeTextSecondary;
+        // Ensure disabled buttons always show readable text regardless of Material overrides
+        ::ng-deep .zelf-button--primary[disabled] {
+            opacity: 1 !important;
+            background-color: variables.$themeBorder !important;
+            color: variables.$themeTextSecondary !important;
         }
 
-        &--active {
-            color: variables.$themeText;
-
-            svg {
-                transform: rotate(0deg);
-                fill: variables.$themeText;
-            }
+        ::ng-deep .zelf-button--outlined[disabled] {
+            opacity: 1 !important;
+            border-color: variables.$themeBorder !important;
+            color: variables.$themeTextMuted !important;
+            background-color: transparent !important;
         }
-    }
-
-    &__text {
-        margin: 0;
-    }
-
-    &__content {
-        box-sizing: border-box;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.3s ease-in-out;
-
-        &--active {
-            max-height: 128px;
-        }
-    }
-
-    &__inner-content {
-        box-sizing: border-box;
-        padding: 16px;
     }
 }

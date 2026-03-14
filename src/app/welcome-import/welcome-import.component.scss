@@ -16,12 +16,63 @@
         gap: calc(12px * var(--zns-space-scale, 1));
     }
 
-    &__header-button {
+    &__header {
+        position: relative;
+        padding-left: calc(48px * var(--zns-space-scale, 1));
+        padding-right: calc(48px * var(--zns-space-scale, 1));
+        box-sizing: border-box;
+    }
+
+    &__back {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__segmented {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: row;
+        gap: calc(4px * var(--zns-space-scale, 1));
         width: 100%;
+        background: variables.$themeCardBorder;
+        border-radius: 12px;
+        padding: 4px;
+        box-sizing: border-box;
+    }
+
+    &__segment {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(36px * var(--zns-space-scale, 1));
+        border-radius: 8px;
+        font-family: variables.$themeBodyFamily;
+        font-size: 13px;
+        font-weight: 500;
+        color: variables.$themeText;
+        cursor: pointer;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease, font-weight 0.1s ease;
+        position: relative;
+        user-select: none;
+
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+        }
+
+        &--active {
+            background: variables.$themeCard;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+            font-weight: 700;
+            color: variables.$themeText;
+        }
+
+        &:not(&--active):hover {
+            background: rgba(variables.$themeText, 0.06);
+        }
     }
 
     &__form {

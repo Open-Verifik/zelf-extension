@@ -120,14 +120,17 @@
                         [ngClass]="{ 'zelf-input--error': form.get('amount')?.dirty && form.get('amount')?.invalid }"
                     >
                         <input
+                            (input)="onAmountInput($event)"
+                            (paste)="onAmountPaste($event)"
                             [placeholder]="t('send.enter_amount_to_send')"
                             autocomplete="off"
                             class="zelf-input__control"
                             formControlName="amount"
                             id="amount"
+                            inputmode="decimal"
                             name="amount"
                             required
-                            type="string"
+                            type="text"
                         />
 
                         <button (click)="withdrawAll()" class="zelf-icon-button zelf-icon-button--transparent" mat-flat-button type="button">

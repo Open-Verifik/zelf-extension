@@ -51,7 +51,12 @@ export class DomainSelectionModalComponent implements OnInit {
         this._bottomSheetRef.dismiss();
     }
 
-    getDomainIcon(domainName: string): string {
+    getDomainIcon(domain: DomainLicense): string {
+        const logoUrl = domain.metadata?.logo || (domain as any).logo;
+        if (logoUrl && (logoUrl.startsWith("http://") || logoUrl.startsWith("https://"))) {
+            return logoUrl;
+        }
+
         const iconMap: { [key: string]: string } = {
             zelf: "assets/icons/zelf_logo.svg",
             avax: "assets/icons/avax_logo.svg",
@@ -62,18 +67,6 @@ export class DomainSelectionModalComponent implements OnInit {
             wal: "assets/icons/walrus_logo.png",
         };
 
-        return iconMap[domainName] || "assets/icons/default-icon.svg";
-    }
-
-    getDomainIconBackground(domainName: string): string {
-        const bgMap: { [key: string]: string } = {
-            zelf: "#181818",
-            avax: "#E84142",
-            bdag: "#030C43",
-            eth: "#627EEA",
-            sol: "#F5F2FF",
-        };
-
-        return bgMap[domainName] || "#181818";
+        return iconMap[domain.name] || "assets/icons/zelf_logo.svg";
     }
 }

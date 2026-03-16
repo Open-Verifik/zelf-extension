@@ -37,6 +37,12 @@
         </ng-container>
 
         <ng-container *ngIf="showPasswordForm">
+            <div class="mnemonic__decrypting" *ngIf="isDecrypting">
+                <zelf-loader [diameter]="60"></zelf-loader>
+                <p class="mnemonic__decrypting-text">{{ t("security.decrypting_vault") }}</p>
+            </div>
+
+            <ng-container *ngIf="!isDecrypting">
             <!-- PIN form when security type is PIN -->
             <div *ngIf="isPinMode" class="mnemonic__password-form mnemonic__pin-form">
                 <p class="mnemonic__pin-subtitle">{{ t("security.pin_unlock_description") }}</p>
@@ -87,7 +93,7 @@
                         <span *ngIf="canUnlockWithPasswordOnly">{{ t("common.unlock") }}</span>
                         <span *ngIf="!canUnlockWithPasswordOnly">{{ t("common.verify") }}</span>
                     </button>
-                    <button (click)="hidePasswordForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                    <button *ngIf="!hideCancelButton" (click)="hidePasswordForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
                         <span>{{ t("common.cancel") }}</span>
                     </button>
                 </div>
@@ -130,11 +136,12 @@
                         <span *ngIf="!canUnlockWithPasswordOnly">{{ t("common.verify") }}</span>
                     </button>
 
-                    <button (click)="hidePasswordForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
+                    <button *ngIf="!hideCancelButton" (click)="hidePasswordForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button>
                         <span>{{ t("common.cancel") }}</span>
                     </button>
                 </div>
             </form>
+            </ng-container>
         </ng-container>
     </div>
 </ng-container>

@@ -9,11 +9,10 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
+import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { TagModel } from "app/tags.service";
 import { ReceiveRisksModalComponent } from "app/receive-qr/receive-risks-modal/receive-risks-modal.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [NgIf, NgTemplateOutlet, TranslocoModule, RouterLink, ZelfLoaderComponent],
@@ -91,8 +90,8 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _dialog: MatDialog,
+        private _tagsService: TagsService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
         public _translocoService: TranslocoService
@@ -114,7 +113,7 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
         this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
 
         if (this.wallet?.tagName) {
-            await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
+            await this._tagsService.refreshTagPublicData(this.wallet as TagModel);
             this.wallet = (await this._walletService.getFirstWalletFromStorage()) || {};
         }
 

@@ -18,7 +18,6 @@ import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
 
 @Component({
     imports: [
@@ -53,7 +52,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         private _walletService: WalletService,
         private _settingsService: SettingsService,
         private _tagsService: TagsService,
-        private _zelfNameService: ZelfNameService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
         protected _translocoService: TranslocoService
@@ -78,11 +76,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         else if (this.parameters.openMyArnsBottomSheet) this.openMyArnsBottomSheet();
 
         await this._updateWallet();
-
-        if (this.wallet?.tagName) {
-            await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
-            this.wallet = (await this._walletService.getCurrentWallet()) || {};
-        }
 
         await this._initNetworks();
 

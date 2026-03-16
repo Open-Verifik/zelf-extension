@@ -497,9 +497,16 @@ export class TagsService {
     }
 
     async refreshTagPublicData(tag: TagModel): Promise<TagModel | null> {
-        if (!tag || !tag.publicData?.tagName) return null;
+        if (!tag) return null;
 
-        const response = await this.searchTag({ tagName: tag.tagName, domain: tag.publicData.domain });
+        const fullTagName = tag.publicData?.tagName || tag.fullTagName || tag.name || "";
+        const { name: derivedTagName, domain: derivedDomain } = this.parseTagName(fullTagName);
+        const tagName = tag.tagName || derivedTagName;
+        const domain = tag.publicData?.domain || derivedDomain || "zelf";
+
+        if (!tagName) return null;
+
+        const response = await this.searchTag({ tagName, domain });
 
         const tagObject = response.data.tagObject;
 

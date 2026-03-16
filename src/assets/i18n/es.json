@@ -542,6 +542,25 @@
         "language": {
             "description": "Elige tu idioma preferido para la aplicación."
         },
+        "dapps_label": "Conexiones Dapps",
+        "dapps": {
+            "title": "Conexiones Dapps",
+            "description": "Gestiona las aplicaciones descentralizadas conectadas a tu billetera.",
+            "sites": "Sitios",
+            "disconnect_all": "Desconectar todo",
+            "disconnect": "Desconectar",
+            "permissions_accounts": "Ver tus cuentas y sugerir transacciones",
+            "permissions_networks": "Usar tus redes habilitadas",
+            "accounts": "cuenta",
+            "accounts_plural": "cuentas",
+            "networks": "redes",
+            "connected_with": "Conectado con",
+            "networks_connected": "redes conectadas",
+            "edit": "Editar",
+            "no_connections": "No se encontraron conexiones activas.",
+            "network_label": "Red",
+            "unknown": "Desconocido"
+        },
         "walletconnect_label": "Conectar por enlace",
         "walletconnect": {
             "title": "Conexiones Dapps",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "Establece cuánto tiempo se permite el ingreso solo con contraseña antes de que se necesite la verificación biométrica. Puedes configurarlo de 5 a 60 minutos.",
             "password_attempts_title": "Intentos de contraseña",
             "minutes_before_reverification": "Minutos antes de la reverificación",
-            "password_attempts_description": "Establece el número máximo de intentos fallidos de contraseña antes de que se requiera la verificación biométrica. Puedes configurarlo de 1 a 8 intentos."
+            "password_attempts_description": "Establece el número máximo de intentos fallidos de contraseña antes de que se requiera la verificación biométrica. Puedes configurarlo de 1 a 8 intentos.",
+            "vault_status_title": "Estado del depósito",
+            "vault_status_active": "Activo",
+            "vault_status_locked": "Bloqueado",
+            "vault_status_empty": "Vacío",
+            "lock_vault_title": "Bloquear depósito ahora",
+            "lock_vault_description": "Requerir PIN y verificación biométrica en el próximo uso. Úsalo al alejarte o al entregar el dispositivo a alguien.",
+            "vault_active_hint": "PIN y verificación biométrica solo se requieren cada {{ interval }} minutos. La sesión expira en {{ remaining }} minutos.",
+            "vault_locked_hint": "Se requerirá PIN y verificación biométrica en el próximo uso.",
+            "lock_vault_button": "Bloquear depósito",
+            "remove_keys_title": "Eliminar claves del depósito",
+            "remove_keys_description": "Eliminar permanentemente todas las claves de este dispositivo. Necesitarás recuperar tu ZelfProof para usarlo de nuevo. Una cuenta regresiva te permite cancelar antes de la eliminación.",
+            "remove_keys_button": "Eliminar claves del depósito",
+            "remove_keys_countdown_minutes": "Las claves se eliminarán en {{ minutes }}m {{ seconds }}s",
+            "remove_keys_countdown_seconds": "Las claves se eliminarán en {{ seconds }}s",
+            "remove_keys_cancel": "Cancelar"
         }
     },
     "security": {
@@ -593,7 +627,11 @@
         "create_pin_title": "CREAR UN PIN",
         "create_pin_subtitle": "Por favor ingresa una contraseña de 6 dígitos para tu ZelfProof.",
         "confirm_pin_title": "CONFIRMAR PIN",
-        "confirm_pin_subtitle": "Por favor vuelve a ingresar la contraseña de 6 dígitos para tu ZelfProof."
+        "confirm_pin_subtitle": "Por favor vuelve a ingresar la contraseña de 6 dígitos para tu ZelfProof.",
+        "retrieving_vault": "Recuperando bóveda...",
+        "decrypting_vault": "Descifrando bóveda...",
+        "vault_unlocked": "Bóveda desbloqueada!",
+        "wallet_created": "Billetera lista!"
     },
     "receive": {
         "information": "Esta dirección solo puede usarse para recibir tokens compatibles.",
@@ -803,7 +841,8 @@
         "domain_warning": "Aún tienes tiempo para comprar",
         "expired_wallet_logout_message": "Puedes descifrar este ZelfProof nuevamente si buscas por tu Nombre de Etiqueta. Sin embargo, corres el riesgo de perderlo si no lo compras pronto.",
         "logout_of_wallet_message": "Puedes descifrar este ZelfProof nuevamente si buscas por tu Nombre de Etiqueta, o cargas tu código QR de ZelfProof.",
-        "purchase_new_domain": "Agregar un nuevo Nombre de Etiqueta"
+        "purchase_new_domain": "Agregar un nuevo Nombre de Etiqueta",
+        "zelfproof_removed_successfully": "ZelfProof eliminado correctamente"
     },
     "liveness": {
         "center_your_face": "Centra tu rostro en la pantalla",
@@ -847,6 +886,7 @@
         "invalid_format": "Formato inválido",
         "invalid_mnemonic": "La frase mnemotécnica no es válida. Asegúrate de que sea una secuencia BIP-39 válida (12, 15, 18, 21 o 24 palabras).",
         "invalid_number_value": "Valor numérico inválido",
+        "invalid_pin": "PIN inválido. Te quedan {{remaining}} intentos antes de que debas iniciar sesión con biometría.",
         "invalid_password": "Contraseña inválida. Te quedan {{remaining}} intentos antes de que debas iniciar sesión con biometría.",
         "invalid_private_key": "La clave privada no es válida.",
         "liveness_failed_description": "Lo sentimos, parece que hubo un problema con tu detección de autenticidad.",
@@ -1734,6 +1774,9 @@
         "threat_warning_title": "Sitio Malicioso Detectado",
         "threat_warning": "Este sitio ha sido marcado como malicioso. Conexión bloqueada por tu seguridad.",
         "connect": "Conectar",
+        "connecting": "Conectando...",
+        "connect_error": "Error de conexión. Por favor, inténtalo de nuevo.",
+        "connect_timeout": "La conexión está tardando más de lo esperado. Por favor, inténtalo de nuevo.",
         "sign_message": "Firmar Mensaje",
         "sign_transaction": "Firmar Transacción",
         "message_to_sign": "Mensaje a firmar",

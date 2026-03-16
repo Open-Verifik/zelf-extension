@@ -94,6 +94,10 @@ export class DappHandler {
                     await this._handleCleanupRequests(sendResponse);
                     break;
 
+                case "DAPP_CANCEL_PENDING_FOR_ORIGIN":
+                    await this._handleCancelPendingForOrigin(senderOrigin, sendResponse);
+                    break;
+
                 case "DAPP_FORCE_DISCONNECT_SITE":
                     await this._handleForceDisconnectSite(payload?.origin, sendResponse);
                     break;
@@ -185,7 +189,7 @@ export class DappHandler {
             method: "eth_requestAccounts",
         });
 
-        await this._openApprovalUI("connect", requestId);
+        await this._openApprovalUI("connect", requestId, tabId);
     }
 
     private async _handleGetAccounts(origin: string, sendResponse: (response: any) => void): Promise<void> {
@@ -229,7 +233,7 @@ export class DappHandler {
 
         this._addPendingRequest(pendingRequest);
         await this._persistPendingToStorage(requestId, pendingRequest);
-        await this._openApprovalUI("sign", requestId);
+        await this._openApprovalUI("sign", requestId, tabId);
     }
 
     private async _handleSignMessage(requestId: string, origin: string, payload: any, tabId?: number): Promise<void> {
@@ -259,7 +263,7 @@ export class DappHandler {
 
         this._addPendingRequest(pendingRequest);
         await this._persistPendingToStorage(requestId, pendingRequest);
-        await this._openApprovalUI("sign", requestId);
+        await this._openApprovalUI("sign", requestId, tabId);
     }
 
     private async _handleSwitchChain(requestId: string, origin: string, payload: any, sendResponse: (response: any) => void): Promise<void> {
@@ -352,7 +356,20 @@ export class DappHandler {
                 connectedAt: Date.now(),
                 lastUsed: Date.now(),
             });
+        }
 
+        if (pending.tabId) {
+            try {
+                const tabs = this.browserApi.tabs as any;
+                if (tabs?.update) {
+                    await tabs.update(pending.tabId, { active: true });
+                }
+            } catch {
+                // Tab may have been closed; continue with notify
+            }
+        }
+
+        if (approved && accounts) {
             await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
                 requestId,
                 result: accounts,
@@ -558,6 +575,26 @@ export class DappHandler {
         }
     }
 
+    private async _handleCancelPendingForOrigin(origin: string, sendResponse: (response: any) => void): Promise<void> {
+        try {
+            const toCancel = Array.from(this.pendingRequests.values()).filter((r) => r.origin === origin);
+            for (const pending of toCancel) {
+                await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", {
+                    requestId: pending.id,
+                    error: { code: 4001, message: "Connection cancelled - previous request cleared" },
+                });
+                this._removePendingRequest(pending.id);
+            }
+            if (toCancel.length > 0) {
+                Logger.info(`[Dapp Cancel] Cancelled ${toCancel.length} pending request(s) for origin ${origin}`);
+            }
+            await this._handleCleanupRequests(sendResponse);
+        } catch (error) {
+            Logger.error("[Dapp Cancel] Failed to cancel pending requests:", error);
+            sendResponse({ success: false, error: (error as Error).message });
+        }
+    }
+
     private async _handleCleanupRequests(sendResponse: (response: any) => void): Promise<void> {
         try {
             const allItems = await this.browserApi.getAllStorageItems();
@@ -621,12 +658,38 @@ export class DappHandler {
         }
     }
 
-    private async _openApprovalUI(page: string, requestId: string): Promise<void> {
+    private async _openApprovalUI(page: string, requestId: string, tabId?: number): Promise<void> {
+        const notifyError = (msg: string) => {
+            this._notifyTab(tabId, "DAPP_PROVIDER_RESPONSE", {
+                requestId,
+                error: { code: -32603, message: msg },
+            });
+            this._removePendingRequest(requestId);
+        };
+
         try {
             const runtime = this.browserApi.runtime;
-            if (!runtime) return;
+            if (!runtime) {
+                notifyError("Extension runtime not available");
+                return;
+            }
 
             const extensionUrl = (runtime as any).getURL(`index.html#/dapp/${page}?requestId=${requestId}`);
+
+            // Close any existing dapp approval windows to avoid stale requestIds and hidden popups
+            try {
+                const windows = await chrome.windows.getAll({ populate: true });
+                const dappPattern = "#/dapp/";
+                for (const win of windows) {
+                    const tabs = win.tabs || [];
+                    const hasDappTab = tabs.some((t: { url?: string }) => t?.url?.includes(dappPattern));
+                    if (hasDappTab && win.id) {
+                        await chrome.windows.remove(win.id);
+                    }
+                }
+            } catch (err) {
+                Logger.warn("Failed to close existing dapp windows:", err);
+            }
 
             // Calculate position to open at the top-right of the current screen/window
             let left = 400;
@@ -635,7 +698,6 @@ export class DappHandler {
             try {
                 const currentWindow = await chrome.windows.getLastFocused();
                 if (currentWindow && currentWindow.width && currentWindow.left !== undefined) {
-                    // Position at the right edge of the current window, with some padding
                     left = currentWindow.left + currentWindow.width - 450;
                     top = currentWindow.top || 80;
                 }
@@ -643,7 +705,7 @@ export class DappHandler {
                 Logger.warn("Failed to get last focused window, using default position:", error);
             }
 
-            await chrome.windows.create({
+            const createdWindow = await chrome.windows.create({
                 url: extensionUrl,
                 type: "popup",
                 width: 440,
@@ -652,8 +714,14 @@ export class DappHandler {
                 top: Math.max(0, top),
                 focused: true,
             });
+
+            // Ensure popup is focused and visible (handles edge cases where it opens behind)
+            if (createdWindow?.id) {
+                await chrome.windows.update(createdWindow.id, { focused: true });
+            }
         } catch (error) {
             Logger.error("Error opening approval UI:", error);
+            notifyError("Failed to open wallet approval window. Please try again.");
         }
     }
 }

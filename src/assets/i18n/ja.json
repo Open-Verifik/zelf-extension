@@ -542,6 +542,25 @@
         "language": {
             "description": "アプリケーションの言語を選択してください。"
         },
+        "dapps_label": "Dapps接続",
+        "dapps": {
+            "title": "Dapps接続",
+            "description": "ウォレットに接続された分散型アプリケーションを管理します。",
+            "sites": "サイト",
+            "disconnect_all": "すべて切断",
+            "disconnect": "切断",
+            "permissions_accounts": "アカウントを表示し、トランザクションを提案する",
+            "permissions_networks": "有効なネットワークを使用する",
+            "accounts": "アカウント",
+            "accounts_plural": "アカウント",
+            "networks": "ネットワーク",
+            "connected_with": "接続先",
+            "networks_connected": "接続済みネットワーク",
+            "edit": "編集",
+            "no_connections": "アクティブな接続が見つかりません。",
+            "network_label": "ネットワーク",
+            "unknown": "不明"
+        },
         "walletconnect_label": "リンクで接続",
         "walletconnect": {
             "title": "Dapps接続",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "生体認証が必要になるまでのパスワードのみの入力を許可する時間を設定します。5分から60分の間で設定できます。",
             "password_attempts_title": "パスワード試行回数",
             "minutes_before_reverification": "再認証までの分数",
-            "password_attempts_description": "生体認証が必要になるまでの最大パスワード失敗試行回数を設定します。1回から8回の間で設定できます。"
+            "password_attempts_description": "生体認証が必要になるまでの最大パスワード失敗試行回数を設定します。1回から8回の間で設定できます。",
+            "vault_status_title": "ボールトの状態",
+            "vault_status_active": "アクティブ",
+            "vault_status_locked": "ロック中",
+            "vault_status_empty": "空",
+            "lock_vault_title": "今すぐボールトをロック",
+            "lock_vault_description": "次回使用時にPINと生体認証が必要になります。席を離れるときやデバイスを他人に渡すときに使用してください。",
+            "vault_active_hint": "PINと生体認証は{{ interval }}分ごとにのみ必要です。セッションは{{ remaining }}分で期限切れになります。",
+            "vault_locked_hint": "次回使用時にPINと生体認証が必要になります。",
+            "lock_vault_button": "ボールトをロック",
+            "remove_keys_title": "ボールトからキーを削除",
+            "remove_keys_description": "このデバイスからすべてのキーを完全に削除します。ZelfProofを再度使用するには復元が必要です。削除前にキャンセルできるカウントダウンが表示されます。",
+            "remove_keys_button": "ボールトからキーを削除",
+            "remove_keys_countdown_minutes": "{{ minutes }}分{{ seconds }}秒後にキーが削除されます",
+            "remove_keys_countdown_seconds": "{{ seconds }}秒後にキーが削除されます",
+            "remove_keys_cancel": "キャンセル"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "まだ購入する時間があります",
         "expired_wallet_logout_message": "タグ名で検索すれば、このZelfProofを再度復号化できます。ただし、すぐに購入しないと失う可能性があります。",
         "logout_of_wallet_message": "タグ名で検索するか、ZelfProofのQRコードを読み込むことで、このZelfProofを再度復号化できます。",
-        "purchase_new_domain": "新しいタグ名を追加"
+        "purchase_new_domain": "新しいタグ名を追加",
+        "zelfproof_removed_successfully": "ZelfProofが正常に削除されました"
     },
     "liveness": {
         "center_your_face": "画面の中央に顔を合わせてください",
@@ -847,6 +882,7 @@
         "invalid_format": "形式が無効です",
         "invalid_mnemonic": "ニーモニックが無効です。有効なBIP-39シーケンス（12、15、18、21、24語）であることを確認してください。",
         "invalid_number_value": "数値が無効です",
+        "invalid_pin": "PINが無効です。生体認証でのログインが必要になるまで、あと{{remaining}}回試行できます。",
         "invalid_password": "パスワードが無効です。生体認証でのログインが必要になるまで、あと{{remaining}}回試行できます。",
         "invalid_private_key": "秘密鍵が無効です",
         "liveness_failed_description": "申し訳ありませんが、ライブネス検出に問題が発生しました。",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "悪意のあるサイトを検出しました",
         "threat_warning": "このサイトは悪意のあるサイトとしてフラグが付けられています。お客様の安全のため、接続をブロックしました。",
         "connect": "接続",
+        "connecting": "接続中...",
+        "connect_error": "接続に失敗しました。もう一度お試しください。",
+        "connect_timeout": "接続に予想以上の時間がかかっています。もう一度お試しください。",
         "sign_message": "メッセージに署名",
         "sign_transaction": "トランザクションに署名",
         "message_to_sign": "署名するメッセージ",

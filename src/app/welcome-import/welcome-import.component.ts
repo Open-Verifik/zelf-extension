@@ -70,6 +70,16 @@ export class WelcomeImportComponent implements OnInit {
         return Object.keys(form.controls);
     }
 
+    isWordInvalid(key: string): boolean {
+        const value = this.mnemonicForm.get(key)?.value?.trim();
+        if (!value) return false;
+        return !bip39.wordlists.english.includes(value.toLowerCase());
+    }
+
+    get hasInvalidWords(): boolean {
+        return this.formControlKeys(this.mnemonicForm).some((key) => this.isWordInvalid(key));
+    }
+
     setMnemonics(): void {
         if (this.mnemonicCountForm.invalid || this.mnemonicForm.invalid) return;
 

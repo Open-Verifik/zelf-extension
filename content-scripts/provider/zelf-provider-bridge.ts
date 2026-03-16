@@ -18,6 +18,7 @@ const DAPP_MESSAGE_TYPES = [
     "DAPP_ADD_CHAIN",
     "DAPP_CHAIN_ID",
     "DAPP_DISCONNECT",
+    "DAPP_CANCEL_PENDING_FOR_ORIGIN",
 ];
 
 function injectPageScript(): void {

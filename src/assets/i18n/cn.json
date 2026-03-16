@@ -542,6 +542,25 @@
         "language": {
             "description": "选择您偏好的应用程序语言。"
         },
+        "dapps_label": "Dapps 连接",
+        "dapps": {
+            "title": "Dapps 连接",
+            "description": "管理连接到您钱包的去中心化应用程序。",
+            "sites": "站点",
+            "disconnect_all": "全部断开连接",
+            "disconnect": "断开连接",
+            "permissions_accounts": "查看您的账户并建议交易",
+            "permissions_networks": "使用您启用的网络",
+            "accounts": "账户",
+            "accounts_plural": "账户",
+            "networks": "网络",
+            "connected_with": "已连接",
+            "networks_connected": "已连接网络",
+            "edit": "编辑",
+            "no_connections": "未找到活动连接。",
+            "network_label": "网络",
+            "unknown": "未知"
+        },
         "walletconnect_label": "通过链接连接",
         "walletconnect": {
             "title": "Dapps 连接",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "设置在进行生物识别验证之前允许仅使用密码的时间。您可以将其设置为5到60分钟。",
             "password_attempts_title": "密码尝试次数",
             "minutes_before_reverification": "重新验证前的分钟数",
-            "password_attempts_description": "设置在进行生物识别验证之前允许的最大密码尝试失败次数。您可以将其设置为1到8次尝试。"
+            "password_attempts_description": "设置在进行生物识别验证之前允许的最大密码尝试失败次数。您可以将其设置为1到8次尝试。",
+            "vault_status_title": "保险库状态",
+            "vault_status_active": "活跃",
+            "vault_status_locked": "已锁定",
+            "vault_status_empty": "空",
+            "lock_vault_title": "立即锁定保险库",
+            "lock_vault_description": "下次使用时需要PIN和生物识别验证。离开或将设备交给他人时使用。",
+            "vault_active_hint": "PIN和生物识别验证仅需每{{ interval }}分钟进行一次。会话将在{{ remaining }}分钟后过期。",
+            "vault_locked_hint": "下次使用时需要PIN和生物识别验证。",
+            "lock_vault_button": "锁定保险库",
+            "remove_keys_title": "从保险库移除密钥",
+            "remove_keys_description": "永久移除此设备上的所有密钥。您需要恢复ZelfProof才能再次使用。倒计时允许您在删除前取消。",
+            "remove_keys_button": "从保险库移除密钥",
+            "remove_keys_countdown_minutes": "密钥将在 {{ minutes }}分 {{ seconds }}秒 后移除",
+            "remove_keys_countdown_seconds": "密钥将在 {{ seconds }}秒 后移除",
+            "remove_keys_cancel": "取消"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "您还有时间购买",
         "expired_wallet_logout_message": "如果您通过标签名称搜索，可以再次解密此ZelfProof。但是，如果您不尽快购买，可能会失去它。",
         "logout_of_wallet_message": "如果您通过标签名称搜索或加载ZelfProof二维码，可以再次解密此ZelfProof。",
-        "purchase_new_domain": "添加新的标签名称"
+        "purchase_new_domain": "添加新的标签名称",
+        "zelfproof_removed_successfully": "ZelfProof 已成功移除"
     },
     "liveness": {
         "center_your_face": "将您的脸居中在屏幕上",
@@ -847,6 +882,7 @@
         "invalid_format": "无效的格式",
         "invalid_mnemonic": "助记词无效。请确保您的短语是有效的BIP-39序列（12、15、18、21或24个单词）。",
         "invalid_number_value": "无效的数值",
+        "invalid_pin": "PIN 无效。在需要使用生物识别登录之前，您还有{{remaining}}次尝试机会。",
         "invalid_password": "密码无效。在需要使用生物识别登录之前，您还有{{remaining}}次尝试机会。",
         "invalid_private_key": "私钥无效。",
         "liveness_failed_description": "抱歉，您的活体检测似乎出现了问题。",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "检测到恶意网站",
         "threat_warning": "此网站已被标记为恶意网站。为保护您的安全，已阻止连接。",
         "connect": "连接",
+        "connecting": "连接中...",
+        "connect_error": "连接失败。请重试。",
+        "connect_timeout": "连接时间超出预期。请重试。",
         "sign_message": "签名消息",
         "sign_transaction": "签名交易",
         "message_to_sign": "待签名消息",

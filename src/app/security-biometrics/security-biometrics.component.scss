@@ -36,4 +36,82 @@
         flex-grow: 1;
         width: 100%;
     }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(8, 10, 16, 0.6);
+        backdrop-filter: blur(12px);
+        transition: opacity 0.25s variables.$smoothBezier;
+        z-index: 20;
+    }
+
+    &__overlay-card {
+        min-width: 240px;
+        max-width: 320px;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        animation: overlayCardIn 0.35s variables.$smoothBezier;
+    }
+
+    &__overlay-check {
+        color: variables.$correct;
+        animation: checkmarkIn 0.4s variables.$smoothBezier 0.1s both;
+    }
+
+    &__overlay-text {
+        margin: 0;
+        text-align: center;
+        color: variables.$themeText;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22px;
+        animation: overlayTextIn 0.3s variables.$smoothBezier 0.15s both;
+    }
+}
+
+@keyframes overlayCardIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes checkmarkIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes overlayTextIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

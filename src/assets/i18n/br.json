@@ -542,6 +542,25 @@
         "language": {
             "description": "Escolha seu idioma preferido para o aplicativo."
         },
+        "dapps_label": "Conexões Dapps",
+        "dapps": {
+            "title": "Conexões Dapps",
+            "description": "Gerencie os aplicativos descentralizados conectados à sua carteira.",
+            "sites": "Sites",
+            "disconnect_all": "Desconectar tudo",
+            "disconnect": "Desconectar",
+            "permissions_accounts": "Ver suas contas e sugerir transações",
+            "permissions_networks": "Usar suas redes habilitadas",
+            "accounts": "conta",
+            "accounts_plural": "contas",
+            "networks": "redes",
+            "connected_with": "Conectado com",
+            "networks_connected": "redes conectadas",
+            "edit": "Editar",
+            "no_connections": "Nenhuma conexão ativa encontrada.",
+            "network_label": "Rede",
+            "unknown": "Desconhecido"
+        },
         "walletconnect_label": "Conectar por link",
         "walletconnect": {
             "title": "Conexões Dapps",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "Defina por quanto tempo a entrada apenas com senha é permitida antes que a verificação biométrica seja necessária. Você pode definir isso de 5 a 60 minutos.",
             "password_attempts_title": "Tentativas de senha",
             "minutes_before_reverification": "Minutos antes da reverificação",
-            "password_attempts_description": "Defina o número máximo de tentativas de senha falhas antes que a verificação biométrica seja necessária. Você pode definir isso de 1 a 8 tentativas."
+            "password_attempts_description": "Defina o número máximo de tentativas de senha falhas antes que a verificação biométrica seja necessária. Você pode definir isso de 1 a 8 tentativas.",
+            "vault_status_title": "Status do cofre",
+            "vault_status_active": "Ativo",
+            "vault_status_locked": "Bloqueado",
+            "vault_status_empty": "Vazio",
+            "lock_vault_title": "Bloquear cofre agora",
+            "lock_vault_description": "Exigir PIN e verificação biométrica no próximo uso. Use isso ao se afastar ou entregar o dispositivo a alguém.",
+            "vault_active_hint": "PIN e verificação biométrica são necessários apenas a cada {{ interval }} minutos. A sessão expira em {{ remaining }} minutos.",
+            "vault_locked_hint": "PIN e verificação biométrica serão necessários no próximo uso.",
+            "lock_vault_button": "Bloquear cofre",
+            "remove_keys_title": "Remover chaves do cofre",
+            "remove_keys_description": "Remover permanentemente todas as chaves deste dispositivo. Você precisará recuperar seu ZelfProof para usá-lo novamente. Uma contagem regressiva permite cancelar antes da exclusão.",
+            "remove_keys_button": "Remover chaves do cofre",
+            "remove_keys_countdown_minutes": "As chaves serão removidas em {{ minutes }}m {{ seconds }}s",
+            "remove_keys_countdown_seconds": "As chaves serão removidas em {{ seconds }}s",
+            "remove_keys_cancel": "Cancelar"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "Você ainda tem tempo para comprar",
         "expired_wallet_logout_message": "Você pode descriptografar este ZelfProof novamente se pesquisar pelo seu Nome da Tag. No entanto, você corre o risco de perdê-lo se não comprar em breve.",
         "logout_of_wallet_message": "Você pode descriptografar este ZelfProof novamente se pesquisar pelo seu Nome da Tag ou carregar seu código QR do ZelfProof.",
-        "purchase_new_domain": "Adicionar um novo Nome de Etiqueta"
+        "purchase_new_domain": "Adicionar um novo Nome de Etiqueta",
+        "zelfproof_removed_successfully": "ZelfProof removido com sucesso"
     },
     "liveness": {
         "center_your_face": "Centralize seu rosto na tela",
@@ -847,6 +882,7 @@
         "invalid_format": "Formato inválido",
         "invalid_mnemonic": "Mnemônico inválido. Certifique-se de que sua frase seja uma sequência BIP-39 válida (12, 15, 18, 21 ou 24 palavras).",
         "invalid_number_value": "Valor numérico inválido",
+        "invalid_pin": "PIN inválido. Você tem {{remaining}} tentativas restantes antes de precisar fazer login com biometria.",
         "invalid_password": "Senha inválida. Você tem {{remaining}} tentativas restantes antes de precisar fazer login com biometria.",
         "invalid_private_key": "Chave privada inválida.",
         "liveness_failed_description": "Desculpe, parece que houve um problema com sua detecção de vivacidade.",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "Site Malicioso Detectado",
         "threat_warning": "Este site foi sinalizado como malicioso. Conexão bloqueada para sua segurança.",
         "connect": "Conectar",
+        "connecting": "Conectando...",
+        "connect_error": "Falha na conexão. Por favor, tente novamente.",
+        "connect_timeout": "A conexão está demorando mais do que o esperado. Por favor, tente novamente.",
         "sign_message": "Assinar Mensagem",
         "sign_transaction": "Assinar Transação",
         "message_to_sign": "Mensagem a assinar",

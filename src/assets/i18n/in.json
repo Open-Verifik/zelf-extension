@@ -542,6 +542,25 @@
         "language": {
             "description": "एप्लिकेशन के लिए अपनी पसंदीदा भाषा चुनें।"
         },
+        "dapps_label": "Dapps कनेक्शन",
+        "dapps": {
+            "title": "Dapps कनेक्शन",
+            "description": "अपने वॉलेट से जुड़े विकेंद्रीकृत ऐप्स का प्रबंधन करें।",
+            "sites": "साइटें",
+            "disconnect_all": "सभी डिस्कनेक्ट करें",
+            "disconnect": "डिस्कनेक्ट करें",
+            "permissions_accounts": "अपने खाते देखें और लेनदेन सुझाएं",
+            "permissions_networks": "अपने सक्षम नेटवर्क का उपयोग करें",
+            "accounts": "खाता",
+            "accounts_plural": "खाते",
+            "networks": "नेटवर्क",
+            "connected_with": "के साथ जुड़ा",
+            "networks_connected": "जुड़े नेटवर्क",
+            "edit": "संपादित करें",
+            "no_connections": "कोई सक्रिय कनेक्शन नहीं मिला।",
+            "network_label": "नेटवर्क",
+            "unknown": "अज्ञात"
+        },
         "walletconnect_label": "लिंक के माध्यम से कनेक्ट करें",
         "walletconnect": {
             "title": "Dapps कनेक्शन",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "बायोमेट्रिक सत्यापन की आवश्यकता से पहले पासवर्ड-केवल प्रविष्टि की अनुमति कितनी देर तक है, इसे सेट करें। आप इसे 5 से 60 मिनट तक सेट कर सकते हैं।",
             "password_attempts_title": "पासवर्ड प्रयास",
             "minutes_before_reverification": "पुनः सत्यापन से पहले मिनट",
-            "password_attempts_description": "बायोमेट्रिक सत्यापन की आवश्यकता से पहले अधिकतम विफल पासवर्ड प्रयासों को सेट करें। आप इसे 1 से 8 प्रयासों तक सेट कर सकते हैं।"
+            "password_attempts_description": "बायोमेट्रिक सत्यापन की आवश्यकता से पहले अधिकतम विफल पासवर्ड प्रयासों को सेट करें। आप इसे 1 से 8 प्रयासों तक सेट कर सकते हैं।",
+            "vault_status_title": "वॉल्ट स्थिति",
+            "vault_status_active": "सक्रिय",
+            "vault_status_locked": "लॉक",
+            "vault_status_empty": "खाली",
+            "lock_vault_title": "अभी वॉल्ट लॉक करें",
+            "lock_vault_description": "अगले उपयोग में PIN और बायोमेट्रिक सत्यापन की आवश्यकता होगी। दूर जाते समय या डिवाइस किसी को देते समय उपयोग करें।",
+            "vault_active_hint": "PIN और बायोमेट्रिक सत्यापन केवल हर {{ interval }} मिनट में आवश्यक है। सत्र {{ remaining }} मिनट में समाप्त हो जाएगा।",
+            "vault_locked_hint": "अगले उपयोग में PIN और बायोमेट्रिक सत्यापन की आवश्यकता होगी।",
+            "lock_vault_button": "वॉल्ट लॉक करें",
+            "remove_keys_title": "वॉल्ट से कुंजियाँ हटाएं",
+            "remove_keys_description": "इस डिवाइस से सभी कुंजियाँ स्थायी रूप से हटा दें। ZelfProof का उपयोग करने के लिए पुनर्प्राप्त करना होगा। हटाने से पहले रद्द करने के लिए काउंटडाउन उपलब्ध है।",
+            "remove_keys_button": "वॉल्ट से कुंजियाँ हटाएं",
+            "remove_keys_countdown_minutes": "कुंजियाँ {{ minutes }}m {{ seconds }}s में हटा दी जाएंगी",
+            "remove_keys_countdown_seconds": "कुंजियाँ {{ seconds }}s में हटा दी जाएंगी",
+            "remove_keys_cancel": "रद्द करें"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "आपके पास अभी भी खरीदने का समय है",
         "expired_wallet_logout_message": "यदि आप अपने टैग नाम से खोजते हैं तो आप इस ZelfProof को फिर से डिक्रिप्ट कर सकते हैं। हालांकि, यदि आप जल्दी खरीद नहीं करते हैं तो आप इसे खोने का जोखिम उठाते हैं।",
         "logout_of_wallet_message": "यदि आप अपने टैग नाम से खोजते हैं, या अपना ZelfProof QR कोड लोड करते हैं तो आप इस ZelfProof को फिर से डिक्रिप्ट कर सकते हैं।",
-        "purchase_new_domain": "नया टैग नाम जोड़ें"
+        "purchase_new_domain": "नया टैग नाम जोड़ें",
+        "zelfproof_removed_successfully": "ZelfProof सफलतापूर्वक हटाया गया"
     },
     "liveness": {
         "center_your_face": "अपना चेहरा स्क्रीन के केंद्र में रखें",
@@ -847,6 +882,7 @@
         "invalid_format": "अमान्य प्रारूप",
         "invalid_mnemonic": "मेमोनिक अमान्य है। कृपया सुनिश्चित करें कि आपका वाक्यांश एक मान्य BIP-39 अनुक्रम है (12, 15, 18, 21 या 24 शब्द)।",
         "invalid_number_value": "अमान्य संख्या मान",
+        "invalid_pin": "अमान्य PIN। बायोमेट्रिक्स से लॉगिन करने से पहले आपके पास {{remaining}} प्रयास बाकी हैं।",
         "invalid_password": "अमान्य पासवर्ड। बायोमेट्रिक्स से लॉगिन करने से पहले आपके पास {{remaining}} प्रयास बाकी हैं।",
         "invalid_private_key": "निजी कुंजी अमान्य है।",
         "liveness_failed_description": "क्षमा करें, आपकी लाइवनेस पहचान में एक समस्या आ गई है।",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "दुर्भावनापूर्ण साइट का पता चला",
         "threat_warning": "इस साइट को दुर्भावनापूर्ण के रूप में चिह्नित किया गया है। आपकी सुरक्षा के लिए कनेक्शन अवरुद्ध कर दिया गया है।",
         "connect": "कनेक्ट करें",
+        "connecting": "कनेक्ट हो रहा है...",
+        "connect_error": "कनेक्शन विफल। कृपया पुनः प्रयास करें।",
+        "connect_timeout": "कनेक्शन अपेक्षा से अधिक समय ले रहा है। कृपया पुनः प्रयास करें।",
         "sign_message": "संदेश पर हस्ताक्षर करें",
         "sign_transaction": "लेनदेन पर हस्ताक्षर करें",
         "message_to_sign": "हस्ताक्षर करने के लिए संदेश",

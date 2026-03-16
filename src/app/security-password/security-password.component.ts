@@ -169,7 +169,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
 
     async storePassword(): Promise<void> {
         if (this.isPinUnlock) {
-            const pin = this.pinDigits.join("");
+            const pin = this.pinDigits.join("").trim();
             if (pin.length !== 6) return;
             this._vaultService.password = pin;
             this._vaultService.securityType = "pin";
@@ -352,7 +352,7 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
         } else if (this.pinStep === "confirm") {
             if (this.canContinuePin()) {
                 // PIN confirmed, save and continue
-                const pin = this.pinDigits.join("");
+                const pin = this.pinDigits.join("").trim();
                 this._vaultService.password = pin;
                 this._navigateToBiometrics();
             }

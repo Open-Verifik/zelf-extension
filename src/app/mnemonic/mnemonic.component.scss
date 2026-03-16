@@ -7,6 +7,51 @@
     margin: calc(16px * var(--zns-space-scale, 1)) 0 0;
 }
 
+:host-context(.private-key) {
+    margin: calc(10px * var(--zns-space-scale, 1)) 0 0;
+
+    .mnemonic {
+        gap: calc(14px * var(--zns-space-scale, 1));
+
+        .mnemonic__password-form {
+            gap: calc(10px * var(--zns-space-scale, 1));
+            padding: calc(10px * var(--zns-space-scale, 1));
+            margin: calc(10px * var(--zns-space-scale, 1)) 0;
+        }
+
+        .mnemonic__pin-subtitle {
+            margin: 0 0 calc(8px * var(--zns-space-scale, 1));
+        }
+
+        .mnemonic__pin-inputs-container {
+            gap: calc(8px * var(--zns-space-scale, 1));
+        }
+
+        .mnemonic__pin-inputs-row {
+            gap: calc(6px * var(--zns-space-scale, 1));
+        }
+
+        .mnemonic__pin-inputs {
+            gap: calc(4px * var(--zns-space-scale, 1));
+        }
+
+        .mnemonic__pin-input {
+            width: calc(28px * var(--zns-space-scale, 1));
+            height: calc(36px * var(--zns-space-scale, 1));
+            font-size: calc(14px * var(--zns-font-scale, 1));
+        }
+
+        .mnemonic__pin-toggle svg {
+            width: calc(16px * var(--zns-space-scale, 1));
+            height: calc(16px * var(--zns-space-scale, 1));
+        }
+
+        .mnemonic__actions {
+            gap: calc(6px * var(--zns-space-scale, 1));
+        }
+    }
+}
+
 .mnemonic {
     position: relative;
     width: 100%;
@@ -121,6 +166,43 @@
             height: calc(20px * var(--zns-space-scale, 1));
             fill: variables.$themeTextSecondary;
         }
+    }
+
+    &__decrypting {
+        width: 100%;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 16px;
+        margin: calc(16px * var(--zns-space-scale, 1)) 0;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        box-shadow: 0 4px 20px variables.$themeShadow;
+        animation: decryptingIn 0.3s variables.$smoothBezier;
+    }
+
+    &__decrypting-text {
+        margin: 0;
+        color: variables.$themeText;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        text-align: center;
+    }
+}
+
+@keyframes decryptingIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

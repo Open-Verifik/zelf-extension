@@ -118,6 +118,7 @@
                             formControlName="password"
                             id="dapp-sign-password"
                             [placeholder]="t('common.password')"
+                            (input)="clearCredentialError()"
                         />
                         <button (click)="toggleShowPassword()" class="dapp-sign__password-toggle" type="button">
                             <span class="material-symbols-outlined">{{ showPassword ? 'visibility' : 'visibility_off' }}</span>

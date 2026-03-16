@@ -542,6 +542,25 @@
         "language": {
             "description": "Pumili ng iyong gustong wika para sa application."
         },
+        "dapps_label": "Mga koneksyon ng Dapps",
+        "dapps": {
+            "title": "Mga koneksyon ng Dapps",
+            "description": "Pamahalaan ang mga decentralized app na nakakonekta sa iyong wallet.",
+            "sites": "Mga site",
+            "disconnect_all": "Idiskonekta ang lahat",
+            "disconnect": "Idiskonekta",
+            "permissions_accounts": "Tingnan ang iyong mga account at magmungkahi ng mga transaksyon",
+            "permissions_networks": "Gamitin ang iyong mga naka-enable na network",
+            "accounts": "account",
+            "accounts_plural": "mga account",
+            "networks": "mga network",
+            "connected_with": "Nakakonekta sa",
+            "networks_connected": "mga nakakonektang network",
+            "edit": "I-edit",
+            "no_connections": "Walang nahanap na aktibong koneksyon.",
+            "network_label": "Network",
+            "unknown": "Hindi alam"
+        },
         "walletconnect_label": "Kumonekta sa pamamagitan ng link",
         "walletconnect": {
             "title": "Dapps Connections",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "I-set kung gaano katagal pinapayagan ang password-only entry bago kailanganin ang biometric verification. Maaari mong i-set ito mula 5 hanggang 60 minuto.",
             "password_attempts_title": "Password attempts",
             "minutes_before_reverification": "Minuto bago ang reverification",
-            "password_attempts_description": "I-set ang maximum na failed password attempts bago kailanganin ang biometric verification. Maaari mong i-set ito mula 1 hanggang 8 attempts."
+            "password_attempts_description": "I-set ang maximum na failed password attempts bago kailanganin ang biometric verification. Maaari mong i-set ito mula 1 hanggang 8 attempts.",
+            "vault_status_title": "Status ng vault",
+            "vault_status_active": "Aktibo",
+            "vault_status_locked": "Naka-lock",
+            "vault_status_empty": "Walang laman",
+            "lock_vault_title": "I-lock ang vault ngayon",
+            "lock_vault_description": "Kailangan ng PIN at biometric verification sa susunod na paggamit. Gamitin ito kapag umaalis o ibinibigay ang device sa iba.",
+            "vault_active_hint": "Ang PIN at biometric verification ay kailangan lamang bawat {{ interval }} minuto. Mag-e-expire ang session sa {{ remaining }} minuto.",
+            "vault_locked_hint": "Kailangan ng PIN at biometric verification sa susunod na paggamit.",
+            "lock_vault_button": "I-lock ang vault",
+            "remove_keys_title": "Alisin ang mga key mula sa vault",
+            "remove_keys_description": "Permanenteng alisin ang lahat ng key mula sa device na ito. Kakailanganin mong i-recover ang iyong ZelfProof para magamit ito muli. Ang countdown ay nagbibigay-daan sa iyong kanselahin bago ang pagtanggal.",
+            "remove_keys_button": "Alisin ang mga key mula sa vault",
+            "remove_keys_countdown_minutes": "Aalisin ang mga key sa {{ minutes }}m {{ seconds }}s",
+            "remove_keys_countdown_seconds": "Aalisin ang mga key sa {{ seconds }}s",
+            "remove_keys_cancel": "Kanselahin"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "May oras ka pa para bumili",
         "expired_wallet_logout_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag. Gayunpaman, nasa panganib ka na mawala ito kung hindi ka agad bibili.",
         "logout_of_wallet_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag, o i-load ang iyong ZelfProof QR code.",
-        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag"
+        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag",
+        "zelfproof_removed_successfully": "Matagumpay na naalis ang ZelfProof"
     },
     "liveness": {
         "center_your_face": "I-center ang iyong mukha sa screen",
@@ -847,6 +882,7 @@
         "invalid_format": "Hindi valid ang format",
         "invalid_mnemonic": "Hindi valid ang mnemonic. Siguraduhing valid na BIP-39 sequence (12, 15, 18, 21, o 24 na salita) ang iyong parirala.",
         "invalid_number_value": "Hindi valid ang halaga ng numero",
+        "invalid_pin": "Hindi valid ang PIN. May {{remaining}} pang pagtatangka bago ka kailangang mag-login gamit ang biometrics.",
         "invalid_password": "Hindi valid ang password. May {{remaining}} pang pagtatangka bago ka kailangang mag-login gamit ang biometrics.",
         "invalid_private_key": "Hindi valid ang private key.",
         "liveness_failed_description": "Paumanhin, may problema sa pag-detect ng iyong liveness.",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "Nadetect ang Malisyosong Site",
         "threat_warning": "Ang site na ito ay minarkahan bilang malisyoso. Ang koneksyon ay hinadlangan para sa iyong kaligtasan.",
         "connect": "Ikonekta",
+        "connecting": "Kumokonekta...",
+        "connect_error": "Nabigo ang koneksyon. Pakisubukang muli.",
+        "connect_timeout": "Mas matagal ang koneksyon kaysa inaasahan. Pakisubukang muli.",
         "sign_message": "Pirmahan ang Mensahe",
         "sign_transaction": "Pirmahan ang Transaksyon",
         "message_to_sign": "Mensahe na pipirmahan",

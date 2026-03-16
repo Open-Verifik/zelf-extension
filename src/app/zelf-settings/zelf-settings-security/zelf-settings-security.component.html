@@ -1,5 +1,43 @@
 <form [formGroup]="form" class="zelf-settings-security" *transloco="let t">
     <div class="zelf-card__content zelf-settings-security__content">
+
+        <div class="zelf-settings-security__vault-card" *ngIf="vaultStatus !== null" [ngClass]="'zelf-settings-security__vault-card--' + vaultStatus">
+            <div class="zelf-settings-security__vault-row">
+                <div class="zelf-settings-security__vault-icon">
+                    <svg *ngIf="vaultStatus === 'active'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z" fill="currentColor"/>
+                    </svg>
+                    <svg *ngIf="vaultStatus === 'locked'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM15.1 8H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z" fill="currentColor"/>
+                    </svg>
+                    <svg *ngIf="vaultStatus === 'empty'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-4h2v-2h-2v2zm0-10h2v6h-2V6z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="zelf-settings-security__vault-info">
+                    <span class="zelf-settings-security__vault-label">{{ t("settings.security.vault_status_title") }}</span>
+                    <span class="zelf-settings-security__vault-value">{{ t("settings.security.vault_status_" + vaultStatus) }}</span>
+                </div>
+            </div>
+            <p class="zelf-settings-security__vault-hint" *ngIf="vaultStatus === 'active'">{{ t("settings.security.vault_active_hint", { interval: settings.security.biometricVerificationInterval, remaining: sessionRemainingMinutes }) }}</p>
+            <div class="zelf-settings-security__session-bar" *ngIf="vaultStatus === 'active'">
+                <div class="zelf-settings-security__session-bar-fill" [style.width.%]="sessionProgressPercent"></div>
+            </div>
+            <p class="zelf-settings-security__vault-hint" *ngIf="vaultStatus === 'locked'">{{ t("settings.security.vault_locked_hint") }}</p>
+            <button
+                *ngIf="vaultStatus === 'active'"
+                type="button"
+                class="zelf-button zelf-button--primary zelf-button--wide"
+                mat-flat-button
+                (click)="lockVault()"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM15.1 8H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z" fill="currentColor"/>
+                </svg>
+                <span>{{ t("settings.security.lock_vault_button") }}</span>
+            </button>
+        </div>
+
         <div class="zelf-settings-security__box">
             <h4 class="zelf-settings-security__title">{{ t("settings.security.biometric_verification_title") }}</h4>
 

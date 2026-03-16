@@ -52,11 +52,11 @@
                     </div>
                     <div class="zelf-settings-dapps__site-info">
                         <p class="zelf-settings-dapps__site-title">{{ site.hostname }}</p>
-                        <p class="zelf-settings-dapps__site-meta">{{ shortenAddress(site.accounts[0]) }} • Network {{ site.chainId || "Unknown" }}</p>
+                        <p class="zelf-settings-dapps__site-meta">{{ shortenAddress(site.accounts[0]) }} • {{ t("settings.dapps.network_label") }} {{ site.chainId || t("settings.dapps.unknown") }}</p>
                     </div>
                 </div>
                 <div class="zelf-settings-dapps__site-col2">
-                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/" svg>
+                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" fill="#A8A8A8" />
                     </svg>
                 </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="zelf-settings-dapps__permission-info">
                     <p class="title">{{ t("settings.dapps.permissions_networks") }}</p>
-                    <p class="meta">Network {{ selectedSite.chainId || "Unknown" }}</p>
+                    <p class="meta">{{ t("settings.dapps.network_label") }} {{ selectedSite.chainId || t("settings.dapps.unknown") }}</p>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import { environment } from "environments/environment";
 import {
     Transaction,
     TransactionDetailModel,
+    TransactionModel,
     BitcoinTransactionModel,
     SuiTransactionModel,
     BlockDAGTransactionModel,
@@ -21,6 +22,7 @@ import { BlockDAGService } from "./blockdag.service";
 import { BscService } from "./bsc.service";
 import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
+import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
 import { TagModel } from "app/tags.service";
 
@@ -36,6 +38,7 @@ export class BlockchainTransactionsService {
         private _ethereumService: EthereumService,
         private _polygonService: PolygonService,
         private _solanaService: SolanaService,
+        private _stellarService: StellarService,
         private _suiService: SuiService
     ) {}
 
@@ -61,6 +64,17 @@ export class BlockchainTransactionsService {
         if (responses.blockdag?.data?.transactions) transactions.push(...responses.blockdag.data.transactions);
         if (responses.polygon?.data?.transactions) transactions.push(...responses.polygon.data.transactions);
         if (responses.solana?.data?.transactions) transactions.push(...responses.solana.data.transactions);
+        if (responses.stellar?.data?.transactions) {
+            const stellarPrice = parseFloat(responses.stellar.data.account?.price || "0") || 0;
+            transactions.push(
+                ...responses.stellar.data.transactions.map((tx: any) => ({
+                    ...tx,
+                    network: "stellar",
+                    gasFee: parseFloat(tx.fee || 0) || 0,
+                    fiatAmount: (tx.amount || 0) * stellarPrice,
+                }))
+            );
+        }
         if (responses.sui?.data?.transactions) transactions.push(...responses.sui.data.transactions);
 
         return transactions;
@@ -153,6 +167,7 @@ export class BlockchainTransactionsService {
         if (network === "ethereum") return `http://etherscan.io/tx/${hash}`;
         if (network === "polygon") return `https://polygonscan.com/tx/${hash}`;
         if (network === "solana") return `https://solscan.io/tx/${hash}`;
+        if (network === "stellar") return `https://stellar.expert/explorer/public/tx/${hash}`;
         if (network === "sui") return `https://suiscan.xyz/tx/${hash}`;
 
         return "";
@@ -196,6 +211,10 @@ export class BlockchainTransactionsService {
                 isEnabled("solana") && wallet.publicData?.solanaAddress
                     ? from(this._solanaService.getWalletDetails(wallet.publicData?.solanaAddress)).pipe(catchError(() => of(null)))
                     : of(null),
+            stellar:
+                isEnabled("stellar") && wallet.publicData?.stellarAddress
+                    ? from(this._stellarService.getWalletDetails(wallet.publicData?.stellarAddress)).pipe(catchError(() => of(null)))
+                    : of(null),
             sui:
                 isEnabled("sui") && wallet.publicData?.suiAddress
                     ? from(this._suiService.getWalletDetails(wallet.publicData?.suiAddress)).pipe(catchError(() => of(null)))
@@ -211,6 +230,7 @@ export class BlockchainTransactionsService {
                     blockdag: responses.blockdag,
                     polygon: responses.polygon,
                     solana: responses.solana,
+                    stellar: responses.stellar,
                     sui: responses.sui,
                     transactions: this._processTransactions(responses),
                 };
@@ -249,6 +269,12 @@ export class BlockchainTransactionsService {
             }
         }
 
+        if (wallet.publicData?.stellarAddress) {
+            if (token === "XLM") {
+                observable = forkJoin({ stellar: from(this._stellarService.getWalletDetails(wallet.publicData?.stellarAddress)) });
+            }
+        }
+
         return observable
             ? observable.pipe(
                   map((responses) => {
@@ -261,6 +287,7 @@ export class BlockchainTransactionsService {
                           blockdag: responses.blockdag,
                           polygon: responses.polygon,
                           solana: responses.solana,
+                          stellar: responses.stellar,
                           sui: responses.sui,
                           transactions: this._processTransactions(responses),
                       };
@@ -317,11 +344,40 @@ export class BlockchainTransactionsService {
                           catchError(() => of(null))
                       )
                     : of(null),
+            stellar:
+                isEnabled("stellar") && wallet.publicData?.stellarAddress
+                    ? from(this._stellarService.requestTransactionHistory(wallet.publicData?.stellarAddress, pagination)).pipe(
+                          catchError(() => of(null))
+                      )
+                    : of(null),
             sui:
                 isEnabled("sui") && wallet.publicData?.suiAddress
                     ? from(this._suiService.requestTransactionHistory(wallet.publicData?.suiAddress, pagination)).pipe(catchError(() => of(null)))
                     : of(null),
         }).pipe(map((responses) => this._processTransactions(responses)));
+    }
+
+    private _stellarTxToTransaction(data: any): Transaction {
+        const STROOPS_TO_XLM = 1 / 10_000_000;
+        if (data.hash && typeof data.traffic === "string") {
+            return new TransactionModel({ ...data, network: "stellar", gasFee: parseFloat(data.fee || 0) || 0 }) as Transaction;
+        }
+        const created = data.created_at ? new Date(data.created_at) : new Date();
+        const feeXLM = ((parseInt(data.fee_charged || 0, 10) || 0) * STROOPS_TO_XLM).toString();
+        return new TransactionModel({
+            hash: data.hash || data.id || "",
+            from: data.source_account || "",
+            to: null,
+            amount: 0,
+            asset: "XLM",
+            date: created.toISOString().slice(0, 10),
+            age: "",
+            gasFee: parseFloat(feeXLM) || 0,
+            status: data.successful ? "Success" : "Failed",
+            traffic: "",
+            network: "stellar",
+            fiatAmount: 0,
+        }) as Transaction;
     }
 
     processTransactionResponse(response: any, network: string): Transaction | null {
@@ -338,6 +394,8 @@ export class BlockchainTransactionsService {
             case "polygon":
             case "solana":
                 return new TransactionDetailModel(response.data).toTransaction();
+            case "stellar":
+                return this._stellarTxToTransaction(response.data);
             case "blockdag":
                 return new BlockDAGTransactionModel(response.data).toTransaction();
             case "sui":
@@ -370,6 +428,9 @@ export class BlockchainTransactionsService {
                     break;
                 case "solana":
                     promise = this._solanaService.requestTransactionDetails(hash);
+                    break;
+                case "stellar":
+                    promise = this._stellarService.requestTransactionDetails(hash);
                     break;
                 case "bitcoin":
                     promise = this._bitcoinService.requestTransactionDetails(hash);

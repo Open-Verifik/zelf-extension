@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 
@@ -10,14 +11,20 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { VerifyStatus, getChainConfig, SUPPORTED_CHAINS } from "@shared/types/dapp.types";
 import { getPreferredChainIdForOrigin } from "@shared/services/dapp-mapping.service";
 
+const CONNECT_TIMEOUT_MS = 15000;
+
 @Component({
-    imports: [CommonModule, MatButtonModule, TranslocoModule, ZelfLoaderComponent],
+    imports: [CommonModule, MatButtonModule, MatProgressBarModule, TranslocoModule, ZelfLoaderComponent],
     selector: "dapp-connect",
     templateUrl: "./dapp-connect.component.html",
     styleUrls: ["./dapp-connect.component.scss"],
 })
-export class DappConnectComponent implements OnInit {
+export class DappConnectComponent implements OnInit, OnDestroy {
     loading = true;
+    isConnecting = false;
+    connectError: "error" | "timeout" | null = null;
+    private _userActionTaken = false;
+    private _beforeUnloadHandler = () => this._rejectIfNoUserAction();
     requestId = "";
     origin = "";
     hostname = "";
@@ -83,6 +90,28 @@ export class DappConnectComponent implements OnInit {
         }
 
         this.loading = false;
+
+        // When user closes popup without Approve/Reject, send rejection so dApp gets immediate feedback
+        window.addEventListener("beforeunload", this._beforeUnloadHandler);
+    }
+
+    ngOnDestroy(): void {
+        window.removeEventListener("beforeunload", this._beforeUnloadHandler);
+        this._rejectIfNoUserAction();
+    }
+
+    private _rejectIfNoUserAction(): void {
+        if (this._userActionTaken || !this.requestId) return;
+        this._userActionTaken = true;
+        try {
+            chrome.runtime.sendMessage({
+                type: "DAPP_APPROVAL_RESULT",
+                payload: { requestId: this.requestId, approved: false },
+                requestId: this.requestId,
+            });
+        } catch {
+            // Extension context may be invalidated
+        }
     }
 
     get selectedAccounts(): string[] {
@@ -155,27 +184,53 @@ export class DappConnectComponent implements OnInit {
     }
 
     async approve(): Promise<void> {
-        if (this.isThreat || this.selectedAccounts.length === 0) return;
+        if (this.isThreat || this.selectedAccounts.length === 0 || this.isConnecting) return;
+        this._userActionTaken = true;
+        this.isConnecting = true;
+        this.connectError = null;
+
+        const sendPromise = chrome.runtime.sendMessage({
+            type: "DAPP_APPROVAL_RESULT",
+            payload: {
+                requestId: this.requestId,
+                approved: true,
+                accounts: this.selectedAccounts,
+                chainId: this.chainId,
+            },
+            requestId: this.requestId,
+        });
 
         try {
-            await chrome.runtime.sendMessage({
-                type: "DAPP_APPROVAL_RESULT",
-                payload: {
-                    requestId: this.requestId,
-                    approved: true,
-                    accounts: this.selectedAccounts,
-                    chainId: this.chainId,
-                },
-                requestId: this.requestId,
-            });
+            await this._sendWithTimeout(sendPromise, CONNECT_TIMEOUT_MS);
+            window.close();
         } catch (error) {
-            console.error("Error sending approval:", error);
+            const isTimeout = error instanceof Error && error.message === "CONNECT_TIMEOUT";
+            if (isTimeout) {
+                console.warn("Connection timed out after", CONNECT_TIMEOUT_MS / 1000, "seconds");
+            } else {
+                console.error("Error sending approval:", error);
+            }
+            this.connectError = isTimeout ? "timeout" : "error";
+            this.isConnecting = false;
+            this._userActionTaken = false;
         }
+    }
 
-        window.close();
+    clearConnectError(): void {
+        this.connectError = null;
+    }
+
+    private _sendWithTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+        return Promise.race([
+            promise,
+            new Promise<never>((_, reject) =>
+                setTimeout(() => reject(new Error("CONNECT_TIMEOUT")), ms)
+            ),
+        ]);
     }
 
     async reject(): Promise<void> {
+        this._userActionTaken = true;
         try {
             await chrome.runtime.sendMessage({
                 type: "DAPP_APPROVAL_RESULT",

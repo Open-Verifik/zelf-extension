@@ -271,13 +271,7 @@ export class DappSignComponent implements OnInit {
             console.error("Signing error:", error);
 
             if (/incorrect/i.test(error?.message)) {
-                this.passwordError = true;
-                this.remainingAttempts = this._vaultService.remainingAttempts;
-                if (this.isPinUnlock) {
-                    this.pinDigits = ["", "", "", "", "", ""];
-                } else {
-                    this.form.get("password")?.setValue("");
-                }
+                await this._handleInvalidCredentials();
             } else {
                 this._openErrorSnackBar(error?.message || "Signing failed");
             }
@@ -301,6 +295,27 @@ export class DappSignComponent implements OnInit {
         }
 
         window.close();
+    }
+
+    private async _handleInvalidCredentials(): Promise<void> {
+        this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
+        this.remainingAttempts = this._vaultService.remainingAttempts;
+        this.passwordSet = false;
+        this._password = "";
+        this._vaultService.password = "";
+
+        if (this.isPinUnlock) {
+            this.pinDigits = ["", "", "", "", "", ""];
+        } else {
+            this.form.get("password")?.setValue("");
+        }
+
+        await this._checkBiometrics();
+
+        const missingVaultSecrets = !this.wallet?.pgp?.encryptedMessage || !this.wallet?.pgp?.privateKey;
+        this.passwordError = !this.requiresBiometrics && !missingVaultSecrets;
+
+        this._changeDetectorRef.detectChanges();
     }
 
     private _isMessageMethod(method: string): boolean {
@@ -471,6 +486,7 @@ export class DappSignComponent implements OnInit {
     onPinInput(event: Event, index: number): void {
         const input = event.target as HTMLInputElement;
         const value = input.value;
+        this.passwordError = false;
 
         if (value.length > 1) {
             const digits = value.slice(0, 6).split("");
@@ -517,5 +533,9 @@ export class DappSignComponent implements OnInit {
 
     trackByIndex(index: number): number {
         return index;
+    }
+
+    clearCredentialError(): void {
+        this.passwordError = false;
     }
 }

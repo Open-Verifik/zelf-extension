@@ -542,6 +542,25 @@
         "language": {
             "description": "Choisissez votre langue préférée pour l'application."
         },
+        "dapps_label": "Connexions Dapps",
+        "dapps": {
+            "title": "Connexions Dapps",
+            "description": "Gérez les applications décentralisées connectées à votre portefeuille.",
+            "sites": "Sites",
+            "disconnect_all": "Tout déconnecter",
+            "disconnect": "Déconnecter",
+            "permissions_accounts": "Voir vos comptes et suggérer des transactions",
+            "permissions_networks": "Utiliser vos réseaux activés",
+            "accounts": "compte",
+            "accounts_plural": "comptes",
+            "networks": "réseaux",
+            "connected_with": "Connecté avec",
+            "networks_connected": "réseaux connectés",
+            "edit": "Modifier",
+            "no_connections": "Aucune connexion active trouvée.",
+            "network_label": "Réseau",
+            "unknown": "Inconnu"
+        },
         "walletconnect_label": "Connexion par lien",
         "walletconnect": {
             "title": "Connexions Dapps",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "Définissez combien de temps l'entrée par mot de passe uniquement est autorisée avant qu'une vérification biométrique ne soit nécessaire. Vous pouvez définir cela de 5 à 60 minutes.",
             "password_attempts_title": "Tentatives de mot de passe",
             "minutes_before_reverification": "Minutes avant reverification",
-            "password_attempts_description": "Définissez le nombre maximum de tentatives de mot de passe échouées avant qu'une vérification biométrique ne soit requise. Vous pouvez définir cela de 1 à 8 tentatives."
+            "password_attempts_description": "Définissez le nombre maximum de tentatives de mot de passe échouées avant qu'une vérification biométrique ne soit requise. Vous pouvez définir cela de 1 à 8 tentatives.",
+            "vault_status_title": "État du coffre",
+            "vault_status_active": "Actif",
+            "vault_status_locked": "Verrouillé",
+            "vault_status_empty": "Vide",
+            "lock_vault_title": "Verrouiller le coffre maintenant",
+            "lock_vault_description": "Exiger le PIN et la vérification biométrique à la prochaine utilisation. Utilisez ceci lorsque vous vous éloignez ou confiez l'appareil à quelqu'un.",
+            "vault_active_hint": "Le PIN et la vérification biométrique ne sont requis que toutes les {{ interval }} minutes. La session expire dans {{ remaining }} minutes.",
+            "vault_locked_hint": "Le PIN et la vérification biométrique seront requis à la prochaine utilisation.",
+            "lock_vault_button": "Verrouiller le coffre",
+            "remove_keys_title": "Supprimer les clés du coffre",
+            "remove_keys_description": "Supprimer définitivement toutes les clés de cet appareil. Vous devrez récupérer votre ZelfProof pour l'utiliser à nouveau. Un compte à rebours vous permet d'annuler avant la suppression.",
+            "remove_keys_button": "Supprimer les clés du coffre",
+            "remove_keys_countdown_minutes": "Les clés seront supprimées dans {{ minutes }}m {{ seconds }}s",
+            "remove_keys_countdown_seconds": "Les clés seront supprimées dans {{ seconds }}s",
+            "remove_keys_cancel": "Annuler"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "Vous avez encore du temps pour acheter",
         "expired_wallet_logout_message": "Vous pouvez décrypter ce ZelfProof à nouveau si vous le recherchez par votre Nom d'Étiquette. Cependant, vous risquez de le perdre si vous n'achetez pas bientôt.",
         "logout_of_wallet_message": "Vous pouvez décrypter ce ZelfProof à nouveau si vous le recherchez par votre Nom d'Étiquette, ou charger votre code QR ZelfProof.",
-        "purchase_new_domain": "Ajouter un nouveau Nom d'Étiquette"
+        "purchase_new_domain": "Ajouter un nouveau Nom d'Étiquette",
+        "zelfproof_removed_successfully": "ZelfProof supprimé avec succès"
     },
     "liveness": {
         "center_your_face": "Centre votre visage sur l'écran",
@@ -847,6 +882,7 @@
         "invalid_format": "Format invalide",
         "invalid_mnemonic": "La phrase mnémonique n'est pas valide. Assurez-vous qu'il s'agit d'une séquence BIP-39 valide (12, 15, 18, 21 ou 24 mots).",
         "invalid_number_value": "Valeur numérique invalide",
+        "invalid_pin": "PIN invalide. Il vous reste {{remaining}} tentatives avant de devoir vous connecter avec la biométrie.",
         "invalid_password": "Mot de passe invalide. Il vous reste {{remaining}} tentatives avant de devoir vous connecter avec la biométrie.",
         "invalid_private_key": "La clé privée n'est pas valide.",
         "liveness_failed_description": "Désolé, il semble y avoir eu un problème avec votre détection de vivacité.",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "Site Malveillant Détecté",
         "threat_warning": "Ce site a été signalé comme malveillant. Connexion bloquée pour votre sécurité.",
         "connect": "Connecter",
+        "connecting": "Connexion en cours...",
+        "connect_error": "Échec de la connexion. Veuillez réessayer.",
+        "connect_timeout": "La connexion prend plus de temps que prévu. Veuillez réessayer.",
         "sign_message": "Signer le Message",
         "sign_transaction": "Signer la Transaction",
         "message_to_sign": "Message à signer",

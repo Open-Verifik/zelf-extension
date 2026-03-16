@@ -542,6 +542,25 @@
         "language": {
             "description": "اختر لغتك المفضلة للتطبيق."
         },
+        "dapps_label": "اتصالات Dapps",
+        "dapps": {
+            "title": "اتصالات Dapps",
+            "description": "إدارة التطبيقات اللامركزية المتصلة بمحفظتك.",
+            "sites": "المواقع",
+            "disconnect_all": "قطع الاتصال بالكامل",
+            "disconnect": "قطع الاتصال",
+            "permissions_accounts": "عرض حساباتك واقتراح المعاملات",
+            "permissions_networks": "استخدام شبكاتك المفعّلة",
+            "accounts": "حساب",
+            "accounts_plural": "حسابات",
+            "networks": "شبكات",
+            "connected_with": "متصل بـ",
+            "networks_connected": "شبكات متصلة",
+            "edit": "تعديل",
+            "no_connections": "لم يتم العثور على اتصالات نشطة.",
+            "network_label": "شبكة",
+            "unknown": "غير معروف"
+        },
         "walletconnect_label": "الاتصال عبر الرابط",
         "walletconnect": {
             "title": "اتصالات Dapps",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "حدد المدة المسموح بها لإدخال كلمة المرور فقط قبل الحاجة إلى التحقق البيومتري. يمكنك تعيين هذا من 5 إلى 60 دقيقة.",
             "password_attempts_title": "محاولات كلمة المرور",
             "minutes_before_reverification": "دقائق قبل إعادة التحقق",
-            "password_attempts_description": "حدد الحد الأقصى لمحاولات كلمة المرور الفاشلة قبل الحاجة إلى التحقق البيومتري. يمكنك تعيين هذا من 1 إلى 8 محاولات."
+            "password_attempts_description": "حدد الحد الأقصى لمحاولات كلمة المرور الفاشلة قبل الحاجة إلى التحقق البيومتري. يمكنك تعيين هذا من 1 إلى 8 محاولات.",
+            "vault_status_title": "حالة الخزنة",
+            "vault_status_active": "نشط",
+            "vault_status_locked": "مقفل",
+            "vault_status_empty": "فارغ",
+            "lock_vault_title": "قفل الخزنة الآن",
+            "lock_vault_description": "يتطلب رمز PIN والتحقق البيومتري عند الاستخدام التالي. استخدم عند المغادرة أو إعطاء الجهاز لشخص آخر.",
+            "vault_active_hint": "رمز PIN والتحقق البيومتري مطلوبان فقط كل {{ interval }} دقائق. تنتهي الجلسة خلال {{ remaining }} دقائق.",
+            "vault_locked_hint": "سيتطلب رمز PIN والتحقق البيومتري عند الاستخدام التالي.",
+            "lock_vault_button": "قفل الخزنة",
+            "remove_keys_title": "إزالة المفاتيح من الخزنة",
+            "remove_keys_description": "إزالة جميع المفاتيح نهائياً من هذا الجهاز. ستحتاج إلى استعادة ZelfProof لاستخدامه مرة أخرى. العد التنازلي يسمح بالإلغاء قبل الحذف.",
+            "remove_keys_button": "إزالة المفاتيح من الخزنة",
+            "remove_keys_countdown_minutes": "ستتم إزالة المفاتيح خلال {{ minutes }}د {{ seconds }}ث",
+            "remove_keys_countdown_seconds": "ستتم إزالة المفاتيح خلال {{ seconds }}ث",
+            "remove_keys_cancel": "إلغاء"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "لا يزال لديك وقت للشراء",
         "expired_wallet_logout_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك. ومع ذلك، فإنك تخاطر بفقدانه إذا لم تشتري قريبًا.",
         "logout_of_wallet_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك، أو قمت بتحميل رمز QR الخاص بزيلف بروف.",
-        "purchase_new_domain": "إضافة اسم العلامة جديد"
+        "purchase_new_domain": "إضافة اسم العلامة جديد",
+        "zelfproof_removed_successfully": "تم إزالة ZelfProof بنجاح"
     },
     "liveness": {
         "center_your_face": "ضع وجهك في منتصف الشاشة",
@@ -847,6 +882,7 @@
         "invalid_format": "تنسيق غير صالح",
         "invalid_mnemonic": "العبارة التذكيرية غير صالحة. يرجى التأكد من أن عبارتك هي تسلسل BIP-39 صالح (12 أو 15 أو 18 أو 21 أو 24 كلمة).",
         "invalid_number_value": "قيمة رقمية غير صالحة",
+        "invalid_pin": "رمز PIN غير صالح. لديك {{remaining}} محاولات متبقية قبل أن يُطلب منك تسجيل الدخول باستخدام القياسات الحيوية.",
         "invalid_password": "كلمة مرور غير صالحة. لديك {{remaining}} محاولات متبقية قبل أن يُطلب منك تسجيل الدخول باستخدام القياسات الحيوية.",
         "invalid_private_key": "المفتاح الخاص غير صالح.",
         "liveness_failed_description": "عذراً، يبدو أن هناك مشكلة في كشف الحيوية الخاص بك.",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "تم اكتشاف موقع ضار",
         "threat_warning": "تم الإبلاغ عن هذا الموقع كموقع ضار. تم حظر الاتصال من أجل سلامتك.",
         "connect": "اتصال",
+        "connecting": "جاري الاتصال...",
+        "connect_error": "فشل الاتصال. يرجى المحاولة مرة أخرى.",
+        "connect_timeout": "يستغرق الاتصال وقتًا أطول من المتوقع. يرجى المحاولة مرة أخرى.",
         "sign_message": "توقيع الرسالة",
         "sign_transaction": "توقيع المعاملة",
         "message_to_sign": "الرسالة للتوقيع",

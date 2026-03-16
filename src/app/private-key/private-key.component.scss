@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: calc(16px * var(--zns-space-scale, 1));
+    padding: calc(10px * var(--zns-space-scale, 1));
 }
 
 .private-key {
@@ -15,7 +15,7 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: calc(16px * var(--zns-space-scale, 1));
+    gap: calc(10px * var(--zns-space-scale, 1));
     max-width: min(400px, var(--zns-card-width, 400px));
 
     &__exit {
@@ -60,14 +60,14 @@
     &__body {
         display: flex;
         flex-direction: column;
-        gap: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(10px * var(--zns-space-scale, 1));
         width: 100%;
         justify-content: center;
         align-items: center;
     }
 
     &__icon {
-        margin-top: calc(28px * var(--zns-space-scale, 1));
+        margin-top: calc(16px * var(--zns-space-scale, 1));
         fill: variables.$themeText;
     }
 
@@ -77,7 +77,7 @@
         font-family: variables.$themeTitleFamily;
         color: variables.$themeText;
         text-transform: uppercase;
-        margin: calc(12px * var(--zns-space-scale, 1)) 0 0;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
     }
 
     &__text {
@@ -88,7 +88,7 @@
 
     &__actions {
         width: 100%;
-        margin-top: calc(16px * var(--zns-space-scale, 1));
+        margin-top: calc(10px * var(--zns-space-scale, 1));
         display: flex;
         gap: calc(8px * var(--zns-space-scale, 1));
         flex-direction: column;

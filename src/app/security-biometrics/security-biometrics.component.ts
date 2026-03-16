@@ -44,6 +44,8 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     form!: UntypedFormGroup;
     isNew: boolean = false;
     loading: boolean = true;
+    apiLoading: boolean = false;
+    apiSuccess: boolean = false;
     newTagName: string = "";
     returnState: string = "";
     showBiometrics: boolean = true;
@@ -97,6 +99,39 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
+    private async _showSuccessAndContinue(callback: () => Promise<void> | void): Promise<void> {
+        this.apiLoading = false;
+        this.apiSuccess = true;
+
+        await new Promise((resolve) => setTimeout(resolve, 1200));
+
+        await callback();
+    }
+
+    get apiLoadingTextKey(): string {
+        switch (this.flow) {
+            case "create":
+                return "security.creating_wallet";
+            case "import":
+                return "security.importing_wallet";
+            case "recover":
+                return "security.recovering_wallet";
+            default:
+                return "security.retrieving_vault";
+        }
+    }
+
+    get apiSuccessTextKey(): string {
+        switch (this.flow) {
+            case "create":
+            case "import":
+            case "recover":
+                return "security.wallet_created";
+            default:
+                return "security.vault_unlocked";
+        }
+    }
+
     async _createTag(payload: any): Promise<void> {
         const mnemonicCount = (await this._tagsService.getMnemonicCount()) || 12;
 
@@ -116,8 +151,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 const newWallet = new TagModel({ ...tagObject, pgp });
                 await this._walletService.switchWallet(newWallet);
-
-                this._redirect();
+                await this._showSuccessAndContinue(() => this._redirect());
             })
             .catch(this.onBiometricsFailed);
     }
@@ -139,8 +173,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 const newWallet = new TagModel(response.data);
                 await this._walletService.switchWallet(newWallet);
-
-                this._redirect();
+                await this._showSuccessAndContinue(() => this._redirect());
             })
             .catch(this.onBiometricsFailed);
     }
@@ -164,8 +197,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 const newWallet = new TagModel({ ...tagObject, pgp });
                 await this._walletService.switchWallet(newWallet);
-
-                this._redirect();
+                await this._showSuccessAndContinue(() => this._redirect());
             })
             .catch(this.onBiometricsFailed);
     }
@@ -187,11 +219,12 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
                 const newWallet = new TagModel({ ...tagObject, pgp });
                 await this._walletService.switchWallet(newWallet);
-
-                this._bottomSheet.open(ReserveDoneSheetComponent, {
-                    backdropClass: "zelf-backdrop",
-                    panelClass: "zelf-bottom-sheet",
-                    data: { tagName: this.newTagName },
+                await this._showSuccessAndContinue(() => {
+                    this._bottomSheet.open(ReserveDoneSheetComponent, {
+                        backdropClass: "zelf-backdrop",
+                        panelClass: "zelf-bottom-sheet",
+                        data: { tagName: this.newTagName },
+                    });
                 });
             })
             .catch(this.onBiometricsFailed);
@@ -229,6 +262,9 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     onBiometricsFailed = (exception: any): void => {
+        this.apiLoading = false;
+        this.apiSuccess = false;
+
         const errorBody = exception?.error || {};
         const message = errorBody.message || errorBody.error;
 
@@ -237,6 +273,9 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     };
 
     onBiometricsScanned = async (encryptedImage: string): Promise<void> => {
+        this.apiLoading = true;
+        this.apiSuccess = false;
+
         const referralTagName = await this._tagsService.getReferral();
 
         const domain = await this._tagsService.getDomain();

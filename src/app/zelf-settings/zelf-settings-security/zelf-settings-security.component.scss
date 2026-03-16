@@ -44,4 +44,131 @@
     &__input {
         width: 100%;
     }
+
+    // -- Vault status card --
+    &__vault-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid variables.$themeCardBorder;
+        background: variables.$themeCard;
+        margin-top: 8px;
+        animation: vaultCardIn 0.3s variables.$smoothBezier;
+
+        &--active {
+            border-color: variables.$correct;
+            background: linear-gradient(
+                135deg,
+                rgba(30, 164, 70, 0.04) 0%,
+                variables.$themeCard 100%
+            );
+
+            .zelf-settings-security__vault-icon {
+                background: rgba(30, 164, 70, 0.12);
+                color: variables.$correct;
+            }
+
+            .zelf-settings-security__vault-value {
+                color: variables.$correct;
+            }
+        }
+
+        &--locked {
+            .zelf-settings-security__vault-icon {
+                background: variables.$themeCardBorder;
+                color: variables.$themeTextSecondary;
+            }
+
+            .zelf-settings-security__vault-value {
+                color: variables.$themeTextSecondary;
+            }
+        }
+
+        &--empty {
+            .zelf-settings-security__vault-icon {
+                background: variables.$themeCardBorder;
+                color: variables.$themeTextMuted;
+            }
+
+            .zelf-settings-security__vault-value {
+                color: variables.$themeTextMuted;
+            }
+        }
+    }
+
+    &__vault-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__vault-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    &__vault-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__vault-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        color: variables.$themeTextMuted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__vault-value {
+        font-family: variables.$themeBodyFamily;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 20px;
+    }
+
+    &__vault-hint {
+        font-family: variables.$themeBodyFamily;
+        font-size: 13px;
+        line-height: 18px;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+    }
+
+    &__session-bar {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: variables.$themeCardBorder;
+        overflow: hidden;
+    }
+
+    &__session-bar-fill {
+        height: 100%;
+        background: variables.$correct;
+        border-radius: 3px;
+        transition: width 1s linear;
+    }
+
+}
+
+@keyframes vaultCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

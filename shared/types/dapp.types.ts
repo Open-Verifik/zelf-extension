@@ -30,6 +30,7 @@ export type DappMessageType =
     | "WC_READY"
     | "WC_EVENT"
     | "DAPP_CLEANUP_REQUESTS"
+    | "DAPP_CANCEL_PENDING_FOR_ORIGIN"
     | "DAPP_FORCE_DISCONNECT_SITE"
     | "DAPP_FORCE_DISCONNECT_ALL";
 

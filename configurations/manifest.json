@@ -8,6 +8,7 @@
     "orientation": "portrait",
     "permissions": [
         "activeTab",
+        "tabs",
         "clipboardWrite",
         "clipboardRead",
         "storage",
@@ -15,7 +16,7 @@
         "offscreen",
         "notifications"
     ],
-    "version": "2.0.70",
+    "version": "2.0.78",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"

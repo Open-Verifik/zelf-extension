@@ -10,8 +10,7 @@ import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { SettingsService } from "app/services/settings.service";
-import { ZelfNameService } from "app/zelf-name-service.service";
-import { TagModel } from "app/tags.service";
+import { TagModel, TagsService } from "app/tags.service";
 
 @Component({
     imports: [NgIf, NgFor, NgTemplateOutlet, RouterLink, TranslocoModule, MatButtonModule, AddressMaskPipe, ZelfLoaderComponent],
@@ -26,7 +25,7 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
     constructor(
         private _walletService: WalletService,
         private _settingsService: SettingsService,
-        private _zelfNameService: ZelfNameService,
+        private _tagsService: TagsService,
         public _chromeService: ChromeService,
         public _snackBar: MatSnackBar,
         public _translocoService: TranslocoService
@@ -44,7 +43,7 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
         const wallet = (await this._walletService.getCurrentWallet()) as TagModel | null;
 
         if (wallet?.tagName) {
-            await this._zelfNameService.refreshWalletPublicData(wallet);
+            await this._tagsService.refreshTagPublicData(wallet);
         }
 
         const allNetworks = await this._walletService.getAvailableWalletNetworks();

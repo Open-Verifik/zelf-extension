@@ -132,28 +132,53 @@ export class TokenDetailComponent implements AfterViewInit, OnDestroy {
         return `$ ${new TruncateNumberPipe().transform(circulatingSupplyInFiat)}`;
     }
 
+    get formattedBalance(): string {
+        const raw = this.asset.amount ?? 0;
+        const amount = typeof raw === "string" ? parseFloat(raw) : raw;
+        const abs = Math.abs(amount);
+
+        if (isNaN(amount) || abs === 0) return "0";
+        if (abs >= 10_000) return amount.toLocaleString("en-US", { maximumFractionDigits: 2 });
+        if (abs >= 1) return amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+        if (abs >= 0.0001) return amount.toLocaleString("en-US", { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+        return amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 8 });
+    }
+
     get networkSymbol(): string {
         return this._networkService.getNetworkSymbol(this.asset.network?.toLowerCase() as NetworkName);
     }
 
+    get hasValidChartData(): boolean {
+        return !!this.chartData && this.chartData.length >= 2;
+    }
+
+    get hasValidPriceChangeData(): boolean {
+        if (this.hasValidChartData) return true;
+
+        const symbol = (this.asset?.symbol || "").toUpperCase();
+        if (symbol === "BDAG") return false;
+
+        const pct = this.details?.price?.priceChangePercentage24h;
+        return typeof pct === "number" && pct > -100 && pct < 1000;
+    }
+
     get priceChangePercentage(): number {
-        if (!this.chartData || this.chartData.length < 2) {
+        if (!this.hasValidChartData) {
             return this.details.price.priceChangePercentage24h || 0;
         }
 
-        const firstValue = this.chartData[0].open;
-        const lastValue = this.chartData[this.chartData.length - 1].close;
+        const firstValue = this.chartData![0].open;
+        const lastValue = this.chartData![this.chartData!.length - 1].close;
 
+        if (!firstValue) return 0;
         return ((lastValue - firstValue) / firstValue) * 100;
     }
 
-    get priceChangeToken(): number {
-        if (!this.chartData || this.chartData.length < 2) {
-            return this.details.about.information.volumeChangePercentage24h || 0;
-        }
+    get priceChangeUsd(): number {
+        if (!this.hasValidChartData) return 0;
 
-        const firstValue = this.chartData[0].open;
-        const lastValue = this.chartData[this.chartData.length - 1].close;
+        const firstValue = this.chartData![0].open;
+        const lastValue = this.chartData![this.chartData!.length - 1].close;
 
         return lastValue - firstValue;
     }

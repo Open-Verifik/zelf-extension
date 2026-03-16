@@ -30,11 +30,11 @@
                 {{ t("common.your_token", { symbol: asset.symbol }) }}
             </div>
 
-            <h3 class="token-detail__amount">{{ asset.amount | number: "1.1-8" }} {{ asset.symbol }}</h3>
+            <h3 class="token-detail__amount">{{ formattedBalance }} {{ asset.symbol }}</h3>
 
             <p class="token-detail__price">{{ asset.price | currency: "USD" : "symbol" : "1.2-5" }}</p>
 
-            <div class="token-detail__intervals">
+            <div class="token-detail__intervals" *ngIf="hasValidChartData || loadingChart">
                 <p class="token-detail__interval-label">{{ t("token.price_detail") }}</p>
 
                 <div
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="chart-box">
+            <div class="chart-box" [ngClass]="{ 'chart-box--minimal': !hasValidChartData && !loadingChart }">
                 <img [src]="asset.image" (error)="onIconError()" alt="icon" class="chart-box__image" />
 
                 <div class="chart-box__inner">
@@ -55,8 +55,8 @@
                         <ng-container *ngIf="!loadingDetails && details">
                             <h5 class="chart-box__fiat">{{ details.price.price | currency: "USD" : "symbol" : "1.2-4" }}</h5>
 
-                            <div class="chart-box__lower">
-                                <p class="chart-box__percentage">{{ priceChangeToken | number: "1.1-3" }} {{ details.about.symbol }}</p>
+                            <div class="chart-box__lower" *ngIf="hasValidPriceChangeData">
+                                <p class="chart-box__percentage" *ngIf="hasValidChartData">{{ priceChangeUsd | currency: "USD" : "symbol" : "1.2-6" }}</p>
 
                                 <p
                                     class="diff-chip"
@@ -76,7 +76,7 @@
 
                     <div class="chart-box__right" #chartContainer [class.hidden]="!chartData"></div>
                     <div class="chart-box__right" [class.hidden]="loadingChart || chartData">
-                        <p class="chart-box__percentage">{{ t("errors.chart_not_found") }}</p>
+                        <p class="chart-box__percentage chart-box__percentage--muted">{{ t("errors.chart_not_found") }}</p>
                     </div>
                 </div>
             </div>

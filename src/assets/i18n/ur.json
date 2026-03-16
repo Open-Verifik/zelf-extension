@@ -542,6 +542,25 @@
         "language": {
             "description": "ایپلیکیشن کے لیے اپنی پسندیدہ زبان منتخب کریں۔"
         },
+        "dapps_label": "Dapps کنکشن",
+        "dapps": {
+            "title": "Dapps کنکشنز",
+            "description": "والٹ سے منسلک غیر مرکزیت والے ایپس کا انتظام کریں۔",
+            "sites": "سائٹس",
+            "disconnect_all": "سب منقطع کریں",
+            "disconnect": "منقطع کریں",
+            "permissions_accounts": "اپنے اکاؤنٹس دیکھیں اور لین دین کی تجویز کریں",
+            "permissions_networks": "اپنے فعال نیٹ ورکس استعمال کریں",
+            "accounts": "اکاؤنٹ",
+            "accounts_plural": "اکاؤنٹس",
+            "networks": "نیٹ ورکس",
+            "connected_with": "سے منسلک",
+            "networks_connected": "منسلک نیٹ ورکس",
+            "edit": "ترمیم کریں",
+            "no_connections": "کوئی فعال کنکشن نہیں ملا۔",
+            "network_label": "نیٹ ورک",
+            "unknown": "نامعلوم"
+        },
         "walletconnect_label": "لنک کے ذریعے منسلک کریں",
         "walletconnect": {
             "title": "Dapps کنکشنز",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "طے کریں کہ بایومیٹرک توثیق کی ضرورت سے پہلے صرف پاس ورڈ کی اندراج کتنی دیر تک کی اجازت ہے۔ آپ اسے 5 سے 60 منٹ تک سیٹ کر سکتے ہیں۔",
             "password_attempts_title": "پاس ورڈ کی کوششیں",
             "minutes_before_reverification": "دوبارہ توثیق سے پہلے منٹ",
-            "password_attempts_description": "بایومیٹرک توثیق کی ضرورت سے پہلے زیادہ سے زیادہ ناکام پاس ورڈ کی کوششیں طے کریں۔ آپ اسے 1 سے 8 کوششوں تک سیٹ کر سکتے ہیں۔"
+            "password_attempts_description": "بایومیٹرک توثیق کی ضرورت سے پہلے زیادہ سے زیادہ ناکام پاس ورڈ کی کوششیں طے کریں۔ آپ اسے 1 سے 8 کوششوں تک سیٹ کر سکتے ہیں۔",
+            "vault_status_title": "والٹ کی حیثیت",
+            "vault_status_active": "فعال",
+            "vault_status_locked": "لاک",
+            "vault_status_empty": "خالی",
+            "lock_vault_title": "ابھی والٹ لاک کریں",
+            "lock_vault_description": "اگلے استعمال میں PIN اور بائیومیٹرک توثیق کی ضرورت ہوگی۔ دور جانے یا ڈیوائس کسی کو دیتے وقت استعمال کریں۔",
+            "vault_active_hint": "PIN اور بائیومیٹرک توثیق صرف ہر {{ interval }} منٹ میں درکار ہے۔ سیشن {{ remaining }} منٹ میں ختم ہو جائے گا۔",
+            "vault_locked_hint": "اگلے استعمال میں PIN اور بائیومیٹرک توثیق کی ضرورت ہوگی۔",
+            "lock_vault_button": "والٹ لاک کریں",
+            "remove_keys_title": "والٹ سے چابیاں ہٹائیں",
+            "remove_keys_description": "اس ڈیوائس سے تمام چابیاں مستقل طور پر ہٹا دیں۔ ZelfProof دوبارہ استعمال کرنے کے لیے بحال کرنا ہوگا۔ حذف سے پہلے منسوخ کرنے کے لیے کاؤنٹ ڈاؤن دستیاب ہے۔",
+            "remove_keys_button": "والٹ سے چابیاں ہٹائیں",
+            "remove_keys_countdown_minutes": "چابیاں {{ minutes }}m {{ seconds }}s میں ہٹا دی جائیں گی",
+            "remove_keys_countdown_seconds": "چابیاں {{ seconds }}s میں ہٹا دی جائیں گی",
+            "remove_keys_cancel": "منسوخ کریں"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "آپ کے پاس ابھی بھی خریدنے کا وقت ہے",
         "expired_wallet_logout_message": "آپ اس زیلف پروف کو دوبارہ ڈیکریپٹ کر سکتے ہیں اگر آپ اپنے ٹیگ نام سے تلاش کریں۔ تاہم، اگر آپ جلد خریداری نہیں کرتے تو آپ اسے کھونے کا خطرہ مول لیتے ہیں۔",
         "logout_of_wallet_message": "آپ اس زیلف پروف کو دوبارہ ڈیکریپٹ کر سکتے ہیں اگر آپ اپنے ٹیگ نام سے تلاش کریں، یا اپنا زیلف پروف کیو آر کوڈ لوڈ کریں۔",
-        "purchase_new_domain": "نیا ٹیگ نام شامل کریں"
+        "purchase_new_domain": "نیا ٹیگ نام شامل کریں",
+        "zelfproof_removed_successfully": "زیلف پروف کامیابی سے ہٹا دیا گیا"
     },
     "liveness": {
         "center_your_face": "اپنا چہرہ اسکرین کے درمیان میں رکھیں",
@@ -847,6 +882,7 @@
         "invalid_format": "غلط فارمیٹ",
         "invalid_mnemonic": "میمونک درست نہیں ہے۔ براہ کرم یقینی بنائیں کہ آپ کا جملہ ایک درست BIP-39 ترتیب ہے (12، 15، 18، 21 یا 24 الفاظ)۔",
         "invalid_number_value": "غلط نمبر کی قیمت",
+        "invalid_pin": "غلط PIN۔ بائیومیٹرکس سے لاگ ان کرنے سے پہلے آپ کے پاس {{remaining}} کوششیں باقی ہیں۔",
         "invalid_password": "غلط پاس ورڈ۔ بائیومیٹرکس سے لاگ ان کرنے سے پہلے آپ کے پاس {{remaining}} کوششیں باقی ہیں۔",
         "invalid_private_key": "پرائیویٹ کلید درست نہیں ہے۔",
         "liveness_failed_description": "معذرت، آپ کی لائیو نیس کی شناخت میں ایک مسئلہ لگتا ہے۔",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "بدنیتی والی سائٹ کا پتہ چلا",
         "threat_warning": "اس سائٹ کو بدنیتی والی کے طور پر نشان زد کیا گیا ہے۔ آپ کی حفاظت کے لیے کنکشن بلاک کر دیا گیا ہے۔",
         "connect": "منسلک کریں",
+        "connecting": "منسلک ہو رہا ہے...",
+        "connect_error": "کنکشن ناکام ہو گیا۔ براہ کرم دوبارہ کوشش کریں۔",
+        "connect_timeout": "کنکشن توقع سے زیادہ وقت لے رہا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
         "sign_message": "پیغام پر دستخط کریں",
         "sign_transaction": "لین دین پر دستخط کریں",
         "message_to_sign": "دستخط کرنے کے لیے پیغام",

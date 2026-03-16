@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
@@ -11,14 +11,16 @@ import { ChromeService } from "app/chrome.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { TagModel } from "app/tags.service";
+import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
 @Component({
-    imports: [CommonModule, TranslocoModule, MatInputModule, MatButtonModule, RouterModule, ReactiveFormsModule],
+    imports: [CommonModule, TranslocoModule, MatInputModule, MatButtonModule, RouterModule, ReactiveFormsModule, ZelfLoaderComponent],
     selector: "mnemonic",
     styleUrls: ["./mnemonic.component.scss"],
     templateUrl: "./mnemonic.component.html",
 })
 export class MnemonicComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
+    @Input() hideCancelButton = false;
     @Output() redirect: EventEmitter<void> = new EventEmitter<void>();
 
     private _password: string = "";
@@ -31,6 +33,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     remainingAttempts: number = 0;
     showPassword: boolean = false;
     showPasswordForm: boolean = false;
+    isDecrypting: boolean = false;
     words: string[] = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
     wallet: Partial<TagModel> = {};
     requiresBiometrics: boolean = false;
@@ -101,6 +104,8 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     async _prepareWords(): Promise<void> {
         if (this._password === undefined || this._password === null || !this.wallet) return this.hideMnemonics();
 
+        this.isDecrypting = true;
+
         try {
             let decrypted;
 
@@ -129,6 +134,8 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
             this.passwordError = !!this.wallet?.pgp?.encryptedMessage && !!this.wallet?.pgp?.privateKey;
 
             this.hideMnemonics();
+        } finally {
+            this.isDecrypting = false;
         }
     }
 
@@ -244,7 +251,7 @@ export class MnemonicComponent extends CopyToClipboardBase implements OnInit, On
     submitPin(): void {
         if (!this.canSubmitPin()) return;
 
-        const pin = this.pinDigits.join("");
+        const pin = this.pinDigits.join("").trim();
 
         if (this.canUnlockWithPasswordOnly) {
             this._password = pin;

@@ -542,6 +542,25 @@
         "language": {
             "description": "애플리케이션의 기본 언어를 선택하세요."
         },
+        "dapps_label": "Dapps 연결",
+        "dapps": {
+            "title": "Dapps 연결",
+            "description": "지갑에 연결된 탈중앙화 애플리케이션을 관리합니다.",
+            "sites": "사이트",
+            "disconnect_all": "모두 연결 해제",
+            "disconnect": "연결 해제",
+            "permissions_accounts": "계정 보기 및 거래 제안",
+            "permissions_networks": "활성화된 네트워크 사용",
+            "accounts": "계정",
+            "accounts_plural": "계정",
+            "networks": "네트워크",
+            "connected_with": "연결됨",
+            "networks_connected": "연결된 네트워크",
+            "edit": "편집",
+            "no_connections": "활성 연결을 찾을 수 없습니다.",
+            "network_label": "네트워크",
+            "unknown": "알 수 없음"
+        },
         "walletconnect_label": "링크로 연결",
         "walletconnect": {
             "title": "Dapps 연결",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "생체 인증이 필요하기 전에 비밀번호만으로 접근할 수 있는 시간을 설정하세요. 5분에서 60분 사이로 설정할 수 있습니다.",
             "password_attempts_title": "비밀번호 시도 횟수",
             "minutes_before_reverification": "재인증 전 시간(분)",
-            "password_attempts_description": "생체 인증이 필요하기 전의 최대 비밀번호 실패 시도 횟수를 설정하세요. 1회에서 8회 사이로 설정할 수 있습니다."
+            "password_attempts_description": "생체 인증이 필요하기 전의 최대 비밀번호 실패 시도 횟수를 설정하세요. 1회에서 8회 사이로 설정할 수 있습니다.",
+            "vault_status_title": "금고 상태",
+            "vault_status_active": "활성",
+            "vault_status_locked": "잠김",
+            "vault_status_empty": "비어 있음",
+            "lock_vault_title": "지금 금고 잠그기",
+            "lock_vault_description": "다음 사용 시 PIN 및 생체 인증이 필요합니다. 자리를 비우거나 기기를 다른 사람에게 넘길 때 사용하세요.",
+            "vault_active_hint": "PIN 및 생체 인증은 {{ interval }}분마다만 필요합니다. 세션은 {{ remaining }}분 후에 만료됩니다.",
+            "vault_locked_hint": "다음 사용 시 PIN 및 생체 인증이 필요합니다.",
+            "lock_vault_button": "금고 잠그기",
+            "remove_keys_title": "금고에서 키 제거",
+            "remove_keys_description": "이 기기에서 모든 키를 영구적으로 제거합니다. ZelfProof를 다시 사용하려면 복구해야 합니다. 삭제 전에 취소할 수 있는 카운트다운이 제공됩니다.",
+            "remove_keys_button": "금고에서 키 제거",
+            "remove_keys_countdown_minutes": "{{ minutes }}분 {{ seconds }}초 후 키가 제거됩니다",
+            "remove_keys_countdown_seconds": "{{ seconds }}초 후 키가 제거됩니다",
+            "remove_keys_cancel": "취소"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "아직 구매할 시간이 있습니다",
         "expired_wallet_logout_message": "태그 이름으로 검색하면 이 ZelfProof를 다시 복호화할 수 있습니다. 그러나 곧 구매하지 않으면 잃을 위험이 있습니다.",
         "logout_of_wallet_message": "태그 이름으로 검색하거나 ZelfProof QR 코드를 로드하여 이 ZelfProof를 다시 복호화할 수 있습니다.",
-        "purchase_new_domain": "새 태그 이름 추가"
+        "purchase_new_domain": "새 태그 이름 추가",
+        "zelfproof_removed_successfully": "ZelfProof가 성공적으로 제거되었습니다"
     },
     "liveness": {
         "center_your_face": "화면 중앙에 얼굴을 위치시키세요",
@@ -847,6 +882,7 @@
         "invalid_format": "유효하지 않은 형식",
         "invalid_mnemonic": "니모닉이 유효하지 않습니다. 유효한 BIP-39 시퀀스(12, 15, 18, 21, 24단어)인지 확인하세요.",
         "invalid_number_value": "유효하지 않은 숫자 값",
+        "invalid_pin": "유효하지 않은 PIN입니다. 생체 인증으로 로그인해야 하기 전에 {{remaining}}번의 시도 기회가 남았습니다.",
         "invalid_password": "유효하지 않은 비밀번호입니다. 생체 인증으로 로그인해야 하기 전에 {{remaining}}번의 시도 기회가 남았습니다.",
         "invalid_private_key": "개인키가 유효하지 않습니다.",
         "liveness_failed_description": "죄송합니다. 생체 감지에 문제가 있었습니다.",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "악성 사이트 감지됨",
         "threat_warning": "이 사이트는 악성 사이트로 표시되었습니다. 귀하의 안전을 위해 연결이 차단되었습니다.",
         "connect": "연결",
+        "connecting": "연결 중...",
+        "connect_error": "연결에 실패했습니다. 다시 시도해 주세요.",
+        "connect_timeout": "연결이 예상보다 오래 걸리고 있습니다. 다시 시도해 주세요.",
         "sign_message": "메시지 서명",
         "sign_transaction": "트랜잭션 서명",
         "message_to_sign": "서명할 메시지",

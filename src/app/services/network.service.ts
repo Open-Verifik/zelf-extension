@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "app/chrome.service";
 
-export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin" | "binance" | "blockdag" | "polygon" | "Bitcoin" | "bitcoinTestnet";
+export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin" | "binance" | "blockdag" | "polygon" | "stellar" | "Bitcoin" | "bitcoinTestnet";
 export type NetworkSymbol =
     | "eth"
     | "sol"
@@ -19,6 +19,7 @@ export type NetworkSymbol =
     | "BDAG"
     | "BNB"
     | "POL"
+    | "XLM"
     | "BTCTEST";
 
 @Injectable({
@@ -45,6 +46,8 @@ export class NetworkService {
                 return "BNB";
             case "solana":
                 return "SOL";
+            case "stellar":
+                return "XLM";
             default:
                 return "";
         }
@@ -72,6 +75,8 @@ export class NetworkService {
                 return "binance";
             case "POL":
                 return "polygon";
+            case "XLM":
+                return "stellar";
             default:
                 console.warn(`NetworkService: No name mapping for symbol: ${symbol}`);
                 return "";
@@ -132,6 +137,9 @@ export class NetworkService {
             case "binance":
             case "BNB":
                 return "./assets/networks/bnb.png";
+            case "stellar":
+            case "XLM":
+                return "./assets/icons/xlm_logo.svg";
             case "polygon":
             case "POL":
                 return "./assets/networks/pol.png";

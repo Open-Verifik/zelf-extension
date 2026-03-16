@@ -708,15 +708,15 @@ export class WalletService {
     }
 
     async setWalletsToColdStorage(): Promise<void> {
-        const wallet = await this._chromeService.getItem<TagModel | null>("wallet");
+        const storedWallet = await this._chromeService.getItem<TagModel | null>("wallet");
 
-        if (!wallet?.publicData?.tagName) return;
+        if (!storedWallet?.publicData?.tagName) return;
+
+        const wallet = new TagModel(storedWallet);
 
         const wallets = await this.getWalletsFromStorage();
 
-        const walletExistsInWallets = wallets.some((_wallet) => {
-            wallet.fullTagName === _wallet.fullTagName;
-        });
+        const walletExistsInWallets = wallets.some((_wallet) => wallet.fullTagName === _wallet.fullTagName);
 
         if (!walletExistsInWallets) wallets.unshift(wallet);
 

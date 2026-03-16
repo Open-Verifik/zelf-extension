@@ -37,7 +37,7 @@ describe("CtaSheetComponent", () => {
     beforeEach(async () => {
         mockBottomSheetRef = jasmine.createSpyObj("MatBottomSheetRef", ["dismiss"]);
         mockRouter = jasmine.createSpyObj("Router", ["navigate"]);
-        mockTagService = jasmine.createSpyObj("ZelfNameService", ["searchZelfNameV2"]);
+        mockTagService = jasmine.createSpyObj("ZelfNameService", []);
 
         await TestBed.configureTestingModule({
             imports: [CtaSheetComponent, TranslocoTestingModule, MatBottomSheetModule, MatDialogModule, RouterModule, NoopAnimationsModule],

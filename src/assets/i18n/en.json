@@ -557,14 +557,31 @@
             "connected_with": "Connected with",
             "networks_connected": "networks connected",
             "edit": "Edit",
-            "no_connections": "No active connections found."
+            "no_connections": "No active connections found.",
+            "network_label": "Network",
+            "unknown": "Unknown"
         },
         "security": {
             "biometric_verification_title": "Biometric verification interval",
             "biometric_verification_description": "Set how long password-only entry is allowed before biometric verification is needed. You can set this from 5 to 60 minutes.",
             "password_attempts_title": "Password attempts",
             "minutes_before_reverification": "Minutes before reverification",
-            "password_attempts_description": "Set maximum failed password attempts before biometric verification is required. You can set this from 1 to 8 attempts."
+            "password_attempts_description": "Set maximum failed password attempts before biometric verification is required. You can set this from 1 to 8 attempts.",
+            "vault_status_title": "Vault status",
+            "vault_status_active": "Active",
+            "vault_status_locked": "Locked",
+            "vault_status_empty": "Empty",
+            "lock_vault_title": "Lock vault now",
+            "lock_vault_description": "Require PIN and biometric verification on next use. Use this when stepping away or handing the device to someone.",
+            "vault_active_hint": "PIN and biometric verification are only required every {{ interval }} minutes. Session expires in {{ remaining }} minutes.",
+            "vault_locked_hint": "PIN and biometric verification will be required on next use.",
+            "lock_vault_button": "Lock vault",
+            "remove_keys_title": "Remove keys from vault",
+            "remove_keys_description": "Permanently remove all keys from this device. You will need to recover your ZelfProof to use it again. A countdown allows you to cancel before deletion.",
+            "remove_keys_button": "Remove keys from vault",
+            "remove_keys_countdown_minutes": "Keys will be removed in {{ minutes }}m {{ seconds }}s",
+            "remove_keys_countdown_seconds": "Keys will be removed in {{ seconds }}s",
+            "remove_keys_cancel": "Cancel"
         }
     },
     "security": {
@@ -599,7 +616,11 @@
         "create_pin_title": "CREATE A PIN",
         "create_pin_subtitle": "Please enter a 6 digit password for your ZelfProof.",
         "confirm_pin_title": "CONFIRM PIN",
-        "confirm_pin_subtitle": "Please re-enter the 6 digit password for your ZelfProof."
+        "confirm_pin_subtitle": "Please re-enter the 6 digit password for your ZelfProof.",
+        "retrieving_vault": "Retrieving vault...",
+        "decrypting_vault": "Decrypting vault...",
+        "vault_unlocked": "Vault unlocked!",
+        "wallet_created": "Wallet ready!"
     },
     "receive": {
         "information": "This address can only be used to receive compatible tokens.",
@@ -809,7 +830,8 @@
         "domain_warning": "You still have time to buy",
         "expired_wallet_logout_message": "You can decrypt this ZelfProof again if you search by your Tag Name. However, you risk losing it if you don't purchase soon.",
         "logout_of_wallet_message": "You can decrypt this ZelfProof again if you search by your Tag Name, or load your ZelfProof QR code.",
-        "purchase_new_domain": "Add a new Tag Name"
+        "purchase_new_domain": "Add a new Tag Name",
+        "zelfproof_removed_successfully": "ZelfProof removed successfully"
     },
     "liveness": {
         "center_your_face": "Center your face on the screen",
@@ -853,6 +875,7 @@
         "invalid_format": "Invalid format",
         "invalid_mnemonic": "Mnemonic is invalid. Please ensure your phrase is a valid BIP-39 sequence (12, 15, 18, 21, or 24 words).",
         "invalid_number_value": "Invalid number value",
+        "invalid_pin": "Invalid PIN. You have {{remaining}} attempts left before you will be required to login with biometrics.",
         "invalid_password": "Invalid password. You have {{remaining}} attempts left before you will be required to login with biometrics.",
         "invalid_private_key": "Private key is invalid.",
         "liveness_failed_description": "Sorry, there seems to have been a problem with your liveness detection.",
@@ -1736,6 +1759,9 @@
         "threat_warning_title": "Malicious Site Detected",
         "threat_warning": "This site has been flagged as malicious. Connection blocked for your safety.",
         "connect": "Connect",
+        "connecting": "Connecting...",
+        "connect_error": "Connection failed. Please try again.",
+        "connect_timeout": "Connection is taking longer than expected. Please try again.",
         "sign_message": "Sign Message",
         "sign_transaction": "Sign Transaction",
         "message_to_sign": "Message to sign",

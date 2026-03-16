@@ -43,7 +43,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
 
     selectedSettings: "networks" | "security" | "language" | "dapps" | "" = "";
     settingsItems: {
-        title: string;
+        text: string;
         icon: string;
         routerLink: string[];
         queryParams: Record<string, string>;
@@ -84,7 +84,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => this._setSettingItems());
+        this._setSettingItems();
     }
 
     private _createDialogRef(): MatDialogRef<ConfirmationDialogComponent> {
@@ -104,7 +104,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
     private _setSettingItems() {
         this.settingsItems = [
             {
-                title: this._translocoService.translate("settings.networks_label"),
+                text: "settings.networks_label",
                 icon: "networksIcon",
                 routerLink: ["./"],
                 queryParams: {
@@ -112,7 +112,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 },
             },
             {
-                title: this._translocoService.translate("settings.security_label"),
+                text: "settings.security_label",
                 icon: "securityIcon",
                 routerLink: ["./"],
                 queryParams: {
@@ -120,7 +120,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 },
             },
             {
-                title: this._translocoService.translate("settings.language_label"),
+                text: "settings.language_label",
                 icon: "languageIcon",
                 routerLink: ["./"],
                 queryParams: {
@@ -128,7 +128,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 },
             },
             {
-                title: this._translocoService.translate("settings.dapps_label"),
+                text: "settings.dapps_label",
                 icon: "dappsConnectionsIcon",
                 routerLink: ["./"],
                 queryParams: {
@@ -136,7 +136,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 },
             },
             {
-                title: this._translocoService.translate("settings.subscription_label"),
+                text: "settings.subscription_label",
                 icon: "subscriptionIcon",
                 routerLink: ["/zelf-keys/billing"],
                 queryParams: {

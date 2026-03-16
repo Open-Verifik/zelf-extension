@@ -167,4 +167,11 @@ export class VaultService {
 
         await this._chromeService.setItem("lastVerified", newLastVerified);
     }
+
+    async lockVault(): Promise<void> {
+        this._password = "";
+        this._password$.next();
+        this._lastVerified = 0;
+        await this._chromeService.setItem("lastVerified", 0);
+    }
 }

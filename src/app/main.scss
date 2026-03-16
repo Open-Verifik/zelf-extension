@@ -918,14 +918,14 @@ h3 {
 
 .zelf-card {
     box-sizing: border-box;
-    align-items: center;
+    align-items: start;
     background-color: variables.$themeBackgroundSecondary;
     border-radius: calc(64px * var(--zns-space-scale, 1));
     border: none;
     display: inline-flex;
     flex-direction: column;
     gap: calc(8px * var(--zns-space-scale, 1));
-    justify-content: center;
+    justify-content: start;
     padding: calc(24px * var(--zns-space-scale, 1));
     width: var(--zns-card-width, 536px);
     min-height: var(--zns-card-min-height, 768px);

@@ -5,7 +5,6 @@ import { HttpWrapperService } from "./http-wrapper.service";
 import { ChromeService } from "./chrome.service";
 import { VaultService } from "./vault.service";
 import { WalletService } from "./wallet.service";
-import { TagModel } from "./tags.service";
 
 export type ZelfFlow = "create" | "import" | "unlock" | "recover" | "";
 
@@ -64,18 +63,6 @@ export class ZelfNameService {
         };
     }
 
-    private _shouldRefreshWallets = async (): Promise<boolean> => {
-        const walletTtl = await this._chromeService.getItemSession("walletTtl");
-
-        if (!walletTtl || walletTtl < Date.now()) {
-            this._chromeService.setItemSession("walletTtl", Date.now() + 1000 * 60 * 30);
-
-            return true;
-        }
-
-        return false;
-    };
-
     decryptZelfName(payload: any): Promise<any> {
         const promise = this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/zelf-name-service/v2/decrypt`, payload);
 
@@ -98,30 +85,6 @@ export class ZelfNameService {
         promise.then(() => this._vaultService.setLastVerified());
 
         return promise;
-    }
-
-    searchZelfName(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
-        const query: { key: string; value: string; captchaToken?: string } = { key, value };
-
-        if (captchaToken) query.captchaToken = captchaToken;
-
-        if (query.key === "zelfName") {
-            query.value = query.value.toLowerCase();
-        }
-
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
-    }
-
-    searchZelfNameV2(key = "zelfName", value: string, captchaToken?: string): Promise<any> {
-        const query: { key: string; value: string; captchaToken?: string } = { key, value };
-
-        if (query.key === "zelfName") {
-            query.value = query.value.toLowerCase();
-        }
-
-        if (captchaToken) query.captchaToken = captchaToken;
-
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/zelf-name-service/v2/search`, query);
     }
 
     previewZelfName(zelfName?: string, captchaToken?: string): Promise<any> {
@@ -244,46 +207,6 @@ export class ZelfNameService {
 
     async getZelfProof(): Promise<string> {
         return this.variables.zelfProof || (await this._chromeService.getItem("zelfProof"));
-    }
-
-    async refreshAllWalletsPublicData(wallets: TagModel[], forceRefresh = false): Promise<boolean> {
-        const shouldRefreshWallets = forceRefresh || (await this._shouldRefreshWallets());
-
-        if (!shouldRefreshWallets) return false;
-
-        for (const wallet of wallets) {
-            await this.refreshWalletPublicData(wallet);
-        }
-
-        return true;
-    }
-
-    async refreshWalletPublicData(wallet: TagModel): Promise<TagModel | null> {
-        if (!wallet || !wallet.tagName) return null;
-
-        const response = await this.searchZelfName("zelfName", wallet.tagName);
-
-        if (!response.data.ipfs?.length && !response.data.arweave?.length && response.data?.price) {
-            (wallet as TagModel)?.updatePublicData({
-                ...wallet.publicData,
-                expiresAt: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
-                gracePeriod: new Date(new Date().setHours(0, 0, 0, 0)).toString(),
-            });
-
-            await this._walletService.updateWallet(wallet);
-
-            return wallet;
-        }
-
-        const publicData = response.data.ipfs?.length ? response.data.ipfs[0]?.publicData : response.data.arweave?.[0]?.publicData;
-
-        if (!publicData || !wallet) return null;
-
-        (wallet as TagModel)?.updatePublicData(publicData);
-
-        await this._walletService.updateWallet(wallet);
-
-        return wallet;
     }
 
     /** Timeout in ms for ArNS API calls to prevent indefinite loading */

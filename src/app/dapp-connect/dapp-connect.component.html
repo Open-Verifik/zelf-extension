@@ -111,6 +111,20 @@
             <p class="dapp-connect__threat-body">{{ t("dapp.threat_warning") }}</p>
         </div>
 
+        <!-- Loading Bar -->
+        <div class="dapp-connect__loading" *ngIf="isConnecting">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+
+        <!-- Error Banner -->
+        <div class="dapp-connect__error" *ngIf="connectError">
+            <span class="material-symbols-outlined">error</span>
+            <p>{{ connectError === "timeout" ? t("dapp.connect_timeout") : t("dapp.connect_error") }}</p>
+            <button (click)="clearConnectError()" class="dapp-connect__error-dismiss" mat-button>
+                {{ t("common.try_again") }}
+            </button>
+        </div>
+
         <!-- Actions -->
         <div class="dapp-connect__actions">
             <button (click)="reject()" class="dapp-connect__btn dapp-connect__btn--cancel" mat-flat-button>
@@ -119,11 +133,11 @@
 
             <button
                 (click)="approve()"
-                [disabled]="isThreat || selectedAccounts.length === 0"
+                [disabled]="isThreat || selectedAccounts.length === 0 || isConnecting"
                 class="dapp-connect__btn dapp-connect__btn--connect"
                 mat-flat-button
             >
-                {{ t("dapp.connect") }}
+                {{ isConnecting ? t("dapp.connecting") : t("dapp.connect") }}
             </button>
         </div>
     </ng-container>

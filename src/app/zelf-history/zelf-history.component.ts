@@ -120,20 +120,26 @@ export class ZelfHistoryComponent implements OnInit {
     private _determineTransactionTraffic(tx: Transaction, wallet: any): void {
         if (tx.traffic) return;
 
-        const fromAddr = (Array.isArray(tx.from) ? tx.from[0] : tx.from || "").toLowerCase();
+        const fromAddr = Array.isArray(tx.from) ? tx.from[0] : tx.from || "";
         const publicData = wallet?.publicData;
         const walletEth = (publicData?.ethAddress || "").toLowerCase();
         const walletSol = (publicData?.solanaAddress || "").toLowerCase();
         const walletBtc = (publicData?.btcAddress || "").toLowerCase();
         const walletSui = (publicData?.suiAddress || "").toLowerCase();
         const walletBDAG = (publicData?.blockDAGAddress || "").toLowerCase();
+        const walletStellar = publicData?.stellarAddress || publicData?.xlmAddress || "";
 
-        if (
-            (walletEth && fromAddr === walletEth) ||
-            (walletSol && fromAddr === walletSol) ||
-            (walletBtc && fromAddr === walletBtc) ||
-            (walletSui && fromAddr === walletSui) ||
-            (walletBDAG && fromAddr === walletBDAG)
+        const fromAddrLower = fromAddr.toLowerCase();
+        const isStellarTx = tx.network === "stellar" || (walletStellar && fromAddr.startsWith("G"));
+
+        if (isStellarTx && walletStellar && fromAddr === walletStellar) {
+            tx.traffic = "OUT";
+        } else if (
+            (walletEth && fromAddrLower === walletEth) ||
+            (walletSol && fromAddrLower === walletSol) ||
+            (walletBtc && fromAddrLower === walletBtc) ||
+            (walletSui && fromAddrLower === walletSui) ||
+            (walletBDAG && fromAddrLower === walletBDAG)
         ) {
             tx.traffic = "OUT";
         } else {
@@ -156,7 +162,7 @@ export class ZelfHistoryComponent implements OnInit {
         transactions.forEach((tx) => {
             if (this.transactionHashMap[tx.hash] || !wallet) return;
 
-            if (!tx.from || !tx.to || !tx.date) return;
+            if (!tx.from || !tx.date) return;
             if (this.token && tx.asset !== this.token) return;
 
             const dateStr = new Date(tx.date).toLocaleDateString("en-US");
@@ -167,22 +173,24 @@ export class ZelfHistoryComponent implements OnInit {
 
             const type = tx.method?.toLowerCase().includes("swap") ? "swap" : tx.traffic === "OUT" ? "send" : "receive";
             const tokenImage = tx.image || this._walletService.getAssetImage(tx.asset);
+            const toAddress = tx.to != null ? (Array.isArray(tx.to) ? tx.to[0] : tx.to) : "";
+            const toAmount = tx.amount ?? 0;
 
             const processedTx = {
-                fiatAmount: tx.fiatAmount,
+                fiatAmount: tx.fiatAmount ?? 0,
                 hash: tx.hash,
                 network: tx.network,
                 type,
                 from: {
                     address: Array.isArray(tx.from) ? tx.from[0] : tx.from,
-                    amount: tx.amount,
+                    amount: tx.amount ?? 0,
                     symbol: tx.asset,
                     image: tokenImage,
                     token: tx.asset,
                 },
                 to: {
-                    address: Array.isArray(tx.to) ? tx.to[0] : tx.to,
-                    amount: tx.amount,
+                    address: toAddress,
+                    amount: toAmount,
                     symbol: tx.asset,
                     image: tokenImage,
                     token: tx.asset,

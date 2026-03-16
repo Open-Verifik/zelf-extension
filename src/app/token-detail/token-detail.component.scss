@@ -146,19 +146,21 @@
     &__amount {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
-        font-size: calc(40px * var(--zns-font-scale, 1));
-        line-height: calc(40px * var(--zns-font-scale, 1));
-        letter-spacing: 0%;
+        font-size: calc(32px * var(--zns-font-scale, 1));
+        line-height: calc(36px * var(--zns-font-scale, 1));
+        letter-spacing: -0.02em;
         text-align: center;
         vertical-align: middle;
         text-transform: uppercase;
         color: variables.$themeText;
         margin: 0;
         padding: 0;
+        word-break: break-word;
+        max-width: 100%;
 
         @media (max-width: variables.$minSmall) {
-            font-size: calc(32px * var(--zns-font-scale, 1));
-            line-height: calc(32px * var(--zns-font-scale, 1));
+            font-size: calc(26px * var(--zns-font-scale, 1));
+            line-height: calc(30px * var(--zns-font-scale, 1));
         }
     }
 
@@ -171,7 +173,7 @@
         text-align: center;
         vertical-align: middle;
         color: variables.$themeTextSecondary;
-        margin: 0;
+        margin: calc(4px * var(--zns-space-scale, 1)) 0 0;
         padding: 0;
     }
 
@@ -189,7 +191,7 @@
 
 .chart-box {
     box-sizing: border-box;
-    padding: 24px 36px;
+    padding: 20px 24px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -198,9 +200,19 @@
     border-radius: 16px;
     gap: 16px;
     width: 100%;
+    margin-top: calc(16px * var(--zns-space-scale, 1));
 
     @media screen and (max-width: 468px) {
         flex-direction: column;
+        padding: 16px 20px;
+    }
+
+    &--minimal {
+        justify-content: center;
+
+        .chart-box__inner {
+            justify-content: center;
+        }
     }
 
     &__image {
@@ -266,6 +278,12 @@
         vertical-align: middle;
         color: variables.$themeTextSecondary;
         margin: 0;
+
+        &--muted {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.6;
+        }
     }
 
     &__fiat {
@@ -464,15 +482,18 @@
 
 .diff-chip {
     width: auto;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     padding: 2px 8px;
     border-radius: 9999px;
     font-family: variables.$themeBodyFamily;
-    font-weight: 900;
-    gap: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 16px;
+    gap: 2px;
     margin: 0;
+    white-space: nowrap;
 
     &--positive {
         background-color: variables.$correct;

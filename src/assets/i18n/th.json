@@ -542,6 +542,25 @@
         "language": {
             "description": "เลือกภาษาที่คุณต้องการสำหรับแอปพลิเคชัน"
         },
+        "dapps_label": "การเชื่อมต่อ Dapps",
+        "dapps": {
+            "title": "การเชื่อมต่อ Dapps",
+            "description": "จัดการ dapps ที่เชื่อมต่อกับกระเป๋าเงินของคุณ",
+            "sites": "ไซต์",
+            "disconnect_all": "ตัดการเชื่อมต่อทั้งหมด",
+            "disconnect": "ตัดการเชื่อมต่อ",
+            "permissions_accounts": "ดูบัญชีของคุณและเสนอธุรกรรม",
+            "permissions_networks": "ใช้เครือข่ายที่เปิดใช้งานของคุณ",
+            "accounts": "บัญชี",
+            "accounts_plural": "บัญชี",
+            "networks": "เครือข่าย",
+            "connected_with": "เชื่อมต่อกับ",
+            "networks_connected": "เครือข่ายที่เชื่อมต่อ",
+            "edit": "แก้ไข",
+            "no_connections": "ไม่พบการเชื่อมต่อที่ใช้งานอยู่",
+            "network_label": "เครือข่าย",
+            "unknown": "ไม่ทราบ"
+        },
         "walletconnect_label": "เชื่อมต่อผ่านลิงก์",
         "walletconnect": {
             "title": "การเชื่อมต่อ Dapps",
@@ -558,7 +577,22 @@
             "biometric_verification_description": "ตั้งค่าช่วงเวลาที่อนุญาตให้ใช้รหัสผ่านเพียงอย่างเดียวก่อนที่จะต้องยืนยันตัวตนด้วยชีวภาพ คุณสามารถตั้งค่าได้ตั้งแต่ 5 ถึง 60 นาที",
             "password_attempts_title": "จำนวนครั้งในการใส่รหัสผ่าน",
             "minutes_before_reverification": "นาทีก่อนการยืนยันตัวตนใหม่",
-            "password_attempts_description": "ตั้งค่าจำนวนครั้งสูงสุดในการใส่รหัสผ่านผิดก่อนที่จะต้องยืนยันตัวตนด้วยชีวภาพ คุณสามารถตั้งค่าได้ตั้งแต่ 1 ถึง 8 ครั้ง"
+            "password_attempts_description": "ตั้งค่าจำนวนครั้งสูงสุดในการใส่รหัสผ่านผิดก่อนที่จะต้องยืนยันตัวตนด้วยชีวภาพ คุณสามารถตั้งค่าได้ตั้งแต่ 1 ถึง 8 ครั้ง",
+            "vault_status_title": "สถานะตู้เก็บของ",
+            "vault_status_active": "ใช้งานอยู่",
+            "vault_status_locked": "ล็อค",
+            "vault_status_empty": "ว่างเปล่า",
+            "lock_vault_title": "ล็อคตู้เก็บของตอนนี้",
+            "lock_vault_description": "ต้องใช้ PIN และการยืนยันตัวตนด้วยชีวภาพในการใช้งานครั้งถัดไป ใช้เมื่อออกไปหรือส่งอุปกรณ์ให้ผู้อื่น",
+            "vault_active_hint": "PIN และการยืนยันตัวตนด้วยชีวภาพจำเป็นเฉพาะทุก {{ interval }} นาที เซสชันจะหมดอายุใน {{ remaining }} นาที",
+            "vault_locked_hint": "ต้องใช้ PIN และการยืนยันตัวตนด้วยชีวภาพในการใช้งานครั้งถัดไป",
+            "lock_vault_button": "ล็อคตู้เก็บของ",
+            "remove_keys_title": "ลบคีย์จากตู้เก็บของ",
+            "remove_keys_description": "ลบคีย์ทั้งหมดจากอุปกรณ์นี้อย่างถาวร คุณจะต้องกู้คืน ZelfProof เพื่อใช้งานอีกครั้ง นับถอยหลังช่วยให้คุณยกเลิกก่อนการลบได้",
+            "remove_keys_button": "ลบคีย์จากตู้เก็บของ",
+            "remove_keys_countdown_minutes": "คีย์จะถูกลบใน {{ minutes }}m {{ seconds }}s",
+            "remove_keys_countdown_seconds": "คีย์จะถูกลบใน {{ seconds }}s",
+            "remove_keys_cancel": "ยกเลิก"
         }
     },
     "security": {
@@ -803,7 +837,8 @@
         "domain_warning": "คุณยังมีเวลาในการซื้อ",
         "expired_wallet_logout_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
         "logout_of_wallet_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ หรือโหลดรหัส QR ของ ZelfProof ของคุณ",
-        "purchase_new_domain": "เพิ่มชื่อแท็กใหม่"
+        "purchase_new_domain": "เพิ่มชื่อแท็กใหม่",
+        "zelfproof_removed_successfully": "ลบ ZelfProof สำเร็จแล้ว"
     },
     "liveness": {
         "center_your_face": "จัดใบหน้าของคุณให้อยู่ตรงกลางหน้าจอ",
@@ -847,6 +882,7 @@
         "invalid_format": "รูปแบบไม่ถูกต้อง",
         "invalid_mnemonic": "Mnemonic ไม่ถูกต้อง กรุณาตรวจสอบให้แน่ใจว่าวลีของคุณเป็นลำดับ BIP-39 ที่ถูกต้อง (12, 15, 18, 21 หรือ 24 คำ)",
         "invalid_number_value": "ค่าตัวเลขไม่ถูกต้อง",
+        "invalid_pin": "PIN ไม่ถูกต้อง คุณเหลือ {{remaining}} ครั้งก่อนที่จะต้องเข้าสู่ระบบด้วยไบโอเมตริกซ์",
         "invalid_password": "รหัสผ่านไม่ถูกต้อง คุณเหลือ {{remaining}} ครั้งก่อนที่จะต้องเข้าสู่ระบบด้วยไบโอเมตริกซ์",
         "invalid_private_key": "คีย์ส่วนตัวไม่ถูกต้อง",
         "liveness_failed_description": "ขออภัย ดูเหมือนจะมีปัญหากับการตรวจจับความมีชีวิตของคุณ",
@@ -1734,6 +1770,9 @@
         "threat_warning_title": "ตรวจพบไซต์ที่เป็นอันตราย",
         "threat_warning": "ไซต์นี้ถูกทำเครื่องหมายว่าเป็นอันตราย การเชื่อมต่อถูกบล็อกเพื่อความปลอดภัยของคุณ",
         "connect": "เชื่อมต่อ",
+        "connecting": "กำลังเชื่อมต่อ...",
+        "connect_error": "การเชื่อมต่อล้มเหลว กรุณาลองอีกครั้ง",
+        "connect_timeout": "การเชื่อมต่อใช้เวลานานกว่าที่คาดไว้ กรุณาลองอีกครั้ง",
         "sign_message": "ลงนามข้อความ",
         "sign_transaction": "ลงนามธุรกรรม",
         "message_to_sign": "ข้อความที่จะลงนาม",

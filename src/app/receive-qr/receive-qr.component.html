@@ -64,7 +64,7 @@
             </svg>
 
             <span class="tip-box__text">
-                {{ t("receive.information") }}
+                {{ symbol === "XLM" ? t("receive.information_stellar") : t("receive.information") }}
                 <button type="button" class="tip-box__link" (click)="openRisksModal()">{{ t("common.learn_more") }}</button>
             </span>
         </div>

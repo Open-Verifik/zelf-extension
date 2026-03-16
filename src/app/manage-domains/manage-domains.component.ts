@@ -200,9 +200,20 @@ export class ManageDomainsComponent implements OnInit, OnDestroy {
 
     private async _setWallets(): Promise<void> {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
+        const seenWallets = new Set<string>();
 
-        // Filter out empty or invalid wallets (wallets without tagName or name)
-        const validWallets = [wallet, ...wallets].filter((w) => w && (w.tagName || w.name || w.publicData?.tagName)) as TagModel[];
+        // Filter out empty wallets and guard against duplicates between `wallet` and `wallets`.
+        const validWallets = [wallet, ...wallets].filter((w) => {
+            if (!w || (!w.tagName && !w.name && !w.publicData?.tagName)) return false;
+
+            const walletKey = w.fullTagName || w.publicData?.tagName || w.name || w.tagName;
+
+            if (!walletKey || seenWallets.has(walletKey)) return false;
+
+            seenWallets.add(walletKey);
+
+            return true;
+        }) as TagModel[];
 
         this.currentWallet = wallet && (wallet.tagName || wallet.name || wallet.publicData?.tagName) ? wallet : validWallets[0] || ({} as TagModel);
         this.wallets = validWallets;

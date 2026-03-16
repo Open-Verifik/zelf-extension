@@ -38,7 +38,11 @@
         <form [formGroup]="mnemonicForm" class="welcome-import__form">
             <div class="zelf-card__content">
                 <div class="welcome-import__grid">
-                    <div class="zelf-input welcome-import__grid-item" *ngFor="let key of formControlKeys(mnemonicForm); let i = index">
+                    <div
+                        class="zelf-input welcome-import__grid-item"
+                        [ngClass]="{ 'zelf-input--error': isWordInvalid(key) }"
+                        *ngFor="let key of formControlKeys(mnemonicForm); let i = index"
+                    >
                         <div class="zelf-input__prefix-text">{{ i + 1 }}</div>
 
                         <input
@@ -68,7 +72,7 @@
             <div class="zelf-card__actions welcome-import__actions">
                 <button
                     (click)="setMnemonics()"
-                    [disabled]="mnemonicForm.invalid"
+                    [disabled]="mnemonicForm.invalid || hasInvalidWords"
                     class="zelf-button zelf-button--primary zelf-button--wide"
                     mat-flat-button
                 >

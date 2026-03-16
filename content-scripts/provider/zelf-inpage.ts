@@ -96,6 +96,9 @@ class ZelfProvider implements EIP1193Provider {
             case "wallet_revokePermissions":
                 return this._sendToContentScript("DAPP_DISCONNECT", { method });
 
+            case "wallet_cancelPendingRequests":
+                return this._sendToContentScript("DAPP_CANCEL_PENDING_FOR_ORIGIN", { method }).then(() => true);
+
             case "wallet_getPermissions":
                 return this.selectedAddress ? [{ parentCapability: "eth_accounts" }] : [];
 

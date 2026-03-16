@@ -5,10 +5,9 @@ import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/route
 import { TranslocoModule } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
+import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
-import { TagModel } from "app/tags.service";
 import { environment } from "environments/environment";
 
 @Component({
@@ -28,8 +27,8 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
+        private _tagsService: TagsService,
         private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
     ) {
         this._selectedZelfName = this._activatedRoute.snapshot.queryParams.zelfName;
 
@@ -64,7 +63,7 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     }
 
     private async _updateWallet(): Promise<void> {
-        const updatedWallet = await this._zelfNameService.refreshWalletPublicData(this.wallet as TagModel);
+        const updatedWallet = await this._tagsService.refreshTagPublicData(this.wallet as TagModel);
 
         if (!updatedWallet) return;
 

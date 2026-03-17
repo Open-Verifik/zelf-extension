@@ -8,18 +8,20 @@ import { Router, RouterModule } from "@angular/router";
 import { TranslocoService } from "@jsverse/transloco";
 import { firstValueFrom } from "rxjs";
 
-import { TagModel } from "app/tags.service";
+import { TagModel, TagSearchResponse, TagsService } from "app/tags.service";
+import { WalletService } from "app/wallet.service";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { TranslocoTestingModule } from "../testing/transloco-testing.module";
 import { CtaSheetComponent } from "./cta-sheet.component";
-import { TagsService } from "app/tags.service";
 
 describe("CtaSheetComponent", () => {
     let component: CtaSheetComponent;
     let fixture: ComponentFixture<CtaSheetComponent>;
     let mockBottomSheetRef: jasmine.SpyObj<MatBottomSheetRef<CtaSheetComponent>>;
     let mockRouter: jasmine.SpyObj<Router>;
-    let mockTagService: jasmine.SpyObj<TagsService>;
+    let mockZelfNameService: jasmine.SpyObj<ZelfNameService>;
+    let mockTagsService: jasmine.SpyObj<TagsService>;
+    let mockWalletService: jasmine.SpyObj<WalletService>;
     let translocoService: TranslocoService;
 
     const mockData = {
@@ -37,7 +39,30 @@ describe("CtaSheetComponent", () => {
     beforeEach(async () => {
         mockBottomSheetRef = jasmine.createSpyObj("MatBottomSheetRef", ["dismiss"]);
         mockRouter = jasmine.createSpyObj("Router", ["navigate"]);
-        mockTagService = jasmine.createSpyObj("ZelfNameService", []);
+        mockZelfNameService = jasmine.createSpyObj("ZelfNameService", ["setZelfName", "setZelfProof", "setZelfNameObject"]);
+        mockTagsService = jasmine.createSpyObj("TagsService", [
+            "searchTag",
+            "setTagName",
+            "setDomain",
+            "setTagResponse",
+            "setTagNameObject",
+            "setZelfProof",
+        ]);
+        mockWalletService = jasmine.createSpyObj("WalletService", ["setWalletsToColdStorage", "deleteZelfProof"]);
+
+        mockZelfNameService.setZelfName.and.returnValue(Promise.resolve());
+        mockZelfNameService.setZelfProof.and.returnValue(Promise.resolve());
+        mockZelfNameService.setZelfNameObject.and.returnValue(Promise.resolve());
+        mockTagsService.searchTag.and.returnValue(
+            Promise.resolve({ data: { ipfs: [], arweave: [], available: false, tagName: "test.zelf" } as TagSearchResponse })
+        );
+        mockTagsService.setTagName.and.returnValue(Promise.resolve());
+        mockTagsService.setDomain.and.returnValue(Promise.resolve());
+        mockTagsService.setTagResponse.and.returnValue(Promise.resolve());
+        mockTagsService.setTagNameObject.and.returnValue(Promise.resolve());
+        mockTagsService.setZelfProof.and.returnValue(Promise.resolve());
+        mockWalletService.setWalletsToColdStorage.and.returnValue(Promise.resolve());
+        mockWalletService.deleteZelfProof.and.returnValue(Promise.resolve());
 
         await TestBed.configureTestingModule({
             imports: [CtaSheetComponent, TranslocoTestingModule, MatBottomSheetModule, MatDialogModule, RouterModule, NoopAnimationsModule],
@@ -45,7 +70,9 @@ describe("CtaSheetComponent", () => {
                 { provide: MatBottomSheetRef, useValue: mockBottomSheetRef },
                 { provide: MAT_BOTTOM_SHEET_DATA, useValue: mockData },
                 { provide: Router, useValue: mockRouter },
-                { provide: ZelfNameService, useValue: mockTagService },
+                { provide: ZelfNameService, useValue: mockZelfNameService },
+                { provide: TagsService, useValue: mockTagsService },
+                { provide: WalletService, useValue: mockWalletService },
                 provideHttpClient(),
             ],
             schemas: [NO_ERRORS_SCHEMA],

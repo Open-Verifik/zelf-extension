@@ -19,6 +19,7 @@ const DAPP_MESSAGE_TYPES = [
     "DAPP_CHAIN_ID",
     "DAPP_DISCONNECT",
     "DAPP_CANCEL_PENDING_FOR_ORIGIN",
+    "DAPP_RPC_PROXY",
 ];
 
 function injectPageScript(): void {
@@ -83,7 +84,7 @@ function setupMessageBridge(): void {
         } catch (error: any) {
             const errorMessage = error?.message || "Internal error";
             const isContextInvalidated = errorMessage.includes("Extension context invalidated");
-            
+
             window.postMessage(
                 {
                     source: "zelf-content-script",

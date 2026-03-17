@@ -8,11 +8,53 @@ import {
     SUPPORTED_CHAINS,
     isSupportedChain,
     chainIdToHex,
+    getChainConfig,
+    hexToChainId,
 } from "@shared/types/dapp.types";
 import { getPreferredChainIdForOrigin } from "@shared/services/dapp-mapping.service";
 
 const DAPP_REQUEST_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
 const PERMISSIONS_STORAGE_KEY = "dapp_permissions";
+
+async function handleRpcProxy(payload: { method?: string; params?: any[]; chainId?: string }, sendResponse: (response: any) => void): Promise<void> {
+    const { method, params = [], chainId: chainIdHex } = payload || {};
+    const chainId = chainIdHex ? hexToChainId(chainIdHex) : 1;
+    const chainConfig = getChainConfig(chainId);
+    const rpcUrl = chainConfig?.rpcUrl;
+
+    if (!rpcUrl) {
+        sendResponse({
+            success: false,
+            error: { code: -32603, message: `Zelf Wallet: No RPC URL for chain ${chainId}. Read-only methods require a configured RPC.` },
+        });
+        return;
+    }
+
+    try {
+        const res = await fetch(rpcUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params: Array.isArray(params) ? params : [] }),
+        });
+        const json = await res.json();
+
+        if (json.error) {
+            sendResponse({
+                success: false,
+                error: { code: json.error.code ?? -32603, message: json.error.message || "RPC error" },
+            });
+            return;
+        }
+
+        sendResponse({ success: true, data: json.result });
+    } catch (err: any) {
+        Logger.error("DAPP_RPC_PROXY error:", err);
+        sendResponse({
+            success: false,
+            error: { code: -32603, message: err?.message || "RPC proxy failed" },
+        });
+    }
+}
 
 export class DappHandler {
     private static instance: DappHandler;
@@ -96,6 +138,10 @@ export class DappHandler {
 
                 case "DAPP_CANCEL_PENDING_FOR_ORIGIN":
                     await this._handleCancelPendingForOrigin(senderOrigin, sendResponse);
+                    break;
+
+                case "DAPP_RPC_PROXY":
+                    await handleRpcProxy(payload, sendResponse);
                     break;
 
                 case "DAPP_FORCE_DISCONNECT_SITE":

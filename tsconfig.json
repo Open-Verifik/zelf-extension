@@ -39,5 +39,5 @@
         "strictTemplates": true
     },
     "include": ["shared/**/*", "src/**/*"],
-    "exclude": ["dist/**/*", "node_modules/**/*"]
+    "exclude": ["dist/**/*", "node_modules/**/*", "shared/services/autofill-data.service.ts"]
 }

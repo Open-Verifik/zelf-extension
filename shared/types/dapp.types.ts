@@ -32,7 +32,8 @@ export type DappMessageType =
     | "DAPP_CLEANUP_REQUESTS"
     | "DAPP_CANCEL_PENDING_FOR_ORIGIN"
     | "DAPP_FORCE_DISCONNECT_SITE"
-    | "DAPP_FORCE_DISCONNECT_ALL";
+    | "DAPP_FORCE_DISCONNECT_ALL"
+    | "DAPP_RPC_PROXY";
 
 export interface DappMessage {
     type: DappMessageType;
@@ -154,14 +155,14 @@ export interface ChainConfig {
 }
 
 export const SUPPORTED_CHAINS: ChainConfig[] = [
-    { chainId: 1, name: "Ethereum", symbol: "ETH", network: "ethereum", blockExplorer: "https://etherscan.io" },
-    { chainId: 42161, name: "Arbitrum One", symbol: "ETH", network: "arbitrum", blockExplorer: "https://arbiscan.io" },
-    { chainId: 10, name: "Optimism", symbol: "ETH", network: "optimism", blockExplorer: "https://optimistic.etherscan.io" },
-    { chainId: 8453, name: "Base", symbol: "ETH", network: "base", blockExplorer: "https://basescan.org" },
-    { chainId: 43114, name: "Avalanche", symbol: "AVAX", network: "avalanche", blockExplorer: "https://avascan.info" },
-    { chainId: 137, name: "Polygon", symbol: "POL", network: "polygon", blockExplorer: "https://polygonscan.com" },
-    { chainId: 56, name: "BNB Chain", symbol: "BNB", network: "binance", blockExplorer: "https://bscscan.com" },
-    { chainId: 1404, name: "BlockDAG", symbol: "BDAG", network: "blockdag", blockExplorer: "https://bdagscan.com" },
+    { chainId: 1, name: "Ethereum", symbol: "ETH", network: "ethereum", rpcUrl: "https://eth.llamarpc.com", blockExplorer: "https://etherscan.io" },
+    { chainId: 42161, name: "Arbitrum One", symbol: "ETH", network: "arbitrum", rpcUrl: "https://arb1.arbitrum.io/rpc", blockExplorer: "https://arbiscan.io" },
+    { chainId: 10, name: "Optimism", symbol: "ETH", network: "optimism", rpcUrl: "https://mainnet.optimism.io", blockExplorer: "https://optimistic.etherscan.io" },
+    { chainId: 8453, name: "Base", symbol: "ETH", network: "base", rpcUrl: "https://mainnet.base.org", blockExplorer: "https://basescan.org" },
+    { chainId: 43114, name: "Avalanche", symbol: "AVAX", network: "avalanche", rpcUrl: "https://api.avax.network/ext/bc/C/rpc", blockExplorer: "https://avascan.info" },
+    { chainId: 137, name: "Polygon", symbol: "POL", network: "polygon", rpcUrl: "https://polygon-rpc.com", blockExplorer: "https://polygonscan.com" },
+    { chainId: 56, name: "BNB Chain", symbol: "BNB", network: "binance", rpcUrl: "https://bsc-dataseed.binance.org", blockExplorer: "https://bscscan.com" },
+    { chainId: 1404, name: "BlockDAG", symbol: "BDAG", network: "blockdag", rpcUrl: "https://rpc.bdagscan.com", blockExplorer: "https://bdagscan.com" },
 ];
 
 export function getChainConfig(chainId: number): ChainConfig | undefined {

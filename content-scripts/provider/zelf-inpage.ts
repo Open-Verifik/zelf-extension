@@ -102,6 +102,22 @@ class ZelfProvider implements EIP1193Provider {
             case "wallet_getPermissions":
                 return this.selectedAddress ? [{ parentCapability: "eth_accounts" }] : [];
 
+            // Read-only RPC methods — proxy to network (no user interaction)
+            case "eth_blockNumber":
+            case "eth_gasPrice":
+            case "eth_getTransactionCount":
+            case "eth_call":
+            case "eth_estimateGas":
+            case "eth_getBlockByNumber":
+            case "eth_getBlockByHash":
+            case "eth_feeHistory":
+            case "eth_getBalance":
+            case "eth_getTransactionReceipt":
+            case "eth_getTransactionByHash":
+            case "eth_getCode":
+            case "eth_getLogs":
+                return this._sendToContentScript("DAPP_RPC_PROXY", { method, params: params ?? [], chainId: this.chainId });
+
             default:
                 throw new Error(`Zelf Wallet: Unsupported method ${method}`);
         }

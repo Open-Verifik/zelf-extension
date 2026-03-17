@@ -7,5 +7,5 @@
     },
     "files": ["src/main.ts", "src/polyfills.ts"],
     "include": ["shared/**/*", "src/**/*.d.ts"],
-    "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/**/*.e2e.ts", "src/test.ts", "src/testing"]
+    "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/**/*.e2e.ts", "src/test.ts", "src/testing", "shared/services/autofill-data.service.ts"]
 }

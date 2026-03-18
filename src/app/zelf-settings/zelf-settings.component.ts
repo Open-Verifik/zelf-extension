@@ -63,7 +63,7 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
             text: "common.privacy",
         },
         {
-            url: "https://docs.zelf.world/docs/airdrop/pricing-per-domain",
+            url: "https://zelf.world/pricing",
             text: "common.pricing",
         },
     ];

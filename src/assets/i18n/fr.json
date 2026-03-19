@@ -1645,13 +1645,13 @@
         "your_tasks": "Vos tâches",
         "coming_soon": "Bientôt disponible",
         "first_transaction": {
-            "title": "Récompense Première Transaction",
+            "title": "Première transaction",
             "loading": "Vérification de l'éligibilité...",
             "success_title": "VOUS AVEZ GAGNÉ",
             "success_subtitle": "Première transaction terminée !",
             "earned_label": "Vous avez gagné",
-            "accept": "Accepter",
-            "not_eligible_title": "Terminer la tâche",
+            "previously_earned_label": "Première transaction",
+            "go_back_to_rewards": "Retour",
             "not_eligible_desc": "Envoyez des jetons ZNS à n'importe qui pour débloquer cette récompense ! Vous pouvez envoyer n'importe quel montant, même 0,001 ZNS.",
             "send_now": "Envoyer des ZNS maintenant",
             "already_claimed_title": "Déjà réclamé",
@@ -1667,7 +1667,7 @@
                 "reward": "Gagnez de 10 à 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Envoyez votre première transaction ZNS",
+                "title": "Première transaction",
                 "reward": "Gagnez de 10 à 100 $ZNS",
                 "reward_completed": "Vous avez gagné {{amount}} $ZNS"
             },
@@ -1738,7 +1738,8 @@
             "subtitle": "Tâche terminée !",
             "desc": "Récompense de parrainage de <strong>{{ name }}</strong>",
             "earned_label": "Vous avez gagné",
-            "accept": "Accepter"
+            "previously_earned_label": "Première transaction",
+            "go_back_to_rewards": "Retour"
         },
         "error": {
             "title": "Échec de la réclamation",

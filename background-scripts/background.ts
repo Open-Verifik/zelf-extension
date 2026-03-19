@@ -14,6 +14,7 @@ extensionLifecycle.initialize();
 
 const messageHandler = MessageHandler.getInstance(browserApi);
 const dappHandler = DappHandler.getInstance(browserApi);
+void dappHandler.restorePendingRequests();
 
 if (!browserApi.has("runtime")) {
     Logger.error("Runtime API not available - extension cannot function");
@@ -28,8 +29,7 @@ browserApi.addMessageListener((message, sender, sendResponse) => {
     }
 
     if (message.type && message.type.startsWith("WC_")) {
-        dappHandler.handleDappMessage(message, sender, sendResponse);
-        return true;
+        return false;
     }
 
     messageHandler.handleAutofillMessage(message, sender, sendResponse);

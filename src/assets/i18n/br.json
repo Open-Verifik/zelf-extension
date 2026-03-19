@@ -1645,13 +1645,13 @@
         "your_tasks": "Suas tarefas",
         "coming_soon": "Em breve",
         "first_transaction": {
-            "title": "Recompensa da Primeira Transação",
+            "title": "Primeira transação",
             "loading": "Verificando elegibilidade...",
             "success_title": "VOCÊ GANHOU",
             "success_subtitle": "Primeira transação concluída!",
             "earned_label": "Você ganhou",
-            "accept": "Aceitar",
-            "not_eligible_title": "Conclua a Tarefa",
+            "previously_earned_label": "Primeira transação",
+            "go_back_to_rewards": "Voltar",
             "not_eligible_desc": "Envie tokens ZNS para qualquer pessoa para desbloquear esta recompensa! Você pode enviar qualquer quantia - até mesmo 0.001 ZNS.",
             "send_now": "Enviar ZNS Agora",
             "already_claimed_title": "Já Reivindicado",
@@ -1663,20 +1663,20 @@
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "Blockchain",
+                "title": "Convide seu primeiro amigo",
                 "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Blockchain",
+                "title": "Primeira transação",
                 "reward": "Ganhe de 10 a 100 $ZNS",
                 "reward_completed": "Você ganhou {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "Blockchain",
+                "title": "Junte-se ao nosso Discord",
                 "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "join_telegram": {
-                "title": "Blockchain",
+                "title": "Junte-se à nossa comunidade do Telegram",
                 "reward": "Ganhe de 10 a 100 $ZNS"
             },
             "join_x": {
@@ -1738,7 +1738,8 @@
             "subtitle": "Tarefa concluída!",
             "desc": "Recompensa de indicação de <strong>{{ name }}</strong>",
             "earned_label": "Você ganhou",
-            "accept": "Aceitar"
+            "previously_earned_label": "First transaction",
+            "go_back_to_rewards": "Go Back"
         },
         "error": {
             "title": "Falha ao Resgatar",

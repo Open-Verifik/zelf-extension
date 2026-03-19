@@ -1645,13 +1645,13 @@
         "your_tasks": "您的任务",
         "coming_soon": "敬请期待",
         "first_transaction": {
-            "title": "首次交易奖励",
+            "title": "首次交易",
             "loading": "正在检查资格...",
-            "success_title": "笔记存储成功！",
+            "success_title": "恭喜中奖！",
             "success_subtitle": "首次交易已完成！",
             "earned_label": "你已获得",
-            "accept": "接受",
-            "not_eligible_title": "完成任务",
+            "previously_earned_label": "首次交易",
+            "go_back_to_rewards": "返回",
             "not_eligible_desc": "向任何人发送 ZNS 代币即可解锁此奖励！你可以发送任何金额 - 甚至是 0.001 ZNS。",
             "send_now": "立即发送 ZNS",
             "already_claimed_title": "已领取",
@@ -1667,7 +1667,7 @@
                 "reward": "赢取 10 到 100 $ZNS"
             },
             "first_transaction": {
-                "title": "发送您的第一笔 ZNS 交易",
+                "title": "首次交易",
                 "reward": "赢取 10 到 100 $ZNS",
                 "reward_completed": "你赢了 {{amount}} $ZNS"
             },
@@ -1699,7 +1699,7 @@
         "spin_now": "旋转转盘！",
         "error": {
             "no_wallet": "未找到钱包。请先设置您的钱包。",
-            "load_failed": "加载支付卡失败。请重试。",
+            "load_failed": "加载转盘配置失败。请重试。",
             "claim_failed": "无法领取奖励。",
             "already_claimed": "您今天已经领取过每日奖励了。明天再来吧！",
             "spin_failed": "旋转转盘失败。请重试。",
@@ -1738,7 +1738,8 @@
             "subtitle": "任务完成！",
             "desc": "来自 <strong>{{ name }}</strong> 的推荐奖励",
             "earned_label": "你已获得",
-            "accept": "接受"
+            "previously_earned_label": "首次交易",
+            "go_back_to_rewards": "返回"
         },
         "error": {
             "title": "领取失败",

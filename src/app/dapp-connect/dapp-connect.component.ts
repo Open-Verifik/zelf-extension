@@ -11,8 +11,6 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { VerifyStatus, getChainConfig, SUPPORTED_CHAINS } from "@shared/types/dapp.types";
 import { getPreferredChainIdForOrigin } from "@shared/services/dapp-mapping.service";
 
-const CONNECT_TIMEOUT_MS = 15000;
-
 @Component({
     imports: [CommonModule, MatButtonModule, MatProgressBarModule, TranslocoModule, ZelfLoaderComponent],
     selector: "dapp-connect",
@@ -201,16 +199,11 @@ export class DappConnectComponent implements OnInit, OnDestroy {
         });
 
         try {
-            await this._sendWithTimeout(sendPromise, CONNECT_TIMEOUT_MS);
+            await sendPromise;
             window.close();
         } catch (error) {
-            const isTimeout = error instanceof Error && error.message === "CONNECT_TIMEOUT";
-            if (isTimeout) {
-                console.warn("Connection timed out after", CONNECT_TIMEOUT_MS / 1000, "seconds");
-            } else {
-                console.error("Error sending approval:", error);
-            }
-            this.connectError = isTimeout ? "timeout" : "error";
+            console.error("Error sending approval:", error);
+            this.connectError = "error";
             this.isConnecting = false;
             this._userActionTaken = false;
         }
@@ -218,15 +211,6 @@ export class DappConnectComponent implements OnInit, OnDestroy {
 
     clearConnectError(): void {
         this.connectError = null;
-    }
-
-    private _sendWithTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-        return Promise.race([
-            promise,
-            new Promise<never>((_, reject) =>
-                setTimeout(() => reject(new Error("CONNECT_TIMEOUT")), ms)
-            ),
-        ]);
     }
 
     async reject(): Promise<void> {

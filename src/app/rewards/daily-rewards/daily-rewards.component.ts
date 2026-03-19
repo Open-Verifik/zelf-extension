@@ -78,9 +78,8 @@ export class DailyRewardsComponent implements OnInit, OnDestroy {
         const diff = target - now;
 
         if (diff <= 0) {
-            // Countdown finished - user can spin again!
+            // Countdown finished - wait for backend to explicitly enable reward
             this.stopCountdown();
-            this.hasSpunToday = false;
             this.countdownHours = 0;
             this.countdownMinutes = 0;
             this.countdownSeconds = 0;

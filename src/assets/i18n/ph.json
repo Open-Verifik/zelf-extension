@@ -80,7 +80,7 @@
                 "description": "Ang iyong payment card ay ligtas na na-store at na-encrypt."
             },
             "preview": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Mga Detalye ng Card",
                 "labels": {
                     "name": "Pangalan ng Payment Card",
                     "card_holder": "Tagahawak ng Card",
@@ -89,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "ZelfProof",
                 "download": "I-download ang ZelfProof"
             },
             "nft": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Na-create ang NFT",
                 "labels": {
                     "token_id": "Token ID",
                     "cost": "Halaga",
@@ -106,7 +106,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "IPFS Storage",
                 "labels": {
                     "hash": "IPFS Hash",
                     "gateway_url": "Gateway URL",
@@ -116,7 +116,7 @@
                 "gateway_link": "Tingnan sa IPFS Gateway"
             },
             "walrus": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Walrus Storage",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "Public URL",
@@ -129,7 +129,7 @@
                 "explorer_link": "Tingnan sa Explorer"
             },
             "zelfproof": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Na-generate ang ZelfProof",
                 "labels": {
                     "string": "ZelfProof String",
                     "qr_code": "QR Code"
@@ -137,7 +137,7 @@
                 "copy_hint": "I-click para kopyahin"
             },
             "error": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Error sa Paglikha ng Payment Card",
                 "default_message": "Isang hindi inaasahang error ang naganap habang nililikha ang iyong payment card.",
                 "try_again": "Subukan Muli",
                 "no_data": "Walang nahanap na result data"
@@ -299,7 +299,7 @@
             "permission_required": "Kailangan ng Pahintulot sa Camera",
             "processing": "Pinoproseso ang iyong biometric data...",
             "retry": "Subukan Muli",
-            "title": "Impormasyon ng Payment Card",
+            "title": "Decryption ng {{ type }}",
             "unlock": "Magpatuloy sa Biometrics",
             "types": {
                 "credit_card": "Payment Card",
@@ -331,17 +331,17 @@
             "master_password_hint": "Kung nag-set ka ng master password noong ginawa mo ang entry na ito, ipasok ito rito"
         },
         "note_result": {
-            "title": "Impormasyon ng Payment Card",
+            "title": "Resulta ng Pag-store ng Note",
             "loading": "Inilo-load ang resulta...",
             "sections": {
                 "success": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Matagumpay ang Pag-store!",
                     "message": "Matagumpay na nai-store ang note!"
                 },
                 "details": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Mga Detalye ng Nai-store na Note",
                     "labels": {
-                        "title": "Impormasyon ng Payment Card",
+                        "title": "Pamagat",
                         "folder": "Folder",
                         "type": "Uri",
                         "category": "Kategorya",
@@ -350,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Na-create ang NFT",
                     "labels": {
                         "token_id": "Token ID",
                         "cost": "Halaga",
@@ -360,7 +360,7 @@
                     "image_alt": "ZelfKey NFT"
                 },
                 "ipfs": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "IPFS Storage",
                     "labels": {
                         "hash": "IPFS Hash",
                         "gateway_url": "Gateway URL",
@@ -370,7 +370,7 @@
                     "gateway_link": "Tingnan sa IPFS Gateway"
                 },
                 "walrus": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Walrus Storage",
                     "labels": {
                         "blob_id": "Blob ID",
                         "public_url": "Public URL",
@@ -383,7 +383,7 @@
                     "explorer_link": "Tingnan sa Explorer"
                 },
                 "zelfproof": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Na-generate ang ZelfProof",
                     "labels": {
                         "string": "ZelfProof String",
                         "qr_code": "QR Code"
@@ -392,10 +392,10 @@
                     "qr_alt": "ZelfProof QR Code"
                 },
                 "debug": {
-                    "title": "Impormasyon ng Payment Card"
+                    "title": "Impormasyon sa Debug"
                 },
                 "next_steps": {
-                    "title": "Impormasyon ng Payment Card",
+                    "title": "Mga Susunod na Hakbang",
                     "success_message": "Ang iyong note ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga note o magdagdag ng isa pang note.",
                     "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
                     "unknown_message": "Hindi matukoy ng system ang status. Mangyaring suriin ang API response sa itaas para sa mga detalye."
@@ -403,7 +403,7 @@
             },
             "actions": {
                 "back_to_notes": "Bumalik sa mga Note",
-                "add_another": "Magdagdag ng Ibang Card"
+                "add_another": "Magdagdag ng Ibang Note"
             },
             "status": {
                 "success_title": "Matagumpay na Nai-store ang Note!",
@@ -419,8 +419,8 @@
         },
         "password_result": {
             "status": {
-                "success_title": "Matagumpay na Nai-store ang Note!",
-                "error_title": "Error sa Pag-store ng Note",
+                "success_title": "Matagumpay na Nai-store ang Password!",
+                "error_title": "Error sa Pag-store ng Password",
                 "unknown_title": "Hindi Kilalang Status",
                 "success_message": "Ang iyong note ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga note o magdagdag ng isa pang note.",
                 "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
@@ -1411,8 +1411,8 @@
         },
         "password_result": {
             "status": {
-                "success_title": "Matagumpay na Nai-store ang Note!",
-                "error_title": "Error sa Pag-store ng Note",
+                "success_title": "Matagumpay na Nai-store ang Password!",
+                "error_title": "Error sa Pag-store ng Password",
                 "unknown_title": "Hindi Kilalang Status",
                 "success_message": "Ang iyong note ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga note o magdagdag ng isa pang note.",
                 "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
@@ -1424,8 +1424,8 @@
         },
         "note_result": {
             "status": {
-                "success_title": "Matagumpay na Nai-store ang Note!",
-                "error_title": "Error sa Pag-store ng Note",
+                "success_title": "Matagumpay na Nai-store ang Password!",
+                "error_title": "Error sa Pag-store ng Password",
                 "unknown_title": "Hindi Kilalang Status",
                 "success_message": "Ang iyong note ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga note o magdagdag ng isa pang note.",
                 "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
@@ -1458,15 +1458,15 @@
         }
     },
     "password_result": {
-        "title": "Impormasyon ng Payment Card",
+        "title": "Resulta ng Pag-store ng Password",
         "loading": "Inilo-load ang resulta...",
         "sections": {
             "success": {
-                "title": "Impormasyon ng Payment Card",
-                "message": "Matagumpay na nai-store ang note!"
+                "title": "Matagumpay ang Pag-store!",
+                "message": "Matagumpay na nai-store ang password!"
             },
             "details": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Mga Detalye ng Nai-store na Password",
                 "labels": {
                     "website": "Websit",
                     "username": "Username",
@@ -1477,7 +1477,7 @@
                 }
             },
             "nft": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Na-create ang NFT",
                 "labels": {
                     "token_id": "Token ID",
                     "cost": "Halaga",
@@ -1490,7 +1490,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "IPFS Storage",
                 "labels": {
                     "hash": "IPFS Hash",
                     "gateway_url": "Gateway URL",
@@ -1502,7 +1502,7 @@
                 "gateway_link": "Tingnan sa IPFS Gateway"
             },
             "walrus": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Walrus Storage",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "Public URL",
@@ -1515,7 +1515,7 @@
                 "explorer_link": "Tingnan sa Explorer"
             },
             "zelfproof": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Na-generate ang ZelfProof",
                 "labels": {
                     "string": "ZelfProof String",
                     "qr_code": "QR Code"
@@ -1523,19 +1523,19 @@
                 "copy_hint": "I-click para kopyahin"
             },
             "next_steps": {
-                "title": "Impormasyon ng Payment Card",
-                "success_message": "Ang iyong note ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga note o magdagdag ng isa pang note.",
+                "title": "Mga Susunod na Hakbang",
+                "success_message": "Ang iyong password ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga password o magdagdag ng isa pang password.",
                 "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
                 "unknown_message": "Hindi matukoy ng system ang status. Mangyaring suriin ang API response sa itaas para sa mga detalye."
             }
         },
         "actions": {
             "back_to_passwords": "Bumalik sa mga Password",
-            "add_another": "Magdagdag ng Ibang Card"
+            "add_another": "Magdagdag ng Ibang Password"
         },
         "status": {
-            "success_title": "Matagumpay na Nai-store ang Note!",
-            "error_title": "Error sa Pag-store ng Note",
+            "success_title": "Matagumpay na Nai-store ang Password!",
+            "error_title": "Error sa Pag-store ng Password",
             "unknown_title": "Hindi Kilalang Status",
             "success_message": "Ang iyong note ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga note o magdagdag ng isa pang note.",
             "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
@@ -1546,7 +1546,7 @@
         }
     },
     "domain_selection": {
-        "title": "Impormasyon ng Payment Card"
+        "title": "Piliin ang domain para sa iyong tag name"
     },
     "zotp": {
         "add_zotp": "Magdagdag ng ZOTP",
@@ -1637,21 +1637,22 @@
         "recovery_success_description": "Ang iyong ZOTP ay na-recover na at naidagdag sa iyong authenticator. Maaari mo na itong gamitin upang gumawa ng mga code."
     },
     "rewards": {
-        "title": "Impormasyon ng Payment Card",
+        "title": "Mga Reward",
         "redeem_zns": "I-redeem ang ZNS",
         "invite_friends": "Mag-imbita ng mga kaibigan",
-        "daily_rewards": "Daily rewards",
+        "daily_rewards": "Mga araw-araw na reward",
         "claim_it_now": "I-claim na",
-        "your_tasks": "Iyong mga task",
+        "your_tasks": "Iyong mga gawain",
         "coming_soon": "Malapit na",
         "first_transaction": {
-            "title": "Impormasyon ng Payment Card",
-            "loading": "Inilo-load ang resulta...",
-            "success_title": "Matagumpay na Nai-store ang Note!",
-            "success_subtitle": "Tapos na ang unang transaction!",
+            "title": "Unang transaksyon",
+            "loading": "Sinusuri ang eligibility...",
+            "success_title": "Nanalo ka!",
+            "success_subtitle": "Tapos na ang unang transaksyon!",
             "earned_label": "Nakuha mo",
+            "previously_earned_label": "Unang transaksyon",
+            "go_back_to_rewards": "Bumalik sa mga Reward",
             "accept": "Tanggapin",
-            "not_eligible_title": "Tapusin ang Task",
             "not_eligible_desc": "Magpadala ng mga ZNS token sa kahit kanino para ma-unlock ang reward na ito! Maaari kang magpadala ng anumang halaga - kahit 0.001 ZNS.",
             "send_now": "Magpadala ng ZNS Ngayon",
             "already_claimed_title": "Nakuha Na",
@@ -1663,24 +1664,24 @@
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Mag-imbita ng iyong unang kaibigan",
                 "reward": "Manalo ng 10 hanggang 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Unang transaksyon",
                 "reward": "Manalo ng 10 hanggang 100 $ZNS",
                 "reward_completed": "Nanalo ka ng {{amount}} $ZNS"
             },
             "join_discord": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Sumali sa aming Discord",
                 "reward": "Manalo ng 10 hanggang 100 $ZNS"
             },
             "join_telegram": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Sumali sa aming komunidad ng Telegram",
                 "reward": "Manalo ng 10 hanggang 100 $ZNS"
             },
             "join_x": {
-                "title": "Impormasyon ng Payment Card",
+                "title": "Sumali sa amin sa X",
                 "reward": "Manalo ng 10 hanggang 100 $ZNS"
             }
         },
@@ -1699,7 +1700,7 @@
         "spin_now": "Ikutin ang gulong!",
         "error": {
             "no_wallet": "Walang nahanap na wallet. Mangyaring i-set up muna ang iyong wallet.",
-            "load_failed": "Nabigong i-load ang mga payment card. Mangyaring subukan muli.",
+            "load_failed": "Nabigong i-load ang wheel configuration. Mangyaring subukan muli.",
             "claim_failed": "Hindi ma-claim ang reward.",
             "already_claimed": "Na-claim mo na ang iyong araw-araw na reward ngayong araw. Balik na lang bukas!",
             "spin_failed": "Nabigong i-spin ang wheel. Pakisubukan muli.",
@@ -1738,7 +1739,8 @@
             "subtitle": "Tapos na ang gawain!",
             "desc": "Referral reward mula kay <strong>{{ name }}</strong>",
             "earned_label": "Nakuha mo",
-            "accept": "Tanggapin"
+            "previously_earned_label": "First transaction",
+            "go_back_to_rewards": "Go Back"
         },
         "error": {
             "title": "Nabigo ang Pag-claim",

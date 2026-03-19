@@ -95,7 +95,11 @@
                 </div>
 
                 <!-- Daily Rewards Card -->
-                <div class="rewards__action-card rewards__action-card--highlight" [routerLink]="['/rewards/daily']">
+                <div class="rewards__action-card" 
+                     [class.rewards__action-card--highlight]="dailyRewardAvailable && !dailyRewardLoading"
+                     [style.opacity]="dailyRewardLoading ? '0.7' : '1'"
+                     [style.cursor]="!dailyRewardAvailable ? 'not-allowed' : 'pointer'"
+                     (click)="onDailyRewardsClick()">
                     <div class="rewards__action-icon">
                         <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="8" y="14" width="32" height="26" rx="4" fill="white" />
@@ -111,7 +115,13 @@
                     </div>
                     <div class="rewards__action-info">
                         <span class="rewards__action-title">{{ t("rewards.daily_rewards") }}</span>
-                        <div class="rewards__action-badge rewards__action-badge--pulse">{{ t("rewards.claim_it_now") }}</div>
+                        <div class="rewards__action-badge" [class.rewards__action-badge--pulse]="dailyRewardAvailable && !dailyRewardLoading">
+                            <ng-container *ngIf="dailyRewardAvailable && !dailyRewardLoading">{{ t("rewards.claim_it_now") }}</ng-container>
+                            <ng-container *ngIf="dailyRewardLoading">...</ng-container>
+                            <ng-container *ngIf="!dailyRewardAvailable && !dailyRewardLoading">
+                                {{ countdownHours.toString().padStart(2, '0') }}:{{ countdownMinutes.toString().padStart(2, '0') }}:{{ countdownSeconds.toString().padStart(2, '0') }}
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
             </div>

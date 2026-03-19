@@ -69,15 +69,11 @@
         }
     }
 
-    // Header - 3 Column Grid
+    // Header
     &__header {
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        column-gap: calc(12px * var(--zns-space-scale, 1));
+        grid-template-columns: calc(40px * var(--zns-space-scale, 1)) 1fr calc(40px * var(--zns-space-scale, 1));
         align-items: center;
-        align-content: center;
-        justify-content: start;
-        gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
         padding: calc(28px * var(--zns-space-scale, 1)) calc(32px * var(--zns-space-scale, 1));
         z-index: 10;
@@ -86,7 +82,6 @@
 
     &__col1,
     &__col3 {
-        grid-column: span 3;
         display: flex;
         align-items: center;
     }
@@ -99,11 +94,11 @@
     }
 
     &__col2 {
-        grid-column: span 4;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
+        overflow: hidden; // Ensure text can truncate
     }
 
     &__col3 {
@@ -117,6 +112,8 @@
         color: variables.$themeText;
         margin: 0;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         text-align: center;
     }
 
@@ -188,6 +185,26 @@
             background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
             animation: shimmer 3s ease-in-out infinite;
         }
+
+        &--claimed {
+            background: rgba(150, 150, 150, 0.03);
+            box-shadow: none;
+            border: 1px solid rgba(150, 150, 150, 0.08);
+
+            .first-transaction__hero-title {
+                color: variables.$themeText;
+                text-shadow: none;
+            }
+
+            .first-transaction__hero-subtitle {
+                color: variables.$themeTextMuted;
+                text-shadow: none;
+            }
+
+            &::before {
+                display: none; // remove shimmer
+            }
+        }
     }
 
     @keyframes shimmer {
@@ -236,7 +253,15 @@
         }
 
         &--claimed {
-            background: rgba(255, 149, 0, 0.25);
+            background: rgba(150, 150, 150, 0.06);
+            border: 1px solid rgba(150, 150, 150, 0.1);
+            box-shadow: none;
+            color: #10B981; // Make the icon path green
+            animation: none; // Remove floating
+            
+            svg {
+                filter: none;
+            }
         }
     }
 
@@ -342,7 +367,17 @@
         letter-spacing: -0.5px;
         background: linear-gradient(135deg, #ff6b35, #ffb347);
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
+
+        &--claimed {
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            -webkit-text-fill-color: unset;
+            color: variables.$themeText;
+            font-size: calc(28px * var(--zns-font-scale, 1));
+        }
     }
 
     // Steps/Instructions
@@ -415,6 +450,18 @@
                 transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
                 background: variables.$themeButtonHover !important;
                 box-shadow: 0 12px 28px variables.$themeShadow !important;
+            }
+        }
+
+        &--secondary {
+            background: rgba(150, 150, 150, 0.05) !important;
+            color: variables.$themeText !important;
+            border: 1px solid rgba(150, 150, 150, 0.1) !important;
+            box-shadow: none !important;
+
+            &:hover {
+                background: rgba(150, 150, 150, 0.08) !important;
+                transform: translateY(calc(-2px * var(--zns-space-scale, 1)));
             }
         }
     }

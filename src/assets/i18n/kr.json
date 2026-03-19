@@ -1637,7 +1637,7 @@
         "recovery_success_description": "ZOTP가 성공적으로 복구되어 인증기에 추가되었습니다. 이제 인증 코드를 생성하는 데 사용할 수 있습니다."
     },
     "rewards": {
-        "title": "결제 카드 정보",
+        "title": "보상",
         "redeem_zns": "ZNS 교환",
         "invite_friends": "친구 초대",
         "daily_rewards": "일일 보상",
@@ -1645,13 +1645,13 @@
         "your_tasks": "나의 작업",
         "coming_soon": "곧 출시 예정",
         "first_transaction": {
-            "title": "결제 카드 정보",
+            "title": "첫 거래",
             "loading": "결과를 불러오는 중...",
-            "success_title": "노트가 성공적으로 저장되었습니다!",
+            "success_title": "당첨되었습니다!",
             "success_subtitle": "첫 거래가 완료되었습니다!",
             "earned_label": "획득한 보상",
-            "accept": "확인",
-            "not_eligible_title": "미션 완료",
+            "previously_earned_label": "첫 거래",
+            "go_back_to_rewards": "돌아가기",
             "not_eligible_desc": "ZNS 토큰을 전송하여 보상을 잠금 해제하세요! 0.001 ZNS와 같은 소액 전송도 가능합니다.",
             "send_now": "지금 ZNS 전송하기",
             "already_claimed_title": "이미 수령함",
@@ -1663,24 +1663,24 @@
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "결제 카드 정보",
+                "title": "첫 친구를 초대하세요",
                 "reward": "10 ~ 100 $ZNS 획득"
             },
             "first_transaction": {
-                "title": "결제 카드 정보",
+                "title": "첫 거래",
                 "reward": "10 ~ 100 $ZNS 획득",
                 "reward_completed": "{{amount}} $ZNS를 획득했습니다"
             },
             "join_discord": {
-                "title": "결제 카드 정보",
+                "title": "디스코드에 참여하기",
                 "reward": "10 ~ 100 $ZNS 획득"
             },
             "join_telegram": {
-                "title": "결제 카드 정보",
+                "title": "텔레그램 커뮤니티에 참여하기",
                 "reward": "10 ~ 100 $ZNS 획득"
             },
             "join_x": {
-                "title": "결제 카드 정보",
+                "title": "X에서 팔로우하기",
                 "reward": "10 ~ 100 $ZNS 획득"
             }
         },
@@ -1699,7 +1699,7 @@
         "spin_now": "룰렛 돌리기!",
         "error": {
             "no_wallet": "지갑을 찾을 수 없습니다. 먼저 지갑을 설정해 주세요.",
-            "load_failed": "결제 카드를 불러오지 못했습니다. 다시 시도해 주세요.",
+            "load_failed": "휠 설정을 불러오지 못했습니다. 다시 시도해 주세요.",
             "claim_failed": "보상을 청구할 수 없습니다.",
             "already_claimed": "오늘의 일일 보상을 이미 청구하셨습니다. 내일 다시 오세요!",
             "spin_failed": "룰렛 회전에 실패했습니다. 다시 시도해 주세요.",
@@ -1738,7 +1738,8 @@
             "subtitle": "작업 완료!",
             "desc": "<strong>{{ name }}</strong> 님으로부터의 추천 보상",
             "earned_label": "획득한 보상",
-            "accept": "확인"
+            "previously_earned_label": "첫 거래",
+            "go_back_to_rewards": "돌아가기"
         },
         "error": {
             "title": "수령 실패",

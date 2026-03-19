@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
@@ -8,6 +8,7 @@ import { WalletService } from "../wallet.service";
 import { SolanaService } from "../solana.service";
 import { TagsService } from "../tags.service";
 import { ChromeService } from "../chrome.service";
+import { RewardsService, RouletteWheelResponse } from "../services/rewards.service";
 
 /** ZNS token mint on Solana (for reference; balance is fetched via backend /api/solana/address) */
 const ZNS_TOKEN_SYMBOL = "ZNS";
@@ -28,12 +29,20 @@ interface Task {
     styleUrls: ["./rewards.component.scss", "../main.scss"],
     templateUrl: "./rewards.component.html",
 })
-export class RewardsComponent implements OnInit {
+export class RewardsComponent implements OnInit, OnDestroy {
     znsBalance: number = 0;
     znsBalanceLoading: boolean = false;
     invitedFriends: number = 0;
     referralsLoading: boolean = false;
     maxInvites: number = 10;
+
+    dailyRewardLoading: boolean = false;
+    dailyRewardAvailable: boolean = true;
+    nextClaimAvailable: string | null = null;
+    countdownHours: number = 0;
+    countdownMinutes: number = 0;
+    countdownSeconds: number = 0;
+    private countdownInterval: any = null;
 
     /**
      * Toggle to test ZNS balance source: false = backend API (/api/solana/address), true = Solana RPC (getTokenAccountBalance).
@@ -82,6 +91,7 @@ export class RewardsComponent implements OnInit {
         private _solanaService: SolanaService,
         private _tagsService: TagsService,
         private _chromeService: ChromeService,
+        private _rewardsService: RewardsService,
         private _router: Router
     ) {}
 
@@ -89,6 +99,11 @@ export class RewardsComponent implements OnInit {
         this._loadZnsBalance();
         this._loadInvites();
         this._checkFirstTransactionCache();
+        this._loadDailyRewardsStatus();
+    }
+
+    ngOnDestroy(): void {
+        this.stopCountdown();
     }
 
     /**
@@ -184,6 +199,77 @@ export class RewardsComponent implements OnInit {
         } catch (error) {
             console.error("Error checking first transaction cache:", error);
         }
+    }
+
+    private async _loadDailyRewardsStatus(): Promise<void> {
+        this.dailyRewardLoading = true;
+        try {
+            const wallet = await this._walletService.getCurrentWallet();
+            if (!wallet) return;
+
+            const tagName = wallet.tagName || wallet.publicData?.tagName || wallet.name || "";
+            const domain = wallet.domain || wallet.publicData?.domain || (await this._tagsService.getDomain()) || "zelf";
+
+            if (!tagName) return;
+
+            const wheelConfig: RouletteWheelResponse = await this._rewardsService.getRouletteWheel(tagName, domain);
+
+            if (wheelConfig && !wheelConfig.canSpin && wheelConfig.alreadyClaimedToday && wheelConfig.nextClaimAvailable) {
+                this.dailyRewardAvailable = false;
+                this.nextClaimAvailable = wheelConfig.nextClaimAvailable;
+                this.startCountdown();
+            } else {
+                this.dailyRewardAvailable = true;
+            }
+        } catch (error) {
+            console.error("Error loading daily rewards status:", error);
+            // Default to available if there's an error so the module handles it
+            this.dailyRewardAvailable = true;
+        } finally {
+            this.dailyRewardLoading = false;
+        }
+    }
+
+    private startCountdown(): void {
+        if (!this.nextClaimAvailable) return;
+
+        this.updateCountdown();
+        this.countdownInterval = setInterval(() => {
+            this.updateCountdown();
+        }, 1000);
+    }
+
+    private updateCountdown(): void {
+        if (!this.nextClaimAvailable) return;
+
+        const now = new Date().getTime();
+        const target = new Date(this.nextClaimAvailable).getTime();
+        const diff = target - now;
+
+        if (diff <= 0) {
+            this.stopCountdown();
+            this.countdownHours = 0;
+            this.countdownMinutes = 0;
+            this.countdownSeconds = 0;
+            return;
+        }
+
+        this.countdownHours = Math.floor(diff / (1000 * 60 * 60));
+        this.countdownMinutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        this.countdownSeconds = Math.floor((diff % (1000 * 60)) / 1000);
+    }
+
+    private stopCountdown(): void {
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+        }
+    }
+
+    onDailyRewardsClick(): void {
+        if (this.dailyRewardLoading) return;
+        if (!this.dailyRewardAvailable) return;
+        this._router.navigate(["/rewards/daily"]);
     }
 
     onInviteFriends(): void {

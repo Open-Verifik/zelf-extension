@@ -26,7 +26,7 @@
     <div class="first-transaction__app-content">
         <div class="first-transaction__container">
             <!-- Hero Section -->
-            <div class="first-transaction__hero">
+            <div class="first-transaction__hero" [ngClass]="{'first-transaction__hero--claimed': state === 'already_claimed'}">
                 <div class="first-transaction__hero-glow"></div>
                 <!-- Hero Icon matches status -->
                 <div
@@ -53,7 +53,7 @@
                     >
                         <path
                             d="M5 12l5 5L20 7"
-                            stroke="white"
+                            stroke="currentColor"
                             stroke-width="4"
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -111,12 +111,16 @@
 
                     <!-- Result State (Success or Claimed) -->
                     <ng-container *ngIf="state === 'success' || state === 'already_claimed'">
-                        <span class="first-transaction__status-label">{{ t("rewards.first_transaction.earned_label") }}</span>
+                        <span class="first-transaction__status-label" *ngIf="state === 'success'">{{ t("rewards.first_transaction.earned_label") }}</span>
+                        <span class="first-transaction__status-label" *ngIf="state === 'already_claimed'">{{ t("rewards.first_transaction.previously_earned_label", { default: 'REWARD RECEIVED' }) }}</span>
                         <div class="first-transaction__status-row">
-                            <span class="first-transaction__status-value">{{ rewardAmount }} $ZNS</span>
+                            <span class="first-transaction__status-value" [class.first-transaction__status-value--claimed]="state === 'already_claimed'">{{ rewardAmount }} $ZNS</span>
                         </div>
-                        <button class="first-transaction__action-btn first-transaction__action-btn--primary" mat-flat-button (click)="goBack()">
+                        <button class="first-transaction__action-btn first-transaction__action-btn--primary" *ngIf="state === 'success'" mat-flat-button (click)="goBack()">
                             {{ t("rewards.first_transaction.accept") }}
+                        </button>
+                        <button class="first-transaction__action-btn first-transaction__action-btn--secondary" *ngIf="state === 'already_claimed'" mat-flat-button (click)="goBack()">
+                            {{ t("rewards.first_transaction.go_back_to_rewards", { default: 'Go Back to Rewards' }) }}
                         </button>
                     </ng-container>
 

@@ -1649,11 +1649,13 @@
         "your_tasks": "Tus tareas",
         "coming_soon": "Próximamente",
         "first_transaction": {
-            "title": "Recompensa por Primera Transacción",
+            "title": "Primera transacción",
             "loading": "Comprobando elegibilidad...",
             "success_title": "¡HAS GANADO!",
             "success_subtitle": "¡Primera transacción completada!",
             "earned_label": "Has ganado",
+            "previously_earned_label": "Primera transacción",
+            "go_back_to_rewards": "Volver",
             "accept": "Aceptar",
             "not_eligible_title": "Completa la tarea",
             "not_eligible_desc": "¡Envía tokens ZNS a cualquier persona para desbloquear esta recompensa! Puedes enviar cualquier cantidad, incluso 0.001 ZNS.",
@@ -1671,7 +1673,7 @@
                 "reward": "Gana de 10 a 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Envía tu primera transacción ZNS",
+                "title": "Primera transacción",
                 "reward": "Gana de 10 a 100 $ZNS",
                 "reward_completed": "Ganaste {{amount}} $ZNS"
             },

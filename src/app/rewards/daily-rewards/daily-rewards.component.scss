@@ -68,6 +68,7 @@
     }
 
     &__content {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -213,40 +214,53 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: calc(12px * var(--zns-space-scale, 1));
-        padding: calc(20px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
-        background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
-        border: 1px solid rgba(76, 175, 80, 0.3);
-        border-radius: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
+        padding: calc(32px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+        background: rgba(150, 150, 150, 0.03);
+        border: 1px solid rgba(150, 150, 150, 0.08);
+        border-radius: calc(24px * var(--zns-space-scale, 1));
         text-align: center;
         animation: fadeIn 0.5s ease-out;
+        width: 100%;
+        max-width: min(320px, var(--zns-card-width, 320px));
+        margin-top: calc(8px * var(--zns-space-scale, 1));
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
     }
 
     &__claimed-icon {
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #10b981; // Elegant emerald green
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__claimed-text {
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        font-weight: 500;
-        line-height: calc(20px * var(--zns-font-scale, 1));
+        font-family: variables.$themeTitleFamily;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        line-height: calc(28px * var(--zns-font-scale, 1));
         color: variables.$themeText;
         margin: 0;
+        letter-spacing: -0.3px;
     }
 
     &__claimed-amount {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
-        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
-        color: variables.$themeTextSecondary;
-        margin: 0;
+        color: variables.$themeTextMuted;
+        background: rgba(150, 150, 150, 0.06);
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-radius: calc(100px * var(--zns-space-scale, 1));
+        margin: calc(4px * var(--zns-space-scale, 1)) 0 calc(12px * var(--zns-space-scale, 1));
 
         strong {
-            font-weight: 700;
-            color: #4caf50;
+            font-weight: 600;
+            color: variables.$themeText;
         }
     }
 
@@ -254,43 +268,50 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        margin-top: calc(8px * var(--zns-space-scale, 1));
+        gap: calc(16px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding-top: calc(24px * var(--zns-space-scale, 1));
+        border-top: 1px solid rgba(150, 150, 150, 0.08);
     }
 
     &__countdown-label {
         font-family: variables.$themeBodyFamily;
         font-size: calc(12px * var(--zns-font-scale, 1));
-        font-weight: 500;
+        font-weight: 600;
         color: variables.$themeTextMuted;
         margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     &__countdown-timer {
         display: flex;
         align-items: center;
-        gap: calc(4px * var(--zns-space-scale, 1));
+        gap: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__countdown-unit {
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-width: calc(40px * var(--zns-space-scale, 1));
+        gap: calc(6px * var(--zns-space-scale, 1));
+        min-width: calc(48px * var(--zns-space-scale, 1));
     }
 
     &__countdown-value {
         font-family: variables.$themeTitleFamily;
-        font-size: calc(24px * var(--zns-font-scale, 1));
-        font-weight: 700;
-        color: #ff5721;
+        font-size: calc(32px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
         line-height: 1;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.5px;
     }
 
     &__countdown-unit-label {
         font-family: variables.$themeBodyFamily;
         font-size: calc(10px * var(--zns-font-scale, 1));
-        font-weight: 500;
+        font-weight: 600;
         color: variables.$themeTextMuted;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -299,10 +320,10 @@
     &__countdown-separator {
         font-family: variables.$themeTitleFamily;
         font-size: calc(24px * var(--zns-font-scale, 1));
-        font-weight: 700;
-        color: #ff5721;
+        font-weight: 400;
+        color: rgba(150, 150, 150, 0.2);
         line-height: 1;
-        margin-bottom: calc(14px * var(--zns-space-scale, 1));
+        margin-bottom: calc(20px * var(--zns-space-scale, 1));
     }
 
     &__result {
@@ -353,8 +374,10 @@
         }
 
         &--disabled {
-            background: #96939e;
+            background: rgba(150, 150, 150, 0.06);
+            color: variables.$themeTextMuted;
             cursor: not-allowed;
+            border: 1px solid rgba(150, 150, 150, 0.1);
         }
 
         &--activate {

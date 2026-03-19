@@ -80,7 +80,7 @@
                 "description": "支払いカードは安全に保存され、暗号化されました。"
             },
             "preview": {
-                "title": "支払いカード情報",
+                "title": "カード詳細",
                 "labels": {
                     "name": "支払いカード名",
                     "card_holder": "カード名義人",
@@ -89,11 +89,11 @@
                 }
             },
             "image": {
-                "title": "支払いカード情報",
+                "title": "ZelfProof",
                 "download": "ZelfProofをダウンロード"
             },
             "nft": {
-                "title": "支払いカード情報",
+                "title": "NFT作成済み",
                 "labels": {
                     "token_id": "トークンID",
                     "cost": "コスト",
@@ -106,7 +106,7 @@
                 "image_alt": "ZelfKey NFT"
             },
             "ipfs": {
-                "title": "支払いカード情報",
+                "title": "IPFSストレージ",
                 "labels": {
                     "hash": "IPFSハッシュ",
                     "gateway_url": "ゲートウェイURL",
@@ -116,7 +116,7 @@
                 "gateway_link": "IPFSゲートウェイで表示"
             },
             "walrus": {
-                "title": "支払いカード情報",
+                "title": "Walrusストレージ",
                 "labels": {
                     "blob_id": "Blob ID",
                     "public_url": "公開URL",
@@ -129,7 +129,7 @@
                 "explorer_link": "エクスプローラーで表示"
             },
             "zelfproof": {
-                "title": "支払いカード情報",
+                "title": "ZelfProof生成完了",
                 "labels": {
                     "string": "ZelfProof文字列",
                     "qr_code": "QRコード"
@@ -137,7 +137,7 @@
                 "copy_hint": "クリックしてコピー"
             },
             "error": {
-                "title": "支払いカード情報",
+                "title": "支払いカードの作成に失敗しました",
                 "default_message": "支払いカードの作成中に予期しないエラーが発生しました。",
                 "try_again": "再試行",
                 "no_data": "結果データが見つかりません"
@@ -299,7 +299,7 @@
             "permission_required": "カメラの許可が必要です",
             "processing": "生体認証データを処理しています...",
             "retry": "再試行",
-            "title": "支払いカード情報",
+            "title": "{{ type }} の復号",
             "unlock": "生体認証へ進む",
             "types": {
                 "credit_card": "支払いカード",
@@ -331,17 +331,17 @@
             "master_password_hint": "このエントリーの作成時にマスターパスワードを設定した場合は、ここに入力してください"
         },
         "note_result": {
-            "title": "支払いカード情報",
+            "title": "ノート保存結果",
             "loading": "結果を読み込んでいます...",
             "sections": {
                 "success": {
-                    "title": "支払いカード情報",
+                    "title": "保存成功！",
                     "message": "ノートが正常に保存されました！"
                 },
                 "details": {
-                    "title": "支払いカード情報",
+                    "title": "保存したノートの詳細",
                     "labels": {
-                        "title": "支払いカード情報",
+                        "title": "タイトル",
                         "folder": "フォルダ",
                         "type": "タイプ",
                         "category": "カテゴリ",
@@ -350,7 +350,7 @@
                     }
                 },
                 "nft": {
-                    "title": "支払いカード情報",
+                    "title": "NFT作成済み",
                     "labels": {
                         "token_id": "トークンID",
                         "cost": "コスト",
@@ -360,7 +360,7 @@
                     "image_alt": "ZelfKey NFT"
                 },
                 "ipfs": {
-                    "title": "支払いカード情報",
+                    "title": "IPFSストレージ",
                     "labels": {
                         "hash": "IPFSハッシュ",
                         "gateway_url": "ゲートウェイURL",
@@ -370,7 +370,7 @@
                     "gateway_link": "IPFSゲートウェイで表示"
                 },
                 "walrus": {
-                    "title": "支払いカード情報",
+                    "title": "Walrusストレージ",
                     "labels": {
                         "blob_id": "Blob ID",
                         "public_url": "公開URL",
@@ -383,7 +383,7 @@
                     "explorer_link": "エクスプローラーで表示"
                 },
                 "zelfproof": {
-                    "title": "支払いカード情報",
+                    "title": "ZelfProof生成完了",
                     "labels": {
                         "string": "ZelfProof文字列",
                         "qr_code": "QRコード"
@@ -392,10 +392,10 @@
                     "qr_alt": "ZelfProof QRコード"
                 },
                 "debug": {
-                    "title": "支払いカード情報"
+                    "title": "デバッグ情報"
                 },
                 "next_steps": {
-                    "title": "支払いカード情報",
+                    "title": "次のステップ",
                     "success_message": "ノートは安全に保存されました。ノートリストで確認するか、別のノートを追加できます。",
                     "error_message": "上記の詳細を確認して、もう一度お試しください。問題が解決しない場合は、サポートにお問い合わせください。",
                     "unknown_message": "ステータスを判別できませんでした。詳細は上記のAPIレスポンスを確認してください。"
@@ -403,7 +403,7 @@
             },
             "actions": {
                 "back_to_notes": "ノート一覧に戻る",
-                "add_another": "別のカードを追加"
+                "add_another": "別のノートを追加"
             },
             "status": {
                 "success_title": "ノートが正常に保存されました！",
@@ -1637,7 +1637,7 @@
         "recovery_success_description": "ZOTPが復元され、オーセンティケーターに追加されました。これでコードの生成に使用できます。"
     },
     "rewards": {
-        "title": "支払いカード情報",
+        "title": "報酬",
         "redeem_zns": "ZNSを換金",
         "invite_friends": "友達を招待",
         "daily_rewards": "デイリー報酬",
@@ -1645,13 +1645,13 @@
         "your_tasks": "あなたのタスク",
         "coming_soon": "近日公開",
         "first_transaction": {
-            "title": "支払いカード情報",
+            "title": "初回取引",
             "loading": "結果を読み込んでいます...",
-            "success_title": "ノートが正常に保存されました！",
+            "success_title": "当選しました！",
             "success_subtitle": "初回取引が完了しました！",
             "earned_label": "獲得額",
-            "accept": "承認",
-            "not_eligible_title": "タスクを完了する",
+            "previously_earned_label": "初回取引",
+            "go_back_to_rewards": "戻る",
             "not_eligible_desc": "誰かにZNSトークンを送信して、この報酬を解除しましょう！ 0.001 ZNSなどの少額でも可能です。",
             "send_now": "今すぐZNSを送信",
             "already_claimed_title": "獲得済み",
@@ -1663,24 +1663,24 @@
         },
         "tasks": {
             "invite_first_friend": {
-                "title": "支払いカード情報",
+                "title": "最初の友達を招待",
                 "reward": "10〜100 $ZNSを獲得"
             },
             "first_transaction": {
-                "title": "支払いカード情報",
+                "title": "初回取引",
                 "reward": "10〜100 $ZNSを獲得",
                 "reward_completed": "{{amount}} $ZNSを獲得しました"
             },
             "join_discord": {
-                "title": "支払いカード情報",
+                "title": "Discordに参加",
                 "reward": "10〜100 $ZNSを獲得"
             },
             "join_telegram": {
-                "title": "支払いカード情報",
+                "title": "Telegramコミュニティに参加",
                 "reward": "10〜100 $ZNSを獲得"
             },
             "join_x": {
-                "title": "支払いカード情報",
+                "title": "Xでフォロー",
                 "reward": "10〜100 $ZNSを獲得"
             }
         },
@@ -1699,7 +1699,7 @@
         "spin_now": "ホイールを回す！",
         "error": {
             "no_wallet": "ウォレットが見つかりません。まずウォレットを設定してください。",
-            "load_failed": "支払いカードの読み込みに失敗しました。もう一度お試しください。",
+            "load_failed": "ホイール設定の読み込みに失敗しました。もう一度お試しください。",
             "claim_failed": "報酬の請求に失敗しました。",
             "already_claimed": "本日のデイリー報酬はすでに請求済みです。また明日お越しください！",
             "spin_failed": "ホイールの回転に失敗しました。もう一度お試しください。",
@@ -1738,7 +1738,8 @@
             "subtitle": "タスク完了！",
             "desc": "<strong>{{ name }}</strong> さんからの招待報酬",
             "earned_label": "獲得額",
-            "accept": "承認"
+            "previously_earned_label": "初回取引",
+            "go_back_to_rewards": "戻る"
         },
         "error": {
             "title": "受け取りに失敗しました",

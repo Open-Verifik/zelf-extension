@@ -1634,11 +1634,13 @@
         "your_tasks": "Your tasks",
         "coming_soon": "Coming Soon",
         "first_transaction": {
-            "title": "First Transaction Reward",
+            "title": "First transaction",
             "loading": "Checking eligibility...",
             "success_title": "YOU HAVE WON",
             "success_subtitle": "First transaction complete!",
             "earned_label": "You have earned",
+            "previously_earned_label": "First transaction",
+            "go_back_to_rewards": "Go Back",
             "accept": "Accept",
             "not_eligible_title": "Complete the Task",
             "not_eligible_desc": "Send ZNS tokens to anyone to unlock this reward! You can send any amount - even 0.001 ZNS.",
@@ -1656,7 +1658,7 @@
                 "reward": "Win 10 to 100 $ZNS"
             },
             "first_transaction": {
-                "title": "Send your first ZNS transaction",
+                "title": "First transaction",
                 "reward": "Earn up to 100 $ZNS",
                 "reward_completed": "You won {{amount}} $ZNS"
             },

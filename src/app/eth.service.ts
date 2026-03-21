@@ -156,8 +156,14 @@ export class EthereumService {
                 }
             }
 
-            const gasTracker = await this.getGasPrices();
-            const gasPrice = this._web3.utils.toWei(gasTracker.data.average.gwei, "gwei");
+            let gasPrice: string;
+            try {
+                const gasTracker = await this.getGasPrices();
+                gasPrice = this._web3.utils.toWei(gasTracker.data.average.gwei, "gwei");
+            } catch {
+                const gp = await this._web3.eth.getGasPrice();
+                gasPrice = gp.toString();
+            }
 
             const totalCost = (BigInt(gasPrice) * BigInt(estimatedGas)).toString();
             const nativeFee = Number(this._web3.utils.fromWei(totalCost, "ether"));

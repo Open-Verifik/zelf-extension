@@ -479,7 +479,11 @@
         "zelf_name_not_registered": "टैग नाम पंजीकृत नहीं है",
         "zelf_name_registered": "टैग नाम पंजीकृत है",
         "from_address": "प्रेषक पता",
-        "private_transaction": "निजी लेन-देन"
+        "private_transaction": "निजी लेन-देन",
+        "amount_inline_required": "Required",
+        "amount_inline_invalid": "Invalid amount",
+        "amount_inline_min": "Min {{amount}}",
+        "amount_inline_max": "Max {{amount}}"
     },
     "transaction": {
         "go_to_my_history": "मेरे इतिहास पर जाएं",

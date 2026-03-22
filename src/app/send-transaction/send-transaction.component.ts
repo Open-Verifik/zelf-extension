@@ -129,6 +129,48 @@ export class SendTransactionComponent implements OnDestroy {
         return amount * fiatPrice || 0;
     }
 
+    /** Matches truncated max used for validation and "withdraw all". */
+    get displaySendableBalance(): string {
+        return this._getMaxSendableAmount();
+    }
+
+    /** Smallest amount we allow without treating as dust (matches ~8 leading fractional zeros). */
+    private static readonly _MIN_SENDABLE_AMOUNT = 1e-8;
+
+    /** Red border + inline row: only dust / max / bad number — not empty or zero. */
+    get showAmountFieldErrorState(): boolean {
+        const c = this.form?.get("amount");
+        if (!c?.touched || !c.invalid) return false;
+        const e = c.errors;
+        return !!(e?.dustTooSmall || e?.lessThan || e?.invalidNumber);
+    }
+
+    /** Up to 8 decimal places for inline validation copy. */
+    formatAmountForInlineError(value: unknown): string {
+        const n = parseFloat(String(value ?? ""));
+        if (!Number.isFinite(n)) return String(value ?? "");
+
+        const s = n.toFixed(8).replace(/\.?0+$/, "");
+        return s || "0";
+    }
+
+    dustMinAmountDisplay(): string {
+        return this.formatAmountForInlineError(SendTransactionComponent._MIN_SENDABLE_AMOUNT);
+    }
+
+    onAmountBlur(): void {
+        this.form.get("amount")?.markAsTouched();
+    }
+
+    onWithdrawPrimaryClick(): void {
+        if (this.isConfirmationDisabled()) {
+            this.form.get("amount")?.markAsTouched();
+            return;
+        }
+
+        void this.continueToConfirmation();
+    }
+
     get filteredAddresses(): AddressBook[] {
         const searchValue = this.form.get("toAddress")?.value;
 
@@ -179,18 +221,87 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private _amountValidation(maxValue: number | string): ValidatorFn {
+        const minSend = SendTransactionComponent._MIN_SENDABLE_AMOUNT;
+
         return (control: AbstractControl): ValidationErrors | null => {
-            if (!control.value) return { greaterThan: true };
+            const raw = control.value;
+            const str = raw === null || raw === undefined ? "" : String(raw).trim();
 
-            const MIN_VALUE = 1e-18; // 0.000000000000000001
-            const value = +control.value;
+            if (str === "") return { noAmount: true };
 
+            const value = +str.replace(/,/g, "");
             if (isNaN(value)) return { invalidNumber: true };
-            if (value < MIN_VALUE) return { greaterThan: { value: "0.000000000000000001" } };
-            if (value > +maxValue) return { lessThan: { value: maxValue } };
+            if (value <= 0) return { noAmount: true };
+
+            if (value < minSend) return { dustTooSmall: true };
+
+            const cap = parseFloat(String(maxValue));
+            if (!Number.isFinite(cap) || value > cap) return { lessThan: { value: maxValue } };
 
             return null;
         };
+    }
+
+    private _getSendDecimals(): number {
+        const raw = this.transactionData?.token?.decimals;
+        const parsed = raw !== undefined && raw !== null ? Number(raw) : NaN;
+
+        if (Number.isFinite(parsed) && parsed >= 0) return Math.min(36, Math.floor(parsed));
+
+        if (this.transactionData.isSuiToken) return 9;
+        if (this.transactionData.isSolToken) return 9;
+        if (this.transactionData.isBtcToken) return 8;
+        if (
+            this.transactionData.isEthToken ||
+            this.transactionData.isAvaxToken ||
+            this.transactionData.isPolToken ||
+            this.transactionData.isBscToken ||
+            this.transactionData.isBDAGToken
+        ) {
+            return 18;
+        }
+
+        return 18;
+    }
+
+    /**
+     * Balance truncated to token decimals (floor) so max validation, "withdraw all", and error copy stay aligned.
+     */
+    private _getMaxSendableAmount(): string {
+        const decimals = this._getSendDecimals();
+        const raw = this.transactionData.balance;
+        let s = String(raw ?? 0)
+            .replace(/,/g, "")
+            .trim();
+
+        if (!s || /^nan$/i.test(s)) return "0";
+
+        const negative = s.startsWith("-");
+        if (negative) s = s.slice(1);
+
+        if (/e/i.test(s)) {
+            const n = Number((negative ? "-" : "") + s);
+            if (!Number.isFinite(n) || n < 0) return "0";
+            const factor = 10 ** decimals;
+            const floored = Math.floor(n * factor + 1e-12) / factor;
+            return this._trimAmountFraction(floored.toFixed(decimals));
+        }
+
+        const parts = s.split(".");
+        const intDigits = (parts[0] || "").replace(/\D/g, "") || "0";
+        const intPart = intDigits.replace(/^0+(?=\d)/, "") || "0";
+        const fracDigits = (parts[1] || "").replace(/\D/g, "");
+        const truncatedFrac = fracDigits.slice(0, decimals);
+        const joined = truncatedFrac.length ? `${intPart}.${truncatedFrac}` : intPart;
+        const signed = negative && joined !== "0" && parseFloat(joined) !== 0 ? `-${joined}` : joined;
+
+        return this._trimAmountFraction(signed);
+    }
+
+    private _trimAmountFraction(amount: string): string {
+        if (!amount.includes(".")) return amount;
+
+        return amount.replace(/\.?0+$/, "") || "0";
     }
 
     private _checkEVMAddress(text: string): boolean {
@@ -315,16 +426,10 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private _initForm(): void {
+        const maxSend = this._getMaxSendableAmount();
+
         this.form = this._formBuilder.group({
-            amount: [
-                this.transactionData?.amount || "",
-                [
-                    Validators.required,
-                    Validators.min(0),
-                    Validators.max(this.transactionData.balance as number),
-                    this._amountValidation(this.transactionData.balance as number),
-                ],
-            ],
+            amount: [this.transactionData?.amount || "", [this._amountValidation(maxSend)]],
             toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(66), this._addressValidator()]],
             fromAddress: [this.transactionData?.sender?.address || ""],
         });
@@ -705,14 +810,32 @@ export class SendTransactionComponent implements OnDestroy {
         this.form.get("toAddress")?.patchValue(address.address);
     }
 
+    onAmountKeydown(event: KeyboardEvent): void {
+        if (event.isComposing) return;
+        if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+        const nav = ["Backspace", "Delete", "Tab", "Escape", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"];
+        if (nav.includes(event.key)) return;
+
+        if (/^[0-9]$/.test(event.key)) return;
+
+        if (event.key === ".") {
+            const input = event.target as HTMLInputElement;
+            if (input.value.includes(".")) event.preventDefault();
+            return;
+        }
+
+        event.preventDefault();
+    }
+
     onAmountInput(event: Event): void {
         const input = event.target as HTMLInputElement;
         const sanitized = this._sanitizeAmountValue(input.value);
 
         if (sanitized !== input.value) {
             input.value = sanitized;
-            this.form.get("amount")?.setValue(sanitized, { emitEvent: true });
         }
+        this.form.get("amount")?.setValue(sanitized, { emitEvent: true });
     }
 
     onAmountPaste(event: ClipboardEvent): void {
@@ -722,11 +845,13 @@ export class SendTransactionComponent implements OnDestroy {
         const sanitized = this._sanitizeAmountValue(pasted);
 
         this.form.get("amount")?.setValue(sanitized, { emitEvent: true });
-        this.form.get("amount")?.markAsDirty();
+        this.form.get("amount")?.markAsTouched();
     }
 
     withdrawAll(): void {
-        this.form.get("amount")?.patchValue(this.transactionData.balance);
+        const c = this.form.get("amount");
+        c?.patchValue(this._getMaxSendableAmount());
+        c?.markAsTouched();
     }
 
     private _sanitizeAmountValue(value: string): string {

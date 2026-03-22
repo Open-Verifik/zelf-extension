@@ -479,7 +479,11 @@
         "zelf_name_not_registered": "태그 이름이 등록되지 않음",
         "zelf_name_registered": "태그 이름이 등록됨",
         "from_address": "보내는 주소",
-        "private_transaction": "프라이빗 트랜잭션"
+        "private_transaction": "프라이빗 트랜잭션",
+        "amount_inline_required": "Required",
+        "amount_inline_invalid": "Invalid amount",
+        "amount_inline_min": "Min {{amount}}",
+        "amount_inline_max": "Max {{amount}}"
     },
     "transaction": {
         "go_to_my_history": "내 내역으로 이동",

@@ -117,10 +117,12 @@
 
                     <div
                         class="zelf-input zelf-input--wide"
-                        [ngClass]="{ 'zelf-input--error': form.get('amount')?.dirty && form.get('amount')?.invalid }"
+                        [ngClass]="{ 'zelf-input--error': showAmountFieldErrorState }"
                     >
                         <input
                             (input)="onAmountInput($event)"
+                            (blur)="onAmountBlur()"
+                            (keydown)="onAmountKeydown($event)"
                             (paste)="onAmountPaste($event)"
                             [placeholder]="t('send.enter_amount_to_send')"
                             autocomplete="off"
@@ -129,7 +131,6 @@
                             id="amount"
                             inputmode="decimal"
                             name="amount"
-                            required
                             type="text"
                         />
 
@@ -138,45 +139,24 @@
                         </button>
                     </div>
 
-                    <p class="send-transaction__fiat-price">~{{ fiatPrice | currency: "USD" : "symbol" : "1.2" }}</p>
+                    <div class="send-transaction__fiat-row">
+                        <span class="send-transaction__fiat-price">~{{ fiatPrice | currency: "USD" : "symbol" : "1.2" }}</span>
+                        <div class="send-transaction__amount-inline-errors" *ngIf="showAmountFieldErrorState">
+                            <span *ngIf="form.get('amount')?.errors?.invalidNumber" class="send-transaction__amount-inline-error">
+                                {{ t("send.amount_inline_invalid") }}
+                            </span>
+                            <span *ngIf="form.get('amount')?.errors?.lessThan" class="send-transaction__amount-inline-error">
+                                {{ t("send.amount_inline_max", { amount: formatAmountForInlineError(form.get('amount')?.errors?.lessThan?.value) }) }}
+                            </span>
+                            <span *ngIf="form.get('amount')?.errors?.dustTooSmall" class="send-transaction__amount-inline-error">
+                                {{ t("send.amount_inline_min", { amount: dustMinAmountDisplay() }) }}
+                            </span>
+                        </div>
+                    </div>
 
                     <p class="zelf-input__tip">
-                        {{ t("send.available_balance", { symbol: transactionData.symbol, balance: transactionData.balance }) }}
+                        {{ t("send.available_balance", { symbol: transactionData.symbol, balance: displaySendableBalance }) }}
                     </p>
-
-                    <div
-                        class="zelf-message zelf-message--error zelf-message--column"
-                        *ngIf="form.get('amount')?.dirty && form.get('amount')?.errors"
-                    >
-                        <ng-container *ngIf="form.get('amount')?.errors?.required">
-                            <div class="zelf-message__row">
-                                <ng-container *ngTemplateOutlet="cross"></ng-container>
-                                <p>{{ t("errors.required_field") }}</p>
-                            </div>
-                        </ng-container>
-
-                        <ng-container *ngIf="form.get('amount')?.errors?.invalidNumber">
-                            <div class="zelf-message__row">
-                                <ng-container *ngTemplateOutlet="cross"></ng-container>
-                                <p>{{ t("errors.invalid_number_value") }}</p>
-                            </div>
-                        </ng-container>
-
-                        <ng-container *ngIf="form.get('amount')?.errors?.lessThan">
-                            <div class="zelf-message__row">
-                                <ng-container *ngTemplateOutlet="cross"></ng-container>
-                                <p>{{ t("errors.must_be_less_than", { value: form.get("lessThan")?.errors?.greaterThan.value }) }}</p>
-                            </div>
-                        </ng-container>
-
-                        <ng-container *ngIf="form.get('amount')?.errors?.greaterThan">
-                            <div class="zelf-message__row">
-                                <ng-container *ngTemplateOutlet="cross"></ng-container>
-
-                                <p>{{ t("errors.must_be_greater_than", { value: 0 }) }}</p>
-                            </div>
-                        </ng-container>
-                    </div>
                 </ng-container>
 
                 <ng-container *ngIf="!withdrawStep && filteredAddresses.length">
@@ -291,10 +271,11 @@
                 </button>
 
                 <button
-                    (click)="continueToConfirmation()"
-                    [disabled]="isConfirmationDisabled()"
+                    (click)="onWithdrawPrimaryClick()"
                     *ngIf="withdrawStep"
-                    class="zelf-button zelf-button--primary zelf-button--wide"
+                    [attr.aria-disabled]="isConfirmationDisabled()"
+                    [class.send-transaction__withdraw-cta--blocked]="isConfirmationDisabled()"
+                    class="zelf-button zelf-button--primary zelf-button--wide send-transaction__withdraw-cta"
                     mat-flat-button
                     type="button"
                 >

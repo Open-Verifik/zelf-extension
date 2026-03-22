@@ -479,7 +479,11 @@
         "zelf_name_not_registered": "Nome da Tag não registrado",
         "zelf_name_registered": "Nome da Tag registrado",
         "from_address": "Do endereço",
-        "private_transaction": "Private Transaction"
+        "private_transaction": "Private Transaction",
+        "amount_inline_required": "Obrigatório",
+        "amount_inline_invalid": "Valor inválido",
+        "amount_inline_min": "Mín. {{amount}}",
+        "amount_inline_max": "Máx. {{amount}}"
     },
     "transaction": {
         "go_to_my_history": "Ir para meu histórico",

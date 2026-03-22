@@ -479,7 +479,11 @@
         "zelf_name_not_registered": "Nom d'Étiquette non enregistré",
         "zelf_name_registered": "Nom d'Étiquette enregistré",
         "from_address": "De l'adresse",
-        "private_transaction": "Transaction Privée"
+        "private_transaction": "Transaction Privée",
+        "amount_inline_required": "Requis",
+        "amount_inline_invalid": "Montant invalide",
+        "amount_inline_min": "Min. {{amount}}",
+        "amount_inline_max": "Max. {{amount}}"
     },
     "transaction": {
         "go_to_my_history": "Aller à mon historique",

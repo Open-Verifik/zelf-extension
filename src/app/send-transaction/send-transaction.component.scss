@@ -121,19 +121,62 @@
         fill: variables.$themeText;
     }
 
+    &__fiat-row {
+        align-items: baseline;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        justify-content: space-between;
+        margin: 0;
+        padding: 0 calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+    }
+
     &__fiat-price {
         box-sizing: border-box;
         color: variables.$themeTextSecondary;
+        flex: 0 1 auto;
         font-family: variables.$themeBodyFamily;
         font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 500;
         letter-spacing: 0.1px;
         line-height: calc(20px * var(--zns-font-scale, 1));
         margin: 0;
-        padding: 0 calc(12px * var(--zns-space-scale, 1));
+        padding: 0;
         text-align: left;
         vertical-align: middle;
-        width: 100%;
+    }
+
+    &__amount-inline-errors {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        margin: 0;
+        min-width: 0;
+        text-align: right;
+    }
+
+    &__amount-inline-error {
+        color: variables.$error;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: calc(18px * var(--zns-font-scale, 1));
+        margin: 0;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__withdraw-cta {
+        &--blocked {
+            cursor: not-allowed;
+            opacity: 0.45;
+            pointer-events: auto;
+        }
     }
 
     &__address-col {

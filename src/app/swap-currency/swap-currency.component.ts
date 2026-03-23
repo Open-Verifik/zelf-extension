@@ -1,8 +1,21 @@
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, DestroyRef, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from "@angular/core";
+import {
+    ChangeDetectorRef,
+    Component,
+    DestroyRef,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { MatRippleModule } from "@angular/material/core";
+import { MatButtonModule } from "@angular/material/button";
 import { TranslocoModule } from "@jsverse/transloco";
 
 import { AssetService, NetworkPermissions } from "app/asset.service";
@@ -29,21 +42,29 @@ export interface AssetChangeData {
         CurrencyPipe,
         DecimalPipe,
         MatRippleModule,
+        MatButtonModule,
         ZelfLoaderComponent,
     ],
     selector: "swap-currency",
     styleUrls: ["./swap-currency.component.scss"],
     templateUrl: "./swap-currency.component.html",
 })
-export class SwapCurrencyComponent implements OnInit {
+export class SwapCurrencyComponent implements OnInit, OnChanges {
     @ViewChild("assetsContainer", { static: false }) assetsContainer!: ElementRef;
 
     @Input() source: "source" | "target" = "source";
     @Input() selectedAsset: Partial<TokenData> = {};
     @Input() myAssets: TokenData[] = [];
     @Input() showAllTokens: boolean = true;
+    /** When set, only tokens on this chain (lowercase id, e.g. ethereum) are listed. */
+    @Input() parentNetworkId: string | null = null;
+    /** Token already chosen on the other swap side; hidden so the same asset cannot be selected twice. */
+    @Input() excludeOppositeAsset: Partial<TokenData> | null = null;
 
     @Output() assetChange = new EventEmitter<AssetChangeData>();
+    @Output() pickerBack = new EventEmitter<void>();
+
+    tokenListTab: "yours" | "trusted" = "yours";
 
     private _pageSize = 40;
     private _myAssetsMap: Record<string, TokenData> = {};
@@ -97,6 +118,13 @@ export class SwapCurrencyComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
+        this._ensureNetworkFilterDefaults();
+
+        this._settingsService.settings$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe(() => {
+            this._initNetworkOptions();
+            this._cdr.markForCheck();
+        });
+
         try {
             await this._initializeAssets();
         } catch (error) {
@@ -106,30 +134,78 @@ export class SwapCurrencyComponent implements OnInit {
         }
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes["parentNetworkId"] && this.form) {
+            this.form.patchValue({ networkFilter: "all" }, { emitEvent: false });
+            this.selectedNetworkFilter = "all";
+            this._resetPaging();
+
+            const ch = changes["parentNetworkId"];
+
+            if (!ch.isFirstChange() && ch.previousValue !== ch.currentValue) {
+                void this._fetchAndMapTokens();
+            }
+        }
+
+        if (changes["excludeOppositeAsset"] && this.form) {
+            this._resetPaging();
+        }
+
+        this._ensureNetworkFilterDefaults();
+    }
+
     get displayedAssets(): TokenData[] {
-        return this.filteredAssets.slice(this.minPage - 1, this.maxPage * this._pageSize);
+        return this.tabFilteredAssets.slice(this.minPage - 1, this.maxPage * this._pageSize);
+    }
+
+    get tabFilteredAssets(): TokenData[] {
+        const base = this.filteredAssets;
+
+        if (this.tokenListTab !== "yours") return base;
+
+        return base.filter((a) => {
+            const fiat = parseFloat(String(a.fiatBalance ?? 0)) || 0;
+            const amt = parseFloat(String(a.amount ?? 0)) || 0;
+
+            return fiat > 0 || amt > 0;
+        });
     }
 
     private _getEnabledNetworkIds(): string[] | undefined {
-        const settings = this._settingsService.settings;
-        if (!settings || !settings.networks) return undefined;
-        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+        return this._settingsService.getEnabledNetworkIds();
     }
 
     private _isNetworkEnabled(networkName: string): boolean {
         const enabledNetworkIds = this._getEnabledNetworkIds();
+
         if (!enabledNetworkIds) return true;
+
         return enabledNetworkIds.includes(networkName.toLowerCase());
     }
 
+    /** Aligns with swap form `_notMatchingValidator` (symbol + network). */
+    private _swapAssetIdentityKey(asset: Pick<TokenData, "symbol" | "network"> | Partial<TokenData> | null | undefined): string | null {
+        if (!asset?.symbol || !asset?.network) return null;
+
+        return `${String(asset.symbol).toLowerCase()}-${String(asset.network).toLowerCase()}`;
+    }
+
     get filteredAssets(): TokenData[] {
+        const excludeKey = this._swapAssetIdentityKey(this.excludeOppositeAsset);
+
         return this.assets.filter((asset) => {
             if (!asset) return false;
 
             const networkName = asset.network || "";
             if (!this._isNetworkEnabled(networkName)) return false;
 
-            const selectedNetwork = this.form.get("networkFilter")?.value?.toLowerCase();
+            if (excludeKey && this._swapAssetIdentityKey(asset) === excludeKey) return false;
+
+            if (this.parentNetworkId && networkName.toLowerCase() !== this.parentNetworkId.toLowerCase()) return false;
+
+            const raw = this.form.get("networkFilter")?.value;
+            const selectedNetwork =
+                typeof raw === "string" && raw.trim() !== "" ? raw.trim().toLowerCase() : "all";
             const matchesNetwork = selectedNetwork === "all" || networkName.toLowerCase() === selectedNetwork;
 
             const searchText = this.form.get("textFilter")?.value?.toLowerCase() || "";
@@ -152,38 +228,94 @@ export class SwapCurrencyComponent implements OnInit {
         try {
             const allTokens: TokenData[] = [];
 
-            const { tokens } = await this._lifiService.requestTokens();
+            const { tokens } = await this._lifiService.requestTokens(this.parentNetworkId);
 
-            if (!tokens || !Object.keys(tokens).length) return allTokens;
+            if (tokens && Object.keys(tokens).length) {
+                Object.entries(tokens).forEach(([chainId, tokenList]) => this._mapTokenResponse([chainId, tokenList], allTokens));
+            }
 
-            Object.entries(tokens).forEach(([chainId, tokens]) => this._mapTokenResponse([chainId, tokens], allTokens));
+            this._appendWalletOnlySwappableTokens(allTokens);
 
-            allTokens.sort(this._sortAssets);
+            allTokens.sort((a, b) => this._sortAssets(a, b));
 
-            this.assets = [...allTokens].sort((a, b) => this._sortAssets(a, b));
+            this.assets = allTokens;
             this._resetPaging();
 
             this.loading = false;
             return this.assets;
         } catch (error) {
             this.loading = false;
-            this.assets = [];
+            const fallback: TokenData[] = [];
+            this._appendWalletOnlySwappableTokens(fallback);
+            fallback.sort((a, b) => this._sortAssets(a, b));
+            this.assets = fallback;
             this._resetPaging();
-            return [];
+            return this.assets;
         }
     }
 
-    private _getNetworkFromChainId(chainId: number | string): string {
-        const networkMap: Record<number | string, string> = {
-            1: "ethereum",
-            43114: "avalanche",
-            137: "polygon",
-            56: "binance",
-            42161: "arbitrum",
-            SOL: "solana",
-        };
+    /** LiFi catalog omits some enabled chains (e.g. Stellar); still list wallet balances for swap picker. */
+    private _appendWalletOnlySwappableTokens(allTokens: TokenData[]): void {
+        const seen = new Set<string>();
 
-        return networkMap[chainId] || "unknown";
+        for (const a of allTokens) {
+            const id = this._swapAssetIdentityKey(a);
+
+            if (id) seen.add(id);
+        }
+
+        for (const wallet of this.myAssets) {
+            if (!wallet?.symbol || !wallet?.network) continue;
+
+            const id = this._swapAssetIdentityKey(wallet);
+
+            if (!id || seen.has(id)) continue;
+
+            if (!this._isNetworkEnabled(wallet.network)) continue;
+
+            if (
+                this.parentNetworkId &&
+                String(wallet.network).toLowerCase() !== this.parentNetworkId.toLowerCase()
+            ) {
+                continue;
+            }
+
+            const sym = this._networkService.getNetworkSymbol(String(wallet.network).toLowerCase() as NetworkName);
+
+            if (!sym || !this._assetService.canSwap[sym as keyof NetworkPermissions]) continue;
+
+            seen.add(id);
+
+            const priceNum =
+                typeof wallet.price === "number" ? wallet.price : parseFloat(String(wallet.price ?? 0)) || 0;
+            const w = wallet as TokenData & { address_token?: string };
+
+            allTokens.push({
+                amount: wallet.amount ?? "0",
+                balance: (wallet as TokenData & { balance?: string }).balance ?? String(wallet.amount ?? "0"),
+                balanceUsd: (wallet as TokenData & { balanceUsd?: string }).balanceUsd ?? "0",
+                contractAddress: wallet.contractAddress ?? w.address_token ?? "",
+                decimals: wallet.decimals,
+                fiatBalance: wallet.fiatBalance ?? "0",
+                image: wallet.image ?? "",
+                name: wallet.name ?? wallet.symbol,
+                network: wallet.network,
+                price: priceNum,
+                symbol: wallet.symbol,
+                tokenType: wallet.tokenType || "token",
+            } as TokenData);
+        }
+    }
+
+    private _ensureNetworkFilterDefaults(): void {
+        if (!this.form) return;
+
+        const v = this.form.get("networkFilter")?.value;
+
+        if (v == null || v === "" || (typeof v === "string" && v.trim() === "")) {
+            this.form.patchValue({ networkFilter: "all" }, { emitEvent: false });
+            this.selectedNetworkFilter = "all";
+        }
     }
 
     private _initForm(): void {
@@ -211,7 +343,7 @@ export class SwapCurrencyComponent implements OnInit {
         if (!Array.isArray(tokens)) return;
 
         const chainMap: Record<string, boolean> = {};
-        const network = this._getNetworkFromChainId(chainId);
+        const network = this._lifiService.chainBucketKeyToInternalNetwork(chainId);
         const canSwap = this._assetService.canSwap[this._networkService.getNetworkSymbol(network as NetworkName) as keyof NetworkPermissions];
 
         if (!canSwap) return;
@@ -299,7 +431,7 @@ export class SwapCurrencyComponent implements OnInit {
         const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - threshold;
         const atTop = el.scrollTop <= threshold;
 
-        if (atBottom && this.maxPage * this._pageSize < this.filteredAssets.length) {
+        if (atBottom && this.maxPage * this._pageSize < this.tabFilteredAssets.length) {
             this.maxPage++;
 
             if (this.maxPage - this.minPage + 1 > 2) this.minPage++;
@@ -321,5 +453,48 @@ export class SwapCurrencyComponent implements OnInit {
         this.selectedNetworkFilter = network;
 
         this.form.patchValue({ networkFilter: network });
+    }
+
+    setTokenListTab(tab: "yours" | "trusted"): void {
+        this.tokenListTab = tab;
+        this._resetPaging();
+    }
+
+    emitPickerBack(): void {
+        this.pickerBack.emit();
+    }
+
+    formatTokenPrice(asset: TokenData): string {
+        const p = asset.price as number | undefined;
+
+        if (p == null || Number.isNaN(p) || p <= 0) return "—";
+
+        if (p < 0.0001) return `$${p.toExponential(2)}`;
+
+        return `$${p.toFixed(p < 1 ? 6 : 2)}`;
+    }
+
+    formatPriceChange(asset: TokenData): string | null {
+        const pct = (asset as TokenData & { priceChangePercentage24h?: number }).priceChangePercentage24h;
+
+        if (pct == null || Number.isNaN(pct)) return null;
+
+        const sign = pct > 0 ? "+" : "";
+
+        return `${sign}${pct.toFixed(2)}%`;
+    }
+
+    isPriceChangeNegative(asset: TokenData): boolean {
+        const pct = (asset as TokenData & { priceChangePercentage24h?: number }).priceChangePercentage24h;
+
+        return typeof pct === "number" && pct < 0;
+    }
+
+    getNetworkBadge(asset: TokenData): string {
+        const n = (asset.network || "").toLowerCase();
+
+        if (!n) return "";
+
+        return this._walletService.getAssetImage(this._networkService.getNetworkSymbol(n as NetworkName));
     }
 }

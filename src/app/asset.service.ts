@@ -64,12 +64,13 @@ export class AssetService {
         return {
             AVAX: true,
             BDAG: false,
-            BNB: false,
+            BNB: true,
             BTC: false,
             ETH: true,
-            POL: false,
+            POL: true,
             SOL: true,
-            SUI: false,
+            SUI: true,
+            XLM: true,
         };
     }
 
@@ -386,11 +387,7 @@ export class AssetService {
         return { tokens, totalFiatBalance: tokens.reduce((acc, token) => acc + (token.fiatBalance || 0), 0) };
     }
 
-    private _processStellarTokens(
-        stellarData: any,
-        tokens: any[],
-        permissions?: NetworkPermissions
-    ): any[] {
+    private _processStellarTokens(stellarData: any, tokens: any[], permissions?: NetworkPermissions): any[] {
         const xlmBalance = parseFloat(stellarData.balance || "0") || 0;
         const xlmFiat = parseFloat(stellarData.fiatBalance || stellarData.account?.fiatValue || "0") || 0;
         const xlmPrice = parseFloat(stellarData.account?.price || "0") || 0;
@@ -402,6 +399,7 @@ export class AssetService {
             fiatBalance: xlmFiat,
             price: xlmPrice,
             asset: "XLM",
+            decimals: 7,
         };
 
         let result = this.processTokens("Stellar", [xlmToken], tokens, permissions);

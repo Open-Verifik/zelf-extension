@@ -1,0 +1,35 @@
+.stellar-send-summary {
+    margin-top: 12px;
+}
+
+.stellar-send-summary__info {
+    align-items: stretch;
+    text-align: left;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.stellar-send-summary__rows {
+    margin: 12px 0 0;
+}
+
+.stellar-send-summary__row {
+    margin-bottom: 4px;
+}
+
+.stellar-send-summary__label {
+    flex: 1;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.stellar-send-summary__value {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stellar-send-summary__fee-note {
+    margin: 10px 0 0;
+    font-size: 12px;
+    opacity: 0.85;
+}

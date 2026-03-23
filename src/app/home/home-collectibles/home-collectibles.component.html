@@ -1,0 +1,36 @@
+<div class="home-collectibles" fxLayout="column" fxLayoutAlign="start stretch" *transloco="let t">
+    <div
+        class="home-collectibles__toolbar"
+        *ngIf="state !== 'loading' && state !== 'network_disabled' && state !== 'no_address'"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+    >
+        <button mat-stroked-button color="primary" routerLink="/nft-import" type="button">{{ t("home.collectibles_import_cta") }}</button>
+    </div>
+
+    <div class="home-collectibles__center" *ngIf="state === 'loading'" fxLayout="column" fxLayoutAlign="center center">
+        <zelf-loader [diameter]="48"></zelf-loader>
+        <p class="home-collectibles__hint">{{ t("home.collectibles_loading") }}</p>
+    </div>
+
+    <div class="home-collectibles__message" *ngIf="state === 'no_address'">
+        <p>{{ t("home.collectibles_no_address") }}</p>
+    </div>
+
+    <div class="home-collectibles__message" *ngIf="state === 'network_disabled'">
+        <p>{{ t("home.collectibles_network_disabled") }}</p>
+    </div>
+
+    <div class="home-collectibles__message" *ngIf="state === 'error'" fxLayout="column" fxLayoutAlign="center center">
+        <p>{{ t("home.collectibles_error") }}</p>
+        <button mat-stroked-button type="button" color="primary" (click)="retry()">{{ t("home.collectibles_retry") }}</button>
+    </div>
+
+    <div class="home-collectibles__message" *ngIf="state === 'ready' && nfts.length === 0">
+        <p>{{ t("home.collectibles_empty") }}</p>
+    </div>
+
+    <div class="home-collectibles__grid" *ngIf="state === 'ready' && nfts.length > 0">
+        <home-nft-item *ngFor="let nft of nfts" [nft]="nft"></home-nft-item>
+    </div>
+</div>

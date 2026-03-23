@@ -17,6 +17,7 @@ import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockDAGService } from "app/services/blockdag.service";
 import { TransactionParams } from "app/core/models/transaction-fee.model";
+import { StellarService } from "app/services/stellar.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { EthereumService } from "app/eth.service";
@@ -69,6 +70,7 @@ export class SendTransactionComponent implements OnDestroy {
         private _router: Router,
         private _snackBar: MatSnackBar,
         private _solanaService: SolanaService,
+        private _stellarService: StellarService,
         private _suiService: SuiService,
         private _tagsService: TagsService,
         private _transactionService: TransactionService,
@@ -110,7 +112,7 @@ export class SendTransactionComponent implements OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" {
+    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" | "xlmAddress" {
         if (this.transactionData.isBscToken) return "ethAddress";
         if (this.transactionData.isBDAGToken) return "ethAddress";
         if (this.transactionData.isBtcToken) return "btcAddress";
@@ -118,6 +120,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isPolToken) return "ethAddress";
         if (this.transactionData.isSolToken) return "solanaAddress";
         if (this.transactionData.isSuiToken) return "suiAddress";
+        if (this.transactionData.isXlmToken) return "xlmAddress";
 
         throw new Error("Network address key unavailable");
     }
@@ -155,7 +158,13 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     dustMinAmountDisplay(): string {
-        return this.formatAmountForInlineError(SendTransactionComponent._MIN_SENDABLE_AMOUNT);
+        return this.formatAmountForInlineError(this._getMinSendableAmount());
+    }
+
+    private _getMinSendableAmount(): number {
+        if (this.transactionData.isXlmToken) return 1e-7;
+
+        return SendTransactionComponent._MIN_SENDABLE_AMOUNT;
     }
 
     onAmountBlur(): void {
@@ -212,6 +221,10 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidFormat: true };
             }
 
+            if (this.transactionData.isXlmToken && !this._stellarService.isValidStellarAddress(value)) {
+                return { invalidFormat: true };
+            }
+
             if (this.transactionData.isBtcToken && !this._bitcoinService.isValidBTCAddress(value)) {
                 return { invalidBTC: true };
             }
@@ -221,7 +234,7 @@ export class SendTransactionComponent implements OnDestroy {
     }
 
     private _amountValidation(maxValue: number | string): ValidatorFn {
-        const minSend = SendTransactionComponent._MIN_SENDABLE_AMOUNT;
+        const minSend = this._getMinSendableAmount();
 
         return (control: AbstractControl): ValidationErrors | null => {
             const raw = control.value;
@@ -250,6 +263,7 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (this.transactionData.isSuiToken) return 9;
         if (this.transactionData.isSolToken) return 9;
+        if (this.transactionData.isXlmToken) return 7;
         if (this.transactionData.isBtcToken) return 8;
         if (
             this.transactionData.isEthToken ||
@@ -334,6 +348,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isSolToken) pattern = this._walletService.SOLRegex;
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
         if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
+        if (this.transactionData.isXlmToken) pattern = /^G[A-Z2-7]{54}$/;
 
         return pattern;
     }
@@ -393,6 +408,10 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._searchTag("solanaAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "solanaAddress");
+                } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(text)) {
+                    await this._searchTag("xlmAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "xlmAddress");
                 } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
                     await this._searchTag("btcAddress", text);
 
@@ -410,6 +429,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "ethAddress");
             } else if (this.transactionData.isSolToken && this._solanaService.isValidSolanaAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "solanaAddress");
+            } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "xlmAddress");
             } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "btcAddress");
             } else {
@@ -427,12 +448,22 @@ export class SendTransactionComponent implements OnDestroy {
 
     private _initForm(): void {
         const maxSend = this._getMaxSendableAmount();
+        const maxAddrLen = this.transactionData.isXlmToken ? 56 : 66;
 
-        this.form = this._formBuilder.group({
+        const controls: Record<string, unknown> = {
             amount: [this.transactionData?.amount || "", [this._amountValidation(maxSend)]],
-            toAddress: [this.transactionData?.receiver?.address || "", [Validators.required, Validators.maxLength(66), this._addressValidator()]],
+            toAddress: [
+                this.transactionData?.receiver?.address || "",
+                [Validators.required, Validators.maxLength(maxAddrLen), this._addressValidator()],
+            ],
             fromAddress: [this.transactionData?.sender?.address || ""],
-        });
+        };
+
+        if (this.transactionData.isXlmToken) {
+            controls.memo = [this.transactionData.memo || "", [Validators.maxLength(28)]];
+        }
+
+        this.form = this._formBuilder.group(controls);
 
         const toAddressCtrl = this.form?.get("toAddress");
 
@@ -521,6 +552,12 @@ export class SendTransactionComponent implements OnDestroy {
                 this.transactionData.amount = amount;
             }
 
+            const memoCtrl = this.form.get("memo");
+
+            if (memoCtrl) {
+                this.transactionData.memo = (memoCtrl.value && String(memoCtrl.value).trim()) || undefined;
+            }
+
             this.transactionData.receiver.address = (this.foundAddress && this.foundAddress.publicData[this.addressKey]) || "";
             this.transactionData.receiver.tagName = this.foundAddress?.tagName || "";
             this.transactionData.receiver.domain = this.foundAddress?.domain || "";
@@ -541,25 +578,11 @@ export class SendTransactionComponent implements OnDestroy {
             this.transactionData.isPolToken ||
             this.transactionData.isBscToken ||
             this.transactionData.isBDAGToken;
-        const isSuiTokenOrNetwork = this.transactionData.isSuiToken;
-
         if (this.foundAddress) {
             const toAddressCtrl = this.form.get("toAddress");
 
             if (toAddressCtrl) {
-                toAddressCtrl.setValue(
-                    this.foundAddress.publicData[
-                        isSuiTokenOrNetwork
-                            ? "suiAddress"
-                            : isEVM
-                              ? "ethAddress"
-                              : this.transactionData.isSolToken
-                                ? "solanaAddress"
-                                : this.transactionData.isBtcToken
-                                  ? "btcAddress"
-                                  : "solanaAddress"
-                    ] || ""
-                );
+                toAddressCtrl.setValue(this.foundAddress.publicData[this.addressKey] || "");
 
                 toAddressCtrl.updateValueAndValidity({ emitEvent: false });
             }
@@ -597,6 +620,8 @@ export class SendTransactionComponent implements OnDestroy {
             } catch (error) {
                 console.error("Error checking Bitcoin balance:", error);
             }
+        } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "xlmAddress");
         }
 
         await this._setToCurrentTransactionData();
@@ -630,6 +655,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(address, "solanaAddress");
             } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "btcAddress");
+            } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(address)) {
+                this._setRawAddressToFoundAddress(address, "xlmAddress");
             }
         }
 
@@ -671,12 +698,14 @@ export class SendTransactionComponent implements OnDestroy {
         this.transactionData.amount = 0;
         this.transactionData.receiver.address = "";
         this.transactionData.receiver.tagName = "";
+        this.transactionData.memo = undefined;
 
         if (this.withdrawStep) {
             this.foundAddress = undefined;
 
             this.form.get("toAddress")?.patchValue(this.transactionData.receiver.address);
             this.form.get("amount")?.patchValue(this.transactionData.amount);
+            this.form.get("memo")?.patchValue("");
 
             this._transactionService.setCurrentTransactionData(this.transactionData);
 

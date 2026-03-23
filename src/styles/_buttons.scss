@@ -36,6 +36,11 @@
         gap: 8px;
     }
 
+    p {
+        margin: 0;
+        color: inherit;
+    }
+
     &__text {
         &--margin-right {
             margin-right: 1rem;
@@ -94,6 +99,10 @@
     }
 
     &--primary {
+        // MDC mat-flat-button paints via CSS variables; align with Zelf tokens (avoids default Material blue).
+        --mdc-filled-button-container-color: #{variables.$themeButton} !important;
+        --mdc-filled-button-label-text-color: #{variables.$themeCard} !important;
+
         background-color: variables.$themeButton !important;
         color: variables.$themeCard !important;
         transition:
@@ -101,10 +110,12 @@
             background-color 0.3s variables.$smoothBezier;
 
         &:active {
+            --mdc-filled-button-container-color: #{variables.$themeTextMuted} !important;
             background-color: variables.$themeTextMuted !important;
         }
 
         &:hover {
+            --mdc-filled-button-container-color: #{variables.$themeButtonHover} !important;
             background-color: variables.$themeButtonHover !important;
         }
 
@@ -119,6 +130,8 @@
 
         &[disabled] {
             cursor: not-allowed;
+            --mdc-filled-button-container-color: #{variables.$themeTextSecondary} !important;
+            --mdc-filled-button-label-text-color: #{variables.$themeCard} !important;
             background-color: variables.$themeTextSecondary !important;
             color: variables.$themeCard !important;
 
@@ -130,6 +143,9 @@
     }
 
     &--secondary {
+        --mdc-filled-button-container-color: #{variables.$themeButtonSecondary} !important;
+        --mdc-filled-button-label-text-color: #{variables.$themeButtonSecondaryText} !important;
+
         background-color: variables.$themeButtonSecondary !important;
         color: variables.$themeButtonSecondaryText !important;
         transition:
@@ -142,6 +158,8 @@
 
         &:focus,
         &:hover {
+            --mdc-filled-button-container-color: #{variables.$themeButtonSecondaryHover} !important;
+            --mdc-filled-button-label-text-color: #{variables.$themeCard} !important;
             background-color: variables.$themeButtonSecondaryHover !important;
             color: variables.$themeCard;
 
@@ -152,6 +170,7 @@
 
         &[disabled] {
             cursor: not-allowed;
+            --mdc-filled-button-container-color: #{variables.$themeBorder} !important;
             background-color: variables.$themeBorder !important;
 
             svg {
@@ -199,6 +218,9 @@
     }
 
     &--outlined {
+        --mdc-outlined-button-label-text-color: #{variables.$themeButton} !important;
+        --mdc-outlined-button-outline-color: #{variables.$themeBorder} !important;
+
         border: 1px solid variables.$themeButton !important;
         background-color: variables.$themeCard !important;
         color: variables.$themeButton !important;

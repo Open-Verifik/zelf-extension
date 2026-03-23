@@ -41,6 +41,14 @@ const routes: Routes = [
                 data: { animation: "HomePage" },
             },
             {
+                path: "nft-asset/:id",
+                loadComponent: () => import("./nft-asset-detail/nft-asset-detail.component").then((m) => m.NftAssetDetailComponent),
+            },
+            {
+                path: "nft-import",
+                loadComponent: () => import("./nft-import/nft-import.component").then((m) => m.NftImportComponent),
+            },
+            {
                 path: "manage-domains",
                 loadComponent: () => import("./manage-domains/manage-domains.component").then((m) => m.ManageDomainsComponent),
             },

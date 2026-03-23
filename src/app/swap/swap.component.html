@@ -1,253 +1,233 @@
 <div class="zelf-card swap" *transloco="let t">
     <ng-container *ngIf="!loading">
-        <div class="swap__header">
-            <div class="swap__col1">
+        <!-- Hide while source/target token picker is open: swap-currency owns the single back control. -->
+        <div class="swap__top" *ngIf="swapSource !== 'source' && swapSource !== 'target'">
+            <button
+                (click)="handleSwapNavBack()"
+                class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40 swap__back"
+                mat-flat-button
+                type="button"
+            >
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+
+            <div class="swap__tabs" *ngIf="!swapSource">
                 <button
-                    (click)="swapSource = ''"
-                    [routerLink]="swapSource ? null : ['/home']"
-                    class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40"
+                    (click)="setSwapMode('swaps')"
+                    [ngClass]="{ 'swap__tab--active': swapMode === 'swaps' }"
+                    class="swap__tab"
                     mat-flat-button
+                    type="button"
                 >
-                    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                        />
-                    </svg>
+                    {{ t("swap.tab_swaps") }}
+                </button>
+                <button
+                    (click)="setSwapMode('cross_chain')"
+                    [ngClass]="{ 'swap__tab--active': swapMode === 'cross_chain' }"
+                    class="swap__tab"
+                    mat-flat-button
+                    type="button"
+                >
+                    {{ t("swap.tab_cross_chain") }}
                 </button>
             </div>
-
-            <div class="swap__col2">
-                <p class="swap__title">{{ t("home.swap") }}</p>
-            </div>
-
-            <div class="swap__col3"></div>
         </div>
 
+        <ng-container *ngIf="swapSource === 'network'">
+            <div class="swap-network-picker">
+                <h2 class="swap-network-picker__title">{{ t("swap.select_network") }}</h2>
+                <div class="zelf-input zelf-input--wide swap-network-picker__search">
+                    <input
+                        (input)="networkPickerSearch = $any($event.target).value"
+                        [value]="networkPickerSearch"
+                        class="zelf-input__control"
+                        name="networkSearch"
+                        [placeholder]="t('swap.search_network')"
+                        type="search"
+                    />
+                </div>
+                <div class="swap-network-picker__list">
+                    <button
+                        (click)="selectAllSwapNetworks()"
+                        [ngClass]="{ 'swap-network-picker__row--selected': !selectedSwapNetworkId }"
+                        class="swap-network-picker__row"
+                        mat-flat-button
+                        type="button"
+                    >
+                        <span class="swap-network-picker__name">{{ t("swap.all_networks") }}</span>
+                        <span class="swap-network-picker__usd">{{ t("swap.any_network_hint") }}</span>
+                    </button>
+                    <button
+                        (click)="selectSwapNetworkRow(row)"
+                        *ngFor="let row of filteredNetworkPickerRows"
+                        [ngClass]="{ 'swap-network-picker__row--selected': selectedSwapNetworkId === row.id }"
+                        class="swap-network-picker__row"
+                        mat-flat-button
+                        type="button"
+                    >
+                        <div class="swap-network-picker__row-main">
+                            <span class="swap-network-picker__name">{{ row.displayName }}</span>
+                            <span class="swap-network-picker__usd">{{ row.usdTotal | currency: "USD" : "symbol" : "1.2-2" }}</span>
+                        </div>
+                        <div class="swap-network-picker__icons" *ngIf="row.icons.length || row.extraTokenCount">
+                            <img *ngFor="let src of row.icons" [src]="src" alt="" class="swap-network-picker__icon" />
+                            <span *ngIf="row.extraTokenCount > 0" class="swap-network-picker__more">+{{ row.extraTokenCount }}</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+
         <ng-container *ngIf="!swapSource">
-            <form [formGroup]="form" class="swap__form">
+            <form [formGroup]="form" class="swap__form" (ngSubmit)="confirmSwap()">
                 <div class="zelf-card__content swap__content">
                     <zelf-loader [diameter]="30" *ngIf="loading"></zelf-loader>
 
-                    <div
-                        [ngClass]="{ 'swap__asset-card--error': form.get('sourceAmount')?.errors && form.get('sourceAmount')?.dirty }"
-                        class="swap__asset-card"
-                    >
-                        <div class="swap__asset-card-actions swap__asset-card-actions--left">
-                            <div class="swap__asset-input-label">{{ t("swap.you_pay") }}</div>
-
-                            <div
-                                class="swap__amount-input-container"
-                                [ngClass]="{ 'swap__amount-input-container--fiat': swapBalanceDisplay === 'fiat' }"
-                            >
-                                <input
-                                    [hidden]="swapBalanceDisplay === 'fiat'"
-                                    [max]="selectedSourceAsset.amount || null"
-                                    class="swap__amount-input"
-                                    formControlName="sourceAmount"
-                                    min="0"
-                                    placeholder="0"
-                                    required
-                                    type="number"
-                                />
-
-                                <input
-                                    [hidden]="swapBalanceDisplay === 'token'"
-                                    [max]="selectedSourceAsset.amount || null"
-                                    class="swap__amount-input"
-                                    formControlName="sourceFiat"
-                                    min="0"
-                                    placeholder="0"
-                                    required
-                                    type="number"
-                                />
-                            </div>
-
-                            <div class="swap__balance-value">
-                                <p class="swap__balance-value-label">
-                                    <ng-container *ngIf="swapBalanceDisplay === 'token'">
-                                        {{ form.get("sourceFiat")?.value | currency: "USD" : "symbol" : "1.2-2" }}
-                                    </ng-container>
-
-                                    <ng-container *ngIf="swapBalanceDisplay === 'fiat'">
-                                        {{ form.get("sourceAsset")?.value?.symbol }} {{ form.get("sourceAmount")?.value || 0 | number: "1.0-8" }}
-                                    </ng-container>
-                                </p>
-
-                                <button
-                                    (click)="handleBalanceDisplayChange()"
-                                    mat-flat-button
-                                    type="button"
-                                    class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
-                                >
-                                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M3.13563 6.85496L0.355635 9.64496C0.165635 9.84496 0.165635 10.155 0.355635 10.355L3.13563 13.145C3.44563 13.465 3.98563 13.235 3.98563 12.795V10.995H9.99564C10.5456 10.995 10.9956 10.545 10.9956 9.99496C10.9956 9.44496 10.5456 8.99496 9.99564 8.99496H3.98563V7.20496C3.98563 6.75496 3.44563 6.53496 3.13563 6.85496ZM17.6456 3.64496L14.8656 0.854961C14.5556 0.534961 14.0156 0.764961 14.0156 1.20496V2.99496H7.99564C7.44563 2.99496 6.99564 3.44496 6.99564 3.99496C6.99564 4.54496 7.44563 4.99496 7.99564 4.99496H14.0056V6.78496C14.0056 7.23496 14.5456 7.45496 14.8556 7.13496L17.6356 4.34496C17.8356 4.15496 17.8356 3.83496 17.6456 3.64496Z"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="swap__asset-card-actions swap__asset-card-actions--right">
-                            <div (click)="swapSource = 'source'" class="swap__dropdown-selector">
-                                <ng-container *ngIf="!hasSelectedSourceAsset">
-                                    <p class="swap__asset-placeholder">{{ t("swap.select_asset") }}</p>
-                                </ng-container>
-
-                                <ng-container *ngIf="hasSelectedSourceAsset">
-                                    <div class="swap__asset-logo-container">
+                    <div class="swap__pair-shell">
+                        <div class="swap__pair-row">
+                            <div (click)="swapSource = 'source'" class="swap__pair-side" role="button" tabindex="0">
+                                <span class="swap__pair-label">{{ t("swap.from") }}</span>
+                                <div class="swap__pair-token" *ngIf="hasSelectedSourceAsset">
+                                    <div class="swap__asset-logo-container swap__asset-logo-container--sm">
                                         <img
                                             [src]="selectedSourceAsset.image"
                                             *ngIf="selectedSourceAsset.image"
-                                            alt="Source Asset"
+                                            alt=""
                                             class="swap__asset-logo"
                                         />
-
                                         <img
                                             [src]="getNetworkImage(selectedSourceAsset.network)"
-                                            alt="Source Network"
+                                            alt=""
                                             class="swap__asset-network-logo"
                                         />
                                     </div>
-
-                                    <div class="swap__asset-info">
-                                        <p class="swap__asset-name">{{ selectedSourceAsset.symbol }}</p>
-                                        <p class="swap__asset-symbol">{{ getNetworkSymbol(selectedSourceAsset.network) }}</p>
-                                    </div>
-                                </ng-container>
-
-                                <button
-                                    mat-flat-button
-                                    type="button"
-                                    class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--border-soft swap__asset-dropdown-button"
-                                >
-                                    <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
-                                </button>
+                                    <span class="swap__pair-symbol">{{ selectedSourceAsset.symbol }}</span>
+                                </div>
+                                <span *ngIf="!hasSelectedSourceAsset" class="swap__pair-placeholder">{{ t("swap.select_asset") }}</span>
                             </div>
 
-                            <div class="swap__quick-amounts">
-                                <p class="swap__quick-amount" [ngClass]="{ 'swap__quick-amount--error': form.get('sourceAmount')?.errors?.max }">
-                                    {{ selectedSourceAsset.amount | number: "1.2-4" }}
-                                </p>
-
-                                <button
-                                    (click)="setAmount(0.5)"
-                                    mat-flat-button
-                                    type="button"
-                                    class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
-                                >
-                                    50%
-                                </button>
-
-                                <button
-                                    (click)="setAmount(1)"
-                                    mat-flat-button
-                                    type="button"
-                                    class="zelf-icon-button zelf-icon-button--hyperlink zelf-icon-button--pill"
-                                >
-                                    Max
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swap__asset-switch">
-                        <button
-                            [disabled]="!hasBothAssetsSet"
-                            (click)="swapTargetWithSource()"
-                            mat-flat-button
-                            type="button"
-                            class="zelf-icon-button zelf-icon-button--primary zelf-icon-button--40 zelf-icon-button--border-soft"
-                        >
-                            <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10.9961 14.0149V8.0049C10.9961 7.4549 10.5461 7.0049 9.99612 7.0049C9.44612 7.0049 8.99612 7.4549 8.99612 8.0049V14.0149H7.20612C6.75612 14.0149 6.53612 14.5549 6.85612 14.8649L9.64612 17.6449C9.84612 17.8349 10.1561 17.8349 10.3561 17.6449L13.1461 14.8649C13.4661 14.5549 13.2361 14.0149 12.7961 14.0149H10.9961ZM3.64612 0.354902L0.856124 3.1449C0.536124 3.4549 0.756124 3.9949 1.20612 3.9949H2.99612V10.0049C2.99612 10.5549 3.44612 11.0049 3.99612 11.0049C4.54612 11.0049 4.99612 10.5549 4.99612 10.0049V3.9949H6.78612C7.23612 3.9949 7.45612 3.4549 7.13612 3.1449L4.34612 0.354902C4.15612 0.164902 3.83612 0.164902 3.64612 0.354902Z"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div class="swap__asset-card">
-                        <div class="swap__asset-card-actions swap__asset-card-actions--left">
-                            <div class="swap__asset-input-label">{{ t("swap.you_receive") }}</div>
-
-                            <div
-                                class="swap__amount-input-container"
-                                [ngClass]="{ 'swap__amount-input-container--fiat': swapBalanceDisplay === 'fiat' }"
+                            <button
+                                (click)="swapTargetWithSource()"
+                                [disabled]="!hasBothAssetsSet"
+                                class="zelf-icon-button zelf-icon-button--primary zelf-icon-button--40 swap__pair-flip"
+                                mat-flat-button
+                                type="button"
                             >
-                                <input
-                                    [hidden]="swapBalanceDisplay === 'fiat'"
-                                    class="swap__amount-input"
-                                    formControlName="targetAmount"
-                                    placeholder="0"
-                                    readonly
-                                    type="number"
-                                />
+                                <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.9961 14.0149V8.0049C10.9961 7.4549 10.5461 7.0049 9.99612 7.0049C9.44612 7.0049 8.99612 7.4549 8.99612 8.0049V14.0149H7.20612C6.75612 14.0149 6.53612 14.5549 6.85612 14.8649L9.64612 17.6449C9.84612 17.8349 10.1561 17.8349 10.3561 17.6449L13.1461 14.8649C13.4661 14.5549 13.2361 14.0149 12.7961 14.0149H10.9961ZM3.64612 0.354902L0.856124 3.1449C0.536124 3.4549 0.756124 3.9949 1.20612 3.9949H2.99612V10.0049C2.99612 10.5549 3.44612 11.0049 3.99612 11.0049C4.54612 11.0049 4.99612 10.5549 4.99612 10.0049V3.9949H6.78612C7.23612 3.9949 7.45612 3.4549 7.13612 3.1449L4.34612 0.354902C4.15612 0.164902 3.83612 0.164902 3.64612 0.354902Z"
+                                    />
+                                </svg>
+                            </button>
 
-                                <input
-                                    [hidden]="swapBalanceDisplay === 'token'"
-                                    class="swap__amount-input"
-                                    formControlName="targetFiat"
-                                    placeholder="0"
-                                    readonly
-                                    type="number"
-                                />
-                            </div>
-
-                            <div class="swap__balance-value">
-                                <p class="swap__balance-value-label">
-                                    <ng-container *ngIf="swapBalanceDisplay === 'token'">
-                                        {{ form.get("targetFiat")?.value | currency: "USD" : "symbol" : "1.2-2" }}
-                                    </ng-container>
-
-                                    <ng-container *ngIf="swapBalanceDisplay === 'fiat'">
-                                        {{ form.get("targetAsset")?.value?.symbol }} {{ form.get("targetAmount")?.value || 0 | number: "1.0-8" }}
-                                    </ng-container>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="swap__asset-card-actions swap__asset-card-actions--right">
-                            <div (click)="swapSource = 'target'" class="swap__dropdown-selector">
-                                <ng-container *ngIf="!hasSelectedTargetAsset">
-                                    <p class="swap__asset-placeholder">{{ t("swap.select_asset") }}</p>
-                                </ng-container>
-
-                                <ng-container *ngIf="hasSelectedTargetAsset">
-                                    <div class="swap__asset-logo-container">
+                            <div (click)="swapSource = 'target'" class="swap__pair-side" role="button" tabindex="0">
+                                <span class="swap__pair-label">{{ t("swap.to") }}</span>
+                                <div class="swap__pair-token" *ngIf="hasSelectedTargetAsset">
+                                    <div class="swap__asset-logo-container swap__asset-logo-container--sm">
                                         <img
                                             [src]="selectedTargetAsset.image"
                                             *ngIf="selectedTargetAsset.image"
-                                            alt="Source Asset"
+                                            alt=""
                                             class="swap__asset-logo"
                                         />
-
                                         <img
                                             [src]="getNetworkImage(selectedTargetAsset.network)"
                                             *ngIf="selectedTargetAsset.network"
-                                            alt="Source Network"
+                                            alt=""
                                             class="swap__asset-network-logo"
                                         />
                                     </div>
-
-                                    <div class="swap__asset-info">
-                                        <p class="swap__asset-name">{{ selectedTargetAsset.symbol }}</p>
-                                        <p class="swap__asset-symbol">{{ getNetworkSymbol(selectedTargetAsset.network) }}</p>
-                                    </div>
-                                </ng-container>
-
-                                <button
-                                    mat-flat-button
-                                    type="button"
-                                    class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--border-soft swap__asset-dropdown-button"
-                                >
-                                    <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
-                                </button>
+                                    <span class="swap__pair-symbol">{{ selectedTargetAsset.symbol }}</span>
+                                </div>
+                                <span *ngIf="!hasSelectedTargetAsset" class="swap__pair-placeholder">{{ t("swap.select_asset") }}</span>
                             </div>
 
-                            <div class="swap__quick-amounts">
-                                <p class="swap__quick-amount">{{ selectedTargetAsset.amount | number: "1.2-4" }}</p>
-                            </div>
+                            <button (click)="openNetworkPicker()" class="swap__pair-network-btn" mat-flat-button type="button">
+                                <img
+                                    *ngIf="selectedSwapNetworkId"
+                                    [src]="getNetworkImage(selectedSwapNetworkId)"
+                                    alt=""
+                                    class="swap__pair-network-img"
+                                />
+                                <span *ngIf="!selectedSwapNetworkId" class="swap__pair-network-all">{{ t("swap.network_short") }}</span>
+                                <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        [ngClass]="{ 'swap__hero--error': form.get('sourceAmount')?.errors && form.get('sourceAmount')?.dirty }"
+                        class="swap__hero"
+                    >
+                        <div
+                            class="swap__hero-input-wrap"
+                            [ngClass]="{ 'swap__hero-input-wrap--fiat': swapBalanceDisplay === 'fiat' }"
+                        >
+                            <input
+                                *ngIf="swapBalanceDisplay === 'token'"
+                                [max]="selectedSourceAsset.amount || null"
+                                class="swap__hero-input"
+                                formControlName="sourceAmount"
+                                min="0"
+                                placeholder="0"
+                                required
+                                type="number"
+                            />
+                            <input
+                                *ngIf="swapBalanceDisplay === 'fiat'"
+                                [max]="sourceFiatInputMax"
+                                class="swap__hero-input swap__hero-input--fiat"
+                                formControlName="sourceFiat"
+                                min="0"
+                                placeholder="0"
+                                required
+                                type="number"
+                            />
+                        </div>
+                        <p class="swap__hero-sub" *ngIf="swapBalanceDisplay === 'token'">
+                            {{ heroSecondaryUsd | currency: "USD" : "symbol" : "1.2-2" }}
+                        </p>
+                        <p class="swap__hero-sub" *ngIf="swapBalanceDisplay === 'fiat'">
+                            {{ selectedSourceAsset.symbol }} {{ heroSecondaryTokenAmount | number: "1.0-8" }}
+                        </p>
+                        <p class="swap__hero-balance" *ngIf="hasSelectedSourceAsset">
+                            {{ selectedSourceAsset.amount | number: "1.2-8" }} {{ selectedSourceAsset.symbol }}
+                            {{ t("swap.available_suffix") }}
+                        </p>
+                        <div class="swap__hero-pills">
+                            <button
+                                (click)="handleBalanceDisplayChange()"
+                                [ngClass]="{ 'swap__pill--active': swapBalanceDisplay === 'fiat' }"
+                                class="swap__pill"
+                                mat-flat-button
+                                type="button"
+                            >
+                                USD
+                            </button>
+                            <button (click)="setAmount(0.5)" class="swap__pill" mat-flat-button type="button">50%</button>
+                            <button (click)="setAmount(1)" class="swap__pill" mat-flat-button type="button">MAX</button>
+                        </div>
+                    </div>
+
+                    <div class="swap__summary">
+                        <div class="swap__summary-row" *ngIf="hasSelectedTargetAsset && showDetails()">
+                            <span class="swap__summary-label">{{ t("swap.est_receive") }}</span>
+                            <span class="swap__summary-value">
+                                {{ form.get("targetAmount")?.value | number: "1.2-8" }} {{ selectedTargetAsset.symbol }}
+                                ({{ form.get("targetFiat")?.value | currency: "USD" : "symbol" : "1.2-2" }})
+                            </span>
+                        </div>
+                        <div class="swap__summary-row" *ngIf="hasSelectedTargetAsset && showDetails()">
+                            <span class="swap__summary-label">{{ t("swap.price") }}</span>
+                            <span class="swap__summary-value">
+                                1 {{ selectedSourceAsset.symbol }} =
+                                {{ form.get("targetSwapValue")?.value | number: "1.0-8" }}
+                                {{ selectedTargetAsset.symbol }}
+                            </span>
                         </div>
                     </div>
 
@@ -267,6 +247,11 @@
                             <p>{{ t("errors.cannot_swap_across_these_networks") }}</p>
                         </div>
 
+                        <div class="zelf-message zelf-message--error" *ngIf="form.errors?.sameChainSwap">
+                            <ng-container *ngTemplateOutlet="cross"></ng-container>
+                            <p>{{ t("errors.swap_same_chain") }}</p>
+                        </div>
+
                         <ng-container *ngIf="showDetails()">
                             <div class="swap__settings">
                                 <button
@@ -277,7 +262,6 @@
                                     mat-flat-button
                                 >
                                     <span [innerHTML]="t('swap.powered_by', { bridge: getBridgeLabel() })"></span>
-
                                     <ng-container *ngIf="bridgeOptions.length > 1">
                                         <ng-container *ngTemplateOutlet="downArrowIcon"></ng-container>
                                     </ng-container>
@@ -293,7 +277,6 @@
                                     >
                                         <label [for]="bridgeOption.value" class="zelf-radio zelf-radio--plain zelf-radio--gap-lg">
                                             <span>{{ bridgeOption.label }}</span>
-
                                             <input
                                                 [id]="bridgeOption.value"
                                                 [value]="bridgeOption.value"
@@ -301,7 +284,6 @@
                                                 name="bridge"
                                                 type="radio"
                                             />
-
                                             <svg viewBox="0 0 21 21">
                                                 <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                                             </svg>
@@ -312,38 +294,9 @@
 
                             <div class="zelf-action-row">
                                 <div class="swap__detail-field swap__detail-field--gray">
-                                    <p class="swap__details-label">{{ t("swap.pricing") }}</p>
-
-                                    <div class="tooltip-container">
-                                        <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-
-                                        <div class="tooltip">
-                                            <div class="tooltip__content">
-                                                <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-                                                <p class="tooltip__content-text">{{ t("swap.pricing_text") }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swap__detail-field swap__detail-field--primary">
-                                    <p class="swap__details-value">
-                                        1 {{ selectedSourceAsset.symbol }}
-                                        <ng-container *ngIf="hasSelectedTargetAsset"
-                                            >~ {{ form.get("targetSwapValue")?.value | number: "1.0-8" }}
-                                            {{ selectedTargetAsset.symbol }}</ng-container
-                                        >
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="zelf-action-row">
-                                <div class="swap__detail-field swap__detail-field--gray">
                                     <p class="swap__details-label">{{ t("swap.fees") }}</p>
-
                                     <div class="tooltip-container">
                                         <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-
                                         <div class="tooltip">
                                             <div class="tooltip__content">
                                                 <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
@@ -352,7 +305,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="swap__detail-field swap__detail-field--primary">
                                     <p class="swap__details-value">{{ form.get("fee")?.value | currency: "USD" : "symbol" : "1.2-8" }}</p>
                                 </div>
@@ -361,10 +313,8 @@
                             <div class="zelf-action-row">
                                 <div class="swap__detail-field swap__detail-field--gray">
                                     <p class="swap__details-label">{{ t("swap.slippage") }}</p>
-
                                     <div class="tooltip-container">
                                         <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
-
                                         <div class="tooltip">
                                             <div class="tooltip__content">
                                                 <ng-container *ngTemplateOutlet="informationIcon"></ng-container>
@@ -375,10 +325,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="swap__detail-field swap__detail-field--primary">
                                     <p class="swap__details-value">{{ form.get("slippage")?.value | number: "1.2-2" }} %</p>
-
                                     <button
                                         (click)="openSlippageSheet()"
                                         type="button"
@@ -409,9 +357,7 @@
                             placeholder=" "
                             required
                         />
-
                         <label for="password" class="zelf-input__floating-label">{{ t("common.password") }}</label>
-
                         <ng-container *ngTemplateOutlet="toggleButton"></ng-container>
                     </div>
 
@@ -421,14 +367,13 @@
                     </div>
 
                     <button
-                        (click)="confirmSwap()"
                         [disabled]="isConfirmDisabled()"
-                        class="zelf-button zelf-button--primary zelf-button--wide"
+                        class="zelf-button zelf-button--primary zelf-button--wide swap__review-btn"
                         mat-flat-button
+                        type="submit"
                     >
-                        <ng-container *ngIf="!requiresBiometrics">{{ t("swap.confirm_swap") }}</ng-container>
+                        <ng-container *ngIf="!requiresBiometrics">{{ t("swap.swap_now") }}</ng-container>
                         <ng-container *ngIf="requiresBiometrics">{{ t("common.verify") }}</ng-container>
-
                         <mat-spinner *ngIf="sending" mode="indeterminate" diameter="18"></mat-spinner>
                     </button>
                 </div>
@@ -445,10 +390,13 @@
 
         <swap-currency
             (assetChange)="handleAssetChange($event)"
+            (pickerBack)="handlePickerBack()"
+            [excludeOppositeAsset]="swapSource === 'target' ? selectedSourceAsset : selectedTargetAsset"
             [myAssets]="tokens"
+            [parentNetworkId]="effectiveTokenPickerNetworkId"
             [selectedAsset]="swapSource === 'source' ? selectedSourceAsset : selectedTargetAsset"
-            [source]="swapSource"
-            *ngIf="swapSource"
+            [source]="swapSource === 'source' ? 'source' : 'target'"
+            *ngIf="swapSource === 'source' || swapSource === 'target'"
         ></swap-currency>
     </ng-container>
 

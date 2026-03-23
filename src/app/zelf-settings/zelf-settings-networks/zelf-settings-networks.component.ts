@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { TranslocoModule } from "@jsverse/transloco";
 import { DomainLicense, DomainWallet } from "app/core/models/domain.type";
+import { DEFAULT_NETWORK_CONFIGS, NETWORK_IDS_ENSURED_FROM_LICENSE_GAP } from "app/core/network-settings.util";
 import { DomainService } from "app/domain.service";
 import { NetworkConfig, Settings } from "app/models/settings.model";
 import { SettingsService } from "app/services/settings.service";
@@ -11,19 +12,6 @@ import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-
-// Default networks based on blockchain-transactions.service.ts
-const DEFAULT_NETWORKS: NetworkConfig[] = [
-    { id: "ethereum", name: "Ethereum", symbol: "ETH", enabled: true },
-    { id: "avalanche", name: "Avalanche", symbol: "AVAX", enabled: true },
-    { id: "binance", name: "BNB Chain", symbol: "BNB", enabled: true },
-    { id: "bitcoin", name: "Bitcoin", symbol: "BTC", enabled: true },
-    { id: "blockdag", name: "BlockDAG", symbol: "BDAG", enabled: true },
-    { id: "polygon", name: "Polygon", symbol: "POL", enabled: true },
-    { id: "solana", name: "Solana", symbol: "SOL", enabled: true },
-    { id: "stellar", name: "Stellar", symbol: "XLM", enabled: true },
-    { id: "sui", name: "Sui", symbol: "SUI", enabled: true },
-];
 
 @Component({
     imports: [NgFor, NgIf, NgClass, FormsModule, MatSlideToggleModule, TranslocoModule, ZelfLoaderComponent],
@@ -110,16 +98,18 @@ export class ZelfSettingsNetworksComponent implements OnInit, OnDestroy {
     private _initNetworks(): void {
         let allowedNetworkIds = this._getAllowedNetworkIds();
 
-        // Ensure stellar is always allowed (backend may not include it in domain config yet)
-        if (allowedNetworkIds && !allowedNetworkIds.includes("stellar")) {
-            allowedNetworkIds = [...allowedNetworkIds, "stellar"];
+        if (allowedNetworkIds) {
+            const missing = NETWORK_IDS_ENSURED_FROM_LICENSE_GAP.filter((id) => !allowedNetworkIds!.includes(id));
+            if (missing.length) {
+                allowedNetworkIds = [...allowedNetworkIds, ...missing];
+            }
         }
 
         // Filter default networks based on license if available
-        let availableNetworks = DEFAULT_NETWORKS;
+        let availableNetworks = DEFAULT_NETWORK_CONFIGS;
 
         if (allowedNetworkIds) {
-            availableNetworks = DEFAULT_NETWORKS.filter((network) => allowedNetworkIds.includes(network.id));
+            availableNetworks = DEFAULT_NETWORK_CONFIGS.filter((network) => allowedNetworkIds.includes(network.id));
         }
 
         // If networks are already saved in settings, use them (but only those allowed by license)

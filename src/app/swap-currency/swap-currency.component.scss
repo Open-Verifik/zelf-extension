@@ -18,6 +18,59 @@
     flex: 1 1 auto;
     height: 100%;
 
+    &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        width: 100%;
+    }
+
+    &__back {
+        align-self: flex-start;
+    }
+
+    &__title {
+        margin: 0;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 700;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        line-height: 1.2;
+        color: variables.$themeText;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+    }
+
+    &__list-tabs {
+        display: flex;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        width: 100%;
+    }
+
+    &__list-tab {
+        flex: 1 1 0;
+        min-height: calc(36px * var(--zns-space-scale, 1)) !important;
+        border-radius: 9999px !important;
+        border: 1px solid variables.$themeBorder !important;
+        font-weight: 600 !important;
+        font-size: calc(13px * var(--zns-font-scale, 1)) !important;
+        background: transparent !important;
+        color: variables.$themeTextSecondary !important;
+    }
+
+    &__list-tab--active {
+        border-color: variables.$themeText !important;
+        color: variables.$themeText !important;
+        background: variables.$themeCardBorder !important;
+    }
+
     &__loader {
         position: absolute;
         inset: 0;
@@ -196,6 +249,76 @@
         letter-spacing: 0.1px;
         color: variables.$themeTextSecondary;
         margin: 0;
+        text-align: right;
+    }
+
+    &__asset--hot {
+        max-height: none;
+        min-height: calc(72px * var(--zns-space-scale, 1));
+        align-items: flex-start;
+        border: 1px solid variables.$themeBorder;
+        background: variables.$themeCard;
+    }
+
+    &__asset-icon-wrap {
+        position: relative;
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        flex-shrink: 0;
+    }
+
+    &__asset-network-badge {
+        position: absolute;
+        right: -4px;
+        bottom: -2px;
+        width: calc(18px * var(--zns-space-scale, 1));
+        height: calc(18px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        border: 2px solid variables.$themeCard;
+        object-fit: contain;
+        background: variables.$themeCardBorder;
+    }
+
+    &__asset-symbol-hot {
+        font-family: variables.$themeBodyFamily;
+        font-weight: 700;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        margin: 0;
+        color: variables.$themeText;
+    }
+
+    &__asset-meta {
+        margin: 0;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: calc(4px * var(--zns-space-scale, 1));
+    }
+
+    &__meta-sep {
+        opacity: 0.6;
+    }
+
+    &__pct--down {
+        color: variables.$error;
+    }
+
+    &__asset-balance-fiat-hot {
+        margin: 0;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+        text-align: right;
+    }
+
+    &__asset-balance-hot {
+        margin: 0;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
         text-align: right;
     }
 }

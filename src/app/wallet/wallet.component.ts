@@ -14,7 +14,6 @@ import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
 import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
-import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
@@ -50,7 +49,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         private _bottomSheet: MatBottomSheet,
         private _destroyRef: DestroyRef,
         private _walletService: WalletService,
-        private _settingsService: SettingsService,
         private _tagsService: TagsService,
         protected _chromeService: ChromeService,
         protected _snackBar: MatSnackBar,
@@ -97,12 +95,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
 
     private async _initNetworks(): Promise<void> {
         this.networks = await this._walletService.getAvailableWalletNetworks();
-    }
-
-    private _getEnabledNetworkIds(): string[] | undefined {
-        const settings = this._settingsService.settings;
-        if (!settings || !settings.networks) return undefined;
-        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
     }
 
     private _mapSymbolToNetworkId(symbol: string): string {

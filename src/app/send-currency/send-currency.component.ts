@@ -88,9 +88,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
     }
 
     private _getEnabledNetworkIds(): string[] | undefined {
-        const settings = this._settingsService.settings;
-        if (!settings || !settings.networks) return undefined;
-        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+        return this._settingsService.getEnabledNetworkIds();
     }
 
     private async _loadTokensFromSession(): Promise<void> {
@@ -130,6 +128,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Binance" && this.CAN_SEND.BNB) return true;
         if (token.network === "Polygon" && this.CAN_SEND.POL) return true;
         if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
+        if (token.network === "Stellar" && this.CAN_SEND.XLM && token.tokenType === "XLM" && token.price) return true;
 
         return false;
     }
@@ -212,6 +211,9 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             address = this.wallet?.publicData?.btcAddress || "";
         } else if (token.tokenType === "SUI" || token.tokenType === "SUI_TOKEN") {
             address = this.wallet?.publicData?.suiAddress || "";
+        } else if (token.tokenType === "XLM" || (token.network === "Stellar" && token.symbol === "XLM")) {
+            address = this.wallet?.publicData?.xlmAddress || "";
+            tokenType = "XLM";
         }
 
         if (!address) return console.error("No address found for token type:", token.tokenType, { wallet: this.wallet });

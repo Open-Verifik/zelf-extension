@@ -1,6 +1,6 @@
 import * as ethers from "ethers";
 import { firstValueFrom, merge, Observable, Subject, takeUntil } from "rxjs";
-import { debounceTime, filter, tap } from "rxjs/operators";
+import { debounceTime, filter, pairwise, startWith, tap } from "rxjs/operators";
 
 import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
@@ -10,7 +10,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, RouterLink } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { SwapData, TokenData } from "@shared/types/wallet.types";
@@ -18,15 +18,26 @@ import { AssetService, NetworkPermissions } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { LifiService } from "app/services/lifi.service";
-import { NetworkName, NetworkService } from "app/services/network.service";
+import { NetworkName, NetworkService, NetworkSymbol } from "app/services/network.service";
 import { SlippageSheetComponent } from "app/slippage-sheet/slippage-sheet.component";
 import { TagModel, TagsService } from "app/tags.service";
 import { TransactionService } from "app/transaction.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { SettingsService } from "app/services/settings.service";
 import { environment } from "environments/environment";
 import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-currency.component";
+
+export type SwapFlowMode = "swaps" | "cross_chain";
+
+export interface SwapNetworkRow {
+    displayName: string;
+    extraTokenCount: number;
+    icons: string[];
+    id: string;
+    usdTotal: number;
+}
 
 @Component({
     imports: [
@@ -40,7 +51,6 @@ import { AssetChangeData, SwapCurrencyComponent } from "../swap-currency/swap-cu
         NgIf,
         NgTemplateOutlet,
         ReactiveFormsModule,
-        RouterLink,
         SwapCurrencyComponent,
         TranslocoModule,
         ZelfLoaderComponent,
@@ -76,13 +86,18 @@ export class SwapComponent implements OnInit, OnDestroy {
     swapData: SwapData = new SwapData({});
     swapError: string = "";
     swapQuote: any = null;
-    swapSource: "source" | "target" | "" = "";
+    swapSource: "network" | "source" | "target" | "" = "";
+    swapMode: SwapFlowMode = "swaps";
+    networkPickerSearch = "";
+    selectedSwapNetworkId: string | null = null;
     tokens: TokenData[] = [];
     transactionHash: string = "";
     wallet?: TagModel;
     swapExecuting: boolean = false;
     swapExecuted: boolean = false;
     swapLoading: boolean = false;
+    /** When true, returning from e.g. transaction receipt may refresh balances / clear stale quote. */
+    private _swapNavRefreshReady = false;
 
     bridgeOptions = [
         {
@@ -109,7 +124,8 @@ export class SwapComponent implements OnInit, OnDestroy {
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
-        private _tagsService: TagsService
+        private _tagsService: TagsService,
+        private _settingsService: SettingsService
     ) {
         this.CAN_SWAP = this._assetService.canSwap;
         this.wallet = {} as TagModel;
@@ -130,6 +146,17 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
+        this._router.events
+            .pipe(
+                filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+                startWith(null as NavigationEnd | null),
+                pairwise(),
+                takeUntil(this.unsubscriber$)
+            )
+            .subscribe(([prev, curr]) => {
+                void this._onNavigationMayRequireSwapRefresh(prev, curr);
+            });
+
         this.wallet = (await this._walletService.getCurrentWallet()) as TagModel;
 
         this._initForm();
@@ -138,9 +165,14 @@ export class SwapComponent implements OnInit, OnDestroy {
         await this._decryptMnemonics();
         await this._findPreviousSwapData();
 
-        if (this.swapData && this.swapData.hasSwapData) return;
+        if (this.swapData && this.swapData.hasSwapData) {
+            this._swapNavRefreshReady = true;
+
+            return;
+        }
 
         this.loading = false;
+        this._swapNavRefreshReady = true;
     }
 
     ngOnDestroy(): void {
@@ -162,7 +194,8 @@ export class SwapComponent implements OnInit, OnDestroy {
             this.hasBothAssetsSet &&
             !!this.form.get("sourceAmount")?.valid &&
             !!this.form.get("targetAsset")?.valid &&
-            !this.form.errors?.crossNetwork
+            !this.form.errors?.crossNetwork &&
+            !this.form.errors?.sameChainSwap
         );
     }
 
@@ -176,6 +209,19 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     get hasSelectedTargetAsset(): boolean {
         return !!Object.keys(this.selectedTargetAsset).length;
+    }
+
+    /**
+     * Locks LiFi token fetch to one chain when the user explicitly picks NET.
+     * Until then, `null` lists all swappable chains in the picker (inline filters + wallet-only tokens).
+     * Cross-chain mode uses only `selectedSwapNetworkId` the same way.
+     */
+    get effectiveTokenPickerNetworkId(): string | null {
+        if (this.swapMode !== "swaps") {
+            return this.selectedSwapNetworkId;
+        }
+
+        return this.selectedSwapNetworkId ? this.selectedSwapNetworkId.toLowerCase() : null;
     }
 
     get targetTokenPricePerDollar(): number {
@@ -197,6 +243,112 @@ export class SwapComponent implements OnInit, OnDestroy {
     get totalSourceToken(): number {
         return ((this.form?.get("sourceFiat")?.value as number) || 0) / ((this.selectedSourceAsset?.price as number) || 0);
     }
+
+    get heroSecondaryUsd(): number {
+        return this.totalSourceFiat;
+    }
+
+    get heroSecondaryTokenAmount(): number {
+        return this.totalSourceToken;
+    }
+
+    get sourceFiatInputMax(): number | null {
+        const amt = parseFloat(String(this.selectedSourceAsset.amount ?? 0)) || 0;
+        const price = Number(this.selectedSourceAsset.price) || 0;
+        const v = amt * price;
+
+        return v > 0 ? v : null;
+    }
+
+    get filteredNetworkPickerRows(): SwapNetworkRow[] {
+        const q = this.networkPickerSearch.trim().toLowerCase();
+
+        return this.swapNetworkPickerRows.filter((row) => !q || row.id.includes(q) || row.displayName.toLowerCase().includes(q));
+    }
+
+    get swapNetworkPickerRows(): SwapNetworkRow[] {
+        const enabledIds = this._getEnabledNetworkIds();
+        const rows = new Map<string, SwapNetworkRow>();
+
+        for (const sym of Object.keys(this.CAN_SWAP)) {
+            if (!this.CAN_SWAP[sym as keyof NetworkPermissions]) continue;
+
+            const name = this._networkService.getNetworkName(sym as NetworkSymbol);
+            const id = String(name).toLowerCase();
+
+            if (!id) continue;
+            if (enabledIds && !enabledIds.includes(id)) continue;
+
+            rows.set(id, {
+                id,
+                displayName: id.charAt(0).toUpperCase() + id.slice(1),
+                usdTotal: 0,
+                icons: [],
+                extraTokenCount: 0,
+            });
+        }
+
+        const iconBuckets = new Map<string, string[]>();
+
+        for (const t of this.tokens) {
+            const id = (t.network || "").toLowerCase();
+
+            if (!id || !rows.has(id)) continue;
+
+            const row = rows.get(id)!;
+            const fiat = parseFloat(String(t.fiatBalance ?? 0)) || 0;
+            const amt = parseFloat(String(t.amount ?? 0)) || 0;
+            const price = (t.price as number) || 0;
+
+            row.usdTotal += fiat > 0 ? fiat : amt * price;
+
+            const icon = t.image || this._walletService.getAssetImage(t.symbol as string, t.image);
+
+            if (icon) {
+                if (!iconBuckets.has(id)) iconBuckets.set(id, []);
+
+                const list = iconBuckets.get(id)!;
+
+                if (!list.includes(icon)) list.push(icon);
+            }
+        }
+
+        rows.forEach((row, id) => {
+            const list = iconBuckets.get(id) || [];
+
+            row.icons = list.slice(0, 3);
+            row.extraTokenCount = Math.max(0, list.length - 3);
+        });
+
+        return Array.from(rows.values()).sort((a, b) => b.usdTotal - a.usdTotal);
+    }
+
+    get selectedNetworkButtonLabel(): string {
+        if (!this.selectedSwapNetworkId) return this._translocoService.translate("swap.all_networks");
+
+        const row = this.swapNetworkPickerRows.find((r) => r.id === this.selectedSwapNetworkId);
+
+        return row?.displayName || this.selectedSwapNetworkId;
+    }
+
+    private _getEnabledNetworkIds(): string[] | undefined {
+        return this._settingsService.getEnabledNetworkIds();
+    }
+
+    private _sameChainSwapValidator = (): ValidatorFn => {
+        return (control: AbstractControl): ValidationErrors | null => {
+            if (this.swapMode !== "swaps") return null;
+
+            const sourceAsset = control.get("sourceAsset")?.value;
+            const targetAsset = control.get("targetAsset")?.value;
+
+            if (!sourceAsset?.network || !targetAsset?.network) return null;
+
+            if (sourceAsset.network.toLowerCase() !== targetAsset.network.toLowerCase()) return { sameChainSwap: true };
+
+            return null;
+        };
+    };
 
     private _clearFeeUpdateInterval(): void {
         if (!this._feeUpdateInterval) return;
@@ -283,6 +435,16 @@ export class SwapComponent implements OnInit, OnDestroy {
         return { greaterThanZero: true };
     }
 
+    private _toTokenDecimalsFromQuote(quote: { action?: { toToken?: { decimals?: number } } }, fallback: number): number {
+        const d = quote?.action?.toToken?.decimals;
+
+        if (typeof d === "number" && Number.isFinite(d) && d >= 0 && d <= 78) {
+            return Math.floor(d);
+        }
+
+        return fallback;
+    }
+
     private _getAddressForNetwork(network: string): string {
         if (!this.wallet) return "";
 
@@ -344,36 +506,129 @@ export class SwapComponent implements OnInit, OnDestroy {
         return fee;
     }
 
+    private async _onNavigationMayRequireSwapRefresh(prev: NavigationEnd | null, curr: NavigationEnd | null): Promise<void> {
+        if (!this._swapNavRefreshReady || !this.form || !curr) return;
+
+        const curPath = curr.urlAfterRedirects.split("?")[0].replace(/\/$/, "");
+
+        if (!curPath.endsWith("/swap")) return;
+
+        if (!prev) return;
+
+        const prevPath = prev.urlAfterRedirects.split("?")[0].replace(/\/$/, "");
+
+        if (!prevPath.includes("/transaction/")) return;
+
+        await this._refreshSwapStateAfterCompletedFlow();
+    }
+
+    /**
+     * Fresh balances from API, drop stale LiFi quote/amounts, re-attach selected tokens from updated `tokens`.
+     */
+    private async _refreshSwapStateAfterCompletedFlow(): Promise<void> {
+        this._clearFeeUpdateInterval();
+        this.swapQuote = null;
+        this.swapError = "";
+
+        try {
+            await this._fetchTokens();
+            await this._assetService.saveTokensToSession(this.tokens);
+            this._rebindPickersToFreshTokens();
+
+            const pwd = this.form.get("password")?.value ?? "";
+
+            this.form.patchValue(
+                {
+                    fee: 0,
+                    password: pwd,
+                    sourceAmount: "",
+                    sourceFiat: 0,
+                    targetAmount: "0",
+                    targetFiat: 0,
+                    targetSwapValue: "0",
+                },
+                { emitEvent: false }
+            );
+
+            this.form.updateValueAndValidity({ emitEvent: true });
+        } catch (error) {
+            console.error("Swap refresh after transaction failed:", error);
+        }
+
+        this._changeDetectionRef.markForCheck();
+    }
+
+    private _rebindPickersToFreshTokens(): void {
+        const normNet = (n?: string) => (n || "").toLowerCase();
+
+        const bind = (partial: Partial<TokenData>): TokenData | null => {
+            if (!partial?.symbol || !partial?.network) return null;
+
+            const hit = this.tokens.find(
+                (t) => t.symbol === partial.symbol && normNet(t.network) === normNet(partial.network)
+            );
+
+            return hit || null;
+        };
+
+        const src = bind(this.selectedSourceAsset);
+        const tgt = bind(this.selectedTargetAsset);
+
+        if (src) {
+            this.selectedSourceAsset = src;
+            this.form.patchValue({ sourceAsset: src }, { emitEvent: false });
+        } else {
+            this.selectedSourceAsset = {};
+            this.form.patchValue({ sourceAsset: null }, { emitEvent: false });
+        }
+
+        if (tgt) {
+            this.selectedTargetAsset = tgt;
+            this.form.patchValue({ targetAsset: tgt }, { emitEvent: false });
+        } else {
+            this.selectedTargetAsset = {};
+            this.form.patchValue({ targetAsset: null }, { emitEvent: false });
+        }
+    }
+
     private async _handleSuccessfulSwap(receipt: any): Promise<void> {
         this.sending = false;
         this.swapError = "";
 
         if (!this.transactionHash) return;
 
+        const raw = this.form.getRawValue();
+        const srcSym = String(this.selectedSourceAsset.symbol ?? "").trim() || String(this.selectedSourceAsset.name ?? "").trim() || "Asset";
+        const tgtSym = String(this.selectedTargetAsset.symbol ?? "").trim() || String(this.selectedTargetAsset.name ?? "").trim() || "Asset";
+
         const pendingTransactionData = {
             ...receipt,
-            amount: this.form.get("sourceAmount")?.value,
-            asset: this.selectedSourceAsset.symbol,
+            transactionHash: this.transactionHash,
+            amount: raw.sourceAmount ?? this.form.get("sourceAmount")?.value,
+            asset: srcSym,
             date: new Date().toISOString(),
-            fee: this.form.get("fee")?.value,
+            fee: raw.fee ?? this.form.get("fee")?.value,
             from: this.wallet?.publicData?.ethAddress,
             image: this.selectedSourceAsset.image,
             network: this.selectedSourceAsset.network,
             status: "pending",
-            targetAddress: this.selectedTargetAsset.contractAddress,
-            targetAmount: this.form.get("targetAmount")?.value,
+            targetAddress: this.selectedTargetAsset.contractAddress ?? "",
+            targetAmount: raw.targetAmount ?? this.form.get("targetAmount")?.value,
             targetImage: this.selectedTargetAsset.image,
-            targetNetwork: this.selectedTargetAsset.network,
-            targetSymbol: this.selectedTargetAsset.symbol,
+            targetNetwork: this.selectedTargetAsset.network ?? this.selectedSourceAsset.network,
+            targetSymbol: tgtSym,
             to: this.selectedTargetAsset.contractAddress,
-            tokenType: this.selectedSourceAsset.symbol,
-            total: this.form.get("sourceAmount")?.value + this.form.get("fee")?.value,
+            tokenType: srcSym,
+            total: (raw.sourceAmount ?? this.form.get("sourceAmount")?.value) + (raw.fee ?? this.form.get("fee")?.value),
             type: "swap",
+            swapIntentFromSymbol: srcSym,
+            swapIntentToSymbol: tgtSym,
         };
 
         await this._walletService.addTransactionToPending(pendingTransactionData);
+        await this._chromeService.removeItemSession("tokens");
         await this._chromeService.removeItemSession("tokensTtl");
-        await this._chromeService.removeItem("swapData");
+        await this._transactionService.clearPersistedSwapData();
 
         await this._router.navigate(["/transaction", this.transactionHash], {
             queryParams: { network: this.selectedSourceAsset.network, symbol: this.selectedSourceAsset.symbol },
@@ -398,7 +653,9 @@ export class SwapComponent implements OnInit, OnDestroy {
                 targetFiat: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
                 targetSwapValue: [""],
             },
-            { validators: [this._insufficientFundsValidator(), this._crossNetworkValidator()] }
+            {
+                validators: [this._insufficientFundsValidator(), this._crossNetworkValidator(), this._sameChainSwapValidator()],
+            }
         );
 
         this._setupQuoteUpdates();
@@ -406,6 +663,8 @@ export class SwapComponent implements OnInit, OnDestroy {
 
     private _crossNetworkValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
+            if (this.swapMode === "cross_chain") return null;
+
             const sourceAsset = control.get("sourceAsset");
             const targetAsset = control.get("targetAsset");
 
@@ -420,7 +679,19 @@ export class SwapComponent implements OnInit, OnDestroy {
     }
 
     private async _initSwapData(): Promise<void> {
+        this.swapMode = this.swapData.swapFlowMode === "cross_chain" ? "cross_chain" : "swaps";
+        this.selectedSwapNetworkId = this.swapData.selectedSwapNetworkId ?? null;
+
         this.form.patchValue(this.swapData);
+
+        const src = this.form.get("sourceAsset")?.value;
+        const tgt = this.form.get("targetAsset")?.value;
+
+        if (src) this.selectedSourceAsset = src;
+        if (tgt) this.selectedTargetAsset = tgt;
+
+        this.form.updateValueAndValidity({ emitEvent: true });
+        this._changeDetectionRef.markForCheck();
     }
 
     private _insufficientFundsValidator(): ValidatorFn {
@@ -481,7 +752,11 @@ export class SwapComponent implements OnInit, OnDestroy {
 
         const { password: _password, ...rest } = this.form.value;
 
-        this._transactionService.swapData = new SwapData(rest);
+        this._transactionService.swapData = new SwapData({
+            ...rest,
+            swapFlowMode: this.swapMode,
+            selectedSwapNetworkId: this.selectedSwapNetworkId,
+        });
         this._vaultService.password = this.form.get("password")?.value;
         this._router.navigate(["/security/biometrics"], { queryParams: { return: "/swap" } });
     }
@@ -627,14 +902,9 @@ export class SwapComponent implements OnInit, OnDestroy {
             const EVM_NETWORKS = ["ethereum", "avalanche", "binance", "polygon"];
 
             if (sourceNetwork && EVM_NETWORKS.includes(sourceNetwork)) {
-                const isFromNative =
-                    this.swapQuote.action.fromToken.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE" ||
-                    this.swapQuote.action.fromToken.address === "0x0000000000000000000000000000000000000000";
-
-                const receipt = await this._lifiService.executeSwap(this.swapQuote, {
+                const receipt = await this._lifiService.executeEvmLiFiSwap(this.swapQuote, {
                     privateKey: ethWallet.privateKey,
                     address: ethWallet.address,
-                    isFromNative,
                 });
 
                 if (!receipt?.transactionHash) return;
@@ -690,7 +960,22 @@ export class SwapComponent implements OnInit, OnDestroy {
             return;
         }
 
-        if (!this.selectedSourceAsset.contractAddress || !this.selectedTargetAsset.contractAddress) {
+        const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase() || "";
+        const targetNetwork = this.selectedTargetAsset.network?.toLowerCase() || "";
+
+        const fromToken = this._lifiService.getTokenAddress(
+            sourceNetwork,
+            this.selectedSourceAsset.symbol || "",
+            this.selectedSourceAsset.contractAddress || ""
+        );
+
+        const toToken = this._lifiService.getTokenAddress(
+            targetNetwork,
+            this.selectedTargetAsset.symbol || "",
+            this.selectedTargetAsset.contractAddress || ""
+        );
+
+        if (!String(fromToken).trim() || !String(toToken).trim()) {
             this.openErrorSnackBar("errors.missing_contract_address");
 
             this._clearFeeUpdateInterval();
@@ -699,7 +984,7 @@ export class SwapComponent implements OnInit, OnDestroy {
         }
 
         const sourceAmount = this.form.get("sourceAmount")?.value;
-        const isSameAsset = this.selectedSourceAsset.contractAddress === this.selectedTargetAsset.contractAddress;
+        const isSameAsset = sourceNetwork === targetNetwork && fromToken.toLowerCase() === toToken.toLowerCase();
 
         if (!+sourceAmount || isSameAsset) {
             this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
@@ -713,35 +998,39 @@ export class SwapComponent implements OnInit, OnDestroy {
         this.quoteLoading = !silentLoading;
 
         try {
-            const sourceNetwork = this.selectedSourceAsset.network?.toLowerCase();
-            const targetNetwork = this.selectedTargetAsset.network?.toLowerCase();
-
-            const fromChain = this._lifiService.getChainIdentifier(sourceNetwork || "");
-            const toChain = this._lifiService.getChainIdentifier(targetNetwork || "");
-
-            const fromToken = this._lifiService.getTokenAddress(
-                sourceNetwork || "",
-                this.selectedSourceAsset.symbol || "",
-                this.selectedSourceAsset.contractAddress || ""
-            );
-
-            const toToken = this._lifiService.getTokenAddress(
-                targetNetwork || "",
-                this.selectedTargetAsset.symbol || "",
-                this.selectedTargetAsset.contractAddress || ""
-            );
+            const fromChain = this._lifiService.getChainIdentifier(sourceNetwork);
+            const toChain = this._lifiService.getChainIdentifier(targetNetwork);
 
             const sourceAmountStr = sourceAmount.toString();
 
             const fromAmount = this._lifiService.formatAmount(sourceAmountStr, this.selectedSourceAsset.decimals as number);
-            const fromAddress = this._getAddressForNetwork(sourceNetwork || "");
+            const fromAddress = this._getAddressForNetwork(sourceNetwork);
+            const toAddress = this._getAddressForNetwork(targetNetwork);
+
+            if (targetNetwork === "solana" && !String(toAddress || "").trim()) {
+                this.openErrorSnackBar("errors.missing_solana_recipient");
+                this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
+
+                return;
+            }
 
             const slippage = this.form.get("slippage")?.value || 0.5;
             const slippageStr = slippage.toString();
 
-            const quote = await this._lifiService.getQuote(fromChain, fromToken, toChain, toToken, fromAmount, fromAddress, slippageStr);
+            const quote = await this._lifiService.getQuote(
+                fromChain,
+                fromToken,
+                toChain,
+                toToken,
+                fromAmount,
+                fromAddress,
+                slippageStr,
+                toAddress || undefined
+            );
 
-            const toTokenDecimals = this.selectedTargetAsset.decimals || 9;
+            const fallbackDecimals =
+                targetNetwork === "solana" ? (this.selectedTargetAsset.decimals ?? 9) : (this.selectedTargetAsset.decimals ?? 18);
+            const toTokenDecimals = this._toTokenDecimalsFromQuote(quote, fallbackDecimals);
 
             if (sourceNetwork === "solana" || targetNetwork === "solana") {
                 if (!quote || !quote.estimate || !quote.estimate.toAmount) {
@@ -781,7 +1070,7 @@ export class SwapComponent implements OnInit, OnDestroy {
 
                 this.swapQuote = quote;
 
-                const estimatedAmount = parseFloat(quote.estimate.toAmount) / Math.pow(10, this.selectedTargetAsset.decimals as number);
+                const estimatedAmount = parseFloat(quote.estimate.toAmount) / Math.pow(10, toTokenDecimals);
                 const sourceTokenAmount = parseFloat(sourceAmount);
                 const targetSwapValue = estimatedAmount / sourceTokenAmount;
 
@@ -824,6 +1113,63 @@ export class SwapComponent implements OnInit, OnDestroy {
         this.swapSource = "";
     }
 
+    handlePickerBack(): void {
+        this.swapSource = "";
+    }
+
+    handleSwapNavBack(): void {
+        if (this.swapSource) {
+            this.swapSource = "";
+
+            return;
+        }
+
+        this._router.navigate(["/home"]);
+    }
+
+    setSwapMode(mode: SwapFlowMode): void {
+        this.swapMode = mode;
+        this.form?.updateValueAndValidity({ emitEvent: true });
+        this._changeDetectionRef.markForCheck();
+    }
+
+    openNetworkPicker(): void {
+        this.networkPickerSearch = "";
+        this.swapSource = "network";
+    }
+
+    selectSwapNetworkRow(row: SwapNetworkRow): void {
+        this.selectedSwapNetworkId = row.id;
+        this.swapSource = "";
+
+        const norm = (n?: string) => (n || "").toLowerCase();
+
+        if (this.selectedSourceAsset.network && norm(this.selectedSourceAsset.network) !== row.id) {
+            this.form.patchValue({ sourceAsset: null, sourceAmount: "", sourceFiat: 0 });
+            this.selectedSourceAsset = {};
+            this.swapQuote = null;
+        }
+
+        if (this.selectedTargetAsset.network && norm(this.selectedTargetAsset.network) !== row.id) {
+            this.form.patchValue({ targetAsset: null, targetAmount: "0", targetFiat: 0, targetSwapValue: "0" });
+            this.selectedTargetAsset = {};
+            this.swapQuote = null;
+        }
+
+        this.form.updateValueAndValidity();
+        this._changeDetectionRef.markForCheck();
+    }
+
+    clearSelectedSwapNetwork(): void {
+        this.selectedSwapNetworkId = null;
+        this._changeDetectionRef.markForCheck();
+    }
+
+    selectAllSwapNetworks(): void {
+        this.clearSelectedSwapNetwork();
+        this.swapSource = "";
+    }
+
     handleBalanceDisplayChange(): void {
         this.swapBalanceDisplay = this.swapBalanceDisplay === "token" ? "fiat" : "token";
     }
@@ -831,7 +1177,7 @@ export class SwapComponent implements OnInit, OnDestroy {
     isConfirmDisabled(): boolean {
         const hasValidAmount = !!this.form.get("sourceAmount")?.value && parseFloat(this.form.get("sourceAmount")?.value) > 0;
         const hasValidBalance = !this.form.errors?.insufficientFunds;
-        const hasValidNetworks = !this.form.errors?.crossNetwork;
+        const hasValidNetworks = !this.form.errors?.crossNetwork && !this.form.errors?.sameChainSwap;
         const hasValidQuote = !!this.swapQuote;
         const hasAssets = this.hasBothAssetsSet;
         const isNotLoadingOrSending = !this.sending && !this.loading && !this.quoteLoading;

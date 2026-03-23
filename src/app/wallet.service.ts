@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { environment } from "environments/environment";
+import { tryHealPublicDataXlmToCanonical } from "@shared/types/tag.types";
 import { TagModel } from "./tags.service";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
@@ -22,6 +23,8 @@ export type Network = {
     providedIn: "root",
 })
 export class WalletService {
+    private static readonly SWAP_RECEIPT_DISPLAY_KEY = "swapReceiptDisplay";
+
     private _assetImageMap: Map<string, string> = new Map();
     private _faceapi: BehaviorSubject<any> = new BehaviorSubject(null);
     private _userFingerPrint!: UserFingerPrint;
@@ -502,7 +505,18 @@ export class WalletService {
         const wallets = (await this._chromeService.getItem("wallets")) || [];
 
         if (!wallet && (!wallets || !wallets.length)) return null;
-        if (wallet) wallet = new TagModel(wallet);
+
+        if (wallet) {
+            const rawPd = wallet.publicData as Record<string, unknown> | undefined | null;
+            const healedPd = tryHealPublicDataXlmToCanonical(rawPd ?? undefined);
+
+            if (healedPd) {
+                wallet = { ...wallet, publicData: healedPd };
+                await this._chromeService.setItem("wallet", wallet);
+            }
+
+            wallet = new TagModel(wallet);
+        }
 
         if (!wallet?.publicData?.ethAddress && wallets) {
             wallet = new TagModel(wallets[0]);
@@ -521,14 +535,14 @@ export class WalletService {
     }
 
     async getAllWalletsFromStorage(): Promise<{ wallet: Partial<TagModel> | null; wallets: TagModel[] }> {
-        const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const wallet = await this.getCurrentWallet();
         const wallets = await this.getWalletsFromStorage();
 
         return { wallet, wallets };
     }
 
     async ensureWalletStateIsValid(): Promise<void> {
-        const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const wallet = await this.getCurrentWallet();
         const wallets = await this.getWalletsFromStorage();
 
         if (!wallet?.publicData?.tagName && wallets.length > 0) {
@@ -556,14 +570,22 @@ export class WalletService {
 
     async getCurrentWallet(): Promise<Partial<TagModel> | null> {
         const storedWallet = await this._chromeService.getItem<Partial<TagModel> | null>("wallet");
+        const rawPd = storedWallet?.publicData as Record<string, unknown> | undefined | null;
+        const healedPd = tryHealPublicDataXlmToCanonical(rawPd ?? undefined);
 
-        let wallet = new TagModel(storedWallet) || {};
+        if (storedWallet && healedPd) {
+            const healed = { ...storedWallet, publicData: healedPd };
 
-        return wallet;
+            await this._chromeService.setItem("wallet", healed);
+
+            return new TagModel(healed) || {};
+        }
+
+        return new TagModel(storedWallet) || {};
     }
 
     async getFirstWalletFromStorage(): Promise<Partial<TagModel> | null> {
-        const wallet = new TagModel(await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const wallet = (await this.getCurrentWallet()) || {};
 
         const hasValidWallet = wallet?.name || wallet?.publicData?.tagName || wallet?.fullTagName || wallet?._id;
 
@@ -625,7 +647,26 @@ export class WalletService {
     }
 
     async getWalletsFromStorage(): Promise<TagModel[]> {
-        const wallets = ((await this._chromeService.getItem<TagModel[]>("wallets")) || []).map((wallet: TagModel) => new TagModel(wallet));
+        const rawList = ((await this._chromeService.getItem<Partial<TagModel>[]>("wallets")) || []) as Partial<TagModel>[];
+        let mutated = false;
+        const healedList = rawList.map((w) => {
+            const rawPd = w?.publicData as Record<string, unknown> | undefined | null;
+            const healedPd = tryHealPublicDataXlmToCanonical(rawPd ?? undefined);
+
+            if (healedPd) {
+                mutated = true;
+
+                return { ...w, publicData: healedPd };
+            }
+
+            return w;
+        });
+
+        if (mutated) {
+            await this._chromeService.setItem("wallets", healedList);
+        }
+
+        const wallets = healedList.map((wallet) => new TagModel(wallet));
 
         // Deduplicate wallets by fullTagName to prevent duplicates
         const seen = new Set<string>();
@@ -777,7 +818,68 @@ export class WalletService {
 
         if (!pendingTransactions) return null;
 
-        return pendingTransactions[transactionHash] || null;
+        const lower = String(transactionHash).trim().toLowerCase();
+
+        return pendingTransactions[transactionHash] || pendingTransactions[lower] || null;
+    }
+
+    /**
+     * Persists user-facing swap legs (what they signed) by tx hash. Unlike pendingTransactions,
+     * this is not removed when the receipt loads — so activity/history still overlays correctly.
+     */
+    public async getSwapReceiptDisplay(transactionHash: string): Promise<any | null> {
+        const key = this._normalizeTransactionHashKey(transactionHash);
+
+        if (!key) return null;
+
+        const all = await this._chromeService.getItem<Record<string, any>>(WalletService.SWAP_RECEIPT_DISPLAY_KEY);
+
+        return all?.[key] ?? null;
+    }
+
+    private _normalizeTransactionHashKey(hash: string): string | null {
+        const s = String(hash || "").trim().toLowerCase();
+
+        return s || null;
+    }
+
+    private _swapReceiptDisplaySnapshot(t: any): Record<string, unknown> {
+        return {
+            amount: t.amount,
+            asset: t.asset,
+            date: t.date,
+            fee: t.fee,
+            from: t.from,
+            image: t.image,
+            network: t.network,
+            swapIntentFromSymbol: t.swapIntentFromSymbol,
+            swapIntentToSymbol: t.swapIntentToSymbol,
+            targetAddress: t.targetAddress,
+            targetAmount: t.targetAmount,
+            targetImage: t.targetImage,
+            targetNetwork: t.targetNetwork,
+            targetSymbol: t.targetSymbol,
+            tokenType: t.tokenType,
+            to: t.to,
+            total: t.total,
+            transactionHash: t.transactionHash || t.hash,
+            type: t.type,
+        };
+    }
+
+    private async _persistSwapReceiptDisplay(storageKey: string, transaction: any): Promise<void> {
+        if (String(transaction?.type || "").toLowerCase() !== "swap") return;
+
+        const key = this._normalizeTransactionHashKey(storageKey);
+
+        if (!key) return;
+
+        const payload = this._swapReceiptDisplaySnapshot(transaction);
+        const all = (await this._chromeService.getItem<Record<string, unknown>>(WalletService.SWAP_RECEIPT_DISPLAY_KEY)) || {};
+
+        all[key] = payload;
+
+        await this._chromeService.setItem(WalletService.SWAP_RECEIPT_DISPLAY_KEY, all);
     }
 
     public async removePendingTransaction(transactionHash: string): Promise<any> {
@@ -803,21 +905,35 @@ export class WalletService {
             delete transaction[key];
         }
 
+        const storageKey = transaction.transactionHash || transaction.hash;
+
+        if (!storageKey) {
+            console.warn("addTransactionToPending: missing transactionHash/hash, skipping persist");
+
+            return;
+        }
+
+        let storedForSwapDisplay: any;
+
         if (!pendingTransactions) {
-            await this._chromeService.setItem("pendingTransactions", { [transaction.transactionHash]: transaction });
+            await this._chromeService.setItem("pendingTransactions", { [storageKey]: transaction });
+            storedForSwapDisplay = transaction;
         } else {
-            const existingTransaction = pendingTransactions[transaction.transactionHash];
+            const existingTransaction = pendingTransactions[storageKey];
 
             // If transaction already exists, merge intelligently to preserve original amount, fee, and total
             if (existingTransaction) {
                 const mergedTransaction = this._mergePendingTransaction(existingTransaction, transaction);
-                pendingTransactions[transaction.transactionHash] = mergedTransaction;
+                pendingTransactions[storageKey] = mergedTransaction;
             } else {
-                pendingTransactions[transaction.transactionHash] = transaction;
+                pendingTransactions[storageKey] = transaction;
             }
 
             await this._chromeService.setItem("pendingTransactions", pendingTransactions);
+            storedForSwapDisplay = pendingTransactions[storageKey];
         }
+
+        await this._persistSwapReceiptDisplay(storageKey, storedForSwapDisplay);
     }
 
     /**
@@ -878,6 +994,26 @@ export class WalletService {
         const isUpdateTotalInvalid = !updateTotal || updateTotalNum === 0 || isNaN(updateTotalNum);
         const shouldPreserveTotal = !isNaN(originalTotalNum) && originalTotalNum > 0 && isUpdateTotalInvalid;
 
+        const originalIsSwap = String(original?.type || "").toLowerCase() === "swap";
+        const mergedType = String(update?.type || original?.type || "").toLowerCase();
+        const isSwap = mergedType === "swap" || originalIsSwap;
+
+        const normSwapAddr = (a: unknown): string => {
+            if (a === undefined || a === null) return "";
+            const s = String(a).trim().toLowerCase();
+
+            return s.startsWith("0x") ? s : s;
+        };
+
+        let swapOutputMismatch = false;
+
+        if (isSwap) {
+            const origOut = normSwapAddr(original.targetAddress ?? original.targetToken);
+            const updOut = normSwapAddr(update.targetToken ?? update.targetAddress);
+
+            swapOutputMismatch = origOut.length > 0 && updOut.length > 0 && origOut !== updOut;
+        }
+
         // Merge: update takes precedence for most fields, but preserve critical fields from original
         // IMPORTANT: Put the critical fields AFTER the spread to ensure they override update values
         return {
@@ -899,6 +1035,18 @@ export class WalletService {
             symbol: original.symbol || update.symbol,
             // Update status from update (this is expected to change)
             status: update.status || original.status,
+            // Pending swap output token ≠ API last-transfer token (e.g. LiFi hop): keep user-facing labels
+            ...(swapOutputMismatch
+                ? {
+                      targetSymbol: original.targetSymbol,
+                      targetAmount: original.targetAmount,
+                      targetImage: original.targetImage,
+                      targetAddress: original.targetAddress,
+                      targetNetwork: original.targetNetwork,
+                      targetToken: original.targetToken ?? original.targetAddress,
+                  }
+                : {}),
+            ...(originalIsSwap ? { type: "swap" } : {}),
         };
     }
 
@@ -935,6 +1083,8 @@ export class WalletService {
             address = wallet?.publicData?.btcAddress || "";
         } else if (tokenType === "SUI" || tokenType === "SUI_TOKEN") {
             address = wallet?.publicData?.suiAddress || "";
+        } else if (tokenType === "XLM" || tokenType === "STELLAR") {
+            address = wallet?.publicData?.xlmAddress || "";
         }
 
         return address;
@@ -1013,9 +1163,9 @@ export class WalletService {
             });
         }
 
-        if (wallet?.publicData?.stellarAddress) {
+        if (wallet?.publicData?.xlmAddress) {
             networks.push({
-                address: wallet?.publicData?.stellarAddress || "",
+                address: wallet?.publicData?.xlmAddress || "",
                 image: this.getAssetImage("XLM"),
                 name: "Stellar",
                 symbol: "XLM",

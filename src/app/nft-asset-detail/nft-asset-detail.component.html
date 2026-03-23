@@ -1,0 +1,95 @@
+<div class="nft-asset zelf-card" *transloco="let t">
+    <div class="nft-asset__header">
+        <div class="nft-asset__col1">
+            <button
+                [routerLink]="['/home']"
+                [queryParams]="{ tab: 'nfts' }"
+                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary"
+                mat-flat-button
+                type="button"
+            >
+                <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+        </div>
+        <div class="nft-asset__col2">
+            <p class="nft-asset__title">{{ t("home.nft_detail_title") }}</p>
+        </div>
+        <div class="nft-asset__col3"></div>
+    </div>
+
+    <div class="zelf-card__content zelf-card__content--grow nft-asset__body">
+        <div class="nft-asset__loading" *ngIf="loading">
+            <zelf-loader [diameter]="48"></zelf-loader>
+        </div>
+
+        <div class="nft-asset__error" *ngIf="!loading && error">
+            <p>{{ error }}</p>
+            <button mat-flat-button type="button" class="zelf-button zelf-button--primary zelf-button--wide" [routerLink]="['/nft-import']">
+                {{ t("home.nft_import_nav") }}
+            </button>
+        </div>
+
+        <ng-container *ngIf="!loading && !error && detail">
+            <div class="nft-asset__media">
+                <img
+                    *ngIf="displayImage && !imageFailed"
+                    [src]="displayImage"
+                    [alt]="detail.name"
+                    (error)="onImageError()"
+                />
+                <div *ngIf="!displayImage || imageFailed" class="nft-asset__placeholder">{{ t("home.collectibles_no_image") }}</div>
+            </div>
+
+            <h2 class="nft-asset__name">{{ detail.name }}</h2>
+            <p class="nft-asset__collection" *ngIf="detail.collectionName">{{ detail.collectionName }}</p>
+
+            <dl class="nft-asset__meta">
+                <div *ngIf="detail.tokenId">
+                    <dt>{{ t("home.nft_detail_token_id") }}</dt>
+                    <dd>{{ detail.tokenId }}</dd>
+                </div>
+                <div *ngIf="detail.collection || detail.collectionAddress">
+                    <dt>{{ t("home.nft_detail_contract") }}</dt>
+                    <dd class="nft-asset__mono">{{ detail.collection || detail.collectionAddress }}</dd>
+                </div>
+                <div *ngIf="detail.owner">
+                    <dt>{{ t("home.nft_detail_owner") }}</dt>
+                    <dd class="nft-asset__mono">{{ detail.owner }}</dd>
+                </div>
+            </dl>
+
+            <p class="nft-asset__description" *ngIf="detail.description">{{ detail.description }}</p>
+
+            <div class="nft-asset__traits" *ngIf="detail.attributes?.length">
+                <h3>{{ t("home.nft_detail_traits") }}</h3>
+                <ul>
+                    <li *ngFor="let a of detail.attributes">
+                        <span class="trait-type">{{ a.trait_type || a.traitType }}</span>
+                        <span class="trait-value">{{ a.value }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="zelf-card__actions zelf-card__actions--column nft-asset__actions-wrap">
+                <div class="nft-asset__actions-inner">
+                    <button mat-flat-button type="button" class="zelf-button zelf-button--primary zelf-button--wide" (click)="openInMarketplace()">
+                        <p>{{ t("home.nft_detail_open_marketplace") }}</p>
+                    </button>
+                    <button
+                        *ngIf="showRemoveManual"
+                        mat-flat-button
+                        type="button"
+                        class="zelf-button zelf-button--secondary zelf-button--wide"
+                        (click)="removeManual()"
+                    >
+                        <p>{{ t("home.nft_detail_remove_manual") }}</p>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -2,7 +2,7 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { firstValueFrom, forkJoin, take } from "rxjs";
 
 import { DatePipe, DecimalPipe, NgClass, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -53,6 +53,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
         private _blockchainTransactionsService: BlockchainTransactionsService,
+        private _changeDetectionRef: ChangeDetectorRef,
         private _networkService: NetworkService,
         private _router: Router,
         private _walletService: WalletService,
@@ -145,9 +146,16 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     private async _networkImage(network: string): Promise<string> {
-        const token = await this._networkService.getNetworkToken(network.toLowerCase() as NetworkName);
+        const net = (network || "").trim().toLowerCase() as NetworkName;
 
-        return token?.image || "";
+        if (!net) return "";
+
+        const token = await this._networkService.getNetworkToken(net);
+        const fromSession = typeof token?.image === "string" ? token.image.trim() : "";
+
+        if (fromSession) return fromSession;
+
+        return this._networkService.getNetworkImage(net) || "";
     }
 
     private _handleTransactionDetailsError = (e: any) => {
@@ -165,13 +173,21 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             this._originalPendingTransaction = await this._walletService.getPendingTransaction(this.hash);
         }
 
+        if (!this._originalPendingTransaction) {
+            const swapSnap = await this._walletService.getSwapReceiptDisplay(this.hash);
+
+            if (swapSnap && String(swapSnap.type || "").toLowerCase() === "swap") {
+                this._originalPendingTransaction = swapSnap;
+            }
+        }
+
         // Use the original pending transaction if we don't have a transaction yet
         if (!this.transaction && this._originalPendingTransaction) {
             this.transaction = this._originalPendingTransaction;
         }
 
         this.network = this._determineNetwork();
-        this._setNetworkProperties();
+        await this._setNetworkProperties();
 
         try {
             const response = await this._blockchainTransactionsService.requestTransactionDetails(this.hash, this.network);
@@ -184,13 +200,16 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
             // Merge API response with original pending transaction, preserving original amount, fee, and total
             // Always use _originalPendingTransaction to ensure we preserve the original values
-            this.transaction = this._mergeTransactionData(this._originalPendingTransaction || this.transaction, apiTransaction);
+            const merged = this._mergeTransactionData(this._originalPendingTransaction || this.transaction, apiTransaction);
+
+            this.transaction = this._overlayPendingSwapLegs(merged);
 
             if (!this.transaction.network) this.transaction.network = this.network;
 
             this.transaction.networkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
 
-            this._setNetworkProperties();
+            await this._setNetworkProperties();
+            this._changeDetectionRef.markForCheck();
 
             this.loading = false;
 
@@ -211,6 +230,58 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         return this._walletService.mergeTransactionData(originalPending, apiResponse);
     }
 
+    /**
+     * Pending swap rows are what the user confirmed (source/target symbols and amounts).
+     * Indexer/API merge can mis-attribute legs (USDC→AVAX shown as AVAX→USDt); prefer pending for display.
+     */
+    private _overlayPendingSwapLegs(merged: any): any {
+        const pending = this._originalPendingTransaction;
+
+        if (!pending || String(pending.type || "").toLowerCase() !== "swap") {
+            return merged;
+        }
+
+        const src = Number(pending.amount);
+
+        if (Number.isNaN(src) || src <= 0) {
+            return merged;
+        }
+
+        const isPresent = (v: unknown): boolean => {
+            if (v === undefined || v === null) return false;
+            if (typeof v === "string") return v.trim() !== "";
+            if (typeof v === "number") return !Number.isNaN(v);
+
+            return true;
+        };
+
+        const pick = (pVal: unknown, pAlt: unknown, mergedVal: unknown): unknown => {
+            if (isPresent(pVal)) {
+                return typeof pVal === "string" ? pVal.trim() : pVal;
+            }
+
+            if (isPresent(pAlt)) {
+                return typeof pAlt === "string" ? pAlt.trim() : pAlt;
+            }
+
+            return mergedVal;
+        };
+
+        return {
+            ...merged,
+            type: "swap",
+            amount: pending.amount,
+            asset: pending.asset,
+            image: pending.image,
+            network: pending.network || merged.network,
+            targetAmount: pick(pending.targetAmount, null, merged.targetAmount),
+            targetSymbol: pick(pending.targetSymbol, pending.swapIntentToSymbol, merged.targetSymbol),
+            targetImage: pick(pending.targetImage, null, merged.targetImage),
+            targetAddress: pick(pending.targetAddress, null, merged.targetAddress),
+            targetNetwork: pick(pending.targetNetwork, null, merged.targetNetwork),
+        };
+    }
+
     private async _retryRequestTransactionDetails(): Promise<void> {
         this._timeout = setTimeout(() => {
             this._requestTransactionDetails();
@@ -220,16 +291,19 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     private async _setNetworkProperties(): Promise<void> {
         if (!this.transaction || this.transaction.type !== "swap") return;
 
+        const sourceNet = (this.transaction.network || "").toLowerCase() as NetworkName;
+        const targetNet = (this.transaction.targetNetwork || this.transaction.network || "").toLowerCase() as NetworkName;
+
         this.tokenProperties.sourceImage = this.transaction.image;
-        this.tokenProperties.sourceNetwork = this._networkSymbol(this.transaction.network.toLowerCase() as NetworkName);
-        this.tokenProperties.sourceNetworkImage = await this._networkImage(this.transaction.network.toLowerCase() as NetworkName);
-        this.tokenProperties.sourceNetworkSymbol = this._networkService.getNetworkSymbol(this.transaction.network.toLowerCase() as NetworkName);
+        this.tokenProperties.sourceNetwork = sourceNet ? this._networkSymbol(sourceNet) : "";
+        this.tokenProperties.sourceNetworkImage = sourceNet ? await this._networkImage(sourceNet) : "";
+        this.tokenProperties.sourceNetworkSymbol = sourceNet ? this._networkService.getNetworkSymbol(sourceNet) : "";
         this.tokenProperties.sourceSymbol = this.transaction.asset;
 
         this.tokenProperties.targetImage = this.transaction.targetImage;
-        this.tokenProperties.targetNetwork = this._networkSymbol(this.transaction.targetNetwork.toLowerCase() as NetworkName);
-        this.tokenProperties.targetNetworkImage = await this._networkImage(this.transaction.targetNetwork.toLowerCase() as NetworkName);
-        this.tokenProperties.targetNetworkSymbol = this._networkService.getNetworkSymbol(this.transaction.targetNetwork.toLowerCase() as NetworkName);
+        this.tokenProperties.targetNetwork = targetNet ? this._networkSymbol(targetNet) : "";
+        this.tokenProperties.targetNetworkImage = targetNet ? await this._networkImage(targetNet) : "";
+        this.tokenProperties.targetNetworkSymbol = targetNet ? this._networkService.getNetworkSymbol(targetNet) : "";
         this.tokenProperties.targetSymbol = this.transaction.targetSymbol;
     }
 

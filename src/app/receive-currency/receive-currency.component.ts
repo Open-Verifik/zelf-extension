@@ -62,9 +62,7 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
     }
 
     private _getEnabledNetworkIds(): string[] | undefined {
-        const settings = this._settingsService.settings;
-        if (!settings || !settings.networks) return undefined;
-        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+        return this._settingsService.getEnabledNetworkIds();
     }
 
     private _mapSymbolToNetworkId(symbol: string): string {

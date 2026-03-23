@@ -92,7 +92,11 @@
                             "qrcode",
                             "setimmediate",
                             "tweetnacl",
-                            "webextension-polyfill"
+                            "webextension-polyfill",
+                            "@stellar/stellar-sdk",
+                            "@stellar/stellar-base",
+                            "stellar-hd-wallet",
+                            "urijs"
                         ]
                     },
                     "configurations": {

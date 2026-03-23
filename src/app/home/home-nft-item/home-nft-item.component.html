@@ -1,0 +1,18 @@
+<button type="button" class="home-nft-item" (click)="openDetail()" [disabled]="!canOpenDetail" *transloco="let t">
+    <div class="home-nft-item__thumb">
+        <img
+            *ngIf="nft.image?.trim() && !imageFailed"
+            [src]="nft.image"
+            [alt]="nft.name"
+            loading="lazy"
+            (error)="onImageError()"
+        />
+        <div *ngIf="!nft.image?.trim() || imageFailed" class="home-nft-item__placeholder">
+            {{ t("home.collectibles_no_image") }}
+        </div>
+    </div>
+    <div class="home-nft-item__meta">
+        <span class="home-nft-item__name">{{ nft.name }}</span>
+        <span class="home-nft-item__collection" *ngIf="nft.collectionName && nft.collectionName !== nft.name">{{ nft.collectionName }}</span>
+    </div>
+</button>

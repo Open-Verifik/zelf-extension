@@ -545,19 +545,27 @@ export class TransactionDetailModel implements TransactionDetail {
         if (this.transactionType === "swap" || this.transactionType === "call") {
             transactionData.type = "swap";
 
+            if (this.tokensTransferred.length === 0) {
+                return new TransactionModel({
+                    ...transactionData,
+                    ...additionalData,
+                });
+            }
+
             const firstTokenTransfer = this.tokensTransferred[0];
             const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
 
+            // Source leg: first transfer (EVM previously used API root symbol/amount — wrong for USDC→AVAX etc.)
+            const fromFirstLeg = {
+                amount: firstTokenTransfer.amount,
+                asset: firstTokenTransfer.symbol,
+                image: firstTokenTransfer.icon,
+                network: firstTokenTransfer.network,
+                to: firstTokenTransfer.to,
+            };
+
             additionalData = {
-                ...(firstTokenTransfer.network === "solana"
-                    ? {
-                          amount: firstTokenTransfer.amount,
-                          asset: firstTokenTransfer.symbol,
-                          image: firstTokenTransfer.icon,
-                          network: firstTokenTransfer.network,
-                          to: firstTokenTransfer.to,
-                      }
-                    : {}),
+                ...fromFirstLeg,
                 targetAddress: lastTokenTransfer.to,
                 targetAmount: lastTokenTransfer.amount,
                 targetImage: lastTokenTransfer.icon,
@@ -566,15 +574,22 @@ export class TransactionDetailModel implements TransactionDetail {
                 targetToken: lastTokenTransfer.token,
             };
         } else if (this.tokensTransferred.length > 0) {
-            const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
+            const rootAmount = Number(this.amount);
+            const rootSym = String(this.symbol || "").toUpperCase();
+            const evmNativeSymbols = new Set(["ETH", "AVAX", "BNB", "MATIC", "POL"]);
+            const keepRootNative = rootAmount > 0 && !Number.isNaN(rootAmount) && evmNativeSymbols.has(rootSym);
 
-            additionalData = {
-                amount: lastTokenTransfer.amount,
-                asset: lastTokenTransfer.symbol,
-                image: lastTokenTransfer.icon,
-                network: lastTokenTransfer.network,
-                to: lastTokenTransfer.to,
-            };
+            if (!keepRootNative) {
+                const lastTokenTransfer = this.tokensTransferred[this.tokensTransferred.length - 1];
+
+                additionalData = {
+                    amount: lastTokenTransfer.amount,
+                    asset: lastTokenTransfer.symbol,
+                    image: lastTokenTransfer.icon,
+                    network: lastTokenTransfer.network,
+                    to: lastTokenTransfer.to,
+                };
+            }
         }
 
         return new TransactionModel({
@@ -926,6 +941,8 @@ export interface TransactionData {
     sender: Sender;
     token: TokenData;
     total?: number | string;
+    /** Optional Stellar memo (text). */
+    memo?: string;
 }
 
 export class TransactionData implements TransactionData {
@@ -937,6 +954,7 @@ export class TransactionData implements TransactionData {
     sender: Sender = {} as Sender;
     token: TokenData = {} as TokenData;
     total?: number | string = 0;
+    memo?: string;
 
     constructor(data: any = {}) {
         this.amount = data.amount || 0;
@@ -947,6 +965,7 @@ export class TransactionData implements TransactionData {
         this.sender = data.sender || ({} as Sender);
         this.token = data.token || ({} as TokenData);
         this.total = data.total || 0;
+        this.memo = data.memo;
     }
 
     get hasCompletePaymentData(): boolean {
@@ -1038,6 +1057,10 @@ export class TransactionData implements TransactionData {
 
     get isSuiToken(): boolean {
         return this.tokenType === "SUI" || this.tokenType === "SUI_TOKEN";
+    }
+
+    get isXlmToken(): boolean {
+        return this.tokenType === "XLM" && this.network === "stellar";
     }
 
     get senderFullTagName(): string {
@@ -1222,6 +1245,10 @@ export class SwapData {
     targetAmount: number;
     targetAsset: TokenData;
     targetSwapValue: number;
+    /** Persisted swap tab: same-chain vs cross-chain (vault / biometrics return). */
+    swapFlowMode: "swaps" | "cross_chain";
+    /** Global NET filter when set; null = all networks. */
+    selectedSwapNetworkId: string | null;
 
     constructor(data: any = {}) {
         this.bridge = data.bridge || "";
@@ -1236,6 +1263,11 @@ export class SwapData {
         this.targetAmount = data.targetAmount || 0;
         this.targetAsset = data.targetAsset || ({} as TokenData);
         this.targetSwapValue = data.targetSwapValue || 0;
+        this.swapFlowMode = data.swapFlowMode === "cross_chain" ? "cross_chain" : "swaps";
+        const sid = data.selectedSwapNetworkId;
+
+        this.selectedSwapNetworkId =
+            sid === undefined || sid === null || sid === "" ? null : String(sid);
     }
 
     get hasSwapData(): boolean {

@@ -337,6 +337,22 @@ export class ChromeService {
         }
     }
 
+    /** Opens an https URL in a new browser tab (e.g. BlockDAG NFT marketplace). */
+    async openExternalUrl(url: string): Promise<void> {
+        if (!url?.startsWith("http://") && !url?.startsWith("https://")) return;
+
+        if (!this.isExtension) {
+            window.open(url, "_blank", "noopener,noreferrer");
+            return;
+        }
+
+        try {
+            await browser.tabs.create({ url });
+        } catch (error) {
+            console.error("Failed to open external URL:", error);
+        }
+    }
+
     async openSidePanel(): Promise<void> {
         if (!this.isExtension) return;
 

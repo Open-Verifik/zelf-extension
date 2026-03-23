@@ -1,9 +1,44 @@
+/** Legacy `publicData` key from older builds / API payloads; migrated into `xlmAddress`. */
+export const LEGACY_XLM_PUBLIC_DATA_KEY = "stellarAddress" as const;
+
+/** Prefer `xlmAddress`; fall back to {@link LEGACY_XLM_PUBLIC_DATA_KEY} so API/storage self-heals in memory. */
+export function readPublicDataXlmAddress(pd: Record<string, unknown> | null | undefined): string {
+    if (!pd) return "";
+    const primary = pd.xlmAddress;
+    const legacy = pd[LEGACY_XLM_PUBLIC_DATA_KEY];
+    const s = (typeof primary === "string" ? primary : "") || (typeof legacy === "string" ? legacy : "");
+
+    return s.trim();
+}
+
+/** Stored blob has XLM only under the legacy key; should persist canonical `xlmAddress`. */
+export function publicDataNeedsXlmPersistHeal(pd: Record<string, unknown> | null | undefined, coerced: string): boolean {
+    if (!pd || !coerced) return false;
+    const xlm = typeof pd.xlmAddress === "string" ? pd.xlmAddress.trim() : "";
+    const legacy = pd[LEGACY_XLM_PUBLIC_DATA_KEY];
+    const leg = typeof legacy === "string" ? legacy.trim() : "";
+
+    return !xlm && !!leg && leg === coerced;
+}
+
+/** Returns healed `publicData` or `null` if nothing to do. */
+export function tryHealPublicDataXlmToCanonical(pd: Record<string, unknown> | null | undefined): Record<string, unknown> | null {
+    if (!pd) return null;
+    const coerced = readPublicDataXlmAddress(pd);
+    if (!publicDataNeedsXlmPersistHeal(pd, coerced)) return null;
+    const next: Record<string, unknown> = { ...pd, xlmAddress: coerced };
+
+    delete next[LEGACY_XLM_PUBLIC_DATA_KEY];
+
+    return next;
+}
+
 export interface TagPublicData {
     btcAddress: string;
     domain: string;
     ethAddress: string;
     solanaAddress: string;
-    stellarAddress: string;
+    xlmAddress: string;
     suiAddress: string;
     tagName: string;
     hasPassword: string;
@@ -31,7 +66,7 @@ export class TagPublicDataModel {
     domain: string;
     ethAddress: string;
     solanaAddress: string;
-    stellarAddress: string;
+    xlmAddress: string;
     suiAddress: string;
     tagName: string;
     hasPassword: string;
@@ -50,7 +85,7 @@ export class TagPublicDataModel {
         this.domain = data.domain || "";
         this.ethAddress = data.ethAddress || "";
         this.solanaAddress = data.solanaAddress || "";
-        this.stellarAddress = data.stellarAddress || data.xlmAddress || "";
+        this.xlmAddress = readPublicDataXlmAddress(data as Record<string, unknown>);
         this.suiAddress = data.suiAddress || "";
         this.tagName = data.tagName || "";
         this.hasPassword = data.hasPassword || "false";
@@ -182,7 +217,7 @@ export class TagModel {
             origin: data.publicData?.origin || "",
             registeredAt: data.publicData?.registeredAt || "",
             solanaAddress: data.publicData?.solanaAddress || "",
-            stellarAddress: data.publicData?.stellarAddress || data.publicData?.xlmAddress || "",
+            xlmAddress: readPublicDataXlmAddress(data.publicData as Record<string, unknown>),
             suiAddress: data.publicData?.suiAddress || "",
             tagName: rawTagName,
             type: data.publicData?.type || "",
@@ -218,8 +253,8 @@ export class TagModel {
         return this._parseAddress(this.publicData?.blockDAGAddress || this.publicData?.ethAddress);
     }
 
-    get displayStellarAddress(): string {
-        return this._parseAddress(this.publicData?.stellarAddress);
+    get displayXlmAddress(): string {
+        return this._parseAddress(this.publicData?.xlmAddress);
     }
 
     private _parseAddress(value: string): string {

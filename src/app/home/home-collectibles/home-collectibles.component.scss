@@ -1,0 +1,45 @@
+@use "../../../styles/variables";
+
+.home-collectibles {
+    width: 100%;
+    min-height: calc(120px * var(--zns-space-scale, 1));
+
+    &__toolbar {
+        width: 100%;
+        margin-bottom: calc(10px * var(--zns-space-scale, 1));
+    }
+
+    &__center {
+        width: 100%;
+        padding: calc(24px * var(--zns-space-scale, 1)) 0;
+        gap: calc(12px * var(--zns-space-scale, 1));
+    }
+
+    &__hint {
+        margin: 0;
+        font-size: calc(12px * var(--zns-space-scale, 1));
+        color: variables.$themeTextSecondary;
+        text-align: center;
+    }
+
+    &__message {
+        width: 100%;
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+        text-align: center;
+
+        p {
+            margin: 0 0 calc(12px * var(--zns-space-scale, 1));
+            font-size: calc(13px * var(--zns-space-scale, 1));
+            color: variables.$themeTextSecondary;
+            line-height: 1.4;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: calc(10px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding-bottom: calc(8px * var(--zns-space-scale, 1));
+    }
+}

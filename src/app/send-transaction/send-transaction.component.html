@@ -157,6 +157,24 @@
                     <p class="zelf-input__tip">
                         {{ t("send.available_balance", { symbol: transactionData.symbol, balance: displaySendableBalance }) }}
                     </p>
+
+                    <ng-container *ngIf="transactionData.isXlmToken">
+                        <p class="send-transaction__input-label send-transaction__input-label--mt-8">
+                            <span class="send-transaction__input-label-text">{{ t("send.memo_optional") }}:</span>
+                        </p>
+                        <div class="zelf-input zelf-input--wide zelf-input--gap-narrow">
+                            <input
+                                autocomplete="off"
+                                class="zelf-input__control"
+                                formControlName="memo"
+                                id="memo"
+                                maxlength="28"
+                                name="memo"
+                                [placeholder]="t('send.memo_placeholder')"
+                                type="text"
+                            />
+                        </div>
+                    </ng-container>
                 </ng-container>
 
                 <ng-container *ngIf="!withdrawStep && filteredAddresses.length">
@@ -230,6 +248,7 @@
                                 <span class="zelf-object-preview__address-short" *ngIf="transactionData.isBtcToken">{{ foundAddress.publicData.btcAddress | addressMask }}</span>
                                 <span class="zelf-object-preview__address-short" *ngIf="transactionData.isSuiToken">{{ foundAddress.publicData.suiAddress | addressMask }}</span>
                                 <span class="zelf-object-preview__address-short" *ngIf="transactionData.isBDAGToken">{{ foundAddress.publicData.blockDAGAddress | addressMask }}</span>
+                                <span class="zelf-object-preview__address-short" *ngIf="transactionData.isXlmToken">{{ foundAddress.publicData.xlmAddress | addressMask }}</span>
                             </div>
                             <svg class="zelf-object-preview__check" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM8 15L3 10L4.41 8.59L8 12.17L15.59 4.58L17 6L8 15Z"/>

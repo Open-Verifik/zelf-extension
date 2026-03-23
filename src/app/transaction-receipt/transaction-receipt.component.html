@@ -129,7 +129,7 @@
                                     <div class="transaction-receipt__logo-container">
                                         <img [src]="transaction.targetImage" alt="logo" class="transaction-receipt__logo" />
                                         <img
-                                            [src]="tokenProperties.sourceNetworkImage"
+                                            [src]="tokenProperties.targetNetworkImage"
                                             alt="logo"
                                             class="transaction-receipt__logo transaction-receipt__logo--network"
                                         />
@@ -148,7 +148,9 @@
 
                             <p class="transaction-receipt__value">
                                 {{ transaction.gasFee || transaction.gasPrice | number: "1.2-8" }}
-                                <span class="transaction-receipt__value-light">{{ transaction.asset }}</span>
+                                <span class="transaction-receipt__value-light">{{
+                                    transaction.networkSymbol || networkSymbol
+                                }}</span>
                             </p>
                         </div>
                     </ng-container>

@@ -1,0 +1,44 @@
+<div class="nft-import zelf-card" *transloco="let t">
+    <div class="nft-import__header">
+        <button
+            [routerLink]="['/home']"
+            [queryParams]="{ tab: 'nfts' }"
+            class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary"
+            mat-flat-button
+            type="button"
+        >
+            <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                />
+            </svg>
+        </button>
+        <h1 class="nft-import__title">{{ t("home.nft_import_title") }}</h1>
+    </div>
+
+    <p class="nft-import__hint">{{ t("home.nft_import_hint") }}</p>
+
+    <form class="nft-import__form" [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline" class="nft-import__field">
+            <mat-label>{{ t("home.nft_import_contract_label") }}</mat-label>
+            <input matInput formControlName="contract" autocomplete="off" autocapitalize="off" />
+            <mat-error *ngIf="form.controls.contract.touched && form.controls.contract.invalid">
+                {{ t("home.nft_import_contract_error") }}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="nft-import__field">
+            <mat-label>{{ t("home.nft_import_token_label") }}</mat-label>
+            <input matInput formControlName="tokenId" inputmode="numeric" autocomplete="off" />
+            <mat-error *ngIf="form.controls.tokenId.touched && form.controls.tokenId.invalid">
+                {{ t("home.nft_import_token_error") }}
+            </mat-error>
+        </mat-form-field>
+
+        <p class="nft-import__api-error" *ngIf="apiError">{{ apiError }}</p>
+
+        <button mat-flat-button type="submit" class="zelf-button zelf-button--primary zelf-button--wide nft-import__submit" [disabled]="submitting">
+            <p>{{ submitting ? t("home.nft_import_submitting") : t("home.nft_import_submit") }}</p>
+        </button>
+    </form>
+</div>

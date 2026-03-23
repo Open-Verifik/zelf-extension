@@ -88,12 +88,23 @@ export class TransactionService {
         return this._transactionData;
     }
 
+    /**
+     * Always re-read from storage so in-memory state matches chrome after removeItem (e.g. post-swap).
+     */
     async getCurrentSwapData(): Promise<SwapData> {
-        if (this._swapData) return this._swapData;
+        const raw = await this._chromeService.getItem("swapData");
 
-        this._swapData = new SwapData((await this._chromeService.getItem("swapData")) || {});
+        this._swapData = new SwapData(raw || {});
+        this._swapData$.next(this._swapData);
 
         return this._swapData;
+    }
+
+    /** Clears persisted swap draft and in-memory cache (call after a completed swap). */
+    async clearPersistedSwapData(): Promise<void> {
+        await this._chromeService.removeItem("swapData");
+        this._swapData = new SwapData({});
+        this._swapData$.next(this._swapData);
     }
 
     async removeTransactionData(): Promise<void> {

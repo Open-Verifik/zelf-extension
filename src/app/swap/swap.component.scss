@@ -15,6 +15,303 @@
     max-width: var(--zns-card-width, 536px);
     min-height: var(--zns-card-min-height, 768px);
 
+    &__top {
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__back {
+        align-self: flex-start;
+    }
+
+    &__tabs {
+        display: flex;
+        width: 100%;
+        gap: calc(4px * var(--zns-space-scale, 1));
+        padding: calc(4px * var(--zns-space-scale, 1));
+        border-radius: 9999px;
+        background: variables.$themeCardBorder;
+        box-sizing: border-box;
+    }
+
+    &__tab {
+        flex: 1 1 0;
+        min-height: calc(36px * var(--zns-space-scale, 1));
+        border-radius: 9999px !important;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 600;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    &__tab--active {
+        background: variables.$themeCard !important;
+        color: variables.$themeText !important;
+        box-shadow: 0 1px 4px variables.$themeShadow !important;
+    }
+
+    &__tab--disabled {
+        opacity: 0.45;
+        cursor: not-allowed !important;
+    }
+
+    &__pair-shell {
+        width: 100%;
+        border: 1px solid variables.$themeBorder;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
+        padding: calc(12px * var(--zns-space-scale, 1));
+        background: variables.$themeCard;
+        box-sizing: border-box;
+    }
+
+    &__pair-row {
+        display: flex;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        width: 100%;
+    }
+
+    &__pair-side {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: calc(4px * var(--zns-space-scale, 1));
+        cursor: pointer;
+        padding: calc(4px * var(--zns-space-scale, 1));
+        border-radius: 12px;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$themeCardBorder;
+        }
+    }
+
+    &__pair-label {
+        margin: 0;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeTextSecondary;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    &__pair-token {
+        display: flex;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__pair-symbol {
+        font-weight: 700;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+    }
+
+    &__pair-placeholder {
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        font-weight: 600;
+    }
+
+    &__pair-flip {
+        flex-shrink: 0;
+    }
+
+    &__pair-network-btn {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        min-width: calc(48px * var(--zns-space-scale, 1));
+        min-height: calc(52px * var(--zns-space-scale, 1));
+        padding: calc(6px * var(--zns-space-scale, 1)) !important;
+        border-radius: calc(14px * var(--zns-space-scale, 1)) !important;
+        border: 1px solid variables.$themeBorder !important;
+        background: variables.$themeCard !important;
+
+        svg {
+            width: 10px;
+            height: 6px;
+            fill: variables.$themeText;
+        }
+    }
+
+    &__pair-network-img {
+        width: calc(28px * var(--zns-space-scale, 1));
+        height: calc(28px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        object-fit: contain;
+    }
+
+    &__pair-network-all {
+        font-size: calc(10px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        color: variables.$themeTextSecondary;
+        text-transform: uppercase;
+    }
+
+    &__asset-logo-container--sm {
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
+    }
+
+    &__asset-logo-container--sm .swap__asset-logo {
+        width: calc(32px * var(--zns-space-scale, 1));
+        height: calc(32px * var(--zns-space-scale, 1));
+    }
+
+    &__hero {
+        width: 100%;
+        text-align: center;
+        padding: calc(20px * var(--zns-space-scale, 1)) 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__hero--error .swap__hero-input {
+        color: variables.$error;
+    }
+
+    &__hero-input-wrap {
+        width: 100%;
+        max-width: 100%;
+
+        &--fiat::before {
+            color: variables.$themeTextSecondary;
+            content: "$";
+            font-family: variables.$themeBodyFamily;
+            font-size: calc(28px * var(--zns-font-scale, 1));
+            font-weight: 700;
+        }
+
+        &--fiat {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+    }
+
+    &__hero-input {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background: none;
+        border: none;
+        box-sizing: border-box;
+        color: inherit;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(36px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0;
+        outline: none;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+    }
+
+    &__hero-input--fiat {
+        /* Avoid flex-grow: number inputs default wide; left-aligned text then looked off vs centered token hero */
+        flex: 0 1 auto;
+        width: 100%;
+        max-width: min(100%, 12rem);
+        min-width: 5ch;
+        text-align: center;
+    }
+
+    &__hero-sub {
+        margin: 0;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeTextSecondary;
+    }
+
+    &__hero-balance {
+        margin: 0;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+    }
+
+    &__hero-pills {
+        display: flex;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        margin-top: calc(4px * var(--zns-space-scale, 1));
+    }
+
+    &__pill {
+        min-height: calc(32px * var(--zns-space-scale, 1)) !important;
+        padding: 0 calc(16px * var(--zns-space-scale, 1)) !important;
+        border-radius: 9999px !important;
+        border: 1px solid variables.$themeBorder !important;
+        font-weight: 600 !important;
+        font-size: calc(12px * var(--zns-font-scale, 1)) !important;
+        background: variables.$themeCard !important;
+        color: variables.$themeText !important;
+    }
+
+    &__pill--active {
+        border-color: variables.$themeText !important;
+        background: variables.$themeCardBorder !important;
+    }
+
+    &__summary {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1)) 0;
+    }
+
+    &__summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: calc(12px * var(--zns-space-scale, 1));
+    }
+
+    &__summary-label {
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+    }
+
+    &__summary-value {
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+        margin: 0;
+        text-align: right;
+    }
+
+    &__review-btn {
+        border-radius: 9999px !important;
+        min-height: calc(48px * var(--zns-space-scale, 1)) !important;
+    }
+
     &__header {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
@@ -440,6 +737,101 @@
         min-width: calc(260px * var(--zns-space-scale, 1));
         min-height: calc(40px * var(--zns-space-scale, 1));
         height: calc(40px * var(--zns-space-scale, 1));
+    }
+}
+
+.swap-network-picker {
+    display: flex;
+    flex-direction: column;
+    gap: calc(16px * var(--zns-space-scale, 1));
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+
+    &__title {
+        margin: 0;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 700;
+        font-size: calc(22px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+    }
+
+    &__search {
+        width: 100%;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        overflow-y: auto;
+        flex: 1 1 auto;
+        max-height: calc(520px * var(--zns-space-scale, 1));
+        padding-bottom: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        width: 100% !important;
+        text-align: left !important;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) !important;
+        border-radius: calc(16px * var(--zns-space-scale, 1)) !important;
+        border: 1px solid variables.$themeBorder !important;
+        background: variables.$themeCard !important;
+        color: variables.$themeText !important;
+        height: auto !important;
+        min-height: calc(64px * var(--zns-space-scale, 1));
+        box-sizing: border-box;
+    }
+
+    &__row--selected {
+        border-color: variables.$themeText !important;
+        box-shadow: 0 0 0 1px variables.$themeText;
+    }
+
+    &__row-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+    }
+
+    &__name {
+        font-weight: 600;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+    }
+
+    &__usd {
+        font-weight: 600;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+    }
+
+    &__icons {
+        display: flex;
+        align-items: center;
+        gap: calc(-6px * var(--zns-space-scale, 1));
+        padding-left: calc(2px * var(--zns-space-scale, 1));
+    }
+
+    &__icon {
+        width: calc(22px * var(--zns-space-scale, 1));
+        height: calc(22px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        border: 2px solid variables.$themeCard;
+        object-fit: contain;
+        background: variables.$themeCardBorder;
+    }
+
+    &__more {
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        color: variables.$themeTextSecondary;
+        margin-left: calc(8px * var(--zns-space-scale, 1));
     }
 }
 

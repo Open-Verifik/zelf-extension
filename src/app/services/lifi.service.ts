@@ -63,6 +63,60 @@ export class LifiService {
     }
 
     /**
+     * Maps LiFi `/tokens` bucket keys (chain symbols like ETH, AVA, SOL or numeric chain IDs)
+     * to internal lowercase network slugs (settings `id`, `NetworkName` without casing quirks).
+     */
+    chainBucketKeyToInternalNetwork(bucketKey: string | number): string {
+        const raw = String(bucketKey).trim();
+
+        if (!raw) return "unknown";
+
+        const byChainId: Record<string, string> = {
+            "1": "ethereum",
+            "56": "binance",
+            "137": "polygon",
+            "43114": "avalanche",
+            "42161": "arbitrum",
+        };
+
+        if (/^\d+$/.test(raw) && byChainId[raw]) return byChainId[raw];
+
+        const upper = raw.toUpperCase();
+
+        const bySymbol: Record<string, string> = {
+            ETH: "ethereum",
+            AVA: "avalanche",
+            AVAX: "avalanche",
+            BSC: "binance",
+            BNB: "binance",
+            POL: "polygon",
+            MATIC: "polygon",
+            SOL: "solana",
+            SUI: "sui",
+        };
+
+        if (bySymbol[upper]) return bySymbol[upper];
+
+        const lower = raw.toLowerCase();
+
+        const byLower: Record<string, string> = {
+            eth: "ethereum",
+            ava: "avalanche",
+            avax: "avalanche",
+            bsc: "binance",
+            bnb: "binance",
+            pol: "polygon",
+            matic: "polygon",
+            sol: "solana",
+            sui: "sui",
+        };
+
+        if (byLower[lower]) return byLower[lower];
+
+        return "unknown";
+    }
+
+    /**
      * Format amount to avoid scientific notation
      */
     private _formatAmount(amount: string): string {
@@ -73,42 +127,90 @@ export class LifiService {
         return numAmount.toString();
     }
 
-    async requestTokens(): Promise<{ tokens: { [chainId: string]: LifiToken[] } }> {
+    /**
+     * LiFi `/tokens` chain keys we request via the EVM-style query (no chainTypes).
+     * Solana is always a separate request with chainTypes=SVM.
+     */
+    private _lifiEvmTokensChainParam(internalNetworkLower: string): string | null {
+        const id = this.getChainIdentifier(internalNetworkLower);
+        const supported = new Set(["ETH", "AVA", "SUI", "POL", "BNB"]);
+
+        if (id === "SOL") return null;
+
+        if (supported.has(id)) return id;
+
+        return null;
+    }
+
+    /**
+     * Loads trusted tokens from the LiFi proxy.
+     * @param lockedInternalNetwork Optional lowercase network id (e.g. `avalanche`). When set, only that chain is fetched (no Solana call for EVM/Sui locks). Omit or pass null for the full multi-chain catalog.
+     */
+    async requestTokens(lockedInternalNetwork?: string | null): Promise<{ tokens: { [chainId: string]: LifiToken[] } }> {
         const defaultResponse = { data: { tokens: {} } };
 
+        const lock = lockedInternalNetwork?.trim().toLowerCase() || null;
+
+        let fetchEvmChains = "ETH,AVA,POL,BNB,SUI";
+        let fetchSolana = true;
+
+        if (lock) {
+            if (lock === "solana") {
+                fetchEvmChains = "";
+                fetchSolana = true;
+            } else {
+                fetchSolana = false;
+                const single = this._lifiEvmTokensChainParam(lock);
+
+                if (single) fetchEvmChains = single;
+                else {
+                    fetchEvmChains = "ETH,AVA,POL,BNB,SUI";
+                    fetchSolana = true;
+                }
+            }
+        }
+
         try {
-            const { data: standardResponse } = await firstValueFrom<LifiTokensResponse>(
-                this._http
-                    .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, { params: { chains: "ETH,AVA,SUI", minPriceUSD: this.MIN_PRICE_USD } })
-                    .pipe(
-                        catchError((err) => {
-                            console.warn("Failed to fetch standard tokens:", err);
+            const result = { tokens: {} as { [chainId: string]: LifiToken[] } };
 
-                            return of(defaultResponse);
+            if (fetchEvmChains) {
+                const { data: standardResponse } = await firstValueFrom<LifiTokensResponse>(
+                    this._http
+                        .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, {
+                            params: { chains: fetchEvmChains, minPriceUSD: this.MIN_PRICE_USD },
                         })
-                    )
-            );
+                        .pipe(
+                            catchError((err) => {
+                                console.warn("Failed to fetch standard tokens:", err);
 
-            const { data: solanaResponse } = await firstValueFrom<LifiTokensResponse>(
-                this._http
-                    .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, {
-                        params: { chains: "SOL", chainTypes: "SVM", minPriceUSD: this.MIN_PRICE_USD },
-                    })
-                    .pipe(
-                        catchError((err) => {
-                            console.warn("Failed to fetch Solana tokens:", err);
+                                return of(defaultResponse);
+                            })
+                        )
+                );
 
-                            return of(defaultResponse);
+                Object.assign(result.tokens, standardResponse.tokens || {});
+            }
+
+            if (fetchSolana) {
+                const { data: solanaResponse } = await firstValueFrom<LifiTokensResponse>(
+                    this._http
+                        .get<LifiTokensResponse>(`${this.LIFI_API_URL}/tokens`, {
+                            params: { chains: "SOL", chainTypes: "SVM", minPriceUSD: this.MIN_PRICE_USD },
                         })
-                    )
-            );
+                        .pipe(
+                            catchError((err) => {
+                                console.warn("Failed to fetch Solana tokens:", err);
 
-            const result = { tokens: { ...(standardResponse.tokens || {}) } };
+                                return of(defaultResponse);
+                            })
+                        )
+                );
 
-            if (solanaResponse?.tokens) {
-                result.tokens.SOL = solanaResponse.tokens?.SOL || solanaResponse.tokens?.sol || [];
+                if (solanaResponse?.tokens) {
+                    result.tokens.SOL = solanaResponse.tokens?.SOL || solanaResponse.tokens?.sol || [];
 
-                if (!result.tokens.SOL.length) result.tokens.SOL = Object.values(solanaResponse.tokens).flat();
+                    if (!result.tokens.SOL.length) result.tokens.SOL = Object.values(solanaResponse.tokens).flat();
+                }
             }
 
             return result;
@@ -117,6 +219,21 @@ export class LifiService {
 
             return { tokens: {} };
         }
+    }
+
+    /** Maps LiFi `chains` query keys (eth, pol, bsc, …) to wallet token bucket symbols. */
+    private _lifiQueryKeyToWalletSymbol(key: string): string | null {
+        const k = String(key).toLowerCase();
+
+        const map: Record<string, string> = {
+            eth: "ETH",
+            ava: "AVAX",
+            pol: "POL",
+            bsc: "BNB",
+            sol: "SOL",
+        };
+
+        return map[k] ?? null;
     }
 
     getTokens(): Observable<Record<string, LifiToken[]>> {
@@ -130,7 +247,7 @@ export class LifiService {
                     if (!result?.data?.tokens) return combined;
 
                     chains.forEach((chain) => {
-                        const chainSymbol = this.chainIdToSymbol[chain];
+                        const chainSymbol = this._lifiQueryKeyToWalletSymbol(chain);
 
                         if (!chainSymbol) return;
 
@@ -167,13 +284,74 @@ export class LifiService {
         }
     }
 
+    /** LiFi `fromChain` query symbols for numeric chain IDs used in stepTransaction bodies. */
+    getChainIdentifierFromChainId(chainId: number | string): string {
+        const id = Number(chainId);
+
+        const map: Record<number, string> = {
+            1: "ETH",
+            56: "BNB",
+            137: "POL",
+            43114: "AVA",
+        };
+
+        if (map[id]) return map[id];
+
+        return String(chainId);
+    }
+
+    /**
+     * Truncate fractional digits to `decimals` so `ethers.parseUnits` never throws NUMERIC_FAULT
+     * (human-entered or float-derived strings often exceed USDC-style 6 dp).
+     */
+    private _clampDecimalPlacesForParseUnits(amount: unknown, decimals: number): string {
+        let s = String(amount).trim().replace(/,/g, "");
+
+        if (!s || s === "." || s.startsWith("-")) {
+            return "0";
+        }
+
+        if (/[eE]/.test(s)) {
+            const n = Number(s);
+
+            if (!Number.isFinite(n) || n < 0) {
+                return "0";
+            }
+
+            return n.toFixed(decimals);
+        }
+
+        const dotIdx = s.indexOf(".");
+        let intPart = dotIdx === -1 ? s : s.slice(0, dotIdx);
+        let fracPart = dotIdx === -1 ? "" : s.slice(dotIdx + 1);
+
+        intPart = intPart.replace(/\D/g, "") || "0";
+        fracPart = fracPart.replace(/\D/g, "").slice(0, decimals);
+
+        if (decimals === 0) {
+            return intPart;
+        }
+
+        return fracPart.length > 0 ? `${intPart}.${fracPart}` : intPart;
+    }
+
     /**
      * Format amount with proper decimals
      */
     formatAmount(amount: string, decimals: number): string {
         try {
-            const amountStr = String(amount);
-            const amountBN = ethers.parseUnits(amountStr, decimals);
+            let d = Math.floor(Number(decimals));
+
+            if (!Number.isFinite(d) || d < 0) {
+                d = 18;
+            }
+
+            if (d > 78) {
+                d = 78;
+            }
+
+            const normalized = this._clampDecimalPlacesForParseUnits(amount, d);
+            const amountBN = ethers.parseUnits(normalized, d);
 
             return amountBN.toString();
         } catch (error) {
@@ -184,41 +362,81 @@ export class LifiService {
     }
 
     /**
-     * Execute a swap transaction
+     * Execute a swap transaction (single EVM tx from LiFi `transactionRequest`).
      */
     async executeSwap(quote: any, wallet: any): Promise<any> {
+        if (!quote?.transactionRequest || !quote?.action || !quote?.estimate) {
+            throw new Error("Invalid quote: missing transactionRequest");
+        }
+
+        return this._sendEvmLifiTransactionRequest(quote.transactionRequest, quote.action, quote.estimate, wallet);
+    }
+
+    /**
+     * Cross-chain / multi-step: first source tx via `executeSwap`, poll bridge status, then sign any destination-chain steps.
+     */
+    async executeEvmLiFiSwap(quote: any, wallet: { privateKey: string; address: string }): Promise<any> {
+        const receipt = await this.executeSwap(quote, wallet);
+        const txHash = receipt?.transactionHash ?? receipt?.hash;
+        const fromChainId = Number(quote?.action?.fromChainId);
+        const toChainId = Number(quote?.action?.toChainId);
+        const isCross = Number.isFinite(fromChainId) && Number.isFinite(toChainId) && fromChainId !== toChainId;
+
+        if (isCross && txHash && quote?.tool) {
+            await this.waitForLiFiTransferStatus({
+                txHash,
+                tool: String(quote.tool),
+                fromChainId,
+                toChainId,
+            });
+        }
+
+        if (isCross) {
+            await this.executeDestinationEvmStepsIfAny(quote, wallet);
+        }
+
+        return receipt;
+    }
+
+    private async _sendEvmLifiTransactionRequest(
+        transactionRequest: { to: string; data: string; value?: string; gasLimit?: string },
+        action: { fromChainId: number | string; fromToken: { address: string }; fromAmount: string },
+        estimate: { approvalAddress: string },
+        wallet: { privateKey: string; address: string }
+    ): Promise<any> {
         try {
-            const provider = new ethers.JsonRpcProvider(this.getNetworkRPC(quote.action.fromChainId));
+            const chainId = action.fromChainId;
+            const provider = new ethers.JsonRpcProvider(this.getNetworkRPC(chainId));
             const signer = new ethers.Wallet(wallet.privateKey, provider);
 
             const NATIVE_TOKEN_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
             const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
             const isFromNative =
-                quote.action.fromToken.address.toLowerCase() === NATIVE_TOKEN_ADDRESS.toLowerCase() ||
-                quote.action.fromToken.address.toLowerCase() === ZERO_ADDRESS.toLowerCase();
+                action.fromToken.address.toLowerCase() === NATIVE_TOKEN_ADDRESS.toLowerCase() ||
+                action.fromToken.address.toLowerCase() === ZERO_ADDRESS.toLowerCase();
 
             const feeData = await provider.getFeeData();
             const nonce = await provider.getTransactionCount(signer.address, "latest");
 
             const tx = {
-                to: quote.transactionRequest.to,
-                data: quote.transactionRequest.data,
+                to: transactionRequest.to,
+                data: transactionRequest.data,
                 nonce: nonce,
-                value: isFromNative ? quote.transactionRequest.value : "0",
+                value: isFromNative ? (transactionRequest.value ?? "0") : "0",
                 maxFeePerGas: feeData.maxFeePerGas,
                 maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
-                gasLimit: quote.transactionRequest.gasLimit ? BigInt(quote.transactionRequest.gasLimit) : ethers.parseUnits("800000", "wei"),
+                gasLimit: transactionRequest.gasLimit ? BigInt(transactionRequest.gasLimit) : ethers.parseUnits("800000", "wei"),
             };
 
             if (!isFromNative) {
                 await this.checkAndSetAllowance(
-                    quote.action.fromToken.address,
-                    quote.estimate.approvalAddress,
-                    quote.action.fromAmount,
+                    action.fromToken.address,
+                    estimate.approvalAddress,
+                    action.fromAmount,
                     wallet.address,
                     wallet.privateKey,
-                    quote.action.fromChainId.toString()
+                    chainId.toString()
                 );
             }
 
@@ -231,9 +449,9 @@ export class LifiService {
             const transaction = await signer.sendTransaction(tx);
 
             try {
-                const receipt = await transaction.wait();
+                const waited = await transaction.wait();
 
-                return { ...(receipt || {}), transactionHash: receipt?.hash || transaction?.hash };
+                return { ...(waited || {}), transactionHash: waited?.hash || transaction?.hash };
             } catch (error) {
                 return { ...transaction, transactionHash: transaction.hash };
             }
@@ -241,6 +459,93 @@ export class LifiService {
             console.error("Detailed swap execution error:", error);
             throw error;
         }
+    }
+
+    async getTransferStatus(params: { txHash: string; bridge?: string; fromChain?: string; toChain?: string }): Promise<any> {
+        const query: Record<string, string> = { txHash: params.txHash };
+
+        if (params.bridge) query.bridge = params.bridge;
+        if (params.fromChain !== undefined && params.fromChain !== "") query.fromChain = params.fromChain;
+        if (params.toChain !== undefined && params.toChain !== "") query.toChain = params.toChain;
+
+        return firstValueFrom(
+            this._http.get<{ data: any }>(`${this.LIFI_API_URL}/status`, { params: query }).pipe(
+                map((r) => r.data ?? r),
+                catchError((err) => {
+                    console.warn("LiFi status error:", err);
+
+                    return of(null);
+                })
+            )
+        );
+    }
+
+    private async waitForLiFiTransferStatus(opts: {
+        txHash: string;
+        tool: string;
+        fromChainId: number;
+        toChainId: number;
+    }): Promise<void> {
+        const maxAttempts = 48;
+        const delayMs = 5000;
+
+        for (let i = 0; i < maxAttempts; i++) {
+            await new Promise((resolve) => setTimeout(resolve, delayMs));
+
+            const s = await this.getTransferStatus({
+                txHash: opts.txHash,
+                bridge: opts.tool,
+                fromChain: String(opts.fromChainId),
+                toChain: String(opts.toChainId),
+            });
+
+            if (!s) continue;
+
+            const st = String(s.status ?? "").toUpperCase();
+
+            if (st === "DONE" || st === "FAILED" || st === "INVALID" || st === "NOT_FOUND") break;
+        }
+    }
+
+    private async executeDestinationEvmStepsIfAny(quote: any, wallet: { privateKey: string; address: string }): Promise<void> {
+        const dest = Number(quote?.action?.toChainId);
+
+        if (!Number.isFinite(dest) || !Array.isArray(quote?.includedSteps)) return;
+
+        for (const step of quote.includedSteps) {
+            const from = Number(step?.action?.fromChainId);
+
+            if (from !== dest) continue;
+            if (!step?.tool || !step?.estimate || !step?.action) continue;
+
+            try {
+                await this.postEvmLiFiStepAndSend(quote, step, wallet);
+            } catch (e) {
+                console.warn("LiFi destination-chain step skipped:", e);
+
+                break;
+            }
+        }
+    }
+
+    private async postEvmLiFiStepAndSend(quote: any, step: any, wallet: { privateKey: string; address: string }): Promise<void> {
+        const fromChainId = Number(step.action.fromChainId);
+        const lifiChain = this.getChainIdentifierFromChainId(fromChainId);
+        const body = {
+            ...step,
+            id: quote.id,
+            fromChain: lifiChain,
+            fromAddress: wallet.address,
+            toAddress: step.action.toAddress || quote.action?.toAddress || wallet.address,
+        };
+
+        const { data: txResponse } = await firstValueFrom(
+            this._http.post<{ data: any }>(`${this.LIFI_API_URL}/execute-advanced-step-transaction`, body)
+        );
+
+        if (!txResponse?.transactionRequest) return;
+
+        await this._sendEvmLifiTransactionRequest(txResponse.transactionRequest, step.action, step.estimate, wallet);
     }
 
     private async checkAndSetAllowance(
@@ -275,16 +580,29 @@ export class LifiService {
         }
     }
 
-    private getNetworkRPC(chainId: string | number): string {
+    private getNetworkRPC(chainIdOrSlug: string | number): string {
+        const raw = String(chainIdOrSlug).trim();
+        const slugToId: Record<string, string> = {
+            ethereum: "1",
+            avalanche: "43114",
+            binance: "56",
+            polygon: "137",
+        };
+
+        const id = /^\d+$/.test(raw) ? raw : slugToId[raw.toLowerCase()];
+
+        if (!id) throw new Error(`Unsupported network: ${chainIdOrSlug}`);
+
         const networkMappings: { [key: string]: string } = {
             "1": environment.ethereumRpc.mainnet,
+            "56": environment.binanceRpc.mainnet,
             "137": environment.polygonRpc.mainnet,
             "43114": environment.avalancheRpc.mainnet,
         };
 
-        const rpc = networkMappings[chainId.toString()];
+        const rpc = networkMappings[id];
 
-        if (!rpc) throw new Error(`Unsupported network: ${chainId}`);
+        if (!rpc) throw new Error(`Unsupported network: ${chainIdOrSlug}`);
 
         return rpc;
     }
@@ -353,7 +671,7 @@ export class LifiService {
             return "So11111111111111111111111111111111111111112";
         }
 
-        if (["ETH", "AVAX", "BNB", "MATIC"].includes(symbol.toUpperCase())) {
+        if (["ETH", "AVAX", "BNB", "MATIC", "POL"].includes(symbol.toUpperCase())) {
             return "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
         }
 
@@ -403,7 +721,26 @@ export class LifiService {
     }
 
     /**
-     * Get a quote for a swap
+     * Converts UI slippage in percent (slider 0.1–0.8 = 0.1%–0.8%) to LiFi's decimal fraction (e.g. 0.005 = 0.5%).
+     */
+    private _uiSlippagePercentToLiFiDecimal(slippageInput: string): string {
+        const raw = Number(String(slippageInput).trim().replace(/,/g, "."));
+        const percent = Number.isFinite(raw) && raw > 0 ? raw : 0.5;
+        let d = percent / 100;
+
+        if (d < 0.0001) d = 0.0001;
+        if (d > 0.99) d = 0.99;
+
+        let s = d.toFixed(10).replace(/\.?0+$/, "");
+
+        if (!s || s === ".") s = "0.0001";
+
+        return s;
+    }
+
+    /**
+     * Get a quote for a swap.
+     * @param slippage UI percent (same as swap form / slippage sheet), not LiFi raw decimal.
      */
     getQuote(
         fromChain: string,
@@ -412,38 +749,28 @@ export class LifiService {
         toToken: string,
         fromAmount: string,
         fromAddress: string,
-        slippage: string
+        slippage: string,
+        toAddress?: string
     ): Promise<LifiQuote> {
         const formattedAmount = this._formatAmount(fromAmount.toString());
 
-        const params = {
+        const params: Record<string, string> = {
             fromChain,
             fromToken,
             toChain,
             toToken,
             fromAmount: formattedAmount,
             fromAddress,
-            slippage: slippage.toString(),
+            slippage: this._uiSlippagePercentToLiFiDecimal(slippage),
         };
+
+        const to = String(toAddress || "").trim();
+
+        if (to) params.toAddress = to;
 
         return firstValueFrom(
             this._http.get<{ data: LifiQuote }>(`${this.LIFI_API_URL}/quote`, { params }).pipe(
-                map((response) => {
-                    const quote = response.data;
-
-                    if (fromToken.toLowerCase().includes("usdc") && toToken.toLowerCase().includes("sol")) {
-                        const usdcAmount = parseFloat(formattedAmount);
-                        const solPrice = 146;
-                        const expectedSolAmount = usdcAmount / solPrice;
-
-                        if (quote.estimate) {
-                            quote.estimate.toAmount = expectedSolAmount.toFixed(9);
-                            quote.estimate.toAmountMin = (expectedSolAmount * 0.99).toFixed(9);
-                        }
-                    }
-
-                    return quote;
-                }),
+                map((response) => response.data),
                 catchError((error) => {
                     console.error("Error getting quote:", error);
                     throw error;

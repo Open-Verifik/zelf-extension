@@ -38,7 +38,7 @@
         }
     ],
     "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self';"
+        "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' https: data: blob:;"
     },
     "icons": {
         "16": "assets/icons/icon16.png",

@@ -2,7 +2,7 @@ import { CurrencyPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
-import { Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
@@ -18,6 +18,7 @@ import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { HomeBannersComponent } from "./home-banners/home-banners.component";
+import { HomeCollectiblesComponent } from "./home-collectibles/home-collectibles.component";
 import { HomeHeaderComponent } from "./home-header/home-header.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
 
@@ -26,6 +27,7 @@ import { TokenCardComponent } from "./token-card/token-card.component";
         CurrencyPipe,
         FlexLayoutModule,
         HomeBannersComponent,
+        HomeCollectiblesComponent,
         HomeHeaderComponent,
         MatButtonModule,
         NgClass,
@@ -47,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     balances: any;
     balancesLoading: boolean = false;
-    NFTs!: Array<any>;
+    collectiblesReloadKey = 0;
     selectedNetwork!: string;
     shareables: any;
     tokens!: Array<any>;
@@ -61,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private _blockchainTransactionsService: BlockchainTransactionsService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
+        private _route: ActivatedRoute,
         private _router: Router,
         private _settingsService: SettingsService,
         private _tagsService: TagsService,
@@ -75,7 +78,6 @@ export class HomeComponent implements OnInit, OnDestroy {
             wallet: {},
         };
 
-        this.NFTs = [];
         this.tokens = [];
     }
 
@@ -83,6 +85,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._initializeWallet);
+
+        this._route.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((q) => {
+            if (q["tab"] === "nfts") {
+                this.shareables.selectedTab = "nfts";
+                this.collectiblesReloadKey += 1;
+                this._changeDetectorRef.detectChanges();
+            }
+        });
 
         this._cleanSessionItems();
     }
@@ -102,9 +112,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private _getEnabledNetworkIds(): string[] | undefined {
-        const settings = this._settingsService.settings;
-        if (!settings || !settings.networks) return undefined;
-        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+        return this._settingsService.getEnabledNetworkIds();
     }
 
     private _filterEnabledTokens(tokens: any[]): any[] {
@@ -120,7 +128,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private async _getBalances(): Promise<void> {
         this.balancesLoading = true;
         this.tokens = [];
-        this.NFTs = [];
 
         const enabledNetworks = this._getEnabledNetworkIds();
         const loadedFromSession = await this._loadBalancesFromSession(enabledNetworks);
@@ -247,7 +254,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.balancesLoading = true;
         this.tokens = [];
-        this.NFTs = [];
 
         await this._authService.reauthenticateSession();
 
@@ -255,6 +261,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._fetchBalancesFromNetwork(enabledNetworks);
 
         await this._refreshWallets(true);
+        this.collectiblesReloadKey += 1;
         this._changeDetectorRef.detectChanges();
     }
 

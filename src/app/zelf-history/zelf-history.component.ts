@@ -82,9 +82,7 @@ export class ZelfHistoryComponent implements OnInit {
     }
 
     private _getEnabledNetworkIds(): string[] | undefined {
-        const settings = this._settingsService.settings;
-        if (!settings || !settings.networks) return undefined;
-        return settings.networks.filter((n) => n.enabled).map((n) => n.id);
+        return this._settingsService.getEnabledNetworkIds();
     }
 
     private async _loadFirstTransactions(): Promise<void> {
@@ -127,12 +125,12 @@ export class ZelfHistoryComponent implements OnInit {
         const walletBtc = (publicData?.btcAddress || "").toLowerCase();
         const walletSui = (publicData?.suiAddress || "").toLowerCase();
         const walletBDAG = (publicData?.blockDAGAddress || "").toLowerCase();
-        const walletStellar = publicData?.stellarAddress || publicData?.xlmAddress || "";
+        const walletXlm = publicData?.xlmAddress || "";
 
         const fromAddrLower = fromAddr.toLowerCase();
-        const isStellarTx = tx.network === "stellar" || (walletStellar && fromAddr.startsWith("G"));
+        const isStellarTx = tx.network === "stellar" || (walletXlm && fromAddr.startsWith("G"));
 
-        if (isStellarTx && walletStellar && fromAddr === walletStellar) {
+        if (isStellarTx && walletXlm && fromAddr === walletXlm) {
             tx.traffic = "OUT";
         } else if (
             (walletEth && fromAddrLower === walletEth) ||

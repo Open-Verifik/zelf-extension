@@ -1,0 +1,39 @@
+<ng-container *ngIf="breakdown">
+    <div class="stellar-send-summary" *transloco="let t">
+        <div class="zelf-message zelf-message--error" *ngIf="breakdown.preview.amountBelowMinimum">
+            <p>{{ t("send.stellar.below_min", { min: breakdown.preview.minReserveXlm | number: "1.0-7" }) }}</p>
+        </div>
+
+        <div class="zelf-message zelf-message--error" *ngIf="has('classic_fund_first')">
+            <p>{{ t("send.stellar.classic_fund_first") }}</p>
+        </div>
+
+        <div class="zelf-message zelf-message--error" *ngIf="has('classic_trustline')">
+            <p>{{ t("send.stellar.classic_trustline") }}</p>
+        </div>
+
+        <div class="zelf-message zelf-message--error" *ngIf="has('invalid_amount')">
+            <p>{{ t("send.stellar.invalid_amount") }}</p>
+        </div>
+
+        <div class="stellar-send-summary__info zelf-message zelf-message--column" *ngIf="showNewAccountDetails()">
+            <p>{{ t("send.stellar.new_account_intro") }}</p>
+
+            <div class="stellar-send-summary__rows" *ngIf="breakdown.preview.reservePortionXlm != null">
+                <div class="zelf-action-row stellar-send-summary__row">
+                    <span class="stellar-send-summary__label">{{ t("send.stellar.line_reserve") }}</span>
+                    <span class="stellar-send-summary__value">{{ breakdown.preview.reservePortionXlm | number: "1.0-7" }} XLM</span>
+                </div>
+                <div
+                    class="zelf-action-row stellar-send-summary__row"
+                    *ngIf="breakdown.preview.transferPortionXlm != null && breakdown.preview.transferPortionXlm > 0"
+                >
+                    <span class="stellar-send-summary__label">{{ t("send.stellar.line_transfer") }}</span>
+                    <span class="stellar-send-summary__value">{{ breakdown.preview.transferPortionXlm | number: "1.0-7" }} XLM</span>
+                </div>
+            </div>
+
+            <p class="stellar-send-summary__fee-note">{{ t("send.stellar.fee_separate") }}</p>
+        </div>
+    </div>
+</ng-container>

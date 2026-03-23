@@ -26,6 +26,8 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
 import { TagsService } from "app/tags.service";
 import { SolanaService } from "app/solana.service";
+import { StellarFeeBreakdown } from "app/services/stellar-send.types";
+import { StellarSendSummaryComponent } from "app/stellar-send-summary/stellar-send-summary.component";
 
 @Component({
     imports: [
@@ -35,6 +37,7 @@ import { SolanaService } from "app/solana.service";
         MatProgressSpinnerModule,
         ReactiveFormsModule,
         RouterModule,
+        StellarSendSummaryComponent,
         TranslocoModule,
         ZelfLoaderComponent,
     ],
@@ -66,6 +69,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         { id: "ethereum", name: "Ethereum", symbol: "ETH" },
         { id: "polygon", name: "Polygon", symbol: "POL" },
         { id: "solana", name: "Solana", symbol: "SOL" },
+        { id: "stellar", name: "Stellar", symbol: "XLM" },
         { id: "sui", name: "Sui", symbol: "SUI" },
     ];
 
@@ -86,6 +90,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     transactionData!: TransactionData;
     wallet?: TagModel;
     isStealthMode: boolean = false;
+    /** Stellar fee preview (native + classic) for confirm UI. */
+    stellarFeeBreakdown: StellarFeeBreakdown | null = null;
 
     constructor(
         private _assetService: AssetService,
@@ -228,6 +234,18 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         return canCoverTokenBalance && canCoverNetworkFee;
     }
 
+    /** Blocks confirm when Stellar preview reports an invalid or impossible send. */
+    get stellarSendBlocked(): boolean {
+        if (this.transactionData?.network !== "stellar") return false;
+
+        const p = this.stellarFeeBreakdown?.preview;
+
+        if (!p) return false;
+        if (p.amountBelowMinimum) return true;
+
+        return p.warningKeys.some((k) => k === "classic_fund_first" || k === "classic_trustline" || k === "invalid_amount");
+    }
+
     get networkCurrency(): string {
         return this._networkService.getNetworkSymbol(this.transactionData.network as NetworkName);
     }
@@ -249,7 +267,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             let tokenAddress = this.transactionData.token?.address_token;
 
-            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG"].includes(tokenSymbol);
+            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "XLM"].includes(tokenSymbol);
 
             if (!tokenAddress && this.wallet && this.wallet.publicData?.ethAddress && !isNativeToken) {
                 try {
@@ -288,9 +306,15 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                 this.networkPrice = feeEstimate.networkPrice;
             }
 
+            this.stellarFeeBreakdown =
+                this.transactionData.network === "stellar" && feeEstimate.stellar ? feeEstimate.stellar : null;
+
             await this._transactionService.setCurrentTransactionData(this.transactionData);
         } catch (error) {
             console.error("Error calculating transaction fee:", error);
+            if (this.transactionData?.network === "stellar") {
+                this.stellarFeeBreakdown = null;
+            }
         }
     }
 
@@ -385,7 +409,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         const sessionTokens = await this._assetService.loadTokensFromSession();
 
         // Check if we're sending a native token (doesn't need token contract address)
-        const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "BTC", "SOL", "SUI"].includes(this.transactionData.token?.symbol || "");
+        const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "BTC", "SOL", "SUI", "XLM"].includes(
+            this.transactionData.token?.symbol || ""
+        );
 
         if (!sessionTokens || sessionTokens.length === 0) {
             if (!this.wallet) {
@@ -674,6 +700,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             mnemonic: cleanMnemonic,
             tokenAddress: this.transactionData.token?.address_token || this.transactionData.token?.tokenAddress,
             tokenDecimals: this.transactionData.token?.decimals,
+            memo: this.transactionData.memo?.trim() || undefined,
         };
 
         // EVM networks need private key instead of mnemonic
@@ -720,11 +747,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             tokenType:
                 this.transactionData.network === "sui"
                     ? "SUI"
-                    : this.transactionData.network === "avalanche"
-                      ? "AVAX"
-                      : this.transactionData.network === "bitcoin"
-                        ? "BTC"
-                        : this.transactionData.tokenType,
+                    : this.transactionData.network === "stellar"
+                      ? "XLM"
+                      : this.transactionData.network === "avalanche"
+                        ? "AVAX"
+                        : this.transactionData.network === "bitcoin"
+                          ? "BTC"
+                          : this.transactionData.tokenType,
         });
 
         this.sending = false;

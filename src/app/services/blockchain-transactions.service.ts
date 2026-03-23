@@ -24,6 +24,7 @@ import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
 import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
+import { readPublicDataXlmAddress } from "@shared/types/tag.types";
 import { TagModel } from "app/tags.service";
 
 @Injectable({
@@ -41,6 +42,10 @@ export class BlockchainTransactionsService {
         private _stellarService: StellarService,
         private _suiService: SuiService
     ) {}
+
+    private _getXlmAddress(wallet: Partial<TagModel> | null | undefined): string {
+        return readPublicDataXlmAddress(wallet?.publicData as Record<string, unknown> | undefined);
+    }
 
     private _processTransactions(responses: any): Transaction[] {
         const transactions: Transaction[] = [];
@@ -89,6 +94,14 @@ export class BlockchainTransactionsService {
                     return await this._bitcoinService.calculateTransactionFees(amount, tokenPrice || 0, selectedFeeRate || 10);
                 case "solana":
                     return await this._solanaService.calculateTransactionFees(tokenAddress, amount, tokenPrice || 0);
+                case "stellar":
+                    return await this._stellarService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenPrice || 0,
+                        tokenAddress,
+                        tokenDecimals
+                    );
                 case "sui":
                     return await this._suiService.calculateTransactionFees(
                         receiverAddress,
@@ -177,6 +190,7 @@ export class BlockchainTransactionsService {
         if (!wallet) return of([]);
 
         const isEnabled = (network: string) => !enabledNetworks || enabledNetworks.includes(network);
+        const xlmAddr = this._getXlmAddress(wallet);
 
         return forkJoin({
             ethereum:
@@ -212,8 +226,8 @@ export class BlockchainTransactionsService {
                     ? from(this._solanaService.getWalletDetails(wallet.publicData?.solanaAddress)).pipe(catchError(() => of(null)))
                     : of(null),
             stellar:
-                isEnabled("stellar") && wallet.publicData?.stellarAddress
-                    ? from(this._stellarService.getWalletDetails(wallet.publicData?.stellarAddress)).pipe(catchError(() => of(null)))
+                isEnabled("stellar") && xlmAddr
+                    ? from(this._stellarService.getWalletDetails(xlmAddr)).pipe(catchError(() => of(null)))
                     : of(null),
             sui:
                 isEnabled("sui") && wallet.publicData?.suiAddress
@@ -269,9 +283,11 @@ export class BlockchainTransactionsService {
             }
         }
 
-        if (wallet.publicData?.stellarAddress) {
+        const xlmAddr = this._getXlmAddress(wallet);
+
+        if (xlmAddr) {
             if (token === "XLM") {
-                observable = forkJoin({ stellar: from(this._stellarService.getWalletDetails(wallet.publicData?.stellarAddress)) });
+                observable = forkJoin({ stellar: from(this._stellarService.getWalletDetails(xlmAddr)) });
             }
         }
 
@@ -300,6 +316,7 @@ export class BlockchainTransactionsService {
         if (!wallet) return of([]);
 
         const isEnabled = (network: string) => !enabledNetworks || enabledNetworks.includes(network);
+        const xlmAddr = this._getXlmAddress(wallet);
 
         return forkJoin({
             avalanche:
@@ -345,10 +362,8 @@ export class BlockchainTransactionsService {
                       )
                     : of(null),
             stellar:
-                isEnabled("stellar") && wallet.publicData?.stellarAddress
-                    ? from(this._stellarService.requestTransactionHistory(wallet.publicData?.stellarAddress, pagination)).pipe(
-                          catchError(() => of(null))
-                      )
+                isEnabled("stellar") && xlmAddr
+                    ? from(this._stellarService.requestTransactionHistory(xlmAddr, pagination)).pipe(catchError(() => of(null)))
                     : of(null),
             sui:
                 isEnabled("sui") && wallet.publicData?.suiAddress
@@ -466,6 +481,8 @@ export class BlockchainTransactionsService {
                     return await this._blockdagService.sendTransaction(params);
                 case "solana":
                     return await this._solanaService.sendTransaction(params);
+                case "stellar":
+                    return await this._stellarService.sendTransaction(params);
                 case "sui":
                     return await this._suiService.sendTransaction(params);
                 case "avalanche":

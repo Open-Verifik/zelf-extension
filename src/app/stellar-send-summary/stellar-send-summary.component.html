@@ -16,10 +16,11 @@
             <p>{{ t("send.stellar.invalid_amount") }}</p>
         </div>
 
-        <div class="stellar-send-summary__info zelf-message zelf-message--column" *ngIf="showNewAccountDetails()">
-            <p>{{ t("send.stellar.new_account_intro") }}</p>
+        <div class="stellar-send-summary__panel" *ngIf="showNewAccountDetails()">
+            <h3 class="stellar-send-summary__title">{{ t("send.stellar.new_account_title") }}</h3>
+            <p class="stellar-send-summary__subtitle">{{ t("send.stellar.new_account_subtitle") }}</p>
 
-            <div class="stellar-send-summary__rows" *ngIf="breakdown.preview.reservePortionXlm != null">
+            <div class="stellar-send-summary__breakdown" *ngIf="breakdown.preview.reservePortionXlm != null">
                 <div class="zelf-action-row stellar-send-summary__row">
                     <span class="stellar-send-summary__label">{{ t("send.stellar.line_reserve") }}</span>
                     <span class="stellar-send-summary__value">{{ breakdown.preview.reservePortionXlm | number: "1.0-7" }} XLM</span>

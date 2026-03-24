@@ -487,14 +487,15 @@
         "memo_optional": "Memo (optional)",
         "memo_placeholder": "Exchange or note (max 28 characters)",
         "stellar": {
-            "below_min": "The amount is below the minimum ({{min}} XLM) required to open a new Stellar account.",
-            "new_account_intro": "You are opening a new Stellar account for this address. You pay the full send amount plus the network transaction fee. The recipient does not pay to create the account. Stellar locks a minimum reserve; the recipient cannot spend below that reserve.",
-            "line_reserve": "Minimum reserve (opens account)",
-            "line_transfer": "Additional amount",
-            "fee_separate": "The network fee shown above is separate from the send amount.",
-            "classic_fund_first": "This asset cannot be sent until the recipient has a funded Stellar account. Send native XLM first to create their account.",
-            "classic_trustline": "The recipient must add a trustline for this asset before they can receive it.",
-            "invalid_amount": "Enter a valid amount to continue."
+            "below_min": "رقم نئی Stellar اکاؤنٹ کھولنے کے لیے درکار کم از کم ({{min}} XLM) سے کم ہے۔",
+            "new_account_title": "نیا Stellar اکاؤنٹ",
+            "new_account_subtitle": "اس پتے پر ابھی Stellar اکاؤنٹ نہیں۔ آپ کی بھیجنے والی رقم مقفل کم از کم بیلنس اور وہ رقم شامل کرتی ہے جو وصول کنندہ خرچ کر سکتا ہے۔ نیٹ ورک فیس الگ ہے۔",
+            "line_reserve": "مقفل کم از کم ذخیرہ",
+            "line_transfer": "وصول کنندہ کے لیے خرچ کے قابل",
+            "fee_separate": "اوپر والی فیس بھیجی گئی رقم سے الگ ہے۔",
+            "classic_fund_first": "وصول کنندہ کے پاس فنڈ شدہ Stellar اکاؤنٹ ہونے تک یہ اثاثہ نہیں بھیجا جا سکتا۔ پہلے مقامی XLM بھیجیں تاکہ ان کا اکاؤنٹ بنے۔",
+            "classic_trustline": "وصول کنندہ کو یہ اثاثہ وصول کرنے سے پہلے اس کے لیے ٹرسٹ لائن شامل کرنی ہوگی۔",
+            "invalid_amount": "جاری رکھنے کے لیے درست رقم درج کریں۔"
         }
     },
     "transaction": {

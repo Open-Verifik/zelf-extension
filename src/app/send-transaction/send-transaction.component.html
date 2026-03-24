@@ -24,25 +24,14 @@
                     <span class="send-transaction__input-label-text">{{ t("common.from") }}:</span>
                 </p>
 
-                <!-- XS: show tag name outside input to avoid truncation -->
-                <div class="send-transaction__address-name-zelf-name send-transaction__address-name-zelf-name--xs">
-                    {{ transactionData.sender.fullTagName | uppercase }}
-                </div>
+                <input type="hidden" formControlName="fromAddress" id="fromAddress" name="fromAddress" />
 
-                <div class="zelf-input zelf-input--wide zelf-input--gap-narrow">
-                    <input
-                        [placeholder]="t('send.from_address')"
-                        autocomplete="off"
-                        class="zelf-input__control"
-                        formControlName="fromAddress"
-                        id="fromAddress"
-                        name="fromAddress"
-                        readonly
-                    />
-
-                    <!-- Desktop and larger: keep tag name inline with input -->
-                    <div class="send-transaction__address-name-zelf-name send-transaction__address-name-zelf-name--desktop">
+                <div class="send-transaction__from-stacked" role="group" [attr.aria-label]="t('send.from_address')">
+                    <div class="send-transaction__from-stacked-tag">
                         {{ transactionData.sender.fullTagName | uppercase }}
+                    </div>
+                    <div class="send-transaction__from-stacked-address">
+                        {{ form.get("fromAddress")?.value | addressMask }}
                     </div>
                 </div>
 

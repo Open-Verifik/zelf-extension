@@ -3,7 +3,12 @@
         <div class="zelf-card__header welcome-complete__header">
             <h3 class="zelf-card__pretitle">{{ t("welcome.your_zelf_name") }}</h3>
 
-            <h2 class="zelf-card__title" [style.font-size]="getTagNameFontSize()" [style.line-height]="getTagNameLineHeight()">
+            <h2
+                #tagTitle
+                class="zelf-card__title welcome-complete__tag-title"
+                [style.fontSize.px]="tagNameFontSizePx"
+                [style.lineHeight.px]="tagNameLineHeightPx"
+            >
                 {{ wallet?.fullTagName }}
             </h2>
 

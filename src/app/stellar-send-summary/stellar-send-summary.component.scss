@@ -1,35 +1,71 @@
+@use "../../styles/variables";
+
 .stellar-send-summary {
     margin-top: 12px;
 }
 
-.stellar-send-summary__info {
+.stellar-send-summary__panel {
     align-items: stretch;
+    border: 1px solid variables.$themeBorder;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    font-family: variables.$themeBodyFamily;
+    gap: 12px;
+    padding: 16px;
     text-align: left;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.04);
 }
 
-.stellar-send-summary__rows {
-    margin: 12px 0 0;
+.stellar-send-summary__title {
+    color: variables.$themeText;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    line-height: 22px;
+    margin: 0;
+}
+
+.stellar-send-summary__subtitle {
+    color: variables.$themeTextSecondary;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.stellar-send-summary__breakdown {
+    background: variables.$themeCardBorder;
+    border: 1px solid variables.$themeBorder;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
 }
 
 .stellar-send-summary__row {
-    margin-bottom: 4px;
+    margin-bottom: 0;
 }
 
 .stellar-send-summary__label {
     flex: 1;
     font-size: 13px;
-    opacity: 0.9;
+    color: variables.$themeTextSecondary;
 }
 
 .stellar-send-summary__value {
+    color: variables.$themeText;
     font-size: 13px;
     font-weight: 600;
 }
 
 .stellar-send-summary__fee-note {
-    margin: 10px 0 0;
+    color: variables.$themeTextSecondary;
     font-size: 12px;
-    opacity: 0.85;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 1.45;
+    margin: 0;
+    opacity: 0.9;
 }

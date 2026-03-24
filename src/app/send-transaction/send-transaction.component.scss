@@ -323,23 +323,50 @@
         fill: variables.$correct;
     }
 
-    &__address-name-zelf-name {
-        font-family: variables.$themeTitleFamily;
-        font-weight: 700;
-        font-size: calc(12px * var(--zns-font-scale, 1));
-        line-height: calc(16px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
+    /** Reference-style From: tag (primary) + middle-masked address (secondary), single pill */
+    &__from-stacked {
+        align-items: stretch;
+        background-color: variables.$themeCard;
+        border-radius: 9999px;
+        border: 1px solid variables.$themeTextSecondary;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: calc(4px * var(--zns-space-scale, 1));
+        justify-content: center;
+        min-height: 56px;
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(18px * var(--zns-space-scale, 1));
+        transition: border-color 0.2s variables.$smoothBezier;
+        width: 100%;
+    }
+
+    &__from-stacked-tag {
         color: variables.$themeText;
-        margin: 0 calc(16px * var(--zns-space-scale, 1)) 0 0 !important;
+        font-family: variables.$themeTitleFamily;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        line-height: calc(18px * var(--zns-font-scale, 1));
+        margin: 0;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
 
-        &--desktop {
-            display: inline-flex;
-        }
-
-        &--xs {
-            display: none;
-            margin: calc(4px * var(--zns-space-scale, 1)) 0 calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) !important;
-        }
+    &__from-stacked-address {
+        color: variables.$themeTextSecondary;
+        font-family: variables.$themeMonospaceFamily;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: calc(16px * var(--zns-font-scale, 1));
+        margin: 0;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__address-used {
@@ -351,20 +378,6 @@
         vertical-align: middle;
         color: variables.$themeTextSecondary;
         margin: 0;
-    }
-}
-
-@media (max-width: variables.$minSmall) {
-    .send-transaction {
-        &__address-name-zelf-name {
-            &--desktop {
-                display: none;
-            }
-
-            &--xs {
-                display: block;
-            }
-        }
     }
 }
 

@@ -487,14 +487,15 @@
         "memo_optional": "Memo (optional)",
         "memo_placeholder": "Exchange or note (max 28 characters)",
         "stellar": {
-            "below_min": "The amount is below the minimum ({{min}} XLM) required to open a new Stellar account.",
-            "new_account_intro": "You are opening a new Stellar account for this address. You pay the full send amount plus the network transaction fee. The recipient does not pay to create the account. Stellar locks a minimum reserve; the recipient cannot spend below that reserve.",
-            "line_reserve": "Minimum reserve (opens account)",
-            "line_transfer": "Additional amount",
-            "fee_separate": "The network fee shown above is separate from the send amount.",
-            "classic_fund_first": "This asset cannot be sent until the recipient has a funded Stellar account. Send native XLM first to create their account.",
-            "classic_trustline": "The recipient must add a trustline for this asset before they can receive it.",
-            "invalid_amount": "Enter a valid amount to continue."
+            "below_min": "El monto es inferior al mínimo ({{min}} XLM) necesario para abrir una nueva cuenta Stellar.",
+            "new_account_title": "Nueva cuenta Stellar",
+            "new_account_subtitle": "Esta dirección aún no tiene cuenta Stellar. Tu envío cubre el saldo mínimo bloqueado y lo que el destinatario puede gastar. La comisión de red es aparte.",
+            "line_reserve": "Reserva mínima bloqueada",
+            "line_transfer": "Enviado gastable para el destinatario",
+            "fee_separate": "La comisión indicada arriba es independiente del monto enviado.",
+            "classic_fund_first": "No se puede enviar este activo hasta que el destinatario tenga una cuenta Stellar financiada. Envía XLM nativo primero para crear su cuenta.",
+            "classic_trustline": "El destinatario debe añadir una línea de confianza para este activo antes de poder recibirlo.",
+            "invalid_amount": "Introduce un monto válido para continuar."
         }
     },
     "transaction": {
@@ -644,6 +645,9 @@
         "create_pin_subtitle": "Por favor ingresa una contraseña de 6 dígitos para tu ZelfProof.",
         "confirm_pin_title": "CONFIRMAR PIN",
         "confirm_pin_subtitle": "Por favor vuelve a ingresar la contraseña de 6 dígitos para tu ZelfProof.",
+        "creating_wallet": "Creando billetera...",
+        "importing_wallet": "Importando billetera...",
+        "recovering_wallet": "Recuperando billetera...",
         "retrieving_vault": "Recuperando bóveda...",
         "decrypting_vault": "Descifrando bóveda...",
         "vault_unlocked": "Bóveda desbloqueada!",

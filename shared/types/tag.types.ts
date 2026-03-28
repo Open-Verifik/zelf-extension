@@ -184,7 +184,7 @@ export class TagModel {
         this.pgp = (data.pgp as PGP) || { encryptedMessage: "", privateKey: "" };
 
         // Get the tag name from various possible sources
-        const rawTagName = data.name || data.publicData?.tagName || data.publicData?.zelfName || "";
+        const rawTagName = data.tagName || data.name || data.publicData?.tagName || data.publicData?.zelfName || "";
         this.name = rawTagName ? rawTagName.replace(".hold", "") : "";
 
         // Extract domain from tag name if not explicitly provided
@@ -202,7 +202,7 @@ export class TagModel {
             return "zelf"; // Default domain
         };
 
-        const explicitDomain = data.publicData?.domain;
+        const explicitDomain = data.domain || data.publicData?.domain;
         const extractedDomain = explicitDomain || extractDomain(rawTagName);
 
         this.publicData = new TagPublicDataModel({

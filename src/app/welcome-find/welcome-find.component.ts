@@ -87,12 +87,20 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
             const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
             const extractedQRData = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "attemptBoth" });
 
-            this._extractBinaryData(extractedQRData);
+            if (extractedQRData && extractedQRData.binaryData) {
+                this._extractBinaryData(extractedQRData);
+            } else {
+                this._previewZelfIdQrBackend(base64);
+            }
         };
     }
 
     private async _extractBinaryData(extractedQRData: any): Promise<any> {
-        if (!extractedQRData || !extractedQRData.binaryData) return this._setNotFound();
+        if (!extractedQRData || !extractedQRData.binaryData) {
+            this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
+            this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
+            return;
+        }
 
         const hexString = this._toHexString(extractedQRData.binaryData);
 
@@ -152,20 +160,54 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     private async _previewQRCode(): Promise<void> {
         if (!this.zelfProof) return;
 
-        const response = await this._tagsService.previewZelfProof({ zelfProof: this.zelfProof, captchaToken: this.captchaToken, os: "DESKTOP" });
+        try {
+            const response = await this._tagsService.previewZelfProof({ zelfProof: this.zelfProof, captchaToken: this.captchaToken, os: "DESKTOP" });
 
-        if (!response.data) {
+            if (!response.data) {
+                this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
+                this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
+
+                return;
+            }
+
+            await this._processPreviewData(response.data);
+        } catch (error) {
+            console.error(error);
             this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
             this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
-
-            return;
         }
+    }
 
-        const preview = response.data.preview;
+    private async _previewZelfIdQrBackend(base64: string): Promise<void> {
+        this.loading = true;
 
-        const tagName = response.data.tagName;
+        try {
+            const response = await this._tagsService.previewZelfIdQr({ zelfProofQRCode: base64, captchaToken: this.captchaToken, os: "DESKTOP" });
 
-        const domain = response.data.domain;
+            if (!response.data || !response.data.zelfProof) {
+                this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
+                this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
+
+                return;
+            }
+
+            this.zelfProof = response.data.zelfProof;
+            await this._tagsService.setZelfProof(this.zelfProof);
+
+            await this._processPreviewData(response.data);
+        } catch (error) {
+            console.error(error);
+            this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
+            this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
+        } finally {
+            this.loading = false;
+        }
+    }
+
+    private async _processPreviewData(previewData: any): Promise<void> {
+        const preview = previewData.preview;
+        const tagName = previewData.tagName;
+        const domain = previewData.domain;
 
         this.ethAddress = preview.publicData.ethAddress;
 
@@ -180,7 +222,7 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         const currentZelfNameObject = await this._queryForZelfObjectByZelfName({ tagKey: "tagName", tagName, domain });
 
         if (currentZelfNameObject?.available) {
-            const newTagNameObject = new TagModel(response.data.preview);
+            const newTagNameObject = new TagModel(previewData.preview);
 
             this._tagsService.setTagNameObject(newTagNameObject);
         } else {

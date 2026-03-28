@@ -223,7 +223,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
                     this._bottomSheet.open(ReserveDoneSheetComponent, {
                         backdropClass: "zelf-backdrop",
                         panelClass: "zelf-bottom-sheet",
-                        data: { tagName: this.newTagName },
+                        data: { zelfName: newWallet.fullTagName, domain: newWallet.domain },
                     });
                 });
             })

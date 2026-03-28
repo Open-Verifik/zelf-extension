@@ -10,7 +10,9 @@
 .reserve-done-sheet {
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
     width: 100%;
+    max-width: calc(340px * var(--zns-space-scale, 1));
     justify-content: center;
     align-items: center;
     gap: calc(16px * var(--zns-space-scale, 1));
@@ -68,18 +70,6 @@
         fill: variables.$black;
     }
 
-    &__pretitle {
-        font-family: variables.$themeBodyFamily;
-        font-weight: 500;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        text-align: center;
-        vertical-align: middle;
-        color: variables.$black;
-        margin: 0;
-    }
-
     &__title {
         font-family: variables.$themeTitleFamily;
         font-weight: 700;
@@ -88,8 +78,21 @@
         letter-spacing: 0px;
         text-align: center;
         vertical-align: middle;
-        text-transform: uppercase;
-        margin: calc(8px * var(--zns-space-scale, 1)) 0;
+        color: variables.$black;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
+    }
+
+    &__zelf-id {
+        font-family: variables.$themeBodyFamily;
+        font-weight: 600;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        text-align: center;
+        color: variables.$black;
+        background-color: variables.$themeButtonSecondary;
+        padding: calc(4px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+        border-radius: 9999px;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__text {

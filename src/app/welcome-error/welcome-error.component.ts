@@ -16,6 +16,7 @@ export class WelcomeErrorComponent implements OnInit {
 
     @Input("errorTitle") errorTitle: string = "";
     @Input("errorMessage") errorMessage: string = "";
+    @Input("errorImage") errorImage: string = "";
 
     constructor(private _translocoService: TranslocoService) {}
 

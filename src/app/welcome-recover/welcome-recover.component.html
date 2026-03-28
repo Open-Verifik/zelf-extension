@@ -203,7 +203,7 @@
                     <span [innerHTML]="t('common.agree_to_terms_and_conditions')"></span>
                 </label>
 
-                <button (click)="returnToForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button type="button">
+                <button *ngIf="!oldZelfNameObject?.available" (click)="returnToForm()" class="zelf-button zelf-button--outlined zelf-button--wide" mat-flat-button type="button">
                     {{ t("welcome.search_another_zelfname") }}
                 </button>
 

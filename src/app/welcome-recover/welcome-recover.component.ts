@@ -170,9 +170,12 @@ export class WelcomeRecoverComponent implements OnInit {
     }
 
     async startReservation(): Promise<void> {
-        await this._tagsService.setNewTagName(this.newZelfNameObject?.name || this.form.value.zelfName);
+        const newName = this.newZelfNameObject?.name || this.form.value.zelfName;
+        const newDomain = this.newZelfNameObject?.domain || this.oldZelfNameObject?.domain || "zelf";
 
-        await this._tagsService.setDomain(this.newZelfNameObject?.domain);
+        await this._tagsService.setNewTagName(newName);
+
+        await this._tagsService.setDomain(newDomain);
 
         await this._tagsService.setFlow("recover");
 

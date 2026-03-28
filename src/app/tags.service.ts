@@ -51,6 +51,12 @@ export interface TagPreviewRequest {
     captchaToken?: string;
 }
 
+export interface TagPreviewZelfIdQrRequest {
+    zelfProofQRCode: string;
+    os: OperatingSystem;
+    captchaToken?: string;
+}
+
 export interface TagDecryptRequest {
     faceBase64: string;
     tagName: string;
@@ -348,6 +354,10 @@ export class TagsService {
 
     previewZelfProof(request: ZelfProofPreviewRequest): Promise<any> {
         return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/preview-zelfproof`, request);
+    }
+
+    previewZelfIdQr(request: TagPreviewZelfIdQrRequest): Promise<any> {
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/preview-zelf-id-qr`, request);
     }
 
     // User-specific Tag Management (My Tags)

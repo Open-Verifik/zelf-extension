@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "کیو آر کوڈ",
             "no_folder": "کوئی فولڈر نہیں ہے",
-            "download_zelfproof": "ZelfProof ڈاؤن لوڈ کریں",
+            "download_zelfproof": "Zelf ID QR ڈاؤن لوڈ کریں",
             "back_to_payment_cards": "ادائیگی کارڈز پر واپس جائیں",
             "add_another_card": "دوسرا کارڈ شامل کریں",
             "try_again": "دوبارہ کوشش کریں",
@@ -37,7 +37,7 @@
             },
             "zelfproof": {
                 "title": "ادائیگی کارڈ کی معلومات",
-                "download": "ZelfProof ڈاؤن لوڈ کریں"
+                "download": "Zelf ID QR ڈاؤن لوڈ کریں"
             },
             "decrypted": {
                 "title": "ادائیگی کارڈ کی معلومات",
@@ -90,7 +90,7 @@
             },
             "image": {
                 "title": "ادائیگی کارڈ کی معلومات",
-                "download": "ZelfProof ڈاؤن لوڈ کریں"
+                "download": "Zelf ID QR ڈاؤن لوڈ کریں"
             },
             "nft": {
                 "title": "ادائیگی کارڈ کی معلومات",
@@ -131,7 +131,7 @@
             "zelfproof": {
                 "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
-                    "string": "ZelfProof سٹرنگ",
+                    "string": "Zelf ID QR سٹرنگ",
                     "qr_code": "کیو آر کوڈ"
                 },
                 "copy_hint": "کاپی کرنے کے لیے کلک کریں"
@@ -240,7 +240,7 @@
             "no_qr": "کوئی QR نہیں",
             "untitled": "بغیر عنوان",
             "username_label": "صارف کا نام: {{ username }}",
-            "zelf_name_label": "ٹیگ نام: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "زمرہ: {{ category }}",
             "type_label": "قسم: {{ type }}",
             "secure_credential": "محفوظ کریڈنشل"
@@ -345,7 +345,7 @@
                         "folder": "فولڈر",
                         "type": "قسم",
                         "category": "زمرہ",
-                        "zelf_name": "ٹیگ نام",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "ٹائم اسٹیمپ"
                     }
                 },
@@ -385,11 +385,11 @@
                 "zelfproof": {
                     "title": "ادائیگی کارڈ کی معلومات",
                     "labels": {
-                        "string": "ZelfProof سٹرنگ",
+                        "string": "Zelf ID QR سٹرنگ",
                         "qr_code": "کیو آر کوڈ"
                     },
                     "copy_hint": "کاپی کرنے کے لیے کلک کریں",
-                    "qr_alt": "ZelfProof QR کوڈ"
+                    "qr_alt": "Zelf ID QR کوڈ"
                 },
                 "debug": {
                     "title": "ادائیگی کارڈ کی معلومات"
@@ -433,14 +433,14 @@
     },
     "cancel": "منسوخ کریں",
     "confirm": "تصدیق کریں",
-    "logout_message": "اس عمل کی تصدیق کرنے سے، آپ کے تمام ZelfProofs ایکسٹینشن سے ہٹا دیے جائیں گے۔ آپ کو ان تک دوبارہ رسائی حاصل کرنے کے لیے ہر ZelfProof کو دوبارہ ڈکرپٹ کرنا ہوگا۔ کیا آپ واقعی جاری رکھنا چاہتے ہیں؟",
-    "logout_title": "تمام ZELFPROOFS کو حذف کریں",
+    "logout_message": "اس عمل کی تصدیق کرنے سے، آپ کے تمام Zelf ID QRs ایکسٹینشن سے ہٹا دیے جائیں گے۔ آپ کو ان تک دوبارہ رسائی حاصل کرنے کے لیے ہر Zelf ID QR کو دوبارہ ڈکرپٹ کرنا ہوگا۔ کیا آپ واقعی جاری رکھنا چاہتے ہیں؟",
+    "logout_title": "تمام ZELF ID QRS کو حذف کریں",
     "onboarding": {
         "lifetime": "عمر بھر",
         "step_1_description": "اپنی سیڈ فریز کو بھولنے، کھونے یا سمجھوتہ کرنے کے بارے میں کبھی فکر نہ کریں۔",
         "step_1": "اپنی سیڈ فریز کو انکرپٹ کرنے کے 3 مراحل",
-        "step_2_description": "اپنے ZelfProof کو ڈکرپٹ کر کے سیکنڈوں میں اپنی سیڈ فریز کا بیک اپ بنائیں",
-        "step_2": "اپنا ZelfProof تلاش کریں اور ڈکرپٹ کریں",
+        "step_2_description": "اپنے Zelf ID QR کو ڈکرپٹ کر کے سیکنڈوں میں اپنی سیڈ فریز کا بیک اپ بنائیں",
+        "step_2": "اپنا Zelf ID QR تلاش کریں اور ڈکرپٹ کریں",
         "step_3_description": "اپنی سیڈ فریز کا zk-FaceProof مقامی ڈیوائس کے بجائے بلاکچین میں محفوظ کریں",
         "step_3": "اپنی سیڈ فریز کو ہیکرز سے محفوظ کریں",
         "year": "سال"
@@ -503,13 +503,13 @@
         "share_transaction": "لین دین شیئر کریں"
     },
     "welcome": {
-        "code_name": "ریفرل ٹیگ نام",
+        "code_name": "ریفرل Zelf ID",
         "domain_expired_since": "ڈومین {{ date }} سے ختم ہو گئی",
         "decrypt_and_reserve": "ڈکرپٹ اور محفوظ کریں",
         "decrypt_now_pay_later": "ابھی ڈکرپٹ کریں، بعد میں ادائیگی کریں",
         "decrypt_now_renew_later": "ابھی ڈکرپٹ کریں، بعد میں تجدید کریں",
         "dont_lose_your_zelfname": "ارے! اپنا زیلف نام نہ کھوئیں، آج ہی تجدید یا محفوظ کریں، اس سے پہلے کہ کوئی اور اسے خرید لے۔",
-        "dont_remember_zelfname": "اپنا ٹیگ نام یاد نہیں ہے؟",
+        "dont_remember_zelfname": "اپنا Zelf ID یاد نہیں ہے؟",
         "enjoy_your_domain": "اپنے ڈومین سے لطف اٹھائیں۔ یاد رکھیں کہ کسی اور کے خریدنے سے پہلے اسے خرید لیں!",
         "expiration_date": "ختم ہونے کی تاریخ {{ date }}",
         "find_zelf_name_subtitle": "نیچے اس کا عوامی پتہ درج کر کے موجودہ زیلف نام تلاش کریں:",
@@ -522,29 +522,44 @@
         "name_expires": "نام ختم ہو جاتا ہے",
         "new_domain": "نیا ڈومین",
         "offline_subtitle": "یہ زیلف پروف آف لائن بنایا گیا تھا، اس لیے یہ ایک مختلف سیکیورٹی سسٹم استعمال کرتا ہے۔ اس وقت، یہ ایکسٹینشن کے ساتھ مطابقت نہیں رکھتا۔ یہ جلد دستیاب ہوگا۔",
-        "offline_tip": "لیکن، فکر نہ کریں! آپ اپنے زیلف پروف کو کسی دوسرے ٹیگ نام کے ساتھ درآمد کر سکتے ہیں تاکہ ایکسٹینشن سے رسائی حاصل کر سکیں۔",
+        "offline_tip": "لیکن، فکر نہ کریں! آپ اپنے زیلف پروف کو کسی دوسرے Zelf ID کے ساتھ درآمد کر سکتے ہیں تاکہ ایکسٹینشن سے رسائی حاصل کر سکیں۔",
         "i_understand_go_back": "میں سمجھتا ہوں، گھر واپس جائیں",
         "old_domain": "پرانا ڈومین",
         "paste_your_recovery_phrase": "آپ اپنی پوری خفیہ ریکوری فریز کو کسی بھی فیلڈ میں پیسٹ کر سکتے ہیں",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> پہلے سے لیا گیا ہے، لیکن فکر نہ کریں! آپ اپنے زیلف پروف تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ ایک نیا ٹیگ نام محفوظ کر سکتے ہیں۔",
-        "pick_your_new_zelfname": "اپنا نیا ٹیگ نام منتخب کریں",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> پہلے سے لیا گیا ہے، لیکن فکر نہ کریں! آپ اپنے زیلف پروف تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ ایک نیا Zelf ID محفوظ کر سکتے ہیں۔",
+        "pick_your_new_zelfname": "اپنا نیا Zelf ID منتخب کریں",
         "public_address_input": "یہاں اپنا ETH یا SOL عوامی پتہ درج کریں",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> ابھی بھی دستیاب ہے۔ آپ اپنے زیلف پروف تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ اپنا ٹیگ نام بازیافت کر سکتے ہیں۔",
-        "recover_your_zelfname": "اپنا ٹیگ نام بازیافت کریں",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> ابھی بھی دستیاب ہے۔ آپ اپنے زیلف پروف تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ اپنا Zelf ID بازیافت کر سکتے ہیں۔",
+        "recover_your_zelfname": "اپنا Zelf ID بازیافت کریں",
         "referral_code": "ریفرل کوڈ (اختیاری)",
         "referral_successfully_registered": "ریفرل کامیابی سے رجسٹر ہو گیا",
         "registered_since": "{{ date }} سے رجسٹرڈ",
         "registered": "زیلف نام {{ date }} سے رجسٹرڈ ہے",
         "renew_your_domain_today": "آج ہی اپنے ڈومین کی تجدید کریں اس سے پہلے کہ کوئی اور اسے خرید لے۔",
-        "search_another_zelfname": "کسی دوسرے ٹیگ نام کی تلاش کریں",
-        "search_your_new_zelfname": "اپنے نئے ٹیگ نام کی تلاش کریں",
+        "search_another_zelfname": "کسی دوسرے Zelf ID کی تلاش کریں",
+        "search_your_new_zelfname": "اپنے نئے Zelf ID کی تلاش کریں",
         "transfer_done": "ٹرانسفر مکمل ہو گیا",
         "upload_zelf_proof": "یا جاری رکھنے کے لیے اپنا زیلف پروف QR کوڈ اپ لوڈ کریں:",
         "you_can_transfer_this_domain": "آپ اس ڈومین کو منتقل کر سکتے ہیں",
         "you_will_register_this_domain": "Zelf Name Service پر آپ کی نئی شناخت",
         "safeguard_your_crypto": "اپنی کرپٹو کو محفوظ کریں!",
-        "offline_import_subtitle": "اس سے پہلے کہ آپ اپنے آف لائن والیٹ کو درآمد کر سکیں، آپ کو ایک نیا ٹیگ نام منتخب کرنا ہوگا۔",
-        "your_zelf_name": "آپ کا زیلف نام"
+        "offline_import_subtitle": "اس سے پہلے کہ آپ اپنے آف لائن والیٹ کو درآمد کر سکیں، آپ کو ایک نیا Zelf ID منتخب کرنا ہوگا۔",
+        "your_zelf_name": "آپ کا زیلف نام",
+        "create_new_account": "Zelf ID بنائیں",
+        "i_already_have_a_wallet": "میرے پاس پہلے سے والیٹ ہے",
+        "choose_tag_name_title": "اپنا Zelf ID منتخب کریں",
+        "choose_tag_name_subtitle": "Zelf نیٹ ورک پر اپنی شناخت کے لیے ایک منفرد نام منتخب کریں",
+        "choose_tag_name_placeholder": "اپنا Zelf ID درج کریں",
+        "preview_name_placeholder": "آپکانام",
+        "search_name_aria": "اس نام کو تلاش کریں",
+        "tag_name_available": "دستیاب! یہ نام آپ کے لیے ہے",
+        "tag_name_taken": "یہ نام پہلے سے لیا گیا ہے",
+        "import_wallet_title": "اپنا والیٹ درآمد کریں",
+        "import_wallet_subtitle": "والیٹ ایڈریس درج کریں یا اپنے اکاؤنٹ کو بحال کرنے کے لیے Zelf ID QR اسکین کریں",
+        "import_with_seed_phrase": "Zelf ID QR نہیں ہے — بیج فریز سے درآمد",
+        "feature_multichain": "ملٹی چین",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "خود تحویلی"
     },
     "settings": {
         "networks_label": "نیٹ ورکس",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "اگلے استعمال میں PIN اور بائیومیٹرک توثیق کی ضرورت ہوگی۔",
             "lock_vault_button": "والٹ لاک کریں",
             "remove_keys_title": "والٹ سے چابیاں ہٹائیں",
-            "remove_keys_description": "اس ڈیوائس سے تمام چابیاں مستقل طور پر ہٹا دیں۔ ZelfProof دوبارہ استعمال کرنے کے لیے بحال کرنا ہوگا۔ حذف سے پہلے منسوخ کرنے کے لیے کاؤنٹ ڈاؤن دستیاب ہے۔",
+            "remove_keys_description": "اس ڈیوائس سے تمام چابیاں مستقل طور پر ہٹا دیں۔ Zelf ID QR دوبارہ استعمال کرنے کے لیے بحال کرنا ہوگا۔ حذف سے پہلے منسوخ کرنے کے لیے کاؤنٹ ڈاؤن دستیاب ہے۔",
             "remove_keys_button": "والٹ سے چابیاں ہٹائیں",
             "remove_keys_countdown_minutes": "چابیاں {{ minutes }}m {{ seconds }}s میں ہٹا دی جائیں گی",
             "remove_keys_countdown_seconds": "چابیاں {{ seconds }}s میں ہٹا دی جائیں گی",
@@ -620,13 +635,13 @@
         "hide_words": "الفاظ چھپائیں",
         "medium": "درمیانہ",
         "new_password_subtitle": "یہ پاس ورڈ آپ کے زیلف پروف کے لیے ایک ضروری انکرپشن لیئر ہے۔",
-        "password_decryption": "ٹیگ نام کے لیے پاس ورڈ کی ضرورت ہے",
+        "password_decryption": "Zelf ID کے لیے پاس ورڈ کی ضرورت ہے",
         "password_parameters_title": "پاس ورڈ کی ہدایات",
         "password_parameters": "آپ کے پاس ورڈ کے لیے ہماری ہدایات یہ ہیں: <ul><li>8 سے 128 حروف کے درمیان ہونا چاہیے</li> <li>کم از کم ایک بڑا حرف ہونا چاہیے</li> <li>ایک چھوٹا حرف ہونا چاہیے</li> <li>ایک نمبر ہونا چاہیے</li> <li>ایک خاص حرف ہونا چاہیے</li> <li>عام پاس ورڈز سے بچیں</li> <li>دہرائے جانے والے حروف سے بچیں</li></ul>",
         "password_strength_label": "پاس ورڈ کی طاقت",
         "password_subtitle": "ڈکرپشن کے عمل کو مکمل کرنے کے لیے اس زیلف نام کے لیے تفویض کردہ پاس ورڈ درج کریں۔",
         "pin_description": "6 ہندسوں کا PIN بنائیں",
-        "pin_unlock_description": "اپنے ZelfProof کو ان لاک کرنے کے لیے اپنا PIN استعمال کریں",
+        "pin_unlock_description": "اپنے Zelf ID QR کو ان لاک کرنے کے لیے اپنا PIN استعمال کریں",
         "pin_confirm_description": "تصدیق کے لیے اپنا 6 حرفی PIN دوبارہ درج کریں",
         "pin_title": "PIN",
         "secure_password_description": "ایک اضافی سیکیورٹی لیئر",
@@ -635,16 +650,16 @@
         "security_layer_title": "سیکیورٹی لیئر",
         "strong": "مضبوط",
         "subtitle": "اپنی سیڈ فریز کی لمبائی منتخب کریں اور انکرپشن کے عمل کو جاری رکھیں۔",
-        "title": "ZelfProof انکرپشن لیئرز",
+        "title": "Zelf ID QR انکرپشن لیئرز",
         "unhide_words": "الفاظ دکھائیں",
         "weak": "کمزور",
         "weak_password": "کمزور پاس ورڈ",
         "without_password_description": "تیز، لیکن کم محفوظ",
         "without_password_title": "بغیر پاس ورڈ",
         "create_pin_title": "PIN بنائیں",
-        "create_pin_subtitle": "براہ کرم اپنے ZelfProof کے لیے 6 ہندسوں کا پاس ورڈ درج کریں۔",
+        "create_pin_subtitle": "براہ کرم اپنے Zelf ID QR کے لیے 6 ہندسوں کا پاس ورڈ درج کریں۔",
         "confirm_pin_title": "PIN کی تصدیق کریں",
-        "confirm_pin_subtitle": "براہ کرم اپنے ZelfProof کے لیے 6 ہندسوں کا پاس ورڈ دوبارہ درج کریں۔"
+        "confirm_pin_subtitle": "براہ کرم اپنے Zelf ID QR کے لیے 6 ہندسوں کا پاس ورڈ دوبارہ درج کریں۔"
     },
     "receive": {
         "information": "یہ پتہ صرف مطابقت پذیر ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔",
@@ -682,6 +697,7 @@
         "are_you_sure": "کیا آپ یقینی ہیں؟",
         "asset": "اثاثہ",
         "available": "دستیاب",
+        "authorized": "مجاز",
         "avax_address": "AVAX پتہ",
         "balance": "بیلنس",
         "bdag_address": "BDAG پتہ",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "نیا والیٹ بنائیں",
         "date": "تاریخ",
         "days": "دن",
-        "decrypt_zelfname": "ٹیگ نام ڈیکریپٹ کریں",
+        "decrypt_zelfname": "Zelf ID ڈیکریپٹ کریں",
         "do_it_later": "بعد میں کریں",
         "documentation": "دستاویزات",
         "domain_expired": "ڈومین ختم ہو گیا",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "مجھے دوبارہ نہ دکھائیں",
         "dont_show_this_message_again": "یہ ہدایات دوبارہ نہ دکھائیں",
         "download_qr": "QR ڈاؤن لوڈ کریں",
-        "download_zelfproof": "ZelfProof ڈاؤن لوڈ کریں",
+        "download_zelfproof": "Zelf ID QR ڈاؤن لوڈ کریں",
         "edit": "ترمیم کریں",
         "eth_address": "ای ٹی ایچ پتہ",
         "extend_registration": "سبسکرپشن بڑھائیں",
@@ -730,7 +746,7 @@
         "load_more": "مزید لوڈ کریں",
         "login": "زیلف پروف ڈیکریپٹ کریں",
         "logout": "زیلف پروف ہٹائیں",
-        "manage_domains": "زیلف نامز کا انتظام کریں",
+        "manage_domains": "Zelf IDs کا انتظام کریں",
         "max": "زیادہ سے زیادہ",
         "my_arns": "میرا ArNS",
         "navigating_away_will_cancel": "واپس جانے سے آپ کی کی گئی پیش رفت منسوخ ہو جائے گی۔ کیا آپ واقعی واپس جانا چاہتے ہیں؟",
@@ -755,12 +771,12 @@
         "recommended": "تجویز کردہ",
         "refresh": "ریفریش کریں",
         "registered": "زیلف نام {{ date }} سے رجسٹرڈ ہے",
-        "remove_all_zelfproofs": "تمام زیلف پروفز ہٹائیں",
+        "remove_all_zelfproofs": "تمام Zelf ID QRs ہٹائیں",
         "remove": "ہٹائیں",
         "renew_domain": "ڈومین کی تجدید کریں",
         "renew_subscription": "سبسکرپشن کی تجدید کریں",
         "reservation_found": "رزرویشن مل گیا",
-        "search_your_zelf_name": "اپنے زیلف نام کی تلاش کریں",
+        "search_your_zelf_name": "اپنے Zelf ID کی تلاش کریں",
         "search": "تلاش کریں...",
         "seed_phrase": "سیڈ فریز",
         "send_symbol": "{{symbol}} بھیجیں",
@@ -850,12 +866,12 @@
     },
     "manage_domains": {
         "are_you_sure_you_want_to_delete": "کیا آپ واقعی اس زیلف پروف کو ہٹانا چاہتے ہیں؟",
-        "domain_error": "{{ zelfName }} کی ٹرائل پیریڈ ختم ہو گئی ہے، اس ٹیگ نام کو استعمال جاری رکھنے کے لیے آپ کو سبسکرپشن خریدنے کی ضرورت ہے",
+        "domain_error": "{{ zelfName }} کی ٹرائل پیریڈ ختم ہو گئی ہے، اس Zelf ID کو استعمال جاری رکھنے کے لیے آپ کو سبسکرپشن خریدنے کی ضرورت ہے",
         "domain_warning": "آپ کے پاس ابھی بھی خریدنے کا وقت ہے",
-        "expired_wallet_logout_message": "آپ اس زیلف پروف کو دوبارہ ڈیکریپٹ کر سکتے ہیں اگر آپ اپنے ٹیگ نام سے تلاش کریں۔ تاہم، اگر آپ جلد خریداری نہیں کرتے تو آپ اسے کھونے کا خطرہ مول لیتے ہیں۔",
-        "logout_of_wallet_message": "آپ اس زیلف پروف کو دوبارہ ڈیکریپٹ کر سکتے ہیں اگر آپ اپنے ٹیگ نام سے تلاش کریں، یا اپنا زیلف پروف کیو آر کوڈ لوڈ کریں۔",
-        "purchase_new_domain": "نیا ٹیگ نام شامل کریں",
-        "zelfproof_removed_successfully": "زیلف پروف کامیابی سے ہٹا دیا گیا"
+        "expired_wallet_logout_message": "آپ اس زیلف پروف کو دوبارہ ڈیکریپٹ کر سکتے ہیں اگر آپ اپنے Zelf ID سے تلاش کریں۔ تاہم، اگر آپ جلد خریداری نہیں کرتے تو آپ اسے کھونے کا خطرہ مول لیتے ہیں۔",
+        "logout_of_wallet_message": "آپ اس زیلف پروف کو دوبارہ ڈیکریپٹ کر سکتے ہیں اگر آپ اپنے Zelf ID سے تلاش کریں، یا اپنا زیلف پروف کیو آر کوڈ لوڈ کریں۔",
+        "purchase_new_domain": "نیا Zelf ID شامل کریں",
+        "zelfproof_removed_successfully": "Zelf ID QR کامیابی سے ہٹا دیا گیا"
     },
     "liveness": {
         "center_your_face": "اپنا چہرہ اسکرین کے درمیان میں رکھیں",
@@ -869,17 +885,17 @@
         "address_too_long": "پتہ بہت لمبا ہے",
         "all_fields_required": "تمام فیلڈز درکار ہیں",
         "camera_dimensions_not_properly_initialized": "کیمرہ صحیح طریقے سے شروع نہیں ہوا",
-        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP کو ڈکرپٹ نہیں کیا جا سکتا: ZelfProof غائب ہے۔ یہ ZOTP ایک درست ZelfProof کے بغیر ڈکرپٹ نہیں کیا جا سکتا۔",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP کو ڈکرپٹ نہیں کیا جا سکتا: Zelf ID QR غائب ہے۔ یہ ZOTP ایک درست Zelf ID QR کے بغیر ڈکرپٹ نہیں کیا جا سکتا۔",
         "cannot_swap_across_these_networks": "آپ ابھی ان نیٹ ورکس کے درمیان تبادلہ نہیں کر سکتے۔ براہ کرم بعد میں دوبارہ کوشش کریں۔",
         "chart_not_found": "چارٹ کا ڈیٹا دستیاب نہیں ہے",
-        "Duplicated_person": "ZelfProof کسی دوسری ریکارڈ کے لیے استعمال ہو رہا ہے",
+        "Duplicated_person": "Zelf ID QR کسی دوسری ریکارڈ کے لیے استعمال ہو رہا ہے",
         "empty_password": "پاس ورڈ خالی نہیں ہو سکتا",
-        "ERR_DESCRIPTION": "اپنے ZelfProof کو انلاک کرنے کے لیے ہدایات پر درست طریقے سے عمل کریں",
-        "ERR_INVALID_PASSWORD": "اس ZelfProof کا پاس ورڈ درست نہیں ہے",
+        "ERR_DESCRIPTION": "اپنے Zelf ID QR کو انلاک کرنے کے لیے ہدایات پر درست طریقے سے عمل کریں",
+        "ERR_INVALID_PASSWORD": "اس Zelf ID QR کا پاس ورڈ درست نہیں ہے",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "چہرے کا زاویہ بہت زیادہ ہے",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "چہرہ بارڈر کے بہت قریب ہے",
         "ERR_LIVENESS_FAILED": "لائیو نیس کی شناخت ناکام ہو گئی",
-        "ERR_UNPROCESSABLE_CONTENT": "ZelfProof کو ڈیکریپٹ نہیں کیا جا سکا",
+        "ERR_UNPROCESSABLE_CONTENT": "Zelf ID QR کو ڈیکریپٹ نہیں کیا جا سکا",
         "ERR_VERIFICATION_FAILED": "لائیو نیس کی شناخت ناکام ہو گئی",
         "error_closing_popup": "ونڈو بند کرنے میں غلطی",
         "error_initializing_biometrics": "بایومیٹرکس شروع کرنے میں غلطی",
@@ -892,8 +908,8 @@
         "generic_title": "ایک خرابی پیش آ گئی ہے",
         "generic": "معذرت، اس درخواست کو پروسیس کرنے میں ایک مسئلہ تھا۔ براہ کرم دوبارہ کوشش کریں۔",
         "incorrect_passphrase": "ماسٹر پاس ورڈ غلط درج کیا گیا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
-        "incorrect_zelf_proof_message": "فراہم کردہ فائل درست ZelfProof نہیں لگتی۔ براہ کرم دوبارہ کوشش کریں۔",
-        "incorrect_zelf_proof_title": "غلط ZelfProof",
+        "incorrect_zelf_proof_message": "فراہم کردہ فائل درست Zelf ID QR نہیں لگتی۔ براہ کرم دوبارہ کوشش کریں۔",
+        "incorrect_zelf_proof_title": "غلط Zelf ID QR",
         "insufficient_funds": "ناکافی فنڈز۔ یقینی بنائیں کہ آپ کے والیٹ میں ٹرانزیکشن فیس کے لیے کافی فنڈز موجود ہیں۔",
         "invalid_credentials": "غلط کریڈینشلز",
         "invalid_format": "غلط فارمیٹ",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "{{ value }} سے زیادہ ہونا چاہیے",
         "must_be_less_than": "{{ value }} سے کم ہونا چاہیے",
         "no_decrypted_data_received_from_api": "سرور سے کوئی ڈکرپٹ شدہ ڈیٹا موصول نہیں ہوا",
-        "no_zelfproof_available_for_password_decryption": "پاس ورڈ ڈکرپشن کے لیے کوئی ZelfProof دستیاب نہیں ہے",
+        "no_zelfproof_available_for_password_decryption": "پاس ورڈ ڈکرپشن کے لیے کوئی Zelf ID QR دستیاب نہیں ہے",
         "not_found": "ریکارڈ نہیں ملا",
         "password_doesnt_match": "پاس ورڈز مماثل نہیں ہیں",
         "password_incorrect": "پاس ورڈ غلط ہے",
@@ -921,7 +937,7 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "لائیو نیس چیک ناکام ہوا۔ براہ کرم دوبارہ کوشش کریں۔"
         },
-        "person_already_set": "آپ کی رجسٹریشن میں پہلے سے ہی ایک ZelfProof منسلک ہے",
+        "person_already_set": "آپ کی رجسٹریشن میں پہلے سے ہی ایک Zelf ID QR منسلک ہے",
         "private_key_locked": "پرائیویٹ کلید لاک ہو گئی ہے۔ آگے بڑھنے کے لیے آپ کو بائیومیٹرکس چیک کرنا ہوگا۔",
         "required_field": "یہ فیلڈ درکار ہے",
         "same_address": "آپ اسی پتے پر فنڈز نہیں بھیج سکتے",
@@ -934,7 +950,7 @@
         "try_again": "دوبارہ کوشش کریں",
         "unknown_error": "ایک نامعلوم غلطی پیش آ گئی",
         "user_cancelled_decryption": "ڈکرپشن منسوخ کر دی گئی",
-        "zelfName_is_taken": "یہ ٹیگ نام پہلے سے لیا گیا ہے",
+        "zelfName_is_taken": "یہ Zelf ID پہلے سے لیا گیا ہے",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,8 +1056,8 @@
         "ru": "روسی"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "میں اب یہ ٹیگ نام نہیں چاہتا",
-        "choose_new_zelfname": "نیا ٹیگ نام منتخب کریں",
+        "i_dont_want_this_wallet": "میں اب یہ Zelf ID نہیں چاہتا",
+        "choose_new_zelfname": "نیا Zelf ID منتخب کریں",
         "recover_it_now": "ابھی بحال کریں",
         "delete_wallet_title": "ٹیگ ہٹائیں",
         "delete_wallet_message": "اپنا ٹیگ ہٹانے سے پہلے، یقینی بنائیں کہ آپ نے اپنا زیلف پروف کیو آر کوڈ بیک اپ کر لیا ہے۔",
@@ -1049,14 +1065,14 @@
         "thanks_for_subscribing": "سبسکرائب کرنے کا شکریہ",
         "make_zelfname_yours": "{{ zelfName }} کو اپنا بنائیں",
         "keep_zelfname_yours": "{{ zelfName }} کو اپنا رکھیں",
-        "love_your_zelfname": "اپنے ٹیگ نام سے پیار ہے؟",
+        "love_your_zelfname": "اپنے Zelf ID سے پیار ہے؟",
         "time_is_running_out": "وقت ختم ہو رہا ہے",
-        "not_much_time_left": "آپ کا ٹیگ نام تھوڑی دیر کے لیے محفوظ ہے، لیکن زیادہ انتظار نہ کریں!",
+        "not_much_time_left": "آپ کا Zelf ID تھوڑی دیر کے لیے محفوظ ہے، لیکن زیادہ انتظار نہ کریں!",
         "oh_no": "اوہ نہیں!",
         "thanks_for_reserving": "محفوظ کرنے کا شکریہ",
         "is_no_longer_available": "اب دستیاب نہیں ہے",
         "has_been_taken": "لیا جا چکا ہے",
-        "benefit_title": "اپنے ٹیگ نام سے، آپ کو ملتا ہے:",
+        "benefit_title": "اپنے Zelf ID سے، آپ کو ملتا ہے:",
         "benefit_1_title": "آف لائن انکرپشن",
         "benefit_1_subtitle": "آپ کی چابیاں، آپ کا کنٹرول",
         "benefit_2_title": "انتہائی نجی ڈیکرپشن",
@@ -1077,9 +1093,9 @@
         "is_still_available": "اب بھی دستیاب ہے",
         "resubscribe_within": "{{ days }} دنوں کے اندر دوبارہ سبسکرائب کریں",
         "complete_purchase_within": "1 سال کے لیے محفوظ کرنے کے لیے {{ days }} دنوں کے اندر اپنی خریداری مکمل کریں",
-        "have_you_explored_the_benefits": "کیا آپ نے اپنے ٹیگ نام اور ZkProofs کے فوائد دریافت کیے ہیں؟",
+        "have_you_explored_the_benefits": "کیا آپ نے اپنے Zelf ID اور ZkProofs کے فوائد دریافت کیے ہیں؟",
         "but_someone_else_could_grab_it": "لیکن کوئی اور اسے لے سکتا ہے! اسے کھونے یا اپنے سیڈ فریز کو کاغذ پر لکھنے کا خطرہ نہ اٹھائیں!",
-        "but_dont_worry_you_can_access_your_zelfproof": "لیکن فکر نہ کریں، آپ اپنے ٹیگ نام تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ نیا ٹیگ نام محفوظ کر سکتے ہیں۔",
+        "but_dont_worry_you_can_access_your_zelfproof": "لیکن فکر نہ کریں، آپ اپنے Zelf ID تک رسائی حاصل کر سکتے ہیں اور اسی سیڈ فریز کے ساتھ نیا Zelf ID محفوظ کر سکتے ہیں۔",
         "considerations_description_1": "ناقابل شکست سیکیورٹی۔",
         "considerations_description_2": "منفرد شناخت۔",
         "considerations_description_3": "مستقبل کے لیے تحفظ۔"
@@ -1100,7 +1116,7 @@
             "payment_method": "ادائیگی کا طریقہ:",
             "status": "اسٹیٹس",
             "transaction": "لین دین",
-            "zelf_name": "ٹیگ نام",
+            "zelf_name": "Zelf ID",
             "start_date": "شروع ہونے کی تاریخ:",
             "expires_on": "ختم ہونے کی تاریخ:",
             "next_billing": "اگلی بلنگ:",
@@ -1206,7 +1222,7 @@
                 },
                 "zelfproof": {
                     "title": "ادائیگی کارڈ کی معلومات",
-                    "download": "ZelfProof ڈاؤن لوڈ کریں"
+                    "download": "Zelf ID QR ڈاؤن لوڈ کریں"
                 },
                 "decrypted": {
                     "title": "ادائیگی کارڈ کی معلومات",
@@ -1327,7 +1343,7 @@
                 },
                 "zelfproof": {
                     "title": "ادائیگی کارڈ کی معلومات",
-                    "download": "ZelfProof ڈاؤن لوڈ کریں"
+                    "download": "Zelf ID QR ڈاؤن لوڈ کریں"
                 },
                 "decrypted": {
                     "title": "ادائیگی کارڈ کی معلومات",
@@ -1408,7 +1424,7 @@
                 "no_username": "کوئی صارف نام نہیں",
                 "no_website": "کوئی ویب سائٹ نہیں",
                 "no_category": "کوئی زمرہ نہیں",
-                "no_zelf_name": "کوئی ٹیگ نام نہیں",
+                "no_zelf_name": "کوئی Zelf ID نہیں",
                 "unknown_date": "نامعلوم تاریخ",
                 "decrypt": {
                     "button": "ادائیگی کارڈ کو ڈکرپٹ کریں",
@@ -1421,7 +1437,7 @@
                     "username": "صارف نام",
                     "category": "زمرہ",
                     "created": "تخلیق شدہ",
-                    "zelf_name": "ٹیگ نام",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "IPFS ہیش",
                     "copy_url": "ویب سائٹ URL کاپی کریں",
                     "launch_website": "ویب سائٹ کھولیں",
@@ -1429,7 +1445,7 @@
                 },
                 "zelfproof": {
                     "title": "ادائیگی کارڈ کی معلومات",
-                    "download": "ZelfProof ڈاؤن لوڈ کریں"
+                    "download": "Zelf ID QR ڈاؤن لوڈ کریں"
                 },
                 "decrypted": {
                     "title": "ادائیگی کارڈ کی معلومات",
@@ -1541,7 +1557,7 @@
                     "username": "صارف نام",
                     "type": "قسم",
                     "category": "زمرہ",
-                    "zelf_name": "ٹیگ نام",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "ٹائم اسٹیمپ"
                 }
             },
@@ -1586,7 +1602,7 @@
             "zelfproof": {
                 "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
-                    "string": "ZelfProof سٹرنگ",
+                    "string": "Zelf ID QR سٹرنگ",
                     "qr_code": "کیو آر کوڈ"
                 },
                 "copy_hint": "کاپی کرنے کے لیے کلک کریں"
@@ -1823,7 +1839,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "اپنا ZelfName کھونے نہ دیں",
+            "title": "اپنا Zelf ID کھونے نہ دیں",
             "expired": "ختم ہو گیا",
             "one_day": "آپ کے ZNS کی خریداری کے لیے 1 دن باقی ہے",
             "days_left": "آپ کے ZNS کی خریداری کے لیے {{ days }} دن باقی ہیں"

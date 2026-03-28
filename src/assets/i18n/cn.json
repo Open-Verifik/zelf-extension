@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "二维码",
             "no_folder": "无文件夹",
-            "download_zelfproof": "下载 ZelfProof",
+            "download_zelfproof": "下载 Zelf ID QR",
             "back_to_payment_cards": "返回支付卡",
             "add_another_card": "添加另一张卡",
             "try_again": "重试",
@@ -36,8 +36,8 @@
                 "copy_payment_card_id": "复制支付卡 ID"
             },
             "zelfproof": {
-                "title": "ZelfProof",
-                "download": "下载 ZelfProof"
+                "title": "Zelf ID QR",
+                "download": "下载 Zelf ID QR"
             },
             "decrypted": {
                 "title": "解密内容",
@@ -89,8 +89,8 @@
                 }
             },
             "image": {
-                "title": "ZelfProof",
-                "download": "下载 ZelfProof"
+                "title": "Zelf ID QR",
+                "download": "下载 Zelf ID QR"
             },
             "nft": {
                 "title": "NFT 已创建",
@@ -129,9 +129,9 @@
                 "explorer_link": "在浏览器上查看"
             },
             "zelfproof": {
-                "title": "ZelfProof 已生成",
+                "title": "Zelf ID QR 已生成",
                 "labels": {
-                    "string": "ZelfProof 字符串",
+                    "string": "Zelf ID QR 字符串",
                     "qr_code": "二维码"
                 },
                 "copy_hint": "点击复制"
@@ -240,7 +240,7 @@
             "no_qr": "无二维码",
             "untitled": "无标题",
             "username_label": "用户名: {{ username }}",
-            "zelf_name_label": "标签名称: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "类别: {{ category }}",
             "type_label": "类型: {{ type }}",
             "secure_credential": "安全凭证"
@@ -345,7 +345,7 @@
                         "folder": "文件夹",
                         "type": "类型",
                         "category": "类别",
-                        "zelf_name": "标签名称",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "时间戳"
                     }
                 },
@@ -383,13 +383,13 @@
                     "explorer_link": "在浏览器上查看"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof 已生成",
+                    "title": "Zelf ID QR 已生成",
                     "labels": {
-                        "string": "ZelfProof 字符串",
+                        "string": "Zelf ID QR 字符串",
                         "qr_code": "二维码"
                     },
                     "copy_hint": "点击复制",
-                    "qr_alt": "ZelfProof 二维码"
+                    "qr_alt": "Zelf ID QR 二维码"
                 },
                 "debug": {
                     "title": "调试信息"
@@ -433,14 +433,14 @@
     },
     "cancel": "取消",
     "confirm": "确认",
-    "logout_message": "确认此操作后，您将从扩展程序中删除所有ZelfProofs。您需要重新解密每个ZelfProof才能重新获得访问权限。您确定要继续吗？",
-    "logout_title": "删除所有ZELFPROOFS",
+    "logout_message": "确认此操作后，您将从扩展程序中删除所有Zelf ID QRs。您需要重新解密每个Zelf ID QR才能重新获得访问权限。您确定要继续吗？",
+    "logout_title": "删除所有ZELF ID QRS",
     "onboarding": {
         "lifetime": "终身",
         "step_1_description": "永远不用担心忘记、丢失或泄露您的种子短语。",
         "step_1": "加密种子短语的3个步骤",
-        "step_2_description": "通过解密您的ZelfProof在几秒钟内备份您的种子短语",
-        "step_2": "查找并解密您的ZelfProof",
+        "step_2_description": "通过解密您的Zelf ID QR在几秒钟内备份您的种子短语",
+        "step_2": "查找并解密您的Zelf ID QR",
         "step_3_description": "将您的种子短语的zk-FaceProof存储在区块链中，而不是本地设备上",
         "step_3": "保护您的种子短语免受黑客攻击",
         "year": "年"
@@ -476,8 +476,8 @@
         "recent_addresses": "最近",
         "used": "{{days}} 天前使用",
         "withdrawal_amount": "提现金额",
-        "zelf_name_not_registered": "标签名称未注册",
-        "zelf_name_registered": "标签名称已注册",
+        "zelf_name_not_registered": "Zelf ID未注册",
+        "zelf_name_registered": "Zelf ID已注册",
         "from_address": "发件人地址",
         "private_transaction": "私人交易",
         "amount_inline_required": "Required",
@@ -503,17 +503,17 @@
         "share_transaction": "分享交易"
     },
     "welcome": {
-        "code_name": "推荐标签名称",
+        "code_name": "推荐Zelf ID",
         "domain_expired_since": "域名自 {{ date }} 起已过期",
         "decrypt_and_reserve": "解密并保留",
         "decrypt_now_pay_later": "现在解密，稍后付款",
         "decrypt_now_renew_later": "现在解密，稍后续期",
-        "dont_lose_your_zelfname": "嘿！不要丢失您的标签名称，在别人购买之前今天就续期或保留。",
-        "dont_remember_zelfname": "不记得您的标签名称了？",
+        "dont_lose_your_zelfname": "嘿！不要丢失您的Zelf ID，在别人购买之前今天就续期或保留。",
+        "dont_remember_zelfname": "不记得您的Zelf ID了？",
         "enjoy_your_domain": "享受您的域名。记得在别人购买之前购买它！",
         "expiration_date": "到期日期 {{ date }}",
-        "find_zelf_name_subtitle": "通过在下面输入其公共地址来查找现有的标签名称：",
-        "find_zelf_name_title": "查找标签名称",
+        "find_zelf_name_subtitle": "通过在下面输入其公共地址来查找现有的Zelf ID：",
+        "find_zelf_name_title": "查找Zelf ID",
         "got_it": "明白了，我稍后再做",
         "grace_period_until": "宽限期至",
         "import_subtitle": "我们将使用您的秘密恢复词来验证和导入现有钱包。请在下面输入它们。",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "无效的推荐码",
         "name_expires": "名称到期",
         "new_domain": "新域名",
-        "offline_subtitle": "此ZelfProof是离线创建的，因此使用不同的安全系统。目前，它与扩展不兼容。很快就会可用。",
-        "offline_tip": "但是，别担心！您可以使用另一个标签名称导入您的ZelfProof，以便从扩展访问。",
+        "offline_subtitle": "此Zelf ID QR是离线创建的，因此使用不同的安全系统。目前，它与扩展不兼容。很快就会可用。",
+        "offline_tip": "但是，别担心！您可以使用另一个Zelf ID导入您的Zelf ID QR，以便从扩展访问。",
         "i_understand_go_back": "我明白了，返回主页",
         "old_domain": "旧域名",
         "paste_your_recovery_phrase": "您可以将整个秘密恢复短语粘贴到任何字段中",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>已被占用，但别担心！您可以访问您的ZelfProof并使用相同的种子短语保留新的标签名称。",
-        "pick_your_new_zelfname": "选择您的新标签名称",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>已被占用，但别担心！您可以访问您的Zelf ID QR并使用相同的种子短语保留新的Zelf ID。",
+        "pick_your_new_zelfname": "选择您的新Zelf ID",
         "public_address_input": "在此输入您的ETH或SOL公共地址",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>仍然可用。您可以访问您的ZelfProof并使用相同的种子短语恢复您的标签名称。",
-        "recover_your_zelfname": "恢复您的标签名称",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>仍然可用。您可以访问您的Zelf ID QR并使用相同的种子短语恢复您的Zelf ID。",
+        "recover_your_zelfname": "恢复您的Zelf ID",
         "referral_code": "推荐码（可选）",
         "referral_successfully_registered": "推荐成功注册",
         "registered_since": "自 {{ date }} 起注册",
-        "registered": "标签名称自 {{ date }} 起注册",
+        "registered": "Zelf ID自 {{ date }} 起注册",
         "renew_your_domain_today": "在别人购买之前今天就续期您的域名。",
-        "search_another_zelfname": "搜索另一个标签名称",
-        "search_your_new_zelfname": "搜索您的新标签名称",
+        "search_another_zelfname": "搜索另一个Zelf ID",
+        "search_your_new_zelfname": "搜索您的新Zelf ID",
         "transfer_done": "转移完成",
-        "upload_zelf_proof": "或上传您的ZelfProof二维码继续：",
+        "upload_zelf_proof": "或上传您的Zelf ID QR二维码继续：",
         "you_can_transfer_this_domain": "您可以转移此域名",
         "you_will_register_this_domain": "您在 Zelf Name Service 上的新身份",
         "safeguard_your_crypto": "保护您的加密货币！",
-        "offline_import_subtitle": "在导入您的离线钱包之前，您需要选择一个新的标签名称。",
-        "your_zelf_name": "您的标签名称"
+        "offline_import_subtitle": "在导入您的离线钱包之前，您需要选择一个新的Zelf ID。",
+        "your_zelf_name": "您的Zelf ID",
+        "create_new_account": "创建 Zelf ID",
+        "i_already_have_a_wallet": "我已有钱包",
+        "choose_tag_name_title": "选择您的 Zelf ID",
+        "choose_tag_name_subtitle": "为您的 Zelf 网络身份选择一个唯一名称",
+        "choose_tag_name_placeholder": "输入您的 Zelf ID",
+        "preview_name_placeholder": "yourname",
+        "search_name_aria": "搜索此名称",
+        "tag_name_available": "可用！此名称可供您领取",
+        "tag_name_taken": "该名称已被占用",
+        "import_wallet_title": "导入钱包",
+        "import_wallet_subtitle": "输入您的钱包地址或扫描 Zelf ID 二维码以恢复现有账户",
+        "import_with_seed_phrase": "没有 Zelf ID 二维码 — 使用助记词导入",
+        "feature_multichain": "多链",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "自托管"
     },
     "settings": {
         "networks_label": "网络",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "下次使用时需要PIN和生物识别验证。",
             "lock_vault_button": "锁定保险库",
             "remove_keys_title": "从保险库移除密钥",
-            "remove_keys_description": "永久移除此设备上的所有密钥。您需要恢复ZelfProof才能再次使用。倒计时允许您在删除前取消。",
+            "remove_keys_description": "永久移除此设备上的所有密钥。您需要恢复Zelf ID QR才能再次使用。倒计时允许您在删除前取消。",
             "remove_keys_button": "从保险库移除密钥",
             "remove_keys_countdown_minutes": "密钥将在 {{ minutes }}分 {{ seconds }}秒 后移除",
             "remove_keys_countdown_seconds": "密钥将在 {{ seconds }}秒 后移除",
@@ -615,36 +630,36 @@
     "security": {
         "biometric_decryption_subtitle": "为了完成解密过程，我们需要使用您的生物识别信息来验证您的身份。",
         "biometric_decryption_title": "生物识别解密",
-        "biometric_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于加密您的ZelfProof的私钥。<strong>我们不会出于任何其他目的收集或使用您的生物识别信息。</strong>",
+        "biometric_subtitle": "接下来，我们将拍摄一张自拍照，结合您的密码，生成用于加密您的Zelf ID QR的私钥。<strong>我们不会出于任何其他目的收集或使用您的生物识别信息。</strong>",
         "biometric_title": "生物识别加密层",
         "hide_words": "隐藏单词",
         "medium": "中等",
-        "new_password_subtitle": "以下密码是您的ZelfProof所需的加密层。",
-        "password_decryption": "标签名称需要密码",
+        "new_password_subtitle": "以下密码是您的Zelf ID QR所需的加密层。",
+        "password_decryption": "Zelf ID需要密码",
         "password_parameters_title": "密码指南",
         "password_parameters": "我们的密码指南如下：<ul><li>长度必须在8到128个字符之间</li><li>必须包含至少一个大写字母</li><li>必须包含一个小写字母</li><li>必须包含一个数字</li><li>必须包含一个特殊字符</li><li>避免使用常见密码</li><li>避免重复字符</li></ul>",
         "password_strength_label": "密码强度",
-        "password_subtitle": "输入分配给此标签名称的密码以完成解密过程。",
+        "password_subtitle": "输入分配给此Zelf ID的密码以完成解密过程。",
         "pin_description": "创建6位数字的PIN码",
-        "pin_unlock_description": "使用您的PIN码解锁您的ZelfProof",
+        "pin_unlock_description": "使用您的PIN码解锁您的Zelf ID QR",
         "pin_confirm_description": "重新输入您的 6 位 PIN 码以确认",
         "pin_title": "PIN码",
         "secure_password_description": "额外的安全层",
         "secure_password_title": "安全密码",
-        "security_layer_subtitle": "请选择分配给您新标签的密码层",
+        "security_layer_subtitle": "请选择分配给新 Zelf ID 的密码层",
         "security_layer_title": "安全层",
         "strong": "强",
         "subtitle": "选择您的种子短语长度并继续加密过程。",
-        "title": "ZelfProof 加密层",
+        "title": "Zelf ID QR 加密层",
         "unhide_words": "显示单词",
         "weak": "弱",
         "weak_password": "弱密码",
         "without_password_description": "更快，但安全性较低",
         "without_password_title": "无密码",
         "create_pin_title": "创建PIN码",
-        "create_pin_subtitle": "请输入您的ZelfProof的6位数字密码。",
+        "create_pin_subtitle": "请输入您的Zelf ID QR的6位数字密码。",
         "confirm_pin_title": "确认PIN码",
-        "confirm_pin_subtitle": "请重新输入您的ZelfProof的6位数字密码。"
+        "confirm_pin_subtitle": "请重新输入您的Zelf ID QR的6位数字密码。"
     },
     "receive": {
         "information": "此地址只能用于接收兼容的代币。",
@@ -682,6 +697,7 @@
         "are_you_sure": "您确定吗？",
         "asset": "资产",
         "available": "可用",
+        "authorized": "已授权",
         "avax_address": "AVAX 地址",
         "balance": "余额",
         "bdag_address": "BDAG地址",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "创建新钱包",
         "date": "日期",
         "days": "天",
-        "decrypt_zelfname": "解密标签名称",
+        "decrypt_zelfname": "解密Zelf ID",
         "do_it_later": "稍后再说",
         "documentation": "文档",
         "domain_expired": "域名已过期",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "不再显示",
         "dont_show_this_message_again": "不再显示这些说明",
         "download_qr": "下载二维码",
-        "download_zelfproof": "下载 ZelfProof",
+        "download_zelfproof": "下载 Zelf ID QR",
         "edit": "编辑",
         "eth_address": "以太坊地址",
         "extend_registration": "延长订阅",
@@ -728,9 +744,9 @@
         "is_required": "是必填项",
         "learn_more": "了解更多",
         "load_more": "加载更多",
-        "login": "解密ZelfProof",
-        "logout": "移除ZelfProof",
-        "manage_domains": "管理ZelfNames",
+        "login": "解密Zelf ID QR",
+        "logout": "移除Zelf ID QR",
+        "manage_domains": "管理 Zelf ID",
         "max": "最大",
         "my_arns": "我的ArNS",
         "navigating_away_will_cancel": "离开将取消您已完成的进度。您确定要返回吗？",
@@ -754,13 +770,13 @@
         "receive": "接收",
         "recommended": "推荐",
         "refresh": "刷新",
-        "registered": "标签名称自 {{ date }} 起注册",
-        "remove_all_zelfproofs": "移除所有ZelfProofs",
+        "registered": "Zelf ID自 {{ date }} 起注册",
+        "remove_all_zelfproofs": "移除所有Zelf ID QRs",
         "remove": "移除",
         "renew_domain": "续期域名",
         "renew_subscription": "续订订阅",
         "reservation_found": "找到预订",
-        "search_your_zelf_name": "搜索您的标签名称",
+        "search_your_zelf_name": "搜索您的Zelf ID",
         "search": "搜索...",
         "seed_phrase": "助记词",
         "send_symbol": "发送{{symbol}}",
@@ -849,13 +865,13 @@
         "registered_until": "到期时间"
     },
     "manage_domains": {
-        "are_you_sure_you_want_to_delete": "您确定要删除此ZelfProof吗？",
-        "domain_error": "{{ zelfName }}的试用期已结束，您需要购买订阅才能继续使用此标签名称",
+        "are_you_sure_you_want_to_delete": "您确定要删除此Zelf ID QR吗？",
+        "domain_error": "{{ zelfName }}的试用期已结束，您需要购买订阅才能继续使用此Zelf ID",
         "domain_warning": "您还有时间购买",
-        "expired_wallet_logout_message": "如果您通过标签名称搜索，可以再次解密此ZelfProof。但是，如果您不尽快购买，可能会失去它。",
-        "logout_of_wallet_message": "如果您通过标签名称搜索或加载ZelfProof二维码，可以再次解密此ZelfProof。",
-        "purchase_new_domain": "添加新的标签名称",
-        "zelfproof_removed_successfully": "ZelfProof 已成功移除"
+        "expired_wallet_logout_message": "如果您通过Zelf ID搜索，可以再次解密此Zelf ID QR。但是，如果您不尽快购买，可能会失去它。",
+        "logout_of_wallet_message": "如果您通过Zelf ID搜索或加载Zelf ID QR二维码，可以再次解密此Zelf ID QR。",
+        "purchase_new_domain": "添加新的Zelf ID",
+        "zelfproof_removed_successfully": "Zelf ID QR 已成功移除"
     },
     "liveness": {
         "center_your_face": "将您的脸居中在屏幕上",
@@ -869,17 +885,17 @@
         "address_too_long": "地址太长",
         "all_fields_required": "所有字段都是必填的",
         "camera_dimensions_not_properly_initialized": "摄像头未正确初始化",
-        "cannot_decrypt_zotp_missing_zelfProof": "无法解密 ZOTP：缺失 ZelfProof。若无有效 ZelfProof，无法解密该 ZOTP。",
+        "cannot_decrypt_zotp_missing_zelfProof": "无法解密 ZOTP：缺失 Zelf ID QR。若无有效 Zelf ID QR，无法解密该 ZOTP。",
         "cannot_swap_across_these_networks": "您目前还不能在这些网络之间进行交换。请稍后再试。",
         "chart_not_found": "图表数据不可用",
-        "Duplicated_person": "ZelfProof已被用于其他记录",
+        "Duplicated_person": "Zelf ID QR已被用于其他记录",
         "empty_password": "密码不能为空",
-        "ERR_DESCRIPTION": "请确保正确按照说明解锁您的ZelfProof",
-        "ERR_INVALID_PASSWORD": "此ZelfProof的密码无效",
+        "ERR_DESCRIPTION": "请确保正确按照说明解锁您的Zelf ID QR",
+        "ERR_INVALID_PASSWORD": "此Zelf ID QR的密码无效",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "面部角度太大",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "面部太靠近边框",
         "ERR_LIVENESS_FAILED": "活体检测失败",
-        "ERR_UNPROCESSABLE_CONTENT": "无法解密ZelfProof",
+        "ERR_UNPROCESSABLE_CONTENT": "无法解密Zelf ID QR",
         "ERR_VERIFICATION_FAILED": "活体检测失败",
         "error_closing_popup": "关闭窗口时出错",
         "error_initializing_biometrics": "初始化生物识别时出错",
@@ -892,8 +908,8 @@
         "generic_title": "发生错误",
         "generic": "抱歉，处理此请求时出现问题。请重试。",
         "incorrect_passphrase": "主密码输入错误。请重试。",
-        "incorrect_zelf_proof_message": "提供的文件似乎不是有效的ZelfProof。请重试。",
-        "incorrect_zelf_proof_title": "不正确的ZelfProof",
+        "incorrect_zelf_proof_message": "提供的文件似乎不是有效的Zelf ID QR。请重试。",
+        "incorrect_zelf_proof_title": "不正确的Zelf ID QR",
         "insufficient_funds": "资金不足。请确保您的钱包中有足够的资金支付交易费用。",
         "invalid_credentials": "无效的凭据",
         "invalid_format": "无效的格式",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "必须大于{{ value }}",
         "must_be_less_than": "必须小于{{ value }}",
         "no_decrypted_data_received_from_api": "服务器未返回解密数据",
-        "no_zelfproof_available_for_password_decryption": "没有可用于密码解密的 ZelfProof",
+        "no_zelfproof_available_for_password_decryption": "没有可用于密码解密的 Zelf ID QR",
         "not_found": "未找到记录",
         "password_doesnt_match": "密码不匹配",
         "password_incorrect": "密码不正确",
@@ -921,11 +937,11 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "活体检测失败。请重试。"
         },
-        "person_already_set": "您的注册已经链接了ZelfProof",
+        "person_already_set": "您的注册已经链接了Zelf ID QR",
         "private_key_locked": "私钥已被锁定。您必须进行生物识别检查才能继续。",
         "required_field": "此字段为必填项",
         "same_address": "您不能向同一地址发送资金",
-        "session_init_info": "要使用标签名称服务扩展程序，您需要网络访问权限。如需离线解决方案，请查看我们的 iOS 和 Android 应用。",
+        "session_init_info": "要使用Zelf ID服务扩展程序，您需要网络访问权限。如需离线解决方案，请查看我们的 iOS 和 Android 应用。",
         "session_init_message": "抱歉，初始化您的会话时出现问题。这可能是由于网络问题或服务器不可用造成的。请重试。",
         "session_init_title": "会话初始化失败",
         "something_went_wrong": "出现错误，请重试",
@@ -934,7 +950,7 @@
         "try_again": "重试",
         "unknown_error": "发生未知错误",
         "user_cancelled_decryption": "解密已取消",
-        "zelfName_is_taken": "此标签名称已被使用",
+        "zelfName_is_taken": "此Zelf ID已被使用",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,23 +1056,23 @@
         "ru": "俄语"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "我不再需要这个标签名称了",
-        "choose_new_zelfname": "选择新的标签名称",
+        "i_dont_want_this_wallet": "我不再需要这个Zelf ID了",
+        "choose_new_zelfname": "选择新的Zelf ID",
         "recover_it_now": "立即恢复",
-        "delete_wallet_title": "移除标签",
-        "delete_wallet_message": "在移除标签之前，请确保已备份您的ZelfProof二维码。",
+        "delete_wallet_title": "移除 Zelf ID",
+        "delete_wallet_message": "在移除 Zelf ID 之前，请确保已备份您的Zelf ID QR二维码。",
         "yes_because": "是的，因为：",
         "thanks_for_subscribing": "感谢订阅",
         "make_zelfname_yours": "让 {{ zelfName }} 成为您的",
         "keep_zelfname_yours": "保持 {{ zelfName }} 属于您",
-        "love_your_zelfname": "喜欢您的标签名称吗？",
+        "love_your_zelfname": "喜欢您的Zelf ID吗？",
         "time_is_running_out": "时间不多了",
-        "not_much_time_left": "您的标签名称保留时间延长了一点，但不要等太久！",
+        "not_much_time_left": "您的Zelf ID保留时间延长了一点，但不要等太久！",
         "oh_no": "糟糕！",
         "thanks_for_reserving": "感谢预订",
         "is_no_longer_available": "不再可用",
         "has_been_taken": "已被使用",
-        "benefit_title": "使用您的标签名称，您将获得：",
+        "benefit_title": "使用您的Zelf ID，您将获得：",
         "benefit_1_title": "离线加密",
         "benefit_1_subtitle": "您的密钥，您的控制",
         "benefit_2_title": "超私密解密",
@@ -1077,9 +1093,9 @@
         "is_still_available": "仍然可用",
         "resubscribe_within": "在 {{ days }} 天内重新订阅",
         "complete_purchase_within": "在 {{ days }} 天内完成购买以保护一年",
-        "have_you_explored_the_benefits": "您是否探索过标签名称和ZkProofs的好处？",
+        "have_you_explored_the_benefits": "您是否探索过Zelf ID和ZkProofs的好处？",
         "but_someone_else_could_grab_it": "但其他人仍可能抢走它！不要冒险失去它，也不要把助记词写在纸上！",
-        "but_dont_worry_you_can_access_your_zelfproof": "但别担心，您可以使用相同的助记词访问您的标签名称并预订新的标签名称。",
+        "but_dont_worry_you_can_access_your_zelfproof": "但别担心，您可以使用相同的助记词访问您的Zelf ID并预订新的Zelf ID。",
         "considerations_description_1": "牢不可破的安全性。",
         "considerations_description_2": "独特的身份。",
         "considerations_description_3": "面向未来的保护。"
@@ -1100,7 +1116,7 @@
             "payment_method": "支付方式：",
             "status": "状态",
             "transaction": "交易",
-            "zelf_name": "标签名称",
+            "zelf_name": "Zelf ID",
             "start_date": "开始日期：",
             "expires_on": "有效期至：",
             "next_billing": "下次结账日期：",
@@ -1205,8 +1221,8 @@
                     "copy_notes": "复制备注"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "下载 ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "下载 Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "解密内容",
@@ -1326,8 +1342,8 @@
                     "copy_id": "复制笔记 ID"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "下载 ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "下载 Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "解密内容",
@@ -1408,7 +1424,7 @@
                 "no_username": "无用户名",
                 "no_website": "无网站",
                 "no_category": "无类别",
-                "no_zelf_name": "无标签名称",
+                "no_zelf_name": "无Zelf ID",
                 "unknown_date": "未知日期",
                 "decrypt": {
                     "button": "解密密码",
@@ -1421,15 +1437,15 @@
                     "username": "用户名",
                     "category": "类别",
                     "created": "已创建",
-                    "zelf_name": "标签名称",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "IPFS 哈希",
                     "copy_url": "复制网站 URL",
                     "launch_website": "启动网站",
                     "prefill_autofill": "自动填充预填充"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "下载 ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "下载 Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "解密内容",
@@ -1541,7 +1557,7 @@
                     "username": "用户名",
                     "type": "类型",
                     "category": "类别",
-                    "zelf_name": "标签名称",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "时间戳"
                 }
             },
@@ -1584,9 +1600,9 @@
                 "explorer_link": "在浏览器上查看"
             },
             "zelfproof": {
-                "title": "ZelfProof",
+                "title": "Zelf ID QR",
                 "labels": {
-                    "string": "ZelfProof 字符串",
+                    "string": "Zelf ID QR 字符串",
                     "qr_code": "二维码"
                 },
                 "copy_hint": "点击复制"
@@ -1615,7 +1631,7 @@
         }
     },
     "domain_selection": {
-        "title": "为您的标签名称选择域名"
+        "title": "为您的Zelf ID选择域名"
     },
     "zotp": {
         "add_zotp": "添加 ZOTP",
@@ -1791,7 +1807,7 @@
         "start_earning_desc": "分享您的邀请码，开始赚取奖励！",
         "status": {
             "purchased": "已购买",
-            "registered": "标签名称自 {{ date }} 起注册",
+            "registered": "Zelf ID自 {{ date }} 起注册",
             "pending": "待处理"
         },
         "claim": "领取 {{ amount }} $ZNS"
@@ -1823,7 +1839,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "不要丢失您的 ZelfName",
+            "title": "不要丢失您的 Zelf ID",
             "expired": "已过期",
             "one_day": "距离购买您的 ZNS 还剩 1 天",
             "days_left": "距离购买您的 ZNS 还剩 {{ days }} 天"

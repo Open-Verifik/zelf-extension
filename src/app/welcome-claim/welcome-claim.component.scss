@@ -1,0 +1,442 @@
+@use "../../styles/variables";
+@use "../../styles/buttons";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.welcome-claim {
+    min-height: 75vh;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    &__header-button {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        width: 100%;
+        position: relative;
+    }
+
+    // --- Step transition system ---
+    &__step {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+        opacity: 0;
+
+        &--active {
+            display: flex;
+            opacity: 1;
+            animation: stepFadeIn 0.35s cubic-bezier(0.25, 0.4, 0.7, 1) forwards;
+        }
+
+        &--exit {
+            display: none;
+        }
+
+        &--enter {
+            display: flex;
+            animation: stepSlideUp 0.4s cubic-bezier(0.25, 0.4, 0.7, 1) forwards;
+        }
+    }
+
+    // --- Floating Name Cards ---
+    &__name-cards {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1));
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    // --- Step 1: Search ---
+    &__title {
+        text-align: center;
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__subtitle {
+        text-align: center;
+        color: variables.$themeTextSecondary;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        letter-spacing: 0.1px;
+        margin-bottom: calc(24px * var(--zns-space-scale, 1));
+    }
+
+    &__form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(16px * var(--zns-space-scale, 1));
+    }
+
+    &__input {
+        width: 100%;
+        transition:
+            border-color 300ms ease-in-out,
+            box-shadow 300ms ease-in-out;
+
+        &--available {
+            border-color: variables.$correct !important;
+            box-shadow: 0 0 0 1px variables.$correct;
+        }
+
+        &--taken {
+            border-color: variables.$error !important;
+            box-shadow: 0 0 0 1px variables.$error;
+        }
+    }
+
+    &__input-control {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    &__status {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        animation: fadeInUp 300ms ease-out;
+    }
+
+    &__status-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(6px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+        border-radius: 20px;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 600;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
+
+        &--available {
+            background-color: variables.$correctLight;
+            color: variables.$correct;
+        }
+
+        &--taken {
+            background-color: variables.$errorLight;
+            color: variables.$error;
+        }
+    }
+
+    &__continue {
+        margin-top: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    // --- Step 2: Confirm ---
+    &__step-2 {
+        width: 100%;
+    }
+
+    &__identity {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(32px * var(--zns-space-scale, 1)) 0 calc(24px * var(--zns-space-scale, 1));
+        justify-content: center;
+    }
+
+    &__divider {
+        width: 100%;
+        height: 1px;
+        background-color: variables.$themeCardBorder;
+        flex-shrink: 0;
+    }
+
+    &__confirm-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: calc(16px * var(--zns-space-scale, 1));
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding-bottom: calc(8px * var(--zns-space-scale, 1));
+
+        ::ng-deep .zelf-button--primary[disabled] {
+            opacity: 1 !important;
+            background-color: variables.$themeBorder !important;
+            color: variables.$themeTextSecondary !important;
+        }
+
+        ::ng-deep .zelf-button--outlined[disabled] {
+            opacity: 1 !important;
+            border-color: variables.$themeBorder !important;
+            color: variables.$themeTextMuted !important;
+            background-color: transparent !important;
+        }
+    }
+
+    &__referral {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-sizing: border-box;
+    }
+}
+
+/* Domain display styling */
+:host ::ng-deep .zelf-input__postfix--dropdown {
+    min-width: calc(100px * var(--zns-space-scale, 1));
+    padding: calc(6px * var(--zns-space-scale, 1)) calc(6px * var(--zns-space-scale, 1)) calc(6px * var(--zns-space-scale, 1))
+        calc(14px * var(--zns-space-scale, 1));
+    background: #4277FF; /* Blue pill from screenshot */
+    border-radius: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: calc(8px * var(--zns-space-scale, 1));
+}
+
+.domain-display {
+    background: transparent;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    font-family: variables.$themeTitleFamily, inherit;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    min-width: 40px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-icon-container {
+    background: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 150ms ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    svg * {
+        fill: #4277FF !important;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}
+
+.search-button-container {
+    background: rgba(0, 0, 0, 0.15);
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 150ms ease-in-out;
+
+    &:hover:not([disabled]) {
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    svg * {
+        fill: #FFFFFF !important;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}
+
+// --- Animations ---
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes stepFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes stepSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// --- Name Cards ---
+.name-cards__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(8px * var(--zns-space-scale, 1));
+    width: 100%;
+}
+
+.name-card {
+    display: flex;
+    align-items: center;
+    gap: calc(8px * var(--zns-space-scale, 1));
+    padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+    background: variables.$themeCard;
+    border: 1px solid variables.$themeCardBorder;
+    border-radius: calc(12px * var(--zns-space-scale, 1));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    will-change: transform;
+
+    &__avatar {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        min-width: calc(40px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 700;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+
+        &--orange {
+            background-color: #F97316;
+            color: #fff;
+        }
+
+        &--white {
+            background-color: variables.$themeBackground;
+            color: variables.$themeTextSecondary;
+            border: 1px dashed variables.$themeTextMuted;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        min-width: 0;
+    }
+
+    &__name {
+        font-family: variables.$themeBodyFamily;
+        font-weight: 700;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__status {
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+
+        &--active {
+            color: variables.$correct;
+            font-weight: 600;
+        }
+    }
+
+    // Active/Yours card
+    &--active {
+        border: 1.5px dashed #F97316;
+        background: rgba(249, 115, 22, 0.04);
+    }
+
+    // Float animations
+    &--float-1 { animation: floatCard1 4s ease-in-out infinite; }
+    &--float-2 { animation: floatCard2 5s ease-in-out infinite; }
+    &--float-3 { animation: floatCard3 4.5s ease-in-out 0.5s infinite; }
+    &--float-4 { animation: floatCard4 5.5s ease-in-out 1s infinite; }
+    &--float-5 { animation: floatCard5 6s ease-in-out 0.3s infinite; }
+}
+
+@keyframes floatCard1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes floatCard2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes floatCard3 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes floatCard4 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes floatCard5 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}

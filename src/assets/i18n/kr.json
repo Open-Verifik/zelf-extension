@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "QR 코드",
             "no_folder": "폴더 없음",
-            "download_zelfproof": "ZelfProof 다운로드",
+            "download_zelfproof": "Zelf ID QR 다운로드",
             "back_to_payment_cards": "결제 카드 목록으로 돌아가기",
             "add_another_card": "다른 카드 추가",
             "try_again": "다시 시도",
@@ -37,7 +37,7 @@
             },
             "zelfproof": {
                 "title": "결제 카드 정보",
-                "download": "ZelfProof 다운로드"
+                "download": "Zelf ID QR 다운로드"
             },
             "decrypted": {
                 "title": "결제 카드 정보",
@@ -90,7 +90,7 @@
             },
             "image": {
                 "title": "결제 카드 정보",
-                "download": "ZelfProof 다운로드"
+                "download": "Zelf ID QR 다운로드"
             },
             "nft": {
                 "title": "결제 카드 정보",
@@ -131,7 +131,7 @@
             "zelfproof": {
                 "title": "결제 카드 정보",
                 "labels": {
-                    "string": "ZelfProof 문자열",
+                    "string": "Zelf ID QR 문자열",
                     "qr_code": "QR 코드"
                 },
                 "copy_hint": "클릭하여 복사"
@@ -240,7 +240,7 @@
             "no_qr": "QR 없음",
             "untitled": "제목 없음",
             "username_label": "사용자 이름: {{ username }}",
-            "zelf_name_label": "태그 이름: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "카테고리: {{ category }}",
             "type_label": "유형: {{ type }}",
             "secure_credential": "보안 자격 증명"
@@ -345,7 +345,7 @@
                         "folder": "폴더",
                         "type": "유형",
                         "category": "카테고리",
-                        "zelf_name": "태그 이름",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "타임스탬프"
                     }
                 },
@@ -385,11 +385,11 @@
                 "zelfproof": {
                     "title": "결제 카드 정보",
                     "labels": {
-                        "string": "ZelfProof 문자열",
+                        "string": "Zelf ID QR 문자열",
                         "qr_code": "QR 코드"
                     },
                     "copy_hint": "클릭하여 복사",
-                    "qr_alt": "ZelfProof QR 코드"
+                    "qr_alt": "Zelf ID QR 코드"
                 },
                 "debug": {
                     "title": "결제 카드 정보"
@@ -433,14 +433,14 @@
     },
     "cancel": "취소",
     "confirm": "확인",
-    "logout_message": "이 작업을 확인하면 확장 프로그램에서 모든 ZelfProof가 삭제됩니다. 다시 액세스하려면 각 ZelfProof를 다시 복호화해야 합니다. 계속하시겠습니까?",
+    "logout_message": "이 작업을 확인하면 확장 프로그램에서 모든 Zelf ID QR가 삭제됩니다. 다시 액세스하려면 각 Zelf ID QR를 다시 복호화해야 합니다. 계속하시겠습니까?",
     "logout_title": "모든 ZELFPROOF 삭제",
     "onboarding": {
         "lifetime": "평생",
         "step_1_description": "시드 구문을 잊어버리거나, 잃어버리거나, 노출될 걱정이 없습니다.",
         "step_1": "시드 구문을 암호화하는 3단계",
-        "step_2_description": "ZelfProof를 복호화하여 몇 초 만에 시드 구문 백업",
-        "step_2": "ZelfProof 찾기 및 복호화",
+        "step_2_description": "Zelf ID QR를 복호화하여 몇 초 만에 시드 구문 백업",
+        "step_2": "Zelf ID QR 찾기 및 복호화",
         "step_3_description": "로컬 기기가 아닌 블록체인에 시드 구문의 zk-FaceProof 저장",
         "step_3": "시드 구문 해킹 방지",
         "year": "년"
@@ -476,8 +476,8 @@
         "recent_addresses": "최근",
         "used": "{{days}}일 전에 사용됨",
         "withdrawal_amount": "출금 금액",
-        "zelf_name_not_registered": "태그 이름이 등록되지 않음",
-        "zelf_name_registered": "태그 이름이 등록됨",
+        "zelf_name_not_registered": "Zelf ID이 등록되지 않음",
+        "zelf_name_registered": "Zelf ID이 등록됨",
         "from_address": "보내는 주소",
         "private_transaction": "프라이빗 트랜잭션",
         "amount_inline_required": "Required",
@@ -503,17 +503,17 @@
         "share_transaction": "거래 공유"
     },
     "welcome": {
-        "code_name": "추천 태그 이름",
+        "code_name": "추천 Zelf ID",
         "domain_expired_since": "{{ date }}부터 도메인 만료됨",
         "decrypt_and_reserve": "복호화 및 예약",
         "decrypt_now_pay_later": "지금 복호화하고 나중에 결제",
         "decrypt_now_renew_later": "지금 복호화하고 나중에 갱신",
-        "dont_lose_your_zelfname": "안녕하세요! 다른 사람이 구매하기 전에 오늘 태그 이름을 갱신하거나 예약하세요.",
-        "dont_remember_zelfname": "태그 이름을 기억하지 못하시나요?",
+        "dont_lose_your_zelfname": "안녕하세요! 다른 사람이 구매하기 전에 오늘 Zelf ID을 갱신하거나 예약하세요.",
+        "dont_remember_zelfname": "Zelf ID을 기억하지 못하시나요?",
         "enjoy_your_domain": "도메인을 즐기세요. 다른 사람이 구매하기 전에 구매하는 것을 잊지 마세요!",
         "expiration_date": "만료일 {{ date }}",
-        "find_zelf_name_subtitle": "아래에 공개 주소를 입력하여 기존 태그 이름을 찾으세요:",
-        "find_zelf_name_title": "태그 이름 찾기",
+        "find_zelf_name_subtitle": "아래에 공개 주소를 입력하여 기존 Zelf ID을 찾으세요:",
+        "find_zelf_name_title": "Zelf ID 찾기",
         "got_it": "알겠습니다. 나중에 하겠습니다",
         "grace_period_until": "유예 기간 만료일",
         "import_subtitle": "기존 지갑을 검증하고 가져오기 위해 비밀 복구 단어를 사용합니다. 아래에 입력해 주세요.",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "잘못된 추천 코드",
         "name_expires": "이름 만료",
         "new_domain": "새 도메인",
-        "offline_subtitle": "이 ZelfProof는 오프라인에서 생성되어 다른 보안 시스템을 사용합니다. 현재는 확장 프로그램과 호환되지 않습니다. 곧 사용 가능해질 예정입니다.",
-        "offline_tip": "하지만 걱정하지 마세요! 다른 태그 이름으로 ZelfProof를 가져와서 확장 프로그램에서 접근할 수 있습니다.",
+        "offline_subtitle": "이 Zelf ID QR는 오프라인에서 생성되어 다른 보안 시스템을 사용합니다. 현재는 확장 프로그램과 호환되지 않습니다. 곧 사용 가능해질 예정입니다.",
+        "offline_tip": "하지만 걱정하지 마세요! 다른 Zelf ID으로 Zelf ID QR를 가져와서 확장 프로그램에서 접근할 수 있습니다.",
         "i_understand_go_back": "이해했습니다. 홈으로 돌아가기",
         "old_domain": "기존 도메인",
         "paste_your_recovery_phrase": "비밀 복구 구문 전체를 아무 필드에 붙여넣을 수 있습니다",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>이(가) 이미 사용 중이지만 걱정하지 마세요! 동일한 시드 구문으로 ZelfProof에 접근하고 새로운 태그 이름을 예약할 수 있습니다.",
-        "pick_your_new_zelfname": "새로운 태그 이름 선택",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>이(가) 이미 사용 중이지만 걱정하지 마세요! 동일한 시드 구문으로 Zelf ID QR에 접근하고 새로운 Zelf ID을 예약할 수 있습니다.",
+        "pick_your_new_zelfname": "새로운 Zelf ID 선택",
         "public_address_input": "ETH 또는 SOL 공개 주소를 여기에 입력하세요",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>이(가) 아직 사용 가능합니다. 동일한 시드 구문으로 ZelfProof에 접근하고 태그 이름을 복구할 수 있습니다.",
-        "recover_your_zelfname": "태그 이름 복구",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>이(가) 아직 사용 가능합니다. 동일한 시드 구문으로 Zelf ID QR에 접근하고 Zelf ID을 복구할 수 있습니다.",
+        "recover_your_zelfname": "Zelf ID 복구",
         "referral_code": "추천 코드 (선택사항)",
         "referral_successfully_registered": "추천 코드가 성공적으로 등록됨",
         "registered_since": "{{ date }}부터 등록됨",
-        "registered": "{{ date }}부터 등록된 태그 이름",
+        "registered": "{{ date }}부터 등록된 Zelf ID",
         "renew_your_domain_today": "다른 사람이 구매하기 전에 오늘 도메인을 갱신하세요.",
-        "search_another_zelfname": "다른 태그 이름 검색",
-        "search_your_new_zelfname": "새로운 태그 이름 검색",
+        "search_another_zelfname": "다른 Zelf ID 검색",
+        "search_your_new_zelfname": "새로운 Zelf ID 검색",
         "transfer_done": "이체 완료",
-        "upload_zelf_proof": "또는 ZelfProof QR 코드를 업로드하여 계속하세요:",
+        "upload_zelf_proof": "또는 Zelf ID QR 코드를 업로드하여 계속하세요:",
         "you_can_transfer_this_domain": "이 도메인을 이전할 수 있습니다",
         "you_will_register_this_domain": "Zelf Name Service의 새로운 신원",
         "safeguard_your_crypto": "암호화폐를 안전하게 보호하세요!",
-        "offline_import_subtitle": "오프라인 지갑을 가져오기 전에 새로운 태그 이름을 선택해야 합니다.",
-        "your_zelf_name": "귀하의 태그 이름"
+        "offline_import_subtitle": "오프라인 지갑을 가져오기 전에 새로운 Zelf ID을 선택해야 합니다.",
+        "your_zelf_name": "귀하의 Zelf ID",
+        "create_new_account": "Zelf ID 만들기",
+        "i_already_have_a_wallet": "이미 지갑이 있어요",
+        "choose_tag_name_title": "Zelf ID 선택",
+        "choose_tag_name_subtitle": "Zelf 네트워크에서 사용할 고유한 이름을 선택하세요",
+        "choose_tag_name_placeholder": "Zelf ID 입력",
+        "preview_name_placeholder": "yourname",
+        "search_name_aria": "이 이름 검색",
+        "tag_name_available": "사용 가능합니다! 이 이름을 사용할 수 있습니다",
+        "tag_name_taken": "이 이름은 이미 사용 중입니다",
+        "import_wallet_title": "지갑 가져오기",
+        "import_wallet_subtitle": "지갑 주소를 입력하거나 Zelf ID QR 코드를 스캔하여 기존 계정을 복구하세요",
+        "import_with_seed_phrase": "Zelf ID QR이 없습니다 — 시드 구문으로 가져오기",
+        "feature_multichain": "멀티체인",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "셀프 커스터디"
     },
     "settings": {
         "networks_label": "네트워크",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "다음 사용 시 PIN 및 생체 인증이 필요합니다.",
             "lock_vault_button": "금고 잠그기",
             "remove_keys_title": "금고에서 키 제거",
-            "remove_keys_description": "이 기기에서 모든 키를 영구적으로 제거합니다. ZelfProof를 다시 사용하려면 복구해야 합니다. 삭제 전에 취소할 수 있는 카운트다운이 제공됩니다.",
+            "remove_keys_description": "이 기기에서 모든 키를 영구적으로 제거합니다. Zelf ID QR를 다시 사용하려면 복구해야 합니다. 삭제 전에 취소할 수 있는 카운트다운이 제공됩니다.",
             "remove_keys_button": "금고에서 키 제거",
             "remove_keys_countdown_minutes": "{{ minutes }}분 {{ seconds }}초 후 키가 제거됩니다",
             "remove_keys_countdown_seconds": "{{ seconds }}초 후 키가 제거됩니다",
@@ -615,18 +630,18 @@
     "security": {
         "biometric_decryption_subtitle": "복호화 프로세스를 완료하기 위해 생체 인증을 사용하여 본인을 확인해야 합니다.",
         "biometric_decryption_title": "생체 인증 복호화",
-        "biometric_subtitle": "다음으로, 비밀번호와 함께 셀카를 찍어 ZelfProof 암호화에 사용할 개인 키를 생성합니다. <strong>생체 인증 데이터는 다른 목적으로 수집하거나 사용하지 않습니다.</strong>",
+        "biometric_subtitle": "다음으로, 비밀번호와 함께 셀카를 찍어 Zelf ID QR 암호화에 사용할 개인 키를 생성합니다. <strong>생체 인증 데이터는 다른 목적으로 수집하거나 사용하지 않습니다.</strong>",
         "biometric_title": "생체 인증 암호화 레이어",
         "hide_words": "단어 숨기기",
         "medium": "보통",
-        "new_password_subtitle": "다음 비밀번호는 ZelfProof에 필요한 암호화 레이어입니다.",
-        "password_decryption": "태그 이름에는 비밀번호가 필요합니다",
+        "new_password_subtitle": "다음 비밀번호는 Zelf ID QR에 필요한 암호화 레이어입니다.",
+        "password_decryption": "Zelf ID에는 비밀번호가 필요합니다",
         "password_parameters_title": "비밀번호 가이드라인",
         "password_parameters": "비밀번호 가이드라인은 다음과 같습니다: <ul><li>8자에서 128자 사이여야 합니다</li><li>최소 1개의 대문자를 포함해야 합니다</li><li>1개의 소문자를 포함해야 합니다</li><li>1개의 숫자를 포함해야 합니다</li><li>1개의 특수문자를 포함해야 합니다</li><li>일반적인 비밀번호를 피하세요</li><li>문자 반복을 피하세요</li></ul>",
         "password_strength_label": "비밀번호 강도",
-        "password_subtitle": "복호화 프로세스를 완료하기 위해 이 태그 이름에 할당된 비밀번호를 입력하세요.",
+        "password_subtitle": "복호화 프로세스를 완료하기 위해 이 Zelf ID에 할당된 비밀번호를 입력하세요.",
         "pin_description": "6자리 PIN 만들기",
-        "pin_unlock_description": "PIN을 사용하여 ZelfProof 잠금 해제",
+        "pin_unlock_description": "PIN을 사용하여 Zelf ID QR 잠금 해제",
         "pin_confirm_description": "6자리 PIN을 다시 입력하여 확인해 주세요",
         "pin_title": "PIN",
         "secure_password_description": "추가 보안 레이어",
@@ -635,16 +650,16 @@
         "security_layer_title": "보안 레이어",
         "strong": "강함",
         "subtitle": "시드 구문의 길이를 선택하고 암호화 프로세스를 진행하세요.",
-        "title": "ZelfProof 암호화 레이어",
+        "title": "Zelf ID QR 암호화 레이어",
         "unhide_words": "단어 표시",
         "weak": "약함",
         "weak_password": "약한 비밀번호",
         "without_password_description": "더 빠르지만 덜 안전함",
         "without_password_title": "비밀번호 없음",
         "create_pin_title": "PIN 만들기",
-        "create_pin_subtitle": "ZelfProof를 위한 6자리 비밀번호를 입력하세요.",
+        "create_pin_subtitle": "Zelf ID QR를 위한 6자리 비밀번호를 입력하세요.",
         "confirm_pin_title": "PIN 확인",
-        "confirm_pin_subtitle": "ZelfProof를 위한 6자리 비밀번호를 다시 입력하세요."
+        "confirm_pin_subtitle": "Zelf ID QR를 위한 6자리 비밀번호를 다시 입력하세요."
     },
     "receive": {
         "information": "이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
@@ -682,6 +697,7 @@
         "are_you_sure": "확실합니까?",
         "asset": "자산",
         "available": "사용 가능",
+        "authorized": "인증됨",
         "avax_address": "AVAX 주소",
         "balance": "잔액",
         "bdag_address": "BDAG 주소",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "새 지갑 만들기",
         "date": "날짜",
         "days": "일",
-        "decrypt_zelfname": "태그 이름 복호화",
+        "decrypt_zelfname": "Zelf ID 복호화",
         "do_it_later": "나중에 하기",
         "documentation": "문서",
         "domain_expired": "도메인 만료됨",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "다시 보지 않기",
         "dont_show_this_message_again": "이 안내를 다시 보지 않기",
         "download_qr": "QR 다운로드",
-        "download_zelfproof": "ZelfProof 다운로드",
+        "download_zelfproof": "Zelf ID QR 다운로드",
         "edit": "편집",
         "eth_address": "이더리움 주소",
         "extend_registration": "구독 연장",
@@ -728,9 +744,9 @@
         "is_required": "필수 항목입니다",
         "learn_more": "자세히 알아보기",
         "load_more": "더 보기",
-        "login": "ZelfProof 복호화",
-        "logout": "ZelfProof 제거",
-        "manage_domains": "ZelfName 관리",
+        "login": "Zelf ID QR 복호화",
+        "logout": "Zelf ID QR 제거",
+        "manage_domains": "Zelf ID 관리",
         "max": "최대",
         "my_arns": "내 ArNS",
         "navigating_away_will_cancel": "페이지를 나가면 진행 상황이 취소됩니다. 뒤로 가시겠습니까?",
@@ -754,13 +770,13 @@
         "receive": "수신",
         "recommended": "추천",
         "refresh": "새로고침",
-        "registered": "{{ date }}부터 등록된 태그 이름",
-        "remove_all_zelfproofs": "모든 ZelfProof 제거",
+        "registered": "{{ date }}부터 등록된 Zelf ID",
+        "remove_all_zelfproofs": "모든 Zelf ID QR 제거",
         "remove": "제거",
         "renew_domain": "도메인 갱신",
         "renew_subscription": "구독 갱신",
         "reservation_found": "예약 발견됨",
-        "search_your_zelf_name": "ZelfName 검색",
+        "search_your_zelf_name": "Zelf ID 검색",
         "search": "검색...",
         "seed_phrase": "시드 구문",
         "send_symbol": "{{symbol}} 보내기",
@@ -849,13 +865,13 @@
         "registered_until": "만료일"
     },
     "manage_domains": {
-        "are_you_sure_you_want_to_delete": "이 ZelfProof를 제거하시겠습니까?",
-        "domain_error": "{{ zelfName }}의 체험 기간이 종료되었습니다. 이 태그 이름을 계속 사용하려면 구독을 구매해야 합니다",
+        "are_you_sure_you_want_to_delete": "이 Zelf ID QR를 제거하시겠습니까?",
+        "domain_error": "{{ zelfName }}의 체험 기간이 종료되었습니다. 이 Zelf ID을 계속 사용하려면 구독을 구매해야 합니다",
         "domain_warning": "아직 구매할 시간이 있습니다",
-        "expired_wallet_logout_message": "태그 이름으로 검색하면 이 ZelfProof를 다시 복호화할 수 있습니다. 그러나 곧 구매하지 않으면 잃을 위험이 있습니다.",
-        "logout_of_wallet_message": "태그 이름으로 검색하거나 ZelfProof QR 코드를 로드하여 이 ZelfProof를 다시 복호화할 수 있습니다.",
-        "purchase_new_domain": "새 태그 이름 추가",
-        "zelfproof_removed_successfully": "ZelfProof가 성공적으로 제거되었습니다"
+        "expired_wallet_logout_message": "Zelf ID으로 검색하면 이 Zelf ID QR를 다시 복호화할 수 있습니다. 그러나 곧 구매하지 않으면 잃을 위험이 있습니다.",
+        "logout_of_wallet_message": "Zelf ID로 검색하거나 Zelf ID QR 코드를 로드하여 이 Zelf ID QR를 다시 복호화할 수 있습니다.",
+        "purchase_new_domain": "새 Zelf ID 추가",
+        "zelfproof_removed_successfully": "Zelf ID QR가 성공적으로 제거되었습니다"
     },
     "liveness": {
         "center_your_face": "화면 중앙에 얼굴을 위치시키세요",
@@ -869,17 +885,17 @@
         "address_too_long": "주소가 너무 깁니다",
         "all_fields_required": "모든 필드가 필요합니다",
         "camera_dimensions_not_properly_initialized": "카메라가 제대로 초기화되지 않았습니다",
-        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP를 복호화할 수 없음: ZelfProof가 누락되었습니다. 유효한 ZelfProof 없이는 이 ZOTP를 복호화할 수 없습니다.",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP를 복호화할 수 없음: Zelf ID QR가 누락되었습니다. 유효한 Zelf ID QR 없이는 이 ZOTP를 복호화할 수 없습니다.",
         "cannot_swap_across_these_networks": "아직 이 네트워크 간 스왑이 불가능합니다. 나중에 다시 시도해주세요.",
         "chart_not_found": "차트 데이터를 사용할 수 없습니다",
-        "Duplicated_person": "ZelfProof가 다른 기록에 사용 중입니다",
+        "Duplicated_person": "Zelf ID QR가 다른 기록에 사용 중입니다",
         "empty_password": "비밀번호는 비워둘 수 없습니다",
-        "ERR_DESCRIPTION": "ZelfProof를 잠금 해제하려면 지시사항을 올바르게 따라주세요",
-        "ERR_INVALID_PASSWORD": "이 ZelfProof의 비밀번호가 유효하지 않습니다",
+        "ERR_DESCRIPTION": "Zelf ID QR를 잠금 해제하려면 지시사항을 올바르게 따라주세요",
+        "ERR_INVALID_PASSWORD": "이 Zelf ID QR의 비밀번호가 유효하지 않습니다",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "얼굴 각도가 너무 큽니다",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "얼굴이 경계에 너무 가깝습니다",
         "ERR_LIVENESS_FAILED": "생체 감지에 실패했습니다",
-        "ERR_UNPROCESSABLE_CONTENT": "ZelfProof를 복호화할 수 없습니다",
+        "ERR_UNPROCESSABLE_CONTENT": "Zelf ID QR를 복호화할 수 없습니다",
         "ERR_VERIFICATION_FAILED": "생체 감지에 실패했습니다",
         "error_closing_popup": "창을 닫는 중 오류 발생",
         "error_initializing_biometrics": "생체 인증 초기화 오류",
@@ -892,8 +908,8 @@
         "generic_title": "오류가 발생했습니다",
         "generic": "죄송합니다. 요청을 처리하는 중에 문제가 발생했습니다. 다시 시도해주세요.",
         "incorrect_passphrase": "마스터 비밀번호가 올바르지 않습니다. 다시 시도해 주세요.",
-        "incorrect_zelf_proof_message": "제공된 파일이 유효한 ZelfProof가 아닌 것 같습니다. 다시 시도해주세요.",
-        "incorrect_zelf_proof_title": "잘못된 ZelfProof",
+        "incorrect_zelf_proof_message": "제공된 파일이 유효한 Zelf ID QR가 아닌 것 같습니다. 다시 시도해주세요.",
+        "incorrect_zelf_proof_title": "잘못된 Zelf ID QR",
         "insufficient_funds": "잔액이 부족합니다. 거래 수수료를 충당할 만큼의 자금이 지갑에 있는지 확인하세요.",
         "invalid_credentials": "유효하지 않은 인증 정보",
         "invalid_format": "유효하지 않은 형식",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "{{ value }}보다 커야 합니다",
         "must_be_less_than": "{{ value }}보다 작아야 합니다",
         "no_decrypted_data_received_from_api": "서버로부터 복호화된 데이터를 받지 못했습니다",
-        "no_zelfproof_available_for_password_decryption": "비밀번호 복호화를 위한 ZelfProof를 사용할 수 없습니다",
+        "no_zelfproof_available_for_password_decryption": "비밀번호 복호화를 위한 Zelf ID QR를 사용할 수 없습니다",
         "not_found": "기록을 찾을 수 없습니다",
         "password_doesnt_match": "비밀번호가 일치하지 않습니다",
         "password_incorrect": "비밀번호가 올바르지 않습니다",
@@ -921,11 +937,11 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "라이브니스 확인이 실패했습니다. 다시 시도해 주세요."
         },
-        "person_already_set": "귀하의 등록에는 이미 ZelfProof가 연결되어 있습니다",
+        "person_already_set": "귀하의 등록에는 이미 Zelf ID QR가 연결되어 있습니다",
         "private_key_locked": "개인키가 잠겼습니다. 계속하려면 생체 인증을 수행해야 합니다.",
         "required_field": "이 필드는 필수입니다",
         "same_address": "동일한 주소로 자금을 보낼 수 없습니다",
-        "session_init_info": "태그 이름 서비스 확장 프로그램을 사용하려면 네트워크 연결이 필요합니다. 오프라인 솔루션은 iOS 및 Android 앱을 확인해 주세요.",
+        "session_init_info": "Zelf ID 서비스 확장 프로그램을 사용하려면 네트워크 연결이 필요합니다. 오프라인 솔루션은 iOS 및 Android 앱을 확인해 주세요.",
         "session_init_message": "죄송합니다, 세션을 초기화하는 중에 문제가 발생했습니다. 네트워크 문제이거나 서버를 사용할 수 없는 상태일 수 있습니다. 다시 시도해 주세요.",
         "session_init_title": "세션 초기화 실패",
         "something_went_wrong": "문제가 발생했습니다. 다시 시도해주세요",
@@ -934,7 +950,7 @@
         "try_again": "다시 시도",
         "unknown_error": "알 수 없는 오류가 발생했습니다",
         "user_cancelled_decryption": "복호화가 취소되었습니다",
-        "zelfName_is_taken": "이 태그 이름은 이미 사용 중입니다",
+        "zelfName_is_taken": "이 Zelf ID은 이미 사용 중입니다",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,23 +1056,23 @@
         "ru": "러시아어"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "이 태그 이름을 더 이상 원하지 않습니다",
-        "choose_new_zelfname": "새로운 태그 이름 선택",
+        "i_dont_want_this_wallet": "이 Zelf ID을 더 이상 원하지 않습니다",
+        "choose_new_zelfname": "새로운 Zelf ID 선택",
         "recover_it_now": "지금 복구하기",
         "delete_wallet_title": "태그 제거",
-        "delete_wallet_message": "태그를 제거하기 전에 ZelfProof QR 코드를 백업했는지 확인하세요.",
+        "delete_wallet_message": "태그를 제거하기 전에 Zelf ID QR 코드를 백업했는지 확인하세요.",
         "yes_because": "네, 그 이유는:",
         "thanks_for_subscribing": "구독해 주셔서 감사합니다",
         "make_zelfname_yours": "{{ zelfName }}을(를) 당신의 것으로 만들기",
         "keep_zelfname_yours": "{{ zelfName }}을(를) 당신의 것으로 유지하기",
-        "love_your_zelfname": "당신의 태그 이름이 마음에 드시나요?",
+        "love_your_zelfname": "당신의 Zelf ID이 마음에 드시나요?",
         "time_is_running_out": "시간이 얼마 남지 않았습니다",
-        "not_much_time_left": "당신의 태그 이름이 조금 더 예약되어 있지만, 너무 오래 기다리지 마세요!",
+        "not_much_time_left": "당신의 Zelf ID이 조금 더 예약되어 있지만, 너무 오래 기다리지 마세요!",
         "oh_no": "이런!",
         "thanks_for_reserving": "예약해 주셔서 감사합니다",
         "is_no_longer_available": "더 이상 사용할 수 없습니다",
         "has_been_taken": "이미 사용 중입니다",
-        "benefit_title": "태그 이름으로 얻을 수 있는 혜택:",
+        "benefit_title": "Zelf ID으로 얻을 수 있는 혜택:",
         "benefit_1_title": "오프라인 암호화",
         "benefit_1_subtitle": "당신의 키, 당신의 통제",
         "benefit_2_title": "초개인정보 복호화",
@@ -1077,9 +1093,9 @@
         "is_still_available": "아직 사용 가능합니다",
         "resubscribe_within": "{{ days }}일 이내에 재구독하세요",
         "complete_purchase_within": "1년 보안을 위해 {{ days }}일 이내에 구매를 완료하세요",
-        "have_you_explored_the_benefits": "태그 이름과 ZkProofs의 혜택을 살펴보셨나요?",
+        "have_you_explored_the_benefits": "Zelf ID과 ZkProofs의 혜택을 살펴보셨나요?",
         "but_someone_else_could_grab_it": "다른 사람이 가져갈 수 있습니다! 종이에 시드 구문을 적어두는 위험을 감수하지 마세요!",
-        "but_dont_worry_you_can_access_your_zelfproof": "걱정하지 마세요. 같은 시드 구문으로 태그 이름에 접근하고 새로운 태그 이름을 예약할 수 있습니다.",
+        "but_dont_worry_you_can_access_your_zelfproof": "걱정하지 마세요. 같은 시드 구문으로 Zelf ID에 접근하고 새로운 Zelf ID을 예약할 수 있습니다.",
         "considerations_description_1": "깨지지 않는 보안.",
         "considerations_description_2": "고유한 정체성.",
         "considerations_description_3": "미래 지향적 보호."
@@ -1100,7 +1116,7 @@
             "payment_method": "결제 수단:",
             "status": "상태",
             "transaction": "트랜잭션",
-            "zelf_name": "태그 이름",
+            "zelf_name": "Zelf ID",
             "start_date": "시작일:",
             "expires_on": "만료일:",
             "next_billing": "다음 결제일:",
@@ -1206,7 +1222,7 @@
                 },
                 "zelfproof": {
                     "title": "결제 카드 정보",
-                    "download": "ZelfProof 다운로드"
+                    "download": "Zelf ID QR 다운로드"
                 },
                 "decrypted": {
                     "title": "결제 카드 정보",
@@ -1327,7 +1343,7 @@
                 },
                 "zelfproof": {
                     "title": "결제 카드 정보",
-                    "download": "ZelfProof 다운로드"
+                    "download": "Zelf ID QR 다운로드"
                 },
                 "decrypted": {
                     "title": "결제 카드 정보",
@@ -1408,7 +1424,7 @@
                 "no_username": "사용자 이름 없음",
                 "no_website": "웹사이트 없음",
                 "no_category": "카테고리 없음",
-                "no_zelf_name": "태그 이름 없음",
+                "no_zelf_name": "Zelf ID 없음",
                 "unknown_date": "날짜 파악 불가",
                 "decrypt": {
                     "button": "결제 카드 복호화",
@@ -1421,7 +1437,7 @@
                     "username": "사용자 이름",
                     "category": "카테고리",
                     "created": "생성일",
-                    "zelf_name": "태그 이름",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "IPFS 해시",
                     "copy_url": "웹사이트 URL 복사",
                     "launch_website": "웹사이트 실행",
@@ -1429,7 +1445,7 @@
                 },
                 "zelfproof": {
                     "title": "결제 카드 정보",
-                    "download": "ZelfProof 다운로드"
+                    "download": "Zelf ID QR 다운로드"
                 },
                 "decrypted": {
                     "title": "결제 카드 정보",
@@ -1541,7 +1557,7 @@
                     "username": "사용자 이름",
                     "type": "유형",
                     "category": "카테고리",
-                    "zelf_name": "태그 이름",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "타임스탬프"
                 }
             },
@@ -1586,7 +1602,7 @@
             "zelfproof": {
                 "title": "결제 카드 정보",
                 "labels": {
-                    "string": "ZelfProof 문자열",
+                    "string": "Zelf ID QR 문자열",
                     "qr_code": "QR 코드"
                 },
                 "copy_hint": "클릭하여 복사"
@@ -1791,7 +1807,7 @@
         "start_earning_desc": "코드를 공유하고 보상을 받기 시작하세요!",
         "status": {
             "purchased": "구매 완료",
-            "registered": "{{ date }}부터 등록된 태그 이름",
+            "registered": "{{ date }}부터 등록된 Zelf ID",
             "pending": "대기 중"
         },
         "claim": "{{ amount }} $ZNS 받기"
@@ -1823,7 +1839,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "ZelfName을 잃지 마세요",
+            "title": "Zelf ID를 잃지 마세요",
             "expired": "만료됨",
             "one_day": "ZNS 구매까지 1일 남았습니다",
             "days_left": "ZNS 구매까지 {{ days }}일 남았습니다"

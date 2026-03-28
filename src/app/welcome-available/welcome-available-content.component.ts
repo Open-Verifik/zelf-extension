@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, OnChanges, OnDestroy, Output, EventEmitter, SimpleChanges } from "@angular/core";
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { AbstractControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { TranslocoModule } from "@jsverse/transloco";
@@ -30,6 +30,21 @@ export class WelcomeAvailableContentComponent implements OnDestroy, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes["invalidReferral"]?.currentValue === true) {
             this.referralExpanded = true;
+        }
+        this._syncReferralNameDisabledState();
+    }
+
+    /** Avoid `[disabled]` on inputs with formControlName — use control.disable()/enable() instead. */
+    private _syncReferralNameDisabledState(): void {
+        const control = this.form?.get("referralName") as AbstractControl | null;
+        if (!control) return;
+
+        const shouldDisable = this.loadingReferral || this.loading || !!this.zelfNameObject;
+
+        if (shouldDisable && control.enabled) {
+            control.disable({ emitEvent: false });
+        } else if (!shouldDisable && control.disabled) {
+            control.enable({ emitEvent: false });
         }
     }
 

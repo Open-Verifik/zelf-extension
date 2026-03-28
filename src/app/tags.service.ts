@@ -187,6 +187,10 @@ export class TagsService {
     baseUrl: String = environment.apiUrl;
     variables: any;
 
+    /** Lowercase TLDs with status active from GET /api/tags/domains; undefined = not loaded yet */
+    private _activeDomainKeys?: Set<string>;
+    private _activeDomainsPromise: Promise<Set<string>> | null = null;
+
     constructor(
         private _httpWrapper: HttpWrapperService,
         private _chromeService: ChromeService,
@@ -222,12 +226,56 @@ export class TagsService {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/tags/domains/${domain}`);
     }
 
-    // Search Endpoints
-    searchTag(request: TagSearchRequest): Promise<{ data: TagSearchResponse }> {
+    /**
+     * Resolves `domain` for tag search: if the TLD is not active per /api/tags/domains, uses `zelf` to avoid repeated 409s.
+     * On domains fetch failure, returns the requested domain unchanged.
+     */
+    private async resolveDomainForTagSearch(domain: string | undefined): Promise<string | undefined> {
+        if (!domain) return domain;
+        const keys = await this.loadActiveDomainKeys();
+        if (keys.size === 0) return domain;
+        const d = domain.toLowerCase();
+        if (keys.has(d)) return d;
+        return "zelf";
+    }
+
+    private loadActiveDomainKeys(): Promise<Set<string>> {
+        if (this._activeDomainsPromise) return this._activeDomainsPromise;
+        if (this._activeDomainKeys !== undefined) return Promise.resolve(this._activeDomainKeys!);
+
+        this._activeDomainsPromise = (async () => {
+            try {
+                const res = await this.getTagDomains();
+                const data = res?.data ?? {};
+                const keys = new Set<string>();
+                for (const name of Object.keys(data)) {
+                    const cfg = data[name] as DomainConfiguration;
+                    if (cfg?.status === "active") keys.add(name.toLowerCase());
+                }
+                this._activeDomainKeys = keys;
+                return keys;
+            } catch {
+                this._activeDomainKeys = new Set();
+                return this._activeDomainKeys;
+            } finally {
+                this._activeDomainsPromise = null;
+            }
+        })();
+
+        return this._activeDomainsPromise;
+    }
+
+    /** Search Endpoints */
+    async searchTag(request: TagSearchRequest): Promise<{ data: TagSearchResponse }> {
         const query: any = {};
+        let domain = request.domain;
+
+        if (request.tagName && domain) {
+            domain = await this.resolveDomainForTagSearch(domain);
+        }
 
         if (request.tagName) query.tagName = request.tagName;
-        if (request.domain) query.domain = request.domain;
+        if (domain) query.domain = domain;
         if (request.key) query.key = request.key;
         if (request.value) query.value = request.value;
         if (request.os) query.os = request.os;
@@ -236,8 +284,19 @@ export class TagsService {
         return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/tags/search`, query);
     }
 
-    searchTagPost(request: TagSearchRequest): Promise<{ data: TagSearchResponse }> {
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/search`, request);
+    async searchTagPost(request: TagSearchRequest): Promise<{ data: TagSearchResponse }> {
+        let domain = request.domain;
+
+        if (request.tagName && domain) {
+            domain = await this.resolveDomainForTagSearch(domain);
+        }
+
+        const body = {
+            ...request,
+            ...(domain !== undefined ? { domain } : {}),
+        };
+
+        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/search`, body);
     }
 
     searchTagsByDomain(domain: string, storage: StorageSystem): Promise<any> {

@@ -1,5 +1,5 @@
 import { NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnDestroy, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
@@ -32,7 +32,7 @@ import { ZelfSettingsDappsComponent } from "./zelf-settings-dapps/zelf-settings-
     styleUrls: ["./zelf-settings.component.scss"],
     templateUrl: "./zelf-settings.component.html",
 })
-export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
+export class ZelfSettingsComponent implements OnDestroy {
     @ViewChild("networksIcon", { static: true }) networksIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("securityIcon", { static: true }) securityIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
     @ViewChild("languageIcon", { static: true }) languageIcon: TemplateRef<HTMLDivElement> = {} as TemplateRef<HTMLDivElement>;
@@ -47,7 +47,38 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
         icon: string;
         routerLink: string[];
         queryParams: Record<string, string>;
-    }[] = [];
+    }[] = [
+        {
+            text: "settings.networks_label",
+            icon: "networksIcon",
+            routerLink: ["./"],
+            queryParams: { edit: "networks" },
+        },
+        {
+            text: "settings.security_label",
+            icon: "securityIcon",
+            routerLink: ["./"],
+            queryParams: { edit: "security" },
+        },
+        {
+            text: "settings.language_label",
+            icon: "languageIcon",
+            routerLink: ["./"],
+            queryParams: { edit: "language" },
+        },
+        {
+            text: "settings.dapps_label",
+            icon: "dappsConnectionsIcon",
+            routerLink: ["./"],
+            queryParams: { edit: "dapps" },
+        },
+        {
+            text: "settings.subscription_label",
+            icon: "subscriptionIcon",
+            routerLink: ["/zelf-keys/billing"],
+            queryParams: { redirect: "/settings" },
+        },
+    ];
 
     footerLinks = [
         {
@@ -83,10 +114,6 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    ngAfterViewInit(): void {
-        this._setSettingItems();
-    }
-
     private _createDialogRef(): MatDialogRef<ConfirmationDialogComponent> {
         return this._dialog.open(ConfirmationDialogComponent, {
             panelClass: "zelf-dialog",
@@ -99,51 +126,6 @@ export class ZelfSettingsComponent implements AfterViewInit, OnDestroy {
                 destructiveButton: true,
             },
         });
-    }
-
-    private _setSettingItems() {
-        this.settingsItems = [
-            {
-                text: "settings.networks_label",
-                icon: "networksIcon",
-                routerLink: ["./"],
-                queryParams: {
-                    edit: "networks",
-                },
-            },
-            {
-                text: "settings.security_label",
-                icon: "securityIcon",
-                routerLink: ["./"],
-                queryParams: {
-                    edit: "security",
-                },
-            },
-            {
-                text: "settings.language_label",
-                icon: "languageIcon",
-                routerLink: ["./"],
-                queryParams: {
-                    edit: "language",
-                },
-            },
-            {
-                text: "settings.dapps_label",
-                icon: "dappsConnectionsIcon",
-                routerLink: ["./"],
-                queryParams: {
-                    edit: "dapps",
-                },
-            },
-            {
-                text: "settings.subscription_label",
-                icon: "subscriptionIcon",
-                routerLink: ["/zelf-keys/billing"],
-                queryParams: {
-                    redirect: "/settings",
-                },
-            },
-        ];
     }
 
     private _setSelectedSettings() {

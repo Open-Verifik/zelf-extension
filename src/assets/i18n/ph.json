@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "QR Code",
             "no_folder": "Walang folder",
-            "download_zelfproof": "I-download ang ZelfProof",
+            "download_zelfproof": "I-download ang Zelf ID QR",
             "back_to_payment_cards": "Bumalik sa mga Payment Card",
             "add_another_card": "Magdagdag ng Ibang Card",
             "try_again": "Subukan Muli",
@@ -37,11 +37,11 @@
             },
             "zelfproof": {
                 "title": "Impormasyon ng Payment Card",
-                "download": "I-download ang ZelfProof"
+                "download": "I-download ang Zelf ID QR"
             },
             "decrypted": {
                 "title": "Impormasyon ng Payment Card",
-                "card_holder_name": "Pangalan ng Tagahawak ng Card",
+                "card_holder_name": "Zelf IDahawak ng Card",
                 "copy_card_holder_name": "Kopyahin ang pangalan ng tagahawak ng card",
                 "copy_card_number": "Kopyahin ang numero ng card",
                 "copy_expiry_date": "Kopyahin ang petsa ng pag-expire",
@@ -89,8 +89,8 @@
                 }
             },
             "image": {
-                "title": "ZelfProof",
-                "download": "I-download ang ZelfProof"
+                "title": "Zelf ID QR",
+                "download": "I-download ang Zelf ID QR"
             },
             "nft": {
                 "title": "Na-create ang NFT",
@@ -129,9 +129,9 @@
                 "explorer_link": "Tingnan sa Explorer"
             },
             "zelfproof": {
-                "title": "Na-generate ang ZelfProof",
+                "title": "Na-generate ang Zelf ID QR",
                 "labels": {
-                    "string": "ZelfProof String",
+                    "string": "Zelf ID QR String",
                     "qr_code": "QR Code"
                 },
                 "copy_hint": "I-click para kopyahin"
@@ -240,7 +240,7 @@
             "no_qr": "Walang QR",
             "untitled": "Walang Pamagat",
             "username_label": "Username: {{ username }}",
-            "zelf_name_label": "Pangalan ng Tag: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "Kategorya: {{ category }}",
             "type_label": "Uri: {{ type }}",
             "secure_credential": "Sekyuradong credential"
@@ -345,7 +345,7 @@
                         "folder": "Folder",
                         "type": "Uri",
                         "category": "Kategorya",
-                        "zelf_name": "Pangalan ng Tag",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "Timestamp"
                     }
                 },
@@ -383,13 +383,13 @@
                     "explorer_link": "Tingnan sa Explorer"
                 },
                 "zelfproof": {
-                    "title": "Na-generate ang ZelfProof",
+                    "title": "Na-generate ang Zelf ID QR",
                     "labels": {
-                        "string": "ZelfProof String",
+                        "string": "Zelf ID QR String",
                         "qr_code": "QR Code"
                     },
                     "copy_hint": "I-click para kopyahin",
-                    "qr_alt": "ZelfProof QR Code"
+                    "qr_alt": "Zelf ID QR code"
                 },
                 "debug": {
                     "title": "Impormasyon sa Debug"
@@ -433,14 +433,14 @@
     },
     "cancel": "Kanselahin",
     "confirm": "Kumpirmahin",
-    "logout_message": "Sa pagkumpirma ng aksyong ito, aalisin mo ang lahat ng iyong ZelfProofs mula sa extension. Kakailanganin mong i-decrypt muli ang bawat ZelfProof para maibalik ang access sa mga ito. Sigurado ka bang gusto mong magpatuloy?",
-    "logout_title": "TANGGALIN LAHAT NG ZELFPROOFS",
+    "logout_message": "Sa pagkumpirma ng aksyong ito, aalisin mo ang lahat ng iyong Zelf ID QRs mula sa extension. Kakailanganin mong i-decrypt muli ang bawat Zelf ID QR para maibalik ang access sa mga ito. Sigurado ka bang gusto mong magpatuloy?",
+    "logout_title": "TANGGALIN LAHAT NG ZELF ID QRS",
     "onboarding": {
         "lifetime": "Habang-buhay",
         "step_1_description": "Huwag nang mag-alala tungkol sa pagkalimot, pagkawala, o pagkompromiso ng iyong seed phrase.",
         "step_1": "3 Hakbang para i-encrypt ang iyong seed phrase",
-        "step_2_description": "I-backup ang iyong seed phrase sa ilang segundo sa pamamagitan ng pag-decrypt ng iyong ZelfProof",
-        "step_2": "Hanapin at i-decrypt ang iyong ZelfProof",
+        "step_2_description": "I-backup ang iyong seed phrase sa ilang segundo sa pamamagitan ng pag-decrypt ng iyong Zelf ID QR",
+        "step_2": "Hanapin at i-decrypt ang iyong Zelf ID QR",
         "step_3_description": "Mag-imbak ng zk-FaceProof ng iyong seed phrase sa blockchain sa halip na sa local device",
         "step_3": "I-secure ang iyong seed phrase laban sa hacking",
         "year": "Taon"
@@ -476,8 +476,8 @@
         "recent_addresses": "Mga Nakaraang",
         "used": "Ginamit {{days}} na ang nakalipas",
         "withdrawal_amount": "Halaga ng pag-withdraw",
-        "zelf_name_not_registered": "Hindi pa nare-rehistro ang Tag Name",
-        "zelf_name_registered": "Nare-rehistro na ang Tag Name",
+        "zelf_name_not_registered": "Hindi pa nare-rehistro ang Zelf ID",
+        "zelf_name_registered": "Nare-rehistro na ang Zelf ID",
         "from_address": "Mula sa address",
         "private_transaction": "Pribadong Transaksyon",
         "amount_inline_required": "Required",
@@ -503,17 +503,17 @@
         "share_transaction": "Ibahagi ang transaksyon"
     },
     "welcome": {
-        "code_name": "Pangalan ng referral tag",
+        "code_name": "Pangalan ng referral code",
         "domain_expired_since": "Nag-expire ang domain mula noong {{ date }}",
         "decrypt_and_reserve": "I-decrypt at i-reserve",
         "decrypt_now_pay_later": "I-decrypt ngayon, magbayad mamaya",
         "decrypt_now_renew_later": "I-decrypt ngayon, i-renew mamaya",
-        "dont_lose_your_zelfname": "Hoy! Huwag mong pabayaan ang iyong Tag Name, i-renew o i-reserve ngayon, bago pa ito bilhin ng iba.",
-        "dont_remember_zelfname": "Hindi mo naaalala ang iyong Tag Name?",
+        "dont_lose_your_zelfname": "Hoy! Huwag mong pabayaan ang iyong Zelf ID, i-renew o i-reserve ngayon, bago pa ito bilhin ng iba.",
+        "dont_remember_zelfname": "Hindi mo naaalala ang iyong Zelf ID?",
         "enjoy_your_domain": "Tangkilikin ang iyong domain. Huwag kalimutang bilhin ito bago pa ito makuha ng iba!",
         "expiration_date": "Petsa ng pag-expire {{ date }}",
-        "find_zelf_name_subtitle": "Hanapin ang umiiral na Tag Name sa pamamagitan ng paglalagay ng public address nito sa ibaba:",
-        "find_zelf_name_title": "Hanapin ang Tag Name",
+        "find_zelf_name_subtitle": "Hanapin ang umiiral na Zelf ID sa pamamagitan ng paglalagay ng public address nito sa ibaba:",
+        "find_zelf_name_title": "Hanapin ang Zelf ID",
         "got_it": "Sige, gagawin ko na lang mamaya",
         "grace_period_until": "Grace period hanggang",
         "import_subtitle": "Gagamitin namin ang iyong mga secret recovery words para i-validate at i-import ang umiiral na wallet. Pakilagay ang mga ito sa ibaba.",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "Hindi wasto ang referral code",
         "name_expires": "Mag-expire ang pangalan",
         "new_domain": "Bagong domain",
-        "offline_subtitle": "Ang ZelfProof na ito ay ginawa offline, kaya gumagamit ito ng ibang security system. Sa ngayon, hindi ito compatible sa extension. Magagamit ito sa lalong madaling panahon.",
-        "offline_tip": "Pero huwag mag-alala! Maaari mong i-import ang iyong ZelfProof gamit ang ibang Pangalan ng Tag para magkaroon ng access mula sa extension.",
+        "offline_subtitle": "Ang Zelf ID QR na ito ay ginawa offline, kaya gumagamit ito ng ibang security system. Sa ngayon, hindi ito compatible sa extension. Magagamit ito sa lalong madaling panahon.",
+        "offline_tip": "Pero huwag mag-alala! Maaari mong i-import ang iyong Zelf ID QR gamit ang ibang Zelf ID para magkaroon ng access mula sa extension.",
         "i_understand_go_back": "Naiintindihan ko, bumalik sa home",
         "old_domain": "Lumang domain",
         "paste_your_recovery_phrase": "Maaari mong i-paste ang iyong buong secret recovery phrase sa kahit anong field",
-        "pick_your_new_zelfname_description": "Ang <strong>{{ zelfName }}</strong> ay kinuha na, pero huwag mag-alala! Maaari mong ma-access ang iyong ZelfProof at mag-reserve ng bagong Pangalan ng Tag gamit ang parehong seed phrase.",
-        "pick_your_new_zelfname": "Pumili ng bagong Tag Name",
+        "pick_your_new_zelfname_description": "Ang <strong>{{ zelfName }}</strong> ay kinuha na, pero huwag mag-alala! Maaari mong ma-access ang iyong Zelf ID QR at mag-reserve ng bagong Zelf ID gamit ang parehong seed phrase.",
+        "pick_your_new_zelfname": "Pumili ng bagong Zelf ID",
         "public_address_input": "Ilagay ang iyong ETH o SOL public address dito",
-        "recover_your_zelfname_description": "Ang <strong>{{ zelfName }}</strong> ay available pa rin. Maaari mong ma-access ang iyong ZelfProof at ma-recover ang iyong Pangalan ng Tag gamit ang parehong seed phrase.",
-        "recover_your_zelfname": "I-recover ang iyong Tag Name",
+        "recover_your_zelfname_description": "Ang <strong>{{ zelfName }}</strong> ay available pa rin. Maaari mong ma-access ang iyong Zelf ID QR at ma-recover ang iyong Zelf ID gamit ang parehong seed phrase.",
+        "recover_your_zelfname": "I-recover ang iyong Zelf ID",
         "referral_code": "Referral Code (Opsyonal)",
         "referral_successfully_registered": "Matagumpay na na-rehistro ang referral",
         "registered_since": "Na-rehistro mula noong {{ date }}",
-        "registered": "Na-rehistro ang Tag Name mula noong {{ date }}",
+        "registered": "Na-rehistro ang Zelf ID mula noong {{ date }}",
         "renew_your_domain_today": "I-renew ang iyong domain ngayon bago pa ito bilhin ng iba.",
-        "search_another_zelfname": "Maghanap ng ibang Tag Name",
-        "search_your_new_zelfname": "Maghanap ng iyong bagong Tag Name",
+        "search_another_zelfname": "Maghanap ng ibang Zelf ID",
+        "search_your_new_zelfname": "Maghanap ng iyong bagong Zelf ID",
         "transfer_done": "Tapos na ang transfer",
-        "upload_zelf_proof": "o i-upload ang iyong ZelfProof QR Code para magpatuloy:",
+        "upload_zelf_proof": "o i-upload ang iyong Zelf ID QR code para magpatuloy:",
         "you_can_transfer_this_domain": "Maaari mong i-transfer ang domain na ito",
         "you_will_register_this_domain": "Ang iyong bagong identity sa Zelf Name Service",
         "safeguard_your_crypto": "I-secure ang Iyong Crypto!",
-        "offline_import_subtitle": "Bago mo ma-import ang iyong offline-wallet, kailangan mong pumili ng bagong Pangalan ng Tag.",
-        "your_zelf_name": "Ang Iyong Tag Name"
+        "offline_import_subtitle": "Bago mo ma-import ang iyong offline-wallet, kailangan mong pumili ng bagong Zelf ID.",
+        "your_zelf_name": "Ang Iyong Zelf ID",
+        "create_new_account": "Gumawa ng Zelf ID",
+        "i_already_have_a_wallet": "May wallet na ako",
+        "choose_tag_name_title": "Piliin ang iyong Zelf ID",
+        "choose_tag_name_subtitle": "Pumili ng natatanging pangalan para sa iyong pagkakakilanlan sa Zelf network",
+        "choose_tag_name_placeholder": "Ilagay ang iyong Zelf ID",
+        "preview_name_placeholder": "pangalanmo",
+        "search_name_aria": "Maghanap ng pangalang ito",
+        "tag_name_available": "Puwede! Sa iyo ang pangalang ito",
+        "tag_name_taken": "Ginagamit na ang pangalang ito",
+        "import_wallet_title": "I-import ang iyong wallet",
+        "import_wallet_subtitle": "Ilagay ang address ng wallet o i-scan ang Zelf ID QR code para mabawi ang account",
+        "import_with_seed_phrase": "Walang Zelf ID QR — i-import gamit ang seed phrase",
+        "feature_multichain": "Multichain",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "Self-custody"
     },
     "settings": {
         "networks_label": "Mga Network",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "Kailangan ng PIN at biometric verification sa susunod na paggamit.",
             "lock_vault_button": "I-lock ang vault",
             "remove_keys_title": "Alisin ang mga key mula sa vault",
-            "remove_keys_description": "Permanenteng alisin ang lahat ng key mula sa device na ito. Kakailanganin mong i-recover ang iyong ZelfProof para magamit ito muli. Ang countdown ay nagbibigay-daan sa iyong kanselahin bago ang pagtanggal.",
+            "remove_keys_description": "Permanenteng alisin ang lahat ng key mula sa device na ito. Kakailanganin mong i-recover ang iyong Zelf ID QR para magamit ito muli. Ang countdown ay nagbibigay-daan sa iyong kanselahin bago ang pagtanggal.",
             "remove_keys_button": "Alisin ang mga key mula sa vault",
             "remove_keys_countdown_minutes": "Aalisin ang mga key sa {{ minutes }}m {{ seconds }}s",
             "remove_keys_countdown_seconds": "Aalisin ang mga key sa {{ seconds }}s",
@@ -615,18 +630,18 @@
     "security": {
         "biometric_decryption_subtitle": "Para matapos ang proseso ng decryption, kailangan naming i-verify ang iyong pagkakakilanlan gamit ang iyong biometrics.",
         "biometric_decryption_title": "Biometric Decryption",
-        "biometric_subtitle": "Susunod, kukuha kami ng selfie, kasama ang iyong password, para makagawa ng private key na gagamitin para i-encrypt ang iyong ZelfProof. <strong>Hindi namin kinokolekta o ginagamit ang iyong biometrics para sa ibang layunin.</strong>",
+        "biometric_subtitle": "Susunod, kukuha kami ng selfie, kasama ang iyong password, para makagawa ng private key na gagamitin para i-encrypt ang iyong Zelf ID QR. <strong>Hindi namin kinokolekta o ginagamit ang iyong biometrics para sa ibang layunin.</strong>",
         "biometric_title": "Biometric Encryption Layer",
         "hide_words": "Itago ang mga salita",
         "medium": "Katamtaman",
-        "new_password_subtitle": "Ang sumusunod na password ay kinakailangang encryption layer para sa iyong ZelfProof.",
-        "password_decryption": "ANG PANGALAN NG TAG AY NANGANGAILANGAN NG PASSWORD",
+        "new_password_subtitle": "Ang sumusunod na password ay kinakailangang encryption layer para sa iyong Zelf ID QR.",
+        "password_decryption": "ANG ZELF ID AY NANGANGAILANGAN NG PASSWORD",
         "password_parameters_title": "Mga Alituntunin sa Password",
         "password_parameters": "Ang aming mga alituntunin para sa iyong password ay: <ul><li>dapat nasa pagitan ng 8 at 128 characters ang haba</li> <li>dapat may kahit isang uppercase letter</li> <li>dapat may isang lowercase letter</li> <li>dapat may isang numero</li> <li>dapat may isang special character</li> <li>iwasan ang mga karaniwang password</li> <li>iwasan ang paulit-ulit na characters</li></ul>",
         "password_strength_label": "Lakas ng Password",
-        "password_subtitle": "Ilagay ang password na itinalaga sa Tag Name na ito para matapos ang proseso ng decryption.",
+        "password_subtitle": "Ilagay ang password na itinalaga sa Zelf ID na ito para matapos ang proseso ng decryption.",
         "pin_description": "Gumawa ng PIN na may 6 na digit",
-        "pin_unlock_description": "Gamitin ang iyong PIN para i-unlock ang iyong ZelfProof",
+        "pin_unlock_description": "Gamitin ang iyong PIN para i-unlock ang iyong Zelf ID QR",
         "pin_confirm_description": "Ipasok muli ang iyong 6 na character na PIN upang kumpirmahin",
         "pin_title": "PIN",
         "secure_password_description": "Karagdagang security layer",
@@ -635,16 +650,16 @@
         "security_layer_title": "SECURITY LAYER",
         "strong": "Malakas",
         "subtitle": "Pumili ng haba ng iyong seed phrase at magpatuloy sa proseso ng encryption.",
-        "title": "ZelfProof Encryption Layers",
+        "title": "Zelf ID QR Encryption Layers",
         "unhide_words": "Ipakita ang mga salita",
         "weak": "Mahina",
         "weak_password": "Mahinang password",
         "without_password_description": "Mas mabilis, ngunit mas hindi secure",
         "without_password_title": "Walang Password",
         "create_pin_title": "GUMAWA NG PIN",
-        "create_pin_subtitle": "Mangyaring maglagay ng 6 na digit na password para sa iyong ZelfProof.",
+        "create_pin_subtitle": "Mangyaring maglagay ng 6 na digit na password para sa iyong Zelf ID QR.",
         "confirm_pin_title": "KONFIRMAHIN ANG PIN",
-        "confirm_pin_subtitle": "Mangyaring muling ilagay ang 6 na digit na password para sa iyong ZelfProof."
+        "confirm_pin_subtitle": "Mangyaring muling ilagay ang 6 na digit na password para sa iyong Zelf ID QR."
     },
     "receive": {
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
@@ -681,7 +696,8 @@
         "amount": "Halaga",
         "are_you_sure": "Sigurado ka ba?",
         "asset": "Asset",
-        "available": "Available",
+        "available": "Puwede",
+        "authorized": "Awtorisado",
         "avax_address": "AVAX Address",
         "balance": "Balanse",
         "bdag_address": "BDAG Address",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "Gumawa ng bagong wallet",
         "date": "Petsa",
         "days": "araw",
-        "decrypt_zelfname": "I-decrypt ang Tag Name",
+        "decrypt_zelfname": "I-decrypt ang Zelf ID",
         "do_it_later": "Gawin mamaya",
         "documentation": "Dokumentasyon",
         "domain_expired": "Expired na ang domain",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "Huwag ipakita sa akin muli",
         "dont_show_this_message_again": "Huwag ipakita ang mga tagubiling ito muli",
         "download_qr": "I-download ang QR",
-        "download_zelfproof": "I-download ang ZelfProof",
+        "download_zelfproof": "I-download ang Zelf ID QR",
         "edit": "I-edit",
         "eth_address": "ETH Address",
         "extend_registration": "Palawigin ang subscription",
@@ -728,9 +744,9 @@
         "is_required": "ay kinakailangan",
         "learn_more": "Matuto pa",
         "load_more": "Mag-load pa",
-        "login": "I-decrypt ang ZelfProof",
-        "logout": "Alisin ang ZelfProof",
-        "manage_domains": "Pamahalaan ang mga ZelfName",
+        "login": "I-decrypt ang Zelf ID QR",
+        "logout": "Alisin ang Zelf ID QR",
+        "manage_domains": "Pamahalaan ang mga Zelf ID",
         "max": "Max",
         "my_arns": "Aking ArNS",
         "navigating_away_will_cancel": "Ang pag-alis ay makakansela ng anumang progreso na nagawa mo. Sigurado ka bang gusto mong bumalik?",
@@ -754,13 +770,13 @@
         "receive": "Tumanggap",
         "recommended": "Inirerekomenda",
         "refresh": "I-refresh",
-        "registered": "Na-rehistro ang Tag Name mula noong {{ date }}",
-        "remove_all_zelfproofs": "Alisin ang lahat ng ZelfProof",
+        "registered": "Na-rehistro ang Zelf ID mula noong {{ date }}",
+        "remove_all_zelfproofs": "Alisin ang lahat ng Zelf ID QR",
         "remove": "Alisin",
         "renew_domain": "I-renew ang domain",
         "renew_subscription": "I-renew ang subscription",
         "reservation_found": "Nahanap ang reserbasyon",
-        "search_your_zelf_name": "Maghanap ng iyong Tag Name",
+        "search_your_zelf_name": "Maghanap ng iyong Zelf ID",
         "search": "Maghanap...",
         "seed_phrase": "Seed Phrase",
         "send_symbol": "Magpadala ng {{symbol}}",
@@ -849,13 +865,13 @@
         "registered_until": "Mag-expire Sa"
     },
     "manage_domains": {
-        "are_you_sure_you_want_to_delete": "Sigurado ka bang gusto mong alisin ang ZelfProof na ito?",
-        "domain_error": "Ang trial period ng {{ zelfName }} ay tapos na, kailangan mong bumili ng subscription para maipagpatuloy ang paggamit ng Pangalan ng Tag na ito",
+        "are_you_sure_you_want_to_delete": "Sigurado ka bang gusto mong alisin ang Zelf ID QR na ito?",
+        "domain_error": "Ang trial period ng {{ zelfName }} ay tapos na, kailangan mong bumili ng subscription para maipagpatuloy ang paggamit ng Zelf ID na ito",
         "domain_warning": "May oras ka pa para bumili",
-        "expired_wallet_logout_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag. Gayunpaman, nasa panganib ka na mawala ito kung hindi ka agad bibili.",
-        "logout_of_wallet_message": "Maaari mong i-decrypt muli ang ZelfProof na ito kung maghahanap ka gamit ang iyong Pangalan ng Tag, o i-load ang iyong ZelfProof QR code.",
-        "purchase_new_domain": "Magdagdag ng bagong Pangalan ng Tag",
-        "zelfproof_removed_successfully": "Matagumpay na naalis ang ZelfProof"
+        "expired_wallet_logout_message": "Maaari mong i-decrypt muli ang Zelf ID QR na ito kung maghahanap ka gamit ang iyong Zelf ID. Gayunpaman, nasa panganib ka na mawala ito kung hindi ka agad bibili.",
+        "logout_of_wallet_message": "Maaari mong i-decrypt muli ang Zelf ID QR na ito kung maghahanap ka gamit ang iyong Zelf ID, o i-load ang iyong Zelf ID QR code.",
+        "purchase_new_domain": "Magdagdag ng bagong Zelf ID",
+        "zelfproof_removed_successfully": "Matagumpay na naalis ang Zelf ID QR"
     },
     "liveness": {
         "center_your_face": "I-center ang iyong mukha sa screen",
@@ -869,17 +885,17 @@
         "address_too_long": "Masyadong mahaba ang address",
         "all_fields_required": "Kailangan ang lahat ng fields",
         "camera_dimensions_not_properly_initialized": "Hindi maayos na nai-initialize ang camera",
-        "cannot_decrypt_zotp_missing_zelfProof": "Hindi ma-decrypt ang ZOTP: nawawala ang ZelfProof. Ang ZOTP na ito ay hindi ma-dedecrypt nang walang valid na ZelfProof.",
+        "cannot_decrypt_zotp_missing_zelfProof": "Hindi ma-decrypt ang ZOTP: nawawala ang Zelf ID QR. Ang ZOTP na ito ay hindi ma-dedecrypt nang walang valid na Zelf ID QR.",
         "cannot_swap_across_these_networks": "Hindi ka pa makakapag-swap sa mga network na ito. Pakisubukan muli mamaya.",
         "chart_not_found": "Hindi available ang chart data",
-        "Duplicated_person": "Ginagamit ang ZelfProof para sa ibang record",
+        "Duplicated_person": "Ginagamit ang Zelf ID QR para sa ibang record",
         "empty_password": "Hindi pwedeng walang laman ang password",
-        "ERR_DESCRIPTION": "Siguraduhing sinusunod mo nang tama ang mga tagubilin para ma-unlock ang iyong ZelfProof",
-        "ERR_INVALID_PASSWORD": "Hindi valid ang password para sa ZelfProof na ito",
+        "ERR_DESCRIPTION": "Siguraduhing sinusunod mo nang tama ang mga tagubilin para ma-unlock ang iyong Zelf ID QR",
+        "ERR_INVALID_PASSWORD": "Hindi valid ang password para sa Zelf ID QR na ito",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "Masyadong malaki ang anggulo ng mukha",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "Masyadong malapit sa border ang mukha",
         "ERR_LIVENESS_FAILED": "Nabigo ang pag-detect ng liveness",
-        "ERR_UNPROCESSABLE_CONTENT": "Hindi ma-decrypt ang ZelfProof",
+        "ERR_UNPROCESSABLE_CONTENT": "Hindi ma-decrypt ang Zelf ID QR",
         "ERR_VERIFICATION_FAILED": "Nabigo ang pag-detect ng liveness",
         "error_closing_popup": "Error sa pagpapasara ng window",
         "error_initializing_biometrics": "Error sa pag-initialize ng biometrics",
@@ -892,8 +908,8 @@
         "generic_title": "May naganap na error",
         "generic": "Paumanhin, may problema sa pagproseso ng kahilingang ito. Pakisubukan muli.",
         "incorrect_passphrase": "Mali ang ipinasok na master password. Mangyaring subukan muli.",
-        "incorrect_zelf_proof_message": "Hindi mukhang valid na ZelfProof ang ibinigay na file. Pakisubukan muli.",
-        "incorrect_zelf_proof_title": "Hindi tama ang ZelfProof",
+        "incorrect_zelf_proof_message": "Hindi mukhang valid na Zelf ID QR ang ibinigay na file. Pakisubukan muli.",
+        "incorrect_zelf_proof_title": "Hindi tama ang Zelf ID QR",
         "insufficient_funds": "Hindi sapat ang pondo. Siguraduhing may sapat kang pondo sa iyong wallet para sa mga bayarin sa transaksyon.",
         "invalid_credentials": "Hindi valid ang mga credentials",
         "invalid_format": "Hindi valid ang format",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "Dapat mas malaki sa {{ value }}",
         "must_be_less_than": "Dapat mas maliit sa {{ value }}",
         "no_decrypted_data_received_from_api": "Walang natanggap na decrypted data mula sa server",
-        "no_zelfproof_available_for_password_decryption": "Walang available na ZelfProof para sa pag-decrypt ng password",
+        "no_zelfproof_available_for_password_decryption": "Walang available na Zelf ID QR para sa pag-decrypt ng password",
         "not_found": "Hindi nahanap ang record",
         "password_doesnt_match": "Hindi magkatugma ang mga password",
         "password_incorrect": "Hindi tama ang password",
@@ -921,11 +937,11 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "Nabigo ang liveness check. Pakisubukan ulit."
         },
-        "person_already_set": "May nakakabit nang ZelfProof sa iyong registration",
+        "person_already_set": "May nakakabit nang Zelf ID QR sa iyong registration",
         "private_key_locked": "Naka-lock ang private key. Kailangan mong mag-perform ng biometrics check para makapagpatuloy.",
         "required_field": "Kailangan ang field na ito",
         "same_address": "Hindi ka makakapagpadala ng pondo sa parehong address",
-        "session_init_info": "Upang magamit ang Tag Name Service Extension, kakailanganin mo ng access sa network. Para sa isang offline na solusyon, suriin ang aming mga app sa iOS at Android.",
+        "session_init_info": "Upang magamit ang Zelf ID Service Extension, kakailanganin mo ng access sa network. Para sa isang offline na solusyon, suriin ang aming mga app sa iOS at Android.",
         "session_init_message": "Paumanhin, may problema sa pag-initialize ng iyong session. Ito ay maaaring dahil sa problema sa network o server. Mangyaring subukan muli.",
         "session_init_title": "Nabigo ang pag-initialize ng session",
         "something_went_wrong": "May nangyaring mali, pakisubukan muli",
@@ -934,7 +950,7 @@
         "try_again": "Subukan Muli",
         "unknown_error": "Isang hindi kilalang error ang naganap",
         "user_cancelled_decryption": "Kinansela ang pag-decrypt",
-        "zelfName_is_taken": "Ginagamit na ang tag name na ito",
+        "zelfName_is_taken": "Ginagamit na ang Zelf ID na ito",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,23 +1056,23 @@
         "ru": "Russian"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "Hindi ko na gusto ang tag name na ito",
-        "choose_new_zelfname": "Pumili ng bagong Pangalan ng Tag",
+        "i_dont_want_this_wallet": "Hindi ko na gusto ang Zelf ID na ito",
+        "choose_new_zelfname": "Pumili ng bagong Zelf ID",
         "recover_it_now": "I-recover ito ngayon",
         "delete_wallet_title": "Tanggalin ang Tag",
-        "delete_wallet_message": "Bago tanggalin ang iyong tag, siguraduhing may backup ka ng iyong ZelfProof QR code.",
+        "delete_wallet_message": "Bago tanggalin ang iyong tag, siguraduhing may backup ka ng iyong Zelf ID QR code.",
         "yes_because": "Oo, dahil:",
         "thanks_for_subscribing": "Salamat sa pag-subscribe",
         "make_zelfname_yours": "Gawin mong iyo ang {{ zelfName }}",
         "keep_zelfname_yours": "Panatilihing iyo ang {{ zelfName }}",
-        "love_your_zelfname": "Gusto mo ba ang iyong Pangalan ng Tag?",
+        "love_your_zelfname": "Gusto mo ba ang iyong Zelf ID?",
         "time_is_running_out": "Umuubos na ang oras",
-        "not_much_time_left": "Ang iyong Pangalan ng Tag ay naka-reserve pa ng kaunti, pero huwag ka nang maghintay ng matagal!",
+        "not_much_time_left": "Ang iyong Zelf ID ay naka-reserve pa ng kaunti, pero huwag ka nang maghintay ng matagal!",
         "oh_no": "Ay naku!",
         "thanks_for_reserving": "Salamat sa pag-reserve",
         "is_no_longer_available": "hindi na available",
         "has_been_taken": "kinuha na",
-        "benefit_title": "Sa iyong Pangalan ng Tag, makakakuha ka ng:",
+        "benefit_title": "Sa iyong Zelf ID, makakakuha ka ng:",
         "benefit_1_title": "Offline Encryption",
         "benefit_1_subtitle": "Ang iyong mga susi, ang iyong kontrol",
         "benefit_2_title": "Ultra-private Decryption",
@@ -1077,9 +1093,9 @@
         "is_still_available": "available pa rin",
         "resubscribe_within": "Mag-resubscribe sa loob ng {{ days }} araw",
         "complete_purchase_within": "Kumpletuhin ang iyong pagbili sa loob ng {{ days }} araw para ma-secure ito ng 1 taon",
-        "have_you_explored_the_benefits": "Nasubukan mo na ba ang mga benepisyo ng iyong Pangalan ng Tag at ZkProofs?",
+        "have_you_explored_the_benefits": "Nasubukan mo na ba ang mga benepisyo ng iyong Zelf ID at ZkProofs?",
         "but_someone_else_could_grab_it": "Pero may iba pa ring makakakuha nito! Huwag mong ipagsapalaran na mawala ito, o isulat ang iyong seed phrases sa papel!",
-        "but_dont_worry_you_can_access_your_zelfproof": "Pero huwag kang mag-alala, maa-access mo pa rin ang iyong Pangalan ng Tag at makakapag-reserve ng bagong Pangalan ng Tag gamit ang parehong seed phrase.",
+        "but_dont_worry_you_can_access_your_zelfproof": "Pero huwag kang mag-alala, maa-access mo pa rin ang iyong Zelf ID at makakapag-reserve ng bagong Zelf ID gamit ang parehong seed phrase.",
         "considerations_description_1": "Hindi mababasag na seguridad.",
         "considerations_description_2": "Natatanging pagkakakilanlan.",
         "considerations_description_3": "Proteksyon para sa hinaharap."
@@ -1100,7 +1116,7 @@
             "payment_method": "Paraan ng Pagbabayad:",
             "status": "Status:",
             "transaction": "Transaksyon",
-            "zelf_name": "Pangalan ng Tag",
+            "zelf_name": "Zelf ID",
             "start_date": "Petsa ng Simula:",
             "expires_on": "Mag-eexpire sa:",
             "next_billing": "Susunod na Billing:",
@@ -1205,8 +1221,8 @@
                     "copy_notes": "Kopyahin ang mga note"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "I-download ang ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "I-download ang Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "Impormasyon ng Decrypted Card",
@@ -1327,7 +1343,7 @@
                 },
                 "zelfproof": {
                     "title": "Impormasyon ng Payment Card",
-                    "download": "I-download ang ZelfProof"
+                    "download": "I-download ang Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "Impormasyon ng Payment Card",
@@ -1421,7 +1437,7 @@
                     "username": "Username",
                     "category": "Kategorya",
                     "created": "Nilikha",
-                    "zelf_name": "Pangalan ng Tag",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "IPFS Hash",
                     "copy_url": "Kopyahin ang URL ng website",
                     "launch_website": "Ilunsad ang website",
@@ -1429,7 +1445,7 @@
                 },
                 "zelfproof": {
                     "title": "Impormasyon ng Payment Card",
-                    "download": "I-download ang ZelfProof"
+                    "download": "I-download ang Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "Impormasyon ng Payment Card",
@@ -1541,7 +1557,7 @@
                     "username": "Username",
                     "type": "Uri",
                     "category": "Kategorya",
-                    "zelf_name": "Pangalan ng Tag",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "Timestamp"
                 }
             },
@@ -1584,9 +1600,9 @@
                 "explorer_link": "Tingnan sa Explorer"
             },
             "zelfproof": {
-                "title": "Na-generate ang ZelfProof",
+                "title": "Na-generate ang Zelf ID QR",
                 "labels": {
-                    "string": "ZelfProof String",
+                    "string": "Zelf ID QR String",
                     "qr_code": "QR Code"
                 },
                 "copy_hint": "I-click para kopyahin"
@@ -1615,7 +1631,7 @@
         }
     },
     "domain_selection": {
-        "title": "Piliin ang domain para sa iyong tag name"
+        "title": "Piliin ang domain para sa iyong Zelf ID"
     },
     "zotp": {
         "add_zotp": "Magdagdag ng ZOTP",
@@ -1792,7 +1808,7 @@
         "start_earning_desc": "Ibahagi ang iyong code at simulan ang pagkuha ng mga reward!",
         "status": {
             "purchased": "Nabili na",
-            "registered": "Na-rehistro ang Tag Name mula noong {{ date }}",
+            "registered": "Na-rehistro ang Zelf ID mula noong {{ date }}",
             "pending": "Naghihintay"
         },
         "claim": "I-claim ang {{ amount }} $ZNS"
@@ -1824,7 +1840,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "Huwag mawala ang iyong ZelfName",
+            "title": "Huwag mawala ang iyong Zelf ID",
             "expired": "Nag-expire na ang iyong domain",
             "one_day": "1 araw na lang para mabili ang iyong ZNS",
             "days_left": "{{ days }} araw na lang para mabili ang iyong ZNS"

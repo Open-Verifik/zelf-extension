@@ -261,6 +261,10 @@ const routes: Routes = [
                 loadComponent: () => import("./welcome-onboarding/welcome-onboarding.component").then((m) => m.WelcomeOnboardingComponent),
             },
             {
+                path: "claim",
+                loadComponent: () => import("./welcome-claim/welcome-claim.component").then((m) => m.WelcomeClaimComponent),
+            },
+            {
                 path: "find",
                 loadComponent: () => import("./welcome-find/welcome-find.component").then((m) => m.WelcomeFindComponent),
                 canActivate: [],

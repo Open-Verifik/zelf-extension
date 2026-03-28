@@ -18,10 +18,10 @@
 
         <form [formGroup]="form" class="welcome-find__form">
             <div class="zelf-card__content welcome-find__content">
-                <h2 class="zelf-card__title">{{ t("welcome.find_zelf_name_title") }}</h2>
+                <h2 class="zelf-card__title">{{ t("welcome.import_wallet_title") }}</h2>
 
                 <p class="zelf-card__subtitle welcome-available__subtitle">
-                    {{ t("welcome.find_zelf_name_subtitle") }}
+                    {{ t("welcome.import_wallet_subtitle") }}
                 </p>
 
                 <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': form.controls.publicAddress.invalid }">
@@ -116,6 +116,10 @@
 
                     <p class="zelf-card__help-text">{{ t("common.or_drag_and_drop") }}</p>
                 </div>
+
+                <button class="zelf-button zelf-button--hyperlink welcome-find__seed-link" [routerLink]="['/welcome/claim']">
+                    {{ t("welcome.import_with_seed_phrase") }}
+                </button>
             </div>
         </form>
     </div>

@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "QRコード",
             "no_folder": "フォルダなし",
-            "download_zelfproof": "ZelfProofをダウンロード",
+            "download_zelfproof": "Zelf ID QRをダウンロード",
             "back_to_payment_cards": "支払いカードに戻る",
             "add_another_card": "別のカードを追加",
             "try_again": "再試行",
@@ -37,7 +37,7 @@
             },
             "zelfproof": {
                 "title": "支払いカード情報",
-                "download": "ZelfProofをダウンロード"
+                "download": "Zelf ID QRをダウンロード"
             },
             "decrypted": {
                 "title": "支払いカード情報",
@@ -89,8 +89,8 @@
                 }
             },
             "image": {
-                "title": "ZelfProof",
-                "download": "ZelfProofをダウンロード"
+                "title": "Zelf ID QR",
+                "download": "Zelf ID QRをダウンロード"
             },
             "nft": {
                 "title": "NFT作成済み",
@@ -129,9 +129,9 @@
                 "explorer_link": "エクスプローラーで表示"
             },
             "zelfproof": {
-                "title": "ZelfProof生成完了",
+                "title": "Zelf ID QR生成完了",
                 "labels": {
-                    "string": "ZelfProof文字列",
+                    "string": "Zelf ID QR文字列",
                     "qr_code": "QRコード"
                 },
                 "copy_hint": "クリックしてコピー"
@@ -240,7 +240,7 @@
             "no_qr": "QRなし",
             "untitled": "無題",
             "username_label": "ユーザー名: {{ username }}",
-            "zelf_name_label": "タグ名: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "カテゴリ: {{ category }}",
             "type_label": "タイプ: {{ type }}",
             "secure_credential": "安全な認証情報"
@@ -345,7 +345,7 @@
                         "folder": "フォルダ",
                         "type": "タイプ",
                         "category": "カテゴリ",
-                        "zelf_name": "タグ名",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "タイムスタンプ"
                     }
                 },
@@ -383,13 +383,13 @@
                     "explorer_link": "エクスプローラーで表示"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof生成完了",
+                    "title": "Zelf ID QR生成完了",
                     "labels": {
-                        "string": "ZelfProof文字列",
+                        "string": "Zelf ID QR文字列",
                         "qr_code": "QRコード"
                     },
                     "copy_hint": "クリックしてコピー",
-                    "qr_alt": "ZelfProof QRコード"
+                    "qr_alt": "Zelf ID QRコード"
                 },
                 "debug": {
                     "title": "デバッグ情報"
@@ -433,14 +433,14 @@
     },
     "cancel": "キャンセル",
     "confirm": "確認",
-    "logout_message": "この操作を確認すると、拡張機能からすべてのZelfProofが削除されます。再度アクセスするには、各ZelfProofを再度復号化する必要があります。続行してもよろしいですか？",
+    "logout_message": "この操作を確認すると、拡張機能からすべてのZelf ID QRが削除されます。再度アクセスするには、各Zelf ID QRを再度復号化する必要があります。続行してもよろしいですか？",
     "logout_title": "すべてのZELFPROOFを削除",
     "onboarding": {
         "lifetime": "生涯",
         "step_1_description": "シードフレーズを忘れたり、紛失したり、危険にさらされたりする心配はもうありません。",
         "step_1": "シードフレーズを暗号化する3つのステップ",
-        "step_2_description": "ZelfProofを復号化して、数秒でシードフレーズをバックアップ",
-        "step_2": "ZelfProofを見つけて復号化",
+        "step_2_description": "Zelf ID QRを復号化して、数秒でシードフレーズをバックアップ",
+        "step_2": "Zelf ID QRを見つけて復号化",
         "step_3_description": "ローカルデバイスではなく、ブロックチェーンにシードフレーズのzk-FaceProofを保存",
         "step_3": "シードフレーズをハッキングから保護",
         "year": "年"
@@ -476,8 +476,8 @@
         "recent_addresses": "最近",
         "used": "{{days}}日前に使用",
         "withdrawal_amount": "出金額",
-        "zelf_name_not_registered": "タグ名が登録されていません",
-        "zelf_name_registered": "タグ名が登録されています",
+        "zelf_name_not_registered": "Zelf IDが登録されていません",
+        "zelf_name_registered": "Zelf IDが登録されています",
         "from_address": "送信元アドレス",
         "private_transaction": "プライベート・トランザクション",
         "amount_inline_required": "Required",
@@ -503,17 +503,17 @@
         "share_transaction": "取引を共有"
     },
     "welcome": {
-        "code_name": "紹介タグ名",
+        "code_name": "紹介Zelf ID",
         "domain_expired_since": "{{ date }}から期限切れ",
         "decrypt_and_reserve": "復号化して予約",
         "decrypt_now_pay_later": "今すぐ復号化、後で支払い",
         "decrypt_now_renew_later": "今すぐ復号化、後で更新",
-        "dont_lose_your_zelfname": "おっと！タグ名を失わないように、誰かが購入する前に今日更新または予約しましょう。",
-        "dont_remember_zelfname": "タグ名を覚えていませんか？",
+        "dont_lose_your_zelfname": "おっと！Zelf IDを失わないように、誰かが購入する前に今日更新または予約しましょう。",
+        "dont_remember_zelfname": "Zelf IDを覚えていませんか？",
         "enjoy_your_domain": "ドメインをお楽しみください。他の人が購入する前に必ず購入してください！",
         "expiration_date": "有効期限 {{ date }}",
-        "find_zelf_name_subtitle": "下の公開アドレスを入力して既存のタグ名を検索：",
-        "find_zelf_name_title": "タグ名を検索",
+        "find_zelf_name_subtitle": "下の公開アドレスを入力して既存のZelf IDを検索：",
+        "find_zelf_name_title": "Zelf IDを検索",
         "got_it": "了解しました、後で行います",
         "grace_period_until": "猶予期間は",
         "import_subtitle": "既存のウォレットを検証してインポートするために、秘密の回復ワードを使用します。下に入力してください。",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "無効な紹介コード",
         "name_expires": "名前の有効期限",
         "new_domain": "新しいドメイン",
-        "offline_subtitle": "このZelfProofはオフラインで作成されたため、異なるセキュリティシステムを使用しています。現在、拡張機能とは互換性がありません。近日中に利用可能になります。",
-        "offline_tip": "でも、ご安心ください！別のタグ名でZelfProofをインポートして、拡張機能からアクセスできます。",
+        "offline_subtitle": "このZelf ID QRはオフラインで作成されたため、異なるセキュリティシステムを使用しています。現在、拡張機能とは互換性がありません。近日中に利用可能になります。",
+        "offline_tip": "でも、ご安心ください！別のZelf IDでZelf ID QRをインポートして、拡張機能からアクセスできます。",
         "i_understand_go_back": "了解しました、ホームに戻ります",
         "old_domain": "古いドメイン",
         "paste_your_recovery_phrase": "秘密の回復フレーズ全体を任意のフィールドに貼り付けることができます",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>は既に使用されていますが、ご安心ください！同じシードフレーズでZelfProofにアクセスし、新しいタグ名を予約できます。",
-        "pick_your_new_zelfname": "新しいタグ名を選択",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong>は既に使用されていますが、ご安心ください！同じシードフレーズでZelf ID QRにアクセスし、新しいZelf IDを予約できます。",
+        "pick_your_new_zelfname": "新しいZelf IDを選択",
         "public_address_input": "ETHまたはSOLの公開アドレスをここに入力",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>はまだ利用可能です。同じシードフレーズでZelfProofにアクセスし、タグ名を回復できます。",
-        "recover_your_zelfname": "タグ名を回復",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong>はまだ利用可能です。同じシードフレーズでZelf ID QRにアクセスし、Zelf IDを回復できます。",
+        "recover_your_zelfname": "Zelf IDを回復",
         "referral_code": "紹介コード（任意）",
         "referral_successfully_registered": "紹介が正常に登録されました",
         "registered_since": "{{ date }}から登録",
-        "registered": "{{ date }}からタグ名が登録されています",
+        "registered": "{{ date }}からZelf IDが登録されています",
         "renew_your_domain_today": "誰かが購入する前に今日ドメインを更新してください。",
-        "search_another_zelfname": "別のタグ名を検索",
-        "search_your_new_zelfname": "新しいタグ名を検索",
+        "search_another_zelfname": "別のZelf IDを検索",
+        "search_your_new_zelfname": "新しいZelf IDを検索",
         "transfer_done": "転送完了",
-        "upload_zelf_proof": "または、続行するためにZelfProofのQRコードをアップロード：",
+        "upload_zelf_proof": "または、続行するためにZelf ID QRコードをアップロード：",
         "you_can_transfer_this_domain": "このドメインを転送できます",
         "you_will_register_this_domain": "Zelf Name Serviceでの新しいアイデンティティ",
         "safeguard_your_crypto": "暗号資産を保護しましょう！",
-        "offline_import_subtitle": "オフラインウォレットをインポートする前に、新しいタグ名を選択する必要があります。",
-        "your_zelf_name": "あなたのタグ名"
+        "offline_import_subtitle": "オフラインウォレットをインポートする前に、新しいZelf IDを選択する必要があります。",
+        "your_zelf_name": "あなたのZelf ID",
+        "create_new_account": "Zelf IDを作成",
+        "i_already_have_a_wallet": "すでにウォレットを持っている",
+        "choose_tag_name_title": "Zelf IDを選択",
+        "choose_tag_name_subtitle": "Zelfネットワーク上のあなたのアイデンティティの一意の名前を選んでください",
+        "choose_tag_name_placeholder": "Zelf IDを入力",
+        "preview_name_placeholder": "yourname",
+        "search_name_aria": "この名前を検索",
+        "tag_name_available": "利用可能です！この名前はあなたのものです",
+        "tag_name_taken": "この名前は既に使用されています",
+        "import_wallet_title": "ウォレットをインポート",
+        "import_wallet_subtitle": "ウォレットアドレスを入力するか、Zelf ID QRコードをスキャンして既存のアカウントを回復してください",
+        "import_with_seed_phrase": "Zelf ID QRがありません — シードフレーズでインポート",
+        "feature_multichain": "マルチチェーン",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "自己保管"
     },
     "settings": {
         "networks_label": "ネットワーク",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "次回使用時にPINと生体認証が必要になります。",
             "lock_vault_button": "ボールトをロック",
             "remove_keys_title": "ボールトからキーを削除",
-            "remove_keys_description": "このデバイスからすべてのキーを完全に削除します。ZelfProofを再度使用するには復元が必要です。削除前にキャンセルできるカウントダウンが表示されます。",
+            "remove_keys_description": "このデバイスからすべてのキーを完全に削除します。Zelf ID QRを再度使用するには復元が必要です。削除前にキャンセルできるカウントダウンが表示されます。",
             "remove_keys_button": "ボールトからキーを削除",
             "remove_keys_countdown_minutes": "{{ minutes }}分{{ seconds }}秒後にキーが削除されます",
             "remove_keys_countdown_seconds": "{{ seconds }}秒後にキーが削除されます",
@@ -615,18 +630,18 @@
     "security": {
         "biometric_decryption_subtitle": "復号化プロセスを完了するために、生体認証を使用して本人確認を行う必要があります。",
         "biometric_decryption_title": "生体認証による復号化",
-        "biometric_subtitle": "次に、パスワードと組み合わせて自撮り写真を撮り、ZelfProofの暗号化に使用する秘密鍵を生成します。<strong>生体認証データは他の目的では収集・使用しません。</strong>",
+        "biometric_subtitle": "次に、パスワードと組み合わせて自撮り写真を撮り、Zelf ID QRの暗号化に使用する秘密鍵を生成します。<strong>生体認証データは他の目的では収集・使用しません。</strong>",
         "biometric_title": "生体認証暗号化レイヤー",
         "hide_words": "単語を隠す",
         "medium": "中程度",
-        "new_password_subtitle": "以下のパスワードはZelfProofに必要な暗号化レイヤーです。",
-        "password_decryption": "タグ名にはパスワードが必要です",
+        "new_password_subtitle": "以下のパスワードはZelf ID QRに必要な暗号化レイヤーです。",
+        "password_decryption": "Zelf IDにはパスワードが必要です",
         "password_parameters_title": "パスワードのガイドライン",
         "password_parameters": "パスワードのガイドラインは以下の通りです：<ul><li>8文字から128文字の間である必要があります</li><li>少なくとも1つの大文字を含める必要があります</li><li>1つの小文字を含める必要があります</li><li>1つの数字を含める必要があります</li><li>1つの特殊文字を含める必要があります</li><li>一般的なパスワードを避けてください</li><li>文字の繰り返しを避けてください</li></ul>",
         "password_strength_label": "パスワードの強度",
-        "password_subtitle": "復号化プロセスを完了するために、このタグ名に割り当てられたパスワードを入力してください。",
+        "password_subtitle": "復号化プロセスを完了するために、このZelf IDに割り当てられたパスワードを入力してください。",
         "pin_description": "6桁のPINを作成",
-        "pin_unlock_description": "PINを使用してZelfProofのロックを解除",
+        "pin_unlock_description": "PINを使用してZelf ID QRのロックを解除",
         "pin_confirm_description": "確認のために6桁のPINを再入力してください",
         "pin_title": "PIN",
         "secure_password_description": "追加のセキュリティレイヤー",
@@ -635,16 +650,16 @@
         "security_layer_title": "セキュリティレイヤー",
         "strong": "強い",
         "subtitle": "シードフレーズの長さを選択し、暗号化プロセスを続行してください。",
-        "title": "ZelfProof暗号化レイヤー",
+        "title": "Zelf ID QR暗号化レイヤー",
         "unhide_words": "単語を表示",
         "weak": "弱い",
         "weak_password": "弱いパスワード",
         "without_password_description": "より速いですが、安全性が低い",
         "without_password_title": "パスワードなし",
         "create_pin_title": "PINを作成",
-        "create_pin_subtitle": "ZelfProofの6桁のパスワードを入力してください。",
+        "create_pin_subtitle": "Zelf ID QRの6桁のパスワードを入力してください。",
         "confirm_pin_title": "PINを確認",
-        "confirm_pin_subtitle": "ZelfProofの6桁のパスワードを再入力してください。"
+        "confirm_pin_subtitle": "Zelf ID QRの6桁のパスワードを再入力してください。"
     },
     "receive": {
         "information": "このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
@@ -682,6 +697,7 @@
         "are_you_sure": "よろしいですか？",
         "asset": "資産",
         "available": "利用可能",
+        "authorized": "認証済み",
         "avax_address": "AVAXアドレス",
         "balance": "残高",
         "bdag_address": "BDAGアドレス",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "新しいウォレットを作成",
         "date": "日付",
         "days": "日",
-        "decrypt_zelfname": "タグ名を復号化",
+        "decrypt_zelfname": "Zelf IDを復号化",
         "do_it_later": "後で行う",
         "documentation": "ドキュメント",
         "domain_expired": "ドメインの有効期限切れ",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "今後表示しない",
         "dont_show_this_message_again": "これらの説明を今後表示しない",
         "download_qr": "QRをダウンロード",
-        "download_zelfproof": "ZelfProofをダウンロード",
+        "download_zelfproof": "Zelf ID QRをダウンロード",
         "edit": "編集",
         "eth_address": "ETHアドレス",
         "extend_registration": "サブスクリプションを延長",
@@ -728,9 +744,9 @@
         "is_required": "は必須です",
         "learn_more": "詳細を見る",
         "load_more": "さらに読み込む",
-        "login": "ZelfProofを復号化",
-        "logout": "ZelfProofを削除",
-        "manage_domains": "ZelfNameを管理",
+        "login": "Zelf ID QRを復号化",
+        "logout": "Zelf ID QRを削除",
+        "manage_domains": "Zelf IDを管理",
         "max": "最大",
         "my_arns": "マイArNS",
         "navigating_away_will_cancel": "ページを離れると進行状況が失われます。戻ってもよろしいですか？",
@@ -754,13 +770,13 @@
         "receive": "受信",
         "recommended": "推奨",
         "refresh": "更新",
-        "registered": "{{ date }}からタグ名が登録されています",
-        "remove_all_zelfproofs": "すべてのZelfProofを削除",
+        "registered": "{{ date }}からZelf IDが登録されています",
+        "remove_all_zelfproofs": "すべてのZelf ID QRを削除",
         "remove": "削除",
         "renew_domain": "ドメインを更新",
         "renew_subscription": "サブスクリプションを更新",
         "reservation_found": "予約が見つかりました",
-        "search_your_zelf_name": "タグ名を検索",
+        "search_your_zelf_name": "Zelf IDを検索",
         "search": "検索...",
         "seed_phrase": "シードフレーズ",
         "send_symbol": "{{symbol}}を送信",
@@ -849,13 +865,13 @@
         "registered_until": "有効期限"
     },
     "manage_domains": {
-        "are_you_sure_you_want_to_delete": "このZelfProofを削除してもよろしいですか？",
-        "domain_error": "{{ zelfName }}のトライアル期間が終了しました。このタグ名を引き続き使用するには、サブスクリプションを購入する必要があります",
+        "are_you_sure_you_want_to_delete": "このZelf ID QRを削除してもよろしいですか？",
+        "domain_error": "{{ zelfName }}のトライアル期間が終了しました。このZelf IDを引き続き使用するには、サブスクリプションを購入する必要があります",
         "domain_warning": "まだ購入する時間があります",
-        "expired_wallet_logout_message": "タグ名で検索すれば、このZelfProofを再度復号化できます。ただし、すぐに購入しないと失う可能性があります。",
-        "logout_of_wallet_message": "タグ名で検索するか、ZelfProofのQRコードを読み込むことで、このZelfProofを再度復号化できます。",
-        "purchase_new_domain": "新しいタグ名を追加",
-        "zelfproof_removed_successfully": "ZelfProofが正常に削除されました"
+        "expired_wallet_logout_message": "Zelf IDで検索すれば、このZelf ID QRを再度復号化できます。ただし、すぐに購入しないと失う可能性があります。",
+        "logout_of_wallet_message": "Zelf IDで検索するか、Zelf ID QRコードを読み込むことで、このZelf ID QRを再度復号化できます。",
+        "purchase_new_domain": "新しいZelf IDを追加",
+        "zelfproof_removed_successfully": "Zelf ID QRが正常に削除されました"
     },
     "liveness": {
         "center_your_face": "画面の中央に顔を合わせてください",
@@ -869,17 +885,17 @@
         "address_too_long": "アドレスが長すぎます",
         "all_fields_required": "すべての項目を入力してください",
         "camera_dimensions_not_properly_initialized": "カメラが適切に初期化されていません",
-        "cannot_decrypt_zotp_missing_zelfProof": "ZOTPを復号できません: ZelfProofがありません。有効なZelfProofなしではこのZOTPを復号できません。",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTPを復号できません: Zelf ID QRがありません。有効なZelf ID QRなしではこのZOTPを復号できません。",
         "cannot_swap_across_these_networks": "現在、これらのネットワーク間でのスワップはできません。後でもう一度お試しください。",
         "chart_not_found": "チャートデータが利用できません",
-        "Duplicated_person": "ZelfProofが他のレコードで使用されています",
+        "Duplicated_person": "Zelf ID QRが他のレコードで使用されています",
         "empty_password": "パスワードを入力してください",
-        "ERR_DESCRIPTION": "ZelfProofのロックを解除するには、指示に従ってください",
-        "ERR_INVALID_PASSWORD": "このZelfProofのパスワードが無効です",
+        "ERR_DESCRIPTION": "Zelf ID QRのロックを解除するには、指示に従ってください",
+        "ERR_INVALID_PASSWORD": "このZelf ID QRのパスワードが無効です",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "顔の角度が大きすぎます",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "顔が境界線に近すぎます",
         "ERR_LIVENESS_FAILED": "ライブネス検出に失敗しました",
-        "ERR_UNPROCESSABLE_CONTENT": "ZelfProofを復号化できませんでした",
+        "ERR_UNPROCESSABLE_CONTENT": "Zelf ID QRを復号化できませんでした",
         "ERR_VERIFICATION_FAILED": "ライブネス検出に失敗しました",
         "error_closing_popup": "ウィンドウを閉じる際にエラーが発生しました",
         "error_initializing_biometrics": "生体認証の初期化中にエラーが発生しました",
@@ -892,8 +908,8 @@
         "generic_title": "エラーが発生しました",
         "generic": "申し訳ありませんが、リクエストの処理中に問題が発生しました。もう一度お試しください。",
         "incorrect_passphrase": "マスターパスワードが正しくありません。もう一度お試しください。",
-        "incorrect_zelf_proof_message": "提供されたファイルは有効なZelfProofではないようです。もう一度お試しください。",
-        "incorrect_zelf_proof_title": "不正なZelfProof",
+        "incorrect_zelf_proof_message": "提供されたファイルは有効なZelf ID QRではないようです。もう一度お試しください。",
+        "incorrect_zelf_proof_title": "不正なZelf ID QR",
         "insufficient_funds": "残高不足です。取引手数料をカバーするのに十分な資金がウォレットにあることを確認してください。",
         "invalid_credentials": "認証情報が無効です",
         "invalid_format": "形式が無効です",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "{{ value }}より大きい必要があります",
         "must_be_less_than": "{{ value }}より小さい必要があります",
         "no_decrypted_data_received_from_api": "サーバーから復号されたデータを受信しませんでした",
-        "no_zelfproof_available_for_password_decryption": "パスワード復号に使用できるZelfProofがありません",
+        "no_zelfproof_available_for_password_decryption": "パスワード復号に使用できるZelf ID QRがありません",
         "not_found": "レコードが見つかりません",
         "password_doesnt_match": "パスワードが一致しません",
         "password_incorrect": "パスワードが正しくありません",
@@ -921,7 +937,7 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "ライブネスチェックが失敗しました。もう一度お試しください。"
         },
-        "person_already_set": "登録には既にZelfProofがリンクされています",
+        "person_already_set": "登録には既にZelf ID QRがリンクされています",
         "private_key_locked": "秘密鍵がロックされました。続行するには生体認証が必要です。",
         "required_field": "この項目は必須です",
         "same_address": "同じアドレスに送金することはできません",
@@ -934,7 +950,7 @@
         "try_again": "再試行",
         "unknown_error": "不明なエラーが発生しました",
         "user_cancelled_decryption": "復号がキャンセルされました",
-        "zelfName_is_taken": "このタグ名は既に使用されています",
+        "zelfName_is_taken": "このZelf IDは既に使用されています",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,23 +1056,23 @@
         "ru": "ロシア語"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "このタグ名はもう必要ありません",
-        "choose_new_zelfname": "新しいタグ名を選択",
+        "i_dont_want_this_wallet": "このZelf IDはもう必要ありません",
+        "choose_new_zelfname": "新しいZelf IDを選択",
         "recover_it_now": "今すぐ復元",
         "delete_wallet_title": "タグを削除",
-        "delete_wallet_message": "タグを削除する前に、ZelfProof QRコードをバックアップしたことを確認してください。",
+        "delete_wallet_message": "タグを削除する前に、Zelf ID QRコードをバックアップしたことを確認してください。",
         "yes_because": "はい、理由は：",
         "thanks_for_subscribing": "ご購読ありがとうございます",
         "make_zelfname_yours": "{{ zelfName }}をあなたのものに",
         "keep_zelfname_yours": "{{ zelfName }}をあなたのものに保つ",
-        "love_your_zelfname": "あなたのタグ名が気に入りましたか？",
+        "love_your_zelfname": "あなたのZelf IDが気に入りましたか？",
         "time_is_running_out": "時間がなくなっています",
-        "not_much_time_left": "あなたのタグ名はもう少し予約されていますが、待ちすぎないでください！",
+        "not_much_time_left": "あなたのZelf IDはもう少し予約されていますが、待ちすぎないでください！",
         "oh_no": "大変！",
         "thanks_for_reserving": "ご予約ありがとうございます",
         "is_no_longer_available": "は利用できなくなりました",
         "has_been_taken": "は既に取得されています",
-        "benefit_title": "タグ名で得られるもの：",
+        "benefit_title": "Zelf IDで得られるもの：",
         "benefit_1_title": "オフライン暗号化",
         "benefit_1_subtitle": "あなたの鍵、あなたの管理",
         "benefit_2_title": "超プライベートな復号化",
@@ -1077,9 +1093,9 @@
         "is_still_available": "はまだ利用可能です",
         "resubscribe_within": "{{ days }}日以内に再購読",
         "complete_purchase_within": "{{ days }}日以内に購入を完了して1年間保護",
-        "have_you_explored_the_benefits": "タグ名とZkProofsの利点を確認しましたか？",
+        "have_you_explored_the_benefits": "Zelf IDとZkProofsの利点を確認しましたか？",
         "but_someone_else_could_grab_it": "他の人がまだ取得する可能性があります！失うリスクを冒さないでください。シードフレーズを紙に書き留めるのも避けてください！",
-        "but_dont_worry_you_can_access_your_zelfproof": "でも心配しないでください。同じシードフレーズでタグ名にアクセスし、新しいタグ名を予約できます。",
+        "but_dont_worry_you_can_access_your_zelfproof": "でも心配しないでください。同じシードフレーズでZelf IDにアクセスし、新しいZelf IDを予約できます。",
         "considerations_description_1": "破られないセキュリティ。",
         "considerations_description_2": "ユニークなアイデンティティ。",
         "considerations_description_3": "将来を見据えた保護。"
@@ -1100,7 +1116,7 @@
             "payment_method": "支払い方法:",
             "status": "ステータス",
             "transaction": "トランザクション",
-            "zelf_name": "タグ名",
+            "zelf_name": "Zelf ID",
             "start_date": "開始日:",
             "expires_on": "有効期限:",
             "next_billing": "次回の請求:",
@@ -1206,7 +1222,7 @@
                 },
                 "zelfproof": {
                     "title": "支払いカード情報",
-                    "download": "ZelfProofをダウンロード"
+                    "download": "Zelf ID QRをダウンロード"
                 },
                 "decrypted": {
                     "title": "支払いカード情報",
@@ -1327,7 +1343,7 @@
                 },
                 "zelfproof": {
                     "title": "支払いカード情報",
-                    "download": "ZelfProofをダウンロード"
+                    "download": "Zelf ID QRをダウンロード"
                 },
                 "decrypted": {
                     "title": "支払いカード情報",
@@ -1408,7 +1424,7 @@
                 "no_username": "ユーザー名なし",
                 "no_website": "ウェブサイトなし",
                 "no_category": "カテゴリなし",
-                "no_zelf_name": "タグ名なし",
+                "no_zelf_name": "Zelf IDなし",
                 "unknown_date": "不明な日付",
                 "decrypt": {
                     "button": "支払いカードを復号",
@@ -1421,7 +1437,7 @@
                     "username": "ユーザー名",
                     "category": "カテゴリ",
                     "created": "作成日",
-                    "zelf_name": "タグ名",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "IPFSハッシュ",
                     "copy_url": "ウェブサイトURLをコピー",
                     "launch_website": "ウェブサイトを開く",
@@ -1429,7 +1445,7 @@
                 },
                 "zelfproof": {
                     "title": "支払いカード情報",
-                    "download": "ZelfProofをダウンロード"
+                    "download": "Zelf ID QRをダウンロード"
                 },
                 "decrypted": {
                     "title": "支払いカード情報",
@@ -1541,7 +1557,7 @@
                     "username": "ユーザー名",
                     "type": "タイプ",
                     "category": "カテゴリ",
-                    "zelf_name": "タグ名",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "タイムスタンプ"
                 }
             },
@@ -1586,7 +1602,7 @@
             "zelfproof": {
                 "title": "支払いカード情報",
                 "labels": {
-                    "string": "ZelfProof文字列",
+                    "string": "Zelf ID QR文字列",
                     "qr_code": "QRコード"
                 },
                 "copy_hint": "クリックしてコピー"
@@ -1791,7 +1807,7 @@
         "start_earning_desc": "コードを共有して報酬を獲得しましょう！",
         "status": {
             "purchased": "購入済み",
-            "registered": "{{ date }}からタグ名が登録されています",
+            "registered": "{{ date }}からZelf IDが登録されています",
             "pending": "保留中"
         },
         "claim": "{{ amount }} $ZNSを受け取る"
@@ -1823,7 +1839,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "ZelfNameを失わないでください",
+            "title": "Zelf IDを失わないでください",
             "expired": "期限切れ",
             "one_day": "ZNSの購入まであと1日です",
             "days_left": "ZNSの購入まであと {{ days }} 日です"

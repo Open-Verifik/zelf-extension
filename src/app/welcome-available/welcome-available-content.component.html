@@ -17,8 +17,6 @@
                     (click)="clearInvalidReferral()"
                     (input)="sanitizeZelfName()"
                     (keydown.enter)="onSearchZelfName($event)"
-                    [disabled]="loadingReferral || loading || zelfNameObject"
-                    [readonly]="loadingReferral || loading || zelfNameObject"
                     autocomplete="off"
                     class="zelf-input__control zelf-input__control--floating-label"
                     formControlName="referralName"

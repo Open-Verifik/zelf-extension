@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "คิวอาร์โค้ด",
             "no_folder": "ไม่มีโฟลเดอร์",
-            "download_zelfproof": "ดาวน์โหลด ZelfProof",
+            "download_zelfproof": "ดาวน์โหลด Zelf ID QR",
             "back_to_payment_cards": "กลับไปยังบัตรชำระเงิน",
             "add_another_card": "เพิ่มบัตรอีกใบ",
             "try_again": "ลองอีกครั้ง",
@@ -37,7 +37,7 @@
             },
             "zelfproof": {
                 "title": "ข้อมูลบัตรชำระเงิน",
-                "download": "ดาวน์โหลด ZelfProof"
+                "download": "ดาวน์โหลด Zelf ID QR"
             },
             "decrypted": {
                 "title": "ข้อมูลบัตรชำระเงิน",
@@ -90,7 +90,7 @@
             },
             "image": {
                 "title": "ข้อมูลบัตรชำระเงิน",
-                "download": "ดาวน์โหลด ZelfProof"
+                "download": "ดาวน์โหลด Zelf ID QR"
             },
             "nft": {
                 "title": "ข้อมูลบัตรชำระเงิน",
@@ -131,7 +131,7 @@
             "zelfproof": {
                 "title": "ข้อมูลบัตรชำระเงิน",
                 "labels": {
-                    "string": "สตริง ZelfProof",
+                    "string": "สตริง Zelf ID QR",
                     "qr_code": "คิวอาร์โค้ด"
                 },
                 "copy_hint": "คลิกเพื่อคัดลอก"
@@ -240,7 +240,7 @@
             "no_qr": "ไม่มี QR",
             "untitled": "ไม่มีชื่อ",
             "username_label": "ชื่อผู้ใช้: {{ username }}",
-            "zelf_name_label": "Tag Name: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "หมวดหมู่: {{ category }}",
             "type_label": "ประเภท: {{ type }}",
             "secure_credential": "ข้อมูลรับรองที่ปลอดภัย"
@@ -345,7 +345,7 @@
                         "folder": "โฟลเดอร์",
                         "type": "ประเภท",
                         "category": "หมวดหมู่",
-                        "zelf_name": "Tag Name",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "เวลา"
                     }
                 },
@@ -385,11 +385,11 @@
                 "zelfproof": {
                     "title": "ข้อมูลบัตรชำระเงิน",
                     "labels": {
-                        "string": "สตริง ZelfProof",
+                        "string": "สตริง Zelf ID QR",
                         "qr_code": "คิวอาร์โค้ด"
                     },
                     "copy_hint": "คลิกเพื่อคัดลอก",
-                    "qr_alt": "คิวอาร์โค้ด ZelfProof"
+                    "qr_alt": "คิวอาร์โค้ด Zelf ID QR"
                 },
                 "debug": {
                     "title": "ข้อมูลบัตรชำระเงิน"
@@ -433,14 +433,14 @@
     },
     "cancel": "ยกเลิก",
     "confirm": "ยืนยัน",
-    "logout_message": "เมื่อยืนยันการกระทำนี้ คุณจะลบ ZelfProofs ทั้งหมดของคุณออกจากส่วนขยาย คุณจะต้องถอดรหัส ZelfProof แต่ละรายการอีกครั้งเพื่อเข้าถึงพวกมัน คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?",
-    "logout_title": "ลบ ZELFPROOFS ทั้งหมด",
+    "logout_message": "เมื่อยืนยันการกระทำนี้ คุณจะลบ Zelf ID QRs ทั้งหมดของคุณออกจากส่วนขยาย คุณจะต้องถอดรหัส Zelf ID QR แต่ละรายการอีกครั้งเพื่อเข้าถึงพวกมัน คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?",
+    "logout_title": "ลบ ZELF ID QRS ทั้งหมด",
     "onboarding": {
         "lifetime": "ตลอดชีพ",
         "step_1_description": "ไม่ต้องกังวลเรื่องการลืม สูญหาย หรือการรั่วไหลของวลีเริ่มต้นของคุณ",
         "step_1": "3 ขั้นตอนในการเข้ารหัสวลีเริ่มต้นของคุณ",
-        "step_2_description": "สำรองวลีเริ่มต้นของคุณในไม่กี่วินาทีโดยการถอดรหัส ZelfProof ของคุณ",
-        "step_2": "ค้นหาและถอดรหัส ZelfProof ของคุณ",
+        "step_2_description": "สำรองวลีเริ่มต้นของคุณในไม่กี่วินาทีโดยการถอดรหัส Zelf ID QR ของคุณ",
+        "step_2": "ค้นหาและถอดรหัส Zelf ID QR ของคุณ",
         "step_3_description": "จัดเก็บ zk-FaceProof ของวลีเริ่มต้นของคุณในบล็อกเชนแทนที่จะเก็บไว้ในอุปกรณ์ท้องถิ่น",
         "step_3": "ป้องกันการแฮกวลีเริ่มต้นของคุณ",
         "year": "ปี"
@@ -476,8 +476,8 @@
         "recent_addresses": "ล่าสุด",
         "used": "ใช้เมื่อ {{days}} ที่แล้ว",
         "withdrawal_amount": "จำนวนเงินที่ถอน",
-        "zelf_name_not_registered": "Tag Name ยังไม่ได้ลงทะเบียน",
-        "zelf_name_registered": "Tag Name ลงทะเบียนแล้ว",
+        "zelf_name_not_registered": "Zelf ID ยังไม่ได้ลงทะเบียน",
+        "zelf_name_registered": "Zelf ID ลงทะเบียนแล้ว",
         "from_address": "จากที่อยู่",
         "private_transaction": "ธุรกรรมส่วนตัว",
         "amount_inline_required": "Required",
@@ -508,12 +508,12 @@
         "decrypt_and_reserve": "ถอดรหัสและจอง",
         "decrypt_now_pay_later": "ถอดรหัสตอนนี้ จ่ายทีหลัง",
         "decrypt_now_renew_later": "ถอดรหัสตอนนี้ ต่ออายุทีหลัง",
-        "dont_lose_your_zelfname": "เฮ้! อย่าให้เสีย Tag Name ของคุณ ต่ออายุหรือจองวันนี้ ก่อนที่คนอื่นจะซื้อไป",
-        "dont_remember_zelfname": "จำ Tag Name ของคุณไม่ได้?",
+        "dont_lose_your_zelfname": "เฮ้! อย่าให้เสีย Zelf ID ของคุณ ต่ออายุหรือจองวันนี้ ก่อนที่คนอื่นจะซื้อไป",
+        "dont_remember_zelfname": "จำ Zelf ID ของคุณไม่ได้?",
         "enjoy_your_domain": "เพลิดเพลินกับโดเมนของคุณ อย่าลืมซื้อก่อนที่คนอื่นจะซื้อ!",
         "expiration_date": "วันที่หมดอายุ {{ date }}",
-        "find_zelf_name_subtitle": "ค้นหา Tag Name ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",
-        "find_zelf_name_title": "ค้นหา Tag Name",
+        "find_zelf_name_subtitle": "ค้นหา Zelf ID ที่มีอยู่โดยป้อนที่อยู่สาธารณะด้านล่าง:",
+        "find_zelf_name_title": "ค้นหา Zelf ID",
         "got_it": "เข้าใจแล้ว จะทำทีหลัง",
         "grace_period_until": "ระยะเวลาพักจนถึง",
         "import_subtitle": "เราจะใช้คำกู้คืนลับของคุณเพื่อตรวจสอบและนำเข้ากระเป๋าเงินที่มีอยู่ กรุณาป้อนด้านล่าง",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "รหัสอ้างอิงไม่ถูกต้อง",
         "name_expires": "ชื่อหมดอายุ",
         "new_domain": "โดเมนใหม่",
-        "offline_subtitle": "ZelfProof นี้ถูกสร้างแบบออฟไลน์ จึงใช้ระบบความปลอดภัยที่แตกต่างกัน ในขณะนี้ยังไม่รองรับส่วนขยาย จะมีให้ใช้เร็วๆ นี้",
-        "offline_tip": "แต่ไม่ต้องกังวล! คุณสามารถนำเข้า ZelfProof ของคุณด้วยชื่อแท็กอื่นเพื่อให้สามารถเข้าถึงจากส่วนขยายได้",
+        "offline_subtitle": "Zelf ID QR นี้ถูกสร้างแบบออฟไลน์ จึงใช้ระบบความปลอดภัยที่แตกต่างกัน ในขณะนี้ยังไม่รองรับส่วนขยาย จะมีให้ใช้เร็วๆ นี้",
+        "offline_tip": "แต่ไม่ต้องกังวล! คุณสามารถนำเข้า Zelf ID QR ของคุณด้วยชื่อแท็กอื่นเพื่อให้สามารถเข้าถึงจากส่วนขยายได้",
         "i_understand_go_back": "เข้าใจแล้ว กลับหน้าหลัก",
         "old_domain": "โดเมนเก่า",
         "paste_your_recovery_phrase": "คุณสามารถวางวลีกู้คืนลับทั้งหมดของคุณในช่องใดก็ได้",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> ถูกใช้ไปแล้ว แต่ไม่ต้องกังวล! คุณสามารถเข้าถึง ZelfProof ของคุณและจองชื่อแท็กใหม่ด้วยวลีเริ่มต้นเดียวกัน",
-        "pick_your_new_zelfname": "เลือก Tag Name ใหม่ของคุณ",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> ถูกใช้ไปแล้ว แต่ไม่ต้องกังวล! คุณสามารถเข้าถึง Zelf ID QR ของคุณและจองชื่อแท็กใหม่ด้วยวลีเริ่มต้นเดียวกัน",
+        "pick_your_new_zelfname": "เลือก Zelf ID ใหม่ของคุณ",
         "public_address_input": "ป้อนที่อยู่สาธารณะ ETH หรือ SOL ของคุณที่นี่",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> ยังว่างอยู่ คุณสามารถเข้าถึง ZelfProof ของคุณและกู้คืนชื่อแท็กของคุณด้วยวลีเริ่มต้นเดียวกัน",
-        "recover_your_zelfname": "กู้คืน Tag Name ของคุณ",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> ยังว่างอยู่ คุณสามารถเข้าถึง Zelf ID QR ของคุณและกู้คืนชื่อแท็กของคุณด้วยวลีเริ่มต้นเดียวกัน",
+        "recover_your_zelfname": "กู้คืน Zelf ID ของคุณ",
         "referral_code": "รหัสอ้างอิง (ไม่บังคับ)",
         "referral_successfully_registered": "ลงทะเบียนรหัสอ้างอิงสำเร็จ",
         "registered_since": "ลงทะเบียนตั้งแต่ {{ date }}",
-        "registered": "Tag Name ลงทะเบียนตั้งแต่ {{ date }}",
+        "registered": "Zelf ID ลงทะเบียนตั้งแต่ {{ date }}",
         "renew_your_domain_today": "ต่ออายุโดเมนของคุณวันนี้ก่อนที่คนอื่นจะซื้อไป",
-        "search_another_zelfname": "ค้นหา Tag Name อื่น",
-        "search_your_new_zelfname": "ค้นหา Tag Name ใหม่ของคุณ",
+        "search_another_zelfname": "ค้นหา Zelf ID อื่น",
+        "search_your_new_zelfname": "ค้นหา Zelf ID ใหม่ของคุณ",
         "transfer_done": "โอนเสร็จสิ้น",
-        "upload_zelf_proof": "หรืออัปโหลดรหัส QR ของ ZelfProof ของคุณเพื่อดำเนินการต่อ:",
+        "upload_zelf_proof": "หรืออัปโหลดรหัส QR ของ Zelf ID QR ของคุณเพื่อดำเนินการต่อ:",
         "you_can_transfer_this_domain": "คุณสามารถโอนโดเมนนี้ได้",
         "you_will_register_this_domain": "อัตลักษณ์ใหม่ของคุณบน Zelf Name Service",
         "safeguard_your_crypto": "ปกป้องคริปโตของคุณ!",
         "offline_import_subtitle": "ก่อนที่คุณจะสามารถนำเข้ากระเป๋าเงินออฟไลน์ คุณต้องเลือกชื่อแท็กใหม่",
-        "your_zelf_name": "Tag Name ของคุณ"
+        "your_zelf_name": "Zelf ID ของคุณ",
+        "create_new_account": "สร้าง Zelf ID",
+        "i_already_have_a_wallet": "ฉันมีกระเป๋าเงินอยู่แล้ว",
+        "choose_tag_name_title": "เลือก Zelf ID ของคุณ",
+        "choose_tag_name_subtitle": "เลือกชื่อที่ไม่ซ้ำสำหรับตัวตนของคุณบนเครือข่าย Zelf",
+        "choose_tag_name_placeholder": "ป้อน Zelf ID ของคุณ",
+        "preview_name_placeholder": "ชื่อของคุณ",
+        "search_name_aria": "ค้นหาชื่อนี้",
+        "tag_name_available": "ว่าง! ชื่อนี้เป็นของคุณ",
+        "tag_name_taken": "ชื่อนี้ถูกใช้แล้ว",
+        "import_wallet_title": "นำเข้ากระเป๋าเงิน",
+        "import_wallet_subtitle": "ป้อนที่อยู่กระเป๋าหรือสแกนโค้ด Zelf ID QR เพื่อกู้คืนบัญชี",
+        "import_with_seed_phrase": "ไม่มี Zelf ID QR — นำเข้าด้วยวลีเมล็ดพันธุ์",
+        "feature_multichain": "มัลติเชน",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "ดูแลตนเอง"
     },
     "settings": {
         "networks_label": "เครือข่าย",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "ต้องใช้ PIN และการยืนยันตัวตนด้วยชีวภาพในการใช้งานครั้งถัดไป",
             "lock_vault_button": "ล็อคตู้เก็บของ",
             "remove_keys_title": "ลบคีย์จากตู้เก็บของ",
-            "remove_keys_description": "ลบคีย์ทั้งหมดจากอุปกรณ์นี้อย่างถาวร คุณจะต้องกู้คืน ZelfProof เพื่อใช้งานอีกครั้ง นับถอยหลังช่วยให้คุณยกเลิกก่อนการลบได้",
+            "remove_keys_description": "ลบคีย์ทั้งหมดจากอุปกรณ์นี้อย่างถาวร คุณจะต้องกู้คืน Zelf ID QR เพื่อใช้งานอีกครั้ง นับถอยหลังช่วยให้คุณยกเลิกก่อนการลบได้",
             "remove_keys_button": "ลบคีย์จากตู้เก็บของ",
             "remove_keys_countdown_minutes": "คีย์จะถูกลบใน {{ minutes }}m {{ seconds }}s",
             "remove_keys_countdown_seconds": "คีย์จะถูกลบใน {{ seconds }}s",
@@ -615,18 +630,18 @@
     "security": {
         "biometric_decryption_subtitle": "เพื่อให้กระบวนการถอดรหัสเสร็จสมบูรณ์ เราจำเป็นต้องยืนยันตัวตนของคุณโดยใช้ข้อมูลชีวภาพ",
         "biometric_decryption_title": "การถอดรหัสด้วยชีวภาพ",
-        "biometric_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการเข้ารหัส ZelfProof ของคุณ <strong>เราไม่เก็บหรือใช้ข้อมูลชีวภาพของคุณเพื่อวัตถุประสงค์อื่น</strong>",
+        "biometric_subtitle": "ต่อไป เราจะถ่ายเซลฟี่ร่วมกับรหัสผ่านของคุณ เพื่อสร้างคีย์ส่วนตัวที่ใช้ในการเข้ารหัส Zelf ID QR ของคุณ <strong>เราไม่เก็บหรือใช้ข้อมูลชีวภาพของคุณเพื่อวัตถุประสงค์อื่น</strong>",
         "biometric_title": "ชั้นการเข้ารหัสด้วยชีวภาพ",
         "hide_words": "ซ่อนคำ",
         "medium": "ปานกลาง",
-        "new_password_subtitle": "รหัสผ่านต่อไปนี้เป็นชั้นการเข้ารหัสที่จำเป็นสำหรับ ZelfProof ของคุณ",
+        "new_password_subtitle": "รหัสผ่านต่อไปนี้เป็นชั้นการเข้ารหัสที่จำเป็นสำหรับ Zelf ID QR ของคุณ",
         "password_decryption": "ZELFNAME ต้องการรหัสผ่าน",
         "password_parameters_title": "แนวทางการตั้งรหัสผ่าน",
         "password_parameters": "แนวทางการตั้งรหัสผ่านของเราคือ: <ul><li>ต้องมีความยาวระหว่าง 8 ถึง 128 ตัวอักษร</li> <li>ต้องมีตัวอักษรตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว</li> <li>ต้องมีตัวอักษรตัวพิมพ์เล็ก 1 ตัว</li> <li>ต้องมีตัวเลข 1 ตัว</li> <li>ต้องมีอักขระพิเศษ 1 ตัว</li> <li>หลีกเลี่ยงรหัสผ่านที่ใช้กันทั่วไป</li> <li>หลีกเลี่ยงการใช้อักขระซ้ำ</li></ul>",
         "password_strength_label": "ความแข็งแรงของรหัสผ่าน",
-        "password_subtitle": "ป้อนรหัสผ่านที่กำหนดให้กับ Tag Name นี้เพื่อให้กระบวนการถอดรหัสเสร็จสมบูรณ์",
+        "password_subtitle": "ป้อนรหัสผ่านที่กำหนดให้กับ Zelf ID นี้เพื่อให้กระบวนการถอดรหัสเสร็จสมบูรณ์",
         "pin_description": "สร้าง PIN 6 หลัก",
-        "pin_unlock_description": "ใช้ PIN ของคุณเพื่อปลดล็อก ZelfProof",
+        "pin_unlock_description": "ใช้ PIN ของคุณเพื่อปลดล็อก Zelf ID QR",
         "pin_confirm_description": "กรอก PIN 6 หลักอีกครั้งเพื่อยืนยัน",
         "pin_title": "PIN",
         "secure_password_description": "ชั้นความปลอดภัยเพิ่มเติม",
@@ -635,16 +650,16 @@
         "security_layer_title": "ชั้นความปลอดภัย",
         "strong": "แข็งแรง",
         "subtitle": "เลือกความยาวของวลีเริ่มต้นของคุณและดำเนินการกับกระบวนการเข้ารหัส",
-        "title": "ชั้นการเข้ารหัส ZelfProof",
+        "title": "ชั้นการเข้ารหัส Zelf ID QR",
         "unhide_words": "แสดงคำ",
         "weak": "อ่อนแอ",
         "weak_password": "รหัสผ่านที่อ่อนแอ",
         "without_password_description": "เร็วกว่า แต่ปลอดภัยน้อยกว่า",
         "without_password_title": "ไม่ใช้รหัสผ่าน",
         "create_pin_title": "สร้าง PIN",
-        "create_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ ZelfProof ของคุณ",
+        "create_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ Zelf ID QR ของคุณ",
         "confirm_pin_title": "ยืนยัน PIN",
-        "confirm_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ ZelfProof ของคุณอีกครั้ง"
+        "confirm_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ Zelf ID QR ของคุณอีกครั้ง"
     },
     "receive": {
         "information": "ที่อยู่นี้สามารถใช้รับโทเคนที่เข้ากันได้เท่านั้น",
@@ -682,6 +697,7 @@
         "are_you_sure": "คุณแน่ใจหรือไม่?",
         "asset": "สินทรัพย์",
         "available": "มีให้บริการ",
+        "authorized": "ได้รับอนุญาต",
         "avax_address": "ที่อยู่ AVAX",
         "balance": "ยอดคงเหลือ",
         "bdag_address": "ที่อยู่ BDAG",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "สร้างกระเป๋าเงินใหม่",
         "date": "วันที่",
         "days": "วัน",
-        "decrypt_zelfname": "ถอดรหัส Tag Name",
+        "decrypt_zelfname": "ถอดรหัส Zelf ID",
         "do_it_later": "ทำภายหลัง",
         "documentation": "เอกสาร",
         "domain_expired": "โดเมนหมดอายุ",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "อย่าแสดงอีก",
         "dont_show_this_message_again": "อย่าแสดงคำแนะนำนี้อีก",
         "download_qr": "ดาวน์โหลด QR",
-        "download_zelfproof": "ดาวน์โหลด ZelfProof",
+        "download_zelfproof": "ดาวน์โหลด Zelf ID QR",
         "edit": "แก้ไข",
         "eth_address": "ที่อยู่ ETH",
         "extend_registration": "ขยายการสมัครสมาชิก",
@@ -728,9 +744,9 @@
         "is_required": "จำเป็นต้องกรอก",
         "learn_more": "เรียนรู้เพิ่มเติม",
         "load_more": "โหลดเพิ่มเติม",
-        "login": "ถอดรหัส ZelfProof",
-        "logout": "ลบ ZelfProof",
-        "manage_domains": "จัดการ ZelfNames",
+        "login": "ถอดรหัส Zelf ID QR",
+        "logout": "ลบ Zelf ID QR",
+        "manage_domains": "จัดการ Zelf ID",
         "max": "สูงสุด",
         "my_arns": "ArNS ของฉัน",
         "navigating_away_will_cancel": "การออกจากหน้านี้จะยกเลิกความคืบหน้าทั้งหมดของคุณ คุณแน่ใจหรือไม่ว่าต้องการย้อนกลับ?",
@@ -754,13 +770,13 @@
         "receive": "รับ",
         "recommended": "แนะนำ",
         "refresh": "รีเฟรช",
-        "registered": "Tag Name ลงทะเบียนตั้งแต่ {{ date }}",
-        "remove_all_zelfproofs": "ลบ ZelfProofs ทั้งหมด",
+        "registered": "Zelf ID ลงทะเบียนตั้งแต่ {{ date }}",
+        "remove_all_zelfproofs": "ลบ Zelf ID QRs ทั้งหมด",
         "remove": "ลบ",
         "renew_domain": "ต่ออายุโดเมน",
         "renew_subscription": "ต่ออายุการสมัครสมาชิก",
         "reservation_found": "พบการจอง",
-        "search_your_zelf_name": "ค้นหา Tag Name ของคุณ",
+        "search_your_zelf_name": "ค้นหา Zelf ID ของคุณ",
         "search": "ค้นหา...",
         "seed_phrase": "วลีเริ่มต้น",
         "send_symbol": "ส่ง {{symbol}}",
@@ -849,13 +865,13 @@
         "registered_until": "หมดอายุเมื่อ"
     },
     "manage_domains": {
-        "are_you_sure_you_want_to_delete": "คุณแน่ใจหรือไม่ว่าต้องการลบ ZelfProof นี้?",
-        "domain_error": "ระยะเวลาทดลองใช้ {{ zelfName }} หมดอายุแล้ว คุณต้องซื้อการสมัครสมาชิกเพื่อใช้ ZelfName นี้ต่อไป",
+        "are_you_sure_you_want_to_delete": "คุณแน่ใจหรือไม่ว่าต้องการลบ Zelf ID QR นี้?",
+        "domain_error": "ระยะเวลาทดลองใช้ {{ zelfName }} หมดอายุแล้ว คุณต้องซื้อการสมัครสมาชิกเพื่อใช้ Zelf ID นี้ต่อไป",
         "domain_warning": "คุณยังมีเวลาในการซื้อ",
-        "expired_wallet_logout_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
-        "logout_of_wallet_message": "คุณสามารถถอดรหัส ZelfProof นี้ได้อีกครั้งหากคุณค้นหาด้วยชื่อแท็กของคุณ หรือโหลดรหัส QR ของ ZelfProof ของคุณ",
+        "expired_wallet_logout_message": "คุณสามารถถอดรหัส Zelf ID QR นี้ได้อีกครั้งหากคุณค้นหาด้วย Zelf ID ของคุณ อย่างไรก็ตาม คุณอาจสูญเสียมันไปหากไม่ซื้อในเร็วๆ นี้",
+        "logout_of_wallet_message": "คุณสามารถถอดรหัส Zelf ID QR นี้ได้อีกครั้งหากคุณค้นหาด้วย Zelf ID ของคุณ หรือโหลดโค้ด Zelf ID QR ของคุณ",
         "purchase_new_domain": "เพิ่มชื่อแท็กใหม่",
-        "zelfproof_removed_successfully": "ลบ ZelfProof สำเร็จแล้ว"
+        "zelfproof_removed_successfully": "ลบ Zelf ID QR สำเร็จแล้ว"
     },
     "liveness": {
         "center_your_face": "จัดใบหน้าของคุณให้อยู่ตรงกลางหน้าจอ",
@@ -869,17 +885,17 @@
         "address_too_long": "ที่อยู่ยาวเกินไป",
         "all_fields_required": "กรุณากรอกข้อมูลให้ครบทุกช่อง",
         "camera_dimensions_not_properly_initialized": "กล้องไม่ได้เริ่มต้นอย่างถูกต้อง",
-        "cannot_decrypt_zotp_missing_zelfProof": "ไม่สามารถถอดรหัส ZOTP: ไม่มี ZelfProof ZOTP นี้ไม่สามารถถอดรหัสได้หากไม่มี ZelfProof ที่ถูกต้อง",
+        "cannot_decrypt_zotp_missing_zelfProof": "ไม่สามารถถอดรหัส ZOTP: ไม่มี Zelf ID QR. ZOTP นี้ไม่สามารถถอดรหัสได้หากไม่มี Zelf ID QR ที่ถูกต้อง",
         "cannot_swap_across_these_networks": "ยังไม่สามารถแลกเปลี่ยนระหว่างเครือข่ายเหล่านี้ได้ กรุณาลองใหม่อีกครั้งในภายหลัง",
         "chart_not_found": "ไม่พบข้อมูลกราฟ",
-        "Duplicated_person": "ZelfProof กำลังถูกใช้สำหรับบันทึกอื่น",
+        "Duplicated_person": "Zelf ID QR กำลังถูกใช้สำหรับบันทึกอื่น",
         "empty_password": "รหัสผ่านไม่สามารถเว้นว่างได้",
-        "ERR_DESCRIPTION": "กรุณาทำตามคำแนะนำอย่างถูกต้องเพื่อปลดล็อค ZelfProof ของคุณ",
-        "ERR_INVALID_PASSWORD": "รหัสผ่านสำหรับ ZelfProof นี้ไม่ถูกต้อง",
+        "ERR_DESCRIPTION": "กรุณาทำตามคำแนะนำอย่างถูกต้องเพื่อปลดล็อค Zelf ID QR ของคุณ",
+        "ERR_INVALID_PASSWORD": "รหัสผ่านสำหรับ Zelf ID QR นี้ไม่ถูกต้อง",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "มุมใบหน้ามากเกินไป",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "ใบหน้าอยู่ใกล้ขอบเกินไป",
         "ERR_LIVENESS_FAILED": "การตรวจจับความมีชีวิตล้มเหลว",
-        "ERR_UNPROCESSABLE_CONTENT": "ไม่สามารถถอดรหัส ZelfProof ได้",
+        "ERR_UNPROCESSABLE_CONTENT": "ไม่สามารถถอดรหัส Zelf ID QR ได้",
         "ERR_VERIFICATION_FAILED": "การตรวจจับความมีชีวิตล้มเหลว",
         "error_closing_popup": "เกิดข้อผิดพลาดในการปิดหน้าต่าง",
         "error_initializing_biometrics": "เกิดข้อผิดพลาดในการเริ่มต้นไบโอเมตริกซ์",
@@ -892,8 +908,8 @@
         "generic_title": "เกิดข้อผิดพลาด",
         "generic": "ขออภัย มีปัญหาในการประมวลผลคำขอนี้ กรุณาลองใหม่อีกครั้ง",
         "incorrect_passphrase": "รหัสผ่านหลักไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง",
-        "incorrect_zelf_proof_message": "ไฟล์ที่ให้มาไม่ใช่ ZelfProof ที่ถูกต้อง กรุณาลองใหม่อีกครั้ง",
-        "incorrect_zelf_proof_title": "ZelfProof ไม่ถูกต้อง",
+        "incorrect_zelf_proof_message": "ไฟล์ที่ให้มาไม่ใช่ Zelf ID QR ที่ถูกต้อง กรุณาลองใหม่อีกครั้ง",
+        "incorrect_zelf_proof_title": "Zelf ID QR ไม่ถูกต้อง",
         "insufficient_funds": "เงินไม่เพียงพอ กรุณาตรวจสอบให้แน่ใจว่าคุณมีเงินเพียงพอในกระเป๋าเงินของคุณเพื่อชำระค่าธรรมเนียมการทำธุรกรรม",
         "invalid_credentials": "ข้อมูลเข้าสู่ระบบไม่ถูกต้อง",
         "invalid_format": "รูปแบบไม่ถูกต้อง",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "ต้องมากกว่า {{ value }}",
         "must_be_less_than": "ต้องน้อยกว่า {{ value }}",
         "no_decrypted_data_received_from_api": "ไม่ได้รับข้อมูลที่ถอดรหัสจากเซิร์ฟเวอร์",
-        "no_zelfproof_available_for_password_decryption": "ไม่มี ZelfProof สำหรับการถอดรหัสรหัสผ่าน",
+        "no_zelfproof_available_for_password_decryption": "ไม่มี Zelf ID QR สำหรับการถอดรหัสรหัสผ่าน",
         "not_found": "ไม่พบบันทึก",
         "password_doesnt_match": "รหัสผ่านไม่ตรงกัน",
         "password_incorrect": "รหัสผ่านไม่ถูกต้อง",
@@ -921,11 +937,11 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "การตรวจสอบความมีชีวิตล้มเหลว กรุณาลองใหม่อีกครั้ง"
         },
-        "person_already_set": "การลงทะเบียนของคุณมี ZelfProof ที่เชื่อมโยงอยู่แล้ว",
+        "person_already_set": "การลงทะเบียนของคุณมี Zelf ID QR ที่เชื่อมโยงอยู่แล้ว",
         "private_key_locked": "คีย์ส่วนตัวถูกล็อค คุณต้องทำการตรวจสอบไบโอเมตริกซ์เพื่อดำเนินการต่อ",
         "required_field": "กรุณากรอกข้อมูลในช่องนี้",
         "same_address": "คุณไม่สามารถส่งเงินไปยังที่อยู่เดียวกันได้",
-        "session_init_info": "ในการใช้ส่วนขยายบริการ Tag Name คุณต้องเข้าถึงเครือข่าย สำหรับโซลูชันออฟไลน์ ดูแอป iOS และ Android ของเรา",
+        "session_init_info": "ในการใช้ส่วนขยายบริการ Zelf ID คุณต้องเข้าถึงเครือข่าย สำหรับโซลูชันออฟไลน์ ดูแอป iOS และ Android ของเรา",
         "session_init_message": "ขออภัย เกิดปัญหาในการเริ่มต้นเซสชันของคุณ อาจเกิดจากปัญหาเครือข่ายหรือเซิร์ฟเวอร์ไม่พร้อมใช้งาน กรุณาลองใหม่อีกครั้ง",
         "session_init_title": "การเริ่มต้นเซสชันล้มเหลว",
         "something_went_wrong": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
@@ -934,7 +950,7 @@
         "try_again": "ลองอีกครั้ง",
         "unknown_error": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
         "user_cancelled_decryption": "การถอดรหัสถูกยกเลิก",
-        "zelfName_is_taken": "Tag Name นี้ถูกใช้งานแล้ว",
+        "zelfName_is_taken": "Zelf ID นี้ถูกใช้งานแล้ว",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1044,7 +1060,7 @@
         "choose_new_zelfname": "เลือกชื่อแท็กใหม่",
         "recover_it_now": "กู้คืนตอนนี้",
         "delete_wallet_title": "ลบแท็ก",
-        "delete_wallet_message": "ก่อนลบแท็กของคุณ ตรวจสอบให้แน่ใจว่าคุณได้สำรองรหัส QR ZelfProof ไว้แล้ว",
+        "delete_wallet_message": "ก่อนลบแท็กของคุณ ตรวจสอบให้แน่ใจว่าคุณได้สำรองวลีเมล็ดพันธุ์และโค้ด Zelf ID QR ไว้แล้ว",
         "yes_because": "ใช่ เพราะว่า:",
         "thanks_for_subscribing": "ขอบคุณสำหรับการสมัครสมาชิก",
         "make_zelfname_yours": "ทำให้ {{ zelfName }} เป็นของคุณ",
@@ -1077,9 +1093,9 @@
         "is_still_available": "ยังคงใช้งานได้",
         "resubscribe_within": "สมัครสมาชิกใหม่ภายใน {{ days }} วัน",
         "complete_purchase_within": "ทำการซื้อให้เสร็จสิ้นภายใน {{ days }} วันเพื่อรักษาความปลอดภัยเป็นเวลา 1 ปี",
-        "have_you_explored_the_benefits": "คุณได้สำรวจประโยชน์ของชื่อแท็กและ ZkProofs ของคุณแล้วหรือยัง?",
+        "have_you_explored_the_benefits": "คุณได้สำรวจประโยชน์ของ Zelf ID และ Zelf ID QR ของคุณแล้วหรือยัง?",
         "but_someone_else_could_grab_it": "แต่คนอื่นอาจจะแย่งไป! อย่าเสี่ยงที่จะสูญเสียมัน หรือเขียนวลีเมล็ดพันธุ์ของคุณบนกระดาษ!",
-        "but_dont_worry_you_can_access_your_zelfproof": "แต่อย่ากังวล คุณสามารถเข้าถึงชื่อแท็กของคุณและจองชื่อแท็กใหม่ด้วยวลีเมล็ดพันธุ์เดียวกัน",
+        "but_dont_worry_you_can_access_your_zelfproof": "แต่อย่ากังวล คุณสามารถเข้าถึง Zelf ID ของคุณและจอง Zelf ID ใหม่ด้วยวลีเมล็ดพันธุ์เดียวกัน",
         "considerations_description_1": "ความปลอดภัยที่ไม่มีวันแตก",
         "considerations_description_2": "ตัวตนที่ไม่ซ้ำใคร",
         "considerations_description_3": "การป้องกันที่พร้อมสำหรับอนาคต"
@@ -1100,7 +1116,7 @@
             "payment_method": "วิธีการชำระเงิน:",
             "status": "สถานะ",
             "transaction": "ธุรกรรม",
-            "zelf_name": "Tag Name:",
+            "zelf_name": "Zelf ID:",
             "start_date": "วันที่เริ่มต้น:",
             "expires_on": "หมดอายุเมื่อ:",
             "next_billing": "การเรียกเก็บเงินครั้งถัดไป:",
@@ -1206,7 +1222,7 @@
                 },
                 "zelfproof": {
                     "title": "ข้อมูลบัตรชำระเงิน",
-                    "download": "ดาวน์โหลด ZelfProof"
+                    "download": "ดาวน์โหลด Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "ข้อมูลบัตรชำระเงิน",
@@ -1326,8 +1342,8 @@
                     "copy_id": "คัดลอกไอดีหมายเหตุ"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "ดาวน์โหลด ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "ดาวน์โหลด Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "เนื้อหาที่ถอดรหัสแล้ว",
@@ -1421,15 +1437,15 @@
                     "username": "ชื่อผู้ใช้",
                     "category": "หมวดหมู่",
                     "created": "สร้างเมื่อ",
-                    "zelf_name": "Tag Name",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "แฮช IPFS",
                     "copy_url": "คัดลอก URL เว็บไซต์",
                     "launch_website": "เปิดเว็บไซต์",
                     "prefill_autofill": "กรอกข้อมูลอัตโนมัติล่วงหน้า"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "ดาวน์โหลด ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "ดาวน์โหลด Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "เนื้อหาที่ถอดรหัสแล้ว",
@@ -1541,7 +1557,7 @@
                     "username": "ชื่อผู้ใช้",
                     "type": "ประเภท",
                     "category": "หมวดหมู่",
-                    "zelf_name": "Tag Name",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "เวลา"
                 }
             },
@@ -1586,7 +1602,7 @@
             "zelfproof": {
                 "title": "ข้อมูลบัตรชำระเงิน",
                 "labels": {
-                    "string": "สตริง ZelfProof",
+                    "string": "สตริง Zelf ID QR",
                     "qr_code": "คิวอาร์โค้ด"
                 },
                 "copy_hint": "คลิกเพื่อคัดลอก"
@@ -1791,7 +1807,7 @@
         "start_earning_desc": "แชร์รหัสของคุณและเริ่มรับรางวัล!",
         "status": {
             "purchased": "ซื้อแล้ว",
-            "registered": "Tag Name ลงทะเบียนตั้งแต่ {{ date }}",
+            "registered": "Zelf ID ลงทะเบียนตั้งแต่ {{ date }}",
             "pending": "รอดำเนินการ"
         },
         "claim": "รับ {{ amount }} $ZNS"
@@ -1823,7 +1839,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "อย่าปล่อยให้ ZelfName ของคุณหายไป",
+            "title": "อย่าปล่อยให้ Zelf ID ของคุณหายไป",
             "expired": "หมดอายุ",
             "one_day": "เหลือเวลาอีก 1 วันในการซื้อ ZNS ของคุณ",
             "days_left": "เหลือเวลาอีก {{ days }} วันในการซื้อ ZNS ของคุณ"

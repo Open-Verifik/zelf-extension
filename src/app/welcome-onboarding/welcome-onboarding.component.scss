@@ -12,15 +12,6 @@
 .welcome-onboarding {
     position: relative;
 
-    .welcome-progress {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: calc(6px * var(--zns-space-scale, 1));
-        overflow: hidden;
-    }
-
     &__header-button {
         display: flex;
         justify-content: flex-start;
@@ -29,174 +20,39 @@
         width: 100%;
     }
 
-    &__input {
+    &__features {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) 0;
+        flex-wrap: wrap;
+    }
+
+    &__feature-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(4px * var(--zns-space-scale, 1));
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        line-height: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+
+        svg {
+            color: variables.$correct;
+            flex-shrink: 0;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(10px * var(--zns-space-scale, 1));
         width: 100%;
+        padding: calc(8px * var(--zns-space-scale, 1)) 0 calc(4px * var(--zns-space-scale, 1));
     }
-
-    &__input-control {
-        flex: 1 1 0;
-        min-width: 0;
-    }
-}
-
-/* Hide the default mat-select arrow to avoid double icons */
-:host ::ng-deep .zelf-domain-select .mat-mdc-select-arrow-wrapper,
-:host ::ng-deep .zelf-domain-select .mdc-select__dropdown-icon {
-    display: none !important;
-}
-
-/* Keep the postfix width fixed so the input doesn't stretch */
-:host ::ng-deep .zelf-input__postfix--dropdown {
-    min-width: calc(100px * var(--zns-space-scale, 1));
-    padding: calc(8px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1))
-        calc(10px * var(--zns-space-scale, 1));
-    background: variables.$themeButton;
-    border-radius: 32px;
-    display: inline-flex;
-    align-items: center;
-    gap: calc(8px * var(--zns-space-scale, 1));
-}
-
-/* Ensure selected value is visible on dark background */
-:host ::ng-deep .zelf-domain-select .mat-mdc-select-trigger,
-:host ::ng-deep .zelf-domain-select .mat-mdc-select-value,
-:host ::ng-deep .zelf-domain-select .mat-mdc-select-value-text {
-    color: variables.$themeText !important;
-}
-
-/* Material panel theming to match dark chip */
-::ng-deep .zelf-domain-panel {
-    background: variables.$themeBackground !important;
-    color: variables.$themeText !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-}
-
-::ng-deep .zelf-domain-panel .mdc-list-item__primary-text {
-    color: variables.$themeText !important;
-}
-
-/* Style selected option */
-::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
-    font-weight: 700;
-    color: variables.$themeText !important;
-}
-
-/* Style option backgrounds */
-::ng-deep .zelf-domain-panel .mat-mdc-option {
-    background: transparent !important;
-    cursor: pointer !important;
-}
-
-::ng-deep .zelf-domain-panel .mat-mdc-option:hover {
-    background: variables.$themeBackgroundSecondary !important;
-}
-
-::ng-deep .zelf-domain-panel .mat-mdc-option.mdc-list-item--selected {
-    background: variables.$themeBackgroundSecondary !important;
-}
-
-/* Domain display styling */
-.domain-display {
-    background: transparent;
-    color: variables.$themeButtonText;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: 0.1px;
-    cursor: pointer;
-    min-width: 64px;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Modal dialog positioning */
-:host ::ng-deep .domain-selection-dialog {
-    .mat-mdc-dialog-container {
-        position: fixed !important;
-        bottom: 0 !important;
-        top: auto !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        margin: 0 !important;
-        max-height: 80vh !important;
-        border-radius: 32px 32px 0 0 !important;
-    }
-}
-
-/* Dropdown icon container styles */
-.dropdown-icon-container {
-    background: variables.$themeBackgroundSecondary;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    transition: background-color 300ms ease-in-out;
-
-    &:hover {
-        background: variables.$themeBackgroundSecondary;
-    }
-
-    svg * {
-        fill: variables.$themeText !important;
-    }
-
-    &[disabled] {
-        cursor: not-allowed;
-        background: variables.$themeTextSecondary;
-
-        svg * {
-            fill: variables.$themeTextMuted !important;
-        }
-    }
-}
-
-/* Search button container styles */
-.search-button-container {
-    background: variables.$themeBackgroundSecondary;
-    border: none;
-    outline: none;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    padding: 0;
-    transition: background-color 300ms ease-in-out;
-
-    &:hover {
-        background: variables.$themeBackgroundSecondary;
-    }
-
-    svg * {
-        fill: variables.$themeText !important;
-    }
-
-    &[disabled] {
-        cursor: not-allowed;
-        background: variables.$themeTextSecondary;
-
-        svg * {
-            fill: variables.$themeTextMuted !important;
-        }
-    }
-}
-
-/* Optional: tune the panel appearance */
-:host ::ng-deep .zelf-domain-panel .mat-mdc-option {
-    font-weight: 600;
 }
 
 .carousel {
@@ -253,220 +109,4 @@
 
 .zelf-card__subtitle {
     color: inherit;
-}
-
-.tag-ad {
-    width: 324px;
-    height: 240px;
-    position: relative;
-    overflow: hidden;
-
-    &__background-blur {
-        position: absolute;
-        opacity: 0.9;
-        filter: blur(25px);
-    }
-
-    &__card {
-        position: absolute;
-        background: white;
-        border-radius: 8px;
-        border: 1px #0e26ff solid;
-
-        &--primary {
-            width: 259px;
-            height: 53px;
-            left: 4px;
-            top: 118px;
-        }
-
-        &--secondary {
-            width: 259px;
-            height: 53px;
-            left: 61px;
-            top: 55px;
-        }
-    }
-
-    &__checkmark {
-        position: absolute;
-        left: 284px;
-        top: 69px;
-        opacity: 0.8;
-    }
-
-    &__text {
-        position: absolute;
-        text-align: center;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        color: #0e26ff;
-        font-size: 24px;
-        font-family: Poppins;
-        font-weight: 700;
-        line-height: 36px;
-        word-wrap: break-word;
-
-        &--primary {
-            left: 14px;
-            top: 126px;
-        }
-
-        &--secondary {
-            left: 71px;
-            top: 63px;
-        }
-    }
-
-    &__search-icon {
-        position: absolute;
-        padding: 8px;
-        left: 186px;
-        top: 139px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50px;
-        outline: 1px #8692ff solid;
-        outline-offset: -1px;
-        backdrop-filter: blur(3.5px);
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        display: inline-flex;
-    }
-
-    &__grid {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        height: 100%;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    &__grid-item {
-        padding: 8px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        outline: 1px rgba(13.89, 38, 255, 0.1) solid;
-        outline-offset: -1px;
-        backdrop-filter: blur(3.5px);
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        display: inline-flex;
-
-        &--small {
-            min-height: 60px;
-            min-width: 60px;
-            max-height: 60px;
-            max-width: 60px;
-            padding: 0;
-        }
-
-        &--large {
-            width: 88px;
-            height: 88px;
-            position: relative;
-            overflow: hidden;
-        }
-    }
-
-    &__grid-text {
-        text-align: center;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        color: #0e26ff;
-        font-size: 10px;
-        font-family: Poppins;
-        font-weight: 700;
-        line-height: 15px;
-        word-wrap: break-word;
-    }
-
-    &__feature-card {
-        position: absolute;
-        background: white;
-        border-radius: 8px;
-        outline: 1px #0e26ff solid;
-        outline-offset: -1px;
-        backdrop-filter: blur(3.5px);
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        display: inline-flex;
-
-        &--large {
-            padding: 8px;
-            left: 76px;
-            top: 64px;
-        }
-
-        &--small {
-            width: 104px;
-            padding: 4px 4px 6px 4px;
-            left: 76px;
-            top: 170px;
-            justify-content: center;
-        }
-    }
-
-    &__feature-icon {
-        position: relative;
-    }
-
-    &__refresh-icon {
-        position: absolute;
-        left: 40px;
-        top: 94px;
-    }
-}
-
-/* Grid positioning classes for tag-ad-3 */
-.tag-ad__grid-item--variant-3 {
-    &--row-1-col-1 {
-        left: 0px;
-        top: 0px;
-    }
-    &--row-1-col-2 {
-        left: 91px;
-        top: 0px;
-    }
-    &--row-1-col-3 {
-        left: 182px;
-        top: 0px;
-    }
-    &--row-2-col-1 {
-        left: 0px;
-        top: 73px;
-    }
-    &--row-2-col-2 {
-        left: 91px;
-        top: 73px;
-    }
-    &--row-2-col-3 {
-        left: 182px;
-        top: 73px;
-    }
-    &--row-3-col-1 {
-        left: 0px;
-        top: 146px;
-    }
-    &--row-3-col-2 {
-        left: 91px;
-        top: 146px;
-    }
-    &--row-3-col-3 {
-        left: 182px;
-        top: 146px;
-    }
-    &--row-4-col-1 {
-        left: 0px;
-        top: 219px;
-    }
-    &--row-4-col-2 {
-        left: 91px;
-        top: 219px;
-    }
 }

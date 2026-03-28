@@ -201,21 +201,8 @@ export class WalletService {
         if (imageSrc) {
             assetSrc = imageSrc;
         } else {
-            const cleanSymbol = symbol.toLowerCase().replace(/[^a-z].*$/, "");
-
-            assetSrc = `https://raw.githubusercontent.com/spothq/cryptocurrency-icons/refs/heads/master/128/color/${cleanSymbol}.png`;
+            assetSrc = "./assets/tokens/placeholder-coin.png";
         }
-
-        let img: HTMLImageElement | null = new Image();
-
-        img.src = assetSrc;
-        img.onerror = () => {
-            this._assetImageMap.set(symbol, "./assets/tokens/placeholder-coin.png");
-
-            // apply the change angular
-
-            img = null;
-        };
 
         this._assetImageMap.set(symbol, assetSrc);
 

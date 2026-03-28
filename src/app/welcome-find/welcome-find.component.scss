@@ -52,4 +52,8 @@
         text-align: center;
         width: 100%;
     }
+
+    &__seed-link {
+        margin-top: calc(16px * var(--zns-space-scale, 1));
+    }
 }

@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "QR कोड",
             "no_folder": "कोई फ़ोल्डर नहीं",
-            "download_zelfproof": "ZelfProof डाउनलोड करें",
+            "download_zelfproof": "Zelf ID QR डाउनलोड करें",
             "back_to_payment_cards": "भुगतान कार्ड पर वापस जाएँ",
             "add_another_card": "एक और कार्ड जोड़ें",
             "try_again": "पुनः प्रयास करें",
@@ -37,7 +37,7 @@
             },
             "zelfproof": {
                 "title": "भुगतान कार्ड की जानकारी",
-                "download": "ZelfProof डाउनलोड करें"
+                "download": "Zelf ID QR डाउनलोड करें"
             },
             "decrypted": {
                 "title": "भुगतान कार्ड की जानकारी",
@@ -90,7 +90,7 @@
             },
             "image": {
                 "title": "भुगतान कार्ड की जानकारी",
-                "download": "ZelfProof डाउनलोड करें"
+                "download": "Zelf ID QR डाउनलोड करें"
             },
             "nft": {
                 "title": "भुगतान कार्ड की जानकारी",
@@ -131,7 +131,7 @@
             "zelfproof": {
                 "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
-                    "string": "ZelfProof स्ट्रिंग",
+                    "string": "Zelf ID QR स्ट्रिंग",
                     "qr_code": "QR कोड"
                 },
                 "copy_hint": "कॉपी करने के लिए क्लिक करें"
@@ -240,7 +240,7 @@
             "no_qr": "कोई QR नहीं",
             "untitled": "बिना शीर्षक वाला",
             "username_label": "उपयोगकर्ता नाम: {{ username }}",
-            "zelf_name_label": "टैग नाम: {{ zelfName }}",
+            "zelf_name_label": "Zelf ID: {{ zelfName }}",
             "category_label": "श्रेणी: {{ category }}",
             "type_label": "प्रकार: {{ type }}",
             "secure_credential": "सुरक्षित क्रेडेंशियल"
@@ -345,7 +345,7 @@
                         "folder": "फ़ोल्डर",
                         "type": "प्रकार",
                         "category": "श्रेणी",
-                        "zelf_name": "टैग नाम",
+                        "zelf_name": "Zelf ID",
                         "timestamp": "समय-चिह्न"
                     }
                 },
@@ -385,11 +385,11 @@
                 "zelfproof": {
                     "title": "भुगतान कार्ड की जानकारी",
                     "labels": {
-                        "string": "ZelfProof स्ट्रिंग",
+                        "string": "Zelf ID QR स्ट्रिंग",
                         "qr_code": "QR कोड"
                     },
                     "copy_hint": "कॉपी करने के लिए क्लिक करें",
-                    "qr_alt": "ZelfProof QR कोड"
+                    "qr_alt": "Zelf ID QR कोड"
                 },
                 "debug": {
                     "title": "भुगतान कार्ड की जानकारी"
@@ -433,14 +433,14 @@
     },
     "cancel": "रद्द करें",
     "confirm": "पुष्टि करें",
-    "logout_message": "इस क्रिया की पुष्टि करके, आप अपने सभी ZelfProofs को एक्सटेंशन से हटा देंगे। आपको उन तक पहुंच पाने के लिए प्रत्येक ZelfProof को फिर से डिक्रिप्ट करना होगा। क्या आप वाकई आगे बढ़ना चाहते हैं?",
-    "logout_title": "सभी ZELFPROOFS हटाएं",
+    "logout_message": "इस क्रिया की पुष्टि करके, आप अपने सभी Zelf ID QRs को एक्सटेंशन से हटा देंगे। आपको उन तक पहुंच पाने के लिए प्रत्येक Zelf ID QR को फिर से डिक्रिप्ट करना होगा। क्या आप वाकई आगे बढ़ना चाहते हैं?",
+    "logout_title": "सभी ZELF ID QRS हटाएं",
     "onboarding": {
         "lifetime": "जीवन भर",
         "step_1_description": "अपने सीड फ्रेज़ को भूलने, खोने या समझौता करने की चिंता कभी न करें।",
         "step_1": "अपने सीड फ्रेज़ को एनक्रिप्ट करने के 3 चरण",
-        "step_2_description": "अपने ZelfProof को डिक्रिप्ट करके सेकंडों में अपने सीड फ्रेज़ का बैकअप लें",
-        "step_2": "अपना ZelfProof खोजें और डिक्रिप्ट करें",
+        "step_2_description": "अपने Zelf ID QR को डिक्रिप्ट करके सेकंडों में अपने सीड फ्रेज़ का बैकअप लें",
+        "step_2": "अपना Zelf ID QR खोजें और डिक्रिप्ट करें",
         "step_3_description": "लोकल डिवाइस के बजाय ब्लॉकचेन में अपने सीड फ्रेज़ का zk-FaceProof स्टोर करें",
         "step_3": "अपने सीड फ्रेज़ को हैक-प्रूफ बनाएं",
         "year": "वर्ष"
@@ -476,8 +476,8 @@
         "recent_addresses": "हाल के",
         "used": "{{days}} पहले उपयोग किया गया",
         "withdrawal_amount": "निकासी राशि",
-        "zelf_name_not_registered": "टैग नाम पंजीकृत नहीं है",
-        "zelf_name_registered": "टैग नाम पंजीकृत है",
+        "zelf_name_not_registered": "Zelf ID पंजीकृत नहीं है",
+        "zelf_name_registered": "Zelf ID पंजीकृत है",
         "from_address": "प्रेषक पता",
         "private_transaction": "निजी लेन-देन",
         "amount_inline_required": "Required",
@@ -503,17 +503,17 @@
         "share_transaction": "लेनदेन साझा करें"
     },
     "welcome": {
-        "code_name": "रेफरल टैग नाम",
+        "code_name": "रेफरल Zelf ID",
         "domain_expired_since": "डोमेन {{ date }} से समाप्त हो गया",
         "decrypt_and_reserve": "डिक्रिप्ट और आरक्षित करें",
         "decrypt_now_pay_later": "अभी डिक्रिप्ट करें, बाद में भुगतान करें",
         "decrypt_now_renew_later": "अभी डिक्रिप्ट करें, बाद में नवीनीकृत करें",
-        "dont_lose_your_zelfname": "अरे! अपना टैग नाम न खोएं, किसी के खरीदने से पहले आज ही नवीनीकृत या आरक्षित करें।",
-        "dont_remember_zelfname": "अपना टैग नाम याद नहीं है?",
+        "dont_lose_your_zelfname": "अरे! अपना Zelf ID न खोएं, किसी के खरीदने से पहले आज ही नवीनीकृत या आरक्षित करें।",
+        "dont_remember_zelfname": "अपना Zelf ID याद नहीं है?",
         "enjoy_your_domain": "अपने डोमेन का आनंद लें। किसी और के खरीदने से पहले इसे खरीदना याद रखें!",
         "expiration_date": "समाप्ति तिथि {{ date }}",
-        "find_zelf_name_subtitle": "नीचे इसके सार्वजनिक पते को दर्ज करके मौजूदा टैग नाम खोजें:",
-        "find_zelf_name_title": "टैग नाम खोजें",
+        "find_zelf_name_subtitle": "नीचे इसके सार्वजनिक पते को दर्ज करके मौजूदा Zelf ID खोजें:",
+        "find_zelf_name_title": "Zelf ID खोजें",
         "got_it": "समझ गया, मैं इसे बाद में करूंगा",
         "grace_period_until": "अनुग्रह अवधि तक",
         "import_subtitle": "हम मौजूदा वॉलेट को मान्य करने और आयात करने के लिए आपके गुप्त पुनर्प्राप्ति शब्दों का उपयोग करेंगे। कृपया उन्हें नीचे दर्ज करें।",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "अमान्य रेफरल कोड",
         "name_expires": "नाम समाप्त होता है",
         "new_domain": "नया डोमेन",
-        "offline_subtitle": "यह ZelfProof ऑफलाइन बनाया गया था, इसलिए यह एक अलग सुरक्षा प्रणाली का उपयोग करता है। इस समय, यह एक्सटेंशन के साथ संगत नहीं है। यह जल्द ही उपलब्ध होगा।",
-        "offline_tip": "लेकिन, चिंता न करें! आप एक्सटेंशन से पहुंच के लिए दूसरे टैग नाम के साथ अपना ZelfProof आयात कर सकते हैं।",
+        "offline_subtitle": "यह Zelf ID QR ऑफलाइन बनाया गया था, इसलिए यह एक अलग सुरक्षा प्रणाली का उपयोग करता है। इस समय, यह एक्सटेंशन के साथ संगत नहीं है। यह जल्द ही उपलब्ध होगा।",
+        "offline_tip": "लेकिन, चिंता न करें! आप एक्सटेंशन से पहुंच के लिए दूसरे Zelf ID के साथ अपना Zelf ID QR आयात कर सकते हैं।",
         "i_understand_go_back": "मैं समझता हूं, वापस होम पर जाएं",
         "old_domain": "पुराना डोमेन",
         "paste_your_recovery_phrase": "आप अपना पूरा गुप्त पुनर्प्राप्ति वाक्यांश किसी भी फ़ील्ड में पेस्ट कर सकते हैं",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> लिया जा चुका है, लेकिन चिंता न करें! आप अपने ZelfProof तक पहुंच सकते हैं और उसी सीड फ्रेज़ के साथ एक नया टैग नाम आरक्षित कर सकते हैं।",
-        "pick_your_new_zelfname": "अपना नया टैग नाम चुनें",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> लिया जा चुका है, लेकिन चिंता न करें! आप अपने Zelf ID QR तक पहुंच सकते हैं और उसी सीड फ्रेज़ के साथ एक नया Zelf ID आरक्षित कर सकते हैं।",
+        "pick_your_new_zelfname": "अपना नया Zelf ID चुनें",
         "public_address_input": "यहां अपना ETH या SOL सार्वजनिक पता दर्ज करें",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> अभी भी उपलब्ध है। आप अपने ZelfProof तक पहुंच सकते हैं और उसी सीड फ्रेज़ के साथ अपना टैग नाम पुनर्प्राप्त कर सकते हैं।",
-        "recover_your_zelfname": "अपना टैग नाम पुनर्प्राप्त करें",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> अभी भी उपलब्ध है। आप अपने Zelf ID QR तक पहुंच सकते हैं और उसी सीड फ्रेज़ के साथ अपना Zelf ID पुनर्प्राप्त कर सकते हैं।",
+        "recover_your_zelfname": "अपना Zelf ID पुनर्प्राप्त करें",
         "referral_code": "रेफरल कोड (वैकल्पिक)",
         "referral_successfully_registered": "रेफरल सफलतापूर्वक पंजीकृत",
         "registered_since": "{{ date }} से पंजीकृत",
-        "registered": "टैग नाम {{ date }} से पंजीकृत",
+        "registered": "Zelf ID {{ date }} से पंजीकृत",
         "renew_your_domain_today": "किसी के खरीदने से पहले आज ही अपने डोमेन का नवीनीकरण करें।",
-        "search_another_zelfname": "दूसरा टैग नाम खोजें",
-        "search_your_new_zelfname": "अपना नया टैग नाम खोजें",
+        "search_another_zelfname": "दूसरा Zelf ID खोजें",
+        "search_your_new_zelfname": "अपना नया Zelf ID खोजें",
         "transfer_done": "स्थानांतरण पूरा हुआ",
-        "upload_zelf_proof": "या जारी रखने के लिए अपना ZelfProof QR कोड अपलोड करें:",
+        "upload_zelf_proof": "या जारी रखने के लिए अपना Zelf ID QR कोड अपलोड करें:",
         "you_can_transfer_this_domain": "आप इस डोमेन को स्थानांतरित कर सकते हैं",
         "you_will_register_this_domain": "Zelf Name Service पर आपकी नई पहचान",
         "safeguard_your_crypto": "अपने क्रिप्टो को सुरक्षित रखें!",
-        "offline_import_subtitle": "अपने ऑफलाइन-वॉलेट को आयात करने से पहले, आपको एक नया टैग नाम चुनना होगा।",
-        "your_zelf_name": "आपका टैग नाम"
+        "offline_import_subtitle": "अपने ऑफलाइन-वॉलेट को आयात करने से पहले, आपको एक नया Zelf ID चुनना होगा।",
+        "your_zelf_name": "आपका Zelf ID",
+        "create_new_account": "Zelf ID बनाएँ",
+        "i_already_have_a_wallet": "मेरे पास पहले से वॉलेट है",
+        "choose_tag_name_title": "अपना Zelf ID चुनें",
+        "choose_tag_name_subtitle": "Zelf नेटवर्क पर अपनी पहचान के लिए एक अनूठा नाम चुनें",
+        "choose_tag_name_placeholder": "अपना Zelf ID दर्ज करें",
+        "preview_name_placeholder": "yourname",
+        "search_name_aria": "इस नाम को खोजें",
+        "tag_name_available": "उपलब्ध! यह नाम आपके लिए है",
+        "tag_name_taken": "यह नाम पहले से लिया गया है",
+        "import_wallet_title": "अपना वॉलेट आयात करें",
+        "import_wallet_subtitle": "वॉलेट पता दर्ज करें या अपना खाता पुनर्प्राप्त करने के लिए Zelf ID QR कोड स्कैन करें",
+        "import_with_seed_phrase": "Zelf ID QR नहीं है — सीड वाक्यांश से आयात करें",
+        "feature_multichain": "मल्टीचेन",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "स्वयं-हिरासत"
     },
     "settings": {
         "networks_label": "नेटवर्क",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "अगले उपयोग में PIN और बायोमेट्रिक सत्यापन की आवश्यकता होगी।",
             "lock_vault_button": "वॉल्ट लॉक करें",
             "remove_keys_title": "वॉल्ट से कुंजियाँ हटाएं",
-            "remove_keys_description": "इस डिवाइस से सभी कुंजियाँ स्थायी रूप से हटा दें। ZelfProof का उपयोग करने के लिए पुनर्प्राप्त करना होगा। हटाने से पहले रद्द करने के लिए काउंटडाउन उपलब्ध है।",
+            "remove_keys_description": "इस डिवाइस से सभी कुंजियाँ स्थायी रूप से हटा दें। Zelf ID QR का उपयोग करने के लिए पुनर्प्राप्त करना होगा। हटाने से पहले रद्द करने के लिए काउंटडाउन उपलब्ध है।",
             "remove_keys_button": "वॉल्ट से कुंजियाँ हटाएं",
             "remove_keys_countdown_minutes": "कुंजियाँ {{ minutes }}m {{ seconds }}s में हटा दी जाएंगी",
             "remove_keys_countdown_seconds": "कुंजियाँ {{ seconds }}s में हटा दी जाएंगी",
@@ -615,18 +630,18 @@
     "security": {
         "biometric_decryption_subtitle": "डिक्रिप्शन प्रक्रिया को पूरा करने के लिए, हमें आपकी बायोमेट्रिक्स का उपयोग करके आपकी पहचान सत्यापित करने की आवश्यकता है।",
         "biometric_decryption_title": "बायोमेट्रिक डिक्रिप्शन",
-        "biometric_subtitle": "अगला, हम आपके ZelfProof को एन्क्रिप्ट करने के लिए उपयोग की जाने वाली प्राइवेट की जनरेट करने के लिए आपके पासवर्ड के संयोजन में एक सेल्फी लेते हैं। <strong>हम आपकी बायोमेट्रिक्स को किसी अन्य उद्देश्य के लिए एकत्र या उपयोग नहीं करते हैं।</strong>",
+        "biometric_subtitle": "अगला, हम आपके Zelf ID QR को एन्क्रिप्ट करने के लिए उपयोग की जाने वाली प्राइवेट की जनरेट करने के लिए आपके पासवर्ड के संयोजन में एक सेल्फी लेते हैं। <strong>हम आपकी बायोमेट्रिक्स को किसी अन्य उद्देश्य के लिए एकत्र या उपयोग नहीं करते हैं।</strong>",
         "biometric_title": "बायोमेट्रिक एन्क्रिप्शन लेयर",
         "hide_words": "शब्द छिपाएं",
         "medium": "मध्यम",
-        "new_password_subtitle": "निम्नलिखित पासवर्ड आपके ZelfProof के लिए एक आवश्यक एन्क्रिप्शन लेयर है।",
-        "password_decryption": "टैग नाम के लिए पासवर्ड आवश्यक है",
+        "new_password_subtitle": "निम्नलिखित पासवर्ड आपके Zelf ID QR के लिए एक आवश्यक एन्क्रिप्शन लेयर है।",
+        "password_decryption": "Zelf ID के लिए पासवर्ड आवश्यक है",
         "password_parameters_title": "पासवर्ड दिशानिर्देश",
         "password_parameters": "आपके पासवर्ड के लिए हमारे दिशानिर्देश हैं: <ul><li>8 से 128 अक्षरों के बीच होना चाहिए</li> <li>कम से कम एक अपरकेस अक्षर होना चाहिए</li> <li>एक लोअरकेस अक्षर होना चाहिए</li> <li>एक नंबर होना चाहिए</li> <li>एक विशेष वर्ण होना चाहिए</li> <li>सामान्य पासवर्ड से बचें</li> <li>दोहराए जाने वाले वर्णों से बचें</li></ul>",
         "password_strength_label": "पासवर्ड स्ट्रेंथ",
-        "password_subtitle": "डिक्रिप्शन प्रक्रिया को पूरा करने के लिए इस टैग नाम को सौंपे गए पासवर्ड को दर्ज करें।",
+        "password_subtitle": "डिक्रिप्शन प्रक्रिया को पूरा करने के लिए इस Zelf ID को सौंपे गए पासवर्ड को दर्ज करें।",
         "pin_description": "6 अंकों का PIN बनाएं",
-        "pin_unlock_description": "अपने ZelfProof को अनलॉक करने के लिए अपना PIN उपयोग करें",
+        "pin_unlock_description": "अपने Zelf ID QR को अनलॉक करने के लिए अपना PIN उपयोग करें",
         "pin_confirm_description": "पुष्टि करने के लिए अपना 6 अक्षरों का पिन पुनः दर्ज करें",
         "pin_title": "PIN",
         "secure_password_description": "एक अतिरिक्त सुरक्षा परत",
@@ -635,16 +650,16 @@
         "security_layer_title": "सुरक्षा परत",
         "strong": "मजबूत",
         "subtitle": "अपने सीड फ्रेज़ की लंबाई चुनें और एन्क्रिप्शन प्रक्रिया के साथ आगे बढ़ें।",
-        "title": "ZelfProof एन्क्रिप्शन लेयर",
+        "title": "Zelf ID QR एन्क्रिप्शन लेयर",
         "unhide_words": "शब्द दिखाएं",
         "weak": "कमजोर",
         "weak_password": "कमजोर पासवर्ड",
         "without_password_description": "तेज़, लेकिन कम सुरक्षित",
         "without_password_title": "बिना पासवर्ड",
         "create_pin_title": "PIN बनाएं",
-        "create_pin_subtitle": "कृपया अपने ZelfProof के लिए 6 अंकों का पासवर्ड दर्ज करें।",
+        "create_pin_subtitle": "कृपया अपने Zelf ID QR के लिए 6 अंकों का पासवर्ड दर्ज करें।",
         "confirm_pin_title": "PIN की पुष्टि करें",
-        "confirm_pin_subtitle": "कृपया अपने ZelfProof के लिए 6 अंकों का पासवर्ड फिर से दर्ज करें।"
+        "confirm_pin_subtitle": "कृपया अपने Zelf ID QR के लिए 6 अंकों का पासवर्ड फिर से दर्ज करें।"
     },
     "receive": {
         "information": "यह पता केवल संगत टोकन प्राप्त करने के लिए उपयोग किया जा सकता है।",
@@ -682,6 +697,7 @@
         "are_you_sure": "क्या आप सुनिश्चित हैं?",
         "asset": "संपत्ति",
         "available": "उपलब्ध",
+        "authorized": "अधिकृत",
         "avax_address": "AVAX पता",
         "balance": "शेष राशि",
         "bdag_address": "BDAG पता",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "नया वॉलेट बनाएं",
         "date": "तिथि",
         "days": "दिन",
-        "decrypt_zelfname": "टैग नाम डिक्रिप्ट करें",
+        "decrypt_zelfname": "Zelf ID डिक्रिप्ट करें",
         "do_it_later": "बाद में करें",
         "documentation": "दस्तावेज़ीकरण",
         "domain_expired": "डोमेन समाप्त हो गया",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "मुझे फिर से न दिखाएं",
         "dont_show_this_message_again": "इन निर्देशों को फिर से न दिखाएं",
         "download_qr": "QR डाउनलोड करें",
-        "download_zelfproof": "ZelfProof डाउनलोड करें",
+        "download_zelfproof": "Zelf ID QR डाउनलोड करें",
         "edit": "संपादित करें",
         "eth_address": "ETH पता",
         "extend_registration": "सदस्यता बढ़ाएं",
@@ -728,9 +744,9 @@
         "is_required": "आवश्यक है",
         "learn_more": "और जानें",
         "load_more": "और लोड करें",
-        "login": "ZelfProof डिक्रिप्ट करें",
-        "logout": "ZelfProof हटाएं",
-        "manage_domains": "ZelfNames प्रबंधित करें",
+        "login": "Zelf ID QR डिक्रिप्ट करें",
+        "logout": "Zelf ID QR हटाएं",
+        "manage_domains": "Zelf IDs प्रबंधित करें",
         "max": "अधिकतम",
         "my_arns": "मेरा ArNS",
         "navigating_away_will_cancel": "दूर जाने से आपकी सभी प्रगति रद्द हो जाएगी। क्या आप वाकई वापस जाना चाहते हैं?",
@@ -754,13 +770,13 @@
         "receive": "प्राप्त करें",
         "recommended": "अनुशंसित",
         "refresh": "ताज़ा करें",
-        "registered": "टैग नाम {{ date }} से पंजीकृत",
-        "remove_all_zelfproofs": "सभी ZelfProofs हटाएं",
+        "registered": "Zelf ID {{ date }} से पंजीकृत",
+        "remove_all_zelfproofs": "सभी Zelf ID QRs हटाएं",
         "remove": "हटाएं",
         "renew_domain": "डोमेन नवीनीकृत करें",
         "renew_subscription": "सदस्यता नवीनीकृत करें",
         "reservation_found": "आरक्षण मिला",
-        "search_your_zelf_name": "अपना टैग नाम खोजें",
+        "search_your_zelf_name": "अपना Zelf ID खोजें",
         "search": "खोजें...",
         "seed_phrase": "सीड वाक्यांश",
         "send_symbol": "{{symbol}} भेजें",
@@ -849,13 +865,13 @@
         "registered_until": "समाप्ति तिथि"
     },
     "manage_domains": {
-        "are_you_sure_you_want_to_delete": "क्या आप वाकई इस ZelfProof को हटाना चाहते हैं?",
-        "domain_error": "{{ zelfName }} का परीक्षण काल समाप्त हो गया है, इस टैग नाम का उपयोग जारी रखने के लिए आपको सदस्यता खरीदने की आवश्यकता है",
+        "are_you_sure_you_want_to_delete": "क्या आप वाकई इस Zelf ID QR को हटाना चाहते हैं?",
+        "domain_error": "{{ zelfName }} का परीक्षण काल समाप्त हो गया है, इस Zelf ID का उपयोग जारी रखने के लिए आपको सदस्यता खरीदने की आवश्यकता है",
         "domain_warning": "आपके पास अभी भी खरीदने का समय है",
-        "expired_wallet_logout_message": "यदि आप अपने टैग नाम से खोजते हैं तो आप इस ZelfProof को फिर से डिक्रिप्ट कर सकते हैं। हालांकि, यदि आप जल्दी खरीद नहीं करते हैं तो आप इसे खोने का जोखिम उठाते हैं।",
-        "logout_of_wallet_message": "यदि आप अपने टैग नाम से खोजते हैं, या अपना ZelfProof QR कोड लोड करते हैं तो आप इस ZelfProof को फिर से डिक्रिप्ट कर सकते हैं।",
-        "purchase_new_domain": "नया टैग नाम जोड़ें",
-        "zelfproof_removed_successfully": "ZelfProof सफलतापूर्वक हटाया गया"
+        "expired_wallet_logout_message": "यदि आप अपने Zelf ID से खोजते हैं तो आप इस Zelf ID QR को फिर से डिक्रिप्ट कर सकते हैं। हालांकि, यदि आप जल्दी खरीद नहीं करते हैं तो आप इसे खोने का जोखिम उठाते हैं।",
+        "logout_of_wallet_message": "यदि आप अपने Zelf ID से खोजते हैं, या अपना Zelf ID QR कोड लोड करते हैं तो आप इस Zelf ID QR को फिर से डिक्रिप्ट कर सकते हैं।",
+        "purchase_new_domain": "नया Zelf ID जोड़ें",
+        "zelfproof_removed_successfully": "Zelf ID QR सफलतापूर्वक हटाया गया"
     },
     "liveness": {
         "center_your_face": "अपना चेहरा स्क्रीन के केंद्र में रखें",
@@ -869,17 +885,17 @@
         "address_too_long": "पता बहुत लंबा है",
         "all_fields_required": "सभी फ़ील्ड आवश्यक हैं",
         "camera_dimensions_not_properly_initialized": "कैमरा ठीक से प्रारंभ नहीं हुआ",
-        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP डिक्रिप्ट नहीं किया जा सकता: ZelfProof अनुपलब्ध है। वैध ZelfProof के बिना इस ZOTP को डिक्रिप्ट नहीं किया जा सकता है।",
+        "cannot_decrypt_zotp_missing_zelfProof": "ZOTP डिक्रिप्ट नहीं किया जा सकता: Zelf ID QR अनुपलब्ध है। वैध Zelf ID QR के बिना इस ZOTP को डिक्रिप्ट नहीं किया जा सकता है।",
         "cannot_swap_across_these_networks": "आप अभी तक इन नेटवर्कों के बीच स्वैप नहीं कर सकते। कृपया बाद में पुनः प्रयास करें।",
         "chart_not_found": "चार्ट डेटा उपलब्ध नहीं है",
-        "Duplicated_person": "ZelfProof का उपयोग किसी अन्य रिकॉर्ड के लिए किया जा रहा है",
+        "Duplicated_person": "Zelf ID QR का उपयोग किसी अन्य रिकॉर्ड के लिए किया जा रहा है",
         "empty_password": "पासवर्ड खाली नहीं हो सकता",
-        "ERR_DESCRIPTION": "अपने ZelfProof को अनलॉक करने के लिए निर्देशों का सही से पालन करें",
-        "ERR_INVALID_PASSWORD": "इस ZelfProof के लिए पासवर्ड अमान्य है",
+        "ERR_DESCRIPTION": "अपने Zelf ID QR को अनलॉक करने के लिए निर्देशों का सही से पालन करें",
+        "ERR_INVALID_PASSWORD": "इस Zelf ID QR के लिए पासवर्ड अमान्य है",
         "ERR_LIVENESS_FACE_ANGLE_TOO_LARGE": "चेहरे का कोण बहुत बड़ा है",
         "ERR_LIVENESS_FACE_CLOSE_TO_BORDER": "चेहरा बॉर्डर के बहुत करीब है",
         "ERR_LIVENESS_FAILED": "लाइवनेस पहचान विफल",
-        "ERR_UNPROCESSABLE_CONTENT": "ZelfProof को डिक्रिप्ट नहीं किया जा सका",
+        "ERR_UNPROCESSABLE_CONTENT": "Zelf ID QR को डिक्रिप्ट नहीं किया जा सका",
         "ERR_VERIFICATION_FAILED": "लाइवनेस पहचान विफल",
         "error_closing_popup": "विंडो बंद करने में त्रुटि",
         "error_initializing_biometrics": "बायोमेट्रिक्स प्रारंभ करने में त्रुटि",
@@ -892,8 +908,8 @@
         "generic_title": "एक त्रुटि हुई है",
         "generic": "क्षमा करें, इस अनुरोध को संसाधित करने में एक समस्या आ गई है। कृपया पुनः प्रयास करें।",
         "incorrect_passphrase": "मास्टर पासवर्ड गलत तरीके से दर्ज किया गया। कृपया पुनः प्रयास करें।",
-        "incorrect_zelf_proof_message": "प्रदान किया गया फ़ाइल एक वैध ZelfProof नहीं लगता है। कृपया पुनः प्रयास करें।",
-        "incorrect_zelf_proof_title": "गलत ZelfProof",
+        "incorrect_zelf_proof_message": "प्रदान किया गया फ़ाइल एक वैध Zelf ID QR नहीं लगता है। कृपया पुनः प्रयास करें।",
+        "incorrect_zelf_proof_title": "गलत Zelf ID QR",
         "insufficient_funds": "अपर्याप्त धन। सुनिश्चित करें कि आपके पास लेनदेन शुल्क के लिए पर्याप्त धन है।",
         "invalid_credentials": "अमान्य क्रेडेंशियल्स",
         "invalid_format": "अमान्य प्रारूप",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "{{ value }} से अधिक होना चाहिए",
         "must_be_less_than": "{{ value }} से कम होना चाहिए",
         "no_decrypted_data_received_from_api": "सर्वर से कोई डिक्रिप्ट किया गया डेटा प्राप्त नहीं हुआ",
-        "no_zelfproof_available_for_password_decryption": "पासवर्ड डिक्रिप्शन के लिए कोई ZelfProof उपलब्ध नहीं है",
+        "no_zelfproof_available_for_password_decryption": "पासवर्ड डिक्रिप्शन के लिए कोई Zelf ID QR उपलब्ध नहीं है",
         "not_found": "रिकॉर्ड नहीं मिला",
         "password_doesnt_match": "पासवर्ड मेल नहीं खाते",
         "password_incorrect": "पासवर्ड गलत है",
@@ -921,11 +937,11 @@
         "THE PROVIDED PASSWORD IS INVALID": {
             "": "लाइवनेस जांच विफल। कृपया पुनः प्रयास करें।"
         },
-        "person_already_set": "आपके पंजीकरण में पहले से ही एक ZelfProof जुड़ा हुआ है",
+        "person_already_set": "आपके पंजीकरण में पहले से ही एक Zelf ID QR जुड़ा हुआ है",
         "private_key_locked": "निजी कुंजी लॉक हो गई है। आगे बढ़ने के लिए आपको बायोमेट्रिक्स जांच करनी होगी।",
         "required_field": "यह फ़ील्ड आवश्यक है",
         "same_address": "आप उसी पते पर धन नहीं भेज सकते",
-        "session_init_info": "टैग नाम सेवा एक्सटेंशन का उपयोग करने के लिए, आपको नेटवर्क एक्सेस की आवश्यकता होगी। ऑफ़लाइन समाधान के लिए, हमारे iOS और Android ऐप्स देखें।",
+        "session_init_info": "Zelf ID सेवा एक्सटेंशन का उपयोग करने के लिए, आपको नेटवर्क एक्सेस की आवश्यकता होगी। ऑफ़लाइन समाधान के लिए, हमारे iOS और Android ऐप्स देखें।",
         "session_init_message": "क्षमा करें, आपका सत्र प्रारंभ करने में कोई समस्या थी। यह नेटवर्क समस्या या सर्वर अनुपलब्धता के कारण हो सकता है। कृपया पुनः प्रयास करें।",
         "session_init_title": "सत्र प्रारंभ विफल रहा",
         "something_went_wrong": "कुछ गलत हो गया, कृपया पुनः प्रयास करें",
@@ -934,7 +950,7 @@
         "try_again": "पुनः प्रयास करें",
         "unknown_error": "एक अज्ञात त्रुटि हुई",
         "user_cancelled_decryption": "डिक्रिप्शन रद्द कर दिया गया था",
-        "zelfName_is_taken": "यह टैग नाम पहले से लिया गया है",
+        "zelfName_is_taken": "यह Zelf ID पहले से लिया गया है",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,23 +1056,23 @@
         "ru": "रूसी"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "मैं अब यह टैग नाम नहीं चाहता",
-        "choose_new_zelfname": "नया टैग नाम चुनें",
+        "i_dont_want_this_wallet": "मैं अब यह Zelf ID नहीं चाहता",
+        "choose_new_zelfname": "नया Zelf ID चुनें",
         "recover_it_now": "अभी पुनर्प्राप्त करें",
         "delete_wallet_title": "टैग हटाएं",
-        "delete_wallet_message": "अपना टैग हटाने से पहले, सुनिश्चित करें कि आपने अपना ZelfProof QR कोड का बैकअप ले लिया है।",
+        "delete_wallet_message": "अपना वॉलेट हटाने से पहले, सुनिश्चित करें कि आपने अपनी सीड वाक्यांश और Zelf ID QR कोड का बैकअप ले लिया है।",
         "yes_because": "हां, क्योंकि:",
         "thanks_for_subscribing": "सदस्यता लेने के लिए धन्यवाद",
         "make_zelfname_yours": "{{ zelfName }} को अपना बनाएं",
         "keep_zelfname_yours": "{{ zelfName }} को अपना रखें",
-        "love_your_zelfname": "अपने टैग नाम से प्यार है?",
+        "love_your_zelfname": "अपने Zelf ID से प्यार है?",
         "time_is_running_out": "समय समाप्त हो रहा है",
-        "not_much_time_left": "आपका टैग नाम थोड़ी देर के लिए आरक्षित है, लेकिन बहुत देर न करें!",
+        "not_much_time_left": "आपका Zelf ID थोड़ी देर के लिए आरक्षित है, लेकिन बहुत देर न करें!",
         "oh_no": "अरे नहीं!",
         "thanks_for_reserving": "आरक्षण के लिए धन्यवाद",
         "is_no_longer_available": "अब उपलब्ध नहीं है",
         "has_been_taken": "ले लिया गया है",
-        "benefit_title": "अपने टैग नाम के साथ, आपको मिलता है:",
+        "benefit_title": "अपने Zelf ID के साथ, आपको मिलता है:",
         "benefit_1_title": "ऑफलाइन एन्क्रिप्शन",
         "benefit_1_subtitle": "आपकी कुंजियां, आपका नियंत्रण",
         "benefit_2_title": "अल्ट्रा-प्राइवेट डिक्रिप्शन",
@@ -1077,9 +1093,9 @@
         "is_still_available": "अभी भी उपलब्ध है",
         "resubscribe_within": "{{ days }} दिनों के भीतर पुनः सदस्यता लें",
         "complete_purchase_within": "1 वर्ष के लिए सुरक्षित करने के लिए {{ days }} दिनों के भीतर अपनी खरीद पूरी करें",
-        "have_you_explored_the_benefits": "क्या आपने अपने टैग नाम और ZkProofs के लाभों का पता लगाया है?",
+        "have_you_explored_the_benefits": "क्या आपने अपने Zelf ID और ZkProofs के लाभों का पता लगाया है?",
         "but_someone_else_could_grab_it": "लेकिन कोई और इसे पकड़ सकता है! इसे खोने का जोखिम न उठाएं, या अपनी सीड फ्रेज़ को कागज पर लिखें!",
-        "but_dont_worry_you_can_access_your_zelfproof": "लेकिन चिंता न करें, आप अपने टैग नाम तक पहुंच सकते हैं और उसी सीड फ्रेज़ के साथ एक नया टैग नाम आरक्षित कर सकते हैं।",
+        "but_dont_worry_you_can_access_your_zelfproof": "लेकिन चिंता न करें, आप अपने Zelf ID तक पहुंच सकते हैं और उसी सीड फ्रेज़ के साथ एक नया Zelf ID आरक्षित कर सकते हैं।",
         "considerations_description_1": "अटूट सुरक्षा।",
         "considerations_description_2": "अद्वितीय पहचान।",
         "considerations_description_3": "भविष्य-प्रूफ सुरक्षा।"
@@ -1100,7 +1116,7 @@
             "payment_method": "भुगतान विधि:",
             "status": "स्थिति",
             "transaction": "लेन-देन",
-            "zelf_name": "टैग नाम",
+            "zelf_name": "Zelf ID",
             "start_date": "प्रारंभ तिथि:",
             "expires_on": "समाप्ति तिथि:",
             "next_billing": "अगला बिलिंग:",
@@ -1206,7 +1222,7 @@
                 },
                 "zelfproof": {
                     "title": "भुगतान कार्ड की जानकारी",
-                    "download": "ZelfProof डाउनलोड करें"
+                    "download": "Zelf ID QR डाउनलोड करें"
                 },
                 "decrypted": {
                     "title": "भुगतान कार्ड की जानकारी",
@@ -1327,7 +1343,7 @@
                 },
                 "zelfproof": {
                     "title": "भुगतान कार्ड की जानकारी",
-                    "download": "ZelfProof डाउनलोड करें"
+                    "download": "Zelf ID QR डाउनलोड करें"
                 },
                 "decrypted": {
                     "title": "भुगतान कार्ड की जानकारी",
@@ -1421,7 +1437,7 @@
                     "username": "उपयोगकर्ता नाम",
                     "category": "श्रेणी",
                     "created": "बनाया गया",
-                    "zelf_name": "टैग नाम",
+                    "zelf_name": "Zelf ID",
                     "ipfs_hash": "IPFS हैश",
                     "copy_url": "वेबसाइट URL कॉपी करें",
                     "launch_website": "वेबसाइट लॉन्च करें",
@@ -1429,7 +1445,7 @@
                 },
                 "zelfproof": {
                     "title": "भुगतान कार्ड की जानकारी",
-                    "download": "ZelfProof डाउनलोड करें"
+                    "download": "Zelf ID QR डाउनलोड करें"
                 },
                 "decrypted": {
                     "title": "भुगतान कार्ड की जानकारी",
@@ -1541,7 +1557,7 @@
                     "username": "उपयोगकर्ता नाम",
                     "type": "प्रकार",
                     "category": "श्रेणी",
-                    "zelf_name": "टैग नाम",
+                    "zelf_name": "Zelf ID",
                     "timestamp": "समय-चिह्न"
                 }
             },
@@ -1586,7 +1602,7 @@
             "zelfproof": {
                 "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
-                    "string": "ZelfProof स्ट्रिंग",
+                    "string": "Zelf ID QR स्ट्रिंग",
                     "qr_code": "QR कोड"
                 },
                 "copy_hint": "कॉपी करने के लिए क्लिक करें"
@@ -1791,7 +1807,7 @@
         "start_earning_desc": "अपना कोड साझा करें और पुरस्कार अर्जित करना शुरू करें!",
         "status": {
             "purchased": "खरीदा गया",
-            "registered": "टैग नाम {{ date }} से पंजीकृत",
+            "registered": "Zelf ID {{ date }} से पंजीकृत",
             "pending": "लंबित"
         },
         "claim": "{{ amount }} $ZNS का दावा करें"
@@ -1823,7 +1839,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "अपना ZelfName खोने न दें",
+            "title": "अपना Zelf ID न खोएं",
             "expired": "समाप्त",
             "one_day": "आपका ZNS खरीदने के लिए 1 दिन शेष है",
             "days_left": "आपका ZNS खरीदने के लिए {{ days }} दिन शेष हैं"

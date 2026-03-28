@@ -301,6 +301,21 @@ export class SecurityPasswordComponent implements OnInit, OnDestroy {
     onPinKeyDown(event: KeyboardEvent, index: number, isConfirm: boolean = false): void {
         const input = event.target as HTMLInputElement;
 
+        if (event.key === "Enter" || event.key === "NumpadEnter") {
+            if (this.isPinUnlock) {
+                if (this.pinDigits.join("").trim().length === 6) {
+                    event.preventDefault();
+                    void this.storePassword();
+                }
+                return;
+            }
+            if (this.selectedSecurityOption === "pin" && this.canContinuePin()) {
+                event.preventDefault();
+                this.continueWithSelection();
+            }
+            return;
+        }
+
         if (event.key === "Backspace" && !input.value && index > 0) {
             // Move to previous input on backspace if current is empty
             setTimeout(() => {

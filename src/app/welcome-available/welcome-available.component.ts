@@ -88,6 +88,7 @@ export class WelcomeAvailableComponent implements OnInit, OnDestroy {
         this.referralTagModel = null; // Clear referral model when manually cleared
     }
 
+
     async goToImport(): Promise<void> {
         await this._tagsService.setFlow("import");
 

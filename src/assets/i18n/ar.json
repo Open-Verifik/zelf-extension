@@ -6,7 +6,7 @@
         "common": {
             "qr_code": "رمز QR",
             "no_folder": "لا يوجد مجلد",
-            "download_zelfproof": "تحميل ZelfProof",
+            "download_zelfproof": "تحميل Zelf ID QR",
             "back_to_payment_cards": "العودة إلى بطاقات الدفع",
             "add_another_card": "إضافة بطاقة أخرى",
             "try_again": "حاول مرة أخرى",
@@ -36,8 +36,8 @@
                 "copy_payment_card_id": "نسخ معرف بطاقة الدفع"
             },
             "zelfproof": {
-                "title": "ZelfProof",
-                "download": "تحميل ZelfProof"
+                "title": "Zelf ID QR",
+                "download": "تحميل Zelf ID QR"
             },
             "decrypted": {
                 "title": "المحتوى المفكوك تشفيره",
@@ -89,8 +89,8 @@
                 }
             },
             "image": {
-                "title": "ZelfProof",
-                "download": "تحميل ZelfProof"
+                "title": "Zelf ID QR",
+                "download": "تحميل Zelf ID QR"
             },
             "nft": {
                 "title": "تم إنشاء NFT",
@@ -129,9 +129,9 @@
                 "explorer_link": "العرض على المستكشف"
             },
             "zelfproof": {
-                "title": "ZelfProof المُنشأ",
+                "title": "Zelf ID QR المُنشأ",
                 "labels": {
-                    "string": "سلسلة ZelfProof",
+                    "string": "سلسلة Zelf ID QR",
                     "qr_code": "رمز QR"
                 },
                 "copy_hint": "انقر للنسخ"
@@ -383,13 +383,13 @@
                     "explorer_link": "العرض على المستكشف"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof المُنشأ",
+                    "title": "Zelf ID QR المُنشأ",
                     "labels": {
-                        "string": "سلسلة ZelfProof",
+                        "string": "سلسلة Zelf ID QR",
                         "qr_code": "رمز QR"
                     },
                     "copy_hint": "انقر للنسخ",
-                    "qr_alt": "رمز QR لـ ZelfProof"
+                    "qr_alt": "رمز QR لـ Zelf ID QR"
                 },
                 "debug": {
                     "title": "معلومات التصحيح"
@@ -433,12 +433,12 @@
     },
     "cancel": "إلغاء",
     "confirm": "تأكيد",
-    "logout_message": "بتأكيد هذا الإجراء، ستقوم بإزالة جميع ZelfProofs الخاصة بك من الامتداد. ستحتاج إلى فك تشفير كل ZelfProof مرة أخرى لاستعادة الوصول إليها. هل أنت متأكد أنك تريد المتابعة؟",
-    "logout_title": "حذف جميع ZELFPROOFS",
+    "logout_message": "بتأكيد هذا الإجراء، ستقوم بإزالة جميع Zelf ID QRs الخاصة بك من الامتداد. ستحتاج إلى فك تشفير كل Zelf ID QR مرة أخرى لاستعادة الوصول إليها. هل أنت متأكد أنك تريد المتابعة؟",
+    "logout_title": "حذف جميع ZELF ID QRS",
     "onboarding": {
         "lifetime": "مدى الحياة",
         "step_1_description": "خدمة اسم مبتكرة تحررك من تذكر عبارة الاسترداد.",
-        "step_1": "مرحبًا بك في خدمة اسم العلامة",
+        "step_1": "مرحبًا بك في خدمة Zelf ID",
         "step_2_description": "تمثيل ثنائي فريد يحافظ على الخصوصية مستمد من بيانات الوجه.",
         "step_2": "الوصول باستخدام زيلف بروف",
         "step_3_description": "يتم تخزين زيلف بروف الخاص بك بأمان على شبكة IPFS اللامركزية.",
@@ -476,8 +476,8 @@
         "recent_addresses": "الأخيرة",
         "used": "تم الاستخدام منذ {{days}} يوم",
         "withdrawal_amount": "مبلغ السحب",
-        "zelf_name_not_registered": "اسم العلامة غير مسجل",
-        "zelf_name_registered": "اسم العلامة مسجل",
+        "zelf_name_not_registered": "Zelf ID غير مسجل",
+        "zelf_name_registered": "Zelf ID مسجل",
         "from_address": "من العنوان",
         "private_transaction": "معاملة خاصة",
         "amount_inline_required": "Required",
@@ -503,17 +503,17 @@
         "share_transaction": "مشاركة المعاملة"
     },
     "welcome": {
-        "code_name": "اسم علامة الإحالة",
+        "code_name": "كود الإحالة",
         "domain_expired_since": "النطاق منتهي الصلاحية منذ {{ date }}",
         "decrypt_and_reserve": "فك التشفير والحجز",
         "decrypt_now_pay_later": "فك التشفير الآن، الدفع لاحقًا",
         "decrypt_now_renew_later": "فك التشفير الآن، التجديد لاحقًا",
-        "dont_lose_your_zelfname": "مرحبًا! لا تفقد اسم العلامة الخاص بك، قم بتجديده أو حجزه اليوم قبل أن يشتريه شخص آخر.",
-        "dont_remember_zelfname": "لا تتذكر اسم العلامة الخاص بك؟",
+        "dont_lose_your_zelfname": "مرحبًا! لا تفقد Zelf ID الخاص بك، قم بتجديده أو حجزه اليوم قبل أن يشتريه شخص آخر.",
+        "dont_remember_zelfname": "لا تتذكر Zelf ID الخاص بك؟",
         "enjoy_your_domain": "استمتع بنطاقك. تذكر شراءه قبل أن يقوم شخص آخر بذلك!",
         "expiration_date": "تاريخ الانتهاء {{ date }}",
-        "find_zelf_name_subtitle": "ابحث عن اسم العلامة موجود بإدخال عنوانه العام أدناه:",
-        "find_zelf_name_title": "ابحث عن اسم العلامة",
+        "find_zelf_name_subtitle": "ابحث عن Zelf ID موجود بإدخال عنوانه العام أدناه:",
+        "find_zelf_name_title": "ابحث عن Zelf ID",
         "got_it": "فهمت، سأفعل ذلك لاحقًا",
         "grace_period_until": "فترة السماح حتى",
         "import_subtitle": "سنستخدم كلمات الاسترداد السرية الخاصة بك للتحقق واستيراد محفظة موجودة. يرجى إدخالها أدناه.",
@@ -521,30 +521,45 @@
         "invalid_referral_code": "رمز الإحالة غير صالح",
         "name_expires": "ينتهي الاسم",
         "new_domain": "نطاق جديد",
-        "offline_subtitle": "تم إنشاء ZelfProof هذا في وضع عدم الاتصال ، لذلك يستخدم نظام أمان مختلف. في هذا الوقت ، غير متوافق مع الملحق. سيكون متاحًا قريبًا.",
-        "offline_tip": "لكن لا تقلق! يمكنك استيراد ZelfProof باستخدام اسم علامة آخر للوصول من الملحق.",
+        "offline_subtitle": "تم إنشاء Zelf ID QR هذا في وضع عدم الاتصال ، لذلك يستخدم نظام أمان مختلف. في هذا الوقت ، غير متوافق مع الملحق. سيكون متاحًا قريبًا.",
+        "offline_tip": "لكن لا تقلق! يمكنك استيراد Zelf ID QR باستخدام Zelf ID آخر للوصول من الملحق.",
         "i_understand_go_back": "أفهم ، العودة إلى الصفحة الرئيسية",
         "old_domain": "نطاق قديم",
         "paste_your_recovery_phrase": "يمكنك لصق عبارة الاسترداد السرية بالكامل في أي حقل",
-        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> تم حجزه، ولكن لا تقلق! يمكنك الوصول إلى زيلف بروف الخاص بك وحجز اسم العلامة جديد باستخدام نفس عبارة الاسترداد.",
-        "pick_your_new_zelfname": "اختر اسم العلامة الجديد الخاص بك",
+        "pick_your_new_zelfname_description": "<strong>{{ zelfName }}</strong> تم حجزه، ولكن لا تقلق! يمكنك الوصول إلى زيلف بروف الخاص بك وحجز Zelf ID جديد باستخدام نفس عبارة الاسترداد.",
+        "pick_your_new_zelfname": "اختر Zelf ID الجديد الخاص بك",
         "public_address_input": "أدخل عنوانك العام ETH أو SOL هنا",
-        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> لا يزال متاحًا. يمكنك الوصول إلى زيلف بروف الخاص بك واستعادة اسم العلامة الخاص بك باستخدام نفس عبارة الاسترداد.",
-        "recover_your_zelfname": "استعادة اسم العلامة الخاص بك",
+        "recover_your_zelfname_description": "<strong>{{ zelfName }}</strong> لا يزال متاحًا. يمكنك الوصول إلى زيلف بروف الخاص بك واستعادة Zelf ID الخاص بك باستخدام نفس عبارة الاسترداد.",
+        "recover_your_zelfname": "استعادة Zelf ID الخاص بك",
         "referral_code": "رمز الإحالة",
         "referral_successfully_registered": "تم تسجيل الإحالة بنجاح",
         "registered_since": "مسجل منذ {{ date }}",
-        "registered": "اسم العلامة مسجل منذ {{ date }}",
+        "registered": "Zelf ID مسجل منذ {{ date }}",
         "renew_your_domain_today": "قم بتجديد نطاقك اليوم قبل أن يشتريه شخص آخر.",
-        "search_another_zelfname": "ابحث عن اسم العلامة آخر",
-        "search_your_new_zelfname": "ابحث عن اسم العلامة الجديد الخاص بك",
+        "search_another_zelfname": "ابحث عن Zelf ID آخر",
+        "search_your_new_zelfname": "ابحث عن Zelf ID الجديد الخاص بك",
         "transfer_done": "تم النقل",
         "upload_zelf_proof": "أو قم بتحميل رمز QR الخاص بزيلف بروف للمتابعة:",
         "you_can_transfer_this_domain": "يمكنك نقل هذا النطاق",
         "you_will_register_this_domain": "هويتك الجديدة على Zelf Name Service",
         "safeguard_your_crypto": "حماية عملاتك المشفرة!",
-        "offline_import_subtitle": "قبل أن تتمكن من استيراد محفظتك دون اتصال ، تحتاج إلى اختيار اسم علامة جديد.",
-        "your_zelf_name": "اسم العلامة الخاص بك"
+        "offline_import_subtitle": "قبل أن تتمكن من استيراد محفظتك دون اتصال ، تحتاج إلى اختيار Zelf ID جديد.",
+        "your_zelf_name": "Zelf ID الخاص بك",
+        "create_new_account": "إنشاء Zelf ID",
+        "i_already_have_a_wallet": "لدي محفظة بالفعل",
+        "choose_tag_name_title": "اختر Zelf ID الخاص بك",
+        "choose_tag_name_subtitle": "اختر اسماً فريداً لهويتك على شبكة Zelf",
+        "choose_tag_name_placeholder": "أدخل Zelf ID الخاص بك",
+        "preview_name_placeholder": "اسمك",
+        "search_name_aria": "البحث عن هذا الاسم",
+        "tag_name_available": "متاح! هذا الاسم لك",
+        "tag_name_taken": "هذا الاسم مستخدم بالفعل",
+        "import_wallet_title": "استيراد محفظتك",
+        "import_wallet_subtitle": "أدخل عنوان محفظتك أو امسح رمز Zelf ID QR لاستعادة حسابك",
+        "import_with_seed_phrase": "ليس لدي Zelf ID QR — الاستيراد بعبارة الاسترداد",
+        "feature_multichain": "متعدد السلاسل",
+        "feature_zk": "HumanAuthn",
+        "feature_selfcustody": "حفظ ذاتي"
     },
     "settings": {
         "networks_label": "الشبكات",
@@ -605,7 +620,7 @@
             "vault_locked_hint": "سيتطلب رمز PIN والتحقق البيومتري عند الاستخدام التالي.",
             "lock_vault_button": "قفل الخزنة",
             "remove_keys_title": "إزالة المفاتيح من الخزنة",
-            "remove_keys_description": "إزالة جميع المفاتيح نهائياً من هذا الجهاز. ستحتاج إلى استعادة ZelfProof لاستخدامه مرة أخرى. العد التنازلي يسمح بالإلغاء قبل الحذف.",
+            "remove_keys_description": "إزالة جميع المفاتيح نهائياً من هذا الجهاز. ستحتاج إلى استعادة Zelf ID QR لاستخدامه مرة أخرى. العد التنازلي يسمح بالإلغاء قبل الحذف.",
             "remove_keys_button": "إزالة المفاتيح من الخزنة",
             "remove_keys_countdown_minutes": "ستتم إزالة المفاتيح خلال {{ minutes }}د {{ seconds }}ث",
             "remove_keys_countdown_seconds": "ستتم إزالة المفاتيح خلال {{ seconds }}ث",
@@ -620,13 +635,13 @@
         "hide_words": "إخفاء الكلمات",
         "medium": "متوسط",
         "new_password_subtitle": "كلمة المرور التالية هي طبقة تشفير مطلوبة لزيلف بروف الخاص بك.",
-        "password_decryption": "اسم العلامة يتطلب كلمة مرور",
+        "password_decryption": "Zelf ID يتطلب كلمة مرور",
         "password_parameters_title": "إرشادات كلمة المرور",
         "password_parameters": "إرشاداتنا لكلمة المرور هي: <ul><li>يجب أن تكون بين 8 و 128 حرفًا</li> <li>يجب أن تحتوي على حرف كبير واحد على الأقل</li> <li>يجب أن تحتوي على حرف صغير واحد</li> <li>يجب أن تحتوي على رقم واحد</li> <li>يجب أن تحتوي على حرف خاص واحد</li> <li>تجنب كلمات المرور الشائعة</li> <li>تجنب تكرار الأحرف</li></ul>",
         "password_strength_label": "قوة كلمة المرور",
-        "password_subtitle": "أدخل كلمة المرور المخصصة لاسم العلامة هذا لإكمال عملية فك التشفير.",
+        "password_subtitle": "أدخل كلمة المرور المخصصة لZelf ID هذا لإكمال عملية فك التشفير.",
         "pin_description": "إنشاء رمز PIN مكون من 6 أرقام",
-        "pin_unlock_description": "استخدم رمز PIN الخاص بك لفتح ZelfProof",
+        "pin_unlock_description": "استخدم رمز PIN الخاص بك لفتح Zelf ID QR",
         "pin_confirm_description": "أعد إدخال رمز PIN المكون من 6 أحرف للتأكيد",
         "pin_title": "PIN",
         "secure_password_description": "طبقة أمان إضافية",
@@ -635,16 +650,16 @@
         "security_layer_title": "طبقة الأمان",
         "strong": "قوي",
         "subtitle": "حدد طول عبارة البذور الخاصة بك وانتقل إلى عملية التشفير.",
-        "title": "طبقات تشفير ZelfProof",
+        "title": "طبقات تشفير Zelf ID QR",
         "unhide_words": "إظهار الكلمات",
         "weak": "ضعيف",
         "weak_password": "كلمة مرور ضعيفة",
         "without_password_description": "أسرع، لكن أقل أماناً",
         "without_password_title": "بدون كلمة مرور",
         "create_pin_title": "إنشاء رمز PIN",
-        "create_pin_subtitle": "يرجى إدخال كلمة مرور مكونة من 6 أرقام لـ ZelfProof الخاص بك.",
+        "create_pin_subtitle": "يرجى إدخال كلمة مرور مكونة من 6 أرقام لـ Zelf ID QR الخاص بك.",
         "confirm_pin_title": "تأكيد رمز PIN",
-        "confirm_pin_subtitle": "يرجى إعادة إدخال كلمة المرور المكونة من 6 أرقام لـ ZelfProof الخاص بك."
+        "confirm_pin_subtitle": "يرجى إعادة إدخال كلمة المرور المكونة من 6 أرقام لـ Zelf ID QR الخاص بك."
     },
     "receive": {
         "information": "يمكن استخدام هذا العنوان فقط لاستلام الرموز المتوافقة.",
@@ -682,6 +697,7 @@
         "are_you_sure": "هل أنت متأكد؟",
         "asset": "الأصل",
         "available": "متاح",
+        "authorized": "معتمد",
         "avax_address": "عنوان AVAX",
         "balance": "الرصيد",
         "bdag_address": "عنوان BDAG",
@@ -702,7 +718,7 @@
         "create_a_new_wallet": "إنشاء محفظة جديدة",
         "date": "التاريخ",
         "days": "أيام",
-        "decrypt_zelfname": "فك تشفير اسم العلامة",
+        "decrypt_zelfname": "فك تشفير Zelf ID",
         "do_it_later": "افعل ذلك لاحقًا",
         "documentation": "التوثيق",
         "domain_expired": "انتهت صلاحية النطاق",
@@ -710,7 +726,7 @@
         "dont_show_me_again": "لا تظهر لي مرة أخرى",
         "dont_show_this_message_again": "لا تظهر هذه التعليمات مرة أخرى",
         "download_qr": "تحميل رمز QR",
-        "download_zelfproof": "تحميل ZelfProof",
+        "download_zelfproof": "تحميل Zelf ID QR",
         "edit": "تعديل",
         "eth_address": "عنوان ETH",
         "extend_registration": "تمديد الاشتراك",
@@ -730,7 +746,7 @@
         "load_more": "تحميل المزيد",
         "login": "فك تشفير زيلف بروف",
         "logout": "إزالة زيلف بروف",
-        "manage_domains": "إدارة أسماء زيلف",
+        "manage_domains": "إدارة معرفات Zelf",
         "max": "الحد الأقصى",
         "my_arns": "ArNS الخاص بي",
         "navigating_away_will_cancel": "سيؤدي التنقل بعيدًا إلى إلغاء أي تقدم قمت به. هل أنت متأكد أنك تريد العودة؟",
@@ -754,13 +770,13 @@
         "receive": "استلام",
         "recommended": "موصى به",
         "refresh": "تحديث",
-        "registered": "اسم العلامة مسجل منذ {{ date }}",
+        "registered": "Zelf ID مسجل منذ {{ date }}",
         "remove_all_zelfproofs": "إزالة جميع زيلف بروف",
         "remove": "إزالة",
         "renew_domain": "تجديد النطاق",
         "renew_subscription": "تجديد الاشتراك",
         "reservation_found": "تم العثور على حجز",
-        "search_your_zelf_name": "ابحث عن اسم العلامة الخاص بك",
+        "search_your_zelf_name": "ابحث عن Zelf ID الخاص بك",
         "search": "بحث...",
         "seed_phrase": "عبارة البذور",
         "send_symbol": "إرسال {{symbol}}",
@@ -850,12 +866,12 @@
     },
     "manage_domains": {
         "are_you_sure_you_want_to_delete": "هل أنت متأكد أنك تريد إزالة هذا زيلف بروف؟",
-        "domain_error": "انتهت الفترة التجريبية لـ {{ zelfName }}، تحتاج إلى شراء اشتراك للاستمرار في استخدام هذا اسم العلامة",
+        "domain_error": "انتهت الفترة التجريبية لـ {{ zelfName }}، تحتاج إلى شراء اشتراك للاستمرار في استخدام هذا Zelf ID",
         "domain_warning": "لا يزال لديك وقت للشراء",
-        "expired_wallet_logout_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك. ومع ذلك، فإنك تخاطر بفقدانه إذا لم تشتري قريبًا.",
-        "logout_of_wallet_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق اسم العلامة الخاص بك، أو قمت بتحميل رمز QR الخاص بزيلف بروف.",
-        "purchase_new_domain": "إضافة اسم العلامة جديد",
-        "zelfproof_removed_successfully": "تم إزالة ZelfProof بنجاح"
+        "expired_wallet_logout_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق Zelf ID الخاص بك. ومع ذلك، فإنك تخاطر بفقدانه إذا لم تشتري قريبًا.",
+        "logout_of_wallet_message": "يمكنك فك تشفير هذا زيلف بروف مرة أخرى إذا بحثت عن طريق Zelf ID الخاص بك، أو قمت بتحميل رمز QR الخاص بزيلف بروف.",
+        "purchase_new_domain": "إضافة Zelf ID جديد",
+        "zelfproof_removed_successfully": "تم إزالة Zelf ID QR بنجاح"
     },
     "liveness": {
         "center_your_face": "ضع وجهك في منتصف الشاشة",
@@ -869,7 +885,7 @@
         "address_too_long": "العنوان طويل جداً",
         "all_fields_required": "جميع الحقول مطلوبة",
         "camera_dimensions_not_properly_initialized": "لم يتم بدء أبعاد الكاميرا بشكل صحيح",
-        "cannot_decrypt_zotp_missing_zelfProof": "تعذر فك تشفير ZOTP: ZelfProof مفقود. لا يمكن فك تشفير هذا الـ ZOTP بدون ZelfProof صالح.",
+        "cannot_decrypt_zotp_missing_zelfProof": "تعذر فك تشفير ZOTP: Zelf ID QR مفقود. لا يمكن فك تشفير هذا الـ ZOTP بدون Zelf ID QR صالح.",
         "cannot_swap_across_these_networks": "لا يمكنك التبادل عبر هذه الشبكات بعد. يرجى المحاولة مرة أخرى لاحقاً.",
         "chart_not_found": "بيانات الرسم البياني غير متوفرة",
         "Duplicated_person": "يتم استخدام زيلف بروف في سجل آخر",
@@ -911,7 +927,7 @@
         "must_be_greater_than": "يجب أن تكون أكبر من {{ value }}",
         "must_be_less_than": "يجب أن تكون أقل من {{ value }}",
         "no_decrypted_data_received_from_api": "لم يتم استلام بيانات مفككة التشفير من الخادم",
-        "no_zelfproof_available_for_password_decryption": "لا يتوفر ZelfProof لفك تشفير كلمة المرور",
+        "no_zelfproof_available_for_password_decryption": "لا يتوفر Zelf ID QR لفك تشفير كلمة المرور",
         "not_found": "لم يتم العثور على السجل",
         "password_doesnt_match": "كلمات المرور غير متطابقة",
         "password_incorrect": "كلمة المرور غير صحيحة",
@@ -925,7 +941,7 @@
         "private_key_locked": "تم قفل المفتاح الخاص. يجب عليك إجراء فحص القياسات الحيوية للمتابعة.",
         "required_field": "هذا الحقل مطلوب",
         "same_address": "لا يمكنك إرسال الأموال إلى نفس العنوان",
-        "session_init_info": "لاستخدام امتداد خدمة Tag Name Service، ستحتاج إلى وصول إلى الشبكة. للحلول التي تعمل بدون إنترنت، تحقق من تطبيقاتنا على iOS و Android.",
+        "session_init_info": "لاستخدام امتداد خدمة Zelf ID Service، ستحتاج إلى وصول إلى الشبكة. للحلول التي تعمل بدون إنترنت، تحقق من تطبيقاتنا على iOS و Android.",
         "session_init_message": "عذراً، حدثت مشكلة في بدء جلستك. قد يكون هذا بسبب مشكلة في الشبكة أو عدم توفر الخادم. يرجى المحاولة مرة أخرى.",
         "session_init_title": "فشل بدء الجلسة",
         "something_went_wrong": "حدث خطأ ما، يرجى المحاولة مرة أخرى",
@@ -934,7 +950,7 @@
         "try_again": "حاول مرة أخرى",
         "unknown_error": "حدث خطأ غير معروف",
         "user_cancelled_decryption": "تم إلغاء فك التشفير",
-        "zelfName_is_taken": "اسم العلامة هذا مستخدم بالفعل",
+        "zelfName_is_taken": "Zelf ID هذا مستخدم بالفعل",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
 
@@ -1040,23 +1056,23 @@
         "ru": "الروسية"
     },
     "cta_sheet": {
-        "i_dont_want_this_wallet": "لا أريد اسم العلامة هذا بعد الآن",
-        "choose_new_zelfname": "اختر اسم العلامة جديد",
+        "i_dont_want_this_wallet": "لا أريد Zelf ID هذا بعد الآن",
+        "choose_new_zelfname": "اختر Zelf ID جديد",
         "recover_it_now": "استعده الآن",
-        "delete_wallet_title": "إزالة العلامة",
+        "delete_wallet_title": "إزالة Zelf ID",
         "delete_wallet_message": "قبل إزالة علامتك، تأكد من نسخ رمز زيلف بروف QR احتياطيًا.",
         "yes_because": "نعم، لأن:",
         "thanks_for_subscribing": "شكرًا على الاشتراك",
         "make_zelfname_yours": "اجعل {{ zelfName }} ملكك",
         "keep_zelfname_yours": "احتفظ بـ {{ zelfName }} ملكك",
-        "love_your_zelfname": "هل تحب اسم العلامة الخاص بك؟",
+        "love_your_zelfname": "هل تحب Zelf ID الخاص بك؟",
         "time_is_running_out": "الوقت ينفد",
-        "not_much_time_left": "اسم العلامة الخاص بك محجوز لفترة أطول قليلاً، لكن لا تنتظر طويلاً!",
+        "not_much_time_left": "Zelf ID الخاص بك محجوز لفترة أطول قليلاً، لكن لا تنتظر طويلاً!",
         "oh_no": "يا لا!",
         "thanks_for_reserving": "شكرًا على الحجز",
         "is_no_longer_available": "لم يعد متاحًا",
         "has_been_taken": "تم أخذه",
-        "benefit_title": "مع اسم العلامة الخاص بك، تحصل على:",
+        "benefit_title": "مع Zelf ID الخاص بك، تحصل على:",
         "benefit_1_title": "تشفير دون اتصال",
         "benefit_1_subtitle": "مفاتيحك، تحكمك",
         "benefit_2_title": "فك التشفير فائق الخصوصية",
@@ -1077,9 +1093,9 @@
         "is_still_available": "لا يزال متاحًا",
         "resubscribe_within": "أعد الاشتراك خلال {{ days }} يوم",
         "complete_purchase_within": "أكمل عملية الشراء خلال {{ days }} يوم لتأمين لمدة سنة واحدة",
-        "have_you_explored_the_benefits": "هل استكشفت مزايا اسم العلامة وبراهين Zk الخاصة بك؟",
+        "have_you_explored_the_benefits": "هل استكشفت مزايا Zelf ID وبراهين Zk الخاصة بك؟",
         "but_someone_else_could_grab_it": "لكن شخصًا آخر قد يخطفه! لا تخاطر بفقدانه، أو كتابة عبارات البذور على الورق!",
-        "but_dont_worry_you_can_access_your_zelfproof": "لكن لا تقلق، يمكنك الوصول إلى اسم العلامة الخاص بك وحجز اسم العلامة جديد بنفس عبارة البذور.",
+        "but_dont_worry_you_can_access_your_zelfproof": "لكن لا تقلق، يمكنك الوصول إلى Zelf ID الخاص بك وحجز Zelf ID جديد بنفس عبارة البذور.",
         "considerations_description_1": "أمان لا يمكن اختراقه.",
         "considerations_description_2": "هوية فريدة.",
         "considerations_description_3": "حماية مستقبلية."
@@ -1205,8 +1221,8 @@
                     "copy_notes": "نسخ الملاحظات"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "تحميل ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "تحميل Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "المحتوى المفكوك تشفيره",
@@ -1326,8 +1342,8 @@
                     "copy_id": "نسخ معرف الملاحظة"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "تحميل ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "تحميل Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "المحتوى المفكوك",
@@ -1428,8 +1444,8 @@
                     "prefill_autofill": "تعبئة تلقائية مسبقة"
                 },
                 "zelfproof": {
-                    "title": "ZelfProof",
-                    "download": "تحميل ZelfProof"
+                    "title": "Zelf ID QR",
+                    "download": "تحميل Zelf ID QR"
                 },
                 "decrypted": {
                     "title": "المحتوى المفكوك",
@@ -1584,9 +1600,9 @@
                 "explorer_link": "العرض على المستكشف"
             },
             "zelfproof": {
-                "title": "ZelfProof",
+                "title": "Zelf ID QR",
                 "labels": {
-                    "string": "سلسلة ZelfProof",
+                    "string": "سلسلة Zelf ID QR",
                     "qr_code": "رمز QR"
                 },
                 "copy_hint": "انقر للنسخ"
@@ -1792,7 +1808,7 @@
         "start_earning_desc": "شارك رمزك وابدأ في ربح المكافآت!",
         "status": {
             "purchased": "تم الشراء",
-            "registered": "اسم العلامة مسجل منذ {{ date }}",
+            "registered": "Zelf ID مسجل منذ {{ date }}",
             "pending": "قيد الانتظار"
         },
         "claim": "المطالبة بـ {{ amount }} $ZNS"
@@ -1824,7 +1840,7 @@
     },
     "home_banners": {
         "expiration": {
-            "title": "لا تفقد ZelfName الخاص بك",
+            "title": "لا تفقد Zelf ID الخاص بك",
             "expired": "منتهي الصلاحية",
             "one_day": "بقي يوم واحد لشراء ZNS الخاص بك",
             "days_left": "بقي {{ days }} أيام لشراء ZNS الخاص بك"

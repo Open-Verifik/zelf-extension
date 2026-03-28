@@ -18,8 +18,10 @@
     <div class="welcome-claim__content">
         <!-- ═══════════════ STEP 1: Search ═══════════════ -->
         <div class="welcome-claim__step" [ngClass]="{ 'welcome-claim__step--active': step === 1, 'welcome-claim__step--exit': step === 2 }">
-            <h2 class="zelf-card__title welcome-claim__title">{{ t("welcome.choose_tag_name_title") }}</h2>
-            <p class="zelf-card__subtitle welcome-claim__subtitle">{{ t("welcome.choose_tag_name_subtitle") }}</p>
+            <div class="welcome-claim__heading">
+                <h2 class="zelf-card__title welcome-claim__title">{{ t("welcome.choose_tag_name_title") }}</h2>
+                <p class="zelf-card__subtitle welcome-claim__subtitle">{{ t("welcome.choose_tag_name_subtitle") }}</p>
+            </div>
 
             <!-- Floating Name Cards -->
             <div class="welcome-claim__name-cards">

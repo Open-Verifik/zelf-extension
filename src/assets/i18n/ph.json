@@ -557,6 +557,13 @@
         "import_wallet_title": "I-import ang iyong wallet",
         "import_wallet_subtitle": "Ilagay ang address ng wallet o i-scan ang Zelf ID QR code para mabawi ang account",
         "import_with_seed_phrase": "Walang Zelf ID QR — i-import gamit ang seed phrase",
+        "card_find_title": "Hanapin gamit ang ETH o SOL address",
+        "card_find_subtitle": "Ilagay ang iyong public address para mahanap ang Zelf ID mo",
+        "card_import_qr_title": "Mag-import ng umiiral na Zelf ID QR",
+        "card_import_qr_subtitle": "Mag-upload ng naka-save na larawan ng Zelf ID",
+        "card_seed_title": "Mag-import ng seed phrase",
+        "card_seed_subtitle": "Gamitin ang iyong lihim na recovery phrase para mag-import",
+        "or_use_other_methods": "O gumamit ng ibang paraan",
         "feature_multichain": "Multichain",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "Self-custody"

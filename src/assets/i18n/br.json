@@ -557,6 +557,13 @@
         "import_wallet_title": "Importar sua carteira",
         "import_wallet_subtitle": "Digite o endereço da carteira ou escaneie seu código QR Zelf ID para recuperar sua conta",
         "import_with_seed_phrase": "Não tenho um Zelf ID QR — importar com frase semente",
+        "card_find_title": "Encontrar por endereço ETH ou SOL",
+        "card_find_subtitle": "Digite seu endereço público para localizar seu Zelf ID",
+        "card_import_qr_title": "Importar QR Zelf ID existente",
+        "card_import_qr_subtitle": "Enviar uma imagem Zelf ID salva",
+        "card_seed_title": "Importar frase semente",
+        "card_seed_subtitle": "Use sua frase secreta de recuperação para importar",
+        "or_use_other_methods": "Ou use outros métodos",
         "feature_multichain": "Multichain",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "Autocustódia"

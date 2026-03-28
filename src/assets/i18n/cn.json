@@ -557,6 +557,13 @@
         "import_wallet_title": "导入钱包",
         "import_wallet_subtitle": "输入您的钱包地址或扫描 Zelf ID 二维码以恢复现有账户",
         "import_with_seed_phrase": "没有 Zelf ID 二维码 — 使用助记词导入",
+        "card_find_title": "通过 ETH 或 SOL 地址查找",
+        "card_find_subtitle": "输入您的公开地址以定位您的 Zelf ID",
+        "card_import_qr_title": "导入现有 Zelf ID 二维码",
+        "card_import_qr_subtitle": "上传已保存的 Zelf ID 图片",
+        "card_seed_title": "导入助记词",
+        "card_seed_subtitle": "使用您的秘密恢复短语导入",
+        "or_use_other_methods": "或使用其他方式",
         "feature_multichain": "多链",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "自托管"

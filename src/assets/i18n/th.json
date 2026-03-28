@@ -557,6 +557,13 @@
         "import_wallet_title": "นำเข้ากระเป๋าเงิน",
         "import_wallet_subtitle": "ป้อนที่อยู่กระเป๋าหรือสแกนโค้ด Zelf ID QR เพื่อกู้คืนบัญชี",
         "import_with_seed_phrase": "ไม่มี Zelf ID QR — นำเข้าด้วยวลีเมล็ดพันธุ์",
+        "card_find_title": "ค้นหาด้วยที่อยู่ ETH หรือ SOL",
+        "card_find_subtitle": "ป้อนที่อยู่สาธารณะเพื่อค้นหา Zelf ID ของคุณ",
+        "card_import_qr_title": "นำเข้า QR Zelf ID ที่มีอยู่",
+        "card_import_qr_subtitle": "อัปโหลดรูป Zelf ID ที่บันทึกไว้",
+        "card_seed_title": "นำเข้าวลีเมล็ดพันธุ์",
+        "card_seed_subtitle": "ใช้วลีกู้คืนลับของคุณเพื่อนำเข้า",
+        "or_use_other_methods": "หรือใช้วิธีอื่น",
         "feature_multichain": "มัลติเชน",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "ดูแลตนเอง"

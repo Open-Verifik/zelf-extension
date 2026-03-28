@@ -36,8 +36,10 @@
         display: none;
         flex-direction: column;
         align-items: center;
+        justify-content: space-between; // Spaces items evenly
         flex-grow: 1;
         opacity: 0;
+        width: 100%;
 
         &--active {
             display: flex;
@@ -67,6 +69,13 @@
     }
 
     // --- Step 1: Search ---
+    &__heading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
     &__title {
         text-align: center;
         margin-bottom: calc(8px * var(--zns-space-scale, 1));
@@ -80,7 +89,7 @@
         font-size: calc(14px * var(--zns-font-scale, 1));
         line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
-        margin-bottom: calc(24px * var(--zns-space-scale, 1));
+        margin-bottom: 0; // Removed bottom margin to allow space-between to handle spacing
     }
 
     &__form {
@@ -211,7 +220,7 @@
     min-width: calc(100px * var(--zns-space-scale, 1));
     padding: calc(6px * var(--zns-space-scale, 1)) calc(6px * var(--zns-space-scale, 1)) calc(6px * var(--zns-space-scale, 1))
         calc(14px * var(--zns-space-scale, 1));
-    background: #4277FF; /* Blue pill from screenshot */
+    background: #4277ff; /* Blue pill from screenshot */
     border-radius: 32px;
     display: inline-flex;
     align-items: center;
@@ -220,7 +229,7 @@
 
 .domain-display {
     background: transparent;
-    color: #FFFFFF;
+    color: #ffffff;
     border: none;
     outline: none;
     font-family: variables.$themeTitleFamily, inherit;
@@ -239,7 +248,7 @@
 }
 
 .dropdown-icon-container {
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -254,7 +263,7 @@
     }
 
     svg * {
-        fill: #4277FF !important;
+        fill: #4277ff !important;
     }
 
     &[disabled] {
@@ -287,7 +296,7 @@
     }
 
     svg * {
-        fill: #FFFFFF !important;
+        fill: #ffffff !important;
     }
 
     &[disabled] {
@@ -360,7 +369,7 @@
         font-size: calc(15px * var(--zns-font-scale, 1));
 
         &--orange {
-            background-color: #F97316;
+            background-color: #f97316;
             color: #fff;
         }
 
@@ -404,39 +413,74 @@
 
     // Active/Yours card
     &--active {
-        border: 1.5px dashed #F97316;
+        border: 1.5px dashed #f97316;
         background: rgba(249, 115, 22, 0.04);
     }
 
     // Float animations
-    &--float-1 { animation: floatCard1 4s ease-in-out infinite; }
-    &--float-2 { animation: floatCard2 5s ease-in-out infinite; }
-    &--float-3 { animation: floatCard3 4.5s ease-in-out 0.5s infinite; }
-    &--float-4 { animation: floatCard4 5.5s ease-in-out 1s infinite; }
-    &--float-5 { animation: floatCard5 6s ease-in-out 0.3s infinite; }
+    &--float-1 {
+        animation: floatCard1 4s ease-in-out infinite;
+    }
+    &--float-2 {
+        animation: floatCard2 5s ease-in-out infinite;
+    }
+    &--float-3 {
+        animation: floatCard3 4.5s ease-in-out 0.5s infinite;
+    }
+    &--float-4 {
+        animation: floatCard4 5.5s ease-in-out 1s infinite;
+    }
+    &--float-5 {
+        animation: floatCard5 6s ease-in-out 0.3s infinite;
+    }
 }
 
 @keyframes floatCard1 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
 }
 
 @keyframes floatCard2 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
 }
 
 @keyframes floatCard3 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
 }
 
 @keyframes floatCard4 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 @keyframes floatCard5 {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
 }

@@ -557,6 +557,13 @@
         "import_wallet_title": "Importer votre portefeuille",
         "import_wallet_subtitle": "Saisissez l'adresse de votre portefeuille ou scannez votre code QR Zelf ID pour récupérer votre compte",
         "import_with_seed_phrase": "Je n'ai pas de Zelf ID QR — importer avec la phrase de récupération",
+        "card_find_title": "Trouver par adresse ETH ou SOL",
+        "card_find_subtitle": "Saisissez votre adresse publique pour localiser votre ID Zelf",
+        "card_import_qr_title": "Importer un QR Zelf ID existant",
+        "card_import_qr_subtitle": "Téléverser une image Zelf ID enregistrée",
+        "card_seed_title": "Importer la phrase de récupération",
+        "card_seed_subtitle": "Utilisez votre phrase secrète de récupération pour importer",
+        "or_use_other_methods": "Ou utilisez d'autres méthodes",
         "feature_multichain": "Multichaîne",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "Auto-dépositaire"

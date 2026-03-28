@@ -557,6 +557,13 @@
         "import_wallet_title": "ウォレットをインポート",
         "import_wallet_subtitle": "ウォレットアドレスを入力するか、Zelf ID QRコードをスキャンして既存のアカウントを回復してください",
         "import_with_seed_phrase": "Zelf ID QRがありません — シードフレーズでインポート",
+        "card_find_title": "ETHまたはSOLアドレスで検索",
+        "card_find_subtitle": "公開アドレスを入力してZelf IDを見つけます",
+        "card_import_qr_title": "既存のZelf ID QRをインポート",
+        "card_import_qr_subtitle": "保存したZelf ID画像をアップロード",
+        "card_seed_title": "シードフレーズをインポート",
+        "card_seed_subtitle": "秘密のリカバリーフレーズでインポート",
+        "or_use_other_methods": "または他の方法を使う",
         "feature_multichain": "マルチチェーン",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "自己保管"

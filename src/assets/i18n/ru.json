@@ -557,6 +557,13 @@
         "import_wallet_title": "Импортировать кошелёк",
         "import_wallet_subtitle": "Введите адрес кошелька или отсканируйте QR-код Zelf ID, чтобы восстановить аккаунт",
         "import_with_seed_phrase": "Нет Zelf ID QR — импорт с помощью сид-фразы",
+        "card_find_title": "Найти по адресу ETH или SOL",
+        "card_find_subtitle": "Введите публичный адрес, чтобы найти ваш Zelf ID",
+        "card_import_qr_title": "Импортировать существующий QR Zelf ID",
+        "card_import_qr_subtitle": "Загрузить сохранённое изображение Zelf ID",
+        "card_seed_title": "Импорт сид-фразы",
+        "card_seed_subtitle": "Используйте секретную фразу восстановления для импорта",
+        "or_use_other_methods": "Или используйте другие способы",
         "feature_multichain": "Мультичейн",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "Самостоятельное хранение"

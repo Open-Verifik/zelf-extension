@@ -1,4 +1,6 @@
 <div class="zelf-app" *transloco="let t">
+    <div [ngClass]="['zelf-app__desktop-bg', 'zelf-app__desktop-bg--' + backgroundPattern]"></div>
+
     <nav class="zelf-app__header">
         <div (click)="onLogoClick()" class="zelf-app__logo-container">
             <ng-container *ngTemplateOutlet="logo"></ng-container>

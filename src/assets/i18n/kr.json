@@ -557,6 +557,13 @@
         "import_wallet_title": "지갑 가져오기",
         "import_wallet_subtitle": "지갑 주소를 입력하거나 Zelf ID QR 코드를 스캔하여 기존 계정을 복구하세요",
         "import_with_seed_phrase": "Zelf ID QR이 없습니다 — 시드 구문으로 가져오기",
+        "card_find_title": "ETH 또는 SOL 주소로 찾기",
+        "card_find_subtitle": "공개 주소를 입력하여 Zelf ID를 찾습니다",
+        "card_import_qr_title": "기존 Zelf ID QR 가져오기",
+        "card_import_qr_subtitle": "저장된 Zelf ID 이미지 업로드",
+        "card_seed_title": "시드 구문 가져오기",
+        "card_seed_subtitle": "비밀 복구 구문으로 가져오기",
+        "or_use_other_methods": "또는 다른 방법 사용",
         "feature_multichain": "멀티체인",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "셀프 커스터디"

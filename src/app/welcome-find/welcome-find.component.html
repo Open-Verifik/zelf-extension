@@ -3,125 +3,216 @@
 </ng-container>
 
 <ng-container *ngIf="!errorTitle">
-    <div class="zelf-card" *transloco="let t">
-        <div class="zelf-card__header welcome-find__header">
-            <div class="welcome-find__header-button">
-                <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../']">
-                    <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                        />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <form [formGroup]="form" class="welcome-find__form">
-            <div class="zelf-card__content welcome-find__content">
-                <h2 class="zelf-card__title">{{ t("welcome.import_wallet_title") }}</h2>
-
-                <p class="zelf-card__subtitle welcome-available__subtitle">
-                    {{ t("welcome.import_wallet_subtitle") }}
-                </p>
-
-                <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': form.controls.publicAddress.invalid }">
-                    <input
-                        (click)="clearNotFound()"
-                        (keydown.enter)="searchAddress()"
-                        (paste)="pastedAddress($event)"
-                        [disabled]="searching"
-                        [readonly]="searching"
-                        autocomplete="off"
-                        class="zelf-input__control zelf-input__control--floating-label"
-                        formControlName="publicAddress"
-                        id="publicAddress"
-                        name="publicAddress"
-                        placeholder=" "
-                    />
-
-                    <label for="publicAddress" class="zelf-input__floating-label">{{ t("welcome.public_address_input") }}</label>
-
-                    <button
-                        (click)="searchAddress()"
-                        [disabled]="searching || form.controls.publicAddress.invalid || !form.controls.publicAddress.value"
-                        class="zelf-icon-button zelf-icon-button--primary"
-                        mat-icon-button
-                        type="button"
-                    >
-                        <ng-container *ngIf="!searching">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
-                                />
-                            </svg>
-                        </ng-container>
-
-                        <mat-spinner *ngIf="searching" mode="indeterminate" diameter="18"></mat-spinner>
-                    </button>
-                </div>
-
-                <div class="zelf-message zelf-message--error zelf-message--column">
-                    <ng-container *ngIf="notFound">
-                        <div class="zelf-message__row">
-                            <ng-container *ngTemplateOutlet="cross"></ng-container>
-                            <p>{{ t("errors.not_found") }}</p>
-                        </div>
-                    </ng-container>
-
-                    <ng-container *ngIf="form.controls.publicAddress?.errors?.pattern">
-                        <div class="zelf-message__row">
-                            <ng-container *ngTemplateOutlet="cross"></ng-container>
-                            <p>{{ t("errors.invalid_format") }}</p>
-                        </div>
-                    </ng-container>
-                </div>
-            </div>
-
-            <div class="zelf-card__actions welcome-find__actions">
-                <p>{{ t("welcome.upload_zelf_proof") }}</p>
-
-                <div dragAndDrop class="welcome-find__actions-drag-drop drag-and-drop" (fileDropped)="onDrop($event)">
-                    <input
-                        (change)="fileBrowseHandler($event)"
-                        #fileInput
-                        accept=".png,.jpg,.jpeg"
-                        formControlName="zelfProof"
-                        hidden
-                        id="zelfProof"
-                        name="zelfProof"
-                        type="file"
-                    />
-
-                    <div class="drag-and-drop__loader" *ngIf="loading">
-                        <zelf-loader [diameter]="60"></zelf-loader>
-                    </div>
-
-                    <button
-                        (click)="fileInput.click()"
-                        [disabled]="searching || loading"
-                        class="zelf-button zelf-button--outlined zelf-button--wide"
-                        mat-flat-button
-                        type="button"
-                    >
-                        {{ t("common.upload_qr_image") }}
-
-                        <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="zelf-card welcome-find" *transloco="let t">
+        <!-- Cards List Section -->
+        <ng-container *ngIf="activeSection === 'cards'">
+            <div class="zelf-card__header welcome-find__header">
+                <div class="welcome-find__header-button">
+                    <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['../']">
+                        <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M4.5 10.2217H7.5C7.9125 10.2217 8.25 9.88422 8.25 9.47172V5.72172H9.4425C10.11 5.72172 10.4475 4.91172 9.975 4.43922L6.5325 0.996719C6.24 0.704219 5.7675 0.704219 5.475 0.996719L2.0325 4.43922C1.56 4.91172 1.89 5.72172 2.5575 5.72172H3.75V9.47172C3.75 9.88422 4.0875 10.2217 4.5 10.2217ZM1.5 11.7217H10.5C10.9125 11.7217 11.25 12.0592 11.25 12.4717C11.25 12.8842 10.9125 13.2217 10.5 13.2217H1.5C1.0875 13.2217 0.75 12.8842 0.75 12.4717C0.75 12.0592 1.0875 11.7217 1.5 11.7217Z"
+                                d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
                             />
                         </svg>
                     </button>
+                </div>
+            </div>
 
-                    <p class="zelf-card__help-text">{{ t("common.or_drag_and_drop") }}</p>
+            <div class="zelf-card__content welcome-find__content welcome-find__content--split">
+                <div class="welcome-find__hero">
+                    <div class="welcome-find__fake-qr">
+                        <div class="welcome-find__qr-inner">
+                            <div class="welcome-find__qr-background">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="140" height="140">
+                                    <defs>
+                                        <pattern id="dot-pattern" width="16" height="16" patternUnits="userSpaceOnUse">
+                                            <rect x="0" y="0" width="8" height="8" rx="2" fill="currentColor" opacity="0.85" />
+                                            <rect x="8" y="8" width="8" height="8" rx="2" fill="currentColor" opacity="0.85" />
+                                        </pattern>
+                                        <linearGradient id="qr-gradient" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#ff5721" />
+                                            <stop offset="100%" stop-color="#ff914d" />
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Outlines mimicking QR markers -->
+                                    <rect x="16" y="16" width="40" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="6" />
+                                    <rect x="24" y="24" width="24" height="24" rx="4" fill="currentColor" />
+
+                                    <rect x="144" y="16" width="40" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="6" />
+                                    <rect x="152" y="24" width="24" height="24" rx="4" fill="currentColor" />
+
+                                    <rect x="16" y="144" width="40" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="6" />
+                                    <rect x="24" y="152" width="24" height="24" rx="4" fill="currentColor" />
+
+                                    <!-- Dots pattern grid -->
+                                    <rect x="16" y="64" width="56" height="72" fill="url(#dot-pattern)" />
+                                    <rect x="128" y="64" width="56" height="72" fill="url(#dot-pattern)" />
+                                    <rect x="72" y="64" width="56" height="8" fill="url(#dot-pattern)" />
+                                    <rect x="72" y="128" width="56" height="8" fill="url(#dot-pattern)" />
+                                    
+                                    <rect x="64" y="16" width="72" height="40" fill="url(#dot-pattern)" />
+                                    <rect x="64" y="144" width="120" height="40" fill="url(#dot-pattern)" />
+
+                                    <!-- Zelf Logo -->
+                                    <g transform="translate(76, 76) scale(1.2)">
+                                        <rect width="40" height="40" rx="12" fill="currentColor"/>
+                                        <path class="welcome-find__qr-logo-cutout" d="M20.0108 8C21.363 9.83518 23.0993 11.9272 25.2883 14.0893H15.4609C17.5873 11.8373 19.0426 9.67625 20.0128 8H20.0118H20.0108Z" />
+                                        <path class="welcome-find__qr-logo-cutout" d="M8 20.0292C9.7302 19.1896 12.0031 17.8722 14.2841 15.8571C14.4852 15.6792 14.6823 15.4992 14.8713 15.3203H23.6597C23.6597 15.3203 17.2948 24.3153 13.8121 24.3423C10.9389 24.3652 9.73525 21.0997 8 20.0282V20.0292Z" />
+                                        <path class="welcome-find__qr-logo-cutout" d="M20.5727 31.9996C19.5125 30.5603 18.1472 28.917 16.418 27.2168H24.499C22.787 28.942 21.5085 30.6073 20.5737 31.9996H20.5727Z" />
+                                        <path class="welcome-find__qr-logo-cutout" d="M25.7777 25.7316C25.6827 25.8155 25.5897 25.9005 25.4977 25.9845H16.0625C16.0625 25.9845 22.5325 16.8726 26.0617 16.8536C29.0066 16.8386 30.2265 20.1821 31.9991 21.2766C30.1962 22.2891 28.0011 23.7295 25.7767 25.7316H25.7777Z" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="welcome-find__title">{{ t("welcome.import_wallet_title") }}</h2>
+                    <p class="welcome-find__subtitle">
+                        {{ t("welcome.import_wallet_subtitle") }}
+                    </p>
                 </div>
 
-                <button class="zelf-button zelf-button--hyperlink welcome-find__seed-link" [routerLink]="['/welcome/claim']">
-                    {{ t("welcome.import_with_seed_phrase") }}
-                </button>
+                <div class="welcome-find__methods">
+                    <!-- Method 1: Upload QR -->
+                    <button class="welcome-method-card" type="button" (click)="fileInput.click()" [disabled]="searching || loading">
+                        <div class="welcome-method-card__icon has-file-input">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4 4H10V10H4V4ZM14 4H20V10H14V4ZM4 14H10V20H4V14ZM14 14H17V17H14V14ZM17 17H20V20H17V17ZM17 14H20V11H17V14ZM14 20H11V17H14V20ZM11 14H8V11H11V14Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                            <div class="welcome-method-card__loader" *ngIf="loading">
+                                <mat-spinner diameter="20"></mat-spinner>
+                            </div>
+                        </div>
+                        <div class="welcome-method-card__content">
+                            <span class="welcome-method-card__title">{{ t("welcome.card_import_qr_title") }}</span>
+                            <span class="welcome-method-card__description">{{ t("welcome.card_import_qr_subtitle") }}</span>
+                        </div>
+                    </button>
+                    <!-- Hidden input for file upload -->
+                    <input (change)="fileBrowseHandler($event)" #fileInput accept=".png,.jpg,.jpeg" hidden type="file" />
+
+                    <!-- Method 2: ETH/SOL Address -->
+                    <button class="welcome-method-card" type="button" (click)="activeSection = 'address-input'">
+                        <div class="welcome-method-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M15.6806 14.2662L23.3204 21.9059L21.9062 23.3201L14.2664 15.6804C12.8398 16.5113 11.2016 17 9.5 17C5.35786 17 2 13.6421 2 9.5C2 5.35786 5.35786 2 9.5 2C13.6421 2 17 5.35786 17 9.5C17 11.2015 16.5113 12.8396 15.6806 14.2662ZM9.5 15C12.5376 15 15 12.5376 15 9.5C15 6.46243 12.5376 4 9.5 4C6.46243 4 4 6.46243 4 9.5C4 12.5376 6.46243 15 9.5 15Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </div>
+                        <div class="welcome-method-card__content">
+                            <span class="welcome-method-card__title">{{ t("welcome.card_find_title") }}</span>
+                            <span class="welcome-method-card__description">{{ t("welcome.card_find_subtitle") }}</span>
+                        </div>
+                    </button>
+
+                    <!-- Method 3: Seed Phrase -->
+                    <button class="welcome-method-card" type="button" [routerLink]="['/welcome/claim']">
+                        <div class="welcome-method-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M6 4V20H18V4H6ZM4 2C4 0.895431 4.89543 0 6 0H18C19.1046 0 20 0.895431 20 2V22C20 23.1046 19.1046 24 18 24H6C4.89543 24 4 23.1046 4 22V2ZM8 6H16V8H8V6ZM16 10H8V12H16V10ZM8 14H16V16H8V14Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </div>
+                        <div class="welcome-method-card__content">
+                            <span class="welcome-method-card__title">{{ t("welcome.card_seed_title") }}</span>
+                            <span class="welcome-method-card__description">{{ t("welcome.card_seed_subtitle") }}</span>
+                        </div>
+                        <div class="welcome-method-card__action">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </button>
+                </div>
             </div>
-        </form>
+        </ng-container>
+
+        <!-- Address Input Section -->
+        <ng-container *ngIf="activeSection === 'address-input'">
+            <div class="zelf-card__header welcome-find__header">
+                <div class="welcome-find__header-button">
+                    <button mat-icon-button class="zelf-icon-button zelf-icon-button--40" (click)="backToCards()">
+                        <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <form [formGroup]="form" class="welcome-find__form">
+                <div class="zelf-card__content welcome-find__content">
+                    <h2 class="zelf-card__title">{{ t("welcome.card_find_title") }}</h2>
+
+                    <p class="zelf-card__subtitle welcome-available__subtitle">
+                        {{ t("welcome.card_find_subtitle") }}
+                    </p>
+
+                    <div class="zelf-input zelf-input--wide" [ngClass]="{ 'zelf-input--error': form.controls.publicAddress.invalid }">
+                        <input
+                            (click)="clearNotFound()"
+                            (keydown.enter)="searchAddress()"
+                            (paste)="pastedAddress($event)"
+                            autocomplete="off"
+                            class="zelf-input__control zelf-input__control--floating-label"
+                            formControlName="publicAddress"
+                            id="publicAddress"
+                            name="publicAddress"
+                            placeholder=" "
+                        />
+
+                        <label for="publicAddress" class="zelf-input__floating-label">{{ t("welcome.public_address_input") }}</label>
+
+                        <button
+                            (click)="searchAddress()"
+                            [disabled]="searching || form.controls.publicAddress.invalid || !form.controls.publicAddress.value"
+                            class="zelf-icon-button zelf-icon-button--primary"
+                            mat-icon-button
+                            type="button"
+                        >
+                            <ng-container *ngIf="!searching">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        fill-rule="evenodd"
+                                        clip-rule="evenodd"
+                                        d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z"
+                                    />
+                                </svg>
+                            </ng-container>
+
+                            <mat-spinner *ngIf="searching" mode="indeterminate" diameter="18"></mat-spinner>
+                        </button>
+                    </div>
+
+                    <div class="zelf-message zelf-message--error zelf-message--column">
+                        <ng-container *ngIf="notFound">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.not_found") }}</p>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="form.controls.publicAddress?.errors?.pattern">
+                            <div class="zelf-message__row">
+                                <ng-container *ngTemplateOutlet="cross"></ng-container>
+                                <p>{{ t("errors.invalid_format") }}</p>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
     </div>
 </ng-container>
 

@@ -557,6 +557,13 @@
         "import_wallet_title": "اپنا والیٹ درآمد کریں",
         "import_wallet_subtitle": "والیٹ ایڈریس درج کریں یا اپنے اکاؤنٹ کو بحال کرنے کے لیے Zelf ID QR اسکین کریں",
         "import_with_seed_phrase": "Zelf ID QR نہیں ہے — بیج فریز سے درآمد",
+        "card_find_title": "ETH یا SOL پتے سے تلاش کریں",
+        "card_find_subtitle": "اپنا عوامی پتہ درج کریں تاکہ Zelf ID تلاش ہو",
+        "card_import_qr_title": "موجودہ Zelf ID QR درآمد کریں",
+        "card_import_qr_subtitle": "محفوظ شدہ Zelf ID تصویر اپ لوڈ کریں",
+        "card_seed_title": "بیج فریز درآمد کریں",
+        "card_seed_subtitle": "درآمد کے لیے اپنا خفیہ ریکوری فریز استعمال کریں",
+        "or_use_other_methods": "یا دوسرے طریقے استعمال کریں",
         "feature_multichain": "ملٹی چین",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "خود تحویلی"

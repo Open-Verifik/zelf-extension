@@ -557,6 +557,13 @@
         "import_wallet_title": "अपना वॉलेट आयात करें",
         "import_wallet_subtitle": "वॉलेट पता दर्ज करें या अपना खाता पुनर्प्राप्त करने के लिए Zelf ID QR कोड स्कैन करें",
         "import_with_seed_phrase": "Zelf ID QR नहीं है — सीड वाक्यांश से आयात करें",
+        "card_find_title": "ETH या SOL पते से खोजें",
+        "card_find_subtitle": "अपना सार्वजनिक पता दर्ज करके अपना Zelf ID ढूँढें",
+        "card_import_qr_title": "मौजूदा Zelf ID QR आयात करें",
+        "card_import_qr_subtitle": "सहेजी गई Zelf ID छवि अपलोड करें",
+        "card_seed_title": "सीड वाक्यांश आयात करें",
+        "card_seed_subtitle": "आयात के लिए अपना गुप्त रिकवरी वाक्यांश उपयोग करें",
+        "or_use_other_methods": "या अन्य तरीके उपयोग करें",
         "feature_multichain": "मल्टीचेन",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "स्वयं-हिरासत"

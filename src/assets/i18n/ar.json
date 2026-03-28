@@ -557,6 +557,13 @@
         "import_wallet_title": "استيراد محفظتك",
         "import_wallet_subtitle": "أدخل عنوان محفظتك أو امسح رمز Zelf ID QR لاستعادة حسابك",
         "import_with_seed_phrase": "ليس لدي Zelf ID QR — الاستيراد بعبارة الاسترداد",
+        "card_find_title": "البحث بعنوان ETH أو SOL",
+        "card_find_subtitle": "أدخل عنوانك العام لتحديد موقع Zelf ID الخاص بك",
+        "card_import_qr_title": "استيراد Zelf ID QR الحالي",
+        "card_import_qr_subtitle": "ارفع صورة Zelf ID المحفوظة",
+        "card_seed_title": "استيراد عبارة الاسترداد",
+        "card_seed_subtitle": "استخدم عبارة الاسترداد السرية للاستيراد",
+        "or_use_other_methods": "أو استخدم طرقًا أخرى",
         "feature_multichain": "متعدد السلاسل",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "حفظ ذاتي"

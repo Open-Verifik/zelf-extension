@@ -9,23 +9,19 @@ import { Buffer } from "buffer";
 import jsQR from "jsqr";
 
 import { ChromeService } from "app/chrome.service";
-import { DragAndDropDirective } from "app/directives/drag-and-drop.directive";
 import { TagModel, TagSearchResponse, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
-import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component";
 
 @Component({
     imports: [
         CommonModule,
-        DragAndDropDirective,
         MatButtonModule,
         MatProgressSpinnerModule,
         ReactiveFormsModule,
         RouterModule,
         TranslocoModule,
         WelcomeErrorComponent,
-        ZelfLoaderComponent,
     ],
     selector: "welcome-find",
     styleUrls: ["./welcome-find.component.scss"],
@@ -34,6 +30,7 @@ import { WelcomeErrorComponent } from "../welcome-error/welcome-error.component"
 export class WelcomeFindComponent implements OnInit, OnDestroy {
     private _invalidTimeout!: ReturnType<typeof setTimeout>;
 
+    activeSection: "cards" | "address-input" = "cards";
     captchaToken: string = "";
     ethAddress: string = "";
     errorTitle: string = "";
@@ -140,6 +137,18 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         });
     }
 
+    /** Keeps `searching` and the publicAddress control in sync; avoid [disabled] on inputs with formControlName. */
+    private _setSearching(searching: boolean): void {
+        this.searching = searching;
+        const ctrl = this.form?.get("publicAddress");
+        if (!ctrl) return;
+        if (searching) {
+            ctrl.disable({ emitEvent: false });
+        } else {
+            ctrl.enable({ emitEvent: false });
+        }
+    }
+
     private async _previewQRCode(): Promise<void> {
         if (!this.zelfProof) return;
 
@@ -185,19 +194,19 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     }
 
     private async _queryForZelfObjectByZelfName(params: { tagKey: string; tagName: string; domain: string }): Promise<any> {
-        this.searching = true;
+        this._setSearching(true);
 
         try {
             return await this._queryZNS(params.tagKey, params.tagName, params.domain);
         } catch (error) {
             this._setNotFound();
         } finally {
-            this.searching = false;
+            this._setSearching(false);
         }
     }
 
     private async _queryForZelfObject(query: string): Promise<any> {
-        this.searching = true;
+        this._setSearching(true);
 
         try {
             let zelfNameObject: TagModel | null = null;
@@ -214,7 +223,7 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         } catch (error) {
             this._setNotFound();
         } finally {
-            this.searching = false;
+            this._setSearching(false);
         }
     }
 
@@ -336,12 +345,19 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         this.zelfProof = "";
 
         this.form.reset();
+        this._setSearching(false);
     }
 
     clearNotFound(): void {
         clearTimeout(this._invalidTimeout);
 
         this.notFound = false;
+    }
+
+    backToCards(): void {
+        this.activeSection = "cards";
+        this.clearError();
+        this.clearNotFound();
     }
 
     fileBrowseHandler(event: Event): void {
@@ -353,18 +369,6 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
 
         this._handleFile(file);
     }
-
-    async onDrop(event: DragEvent): Promise<any> {
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (!event.dataTransfer || !event.dataTransfer.files.length) return;
-
-        const file = event.dataTransfer.files[0];
-
-        this._handleFile(file);
-    }
-
     async pastedAddress(event: ClipboardEvent): Promise<void> {
         event.preventDefault();
         event.stopPropagation();

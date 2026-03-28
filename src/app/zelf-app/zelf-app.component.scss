@@ -25,6 +25,138 @@
     width: 100%;
     margin: 0 auto;
 
+    &__desktop-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-color: variables.$themeCardBorder;
+
+        @media screen and (max-width: variables.$medium) {
+            display: none;
+        }
+
+        &--gradient-dots {
+            background-image:
+                radial-gradient(circle at 50% 50%, transparent 2px, variables.$themeCardBorder 0 28px, transparent 28px),
+                radial-gradient(circle at 50% 50%, transparent 2px, variables.$themeCardBorder 0 28px, transparent 28px),
+                radial-gradient(circle at 50% 50%, #f00, transparent 60%), radial-gradient(circle at 50% 50%, #ff0, transparent 60%),
+                radial-gradient(circle at 50% 50%, #0f0, transparent 60%), radial-gradient(ellipse at 50% 50%, #00f, transparent 60%);
+            background-size:
+                40px 70px,
+                40px 70px,
+                200% 200%,
+                200% 200%,
+                200% 200%,
+                200% 70px;
+            background-position:
+                0px 0px,
+                20px 35px,
+                0% 0%,
+                0% 0%,
+                0% 0%,
+                0% 0px;
+            animation:
+                desktop-bg-move 30s linear infinite,
+                desktop-bg-color 6s linear infinite;
+        }
+
+        &--falling-pattern {
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                color: variables.$themeText; // Propagates to currentColor
+                opacity: 0.6; // Increased from 0.15 for better contrast
+                background-image:
+                    radial-gradient(4px 100px at 0px 235px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 235px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 117.5px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 252px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 252px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 126px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 150px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 150px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 75px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 253px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 253px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 126.5px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 204px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 204px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 102px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 134px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 134px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 67px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 179px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 179px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 89.5px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 299px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 299px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 149.5px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 215px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 215px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 107.5px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 281px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 281px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 140.5px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 158px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 158px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 79px, currentColor 100%, transparent 150%),
+                    radial-gradient(4px 100px at 0px 210px, currentColor, transparent),
+                    radial-gradient(4px 100px at 300px 210px, currentColor, transparent),
+                    radial-gradient(1.5px 1.5px at 150px 105px, currentColor 100%, transparent 150%);
+                background-size:
+                    300px 235px,
+                    300px 235px,
+                    300px 235px,
+                    300px 252px,
+                    300px 252px,
+                    300px 252px,
+                    300px 150px,
+                    300px 150px,
+                    300px 150px,
+                    300px 253px,
+                    300px 253px,
+                    300px 253px,
+                    300px 204px,
+                    300px 204px,
+                    300px 204px,
+                    300px 134px,
+                    300px 134px,
+                    300px 134px,
+                    300px 179px,
+                    300px 179px,
+                    300px 179px,
+                    300px 299px,
+                    300px 299px,
+                    300px 299px,
+                    300px 215px,
+                    300px 215px,
+                    300px 215px,
+                    300px 281px,
+                    300px 281px,
+                    300px 281px,
+                    300px 158px,
+                    300px 158px,
+                    300px 158px,
+                    300px 210px,
+                    300px 210px,
+                    300px 210px;
+                animation: falling-pattern-move 150s linear infinite;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                backdrop-filter: blur(1em);
+                background-image: radial-gradient(circle at 50% 50%, transparent 0, transparent 2px, variables.$themeCardBorder 2px);
+                background-size: 8px 8px;
+            }
+        }
+    }
+
     &__header {
         align-items: center;
         display: flex;
@@ -36,7 +168,7 @@
         top: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to bottom, variables.$themeCardBorder 70%, transparent);
+        background: transparent; /* Changed to allow dots to show */
         z-index: 999;
 
         @media screen and (max-width: variables.$medium) {
@@ -56,6 +188,8 @@
     }
 
     &__content {
+        position: relative;
+        z-index: 1;
         width: 100%;
         overflow: auto;
         display: flex;
@@ -79,7 +213,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to top, variables.$themeCardBorder 70%, transparent);
+        background: transparent; /* Changed to allow dots to show */
         z-index: 999;
         padding: 0 calc(1rem * var(--zns-space-scale, 1));
 
@@ -102,5 +236,116 @@
                 display: none;
             }
         }
+    }
+}
+
+@keyframes desktop-bg-move {
+    0% {
+        background-position:
+            0px 0px,
+            20px 35px,
+            800% 400%,
+            1000% -400%,
+            -1200% -600%,
+            400% 70px;
+    }
+    100% {
+        background-position:
+            0px 0px,
+            20px 35px,
+            0% 0%,
+            0% 0%,
+            0% 0%,
+            0% 0px;
+    }
+}
+
+@keyframes desktop-bg-color {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes falling-pattern-move {
+    0% {
+        background-position:
+            0px 220px,
+            3px 220px,
+            151.5px 337.5px,
+            25px 24px,
+            28px 24px,
+            176.5px 150px,
+            50px 16px,
+            53px 16px,
+            201.5px 91px,
+            75px 224px,
+            78px 224px,
+            226.5px 230.5px,
+            100px 19px,
+            103px 19px,
+            251.5px 121px,
+            125px 120px,
+            128px 120px,
+            276.5px 187px,
+            150px 31px,
+            153px 31px,
+            301.5px 120.5px,
+            175px 235px,
+            178px 235px,
+            326.5px 384.5px,
+            200px 121px,
+            203px 121px,
+            351.5px 228.5px,
+            225px 224px,
+            228px 224px,
+            376.5px 364.5px,
+            250px 26px,
+            253px 26px,
+            401.5px 105px,
+            275px 75px,
+            278px 75px,
+            426.5px 180px;
+    }
+    100% {
+        background-position:
+            0px 6800px,
+            3px 6800px,
+            151.5px 6917.5px,
+            25px 13632px,
+            28px 13632px,
+            176.5px 13758px,
+            50px 5416px,
+            53px 5416px,
+            201.5px 5491px,
+            75px 17175px,
+            78px 17175px,
+            226.5px 17301.5px,
+            100px 5119px,
+            103px 5119px,
+            251.5px 5221px,
+            125px 8428px,
+            128px 8428px,
+            276.5px 8495px,
+            150px 9876px,
+            153px 9876px,
+            301.5px 9965.5px,
+            175px 13391px,
+            178px 13391px,
+            326.5px 13540.5px,
+            200px 14741px,
+            203px 14741px,
+            351.5px 14848.5px,
+            225px 18770px,
+            228px 18770px,
+            376.5px 18910.5px,
+            250px 5082px,
+            253px 5082px,
+            401.5px 5161px,
+            275px 6375px,
+            278px 6375px,
+            426.5px 6480px;
     }
 }

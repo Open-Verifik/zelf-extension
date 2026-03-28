@@ -5,49 +5,17 @@
 @use "../styles/drag-and-drop";
 @use "material-symbols/outlined";
 
-@font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins/Poppins-Regular.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
+// Bundled via npm so woff2 files resolve and emit with the app (no missing src/assets/fonts/*.woff2).
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-500.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource/poppins/latin-800.css";
 
-@font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins/Poppins-Medium.woff2") format("woff2");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins/Poppins-SemiBold.woff2") format("woff2");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins/Poppins-Bold.woff2") format("woff2");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Poppins";
-    src: url("../assets/fonts/Poppins/Poppins-ExtraBold.woff2") format("woff2");
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
+// Title font: same files as Poppins weights (Menda is not published on @fontsource).
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-Black.woff2") format("woff2");
+    src: url("../../node_modules/@fontsource/poppins/files/poppins-latin-800-normal.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -55,7 +23,7 @@
 
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-SemiBold.woff2") format("woff2");
+    src: url("../../node_modules/@fontsource/poppins/files/poppins-latin-600-normal.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -63,7 +31,7 @@
 
 @font-face {
     font-family: "Menda";
-    src: url("../assets/fonts/Menda/Menda-Bold.woff2") format("woff2");
+    src: url("../../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2") format("woff2");
     font-weight: bold;
     font-style: normal;
     font-display: swap;

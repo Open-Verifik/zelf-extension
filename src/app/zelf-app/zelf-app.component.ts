@@ -26,6 +26,7 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     canGoHome: boolean = false;
     wallet: Partial<TagModel> = {};
     wallets: any[] = [];
+    backgroundPattern: "gradient-dots" | "falling-pattern" = "falling-pattern";
 
     constructor(
         private _activatedRoute: ActivatedRoute,
